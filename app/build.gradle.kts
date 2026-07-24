@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2025 Jimly Asshiddiqy <jimly.asshiddiqy@accenture.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
@@ -277,7 +278,7 @@ spotbugs {
 }
 
 tasks.register<Checkstyle>("checkstyle") {
-    description = "checks style"
+    description = "Runs Checkstyle static analysis on the Java sources to enforce the project's coding style."
     configFile = file("${rootProject.projectDir}/checkstyle.xml")
     setConfigProperties(
         "checkstyleSuppressionsPath" to file("${rootProject.rootDir}/suppressions.xml").absolutePath
@@ -289,7 +290,7 @@ tasks.register<Checkstyle>("checkstyle") {
 }
 
 tasks.register<Pmd>("pmd") {
-    description = "pmd"
+    description = "Runs PMD static analysis on the Java sources to detect common programming flaws and bad practices."
     ruleSetFiles = files("${rootProject.rootDir}/ruleset.xml")
     ignoreFailures = true // should continue checking
     ruleSets = emptyList()
@@ -344,6 +345,17 @@ tasks.withType<Test>().configureEach {
 tasks.named("check").configure {
     dependsOn("checkstyle", "spotbugsGplayDebug", "pmd", "lint", "spotlessKotlinCheck", "detekt")
 }
+
+val kspConfiguration = "ksp"
+val kspAndroidTestConfiguration = "kspAndroidTest"
+val gplayImplementationConfiguration = "gplayImplementation"
+val huaweiImplementationConfiguration = "huaweiImplementation"
+val qaImplementationConfiguration = "qaImplementation"
+val appScanConfigurations = listOf(
+    gplayImplementationConfiguration,
+    huaweiImplementationConfiguration,
+    qaImplementationConfiguration
+)
 
 dependencies {
     // region Nextcloud library
@@ -442,10 +454,10 @@ dependencies {
     // endregion
 
     // region AppScan, document scanner not available on FDroid (generic) due to OpenCV binaries
-    // To enable the feature for another variant, add it here.
-    "gplayImplementation"(project(":appscan"))
-    "huaweiImplementation"(project(":appscan"))
-    "qaImplementation"(project(":appscan"))
+    // To enable the feature for another variant, add its "<variant>Implementation" here.
+    appScanConfigurations.forEach { configuration ->
+        add(configuration, project(":appscan"))
+    }
     // endregion
 
     // region SpotBugs
@@ -457,9 +469,10 @@ dependencies {
     implementation(libs.dagger)
     implementation(libs.dagger.android)
     implementation(libs.dagger.android.support)
-    ksp(libs.dagger.compiler)
     ksp(libs.dagger.processor)
-    kspAndroidTest(libs.dagger.compiler)
+    listOf(kspConfiguration, kspAndroidTestConfiguration).forEach { configuration ->
+        add(configuration, libs.dagger.compiler)
+    }
     // endregion
 
     // region Crypto
@@ -522,7 +535,7 @@ dependencies {
     // endregion
 
     // region Google Play dependencies, upon each update first test: new registration, receive push
-    "gplayImplementation"(libs.bundles.gplay)
+    add(gplayImplementationConfiguration, libs.bundles.gplay)
     // endregion
 
     // region common
