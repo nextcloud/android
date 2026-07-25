@@ -10,6 +10,7 @@
     <string name="action_edit">Bearbeiten</string>
     <string name="action_empty_notifications">Alle Benachrichtigungen löschen</string>
     <string name="action_empty_trashbin">Papierkorb leeren</string>
+    <string name="action_open_in_web_editor">In Web-Editor öffnen</string>
     <string name="action_send_share">Senden/Teilen</string>
     <string name="action_switch_grid_view">Kachelansicht</string>
     <string name="action_switch_list_view">Listenansicht</string>
@@ -274,6 +275,8 @@
     <string name="dialog_close">Schließen</string>
     <string name="did_not_check_for_dupes">Es wurde nicht auf Duplikate geprüft.</string>
     <string name="digest_algorithm_not_available">Dieser Algorithmus-Auszug ist auf Ihrem Handy nicht verfügbar.</string>
+    <string name="direct_login_confirm_message">Möchten Sie sich mit %1$s bei %2$s anmelden?</string>
+    <string name="direct_login_confirm_title">Anmeldung bestätigen</string>
     <string name="direct_login_failed">Anmeldung über Direktlink fehlgeschlagen!</string>
     <string name="direct_login_text">Mit %1$s an %2$s anmelden</string>
     <string name="disable_new_media_folder_detection_notifications">Ausschalten</string>
