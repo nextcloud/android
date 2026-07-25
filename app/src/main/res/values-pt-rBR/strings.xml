@@ -10,6 +10,7 @@
     <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Apagar todas as notificações</string>
     <string name="action_empty_trashbin">Esvaziar lixeira </string>
+    <string name="action_open_in_web_editor">Abrir no editor web</string>
     <string name="action_send_share">Enviar/compartilhar</string>
     <string name="action_switch_grid_view">Vista em grade</string>
     <string name="action_switch_list_view">Lista de visualização</string>
@@ -274,6 +275,8 @@
     <string name="dialog_close">Fechar</string>
     <string name="did_not_check_for_dupes">Não verificou se há duplicatas. </string>
     <string name="digest_algorithm_not_available">Este algoritmo de resumo não está disponível no seu telefone.</string>
+    <string name="direct_login_confirm_message">Você deseja fazer login em %2$s com %1$s?</string>
+    <string name="direct_login_confirm_title">Confirmar login</string>
     <string name="direct_login_failed">Falha no login via link direto!</string>
     <string name="direct_login_text">Entrar com %1$s em %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">Desativar</string>
