@@ -786,6 +786,7 @@
     <string name="prefs_recommend">Einem Freund empfehlen</string>
     <string name="prefs_remove_e2e">Verschlüsselung lokal entfernen</string>
     <string name="prefs_remove_e2e_keys_and_files">Verschlüsselte Dateien und Schlüssel entfernen</string>
+    <string name="prefs_renew_e2e_certificate">Verschlüsselungszertifikat erneuern</string>
     <string name="prefs_setup_e2e">Ende-zu-Ende-Verschlüsselung einrichten</string>
     <string name="prefs_show_ecosystem_apps">App-Umschalter anzeigen</string>
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud-App-Vorschläge in der Navigationsüberschrift</string>
@@ -836,6 +837,12 @@
     <string name="rename_dialog_title">Geben Sie einen neuen Namen ein</string>
     <string name="rename_local_fail_msg">Die lokale Kopie konnte nicht umbenannt werden. Versuche es mit einem anderen Namen.</string>
     <string name="rename_server_fail_msg">Umbenennen nicht möglich. Der Name wird bereits verwendet.</string>
+    <string name="renew_e2e_certificate_dialog_message">Dadurch wird Ihr Ende-zu-Ende-Verschlüsselungszertifikat erneuert. Ihre bestehenden Schlüssel und verschlüsselten Dateien bleiben unverändert. Fortfahren?</string>
+    <string name="renew_e2e_certificate_error">Das Verschlüsselungszertifikat konnte nicht erneuert werden</string>
+    <string name="renew_e2e_certificate_private_key_missing">Privaten Verschlüsselungsschlüssel nicht gefunden</string>
+    <string name="renew_e2e_certificate_success">Verschlüsselungszertifikat erneuert</string>
+    <string name="renew_e2e_certificate_summary">Erneuern Sie Ihr Ende-zu-Ende-Verschlüsselungszertifikat und behalten Sie dabei Ihre bestehenden Schlüssel</string>
+    <string name="renew_e2e_certificate_valid_until">Gültig bis %1$s. Tippen Sie hier, um zu verlängern und Ihre bestehenden Schlüssel zu behalten.</string>
     <string name="request_account_deletion">Kontolöschung anfordern</string>
     <string name="request_account_deletion_button">Löschung anfordern</string>
     <string name="request_account_deletion_details">Beim Diensteanbieter die dauerhafte Löschung des Kontos anfordern</string>

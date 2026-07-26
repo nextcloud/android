@@ -10,6 +10,7 @@
     <string name="action_edit">Redaguoti</string>
     <string name="action_empty_notifications">Išvalyti visus pranešimus</string>
     <string name="action_empty_trashbin">Išvalyti šiukšlinę</string>
+    <string name="action_open_in_web_editor">Atidaryti naršyklės redaktoriuje</string>
     <string name="action_send_share">Siųsti/bendrinti</string>
     <string name="action_switch_grid_view">Tinklelio rodinys</string>
     <string name="action_switch_list_view">Sąrašo rodinys</string>
@@ -276,6 +277,8 @@
     <string name="dialog_close">Užverti</string>
     <string name="did_not_check_for_dupes">Neieškoti dublikatų.</string>
     <string name="digest_algorithm_not_available">Tavo telefonas nepalaiko digest algoritmo.</string>
+    <string name="direct_login_confirm_message">Ar norite prisijungti prie %2$s naudodami %1$s?</string>
+    <string name="direct_login_confirm_title">Patvirtinti prisijungimą</string>
     <string name="direct_login_failed">Prisijungimas per tiesioginę nuorodą nepavyko!</string>
     <string name="direct_login_text">Prisijunkite į %2$s naudodami %1$s</string>
     <string name="disable_new_media_folder_detection_notifications">Išjungti</string>
@@ -786,6 +789,7 @@
     <string name="prefs_recommend">Rekomenduoti draugui</string>
     <string name="prefs_remove_e2e">Pašalinkite šifravimą vietoje</string>
     <string name="prefs_remove_e2e_keys_and_files">Pašalinti užšifruotus failus ir raktus</string>
+    <string name="prefs_renew_e2e_certificate">Atnaujinti šifravimo sertifikatą</string>
     <string name="prefs_setup_e2e">Nustatyti ištisinį šifravimą</string>
     <string name="prefs_show_ecosystem_apps">Rodyti programėllių perjungiklį</string>
     <string name="prefs_show_ecosystem_apps_summary">„Nextcloud“ programėlės pasiūlymai naršymo antraštėje</string>
@@ -836,6 +840,12 @@
     <string name="rename_dialog_title">Įveskite naują pavadinimą</string>
     <string name="rename_local_fail_msg">Nepavyko pervadinti vietinės kopijos, pabandykite kitą pavadinimą</string>
     <string name="rename_server_fail_msg">Pervadinimas neįmanomas, pavadinimas jau užimtas</string>
+    <string name="renew_e2e_certificate_dialog_message">Tai atnaujins jūsų ištisinio šifravimo sertifikatą. Esami raktai ir užšifruoti failai liks nepakeisti. Tęsti?</string>
+    <string name="renew_e2e_certificate_error">Nepavyko atnaujinti šifravimo sertifikato</string>
+    <string name="renew_e2e_certificate_private_key_missing">Šifravimo privatusis raktas nerastas</string>
+    <string name="renew_e2e_certificate_success">Šifravimo sertifikatas atnaujintas</string>
+    <string name="renew_e2e_certificate_summary">Atnaujinkite ištisinio šifravimo sertifikatą, išlaikydami turimus raktus</string>
+    <string name="renew_e2e_certificate_valid_until">Galioja iki %1$s. Bakstelėkite, kad pratęstumėte ir išsaugotumėte turimus raktus.</string>
     <string name="request_account_deletion">Užklausti paskyros ištrynimo</string>
     <string name="request_account_deletion_button">Prašyti ištrinti</string>
     <string name="request_account_deletion_details">Prašyti paslaugų teikėjo visam laikui ištrinti paskyrą</string>
