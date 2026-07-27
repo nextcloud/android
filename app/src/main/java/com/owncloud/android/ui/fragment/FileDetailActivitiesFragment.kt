@@ -227,6 +227,7 @@ class FileDetailActivitiesFragment :
     /**
      * @param lastGiven long; -1 to disable
      */
+    @Suppress("DEPRECATION")
     private fun fetchAndSetData(lastGiven: Long) {
         val activity = activity
         if (activity == null) {
@@ -263,6 +264,7 @@ class FileDetailActivitiesFragment :
         }
     }
 
+    @Suppress("DEPRECATION")
     private fun loadActivities(
         user: User,
         file: OCFile,
@@ -280,7 +282,6 @@ class FileDetailActivitiesFragment :
             GetActivitiesRemoteOperation(file.localId)
         }
 
-        Log_OC.d(TAG, "BEFORE getRemoteActivitiesOperation.execute")
         val result = nextcloudClient.execute<Any?>(operation)
 
         val versions = when {
@@ -294,7 +295,7 @@ class FileDetailActivitiesFragment :
         return result to versions
     }
 
-    @Suppress("UNCHECKED_CAST")
+    @Suppress("UNCHECKED_CAST", "DEPRECATION")
     private fun handleActivitiesResult(
         activity: FragmentActivity,
         result: RemoteOperationResult<Any?>,
@@ -361,6 +362,7 @@ class FileDetailActivitiesFragment :
         }
     }
 
+    @Suppress("DEPRECATION")
     fun markCommentsAsRead() {
         val file = file ?: return
         if (file.unreadCommentsCount <= 0) {
@@ -392,7 +394,7 @@ class FileDetailActivitiesFragment :
 
     @VisibleForTesting
     fun populateList(activities: List<Any?>?, clear: Boolean) {
-        val items = ArrayList<Any?>(activities ?: emptyList())
+        val items = ArrayList(activities ?: emptyList())
         adapter?.setActivityAndVersionItems(items, nextcloudClient, clear)
 
         val binding = binding ?: return
