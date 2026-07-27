@@ -78,8 +78,6 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     private static final int PAGE_SIZE = 50;
     private int currentOffset = 0;
 
-    // Stable IDs for the header and footer. File IDs come from int hashCodes, so these
-    // Long values below Integer.MIN_VALUE can never collide with a real file's ID.
     private static final long HEADER_ID = Long.MIN_VALUE;
     private static final long FOOTER_ID = Long.MIN_VALUE + 1;
 
