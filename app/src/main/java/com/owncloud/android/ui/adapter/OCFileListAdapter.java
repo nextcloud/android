@@ -75,7 +75,6 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -594,29 +593,44 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void bindSharedAvatars(ListItemViewHolder holder, OCFile file) {
+        final var sharedAvatars = holder.getSharedAvatars();
+
         if (!(file.isSharedWithMe() || file.isSharedWithSharee()) || isMultiSelect() || gridView || hideItemOptions) {
-            holder.getSharedAvatars().setVisibility(View.GONE);
-            holder.getSharedAvatars().removeAllViews();
+            sharedAvatars.setVisibility(View.GONE);
+            if (sharedAvatars.getChildCount() > 0) {
+                sharedAvatars.removeAllViews();
+            }
             return;
         }
 
-        final var sharees = new ArrayList<>(file.getSharees());
+        sharedAvatars.setVisibility(View.VISIBLE);
+        sharedAvatars.setAvatars(user, avatarSharees(file), viewThemeUtils);
+        sharedAvatars.setOnClickListener(view -> ocFileListFragmentInterface.onShareIconClick(file));
+    }
 
+    private List<ShareeUser> avatarSharees(OCFile file) {
+        final List<ShareeUser> sharees = file.getSharees();
+
+        ShareeUser owner = null;
         final String ownerId = file.getOwnerId();
         if (!TextUtils.isEmpty(ownerId) && !ownerId.equals(userId)) {
             final var ownerSharee = new ShareeUser(ownerId, file.getOwnerDisplayName(), ShareType.USER);
             if (!sharees.contains(ownerSharee)) {
-                sharees.add(ownerSharee);
+                owner = ownerSharee;
             }
         }
 
-        Collections.reverse(sharees);
+        final var ordered = new ArrayList<ShareeUser>(sharees.size() + (owner == null ? 0 : 1));
+        if (owner != null) {
+            ordered.add(owner);
+        }
 
-        final var sharedAvatars = holder.getSharedAvatars();
-        sharedAvatars.setVisibility(View.VISIBLE);
-        sharedAvatars.removeAllViews();
-        sharedAvatars.setAvatars(user, sharees, viewThemeUtils);
-        sharedAvatars.setOnClickListener(view -> ocFileListFragmentInterface.onShareIconClick(file));
+        // count from last to first to get desired order
+        for (int i = sharees.size() - 1; i >= 0; i--) {
+            ordered.add(sharees.get(i));
+        }
+
+        return ordered;
     }
 
     private void bindListItemViewHolder(ListItemViewHolder holder, OCFile file) {
