@@ -105,7 +105,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private String ownerId;
     private String ownerDisplayName;
     String note;
-    private List<ShareeUser> sharees;
+    private List<ShareeUser> sharees = new ArrayList<>();
     private String richWorkspace;
     private boolean locked;
     @Nullable
@@ -988,7 +988,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     }
 
     public void setSharees(List<ShareeUser> sharees) {
-        this.sharees = sharees;
+        this.sharees = (sharees == null) ? new ArrayList<>() : new ArrayList<>(sharees);
     }
 
     public void setRichWorkspace(String richWorkspace) {
