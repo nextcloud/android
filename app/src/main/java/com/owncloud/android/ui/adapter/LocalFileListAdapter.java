@@ -78,6 +78,11 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     private static final int PAGE_SIZE = 50;
     private int currentOffset = 0;
 
+    // Stable IDs for the header and footer. File IDs come from int hashCodes, so these
+    // Long values below Integer.MIN_VALUE can never collide with a real file's ID.
+    private static final long HEADER_ID = Long.MIN_VALUE;
+    private static final long FOOTER_ID = Long.MIN_VALUE + 1;
+
     public LocalFileListAdapter(boolean localFolderPickerMode,
                                 LocalFileListFragmentInterface localFileListFragmentInterface,
                                 AppPreferences preferences,
@@ -153,12 +158,22 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public long getItemId(int position) {
-        if (position >= mFiles.size()) {
-            return RecyclerView.NO_ID;
+        int headerOffset = shouldShowHeader() ? 1 : 0;
+        return getStableItemId(position, headerOffset, mFiles);
+    }
+
+    @VisibleForTesting
+    static long getStableItemId(int position, int headerOffset, List<File> files) {
+        if (headerOffset == 1 && position == 0) {
+            return HEADER_ID;
         }
 
-        File file = mFiles.get(position);
-        return file.getAbsolutePath().hashCode();
+        int fileIndex = position - headerOffset;
+        if (fileIndex < 0 || fileIndex >= files.size()) {
+            return FOOTER_ID;
+        }
+
+        return files.get(fileIndex).getAbsolutePath().hashCode();
     }
 
     @Override
