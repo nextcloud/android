@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2023 TSI-mc
  * SPDX-FileCopyrightText: 2023 Parneet Singh <gurayaparneet@gmail.com>
  * SPDX-FileCopyrightText: 2020 Andy Scherzinger <info@andy-scherzinger.de>
@@ -27,7 +28,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.annotation.OptIn
 import androidx.annotation.StringRes
 import androidx.core.net.toUri
@@ -35,9 +35,6 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.marginBottom
-import androidx.core.view.updateLayoutParams
-import androidx.core.view.updatePadding
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -46,7 +43,6 @@ import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.session.MediaSession
-import androidx.media3.ui.DefaultTimeBar
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
@@ -60,6 +56,7 @@ import com.nextcloud.client.network.ClientFactory.CreationException
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
+import com.nextcloud.utils.extensions.applyControlsInsets
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.owncloud.android.R
@@ -192,24 +189,11 @@ class PreviewMediaFragment :
     private fun applyWindowInsets() {
         binding.root.post {
             val rootInsets = ViewCompat.getRootWindowInsets(binding.root) ?: return@post
-            val insets = rootInsets.getInsets(
-                WindowInsetsCompat.Type.systemBars() or
-                    WindowInsetsCompat.Type.displayCutout()
+            binding.exoplayerView.applyControlsInsets(
+                rootInsets.getInsets(
+                    WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+                )
             )
-            val playerView = binding.exoplayerView
-            val exoControls = playerView
-                .findViewById<FrameLayout>(androidx.media3.ui.R.id.exo_bottom_bar)
-            val exoProgress = playerView
-                .findViewById<DefaultTimeBar>(androidx.media3.ui.R.id.exo_progress)
-            val progressOriginalMargin = exoProgress?.marginBottom ?: 0
-            exoControls?.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                bottomMargin = insets.bottom
-            }
-            exoProgress?.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                bottomMargin = insets.bottom + progressOriginalMargin
-            }
-            exoControls?.updatePadding(left = insets.left, right = insets.right)
-            exoProgress?.updatePadding(left = insets.left, right = insets.right)
         }
     }
 
