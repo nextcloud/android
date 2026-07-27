@@ -786,6 +786,7 @@
     <string name="prefs_recommend">Recomendar a um amigo</string>
     <string name="prefs_remove_e2e">Remover criptografia localmente</string>
     <string name="prefs_remove_e2e_keys_and_files">Remover arquivos criptografados e chaves</string>
+    <string name="prefs_renew_e2e_certificate">Renovar o certificado de criptografia</string>
     <string name="prefs_setup_e2e">Configurar criptografia de ponta-a-ponta</string>
     <string name="prefs_show_ecosystem_apps">Mostrar alternador de aplicativos</string>
     <string name="prefs_show_ecosystem_apps_summary">Sugestões de aplicativos Nextcloud no título de navegação</string>
@@ -836,6 +837,12 @@
     <string name="rename_dialog_title">Digite um novo nome</string>
     <string name="rename_local_fail_msg">Não foi possível renomear a cópia local, tente um nome diferente</string>
     <string name="rename_server_fail_msg">Não foi possível renomear pois o nome já existe</string>
+    <string name="renew_e2e_certificate_dialog_message">Isso renovará seu certificado de criptografia de ponta-a-ponta. Suas chaves e arquivos criptografados existentes permanecerão inalterados. Deseja continuar?</string>
+    <string name="renew_e2e_certificate_error">Não foi possível renovar o certificado de criptografia</string>
+    <string name="renew_e2e_certificate_private_key_missing">Chave privada de criptografia não encontrada</string>
+    <string name="renew_e2e_certificate_success">Certificado de criptografia renovado</string>
+    <string name="renew_e2e_certificate_summary">Renove seu certificado de criptografia de ponta-a-ponta mantendo suas chaves atuais</string>
+    <string name="renew_e2e_certificate_valid_until">Válido até %1$s. Toque para renovar e manter suas chaves atuais.</string>
     <string name="request_account_deletion">Solicitar a exclusão da conta</string>
     <string name="request_account_deletion_button">Solicitar exclusão</string>
     <string name="request_account_deletion_details">Solicitar a exclusão permanente da conta pelo provedor de serviços</string>
