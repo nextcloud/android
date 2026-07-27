@@ -7,11 +7,34 @@
  */
 package com.owncloud.android.datamodel
 
+import com.owncloud.android.lib.resources.shares.ShareType
+import com.owncloud.android.lib.resources.shares.ShareeUser
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class OCFileTest {
+    @Test
+    fun testShareesDefaultsToEmptyMutableList() {
+        val sut = OCFile("/")
+
+        assertTrue(sut.sharees.isEmpty())
+
+        sut.sharees.add(ShareeUser("alice", "Alice", ShareType.USER))
+        assertEquals(1, sut.sharees.size)
+    }
+
+    @Test
+    fun testShareesStayMutableWhenSetFromImmutableList() {
+        val sut = OCFile("/")
+
+        sut.sharees = listOf(ShareeUser("alice", "Alice", ShareType.USER))
+
+        sut.sharees.add(ShareeUser("bob", "Bob", ShareType.USER))
+        assertEquals(2, sut.sharees.size)
+    }
+
     @Test
     fun testLongIds() {
         val sut = OCFile("/")
