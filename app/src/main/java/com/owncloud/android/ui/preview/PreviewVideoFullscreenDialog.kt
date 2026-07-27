@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -13,6 +14,7 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.activity.addCallback
 import androidx.annotation.OptIn
+import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -23,6 +25,7 @@ import androidx.media3.ui.PlayerView
 import com.nextcloud.client.media.ExoplayerListener
 import com.nextcloud.client.media.NextcloudExoPlayer
 import com.nextcloud.common.NextcloudClient
+import com.nextcloud.utils.extensions.applyControlsInsets
 import com.owncloud.android.R
 import com.owncloud.android.databinding.DialogPreviewVideoBinding
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -97,6 +100,7 @@ class PreviewVideoFullscreenDialog(
         }
         setOnShowListener {
             enableImmersiveMode()
+            keepControlsClearOfSystemBars()
             switchTargetViewFromSource()
             binding.videoPlayer.setFullscreenButtonClickListener { activity.onBackPressedDispatcher.onBackPressed() }
             if (isPlaying) {
@@ -121,7 +125,6 @@ class PreviewVideoFullscreenDialog(
                 mExoPlayer.pause()
             }
             setOnDismissListener {
-                disableImmersiveMode()
                 playingStateListener?.let {
                     mExoPlayer.removeListener(it)
                 }
@@ -145,9 +148,9 @@ class PreviewVideoFullscreenDialog(
     }
 
     private fun enableImmersiveMode() {
-        activity.window?.let {
-            hideInset(it, WindowInsetsCompat.Type.systemBars())
-        }
+        val dialogWindow = window ?: return
+        WindowCompat.setDecorFitsSystemWindows(dialogWindow, false)
+        hideInset(dialogWindow, WindowInsetsCompat.Type.systemBars())
     }
 
     private fun hideInset(window: Window, type: Int) {
@@ -158,12 +161,16 @@ class PreviewVideoFullscreenDialog(
         windowInsetsController.hide(type)
     }
 
-    private fun disableImmersiveMode() {
-        activity.window?.let {
-            val windowInsetsController =
-                WindowCompat.getInsetsController(it, it.decorView)
-            windowInsetsController.show(WindowInsetsCompat.Type.systemBars())
-        } ?: return
+    private fun keepControlsClearOfSystemBars() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.videoPlayer) { _, windowInsets ->
+            binding.videoPlayer.applyControlsInsets(
+                windowInsets.getInsets(
+                    WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+                )
+            )
+            windowInsets
+        }
+        ViewCompat.requestApplyInsets(binding.videoPlayer)
     }
 
     companion object {
