@@ -59,6 +59,7 @@ import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
 import com.nextcloud.utils.extensions.applyControlsInsets
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getTypedActivity
+import com.nextcloud.utils.extensions.setFullscreenButton
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FragmentPreviewMediaBinding
 import com.owncloud.android.datamodel.OCFile
@@ -308,7 +309,7 @@ class PreviewMediaFragment :
             setShowNextButton(false)
             setShowPreviousButton(false)
             player = exoPlayer
-            setFullscreenButtonClickListener { startFullScreenVideo() }
+            setFullscreenButton(isFullscreen = false) { startFullScreenVideo() }
         }
     }
 

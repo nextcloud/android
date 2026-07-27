@@ -18,3 +18,10 @@ fun PlayerView.applyControlsInsets(insets: Insets) {
     val controller = findViewById<View>(androidx.media3.ui.R.id.exo_controller) ?: return
     controller.updatePadding(left = insets.left, right = insets.right, bottom = insets.bottom)
 }
+
+@OptIn(UnstableApi::class)
+fun PlayerView.setFullscreenButton(isFullscreen: Boolean, onClick: () -> Unit) {
+    setFullscreenButtonClickListener(null)
+    setFullscreenButtonState(isFullscreen)
+    setFullscreenButtonClickListener { onClick() }
+}
