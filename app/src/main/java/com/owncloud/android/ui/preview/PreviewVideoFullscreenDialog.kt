@@ -26,6 +26,7 @@ import com.nextcloud.client.media.ExoplayerListener
 import com.nextcloud.client.media.NextcloudExoPlayer
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.utils.extensions.applyControlsInsets
+import com.nextcloud.utils.extensions.setFullscreenButton
 import com.owncloud.android.R
 import com.owncloud.android.databinding.DialogPreviewVideoBinding
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -102,7 +103,9 @@ class PreviewVideoFullscreenDialog(
             enableImmersiveMode()
             keepControlsClearOfSystemBars()
             switchTargetViewFromSource()
-            binding.videoPlayer.setFullscreenButtonClickListener { activity.onBackPressedDispatcher.onBackPressed() }
+            binding.videoPlayer.setFullscreenButton(isFullscreen = true) {
+                activity.onBackPressedDispatcher.onBackPressed()
+            }
             if (isPlaying) {
                 mExoPlayer.play()
             }
