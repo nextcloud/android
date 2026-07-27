@@ -155,10 +155,6 @@ class PreviewMediaPagerAdapter : FragmentStateAdapter {
         else -> fragmentForNotDownloaded(file, position, ignoreFirstSavedState)
     }
 
-    /**
-     * The gallery holds both images and videos, so a downloaded file still has to be routed by its type.
-     * Handing a video to [PreviewImageFragment] fails to decode it as a bitmap and shows an unknown format error.
-     */
     private fun fragmentForDownloaded(file: OCFile, ignoreFirstSavedState: Boolean): Fragment =
         if (PreviewMediaFragment.isAudioOrVideo(file)) {
             PreviewMediaFragment.newInstance(file, user)
