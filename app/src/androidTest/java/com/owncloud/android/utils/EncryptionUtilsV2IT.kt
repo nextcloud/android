@@ -309,8 +309,7 @@ class EncryptionUtilsV2IT : EncryptionIT() {
             // random string, not real tag
             EncryptionUtils.generateUid(),
             EncryptionUtils.generateKey(),
-            metadataFile,
-            storageManager
+            metadataFile
         )
 
         assertEquals(3, updatedMetadata.metadata.files.size)
@@ -350,7 +349,6 @@ class EncryptionUtilsV2IT : EncryptionIT() {
 
     @Test
     fun addFolder() {
-        val folder = OCFile("/e/")
         val enc1 = MockUser("enc1", "Nextcloud")
         val metadataFile = generateDecryptedFolderMetadataFile(enc1, enc1Cert)
         assertEquals(2, metadataFile.metadata.files.size)
@@ -359,9 +357,7 @@ class EncryptionUtilsV2IT : EncryptionIT() {
         val updatedMetadata = encryptionUtilsV2.addFolderToMetadata(
             EncryptionUtils.generateUid(),
             "new subfolder",
-            metadataFile,
-            folder,
-            storageManager
+            metadataFile
         )
 
         assertEquals(2, updatedMetadata.metadata.files.size)
@@ -370,7 +366,6 @@ class EncryptionUtilsV2IT : EncryptionIT() {
 
     @Test
     fun removeFolder() {
-        val folder = OCFile("/e/")
         val enc1 = MockUser("enc1", "Nextcloud")
         val metadataFile = generateDecryptedFolderMetadataFile(enc1, enc1Cert)
         assertEquals(2, metadataFile.metadata.files.size)
@@ -380,9 +375,7 @@ class EncryptionUtilsV2IT : EncryptionIT() {
         var updatedMetadata = encryptionUtilsV2.addFolderToMetadata(
             encryptedFileName,
             "new subfolder",
-            metadataFile,
-            folder,
-            storageManager
+            metadataFile
         )
 
         assertEquals(2, updatedMetadata.metadata.files.size)
