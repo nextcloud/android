@@ -17,6 +17,10 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toDrawable
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.viewpager2.widget.ViewPager2
@@ -76,7 +80,9 @@ class PreviewImageActivity :
     private val downloadStartReceiver = DownloadStartReceiver()
     private val downloadFinishReceiver = DownloadFinishReceiver()
 
-    private var fullScreenAnchorView: View? = null
+    private val windowInsetsController: WindowInsetsControllerCompat by lazy {
+        WindowCompat.getInsetsController(window, window.decorView)
+    }
 
     private var isDownloadWorkStarted = false
     private var screenState = PreviewImageActivityState.Idle
@@ -115,8 +121,6 @@ class PreviewImageActivity :
             it.setBackgroundDrawable(R.color.black.toDrawable())
         }
 
-        fullScreenAnchorView = window.decorView
-        // to keep our UI controls visibility in line with system bars visibility
         setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
         val requestWaitingForBinder = savedInstanceState?.getBoolean(KEY_WAITING_FOR_BINDER) ?: false
@@ -507,13 +511,15 @@ class PreviewImageActivity :
         get() = supportActionBar == null || supportActionBar?.isShowing == true
 
     fun toggleFullScreen() {
-        fullScreenAnchorView?.let {
-            val visible = (it.systemUiVisibility and View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0
-            if (visible) {
-                hideSystemUI(it)
-            } else {
-                showSystemUI(it)
-            }
+        val rootInsets = ViewCompat.getRootWindowInsets(window.decorView) ?: return
+
+        // the content is laid out edge to edge so that showing and hiding the bars does not move it
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        if (rootInsets.isVisible(WindowInsetsCompat.Type.systemBars())) {
+            windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
+        } else {
+            windowInsetsController.show(WindowInsetsCompat.Type.systemBars())
         }
     }
 
@@ -541,27 +547,6 @@ class PreviewImageActivity :
 
     override fun onBrowsedDownTo(folder: OCFile) = Unit
     override fun onTransferStateChanged(file: OCFile, downloading: Boolean, uploading: Boolean) = Unit
-
-    @Suppress("DEPRECATION")
-    private fun hideSystemUI(anchorView: View) {
-        anchorView.systemUiVisibility = (
-            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_IMMERSIVE
-                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-            )
-    }
-
-    @Suppress("DEPRECATION")
-    private fun showSystemUI(anchorView: View) {
-        anchorView.systemUiVisibility = (
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-            )
-    }
 
     companion object {
         val TAG: String = PreviewImageActivity::class.java.simpleName
