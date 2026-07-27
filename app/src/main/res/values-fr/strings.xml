@@ -10,6 +10,7 @@
     <string name="action_edit">Modifier</string>
     <string name="action_empty_notifications">Effacer toutes les notifications</string>
     <string name="action_empty_trashbin">Vider la corbeille</string>
+    <string name="action_open_in_web_editor">Ouvrir dans le navigateur</string>
     <string name="action_send_share">Envoyer / Partager</string>
     <string name="action_switch_grid_view">Vue en grille</string>
     <string name="action_switch_list_view">Vue en liste</string>
@@ -274,6 +275,8 @@
     <string name="dialog_close">Fermer</string>
     <string name="did_not_check_for_dupes">N\'a pas vérifié les doublons.</string>
     <string name="digest_algorithm_not_available">Cet algorithme de hachage n\'est pas disponible sur votre appareil.</string>
+    <string name="direct_login_confirm_message">Voulez-vous vous connecter avec %1$s à %2$s ?</string>
+    <string name="direct_login_confirm_title">Confirmer la connexion</string>
     <string name="direct_login_failed">Échec de la connexion par lien direct</string>
     <string name="direct_login_text">Se connecter avec %1$s à %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">Désactiver</string>
@@ -431,6 +434,8 @@
     <string name="file_detail_sharing_fragment_no_contact_app_message">Aucune application disponible pour sélectionner des contacts</string>
     <string name="file_details_no_content">Impossible de charger les détails</string>
     <string name="file_icon">Fichier</string>
+    <string name="file_info_governance_section_title">Gouvernance</string>
+    <string name="file_info_image_details_section_title">Détails de l\'image</string>
     <string name="file_keep">Conserver</string>
     <string name="file_list_empty">Déposez du contenu ou synchronisez vos appareils.</string>
     <string name="file_list_empty_favorite_headline">Aucun favori</string>
@@ -539,7 +544,10 @@
     <string name="forward">Suivant</string>
     <string name="fourHours">4 heures</string>
     <string name="governance_file_retention_label">Suppression programmée de fichiers</string>
+    <string name="governance_legal_hold_label">Conservation légale</string>
     <string name="governance_no_label">Aucun</string>
+    <string name="governance_permission_denied">Vous n\'avez pas l\'autorisation de modifier cette étiquette</string>
+    <string name="governance_sensitivity_label">Étiquette de sensibilité</string>
     <string name="gplay_restriction">Google restreint le téléchargement des fichiers APK / AAB !</string>
     <string name="grid_file_features_live_photo_content_description">Cette icône indique la disponibilité de live photo</string>
     <string name="hidden_file_name_warning">Le nom résultera en un fichier caché</string>
@@ -778,6 +786,7 @@
     <string name="prefs_recommend">Recommander à un ami</string>
     <string name="prefs_remove_e2e">Retirer le chiffrement localement</string>
     <string name="prefs_remove_e2e_keys_and_files">Supprimer les fichiers chiffrés et les clés</string>
+    <string name="prefs_renew_e2e_certificate">Renouveler le certificat de chiffrement</string>
     <string name="prefs_setup_e2e">Configurer le chiffrement de bout en bout</string>
     <string name="prefs_show_ecosystem_apps">Afficher le sélecteur d\'applications</string>
     <string name="prefs_show_ecosystem_apps_summary">Suggestions d\'applications Nextcloud dans l\'en-tête de navigation</string>
@@ -828,6 +837,12 @@
     <string name="rename_dialog_title">Entrez un nouveau nom</string>
     <string name="rename_local_fail_msg">Impossible de renommer la version locale; veuillez réessayer avec un nom différent</string>
     <string name="rename_server_fail_msg">Impossible de renommer, le nom est déjà utilisé</string>
+    <string name="renew_e2e_certificate_dialog_message">Cette opération renouvellera votre certificat de chiffrement de bout en bout. Vos clés existantes et vos fichiers chiffrés resteront inchangés. Continuer ?</string>
+    <string name="renew_e2e_certificate_error">Impossible de renouveler le certificat de chiffrement</string>
+    <string name="renew_e2e_certificate_private_key_missing">Clé privée de chiffrement introuvable</string>
+    <string name="renew_e2e_certificate_success">Certificat de chiffrement renouvelé</string>
+    <string name="renew_e2e_certificate_summary">Renouvelez votre certificat de chiffrement de bout en bout tout en conservant vos clés existantes</string>
+    <string name="renew_e2e_certificate_valid_until">Valide jusqu\'au %1$s. Touchez pour le renouveler tout en conservant vos clés existantes.</string>
     <string name="request_account_deletion">Demander la suppression du compte</string>
     <string name="request_account_deletion_button">Demander la suppression</string>
     <string name="request_account_deletion_details">Demander la suppression permanente du compte par le fournisseur de services</string>
