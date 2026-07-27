@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2023 TSI-mc
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
