@@ -26,7 +26,7 @@ import com.owncloud.android.utils.FileStorageUtils
 /**
  * Adapter class that provides Fragment instances
  */
-class PreviewImagePagerAdapter : FragmentStateAdapter {
+class PreviewMediaPagerAdapter : FragmentStateAdapter {
 
     private var selectedFile: OCFile? = null
     private var imageFiles: MutableList<OCFile> = mutableListOf()
@@ -132,15 +132,10 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
         notifyItemRemoved(position)
     }
 
-    /**
-     * Returns the image files handled by the adapter.
-     *
-     * @return OCFile desired image or null if position is not in adapter
-     */
     @Suppress("TooGenericExceptionCaught")
     fun getFileAt(position: Int): OCFile? = try {
         imageFiles[position]
-    } catch (exception: IndexOutOfBoundsException) {
+    } catch (_: IndexOutOfBoundsException) {
         null
     }
 
@@ -149,36 +144,44 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
     }
 
     fun getItem(i: Int): Fragment {
-        val file = getFileAt(i)
-        val fragment: Fragment
-        val ignoreFirstSavedState = mObsoletePositions.contains(i)
-
-        if (file == null) {
-            fragment = PreviewImageErrorFragment.newInstance()
-        } else if (file.isDown) {
-            fragment = PreviewImageFragment.newInstance(file, ignoreFirstSavedState, false)
-        } else {
-            addVideoOfLivePhoto(file)
-
-            if (mDownloadErrors.remove(i)) {
-                fragment = FileDownloadFragment.newInstance(file, user, true)
-                (fragment as FileDownloadFragment).setError(true)
-            } else {
-                fragment = if (file.isEncrypted) {
-                    // The FileDownloadFragment is used exclusively for encrypted files, as they cannot be previewed
-                    // without first being downloaded.
-                    FileDownloadFragment.newInstance(file, user, ignoreFirstSavedState)
-                } else if (PreviewMediaFragment.canBePreviewed(file)) {
-                    val isLivePhoto = file.livePhotoVideo != null
-                    PreviewMediaFragment.newInstance(file, user, 0, false, isLivePhoto)
-                } else {
-                    PreviewImageFragment.newInstance(file, ignoreFirstSavedState, true)
-                }
-            }
-        }
-
+        val fragment = fragmentFor(getFileAt(i), i, mObsoletePositions.contains(i))
         mObsoletePositions.remove(i)
         return fragment
+    }
+
+    private fun fragmentFor(file: OCFile?, position: Int, ignoreFirstSavedState: Boolean): Fragment = when {
+        file == null -> PreviewImageErrorFragment.newInstance()
+        file.isDown -> fragmentForDownloaded(file, ignoreFirstSavedState)
+        else -> fragmentForNotDownloaded(file, position, ignoreFirstSavedState)
+    }
+
+    /**
+     * The gallery holds both images and videos, so a downloaded file still has to be routed by its type.
+     * Handing a video to [PreviewImageFragment] fails to decode it as a bitmap and shows an unknown format error.
+     */
+    private fun fragmentForDownloaded(file: OCFile, ignoreFirstSavedState: Boolean): Fragment =
+        if (PreviewMediaFragment.canBePreviewed(file)) {
+            PreviewMediaFragment.newInstance(file, user, 0, false, false)
+        } else {
+            PreviewImageFragment.newInstance(file, ignoreFirstSavedState, false)
+        }
+
+    private fun fragmentForNotDownloaded(file: OCFile, position: Int, ignoreFirstSavedState: Boolean): Fragment {
+        addVideoOfLivePhoto(file)
+
+        return when {
+            mDownloadErrors.remove(position) ->
+                FileDownloadFragment.newInstance(file, user, true).apply { setError(true) }
+
+            // The FileDownloadFragment is used exclusively for encrypted files, as they cannot be previewed
+            // without first being downloaded.
+            file.isEncrypted -> FileDownloadFragment.newInstance(file, user, ignoreFirstSavedState)
+
+            PreviewMediaFragment.canBePreviewed(file) ->
+                PreviewMediaFragment.newInstance(file, user, 0, false, file.livePhotoVideo != null)
+
+            else -> PreviewImageFragment.newInstance(file, ignoreFirstSavedState, true)
+        }
     }
 
     fun getFilePosition(file: OCFile): Int = imageFiles.indexOf(file)
@@ -190,14 +193,6 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
         }
         mObsoletePositions.add(position)
         imageFiles[position] = file
-    }
-
-    fun updateWithDownloadError(position: Int) {
-        val fragmentToUpdate = mCachedFragments[position]
-        if (fragmentToUpdate != null) {
-            mObsoleteFragments.add(fragmentToUpdate)
-        }
-        mDownloadErrors.add(position)
     }
 
     fun pendingErrorAt(position: Int): Boolean = mDownloadErrors.contains(position)

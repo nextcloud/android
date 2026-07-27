@@ -63,7 +63,7 @@ import kotlin.math.max
 import kotlin.math.min
 
 /**
- * Holds a swiping gallery where image files contained in an Nextcloud directory are shown.
+ * Holds a swiping gallery where image and video files contained in a Nextcloud directory are shown.
  */
 @Suppress("TooManyFunctions")
 class PreviewImageActivity :
@@ -74,7 +74,7 @@ class PreviewImageActivity :
     Injectable {
     private var livePhotoFile: OCFile? = null
     private var viewPager: ViewPager2? = null
-    private var previewImagePagerAdapter: PreviewImagePagerAdapter? = null
+    private var previewMediaPagerAdapter: PreviewMediaPagerAdapter? = null
     private var savedPosition: Int? = null
 
     private val downloadStartReceiver = DownloadStartReceiver()
@@ -167,7 +167,7 @@ class PreviewImageActivity :
         if (virtualFolderType != null && virtualFolderType !== VirtualFolderType.NONE) {
             val type = virtualFolderType as VirtualFolderType
 
-            previewImagePagerAdapter = PreviewImagePagerAdapter(
+            previewMediaPagerAdapter = PreviewMediaPagerAdapter(
                 this,
                 type,
                 user,
@@ -178,7 +178,7 @@ class PreviewImageActivity :
             val parentFolder = file?.let { storageManager.getFileById(it.parentId) }
                 ?: storageManager.getFileByEncryptedRemotePath(OCFile.ROOT_PATH)
 
-            previewImagePagerAdapter = PreviewImagePagerAdapter(
+            previewMediaPagerAdapter = PreviewMediaPagerAdapter(
                 this,
                 livePhotoFile,
                 parentFolder,
@@ -196,11 +196,11 @@ class PreviewImageActivity :
         ) {
             savedPosition
         } else {
-            file?.let { previewImagePagerAdapter?.getFilePosition(it) }
+            file?.let { previewMediaPagerAdapter?.getFilePosition(it) }
         }
         position = position?.toDouble()?.let { max(it, 0.0).toInt() }
 
-        viewPager?.adapter = previewImagePagerAdapter
+        viewPager?.adapter = previewMediaPagerAdapter
         viewPager?.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 selectPage(position)
@@ -235,7 +235,7 @@ class PreviewImageActivity :
 
     fun updateViewPagerAfterDeletionAndAdvanceForward() {
         val deletePosition = viewPager?.currentItem ?: return
-        previewImagePagerAdapter?.let { adapter ->
+        previewMediaPagerAdapter?.let { adapter ->
             val nextPosition = min(deletePosition, adapter.itemCount - 1)
             viewPager?.setCurrentItem(nextPosition, true)
             adapter.delete(deletePosition)
@@ -315,7 +315,7 @@ class PreviewImageActivity :
         super.onRemoteOperationFinish(operation, result)
 
         if (operation is RemoveFileOperation) {
-            previewImagePagerAdapter?.let {
+            previewMediaPagerAdapter?.let {
                 if (it.itemCount <= 1) {
                     backToDisplayActivity()
                     return
@@ -350,7 +350,7 @@ class PreviewImageActivity :
     private fun setDownloadedItem() {
         savedPosition?.let { position ->
 
-            previewImagePagerAdapter?.run {
+            previewMediaPagerAdapter?.run {
                 file?.let {
                     updateFile(position, it)
                     notifyItemChanged(position)
@@ -442,7 +442,7 @@ class PreviewImageActivity :
         if (position == null) return
         savedPosition = position
 
-        val currentFile = previewImagePagerAdapter?.getFileAt(position)
+        val currentFile = previewMediaPagerAdapter?.getFileAt(position)
 
         if (!isDownloadWorkStarted) {
             screenState = PreviewImageActivityState.WaitingForBinder
@@ -450,7 +450,7 @@ class PreviewImageActivity :
             if (currentFile != null) {
                 if (currentFile.isEncrypted &&
                     !currentFile.isDown &&
-                    previewImagePagerAdapter?.pendingErrorAt(position) == false
+                    previewMediaPagerAdapter?.pendingErrorAt(position) == false
                 ) {
                     requestForDownload(currentFile)
                 }
