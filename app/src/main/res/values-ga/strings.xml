@@ -10,6 +10,7 @@
     <string name="action_edit">Cuir in eagar</string>
     <string name="action_empty_notifications">Glan gach fógra</string>
     <string name="action_empty_trashbin">Bruscar folamh</string>
+    <string name="action_open_in_web_editor">Oscail san eagarthóir gréasáin</string>
     <string name="action_send_share">Seol/roinn</string>
     <string name="action_switch_grid_view">Radharc greille</string>
     <string name="action_switch_list_view">Amharc liosta</string>
@@ -274,6 +275,8 @@
     <string name="dialog_close">Dún</string>
     <string name="did_not_check_for_dupes">Ní dhearna seiceáil le haghaidh dúblaigh.</string>
     <string name="digest_algorithm_not_available">Níl an algartam achoimre seo ar fáil ar do ghuthán.</string>
+    <string name="direct_login_confirm_message">Ar mhaith leat logáil isteach le %1$s go %2$s?</string>
+    <string name="direct_login_confirm_title">Deimhnigh logáil isteach</string>
     <string name="direct_login_failed">Theip ar logáil isteach trí nasc díreach!</string>
     <string name="direct_login_text">Logáil isteach le %1$s go %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">Díchumasaigh</string>
@@ -783,6 +786,7 @@
     <string name="prefs_recommend">Mol do chara</string>
     <string name="prefs_remove_e2e">Bain criptiú go háitiúil</string>
     <string name="prefs_remove_e2e_keys_and_files">Bain comhaid agus eochracha criptithe</string>
+    <string name="prefs_renew_e2e_certificate">Athnuachan an teastas criptithe</string>
     <string name="prefs_setup_e2e">Socraigh criptiú ceann go ceann</string>
     <string name="prefs_show_ecosystem_apps">Taispeáin athróir aip</string>
     <string name="prefs_show_ecosystem_apps_summary">Moltaí aip Nextcloud sa cheannteideal nascleanúna</string>
@@ -833,6 +837,12 @@
     <string name="rename_dialog_title">Cuir isteach ainm nua</string>
     <string name="rename_local_fail_msg">Níorbh fhéidir cóip logánta a athainmniú, bain triail as ainm eile</string>
     <string name="rename_server_fail_msg">Ní féidir athainmniú a dhéanamh, ainm glactha cheana féin</string>
+    <string name="renew_e2e_certificate_dialog_message">Déanfaidh sé seo do theastas criptithe foirceann go foirceann a athnuachan. Fanfaidh d’eochracha agus do chomhaid chriptithe atá ann cheana gan athrú. Ar mhaith leat leanúint ar aghaidh?</string>
+    <string name="renew_e2e_certificate_error">Níorbh fhéidir an teastas criptithe a athnuachan</string>
+    <string name="renew_e2e_certificate_private_key_missing">Níor aimsíodh eochair phríobháideach criptithe</string>
+    <string name="renew_e2e_certificate_success">Deimhniú criptithe athnuaite</string>
+    <string name="renew_e2e_certificate_summary">Athnuaigh do theastas criptithe foirceann go foirceann agus coinnigh do chuid eochracha reatha</string>
+    <string name="renew_e2e_certificate_valid_until">Bailí go dtí %1$s. Tapáil chun athnuachan a dhéanamh agus do chuid eochracha reatha a choinneáil.</string>
     <string name="request_account_deletion">Iarr ar scriosadh an chuntais</string>
     <string name="request_account_deletion_button">Iarr scriosadh</string>
     <string name="request_account_deletion_details">Iarr ar sholáthraí seirbhíse scriosadh buan an chuntais</string>
