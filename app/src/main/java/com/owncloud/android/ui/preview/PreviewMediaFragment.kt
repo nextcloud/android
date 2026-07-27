@@ -582,22 +582,12 @@ class PreviewMediaFragment :
         private const val AUTOPLAY = "AUTOPLAY"
         private const val IS_LIVE_PHOTO = "IS_LIVE_PHOTO"
 
-        /**
-         * Creates a fragment to preview a file.
-         *
-         *
-         * When 'fileToDetail' or 'user' are null
-         *
-         * @param fileToDetail An [OCFile] to preview in the fragment
-         * @param user         Currently active user
-         */
-        @JvmStatic
         fun newInstance(
             fileToDetail: OCFile?,
             user: User?,
-            startPlaybackPosition: Long,
-            autoplay: Boolean,
-            isLivePhoto: Boolean
+            startPlaybackPosition: Long = 0,
+            autoplay: Boolean = false,
+            isLivePhoto: Boolean = false
         ): PreviewMediaFragment = PreviewMediaFragment().apply {
             arguments = Bundle().apply {
                 putParcelable(FILE, fileToDetail)
@@ -608,14 +598,7 @@ class PreviewMediaFragment :
             }
         }
 
-        /**
-         * Helper method to test if an [OCFile] can be passed to a [PreviewMediaFragment] to be previewed.
-         *
-         * @param file File to test if can be previewed.
-         * @return 'True' if the file can be handled by the fragment.
-         */
-        @JvmStatic
-        fun canBePreviewed(file: OCFile?): Boolean =
+        fun isAudioOrVideo(file: OCFile?): Boolean =
             file != null && (MimeTypeUtil.isAudio(file) || MimeTypeUtil.isVideo(file))
     }
 }

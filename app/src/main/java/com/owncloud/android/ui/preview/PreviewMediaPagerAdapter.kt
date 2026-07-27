@@ -160,8 +160,8 @@ class PreviewMediaPagerAdapter : FragmentStateAdapter {
      * Handing a video to [PreviewImageFragment] fails to decode it as a bitmap and shows an unknown format error.
      */
     private fun fragmentForDownloaded(file: OCFile, ignoreFirstSavedState: Boolean): Fragment =
-        if (PreviewMediaFragment.canBePreviewed(file)) {
-            PreviewMediaFragment.newInstance(file, user, 0, false, false)
+        if (PreviewMediaFragment.isAudioOrVideo(file)) {
+            PreviewMediaFragment.newInstance(file, user)
         } else {
             PreviewImageFragment.newInstance(file, ignoreFirstSavedState, false)
         }
@@ -177,8 +177,8 @@ class PreviewMediaPagerAdapter : FragmentStateAdapter {
             // without first being downloaded.
             file.isEncrypted -> FileDownloadFragment.newInstance(file, user, ignoreFirstSavedState)
 
-            PreviewMediaFragment.canBePreviewed(file) ->
-                PreviewMediaFragment.newInstance(file, user, 0, false, file.livePhotoVideo != null)
+            PreviewMediaFragment.isAudioOrVideo(file) ->
+                PreviewMediaFragment.newInstance(file, user)
 
             else -> PreviewImageFragment.newInstance(file, ignoreFirstSavedState, true)
         }

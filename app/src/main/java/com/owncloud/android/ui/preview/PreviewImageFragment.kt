@@ -164,7 +164,7 @@ class PreviewImageFragment :
 
         hideActionBar()
 
-        val mediaFragment: Fragment = newInstance(file, accountManager.user, 0, true, true)
+        val mediaFragment: Fragment = newInstance(file, accountManager.user, autoplay = true, isLivePhoto = true)
         val fragmentManager = requireActivity().supportFragmentManager
         fragmentManager.beginTransaction().run {
             replace(R.id.top, mediaFragment)
