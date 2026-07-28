@@ -23,7 +23,6 @@ fun UploadResult.isNonRetryable(): Boolean = when (this) {
     UploadResult.VIRUS_DETECTED,
     UploadResult.QUOTA_EXCEEDED,
     UploadResult.PRIVILEGES_ERROR,
-    UploadResult.CREDENTIAL_ERROR,
 
     // most cases covered and mapped from RemoteOperationResult. Most likely UploadResult.UNKNOWN this error will
     // occur again
