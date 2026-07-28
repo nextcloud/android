@@ -42,7 +42,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import thirdparties.daveKoeller.AlphanumComparator;
+import com.owncloud.android.utils.sort.AlphanumericComparator;
 
 public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterface {
 
@@ -554,13 +554,13 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     @Override
     public int compareTo(@NonNull OCFile another) {
         if (isFolder() && another.isFolder()) {
-            return AlphanumComparator.compare(this, another);
+            return AlphanumericComparator.compare(this, another);
         } else if (isFolder()) {
             return -1;
         } else if (another.isFolder()) {
             return 1;
         }
-        return AlphanumComparator.compare(this, another);
+        return AlphanumericComparator.compare(this, another);
     }
 
     @Override
