@@ -7,11 +7,11 @@
 package com.owncloud.android.utils.sort
 
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface
-import java.math.BigInteger
 import java.text.Collator
 
 /**
  * Sorts names the way people read them, so `abc2` comes before `abc10` instead of after it.
+ *
  */
 class AlphanumericComparator<T : Any> : Comparator<T> {
 
@@ -24,67 +24,67 @@ class AlphanumericComparator<T : Any> : Comparator<T> {
             compare(first.fileName, second.fileName)
 
         @JvmStatic
-        fun compare(first: String, second: String): Int {
-            if (first == second) {
-                return 0
+        fun compare(first: String, second: String): Int = if (first == second) 0 else compareByChunks(first, second)
+
+        private fun compareByChunks(first: String, second: String): Int {
+            var ourStart = 0
+            var theirStart = 0
+
+            while (ourStart < first.length && theirStart < second.length) {
+                val ours = chunkAt(first, ourStart)
+                val theirs = chunkAt(second, theirStart)
+
+                val byChunk = compareChunks(ours, theirs)
+                if (byChunk != 0) {
+                    return byChunk
+                }
+
+                ourStart += ours.length
+                theirStart += theirs.length
             }
 
-            val ourChunks = chunks(first)
-            val theirChunks = chunks(second)
-
-            val byChunk = ourChunks.asSequence()
-                .zip(theirChunks.asSequence()) { ours, theirs -> compareChunks(ours, theirs) }
-                .firstOrNull { it != 0 }
-
-            return byChunk
-                ?: ourChunks.size.compareTo(theirChunks.size).takeIf { it != 0 }
-                ?: first.compareTo(second)
+            return when (val byLength = first.length.compareTo(second.length)) {
+                0 -> first.compareTo(second)
+                else -> byLength
+            }
         }
 
-        private val collator = ThreadLocal.withInitial { Collator.getInstance() }
+        private val collators: ThreadLocal<Collator> = ThreadLocal.withInitial { Collator.getInstance() }
 
-        private fun chunks(name: String): List<String> {
-            val chunks = mutableListOf<String>()
-            var start = 0
+        private val collator: Collator
+            get() = collators.get() ?: Collator.getInstance()
 
-            while (start < name.length) {
-                val end = chunkEnd(name, start)
-                chunks += name.substring(start, end)
-                start = end
-            }
-
-            return chunks
-        }
-
-        private fun chunkEnd(name: String, start: Int): Int {
-            if (name[start].isSeparator()) {
-                return start + 1
-            }
-
-            val digitRun = name[start].isAsciiDigit()
+        private fun chunkAt(name: String, start: Int): String {
+            val kind = kindOf(name[start])
             var end = start + 1
-            while (end < name.length && !name[end].isSeparator() && name[end].isAsciiDigit() == digitRun) {
-                end++
+
+            if (kind != ChunkKind.SEPARATOR) {
+                while (end < name.length && kindOf(name[end]) == kind) {
+                    end++
+                }
             }
-            return end
+
+            return name.substring(start, end)
         }
 
         private fun compareChunks(ours: String, theirs: String): Int {
-            val ourRank = rankOf(ours)
-            val byRank = ourRank.compareTo(rankOf(theirs))
+            val kind = kindOf(ours[0])
+            val byKind = kind.compareTo(kindOf(theirs[0]))
+            if (byKind != 0) {
+                return byKind
+            }
 
-            return when {
-                byRank != 0 -> byRank
-                ourRank == RANK_SEPARATOR -> compareSeparators(ours[0], theirs[0])
-                ourRank == RANK_NUMBER -> compareNumbers(ours, theirs)
-                else -> compareText(ours, theirs)
+            return when (kind) {
+                ChunkKind.SEPARATOR -> compareSeparators(ours[0], theirs[0])
+                ChunkKind.NUMBER -> compareNumbers(ours, theirs)
+                ChunkKind.TEXT -> compareText(ours, theirs)
             }
         }
 
-        private fun rankOf(chunk: String): Int = when {
-            chunk[0].isSeparator() -> RANK_SEPARATOR
-            chunk[0].isAsciiDigit() -> RANK_NUMBER
-            else -> RANK_TEXT
+        private fun kindOf(char: Char): ChunkKind = when {
+            char <= LAST_ASCII_PUNCTUATION && !char.isLetterOrDigit() -> ChunkKind.SEPARATOR
+            char in ZERO..NINE -> ChunkKind.NUMBER
+            else -> ChunkKind.TEXT
         }
 
         private fun compareSeparators(ours: Char, theirs: Char): Int = when {
@@ -94,16 +94,23 @@ class AlphanumericComparator<T : Any> : Comparator<T> {
             else -> ours.compareTo(theirs)
         }
 
-        private fun compareNumbers(ours: String, theirs: String): Int =
-            when (val byValue = BigInteger(ours).compareTo(BigInteger(theirs))) {
-                0 -> leadingZeroes(ours).compareTo(leadingZeroes(theirs))
-                else -> byValue
+        private fun compareNumbers(ours: String, theirs: String): Int {
+            val ourValue = ours.trimStart(ZERO)
+            val theirValue = theirs.trimStart(ZERO)
+
+            val byDigitCount = ourValue.length.compareTo(theirValue.length)
+            if (byDigitCount != 0) {
+                return byDigitCount
             }
 
-        private fun leadingZeroes(digits: String): Int = digits.takeWhile { it == ZERO }.length
+            return when (val byValue = ourValue.compareTo(theirValue)) {
+                0 -> ours.length.compareTo(theirs.length)
+                else -> byValue
+            }
+        }
 
         private fun compareText(ours: String, theirs: String): Int {
-            val byCollation = collator.get()?.compare(ours, theirs) ?: 0
+            val byCollation = collator.compare(ours, theirs)
             if (byCollation != 0) {
                 return byCollation
             }
@@ -114,27 +121,9 @@ class AlphanumericComparator<T : Any> : Comparator<T> {
             }
         }
 
-        private fun Char.isAsciiDigit(): Boolean = this in ZERO..NINE
-
-        private fun Char.isSeparator(): Boolean = this <= LAST_CONTROL_OR_PUNCTUATION ||
-            this in FIRST_PUNCTUATION_AFTER_DIGITS..LAST_PUNCTUATION_BEFORE_UPPERCASE ||
-            this in FIRST_PUNCTUATION_AFTER_UPPERCASE..LAST_PUNCTUATION_BEFORE_LOWERCASE ||
-            this in FIRST_PUNCTUATION_AFTER_LOWERCASE..LAST_ASCII_PUNCTUATION
-
-        private const val RANK_SEPARATOR = 0
-        private const val RANK_NUMBER = 1
-        private const val RANK_TEXT = 2
-
         private const val DOT = '.'
         private const val ZERO = '0'
         private const val NINE = '9'
-
-        private const val LAST_CONTROL_OR_PUNCTUATION = '/'
-        private const val FIRST_PUNCTUATION_AFTER_DIGITS = ':'
-        private const val LAST_PUNCTUATION_BEFORE_UPPERCASE = '@'
-        private const val FIRST_PUNCTUATION_AFTER_UPPERCASE = '['
-        private const val LAST_PUNCTUATION_BEFORE_LOWERCASE = '`'
-        private const val FIRST_PUNCTUATION_AFTER_LOWERCASE = '{'
         private const val LAST_ASCII_PUNCTUATION = '~'
     }
 }
