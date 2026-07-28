@@ -65,6 +65,23 @@ interface FileDao {
     )
     suspend fun getGalleryItemsSuspended(startDate: Long, endDate: Long, fileOwner: String): List<FileEntity>
 
+    @Query(
+        "SELECT * FROM filelist" +
+            " WHERE (content_type LIKE 'image/%' OR content_type LIKE 'video/%')" +
+            " AND file_owner = :fileOwner" +
+            " AND path LIKE :pathPrefix || '%'" +
+            " AND (:mimeFilter IS NULL OR content_type LIKE :mimeFilter)" +
+            " ORDER BY modified DESC" +
+            " LIMIT :limit OFFSET :offset"
+    )
+    suspend fun getGalleryItemsPageSuspended(
+        fileOwner: String,
+        pathPrefix: String,
+        mimeFilter: String?,
+        limit: Int,
+        offset: Int
+    ): List<FileEntity>
+
     @Query("SELECT * FROM filelist WHERE file_owner = :fileOwner ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}")
     fun getAllFiles(fileOwner: String): List<FileEntity>
 

@@ -423,6 +423,7 @@
     <string name="file_detail_sharing_fragment_no_contact_app_message">Pro označené kontakty není k dispozici žádná aplikace</string>
     <string name="file_details_no_content">Nepodařilo se načíst podrobnosti.</string>
     <string name="file_icon">Soubor</string>
+    <string name="file_info_governance_section_title">Spravování</string>
     <string name="file_keep">Ponechat</string>
     <string name="file_list_empty">Nahrajte nějaký obsah, nebo synchronizujte s vašimi zařízeními.</string>
     <string name="file_list_empty_favorite_headline">Zatím žádné oblíbené položky</string>
