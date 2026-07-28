@@ -1,18 +1,19 @@
-Den självhostade produktivitetsplattformen som ger dig full kontroll. n
+Den självhostade produktivitetsplattformen som ger dig full kontroll.
+
 Funktioner:
-* Enkelt, modernt gränssnitt som passar temat på din server
+* Enkelt, modernt gränssnitt som följer temat på din server
 * Ladda upp filer till din Nextcloud-server
 * Dela dem med andra
 * Håll dina favoritfiler och mappar synkroniserade
-* Sök i alla mappar på din server
-* Automatisk uppladdning av foton och videor som tagits med din enhet
+* Sök i alla mappar på servern
+* Ladda automatiskt upp foton och videor som tagits med enheten
 * Håll dig uppdaterad med aviseringar
 * Stöd för flera konton
 * Säker åtkomst till dina data med fingeravtryck eller PIN-kod
-* Integration med DAVx⁵ (tidigare känt som DAVdroid) för enkel konfiguration av synkronisering av kalender och kontakter
+* Integration med DAVx⁵ (tidigare DAVdroid) för enkel konfigurering av synkronisering av kalender och kontakter
 
-Rapportera alla problem till https://github.com/nextcloud/android/issues och diskutera denna app på https://help.nextcloud.com/c/clients/android
+Rapportera problem på https://github.com/nextcloud/android/issues och diskutera appen på https://help.nextcloud.com/c/clients/android
 
-Ny på Nextcloud? Nextcloud är en privat server för synkronisering och delning av filer samt kommunikation. Det är fri programvara, och du kan själv vara värd för den eller betala ett företag för att göra det åt dig. På så sätt har du kontroll över dina foton, din kalender och dina kontaktuppgifter, dina dokument och allt annat.
+Ny på Nextcloud? Nextcloud är en privat server för synkronisering och delning av filer samt kommunikation. Det är fri programvara som du kan vara värd för själv eller betala ett företag för att driva. På så sätt behåller du kontrollen över dina foton, kalenderposter, kontakter, dokument och övriga data.
 
-Kolla in Nextcloud på https://nextcloud.com
+Läs mer om Nextcloud på https://nextcloud.com

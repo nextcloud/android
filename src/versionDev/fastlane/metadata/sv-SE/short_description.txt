@@ -1,1 +1,1 @@
-Produktivitetsplattformen där du är din egen värd och håller dig i kontroll (dev
+Den självhostade produktivitetsplattformen som ger dig kontroll (förhandsversion

@@ -842,7 +842,7 @@
     <string name="renew_e2e_certificate_private_key_missing">Chave privada de criptografia não encontrada</string>
     <string name="renew_e2e_certificate_success">Certificado de criptografia renovado</string>
     <string name="renew_e2e_certificate_summary">Renove seu certificado de criptografia de ponta-a-ponta mantendo suas chaves atuais</string>
-    <string name="renew_e2e_certificate_valid_until">Válido até %1$s. Toque para renovar e manter suas chaves atuais.</string>
+    <string name="renew_e2e_certificate_valid_until">Válido até %1$s. Toque para renovar, mantendo suas chaves atuais.</string>
     <string name="request_account_deletion">Solicitar a exclusão da conta</string>
     <string name="request_account_deletion_button">Solicitar exclusão</string>
     <string name="request_account_deletion_details">Solicitar a exclusão permanente da conta pelo provedor de serviços</string>
