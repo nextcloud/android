@@ -25,8 +25,8 @@ import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.notifications.AppWideNotificationManager
 import com.nextcloud.utils.extensions.checkWCFRestrictions
+import com.nextcloud.utils.extensions.createOwncloudClient
 import com.nextcloud.utils.extensions.getUploadIds
-import com.nextcloud.utils.extensions.isAnonymous
 import com.nextcloud.utils.extensions.isLastResultConflictError
 import com.nextcloud.utils.extensions.isSame
 import com.owncloud.android.MainApp
@@ -39,8 +39,6 @@ import com.owncloud.android.db.OCUpload
 import com.owncloud.android.db.UploadResult
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.OwnCloudClient
-import com.owncloud.android.lib.common.OwnCloudClientFactory
-import com.owncloud.android.lib.common.accounts.AccountUtils
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -185,24 +183,13 @@ class FileUploadHelper {
         val batteryStatus = powerManagementService.battery
 
         val uploadsToRetry = mutableListOf<Long>()
-
-        val currentAccount = accountManager.currentAccount
-        val context = MainApp.getAppContext()
-        var ownCloudClient: OwnCloudClient? = null
-        if (!currentAccount.isAnonymous(context)) {
-            ownCloudClient = try {
-                OwnCloudClientFactory.createOwnCloudClient(accountManager.currentAccount, MainApp.getAppContext())
-            } catch (e: AccountUtils.AccountNotFoundException) {
-                Log_OC.e(TAG, "Cannot create client, account not found; skipping conflict handling", e)
-                null
-            }
-        }
+        val client = accountManager.createOwncloudClient()
 
         for (upload in uploads) {
             if (upload.isLastResultConflictError()) {
-                ownCloudClient?.let {
+                client?.let {
                     conflictHandlingResult =
-                        uploadActionHandler.handleConflict(upload, ownCloudClient, uploadsStorageManager)
+                        uploadActionHandler.handleConflict(upload, client = it, uploadsStorageManager)
                 }
                 continue
             }
