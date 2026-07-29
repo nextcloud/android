@@ -783,6 +783,7 @@
     <string name="prefs_recommend">Soovita sõbrale</string>
     <string name="prefs_remove_e2e">Eemalda krüptimine kohalikus seadmes</string>
     <string name="prefs_remove_e2e_keys_and_files">Eemalda krüptitud failid ja võtmed</string>
+    <string name="prefs_renew_e2e_certificate">Uuenda krüptimise sertifikaati</string>
     <string name="prefs_setup_e2e">Võta läbiv krüptimine kasutusele</string>
     <string name="prefs_show_ecosystem_apps">Näita rakenduste vahetajat</string>
     <string name="prefs_show_ecosystem_apps_summary">Nextcloudi rakenduse soovitused päises</string>
@@ -833,6 +834,10 @@
     <string name="rename_dialog_title">Sisesta uus nimi</string>
     <string name="rename_local_fail_msg">Lokaalse koopia nime muutmine ei õnnestunud, palun proovi teist nime</string>
     <string name="rename_server_fail_msg">Nime muutmine pole võimalik, nimi on juba kasutuses</string>
+    <string name="renew_e2e_certificate_dialog_message">Järgnevaja uuendad oma läbiva krüptimise sertifikaati. Sinu olemasolevad krüptovõtmed ja krüptitud failid jäävad muutmata. Kas soovid jätkata?</string>
+    <string name="renew_e2e_certificate_error">Krüptimise sertifikaadi uuendamine ei õnnestunud</string>
+    <string name="renew_e2e_certificate_private_key_missing">Läbiva krüptimise privaatvõtit ei leidunud.</string>
+    <string name="renew_e2e_certificate_success">Läbiva krüptimise sertifikaat on uuendatud.</string>
     <string name="request_account_deletion">Palu kasutajakonto kustutamist</string>
     <string name="request_account_deletion_button">Palu kustutamist</string>
     <string name="request_account_deletion_details">Palu teenusepakkujalt kasutajakonto jäädavat kustutamist</string>
