@@ -127,6 +127,7 @@
          <trusted-key id="1597AB231B7ADD7E14B1D9C43F00DB67AE236E2E">
             <trusting group="org.conscrypt" name="conscrypt-android" version="2.5.2"/>
             <trusting group="org.conscrypt" name="conscrypt-android" version="2.5.3"/>
+            <trusting group="org.conscrypt" name="conscrypt-openjdk-uber" version="2.5.2"/>
          </trusted-key>
          <trusted-key id="17A35729EB6B8461BA734703C7588F09D6FCDB0D" group="com.drewnoakes" name="metadata-extractor" version="2.8.1"/>
          <trusted-key id="190D5A957FF22273E601F7A7C92C5FEC70161C62" group="org.apache" name="apache"/>
@@ -147,11 +148,17 @@
             <trusting group="org.scala-lang" name="scala-library" version="2.13.11"/>
          </trusted-key>
          <trusted-key id="1FFDCCF6BDC0B17BD26B4A761F012999BF55C33C" group="ar.com.hjg" name="pngj" version="2.1.0"/>
+         <trusted-key id="20723A6399BC060154283B37CFAE163B64AC9189">
+            <trusting group="org.jetbrains.androidx.lifecycle"/>
+            <trusting group="org.jetbrains.androidx.savedstate"/>
+            <trusting group="^org[.]jetbrains[.]compose($|([.].*))" regex="true"/>
+         </trusted-key>
          <trusted-key id="223D3A74B068ECA354DC385CE126833F9CF64915" group="org.apache.xbean"/>
          <trusted-key id="24D04176586361FDA94EE0315F7786DF73E61F56" group="com.google.devtools.ksp"/>
          <trusted-key id="26CCB560222376C280C15DAC453A03A250A2F726" group="com.github.fondesa" name="kpermissions" version="3.3.0"/>
          <trusted-key id="28118C070CB22A0175A2E8D43D12CA2AC19F3181" group="^com[.]fasterxml($|([.].*))" regex="true"/>
          <trusted-key id="2B34821418CF19CF1F2A8352953E02E4F573B46F" group="jakarta.platform"/>
+         <trusted-key id="2BAB4466B44F54F8F99BBBDD5ED22F661BBF0ACC" group="com.almworks.sqlite4java" name="sqlite4java" version="1.0.392"/>
          <trusted-key id="2BCBDD0F23EA1CAFCC11D4860374CF2E8DD1BDFD">
             <trusting group="net.java" name="jvnet-parent" version="1"/>
             <trusting group="org.sonatype.oss"/>
@@ -168,6 +175,8 @@
          <trusted-key id="2E52CCA3842FA13C188F1DB50B45DDD344B5FFD1" group="tools.fastlane" name="screengrab" version="2.1.1"/>
          <trusted-key id="2E8191ADD82E5C6ABD8E24D802499A5DAEC7ADA9" group="^com[.]twelvemonkeys($|([.].*))" regex="true"/>
          <trusted-key id="2E92113263FC31C74CCBAAB20E91C2DE43B72BB1" group="org.ec4j.core"/>
+         <trusted-key id="2EE890070AE9318C3AD3520CE08F28E25BD93E9F" group="com.google.testparameterinjector"/>
+         <trusted-key id="2FC53E6B1F681184F4CCD637F5C81DE10A0B8ECC" group="org.yaml" name="snakeyaml" version="2.4"/>
          <trusted-key id="3051D45031E13516A6E8FAFF280D66A55F5316C5">
             <trusting group="org.bitbucket.b_c" name="jose4j" version="0.7.0"/>
             <trusting group="org.bitbucket.b_c" name="jose4j" version="0.9.5"/>
@@ -271,6 +280,7 @@
          <trusted-key id="54A26BFDC7ECDD39BA4C123AC3BAB45F4AF71FAB" group="io.opencensus" name="opencensus-proto" version="0.2.0"/>
          <trusted-key id="56B505DC8A29C69138A430B9429C8816DEA04CDB" group="org.xerial" name="sqlite-jdbc" version="3.36.0"/>
          <trusted-key id="5719E50EAC5A4B1DD390B72C2A742740E08E7F8D" group="org.antlr"/>
+         <trusted-key id="5767F9CDE920750621875079A40E24B5B408DBD5" group="org.robolectric"/>
          <trusted-key id="5897253BEA3046AEEA95A067E93671C7272B7B3F" group="org.jdom" name="jdom2" version="2.0.6"/>
          <trusted-key id="5989BAF76217B843D66BE55B2D0E1FB8FE4B68B4">
             <trusting group="org.eclipse.jetty" name="jetty-bom" version="9.4.53.v20231009"/>
@@ -293,6 +303,7 @@
          </trusted-key>
          <trusted-key id="6214760097DC5CFAD0175AC2C9FBAA83A8753994" group="^com[.]fasterxml($|([.].*))" regex="true"/>
          <trusted-key id="635EE627345F3C1DD422B2E207D3516820BCF6B1" group="com.github.ben-manes.caffeine" name="caffeine" version="2.9.3"/>
+         <trusted-key id="64B9B09F164AA0BF88742EB61188B69F6D6259CA" group="com.google.accompanist" name="accompanist-drawablepainter" version="0.37.3"/>
          <trusted-key id="68AF82B99C3C9ADFE5CA661767AB3C2A8FC5C42E" group="com.github.oowekyala.ooxml" name="nice-xml-messages" version="3.1"/>
          <trusted-key id="694621A7227D8D5289699830ABE9F3126BB741C1" group="^com[.]google($|([.].*))" regex="true"/>
          <trusted-key id="696B6199A2A9D8C29CE78CC0D041CAD2E452550F" group="com.google.protobuf"/>
@@ -526,11 +537,15 @@
          <trusted-key id="DB0597E3144342256BC81E3EC727D053C4481CF5" group="org.tensorflow" name="tensorflow-lite-metadata"/>
          <trusted-key id="DBD744ACE7ADE6AA50DD591F66B50994442D2D40" group="^com[.]squareup($|([.].*))" regex="true"/>
          <trusted-key id="DD80AF584ECDB83D650C4FC78EDF241183415AF1" group="com.github.akarnokd" name="ixjava" version="1.0.0"/>
-         <trusted-key id="DF25D3C4868FEC177182FAD64D176DC503FB4267" group="io.coil-kt"/>
+         <trusted-key id="DF25D3C4868FEC177182FAD64D176DC503FB4267">
+            <trusting group="io.coil-kt"/>
+            <trusting group="io.coil-kt.coil3"/>
+         </trusted-key>
          <trusted-key id="E01AAB301618D23B39DBD41002DE09238A0E4D34" group="com.drewnoakes" name="metadata-extractor" version="2.18.0"/>
          <trusted-key id="E0D98C5FD55A8AF232290E58DEE12B9896F97E34" group="org.pcollections" name="pcollections" version="4.0.2"/>
          <trusted-key id="E2F51A65767284220C6DFD60520410E2AF06FA82" group="com.github.bumptech.glide"/>
          <trusted-key id="E3A9F95079E84CE201F7CF60BEDE11EAF1164480" group="org.hamcrest"/>
+         <trusted-key id="E52F07877A5805F9AF4AB0ACD46C5610D06E7001" group="com.ibm.icu" name="icu4j" version="77.1"/>
          <trusted-key id="E5C3B1929191DF06136CCB2B164779204E106A76" group="org.javassist" name="javassist" version="3.28.0-GA"/>
          <trusted-key id="E77417AC194160A3FABD04969A259C7EE636C5ED" group="^com[.]google($|([.].*))" regex="true"/>
          <trusted-key id="E7DC75FC24FB3C8DFE8086AD3D5839A2262CBBFB" group="org.jetbrains.kotlinx"/>
@@ -10787,7 +10802,7 @@
       </component>
       <component group="androidx.slidingpanelayout" name="slidingpanelayout" version="1.2.0">
          <artifact name="slidingpanelayout-1.2.0.aar">
-            <sha256 value="5f53339be2a4f90a9abea3571dd59e70a8a49e7f15dd82974a3898b4652e8714" origin="Generated by Gradle"/>
+            <sha256 value="5f53339be2a4f90a9abea3571dd59e70a8a49e7f15dd82974a3898b4652e8714" origin="Generated by Gradle" reason="Artifact is not signed"/>
          </artifact>
          <artifact name="slidingpanelayout-1.2.0.module">
             <sha256 value="3531bf0081b78538589f7e840fc0f7c70a45c4d8a2d17fb2f0eaceee2a99b59b" origin="Generated by Gradle" reason="Artifact is not signed"/>
@@ -21034,6 +21049,14 @@
          </artifact>
          <artifact name="android-library-12a0ff15a0aa2b99d604a3e6122b4841edeae7b5.module">
             <sha256 value="5b3c99a253c3baca5ce3bf574c38869a675a7197f5afdff6937d09e808f0f43a" origin="Generated by Gradle" reason="Artifact is not signed"/>
+         </artifact>
+      </component>
+      <component group="com.github.nextcloud" name="android-library" version="131075ece1">
+         <artifact name="android-library-131075ece1.aar">
+            <sha256 value="2f6e486096a4ead590f3af1de5bd8638ca169c33fd08d74213e14d78b3abddaa" origin="Generated by Gradle" reason="Artifact is not signed"/>
+         </artifact>
+         <artifact name="android-library-131075ece1.module">
+            <sha256 value="7144f7847a6e98e02d3e062e1b8cb53a118fabbbc978be82b82b806166e810ad" origin="Generated by Gradle" reason="Artifact is not signed"/>
          </artifact>
       </component>
       <component group="com.github.nextcloud" name="android-library" version="16fc939b86">
@@ -37809,6 +37832,11 @@
       <component group="org.jetbrains.kotlin.android" name="org.jetbrains.kotlin.android.gradle.plugin" version="2.3.10">
          <artifact name="org.jetbrains.kotlin.android.gradle.plugin-2.3.10.pom">
             <sha256 value="bb3c3c81a0b315bc8983ad2427b336198f157ee3549af92efcb4a6f13f91cbad" origin="Generated by Gradle" reason="Artifact is not signed"/>
+         </artifact>
+      </component>
+      <component group="org.jetbrains.kotlin.android" name="org.jetbrains.kotlin.android.gradle.plugin" version="2.4.10">
+         <artifact name="org.jetbrains.kotlin.android.gradle.plugin-2.4.10.pom">
+            <sha256 value="b6ead389155f0c81058da5e235b5d5ecebc1f92da371f674ed53e926d7fc4d95" origin="Generated by Gradle" reason="Artifact is not signed"/>
          </artifact>
       </component>
       <component group="org.jetbrains.kotlin.kapt" name="org.jetbrains.kotlin.kapt.gradle.plugin" version="1.9.22">
