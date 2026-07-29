@@ -198,7 +198,7 @@ class FileDetailSharingFragment :
 
         val fileActivity = getTypedActivity(FileActivity::class.java)
 
-        lifecycleScope.launch(Dispatchers.IO) {
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             val user = user ?: return@launch
             val file = file ?: return@launch
             val client = fileActivity?.clientRepository?.getOwncloudClient() ?: return@launch
@@ -210,10 +210,11 @@ class FileDetailSharingFragment :
 
             withContext(Dispatchers.Main) {
                 binding.unifiedShare.initShareScreen(
-                    sourceId,
-                    internalLink,
-                    serverCredentials,
-                    viewThemeUtils.files.getColorScheme(fileActivity)
+                    viewModelStoreOwner = this@FileDetailSharingFragment,
+                    sourceId = sourceId,
+                    internalLink = internalLink,
+                    credentials = serverCredentials,
+                    colorScheme = viewThemeUtils.files.getColorScheme(fileActivity)
                 )
             }
         }
