@@ -22,13 +22,14 @@ fun UserAccountManager.createOwncloudClient(): OwnCloudClient? {
         return null
     }
 
-    if (currentAccount.isAnonymous(context)) {
+    val account = currentAccount
+    if (account.isAnonymous(context)) {
         Log_OC.e(TAG, "current account is anonymous, cannot create client")
         return null
     }
 
     return try {
-        val result = OwnCloudClientFactory.createOwnCloudClient(currentAccount, context)
+        val result = OwnCloudClientFactory.createOwnCloudClient(account, context)
         Log_OC.i(TAG, "client created")
         result
     } catch (e: Exception) {
