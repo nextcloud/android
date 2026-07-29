@@ -10,6 +10,7 @@
     <string name="action_edit">Muuda</string>
     <string name="action_empty_notifications">Kustuta kõik teavitused</string>
     <string name="action_empty_trashbin">Tühjenda prügikast</string>
+    <string name="action_open_in_web_editor">Ava veebipõhine muutmisvaade</string>
     <string name="action_send_share">Saada või jaga</string>
     <string name="action_switch_grid_view">Ruudustikvaade</string>
     <string name="action_switch_list_view">Loendivaade</string>
@@ -274,6 +275,8 @@
     <string name="dialog_close">Sulge</string>
     <string name="did_not_check_for_dupes">Ei kontrollinud topeltobjektide olemasolu.</string>
     <string name="digest_algorithm_not_available">See räsialgoritm pole sinu telefonis saadaval.</string>
+    <string name="direct_login_confirm_message">Kas soovid logida %1$s kasutajakontoga %2$s serverisse?</string>
+    <string name="direct_login_confirm_title">Kinnita sisselogimine</string>
     <string name="direct_login_failed">Otselingiga sisselogimine ebaõnnestus!</string>
     <string name="direct_login_text">Kasutades „%1$s“ kontot logi sisse teenusesse „%2$s“</string>
     <string name="disable_new_media_folder_detection_notifications">Lülita välja</string>
@@ -462,8 +465,8 @@
     <string name="file_management_permission_optional">Andmeruumi õigused</string>
     <string name="file_management_permission_optional_text">%1$s vajab tõhusaks tööks õigust kasutada andmeruumi. Võid valida kõikide failide täisõiguste või fotode ja videote lugemisõiguse vahel.</string>
     <string name="file_migration_allow_media_indexing">Luba ligipääs teistest rakendustest</string>
-    <string name="file_migration_checking_destination">Sihtkoha kontrollimine...</string>
-    <string name="file_migration_cleaning">Puhastamine...</string>
+    <string name="file_migration_checking_destination">Kontrollin sihtkausta...</string>
+    <string name="file_migration_cleaning">Puhastan...</string>
     <string name="file_migration_dialog_title">Uuendan andmeruumi kausta</string>
     <string name="file_migration_directory_already_exists">Andmekaust on juba olemas. Vali üks alljärgnevast:</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloudi kaust on juba olemas</string>
@@ -473,7 +476,7 @@
     <string name="file_migration_failed_while_coping">Ebaõnnestus üleviimise ajal</string>
     <string name="file_migration_failed_while_updating_index">Indeksi uuendamine ei õnnestu</string>
     <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
-    <string name="file_migration_migrating">Andmete liigutamine...</string>
+    <string name="file_migration_migrating">Teisaldan andmeid…</string>
     <string name="file_migration_ok_finished">Valmis</string>
     <string name="file_migration_override_data_folder">Asenda</string>
     <string name="file_migration_preparing">Valmistan ette üleviimist…</string>
@@ -481,9 +484,9 @@
     <string name="file_migration_saving_accounts_configuration">Salvestan kasutajakonto seadistusi…</string>
     <string name="file_migration_source_not_readable">Kas sa ikkagi soovid muuta „%1$s“ andmeruumi kaustaks?\n\nMärkus: pead kõik andmed uuesti alla laadima.</string>
     <string name="file_migration_source_not_readable_title">Lähtekaust pole loetav!</string>
-    <string name="file_migration_updating_index">Indeksi uuendamine...</string>
+    <string name="file_migration_updating_index">Uuendan indeksit…</string>
     <string name="file_migration_use_data_folder">Kasuta</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Ootan täissünkroniseerimise lõppemist…</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Ootan täissünkroonimise lõppemist…</string>
     <string name="file_name_validator_current_path_is_invalid">Selle kausta nimi on vigane ja seega palun muuda kausta nime. Suunan tagasi avavaatesse…</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Kausta asukohas sisaldub reserveeritud failinimesid ja keelatud tähemärke</string>
     <string name="file_name_validator_error_forbidden_file_extensions">„%s“ on keelatud faililaiend</string>
@@ -838,6 +841,8 @@
     <string name="renew_e2e_certificate_error">Krüptimise sertifikaadi uuendamine ei õnnestunud</string>
     <string name="renew_e2e_certificate_private_key_missing">Läbiva krüptimise privaatvõtit ei leidunud.</string>
     <string name="renew_e2e_certificate_success">Läbiva krüptimise sertifikaat on uuendatud.</string>
+    <string name="renew_e2e_certificate_summary">Uuendada oma läbiva krüptimise sertifikaati jättes alles senised krüptovõtmed</string>
+    <string name="renew_e2e_certificate_valid_until">Kehtib kuni %1$s. Kui soovid seda uuendada jättes alles senised krüptovõtmed, siis klõpsa.</string>
     <string name="request_account_deletion">Palu kasutajakonto kustutamist</string>
     <string name="request_account_deletion_button">Palu kustutamist</string>
     <string name="request_account_deletion_details">Palu teenusepakkujalt kasutajakonto jäädavat kustutamist</string>
