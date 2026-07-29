@@ -15,6 +15,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 
 private const val TAG = "UserAccountManagerExtensions"
 
+@Suppress("TooGenericExceptionCaught", "ReturnCount")
 fun UserAccountManager.createOwncloudClient(): OwnCloudClient? {
     val context = context ?: MainApp.getAppContext()
     if (context == null) {
