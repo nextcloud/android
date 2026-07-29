@@ -58,12 +58,11 @@ object DispatcherModule {
     @ApplicationScope
     @Provides
     @Singleton
-    fun provideApplicationScope(@IoDispatcher dispatcher: CoroutineDispatcher): CoroutineScope =
-        CoroutineScope(
-            SupervisorJob() +
-                dispatcher +
-                CoroutineExceptionHandler { _, throwable ->
-                    Log_OC.e(APPLICATION_SCOPE_TAG, "Uncaught exception in application coroutine scope", throwable)
-                }
-        )
+    fun provideApplicationScope(@IoDispatcher dispatcher: CoroutineDispatcher): CoroutineScope = CoroutineScope(
+        SupervisorJob() +
+            dispatcher +
+            CoroutineExceptionHandler { _, throwable ->
+                Log_OC.e(APPLICATION_SCOPE_TAG, "Uncaught exception in application coroutine scope", throwable)
+            }
+    )
 }
