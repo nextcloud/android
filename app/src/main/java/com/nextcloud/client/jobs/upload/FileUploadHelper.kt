@@ -216,7 +216,7 @@ class FileUploadHelper {
 
             if (uploadResult != UploadResult.UPLOADED) {
                 if (upload.lastResult != uploadResult) {
-                    // Setting Upload status else cancelled uploads will behave wrong, when retrying
+                    // Setting Upload status else canceled uploads will behave wrong, when retrying
                     // Needs to happen first since lastResult wil be overwritten by setter
                     upload.uploadStatus = UploadStatus.UPLOAD_FAILED
 
