@@ -72,6 +72,7 @@ import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.ResultListener
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.logFileSize
+import com.nextcloud.utils.extensions.setFullscreenButton
 import com.nextcloud.utils.extensions.setTitleColor
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityPreviewMediaBinding
@@ -488,7 +489,7 @@ class PreviewMediaActivity :
                 }
             )
             it.player = videoPlayer
-            it.setFullscreenButtonClickListener { startFullScreenVideo() }
+            it.setFullscreenButton(isFullscreen = false) { startFullScreenVideo() }
         }
     }
 
