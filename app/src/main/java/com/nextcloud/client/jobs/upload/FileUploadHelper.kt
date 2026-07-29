@@ -84,6 +84,8 @@ class FileUploadHelper {
         MainApp.getAppComponent().inject(this)
     }
 
+    private val uploadActionHandler = UploadListAdapterActionHandler()
+
     companion object {
         private val TAG = FileUploadWorker::class.java.simpleName
 
@@ -195,7 +197,6 @@ class FileUploadHelper {
                 null
             }
         }
-        val uploadActionHandler = UploadListAdapterActionHandler()
 
         for (upload in uploads) {
             if (upload.isLastResultConflictError()) {
