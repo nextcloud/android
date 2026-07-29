@@ -1,23 +1,16 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2017 Mario Danic <mario@lovelyhq.com>
- * SPDX-FileCopyrightText: 2017 Nextcloud GmbH
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.interfaces;
+package com.owncloud.android.ui.interfaces
 
-import com.owncloud.android.ui.adapter.LocalFileListAdapter;
+import java.io.File
 
-import java.io.File;
-
-/**
- * Interface for communication between {@link com.owncloud.android.ui.fragment.LocalFileListFragment}
- * and {@link LocalFileListAdapter}
- */
-public interface LocalFileListFragmentInterface {
-    int getColumnsCount();
-    void onItemClicked(File file);
-    void onItemCheckboxClicked(File file);
-    void setLoading(boolean loading);
+interface LocalFileListFragmentInterface {
+    val columnsCount: Int
+    fun onItemClicked(file: File?)
+    fun onItemCheckboxClicked(file: File?)
+    fun setLoading(loading: Boolean)
 }
