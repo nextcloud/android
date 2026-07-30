@@ -555,7 +555,10 @@ class UploadListAdapter(
     fun loadUploadItemsFromDb(onCompleted: Runnable = {}) {
         val optionalUser = activity.user
         val optionalCapabilities = activity.capabilities
-        if (optionalUser.isEmpty || optionalCapabilities.isEmpty) return
+        if (optionalUser.isEmpty || optionalCapabilities.isEmpty) {
+            onCompleted.run()
+            return
+        }
 
         val accountName = optionalUser.get().accountName
         val capabilities = optionalCapabilities.get()

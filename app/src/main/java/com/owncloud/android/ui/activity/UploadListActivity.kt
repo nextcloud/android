@@ -185,6 +185,8 @@ class UploadListActivity :
             accountManager,
             powerManagementService
         )
+
+        loadItems()
     }
 
     override fun onStart() {
