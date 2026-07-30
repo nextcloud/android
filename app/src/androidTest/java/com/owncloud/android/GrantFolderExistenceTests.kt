@@ -49,7 +49,7 @@ class GrantFolderExistenceTests : AbstractOnServerIT() {
     }
 
     @Test
-    fun testUploadFileThenDeleteFolder() {
+    fun testUploadFileThenDeleteYearFolderOnServerOnlyThenUploadAgainShouldRecreateMonthFolderAndReturnOk() {
         uploadAndAssertSuccess("first.txt")
 
         assertTrue("month folder should exist on server", existsOnServer(monthFolder))
@@ -76,7 +76,7 @@ class GrantFolderExistenceTests : AbstractOnServerIT() {
     }
 
     @Test
-    fun testRemoveRootThenUploadFile() {
+    fun testUploadFileThenDeleteRootOnServerOnlyThenUploadAgainShouldRecreateAllFolderLevelsAndReturnOk() {
         uploadAndAssertSuccess("first.txt")
 
         assertTrue(
