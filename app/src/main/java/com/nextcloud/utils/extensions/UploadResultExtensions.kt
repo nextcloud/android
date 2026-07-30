@@ -14,7 +14,6 @@ import com.owncloud.android.db.UploadResult
 fun UploadResult.isNonRetryable(): Boolean = when (this) {
     UploadResult.FILE_NOT_FOUND,
     UploadResult.FILE_ERROR,
-    UploadResult.FOLDER_ERROR,
     UploadResult.CANNOT_CREATE_FILE,
     UploadResult.SYNC_CONFLICT,
     UploadResult.CONFLICT_ERROR,

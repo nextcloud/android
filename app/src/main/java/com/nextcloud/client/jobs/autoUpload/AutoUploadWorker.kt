@@ -424,10 +424,11 @@ class AutoUploadWorker(
             isWhileChargingOnly = needsCharging
             localAction = uploadAction
 
+            isCreateRemoteFolder = true
+
             // Only set these for new uploads
             if (uploadEntity == null) {
                 createdBy = UploadFileOperation.CREATED_AS_INSTANT_PICTURE
-                isCreateRemoteFolder = true
             }
         }
 
