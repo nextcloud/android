@@ -31,11 +31,13 @@ import androidx.core.view.size
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.NotificationListItemBinding
 import com.owncloud.android.lib.resources.notifications.models.Action
 import com.owncloud.android.lib.resources.notifications.models.Notification
+import com.owncloud.android.ui.activities.adapter.ActivityListAdapter
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.fragment.notifications.NotificationsAdapterItemClick
 import com.owncloud.android.ui.fragment.notifications.NotificationsFragment
@@ -46,7 +48,8 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 class NotificationListAdapter(
     private val fragment: NotificationsFragment,
     private val viewThemeUtils: ViewThemeUtils,
-    private val itemClick: NotificationsAdapterItemClick
+    private val itemClick: NotificationsAdapterItemClick,
+    private val accountManager: CurrentAccountProvider
 ) : RecyclerView.Adapter<NotificationListAdapter.NotificationViewHolder>() {
 
     private val styleSpanBold = StyleSpan(Typeface.BOLD)
@@ -301,25 +304,42 @@ class NotificationListAdapter(
     }
     // endregion
 
-    private fun makeSpecialPartsBold(notification: Notification): SpannableStringBuilder {
-        var text = notification.getSubjectRich()
+    private fun makeSpecialPartsBold(richElement: Notification): SpannableStringBuilder {
+        var text = richElement.getSubjectRich()
         val ssb = SpannableStringBuilder(text)
 
-        var openingBrace = text.indexOf('{')
-        var closingBrace: Int
-        var replaceablePart: String?
-        while (openingBrace != -1) {
-            closingBrace = text.indexOf('}', openingBrace) + 1
-            replaceablePart = text.substring(openingBrace + 1, closingBrace - 1)
-            notification.subjectRichParameters[replaceablePart]?.name?.let { name ->
-                ssb.replace(openingBrace, closingBrace, name)
-                text = ssb.toString()
-                closingBrace = openingBrace + name.length
+        var start = text.indexOf(PLACEHOLDER_START)
+        var end: Int
+        var tag: String?
+        while (start != -1) {
+            end = text.indexOf(PLACEHOLDER_END, start) + 1
+            tag = text.substring(start + 1, end - 1)
+            val richObject = richElement.subjectRichParameters[tag]
 
-                ssb.setSpan(styleSpanBold, openingBrace, closingBrace, 0)
-                ssb.setSpan(foregroundColorSpanBlack, openingBrace, closingBrace, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            val nextSearchStart = when {
+                richObject == null -> end
+
+                richObject.type == USER_TYPE -> {
+                    ssb.applyMentionSpan(richObject, start, end)
+                    end
+                }
+
+                else -> {
+                    val nameEnd = ssb.applyClickableNameSpan(richObject, start, end)
+                    text = ssb.toString()
+                    nameEnd
+                }
             }
-            openingBrace = text.indexOf('{', closingBrace)
+
+            richObject?.name?.let { name ->
+                ssb.replace(start, end, name)
+                text = ssb.toString()
+                end = start + name.length
+
+                ssb.setSpan(styleSpanBold, start, end, 0)
+                ssb.setSpan(foregroundColorSpanBlack, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            }
+            start = text.indexOf(PLACEHOLDER_START, nextSearchStart)
         }
 
         return ssb
@@ -331,5 +351,8 @@ class NotificationListAdapter(
     companion object {
         private const val FILE = "file"
         private const val ACTION_TYPE_WEB = "WEB"
+        private const val PLACEHOLDER_START = '{'
+        private const val PLACEHOLDER_END = '}'
+        private const val USER_TYPE = "user"
     }
 }

@@ -302,7 +302,7 @@ class NotificationsFragment :
 
     private fun initializeAdapter() {
         if (adapter == null) {
-            adapter = NotificationListAdapter(this@NotificationsFragment, viewThemeUtils, this)
+            adapter = NotificationListAdapter(this@NotificationsFragment, viewThemeUtils, this, accountManager)
             binding?.list?.adapter = adapter
         }
     }
@@ -315,7 +315,7 @@ class NotificationsFragment :
 
     @VisibleForTesting
     fun initForTesting(state: NotificationsUIState) {
-        adapter = NotificationListAdapter(this@NotificationsFragment, viewThemeUtils, this)
+        adapter = NotificationListAdapter(this@NotificationsFragment, viewThemeUtils, this, accountManager)
         binding?.list?.adapter = adapter
         binding?.list?.layoutManager = LinearLayoutManager(requireContext())
         this.state = state
