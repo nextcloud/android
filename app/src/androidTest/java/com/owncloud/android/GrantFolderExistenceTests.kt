@@ -115,7 +115,7 @@ class GrantFolderExistenceTests : AbstractOnServerIT() {
 
     private fun upload(localFileName: String, remotePath: String): RemoteOperationResult<*> {
         val localFile = createFile(localFileName, FILE_LINE_COUNT)
-        assertTrue("local test file must exist before uploading", localFile.exists())
+        assertTrue("local file must exist before uploading", localFile.exists())
 
         val ocUpload = OCUpload(
             localFile.absolutePath,
