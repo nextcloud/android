@@ -80,7 +80,7 @@ class GrantFolderExistenceTests : AbstractOnServerIT() {
         uploadAndAssertSuccess("first.txt")
 
         assertTrue(
-            "root should be removed",
+            "root folder should be removed",
             RemoveFileRemoteOperation(root).execute(client).isSuccess
         )
         assertFalse(existsOnServer(root))
