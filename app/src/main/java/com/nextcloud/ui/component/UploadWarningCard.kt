@@ -95,6 +95,8 @@ class UploadWarningCard(
             overridePowerSaving = true
         )
 
+        backgroundJobManager.scheduleContentObserverJob(overridePowerSaving = true)
+
         val message = if (startedFolderCount > 0) {
             R.string.auto_upload_sync_now_started
         } else {

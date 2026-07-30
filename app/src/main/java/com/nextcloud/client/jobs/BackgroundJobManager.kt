@@ -35,8 +35,11 @@ interface BackgroundJobManager {
      *
      * This call is idempotent - there will be only one scheduled job
      * regardless of number of calls.
+     *
+     * @param overridePowerSaving lets an explicitly user triggered sync run even while the device is in power
+     * saving mode. The worker reschedules itself without the override afterwards.
      */
-    fun scheduleContentObserverJob()
+    fun scheduleContentObserverJob(overridePowerSaving: Boolean = false)
 
     /**
      * Schedule periodic contacts backups job. Operating system will
