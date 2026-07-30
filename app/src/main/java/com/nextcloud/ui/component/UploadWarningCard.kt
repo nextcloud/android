@@ -17,13 +17,20 @@ import android.provider.Settings
 import android.view.View
 import androidx.core.net.toUri
 import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.utils.extensions.setVisibleIf
+import com.owncloud.android.R
 import com.owncloud.android.databinding.UploadWarningCardBinding
+import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.FilesSyncHelper
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 class UploadWarningCard(
     private val context: Context,
     private val powerManagementService: PowerManagementService,
+    private val syncedFolderProvider: SyncedFolderProvider,
+    private val backgroundJobManager: BackgroundJobManager,
     private val viewThemeUtils: ViewThemeUtils
 ) {
     fun bind(binding: UploadWarningCardBinding) {
@@ -34,9 +41,14 @@ class UploadWarningCard(
 
         if (isBatterySaver) {
             viewThemeUtils.material.themeCardView(binding.batterySaverLayout)
+            viewThemeUtils.material.colorMaterialTextButton(binding.batterySaverButton)
+            viewThemeUtils.material.colorMaterialTextButton(binding.syncNowButton)
             binding.batterySaverLayout.visibility = View.VISIBLE
             binding.batterySaverButton.setOnClickListener {
                 openBatterySaverPage()
+            }
+            binding.syncNowButton.setOnClickListener {
+                startAutoUploadViaIgnoringBatteryOptimization(it)
             }
         } else {
             binding.batterySaverLayout.visibility = View.GONE
@@ -75,6 +87,22 @@ class UploadWarningCard(
         binding = null
     }
     // endregion
+
+    private fun startAutoUploadViaIgnoringBatteryOptimization(view: View) {
+        val startedFolderCount = FilesSyncHelper.startAutoUploadForEnabledSyncedFolders(
+            syncedFolderProvider,
+            backgroundJobManager,
+            overridePowerSaving = true
+        )
+
+        val message = if (startedFolderCount > 0) {
+            R.string.auto_upload_sync_now_started
+        } else {
+            R.string.auto_upload_sync_now_no_folder
+        }
+
+        DisplayUtils.showSnackMessage(view, message)
+    }
 
     /**
      * Opens page for OS's battery saver screen.

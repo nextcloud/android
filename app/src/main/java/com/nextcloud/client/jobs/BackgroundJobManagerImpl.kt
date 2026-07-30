@@ -508,9 +508,13 @@ internal class BackgroundJobManagerImpl(
             )
             .build()
 
+        // an already scheduled run may still carry overridePowerSaving = false and would swallow an explicit
+        // user request, therefore replace it instead of keeping it
+        val policy = if (overridePowerSaving) ExistingWorkPolicy.REPLACE else ExistingWorkPolicy.KEEP
+
         workManager.enqueueUniqueWork(
             JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID,
-            ExistingWorkPolicy.KEEP,
+            policy,
             request
         )
     }
