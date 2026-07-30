@@ -84,6 +84,9 @@ class AutoUploadWorker(
     private val fileUploadHelper = FileUploadHelper.instance()
     private val retryPolicy = UploadDelayPolicy()
 
+    private val overridePowerSaving: Boolean
+        get() = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
+
     @Suppress("ReturnCount")
     override suspend fun doWork(): Result {
         return try {
@@ -185,7 +188,6 @@ class AutoUploadWorker(
 
     @Suppress("ReturnCount")
     private suspend fun canExitEarly(syncedFolderID: Long): Boolean {
-        val overridePowerSaving = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
         if ((powerManagementService.isPowerSavingEnabled && !overridePowerSaving)) {
             Log_OC.w(TAG, "⚡ Skipping: device is in power saving mode")
             return true
@@ -455,7 +457,11 @@ class AutoUploadWorker(
         upload.isWhileChargingOnly,
         true,
         FileDataStorageManager(user, context.contentResolver)
-    )
+    ).apply {
+        if (overridePowerSaving) {
+            isIgnoringPowerSaveMode = true
+        }
+    }
 
     private fun sendUploadFinishEvent(operation: UploadFileOperation, result: RemoteOperationResult<*>) {
         fileUploadEventBroadcaster.sendUploadCompleted(

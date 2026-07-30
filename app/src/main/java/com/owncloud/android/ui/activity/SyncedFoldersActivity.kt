@@ -167,7 +167,13 @@ class SyncedFoldersActivity :
         super.onCreate(savedInstanceState)
         binding = SyncedFoldersLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        uploadWarningCard = UploadWarningCard(this, powerManagementService, viewThemeUtils)
+        uploadWarningCard = UploadWarningCard(
+            this,
+            powerManagementService,
+            syncedFolderProvider,
+            backgroundJobManager,
+            viewThemeUtils
+        )
         if (intent != null && intent.extras != null) {
             val accountName = intent.extras!!.getString(NotificationWork.KEY_NOTIFICATION_ACCOUNT)
             val optionalUser = user
@@ -405,7 +411,7 @@ class SyncedFoldersActivity :
             syncedFolder.remotePath,
             syncedFolder.isWifiOnly,
             syncedFolder.isChargingOnly,
-            syncedFolder.isExisting,
+            syncedFolder.alsoUploadExistingFiles(),
             syncedFolder.isSubfolderByDate,
             syncedFolder.account,
             syncedFolder.uploadAction,
@@ -437,7 +443,7 @@ class SyncedFoldersActivity :
             syncedFolder.remotePath,
             syncedFolder.isWifiOnly,
             syncedFolder.isChargingOnly,
-            syncedFolder.isExisting,
+            syncedFolder.alsoUploadExistingFiles(),
             syncedFolder.isSubfolderByDate,
             syncedFolder.account,
             syncedFolder.uploadAction,
@@ -852,7 +858,7 @@ class SyncedFoldersActivity :
         item.remotePath = remotePath
         item.isWifiOnly = wifiOnly
         item.isChargingOnly = chargingOnly
-        item.isExisting = existing
+        item.setExisting(existing)
         item.isSubfolderByDate = subfolderByDate
         item.uploadAction = uploadAction
         item.setNameCollisionPolicy(nameCollisionPolicy)
