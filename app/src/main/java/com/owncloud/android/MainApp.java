@@ -335,7 +335,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         }
 
         Log_OC.d(TAG, "scheduleContentObserverJob, called");
-        backgroundJobManager.scheduleContentObserverJob();
+        backgroundJobManager.scheduleContentObserverJob(false);
 
         initSyncOperations(this,
                            preferences,
