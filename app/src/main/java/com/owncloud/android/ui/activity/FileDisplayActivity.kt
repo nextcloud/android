@@ -2403,7 +2403,7 @@ class FileDisplayActivity :
 
             is PreviewMediaFragment -> {
                 fragment.updateFile(ocFile)
-                if (PreviewMediaFragment.canBePreviewed(ocFile)) {
+                if (PreviewMediaFragment.isAudioOrVideo(ocFile)) {
                     startMediaPreview(
                         ocFile,
                         fragment.position,
@@ -2688,7 +2688,7 @@ class FileDisplayActivity :
                 startMediaActivity(file, startPlaybackPosition, autoplay, actualUser)
             } else {
                 configureToolbarForPreview(file)
-                val mediaFragment: Fragment = newInstance(file, user.get(), startPlaybackPosition, autoplay, false)
+                val mediaFragment: Fragment = newInstance(file, user.get(), startPlaybackPosition, autoplay)
                 setLeftFragment(mediaFragment, false)
             }
         } else {
