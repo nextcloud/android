@@ -7,17 +7,9 @@
 package com.owncloud.android.ui.activities.adapter
 
 import android.content.Context
-import android.graphics.Typeface
-import android.graphics.drawable.Drawable
-import android.text.Spannable
 import android.text.SpannableStringBuilder
-import android.text.TextPaint
-import android.text.TextUtils
 import android.text.format.DateFormat
 import android.text.format.DateUtils
-import android.text.style.ClickableSpan
-import android.text.style.ForegroundColorSpan
-import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,12 +21,12 @@ import androidx.annotation.DrawableRes
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.chip.ChipDrawable
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.utils.GlideHelper
-import com.nextcloud.utils.text.MentionChipSpan
+import com.nextcloud.utils.text.RichSubjectFormatter
+import com.nextcloud.utils.text.RichSubjectParam
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityListItemBinding
@@ -53,7 +45,6 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import thirdparties.fresco.BetterImageSpan
 import java.util.Locale
 import kotlin.math.floor
 import kotlin.math.log
@@ -67,13 +58,13 @@ open class ActivityListAdapter(
     private val isDetailView: Boolean,
     private val viewThemeUtils: ViewThemeUtils
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
-    StickyHeaderAdapter,
-    DisplayUtils.AvatarGenerationListener {
+    StickyHeaderAdapter {
 
     protected var client: NextcloudClient? = null
     val values: MutableList<Any> = mutableListOf()
     private val px = getThumbnailDimension()
     private var cachedNextcloudClient: NextcloudClient? = null
+    private val richSubjectFormatter by lazy { RichSubjectFormatter(context, currentAccountProvider) }
 
     // region Public Methods
     @Suppress("NotifyDataSetChanged")
@@ -138,12 +129,6 @@ open class ActivityListAdapter(
 
     override fun isHeader(itemPosition: Int) =
         itemPosition in values.indices && getItemViewType(itemPosition) == HEADER_TYPE
-
-    override fun avatarGenerated(avatarDrawable: Drawable, callContext: Any) {
-        (callContext as ChipDrawable).chipIcon = avatarDrawable
-    }
-
-    override fun shouldCallGeneratedCallback(tag: String, callContext: Any): Boolean = true
     // endregion
 
     // region Private Methods
@@ -248,15 +233,6 @@ open class ActivityListAdapter(
         }
     }
 
-    private fun getDrawableForMentionChipSpan(chipResource: Int, text: String): ChipDrawable =
-        ChipDrawable.createFromResource(context, chipResource).apply {
-            setEllipsize(TextUtils.TruncateAt.MIDDLE)
-            layoutDirection = context.resources.configuration.layoutDirection
-            setText(text)
-            setChipIconResource(R.drawable.accent_circle)
-            setBounds(0, 0, intrinsicWidth, intrinsicHeight)
-        }
-
     private suspend fun nextcloudClient(): NextcloudClient = cachedNextcloudClient ?: withContext(Dispatchers.IO) {
         OwnCloudClientManagerFactory.getDefaultSingleton()
             .getNextcloudClientFor(currentAccountProvider.user.toOwnCloudAccount(), context)
@@ -302,83 +278,16 @@ open class ActivityListAdapter(
         return imageView
     }
 
-    private fun addClickablePart(richElement: RichElement): SpannableStringBuilder {
-        var text = richElement.richSubject
-        val ssb = SpannableStringBuilder(text)
-
-        var start = text.indexOf(PLACEHOLDER_START)
-        while (start != -1) {
-            val end = text.indexOf(PLACEHOLDER_END, start) + 1
-            val tag = text.substring(start + 1, end - 1)
-            val richObject = richElement.richObjectList.firstOrNull { it.tag.equals(tag, ignoreCase = true) }
-
-            val nextSearchStart = when {
-                richObject == null -> end
-
-                richObject.type == USER_TYPE -> {
-                    ssb.applyMentionSpan(richObject, start, end)
-                    end
-                }
-
-                else -> {
-                    val nameEnd = ssb.applyClickableNameSpan(richObject, start, end)
-                    text = ssb.toString()
-                    nameEnd
-                }
-            }
-
-            start = text.indexOf(PLACEHOLDER_START, nextSearchStart)
+    private fun addClickablePart(richElement: RichElement): SpannableStringBuilder =
+        richSubjectFormatter.format(richElement.richSubject) { tag ->
+            richElement.richObjectList
+                .firstOrNull { it.tag.equals(tag, ignoreCase = true) }
+                ?.toRichSubjectParam()
         }
 
-        return ssb
-    }
-
-    private fun SpannableStringBuilder.applyMentionSpan(richObject: RichObject, start: Int, end: Int) {
-        val name = richObject.name
-        val chip = getDrawableForMentionChipSpan(R.xml.chip_others, name ?: "")
-        val span = MentionChipSpan(chip, BetterImageSpan.ALIGN_CENTER, richObject.id ?: "", name)
-
-        richObject.id?.let { id ->
-            DisplayUtils.setAvatar(
-                currentAccountProvider.user,
-                id,
-                name,
-                this@ActivityListAdapter,
-                context.resources.getDimension(R.dimen.avatar_icon_radius),
-                context.resources,
-                chip,
-                context
-            )
-        }
-
-        setSpan(span, start, end, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
-    }
-
-    private fun SpannableStringBuilder.applyClickableNameSpan(richObject: RichObject, start: Int, end: Int): Int {
-        val name = richObject.name.orEmpty()
-        replace(start, end, name)
-        val nameEnd = start + name.length
-
-        setSpan(
-            object : ClickableSpan() {
-                override fun onClick(widget: View) = activityListInterface.onActivityClicked(richObject)
-                override fun updateDrawState(ds: TextPaint) {
-                    ds.isUnderlineText = false
-                }
-            },
-            start,
-            nameEnd,
-            0
-        )
-        setSpan(StyleSpan(Typeface.BOLD), start, nameEnd, 0)
-        setSpan(
-            ForegroundColorSpan(context.resources.getColor(R.color.text_color)),
-            start,
-            nameEnd,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-
-        return nameEnd
+    private fun RichObject.toRichSubjectParam(): RichSubjectParam {
+        val richObject = this
+        return RichSubjectParam(type, id, name) { activityListInterface.onActivityClicked(richObject) }
     }
 
     private fun getThumbnailDimension(): Int {
@@ -397,9 +306,6 @@ open class ActivityListAdapter(
         const val HEADER_TYPE = 100
         const val ACTIVITY_TYPE = 101
         private const val COLORED_ICON_SUFFIX = "-color.svg"
-        private const val PLACEHOLDER_START = '{'
-        private const val PLACEHOLDER_END = '}'
-        private const val USER_TYPE = "user"
         private const val TIME_PATTERN = "HH:mm"
         private const val HEADER_DATE_SKELETON = "EEEE, MMMM d"
         private const val PREVIEW_COLUMN_SPACING = 20

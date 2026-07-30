@@ -14,17 +14,13 @@ package com.owncloud.android.ui.adapter
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Typeface
-import android.text.Spannable
 import android.text.SpannableStringBuilder
-import android.text.style.ForegroundColorSpan
-import android.text.style.StyleSpan
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.appcompat.widget.PopupMenu
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.net.toUri
 import androidx.core.view.size
@@ -33,11 +29,13 @@ import com.google.android.material.button.MaterialButton
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.utils.extensions.setVisibleIf
+import com.nextcloud.utils.text.RichSubjectFormatter
+import com.nextcloud.utils.text.RichSubjectParam
 import com.owncloud.android.R
 import com.owncloud.android.databinding.NotificationListItemBinding
 import com.owncloud.android.lib.resources.notifications.models.Action
 import com.owncloud.android.lib.resources.notifications.models.Notification
-import com.owncloud.android.ui.activities.adapter.ActivityListAdapter
+import com.owncloud.android.lib.resources.notifications.models.RichObject
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.fragment.notifications.NotificationsAdapterItemClick
 import com.owncloud.android.ui.fragment.notifications.NotificationsFragment
@@ -52,11 +50,10 @@ class NotificationListAdapter(
     private val accountManager: CurrentAccountProvider
 ) : RecyclerView.Adapter<NotificationListAdapter.NotificationViewHolder>() {
 
-    private val styleSpanBold = StyleSpan(Typeface.BOLD)
-    private val foregroundColorSpanBlack = ForegroundColorSpan(
-        ContextCompat.getColor(fragment.requireContext(), R.color.text_color)
-    )
     private val notificationsList = ArrayList<Notification>()
+    private val richSubjectFormatter by lazy {
+        RichSubjectFormatter(fragment.requireContext(), accountManager)
+    }
 
     // region Adapter overrides
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = NotificationViewHolder(
@@ -105,21 +102,34 @@ class NotificationListAdapter(
         } else {
             holder.binding.subject.run {
                 text = if (!notification.subjectRich.isNullOrEmpty()) {
-                    makeSpecialPartsBold(notification)
+                    formatSubjectRich(notification)
                 } else {
                     notification.getSubject()
                 }
-                if (file?.id?.isNotEmpty() == true) {
-                    setOnClickListener {
-                        val intent = Intent(fragment.requireActivity(), FileDisplayActivity::class.java).apply {
-                            action = Intent.ACTION_VIEW
-                            putExtra(FileDisplayActivity.KEY_FILE_ID, file.id)
-                        }
-                        fragment.requireActivity().startActivity(intent)
-                    }
-                }
+                val fileId = file?.id?.takeIf { it.isNotEmpty() }
+                setOnClickListener(fileId?.let { id -> View.OnClickListener { showFile(id) } })
             }
         }
+    }
+
+    private fun formatSubjectRich(notification: Notification): SpannableStringBuilder =
+        richSubjectFormatter.format(notification.getSubjectRich()) { tag ->
+            notification.subjectRichParameters[tag]?.toRichSubjectParam()
+        }
+
+    private fun RichObject.toRichSubjectParam(): RichSubjectParam {
+        val fileId = id?.takeIf { type == FILE && it.isNotEmpty() }
+            ?: return RichSubjectParam(type, id, name)
+
+        return RichSubjectParam(type, id, name) { showFile(fileId) }
+    }
+
+    private fun showFile(fileId: String) {
+        val intent = Intent(fragment.requireActivity(), FileDisplayActivity::class.java).apply {
+            action = Intent.ACTION_VIEW
+            putExtra(FileDisplayActivity.KEY_FILE_ID, fileId)
+        }
+        fragment.requireActivity().startActivity(intent)
     }
 
     private fun bindMessage(holder: NotificationViewHolder, notification: Notification) {
@@ -304,55 +314,11 @@ class NotificationListAdapter(
     }
     // endregion
 
-    private fun makeSpecialPartsBold(richElement: Notification): SpannableStringBuilder {
-        var text = richElement.getSubjectRich()
-        val ssb = SpannableStringBuilder(text)
-
-        var start = text.indexOf(PLACEHOLDER_START)
-        var end: Int
-        var tag: String?
-        while (start != -1) {
-            end = text.indexOf(PLACEHOLDER_END, start) + 1
-            tag = text.substring(start + 1, end - 1)
-            val richObject = richElement.subjectRichParameters[tag]
-
-            val nextSearchStart = when {
-                richObject == null -> end
-
-                richObject.type == USER_TYPE -> {
-                    ssb.applyMentionSpan(richObject, start, end)
-                    end
-                }
-
-                else -> {
-                    val nameEnd = ssb.applyClickableNameSpan(richObject, start, end)
-                    text = ssb.toString()
-                    nameEnd
-                }
-            }
-
-            richObject?.name?.let { name ->
-                ssb.replace(start, end, name)
-                text = ssb.toString()
-                end = start + name.length
-
-                ssb.setSpan(styleSpanBold, start, end, 0)
-                ssb.setSpan(foregroundColorSpanBlack, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-            }
-            start = text.indexOf(PLACEHOLDER_START, nextSearchStart)
-        }
-
-        return ssb
-    }
-
     class NotificationViewHolder(var binding: NotificationListItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     companion object {
         private const val FILE = "file"
         private const val ACTION_TYPE_WEB = "WEB"
-        private const val PLACEHOLDER_START = '{'
-        private const val PLACEHOLDER_END = '}'
-        private const val USER_TYPE = "user"
     }
 }
