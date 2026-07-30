@@ -136,7 +136,7 @@ class FileUploadHelper {
             try {
                 /**
                  * Rows are marked `UPLOAD_IN_PROGRESS` before upload starts.
-                 * Only `updateDatabaseUploadResult()` writes a terminal status.
+                 * Only `updateDatabaseUploadResult()` writes status.
                  * If the process dies first, the row remains `UPLOAD_IN_PROGRESS`
                  * and is treated as a failed upload eligible for retry.
                  *
