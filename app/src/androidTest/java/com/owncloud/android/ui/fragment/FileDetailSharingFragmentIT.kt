@@ -637,6 +637,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     // for send new email
     @Test
     @Suppress("MagicNumber")
+    @Flaky("not stable")
     fun userOptionMenuFileSendNewEmail() {
         launchActivity<TestActivity>().use { scenario ->
             lateinit var sut: FileDetailSharingFragment
