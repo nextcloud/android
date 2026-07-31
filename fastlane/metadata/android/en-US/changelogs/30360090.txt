@@ -1,6 +1,6 @@
-## 33.0.0 (February 18, 2026)
+## 3.36.0 (February 18, 2026)
 
-- Auto upload improvements
+- Auto upload fixes
 - Bug fixes and performance improvements
 
 Minimum: NC 20 Server, Android 9 Nougat
