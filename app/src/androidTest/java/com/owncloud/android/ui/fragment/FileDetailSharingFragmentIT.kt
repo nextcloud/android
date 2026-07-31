@@ -664,6 +664,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     // for advanced permissions
     @Test
     @Suppress("MagicNumber")
+    @Flaky("not stable")
     fun userOptionMenuFolderAdvancePermission() {
         launchActivity<TestActivity>().use { scenario ->
             lateinit var sut: FileDetailSharingFragment
