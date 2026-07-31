@@ -27,6 +27,7 @@ import com.google.android.apps.common.testing.accessibility.framework.Accessibil
 import com.google.android.apps.common.testing.accessibility.framework.AccessibilityCheckResultUtils.matchesViews
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.nextcloud.android.lib.resources.files.FileDownloadLimit
+import com.nextcloud.test.Flaky
 import com.nextcloud.test.RetryTestRule
 import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
@@ -757,6 +758,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     // for send new email
     @Test
     @Suppress("MagicNumber")
+    @Flaky(reason = "Share option menu occasionally does not open before the assertions run")
     fun userOptionMenuFolderSendNewEmail() {
         launchActivity<TestActivity>().use { scenario ->
             lateinit var sut: FileDetailSharingFragment
