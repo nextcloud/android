@@ -1086,7 +1086,7 @@
     <string name="unshare_link_file_no_exist">Não foi possível descompartilhar. Verifique se o arquivo existe.</string>
     <string name="unshare_link_forbidden_permissions">para descompartilhar este arquivo</string>
     <string name="unsharing_failed">Falha ao descompartilhar</string>
-    <string name="untrusted_domain">Acesso através de domínio não confiável. Veja a documentação para mais informações.</string>
+    <string name="untrusted_domain">Acesso através de um domínio não confiável. Veja a documentação para mais informações.</string>
     <string name="update_link_file_error">Ocorreu um erro ao tentar atualizar o compartilhamento.</string>
     <string name="update_link_file_no_exist">Não foi possível atualizar. Verifique se o arquivo existe.</string>
     <string name="update_link_forbidden_permissions">para atualizar este compartilhamento</string>
