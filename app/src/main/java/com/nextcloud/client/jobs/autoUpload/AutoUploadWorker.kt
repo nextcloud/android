@@ -72,6 +72,7 @@ class AutoUploadWorker(
     companion object {
         const val TAG = "🔄📤" + "AutoUpload"
         const val OVERRIDE_POWER_SAVING = "overridePowerSaving"
+        const val FULL_RESCAN = "fullRescan"
         const val SYNCED_FOLDER_ID = "syncedFolderId"
         const val NOTIFICATION_ID = 266
     }
@@ -103,7 +104,7 @@ class AutoUploadWorker(
             }
 
             // insert entries based on selected local storage path
-            autoUploadHelper.insertEntries(syncedFolder)
+            autoUploadHelper.insertEntries(syncedFolder, inputData.getBoolean(FULL_RESCAN, false))
             uploadFiles(syncedFolder)
 
             // only update last scan time after uploading files

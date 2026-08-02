@@ -30,22 +30,38 @@ class AutoUploadHelper(private val repository: FileSystemRepository) {
         private const val MAX_DEPTH = 100
     }
 
-    fun insertEntries(folder: SyncedFolder) {
+    @JvmOverloads
+    fun insertEntries(folder: SyncedFolder, fullRescan: Boolean = false) {
         when (folder.type) {
             MediaFolderType.IMAGE -> {
                 repository.insertFromUri(MediaStore.Images.Media.INTERNAL_CONTENT_URI, folder)
                 repository.insertFromUri(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, folder)
+                walkFolderIfFullRescan(folder, fullRescan)
             }
 
             MediaFolderType.VIDEO -> {
                 repository.insertFromUri(MediaStore.Video.Media.INTERNAL_CONTENT_URI, folder)
                 repository.insertFromUri(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, folder)
+                walkFolderIfFullRescan(folder, fullRescan)
             }
 
             else -> {
                 insertCustomFolderIntoDB(folder)
             }
         }
+    }
+
+    /**
+     * Media folders are normally scanned through the MediaStore, which occasionally does not list a file that is
+     * present on disk. A manual rescan therefore also walks the folder itself so those files are picked up.
+     */
+    private fun walkFolderIfFullRescan(folder: SyncedFolder, fullRescan: Boolean) {
+        if (!fullRescan) {
+            return
+        }
+
+        val fileCount = insertCustomFolderIntoDB(folder, checkFileType = true)
+        Log_OC.d(TAG, "Full rescan walked ${folder.localPath}, $fileCount files visited")
     }
 
     /**
@@ -75,7 +91,8 @@ class AutoUploadHelper(private val repository: FileSystemRepository) {
         return true
     }
 
-    fun insertCustomFolderIntoDB(folder: SyncedFolder): Int {
+    @JvmOverloads
+    fun insertCustomFolderIntoDB(folder: SyncedFolder, checkFileType: Boolean = false): Int {
         val path = Paths.get(folder.localPath)
 
         if (!Files.exists(path)) {
@@ -118,7 +135,7 @@ class AutoUploadHelper(private val repository: FileSystemRepository) {
                             val creationTime = attrs?.creationTime()?.toMillis()
                             val localPath = file.toLocalPath()
 
-                            repository.insertOrReplace(localPath, lastModified, creationTime, folder)
+                            repository.insertOrReplace(localPath, lastModified, creationTime, folder, checkFileType)
 
                             fileCount++
 

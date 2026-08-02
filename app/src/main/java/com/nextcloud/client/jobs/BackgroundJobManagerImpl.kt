@@ -482,11 +482,12 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueueUniqueWork(JOB_CONTENT_OBSERVER, ExistingWorkPolicy.REPLACE, request)
     }
 
-    override fun startAutoUpload(syncedFolder: SyncedFolder, overridePowerSaving: Boolean) {
+    override fun startAutoUpload(syncedFolder: SyncedFolder, overridePowerSaving: Boolean, fullRescan: Boolean) {
         val syncedFolderID = syncedFolder.id
 
         val arguments = Data.Builder()
             .putBoolean(AutoUploadWorker.OVERRIDE_POWER_SAVING, overridePowerSaving)
+            .putBoolean(AutoUploadWorker.FULL_RESCAN, fullRescan)
             .putLong(AutoUploadWorker.SYNCED_FOLDER_ID, syncedFolderID)
             .build()
 
@@ -508,9 +509,12 @@ internal class BackgroundJobManagerImpl(
             )
             .build()
 
+        // a manual rescan must not be dropped in favour of an already enqueued run that does not carry the flag
+        val existingWorkPolicy = if (fullRescan) ExistingWorkPolicy.REPLACE else ExistingWorkPolicy.KEEP
+
         workManager.enqueueUniqueWork(
             JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID,
-            ExistingWorkPolicy.KEEP,
+            existingWorkPolicy,
             request
         )
     }

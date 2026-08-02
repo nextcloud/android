@@ -1497,6 +1497,11 @@
     <string name="auto_upload_background_activity_action">Allow background activity</string>
     <string name="auto_upload_delete_dialog_description">This will remove the folder and auto-upload configuration. Any unfinished uploads will be canceled.</string>
     <string name="auto_upload_sub_folder_warning">This folder is already included in the parent folder’s sync, which may cause duplicate uploads</string>
+    <string name="auto_upload_rescan_action">Scan for missing files</string>
+    <string name="auto_upload_rescan_dialog_title">Scan for missing files?</string>
+    <string name="auto_upload_rescan_dialog_message">Nextcloud checks all enabled auto-upload folders again and uploads the files that are missing on the server. Files that were already uploaded are not uploaded again.</string>
+    <string name="auto_upload_rescan_started">Scanning for missing files</string>
+    <string name="auto_upload_rescan_no_folders">Enable auto-upload for a folder first</string>
     <string name="sync_anyway">Sync anyway</string>
     <string name="sync_duplication">Sync duplication</string>
     <string name="server_not_reachable">Could not load content</string>

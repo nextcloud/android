@@ -11,7 +11,9 @@ import android.content.Context
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.database.dao.ArbitraryDataDao
 import com.nextcloud.client.database.dao.FileDao
+import com.nextcloud.client.database.dao.FileSystemDao
 import com.nextcloud.client.database.dao.OfflineOperationDao
+import com.nextcloud.client.database.dao.UploadDao
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -32,4 +34,10 @@ class DatabaseModule {
     @Provides
     fun offlineOperationsDao(nextcloudDatabase: NextcloudDatabase): OfflineOperationDao =
         nextcloudDatabase.offlineOperationDao()
+
+    @Provides
+    fun fileSystemDao(nextcloudDatabase: NextcloudDatabase): FileSystemDao = nextcloudDatabase.fileSystemDao()
+
+    @Provides
+    fun uploadDao(nextcloudDatabase: NextcloudDatabase): UploadDao = nextcloudDatabase.uploadDao()
 }

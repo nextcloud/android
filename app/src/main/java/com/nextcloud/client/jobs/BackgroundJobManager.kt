@@ -120,7 +120,15 @@ interface BackgroundJobManager {
 
     fun startImmediateFilesExportJob(files: Collection<OCFile>): LiveData<JobInfo?>
 
-    fun startAutoUpload(syncedFolder: SyncedFolder, overridePowerSaving: Boolean = false)
+    /**
+     * @param fullRescan re-reads the folder from disk instead of relying on the MediaStore and replaces an already
+     * enqueued run for this folder. Used by the manual rescan the user can trigger from the auto-upload screen.
+     */
+    fun startAutoUpload(
+        syncedFolder: SyncedFolder,
+        overridePowerSaving: Boolean = false,
+        fullRescan: Boolean = false
+    )
 
     fun cancelTwoWaySyncJob()
 

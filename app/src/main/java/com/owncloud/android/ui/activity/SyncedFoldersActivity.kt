@@ -31,6 +31,7 @@ import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.MediaFoldersDetectionWork
 import com.nextcloud.client.jobs.NotificationWork
+import com.nextcloud.client.jobs.autoUpload.AutoUploadRescanHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.SubFolderRule
 import com.nextcloud.ui.component.UploadWarningCard
@@ -59,6 +60,7 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment.OnSyncedFolderPreferenceListener
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable
+import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.SyncedFolderUtils
 import kotlinx.coroutines.Dispatchers
@@ -152,6 +154,9 @@ class SyncedFoldersActivity :
 
     @Inject
     lateinit var appInfo: AppInfo
+
+    @Inject
+    lateinit var autoUploadRescanHelper: AutoUploadRescanHelper
 
     private var uploadWarningCard: UploadWarningCard? = null
 
@@ -581,9 +586,48 @@ class SyncedFoldersActivity :
                 result = super.onOptionsItemSelected(item)
             }
 
+            R.id.action_rescan_for_missing_files -> showRescanConfirmationDialog()
+
             else -> result = super.onOptionsItemSelected(item)
         }
         return result
+    }
+
+    private fun showRescanConfirmationDialog() {
+        if (!PermissionUtil.checkStoragePermission(this)) {
+            PermissionUtil.requestStoragePermissionIfNeeded(this)
+            return
+        }
+
+        val builder = MaterialAlertDialogBuilder(this, R.style.Theme_ownCloud_Dialog)
+            .setTitle(R.string.auto_upload_rescan_dialog_title)
+            .setMessage(R.string.auto_upload_rescan_dialog_message)
+            .setPositiveButton(R.string.auto_upload_rescan_action) { _, _ -> startRescan() }
+            .setNegativeButton(R.string.common_cancel, null)
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(this, builder)
+
+        val dialog = builder.show()
+
+        viewThemeUtils.platform.colorTextButtons(
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE),
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+        )
+    }
+
+    private fun startRescan() {
+        lifecycleScope.launch {
+            val rescannedFolders = autoUploadRescanHelper.rescan(userAccountManager.user.accountName)
+            Log_OC.d(TAG, "manual rescan started for $rescannedFolders folders")
+
+            val message = if (rescannedFolders > 0) {
+                R.string.auto_upload_rescan_started
+            } else {
+                R.string.auto_upload_rescan_no_folders
+            }
+
+            DisplayUtils.showSnackMessage(this@SyncedFoldersActivity, message)
+        }
     }
 
     override fun onSyncFolderSettingsClick(section: Int, syncedFolderDisplayItem: SyncedFolderDisplayItem?) {

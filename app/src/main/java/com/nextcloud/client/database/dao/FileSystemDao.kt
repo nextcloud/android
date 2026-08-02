@@ -14,6 +14,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.nextcloud.client.database.entity.FilesystemEntity
 import com.owncloud.android.db.ProviderMeta
+import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 
 @Dao
 interface FileSystemDao {
@@ -107,4 +108,25 @@ interface FileSystemDao {
     """
     )
     suspend fun hasPendingFiles(syncedFolderId: String): Boolean
+
+    /**
+     * Queues every file of the given folder again that was marked as sent for upload but has no successful upload
+     * to prove it. Files with a successful upload keep their state so a rescan never uploads them twice.
+     */
+    @Query(
+        """
+    UPDATE ${ProviderTableMeta.FILESYSTEM_TABLE_NAME}
+    SET ${ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD} = 0
+    WHERE ${ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID} = :syncedFolderId
+      AND ${ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD} = 1
+      AND ${ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER} = 0
+      AND NOT EXISTS (
+          SELECT 1 FROM ${ProviderTableMeta.UPLOADS_TABLE_NAME} upload
+          WHERE upload.${ProviderTableMeta.UPLOADS_LOCAL_PATH} =
+                ${ProviderTableMeta.FILESYSTEM_TABLE_NAME}.${ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH}
+            AND upload.${ProviderTableMeta.UPLOADS_STATUS} = :succeededStatus
+      )
+    """
+    )
+    suspend fun requeueFilesWithoutSuccessfulUpload(syncedFolderId: String, succeededStatus: Int): Int
 }

@@ -15,6 +15,10 @@
             android:title="@string/autoupload_custom_folder"/>
 
         <item
+            android:id="@+id/action_rescan_for_missing_files"
+            android:title="@string/auto_upload_rescan_action"/>
+
+        <item
             android:id="@+id/action_disable_power_save_check"
             android:title="@string/autoupload_disable_power_save_check"
             android:visible="false"

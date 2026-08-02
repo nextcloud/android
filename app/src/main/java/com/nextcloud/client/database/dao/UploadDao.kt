@@ -112,4 +112,25 @@ interface UploadDao {
         status: Int,
         nameCollisionPolicy: Int? = null
     ): List<UploadEntity>
+
+    /**
+     * Drops every upload record below the given local folder that did not succeed. Auto-upload refuses to retry a file
+     * whose last result is non-retryable, and a record left behind in progress by a killed worker keeps its default
+     * [com.owncloud.android.db.UploadResult.UNKNOWN] result, which counts as non-retryable as well. A manual rescan
+     * therefore forgets these records so the files get a fresh attempt. Successful uploads are kept so a rescan never
+     * uploads the same file twice.
+     */
+    @Query(
+        """
+    DELETE FROM ${ProviderTableMeta.UPLOADS_TABLE_NAME}
+    WHERE ${ProviderTableMeta.UPLOADS_ACCOUNT_NAME} = :accountName
+      AND ${ProviderTableMeta.UPLOADS_STATUS} != :succeededStatus
+      AND ${ProviderTableMeta.UPLOADS_LOCAL_PATH} LIKE :localPathPrefix || '%'
+"""
+    )
+    suspend fun deleteUnsuccessfulUploadsInFolder(
+        accountName: String,
+        localPathPrefix: String,
+        succeededStatus: Int
+    ): Int
 }
