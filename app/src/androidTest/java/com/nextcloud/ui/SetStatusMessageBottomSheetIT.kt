@@ -15,6 +15,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.rule.GrantPermissionRule
+import com.nextcloud.test.Flaky
 import com.nextcloud.test.GrantTestPermissionRule
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
@@ -31,6 +32,7 @@ class SetStatusMessageBottomSheetIT : AbstractIT() {
     val permissionRule: GrantPermissionRule = GrantTestPermissionRule.grantStorageAndNotification()
 
     @Test
+    @Flaky(reason = "Bottom sheet is occasionally not rendered before the assertions run")
     fun open() {
         launchActivity<FileDisplayActivity>().use { scenario ->
             onView(isRoot()).check(matches(isDisplayed()))
