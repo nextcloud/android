@@ -12,5 +12,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
+    app:fullscreen_exit_icon="@drawable/accent_circle"
+    app:fullscreen_enter_icon="@drawable/apk"
     android:background="@color/black"
     app:show_buffering="always" />
