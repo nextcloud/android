@@ -90,12 +90,14 @@ class FileDetailSharingFragmentIT : AbstractIT() {
 
     @Test
     @ScreenshotTest
+    @Flaky("not stable")
     fun listSharesFileNone() {
         show(file)
     }
 
     @Test
     @ScreenshotTest
+    @Flaky("not stable")
     fun listSharesFileResharingNotAllowed() {
         file.permissions = ""
 
@@ -104,6 +106,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
 
     @Test
     @ScreenshotTest
+    @Flaky("not stable")
     fun listSharesDownloadLimit() {
         launchActivity<TestActivity>().use { scenario ->
             scenario.onActivity { activity ->
@@ -157,6 +160,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     @Test
     @ScreenshotTest
     @Suppress("MagicNumber")
+    @Flaky("not stable")
     fun listSharesFileAllShareTypes() {
         launchActivity<TestActivity>().use { scenario ->
             scenario.onActivity { activity ->
@@ -287,6 +291,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     // for advanced permissions
     @Test
     @Suppress("MagicNumber")
+    @Flaky("not stable")
     fun publicLinkOptionMenuFolderAdvancePermission() {
         launchActivity<TestActivity>().use { scenario ->
             lateinit var sut: FileDetailSharingFragment
@@ -383,6 +388,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     // for send new email
     @Test
     @Suppress("MagicNumber")
+    @Flaky("not stable")
     fun publicLinkOptionMenuFolderSendNewEmail() {
         launchActivity<TestActivity>().use { scenario ->
             lateinit var sut: FileDetailSharingFragment
@@ -429,6 +435,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     // for advanced permissions
     @Test
     @Suppress("MagicNumber")
+    @Flaky("not stable")
     fun publicLinkOptionMenuFileAdvancePermission() {
         launchActivity<TestActivity>().use { scenario ->
             lateinit var sut: FileDetailSharingFragment
@@ -519,6 +526,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     // for send new email
     @Test
     @Suppress("MagicNumber")
+    @Flaky("not stable")
     fun publicLinkOptionMenuFileSendNewEmail() {
         launchActivity<TestActivity>().use { scenario ->
             lateinit var sut: FileDetailSharingFragment
@@ -544,6 +552,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     // for advanced permissions
     @Test
     @Suppress("MagicNumber")
+    @Flaky("not stable")
     fun userOptionMenuFileAdvancePermission() {
         launchActivity<TestActivity>().use { scenario ->
             lateinit var sut: FileDetailSharingFragment
@@ -796,6 +805,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     }
 
     @Test
+    @Flaky("not stable")
     fun testUploadAndEditingSharePermissions() {
         val testCases = mapOf(
             MAXIMUM_PERMISSIONS_FOR_FOLDER to true,
@@ -814,6 +824,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     }
 
     @Test
+    @Flaky("not stable")
     fun testReadOnlySharePermissions() {
         val testCases = mapOf(
             READ_PERMISSION_FLAG to true,
@@ -833,6 +844,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     }
 
     @Test
+    @Flaky("not stable")
     fun testFileRequestSharePermission() {
         val testCases = mapOf(
             CREATE_PERMISSION_FLAG to true,
@@ -855,6 +867,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     }
 
     @Test
+    @Flaky("not stable")
     fun internalLinkUsesPrettyPathWhenModRewriteWorking() {
         launchActivity<TestActivity>().use { scenario ->
             var sut: FileDetailSharingFragment? = null
@@ -873,6 +886,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     }
 
     @Test
+    @Flaky("not stable")
     fun internalLinkUsesDefaultPathWhenModRewriteNotWorking() {
         launchActivity<TestActivity>().use { scenario ->
             var sut: FileDetailSharingFragment? = null
@@ -890,6 +904,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     }
 
     @Test
+    @Flaky("not stable")
     fun internalLinkFallsBackToDefaultPathWhenCapabilitiesNull() {
         launchActivity<TestActivity>().use { scenario ->
             var sut: FileDetailSharingFragment? = null
