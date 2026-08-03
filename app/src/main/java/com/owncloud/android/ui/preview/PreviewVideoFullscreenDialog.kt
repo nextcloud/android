@@ -9,6 +9,7 @@
 package com.owncloud.android.ui.preview
 
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Build
 import android.view.ViewGroup
 import android.view.Window
@@ -49,6 +50,8 @@ class PreviewVideoFullscreenDialog(
 
     private val binding: DialogPreviewVideoBinding = DialogPreviewVideoBinding.inflate(layoutInflater)
     private var playingStateListener: androidx.media3.common.Player.Listener? = null
+    private var externalDismissListener: DialogInterface.OnDismissListener? = null
+    private var wasPlayingBeforeDismiss = false
 
     /**
      * exoPlayer instance used for this view, either the original one or a new one in specific cases.
@@ -75,7 +78,19 @@ class PreviewVideoFullscreenDialog(
             binding.videoPlayer.player = mExoPlayer
             mExoPlayer.prepare()
         }
+        super.setOnDismissListener {
+            restoreSourcePlayer()
+            externalDismissListener?.onDismiss(this)
+        }
         handleOnBackPressed()
+    }
+
+    /**
+     * Keeps the caller's listener instead of letting it replace the internal one, which has to run first to hand the
+     * playback back to [sourceView].
+     */
+    override fun setOnDismissListener(listener: DialogInterface.OnDismissListener?) {
+        externalDismissListener = listener
     }
 
     private fun isRotatedVideo(): Boolean {
@@ -123,23 +138,24 @@ class PreviewVideoFullscreenDialog(
 
     private fun handleOnBackPressed() {
         activity.onBackPressedDispatcher.addCallback(activity) {
-            val isPlaying = mExoPlayer.isPlaying
-            if (isPlaying) {
+            wasPlayingBeforeDismiss = mExoPlayer.isPlaying
+            if (wasPlayingBeforeDismiss) {
                 mExoPlayer.pause()
-            }
-            setOnDismissListener {
-                playingStateListener?.let {
-                    mExoPlayer.removeListener(it)
-                }
-                switchTargetViewToSource()
-                if (isPlaying) {
-                    sourceExoPlayer.play()
-                }
-                sourceView.showController()
             }
             dismiss()
             isEnabled = false
         }
+    }
+
+    private fun restoreSourcePlayer() {
+        playingStateListener?.let {
+            mExoPlayer.removeListener(it)
+        }
+        switchTargetViewToSource()
+        if (wasPlayingBeforeDismiss) {
+            sourceExoPlayer.play()
+        }
+        sourceView.showController()
     }
 
     private fun switchTargetViewToSource() {
