@@ -129,6 +129,10 @@ class PreviewMediaActivity :
     private val sendShareDownloader by lazy { SendShareDownloader(this) }
 
     private lateinit var binding: ActivityPreviewMediaBinding
+
+    private val exoplayerView: PlayerView
+        get() = binding.exoplayerView.root
+
     private var emptyListView: ViewGroup? = null
     private var videoPlayer: ExoPlayer? = null
     private var videoMediaSession: MediaSession? = null
@@ -211,7 +215,7 @@ class PreviewMediaActivity :
             return
         }
 
-        binding.exoplayerView.visibility = if (isFileVideo()) View.VISIBLE else View.GONE
+        exoplayerView.visibility = if (isFileVideo()) View.VISIBLE else View.GONE
         binding.imagePreview.visibility = if (isFileVideo()) View.GONE else View.VISIBLE
 
         if (isFileVideo()) {
@@ -339,7 +343,7 @@ class PreviewMediaActivity :
                     addListener(
                         ExoplayerListener(
                             this@PreviewMediaActivity,
-                            binding.exoplayerView,
+                            exoplayerView,
                             this
                         )
                     )
@@ -451,7 +455,7 @@ class PreviewMediaActivity :
     }
 
     private fun applyWindowInsets() {
-        val playerView = binding.exoplayerView
+        val playerView = exoplayerView
         val exoControls = playerView.findViewById<FrameLayout>(androidx.media3.ui.R.id.exo_bottom_bar)
         val exoProgress = playerView.findViewById<DefaultTimeBar>(androidx.media3.ui.R.id.exo_progress)
         val progressBottomMargin = exoProgress.marginBottom
@@ -481,7 +485,7 @@ class PreviewMediaActivity :
     private fun setupVideoView() {
         initWindowInsetsController()
         val type = WindowInsetsCompat.Type.systemBars()
-        binding.exoplayerView.let {
+        exoplayerView.let {
             it.setShowNextButton(false)
             it.setShowPreviousButton(false)
             it.setControllerVisibilityListener(
@@ -507,7 +511,7 @@ class PreviewMediaActivity :
             this,
             client,
             player,
-            binding.exoplayerView
+            exoplayerView
         )
             .apply {
                 setOnDismissListener {
