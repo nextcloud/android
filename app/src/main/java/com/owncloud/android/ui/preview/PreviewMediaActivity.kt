@@ -60,6 +60,7 @@ import com.google.common.util.concurrent.MoreExecutors
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.download.FileDownloadHelper
+import com.nextcloud.client.jobs.download.SendShareDownloader
 import com.nextcloud.client.media.BackgroundPlayerService
 import com.nextcloud.client.media.ErrorFormat
 import com.nextcloud.client.media.ExoplayerListener
@@ -92,7 +93,6 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment
 import com.owncloud.android.ui.dialog.SendShareDialog
 import com.owncloud.android.ui.fragment.FileFragment
-import com.owncloud.android.ui.fragment.OCFileListFragment
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.MimeTypeUtil
@@ -126,6 +126,8 @@ class PreviewMediaActivity :
     private var streamUri: Uri? = null
     private var nextcloudClient: NextcloudClient? = null
 
+    private val sendShareDownloader by lazy { SendShareDownloader(this) }
+
     private lateinit var binding: ActivityPreviewMediaBinding
     private var emptyListView: ViewGroup? = null
     private var videoPlayer: ExoPlayer? = null
@@ -157,6 +159,10 @@ class PreviewMediaActivity :
         configureSystemBars()
         emptyListView = binding.emptyView.emptyListView
         showProgressLayout()
+
+        lifecycle.addObserver(sendShareDownloader)
+        sendShareDownloader.restoreState(savedInstanceState)
+
         if (file == null) {
             return
         }
@@ -286,6 +292,7 @@ class PreviewMediaActivity :
             bundle.putParcelable(EXTRA_USER, user)
             saveMediaInstanceState(bundle)
         }
+        sendShareDownloader.saveState(outState)
     }
 
     private fun saveMediaInstanceState(bundle: Bundle) {
@@ -606,7 +613,7 @@ class PreviewMediaActivity :
             }
 
             R.id.action_download_file -> {
-                requestForDownload(file, null)
+                requestForDownload(file)
             }
         }
     }
@@ -636,16 +643,11 @@ class PreviewMediaActivity :
         }
     }
 
-    override fun downloadFile(file: OCFile?, packageName: String?, activityName: String?) {
-        requestForDownload(file, OCFileListFragment.DOWNLOAD_SEND, packageName, activityName)
+    override fun downloadFile(file: OCFile, packageName: String, activityName: String) {
+        sendShareDownloader.downloadFile(file, packageName, activityName)
     }
 
-    private fun requestForDownload(
-        file: OCFile?,
-        downloadBehavior: String? = null,
-        packageName: String? = null,
-        activityName: String? = null
-    ) {
+    private fun requestForDownload(file: OCFile?) {
         val fileDownloadHelper = FileDownloadHelper.instance()
 
         if (fileDownloadHelper.isDownloading(user, file)) {
@@ -654,14 +656,7 @@ class PreviewMediaActivity :
 
         user?.let { user ->
             file?.let { file ->
-                fileDownloadHelper.downloadFile(
-                    user,
-                    file,
-                    downloadBehavior ?: "",
-                    DownloadType.DOWNLOAD,
-                    packageName ?: "",
-                    activityName ?: ""
-                )
+                fileDownloadHelper.downloadFile(user, file, downloadType = DownloadType.DOWNLOAD)
             }
         }
     }

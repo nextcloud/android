@@ -32,6 +32,7 @@ import com.nextcloud.client.editimage.EditImageActivity
 import com.nextcloud.client.jobs.download.FileDownloadEventBroadcaster
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.download.FileDownloadWorker
+import com.nextcloud.client.jobs.download.SendShareDownloader
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.model.WorkerState
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -51,6 +52,7 @@ import com.owncloud.android.operations.SynchronizeFileOperation
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.activity.OnFilesRemovedListener
+import com.owncloud.android.ui.dialog.SendShareDialog
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.fragment.GalleryFragment
 import com.owncloud.android.ui.preview.model.PreviewImageActivityState
@@ -71,11 +73,14 @@ class PreviewImageActivity :
     FileFragment.ContainerActivity,
     OnRemoteOperationListener,
     OnFilesRemovedListener,
+    SendShareDialog.SendShareDialogDownloader,
     Injectable {
     private var livePhotoFile: OCFile? = null
     private var viewPager: ViewPager2? = null
     private var previewMediaPagerAdapter: PreviewMediaPagerAdapter? = null
     private var savedPosition: Int? = null
+
+    private val sendShareDownloader by lazy { SendShareDownloader(this, localBroadcastManager) }
 
     private val downloadStartReceiver = DownloadStartReceiver()
     private val downloadFinishReceiver = DownloadFinishReceiver()
@@ -131,6 +136,13 @@ class PreviewImageActivity :
         observeWorkerState()
         applyDisplayCutOutTopPadding()
         handleBackPress()
+
+        lifecycle.addObserver(sendShareDownloader)
+        sendShareDownloader.restoreState(savedInstanceState)
+    }
+
+    override fun downloadFile(file: OCFile, packageName: String, activityName: String) {
+        sendShareDownloader.downloadFile(file, packageName, activityName)
     }
 
     override fun getMenuItemId(): Int = R.id.nav_gallery
@@ -309,6 +321,7 @@ class PreviewImageActivity :
         super.onSaveInstanceState(outState)
         outState.putBoolean(KEY_WAITING_FOR_BINDER, screenState == PreviewImageActivityState.WaitingForBinder)
         outState.putBoolean(KEY_SYSTEM_VISIBLE, isSystemUIVisible)
+        sendShareDownloader.saveState(outState)
     }
 
     override fun onRemoteOperationFinish(operation: RemoteOperation<*>?, result: RemoteOperationResult<*>) {
