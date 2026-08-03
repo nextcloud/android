@@ -217,9 +217,9 @@ class SendShareDialog :
     }
 
     @Suppress("ReturnCount")
-    override fun onSendButtonClick(sendButtonData: SendButtonData?) {
-        val packageName = sendButtonData?.packageName ?: return
-        val activityName = sendButtonData.activityName ?: return
+    override fun onSendButtonClick(sendButtonData: SendButtonData) {
+        val packageName = sendButtonData.packageName
+        val activityName = sendButtonData.activityName
         val file = file ?: return
 
         try {
@@ -236,15 +236,20 @@ class SendShareDialog :
             }
 
             Log_OC.d(TAG, file.remotePath + ": File must be downloaded")
-            val activity = activity as? SendShareDialogDownloader
-            activity?.downloadFile(file, packageName, activityName)
+            val downloader = activity as? SendShareDialogDownloader
+            if (downloader == null) {
+                Log_OC.e(TAG, "Host activity does not implement SendShareDialogDownloader: $activity")
+                return
+            }
+
+            downloader.downloadFile(file, packageName, activityName)
         } finally {
             dismiss()
         }
     }
 
     interface SendShareDialogDownloader {
-        fun downloadFile(file: OCFile?, packageName: String?, activityName: String?)
+        fun downloadFile(file: OCFile, packageName: String, activityName: String)
     }
 
     companion object {
