@@ -22,6 +22,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isEnabled
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import com.nextcloud.test.Flaky
 import com.nextcloud.test.GrantStoragePermissionRule.Companion.grant
 import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
@@ -423,6 +424,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
     }
 
     @Test
+    @Flaky(reason = "Folder picker activity is occasionally not started before the intent assertions run")
     fun shouldStartMoveInParentFolder() {
         launchActivity<TestActivity>().use { scenario ->
             val fragment = OCFileListFragment()

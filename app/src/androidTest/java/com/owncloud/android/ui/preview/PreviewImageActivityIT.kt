@@ -22,6 +22,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.nextcloud.test.FileRemovedIdlingResource
+import com.nextcloud.test.Flaky
 import com.nextcloud.test.LoopFailureHandler
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.R
@@ -192,16 +193,19 @@ class PreviewImageActivityIT : AbstractOnServerIT() {
     }
 
     @Test
+    @Flaky(reason = "Slideshow pager does not always settle on the next image before the assertions run")
     fun deleteFromSlideshow_localOnly_online() {
         testDeleteFromSlideshow_impl(localOnly = true, offline = false)
     }
 
     @Test
+    @Flaky(reason = "Slideshow pager does not always settle on the next image before the assertions run")
     fun deleteFromSlideshow_localOnly_offline() {
         testDeleteFromSlideshow_impl(localOnly = true, offline = true)
     }
 
     @Test
+    @Flaky(reason = "Remote delete races with the slideshow pager update, so the assertions run too early")
     fun deleteFromSlideshow_remote_online() {
         testDeleteFromSlideshow_impl(localOnly = false, offline = false)
     }

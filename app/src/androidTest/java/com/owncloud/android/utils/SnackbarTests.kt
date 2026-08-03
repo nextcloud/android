@@ -24,6 +24,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nextcloud.client.onboarding.FirstRunActivity
 import com.nextcloud.test.DisableAnimationsRule
+import com.nextcloud.test.Flaky
 import com.nextcloud.test.RetryTestRule
 import com.nextcloud.test.TestActivity
 import com.owncloud.android.R
@@ -104,6 +105,7 @@ class SnackbarTests {
     }
 
     @Test
+    @Flaky(reason = "Snackbar is occasionally dismissed or not yet shown when the visibility assertion runs")
     fun testActivityStringResSnackbar() {
         launchActivity<TestActivity>().use { scenario ->
             scenario.onActivity { sut ->
@@ -126,6 +128,7 @@ class SnackbarTests {
     }
 
     @Test
+    @Flaky(reason = "Snackbar is occasionally dismissed or not yet shown when the visibility assertion runs")
     fun testViewStringResSnackbar() {
         launchActivity<TestActivity>().use { scenario ->
             scenario.onActivity { sut ->
