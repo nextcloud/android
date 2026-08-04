@@ -43,13 +43,12 @@ object FilesSyncHelper {
         provider: SyncedFolderProvider,
         manager: BackgroundJobManager,
         overridePowerSaving: Boolean
-    ) {
+    ): Int {
         Log_OC.d(TAG, "start auto upload worker for each enabled folder")
 
-        provider.syncedFolders.forEach {
-            if (it.isEnabled) {
-                manager.startAutoUpload(it, overridePowerSaving)
-            }
-        }
+        return provider.syncedFolders
+            .filter { it.isEnabled }
+            .onEach { manager.startAutoUpload(it, overridePowerSaving) }
+            .size
     }
 }

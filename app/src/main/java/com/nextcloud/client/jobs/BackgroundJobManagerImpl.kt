@@ -464,7 +464,11 @@ internal class BackgroundJobManagerImpl(
     }
 
     @Suppress("MagicNumber")
-    override fun scheduleContentObserverJob() {
+    override fun scheduleContentObserverJob(overridePowerSaving: Boolean) {
+        val arguments = Data.Builder()
+            .putBoolean(ContentObserverWork.OVERRIDE_POWER_SAVING, overridePowerSaving)
+            .build()
+
         val constrains = Constraints.Builder()
             .addContentUriTrigger(MediaStore.Images.Media.INTERNAL_CONTENT_URI, true)
             .addContentUriTrigger(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, true)
@@ -477,6 +481,7 @@ internal class BackgroundJobManagerImpl(
 
         val request = oneTimeRequestBuilder(ContentObserverWork::class, JOB_CONTENT_OBSERVER)
             .setConstraints(constrains)
+            .setInputData(arguments)
             .build()
 
         workManager.enqueueUniqueWork(JOB_CONTENT_OBSERVER, ExistingWorkPolicy.REPLACE, request)
@@ -508,9 +513,13 @@ internal class BackgroundJobManagerImpl(
             )
             .build()
 
+        // an already scheduled run may still carry overridePowerSaving = false and would swallow an explicit
+        // user request, therefore replace it instead of keeping it
+        val policy = if (overridePowerSaving) ExistingWorkPolicy.REPLACE else ExistingWorkPolicy.KEEP
+
         workManager.enqueueUniqueWork(
             JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID,
-            ExistingWorkPolicy.KEEP,
+            policy,
             request
         )
     }
