@@ -217,29 +217,39 @@ class SendShareDialog :
     }
 
     @Suppress("ReturnCount")
-    override fun onSendButtonClick(sendButtonData: SendButtonData?) {
-        val packageName = sendButtonData?.packageName ?: return
-        val activityName = sendButtonData.activityName ?: return
+    override fun onSendButtonClick(sendButtonData: SendButtonData) {
+        val packageName = sendButtonData.packageName
+        val activityName = sendButtonData.activityName
+        val file = file ?: return
 
-        if (MimeTypeUtil.isImage(file) && !file!!.isDown) {
-            fileOperationsHelper?.sendCachedImage(file, packageName, activityName)
-        } else {
-            // Obtain the file
-            if (file!!.isDown) {
-                sendIntent?.component = ComponentName(packageName, activityName)
-                requireActivity().startActivity(Intent.createChooser(sendIntent, getString(R.string.send)))
-            } else { // Download the file
-                Log_OC.d(TAG, file!!.remotePath + ": File must be downloaded")
-                (requireActivity() as SendShareDialogDownloader)
-                    .downloadFile(file, packageName, activityName)
+        try {
+            if (MimeTypeUtil.isImage(file) && !file.isDown) {
+                fileOperationsHelper?.sendCachedImage(file, packageName, activityName)
+                return
             }
-        }
 
-        dismiss()
+            if (file.isDown) {
+                val activity = activity ?: return
+                sendIntent?.component = ComponentName(packageName, activityName)
+                activity.startActivity(Intent.createChooser(sendIntent, getString(R.string.send)))
+                return
+            }
+
+            Log_OC.d(TAG, file.remotePath + ": File must be downloaded")
+            val downloader = activity as? SendShareDialogDownloader
+            if (downloader == null) {
+                Log_OC.e(TAG, "Host activity does not implement SendShareDialogDownloader: $activity")
+                return
+            }
+
+            downloader.downloadFile(file, packageName, activityName)
+        } finally {
+            dismiss()
+        }
     }
 
     interface SendShareDialogDownloader {
-        fun downloadFile(file: OCFile?, packageName: String?, activityName: String?)
+        fun downloadFile(file: OCFile, packageName: String, activityName: String)
     }
 
     companion object {
