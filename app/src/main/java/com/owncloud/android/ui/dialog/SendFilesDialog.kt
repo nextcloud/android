@@ -105,14 +105,10 @@ class SendFilesDialog :
         return sendButtonDataList
     }
 
-    @Suppress("ReturnCount")
-    override fun onSendButtonClick(sendButtonData: SendButtonData?) {
-        sendButtonData ?: return
-        sendIntent ?: return
+    override fun onSendButtonClick(sendButtonData: SendButtonData) {
+        val sendIntent = sendIntent ?: return
 
-        val packageName = sendButtonData.packageName ?: return
-        val activityName = sendButtonData.activityName ?: return
-        sendIntent?.component = ComponentName(packageName, activityName)
+        sendIntent.component = ComponentName(sendButtonData.packageName, sendButtonData.activityName)
         requireActivity().startActivity(Intent.createChooser(sendIntent, getString(R.string.send)))
         dismiss()
     }
