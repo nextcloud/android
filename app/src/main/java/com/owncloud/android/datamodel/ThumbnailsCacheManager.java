@@ -847,6 +847,9 @@ public final class ThumbnailsCacheManager {
                     try (MediaMetadataRetriever retriever = new MediaMetadataRetriever()) {
                         retriever.setDataSource(file.getAbsolutePath());
                         thumbnail = retriever.getFrameAtTime(-1);
+                        // release the native resources right away instead of leaving them to the finalizer,
+                        // try-with-resources releases them again on the failure paths
+                        retriever.release();
                     } catch (Exception ex) {
                         // can't create a bitmap
                         Log_OC.w(TAG, "Failed to create bitmap from video " + file.getAbsolutePath());
