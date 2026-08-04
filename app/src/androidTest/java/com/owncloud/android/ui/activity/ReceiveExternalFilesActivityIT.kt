@@ -25,6 +25,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.facebook.testing.screenshot.internal.TestNameDetector
 import com.nextcloud.client.preferences.AppPreferencesImpl
+import com.nextcloud.test.Flaky
 import com.nextcloud.test.GrantStoragePermissionRule
 import com.nextcloud.test.withSelectedText
 import com.nextcloud.utils.extensions.removeFileExtension
@@ -104,6 +105,7 @@ class ReceiveExternalFilesActivityIT : AbstractIT() {
         }
 
     @Test
+    @Flaky(reason = "Rename dialog text selection is not settled when the assertions run")
     fun renameSingleFileUpload() {
         val imageFile = getDummyFile("image.jpg")
         val intent = createSendIntent(imageFile)

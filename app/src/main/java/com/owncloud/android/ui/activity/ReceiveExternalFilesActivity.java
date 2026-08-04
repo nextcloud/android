@@ -1062,7 +1062,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
         preferences.setLastUploadPath(mUploadPath);
 
         if (resultCode == UriUploader.UriUploaderResultCode.OK) {
-            finish();
+            // While content:// URIs are copied to temporary files this Activity has to stay alive, otherwise its
+            // temporary read permission for those URIs is revoked. onTmpFilesCopied() finishes it once done.
+            if (!uploader.isTmpCopyInProgress()) {
+                finish();
+            }
         } else {
 
             int messageResTitle = R.string.uploader_error_title_file_cannot_be_uploaded;

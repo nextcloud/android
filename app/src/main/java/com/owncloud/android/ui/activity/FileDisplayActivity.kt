@@ -1493,10 +1493,8 @@ class FileDisplayActivity :
         ocFileListFragment?.fileListLayoutManager?.sortFiles(selection)
     }
 
-    override fun downloadFile(file: OCFile?, packageName: String?, activityName: String?) {
-        if (packageName != null && activityName != null) {
-            startDownloadForSending(file, OCFileListFragment.DOWNLOAD_SEND, packageName, activityName)
-        }
+    override fun downloadFile(file: OCFile, packageName: String, activityName: String) {
+        startDownloadForSending(file, OCFileListFragment.DOWNLOAD_SEND, packageName, activityName)
     }
 
     // region SyncBroadcastReceiver

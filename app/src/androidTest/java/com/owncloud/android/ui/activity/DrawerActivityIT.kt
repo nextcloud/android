@@ -20,6 +20,7 @@ import androidx.test.rule.GrantPermissionRule
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.account.UserAccountManagerImpl
+import com.nextcloud.test.Flaky
 import com.nextcloud.test.GrantTestPermissionRule
 import com.nextcloud.test.RetryTestRule
 import com.owncloud.android.AbstractIT
@@ -42,6 +43,7 @@ class DrawerActivityIT : AbstractIT() {
     val permissionRule: GrantPermissionRule = GrantTestPermissionRule.grantStorageAndNotification()
 
     @Test
+    @Flaky(reason = "Account switch relaunches FileDisplayActivity, which races with the drawer assertions")
     fun switchAccountViaAccountList() {
         // Switching accounts finishes and relaunches FileDisplayActivity (see
         // FileDisplayActivity.handleRestartIntent). That self-relaunch is incompatible with

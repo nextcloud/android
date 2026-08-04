@@ -26,7 +26,6 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
-import java.io.InputStream
 import java.lang.ref.WeakReference
 
 @Suppress("TooGenericExceptionCaught")
@@ -50,20 +49,8 @@ class CopyAndUploadContentUrisTask(
         behaviour: Int,
         contentResolver: ContentResolver
     ) {
-        val inputStreams: List<InputStream?> = try {
-            sourceUris.map { contentResolver.openInputStream(it) }
-        } catch (e: FileNotFoundException) {
-            Log_OC.e(TAG, "Source file not found", e)
-            dispatchResult(ResultCode.LOCAL_FILE_NOT_FOUND)
-            return
-        } catch (e: SecurityException) {
-            Log_OC.e(TAG, "Insufficient permissions to open source URIs", e)
-            dispatchResult(ResultCode.FORBIDDEN)
-            return
-        }
-
         scope.launch(Dispatchers.IO) {
-            val result = performCopy(user, sourceUris, remotePaths, behaviour, contentResolver, inputStreams)
+            val result = performCopy(user, sourceUris, remotePaths, behaviour, contentResolver)
             withContext(Dispatchers.Main) {
                 dispatchResult(result)
             }
@@ -75,8 +62,7 @@ class CopyAndUploadContentUrisTask(
         sourceUris: Array<Uri>,
         remotePaths: Array<String>,
         behaviour: Int,
-        contentResolver: ContentResolver,
-        inputStreams: List<InputStream?>
+        contentResolver: ContentResolver
     ): ResultCode {
         val localPaths = arrayOfNulls<String>(sourceUris.size)
         val resolvedRemotePaths = arrayOfNulls<String>(sourceUris.size)
@@ -95,7 +81,7 @@ class CopyAndUploadContentUrisTask(
                 }
                 Log_OC.d(TAG, "Cache file creation result: ${cacheFile.createNewFile()}")
 
-                inputStreams[index]?.use { input ->
+                contentResolver.openInputStream(uri)?.use { input ->
                     FileOutputStream(currentTempPath).use { output ->
                         input.copyTo(output)
                     }

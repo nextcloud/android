@@ -10,6 +10,7 @@
     <string name="action_edit">Edit</string>
     <string name="action_empty_notifications">Clear all notifications</string>
     <string name="action_empty_trashbin">Empty trash bin</string>
+    <string name="action_open_in_web_editor">Open in web editor</string>
     <string name="action_send_share">Send/share</string>
     <string name="action_switch_grid_view">Grid view</string>
     <string name="action_switch_list_view">List view</string>
@@ -274,6 +275,8 @@
     <string name="dialog_close">Close</string>
     <string name="did_not_check_for_dupes">Did not check for duplicates.</string>
     <string name="digest_algorithm_not_available">This digest algorithm is not available on your phone.</string>
+    <string name="direct_login_confirm_message">Do you want to log in with %1$s to %2$s?</string>
+    <string name="direct_login_confirm_title">Confirm login</string>
     <string name="direct_login_failed">Login via direct link failed!</string>
     <string name="direct_login_text">Login with %1$s to %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">Disable</string>
@@ -783,6 +786,7 @@
     <string name="prefs_recommend">Recommend to a friend</string>
     <string name="prefs_remove_e2e">Remove encryption locally</string>
     <string name="prefs_remove_e2e_keys_and_files">Remove encrypted files and keys</string>
+    <string name="prefs_renew_e2e_certificate">Renew encryption certificate</string>
     <string name="prefs_setup_e2e">Set up end-to-end encryption</string>
     <string name="prefs_show_ecosystem_apps">Show app switcher</string>
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud app suggestions in navigation heading</string>
@@ -833,6 +837,12 @@
     <string name="rename_dialog_title">Enter a new name</string>
     <string name="rename_local_fail_msg">Could not rename local copy, try a different name</string>
     <string name="rename_server_fail_msg">Renaming not possible, name already taken</string>
+    <string name="renew_e2e_certificate_dialog_message">This will renew your end-to-end encryption certificate. Your existing keys and encrypted files remain unchanged. Continue?</string>
+    <string name="renew_e2e_certificate_error">Could not renew encryption certificate</string>
+    <string name="renew_e2e_certificate_private_key_missing">Encryption private key not found</string>
+    <string name="renew_e2e_certificate_success">Encryption certificate renewed</string>
+    <string name="renew_e2e_certificate_summary">Renew your end-to-end encryption certificate while keeping your existing keys</string>
+    <string name="renew_e2e_certificate_valid_until">Valid until %1$s. Tap to renew while keeping your existing keys.</string>
     <string name="request_account_deletion">Request account deletion</string>
     <string name="request_account_deletion_button">Request deletion</string>
     <string name="request_account_deletion_details">Request permanent deletion of account by service provider</string>
