@@ -872,13 +872,13 @@ public final class ThumbnailsCacheManager {
             try {
                 retriever.setDataSource(file.getAbsolutePath());
                 return retriever.getFrameAtTime(-1);
-            } catch (Exception ex) {
+            } catch (Throwable t) {
                 Log_OC.w(TAG, "Failed to create bitmap from video " + file.getAbsolutePath());
                 return null;
             } finally {
                 try {
                     retriever.release();
-                } catch (Exception e) {
+                } catch (Throwable t) {
                     Log_OC.w(TAG, "Failed to release retriever");
                 }
             }
