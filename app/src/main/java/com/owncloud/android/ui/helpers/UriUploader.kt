@@ -64,6 +64,16 @@ class UriUploader @JvmOverloads constructor(
         ERROR_SENSITIVE_PATH
     }
 
+    /**
+     * True when content:// URIs are being copied to temporary files in the background.
+     *
+     * The temporary read permission for those URIs belongs to the calling Activity and is revoked once that Activity is
+     * destroyed. Callers must therefore stay alive until [OnCopyTmpFilesTaskListener.onTmpFilesCopied] is invoked,
+     * otherwise opening the URIs fails with a SecurityException.
+     */
+    var isTmpCopyInProgress: Boolean = false
+        private set
+
     @Suppress("NestedBlockDepth")
     fun uploadUris(): UriUploaderResultCode {
         var code = UriUploaderResultCode.OK
@@ -165,6 +175,7 @@ class UriUploader @JvmOverloads constructor(
         val taskRetainerFragment =
             fm.findFragmentByTag(TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT) as TaskRetainerFragment?
         taskRetainerFragment?.setTask(copyTask)
+        isTmpCopyInProgress = true
         copyTask.execute(
             user,
             sourceUris,
