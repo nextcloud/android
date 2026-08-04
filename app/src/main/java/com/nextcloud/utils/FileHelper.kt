@@ -8,30 +8,58 @@
 package com.nextcloud.utils
 
 import com.owncloud.android.lib.common.utils.Log_OC
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.IOException
+import java.nio.file.DirectoryIteratorException
 import java.nio.file.Files
 import java.nio.file.Path
-import java.util.stream.Collectors
 import kotlin.io.path.pathString
 
 @Suppress("NestedBlockDepth")
 object FileHelper {
     private const val TAG = "FileHelper"
 
-    fun listDirectoryEntries(directory: File?, startIndex: Int, maxItems: Int, fetchFolders: Boolean): List<File> {
-        if (directory == null || !directory.exists() || !directory.isDirectory) return emptyList()
+    suspend fun forEachDirectoryPage(
+        directory: File?,
+        pageSize: Int,
+        fetchFolders: Boolean,
+        onPage: suspend (List<File>) -> Unit
+    ) {
+        if (directory == null || !directory.isDirectory || pageSize <= 0) {
+            return
+        }
 
-        return try {
-            Files.list(directory.toPath())
-                .map { it.toFile() }
-                .filter { file -> if (fetchFolders) file.isDirectory else !file.isDirectory }
-                .skip(startIndex.toLong())
-                .limit(maxItems.toLong())
-                .collect(Collectors.toList())
+        try {
+            withContext(Dispatchers.IO) {
+                Files.newDirectoryStream(directory.toPath())
+            }.use { entries ->
+                var page = ArrayList<File>(pageSize)
+
+                for (entry in entries) {
+                    val file = entry.toFile()
+                    if (file.isDirectory != fetchFolders) {
+                        continue
+                    }
+
+                    page.add(file)
+                    if (page.size < pageSize) {
+                        continue
+                    }
+
+                    onPage(page)
+                    page = ArrayList(pageSize)
+                }
+
+                if (page.isNotEmpty()) {
+                    onPage(page)
+                }
+            }
         } catch (e: IOException) {
-            Log_OC.d(TAG, "listDirectoryEntries: $e")
-            emptyList()
+            Log_OC.d(TAG, "forEachDirectoryPage failed: $e")
+        } catch (e: DirectoryIteratorException) {
+            Log_OC.d(TAG, "forEachDirectoryPage failed: $e")
         }
     }
 

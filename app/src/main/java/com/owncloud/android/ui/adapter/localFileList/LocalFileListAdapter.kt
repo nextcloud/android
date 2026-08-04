@@ -26,8 +26,10 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -44,10 +46,24 @@ class LocalFileListAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
     FilterableListAdapter {
 
-    private var files: MutableList<File> = mutableListOf()
-    private var allFiles: MutableList<File> = mutableListOf()
+    /** Every entry loaded so far, in listing order. Pages are appended, the list is never copied. */
+    private val loadedEntries: MutableList<File> = mutableListOf()
+
+    /** Entries matching [searchQuery]. Holds the same [File] instances as [loadedEntries], not copies. */
+    private val matchingEntries: MutableList<File> = mutableListOf()
+
     private val checkedFiles: MutableSet<File> = linkedSetOf()
-    private var currentOffset = 0
+
+    private var searchQuery = ""
+
+    /** Set by "select all". Entries of the pages that arrive afterwards are selected as well. */
+    private var selectAllActive = false
+
+    private var visibleFilesCount = 0
+    private var visibleFoldersCount = 0
+
+    private var loadJob: Job? = null
+    private var sortJob: Job? = null
 
     var gridView: Boolean = false
 
@@ -67,8 +83,12 @@ class LocalFileListAdapter(
         setHasStableIds(true)
     }
 
+    /** Entries the list renders: the search matches while a search is active, all of them otherwise. */
+    private val visibleEntries: List<File>
+        get() = if (searchQuery.isEmpty()) loadedEntries else matchingEntries
+
     val filesCount: Int
-        get() = files.size
+        get() = visibleEntries.size
 
     val checkedFilesPath: Array<String>
         get() {
@@ -88,37 +108,44 @@ class LocalFileListAdapter(
     }
 
     fun addAllFilesToCheckedFiles() {
-        if (isWithinEncryptedFolder) {
-            checkedFiles.addAll(allFiles.filter { it.isFile })
-        } else {
-            checkedFiles.addAll(files)
-        }
+        selectAllActive = true
+        checkedFiles.addAll(selectableEntries(visibleEntries))
     }
 
     fun removeAllFilesFromCheckedFiles() {
+        selectAllActive = false
         checkedFiles.clear()
     }
 
+    /** Folders cannot be picked inside an encrypted folder, their checkbox stays hidden there. */
+    private fun selectableEntries(entries: List<File>): List<File> =
+        if (isWithinEncryptedFolder) entries.filter { it.isFile } else entries
+
     fun checkedFilesCount(): Int = checkedFiles.size
 
-    fun getItemPosition(file: File): Int = files.indexOf(file)
+    /** Adapter position of [file], or [RecyclerView.NO_POSITION] when it is not shown. */
+    fun getItemPosition(file: File): Int {
+        val index = visibleEntries.indexOf(file)
+        return if (index < 0) RecyclerView.NO_POSITION else index + headerOffset
+    }
 
     private fun shouldShowHeader(): Boolean = !PermissionUtil.checkStoragePermission(activity)
 
     private val headerOffset: Int
         get() = if (shouldShowHeader()) HEADER_ITEM_COUNT else 0
 
-    override fun getItemCount(): Int = files.size + FOOTER_ITEM_COUNT + headerOffset
+    override fun getItemCount(): Int = visibleEntries.size + FOOTER_ITEM_COUNT + headerOffset
 
-    override fun getItemId(position: Int): Long = getStableItemId(position, headerOffset, files)
+    override fun getItemId(position: Int): Long = getStableItemId(position, headerOffset, visibleEntries)
 
     override fun getItemViewType(position: Int): Int {
         val offset = headerOffset
+        val entries = visibleEntries
 
         return when {
             offset == HEADER_ITEM_COUNT && position == 0 -> VIEW_TYPE_HEADER
-            position == files.size + offset -> VIEW_TYPE_FOOTER
-            MimeTypeUtil.isImageOrVideo(files[position - offset]) -> VIEW_TYPE_IMAGE
+            position == entries.size + offset -> VIEW_TYPE_FOOTER
+            MimeTypeUtil.isImageOrVideo(entries[position - offset]) -> VIEW_TYPE_IMAGE
             else -> VIEW_TYPE_ITEM
         }
     }
@@ -146,8 +173,9 @@ class LocalFileListAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val offset = headerOffset
+        val entries = visibleEntries
         val isHeader = offset == HEADER_ITEM_COUNT && position == 0
-        val isFooter = position == files.size + offset
+        val isFooter = position == entries.size + offset
 
         when {
             // the header has no dynamic binding
@@ -155,7 +183,7 @@ class LocalFileListAdapter(
 
             isFooter -> (holder as LocalFileListFooterViewHolder).footerText.text = footerText
 
-            else -> files.getOrNull(position - offset)?.let { file ->
+            else -> entries.getOrNull(position - offset)?.let { file ->
                 itemBinder.bind(holder as LocalFileListGridItemViewHolder, file)
             }
         }
@@ -168,92 +196,150 @@ class LocalFileListAdapter(
      */
     fun swapDirectory(directory: File?) {
         fragmentInterface.setLoading(true)
-        currentOffset = 0
 
-        backgroundScope.launch {
-            showFirstPage(loadFirstPage(directory))
+        // pending pages and sorts belong to the previously shown directory
+        loadJob?.cancel()
+        sortJob?.cancel()
 
-            // load the remaining folders first, then all files
-            loadRemainingEntries(directory, fetchFolders = true)
+        loadJob = backgroundScope.launch {
+            var isFirstPage = true
 
-            currentOffset = 0
-            loadRemainingEntries(directory, fetchFolders = false)
-        }
-    }
-
-    private fun loadFirstPage(directory: File?): List<File> {
-        val firstPage = FileHelper.listDirectoryEntries(directory, currentOffset, PAGE_SIZE, true)
-        currentOffset += PAGE_SIZE
-
-        return if (firstPage.isEmpty()) firstPage else sortAndFilterHiddenEntries(firstPage)
-    }
-
-    private suspend fun loadRemainingEntries(directory: File?, fetchFolders: Boolean) {
-        while (true) {
-            val nextPage = FileHelper.listDirectoryEntries(directory, currentOffset, PAGE_SIZE, fetchFolders)
-            if (nextPage.isEmpty()) {
-                return
+            val consumePage: suspend (List<File>) -> Unit = { page ->
+                deliver(sortAndFilterHiddenEntries(page), if (isFirstPage) ::showFirstPage else ::appendPage)
+                isFirstPage = false
             }
 
-            currentOffset += PAGE_SIZE
-            appendPage(sortAndFilterHiddenEntries(nextPage))
+            // folders are shown on top of the list, so they are read before the files
+            FileHelper.forEachDirectoryPage(directory, PAGE_SIZE, fetchFolders = true, consumePage)
+            FileHelper.forEachDirectoryPage(directory, PAGE_SIZE, fetchFolders = false, consumePage)
+
+            // an empty directory reports no page at all, the list still has to drop its old entries
+            if (isFirstPage) {
+                deliver(emptyList(), ::showFirstPage)
+            }
         }
     }
 
     private fun sortAndFilterHiddenEntries(page: List<File>): List<File> {
-        val visibleEntries = if (preferences.isShowHiddenFilesEnabled) page else page.filterNot { it.isHidden }
-        val sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView)
+        if (page.isEmpty()) {
+            return page
+        }
 
-        return sortOrder.sortLocalFiles(visibleEntries.toMutableList())
+        val pageEntries = if (preferences.isShowHiddenFilesEnabled) {
+            page.toMutableList()
+        } else {
+            page.filterNotTo(mutableListOf()) { it.isHidden }
+        }
+
+        val sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView)
+        return sortOrder.sortLocalFiles(pageEntries)
+    }
+
+    /** Hands a page over to the main thread. Pages of a cancelled load are dropped. */
+    private suspend fun deliver(page: List<File>, consumer: (List<File>) -> Unit) = withContext(Dispatchers.Main) {
+        if (isActive) {
+            consumer(page)
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private suspend fun showFirstPage(firstPage: List<File>) = withContext(Dispatchers.Main) {
-        files = firstPage.toMutableList()
-        allFiles = firstPage.toMutableList()
+    private fun showFirstPage(firstPage: List<File>) {
+        loadedEntries.clear()
+        matchingEntries.clear()
+        searchQuery = ""
+        selectAllActive = false
+
+        loadedEntries.addAll(firstPage)
+        recountFooterEntries()
 
         notifyDataSetChanged()
         fragmentInterface.setLoading(false)
     }
 
-    private suspend fun appendPage(page: List<File>) = withContext(Dispatchers.Main) {
-        val startPositionInAdapter = files.size + headerOffset
+    private fun appendPage(page: List<File>) {
+        if (page.isEmpty()) {
+            return
+        }
 
-        files.addAll(page)
-        allFiles.addAll(page)
+        val startPositionInAdapter = visibleEntries.size + headerOffset
+        loadedEntries.addAll(page)
 
-        Log_OC.d(TAG, "appendPage, item size: ${allFiles.size}")
-        notifyItemRangeInserted(startPositionInAdapter, page.size)
+        // while searching only the matches of the page become visible, keeping the listing order
+        val insertedEntries = if (searchQuery.isEmpty()) {
+            page
+        } else {
+            filterByName(page, searchQuery).also { matchingEntries.addAll(it) }
+        }
+
+        if (selectAllActive) {
+            checkedFiles.addAll(selectableEntries(insertedEntries))
+        }
+
+        addToFooterEntries(insertedEntries)
+        Log_OC.d(TAG, "appendPage, item size: ${loadedEntries.size}")
+
+        if (insertedEntries.isNotEmpty()) {
+            notifyItemRangeInserted(startPositionInAdapter, insertedEntries.size)
+        }
+    }
+
+    fun setSortOrder(sortOrder: FileSortOrder) {
+        fragmentInterface.setLoading(true)
+        sortJob?.cancel()
+
+        // sorting a list that keeps growing while pages arrive is not safe, hand over a copy
+        val entriesToSort = loadedEntries.toMutableList()
+
+        sortJob = backgroundScope.launch {
+            deliver(sortOrder.sortLocalFiles(entriesToSort), ::showSortedEntries)
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setSortOrder(sortOrder: FileSortOrder) {
-        fragmentInterface.setLoading(true)
-
-        backgroundScope.launch {
-            val sortedFiles = sortOrder.sortLocalFiles(files.toMutableList())
-
-            withContext(Dispatchers.Main) {
-                files = sortedFiles.toMutableList()
-                allFiles = sortedFiles.toMutableList()
-
-                notifyDataSetChanged()
-                fragmentInterface.setLoading(false)
-            }
+    private fun showSortedEntries(sortedEntries: List<File>) {
+        // pages that arrived while sorting stay at the end, they are sorted among themselves
+        for (index in 0 until minOf(sortedEntries.size, loadedEntries.size)) {
+            loadedEntries[index] = sortedEntries[index]
         }
+
+        // the search matches have to follow the new order of the listing
+        applySearch(searchQuery)
+
+        notifyDataSetChanged()
+        fragmentInterface.setLoading(false)
     }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun filter(text: String) {
-        files = if (text.isEmpty()) allFiles else filterByName(allFiles, text).toMutableList()
+        applySearch(text)
         notifyDataSetChanged()
     }
 
-    private val footerText: String
-        get() {
-            val (filesCount, foldersCount) = countFooterEntries(files)
-            return generateFooterText(filesCount, foldersCount)
+    private fun applySearch(query: String) {
+        searchQuery = query
+        matchingEntries.clear()
+
+        if (query.isNotEmpty()) {
+            matchingEntries.addAll(filterByName(loadedEntries, query))
         }
+
+        recountFooterEntries()
+    }
+
+    private fun recountFooterEntries() {
+        val (filesCount, foldersCount) = countFooterEntries(visibleEntries)
+        visibleFilesCount = filesCount
+        visibleFoldersCount = foldersCount
+    }
+
+    private fun addToFooterEntries(entries: List<File>) {
+        val (filesCount, foldersCount) = countFooterEntries(entries)
+        visibleFilesCount += filesCount
+        visibleFoldersCount += foldersCount
+    }
+
+    private val footerText: String
+        get() = generateFooterText(visibleFilesCount, visibleFoldersCount)
 
     private fun generateFooterText(filesCount: Int, foldersCount: Int): String {
         val resources = activity.resources
@@ -271,11 +357,7 @@ class LocalFileListAdapter(
     @SuppressLint("NotifyDataSetChanged")
     @VisibleForTesting
     fun setFiles(newFiles: List<File>) {
-        files = newFiles.toMutableList()
-        allFiles = newFiles.toMutableList()
-
-        notifyDataSetChanged()
-        fragmentInterface.setLoading(false)
+        showFirstPage(newFiles)
     }
 
     fun cleanup() {
@@ -291,6 +373,7 @@ class LocalFileListAdapter(
         private const val VIEW_TYPE_HEADER = 3
 
         private const val PAGE_SIZE = 50
+        private const val FIRST_PAGE_OFFSET = 0
         private const val HEADER_ITEM_COUNT = 1
         private const val FOOTER_ITEM_COUNT = 1
 

@@ -204,7 +204,10 @@ public class LocalFileListFragment extends ExtendedListFragment implements
                 mAdapter.addCheckedFile(file);
             }
 
-            mAdapter.notifyItemChanged(mAdapter.getItemPosition(file));
+            final int position = mAdapter.getItemPosition(file);
+            if (position != RecyclerView.NO_POSITION) {
+                mAdapter.notifyItemChanged(position);
+            }
 
             // notify the change to the container Activity
             mContainerActivity.onFileClick(file);
@@ -328,9 +331,7 @@ public class LocalFileListFragment extends ExtendedListFragment implements
             localFileListAdapter.removeAllFilesFromCheckedFiles();
         }
 
-        for (int i = 0; i < mAdapter.getItemCount(); i++) {
-            mAdapter.notifyItemChanged(i);
-        }
+        mAdapter.notifyItemRangeChanged(0, mAdapter.getItemCount());
     }
 
     @Override
