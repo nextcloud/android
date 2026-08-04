@@ -868,12 +868,19 @@ public final class ThumbnailsCacheManager {
                 return null;
             }
 
-            try (final var retriever = new MediaMetadataRetriever()) {
+            var retriever = new MediaMetadataRetriever();
+            try {
                 retriever.setDataSource(file.getAbsolutePath());
-                return retriever.getFrameAtTime();
+                return retriever.getFrameAtTime(-1);
             } catch (Exception ex) {
                 Log_OC.w(TAG, "Failed to create bitmap from video " + file.getAbsolutePath());
                 return null;
+            } finally {
+                try {
+                    retriever.release();
+                } catch (Exception e) {
+                    Log_OC.w(TAG, "Failed to release retriever");
+                }
             }
         }
     }
