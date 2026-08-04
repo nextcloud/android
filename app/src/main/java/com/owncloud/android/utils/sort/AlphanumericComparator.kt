@@ -1,8 +1,16 @@
 /*
- * Nextcloud - Android Client
- *
  * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-FileCopyrightText: 2017 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2012 Daniel Migowski
+ * SPDX-FileCopyrightText: 2012 Andre Bogus
+ * SPDX-FileCopyrightText: 2012 David Koelle
+ * SPDX-License-Identifier: LGPL-2.1-or-later
+ *
+ * The Alphanum Algorithm is an improved sorting algorithm for strings
+ * containing numbers.  Instead of sorting numbers in ASCII order like
+ * a standard sort, this algorithm sorts numbers in numeric order.
+ *
+ * The Alphanum Algorithm is discussed at http://www.DaveKoelle.com
  */
 package com.owncloud.android.utils.sort
 
