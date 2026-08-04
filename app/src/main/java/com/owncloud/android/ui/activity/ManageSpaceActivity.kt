@@ -20,6 +20,7 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityManageSpaceBinding
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -36,6 +37,9 @@ class ManageSpaceActivity :
 
     @Inject
     lateinit var userAccountManager: UserAccountManager
+
+    @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
 
     private lateinit var binding: ActivityManageSpaceBinding
 
@@ -56,6 +60,7 @@ class ManageSpaceActivity :
                     clearData()
                 }
             }
+            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(clearDataButton)
         }
     }
 
