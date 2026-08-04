@@ -8,6 +8,7 @@
 package com.owncloud.android.ui.activity
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -164,7 +165,10 @@ class InternalTwoWaySyncActivity :
                 handleDurationSelected(durations[position].first.inWholeMinutes)
             }
         }
-        viewThemeUtils.material.colorTextInputLayout(binding.twoWaySyncIntervalLayout)
+        binding.twoWaySyncIntervalLayout.run {
+            viewThemeUtils.material.colorTextInputLayout(this)
+            setEndIconTintList(ColorStateList.valueOf(viewThemeUtils.platform.getScheme(context).primary))
+        }
     }
 
     private fun handleDurationSelected(duration: Long) {
