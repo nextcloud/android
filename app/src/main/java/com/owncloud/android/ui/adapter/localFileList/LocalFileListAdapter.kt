@@ -373,7 +373,6 @@ class LocalFileListAdapter(
         private const val VIEW_TYPE_HEADER = 3
 
         private const val PAGE_SIZE = 50
-        private const val FIRST_PAGE_OFFSET = 0
         private const val HEADER_ITEM_COUNT = 1
         private const val FOOTER_ITEM_COUNT = 1
 
