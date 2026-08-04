@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2026 Philipp Hasper <vcs@hasper.info>
  * SPDX-FileCopyrightText: 2023 TSI-mc
  * SPDX-FileCopyrightText: 2018-2023 Tobias Kaminsky <tobias@kaminsky.me>
@@ -121,6 +122,7 @@ import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
+import com.owncloud.android.utils.WebViewUtil;
 import com.owncloud.android.utils.overlay.OverlayManager;
 import com.owncloud.android.utils.theme.ThemeUtils;
 
@@ -1229,15 +1231,19 @@ public class OCFileListFragment extends ExtendedListFragment implements
         User account = accountManager.getUser();
         OCCapability capability = mContainerActivity.getStorageManager().getCapability(account.getAccountName());
 
+        boolean webViewAvailable = WebViewUtil.available(getContext());
+
         if (MimeTypeUtil.isVideo(file) && !file.isEncrypted() && mContainerActivity instanceof FileDisplayActivity fda) {
             setFabVisible(false);
             fda.startImagePreview(file, true, null);
         } else if (PreviewMediaActivity.Companion.canBePreviewed(file) && !file.isEncrypted() && mContainerActivity instanceof FileDisplayActivity fda) {
             setFabVisible(false);
             fda.startMediaPreview(file, 0, true, true, true, true);
-        } else if (editorUtils.getEditor(accountManager.getUser(), file.getMimeType()) != null && !file.isEncrypted()) {
+        } else if (webViewAvailable &&
+            editorUtils.getEditor(accountManager.getUser(), file.getMimeType()) != null && !file.isEncrypted()) {
             TextEditorWebView.Companion.startTextEditor(file, getContext());
-        } else if (capability.getRichDocumentsMimeTypeList() != null &&
+        } else if (webViewAvailable &&
+            capability.getRichDocumentsMimeTypeList() != null &&
             capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
             capability.getRichDocumentsDirectEditing().isTrue() && !file.isEncrypted()) {
             mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(file, getContext());
