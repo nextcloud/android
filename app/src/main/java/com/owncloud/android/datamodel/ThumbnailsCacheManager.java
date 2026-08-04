@@ -751,6 +751,7 @@ public final class ThumbnailsCacheManager {
 
         private enum Type {IMAGE, VIDEO}
 
+        private MediaMetadataRetriever retriever = null;
         private final WeakReference<ImageView> mImageViewReference;
         private File mFile;
         private String mImageKey;
@@ -844,17 +845,7 @@ public final class ThumbnailsCacheManager {
                         thumbnail = addThumbnailToCache(imageKey, bitmap, file.getPath(), px, px);
                     }
                 } else if (Type.VIDEO == type) {
-                    try (MediaMetadataRetriever retriever = new MediaMetadataRetriever()) {
-                        retriever.setDataSource(file.getAbsolutePath());
-                        thumbnail = retriever.getFrameAtTime(-1);
-                        // release the native resources right away instead of leaving them to the finalizer,
-                        // try-with-resources releases them again on the failure paths
-                        retriever.release();
-                    } catch (Exception ex) {
-                        // can't create a bitmap
-                        Log_OC.w(TAG, "Failed to create bitmap from video " + file.getAbsolutePath());
-                    }
-
+                    thumbnail = getThumbnailFromMediaRetriever(file);
                     if (thumbnail != null) {
                         // Scale down bitmap if too large.
                         int px = getThumbnailDimension();
@@ -870,6 +861,25 @@ public final class ThumbnailsCacheManager {
             }
 
             return thumbnail;
+        }
+
+        private Bitmap getThumbnailFromMediaRetriever(File file) {
+            try {
+                retriever = new MediaMetadataRetriever();
+                retriever.setDataSource(file.getAbsolutePath());
+                return retriever.getFrameAtTime(-1);
+            } catch (Exception ex) {
+                Log_OC.w(TAG, "Failed to create bitmap from video " + file.getAbsolutePath());
+                return null;
+            } finally {
+                if (retriever != null) {
+                    try {
+                        retriever.release();
+                    } catch (Exception exception) {
+                        Log_OC.w(TAG, "Failed to create bitmap from video " + file.getAbsolutePath());
+                    }
+                }
+            }
         }
     }
 
