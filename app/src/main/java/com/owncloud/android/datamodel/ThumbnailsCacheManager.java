@@ -751,7 +751,6 @@ public final class ThumbnailsCacheManager {
 
         private enum Type {IMAGE, VIDEO}
 
-        private MediaMetadataRetriever retriever = null;
         private final WeakReference<ImageView> mImageViewReference;
         private File mFile;
         private String mImageKey;
@@ -864,21 +863,17 @@ public final class ThumbnailsCacheManager {
         }
 
         private Bitmap getThumbnailFromMediaRetriever(File file) {
-            try {
-                retriever = new MediaMetadataRetriever();
+            if (file == null || !file.exists()) {
+                Log_OC.w(TAG, "Cannot extract thumbnail: file is null or does not exist");
+                return null;
+            }
+
+            try (final var retriever = new MediaMetadataRetriever()) {
                 retriever.setDataSource(file.getAbsolutePath());
-                return retriever.getFrameAtTime(-1);
+                return retriever.getFrameAtTime();
             } catch (Exception ex) {
                 Log_OC.w(TAG, "Failed to create bitmap from video " + file.getAbsolutePath());
                 return null;
-            } finally {
-                if (retriever != null) {
-                    try {
-                        retriever.release();
-                    } catch (Exception exception) {
-                        Log_OC.w(TAG, "Failed to create bitmap from video " + file.getAbsolutePath());
-                    }
-                }
             }
         }
     }
