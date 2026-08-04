@@ -38,6 +38,7 @@ class UploadWarningCard(
             binding.batterySaverButton.setOnClickListener {
                 openBatterySaverPage()
             }
+            viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(binding.batterySaverButton)
         } else {
             binding.batterySaverLayout.visibility = View.GONE
         }
@@ -48,6 +49,7 @@ class UploadWarningCard(
             binding.backgroundActivityLimitedButton.setOnClickListener {
                 showIgnoreBatteryOptimizationDialog()
             }
+            viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(binding.backgroundActivityLimitedButton)
         } else {
             binding.backgroundActivityLimitedLayout.visibility = View.GONE
         }
