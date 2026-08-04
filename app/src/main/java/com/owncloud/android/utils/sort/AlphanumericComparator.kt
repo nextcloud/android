@@ -19,7 +19,6 @@ import java.text.Collator
 
 /**
  * Sorts names the way people read them, so `abc2` comes before `abc10` instead of after it.
- *
  */
 class AlphanumericComparator<T : Any> : Comparator<T> {
 
