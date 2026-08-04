@@ -239,11 +239,6 @@ class ConflictsResolveDialog :
         )
     }
 
-    /**
-     * [MediaThumbnailGenerationTask] only applies its bitmap when the view tag still equals `file.hashCode()`,
-     * so the tag has to be set before starting it. Unlike the local file list, this also covers videos and falls
-     * back to the mime type icon when no bitmap can be decoded.
-     */
     private fun setLocalFileThumbnail(localFile: File) {
         binding.leftThumbnail.run {
             tag = localFile.hashCode()
@@ -299,12 +294,6 @@ class ConflictsResolveDialog :
         fun conflictDecisionMade(decision: Decision?)
     }
 
-    /**
-     * Deliberately not done in `onStop`: the server thumbnail needs a network round trip, and a cancelled
-     * [ThumbnailGenerationTask] never reaches `onPostExecute`. The view would keep the placeholder drawable of the
-     * cancelled task forever, because `cancelPotentialThumbnailWork` then refuses to start a new task for the same
-     * file. Cancelling only once the views are gone lets a backgrounded dialog still receive its thumbnails.
-     */
     override fun onDestroyView() {
         super.onDestroyView()
 
