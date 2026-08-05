@@ -56,7 +56,7 @@ class OCFileListAdapterHelper {
         }
     }
 
-    fun getAvatarSharees(file: OCFile, userId: String): List<ShareeUser> {
+    fun getAvatarSharees(file: OCFile, userId: String?): List<ShareeUser> {
         val sharees = file.sharees
         val ownerId = file.ownerId
 
