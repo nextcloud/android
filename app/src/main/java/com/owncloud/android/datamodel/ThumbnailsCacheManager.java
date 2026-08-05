@@ -844,14 +844,7 @@ public final class ThumbnailsCacheManager {
                         thumbnail = addThumbnailToCache(imageKey, bitmap, file.getPath(), px, px);
                     }
                 } else if (Type.VIDEO == type) {
-                    try (MediaMetadataRetriever retriever = new MediaMetadataRetriever()) {
-                        retriever.setDataSource(file.getAbsolutePath());
-                        thumbnail = retriever.getFrameAtTime(-1);
-                    } catch (Exception ex) {
-                        // can't create a bitmap
-                        Log_OC.w(TAG, "Failed to create bitmap from video " + file.getAbsolutePath());
-                    }
-
+                    thumbnail = getThumbnailFromMediaRetriever(file);
                     if (thumbnail != null) {
                         // Scale down bitmap if too large.
                         int px = getThumbnailDimension();
@@ -867,6 +860,28 @@ public final class ThumbnailsCacheManager {
             }
 
             return thumbnail;
+        }
+
+        private Bitmap getThumbnailFromMediaRetriever(File file) {
+            if (file == null || !file.exists()) {
+                Log_OC.w(TAG, "Cannot extract thumbnail: file is null or does not exist");
+                return null;
+            }
+
+            var retriever = new MediaMetadataRetriever();
+            try {
+                retriever.setDataSource(file.getAbsolutePath());
+                return retriever.getFrameAtTime(-1);
+            } catch (Throwable t) {
+                Log_OC.w(TAG, "Failed to create bitmap from video " + file.getAbsolutePath());
+                return null;
+            } finally {
+                try {
+                    retriever.release();
+                } catch (Throwable t) {
+                    Log_OC.w(TAG, "Failed to release retriever");
+                }
+            }
         }
     }
 
