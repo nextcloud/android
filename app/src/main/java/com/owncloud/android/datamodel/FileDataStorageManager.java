@@ -1844,7 +1844,7 @@ public class FileDataStorageManager {
             uniquePaths.add(share.getRemotePath());
         }
 
-        boolean sharesChanged = FileDataStorageManagerExtensionsKt.areShareesChanged(this, uniquePaths, shares);
+        boolean sharesChanged = FileDataStorageManagerExtensionsKt.areShareesChanged(this, shares);
 
         // Prepare reset operations
         ArrayList<ContentProviderOperation> resetOperations = new ArrayList<>();
