@@ -10,10 +10,29 @@ package com.nextcloud.utils.extensions
 import com.nextcloud.client.database.entity.toOCCapability
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.status.OCCapability
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlin.collections.asSequence
+
+fun FileDataStorageManager.areShareesChanged(path: String, remoteFiles: List<RemoteFile>): Boolean {
+    val newSharees = remoteFiles.asSequence()
+        .filter { it.remotePath == path }
+        .flatMap { it.sharees.orEmpty().asSequence() }
+        .mapNotNull { sharee -> sharee.shareType?.let { "${sharee.userId}:${it.value}" } }
+        .toSet()
+
+    val existingSharees = getSharesWithForAFile(path, user.accountName).asSequence()
+        .mapNotNull { share -> share.shareType?.let { "${share.shareWith}:${it.value}" } }
+        .toSet()
+
+    return newSharees != existingSharees
+}
+
+fun FileDataStorageManager.areShareesChanged(paths: Set<String>, remoteFiles: List<RemoteFile>): Boolean =
+    paths.any { path -> areShareesChanged(path, remoteFiles) }
 
 suspend fun FileDataStorageManager.saveShares(shares: List<OCShare>, accountName: String) {
     withContext(Dispatchers.IO) {

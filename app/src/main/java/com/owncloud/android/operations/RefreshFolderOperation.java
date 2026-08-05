@@ -137,7 +137,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     /**
      * 'True' means that the sharees of at least one child of the folder changed
      */
-    private boolean mSharesChanged;
+    private boolean sharesChanged;
 
     /**
      * 'True' means that Etag will be ignored
@@ -312,10 +312,10 @@ public class RefreshFolderOperation extends RemoteOperation {
                 }
             }
 
-            mSharesChanged = fileDataStorageManager.saveSharesFromRemoteFile(remoteFiles);
+            sharesChanged = fileDataStorageManager.saveSharesFromRemoteFile(remoteFiles);
         }
 
-        if (!mSyncFullAccount && mSharesChanged && mLocalFolder != null && !isMetadataSyncWorkerRunning) {
+        if (!mSyncFullAccount && sharesChanged && mLocalFolder != null && !isMetadataSyncWorkerRunning) {
             sendLocalBroadcast(EVENT_SINGLE_FOLDER_SHARES_SYNCED, mLocalFolder.getRemotePath(), result);
         }
 

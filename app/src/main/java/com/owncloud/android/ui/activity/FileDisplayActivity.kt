@@ -570,7 +570,7 @@ class FileDisplayActivity :
     private fun initFragments() {
         // First fragment
         val listOfFiles = this.listOfFilesFragment
-        if (listOfFiles != null && TextUtils.isEmpty(searchQuery)) {
+        if (listOfFiles != null && searchQuery.isNullOrEmpty()) {
             if (!listFragmentJustCreated) {
                 listOfFiles.listDirectory(getCurrentDir(), file, MainApp.isOnlyOnDevice())
             }
