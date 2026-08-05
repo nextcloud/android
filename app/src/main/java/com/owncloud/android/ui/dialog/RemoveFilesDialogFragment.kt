@@ -15,9 +15,7 @@ package com.owncloud.android.ui.dialog
 import android.app.Dialog
 import android.os.Bundle
 import android.view.ActionMode
-import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.button.MaterialButton
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.upload.FileUploadHelper
@@ -30,6 +28,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.OnFilesRemovedListener
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener
+import com.owncloud.android.ui.dialog.extensions.themeButtons
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -51,27 +50,9 @@ class RemoveFilesDialogFragment :
     @Inject
     lateinit var userAccountManager: UserAccountManager
 
-    private var positiveButton: MaterialButton? = null
-
     override fun onStart() {
         super.onStart()
-
-        val alertDialog = dialog as AlertDialog? ?: return
-
-        positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE) as? MaterialButton
-        positiveButton?.let {
-            viewThemeUtils?.material?.colorMaterialButtonPrimaryTonal(it)
-        }
-
-        val negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE) as? MaterialButton
-        negativeButton?.let {
-            viewThemeUtils?.material?.colorMaterialButtonPrimaryBorderless(negativeButton)
-        }
-
-        val neutralButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL) as? MaterialButton
-        neutralButton?.let {
-            viewThemeUtils?.material?.colorMaterialButtonPrimaryBorderless(neutralButton)
-        }
+        dialog?.themeButtons(viewThemeUtils)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

@@ -12,8 +12,9 @@ import androidx.appcompat.app.AlertDialog
 import com.google.android.material.button.MaterialButton
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
-fun Dialog.themeButtons(util: ViewThemeUtils) {
+fun Dialog.themeButtons(util: ViewThemeUtils?) {
     val dialog = (this as? AlertDialog) ?: return
+    val util = util ?: return
     val positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE) as? MaterialButton
     positiveButton?.let {
         util.material.colorMaterialButtonPrimaryTonal(it)

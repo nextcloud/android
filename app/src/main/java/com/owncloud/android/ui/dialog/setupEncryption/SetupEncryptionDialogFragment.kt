@@ -36,6 +36,7 @@ import com.owncloud.android.lib.resources.users.GetPublicKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.GetServerPublicKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.SendCSRRemoteOperation
 import com.owncloud.android.lib.resources.users.StorePrivateKeyRemoteOperation
+import com.owncloud.android.ui.dialog.extensions.themeButtons
 import com.owncloud.android.ui.dialog.setupEncryption.model.DownloadKeyResult
 import com.owncloud.android.utils.ClipboardUtil
 import com.owncloud.android.utils.DisplayUtils
@@ -77,26 +78,9 @@ class SetupEncryptionDialogFragment :
 
     override fun onStart() {
         super.onStart()
-
-        setupAlertDialog()
+        dialog?.themeButtons(viewThemeUtils)
         lifecycleScope.launch {
             downloadKeys()
-        }
-    }
-
-    private fun setupAlertDialog() {
-        val alertDialog = dialog as AlertDialog?
-
-        if (alertDialog != null) {
-            positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE) as? MaterialButton?
-            positiveButton?.let {
-                viewThemeUtils.material.colorMaterialButtonPrimaryTonal(it)
-            }
-
-            negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE) as? MaterialButton?
-            negativeButton?.let {
-                viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(it)
-            }
         }
     }
 
