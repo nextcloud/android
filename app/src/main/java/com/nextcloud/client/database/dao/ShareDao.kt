@@ -12,6 +12,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.nextcloud.client.database.entity.ShareEntity
+import com.nextcloud.client.database.entity.model.ShareeKey
 
 @Dao
 interface ShareDao {
@@ -21,4 +22,10 @@ interface ShareDao {
 
     @Query("DELETE FROM ocshares WHERE owner_share = :accountName")
     suspend fun clearSharesForAccount(accountName: String)
+
+    @Query(
+        "SELECT path, shate_with, share_type FROM ocshares " +
+            "WHERE path IN (:paths) AND owner_share = :accountName AND share_type IN (:shareTypes)"
+    )
+    fun getShareeKeys(paths: List<String>, accountName: String, shareTypes: List<Int>): List<ShareeKey>
 }
