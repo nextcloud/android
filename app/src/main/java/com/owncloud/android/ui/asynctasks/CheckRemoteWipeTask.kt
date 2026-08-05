@@ -9,6 +9,7 @@ package com.owncloud.android.ui.asynctasks
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.content.Intent
+import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.owncloud.android.R
 import com.owncloud.android.authentication.AuthenticatorActivity
@@ -19,6 +20,9 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.users.CheckRemoteWipeRemoteOperation
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.utils.DisplayUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.lang.ref.WeakReference
 
 class CheckRemoteWipeTask(
@@ -32,17 +36,19 @@ class CheckRemoteWipeTask(
             return
         }
 
-        val checkWipeResult = CheckRemoteWipeRemoteOperation().execute(account, fileActivity)
+        fileActivity.lifecycleScope.launch(Dispatchers.IO) {
+            val checkWipeResult = CheckRemoteWipeRemoteOperation().execute(account, fileActivity)
 
-        if (checkWipeResult.isSuccess) {
-            backgroundJobManager.startAccountRemovalJob(account.name, true)
-        } else {
-            Log_OC.e(this, "Check for remote wipe not needed -> update credentials")
-            performCredentialsUpdate(fileActivity)
+            if (checkWipeResult.isSuccess) {
+                backgroundJobManager.startAccountRemovalJob(account.name, true)
+            } else {
+                Log_OC.e(this, "Check for remote wipe not needed -> update credentials")
+                performCredentialsUpdate(fileActivity)
+            }
         }
     }
 
-    private fun performCredentialsUpdate(fileActivity: FileActivity) {
+    private suspend fun performCredentialsUpdate(fileActivity: FileActivity) {
         try {
             val ocAccount = OwnCloudAccount(account, fileActivity)
             val client = OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(ocAccount)
@@ -56,14 +62,18 @@ class CheckRemoteWipeTask(
                 }
             }
 
-            val intent = Intent(fileActivity, AuthenticatorActivity::class.java).apply {
-                putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, account)
-                putExtra(AuthenticatorActivity.EXTRA_ACTION, AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN)
-                addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
+            withContext(Dispatchers.Main) {
+                val intent = Intent(fileActivity, AuthenticatorActivity::class.java).apply {
+                    putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, account)
+                    putExtra(AuthenticatorActivity.EXTRA_ACTION, AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN)
+                    addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
+                }
+                fileActivity.startActivityForResult(intent, FileActivity.REQUEST_CODE__UPDATE_CREDENTIALS)
             }
-            fileActivity.startActivityForResult(intent, FileActivity.REQUEST_CODE__UPDATE_CREDENTIALS)
         } catch (_: AccountUtils.AccountNotFoundException) {
-            DisplayUtils.showSnackMessage(fileActivity, R.string.auth_account_does_not_exist)
+            withContext(Dispatchers.Main) {
+                DisplayUtils.showSnackMessage(fileActivity, R.string.auth_account_does_not_exist)
+            }
         }
     }
 }
