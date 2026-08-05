@@ -49,6 +49,7 @@ import com.nextcloud.model.ShareeEntry;
 import com.nextcloud.utils.date.DateFormatPattern;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.nextcloud.utils.extensions.DateExtensionsKt;
+import com.nextcloud.utils.extensions.FileDataStorageManagerExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
@@ -1843,12 +1844,7 @@ public class FileDataStorageManager {
             uniquePaths.add(share.getRemotePath());
         }
 
-        boolean sharesChanged = false;
-        for (String path : uniquePaths) {
-            if (shareesForPathChanged(path, shares)) {
-                sharesChanged = true;
-            }
-        }
+        boolean sharesChanged = FileDataStorageManagerExtensionsKt.areShareesChanged(this, uniquePaths, shares);
 
         // Prepare reset operations
         ArrayList<ContentProviderOperation> resetOperations = new ArrayList<>();
@@ -1870,36 +1866,6 @@ public class FileDataStorageManager {
         }
 
         return sharesChanged;
-    }
-
-    /**
-     * Compares the sharees reported for {@code path} in {@code remoteFiles} against the sharees
-     * currently stored locally for that path, identifying each sharee by (userId, shareType).
-     */
-    private boolean shareesForPathChanged(String path, List<RemoteFile> remoteFiles) {
-        Set<String> newSharees = new HashSet<>();
-        for (RemoteFile remoteFile : remoteFiles) {
-            if (!path.equals(remoteFile.getRemotePath()) || remoteFile.getSharees() == null) {
-                continue;
-            }
-
-            for (ShareeUser sharee : remoteFile.getSharees()) {
-                if (sharee == null || sharee.getShareType() == null) {
-                    continue;
-                }
-                newSharees.add(sharee.getUserId() + ":" + sharee.getShareType().getValue());
-            }
-        }
-
-        Set<String> existingSharees = new HashSet<>();
-        for (OCShare share : getSharesWithForAFile(path, user.getAccountName())) {
-            if (share.getShareType() == null) {
-                continue;
-            }
-            existingSharees.add(share.getShareWith() + ":" + share.getShareType().getValue());
-        }
-
-        return !newSharees.equals(existingSharees);
     }
 
     /**
