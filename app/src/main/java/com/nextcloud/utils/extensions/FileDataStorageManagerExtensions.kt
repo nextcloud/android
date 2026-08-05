@@ -7,32 +7,103 @@
 
 package com.nextcloud.utils.extensions
 
+import android.os.RemoteException
 import com.nextcloud.client.database.entity.toOCCapability
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.lib.resources.shares.OCShare
+import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.lib.resources.status.OCCapability
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlin.collections.asSequence
 
-fun FileDataStorageManager.areShareesChanged(path: String, remoteFiles: List<RemoteFile>): Boolean {
-    val newSharees = remoteFiles.asSequence()
-        .filter { it.remotePath == path }
-        .flatMap { it.sharees.orEmpty().asSequence() }
-        .mapNotNull { sharee -> sharee.shareType?.let { "${sharee.userId}:${it.value}" } }
-        .toSet()
+// matches FileDataStorageManager.getSharesWithForAFile, excludes public link shares
+private val shareableShareTypes = listOf(
+    ShareType.USER,
+    ShareType.GROUP,
+    ShareType.EMAIL,
+    ShareType.FEDERATED,
+    ShareType.FEDERATED_GROUP,
+    ShareType.ROOM,
+    ShareType.CIRCLE
+)
 
-    val existingSharees = getSharesWithForAFile(path, user.accountName).asSequence()
-        .mapNotNull { share -> share.shareType?.let { "${share.shareWith}:${it.value}" } }
-        .toSet()
+// keeps queries well under SQLite's bound-parameter limit
+private const val SHARE_PATH_QUERY_CHUNK_SIZE = 400
 
-    return newSharees != existingSharees
+fun FileDataStorageManager.areShareesChanged(remoteFiles: List<RemoteFile>): Boolean {
+    if (remoteFiles.isEmpty()) {
+        return false
+    }
+
+    val newShareesByPath = remoteFiles.asSequence()
+        .filter { it.remotePath != null }
+        .groupBy { it.remotePath as String }
+        .mapValues { (_, files) ->
+            files.asSequence()
+                .flatMap { file -> file.sharees.orEmpty().asSequence() }
+                .mapNotNull { sharee -> sharee.shareType?.let { "${sharee.userId}:${it.value}" } }
+                .toSet()
+        }
+
+    val existingShareesByPath = queryLocalShareeKeysByPath(newShareesByPath.keys, user.accountName)
+
+    return newShareesByPath.keys.any { path ->
+        newShareesByPath[path].orEmpty() != existingShareesByPath[path].orEmpty()
+    }
 }
 
-fun FileDataStorageManager.areShareesChanged(paths: Set<String>, remoteFiles: List<RemoteFile>): Boolean =
-    paths.any { path -> areShareesChanged(path, remoteFiles) }
+private fun FileDataStorageManager.queryLocalShareeKeysByPath(
+    paths: Set<String>,
+    accountName: String
+): Map<String, Set<String>> {
+    val result = mutableMapOf<String, MutableSet<String>>()
+
+    paths.toList().chunked(SHARE_PATH_QUERY_CHUNK_SIZE).forEach { chunk ->
+        queryLocalShareeKeysChunk(chunk, accountName, result)
+    }
+
+    return result
+}
+
+private fun FileDataStorageManager.queryLocalShareeKeysChunk(
+    paths: List<String>,
+    accountName: String,
+    result: MutableMap<String, MutableSet<String>>
+) {
+    val pathPlaceholders = paths.joinToString(",") { "?" }
+    val shareTypeFilter = shareableShareTypes.joinToString(" OR ") { "${ProviderTableMeta.OCSHARES_SHARE_TYPE} = ?" }
+    val selection = "${ProviderTableMeta.OCSHARES_PATH} IN ($pathPlaceholders) AND " +
+        "${ProviderTableMeta.OCSHARES_ACCOUNT_OWNER} = ? AND ($shareTypeFilter)"
+    val selectionArgs = (paths + accountName + shareableShareTypes.map { it.value.toString() }).toTypedArray()
+
+    val cursor = if (contentResolver != null) {
+        contentResolver.query(ProviderTableMeta.CONTENT_URI_SHARE, null, selection, selectionArgs, null)
+    } else {
+        try {
+            contentProviderClient?.query(ProviderTableMeta.CONTENT_URI_SHARE, null, selection, selectionArgs, null)
+        } catch (e: RemoteException) {
+            Log_OC.e(javaClass.simpleName, "Could not get list of shares: ${e.message}", e)
+            null
+        }
+    }
+
+    cursor?.use {
+        val pathIndex = it.getColumnIndex(ProviderTableMeta.OCSHARES_PATH)
+        val shareWithIndex = it.getColumnIndex(ProviderTableMeta.OCSHARES_SHARE_WITH)
+        val shareTypeIndex = it.getColumnIndex(ProviderTableMeta.OCSHARES_SHARE_TYPE)
+
+        while (it.moveToNext()) {
+            val path = it.getString(pathIndex) ?: continue
+            val key = "${it.getString(shareWithIndex)}:${it.getInt(shareTypeIndex)}"
+            result.getOrPut(path) { mutableSetOf() }.add(key)
+        }
+    }
+}
 
 suspend fun FileDataStorageManager.saveShares(shares: List<OCShare>, accountName: String) {
     withContext(Dispatchers.IO) {
