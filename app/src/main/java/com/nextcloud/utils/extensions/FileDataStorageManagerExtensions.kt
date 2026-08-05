@@ -17,7 +17,6 @@ import com.owncloud.android.lib.resources.status.OCCapability
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-// keeps queries well under SQLite's bound-parameter limit
 private const val SHARE_PATH_QUERY_CHUNK_SIZE = 400
 
 fun FileDataStorageManager.areShareesChanged(remoteFiles: List<RemoteFile>): Boolean {
