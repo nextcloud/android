@@ -2,6 +2,7 @@
 <!--
   ~ Nextcloud - Android Client
   ~
+  ~ SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
   ~ SPDX-FileCopyrightText: 2023 Parneet Singh <gurayaparneet@gmail.com>
   ~ SPDX-FileCopyrightText: 2021 tobiasKaminsky <tobias@kaminsky.me>
   ~ SPDX-FileCopyrightText: 2020 Andy Scherzinger <info@andy-scherzinger.de>
@@ -18,12 +19,11 @@
     android:gravity="center"
     tools:context=".ui.preview.PreviewMediaFragment">
 
-    <androidx.media3.ui.PlayerView
+    <include
         android:id="@+id/exoplayer_view"
+        layout="@layout/view_media_player"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        app:show_buffering="always" />
+        android:layout_height="match_parent" />
 
     <FrameLayout
         android:id="@+id/progress"

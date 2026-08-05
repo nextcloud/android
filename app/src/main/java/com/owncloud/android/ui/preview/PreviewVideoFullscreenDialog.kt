@@ -9,6 +9,7 @@
 package com.owncloud.android.ui.preview
 
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Build
 import android.view.ViewGroup
 import android.view.Window
@@ -48,7 +49,13 @@ class PreviewVideoFullscreenDialog(
 ) : Dialog(sourceView.context, R.style.Dialog_FullscreenVideo) {
 
     private val binding: DialogPreviewVideoBinding = DialogPreviewVideoBinding.inflate(layoutInflater)
+
+    private val playerView: PlayerView
+        get() = binding.videoPlayer.root
+
     private var playingStateListener: androidx.media3.common.Player.Listener? = null
+    private var externalDismissListener: DialogInterface.OnDismissListener? = null
+    private var wasPlayingBeforeDismiss = false
 
     /**
      * exoPlayer instance used for this view, either the original one or a new one in specific cases.
@@ -72,10 +79,22 @@ class PreviewVideoFullscreenDialog(
         mExoPlayer = getExoPlayer(nextcloudClient)
         if (shouldUseRotatedVideoWorkaround) {
             sourceExoPlayer.currentMediaItem?.let { mExoPlayer.setMediaItem(it, sourceExoPlayer.currentPosition) }
-            binding.videoPlayer.player = mExoPlayer
+            playerView.player = mExoPlayer
             mExoPlayer.prepare()
         }
+        super.setOnDismissListener {
+            restoreSourcePlayer()
+            externalDismissListener?.onDismiss(this)
+        }
         handleOnBackPressed()
+    }
+
+    /**
+     * Keeps the caller's listener instead of letting it replace the internal one, which has to run first to hand the
+     * playback back to [sourceView].
+     */
+    override fun setOnDismissListener(listener: DialogInterface.OnDismissListener?) {
+        externalDismissListener = listener
     }
 
     private fun isRotatedVideo(): Boolean {
@@ -88,7 +107,7 @@ class PreviewVideoFullscreenDialog(
         NextcloudExoPlayer
             .createNextcloudExoplayer(sourceView.context, nextcloudClient)
             .apply {
-                addListener(ExoplayerListener(sourceView.context, binding.videoPlayer, this))
+                addListener(ExoplayerListener(sourceView.context, playerView, this))
             }
     } else {
         sourceExoPlayer
@@ -103,7 +122,7 @@ class PreviewVideoFullscreenDialog(
             enableImmersiveMode()
             keepControlsClearOfSystemBars()
             switchTargetViewFromSource()
-            binding.videoPlayer.setFullscreenButton(isFullscreen = true) {
+            playerView.setFullscreenButton(isFullscreen = true) {
                 activity.onBackPressedDispatcher.onBackPressed()
             }
             if (isPlaying) {
@@ -117,36 +136,37 @@ class PreviewVideoFullscreenDialog(
         if (shouldUseRotatedVideoWorkaround) {
             mExoPlayer.seekTo(sourceExoPlayer.currentPosition)
         } else {
-            PlayerView.switchTargetView(sourceExoPlayer, sourceView, binding.videoPlayer)
+            PlayerView.switchTargetView(sourceExoPlayer, sourceView, playerView)
         }
     }
 
     private fun handleOnBackPressed() {
         activity.onBackPressedDispatcher.addCallback(activity) {
-            val isPlaying = mExoPlayer.isPlaying
-            if (isPlaying) {
+            wasPlayingBeforeDismiss = mExoPlayer.isPlaying
+            if (wasPlayingBeforeDismiss) {
                 mExoPlayer.pause()
-            }
-            setOnDismissListener {
-                playingStateListener?.let {
-                    mExoPlayer.removeListener(it)
-                }
-                switchTargetViewToSource()
-                if (isPlaying) {
-                    sourceExoPlayer.play()
-                }
-                sourceView.showController()
             }
             dismiss()
             isEnabled = false
         }
     }
 
+    private fun restoreSourcePlayer() {
+        playingStateListener?.let {
+            mExoPlayer.removeListener(it)
+        }
+        switchTargetViewToSource()
+        if (wasPlayingBeforeDismiss) {
+            sourceExoPlayer.play()
+        }
+        sourceView.showController()
+    }
+
     private fun switchTargetViewToSource() {
         if (shouldUseRotatedVideoWorkaround) {
             sourceExoPlayer.seekTo(mExoPlayer.currentPosition)
         } else {
-            PlayerView.switchTargetView(sourceExoPlayer, binding.videoPlayer, sourceView)
+            PlayerView.switchTargetView(sourceExoPlayer, playerView, sourceView)
         }
     }
 
@@ -165,15 +185,15 @@ class PreviewVideoFullscreenDialog(
     }
 
     private fun keepControlsClearOfSystemBars() {
-        ViewCompat.setOnApplyWindowInsetsListener(binding.videoPlayer) { _, windowInsets ->
-            binding.videoPlayer.applyControlsInsets(
+        ViewCompat.setOnApplyWindowInsetsListener(playerView) { _, windowInsets ->
+            playerView.applyControlsInsets(
                 windowInsets.getInsets(
                     WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
                 )
             )
             windowInsets
         }
-        ViewCompat.requestApplyInsets(binding.videoPlayer)
+        ViewCompat.requestApplyInsets(playerView)
     }
 
     companion object {
