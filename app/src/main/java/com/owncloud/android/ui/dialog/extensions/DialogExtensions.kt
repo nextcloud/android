@@ -13,21 +13,18 @@ import com.google.android.material.button.MaterialButton
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 fun Dialog?.themeButtons(util: ViewThemeUtils?) {
-    val dialog = this ?: return
-    val alertDialog = (dialog as? AlertDialog) ?: return
-    val util = util ?: return
-    val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE) as? MaterialButton
-    positiveButton?.let {
-        util.material.colorMaterialButtonPrimaryTonal(it)
-    }
+    val alertDialog = this as? AlertDialog ?: return
+    val material = util?.material ?: return
 
-    val negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE) as? MaterialButton
-    negativeButton?.let {
-        util.material.colorMaterialButtonPrimaryBorderless(it)
-    }
-
-    val neutralButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL) as? MaterialButton
-    neutralButton?.let {
-        util.material.colorMaterialButtonPrimaryBorderless(neutralButton)
+    with(alertDialog) {
+        (getButton(AlertDialog.BUTTON_POSITIVE) as? MaterialButton)?.let {
+            material.colorMaterialButtonPrimaryTonal(it)
+        }
+        (getButton(AlertDialog.BUTTON_NEGATIVE) as? MaterialButton)?.let {
+            material.colorMaterialButtonPrimaryBorderless(it)
+        }
+        (getButton(AlertDialog.BUTTON_NEUTRAL) as? MaterialButton)?.let {
+            material.colorMaterialButtonPrimaryBorderless(it)
+        }
     }
 }
