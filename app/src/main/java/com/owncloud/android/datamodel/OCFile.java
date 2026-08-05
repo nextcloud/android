@@ -987,6 +987,8 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         this.note = note;
     }
 
+    @SuppressFBWarnings(value = "OCP_OVERLY_CONCRETE_COLLECTION_PARAMETER",
+        justification = "List keeps the Kotlin synthetic property in sync with getSharees()")
     public void setSharees(List<ShareeUser> sharees) {
         this.sharees = (sharees == null) ? new ArrayList<>() : new ArrayList<>(sharees);
     }
