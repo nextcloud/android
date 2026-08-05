@@ -570,19 +570,23 @@ open class FolderPickerActivity :
                 }
 
                 if (FileSyncAdapter.EVENT_FULL_SYNC_START != event) {
-                    var (currentFile, currentDir) = getCurrentFileAndDirectory()
+                    // RefreshFolderOperation always fires EVENT_SINGLE_FOLDER_SHARES_SYNCED for the same folder
+                    // right after EVENT_SINGLE_FOLDER_CONTENTS_SYNCED, so listing here would just repeat that refresh.
+                    if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED != event) {
+                        var (currentFile, currentDir) = getCurrentFileAndDirectory()
 
-                    if (currentDir == null) {
-                        browseRootForRemovedFolder()
-                    } else {
-                        if (currentFile == null && file?.isFolder == false) {
-                            // currently selected file was removed in the server, and now we know it
-                            currentFile = currentDir
+                        if (currentDir == null) {
+                            browseRootForRemovedFolder()
+                        } else {
+                            if (currentFile == null && file?.isFolder == false) {
+                                // currently selected file was removed in the server, and now we know it
+                                currentFile = currentDir
+                            }
+                            if (currentDir.remotePath == syncFolderRemotePath) {
+                                listOfFilesFragment?.listDirectory(currentDir, false)
+                            }
+                            file = currentFile
                         }
-                        if (currentDir.remotePath == syncFolderRemotePath) {
-                            listOfFilesFragment?.listDirectory(currentDir, false)
-                        }
-                        file = currentFile
                     }
 
                     checkCredentials(syncResult, event)
