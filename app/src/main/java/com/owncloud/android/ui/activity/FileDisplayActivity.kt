@@ -1569,20 +1569,19 @@ class FileDisplayActivity :
             return
         }
 
-        // RefreshFolderOperation always fires EVENT_SINGLE_FOLDER_SHARES_SYNCED for the same folder right after
-        // EVENT_SINGLE_FOLDER_CONTENTS_SYNCED, so listing the directory here would just repeat that refresh.
-        if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED != event) {
-            var currentFile = file?.remotePath?.let { storageManager.getFileByPath(it) }
-            val currentDir = getCurrentDir()?.remotePath?.let { storageManager.getFileByPath(it) }
-            val isSyncFolderRemotePathRoot = OCFile.ROOT_PATH == syncFolderRemotePath
+        // EVENT_SINGLE_FOLDER_CONTENTS_SYNCED fires only when the folder's content actually changed, and
+        // EVENT_SINGLE_FOLDER_SHARES_SYNCED only when a sharee actually changed - each is an independent,
+        // already-precise signal, so both are handled here (RefreshFolderOperation.java).
+        var currentFile = file?.remotePath?.let { storageManager.getFileByPath(it) }
+        val currentDir = getCurrentDir()?.remotePath?.let { storageManager.getFileByPath(it) }
+        val isSyncFolderRemotePathRoot = OCFile.ROOT_PATH == syncFolderRemotePath
 
-            if (currentDir == null && !isSyncFolderRemotePathRoot) {
-                handleRemovedFolder(syncFolderRemotePath)
-            } else if (currentDir != null) {
-                currentFile = handleRemovedFileFromServer(currentFile, currentDir)
-                updateFileList(fileListFragment, currentDir, syncFolderRemotePath)
-                file = currentFile
-            }
+        if (currentDir == null && !isSyncFolderRemotePathRoot) {
+            handleRemovedFolder(syncFolderRemotePath)
+        } else if (currentDir != null) {
+            currentFile = handleRemovedFileFromServer(currentFile, currentDir)
+            updateFileList(fileListFragment, currentDir, syncFolderRemotePath)
+            file = currentFile
         }
 
         handleSyncResult(event, syncResult)
