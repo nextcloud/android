@@ -18,7 +18,7 @@
     <string name="actionbar_mkdir">Yeni klasör</string>
     <string name="actionbar_move_or_copy">Taşı ya da kopyala</string>
     <string name="actionbar_open_with">Birlikte aç</string>
-    <string name="actionbar_search">Arama</string>
+    <string name="actionbar_search">Ara</string>
     <string name="actionbar_see_details">Ayrıntılar</string>
     <string name="actionbar_send_file">Gönder</string>
     <string name="actionbar_settings">Ayarlar</string>
@@ -599,7 +599,7 @@
     <string name="logs_menu_delete">Günlükleri sil</string>
     <string name="logs_menu_export">Günlükleri dışa aktar</string>
     <string name="logs_menu_refresh">Yenile</string>
-    <string name="logs_menu_search">Günlük arama</string>
+    <string name="logs_menu_search">Günlük ara</string>
     <string name="logs_menu_send">Günlükler e-posta ile gönderilsin</string>
     <string name="logs_status_filtered">Günlük kayıtları: %1$d kB, Eşleşen kayıt: %2$d / %3$d, Süre: %4$d ms</string>
     <string name="logs_status_loading">Yükleniyor …</string>
