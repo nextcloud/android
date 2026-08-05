@@ -51,8 +51,6 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.shares.ShareType;
-import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.tags.Tag;
 import com.owncloud.android.ui.activity.ComponentsGetter;
@@ -605,33 +603,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         sharedAvatars.setVisibility(View.VISIBLE);
-        sharedAvatars.setAvatars(user, avatarSharees(file), viewThemeUtils);
+        if (sharedAvatars.getChildCount() > 0) {
+            sharedAvatars.removeAllViews();
+        }
+        final var avatars = helper.getAvatarSharees(file, userId);
+        sharedAvatars.setAvatars(user, avatars, viewThemeUtils);
         sharedAvatars.setOnClickListener(view -> ocFileListFragmentInterface.onShareIconClick(file));
-    }
-
-    private List<ShareeUser> avatarSharees(OCFile file) {
-        final List<ShareeUser> sharees = file.getSharees();
-
-        ShareeUser owner = null;
-        final String ownerId = file.getOwnerId();
-        if (!TextUtils.isEmpty(ownerId) && !ownerId.equals(userId)) {
-            final var ownerSharee = new ShareeUser(ownerId, file.getOwnerDisplayName(), ShareType.USER);
-            if (!sharees.contains(ownerSharee)) {
-                owner = ownerSharee;
-            }
-        }
-
-        final var ordered = new ArrayList<ShareeUser>(sharees.size() + (owner == null ? 0 : 1));
-        if (owner != null) {
-            ordered.add(owner);
-        }
-
-        // count from last to first to get desired order
-        for (int i = sharees.size() - 1; i >= 0; i--) {
-            ordered.add(sharees.get(i));
-        }
-
-        return ordered;
     }
 
     private void bindListItemViewHolder(ListItemViewHolder holder, OCFile file) {
