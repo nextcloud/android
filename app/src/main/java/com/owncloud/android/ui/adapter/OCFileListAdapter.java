@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2023 TSI-mc
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
@@ -50,8 +51,6 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.shares.ShareType;
-import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.tags.Tag;
 import com.owncloud.android.ui.activity.ComponentsGetter;
@@ -75,7 +74,6 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -594,28 +592,22 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void bindSharedAvatars(ListItemViewHolder holder, OCFile file) {
+        final var sharedAvatars = holder.getSharedAvatars();
+
         if (!(file.isSharedWithMe() || file.isSharedWithSharee()) || isMultiSelect() || gridView || hideItemOptions) {
-            holder.getSharedAvatars().setVisibility(View.GONE);
-            holder.getSharedAvatars().removeAllViews();
+            sharedAvatars.setVisibility(View.GONE);
+            if (sharedAvatars.getChildCount() > 0) {
+                sharedAvatars.removeAllViews();
+            }
             return;
         }
 
-        final var sharees = new ArrayList<>(file.getSharees());
-
-        final String ownerId = file.getOwnerId();
-        if (!TextUtils.isEmpty(ownerId) && !ownerId.equals(userId)) {
-            final var ownerSharee = new ShareeUser(ownerId, file.getOwnerDisplayName(), ShareType.USER);
-            if (!sharees.contains(ownerSharee)) {
-                sharees.add(ownerSharee);
-            }
-        }
-
-        Collections.reverse(sharees);
-
-        final var sharedAvatars = holder.getSharedAvatars();
         sharedAvatars.setVisibility(View.VISIBLE);
-        sharedAvatars.removeAllViews();
-        sharedAvatars.setAvatars(user, sharees, viewThemeUtils);
+        if (sharedAvatars.getChildCount() > 0) {
+            sharedAvatars.removeAllViews();
+        }
+        final var avatars = helper.getAvatarSharees(file, userId);
+        sharedAvatars.setAvatars(user, avatars, viewThemeUtils);
         sharedAvatars.setOnClickListener(view -> ocFileListFragmentInterface.onShareIconClick(file));
     }
 
