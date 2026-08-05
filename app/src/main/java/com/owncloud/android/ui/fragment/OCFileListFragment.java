@@ -1604,6 +1604,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 return;
             }
 
+            Log_OC.i(TAG, "listing directory: " + directory.getDecryptedRemotePath());
+
             mAdapter.swapDirectory(
                 accountManager.getUser(),
                 directory,

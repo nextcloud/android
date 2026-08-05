@@ -229,6 +229,8 @@ class FileDisplayActivity :
     private var mPlayerConnection: PlayerServiceConnection? = null
     private var lastDisplayedAccountName: String? = null
 
+    private var listFragmentJustCreated = false
+
     @Inject
     lateinit var localBroadcastManager: LocalBroadcastManager
 
@@ -561,6 +563,7 @@ class FileDisplayActivity :
             val transaction = supportFragmentManager.beginTransaction()
             transaction.add(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES)
             transaction.commit()
+            listFragmentJustCreated = true
         } else {
             supportFragmentManager.findFragmentByTag(TAG_LIST_OF_FILES)
         }
@@ -570,7 +573,10 @@ class FileDisplayActivity :
         // First fragment
         val listOfFiles = this.listOfFilesFragment
         if (listOfFiles != null && TextUtils.isEmpty(searchQuery)) {
-            listOfFiles.listDirectory(getCurrentDir(), file, MainApp.isOnlyOnDevice())
+            if (!listFragmentJustCreated) {
+                listOfFiles.listDirectory(getCurrentDir(), file, MainApp.isOnlyOnDevice())
+            }
+            listFragmentJustCreated = true
         } else {
             Log_OC.e(TAG, "Still have a chance to lose the initialization of list fragment >(")
         }
@@ -612,10 +618,13 @@ class FileDisplayActivity :
                     if (it::class != OCFileListFragment::class) {
                         leftFragment = OCFileListFragment()
                         supportFragmentManager.executePendingTransactions()
+                        listFragmentJustCreated = true
                     }
                 }
 
-                browseToRoot()
+                // The onResume() that always follows this same-activity intent redelivery already
+                // lists and re-syncs the current directory, so doing it again here is redundant.
+                browseToRoot(performRefresh = false)
             }
 
             LIST_GROUPFOLDERS == action -> {
@@ -1372,6 +1381,9 @@ class FileDisplayActivity :
 
         super.onResume()
 
+        val listFragmentJustCreated = this.listFragmentJustCreated
+        this.listFragmentJustCreated = false
+
         folderRefreshScheduler.start()
 
         if (ocFileListFragment?.isSearchFragment == true) {
@@ -1412,7 +1424,9 @@ class FileDisplayActivity :
         if (searchView != null && !TextUtils.isEmpty(searchQuery)) {
             searchView?.setQuery(searchQuery, false)
         } else if (!ocFileListFragment.isSearchFragment && startFile == null) {
-            ocFileListFragment.listDirectory(MainApp.isOnlyOnDevice())
+            if (!listFragmentJustCreated) {
+                ocFileListFragment.listDirectory(MainApp.isOnlyOnDevice())
+            }
             ocFileListFragment.registerFabListener()
             updateActionBarTitleAndHomeButton(currentDir)
         } else {
@@ -1555,16 +1569,20 @@ class FileDisplayActivity :
             return
         }
 
-        var currentFile = file?.remotePath?.let { storageManager.getFileByPath(it) }
-        val currentDir = getCurrentDir()?.remotePath?.let { storageManager.getFileByPath(it) }
-        val isSyncFolderRemotePathRoot = OCFile.ROOT_PATH == syncFolderRemotePath
+        // RefreshFolderOperation always fires EVENT_SINGLE_FOLDER_SHARES_SYNCED for the same folder right after
+        // EVENT_SINGLE_FOLDER_CONTENTS_SYNCED, so listing the directory here would just repeat that refresh.
+        if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED != event) {
+            var currentFile = file?.remotePath?.let { storageManager.getFileByPath(it) }
+            val currentDir = getCurrentDir()?.remotePath?.let { storageManager.getFileByPath(it) }
+            val isSyncFolderRemotePathRoot = OCFile.ROOT_PATH == syncFolderRemotePath
 
-        if (currentDir == null && !isSyncFolderRemotePathRoot) {
-            handleRemovedFolder(syncFolderRemotePath)
-        } else if (currentDir != null) {
-            currentFile = handleRemovedFileFromServer(currentFile, currentDir)
-            updateFileList(fileListFragment, currentDir, syncFolderRemotePath)
-            file = currentFile
+            if (currentDir == null && !isSyncFolderRemotePathRoot) {
+                handleRemovedFolder(syncFolderRemotePath)
+            } else if (currentDir != null) {
+                currentFile = handleRemovedFileFromServer(currentFile, currentDir)
+                updateFileList(fileListFragment, currentDir, syncFolderRemotePath)
+                file = currentFile
+            }
         }
 
         handleSyncResult(event, syncResult)
@@ -1916,13 +1934,15 @@ class FileDisplayActivity :
     }
     // endregion
 
-    fun browseToRoot() {
+    fun browseToRoot(performRefresh: Boolean = true) {
         listOfFilesFragment?.let {
             val root = storageManager.getFileByPath(OCFile.ROOT_PATH)
             it.resetSearchAttributes()
             file = root
-            it.listDirectory(root, MainApp.isOnlyOnDevice())
-            startSyncFolderOperation(root, false)
+            if (performRefresh) {
+                it.listDirectory(root, MainApp.isOnlyOnDevice())
+                startSyncFolderOperation(root, false)
+            }
         }
 
         binding.fabMain.setImageResource(R.drawable.ic_plus)
