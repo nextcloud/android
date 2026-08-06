@@ -57,7 +57,7 @@ import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.di.ViewModelFactory;
 import com.nextcloud.client.login.model.LoginFailure;
-import com.nextcloud.client.login.model.LoginState;
+import com.nextcloud.client.login.model.LoginStateObserver;
 import com.nextcloud.client.login.LoginViewModel;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.onboarding.FirstRunActivity;
@@ -141,7 +141,7 @@ import static com.owncloud.android.utils.PermissionUtil.PERMISSIONS_CAMERA;
  */
 public class AuthenticatorActivity extends AccountAuthenticatorActivity
     implements OnRemoteOperationListener, OnEditorActionListener, OnSslUntrustedCertListener,
-    AuthenticatorAsyncTask.OnAuthenticatorTaskListener, Injectable {
+    AuthenticatorAsyncTask.OnAuthenticatorTaskListener, LoginStateObserver, Injectable {
 
     private static final String TAG = AuthenticatorActivity.class.getSimpleName();
 
@@ -251,7 +251,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         Log_OC.d(TAG, LOGIN_FLOW_LOG + " Lifecycle onCreate (recreated=" + (savedInstanceState != null) + ")");
 
         loginViewModel = new ViewModelProvider(this, viewModelFactory).get(LoginViewModel.class);
-        loginViewModel.observeState(this, this::onLoginFlowStateChanged);
+        loginViewModel.observeState(this, this);
 
         loginDialog = new LoginDialog(this);
         viewThemeUtils = viewThemeUtilsFactory.withPrimaryAsBackground();
@@ -408,7 +408,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
     private void showOrStartLoginFlowV2(String url) {
-        if (loginViewModel.getState().getValue() instanceof LoginState.AwaitingApproval) {
+        if (loginViewModel.isAwaitingApproval()) {
             showWaitingForBrowserUi();
             return;
         }
@@ -416,17 +416,23 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         startLoginFlowV2(url);
     }
 
-    private void onLoginFlowStateChanged(LoginState state) {
-        if (state instanceof LoginState.AwaitingApproval) {
-            showWaitingForBrowserUi();
-        } else if (state instanceof LoginState.Completed) {
-            LoginUrlInfo credentials = loginViewModel.consumeCredentials();
-            if (credentials != null) {
-                completeLoginFlow(credentials);
-            }
-        } else if (state instanceof LoginState.Failed failed) {
-            showLoginFlowFailure(failed.getReason());
+    @Override
+    public void onAwaitingApproval() {
+        showWaitingForBrowserUi();
+    }
+
+    @Override
+    public void onLoginCompleted() {
+        LoginUrlInfo credentials = loginViewModel.consumeCredentials();
+        if (credentials != null) {
+            completeLoginFlow(credentials);
         }
+    }
+
+    @Override
+    public void onLoginFailed(@NonNull LoginFailure reason) {
+        Log_OC.d(TAG, LOGIN_FLOW_LOG + " login flow failed: " + reason);
+        DisplayUtils.showSnackMessage(this, reason.getMessageId());
     }
 
     private void showWaitingForBrowserUi() {
@@ -441,19 +447,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (loginUrl != null) {
             launchDefaultWebBrowser(loginUrl);
         }
-    }
-
-    private void showLoginFlowFailure(LoginFailure reason) {
-        Log_OC.d(TAG, LOGIN_FLOW_LOG + " login flow failed: " + reason);
-
-        int message = switch (reason) {
-            case EMPTY_SERVER_URL -> R.string.authenticator_activity_empty_base_url;
-            case EMPTY_RESPONSE -> R.string.authenticator_activity_empty_response_message;
-            case TIMED_OUT -> R.string.authenticator_activity_login_timeout;
-            case MALFORMED_RESPONSE -> R.string.authenticator_activity_login_error;
-        };
-
-        DisplayUtils.showSnackMessage(this, message);
     }
 
     private void launchDefaultWebBrowser(String url) {

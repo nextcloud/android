@@ -7,9 +7,12 @@
 
 package com.nextcloud.client.login.model
 
-enum class LoginFailure {
-    EMPTY_SERVER_URL,
-    EMPTY_RESPONSE,
-    MALFORMED_RESPONSE,
-    TIMED_OUT
+import androidx.annotation.StringRes
+import com.owncloud.android.R
+
+enum class LoginFailure(@field:StringRes @param:StringRes val messageId: Int) {
+    EMPTY_SERVER_URL(R.string.authenticator_activity_empty_base_url),
+    EMPTY_RESPONSE(R.string.authenticator_activity_empty_response_message),
+    MALFORMED_RESPONSE(R.string.authenticator_activity_login_error),
+    TIMED_OUT(R.string.authenticator_activity_login_timeout)
 }

@@ -51,9 +51,16 @@ class LoginViewModel @Inject constructor(
     fun observeState(owner: LifecycleOwner, observer: LoginStateObserver) {
         owner.lifecycleScope.launch {
             owner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                state.collect { observer.onStateChanged(it) }
+                state.collect { notify(it, observer) }
             }
         }
+    }
+
+    private fun notify(state: LoginState, observer: LoginStateObserver) = when (state) {
+        is LoginState.AwaitingApproval -> observer.onAwaitingApproval()
+        LoginState.Completed -> observer.onLoginCompleted()
+        is LoginState.Failed -> observer.onLoginFailed(state.reason)
+        LoginState.Idle, LoginState.RequestingSession -> Unit
     }
 
     fun start(loginEndpointUrl: String) {
@@ -76,6 +83,8 @@ class LoginViewModel @Inject constructor(
     fun consumeCredentials(): LoginUrlInfo? = credentials.also { credentials = null }
 
     fun isCompleted(): Boolean = _state.value == LoginState.Completed
+
+    fun isAwaitingApproval(): Boolean = _state.value is LoginState.AwaitingApproval
 
     fun reset() {
         flowJob?.cancel()

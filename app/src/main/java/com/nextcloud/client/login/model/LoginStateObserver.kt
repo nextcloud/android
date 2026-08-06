@@ -7,6 +7,10 @@
 
 package com.nextcloud.client.login.model
 
-fun interface LoginStateObserver {
-    fun onStateChanged(state: LoginState)
+interface LoginStateObserver {
+    fun onAwaitingApproval()
+
+    fun onLoginCompleted()
+
+    fun onLoginFailed(reason: LoginFailure)
 }
