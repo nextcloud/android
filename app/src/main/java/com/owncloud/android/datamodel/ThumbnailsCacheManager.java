@@ -719,7 +719,7 @@ public final class ThumbnailsCacheManager {
             final String imageKey = Objects.requireNonNullElseGet(mImageKey, () -> String.valueOf(file.hashCode()));
 
             // local file should always generate a thumbnail
-            mImageKey = PREFIX_THUMBNAIL + mImageKey;
+            mImageKey = FileExtensionsKt.getSmallThumbnailKey(file);
 
             // Check disk cache in background thread
             Bitmap thumbnail = getBitmapFromDiskCache(imageKey);
