@@ -674,9 +674,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 previewLoaded = true;
             } else {
                 // show thumbnail while loading resized image
-                Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                    ThumbnailsCacheManager.PREFIX_THUMBNAIL + getFile().getRemoteId());
-
+                Bitmap thumbnail = getFile().getSmallThumbnail();
                 if (thumbnail != null) {
                     toolbarActivity.setPreviewImageBitmap(thumbnail);
                 } else {

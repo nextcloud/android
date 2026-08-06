@@ -803,7 +803,7 @@ public final class DisplayUtils {
 
     private static void setThumbnailFirstTimeForFile(OCFile file, ImageView thumbnailView, FileDataStorageManager storageManager, List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks, boolean gridView, LoaderImageView shimmerThumbnail, User user, AppPreferences preferences, Context context, ViewThemeUtils viewThemeUtils) {
         if (file.getRemoteId() != null) {
-            generateNewThumbnail(file, thumbnailView, user, storageManager, new ArrayList<>(asyncTasks), gridView, context, shimmerThumbnail, preferences, viewThemeUtils);
+            generateNewThumbnailIfNecessary(file, thumbnailView, user, storageManager, new ArrayList<>(asyncTasks), gridView, context, shimmerThumbnail, preferences, viewThemeUtils);
             return;
         }
 
@@ -835,9 +835,9 @@ public final class DisplayUtils {
     }
 
     public static void setThumbnailFromCache(OCFile file, ImageView thumbnailView, FileDataStorageManager storageManager, List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks, boolean gridView, LoaderImageView shimmerThumbnail, User user, AppPreferences preferences, Context context, ViewThemeUtils viewThemeUtils) {
-        final var thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId());
+        final var thumbnail = file.getSmallThumbnail();
         if (thumbnail == null || file.isUpdateThumbnailNeeded()) {
-            generateNewThumbnail(file, thumbnailView, user, storageManager, new ArrayList<>(asyncTasks), gridView, context, shimmerThumbnail, preferences, viewThemeUtils);
+            generateNewThumbnailIfNecessary(file, thumbnailView, user, storageManager, new ArrayList<>(asyncTasks), gridView, context, shimmerThumbnail, preferences, viewThemeUtils);
             setThumbnailBackgroundForPNGFileIfNeeded(file, context, thumbnailView);
             return;
         }
@@ -861,22 +861,21 @@ public final class DisplayUtils {
         }
     }
 
-    private static void generateNewThumbnail(OCFile file,
-                                             ImageView thumbnailView,
-                                             User user,
-                                             FileDataStorageManager storageManager,
-                                             ArrayList<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks,
-                                             boolean gridView,
-                                             Context context,
-                                             LoaderImageView shimmerThumbnail,
-                                             AppPreferences preferences,
-                                             ViewThemeUtils viewThemeUtils) {
+    private static void generateNewThumbnailIfNecessary(OCFile file,
+                                                        ImageView thumbnailView,
+                                                        User user,
+                                                        FileDataStorageManager storageManager,
+                                                        ArrayList<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks,
+                                                        boolean gridView,
+                                                        Context context,
+                                                        LoaderImageView shimmerThumbnail,
+                                                        AppPreferences preferences,
+                                                        ViewThemeUtils viewThemeUtils) {
         if (!ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
             return;
         }
 
-        Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-            ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId());
+        Bitmap thumbnail = file.getSmallThumbnail();
 
         if (thumbnail != null) {
             // If thumbnail is already in cache, display it immediately

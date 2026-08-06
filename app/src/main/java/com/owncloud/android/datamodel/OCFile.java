@@ -15,6 +15,7 @@ package com.owncloud.android.datamodel;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -813,6 +814,17 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public String getRemoteId() {
         return this.remoteId;
+    }
+
+    /**
+     * Capped to the 512KB.
+     */
+    public String getSmallThumbnailKey() {
+        return ThumbnailsCacheManager.PREFIX_THUMBNAIL + getRemoteId();
+    }
+
+    public Bitmap getSmallThumbnail() {
+        return ThumbnailsCacheManager.getBitmapFromDiskCache(getSmallThumbnailKey());
     }
 
     public boolean isUpdateThumbnailNeeded() {

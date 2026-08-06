@@ -23,7 +23,6 @@ import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileInfoFragmentBinding
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -259,9 +258,7 @@ class ImageDetailInfo(private val fragment: FileInfoFragment, private val viewTh
 
     private fun imagePinDrawable(context: Context, file: OCFile): LayerDrawable =
         (ContextCompat.getDrawable(context, R.drawable.photo_pin) as LayerDrawable).apply {
-            val bitmap = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.remoteId
-            )
+            val bitmap = file.smallThumbnail
             BitmapUtils.bitmapToCircularBitmapDrawable(fragment.resources, bitmap)?.let {
                 setDrawable(1, it)
             }

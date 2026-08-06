@@ -241,7 +241,7 @@ class PreviewImageFragment :
         binding.image.visibility = View.GONE
         binding.emptyListProgress.visibility = View.VISIBLE
 
-        var thumbnail = getThumbnailBitmap(file)
+        var thumbnail = file.smallThumbnail
         if (thumbnail != null) {
             binding.shimmer.visibility = View.VISIBLE
             binding.shimmerThumbnail.setImageBitmap(thumbnail)
@@ -326,9 +326,6 @@ class PreviewImageFragment :
 
         return cachedImage
     }
-
-    private fun getThumbnailBitmap(file: OCFile): Bitmap? =
-        ThumbnailsCacheManager.getBitmapFromDiskCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.remoteId)
 
     override fun onStop() {
         Log_OC.d(TAG, "onStop starts")

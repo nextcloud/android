@@ -217,7 +217,7 @@ public final class ThumbnailsCacheManager {
             return;
         }
 
-        final var keys = new String[] { PREFIX_RESIZED_IMAGE + file.getRemoteId(), PREFIX_THUMBNAIL + file.getRemoteId() };
+        final var keys = new String[] { PREFIX_RESIZED_IMAGE + file.getRemoteId(), file.getSmallThumbnailKey() };
 
         synchronized (mThumbnailsDiskCacheLock) {
             if (mThumbnailCache == null) {
@@ -1208,7 +1208,7 @@ public final class ThumbnailsCacheManager {
         int pxW;
         int pxH;
         pxW = pxH = getThumbnailDimension();
-        String imageKey = PREFIX_THUMBNAIL + file.getRemoteId();
+        String imageKey = file.getSmallThumbnailKey();
 
         GetMethod getMethod = null;
 

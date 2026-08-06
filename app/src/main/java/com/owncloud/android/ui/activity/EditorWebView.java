@@ -258,8 +258,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         } else {
             if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
                 // Thumbnail in cache?
-                Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                    ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId());
+                Bitmap thumbnail = file.getSmallThumbnail();
 
                 if (thumbnail != null && !file.isUpdateThumbnailNeeded()) {
                     if (MimeTypeUtil.isVideo(file)) {
