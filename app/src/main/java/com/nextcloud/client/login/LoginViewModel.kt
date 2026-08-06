@@ -63,7 +63,7 @@ class LoginViewModel @Inject constructor(
         }
 
         if (hasOngoingSession()) {
-            Log_OC.d(TAG, "Login flow v2 already running, ignoring duplicate start")
+            Log_OC.d(TAG, "Login already running, ignoring duplicate start")
             return
         }
 
@@ -109,7 +109,7 @@ class LoginViewModel @Inject constructor(
 
         val approved = withTimeoutOrNull(POLL_TIMEOUT_MILLIS.milliseconds) { pollUntilApproved(session) }
         if (approved == null) {
-            Log_OC.d(TAG, "Login flow v2 timed out before the user granted access")
+            Log_OC.d(TAG, "Login timed out before the user granted access")
             _state.value = LoginState.Failed(LoginFailure.TIMED_OUT)
         }
     }
@@ -136,14 +136,14 @@ class LoginViewModel @Inject constructor(
             if (throwable is CancellationException) {
                 throw throwable
             }
-            Log_OC.d(TAG, "Login flow v2 request failed, retrying: " + throwable.message)
+            Log_OC.d(TAG, "Login request failed, retrying: " + throwable.message)
         }
 
         return result.getOrNull()
     }
 
     companion object {
-        private const val TAG = "LoginFlowV2ViewModel"
+        private const val TAG = "LoginViewModel"
 
         private const val POLL_INTERVAL_MILLIS = 1000L
 
