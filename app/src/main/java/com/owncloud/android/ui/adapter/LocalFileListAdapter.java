@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.utils.FileHelper;
+import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -310,9 +311,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
             // get Thumbnail if file is image
             if (MimeTypeUtil.isImage(file)) {
                 // Thumbnail in Cache?
-                Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                        ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.hashCode()
-                );
+                Bitmap thumbnail = FileExtensionsKt.getSmallThumbnail(file);
                 if (thumbnail != null) {
                     thumbnailView.setImageBitmap(thumbnail);
                 } else {
