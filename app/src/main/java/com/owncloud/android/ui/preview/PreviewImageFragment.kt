@@ -313,7 +313,7 @@ class PreviewImageFragment :
         while (i < 3 && cachedImage == null) {
             try {
                 cachedImage = ThumbnailsCacheManager.getScaledBitmapFromDiskCache(
-                    ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId,
+                    file.getBigThumbnailKey(),
                     scaledWidth,
                     scaledHeight
                 )

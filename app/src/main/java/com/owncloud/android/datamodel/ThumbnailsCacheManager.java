@@ -218,7 +218,7 @@ public final class ThumbnailsCacheManager {
             return;
         }
 
-        final var keys = new String[] { PREFIX_RESIZED_IMAGE + file.getRemoteId(), file.getSmallThumbnailKey() };
+        final var keys = new String[] { file.getBigThumbnailKey(), file.getSmallThumbnailKey() };
 
         synchronized (mThumbnailsDiskCacheLock) {
             if (mThumbnailCache == null) {
@@ -623,7 +623,7 @@ public final class ThumbnailsCacheManager {
 
             // Check resized version in disk cache if still null
             if (thumbnail == null) {
-                String resizedImageKey = PREFIX_RESIZED_IMAGE + file.getRemoteId();
+                String resizedImageKey = FileExtensionsKt.getBigThumbnailKey(file);
                 Bitmap resizedImage = null;
 
                 if (!updateEnforced) {
@@ -1191,7 +1191,7 @@ public final class ThumbnailsCacheManager {
         Point p = getScreenDimension();
         int pxW = p.x;
         int pxH = p.y;
-        String imageKey = PREFIX_RESIZED_IMAGE + file.getRemoteId();
+        String imageKey = file.getBigThumbnailKey();
 
         Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.getStoragePath(), pxW, pxH);
 
@@ -1276,7 +1276,7 @@ public final class ThumbnailsCacheManager {
 
     public static Bitmap doResizedImageInBackground(OCFile file, FileDataStorageManager storageManager) {
         Bitmap thumbnail;
-        String imageKey = PREFIX_RESIZED_IMAGE + file.getRemoteId();
+        String imageKey = file.getBigThumbnailKey();
 
         // Check disk cache in background thread
         thumbnail = getBitmapFromDiskCache(imageKey);

@@ -25,6 +25,10 @@ fun OCFile?.logFileSize(tag: String) {
     Log_OC.d(tag, "onSaveInstanceState: $size, raw byte $rawByte")
 }
 
+fun ServerFileInterface.getBigThumbnail(): Bitmap? = ThumbnailsCacheManager.getBitmapFromDiskCache(getBigThumbnailKey())
+
+fun ServerFileInterface.getBigThumbnailKey(): String = ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + remoteId
+
 fun ServerFileInterface.getSmallThumbnail(): Bitmap? =
     ThumbnailsCacheManager.getBitmapFromDiskCache(getSmallThumbnailKey())
 

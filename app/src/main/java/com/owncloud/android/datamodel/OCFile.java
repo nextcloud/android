@@ -817,6 +817,14 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return this.remoteId;
     }
 
+    public String getBigThumbnailKey() {
+        return FileExtensionsKt.getBigThumbnailKey(this);
+    }
+
+    public Bitmap getBigThumbnail() {
+        return FileExtensionsKt.getBigThumbnail(this);
+    }
+
     public String getSmallThumbnailKey() {
         return FileExtensionsKt.getSmallThumbnailKey(this);
     }
