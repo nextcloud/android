@@ -25,6 +25,7 @@ import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.utils.extensions.getSmallThumbnail
 import com.nextcloud.utils.extensions.getStatusText
 import com.nextcloud.utils.extensions.isLastResultConflictError
 import com.nextcloud.utils.extensions.setVisibleIf
@@ -67,6 +68,7 @@ import java.util.function.Consumer
 )
 class UploadListAdapter(
     private val activity: FileActivity,
+    private val fileDataStorageManager: FileDataStorageManager,
     private val uploadsStorageManager: UploadsStorageManager,
     private val accountManager: UserAccountManager,
     private val connectivityService: ConnectivityService,
@@ -488,23 +490,24 @@ class UploadListAdapter(
     private fun bindItemThumbnail(holder: ItemViewHolder, item: OCUpload) {
         holder.binding.thumbnail.setImageResource(R.drawable.file)
 
-        val fakeFile = OCFile(item.remotePath).apply {
-            setStoragePath(item.localPath)
-            mimeType = item.mimeType
-        }
+        val ocFile =
+            fileDataStorageManager.getFileByDecryptedRemotePath(item.remotePath) ?: OCFile(item.remotePath).apply {
+                setStoragePath(item.localPath)
+                mimeType = item.mimeType
+            }
 
         val allowedToCreateNewThumbnail =
-            ThumbnailsCacheManager.cancelPotentialThumbnailWork(fakeFile, holder.binding.thumbnail)
+            ThumbnailsCacheManager.cancelPotentialThumbnailWork(ocFile, holder.binding.thumbnail)
 
         val optionalUser = accountManager.getUser(item.accountName)
         val fileName = File(item.remotePath).name.takeIf { it.isNotEmpty() } ?: File.separator
 
         when {
-            MimeTypeUtil.isImage(fakeFile) && fakeFile.remoteId != null &&
+            MimeTypeUtil.isImage(ocFile) && ocFile.remoteId != null &&
                 item.uploadStatus == UploadsStorageManager.UploadStatus.UPLOAD_SUCCEEDED ->
-                bindRemoteThumbnail(holder, item, fakeFile, allowedToCreateNewThumbnail)
+                bindRemoteThumbnail(holder, item, ocFile, allowedToCreateNewThumbnail)
 
-            MimeTypeUtil.isImage(fakeFile) ->
+            MimeTypeUtil.isImage(ocFile) ->
                 bindLocalThumbnail(holder, item, allowedToCreateNewThumbnail)
 
             optionalUser.isPresent -> {
@@ -517,13 +520,12 @@ class UploadListAdapter(
     private fun bindRemoteThumbnail(
         holder: ItemViewHolder,
         item: OCUpload,
-        fakeFile: OCFile,
+        file: OCFile,
         allowedToCreateNewThumbnail: Boolean
     ) {
-        val cacheKey = fakeFile.remoteId.toString()
-        var thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(cacheKey)
+        var thumbnail = file.smallThumbnail
 
-        if (thumbnail != null && !fakeFile.isUpdateThumbnailNeeded) {
+        if (thumbnail != null && !file.isUpdateThumbnailNeeded) {
             holder.binding.thumbnail.setImageBitmap(thumbnail)
         } else if (allowedToCreateNewThumbnail) {
             val user = activity.user
@@ -533,7 +535,7 @@ class UploadListAdapter(
                     activity.storageManager,
                     user.get()
                 )
-                thumbnail = thumbnail ?: if (MimeTypeUtil.isVideo(fakeFile)) {
+                thumbnail = thumbnail ?: if (MimeTypeUtil.isVideo(file)) {
                     ThumbnailsCacheManager.mDefaultVideo
                 } else {
                     ThumbnailsCacheManager.mDefaultImg
@@ -541,7 +543,7 @@ class UploadListAdapter(
                 holder.binding.thumbnail.setImageDrawable(
                     ThumbnailsCacheManager.AsyncThumbnailDrawable(activity.resources, thumbnail, task)
                 )
-                task.execute(ThumbnailsCacheManager.ThumbnailGenerationTaskObject(fakeFile, null))
+                task.execute(ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, null))
             }
         }
 
@@ -552,7 +554,7 @@ class UploadListAdapter(
 
     private fun bindLocalThumbnail(holder: ItemViewHolder, item: OCUpload, allowedToCreateNewThumbnail: Boolean) {
         val file = File(item.localPath)
-        val thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(file.hashCode().toString())
+        val thumbnail = file.getSmallThumbnail()
 
         if (thumbnail != null) {
             holder.binding.thumbnail.setImageBitmap(thumbnail)

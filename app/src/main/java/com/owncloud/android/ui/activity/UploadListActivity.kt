@@ -112,6 +112,7 @@ class UploadListActivity :
         adapterHelper = UploadListAdapterHelper(this)
         uploadListAdapter = UploadListAdapter(
             this,
+            storageManager,
             uploadsStorageManager,
             userAccountManager,
             connectivityService,
