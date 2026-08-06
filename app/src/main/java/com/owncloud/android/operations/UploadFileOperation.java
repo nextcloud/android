@@ -60,6 +60,7 @@ import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.operations.e2e.E2EClientData;
 import com.owncloud.android.operations.e2e.E2EData;
 import com.owncloud.android.operations.e2e.E2EFiles;
+import com.owncloud.android.operations.upload.RemoteFileExistence;
 import com.owncloud.android.operations.upload.UploadFileException;
 import com.owncloud.android.operations.upload.UploadFileOperationExtensionsKt;
 import com.owncloud.android.utils.EncryptionUtils;
@@ -1273,9 +1274,14 @@ public class UploadFileOperation extends SyncOperation {
         throws OperationCancelledException {
         Log_OC.d(TAG, "Checking name collision in server");
 
-        boolean isFileExists = existsFile(client, mRemotePath, fileNames, encrypted);
+        final var existence = existsFile(client, mRemotePath, fileNames, encrypted);
 
-        if (isFileExists) {
+        if (existence == RemoteFileExistence.UNAUTHORIZED) {
+            Log_OC.e(TAG, "existence check answered with unauthorized, credentials are no longer valid");
+            return new RemoteOperationResult<>(ResultCode.UNAUTHORIZED);
+        }
+
+        if (existence == RemoteFileExistence.EXISTS) {
             switch (mNameCollisionPolicy) {
                 case SKIP:
                     Log_OC.d(TAG, "user choose to skip upload if same file exists");
@@ -1513,39 +1519,37 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         int count = 2;
-        boolean exists;
+        RemoteFileExistence existence;
         String newPath;
 
-        // FIXME: Causing infinite loop during tests due to ExistenceCheckRemoteOperation result
         do {
             suffix = " (" + count + ")";
             newPath = extPos >= 0 ? remotePathWithoutExtension + suffix + "." + extension : remotePath + suffix;
-            exists = existsFile(client, newPath, fileNames, encrypted);
+            existence = existsFile(client, newPath, fileNames, encrypted);
             count++;
-        } while (exists);
+        } while (existence == RemoteFileExistence.EXISTS);
 
         return newPath;
     }
 
-    private static boolean existsFile(OwnCloudClient client,
-                               String remotePath,
-                               List<String> fileNames,
-                               boolean encrypted) {
+    private static RemoteFileExistence existsFile(OwnCloudClient client,
+                                                  String remotePath,
+                                                  List<String> fileNames,
+                                                  boolean encrypted) {
         if (encrypted) {
             String fileName = new File(remotePath).getName();
 
             for (String name : fileNames) {
                 if (name.equalsIgnoreCase(fileName)) {
-                    return true;
+                    return RemoteFileExistence.EXISTS;
                 }
             }
 
-            return false;
-        } else {
-            ExistenceCheckRemoteOperation existsOperation = new ExistenceCheckRemoteOperation(remotePath, false);
-            final var result = existsOperation.execute(client);
-            return result.isSuccess();
+            return RemoteFileExistence.DOES_NOT_EXIST;
         }
+
+        ExistenceCheckRemoteOperation existsOperation = new ExistenceCheckRemoteOperation(remotePath, false);
+        return RemoteFileExistence.fromExistenceCheck(existsOperation.execute(client));
     }
 
     /**
