@@ -9,16 +9,13 @@ package com.nextcloud.client.jobs.gallery
 
 import android.graphics.Bitmap
 import android.graphics.Point
-import android.media.ThumbnailUtils
-import android.os.Build
-import android.provider.MediaStore
-import android.util.Size
 import android.view.WindowManager
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import com.nextcloud.client.account.User
+import com.nextcloud.utils.LocalThumbnailGenerator
 import com.nextcloud.utils.extensions.isPNG
-import com.nextcloud.utils.extensions.toFile
+import com.nextcloud.utils.extensions.setMediaThumbnail
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -117,26 +114,38 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
             return@withContext applyVideoOverlayIfNeeded(file, cached)
         }
 
-        onNewThumbnail()
-
         if (file.isDown) {
             val local = decodeLocalThumbnail(file)
             if (local != null) {
                 ThumbnailsCacheManager.addBitmapToCache(cacheKey, local)
+                onNewThumbnail()
                 return@withContext applyVideoOverlayIfNeeded(file, local)
             }
         }
 
         val remote = semaphore.withPermit { fetchFromServer(file) }
         if (remote != null) {
+            onNewThumbnail()
             return@withContext applyVideoOverlayIfNeeded(file, remote)
+        }
+
+        val sharedThumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+            ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.remoteId
+        )
+        if (sharedThumbnail != null) {
+            return@withContext applyVideoOverlayIfNeeded(file, sharedThumbnail)
         }
 
         null
     }
 
     private fun decodeLocalThumbnail(file: OCFile): Bitmap? = if (MimeTypeUtil.isVideo(file)) {
-        createVideoThumbnail(file.storagePath)
+        LocalThumbnailGenerator.createThumbnail(
+            file.storagePath,
+            ThumbnailsCacheManager.getThumbnailDimension(),
+            ThumbnailsCacheManager.getThumbnailDimension(),
+            file.mimeType
+        )
     } else {
         createImageThumbnail(file)
     }
@@ -161,22 +170,6 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
         file.isUpdateThumbnailNeeded = false
 
         return thumbnail
-    }
-
-    private fun createVideoThumbnail(storagePath: String): Bitmap? {
-        val ioFile = storagePath.toFile() ?: return null
-        val size = ThumbnailsCacheManager.getThumbnailDimension()
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            try {
-                ThumbnailUtils.createVideoThumbnail(ioFile, Size(size, size), null)
-            } catch (e: Exception) {
-                Log_OC.e(TAG, "Failed to create video thumbnail from local file: ${e.message}")
-                null
-            }
-        } else {
-            @Suppress("DEPRECATION")
-            ThumbnailUtils.createVideoThumbnail(storagePath, MediaStore.Images.Thumbnails.MINI_KIND)
-        }
     }
 
     private suspend fun fetchFromServer(file: OCFile): Bitmap? = try {
@@ -216,7 +209,7 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
             if (newImage) listener.onNewGalleryImage()
 
             if (imageView.isAttachedToWindow) {
-                imageView.setImageBitmap(bitmap)
+                imageView.setMediaThumbnail(bitmap)
                 imageView.invalidate()
             }
         }

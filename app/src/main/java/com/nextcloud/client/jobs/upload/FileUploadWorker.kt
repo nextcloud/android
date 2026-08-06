@@ -51,7 +51,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
-import java.io.File
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.random.Random
 
@@ -396,20 +395,16 @@ class FileUploadWorker(
         var result: RemoteOperationResult<Any?>
 
         try {
-            val storageManager = operation.storageManager
             fileUploadEventBroadcaster.sendUploadStarted(operation, context)
             result = operation.execute(client)
-
-            // only generate a thumbnail if the upload actually succeeded
-            if (result.isSuccess) {
-                val task = ThumbnailsCacheManager.ThumbnailGenerationTask(storageManager, user)
-                val file = File(operation.originalStoragePath)
-                val remoteId: String? = operation.file.remoteId
-                task.execute(ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, remoteId))
-            }
         } catch (e: Exception) {
             Log_OC.e(TAG, "Error uploading", e)
             result = RemoteOperationResult(e)
+        }
+
+        // only generate a thumbnail if the upload actually succeeded
+        if (result.isSuccess) {
+            generateThumbnailFromSourceFile(operation, user)
         }
 
         if (!isStopped) {
@@ -434,6 +429,12 @@ class FileUploadWorker(
         }
 
         return@withContext result
+    }
+
+    private fun generateThumbnailFromSourceFile(operation: UploadFileOperation, user: User) {
+        val sourceFile = operation.originalStoragePath.toFile() ?: return
+        val task = ThumbnailsCacheManager.ThumbnailGenerationTask(operation.storageManager, user)
+        task.execute(ThumbnailsCacheManager.ThumbnailGenerationTaskObject(sourceFile, operation.file.remoteId))
     }
 
     @Suppress("MagicNumber")

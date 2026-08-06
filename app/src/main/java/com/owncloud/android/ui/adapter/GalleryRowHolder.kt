@@ -19,6 +19,7 @@ import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.utils.OCFileUtils
 import com.nextcloud.utils.extensions.makeRounded
+import com.nextcloud.utils.extensions.setMediaPlaceholder
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.GalleryRowBinding
@@ -104,12 +105,10 @@ class GalleryRowHolder(
             layoutParams = FrameLayout.LayoutParams(width, height)
         }
 
-        val drawable = OCFileUtils.getMediaPlaceholder(file, width to height)
         val rowCellImageView = ImageView(context).apply {
-            setImageDrawable(drawable)
             adjustViewBounds = true
-            scaleType = ImageView.ScaleType.CENTER_CROP
             layoutParams = FrameLayout.LayoutParams(width, height)
+            setMediaPlaceholder(file, viewThemeUtils)
         }
 
         return FrameLayout(context).apply {
@@ -163,7 +162,7 @@ class GalleryRowHolder(
         adjustRowCell(thumbnail, isChecked)
         adjustCheckBox(checkbox, isChecked)
 
-        ocFileListDelegate.bindGalleryRow(shimmer, thumbnail, file, this, dims)
+        ocFileListDelegate.bindGalleryRow(shimmer, thumbnail, file, this)
 
         val endMargin = if (index < row.files.size - 1) smallMargin else zero
         thumbnail.layoutParams = FrameLayout.LayoutParams(width, height).apply {

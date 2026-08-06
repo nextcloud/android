@@ -19,8 +19,9 @@ import com.nextcloud.client.jobs.gallery.GalleryImageGenerationJob
 import com.nextcloud.client.jobs.gallery.GalleryImageGenerationListener
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.utils.OCFileUtils
 import com.nextcloud.utils.extensions.makeRounded
+import com.nextcloud.utils.extensions.setMediaPlaceholder
+import com.nextcloud.utils.extensions.setMediaThumbnail
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.mdm.MDMConfig
 import com.owncloud.android.R
@@ -104,8 +105,7 @@ class OCFileListDelegate(
         shimmer: LoaderImageView?,
         imageView: ImageView,
         file: OCFile,
-        galleryRowHolder: GalleryRowHolder,
-        imageDimension: Pair<Int, Int>
+        galleryRowHolder: GalleryRowHolder
     ) {
         // Cancel previous job for this ImageView
         GalleryImageGenerationJob.cancelPreviousJob(imageView)
@@ -113,17 +113,16 @@ class OCFileListDelegate(
         imageView.tag = file.fileId
 
         // set placeholder before async job
-        val cacheKey = ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId
-        val cachedBitmap = ThumbnailsCacheManager.getBitmapFromDiskCache(cacheKey)
+        val cachedBitmap = ThumbnailsCacheManager.getCachedMediaBitmap(file)
         if (cachedBitmap != null) {
             val overlay = if (MimeTypeUtil.isVideo(file)) {
                 ThumbnailsCacheManager.addVideoOverlay(cachedBitmap, context)
             } else {
                 cachedBitmap
             }
-            imageView.setImageBitmap(overlay)
+            imageView.setMediaThumbnail(overlay)
         } else {
-            imageView.setImageDrawable(OCFileUtils.getMediaPlaceholder(file, imageDimension))
+            imageView.setMediaPlaceholder(file, viewThemeUtils)
         }
 
         val job = ioScope.launch {

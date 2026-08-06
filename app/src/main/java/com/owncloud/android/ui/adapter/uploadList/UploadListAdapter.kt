@@ -520,7 +520,7 @@ class UploadListAdapter(
         fakeFile: OCFile,
         allowedToCreateNewThumbnail: Boolean
     ) {
-        val cacheKey = fakeFile.remoteId.toString()
+        val cacheKey = ThumbnailsCacheManager.PREFIX_THUMBNAIL + fakeFile.remoteId
         var thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(cacheKey)
 
         if (thumbnail != null && !fakeFile.isUpdateThumbnailNeeded) {
@@ -552,7 +552,8 @@ class UploadListAdapter(
 
     private fun bindLocalThumbnail(holder: ItemViewHolder, item: OCUpload, allowedToCreateNewThumbnail: Boolean) {
         val file = File(item.localPath)
-        val thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(file.hashCode().toString())
+        val cacheKey = ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.hashCode()
+        val thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(cacheKey)
 
         if (thumbnail != null) {
             holder.binding.thumbnail.setImageBitmap(thumbnail)
