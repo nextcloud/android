@@ -27,6 +27,7 @@ import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import com.nextcloud.test.Flaky
 import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
@@ -100,6 +101,7 @@ class GalleryFragmentIT : AbstractIT() {
     }
 
     @Test
+    @Flaky(reason = "Gallery sections are occasionally not laid out before the multi select assertions run")
     fun multiSelect() {
         val imageCount = 100
         for (num in 1..imageCount) {

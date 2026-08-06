@@ -28,6 +28,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.nextcloud.android.common.ui.color.ColorUtil
 import com.nextcloud.android.common.ui.theme.MaterialSchemes
 import com.nextcloud.android.common.ui.theme.ViewThemeUtilsBase
@@ -309,6 +310,16 @@ class FilesSpecificViewThemeUtils @Inject constructor(
                     )
                 }
             }
+        }
+    }
+
+    fun themeAutoCompleteTextView(autoCompleteTextView: MaterialAutoCompleteTextView) {
+        withScheme(autoCompleteTextView) { scheme ->
+            autoCompleteTextView.setTextColor(dynamicColor.onSurface().getArgb(scheme))
+            autoCompleteTextView.setHintTextColor(dynamicColor.onSurfaceVariant().getArgb(scheme))
+            autoCompleteTextView.setDropDownBackgroundTintList(
+                ColorStateList.valueOf(dynamicColor.surfaceContainer().getArgb(scheme))
+            )
         }
     }
 

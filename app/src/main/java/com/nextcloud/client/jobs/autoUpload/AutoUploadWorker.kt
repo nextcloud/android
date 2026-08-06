@@ -40,6 +40,7 @@ import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.operations.UploadFileOperation
@@ -330,6 +331,11 @@ class AutoUploadWorker(
                                 "❌ upload failed $localPath (${upload.accountName}): ${result.logMessage}"
                             )
 
+                            if (result.code == ResultCode.UNAUTHORIZED) {
+                                Log_OC.e(TAG, "🔑 credentials are no longer valid, stopping auto upload")
+                                return@withContext
+                            }
+
                             // Mark CONFLICT files as handled to prevent retries
                             if (result.code.isConflict()) {
                                 repository.markFileAsHandled(localPath, syncedFolder)
@@ -411,10 +417,9 @@ class AutoUploadWorker(
         }
 
         // only valid for skip collision policy other scenarios will be handled in UploadFileOperation.java
-        if (upload.lastResult == UploadResult.UPLOADED &&
-            syncedFolder.nameCollisionPolicy == NameCollisionPolicy.SKIP
-        ) {
-            Log_OC.d(TAG, "no need to create and process this entity file is already uploaded")
+        val alreadyHandled = upload.lastResult == UploadResult.UPLOADED || upload.lastResult == UploadResult.SKIPPED
+        if (alreadyHandled && syncedFolder.nameCollisionPolicy == NameCollisionPolicy.SKIP) {
+            Log_OC.d(TAG, "no need to create and process this entity file is already uploaded or skipped")
             return AutoUploadEntityResult.Uploaded
         }
 

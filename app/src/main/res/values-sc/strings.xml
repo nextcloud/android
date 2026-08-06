@@ -57,7 +57,6 @@
     <string name="auth_ssl_unverified_server_title">Non si podet verificare s\'identidade de su serbidore SSL</string>
     <string name="auth_testing_connection">Proa de connessione</string>
     <string name="auth_timeout_title">Su serbidore nch\'at postu tropu tempus pro respòndere</string>
-    <string name="auth_trying_to_login">Seu proende a intrare...</string>
     <string name="auth_unauthorized">Crae o nùmene utente isballiadu</string>
     <string name="auth_unknown_error_exception_title">Errore non connotu: %1$s</string>
     <string name="auth_unknown_error_http_title">Ddoe at àpidu un\'errore HTTP disconnotu!</string>
@@ -365,6 +364,8 @@
     <string name="foreign_files_remote_text">Remotu: %1$s</string>
     <string name="forward">Torra a imbiare</string>
     <string name="fourHours">4 oras</string>
+    <string name="governance_file_retention_label">Allogada de archìviu</string>
+    <string name="governance_no_label">Perunu</string>
     <string name="hint_name">Nùmene</string>
     <string name="hint_note">Nota</string>
     <string name="hint_password">Crae</string>

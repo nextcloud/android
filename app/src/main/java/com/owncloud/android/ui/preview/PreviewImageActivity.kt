@@ -17,6 +17,10 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toDrawable
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.viewpager2.widget.ViewPager2
@@ -28,6 +32,7 @@ import com.nextcloud.client.editimage.EditImageActivity
 import com.nextcloud.client.jobs.download.FileDownloadEventBroadcaster
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.download.FileDownloadWorker
+import com.nextcloud.client.jobs.download.SendShareDownloader
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.model.WorkerState
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -47,6 +52,7 @@ import com.owncloud.android.operations.SynchronizeFileOperation
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.activity.OnFilesRemovedListener
+import com.owncloud.android.ui.dialog.SendShareDialog
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.fragment.GalleryFragment
 import com.owncloud.android.ui.preview.model.PreviewImageActivityState
@@ -59,7 +65,7 @@ import kotlin.math.max
 import kotlin.math.min
 
 /**
- * Holds a swiping gallery where image files contained in an Nextcloud directory are shown.
+ * Holds a swiping gallery where image and video files contained in a Nextcloud directory are shown.
  */
 @Suppress("TooManyFunctions")
 class PreviewImageActivity :
@@ -67,16 +73,21 @@ class PreviewImageActivity :
     FileFragment.ContainerActivity,
     OnRemoteOperationListener,
     OnFilesRemovedListener,
+    SendShareDialog.SendShareDialogDownloader,
     Injectable {
     private var livePhotoFile: OCFile? = null
     private var viewPager: ViewPager2? = null
-    private var previewImagePagerAdapter: PreviewImagePagerAdapter? = null
+    private var previewMediaPagerAdapter: PreviewMediaPagerAdapter? = null
     private var savedPosition: Int? = null
+
+    private val sendShareDownloader by lazy { SendShareDownloader(this, localBroadcastManager) }
 
     private val downloadStartReceiver = DownloadStartReceiver()
     private val downloadFinishReceiver = DownloadFinishReceiver()
 
-    private var fullScreenAnchorView: View? = null
+    private val windowInsetsController: WindowInsetsControllerCompat by lazy {
+        WindowCompat.getInsetsController(window, window.decorView)
+    }
 
     private var isDownloadWorkStarted = false
     private var screenState = PreviewImageActivityState.Idle
@@ -115,8 +126,6 @@ class PreviewImageActivity :
             it.setBackgroundDrawable(R.color.black.toDrawable())
         }
 
-        fullScreenAnchorView = window.decorView
-        // to keep our UI controls visibility in line with system bars visibility
         setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
         val requestWaitingForBinder = savedInstanceState?.getBoolean(KEY_WAITING_FOR_BINDER) ?: false
@@ -127,6 +136,13 @@ class PreviewImageActivity :
         observeWorkerState()
         applyDisplayCutOutTopPadding()
         handleBackPress()
+
+        lifecycle.addObserver(sendShareDownloader)
+        sendShareDownloader.restoreState(savedInstanceState)
+    }
+
+    override fun downloadFile(file: OCFile, packageName: String, activityName: String) {
+        sendShareDownloader.downloadFile(file, packageName, activityName)
     }
 
     override fun getMenuItemId(): Int = R.id.nav_gallery
@@ -163,7 +179,7 @@ class PreviewImageActivity :
         if (virtualFolderType != null && virtualFolderType !== VirtualFolderType.NONE) {
             val type = virtualFolderType as VirtualFolderType
 
-            previewImagePagerAdapter = PreviewImagePagerAdapter(
+            previewMediaPagerAdapter = PreviewMediaPagerAdapter(
                 this,
                 type,
                 user,
@@ -174,7 +190,7 @@ class PreviewImageActivity :
             val parentFolder = file?.let { storageManager.getFileById(it.parentId) }
                 ?: storageManager.getFileByEncryptedRemotePath(OCFile.ROOT_PATH)
 
-            previewImagePagerAdapter = PreviewImagePagerAdapter(
+            previewMediaPagerAdapter = PreviewMediaPagerAdapter(
                 this,
                 livePhotoFile,
                 parentFolder,
@@ -192,11 +208,11 @@ class PreviewImageActivity :
         ) {
             savedPosition
         } else {
-            file?.let { previewImagePagerAdapter?.getFilePosition(it) }
+            file?.let { previewMediaPagerAdapter?.getFilePosition(it) }
         }
         position = position?.toDouble()?.let { max(it, 0.0).toInt() }
 
-        viewPager?.adapter = previewImagePagerAdapter
+        viewPager?.adapter = previewMediaPagerAdapter
         viewPager?.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 selectPage(position)
@@ -231,7 +247,7 @@ class PreviewImageActivity :
 
     fun updateViewPagerAfterDeletionAndAdvanceForward() {
         val deletePosition = viewPager?.currentItem ?: return
-        previewImagePagerAdapter?.let { adapter ->
+        previewMediaPagerAdapter?.let { adapter ->
             val nextPosition = min(deletePosition, adapter.itemCount - 1)
             viewPager?.setCurrentItem(nextPosition, true)
             adapter.delete(deletePosition)
@@ -278,8 +294,8 @@ class PreviewImageActivity :
         val optionalUser = user
         if (optionalUser.isPresent) {
             var file: OCFile? = file ?: throw IllegalStateException("Instanced with a NULL OCFile")
-            // / Validate handled file (first image to preview)
-            require(MimeTypeUtil.isImage(file)) { "Non-image file passed as argument" }
+            // / Validate handled file (first media item to preview)
+            require(MimeTypeUtil.isImageOrVideo(file)) { "Non-image/video file passed as argument" }
 
             // Update file according to DB file, if it is possible
             if (file!!.fileId > FileDataStorageManager.ROOT_PARENT_ID) {
@@ -305,13 +321,14 @@ class PreviewImageActivity :
         super.onSaveInstanceState(outState)
         outState.putBoolean(KEY_WAITING_FOR_BINDER, screenState == PreviewImageActivityState.WaitingForBinder)
         outState.putBoolean(KEY_SYSTEM_VISIBLE, isSystemUIVisible)
+        sendShareDownloader.saveState(outState)
     }
 
     override fun onRemoteOperationFinish(operation: RemoteOperation<*>?, result: RemoteOperationResult<*>) {
         super.onRemoteOperationFinish(operation, result)
 
         if (operation is RemoveFileOperation) {
-            previewImagePagerAdapter?.let {
+            previewMediaPagerAdapter?.let {
                 if (it.itemCount <= 1) {
                     backToDisplayActivity()
                     return
@@ -346,7 +363,7 @@ class PreviewImageActivity :
     private fun setDownloadedItem() {
         savedPosition?.let { position ->
 
-            previewImagePagerAdapter?.run {
+            previewMediaPagerAdapter?.run {
                 file?.let {
                     updateFile(position, it)
                     notifyItemChanged(position)
@@ -438,7 +455,7 @@ class PreviewImageActivity :
         if (position == null) return
         savedPosition = position
 
-        val currentFile = previewImagePagerAdapter?.getFileAt(position)
+        val currentFile = previewMediaPagerAdapter?.getFileAt(position)
 
         if (!isDownloadWorkStarted) {
             screenState = PreviewImageActivityState.WaitingForBinder
@@ -446,7 +463,7 @@ class PreviewImageActivity :
             if (currentFile != null) {
                 if (currentFile.isEncrypted &&
                     !currentFile.isDown &&
-                    previewImagePagerAdapter?.pendingErrorAt(position) == false
+                    previewMediaPagerAdapter?.pendingErrorAt(position) == false
                 ) {
                     requestForDownload(currentFile)
                 }
@@ -507,13 +524,15 @@ class PreviewImageActivity :
         get() = supportActionBar == null || supportActionBar?.isShowing == true
 
     fun toggleFullScreen() {
-        fullScreenAnchorView?.let {
-            val visible = (it.systemUiVisibility and View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0
-            if (visible) {
-                hideSystemUI(it)
-            } else {
-                showSystemUI(it)
-            }
+        val rootInsets = ViewCompat.getRootWindowInsets(window.decorView) ?: return
+
+        // the content is laid out edge to edge so that showing and hiding the bars does not move it
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        if (rootInsets.isVisible(WindowInsetsCompat.Type.systemBars())) {
+            windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
+        } else {
+            windowInsetsController.show(WindowInsetsCompat.Type.systemBars())
         }
     }
 
@@ -541,27 +560,6 @@ class PreviewImageActivity :
 
     override fun onBrowsedDownTo(folder: OCFile) = Unit
     override fun onTransferStateChanged(file: OCFile, downloading: Boolean, uploading: Boolean) = Unit
-
-    @Suppress("DEPRECATION")
-    private fun hideSystemUI(anchorView: View) {
-        anchorView.systemUiVisibility = (
-            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_IMMERSIVE
-                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-            )
-    }
-
-    @Suppress("DEPRECATION")
-    private fun showSystemUI(anchorView: View) {
-        anchorView.systemUiVisibility = (
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-            )
-    }
 
     companion object {
         val TAG: String = PreviewImageActivity::class.java.simpleName

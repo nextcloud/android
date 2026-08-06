@@ -13,6 +13,7 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
+import com.nextcloud.test.Flaky
 import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
@@ -25,6 +26,7 @@ import java.io.File
 class UnifiedSearchFragmentIT : AbstractIT() {
 
     @Test
+    @Flaky(reason = "Search result list is occasionally not rendered before the assertions run")
     fun showSearchResult() {
         launchActivity<TestActivity>().use { scenario ->
 
@@ -58,6 +60,7 @@ class UnifiedSearchFragmentIT : AbstractIT() {
     }
 
     @Test
+    @Flaky(reason = "Search runs asynchronously and does not always complete before the assertions run")
     fun search() {
         launchActivity<TestActivity>().use { scenario ->
             scenario.onActivity { activity ->

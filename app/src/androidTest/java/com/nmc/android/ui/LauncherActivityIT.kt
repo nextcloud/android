@@ -6,16 +6,12 @@
  */
 package com.nmc.android.ui
 
+import android.view.View
 import androidx.test.core.app.launchActivity
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
-import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -24,29 +20,21 @@ class LauncherActivityIT : AbstractIT() {
 
     @Test
     fun testSplashScreenWithEmptyTitlesShouldHideTitles() {
-        launchActivity<LauncherActivity>().use { scenario ->
-            onView(withId(R.id.ivSplash)).check(matches(isCompletelyDisplayed()))
-            onView(
-                withId(R.id.splashScreenBold)
-            ).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
-            onView(
-                withId(R.id.splashScreenNormal)
-            ).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
+        launchActivity<LauncherActivity>().onActivity { activity ->
+            assertEquals(View.VISIBLE, activity.findViewById<View>(R.id.ivSplash).visibility)
+            assertEquals(View.GONE, activity.findViewById<View>(R.id.splashScreenBold).visibility)
+            assertEquals(View.GONE, activity.findViewById<View>(R.id.splashScreenNormal).visibility)
         }
     }
 
     @Test
     fun testSplashScreenWithTitlesShouldShowTitles() {
-        launchActivity<LauncherActivity>().use { scenario ->
-            onView(withId(R.id.ivSplash)).check(matches(isCompletelyDisplayed()))
+        launchActivity<LauncherActivity>().onActivity { activity ->
+            activity.setSplashTitles("Example", "Cloud")
 
-            scenario.onActivity {
-                it.setSplashTitles("Example", "Cloud")
-            }
-
-            val onePercentArea = ViewMatchers.isDisplayingAtLeast(1)
-            onView(withId(R.id.splashScreenBold)).check(matches(onePercentArea))
-            onView(withId(R.id.splashScreenNormal)).check(matches(onePercentArea))
+            assertEquals(View.VISIBLE, activity.findViewById<View>(R.id.ivSplash).visibility)
+            assertEquals(View.VISIBLE, activity.findViewById<View>(R.id.splashScreenBold).visibility)
+            assertEquals(View.VISIBLE, activity.findViewById<View>(R.id.splashScreenNormal).visibility)
         }
     }
 }

@@ -17,6 +17,7 @@ import androidx.annotation.VisibleForTesting
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.MainApp
+import com.owncloud.android.authentication.PassCodeManager.Companion.PASS_CODE_TIMEOUT
 import com.owncloud.android.ui.activity.PassCodeActivity
 import com.owncloud.android.ui.activity.RequestCredentialsActivity
 import com.owncloud.android.ui.activity.SettingsActivity
@@ -85,6 +86,19 @@ class PassCodeManager(private val preferences: AppPreferences, private val clock
         return askedForPin
     }
 
+    fun isLocked(activity: Activity): Boolean {
+        var askedForPin = false
+        val timestamp = preferences.lockTimestamp
+
+        if (!isExemptActivity(activity)) {
+            val passcodeRequested = passCodeShouldBeRequested(timestamp)
+            val credentialsRequested = deviceCredentialsShouldBeRequested(timestamp, activity)
+            askedForPin = passcodeRequested || credentialsRequested
+        }
+
+        return askedForPin
+    }
+
     private fun requestPasscode(activity: Activity) {
         val i = Intent(MainApp.getAppContext(), PassCodeActivity::class.java).apply {
             action = PassCodeActivity.ACTION_CHECK
@@ -121,7 +135,7 @@ class PassCodeManager(private val preferences: AppPreferences, private val clock
     @VisibleForTesting
     fun passCodeShouldBeRequested(timestamp: Long): Boolean = shouldBeLocked(timestamp) && isPassCodeEnabled()
 
-    private fun isPassCodeEnabled(): Boolean = SettingsActivity.LOCK_PASSCODE == preferences.lockPreference
+    fun isPassCodeEnabled(): Boolean = SettingsActivity.LOCK_PASSCODE == preferences.lockPreference
 
     private fun deviceCredentialsShouldBeRequested(timestamp: Long, activity: Activity): Boolean =
         shouldBeLocked(timestamp) && deviceCredentialsAreEnabled(activity)

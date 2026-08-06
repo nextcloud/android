@@ -119,29 +119,36 @@ class SynchronizeFileOperation : SyncOperation {
     }
 
     private fun syncWithServer(client: OwnCloudClient?): RemoteOperationResult<*> {
-        serverFile = serverFile ?: fetchServerFile(client).let { (result, file) ->
-            if (file == null) return result!!
-            file
+        val givenServerFile = serverFile
+        if (givenServerFile != null) {
+            return resolveChanges(givenServerFile)
         }
 
-        return serverFile
-            ?.let { resolveChanges(it) }
-            ?: handleMissingRemoteFile()
+        return when (val fetchResult = fetchServerFile(client)) {
+            is FetchServerFileResult.Failed -> fetchResult.result
+
+            is FetchServerFileResult.Missing -> handleMissingRemoteFile()
+
+            is FetchServerFileResult.Found -> {
+                serverFile = fetchResult.file
+                resolveChanges(fetchResult.file)
+            }
+        }
     }
 
-    private fun fetchServerFile(client: OwnCloudClient?): Pair<RemoteOperationResult<*>?, OCFile?> {
+    private fun fetchServerFile(client: OwnCloudClient?): FetchServerFileResult {
         val result = ReadFileRemoteOperation(remotePath).execute(client)
         return when {
             result?.isSuccess == true -> {
                 val file = FileStorageUtils.fillOCFile(result.data[0] as RemoteFile?).apply {
                     lastSyncDateForProperties = System.currentTimeMillis()
                 }
-                null to file
+                FetchServerFileResult.Found(file)
             }
 
-            result?.code == RemoteOperationResult.ResultCode.FILE_NOT_FOUND -> null to null
+            result?.code == RemoteOperationResult.ResultCode.FILE_NOT_FOUND -> FetchServerFileResult.Missing
 
-            else -> result to null
+            else -> FetchServerFileResult.Failed(result)
         }
     }
 

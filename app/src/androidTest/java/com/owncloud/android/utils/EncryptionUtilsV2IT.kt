@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2023 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -139,6 +140,13 @@ class EncryptionUtilsV2IT : EncryptionIT() {
         2J9mW5WvAAaG+j28Q/GKSuE=
     """.trimIndent()
 
+    // Decryption derives the metadata version from the stored server capability, so align it with the fixture.
+    private fun setE2EECapabilityVersion(version: E2EVersion) {
+        val capability = storageManager.getCapability(account.name)
+        capability.endToEndEncryptionApiVersion = version
+        storageManager.saveCapabilities(capability)
+    }
+
     @Test
     fun testEncryptDecryptMetadata() {
         val metadataKey = EncryptionUtils.generateKey()
@@ -247,6 +255,7 @@ class EncryptionUtilsV2IT : EncryptionIT() {
         }
 
         val metadataFile = generateDecryptedFolderMetadataFile(enc1, enc1Cert)
+        setE2EECapabilityVersion(E2EVersion.fromValue(metadataFile.version))
 
         val encrypted = encryptionUtilsV2.encryptFolderMetadataFile(
             metadataFile,
@@ -300,8 +309,7 @@ class EncryptionUtilsV2IT : EncryptionIT() {
             // random string, not real tag
             EncryptionUtils.generateUid(),
             EncryptionUtils.generateKey(),
-            metadataFile,
-            storageManager
+            metadataFile
         )
 
         assertEquals(3, updatedMetadata.metadata.files.size)
@@ -341,7 +349,6 @@ class EncryptionUtilsV2IT : EncryptionIT() {
 
     @Test
     fun addFolder() {
-        val folder = OCFile("/e/")
         val enc1 = MockUser("enc1", "Nextcloud")
         val metadataFile = generateDecryptedFolderMetadataFile(enc1, enc1Cert)
         assertEquals(2, metadataFile.metadata.files.size)
@@ -350,9 +357,7 @@ class EncryptionUtilsV2IT : EncryptionIT() {
         val updatedMetadata = encryptionUtilsV2.addFolderToMetadata(
             EncryptionUtils.generateUid(),
             "new subfolder",
-            metadataFile,
-            folder,
-            storageManager
+            metadataFile
         )
 
         assertEquals(2, updatedMetadata.metadata.files.size)
@@ -361,7 +366,6 @@ class EncryptionUtilsV2IT : EncryptionIT() {
 
     @Test
     fun removeFolder() {
-        val folder = OCFile("/e/")
         val enc1 = MockUser("enc1", "Nextcloud")
         val metadataFile = generateDecryptedFolderMetadataFile(enc1, enc1Cert)
         assertEquals(2, metadataFile.metadata.files.size)
@@ -371,9 +375,7 @@ class EncryptionUtilsV2IT : EncryptionIT() {
         var updatedMetadata = encryptionUtilsV2.addFolderToMetadata(
             encryptedFileName,
             "new subfolder",
-            metadataFile,
-            folder,
-            storageManager
+            metadataFile
         )
 
         assertEquals(2, updatedMetadata.metadata.files.size)
@@ -810,6 +812,7 @@ class EncryptionUtilsV2IT : EncryptionIT() {
     fun encryptionMetadataV2() {
         val decryptedFolderMetadata1: DecryptedFolderMetadataFile =
             EncryptionTestUtils().generateFolderMetadataV2(client.userId, EncryptionTestIT.publicKey)
+        setE2EECapabilityVersion(E2EVersion.fromValue(decryptedFolderMetadata1.version))
         val root = OCFile("/")
         storageManager.saveFile(root)
 

@@ -9,6 +9,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Used for document scanning, but lib declares it as required, which it's not -->
+    <uses-feature
+        android:name="android.hardware.camera2"
+        android:required="false"
+        tools:node="replace" />
+
     <application
         android:name=".MainApp"
         android:fullBackupContent="@xml/backup_config"

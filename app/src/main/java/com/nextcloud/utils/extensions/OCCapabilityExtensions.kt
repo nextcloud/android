@@ -66,3 +66,9 @@ fun jsonToList(json: String?): List<String> {
         emptyList()
     }
 }
+
+fun OCCapability.isTemplateAvailable(): Boolean = (
+    richDocuments.isTrue &&
+        richDocumentsDirectEditing.isTrue &&
+        richDocumentsTemplatesAvailable.isTrue
+    )

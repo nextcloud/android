@@ -31,7 +31,6 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.activity.FolderPickerActivity
-import com.owncloud.android.ui.fragment.GalleryFragment
 import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.DisplayUtils
@@ -166,7 +165,6 @@ class OCFileListDelegate(
 
         imageView.setOnClickListener {
             ocFileListFragmentInterface.onItemClicked(file)
-            GalleryFragment.setLastMediaItemPosition(galleryRowHolder.absoluteAdapterPosition)
         }
 
         if (!hideItemOptions) {
@@ -213,6 +211,16 @@ class OCFileListDelegate(
         // thumbnail
         viewHolder.imageFileName?.text = file.fileName
         viewHolder.thumbnail.tag = file.fileId
+        if (gridView) {
+            if (MimeTypeUtil.isImageOrVideo(file)) {
+                viewHolder.thumbnail.scaleType = ImageView.ScaleType.CENTER_CROP
+                viewHolder.thumbnail.setPadding(0, 0, 0, 0)
+            } else {
+                viewHolder.thumbnail.scaleType = ImageView.ScaleType.FIT_CENTER
+                val padding = context.resources.getDimensionPixelSize(R.dimen.standard_padding)
+                viewHolder.thumbnail.setPadding(padding, padding, padding, padding)
+            }
+        }
         setThumbnail(viewHolder.thumbnail, viewHolder.shimmerThumbnail, file, overlayManager)
 
         // item layout + click listeners

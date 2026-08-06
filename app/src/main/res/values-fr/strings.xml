@@ -10,6 +10,7 @@
     <string name="action_edit">Modifier</string>
     <string name="action_empty_notifications">Effacer toutes les notifications</string>
     <string name="action_empty_trashbin">Vider la corbeille</string>
+    <string name="action_open_in_web_editor">Ouvrir dans le navigateur</string>
     <string name="action_send_share">Envoyer / Partager</string>
     <string name="action_switch_grid_view">Vue en grille</string>
     <string name="action_switch_list_view">Vue en liste</string>
@@ -98,7 +99,6 @@
     <string name="auth_ssl_unverified_server_title">Impossible de vérifier l\'identité du serveur SSL</string>
     <string name="auth_testing_connection">Test de connexion en cours</string>
     <string name="auth_timeout_title">Le serveur a pris trop de temps à répondre</string>
-    <string name="auth_trying_to_login">Tentative de connexion…</string>
     <string name="auth_unauthorized">Nom d\'utilisateur ou mot de passe incorrect</string>
     <string name="auth_unknown_error_exception_title">Erreur inconnue : %1$s</string>
     <string name="auth_unknown_error_http_title">Une erreur HTTP inconnue est survenue !</string>
@@ -134,7 +134,7 @@
     <string name="away">Absent</string>
     <string name="backup_list_adapter_local_contacts">Contacts locaux</string>
     <string name="backup_settings">Paramètres de sauvegarde</string>
-    <string name="backup_title">Sauvegarder les contacts et l\'agenda</string>
+    <string name="backup_title">Sauvegarde des contacts et de l\'agenda</string>
     <string name="battery_optimization_close">Fermer</string>
     <string name="battery_optimization_disable">Désactiver</string>
     <string name="battery_optimization_message">L\'optimisation de la batterie est peut-être active sur votre appareil. Le téléversement automatique ne fonctionne correctement que si vous excluez cette application de l\'optimisation.</string>
@@ -275,6 +275,8 @@
     <string name="dialog_close">Fermer</string>
     <string name="did_not_check_for_dupes">N\'a pas vérifié les doublons.</string>
     <string name="digest_algorithm_not_available">Cet algorithme de hachage n\'est pas disponible sur votre appareil.</string>
+    <string name="direct_login_confirm_message">Voulez-vous vous connecter avec %1$s à %2$s ?</string>
+    <string name="direct_login_confirm_title">Confirmer la connexion</string>
     <string name="direct_login_failed">Échec de la connexion par lien direct</string>
     <string name="direct_login_text">Se connecter avec %1$s à %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">Désactiver</string>
@@ -432,6 +434,8 @@
     <string name="file_detail_sharing_fragment_no_contact_app_message">Aucune application disponible pour sélectionner des contacts</string>
     <string name="file_details_no_content">Impossible de charger les détails</string>
     <string name="file_icon">Fichier</string>
+    <string name="file_info_governance_section_title">Gouvernance</string>
+    <string name="file_info_image_details_section_title">Détails de l\'image</string>
     <string name="file_keep">Conserver</string>
     <string name="file_list_empty">Déposez du contenu ou synchronisez vos appareils.</string>
     <string name="file_list_empty_favorite_headline">Aucun favori</string>
@@ -539,6 +543,11 @@
     <string name="foreign_files_remote_text">Distant : %1$s</string>
     <string name="forward">Suivant</string>
     <string name="fourHours">4 heures</string>
+    <string name="governance_file_retention_label">Suppression programmée de fichiers</string>
+    <string name="governance_legal_hold_label">Conservation légale</string>
+    <string name="governance_no_label">Aucun</string>
+    <string name="governance_permission_denied">Vous n\'avez pas l\'autorisation de modifier cette étiquette</string>
+    <string name="governance_sensitivity_label">Étiquette de sensibilité</string>
     <string name="gplay_restriction">Google restreint le téléchargement des fichiers APK / AAB !</string>
     <string name="grid_file_features_live_photo_content_description">Cette icône indique la disponibilité de live photo</string>
     <string name="hidden_file_name_warning">Le nom résultera en un fichier caché</string>
@@ -744,7 +753,7 @@
     <string name="prefs_category_general">Général</string>
     <string name="prefs_category_more">Plus</string>
     <string name="prefs_category_sync">Synchroniser</string>
-    <string name="prefs_daily_backup_summary">Sauvegarde quotidienne de votre agenda et des contacts</string>
+    <string name="prefs_daily_backup_summary">Sauvegarde quotidienne de votre agenda et de vos contacts</string>
     <string name="prefs_daily_contact_backup_summary">Sauvegarde quotidienne de vos contacts</string>
     <string name="prefs_data_storage_location">Emplacement de stockage des données</string>
     <string name="prefs_data_storage_location_summary">Gérer l\'emplacement de stockage des données</string>
@@ -760,7 +769,7 @@
     <string name="prefs_instant_behaviour_dialogTitle">Le fichier original sera…</string>
     <string name="prefs_instant_behaviour_title">Le fichier original sera…</string>
     <string name="prefs_instant_upload_exclude_hidden_summary">Exclure les fichiers et dossiers cachés</string>
-    <string name="prefs_instant_upload_exclude_hidden_title">Exclure les cachés</string>
+    <string name="prefs_instant_upload_exclude_hidden_title">Exclure les éléments cachés</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Stockage dans des sous-dossiers se basant sur la date</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Utiliser des sous-dossiers</string>
     <string name="prefs_instant_upload_subfolder_rule_title">Options du sous-dossier</string>
@@ -777,17 +786,18 @@
     <string name="prefs_recommend">Recommander à un ami</string>
     <string name="prefs_remove_e2e">Retirer le chiffrement localement</string>
     <string name="prefs_remove_e2e_keys_and_files">Supprimer les fichiers chiffrés et les clés</string>
+    <string name="prefs_renew_e2e_certificate">Renouveler le certificat de chiffrement</string>
     <string name="prefs_setup_e2e">Configurer le chiffrement de bout en bout</string>
     <string name="prefs_show_ecosystem_apps">Afficher le sélecteur d\'applications</string>
     <string name="prefs_show_ecosystem_apps_summary">Suggestions d\'applications Nextcloud dans l\'en-tête de navigation</string>
-    <string name="prefs_show_hidden_files">Afficher les fichiers masqués</string>
+    <string name="prefs_show_hidden_files">Afficher les fichiers cachés</string>
     <string name="prefs_sourcecode">Obtenir le code source</string>
     <string name="prefs_sycned_folders_summary">Gérer les dossiers pour le téléversement automatique</string>
     <string name="prefs_synced_folders_local_path_title">Dossier local</string>
     <string name="prefs_synced_folders_remote_path_title">Dossier distant</string>
     <string name="prefs_theme_title">Thème</string>
     <string name="prefs_two_way_sync_interval">Intervalle</string>
-    <string name="prefs_two_way_sync_summary">Gestion les dossiers internes pour une synchronisation bidirectionnelle</string>
+    <string name="prefs_two_way_sync_summary">Gérer les dossiers internes pour la synchronisation bidirectionnelle</string>
     <string name="prefs_two_way_sync_title">Synchronisation bidirectionnelle</string>
     <string name="prefs_value_theme_dark">Sombre</string>
     <string name="prefs_value_theme_light">Clair</string>
@@ -827,6 +837,12 @@
     <string name="rename_dialog_title">Entrez un nouveau nom</string>
     <string name="rename_local_fail_msg">Impossible de renommer la version locale; veuillez réessayer avec un nom différent</string>
     <string name="rename_server_fail_msg">Impossible de renommer, le nom est déjà utilisé</string>
+    <string name="renew_e2e_certificate_dialog_message">Cette opération renouvellera votre certificat de chiffrement de bout en bout. Vos clés existantes et vos fichiers chiffrés resteront inchangés. Continuer ?</string>
+    <string name="renew_e2e_certificate_error">Impossible de renouveler le certificat de chiffrement</string>
+    <string name="renew_e2e_certificate_private_key_missing">Clé privée de chiffrement introuvable</string>
+    <string name="renew_e2e_certificate_success">Certificat de chiffrement renouvelé</string>
+    <string name="renew_e2e_certificate_summary">Renouvelez votre certificat de chiffrement de bout en bout tout en conservant vos clés existantes</string>
+    <string name="renew_e2e_certificate_valid_until">Valide jusqu\'au %1$s. Touchez pour le renouveler tout en conservant vos clés existantes.</string>
     <string name="request_account_deletion">Demander la suppression du compte</string>
     <string name="request_account_deletion_button">Demander la suppression</string>
     <string name="request_account_deletion_details">Demander la suppression permanente du compte par le fournisseur de services</string>
@@ -1299,9 +1315,9 @@
         <item quantity="other">%1$d éléments</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
-        <item quantity="one">%1$d dossier masqué affiché</item>
-        <item quantity="many">%1$d dossiers masqués affichés</item>
-        <item quantity="other">%1$d dossiers masqués affichés</item>
+        <item quantity="one">%1$d dossier caché affiché</item>
+        <item quantity="many">%1$d dossiers cachés affichés</item>
+        <item quantity="other">%1$d dossiers cachés affichés</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d sélectionné</item>

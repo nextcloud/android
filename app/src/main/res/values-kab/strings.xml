@@ -94,7 +94,6 @@
     <string name="auth_ssl_unverified_server_title">Ur izmer ara aselken n tmagit SSL n uqeddac</string>
     <string name="auth_testing_connection">Asekyed n tuqqna</string>
     <string name="auth_timeout_title">Aqeddac yeṭṭef aṭas n wakud akken ad d-yerr</string>
-    <string name="auth_trying_to_login">Yettaɛraḍ anekcum...</string>
     <string name="auth_unauthorized">Isem n useqdac neɣ awal n uɛeddi d arameɣtu</string>
     <string name="auth_unknown_error_exception_title">Tuccḍa tarussint: %1$s</string>
     <string name="auth_unknown_error_http_title">Teḍra-d tuccḍa HTTP d tarussint!</string>
@@ -473,6 +472,7 @@
     <string name="foreign_files_remote_text">Anmeggag: %1$s</string>
     <string name="forward">Avancer</string>
     <string name="fourHours">Ukkuẓ yisragen</string>
+    <string name="governance_no_label">Ula d yiwen</string>
     <string name="gplay_restriction">Google tegga tilisa i usider n ifuyla APK/AAB!</string>
     <string name="grid_file_features_live_photo_content_description">Tignit-agi temmal-d tilin n tewlaft s wudem usrid</string>
     <string name="hidden_file_name_warning">Isem ad yeglu s ufaylu yeffren</string>

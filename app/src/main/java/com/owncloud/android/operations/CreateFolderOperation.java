@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2020-2023 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2020 Andy Scherzinger <info@andy-scherzinger.de>
@@ -15,11 +16,14 @@ import android.content.Context;
 import android.util.Pair;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.utils.e2ee.E2ECounterHelper;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
+import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.OCFileDepth;
 import com.owncloud.android.datamodel.e2e.v1.decrypted.Data;
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1;
 import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFolderMetadataFileV1;
@@ -34,7 +38,6 @@ import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation;
 import com.owncloud.android.lib.resources.files.CreateFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
-import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.EncryptionUtilsV2;
@@ -277,10 +280,16 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
         String encryptedRemotePath = null;
 
         String filename = new File(remotePath).getName();
+        final var folderDepth = OCFileExtensionsKt.getDepth(parent);
+        long counter = EncryptionUtils.E2E_V2_INITIAL_COUNTER;
+        if (folderDepth != OCFileDepth.Root) {
+            final var metadataObject = EncryptionUtils.downloadFolderMetadata(parent, client, context, user);
+            counter = E2ECounterHelper.INSTANCE.getCounter(context, parent, metadataObject);
+        }
 
         try {
             // lock folder
-            token = EncryptionUtils.lockFolder(parent, client, EncryptionUtils.E2E_V2_INITIAL_COUNTER);
+            token = EncryptionUtils.lockFolder(parent, client, counter);
 
             // get metadata
             EncryptionUtilsV2 encryptionUtilsV2 = new EncryptionUtilsV2();
@@ -328,9 +337,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                 // update metadata
                 DecryptedFolderMetadataFile updatedMetadataFile = encryptionUtilsV2.addFolderToMetadata(encryptedFileName,
                                                                                                         filename,
-                                                                                                        metadata,
-                                                                                                        parent,
-                                                                                                        getStorageManager());
+                                                                                                        metadata);
 
                 // upload metadata
                 encryptionUtilsV2.serializeAndUploadMetadata(parent,
@@ -343,9 +350,10 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                                                              getStorageManager());
 
                 // unlock folder
-                RemoteOperationResult unlockFolderResult = EncryptionUtils.unlockFolder(parent, client, token);
+                final var unlockFolderResult = EncryptionUtils.unlockFolder(parent, client, token);
 
                 if (unlockFolderResult.isSuccess()) {
+                    getStorageManager().updateE2EECounter(parent, metadata);
                     token = null;
                 } else {
                     // TODO E2E: do better

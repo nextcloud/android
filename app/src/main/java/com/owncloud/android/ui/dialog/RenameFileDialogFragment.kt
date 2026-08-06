@@ -32,6 +32,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.ui.dialog.extensions.themeButtons
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.KeyboardUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -60,7 +61,7 @@ class RenameFileDialogFragment :
 
     override fun onStart() {
         super.onStart()
-        initAlertDialog()
+        dialog?.themeButtons(viewThemeUtils)
     }
 
     override fun onResume() {
@@ -131,20 +132,6 @@ class RenameFileDialogFragment :
             .setTitle(R.string.rename_dialog_title)
 
         return builder
-    }
-
-    private fun initAlertDialog() {
-        val alertDialog = dialog as AlertDialog?
-
-        if (alertDialog != null) {
-            positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE) as MaterialButton
-            val negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE) as MaterialButton
-
-            positiveButton?.let {
-                viewThemeUtils.material.colorMaterialButtonPrimaryTonal(it)
-            }
-            viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(negativeButton)
-        }
     }
 
     private val oCCapability: OCCapability

@@ -64,7 +64,6 @@
     <string name="auth_ssl_unverified_server_title">N\'eus ket bet gallet gwiriañ identelezh ar servijer SSL</string>
     <string name="auth_testing_connection">Oc\'h amprouiñ ar gevreadenn</string>
     <string name="auth_timeout_title">Re bell eo bet ar servijer o respont</string>
-    <string name="auth_trying_to_login">O klask kevreañ...</string>
     <string name="auth_unauthorized">Fall eo an anv-implijer pe ar ger-tremen</string>
     <string name="auth_unknown_error_exception_title">Fazi dianav : %1$s</string>
     <string name="auth_unknown_error_http_title">C\'hoarvezet ez eus ur fazi HTTP dianav !</string>
@@ -404,6 +403,8 @@
     <string name="foreign_files_move">Dblasañ pep tra</string>
     <string name="foreign_files_remote_text">Pell : %1$s</string>
     <string name="forward">War-raok</string>
+    <string name="governance_file_retention_label">Gwarn restr</string>
+    <string name="governance_no_label">Hini ebet</string>
     <string name="hint_name">Anv</string>
     <string name="hint_note">Notenn</string>
     <string name="hint_password">Ger-tremen</string>

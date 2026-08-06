@@ -10,6 +10,7 @@
     <string name="action_edit">Редактировать</string>
     <string name="action_empty_notifications">Удалить все уведомления</string>
     <string name="action_empty_trashbin">Очистить корзину</string>
+    <string name="action_open_in_web_editor">Открыть в веб-редакторе</string>
     <string name="action_send_share">Отправить/открыть доступ</string>
     <string name="action_switch_grid_view">Вид сеткой</string>
     <string name="action_switch_list_view">Вид списком</string>
@@ -98,7 +99,6 @@
     <string name="auth_ssl_unverified_server_title">Невозможно проверить подлинность SSL сервера</string>
     <string name="auth_testing_connection">Проверка соединения</string>
     <string name="auth_timeout_title">Сервер слишком долго не отвечает</string>
-    <string name="auth_trying_to_login">Попытка входа…</string>
     <string name="auth_unauthorized">Неверное имя пользователя или пароль</string>
     <string name="auth_unknown_error_exception_title">Неизвестная ошибка: %1$s</string>
     <string name="auth_unknown_error_http_title">Произошла неизвестная ошибка протокола HTTP!</string>
@@ -275,6 +275,8 @@
     <string name="dialog_close">Закрыть</string>
     <string name="did_not_check_for_dupes">Не проверено на наличие дубликатов</string>
     <string name="digest_algorithm_not_available">Этот хэш алгоритм не доступен на этом телефоне.</string>
+    <string name="direct_login_confirm_message">Вы хотите войти с помощью %1$s в %2$s?</string>
+    <string name="direct_login_confirm_title">Подтвердить вход</string>
     <string name="direct_login_failed">Не удалось войти по прямой ссылке.</string>
     <string name="direct_login_text">Войти с помощью %1$s в %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">Отключить</string>
@@ -432,6 +434,8 @@
     <string name="file_detail_sharing_fragment_no_contact_app_message">Приложение для выбора контактов недоступно</string>
     <string name="file_details_no_content">Не удалось получить подробные сведения</string>
     <string name="file_icon">Файл</string>
+    <string name="file_info_governance_section_title">Управление данными</string>
+    <string name="file_info_image_details_section_title">Детали изображения</string>
     <string name="file_keep">Сохранить</string>
     <string name="file_list_empty">Добавьте что-нибудь или синхронизируйте со своими устройствами!</string>
     <string name="file_list_empty_favorite_headline">В избранное ничего не добавлено </string>
@@ -539,6 +543,11 @@
     <string name="foreign_files_remote_text">На сервере: %1$s</string>
     <string name="forward">Вперёд</string>
     <string name="fourHours">4 часа</string>
+    <string name="governance_file_retention_label">Удаление файлов</string>
+    <string name="governance_legal_hold_label">Юридическое обязательство по сохранению данных</string>
+    <string name="governance_no_label">Отсутствует</string>
+    <string name="governance_permission_denied">У вас нет прав на изменение этого названия</string>
+    <string name="governance_sensitivity_label">Метка чувствительности</string>
     <string name="gplay_restriction">Google ограничил загрузку файлов APK/AAB!</string>
     <string name="grid_file_features_live_photo_content_description">Этот значок отображает доступность живого фото</string>
     <string name="hidden_file_name_warning">Имя приведет к скрытому файлу</string>
@@ -777,6 +786,7 @@
     <string name="prefs_recommend">Рекомендовать приложение</string>
     <string name="prefs_remove_e2e">Удалить шифрование локально</string>
     <string name="prefs_remove_e2e_keys_and_files">Удалить зашифрованные файлы и ключи</string>
+    <string name="prefs_renew_e2e_certificate">Продлить срок действия сертификата шифрования</string>
     <string name="prefs_setup_e2e">Настройка сквозного шифрования</string>
     <string name="prefs_show_ecosystem_apps">Показать переключатель приложений</string>
     <string name="prefs_show_ecosystem_apps_summary">Рекомендации по приложению Nextcloud в заголовке навигации</string>
@@ -827,6 +837,12 @@
     <string name="rename_dialog_title">Введите новое имя</string>
     <string name="rename_local_fail_msg">Невозможно переименовать локальную копию, попробуйте другое имя</string>
     <string name="rename_server_fail_msg">Переименование невозможно, имя занято</string>
+    <string name="renew_e2e_certificate_dialog_message">Это приведет к обновлению вашего сертификата сквозного шифрования. Ваши существующие ключи и зашифрованные файлы останутся без изменений. Продолжить?</string>
+    <string name="renew_e2e_certificate_error">Не удалось продлить сертификат шифрования</string>
+    <string name="renew_e2e_certificate_private_key_missing">Не найден закрытый ключ шифрования</string>
+    <string name="renew_e2e_certificate_success">Сертификат шифрования продлен</string>
+    <string name="renew_e2e_certificate_summary">Продлите срок действия сертификата сквозного шифрования, сохранив при этом существующие ключи</string>
+    <string name="renew_e2e_certificate_valid_until">Срок действия истекает %1$s. Нажмите, чтобы продлить срок действия, сохранив имеющиеся ключи.</string>
     <string name="request_account_deletion">Запрос удаления аккаунта</string>
     <string name="request_account_deletion_button">Запросить удаление</string>
     <string name="request_account_deletion_details">Запросить окончательное удаление учётной записи у поставщика услуг</string>

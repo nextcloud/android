@@ -17,7 +17,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.download.FileDownloadHelper.Companion.instance
@@ -136,7 +135,7 @@ class FileDownloadFragment :
         private const val ARG_USER = "USER"
         private val TAG: String = FileDownloadFragment::class.java.simpleName
 
-        fun newInstance(file: OCFile?, user: User?, ignoreFirstSavedState: Boolean): Fragment =
+        fun newInstance(file: OCFile?, user: User?, ignoreFirstSavedState: Boolean): FileDownloadFragment =
             FileDownloadFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(ARG_FILE, file)

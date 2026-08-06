@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2020-2023 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2021 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2017-2018 Andy Scherzinger <info@andy-scherzinger.de>
@@ -24,6 +25,7 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.autoRename.AutoRename;
+import com.nextcloud.utils.e2ee.E2ECounterHelper;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.nextcloud.utils.extensions.RemoteOperationResultExtensionsKt;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -53,12 +55,12 @@ import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
-import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.operations.e2e.E2EClientData;
 import com.owncloud.android.operations.e2e.E2EData;
 import com.owncloud.android.operations.e2e.E2EFiles;
+import com.owncloud.android.operations.upload.RemoteFileExistence;
 import com.owncloud.android.operations.upload.UploadFileException;
 import com.owncloud.android.operations.upload.UploadFileOperationExtensionsKt;
 import com.owncloud.android.utils.EncryptionUtils;
@@ -135,16 +137,17 @@ public class UploadFileOperation extends SyncOperation {
     private OCFile mOldFile;
     private String mRemotePath;
     private String mFolderUnlockToken;
-    private boolean mRemoteFolderToBeCreated;
+    private volatile boolean mRemoteFolderToBeCreated;
     private NameCollisionPolicy mNameCollisionPolicy;
     private int mLocalBehaviour;
-    private int mCreatedBy;
+    private volatile int mCreatedBy;
     private boolean mOnWifiOnly;
     private boolean mWhileChargingOnly;
     private boolean mIgnoringPowerSaveMode;
     private final boolean mDisableRetries;
 
-    private boolean mWasRenamed;
+    private volatile boolean mWasRenamed;
+    private volatile boolean mWasSkipped;
     private long mOCUploadId;
     /**
      * Local path to file which is to be uploaded (before any possible renaming or moving).
@@ -168,7 +171,7 @@ public class UploadFileOperation extends SyncOperation {
     private final ConnectivityService connectivityService;
     private final PowerManagementService powerManagementService;
 
-    private boolean encryptedAncestor;
+    private volatile boolean encryptedAncestor;
     private OCFile duplicatedEncryptedFile;
     private AtomicBoolean missingPermissionThrown = new AtomicBoolean(false);
 
@@ -345,6 +348,10 @@ public class UploadFileOperation extends SyncOperation {
         return mWasRenamed;
     }
 
+    public boolean wasSkipped() {
+        return mWasSkipped;
+    }
+
     public void setCreatedBy(int createdBy) {
         mCreatedBy = createdBy;
         if (createdBy < CREATED_BY_USER || CREATED_AS_INSTANT_VIDEO < createdBy) {
@@ -511,7 +518,7 @@ public class UploadFileOperation extends SyncOperation {
         E2EFiles e2eFiles = new E2EFiles(parentFile, null, new File(mOriginalStoragePath), null, null);
         FileLock fileLock = null;
         long size;
-        boolean metadataExists = false;
+        boolean isV1MetadataExists = false;
         String token = null;
         Object object = null;
         FileChannel channel = null;
@@ -528,10 +535,10 @@ public class UploadFileOperation extends SyncOperation {
             EncryptionUtilsV2 encryptionUtilsV2 = new EncryptionUtilsV2();
             object = EncryptionUtils.downloadFolderMetadata(parentFile, client, mContext, user);
             if (object instanceof DecryptedFolderMetadataFileV1 decrypted && decrypted.getMetadata() != null) {
-                metadataExists = true;
+                isV1MetadataExists = true;
             }
 
-            boolean isEndToEndVersionAtLeastV2 = isEndToEndVersionAtLeastV2();
+            boolean isEndToEndVersionAtLeastV2 = E2EVersionHelper.INSTANCE.isV2Plus(mContext);
 
             if (isEndToEndVersionAtLeastV2) {
                 if (object == null) {
@@ -541,7 +548,7 @@ public class UploadFileOperation extends SyncOperation {
                 object = getDecryptedFolderMetadataV1(publicKey, object);
             }
 
-            long counter = getE2ECounter(parentFile, object, isEndToEndVersionAtLeastV2);
+            long counter = E2ECounterHelper.INSTANCE.getCounter(mContext, parentFile, object);
             Log_OC.d(TAG, "counter: " + counter);
 
             try {
@@ -596,7 +603,7 @@ public class UploadFileOperation extends SyncOperation {
             result = performE2EUpload(clientData);
 
             if (result.isSuccess()) {
-                updateMetadataForE2E(object, e2eData, clientData, e2eFiles, arbitraryDataProvider, encryptionUtilsV2, metadataExists);
+                upsertMetadata(object, e2eData, clientData, e2eFiles, arbitraryDataProvider, encryptionUtilsV2, isV1MetadataExists);
             }
         } catch (FileNotFoundException e) {
             Log_OC.e(TAG, mFile.getStoragePath() + " does not exist anymore");
@@ -608,32 +615,15 @@ public class UploadFileOperation extends SyncOperation {
             Log_OC.e(TAG, "UploadFileOperation exception: " + e.getLocalizedMessage());
             result = new RemoteOperationResult<>(e);
         } finally {
-            result = cleanupE2EUpload(fileLock, channel, e2eFiles, result, object, client, token);
+            result = releaseLocksAndUnlockE2EFolder(fileLock, channel, e2eFiles, result, object, client, token);
 
             // update upload status
             uploadsStorageManager.updateDatabaseUploadResult(result, this);
         }
 
-        completeE2EUpload(result, e2eFiles, client);
+        handleLocalBehaviourOrSaveConflictAndDeleteTemporalFile(result, e2eFiles, client);
 
         return result;
-    }
-
-    private boolean isEndToEndVersionAtLeastV2() {
-        final var capability = CapabilityUtils.getCapability(mContext);
-        return E2EVersionHelper.INSTANCE.isV2Plus(capability);
-    }
-
-    private long getE2ECounter(OCFile parentFile, Object metadata, boolean isEndToEndVersionAtLeastV2) {
-        if (!isEndToEndVersionAtLeastV2) {
-            return -1;
-        }
-
-        if (metadata instanceof DecryptedFolderMetadataFile decrypted) {
-            return decrypted.getMetadata().getCounter() + 1;
-        }
-
-        return parentFile.getE2eCounter() + 1;
     }
 
     private String getFolderUnlockTokenOrLockFolder(OwnCloudClient client, OCFile parentFile, long counter) throws UploadException {
@@ -823,7 +813,10 @@ public class UploadFileOperation extends SyncOperation {
         return new E2EData(key, iv, encryptedFile, encryptedFileName);
     }
 
-    private void updateMetadataForE2E(Object object, E2EData e2eData, E2EClientData clientData, E2EFiles e2eFiles, ArbitraryDataProvider arbitraryDataProvider, EncryptionUtilsV2 encryptionUtilsV2, boolean metadataExists)
+    /**
+     * Stores or updates metadata of the encrypted file along with e2ee counter.
+     */
+    private void upsertMetadata(Object object, E2EData e2eData, E2EClientData clientData, E2EFiles e2eFiles, ArbitraryDataProvider arbitraryDataProvider, EncryptionUtilsV2 encryptionUtilsV2, boolean isV1MetadataExists)
 
         throws InvalidAlgorithmParameterException, UploadException, NoSuchPaddingException, IllegalBlockSizeException, CertificateException,
         NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
@@ -839,7 +832,7 @@ public class UploadFileOperation extends SyncOperation {
                                 clientData,
                                 e2eFiles.getParentFile(),
                                 arbitraryDataProvider,
-                                metadataExists);
+                                isV1MetadataExists);
         } else if (object instanceof DecryptedFolderMetadataFile metadata) {
             updateMetadataForV2(metadata,
                                 encryptionUtilsV2,
@@ -850,7 +843,7 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     private void updateMetadataForV1(DecryptedFolderMetadataFileV1 metadata, E2EData e2eData, E2EClientData clientData,
-                                     OCFile parentFile, ArbitraryDataProvider arbitraryDataProvider, boolean metadataExists)
+                                     OCFile parentFile, ArbitraryDataProvider arbitraryDataProvider, boolean isV1MetadataExists)
 
         throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException,
         CertificateException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException, UploadException {
@@ -889,7 +882,7 @@ public class UploadFileOperation extends SyncOperation {
                                        serializedFolderMetadata,
                                        clientData.getToken(),
                                        clientData.getClient(),
-                                       metadataExists,
+                                       isV1MetadataExists,
                                        e2eeVersion,
                                        "",
                                        arbitraryDataProvider,
@@ -904,11 +897,7 @@ public class UploadFileOperation extends SyncOperation {
             e2eData.getIv(),
             e2eData.getEncryptedFile().getAuthenticationTag(),
             e2eData.getKey(),
-            metadata,
-            getStorageManager());
-
-        parentFile.setE2eCounter(metadata.getMetadata().getCounter());
-        getStorageManager().saveFile(parentFile);
+            metadata);
 
         // upload metadata
         encryptionUtilsV2.serializeAndUploadMetadata(parentFile,
@@ -921,7 +910,7 @@ public class UploadFileOperation extends SyncOperation {
                                                      getStorageManager());
     }
 
-    private void completeE2EUpload(RemoteOperationResult result, E2EFiles e2eFiles, OwnCloudClient client) {
+    private void handleLocalBehaviourOrSaveConflictAndDeleteTemporalFile(RemoteOperationResult result, E2EFiles e2eFiles, OwnCloudClient client) {
         if (result.isSuccess()) {
             handleLocalBehaviour(e2eFiles.getTemporalFile(), e2eFiles.getExpectedFile(), e2eFiles.getOriginalFile(), client);
         } else if (RemoteOperationResultExtensionsKt.isConflict(result.getCode())) {
@@ -931,7 +920,7 @@ public class UploadFileOperation extends SyncOperation {
         e2eFiles.deleteTemporalFile();
     }
 
-    private RemoteOperationResult cleanupE2EUpload(FileLock fileLock, FileChannel channel, E2EFiles e2eFiles, RemoteOperationResult result, Object object, OwnCloudClient client, String token) {
+    private RemoteOperationResult releaseLocksAndUnlockE2EFolder(FileLock fileLock, FileChannel channel, E2EFiles e2eFiles, RemoteOperationResult result, Object object, OwnCloudClient client, String token) {
         mUploadStarted.set(false);
 
         if (fileLock != null) {
@@ -1000,6 +989,12 @@ public class UploadFileOperation extends SyncOperation {
                     duplicatedEncryptedFile = null;
                     return Unit.INSTANCE;
                 });
+            }
+
+            // only update local counter after unlock
+            if (object instanceof DecryptedFolderMetadataFile metadata) {
+                final var parentFile = e2eFiles.getParentFile();
+                getStorageManager().updateE2EECounter(parentFile, metadata);
             }
         }
 
@@ -1279,12 +1274,18 @@ public class UploadFileOperation extends SyncOperation {
         throws OperationCancelledException {
         Log_OC.d(TAG, "Checking name collision in server");
 
-        boolean isFileExists = existsFile(client, mRemotePath, fileNames, encrypted);
+        final var existence = existsFile(client, mRemotePath, fileNames, encrypted);
 
-        if (isFileExists) {
+        if (existence == RemoteFileExistence.UNAUTHORIZED) {
+            Log_OC.e(TAG, "existence check answered with unauthorized, credentials are no longer valid");
+            return new RemoteOperationResult<>(ResultCode.UNAUTHORIZED);
+        }
+
+        if (existence == RemoteFileExistence.EXISTS) {
             switch (mNameCollisionPolicy) {
                 case SKIP:
                     Log_OC.d(TAG, "user choose to skip upload if same file exists");
+                    mWasSkipped = true;
                     return new RemoteOperationResult<>(ResultCode.OK);
                 case RENAME:
                     mRemotePath = getNewAvailableRemotePath(client, mRemotePath, fileNames, encrypted);
@@ -1518,39 +1519,37 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         int count = 2;
-        boolean exists;
+        RemoteFileExistence existence;
         String newPath;
 
-        // FIXME: Causing infinite loop during tests due to ExistenceCheckRemoteOperation result
         do {
             suffix = " (" + count + ")";
             newPath = extPos >= 0 ? remotePathWithoutExtension + suffix + "." + extension : remotePath + suffix;
-            exists = existsFile(client, newPath, fileNames, encrypted);
+            existence = existsFile(client, newPath, fileNames, encrypted);
             count++;
-        } while (exists);
+        } while (existence == RemoteFileExistence.EXISTS);
 
         return newPath;
     }
 
-    private static boolean existsFile(OwnCloudClient client,
-                               String remotePath,
-                               List<String> fileNames,
-                               boolean encrypted) {
+    private static RemoteFileExistence existsFile(OwnCloudClient client,
+                                                  String remotePath,
+                                                  List<String> fileNames,
+                                                  boolean encrypted) {
         if (encrypted) {
             String fileName = new File(remotePath).getName();
 
             for (String name : fileNames) {
                 if (name.equalsIgnoreCase(fileName)) {
-                    return true;
+                    return RemoteFileExistence.EXISTS;
                 }
             }
 
-            return false;
-        } else {
-            ExistenceCheckRemoteOperation existsOperation = new ExistenceCheckRemoteOperation(remotePath, false);
-            final var result = existsOperation.execute(client);
-            return result.isSuccess();
+            return RemoteFileExistence.DOES_NOT_EXIST;
         }
+
+        ExistenceCheckRemoteOperation existsOperation = new ExistenceCheckRemoteOperation(remotePath, false);
+        return RemoteFileExistence.fromExistenceCheck(existsOperation.execute(client));
     }
 
     /**

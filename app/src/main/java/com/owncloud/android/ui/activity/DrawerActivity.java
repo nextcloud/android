@@ -331,7 +331,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void openMediaTab(int menuItemId) {
-        GalleryFragment.Companion.setLastMediaItemPosition(null);
+        GalleryFragment.Companion.clearSavedScrollState();
         resetOnlyPersonalAndOnDevice();
         setupToolbar();
         startPhotoSearch(menuItemId);

@@ -201,7 +201,6 @@ class ChatViewModel(private val remoteRepository: AssistantRemoteRepository) : V
     }
 
     override fun onCleared() {
-        super.onCleared()
         stopPolling()
     }
 }

@@ -22,6 +22,7 @@ import com.nextcloud.utils.mdm.MDMConfig
 import com.owncloud.android.R
 import com.owncloud.android.databinding.DialogAppPasscodeBinding
 import com.owncloud.android.ui.activity.SettingsActivity
+import com.owncloud.android.ui.dialog.extensions.themeButtons
 import com.owncloud.android.ui.model.ExtendedSettingsActivityDialog
 import com.owncloud.android.utils.DeviceCredentialUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -43,14 +44,8 @@ class AppPassCodeDialog :
 
     override fun onStart() {
         super.onStart()
-        val alertDialog = dialog as AlertDialog
-
-        val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE) as? MaterialButton
-        positiveButton?.let {
-            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(it)
-        }
+        dialog?.themeButtons(viewThemeUtils)
         checkPositiveButtonActiveness()
-
         val dismissable = arguments?.getBoolean(ARG_DISMISSABLE, true) ?: true
         isCancelable = dismissable
     }

@@ -113,7 +113,11 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class EncryptionUtils {
     private static final String TAG = EncryptionUtils.class.getSimpleName();
 
+    // PUBLIC_KEY actually represents certificate this confusion caused by
+    // backend APIs: GetPublicKeyRemoteOperation() -> returns certificate not public key
+    // later PUBLIC_KEY must rename to CERTIFICATE
     public static final String PUBLIC_KEY = "PUBLIC_KEY";
+
     public static final String PRIVATE_KEY = "PRIVATE_KEY";
     public static final String MNEMONIC = "MNEMONIC";
     public static final int ivLength = 16;
@@ -1308,13 +1312,13 @@ public final class EncryptionUtils {
                                       String serializedFolderMetadata,
                                       String token,
                                       OwnCloudClient client,
-                                      boolean metadataExists,
+                                      boolean isV1MetadataExists,
                                       E2EVersion version,
                                       String signature,
                                       ArbitraryDataProvider arbitraryDataProvider,
                                       User user) throws UploadException {
         RemoteOperationResult<String> uploadMetadataOperationResult;
-        if (metadataExists) {
+        if (isV1MetadataExists) {
             // update metadata
             if (E2EVersionHelper.INSTANCE.isV2Plus(version)) {
                 uploadMetadataOperationResult = new UpdateMetadataV2RemoteOperation(

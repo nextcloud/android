@@ -32,7 +32,6 @@ class PreviewPdfViewModel @Inject constructor(val appPreferences: AppPreferences
         get() = _previewImagePath
 
     override fun onCleared() {
-        super.onCleared()
         closeRenderer()
     }
 

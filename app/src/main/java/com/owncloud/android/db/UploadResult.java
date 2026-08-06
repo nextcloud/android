@@ -41,7 +41,8 @@ public enum UploadResult {
     CANNOT_CREATE_FILE(20),
     LOCAL_STORAGE_NOT_COPIED(21),
     QUOTA_EXCEEDED(22),
-    SAME_FILE_CONFLICT(23);
+    SAME_FILE_CONFLICT(23),
+    SKIPPED(24);
 
     private final int value;
 
@@ -81,7 +82,8 @@ public enum UploadResult {
         Map.entry(20, CANNOT_CREATE_FILE),
         Map.entry(21, LOCAL_STORAGE_NOT_COPIED),
         Map.entry(22, QUOTA_EXCEEDED),
-        Map.entry(23, SAME_FILE_CONFLICT)
+        Map.entry(23, SAME_FILE_CONFLICT),
+        Map.entry(24, SKIPPED)
                                                                             );
     public static UploadResult fromValue(int value) {
         return valueMap.getOrDefault(value, UNKNOWN);

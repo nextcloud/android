@@ -89,6 +89,7 @@ import com.nextcloud.utils.fileNameValidator.FileNameValidator.checkFolderPath
 import com.nextcloud.utils.view.FastScrollUtils
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
+import com.owncloud.android.authentication.PassCodeManager
 import com.owncloud.android.databinding.FilesBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -252,6 +253,9 @@ class FileDisplayActivity :
 
     @Inject
     lateinit var syncedFolderProvider: SyncedFolderProvider
+
+    @Inject
+    lateinit var passCodeManager: PassCodeManager
 
     /**
      * Indicates whether the downloaded file should be previewed immediately. Since `FileDownloadWorker` can be
@@ -628,6 +632,10 @@ class FileDisplayActivity :
 
     @SuppressLint("UnsafeIntentLaunch")
     private fun handleCommonIntents(intent: Intent) {
+        if (passCodeManager.isPassCodeEnabled() && passCodeManager.isLocked(this)) {
+            return
+        }
+
         when (intent.action) {
             Intent.ACTION_VIEW -> handleOpenFileViaIntent(intent)
 
@@ -714,17 +722,7 @@ class FileDisplayActivity :
         }
 
         prepareFragmentBeforeCommit(showSortListGroup)
-        commitFragment(
-            fragment,
-            object : CompletionCallback {
-                override fun onComplete(isFragmentCommitted: Boolean) {
-                    Log_OC.d(
-                        TAG,
-                        "Left fragment committed: $isFragmentCommitted"
-                    )
-                }
-            }
-        )
+        commitFragment(fragment)
     }
 
     private fun prepareFragmentBeforeCommit(showSortListGroup: Boolean) {
@@ -737,17 +735,21 @@ class FileDisplayActivity :
         showSortListGroup(showSortListGroup)
     }
 
-    private fun commitFragment(fragment: Fragment, callback: CompletionCallback) {
+    private fun commitFragment(fragment: Fragment): Boolean {
         val fragmentManager = supportFragmentManager
-        if (this.isActive() && !fragmentManager.isDestroyed) {
-            val transaction = fragmentManager.beginTransaction()
-            transaction.addToBackStack(null)
-            transaction.replace(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES)
-            transaction.commit()
-            callback.onComplete(true)
-        } else {
-            callback.onComplete(false)
+        if (!isActive() || fragmentManager.isDestroyed || fragmentManager.isStateSaved) {
+            Log_OC.d(TAG, "${fragment.javaClass.simpleName} not committed, skipping")
+            return false
         }
+
+        fragmentManager.beginTransaction()
+            .addToBackStack(null)
+            .replace(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES)
+            .commit()
+
+        Log_OC.d(TAG, "${fragment.javaClass.simpleName} committed, pending transaction")
+
+        return true
     }
 
     private fun getOCFileListFragmentFromFile(transaction: TransactionInterface) {
@@ -767,24 +769,10 @@ class FileDisplayActivity :
             val fm = supportFragmentManager
             if (!fm.isStateSaved && !fm.isDestroyed) {
                 prepareFragmentBeforeCommit(true)
-                commitFragment(
-                    listOfFiles,
-                    object : CompletionCallback {
-                        override fun onComplete(value: Boolean) {
-                            if (value) {
-                                Log_OC.d(TAG, "OCFileListFragment committed, executing pending transaction")
-                                fm.executePendingTransactions()
-                                transaction.onOCFileListFragmentComplete(listOfFiles)
-                            } else {
-                                Log_OC.d(
-                                    TAG,
-                                    "OCFileListFragment not committed, skipping executing " +
-                                        "pending transaction"
-                                )
-                            }
-                        }
-                    }
-                )
+                if (commitFragment(listOfFiles)) {
+                    fm.executePendingTransactions()
+                    transaction.onOCFileListFragmentComplete(listOfFiles)
+                }
             }
         }
     }
@@ -870,6 +858,11 @@ class FileDisplayActivity :
         val file = mWaitingToPreview ?: return false
 
         return when {
+            MimeTypeUtil.isVideo(file) -> {
+                startImagePreview(file, true)
+                true
+            }
+
             PreviewMediaActivity.canBePreviewed(file) -> {
                 startMediaPreview(file, 0, true, true, true, true)
                 true
@@ -1130,7 +1123,9 @@ class FileDisplayActivity :
                         )
                     }
                 } else {
-                    fileDataStorageManager.addCreateFileOfflineOperation(filePaths, decryptedRemotePaths)
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        fileDataStorageManager.addCreateFileOfflineOperation(filePaths, decryptedRemotePaths)
+                    }
                 }
             }
         } else {
@@ -1498,10 +1493,8 @@ class FileDisplayActivity :
         ocFileListFragment?.fileListLayoutManager?.sortFiles(selection)
     }
 
-    override fun downloadFile(file: OCFile?, packageName: String?, activityName: String?) {
-        if (packageName != null && activityName != null) {
-            startDownloadForSending(file, OCFileListFragment.DOWNLOAD_SEND, packageName, activityName)
-        }
+    override fun downloadFile(file: OCFile, packageName: String, activityName: String) {
+        startDownloadForSending(file, OCFileListFragment.DOWNLOAD_SEND, packageName, activityName)
     }
 
     // region SyncBroadcastReceiver
@@ -2041,6 +2034,9 @@ class FileDisplayActivity :
         } else if (PreviewTextFileFragment.canBePreviewed(file)) {
             setFabVisible?.onComplete(false)
             startTextPreview(file, false)
+        } else if (MimeTypeUtil.isVideo(file)) {
+            setFabVisible?.onComplete(false)
+            startImagePreview(file, true)
         } else if (PreviewMediaActivity.Companion.canBePreviewed(file)) {
             setFabVisible?.onComplete(false)
             startMediaPreview(file, 0, true, true, false, true)
@@ -2405,7 +2401,7 @@ class FileDisplayActivity :
 
             is PreviewMediaFragment -> {
                 fragment.updateFile(ocFile)
-                if (PreviewMediaFragment.canBePreviewed(ocFile)) {
+                if (PreviewMediaFragment.isAudioOrVideo(ocFile)) {
                     startMediaPreview(
                         ocFile,
                         fragment.position,
@@ -2690,7 +2686,7 @@ class FileDisplayActivity :
                 startMediaActivity(file, startPlaybackPosition, autoplay, actualUser)
             } else {
                 configureToolbarForPreview(file)
-                val mediaFragment: Fragment = newInstance(file, user.get(), startPlaybackPosition, autoplay, false)
+                val mediaFragment: Fragment = newInstance(file, user.get(), startPlaybackPosition, autoplay)
                 setLeftFragment(mediaFragment, false)
             }
         } else {

@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2023 TSI-mc
  * SPDX-FileCopyrightText: 2023 Parneet Singh <gurayaparneet@gmail.com>
  * SPDX-FileCopyrightText: 2020 Andy Scherzinger <info@andy-scherzinger.de>
@@ -27,7 +28,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.annotation.OptIn
 import androidx.annotation.StringRes
 import androidx.core.net.toUri
@@ -35,9 +35,6 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.marginBottom
-import androidx.core.view.updateLayoutParams
-import androidx.core.view.updatePadding
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -46,7 +43,7 @@ import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.session.MediaSession
-import androidx.media3.ui.DefaultTimeBar
+import androidx.media3.ui.PlayerView
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
@@ -60,8 +57,10 @@ import com.nextcloud.client.network.ClientFactory.CreationException
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
+import com.nextcloud.utils.extensions.applyControlsInsets
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getTypedActivity
+import com.nextcloud.utils.extensions.setFullscreenButton
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FragmentPreviewMediaBinding
 import com.owncloud.android.datamodel.OCFile
@@ -119,6 +118,10 @@ class PreviewMediaFragment :
     lateinit var backgroundJobManager: BackgroundJobManager
 
     lateinit var binding: FragmentPreviewMediaBinding
+
+    private val exoplayerView: PlayerView
+        get() = binding.exoplayerView.root
+
     private var emptyListView: ViewGroup? = null
     private var exoPlayer: ExoPlayer? = null
     private var mediaSession: MediaSession? = null
@@ -185,30 +188,18 @@ class PreviewMediaFragment :
     override fun onResume() {
         super.onResume()
         applyWindowInsets()
+        prepareMedia()
     }
 
     @OptIn(UnstableApi::class)
     private fun applyWindowInsets() {
         binding.root.post {
             val rootInsets = ViewCompat.getRootWindowInsets(binding.root) ?: return@post
-            val insets = rootInsets.getInsets(
-                WindowInsetsCompat.Type.systemBars() or
-                    WindowInsetsCompat.Type.displayCutout()
+            exoplayerView.applyControlsInsets(
+                rootInsets.getInsets(
+                    WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+                )
             )
-            val playerView = binding.exoplayerView
-            val exoControls = playerView
-                .findViewById<FrameLayout>(androidx.media3.ui.R.id.exo_bottom_bar)
-            val exoProgress = playerView
-                .findViewById<DefaultTimeBar>(androidx.media3.ui.R.id.exo_progress)
-            val progressOriginalMargin = exoProgress?.marginBottom ?: 0
-            exoControls?.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                bottomMargin = insets.bottom
-            }
-            exoProgress?.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                bottomMargin = insets.bottom + progressOriginalMargin
-            }
-            exoControls?.updatePadding(left = insets.left, right = insets.right)
-            exoProgress?.updatePadding(left = insets.left, right = insets.right)
         }
     }
 
@@ -238,16 +229,11 @@ class PreviewMediaFragment :
             putParcelable(EXTRA_FILE, file)
             putParcelable(EXTRA_USER, user)
 
-            savedPlaybackPosition = exoPlayer?.currentPosition ?: 0L
-            autoplay = exoPlayer?.isPlaying ?: false
+            savedPlaybackPosition = exoPlayer?.currentPosition ?: savedPlaybackPosition
+            autoplay = exoPlayer?.isPlaying ?: autoplay
             putLong(EXTRA_PLAY_POSITION, savedPlaybackPosition)
             putBoolean(EXTRA_PLAYING, autoplay)
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        prepareMedia()
     }
 
     private fun prepareMedia() {
@@ -286,7 +272,7 @@ class PreviewMediaFragment :
     private fun createExoPlayer(context: Context, client: NextcloudClient) {
         exoPlayer = createNextcloudExoplayer(context, client)
         exoPlayer?.let {
-            val listener = ExoplayerListener(context, binding.exoplayerView, it) { goBackToLivePhoto() }
+            val listener = ExoplayerListener(context, exoplayerView, it) { goBackToLivePhoto() }
             it.addListener(listener)
         }
         mediaSession = MediaSession.Builder(
@@ -324,11 +310,11 @@ class PreviewMediaFragment :
 
     @OptIn(UnstableApi::class)
     private fun setupVideoView() {
-        binding.exoplayerView.run {
+        exoplayerView.run {
             setShowNextButton(false)
             setShowPreviousButton(false)
             player = exoPlayer
-            setFullscreenButtonClickListener { startFullScreenVideo() }
+            setFullscreenButton(isFullscreen = false) { startFullScreenVideo() }
         }
     }
 
@@ -499,17 +485,16 @@ class PreviewMediaFragment :
         autoplay = false
     }
 
-    override fun onStop() {
+    override fun onPause() {
         if (!isFullscreenActive) {
             releaseVideoPlayer()
         }
-        releaseVideoPlayer()
-        super.onStop()
+        super.onPause()
     }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouch(v: View, event: MotionEvent): Boolean {
-        if (event.action == MotionEvent.ACTION_DOWN && v == binding.exoplayerView) {
+        if (event.action == MotionEvent.ACTION_DOWN && v == exoplayerView) {
             // added a margin on the left to avoid interfering with gesture to open navigation drawer
             if (event.x / Resources.getSystem().displayMetrics.density > MIN_DENSITY_RATIO) {
                 startFullScreenVideo()
@@ -529,7 +514,7 @@ class PreviewMediaFragment :
             activity,
             client,
             player,
-            binding.exoplayerView
+            exoplayerView
         ).apply {
             setOnDismissListener {
                 isFullscreenActive = false
@@ -585,11 +570,6 @@ class PreviewMediaFragment :
         super.onDetach()
     }
 
-    override fun onPause() {
-        exoPlayer?.pause()
-        super.onPause()
-    }
-
     companion object {
         private val TAG: String = PreviewMediaFragment::class.java.simpleName
 
@@ -608,22 +588,12 @@ class PreviewMediaFragment :
         private const val AUTOPLAY = "AUTOPLAY"
         private const val IS_LIVE_PHOTO = "IS_LIVE_PHOTO"
 
-        /**
-         * Creates a fragment to preview a file.
-         *
-         *
-         * When 'fileToDetail' or 'user' are null
-         *
-         * @param fileToDetail An [OCFile] to preview in the fragment
-         * @param user         Currently active user
-         */
-        @JvmStatic
         fun newInstance(
             fileToDetail: OCFile?,
             user: User?,
-            startPlaybackPosition: Long,
-            autoplay: Boolean,
-            isLivePhoto: Boolean
+            startPlaybackPosition: Long = 0,
+            autoplay: Boolean = false,
+            isLivePhoto: Boolean = false
         ): PreviewMediaFragment = PreviewMediaFragment().apply {
             arguments = Bundle().apply {
                 putParcelable(FILE, fileToDetail)
@@ -634,14 +604,7 @@ class PreviewMediaFragment :
             }
         }
 
-        /**
-         * Helper method to test if an [OCFile] can be passed to a [PreviewMediaFragment] to be previewed.
-         *
-         * @param file File to test if can be previewed.
-         * @return 'True' if the file can be handled by the fragment.
-         */
-        @JvmStatic
-        fun canBePreviewed(file: OCFile?): Boolean =
+        fun isAudioOrVideo(file: OCFile?): Boolean =
             file != null && (MimeTypeUtil.isAudio(file) || MimeTypeUtil.isVideo(file))
     }
 }

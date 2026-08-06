@@ -56,7 +56,6 @@
     <string name="auth_ssl_unverified_server_title">Không thể xác minh danh tính của máy chủ SSL</string>
     <string name="auth_testing_connection">Kiểm tra kết nối</string>
     <string name="auth_timeout_title">Máy chủ đã quá dài để đáp ứng</string>
-    <string name="auth_trying_to_login">Đang cố đăng nhập...</string>
     <string name="auth_unauthorized">Sai tên người dùng hoặc mật khẩu</string>
     <string name="auth_unknown_error_exception_title">Lỗi không xác định: %1$s</string>
     <string name="auth_unknown_error_http_title">Lỗi HTTP không xác định đã xảy ra!</string>
@@ -378,6 +377,7 @@
     <string name="foreign_files_remote_text">Từ xa: %1$s</string>
     <string name="forward">Forward</string>
     <string name="fourHours">4 tiếng</string>
+    <string name="governance_no_label">Không có</string>
     <string name="hidden_file_name_warning">Tên sẽ dẫn đến tệp ẩn</string>
     <string name="hint_name">Tên</string>
     <string name="hint_note">Ghi chú</string>

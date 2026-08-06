@@ -98,7 +98,6 @@
     <string name="auth_ssl_unverified_server_title">Az SSL-kiszolgáló személyazonossága nem ellenőrizhető</string>
     <string name="auth_testing_connection">Kapcsolat ellenőrzése</string>
     <string name="auth_timeout_title">A kiszolgáló túl sokára válaszolt</string>
-    <string name="auth_trying_to_login">Bejelentkezés…</string>
     <string name="auth_unauthorized">Hibás felhasználónév vagy jelszó</string>
     <string name="auth_unknown_error_exception_title">Ismeretlen hiba: %1$s</string>
     <string name="auth_unknown_error_http_title">Ismeretlen HTTP hiba történt!</string>
@@ -539,6 +538,8 @@
     <string name="foreign_files_remote_text">Távoli: %1$s</string>
     <string name="forward">Tovább</string>
     <string name="fourHours">4 óra</string>
+    <string name="governance_file_retention_label">Fájlok megőrzése</string>
+    <string name="governance_no_label">Egyik sem</string>
     <string name="gplay_restriction">A Google korlátozta az APK/AAB-fájlok letöltését.</string>
     <string name="grid_file_features_live_photo_content_description">Ez az ikon az élő fénykép elérhetőségét jelöli</string>
     <string name="hidden_file_name_warning">A név egy rejtett fájlt fog eredményezni</string>

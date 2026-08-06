@@ -7,6 +7,7 @@
 -->
 <resources>
     <string name="backup_list_adapter_local_contacts">Local contacts</string>
+
     <string name="preview_text_string_fragment_open_rich_text_editor_error_message">Failed to open text editor</string>
     <string name="bottom_navigation_menu_files_label">All files</string>
     <string name="bottom_navigation_menu_favorites_label">Favorites</string>
@@ -1194,6 +1195,7 @@
     <string name="share_internal_link_to_file_text">Internal share link only works for users with access to this file</string>
     <string name="share_internal_link">Share internal link</string>
     <string name="action_edit">Edit</string>
+    <string name="action_open_in_web_editor">Open in web editor</string>
     <string name="failed_to_start_editor">Failed to start editor</string>
     <string name="create_rich_workspace">Add folder description</string>
     <string name="uploader_file_not_found_on_server_message">We couldnt locate the file on server. Another user may have deleted the file</string>
@@ -1271,6 +1273,8 @@
     <string name="wrong_storage_path_desc">This might be due to a backup restore on another device. Falling back to default. Please check settings to adjust data storage folder.</string>
     <string name="dialog_close">Close</string>
     <string name="direct_login_text">Login with %1$s to %2$s</string>
+    <string name="direct_login_confirm_title">Confirm login</string>
+    <string name="direct_login_confirm_message">Do you want to log in with %1$s to %2$s?</string>
     <string name="direct_login_failed">Login via direct link failed!</string>
 
     <string name="e2e_signature_is_empty">Could not verify metadata, signature is empty.</string>
@@ -1387,6 +1391,13 @@
     <string name="remove_e2e">You can remove end-to-end encryption locally on this client</string>
     <string name="confirm_removal">Remove local encryption</string>
     <string name="remove_e2e_message">You can remove end-to-end encryption locally on this client. The encrypted files will remain on server, but will not be synced to this computer any longer.</string>
+    <string name="prefs_renew_e2e_certificate">Renew encryption certificate</string>
+    <string name="renew_e2e_certificate_summary">Renew your end-to-end encryption certificate while keeping your existing keys</string>
+    <string name="renew_e2e_certificate_valid_until">Valid until %1$s. Tap to renew while keeping your existing keys.</string>
+    <string name="renew_e2e_certificate_dialog_message">This will renew your end-to-end encryption certificate. Your existing keys and encrypted files remain unchanged. Continue?</string>
+    <string name="renew_e2e_certificate_success">Encryption certificate renewed</string>
+    <string name="renew_e2e_certificate_error">Could not renew encryption certificate</string>
+    <string name="renew_e2e_certificate_private_key_missing">Encryption private key not found</string>
     <string name="setup_e2e">During setup of end-to-end encryption, you will receive a random 12 word mnemonic, which you will need to open your files on other devices. This will only be stored on this device, and can be shown again in this screen. Please note it down in a secure place!</string>
     <string name="error_showing_encryption_dialog">Error showing encryption setup dialog!</string>
     <string name="prefs_keys_exist">Add end-to-end encryption to this client</string>
@@ -1526,4 +1537,11 @@
     <string name="sync_conflict_notification_description">Upload conflicts detected. Open uploads to resolve.</string>
     <string name="sync_conflict_notification_action_title">Resolve conflicts</string>
     <string name="extension_cannot_be_changed">Extension cannot be changed</string>
+    <string name="governance_sensitivity_label">Sensitivity label</string>
+    <string name="governance_file_retention_label">File retention</string>
+    <string name="governance_legal_hold_label">Legal hold</string>
+    <string name="governance_no_label">None</string>
+    <string name="governance_permission_denied">You do not have permission to change this label</string>
+    <string name="file_info_governance_section_title">Governance</string>
+    <string name="file_info_image_details_section_title">Image details</string>
 </resources>

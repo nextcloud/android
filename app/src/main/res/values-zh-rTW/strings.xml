@@ -10,6 +10,7 @@
     <string name="action_edit">編輯</string>
     <string name="action_empty_notifications">清除所有通知訊息</string>
     <string name="action_empty_trashbin">清空垃圾桶</string>
+    <string name="action_open_in_web_editor">在網路編輯器中開啟</string>
     <string name="action_send_share">傳送/分享</string>
     <string name="action_switch_grid_view">格狀檢視</string>
     <string name="action_switch_list_view">清單檢視</string>
@@ -98,7 +99,6 @@
     <string name="auth_ssl_unverified_server_title">無法驗證 SSL 伺服器的身分</string>
     <string name="auth_testing_connection">測試連線</string>
     <string name="auth_timeout_title">伺服器回應時間過長</string>
-    <string name="auth_trying_to_login">正在嘗試登入…</string>
     <string name="auth_unauthorized">錯誤的使用者名稱或密碼</string>
     <string name="auth_unknown_error_exception_title">未知錯誤：%1$s</string>
     <string name="auth_unknown_error_http_title">發生未知的 HTTP 錯誤！</string>
@@ -275,6 +275,8 @@
     <string name="dialog_close">關閉</string>
     <string name="did_not_check_for_dupes">無法檢查重複項目。</string>
     <string name="digest_algorithm_not_available">此訊息摘要演算法在您的手機上無法使用。</string>
+    <string name="direct_login_confirm_message">您想要使用 %1$s 登入到 %2$s 嗎？</string>
+    <string name="direct_login_confirm_title">確認登入</string>
     <string name="direct_login_failed">透過直接連結登入失敗！</string>
     <string name="direct_login_text">使用 %1$s 登入至 %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">停用</string>
@@ -432,6 +434,8 @@
     <string name="file_detail_sharing_fragment_no_contact_app_message">沒有應用程式可選取聯絡人</string>
     <string name="file_details_no_content">載入詳細資訊失敗</string>
     <string name="file_icon">檔案</string>
+    <string name="file_info_governance_section_title">治理</string>
+    <string name="file_info_image_details_section_title">影像詳細資訊</string>
     <string name="file_keep">保留</string>
     <string name="file_list_empty">上傳一些內容或與您的裝置同步。</string>
     <string name="file_list_empty_favorite_headline">還沒有喜愛的項目</string>
@@ -539,6 +543,11 @@
     <string name="foreign_files_remote_text">遠端：%1$s</string>
     <string name="forward">往前</string>
     <string name="fourHours">4 小時</string>
+    <string name="governance_file_retention_label">保留檔案</string>
+    <string name="governance_legal_hold_label">法律保留</string>
+    <string name="governance_no_label">無</string>
+    <string name="governance_permission_denied">您無權變更此標籤</string>
+    <string name="governance_sensitivity_label">敏感度標籤</string>
     <string name="gplay_restriction">Google 限制 APK/AAB 檔案的下載！</string>
     <string name="grid_file_features_live_photo_content_description">此圖示表示原況照片的可得性</string>
     <string name="hidden_file_name_warning">此名稱會將檔案轉變為隱藏</string>
@@ -777,6 +786,7 @@
     <string name="prefs_recommend">推薦給朋友</string>
     <string name="prefs_remove_e2e">移除本機加密</string>
     <string name="prefs_remove_e2e_keys_and_files">移除加密的檔案與金鑰</string>
+    <string name="prefs_renew_e2e_certificate">更新加密憑證</string>
     <string name="prefs_setup_e2e">設置端對端加密</string>
     <string name="prefs_show_ecosystem_apps">顯示應用程式切換器</string>
     <string name="prefs_show_ecosystem_apps_summary">導覽標頭中的 Nextcloud 應用程式建議</string>
@@ -827,6 +837,12 @@
     <string name="rename_dialog_title">輸入新名稱</string>
     <string name="rename_local_fail_msg">無法重新命名本機副本，請嘗試不同的名稱</string>
     <string name="rename_server_fail_msg">無法重新命名，該名稱已被使用</string>
+    <string name="renew_e2e_certificate_dialog_message">此操作將更新您的端到端加密憑證。您的現有金鑰與加密檔案將維持不變。要繼續嗎？</string>
+    <string name="renew_e2e_certificate_error">無法更新加密憑證</string>
+    <string name="renew_e2e_certificate_private_key_missing">找不到加密私鑰</string>
+    <string name="renew_e2e_certificate_success">已更新加密憑證</string>
+    <string name="renew_e2e_certificate_summary">在保留既有金鑰的同時，更新您的端到端加密憑證</string>
+    <string name="renew_e2e_certificate_valid_until">有效期至 %1$s。輕點以在保留既有金鑰的同時更新。</string>
     <string name="request_account_deletion">請求刪除帳號</string>
     <string name="request_account_deletion_button">請求刪除</string>
     <string name="request_account_deletion_details">請求服務提供者永久刪除帳號</string>

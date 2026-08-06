@@ -24,6 +24,7 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.documentscan.AppScanOptionalFeature
 import com.nextcloud.utils.BuildHelper.isFlavourGPlay
 import com.nextcloud.utils.EditorUtils
+import com.nextcloud.utils.extensions.isTemplateAvailable
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
@@ -126,20 +127,21 @@ class OCFileListBottomSheetDialog(
         }
     }
 
-    @Suppress("ComplexCondition")
     private fun checkTemplateVisibility() {
         val optionalCapability = fileActivity.capabilities
-        if (optionalCapability.isPresent) {
-            val capability = optionalCapability.get()
-            if (capability.richDocuments.isTrue &&
-                capability.richDocumentsDirectEditing.isTrue &&
-                capability.richDocumentsTemplatesAvailable.isTrue &&
-                !file.isEncrypted
-            ) {
-                binding.menuNewDocument.visibility = View.VISIBLE
-                binding.menuNewSpreadsheet.visibility = View.VISIBLE
-                binding.menuNewPresentation.visibility = View.VISIBLE
-            }
+        if (file.isEncrypted || optionalCapability.isEmpty) {
+            return
+        }
+
+        val capability = optionalCapability.get()
+        if (!capability.isTemplateAvailable()) {
+            return
+        }
+
+        binding.run {
+            menuNewDocument.visibility = View.VISIBLE
+            menuNewSpreadsheet.visibility = View.VISIBLE
+            menuNewPresentation.visibility = View.VISIBLE
         }
     }
 
@@ -148,66 +150,68 @@ class OCFileListBottomSheetDialog(
         val json = ArbitraryDataProviderImpl(context)
             .getValue(user, ArbitraryDataProvider.DIRECT_EDITING)
 
-        if (json.isNotEmpty() && !file.isEncrypted) {
-            val directEditing = Gson().fromJson(json, DirectEditing::class.java)
-            if (directEditing.creators.isEmpty()) {
-                return
-            }
+        if (json.isEmpty() || file.isEncrypted) {
+            return
+        }
 
-            binding.creatorsContainer.visibility = View.VISIBLE
-            binding.creators.removeAllViews()
+        val directEditing = Gson().fromJson(json, DirectEditing::class.java)
+        if (directEditing.creators.isEmpty()) {
+            return
+        }
 
-            val itemHeight = context.resources.getDimensionPixelSize(R.dimen.bottom_sheet_item_height)
-            val standardPadding = context.resources.getDimensionPixelSize(R.dimen.standard_padding)
-            val iconSize = context.resources.getDimensionPixelSize(R.dimen.iconized_single_line_item_icon_size)
+        binding.creatorsContainer.visibility = View.VISIBLE
+        binding.creators.removeAllViews()
 
-            for (creator in directEditing.creators.values) {
-                val creatorButton = MaterialButton(
-                    ContextThemeWrapper(
-                        context,
-                        R.style.ThemeOverlay_App_Button_BottomSheetItem
-                    ),
-                    null,
-                    com.google.android.material.R.attr.materialButtonStyle
-                ).apply {
-                    id = View.generateViewId()
-                    layoutParams = LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        itemHeight
-                    )
+        val itemHeight = context.resources.getDimensionPixelSize(R.dimen.bottom_sheet_item_height)
+        val standardPadding = context.resources.getDimensionPixelSize(R.dimen.standard_padding)
+        val iconSize = context.resources.getDimensionPixelSize(R.dimen.iconized_single_line_item_icon_size)
 
-                    gravity = Gravity.START or Gravity.CENTER_VERTICAL
-                    setPaddingRelative(standardPadding, 0, standardPadding, 0)
+        for (creator in directEditing.creators.values) {
+            val creatorButton = MaterialButton(
+                ContextThemeWrapper(
+                    context,
+                    R.style.ThemeOverlay_App_Button_BottomSheetItem
+                ),
+                null,
+                com.google.android.material.R.attr.materialButtonStyle
+            ).apply {
+                id = View.generateViewId()
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    itemHeight
+                )
 
-                    val buttonText = String.format(
-                        fileActivity.getString(R.string.editor_placeholder),
-                        fileActivity.getString(R.string.create_new),
-                        creator.name
-                    )
-                    text = buttonText
-                    setTextColor(ContextCompat.getColor(context, R.color.text_color))
-                    textSize = 16f
-                    isAllCaps = false
+                gravity = Gravity.START or Gravity.CENTER_VERTICAL
+                setPaddingRelative(standardPadding, 0, standardPadding, 0)
 
-                    icon = MimeTypeUtil.getFileTypeIcon(
-                        creator.mimetype,
-                        creator.extension,
-                        context,
-                        viewThemeUtils
-                    )
-                    this.iconSize = iconSize
-                    this.iconPadding = standardPadding
-                    iconGravity = MaterialButton.ICON_GRAVITY_START
-                    iconTint = null
+                val buttonText = String.format(
+                    fileActivity.getString(R.string.editor_placeholder),
+                    fileActivity.getString(R.string.create_new),
+                    creator.name
+                )
+                text = buttonText
+                setTextColor(ContextCompat.getColor(context, R.color.text_color))
+                textSize = 16f
+                isAllCaps = false
 
-                    setOnClickListener {
-                        actions.showTemplate(creator, buttonText)
-                        dismiss()
-                    }
+                icon = MimeTypeUtil.getFileTypeIcon(
+                    creator.mimetype,
+                    creator.extension,
+                    context,
+                    viewThemeUtils
+                )
+                this.iconSize = iconSize
+                this.iconPadding = standardPadding
+                iconGravity = MaterialButton.ICON_GRAVITY_START
+                iconTint = null
+
+                setOnClickListener {
+                    actions.showTemplate(creator, buttonText)
+                    dismiss()
                 }
-
-                binding.creators.addView(creatorButton)
             }
+
+            binding.creators.addView(creatorButton)
         }
     }
 

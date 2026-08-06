@@ -51,7 +51,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import third_parties.daveKoeller.AlphanumComparator
+import com.owncloud.android.utils.sort.AlphanumericComparator
 import java.util.Calendar
 import java.util.GregorianCalendar
 import javax.inject.Inject
@@ -328,7 +328,7 @@ class BackupFragment :
             val backupFiles = listOf(calendarBackupFolderPath, contactsBackupFolderPath)
                 .mapNotNull { path -> storageManager.getFileByDecryptedRemotePath(path) }
                 .flatMap { folder -> fetchBackupFiles(folder, storageManager) }
-                .sortedWith(AlphanumComparator())
+                .sortedWith(AlphanumericComparator())
             withContext(Dispatchers.Main) {
                 binding.contactsDatepicker.setVisibleIf(backupFiles.isNotEmpty())
             }
@@ -408,7 +408,7 @@ class BackupFragment :
         }
     }
 
-    @Suppress("ComplexMethod", "MagicNumber")
+    @Suppress("ComplexMethod", "MagicNumber", "ReturnCount")
     override fun onDateSet(view: DatePicker, year: Int, month: Int, dayOfMonth: Int) {
         val contactsPreferenceActivity = activity as? ContactsPreferenceActivity ?: run {
             activity?.let { DisplayUtils.showSnackMessage(it, R.string.error_choosing_date) }

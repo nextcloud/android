@@ -28,7 +28,7 @@ import com.nextcloud.client.widget.DashboardWidgetProvider;
 import com.nextcloud.client.widget.DashboardWidgetService;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.nextcloud.ui.ChooseStorageLocationDialogFragment;
-import com.nextcloud.ui.ImageDetailFragment;
+import com.nextcloud.ui.fileInfo.FileInfoFragment;
 import com.nextcloud.ui.SetOnlineStatusBottomSheet;
 import com.nextcloud.ui.SetStatusMessageBottomSheet;
 import com.nextcloud.ui.composeActivity.ComposeActivity;
@@ -483,7 +483,7 @@ abstract class ComponentsModule {
     abstract EditImageActivity editImageActivity();
 
     @ContributesAndroidInjector
-    abstract ImageDetailFragment imageDetailFragment();
+    abstract FileInfoFragment fileInfoFragment();
 
     @ContributesAndroidInjector
     abstract EtmBackgroundJobsFragment etmBackgroundJobsFragment();

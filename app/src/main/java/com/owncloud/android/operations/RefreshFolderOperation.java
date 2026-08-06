@@ -554,10 +554,8 @@ public class RefreshFolderOperation extends RemoteOperation {
             localFilesMap = prefillLocalFilesMap(metadataFileV1, fileDataStorageManager.getFolderContent(mLocalFolder, false));
         } else {
             localFilesMap = prefillLocalFilesMap(object, fileDataStorageManager.getFolderContent(mLocalFolder, false));
-
-            // update counter
-            if (object != null) {
-                mLocalFolder.setE2eCounter(((DecryptedFolderMetadataFile) object).getMetadata().getCounter());
+            if (object instanceof DecryptedFolderMetadataFile metadataFile) {
+                mLocalFolder.setE2eCounter(metadataFile.getMetadata().getCounter());
             }
         }
 
@@ -599,14 +597,10 @@ public class RefreshFolderOperation extends RemoteOperation {
             FileStorageUtils.searchForLocalFileInDefaultPath(updatedFile, user.getAccountName());
 
             // update file name for encrypted files
-            if (E2EVersionHelper.INSTANCE.isV1(e2EVersion)) {
-                updateFileNameForEncryptedFileV1(fileDataStorageManager,
-                                                 (DecryptedFolderMetadataFileV1) object,
-                                                 updatedFile);
-            } else if (object != null) {
-                updateFileNameForEncryptedFile(fileDataStorageManager,
-                                               (DecryptedFolderMetadataFile) object,
-                                               updatedFile);
+            if (E2EVersionHelper.INSTANCE.isV1(e2EVersion) && object instanceof DecryptedFolderMetadataFileV1 metadata) {
+                updateFileNameForEncryptedFileV1(fileDataStorageManager, metadata, updatedFile);
+            } else if (object instanceof DecryptedFolderMetadataFile metadata) {
+                updateFileNameForEncryptedFile(fileDataStorageManager, metadata, updatedFile);
                 if (localFile != null) {
                     updatedFile.setE2eCounter(localFile.getE2eCounter());
                 }
@@ -622,15 +616,12 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         // save updated contents in local database
         // update file name for encrypted files
-        if (E2EVersionHelper.INSTANCE.isV1(e2EVersion)) {
-            updateFileNameForEncryptedFileV1(fileDataStorageManager,
-                                             (DecryptedFolderMetadataFileV1) object,
-                                             mLocalFolder);
-        } else {
-            updateFileNameForEncryptedFile(fileDataStorageManager,
-                                           (DecryptedFolderMetadataFile) object,
-                                           mLocalFolder);
+        if (E2EVersionHelper.INSTANCE.isV1(e2EVersion) && object instanceof DecryptedFolderMetadataFileV1 metadata) {
+            updateFileNameForEncryptedFileV1(fileDataStorageManager, metadata, mLocalFolder);
+        } else if (object instanceof DecryptedFolderMetadataFile metadata) {
+            updateFileNameForEncryptedFile(fileDataStorageManager, metadata, mLocalFolder);
         }
+
         fileDataStorageManager.saveFolder(remoteFolder, updatedFiles, localFilesMap.values());
 
         mChildren = updatedFiles;

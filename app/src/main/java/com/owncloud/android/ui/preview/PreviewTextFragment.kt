@@ -55,7 +55,7 @@ import io.noties.markwon.syntax.Prism4jThemeDefault
 import io.noties.markwon.syntax.SyntaxHighlightPlugin
 import io.noties.prism4j.Prism4j
 import io.noties.prism4j.annotations.PrismBundle
-import third_parties.io.noties.prism4j.languages.MarkwonGrammarLocator
+import thirdparties.io.noties.prism4j.languages.MarkwonGrammarLocator
 import javax.inject.Inject
 
 @PrismBundle(
@@ -162,11 +162,9 @@ abstract class PreviewTextFragment :
         }
     }
 
-    /**
-     * Finishes the preview
-     */
     protected fun finish() {
-        requireActivity().runOnUiThread { requireActivity().onBackPressedDispatcher.onBackPressed() }
+        val activity = activity ?: return
+        activity.runOnUiThread { activity.onBackPressedDispatcher.onBackPressed() }
     }
 
     companion object {

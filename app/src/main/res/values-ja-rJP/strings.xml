@@ -10,6 +10,7 @@
     <string name="action_edit">編集</string>
     <string name="action_empty_notifications">すべての通知を削除</string>
     <string name="action_empty_trashbin">ゴミ箱を空にする</string>
+    <string name="action_open_in_web_editor">Webエディターで開く</string>
     <string name="action_send_share">送信/共有</string>
     <string name="action_switch_grid_view">グリッド表示</string>
     <string name="action_switch_list_view">リスト表示</string>
@@ -48,12 +49,15 @@
     <string name="assistant_output_generation_warning_text">ここに表示されている出力はAIによって生成されます。必ず二重チェックを行ってください。</string>
     <string name="assistant_screen_chat_create_error">メッセージの送信に失敗しました:</string>
     <string name="assistant_screen_chat_fetch_error">チャットメッセージの取得に失敗しました</string>
+    <string name="assistant_screen_chat_generate_error">応答の生成に失敗しました</string>
+    <string name="assistant_screen_conversations_go_back_to_assistant">アシスタントページに戻る</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">本当にこのタスクを削除しますか？</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">タスクを削除</string>
     <string name="assistant_screen_empty_content_description">メッセージを送って会話を始めてみましょう。</string>
     <string name="assistant_screen_empty_content_title"> こんにちは！何かお手伝いできることはありますか？</string>
     <string name="assistant_screen_retry_response_generation">応答の生成を再試行</string>
     <string name="assistant_screen_send_message">メッセージを送信する</string>
+    <string name="assistant_screen_task_bar_open_conversation_list">会話リストを開く</string>
     <string name="assistant_screen_task_create_fail_message">タスクの作成中にエラーが発生しました。</string>
     <string name="assistant_screen_task_create_success_message">タスクを作成しました</string>
     <string name="assistant_screen_task_delete_fail_message">タスクの削除中にエラーが発生しました。</string>
@@ -61,6 +65,7 @@
     <string name="assistant_screen_task_list_error_state_message">タスクリストを取得できません。インターネット接続を確認してください。</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">タスクを削除</string>
     <string name="assistant_screen_task_output_empty_text">タスクの出力はまだ準備ができていません。</string>
+    <string name="assistant_screen_text_selected">他のアプリからコピーされたテキスト</string>
     <string name="assistant_screen_top_bar_title">アシスタント</string>
     <string name="assistant_task_detail_screen_input_button_title">入力</string>
     <string name="assistant_task_detail_screen_output_button_title">出力</string>
@@ -93,7 +98,6 @@
     <string name="auth_ssl_unverified_server_title">SSLサーバーのIDを確認できませんでした</string>
     <string name="auth_testing_connection">接続のテスト中</string>
     <string name="auth_timeout_title">サーバからの応答がありません</string>
-    <string name="auth_trying_to_login">ログインする…</string>
     <string name="auth_unauthorized">ユーザー名またはパスワードが間違っています</string>
     <string name="auth_unknown_error_exception_title">不明なエラー: %1$s</string>
     <string name="auth_unknown_error_http_title">不明な HTTP エラーが発生しました</string>
@@ -107,6 +111,11 @@
     <string name="authenticator_activity_login_error">ログイン要求の処理中に問題が発生しました。しばらくたってからもう一度お試しください。</string>
     <string name="authenticator_activity_no_web_browser_found">このリンクを開くブラウザーがありません。</string>
     <string name="authenticator_activity_please_complete_login_process">ブラウザでログインプロセスを完了してください</string>
+    <string name="auto_upload_background_activity_action">バックグラウンドアクティビティを許可</string>
+    <string name="auto_upload_battery_optimization_reason">Nextcloudのバックグラウンドアクティビティはバッテリーの最適化によって制限されます。</string>
+    <string name="auto_upload_battery_saver_action">省電力設定を開く</string>
+    <string name="auto_upload_battery_saver_reason">バッテリセーバーが有効でアップロードが一時停止される場合があります。</string>
+    <string name="auto_upload_delete_dialog_title">自動でアップロードされたフォルダを削除しますか？</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">読み取り専用のため元のフォルダに残しました</string>
     <string name="auto_upload_low_battery_warning_info">バッテリー残量が低下しているため、アップロードに時間がかかることがあります。</string>
     <string name="auto_upload_on_wifi">定額制 Wi-Fi でのみアップロード</string>
@@ -121,6 +130,7 @@
     <string name="autoupload_hide_folder">フォルダーを隠す</string>
     <string name="avatar">アバター</string>
     <string name="away">離席中</string>
+    <string name="backup_list_adapter_local_contacts">ローカル連絡先</string>
     <string name="backup_settings">バックアップ設定</string>
     <string name="backup_title">連絡先とカレンダーをバックアップ</string>
     <string name="battery_optimization_close">閉じる</string>
@@ -515,6 +525,8 @@
     <string name="foreign_files_remote_text">リモート: %1$s</string>
     <string name="forward">転送</string>
     <string name="fourHours">4時間</string>
+    <string name="governance_file_retention_label">ファイル保持</string>
+    <string name="governance_no_label">なし</string>
     <string name="gplay_restriction">GoogleがAPK/AABファイルのダウンロードを制限！</string>
     <string name="grid_file_features_live_photo_content_description">このアイコンはライブ写真の有無を示します</string>
     <string name="hidden_file_name_warning">名前を付けると隠しファイルになります</string>
