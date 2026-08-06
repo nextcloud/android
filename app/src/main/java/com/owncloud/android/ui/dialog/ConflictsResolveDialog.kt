@@ -9,6 +9,7 @@ package com.owncloud.android.ui.dialog
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
+import android.os.AsyncTask
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
@@ -26,9 +27,9 @@ import com.owncloud.android.databinding.ConflictResolveDialogBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.ThumbnailsCacheManager.MediaThumbnailGenerationTask
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.ThumbnailGenerationTask
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.ui.adapter.LocalFileListAdapter
 import com.owncloud.android.ui.dialog.parcel.ConflictDialogData
 import com.owncloud.android.ui.dialog.parcel.ConflictFileData
 import com.owncloud.android.utils.DisplayUtils
@@ -48,6 +49,7 @@ class ConflictsResolveDialog :
 
     var listener: OnConflictDecisionMadeListener? = null
     private val asyncTasks: MutableList<ThumbnailGenerationTask> = ArrayList()
+    private var localThumbnailTask: MediaThumbnailGenerationTask? = null
     private var positiveButton: MaterialButton? = null
 
     private var data: ConflictDialogData? = null
@@ -131,6 +133,9 @@ class ConflictsResolveDialog :
         super.onSaveInstanceState(outState)
         outState.run {
             putParcelable(ARG_CONFLICT_DATA, data)
+            putSerializable(ARG_LEFT_FILE, leftDataFile)
+            putParcelable(ARG_RIGHT_FILE, rightDataFile)
+            putParcelable(ARG_USER, user)
         }
     }
 
@@ -215,15 +220,9 @@ class ConflictsResolveDialog :
     }
 
     private fun setThumbnailsForFileConflicts() {
-        binding.leftThumbnail.tag = leftDataFile.hashCode()
-        binding.rightThumbnail.tag = rightDataFile.hashCode()
+        val localFile = leftDataFile ?: return
 
-        LocalFileListAdapter.setThumbnail(
-            leftDataFile,
-            binding.leftThumbnail,
-            context,
-            viewThemeUtils
-        )
+        setLocalFileThumbnail(localFile)
 
         DisplayUtils.setThumbnail(
             rightDataFile,
@@ -238,6 +237,21 @@ class ConflictsResolveDialog :
             viewThemeUtils,
             overlayManager
         )
+    }
+
+    private fun setLocalFileThumbnail(localFile: File) {
+        binding.leftThumbnail.run {
+            tag = localFile.hashCode()
+            setImageDrawable(MimeTypeUtil.getFileTypeIcon(null, localFile.name, context, viewThemeUtils))
+
+            if (!MimeTypeUtil.isImageOrVideo(localFile)) {
+                return
+            }
+
+            localThumbnailTask = MediaThumbnailGenerationTask(this, context, viewThemeUtils).also {
+                it.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, localFile)
+            }
+        }
     }
 
     private fun setOnClickListeners() {
@@ -280,8 +294,11 @@ class ConflictsResolveDialog :
         fun conflictDecisionMade(decision: Decision?)
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        localThumbnailTask?.cancel(true)
+        localThumbnailTask = null
 
         asyncTasks.forEach {
             it.cancel(true)
