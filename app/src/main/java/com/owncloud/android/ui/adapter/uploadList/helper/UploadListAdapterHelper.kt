@@ -80,7 +80,7 @@ class UploadListAdapterHelper(private val activity: FileActivity) {
     }
 
     fun openFileWithDefault(localPath: String) {
-        val uri = exposedUriFor(localPath)
+        val uri = contentUriFor(localPath)
         if (uri == null) {
             DisplayUtils.showSnackMessage(activity, R.string.error_retrieving_file)
             return
@@ -101,7 +101,7 @@ class UploadListAdapterHelper(private val activity: FileActivity) {
         }
     }
 
-    private fun exposedUriFor(localPath: String): Uri? = try {
+    private fun contentUriFor(localPath: String): Uri? = try {
         FileProvider.getUriForFile(activity, activity.getString(R.string.file_provider_authority), File(localPath))
     } catch (e: IllegalArgumentException) {
         Log_OC.e(TAG, "Local file is outside the paths supported by the file provider: $e")
