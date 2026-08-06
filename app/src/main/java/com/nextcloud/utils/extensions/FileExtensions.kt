@@ -25,24 +25,17 @@ fun OCFile?.logFileSize(tag: String) {
     Log_OC.d(tag, "onSaveInstanceState: $size, raw byte $rawByte")
 }
 
-fun ServerFileInterface.getSmallThumbnail(): Bitmap? {
-    return ThumbnailsCacheManager.getBitmapFromDiskCache(getSmallThumbnailKey())
-}
+fun ServerFileInterface.getSmallThumbnail(): Bitmap? =
+    ThumbnailsCacheManager.getBitmapFromDiskCache(getSmallThumbnailKey())
 
 /**
  * Capped to the 512KB.
  */
-fun ServerFileInterface.getSmallThumbnailKey(): String {
-    return ThumbnailsCacheManager.PREFIX_THUMBNAIL + remoteId
-}
+fun ServerFileInterface.getSmallThumbnailKey(): String = ThumbnailsCacheManager.PREFIX_THUMBNAIL + remoteId
 
-fun File?.getSmallThumbnail(): Bitmap? {
-    return ThumbnailsCacheManager.getBitmapFromDiskCache(getSmallThumbnailKey())
-}
+fun File?.getSmallThumbnail(): Bitmap? = ThumbnailsCacheManager.getBitmapFromDiskCache(getSmallThumbnailKey())
 
-fun File?.getSmallThumbnailKey(): String {
-    return ThumbnailsCacheManager.PREFIX_THUMBNAIL + hashCode()
-}
+fun File?.getSmallThumbnailKey(): String = ThumbnailsCacheManager.PREFIX_THUMBNAIL + hashCode()
 
 fun File?.logFileSize(tag: String) {
     val size = DisplayUtils.bytesToHumanReadable(this?.length() ?: -1)
