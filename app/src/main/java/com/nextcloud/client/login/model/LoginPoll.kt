@@ -7,9 +7,7 @@
 
 package com.nextcloud.client.login.model
 
-enum class LoginFlowFailure {
-    EMPTY_SERVER_URL,
-    EMPTY_RESPONSE,
-    MALFORMED_RESPONSE,
-    TIMED_OUT
-}
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class LoginPoll(val token: String = "", val endpoint: String = "")

@@ -14,13 +14,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.di.IoDispatcher
-import com.nextcloud.client.login.model.LoginFlowFailure
-import com.nextcloud.client.login.model.LoginFlowResponse
-import com.nextcloud.client.login.model.LoginFlowSession
-import com.nextcloud.client.login.model.LoginFlowState
-import com.nextcloud.client.login.model.LoginFlowStateObserver
-import com.nextcloud.client.login.repository.LoginFlowRepository
-import com.nextcloud.client.login.util.LoginFlowResponseParser
+import com.nextcloud.client.login.model.LoginFailure
+import com.nextcloud.client.login.model.LoginResponse
+import com.nextcloud.client.login.model.LoginSession
+import com.nextcloud.client.login.model.LoginState
+import com.nextcloud.client.login.model.LoginStateObserver
+import com.nextcloud.client.login.repository.LoginRepository
+import com.nextcloud.client.login.util.LoginResponseParser
 import com.owncloud.android.authentication.LoginUrlInfo
 import com.owncloud.android.lib.common.utils.Log_OC
 import kotlinx.coroutines.CancellationException
@@ -36,19 +36,19 @@ import kotlinx.coroutines.withTimeoutOrNull
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 
-class LoginFlowViewModel @Inject constructor(
-    private val api: LoginFlowRepository,
+class LoginViewModel @Inject constructor(
+    private val api: LoginRepository,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow<LoginFlowState>(LoginFlowState.Idle)
-    val state: StateFlow<LoginFlowState> = _state.asStateFlow()
+    private val _state = MutableStateFlow<LoginState>(LoginState.Idle)
+    val state: StateFlow<LoginState> = _state.asStateFlow()
 
     private var flowJob: Job? = null
     private var pendingBrowserLaunchUrl: String? = null
     private var credentials: LoginUrlInfo? = null
 
-    fun observeState(owner: LifecycleOwner, observer: LoginFlowStateObserver) {
+    fun observeState(owner: LifecycleOwner, observer: LoginStateObserver) {
         owner.lifecycleScope.launch {
             owner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 state.collect { observer.onStateChanged(it) }
@@ -58,7 +58,7 @@ class LoginFlowViewModel @Inject constructor(
 
     fun start(loginEndpointUrl: String) {
         if (loginEndpointUrl.isBlank()) {
-            _state.value = LoginFlowState.Failed(LoginFlowFailure.EMPTY_SERVER_URL)
+            _state.value = LoginState.Failed(LoginFailure.EMPTY_SERVER_URL)
             return
         }
 
@@ -67,7 +67,7 @@ class LoginFlowViewModel @Inject constructor(
             return
         }
 
-        _state.value = LoginFlowState.RequestingSession
+        _state.value = LoginState.RequestingSession
         flowJob = viewModelScope.launch { requestSessionAndPoll(loginEndpointUrl) }
     }
 
@@ -75,53 +75,53 @@ class LoginFlowViewModel @Inject constructor(
 
     fun consumeCredentials(): LoginUrlInfo? = credentials.also { credentials = null }
 
-    fun isCompleted(): Boolean = _state.value == LoginFlowState.Completed
+    fun isCompleted(): Boolean = _state.value == LoginState.Completed
 
     fun reset() {
         flowJob?.cancel()
         flowJob = null
         pendingBrowserLaunchUrl = null
         credentials = null
-        _state.value = LoginFlowState.Idle
+        _state.value = LoginState.Idle
     }
 
     private fun hasOngoingSession(): Boolean = when (_state.value) {
-        LoginFlowState.RequestingSession, LoginFlowState.Completed -> true
-        is LoginFlowState.AwaitingApproval -> true
+        LoginState.RequestingSession, LoginState.Completed -> true
+        is LoginState.AwaitingApproval -> true
         else -> false
     }
 
     private suspend fun requestSessionAndPoll(loginEndpointUrl: String) {
         val response = request { api.requestSession(loginEndpointUrl) }
         if (response == null || response.body.isEmpty()) {
-            _state.value = LoginFlowState.Failed(LoginFlowFailure.EMPTY_RESPONSE)
+            _state.value = LoginState.Failed(LoginFailure.EMPTY_RESPONSE)
             return
         }
 
-        val session = LoginFlowResponseParser.parseSession(loginEndpointUrl, response.body)
+        val session = LoginResponseParser.parseSession(loginEndpointUrl, response.body)
         if (session == null) {
-            _state.value = LoginFlowState.Failed(LoginFlowFailure.MALFORMED_RESPONSE)
+            _state.value = LoginState.Failed(LoginFailure.MALFORMED_RESPONSE)
             return
         }
 
         pendingBrowserLaunchUrl = session.loginUrl
-        _state.value = LoginFlowState.AwaitingApproval(session)
+        _state.value = LoginState.AwaitingApproval(session)
 
         val approved = withTimeoutOrNull(POLL_TIMEOUT_MILLIS.milliseconds) { pollUntilApproved(session) }
         if (approved == null) {
             Log_OC.d(TAG, "Login flow v2 timed out before the user granted access")
-            _state.value = LoginFlowState.Failed(LoginFlowFailure.TIMED_OUT)
+            _state.value = LoginState.Failed(LoginFailure.TIMED_OUT)
         }
     }
 
-    private suspend fun pollUntilApproved(session: LoginFlowSession): LoginUrlInfo {
+    private suspend fun pollUntilApproved(session: LoginSession): LoginUrlInfo {
         while (true) {
             val response = request { api.poll(session.pollUrl, session.pollToken) }
-            val polledCredentials = response?.let { LoginFlowResponseParser.parseCredentials(it) }
+            val polledCredentials = response?.let { LoginResponseParser.parseCredentials(it) }
 
             if (polledCredentials != null) {
                 credentials = polledCredentials
-                _state.value = LoginFlowState.Completed
+                _state.value = LoginState.Completed
                 return polledCredentials
             }
 
@@ -129,7 +129,7 @@ class LoginFlowViewModel @Inject constructor(
         }
     }
 
-    private suspend fun request(block: () -> LoginFlowResponse): LoginFlowResponse? {
+    private suspend fun request(block: () -> LoginResponse): LoginResponse? {
         val result = runCatching { withContext(ioDispatcher) { block() } }
 
         result.exceptionOrNull()?.let { throwable ->

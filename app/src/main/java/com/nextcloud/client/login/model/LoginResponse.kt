@@ -7,4 +7,4 @@
 
 package com.nextcloud.client.login.model
 
-data class LoginFlowResponse(val status: Int, val body: String)
+data class LoginResponse(val status: Int, val body: String)

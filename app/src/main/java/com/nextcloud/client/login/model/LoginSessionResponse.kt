@@ -10,4 +10,4 @@ package com.nextcloud.client.login.model
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class LoginFlowPoll(val token: String = "", val endpoint: String = "")
+data class LoginSessionResponse(val login: String = "", val poll: LoginPoll = LoginPoll())

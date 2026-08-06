@@ -7,6 +7,9 @@
 
 package com.nextcloud.client.login.model
 
-fun interface LoginFlowStateObserver {
-    fun onStateChanged(state: LoginFlowState)
+enum class LoginFailure {
+    EMPTY_SERVER_URL,
+    EMPTY_RESPONSE,
+    MALFORMED_RESPONSE,
+    TIMED_OUT
 }

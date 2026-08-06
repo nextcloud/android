@@ -7,4 +7,4 @@
 
 package com.nextcloud.client.login.model
 
-data class LoginFlowSession(val loginUrl: String, val pollUrl: String, val pollToken: String)
+data class LoginSession(val loginUrl: String, val pollUrl: String, val pollToken: String)

@@ -7,7 +7,6 @@
 
 package com.nextcloud.client.login.model
 
-import kotlinx.serialization.Serializable
-
-@Serializable
-data class LoginFlowSessionResponse(val login: String = "", val poll: LoginFlowPoll = LoginFlowPoll())
+fun interface LoginStateObserver {
+    fun onStateChanged(state: LoginState)
+}
