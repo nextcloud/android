@@ -14,9 +14,7 @@ import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.AppPreferencesImpl
@@ -27,6 +25,7 @@ import com.owncloud.android.datastorage.DataStorageProvider
 import com.owncloud.android.datastorage.StoragePoint
 import com.owncloud.android.datastorage.StoragePoint.PrivacyType
 import com.owncloud.android.datastorage.StoragePoint.StorageType
+import com.owncloud.android.ui.dialog.extensions.themeButtons
 import com.owncloud.android.ui.model.ExtendedSettingsActivityDialog
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -51,12 +50,7 @@ class ChooseStorageLocationDialogFragment :
 
     override fun onStart() {
         super.onStart()
-        val alertDialog = dialog as AlertDialog
-
-        val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE) as? MaterialButton
-        positiveButton?.let {
-            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(positiveButton)
-        }
+        dialog?.themeButtons(viewThemeUtils)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

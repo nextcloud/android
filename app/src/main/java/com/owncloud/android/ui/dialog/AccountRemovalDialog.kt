@@ -14,7 +14,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
@@ -24,6 +23,7 @@ import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.AccountRemovalDialogBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.ui.dialog.extensions.themeButtons
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -59,13 +59,7 @@ class AccountRemovalDialog :
 
         viewThemeUtils.platform.themeRadioButton(binding.radioLocalRemove)
         viewThemeUtils.platform.themeRadioButton(binding.radioRequestDeletion)
-        viewThemeUtils.material.colorMaterialButtonPrimaryTonal(
-            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE) as MaterialButton
-        )
-        viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(
-            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE) as MaterialButton
-        )
-
+        alertDialog.themeButtons(viewThemeUtils)
         binding.userName.text = UserAccountManager.getDisplayName(user)
         binding.account.text = user?.let { DisplayUtils.convertIdn(it.accountName, false) }
     }
