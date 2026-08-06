@@ -12,6 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.nextcloud.client.documentscan.DocumentScanViewModel
 import com.nextcloud.client.etm.EtmViewModel
 import com.nextcloud.client.logger.ui.LogsViewModel
+import com.nextcloud.client.login.repository.LoginFlowRepository
+import com.nextcloud.client.login.repository.LoginFlowRepositoryImpl
+import com.nextcloud.client.login.LoginFlowViewModel
 import com.nextcloud.ui.fileactions.FileActionsViewModel
 import com.owncloud.android.ui.preview.pdf.PreviewPdfViewModel
 import com.nextcloud.ui.trashbinFileActions.TrashbinFileActionsViewModel
@@ -56,6 +59,14 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(TrashbinFileActionsViewModel::class)
     abstract fun trashbinFileActionsViewModel(vm: TrashbinFileActionsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LoginFlowViewModel::class)
+    abstract fun loginFlowV2ViewModel(vm: LoginFlowViewModel): ViewModel
+
+    @Binds
+    abstract fun loginFlowV2Api(api: LoginFlowRepositoryImpl): LoginFlowRepository
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory

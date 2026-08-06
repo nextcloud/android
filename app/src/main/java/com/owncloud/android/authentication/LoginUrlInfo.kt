@@ -9,7 +9,9 @@
 package com.owncloud.android.authentication
 
 import com.nextcloud.model.HTTPStatusCodes
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class LoginUrlInfo(var server: String, var loginName: String, var appPassword: String) {
     fun isValid(status: Int): Boolean = (
         status == HTTPStatusCodes.SUCCESS.code &&
