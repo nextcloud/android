@@ -51,7 +51,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import thirdparties.daveKoeller.AlphanumComparator
+import com.owncloud.android.utils.sort.AlphanumericComparator
 import java.util.Calendar
 import java.util.GregorianCalendar
 import javax.inject.Inject
@@ -328,7 +328,7 @@ class BackupFragment :
             val backupFiles = listOf(calendarBackupFolderPath, contactsBackupFolderPath)
                 .mapNotNull { path -> storageManager.getFileByDecryptedRemotePath(path) }
                 .flatMap { folder -> fetchBackupFiles(folder, storageManager) }
-                .sortedWith(AlphanumComparator())
+                .sortedWith(AlphanumericComparator())
             withContext(Dispatchers.Main) {
                 binding.contactsDatepicker.setVisibleIf(backupFiles.isNotEmpty())
             }

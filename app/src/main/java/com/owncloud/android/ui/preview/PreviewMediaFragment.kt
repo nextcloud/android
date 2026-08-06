@@ -43,6 +43,7 @@ import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.session.MediaSession
+import androidx.media3.ui.PlayerView
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
@@ -117,6 +118,10 @@ class PreviewMediaFragment :
     lateinit var backgroundJobManager: BackgroundJobManager
 
     lateinit var binding: FragmentPreviewMediaBinding
+
+    private val exoplayerView: PlayerView
+        get() = binding.exoplayerView.root
+
     private var emptyListView: ViewGroup? = null
     private var exoPlayer: ExoPlayer? = null
     private var mediaSession: MediaSession? = null
@@ -190,7 +195,7 @@ class PreviewMediaFragment :
     private fun applyWindowInsets() {
         binding.root.post {
             val rootInsets = ViewCompat.getRootWindowInsets(binding.root) ?: return@post
-            binding.exoplayerView.applyControlsInsets(
+            exoplayerView.applyControlsInsets(
                 rootInsets.getInsets(
                     WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
                 )
@@ -267,7 +272,7 @@ class PreviewMediaFragment :
     private fun createExoPlayer(context: Context, client: NextcloudClient) {
         exoPlayer = createNextcloudExoplayer(context, client)
         exoPlayer?.let {
-            val listener = ExoplayerListener(context, binding.exoplayerView, it) { goBackToLivePhoto() }
+            val listener = ExoplayerListener(context, exoplayerView, it) { goBackToLivePhoto() }
             it.addListener(listener)
         }
         mediaSession = MediaSession.Builder(
@@ -305,7 +310,7 @@ class PreviewMediaFragment :
 
     @OptIn(UnstableApi::class)
     private fun setupVideoView() {
-        binding.exoplayerView.run {
+        exoplayerView.run {
             setShowNextButton(false)
             setShowPreviousButton(false)
             player = exoPlayer
@@ -489,7 +494,7 @@ class PreviewMediaFragment :
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouch(v: View, event: MotionEvent): Boolean {
-        if (event.action == MotionEvent.ACTION_DOWN && v == binding.exoplayerView) {
+        if (event.action == MotionEvent.ACTION_DOWN && v == exoplayerView) {
             // added a margin on the left to avoid interfering with gesture to open navigation drawer
             if (event.x / Resources.getSystem().displayMetrics.density > MIN_DENSITY_RATIO) {
                 startFullScreenVideo()
@@ -509,7 +514,7 @@ class PreviewMediaFragment :
             activity,
             client,
             player,
-            binding.exoplayerView
+            exoplayerView
         ).apply {
             setOnDismissListener {
                 isFullscreenActive = false

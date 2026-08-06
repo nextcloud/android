@@ -11,7 +11,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface
 import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
-import thirdparties.daveKoeller.AlphanumComparator
+import com.owncloud.android.utils.sort.AlphanumericComparator
 import java.io.File
 import java.util.Locale
 
@@ -46,17 +46,17 @@ class FileSortOrderByName internal constructor(name: String?, ascending: Boolean
     private fun <T : ServerFileInterface> sortServerFiles(files: MutableList<T>): MutableList<T> {
         files.sortWith { o1: ServerFileInterface, o2: ServerFileInterface ->
             when {
-                o1.isFolder && o2.isFolder -> sortMultiplier * AlphanumComparator.compare(o1, o2)
+                o1.isFolder && o2.isFolder -> sortMultiplier * AlphanumericComparator.compare(o1, o2)
                 o1.isFolder -> -1
                 o2.isFolder -> 1
-                else -> sortMultiplier * AlphanumComparator.compare(o1, o2)
+                else -> sortMultiplier * AlphanumericComparator.compare(o1, o2)
             }
         }
         return files
     }
 
     private fun sortOnlyByName(files: MutableList<OCFile>): MutableList<OCFile> {
-        files.sortWith { o1: OCFile, o2: OCFile -> sortMultiplier * AlphanumComparator.compare(o1, o2) }
+        files.sortWith { o1: OCFile, o2: OCFile -> sortMultiplier * AlphanumericComparator.compare(o1, o2) }
         return files
     }
 
@@ -75,7 +75,7 @@ class FileSortOrderByName internal constructor(name: String?, ascending: Boolean
 
                 o2.isDirectory -> 1
 
-                else -> sortMultiplier * AlphanumComparator.compare(
+                else -> sortMultiplier * AlphanumericComparator.compare(
                     o1.path.lowercase(Locale.getDefault()),
                     o2.path.lowercase(Locale.getDefault())
                 )

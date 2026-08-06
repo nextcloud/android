@@ -134,7 +134,7 @@
     <string name="away">Absent</string>
     <string name="backup_list_adapter_local_contacts">Contacts locaux</string>
     <string name="backup_settings">Paramètres de sauvegarde</string>
-    <string name="backup_title">Sauvegarder les contacts et l\'agenda</string>
+    <string name="backup_title">Sauvegarde des contacts et de l\'agenda</string>
     <string name="battery_optimization_close">Fermer</string>
     <string name="battery_optimization_disable">Désactiver</string>
     <string name="battery_optimization_message">L\'optimisation de la batterie est peut-être active sur votre appareil. Le téléversement automatique ne fonctionne correctement que si vous excluez cette application de l\'optimisation.</string>
@@ -753,7 +753,7 @@
     <string name="prefs_category_general">Général</string>
     <string name="prefs_category_more">Plus</string>
     <string name="prefs_category_sync">Synchroniser</string>
-    <string name="prefs_daily_backup_summary">Sauvegarde quotidienne de votre agenda et des contacts</string>
+    <string name="prefs_daily_backup_summary">Sauvegarde quotidienne de votre agenda et de vos contacts</string>
     <string name="prefs_daily_contact_backup_summary">Sauvegarde quotidienne de vos contacts</string>
     <string name="prefs_data_storage_location">Emplacement de stockage des données</string>
     <string name="prefs_data_storage_location_summary">Gérer l\'emplacement de stockage des données</string>
@@ -769,7 +769,7 @@
     <string name="prefs_instant_behaviour_dialogTitle">Le fichier original sera…</string>
     <string name="prefs_instant_behaviour_title">Le fichier original sera…</string>
     <string name="prefs_instant_upload_exclude_hidden_summary">Exclure les fichiers et dossiers cachés</string>
-    <string name="prefs_instant_upload_exclude_hidden_title">Exclure les cachés</string>
+    <string name="prefs_instant_upload_exclude_hidden_title">Exclure les éléments cachés</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Stockage dans des sous-dossiers se basant sur la date</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Utiliser des sous-dossiers</string>
     <string name="prefs_instant_upload_subfolder_rule_title">Options du sous-dossier</string>
@@ -790,14 +790,14 @@
     <string name="prefs_setup_e2e">Configurer le chiffrement de bout en bout</string>
     <string name="prefs_show_ecosystem_apps">Afficher le sélecteur d\'applications</string>
     <string name="prefs_show_ecosystem_apps_summary">Suggestions d\'applications Nextcloud dans l\'en-tête de navigation</string>
-    <string name="prefs_show_hidden_files">Afficher les fichiers masqués</string>
+    <string name="prefs_show_hidden_files">Afficher les fichiers cachés</string>
     <string name="prefs_sourcecode">Obtenir le code source</string>
     <string name="prefs_sycned_folders_summary">Gérer les dossiers pour le téléversement automatique</string>
     <string name="prefs_synced_folders_local_path_title">Dossier local</string>
     <string name="prefs_synced_folders_remote_path_title">Dossier distant</string>
     <string name="prefs_theme_title">Thème</string>
     <string name="prefs_two_way_sync_interval">Intervalle</string>
-    <string name="prefs_two_way_sync_summary">Gestion les dossiers internes pour une synchronisation bidirectionnelle</string>
+    <string name="prefs_two_way_sync_summary">Gérer les dossiers internes pour la synchronisation bidirectionnelle</string>
     <string name="prefs_two_way_sync_title">Synchronisation bidirectionnelle</string>
     <string name="prefs_value_theme_dark">Sombre</string>
     <string name="prefs_value_theme_light">Clair</string>
@@ -1315,9 +1315,9 @@
         <item quantity="other">%1$d éléments</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
-        <item quantity="one">%1$d dossier masqué affiché</item>
-        <item quantity="many">%1$d dossiers masqués affichés</item>
-        <item quantity="other">%1$d dossiers masqués affichés</item>
+        <item quantity="one">%1$d dossier caché affiché</item>
+        <item quantity="many">%1$d dossiers cachés affichés</item>
+        <item quantity="other">%1$d dossiers cachés affichés</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="one">%d sélectionné</item>

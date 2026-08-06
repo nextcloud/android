@@ -21,7 +21,10 @@ fun PlayerView.applyControlsInsets(insets: Insets) {
 
 @OptIn(UnstableApi::class)
 fun PlayerView.setFullscreenButton(isFullscreen: Boolean, onClick: () -> Unit) {
+    // PlayerControlView only applies fullscreen_enter_icon/fullscreen_exit_icon when the state
+    // actually changes, so flip it first to force the configured drawable onto the button.
     setFullscreenButtonClickListener(null)
+    setFullscreenButtonState(!isFullscreen)
     setFullscreenButtonState(isFullscreen)
     setFullscreenButtonClickListener { onClick() }
 }
