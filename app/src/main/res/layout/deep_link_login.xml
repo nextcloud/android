@@ -2,11 +2,13 @@
 <!--
   ~ Nextcloud - Android Client
   ~
+  ~ SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
   ~ SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
   ~ SPDX-FileCopyrightText: 2018 Nextcloud GmbH
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,7 +16,6 @@
     android:fillViewport="true"
     android:orientation="vertical">
 
-    <!-- The main content view -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,24 +27,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:contentDescription="@null"
+            android:layout_marginBottom="@dimen/standard_margin"
             android:src="@drawable/logo" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/loginInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="middle"
-            android:text="@string/placeholder_filename"
-            android:textColor="@color/text_color"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/standard_margin"
-            android:indeterminate="true" />
+            android:layout_marginBottom="@dimen/standard_margin"
+            android:layout_marginHorizontal="@dimen/standard_margin"
+            android:breakStrategy="balanced"
+            android:ellipsize="end"
+            android:gravity="center_horizontal"
+            android:hyphenationFrequency="none"
+            android:maxLines="3"
+            android:maxWidth="@dimen/default_login_width"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textColor="@color/login_text_color" />
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:indicatorColor="@color/login_text_color" />
     </LinearLayout>
 </ScrollView>
