@@ -17,6 +17,8 @@ import android.view.WindowManager
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import com.nextcloud.client.account.User
+import com.nextcloud.utils.extensions.getBigThumbnail
+import com.nextcloud.utils.extensions.getBigThumbnailKey
 import com.nextcloud.utils.extensions.isPNG
 import com.nextcloud.utils.extensions.toFile
 import com.owncloud.android.MainApp
@@ -110,9 +112,7 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
     }
 
     private suspend fun getBitmap(file: OCFile, onNewThumbnail: () -> Unit): Bitmap? = withContext(Dispatchers.IO) {
-        val cacheKey = ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId
-
-        val cached = ThumbnailsCacheManager.getBitmapFromDiskCache(cacheKey)
+        val cached = file.getBigThumbnail()
         if (cached != null && !file.isUpdateThumbnailNeeded) {
             return@withContext applyVideoOverlayIfNeeded(file, cached)
         }
@@ -122,7 +122,7 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
         if (file.isDown) {
             val local = decodeLocalThumbnail(file)
             if (local != null) {
-                ThumbnailsCacheManager.addBitmapToCache(cacheKey, local)
+                ThumbnailsCacheManager.addBitmapToCache(file.getBigThumbnailKey(), local)
                 return@withContext applyVideoOverlayIfNeeded(file, local)
             }
         }
@@ -149,7 +149,7 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
         val pxW = p.x
         val pxH = p.y
 
-        val cacheKey = ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId
+        val cacheKey = file.bigThumbnailKey
 
         var bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.storagePath, pxW, pxH) ?: return null
 

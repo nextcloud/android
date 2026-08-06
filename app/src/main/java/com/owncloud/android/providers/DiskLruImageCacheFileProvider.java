@@ -19,6 +19,7 @@ import android.provider.OpenableColumns;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -62,8 +63,7 @@ public class DiskLruImageCacheFileProvider extends ContentProvider {
     }
 
     public static ParcelFileDescriptor getParcelFileDescriptorForOCFile(OCFile ocFile) throws FileNotFoundException {
-        Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-            ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + ocFile.getRemoteId());
+        Bitmap thumbnail = FileExtensionsKt.getBigThumbnail(ocFile);
 
         // fallback to thumbnail
         if (thumbnail == null) {

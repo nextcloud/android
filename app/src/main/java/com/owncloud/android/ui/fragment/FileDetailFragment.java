@@ -666,8 +666,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         Bitmap resizedImage;
 
         if (toolbarActivity != null && MimeTypeUtil.isImage(file)) {
-            String tagId = ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + getFile().getRemoteId();
-            resizedImage = ThumbnailsCacheManager.getBitmapFromDiskCache(tagId);
+            resizedImage = file.getBigThumbnail();
 
             if (resizedImage != null && !file.isUpdateThumbnailNeeded()) {
                 toolbarActivity.setPreviewImageBitmap(resizedImage);
