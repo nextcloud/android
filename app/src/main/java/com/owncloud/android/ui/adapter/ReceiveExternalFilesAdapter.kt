@@ -123,7 +123,8 @@ class ReceiveExternalFilesAdapter(
 
     @Suppress("NestedBlockDepth")
     private fun setupThumbnailForImage(thumbnailImageView: ImageView, file: OCFile) {
-        var thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(file.remoteId.toString())
+        val cacheKey = ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.remoteId
+        var thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(cacheKey)
         if (thumbnail != null && !file.isUpdateThumbnailNeeded) {
             thumbnailImageView.setImageBitmap(thumbnail)
         } else {
