@@ -12,6 +12,7 @@ import androidx.exifinterface.media.ExifInterface
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.files.model.ServerFileInterface
 import com.owncloud.android.utils.DisplayUtils
 import java.io.File
 import java.nio.file.Path
@@ -22,6 +23,17 @@ fun OCFile?.logFileSize(tag: String) {
     val size = DisplayUtils.bytesToHumanReadable(this?.fileLength ?: -1)
     val rawByte = this?.fileLength ?: -1
     Log_OC.d(tag, "onSaveInstanceState: $size, raw byte $rawByte")
+}
+
+fun ServerFileInterface.getSmallThumbnail(): Bitmap? {
+    return ThumbnailsCacheManager.getBitmapFromDiskCache(getSmallThumbnailKey())
+}
+
+/**
+ * Capped to the 512KB.
+ */
+fun ServerFileInterface.getSmallThumbnailKey(): String {
+    return ThumbnailsCacheManager.PREFIX_THUMBNAIL + remoteId
 }
 
 fun File?.getSmallThumbnail(): Bitmap? {

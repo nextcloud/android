@@ -22,6 +22,7 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 
 import com.nextcloud.utils.BuildHelper;
+import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.StringExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.WebdavEntry;
@@ -816,15 +817,12 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return this.remoteId;
     }
 
-    /**
-     * Capped to the 512KB.
-     */
     public String getSmallThumbnailKey() {
-        return ThumbnailsCacheManager.PREFIX_THUMBNAIL + getRemoteId();
+        return FileExtensionsKt.getSmallThumbnailKey(this);
     }
 
     public Bitmap getSmallThumbnail() {
-        return ThumbnailsCacheManager.getBitmapFromDiskCache(getSmallThumbnailKey());
+        return FileExtensionsKt.getSmallThumbnail(this);
     }
 
     public boolean isUpdateThumbnailNeeded() {
