@@ -19,6 +19,8 @@ import com.nextcloud.client.jobs.gallery.GalleryImageGenerationJob
 import com.nextcloud.client.jobs.gallery.GalleryImageGenerationListener
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.utils.OCFileUtils
+import com.nextcloud.utils.extensions.getBigThumbnail
+import com.nextcloud.utils.extensions.getSmallThumbnail
 import com.nextcloud.utils.extensions.makeRounded
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.extensions.stopShimmer
@@ -110,7 +112,7 @@ class OCFileListDelegate(
         imageView.tag = file.fileId
 
         // set placeholder before async job
-        val cachedBitmap = file.bigThumbnail ?: file.smallThumbnail
+        val cachedBitmap = file.getBigThumbnail() ?: file.getSmallThumbnail()
         if (cachedBitmap != null) {
             val overlay = if (MimeTypeUtil.isVideo(file)) {
                 ThumbnailsCacheManager.addVideoOverlay(cachedBitmap, context)

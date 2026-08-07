@@ -36,6 +36,7 @@ import com.nextcloud.ui.fileactions.FileAction;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.MenuUtils;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
+import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -666,14 +667,14 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         Bitmap resizedImage;
 
         if (toolbarActivity != null && MimeTypeUtil.isImage(file)) {
-            resizedImage = file.getBigThumbnail();
+            resizedImage = FileExtensionsKt.getBigThumbnail(file);
 
             if (resizedImage != null && !file.isUpdateThumbnailNeeded()) {
                 toolbarActivity.setPreviewImageBitmap(resizedImage);
                 previewLoaded = true;
             } else {
                 // show thumbnail while loading resized image
-                Bitmap thumbnail = getFile().getSmallThumbnail();
+                Bitmap thumbnail = FileExtensionsKt.getSmallThumbnail(file);
                 if (thumbnail != null) {
                     toolbarActivity.setPreviewImageBitmap(thumbnail);
                 } else {

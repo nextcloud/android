@@ -21,6 +21,7 @@ import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.model.OfflineOperationType
+import com.nextcloud.utils.extensions.getSmallThumbnail
 import com.nextcloud.utils.extensions.startShimmer
 import com.nextcloud.utils.extensions.stopShimmer
 import com.nextcloud.utils.extensions.toFile
@@ -79,7 +80,7 @@ class FileThumbnailGenerator @Inject constructor(
             return
         }
 
-        val cached = file.smallThumbnail
+        val cached = file.getSmallThumbnail()
         if (cached == null || file.isUpdateThumbnailNeeded) {
             generate(file, view, isGrid, shimmer)
         } else {
@@ -144,7 +145,7 @@ class FileThumbnailGenerator @Inject constructor(
             return
         }
 
-        val cached = file.smallThumbnail
+        val cached = file.getSmallThumbnail()
         if (cached != null) {
             view.setImageBitmap(cached)
             view.stopShimmer(shimmer)

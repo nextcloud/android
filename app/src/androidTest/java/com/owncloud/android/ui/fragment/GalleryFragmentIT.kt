@@ -29,6 +29,8 @@ import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.nextcloud.test.Flaky
 import com.nextcloud.test.TestActivity
+import com.nextcloud.utils.extensions.getBigThumbnail
+import com.nextcloud.utils.extensions.getBigThumbnailKey
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
@@ -220,9 +222,9 @@ class GalleryFragmentIT : AbstractIT() {
             drawRGB(random.nextInt(256), random.nextInt(256), random.nextInt(256))
             drawCircle(w / 2f, h / 2f, w.coerceAtMost(h) / 2f, Paint().apply { color = Color.BLACK })
         }
-        ThumbnailsCacheManager.addBitmapToCache(file.bigThumbnailKey, bitmap)
+        ThumbnailsCacheManager.addBitmapToCache(file.getBigThumbnailKey(), bitmap)
 
-        assertNotNull(file.bigThumbnail)
+        assertNotNull(file.getBigThumbnail())
 
         Log_OC.d("Gallery_thumbnail", "created $id with ${bitmap.width} x ${bitmap.height}")
     }

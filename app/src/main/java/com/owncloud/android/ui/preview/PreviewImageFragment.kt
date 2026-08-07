@@ -50,7 +50,9 @@ import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
 import com.nextcloud.utils.extensions.clickWithDebounce
+import com.nextcloud.utils.extensions.getBigThumbnailKey
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.getSmallThumbnail
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PreviewImageFragmentBinding
@@ -241,7 +243,7 @@ class PreviewImageFragment :
         binding.image.visibility = View.GONE
         binding.emptyListProgress.visibility = View.VISIBLE
 
-        var thumbnail = file.smallThumbnail
+        var thumbnail = file.getSmallThumbnail()
         if (thumbnail != null) {
             binding.shimmer.visibility = View.VISIBLE
             binding.shimmerThumbnail.setImageBitmap(thumbnail)
@@ -317,7 +319,7 @@ class PreviewImageFragment :
                     scaledWidth,
                     scaledHeight
                 )
-            } catch (e: OutOfMemoryError) {
+            } catch (_: OutOfMemoryError) {
                 scaledWidth /= 2
                 scaledHeight /= 2
             }

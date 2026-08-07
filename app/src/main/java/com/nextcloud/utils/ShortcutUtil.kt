@@ -22,6 +22,7 @@ import androidx.core.graphics.drawable.IconCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toDrawable
 import com.nextcloud.client.account.User
+import com.nextcloud.utils.extensions.getSmallThumbnail
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderObserver
@@ -83,7 +84,7 @@ class ShortcutUtil @Inject constructor(private val mContext: Context) {
         user: User,
         syncedFolderProvider: SyncedFolderProvider
     ): IconCompat {
-        val thumbnail = file.smallThumbnail
+        val thumbnail = file.getSmallThumbnail()
         return when {
             thumbnail != null -> IconCompat.createWithAdaptiveBitmap(bitmapToAdaptiveBitmap(thumbnail))
 
