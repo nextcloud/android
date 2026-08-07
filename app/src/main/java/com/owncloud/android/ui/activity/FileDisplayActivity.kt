@@ -229,6 +229,9 @@ class FileDisplayActivity :
     private var mPlayerConnection: PlayerServiceConnection? = null
     private var lastDisplayedAccountName: String? = null
 
+    // needed for first time app launch multiple listing directory call
+    // because onActivityCreated causes this. Removing list directory call from onActivityCreated
+    // causing also empty state thus this flag is used.
     private var listFragmentJustCreated = false
 
     @Inject
