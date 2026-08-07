@@ -327,6 +327,11 @@ class FileUploadWorker(
             }
 
             sendUploadFinishEvent(totalUploadSize, currentUploadIndex, operation, result)
+
+            if (result.code == ResultCode.UNAUTHORIZED) {
+                Log_OC.e(TAG, "credentials are no longer valid, stopping uploads")
+                break
+            }
         }
 
         return@withContext uploadFilesResult.toWorkerResult()
