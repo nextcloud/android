@@ -85,7 +85,6 @@ class GalleryAdapter(
             user,
             storageManager,
             false,
-            preferences,
             true,
             transferServiceGetter,
             showMetadata = false,

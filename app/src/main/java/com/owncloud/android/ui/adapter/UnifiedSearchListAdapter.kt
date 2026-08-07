@@ -19,6 +19,7 @@ import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.bumptech.glide.Glide
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.thumbnail.FileThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UnifiedSearchCurrentDirectoryItemBinding
 import com.owncloud.android.databinding.UnifiedSearchEmptyBinding
@@ -32,7 +33,6 @@ import com.owncloud.android.ui.interfaces.UnifiedSearchCurrentDirItemAction
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
 import com.owncloud.android.utils.DisplayUtils
-import com.nextcloud.utils.thumbnail.FileThumbnailGenerator
 import com.owncloud.android.utils.overlay.OverlayManager
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
@@ -152,11 +152,8 @@ class UnifiedSearchListAdapter(
                 UnifiedSearchCurrentDirItemViewHolder(
                     binding,
                     context,
-                    viewThemeUtils,
                     storageManager,
                     isRTL,
-                    user,
-                    appPreferences,
                     currentDirItemAction,
                     overlayManager,
                     fileThumbnailGenerator
