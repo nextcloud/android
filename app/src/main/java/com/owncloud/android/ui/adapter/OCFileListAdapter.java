@@ -184,7 +184,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                                     user,
                                                     mStorageManager,
                                                     hideItemOptions,
-                                                    preferences,
                                                     gridView,
                                                     transferServiceGetter,
                                                     true,

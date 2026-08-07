@@ -27,8 +27,6 @@ import com.owncloud.android.databinding.ConflictResolveDialogBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
-import com.owncloud.android.datamodel.ThumbnailsCacheManager.ThumbnailGenerationTask
-import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.adapter.LocalFileListAdapter
 import com.owncloud.android.ui.dialog.parcel.ConflictDialogData
 import com.owncloud.android.ui.dialog.parcel.ConflictFileData
