@@ -41,6 +41,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation
 import com.owncloud.android.operations.CheckCurrentCredentialsOperation
+import com.nextcloud.utils.thumbnail.FileThumbnailGenerator
 import com.owncloud.android.operations.factory.UploadFileOperationFactory
 import com.owncloud.android.ui.adapter.uploadList.UploadListAdapter
 import com.owncloud.android.ui.adapter.uploadList.helper.ConflictHandlingResult
@@ -50,6 +51,7 @@ import com.owncloud.android.ui.adapter.uploadList.helper.UploadListAdapterHelper
 import com.owncloud.android.ui.adapter.uploadList.helper.UploadListItemOnClick
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration
 import com.owncloud.android.utils.FilesSyncHelper
+import com.owncloud.android.utils.overlay.OverlayManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -72,6 +74,10 @@ class UploadListActivity :
     @Inject lateinit var throttler: Throttler
 
     @Inject lateinit var uploadFileOperationFactory: UploadFileOperationFactory
+
+    @Inject lateinit var fileThumbnailGenerator: FileThumbnailGenerator
+
+    @Inject lateinit var overlayManager: OverlayManager
 
     private var uploadWarningCard: UploadWarningCard? = null
 
@@ -119,7 +125,9 @@ class UploadListActivity :
             powerManagementService,
             viewThemeUtils,
             this,
-            adapterHelper
+            adapterHelper,
+            fileThumbnailGenerator,
+            overlayManager
         )
 
         binding?.autoUploadBatterySaverWarningCard?.let {
