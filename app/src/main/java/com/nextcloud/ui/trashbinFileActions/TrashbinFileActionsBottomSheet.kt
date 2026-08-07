@@ -35,7 +35,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.overlay.OverlayManager
+import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -59,7 +59,7 @@ class TrashbinFileActionsBottomSheet :
     lateinit var syncedFolderProvider: SyncedFolderProvider
 
     @Inject
-    lateinit var overlayManager: OverlayManager
+    lateinit var folderThumbnailGenerator: FolderThumbnailGenerator
 
     @Inject
     lateinit var fileThumbnailGenerator: FileThumbnailGenerator
@@ -129,7 +129,7 @@ class TrashbinFileActionsBottomSheet :
                 false,
                 binding.thumbnailLayout.thumbnailShimmer,
                 fileThumbnailGenerator,
-                overlayManager
+                folderThumbnailGenerator
             )
         }
     }

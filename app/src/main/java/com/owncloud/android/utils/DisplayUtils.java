@@ -56,7 +56,7 @@ import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
-import com.owncloud.android.utils.overlay.OverlayManager;
+import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -761,7 +761,7 @@ public final class DisplayUtils {
                                     boolean gridView,
                                     LoaderImageView shimmerThumbnail,
                                     FileThumbnailGenerator thumbnailGenerator,
-                                    OverlayManager overlayManager) {
+                                    FolderThumbnailGenerator folderThumbnailGenerator) {
         if (file == null || thumbnailView == null) {
             return;
         }
@@ -772,7 +772,7 @@ public final class DisplayUtils {
         }
 
         if (file.isFolder()) {
-            overlayManager.setFolderThumbnail(file, thumbnailView, shimmerThumbnail);
+            folderThumbnailGenerator.setFolderThumbnail(file, thumbnailView, shimmerThumbnail);
             return;
         }
 

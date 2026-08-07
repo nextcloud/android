@@ -69,7 +69,7 @@ import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.overlay.OverlayManager;
+import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -137,7 +137,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<OCFile> recommendedFiles = new ArrayList<>();
     private RecommendedFilesAdapter recommendedFilesAdapter;
     private final OCFileListAdapterHelper helper = new OCFileListAdapterHelper();
-    private final OverlayManager overlayManager;
+    private final FolderThumbnailGenerator folderThumbnailGenerator;
     private final FileThumbnailGenerator fileThumbnailGenerator;
 
     public OCFileListAdapter(
@@ -150,9 +150,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         boolean argHideItemOptions,
         boolean gridView,
         final ViewThemeUtils viewThemeUtils,
-        OverlayManager overlayManager,
+        FolderThumbnailGenerator folderThumbnailGenerator,
         FileThumbnailGenerator fileThumbnailGenerator) {
-        this.overlayManager = overlayManager;
+        this.folderThumbnailGenerator = folderThumbnailGenerator;
         this.fileThumbnailGenerator = fileThumbnailGenerator;
         this.ocFileListFragmentInterface = ocFileListFragmentInterface;
         this.activity = activity;
@@ -498,7 +498,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void bindHolder(@NonNull RecyclerView.ViewHolder holder, ListViewHolder viewHolder, OCFile file) {
-        ocFileListDelegate.bindViewHolder(viewHolder, file, currentDirectory, searchType, fileThumbnailGenerator, overlayManager);
+        ocFileListDelegate.bindViewHolder(viewHolder, file, currentDirectory, searchType, fileThumbnailGenerator, folderThumbnailGenerator);
 
         if (holder instanceof ListItemViewHolder itemViewHolder) {
             bindListItemViewHolder(itemViewHolder, file);

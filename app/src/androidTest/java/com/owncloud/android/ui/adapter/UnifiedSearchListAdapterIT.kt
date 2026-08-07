@@ -23,7 +23,7 @@ import com.owncloud.android.ui.unifiedsearch.ProviderID
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
 import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.ScreenshotTest
-import com.owncloud.android.utils.overlay.OverlayManager
+import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator
 import org.junit.Before
 import org.junit.Test
 
@@ -32,7 +32,7 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
 
     private val testClassName = "com.owncloud.android.ui.adapter.UnifiedSearchListAdapterIT"
 
-    private lateinit var overlayManager: OverlayManager
+    private lateinit var folderThumbnailGenerator: FolderThumbnailGenerator
     private lateinit var preferences: AppPreferences
 
     @Suppress("DEPRECATION")
@@ -134,7 +134,7 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
     ): UnifiedSearchListAdapter {
         val accountManager = UserAccountManagerImpl.fromContext(targetContext)
 
-        overlayManager = OverlayManager(
+        folderThumbnailGenerator = FolderThumbnailGenerator(
             preferences = preferences,
             viewThemeUtils = sut.viewThemeUtils,
             context = targetContext,
@@ -157,7 +157,7 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
             viewThemeUtils = sut.viewThemeUtils,
             appPreferences = preferences,
             currentDirItemAction = noopCurrentDirAction,
-            overlayManager = overlayManager
+            folderThumbnailGenerator = folderThumbnailGenerator
         )
 
         adapter.shouldShowFooters(true)
