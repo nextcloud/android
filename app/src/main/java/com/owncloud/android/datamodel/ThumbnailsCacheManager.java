@@ -218,14 +218,12 @@ public final class ThumbnailsCacheManager {
             return;
         }
 
-        final var keys = new String[] { file.getBigThumbnailKey(), file.getSmallThumbnailKey() };
-
         synchronized (mThumbnailsDiskCacheLock) {
             if (mThumbnailCache == null) {
                 return;
             }
 
-            for (String key: keys) {
+            for (String key: FileExtensionsKt.getThumbnailKeys(file)) {
                 mThumbnailCache.removeKey(key);
             }
         }
@@ -1197,7 +1195,7 @@ public final class ThumbnailsCacheManager {
         Point p = getScreenDimension();
         int pxW = p.x;
         int pxH = p.y;
-        String imageKey = file.getBigThumbnailKey();
+        String imageKey = FileExtensionsKt.getBigThumbnailKey(file);
 
         Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.getStoragePath(), pxW, pxH);
 
@@ -1215,7 +1213,7 @@ public final class ThumbnailsCacheManager {
         int pxW;
         int pxH;
         pxW = pxH = getThumbnailDimension();
-        String imageKey = file.getSmallThumbnailKey();
+        String imageKey = FileExtensionsKt.getSmallThumbnailKey(file);
 
         GetMethod getMethod = null;
 
@@ -1282,7 +1280,7 @@ public final class ThumbnailsCacheManager {
 
     public static Bitmap doResizedImageInBackground(OCFile file, FileDataStorageManager storageManager) {
         Bitmap thumbnail;
-        String imageKey = file.getBigThumbnailKey();
+        String imageKey = FileExtensionsKt.getBigThumbnailKey(file);
 
         // Check disk cache in background thread
         thumbnail = getBitmapFromDiskCache(imageKey);

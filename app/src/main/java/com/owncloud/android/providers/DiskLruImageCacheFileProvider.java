@@ -67,7 +67,7 @@ public class DiskLruImageCacheFileProvider extends ContentProvider {
 
         // fallback to thumbnail
         if (thumbnail == null) {
-            thumbnail = ocFile.getSmallThumbnail();
+            thumbnail = FileExtensionsKt.getSmallThumbnail(ocFile);
         }
 
         // fallback to default image

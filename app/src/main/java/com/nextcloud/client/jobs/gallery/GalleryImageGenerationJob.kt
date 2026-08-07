@@ -19,6 +19,7 @@ import androidx.core.content.ContextCompat
 import com.nextcloud.client.account.User
 import com.nextcloud.utils.extensions.getBigThumbnail
 import com.nextcloud.utils.extensions.getBigThumbnailKey
+import com.nextcloud.utils.extensions.getSmallThumbnail
 import com.nextcloud.utils.extensions.isPNG
 import com.nextcloud.utils.extensions.toFile
 import com.owncloud.android.MainApp
@@ -132,7 +133,7 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
             return@withContext applyVideoOverlayIfNeeded(file, remote)
         }
 
-        file.smallThumbnail?.let { small ->
+        file.getSmallThumbnail()?.let { small ->
             return@withContext applyVideoOverlayIfNeeded(file, small)
         }
 
@@ -153,7 +154,7 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
         val pxW = p.x
         val pxH = p.y
 
-        val cacheKey = file.bigThumbnailKey
+        val cacheKey = file.getBigThumbnailKey()
 
         var bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.storagePath, pxW, pxH) ?: return null
 

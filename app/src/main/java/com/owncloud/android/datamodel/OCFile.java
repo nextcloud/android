@@ -15,14 +15,12 @@ package com.owncloud.android.datamodel;
 
 import android.content.ContentResolver;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
 import com.nextcloud.utils.BuildHelper;
-import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.StringExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.WebdavEntry;
@@ -34,6 +32,7 @@ import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.lib.resources.tags.Tag;
 import com.owncloud.android.utils.MimeType;
+import com.owncloud.android.utils.sort.AlphanumericComparator;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -44,7 +43,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import com.owncloud.android.utils.sort.AlphanumericComparator;
 
 public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterface {
 
@@ -815,22 +813,6 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public String getRemoteId() {
         return this.remoteId;
-    }
-
-    public String getBigThumbnailKey() {
-        return FileExtensionsKt.getBigThumbnailKey(this);
-    }
-
-    public Bitmap getBigThumbnail() {
-        return FileExtensionsKt.getBigThumbnail(this);
-    }
-
-    public String getSmallThumbnailKey() {
-        return FileExtensionsKt.getSmallThumbnailKey(this);
-    }
-
-    public Bitmap getSmallThumbnail() {
-        return FileExtensionsKt.getSmallThumbnail(this);
     }
 
     public boolean isUpdateThumbnailNeeded() {
