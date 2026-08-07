@@ -216,7 +216,13 @@ class OCFileListDelegate(
                 viewHolder.thumbnail.setPadding(padding, padding, padding, padding)
             }
         }
-        setThumbnail(viewHolder.thumbnail, viewHolder.shimmerThumbnail, file, thumbnailGenerator, folderThumbnailGenerator)
+        setThumbnail(
+            viewHolder.thumbnail,
+            viewHolder.shimmerThumbnail,
+            file,
+            thumbnailGenerator,
+            folderThumbnailGenerator
+        )
 
         // item layout + click listeners
         bindGridItemLayout(file, viewHolder)
