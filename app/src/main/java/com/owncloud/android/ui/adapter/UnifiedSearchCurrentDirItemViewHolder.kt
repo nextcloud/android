@@ -12,6 +12,7 @@ import android.view.View
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.thumbnail.FileThumbnailGenerator
 import com.owncloud.android.databinding.UnifiedSearchCurrentDirectoryItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -31,7 +32,8 @@ class UnifiedSearchCurrentDirItemViewHolder(
     private val user: User,
     private val appPreferences: AppPreferences,
     private val action: UnifiedSearchCurrentDirItemAction,
-    private val overlayManager: OverlayManager
+    private val overlayManager: OverlayManager,
+    private val fileThumbnailGenerator: FileThumbnailGenerator
 ) : SectionedViewHolder(binding.unifiedSearchCurrentDirItemLayout) {
 
     fun bind(file: OCFile) {
@@ -51,14 +53,9 @@ class UnifiedSearchCurrentDirItemViewHolder(
         DisplayUtils.setThumbnail(
             file,
             binding.thumbnail,
-            user,
-            storageManager,
-            listOf(),
             false,
-            context,
             binding.thumbnailShimmer,
-            appPreferences,
-            viewThemeUtils,
+            fileThumbnailGenerator,
             overlayManager
         )
 

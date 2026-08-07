@@ -18,6 +18,7 @@ import androidx.lifecycle.lifecycleScope
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.thumbnail.FileThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ShareActivityBinding
 import com.owncloud.android.datamodel.OCFile
@@ -49,6 +50,9 @@ class ShareActivity :
 
     @Inject
     lateinit var overlayManager: OverlayManager
+
+    @Inject
+    lateinit var fileThumbnailGenerator: FileThumbnailGenerator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -142,14 +146,9 @@ class ShareActivity :
             DisplayUtils.setThumbnail(
                 file,
                 binding.shareFileIcon,
-                user,
-                storageManager,
-                mutableListOf(),
                 false,
-                this,
                 null,
-                preferences,
-                viewThemeUtils,
+                fileThumbnailGenerator,
                 overlayManager
             )
         }

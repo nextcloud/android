@@ -19,6 +19,9 @@ import androidx.core.graphics.drawable.toDrawable
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.model.OfflineOperationType
+import com.nextcloud.utils.extensions.startShimmer
+import com.nextcloud.utils.extensions.stopShimmer
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -29,7 +32,6 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager.ThumbnailGeneration
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface
 import com.owncloud.android.utils.BitmapUtils
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -54,6 +56,8 @@ class FileThumbnailGenerator @Inject constructor(
         private const val SHIMMER_DELAY_MS = 100L
         private const val MIN_THREADS = 3
         private const val CORES_PER_THREAD = 2
+        private const val OFFLINE_ICON_SIZE = 105
+        private const val OFFLINE_ICON_ALPHA = 100
     }
 
     private val executor = Executors.newFixedThreadPool(
@@ -64,7 +68,7 @@ class FileThumbnailGenerator @Inject constructor(
 
     fun setThumbnail(file: OCFile, view: ImageView, isGrid: Boolean, shimmer: LoaderImageView?) {
         if (file.remoteId == null) {
-            DisplayUtils.stopShimmer(shimmer, view)
+            view.stopShimmer(shimmer)
             view.setImageDrawable(file.mimeIcon())
             return
         }
@@ -84,6 +88,24 @@ class FileThumbnailGenerator @Inject constructor(
         applyPngBackground(file, view)
     }
 
+    fun setOfflineOperationThumbnail(file: OCFile, view: ImageView) {
+        if (file.isFolder) {
+            view.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_folder_offline))
+            return
+        }
+
+        file.offlineCreateFileBitmap()?.let { bitmap ->
+            view.setImageBitmap(BitmapUtils.addColorFilter(bitmap, Color.GRAY, OFFLINE_ICON_ALPHA))
+        }
+    }
+
+    private fun OCFile.offlineCreateFileBitmap(): Bitmap? {
+        val operation = storageManager.get().offlineOperationDao.getByPath(decryptedRemotePath)
+        val localPath = (operation?.type as? OfflineOperationType.CreateFile)?.localPath ?: return null
+
+        return BitmapUtils.decodeSampledBitmapFromFile(localPath, OFFLINE_ICON_SIZE, OFFLINE_ICON_SIZE)
+    }
+
     fun cancelPendingTasks() {
         synchronized(tasks) {
             tasks.forEach { task ->
@@ -95,7 +117,7 @@ class FileThumbnailGenerator @Inject constructor(
     }
 
     private fun show(bitmap: Bitmap, file: OCFile, view: ImageView, isGrid: Boolean, shimmer: LoaderImageView?) {
-        DisplayUtils.stopShimmer(shimmer, view)
+        view.stopShimmer(shimmer)
 
         if (MimeTypeUtil.isVideo(file)) {
             view.setImageBitmap(ThumbnailsCacheManager.addVideoOverlay(bitmap, context))
@@ -111,7 +133,7 @@ class FileThumbnailGenerator @Inject constructor(
 
         file.smallThumbnail?.let { cached ->
             view.setImageBitmap(cached)
-            DisplayUtils.stopShimmer(shimmer, view)
+            view.stopShimmer(shimmer)
             return
         }
 
@@ -152,10 +174,10 @@ class FileThumbnailGenerator @Inject constructor(
         file.remoteId
     ).apply {
         setListener(object : ThumbnailGenerationTask.Listener {
-            override fun onSuccess() = DisplayUtils.stopShimmer(shimmer, view)
+            override fun onSuccess() = view.stopShimmer(shimmer)
 
             override fun onError() {
-                DisplayUtils.stopShimmer(shimmer, view)
+                view.stopShimmer(shimmer)
                 view.setImageDrawable(file.mimeIcon())
                 view.invalidate()
                 Log_OC.w(TAG, "setting thumbnail failed, using icon from mime type")
@@ -178,7 +200,7 @@ class FileThumbnailGenerator @Inject constructor(
                 shimmer.resizeToGridCell(preferences.gridColumns)
             }
 
-            DisplayUtils.startShimmer(shimmer, view)
+            view.startShimmer(shimmer)
         }, SHIMMER_DELAY_MS)
     }
 

@@ -32,6 +32,7 @@ import com.owncloud.android.ui.interfaces.UnifiedSearchCurrentDirItemAction
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
 import com.owncloud.android.utils.DisplayUtils
+import com.nextcloud.utils.thumbnail.FileThumbnailGenerator
 import com.owncloud.android.utils.overlay.OverlayManager
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
@@ -49,7 +50,8 @@ class UnifiedSearchListAdapter(
     private val viewThemeUtils: ViewThemeUtils,
     private val appPreferences: AppPreferences,
     private val currentDirItemAction: UnifiedSearchCurrentDirItemAction,
-    private val overlayManager: OverlayManager
+    private val overlayManager: OverlayManager,
+    private val fileThumbnailGenerator: FileThumbnailGenerator
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
     companion object {
         private const val VIEW_TYPE_EMPTY = Int.MAX_VALUE
@@ -138,6 +140,7 @@ class UnifiedSearchListAdapter(
                     context,
                     viewThemeUtils,
                     overlayManager,
+                    fileThumbnailGenerator,
                     user,
                     appPreferences
                 )
@@ -155,7 +158,8 @@ class UnifiedSearchListAdapter(
                     user,
                     appPreferences,
                     currentDirItemAction,
-                    overlayManager
+                    overlayManager,
+                    fileThumbnailGenerator
                 )
             }
 

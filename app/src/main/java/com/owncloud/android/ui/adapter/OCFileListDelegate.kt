@@ -20,10 +20,11 @@ import com.nextcloud.client.jobs.gallery.GalleryImageGenerationListener
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.OCFileUtils
-import com.nextcloud.utils.extensions.getBigThumbnail
 import com.nextcloud.utils.extensions.makeRounded
 import com.nextcloud.utils.extensions.setVisibleIf
+import com.nextcloud.utils.extensions.stopShimmer
 import com.nextcloud.utils.mdm.MDMConfig
+import com.nextcloud.utils.thumbnail.FileThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -66,7 +67,6 @@ class OCFileListDelegate(
     private val checkedFiles: MutableSet<OCFile> = HashSet()
     private var highlightedItem: OCFile? = null
     var isMultiSelect = false
-    private val asyncTasks: MutableList<ThumbnailsCacheManager.ThumbnailGenerationTask> = ArrayList()
     private val ioScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private val galleryImageGenerationJob = GalleryImageGenerationJob(user, storageManager)
 
@@ -136,7 +136,7 @@ class OCFileListDelegate(
                             if (imageView.tag == file.fileId) {
                                 Log_OC.d(tag, "setGalleryImage.onSuccess()")
                                 galleryRowHolder.binding.rowLayout.invalidate()
-                                DisplayUtils.stopShimmer(shimmer, imageView)
+                                imageView.stopShimmer(shimmer)
                             }
                         }
 
@@ -150,7 +150,7 @@ class OCFileListDelegate(
                         override fun onError() {
                             if (imageView.tag == file.fileId) {
                                 Log_OC.d(tag, "setGalleryImage.onError()")
-                                DisplayUtils.stopShimmer(shimmer, imageView)
+                                imageView.stopShimmer(shimmer)
                             }
                         }
                     }
@@ -183,19 +183,15 @@ class OCFileListDelegate(
         thumbnail: ImageView,
         shimmerThumbnail: LoaderImageView?,
         file: OCFile,
+        thumbnailGenerator: FileThumbnailGenerator,
         overlayManager: OverlayManager
     ) {
         DisplayUtils.setThumbnail(
             file,
             thumbnail,
-            user,
-            storageManager,
-            asyncTasks,
             gridView,
-            context,
             shimmerThumbnail,
-            preferences,
-            viewThemeUtils,
+            thumbnailGenerator,
             overlayManager
         )
     }
@@ -206,6 +202,7 @@ class OCFileListDelegate(
         file: OCFile,
         currentDirectory: OCFile?,
         searchType: SearchType?,
+        thumbnailGenerator: FileThumbnailGenerator,
         overlayManager: OverlayManager
     ) {
         // thumbnail
@@ -221,7 +218,7 @@ class OCFileListDelegate(
                 viewHolder.thumbnail.setPadding(padding, padding, padding, padding)
             }
         }
-        setThumbnail(viewHolder.thumbnail, viewHolder.shimmerThumbnail, file, overlayManager)
+        setThumbnail(viewHolder.thumbnail, viewHolder.shimmerThumbnail, file, thumbnailGenerator, overlayManager)
 
         // item layout + click listeners
         bindGridItemLayout(file, viewHolder)
@@ -428,17 +425,6 @@ class OCFileListDelegate(
         }
     }
 
-    fun cancelAllPendingTasks() {
-        for (task in asyncTasks) {
-            task.cancel(true)
-            if (task.getMethod != null) {
-                Log_OC.d(TAG, "cancel: abort get method directly")
-                task.getMethod.abort()
-            }
-        }
-        asyncTasks.clear()
-    }
-
     fun setShowShareAvatar(bool: Boolean) {
         showShareAvatar = bool
     }
@@ -452,9 +438,6 @@ class OCFileListDelegate(
         } catch (e: Exception) {
             Log_OC.e(TAG, "exception: ", e)
         }
-
-        // cancel async tasks from ThumbnailsCacheManager
-        cancelAllPendingTasks()
 
         Log_OC.d(TAG, "background jobs cancelled")
     }

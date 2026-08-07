@@ -194,7 +194,8 @@ class GalleryFragment :
             mContainerActivity,
             viewThemeUtils,
             this.columnsCount,
-            ThumbnailsCacheManager.getThumbnailDimension()
+            ThumbnailsCacheManager.getThumbnailDimension(),
+            fileThumbnailGenerator
         )
         adapter?.setHasStableIds(true)
         setRecyclerViewAdapter(adapter)

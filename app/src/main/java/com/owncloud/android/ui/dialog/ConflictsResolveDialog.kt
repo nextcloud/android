@@ -21,6 +21,7 @@ import com.nextcloud.client.database.entity.OfflineOperationEntity
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
+import com.nextcloud.utils.thumbnail.FileThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ConflictResolveDialogBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -47,7 +48,6 @@ class ConflictsResolveDialog :
     private lateinit var binding: ConflictResolveDialogBinding
 
     var listener: OnConflictDecisionMadeListener? = null
-    private val asyncTasks: MutableList<ThumbnailGenerationTask> = ArrayList()
     private var positiveButton: MaterialButton? = null
 
     private var data: ConflictDialogData? = null
@@ -66,6 +66,9 @@ class ConflictsResolveDialog :
 
     @Inject
     lateinit var overlayManager: OverlayManager
+
+    @Inject
+    lateinit var fileThumbnailGenerator: FileThumbnailGenerator
 
     enum class Decision {
         CANCEL,
@@ -231,14 +234,9 @@ class ConflictsResolveDialog :
         DisplayUtils.setThumbnail(
             rightDataFile,
             binding.rightThumbnail,
-            user,
-            fileDataStorageManager,
-            asyncTasks,
             false,
-            context,
             null,
-            syncedFolderProvider.preferences,
-            viewThemeUtils,
+            fileThumbnailGenerator,
             overlayManager
         )
     }
@@ -281,18 +279,6 @@ class ConflictsResolveDialog :
 
     fun interface OnConflictDecisionMadeListener {
         fun conflictDecisionMade(decision: Decision?)
-    }
-
-    override fun onStop() {
-        super.onStop()
-
-        asyncTasks.forEach {
-            it.cancel(true)
-            Log_OC.d(this, "cancel: abort get method directly")
-            it.getMethod?.abort()
-        }
-
-        asyncTasks.clear()
     }
 
     companion object {

@@ -27,12 +27,12 @@ import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.utils.extensions.toOCFile
+import com.nextcloud.utils.thumbnail.FileThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileActionsBottomSheetBinding
 import com.owncloud.android.databinding.FileActionsBottomSheetItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.SyncedFolderProvider
-import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.overlay.OverlayManager
@@ -61,13 +61,14 @@ class TrashbinFileActionsBottomSheet :
     @Inject
     lateinit var overlayManager: OverlayManager
 
+    @Inject
+    lateinit var fileThumbnailGenerator: FileThumbnailGenerator
+
     private lateinit var viewModel: TrashbinFileActionsViewModel
 
     private var _binding: FileActionsBottomSheetBinding? = null
     val binding
         get() = _binding!!
-
-    private val thumbnailAsyncTasks = mutableListOf<ThumbnailsCacheManager.ThumbnailGenerationTask>()
 
     fun interface ResultListener {
         fun onResult(@IdRes actionId: Int)
@@ -125,14 +126,9 @@ class TrashbinFileActionsBottomSheet :
             DisplayUtils.setThumbnail(
                 it.toOCFile(),
                 binding.thumbnailLayout.thumbnail,
-                currentUserProvider.user,
-                storageManager,
-                thumbnailAsyncTasks,
                 false,
-                context,
                 binding.thumbnailLayout.thumbnailShimmer,
-                syncedFolderProvider.preferences,
-                viewThemeUtils,
+                fileThumbnailGenerator,
                 overlayManager
             )
         }
