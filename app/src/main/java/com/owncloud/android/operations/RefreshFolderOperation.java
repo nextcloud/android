@@ -313,7 +313,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             }
 
             // this needed because if file has new share or share is removed, eTag is not changing.
-            // that's why another separate EVENT_SINGLE_FOLDER_SHARES_SYNCED introduced
+            // that's why another separate EVENT_SINGLE_FOLDER_SHARES_SYNCED introduced before.
             sharesChanged = fileDataStorageManager.saveSharesFromRemoteFile(remoteFiles);
         }
 
