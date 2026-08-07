@@ -34,9 +34,6 @@ fun ServerFileInterface.getBigThumbnailKey(): String = ThumbnailsCacheManager.PR
 fun ServerFileInterface.getSmallThumbnail(): Bitmap? =
     ThumbnailsCacheManager.getBitmapFromDiskCache(getSmallThumbnailKey())
 
-/**
- * Capped to the 512KB.
- */
 fun ServerFileInterface.getSmallThumbnailKey(): String = ThumbnailsCacheManager.PREFIX_THUMBNAIL + remoteId
 
 fun File?.getSmallThumbnail(): Bitmap? = ThumbnailsCacheManager.getBitmapFromDiskCache(getSmallThumbnailKey())

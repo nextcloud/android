@@ -90,7 +90,10 @@ public final class ThumbnailsCacheManager {
     private static final int READ_TIMEOUT = 40000;
     private static final int CONNECTION_TIMEOUT = 5000;
 
+    /** Cache key prefix {@code <prefix><remoteId>}; sized from {@link #getScreenDimension()}. */
     public static final String PREFIX_RESIZED_IMAGE = "r";
+
+    /** Cache key prefix {@code <prefix><remoteId>}; square, sized from {@link #getThumbnailDimension()}. */
     public static final String PREFIX_THUMBNAIL = "t";
 
     private static final String TAG = ThumbnailsCacheManager.class.getSimpleName();
