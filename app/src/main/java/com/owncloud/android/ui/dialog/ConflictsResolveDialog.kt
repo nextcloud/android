@@ -21,7 +21,6 @@ import com.nextcloud.client.database.entity.OfflineOperationEntity
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
-import com.nextcloud.utils.thumbnail.FileThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ConflictResolveDialogBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -32,7 +31,7 @@ import com.owncloud.android.ui.dialog.parcel.ConflictDialogData
 import com.owncloud.android.ui.dialog.parcel.ConflictFileData
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
-import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import javax.inject.Inject
@@ -63,10 +62,7 @@ class ConflictsResolveDialog :
     lateinit var fileDataStorageManager: FileDataStorageManager
 
     @Inject
-    lateinit var folderThumbnailGenerator: FolderThumbnailGenerator
-
-    @Inject
-    lateinit var fileThumbnailGenerator: FileThumbnailGenerator
+    lateinit var thumbnailGenerator: ThumbnailGenerator
 
     enum class Decision {
         CANCEL,
@@ -226,14 +222,7 @@ class ConflictsResolveDialog :
             viewThemeUtils
         )
 
-        DisplayUtils.setThumbnail(
-            rightDataFile,
-            binding.rightThumbnail,
-            false,
-            null,
-            fileThumbnailGenerator,
-            folderThumbnailGenerator
-        )
+        thumbnailGenerator.setThumbnail(rightDataFile, binding.rightThumbnail)
     }
 
     private fun setOnClickListeners() {

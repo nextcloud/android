@@ -18,7 +18,6 @@ import androidx.lifecycle.lifecycleScope
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
-import com.nextcloud.utils.thumbnail.FileThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ShareActivityBinding
 import com.owncloud.android.datamodel.OCFile
@@ -35,7 +34,7 @@ import com.owncloud.android.ui.fragment.FileDetailSharingFragment
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
-import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -49,10 +48,7 @@ class ShareActivity :
     lateinit var syncedFolderProvider: SyncedFolderProvider
 
     @Inject
-    lateinit var folderThumbnailGenerator: FolderThumbnailGenerator
-
-    @Inject
-    lateinit var fileThumbnailGenerator: FileThumbnailGenerator
+    lateinit var thumbnailGenerator: ThumbnailGenerator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -143,14 +139,7 @@ class ShareActivity :
                 )
             )
         } else {
-            DisplayUtils.setThumbnail(
-                file,
-                binding.shareFileIcon,
-                false,
-                null,
-                fileThumbnailGenerator,
-                folderThumbnailGenerator
-            )
+            thumbnailGenerator.setThumbnail(file, binding.shareFileIcon)
         }
     }
 

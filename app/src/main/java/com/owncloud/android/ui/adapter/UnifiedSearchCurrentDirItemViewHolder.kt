@@ -10,14 +10,12 @@ package com.owncloud.android.ui.adapter
 import android.content.Context
 import android.view.View
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
-import com.nextcloud.utils.thumbnail.FileThumbnailGenerator
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.databinding.UnifiedSearchCurrentDirectoryItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.interfaces.UnifiedSearchCurrentDirItemAction
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
-import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator
 
 @Suppress("LongParameterList")
 class UnifiedSearchCurrentDirItemViewHolder(
@@ -26,8 +24,7 @@ class UnifiedSearchCurrentDirItemViewHolder(
     private val storageManager: FileDataStorageManager,
     private val isRTL: Boolean,
     private val action: UnifiedSearchCurrentDirItemAction,
-    private val folderThumbnailGenerator: FolderThumbnailGenerator,
-    private val fileThumbnailGenerator: FileThumbnailGenerator
+    private val thumbnailGenerator: ThumbnailGenerator
 ) : SectionedViewHolder(binding.unifiedSearchCurrentDirItemLayout) {
 
     fun bind(file: OCFile) {
@@ -44,14 +41,7 @@ class UnifiedSearchCurrentDirItemViewHolder(
             binding.filename.text = filename
         }
 
-        DisplayUtils.setThumbnail(
-            file,
-            binding.thumbnail,
-            false,
-            binding.thumbnailShimmer,
-            fileThumbnailGenerator,
-            folderThumbnailGenerator
-        )
+        thumbnailGenerator.setThumbnail(file, binding.thumbnail, shimmer = binding.thumbnailShimmer)
 
         binding.more.setOnClickListener {
             action.openFile(file.decryptedRemotePath, true)

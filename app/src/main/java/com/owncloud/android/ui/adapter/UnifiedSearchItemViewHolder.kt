@@ -24,7 +24,6 @@ import com.nextcloud.utils.ContactManager
 import com.nextcloud.utils.GlideHelper
 import com.nextcloud.utils.extensions.getType
 import com.nextcloud.utils.extensions.setVisibleIf
-import com.nextcloud.utils.thumbnail.FileThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UnifiedSearchItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -32,7 +31,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.utils.MimeTypeUtil
-import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 @Suppress("LongParameterList")
@@ -44,8 +43,7 @@ class UnifiedSearchItemViewHolder(
     private val filesAction: FilesAction,
     val context: Context,
     private val viewThemeUtils: ViewThemeUtils,
-    private val folderThumbnailGenerator: FolderThumbnailGenerator,
-    private val fileThumbnailGenerator: FileThumbnailGenerator,
+    private val thumbnailGenerator: ThumbnailGenerator,
     private val user: User,
     private val preferences: AppPreferences
 ) : SectionedViewHolder(binding.root) {
@@ -103,7 +101,7 @@ class UnifiedSearchItemViewHolder(
             setImageDrawable(ContextCompat.getDrawable(context, R.drawable.folder))
             viewThemeUtils.platform.colorImageView(this, ColorRole.PRIMARY)
         }
-        folderThumbnailGenerator.setFolderOverlayIcon(file, binding.thumbnailOverlayIcon)
+        thumbnailGenerator.folderThumbnailGenerator.setFolderOverlayIcon(file, binding.thumbnailOverlayIcon)
     }
 
     private fun bindLocalFileThumbnail(file: OCFile) {
@@ -115,7 +113,7 @@ class UnifiedSearchItemViewHolder(
                 ImageViewCompat.setImageTintList(this, null)
             }
         } else {
-            fileThumbnailGenerator.setThumbnail(file, binding.thumbnail, false, binding.thumbnailShimmer)
+            thumbnailGenerator.setThumbnail(file, binding.thumbnail, shimmer = binding.thumbnailShimmer)
         }
     }
 

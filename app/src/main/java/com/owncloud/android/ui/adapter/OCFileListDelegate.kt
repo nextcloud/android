@@ -23,7 +23,7 @@ import com.nextcloud.utils.extensions.makeRounded
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.extensions.stopShimmer
 import com.nextcloud.utils.mdm.MDMConfig
-import com.nextcloud.utils.thumbnail.FileThumbnailGenerator
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -34,10 +34,8 @@ import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.activity.FolderPickerActivity
 import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.MimeTypeUtil
-import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -177,31 +175,13 @@ class OCFileListDelegate(
         }
     }
 
-    fun setThumbnail(
-        thumbnail: ImageView,
-        shimmerThumbnail: LoaderImageView?,
-        file: OCFile,
-        thumbnailGenerator: FileThumbnailGenerator,
-        folderThumbnailGenerator: FolderThumbnailGenerator
-    ) {
-        DisplayUtils.setThumbnail(
-            file,
-            thumbnail,
-            gridView,
-            shimmerThumbnail,
-            thumbnailGenerator,
-            folderThumbnailGenerator
-        )
-    }
-
     @Suppress("MagicNumber")
     fun bindViewHolder(
         viewHolder: ListViewHolder,
         file: OCFile,
         currentDirectory: OCFile?,
         searchType: SearchType?,
-        thumbnailGenerator: FileThumbnailGenerator,
-        folderThumbnailGenerator: FolderThumbnailGenerator
+        thumbnailGenerator: ThumbnailGenerator
     ) {
         // thumbnail
         viewHolder.imageFileName?.text = file.fileName
@@ -216,13 +196,8 @@ class OCFileListDelegate(
                 viewHolder.thumbnail.setPadding(padding, padding, padding, padding)
             }
         }
-        setThumbnail(
-            viewHolder.thumbnail,
-            viewHolder.shimmerThumbnail,
-            file,
-            thumbnailGenerator,
-            folderThumbnailGenerator
-        )
+
+        thumbnailGenerator.setThumbnail(file, viewHolder.shimmerThumbnail, gridView)
 
         // item layout + click listeners
         bindGridItemLayout(file, viewHolder)

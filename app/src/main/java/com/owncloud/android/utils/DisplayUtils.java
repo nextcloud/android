@@ -40,23 +40,18 @@ import android.text.format.DateUtils;
 import android.text.style.StyleSpan;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.ImageView;
 
-import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
-import com.nextcloud.utils.thumbnail.FileThumbnailGenerator;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
-import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
-import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -724,58 +719,5 @@ public final class DisplayUtils {
         df.setTimeZone(TimeZone.getTimeZone(TimeZone.getDefault().getID()));
 
         return df.format(timestamp);
-    }
-
-    /**
-     * Sets a thumbnail for a offline file, file or folder with various display options and states.
-     * <p>
-     *
-     * This method handles multiple thumbnail scenarios:
-     *
-     * <p>
-     *
-     * 1. Offline Files:
-     *    - For folders: Shows an offline folder icon
-     *    - For files: Loads thumbnail from local path with a gray filter
-     * <p>
-     *
-     * 2. Folders:
-     *    - Displays folder icon with overlays
-     * <p>
-     *
-     * 3. Files:
-     *    - Checks disk cache for existing thumbnails
-     *    - Handles preview availability and updates
-     *    - Supports grid and list view display modes
-     *    - Generates new thumbnails if needed
-     *    - Sets background color for PNG files
-     *
-     * <p>
-     *
-     * The method uses a shimmer effect while loading thumbnails, which is stopped
-     * once the thumbnail is successfully loaded or if an error occurs.
-     *
-     */
-    public static void setThumbnail(OCFile file,
-                                    ImageView thumbnailView,
-                                    boolean gridView,
-                                    LoaderImageView shimmerThumbnail,
-                                    FileThumbnailGenerator thumbnailGenerator,
-                                    FolderThumbnailGenerator folderThumbnailGenerator) {
-        if (file == null || thumbnailView == null) {
-            return;
-        }
-
-        if (file.isOfflineOperation()) {
-            thumbnailGenerator.setOfflineOperationThumbnail(file, thumbnailView);
-            return;
-        }
-
-        if (file.isFolder()) {
-            folderThumbnailGenerator.setFolderThumbnail(file, thumbnailView, shimmerThumbnail);
-            return;
-        }
-
-        thumbnailGenerator.setThumbnail(file, thumbnailView, gridView, shimmerThumbnail);
     }
 }

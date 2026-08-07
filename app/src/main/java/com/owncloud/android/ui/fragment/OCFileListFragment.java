@@ -121,8 +121,7 @@ import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
-import com.nextcloud.utils.thumbnail.FileThumbnailGenerator;
-import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator;
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator;
 import com.owncloud.android.utils.theme.ThemeUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
@@ -210,8 +209,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject ShortcutUtil shortcutUtil;
     @Inject SyncedFolderProvider syncedFolderProvider;
     @Inject AppScanOptionalFeature appScanOptionalFeature;
-    @Inject FolderThumbnailGenerator folderThumbnailGenerator;
-    @Inject FileThumbnailGenerator fileThumbnailGenerator;
+    @Inject ThumbnailGenerator thumbnailGenerator;
 
     protected FileFragment.ContainerActivity mContainerActivity;
 
@@ -485,8 +483,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             hideItemOptions,
             isGridViewPreferred,
             viewThemeUtils,
-            folderThumbnailGenerator,
-            fileThumbnailGenerator
+            thumbnailGenerator
         );
 
         setRecyclerViewAdapter(mAdapter);

@@ -29,7 +29,7 @@ import com.nextcloud.utils.extensions.isLastResultConflictError
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.extensions.sortedByUploadOrder
 import com.nextcloud.utils.extensions.toFile
-import com.nextcloud.utils.thumbnail.FileThumbnailGenerator
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UploadListHeaderBinding
 import com.owncloud.android.databinding.UploadListItemBinding
@@ -46,7 +46,6 @@ import com.owncloud.android.ui.adapter.uploadList.helper.UploadListItemOnClick
 import com.owncloud.android.ui.adapter.uploadList.model.UploadListSection
 import com.owncloud.android.ui.adapter.uploadList.model.UploadListType
 import com.owncloud.android.utils.DisplayUtils
-import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -74,8 +73,7 @@ class UploadListAdapter(
     private val viewThemeUtils: ViewThemeUtils,
     private val itemOnClick: UploadListItemOnClick,
     private val helper: UploadListAdapterHelper,
-    private val fileThumbnailGenerator: FileThumbnailGenerator,
-    private val folderThumbnailGenerator: FolderThumbnailGenerator
+    private val thumbnailGenerator: ThumbnailGenerator
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
 
     private val uploadListSections = UploadListSection.sections()
@@ -513,14 +511,7 @@ class UploadListAdapter(
     private fun bindItemThumbnail(holder: ItemViewHolder, ocFile: OCFile) {
         holder.binding.thumbnail.tag = ocFile.fileId
 
-        DisplayUtils.setThumbnail(
-            ocFile,
-            holder.binding.thumbnail,
-            false,
-            null,
-            fileThumbnailGenerator,
-            folderThumbnailGenerator
-        )
+        thumbnailGenerator.setThumbnail(ocFile, holder.binding.thumbnail)
     }
 
     // endregion

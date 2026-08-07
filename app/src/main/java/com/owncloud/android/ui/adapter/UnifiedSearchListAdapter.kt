@@ -19,7 +19,6 @@ import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.bumptech.glide.Glide
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.utils.thumbnail.FileThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UnifiedSearchCurrentDirectoryItemBinding
 import com.owncloud.android.databinding.UnifiedSearchEmptyBinding
@@ -33,7 +32,7 @@ import com.owncloud.android.ui.interfaces.UnifiedSearchCurrentDirItemAction
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
 import com.owncloud.android.utils.DisplayUtils
-import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 /**
@@ -50,8 +49,7 @@ class UnifiedSearchListAdapter(
     private val viewThemeUtils: ViewThemeUtils,
     private val appPreferences: AppPreferences,
     private val currentDirItemAction: UnifiedSearchCurrentDirItemAction,
-    private val folderThumbnailGenerator: FolderThumbnailGenerator,
-    private val fileThumbnailGenerator: FileThumbnailGenerator
+    private val thumbnailGenerator: ThumbnailGenerator
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
     companion object {
         private const val VIEW_TYPE_EMPTY = Int.MAX_VALUE
@@ -139,8 +137,7 @@ class UnifiedSearchListAdapter(
                     filesAction,
                     context,
                     viewThemeUtils,
-                    folderThumbnailGenerator,
-                    fileThumbnailGenerator,
+                    thumbnailGenerator,
                     user,
                     appPreferences
                 )
@@ -155,8 +152,7 @@ class UnifiedSearchListAdapter(
                     storageManager,
                     isRTL,
                     currentDirItemAction,
-                    folderThumbnailGenerator,
-                    fileThumbnailGenerator
+                    thumbnailGenerator
                 )
             }
 
