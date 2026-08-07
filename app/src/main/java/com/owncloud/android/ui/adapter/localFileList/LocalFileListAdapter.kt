@@ -278,9 +278,15 @@ class LocalFileListAdapter(
         addToFooterEntries(insertedEntries)
         Log_OC.d(TAG, "appendPage, item size: ${loadedEntries.size}")
 
-        if (insertedEntries.isNotEmpty()) {
-            notifyItemRangeInserted(startPositionInAdapter, insertedEntries.size)
+        if (insertedEntries.isEmpty()) {
+            return
         }
+
+        notifyItemRangeInserted(startPositionInAdapter, insertedEntries.size)
+
+        // inserting in front of the footer only shifts it down, it has to be rebound to show the
+        // counts of the page that just arrived
+        notifyItemChanged(itemCount - 1, PAYLOAD_FOOTER_COUNTS)
     }
 
     fun setSortOrder(sortOrder: FileSortOrder) {
@@ -378,6 +384,9 @@ class LocalFileListAdapter(
 
         private const val HEADER_ID = Long.MIN_VALUE
         private const val FOOTER_ID = Long.MIN_VALUE + 1
+
+        /** Rebinds the footer in place, without the change animation of a payload free update. */
+        private val PAYLOAD_FOOTER_COUNTS = Any()
 
         @VisibleForTesting
         fun getStableItemId(position: Int, headerOffset: Int, files: List<File>): Long {
