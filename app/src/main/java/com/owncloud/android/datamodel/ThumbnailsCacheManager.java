@@ -638,8 +638,14 @@ public final class ThumbnailsCacheManager {
                 }
             }
 
+            boolean serverHasPreview = !(file instanceof OCFile) || ((OCFile) file).isPreviewAvailable();
+
+            if (thumbnail == null && !serverHasPreview) {
+                Log_OC.d(TAG, "Server reports no preview for file: " + file.getFileName());
+            }
+
             // Download thumbnail from server if still null
-            if (thumbnail == null && mClient != null) {
+            if (thumbnail == null && mClient != null && serverHasPreview) {
                 Log_OC.d(TAG, "Attempting to download thumbnail from server for file: " + file.getFileName());
                 GetMethod getMethod = null;
 
