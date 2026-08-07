@@ -19,6 +19,10 @@ import kotlinx.coroutines.withContext
 
 private const val SHARE_PATH_QUERY_CHUNK_SIZE = 400
 
+/**
+ * Detects sharee additions/removals (by userId + shareType) for [remoteFiles], compared to what is stored
+ * locally.
+ */
 fun FileDataStorageManager.areShareesChanged(remoteFiles: List<RemoteFile>): Boolean {
     if (remoteFiles.isEmpty()) {
         return false
