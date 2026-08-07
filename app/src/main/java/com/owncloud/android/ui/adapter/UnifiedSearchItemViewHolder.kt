@@ -24,13 +24,13 @@ import com.nextcloud.utils.ContactManager
 import com.nextcloud.utils.GlideHelper
 import com.nextcloud.utils.extensions.getType
 import com.nextcloud.utils.extensions.setVisibleIf
+import com.nextcloud.utils.thumbnail.FileThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UnifiedSearchItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.overlay.OverlayManager
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -45,6 +45,7 @@ class UnifiedSearchItemViewHolder(
     val context: Context,
     private val viewThemeUtils: ViewThemeUtils,
     private val overlayManager: OverlayManager,
+    private val fileThumbnailGenerator: FileThumbnailGenerator,
     private val user: User,
     private val preferences: AppPreferences
 ) : SectionedViewHolder(binding.root) {
@@ -114,18 +115,7 @@ class UnifiedSearchItemViewHolder(
                 ImageViewCompat.setImageTintList(this, null)
             }
         } else {
-            DisplayUtils.setThumbnailFromCache(
-                file,
-                binding.thumbnail,
-                storageManager,
-                listOf(),
-                false,
-                binding.thumbnailShimmer,
-                user,
-                preferences,
-                context,
-                viewThemeUtils
-            )
+            fileThumbnailGenerator.setThumbnail(file, binding.thumbnail, false, binding.thumbnailShimmer)
         }
     }
 

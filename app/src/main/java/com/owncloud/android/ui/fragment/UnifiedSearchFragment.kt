@@ -41,6 +41,7 @@ import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.extensions.searchFilesByName
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.extensions.typedActivity
+import com.nextcloud.utils.thumbnail.FileThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ListFragmentBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -109,6 +110,9 @@ class UnifiedSearchFragment :
 
     @Inject
     lateinit var overlayManager: OverlayManager
+
+    @Inject
+    lateinit var fileThumbnailGenerator: FileThumbnailGenerator
 
     @Inject
     lateinit var vmFactory: ViewModelFactory
@@ -382,7 +386,8 @@ class UnifiedSearchFragment :
             viewThemeUtils,
             appPreferences,
             this@UnifiedSearchFragment,
-            overlayManager
+            overlayManager,
+            fileThumbnailGenerator
         )
 
         adapter.shouldShowFooters(true)

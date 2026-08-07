@@ -15,10 +15,9 @@ import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.extensions.stopShimmer
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderObserver
-import com.owncloud.android.datamodel.SyncedFolderProvider
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
@@ -52,7 +51,7 @@ class OverlayManager @Inject constructor(
     fun setFolderThumbnail(folder: OCFile?, imageView: ImageView, loaderImageView: LoaderImageView?) {
         if (folder == null || !folder.isFolder) return
 
-        DisplayUtils.stopShimmer(loaderImageView, imageView)
+        imageView.stopShimmer(loaderImageView)
 
         val isAutoUploadFolder =
             SyncedFolderObserver.isAutoUploadFolder(folder, accountManager.user)

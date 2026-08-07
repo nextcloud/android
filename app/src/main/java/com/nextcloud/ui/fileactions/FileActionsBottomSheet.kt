@@ -35,6 +35,7 @@ import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.utils.extensions.setVisibleIf
+import com.nextcloud.utils.thumbnail.FileThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileActionsBottomSheetBinding
 import com.owncloud.android.databinding.FileActionsBottomSheetItemBinding
@@ -73,6 +74,9 @@ class FileActionsBottomSheet :
     @Inject
     lateinit var overlayManager: OverlayManager
 
+    @Inject
+    lateinit var fileThumbnailGenerator: FileThumbnailGenerator
+
     private lateinit var viewModel: FileActionsViewModel
 
     private var _binding: FileActionsBottomSheetBinding? = null
@@ -80,8 +84,6 @@ class FileActionsBottomSheet :
         get() = _binding!!
 
     private lateinit var componentsGetter: ComponentsGetter
-
-    private val thumbnailAsyncTasks = mutableListOf<ThumbnailsCacheManager.ThumbnailGenerationTask>()
 
     private var endpoints: List<Endpoint>? = mutableListOf()
 
@@ -152,14 +154,9 @@ class FileActionsBottomSheet :
             DisplayUtils.setThumbnail(
                 it,
                 binding.thumbnailLayout.thumbnail,
-                currentUserProvider.user,
-                storageManager,
-                thumbnailAsyncTasks,
                 false,
-                context,
                 binding.thumbnailLayout.thumbnailShimmer,
-                syncedFolderProvider.preferences,
-                viewThemeUtils,
+                fileThumbnailGenerator,
                 overlayManager
             )
         }
