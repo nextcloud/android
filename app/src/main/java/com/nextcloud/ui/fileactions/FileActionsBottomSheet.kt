@@ -47,7 +47,7 @@ import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import com.owncloud.android.utils.FileStorageUtils
-import com.owncloud.android.utils.overlay.OverlayManager
+import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -71,7 +71,7 @@ class FileActionsBottomSheet :
     lateinit var syncedFolderProvider: SyncedFolderProvider
 
     @Inject
-    lateinit var overlayManager: OverlayManager
+    lateinit var folderThumbnailGenerator: FolderThumbnailGenerator
 
     @Inject
     lateinit var fileThumbnailGenerator: FileThumbnailGenerator
@@ -156,7 +156,7 @@ class FileActionsBottomSheet :
                 false,
                 binding.thumbnailLayout.thumbnailShimmer,
                 fileThumbnailGenerator,
-                overlayManager
+                folderThumbnailGenerator
             )
         }
     }

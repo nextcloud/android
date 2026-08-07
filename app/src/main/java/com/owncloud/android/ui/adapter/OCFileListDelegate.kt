@@ -37,7 +37,7 @@ import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.MimeTypeUtil
-import com.owncloud.android.utils.overlay.OverlayManager
+import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -182,7 +182,7 @@ class OCFileListDelegate(
         shimmerThumbnail: LoaderImageView?,
         file: OCFile,
         thumbnailGenerator: FileThumbnailGenerator,
-        overlayManager: OverlayManager
+        folderThumbnailGenerator: FolderThumbnailGenerator
     ) {
         DisplayUtils.setThumbnail(
             file,
@@ -190,7 +190,7 @@ class OCFileListDelegate(
             gridView,
             shimmerThumbnail,
             thumbnailGenerator,
-            overlayManager
+            folderThumbnailGenerator
         )
     }
 
@@ -201,7 +201,7 @@ class OCFileListDelegate(
         currentDirectory: OCFile?,
         searchType: SearchType?,
         thumbnailGenerator: FileThumbnailGenerator,
-        overlayManager: OverlayManager
+        folderThumbnailGenerator: FolderThumbnailGenerator
     ) {
         // thumbnail
         viewHolder.imageFileName?.text = file.fileName
@@ -216,7 +216,7 @@ class OCFileListDelegate(
                 viewHolder.thumbnail.setPadding(padding, padding, padding, padding)
             }
         }
-        setThumbnail(viewHolder.thumbnail, viewHolder.shimmerThumbnail, file, thumbnailGenerator, overlayManager)
+        setThumbnail(viewHolder.thumbnail, viewHolder.shimmerThumbnail, file, thumbnailGenerator, folderThumbnailGenerator)
 
         // item layout + click listeners
         bindGridItemLayout(file, viewHolder)

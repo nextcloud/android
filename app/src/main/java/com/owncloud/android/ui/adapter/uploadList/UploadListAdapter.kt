@@ -46,7 +46,7 @@ import com.owncloud.android.ui.adapter.uploadList.helper.UploadListItemOnClick
 import com.owncloud.android.ui.adapter.uploadList.model.UploadListSection
 import com.owncloud.android.ui.adapter.uploadList.model.UploadListType
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.overlay.OverlayManager
+import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -75,7 +75,7 @@ class UploadListAdapter(
     private val itemOnClick: UploadListItemOnClick,
     private val helper: UploadListAdapterHelper,
     private val fileThumbnailGenerator: FileThumbnailGenerator,
-    private val overlayManager: OverlayManager
+    private val folderThumbnailGenerator: FolderThumbnailGenerator
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
 
     private val uploadListSections = UploadListSection.sections()
@@ -519,7 +519,7 @@ class UploadListAdapter(
             false,
             null,
             fileThumbnailGenerator,
-            overlayManager
+            folderThumbnailGenerator
         )
     }
 

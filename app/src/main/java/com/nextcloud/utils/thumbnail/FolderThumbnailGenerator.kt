@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.owncloud.android.utils.overlay
+package com.nextcloud.utils.thumbnail
 
 import android.content.Context
 import android.view.View
@@ -22,7 +22,7 @@ import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
-class OverlayManager @Inject constructor(
+class FolderThumbnailGenerator @Inject constructor(
     private val preferences: AppPreferences,
     private val viewThemeUtils: ViewThemeUtils,
     private val context: Context,

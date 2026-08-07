@@ -51,7 +51,7 @@ import com.owncloud.android.ui.adapter.uploadList.helper.UploadListAdapterHelper
 import com.owncloud.android.ui.adapter.uploadList.helper.UploadListItemOnClick
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration
 import com.owncloud.android.utils.FilesSyncHelper
-import com.owncloud.android.utils.overlay.OverlayManager
+import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -77,7 +77,7 @@ class UploadListActivity :
 
     @Inject lateinit var fileThumbnailGenerator: FileThumbnailGenerator
 
-    @Inject lateinit var overlayManager: OverlayManager
+    @Inject lateinit var folderThumbnailGenerator: FolderThumbnailGenerator
 
     private var uploadWarningCard: UploadWarningCard? = null
 
@@ -127,7 +127,7 @@ class UploadListActivity :
             this,
             adapterHelper,
             fileThumbnailGenerator,
-            overlayManager
+            folderThumbnailGenerator
         )
 
         binding?.autoUploadBatterySaverWarningCard?.let {

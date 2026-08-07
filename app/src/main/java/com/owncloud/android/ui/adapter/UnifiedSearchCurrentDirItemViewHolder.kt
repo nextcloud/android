@@ -17,7 +17,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.interfaces.UnifiedSearchCurrentDirItemAction
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
-import com.owncloud.android.utils.overlay.OverlayManager
+import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator
 
 @Suppress("LongParameterList")
 class UnifiedSearchCurrentDirItemViewHolder(
@@ -26,7 +26,7 @@ class UnifiedSearchCurrentDirItemViewHolder(
     private val storageManager: FileDataStorageManager,
     private val isRTL: Boolean,
     private val action: UnifiedSearchCurrentDirItemAction,
-    private val overlayManager: OverlayManager,
+    private val folderThumbnailGenerator: FolderThumbnailGenerator,
     private val fileThumbnailGenerator: FileThumbnailGenerator
 ) : SectionedViewHolder(binding.unifiedSearchCurrentDirItemLayout) {
 
@@ -50,7 +50,7 @@ class UnifiedSearchCurrentDirItemViewHolder(
             false,
             binding.thumbnailShimmer,
             fileThumbnailGenerator,
-            overlayManager
+            folderThumbnailGenerator
         )
 
         binding.more.setOnClickListener {

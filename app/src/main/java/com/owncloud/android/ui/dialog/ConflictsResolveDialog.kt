@@ -32,7 +32,7 @@ import com.owncloud.android.ui.dialog.parcel.ConflictDialogData
 import com.owncloud.android.ui.dialog.parcel.ConflictFileData
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
-import com.owncloud.android.utils.overlay.OverlayManager
+import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import javax.inject.Inject
@@ -63,7 +63,7 @@ class ConflictsResolveDialog :
     lateinit var fileDataStorageManager: FileDataStorageManager
 
     @Inject
-    lateinit var overlayManager: OverlayManager
+    lateinit var folderThumbnailGenerator: FolderThumbnailGenerator
 
     @Inject
     lateinit var fileThumbnailGenerator: FileThumbnailGenerator
@@ -232,7 +232,7 @@ class ConflictsResolveDialog :
             false,
             null,
             fileThumbnailGenerator,
-            overlayManager
+            folderThumbnailGenerator
         )
     }
 
