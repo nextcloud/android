@@ -114,7 +114,7 @@ class OCFileListDelegate(
         imageView.tag = file.fileId
 
         // set placeholder before async job
-        val cachedBitmap = file.getBigThumbnail()
+        val cachedBitmap = file.bigThumbnail ?: file.smallThumbnail
         if (cachedBitmap != null) {
             val overlay = if (MimeTypeUtil.isVideo(file)) {
                 ThumbnailsCacheManager.addVideoOverlay(cachedBitmap, context)
