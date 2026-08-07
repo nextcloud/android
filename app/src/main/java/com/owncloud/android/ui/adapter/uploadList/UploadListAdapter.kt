@@ -91,7 +91,9 @@ class UploadListAdapter(
 
     internal class HeaderViewHolder(val binding: UploadListHeaderBinding) : SectionedViewHolder(binding.root)
 
-    internal class ItemViewHolder(val binding: UploadListItemBinding) : SectionedViewHolder(binding.root)
+    internal class ItemViewHolder(val binding: UploadListItemBinding) : SectionedViewHolder(binding.root) {
+        var boundUploadId: Long = -1
+    }
 
     override fun getSectionCount(): Int = uploadListSections.size
 
@@ -489,12 +491,27 @@ class UploadListAdapter(
 
     private fun bindItemThumbnail(holder: ItemViewHolder, item: OCUpload) {
         holder.binding.thumbnail.setImageResource(R.drawable.file)
+        holder.boundUploadId = item.uploadId
 
-        val ocFile =
-            fileDataStorageManager.getFileByDecryptedRemotePath(item.remotePath) ?: OCFile(item.remotePath).apply {
-                setStoragePath(item.localPath)
-                mimeType = item.mimeType
+        activity.lifecycleScope.launch {
+            val ocFile = withContext(Dispatchers.IO) { item.toOCFile() }
+
+            if (holder.boundUploadId != item.uploadId) {
+                return@launch
             }
+
+            bindItemThumbnail(holder, item, ocFile)
+        }
+    }
+
+    private fun OCUpload.toOCFile(): OCFile =
+        fileDataStorageManager.getFileByDecryptedRemotePath(remotePath) ?: OCFile(remotePath).apply {
+            setStoragePath(localPath)
+            mimeType = this@toOCFile.mimeType
+        }
+
+    private fun bindItemThumbnail(holder: ItemViewHolder, item: OCUpload, ocFile: OCFile) {
+        holder.binding.thumbnail.tag = ocFile.fileId
 
         val allowedToCreateNewThumbnail =
             ThumbnailsCacheManager.cancelPotentialThumbnailWork(ocFile, holder.binding.thumbnail)
@@ -503,11 +520,11 @@ class UploadListAdapter(
         val fileName = File(item.remotePath).name.takeIf { it.isNotEmpty() } ?: File.separator
 
         when {
-            MimeTypeUtil.isImage(ocFile) && ocFile.remoteId != null &&
+            MimeTypeUtil.isImageOrVideo(ocFile) && ocFile.remoteId != null &&
                 item.uploadStatus == UploadsStorageManager.UploadStatus.UPLOAD_SUCCEEDED ->
                 bindRemoteThumbnail(holder, item, ocFile, allowedToCreateNewThumbnail)
 
-            MimeTypeUtil.isImage(ocFile) ->
+            MimeTypeUtil.isImageOrVideo(ocFile) ->
                 bindLocalThumbnail(holder, item, allowedToCreateNewThumbnail)
 
             optionalUser.isPresent -> {
