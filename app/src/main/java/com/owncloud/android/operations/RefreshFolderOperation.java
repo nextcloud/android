@@ -303,8 +303,8 @@ public class RefreshFolderOperation extends RemoteOperation {
             sendLocalBroadcast(EVENT_SINGLE_FOLDER_CONTENTS_SYNCED, mLocalFolder.getRemotePath(), result);
         }
 
-        if (result.isSuccess() && result.getData() != null && !mSyncFullAccount && !mOnlyFileMetadata) {
-            final var remoteObject = result.getData();
+        final var remoteObject = result.getData();
+        if (result.isSuccess() && remoteObject != null && !mSyncFullAccount && !mOnlyFileMetadata) {
             final ArrayList<RemoteFile> remoteFiles = new ArrayList<>();
             for (Object object: remoteObject) {
                 if (object instanceof RemoteFile remoteFile) {
@@ -312,6 +312,8 @@ public class RefreshFolderOperation extends RemoteOperation {
                 }
             }
 
+            // this needed because if file is shared eTag is not changing.
+            // that's why another separate EVENT_SINGLE_FOLDER_SHARES_SYNCED introduced
             sharesChanged = fileDataStorageManager.saveSharesFromRemoteFile(remoteFiles);
         }
 
