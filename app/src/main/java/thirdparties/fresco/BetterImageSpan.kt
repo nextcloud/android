@@ -52,7 +52,8 @@ open class BetterImageSpan @JvmOverloads constructor(
             return width
         }
 
-        val offsetAbove = getOffsetAboveBaseline(fontMetrics)
+        paint.getFontMetricsInt(fontMetricsInt)
+        val offsetAbove = getOffsetAboveBaseline(fontMetricsInt)
         val offsetBelow = height + offsetAbove
         if (offsetAbove < fontMetrics.ascent) {
             fontMetrics.ascent = offsetAbove

@@ -60,6 +60,7 @@ import com.google.common.util.concurrent.MoreExecutors
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.download.FileDownloadHelper
+import com.nextcloud.client.jobs.download.SendShareDownloader
 import com.nextcloud.client.media.BackgroundPlayerService
 import com.nextcloud.client.media.ErrorFormat
 import com.nextcloud.client.media.ExoplayerListener
@@ -92,7 +93,6 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment
 import com.owncloud.android.ui.dialog.SendShareDialog
 import com.owncloud.android.ui.fragment.FileFragment
-import com.owncloud.android.ui.fragment.OCFileListFragment
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.MimeTypeUtil
@@ -126,7 +126,13 @@ class PreviewMediaActivity :
     private var streamUri: Uri? = null
     private var nextcloudClient: NextcloudClient? = null
 
+    private val sendShareDownloader by lazy { SendShareDownloader(this) }
+
     private lateinit var binding: ActivityPreviewMediaBinding
+
+    private val exoplayerView: PlayerView
+        get() = binding.exoplayerView.root
+
     private var emptyListView: ViewGroup? = null
     private var videoPlayer: ExoPlayer? = null
     private var videoMediaSession: MediaSession? = null
@@ -157,6 +163,10 @@ class PreviewMediaActivity :
         configureSystemBars()
         emptyListView = binding.emptyView.emptyListView
         showProgressLayout()
+
+        lifecycle.addObserver(sendShareDownloader)
+        sendShareDownloader.restoreState(savedInstanceState)
+
         if (file == null) {
             return
         }
@@ -205,7 +215,7 @@ class PreviewMediaActivity :
             return
         }
 
-        binding.exoplayerView.visibility = if (isFileVideo()) View.VISIBLE else View.GONE
+        exoplayerView.visibility = if (isFileVideo()) View.VISIBLE else View.GONE
         binding.imagePreview.visibility = if (isFileVideo()) View.GONE else View.VISIBLE
 
         if (isFileVideo()) {
@@ -286,6 +296,7 @@ class PreviewMediaActivity :
             bundle.putParcelable(EXTRA_USER, user)
             saveMediaInstanceState(bundle)
         }
+        sendShareDownloader.saveState(outState)
     }
 
     private fun saveMediaInstanceState(bundle: Bundle) {
@@ -332,7 +343,7 @@ class PreviewMediaActivity :
                     addListener(
                         ExoplayerListener(
                             this@PreviewMediaActivity,
-                            binding.exoplayerView,
+                            exoplayerView,
                             this
                         )
                     )
@@ -444,7 +455,7 @@ class PreviewMediaActivity :
     }
 
     private fun applyWindowInsets() {
-        val playerView = binding.exoplayerView
+        val playerView = exoplayerView
         val exoControls = playerView.findViewById<FrameLayout>(androidx.media3.ui.R.id.exo_bottom_bar)
         val exoProgress = playerView.findViewById<DefaultTimeBar>(androidx.media3.ui.R.id.exo_progress)
         val progressBottomMargin = exoProgress.marginBottom
@@ -474,7 +485,7 @@ class PreviewMediaActivity :
     private fun setupVideoView() {
         initWindowInsetsController()
         val type = WindowInsetsCompat.Type.systemBars()
-        binding.exoplayerView.let {
+        exoplayerView.let {
             it.setShowNextButton(false)
             it.setShowPreviousButton(false)
             it.setControllerVisibilityListener(
@@ -500,7 +511,7 @@ class PreviewMediaActivity :
             this,
             client,
             player,
-            binding.exoplayerView
+            exoplayerView
         )
             .apply {
                 setOnDismissListener {
@@ -606,7 +617,7 @@ class PreviewMediaActivity :
             }
 
             R.id.action_download_file -> {
-                requestForDownload(file, null)
+                requestForDownload(file)
             }
         }
     }
@@ -636,16 +647,11 @@ class PreviewMediaActivity :
         }
     }
 
-    override fun downloadFile(file: OCFile?, packageName: String?, activityName: String?) {
-        requestForDownload(file, OCFileListFragment.DOWNLOAD_SEND, packageName, activityName)
+    override fun downloadFile(file: OCFile, packageName: String, activityName: String) {
+        sendShareDownloader.downloadFile(file, packageName, activityName)
     }
 
-    private fun requestForDownload(
-        file: OCFile?,
-        downloadBehavior: String? = null,
-        packageName: String? = null,
-        activityName: String? = null
-    ) {
+    private fun requestForDownload(file: OCFile?) {
         val fileDownloadHelper = FileDownloadHelper.instance()
 
         if (fileDownloadHelper.isDownloading(user, file)) {
@@ -654,14 +660,7 @@ class PreviewMediaActivity :
 
         user?.let { user ->
             file?.let { file ->
-                fileDownloadHelper.downloadFile(
-                    user,
-                    file,
-                    downloadBehavior ?: "",
-                    DownloadType.DOWNLOAD,
-                    packageName ?: "",
-                    activityName ?: ""
-                )
+                fileDownloadHelper.downloadFile(user, file, downloadType = DownloadType.DOWNLOAD)
             }
         }
     }

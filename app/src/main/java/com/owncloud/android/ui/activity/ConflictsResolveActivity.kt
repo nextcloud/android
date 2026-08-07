@@ -84,6 +84,22 @@ class ConflictsResolveActivity :
         offlineOperationNotificationManager = OfflineOperationsNotificationManager(this, viewThemeUtils)
     }
 
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+
+        setIntent(intent)
+
+        // re-read extras from new intent
+        restoreState(null)
+
+        // force fresh remote file fetch in onStart
+        existingFile = null
+
+        val upload = uploadsStorageManager.getUploadById(conflictUploadId)
+        newFile = file
+        setupDecisionListener(upload)
+    }
+
     private fun restoreState(savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
             conflictUploadId = savedInstanceState.getLong(EXTRA_CONFLICT_UPLOAD_ID)

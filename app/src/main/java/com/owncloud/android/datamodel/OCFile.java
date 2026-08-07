@@ -42,7 +42,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import thirdparties.daveKoeller.AlphanumComparator;
+import com.owncloud.android.utils.sort.AlphanumericComparator;
 
 public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterface {
 
@@ -105,7 +105,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private String ownerId;
     private String ownerDisplayName;
     String note;
-    private List<ShareeUser> sharees;
+    private List<ShareeUser> sharees = new ArrayList<>();
     private String richWorkspace;
     private boolean locked;
     @Nullable
@@ -554,13 +554,13 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     @Override
     public int compareTo(@NonNull OCFile another) {
         if (isFolder() && another.isFolder()) {
-            return AlphanumComparator.compare(this, another);
+            return AlphanumericComparator.compare(this, another);
         } else if (isFolder()) {
             return -1;
         } else if (another.isFolder()) {
             return 1;
         }
-        return AlphanumComparator.compare(this, another);
+        return AlphanumericComparator.compare(this, another);
     }
 
     @Override
@@ -987,8 +987,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         this.note = note;
     }
 
+    @SuppressFBWarnings(value = "OCP_OVERLY_CONCRETE_COLLECTION_PARAMETER",
+        justification = "List keeps the Kotlin synthetic property in sync with getSharees()")
     public void setSharees(List<ShareeUser> sharees) {
-        this.sharees = sharees;
+        this.sharees = (sharees == null) ? new ArrayList<>() : new ArrayList<>(sharees);
     }
 
     public void setRichWorkspace(String richWorkspace) {

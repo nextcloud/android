@@ -13,6 +13,8 @@ import com.nextcloud.utils.extensions.filterFilenames
 import com.nextcloud.utils.extensions.isTempFile
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.resources.shares.ShareType
+import com.owncloud.android.lib.resources.shares.ShareeUser
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.MimeTypeUtil
 import kotlinx.coroutines.CoroutineScope
@@ -52,6 +54,19 @@ class OCFileListAdapterHelper {
                 onComplete(sortedList, sortOrder)
             }
         }
+    }
+
+    fun getAvatarSharees(file: OCFile, userId: String?): List<ShareeUser> {
+        val sharees = file.sharees
+        val ownerId = file.ownerId
+
+        val ownerSharee = if (!ownerId.isNullOrEmpty() && ownerId != userId) {
+            ShareeUser(ownerId, file.ownerDisplayName, ShareType.USER).takeIf { it !in sharees }
+        } else {
+            null
+        }
+
+        return listOfNotNull(ownerSharee) + sharees.asReversed()
     }
 
     suspend fun prepareFileList(

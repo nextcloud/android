@@ -58,6 +58,7 @@ import com.owncloud.android.ui.decoration.MediaGridItemDecoration
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment.OnSyncedFolderPreferenceListener
+import com.owncloud.android.ui.dialog.extensions.themeButtons
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable
 import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.SyncedFolderUtils
@@ -898,10 +899,6 @@ class SyncedFoldersActivity :
             .setIcon(R.drawable.ic_battery_alert)
 
         val alertDialog = dialog.show()
-
-        viewThemeUtils.platform.colorTextButtons(
-            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
-            alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL)
-        )
+        alertDialog.themeButtons(viewThemeUtils)
     }
 }

@@ -30,8 +30,12 @@ scripts/wait_for_emulator.sh || exit 1
 adb logcat -c
 adb logcat > logcat.txt &
 LOGCAT_PID=$!
+# Screenshot tests only run when updating/testing screenshots, tests annotated with
+# com.nextcloud.test.Flaky are known to be unstable and must not block a pull request.
+EXCLUDED_ANNOTATIONS="com.owncloud.android.utils.ScreenshotTest,com.nextcloud.test.Flaky"
+
 ./gradlew createGplayDebugCoverageReport \
--Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest \
+-Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation="$EXCLUDED_ANNOTATIONS" \
 -Dorg.gradle.jvmargs="--add-opens java.base/java.nio=ALL-UNNAMED --add-opens java.base/java.nio.channels=ALL-UNNAMED --add-exports java.base/sun.nio.ch=ALL-UNNAMED"
 
 stat=$?
