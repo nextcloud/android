@@ -11,6 +11,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.os.AsyncTask
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
@@ -137,6 +138,7 @@ class FileThumbnailGenerator @Inject constructor(
         }
     }
 
+    @Suppress("DEPRECATION")
     private fun generate(file: OCFile, view: ImageView, isGrid: Boolean, shimmer: LoaderImageView?) {
         if (!ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, view)) {
             return
@@ -146,7 +148,15 @@ class FileThumbnailGenerator @Inject constructor(
         if (cached != null) {
             view.setImageBitmap(cached)
             view.stopShimmer(shimmer)
-        } else if (tasks.none { it.imageKey == file.remoteId }) {
+            return
+        }
+
+        val alreadyRunning = synchronized(tasks) {
+            tasks.removeAll { it.isCancelled || it.status == AsyncTask.Status.FINISHED }
+            tasks.any { it.imageKey == file.remoteId }
+        }
+
+        if (!alreadyRunning) {
             startTask(file, view, isGrid, shimmer, ThumbnailGenerationTaskObject(file, file.remoteId), file.fileId)
         }
     }
