@@ -117,19 +117,23 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
             return@withContext applyVideoOverlayIfNeeded(file, cached)
         }
 
-        onNewThumbnail()
-
         if (file.isDown) {
             val local = decodeLocalThumbnail(file)
             if (local != null) {
                 ThumbnailsCacheManager.addBitmapToCache(file.getBigThumbnailKey(), local)
+                onNewThumbnail()
                 return@withContext applyVideoOverlayIfNeeded(file, local)
             }
         }
 
         val remote = semaphore.withPermit { fetchFromServer(file) }
         if (remote != null) {
+            onNewThumbnail()
             return@withContext applyVideoOverlayIfNeeded(file, remote)
+        }
+
+        file.smallThumbnail?.let { small ->
+            return@withContext applyVideoOverlayIfNeeded(file, small)
         }
 
         null
