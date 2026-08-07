@@ -42,7 +42,6 @@ import com.nextcloud.client.notifications.AppNotificationManager;
 import com.nextcloud.client.notifications.AppNotificationManagerImpl;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.Throttler;
-import com.nextcloud.utils.thumbnail.FileThumbnailGenerator;
 import com.owncloud.android.providers.UsersAndGroupsSearchConfig;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -281,14 +280,4 @@ class AppModule {
         return new OverlayManager(appPreferences, viewThemeUtils, context, accountManager);
     }
 
-    @Provides
-    @Singleton
-    FileThumbnailGenerator fileThumbnailGenerator(
-        FileDataStorageManager storageManager,
-        AppPreferences appPreferences,
-        ViewThemeUtils viewThemeUtils,
-        Context context,
-        UserAccountManager accountManager) {
-        return new FileThumbnailGenerator(storageManager, appPreferences, viewThemeUtils, context, accountManager);
-    }
 }
