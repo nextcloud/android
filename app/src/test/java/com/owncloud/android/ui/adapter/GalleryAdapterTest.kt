@@ -12,7 +12,7 @@ import android.text.TextUtils
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.utils.thumbnail.FileThumbnailGenerator
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryItems
 import com.owncloud.android.datamodel.GalleryRow
@@ -59,7 +59,7 @@ class GalleryAdapterTest {
     lateinit var viewThemeUtils: ViewThemeUtils
 
     @Mock
-    lateinit var fileThumbnailGenerator: FileThumbnailGenerator
+    lateinit var thumbnailGenerator: ThumbnailGenerator
 
     private lateinit var mocks: AutoCloseable
 
@@ -94,7 +94,7 @@ class GalleryAdapterTest {
             viewThemeUtils,
             5,
             thumbnailSize,
-            fileThumbnailGenerator
+            thumbnailGenerator
         )
 
         val list = listOf(
@@ -127,7 +127,7 @@ class GalleryAdapterTest {
             viewThemeUtils,
             5,
             thumbnailSize,
-            fileThumbnailGenerator
+            thumbnailGenerator
         )
         val rows = mutableListOf<GalleryRow>()
 

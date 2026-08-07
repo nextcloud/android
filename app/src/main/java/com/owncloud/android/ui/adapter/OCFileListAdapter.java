@@ -38,7 +38,6 @@ import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.nextcloud.utils.extensions.ImageViewExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
-import com.nextcloud.utils.thumbnail.FileThumbnailGenerator;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.GridItemBinding;
@@ -69,7 +68,7 @@ import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator;
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -137,8 +136,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<OCFile> recommendedFiles = new ArrayList<>();
     private RecommendedFilesAdapter recommendedFilesAdapter;
     private final OCFileListAdapterHelper helper = new OCFileListAdapterHelper();
-    private final FolderThumbnailGenerator folderThumbnailGenerator;
-    private final FileThumbnailGenerator fileThumbnailGenerator;
+    private final ThumbnailGenerator thumbnailGenerator;
 
     public OCFileListAdapter(
         Activity activity,
@@ -150,10 +148,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         boolean argHideItemOptions,
         boolean gridView,
         final ViewThemeUtils viewThemeUtils,
-        FolderThumbnailGenerator folderThumbnailGenerator,
-        FileThumbnailGenerator fileThumbnailGenerator) {
-        this.folderThumbnailGenerator = folderThumbnailGenerator;
-        this.fileThumbnailGenerator = fileThumbnailGenerator;
+        ThumbnailGenerator thumbnailGenerator) {
+        this.thumbnailGenerator = thumbnailGenerator;
         this.ocFileListFragmentInterface = ocFileListFragmentInterface;
         this.activity = activity;
         this.preferences = preferences;
@@ -498,7 +494,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void bindHolder(@NonNull RecyclerView.ViewHolder holder, ListViewHolder viewHolder, OCFile file) {
-        ocFileListDelegate.bindViewHolder(viewHolder, file, currentDirectory, searchType, fileThumbnailGenerator, folderThumbnailGenerator);
+        ocFileListDelegate.bindViewHolder(viewHolder, file, currentDirectory, searchType, thumbnailGenerator);
 
         if (holder instanceof ListItemViewHolder itemViewHolder) {
             bindListItemViewHolder(itemViewHolder, file);
@@ -1013,7 +1009,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public void cancelAllPendingTasks() {
-        fileThumbnailGenerator.cancelPendingTasks();
+        thumbnailGenerator.getFileThumbnailGenerator().cancelPendingTasks();
     }
 
     public void setGridView(boolean bool) {

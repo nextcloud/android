@@ -35,7 +35,6 @@ import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.utils.extensions.setVisibleIf
-import com.nextcloud.utils.thumbnail.FileThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileActionsBottomSheetBinding
 import com.owncloud.android.databinding.FileActionsBottomSheetItemBinding
@@ -47,7 +46,7 @@ import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import com.owncloud.android.utils.FileStorageUtils
-import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -71,10 +70,7 @@ class FileActionsBottomSheet :
     lateinit var syncedFolderProvider: SyncedFolderProvider
 
     @Inject
-    lateinit var folderThumbnailGenerator: FolderThumbnailGenerator
-
-    @Inject
-    lateinit var fileThumbnailGenerator: FileThumbnailGenerator
+    lateinit var thumbnailGenerator: ThumbnailGenerator
 
     private lateinit var viewModel: FileActionsViewModel
 
@@ -150,13 +146,10 @@ class FileActionsBottomSheet :
 
     private fun loadFileThumbnail(titleFile: OCFile?) {
         titleFile?.let {
-            DisplayUtils.setThumbnail(
+            thumbnailGenerator.setThumbnail(
                 it,
                 binding.thumbnailLayout.thumbnail,
-                false,
-                binding.thumbnailLayout.thumbnailShimmer,
-                fileThumbnailGenerator,
-                folderThumbnailGenerator
+                shimmer = binding.thumbnailLayout.thumbnailShimmer
             )
         }
     }

@@ -41,7 +41,6 @@ import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.extensions.searchFilesByName
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.extensions.typedActivity
-import com.nextcloud.utils.thumbnail.FileThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ListFragmentBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -63,7 +62,7 @@ import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
 import com.owncloud.android.ui.unifiedsearch.filterOutHiddenFiles
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.PermissionUtil
-import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -109,10 +108,7 @@ class UnifiedSearchFragment :
     }
 
     @Inject
-    lateinit var folderThumbnailGenerator: FolderThumbnailGenerator
-
-    @Inject
-    lateinit var fileThumbnailGenerator: FileThumbnailGenerator
+    lateinit var thumbnailGenerator: ThumbnailGenerator
 
     @Inject
     lateinit var vmFactory: ViewModelFactory
@@ -386,8 +382,7 @@ class UnifiedSearchFragment :
             viewThemeUtils,
             appPreferences,
             this@UnifiedSearchFragment,
-            folderThumbnailGenerator,
-            fileThumbnailGenerator
+            thumbnailGenerator
         )
 
         adapter.shouldShowFooters(true)
