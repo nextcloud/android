@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ListFooterBinding;
@@ -256,10 +257,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         } else {
             if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
                 // Thumbnail in cache?
-                Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                        ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId()
-                );
-
+                Bitmap thumbnail = FileExtensionsKt.getSmallThumbnail(file);
                 if (thumbnail != null) {
                     if (MimeTypeUtil.isVideo(file)) {
                         Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail, context);

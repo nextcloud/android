@@ -35,6 +35,7 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
+import com.nextcloud.utils.extensions.ImageViewExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
@@ -67,7 +68,7 @@ import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.overlay.OverlayManager;
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -135,7 +136,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<OCFile> recommendedFiles = new ArrayList<>();
     private RecommendedFilesAdapter recommendedFilesAdapter;
     private final OCFileListAdapterHelper helper = new OCFileListAdapterHelper();
-    private final OverlayManager overlayManager;
+    private final ThumbnailGenerator thumbnailGenerator;
 
     public OCFileListAdapter(
         Activity activity,
@@ -147,8 +148,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         boolean argHideItemOptions,
         boolean gridView,
         final ViewThemeUtils viewThemeUtils,
-        OverlayManager overlayManager) {
-        this.overlayManager = overlayManager;
+        ThumbnailGenerator thumbnailGenerator) {
+        this.thumbnailGenerator = thumbnailGenerator;
         this.ocFileListFragmentInterface = ocFileListFragmentInterface;
         this.activity = activity;
         this.preferences = preferences;
@@ -179,7 +180,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                                     user,
                                                     mStorageManager,
                                                     hideItemOptions,
-                                                    preferences,
                                                     gridView,
                                                     transferServiceGetter,
                                                     true,
@@ -494,7 +494,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void bindHolder(@NonNull RecyclerView.ViewHolder holder, ListViewHolder viewHolder, OCFile file) {
-        ocFileListDelegate.bindViewHolder(viewHolder, file, currentDirectory, searchType, overlayManager);
+        ocFileListDelegate.bindViewHolder(viewHolder, file, currentDirectory, searchType, thumbnailGenerator);
 
         if (holder instanceof ListItemViewHolder itemViewHolder) {
             bindListItemViewHolder(itemViewHolder, file);
@@ -982,7 +982,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         super.onViewRecycled(holder);
         if (holder instanceof ListViewHolder listViewHolder) {
             LoaderImageView thumbnailShimmer = listViewHolder.getShimmerThumbnail();
-            DisplayUtils.stopShimmer(thumbnailShimmer,  listViewHolder.getThumbnail());
+            ImageViewExtensionsKt.stopShimmer(listViewHolder.getThumbnail(), thumbnailShimmer);
         }
     }
 
@@ -1009,7 +1009,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public void cancelAllPendingTasks() {
-        ocFileListDelegate.cancelAllPendingTasks();
+        thumbnailGenerator.getFileThumbnailGenerator().cancelPendingTasks();
     }
 
     public void setGridView(boolean bool) {

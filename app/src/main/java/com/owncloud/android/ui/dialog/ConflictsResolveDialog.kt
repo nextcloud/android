@@ -26,14 +26,12 @@ import com.owncloud.android.databinding.ConflictResolveDialogBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
-import com.owncloud.android.datamodel.ThumbnailsCacheManager.ThumbnailGenerationTask
-import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.adapter.LocalFileListAdapter
 import com.owncloud.android.ui.dialog.parcel.ConflictDialogData
 import com.owncloud.android.ui.dialog.parcel.ConflictFileData
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
-import com.owncloud.android.utils.overlay.OverlayManager
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import javax.inject.Inject
@@ -47,7 +45,6 @@ class ConflictsResolveDialog :
     private lateinit var binding: ConflictResolveDialogBinding
 
     var listener: OnConflictDecisionMadeListener? = null
-    private val asyncTasks: MutableList<ThumbnailGenerationTask> = ArrayList()
     private var positiveButton: MaterialButton? = null
 
     private var data: ConflictDialogData? = null
@@ -65,7 +62,7 @@ class ConflictsResolveDialog :
     lateinit var fileDataStorageManager: FileDataStorageManager
 
     @Inject
-    lateinit var overlayManager: OverlayManager
+    lateinit var thumbnailGenerator: ThumbnailGenerator
 
     enum class Decision {
         CANCEL,
@@ -225,19 +222,7 @@ class ConflictsResolveDialog :
             viewThemeUtils
         )
 
-        DisplayUtils.setThumbnail(
-            rightDataFile,
-            binding.rightThumbnail,
-            user,
-            fileDataStorageManager,
-            asyncTasks,
-            false,
-            context,
-            null,
-            syncedFolderProvider.preferences,
-            viewThemeUtils,
-            overlayManager
-        )
+        thumbnailGenerator.setThumbnail(rightDataFile, binding.rightThumbnail)
     }
 
     private fun setOnClickListeners() {
@@ -278,18 +263,6 @@ class ConflictsResolveDialog :
 
     fun interface OnConflictDecisionMadeListener {
         fun conflictDecisionMade(decision: Decision?)
-    }
-
-    override fun onStop() {
-        super.onStop()
-
-        asyncTasks.forEach {
-            it.cancel(true)
-            Log_OC.d(this, "cancel: abort get method directly")
-            it.getMethod?.abort()
-        }
-
-        asyncTasks.clear()
     }
 
     companion object {

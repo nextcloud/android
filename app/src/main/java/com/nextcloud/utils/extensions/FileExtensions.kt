@@ -7,9 +7,12 @@
 
 package com.nextcloud.utils.extensions
 
+import android.graphics.Bitmap
 import androidx.exifinterface.media.ExifInterface
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.files.model.ServerFileInterface
 import com.owncloud.android.utils.DisplayUtils
 import java.io.File
 import java.nio.file.Path
@@ -21,6 +24,21 @@ fun OCFile?.logFileSize(tag: String) {
     val rawByte = this?.fileLength ?: -1
     Log_OC.d(tag, "onSaveInstanceState: $size, raw byte $rawByte")
 }
+
+fun ServerFileInterface.getThumbnailKeys(): List<String> = listOf(getBigThumbnailKey(), getSmallThumbnailKey())
+
+fun ServerFileInterface.getBigThumbnail(): Bitmap? = ThumbnailsCacheManager.getBitmapFromDiskCache(getBigThumbnailKey())
+
+fun ServerFileInterface.getBigThumbnailKey(): String = ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + remoteId
+
+fun ServerFileInterface.getSmallThumbnail(): Bitmap? =
+    ThumbnailsCacheManager.getBitmapFromDiskCache(getSmallThumbnailKey())
+
+fun ServerFileInterface.getSmallThumbnailKey(): String = ThumbnailsCacheManager.PREFIX_THUMBNAIL + remoteId
+
+fun File?.getSmallThumbnail(): Bitmap? = ThumbnailsCacheManager.getBitmapFromDiskCache(getSmallThumbnailKey())
+
+fun File?.getSmallThumbnailKey(): String = ThumbnailsCacheManager.PREFIX_THUMBNAIL + hashCode()
 
 fun File?.logFileSize(tag: String) {
     val size = DisplayUtils.bytesToHumanReadable(this?.length() ?: -1)

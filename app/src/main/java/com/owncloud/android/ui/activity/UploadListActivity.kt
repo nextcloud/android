@@ -41,6 +41,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation
 import com.owncloud.android.operations.CheckCurrentCredentialsOperation
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.operations.factory.UploadFileOperationFactory
 import com.owncloud.android.ui.adapter.uploadList.UploadListAdapter
 import com.owncloud.android.ui.adapter.uploadList.helper.ConflictHandlingResult
@@ -72,6 +73,8 @@ class UploadListActivity :
     @Inject lateinit var throttler: Throttler
 
     @Inject lateinit var uploadFileOperationFactory: UploadFileOperationFactory
+
+    @Inject lateinit var thumbnailGenerator: ThumbnailGenerator
 
     private var uploadWarningCard: UploadWarningCard? = null
 
@@ -112,13 +115,15 @@ class UploadListActivity :
         adapterHelper = UploadListAdapterHelper(this)
         uploadListAdapter = UploadListAdapter(
             this,
+            storageManager,
             uploadsStorageManager,
             userAccountManager,
             connectivityService,
             powerManagementService,
             viewThemeUtils,
             this,
-            adapterHelper
+            adapterHelper,
+            thumbnailGenerator
         )
 
         binding?.autoUploadBatterySaverWarningCard?.let {
