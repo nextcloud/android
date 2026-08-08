@@ -23,7 +23,9 @@ import android.webkit.WebView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
+import com.nextcloud.android.lib.resources.files.ToggleFileLockRemoteOperation;
 import com.nextcloud.client.account.User;
+import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.RichdocumentsWebviewBinding;
@@ -31,6 +33,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.SyncedFolderObserver;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.asynctasks.TextEditorLoadUrlTask;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -100,8 +103,33 @@ public abstract class EditorWebView extends ExternalSiteWebView {
     }
 
     public void closeView() {
+        unlockFile();
         getWebView().destroy();
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        unlockFile();
+        super.onDestroy();
+    }
+
+    private void unlockFile() {
+        OCFile file = getFile();
+        Optional<User> user = getUser();
+
+        if (file == null || !user.isPresent()) {
+            return;
+        }
+
+        new Thread(() -> {
+            try {
+                NextcloudClient client = clientFactory.createNextcloudClient(user.get());
+                new ToggleFileLockRemoteOperation(false, file.getRemotePath()).execute(client);
+            } catch (Exception e) {
+                Log_OC.e(TAG, "Failed to unlock file on editor close", e);
+            }
+        }).start();
     }
 
     public void reload() {
