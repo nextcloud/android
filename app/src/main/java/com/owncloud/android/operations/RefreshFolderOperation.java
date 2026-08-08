@@ -135,6 +135,11 @@ public class RefreshFolderOperation extends RemoteOperation {
     private boolean mRemoteFolderChanged;
 
     /**
+     * 'True' means that the sharees of at least one child of the folder changed
+     */
+    private boolean sharesChanged;
+
+    /**
      * 'True' means that Etag will be ignored
      */
     private final boolean mIgnoreETag;
@@ -298,8 +303,8 @@ public class RefreshFolderOperation extends RemoteOperation {
             sendLocalBroadcast(EVENT_SINGLE_FOLDER_CONTENTS_SYNCED, mLocalFolder.getRemotePath(), result);
         }
 
-        if (result.isSuccess() && result.getData() != null && !mSyncFullAccount && !mOnlyFileMetadata) {
-            final var remoteObject = result.getData();
+        final var remoteObject = result.getData();
+        if (result.isSuccess() && remoteObject != null && !mSyncFullAccount && !mOnlyFileMetadata) {
             final ArrayList<RemoteFile> remoteFiles = new ArrayList<>();
             for (Object object: remoteObject) {
                 if (object instanceof RemoteFile remoteFile) {
@@ -307,10 +312,12 @@ public class RefreshFolderOperation extends RemoteOperation {
                 }
             }
 
-            fileDataStorageManager.saveSharesFromRemoteFile(remoteFiles);
+            // this needed because if file has new share or share is removed, eTag is not changing.
+            // that's why another separate EVENT_SINGLE_FOLDER_SHARES_SYNCED introduced before.
+            sharesChanged = fileDataStorageManager.saveSharesFromRemoteFile(remoteFiles);
         }
 
-        if (!mSyncFullAccount && mLocalFolder != null && !isMetadataSyncWorkerRunning) {
+        if (!mSyncFullAccount && sharesChanged && mLocalFolder != null && !isMetadataSyncWorkerRunning) {
             sendLocalBroadcast(EVENT_SINGLE_FOLDER_SHARES_SYNCED, mLocalFolder.getRemotePath(), result);
         }
 
