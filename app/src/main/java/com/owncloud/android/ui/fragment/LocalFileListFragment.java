@@ -23,7 +23,7 @@ import android.view.ViewGroup;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.adapter.LocalFileListAdapter;
+import com.owncloud.android.ui.adapter.localFileList.LocalFileListAdapter;
 import com.owncloud.android.ui.interfaces.LocalFileListFragmentInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
@@ -204,7 +204,10 @@ public class LocalFileListFragment extends ExtendedListFragment implements
                 mAdapter.addCheckedFile(file);
             }
 
-            mAdapter.notifyItemChanged(mAdapter.getItemPosition(file));
+            final int position = mAdapter.getItemPosition(file);
+            if (position != RecyclerView.NO_POSITION) {
+                mAdapter.notifyItemChanged(position);
+            }
 
             // notify the change to the container Activity
             mContainerActivity.onFileClick(file);
@@ -328,9 +331,7 @@ public class LocalFileListFragment extends ExtendedListFragment implements
             localFileListAdapter.removeAllFilesFromCheckedFiles();
         }
 
-        for (int i = 0; i < mAdapter.getItemCount(); i++) {
-            mAdapter.notifyItemChanged(i);
-        }
+        mAdapter.notifyItemRangeChanged(0, mAdapter.getItemCount());
     }
 
     @Override

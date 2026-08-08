@@ -28,7 +28,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.ThumbnailGenerationTask
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.ui.adapter.LocalFileListAdapter
+import com.owncloud.android.ui.adapter.localFileList.LocalFileThumbnailBinder
 import com.owncloud.android.ui.dialog.parcel.ConflictDialogData
 import com.owncloud.android.ui.dialog.parcel.ConflictFileData
 import com.owncloud.android.utils.DisplayUtils
@@ -215,13 +215,16 @@ class ConflictsResolveDialog :
     }
 
     private fun setThumbnailsForFileConflicts() {
-        binding.leftThumbnail.tag = leftDataFile.hashCode()
+        val localFile = leftDataFile ?: return
+        val currentContext = context ?: return
+
+        binding.leftThumbnail.tag = localFile.hashCode()
         binding.rightThumbnail.tag = rightDataFile.hashCode()
 
-        LocalFileListAdapter.setThumbnail(
-            leftDataFile,
+        LocalFileThumbnailBinder.setThumbnail(
+            localFile,
             binding.leftThumbnail,
-            context,
+            currentContext,
             viewThemeUtils
         )
 

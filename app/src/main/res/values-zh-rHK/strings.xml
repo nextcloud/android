@@ -10,6 +10,7 @@
     <string name="action_edit">編輯</string>
     <string name="action_empty_notifications">清除所有通知訊息</string>
     <string name="action_empty_trashbin">清空回收桶</string>
+    <string name="action_open_in_web_editor">在網路編輯器中開啟</string>
     <string name="action_send_share">傳送/分享</string>
     <string name="action_switch_grid_view">網格檢視</string>
     <string name="action_switch_list_view">清單檢視</string>
@@ -274,6 +275,8 @@
     <string name="dialog_close">關閉</string>
     <string name="did_not_check_for_dupes">沒有檢查重複項。</string>
     <string name="digest_algorithm_not_available">這種加密算法在您的手機上無法使用。</string>
+    <string name="direct_login_confirm_message">您想要使用 %1$s 登入到 %2$s 嗎？</string>
+    <string name="direct_login_confirm_title">確認登入</string>
     <string name="direct_login_failed">透過直接連結登入失敗！</string>
     <string name="direct_login_text">使用 %1$s 登入至 %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">停用</string>
@@ -783,6 +786,7 @@
     <string name="prefs_recommend">向朋友推薦</string>
     <string name="prefs_remove_e2e">移除近端加密</string>
     <string name="prefs_remove_e2e_keys_and_files">移除已加密檔案和密鑰</string>
+    <string name="prefs_renew_e2e_certificate">更新加密憑證</string>
     <string name="prefs_setup_e2e">設置端對端加密</string>
     <string name="prefs_show_ecosystem_apps">顯示應用程式切換器</string>
     <string name="prefs_show_ecosystem_apps_summary">導覽列中的 Nextcloud 應用程式建議</string>
@@ -833,6 +837,12 @@
     <string name="rename_dialog_title">輸入新名稱</string>
     <string name="rename_local_fail_msg">無法重新命名近端複本，請試用不同名稱</string>
     <string name="rename_server_fail_msg">不可重新命名，名稱已存在</string>
+    <string name="renew_e2e_certificate_dialog_message">此操作將更新您的端到端加密憑證。您的現有金鑰與加密檔案將維持不變。要繼續嗎？</string>
+    <string name="renew_e2e_certificate_error">無法更新加密憑證</string>
+    <string name="renew_e2e_certificate_private_key_missing">找不到加密私鑰</string>
+    <string name="renew_e2e_certificate_success">已更新加密憑證</string>
+    <string name="renew_e2e_certificate_summary">在保留既有金鑰的同時，更新您的端到端加密憑證</string>
+    <string name="renew_e2e_certificate_valid_until">有效期至 %1$s。輕點以在保留既有金鑰的同時更新。</string>
     <string name="request_account_deletion">請求帳戶刪除</string>
     <string name="request_account_deletion_button">請求刪除</string>
     <string name="request_account_deletion_details">請求服務提供者永久刪除帳戶</string>
