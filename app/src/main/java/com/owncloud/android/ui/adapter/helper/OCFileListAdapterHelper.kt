@@ -31,13 +31,10 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.concurrent.ConcurrentHashMap
 
 class OCFileListAdapterHelper {
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private var job: Job? = null
-
-    private val remoteSharees = ConcurrentHashMap<String, List<ShareeUser>>()
 
     @Suppress("LongParameterList")
     fun prepareFileList(
@@ -67,12 +64,7 @@ class OCFileListAdapterHelper {
         }
     }
 
-    fun getAvatarSharees(
-        file: OCFile,
-        user: User?,
-        userId: String?,
-        onComplete: (List<ShareeUser>) -> Unit
-    ) {
+    fun getAvatarSharees(file: OCFile, user: User?, userId: String?, onComplete: (List<ShareeUser>) -> Unit) {
         scope.launch {
             val result = if (supportsUnifiedShare(user) && user != null) {
                 val credentials = getServerCredentials(user) ?: return@launch
@@ -98,9 +90,8 @@ class OCFileListAdapterHelper {
         }
     }
 
-    private fun supportsUnifiedShare(user: User?): Boolean {
-        return user?.server?.version?.isNewerOrEqual(NextcloudVersion.nextcloud_34) == true
-    }
+    private fun supportsUnifiedShare(user: User?): Boolean =
+        user?.server?.version?.isNewerOrEqual(NextcloudVersion.nextcloud_34) == true
 
     private fun List<Share>.toAvatarSharees(): List<ShareeUser> = asSequence()
         .flatMap { share -> share.invitedRecipients }
@@ -249,7 +240,6 @@ class OCFileListAdapterHelper {
     fun cleanup() {
         job?.cancel()
         job = null
-        remoteSharees.clear()
     }
 
     companion object {
