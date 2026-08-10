@@ -608,9 +608,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (sharedAvatars.getChildCount() > 0) {
             sharedAvatars.removeAllViews();
         }
-        final var avatars = helper.getAvatarSharees(file, userId);
-        sharedAvatars.setAvatars(user, avatars, viewThemeUtils);
-        sharedAvatars.setOnClickListener(view -> ocFileListFragmentInterface.onShareIconClick(file));
+
+        helper.getAvatarSharees(file, user, userId, avatars -> {
+            sharedAvatars.setAvatars(user, avatars, viewThemeUtils);
+            sharedAvatars.setOnClickListener(view -> ocFileListFragmentInterface.onShareIconClick(file));
+            return Unit.INSTANCE;
+        });
     }
 
     private void bindListItemViewHolder(ListItemViewHolder holder, OCFile file) {
