@@ -12,5 +12,5 @@ interface LocalFileListFragmentInterface {
     val columnsCount: Int
     fun onItemClicked(file: File?)
     fun onItemCheckboxClicked(file: File?)
-    fun setLoading(loading: Boolean)
+    fun setLoading(enabled: Boolean)
 }
