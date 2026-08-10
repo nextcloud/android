@@ -1,435 +1,284 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Tobias Kaminsky
- * Copyright (C) 2018 Tobias Kaminsky
- * Copyright (C) 2018 Nextcloud
- *
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.fragment;
+package com.owncloud.android.ui.fragment
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Context;
-import android.os.Bundle;
-import android.os.Environment;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.annotation.SuppressLint
+import android.content.Context
+import android.os.Bundle
+import android.os.Environment
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import androidx.annotation.VisibleForTesting
+import androidx.core.view.MenuProvider
+import androidx.lifecycle.Lifecycle
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
+import androidx.recyclerview.widget.RecyclerView
+import com.nextcloud.client.di.Injectable
+import com.owncloud.android.R
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.ui.adapter.localFileList.LocalFileListAdapter
+import com.owncloud.android.ui.interfaces.LocalFileListFragmentInterface
+import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.FileSortOrder
+import java.io.File
 
-import com.nextcloud.client.di.Injectable;
-import com.owncloud.android.R;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.adapter.localFileList.LocalFileListAdapter;
-import com.owncloud.android.ui.interfaces.LocalFileListFragmentInterface;
-import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.FileSortOrder;
-
-import java.io.File;
-import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.VisibleForTesting;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
-
-
-/**
- * A Fragment that lists all files and folders in a given LOCAL path.
- */
-public class LocalFileListFragment extends ExtendedListFragment implements
+class LocalFileListFragment :
+    ExtendedListFragment(),
     LocalFileListFragmentInterface,
     Injectable {
+    var currentDirectory: File? = null
+        private set
 
-    private static final String TAG = LocalFileListFragment.class.getSimpleName();
+    private lateinit var adapter: LocalFileListAdapter
+    private lateinit var containerActivity: ContainerActivity
 
-    /** Reference to the Activity which this fragment is attached to. For callbacks */
-    private LocalFileListFragment.ContainerActivity mContainerActivity;
-
-    /** Directory to show */
-    private File mDirectory;
-
-    /** Adapter to connect the data from the directory with the View object */
-    private LocalFileListAdapter mAdapter;
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onAttach(@NonNull Activity activity) {
-        super.onAttach(activity);
-        try {
-            mContainerActivity = (ContainerActivity) activity;
-        } catch (ClassCastException e) {
-            throw new IllegalArgumentException(activity.toString() + " must implement " +
-                                                   LocalFileListFragment.ContainerActivity.class.getSimpleName(), e);
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log_OC.i(TAG, "onCreateView() start");
-        View v = super.onCreateView(inflater, container, savedInstanceState);
-
-        if (mContainerActivity.isFolderPickerMode()) {
-            setEmptyListMessage(EmptyListState.LOCAL_FILE_LIST_EMPTY_FOLDER);
-        } else {
-            setEmptyListMessage(EmptyListState.LOCAL_FILE_LIST_EMPTY_FILE);
-        }
-
-        setSwipeEnabled(false); // Disable pull-to-refresh
-
-        Log_OC.i(TAG, "onCreateView() end");
-        return v;
-    }
-
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        Log_OC.i(TAG, "onActivityCreated() start");
-
-        super.onActivityCreated(savedInstanceState);
-
-        mAdapter = new LocalFileListAdapter(mContainerActivity.isFolderPickerMode(),
-                                            this,
-                                            preferences,
-                                            getActivity(),
-                                            viewThemeUtils,
-                                            mContainerActivity.isWithinEncryptedFolder());
-        setRecyclerViewAdapter(mAdapter);
-
-        listDirectory(mContainerActivity.getInitialDirectory());
-
-        if (mSortButton != null) {
-            mSortButton.setOnClickListener(v -> {
-                FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
-                openSortingOrderDialogFragment(requireFragmentManager(), sortOrder);
-            });
-
-            FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
-            if (sortOrder != null) {
-                mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
+    private val menuProvider = object : MenuProvider {
+        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+            if (containerActivity.isFolderPickerMode) {
+                menu.removeItem(R.id.action_select_all)
+                menu.removeItem(R.id.action_search)
             }
         }
 
-        setLayoutSwitchButton();
-
-        if (mSwitchGridViewButton != null) {
-            mSwitchGridViewButton.setOnClickListener(v -> {
-                if (isGridEnabled()) {
-                    switchToListView();
-                } else {
-                    switchToGridView();
-                }
-                setLayoutSwitchButton();
-            });
-        }
-
-        Log_OC.i(TAG, "onActivityCreated() stop");
+        override fun onMenuItemSelected(menuItem: MenuItem): Boolean = false
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onCreateOptionsMenu(Menu menu, @NonNull MenuInflater inflater) {
-        if (mContainerActivity.isFolderPickerMode()) {
-            menu.removeItem(R.id.action_select_all);
-            menu.removeItem(R.id.action_search);
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        containerActivity = context as? ContainerActivity
+            ?: throw IllegalArgumentException(
+                "$context must implement ${ContainerActivity::class.java.simpleName}"
+            )
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        Log_OC.i(TAG, "onCreateView() start")
+        val v = super.onCreateView(inflater, container, savedInstanceState)
+
+        if (containerActivity.isFolderPickerMode) {
+            setEmptyListMessage(EmptyListState.LOCAL_FILE_LIST_EMPTY_FOLDER)
         } else {
-            super.onCreateOptionsMenu(menu, inflater);
+            setEmptyListMessage(EmptyListState.LOCAL_FILE_LIST_EMPTY_FILE)
         }
+
+        // Disable pull-to-refresh
+        setSwipeEnabled(false)
+
+        Log_OC.i(TAG, "onCreateView() end")
+        return v
     }
 
-    /**
-     * Checks the file clicked over. Browses inside if it is a directory. Otherwise behaves like the checkbox was
-     * clicked.
-     * Notifies the container activity in any case.
-     */
-    @Override
-    public void onItemClicked(File file) {
-        if (file != null) {
-            /// Click on a directory
-            if (file.isDirectory()) {
-                // just local updates
-                listDirectory(file);
-                // notify the click to container Activity
-                mContainerActivity.onDirectoryClick(file);
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        requireActivity().addMenuProvider(menuProvider, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
-                // save index and top position
-                saveIndexAndTopPosition(mAdapter.getItemPosition(file));
-
-            } else {    /// Click on a file, behave like checkbox was clicked
-                onItemCheckboxClicked(file);
-            }
-
-        } else {
-            Log_OC.w(TAG, "Null object in ListAdapter!!");
-        }
+        setupAdapter()
+        listDirectory(containerActivity.initialDirectory)
+        setupSortButton()
+        setupGridViewButton()
     }
 
-    /**
-     * Toggle selection of checked/unchecked file and notify adapter.
-     */
-    @Override
-    public void onItemCheckboxClicked(File file) {
-        if (file != null) {
-            if (mAdapter.isCheckedFile(file)) {
-                // uncheck
-                mAdapter.removeCheckedFile(file);
+    private fun setupAdapter() {
+        adapter = LocalFileListAdapter(
+            containerActivity.isFolderPickerMode,
+            this,
+            preferences,
+            requireActivity(),
+            viewThemeUtils,
+            containerActivity.isWithinEncryptedFolder
+        )
+        setRecyclerViewAdapter(adapter)
+    }
+
+    private fun setupSortButton() {
+        val button = mSortButton ?: return
+
+        button.setOnClickListener {
+            val sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView)
+            DisplayUtils.openSortingOrderDialogFragment(parentFragmentManager, sortOrder)
+        }
+
+        val sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView) ?: return
+        button.setText(DisplayUtils.getSortOrderStringId(sortOrder))
+    }
+
+    private fun setupGridViewButton() {
+        setLayoutSwitchButton()
+
+        mSwitchGridViewButton?.setOnClickListener {
+            if (isGridEnabled) {
+                switchToListView()
             } else {
-                // check
-                mAdapter.addCheckedFile(file);
+                switchToGridView()
             }
+            setLayoutSwitchButton()
+        }
+    }
 
-            final int position = mAdapter.getItemPosition(file);
-            if (position != RecyclerView.NO_POSITION) {
-                mAdapter.notifyItemChanged(position);
-            }
+    override fun onItemClicked(file: File?) {
+        if (file == null) {
+            Log_OC.w(TAG, "file is null")
+            return
+        }
 
-            // notify the change to the container Activity
-            mContainerActivity.onFileClick(file);
+        if (file.isDirectory()) {
+            listDirectory(file)
+            containerActivity.onDirectoryClick(file)
+            saveIndexAndTopPosition(adapter.getItemPosition(file))
+            return
+        }
+
+        onItemCheckboxClicked(file)
+    }
+
+    override fun onItemCheckboxClicked(file: File?) {
+        if (file == null) {
+            Log_OC.w(TAG, "file is null")
+            return
+        }
+
+        if (adapter.isCheckedFile(file)) {
+            adapter.removeCheckedFile(file)
         } else {
-            Log_OC.w(TAG, "Null object in ListAdapter!!");
-        }
-    }
-
-    /**
-     * Call this, when the user presses the up button
-     */
-    public void onNavigateUp() {
-        File parentDir = null;
-        if (mDirectory != null) {
-            parentDir = mDirectory.getParentFile();  // can be null
-        }
-        listDirectory(parentDir);
-
-        // restore index and top position
-        restoreIndexAndTopPosition();
-    }
-
-
-    /**
-     * Use this to query the {@link File} object for the directory
-     * that is currently being displayed by this fragment
-     *
-     * @return File     The currently displayed directory
-     */
-    public File getCurrentDirectory() {
-        return mDirectory;
-    }
-
-
-    /**
-     * Calls {@link LocalFileListFragment#listDirectory(File)} with a null parameter
-     * to refresh the current directory.
-     */
-    public void listDirectory() {
-        listDirectory(null);
-    }
-
-
-    /**
-     * Lists the given directory on the view. When the input parameter is null,
-     * it will either refresh the last known directory. list the root
-     * if there never was a directory.
-     *
-     * @param directory     Directory to be listed
-     */
-    public void listDirectory(File directory) {
-        if (directory == null) {
-            directory = (mDirectory != null) ? mDirectory : Environment.getExternalStorageDirectory();
-            if (directory == null) return;
+            adapter.addCheckedFile(file)
         }
 
-        // If input is not a directory, list its parent
-        if (!directory.isDirectory()) {
-            Log_OC.w(TAG, "You see, that is not a directory -> " + directory);
-            directory = directory.getParentFile();
-            if (directory == null) {
-                Log_OC.w(TAG, "parent directory is null, cannot swap directory");
-                return;
-            }
+        val position = adapter.getItemPosition(file)
+        if (position != RecyclerView.NO_POSITION) {
+            adapter.notifyItemChanged(position)
         }
 
-        mAdapter.removeAllFilesFromCheckedFiles();
-        mAdapter.swapDirectory(directory);
-
-        mDirectory = directory;
-
-        final var recyclerView = getRecyclerView();
-        if (recyclerView != null) {
-            recyclerView.scrollToPosition(0);
-        }
+        containerActivity.onFileClick(file)
     }
 
-
-    /**
-     * Returns the full paths to the files checked by the user
-     *
-     * @return File paths to the files checked by the user.
-     */
-    public String[] getCheckedFilePaths() {
-        return mAdapter.getCheckedFilesPath();
+    fun onNavigateUp() {
+        val parentDir = currentDirectory?.getParentFile()
+        listDirectory(parentDir)
+        restoreIndexAndTopPosition()
     }
 
-    public int getCheckedFilesCount() {
-        return mAdapter.checkedFilesCount();
-    }
-    
-    public int getFilesCount() {
-        return mAdapter.getFilesCount();
+    @JvmOverloads
+    fun listDirectory(directory: File? = null) {
+        val target = directory ?: currentDirectory ?: Environment.getExternalStorageDirectory() ?: return
+        val folder = target.asDirectoryOrParent() ?: return
+
+        adapter.removeAllFilesFromCheckedFiles()
+        adapter.swapDirectory(folder)
+        currentDirectory = folder
+
+        recyclerView?.scrollToPosition(0)
     }
 
-    public void sortFiles(FileSortOrder sortOrder) {
-        if (mSortButton != null) {
-            mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
-        }
-        mAdapter.setSortOrder(sortOrder);
-    }
-
-    /**
-     * De-/select all elements in the local file list.
-     *
-     * @param select <code>true</code> to select all, <code>false</code> to deselect all
-     */
-    public void selectAllFiles(boolean select) {
-        if (getRecyclerView() == null) {
-            return;
+    private fun File.asDirectoryOrParent(): File? {
+        if (isDirectory) {
+            return this
         }
 
-        final var localFileListAdapter = (LocalFileListAdapter) getRecyclerView().getAdapter();
-        if (localFileListAdapter == null) {
-            return;
+        Log_OC.w(TAG, "You see, that is not a directory -> $this")
+
+        val parent = parentFile
+        if (parent == null) {
+            Log_OC.w(TAG, "parent directory is null, cannot swap directory")
         }
+
+        return parent
+    }
+
+    val checkedFilePaths: Array<String>
+        get() = adapter.checkedFilesPath
+
+    val checkedFilesCount: Int
+        get() = adapter.checkedFilesCount()
+
+    val filesCount: Int
+        get() = adapter.filesCount
+
+    fun sortFiles(sortOrder: FileSortOrder) {
+        mSortButton?.setText(DisplayUtils.getSortOrderStringId(sortOrder))
+        adapter.setSortOrder(sortOrder)
+    }
+
+    fun selectAllFiles(select: Boolean) {
+        if (recyclerView == null) {
+            return
+        }
+
+        val localFileListAdapter = recyclerView?.adapter as? LocalFileListAdapter? ?: return
 
         if (select) {
-            localFileListAdapter.addAllFilesToCheckedFiles();
+            localFileListAdapter.addAllFilesToCheckedFiles()
         } else {
-            localFileListAdapter.removeAllFilesFromCheckedFiles();
+            localFileListAdapter.removeAllFilesFromCheckedFiles()
         }
 
-        mAdapter.notifyItemRangeChanged(0, mAdapter.getItemCount());
+        adapter.notifyItemRangeChanged(0, adapter.getItemCount())
     }
 
-    @Override
-    public void switchToGridView() {
-        if (getRecyclerView() == null) {
-            return;
+    override fun switchToGridView() {
+        if (recyclerView == null) {
+            return
         }
 
-        mAdapter.setGridView(true);
-        /*
-         * Set recyclerview adapter again to force new view for items. If this is not done
-         * a few items keep their old view.
-         *
-         * https://stackoverflow.com/questions/36495009/force-recyclerview-to-redraw-android
-         */
-        getRecyclerView().setAdapter(mAdapter);
+        adapter.gridView = true
+        recyclerView?.setAdapter(adapter)
 
-        if (!isGridEnabled()) {
-            RecyclerView.LayoutManager layoutManager;
-            layoutManager = new GridLayoutManager(getContext(), getColumnsCount());
-            ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                @Override
-                public int getSpanSize(int position) {
-                    if (position == mAdapter.getItemCount() - 1) {
-                        return ((GridLayoutManager) layoutManager).getSpanCount();
-                    } else {
-                        return 1;
-                    }
+        if (!isGridEnabled) {
+            val layoutManager = GridLayoutManager(context, columnsCount)
+            layoutManager.spanSizeLookup = object : SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int = if (position == adapter.getItemCount() - 1) {
+                    layoutManager.spanCount
+                } else {
+                    1
                 }
-            });
+            }
 
-            getRecyclerView().setLayoutManager(layoutManager);
+            recyclerView?.setLayoutManager(layoutManager)
         }
     }
 
-    @Override
-    public void switchToListView() {
-        if (getRecyclerView() == null) {
-            return;
+    override fun switchToListView() {
+        if (recyclerView == null) {
+            return
         }
 
-        mAdapter.setGridView(false);
-        /* Same problem here, see switchToGridView() */
-        getRecyclerView().setAdapter(mAdapter);
-        super.switchToListView();
+        adapter.gridView = false
+        recyclerView?.setAdapter(adapter)
+        super.switchToListView()
     }
 
     @VisibleForTesting
-    public void setFiles(List<File> newFiles) {
-        mAdapter.setFiles(newFiles);
+    fun setFiles(newFiles: MutableList<File>) {
+        adapter.setFiles(newFiles)
     }
 
-    /**
-     * Interface to implement by any Activity that includes some instance of LocalFileListFragment
-     */
-    public interface ContainerActivity {
-
-        /**
-         * Callback method invoked when a directory is clicked by the user on the files list
-         *
-         * @param directory
-         */
-        void onDirectoryClick(File directory);
-
-        /**
-         * Callback method invoked when a file (non directory)
-         * is clicked by the user on the files list
-         *
-         * @param file
-         */
-        void onFileClick(File file);
-
-        /**
-         * Callback method invoked when the parent activity
-         * is fully created to get the directory to list firstly.
-         *
-         * @return Directory to list firstly. Can be NULL.
-         */
-        File getInitialDirectory();
-
-        /**
-         * config check if the list should behave in folder picker mode only displaying folders but no files.
-         *
-         * @return true if folder picker mode, else false
-         */
-        boolean isFolderPickerMode();
-
-        boolean isWithinEncryptedFolder();
+    interface ContainerActivity {
+        fun onDirectoryClick(directory: File?)
+        fun onFileClick(file: File?)
+        val initialDirectory: File?
+        val isFolderPickerMode: Boolean
+        val isWithinEncryptedFolder: Boolean
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setupStoragePermissionWarningBanner() {
-        mAdapter.notifyDataSetChanged();
+    fun setupStoragePermissionWarningBanner() {
+        adapter.notifyDataSetChanged()
     }
 
-    @Override
-    public void onDestroyView() {
-        mAdapter.cleanup();
-        super.onDestroyView();
+    override fun onDestroyView() {
+        adapter.cleanup()
+        super.onDestroyView()
+    }
+
+    companion object {
+        private val TAG: String = LocalFileListFragment::class.java.getSimpleName()
     }
 }
