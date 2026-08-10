@@ -21,7 +21,6 @@ import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
-import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.client.di.Injectable
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -125,10 +124,7 @@ class LocalFileListFragment :
     }
 
     override fun onItemClicked(file: File?) {
-        if (file == null) {
-            Log_OC.w(TAG, "file is null")
-            return
-        }
+        val file = file ?: return
 
         if (file.isDirectory()) {
             listDirectory(file)
@@ -141,22 +137,8 @@ class LocalFileListFragment :
     }
 
     override fun onItemCheckboxClicked(file: File?) {
-        if (file == null) {
-            Log_OC.w(TAG, "file is null")
-            return
-        }
-
-        if (adapter.isCheckedFile(file)) {
-            adapter.removeCheckedFile(file)
-        } else {
-            adapter.addCheckedFile(file)
-        }
-
-        val position = adapter.getItemPosition(file)
-        if (position != RecyclerView.NO_POSITION) {
-            adapter.notifyItemChanged(position)
-        }
-
+        val file = file ?: return
+        adapter.onItemCheckboxClicked(file)
         containerActivity.onFileClick(file)
     }
 
@@ -224,25 +206,29 @@ class LocalFileListFragment :
     }
 
     override fun switchToGridView() {
-        if (recyclerView == null) {
+        val recyclerView = recyclerView ?: return
+
+        adapter.gridView = true
+        recyclerView.adapter = adapter
+
+        if (isGridEnabled) {
             return
         }
 
-        adapter.gridView = true
-        recyclerView?.setAdapter(adapter)
+        recyclerView.layoutManager = createGridLayoutManager()
+    }
 
-        if (!isGridEnabled) {
-            val layoutManager = GridLayoutManager(context, columnsCount)
-            layoutManager.spanSizeLookup = object : SpanSizeLookup() {
-                override fun getSpanSize(position: Int): Int = if (position == adapter.getItemCount() - 1) {
-                    layoutManager.spanCount
-                } else {
-                    1
-                }
+    private fun createGridLayoutManager(): GridLayoutManager {
+        val layoutManager = GridLayoutManager(context, columnsCount)
+
+        layoutManager.spanSizeLookup = object : SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int = when (position) {
+                adapter.itemCount - 1 -> layoutManager.spanCount
+                else -> SINGLE_SPAN
             }
-
-            recyclerView?.setLayoutManager(layoutManager)
         }
+
+        return layoutManager
     }
 
     override fun switchToListView() {
@@ -279,6 +265,7 @@ class LocalFileListFragment :
     }
 
     companion object {
+        private const val SINGLE_SPAN = 1
         private val TAG: String = LocalFileListFragment::class.java.getSimpleName()
     }
 }
