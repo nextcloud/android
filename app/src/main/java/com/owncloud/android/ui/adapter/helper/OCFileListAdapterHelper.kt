@@ -64,6 +64,7 @@ class OCFileListAdapterHelper {
         }
     }
 
+    // TODO: check if server provides backward compatibility
     fun getAvatarSharees(file: OCFile, user: User?, userId: String?, onComplete: (List<ShareeUser>) -> Unit) {
         scope.launch {
             val result = if (supportsUnifiedShare(user) && user != null) {
