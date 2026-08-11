@@ -100,10 +100,12 @@ class PreviewMediaPagerAdapter : FragmentStateAdapter {
                 imageFiles = mStorageManager.allGalleryItems
                 imageFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(imageFiles)
             }
+
             VirtualFolderType.ALBUM -> {
                 imageFiles = mStorageManager.getVirtualFolderContent(type, false)
                 imageFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(imageFiles)
             }
+
             else -> {
                 imageFiles = mStorageManager.getVirtualFolderContent(type, true)
             }

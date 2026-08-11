@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2025 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
@@ -15,49 +16,36 @@ import com.owncloud.android.lib.resources.albums.CopyFileToAlbumRemoteOperation
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.operations.common.SyncOperation
 
-class CopyFileToAlbumOperation(
-    private val srcPath: String,
-    private var targetParentPath: String,
-    storageManager: FileDataStorageManager
-) : SyncOperation(storageManager) {
-    init {
-        if (!targetParentPath.endsWith(OCFile.PATH_SEPARATOR)) {
-            this.targetParentPath += OCFile.PATH_SEPARATOR
-        }
-    }
+class CopyFileToAlbumOperation(private val srcPath: String, albumPath: String, storageManager: FileDataStorageManager) :
+    SyncOperation(storageManager) {
+
+    private val targetParentPath = albumPath.removeSuffix(OCFile.PATH_SEPARATOR) + OCFile.PATH_SEPARATOR
 
     @Deprecated("Deprecated in Java")
-    @Suppress("NestedBlockDepth")
+    @Suppress("ReturnCount")
     override fun run(client: OwnCloudClient): RemoteOperationResult<Any> {
-        val result: RemoteOperationResult<Any>
-
         if (targetParentPath.startsWith(srcPath)) {
-            result = RemoteOperationResult<Any>(ResultCode.INVALID_COPY_INTO_DESCENDANT)
-        } else {
-            val file = storageManager.getFileByPath(srcPath)
-            if (file == null) {
-                result = RemoteOperationResult(ResultCode.FILE_NOT_FOUND)
-            } else {
-                var targetPath = "$targetParentPath${file.fileName}"
-                if (file.isFolder) {
-                    targetPath += OCFile.PATH_SEPARATOR
-                }
-
-                // auto rename, to allow copy
-                if (targetPath == srcPath) {
-                    if (file.isFolder) {
-                        targetPath = "$targetParentPath${file.fileName}"
-                    }
-                    targetPath = UploadFileOperation.getNewAvailableRemotePath(client, targetPath, null, false)
-
-                    if (file.isFolder) {
-                        targetPath += OCFile.PATH_SEPARATOR
-                    }
-                }
-
-                result = CopyFileToAlbumRemoteOperation(srcPath, targetPath).execute(client)
-            }
+            return RemoteOperationResult(ResultCode.INVALID_COPY_INTO_DESCENDANT)
         }
-        return result
+
+        val file = storageManager.getFileByPath(srcPath)
+            ?: return RemoteOperationResult(ResultCode.FILE_NOT_FOUND)
+
+        return CopyFileToAlbumRemoteOperation(srcPath, targetPathFor(file, client)).execute(client)
+    }
+
+    /**
+     * Path the file gets in the album. When it would collide with the source itself, the server picks the next free
+     * name. Folders keep their trailing separator, so it is stripped before the rename and appended again after.
+     */
+    private fun targetPathFor(file: OCFile, client: OwnCloudClient): String {
+        val basePath = targetParentPath + file.fileName
+        val separator = if (file.isFolder) OCFile.PATH_SEPARATOR else ""
+
+        if (basePath + separator != srcPath) {
+            return basePath + separator
+        }
+
+        return UploadFileOperation.getNewAvailableRemotePath(client, basePath, null, false) + separator
     }
 }
