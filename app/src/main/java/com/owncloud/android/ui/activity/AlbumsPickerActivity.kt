@@ -88,7 +88,6 @@ class AlbumsPickerActivity :
         if (action == CHOOSE_ALBUM) {
             captionText = resources.getText(R.string.album_picker_toolbar_title).toString()
         } else if (action == CHOOSE_MEDIA_FILES) {
-            // FIXME: hide fab button
             captionText = resources.getText(R.string.media_picker_toolbar_title).toString()
         }
 
@@ -123,6 +122,7 @@ class AlbumsPickerActivity :
                 SearchEvent("image/%", SearchRemoteOperation.SearchType.PHOTO_SEARCH)
             )
             putBoolean(EXTRA_FROM_ALBUM, true)
+            putBoolean(OCFileListFragment.ARG_HIDE_FAB, true)
         }
 
         val fragment = GalleryFragment().apply {

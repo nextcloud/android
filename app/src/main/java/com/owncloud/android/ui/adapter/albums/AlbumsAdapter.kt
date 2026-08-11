@@ -20,7 +20,6 @@ import com.owncloud.android.databinding.AlbumsGridItemBinding
 import com.owncloud.android.databinding.AlbumsListItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.albums.PhotoAlbumEntry
@@ -56,8 +55,9 @@ class AlbumsAdapter(
 
         gridViewHolder.albumName.text = file.albumName
         gridViewHolder.thumbnail.tag = file.lastPhoto
-        gridViewHolder.albumInfo.text = String.format(
-            context.resources.getString(R.string.album_items_text),
+        gridViewHolder.albumInfo.text = context.resources.getQuantityString(
+            R.plurals.album_items_text,
+            file.nbItems,
             file.nbItems,
             DisplayUtils.getDateByPattern(file.createdDate, "MMM yyyy")
         )

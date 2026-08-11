@@ -32,7 +32,6 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.AlbumsPickerActivity
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.activity.FolderPickerActivity
-import com.owncloud.android.ui.fragment.GalleryFragment
 import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
@@ -173,7 +172,6 @@ class OCFileListDelegate(
                 )
             } else {
                 ocFileListFragmentInterface.onItemClicked(file)
-                GalleryFragment.setLastMediaItemPosition(galleryRowHolder.absoluteAdapterPosition)
                 AlbumItemsFragment.lastMediaItemPosition = galleryRowHolder.absoluteAdapterPosition
             }
         }

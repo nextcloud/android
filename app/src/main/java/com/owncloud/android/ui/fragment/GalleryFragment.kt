@@ -91,7 +91,7 @@ class GalleryFragment :
         arguments?.let {
             isFromAlbum = it.getBoolean(AlbumsPickerActivity.EXTRA_FROM_ALBUM, false)
         }
-        setupBottomSheet()
+        bottomSheet = GalleryFragmentBottomSheetDialog()
         setupColumnCount()
         registerRefreshSearchEventReceiver()
     }
@@ -114,23 +114,21 @@ class GalleryFragment :
                 }
 
                 override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                    if (menuItem.itemId == R.id.action_three_dot_icon && bottomSheet != null) {
-                        showBottomSheet()
-                        return true
+                    val sheet = bottomSheet ?: return false
+                    if (menuItem.itemId != R.id.action_three_dot_icon) {
+                        return false
                     }
 
-                    return false
+                    if (!sheet.isVisible) {
+                        sheet.show(childFragmentManager, FRAGMENT_TAG_BOTTOM_SHEET)
+                    }
+
+                    return true
                 }
             },
             viewLifecycleOwner,
             Lifecycle.State.RESUMED
         )
-    }
-
-    private fun setupBottomSheet() {
-        if (bottomSheet == null) {
-            bottomSheet = GalleryFragmentBottomSheetDialog()
-        }
     }
 
     private fun setupColumnCount() {
@@ -299,12 +297,6 @@ class GalleryFragment :
         }
 
         Log_OC.d(this, "End gallery search")
-    }
-
-    private fun showBottomSheet() {
-        if (bottomSheet?.isVisible == false) {
-            bottomSheet?.show(getChildFragmentManager(), FRAGMENT_TAG_BOTTOM_SHEET)
-        }
     }
 
     override fun selectMediaFolder() {
@@ -523,12 +515,10 @@ class GalleryFragment :
     private val activityResult: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { intentResult: ActivityResult ->
             if (Activity.RESULT_OK == intentResult.resultCode) {
-                if (Activity.RESULT_OK == intentResult.resultCode) {
-                    intentResult.data?.let {
-                        val albumName = it.getStringExtra(AlbumsFragment.ARG_SELECTED_ALBUM_NAME)
-                        Log_OC.e(TAG, "Selected album name: $albumName")
-                        addFilesToAlbum(albumName)
-                    }
+                intentResult.data?.let {
+                    val albumName = it.getStringExtra(AlbumsFragment.ARG_SELECTED_ALBUM_NAME)
+                    Log_OC.d(TAG, "Selected album name: $albumName")
+                    addFilesToAlbum(albumName)
                 }
             }
         }

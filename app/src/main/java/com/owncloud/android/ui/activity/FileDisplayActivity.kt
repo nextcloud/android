@@ -1402,7 +1402,6 @@ class FileDisplayActivity :
             highlightNavigationViewItem(menuItemId)
         }
 
-
         if (SettingsActivity.isBackPressed) {
             Log_OC.d(TAG, "User returned from settings activity, skipping reset content logic")
             return

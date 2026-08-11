@@ -26,7 +26,7 @@
             android:id="@+id/thumbnail_shimmer"
             android:layout_width="78dp"
             android:layout_height="56dp"
-            android:layout_marginLeft="@dimen/standard_half_padding"
+            android:layout_marginStart="@dimen/standard_half_padding"
             android:contentDescription="@null"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -57,7 +57,8 @@
         android:gravity="top"
         android:orientation="vertical"
         android:paddingStart="@dimen/standard_quarter_padding"
-        android:paddingTop="@dimen/standard_half_padding">
+        android:paddingTop="@dimen/standard_half_padding"
+        android:paddingEnd="@dimen/zero">
 
         <TextView
             android:id="@+id/Filename"
