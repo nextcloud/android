@@ -46,7 +46,7 @@ public class ExternalSiteWebView extends FileActivity {
     public static final String EXTRA_SHOW_TOOLBAR = "SHOW_TOOLBAR";
     public static final String EXTRA_TEMPLATE = "TEMPLATE";
 
-    private static final String TAG = ExternalSiteWebView.class.getSimpleName();
+    protected static final String TAG = ExternalSiteWebView.class.getSimpleName();
 
     protected boolean showToolbar = true;
     private ExternalsiteWebviewBinding binding;
