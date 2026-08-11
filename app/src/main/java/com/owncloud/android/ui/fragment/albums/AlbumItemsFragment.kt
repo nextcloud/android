@@ -230,7 +230,7 @@ class AlbumItemsFragment :
             viewThemeUtils.material.themeFAB(this)
 
             setOnClickListener {
-                openAlbumActionsMenu()
+                openAddMediaMenu()
             }
         }
 
@@ -284,17 +284,18 @@ class AlbumItemsFragment :
             object : MenuProvider {
                 override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                     menu.clear()
+                    menuInflater.inflate(R.menu.fragment_album_items, menu)
                 }
 
-                override fun onMenuItemSelected(menuItem: MenuItem): Boolean = true
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean = onAlbumActionChosen(menuItem.itemId)
             },
             viewLifecycleOwner,
             Lifecycle.State.RESUMED
         )
     }
 
-    private fun openAlbumActionsMenu() {
-        throttler.run("overflowClick") {
+    private fun openAddMediaMenu() {
+        throttler.run("addMediaClick") {
             val supportFragmentManager = requireActivity().supportFragmentManager
 
             AlbumItemActionsBottomSheet.newInstance()
@@ -336,7 +337,7 @@ class AlbumItemsFragment :
             true
         }
 
-        R.id.action_rename_file -> {
+        R.id.action_rename_album -> {
             CreateAlbumDialogFragment.newInstance(albumName)
                 .show(
                     requireActivity().supportFragmentManager,
@@ -350,7 +351,7 @@ class AlbumItemsFragment :
             true
         }
 
-        R.id.action_delete -> {
+        R.id.action_delete_album -> {
             showConfirmationDialog(true, null)
             true
         }

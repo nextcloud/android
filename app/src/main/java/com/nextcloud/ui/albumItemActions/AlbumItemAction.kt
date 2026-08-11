@@ -19,19 +19,13 @@ enum class AlbumItemAction(val id: Int, val titleId: Int, val iconId: Int) {
         R.id.action_select_images_from_account,
         R.string.album_upload_from_account,
         R.drawable.file_image
-    ),
-    RENAME_ALBUM(R.id.action_rename_file, R.string.album_rename, R.drawable.ic_edit),
-    SHARE_ALBUM(R.id.action_share_album, R.string.album_share, R.drawable.ic_share),
-    DELETE_ALBUM(R.id.action_delete, R.string.album_delete, R.drawable.ic_delete);
+    );
 
     companion object {
         @JvmField
         val SORTED_VALUES = listOf(
             UPLOAD_FROM_CAMERA_ROLL,
-            SELECT_IMAGES_FROM_ACCOUNT,
-            RENAME_ALBUM,
-            SHARE_ALBUM,
-            DELETE_ALBUM
+            SELECT_IMAGES_FROM_ACCOUNT
         )
     }
 }
