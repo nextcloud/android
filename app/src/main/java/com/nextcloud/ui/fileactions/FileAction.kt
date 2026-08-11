@@ -230,7 +230,7 @@ enum class FileAction(
                 result.add(R.id.action_edit)
             }
 
-            if (files.any { !MimeTypeUtil.isImage(it) && !MimeTypeUtil.isVideo(it) }) {
+            if (files.any { !MimeTypeUtil.isImageOrVideo(it) }) {
                 result.add(R.id.action_add_to_album)
             }
 
