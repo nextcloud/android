@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.date.DateFormatPattern
 import com.owncloud.android.R
 import com.owncloud.android.databinding.AlbumsGridItemBinding
 import com.owncloud.android.databinding.AlbumsListItemBinding
@@ -59,7 +60,7 @@ class AlbumsAdapter(
             R.plurals.album_items_text,
             file.nbItems,
             file.nbItems,
-            DisplayUtils.getDateByPattern(file.createdDate, "MMM yyyy")
+            DisplayUtils.getDateByPattern(file.createdDate, DateFormatPattern.MonthWithYear.pattern)
         )
 
         if (file.lastPhoto > 0) {
