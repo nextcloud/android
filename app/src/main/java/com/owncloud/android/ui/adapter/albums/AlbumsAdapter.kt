@@ -63,6 +63,13 @@ class AlbumsAdapter(
             DisplayUtils.getDateByPattern(file.createdDate, DateFormatPattern.MonthWithYear.pattern)
         )
 
+        gridViewHolder.albumName.setCompoundDrawablesWithIntrinsicBounds(
+            0,
+            0,
+            if (file.collaborators.isNotEmpty()) R.drawable.ic_share else 0,
+            0
+        )
+
         if (file.lastPhoto > 0) {
             var ocLocal = storageManager?.getFileByLocalId(file.lastPhoto)
             if (ocLocal == null) {

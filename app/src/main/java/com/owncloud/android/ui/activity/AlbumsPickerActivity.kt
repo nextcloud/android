@@ -43,6 +43,9 @@ class AlbumsPickerActivity :
 
     private lateinit var folderPickerBinding: FilesFolderPickerBinding
 
+    private var targetFilePaths: ArrayList<String>? = null
+    private var albumName: String? = null
+
     private fun initBinding() {
         folderPickerBinding = FilesFolderPickerBinding.inflate(layoutInflater)
         setContentView(folderPickerBinding.root)
@@ -57,6 +60,7 @@ class AlbumsPickerActivity :
         setupToolbar()
         setupAction()
         setupActionBar()
+        initExtras()
 
         if (savedInstanceState == null) {
             createFragments()
@@ -77,6 +81,11 @@ class AlbumsPickerActivity :
                 viewThemeUtils.files.themeActionBar(this, actionBar, it)
             }
         }
+    }
+
+    private fun initExtras() {
+        targetFilePaths = intent.getStringArrayListExtra(EXTRA_FILE_PATHS)
+        albumName = intent.getStringExtra(EXTRA_ALBUM_NAME)
     }
 
     private fun setupAction() {
@@ -180,6 +189,19 @@ class AlbumsPickerActivity :
         }
     }
 
+    fun addFilesToAlbum(albumName: String?) {
+        targetFilePaths?.let {
+            fileOperationsHelper.albumCopyFiles(it, albumName)
+        }
+    }
+
+    fun addFilesToAlbum(files: Collection<OCFile>) {
+        val paths: List<String> = files.map { it.remotePath }
+        albumName?.let {
+            fileOperationsHelper.albumCopyFiles(paths, it)
+        }
+    }
+
     override fun showDetails(file: OCFile?) = Unit
 
     override fun showDetails(file: OCFile?, activeTab: Int) = Unit
@@ -192,19 +214,22 @@ class AlbumsPickerActivity :
         private val EXTRA_ACTION = AlbumsPickerActivity::class.java.canonicalName?.plus(".EXTRA_ACTION")
         private val CHOOSE_ALBUM = AlbumsPickerActivity::class.java.canonicalName?.plus(".CHOOSE_ALBUM")
         private val CHOOSE_MEDIA_FILES = AlbumsPickerActivity::class.java.canonicalName?.plus(".CHOOSE_MEDIA_FILES")
+        private val EXTRA_FILE_PATHS = FolderPickerActivity::class.java.canonicalName?.plus(".EXTRA_FILE_PATHS")
+        private val EXTRA_ALBUM_NAME = FolderPickerActivity::class.java.canonicalName?.plus(".EXTRA_ALBUM_NAME")
         val EXTRA_FROM_ALBUM = AlbumsPickerActivity::class.java.canonicalName?.plus(".EXTRA_FROM_ALBUM")
-        val EXTRA_MEDIA_FILES_PATH = AlbumsPickerActivity::class.java.canonicalName?.plus(".EXTRA_MEDIA_FILES_PATH")
 
         private val TAG = AlbumsPickerActivity::class.java.simpleName
 
-        fun intentForPickingAlbum(context: FragmentActivity): Intent =
+        fun intentForPickingAlbum(context: FragmentActivity, paths: ArrayList<String>): Intent =
             Intent(context, AlbumsPickerActivity::class.java).apply {
                 putExtra(EXTRA_ACTION, CHOOSE_ALBUM)
+                putStringArrayListExtra(EXTRA_FILE_PATHS, paths)
             }
 
-        fun intentForPickingMediaFiles(context: FragmentActivity): Intent =
+        fun intentForPickingMediaFiles(context: FragmentActivity, albumName: String): Intent =
             Intent(context, AlbumsPickerActivity::class.java).apply {
                 putExtra(EXTRA_ACTION, CHOOSE_MEDIA_FILES)
+                putExtra(EXTRA_ALBUM_NAME, albumName)
             }
     }
 

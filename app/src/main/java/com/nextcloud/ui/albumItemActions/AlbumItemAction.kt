@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2025 TSI-mc <surinder.kumar@t-systems.com>
+ * SPDX-FileCopyrightText: 2025-2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
@@ -21,6 +21,7 @@ enum class AlbumItemAction(val id: Int, val titleId: Int, val iconId: Int) {
         R.drawable.file_image
     ),
     RENAME_ALBUM(R.id.action_rename_file, R.string.album_rename, R.drawable.ic_edit),
+    SHARE_ALBUM(R.id.action_share_album, R.string.album_share, R.drawable.ic_share),
     DELETE_ALBUM(R.id.action_delete, R.string.album_delete, R.drawable.ic_delete);
 
     companion object {
@@ -29,6 +30,7 @@ enum class AlbumItemAction(val id: Int, val titleId: Int, val iconId: Int) {
             UPLOAD_FROM_CAMERA_ROLL,
             SELECT_IMAGES_FROM_ACCOUNT,
             RENAME_ALBUM,
+            SHARE_ALBUM,
             DELETE_ALBUM
         )
     }

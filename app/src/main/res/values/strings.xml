@@ -34,12 +34,17 @@
     <string name="create_album_dialog_message">Enter your new Album name</string>
     <string name="album_name_empty">Album name cannot be empty</string>
     <string name="album_rename">Rename album</string>
+    <string name="album_share">Share album</string>
     <string name="rename_dialog_button">Rename</string>
     <string name="album_delete">Delete album</string>
     <string name="album_delete_failed_message">Failed to delete few of the files.</string>
     <plurals name="album_items_text">
         <item quantity="one">%1$d item — %2$s</item>
         <item quantity="other">%1$d items — %2$s</item>
+    </plurals>
+    <plurals name="album_elements_text">
+        <item quantity="one">%d item</item>
+        <item quantity="other">%d items</item>
     </plurals>
     <string name="album_already_exists">Album already exists</string>
     <string name="album_picker_toolbar_title">Pick album</string>
@@ -1569,4 +1574,9 @@
     <string name="governance_permission_denied">You do not have permission to change this label</string>
     <string name="file_info_governance_section_title">Governance</string>
     <string name="file_info_image_details_section_title">Image details</string>
+
+    <string name="album_create_new_link">Create new link</string>
+    <string name="album_share_link">Share link to album</string>
+    <string name="album_stop_sharing">Stop sharing</string>
+    <string name="album_default_sharing_text">Everyone can only view</string>
 </resources>

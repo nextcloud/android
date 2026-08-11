@@ -448,6 +448,10 @@ class PreviewMediaFragment :
             R.id.action_download_file -> {
                 instance().downloadFileIfNotStartedBefore(user!!, file)
             }
+
+            R.id.action_add_to_album -> {
+                containerActivity.fileOperationsHelper.addFileToAlbum(listOf(file))
+            }
         }
     }
 

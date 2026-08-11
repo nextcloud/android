@@ -479,6 +479,8 @@ class PreviewImageFragment :
             )
         } else if (itemId == R.id.action_edit) {
             (requireActivity() as PreviewImageActivity).startImageEditor(file)
+        } else if (itemId == R.id.action_add_to_album) {
+            containerActivity.fileOperationsHelper.addFileToAlbum(listOf<OCFile>(file))
         }
     }
 
