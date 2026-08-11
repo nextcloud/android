@@ -428,7 +428,7 @@ public class FileMenuFilter {
             return;
         }
         OCFile file = files.iterator().next();
-        if(!MimeTypeUtil.isImage(file) && !MimeTypeUtil.isVideo(file)){
+        if (!MimeTypeUtil.isImageOrVideo(file)) {
             toHide.add(R.id.action_add_to_album);
         }
     }
