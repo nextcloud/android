@@ -847,6 +847,7 @@
     <string name="user_info_groups">Groups</string>
 
     <string name="user_information_retrieval_error">Error retrieving user information</string>
+    <string name="user_information_retrieval_error_message">Please double check your internet connection or check server status</string>
 
     <!-- Activities -->
     <string name="activities_no_results_headline">No activity yet</string>
