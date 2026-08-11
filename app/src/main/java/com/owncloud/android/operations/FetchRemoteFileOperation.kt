@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
@@ -46,64 +47,65 @@ class FetchRemoteFileOperation(
             false,
             storageManager.getCapability(user)
         )
-        val remoteOperationResult: RemoteOperationResult<List<RemoteFile>> =
-            searchRemoteOperation.execute(user, context)
+        val remoteOperationResult = searchRemoteOperation.execute(user, context)
+        val remoteFiles = remoteOperationResult.resultData
 
-        if (remoteOperationResult.isSuccess && remoteOperationResult.resultData != null) {
-            if (remoteOperationResult.resultData.isEmpty()) {
-                Log_OC.e(TAG, "No remote file found with id: ${ocFile.localId}.")
-                return remoteOperationResult
-            }
-            val remotePath = (remoteOperationResult.resultData[0]).remotePath
-
-            val operation = ReadFileRemoteOperation(remotePath)
-            val result = operation.execute(user, context)
-
-            if (!result.isSuccess) {
-                val exception = result.exception
-                val message =
-                    "Fetching file " + remotePath + " fails with: " + result.getLogMessage(MainApp.getAppContext())
-                Log_OC.e(TAG, exception?.message ?: message)
-
-                return result
-            }
-
-            val remoteFile = result.data[0] as RemoteFile
-
-            // remove file from local db
-            if (removeFileFromDb) {
-                storageManager.removeFile(ocFile, true, true)
-            }
-
-            var ocFile = FileStorageUtils.fillOCFile(remoteFile)
-            FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, user.accountName)
-            ocFile = storageManager.saveFileWithParent(ocFile, context)
-
-            // also sync folder content
-            val toSync: OCFile? = if (ocFile?.isFolder == true) {
-                ocFile
-            } else {
-                ocFile?.parentId?.let { storageManager.getFileById(it) }
-            }
-
-            val currentSyncTime = System.currentTimeMillis()
-            val refreshFolderOperation: RemoteOperation<Any> = RefreshFolderOperation(
-                toSync,
-                currentSyncTime,
-                true,
-                true,
-                storageManager,
-                user,
-                context
-            )
-            val refreshOperationResult = refreshFolderOperation.execute(user, context)
-
-            // set the fetched ocFile to resultData to be handled at ui end
-            refreshOperationResult.resultData = ocFile
-
-            return refreshOperationResult
+        if (!remoteOperationResult.isSuccess || remoteFiles == null) {
+            return remoteOperationResult
         }
-        return remoteOperationResult
+
+        val remotePath = remoteFiles.firstOrNull()?.remotePath
+        if (remotePath == null) {
+            Log_OC.e(TAG, "No remote file found with id: ${ocFile.localId}.")
+            return remoteOperationResult
+        }
+
+        val operation = ReadFileRemoteOperation(remotePath)
+        val result = operation.execute(user, context)
+
+        if (!result.isSuccess) {
+            val exception = result.exception
+            val message =
+                "Fetching file " + remotePath + " fails with: " + result.getLogMessage(MainApp.getAppContext())
+            Log_OC.e(TAG, exception?.message ?: message)
+
+            return result
+        }
+
+        val remoteFile = result.data[0] as RemoteFile
+
+        // remove file from local db
+        if (removeFileFromDb) {
+            storageManager.removeFile(ocFile, true, true)
+        }
+
+        var fetchedFile = FileStorageUtils.fillOCFile(remoteFile)
+        FileStorageUtils.searchForLocalFileInDefaultPath(fetchedFile, user.accountName)
+        fetchedFile = storageManager.saveFileWithParent(fetchedFile, context)
+
+        // also sync folder content
+        val toSync: OCFile? = if (fetchedFile?.isFolder == true) {
+            fetchedFile
+        } else {
+            fetchedFile?.parentId?.let { storageManager.getFileById(it) }
+        }
+
+        val currentSyncTime = System.currentTimeMillis()
+        val refreshFolderOperation: RemoteOperation<Any> = RefreshFolderOperation(
+            toSync,
+            currentSyncTime,
+            true,
+            true,
+            storageManager,
+            user,
+            context
+        )
+        val refreshOperationResult = refreshFolderOperation.execute(user, context)
+
+        // set the fetched ocFile to resultData to be handled at ui end
+        refreshOperationResult.resultData = fetchedFile
+
+        return refreshOperationResult
     }
 
     companion object {

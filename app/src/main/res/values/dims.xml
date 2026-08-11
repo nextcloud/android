@@ -56,7 +56,6 @@
     <dimen name="grid_container_default_max_file_name">80dp</dimen>
 
     <dimen name="album_container_height">300dp</dimen>
-    <dimen name="album_container_thumbnail_height">100dp</dimen>
 
 
     <dimen name="button_width">140dp</dimen>

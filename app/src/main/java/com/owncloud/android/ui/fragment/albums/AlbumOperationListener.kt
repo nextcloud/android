@@ -73,10 +73,7 @@ class AlbumOperationListener(private val activity: FileDisplayActivity) {
         }
     }
 
-    fun onCreateAlbumOperationFinish(
-        operation: CreateNewAlbumRemoteOperation,
-        result: RemoteOperationResult<*>
-    ) {
+    fun onCreateAlbumOperationFinish(operation: CreateNewAlbumRemoteOperation, result: RemoteOperationResult<*>) {
         if (result.isSuccess) {
             val fragment = activity.supportFragmentManager.findFragmentByTag(AlbumsFragment.TAG)
             if (fragment is AlbumsFragment) {

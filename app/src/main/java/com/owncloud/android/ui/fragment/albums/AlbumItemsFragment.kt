@@ -1150,11 +1150,11 @@ class AlbumItemsFragment :
                 urisToUpload = streamsToUpload,
                 uploadPath = remotePath,
                 user = optionalUser.get(),
-                behaviour =  FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
+                behaviour = FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
                 showWaitingDialog = false, // Not show waiting dialog while file is being copied from private storage
                 copyTmpTaskListener = null, // Not needed copy temp task listener,
                 fileDisplayNameTransformer = null,
-                albumName = albumName,
+                albumName = albumName
             )
 
             uploader.uploadUris()
