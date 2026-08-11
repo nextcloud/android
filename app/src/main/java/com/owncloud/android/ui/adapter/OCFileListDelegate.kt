@@ -32,9 +32,12 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.ui.activity.AlbumsPickerActivity
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.activity.FolderPickerActivity
+import com.owncloud.android.ui.fragment.GalleryFragment
 import com.owncloud.android.ui.fragment.SearchType
+import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.MimeTypeUtil
@@ -162,7 +165,15 @@ class OCFileListDelegate(
         GalleryImageGenerationJob.storeJob(job, imageView)
 
         imageView.setOnClickListener {
-            ocFileListFragmentInterface.onItemClicked(file)
+            if (context is AlbumsPickerActivity) {
+                ocFileListFragmentInterface.onLongItemClicked(
+                    file
+                )
+            } else {
+                ocFileListFragmentInterface.onItemClicked(file)
+                GalleryFragment.setLastMediaItemPosition(galleryRowHolder.absoluteAdapterPosition)
+                AlbumItemsFragment.lastMediaItemPosition = galleryRowHolder.absoluteAdapterPosition
+            }
         }
 
         if (!hideItemOptions) {
