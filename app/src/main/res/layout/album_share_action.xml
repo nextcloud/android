@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/standard_quadruple_icon_size"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:showIn="@layout/album_sharing_bottom_sheet">
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/button"
+        android:layout_width="@dimen/standard_quadruple_icon_size"
+        android:layout_height="@dimen/standard_quadruple_icon_size"
+        android:background="@drawable/album_sharing_curve_selector"
+        app:tint="@color/fontAppbar"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/shared_via_link" />
+
+    <TextView
+        android:id="@+id/label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/standard_half_margin"
+        android:gravity="center_horizontal|top"
+        android:minLines="2"
+        android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+        tools:text="Share link" />
+
+</LinearLayout>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   ~ Nextcloud - Android Client
   ~
+  ~ SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
   ~ SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
   ~ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
@@ -265,103 +266,45 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/btnStopSharing"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:layout_marginEnd="@dimen/standard_margin"
-                    android:layout_marginBottom="@dimen/standard_half_margin"
-                    android:background="@drawable/album_sharing_curve_selector"
-                    android:src="@drawable/ic_delete"
-                    android:tint="@color/fontAppbar"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/lblStopSharing"
-                    app:layout_constraintEnd_toStartOf="@+id/btnCopy" />
-
-                <TextView
-                    android:id="@+id/lblStopSharing"
-                    android:layout_width="0dp"
+                <include
+                    android:id="@+id/action_stop_sharing"
+                    layout="@layout/album_share_action"
+                    android:layout_width="@dimen/standard_quadruple_icon_size"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/standard_half_margin"
-                    android:gravity="center"
-                    android:text="@string/album_stop_sharing"
-                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/btnStopSharing"
-                    app:layout_constraintStart_toStartOf="@+id/btnStopSharing" />
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/btnCopy"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
                     android:layout_marginEnd="@dimen/standard_margin"
                     android:layout_marginBottom="@dimen/standard_half_margin"
-                    android:background="@drawable/album_sharing_curve_selector"
-                    android:src="@drawable/ic_content_copy"
-                    android:tint="@color/fontAppbar"
-                    app:layout_constraintBottom_toTopOf="@+id/lblCopy"
-                    app:layout_constraintEnd_toStartOf="@+id/btnShareAlbumLink" />
-
-                <TextView
-                    android:id="@+id/lblCopy"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginBottom="@dimen/standard_half_margin"
-                    android:gravity="center|top"
-                    android:text="@string/common_copy"
-                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/btnCopy"
-                    app:layout_constraintStart_toStartOf="@+id/btnCopy"
-                    app:layout_constraintTop_toTopOf="@+id/lblShareAlbumLink" />
+                    app:layout_constraintEnd_toStartOf="@+id/action_copy" />
 
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/btnShareAlbumLink"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
+                <include
+                    android:id="@+id/action_copy"
+                    layout="@layout/album_share_action"
+                    android:layout_width="@dimen/standard_quadruple_icon_size"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/standard_margin"
                     android:layout_marginBottom="@dimen/standard_half_margin"
-                    android:background="@drawable/album_sharing_curve_selector"
-                    android:src="@drawable/shared_via_link"
-                    android:tint="@color/fontAppbar"
-                    app:layout_constraintBottom_toTopOf="@+id/lblShareAlbumLink"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/action_share_link" />
+
+                <include
+                    android:id="@+id/action_share_link"
+                    layout="@layout/album_share_action"
+                    android:layout_width="@dimen/standard_quadruple_icon_size"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/standard_margin"
+                    android:layout_marginBottom="@dimen/standard_half_margin"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
 
-                <TextView
-                    android:id="@+id/lblShareAlbumLink"
-                    android:layout_width="0dp"
+                <include
+                    android:id="@+id/action_create_link"
+                    layout="@layout/album_share_action"
+                    android:layout_width="@dimen/standard_quadruple_icon_size"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/standard_half_margin"
-                    android:gravity="center"
-                    android:text="@string/album_share_link"
-                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/btnShareAlbumLink"
-                    app:layout_constraintStart_toStartOf="@+id/btnShareAlbumLink" />
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/btnCreateLink"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
                     android:layout_marginEnd="@dimen/standard_margin"
                     android:layout_marginBottom="@dimen/standard_half_margin"
-                    android:background="@drawable/album_sharing_curve_selector"
-                    android:src="@drawable/ic_share"
-                    android:tint="@color/fontAppbar"
-                    app:layout_constraintBottom_toTopOf="@+id/lblCreateLink"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
-                <TextView
-                    android:id="@+id/lblCreateLink"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/standard_half_margin"
-                    android:gravity="center"
-                    android:text="@string/album_create_new_link"
-                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/btnCreateLink"
-                    app:layout_constraintStart_toStartOf="@+id/btnCreateLink" />
+                    app:layout_constraintEnd_toEndOf="parent" />
 
                 <com.google.android.material.progressindicator.CircularProgressIndicator
                     android:id="@+id/bottom_sheet_loading"
@@ -380,15 +323,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:barrierDirection="top"
-                    app:constraint_referenced_ids="btnStopSharing,btnCopy,btnShareAlbumLink,btnCreateLink" />
+                    app:constraint_referenced_ids="action_stop_sharing,action_copy,action_share_link,action_create_link" />
 
                 <androidx.constraintlayout.widget.Group
                     android:id="@+id/share_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
-                    app:constraint_referenced_ids="btnStopSharing, lblStopSharing, btnCopy, lblCopy,
-btnShareAlbumLink, lblShareAlbumLink"
+                    app:constraint_referenced_ids="action_stop_sharing, action_copy, action_share_link"
                     tools:visibility="gone" />
 
                 <androidx.constraintlayout.widget.Group
@@ -396,7 +338,7 @@ btnShareAlbumLink, lblShareAlbumLink"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
-                    app:constraint_referenced_ids="btnCreateLink, lblCreateLink"
+                    app:constraint_referenced_ids="action_create_link"
                     tools:visibility="visible" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 

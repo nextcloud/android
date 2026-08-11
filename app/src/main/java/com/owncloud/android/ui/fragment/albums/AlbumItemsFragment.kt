@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
@@ -315,7 +316,7 @@ class AlbumItemsFragment :
                 albumSharingBottomSheet =
                     AlbumSharingBottomSheet.newInstance(
                         it,
-                        albumsOCFileList.take(AlbumSharingBottomSheet.IMAGE_COLLAGE_MAX_LIMIT),
+                        albumsOCFileList.take(AlbumCollageLayout.MAX_IMAGES),
                         this
                     )
 
@@ -1247,7 +1248,6 @@ class AlbumItemsFragment :
         private const val MAX_COLUMN_SIZE_LANDSCAPE: Int = 5
         private const val MAX_COLUMN_SIZE_PORTRAIT: Int = 2
 
-        private const val SLEEP_DELAY = 100L
         private const val DEBOUNCE_DELAY = 500L
 
         fun newInstance(albumName: String, isNewAlbum: Boolean = false): AlbumItemsFragment =
