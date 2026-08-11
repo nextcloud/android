@@ -94,6 +94,7 @@ public class OperationsService extends Service {
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_FILE_VERSION = "FILE_VERSION";
     public static final String EXTRA_SHARE_PASSWORD = "SHARE_PASSWORD";
+    public static final String EXTRA_VIDEO_VERIFICATION = "SHARE_VIDEO_VERIFICATION";
     public static final String EXTRA_SHARE_TYPE = "SHARE_TYPE";
     public static final String EXTRA_SHARE_WITH = "SHARE_WITH";
     public static final String EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS = "SHARE_EXPIRATION_YEAR";
@@ -599,6 +600,7 @@ public class OperationsService extends Service {
                         int permissions = operationIntent.getIntExtra(EXTRA_SHARE_PERMISSIONS, -1);
                         String noteMessage = operationIntent.getStringExtra(EXTRA_SHARE_NOTE);
                         String sharePassword = operationIntent.getStringExtra(EXTRA_SHARE_PASSWORD);
+                        boolean isVideoVerification = operationIntent.getBooleanExtra(EXTRA_VIDEO_VERIFICATION, false);
                         long expirationDateInMillis = operationIntent
                             .getLongExtra(EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, 0L);
                         boolean hideFileDownload = operationIntent.getBooleanExtra(EXTRA_SHARE_HIDE_FILE_DOWNLOAD,
@@ -613,6 +615,7 @@ public class OperationsService extends Service {
                                                                    permissions,
                                                                    noteMessage,
                                                                    sharePassword,
+                                                                   isVideoVerification,
                                                                    expirationDateInMillis,
                                                                    hideFileDownload,
                                                                    attributes,
@@ -646,6 +649,9 @@ public class OperationsService extends Service {
 
                             password = operationIntent.getStringExtra(EXTRA_SHARE_PASSWORD);
                             updateShare.setPassword(password);
+
+                            isVideoVerification = operationIntent.getBooleanExtra(EXTRA_VIDEO_VERIFICATION, false);
+                            updateShare.setIsVideoVerification(isVideoVerification);
 
                             boolean fileDownloadHide = operationIntent.getBooleanExtra(EXTRA_SHARE_HIDE_FILE_DOWNLOAD
                                 , false);
