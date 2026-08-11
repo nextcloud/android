@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
@@ -11,7 +12,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintSet
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -22,6 +24,7 @@ import com.nextcloud.utils.date.DateFormatPattern
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.AlbumImageThumbnailBinding
+import com.owncloud.android.databinding.AlbumShareActionBinding
 import com.owncloud.android.databinding.AlbumSharingBottomSheetBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -61,25 +64,24 @@ class AlbumSharingBottomSheet(
     val binding
         get() = _binding!!
 
+    private var collage: AlbumCollageLayout? = null
+
     private var shareId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        photoAlbumEntry?.let {
-            // read only the 1st item of result and 1st item of collaborators
-            // as there will be no more data apart from current Album
-            if (it.collaborators.isNotEmpty()) {
-                shareId = it.collaborators[0].id
-            }
-        }
+        // read only the 1st item of collaborators as there will be no more data apart from current Album
+        shareId = photoAlbumEntry?.collaborators?.firstOrNull()?.id
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = AlbumSharingBottomSheetBinding.inflate(inflater, container, false)
+        collage = AlbumCollageLayout(binding)
 
-        val bottomSheetDialog = dialog as BottomSheetDialog
-        bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
-        bottomSheetDialog.behavior.skipCollapsed = true
+        (dialog as BottomSheetDialog).behavior.apply {
+            state = BottomSheetBehavior.STATE_EXPANDED
+            skipCollapsed = true
+        }
         viewThemeUtils.platform.colorViewBackground(binding.bottomSheet, ColorRole.SURFACE)
         return binding.root
     }
@@ -89,17 +91,15 @@ class AlbumSharingBottomSheet(
         binding.bottomSheetLoading.visibility = View.GONE
         setUpContent()
         setUpShareComponentsVisibility()
-        setClickListeners()
+        bindShareActions()
     }
 
     private fun setUpContent() {
         val album = photoAlbumEntry ?: return
 
-        with(binding) {
-            bindAlbumText(album)
-            bindAlbumThumbnail(album)
-            initializeImageCollage()
-        }
+        bindAlbumText(album)
+        bindAlbumThumbnail(album)
+        initializeImageCollage()
     }
 
     private fun bindAlbumText(album: PhotoAlbumEntry) = with(binding) {
@@ -112,29 +112,15 @@ class AlbumSharingBottomSheet(
         albumDate.text = DisplayUtils.getDateByPattern(album.createdDate, DateFormatPattern.MonthWithYear.pattern)
     }
 
-    private fun bindAlbumThumbnail(album: PhotoAlbumEntry) = with(binding.albumImageLayout) {
-        thumbnail.tag = album.lastPhoto
+    private fun bindAlbumThumbnail(album: PhotoAlbumEntry) {
+        binding.albumImageLayout.thumbnail.tag = album.lastPhoto
 
         if (album.lastPhoto <= 0) {
             showPlaceholder()
-            return@with
+            return
         }
 
-        val file = getOrCreateFile(album)
-        DisplayUtils.setThumbnail(
-            file,
-            thumbnail,
-            currentUserProvider.user,
-            storageManager,
-            thumbnailAsyncTasks,
-            false,
-            context,
-            thumbnailShimmer,
-            syncedFolderProvider.preferences,
-            viewThemeUtils,
-            overlayManager,
-            true
-        )
+        loadThumbnail(getOrCreateFile(album), binding.albumImageLayout)
     }
 
     private fun showPlaceholder() = with(binding.albumImageLayout) {
@@ -149,179 +135,37 @@ class AlbumSharingBottomSheet(
             remoteId = album.lastPhoto.toString()
         }
 
+    private fun loadThumbnail(file: OCFile, target: AlbumImageThumbnailBinding) {
+        DisplayUtils.setThumbnail(
+            file,
+            target.thumbnail,
+            currentUserProvider.user,
+            storageManager,
+            thumbnailAsyncTasks,
+            false,
+            context,
+            target.thumbnailShimmer,
+            syncedFolderProvider.preferences,
+            viewThemeUtils,
+            overlayManager,
+            true
+        )
+    }
+
     private fun initializeImageCollage() {
-        fileList?.let {
-            if (it.isNotEmpty()) {
-                binding.imageCollage.visibility = View.VISIBLE
+        val files = fileList?.takeIf { it.isNotEmpty() } ?: return
+        val collage = this.collage ?: return
 
-                val imageViews = listOf(
-                    binding.imgTopLeft,
-                    binding.imgBottomLeft,
-                    binding.imgCenter,
-                    binding.imgTopRight,
-                    binding.imgBottomRight
-                )
+        binding.imageCollage.visibility = View.VISIBLE
+        collage.images.forEach { it.root.visibility = View.GONE }
+        collage.arrange(files.size)
 
-                imageViews.forEach { image -> image.root.visibility = View.GONE }
-
-                rearrangeImageCollage(imageViews, it.size)
-
-                it.forEachIndexed { index, url ->
-                    imageViews[index].root.visibility = View.VISIBLE
-                    DisplayUtils.setThumbnail(
-                        url,
-                        imageViews[index].thumbnail,
-                        currentUserProvider.user,
-                        storageManager,
-                        thumbnailAsyncTasks,
-                        false,
-                        context,
-                        imageViews[index].thumbnailShimmer,
-                        syncedFolderProvider.preferences,
-                        viewThemeUtils,
-                        overlayManager,
-                        true
-                    )
-                }
+        files.forEachIndexed { index, file ->
+            collage.images[index].let {
+                it.root.visibility = View.VISIBLE
+                loadThumbnail(file, it)
             }
         }
-    }
-
-    /**
-     * rearrange the collage images based on the number of images to be shown
-     * for IMAGE_COLLAGE_MAX_LIMIT which is 5 images the default xml layout will be used
-     */
-    private fun rearrangeImageCollage(imageViews: List<AlbumImageThumbnailBinding>, count: Int) {
-        if (count == IMAGE_COLLAGE_MAX_LIMIT) {
-            return
-        }
-
-        val set = ConstraintSet()
-        set.clone(binding.imageCollage)
-
-        imageViews.forEach {
-            set.clear(it.root.id)
-            it.root.visibility = View.GONE
-        }
-
-        when (count) {
-            IMAGE_COUNT_1 -> layout1Image(set)
-            IMAGE_COUNT_2 -> layout2Images(set)
-            IMAGE_COUNT_3 -> layout3Images(set)
-            IMAGE_COUNT_4 -> layout4Images(set)
-        }
-
-        set.applyTo(binding.imageCollage)
-    }
-
-    /**
-     * show single image with full width and height
-     */
-    private fun layout1Image(set: ConstraintSet) {
-        set.connect(binding.imgTopLeft.root.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
-        set.connect(binding.imgTopLeft.root.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
-        set.connect(binding.imgTopLeft.root.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
-        set.connect(binding.imgTopLeft.root.id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
-    }
-
-    /**
-     * for 2 images place both images equal width and full height
-     */
-    private fun layout2Images(set: ConstraintSet) {
-        // for horizontal spacing between images we have used 0.48f
-        listOf(binding.imgTopLeft.root, binding.imgBottomLeft.root)
-            .forEach {
-                set.constrainPercentWidth(it.id, TWO_COLUMN_IMAGE_WIDTH_PERCENT)
-            }
-
-        set.connect(binding.imgTopLeft.root.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
-        set.connect(binding.imgTopLeft.root.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
-        set.connect(binding.imgTopLeft.root.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
-        set.connect(binding.imgTopLeft.root.id, ConstraintSet.END, binding.imgBottomLeft.root.id, ConstraintSet.START)
-
-        set.connect(binding.imgBottomLeft.root.id, ConstraintSet.START, binding.imgTopLeft.root.id, ConstraintSet.END)
-        set.connect(binding.imgBottomLeft.root.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
-        set.connect(binding.imgBottomLeft.root.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
-        set.connect(binding.imgBottomLeft.root.id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
-    }
-
-    /**
-     * for 3 images place first 2 images in 1 column and 3rd image in 2nd column with full height
-     */
-    private fun layout3Images(set: ConstraintSet) {
-        // for horizontal spacing between images we have used 0.48f
-        listOf(binding.imgTopLeft.root, binding.imgBottomLeft.root, binding.imgCenter.root)
-            .forEach {
-                set.constrainPercentWidth(it.id, TWO_COLUMN_IMAGE_WIDTH_PERCENT)
-            }
-
-        // for vertical spacing between images we have used 0.48f
-        listOf(binding.imgTopLeft.root, binding.imgBottomLeft.root)
-            .forEach {
-                set.constrainPercentHeight(it.id, TWO_ROW_IMAGE_HEIGHT_PERCENT)
-            }
-
-        // 0.98f is used to align the full height image with 1st column image
-        set.constrainPercentHeight(binding.imgCenter.root.id, FULL_IMAGE_HEIGHT_PERCENT)
-
-        // Left column
-        set.connect(binding.imgTopLeft.root.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
-        set.connect(binding.imgTopLeft.root.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
-        set.connect(binding.imgTopLeft.root.id, ConstraintSet.END, binding.imgCenter.root.id, ConstraintSet.START)
-
-        set.connect(binding.imgBottomLeft.root.id, ConstraintSet.TOP, binding.imgTopLeft.root.id, ConstraintSet.BOTTOM)
-        set.connect(binding.imgBottomLeft.root.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
-        set.connect(binding.imgBottomLeft.root.id, ConstraintSet.END, binding.imgCenter.root.id, ConstraintSet.START)
-        set.connect(binding.imgBottomLeft.root.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
-
-        // Right column full
-        set.connect(binding.imgCenter.root.id, ConstraintSet.START, binding.imgTopLeft.root.id, ConstraintSet.END)
-        set.connect(binding.imgCenter.root.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
-        set.connect(binding.imgCenter.root.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
-        set.connect(binding.imgCenter.root.id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
-    }
-
-    /**
-     * for 4 images place the images in 2*2 grid with different height to look them staggered
-     */
-    private fun layout4Images(set: ConstraintSet) {
-        // for horizontal spacing between images we have used 0.48f
-        listOf(binding.imgTopLeft.root, binding.imgBottomLeft.root, binding.imgCenter.root, binding.imgTopRight.root)
-            .forEach {
-                set.constrainPercentWidth(it.id, TWO_COLUMN_IMAGE_WIDTH_PERCENT)
-            }
-
-        // for vertical spacing between images we have used 0.52f
-        listOf(binding.imgTopLeft.root, binding.imgTopRight.root)
-            .forEach {
-                set.constrainPercentHeight(it.id, STAGGERED_IMAGE_HEIGHT_PERCENT_BIG)
-            }
-
-        // for vertical spacing between images we have used 0.43f
-        listOf(binding.imgBottomLeft.root, binding.imgCenter.root)
-            .forEach {
-                set.constrainPercentHeight(it.id, STAGGERED_IMAGE_HEIGHT_PERCENT_SMALL)
-            }
-
-        // Top row
-        set.connect(binding.imgTopLeft.root.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
-        set.connect(binding.imgTopLeft.root.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
-        set.connect(binding.imgTopLeft.root.id, ConstraintSet.END, binding.imgCenter.root.id, ConstraintSet.START)
-
-        set.connect(binding.imgCenter.root.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
-        set.connect(binding.imgCenter.root.id, ConstraintSet.START, binding.imgTopLeft.root.id, ConstraintSet.END)
-        set.connect(binding.imgCenter.root.id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
-
-        // Bottom row
-        set.connect(binding.imgBottomLeft.root.id, ConstraintSet.TOP, binding.imgTopLeft.root.id, ConstraintSet.BOTTOM)
-        set.connect(binding.imgBottomLeft.root.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
-        set.connect(binding.imgBottomLeft.root.id, ConstraintSet.END, binding.imgTopRight.root.id, ConstraintSet.START)
-        set.connect(binding.imgBottomLeft.root.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
-
-        set.connect(binding.imgTopRight.root.id, ConstraintSet.TOP, binding.imgCenter.root.id, ConstraintSet.BOTTOM)
-        set.connect(binding.imgTopRight.root.id, ConstraintSet.START, binding.imgBottomLeft.root.id, ConstraintSet.END)
-        set.connect(binding.imgTopRight.root.id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
-        set.connect(binding.imgTopRight.root.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
     }
 
     private fun setUpShareComponentsVisibility() {
@@ -329,41 +173,28 @@ class AlbumSharingBottomSheet(
         binding.shareGroup.setVisibleIf(!shareId.isNullOrEmpty())
     }
 
-    private fun setClickListeners() {
-        binding.btnClose.setOnClickListener {
-            dismiss()
-        }
-        binding.btnCreateLink.setOnClickListener {
-            actions.createShare()
-        }
-        binding.lblCreateLink.setOnClickListener {
-            actions.createShare()
-        }
-
-        binding.btnStopSharing.setOnClickListener {
-            actions.removeShare()
-        }
-        binding.lblStopSharing.setOnClickListener {
-            actions.removeShare()
-        }
-
-        binding.btnCopy.setOnClickListener {
+    private fun bindShareActions() = with(binding) {
+        actionCreateLink.bind(R.drawable.ic_share, R.string.album_create_new_link) { actions.createShare() }
+        actionStopSharing.bind(R.drawable.ic_delete, R.string.album_stop_sharing) { actions.removeShare() }
+        actionCopy.bind(R.drawable.ic_content_copy, R.string.common_copy) {
             actions.copyShareLink()
             dismiss()
         }
-        binding.lblCopy.setOnClickListener {
-            actions.copyShareLink()
+        actionShareLink.bind(R.drawable.shared_via_link, R.string.album_share_link) {
+            actions.shareAlbumLink()
             dismiss()
         }
+        btnClose.setOnClickListener { dismiss() }
+    }
 
-        binding.btnShareAlbumLink.setOnClickListener {
-            actions.shareAlbumLink()
-            dismiss()
-        }
-        binding.lblShareAlbumLink.setOnClickListener {
-            actions.shareAlbumLink()
-            dismiss()
-        }
+    private fun AlbumShareActionBinding.bind(@DrawableRes icon: Int, @StringRes text: Int, onClick: () -> Unit) {
+        button.setImageResource(icon)
+        label.setText(text)
+        button.contentDescription = label.text
+
+        val listener = View.OnClickListener { onClick() }
+        button.setOnClickListener(listener)
+        label.setOnClickListener(listener)
     }
 
     // has to be called when the new share is created or removed
@@ -374,21 +205,11 @@ class AlbumSharingBottomSheet(
 
     override fun onDestroyView() {
         super.onDestroyView()
+        collage = null
         _binding = null
     }
 
     companion object {
-        private const val IMAGE_COUNT_1 = 1
-        private const val IMAGE_COUNT_2 = 2
-        private const val IMAGE_COUNT_3 = 3
-        private const val IMAGE_COUNT_4 = 4
-        const val IMAGE_COLLAGE_MAX_LIMIT = 5
-        private const val TWO_COLUMN_IMAGE_WIDTH_PERCENT = 0.48f
-        private const val TWO_ROW_IMAGE_HEIGHT_PERCENT = 0.48f
-        private const val STAGGERED_IMAGE_HEIGHT_PERCENT_BIG = 0.52f
-        private const val STAGGERED_IMAGE_HEIGHT_PERCENT_SMALL = 0.43f
-        private const val FULL_IMAGE_HEIGHT_PERCENT = 0.98f
-
         @JvmStatic
         fun newInstance(
             photoAlbumEntry: PhotoAlbumEntry?,
