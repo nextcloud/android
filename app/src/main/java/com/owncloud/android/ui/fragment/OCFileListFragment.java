@@ -151,6 +151,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.media3.common.util.UnstableApi;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import kotlin.Unit;
 
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
@@ -860,6 +861,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
          * Load menu and customize UI when action mode is started.
          */
         @Override
+        @SuppressFBWarnings("RV")
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             mActiveActionMode = mode;
             // Determine if actionMode is "new" or not (already affected by item-selection)

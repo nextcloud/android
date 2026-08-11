@@ -627,9 +627,9 @@ class FileDisplayActivity :
                 // Using `is OCFileListFragment` would also match subclasses,
                 // its needed because reinitializing OCFileListFragment itself causes an empty screen
                 leftFragment?.let {
-                    // check for albums fragment to load All Files
-                    // when user is on AlbumsFragment and click on All Files
-                    if (it::class != OCFileListFragment::class || isAlbumsFragment) {
+                    // Album screens are committed under their own tags, so leftFragment can still
+                    // point at the detached OCFileListFragment while an album screen is on top
+                    if (it::class != OCFileListFragment::class || isAlbumsFragment || isAlbumItemsFragment) {
                         leftFragment = OCFileListFragment()
                         supportFragmentManager.executePendingTransactions()
                         listFragmentJustCreated = true
