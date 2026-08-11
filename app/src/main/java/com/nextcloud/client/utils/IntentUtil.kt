@@ -11,11 +11,10 @@ package com.nextcloud.client.utils
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.ui.dialog.ShareLinkToDialog.Companion.newInstance
+import com.owncloud.android.ui.dialog.ShareLinkToDialog
 
 object IntentUtil {
 
@@ -45,15 +44,14 @@ object IntentUtil {
     private fun getExposedFileUris(context: Context, files: Array<OCFile>): ArrayList<Uri> =
         ArrayList(files.map { it.getExposedFileUri(context) })
 
-    @JvmStatic
     fun showShareLinkDialog(activity: FragmentActivity, link: String?) {
-        // Create dialog to allow the user choose an app to send the link
-        val intentToShareLink = Intent(Intent.ACTION_SEND)
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            putExtra(Intent.EXTRA_TEXT, link)
+            setType("text/plain")
+        }
 
-        intentToShareLink.putExtra(Intent.EXTRA_TEXT, link)
-        intentToShareLink.setType("text/plain")
-
-        val chooserDialog: DialogFragment = newInstance(intentToShareLink, activity.packageName)
-        chooserDialog.show(activity.supportFragmentManager, FileDisplayActivity.FTAG_CHOOSER_DIALOG)
+        ShareLinkToDialog.newInstance(intent, activity.packageName).run {
+            show(activity.supportFragmentManager, FileDisplayActivity.FTAG_CHOOSER_DIALOG)
+        }
     }
 }
