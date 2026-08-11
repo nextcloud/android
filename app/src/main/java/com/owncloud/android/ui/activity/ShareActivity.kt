@@ -150,7 +150,8 @@ class ShareActivity :
                 null,
                 preferences,
                 viewThemeUtils,
-                overlayManager
+                overlayManager,
+                false
             )
         }
     }

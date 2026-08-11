@@ -298,7 +298,7 @@ class AlbumFileUploadWorker(
 
     private fun canExitEarly(): Boolean {
         val result = !connectivityService.isConnected ||
-            connectivityService.isInternetWalled ||
+            connectivityService.isInternetWalled() ||
             isStopped
 
         if (result) {

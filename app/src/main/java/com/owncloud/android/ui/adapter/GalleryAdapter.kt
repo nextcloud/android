@@ -300,6 +300,16 @@ class GalleryAdapter(
         columns = newColumn
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun showAlbumItems(albumItems: List<OCFile>) {
+        files = albumItems.toGalleryItems(columns, defaultThumbnailSize)
+        notifyDataSetChanged()
+    }
+
+    fun setCheckedItem(files: Set<OCFile>?) {
+        ocFileListDelegate.setCheckedItem(files)
+    }
+
     fun markAsFavorite(remotePath: String, favorite: Boolean) {
         val allFiles = getAllFiles()
         allFiles.firstOrNull { it.remotePath == remotePath }?.also { file ->

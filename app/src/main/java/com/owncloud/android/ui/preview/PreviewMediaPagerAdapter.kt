@@ -95,14 +95,18 @@ class PreviewMediaPagerAdapter : FragmentStateAdapter {
         this.user = user
         mStorageManager = storageManager
 
-        if (type == VirtualFolderType.GALLERY) {
-            imageFiles = mStorageManager.allGalleryItems
-            imageFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(imageFiles)
-        } else if (type == VirtualFolderType.ALBUM) {
-            imageFiles = mStorageManager.getVirtualFolderContent(type, false)
-            imageFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(imageFiles)
-        } else {
-            imageFiles = mStorageManager.getVirtualFolderContent(type, true)
+        when (type) {
+            VirtualFolderType.GALLERY -> {
+                imageFiles = mStorageManager.allGalleryItems
+                imageFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(imageFiles)
+            }
+            VirtualFolderType.ALBUM -> {
+                imageFiles = mStorageManager.getVirtualFolderContent(type, false)
+                imageFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(imageFiles)
+            }
+            else -> {
+                imageFiles = mStorageManager.getVirtualFolderContent(type, true)
+            }
         }
 
         if (type == VirtualFolderType.FAVORITE) {

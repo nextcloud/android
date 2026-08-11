@@ -15,12 +15,6 @@ import com.owncloud.android.lib.resources.albums.CopyFileToAlbumRemoteOperation
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.operations.common.SyncOperation
 
-/**
- * Constructor
- *
- * @param srcPath          Remote path of the [OCFile] to move.
- * @param targetParentPath Path to the folder where the file will be copied into.
- */
 class CopyFileToAlbumOperation(
     private val srcPath: String,
     private var targetParentPath: String,
@@ -32,15 +26,9 @@ class CopyFileToAlbumOperation(
         }
     }
 
-    /**
-     * Performs the operation.
-     *
-     * @param client Client object to communicate with the remote ownCloud server.
-     */
     @Deprecated("Deprecated in Java")
     @Suppress("NestedBlockDepth")
     override fun run(client: OwnCloudClient): RemoteOperationResult<Any> {
-        /** 1. check copy validity */
         val result: RemoteOperationResult<Any>
 
         if (targetParentPath.startsWith(srcPath)) {
@@ -50,7 +38,6 @@ class CopyFileToAlbumOperation(
             if (file == null) {
                 result = RemoteOperationResult(ResultCode.FILE_NOT_FOUND)
             } else {
-                /** 2. remote copy */
                 var targetPath = "$targetParentPath${file.fileName}"
                 if (file.isFolder) {
                     targetPath += OCFile.PATH_SEPARATOR
