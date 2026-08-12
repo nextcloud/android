@@ -22,8 +22,8 @@ import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.date.DateFormatPattern
 import com.nextcloud.utils.extensions.setVisibleIf
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.R
-import com.owncloud.android.databinding.AlbumImageThumbnailBinding
 import com.owncloud.android.databinding.AlbumShareActionBinding
 import com.owncloud.android.databinding.AlbumSharingBottomSheetBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -32,7 +32,6 @@ import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.resources.albums.PhotoAlbumEntry
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.overlay.OverlayManager
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -56,7 +55,7 @@ class AlbumSharingBottomSheet(
     lateinit var syncedFolderProvider: SyncedFolderProvider
 
     @Inject
-    lateinit var overlayManager: OverlayManager
+    lateinit var thumbnailGenerator: ThumbnailGenerator
 
     private val thumbnailAsyncTasks = mutableListOf<ThumbnailsCacheManager.ThumbnailGenerationTask>()
 
@@ -120,7 +119,7 @@ class AlbumSharingBottomSheet(
             return
         }
 
-        loadThumbnail(getOrCreateFile(album), binding.albumImageLayout)
+        thumbnailGenerator.setThumbnail(getOrCreateFile(album), hideVideoOverlay = true, view = binding.albumImageLayout)
     }
 
     private fun showPlaceholder() = with(binding.albumImageLayout) {
@@ -134,23 +133,6 @@ class AlbumSharingBottomSheet(
             localId = album.lastPhoto
             remoteId = album.lastPhoto.toString()
         }
-
-    private fun loadThumbnail(file: OCFile, target: AlbumImageThumbnailBinding) {
-        DisplayUtils.setThumbnail(
-            file,
-            target.thumbnail,
-            currentUserProvider.user,
-            storageManager,
-            thumbnailAsyncTasks,
-            false,
-            context,
-            target.thumbnailShimmer,
-            syncedFolderProvider.preferences,
-            viewThemeUtils,
-            overlayManager,
-            true
-        )
-    }
 
     private fun initializeImageCollage() {
         val files = fileList?.takeIf { it.isNotEmpty() } ?: return

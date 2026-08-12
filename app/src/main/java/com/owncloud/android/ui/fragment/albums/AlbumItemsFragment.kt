@@ -58,6 +58,7 @@ import com.nextcloud.ui.albumItemActions.AlbumItemActionsBottomSheet
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.extensions.isDialogFragmentReady
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ListFragmentBinding
 import com.owncloud.android.datamodel.OCFile
@@ -135,6 +136,9 @@ class AlbumItemsFragment :
 
     @Inject
     lateinit var throttler: Throttler
+
+    @Inject
+    lateinit var thumbnailGenerator: ThumbnailGenerator
 
     private var mContainerActivity: FileFragment.ContainerActivity? = null
 
@@ -512,11 +516,11 @@ class AlbumItemsFragment :
                 requireContext(),
                 accountManager.user,
                 this,
-                preferences,
                 mContainerActivity!!,
                 viewThemeUtils,
                 columnSize,
-                ThumbnailsCacheManager.getThumbnailDimension()
+                ThumbnailsCacheManager.getThumbnailDimension(),
+                thumbnailGenerator
             )
             adapter?.setHasStableIds(true)
             setUpActionMode()

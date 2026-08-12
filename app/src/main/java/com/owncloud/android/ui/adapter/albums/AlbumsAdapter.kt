@@ -13,9 +13,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nextcloud.client.account.User
-import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.date.DateFormatPattern
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.AlbumsGridItemBinding
 import com.owncloud.android.databinding.AlbumsListItemBinding
@@ -25,18 +24,13 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.albums.PhotoAlbumEntry
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.overlay.OverlayManager
-import com.owncloud.android.utils.theme.ViewThemeUtils
 
 @Suppress("LongParameterList")
 class AlbumsAdapter(
-    val context: Context,
+    private val context: Context,
     private val storageManager: FileDataStorageManager?,
-    private val user: User,
     private val albumFragmentInterface: AlbumFragmentInterface,
-    private val overlayManager: OverlayManager,
-    private val preferences: AppPreferences,
-    private val viewThemeUtils: ViewThemeUtils,
+    private val thumbnailGenerator: ThumbnailGenerator,
     private val gridView: Boolean = true
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var albumList: MutableList<PhotoAlbumEntry> = mutableListOf()
@@ -81,20 +75,9 @@ class AlbumsAdapter(
                 nFile.remoteId = file.lastPhoto.toString()
                 ocLocal = nFile
             }
-            DisplayUtils.setThumbnail(
-                ocLocal,
-                gridViewHolder.thumbnail,
-                user,
-                storageManager,
-                asyncTasks,
-                gridView,
-                context,
-                null,
-                preferences,
-                viewThemeUtils,
-                overlayManager,
-                true
-            )
+
+
+            thumbnailGenerator.setThumbnail(ocLocal, gridViewHolder.thumbnail, gridView, true)
         } else {
             gridViewHolder.thumbnail.setImageResource(R.drawable.file_image)
             gridViewHolder.thumbnail.visibility = View.VISIBLE

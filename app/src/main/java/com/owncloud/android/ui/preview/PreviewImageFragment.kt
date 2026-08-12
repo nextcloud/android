@@ -55,6 +55,7 @@ import com.nextcloud.utils.extensions.clickWithDebounce
 import com.nextcloud.utils.extensions.getBigThumbnailKey
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSmallThumbnail
+import com.nextcloud.utils.extensions.typedActivity
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PreviewImageFragmentBinding
@@ -382,51 +383,46 @@ class PreviewImageFragment :
      * @param isManualClick if true skip album check to avoid calling api in loop if file fetch fails
      */
     private fun onOverflowClick(isManualClick: Boolean = false) {
-        val file = file
-        if (containerActivity.storageManager != null && file != null) {
-            // Update the file
-            val updatedFile = containerActivity.storageManager.getFileById(file.fileId)
-            // check for albums file
-            // for album file both local and remoteId will be same configured at operation level
-            if (!isManualClick && updatedFile != null && updatedFile.localId.toString() == updatedFile.remoteId) {
-                fetchFileMetaDataIfAbsent(updatedFile)
-            } else {
-                setFile(updatedFile)
+        val file = file ?: return
+        val storageManager = containerActivity.storageManager ?: return
+        val updatedFile = storageManager.getFileById(file.fileId)
 
-                val fileNew = getFile()
-                if (fileNew != null) {
-                    showFileActions(file)
-                }
-            }
+        // check for albums file for album file both local and remoteId will be same configured at operation level
+        if (!isManualClick && updatedFile != null && updatedFile.localId.toString() == updatedFile.remoteId) {
+            fetchFileMetaDataIfAbsent(updatedFile)
+            return
+        }
+
+        setFile(updatedFile)
+        val fileNew = getFile()
+        if (fileNew != null) {
+            showFileActions(file)
         }
     }
 
     private fun fetchFileMetaDataIfAbsent(ocFile: OCFile) {
-        if (requireActivity() is FileActivity) {
-            (requireActivity() as FileActivity).showLoadingDialog(getString(R.string.wait_a_moment))
-        }
+        typedActivity<FileActivity>()?.showLoadingDialog(getString(R.string.wait_a_moment))
+        val context = context ?: return
+
         lifecycleScope.launch(Dispatchers.IO) {
-            val fetchRemoteFileOperation =
-                FetchRemoteFileOperation(
-                    requireActivity(),
-                    accountManager.user,
-                    ocFile,
-                    removeFileFromDb = true,
-                    storageManager = containerActivity.storageManager
-                )
-            val result = fetchRemoteFileOperation.execute(requireActivity())
+            val operation = FetchRemoteFileOperation(
+                context,
+                accountManager.user,
+                ocFile,
+                removeFileFromDb = true,
+                storageManager = containerActivity.storageManager
+            )
+            val result = operation.execute(context)
+
             withContext(Dispatchers.Main) {
-                if (requireActivity() is FileActivity) {
-                    (requireActivity() as FileActivity).dismissLoadingDialog()
-                }
+                typedActivity<FileActivity>()?.dismissLoadingDialog()
+
                 if (result?.isSuccess == true && result.resultData != null) {
                     file = result.resultData as OCFile
-
                     onOverflowClick(isManualClick = true)
                 } else {
                     Log_OC.d(TAG, result?.logMessage)
-                    // show error
-                    DisplayUtils.showSnackMessage(binding.root, result.getLogMessage(requireContext()))
+                    DisplayUtils.showSnackMessage(binding.root, result.getLogMessage(context))
                 }
             }
         }
@@ -481,7 +477,7 @@ class PreviewImageFragment :
         } else if (itemId == R.id.action_edit) {
             (requireActivity() as PreviewImageActivity).startImageEditor(file)
         } else if (itemId == R.id.action_add_to_album) {
-            containerActivity.fileOperationsHelper.addFileToAlbum(listOf<OCFile>(file))
+            containerActivity.fileOperationsHelper.addFileToAlbum(listOf(file))
         }
     }
 
