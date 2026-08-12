@@ -53,6 +53,7 @@ class LocalFileListFragment :
         override fun onMenuItemSelected(menuItem: MenuItem): Boolean = false
     }
 
+    //region Lifecycle
     override fun onAttach(context: Context) {
         super.onAttach(context)
         listener = context as? LocalFileListListener
@@ -88,6 +89,13 @@ class LocalFileListFragment :
         setupGridViewButton()
     }
 
+    override fun onDestroyView() {
+        adapter.cleanup()
+        super.onDestroyView()
+    }
+    //endregion
+
+    //region Setup
     private fun setupAdapter() {
         adapter = LocalFileListAdapter(
             listener.isFolderPickerMode,
@@ -124,7 +132,9 @@ class LocalFileListFragment :
             setLayoutSwitchButton()
         }
     }
+    //endregion
 
+    //region Item clicks
     override fun onItemClicked(file: File?) {
         val file = file ?: return
 
@@ -143,7 +153,9 @@ class LocalFileListFragment :
         adapter.onItemCheckboxClicked(file)
         listener.onFileClick(file)
     }
+    //endregion
 
+    //region Directory navigation
     fun onNavigateUp() {
         val parentDir = currentDirectory?.getParentFile()
         listDirectory(parentDir)
@@ -176,7 +188,9 @@ class LocalFileListFragment :
 
         return parent
     }
+    //endregion
 
+    //region File selection
     val checkedFilePaths: Array<String>
         get() = adapter.checkedFilesPath
 
@@ -185,11 +199,6 @@ class LocalFileListFragment :
 
     val filesCount: Int
         get() = adapter.filesCount
-
-    fun sortFiles(sortOrder: FileSortOrder) {
-        mSortButton?.setText(DisplayUtils.getSortOrderStringId(sortOrder))
-        adapter.setSortOrder(sortOrder)
-    }
 
     fun selectAllFiles(select: Boolean) {
         if (recyclerView == null) {
@@ -205,6 +214,13 @@ class LocalFileListFragment :
         }
 
         adapter.notifyItemRangeChanged(0, adapter.getItemCount())
+    }
+    //endregion
+
+    //region View options
+    fun sortFiles(sortOrder: FileSortOrder) {
+        mSortButton?.setText(DisplayUtils.getSortOrderStringId(sortOrder))
+        adapter.setSortOrder(sortOrder)
     }
 
     override fun switchToGridView() {
@@ -242,7 +258,9 @@ class LocalFileListFragment :
         recyclerView?.setAdapter(adapter)
         super.switchToListView()
     }
+    //endregion
 
+    //region Adapter updates
     @VisibleForTesting
     fun setFiles(newFiles: List<File>) {
         adapter.setFiles(newFiles)
@@ -252,11 +270,7 @@ class LocalFileListFragment :
     fun setupStoragePermissionWarningBanner() {
         adapter.notifyDataSetChanged()
     }
-
-    override fun onDestroyView() {
-        adapter.cleanup()
-        super.onDestroyView()
-    }
+    //endregion
 
     companion object {
         private const val SINGLE_SPAN = 1
