@@ -31,7 +31,7 @@
     <string name="add_media">Add media</string>
     <string name="create_album_dialog_title">New album</string>
     <string name="rename_album_dialog_title">Rename album</string>
-    <string name="create_album_dialog_message">Enter your new Album name</string>
+    <string name="create_album_dialog_message">Enter your new album name</string>
     <string name="album_name_empty">Album name cannot be empty</string>
     <string name="album_rename">Rename album</string>
     <string name="album_share">Share album</string>

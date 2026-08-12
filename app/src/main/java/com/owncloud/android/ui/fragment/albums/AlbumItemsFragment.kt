@@ -693,16 +693,12 @@ class AlbumItemsFragment :
             R.string.confirmation_remove_files_from_album_message
         }
 
-        showRemovalConfirmation(messageId,files.first().fileName.takeIf { isSingleFile }) {
+        showRemovalConfirmation(messageId, files.first().fileName.takeIf { isSingleFile }) {
             removeFilesFromAlbum(files)
         }
     }
 
-    private fun showRemovalConfirmation(
-        @StringRes messageId: Int,
-        name: String?,
-        onConfirmed: () -> Unit
-    ) {
+    private fun showRemovalConfirmation(@StringRes messageId: Int, name: String?, onConfirmed: () -> Unit) {
         val dialog = ConfirmationDialogFragment.newInstance(
             messageResId = messageId,
             messageArguments = arrayOf(name),
