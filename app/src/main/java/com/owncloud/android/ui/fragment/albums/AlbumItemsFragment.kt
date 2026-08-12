@@ -52,6 +52,7 @@ import com.nextcloud.ui.fileactions.FileActionsBottomSheet
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.extensions.isDialogFragmentReady
 import com.nextcloud.utils.extensions.isLandscape
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.extensions.toAlbumItem
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.R
@@ -134,6 +135,7 @@ class AlbumItemsFragment :
     private lateinit var albumName: String
 
     private var adapter: GalleryAdapter? = null
+    private var addMediaFab: FloatingActionButton? = null
     private var client: OwnCloudClient? = null
     private var optionalUser: Optional<User>? = null
     private var containerActivity: FileFragment.ContainerActivity? = null
@@ -229,6 +231,7 @@ class AlbumItemsFragment :
 
     override fun onDestroyView() {
         lastMediaItemPosition = 0
+        addMediaFab = null
         super.onDestroyView()
     }
 
@@ -262,7 +265,7 @@ class AlbumItemsFragment :
     }
 
     private fun createAddMediaButton() {
-        val addMediaFab = FloatingActionButton(requireContext()).apply {
+        addMediaFab = FloatingActionButton(requireContext()).apply {
             id = View.generateViewId()
             setImageResource(R.drawable.ic_plus)
             contentDescription = getString(R.string.add_media)
@@ -327,10 +330,12 @@ class AlbumItemsFragment :
         }
 
         selectionMode = AlbumItemsMultiChoiceModeListener(
-            requireActivity(),
-            adapter,
-            viewThemeUtils
-        ) { filesCount, checkedFiles -> openActionsMenu(filesCount, checkedFiles) }
+            activity = requireActivity(),
+            adapter = adapter,
+            viewThemeUtils = viewThemeUtils,
+            openActionsMenu = { filesCount, checkedFiles -> openActionsMenu(filesCount, checkedFiles) },
+            onSelectionModeChanged = { isActive -> addMediaFab.setVisibleIf(!isActive) }
+        )
 
         (requireActivity() as FileDisplayActivity).addDrawerListener(selectionMode)
     }
