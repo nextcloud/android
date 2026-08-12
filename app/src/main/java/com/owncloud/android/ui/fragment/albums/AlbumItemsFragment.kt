@@ -106,6 +106,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.Optional
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.milliseconds
 
 @Suppress("TooManyFunctions")
 class AlbumItemsFragment :
@@ -342,7 +343,7 @@ class AlbumItemsFragment :
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 refreshFlow.onStart { emit(Unit) }
                     .onEach { binding.swipeContainingList.isRefreshing = true }
-                    .debounce(DEBOUNCE_DELAY)
+                    .debounce(DEBOUNCE_DELAY.milliseconds)
                     .collect { fetchAndSetData() }
             }
         }
@@ -451,7 +452,7 @@ class AlbumItemsFragment :
         val connectivityService = getTypedActivity(FileActivity::class.java)?.connectivityService ?: return
 
         connectivityService.isNetworkAndServerAvailable { available ->
-            if (available != true) {
+            if (!available) {
                 return@isNetworkAndServerAvailable
             }
 
