@@ -33,8 +33,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.utils.extensions.getGalleryItemsPageSuspended
 import com.nextcloud.utils.extensions.getParcelableArgument
-import kotlinx.coroutines.Job
 import com.nextcloud.utils.extensions.getTypedActivity
+import com.nextcloud.utils.extensions.isLandscape
 import com.nextcloud.utils.extensions.toGalleryItems
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
@@ -52,7 +52,9 @@ import com.owncloud.android.ui.adapter.GalleryAdapter
 import com.owncloud.android.ui.asynctasks.GallerySearchTask
 import com.owncloud.android.ui.events.ChangeMenuEvent
 import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog.MediaState
+import com.owncloud.android.ui.fragment.helper.ColumnCount
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -83,7 +85,7 @@ class GalleryFragment :
             isFromAlbum = it.getBoolean(AlbumsPickerActivity.EXTRA_FROM_ALBUM, false)
         }
         bottomSheet = GalleryFragmentBottomSheetDialog()
-        setupColumnCount()
+        columnsCount = ColumnCount.get(true, resources.isLandscape())
         registerRefreshSearchEventReceiver()
     }
 
@@ -120,14 +122,6 @@ class GalleryFragment :
             viewLifecycleOwner,
             Lifecycle.State.RESUMED
         )
-    }
-
-    private fun setupColumnCount() {
-        columnsCount = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            MAX_LANDSCAPE_COLUMN_SIZE
-        } else {
-            MAX_PORTRAIT_COLUMN_SIZE
-        }
     }
 
     private fun registerRefreshSearchEventReceiver() {
@@ -218,13 +212,7 @@ class GalleryFragment :
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            columnsCount = MAX_LANDSCAPE_COLUMN_SIZE
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            columnsCount = MAX_PORTRAIT_COLUMN_SIZE
-        }
-
+        columnsCount = ColumnCount.get(true, newConfig.isLandscape())
         adapter?.changeColumn(columnsCount)
         showAllGalleryItems()
     }
@@ -489,9 +477,6 @@ class GalleryFragment :
         private const val VIDEO_MIME_FILTER = "video/%"
 
         const val REFRESH_SEARCH_EVENT_RECEIVER: String = "refreshSearchEventReceiver"
-
-        private const val MAX_LANDSCAPE_COLUMN_SIZE = 5
-        private const val MAX_PORTRAIT_COLUMN_SIZE = 2
 
         // Kept across the activity recreation that happens when returning from the media preview,
         // so the grid reopens at the same scroll position and with the same loaded window.
