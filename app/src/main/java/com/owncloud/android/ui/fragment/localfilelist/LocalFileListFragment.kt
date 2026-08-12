@@ -4,7 +4,8 @@
  * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.fragment
+
+package com.owncloud.android.ui.fragment.localfilelist
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -20,11 +21,12 @@ import androidx.annotation.VisibleForTesting
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import com.nextcloud.client.di.Injectable
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.adapter.localFileList.LocalFileListAdapter
+import com.owncloud.android.ui.fragment.EmptyListState
+import com.owncloud.android.ui.fragment.ExtendedListFragment
 import com.owncloud.android.ui.interfaces.LocalFileListFragmentInterface
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileSortOrder
@@ -38,11 +40,11 @@ class LocalFileListFragment :
         private set
 
     private lateinit var adapter: LocalFileListAdapter
-    private lateinit var containerActivity: ContainerActivity
+    private lateinit var listener: LocalFileListListener
 
     private val menuProvider = object : MenuProvider {
         override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-            if (containerActivity.isFolderPickerMode) {
+            if (listener.isFolderPickerMode) {
                 menu.removeItem(R.id.action_select_all)
                 menu.removeItem(R.id.action_search)
             }
@@ -53,9 +55,9 @@ class LocalFileListFragment :
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        containerActivity = context as? ContainerActivity
+        listener = context as? LocalFileListListener
             ?: throw IllegalArgumentException(
-                "$context must implement ${ContainerActivity::class.java.simpleName}"
+                "$context must implement ${LocalFileListListener::class.java.simpleName}"
             )
     }
 
@@ -63,7 +65,7 @@ class LocalFileListFragment :
         Log_OC.i(TAG, "onCreateView() start")
         val v = super.onCreateView(inflater, container, savedInstanceState)
 
-        if (containerActivity.isFolderPickerMode) {
+        if (listener.isFolderPickerMode) {
             setEmptyListMessage(EmptyListState.LOCAL_FILE_LIST_EMPTY_FOLDER)
         } else {
             setEmptyListMessage(EmptyListState.LOCAL_FILE_LIST_EMPTY_FILE)
@@ -81,19 +83,19 @@ class LocalFileListFragment :
         requireActivity().addMenuProvider(menuProvider, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         setupAdapter()
-        listDirectory(containerActivity.initialDirectory)
+        listDirectory(listener.initialDirectory)
         setupSortButton()
         setupGridViewButton()
     }
 
     private fun setupAdapter() {
         adapter = LocalFileListAdapter(
-            containerActivity.isFolderPickerMode,
+            listener.isFolderPickerMode,
             this,
             preferences,
             requireActivity(),
             viewThemeUtils,
-            containerActivity.isWithinEncryptedFolder
+            listener.isWithinEncryptedFolder
         )
         setRecyclerViewAdapter(adapter)
     }
@@ -128,7 +130,7 @@ class LocalFileListFragment :
 
         if (file.isDirectory()) {
             listDirectory(file)
-            containerActivity.onDirectoryClick(file)
+            listener.onDirectoryClick(file)
             saveIndexAndTopPosition(adapter.getItemPosition(file))
             return
         }
@@ -139,7 +141,7 @@ class LocalFileListFragment :
     override fun onItemCheckboxClicked(file: File?) {
         val file = file ?: return
         adapter.onItemCheckboxClicked(file)
-        containerActivity.onFileClick(file)
+        listener.onFileClick(file)
     }
 
     fun onNavigateUp() {
@@ -221,7 +223,7 @@ class LocalFileListFragment :
     private fun createGridLayoutManager(): GridLayoutManager {
         val layoutManager = GridLayoutManager(context, columnsCount)
 
-        layoutManager.spanSizeLookup = object : SpanSizeLookup() {
+        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int = when (position) {
                 adapter.itemCount - 1 -> layoutManager.spanCount
                 else -> SINGLE_SPAN
@@ -242,16 +244,8 @@ class LocalFileListFragment :
     }
 
     @VisibleForTesting
-    fun setFiles(newFiles: MutableList<File>) {
+    fun setFiles(newFiles: List<File>) {
         adapter.setFiles(newFiles)
-    }
-
-    interface ContainerActivity {
-        fun onDirectoryClick(directory: File?)
-        fun onFileClick(file: File?)
-        val initialDirectory: File?
-        val isFolderPickerMode: Boolean
-        val isWithinEncryptedFolder: Boolean
     }
 
     @SuppressLint("NotifyDataSetChanged")
