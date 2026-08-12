@@ -7,18 +7,13 @@
 
 package com.owncloud.android.ui.fragment.helper
 
-import android.content.res.Resources
-import com.nextcloud.utils.extensions.isLandscape
+private const val WIDE_LANDSCAPE_COLUMNS = 5
+private const val NORMAL_LANDSCAPE_COLUMNS = 4
+private const val PORTRAIT_COLUMNS = 2
 
 enum class ColumnCount(val landscape: Int, val portrait: Int) {
-    Wide(5, 2),
-    Normal(4, 2);
+    Wide(WIDE_LANDSCAPE_COLUMNS, PORTRAIT_COLUMNS),
+    Normal(NORMAL_LANDSCAPE_COLUMNS, PORTRAIT_COLUMNS);
 
-    fun get(isLandscape: Boolean): Int =
-        if (isLandscape) landscape else portrait
-
-    companion object {
-        fun get(isWide: Boolean, isLandscape: Boolean): Int =
-            (if (isWide) Wide else Normal).get(isLandscape)
-    }
+    fun get(isLandscape: Boolean): Int = if (isLandscape) landscape else portrait
 }

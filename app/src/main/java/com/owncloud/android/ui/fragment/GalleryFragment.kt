@@ -85,7 +85,7 @@ class GalleryFragment :
             isFromAlbum = it.getBoolean(AlbumsPickerActivity.EXTRA_FROM_ALBUM, false)
         }
         bottomSheet = GalleryFragmentBottomSheetDialog()
-        columnsCount = ColumnCount.get(true, resources.isLandscape())
+        columnsCount = ColumnCount.Wide.get(resources.isLandscape())
         registerRefreshSearchEventReceiver()
     }
 
@@ -212,7 +212,7 @@ class GalleryFragment :
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        columnsCount = ColumnCount.get(true, newConfig.isLandscape())
+        columnsCount = ColumnCount.Wide.get(newConfig.isLandscape())
         adapter?.changeColumn(columnsCount)
         showAllGalleryItems()
     }

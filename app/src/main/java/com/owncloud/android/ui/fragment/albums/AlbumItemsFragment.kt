@@ -186,7 +186,7 @@ class AlbumItemsFragment :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        columnSize = ColumnCount.get(true, resources.isLandscape())
+        columnSize = ColumnCount.Wide.get(resources.isLandscape())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -576,7 +576,7 @@ class AlbumItemsFragment :
     @SuppressLint("NotifyDataSetChanged")
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        columnSize = ColumnCount.get(true, newConfig.isLandscape())
+        columnSize = ColumnCount.Wide.get(newConfig.isLandscape())
         adapter?.changeColumn(columnSize)
         adapter?.notifyDataSetChanged()
     }

@@ -111,7 +111,7 @@ class AlbumsFragment :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        maxColumnSize = ColumnCount.get(false, resources.isLandscape())
+        maxColumnSize = ColumnCount.Normal.get(resources.isLandscape())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -322,7 +322,7 @@ class AlbumsFragment :
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         if (isGridEnabled) {
-            maxColumnSize = ColumnCount.get(false, newConfig.isLandscape())
+            maxColumnSize = ColumnCount.Normal.get(newConfig.isLandscape())
             (binding.listRoot.layoutManager as GridLayoutManager).setSpanCount(maxColumnSize)
         }
     }
