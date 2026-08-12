@@ -22,6 +22,7 @@ import com.owncloud.android.datamodel.VirtualFolderType
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.MimeTypeUtil
 
 /**
  * Adapter class that provides Fragment instances
@@ -169,8 +170,12 @@ class PreviewMediaPagerAdapter : FragmentStateAdapter {
             mDownloadErrors.remove(position) ->
                 FileDownloadFragment.newInstance(file, user, true).apply { setError(true) }
 
-            // The FileDownloadFragment is used exclusively for encrypted files, as they cannot be previewed
-            // without first being downloaded.
+            file.isEncrypted && PreviewImageFragment.canBePreviewed(file) ->
+                PreviewImageFragment.newInstance(file, ignoreFirstSavedState, false)
+
+            file.isEncrypted && MimeTypeUtil.isVideo(file) ->
+                PreviewMediaFragment.newInstance(file, user)
+
             file.isEncrypted -> FileDownloadFragment.newInstance(file, user, ignoreFirstSavedState)
 
             PreviewMediaFragment.isAudioOrVideo(file) ->

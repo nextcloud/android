@@ -16,6 +16,7 @@ import android.content.Context;
 import android.util.Pair;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.e2ee.vault.E2eeVaultSecretStoreFactory;
 import com.nextcloud.utils.e2ee.E2ECounterHelper;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.nextcloud.utils.extensions.OCFileExtensionsKt;
@@ -129,8 +130,12 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
     )
     private RemoteOperationResult encryptedCreateV1(OCFile parent, OwnCloudClient client) {
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
-        String privateKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY);
+        String privateKey = E2eeVaultSecretStoreFactory.create(arbitraryDataProvider).getPrivateKey(user.getAccountName());
         String publicKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY);
+
+        if (privateKey == null || privateKey.isEmpty()) {
+            return new RemoteOperationResult<>(new IllegalStateException("E2EE private key is unavailable"));
+        }
 
         String token = null;
         Boolean metadataExists;

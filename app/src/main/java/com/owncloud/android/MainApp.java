@@ -32,6 +32,7 @@ import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.PowerManager;
 import android.os.StrictMode;
 import android.text.TextUtils;
 import android.view.WindowManager;
@@ -47,6 +48,9 @@ import com.nextcloud.client.di.ActivityInjector;
 import com.nextcloud.client.di.AppComponent;
 import com.nextcloud.client.di.DaggerAppComponent;
 import com.nextcloud.client.errorhandling.ExceptionHandler;
+import com.nextcloud.client.e2ee.vault.E2eeVaultLifecycleManager;
+import com.nextcloud.client.e2ee.vault.E2eeThumbnailMemoryCache;
+import com.nextcloud.client.e2ee.vault.E2eeVaultSession;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.logger.LegacyLoggerAdapter;
 import com.nextcloud.client.logger.Logger;
@@ -190,6 +194,12 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
     @Inject
     PassCodeManager passCodeManager;
 
+    @Inject
+    E2eeVaultLifecycleManager e2eeVaultLifecycleManager;
+
+    @Inject
+    E2eeVaultSession e2eeVaultSession;
+
     @Inject WalledCheckCache walledCheckCache;
 
     @Inject ComposeProcessTextAlias composeProcessTextAlias;
@@ -319,6 +329,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
 
         // initialise thumbnails cache on background thread
         ThumbnailsCacheManager.initDiskCacheAsync();
+        e2eeVaultSession.addLockListener(E2eeThumbnailMemoryCache.INSTANCE);
 
 
         if (MDMConfig.INSTANCE.isLogEnabled(this)) {
@@ -459,6 +470,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
             @Override
             public void onActivityStarted(@NonNull Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onStart() starting");
+                e2eeVaultLifecycleManager.onActivityStarted();
             }
 
             @Override
@@ -484,6 +496,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
                 if (!(activity instanceof LauncherActivity)) {
                     passCodeManager.onActivityStopped(activity);
                 }
+                e2eeVaultLifecycleManager.onActivityStopped(isDeviceInteractive(activity));
             }
 
             @Override
@@ -496,6 +509,11 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
                 Log_OC.d(activity.getClass().getSimpleName(), "onDestroy() ending");
             }
         });
+    }
+
+    private boolean isDeviceInteractive(Activity activity) {
+        PowerManager powerManager = (PowerManager) activity.getSystemService(Context.POWER_SERVICE);
+        return powerManager == null || powerManager.isInteractive();
     }
 
     public static void initContactsBackup(UserAccountManager accountManager, BackgroundJobManager backgroundJobManager) {

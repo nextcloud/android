@@ -47,6 +47,11 @@ import androidx.media3.ui.PlayerView
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.e2ee.vault.E2eeVideoMediaSourceHandle
+import com.nextcloud.client.e2ee.vault.E2eeVideoMediaSourceProvider
+import com.nextcloud.client.e2ee.vault.E2eeVaultSecureWindowManager
+import com.nextcloud.client.e2ee.vault.E2eeVaultSessionKey
+import com.nextcloud.client.e2ee.vault.E2eeVaultSessionLockListener
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.download.FileDownloadHelper.Companion.instance
 import com.nextcloud.client.media.BackgroundPlayerService
@@ -61,6 +66,7 @@ import com.nextcloud.utils.extensions.applyControlsInsets
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.extensions.setFullscreenButton
+import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FragmentPreviewMediaBinding
 import com.owncloud.android.datamodel.OCFile
@@ -124,9 +130,30 @@ class PreviewMediaFragment :
 
     private var emptyListView: ViewGroup? = null
     private var exoPlayer: ExoPlayer? = null
+    private var e2eeVideoMediaSourceHandle: E2eeVideoMediaSourceHandle? = null
+    private var vaultSessionKey: E2eeVaultSessionKey? = null
+    private var vaultLockListenerRegistered = false
+    private var vaultSecureWindowEnabled = false
     private var mediaSession: MediaSession? = null
     private var nextcloudClient: NextcloudClient? = null
     private var isFullscreenActive = false
+    private val vaultLockListener = object : E2eeVaultSessionLockListener {
+        override fun onVaultLocked(key: E2eeVaultSessionKey) {
+            if (key == vaultSessionKey) {
+                activity?.runOnUiThread {
+                    handleEncryptedVideoLocked()
+                }
+            }
+        }
+
+        override fun onAllVaultsLocked() {
+            if (file?.isEncrypted == true) {
+                activity?.runOnUiThread {
+                    handleEncryptedVideoLocked()
+                }
+            }
+        }
+    }
 
     @OptIn(UnstableApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -187,6 +214,7 @@ class PreviewMediaFragment :
 
     override fun onResume() {
         super.onResume()
+        enableVaultSecureWindowIfNeeded()
         applyWindowInsets()
         prepareMedia()
     }
@@ -290,6 +318,7 @@ class PreviewMediaFragment :
         }
         mediaSession = null
         exoPlayer = null
+        closeE2eeVideoMediaSource()
     }
 
     private fun goBackToLivePhoto() {
@@ -310,6 +339,7 @@ class PreviewMediaFragment :
 
     @OptIn(UnstableApi::class)
     private fun setupVideoView() {
+        exoplayerView.visibility = View.VISIBLE
         exoplayerView.run {
             setShowNextButton(false)
             setShowPreviousButton(false)
@@ -429,6 +459,15 @@ class PreviewMediaFragment :
     @Suppress("TooGenericExceptionCaught")
     private fun playVideo() {
         setupVideoView()
+        if (file.isEncrypted) {
+            if (!prepareEncryptedVideoSession()) {
+                return
+            }
+
+            playEncryptedVideo()
+            return
+        }
+
         if (file.isDown) {
             playVideoUri(file.storageUri)
             return
@@ -450,6 +489,101 @@ class PreviewMediaFragment :
                 Log_OC.e(TAG, "Loading stream url not possible: $e")
             }
         }
+    }
+
+    private fun playEncryptedVideo() {
+        val currentFile = file ?: return
+        val currentUser = user ?: accountManager.user
+        val storageManager = containerActivity.storageManager
+        val appContext = context?.applicationContext ?: return
+
+        if (storageManager == null) {
+            setVideoErrorMessage(getString(R.string.stream_not_possible_headline))
+            return
+        }
+
+        lifecycleScope.launch {
+            try {
+                val mediaSourceHandle = withContext(Dispatchers.IO) {
+                    val client = clientFactory.create(currentUser)
+                    E2eeVideoMediaSourceProvider(
+                        appContext,
+                        currentUser,
+                        storageManager,
+                        MainApp.getAppComponent().e2eeVaultSession()
+                    ).loadMediaSource(currentFile, client)
+                }
+
+                if (mediaSourceHandle != null) {
+                    playVideoMediaSource(mediaSourceHandle)
+                } else {
+                    emptyListView?.visibility = View.VISIBLE
+                    setVideoErrorMessage(getString(R.string.stream_not_possible_headline))
+                }
+            } catch (e: CreationException) {
+                Log_OC.e(TAG, "Loading encrypted video client not possible: $e")
+                emptyListView?.visibility = View.VISIBLE
+                setVideoErrorMessage(getString(R.string.stream_not_possible_headline))
+            } catch (e: IllegalStateException) {
+                Log_OC.e(TAG, "Loading encrypted video not possible: $e")
+                emptyListView?.visibility = View.VISIBLE
+                setVideoErrorMessage(getString(R.string.stream_not_possible_headline))
+            } catch (e: SecurityException) {
+                Log_OC.e(TAG, "Loading encrypted video not possible: $e")
+                emptyListView?.visibility = View.VISIBLE
+                setVideoErrorMessage(getString(R.string.stream_not_possible_headline))
+            }
+        }
+    }
+
+    private fun prepareEncryptedVideoSession(): Boolean {
+        val sessionKey = resolveVaultSessionKey()
+        if (sessionKey == null) {
+            setVideoErrorMessage(getString(R.string.stream_not_possible_headline))
+            return false
+        }
+
+        vaultSessionKey = sessionKey
+        registerVaultLockListener()
+
+        if (MainApp.getAppComponent().e2eeVaultSession().isUnlocked(sessionKey)) {
+            return true
+        }
+
+        setVideoErrorMessage(getString(R.string.preview_sorry), R.string.e2ee_vault_locked)
+        return false
+    }
+
+    private fun resolveVaultSessionKey(): E2eeVaultSessionKey? {
+        val currentFile = file ?: return null
+        val storageManager = containerActivity.storageManager ?: return null
+        val parent = storageManager.getFileByEncryptedRemotePath(currentFile.parentRemotePath) ?: return null
+
+        return E2eeVaultSessionKey((user ?: accountManager.user).accountName, parent.localId)
+    }
+
+    private fun registerVaultLockListener() {
+        if (vaultLockListenerRegistered) {
+            return
+        }
+
+        MainApp.getAppComponent().e2eeVaultSession().addLockListener(vaultLockListener)
+        vaultLockListenerRegistered = true
+    }
+
+    private fun unregisterVaultLockListener() {
+        if (!vaultLockListenerRegistered) {
+            return
+        }
+
+        MainApp.getAppComponent().e2eeVaultSession().removeLockListener(vaultLockListener)
+        vaultLockListenerRegistered = false
+    }
+
+    private fun handleEncryptedVideoLocked() {
+        releaseVideoPlayer()
+        emptyListView?.visibility = View.VISIBLE
+        setVideoErrorMessage(getString(R.string.preview_sorry), R.string.e2ee_vault_locked)
     }
 
     private fun loadStreamUrl(user: User?, clientFactory: ClientFactory?, fileId: Long): Uri? {
@@ -474,6 +608,21 @@ class PreviewMediaFragment :
         binding.progress.visibility = View.GONE
 
         exoPlayer?.setMediaItem(MediaItem.fromUri(uri))
+        preparePlayer()
+    }
+
+    @OptIn(UnstableApi::class)
+    private fun playVideoMediaSource(mediaSourceHandle: E2eeVideoMediaSourceHandle) {
+        binding.progress.visibility = View.GONE
+        closeE2eeVideoMediaSource()
+        e2eeVideoMediaSourceHandle = mediaSourceHandle
+        exoplayerView.visibility = View.VISIBLE
+
+        exoPlayer?.setMediaSource(mediaSourceHandle.mediaSource)
+        preparePlayer()
+    }
+
+    private fun preparePlayer() {
         exoPlayer?.playWhenReady = autoplay
         exoPlayer?.prepare()
 
@@ -485,10 +634,16 @@ class PreviewMediaFragment :
         autoplay = false
     }
 
+    private fun closeE2eeVideoMediaSource() {
+        e2eeVideoMediaSourceHandle?.close()
+        e2eeVideoMediaSourceHandle = null
+    }
+
     override fun onPause() {
         if (!isFullscreenActive) {
             releaseVideoPlayer()
         }
+        unregisterVaultLockListener()
         super.onPause()
     }
 
@@ -514,7 +669,8 @@ class PreviewMediaFragment :
             activity,
             client,
             player,
-            exoplayerView
+            exoplayerView,
+            forceSourcePlayer = file?.isEncrypted == true
         ).apply {
             setOnDismissListener {
                 isFullscreenActive = false
@@ -562,12 +718,29 @@ class PreviewMediaFragment :
     }
 
     override fun onDetach() {
-        exoPlayer?.let {
-            it.stop()
-            it.release()
-        }
+        releaseVideoPlayer()
+        unregisterVaultLockListener()
+        disableVaultSecureWindow()
 
         super.onDetach()
+    }
+
+    private fun enableVaultSecureWindowIfNeeded() {
+        if (file?.isEncrypted != true || vaultSecureWindowEnabled) {
+            return
+        }
+
+        E2eeVaultSecureWindowManager.enable(requireActivity())
+        vaultSecureWindowEnabled = true
+    }
+
+    private fun disableVaultSecureWindow() {
+        if (!vaultSecureWindowEnabled) {
+            return
+        }
+
+        activity?.let(E2eeVaultSecureWindowManager::disable)
+        vaultSecureWindowEnabled = false
     }
 
     companion object {

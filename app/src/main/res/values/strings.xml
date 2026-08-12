@@ -993,6 +993,11 @@
     <string name="end_to_end_encryption_unsuccessful">Could not save keys, please try again.</string>
     <string name="end_to_end_encryption_dialog_close">Close</string>
     <string name="end_to_end_encryption_storing_keys">Storing keys</string>
+    <string name="e2ee_vault_biometric_prompt_title">Unlock encrypted folder</string>
+    <string name="e2ee_vault_biometric_prompt_subtitle">Confirm your identity to open this encrypted folder</string>
+    <string name="e2ee_vault_biometric_prompt_cancel">Cancel</string>
+    <string name="e2ee_vault_biometric_not_available">Biometric authentication is not available on this device.</string>
+    <string name="e2ee_vault_locked">Encrypted folder remains locked.</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copy/move into encrypted folder currently not supported.</string>
     <string name="untrusted_domain">Access through untrusted domain. Please see documentation for further info.</string>
     <string name="notification_channel_push_name">Push notifications</string>

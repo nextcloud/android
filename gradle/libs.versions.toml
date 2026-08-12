@@ -88,6 +88,7 @@ workRuntime = "2.11.2"
 foundationVersion = "1.11.4"
 browserVersion = "1.10.0"
 kotlinxCoroutinesTestVersion = "1.11.0"
+biometricVersion = "1.1.0"
 
 [libraries]
 # Crypto
@@ -97,6 +98,7 @@ conscrypt-android = { module = "org.conscrypt:conscrypt-android", version.ref = 
 bcpkix-jdk18on = { module = "org.bouncycastle:bcpkix-jdk18on", version.ref = "bcpkixJdk18onVersion" }
 
 # UI
+biometric = { module = "androidx.biometric:biometric", version.ref = "biometricVersion" }
 browser = { module = "androidx.browser:browser", version.ref = "browserVersion" }
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompatVersion" }
 cardview = { module = "androidx.cardview:cardview", version.ref = "cardviewVersion" }

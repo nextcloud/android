@@ -36,6 +36,7 @@ import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.client.e2ee.vault.E2eeVaultSecretStoreFactory;
 import com.nextcloud.utils.EditorUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -1143,8 +1144,8 @@ public class FileOperationsHelper {
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
 
         String publicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PUBLIC_KEY);
-        String privateKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PRIVATE_KEY);
+        boolean hasE2eeSecrets = E2eeVaultSecretStoreFactory.create(arbitraryDataProvider).hasSecrets(user.getAccountName());
 
-        return !publicKey.isEmpty() && !privateKey.isEmpty();
+        return !publicKey.isEmpty() && hasE2eeSecrets;
     }
 }

@@ -401,6 +401,7 @@ dependencies {
 
     // region UI
     implementation(libs.bundles.ui)
+    implementation(libs.biometric)
     implementation(libs.browser)
     // endregion
 

@@ -12,6 +12,7 @@ import android.content.Context
 import androidx.core.util.component1
 import androidx.core.util.component2
 import com.nextcloud.client.account.User
+import com.nextcloud.client.e2ee.vault.E2eeVaultSecretStoreFactory
 import com.nextcloud.utils.e2ee.E2EVersionHelper
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
@@ -120,7 +121,8 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
     ): Pair<RemoteOperationResult<Void>, DeleteMethod> {
         @Suppress("DEPRECATION")
         val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(context)
-        val privateKey = arbitraryDataProvider.getValue(user.accountName, EncryptionUtils.PRIVATE_KEY)
+        val privateKey = E2eeVaultSecretStoreFactory.create(arbitraryDataProvider).getPrivateKey(user.accountName)
+            ?: throw IllegalStateException("E2EE private key is unavailable")
         val publicKey = arbitraryDataProvider.getValue(user.accountName, EncryptionUtils.PUBLIC_KEY)
 
         val (metadataExists, metadata) = EncryptionUtils.retrieveMetadataV1(

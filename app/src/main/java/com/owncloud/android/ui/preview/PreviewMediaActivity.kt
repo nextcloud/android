@@ -59,6 +59,7 @@ import com.google.common.util.concurrent.ListenableFuture
 import com.google.common.util.concurrent.MoreExecutors
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.e2ee.vault.E2eeVaultSecureWindowManager
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.download.SendShareDownloader
 import com.nextcloud.client.media.BackgroundPlayerService
@@ -139,6 +140,7 @@ class PreviewMediaActivity :
     private var audioMediaController: MediaController? = null
     private var mediaControllerFuture: ListenableFuture<MediaController>? = null
     private lateinit var windowInsetsController: WindowInsetsControllerCompat
+    private var vaultSecureWindowEnabled = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -321,6 +323,7 @@ class PreviewMediaActivity :
         super.onStart()
 
         Log_OC.v(TAG, "onStart")
+        enableVaultSecureWindowIfNeeded()
 
         if (MimeTypeUtil.isVideo(file)) {
             initializeVideoPlayer()
@@ -770,6 +773,7 @@ class PreviewMediaActivity :
 
     override fun onDestroy() {
         mediaControllerFuture?.let { MediaController.releaseFuture(it) }
+        disableVaultSecureWindow()
         super.onDestroy()
 
         Log_OC.v(TAG, "onDestroy")
@@ -780,6 +784,24 @@ class PreviewMediaActivity :
 
         releaseVideoPlayer()
         super.onStop()
+    }
+
+    private fun enableVaultSecureWindowIfNeeded() {
+        if (file?.isEncrypted != true || vaultSecureWindowEnabled) {
+            return
+        }
+
+        E2eeVaultSecureWindowManager.enable(this)
+        vaultSecureWindowEnabled = true
+    }
+
+    private fun disableVaultSecureWindow() {
+        if (!vaultSecureWindowEnabled) {
+            return
+        }
+
+        E2eeVaultSecureWindowManager.disable(this)
+        vaultSecureWindowEnabled = false
     }
 
     override fun showDetails(file: OCFile?) {

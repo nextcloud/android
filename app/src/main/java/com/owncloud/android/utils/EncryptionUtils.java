@@ -17,6 +17,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.e2ee.vault.E2eeVaultSecretStore;
+import com.nextcloud.client.e2ee.vault.E2eeVaultSecretStoreFactory;
 import com.nextcloud.common.SessionTimeOutKt;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.owncloud.android.R;
@@ -57,6 +59,7 @@ import com.owncloud.android.utils.theme.CapabilityUtils;
 import org.apache.commons.httpclient.HttpStatus;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -64,6 +67,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.RandomAccessFile;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
@@ -112,6 +116,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public final class EncryptionUtils {
     private static final String TAG = EncryptionUtils.class.getSimpleName();
+    private static final int GCM_AUTHENTICATION_TAG_LENGTH_BYTES = 16;
 
     // PUBLIC_KEY actually represents certificate this confusion caused by
     // backend APIs: GetPublicKeyRemoteOperation() -> returns certificate not public key
@@ -236,7 +241,7 @@ public final class EncryptionUtils {
         }
 
         // set checksum
-        String mnemonic = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.MNEMONIC).trim();
+        String mnemonic = getE2eeMnemonic(arbitraryDataProvider, user).trim();
         String checksum = EncryptionUtils.generateChecksum(decryptedFolderMetadata, mnemonic);
         encryptedFolderMetadata.getMetadata().setChecksum(checksum);
 
@@ -345,7 +350,7 @@ public final class EncryptionUtils {
         }
 
         // verify checksum
-        String mnemonic = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.MNEMONIC).trim();
+        String mnemonic = getE2eeMnemonic(arbitraryDataProvider, user).trim();
         String checksum = EncryptionUtils.generateChecksum(decryptedFolderMetadata, mnemonic);
         String decryptedFolderChecksum = decryptedFolderMetadata.getMetadata().getChecksum();
 
@@ -433,7 +438,7 @@ public final class EncryptionUtils {
                                                       folder);
         } else if (E2EVersionHelper.INSTANCE.isV1(version)) {
             ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
-            String privateKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY);
+            String privateKey = getE2eePrivateKey(arbitraryDataProvider, user);
             String publicKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY);
             EncryptedFolderMetadataFileV1 encryptedFolderMetadata = EncryptionUtils.deserializeJSON(
                 serializedEncryptedMetadata, new TypeToken<>() {
@@ -516,8 +521,12 @@ public final class EncryptionUtils {
         File tempEncryptedFolder = FileDataStorageManager.createTempEncryptedFolder(accountName);
         File tempEncryptedFile = File.createTempFile(file.getName(), null, tempEncryptedFolder);
         encryptFileWithGivenCipher(file, tempEncryptedFile, cipher);
-        String authenticationTagString = getAuthenticationTag(cipher);
+        String authenticationTagString = getAuthenticationTag(tempEncryptedFile);
         return new EncryptedFile(tempEncryptedFile, authenticationTagString);
+    }
+
+    public static String getAuthenticationTag(File encryptedFile) throws IOException {
+        return java.util.Base64.getEncoder().encodeToString(readAuthenticationTag(encryptedFile));
     }
 
     public static String getAuthenticationTag(Cipher cipher) throws InvalidParameterSpecException {
@@ -559,6 +568,13 @@ public final class EncryptionUtils {
                                    String authenticationTag,
                                    ArbitraryDataProvider arbitraryDataProvider,
                                    User user) {
+        try {
+            verifyFileAuthenticationTag(encryptedFile, authenticationTag, arbitraryDataProvider, user);
+        } catch (IOException | SecurityException exception) {
+            Log_OC.d(TAG, "Error caught at decryptFile(): " + exception.getLocalizedMessage());
+            return;
+        }
+
         try (FileInputStream inputStream = new FileInputStream(encryptedFile);
              FileOutputStream outputStream = new FileOutputStream(decryptedFile)) {
 
@@ -577,16 +593,70 @@ public final class EncryptionUtils {
             inputStream.close();
             outputStream.close();
 
-            if (!getAuthenticationTag(cipher).equals(authenticationTag)) {
-                reportE2eError(arbitraryDataProvider, user);
-                throw new SecurityException("Tag not correct");
-            }
-
             Log_OC.d(TAG, encryptedFile.getName() + "decrypted successfully");
-        } catch (IOException | BadPaddingException | IllegalBlockSizeException | InvalidParameterSpecException |
-                 SecurityException exception) {
+        } catch (IOException | BadPaddingException | IllegalBlockSizeException | SecurityException exception) {
             Log_OC.d(TAG, "Error caught at decryptFile(): " + exception.getLocalizedMessage());
         }
+    }
+
+    public static byte[] decryptFileToBytes(Cipher cipher,
+                                            File encryptedFile,
+                                            String authenticationTag,
+                                            ArbitraryDataProvider arbitraryDataProvider,
+                                            User user) throws IOException, BadPaddingException,
+        IllegalBlockSizeException, InvalidParameterSpecException {
+        verifyFileAuthenticationTag(encryptedFile, authenticationTag, arbitraryDataProvider, user);
+
+        try (FileInputStream inputStream = new FileInputStream(encryptedFile);
+             ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                byte[] output = cipher.update(buffer, 0, bytesRead);
+                if (output != null) {
+                    outputStream.write(output);
+                }
+            }
+
+            byte[] output = cipher.doFinal();
+            if (output != null) {
+                outputStream.write(output);
+            }
+
+            return outputStream.toByteArray();
+        }
+    }
+
+    private static void verifyFileAuthenticationTag(File encryptedFile,
+                                                    String authenticationTag,
+                                                    ArbitraryDataProvider arbitraryDataProvider,
+                                                    User user) throws IOException {
+        if (TextUtils.isEmpty(authenticationTag)) {
+            reportE2eError(arbitraryDataProvider, user);
+            throw new SecurityException("Tag not correct");
+        }
+
+        byte[] expectedAuthenticationTag = java.util.Base64.getDecoder().decode(authenticationTag);
+        byte[] extractedAuthenticationTag = readAuthenticationTag(encryptedFile);
+
+        if (!Arrays.equals(extractedAuthenticationTag, expectedAuthenticationTag)) {
+            reportE2eError(arbitraryDataProvider, user);
+            throw new SecurityException("Tag not correct");
+        }
+    }
+
+    private static byte[] readAuthenticationTag(File encryptedFile) throws IOException {
+        if (encryptedFile.length() < GCM_AUTHENTICATION_TAG_LENGTH_BYTES) {
+            throw new SecurityException("Tag not correct");
+        }
+
+        byte[] authenticationTag = new byte[GCM_AUTHENTICATION_TAG_LENGTH_BYTES];
+        try (RandomAccessFile randomAccessFile = new RandomAccessFile(encryptedFile, "r")) {
+            randomAccessFile.seek(encryptedFile.length() - GCM_AUTHENTICATION_TAG_LENGTH_BYTES);
+            randomAccessFile.readFully(authenticationTag);
+        }
+
+        return authenticationTag;
     }
 
     /**
@@ -1392,9 +1462,30 @@ public final class EncryptionUtils {
 
     public static void removeE2E(ArbitraryDataProvider arbitraryDataProvider, User user) {
         // delete stored E2E keys and mnemonic
-        arbitraryDataProvider.deleteKeyForAccount(user.getAccountName(), EncryptionUtils.PRIVATE_KEY);
+        E2eeVaultSecretStoreFactory.create(arbitraryDataProvider).deleteSecrets(user.getAccountName());
         arbitraryDataProvider.deleteKeyForAccount(user.getAccountName(), EncryptionUtils.PUBLIC_KEY);
-        arbitraryDataProvider.deleteKeyForAccount(user.getAccountName(), EncryptionUtils.MNEMONIC);
+    }
+
+    public static String getE2eePrivateKey(ArbitraryDataProvider arbitraryDataProvider, User user) {
+        E2eeVaultSecretStore secretStore = E2eeVaultSecretStoreFactory.create(arbitraryDataProvider);
+        String privateKey = secretStore.getPrivateKey(user.getAccountName());
+
+        if (TextUtils.isEmpty(privateKey)) {
+            throw new IllegalStateException("E2EE private key is unavailable");
+        }
+
+        return privateKey;
+    }
+
+    public static String getE2eeMnemonic(ArbitraryDataProvider arbitraryDataProvider, User user) {
+        E2eeVaultSecretStore secretStore = E2eeVaultSecretStoreFactory.create(arbitraryDataProvider);
+        String mnemonic = secretStore.getMnemonic(user.getAccountName());
+
+        if (TextUtils.isEmpty(mnemonic)) {
+            throw new IllegalStateException("E2EE mnemonic is unavailable");
+        }
+
+        return mnemonic;
     }
 
     public static boolean isMatchingKeys(KeyPair keyPair, String publicKeyString) throws CertificateException {

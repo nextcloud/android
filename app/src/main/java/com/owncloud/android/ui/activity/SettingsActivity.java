@@ -45,6 +45,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.e2ee.vault.E2eeVaultSecretStoreFactory;
 import com.nextcloud.client.etm.EtmActivity;
 import com.nextcloud.client.logger.ui.LogsActivity;
 import com.nextcloud.client.network.ClientFactory;
@@ -511,11 +512,11 @@ public class SettingsActivity extends PreferenceActivity
     }
 
     private void setupE2EMnemonicPreference(PreferenceCategory preferenceCategoryMore) {
-        String mnemonic = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.MNEMONIC).trim();
+        boolean hasE2eeSecrets = E2eeVaultSecretStoreFactory.create(arbitraryDataProvider).hasSecrets(user.getAccountName());
 
         Preference pMnemonic = findPreference("mnemonic");
         if (pMnemonic != null) {
-            if (!mnemonic.isEmpty()) {
+            if (hasE2eeSecrets) {
                 if (DeviceCredentialUtils.areCredentialsAvailable(this)) {
                     pMnemonic.setOnPreferenceClickListener(preference -> {
 
@@ -1168,8 +1169,13 @@ public class SettingsActivity extends PreferenceActivity
                 RequestCredentialsActivity.KEY_CHECK_RESULT_TRUE) {
 
                 ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(this);
-                String mnemonic = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.MNEMONIC).trim();
-                showMnemonicAlertDialogDialog(mnemonic);
+                String mnemonic = E2eeVaultSecretStoreFactory.create(arbitraryDataProvider).getMnemonic(user.getAccountName());
+                if (TextUtils.isEmpty(mnemonic)) {
+                    DisplayUtils.showSnackMessage(this, "Error retrieving mnemonic!");
+                    return;
+                }
+
+                showMnemonicAlertDialogDialog(mnemonic.trim());
             }
         }
     }

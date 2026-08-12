@@ -36,6 +36,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.e2ee.vault.E2eePreviewPolicy;
+import com.nextcloud.client.e2ee.vault.E2eeThumbnailProvider;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.BitmapExtensionsKt;
 import com.nextcloud.utils.extensions.OCFileExtensionsKt;
@@ -578,9 +580,10 @@ public final class ThumbnailsCacheManager {
             String imageKey = PREFIX_THUMBNAIL + file.getRemoteId();
 
             boolean updateEnforced = (file instanceof OCFile && ((OCFile) file).isUpdateThumbnailNeeded());
+            boolean encryptedFile = !isServerPreviewAllowed(file);
 
             // Try to load thumbnail from disk cache
-            if (!updateEnforced) {
+            if (!updateEnforced && !encryptedFile) {
                 thumbnail = getBitmapFromDiskCache(imageKey);
                 if (thumbnail != null) {
                     Log_OC.d(TAG, "Thumbnail found in disk cache for file: " + file.getFileName());
@@ -598,7 +601,7 @@ public final class ThumbnailsCacheManager {
             pxW = pxH = getThumbnailDimension();
 
             // Generate thumbnail from local file if available
-            if (file instanceof OCFile ocFile && ocFile.isDown()) {
+            if (file instanceof OCFile ocFile && ocFile.isDown() && !ocFile.isEncrypted()) {
                 Log_OC.d(TAG, "Generating thumbnail from local file: " + ocFile.getFileName());
 
                 Bitmap bitmap;
@@ -620,8 +623,16 @@ public final class ThumbnailsCacheManager {
                 }
             }
 
+            if (thumbnail == null && encryptedFile && file instanceof OCFile ocFile && mClient != null) {
+                thumbnail = new E2eeThumbnailProvider(MainApp.getAppContext(),
+                                                      user,
+                                                      mStorageManager,
+                                                      MainApp.getAppComponent().e2eeVaultSession())
+                    .loadThumbnail(ocFile, mClient, pxW, pxH);
+            }
+
             // Check resized version in disk cache if still null
-            if (thumbnail == null) {
+            if (thumbnail == null && !encryptedFile) {
                 String resizedImageKey = PREFIX_RESIZED_IMAGE + file.getRemoteId();
                 Bitmap resizedImage = null;
 
@@ -638,7 +649,7 @@ public final class ThumbnailsCacheManager {
             }
 
             // Download thumbnail from server if still null
-            if (thumbnail == null && mClient != null) {
+            if (thumbnail == null && mClient != null && isServerPreviewAllowed(file)) {
                 Log_OC.d(TAG, "Attempting to download thumbnail from server for file: " + file.getFileName());
                 GetMethod getMethod = null;
 
@@ -690,9 +701,11 @@ public final class ThumbnailsCacheManager {
             }
 
             // Add to disk cache if obtained
-            if (thumbnail != null) {
+            if (thumbnail != null && !encryptedFile) {
                 Log_OC.d(TAG, "Adding final thumbnail to cache for file: " + file.getFileName());
                 addBitmapToCache(imageKey, thumbnail);
+            } else if (thumbnail != null) {
+                Log_OC.d(TAG, "Skipping disk thumbnail cache for encrypted file");
             } else {
                 Log_OC.w(TAG, "Failed to obtain thumbnail for file: " + file.getFileName());
             }
@@ -1205,6 +1218,11 @@ public final class ThumbnailsCacheManager {
     }
 
     public static void generateThumbnailFromOCFile(OCFile file, User user, Context context) {
+        if (!isServerPreviewAllowed(file)) {
+            Log_OC.d(TAG, "Skipping server thumbnail generation for encrypted file");
+            return;
+        }
+
         int pxW;
         int pxH;
         pxW = pxH = getThumbnailDimension();
@@ -1297,7 +1315,7 @@ public final class ThumbnailsCacheManager {
                 thumbnail = addThumbnailToCache(imageKey, bitmap, file.getStoragePath(), pxW, pxH);
                 file.setUpdateThumbnailNeeded(false);
             }
-        } else if (mClient != null) {
+        } else if (mClient != null && isServerPreviewAllowed(file)) {
             GetMethod getMethod = null;
 
             try {
@@ -1342,5 +1360,10 @@ public final class ThumbnailsCacheManager {
         }
 
         return thumbnail;
+    }
+
+    @VisibleForTesting
+    public static boolean isServerPreviewAllowed(ServerFileInterface file) {
+        return E2eePreviewPolicy.isServerPreviewAllowed(file);
     }
 }

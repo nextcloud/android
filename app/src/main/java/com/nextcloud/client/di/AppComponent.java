@@ -13,6 +13,7 @@ import com.nextcloud.appReview.InAppReviewModule;
 import com.nextcloud.client.appinfo.AppInfoModule;
 import com.nextcloud.client.database.DatabaseModule;
 import com.nextcloud.client.device.DeviceModule;
+import com.nextcloud.client.e2ee.vault.E2eeVaultSession;
 import com.nextcloud.client.integrations.IntegrationsModule;
 import com.nextcloud.client.jobs.JobsModule;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
@@ -77,6 +78,8 @@ public interface AppComponent {
     void inject(OfflineOperationReceiver offlineOperationReceiver);
 
     void inject(FolderDownloadWorkerReceiver folderDownloadWorkerReceiver);
+
+    E2eeVaultSession e2eeVaultSession();
 
     @Component.Builder
     interface Builder {

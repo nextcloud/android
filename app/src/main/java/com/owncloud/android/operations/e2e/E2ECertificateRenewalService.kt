@@ -14,6 +14,7 @@ import android.os.Looper
 import android.util.Log
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.account.User
+import com.nextcloud.client.e2ee.vault.E2eeVaultSecretStoreFactory
 import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProvider
@@ -116,9 +117,9 @@ class E2ECertificateRenewalService(
     }
 
     private fun reconstructKeyPair(user: User): KeyPair? {
-        val privateKeyString = arbitraryDataProvider.getValue(user.accountName, EncryptionUtils.PRIVATE_KEY)
+        val privateKeyString = E2eeVaultSecretStoreFactory.create(arbitraryDataProvider).getPrivateKey(user.accountName)
         val certificate = arbitraryDataProvider.getValue(user.accountName, EncryptionUtils.PUBLIC_KEY)
-        if (privateKeyString.isEmpty() || certificate.isEmpty()) {
+        if (privateKeyString.isNullOrEmpty() || certificate.isEmpty()) {
             return null
         }
 

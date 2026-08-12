@@ -45,6 +45,10 @@ import com.github.chrisbanes.photoview.PhotoView
 import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.e2ee.vault.E2eeImagePreviewProvider
+import com.nextcloud.client.e2ee.vault.E2eeVaultSecureWindowManager
+import com.nextcloud.client.e2ee.vault.E2eeVaultSessionKey
+import com.nextcloud.client.e2ee.vault.E2eeVaultSessionLockListener
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.ui.fileactions.FileAction
@@ -58,6 +62,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncResizedImageDrawable
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.ResizedImageGenerationTask
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
@@ -99,6 +104,24 @@ class PreviewImageFragment :
 
     private var ignoreFirstSavedState = false
     private var loadBitmapTask: LoadBitmapTask? = null
+    private var vaultSessionKey: E2eeVaultSessionKey? = null
+    private var vaultLockListenerRegistered = false
+    private var vaultSecureWindowEnabled = false
+    private val vaultLockListener = object : E2eeVaultSessionLockListener {
+        override fun onVaultLocked(key: E2eeVaultSessionKey) {
+            if (key == vaultSessionKey) {
+                activity?.runOnUiThread {
+                    clearEncryptedPreview(showLockedMessage = true)
+                }
+            }
+        }
+
+        override fun onAllVaultsLocked() {
+            activity?.runOnUiThread {
+                clearEncryptedPreview(showLockedMessage = true)
+            }
+        }
+    }
 
     @Inject
     lateinit var connectivityService: ConnectivityService
@@ -231,6 +254,12 @@ class PreviewImageFragment :
             return
         }
 
+        enableVaultSecureWindowIfNeeded()
+
+        if (!prepareEncryptedPreviewSession()) {
+            return
+        }
+
         binding.image.tag = file.fileId
 
         val screenSize = DisplayUtils.getScreenSize(activity)
@@ -334,6 +363,11 @@ class PreviewImageFragment :
         Log_OC.d(TAG, "onStop starts")
         loadBitmapTask?.cancel(true)
         loadBitmapTask = null
+        if (file?.isEncrypted == true) {
+            clearEncryptedPreview(showLockedMessage = false)
+        }
+        unregisterVaultLockListener()
+        disableVaultSecureWindow()
         super.onStop()
     }
 
@@ -440,7 +474,9 @@ class PreviewImageFragment :
 
     @SuppressFBWarnings("Dm")
     override fun onDestroy() {
-        bitmap?.recycle()
+        releasePreviewBitmap()
+        unregisterVaultLockListener()
+        disableVaultSecureWindow()
         super.onDestroy()
     }
 
@@ -490,6 +526,15 @@ class PreviewImageFragment :
                 val screenSize = DisplayUtils.getScreenSize(activity)
                 var minWidth = screenSize.x
                 var minHeight = screenSize.y
+
+                if (ocFile.isEncrypted) {
+                    bitmapResult = loadEncryptedBitmap(ocFile, minWidth, minHeight)
+                    if (bitmapResult == null) {
+                        mErrorMessageId = R.string.common_error_unknown
+                    }
+                    return LoadImage(bitmapResult, null, ocFile)
+                }
+
                 var i = 0
                 while (i < maxDownScale && bitmapResult == null && drawableResult == null) {
                     if (MIME_TYPE_SVG.equals(ocFile.mimeType, ignoreCase = true)) {
@@ -557,6 +602,22 @@ class PreviewImageFragment :
             }
 
             return LoadImage(bitmapResult, drawableResult, ocFile)
+        }
+
+        private fun loadEncryptedBitmap(ocFile: OCFile, minWidth: Int, minHeight: Int): Bitmap? {
+            val storageManager = containerActivity.storageManager ?: return null
+            val user = accountManager.user
+            val client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(
+                user.toOwnCloudAccount(),
+                MainApp.getAppContext()
+            )
+
+            return E2eeImagePreviewProvider(
+                MainApp.getAppContext(),
+                user,
+                storageManager,
+                MainApp.getAppComponent().e2eeVaultSession()
+            ).loadBitmap(ocFile, client, minWidth, minHeight)
         }
 
         @Deprecated("Deprecated in Java")
@@ -684,6 +745,98 @@ class PreviewImageFragment :
         binding.image.visibility = View.GONE
         binding.emptyListView.visibility = View.GONE
         binding.emptyListProgress.visibility = View.VISIBLE
+    }
+
+    private fun prepareEncryptedPreviewSession(): Boolean {
+        val isSessionReady = file?.isEncrypted != true || isEncryptedPreviewSessionReady()
+        if (!isSessionReady) {
+            clearEncryptedPreview(showLockedMessage = true)
+        }
+
+        return isSessionReady
+    }
+
+    private fun isEncryptedPreviewSessionReady(): Boolean {
+        val sessionKey = resolveVaultSessionKey()
+        if (sessionKey != null) {
+            vaultSessionKey = sessionKey
+            registerVaultLockListener()
+        }
+
+        return sessionKey != null && MainApp.getAppComponent().e2eeVaultSession().isUnlocked(sessionKey)
+    }
+
+    private fun resolveVaultSessionKey(): E2eeVaultSessionKey? {
+        val currentFile = file
+        val storageManager = containerActivity.storageManager
+        val parent = if (currentFile != null && storageManager != null) {
+            storageManager.getFileByEncryptedRemotePath(currentFile.parentRemotePath)
+        } else {
+            null
+        }
+
+        return parent?.let { E2eeVaultSessionKey(accountManager.user.accountName, it.localId) }
+    }
+
+    private fun registerVaultLockListener() {
+        if (vaultLockListenerRegistered) {
+            return
+        }
+
+        MainApp.getAppComponent().e2eeVaultSession().addLockListener(vaultLockListener)
+        vaultLockListenerRegistered = true
+    }
+
+    private fun unregisterVaultLockListener() {
+        if (!vaultLockListenerRegistered) {
+            return
+        }
+
+        MainApp.getAppComponent().e2eeVaultSession().removeLockListener(vaultLockListener)
+        vaultLockListenerRegistered = false
+    }
+
+    private fun enableVaultSecureWindowIfNeeded() {
+        if (file?.isEncrypted != true || vaultSecureWindowEnabled) {
+            return
+        }
+
+        E2eeVaultSecureWindowManager.enable(requireActivity())
+        vaultSecureWindowEnabled = true
+    }
+
+    private fun disableVaultSecureWindow() {
+        if (!vaultSecureWindowEnabled) {
+            return
+        }
+
+        activity?.let(E2eeVaultSecureWindowManager::disable)
+        vaultSecureWindowEnabled = false
+    }
+
+    private fun clearEncryptedPreview(showLockedMessage: Boolean) {
+        loadBitmapTask?.cancel(true)
+        loadBitmapTask = null
+        releasePreviewBitmap()
+
+        if (!::binding.isInitialized) {
+            return
+        }
+
+        binding.image.setImageDrawable(null)
+        binding.shimmerThumbnail.setImageDrawable(null)
+        binding.shimmer.visibility = View.GONE
+
+        if (showLockedMessage) {
+            showErrorMessage(R.string.e2ee_vault_locked)
+        } else {
+            binding.image.visibility = View.GONE
+        }
+    }
+
+    private fun releasePreviewBitmap() {
+        bitmap?.takeUnless { it.isRecycled }?.recycle()
+        bitmap = null
     }
 
     private fun setSorryMessageForMultiList(@StringRes message: Int) {

@@ -47,6 +47,10 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.documentscan.AppScanOptionalFeature;
 import com.nextcloud.client.documentscan.DocumentScanActivity;
 import com.nextcloud.client.editimage.EditImageActivity;
+import com.nextcloud.client.e2ee.vault.E2eeVaultSession;
+import com.nextcloud.client.e2ee.vault.E2eeVaultSessionKey;
+import com.nextcloud.client.e2ee.vault.E2eeVaultSecretStoreFactory;
+import com.nextcloud.client.e2ee.vault.VaultBiometricManager;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.utils.Throttler;
@@ -210,6 +214,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject SyncedFolderProvider syncedFolderProvider;
     @Inject AppScanOptionalFeature appScanOptionalFeature;
     @Inject OverlayManager overlayManager;
+    @Inject E2eeVaultSession e2eeVaultSession;
+    @Inject VaultBiometricManager vaultBiometricManager;
 
     protected FileFragment.ContainerActivity mContainerActivity;
 
@@ -550,9 +556,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (encrypted) {
             User user = accountManager.getUser();
             String publicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PUBLIC_KEY);
-            String privateKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PRIVATE_KEY);
+            boolean hasE2eeSecrets = E2eeVaultSecretStoreFactory.create(arbitraryDataProvider)
+                .hasSecrets(user.getAccountName());
 
-            if (publicKey.isEmpty() || privateKey.isEmpty()) {
+            if (publicKey.isEmpty() || !hasE2eeSecrets) {
                 Log_OC.w(TAG,"cannot create encrypted folder directly, needs to setup encryption first");
 
                 activity.runOnUiThread(() -> {
@@ -1140,10 +1147,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             }
             // check if keys are stored
             if (FileOperationsHelper.isEndToEndEncryptionSetup(requireContext(), user)) {
-                // update state and view of this fragment
-                searchFragment = false;
-                mHideFab = false;
-
                 if (mContainerActivity instanceof FolderPickerActivity &&
                     ((FolderPickerActivity) mContainerActivity)
                         .isDoNotEnterEncryptedFolder()) {
@@ -1154,7 +1157,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                       Snackbar.LENGTH_LONG).show();
                     }
                 } else {
-                    browseToFolder(file, position);
+                    browseToEncryptedFolder(file, position, user);
                 }
             } else {
                 Log_OC.d(TAG, "no public key for " + user.getAccountName());
@@ -1178,6 +1181,36 @@ public class OCFileListFragment extends ExtendedListFragment implements
             setEmptyListMessage(EmptyListState.LOADING);
             browseToFolder(file, position);
         }
+    }
+
+    private void browseToEncryptedFolder(OCFile file, int position, User user) {
+        E2eeVaultSessionKey sessionKey = new E2eeVaultSessionKey(user.getAccountName(), file.getLocalId());
+
+        if (e2eeVaultSession.isUnlocked(sessionKey)) {
+            browseToUnlockedEncryptedFolder(file, position);
+            return;
+        }
+
+        if (!vaultBiometricManager.canAuthenticate()) {
+            DisplayUtils.showSnackMessage(requireActivity(), R.string.e2ee_vault_biometric_not_available);
+            return;
+        }
+
+        vaultBiometricManager.authenticate(
+            requireActivity(),
+            () -> {
+                e2eeVaultSession.unlock(sessionKey);
+                browseToUnlockedEncryptedFolder(file, position);
+            },
+            () -> DisplayUtils.showSnackMessage(requireActivity(), R.string.e2ee_vault_locked)
+        );
+    }
+
+    private void browseToUnlockedEncryptedFolder(OCFile file, int position) {
+        // update state and view of this fragment
+        searchFragment = false;
+        mHideFab = false;
+        browseToFolder(file, position);
     }
 
     private Integer checkFileBeforeOpen(OCFile file) {
@@ -1229,7 +1262,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
         User account = accountManager.getUser();
         OCCapability capability = mContainerActivity.getStorageManager().getCapability(account.getAccountName());
 
-        if (MimeTypeUtil.isVideo(file) && !file.isEncrypted() && mContainerActivity instanceof FileDisplayActivity fda) {
+        if (file.isEncrypted() &&
+            (PreviewImageFragment.canBePreviewed(file) || MimeTypeUtil.isVideo(file)) &&
+            mContainerActivity instanceof FileDisplayActivity fda) {
+            setFabVisible(false);
+            fda.startImagePreview(file, true, null);
+        } else if (MimeTypeUtil.isVideo(file) && !file.isEncrypted() && mContainerActivity instanceof FileDisplayActivity fda) {
             setFabVisible(false);
             fda.startImagePreview(file, true, null);
         } else if (PreviewMediaActivity.Companion.canBePreviewed(file) && !file.isEncrypted() && mContainerActivity instanceof FileDisplayActivity fda) {
@@ -1930,12 +1968,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             // check if keys are stored
             String publicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PUBLIC_KEY);
-            String privateKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PRIVATE_KEY);
+            boolean hasE2eeSecrets = E2eeVaultSecretStoreFactory.create(arbitraryDataProvider)
+                .hasSecrets(user.getAccountName());
 
             FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
             OCFile file = storageManager.getFileByRemoteId(event.getRemoteId());
 
-            if (publicKey.isEmpty() || privateKey.isEmpty()) {
+            if (publicKey.isEmpty() || !hasE2eeSecrets) {
                 Log_OC.d(TAG, "no public key for " + user.getAccountName());
 
 
@@ -1944,6 +1983,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     dialog.show(getParentFragmentManager(), SETUP_ENCRYPTION_DIALOG_TAG);
                 });
             } else {
+                String privateKey = EncryptionUtils.getE2eePrivateKey(arbitraryDataProvider, user);
+
                 // TODO E2E: if encryption fails, to not set it as encrypted!
                 encryptFolder(file,
                               event.getLocalId(),

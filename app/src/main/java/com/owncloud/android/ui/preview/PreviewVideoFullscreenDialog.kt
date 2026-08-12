@@ -45,7 +45,8 @@ class PreviewVideoFullscreenDialog(
     private val activity: FragmentActivity,
     nextcloudClient: NextcloudClient,
     private val sourceExoPlayer: ExoPlayer,
-    private val sourceView: PlayerView
+    private val sourceView: PlayerView,
+    private val forceSourcePlayer: Boolean = false
 ) : Dialog(sourceView.context, R.style.Dialog_FullscreenVideo) {
 
     private val binding: DialogPreviewVideoBinding = DialogPreviewVideoBinding.inflate(layoutInflater)
@@ -69,7 +70,7 @@ class PreviewVideoFullscreenDialog(
      * instance, which is slower but should avoid the bug.
      */
     private val shouldUseRotatedVideoWorkaround
-        get() = Build.VERSION.SDK_INT < Build.VERSION_CODES.R && isRotatedVideo()
+        get() = !forceSourcePlayer && Build.VERSION.SDK_INT < Build.VERSION_CODES.R && isRotatedVideo()
 
     init {
         addContentView(

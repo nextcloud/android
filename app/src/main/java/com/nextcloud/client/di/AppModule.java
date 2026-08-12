@@ -28,6 +28,9 @@ import com.nextcloud.client.core.ClockImpl;
 import com.nextcloud.client.core.ThreadPoolAsyncRunner;
 import com.nextcloud.client.database.dao.ArbitraryDataDao;
 import com.nextcloud.client.device.DeviceInfo;
+import com.nextcloud.client.e2ee.vault.AndroidKeystoreE2eeVaultSecretCipher;
+import com.nextcloud.client.e2ee.vault.E2eeVaultSecretCipher;
+import com.nextcloud.client.e2ee.vault.E2eeVaultSessionConfig;
 import com.nextcloud.client.jobs.operation.FileOperationHelper;
 import com.nextcloud.client.logger.FileLogHandler;
 import com.nextcloud.client.logger.Logger;
@@ -250,6 +253,12 @@ class AppModule {
     @Singleton
     PassCodeManager passCodeManager(AppPreferences preferences, Clock clock) {
         return new PassCodeManager(preferences, clock);
+    }
+
+    @Provides
+    @Singleton
+    E2eeVaultSecretCipher e2eeVaultSecretCipher(E2eeVaultSessionConfig config) {
+        return new AndroidKeystoreE2eeVaultSecretCipher(config);
     }
 
     @Provides

@@ -13,6 +13,7 @@ import android.content.Context
 import androidx.annotation.VisibleForTesting
 import com.google.gson.reflect.TypeToken
 import com.nextcloud.client.account.User
+import com.nextcloud.client.e2ee.vault.E2eeVaultSecretStoreFactory
 import com.nextcloud.utils.CmsSignatureVerifier
 import com.nextcloud.utils.autoRename.AutoRename
 import com.nextcloud.utils.e2ee.E2EVersionHelper
@@ -582,7 +583,7 @@ class EncryptionUtilsV2 {
         folder: OCFile
     ): DecryptedFolderMetadataFile {
         val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(context)
-        val privateKey: String = arbitraryDataProvider.getValue(user.accountName, EncryptionUtils.PRIVATE_KEY)
+        val privateKey = getE2eePrivateKey(arbitraryDataProvider, user)
         val storageManager = FileDataStorageManager(user, context.contentResolver)
 
         val v2 = EncryptionUtils.deserializeJSON(
@@ -800,7 +801,7 @@ class EncryptionUtilsV2 {
         storageManager: FileDataStorageManager
     ) {
         val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(context)
-        val privateKeyString: String = arbitraryDataProvider.getValue(user.accountName, EncryptionUtils.PRIVATE_KEY)
+        val privateKeyString = getE2eePrivateKeyForUpload(arbitraryDataProvider, user)
         val publicKeyString: String = arbitraryDataProvider.getValue(user.accountName, EncryptionUtils.PUBLIC_KEY)
 
         val encryptedFolderMetadata = encryptFolderMetadataFile(
@@ -936,6 +937,15 @@ class EncryptionUtilsV2 {
         val encoded = java.util.Base64.getMimeEncoder(PEM_LINE_LENGTH, "\n".toByteArray()).encodeToString(cert.encoded)
         return "-----BEGIN CERTIFICATE-----\n$encoded\n-----END CERTIFICATE-----\n"
     }
+
+    private fun getE2eePrivateKey(arbitraryDataProvider: ArbitraryDataProvider, user: User): String =
+        E2eeVaultSecretStoreFactory.create(arbitraryDataProvider).getPrivateKey(user.accountName)
+            ?: throw IllegalStateException("E2EE private key is unavailable")
+
+    @Throws(UploadException::class)
+    private fun getE2eePrivateKeyForUpload(arbitraryDataProvider: ArbitraryDataProvider, user: User): String =
+        E2eeVaultSecretStoreFactory.create(arbitraryDataProvider).getPrivateKey(user.accountName)
+            ?: throw UploadException("E2EE private key is unavailable")
 
     private fun signMessage(cert: X509Certificate, key: PrivateKey, data: ByteArray): CMSSignedData {
         val content = CMSProcessableByteArray(data)

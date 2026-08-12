@@ -63,6 +63,7 @@ import com.nextcloud.client.core.Clock
 import com.nextcloud.client.database.entity.SyncedFolderEntity
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.editimage.EditImageActivity
+import com.nextcloud.client.e2ee.vault.E2eeVaultSecureWindowManager
 import com.nextcloud.client.files.DeepLinkHandler
 import com.nextcloud.client.jobs.download.FileDownloadEventBroadcaster
 import com.nextcloud.client.jobs.download.FileDownloadHelper
@@ -226,6 +227,7 @@ class FileDisplayActivity :
     private var searchView: SearchView? = null
     private var mPlayerConnection: PlayerServiceConnection? = null
     private var lastDisplayedAccountName: String? = null
+    private var vaultSecureWindowEnabled = false
 
     @Inject
     lateinit var localBroadcastManager: LocalBroadcastManager
@@ -1371,6 +1373,7 @@ class FileDisplayActivity :
         super.onResume()
 
         folderRefreshScheduler.start()
+        updateVaultSecureWindow(getCurrentDir())
 
         if (ocFileListFragment?.isSearchFragment == true) {
             ocFileListFragment?.setSearchArgs(ocFileListFragment?.arguments)
@@ -1404,6 +1407,7 @@ class FileDisplayActivity :
         // We update it only when a valid file is found in the intent.
         val startFile = intent?.let { getFileFromIntent(it) }?.also {
             file = it
+            updateVaultSecureWindow(it)
         }
 
         // refresh list of files
@@ -1486,6 +1490,11 @@ class FileDisplayActivity :
         folderRefreshScheduler.stop()
         unregisterReceivers()
         super.onStop()
+    }
+
+    override fun onDestroy() {
+        disableVaultSecureWindow()
+        super.onDestroy()
     }
 
     override fun onSortingOrderChosen(selection: FileSortOrder?) {
@@ -1919,6 +1928,7 @@ class FileDisplayActivity :
             val root = storageManager.getFileByPath(OCFile.ROOT_PATH)
             it.resetSearchAttributes()
             file = root
+            updateVaultSecureWindow(root)
             it.listDirectory(root, MainApp.isOnlyOnDevice())
             startSyncFolderOperation(root, false)
         }
@@ -1929,9 +1939,31 @@ class FileDisplayActivity :
 
     override fun onBrowsedDownTo(directory: OCFile?) {
         file = directory
+        updateVaultSecureWindow(directory)
         resetScrollingAndUpdateActionBar()
         startSyncFolderOperation(directory, false)
         startMetadataSyncForCurrentDir()
+    }
+
+    private fun updateVaultSecureWindow(currentFile: OCFile?) {
+        if (currentFile?.isFolder == true && currentFile.isEncrypted) {
+            if (!vaultSecureWindowEnabled) {
+                E2eeVaultSecureWindowManager.enable(this)
+                vaultSecureWindowEnabled = true
+            }
+            return
+        }
+
+        disableVaultSecureWindow()
+    }
+
+    private fun disableVaultSecureWindow() {
+        if (!vaultSecureWindowEnabled) {
+            return
+        }
+
+        E2eeVaultSecureWindowManager.disable(this)
+        vaultSecureWindowEnabled = false
     }
 
     /**
