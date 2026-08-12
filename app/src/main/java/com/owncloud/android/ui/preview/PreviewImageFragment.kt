@@ -379,9 +379,7 @@ class PreviewImageFragment :
         )
     }
 
-    /**
-     * @param isManualClick if true skip album check to avoid calling api in loop if file fetch fails
-     */
+    @Suppress("ReturnCount")
     private fun onOverflowClick(isManualClick: Boolean = false) {
         val file = file ?: return
         val storageManager = containerActivity.storageManager ?: return

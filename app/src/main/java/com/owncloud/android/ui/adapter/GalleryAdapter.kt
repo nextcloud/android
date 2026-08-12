@@ -22,7 +22,6 @@ import androidx.annotation.VisibleForTesting
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.client.account.User
-import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.toGalleryItems
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.databinding.GalleryHeaderBinding
