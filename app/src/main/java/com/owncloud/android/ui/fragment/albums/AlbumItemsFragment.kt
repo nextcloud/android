@@ -19,24 +19,20 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Parcelable
-import android.view.ActionMode
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AbsListView
 import android.widget.RelativeLayout
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.IdRes
+import androidx.annotation.StringRes
 import androidx.annotation.VisibleForTesting
-import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -49,7 +45,6 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ClientFactory.CreationException
-import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.client.utils.Throttler
 import com.nextcloud.ui.albumItemActions.AlbumItemActionsBottomSheet
@@ -62,11 +57,11 @@ import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ListFragmentBinding
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.VirtualFolderType
-import com.owncloud.android.db.ProviderMeta
+import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 import com.owncloud.android.lib.common.OwnCloudClient
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.albums.PhotoAlbumEntry
 import com.owncloud.android.lib.resources.albums.ReadAlbumsRemoteOperation
@@ -96,6 +91,7 @@ import com.owncloud.android.ui.preview.PreviewMediaActivity.Companion.canBePrevi
 import com.owncloud.android.utils.ClipboardUtil
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.ErrorMessageAdapter
+import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
@@ -111,18 +107,12 @@ import org.greenrobot.eventbus.ThreadMode
 import java.util.Optional
 import javax.inject.Inject
 
-@Suppress("TooManyFunctions", "LargeClass")
+@Suppress("TooManyFunctions")
 class AlbumItemsFragment :
     Fragment(),
     OCFileListFragmentInterface,
     AlbumSharingBottomSheetActions,
     Injectable {
-
-    private var adapter: GalleryAdapter? = null
-    private var client: OwnCloudClient? = null
-    private var optionalUser: Optional<User>? = null
-
-    private lateinit var binding: ListFragmentBinding
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
@@ -134,48 +124,45 @@ class AlbumItemsFragment :
     lateinit var clientFactory: ClientFactory
 
     @Inject
-    lateinit var preferences: AppPreferences
-
-    @Inject
-    lateinit var syncedFolderProvider: SyncedFolderProvider
-
-    @Inject
     lateinit var throttler: Throttler
 
     @Inject
     lateinit var thumbnailGenerator: ThumbnailGenerator
 
-    private var mContainerActivity: FileFragment.ContainerActivity? = null
+    private lateinit var binding: ListFragmentBinding
+    private lateinit var albumName: String
+
+    private var adapter: GalleryAdapter? = null
+    private var client: OwnCloudClient? = null
+    private var optionalUser: Optional<User>? = null
+    private var containerActivity: FileFragment.ContainerActivity? = null
+    private var selectionMode: AlbumItemsMultiChoiceModeListener? = null
+    private var albumSharingBottomSheet: AlbumSharingBottomSheet? = null
+    private var photoAlbumEntry: PhotoAlbumEntry? = null
 
     private var columnSize = 0
+    private var isNewAlbum = false
 
-    private lateinit var albumName: String
-    private var isNewAlbum: Boolean = false
-
-    private var mMultiChoiceModeListener: MultiChoiceModeListener? = null
-
-    private var albumRemoteFileList = listOf<RemoteFile>()
-    private var albumsOCFileList = mutableListOf<OCFile>()
+    private var albumRemoteFiles = listOf<RemoteFile>()
+    private val albumItems = mutableListOf<OCFile>()
 
     private val refreshFlow = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
 
-    private var photoAlbumEntry: PhotoAlbumEntry? = null
+    private val selectMediaFromAppsLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                result.data?.let { requestUploadOfContentFromApps(it) }
+            }
+        }
 
-    private var albumSharingBottomSheet: AlbumSharingBottomSheet? = null
-
-    private lateinit var addMediaFab: FloatingActionButton
-
+    //region Lifecycle
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        try {
-            mContainerActivity = context as FileFragment.ContainerActivity
-        } catch (e: ClassCastException) {
-            throw IllegalArgumentException(
-                context.toString() + " must implement " +
-                    FileFragment.ContainerActivity::class.java.simpleName,
-                e
+        containerActivity = context as? FileFragment.ContainerActivity
+            ?: throw IllegalArgumentException(
+                "$context must implement ${FileFragment.ContainerActivity::class.java.simpleName}"
             )
-        }
+
         arguments?.let {
             albumName = it.getString(ARG_ALBUM_NAME) ?: ""
             isNewAlbum = it.getBoolean(ARG_IS_NEW_ALBUM)
@@ -183,7 +170,7 @@ class AlbumItemsFragment :
     }
 
     override fun onDetach() {
-        mContainerActivity = null
+        containerActivity = null
         super.onDetach()
     }
 
@@ -197,46 +184,89 @@ class AlbumItemsFragment :
         return binding.root
     }
 
-    @OptIn(FlowPreview::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         optionalUser = Optional.of(accountManager.user)
-        showAppBar()
+
+        expandAppBar()
         createMenu()
-        setupContainingList()
-        setupContent()
-
+        setupSwipeRefresh()
+        setupList()
         createAddMediaButton()
+        observeRefreshRequests()
 
-        // if fragment is opened when new albums is created
-        // then open gallery to choose media to add
         if (isNewAlbum) {
             openGalleryToAddMedia()
         }
+    }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                refreshFlow.onStart { emit(Unit) } // default fetch
-                    .onEach { binding.swipeContainingList.isRefreshing = true } // show progress on each call
-                    .debounce(DEBOUNCE_DELAY) // debounce background triggers
-                    .collect {
-                        fetchAndSetData()
-                    }
-            }
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getTypedActivity(FileDisplayActivity::class.java)?.run {
+            setupToolbar()
+            supportActionBar?.let { viewThemeUtils.files.themeActionBar(requireContext(), it, albumName) }
+            showSortListGroup(false)
+            setMainFabVisible(false)
+            clearToolbarSubtitle()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        adapter?.cancelAllPendingTasks()
+    }
+
+    override fun onStop() {
+        EventBus.getDefault().unregister(this)
+        super.onStop()
+    }
+
+    override fun onDestroyView() {
+        lastMediaItemPosition = 0
+        super.onDestroyView()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        columnSize = ColumnCount.Wide.get(newConfig.isLandscape())
+        adapter?.changeColumn(columnSize)
+        adapter?.notifyDataSetChanged()
+    }
+    //endregion
+
+    //region View setup
+    private fun expandAppBar() {
+        getTypedActivity(FileDisplayActivity::class.java)
+            ?.findViewById<AppBarLayout>(R.id.appbar)
+            ?.setExpanded(true, false)
+    }
+
+    private fun setupList() {
+        binding.listRoot.setEmptyView(binding.emptyList.emptyListView)
+        binding.listRoot.layoutManager = GridLayoutManager(requireContext(), SINGLE_SPAN)
+    }
+
+    private fun setupSwipeRefresh() {
+        viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingList)
+        binding.swipeContainingList.setOnRefreshListener {
+            binding.swipeContainingList.isRefreshing = true
+            refreshData()
         }
     }
 
     private fun createAddMediaButton() {
-        addMediaFab = FloatingActionButton(requireContext()).apply {
+        val addMediaFab = FloatingActionButton(requireContext()).apply {
             id = View.generateViewId()
             setImageResource(R.drawable.ic_plus)
             contentDescription = getString(R.string.add_media)
-
             viewThemeUtils.material.themeFAB(this)
-
-            setOnClickListener {
-                openAddMediaMenu()
-            }
+            setOnClickListener { openAddMediaMenu() }
         }
 
         val layoutParams = RelativeLayout.LayoutParams(
@@ -245,7 +275,6 @@ class AlbumItemsFragment :
         ).apply {
             addRule(RelativeLayout.ALIGN_PARENT_END)
             addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
-
             marginEnd = resources.getDimensionPixelSize(R.dimen.standard_margin)
             bottomMargin = resources.getDimensionPixelSize(R.dimen.bottom_navigation_view_margin)
         }
@@ -253,36 +282,198 @@ class AlbumItemsFragment :
         binding.listFragmentLayout.addView(addMediaFab, layoutParams)
     }
 
-    private fun showAppBar() {
-        getTypedActivity(FileDisplayActivity::class.java)?.let {
-            val appBarLayout = it.findViewById<AppBarLayout>(R.id.appbar)
-            appBarLayout?.setExpanded(true, false)
+    private fun initializeClient() {
+        if (client != null) {
+            return
+        }
+
+        val user = optionalUser?.takeIf { it.isPresent }?.get() ?: return
+
+        client = try {
+            clientFactory.create(user)
+        } catch (e: CreationException) {
+            Log_OC.e(TAG, "Error initializing client", e)
+            null
         }
     }
 
-    private fun setUpActionMode() {
-        if (mMultiChoiceModeListener != null) return
+    private fun initializeAdapter() {
+        initializeClient()
 
-        mMultiChoiceModeListener = MultiChoiceModeListener(
+        if (adapter == null) {
+            adapter = GalleryAdapter(
+                requireContext(),
+                accountManager.user,
+                this,
+                containerActivity!!,
+                viewThemeUtils,
+                columnSize,
+                ThumbnailsCacheManager.getThumbnailDimension(),
+                thumbnailGenerator
+            ).apply { setHasStableIds(true) }
+
+            setUpSelectionMode()
+        }
+
+        binding.listRoot.adapter = adapter
+
+        lastMediaItemPosition?.let { binding.listRoot.layoutManager?.scrollToPosition(it) }
+    }
+
+    private fun setUpSelectionMode() {
+        if (selectionMode != null) {
+            return
+        }
+
+        selectionMode = AlbumItemsMultiChoiceModeListener(
             requireActivity(),
             adapter,
             viewThemeUtils
         ) { filesCount, checkedFiles -> openActionsMenu(filesCount, checkedFiles) }
-        (requireActivity() as FileDisplayActivity).addDrawerListener(mMultiChoiceModeListener)
+
+        (requireActivity() as FileDisplayActivity).addDrawerListener(selectionMode)
+    }
+    //endregion
+
+    //region Album items loading
+    @OptIn(FlowPreview::class)
+    private fun observeRefreshRequests() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                refreshFlow.onStart { emit(Unit) }
+                    .onEach { binding.swipeContainingList.isRefreshing = true }
+                    .debounce(DEBOUNCE_DELAY)
+                    .collect { fetchAndSetData() }
+            }
+        }
     }
 
-    private fun addFromCameraRoll() {
-        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-            type = "*/*"
-            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-            addCategory(Intent.CATEGORY_OPENABLE)
+    fun refreshData() {
+        refreshFlow.tryEmit(Unit)
+    }
+
+    private fun fetchAndSetData() {
+        binding.swipeContainingList.isRefreshing = true
+        selectionMode?.exitSelectionMode()
+        initializeAdapter()
+        showLoadingMessageWhenReachable()
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            val client = client ?: run {
+                withContext(Dispatchers.Main) { onAlbumItemsFailed(null) }
+                return@launch
+            }
+
+            val result = ReadAlbumItemsOperation(albumName, containerActivity?.storageManager).execute(client)
+
+            if (result?.isSuccess != true || result.resultData == null) {
+                withContext(Dispatchers.Main) { onAlbumItemsFailed(result) }
+                return@launch
+            }
+
+            storeAlbumItems(result.resultData)
+
+            withContext(Dispatchers.Main) { onAlbumItemsLoaded() }
+        }
+    }
+
+    private fun storeAlbumItems(remoteFiles: List<RemoteFile>) {
+        val storageManager = containerActivity?.storageManager
+        storageManager?.deleteVirtuals(VirtualFolderType.ALBUM)
+
+        albumRemoteFiles = remoteFiles
+        albumItems.clear()
+        albumItems.addAll(
+            remoteFiles.map { storageManager?.getFileByLocalId(it.localId) ?: it.toAlbumItem() }
+        )
+
+        val virtuals = albumItems.filter { it.fileId > 0 }.map { it.toAlbumVirtualEntry() }
+        storageManager?.saveVirtuals(virtuals)
+    }
+
+    private fun OCFile.toAlbumVirtualEntry(): ContentValues = ContentValues().apply {
+        put(ProviderTableMeta.VIRTUAL_TYPE, VirtualFolderType.ALBUM.toString())
+        put(ProviderTableMeta.VIRTUAL_OCFILE_ID, fileId)
+    }
+
+    private fun onAlbumItemsLoaded() {
+        if (albumItems.isEmpty()) {
+            setMessageForEmptyList(AlbumItemsEmptyState.NO_ITEMS)
         }
 
-        selectMediaFromAppsLauncher.launch(
-            Intent.createChooser(intent, getString(R.string.upload_chooser_title))
-        )
+        populateList(albumItems)
+        refreshAlbumMetaData()
+        hideRefreshLayoutLoader()
     }
 
+    private fun onAlbumItemsFailed(result: RemoteOperationResult<*>?) {
+        Log_OC.e(TAG, "reading album items failed: ${result?.logMessage}")
+        setMessageForEmptyList(AlbumItemsEmptyState.fromFailure(result))
+        refreshAlbumMetaData()
+        hideRefreshLayoutLoader()
+    }
+
+    @VisibleForTesting
+    fun populateList(albums: List<OCFile>) {
+        selectionMode?.exitSelectionMode()
+        getTypedActivity(FileDisplayActivity::class.java)?.setMainFabVisible(false)
+        initializeAdapter()
+        adapter?.showAlbumItems(albums)
+    }
+
+    /**
+     * Also called by FileDisplayActivity once a share link operation finished, so the sharing sheet picks up the
+     * new share id.
+     */
+    fun refreshAlbumMetaData() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val albumsRemoteOperation = ReadAlbumsRemoteOperation(albumName)
+            val result = client?.let { albumsRemoteOperation.execute(it) }
+
+            withContext(Dispatchers.Main) {
+                photoAlbumEntry = result
+                    ?.takeIf { it.isSuccess }
+                    ?.resultData
+                    ?.firstOrNull()
+
+                sendRefreshedShareIdToAlbumsSharingSheet()
+            }
+        }
+    }
+
+    private fun hideRefreshLayoutLoader() {
+        binding.swipeContainingList.isRefreshing = false
+    }
+    //endregion
+
+    //region Empty state
+    private fun showLoadingMessageWhenReachable() {
+        val connectivityService = getTypedActivity(FileActivity::class.java)?.connectivityService ?: return
+
+        connectivityService.isNetworkAndServerAvailable { available ->
+            if (available != true) {
+                return@isNetworkAndServerAvailable
+            }
+
+            with(binding.emptyList) {
+                emptyListViewHeadline.setText(R.string.file_list_loading)
+                emptyListViewText.text = ""
+                emptyListIcon.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun setMessageForEmptyList(state: AlbumItemsEmptyState) = with(binding.emptyList) {
+        emptyListViewHeadline.setText(state.headline)
+        emptyListViewText.setText(state.message)
+        emptyListIcon.setImageResource(state.icon)
+
+        emptyListIcon.visibility = View.VISIBLE
+        emptyListViewText.visibility = View.VISIBLE
+    }
+    //endregion
+
+    //region Album menu
     private fun createMenu() {
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(
@@ -299,282 +490,50 @@ class AlbumItemsFragment :
         )
     }
 
+    private fun onAlbumActionChosen(@IdRes itemId: Int): Boolean {
+        when (itemId) {
+            R.id.action_upload_from_camera_roll -> addFromCameraRoll()
+            R.id.action_select_images_from_account -> openGalleryToAddMedia()
+            R.id.action_rename_album -> showRenameAlbumDialog()
+            R.id.action_share_album -> openAlbumSharingBottomSheet()
+            R.id.action_delete_album -> confirmAlbumRemoval()
+            else -> return false
+        }
+
+        return true
+    }
+
     private fun openAddMediaMenu() {
-        throttler.run("addMediaClick") {
-            val supportFragmentManager = requireActivity().supportFragmentManager
+        throttler.run(THROTTLE_ADD_MEDIA) {
+            val fragmentManager = requireActivity().supportFragmentManager
 
             AlbumItemActionsBottomSheet.newInstance()
-                .setResultListener(
-                    supportFragmentManager,
-                    this
-                ) { id: Int ->
-                    onAlbumActionChosen(id)
-                }
-                .show(supportFragmentManager, "album_actions")
+                .setResultListener(fragmentManager, this) { id -> onAlbumActionChosen(id) }
+                .show(fragmentManager, TAG_ALBUM_ACTIONS)
         }
     }
 
-    private fun openAlbumSharingBottomSheet() {
-        throttler.run("albumSharingSheet") {
-            photoAlbumEntry?.let {
-                val supportFragmentManager = requireActivity().supportFragmentManager
-
-                albumSharingBottomSheet =
-                    AlbumSharingBottomSheet.newInstance(
-                        it,
-                        albumsOCFileList.take(AlbumCollageLayout.MAX_IMAGES),
-                        this
-                    )
-
-                albumSharingBottomSheet?.show(supportFragmentManager, "album_sharing_sheet")
-            }
-        }
+    private fun showRenameAlbumDialog() {
+        CreateAlbumDialogFragment.newInstance(albumName)
+            .show(requireActivity().supportFragmentManager, CreateAlbumDialogFragment.TAG)
     }
 
-    private fun onAlbumActionChosen(@IdRes itemId: Int): Boolean = when (itemId) {
-        R.id.action_upload_from_camera_roll -> {
-            addFromCameraRoll()
-            true
-        }
-
-        R.id.action_select_images_from_account -> {
-            openGalleryToAddMedia()
-            true
-        }
-
-        R.id.action_rename_album -> {
-            CreateAlbumDialogFragment.newInstance(albumName)
-                .show(
-                    requireActivity().supportFragmentManager,
-                    CreateAlbumDialogFragment.TAG
-                )
-            true
-        }
-
-        R.id.action_share_album -> {
-            openAlbumSharingBottomSheet()
-            true
-        }
-
-        R.id.action_delete_album -> {
-            showConfirmationDialog(true, null)
-            true
-        }
-
-        else -> false
+    fun onAlbumRenamed(newAlbumName: String) {
+        albumName = newAlbumName
+        getTypedActivity(FileDisplayActivity::class.java)?.updateActionBarTitleAndHomeButtonByString(albumName)
     }
 
-    private fun setupContent() {
-        binding.listRoot.setEmptyView(binding.emptyList.emptyListView)
-        val layoutManager = GridLayoutManager(requireContext(), 1)
-        binding.listRoot.layoutManager = layoutManager
+    fun onAlbumDeleted() {
+        requireActivity().supportFragmentManager.popBackStack()
     }
+    //endregion
 
-    private fun setupContainingList() {
-        viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingList)
-        binding.swipeContainingList.setOnRefreshListener {
-            binding.swipeContainingList.isRefreshing = true
-            refreshData()
-        }
-    }
-
-    @VisibleForTesting
-    fun populateList(albums: List<OCFile>) {
-        // exit action mode on data refresh
-        mMultiChoiceModeListener?.exitSelectionMode()
-        getTypedActivity(FileDisplayActivity::class.java)?.setMainFabVisible(false)
-        initializeAdapter()
-        adapter?.showAlbumItems(albums)
-    }
-
-    private fun fetchAndSetData() {
-        binding.swipeContainingList.isRefreshing = true
-        mMultiChoiceModeListener?.exitSelectionMode()
-        initializeAdapter()
-        setEmptyListLoadingMessage()
-        lifecycleScope.launch(Dispatchers.IO) {
-            val readAlbumItemsRemoteOperation = ReadAlbumItemsOperation(albumName, mContainerActivity?.storageManager)
-            val client = client ?: run {
-                withContext(Dispatchers.Main) {
-                    setMessageForEmptyList(AlbumItemsEmptyState.LOAD_FAILED)
-                    hideRefreshLayoutLoader()
-                }
-                return@launch
-            }
-            val result = readAlbumItemsRemoteOperation.execute(client)
-
-            if (result?.isSuccess == true && result.resultData != null) {
-                val storageManager = mContainerActivity?.storageManager
-                storageManager?.deleteVirtuals(VirtualFolderType.ALBUM)
-                val contentValues = mutableListOf<ContentValues>()
-                albumRemoteFileList = result.resultData.toMutableList()
-                albumsOCFileList.clear()
-
-                for (remoteFile in albumRemoteFileList) {
-                    val ocFile = storageManager?.getFileByLocalId(remoteFile.localId) ?: remoteFile.toAlbumItem()
-                    albumsOCFileList.add(ocFile)
-
-                    if (ocFile.fileId <= 0) {
-                        continue
-                    }
-
-                    val cv = ContentValues()
-                    cv.put(ProviderMeta.ProviderTableMeta.VIRTUAL_TYPE, VirtualFolderType.ALBUM.toString())
-                    cv.put(ProviderMeta.ProviderTableMeta.VIRTUAL_OCFILE_ID, ocFile.fileId)
-
-                    contentValues.add(cv)
-                }
-
-                storageManager?.saveVirtuals(contentValues)
-            }
-            withContext(Dispatchers.Main) {
-                if (result?.isSuccess == true && result.resultData != null) {
-                    if (result.resultData.isEmpty() || albumsOCFileList.isEmpty()) {
-                        setMessageForEmptyList(AlbumItemsEmptyState.NO_ITEMS)
-                    }
-                    populateList(albumsOCFileList)
-                } else {
-                    Log_OC.e(TAG, "reading album items failed: ${result?.logMessage}")
-                    setMessageForEmptyList(AlbumItemsEmptyState.fromFailure(result))
-                }
-
-                // refresh album meta data to update share id
-                refreshAlbumMetaData()
-
-                hideRefreshLayoutLoader()
-            }
-        }
-    }
-
-    // will also be called from FileDisplayActivity when PublicShareLinkAlbumRemoteOperation completed
-    // to refresh and update the album sharing info
-    fun refreshAlbumMetaData() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            val albumsRemoteOperation = ReadAlbumsRemoteOperation(albumName)
-            val result = client?.let { albumsRemoteOperation.execute(it) }
-            withContext(Dispatchers.Main) {
-                if (result?.isSuccess == true && result.resultData != null) {
-                    photoAlbumEntry = if (!result.resultData.isEmpty()) {
-                        result.resultData[0]
-                    } else {
-                        // no info
-                        null
-                    }
-                } else {
-                    Log_OC.d(TAG, result?.logMessage)
-                }
-
-                sendRefreshedShareIdToAlbumsSharingSheet()
-            }
-        }
-    }
-
-    private fun sendRefreshedShareIdToAlbumsSharingSheet() {
-        if (!isAdded || isDetached) return
-
-        albumSharingBottomSheet
-            ?.takeIf { it.isAdded && it.isVisible }
-            ?.run {
-                updateShareId(
-                    photoAlbumEntry
-                        ?.collaborators
-                        ?.firstOrNull()
-                        ?.id
-                )
-            }
-    }
-
-    private fun hideRefreshLayoutLoader() {
-        binding.swipeContainingList.isRefreshing = false
-    }
-
-    private fun setEmptyListLoadingMessage() {
-        val fileActivity = this.getTypedActivity(FileActivity::class.java)
-        fileActivity?.connectivityService?.isNetworkAndServerAvailable { result: Boolean? ->
-            if (!result!!) return@isNetworkAndServerAvailable
-            binding.emptyList.emptyListViewHeadline.setText(R.string.file_list_loading)
-            binding.emptyList.emptyListViewText.text = ""
-            binding.emptyList.emptyListIcon.visibility = View.GONE
-        }
-    }
-
-    private fun initializeClient() {
-        if (client == null && optionalUser?.isPresent == true) {
-            try {
-                val user = optionalUser?.get()
-                client = clientFactory.create(user)
-            } catch (e: CreationException) {
-                Log_OC.e(TAG, "Error initializing client", e)
-            }
-        }
-    }
-
-    private fun initializeAdapter() {
-        initializeClient()
-        if (adapter == null) {
-            adapter = GalleryAdapter(
-                requireContext(),
-                accountManager.user,
-                this,
-                mContainerActivity!!,
-                viewThemeUtils,
-                columnSize,
-                ThumbnailsCacheManager.getThumbnailDimension(),
-                thumbnailGenerator
-            )
-            adapter?.setHasStableIds(true)
-            setUpActionMode()
-        }
-        binding.listRoot.adapter = adapter
-
-        lastMediaItemPosition?.let {
-            binding.listRoot.layoutManager?.scrollToPosition(it)
-        }
-    }
-
-    private fun setMessageForEmptyList(state: AlbumItemsEmptyState) = with(binding.emptyList) {
-        emptyListViewHeadline.setText(state.headline)
-        emptyListViewText.setText(state.message)
-        emptyListIcon.setImageResource(state.icon)
-
-        emptyListIcon.visibility = View.VISIBLE
-        emptyListViewText.visibility = View.VISIBLE
-    }
-
-    override fun onResume() {
-        super.onResume()
-        getTypedActivity(FileDisplayActivity::class.java)?.run {
-            setupToolbar()
-            supportActionBar?.let { actionBar ->
-                viewThemeUtils.files.themeActionBar(requireContext(), actionBar, albumName)
-            }
-            showSortListGroup(false)
-            setMainFabVisible(false)
-
-            // clear the subtitle while navigating to any other screen from Media screen
-            clearToolbarSubtitle()
-        }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        adapter?.cancelAllPendingTasks()
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        columnSize = ColumnCount.Wide.get(newConfig.isLandscape())
-        adapter?.changeColumn(columnSize)
-        adapter?.notifyDataSetChanged()
-    }
-
-    override fun onDestroyView() {
-        lastMediaItemPosition = 0
-        super.onDestroyView()
-    }
-
+    //region Item interaction
     override fun getColumnsCount(): Int = columnSize
+
+    override fun isLoading(): Boolean = false
+
+    override fun onHeaderClicked() = Unit
 
     override fun onShareIconClick(file: OCFile?) = Unit
 
@@ -590,54 +549,36 @@ class AlbumItemsFragment :
             return
         }
 
-        val activity = mContainerActivity as FileDisplayActivity
+        val activity = containerActivity as? FileDisplayActivity ?: return
 
         when {
-            PreviewImageFragment.canBePreviewed(file) -> {
-                activity.startImagePreview(
-                    file,
-                    !file.isDown,
-                    VirtualFolderType.ALBUM
-                )
-            }
+            PreviewImageFragment.canBePreviewed(file) ->
+                activity.startImagePreview(file, !file.isDown, VirtualFolderType.ALBUM)
 
-            file.isDown && canBePreviewed(file) -> {
+            file.isDown && canBePreviewed(file) ->
                 activity.startMediaPreview(file, 0, true, true, false, true)
-            }
 
-            file.isDown -> {
-                mContainerActivity
-                    ?.getFileOperationsHelper()
-                    ?.openFile(file)
-            }
+            file.isDown -> containerActivity?.fileOperationsHelper?.openFile(file)
 
-            canBePreviewed(file) && !file.isEncrypted -> {
+            canBePreviewed(file) && !file.isEncrypted ->
                 activity.startMediaPreview(file, 0, true, true, true, true)
-            }
 
-            else -> {
-                Log_OC.d(TAG, "Couldn't handle item click")
-            }
+            else -> Log_OC.d(TAG, "Couldn't handle item click")
         }
     }
 
     override fun onLongItemClicked(file: OCFile): Boolean {
-        // Create only once instance of action mode
-        if (mMultiChoiceModeListener?.mActiveActionMode != null) {
+        if (selectionMode?.isActionModeActive == true) {
             toggleItemToCheckedList(file)
-        } else {
-            requireActivity().startActionMode(mMultiChoiceModeListener)
-            adapter?.addCheckedFile(file)
+            return true
         }
-        mMultiChoiceModeListener?.updateActionModeFile(file)
+
+        requireActivity().startActionMode(selectionMode)
+        adapter?.addCheckedFile(file)
+        selectionMode?.updateActionModeFile(file)
         return true
     }
 
-    /**
-     * Will toggle a file selection status from the action mode
-     *
-     * @param file The concerned OCFile by the selection/deselection
-     */
     private fun toggleItemToCheckedList(file: OCFile) {
         adapter?.run {
             if (isCheckedFile(file)) {
@@ -646,594 +587,353 @@ class AlbumItemsFragment :
                 addCheckedFile(file)
             }
         }
-        mMultiChoiceModeListener?.updateActionModeFile(file)
+
+        selectionMode?.updateActionModeFile(file)
     }
 
-    override fun isLoading(): Boolean = false
-
-    override fun onHeaderClicked() = Unit
-
-    fun onAlbumRenamed(newAlbumName: String) {
-        albumName = newAlbumName
-        getTypedActivity(FileDisplayActivity::class.java)?.updateActionBarTitleAndHomeButtonByString(albumName)
-    }
-
-    fun onAlbumDeleted() {
-        requireActivity().supportFragmentManager.popBackStack()
-    }
-
-    @Suppress("LongMethod")
-    private fun openActionsMenu(filesCount: Int, checkedFiles: Set<OCFile>) {
-        throttler.run("overflowClick") {
-            var toHide: MutableList<Int>? = ArrayList()
-            for (file in checkedFiles) {
-                if (file.isOfflineOperation) {
-                    toHide = ArrayList(
-                        listOf(
-                            R.id.action_favorite,
-                            R.id.action_move_or_copy,
-                            R.id.action_sync_file,
-                            R.id.action_encrypted,
-                            R.id.action_unset_encrypted,
-                            R.id.action_edit,
-                            R.id.action_download_file,
-                            R.id.action_export_file,
-                            R.id.action_set_as_wallpaper
-                        )
-                    )
-                    break
-                }
-            }
-
-            toHide?.apply {
-                addAll(
-                    listOf(
-                        R.id.action_move_or_copy,
-                        R.id.action_sync_file,
-                        R.id.action_encrypted,
-                        R.id.action_unset_encrypted,
-                        R.id.action_edit,
-                        R.id.action_download_file,
-                        R.id.action_export_file,
-                        R.id.action_set_as_wallpaper,
-                        R.id.action_send_file,
-                        R.id.action_send_share_file,
-                        R.id.action_see_details,
-                        R.id.action_rename_file,
-                        R.id.action_pin_to_homescreen,
-                        R.id.action_add_to_album,
-                        R.id.action_lock_file,
-                        R.id.action_unlock_file
-                    )
-                )
-            }
-
-            val childFragmentManager = childFragmentManager
-            val endpoints = mContainerActivity?.storageManager?.getCapability(
-                optionalUser?.get()
-            )?.getClientIntegrationEndpoints(
-                Type.CONTEXT_MENU,
-                checkedFiles.iterator().next().mimeType
-            )
-
-            val actionBottomSheet = FileActionsBottomSheet.newInstance(
-                filesCount,
-                checkedFiles,
-                true,
-                toHide,
-                false,
-                endpoints!!
-            )
-                .setResultListener(
-                    childFragmentManager,
-                    this
-                ) { id: Int -> onFileActionChosen(id, checkedFiles) }
-            if (this.isDialogFragmentReady()) {
-                actionBottomSheet.show(childFragmentManager, "actions")
-            }
-        }
-    }
-
-    @Suppress("ReturnCount")
-    private fun onFileActionChosen(@IdRes itemId: Int, checkedFiles: Set<OCFile>): Boolean {
-        if (checkedFiles.isEmpty()) {
-            return false
-        }
-
-        when (itemId) {
-            R.id.action_remove_file -> {
-                showConfirmationDialog(false, checkedFiles)
-                return true
-            }
-
-            R.id.action_favorite -> {
-                mContainerActivity?.fileOperationsHelper?.toggleFavoriteFiles(checkedFiles, true)
-                return true
-            }
-
-            R.id.action_unset_favorite -> {
-                mContainerActivity?.fileOperationsHelper?.toggleFavoriteFiles(checkedFiles, false)
-                return true
-            }
-
-            R.id.action_open_file_with -> {
-                // use only first element as this option will only be shown for single file selection
-                mContainerActivity?.fileOperationsHelper?.openFile(checkedFiles.first())
-                return true
-            }
-
-            R.id.action_stream_media -> {
-                // use only first element as this option will only be shown for single file selection
-                mContainerActivity?.fileOperationsHelper?.streamMediaFile(checkedFiles.first())
-                return true
-            }
-
-            R.id.action_select_all_action_menu -> {
-                selectAllFiles(true)
-                return true
-            }
-
-            R.id.action_deselect_all_action_menu -> {
-                selectAllFiles(false)
-                return true
-            }
-
-            else -> return true
-        }
-    }
-
-    /**
-     * De-/select all elements in the current list view.
-     *
-     * @param select `true` to select all, `false` to deselect all
-     */
     @SuppressLint("NotifyDataSetChanged")
     private fun selectAllFiles(select: Boolean) {
         adapter?.let {
             it.selectAll(select)
             it.notifyDataSetChanged()
-            mMultiChoiceModeListener?.invalidateActionMode()
+            selectionMode?.invalidateActionMode()
         }
+    }
+    //endregion
+
+    //region File actions
+    private fun openActionsMenu(filesCount: Int, checkedFiles: Set<OCFile>) {
+        throttler.run(THROTTLE_OVERFLOW_CLICK) {
+            val actionsSheet = FileActionsBottomSheet.newInstance(
+                filesCount,
+                checkedFiles,
+                true,
+                hiddenFileActions(checkedFiles),
+                false,
+                contextMenuEndpoints(checkedFiles)
+            ).setResultListener(childFragmentManager, this) { id -> onFileActionChosen(id, checkedFiles) }
+
+            if (isDialogFragmentReady()) {
+                actionsSheet.show(childFragmentManager, TAG_FILE_ACTIONS)
+            }
+        }
+    }
+
+    private fun hiddenFileActions(checkedFiles: Set<OCFile>): List<Int> {
+        val hidden = UNSUPPORTED_ALBUM_FILE_ACTIONS.toMutableList()
+
+        if (checkedFiles.any { it.isOfflineOperation }) {
+            hidden.add(R.id.action_favorite)
+        }
+
+        return hidden
+    }
+
+    private fun contextMenuEndpoints(checkedFiles: Set<OCFile>) = containerActivity
+        ?.storageManager
+        ?.getCapability(optionalUser?.get())
+        ?.getClientIntegrationEndpoints(Type.CONTEXT_MENU, checkedFiles.first().mimeType)
+        .orEmpty()
+
+    private fun onFileActionChosen(@IdRes itemId: Int, checkedFiles: Set<OCFile>): Boolean {
+        if (checkedFiles.isEmpty()) {
+            return false
+        }
+
+        val fileOperationsHelper = containerActivity?.fileOperationsHelper
+
+        when (itemId) {
+            R.id.action_remove_file -> confirmFilesRemoval(checkedFiles)
+            R.id.action_favorite -> fileOperationsHelper?.toggleFavoriteFiles(checkedFiles, true)
+            R.id.action_unset_favorite -> fileOperationsHelper?.toggleFavoriteFiles(checkedFiles, false)
+            R.id.action_open_file_with -> fileOperationsHelper?.openFile(checkedFiles.first())
+            R.id.action_stream_media -> fileOperationsHelper?.streamMediaFile(checkedFiles.first())
+            R.id.action_select_all_action_menu -> selectAllFiles(true)
+            R.id.action_deselect_all_action_menu -> selectAllFiles(false)
+        }
+
+        return true
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     fun onMessageEvent(event: FavoriteEvent) {
         try {
-            val user = accountManager.user
-            val client = clientFactory.create(user)
-            val toggleFavoriteOperation = ToggleAlbumFavoriteRemoteOperation(
-                event.shouldFavorite,
-                event.remotePath
-            )
-            val remoteOperationResult = toggleFavoriteOperation.execute(client)
+            val client = clientFactory.create(accountManager.user)
+            val toggleFavoriteOperation = ToggleAlbumFavoriteRemoteOperation(event.shouldFavorite, event.remotePath)
 
-            if (remoteOperationResult.isSuccess) {
-                Handler(Looper.getMainLooper()).post {
-                    mMultiChoiceModeListener?.exitSelectionMode()
-                }
-                adapter?.markAsFavorite(event.remotePath, event.shouldFavorite)
+            if (!toggleFavoriteOperation.execute(client).isSuccess) {
+                return
             }
+
+            Handler(Looper.getMainLooper()).post { selectionMode?.exitSelectionMode() }
+            adapter?.markAsFavorite(event.remotePath, event.shouldFavorite)
         } catch (e: CreationException) {
             Log_OC.e(TAG, "Error processing event", e)
         }
     }
+    //endregion
 
-    private fun onRemoveFileOperation(files: Collection<OCFile>) {
+    //region Removal
+    private fun confirmAlbumRemoval() = showRemovalConfirmation(
+        R.string.confirmation_remove_folder_alert,
+        albumName
+    ) { containerActivity?.fileOperationsHelper?.removeAlbum(albumName) }
+
+    private fun confirmFilesRemoval(files: Collection<OCFile>) {
+        val isSingleFile = files.size == SINGLE_SELECTION
+        val messageId = if (isSingleFile) {
+            R.string.confirmation_remove_file_alert
+        } else {
+            R.string.confirmation_remove_files_alert
+        }
+
+        showRemovalConfirmation(messageId, files.first().fileName.takeIf { isSingleFile }) {
+            removeFilesFromAlbum(files)
+        }
+    }
+
+    private fun showRemovalConfirmation(@StringRes messageId: Int, name: String?, onConfirmed: () -> Unit) {
+        val dialog = ConfirmationDialogFragment.newInstance(
+            messageResId = messageId,
+            messageArguments = arrayOf(name),
+            titleResId = NO_RESOURCE,
+            positiveButtonTextId = R.string.file_delete,
+            negativeButtonTextId = R.string.file_keep,
+            neutralButtonTextId = NO_RESOURCE
+        )
+
+        dialog.setCancelable(false)
+        dialog.setOnConfirmationListener(
+            object : ConfirmationDialogFragmentListener {
+                override fun onConfirmation(callerTag: String?) = onConfirmed()
+                override fun onNeutral(callerTag: String?) = Unit
+                override fun onCancel(callerTag: String?) = Unit
+            }
+        )
+
+        dialog.show(requireActivity().supportFragmentManager, ConfirmationDialogFragment.FTAG_CONFIRMATION)
+    }
+
+    private fun removeFilesFromAlbum(files: Collection<OCFile>) {
         lifecycleScope.launch(Dispatchers.IO) {
-            val removeFailedFiles = mutableListOf<OCFile>()
-            try {
-                val user = accountManager.user
-                val client = clientFactory.create(user)
-                withContext(Dispatchers.Main) {
-                    showDialog(true)
-                }
-                if (files.size == 1) {
-                    val removeAlbumFileRemoteOperation = RemoveAlbumFileRemoteOperation(
-                        getAlbumRemotePathForRemoval(files.first())
-                    )
-                    val remoteOperationResult = removeAlbumFileRemoteOperation.execute(client)
+            withContext(Dispatchers.Main) { showLoadingDialog() }
 
-                    if (!remoteOperationResult.isSuccess) {
-                        withContext(Dispatchers.Main) {
-                            DisplayUtils.showSnackMessage(
-                                requireActivity(),
-                                ErrorMessageAdapter.getErrorCauseMessage(
-                                    remoteOperationResult,
-                                    removeAlbumFileRemoteOperation,
-                                    resources
-                                )
-                            )
-                        }
-                    }
-                } else {
-                    for (file in files) {
-                        val removeAlbumFileRemoteOperation = RemoveAlbumFileRemoteOperation(
-                            getAlbumRemotePathForRemoval(file)
-                        )
-                        val remoteOperationResult = removeAlbumFileRemoteOperation.execute(client)
-
-                        if (!remoteOperationResult.isSuccess) {
-                            removeFailedFiles.add(file)
-                        }
-                    }
-                }
+            val failedFiles = try {
+                removeFromAlbum(clientFactory.create(accountManager.user), files)
             } catch (e: CreationException) {
-                Log_OC.e(TAG, "Error processing event", e)
+                Log_OC.e(TAG, "Error removing album files", e)
+                emptyList()
             }
 
-            Log_OC.d(TAG, "Files removed: ${removeFailedFiles.size}")
+            Log_OC.d(TAG, "Files that could not be removed: ${failedFiles.size}")
 
             withContext(Dispatchers.Main) {
-                if (removeFailedFiles.isNotEmpty()) {
-                    DisplayUtils.showSnackMessage(
-                        requireActivity(),
-                        requireContext().resources.getString(R.string.album_delete_failed_message)
-                    )
+                if (failedFiles.isNotEmpty() && files.size > SINGLE_SELECTION) {
+                    DisplayUtils.showSnackMessage(requireActivity(), getString(R.string.album_delete_failed_message))
                 }
-                showDialog(false)
 
-                // refresh data
+                dismissLoadingDialog()
                 refreshData()
             }
         }
     }
 
-    // since after files data are fetched in media the file remote path will be actual instead of Albums prefixed
-    // to remove the file properly form the albums we have to provide the correct album path
-    private fun getAlbumRemotePathForRemoval(ocFile: OCFile): String {
-        if (!ocFile.remotePath.startsWith("/albums/$albumName")) {
-            return albumRemoteFileList.find { it.etag == ocFile.etag || it.etag == ocFile.etagOnServer }?.remotePath
-                ?: ocFile.remotePath
-        }
-        return ocFile.remotePath
-    }
+    private suspend fun removeFromAlbum(client: OwnCloudClient, files: Collection<OCFile>): List<OCFile> {
+        val failedFiles = mutableListOf<OCFile>()
 
-    private fun showConfirmationDialog(isAlbum: Boolean, files: Collection<OCFile>?) {
-        val messagePair = getConfirmationDialogMessage(isAlbum, files)
-        val errorDialog = ConfirmationDialogFragment.newInstance(
-            messageResId = messagePair.first,
-            messageArguments = arrayOf(messagePair.second),
-            titleResId = -1,
-            positiveButtonTextId = R.string.file_delete,
-            negativeButtonTextId = R.string.file_keep,
-            neutralButtonTextId = -1
-        )
-        errorDialog.setCancelable(false)
-        errorDialog.setOnConfirmationListener(
-            object : ConfirmationDialogFragmentListener {
-                override fun onConfirmation(callerTag: String?) {
-                    if (isAlbum) {
-                        mContainerActivity?.getFileOperationsHelper()?.removeAlbum(albumName)
-                    } else {
-                        files?.let {
-                            onRemoveFileOperation(it)
-                        }
-                    }
-                }
-                override fun onNeutral(callerTag: String?) = Unit
-                override fun onCancel(callerTag: String?) = Unit
+        files.forEach { file ->
+            val operation = RemoveAlbumFileRemoteOperation(albumRemotePathForRemoval(file))
+            val result = operation.execute(client)
+
+            if (result.isSuccess) {
+                return@forEach
             }
-        )
-        errorDialog.show(requireActivity().supportFragmentManager, ConfirmationDialogFragment.FTAG_CONFIRMATION)
-    }
 
-    private fun getConfirmationDialogMessage(isAlbum: Boolean, files: Collection<OCFile>?): Pair<Int, String?> {
-        if (isAlbum) {
-            return Pair(R.string.confirmation_remove_folder_alert, albumName)
-        }
+            failedFiles.add(file)
 
-        return if (files?.size == SINGLE_SELECTION) {
-            Pair(R.string.confirmation_remove_file_alert, files.first().fileName)
-        } else {
-            Pair(R.string.confirmation_remove_files_alert, null)
-        }
-    }
-
-    private fun showDialog(isShow: Boolean) {
-        getTypedActivity(FileDisplayActivity::class.java)?.run {
-            if (isShow) {
-                showLoadingDialog(resources.getString(R.string.wait_a_moment))
-            } else {
-                dismissLoadingDialog()
+            if (files.size == SINGLE_SELECTION) {
+                val message = ErrorMessageAdapter.getErrorCauseMessage(result, operation, resources)
+                withContext(Dispatchers.Main) { DisplayUtils.showSnackMessage(requireActivity(), message) }
             }
         }
-    }
 
-    override fun onStart() {
-        super.onStart()
-        EventBus.getDefault().register(this)
-    }
-
-    override fun onStop() {
-        EventBus.getDefault().unregister(this)
-        super.onStop()
+        return failedFiles
     }
 
     /**
-     * Handler for multiple selection mode.
-     *
-     *
-     * Manages input from the user when one or more files or folders are selected in the list.
-     *
-     *
-     * Also listens to changes in navigation drawer to hide and recover multiple selection when it's opened and closed.
+     * Once the items have been fetched they carry their real remote path instead of the album one, which the removal
+     * endpoint needs.
      */
-    internal class MultiChoiceModeListener(
-        val activity: FragmentActivity,
-        val adapter: GalleryAdapter?,
-        val viewThemeUtils: ViewThemeUtils,
-        val openActionsMenu: (Int, Set<OCFile>) -> Unit
-    ) : AbsListView.MultiChoiceModeListener,
-        DrawerLayout.DrawerListener {
-
-        var mActiveActionMode: ActionMode? = null
-        private var mIsActionModeNew = false
-
-        /**
-         * True when action mode is finished because the drawer was opened
-         */
-        private var mActionModeClosedByDrawer = false
-
-        /**
-         * Selected items in list when action mode is closed by drawer
-         */
-        private val mSelectionWhenActionModeClosedByDrawer: MutableSet<OCFile> = HashSet()
-
-        override fun onDrawerSlide(drawerView: View, slideOffset: Float) = Unit
-
-        override fun onDrawerOpened(drawerView: View) = Unit
-
-        /**
-         * When the navigation drawer is closed, action mode is recovered in the same state as was when the drawer was
-         * (started to be) opened.
-         *
-         * @param drawerView Navigation drawer just closed.
-         */
-        override fun onDrawerClosed(drawerView: View) {
-            if (mActionModeClosedByDrawer && mSelectionWhenActionModeClosedByDrawer.isNotEmpty()) {
-                activity.startActionMode(this)
-
-                adapter?.setCheckedItem(mSelectionWhenActionModeClosedByDrawer)
-
-                mActiveActionMode?.invalidate()
-
-                mSelectionWhenActionModeClosedByDrawer.clear()
-            }
+    private fun albumRemotePathForRemoval(file: OCFile): String {
+        if (file.remotePath.startsWith("$ALBUMS_REMOTE_PATH$albumName")) {
+            return file.remotePath
         }
 
-        /**
-         * If the action mode is active when the navigation drawer starts to move, the action mode is closed and the
-         * selection stored to be recovered when the drawer is closed.
-         *
-         * @param newState One of STATE_IDLE, STATE_DRAGGING or STATE_SETTLING.
-         */
-        override fun onDrawerStateChanged(newState: Int) {
-            if (DrawerLayout.STATE_DRAGGING == newState && mActiveActionMode != null) {
-                adapter?.let {
-                    mSelectionWhenActionModeClosedByDrawer.addAll(
-                        it.getCheckedItems()
-                    )
-                }
-
-                mActiveActionMode?.finish()
-                mActionModeClosedByDrawer = true
-            }
-        }
-
-        /**
-         * Update action mode bar when an item is selected / unselected in the list
-         */
-        override fun onItemCheckedStateChanged(mode: ActionMode, position: Int, id: Long, checked: Boolean) = Unit
-
-        /**
-         * Load menu and customize UI when action mode is started.
-         */
-        override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
-            mActiveActionMode = mode
-            // Determine if actionMode is "new" or not (already affected by item-selection)
-            mIsActionModeNew = true
-
-            // fake menu to be able to use bottom sheet instead
-            val inflater: MenuInflater = activity.menuInflater
-            inflater.inflate(R.menu.custom_menu_placeholder, menu)
-            val item = menu.findItem(R.id.custom_menu_placeholder_item)
-            item.icon?.let {
-                item.setIcon(
-                    viewThemeUtils.platform.colorDrawable(
-                        it,
-                        ContextCompat.getColor(activity, R.color.white)
-                    )
-                )
-            }
-
-            mode.invalidate()
-
-            // set actionMode color
-            viewThemeUtils.platform.colorStatusBar(
-                activity,
-                ContextCompat.getColor(activity, R.color.action_mode_background)
-            )
-
-            adapter?.setMultiSelect(true)
-            return true
-        }
-
-        /**
-         * Updates available action in menu depending on current selection.
-         */
-        override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
-            val checkedFiles: Set<OCFile> = adapter?.getCheckedItems() ?: emptySet()
-            val checkedCount = checkedFiles.size
-            val title: String =
-                activity.resources.getQuantityString(R.plurals.items_selected_count, checkedCount, checkedCount)
-            mode.title = title
-
-            // Determine if we need to finish the action mode because there are no items selected
-            if (checkedCount == 0 && !mIsActionModeNew) {
-                exitSelectionMode()
-            }
-
-            return true
-        }
-
-        /**
-         * Exits the multi file selection mode.
-         */
-        fun exitSelectionMode() {
-            mActiveActionMode?.run {
-                finish()
-            }
-        }
-
-        /**
-         * Will update (invalidate) the action mode adapter/mode to refresh an item selection change
-         *
-         * @param file The concerned OCFile to refresh in adapter
-         */
-        fun updateActionModeFile(file: OCFile) {
-            mIsActionModeNew = false
-            mActiveActionMode?.let {
-                it.invalidate()
-                adapter?.notifyItemChanged(file)
-            }
-        }
-
-        fun invalidateActionMode() {
-            mActiveActionMode?.invalidate()
-        }
-
-        /**
-         * Starts the corresponding action when a menu item is tapped by the user.
-         */
-        override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
-            adapter?.let {
-                val checkedFiles: Set<OCFile> = it.getCheckedItems()
-                if (item.itemId == R.id.custom_menu_placeholder_item) {
-                    openActionsMenu(it.getFilesCount(), checkedFiles)
-                }
-                return true
-            }
-            return false
-        }
-
-        /**
-         * Restores UI.
-         */
-        override fun onDestroyActionMode(mode: ActionMode) {
-            mActiveActionMode = null
-
-            viewThemeUtils.platform.resetStatusBar(activity)
-
-            adapter?.setMultiSelect(false)
-            adapter?.clearCheckedItems()
-        }
+        return albumRemoteFiles
+            .find { it.etag == file.etag || it.etag == file.etagOnServer }
+            ?.remotePath
+            ?: file.remotePath
     }
 
+    private fun showLoadingDialog() {
+        getTypedActivity(FileDisplayActivity::class.java)
+            ?.showLoadingDialog(getString(R.string.wait_a_moment))
+    }
+
+    private fun dismissLoadingDialog() {
+        getTypedActivity(FileDisplayActivity::class.java)?.dismissLoadingDialog()
+    }
+    //endregion
+
+    //region Adding media
     private fun openGalleryToAddMedia() {
         requireActivity().startActivity(AlbumsPickerActivity.intentForPickingMediaFiles(requireActivity(), albumName))
     }
 
-    fun refreshData() {
-        refreshFlow.tryEmit(Unit)
+    private fun addFromCameraRoll() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+            type = ANY_MIME_TYPE
+            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            addCategory(Intent.CATEGORY_OPENABLE)
+        }
+
+        selectMediaFromAppsLauncher.launch(
+            Intent.createChooser(intent, getString(R.string.upload_chooser_title))
+        )
     }
 
-    private val selectMediaFromAppsLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK) {
-                result.data?.let { intent ->
-                    requestUploadOfContentFromApps(intent)
-                }
-            }
-        }
-
-    // method referenced from FileDisplayActivity#requestUploadOfContentFromApps
     private fun requestUploadOfContentFromApps(contentIntent: Intent) {
-        val clipData = contentIntent.clipData
-        val uris = mutableListOf<Uri>()
+        val mediaUris = contentIntent.mediaUris()
 
-        if (clipData != null) {
-            for (i in 0 until clipData.itemCount) {
-                uris.add(clipData.getItemAt(i).uri)
-            }
-        } else {
-            contentIntent.data?.let { uris.add(it) }
-        }
-
-        // only accept images and videos mime type
-        val validUris = uris.filter { uri ->
-            val type = requireActivity().contentResolver.getType(uri)
-            type?.startsWith("image/") == true || type?.startsWith("video/") == true
-        }
-
-        if (validUris.isEmpty()) {
+        if (mediaUris.isEmpty()) {
             DisplayUtils.showSnackMessage(requireActivity(), R.string.album_unsupported_file)
             return
         }
 
-        val streamsToUpload = ArrayList<Parcelable?>()
-        streamsToUpload.addAll(validUris)
+        uploadToAlbum(mediaUris)
+    }
 
-        // albums remote path for uploading
-        val remotePath =
-            "${resources.getString(R.string.instant_upload_path)}/${resources.getString(R.string.drawer_item_album)}/"
+    private fun uploadToAlbum(mediaUris: List<Uri>) {
+        val activity = getTypedActivity(FileDisplayActivity::class.java) ?: return
+        val user = activity.user.takeIf { it.isPresent }?.get() ?: return
 
-        getTypedActivity(FileDisplayActivity::class.java)?.let {
-            val optionalUser = it.user
-            if (optionalUser.isEmpty) {
-                return
-            }
+        UriUploader(
+            activity = activity,
+            urisToUpload = ArrayList<Parcelable?>(mediaUris),
+            uploadPath = albumUploadPath(),
+            user = user,
+            behaviour = FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
+            showWaitingDialog = false,
+            copyTmpTaskListener = null,
+            fileDisplayNameTransformer = null,
+            albumName = albumName
+        ).uploadUris()
+    }
 
-            val uploader = UriUploader(
-                activity = it,
-                urisToUpload = streamsToUpload,
-                uploadPath = remotePath,
-                user = optionalUser.get(),
-                behaviour = FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
-                showWaitingDialog = false, // Not show waiting dialog while file is being copied from private storage
-                copyTmpTaskListener = null, // Not needed copy temp task listener,
-                fileDisplayNameTransformer = null,
-                albumName = albumName
+    private fun Intent.mediaUris(): List<Uri> {
+        val uris = clipData
+            ?.let { clip -> (0 until clip.itemCount).map { clip.getItemAt(it).uri } }
+            ?: listOfNotNull(data)
+
+        val contentResolver = requireActivity().contentResolver
+        return uris.filter { MimeTypeUtil.isImageOrVideo(contentResolver.getType(it)) }
+    }
+
+    private fun albumUploadPath(): String =
+        "${getString(R.string.instant_upload_path)}/${getString(R.string.drawer_item_album)}/"
+    //endregion
+
+    //region Album sharing
+    private fun openAlbumSharingBottomSheet() {
+        throttler.run(THROTTLE_SHARING_SHEET) {
+            val album = photoAlbumEntry ?: return@run
+            val fragmentManager = requireActivity().supportFragmentManager
+
+            albumSharingBottomSheet = AlbumSharingBottomSheet.newInstance(
+                album,
+                albumItems.take(AlbumCollageLayout.MAX_IMAGES),
+                this
             )
 
-            uploader.uploadUris()
+            albumSharingBottomSheet?.show(fragmentManager, TAG_ALBUM_SHARING)
         }
+    }
+
+    private fun sendRefreshedShareIdToAlbumsSharingSheet() {
+        if (!isAdded || isDetached) {
+            return
+        }
+
+        albumSharingBottomSheet
+            ?.takeIf { it.isAdded && it.isVisible }
+            ?.updateShareId(photoAlbumEntry?.collaborators?.firstOrNull()?.id)
     }
 
     override fun createShare() {
-        mContainerActivity?.getFileOperationsHelper()?.albumPublicShareLink(albumName, true)
+        containerActivity?.fileOperationsHelper?.albumPublicShareLink(albumName, true)
     }
 
     override fun removeShare() {
-        mContainerActivity?.getFileOperationsHelper()?.albumPublicShareLink(albumName, false)
+        containerActivity?.fileOperationsHelper?.albumPublicShareLink(albumName, false)
     }
 
     override fun copyShareLink() {
-        ClipboardUtil.copyToClipboard(requireActivity(), getShareLink())
+        ClipboardUtil.copyToClipboard(requireActivity(), shareLink())
     }
 
     override fun shareAlbumLink() {
-        IntentUtil.showShareLinkDialog(requireActivity(), getShareLink())
+        IntentUtil.showShareLinkDialog(requireActivity(), shareLink())
     }
 
-    private fun getShareLink(): String? {
-        photoAlbumEntry?.let {
-            if (it.collaborators.isNotEmpty()) {
-                return it.collaborators[0].shareLink
-            }
-        }
-        return null
-    }
+    private fun shareLink(): String? = photoAlbumEntry?.collaborators?.firstOrNull()?.shareLink
+    //endregion
 
     companion object {
         val TAG: String = AlbumItemsFragment::class.java.simpleName
 
-        private const val SINGLE_SELECTION = 1
+        var lastMediaItemPosition: Int? = null
 
         private const val ARG_ALBUM_NAME = "album_name"
         private const val ARG_IS_NEW_ALBUM = "is_new_album"
-        var lastMediaItemPosition: Int? = null
 
+        private const val TAG_ALBUM_ACTIONS = "album_actions"
+        private const val TAG_ALBUM_SHARING = "album_sharing_sheet"
+        private const val TAG_FILE_ACTIONS = "actions"
+
+        private const val THROTTLE_ADD_MEDIA = "addMediaClick"
+        private const val THROTTLE_SHARING_SHEET = "albumSharingSheet"
+        private const val THROTTLE_OVERFLOW_CLICK = "overflowClick"
+
+        private const val ALBUMS_REMOTE_PATH = "/albums/"
+        private const val ANY_MIME_TYPE = "*/*"
+
+        private const val SINGLE_SELECTION = 1
+        private const val SINGLE_SPAN = 1
+        private const val NO_RESOURCE = -1
         private const val DEBOUNCE_DELAY = 500L
+
+        /**
+         * Actions that never apply to an album item, either because the album endpoint does not support them or
+         * because they would act on the file outside of the album.
+         */
+        private val UNSUPPORTED_ALBUM_FILE_ACTIONS = listOf(
+            R.id.action_move_or_copy,
+            R.id.action_sync_file,
+            R.id.action_encrypted,
+            R.id.action_unset_encrypted,
+            R.id.action_edit,
+            R.id.action_download_file,
+            R.id.action_export_file,
+            R.id.action_set_as_wallpaper,
+            R.id.action_send_file,
+            R.id.action_send_share_file,
+            R.id.action_see_details,
+            R.id.action_rename_file,
+            R.id.action_pin_to_homescreen,
+            R.id.action_add_to_album,
+            R.id.action_lock_file,
+            R.id.action_unlock_file
+        )
 
         fun newInstance(albumName: String, isNewAlbum: Boolean = false): AlbumItemsFragment =
             AlbumItemsFragment().apply {
