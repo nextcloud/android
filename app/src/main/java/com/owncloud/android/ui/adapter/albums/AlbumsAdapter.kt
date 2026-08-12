@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.utils.date.DateFormatPattern
+import com.nextcloud.utils.thumbnail.ThumbnailArguments
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.AlbumsGridItemBinding
@@ -73,7 +74,11 @@ class AlbumsAdapter(
                 ocLocal = nFile
             }
 
-            thumbnailGenerator.setThumbnail(ocLocal, gridViewHolder.thumbnail, gridView, true)
+            thumbnailGenerator.setThumbnail(
+                ocLocal,
+                gridViewHolder.thumbnail,
+                ThumbnailArguments(isGrid = gridView, hideVideoOverlay = true, null)
+            )
         } else {
             gridViewHolder.thumbnail.setImageResource(R.drawable.file_image)
             gridViewHolder.thumbnail.visibility = View.VISIBLE

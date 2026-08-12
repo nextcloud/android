@@ -21,6 +21,7 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.date.DateFormatPattern
 import com.nextcloud.utils.extensions.setVisibleIf
+import com.nextcloud.utils.thumbnail.ThumbnailArguments
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.AlbumImageThumbnailBinding
@@ -128,8 +129,7 @@ class AlbumSharingBottomSheet(
         thumbnailGenerator.setThumbnail(
             file,
             target.thumbnail,
-            hideVideoOverlay = true,
-            shimmer = target.thumbnailShimmer
+            ThumbnailArguments(isGrid = false, hideVideoOverlay = true, target.thumbnailShimmer)
         )
     }
 
