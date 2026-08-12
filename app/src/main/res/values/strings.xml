@@ -1004,7 +1004,6 @@
     <string name="hidden_character" translatable="false">*</string>
     <string name="hint_name">Name</string>
     <string name="hint_password">Password</string>
-    <string name="add_to_cloud">Add to %1$s</string>
     <string name="upload_files">Upload files</string>
     <string name="upload_direct_camera_upload">Upload from camera</string>
     <string name="upload_direct_camera_promt">Do you want to take a photo or video?</string>
@@ -1083,6 +1082,7 @@
     <string name="create_new_document">New document</string>
     <string name="create_new_spreadsheet">New spreadsheet</string>
     <string name="create_new_presentation">New presentation</string>
+    <string name="more_documents">More documents</string>
     <string name="select_template">Select template</string>
     <string name="filename_hint">Filename</string>
     <string name="thumbnail">Thumbnail</string>

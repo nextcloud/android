@@ -61,10 +61,6 @@ class OCFileListBottomSheetDialog(
         setContentView(binding.getRoot())
 
         applyBranding()
-        binding.addToCloud.text = context.resources.getString(
-            R.string.add_to_cloud,
-            themeUtils.getDefaultDisplayNameForRootFolder(context)
-        )
 
         checkTemplateVisibility()
         initCreatorContainer()

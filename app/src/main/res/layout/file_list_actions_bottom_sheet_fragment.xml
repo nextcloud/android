@@ -19,16 +19,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/add_to_cloud"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="@dimen/standard_padding"
-        android:paddingBottom="@dimen/standard_half_padding"
-        android:text="@string/add_to_cloud"
-        android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
-        android:textColor="@color/text_color" />
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,77 +31,107 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/menu_upload_files"
-                style="@style/Widget.App.Button.BottomSheetItem"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/bottom_sheet_item_height"
-                android:contentDescription="@string/upload_files"
-                android:gravity="start|center_vertical"
-                android:paddingStart="@dimen/standard_padding"
-                android:paddingEnd="@dimen/standard_padding"
-                android:text="@string/upload_files"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/bottom_sheet_text_size"
-                app:icon="@drawable/ic_action_upload"
-                app:iconGravity="start"
-                app:iconPadding="@dimen/standard_padding"
-                app:iconSize="@dimen/iconized_single_line_item_icon_size"
-                app:iconTint="@color/primary" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/menu_upload_from_app"
-                style="@style/Widget.App.Button.BottomSheetItem"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/bottom_sheet_item_height"
-                android:contentDescription="@string/upload_content_from_other_apps"
-                android:gravity="start|center_vertical"
-                android:paddingStart="@dimen/standard_padding"
-                android:paddingEnd="@dimen/standard_padding"
-                android:text="@string/upload_content_from_other_apps"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/bottom_sheet_text_size"
-                app:icon="@drawable/ic_import"
-                app:iconGravity="start"
-                app:iconPadding="@dimen/standard_padding"
-                app:iconSize="@dimen/iconized_single_line_item_icon_size"
-                app:iconTint="@color/primary" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/menu_new_document"
+                    style="@style/Widget.App.Button.HorizontalBottomSheetItem"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/create_new_document"
+                    android:paddingStart="@dimen/standard_padding"
+                    android:paddingEnd="@dimen/standard_padding"
+                    android:text="@string/create_new_document"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/bottom_sheet_text_size"
+                    android:visibility="gone"
+                    app:icon="@drawable/file_doc"
+                    app:iconTint="@null"
+                    tools:visibility="visible" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/menu_direct_camera_upload"
-                style="@style/Widget.App.Button.BottomSheetItem"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/bottom_sheet_item_height"
-                android:contentDescription="@string/upload_direct_camera_upload"
-                android:gravity="start|center_vertical"
-                android:paddingStart="@dimen/standard_padding"
-                android:paddingEnd="@dimen/standard_padding"
-                android:text="@string/upload_direct_camera_upload"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/bottom_sheet_text_size"
-                app:icon="@drawable/ic_camera"
-                app:iconGravity="start"
-                app:iconPadding="@dimen/standard_padding"
-                app:iconSize="@dimen/iconized_single_line_item_icon_size"
-                app:iconTint="@color/primary" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/menu_new_spreadsheet"
+                    style="@style/Widget.App.Button.HorizontalBottomSheetItem"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/create_new_spreadsheet"
+                    android:paddingStart="@dimen/standard_padding"
+                    android:paddingEnd="@dimen/standard_padding"
+                    android:text="@string/create_new_spreadsheet"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/bottom_sheet_text_size"
+                    android:visibility="gone"
+                    app:icon="@drawable/file_xls"
+                    app:iconTint="@null"
+                    tools:visibility="visible" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/menu_scan_doc_upload"
-                style="@style/Widget.App.Button.BottomSheetItem"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/menu_new_presentation"
+                    style="@style/Widget.App.Button.HorizontalBottomSheetItem"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/create_new_presentation"
+                    android:paddingStart="@dimen/standard_padding"
+                    android:paddingEnd="@dimen/standard_padding"
+                    android:text="@string/create_new_presentation"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/bottom_sheet_text_size"
+                    android:visibility="gone"
+                    app:icon="@drawable/file_ppt"
+                    app:iconTint="@null"
+                    tools:visibility="visible" />
+
+            </LinearLayout>
+
+            <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/bottom_sheet_item_height"
-                android:contentDescription="@string/upload_scan_doc_upload"
-                android:gravity="start|center_vertical"
-                android:paddingStart="@dimen/standard_padding"
-                android:paddingEnd="@dimen/standard_padding"
-                android:text="@string/upload_scan_doc_upload"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/bottom_sheet_text_size"
-                app:icon="@drawable/ic_scan_document"
-                app:iconGravity="start"
-                app:iconPadding="@dimen/standard_padding"
-                app:iconSize="@dimen/iconized_single_line_item_icon_size"
-                app:iconTint="@color/primary" />
+                android:layout_height="wrap_content"
+                style="@style/Widget.App.Divider.BottomSheetDivider"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/menu_more_documents"
+                    style="@style/Widget.App.Button.BottomSheetItem"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/bottom_sheet_item_height"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/more_documents"
+                    android:gravity="start|center_vertical"
+                    android:paddingStart="@dimen/standard_padding"
+                    android:paddingEnd="@dimen/standard_padding"
+                    android:text="@string/more_documents"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/bottom_sheet_text_size"
+                    app:icon="@drawable/file_text"
+                    app:iconGravity="start"
+                    app:iconPadding="@dimen/standard_padding"
+                    app:iconSize="@dimen/iconized_single_line_item_icon_size"
+                    app:iconTint="@color/primary"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/standard_padding"
+                    android:src="@drawable/arrow_right"
+                    app:tint="@color/list_expand_icon_color"/>
+
+            </LinearLayout>
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.App.Divider.BottomSheetDivider"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/menu_mkdir"
@@ -150,89 +170,6 @@
                 app:iconTint="@color/primary" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/menu_new_document"
-                style="@style/Widget.App.Button.BottomSheetItem"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/bottom_sheet_item_height"
-                android:contentDescription="@string/create_new_document"
-                android:gravity="start|center_vertical"
-                android:paddingStart="@dimen/standard_padding"
-                android:paddingEnd="@dimen/standard_padding"
-                android:text="@string/create_new_document"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/bottom_sheet_text_size"
-                android:visibility="gone"
-                app:icon="@drawable/file_doc"
-                app:iconGravity="start"
-                app:iconPadding="@dimen/standard_padding"
-                app:iconSize="@dimen/iconized_single_line_item_icon_size"
-                app:iconTint="@null"
-                tools:visibility="visible" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/menu_new_spreadsheet"
-                style="@style/Widget.App.Button.BottomSheetItem"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/bottom_sheet_item_height"
-                android:contentDescription="@string/create_new_spreadsheet"
-                android:gravity="start|center_vertical"
-                android:paddingStart="@dimen/standard_padding"
-                android:paddingEnd="@dimen/standard_padding"
-                android:text="@string/create_new_spreadsheet"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/bottom_sheet_text_size"
-                android:visibility="gone"
-                app:icon="@drawable/file_xls"
-                app:iconGravity="start"
-                app:iconPadding="@dimen/standard_padding"
-                app:iconSize="@dimen/iconized_single_line_item_icon_size"
-                app:iconTint="@null"
-                tools:visibility="visible" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/menu_new_presentation"
-                style="@style/Widget.App.Button.BottomSheetItem"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/bottom_sheet_item_height"
-                android:contentDescription="@string/create_new_presentation"
-                android:gravity="start|center_vertical"
-                android:paddingStart="@dimen/standard_padding"
-                android:paddingEnd="@dimen/standard_padding"
-                android:text="@string/create_new_presentation"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/bottom_sheet_text_size"
-                android:visibility="gone"
-                app:icon="@drawable/file_ppt"
-                app:iconGravity="start"
-                app:iconPadding="@dimen/standard_padding"
-                app:iconSize="@dimen/iconized_single_line_item_icon_size"
-                app:iconTint="@null"
-                tools:visibility="visible" />
-
-            <LinearLayout
-                android:id="@+id/creators_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone"
-                tools:visibility="visible">
-
-                <LinearLayout
-                    android:id="@+id/creators"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" />
-            </LinearLayout>
-
-            <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/menu_create_rich_workspace_divider"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/standard_half_margin"
-                android:layout_marginStart="@dimen/bottom_sheet_menu_item_divider_standard_margin"
-                app:dividerColor="@color/list_divider_background" />
-
-            <com.google.android.material.button.MaterialButton
                 android:id="@+id/menu_create_rich_workspace"
                 style="@style/Widget.App.Button.BottomSheetItem"
                 android:layout_width="match_parent"
@@ -249,6 +186,103 @@
                 app:iconPadding="@dimen/standard_padding"
                 app:iconSize="@dimen/iconized_single_line_item_icon_size"
                 app:iconTint="@color/primary" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.App.Divider.BottomSheetDivider"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/menu_scan_doc_upload"
+                style="@style/Widget.App.Button.BottomSheetItem"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/bottom_sheet_item_height"
+                android:contentDescription="@string/upload_scan_doc_upload"
+                android:gravity="start|center_vertical"
+                android:paddingStart="@dimen/standard_padding"
+                android:paddingEnd="@dimen/standard_padding"
+                android:text="@string/upload_scan_doc_upload"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/bottom_sheet_text_size"
+                app:icon="@drawable/ic_scan_document"
+                app:iconGravity="start"
+                app:iconPadding="@dimen/standard_padding"
+                app:iconSize="@dimen/iconized_single_line_item_icon_size"
+                app:iconTint="@color/primary" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.App.Divider.BottomSheetDivider"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/menu_upload_files"
+                style="@style/Widget.App.Button.BottomSheetItem"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/bottom_sheet_item_height"
+                android:contentDescription="@string/upload_files"
+                android:gravity="start|center_vertical"
+                android:paddingStart="@dimen/standard_padding"
+                android:paddingEnd="@dimen/standard_padding"
+                android:text="@string/upload_files"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/bottom_sheet_text_size"
+                app:icon="@drawable/ic_action_upload"
+                app:iconGravity="start"
+                app:iconPadding="@dimen/standard_padding"
+                app:iconSize="@dimen/iconized_single_line_item_icon_size"
+                app:iconTint="@color/primary" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/menu_direct_camera_upload"
+                style="@style/Widget.App.Button.BottomSheetItem"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/bottom_sheet_item_height"
+                android:contentDescription="@string/upload_direct_camera_upload"
+                android:gravity="start|center_vertical"
+                android:paddingStart="@dimen/standard_padding"
+                android:paddingEnd="@dimen/standard_padding"
+                android:text="@string/upload_direct_camera_upload"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/bottom_sheet_text_size"
+                app:icon="@drawable/ic_camera"
+                app:iconGravity="start"
+                app:iconPadding="@dimen/standard_padding"
+                app:iconSize="@dimen/iconized_single_line_item_icon_size"
+                app:iconTint="@color/primary" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/menu_upload_from_app"
+                style="@style/Widget.App.Button.BottomSheetItem"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/bottom_sheet_item_height"
+                android:contentDescription="@string/upload_content_from_other_apps"
+                android:gravity="start|center_vertical"
+                android:paddingStart="@dimen/standard_padding"
+                android:paddingEnd="@dimen/standard_padding"
+                android:text="@string/upload_content_from_other_apps"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/bottom_sheet_text_size"
+                app:icon="@drawable/ic_import"
+                app:iconGravity="start"
+                app:iconPadding="@dimen/standard_padding"
+                app:iconSize="@dimen/iconized_single_line_item_icon_size"
+                app:iconTint="@color/primary" />
+
+            <LinearLayout
+                android:id="@+id/creators_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <LinearLayout
+                    android:id="@+id/creators"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </LinearLayout>
 
         </LinearLayout>
 
