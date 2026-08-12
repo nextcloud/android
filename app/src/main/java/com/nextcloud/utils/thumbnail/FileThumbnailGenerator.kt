@@ -68,30 +68,23 @@ class FileThumbnailGenerator @Inject constructor(
     )
 
     private val tasks = Collections.synchronizedList(mutableListOf<ThumbnailGenerationTask>())
-    private var arguments = ThumbnailArguments.none
 
-    fun setThumbnail(
-        file: OCFile,
-        view: ImageView,
-        arguments: ThumbnailArguments,
-    ) {
-        this.arguments = arguments
-
+    fun setThumbnail(file: OCFile, view: ImageView, arguments: ThumbnailArguments) {
         if (file.remoteId == null) {
-            setLocalThumbnail(file, view)
+            setLocalThumbnail(file, view, arguments)
             return
         }
 
         if (!file.isPreviewAvailable) {
-            generate(file, view)
+            generate(file, view, arguments)
             return
         }
 
         val cached = file.getSmallThumbnail()
         if (cached == null || file.isUpdateThumbnailNeeded) {
-            generate(file, view)
+            generate(file, view, arguments)
         } else {
-            show(cached, file, view)
+            show(cached, file, view, arguments)
         }
 
         applyPngBackground(file, view)
@@ -125,7 +118,7 @@ class FileThumbnailGenerator @Inject constructor(
         }
     }
 
-    private fun show(bitmap: Bitmap, file: OCFile, view: ImageView) {
+    private fun show(bitmap: Bitmap, file: OCFile, view: ImageView, arguments: ThumbnailArguments) {
         view.stopShimmer(arguments.shimmer)
 
         if (MimeTypeUtil.isVideo(file)) {
@@ -135,7 +128,7 @@ class FileThumbnailGenerator @Inject constructor(
         }
     }
 
-    private fun setLocalThumbnail(file: OCFile, view: ImageView) {
+    private fun setLocalThumbnail(file: OCFile, view: ImageView, arguments: ThumbnailArguments) {
         val localFile = file.storagePath.toFile()
 
         if (localFile == null || !MimeTypeUtil.isImageOrVideo(file)) {
@@ -145,6 +138,7 @@ class FileThumbnailGenerator @Inject constructor(
             startTask(
                 file,
                 view,
+                arguments,
                 ThumbnailGenerationTaskObject(localFile, null),
                 localFile.hashCode()
             )
@@ -152,7 +146,7 @@ class FileThumbnailGenerator @Inject constructor(
     }
 
     @Suppress("DEPRECATION")
-    private fun generate(file: OCFile, view: ImageView) {
+    private fun generate(file: OCFile, view: ImageView, arguments: ThumbnailArguments) {
         if (!ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, view)) {
             return
         }
@@ -173,6 +167,7 @@ class FileThumbnailGenerator @Inject constructor(
             startTask(
                 file,
                 view,
+                arguments,
                 ThumbnailGenerationTaskObject(file, file.remoteId),
                 file.fileId
             )
@@ -183,6 +178,7 @@ class FileThumbnailGenerator @Inject constructor(
     private fun startTask(
         file: OCFile,
         view: ImageView,
+        arguments: ThumbnailArguments,
         target: ThumbnailGenerationTaskObject,
         tag: Any
     ) {
