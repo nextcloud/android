@@ -68,29 +68,30 @@ class FileThumbnailGenerator @Inject constructor(
     )
 
     private val tasks = Collections.synchronizedList(mutableListOf<ThumbnailGenerationTask>())
+    private var arguments = ThumbnailArguments.none
 
     fun setThumbnail(
         file: OCFile,
         view: ImageView,
-        isGrid: Boolean,
-        hideVideoOverlay: Boolean,
-        shimmer: LoaderImageView?
+        arguments: ThumbnailArguments,
     ) {
+        this.arguments = arguments
+
         if (file.remoteId == null) {
-            setLocalThumbnail(file, view, isGrid, hideVideoOverlay, shimmer)
+            setLocalThumbnail(file, view)
             return
         }
 
         if (!file.isPreviewAvailable) {
-            generate(file, view, isGrid, hideVideoOverlay, shimmer)
+            generate(file, view)
             return
         }
 
         val cached = file.getSmallThumbnail()
         if (cached == null || file.isUpdateThumbnailNeeded) {
-            generate(file, view, isGrid, hideVideoOverlay, shimmer)
+            generate(file, view)
         } else {
-            show(cached, file, view, isGrid, hideVideoOverlay, shimmer)
+            show(cached, file, view)
         }
 
         applyPngBackground(file, view)
@@ -124,42 +125,26 @@ class FileThumbnailGenerator @Inject constructor(
         }
     }
 
-    private fun show(
-        bitmap: Bitmap,
-        file: OCFile,
-        view: ImageView,
-        isGrid: Boolean,
-        hideVideoOverlay: Boolean,
-        shimmer: LoaderImageView?
-    ) {
-        view.stopShimmer(shimmer)
+    private fun show(bitmap: Bitmap, file: OCFile, view: ImageView) {
+        view.stopShimmer(arguments.shimmer)
 
         if (MimeTypeUtil.isVideo(file)) {
             view.setImageBitmap(ThumbnailsCacheManager.addVideoOverlay(bitmap, context))
         } else {
-            BitmapUtils.setRoundedBitmapAccordingToListType(isGrid, bitmap, view)
+            BitmapUtils.setRoundedBitmapAccordingToListType(arguments.isGrid, bitmap, view)
         }
     }
 
-    private fun setLocalThumbnail(
-        file: OCFile,
-        view: ImageView,
-        isGrid: Boolean,
-        hideVideoOverlay: Boolean,
-        shimmer: LoaderImageView?
-    ) {
+    private fun setLocalThumbnail(file: OCFile, view: ImageView) {
         val localFile = file.storagePath.toFile()
 
         if (localFile == null || !MimeTypeUtil.isImageOrVideo(file)) {
-            view.stopShimmer(shimmer)
+            view.stopShimmer(arguments.shimmer)
             view.setImageDrawable(file.mimeIcon())
         } else if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(localFile, view)) {
             startTask(
                 file,
                 view,
-                isGrid,
-                hideVideoOverlay,
-                shimmer,
                 ThumbnailGenerationTaskObject(localFile, null),
                 localFile.hashCode()
             )
@@ -167,13 +152,7 @@ class FileThumbnailGenerator @Inject constructor(
     }
 
     @Suppress("DEPRECATION")
-    private fun generate(
-        file: OCFile,
-        view: ImageView,
-        isGrid: Boolean,
-        hideVideoOverlay: Boolean,
-        shimmer: LoaderImageView?
-    ) {
+    private fun generate(file: OCFile, view: ImageView) {
         if (!ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, view)) {
             return
         }
@@ -181,7 +160,7 @@ class FileThumbnailGenerator @Inject constructor(
         val cached = file.getSmallThumbnail()
         if (cached != null) {
             view.setImageBitmap(cached)
-            view.stopShimmer(shimmer)
+            view.stopShimmer(arguments.shimmer)
             return
         }
 
@@ -194,9 +173,6 @@ class FileThumbnailGenerator @Inject constructor(
             startTask(
                 file,
                 view,
-                isGrid,
-                hideVideoOverlay,
-                shimmer,
                 ThumbnailGenerationTaskObject(file, file.remoteId),
                 file.fileId
             )
@@ -207,9 +183,6 @@ class FileThumbnailGenerator @Inject constructor(
     private fun startTask(
         file: OCFile,
         view: ImageView,
-        isGrid: Boolean,
-        hideVideoOverlay: Boolean,
-        shimmer: LoaderImageView?,
         target: ThumbnailGenerationTaskObject,
         tag: Any
     ) {
@@ -221,15 +194,15 @@ class FileThumbnailGenerator @Inject constructor(
                 storageManager.get(),
                 accountManager.user,
                 tasks,
-                isGrid,
+                arguments.isGrid,
                 file.remoteId,
-                hideVideoOverlay
+                arguments.hideVideoOverlay
             ).apply {
                 setListener(object : ThumbnailGenerationTask.Listener {
-                    override fun onSuccess() = view.stopShimmer(shimmer)
+                    override fun onSuccess() = view.stopShimmer(arguments.shimmer)
 
                     override fun onError() {
-                        view.stopShimmer(shimmer)
+                        view.stopShimmer(arguments.shimmer)
                         view.setImageDrawable(file.mimeIcon())
                         view.invalidate()
                         Log_OC.w(TAG, "setting thumbnail failed, using icon from mime type")
@@ -237,7 +210,7 @@ class FileThumbnailGenerator @Inject constructor(
                 })
             }
             view.setImageDrawable(AsyncThumbnailDrawable(context.resources, file.placeholder(), task))
-            startShimmerLater(view, isGrid, shimmer)
+            startShimmerLater(view, arguments.isGrid, arguments.shimmer)
             tasks.add(task)
             task.executeOnExecutor(executor, target)
             view.invalidate()

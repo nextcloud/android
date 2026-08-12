@@ -25,6 +25,7 @@ import com.nextcloud.utils.extensions.makeRounded
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.extensions.stopShimmer
 import com.nextcloud.utils.mdm.MDMConfig
+import com.nextcloud.utils.thumbnail.ThumbnailArguments
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -211,9 +212,7 @@ class OCFileListDelegate(
         thumbnailGenerator.setThumbnail(
             file,
             viewHolder.thumbnail,
-            gridView,
-            hideVideoOverlay = false,
-            viewHolder.shimmerThumbnail
+            ThumbnailArguments(isGrid = gridView, hideVideoOverlay = false, viewHolder.shimmerThumbnail)
         )
 
         // item layout + click listeners

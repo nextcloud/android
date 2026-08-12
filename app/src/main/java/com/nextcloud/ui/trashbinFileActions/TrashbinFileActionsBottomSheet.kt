@@ -27,6 +27,7 @@ import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.utils.extensions.toOCFile
+import com.nextcloud.utils.thumbnail.ThumbnailArguments
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileActionsBottomSheetBinding
 import com.owncloud.android.databinding.FileActionsBottomSheetItemBinding
@@ -122,7 +123,7 @@ class TrashbinFileActionsBottomSheet :
             thumbnailGenerator.setThumbnail(
                 it.toOCFile(),
                 binding.thumbnailLayout.thumbnail,
-                shimmer = binding.thumbnailLayout.thumbnailShimmer
+                ThumbnailArguments.withShimmer(binding.thumbnailLayout.thumbnailShimmer)
             )
         }
     }
