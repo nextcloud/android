@@ -20,7 +20,13 @@ class ThumbnailGenerator @Inject constructor(
 ) {
 
     @JvmOverloads
-    fun setThumbnail(ocFile: OCFile?, view: ImageView?, isGrid: Boolean = false, shimmer: LoaderImageView? = null) {
+    fun setThumbnail(
+        ocFile: OCFile?,
+        view: ImageView?,
+        isGrid: Boolean = false,
+        hideVideoOverlay: Boolean = false,
+        shimmer: LoaderImageView? = null
+    ) {
         if (ocFile == null || view == null) {
             return
         }
@@ -28,7 +34,7 @@ class ThumbnailGenerator @Inject constructor(
         when {
             ocFile.isOfflineOperation -> fileThumbnailGenerator.setOfflineOperationThumbnail(ocFile, view)
             ocFile.isFolder -> folderThumbnailGenerator.setFolderThumbnail(ocFile, view, shimmer)
-            else -> fileThumbnailGenerator.setThumbnail(ocFile, view, isGrid, shimmer)
+            else -> fileThumbnailGenerator.setThumbnail(ocFile, view, isGrid, hideVideoOverlay, shimmer)
         }
     }
 }

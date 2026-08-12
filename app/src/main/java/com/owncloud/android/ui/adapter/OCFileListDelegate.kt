@@ -208,7 +208,13 @@ class OCFileListDelegate(
             }
         }
 
-        thumbnailGenerator.setThumbnail(file, viewHolder.thumbnail, gridView, viewHolder.shimmerThumbnail)
+        thumbnailGenerator.setThumbnail(
+            file,
+            viewHolder.thumbnail,
+            gridView,
+            hideVideoOverlay = false,
+            viewHolder.shimmerThumbnail
+        )
 
         // item layout + click listeners
         bindGridItemLayout(file, viewHolder)

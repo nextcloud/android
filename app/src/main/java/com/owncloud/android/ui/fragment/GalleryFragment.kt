@@ -197,7 +197,6 @@ class GalleryFragment :
             requireContext(),
             accountManager.user,
             this,
-            preferences,
             mContainerActivity,
             viewThemeUtils,
             this.columnsCount,
