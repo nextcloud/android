@@ -60,6 +60,8 @@ import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment.OnSyncedFolderPreferenceListener
 import com.owncloud.android.ui.dialog.extensions.themeButtons
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable
+import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.FilesSyncHelper
 import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.SyncedFolderUtils
 import kotlinx.coroutines.Dispatchers
@@ -551,6 +553,18 @@ class SyncedFoldersActivity :
         var result = true
         when (item.itemId) {
             android.R.id.home -> finish()
+
+            R.id.action_manual_scan -> {
+                Log_OC.d(TAG, "Manually scanning all enabled synced folders for missing files")
+                DisplayUtils.showSnackMessage(this, R.string.autoupload_manual_scan_started)
+                lifecycleScope.launch(Dispatchers.IO) {
+                    FilesSyncHelper.startAutoUploadForEnabledSyncedFolders(
+                        syncedFolderProvider,
+                        backgroundJobManager,
+                        true
+                    )
+                }
+            }
 
             R.id.action_create_custom_folder -> {
                 Log_OC.d(TAG, "Show custom folder dialog")
