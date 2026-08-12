@@ -47,6 +47,7 @@ import com.owncloud.android.ui.adapter.albums.AlbumFragmentInterface
 import com.owncloud.android.ui.adapter.albums.AlbumsAdapter
 import com.owncloud.android.ui.dialog.CreateAlbumDialogFragment
 import com.owncloud.android.ui.fragment.FileFragment
+import com.owncloud.android.ui.fragment.albums.model.AlbumsEmptyState
 import com.owncloud.android.ui.fragment.helper.ColumnCount
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers

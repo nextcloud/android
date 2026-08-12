@@ -1,12 +1,11 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.owncloud.android.ui.fragment.albums
+package com.owncloud.android.ui.fragment.albums.bottomsheet
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -30,6 +29,7 @@ import com.owncloud.android.databinding.AlbumSharingBottomSheetBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.albums.PhotoAlbumEntry
+import com.owncloud.android.ui.fragment.albums.util.AlbumCollageLayout
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
