@@ -20,6 +20,7 @@ import com.nextcloud.utils.extensions.fillParent
 import com.nextcloud.utils.extensions.startOf
 import com.owncloud.android.databinding.AlbumImageThumbnailBinding
 import com.owncloud.android.databinding.AlbumSharingBottomSheetBinding
+import com.owncloud.android.ui.fragment.albums.util.AlbumCollageLayout.Companion.MAX_IMAGES
 
 /**
  * Positions the album preview images inside the collage. The XML already describes the
