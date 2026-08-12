@@ -122,6 +122,7 @@ class OCFileListDelegate(
                 cachedBitmap
             }
             imageView.setImageBitmap(overlay)
+            DisplayUtils.stopShimmer(shimmer, imageView)
         } else {
             imageView.setImageDrawable(OCFileUtils.getMediaPlaceholder(file, imageDimension))
         }
