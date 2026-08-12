@@ -41,7 +41,9 @@ fun RemoteFile.tags(): List<Tag> = tags?.mapNotNull { it } ?: emptyList()
 
 /**
  * Album responses carry no remote id, so the local id doubles as one to keep thumbnail generation working.
- * Mirrors what [com.owncloud.android.operations.albums.ReadAlbumItemsOperation] stores in the database.
+ *
+ * Shared by [com.owncloud.android.operations.albums.ReadAlbumItemsOperation], which stores album items, and by the
+ * album screens falling back to a non persisted item, so both end up with the same file.
  */
 fun RemoteFile.toAlbumItem(): OCFile = FileStorageUtils.fillOCFile(this).apply {
     remoteId = this@toAlbumItem.localId.toString()
