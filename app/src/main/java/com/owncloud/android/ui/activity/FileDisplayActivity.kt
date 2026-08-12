@@ -216,6 +216,8 @@ class FileDisplayActivity :
             setEmptyListState()
         }
 
+    private var pendingSyncFolderOperation: Runnable? = null
+
     private var mWaitingToSend: OCFile? = null
 
     private var mDrawerMenuItemstoShowHideList: MutableCollection<MenuItem>? = null
@@ -2528,43 +2530,61 @@ class FileDisplayActivity :
     fun startSyncFolderOperation(folder: OCFile?, ignoreETag: Boolean, ignoreFocus: Boolean = false) {
         Log_OC.d(TAG, "startSyncFolderOperation called, ignoreEtag: $ignoreETag, ignoreFocus: $ignoreFocus")
 
-        // the execution is slightly delayed to allow the activity get the window focus if it's being started
-        // or if the method is called from a dialog that is being dismissed
-
-        if (TextUtils.isEmpty(searchQuery) && user.isPresent) {
-            mSyncInProgress = true
-
-            handler.postDelayed({
-                val user = getUser()
-                if ((!ignoreFocus && !hasWindowFocus()) || !user.isPresent) {
-                    // do not refresh if the user rotates the device while another window has focus
-                    // or if the current user is no longer valid
-                    mSyncInProgress = false
-                    return@postDelayed
-                }
-
-                val currentSyncTime = System.currentTimeMillis()
-
-                val operation = RefreshFolderOperation(
-                    folder,
-                    currentSyncTime,
-                    false,
-                    ignoreETag,
-                    storageManager,
-                    user.get(),
-                    applicationContext
-                )
-                operation.execute(
-                    account,
-                    MainApp.getAppContext(),
-                    this@FileDisplayActivity,
-                    null,
-                    null
-                )
-
-                fetchRecommendedFilesIfNeeded(ignoreETag, folder)
-            }, DELAY_TO_REQUEST_REFRESH_OPERATION_LATER)
+        if (!TextUtils.isEmpty(searchQuery) || !user.isPresent) {
+            return
         }
+
+        val syncFolder = Runnable { executeSyncFolderOperation(folder, ignoreETag) }
+
+        // The refresh must not run while another window floats over the activity, e.g. a dialog that is being
+        // dismissed or a rotation. Rather than waiting a fixed delay run right away when it already has focus
+        // and replay the request on the next focus gain.
+        if (ignoreFocus || hasWindowFocus()) {
+            pendingSyncFolderOperation = null
+            syncFolder.run()
+        } else {
+            pendingSyncFolderOperation = syncFolder
+        }
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+
+        if (!hasFocus) {
+            return
+        }
+
+        pendingSyncFolderOperation?.let {
+            pendingSyncFolderOperation = null
+            it.run()
+        }
+    }
+
+    private fun executeSyncFolderOperation(folder: OCFile?, ignoreETag: Boolean) {
+        val user = getUser()
+        if (!user.isPresent) {
+            return
+        }
+
+        mSyncInProgress = true
+
+        RefreshFolderOperation(
+            folder,
+            System.currentTimeMillis(),
+            false,
+            ignoreETag,
+            storageManager,
+            user.get(),
+            applicationContext
+        ).execute(
+            account,
+            MainApp.getAppContext(),
+            this@FileDisplayActivity,
+            null,
+            null
+        )
+
+        fetchRecommendedFilesIfNeeded(ignoreETag, folder)
     }
 
     private fun fetchRecommendedFilesIfNeeded(ignoreETag: Boolean, folder: OCFile?) {
@@ -3293,8 +3313,6 @@ class FileDisplayActivity :
 
         @JvmField
         val REQUEST_CODE__SELECT_CONTENT_FROM_APPS_AUTO_RENAME: Int = REQUEST_CODE__LAST_SHARED + 7
-
-        protected val DELAY_TO_REQUEST_REFRESH_OPERATION_LATER: Long = DELAY_TO_REQUEST_OPERATIONS_LATER + 350
 
         private val TAG: String = FileDisplayActivity::class.java.getSimpleName()
 
