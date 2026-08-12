@@ -38,7 +38,7 @@ import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
-import java.util.Collections
+import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.Executors
 import javax.inject.Inject
 import javax.inject.Provider
@@ -67,7 +67,7 @@ class FileThumbnailGenerator @Inject constructor(
         maxOf(MIN_THREADS, Runtime.getRuntime().availableProcessors() / CORES_PER_THREAD)
     )
 
-    private val tasks = Collections.synchronizedList(mutableListOf<ThumbnailGenerationTask>())
+    private val tasks = CopyOnWriteArrayList<ThumbnailGenerationTask>()
 
     fun setThumbnail(file: OCFile, view: ImageView, arguments: ThumbnailArguments) {
         if (file.remoteId == null) {
@@ -109,13 +109,11 @@ class FileThumbnailGenerator @Inject constructor(
     }
 
     fun cancelPendingTasks() {
-        synchronized(tasks) {
-            tasks.forEach { task ->
-                task.cancel(true)
-                task.getMethod?.abort()
-            }
-            tasks.clear()
+        tasks.forEach { task ->
+            task.cancel(true)
+            task.getMethod?.abort()
         }
+        tasks.clear()
     }
 
     private fun show(bitmap: Bitmap, file: OCFile, view: ImageView, arguments: ThumbnailArguments) {
@@ -158,12 +156,9 @@ class FileThumbnailGenerator @Inject constructor(
             return
         }
 
-        val alreadyRunning = synchronized(tasks) {
-            tasks.removeAll { it.isCancelled || it.status == AsyncTask.Status.FINISHED }
-            tasks.any { it.imageKey == file.remoteId }
-        }
+        tasks.removeIf { it.isCancelled || it.status == AsyncTask.Status.FINISHED }
 
-        if (!alreadyRunning) {
+        if (tasks.none { it.imageKey == file.remoteId }) {
             startTask(
                 file,
                 view,
