@@ -32,6 +32,7 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.Throttler
 import com.nextcloud.utils.extensions.getTypedActivity
+import com.nextcloud.utils.extensions.isLandscape
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.R
@@ -46,6 +47,7 @@ import com.owncloud.android.ui.adapter.albums.AlbumFragmentInterface
 import com.owncloud.android.ui.adapter.albums.AlbumsAdapter
 import com.owncloud.android.ui.dialog.CreateAlbumDialogFragment
 import com.owncloud.android.ui.fragment.FileFragment
+import com.owncloud.android.ui.fragment.helper.ColumnCount
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -79,7 +81,7 @@ class AlbumsFragment :
     private var containerActivity: FileFragment.ContainerActivity? = null
 
     private var isGridView = true
-    private var maxColumnSize = 2
+    private var maxColumnSize = ColumnCount.Normal.portrait
     private var isSelectionMode = false
     private var listState: Parcelable? = null
 
@@ -109,11 +111,7 @@ class AlbumsFragment :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        maxColumnSize = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            MAX_COLUMN_SIZE_LANDSCAPE
-        } else {
-            MAX_COLUMN_SIZE_PORTRAIT
-        }
+        maxColumnSize = ColumnCount.get(false, resources.isLandscape())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -324,11 +322,7 @@ class AlbumsFragment :
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         if (isGridEnabled) {
-            if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                maxColumnSize = MAX_COLUMN_SIZE_LANDSCAPE
-            } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                maxColumnSize = MAX_COLUMN_SIZE_PORTRAIT
-            }
+            maxColumnSize = ColumnCount.get(false, newConfig.isLandscape())
             (binding.listRoot.layoutManager as GridLayoutManager).setSpanCount(maxColumnSize)
         }
     }
@@ -336,15 +330,11 @@ class AlbumsFragment :
     companion object {
         val TAG: String = AlbumsFragment::class.java.simpleName
         private const val ARG_IS_SELECTION_MODE = "is_selection_mode"
-        private const val MAX_COLUMN_SIZE_LANDSCAPE: Int = 4
-        private const val MAX_COLUMN_SIZE_PORTRAIT: Int = 2
 
-        fun newInstance(isSelectionMode: Boolean = false): AlbumsFragment {
-            val args = Bundle()
-            args.putBoolean(ARG_IS_SELECTION_MODE, isSelectionMode)
-            val fragment = AlbumsFragment()
-            fragment.arguments = args
-            return fragment
+        fun newInstance(isSelectionMode: Boolean = false): AlbumsFragment = AlbumsFragment().apply {
+            arguments = Bundle().apply {
+                putBoolean(ARG_IS_SELECTION_MODE, isSelectionMode)
+            }
         }
     }
 

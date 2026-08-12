@@ -58,6 +58,7 @@ import com.nextcloud.ui.albumItemActions.AlbumItemActionsBottomSheet
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.extensions.isDialogFragmentReady
+import com.nextcloud.utils.extensions.isLandscape
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ListFragmentBinding
@@ -84,6 +85,7 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDia
 import com.owncloud.android.ui.dialog.CreateAlbumDialogFragment
 import com.owncloud.android.ui.events.FavoriteEvent
 import com.owncloud.android.ui.fragment.FileFragment
+import com.owncloud.android.ui.fragment.helper.ColumnCount
 import com.owncloud.android.ui.helpers.UriUploader
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.ui.preview.PreviewImageFragment
@@ -184,11 +186,7 @@ class AlbumItemsFragment :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        columnSize = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            MAX_COLUMN_SIZE_LANDSCAPE
-        } else {
-            MAX_COLUMN_SIZE_PORTRAIT
-        }
+        columnSize = ColumnCount.get(true, resources.isLandscape())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -578,12 +576,7 @@ class AlbumItemsFragment :
     @SuppressLint("NotifyDataSetChanged")
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            columnSize = MAX_COLUMN_SIZE_LANDSCAPE
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            columnSize = MAX_COLUMN_SIZE_PORTRAIT
-        }
+        columnSize = ColumnCount.get(true, newConfig.isLandscape())
         adapter?.changeColumn(columnSize)
         adapter?.notifyDataSetChanged()
     }
@@ -1249,9 +1242,6 @@ class AlbumItemsFragment :
         private const val ARG_ALBUM_NAME = "album_name"
         private const val ARG_IS_NEW_ALBUM = "is_new_album"
         var lastMediaItemPosition: Int? = null
-
-        private const val MAX_COLUMN_SIZE_LANDSCAPE: Int = 5
-        private const val MAX_COLUMN_SIZE_PORTRAIT: Int = 2
 
         private const val DEBOUNCE_DELAY = 500L
 
