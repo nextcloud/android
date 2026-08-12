@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Daniele Verducci <daniele.verducci@nextcloud.com>
  * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger.de>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -105,6 +106,7 @@ class OCFileListBottomSheetDialog(
                 colorMaterialButtonContent(menuMkdir, ColorRole.PRIMARY)
                 colorMaterialButtonContent(menuEncryptedMkdir, ColorRole.PRIMARY)
                 colorMaterialButtonContent(menuCreateRichWorkspace, ColorRole.PRIMARY)
+                colorMaterialButtonContent(menuMoreDocuments, ColorRole.PRIMARY)
             }
         }
 
@@ -120,6 +122,7 @@ class OCFileListBottomSheetDialog(
             menuMkdir.setTextColor(textColor)
             menuEncryptedMkdir.setTextColor(textColor)
             menuCreateRichWorkspace.setTextColor(textColor)
+            menuMoreDocuments.setTextColor(textColor)
         }
     }
 
@@ -289,6 +292,15 @@ class OCFileListBottomSheetDialog(
             menuNewPresentation.setOnClickListener {
                 actions.newPresentation()
                 dismiss()
+            }
+
+            menuMoreDocuments.setOnClickListener {
+                bottomSheetViewSwitcher.showNext()
+            }
+
+            menuBack.setOnClickListener {
+                // Invert animation
+                bottomSheetViewSwitcher.showPrevious()
             }
         }
     }

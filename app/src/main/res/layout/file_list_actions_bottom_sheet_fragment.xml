@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   ~ Nextcloud - Android Client
   ~
+  ~ SPDX-FileCopyrightText: 2026 Daniele Verducci <daniele.verducci@nextcloud.com>
   ~ SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger.de>
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
@@ -19,273 +20,319 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <androidx.core.widget.NestedScrollView
+    <ViewSwitcher
+        android:id="@+id/bottom_sheet_view_switcher"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title">
+        android:layout_height="match_parent"
+        android:inAnimation="@android:anim/fade_in"
+        android:outAnimation="@android:anim/fade_out">
 
-        <LinearLayout
+        <!-- Main view -->
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/bottom_sheet_main_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/menu_new_document"
+                        style="@style/Widget.App.Button.HorizontalBottomSheetItem"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/create_new_document"
+                        android:paddingStart="@dimen/standard_padding"
+                        android:paddingEnd="@dimen/standard_padding"
+                        android:text="@string/create_new_document"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/bottom_sheet_text_size"
+                        android:visibility="gone"
+                        app:icon="@drawable/file_doc"
+                        app:iconTint="@null"
+                        tools:visibility="visible" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/menu_new_spreadsheet"
+                        style="@style/Widget.App.Button.HorizontalBottomSheetItem"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/create_new_spreadsheet"
+                        android:paddingStart="@dimen/standard_padding"
+                        android:paddingEnd="@dimen/standard_padding"
+                        android:text="@string/create_new_spreadsheet"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/bottom_sheet_text_size"
+                        android:visibility="gone"
+                        app:icon="@drawable/file_xls"
+                        app:iconTint="@null"
+                        tools:visibility="visible" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/menu_new_presentation"
+                        style="@style/Widget.App.Button.HorizontalBottomSheetItem"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/create_new_presentation"
+                        android:paddingStart="@dimen/standard_padding"
+                        android:paddingEnd="@dimen/standard_padding"
+                        android:text="@string/create_new_presentation"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/bottom_sheet_text_size"
+                        android:visibility="gone"
+                        app:icon="@drawable/file_ppt"
+                        app:iconTint="@null"
+                        tools:visibility="visible" />
+
+                </LinearLayout>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.App.Divider.BottomSheetDivider"/>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/menu_more_documents"
+                        style="@style/Widget.App.Button.BottomSheetItem"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/bottom_sheet_item_height"
+                        android:contentDescription="@string/more_documents"
+                        android:gravity="start|center_vertical"
+                        android:paddingStart="@dimen/standard_padding"
+                        android:paddingEnd="@dimen/standard_padding"
+                        android:text="@string/more_documents"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/bottom_sheet_text_size"
+                        app:icon="@drawable/file_text"
+                        app:iconGravity="start"
+                        app:iconPadding="@dimen/standard_padding"
+                        app:iconSize="@dimen/iconized_single_line_item_icon_size"
+                        app:iconTint="@color/primary"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:contentDescription="@string/more"
+                        android:padding="@dimen/standard_padding"
+                        android:src="@drawable/arrow_right"
+                        app:tint="@color/list_expand_icon_color"/>
+
+                </FrameLayout>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/menuCreateRichWorkspaceDivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.App.Divider.BottomSheetDivider"/>
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/menu_new_document"
-                    style="@style/Widget.App.Button.HorizontalBottomSheetItem"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/create_new_document"
+                    android:id="@+id/menu_mkdir"
+                    style="@style/Widget.App.Button.BottomSheetItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/bottom_sheet_item_height"
+                    android:contentDescription="@string/create_new_folder"
+                    android:gravity="start|center_vertical"
                     android:paddingStart="@dimen/standard_padding"
                     android:paddingEnd="@dimen/standard_padding"
-                    android:text="@string/create_new_document"
+                    android:text="@string/create_new_folder"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/bottom_sheet_text_size"
-                    android:visibility="gone"
-                    app:icon="@drawable/file_doc"
-                    app:iconTint="@null"
-                    tools:visibility="visible" />
+                    app:icon="@drawable/ic_action_create_dir"
+                    app:iconGravity="start"
+                    app:iconPadding="@dimen/standard_padding"
+                    app:iconSize="@dimen/iconized_single_line_item_icon_size"
+                    app:iconTint="@color/primary" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/menu_new_spreadsheet"
-                    style="@style/Widget.App.Button.HorizontalBottomSheetItem"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/create_new_spreadsheet"
+                    android:id="@+id/menu_encrypted_mkdir"
+                    style="@style/Widget.App.Button.BottomSheetItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/bottom_sheet_item_height"
+                    android:contentDescription="@string/create_new_encrypted_folder"
+                    android:gravity="start|center_vertical"
                     android:paddingStart="@dimen/standard_padding"
                     android:paddingEnd="@dimen/standard_padding"
-                    android:text="@string/create_new_spreadsheet"
+                    android:text="@string/create_new_encrypted_folder"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/bottom_sheet_text_size"
-                    android:visibility="gone"
-                    app:icon="@drawable/file_xls"
-                    app:iconTint="@null"
-                    tools:visibility="visible" />
+                    app:icon="@drawable/ic_action_create_encrypted_dir"
+                    app:iconGravity="start"
+                    app:iconPadding="@dimen/standard_padding"
+                    app:iconSize="@dimen/iconized_single_line_item_icon_size"
+                    app:iconTint="@color/primary" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/menu_new_presentation"
-                    style="@style/Widget.App.Button.HorizontalBottomSheetItem"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/create_new_presentation"
+                    android:id="@+id/menu_create_rich_workspace"
+                    style="@style/Widget.App.Button.BottomSheetItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/bottom_sheet_item_height"
+                    android:contentDescription="@string/create_rich_workspace"
+                    android:gravity="start|center_vertical"
                     android:paddingStart="@dimen/standard_padding"
                     android:paddingEnd="@dimen/standard_padding"
-                    android:text="@string/create_new_presentation"
+                    android:text="@string/create_rich_workspace"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/bottom_sheet_text_size"
-                    android:visibility="gone"
-                    app:icon="@drawable/file_ppt"
-                    app:iconTint="@null"
-                    tools:visibility="visible" />
+                    app:icon="@drawable/ic_post_add"
+                    app:iconGravity="start"
+                    app:iconPadding="@dimen/standard_padding"
+                    app:iconSize="@dimen/iconized_single_line_item_icon_size"
+                    app:iconTint="@color/primary" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.App.Divider.BottomSheetDivider"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/menu_scan_doc_upload"
+                    style="@style/Widget.App.Button.BottomSheetItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/bottom_sheet_item_height"
+                    android:contentDescription="@string/upload_scan_doc_upload"
+                    android:gravity="start|center_vertical"
+                    android:paddingStart="@dimen/standard_padding"
+                    android:paddingEnd="@dimen/standard_padding"
+                    android:text="@string/upload_scan_doc_upload"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/bottom_sheet_text_size"
+                    app:icon="@drawable/ic_scan_document"
+                    app:iconGravity="start"
+                    app:iconPadding="@dimen/standard_padding"
+                    app:iconSize="@dimen/iconized_single_line_item_icon_size"
+                    app:iconTint="@color/primary" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.App.Divider.BottomSheetDivider"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/menu_upload_files"
+                    style="@style/Widget.App.Button.BottomSheetItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/bottom_sheet_item_height"
+                    android:contentDescription="@string/upload_files"
+                    android:gravity="start|center_vertical"
+                    android:paddingStart="@dimen/standard_padding"
+                    android:paddingEnd="@dimen/standard_padding"
+                    android:text="@string/upload_files"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/bottom_sheet_text_size"
+                    app:icon="@drawable/ic_action_upload"
+                    app:iconGravity="start"
+                    app:iconPadding="@dimen/standard_padding"
+                    app:iconSize="@dimen/iconized_single_line_item_icon_size"
+                    app:iconTint="@color/primary" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/menu_direct_camera_upload"
+                    style="@style/Widget.App.Button.BottomSheetItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/bottom_sheet_item_height"
+                    android:contentDescription="@string/upload_direct_camera_upload"
+                    android:gravity="start|center_vertical"
+                    android:paddingStart="@dimen/standard_padding"
+                    android:paddingEnd="@dimen/standard_padding"
+                    android:text="@string/upload_direct_camera_upload"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/bottom_sheet_text_size"
+                    app:icon="@drawable/ic_camera"
+                    app:iconGravity="start"
+                    app:iconPadding="@dimen/standard_padding"
+                    app:iconSize="@dimen/iconized_single_line_item_icon_size"
+                    app:iconTint="@color/primary" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/menu_upload_from_app"
+                    style="@style/Widget.App.Button.BottomSheetItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/bottom_sheet_item_height"
+                    android:contentDescription="@string/upload_content_from_other_apps"
+                    android:gravity="start|center_vertical"
+                    android:paddingStart="@dimen/standard_padding"
+                    android:paddingEnd="@dimen/standard_padding"
+                    android:text="@string/upload_content_from_other_apps"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/bottom_sheet_text_size"
+                    app:icon="@drawable/ic_import"
+                    app:iconGravity="start"
+                    app:iconPadding="@dimen/standard_padding"
+                    app:iconSize="@dimen/iconized_single_line_item_icon_size"
+                    app:iconTint="@color/primary" />
 
             </LinearLayout>
 
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Widget.App.Divider.BottomSheetDivider"/>
+        </androidx.core.widget.NestedScrollView>
+
+        <!-- More documents view -->
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/bottom_sheet_more_docs_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:orientation="vertical">
+
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/menu_more_documents"
+                    android:id="@+id/menu_back"
                     style="@style/Widget.App.Button.BottomSheetItem"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="@dimen/bottom_sheet_item_height"
-                    android:layout_weight="1"
                     android:contentDescription="@string/more_documents"
                     android:gravity="start|center_vertical"
                     android:paddingStart="@dimen/standard_padding"
                     android:paddingEnd="@dimen/standard_padding"
-                    android:text="@string/more_documents"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/bottom_sheet_text_size"
-                    app:icon="@drawable/file_text"
+                    app:icon="@drawable/ic_arrow_back"
                     app:iconGravity="start"
                     app:iconPadding="@dimen/standard_padding"
                     app:iconSize="@dimen/iconized_single_line_item_icon_size"
-                    app:iconTint="@color/primary"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/standard_padding"
-                    android:src="@drawable/arrow_right"
-                    app:tint="@color/list_expand_icon_color"/>
-
-            </LinearLayout>
-
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Widget.App.Divider.BottomSheetDivider"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/menu_mkdir"
-                style="@style/Widget.App.Button.BottomSheetItem"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/bottom_sheet_item_height"
-                android:contentDescription="@string/create_new_folder"
-                android:gravity="start|center_vertical"
-                android:paddingStart="@dimen/standard_padding"
-                android:paddingEnd="@dimen/standard_padding"
-                android:text="@string/create_new_folder"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/bottom_sheet_text_size"
-                app:icon="@drawable/ic_action_create_dir"
-                app:iconGravity="start"
-                app:iconPadding="@dimen/standard_padding"
-                app:iconSize="@dimen/iconized_single_line_item_icon_size"
-                app:iconTint="@color/primary" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/menu_encrypted_mkdir"
-                style="@style/Widget.App.Button.BottomSheetItem"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/bottom_sheet_item_height"
-                android:contentDescription="@string/create_new_encrypted_folder"
-                android:gravity="start|center_vertical"
-                android:paddingStart="@dimen/standard_padding"
-                android:paddingEnd="@dimen/standard_padding"
-                android:text="@string/create_new_encrypted_folder"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/bottom_sheet_text_size"
-                app:icon="@drawable/ic_action_create_encrypted_dir"
-                app:iconGravity="start"
-                app:iconPadding="@dimen/standard_padding"
-                app:iconSize="@dimen/iconized_single_line_item_icon_size"
-                app:iconTint="@color/primary" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/menu_create_rich_workspace"
-                style="@style/Widget.App.Button.BottomSheetItem"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/bottom_sheet_item_height"
-                android:contentDescription="@string/create_rich_workspace"
-                android:gravity="start|center_vertical"
-                android:paddingStart="@dimen/standard_padding"
-                android:paddingEnd="@dimen/standard_padding"
-                android:text="@string/create_rich_workspace"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/bottom_sheet_text_size"
-                app:icon="@drawable/ic_post_add"
-                app:iconGravity="start"
-                app:iconPadding="@dimen/standard_padding"
-                app:iconSize="@dimen/iconized_single_line_item_icon_size"
-                app:iconTint="@color/primary" />
-
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Widget.App.Divider.BottomSheetDivider"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/menu_scan_doc_upload"
-                style="@style/Widget.App.Button.BottomSheetItem"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/bottom_sheet_item_height"
-                android:contentDescription="@string/upload_scan_doc_upload"
-                android:gravity="start|center_vertical"
-                android:paddingStart="@dimen/standard_padding"
-                android:paddingEnd="@dimen/standard_padding"
-                android:text="@string/upload_scan_doc_upload"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/bottom_sheet_text_size"
-                app:icon="@drawable/ic_scan_document"
-                app:iconGravity="start"
-                app:iconPadding="@dimen/standard_padding"
-                app:iconSize="@dimen/iconized_single_line_item_icon_size"
-                app:iconTint="@color/primary" />
-
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Widget.App.Divider.BottomSheetDivider"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/menu_upload_files"
-                style="@style/Widget.App.Button.BottomSheetItem"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/bottom_sheet_item_height"
-                android:contentDescription="@string/upload_files"
-                android:gravity="start|center_vertical"
-                android:paddingStart="@dimen/standard_padding"
-                android:paddingEnd="@dimen/standard_padding"
-                android:text="@string/upload_files"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/bottom_sheet_text_size"
-                app:icon="@drawable/ic_action_upload"
-                app:iconGravity="start"
-                app:iconPadding="@dimen/standard_padding"
-                app:iconSize="@dimen/iconized_single_line_item_icon_size"
-                app:iconTint="@color/primary" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/menu_direct_camera_upload"
-                style="@style/Widget.App.Button.BottomSheetItem"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/bottom_sheet_item_height"
-                android:contentDescription="@string/upload_direct_camera_upload"
-                android:gravity="start|center_vertical"
-                android:paddingStart="@dimen/standard_padding"
-                android:paddingEnd="@dimen/standard_padding"
-                android:text="@string/upload_direct_camera_upload"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/bottom_sheet_text_size"
-                app:icon="@drawable/ic_camera"
-                app:iconGravity="start"
-                app:iconPadding="@dimen/standard_padding"
-                app:iconSize="@dimen/iconized_single_line_item_icon_size"
-                app:iconTint="@color/primary" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/menu_upload_from_app"
-                style="@style/Widget.App.Button.BottomSheetItem"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/bottom_sheet_item_height"
-                android:contentDescription="@string/upload_content_from_other_apps"
-                android:gravity="start|center_vertical"
-                android:paddingStart="@dimen/standard_padding"
-                android:paddingEnd="@dimen/standard_padding"
-                android:text="@string/upload_content_from_other_apps"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/bottom_sheet_text_size"
-                app:icon="@drawable/ic_import"
-                app:iconGravity="start"
-                app:iconPadding="@dimen/standard_padding"
-                app:iconSize="@dimen/iconized_single_line_item_icon_size"
-                app:iconTint="@color/primary" />
-
-            <LinearLayout
-                android:id="@+id/creators_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone"
-                tools:visibility="visible">
+                    app:iconTint="@color/list_expand_icon_color"/>
 
                 <LinearLayout
-                    android:id="@+id/creators"
+                    android:id="@+id/creators_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" />
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <LinearLayout
+                        android:id="@+id/creators"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                </LinearLayout>
+
             </LinearLayout>
 
-        </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
-    </androidx.core.widget.NestedScrollView>
+    </ViewSwitcher>
 
 </LinearLayout>
