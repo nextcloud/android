@@ -263,10 +263,10 @@ public class RefreshFolderOperation extends RemoteOperation {
             return new RemoteOperationResult<>(ResultCode.FILE_NOT_FOUND);
         }
 
-        if (OCFile.ROOT_PATH.equals(mLocalFolder.getRemotePath()) && !mSyncFullAccount && !mOnlyFileMetadata) {
-            updateOCVersion(client);
-            updateUserProfile();
-        }
+        // Account metadata is refreshed after the folder listing so that it never delays the file list. It is not
+        // needed to render the folder, and blocking on it adds several sequential requests before the first PROPFIND.
+        final boolean updateAccountMetadata =
+            OCFile.ROOT_PATH.equals(mLocalFolder.getRemotePath()) && !mSyncFullAccount && !mOnlyFileMetadata;
 
         result = checkForChanges(client);
 
@@ -312,6 +312,11 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         if (!mSyncFullAccount && mLocalFolder != null && !isMetadataSyncWorkerRunning) {
             sendLocalBroadcast(EVENT_SINGLE_FOLDER_SHARES_SYNCED, mLocalFolder.getRemotePath(), result);
+        }
+
+        if (updateAccountMetadata) {
+            updateOCVersion(client);
+            updateUserProfile();
         }
 
         return result;
