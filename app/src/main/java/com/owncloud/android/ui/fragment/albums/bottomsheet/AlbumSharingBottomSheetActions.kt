@@ -4,7 +4,7 @@
  * SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.fragment.albums
+package com.owncloud.android.ui.fragment.albums.bottomsheet
 
 interface AlbumSharingBottomSheetActions {
     fun createShare()

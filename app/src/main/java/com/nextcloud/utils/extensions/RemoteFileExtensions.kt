@@ -8,9 +8,11 @@
 package com.nextcloud.utils.extensions
 
 import com.nextcloud.utils.TimeConstants
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.lib.resources.shares.ShareeUser
 import com.owncloud.android.lib.resources.tags.Tag
+import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.FileUtil
 import com.owncloud.android.utils.MimeTypeUtil
 
@@ -36,6 +38,14 @@ fun RemoteFile.sharedWithSharee(): Boolean = sharees?.isNotEmpty() ?: false
 fun RemoteFile.getShareeList(): List<ShareeUser> = sharees?.toList() ?: emptyList()
 
 fun RemoteFile.tags(): List<Tag> = tags?.mapNotNull { it } ?: emptyList()
+
+/**
+ * Album responses carry no remote id, so the local id doubles as one to keep thumbnail generation working.
+ * Mirrors what [com.owncloud.android.operations.albums.ReadAlbumItemsOperation] stores in the database.
+ */
+fun RemoteFile.toAlbumItem(): OCFile = FileStorageUtils.fillOCFile(this).apply {
+    remoteId = this@toAlbumItem.localId.toString()
+}
 
 @Suppress("ReturnCount")
 private fun RemoteFile.areImageDimensionsSame(path: String): Boolean {

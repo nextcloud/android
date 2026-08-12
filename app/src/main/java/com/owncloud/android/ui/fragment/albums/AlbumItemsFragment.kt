@@ -29,9 +29,7 @@ import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.RelativeLayout
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
-import androidx.annotation.StringRes
 import androidx.annotation.VisibleForTesting
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
@@ -59,6 +57,7 @@ import com.nextcloud.ui.fileactions.FileActionsBottomSheet
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.extensions.isDialogFragmentReady
 import com.nextcloud.utils.extensions.isLandscape
+import com.nextcloud.utils.extensions.toAlbumItem
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ListFragmentBinding
@@ -85,6 +84,10 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDia
 import com.owncloud.android.ui.dialog.CreateAlbumDialogFragment
 import com.owncloud.android.ui.events.FavoriteEvent
 import com.owncloud.android.ui.fragment.FileFragment
+import com.owncloud.android.ui.fragment.albums.bottomsheet.AlbumSharingBottomSheet
+import com.owncloud.android.ui.fragment.albums.bottomsheet.AlbumSharingBottomSheetActions
+import com.owncloud.android.ui.fragment.albums.model.AlbumItemsEmptyState
+import com.owncloud.android.ui.fragment.albums.util.AlbumCollageLayout
 import com.owncloud.android.ui.fragment.helper.ColumnCount
 import com.owncloud.android.ui.helpers.UriUploader
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
@@ -391,49 +394,48 @@ class AlbumItemsFragment :
         setEmptyListLoadingMessage()
         lifecycleScope.launch(Dispatchers.IO) {
             val readAlbumItemsRemoteOperation = ReadAlbumItemsOperation(albumName, mContainerActivity?.storageManager)
-            val result = client?.let { readAlbumItemsRemoteOperation.execute(it) }
-            val ocFileList = mutableListOf<OCFile>()
+            val client = client ?: run {
+                withContext(Dispatchers.Main) {
+                    setMessageForEmptyList(AlbumItemsEmptyState.LOAD_FAILED)
+                    hideRefreshLayoutLoader()
+                }
+                return@launch
+            }
+            val result = readAlbumItemsRemoteOperation.execute(client)
 
             if (result?.isSuccess == true && result.resultData != null) {
-                mContainerActivity?.storageManager?.deleteVirtuals(VirtualFolderType.ALBUM)
+                val storageManager = mContainerActivity?.storageManager
+                storageManager?.deleteVirtuals(VirtualFolderType.ALBUM)
                 val contentValues = mutableListOf<ContentValues>()
                 albumRemoteFileList = result.resultData.toMutableList()
+                albumsOCFileList.clear()
 
                 for (remoteFile in albumRemoteFileList) {
-                    val ocFile = mContainerActivity?.storageManager?.getFileByLocalId(remoteFile.localId)
-                    ocFile?.let {
-                        albumsOCFileList.add(it)
+                    val ocFile = storageManager?.getFileByLocalId(remoteFile.localId) ?: remoteFile.toAlbumItem()
+                    albumsOCFileList.add(ocFile)
 
-                        val cv = ContentValues()
-                        cv.put(ProviderMeta.ProviderTableMeta.VIRTUAL_TYPE, VirtualFolderType.ALBUM.toString())
-                        cv.put(ProviderMeta.ProviderTableMeta.VIRTUAL_OCFILE_ID, it.fileId)
-
-                        contentValues.add(cv)
+                    if (ocFile.fileId <= 0) {
+                        continue
                     }
+
+                    val cv = ContentValues()
+                    cv.put(ProviderMeta.ProviderTableMeta.VIRTUAL_TYPE, VirtualFolderType.ALBUM.toString())
+                    cv.put(ProviderMeta.ProviderTableMeta.VIRTUAL_OCFILE_ID, ocFile.fileId)
+
+                    contentValues.add(cv)
                 }
 
-                mContainerActivity?.storageManager?.saveVirtuals(contentValues)
+                storageManager?.saveVirtuals(contentValues)
             }
             withContext(Dispatchers.Main) {
                 if (result?.isSuccess == true && result.resultData != null) {
                     if (result.resultData.isEmpty() || albumsOCFileList.isEmpty()) {
-                        setMessageForEmptyList(
-                            R.string.file_list_empty_headline_server_search,
-                            resources.getString(R.string.file_list_empty_gallery),
-                            R.drawable.file_image,
-                            false
-                        )
+                        setMessageForEmptyList(AlbumItemsEmptyState.NO_ITEMS)
                     }
                     populateList(albumsOCFileList)
                 } else {
-                    Log_OC.d(TAG, result?.logMessage)
-                    // show error
-                    setMessageForEmptyList(
-                        R.string.file_list_empty_headline_server_search,
-                        resources.getString(R.string.file_list_empty_gallery),
-                        R.drawable.file_image,
-                        false
-                    )
+                    Log_OC.e(TAG, "reading album items failed: ${result?.logMessage}")
+                    setMessageForEmptyList(AlbumItemsEmptyState.fromFailure(result))
                 }
 
                 // refresh album meta data to update share id
@@ -530,27 +532,13 @@ class AlbumItemsFragment :
         }
     }
 
-    private fun setMessageForEmptyList(
-        @StringRes headline: Int,
-        message: String,
-        @DrawableRes icon: Int,
-        tintIcon: Boolean
-    ) {
-        binding.emptyList.emptyListViewHeadline.setText(headline)
-        binding.emptyList.emptyListViewText.text = message
+    private fun setMessageForEmptyList(state: AlbumItemsEmptyState) = with(binding.emptyList) {
+        emptyListViewHeadline.setText(state.headline)
+        emptyListViewText.setText(state.message)
+        emptyListIcon.setImageResource(state.icon)
 
-        if (tintIcon) {
-            if (context != null) {
-                binding.emptyList.emptyListIcon.setImageDrawable(
-                    viewThemeUtils.platform.tintPrimaryDrawable(requireContext(), icon)
-                )
-            }
-        } else {
-            binding.emptyList.emptyListIcon.setImageResource(icon)
-        }
-
-        binding.emptyList.emptyListIcon.visibility = View.VISIBLE
-        binding.emptyList.emptyListViewText.visibility = View.VISIBLE
+        emptyListIcon.visibility = View.VISIBLE
+        emptyListViewText.visibility = View.VISIBLE
     }
 
     override fun onResume() {
@@ -713,7 +701,9 @@ class AlbumItemsFragment :
                         R.id.action_see_details,
                         R.id.action_rename_file,
                         R.id.action_pin_to_homescreen,
-                        R.id.action_add_to_album
+                        R.id.action_add_to_album,
+                        R.id.action_lock_file,
+                        R.id.action_unlock_file
                     )
                 )
             }

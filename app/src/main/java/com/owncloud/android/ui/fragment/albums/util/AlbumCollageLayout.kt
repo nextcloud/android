@@ -4,7 +4,8 @@
  * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.fragment.albums
+
+package com.owncloud.android.ui.fragment.albums.util
 
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintSet
@@ -22,7 +23,7 @@ import com.owncloud.android.databinding.AlbumSharingBottomSheetBinding
 
 /**
  * Positions the album preview images inside the collage. The XML already describes the
- * [MAX_IMAGES] case, every smaller count is rebuilt here with a [ConstraintSet].
+ * [MAX_IMAGES] case, every smaller count is rebuilt here with a [androidx.constraintlayout.widget.ConstraintSet].
  */
 class AlbumCollageLayout(private val binding: AlbumSharingBottomSheetBinding) {
 
