@@ -179,16 +179,17 @@ class OCFileListBottomSheetDialog(
                     context.getString(R.string.create_new_document),
                     creatorsButtons.size < CREATORS_OVERVIEW_ITEMS
                 )
+                menuNewDocument.icon = context.getDrawable(R.drawable.file_doc)
                 val menuNewSpreadsheet = buildCreatorButton(
                     context.getString(R.string.create_new_spreadsheet),
                     creatorsButtons.size < CREATORS_OVERVIEW_ITEMS
                 )
+                menuNewSpreadsheet.icon = context.getDrawable(R.drawable.file_xls)
                 val menuNewPresentation = buildCreatorButton(
                     context.getString(R.string.create_new_presentation),
                     creatorsButtons.size < CREATORS_OVERVIEW_ITEMS
                 )
-
-                // TODO icons
+                menuNewPresentation.icon = context.getDrawable(R.drawable.file_ppt)
 
                 menuNewDocument.setOnClickListener {
                     actions.newDocument()
