@@ -688,23 +688,27 @@ class AlbumItemsFragment :
     private fun confirmFilesRemoval(files: Collection<OCFile>) {
         val isSingleFile = files.size == SINGLE_SELECTION
         val messageId = if (isSingleFile) {
-            R.string.confirmation_remove_file_alert
+            R.string.confirmation_remove_file_from_album_message
         } else {
-            R.string.confirmation_remove_files_alert
+            R.string.confirmation_remove_files_from_album_message
         }
 
-        showRemovalConfirmation(messageId, files.first().fileName.takeIf { isSingleFile }) {
+        showRemovalConfirmation(messageId,files.first().fileName.takeIf { isSingleFile }) {
             removeFilesFromAlbum(files)
         }
     }
 
-    private fun showRemovalConfirmation(@StringRes messageId: Int, name: String?, onConfirmed: () -> Unit) {
+    private fun showRemovalConfirmation(
+        @StringRes messageId: Int,
+        name: String?,
+        onConfirmed: () -> Unit
+    ) {
         val dialog = ConfirmationDialogFragment.newInstance(
             messageResId = messageId,
             messageArguments = arrayOf(name),
             titleResId = NO_RESOURCE,
-            positiveButtonTextId = R.string.file_delete,
-            negativeButtonTextId = R.string.file_keep,
+            positiveButtonTextId = R.string.remove,
+            negativeButtonTextId = R.string.common_cancel,
             neutralButtonTextId = NO_RESOURCE
         )
 

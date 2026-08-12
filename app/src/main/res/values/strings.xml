@@ -279,6 +279,7 @@
     <string name="common_yes">Yes</string>
     <string name="common_no">No</string>
     <string name="common_ok">OK</string>
+    <string name="remove">Remove</string>
     <string name="common_now">Now</string>
     <string name="common_cancel_sync">Cancel sync</string>
     <string name="common_cancel">Cancel</string>
@@ -484,6 +485,7 @@
     <string name="common_rename">Rename</string>
     <string name="common_remove">Delete</string>
     <string name="common_leave_this_share">Leave this share</string>
+    <string name="confirmation_remove_file_from_album_message">Do you really want to remove file %1$s from the album?</string>
     <string name="confirmation_remove_file_alert">Do you really want to delete %1$s?</string>
     <string name="confirmation_remove_folder_alert">Do you really want to delete %1$s and the contents thereof?</string>
     <string name="confirmation_remove_local">Local only</string>
@@ -799,6 +801,7 @@
     <string name="manage_space_clear_data">Clear data</string>
 
     <string name="local_file_not_found_message">File not found in local file system</string>
+    <string name="confirmation_remove_files_from_album_message">Do you really want to remove the selected files from the album?</string>
     <string name="confirmation_remove_files_alert">Do you really want to delete the selected items?</string>
     <string name="confirmation_remove_folders_alert">Do you really want to delete the selected items and their contents?</string>
     <string name="maintenance_mode">Server is in maintenance mode</string>
