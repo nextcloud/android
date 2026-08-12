@@ -30,9 +30,8 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
-import com.owncloud.android.utils.overlay.OverlayManager
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 @Suppress("LongParameterList")
@@ -44,7 +43,7 @@ class UnifiedSearchItemViewHolder(
     private val filesAction: FilesAction,
     val context: Context,
     private val viewThemeUtils: ViewThemeUtils,
-    private val overlayManager: OverlayManager,
+    private val thumbnailGenerator: ThumbnailGenerator,
     private val user: User,
     private val preferences: AppPreferences
 ) : SectionedViewHolder(binding.root) {
@@ -102,7 +101,7 @@ class UnifiedSearchItemViewHolder(
             setImageDrawable(ContextCompat.getDrawable(context, R.drawable.folder))
             viewThemeUtils.platform.colorImageView(this, ColorRole.PRIMARY)
         }
-        overlayManager.setFolderOverlayIcon(file, binding.thumbnailOverlayIcon)
+        thumbnailGenerator.folderThumbnailGenerator.setFolderOverlayIcon(file, binding.thumbnailOverlayIcon)
     }
 
     private fun bindLocalFileThumbnail(file: OCFile) {
@@ -114,18 +113,7 @@ class UnifiedSearchItemViewHolder(
                 ImageViewCompat.setImageTintList(this, null)
             }
         } else {
-            DisplayUtils.setThumbnailFromCache(
-                file,
-                binding.thumbnail,
-                storageManager,
-                listOf(),
-                false,
-                binding.thumbnailShimmer,
-                user,
-                preferences,
-                context,
-                viewThemeUtils
-            )
+            thumbnailGenerator.setThumbnail(file, binding.thumbnail, shimmer = binding.thumbnailShimmer)
         }
     }
 

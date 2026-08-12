@@ -32,6 +32,7 @@ import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.lib.resources.tags.Tag;
 import com.owncloud.android.utils.MimeType;
+import com.owncloud.android.utils.sort.AlphanumericComparator;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -42,7 +43,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import com.owncloud.android.utils.sort.AlphanumericComparator;
 
 public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterface {
 

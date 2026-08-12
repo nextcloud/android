@@ -62,7 +62,7 @@ import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
 import com.owncloud.android.ui.unifiedsearch.filterOutHiddenFiles
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.PermissionUtil
-import com.owncloud.android.utils.overlay.OverlayManager
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -108,7 +108,7 @@ class UnifiedSearchFragment :
     }
 
     @Inject
-    lateinit var overlayManager: OverlayManager
+    lateinit var thumbnailGenerator: ThumbnailGenerator
 
     @Inject
     lateinit var vmFactory: ViewModelFactory
@@ -382,7 +382,7 @@ class UnifiedSearchFragment :
             viewThemeUtils,
             appPreferences,
             this@UnifiedSearchFragment,
-            overlayManager
+            thumbnailGenerator
         )
 
         adapter.shouldShowFooters(true)

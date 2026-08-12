@@ -41,13 +41,12 @@ import com.owncloud.android.databinding.FileActionsBottomSheetItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
-import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.resources.files.model.FileLockType
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import com.owncloud.android.utils.FileStorageUtils
-import com.owncloud.android.utils.overlay.OverlayManager
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -71,7 +70,7 @@ class FileActionsBottomSheet :
     lateinit var syncedFolderProvider: SyncedFolderProvider
 
     @Inject
-    lateinit var overlayManager: OverlayManager
+    lateinit var thumbnailGenerator: ThumbnailGenerator
 
     private lateinit var viewModel: FileActionsViewModel
 
@@ -80,8 +79,6 @@ class FileActionsBottomSheet :
         get() = _binding!!
 
     private lateinit var componentsGetter: ComponentsGetter
-
-    private val thumbnailAsyncTasks = mutableListOf<ThumbnailsCacheManager.ThumbnailGenerationTask>()
 
     private var endpoints: List<Endpoint>? = mutableListOf()
 
@@ -149,18 +146,10 @@ class FileActionsBottomSheet :
 
     private fun loadFileThumbnail(titleFile: OCFile?) {
         titleFile?.let {
-            DisplayUtils.setThumbnail(
+            thumbnailGenerator.setThumbnail(
                 it,
                 binding.thumbnailLayout.thumbnail,
-                currentUserProvider.user,
-                storageManager,
-                thumbnailAsyncTasks,
-                false,
-                context,
-                binding.thumbnailLayout.thumbnailShimmer,
-                syncedFolderProvider.preferences,
-                viewThemeUtils,
-                overlayManager
+                shimmer = binding.thumbnailLayout.thumbnailShimmer
             )
         }
     }

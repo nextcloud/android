@@ -24,6 +24,7 @@ import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.toGalleryItems
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.databinding.GalleryHeaderBinding
 import com.owncloud.android.databinding.GalleryRowBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -46,7 +47,8 @@ class GalleryAdapter(
     transferServiceGetter: ComponentsGetter,
     private val viewThemeUtils: ViewThemeUtils,
     var columns: Int,
-    private val defaultThumbnailSize: Int
+    private val defaultThumbnailSize: Int,
+    private val thumbnailGenerator: ThumbnailGenerator
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>(),
     CommonOCFileListAdapterInterface,
     PopupTextProvider {
@@ -83,7 +85,6 @@ class GalleryAdapter(
             user,
             storageManager,
             false,
-            preferences,
             true,
             transferServiceGetter,
             showMetadata = false,
@@ -231,7 +232,7 @@ class GalleryAdapter(
     override fun isMultiSelect(): Boolean = ocFileListDelegate.isMultiSelect
 
     override fun cancelAllPendingTasks() {
-        ocFileListDelegate.cancelAllPendingTasks()
+        thumbnailGenerator.fileThumbnailGenerator.cancelPendingTasks()
     }
 
     override fun addCheckedFile(file: OCFile) {

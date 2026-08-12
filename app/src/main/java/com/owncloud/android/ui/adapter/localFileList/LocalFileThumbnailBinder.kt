@@ -8,6 +8,7 @@ package com.owncloud.android.ui.adapter.localFileList
 
 import android.content.Context
 import android.widget.ImageView
+import com.nextcloud.utils.extensions.getSmallThumbnail
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncThumbnailDrawable
@@ -47,10 +48,7 @@ object LocalFileThumbnailBinder {
         context: Context,
         allowedToCreateNewThumbnail: Boolean
     ) {
-        val cachedThumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-            ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.hashCode()
-        )
-
+        val cachedThumbnail = file.getSmallThumbnail()
         when {
             cachedThumbnail != null -> thumbnailView.setImageBitmap(cachedThumbnail)
 
