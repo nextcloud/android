@@ -15,6 +15,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.isNotEmpty
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.gson.Gson
@@ -54,6 +55,11 @@ class OCFileListBottomSheetDialog(
 ) : BottomSheetDialog(fileActivity),
     Injectable {
 
+    companion object {
+        // Number of items to show in document creators overview
+        private const val CREATORS_OVERVIEW_ITEMS = 3
+    }
+
     private lateinit var binding: FileListActionsBottomSheetFragmentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +69,6 @@ class OCFileListBottomSheetDialog(
 
         applyBranding()
 
-        checkTemplateVisibility()
         initCreatorContainer()
 
         if (!deviceInfo.hasCamera(context)) {
@@ -126,92 +131,148 @@ class OCFileListBottomSheetDialog(
         }
     }
 
-    private fun checkTemplateVisibility() {
-        val optionalCapability = fileActivity.capabilities
-        if (file.isEncrypted || optionalCapability.isEmpty) {
-            return
-        }
-
-        val capability = optionalCapability.get()
-        if (!capability.isTemplateAvailable()) {
-            return
-        }
-
-        binding.run {
-            menuNewDocument.visibility = View.VISIBLE
-            menuNewSpreadsheet.visibility = View.VISIBLE
-            menuNewPresentation.visibility = View.VISIBLE
-        }
-    }
-
     @Suppress("DEPRECATION", "LongMethod", "MagicNumber")
     private fun initCreatorContainer() {
+
+        if (file.isEncrypted) {
+            return
+        }
+
+        // Create a list of supported creators, in the order to be shown (direct editing, then collabora)
+        val creatorsButtons = ArrayList<View>()
+
+        // Check direct editing capabilities
         val json = ArbitraryDataProviderImpl(context)
             .getValue(user, ArbitraryDataProvider.DIRECT_EDITING)
+        if (json.isNotEmpty()) {
+            val directEditing = Gson().fromJson(json, DirectEditing::class.java)
+            if (directEditing.creators.isNotEmpty()) {
 
-        if (json.isEmpty() || file.isEncrypted) {
-            return
+                for (creator in directEditing.creators.values) {
+                    val buttonText = String.format(
+                        fileActivity.getString(R.string.editor_placeholder),
+                        fileActivity.getString(R.string.create_new),
+                        creator.name
+                    )
+                    val creatorButton = buildCreatorButton(buttonText, creatorsButtons.size < CREATORS_OVERVIEW_ITEMS)
+                    creatorButton.icon = MimeTypeUtil.getFileTypeIcon(
+                        creator.mimetype,
+                        creator.extension,
+                        context,
+                        viewThemeUtils
+                    )
+                    creatorButton.setOnClickListener {
+                        actions.showTemplate(creator, buttonText)
+                        dismiss()
+                    }
+                    creatorsButtons.add(creatorButton)
+                }
+            }
         }
 
-        val directEditing = Gson().fromJson(json, DirectEditing::class.java)
-        if (directEditing.creators.isEmpty()) {
-            return
-        }
-
-        binding.creatorsContainer.visibility = View.VISIBLE
-        binding.creators.removeAllViews()
-
-        val itemHeight = context.resources.getDimensionPixelSize(R.dimen.bottom_sheet_item_height)
-        val standardPadding = context.resources.getDimensionPixelSize(R.dimen.standard_padding)
-        val iconSize = context.resources.getDimensionPixelSize(R.dimen.iconized_single_line_item_icon_size)
-
-        for (creator in directEditing.creators.values) {
-            val creatorButton = MaterialButton(
-                ContextThemeWrapper(
-                    context,
-                    R.style.ThemeOverlay_App_Button_BottomSheetItem
-                ),
-                null,
-                com.google.android.material.R.attr.materialButtonStyle
-            ).apply {
-                id = View.generateViewId()
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    itemHeight
+        // Check collabora capabilities
+        val optionalCapability = fileActivity.capabilities
+        if (!optionalCapability.isEmpty) {
+            val capability = optionalCapability.get()
+            if (capability.isTemplateAvailable()) {
+                val menuNewDocument = buildCreatorButton(
+                    context.getString(R.string.create_new_document),
+                    creatorsButtons.size < CREATORS_OVERVIEW_ITEMS
+                )
+                val menuNewSpreadsheet = buildCreatorButton(
+                    context.getString(R.string.create_new_spreadsheet),
+                    creatorsButtons.size < CREATORS_OVERVIEW_ITEMS
+                )
+                val menuNewPresentation = buildCreatorButton(
+                    context.getString(R.string.create_new_presentation),
+                    creatorsButtons.size < CREATORS_OVERVIEW_ITEMS
                 )
 
-                gravity = Gravity.START or Gravity.CENTER_VERTICAL
-                setPaddingRelative(standardPadding, 0, standardPadding, 0)
+                // TODO icons
 
-                val buttonText = String.format(
-                    fileActivity.getString(R.string.editor_placeholder),
-                    fileActivity.getString(R.string.create_new),
-                    creator.name
-                )
-                text = buttonText
-                setTextColor(ContextCompat.getColor(context, R.color.text_color))
-                textSize = 16f
-                isAllCaps = false
-
-                icon = MimeTypeUtil.getFileTypeIcon(
-                    creator.mimetype,
-                    creator.extension,
-                    context,
-                    viewThemeUtils
-                )
-                this.iconSize = iconSize
-                this.iconPadding = standardPadding
-                iconGravity = MaterialButton.ICON_GRAVITY_START
-                iconTint = null
-
-                setOnClickListener {
-                    actions.showTemplate(creator, buttonText)
+                menuNewDocument.setOnClickListener {
+                    actions.newDocument()
                     dismiss()
+                }
+
+                menuNewSpreadsheet.setOnClickListener {
+                    actions.newSpreadsheet()
+                    dismiss()
+                }
+
+                menuNewPresentation.setOnClickListener {
+                    actions.newPresentation()
+                    dismiss()
+                }
+
+                creatorsButtons.add(menuNewDocument)
+                creatorsButtons.add(menuNewSpreadsheet)
+                creatorsButtons.add(menuNewPresentation)
+            }
+        }
+
+        with(binding) {
+            creatorsOverview.removeAllViews()
+            creators.removeAllViews()
+
+            creatorsButtons.forEachIndexed { index, view ->
+                if (index < CREATORS_OVERVIEW_ITEMS) {
+                    // First x elements in the overview
+                    creatorsOverview.addView(view)
+                } else {
+                    creators.addView(view)
                 }
             }
 
-            binding.creators.addView(creatorButton)
+            if (creatorsOverview.isNotEmpty())
+                creatorsOverview.visibility = View.VISIBLE
+
+            if (creatorsContainer.isNotEmpty()) {
+                menuMoreDocuments.visibility = View.VISIBLE
+                creatorsContainer.visibility = View.VISIBLE
+            }
         }
+    }
+
+    private fun buildCreatorButton(
+        buttonText: String,
+        overview: Boolean
+    ): MaterialButton {
+        val itemHeight = context.resources.getDimensionPixelSize(
+            if (overview) R.dimen.bottom_sheet_horizontal_item_height else R.dimen.bottom_sheet_item_height
+        )
+        val standardPadding = context.resources.getDimensionPixelSize(R.dimen.standard_padding)
+        val iconSize = context.resources.getDimensionPixelSize(R.dimen.iconized_single_line_item_icon_size)
+
+        val creatorButton = MaterialButton(
+            ContextThemeWrapper(
+                context,
+                R.style.ThemeOverlay_App_Button_BottomSheetItem
+            ),
+            null,
+            com.google.android.material.R.attr.materialButtonStyle
+        ).apply {
+            id = View.generateViewId()
+            layoutParams = LinearLayout.LayoutParams(
+                if (overview) 0 else LinearLayout.LayoutParams.MATCH_PARENT,
+                itemHeight,
+                if (overview) 1f else 0f
+            )
+
+            gravity = if (overview) Gravity.CENTER else Gravity.START or Gravity.CENTER_VERTICAL
+            setPaddingRelative(standardPadding, 0, standardPadding, 0)
+
+            text = buttonText
+            setTextColor(ContextCompat.getColor(context, R.color.text_color))
+            textSize = 16f
+            isAllCaps = false
+
+            this.iconSize = iconSize
+            this.iconPadding = if (overview) 0 else standardPadding
+            iconGravity = if (overview) MaterialButton.ICON_GRAVITY_TOP else MaterialButton.ICON_GRAVITY_START
+            iconTint = null
+        }
+        return creatorButton
     }
 
     private fun createRichWorkspace() {
@@ -279,21 +340,6 @@ class OCFileListBottomSheetDialog(
                 dismiss()
             }
 
-            menuNewDocument.setOnClickListener {
-                actions.newDocument()
-                dismiss()
-            }
-
-            menuNewSpreadsheet.setOnClickListener {
-                actions.newSpreadsheet()
-                dismiss()
-            }
-
-            menuNewPresentation.setOnClickListener {
-                actions.newPresentation()
-                dismiss()
-            }
-
             menuMoreDocuments.setOnClickListener {
                 bottomSheetViewSwitcher.showNext()
             }
@@ -317,10 +363,8 @@ class OCFileListBottomSheetDialog(
                     menuUploadFromApp.visibility = View.GONE
                     menuDirectCameraUpload.visibility = View.GONE
                     menuScanDocUpload.visibility = View.GONE
-                    menuNewDocument.visibility = View.GONE
-                    menuNewSpreadsheet.visibility = View.GONE
-                    menuNewPresentation.visibility = View.GONE
                     creatorsContainer.visibility = View.GONE
+                    creatorsOverviewContainer.visibility = View.GONE
                 }
             }
         }

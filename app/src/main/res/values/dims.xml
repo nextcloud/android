@@ -16,6 +16,7 @@
     <dimen name="list_item_avatar_icon_radius">20dp</dimen>
     <dimen name="bottom_sheet_text_start_margin">40dp</dimen>
     <dimen name="bottom_sheet_item_height">56dp</dimen>
+    <dimen name="bottom_sheet_horizontal_item_height">80dp</dimen>
     <dimen name="bottom_sheet_menu_item_divider_standard_margin">56dp</dimen>
     <dimen name="file_icon_size">40dp</dimen>
     <dimen name="live_photo_indicator_margin">100dp</dimen>

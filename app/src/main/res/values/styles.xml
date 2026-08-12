@@ -434,13 +434,6 @@
         <item name="rippleColor">?attr/colorControlHighlight</item>
     </style>
 
-    <style name="Widget.App.Button.HorizontalBottomSheetItem" parent="Widget.App.Button.BottomSheetItem">
-        <item name="iconGravity">top</item>
-        <item name="iconPadding">0dp</item>
-        <item name="iconSize">@dimen/iconized_single_line_item_icon_size</item>
-        <item name="android:gravity">center</item>
-    </style>
-
     <style name="Widget.App.Divider.BottomSheetDivider" parent="Widget.Material3.MaterialDivider">
         <item name="android:layout_marginVertical">@dimen/standard_half_margin</item>
         <item name="android:layout_marginHorizontal">@dimen/bottom_sheet_menu_item_divider_standard_margin</item>

@@ -43,67 +43,29 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/creators_overview_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/menu_new_document"
-                        style="@style/Widget.App.Button.HorizontalBottomSheetItem"
-                        android:layout_width="0dp"
+                    <!-- Shows the first 3 creators as boxed buttons -->
+                    <LinearLayout
+                        android:id="@+id/creators_overview"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/create_new_document"
-                        android:paddingStart="@dimen/standard_padding"
-                        android:paddingEnd="@dimen/standard_padding"
-                        android:text="@string/create_new_document"
-                        android:textColor="@color/text_color"
-                        android:textSize="@dimen/bottom_sheet_text_size"
+                        android:orientation="horizontal"
                         android:visibility="gone"
-                        app:icon="@drawable/file_doc"
-                        app:iconTint="@null"
-                        tools:visibility="visible" />
+                        tools:visibility="visible">
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/menu_new_spreadsheet"
-                        style="@style/Widget.App.Button.HorizontalBottomSheetItem"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/create_new_spreadsheet"
-                        android:paddingStart="@dimen/standard_padding"
-                        android:paddingEnd="@dimen/standard_padding"
-                        android:text="@string/create_new_spreadsheet"
-                        android:textColor="@color/text_color"
-                        android:textSize="@dimen/bottom_sheet_text_size"
-                        android:visibility="gone"
-                        app:icon="@drawable/file_xls"
-                        app:iconTint="@null"
-                        tools:visibility="visible" />
+                    </LinearLayout>
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/menu_new_presentation"
-                        style="@style/Widget.App.Button.HorizontalBottomSheetItem"
-                        android:layout_width="0dp"
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/creators_overview_divider"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/create_new_presentation"
-                        android:paddingStart="@dimen/standard_padding"
-                        android:paddingEnd="@dimen/standard_padding"
-                        android:text="@string/create_new_presentation"
-                        android:textColor="@color/text_color"
-                        android:textSize="@dimen/bottom_sheet_text_size"
-                        android:visibility="gone"
-                        app:icon="@drawable/file_ppt"
-                        app:iconTint="@null"
-                        tools:visibility="visible" />
+                        style="@style/Widget.App.Divider.BottomSheetDivider"/>
 
                 </LinearLayout>
-
-                <com.google.android.material.divider.MaterialDivider
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/Widget.App.Divider.BottomSheetDivider"/>
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -127,7 +89,9 @@
                         app:iconGravity="start"
                         app:iconPadding="@dimen/standard_padding"
                         app:iconSize="@dimen/iconized_single_line_item_icon_size"
-                        app:iconTint="@color/primary"/>
+                        app:iconTint="@color/primary"
+                        android:visibility="gone"
+                        tools:visibility="visible"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -298,7 +262,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/menu_back"
                     style="@style/Widget.App.Button.BottomSheetItem"
@@ -314,6 +277,7 @@
                     app:iconSize="@dimen/iconized_single_line_item_icon_size"
                     app:iconTint="@color/list_expand_icon_color"/>
 
+                <!-- Shows all the remaining document creators that didn't made to the creators_overview -->
                 <LinearLayout
                     android:id="@+id/creators_container"
                     android:layout_width="match_parent"
