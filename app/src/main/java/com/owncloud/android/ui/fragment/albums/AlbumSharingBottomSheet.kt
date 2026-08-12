@@ -18,18 +18,16 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
-import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.date.DateFormatPattern
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.R
+import com.owncloud.android.databinding.AlbumImageThumbnailBinding
 import com.owncloud.android.databinding.AlbumShareActionBinding
 import com.owncloud.android.databinding.AlbumSharingBottomSheetBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.SyncedFolderProvider
-import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.resources.albums.PhotoAlbumEntry
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -46,18 +44,10 @@ class AlbumSharingBottomSheet(
     lateinit var viewThemeUtils: ViewThemeUtils
 
     @Inject
-    lateinit var currentUserProvider: CurrentAccountProvider
-
-    @Inject
     lateinit var storageManager: FileDataStorageManager
 
     @Inject
-    lateinit var syncedFolderProvider: SyncedFolderProvider
-
-    @Inject
     lateinit var thumbnailGenerator: ThumbnailGenerator
-
-    private val thumbnailAsyncTasks = mutableListOf<ThumbnailsCacheManager.ThumbnailGenerationTask>()
 
     private var _binding: AlbumSharingBottomSheetBinding? = null
     val binding
@@ -119,7 +109,7 @@ class AlbumSharingBottomSheet(
             return
         }
 
-        thumbnailGenerator.setThumbnail(getOrCreateFile(album), hideVideoOverlay = true, view = binding.albumImageLayout)
+        loadThumbnail(getOrCreateFile(album), binding.albumImageLayout)
     }
 
     private fun showPlaceholder() = with(binding.albumImageLayout) {
@@ -133,6 +123,15 @@ class AlbumSharingBottomSheet(
             localId = album.lastPhoto
             remoteId = album.lastPhoto.toString()
         }
+
+    private fun loadThumbnail(file: OCFile, target: AlbumImageThumbnailBinding) {
+        thumbnailGenerator.setThumbnail(
+            file,
+            target.thumbnail,
+            hideVideoOverlay = true,
+            shimmer = target.thumbnailShimmer
+        )
+    }
 
     private fun initializeImageCollage() {
         val files = fileList?.takeIf { it.isNotEmpty() } ?: return

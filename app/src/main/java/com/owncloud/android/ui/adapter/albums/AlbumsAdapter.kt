@@ -20,8 +20,6 @@ import com.owncloud.android.databinding.AlbumsGridItemBinding
 import com.owncloud.android.databinding.AlbumsListItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.ThumbnailsCacheManager
-import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.albums.PhotoAlbumEntry
 import com.owncloud.android.utils.DisplayUtils
 
@@ -34,7 +32,6 @@ class AlbumsAdapter(
     private val gridView: Boolean = true
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var albumList: MutableList<PhotoAlbumEntry> = mutableListOf()
-    private val asyncTasks: MutableList<ThumbnailsCacheManager.ThumbnailGenerationTask> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder = if (gridView) {
         AlbumGridItemViewHolder(AlbumsGridItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -76,7 +73,6 @@ class AlbumsAdapter(
                 ocLocal = nFile
             }
 
-
             thumbnailGenerator.setThumbnail(ocLocal, gridViewHolder.thumbnail, gridView, true)
         } else {
             gridViewHolder.thumbnail.setImageResource(R.drawable.file_image)
@@ -87,14 +83,7 @@ class AlbumsAdapter(
     }
 
     fun cancelAllPendingTasks() {
-        for (task in asyncTasks) {
-            task.cancel(true)
-            if (task.getMethod != null) {
-                Log_OC.d("AlbumsAdapter", "cancel: abort get method directly")
-                task.getMethod.abort()
-            }
-        }
-        asyncTasks.clear()
+        thumbnailGenerator.fileThumbnailGenerator.cancelPendingTasks()
     }
 
     @SuppressLint("NotifyDataSetChanged")
