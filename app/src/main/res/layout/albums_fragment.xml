@@ -19,62 +19,22 @@
         android:visibility="visible"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list_root"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list_root"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <include
+                android:id="@+id/empty_list"
+                layout="@layout/empty_list"
+                android:visibility="gone"
+                tools:visibility="visible" />
+        </FrameLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/empty_view_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/bg_default"
-        android:visibility="gone"
-        tools:visibility="visible">
-
-        <ImageView
-            android:id="@+id/albums_bg_image"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:contentDescription="@string/create_album"
-            android:scaleType="centerCrop"
-            android:src="@drawable/bg_image_albums"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <TextView
-            android:id="@+id/empty_album_label"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/standard_double_padding"
-            android:paddingEnd="@dimen/standard_double_padding"
-            android:text="@string/empty_albums_title"
-            android:textColor="@color/text_color"
-            android:textSize="48sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/albums_bg_image" />
-
-        <TextView
-            android:id="@+id/empty_album_message_label"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/standard_double_padding"
-            android:paddingTop="@dimen/standard_padding"
-            android:paddingEnd="@dimen/standard_double_padding"
-            android:text="@string/empty_albums_message"
-            android:textColor="@color/secondary_text_color"
-            android:textSize="@dimen/two_line_primary_text_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/empty_album_label" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_media_fab"

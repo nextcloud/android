@@ -26,11 +26,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.appbar.AppBarLayout
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.Throttler
 import com.nextcloud.utils.extensions.getTypedActivity
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.AlbumsFragmentBinding
@@ -181,7 +183,7 @@ class AlbumsFragment :
     private fun fetchAndSetData() {
         binding.swipeContainingList.isRefreshing = true
         initializeAdapter()
-        updateEmptyView(false)
+        setEmptyListMessage(null)
         readAlbums()
     }
 
@@ -197,12 +199,12 @@ class AlbumsFragment :
                 withContext(Dispatchers.Main) {
                     if (result?.isSuccess == true && result.resultData != null) {
                         if (result.resultData.isEmpty()) {
-                            updateEmptyView(true)
+                            setEmptyListMessage(AlbumsEmptyState.NO_ALBUMS)
                         }
                         populateList(result.resultData)
                     } else {
                         Log_OC.d(TAG, "read album operation failed")
-                        updateEmptyView(true)
+                        setEmptyListMessage(AlbumsEmptyState.LOAD_FAILED)
                     }
 
                     hideRefreshLayoutLoader()
@@ -249,9 +251,23 @@ class AlbumsFragment :
         }
     }
 
-    private fun updateEmptyView(isEmpty: Boolean) {
-        binding.emptyViewLayout.visibility = if (isEmpty) View.VISIBLE else View.GONE
-        binding.listRoot.visibility = if (isEmpty) View.GONE else View.VISIBLE
+    private fun setEmptyListMessage(state: AlbumsEmptyState?) {
+        binding.emptyList.emptyListView.setVisibleIf(state != null)
+        binding.listRoot.setVisibleIf(state == null)
+
+        if (state == null) {
+            return
+        }
+
+        with(binding.emptyList) {
+            emptyListViewHeadline.setText(state.headline)
+            emptyListViewText.setText(state.message)
+            emptyListIcon.setImageDrawable(
+                viewThemeUtils.platform.tintDrawable(requireContext(), state.icon, ColorRole.PRIMARY)
+            )
+            emptyListViewText.visibility = View.VISIBLE
+            emptyListIcon.visibility = View.VISIBLE
+        }
     }
 
     override fun onResume() {
