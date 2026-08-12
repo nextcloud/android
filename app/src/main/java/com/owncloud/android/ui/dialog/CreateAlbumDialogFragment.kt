@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
@@ -24,7 +25,7 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.utils.extensions.typedActivity
 import com.owncloud.android.R
-import com.owncloud.android.databinding.EditBoxDialogBinding
+import com.owncloud.android.databinding.CreateAlbumDialogBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.utils.DisplayUtils
@@ -32,12 +33,6 @@ import com.owncloud.android.utils.KeyboardUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
-/**
- * Dialog to input the name for a new folder to create.
- *
- *
- * Triggers the folder creation when name is confirmed.
- */
 class CreateAlbumDialogFragment :
     DialogFragment(),
     DialogInterface.OnClickListener,
@@ -60,7 +55,7 @@ class CreateAlbumDialogFragment :
 
     private var positiveButton: MaterialButton? = null
 
-    private lateinit var binding: EditBoxDialogBinding
+    private lateinit var binding: CreateAlbumDialogBinding
 
     private var albumName: String? = null
 
@@ -97,7 +92,7 @@ class CreateAlbumDialogFragment :
         albumName = arguments?.getString(ARG_ALBUM_NAME)
 
         val inflater = requireActivity().layoutInflater
-        binding = EditBoxDialogBinding.inflate(inflater, null, false)
+        binding = CreateAlbumDialogBinding.inflate(inflater, null, false)
 
         binding.userInput.setText(albumName ?: "")
         viewThemeUtils.material.colorTextInputLayout(binding.userInputContainer)
@@ -151,31 +146,37 @@ class CreateAlbumDialogFragment :
             .setMessage(R.string.create_album_dialog_message)
 
     override fun onClick(dialog: DialogInterface, which: Int) {
-        if (which == AlertDialog.BUTTON_POSITIVE) {
-            val newAlbumName = (getDialog()?.findViewById<View>(R.id.user_input) as TextView)
-                .text.toString().trim()
+        if (which != AlertDialog.BUTTON_POSITIVE) {
+            return
+        }
 
-            val errorMessage = when {
-                newAlbumName.isBlank() -> getString(R.string.album_name_empty)
-                else -> null
-            }
+        val newAlbumName = (getDialog()?.findViewById<View>(R.id.user_input) as TextView)
+            .text.toString().trim()
 
-            if (errorMessage != null) {
-                DisplayUtils.showSnackMessage(requireActivity(), errorMessage)
-                return
-            }
+        val errorMessage = when {
+            newAlbumName.isBlank() -> getString(R.string.album_name_empty)
+            else -> null
+        }
 
-            connectivityService.isNetworkAndServerAvailable { result ->
-                if (result) {
-                    if (albumName != null) {
-                        typedActivity<ComponentsGetter>()?.fileOperationsHelper?.renameAlbum(albumName, newAlbumName)
-                    } else {
-                        typedActivity<ComponentsGetter>()?.fileOperationsHelper?.createAlbum(newAlbumName)
-                    }
+        if (errorMessage != null) {
+            DisplayUtils.showSnackMessage(requireActivity(), errorMessage)
+            return
+        }
+
+        val helper = typedActivity<ComponentsGetter>()?.fileOperationsHelper
+
+        connectivityService.isNetworkAndServerAvailable { result ->
+            if (result) {
+                if (albumName != null) {
+                    helper?.renameAlbum(albumName, newAlbumName)
                 } else {
-                    DisplayUtils.showSnackMessage(requireActivity(), getString(R.string.offline_mode))
+                    helper?.createAlbum(newAlbumName)
                 }
+
+                return@isNetworkAndServerAvailable
             }
+
+            DisplayUtils.showSnackMessage(requireActivity(), getString(R.string.offline_mode))
         }
     }
 
@@ -183,12 +184,6 @@ class CreateAlbumDialogFragment :
         val TAG: String = CreateAlbumDialogFragment::class.java.simpleName
         private const val ARG_ALBUM_NAME = "album_name"
 
-        /**
-         * Public factory method to create new CreateFolderDialogFragment instances.
-         *
-         * @return Dialog ready to show.
-         */
-        @JvmStatic
         fun newInstance(albumName: String? = null): CreateAlbumDialogFragment = CreateAlbumDialogFragment().apply {
             val argsBundle = bundleOf(
                 ARG_ALBUM_NAME to albumName
