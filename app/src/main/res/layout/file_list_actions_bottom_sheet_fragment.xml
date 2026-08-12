@@ -99,7 +99,7 @@
                         android:layout_gravity="end"
                         android:contentDescription="@string/more"
                         android:padding="@dimen/standard_padding"
-                        android:src="@drawable/arrow_right"
+                        android:src="@drawable/ic_nav_forward"
                         app:tint="@color/list_expand_icon_color"/>
 
                 </FrameLayout>
@@ -271,7 +271,7 @@
                     android:gravity="start|center_vertical"
                     android:paddingStart="@dimen/standard_padding"
                     android:paddingEnd="@dimen/standard_padding"
-                    app:icon="@drawable/ic_arrow_back"
+                    app:icon="@drawable/ic_nav_back"
                     app:iconGravity="start"
                     app:iconPadding="@dimen/standard_padding"
                     app:iconSize="@dimen/iconized_single_line_item_icon_size"
