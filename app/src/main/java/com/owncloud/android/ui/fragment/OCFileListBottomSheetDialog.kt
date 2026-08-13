@@ -11,6 +11,7 @@ package com.owncloud.android.ui.fragment
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.ContextThemeWrapper
 import android.view.Gravity
 import android.view.View
@@ -276,7 +277,7 @@ class OCFileListBottomSheetDialog(
 
             text = creatorAction.text
             setTextColor(ContextCompat.getColor(context, R.color.text_color))
-            textSize = 16f
+            setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.bottom_sheet_text_size))
             isAllCaps = false
 
             icon = creatorAction.icon
