@@ -59,56 +59,50 @@
 
                     </LinearLayout>
 
+                    <FrameLayout
+                        android:id="@+id/menu_more_documents_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/menu_more_documents"
+                            style="@style/Widget.App.Button.BottomSheetItem"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/bottom_sheet_item_height"
+                            android:contentDescription="@string/more_documents"
+                            android:gravity="start|center_vertical"
+                            android:paddingStart="@dimen/standard_padding"
+                            android:paddingEnd="@dimen/standard_padding"
+                            android:text="@string/more_documents"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/bottom_sheet_text_size"
+                            app:icon="@drawable/file_text"
+                            app:iconGravity="start"
+                            app:iconPadding="@dimen/standard_padding"
+                            app:iconSize="@dimen/iconized_single_line_item_icon_size"
+                            app:iconTint="@color/primary"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:contentDescription="@string/more"
+                            android:padding="@dimen/standard_padding"
+                            android:src="@drawable/ic_nav_forward"
+                            app:tint="@color/list_expand_icon_color"/>
+
+                    </FrameLayout>
+
                     <com.google.android.material.divider.MaterialDivider
-                        android:id="@+id/creators_overview_divider"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         style="@style/Widget.App.Divider.BottomSheetDivider"/>
 
                 </LinearLayout>
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/menu_more_documents"
-                        style="@style/Widget.App.Button.BottomSheetItem"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/bottom_sheet_item_height"
-                        android:contentDescription="@string/more_documents"
-                        android:gravity="start|center_vertical"
-                        android:paddingStart="@dimen/standard_padding"
-                        android:paddingEnd="@dimen/standard_padding"
-                        android:text="@string/more_documents"
-                        android:textColor="@color/text_color"
-                        android:textSize="@dimen/bottom_sheet_text_size"
-                        app:icon="@drawable/file_text"
-                        app:iconGravity="start"
-                        app:iconPadding="@dimen/standard_padding"
-                        app:iconSize="@dimen/iconized_single_line_item_icon_size"
-                        app:iconTint="@color/primary"
-                        android:visibility="gone"
-                        tools:visibility="visible"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:contentDescription="@string/more"
-                        android:padding="@dimen/standard_padding"
-                        android:src="@drawable/ic_nav_forward"
-                        app:tint="@color/list_expand_icon_color"/>
-
-                </FrameLayout>
-
-                <com.google.android.material.divider.MaterialDivider
-                    android:id="@+id/menuCreateRichWorkspaceDivider"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/Widget.App.Divider.BottomSheetDivider"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/menu_mkdir"
@@ -188,6 +182,7 @@
                     app:iconTint="@color/primary" />
 
                 <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/menu_scan_doc_upload_divider"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/Widget.App.Divider.BottomSheetDivider"/>
@@ -279,21 +274,11 @@
 
                 <!-- Shows all the remaining document creators that didn't made to the creators_overview -->
                 <LinearLayout
-                    android:id="@+id/creators_container"
+                    android:id="@+id/creators"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone"
-                    tools:visibility="visible">
-
-                    <LinearLayout
-                        android:id="@+id/creators"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical" />
+                    android:orientation="vertical" />
                 </LinearLayout>
-
-            </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
 

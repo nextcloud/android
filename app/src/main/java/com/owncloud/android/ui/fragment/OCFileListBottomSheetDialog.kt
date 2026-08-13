@@ -16,6 +16,7 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
+import androidx.core.view.isEmpty
 import androidx.core.view.isNotEmpty
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
@@ -209,6 +210,14 @@ class OCFileListBottomSheetDialog(
             }
         }
 
+        if (creatorsButtons.isEmpty()) {
+            // If no creators at all, hide whole container (comprising separator)
+            binding.creatorsOverviewContainer.visibility = View.GONE
+            return
+        }
+
+        binding.creatorsOverviewContainer.visibility = View.VISIBLE
+
         with(binding) {
             creatorsOverview.removeAllViews()
             creators.removeAllViews()
@@ -225,10 +234,7 @@ class OCFileListBottomSheetDialog(
             if (creatorsOverview.isNotEmpty())
                 creatorsOverview.visibility = View.VISIBLE
 
-            if (creatorsContainer.isNotEmpty()) {
-                menuMoreDocuments.visibility = View.VISIBLE
-                creatorsContainer.visibility = View.VISIBLE
-            }
+            menuMoreDocumentsContainer.visibility = if (creators.isEmpty()) View.GONE else View.VISIBLE
         }
     }
 
@@ -281,14 +287,11 @@ class OCFileListBottomSheetDialog(
             // != "": info set -> hide button
             if (file.richWorkspace == null || "" != file.richWorkspace) {
                 binding.menuCreateRichWorkspace.visibility = View.GONE
-                binding.menuCreateRichWorkspaceDivider.visibility = View.GONE
             } else {
                 binding.menuCreateRichWorkspace.visibility = View.VISIBLE
-                binding.menuCreateRichWorkspaceDivider.visibility = View.VISIBLE
             }
         } else {
             binding.menuCreateRichWorkspace.visibility = View.GONE
-            binding.menuCreateRichWorkspaceDivider.visibility = View.GONE
         }
     }
 
@@ -331,6 +334,7 @@ class OCFileListBottomSheetDialog(
                 }
             } else {
                 menuScanDocUpload.visibility = View.GONE
+                menuScanDocUploadDivider.visibility = View.GONE
             }
 
             menuUploadFiles.setOnClickListener {
@@ -361,7 +365,6 @@ class OCFileListBottomSheetDialog(
                     menuUploadFromApp.visibility = View.GONE
                     menuDirectCameraUpload.visibility = View.GONE
                     menuScanDocUpload.visibility = View.GONE
-                    creatorsContainer.visibility = View.GONE
                     creatorsOverviewContainer.visibility = View.GONE
                 }
             }
