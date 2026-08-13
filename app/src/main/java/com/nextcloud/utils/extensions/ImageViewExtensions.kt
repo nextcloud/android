@@ -10,12 +10,28 @@ package com.nextcloud.utils.extensions
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
 import android.util.TypedValue
+import android.view.View
 import android.view.ViewOutlineProvider
 import android.widget.ImageView
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
+import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.owncloud.android.R
+
+fun ImageView.startShimmer(shimmer: LoaderImageView) {
+    shimmer.setImageResource(R.drawable.background)
+    shimmer.resetLoader()
+    setVisibility(View.GONE)
+    shimmer.setVisibility(View.VISIBLE)
+}
+
+fun ImageView.stopShimmer(shimmer: LoaderImageView?) {
+    shimmer?.let {
+        it.visibility = View.GONE
+    }
+    setVisibility(View.VISIBLE)
+}
 
 @JvmOverloads
 fun ImageView.makeRoundedWithIcon(

@@ -34,7 +34,7 @@ import com.owncloud.android.ui.fragment.FileDetailSharingFragment
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
-import com.owncloud.android.utils.overlay.OverlayManager
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -48,7 +48,7 @@ class ShareActivity :
     lateinit var syncedFolderProvider: SyncedFolderProvider
 
     @Inject
-    lateinit var overlayManager: OverlayManager
+    lateinit var thumbnailGenerator: ThumbnailGenerator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -139,19 +139,7 @@ class ShareActivity :
                 )
             )
         } else {
-            DisplayUtils.setThumbnail(
-                file,
-                binding.shareFileIcon,
-                user,
-                storageManager,
-                mutableListOf(),
-                false,
-                this,
-                null,
-                preferences,
-                viewThemeUtils,
-                overlayManager
-            )
+            thumbnailGenerator.setThumbnail(file, binding.shareFileIcon)
         }
     }
 

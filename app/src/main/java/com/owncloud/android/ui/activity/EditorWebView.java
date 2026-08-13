@@ -24,6 +24,7 @@ import android.webkit.WebView;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
+import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.RichdocumentsWebviewBinding;
@@ -258,8 +259,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         } else {
             if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
                 // Thumbnail in cache?
-                Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                    ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId());
+                Bitmap thumbnail = FileExtensionsKt.getSmallThumbnail(file);
 
                 if (thumbnail != null && !file.isUpdateThumbnailNeeded()) {
                     if (MimeTypeUtil.isVideo(file)) {

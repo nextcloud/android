@@ -15,7 +15,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
@@ -30,12 +29,12 @@ import com.nextcloud.utils.extensions.isLastResultConflictError
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.extensions.sortedByUploadOrder
 import com.nextcloud.utils.extensions.toFile
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UploadListHeaderBinding
 import com.owncloud.android.databinding.UploadListItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.db.UploadResult
@@ -47,7 +46,6 @@ import com.owncloud.android.ui.adapter.uploadList.helper.UploadListItemOnClick
 import com.owncloud.android.ui.adapter.uploadList.model.UploadListSection
 import com.owncloud.android.ui.adapter.uploadList.model.UploadListType
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -67,13 +65,15 @@ import java.util.function.Consumer
 )
 class UploadListAdapter(
     private val activity: FileActivity,
+    private val fileDataStorageManager: FileDataStorageManager,
     private val uploadsStorageManager: UploadsStorageManager,
     private val accountManager: UserAccountManager,
     private val connectivityService: ConnectivityService,
     private val powerManagementService: PowerManagementService,
     private val viewThemeUtils: ViewThemeUtils,
     private val itemOnClick: UploadListItemOnClick,
-    private val helper: UploadListAdapterHelper
+    private val helper: UploadListAdapterHelper,
+    private val thumbnailGenerator: ThumbnailGenerator
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
 
     private val uploadListSections = UploadListSection.sections()
@@ -89,7 +89,9 @@ class UploadListAdapter(
 
     internal class HeaderViewHolder(val binding: UploadListHeaderBinding) : SectionedViewHolder(binding.root)
 
-    internal class ItemViewHolder(val binding: UploadListItemBinding) : SectionedViewHolder(binding.root)
+    internal class ItemViewHolder(val binding: UploadListItemBinding) : SectionedViewHolder(binding.root) {
+        var boundUploadId: Long = -1
+    }
 
     override fun getSectionCount(): Int = uploadListSections.size
 
@@ -487,110 +489,34 @@ class UploadListAdapter(
 
     private fun bindItemThumbnail(holder: ItemViewHolder, item: OCUpload) {
         holder.binding.thumbnail.setImageResource(R.drawable.file)
+        holder.boundUploadId = item.uploadId
 
-        val fakeFile = OCFile(item.remotePath).apply {
-            setStoragePath(item.localPath)
-            mimeType = item.mimeType
-        }
+        activity.lifecycleScope.launch {
+            val ocFile = withContext(Dispatchers.IO) { item.toOCFile() }
 
-        val allowedToCreateNewThumbnail =
-            ThumbnailsCacheManager.cancelPotentialThumbnailWork(fakeFile, holder.binding.thumbnail)
-
-        val optionalUser = accountManager.getUser(item.accountName)
-        val fileName = File(item.remotePath).name.takeIf { it.isNotEmpty() } ?: File.separator
-
-        when {
-            MimeTypeUtil.isImage(fakeFile) && fakeFile.remoteId != null &&
-                item.uploadStatus == UploadsStorageManager.UploadStatus.UPLOAD_SUCCEEDED ->
-                bindRemoteThumbnail(holder, item, fakeFile, allowedToCreateNewThumbnail)
-
-            MimeTypeUtil.isImage(fakeFile) ->
-                bindLocalThumbnail(holder, item, allowedToCreateNewThumbnail)
-
-            optionalUser.isPresent -> {
-                val icon = MimeTypeUtil.getFileTypeIcon(item.mimeType, fileName, activity, viewThemeUtils)
-                holder.binding.thumbnail.setImageDrawable(icon)
+            if (holder.boundUploadId != item.uploadId) {
+                return@launch
             }
+
+            bindItemThumbnail(holder, ocFile)
         }
     }
 
-    private fun bindRemoteThumbnail(
-        holder: ItemViewHolder,
-        item: OCUpload,
-        fakeFile: OCFile,
-        allowedToCreateNewThumbnail: Boolean
-    ) {
-        val cacheKey = fakeFile.remoteId.toString()
-        var thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(cacheKey)
-
-        if (thumbnail != null && !fakeFile.isUpdateThumbnailNeeded) {
-            holder.binding.thumbnail.setImageBitmap(thumbnail)
-        } else if (allowedToCreateNewThumbnail) {
-            val user = activity.user
-            if (user.isPresent) {
-                val task = ThumbnailsCacheManager.ThumbnailGenerationTask(
-                    holder.binding.thumbnail,
-                    activity.storageManager,
-                    user.get()
-                )
-                thumbnail = thumbnail ?: if (MimeTypeUtil.isVideo(fakeFile)) {
-                    ThumbnailsCacheManager.mDefaultVideo
-                } else {
-                    ThumbnailsCacheManager.mDefaultImg
-                }
-                holder.binding.thumbnail.setImageDrawable(
-                    ThumbnailsCacheManager.AsyncThumbnailDrawable(activity.resources, thumbnail, task)
-                )
-                task.execute(ThumbnailsCacheManager.ThumbnailGenerationTaskObject(fakeFile, null))
-            }
+    private fun OCUpload.toOCFile(): OCFile =
+        fileDataStorageManager.getFileByDecryptedRemotePath(remotePath) ?: OCFile(remotePath).apply {
+            setStoragePath(localPath)
+            mimeType = this@toOCFile.mimeType
         }
 
-        if (item.mimeType == "image/png") {
-            holder.binding.thumbnail.setBackgroundColor(ContextCompat.getColor(activity, R.color.bg_default))
-        }
+    private fun bindItemThumbnail(holder: ItemViewHolder, ocFile: OCFile) {
+        holder.binding.thumbnail.tag = ocFile.fileId
+
+        thumbnailGenerator.setThumbnail(ocFile, holder.binding.thumbnail)
     }
 
-    private fun bindLocalThumbnail(holder: ItemViewHolder, item: OCUpload, allowedToCreateNewThumbnail: Boolean) {
-        val file = File(item.localPath)
-        val thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(file.hashCode().toString())
-
-        if (thumbnail != null) {
-            holder.binding.thumbnail.setImageBitmap(thumbnail)
-        } else if (allowedToCreateNewThumbnail) {
-            getThumbnailFromFileTypeAndSetIcon(item.localPath, holder)
-            val task = ThumbnailsCacheManager.ThumbnailGenerationTask(holder.binding.thumbnail)
-            val defaultThumbnail = if (MimeTypeUtil.isVideo(file)) {
-                ThumbnailsCacheManager.mDefaultVideo
-            } else {
-                ThumbnailsCacheManager.mDefaultImg
-            }
-            val asyncDrawable =
-                ThumbnailsCacheManager.AsyncThumbnailDrawable(activity.resources, defaultThumbnail, task)
-            task.execute(ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, null))
-            task.setListener(object : ThumbnailsCacheManager.ThumbnailGenerationTask.Listener {
-                override fun onSuccess() {
-                    holder.binding.thumbnail.setImageDrawable(asyncDrawable)
-                }
-
-                override fun onError() {
-                    getThumbnailFromFileTypeAndSetIcon(item.localPath, holder)
-                }
-            })
-            Log_OC.v(TAG, "Executing task to generate a new thumbnail")
-        }
-
-        if (item.mimeType.equals("image/png", ignoreCase = true)) {
-            holder.binding.thumbnail.setBackgroundColor(ContextCompat.getColor(activity, R.color.bg_default))
-        }
-    }
     // endregion
 
     override fun onBindFooterViewHolder(holder: SectionedViewHolder?, section: Int) = Unit
-
-    private fun getThumbnailFromFileTypeAndSetIcon(localPath: String?, itemViewHolder: ItemViewHolder) {
-        val drawable = MimeTypeUtil.getIcon(localPath, activity, viewThemeUtils) ?: return
-        itemViewHolder.binding.thumbnail.setImageDrawable(drawable)
-    }
 
     private fun showItemConflictPopup(item: OCUpload, view: View) {
         PopupMenu(activity, view).apply {
