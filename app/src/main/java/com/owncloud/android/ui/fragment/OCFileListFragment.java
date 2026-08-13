@@ -1053,7 +1053,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         mFile = target;
         setFileDepth(mFile);
 
-        if (mFile.isRootDirectory() && currentSearchType != NO_SEARCH) {
+        if (mFile.isRootDirectory() && currentSearchType != NO_SEARCH && isSearchEventSet(searchEvent)) {
             searchFragment = true;
         }
 
