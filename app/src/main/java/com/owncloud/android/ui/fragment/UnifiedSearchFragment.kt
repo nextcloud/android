@@ -41,6 +41,7 @@ import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.extensions.searchFilesByName
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.extensions.typedActivity
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ListFragmentBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -62,12 +63,14 @@ import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
 import com.owncloud.android.ui.unifiedsearch.filterOutHiddenFiles
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.PermissionUtil
-import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * Starts query to all capable unified search providers and displays them Opens result in our app, redirect to other
@@ -93,6 +96,7 @@ class UnifiedSearchFragment :
         private const val ARG_QUERY = "ARG_QUERY"
         private const val ARG_HIDDEN_FILES = "ARG_HIDDEN_FILES"
         private const val CURRENT_DIR_PATH = "CURRENT_DIR"
+        private const val SEARCH_TIMEOUT_MS = 30_000L
 
         fun newInstance(
             query: String?,
@@ -143,6 +147,7 @@ class UnifiedSearchFragment :
     private var showMoreActions = false
     private var currentDir: OCFile? = null
     private var initialQuery: String? = null
+    private var searchJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -319,6 +324,11 @@ class UnifiedSearchFragment :
         vm.searchResults.observe(viewLifecycleOwner, this::onSearchResultChanged)
         vm.isLoading.observe(viewLifecycleOwner) { loading ->
             binding.swipeContainingList.isRefreshing = loading
+            if (loading) {
+                startSearchTimeout()
+            } else {
+                searchJob?.cancel()
+            }
         }
         vm.screenState.observe(viewLifecycleOwner) {
             handleScreenState(it)
@@ -350,6 +360,19 @@ class UnifiedSearchFragment :
         }
         vm.file.observe(viewLifecycleOwner) {
             showFile(it, showMoreActions)
+        }
+    }
+
+    private fun startSearchTimeout() {
+        searchJob?.cancel()
+        searchJob = viewLifecycleOwner.lifecycleScope.launch {
+            delay(SEARCH_TIMEOUT_MS.milliseconds)
+            val currentBinding = _binding ?: return@launch
+            currentBinding.swipeContainingList.isRefreshing = false
+            DisplayUtils.showSnackMessage(
+                currentBinding.root,
+                R.string.unified_search_fragment_search_takes_long
+            )
         }
     }
 
