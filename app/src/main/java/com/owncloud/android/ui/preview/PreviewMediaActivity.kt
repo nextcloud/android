@@ -138,6 +138,7 @@ class PreviewMediaActivity :
     private var videoMediaSession: MediaSession? = null
     private var audioMediaController: MediaController? = null
     private var mediaControllerFuture: ListenableFuture<MediaController>? = null
+    private var fullscreenDialog: PreviewVideoFullscreenDialog? = null
     private lateinit var windowInsetsController: WindowInsetsControllerCompat
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -319,13 +320,13 @@ class PreviewMediaActivity :
 
     override fun onStart() {
         super.onStart()
-
         Log_OC.v(TAG, "onStart")
-
-        if (MimeTypeUtil.isVideo(file)) {
+        if (MimeTypeUtil.isVideo(file) && videoPlayer == null) {
             initializeVideoPlayer()
         }
     }
+
+    private fun isFullscreenActive(): Boolean = fullscreenDialog?.isShowing == true
 
     private fun initializeVideoPlayer() {
         lifecycleScope.launch(Dispatchers.IO) {
@@ -515,10 +516,12 @@ class PreviewMediaActivity :
         )
             .apply {
                 setOnDismissListener {
+                    fullscreenDialog = null
                     setupVideoView()
                 }
             }
 
+        fullscreenDialog = dialog
         dialog.show()
     }
 
@@ -770,6 +773,7 @@ class PreviewMediaActivity :
 
     override fun onDestroy() {
         mediaControllerFuture?.let { MediaController.releaseFuture(it) }
+        releaseVideoPlayer()
         super.onDestroy()
 
         Log_OC.v(TAG, "onDestroy")
@@ -778,7 +782,12 @@ class PreviewMediaActivity :
     override fun onStop() {
         Log_OC.v(TAG, "onStop")
 
-        releaseVideoPlayer()
+        // While the fullscreen dialog is up it renders on its own surface with this player attached to it.
+        // Releasing here leaves that surface bound to a dead player once the task returns to the foreground.
+        if (!isFullscreenActive()) {
+            releaseVideoPlayer()
+        }
+
         super.onStop()
     }
 
