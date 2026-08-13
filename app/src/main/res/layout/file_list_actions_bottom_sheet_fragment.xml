@@ -78,7 +78,7 @@
                             android:text="@string/more_documents"
                             android:textColor="@color/text_color"
                             android:textSize="@dimen/bottom_sheet_text_size"
-                            app:icon="@drawable/file_text"
+                            app:icon="@drawable/ic_add_more_documents"
                             app:iconGravity="start"
                             app:iconPadding="@dimen/standard_padding"
                             app:iconSize="@dimen/iconized_single_line_item_icon_size"
