@@ -185,9 +185,7 @@ All contributions generated or assisted by this agent must fully comply with:
 - Line length: **120 characters**
 - Standard Android Studio formatter with EditorConfig.
 - Kotlin preferred for new code; legacy Java still present.
-- Do not use decorative section-divider comments of any kind (e.g. `// ── Title ───`, `// ------`, `// ======`).
 - Every new file must end with exactly one empty trailing line (no more, no less).
-- Do not add comments, documentation for every function you created instead make it self explanatory as much as possible.
 - Create models, states in different files instead of doing it one single file.
 - Do not use magic numbers.
 - Apply fail fast principle instead of using nested if-else statements.
@@ -195,3 +193,27 @@ All contributions generated or assisted by this agent must fully comply with:
 - Use modern Java for Java classes. Optionals, virtual threads, records, streams if necessary.
 - Avoid hardcoded strings, colors, dimensions. Use resources.
 - Run lint, spotbugsGplayDebug, detekt, spotlessKotlinCheck and fix findings inside the files that have been changed.
+
+## Comments
+
+Names carry the explanation, not comments. A function or variable whose purpose is not obvious from its
+name is a naming problem or a decomposition problem — rename it or split it, do not describe it in a comment.
+Assume the reader knows Kotlin, Java and the Android framework.
+
+Write a comment only when the code cannot carry the information itself: a non-obvious invariant, a workaround
+for a platform or server bug, an ordering requirement, or a decision whose alternatives look equally valid and
+are not. When you do write one, explain **why**, never **what**.
+
+Never write:
+
+- Comments that restate the code (`// increase the counter` above `counter++`).
+- KDoc/Javadoc added to a function just because the function is new.
+- Narration of the change or its history: "changed from X to Y", "previously this failed", "this is not a
+  permanent failure so we now retry", "fixes the crash reported in the issue". Comments describe the code as
+  it is today. A reader six months from now has no access to the issue, the PR discussion, or the conversation
+  that produced the change — that context belongs in the commit message and the PR description.
+- Comments addressed at a reviewer or at the contributor rather than at a future reader.
+- Decorative section-divider comments of any kind (e.g. `// ── Title ───`, `// ------`, `// ======`).
+  `// region` / `// endregion` for IDE folding is allowed where the file already uses it.
+
+Existing comments that are still accurate stay. Delete the ones the change makes wrong or obsolete.
