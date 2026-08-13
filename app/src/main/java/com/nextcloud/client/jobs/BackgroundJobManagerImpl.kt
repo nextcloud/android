@@ -117,6 +117,7 @@ internal class BackgroundJobManagerImpl(
         const val OFFLINE_OPERATIONS_PERIODIC_JOB_INTERVAL_MINUTES = 5L
         const val DEFAULT_IMMEDIATE_JOB_DELAY_SEC = 3L
         const val DEFAULT_BACKOFF_CRITERIA_DELAY_SEC = 300L
+        const val UPLOAD_BACKOFF_CRITERIA_DELAY_SEC = 45L
 
         private const val KEEP_LOG_MILLIS = 1000 * 60 * 60 * 24 * 3L
 
@@ -655,6 +656,11 @@ internal class BackgroundJobManagerImpl(
                     .addTag(tag)
                     .setInputData(dataBuilder.build())
                     .setConstraints(constraints)
+                    .setBackoffCriteria(
+                        BackoffPolicy.LINEAR,
+                        UPLOAD_BACKOFF_CRITERIA_DELAY_SEC,
+                        TimeUnit.SECONDS
+                    )
                     .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
                     .build()
             }
