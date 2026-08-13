@@ -187,6 +187,13 @@ class PreviewMediaFragment :
 
     override fun onResume() {
         super.onResume()
+
+        // The fullscreen dialog holds the player on its own surface, re-binding it to this fragment's
+        // view would leave the visible dialog with a detached player.
+        if (isFullscreenActive) {
+            return
+        }
+
         applyWindowInsets()
         prepareMedia()
     }
