@@ -14,6 +14,7 @@ import android.view.ContextThemeWrapper
 import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.view.isNotEmpty
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -179,17 +180,17 @@ class OCFileListBottomSheetDialog(
                     context.getString(R.string.create_new_document),
                     creatorsButtons.size < CREATORS_OVERVIEW_ITEMS
                 )
-                menuNewDocument.icon = context.getDrawable(R.drawable.file_doc)
+                menuNewDocument.icon = AppCompatResources.getDrawable(context, R.drawable.file_doc)
                 val menuNewSpreadsheet = buildCreatorButton(
                     context.getString(R.string.create_new_spreadsheet),
                     creatorsButtons.size < CREATORS_OVERVIEW_ITEMS
                 )
-                menuNewSpreadsheet.icon = context.getDrawable(R.drawable.file_xls)
+                menuNewSpreadsheet.icon = AppCompatResources.getDrawable(context, R.drawable.file_xls)
                 val menuNewPresentation = buildCreatorButton(
                     context.getString(R.string.create_new_presentation),
                     creatorsButtons.size < CREATORS_OVERVIEW_ITEMS
                 )
-                menuNewPresentation.icon = context.getDrawable(R.drawable.file_ppt)
+                menuNewPresentation.icon = AppCompatResources.getDrawable(context, R.drawable.file_ppt)
 
                 menuNewDocument.setOnClickListener {
                     actions.newDocument()
