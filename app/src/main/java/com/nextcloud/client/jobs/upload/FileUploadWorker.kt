@@ -269,7 +269,11 @@ class FileUploadWorker(
             ensureActive()
 
             if (skip(upload)) {
-                Log_OC.d(TAG, "skipping already settled upload: ${upload.remotePath}, ${upload.lastResult}")
+                Log_OC.d(
+                    TAG,
+                    "skipping already settled upload: ${upload.remotePath}, " +
+                        "status: ${upload.uploadStatus}, result: ${upload.lastResult}"
+                )
                 continue
             }
 
@@ -294,7 +298,7 @@ class FileUploadWorker(
 
             if (canExitEarly()) {
                 notificationManager.showConnectionErrorNotification()
-                return@withContext Result.failure()
+                return@withContext Result.retry()
             }
 
             fileUploadEventBroadcaster.sendUploadEnqueued(context)
