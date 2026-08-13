@@ -44,8 +44,14 @@ asks for; default to the "Nextcloud GmbH and Nextcloud contributors" line.
 
 - No decorative divider comments (`// ==== ====`, `// ---- Title ----`). `// region` /
   `// endregion` for IDE folding is allowed and should match the file's existing style.
-- Prefer self-explanatory names over per-function KDoc. Preserve genuinely informative
-  Javadoc as KDoc (invariant 4); drop noise.
+- Names carry the explanation, not comments. If a name needs a comment to be understood,
+  rename or decompose instead. Do not add KDoc to a function just because it is new.
+- Preserve genuinely informative Javadoc as KDoc (invariant 4); drop noise. A comment
+  earns its place only for a non-obvious invariant, a platform/server workaround, or an
+  ordering requirement — and it explains **why**, never **what**.
+- Never narrate the conversion itself: no "was a Java thread, now a coroutine", no
+  "changed from X to Y", no references to the PR, the issue, or this conversation.
+  Comments describe the code as it stands. That history belongs in the commit message.
 - Do not use multiple boolean flags to model state — use an `enum`/sealed class.
 
 ## Modern Java Interop
