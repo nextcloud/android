@@ -8,6 +8,7 @@
  */
 package com.owncloud.android.ui.fragment
 
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.view.ContextThemeWrapper
@@ -141,7 +142,7 @@ class OCFileListBottomSheetDialog(
         }
 
         // Create a list of supported creators, in the order to be shown (direct editing, then collabora)
-        val creatorsButtons = ArrayList<View>()
+        val creatorsActions = ArrayList<CreatorAction>()
 
         // Check direct editing capabilities
         val json = ArbitraryDataProviderImpl(context)
@@ -152,18 +153,21 @@ class OCFileListBottomSheetDialog(
 
                 directEditing.creators.values.forEach { creator ->
                     val buttonText = creator.name
-                    val creatorButton = buildCreatorButton(buttonText, creatorsButtons.size < CREATORS_OVERVIEW_ITEMS)
-                    creatorButton.icon = MimeTypeUtil.getFileTypeIcon(
-                        creator.mimetype,
-                        creator.extension,
-                        context,
-                        viewThemeUtils
+                    creatorsActions.add(
+                        CreatorAction(
+                            text = buttonText,
+                            icon = MimeTypeUtil.getFileTypeIcon(
+                                    creator.mimetype,
+                                    creator.extension,
+                                    context,
+                                    viewThemeUtils
+                                ),
+                            action = {
+                                actions.showTemplate(creator, buttonText)
+                                dismiss()
+                            }
+                        )
                     )
-                    creatorButton.setOnClickListener {
-                        actions.showTemplate(creator, buttonText)
-                        dismiss()
-                    }
-                    creatorsButtons.add(creatorButton)
                 }
             }
         }
@@ -173,44 +177,40 @@ class OCFileListBottomSheetDialog(
         if (!optionalCapability.isEmpty) {
             val capability = optionalCapability.get()
             if (capability.isTemplateAvailable()) {
-                val menuNewDocument = buildCreatorButton(
-                    context.getString(R.string.create_document),
-                    creatorsButtons.size < CREATORS_OVERVIEW_ITEMS
+                creatorsActions.add(
+                    CreatorAction(
+                        text = context.getString(R.string.create_document),
+                        icon = AppCompatResources.getDrawable(context, R.drawable.file_doc),
+                        action = {
+                            actions.newDocument()
+                            dismiss()
+                        }
+                    )
                 )
-                menuNewDocument.icon = AppCompatResources.getDrawable(context, R.drawable.file_doc)
-                val menuNewSpreadsheet = buildCreatorButton(
-                    context.getString(R.string.create_spreadsheet),
-                    creatorsButtons.size < CREATORS_OVERVIEW_ITEMS
+                creatorsActions.add(
+                    CreatorAction(
+                        text = context.getString(R.string.create_spreadsheet),
+                        icon = AppCompatResources.getDrawable(context, R.drawable.file_xls),
+                        action = {
+                            actions.newSpreadsheet()
+                            dismiss()
+                        }
+                    )
                 )
-                menuNewSpreadsheet.icon = AppCompatResources.getDrawable(context, R.drawable.file_xls)
-                val menuNewPresentation = buildCreatorButton(
-                    context.getString(R.string.create_presentation),
-                    creatorsButtons.size < CREATORS_OVERVIEW_ITEMS
+                creatorsActions.add(
+                    CreatorAction(
+                        text = context.getString(R.string.create_presentation),
+                        icon = AppCompatResources.getDrawable(context, R.drawable.file_ppt),
+                        action = {
+                            actions.newPresentation()
+                            dismiss()
+                        }
+                    )
                 )
-                menuNewPresentation.icon = AppCompatResources.getDrawable(context, R.drawable.file_ppt)
-
-                menuNewDocument.setOnClickListener {
-                    actions.newDocument()
-                    dismiss()
-                }
-
-                menuNewSpreadsheet.setOnClickListener {
-                    actions.newSpreadsheet()
-                    dismiss()
-                }
-
-                menuNewPresentation.setOnClickListener {
-                    actions.newPresentation()
-                    dismiss()
-                }
-
-                creatorsButtons.add(menuNewDocument)
-                creatorsButtons.add(menuNewSpreadsheet)
-                creatorsButtons.add(menuNewPresentation)
             }
         }
 
-        if (creatorsButtons.isEmpty()) {
+        if (creatorsActions.isEmpty()) {
             // If no creators at all, hide whole container (comprising separator)
             binding.creatorsOverviewContainer.visibility = View.GONE
             return
@@ -222,12 +222,16 @@ class OCFileListBottomSheetDialog(
             creatorsOverview.removeAllViews()
             creators.removeAllViews()
 
-            creatorsButtons.forEachIndexed { index, view ->
-                if (index < CREATORS_OVERVIEW_ITEMS) {
-                    // First x elements in the overview
-                    creatorsOverview.addView(view)
+            creatorsActions.forEachIndexed { index, action ->
+                if (creatorsActions.size == 1) {
+                    // Single element is shown as row in the overview
+                    creatorsOverview.addView(buildCreatorButton(action, false))
+                } else if (index < CREATORS_OVERVIEW_ITEMS) {
+                    // First x elements shown as boxes in the overview
+                    creatorsOverview.addView(buildCreatorButton(action, true))
                 } else {
-                    creators.addView(view)
+                    // Other elements shown as rows in the overflow view
+                    creators.addView(buildCreatorButton(action, false))
                 }
             }
 
@@ -238,12 +242,16 @@ class OCFileListBottomSheetDialog(
         }
     }
 
+    /**
+     * @param creatorAction Action for which the button is created
+     * @param showAsBox If true, creates a squarish view with weight to be displayed horizontally, otherwise a row
+     */
     private fun buildCreatorButton(
-        buttonText: String,
-        overview: Boolean
+        creatorAction: CreatorAction,
+        showAsBox: Boolean
     ): MaterialButton {
         val itemHeight = context.resources.getDimensionPixelSize(
-            if (overview) R.dimen.bottom_sheet_horizontal_item_height else R.dimen.bottom_sheet_item_height
+            if (showAsBox) R.dimen.bottom_sheet_horizontal_item_height else R.dimen.bottom_sheet_item_height
         )
         val standardPadding = context.resources.getDimensionPixelSize(R.dimen.standard_padding)
         val iconSize = context.resources.getDimensionPixelSize(R.dimen.iconized_single_line_item_icon_size)
@@ -258,23 +266,28 @@ class OCFileListBottomSheetDialog(
         ).apply {
             id = View.generateViewId()
             layoutParams = LinearLayout.LayoutParams(
-                if (overview) 0 else LinearLayout.LayoutParams.MATCH_PARENT,
+                if (showAsBox) 0 else LinearLayout.LayoutParams.MATCH_PARENT,
                 itemHeight,
-                if (overview) 1f else 0f
+                if (showAsBox) 1f else 0f
             )
 
-            gravity = if (overview) Gravity.CENTER else Gravity.START or Gravity.CENTER_VERTICAL
+            gravity = if (showAsBox) Gravity.CENTER else Gravity.START or Gravity.CENTER_VERTICAL
             setPaddingRelative(standardPadding, 0, standardPadding, 0)
 
-            text = buttonText
+            text = creatorAction.text
             setTextColor(ContextCompat.getColor(context, R.color.text_color))
             textSize = 16f
             isAllCaps = false
 
+            icon = creatorAction.icon
             this.iconSize = iconSize
-            this.iconPadding = if (overview) 0 else standardPadding
-            iconGravity = if (overview) MaterialButton.ICON_GRAVITY_TOP else MaterialButton.ICON_GRAVITY_START
+            this.iconPadding = if (showAsBox) 0 else standardPadding
+            iconGravity = if (showAsBox) MaterialButton.ICON_GRAVITY_TOP else MaterialButton.ICON_GRAVITY_START
             iconTint = null
+
+            setOnClickListener {
+                creatorAction.action()
+            }
         }
         return creatorButton
     }
@@ -370,4 +383,10 @@ class OCFileListBottomSheetDialog(
             }
         }
     }
+
+    private data class CreatorAction (
+        val text: String,
+        val icon: Drawable?,
+        val action: () -> Unit
+    )
 }
