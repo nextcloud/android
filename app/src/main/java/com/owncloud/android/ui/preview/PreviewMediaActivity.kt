@@ -781,13 +781,9 @@ class PreviewMediaActivity :
 
     override fun onStop() {
         Log_OC.v(TAG, "onStop")
-
-        // While the fullscreen dialog is up it renders on its own surface with this player attached to it.
-        // Releasing here leaves that surface bound to a dead player once the task returns to the foreground.
         if (!isFullscreenActive()) {
             releaseVideoPlayer()
         }
-
         super.onStop()
     }
 
