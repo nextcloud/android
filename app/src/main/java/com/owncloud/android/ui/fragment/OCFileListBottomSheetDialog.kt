@@ -155,7 +155,7 @@ class OCFileListBottomSheetDialog(
                     val buttonText = creator.name
                     creatorsActions.add(
                         CreatorAction(
-                            text = buttonText,
+                            text = buttonText.replaceFirstChar(Char::titlecase),
                             icon = MimeTypeUtil.getFileTypeIcon(
                                     creator.mimetype,
                                     creator.extension,
