@@ -23,9 +23,7 @@
     <ViewSwitcher
         android:id="@+id/bottom_sheet_view_switcher"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:inAnimation="@android:anim/fade_in"
-        android:outAnimation="@android:anim/fade_out">
+        android:layout_height="match_parent">
 
         <!-- Main view -->
 
