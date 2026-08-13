@@ -212,7 +212,6 @@ Never write:
   permanent failure so we now retry", "fixes the crash reported in the issue". Comments describe the code as
   it is today. A reader six months from now has no access to the issue, the PR discussion, or the conversation
   that produced the change — that context belongs in the commit message and the PR description.
-- Comments addressed at a reviewer or at the contributor rather than at a future reader.
 - Decorative section-divider comments of any kind (e.g. `// ── Title ───`, `// ------`, `// ======`).
   `// region` / `// endregion` for IDE folding is allowed where the file already uses it.
 
