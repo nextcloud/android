@@ -149,12 +149,8 @@ class OCFileListBottomSheetDialog(
             val directEditing = Gson().fromJson(json, DirectEditing::class.java)
             if (directEditing.creators.isNotEmpty()) {
 
-                for (creator in directEditing.creators.values) {
-                    val buttonText = String.format(
-                        fileActivity.getString(R.string.editor_placeholder),
-                        fileActivity.getString(R.string.create_new),
-                        creator.name
-                    )
+                directEditing.creators.values.forEach { creator ->
+                    val buttonText = creator.name
                     val creatorButton = buildCreatorButton(buttonText, creatorsButtons.size < CREATORS_OVERVIEW_ITEMS)
                     creatorButton.icon = MimeTypeUtil.getFileTypeIcon(
                         creator.mimetype,
@@ -177,17 +173,17 @@ class OCFileListBottomSheetDialog(
             val capability = optionalCapability.get()
             if (capability.isTemplateAvailable()) {
                 val menuNewDocument = buildCreatorButton(
-                    context.getString(R.string.create_new_document),
+                    context.getString(R.string.create_document),
                     creatorsButtons.size < CREATORS_OVERVIEW_ITEMS
                 )
                 menuNewDocument.icon = AppCompatResources.getDrawable(context, R.drawable.file_doc)
                 val menuNewSpreadsheet = buildCreatorButton(
-                    context.getString(R.string.create_new_spreadsheet),
+                    context.getString(R.string.create_spreadsheet),
                     creatorsButtons.size < CREATORS_OVERVIEW_ITEMS
                 )
                 menuNewSpreadsheet.icon = AppCompatResources.getDrawable(context, R.drawable.file_xls)
                 val menuNewPresentation = buildCreatorButton(
-                    context.getString(R.string.create_new_presentation),
+                    context.getString(R.string.create_presentation),
                     creatorsButtons.size < CREATORS_OVERVIEW_ITEMS
                 )
                 menuNewPresentation.icon = AppCompatResources.getDrawable(context, R.drawable.file_ppt)
