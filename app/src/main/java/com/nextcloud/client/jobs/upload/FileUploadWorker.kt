@@ -47,7 +47,6 @@ import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.operations.factory.UploadFileOperationFactory
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.ensureActive
@@ -154,19 +153,12 @@ class FileUploadWorker(
         Log_OC.e(TAG, "exception $t")
         activeOperations.values.forEach { it.cancel(null) }
         activeOperations.clear()
-        retryIfStopped(t)
+        Result.failure()
     } finally {
         // Ensure all database operations are complete before signaling completion
         uploadsStorageManager.notifyObserversNow()
         notificationManager.dismissNotification()
         retryPolicy.reset()
-    }
-
-    private fun retryIfStopped(t: Throwable): Result = if (t is CancellationException) {
-        Log_OC.d(TAG, "worker stopped, requesting retry")
-        Result.retry()
-    } else {
-        Result.failure()
     }
 
     private suspend fun trySetForeground() {
@@ -294,7 +286,7 @@ class FileUploadWorker(
 
             if (canExitEarly()) {
                 notificationManager.showConnectionErrorNotification()
-                return@withContext Result.retry()
+                return@withContext Result.failure()
             }
 
             fileUploadEventBroadcaster.sendUploadEnqueued(context)
