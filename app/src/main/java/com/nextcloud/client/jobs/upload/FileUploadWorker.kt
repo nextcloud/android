@@ -54,6 +54,7 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.random.Random
+import kotlin.time.Duration.Companion.milliseconds
 
 @Suppress("LongParameterList", "TooGenericExceptionCaught")
 class FileUploadWorker(
@@ -265,7 +266,7 @@ class FileUploadWorker(
         for ((index, upload) in uploads.withIndex()) {
             ensureActive()
 
-            delay(retryPolicy.getDelay())
+            delay(retryPolicy.getDelay().milliseconds)
 
             if (!skipAutoUploadCheck && isBelongToAnySyncedFolder(upload, syncFolderHelper, syncedFolders)) {
                 Log_OC.d(TAG, "skipping upload, will be handled by AutoUploadWorker: ${upload.localPath}")
