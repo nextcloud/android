@@ -144,8 +144,6 @@ public abstract class FileActivity extends DrawerActivity
     public static final int REQUEST_CODE__UPDATE_CREDENTIALS = 0;
     public static final int REQUEST_CODE__LAST_SHARED = REQUEST_CODE__UPDATE_CREDENTIALS;
 
-    protected static final long DELAY_TO_REQUEST_OPERATIONS_LATER = 200;
-
     /* Dialog tags */
     private static final String DIALOG_UNTRUSTED_CERT = "DIALOG_UNTRUSTED_CERT";
     private static final String DIALOG_CERT_NOT_SAVED = "DIALOG_CERT_NOT_SAVED";
