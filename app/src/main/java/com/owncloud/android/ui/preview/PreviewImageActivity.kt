@@ -306,10 +306,9 @@ class PreviewImageActivity :
                 // / Refresh the activity according to the Account and OCFile set
                 setFile(file) // reset after getting it fresh from storageManager
                 updateActionBarTitle(getFile()?.fileName)
-                // if (!stateWasRecovered) {
-                initViewPager(optionalUser.get())
-
-                // }
+                if (previewMediaPagerAdapter == null) {
+                    initViewPager(optionalUser.get())
+                }
             } else {
                 // handled file not in the current Account
                 finish()
