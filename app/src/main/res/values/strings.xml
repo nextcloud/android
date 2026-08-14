@@ -1549,4 +1549,17 @@
     <string name="governance_permission_denied">You do not have permission to change this label</string>
     <string name="file_info_governance_section_title">Governance</string>
     <string name="file_info_image_details_section_title">Image details</string>
+
+    <plurals name="export_start">
+        <item quantity="one">Export started (%d file)</item>
+        <item quantity="other">Exports started (%d files)</item>
+    </plurals>
+    <string name="player_error_source_not_found">Source not found</string>
+    <string name="player_media_controls_close_action_title">Close</string>
+    <string name="player_last_modified">Modified: %s</string>
+    <string name="player_control_view_repeat_button_content_description">Shuffle button</string>
+    <string name="player_control_view_previous_button_content_description">Previous button</string>
+    <string name="player_control_view_play_pause_button_content_description">Play/Pause button</string>
+    <string name="player_control_view_next_button_content_description">Next button</string>
+    <string name="player_control_view_random_button_content_description">Random button</string>
 </resources>

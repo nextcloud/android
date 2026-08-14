@@ -115,7 +115,6 @@ import com.owncloud.android.ui.fragment.helper.ParentFolderFinder;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
-import com.owncloud.android.ui.preview.PreviewMediaActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.EncryptionUtilsV2;
@@ -1253,7 +1252,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (MimeTypeUtil.isVideo(file) && !file.isEncrypted() && mContainerActivity instanceof FileDisplayActivity fda) {
             setFabVisible(false);
             fda.startImagePreview(file, true, null);
-        } else if (PreviewMediaActivity.Companion.canBePreviewed(file) && !file.isEncrypted() && mContainerActivity instanceof FileDisplayActivity fda) {
+        } else if (!file.isEncrypted() && mContainerActivity instanceof FileDisplayActivity fda && fda.canMediaPreviewed(file)) {
             setFabVisible(false);
             fda.startMediaPreview(file, 0, true, true, true, true);
         } else if (webViewAvailable && editorUtils.getEditor(accountManager.getUser(), file.getMimeType()) != null && !file.isEncrypted()) {

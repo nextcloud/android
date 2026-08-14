@@ -8,7 +8,7 @@
 package com.nextcloud.client.player.model.file
 
 import com.owncloud.android.utils.FileSortOrder
-import third_parties.daveKoeller.AlphanumComparator
+import com.owncloud.android.utils.sort.AlphanumericComparator
 
 sealed interface PlaybackFilesComparator : Comparator<PlaybackFile> {
 
@@ -17,7 +17,7 @@ sealed interface PlaybackFilesComparator : Comparator<PlaybackFile> {
     }
 
     object FAVORITE : PlaybackFilesComparator {
-        override fun compare(a: PlaybackFile, b: PlaybackFile): Int = AlphanumComparator.compare(a.name, b.name)
+        override fun compare(a: PlaybackFile, b: PlaybackFile): Int = AlphanumericComparator.compare(a.name, b.name)
     }
 
     object GALLERY : PlaybackFilesComparator {
@@ -35,7 +35,7 @@ sealed interface PlaybackFilesComparator : Comparator<PlaybackFile> {
 
         private fun createDelegate(): Comparator<PlaybackFile> {
             val sortTypeComparator: Comparator<PlaybackFile> = when (sortType) {
-                FileSortOrder.SortType.ALPHABET -> Comparator { a, b -> AlphanumComparator.compare(a.name, b.name) }
+                FileSortOrder.SortType.ALPHABET -> Comparator { a, b -> AlphanumericComparator.compare(a.name, b.name) }
                 FileSortOrder.SortType.SIZE -> compareBy { it.contentLength }
                 FileSortOrder.SortType.DATE -> compareBy { it.lastModified }
             }

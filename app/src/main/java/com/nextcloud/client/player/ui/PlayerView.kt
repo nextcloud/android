@@ -112,11 +112,10 @@ abstract class PlayerView @JvmOverloads constructor(
         }
     }
 
-    // TODO: HANDLE OR NEEDED AT ALL?
     private fun downloadFile() {
         val currentFile = playbackModel.state.getOrNull()?.currentItemState?.file
         val storageManager = FileDataStorageManager(userAccountManager.user, context.contentResolver)
-        val file = currentFile?.id?.toLong()?.let { storageManager.getFileByLocalId(it) }
+        val file = currentFile?.id?.toLong()?.let { storageManager.getFileByLocalId(it) } ?: return
 
         activity.lifecycleScope.launch(Dispatchers.IO) {
             val operation = DownloadFileOperation(userAccountManager.user, file, context)
@@ -126,7 +125,7 @@ abstract class PlayerView @JvmOverloads constructor(
             if (result.isSuccess) {
                 Log_OC.d(TAG, "file is successfully downloaded")
                 val helper = FileDownloadHelper()
-                file?.let { helper.saveFile(it, operation, storageManager) }
+                helper.saveFile(file, operation, storageManager)
             } else {
                 Log_OC.e(TAG, "cannot download file")
                 withContext(Dispatchers.Main) {
