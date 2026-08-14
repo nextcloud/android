@@ -178,6 +178,10 @@ class OCFileListBottomSheetDialog(
         // Check collabora capabilities
         creatorsActions.addAll(creatorsActionsFromCollabora())
 
+        displayCreatorsActions(creatorsActions)
+    }
+
+    private fun displayCreatorsActions(creatorsActions: List<CreatorAction>) {
         if (creatorsActions.isEmpty()) {
             // If no creators at all, hide whole container (comprising separator)
             binding.creatorsOverviewContainer.visibility = View.GONE
@@ -210,7 +214,7 @@ class OCFileListBottomSheetDialog(
         }
     }
 
-    private fun creatorsActionsFromDirectEditing(): ArrayList<CreatorAction> {
+    private fun creatorsActionsFromDirectEditing(): List<CreatorAction> {
         val creatorsActions = ArrayList<CreatorAction>()
         ArbitraryDataProviderImpl(context)
             .getValue(user, ArbitraryDataProvider.DIRECT_EDITING)
@@ -239,7 +243,7 @@ class OCFileListBottomSheetDialog(
         return creatorsActions
     }
 
-    private fun creatorsActionsFromCollabora(): ArrayList<CreatorAction> {
+    private fun creatorsActionsFromCollabora(): List<CreatorAction> {
         val creatorsActions = ArrayList<CreatorAction>()
 
         fileActivity.capabilities
