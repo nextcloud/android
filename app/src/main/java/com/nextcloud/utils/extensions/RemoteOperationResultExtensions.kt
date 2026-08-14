@@ -14,6 +14,17 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.utils.ErrorMessageAdapter
 
+@Suppress("DEPRECATION")
+fun <T : Any> RemoteOperationResult<*>.dataOfType(type: Class<T>): List<T> {
+    if (!isSuccess) return emptyList()
+    val data = data ?: return emptyList()
+    return data.filterIsInstance(type)
+}
+
+inline fun <reified T : Any> RemoteOperationResult<*>.dataOfType(): List<T> = dataOfType(T::class.java)
+
+fun <T : Any> RemoteOperationResult<*>.firstDataOfTypeOrNull(type: Class<T>): T? = dataOfType(type).firstOrNull()
+
 @Suppress("ReturnCount")
 fun Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>?.getErrorMessage(): String {
     val result = this?.first ?: return MainApp.string(R.string.unexpected_error_occurred)

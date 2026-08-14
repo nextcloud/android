@@ -17,6 +17,7 @@ import com.nextcloud.android.lib.resources.directediting.DirectEditingObtainRemo
 import com.nextcloud.client.account.User;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
+import com.nextcloud.utils.extensions.RemoteOperationResultExtensionsKt;
 import com.nextcloud.utils.extensions.StringExtensionsKt;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
@@ -303,15 +304,8 @@ public class RefreshFolderOperation extends RemoteOperation {
             sendLocalBroadcast(EVENT_SINGLE_FOLDER_CONTENTS_SYNCED, mLocalFolder.getRemotePath(), result);
         }
 
-        if (result.isSuccess() && result.getData() != null && !mSyncFullAccount && !mOnlyFileMetadata) {
-            final var remoteObject = result.getData();
-            final ArrayList<RemoteFile> remoteFiles = new ArrayList<>();
-            for (Object object: remoteObject) {
-                if (object instanceof RemoteFile remoteFile) {
-                    remoteFiles.add(remoteFile);
-                }
-            }
-
+        final List<RemoteFile> remoteFiles = RemoteOperationResultExtensionsKt.dataOfType(result, RemoteFile.class);
+        if (!remoteFiles.isEmpty() && !mSyncFullAccount && !mOnlyFileMetadata) {
             // this needed because if file has new share or share is removed, eTag is not changing.
             // that's why another separate EVENT_SINGLE_FOLDER_SHARES_SYNCED introduced before.
             sharesChanged = fileDataStorageManager.saveSharesFromRemoteFile(remoteFiles);
