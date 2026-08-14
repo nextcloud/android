@@ -10,6 +10,7 @@
     <string name="action_edit">编辑</string>
     <string name="action_empty_notifications">清除所有通知</string>
     <string name="action_empty_trashbin">清空回收站</string>
+    <string name="action_open_in_web_editor">在网页编辑器中打开</string>
     <string name="action_send_share">发送/分享</string>
     <string name="action_switch_grid_view">网格视图</string>
     <string name="action_switch_list_view">列表视图</string>
@@ -274,6 +275,8 @@
     <string name="dialog_close">关闭</string>
     <string name="did_not_check_for_dupes">不检查重复项</string>
     <string name="digest_algorithm_not_available">算法不可用。</string>
+    <string name="direct_login_confirm_message">您想使用 %1$s 登录到 %2$s 吗？</string>
+    <string name="direct_login_confirm_title">确认登录</string>
     <string name="direct_login_failed">通过直接链接登录失败！</string>
     <string name="direct_login_text">使用 %1$s 登录至 %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">禁用</string>
@@ -431,6 +434,8 @@
     <string name="file_detail_sharing_fragment_no_contact_app_message">没有可用于选择联系人的应用</string>
     <string name="file_details_no_content">加载详情失败</string>
     <string name="file_icon">文件</string>
+    <string name="file_info_governance_section_title">治理</string>
+    <string name="file_info_image_details_section_title">图片详情</string>
     <string name="file_keep">保留</string>
     <string name="file_list_empty">上传一些内容或与你的设备同步。</string>
     <string name="file_list_empty_favorite_headline">暂无收藏</string>
@@ -539,7 +544,10 @@
     <string name="forward">向前</string>
     <string name="fourHours">4小时</string>
     <string name="governance_file_retention_label">文件保留</string>
+    <string name="governance_legal_hold_label">法律保留</string>
     <string name="governance_no_label">无</string>
+    <string name="governance_permission_denied">您没有更改此标签的权限</string>
+    <string name="governance_sensitivity_label">敏感度标签</string>
     <string name="gplay_restriction">Google 限制下载 APK/AAB 文件！</string>
     <string name="grid_file_features_live_photo_content_description">此图标表示实况照片的可用性</string>
     <string name="hidden_file_name_warning">名称会导致隐藏的文件</string>
@@ -778,6 +786,7 @@
     <string name="prefs_recommend">推荐给朋友</string>
     <string name="prefs_remove_e2e">在本地删除加密</string>
     <string name="prefs_remove_e2e_keys_and_files">移除加密文件和密钥</string>
+    <string name="prefs_renew_e2e_certificate">续订加密证书</string>
     <string name="prefs_setup_e2e">设置端对端加密</string>
     <string name="prefs_show_ecosystem_apps">显示应用切换器</string>
     <string name="prefs_show_ecosystem_apps_summary">导航栏中的 Nextcloud 应用推荐</string>
@@ -813,7 +822,7 @@
     <string name="recommend_urls">%1$s 或 %2$s</string>
     <string name="recommended_files_title">推荐文件</string>
     <string name="refresh_content">刷新内容</string>
-    <string name="reload">刷新</string>
+    <string name="reload">重新加载</string>
     <string name="remote">(远程)</string>
     <string name="remote_file_fetch_failed">查找文件失败！</string>
     <string name="remove_e2e">您可以在该客户端上本地删除端对端加密</string>
@@ -828,6 +837,12 @@
     <string name="rename_dialog_title">输入一个新的名称</string>
     <string name="rename_local_fail_msg">本地副本无法重命名，尝试其他名称</string>
     <string name="rename_server_fail_msg">无法重命名，名字已经被占用</string>
+    <string name="renew_e2e_certificate_dialog_message">这将续订您的端到端加密证书。您现有的密钥和加密文件保持不变。继续？</string>
+    <string name="renew_e2e_certificate_error">无法续订加密证书</string>
+    <string name="renew_e2e_certificate_private_key_missing">未找到加密私钥</string>
+    <string name="renew_e2e_certificate_success">加密证书已续订</string>
+    <string name="renew_e2e_certificate_summary">在保留现有密钥的同时续订您的端到端加密证书</string>
+    <string name="renew_e2e_certificate_valid_until">有效期至 %1$s。点击续订，同时保留您现有的密钥。</string>
     <string name="request_account_deletion">请求删除账号</string>
     <string name="request_account_deletion_button">请求删除</string>
     <string name="request_account_deletion_details">请求服务商永久删除账号</string>
