@@ -182,7 +182,7 @@ class PlayerActivity :
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             it.setAutoEnterEnabled(true)
         }
-        getSourceRectHint().let(it::setSourceRectHint)
+        it.setSourceRectHint(getSourceRectHint())
         it.build()
     }
 
