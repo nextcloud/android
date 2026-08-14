@@ -303,8 +303,8 @@ public class RefreshFolderOperation extends RemoteOperation {
             sendLocalBroadcast(EVENT_SINGLE_FOLDER_CONTENTS_SYNCED, mLocalFolder.getRemotePath(), result);
         }
 
-        final var remoteObject = result.getData();
-        if (result.isSuccess() && remoteObject != null && !mSyncFullAccount && !mOnlyFileMetadata) {
+        if (result.isSuccess() && result.getData() != null && !mSyncFullAccount && !mOnlyFileMetadata) {
+            final var remoteObject = result.getData();
             final ArrayList<RemoteFile> remoteFiles = new ArrayList<>();
             for (Object object: remoteObject) {
                 if (object instanceof RemoteFile remoteFile) {
