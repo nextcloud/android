@@ -49,7 +49,8 @@ import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.ui.dialog.LocalStoragePathPickerDialogFragment;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
-import com.owncloud.android.ui.fragment.LocalFileListFragment;
+import com.owncloud.android.ui.fragment.localfilelist.LocalFileListFragment;
+import com.owncloud.android.ui.fragment.localfilelist.LocalFileListListener;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileUtil;
 import com.owncloud.android.utils.PermissionUtil;
@@ -70,14 +71,13 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
 
 import static com.owncloud.android.ui.activity.FileActivity.EXTRA_USER;
 
 /**
  * Displays local files and let the user choose what of them wants to upload to the current Nextcloud account.
  */
-public class UploadFilesActivity extends DrawerActivity implements LocalFileListFragment.ContainerActivity,
+public class UploadFilesActivity extends DrawerActivity implements LocalFileListListener,
     OnClickListener, ConfirmationDialogFragmentListener, SortingOrderDialogFragment.OnSortingOrderListener,
     CheckAvailableSpaceTask.CheckAvailableSpaceListener, StoragePathAdapter.StoragePathAdapterListener, Injectable {
 
