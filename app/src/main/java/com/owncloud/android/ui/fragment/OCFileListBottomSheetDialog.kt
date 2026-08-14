@@ -290,8 +290,23 @@ class OCFileListBottomSheetDialog(
             icon = creatorAction.icon
             this.iconSize = iconSize
             this.iconPadding = if (showAsBox) 0 else standardPadding
+            if (showAsBox) {
+                this.setPadding(
+                    paddingLeft,
+                    paddingTop + standardPadding,
+                    paddingRight,
+                    paddingBottom + standardPadding
+                )
+            }
             iconGravity = if (showAsBox) MaterialButton.ICON_GRAVITY_TOP else MaterialButton.ICON_GRAVITY_START
             iconTint = null
+
+            cornerRadius =
+                if (showAsBox) {
+                    context.resources.getDimensionPixelSize(R.dimen.button_corner_radius)
+                } else {
+                    cornerRadius
+                }
 
             setOnClickListener {
                 creatorAction.action()
