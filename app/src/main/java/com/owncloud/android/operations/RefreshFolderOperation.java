@@ -304,8 +304,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             sendLocalBroadcast(EVENT_SINGLE_FOLDER_CONTENTS_SYNCED, mLocalFolder.getRemotePath(), result);
         }
 
-
-        final var remoteFiles = ResultParser.dataOfType(result, RemoteFile.class);
+        final var remoteFiles = ResultParser.list(result, RemoteFile.class);
         if (!remoteFiles.isEmpty() && !mSyncFullAccount && !mOnlyFileMetadata) {
             // this needed because if file has new share or share is removed, eTag is not changing.
             // that's why another separate EVENT_SINGLE_FOLDER_SHARES_SYNCED introduced before.
