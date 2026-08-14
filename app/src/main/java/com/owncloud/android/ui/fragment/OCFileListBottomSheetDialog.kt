@@ -64,6 +64,33 @@ class OCFileListBottomSheetDialog(
         private const val CREATORS_OVERVIEW_ITEMS = 3
     }
 
+    private val templateActions = listOf(
+        CreatorAction(
+            text = context.getString(R.string.create_document),
+            icon = AppCompatResources.getDrawable(context, R.drawable.file_doc),
+            action = {
+                actions.newDocument()
+                dismiss()
+            }
+        ),
+        CreatorAction(
+            text = context.getString(R.string.create_spreadsheet),
+            icon = AppCompatResources.getDrawable(context, R.drawable.file_xls),
+            action = {
+                actions.newSpreadsheet()
+                dismiss()
+            }
+        ),
+        CreatorAction(
+            text = context.getString(R.string.create_presentation),
+            icon = AppCompatResources.getDrawable(context, R.drawable.file_ppt),
+            action = {
+                actions.newPresentation()
+                dismiss()
+            }
+        )
+    )
+
     private lateinit var binding: FileListActionsBottomSheetFragmentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -149,42 +176,7 @@ class OCFileListBottomSheetDialog(
         creatorsActions.addAll(creatorsActionsFromDirectEditing())
 
         // Check collabora capabilities
-        val optionalCapability = fileActivity.capabilities
-        if (!optionalCapability.isEmpty) {
-            val capability = optionalCapability.get()
-            if (capability.isTemplateAvailable()) {
-                creatorsActions.add(
-                    CreatorAction(
-                        text = context.getString(R.string.create_document),
-                        icon = AppCompatResources.getDrawable(context, R.drawable.file_doc),
-                        action = {
-                            actions.newDocument()
-                            dismiss()
-                        }
-                    )
-                )
-                creatorsActions.add(
-                    CreatorAction(
-                        text = context.getString(R.string.create_spreadsheet),
-                        icon = AppCompatResources.getDrawable(context, R.drawable.file_xls),
-                        action = {
-                            actions.newSpreadsheet()
-                            dismiss()
-                        }
-                    )
-                )
-                creatorsActions.add(
-                    CreatorAction(
-                        text = context.getString(R.string.create_presentation),
-                        icon = AppCompatResources.getDrawable(context, R.drawable.file_ppt),
-                        action = {
-                            actions.newPresentation()
-                            dismiss()
-                        }
-                    )
-                )
-            }
-        }
+        creatorsActions.addAll(creatorsActionsFromCollabora())
 
         if (creatorsActions.isEmpty()) {
             // If no creators at all, hide whole container (comprising separator)
@@ -244,6 +236,16 @@ class OCFileListBottomSheetDialog(
                     )
                 )
             }
+        return creatorsActions
+    }
+
+    private fun creatorsActionsFromCollabora(): ArrayList<CreatorAction> {
+        val creatorsActions = ArrayList<CreatorAction>()
+
+        fileActivity.capabilities
+            .filter { it.isTemplateAvailable() }
+            .ifPresent { creatorsActions.addAll(templateActions) }
+
         return creatorsActions
     }
 
