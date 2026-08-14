@@ -47,7 +47,7 @@ class GallerySearchTask(
         val result = performSearch(context)
 
         withContext(Dispatchers.Main) {
-            fragment.searchCompleted(result.emptySearch, result.lastTimestamp)
+            fragment.searchCompleted(result)
         }
     }
 
@@ -62,7 +62,7 @@ class GallerySearchTask(
         return if (operationResult.isSuccess) {
             handleSuccess(operationResult)
         } else {
-            Result(false, false, NO_TIMESTAMP)
+            Result(operationResult.code, false, NO_TIMESTAMP)
         }
     }
 
@@ -90,7 +90,7 @@ class GallerySearchTask(
         val remoteFiles = operationResult.data.filterIsInstance<RemoteFile>()
         val lastTimestamp = findLastTimestamp(remoteFiles)
         val emptySearch = parseMedia(lastTimestamp, endDate, remoteFiles)
-        return Result(true, emptySearch, lastTimestamp)
+        return Result(operationResult.code, emptySearch, lastTimestamp)
     }
 
     private fun findLastTimestamp(remoteFiles: List<RemoteFile>): Long =
@@ -186,5 +186,9 @@ class GallerySearchTask(
         )
     }
 
-    data class Result(val success: Boolean, val emptySearch: Boolean, val lastTimestamp: Long)
+    data class Result(
+        val resultCode: RemoteOperationResult.ResultCode,
+        val emptySearch: Boolean,
+        val lastTimestamp: Long
+    )
 }

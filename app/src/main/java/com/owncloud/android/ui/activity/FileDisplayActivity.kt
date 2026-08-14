@@ -1677,8 +1677,13 @@ class FileDisplayActivity :
             RemoteOperationResult.ResultCode.NO_NETWORK_CONNECTION -> showInfoBox(R.string.offline_mode)
             RemoteOperationResult.ResultCode.HOST_NOT_AVAILABLE -> showInfoBox(R.string.host_not_available)
             RemoteOperationResult.ResultCode.SIGNING_TOS_NEEDED -> showTermsOfServiceDialog()
+            RemoteOperationResult.ResultCode.OUT_OF_MEMORY -> showOutOfMemoryEmptyListState()
             else -> {}
         }
+    }
+
+    private fun showOutOfMemoryEmptyListState() {
+        listOfFilesFragment?.setEmptyListMessage(EmptyListState.OUT_OF_MEMORY)
     }
 
     private fun showTermsOfServiceDialog() {
