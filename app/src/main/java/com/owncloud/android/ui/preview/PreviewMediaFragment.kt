@@ -187,6 +187,9 @@ class PreviewMediaFragment :
 
     override fun onResume() {
         super.onResume()
+        if (isFullscreenActive) {
+            return
+        }
         applyWindowInsets()
         prepareMedia()
     }
