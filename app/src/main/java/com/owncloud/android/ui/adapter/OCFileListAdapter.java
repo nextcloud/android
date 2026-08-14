@@ -549,8 +549,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         if (holder instanceof OCFileListGridItemViewHolder gridItemViewHolder) {
             handleGridMode(filename, gridItemViewHolder, pair, file);
+        } else if (holder instanceof OCFileListItemViewHolder itemViewHolder) {
+            handleListMode(itemViewHolder, filename, pair);
         } else {
-            handleListMode(holder, filename, pair, isFolder);
+            handleRecommendedMode(holder, pair, isFolder);
         }
     }
 
@@ -575,23 +577,34 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    private void handleListMode(ListGridItemViewHolder holder,
+    private void handleListMode(OCFileListItemViewHolder holder,
                                 String filename,
-                                Pair<String, String> filenamePair,
-                                boolean isFolder) {
-        final var extension = holder.getExtension();
-        final boolean useSeparateExtension = !isFolder && FileStorageUtils.containsBidiControlCharacters(filename);
+                                Pair<String, String> filenamePair) {
+        final boolean containsBidiControlCharacters = FileStorageUtils.containsBidiControlCharacters(filename);
+        ViewExtensionsKt.setVisibleIf(holder.getFileName(), !containsBidiControlCharacters);
+        ViewExtensionsKt.setVisibleIf(holder.getBidiFilenameContainer(), containsBidiControlCharacters);
 
-        if (!useSeparateExtension) {
+        if (containsBidiControlCharacters) {
+            holder.getBidiFilename().setText(filenamePair.getFirst());
+            holder.getExtension().setText(filenamePair.getSecond());
+        } else {
             holder.getFileName().setText(filename);
-            if (extension != null) {
-                extension.setVisibility(View.GONE);
-            }
+        }
+    }
+
+    private void handleRecommendedMode(ListGridItemViewHolder holder,
+                                       Pair<String, String> filenamePair,
+                                       boolean isFolder) {
+        holder.getFileName().setText(filenamePair.getFirst());
+
+        final var extension = holder.getExtension();
+        if (extension == null) {
             return;
         }
 
-        holder.getFileName().setText(filenamePair.getFirst());
-        if (extension != null) {
+        if (isFolder) {
+            extension.setVisibility(View.GONE);
+        } else {
             extension.setVisibility(View.VISIBLE);
             extension.setText(filenamePair.getSecond());
         }
