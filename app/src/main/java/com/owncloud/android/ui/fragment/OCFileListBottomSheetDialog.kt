@@ -164,7 +164,6 @@ class OCFileListBottomSheetDialog(
 
     @Suppress("DEPRECATION", "LongMethod", "MagicNumber")
     private fun initCreatorContainer() {
-
         if (file.isEncrypted) {
             return
         }
@@ -207,8 +206,9 @@ class OCFileListBottomSheetDialog(
                 }
             }
 
-            if (creatorsOverview.isNotEmpty())
+            if (creatorsOverview.isNotEmpty()) {
                 creatorsOverview.visibility = View.VISIBLE
+            }
 
             menuMoreDocumentsContainer.visibility = if (creators.isEmpty()) View.GONE else View.VISIBLE
         }
@@ -257,10 +257,7 @@ class OCFileListBottomSheetDialog(
      * @param creatorAction Action for which the button is created
      * @param showAsBox If true, creates a squarish view with weight to be displayed horizontally, otherwise a row
      */
-    private fun buildCreatorButton(
-        creatorAction: CreatorAction,
-        showAsBox: Boolean
-    ): MaterialButton {
+    private fun buildCreatorButton(creatorAction: CreatorAction, showAsBox: Boolean): MaterialButton {
         val itemHeight = context.resources.getDimensionPixelSize(
             if (showAsBox) R.dimen.bottom_sheet_horizontal_item_height else R.dimen.bottom_sheet_item_height
         )
@@ -395,9 +392,5 @@ class OCFileListBottomSheetDialog(
         }
     }
 
-    private data class CreatorAction (
-        val text: String,
-        val icon: Drawable?,
-        val action: () -> Unit
-    )
+    private data class CreatorAction(val text: String, val icon: Drawable?, val action: () -> Unit)
 }
