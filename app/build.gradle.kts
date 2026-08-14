@@ -44,8 +44,6 @@ configurations.configureEach {
     exclude(group = "org.jetbrains", module = "annotations-java5")
 
     resolutionStrategy {
-        // Pins every transitive objenesis to the version in libs.versions.toml, which must stay
-        // ART-compatible because mockito-android and mockk-android instantiate mocks through it.
         force(libs.objenesis)
 
         eachDependency {

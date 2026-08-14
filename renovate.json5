@@ -29,12 +29,6 @@
             "groupName": "com.google.code.findbugs",
             "matchCurrentVersion": "= 3.0.1u2",
             "enabled": false
-        },
-        {
-            "matchPackageNames": ["org.objenesis:objenesis"],
-            "groupName": "org.objenesis",
-            "description": "3.6 caches instantiators in java.lang.ClassValue, which ART does not provide, breaking every mockito-android/mockk-android instrumented test.",
-            "enabled": false
         }
     ]
 }
