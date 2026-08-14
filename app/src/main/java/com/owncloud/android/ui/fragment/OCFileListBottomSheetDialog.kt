@@ -146,32 +146,7 @@ class OCFileListBottomSheetDialog(
         val creatorsActions = ArrayList<CreatorAction>()
 
         // Check direct editing capabilities
-        val json = ArbitraryDataProviderImpl(context)
-            .getValue(user, ArbitraryDataProvider.DIRECT_EDITING)
-        if (json.isNotEmpty()) {
-            val directEditing = Gson().fromJson(json, DirectEditing::class.java)
-            if (directEditing.creators.isNotEmpty()) {
-
-                directEditing.creators.values.forEach { creator ->
-                    val buttonText = creator.name
-                    creatorsActions.add(
-                        CreatorAction(
-                            text = buttonText.replaceFirstChar(Char::titlecase),
-                            icon = MimeTypeUtil.getFileTypeIcon(
-                                    creator.mimetype,
-                                    creator.extension,
-                                    context,
-                                    viewThemeUtils
-                                ),
-                            action = {
-                                actions.showTemplate(creator, buttonText)
-                                dismiss()
-                            }
-                        )
-                    )
-                }
-            }
-        }
+        creatorsActions.addAll(creatorsActionsFromDirectEditing())
 
         // Check collabora capabilities
         val optionalCapability = fileActivity.capabilities
@@ -241,6 +216,35 @@ class OCFileListBottomSheetDialog(
 
             menuMoreDocumentsContainer.visibility = if (creators.isEmpty()) View.GONE else View.VISIBLE
         }
+    }
+
+    private fun creatorsActionsFromDirectEditing(): ArrayList<CreatorAction> {
+        val creatorsActions = ArrayList<CreatorAction>()
+        ArbitraryDataProviderImpl(context)
+            .getValue(user, ArbitraryDataProvider.DIRECT_EDITING)
+            .takeIf(String::isNotEmpty)
+            ?.let { Gson().fromJson(it, DirectEditing::class.java) }
+            ?.creators
+            ?.values
+            ?.forEach { creator ->
+                val buttonText = creator.name
+                creatorsActions.add(
+                    CreatorAction(
+                        text = buttonText.replaceFirstChar(Char::titlecase),
+                        icon = MimeTypeUtil.getFileTypeIcon(
+                            creator.mimetype,
+                            creator.extension,
+                            context,
+                            viewThemeUtils
+                        ),
+                        action = {
+                            actions.showTemplate(creator, buttonText)
+                            dismiss()
+                        }
+                    )
+                )
+            }
+        return creatorsActions
     }
 
     /**
