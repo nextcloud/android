@@ -14,7 +14,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.utils.ErrorMessageAdapter
 
-@Suppress("DEPRECATION")
+@Suppress("DEPRECATION", "ReturnCount")
 fun <T : Any> RemoteOperationResult<*>.dataOfType(type: Class<T>): List<T> {
     if (!isSuccess) return emptyList()
     val data = data ?: return emptyList()

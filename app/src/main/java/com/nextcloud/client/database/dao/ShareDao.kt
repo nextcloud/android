@@ -25,8 +25,10 @@ interface ShareDao {
     suspend fun clearSharesForAccount(accountName: String)
 
     @Query(
-        "SELECT path, ${ProviderTableMeta.OCSHARES_SHARE_WITH}, ${ProviderTableMeta.OCSHARES_SHARE_TYPE} FROM ${ProviderTableMeta.OCSHARES_TABLE_NAME} " +
-            "WHERE path IN (:paths) AND owner_share = :accountName AND ${ProviderTableMeta.OCSHARES_SHARE_TYPE} IN (:shareTypes)"
+        "SELECT path, ${ProviderTableMeta.OCSHARES_SHARE_WITH}, " +
+            "${ProviderTableMeta.OCSHARES_SHARE_TYPE} FROM ${ProviderTableMeta.OCSHARES_TABLE_NAME} " +
+            "WHERE path IN (:paths) AND owner_share = :accountName AND " +
+            "${ProviderTableMeta.OCSHARES_SHARE_TYPE} IN (:shareTypes)"
     )
     fun getShareeKeys(paths: List<String>, accountName: String, shareTypes: List<Int>): List<ShareeKey>
 }
