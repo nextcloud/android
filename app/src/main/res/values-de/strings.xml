@@ -1205,6 +1205,7 @@
     <string name="user_info_twitter">X</string>
     <string name="user_info_website">Webseite</string>
     <string name="user_information_retrieval_error">Fehler beim Laden der Nutzer-Informationen</string>
+    <string name="user_information_retrieval_error_message">Bitte die Internetverbindung erneut überprüfen oder den Serverstatus überprüfen</string>
     <string name="userinfo_no_info_headline">Keine persönlichen Infos eingestellt</string>
     <string name="userinfo_no_info_text">Fügen Sie Name, Bild und Kontaktdaten auf Ihrer Profilseite hinzu.</string>
     <string name="username">Benutzername</string>
