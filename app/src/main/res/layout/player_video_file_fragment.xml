@@ -15,12 +15,14 @@
         android:layout_width="@dimen/player_file_icon_size"
         android:layout_height="@dimen/player_file_icon_size"
         android:layout_gravity="center"
+        android:importantForAccessibility="no"
         android:src="@drawable/player_ic_video" />
 
     <ImageView
         android:id="@+id/thumbnail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:importantForAccessibility="no" />
 
     <SurfaceView
         android:id="@+id/surfaceView"

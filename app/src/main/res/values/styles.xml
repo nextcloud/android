@@ -231,11 +231,6 @@
         <item name="android:windowLightNavigationBar">false</item>
     </style>
 
-    <style name="Theme.ownCloud.Media" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
-        <item name="android:colorControlHighlight">@color/primary</item>
-    </style>
-
     <style name="ToolbarStyle.Overflow" parent="@style/Widget.AppCompat.ActionButton.Overflow">
         <item name="android:tint">@android:color/white</item>
     </style>

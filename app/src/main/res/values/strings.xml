@@ -401,8 +401,6 @@
     <string name="pass_code_removed">Passcode deleted</string>
     <string name="pass_code_stored">Passcode stored</string>
 
-    <string name="media_notif_ticker">%1$s music player</string>
-    <string name="media_state_playing">%1$s (playing)</string>
     <string name="media_err_unsupported">Unsupported media codec</string>
     <string name="media_err_io">Could not read the media file</string>
     <string name="media_err_malformed">The media file has incorrect encoding</string>
@@ -1269,8 +1267,6 @@
     <string name="fourHours">4 hours</string>
     <string name="thisWeek">This week</string>
     <string name="drawer_item_gallery">Media</string>
-    <string name="player_stop">stop</string>
-    <string name="player_toggle">toggle</string>
     <string name="choose_which_file">Choose which file to keep!</string>
     <string name="wrong_storage_path">Data storage folder does not exist!</string>
     <string name="wrong_storage_path_desc">This might be due to a backup restore on another device. Falling back to default. Please check settings to adjust data storage folder.</string>
@@ -1557,7 +1553,7 @@
     <string name="player_error_source_not_found">Source not found</string>
     <string name="player_media_controls_close_action_title">Close</string>
     <string name="player_last_modified">Modified: %s</string>
-    <string name="player_control_view_repeat_button_content_description">Shuffle button</string>
+    <string name="player_control_view_repeat_button_content_description">Repeat button</string>
     <string name="player_control_view_previous_button_content_description">Previous button</string>
     <string name="player_control_view_play_pause_button_content_description">Play/Pause button</string>
     <string name="player_control_view_next_button_content_description">Next button</string>
