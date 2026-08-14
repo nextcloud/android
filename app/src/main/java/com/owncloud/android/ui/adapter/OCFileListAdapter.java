@@ -552,8 +552,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             handleListMode(holder, filename, pair);
         }
 
-        if (holder.getPlayerProgressIndicator() != null) {
-            holder.getPlayerProgressIndicator().setFile(file);
+        final var playerProgressIndicator = holder.getPlayerProgressIndicator();
+        if (playerProgressIndicator != null) {
+            playerProgressIndicator.setFile(file);
         }
     }
 
