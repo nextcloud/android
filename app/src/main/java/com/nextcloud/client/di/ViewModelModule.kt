@@ -13,8 +13,8 @@ import com.nextcloud.client.documentscan.DocumentScanViewModel
 import com.nextcloud.client.etm.EtmViewModel
 import com.nextcloud.client.logger.ui.LogsViewModel
 import com.nextcloud.ui.fileactions.FileActionsViewModel
-import com.owncloud.android.ui.preview.pdf.PreviewPdfViewModel
 import com.nextcloud.ui.trashbinFileActions.TrashbinFileActionsViewModel
+import com.owncloud.android.ui.preview.pdf.PreviewPdfViewModel
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
 import dagger.Binds
 import dagger.Module

@@ -1,0 +1,67 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+package com.nextcloud.ui.tags.util
+
+import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.view.View
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
+import com.owncloud.android.R
+import com.owncloud.android.lib.resources.tags.Tag
+import com.owncloud.android.utils.theme.ViewThemeUtils
+
+class TagChipsHelper(private val viewThemeUtils: ViewThemeUtils) {
+    companion object {
+        private const val CORNER_SIZE = 100.0f
+    }
+
+    fun refresh(context: Context, chipGroup: ChipGroup, tags: List<Tag>, onEditClicked: Runnable) {
+        chipGroup.removeAllViews()
+        chipGroup.visibility = View.VISIBLE
+
+        for (tag in tags) {
+            val chip = Chip(context).apply {
+                text = tag.name
+                chipBackgroundColor = ColorStateList.valueOf(
+                    context.resources.getColor(R.color.bg_default, context.theme)
+                )
+                shapeAppearanceModel = shapeAppearanceModel.toBuilder()
+                    .setAllCornerSizes(CORNER_SIZE)
+                    .build()
+                isClickable = false
+            }
+            chip.setEnsureMinTouchTargetSize(false)
+            viewThemeUtils.material.themeChipSuggestion(chip)
+
+            if (tag.color != null) {
+                val color = Color.parseColor(tag.color)
+                chip.chipStrokeColor = ColorStateList.valueOf(color)
+                chip.setTextColor(color)
+            }
+
+            chipGroup.addView(chip)
+        }
+
+        val editChip = Chip(context).apply {
+            setChipIconResource(R.drawable.ic_edit)
+            setText(R.string.manage_tags)
+            chipBackgroundColor = ColorStateList.valueOf(
+                context.resources.getColor(R.color.bg_default, context.theme)
+            )
+            shapeAppearanceModel = shapeAppearanceModel.toBuilder()
+                .setAllCornerSizes(CORNER_SIZE)
+                .build()
+            setOnClickListener { onEditClicked.run() }
+        }
+        editChip.setEnsureMinTouchTargetSize(false)
+        viewThemeUtils.material.themeChipSuggestion(editChip)
+        chipGroup.addView(editChip)
+    }
+}
