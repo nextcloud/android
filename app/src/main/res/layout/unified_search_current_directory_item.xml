@@ -38,6 +38,20 @@
 
     </FrameLayout>
 
+    <ImageView
+        android:id="@+id/favorite_action"
+        android:layout_width="@dimen/list_item_favorite_action_layout_width"
+        android:layout_height="@dimen/list_item_favorite_action_layout_height"
+        android:contentDescription="@string/favorite"
+        android:scaleType="fitCenter"
+        android:src="@drawable/favorite"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/thumbnail"
+        app:layout_constraintEnd_toEndOf="@+id/thumbnail"
+        app:layout_constraintStart_toEndOf="@+id/thumbnail"
+        app:layout_constraintTop_toTopOf="@+id/thumbnail"
+        tools:visibility="visible" />
+
     <LinearLayout
         android:id="@+id/titleContainer"
         android:layout_width="0dp"

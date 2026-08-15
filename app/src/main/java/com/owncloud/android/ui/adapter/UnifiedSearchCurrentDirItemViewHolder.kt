@@ -43,6 +43,8 @@ class UnifiedSearchCurrentDirItemViewHolder(
 
         thumbnailGenerator.setThumbnail(file, binding.thumbnail, shimmer = binding.thumbnailShimmer)
 
+        binding.favoriteAction.visibility = if (file.isFavorite) View.VISIBLE else View.GONE
+
         binding.more.setOnClickListener {
             action.openFile(file.decryptedRemotePath, true)
         }
