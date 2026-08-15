@@ -1205,6 +1205,7 @@
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Site</string>
     <string name="user_information_retrieval_error">Kullanıcı bilgileri alınırken sorun çıktı</string>
+    <string name="user_information_retrieval_error_message">Lütfen internet bağlantınızı ve sunucu durumunu denetleyin</string>
     <string name="userinfo_no_info_headline">Herhangi bir kişisel bilgi ayarlanmamış</string>
     <string name="userinfo_no_info_text">Profil sayfanızdan ad, görsel ve iletişim bilgilerinizi ekleyin.</string>
     <string name="username">Kullanıcı adı</string>

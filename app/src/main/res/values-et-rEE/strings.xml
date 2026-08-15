@@ -655,7 +655,7 @@
     <string name="new_media_folder_videos">video</string>
     <string name="new_notification">Uus teavitus</string>
     <string name="new_version_was_created">Uus versioon on loodud</string>
-    <string name="no_actions">Selle kasitaja kohta ei leidu tegevusi</string>
+    <string name="no_actions">Selle kasutaja kohta ei leidu tegevusi</string>
     <string name="no_browser_available">Linkide avamiseks ei leidu sobilikku rakendust</string>
     <string name="no_calendar_exists">Kalendrit ei leidu</string>
     <string name="no_email_app_available">E-posti aadressi kasutamiseks ei leidu sobilikku rakendust</string>
@@ -664,7 +664,7 @@
     <string name="no_mutliple_accounts_allowed">Lubatud on vaid ühe konto kasutamine</string>
     <string name="no_pdf_app_available">PDF-failide avamiseks ei leidu sobilikku rakendust</string>
     <string name="no_send_app">Valitud failide saatmiseks ei leidu sobilikku rakendust</string>
-    <string name="no_share_permission_selected">Palun vali jaosmeedia jaoks vähemalt üks õigus.</string>
+    <string name="no_share_permission_selected">Palun vali jagamise jaoks vähemalt üks õigus.</string>
     <string name="note_could_not_sent">Ei õnnestunud saata märget</string>
     <string name="note_icon_hint">Märkme ikoon</string>
     <string name="notification_action_failed">Ei õnnestunud käivitada tegevust.</string>
@@ -837,7 +837,7 @@
     <string name="rename_dialog_title">Sisesta uus nimi</string>
     <string name="rename_local_fail_msg">Lokaalse koopia nime muutmine ei õnnestunud, palun proovi teist nime</string>
     <string name="rename_server_fail_msg">Nime muutmine pole võimalik, nimi on juba kasutuses</string>
-    <string name="renew_e2e_certificate_dialog_message">Järgnevaja uuendad oma läbiva krüptimise sertifikaati. Sinu olemasolevad krüptovõtmed ja krüptitud failid jäävad muutmata. Kas soovid jätkata?</string>
+    <string name="renew_e2e_certificate_dialog_message">Järgnevaga uuendad oma läbiva krüptimise sertifikaati. Sinu olemasolevad krüptovõtmed ja krüptitud failid jäävad muutmata. Kas soovid jätkata?</string>
     <string name="renew_e2e_certificate_error">Krüptimise sertifikaadi uuendamine ei õnnestunud</string>
     <string name="renew_e2e_certificate_private_key_missing">Läbiva krüptimise privaatvõtit ei leidunud.</string>
     <string name="renew_e2e_certificate_success">Läbiva krüptimise sertifikaat on uuendatud.</string>
@@ -1205,6 +1205,7 @@
     <string name="user_info_twitter">X/Twitter</string>
     <string name="user_info_website">Veebisait</string>
     <string name="user_information_retrieval_error">Kasutaja teabe laadimisel tekkis viga</string>
+    <string name="user_information_retrieval_error_message">Palun kontrolli oma nutiseadme internetiühenduse toimimist või vaata, kas servre on töökorras</string>
     <string name="userinfo_no_info_headline">Isiklikud andmed on kirjeldamata</string>
     <string name="userinfo_no_info_text">Lisa oma profiili lehele nimi, pilt ja kontaktteave. </string>
     <string name="username">Kasutajanimi</string>

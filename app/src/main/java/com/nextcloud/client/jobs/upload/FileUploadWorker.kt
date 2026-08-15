@@ -34,6 +34,7 @@ import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.db.UploadResult
 import com.owncloud.android.lib.common.OwnCloudAccount
@@ -54,6 +55,7 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.random.Random
+import kotlin.time.Duration.Companion.milliseconds
 
 @Suppress("LongParameterList", "TooGenericExceptionCaught")
 class FileUploadWorker(
@@ -260,12 +262,22 @@ class FileUploadWorker(
         val client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context)
         val syncFolderHelper = SyncFolderHelper(context)
         val syncedFolders = syncedFolderProvider.syncedFolders
-        var uploadFilesResult = UploadFilesResult.Success
+        var hasRetryableFailure = false
+        var hasNonRetryableFailure = false
 
         for ((index, upload) in uploads.withIndex()) {
             ensureActive()
 
-            delay(retryPolicy.getDelay())
+            if (skip(upload)) {
+                Log_OC.d(
+                    TAG,
+                    "skipping already settled upload: ${upload.remotePath}, " +
+                        "status: ${upload.uploadStatus}, result: ${upload.lastResult}"
+                )
+                continue
+            }
+
+            delay(retryPolicy.getDelay().milliseconds)
 
             if (!skipAutoUploadCheck && isBelongToAnySyncedFolder(upload, syncFolderHelper, syncedFolders)) {
                 Log_OC.d(TAG, "skipping upload, will be handled by AutoUploadWorker: ${upload.localPath}")
@@ -286,7 +298,7 @@ class FileUploadWorker(
 
             if (canExitEarly()) {
                 notificationManager.showConnectionErrorNotification()
-                return@withContext Result.failure()
+                return@withContext Result.retry()
             }
 
             fileUploadEventBroadcaster.sendUploadEnqueued(context)
@@ -319,10 +331,9 @@ class FileUploadWorker(
             if (!result.isSuccess) {
                 Log_OC.e(TAG, "upload failed for ${upload.remotePath}: ${result.code}")
                 if (uploadResult.isNonRetryable()) {
-                    uploadFilesResult = UploadFilesResult.Error
-                } else if (uploadFilesResult != UploadFilesResult.Error) {
-                    // only set retry if any other not failed before
-                    uploadFilesResult = UploadFilesResult.Retry
+                    hasNonRetryableFailure = true
+                } else {
+                    hasRetryableFailure = true
                 }
             }
 
@@ -334,7 +345,19 @@ class FileUploadWorker(
             }
         }
 
+        val uploadFilesResult = when {
+            hasRetryableFailure -> UploadFilesResult.Retry
+            hasNonRetryableFailure -> UploadFilesResult.Error
+            else -> UploadFilesResult.Success
+        }
+
         return@withContext uploadFilesResult.toWorkerResult()
+    }
+
+    private fun skip(upload: OCUpload): Boolean = when (upload.uploadStatus) {
+        UploadStatus.UPLOAD_SUCCEEDED -> true
+        UploadStatus.UPLOAD_FAILED -> upload.lastResult.isNonRetryable()
+        else -> false
     }
 
     @Suppress("ReturnCount")

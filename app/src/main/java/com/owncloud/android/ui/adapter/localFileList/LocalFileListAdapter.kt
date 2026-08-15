@@ -99,6 +99,19 @@ class LocalFileListAdapter(
 
     fun isCheckedFile(file: File): Boolean = checkedFiles.contains(file)
 
+    fun onItemCheckboxClicked(file: File) {
+        if (isCheckedFile(file)) {
+            removeCheckedFile(file)
+        } else {
+            addCheckedFile(file)
+        }
+
+        val position = getItemPosition(file)
+        if (position != RecyclerView.NO_POSITION) {
+            notifyItemChanged(position)
+        }
+    }
+
     fun addCheckedFile(file: File) {
         checkedFiles.add(file)
     }

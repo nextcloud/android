@@ -20,7 +20,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/local_files_list_container"
-        android:name="com.owncloud.android.ui.fragment.LocalFileListFragment"
+        android:name="com.owncloud.android.ui.fragment.localfilelist.LocalFileListFragment"
         android:tag="local_files_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"

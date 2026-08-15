@@ -276,13 +276,21 @@ class FileUploadHelper {
                 remotePath = remotePaths[index]
             )
             if (entity != null) {
-                val capability = fileStorageManager.getCapability(user)
-                entity.toOCUpload(capability) ?: createOCUpload()
+                reusePendingUpload(entity, user) ?: createOCUpload()
             } else {
                 createOCUpload()
             }
         }
         backgroundJobManager.startFilesUploadJob(user, uploads.getUploadIds(), showSameFileAlreadyExistsNotification)
+    }
+
+    private fun reusePendingUpload(entity: UploadEntity, user: User): OCUpload? {
+        val capability = fileStorageManager.getCapability(user)
+        val upload = entity.toOCUpload(capability) ?: return null
+
+        upload.uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
+        uploadsStorageManager.updateUpload(upload)
+        return upload
     }
 
     @Suppress("ReturnCount")
@@ -494,8 +502,7 @@ class FileUploadHelper {
                         )
                     }
                 if (entity != null) {
-                    val capability = fileStorageManager.getCapability(user)
-                    entity.toOCUpload(capability) ?: createOCUpload()
+                    reusePendingUpload(entity, user) ?: createOCUpload()
                 } else {
                     createOCUpload()
                 }
