@@ -10,6 +10,7 @@
     <string name="action_edit">Редагувати</string>
     <string name="action_empty_notifications">Очистити всі сповіщення</string>
     <string name="action_empty_trashbin">Очистити кошик</string>
+    <string name="action_open_in_web_editor">Відрити у вебредакторі</string>
     <string name="action_send_share">Надіслати або поділитися</string>
     <string name="action_switch_grid_view">Показувати сіткою</string>
     <string name="action_switch_list_view">Показувати списком</string>
@@ -274,6 +275,8 @@
     <string name="dialog_close">закрити</string>
     <string name="did_not_check_for_dupes">Відсутня перевірка на наявність дублікатів.</string>
     <string name="digest_algorithm_not_available">Цей цифровий алгоритм недоступний на вашому телефоні.</string>
+    <string name="direct_login_confirm_message">Дійсно увійти з %1$s до %2$s?</string>
+    <string name="direct_login_confirm_title">Підтвердити вхід</string>
     <string name="direct_login_failed">Відмовлено у авторизації за прямим посиланням!</string>
     <string name="direct_login_text">Увійти до %2$s з %1$s</string>
     <string name="disable_new_media_folder_detection_notifications">Вимкнути</string>
@@ -431,6 +434,8 @@
     <string name="file_detail_sharing_fragment_no_contact_app_message">Відсутній застосунок для вибору контактів</string>
     <string name="file_details_no_content">Не вдалося завантажити подробиці</string>
     <string name="file_icon">Файл</string>
+    <string name="file_info_governance_section_title">Управління</string>
+    <string name="file_info_image_details_section_title">Деталі зображення</string>
     <string name="file_keep">Зберегти</string>
     <string name="file_list_empty">Додати дані або синхронізувати з вашими пристроями.</string>
     <string name="file_list_empty_favorite_headline">Поки що ви нічого не позначили зірочкою</string>
@@ -538,7 +543,11 @@
     <string name="foreign_files_remote_text">Віддалено: %1$s</string>
     <string name="forward">Вперед</string>
     <string name="fourHours">4 години</string>
+    <string name="governance_file_retention_label">Зберігання файлів</string>
+    <string name="governance_legal_hold_label">Правові застереження</string>
     <string name="governance_no_label">Нічого</string>
+    <string name="governance_permission_denied">Відсутні права на зміну ярлика</string>
+    <string name="governance_sensitivity_label">Ярлик конфіденційності</string>
     <string name="gplay_restriction">Ґуґл обмежив звантаження файлів APK/AAB!</string>
     <string name="grid_file_features_live_photo_content_description">Цей значок означає доступність живого фото</string>
     <string name="hidden_file_name_warning">Назву буде наведено у прихованому файлі</string>
@@ -777,6 +786,7 @@
     <string name="prefs_recommend">Рекомендувати застосунок</string>
     <string name="prefs_remove_e2e">Вилучити шифрування на пристрої</string>
     <string name="prefs_remove_e2e_keys_and_files">Вилучити зашифровані файли та ключі шифрування</string>
+    <string name="prefs_renew_e2e_certificate">Оновити сертифікат шифрування</string>
     <string name="prefs_setup_e2e">Налаштувати наскрізне шифрування</string>
     <string name="prefs_show_ecosystem_apps">Показувати перемикач застосунків</string>
     <string name="prefs_show_ecosystem_apps_summary">Пропозиції застосунків Nextcloud у заголовку навігації</string>
@@ -827,6 +837,12 @@
     <string name="rename_dialog_title">Введіть нове ім\'я</string>
     <string name="rename_local_fail_msg">Неможливо перейменувати локальну копію, спробуйте інше ім\'я</string>
     <string name="rename_server_fail_msg">Неможливо перейменувати, таке ім\'я уже існує</string>
+    <string name="renew_e2e_certificate_dialog_message">Таким чином буде оновлено ваш сертифікат наскрізного шифрування. Ваші поточні ключі та зашифровані файли залишаться без змін. Продовжити?</string>
+    <string name="renew_e2e_certificate_error">Не вдалося оновити сертифікат шифрування</string>
+    <string name="renew_e2e_certificate_private_key_missing">Приватний ключ шифрування не знайдено</string>
+    <string name="renew_e2e_certificate_success">Сертифікат шифрування оновлено</string>
+    <string name="renew_e2e_certificate_summary">Оновити ваш сертифікат наскрізного шифрування зі збереженням поточних ключів</string>
+    <string name="renew_e2e_certificate_valid_until">Дійсний до %1$s. Клацніть для оновлення зі збереженням поточних ключів.</string>
     <string name="request_account_deletion">Запит на вилучення облікового запису</string>
     <string name="request_account_deletion_button">Запит на вилучення</string>
     <string name="request_account_deletion_details">Запит на вилучення облікового запису з боку постачальника послуг</string>
@@ -1189,6 +1205,7 @@
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Вебсайт</string>
     <string name="user_information_retrieval_error">Помилка під час отримання інформації про користувача</string>
+    <string name="user_information_retrieval_error_message">Перевірте повторно з\'єднання з мережею або статус доступності сервера.</string>
     <string name="userinfo_no_info_headline">Відсутня особиста інформація</string>
     <string name="userinfo_no_info_text">Додайте назву, зображення та деталі контакту на сторінці вашого профілю.</string>
     <string name="username">Ім\'я користувача</string>
