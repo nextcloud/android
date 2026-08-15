@@ -355,9 +355,14 @@ class OCFileListDelegate(
         val icon = when {
             isSyncing -> R.drawable.ic_synchronizing
             hasConflict -> R.drawable.ic_synchronizing_error
-            isDown || isFolderDown -> R.drawable.ic_synced
+            isDown || isFolderDown -> {
+                Log_OC.d("DOWN_INDICATOR", "isFolderDown : $isFolderDown")
+                Log_OC.d("DOWN_INDICATOR", "storage path: ${file.storagePath}")
+                R.drawable.ic_synced
+            }
             else -> null
         }
+
 
         holder.localFileIndicator.run {
             if (icon != null && showMetadata) {
