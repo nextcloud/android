@@ -145,6 +145,28 @@ class OCFileListBottomSheetDialog(
         }
     }
 
+    /**
+     * Builds the label for a Direct Editing creator entry.
+     *
+     * Some connectors (e.g. ONLYOFFICE-based ones) already provide full phrases as creator names
+     * ("Neues Dokument" / "New document"). Blindly prefixing the localized "New" then produces
+     * duplicated wording like "Neu Neues Dokument" / "New New document". Only apply the prefix
+     * when the creator name does not already start with it; otherwise use the name as-is.
+     */
+    private fun buildCreatorButtonText(creatorName: String): String {
+        val createNew = fileActivity.getString(R.string.create_new)
+
+        return if (creatorName.trim().startsWith(createNew, ignoreCase = true)) {
+            creatorName
+        } else {
+            String.format(
+                fileActivity.getString(R.string.editor_placeholder),
+                createNew,
+                creatorName
+            )
+        }
+    }
+
     @Suppress("DEPRECATION", "LongMethod", "MagicNumber")
     private fun initCreatorContainer() {
         val json = ArbitraryDataProviderImpl(context)
@@ -184,11 +206,7 @@ class OCFileListBottomSheetDialog(
                 gravity = Gravity.START or Gravity.CENTER_VERTICAL
                 setPaddingRelative(standardPadding, 0, standardPadding, 0)
 
-                val buttonText = String.format(
-                    fileActivity.getString(R.string.editor_placeholder),
-                    fileActivity.getString(R.string.create_new),
-                    creator.name
-                )
+                val buttonText = buildCreatorButtonText(creator.name)
                 text = buttonText
                 setTextColor(ContextCompat.getColor(context, R.color.text_color))
                 textSize = 16f
