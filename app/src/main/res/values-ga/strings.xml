@@ -1205,6 +1205,7 @@
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Suíomh Gréasáin</string>
     <string name="user_information_retrieval_error">Earráid agus faisnéis úsáideora á fáil</string>
+    <string name="user_information_retrieval_error_message">Déan seiceáil dhúbailte ar do nasc idirlín nó seiceáil stádas an fhreastalaí.</string>
     <string name="userinfo_no_info_headline">Níl aon tacar faisnéise pearsanta ann</string>
     <string name="userinfo_no_info_text">Cuir ainm, pictiúr agus sonraí teagmhála ar do leathanach próifíle.</string>
     <string name="username">Ainm úsáideora</string>
