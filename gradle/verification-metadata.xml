@@ -62,6 +62,7 @@
             <trusting group="androidx.fragment"/>
             <trusting group="androidx.lifecycle"/>
             <trusting group="androidx.media3"/>
+            <trusting group="androidx.webkit" name="webkit" version="1.17.0"/>
             <trusting group="androidx.tracing"/>
             <trusting group="androidx.work"/>
             <trusting group="com.google.firebase"/>
