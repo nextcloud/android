@@ -229,6 +229,11 @@ class FileDisplayActivity :
     private var mPlayerConnection: PlayerServiceConnection? = null
     private var lastDisplayedAccountName: String? = null
 
+    // needed for first time app launch multiple listing directory call
+    // because onActivityCreated causes this. Removing list directory call from onActivityCreated
+    // causing also empty state thus this flag is used.
+    private var listFragmentJustCreated = false
+
     @Inject
     lateinit var localBroadcastManager: LocalBroadcastManager
 
@@ -561,6 +566,7 @@ class FileDisplayActivity :
             val transaction = supportFragmentManager.beginTransaction()
             transaction.add(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES)
             transaction.commit()
+            listFragmentJustCreated = true
         } else {
             supportFragmentManager.findFragmentByTag(TAG_LIST_OF_FILES)
         }
@@ -569,8 +575,11 @@ class FileDisplayActivity :
     private fun initFragments() {
         // First fragment
         val listOfFiles = this.listOfFilesFragment
-        if (listOfFiles != null && TextUtils.isEmpty(searchQuery)) {
-            listOfFiles.listDirectory(getCurrentDir(), file, MainApp.isOnlyOnDevice())
+        if (listOfFiles != null && searchQuery.isNullOrEmpty()) {
+            if (!listFragmentJustCreated) {
+                listOfFiles.listDirectory(getCurrentDir(), file, MainApp.isOnlyOnDevice())
+            }
+            listFragmentJustCreated = true
         } else {
             Log_OC.e(TAG, "Still have a chance to lose the initialization of list fragment >(")
         }
@@ -612,10 +621,13 @@ class FileDisplayActivity :
                     if (it::class != OCFileListFragment::class) {
                         leftFragment = OCFileListFragment()
                         supportFragmentManager.executePendingTransactions()
+                        listFragmentJustCreated = true
                     }
                 }
 
-                browseToRoot()
+                // The onResume() that always follows this same-activity intent redelivery already
+                // lists and re-syncs the current directory, so doing it again here is redundant.
+                browseToRoot(performRefresh = false)
             }
 
             LIST_GROUPFOLDERS == action -> {
@@ -1372,6 +1384,9 @@ class FileDisplayActivity :
 
         super.onResume()
 
+        val listFragmentJustCreated = this.listFragmentJustCreated
+        this.listFragmentJustCreated = false
+
         folderRefreshScheduler.start()
 
         if (ocFileListFragment?.isSearchFragment == true) {
@@ -1412,7 +1427,9 @@ class FileDisplayActivity :
         if (searchView != null && !TextUtils.isEmpty(searchQuery)) {
             searchView?.setQuery(searchQuery, false)
         } else if (!ocFileListFragment.isSearchFragment && startFile == null) {
-            ocFileListFragment.listDirectory(MainApp.isOnlyOnDevice())
+            if (!listFragmentJustCreated) {
+                ocFileListFragment.listDirectory(MainApp.isOnlyOnDevice())
+            }
             ocFileListFragment.registerFabListener()
             updateActionBarTitleAndHomeButton(currentDir)
         } else {
@@ -1555,6 +1572,9 @@ class FileDisplayActivity :
             return
         }
 
+        // EVENT_SINGLE_FOLDER_CONTENTS_SYNCED fires only when the folder's content actually changed, and
+        // EVENT_SINGLE_FOLDER_SHARES_SYNCED only when a sharee actually changed - each is an independent,
+        // already-precise signal, so both are handled here (RefreshFolderOperation.java).
         var currentFile = file?.remotePath?.let { storageManager.getFileByPath(it) }
         val currentDir = getCurrentDir()?.remotePath?.let { storageManager.getFileByPath(it) }
         val isSyncFolderRemotePathRoot = OCFile.ROOT_PATH == syncFolderRemotePath
@@ -1916,13 +1936,15 @@ class FileDisplayActivity :
     }
     // endregion
 
-    fun browseToRoot() {
+    fun browseToRoot(performRefresh: Boolean = true) {
         listOfFilesFragment?.let {
             val root = storageManager.getFileByPath(OCFile.ROOT_PATH)
             it.resetSearchAttributes()
             file = root
-            it.listDirectory(root, MainApp.isOnlyOnDevice())
-            startSyncFolderOperation(root, false)
+            if (performRefresh) {
+                it.listDirectory(root, MainApp.isOnlyOnDevice())
+                startSyncFolderOperation(root, false)
+            }
         }
 
         binding.fabMain.setImageResource(R.drawable.ic_plus)

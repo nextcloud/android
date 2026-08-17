@@ -570,6 +570,9 @@ open class FolderPickerActivity :
                 }
 
                 if (FileSyncAdapter.EVENT_FULL_SYNC_START != event) {
+                    // EVENT_SINGLE_FOLDER_CONTENTS_SYNCED fires only when the folder's content actually
+                    // changed, and EVENT_SINGLE_FOLDER_SHARES_SYNCED only when a sharee actually changed -
+                    // each is an independent, already-precise signal (RefreshFolderOperation.java).
                     var (currentFile, currentDir) = getCurrentFileAndDirectory()
 
                     if (currentDir == null) {
