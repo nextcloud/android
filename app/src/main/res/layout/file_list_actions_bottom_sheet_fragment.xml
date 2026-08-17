@@ -261,6 +261,7 @@
                     style="@style/Widget.App.Button.BottomSheetItem"
                     android:layout_width="@dimen/bottom_sheet_item_height"
                     android:layout_height="@dimen/bottom_sheet_item_height"
+                    android:layout_marginHorizontal="@dimen/standard_margin"
                     android:contentDescription="@string/more_documents"
                     android:gravity="start|center_vertical"
                     android:paddingStart="@dimen/standard_padding"
