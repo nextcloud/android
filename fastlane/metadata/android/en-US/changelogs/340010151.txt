@@ -1,0 +1,7 @@
+## 34.1.1 RC1 (August 17, 2026)
+
+- Bug fixes and performance improvements
+
+Minimum: NC 20 Server, Android 9 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/128
