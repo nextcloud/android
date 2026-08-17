@@ -62,6 +62,12 @@ class OCFileListBottomSheetDialog(
     companion object {
         // Number of items to show in document creators overview
         private const val CREATORS_OVERVIEW_ITEMS = 3
+        private val DIRECT_EDITING_CREATORS_OFFICE_IDS = arrayOf("document", "spreadsheet", "presentation")
+    }
+
+    private enum class CreatorType {
+        Office,
+        Other
     }
 
     private val templateActions = listOf(
@@ -71,7 +77,8 @@ class OCFileListBottomSheetDialog(
             action = {
                 actions.newDocument()
                 dismiss()
-            }
+            },
+            type = CreatorType.Office
         ),
         CreatorAction(
             text = context.getString(R.string.create_spreadsheet),
@@ -79,7 +86,8 @@ class OCFileListBottomSheetDialog(
             action = {
                 actions.newSpreadsheet()
                 dismiss()
-            }
+            },
+            type = CreatorType.Office
         ),
         CreatorAction(
             text = context.getString(R.string.create_presentation),
@@ -87,7 +95,8 @@ class OCFileListBottomSheetDialog(
             action = {
                 actions.newPresentation()
                 dismiss()
-            }
+            },
+            type = CreatorType.Office
         )
     )
 
@@ -171,11 +180,18 @@ class OCFileListBottomSheetDialog(
         // Create a list of supported creators, in the order to be shown (direct editing, then collabora)
         val creatorsActions = ArrayList<CreatorAction>()
 
-        // Check direct editing capabilities
-        creatorsActions.addAll(creatorsActionsFromDirectEditing())
+        // Check direct editing
+        val directEditing = creatorsActionsFromDirectEditing()
 
-        // Check collabora capabilities
-        creatorsActions.addAll(creatorsActionsFromCollabora())
+        // Check capabilities (e.g. collabora)
+        val capabilities = creatorsActionsFromCollabora()
+
+        // First Direct Editing Office (if any)
+        creatorsActions.addAll(directEditing.filter { it.type == CreatorType.Office })
+        // Then Capabilities Office (if any). Capabilities entry are all type office, no need to filter.
+        creatorsActions.addAll(capabilities)
+        // Then all the rest
+        creatorsActions.addAll(directEditing.filter { it.type != CreatorType.Office })
 
         displayCreatorsActions(creatorsActions)
     }
@@ -236,7 +252,13 @@ class OCFileListBottomSheetDialog(
                         action = {
                             actions.showTemplate(creator, buttonText)
                             dismiss()
+                        },
+                        type = if (creator.id in DIRECT_EDITING_CREATORS_OFFICE_IDS) {
+                            CreatorType.Office
+                        } else {
+                            CreatorType.Other
                         }
+
                     )
                 )
             }
@@ -407,5 +429,10 @@ class OCFileListBottomSheetDialog(
         }
     }
 
-    private data class CreatorAction(val text: String, val icon: Drawable?, val action: () -> Unit)
+    private data class CreatorAction(
+        val text: String,
+        val icon: Drawable?,
+        val action: () -> Unit,
+        val type: CreatorType
+    )
 }
