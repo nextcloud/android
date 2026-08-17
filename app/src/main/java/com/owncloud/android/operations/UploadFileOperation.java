@@ -468,10 +468,9 @@ public class UploadFileOperation extends SyncOperation {
         Log_OC.d(TAG, "parent lookup for path: " + remoteParentPath + " → " +
             (parent == null ? "not found in DB" : "found, id=" + parent.getFileId()));
 
-        // in case of a fresh upload with subfolder, where parent does not exist yet
-        if (parent == null && (mFolderUnlockToken == null || mFolderUnlockToken.isEmpty())) {
-            Log_OC.d(TAG, "parent not in DB and no unlock token, attempting to grant folder existence: "
-                + remoteParentPath);
+        final boolean isResumingEncryptedUpload = (mFolderUnlockToken != null && !mFolderUnlockToken.isEmpty());
+        if (!isResumingEncryptedUpload && (parent == null || mRemoteFolderToBeCreated)) {
+            Log_OC.d(TAG, "verifying remote parent folder exists: " + remoteParentPath);
             final var result = grantFolderExistence(remoteParentPath, client);
 
             if (!result.isSuccess()) {
@@ -486,8 +485,7 @@ public class UploadFileOperation extends SyncOperation {
                 return new RemoteOperationResult<>(ResultCode.UNKNOWN_ERROR);
             }
 
-            Log_OC.d(TAG, "parent created and retrieved successfully: " + remoteParentPath + ", id=" +
-                parent.getFileId());
+            Log_OC.d(TAG, "remote parent folder confirmed: " + remoteParentPath + ", id=" + parent.getFileId());
         }
 
         if (parent == null) {
