@@ -152,6 +152,13 @@ class OCFileListBottomSheetDialog(
                 colorMaterialButtonContent(menuEncryptedMkdir, ColorRole.PRIMARY)
                 colorMaterialButtonContent(menuCreateRichWorkspace, ColorRole.PRIMARY)
                 colorMaterialButtonContent(menuMoreDocuments, ColorRole.PRIMARY)
+                colorMaterialButtonContent(menuBack, ColorRole.PRIMARY)
+
+                viewThemeUtils.platform.tintDrawable(
+                    context,
+                    binding.menuMoreDocumentsExpand.drawable,
+                    ColorRole.PRIMARY
+                )
             }
         }
 

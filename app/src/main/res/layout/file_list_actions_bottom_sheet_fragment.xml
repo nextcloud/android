@@ -85,6 +85,7 @@
                             app:iconTint="@color/primary"/>
 
                         <ImageView
+                            android:id="@+id/menu_more_documents_expand"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
