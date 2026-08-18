@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2026 Philipp Hasper <vcs@hasper.info>
  * SPDX-FileCopyrightText: 2023 TSI-mc
  * SPDX-FileCopyrightText: 2018-2023 Tobias Kaminsky <tobias@kaminsky.me>
@@ -63,6 +64,7 @@ import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.fileNameValidator.FileNameValidator;
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator;
 import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -121,7 +123,7 @@ import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
-import com.nextcloud.utils.thumbnail.ThumbnailGenerator;
+import com.owncloud.android.utils.WebViewUtil;
 import com.owncloud.android.utils.theme.ThemeUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
@@ -1220,14 +1222,33 @@ public class OCFileListFragment extends ExtendedListFragment implements
         return virtualFolderSearch && MimeTypeUtil.isVideo(file);
     }
 
+    private boolean supportsDirectEditing(OCFile file, boolean webViewAvailable) {
+        if (!webViewAvailable) {
+            return false;
+        }
+
+        final var account = accountManager.getUser();
+        if (account.isAnonymous()) {
+            return false;
+        }
+
+        final var capability =
+            mContainerActivity.getStorageManager().getCapability(account.getAccountName());
+
+        final var mimeTypes = capability.getRichDocumentsMimeTypeList();
+        return mimeTypes != null
+            && mimeTypes.contains(file.getMimeType())
+            && capability.getRichDocumentsDirectEditing().isTrue()
+            && !file.isEncrypted();
+    }
+
     private void handlePendingDownloadFile(OCFile file) {
         if (!isAccountManagerInitialized()) {
             Log_OC.e(TAG, "AccountManager not yet initialized");
             return;
         }
 
-        User account = accountManager.getUser();
-        OCCapability capability = mContainerActivity.getStorageManager().getCapability(account.getAccountName());
+        boolean webViewAvailable = WebViewUtil.available(getContext());
 
         if (MimeTypeUtil.isVideo(file) && !file.isEncrypted() && mContainerActivity instanceof FileDisplayActivity fda) {
             setFabVisible(false);
@@ -1235,11 +1256,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         } else if (PreviewMediaActivity.Companion.canBePreviewed(file) && !file.isEncrypted() && mContainerActivity instanceof FileDisplayActivity fda) {
             setFabVisible(false);
             fda.startMediaPreview(file, 0, true, true, true, true);
-        } else if (editorUtils.getEditor(accountManager.getUser(), file.getMimeType()) != null && !file.isEncrypted()) {
+        } else if (webViewAvailable && editorUtils.getEditor(accountManager.getUser(), file.getMimeType()) != null && !file.isEncrypted()) {
             TextEditorWebView.Companion.startTextEditor(file, getContext());
-        } else if (capability.getRichDocumentsMimeTypeList() != null &&
-            capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
-            capability.getRichDocumentsDirectEditing().isTrue() && !file.isEncrypted()) {
+        } else if (supportsDirectEditing(file, webViewAvailable)) {
             mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(file, getContext());
         } else if (mContainerActivity instanceof FileDisplayActivity fda) {
             fda.startDownloadForPreview(file, mFile);
@@ -1604,6 +1623,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 return;
             }
 
+            Log_OC.i(TAG, "listing directory: " + directory.getDecryptedRemotePath());
+
             mAdapter.swapDirectory(
                 accountManager.getUser(),
                 directory,
@@ -1616,14 +1637,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             updateLayout();
 
+            final var recyclerView = getRecyclerView();
             if (file != null) {
                 mAdapter.setHighlightedItem(file);
                 int position = mAdapter.getItemPosition(file);
-                if (position != -1 && getRecyclerView() != null) {
-                    getRecyclerView().scrollToPosition(position);
+                if (position != -1 && recyclerView != null) {
+                    recyclerView.scrollToPosition(position);
                 }
-            } else if (getRecyclerView() != null && (previousDirectory == null || !previousDirectory.equals(directory))) {
-                getRecyclerView().scrollToPosition(0);
+            } else if (recyclerView != null && (previousDirectory == null || !previousDirectory.equals(directory))) {
+                recyclerView.scrollToPosition(0);
             }
         } else if (isSearchEventSet(searchEvent)) {
             handleSearchEvent(searchEvent);

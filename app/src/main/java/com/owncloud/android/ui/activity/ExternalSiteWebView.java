@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2017 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2017 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -56,6 +57,14 @@ public class ExternalSiteWebView extends FileActivity {
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
+
+        if (!WebViewUtil.available(this)) {
+            super.onCreate(savedInstanceState);
+            DisplayUtils.showSnackMessage(this, R.string.webview_not_available);
+            finish();
+            return;
+        }
+
         bindView();
         showToolbar = showToolbarByDefault();
 
@@ -153,7 +162,10 @@ public class ExternalSiteWebView extends FileActivity {
 
     @Override
     protected void onDestroy() {
-        getWebView().destroy();
+        WebView webView = getWebView();
+        if (webView != null) {
+            webView.destroy();
+        }
         super.onDestroy();
     }
 
@@ -232,6 +244,6 @@ public class ExternalSiteWebView extends FileActivity {
     }
 
     protected WebView getWebView() {
-        return binding.webView;
+        return binding == null ? null : binding.webView;
     }
 }

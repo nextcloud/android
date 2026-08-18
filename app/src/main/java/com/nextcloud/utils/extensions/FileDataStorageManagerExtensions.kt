@@ -7,13 +7,47 @@
 
 package com.nextcloud.utils.extensions
 
+import com.nextcloud.client.database.entity.model.ShareeKey
 import com.nextcloud.client.database.entity.toOCCapability
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.status.OCCapability
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+
+private const val SHARE_PATH_QUERY_CHUNK_SIZE = 400
+
+/**
+ * Detects sharee additions/removals (by userId + shareType) for [remoteFiles], compared to what is stored
+ * locally.
+ */
+fun FileDataStorageManager.areShareesChanged(remoteFiles: List<RemoteFile>): Boolean {
+    if (remoteFiles.isEmpty()) {
+        return false
+    }
+
+    val newShareesByPath = remoteFiles.asSequence()
+        .filter { it.remotePath != null }
+        .groupBy { it.remotePath as String }
+        .mapValues { (_, files) ->
+            files.asSequence()
+                .flatMap { file -> file.sharees.orEmpty().asSequence() }
+                .mapNotNull { sharee -> sharee.shareType?.let { "${sharee.userId}:${it.value}" } }
+                .toSet()
+        }
+
+    val existingShareesByPath = newShareesByPath.keys
+        .chunked(SHARE_PATH_QUERY_CHUNK_SIZE)
+        .flatMap { chunk -> shareDao.getShareeKeys(chunk, user.accountName, ShareeKey.shareableShareTypeValues) }
+        .groupBy(ShareeKey::path) { "${it.shareWith}:${it.shareType}" }
+        .mapValues { (_, keys) -> keys.toSet() }
+
+    return newShareesByPath.keys.any { path ->
+        newShareesByPath[path].orEmpty() != existingShareesByPath[path].orEmpty()
+    }
+}
 
 suspend fun FileDataStorageManager.saveShares(shares: List<OCShare>, accountName: String) {
     withContext(Dispatchers.IO) {

@@ -134,7 +134,16 @@ class FileUploadHelper {
 
         appScope.launch {
             try {
-                val uploads = getUploadsByStatus(null, UploadStatus.UPLOAD_FAILED, capability)
+                /**
+                 * Rows are marked `UPLOAD_IN_PROGRESS` before upload starts.
+                 * Only `updateDatabaseUploadResult()` writes status.
+                 * If the process dies first, the row remains `UPLOAD_IN_PROGRESS`
+                 * and is treated as a failed upload eligible for retry.
+                 *
+                 * e.g. AutoUploadWorker killed before completed
+                 */
+                val uploads = getUploadsByStatus(null, UploadStatus.UPLOAD_FAILED, capability) +
+                    getUploadsByStatus(null, UploadStatus.UPLOAD_IN_PROGRESS, capability)
 
                 retryUploads(
                     uploadsStorageManager,
@@ -186,6 +195,10 @@ class FileUploadHelper {
         val client = accountManager.createOwncloudClient()
 
         for (upload in uploads) {
+            if (FileUploadWorker.isUploading(upload.remotePath, upload.accountName)) {
+                continue
+            }
+
             if (upload.isLastResultConflictError()) {
                 client?.let {
                     conflictHandlingResult =

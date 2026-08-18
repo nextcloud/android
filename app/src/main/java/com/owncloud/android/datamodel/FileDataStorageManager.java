@@ -49,6 +49,7 @@ import com.nextcloud.model.ShareeEntry;
 import com.nextcloud.utils.date.DateFormatPattern;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.nextcloud.utils.extensions.DateExtensionsKt;
+import com.nextcloud.utils.extensions.FileDataStorageManagerExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
@@ -1830,17 +1831,22 @@ public class FileDataStorageManager {
         }
     }
 
-    public void saveSharesFromRemoteFile(List<RemoteFile> shares) {
+    /**
+     * @return true if the sharees of any of the given files differ from what is currently stored locally.
+     */
+    public boolean saveSharesFromRemoteFile(List<RemoteFile> shares) {
         if (shares == null || shares.isEmpty()) {
-            return;
+            return false;
         }
 
-        // Prepare reset operations
         Set<String> uniquePaths = new HashSet<>();
         for (RemoteFile share : shares) {
             uniquePaths.add(share.getRemotePath());
         }
 
+        boolean sharesChanged = FileDataStorageManagerExtensionsKt.areShareesChanged(this, shares);
+
+        // Prepare reset operations
         ArrayList<ContentProviderOperation> resetOperations = new ArrayList<>();
         for (String path : uniquePaths) {
             resetShareFlagInAFile(path);
@@ -1858,6 +1864,8 @@ public class FileDataStorageManager {
         if (!insertOperations.isEmpty()) {
             applyBatch(insertOperations);
         }
+
+        return sharesChanged;
     }
 
     /**

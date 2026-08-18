@@ -1205,6 +1205,7 @@
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Website</string>
     <string name="user_information_retrieval_error">Erro ao recuperar informação do usuário</string>
+    <string name="user_information_retrieval_error_message">Por favor, verifique novamente sua conexão com a internet ou verifique o status do servidor</string>
     <string name="userinfo_no_info_headline">Informações privadas não encontradas</string>
     <string name="userinfo_no_info_text">Adicionar nome, imagem e detalhes de contato na sua página de perfil.</string>
     <string name="username">Nome do usuário</string>
