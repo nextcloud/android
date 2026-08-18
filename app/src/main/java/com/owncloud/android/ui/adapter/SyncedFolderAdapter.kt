@@ -388,11 +388,15 @@ class SyncedFolderAdapter(
     }
 
     private fun optionsItemSelected(menuItem: MenuItem, section: Int, item: SyncedFolderDisplayItem): Boolean {
-        if (menuItem.itemId == R.id.action_auto_upload_folder_toggle_visibility) {
-            clickListener.onVisibilityToggleClick(section, item)
-        } else {
-            // default: R.id.action_create_custom_folder
-            clickListener.onSyncFolderSettingsClick(section, item)
+        when (menuItem.itemId) {
+            R.id.action_auto_upload_folder_toggle_visibility -> clickListener.onVisibilityToggleClick(section, item)
+
+            R.id.action_auto_upload_folder_settings -> clickListener.onSyncFolderSettingsClick(section, item)
+
+            R.id.action_auto_upload_folder_delete_uploaded -> clickListener.onSyncFolderDeleteUploadedClick(
+                section,
+                item
+            )
         }
         return true
     }
@@ -508,6 +512,7 @@ class SyncedFolderAdapter(
     interface ClickListener {
         fun onSyncStatusToggleClick(section: Int, item: SyncedFolderDisplayItem?)
         fun onSyncFolderSettingsClick(section: Int, syncedFolderDisplayItem: SyncedFolderDisplayItem?)
+        fun onSyncFolderDeleteUploadedClick(section: Int, syncedFolderDisplayItem: SyncedFolderDisplayItem?)
         fun onVisibilityToggleClick(section: Int, item: SyncedFolderDisplayItem?)
         fun showSubFolderWarningDialog()
     }

@@ -617,6 +617,41 @@ class SyncedFoldersActivity :
         }
     }
 
+    override fun onSyncFolderDeleteUploadedClick(section: Int, syncedFolderDisplayItem: SyncedFolderDisplayItem?) {
+        val dialog = ConfirmationDialogFragment.newInstance(
+            R.string.autoupload_delete_uploaded_dialog_description,
+            null,
+            R.string.autoupload_delete_uploaded_dialog_title,
+            R.drawable.selector_trashbin,
+            R.string.common_ok,
+            R.string.common_cancel,
+            -1
+        )
+        dialog.isCancelable = false
+        dialog.setOnConfirmationListener(object : ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
+            override fun onConfirmation(callerTag: String?) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onNeutral(callerTag: String?) {
+            }
+
+            override fun onCancel(callerTag: String?) {
+            }
+        })
+        if (isDialogFragmentReady(dialog) &&
+            lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)
+        ) {
+            val fragmentTransaction = supportFragmentManager
+                .beginTransaction()
+                .addToBackStack(null)
+
+            dialog.show(fragmentTransaction, SYNCED_FOLDER_PREFERENCES_DIALOG_TAG)
+        } else {
+            Log_OC.d(TAG, "SyncFolderDeleteUploaded dialog not ready")
+        }
+    }
+
     override fun onVisibilityToggleClick(section: Int, syncedFolder: SyncedFolderDisplayItem?) {
         if (syncedFolder == null) return
 

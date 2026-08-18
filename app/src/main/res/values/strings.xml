@@ -910,7 +910,11 @@
     <string name="autoupload_create_new_custom_folder">Create new custom folder setup</string>
     <string name="autoupload_hide_folder">Hide folder</string>
     <string name="autoupload_configure">Configure</string>
+    <string name="autoupload_delete_uploaded">Locally delete uploaded files</string>
     <string name="synced_folders_configure_folders">Configure folders</string>
+
+    <string name="autoupload_delete_uploaded_dialog_title">Locally delete uploaded files</string>
+    <string name="autoupload_delete_uploaded_dialog_description">All the files already uploaded to the cloud will be removed from the current device</string>
 
     <string name="empty" translatable="false"></string>
     <string name="test_server_button">Test server connection</string>
