@@ -21,6 +21,7 @@ import com.owncloud.android.ui.interfaces.UnifiedSearchCurrentDirItemAction
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.ui.unifiedsearch.ProviderID
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
+import com.owncloud.android.ui.unifiedsearch.toUnifiedSearchEntry
 import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.ScreenshotTest
 import com.nextcloud.utils.thumbnail.FileThumbnailGenerator
@@ -101,7 +102,7 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
             UnifiedSearchSection(
                 providerID = name.lowercase().replace(" ", "_"),
                 name = name,
-                entries = entries,
+                entries = entries.map { it.toUnifiedSearchEntry(storageManager) },
                 hasMoreResults = false
             )
         }
@@ -111,7 +112,7 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
             UnifiedSearchSection(
                 providerID = name.lowercase().replace(" ", "_"),
                 name = name,
-                entries = entries,
+                entries = entries.map { it.toUnifiedSearchEntry(storageManager) },
                 hasMoreResults = true
             )
         }
@@ -164,12 +165,11 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
                     onClientReady: (com.nextcloud.common.NextcloudClient) -> Unit
                 ) = Unit
             },
-            user = sut.user.get(),
             context = sut,
             viewThemeUtils = sut.viewThemeUtils,
-            appPreferences = preferences,
             currentDirItemAction = noopCurrentDirAction,
-            thumbnailGenerator = thumbnailGenerator
+            thumbnailGenerator = thumbnailGenerator,
+            user = sut.user.get(),
         )
 
         adapter.shouldShowFooters(true)

@@ -15,8 +15,6 @@ import androidx.core.widget.ImageViewCompat
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.bumptech.glide.Glide
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
-import com.nextcloud.client.account.User
-import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.model.SearchResultEntryType
 import com.nextcloud.utils.CalendarEventManager
@@ -24,28 +22,26 @@ import com.nextcloud.utils.ContactManager
 import com.nextcloud.utils.GlideHelper
 import com.nextcloud.utils.extensions.getType
 import com.nextcloud.utils.extensions.setVisibleIf
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UnifiedSearchItemBinding
-import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
+import com.owncloud.android.ui.unifiedsearch.UnifiedSearchEntry
 import com.owncloud.android.utils.MimeTypeUtil
-import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 @Suppress("LongParameterList")
 class UnifiedSearchItemViewHolder(
     private val supportsOpeningCalendarContactsLocally: Boolean,
     val binding: UnifiedSearchItemBinding,
-    private val storageManager: FileDataStorageManager,
     private val listInterface: UnifiedSearchListInterface,
     private val filesAction: FilesAction,
     val context: Context,
     private val viewThemeUtils: ViewThemeUtils,
     private val thumbnailGenerator: ThumbnailGenerator,
-    private val user: User,
-    private val preferences: AppPreferences
+    private val isE2EEActivate: Boolean
 ) : SectionedViewHolder(binding.root) {
 
     interface FilesAction {
@@ -56,14 +52,17 @@ class UnifiedSearchItemViewHolder(
     private val contactManager = ContactManager(context)
     private val calendarEventManager = CalendarEventManager(context)
 
-    fun bind(entry: SearchResultEntry) {
+    fun bind(unifiedSearchEntry: UnifiedSearchEntry) {
+        val entry = unifiedSearchEntry.searchResult
+        val file = unifiedSearchEntry.localFile
+
         bindTextView(binding.title, entry.title)
         bindTextView(binding.subline, entry.subline)
-        bindLocalFileIndicator(entry)
+        bindLocalFileIndicator(entry, file)
 
         val entryType = entry.getType()
-        bindThumbnail(entry, entryType)
-        bindMoreButton(entry)
+        bindThumbnail(entry, file, entryType)
+        bindMoreButton(entry, file)
         binding.unifiedSearchItemLayout.setOnClickListener {
             searchEntryOnClick(entry, entryType)
         }
@@ -78,14 +77,11 @@ class UnifiedSearchItemViewHolder(
         }
     }
 
-    private fun bindLocalFileIndicator(entry: SearchResultEntry) {
-        val showLocalFileIndicator =
-            (entry.isFile && storageManager.getFileByDecryptedRemotePath(entry.remotePath()) != null)
-        binding.localFileIndicator.setVisibleIf(showLocalFileIndicator)
+    private fun bindLocalFileIndicator(entry: SearchResultEntry, file: OCFile?) {
+        binding.localFileIndicator.setVisibleIf(entry.isFile && file != null)
     }
 
-    private fun bindThumbnail(entry: SearchResultEntry, entryType: SearchResultEntryType) {
-        val file = storageManager.getFileByRemotePath(entry.remotePath())
+    private fun bindThumbnail(entry: SearchResultEntry, file: OCFile?, entryType: SearchResultEntryType) {
         Glide.with(context).clear(binding.thumbnail)
         binding.thumbnailOverlayIcon.setVisibleIf(false)
 
@@ -148,8 +144,8 @@ class UnifiedSearchItemViewHolder(
         }
     }
 
-    private fun bindMoreButton(entry: SearchResultEntry) {
-        if (entry.isFile) {
+    private fun bindMoreButton(entry: SearchResultEntry, file: OCFile?) {
+        if (entry.isFile && file?.isEncrypted == false || (file?.isEncrypted == true && isE2EEActivate)) {
             binding.more.visibility = View.VISIBLE
             binding.more.setOnClickListener {
                 filesAction.showFilesAction(entry)

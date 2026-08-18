@@ -400,12 +400,11 @@ class UnifiedSearchFragment :
             storageManager,
             this@UnifiedSearchFragment,
             this@UnifiedSearchFragment,
-            currentAccountProvider.user,
             requireContext(),
             viewThemeUtils,
-            appPreferences,
             this@UnifiedSearchFragment,
-            thumbnailGenerator
+            thumbnailGenerator,
+            currentAccountProvider.user
         )
 
         adapter.shouldShowFooters(true)

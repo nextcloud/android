@@ -19,6 +19,7 @@ import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
+import com.owncloud.android.ui.unifiedsearch.toUnifiedSearchEntry
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
 import org.junit.Test
 import java.io.File
@@ -47,7 +48,7 @@ class UnifiedSearchFragmentIT : AbstractIT() {
                                     "http://localhost/nc/index.php/apps/files/?dir=/Files&scrollto=Test",
                                     "icon",
                                     false
-                                )
+                                ).toUnifiedSearchEntry(storageManager)
                             ),
                             hasMoreResults = false
                         )
