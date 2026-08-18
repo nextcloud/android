@@ -62,8 +62,8 @@
             <trusting group="androidx.fragment"/>
             <trusting group="androidx.lifecycle"/>
             <trusting group="androidx.media3"/>
-            <trusting group="androidx.webkit" name="webkit" version="1.17.0"/>
             <trusting group="androidx.tracing"/>
+            <trusting group="androidx.webkit" name="webkit" version="1.17.0"/>
             <trusting group="androidx.work"/>
             <trusting group="com.google.firebase"/>
             <trusting group="^androidx[.]compose($|([.].*))" regex="true"/>
@@ -237,7 +237,10 @@
             <trusting group="org.springframework"/>
             <trusting group="org.springframework" name="spring-framework-bom" version="5.3.31"/>
          </trusted-key>
-         <trusted-key id="49CF4E3B2996BE658A57DD39655CCC51B9BD2C38" group="org.conscrypt" name="conscrypt-android" version="2.6.1"/>
+         <trusted-key id="49CF4E3B2996BE658A57DD39655CCC51B9BD2C38">
+            <trusting group="org.conscrypt" name="conscrypt-android" version="2.6.1"/>
+            <trusting group="org.conscrypt" name="conscrypt-android" version="2.6.2"/>
+         </trusted-key>
          <trusted-key id="4BF79B8259007B566D2FCE82296CD27F60EED12C" group="com.google.crypto.tink" name="tink" version="1.7.0"/>
          <trusted-key id="4C5F68D09D42BA7FAC888DF9A929EA2321FDBF8F">
             <trusting group="net.sf.saxon"/>
