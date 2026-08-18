@@ -434,6 +434,27 @@
         <item name="rippleColor">?attr/colorControlHighlight</item>
     </style>
 
+    <style name="ShapeAppearanceOverlay.App.Button.Circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="Widget.App.Button.BottomSheetIcon" parent="Widget.Material3.Button.IconButton">
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.App.Button.Circle</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="rippleColor">?attr/colorControlHighlight</item>
+    </style>
+
+    <style name="Widget.App.Divider.BottomSheetDivider" parent="Widget.Material3.MaterialDivider">
+        <item name="android:layout_marginVertical">@dimen/standard_half_margin</item>
+        <item name="android:layout_marginHorizontal">@dimen/bottom_sheet_menu_item_divider_standard_margin</item>
+        <item name="dividerColor">@color/list_divider_background</item>
+    </style>
+
     <style name="ThemeOverlay.App.Button.BottomSheetItem" parent="Widget.Material3.Button.IconButton">
         <item name="materialButtonStyle">@style/Widget.App.Button.BottomSheetItem</item>
     </style>

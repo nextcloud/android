@@ -1004,7 +1004,6 @@
     <string name="hidden_character" translatable="false">*</string>
     <string name="hint_name">Name</string>
     <string name="hint_password">Password</string>
-    <string name="add_to_cloud">Add to %1$s</string>
     <string name="upload_files">Upload files</string>
     <string name="upload_direct_camera_upload">Upload from camera</string>
     <string name="upload_direct_camera_promt">Do you want to take a photo or video?</string>
@@ -1013,8 +1012,8 @@
     <string name="error_uploading_direct_camera_upload">Failed to upload taken media</string>
     <string name="upload_scan_doc_upload">Scan document from camera</string>
     <string name="upload_content_from_other_apps">Upload content from other apps</string>
-    <string name="create_new_folder">New folder</string>
-    <string name="create_new_encrypted_folder">New encrypted folder</string>
+    <string name="create_folder">Folder</string>
+    <string name="create_encrypted_folder">Encrypted folder</string>
     <string name="uploads_view_upload_status_virus_detected">Virus detected. Upload cannot be completed!</string>
     <string name="tags">Tags</string>
     <string name="error_fetching_sharees">Unable to fetch sharees.</string>
@@ -1083,6 +1082,10 @@
     <string name="create_new_document">New document</string>
     <string name="create_new_spreadsheet">New spreadsheet</string>
     <string name="create_new_presentation">New presentation</string>
+    <string name="create_document">Document</string>
+    <string name="create_spreadsheet">Spreadsheet</string>
+    <string name="create_presentation">Presentation</string>
+    <string name="more_documents">More documents</string>
     <string name="select_template">Select template</string>
     <string name="filename_hint">Filename</string>
     <string name="thumbnail">Thumbnail</string>
@@ -1205,7 +1208,6 @@
     <string name="upload_list_resolve_conflict">Resolve conflict</string>
     <string name="upload_list_delete">Delete</string>
     <string name="create_new">New</string>
-    <string name="editor_placeholder" translatable="false">%1$s %2$s</string>
     <string name="upload_locked_title">Upload in progress</string>
     <string name="upload_locked_message">The server is busy. Retrying…</string>
     <string name="share_permission_file_request">File request</string>
