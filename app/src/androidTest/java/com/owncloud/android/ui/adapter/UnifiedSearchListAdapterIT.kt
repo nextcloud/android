@@ -169,7 +169,7 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
             viewThemeUtils = sut.viewThemeUtils,
             currentDirItemAction = noopCurrentDirAction,
             thumbnailGenerator = thumbnailGenerator,
-            user = sut.user.get(),
+            user = sut.user.get()
         )
 
         adapter.shouldShowFooters(true)

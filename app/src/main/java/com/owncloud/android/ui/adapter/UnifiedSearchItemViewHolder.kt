@@ -145,13 +145,11 @@ class UnifiedSearchItemViewHolder(
     }
 
     private fun bindMoreButton(entry: SearchResultEntry, file: OCFile?) {
-        if (entry.isFile && file?.isEncrypted == false || (file?.isEncrypted == true && isE2EEActivate)) {
-            binding.more.visibility = View.VISIBLE
-            binding.more.setOnClickListener {
-                filesAction.showFilesAction(entry)
-            }
-        } else {
-            binding.more.visibility = View.GONE
+        val isEncryptedWithoutKeys = file?.isEncrypted == true && !isE2EEActivate
+        binding.more.setVisibleIf(entry.isFile && !isEncryptedWithoutKeys)
+
+        binding.more.setOnClickListener {
+            filesAction.showFilesAction(entry)
         }
     }
 
