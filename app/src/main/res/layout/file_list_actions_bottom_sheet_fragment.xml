@@ -258,20 +258,13 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/menu_back"
-                    style="@style/Widget.App.Button.BottomSheetItem"
+                    style="@style/Widget.App.Button.BottomSheetIcon"
                     android:layout_width="@dimen/bottom_sheet_item_height"
                     android:layout_height="@dimen/bottom_sheet_item_height"
-                    android:layout_marginHorizontal="@dimen/standard_margin"
-                    android:contentDescription="@string/more_documents"
-                    android:gravity="start|center_vertical"
-                    android:paddingStart="@dimen/standard_padding"
-                    android:paddingEnd="@dimen/standard_padding"
+                    android:contentDescription="@string/common_back"
                     app:icon="@drawable/ic_nav_back"
-                    app:iconGravity="start"
-                    app:iconPadding="@dimen/standard_padding"
                     app:iconSize="@dimen/iconized_single_line_item_icon_size"
-                    app:iconTint="@color/list_expand_icon_color"
-                    app:cornerRadius="@dimen/button_corner_radius"/>
+                    app:iconTint="@color/list_expand_icon_color" />
 
                 <!-- Shows all the remaining document creators that didn't made to the creators_overview -->
                 <LinearLayout
@@ -279,7 +272,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" />
-                </LinearLayout>
+
+            </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
 
