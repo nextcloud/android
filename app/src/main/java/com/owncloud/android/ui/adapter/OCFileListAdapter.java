@@ -545,19 +545,18 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private void setFilenameAndExtension(ListGridItemViewHolder holder, OCFile file) {
         final String filename = mStorageManager.getFilenameConsideringOfflineOperation(file);
         final var pair = FileStorageUtils.getFilenameAndExtension(filename, file.isFolder(), isRTL);
-        final boolean isFolder = file.isFolder();
 
         if (holder instanceof OCFileListGridItemViewHolder gridItemViewHolder) {
             handleGridMode(filename, gridItemViewHolder, pair, file);
         } else {
-            handleListMode(holder, pair, isFolder);
+            handleListMode(holder, filename, pair);
         }
     }
 
     private void handleGridMode(String filename, OCFileListGridItemViewHolder holder, Pair<String, String> filenamePair, OCFile file) {
         boolean containsBidiControlCharacters = FileStorageUtils.containsBidiControlCharacters(filename);
         ViewExtensionsKt.setVisibleIf(holder.getFileName(),!containsBidiControlCharacters);
-        ViewExtensionsKt.setVisibleIf(holder.getBinding().bidiFilenameContainer, containsBidiControlCharacters);
+        ViewExtensionsKt.setVisibleIf(holder.getBidiFilenameContainer(), containsBidiControlCharacters);
         final var extension = holder.getExtension();
 
         if (containsBidiControlCharacters) {
@@ -576,18 +575,21 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void handleListMode(ListGridItemViewHolder holder,
-                                Pair<String, String> filenamePair,
-                                boolean isFolder) {
-        holder.getFileName().setText(filenamePair.getFirst());
+                                String filename,
+                                Pair<String, String> filenamePair) {
+        final boolean containsBidiControlCharacters = FileStorageUtils.containsBidiControlCharacters(filename);
+        ViewExtensionsKt.setVisibleIf(holder.getFileName(), !containsBidiControlCharacters);
+        ViewExtensionsKt.setVisibleIf(holder.getBidiFilenameContainer(), containsBidiControlCharacters);
 
+        if (!containsBidiControlCharacters) {
+            holder.getFileName().setText(filename);
+            return;
+        }
+
+        holder.getBidiFilename().setText(filenamePair.getFirst());
         final var extension = holder.getExtension();
         if (extension != null) {
-            if (isFolder) {
-                extension.setVisibility(View.GONE);
-            } else {
-                extension.setVisibility(View.VISIBLE);
-                extension.setText(filenamePair.getSecond());
-            }
+            extension.setText(filenamePair.getSecond());
         }
     }
 
