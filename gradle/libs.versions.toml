@@ -9,7 +9,6 @@ androidLibraryVersion ="c35b5190c54222e9e7b42cc03ab833d904b04c63"
 androidOpensslVersion = "3.5.6"
 androidPluginVersion = "9.3.1"
 androidsvgVersion = "1.4"
-androidxMediaVersion = "1.5.1"
 androidxTestVersion = "1.7.0"
 annotationVersion = "1.10.0"
 annotationsVersion = "3.0.1"
@@ -151,7 +150,6 @@ leakcanary = { module = "com.squareup.leakcanary:leakcanary-android", version.re
 nnio = { module = "org.lukhnos:nnio", version.ref = "nnioVersion" }
 org-jbundle-util-osgi-wrapped-org-apache-http-client = { module = "org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client", version.ref = "orgJbundleUtilOsgiWrappedOrgApacheHttpClientVersion" }
 osmdroid-android = { module = "org.osmdroid:osmdroid-android", version.ref = "osmdroidAndroidVersion" }
-objenesis = { module = "org.objenesis:objenesis", version.ref = "objenesis" }
 play-services-base = { module = "com.google.android.gms:play-services-base", version.ref = "playServicesBaseVersion" }
 review-ktx = { module = "com.google.android.play:review-ktx", version.ref = "reviewKtxVersion" }
 slfj = { module = "org.slf4j:jcl-over-slf4j", version.ref = "slfj" }
@@ -224,18 +222,12 @@ screengrab = { module = "tools.fastlane:screengrab", version.ref = "screengrabVe
 screenshot-core = { module = "com.facebook.testing.screenshot:core", version.ref = "coreVersion" }
 shot = { module = "com.karumi:shot", version.ref = "shotVersion" }
 
-# Gradle Plugins
-spotbugs-gradle-plugin = { module = "com.github.spotbugs.snom:spotbugs-gradle-plugin", version.ref = "spotbugsGradlePlugin" }
-kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-detekt-gradle-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detektGradlePlugin" }
-
 stateless4j = { module = "com.github.stateless4j:stateless4j", version.ref = "stateless4jVersion" }
 
 # Markwon
 syntax-highlight = { module = "io.noties.markwon:syntax-highlight", version.ref = "markwonVersion" }
 core = { module = "io.noties.markwon:core", version.ref = "markwonVersion" }
 prism4j = { module = "io.noties:prism4j", version.ref = "prismVersion" }
-prism4j-bundler = { module = "io.noties:prism4j-bundler", version.ref = "prismVersion" }
 
 # Nextcloud libraries
 ui = { module = "com.github.nextcloud.android-common:ui", version.ref = "androidCommonLibraryVersion" }

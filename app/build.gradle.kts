@@ -44,8 +44,6 @@ configurations.configureEach {
     exclude(group = "org.jetbrains", module = "annotations-java5")
 
     resolutionStrategy {
-        force(libs.objenesis)
-
         eachDependency {
             when (requested.group) {
                 "org.checkerframework" if requested.name != "checker-compat-qual" -> {
