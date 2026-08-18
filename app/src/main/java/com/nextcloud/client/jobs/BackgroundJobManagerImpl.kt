@@ -36,6 +36,7 @@ import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.worker.WorkerFilesPayload
+import com.nextcloud.client.network.SupportedNetworkTransports
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.isWorkScheduled
 import com.owncloud.android.datamodel.OCFile
@@ -490,10 +491,7 @@ internal class BackgroundJobManagerImpl(
             .putLong(AutoUploadWorker.SYNCED_FOLDER_ID, syncedFolderID)
             .build()
 
-        val constraints = Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.CONNECTED)
-            .setRequiresCharging(syncedFolder.isChargingOnly)
-            .build()
+        val constraints = SupportedNetworkTransports.getConstraints(requiresCharging = syncedFolder.isChargingOnly)
 
         val request = oneTimeRequestBuilder(
             jobClass = AutoUploadWorker::class,
@@ -633,9 +631,7 @@ internal class BackgroundJobManagerImpl(
             val batches = uploadIds.toList().chunked(batchSize)
             val tag = startFileUploadJobTag(user.accountName)
 
-            val constraints = Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED)
-                .build()
+            val constraints = SupportedNetworkTransports.getConstraints()
 
             val dataBuilder = Data.Builder()
                 .putBoolean(

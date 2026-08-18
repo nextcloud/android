@@ -10,7 +10,6 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
-import android.os.Build
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.operations.GetMethod
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -101,7 +100,7 @@ class ConnectivityServiceImpl(
         }
 
         val resolvedCapabilities = resolveNetworkCapabilities()
-        if (resolvedCapabilities == null || !isSupportedTransport(resolvedCapabilities)) {
+        if (resolvedCapabilities == null || !SupportedNetworkTransports.isSupportedTransport(resolvedCapabilities)) {
             Log_OC.e(TAG, "no usable network transport at check time, treating as walled")
             return true
         }
@@ -155,7 +154,7 @@ class ConnectivityServiceImpl(
             Log_OC.w(TAG, "no network capabilities found, connectivity is disconnected")
             Connectivity.DISCONNECTED
         } else {
-            val hasTransport = isSupportedTransport(capabilities)
+            val hasTransport = SupportedNetworkTransports.isSupportedTransport(capabilities)
             val hasInternetCapability = capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
 
             Connectivity(
@@ -219,20 +218,8 @@ class ConnectivityServiceImpl(
 
         return connectivityManager.allNetworks
             .mapNotNull { connectivityManager.getNetworkCapabilities(it) }
-            .firstOrNull { isSupportedTransport(it) }
+            .firstOrNull { SupportedNetworkTransports.isSupportedTransport(it) }
     }
-
-    private fun isSupportedTransport(capabilities: NetworkCapabilities) =
-        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN) ||
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) ||
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI_AWARE) ||
-            (
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
-                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_USB)
-                )
 
     private fun getWalledValueFromException(e: Exception): Boolean = when (e) {
         is UnknownHostException,
