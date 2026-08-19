@@ -2544,7 +2544,7 @@ class FileDisplayActivity :
     fun startSyncFolderOperation(folder: OCFile?, ignoreETag: Boolean, ignoreFocus: Boolean = false) {
         Log_OC.d(TAG, "startSyncFolderOperation called, ignoreEtag: $ignoreETag, ignoreFocus: $ignoreFocus")
 
-        if (!TextUtils.isEmpty(searchQuery) || !user.isPresent) {
+        if (!searchQuery.isNullOrEmpty() || !user.isPresent) {
             return
         }
 
@@ -2575,30 +2575,29 @@ class FileDisplayActivity :
     }
 
     private fun executeSyncFolderOperation(folder: OCFile?, ignoreETag: Boolean) {
-        val user = getUser()
-        if (!user.isPresent) {
-            return
+        val folder = folder ?: return
+
+        user.ifPresent { user ->
+            syncState = EmptyListState.LOADING
+
+            RefreshFolderOperation(
+                folder,
+                System.currentTimeMillis(),
+                false,
+                ignoreETag,
+                storageManager,
+                user,
+                applicationContext
+            ).execute(
+                account,
+                this,
+                { _, _ -> onSyncFinished() },
+                handler,
+                null
+            )
+
+            fetchRecommendedFilesIfNeeded(ignoreETag, folder)
         }
-
-        syncState = EmptyListState.LOADING
-
-        RefreshFolderOperation(
-            folder,
-            System.currentTimeMillis(),
-            false,
-            ignoreETag,
-            storageManager,
-            user.get(),
-            applicationContext
-        ).execute(
-            account,
-            MainApp.getAppContext(),
-            { _, _ -> onSyncFinished() },
-            handler,
-            null
-        )
-
-        fetchRecommendedFilesIfNeeded(ignoreETag, folder)
     }
 
     private fun fetchRecommendedFilesIfNeeded(ignoreETag: Boolean, folder: OCFile?) {
@@ -2611,8 +2610,8 @@ class FileDisplayActivity :
             return
         }
 
-        if (user.isPresent) {
-            val accountName = user.get().accountName
+        user.ifPresent { user ->
+            val accountName = user.accountName
             val fragment = this.listOfFilesFragment
             lifecycleScope.launch(Dispatchers.IO) {
                 val recommendedFiles = filesRepository.fetchRecommendedFiles(accountName, ignoreETag, storageManager)
