@@ -1318,7 +1318,7 @@ public class FileDataStorageManager {
         Log_OC.d(TAG, "getFolderContent - start");
         List<OCFile> folderContent = new ArrayList<>();
 
-        List<FileEntity> files = fileDao.getFolderContent(parentId);
+        List<FileEntity> files = FileDataStorageManagerExtensionsKt.getFolderContentEntities(this, parentId);
         for (FileEntity fileEntity : files) {
             OCFile child = createFileInstance(fileEntity);
             if (!onlyOnDevice || child.existsOnDevice()) {

@@ -41,11 +41,31 @@ interface FileDao {
     @Query("SELECT * FROM filelist WHERE remote_id = :remoteId LIMIT 1")
     suspend fun getFileByRemoteId(remoteId: String): FileEntity?
 
-    @Query("SELECT * FROM filelist WHERE parent = :parentId ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}")
-    fun getFolderContent(parentId: Long): List<FileEntity>
+    @Query(
+        """
+    SELECT ${ProviderTableMeta._ID}
+    FROM filelist
+    WHERE parent = :parentId
+    ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}
+    """
+    )
+    fun getFolderContentIds(parentId: Long): List<Long>
 
-    @Query("SELECT * FROM filelist WHERE parent = :parentId ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}")
-    suspend fun getFolderContentSuspended(parentId: Long): List<FileEntity>
+    @Query(
+        """
+    SELECT ${ProviderTableMeta._ID}
+    FROM filelist
+    WHERE parent = :parentId
+    ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}
+    """
+    )
+    suspend fun getFolderContentIdsSuspended(parentId: Long): List<Long>
+
+    @Query("SELECT * FROM filelist WHERE ${ProviderTableMeta._ID} IN (:ids)")
+    fun getFilesByIds(ids: List<Long>): List<FileEntity>
+
+    @Query("SELECT * FROM filelist WHERE ${ProviderTableMeta._ID} IN (:ids)")
+    suspend fun getFilesByIdsSuspended(ids: List<Long>): List<FileEntity>
 
     @Query(
         "SELECT * FROM filelist WHERE modified >= :startDate" +
@@ -145,7 +165,7 @@ interface FileDao {
 
     @Query(
         """
-    SELECT *
+    SELECT ${ProviderTableMeta._ID}
     FROM filelist
     WHERE file_owner = :accountName
       AND (
@@ -156,18 +176,18 @@ interface FileDao {
     ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}
     """
     )
-    suspend fun getSharedFiles(accountName: String): List<FileEntity>
+    suspend fun getSharedFileIds(accountName: String): List<Long>
 
     @Query(
         """
-    SELECT * 
+    SELECT ${ProviderTableMeta._ID}
     FROM filelist 
     WHERE file_owner = :fileOwner 
       AND favorite = 1
     ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}
     """
     )
-    suspend fun getFavoriteFiles(fileOwner: String): List<FileEntity>
+    suspend fun getFavoriteFileIds(fileOwner: String): List<Long>
 
     @Query("SELECT remote_id FROM filelist WHERE file_owner = :accountName AND remote_id IS NOT NULL")
     fun getAllRemoteIds(accountName: String): List<String>
