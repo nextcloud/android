@@ -728,6 +728,15 @@ open class ExtendedListFragment :
                 )
             }
 
+            EmptyListState.OUT_OF_MEMORY -> {
+                setMessageForEmptyList(
+                    R.string.common_error_out_memory,
+                    R.string.file_list_out_of_memory_description,
+                    R.drawable.ic_list_empty_error,
+                    false
+                )
+            }
+
             else -> {
                 setMessageForEmptyList(
                     R.string.file_list_empty_headline,
