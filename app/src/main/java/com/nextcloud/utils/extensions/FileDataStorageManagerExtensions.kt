@@ -7,6 +7,7 @@
 
 package com.nextcloud.utils.extensions
 
+import com.nextcloud.client.database.entity.FileEntity
 import com.nextcloud.client.database.entity.model.ShareeKey
 import com.nextcloud.client.database.entity.toOCCapability
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -116,3 +117,28 @@ fun FileDataStorageManager.getNonEncryptedSubfolders(id: Long, accountName: Stri
 
 suspend fun FileDataStorageManager.getCapabilitiesByAccountName(accountName: String): OCCapability =
     capabilityDao.getByAccountName(accountName).toOCCapability()
+
+private const val FILE_ID_CHUNK_SIZE = 100
+
+private fun List<Long>.toEntitiesInOrder(loadChunk: (List<Long>) -> List<FileEntity>): List<FileEntity> {
+    val byId = chunked(FILE_ID_CHUNK_SIZE).flatMap(loadChunk).associateBy { it.id }
+    return mapNotNull { byId[it] }
+}
+
+fun FileDataStorageManager.getFolderContentEntities(parentId: Long): List<FileEntity> =
+    fileDao.getFolderContentIds(parentId).toEntitiesInOrder(fileDao::getFilesByIds)
+
+suspend fun FileDataStorageManager.getFolderContentEntitiesSuspended(parentId: Long): List<FileEntity> =
+    fileDao.getFolderContentIdsSuspended(parentId).toEntitiesInOrderSuspended(this)
+
+suspend fun FileDataStorageManager.getSharedFileEntities(accountName: String): List<FileEntity> =
+    fileDao.getSharedFileIds(accountName).toEntitiesInOrderSuspended(this)
+
+suspend fun FileDataStorageManager.getFavoriteFileEntities(accountName: String): List<FileEntity> =
+    fileDao.getFavoriteFileIds(accountName).toEntitiesInOrderSuspended(this)
+
+private suspend fun List<Long>.toEntitiesInOrderSuspended(storageManager: FileDataStorageManager): List<FileEntity> {
+    val entities = chunked(FILE_ID_CHUNK_SIZE).flatMap { storageManager.fileDao.getFilesByIdsSuspended(it) }
+    val byId = entities.associateBy { it.id }
+    return mapNotNull { byId[it] }
+}
