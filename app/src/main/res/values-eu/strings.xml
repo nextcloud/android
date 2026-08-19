@@ -217,13 +217,17 @@
     <string name="could_not_retrieve_url">Ezin izan da URLa berreskuratu</string>
     <string name="create">Sortu</string>
     <string name="create_dir_fail_msg">Ezin izan da karpeta sortu</string>
+    <string name="create_document">Dokumentua</string>
+    <string name="create_folder">Karpeta</string>
     <string name="create_link">Sortu esteka</string>
     <string name="create_new">Berria</string>
     <string name="create_new_document">Dokumentu berria</string>
     <string name="create_new_folder">Karpeta berria</string>
     <string name="create_new_presentation">Aurkezpen berria</string>
     <string name="create_new_spreadsheet">Kalkulu-orri berria</string>
+    <string name="create_presentation">Aurkezpena</string>
     <string name="create_rich_workspace">Gehitu karpetaren deskribapena</string>
+    <string name="create_spreadsheet">Kalkulu-orria</string>
     <string name="credentials_disabled">Kredentzialak desgaituta</string>
     <string name="daily_backup">Eguneko babeskopia</string>
     <string name="data_to_back_up">Babesteko datuak</string>

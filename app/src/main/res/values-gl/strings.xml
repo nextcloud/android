@@ -248,8 +248,10 @@
     <string name="could_not_retrieve_url">Non foi posíbel recuperar o URL</string>
     <string name="create">Crear</string>
     <string name="create_dir_fail_msg">Non foi posíbel crear o cartafol</string>
+    <string name="create_document">Documento</string>
     <string name="create_end_to_end_encrypted_share">Ligazón para compartir</string>
     <string name="create_end_to_end_encrypted_share_title">Ligazóns para compartir cifradas de extremo a extremo</string>
+    <string name="create_folder">Cartafol</string>
     <string name="create_link">Crear ligazón</string>
     <string name="create_new">Novo</string>
     <string name="create_new_document">Novo documento</string>
@@ -257,7 +259,9 @@
     <string name="create_new_folder">Novo cartafol</string>
     <string name="create_new_presentation">Nova presentación</string>
     <string name="create_new_spreadsheet">Nova folla de cálculo</string>
+    <string name="create_presentation">Presentación</string>
     <string name="create_rich_workspace">Engadir a descrición do cartafol</string>
+    <string name="create_spreadsheet">Folla de cálculo</string>
     <string name="credentials_disabled">Credenciais eliminadas</string>
     <string name="daily_backup">Copia de seguranza diaria</string>
     <string name="data_to_back_up">Datos para facer a copia de seguranza</string>
@@ -630,6 +634,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Os máis grandes primeiro</string>
     <string name="menu_item_sort_by_size_smallest_first">Os máis pequenos primeiro</string>
     <string name="more">Máis</string>
+    <string name="more_documents">Máis documentos</string>
     <string name="move_file_error">Produciuse un erro ao tentar mover este ficheiro ou cartafol</string>
     <string name="move_file_invalid_into_descendent">Non é posíbel mover un cartafol cara a un dos seus propios subcartafoles</string>
     <string name="move_file_invalid_overwrite">Este ficheiro xa existe no cartafol de destino</string>

@@ -225,12 +225,14 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="could_not_retrieve_url">Tidak dapat mengambil URL</string>
     <string name="create">Buat</string>
     <string name="create_dir_fail_msg">Folder tidak dapat dibuat</string>
+    <string name="create_folder">Folder</string>
     <string name="create_link">Buat tautan</string>
     <string name="create_new">Baru</string>
     <string name="create_new_document">Dokumen baru</string>
     <string name="create_new_folder">Folder baru</string>
     <string name="create_new_presentation">Presentasi baru</string>
     <string name="create_new_spreadsheet">Spreadsheet baru</string>
+    <string name="create_presentation">Presentasi</string>
     <string name="create_rich_workspace">Tambahkan deskripsi folder</string>
     <string name="credentials_disabled">Kredensial dimatikan</string>
     <string name="daily_backup">Pencadangan harian</string>

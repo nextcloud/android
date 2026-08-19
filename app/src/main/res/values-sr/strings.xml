@@ -223,13 +223,17 @@
     <string name="could_not_retrieve_url">Не могу да добавим УРЛ</string>
     <string name="create">Направи</string>
     <string name="create_dir_fail_msg">Не могу да направим фасциклу</string>
+    <string name="create_document">Документ</string>
+    <string name="create_folder">Фасцикла</string>
     <string name="create_link">Креирај линк</string>
     <string name="create_new">Нов</string>
     <string name="create_new_document">Нови документ</string>
     <string name="create_new_folder">Нова фасцикла</string>
     <string name="create_new_presentation">Нова презентација</string>
     <string name="create_new_spreadsheet">Нова табела</string>
+    <string name="create_presentation">Презентација</string>
     <string name="create_rich_workspace">Додај опис фолдера</string>
+    <string name="create_spreadsheet">Табела</string>
     <string name="credentials_disabled">Акредитиви искључени</string>
     <string name="daily_backup">Дневна резервна копија</string>
     <string name="data_to_back_up">Подаци који се чувају</string>
@@ -586,6 +590,7 @@
     <string name="menu_item_sort_by_size_biggest_first">прво највеће</string>
     <string name="menu_item_sort_by_size_smallest_first">прво најмање</string>
     <string name="more">Још</string>
+    <string name="more_documents">Још докумената</string>
     <string name="move_file_error">Дошло је до грешке при премештању фајла или фасцикле</string>
     <string name="move_file_invalid_into_descendent">Фасцикла се не може преместити у неку од својих потфасцикли.</string>
     <string name="move_file_invalid_overwrite">Фајл већ постоји у одредишној фасцикли</string>

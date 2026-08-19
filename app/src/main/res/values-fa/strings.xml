@@ -249,8 +249,10 @@
     <string name="could_not_retrieve_url">URL قابل بازیابی نیست</string>
     <string name="create">ساخت</string>
     <string name="create_dir_fail_msg">امکان ساخت پوشه وجود ندارد</string>
+    <string name="create_document">سند</string>
     <string name="create_end_to_end_encrypted_share">اشتراک پیوندی</string>
     <string name="create_end_to_end_encrypted_share_title">اشتراک‌های پیوندی با رمزگذاری سرتاسری</string>
+    <string name="create_folder">پوشه</string>
     <string name="create_link">ایجاد پیوند</string>
     <string name="create_new">جدید</string>
     <string name="create_new_document">سند جدید</string>
@@ -258,7 +260,9 @@
     <string name="create_new_folder">پوشه جدید</string>
     <string name="create_new_presentation">ارائه جدید</string>
     <string name="create_new_spreadsheet">صفحه‌گسترده جدید</string>
+    <string name="create_presentation">ارائه</string>
     <string name="create_rich_workspace">افزودن توضیحات پوشه</string>
+    <string name="create_spreadsheet">صفحه گسترده</string>
     <string name="credentials_disabled">اعتبارنامه غیرفعال است</string>
     <string name="daily_backup">پشتیبان روزانه</string>
     <string name="data_to_back_up">داده برای پشتیبان‌گیری</string>
@@ -632,6 +636,7 @@
     <string name="menu_item_sort_by_size_biggest_first">بزرگترین اولویت</string>
     <string name="menu_item_sort_by_size_smallest_first">کوچک‌ترین اول</string>
     <string name="more">بیشتر</string>
+    <string name="more_documents">اسناد بیشتر</string>
     <string name="move_file_error">هنگام تلاش برای انتقال این فایل یا پوشه، خطایی رخ داد.</string>
     <string name="move_file_invalid_into_descendent">انتقال یک پوشه به زیرشاخه‌های خودش امکان‌پذیر نیست.</string>
     <string name="move_file_invalid_overwrite">فایل در حال حاضر در پوشه مقصد وجود دارد</string>

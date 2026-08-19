@@ -198,6 +198,7 @@
     <string name="could_not_retrieve_url">No fue posible obtener la URL</string>
     <string name="create">Crear</string>
     <string name="create_dir_fail_msg">No fue posible crear la carpeta</string>
+    <string name="create_folder">Carpeta</string>
     <string name="create_link">Crear enlace</string>
     <string name="create_new">Nuevo</string>
     <string name="create_new_document">Nuevo documento</string>

@@ -250,8 +250,10 @@
     <string name="could_not_retrieve_url">URL konnte nicht abgerufen werden</string>
     <string name="create">Erstellen</string>
     <string name="create_dir_fail_msg">Verzeichnis konnte nicht erstellt werden</string>
+    <string name="create_document">Dokument</string>
     <string name="create_end_to_end_encrypted_share">Linkfreigabe</string>
     <string name="create_end_to_end_encrypted_share_title">Ende-zu-Ende-verschlüsselte Linkfreigaben</string>
+    <string name="create_folder">Ordner</string>
     <string name="create_link">Link erstellen</string>
     <string name="create_new">Neu</string>
     <string name="create_new_document">Neues Dokument</string>
@@ -259,7 +261,9 @@
     <string name="create_new_folder">Neuer Ordner</string>
     <string name="create_new_presentation">Neue Präsentation</string>
     <string name="create_new_spreadsheet">Neue Tabelle</string>
+    <string name="create_presentation">Präsentation</string>
     <string name="create_rich_workspace">Ordnerbeschreibung hinzufügen</string>
+    <string name="create_spreadsheet">Tabellenkalkulation</string>
     <string name="credentials_disabled">Zugangsdaten ausgeschaltet</string>
     <string name="daily_backup">Tägliche Sicherung</string>
     <string name="data_to_back_up">Zu sichernde Daten</string>
@@ -640,6 +644,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Größte zuerst</string>
     <string name="menu_item_sort_by_size_smallest_first">Kleinste zuerst</string>
     <string name="more">Mehr</string>
+    <string name="more_documents">Weitere Dokumente</string>
     <string name="move_file_error">Es ist ein Fehler beim Verschieben der Datei oder des Ordners aufgetreten.</string>
     <string name="move_file_invalid_into_descendent">Es ist nicht möglich, einen Ordner in einen seiner Unterordner zu verschieben</string>
     <string name="move_file_invalid_overwrite">Die Datei ist bereits im Zielordner vorhanden</string>
@@ -1215,6 +1220,7 @@
     <string name="wait_checking_credentials">Überprüfe gespeicherte Anmeldeinformationen</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiere Datei von privatem Speicher</string>
     <string name="warn_rename_extension">Das Ändern der Erweiterung kann dazu führen, dass diese Datei in einer anderen Anwendung geöffnet wird</string>
+    <string name="webview_not_available">Android System WebView fehlt oder ist auf diesem Gerät deaktiviert</string>
     <string name="what_s_new_image">Was-gibt\'s-Neues-Bild</string>
     <string name="whats_new_skip">Überspringen</string>
     <string name="whats_new_title">Neu in %1$s</string>

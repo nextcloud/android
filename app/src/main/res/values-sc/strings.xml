@@ -171,11 +171,14 @@
     <string name="could_not_retrieve_url">No at fatu a recuperare s\'URL</string>
     <string name="create">Crea</string>
     <string name="create_dir_fail_msg">No at fatu a creare sa cartella</string>
+    <string name="create_document">Documentu</string>
+    <string name="create_folder">Cartella</string>
     <string name="create_new">Nou</string>
     <string name="create_new_document">Documentu nou</string>
     <string name="create_new_folder">Cartella noa</string>
     <string name="create_new_presentation">Presentatzione noa</string>
     <string name="create_new_spreadsheet">Fògiu eletrònicu nou</string>
+    <string name="create_presentation">Presentatzione</string>
     <string name="create_rich_workspace">Agiunghe una descritzione de sa cartella</string>
     <string name="credentials_disabled">Credentziales disativadas</string>
     <string name="default_credentials_wrong">Credentziales isballiadas</string>

@@ -250,8 +250,10 @@
     <string name="could_not_retrieve_url">Could not retrieve URL</string>
     <string name="create">Create</string>
     <string name="create_dir_fail_msg">Could not create folder</string>
+    <string name="create_document">Document</string>
     <string name="create_end_to_end_encrypted_share">Link share</string>
     <string name="create_end_to_end_encrypted_share_title">End-to-end encrypted link shares</string>
+    <string name="create_folder">Folder</string>
     <string name="create_link">Create link</string>
     <string name="create_new">New</string>
     <string name="create_new_document">New document</string>
@@ -259,7 +261,9 @@
     <string name="create_new_folder">New folder</string>
     <string name="create_new_presentation">New presentation</string>
     <string name="create_new_spreadsheet">New spreadsheet</string>
+    <string name="create_presentation">Presentation</string>
     <string name="create_rich_workspace">Add folder description</string>
+    <string name="create_spreadsheet">Spreadsheet</string>
     <string name="credentials_disabled">Credentials disabled</string>
     <string name="daily_backup">Daily backup</string>
     <string name="data_to_back_up">Data to back up</string>
@@ -640,6 +644,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Biggest first</string>
     <string name="menu_item_sort_by_size_smallest_first">Smallest first</string>
     <string name="more">More</string>
+    <string name="more_documents">More documents</string>
     <string name="move_file_error">An error occurred whilst trying to move this file or folder</string>
     <string name="move_file_invalid_into_descendent">It is not possible to move a folder into one of its own underlying folders</string>
     <string name="move_file_invalid_overwrite">The file is already present in the destination folder</string>
@@ -1215,6 +1220,7 @@
     <string name="wait_checking_credentials">Checking stored credentials</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copying file from private storage</string>
     <string name="warn_rename_extension">Changing the extension might cause this file to open in a different application</string>
+    <string name="webview_not_available">Android System WebView is missing or disabled on this device</string>
     <string name="what_s_new_image">What\'s new image</string>
     <string name="whats_new_skip">Skip</string>
     <string name="whats_new_title">New in %1$s</string>

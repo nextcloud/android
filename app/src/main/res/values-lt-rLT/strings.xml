@@ -252,8 +252,10 @@
     <string name="could_not_retrieve_url">Nepavyko nuskaityti URL</string>
     <string name="create">Sukurti</string>
     <string name="create_dir_fail_msg">Nepavyko sukurti failo</string>
+    <string name="create_document">Dokumentas</string>
     <string name="create_end_to_end_encrypted_share">Nuorodos dalijimasis</string>
     <string name="create_end_to_end_encrypted_share_title">Ištisinio šifravimo nuorodų bendrinimas</string>
+    <string name="create_folder">Aplankas</string>
     <string name="create_link">Sukurti nuorodą</string>
     <string name="create_new">Nauja</string>
     <string name="create_new_document">Naujas dokumentas</string>
@@ -261,7 +263,9 @@
     <string name="create_new_folder">Naujas aplankas</string>
     <string name="create_new_presentation">Nauja pateiktis</string>
     <string name="create_new_spreadsheet">Nauja skaičiuoklė</string>
+    <string name="create_presentation">Pateiktis</string>
     <string name="create_rich_workspace">Pridėti aplanko aprašą</string>
+    <string name="create_spreadsheet">Skaičiuoklė</string>
     <string name="credentials_disabled">Prisijungimo duomenys išjungti</string>
     <string name="daily_backup">Kasdienės atsarginės kopijos</string>
     <string name="data_to_back_up">Duomenų atsarginės kopijos</string>
@@ -643,6 +647,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Didžiausi pirma</string>
     <string name="menu_item_sort_by_size_smallest_first">Mažiausi pirma</string>
     <string name="more">Daugiau</string>
+    <string name="more_documents">Daugiau dokumentų</string>
     <string name="move_file_error">Klaida perkeliant failą ar aplanką</string>
     <string name="move_file_invalid_into_descendent">Neįmanoma perkelti aplanko į poaplankį</string>
     <string name="move_file_invalid_overwrite">Failas jau yra paskirties aplanke</string>

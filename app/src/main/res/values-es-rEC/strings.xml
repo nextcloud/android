@@ -182,12 +182,15 @@
     <string name="could_not_retrieve_url">No se pudo recuperar la URL</string>
     <string name="create">Crear</string>
     <string name="create_dir_fail_msg">No fue posible crear la carpeta</string>
+    <string name="create_document">Documento</string>
+    <string name="create_folder">Carpeta</string>
     <string name="create_link">Crear enlace</string>
     <string name="create_new">Nuevo</string>
     <string name="create_new_document">Nuevo documento</string>
     <string name="create_new_folder">Carpeta nueva</string>
     <string name="create_new_presentation">Nueva presentación</string>
     <string name="create_new_spreadsheet">Nueva hoja de cálculo</string>
+    <string name="create_presentation">Presentación</string>
     <string name="credentials_disabled">Credenciales desactivadas</string>
     <string name="daily_backup">Respaldo diario</string>
     <string name="data_to_back_up">Datos a respaldar</string>

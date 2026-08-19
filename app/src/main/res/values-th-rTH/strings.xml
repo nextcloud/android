@@ -185,11 +185,15 @@
     <string name="could_not_retrieve_url">ไม่สามารถดึง URL</string>
     <string name="create">สร้าง</string>
     <string name="create_dir_fail_msg">ไม่สามารถสร้างโฟลเดอร์</string>
+    <string name="create_document">เอกสาร</string>
+    <string name="create_folder">โฟลเดอร์</string>
     <string name="create_new">ใหม่</string>
     <string name="create_new_document">สร้างเอกสาร odt ใหม่</string>
     <string name="create_new_folder">โฟลเดอร์ใหม่</string>
     <string name="create_new_presentation">สร้างงานนำเสนอ odp ใหม่</string>
     <string name="create_new_spreadsheet">สร้างตารางคำนวณ ods ใหม่</string>
+    <string name="create_presentation">งานนำเสนอ</string>
+    <string name="create_spreadsheet">สเปรดชีต</string>
     <string name="credentials_disabled">ข้อมูลประจำตัวถูกปิดใช้งาน</string>
     <string name="daily_backup">สำรองข้อมูลรายวัน</string>
     <string name="data_to_back_up">ข้อมูลที่จะสำรอง</string>

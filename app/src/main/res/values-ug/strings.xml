@@ -231,6 +231,8 @@
     <string name="could_not_retrieve_url">URL نى ئەسلىگە كەلتۈرەلمىدى</string>
     <string name="create">قۇر</string>
     <string name="create_dir_fail_msg">ھۆججەت قىسقۇچ قۇرالمىدى</string>
+    <string name="create_document">پۈتۈك</string>
+    <string name="create_folder">قىسقۇچ</string>
     <string name="create_link">ئۇلىنىش قۇر</string>
     <string name="create_new">يېڭى</string>
     <string name="create_new_document">يېڭى ھۆججەت</string>
@@ -238,7 +240,9 @@
     <string name="create_new_folder">يېڭى ھۆججەت قىسقۇچ</string>
     <string name="create_new_presentation">يېڭى تونۇشتۇرۇش</string>
     <string name="create_new_spreadsheet">يېڭى ئېلېكترونلۇق جەدۋەل</string>
+    <string name="create_presentation">لېكسىيە</string>
     <string name="create_rich_workspace">ھۆججەت قىسقۇچ چۈشەندۈرۈشىنى قوشۇڭ</string>
+    <string name="create_spreadsheet">ئېلېكترونلۇق جەدۋەل</string>
     <string name="credentials_disabled">كىنىشكىسى چەكلەنگەن</string>
     <string name="daily_backup">كۈندىلىك زاپاسلاش</string>
     <string name="data_to_back_up">زاپاسلاش ئۈچۈن سانلىق مەلۇمات</string>
@@ -600,6 +604,7 @@
     <string name="menu_item_sort_by_size_biggest_first">ئەڭ چوڭ</string>
     <string name="menu_item_sort_by_size_smallest_first">ئەڭ كىچىك</string>
     <string name="more">تېخىمۇ كۆپ</string>
+    <string name="more_documents">تېخىمۇ كۆپ ھۆججەت</string>
     <string name="move_file_error">بۇ ھۆججەت ياكى ھۆججەت قىسقۇچنى يۆتكىمەكچى بولغاندا خاتالىق كۆرۈلدى</string>
     <string name="move_file_invalid_into_descendent">قىسقۇچنى ئۆزىنىڭ ئاستىدىكى قىسقۇچقا يۆتكەش مۇمكىن ئەمەس</string>
     <string name="move_file_invalid_overwrite">مەنزىل ھۆججەت قىسقۇچىدا ھۆججەت بار</string>

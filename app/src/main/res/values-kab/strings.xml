@@ -217,12 +217,15 @@
     <string name="could_not_retrieve_url">Ur izmir ara ad d-yawi URL</string>
     <string name="create">Snulfu-d</string>
     <string name="create_dir_fail_msg">Ulamek asnulfu n ukaram</string>
+    <string name="create_document">Isemli</string>
+    <string name="create_folder">Akaram</string>
     <string name="create_link">Snulfu-d aseɣwen</string>
     <string name="create_new">Amaynut</string>
     <string name="create_new_document">Isemli amaynut</string>
     <string name="create_new_folder">Akaram amaynut</string>
     <string name="create_new_presentation">Asenkid amaynut</string>
     <string name="create_new_spreadsheet">Ambellez amaynut </string>
+    <string name="create_presentation">Tasmuli</string>
     <string name="create_rich_workspace">Rnu aglam i ukaram</string>
     <string name="credentials_disabled">Isulay n tuqqna ttwasensen</string>
     <string name="daily_backup">Aḥraz n yal ass</string>
