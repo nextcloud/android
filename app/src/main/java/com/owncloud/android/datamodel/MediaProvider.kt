@@ -12,7 +12,6 @@ import android.net.Uri
 import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
 import com.owncloud.android.MainApp
-import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.PermissionUtil
 import java.io.File
 
@@ -20,12 +19,8 @@ import java.io.File
  * Media queries to gain access to media lists for the device.
  */
 object MediaProvider {
-    private val TAG = MediaProvider::class.java.simpleName
-
     private const val PATH_SEPARATOR = '/'
     private const val SQL_EQUALS = "="
-    private const val IMAGES_LABEL = "images"
-    private const val VIDEOS_LABEL = "videos"
 
     private val IMAGES_MEDIA_URI: Uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
     private val VIDEOS_MEDIA_URI: Uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
@@ -78,7 +73,6 @@ object MediaProvider {
                 sortDirection = ContentResolverHelper.SORT_DIRECTION_DESCENDING,
                 limit = itemLimit
             )
-            logFolderRead(IMAGES_LABEL, folderName)
 
             val filePaths = fileCursor?.use { it.readFilePaths(itemLimit, ::isValidAndExistingFilePath) }.orEmpty()
 
@@ -120,7 +114,6 @@ object MediaProvider {
                 sortDirection = ContentResolverHelper.SORT_DIRECTION_DESCENDING,
                 limit = itemLimit
             )
-            logFolderRead(VIDEOS_LABEL, folderName)
 
             val filePaths = fileCursor?.use { it.readFilePaths(itemLimit) }.orEmpty()
 
@@ -145,10 +138,6 @@ object MediaProvider {
 
     private fun bucketSelection(bucketIdColumn: String, bucketId: String?): String =
         bucketIdColumn + SQL_EQUALS + bucketId
-
-    private fun logFolderRead(mediaLabel: String, folderName: String?) {
-        Log_OC.d(TAG, "Reading $mediaLabel for $folderName")
-    }
 
     /**
      * Since sdk 29 the media store no longer collapses rows per bucket, so folders have to be distinguished manually.
