@@ -18,7 +18,7 @@ import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.bumptech.glide.Glide
 import com.nextcloud.client.account.User
-import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UnifiedSearchCurrentDirectoryItemBinding
 import com.owncloud.android.databinding.UnifiedSearchEmptyBinding
@@ -28,11 +28,11 @@ import com.owncloud.android.databinding.UnifiedSearchItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
+import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.ui.interfaces.UnifiedSearchCurrentDirItemAction
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
 import com.owncloud.android.utils.DisplayUtils
-import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 /**
@@ -44,12 +44,11 @@ class UnifiedSearchListAdapter(
     private val storageManager: FileDataStorageManager,
     private val listInterface: UnifiedSearchListInterface,
     private val filesAction: UnifiedSearchItemViewHolder.FilesAction,
-    private val user: User,
     private val context: Context,
     private val viewThemeUtils: ViewThemeUtils,
-    private val appPreferences: AppPreferences,
     private val currentDirItemAction: UnifiedSearchCurrentDirItemAction,
-    private val thumbnailGenerator: ThumbnailGenerator
+    private val thumbnailGenerator: ThumbnailGenerator,
+    private val user: User
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
     companion object {
         private const val VIEW_TYPE_EMPTY = Int.MAX_VALUE
@@ -77,7 +76,7 @@ class UnifiedSearchListAdapter(
             val index = getSectionIndex(section)
             sections.getOrNull(index)
                 ?.entries
-                ?.getOrNull(position)?.hashCode()?.toLong() ?: RecyclerView.NO_ID
+                ?.getOrNull(position)?.searchResult?.hashCode()?.toLong() ?: RecyclerView.NO_ID
         }
     }
 
@@ -132,14 +131,12 @@ class UnifiedSearchListAdapter(
                 UnifiedSearchItemViewHolder(
                     supportsOpeningCalendarContactsLocally,
                     binding,
-                    storageManager,
                     listInterface,
                     filesAction,
                     context,
                     viewThemeUtils,
                     thumbnailGenerator,
-                    user,
-                    appPreferences
+                    FileOperationsHelper.isEndToEndEncryptionSetup(context, user)
                 )
             }
 

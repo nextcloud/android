@@ -28,6 +28,9 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.asynctasks.GetRemoteFileTask
 import com.owncloud.android.ui.fragment.UnifiedSearchFragmentScreenState
 import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @Suppress("LongParameterList")
 class UnifiedSearchViewModel(application: Application) :
@@ -54,6 +57,7 @@ class UnifiedSearchViewModel(application: Application) :
 
     private lateinit var repository: IUnifiedSearchRepository
     private var results: MutableMap<ProviderID, UnifiedSearchMetadata> = mutableMapOf()
+    private var searchResultsVersion = 0
 
     override val screenState: MutableLiveData<UnifiedSearchFragmentScreenState> =
         MutableLiveData(UnifiedSearchFragmentScreenState.ShowingContent)
@@ -93,6 +97,7 @@ class UnifiedSearchViewModel(application: Application) :
     override fun initialQuery() {
         doWithConnectivityCheck {
             results = mutableMapOf()
+            searchResultsVersion++
             searchResults.value = mutableListOf()
             val queryTerm = query.value.orEmpty()
 
@@ -197,16 +202,35 @@ class UnifiedSearchViewModel(application: Application) :
     }
 
     private fun genSearchResultsFromMeta() {
-        searchResults.value = results
+        val snapshot = results
             .filter { it.value.results.isNotEmpty() }
-            .map { (key, value) ->
-                val isLastEntryHaveValue = results[key]?.results?.last()?.entries?.isEmpty() != true
+            .mapValues { (_, metadata) -> metadata.copy(results = metadata.results.toMutableList()) }
 
+        val version = ++searchResultsVersion
+
+        viewModelScope.launch(Dispatchers.IO) {
+            val sections = buildSections(snapshot)
+
+            withContext(Dispatchers.Main) {
+                if (version == searchResultsVersion) {
+                    searchResults.value = sections
+                }
+            }
+        }
+    }
+
+    private fun buildSections(snapshot: Map<ProviderID, UnifiedSearchMetadata>): List<UnifiedSearchSection> {
+        val storageManager = FileDataStorageManager(currentAccountProvider.user, context.contentResolver)
+
+        return snapshot
+            .map { (providerID, metadata) ->
                 UnifiedSearchSection(
-                    providerID = key,
-                    name = value.name()!!,
-                    entries = value.results.flatMap { it.entries },
-                    hasMoreResults = isLastEntryHaveValue && results[key]?.nextCursor() != null
+                    providerID = providerID,
+                    name = metadata.name()!!,
+                    entries = metadata.results
+                        .flatMap { it.entries }
+                        .map { it.toUnifiedSearchEntry(storageManager) },
+                    hasMoreResults = metadata.results.last().entries.isNotEmpty() && metadata.nextCursor() != null
                 )
             }
             .sortedWith { o1, o2 ->

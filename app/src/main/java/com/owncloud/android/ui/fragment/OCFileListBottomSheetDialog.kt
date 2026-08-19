@@ -1,19 +1,25 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Daniele Verducci <daniele.verducci@nextcloud.com>
  * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger.de>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.fragment
 
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.ContextThemeWrapper
 import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
+import androidx.core.view.isEmpty
+import androidx.core.view.isNotEmpty
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.gson.Gson
@@ -53,6 +59,47 @@ class OCFileListBottomSheetDialog(
 ) : BottomSheetDialog(fileActivity),
     Injectable {
 
+    companion object {
+        // Number of items to show in document creators overview
+        private const val CREATORS_OVERVIEW_ITEMS = 3
+        private val DIRECT_EDITING_CREATORS_OFFICE_IDS = arrayOf("document", "spreadsheet", "presentation")
+    }
+
+    private enum class CreatorType {
+        Office,
+        Other
+    }
+
+    private val templateActions = listOf(
+        CreatorAction(
+            text = context.getString(R.string.create_document),
+            icon = AppCompatResources.getDrawable(context, R.drawable.file_doc),
+            action = {
+                actions.newDocument()
+                dismiss()
+            },
+            type = CreatorType.Office
+        ),
+        CreatorAction(
+            text = context.getString(R.string.create_spreadsheet),
+            icon = AppCompatResources.getDrawable(context, R.drawable.file_xls),
+            action = {
+                actions.newSpreadsheet()
+                dismiss()
+            },
+            type = CreatorType.Office
+        ),
+        CreatorAction(
+            text = context.getString(R.string.create_presentation),
+            icon = AppCompatResources.getDrawable(context, R.drawable.file_ppt),
+            action = {
+                actions.newPresentation()
+                dismiss()
+            },
+            type = CreatorType.Office
+        )
+    )
+
     private lateinit var binding: FileListActionsBottomSheetFragmentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,12 +108,7 @@ class OCFileListBottomSheetDialog(
         setContentView(binding.getRoot())
 
         applyBranding()
-        binding.addToCloud.text = context.resources.getString(
-            R.string.add_to_cloud,
-            themeUtils.getDefaultDisplayNameForRootFolder(context)
-        )
 
-        checkTemplateVisibility()
         initCreatorContainer()
 
         if (!deviceInfo.hasCamera(context)) {
@@ -109,6 +151,14 @@ class OCFileListBottomSheetDialog(
                 colorMaterialButtonContent(menuMkdir, ColorRole.PRIMARY)
                 colorMaterialButtonContent(menuEncryptedMkdir, ColorRole.PRIMARY)
                 colorMaterialButtonContent(menuCreateRichWorkspace, ColorRole.PRIMARY)
+                colorMaterialButtonContent(menuMoreDocuments, ColorRole.PRIMARY)
+                colorMaterialButtonContent(menuBack, ColorRole.PRIMARY)
+
+                viewThemeUtils.platform.tintDrawable(
+                    context,
+                    binding.menuMoreDocumentsExpand.drawable,
+                    ColorRole.PRIMARY
+                )
             }
         }
 
@@ -124,95 +174,174 @@ class OCFileListBottomSheetDialog(
             menuMkdir.setTextColor(textColor)
             menuEncryptedMkdir.setTextColor(textColor)
             menuCreateRichWorkspace.setTextColor(textColor)
-        }
-    }
-
-    private fun checkTemplateVisibility() {
-        val optionalCapability = fileActivity.capabilities
-        if (file.isEncrypted || optionalCapability.isEmpty) {
-            return
-        }
-
-        val capability = optionalCapability.get()
-        if (!capability.isTemplateAvailable()) {
-            return
-        }
-
-        binding.run {
-            menuNewDocument.visibility = View.VISIBLE
-            menuNewSpreadsheet.visibility = View.VISIBLE
-            menuNewPresentation.visibility = View.VISIBLE
+            menuMoreDocuments.setTextColor(textColor)
         }
     }
 
     @Suppress("DEPRECATION", "LongMethod", "MagicNumber")
     private fun initCreatorContainer() {
-        val json = ArbitraryDataProviderImpl(context)
-            .getValue(user, ArbitraryDataProvider.DIRECT_EDITING)
-
-        if (json.isEmpty() || file.isEncrypted) {
+        if (file.isEncrypted) {
             return
         }
 
-        val directEditing = Gson().fromJson(json, DirectEditing::class.java)
-        if (directEditing.creators.isEmpty()) {
+        // Create a list of supported creators, in the order to be shown (direct editing, then collabora)
+        val creatorsActions = ArrayList<CreatorAction>()
+
+        // Check direct editing
+        val directEditing = creatorsActionsFromDirectEditing()
+
+        // Check capabilities (e.g. collabora)
+        val capabilities = creatorsActionsFromCollabora()
+
+        // First Direct Editing Office (if any)
+        creatorsActions.addAll(directEditing.filter { it.type == CreatorType.Office })
+        // Then Capabilities Office (if any). Capabilities entry are all type office, no need to filter.
+        creatorsActions.addAll(capabilities)
+        // Then all the rest
+        creatorsActions.addAll(directEditing.filter { it.type != CreatorType.Office })
+
+        displayCreatorsActions(creatorsActions)
+    }
+
+    private fun displayCreatorsActions(creatorsActions: List<CreatorAction>) {
+        if (creatorsActions.isEmpty()) {
+            // If no creators at all, hide whole container (comprising separator)
+            binding.creatorsOverviewContainer.visibility = View.GONE
             return
         }
 
-        binding.creatorsContainer.visibility = View.VISIBLE
-        binding.creators.removeAllViews()
+        binding.creatorsOverviewContainer.visibility = View.VISIBLE
 
-        val itemHeight = context.resources.getDimensionPixelSize(R.dimen.bottom_sheet_item_height)
-        val standardPadding = context.resources.getDimensionPixelSize(R.dimen.standard_padding)
-        val iconSize = context.resources.getDimensionPixelSize(R.dimen.iconized_single_line_item_icon_size)
+        with(binding) {
+            creatorsOverview.removeAllViews()
+            creators.removeAllViews()
 
-        for (creator in directEditing.creators.values) {
-            val creatorButton = MaterialButton(
-                ContextThemeWrapper(
-                    context,
-                    R.style.ThemeOverlay_App_Button_BottomSheetItem
-                ),
-                null,
-                com.google.android.material.R.attr.materialButtonStyle
-            ).apply {
-                id = View.generateViewId()
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    itemHeight
-                )
-
-                gravity = Gravity.START or Gravity.CENTER_VERTICAL
-                setPaddingRelative(standardPadding, 0, standardPadding, 0)
-
-                val buttonText = String.format(
-                    fileActivity.getString(R.string.editor_placeholder),
-                    fileActivity.getString(R.string.create_new),
-                    creator.name
-                )
-                text = buttonText
-                setTextColor(ContextCompat.getColor(context, R.color.text_color))
-                textSize = 16f
-                isAllCaps = false
-
-                icon = MimeTypeUtil.getFileTypeIcon(
-                    creator.mimetype,
-                    creator.extension,
-                    context,
-                    viewThemeUtils
-                )
-                this.iconSize = iconSize
-                this.iconPadding = standardPadding
-                iconGravity = MaterialButton.ICON_GRAVITY_START
-                iconTint = null
-
-                setOnClickListener {
-                    actions.showTemplate(creator, buttonText)
-                    dismiss()
+            creatorsActions.forEachIndexed { index, action ->
+                if (creatorsActions.size == 1) {
+                    // Single element is shown as row in the overview
+                    creatorsOverview.addView(buildCreatorButton(action, false))
+                } else if (index < CREATORS_OVERVIEW_ITEMS) {
+                    // First x elements shown as boxes in the overview
+                    creatorsOverview.addView(buildCreatorButton(action, true))
+                } else {
+                    // Other elements shown as rows in the overflow view
+                    creators.addView(buildCreatorButton(action, false))
                 }
             }
 
-            binding.creators.addView(creatorButton)
+            if (creatorsOverview.isNotEmpty()) {
+                creatorsOverview.visibility = View.VISIBLE
+            }
+
+            menuMoreDocumentsContainer.visibility = if (creators.isEmpty()) View.GONE else View.VISIBLE
         }
+    }
+
+    private fun creatorsActionsFromDirectEditing(): List<CreatorAction> {
+        val creatorsActions = ArrayList<CreatorAction>()
+        ArbitraryDataProviderImpl(context)
+            .getValue(user, ArbitraryDataProvider.DIRECT_EDITING)
+            .takeIf(String::isNotEmpty)
+            ?.let { Gson().fromJson(it, DirectEditing::class.java) }
+            ?.creators
+            ?.values
+            ?.forEach { creator ->
+                val buttonText = creator.name
+                creatorsActions.add(
+                    CreatorAction(
+                        text = buttonText.replaceFirstChar(Char::titlecase),
+                        icon = MimeTypeUtil.getFileTypeIcon(
+                            creator.mimetype,
+                            creator.extension,
+                            context,
+                            viewThemeUtils
+                        ),
+                        action = {
+                            actions.showTemplate(creator, buttonText)
+                            dismiss()
+                        },
+                        type = if (creator.id in DIRECT_EDITING_CREATORS_OFFICE_IDS) {
+                            CreatorType.Office
+                        } else {
+                            CreatorType.Other
+                        }
+
+                    )
+                )
+            }
+        return creatorsActions
+    }
+
+    private fun creatorsActionsFromCollabora(): List<CreatorAction> {
+        val creatorsActions = ArrayList<CreatorAction>()
+
+        fileActivity.capabilities
+            .filter { it.isTemplateAvailable() }
+            .ifPresent { creatorsActions.addAll(templateActions) }
+
+        return creatorsActions
+    }
+
+    /**
+     * @param creatorAction Action for which the button is created
+     * @param showAsBox If true, creates a squarish view with weight to be displayed horizontally, otherwise a row
+     */
+    private fun buildCreatorButton(creatorAction: CreatorAction, showAsBox: Boolean): MaterialButton {
+        val itemHeight = context.resources.getDimensionPixelSize(
+            if (showAsBox) R.dimen.bottom_sheet_horizontal_item_height else R.dimen.bottom_sheet_item_height
+        )
+        val standardPadding = context.resources.getDimensionPixelSize(R.dimen.standard_padding)
+        val iconSize = context.resources.getDimensionPixelSize(R.dimen.iconized_single_line_item_icon_size)
+
+        val creatorButton = MaterialButton(
+            ContextThemeWrapper(
+                context,
+                R.style.ThemeOverlay_App_Button_BottomSheetItem
+            ),
+            null,
+            com.google.android.material.R.attr.materialButtonStyle
+        ).apply {
+            id = View.generateViewId()
+            layoutParams = LinearLayout.LayoutParams(
+                if (showAsBox) 0 else LinearLayout.LayoutParams.MATCH_PARENT,
+                itemHeight,
+                if (showAsBox) 1f else 0f
+            )
+
+            gravity = if (showAsBox) Gravity.CENTER else Gravity.START or Gravity.CENTER_VERTICAL
+            setPaddingRelative(standardPadding, 0, standardPadding, 0)
+
+            text = creatorAction.text
+            setTextColor(ContextCompat.getColor(context, R.color.text_color))
+            setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.bottom_sheet_text_size))
+            isAllCaps = false
+
+            icon = creatorAction.icon
+            this.iconSize = iconSize
+            this.iconPadding = if (showAsBox) 0 else standardPadding
+            if (showAsBox) {
+                this.setPadding(
+                    paddingLeft,
+                    paddingTop + standardPadding,
+                    paddingRight,
+                    paddingBottom + standardPadding
+                )
+            }
+            iconGravity = if (showAsBox) MaterialButton.ICON_GRAVITY_TOP else MaterialButton.ICON_GRAVITY_START
+            iconTint = null
+
+            cornerRadius =
+                if (showAsBox) {
+                    context.resources.getDimensionPixelSize(R.dimen.button_corner_radius)
+                } else {
+                    cornerRadius
+                }
+
+            setOnClickListener {
+                creatorAction.action()
+            }
+        }
+        return creatorButton
     }
 
     private fun createRichWorkspace() {
@@ -223,14 +352,11 @@ class OCFileListBottomSheetDialog(
             // != "": info set -> hide button
             if (file.richWorkspace == null || "" != file.richWorkspace) {
                 binding.menuCreateRichWorkspace.visibility = View.GONE
-                binding.menuCreateRichWorkspaceDivider.visibility = View.GONE
             } else {
                 binding.menuCreateRichWorkspace.visibility = View.VISIBLE
-                binding.menuCreateRichWorkspaceDivider.visibility = View.VISIBLE
             }
         } else {
             binding.menuCreateRichWorkspace.visibility = View.GONE
-            binding.menuCreateRichWorkspaceDivider.visibility = View.GONE
         }
     }
 
@@ -273,6 +399,7 @@ class OCFileListBottomSheetDialog(
                 }
             } else {
                 menuScanDocUpload.visibility = View.GONE
+                menuScanDocUploadDivider.visibility = View.GONE
             }
 
             menuUploadFiles.setOnClickListener {
@@ -280,19 +407,13 @@ class OCFileListBottomSheetDialog(
                 dismiss()
             }
 
-            menuNewDocument.setOnClickListener {
-                actions.newDocument()
-                dismiss()
+            menuMoreDocuments.setOnClickListener {
+                bottomSheetViewSwitcher.showNext()
             }
 
-            menuNewSpreadsheet.setOnClickListener {
-                actions.newSpreadsheet()
-                dismiss()
-            }
-
-            menuNewPresentation.setOnClickListener {
-                actions.newPresentation()
-                dismiss()
+            menuBack.setOnClickListener {
+                // Invert animation
+                bottomSheetViewSwitcher.showPrevious()
             }
         }
     }
@@ -309,12 +430,16 @@ class OCFileListBottomSheetDialog(
                     menuUploadFromApp.visibility = View.GONE
                     menuDirectCameraUpload.visibility = View.GONE
                     menuScanDocUpload.visibility = View.GONE
-                    menuNewDocument.visibility = View.GONE
-                    menuNewSpreadsheet.visibility = View.GONE
-                    menuNewPresentation.visibility = View.GONE
-                    creatorsContainer.visibility = View.GONE
+                    creatorsOverviewContainer.visibility = View.GONE
                 }
             }
         }
     }
+
+    private data class CreatorAction(
+        val text: String,
+        val icon: Drawable?,
+        val action: () -> Unit,
+        val type: CreatorType
+    )
 }

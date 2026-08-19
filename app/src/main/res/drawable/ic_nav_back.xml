@@ -1,0 +1,14 @@
+<!--
+  ~ SPDX-FileCopyrightText: 2026 Daniele Verducci <daniele.verducci@nextcloud.com>
+  ~ SPDX-FileCopyrightText: 2018-2026 Google LLC
+  ~ SPDX-License-Identifier: Apache-2.0
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="960"
+    android:viewportHeight="960">
+  <path
+      android:pathData="M640,880 L240,480l400,-400 71,71 -329,329 329,329 -71,71Z"
+      android:fillColor="#1f1f1f"/>
+</vector>

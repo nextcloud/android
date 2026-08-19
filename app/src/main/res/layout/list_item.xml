@@ -77,15 +77,29 @@
         android:orientation="vertical"
         android:paddingTop="@dimen/standard_half_padding">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/Filename"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:ellipsize="middle"
+            android:singleLine="true"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/two_line_primary_text_size"
+            tools:text="@string/placeholder_filename" />
+
+        <LinearLayout
+            android:id="@+id/bidi_filename_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            tools:visibility="visible">
 
             <TextView
-                android:id="@+id/Filename"
-                android:layout_width="wrap_content"
+                android:id="@+id/bidi_filename"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:ellipsize="middle"
                 android:singleLine="true"
                 android:textColor="@color/text_color"
@@ -96,7 +110,6 @@
                 android:id="@+id/extension"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ellipsize="middle"
                 android:singleLine="true"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/two_line_primary_text_size"

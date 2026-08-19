@@ -22,8 +22,10 @@ class OCFileListGridItemViewHolder(var binding: GridItemBinding) :
         binding.root
     ),
     ListGridItemViewHolder {
-    val bidiFilename: TextView
+    override val bidiFilename: TextView
         get() = binding.bidiFilename
+    override val bidiFilenameContainer: View
+        get() = binding.bidiFilenameContainer
     override val fileName: TextView
         get() = binding.Filename
     override val extension: TextView?
