@@ -244,8 +244,10 @@
     <string name="could_not_retrieve_url">Kunne ikke hente URL</string>
     <string name="create">Opprett</string>
     <string name="create_dir_fail_msg">Mappe kunne ikke opprettes</string>
+    <string name="create_document">Dokument</string>
     <string name="create_end_to_end_encrypted_share">Linkdeling</string>
     <string name="create_end_to_end_encrypted_share_title">Ende-til-ende-kryptert linkdeling</string>
+    <string name="create_folder">Mappe</string>
     <string name="create_link">Lag lenke</string>
     <string name="create_new">Ny</string>
     <string name="create_new_document">Nytt dokument</string>
@@ -253,7 +255,9 @@
     <string name="create_new_folder">Ny mappe</string>
     <string name="create_new_presentation">Ny presentasjon</string>
     <string name="create_new_spreadsheet">Nytt regneark</string>
+    <string name="create_presentation">Presentasjon</string>
     <string name="create_rich_workspace">Legg til mappebeskrivelse</string>
+    <string name="create_spreadsheet">Regneark</string>
     <string name="credentials_disabled">Legitimasjon deaktivert</string>
     <string name="daily_backup">Daglig sikkerhetskopi</string>
     <string name="data_to_back_up">Data å sikkerhetskopiere</string>

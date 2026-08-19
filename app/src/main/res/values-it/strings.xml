@@ -229,13 +229,17 @@
     <string name="could_not_retrieve_url">Impossibile recuperare l\'URL</string>
     <string name="create">Crea</string>
     <string name="create_dir_fail_msg">Impossibile creare la cartella</string>
+    <string name="create_document">Documento</string>
+    <string name="create_folder">Cartella</string>
     <string name="create_link">Crea collegamento</string>
     <string name="create_new">Nuovo</string>
     <string name="create_new_document">Nuovo documento</string>
     <string name="create_new_folder">Nuova cartella</string>
     <string name="create_new_presentation">Nuova presentazione</string>
     <string name="create_new_spreadsheet">Nuovo foglio elettronico</string>
+    <string name="create_presentation">Presentazione</string>
     <string name="create_rich_workspace">Aggiungi descrizione cartella</string>
+    <string name="create_spreadsheet">Foglio elettronico</string>
     <string name="credentials_disabled">Credenziali disabilitate</string>
     <string name="daily_backup">Backup giornaliero</string>
     <string name="data_to_back_up">Dati di cui eseguire il backup</string>
@@ -572,6 +576,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Prima i più grandi</string>
     <string name="menu_item_sort_by_size_smallest_first">Prima i più piccoli</string>
     <string name="more">Altro</string>
+    <string name="more_documents">Altri documenti</string>
     <string name="move_file_error">Si è verificato un errore durante il tentativo di spostare il file o la cartella</string>
     <string name="move_file_invalid_into_descendent">Impossibile spostare una cartella in una delle sue cartelle sottostanti</string>
     <string name="move_file_invalid_overwrite">Il file è già presente nella cartella di destinazione</string>

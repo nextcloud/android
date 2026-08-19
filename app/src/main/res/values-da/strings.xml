@@ -231,6 +231,7 @@
     <string name="create_new_folder">Ny mappe</string>
     <string name="create_new_presentation">Ny præsentation</string>
     <string name="create_new_spreadsheet">Nyt regneark</string>
+    <string name="create_presentation">Præsentation</string>
     <string name="create_rich_workspace">Tilføj mappebeskrivelse</string>
     <string name="credentials_disabled">Legitimationsoplysninger deaktiverede</string>
     <string name="daily_backup">Daglig backup</string>
@@ -585,6 +586,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Største først</string>
     <string name="menu_item_sort_by_size_smallest_first">Mindste først</string>
     <string name="more">Mere</string>
+    <string name="more_documents">Flere dokumenter</string>
     <string name="move_file_error">Der opstod en fejl under forsøg på at flytte denne mappe eller fil</string>
     <string name="move_file_invalid_into_descendent">Det er ikke muligt at flytte en mappe til en af dens egne undermapper</string>
     <string name="move_file_invalid_overwrite">Filen findes allerede i destinationsmappen</string>

@@ -170,11 +170,15 @@
     <string name="could_not_retrieve_url">לא ניתן לקבל כתובת</string>
     <string name="create">יצירה</string>
     <string name="create_dir_fail_msg">לא ניתן ליצור תיקייה</string>
+    <string name="create_document">מסמך</string>
+    <string name="create_folder">תיקייה</string>
     <string name="create_new">חדש</string>
     <string name="create_new_document">מסמך חדש</string>
     <string name="create_new_folder">תיקייה חדשה</string>
     <string name="create_new_presentation">מצגת חדשה</string>
     <string name="create_new_spreadsheet">גיליון נתונים חדש</string>
+    <string name="create_presentation">מצגת</string>
+    <string name="create_spreadsheet">גיליון נתונים</string>
     <string name="credentials_disabled">פרטי גישה מושבתים</string>
     <string name="daily_backup">גיבוי יומי</string>
     <string name="data_to_back_up">נתונים לגיבוי</string>

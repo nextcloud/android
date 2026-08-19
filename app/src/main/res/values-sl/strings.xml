@@ -188,12 +188,16 @@
     <string name="could_not_retrieve_url">Naslova URL ni mogoče pridobiti</string>
     <string name="create">Ustvari</string>
     <string name="create_dir_fail_msg">Ni mogoče ustvariti mape</string>
+    <string name="create_document">Dokument</string>
+    <string name="create_folder">Mapa</string>
     <string name="create_link">Ustvari povezavo</string>
     <string name="create_new">Novo</string>
     <string name="create_new_document">Nov dokument</string>
     <string name="create_new_folder">Nova mapa</string>
     <string name="create_new_presentation">Nova predstavitev</string>
     <string name="create_new_spreadsheet">Nova preglednica</string>
+    <string name="create_presentation">Predstavitev</string>
+    <string name="create_spreadsheet">Preglednica</string>
     <string name="credentials_disabled">Poverila so onemogočena</string>
     <string name="daily_backup">Dnevna varnostna kopija</string>
     <string name="data_to_back_up">Podatki za varnostno kopiranje</string>

@@ -249,8 +249,10 @@
     <string name="could_not_retrieve_url">A webcím nem kérhető le</string>
     <string name="create">Létrehozás</string>
     <string name="create_dir_fail_msg">A mappa létrehozása sikertelen</string>
+    <string name="create_document">Dokumentum</string>
     <string name="create_end_to_end_encrypted_share">Megosztási hivatkozás</string>
     <string name="create_end_to_end_encrypted_share_title">Végpontok közti titkosítással rendelkező megosztási hivatkozások</string>
+    <string name="create_folder">Mappa</string>
     <string name="create_link">Hivatkozás létrehozása</string>
     <string name="create_new">Új</string>
     <string name="create_new_document">Új dokumentum</string>
@@ -258,7 +260,9 @@
     <string name="create_new_folder">Új mappa</string>
     <string name="create_new_presentation">Új bemutató</string>
     <string name="create_new_spreadsheet">Új munkafüzet</string>
+    <string name="create_presentation">Bemutató</string>
     <string name="create_rich_workspace">Mappaleírás hozzáadása</string>
+    <string name="create_spreadsheet">Munkafüzet</string>
     <string name="credentials_disabled">Hitelesítő adatok letiltva</string>
     <string name="daily_backup">Napi biztonsági mentés</string>
     <string name="data_to_back_up">Mentendő adatok</string>

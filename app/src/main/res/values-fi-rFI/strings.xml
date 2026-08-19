@@ -208,13 +208,17 @@
     <string name="could_not_retrieve_url">URL:n palautus epännistui</string>
     <string name="create">Luo</string>
     <string name="create_dir_fail_msg">Kansion luominen ei onnistunut</string>
+    <string name="create_document">Asiakirja</string>
+    <string name="create_folder">Kansio</string>
     <string name="create_link">Luo linkki</string>
     <string name="create_new">Uusi</string>
     <string name="create_new_document">Uusi dokumentti</string>
     <string name="create_new_folder">Uusi kansio</string>
     <string name="create_new_presentation">Uusi esitys</string>
     <string name="create_new_spreadsheet">Uusi laskentataulukko</string>
+    <string name="create_presentation">Esitys</string>
     <string name="create_rich_workspace">Lisään kansion kuvaus</string>
+    <string name="create_spreadsheet">Taulukko</string>
     <string name="credentials_disabled">Kirjautumistiedot poistettu käytöstä</string>
     <string name="daily_backup">Päivittäinen varmuuskopio</string>
     <string name="data_to_back_up">Varmuuskopioitavat tiedot</string>

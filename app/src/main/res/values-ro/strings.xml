@@ -204,12 +204,16 @@
     <string name="could_not_retrieve_url">Nu a fost găsit URL-ul</string>
     <string name="create">Crează</string>
     <string name="create_dir_fail_msg">Nu s-a putut crea directorul</string>
+    <string name="create_document">Document</string>
+    <string name="create_folder">Director</string>
     <string name="create_new">Nou</string>
     <string name="create_new_document">Document nou</string>
     <string name="create_new_folder">Director nou</string>
     <string name="create_new_presentation">Prezentare nouă</string>
     <string name="create_new_spreadsheet">Foaie de calcul nouă</string>
+    <string name="create_presentation">Prezentare</string>
     <string name="create_rich_workspace">Adăugați descrierea directorului</string>
+    <string name="create_spreadsheet">Foaie de calcul</string>
     <string name="credentials_disabled">Autentificare dezactivată</string>
     <string name="daily_backup">Copie de rezervă zilnică</string>
     <string name="data_to_back_up">Date pentru copia de rezervă</string>

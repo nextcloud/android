@@ -234,15 +234,19 @@
     <string name="could_not_retrieve_url">Não foi possível obter o URL</string>
     <string name="create">Criar</string>
     <string name="create_dir_fail_msg">Não foi possível criar a pasta</string>
+    <string name="create_document">Documento</string>
     <string name="create_end_to_end_encrypted_share">Compartilhamento por link</string>
     <string name="create_end_to_end_encrypted_share_title">Compartilhamentos por link criptografados de ponta-a-ponta</string>
+    <string name="create_folder">Pasta</string>
     <string name="create_link">Criar hiperligação</string>
     <string name="create_new">Novo</string>
     <string name="create_new_document">Novo documento</string>
     <string name="create_new_folder">Nova pasta</string>
     <string name="create_new_presentation">Nova apresentação</string>
     <string name="create_new_spreadsheet">Nova folha de calculo</string>
+    <string name="create_presentation">Apresentação</string>
     <string name="create_rich_workspace">Adicionar descrição da pasta</string>
+    <string name="create_spreadsheet">Folha de Cálculo</string>
     <string name="credentials_disabled">Credenciais desativadas</string>
     <string name="daily_backup">Cópia de segurança diária </string>
     <string name="data_to_back_up">Dados para a cópia de segurança</string>
@@ -592,6 +596,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Maiores primeiro</string>
     <string name="menu_item_sort_by_size_smallest_first">Mais pequenos primeiro</string>
     <string name="more">Mais</string>
+    <string name="more_documents">Mais documentos</string>
     <string name="move_file_error">Ocorreu um ocorreu quando tentava mover este ficheiro ou pasta</string>
     <string name="move_file_invalid_into_descendent">Não é possível mover a pasta para uma das suas próprias pastas internas</string>
     <string name="move_file_invalid_overwrite">O ficheiro já existe na pasta de destino</string>

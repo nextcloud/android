@@ -215,13 +215,17 @@
     <string name="could_not_retrieve_url">주소를 불러올 수 없습니다.</string>
     <string name="create">생성</string>
     <string name="create_dir_fail_msg">폴더를 만들 수 없음</string>
+    <string name="create_document">문서</string>
+    <string name="create_folder">폴더</string>
     <string name="create_link">링크 만들기</string>
     <string name="create_new">새 파일</string>
     <string name="create_new_document">새 문서</string>
     <string name="create_new_folder">새 폴더</string>
     <string name="create_new_presentation">새 프레젠테이션</string>
     <string name="create_new_spreadsheet">새 스프레드시트</string>
+    <string name="create_presentation">프레젠테이션</string>
     <string name="create_rich_workspace">폴더 설명 추가</string>
+    <string name="create_spreadsheet">스프레드시트</string>
     <string name="credentials_disabled">인증 비활성화됨</string>
     <string name="daily_backup">매일 백업</string>
     <string name="data_to_back_up">백업 할 날짜</string>

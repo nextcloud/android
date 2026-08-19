@@ -250,8 +250,10 @@
     <string name="could_not_retrieve_url">Adres alınamadı</string>
     <string name="create">Oluştur</string>
     <string name="create_dir_fail_msg">Klasör oluşturulamadı</string>
+    <string name="create_document">Belge</string>
     <string name="create_end_to_end_encrypted_share">Bağlantı paylaşımı</string>
     <string name="create_end_to_end_encrypted_share_title">Uçtan uca şifrelenmiş bağlantı paylaşımları</string>
+    <string name="create_folder">Klasör</string>
     <string name="create_link">Bağlantı oluştur</string>
     <string name="create_new">Yeni</string>
     <string name="create_new_document">Yeni belge</string>
@@ -259,7 +261,9 @@
     <string name="create_new_folder">Yeni klasör</string>
     <string name="create_new_presentation">Yeni sunum</string>
     <string name="create_new_spreadsheet">Yeni elektronik tablo</string>
+    <string name="create_presentation">Sunum</string>
     <string name="create_rich_workspace">Klasör açıklaması ekle</string>
+    <string name="create_spreadsheet">Elektronik tablo</string>
     <string name="credentials_disabled">Kimlik doğrulama bilgileri kullanılmıyor</string>
     <string name="daily_backup">Günlük yedek</string>
     <string name="data_to_back_up">Yedeklenecek veriler</string>
@@ -640,6 +644,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Büyükten küçüğe</string>
     <string name="menu_item_sort_by_size_smallest_first">Küçükten büyüğe</string>
     <string name="more">Diğer</string>
+    <string name="more_documents">Diğer belgeler</string>
     <string name="move_file_error">Bu dosya ya da klasör taşınmaya çalışılırken bir sorun çıktı</string>
     <string name="move_file_invalid_into_descendent">Bir klasör kendi alt klasörü olarak taşınamaz</string>
     <string name="move_file_invalid_overwrite">Dosya hedef klasörde zaten var</string>

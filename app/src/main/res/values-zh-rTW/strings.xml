@@ -250,8 +250,10 @@
     <string name="could_not_retrieve_url">無法擷取 URL</string>
     <string name="create">建立</string>
     <string name="create_dir_fail_msg">無法建立資料夾</string>
+    <string name="create_document">文件</string>
     <string name="create_end_to_end_encrypted_share">連結分享</string>
     <string name="create_end_to_end_encrypted_share_title">端到端連結分享</string>
+    <string name="create_folder">資料夾</string>
     <string name="create_link">建立連結</string>
     <string name="create_new">建立新的</string>
     <string name="create_new_document">新增文件</string>
@@ -259,7 +261,9 @@
     <string name="create_new_folder">新增資料夾</string>
     <string name="create_new_presentation">新增投影片</string>
     <string name="create_new_spreadsheet">新增試算表</string>
+    <string name="create_presentation">簡報</string>
     <string name="create_rich_workspace">新增資料夾資訊</string>
+    <string name="create_spreadsheet">試算表</string>
     <string name="credentials_disabled">憑證已停用</string>
     <string name="daily_backup">每日備份</string>
     <string name="data_to_back_up">要備份的資料</string>
@@ -640,6 +644,7 @@
     <string name="menu_item_sort_by_size_biggest_first">最大的在前</string>
     <string name="menu_item_sort_by_size_smallest_first">最小的在前</string>
     <string name="more">更多</string>
+    <string name="more_documents">更多文件</string>
     <string name="move_file_error">在移動此檔案或資料夾時發生錯誤</string>
     <string name="move_file_invalid_into_descendent">無法將資料夾移動到自己的子資料夾中</string>
     <string name="move_file_invalid_overwrite">此檔案已經存在於目標資料夾中</string>
@@ -1215,6 +1220,7 @@
     <string name="wait_checking_credentials">正在檢查儲存的憑證</string>
     <string name="wait_for_tmp_copy_from_private_storage">從私有儲存空間複製檔案中</string>
     <string name="warn_rename_extension">變更副檔名可能會導致此檔案在其他應用程式中開啟</string>
+    <string name="webview_not_available">此裝置缺少 Android System WebView 或其已被停用</string>
     <string name="what_s_new_image">有什麼新消息圖片</string>
     <string name="whats_new_skip">略過</string>
     <string name="whats_new_title">%1$s 有什麼新功能</string>
