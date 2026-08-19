@@ -22,6 +22,11 @@ import java.io.File
 object MediaProvider {
     private val TAG = MediaProvider::class.java.simpleName
 
+    private const val PATH_SEPARATOR = '/'
+    private const val SQL_EQUALS = "="
+    private const val IMAGES_LABEL = "images"
+    private const val VIDEOS_LABEL = "videos"
+
     private val IMAGES_MEDIA_URI: Uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
     private val VIDEOS_MEDIA_URI: Uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
 
@@ -63,7 +68,7 @@ object MediaProvider {
         val dataPath = appDataPath()
 
         return buckets.mapNotNullTo(mutableListOf()) { (bucketId, folderName) ->
-            val selection = MediaStore.Images.Media.BUCKET_ID + "=" + bucketId
+            val selection = bucketSelection(MediaStore.Images.Media.BUCKET_ID, bucketId)
             val fileCursor = ContentResolverHelper.queryResolver(
                 contentResolver,
                 IMAGES_MEDIA_URI,
@@ -73,10 +78,9 @@ object MediaProvider {
                 sortDirection = ContentResolverHelper.SORT_DIRECTION_DESCENDING,
                 limit = itemLimit
             )
-            Log_OC.d(TAG, "Reading images for $folderName")
+            logFolderRead(IMAGES_LABEL, folderName)
 
-            val filePaths = fileCursor?.use { it.readFilePaths(itemLimit, ::isValidAndExistingFilePath) }
-                ?: return@mapNotNullTo null
+            val filePaths = fileCursor?.use { it.readFilePaths(itemLimit, ::isValidAndExistingFilePath) }.orEmpty()
 
             buildMediaFolder(MediaFolderType.IMAGE, folderName, filePaths, dataPath) {
                 countFiles(contentResolver, IMAGES_MEDIA_URI, selection)
@@ -106,7 +110,7 @@ object MediaProvider {
         val dataPath = appDataPath()
 
         return buckets.mapNotNullTo(mutableListOf()) { (bucketId, folderName) ->
-            val selection = MediaStore.Video.Media.BUCKET_ID + "=" + bucketId
+            val selection = bucketSelection(MediaStore.Video.Media.BUCKET_ID, bucketId)
             val fileCursor = ContentResolverHelper.queryResolver(
                 contentResolver,
                 VIDEOS_MEDIA_URI,
@@ -116,9 +120,9 @@ object MediaProvider {
                 sortDirection = ContentResolverHelper.SORT_DIRECTION_DESCENDING,
                 limit = itemLimit
             )
-            Log_OC.d(TAG, "Reading videos for $folderName")
+            logFolderRead(VIDEOS_LABEL, folderName)
 
-            val filePaths = fileCursor?.use { it.readFilePaths(itemLimit) } ?: return@mapNotNullTo null
+            val filePaths = fileCursor?.use { it.readFilePaths(itemLimit) }.orEmpty()
 
             buildMediaFolder(MediaFolderType.VIDEO, folderName, filePaths, dataPath) {
                 countFiles(contentResolver, VIDEOS_MEDIA_URI, selection)
@@ -138,6 +142,13 @@ object MediaProvider {
         getWithoutActivity || (activity != null && PermissionUtil.checkStoragePermission(activity.applicationContext))
 
     private fun appDataPath(): String = MainApp.getStoragePath() + File.separator + MainApp.getDataFolder()
+
+    private fun bucketSelection(bucketIdColumn: String, bucketId: String?): String =
+        bucketIdColumn + SQL_EQUALS + bucketId
+
+    private fun logFolderRead(mediaLabel: String, folderName: String?) {
+        Log_OC.d(TAG, "Reading $mediaLabel for $folderName")
+    }
 
     /**
      * Since sdk 29 the media store no longer collapses rows per bucket, so folders have to be distinguished manually.
@@ -185,7 +196,9 @@ object MediaProvider {
         dataPath: String,
         countFiles: () -> Long
     ): MediaFolder? {
-        val absolutePath = filePaths.lastOrNull { it.lastIndexOf('/') > 0 }?.substringBeforeLast('/')
+        val absolutePath = filePaths
+            .lastOrNull { it.lastIndexOf(PATH_SEPARATOR) > 0 }
+            ?.substringBeforeLast(PATH_SEPARATOR)
 
         // folders within the Nextcloud app itself are not offered for auto upload
         if (absolutePath == null || absolutePath.startsWith(dataPath)) {
@@ -205,5 +218,5 @@ object MediaProvider {
         contentResolver.query(uri, FILE_PROJECTION, selection, null, null)?.use { it.count.toLong() } ?: 0L
 
     private fun isValidAndExistingFilePath(filePath: String): Boolean =
-        filePath.lastIndexOf('/') > 0 && File(filePath).exists()
+        filePath.lastIndexOf(PATH_SEPARATOR) > 0 && File(filePath).exists()
 }
