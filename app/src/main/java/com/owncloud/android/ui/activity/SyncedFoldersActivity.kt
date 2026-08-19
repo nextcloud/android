@@ -31,6 +31,8 @@ import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.MediaFoldersDetectionWork
 import com.nextcloud.client.jobs.NotificationWork
+import com.nextcloud.client.jobs.autoUpload.SyncFolderHelper
+import com.nextcloud.client.jobs.operation.FileOperationHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.SubFolderRule
 import com.nextcloud.ui.component.UploadWarningCard
@@ -630,7 +632,31 @@ class SyncedFoldersActivity :
         dialog.isCancelable = false
         dialog.setOnConfirmationListener(object : ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
             override fun onConfirmation(callerTag: String?) {
-                TODO("Not yet implemented")
+                // DEBUG
+                lifecycleScope.launch {
+                    val client = clientRepository.getOwncloudClient() ?: return@launch
+                    val syncFolderHelper = SyncFolderHelper(this@SyncedFoldersActivity)
+                    val filesOperationHelper =
+                        FileOperationHelper(user.get(), this@SyncedFoldersActivity, fileDataStorageManager)
+                    val syncedFolderArrayList = syncedFolderProvider.syncedFolders
+                    // TODO: For each synced folder for which the files should be deleted locally
+                    val syncedFolder =
+                        syncedFolderArrayList[0]
+                    val localFolder = File(syncedFolder.localPath)
+                    val files = SyncedFolderUtils.getFileList(localFolder)
+                    files.forEach {
+                        val remotePath = syncFolderHelper.getAutoUploadRemotePath(syncedFolder, it)
+                        val ocFile = OCFile(remotePath) // WRONG: this does not set the remote path, removeFile() fails
+                        filesOperationHelper.removeFile(
+                            file = ocFile,
+                            onlyLocalCopy = true,
+                            inBackground = true,
+                            client = client
+                        )
+                        Log_OC.d(TAG, "Checking local file ${it.absolutePath} against remote file ${ocFile.remotePath}")
+                    }
+                }
+                // DEBUG
             }
 
             override fun onNeutral(callerTag: String?) {
