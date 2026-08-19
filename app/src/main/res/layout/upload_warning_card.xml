@@ -59,9 +59,9 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
+                android:gravity="center|end"
                 android:layout_marginTop="12dp"
                 android:orientation="horizontal">
 
@@ -69,7 +69,7 @@
                     android:id="@+id/battery_saver_button"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:textAllCaps="false"
                     android:text="@string/auto_upload_battery_saver_action" />
 
@@ -77,8 +77,7 @@
                     android:id="@+id/sync_now_button"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/standard_half_margin"
+                    android:layout_height="match_parent"
                     android:textAllCaps="false"
                     android:text="@string/auto_upload_sync_now_action" />
             </LinearLayout>
