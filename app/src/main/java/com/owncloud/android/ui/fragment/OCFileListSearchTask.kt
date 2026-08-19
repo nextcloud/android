@@ -15,6 +15,8 @@ import android.content.ContentValues
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.extensions.getFavoriteFileEntities
+import com.nextcloud.utils.extensions.getSharedFileEntities
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -113,9 +115,9 @@ class OCFileListSearchTask(
         fragment: OCFileListFragment
     ): List<OCFile> {
         val files = if (searchType == SearchRemoteOperation.SearchType.SHARED_FILTER) {
-            storageManager.fileDao.getSharedFiles(currentUser.accountName)
+            storageManager.getSharedFileEntities(currentUser.accountName)
         } else {
-            storageManager.fileDao.getFavoriteFiles(currentUser.accountName)
+            storageManager.getFavoriteFileEntities(currentUser.accountName)
         }.mapNotNull { storageManager.createFileInstance(it) }
 
         return sortSearchData(files, fragmentSearchType, fragment)
