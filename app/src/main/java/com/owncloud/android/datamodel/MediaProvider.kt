@@ -1,260 +1,209 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2016 Andy Scherzinger
- * SPDX-FileCopyrightText: 2016 Nextcloud
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.datamodel;
+package com.owncloud.android.datamodel
 
-import android.content.ContentResolver;
-import android.database.Cursor;
-import android.net.Uri;
-import android.provider.MediaStore;
-
-import com.owncloud.android.MainApp;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Nullable;
-
-import androidx.appcompat.app.AppCompatActivity;
+import android.content.ContentResolver
+import android.database.Cursor
+import android.net.Uri
+import android.provider.MediaStore
+import androidx.appcompat.app.AppCompatActivity
+import com.owncloud.android.MainApp
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.utils.PermissionUtil
+import java.io.File
 
 /**
  * Media queries to gain access to media lists for the device.
  */
-public final class MediaProvider {
-    private static final String TAG = MediaProvider.class.getSimpleName();
+object MediaProvider {
+    private val TAG = MediaProvider::class.java.simpleName
 
-    // fixed query parameters
-    private static final Uri IMAGES_MEDIA_URI = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-    private static final String[] FILE_PROJECTION = new String[]{MediaStore.MediaColumns.DATA};
-    private static final String IMAGES_FILE_SELECTION = MediaStore.Images.Media.BUCKET_ID + "=";
-    private static final String[] IMAGES_FOLDER_PROJECTION = {MediaStore.Images.Media.BUCKET_ID,
-        MediaStore.Images.Media.BUCKET_DISPLAY_NAME};
-    private static final String IMAGES_FOLDER_SORT_COLUMN = MediaStore.Images.Media.BUCKET_DISPLAY_NAME;
-    private static final String IMAGES_SORT_DIRECTION = ContentResolverHelper.SORT_DIRECTION_ASCENDING;
+    private val IMAGES_MEDIA_URI: Uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+    private val VIDEOS_MEDIA_URI: Uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
 
-    private static final String[] VIDEOS_FOLDER_PROJECTION = {MediaStore.Video.Media.BUCKET_ID,
-        MediaStore.Video.Media.BUCKET_DISPLAY_NAME};
+    private val FILE_PROJECTION = arrayOf(MediaStore.MediaColumns.DATA)
+    private val IMAGES_FOLDER_PROJECTION = arrayOf(
+        MediaStore.Images.Media.BUCKET_ID,
+        MediaStore.Images.Media.BUCKET_DISPLAY_NAME
+    )
+    private val VIDEOS_FOLDER_PROJECTION = arrayOf(
+        MediaStore.Video.Media.BUCKET_ID,
+        MediaStore.Video.Media.BUCKET_DISPLAY_NAME
+    )
 
-    private MediaProvider() {
-        // utility class -> private constructor
+    @JvmStatic
+    fun getImageFolders(
+        contentResolver: ContentResolver,
+        itemLimit: Int,
+        activity: AppCompatActivity?,
+        getWithoutActivity: Boolean
+    ): MutableList<MediaFolder> {
+        checkPermissions(activity)
+
+        val folderCursor = if (isStorageAccessGranted(activity, getWithoutActivity)) {
+            ContentResolverHelper.queryResolver(
+                contentResolver,
+                IMAGES_MEDIA_URI,
+                IMAGES_FOLDER_PROJECTION,
+                sortColumn = MediaStore.Images.Media.BUCKET_DISPLAY_NAME,
+                sortDirection = ContentResolverHelper.SORT_DIRECTION_ASCENDING
+            )
+        } else {
+            null
+        }
+
+        val buckets = folderCursor?.use {
+            it.readBuckets(MediaStore.Images.Media.BUCKET_ID, MediaStore.Images.Media.BUCKET_DISPLAY_NAME)
+        } ?: return mutableListOf()
+
+        val dataPath = appDataPath()
+
+        return buckets.mapNotNullTo(mutableListOf()) { (bucketId, folderName) ->
+            val selection = MediaStore.Images.Media.BUCKET_ID + "=" + bucketId
+            val fileCursor = ContentResolverHelper.queryResolver(
+                contentResolver,
+                IMAGES_MEDIA_URI,
+                FILE_PROJECTION,
+                selection,
+                sortColumn = MediaStore.Images.Media.DATE_TAKEN,
+                sortDirection = ContentResolverHelper.SORT_DIRECTION_DESCENDING,
+                limit = itemLimit
+            )
+            Log_OC.d(TAG, "Reading images for $folderName")
+
+            val filePaths = fileCursor?.use { it.readFilePaths(itemLimit, ::isValidAndExistingFilePath) }
+                ?: return@mapNotNullTo null
+
+            buildMediaFolder(MediaFolderType.IMAGE, folderName, filePaths, dataPath) {
+                countFiles(contentResolver, IMAGES_MEDIA_URI, selection)
+            }
+        }
     }
+
+    @JvmStatic
+    fun getVideoFolders(
+        contentResolver: ContentResolver,
+        itemLimit: Int,
+        activity: AppCompatActivity?,
+        getWithoutActivity: Boolean
+    ): MutableList<MediaFolder> {
+        checkPermissions(activity)
+
+        val folderCursor = if (isStorageAccessGranted(activity, getWithoutActivity)) {
+            contentResolver.query(VIDEOS_MEDIA_URI, VIDEOS_FOLDER_PROJECTION, null, null, null)
+        } else {
+            null
+        }
+
+        val buckets = folderCursor?.use {
+            it.readBuckets(MediaStore.Video.Media.BUCKET_ID, MediaStore.Video.Media.BUCKET_DISPLAY_NAME)
+        } ?: return mutableListOf()
+
+        val dataPath = appDataPath()
+
+        return buckets.mapNotNullTo(mutableListOf()) { (bucketId, folderName) ->
+            val selection = MediaStore.Video.Media.BUCKET_ID + "=" + bucketId
+            val fileCursor = ContentResolverHelper.queryResolver(
+                contentResolver,
+                VIDEOS_MEDIA_URI,
+                FILE_PROJECTION,
+                selection,
+                sortColumn = MediaStore.Video.Media.DATE_TAKEN,
+                sortDirection = ContentResolverHelper.SORT_DIRECTION_DESCENDING,
+                limit = itemLimit
+            )
+            Log_OC.d(TAG, "Reading videos for $folderName")
+
+            val filePaths = fileCursor?.use { it.readFilePaths(itemLimit) } ?: return@mapNotNullTo null
+
+            buildMediaFolder(MediaFolderType.VIDEO, folderName, filePaths, dataPath) {
+                countFiles(contentResolver, VIDEOS_MEDIA_URI, selection)
+            }
+        }
+    }
+
+    private fun checkPermissions(activity: AppCompatActivity?) {
+        if (activity == null || PermissionUtil.checkStoragePermission(activity.applicationContext)) {
+            return
+        }
+
+        PermissionUtil.requestStoragePermissionIfNeeded(activity)
+    }
+
+    private fun isStorageAccessGranted(activity: AppCompatActivity?, getWithoutActivity: Boolean): Boolean =
+        getWithoutActivity || (activity != null && PermissionUtil.checkStoragePermission(activity.applicationContext))
+
+    private fun appDataPath(): String = MainApp.getStoragePath() + File.separator + MainApp.getDataFolder()
 
     /**
-     * Getting All Images Paths.
-     *
-     * @param contentResolver the content resolver
-     * @param itemLimit       the number of media items (usually images) to be returned per media folder.
-     * @return list with media folders
+     * Since sdk 29 the media store no longer collapses rows per bucket, so folders have to be distinguished manually.
+     * Callers do not rely on the folder order.
      */
-    public static List<MediaFolder> getImageFolders(ContentResolver contentResolver,
-                                                    int itemLimit,
-                                                    @Nullable final AppCompatActivity activity,
-                                                    boolean getWithoutActivity) {
-        // check permissions
-        checkPermissions(activity);
-
-        // query media/image folders
-        Cursor cursorFolders = null;
-        if (activity != null && PermissionUtil.checkStoragePermission(activity.getApplicationContext())
-            || getWithoutActivity) {
-            cursorFolders = ContentResolverHelper.queryResolver(contentResolver, IMAGES_MEDIA_URI,
-                                                                IMAGES_FOLDER_PROJECTION, null, null,
-                                                                IMAGES_FOLDER_SORT_COLUMN, IMAGES_SORT_DIRECTION, null);
+    private fun Cursor.readBuckets(idColumn: String, displayNameColumn: String): Map<String?, String?> {
+        if (!moveToFirst()) {
+            return emptyMap()
         }
 
-        List<MediaFolder> mediaFolders = new ArrayList<>();
-        String dataPath = MainApp.getStoragePath() + File.separator + MainApp.getDataFolder();
+        val idIndex = getColumnIndexOrThrow(idColumn)
+        val displayNameIndex = getColumnIndexOrThrow(displayNameColumn)
+        val buckets = HashMap<String?, String?>()
+        do {
+            buckets[getString(idIndex)] = getString(displayNameIndex)
+        } while (moveToNext())
 
-        if (cursorFolders != null) {
-            Cursor cursorImages;
+        return buckets
+    }
 
-            Map<String, String> uniqueFolders = new HashMap<>();
+    private fun Cursor.readFilePaths(itemLimit: Int, isAccepted: (String) -> Boolean = { true }): List<String> {
+        if (itemLimit <= 0 || !moveToFirst()) {
+            return emptyList()
+        }
 
-            // since sdk 29 we have to manually distinct on bucket id
-            while (cursorFolders.moveToNext()) {
-                uniqueFolders.put(cursorFolders.getString(
-                    cursorFolders.getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_ID)),
-                                  cursorFolders.getString(
-                                      cursorFolders.getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME))
-                );
+        val dataIndex = getColumnIndexOrThrow(MediaStore.MediaColumns.DATA)
+        val filePaths = ArrayList<String>(minOf(itemLimit, count))
+        var readRows = 0
+        do {
+            val filePath: String? = getString(dataIndex)
+            if (filePath != null && isAccepted(filePath)) {
+                filePaths.add(filePath)
             }
-            cursorFolders.close();
+            readRows++
+            // faulty android implementations may ignore the query limit, so it is enforced here as well
+        } while (readRows < itemLimit && moveToNext())
 
-            for (Map.Entry<String, String> folder : uniqueFolders.entrySet()) {
-                MediaFolder mediaFolder = new MediaFolder();
+        return filePaths
+    }
 
-                mediaFolder.type = MediaFolderType.IMAGE;
-                mediaFolder.folderName = folder.getValue();
-                mediaFolder.filePaths = new ArrayList<>();
+    private fun buildMediaFolder(
+        type: MediaFolderType,
+        folderName: String?,
+        filePaths: List<String>,
+        dataPath: String,
+        countFiles: () -> Long
+    ): MediaFolder? {
+        val absolutePath = filePaths.lastOrNull { it.lastIndexOf('/') > 0 }?.substringBeforeLast('/')
 
-                // query images
-                cursorImages = ContentResolverHelper.queryResolver(contentResolver,
-                                                                   IMAGES_MEDIA_URI,
-                                                                   FILE_PROJECTION,
-                                                                   IMAGES_FILE_SELECTION + folder.getKey(),
-                                                                   null,
-                                                                   MediaStore.Images.Media.DATE_TAKEN,
-                                                                   ContentResolverHelper.SORT_DIRECTION_DESCENDING,
-                                                                   itemLimit);
-                Log_OC.d(TAG, "Reading images for " + mediaFolder.folderName);
-
-                if (cursorImages != null) {
-                    String filePath;
-                    int imageCount = 0;
-                    while (cursorImages.moveToNext() && imageCount < itemLimit) {
-                        filePath = cursorImages.getString(cursorImages.getColumnIndexOrThrow(
-                            MediaStore.MediaColumns.DATA));
-
-                        // check if valid path and file exists
-                        if (isValidAndExistingFilePath(filePath)) {
-                            mediaFolder.filePaths.add(filePath);
-                            mediaFolder.absolutePath = filePath.substring(0, filePath.lastIndexOf('/'));
-                        }
-                        // ensure we don't go over the limit due to faulty android implementations
-                        imageCount++;
-                    }
-                    cursorImages.close();
-
-                    // only do further work if folder is not within the Nextcloud app itself
-                    if (isFolderOutsideOfAppPath(dataPath, mediaFolder)) {
-
-                        // count images
-                        Cursor count = contentResolver.query(
-                            IMAGES_MEDIA_URI,
-                            FILE_PROJECTION,
-                            IMAGES_FILE_SELECTION + folder.getKey(),
-                            null,
-                            null);
-
-                        if (count != null) {
-                            mediaFolder.numberOfFiles = count.getCount();
-                            count.close();
-                        }
-
-                        mediaFolders.add(mediaFolder);
-                    }
-                }
-            }
+        // folders within the Nextcloud app itself are not offered for auto upload
+        if (absolutePath == null || absolutePath.startsWith(dataPath)) {
+            return null
         }
 
-        return mediaFolders;
-    }
-
-    private static boolean isFolderOutsideOfAppPath(String dataPath, MediaFolder mediaFolder) {
-        return mediaFolder.absolutePath != null && !mediaFolder.absolutePath.startsWith(dataPath);
-    }
-
-    private static boolean isValidAndExistingFilePath(String filePath) {
-        return filePath != null && filePath.lastIndexOf('/') > 0 && new File(filePath).exists();
-    }
-
-    private static void checkPermissions(@Nullable AppCompatActivity activity) {
-        if (activity != null &&
-            !PermissionUtil.checkStoragePermission(activity.getApplicationContext())) {
-            PermissionUtil.requestStoragePermissionIfNeeded(activity);
+        return MediaFolder().apply {
+            this.type = type
+            this.folderName = folderName
+            this.filePaths = filePaths
+            this.absolutePath = absolutePath
+            this.numberOfFiles = countFiles()
         }
     }
 
-    public static List<MediaFolder> getVideoFolders(ContentResolver contentResolver,
-                                                    int itemLimit,
-                                                    @Nullable final AppCompatActivity activity,
-                                                    boolean getWithoutActivity) {
-        // check permissions
-        checkPermissions(activity);
+    private fun countFiles(contentResolver: ContentResolver, uri: Uri, selection: String): Long =
+        contentResolver.query(uri, FILE_PROJECTION, selection, null, null)?.use { it.count.toLong() } ?: 0L
 
-        // query media/image folders
-        Cursor cursorFolders = null;
-        if ((activity != null && PermissionUtil.checkStoragePermission(activity.getApplicationContext()))
-            || getWithoutActivity) {
-            cursorFolders = contentResolver.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, VIDEOS_FOLDER_PROJECTION,
-                                                  null, null, null);
-        }
-
-        List<MediaFolder> mediaFolders = new ArrayList<>();
-        String dataPath = MainApp.getStoragePath() + File.separator + MainApp.getDataFolder();
-
-        if (cursorFolders != null) {
-            Cursor cursorVideos;
-
-            Map<String, String> uniqueFolders = new HashMap<>();
-
-            // since sdk 29 we have to manually distinct on bucket id
-            while (cursorFolders.moveToNext()) {
-                uniqueFolders.put(cursorFolders.getString(
-                    cursorFolders.getColumnIndexOrThrow(MediaStore.Video.Media.BUCKET_ID)),
-                                  cursorFolders.getString(
-                                      cursorFolders.getColumnIndexOrThrow(MediaStore.Video.Media.BUCKET_DISPLAY_NAME))
-                );
-            }
-            cursorFolders.close();
-
-            for (Map.Entry<String, String> folder : uniqueFolders.entrySet()) {
-                MediaFolder mediaFolder = new MediaFolder();
-                mediaFolder.type = MediaFolderType.VIDEO;
-                mediaFolder.folderName = folder.getValue();
-                mediaFolder.filePaths = new ArrayList<>();
-
-                // query videos
-                cursorVideos = ContentResolverHelper.queryResolver(contentResolver,
-                                                                   MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-                                                                   FILE_PROJECTION,
-                                                                   MediaStore.Video.Media.BUCKET_ID + "=" + folder.getKey(),
-                                                                   null,
-                                                                   MediaStore.Video.Media.DATE_TAKEN,
-                                                                   ContentResolverHelper.SORT_DIRECTION_DESCENDING,
-                                                                   itemLimit);
-
-                Log_OC.d(TAG, "Reading videos for " + mediaFolder.folderName);
-
-                if (cursorVideos != null) {
-                    String filePath;
-                    int videoCount = 0;
-                    while (cursorVideos.moveToNext() && videoCount < itemLimit) {
-                        filePath = cursorVideos.getString(cursorVideos.getColumnIndexOrThrow(
-                            MediaStore.MediaColumns.DATA));
-
-                        if (filePath != null) {
-                            mediaFolder.filePaths.add(filePath);
-                            mediaFolder.absolutePath = filePath.substring(0, filePath.lastIndexOf('/'));
-                        }
-                        // ensure we don't go over the limit due to faulty android implementations
-                        videoCount++;
-                    }
-                    cursorVideos.close();
-
-                    // only do further work if folder is not within the Nextcloud app itself
-                    if (isFolderOutsideOfAppPath(dataPath, mediaFolder)) {
-
-                        // count images
-                        Cursor count = contentResolver.query(
-                            MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-                            FILE_PROJECTION,
-                            MediaStore.Video.Media.BUCKET_ID + "=" + folder.getKey(),
-                            null,
-                            null);
-
-                        if (count != null) {
-                            mediaFolder.numberOfFiles = count.getCount();
-                            count.close();
-                        }
-
-                        mediaFolders.add(mediaFolder);
-                    }
-                }
-            }
-            cursorFolders.close();
-        }
-
-        return mediaFolders;
-    }
+    private fun isValidAndExistingFilePath(filePath: String): Boolean =
+        filePath.lastIndexOf('/') > 0 && File(filePath).exists()
 }
