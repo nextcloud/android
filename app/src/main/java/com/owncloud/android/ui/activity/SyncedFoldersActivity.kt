@@ -32,7 +32,6 @@ import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.MediaFoldersDetectionWork
 import com.nextcloud.client.jobs.NotificationWork
-import com.nextcloud.client.jobs.operation.FileOperationHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.SubFolderRule
 import com.nextcloud.ui.component.UploadWarningCard
@@ -54,6 +53,7 @@ import com.owncloud.android.datamodel.SyncedFolderDisplayItem
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.operations.upload.DeleteUploadedFileOperation
 import com.owncloud.android.ui.adapter.SyncedFolderAdapter
 import com.owncloud.android.ui.adapter.storagePermissionBanner.setup
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration
@@ -682,32 +682,14 @@ class SyncedFoldersActivity :
 
     // TODO: Temporary proof-of-concept impl, to be refactored and moved elsewhere
     private fun deleteUploadedItemFromSyncFolder(syncedFolder: SyncedFolder) {
-        // TODO: Refresh remote data with RefreshFolderOperation (and do recursively for inner folders)
+        val op = DeleteUploadedFileOperation(
+            syncedFolder,
+            user.get(),
+            this,
+            storageManager
+        )
         lifecycleScope.launch {
-            val client = clientRepository.getOwncloudClient() ?: return@launch
-            val filesOperationHelper =
-                FileOperationHelper(user.get(), this@SyncedFoldersActivity, fileDataStorageManager)
-            val localFolder = File(syncedFolder.localPath)
-            val files = SyncedFolderUtils.getFileList(localFolder)
-            files.forEach {
-                val ocFile = storageManager.getFileByLocalPath(it.path)
-                Log_OC.d(TAG, "LastSyncDate: ${ocFile?.lastSyncDateForProperties}")
-                if (ocFile == null) {
-                    Log_OC.i(TAG, "deleteUploadedItemFromSyncFolder: Leaving local-only file ${it.name} in place")
-                    return@forEach
-                }
-                val success = filesOperationHelper.removeFile(
-                    file = ocFile,
-                    onlyLocalCopy = true,
-                    inBackground = true,
-                    client = client
-                )
-                if (success) {
-                    Log_OC.i(TAG, "deleteUploadedItemFromSyncFolder: Removed local file ${it.absolutePath}")
-                } else {
-                    Log_OC.e(TAG, "deleteUploadedItemFromSyncFolder: Error removing local file ${it.absolutePath}")
-                }
-            }
+            op.run()
         }
     }
 
