@@ -27,7 +27,7 @@ class DeleteUploadedFileOperation(
     private val context: Context,
     private val storageManager: FileDataStorageManager
 ) {
-    
+
     companion object {
         const val TAG = "DeleteUploadedFileOperation"
     }
@@ -46,29 +46,9 @@ class DeleteUploadedFileOperation(
             return RemoteOperationResult<Any?>(RemoteOperationResult.ResultCode.METADATA_NOT_FOUND)
         }
 
-
-
         val localFolder = File(syncedFolder.localPath)
         val files = SyncedFolderUtils.getFileList(localFolder)
         files.forEach { localFile ->
-            /*
-            val entity = fileSystemDao.getFileByPathAndFolder(syncedFolder.localPath, syncedFolder.id.toString())
-            val fileSentForUpload = entity?.fileSentForUpload == 1
-
-            if (!fileSentForUpload) {
-                Log_OC.i(TAG, "File ${localFile.name} never uploaded, leaving in place")
-                return@forEach
-            }
-
-            val hasNotChanged = entity.fileModified == localFile.lastModified()
-            if (!hasNotChanged) {
-                Log_OC.i(TAG, "File ${localFile.name} has changed, leaving in place")
-                return@forEach
-            }
-
-            */
-
-            //val ocFile = storageManager.getFileByLocalPath(localFile.path)
             val remotePath = syncFolderHelper.getAutoUploadRemotePath(syncedFolder, localFile)
             val ocFile = storageManager.getFileByRemotePath(remotePath)
             if (ocFile == null) {
@@ -80,17 +60,23 @@ class DeleteUploadedFileOperation(
             // TODO: Is this redundant?
             val localLastMod = localFile.lastModified()
             val lastSyncDate = ocFile.lastSyncDateForProperties
-            if ( lastSyncDate < localLastMod) {
-                Log_OC.i(TAG, "File ${localFile.name} has been modified ($localLastMod " +
-                    "after it was synced ($lastSyncDate), leaving in place")
+            if (lastSyncDate < localLastMod) {
+                Log_OC.i(
+                    TAG,
+                    "File ${localFile.name} has been modified ($localLastMod " +
+                        "after it was synced ($lastSyncDate), leaving in place"
+                )
                 return@forEach
             }
 
             // Check the file has same mod date. Note that the remote mod date is rounded to the second.
             val remoteLastMod = ocFile.modificationTimestamp
             if (remoteLastMod / 1000 != localLastMod / 1000) {
-                Log_OC.i(TAG, "Local and remote mod date differs for file file ${localFile.name}: " +
-                    "$localLastMod : $remoteLastMod, leaving in place")
+                Log_OC.i(
+                    TAG,
+                    "Local and remote mod date differs for file file ${localFile.name}: " +
+                        "$localLastMod : $remoteLastMod, leaving in place"
+                )
                 return@forEach
             }
 
@@ -98,26 +84,15 @@ class DeleteUploadedFileOperation(
             val localSize = localFile.length()
             val remoteSize = ocFile.fileLength
             if (localSize != remoteSize) {
-                Log_OC.d(TAG, "Local and remote file sizes differs for file ${localFile.name}: " +
-                    "$localSize : $remoteSize, leaving in place")
+                Log_OC.d(
+                    TAG,
+                    "Local and remote file sizes differs for file ${localFile.name}: " +
+                        "$localSize : $remoteSize, leaving in place"
+                )
                 return@forEach
             }
 
             // File deletion
-            // TODO: This requires an OwnCloudClient but we have a NextCloudClient
-            /*
-            val success = filesOperationHelper.removeFile(
-                file = ocFile,
-                onlyLocalCopy = true,
-                inBackground = true,
-                client = client
-            )
-            if (success) {
-                Log_OC.i(TAG, "deleteUploadedItemFromSyncFolder: Removed local file ${it.absolutePath}")
-            } else {
-                Log_OC.e(TAG, "deleteUploadedItemFromSyncFolder: Error removing local file ${it.absolutePath}")
-            }
-            */
             val deleted = localFile.delete()
             if (deleted) {
                 Log_OC.i(TAG, "Deleted file ${localFile.name}")
@@ -128,7 +103,6 @@ class DeleteUploadedFileOperation(
 
         return RemoteOperationResult<Any?>(RemoteOperationResult.ResultCode.OK)
     }
-
 
     private suspend fun refreshFolder(folder: OCFile, storageManager: FileDataStorageManager): Boolean =
         withContext(Dispatchers.IO) {
