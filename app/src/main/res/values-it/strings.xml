@@ -414,6 +414,7 @@
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Caricamento in corso…</string>
     <string name="file_list_no_app_for_file_type">Nessuna applicazione configurata per gestire questo tipo di file.</string>
+    <string name="file_list_out_of_memory_description">Impossibile caricare il contenuto</string>
     <string name="file_list_seconds_ago">secondi fa</string>
     <string name="file_management_permission_optional">Autorizzazioni di archiviazione</string>
     <string name="file_management_permission_optional_text">%1$s funziona meglio con l\'autorizzazione di accedere all\'archiviazione. Puoi scegliere l\'accesso completo a tutti i file o quello in sola lettura a foto e video.</string>

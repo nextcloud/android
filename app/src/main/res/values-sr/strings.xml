@@ -422,6 +422,7 @@
     <string name="file_list_live">УЖИВО</string>
     <string name="file_list_loading">Учитавам…</string>
     <string name="file_list_no_app_for_file_type">Немате апликацију за овај тип фајла.</string>
+    <string name="file_list_out_of_memory_description">Није могао да се учита садржај</string>
     <string name="file_list_seconds_ago">пре пар секунди</string>
     <string name="file_management_permission_optional">Дозволе за складиште</string>
     <string name="file_management_permission_optional_text">%1$s најбоље ради када има дозволу да приступи складишту. Можете избрати пуни приступ свим фајловима, или приступ само-за -читање фотографија и видео снимака.</string>

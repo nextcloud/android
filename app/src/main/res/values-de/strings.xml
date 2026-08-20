@@ -251,6 +251,7 @@
     <string name="create">Erstellen</string>
     <string name="create_dir_fail_msg">Verzeichnis konnte nicht erstellt werden</string>
     <string name="create_document">Dokument</string>
+    <string name="create_encrypted_folder">Verschlüsselter Ordner</string>
     <string name="create_end_to_end_encrypted_share">Linkfreigabe</string>
     <string name="create_end_to_end_encrypted_share_title">Ende-zu-Ende-verschlüsselte Linkfreigaben</string>
     <string name="create_folder">Ordner</string>
@@ -465,6 +466,7 @@
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Lade …</string>
     <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden.</string>
+    <string name="file_list_out_of_memory_description">Inhalt konnte nicht geladen werden</string>
     <string name="file_list_seconds_ago">Gerade eben</string>
     <string name="file_management_permission_optional">Speicherberechtigungen</string>
     <string name="file_management_permission_optional_text">%1$s funktioniert am besten mit Berechtigungen für den Zugriff auf den Speicher. Sie können vollen Zugriff auf alle Dateien oder schreibgeschützten Zugriff auf Fotos und Videos wählen.</string>
@@ -1081,6 +1083,7 @@
     <string name="unified_search_fragment_contact_not_found">Kontakt nicht gefunden, Sie können jederzeit synchronisieren für eine Aktualisierung. Weiterleiten zum Web …</string>
     <string name="unified_search_fragment_permission_needed">Berechtigungen für das Öffnen der Suchergebnisse notwendig, ansonsten werden Sie zum Web weitergeleitet</string>
     <string name="unified_search_fragment_search_in_this_folder">In diesem Ordner</string>
+    <string name="unified_search_fragment_search_takes_long">Die Suche dauert länger als üblich. Ergebnisse werden angezeigt, sobald der Server antwortet</string>
     <string name="unknown">Unbekannt</string>
     <string name="unlock_file">Datei entsperren</string>
     <string name="unread_comments">Es gibt  ungelesene Kommentare</string>

@@ -460,6 +460,7 @@
     <string name="file_list_live">ÉLŐ</string>
     <string name="file_list_loading">Betöltés…</string>
     <string name="file_list_no_app_for_file_type">Nincs alkalmazás beállítva ehhez a fájltípushoz.</string>
+    <string name="file_list_out_of_memory_description">A tartalom nem tölthető be</string>
     <string name="file_list_seconds_ago">másodperce</string>
     <string name="file_management_permission_optional">Tárhely engedélyek</string>
     <string name="file_management_permission_optional_text">A %1$s a tároló engedéllyel működik a legjobban. Választhat, hogy az összes fájlhoz teljes hozzáférést ad, vagy csak írásvédett elérést a fényképekhez és a videókhoz.</string>

@@ -465,6 +465,7 @@
     <string name="file_list_live">ТРАНСЛИРУЕТСЯ</string>
     <string name="file_list_loading">Получение данных…</string>
     <string name="file_list_no_app_for_file_type">Не найдено приложение для открытия этого типа файлов.</string>
+    <string name="file_list_out_of_memory_description">Не удалось загрузить содержимое.</string>
     <string name="file_list_seconds_ago">несколько секунд назад</string>
     <string name="file_management_permission_optional">Права на хранилище</string>
     <string name="file_management_permission_optional_text">%1$s работает лучше всего при наличии доступа к хранилищу. Вы можете выбрать полный доступ к файлам или доступ только для чтения к фото и видео.</string>

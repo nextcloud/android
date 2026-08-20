@@ -465,6 +465,7 @@
     <string name="file_list_live">即时</string>
     <string name="file_list_loading">正在加载...</string>
     <string name="file_list_no_app_for_file_type">此文件类型未设置默认打开程序</string>
+    <string name="file_list_out_of_memory_description">无法加载内容</string>
     <string name="file_list_seconds_ago">几秒前</string>
     <string name="file_management_permission_optional">存储权限</string>
     <string name="file_management_permission_optional_text">%1$s在有权限访问的存储上工作得最好。您可以选择对所有文件获取完整权限，或者对照片和视频提供只读权限。</string>

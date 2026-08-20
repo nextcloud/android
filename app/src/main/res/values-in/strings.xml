@@ -421,6 +421,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="file_list_live">LANGSUNG</string>
     <string name="file_list_loading">Memuat…</string>
     <string name="file_list_no_app_for_file_type">Tidak ada aplikasi untuk membuka jenis berkas ini.</string>
+    <string name="file_list_out_of_memory_description">Tidak dapat memuat konten</string>
     <string name="file_list_seconds_ago">beberapa detik yang lalu</string>
     <string name="file_management_permission_optional">Izin penyimpanan</string>
     <string name="file_management_permission_optional_text">%1$s bekerja paling baik dengan izin akses penyimpanan. Anda dapat memilih akses ke semua berkas, atau akses hanya baca untuk foto dan video.</string>

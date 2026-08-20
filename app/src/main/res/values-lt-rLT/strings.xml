@@ -467,6 +467,7 @@
     <string name="file_list_live">GYVAI</string>
     <string name="file_list_loading">Įkeliama…</string>
     <string name="file_list_no_app_for_file_type">Nėra šios programos failo tipui tvarkyti.</string>
+    <string name="file_list_out_of_memory_description">Nepavyko įkelti turinio</string>
     <string name="file_list_seconds_ago">prieš keletą sekundžių</string>
     <string name="file_management_permission_optional">Saugyklos leidimai</string>
     <string name="file_management_permission_optional_text">%1$s geriausiai veikia, kai yra suteikti leidimai prieigai prie saugyklos. Jūs galite pasirinkti pilną prieigą prie visų failų arba tik skaitymo prieigą prie nuotraukų ir vaizdo įrašų.</string>

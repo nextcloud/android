@@ -459,6 +459,7 @@
     <string name="file_list_live">DIRECTO</string>
     <string name="file_list_loading">Cargando…</string>
     <string name="file_list_no_app_for_file_type">Non foi configurada unha aplicación para manexar este tipo de ficheiro.</string>
+    <string name="file_list_out_of_memory_description">Non foi posíbel cargar o contido</string>
     <string name="file_list_seconds_ago">hai uns segundos</string>
     <string name="file_management_permission_optional">Permisos de almacenamento</string>
     <string name="file_management_permission_optional_text">%1$s funciona mellor con permisos para acceder ao almacenamento. Pode escoller acceso completo a todos os ficheiros ou acceso de só lectura a fotos e vídeos.</string>
