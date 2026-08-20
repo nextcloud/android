@@ -645,15 +645,22 @@ class SyncedFoldersActivity :
                     val localFolder = File(syncedFolder.localPath)
                     val files = SyncedFolderUtils.getFileList(localFolder)
                     files.forEach {
-                        val remotePath = syncFolderHelper.getAutoUploadRemotePath(syncedFolder, it)
-                        val ocFile = OCFile(remotePath) // WRONG: this does not set the remote path, removeFile() fails
-                        filesOperationHelper.removeFile(
+                        val ocFile = storageManager.getFileByLocalPath(it.path)
+                        if (ocFile == null) {
+                            Log_OC.d(TAG, "Unable to obtain remote counterpart for file $ocFile")
+                            return@forEach
+                        }
+                        val success = filesOperationHelper.removeFile(
                             file = ocFile,
                             onlyLocalCopy = true,
                             inBackground = true,
                             client = client
                         )
-                        Log_OC.d(TAG, "Checking local file ${it.absolutePath} against remote file ${ocFile.remotePath}")
+                        if (success) {
+                            Log_OC.d(TAG, "Removed local file ${it.absolutePath}")
+                        } else {
+                            Log_OC.d(TAG, "Error removing local file ${it.absolutePath}")
+                        }
                     }
                 }
                 // DEBUG
