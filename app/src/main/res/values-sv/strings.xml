@@ -465,6 +465,7 @@
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Läser in…</string>
     <string name="file_list_no_app_for_file_type">Det finns ingen app som kan hantera den här filtypen</string>
+    <string name="file_list_out_of_memory_description">Kunde inte ladda innehåll</string>
     <string name="file_list_seconds_ago">sekunder sedan</string>
     <string name="file_management_permission_optional">Lagringsbehörigheter</string>
     <string name="file_management_permission_optional_text">%1$s fungerar bäst med åtkomstbehörighet till lagringsutrymmet. Du kan välja att ha fullständig åtkomst till alla filer eller läsåtkomst till bilder och videor.</string>

@@ -459,6 +459,7 @@
     <string name="file_list_live">NA ŻYWO</string>
     <string name="file_list_loading">Wczytywanie…</string>
     <string name="file_list_no_app_for_file_type">Brak aplikacji dla tego typu plików.</string>
+    <string name="file_list_out_of_memory_description">Nie można załadować zawartości</string>
     <string name="file_list_seconds_ago">przed chwilą</string>
     <string name="file_management_permission_optional">Uprawnienia do pamięci</string>
     <string name="file_management_permission_optional_text">%1$s działa najlepiej z uprawnieniami dostępu do pamięci. Możesz wybrać pełny dostęp do wszystkich plików lub dostęp tylko do odczytu dla zdjęć i filmów.</string>

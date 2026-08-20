@@ -449,6 +449,7 @@
     <string name="file_list_live">ライブ</string>
     <string name="file_list_loading">読み込み中…</string>
     <string name="file_list_no_app_for_file_type">このファイル形式に設定されたアプリがありません。</string>
+    <string name="file_list_out_of_memory_description">コンテンツをロードできませんでした</string>
     <string name="file_list_seconds_ago">数秒前</string>
     <string name="file_management_permission_optional">ストレージの権限</string>
     <string name="file_management_permission_optional_text">%1$sは、ストレージへのアクセスが許可されることでより良く動作します。全てのファイルへのフルアクセスまたは写真や動画への読み取り専用を選ぶことができます。</string>

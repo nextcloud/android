@@ -428,6 +428,7 @@
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Laster…</string>
     <string name="file_list_no_app_for_file_type">Ingen app er satt opp til å håndtere denne filtypen.</string>
+    <string name="file_list_out_of_memory_description">Kunne ikke laste innhold</string>
     <string name="file_list_seconds_ago">for få sekunder siden</string>
     <string name="file_management_permission_optional">Rettinheter for lagring</string>
     <string name="file_management_permission_optional_text">%1$sfungerer best med tillatelser til lagring. Du kan velge full tilgang til alle filer, eller skrivebeskyttet tilgang til bilder og videoer.</string>

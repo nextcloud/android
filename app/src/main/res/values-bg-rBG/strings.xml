@@ -202,12 +202,15 @@
     <string name="could_not_retrieve_url">URL адресът не може да бъде извлечен</string>
     <string name="create">Създай</string>
     <string name="create_dir_fail_msg">Не може да се създаде папка</string>
+    <string name="create_document">Документ</string>
+    <string name="create_folder">Папка</string>
     <string name="create_link">Създаване на връзка</string>
     <string name="create_new">Нов</string>
     <string name="create_new_document">Нов документ</string>
     <string name="create_new_folder">Нова папка</string>
     <string name="create_new_presentation">Нова презентация</string>
     <string name="create_new_spreadsheet">Нова електронна таблица</string>
+    <string name="create_presentation">Презентация</string>
     <string name="credentials_disabled">Потребителските данни са спрени</string>
     <string name="daily_backup">Ежедневно архивиране</string>
     <string name="data_to_back_up">Данни за архивиране</string>

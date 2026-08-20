@@ -251,6 +251,7 @@
     <string name="create">建立</string>
     <string name="create_dir_fail_msg">無法建立資料夾</string>
     <string name="create_document">文件</string>
+    <string name="create_encrypted_folder">加密的資料夾</string>
     <string name="create_end_to_end_encrypted_share">連結分享</string>
     <string name="create_end_to_end_encrypted_share_title">端到端連結分享</string>
     <string name="create_folder">資料夾</string>
@@ -465,6 +466,7 @@
     <string name="file_list_live">即時</string>
     <string name="file_list_loading">正在載入…</string>
     <string name="file_list_no_app_for_file_type">未設置適合處理此檔案類型的應用程式。</string>
+    <string name="file_list_out_of_memory_description">無法載入內容</string>
     <string name="file_list_seconds_ago">幾秒前</string>
     <string name="file_management_permission_optional">儲存空間取用權</string>
     <string name="file_management_permission_optional_text">%1$s 在有儲存空間的取用權時運作得最好。您可以選擇完整存取所有檔案，或是限制照片及影片僅能唯讀存取。</string>
@@ -1081,6 +1083,7 @@
     <string name="unified_search_fragment_contact_not_found">找不到聯絡人，您隨時可以同步更新。正在重新導向至網路……</string>
     <string name="unified_search_fragment_permission_needed">開啟搜尋結果需要權限，否則其將會重新導向至網路……</string>
     <string name="unified_search_fragment_search_in_this_folder">在此資料夾</string>
+    <string name="unified_search_fragment_search_takes_long">搜尋時間比平常更長。伺服器一回應，結果就會顯示出來</string>
     <string name="unknown">未知</string>
     <string name="unlock_file">解鎖檔案</string>
     <string name="unread_comments">有未讀留言</string>
