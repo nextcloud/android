@@ -702,8 +702,7 @@ public class UploadFileOperation extends SyncOperation {
                                           long size) {
 
         final long serverMaxChunkSize = getCapabilities().getChunkedUploadMaxSize();
-
-        if (size > ChunkedFileUploadRemoteOperation.chunkedUploadThreshold(serverMaxChunkSize)) {
+        if (size > ChunkedFileUploadRemoteOperation.chunkSize(mOnWifiOnly, serverMaxChunkSize)) {
             boolean onWifiConnection = connectivityService.getConnectivity().isWifi();
 
             mUploadOperation = new ChunkedFileUploadRemoteOperation(encryptedTempFile.getAbsolutePath(),
@@ -1128,10 +1127,8 @@ public class UploadFileOperation extends SyncOperation {
                 updateSize(size);
                 Log_OC.d(TAG, "file size set to " + formattedFileSize);
 
-                // decide whether chunked or not
                 final long serverMaxChunkSize = getCapabilities().getChunkedUploadMaxSize();
-
-                if (size > ChunkedFileUploadRemoteOperation.chunkedUploadThreshold(serverMaxChunkSize)) {
+                if (size > ChunkedFileUploadRemoteOperation.chunkSize(mOnWifiOnly, serverMaxChunkSize)) {
                     Log_OC.d(TAG, "chunked upload operation will be used");
 
                     boolean onWifiConnection = connectivityService.getConnectivity().isWifi();
