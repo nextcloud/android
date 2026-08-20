@@ -6,7 +6,7 @@
     <string name="about_version_with_build">versioon %1$s, kompileerimisjärk #%2$s</string>
     <string name="account_creation_failed">Konto loomine ei õnnestunud</string>
     <string name="account_icon">Konto ikoon</string>
-    <string name="account_not_found">Kontot ei leidu!</string>
+    <string name="account_not_found">Kasutajakontot ei leidu!</string>
     <string name="action_edit">Muuda</string>
     <string name="action_empty_notifications">Kustuta kõik teavitused</string>
     <string name="action_empty_trashbin">Tühjenda prügikast</string>
@@ -250,8 +250,10 @@
     <string name="could_not_retrieve_url">Võrguaadressi laadimine ei õnnestu</string>
     <string name="create">Loo</string>
     <string name="create_dir_fail_msg">Ei suuda kausta luua</string>
+    <string name="create_document">Dokument</string>
     <string name="create_end_to_end_encrypted_share">Jagamislink</string>
     <string name="create_end_to_end_encrypted_share_title">Läbivalt krüptitud jagamislingid</string>
+    <string name="create_folder">Kaust</string>
     <string name="create_link">Loo link</string>
     <string name="create_new">Uus</string>
     <string name="create_new_document">Uus dokument</string>
@@ -259,7 +261,9 @@
     <string name="create_new_folder">Uus kaust</string>
     <string name="create_new_presentation">Uus esitlus</string>
     <string name="create_new_spreadsheet">Uus arvutustabel</string>
+    <string name="create_presentation">Esitlus</string>
     <string name="create_rich_workspace">Lisa kausta kirjeldus</string>
+    <string name="create_spreadsheet">Arvutustabel</string>
     <string name="credentials_disabled">Täiendav autentimine on lülitatud välja</string>
     <string name="daily_backup">Igapäevane varundus</string>
     <string name="data_to_back_up">Varundatavad andmed</string>
@@ -461,6 +465,7 @@
     <string name="file_list_live">OTSE</string>
     <string name="file_list_loading">Laadimine…</string>
     <string name="file_list_no_app_for_file_type">Puudub rakendus seda tüüpi failide avamiseks.</string>
+    <string name="file_list_out_of_memory_description">Sisu laadimine ei õnnestunud</string>
     <string name="file_list_seconds_ago">sekundit tagasi</string>
     <string name="file_management_permission_optional">Andmeruumi õigused</string>
     <string name="file_management_permission_optional_text">%1$s vajab tõhusaks tööks õigust kasutada andmeruumi. Võid valida kõikide failide täisõiguste või fotode ja videote lugemisõiguse vahel.</string>
@@ -617,7 +622,7 @@
     <string name="manage_space_clear_data">Kustuta andmed</string>
     <string name="manage_space_description">Järgnevaga kustutatakse jäädavalt kõik „%1$s“ andmete seadistused, andmebaasikirjed ja sertifikaadid.\n\nAllalaaditud failid jäävad alles.\n\nKogu toiming võib märgatavalt aega võtta.</string>
     <string name="manage_space_title">Halda andmeruumi</string>
-    <string name="media_err_invalid_progressive_playback">Seda meediafaili ei saa voogedastada</string>
+    <string name="media_err_invalid_progressive_playback">Seda multimeediafaili ei saa voogedastada</string>
     <string name="media_err_io">Meediafaili lugemine ebaõnnestus</string>
     <string name="media_err_malformed">Sellel meediafailil on vigane kodeering</string>
     <string name="media_err_timeout">Katse esitada meediafaili aegus</string>
@@ -640,6 +645,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Suuremad esimesena</string>
     <string name="menu_item_sort_by_size_smallest_first">Väiksemad esimesenaa</string>
     <string name="more">Rohkem</string>
+    <string name="more_documents">Veel dokumente</string>
     <string name="move_file_error">Selle faili või kausta teisaldamisel tekkis viga</string>
     <string name="move_file_invalid_into_descendent">Kausta ei saa teisaldada tema enda alamkausta</string>
     <string name="move_file_invalid_overwrite">See fail on sihtkohas juba olemas.</string>
@@ -723,7 +729,7 @@
     <string name="permission_allow">Luba</string>
     <string name="permission_deny">Keela</string>
     <string name="pick_contact_to_share_with">Vali kontakt, kellega soovid sisu jagada</string>
-    <string name="picture_set_as_no_app">Ei leidu rakendust pildi määramiseks</string>
+    <string name="picture_set_as_no_app">Ei leidu rakendust pildi laiuse määramiseks</string>
     <string name="pin_home">Kinnita avalehele</string>
     <string name="pin_shortcut_label">Ava %1$s </string>
     <string name="player_stop">lõpeta</string>
@@ -1198,7 +1204,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Ootan, kuni mittemahupõhine WiFi ühendus on saadaval</string>
     <string name="user_icon">Kasutaja</string>
     <string name="user_info_address">Aadress</string>
-    <string name="user_info_email">Epost</string>
+    <string name="user_info_email">E-post</string>
     <string name="user_info_groups">Grupid</string>
     <string name="user_info_phone">Telefoninumber</string>
     <string name="user_info_profile">Profiil</string>
@@ -1215,10 +1221,11 @@
     <string name="wait_checking_credentials">Kontrollin salvestatud autentimisviise</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopeerin faili privaatsest andmeruumist</string>
     <string name="warn_rename_extension">Selle faililaiendi muutmine võib tekitada olukorra, kus fail avatakse mõne muu rakendusega</string>
+    <string name="webview_not_available">Androidi sisemine veebibrauser (System WebView) on kas puudu või selles seadmes lülitatud välja</string>
     <string name="what_s_new_image">Mis on uus pilt</string>
     <string name="whats_new_skip">Jäta vahele</string>
     <string name="whats_new_title">Uus asukohas „%1$s“</string>
-    <string name="whats_your_status">Mis on su staatus?</string>
+    <string name="whats_your_status">Mis on praegu su olek?</string>
     <string name="widgets_not_available">Vidinad on saadaval alates %1$si versioonist 25 või Juhtpaneelirakenduse kasutamisel</string>
     <string name="widgets_not_available_title">Pole saadaval</string>
     <string name="worker_download">Failid on allalaadimisel…</string>

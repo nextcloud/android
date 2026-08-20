@@ -244,8 +244,10 @@
     <string name="could_not_retrieve_url">Kunne ikke hente URL</string>
     <string name="create">Opprett</string>
     <string name="create_dir_fail_msg">Mappe kunne ikke opprettes</string>
+    <string name="create_document">Dokument</string>
     <string name="create_end_to_end_encrypted_share">Linkdeling</string>
     <string name="create_end_to_end_encrypted_share_title">Ende-til-ende-kryptert linkdeling</string>
+    <string name="create_folder">Mappe</string>
     <string name="create_link">Lag lenke</string>
     <string name="create_new">Ny</string>
     <string name="create_new_document">Nytt dokument</string>
@@ -253,7 +255,9 @@
     <string name="create_new_folder">Ny mappe</string>
     <string name="create_new_presentation">Ny presentasjon</string>
     <string name="create_new_spreadsheet">Nytt regneark</string>
+    <string name="create_presentation">Presentasjon</string>
     <string name="create_rich_workspace">Legg til mappebeskrivelse</string>
+    <string name="create_spreadsheet">Regneark</string>
     <string name="credentials_disabled">Legitimasjon deaktivert</string>
     <string name="daily_backup">Daglig sikkerhetskopi</string>
     <string name="data_to_back_up">Data å sikkerhetskopiere</string>
@@ -424,6 +428,7 @@
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Laster…</string>
     <string name="file_list_no_app_for_file_type">Ingen app er satt opp til å håndtere denne filtypen.</string>
+    <string name="file_list_out_of_memory_description">Kunne ikke laste innhold</string>
     <string name="file_list_seconds_ago">for få sekunder siden</string>
     <string name="file_management_permission_optional">Rettinheter for lagring</string>
     <string name="file_management_permission_optional_text">%1$sfungerer best med tillatelser til lagring. Du kan velge full tilgang til alle filer, eller skrivebeskyttet tilgang til bilder og videoer.</string>

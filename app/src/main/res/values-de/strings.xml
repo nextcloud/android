@@ -250,8 +250,11 @@
     <string name="could_not_retrieve_url">URL konnte nicht abgerufen werden</string>
     <string name="create">Erstellen</string>
     <string name="create_dir_fail_msg">Verzeichnis konnte nicht erstellt werden</string>
+    <string name="create_document">Dokument</string>
+    <string name="create_encrypted_folder">Verschlüsselter Ordner</string>
     <string name="create_end_to_end_encrypted_share">Linkfreigabe</string>
     <string name="create_end_to_end_encrypted_share_title">Ende-zu-Ende-verschlüsselte Linkfreigaben</string>
+    <string name="create_folder">Ordner</string>
     <string name="create_link">Link erstellen</string>
     <string name="create_new">Neu</string>
     <string name="create_new_document">Neues Dokument</string>
@@ -259,7 +262,9 @@
     <string name="create_new_folder">Neuer Ordner</string>
     <string name="create_new_presentation">Neue Präsentation</string>
     <string name="create_new_spreadsheet">Neue Tabelle</string>
+    <string name="create_presentation">Präsentation</string>
     <string name="create_rich_workspace">Ordnerbeschreibung hinzufügen</string>
+    <string name="create_spreadsheet">Tabellenkalkulation</string>
     <string name="credentials_disabled">Zugangsdaten ausgeschaltet</string>
     <string name="daily_backup">Tägliche Sicherung</string>
     <string name="data_to_back_up">Zu sichernde Daten</string>
@@ -461,6 +466,7 @@
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Lade …</string>
     <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden.</string>
+    <string name="file_list_out_of_memory_description">Inhalt konnte nicht geladen werden</string>
     <string name="file_list_seconds_ago">Gerade eben</string>
     <string name="file_management_permission_optional">Speicherberechtigungen</string>
     <string name="file_management_permission_optional_text">%1$s funktioniert am besten mit Berechtigungen für den Zugriff auf den Speicher. Sie können vollen Zugriff auf alle Dateien oder schreibgeschützten Zugriff auf Fotos und Videos wählen.</string>
@@ -640,6 +646,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Größte zuerst</string>
     <string name="menu_item_sort_by_size_smallest_first">Kleinste zuerst</string>
     <string name="more">Mehr</string>
+    <string name="more_documents">Weitere Dokumente</string>
     <string name="move_file_error">Es ist ein Fehler beim Verschieben der Datei oder des Ordners aufgetreten.</string>
     <string name="move_file_invalid_into_descendent">Es ist nicht möglich, einen Ordner in einen seiner Unterordner zu verschieben</string>
     <string name="move_file_invalid_overwrite">Die Datei ist bereits im Zielordner vorhanden</string>
@@ -1076,6 +1083,7 @@
     <string name="unified_search_fragment_contact_not_found">Kontakt nicht gefunden, Sie können jederzeit synchronisieren für eine Aktualisierung. Weiterleiten zum Web …</string>
     <string name="unified_search_fragment_permission_needed">Berechtigungen für das Öffnen der Suchergebnisse notwendig, ansonsten werden Sie zum Web weitergeleitet</string>
     <string name="unified_search_fragment_search_in_this_folder">In diesem Ordner</string>
+    <string name="unified_search_fragment_search_takes_long">Die Suche dauert länger als üblich. Ergebnisse werden angezeigt, sobald der Server antwortet</string>
     <string name="unknown">Unbekannt</string>
     <string name="unlock_file">Datei entsperren</string>
     <string name="unread_comments">Es gibt  ungelesene Kommentare</string>
@@ -1215,6 +1223,7 @@
     <string name="wait_checking_credentials">Überprüfe gespeicherte Anmeldeinformationen</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiere Datei von privatem Speicher</string>
     <string name="warn_rename_extension">Das Ändern der Erweiterung kann dazu führen, dass diese Datei in einer anderen Anwendung geöffnet wird</string>
+    <string name="webview_not_available">Android System WebView fehlt oder ist auf diesem Gerät deaktiviert</string>
     <string name="what_s_new_image">Was-gibt\'s-Neues-Bild</string>
     <string name="whats_new_skip">Überspringen</string>
     <string name="whats_new_title">Neu in %1$s</string>

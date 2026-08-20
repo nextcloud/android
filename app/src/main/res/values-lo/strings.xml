@@ -225,6 +225,8 @@
     <string name="could_not_retrieve_url">ບໍ່ສາມາດເກັບURL ໄດ້</string>
     <string name="create">ສ້າງ</string>
     <string name="create_dir_fail_msg">ບໍ່ສາມາດສ້າງໂຟນເດີໄດ້</string>
+    <string name="create_document">ເອກະສານ</string>
+    <string name="create_folder">Folder</string>
     <string name="create_link">Create link</string>
     <string name="create_new">New</string>
     <string name="create_new_document">New document</string>
@@ -232,7 +234,9 @@
     <string name="create_new_folder">ໂຟນເດີໃຫມ່</string>
     <string name="create_new_presentation">New presentation</string>
     <string name="create_new_spreadsheet">New spreadsheet</string>
+    <string name="create_presentation">ການນຳສະເໜີ</string>
     <string name="create_rich_workspace">Add folder description</string>
+    <string name="create_spreadsheet">ສະເປຣດຊີດ</string>
     <string name="credentials_disabled">ຂໍ້ມູນປະຈໍາຕົວຖືກປິດ</string>
     <string name="daily_backup">Daily backup</string>
     <string name="data_to_back_up">Data to back up</string>
@@ -423,6 +427,7 @@
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">ກຳລັງໂຫຼດ</string>
     <string name="file_list_no_app_for_file_type">ບໍ່ມີແອັບພລິເຄຊັນທີ່ຕັ້ງໄວ້ເພື່ອຈັດການກັບຟາຍປະເພດນີ້.</string>
+    <string name="file_list_out_of_memory_description">Could not load content</string>
     <string name="file_list_seconds_ago">ວິນາທີຜ່ານມາ</string>
     <string name="file_management_permission_optional">Storage permissions</string>
     <string name="file_management_permission_optional_text">%1$s works best with permissions to access storage. You can choose full access to all files, or read-only access to photos and videos.</string>
@@ -590,6 +595,7 @@
     <string name="menu_item_sort_by_size_biggest_first">ໃຫຍ່ທີ່ສຸດ</string>
     <string name="menu_item_sort_by_size_smallest_first">ນ້ອຍທີ່ສຸດ</string>
     <string name="more">ເພີ່ມເຕີມ</string>
+    <string name="more_documents">ເອກະສານເພີ່ມເຕີມ</string>
     <string name="move_file_error">ມີຂໍ້ຜິດພາດເກີດຂຶ້ນໃນຂະນະທີ່ພະຍາຍາມຍ້າຍຟາຍ ຫຼື ໂຟນເດີນີ້</string>
     <string name="move_file_invalid_into_descendent">ມັນເປັນໄປບໍ່ໄດ້ທີ່ຈະຍ້າຍໂຟນເດີເຂົ້າໄປໃນ ຫນຶ່ງໃນໂຟນເດີພື້ນຖານຂອງມັນເອງ</string>
     <string name="move_file_invalid_overwrite">ຟາຍແມ່ນມີຢູ່ແລ້ວໃນໂຟນເດີຈຸດຫມາຍປາຍທາງ</string>

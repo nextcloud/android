@@ -154,13 +154,17 @@
     <string name="could_not_retrieve_url">Neizdevās iegūt URL </string>
     <string name="create">Izveidot</string>
     <string name="create_dir_fail_msg">Nevarēja izveidot mapi</string>
+    <string name="create_document">Dokuments</string>
+    <string name="create_folder">Mape</string>
     <string name="create_link">Izveidot saiti</string>
     <string name="create_new">Jauns</string>
     <string name="create_new_document">Jauns dokuments</string>
     <string name="create_new_folder">Jauna mape</string>
     <string name="create_new_presentation">Jauna prezentācija</string>
     <string name="create_new_spreadsheet">Jauna izklājlapa</string>
+    <string name="create_presentation">Prezentācija</string>
     <string name="create_rich_workspace">Pievienot mapes aprakstu</string>
+    <string name="create_spreadsheet">Izklājlapa</string>
     <string name="credentials_disabled">Akreditācijas dati atspējoti</string>
     <string name="default_credentials_wrong">Nepareizi akreditācijas dati</string>
     <string name="delete_account">Noņemt kontu</string>
@@ -361,6 +365,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Lielākie pirms</string>
     <string name="menu_item_sort_by_size_smallest_first">Mazākie pirms</string>
     <string name="more">Vairāk</string>
+    <string name="more_documents">Vairāk dokumentu</string>
     <string name="move_file_error">Radās kļūda, mēģinot pārvietot šo datni vai mapi</string>
     <string name="move_file_invalid_into_descendent">Nav iespējams pārvietot mapi tās apakšmapē</string>
     <string name="move_file_invalid_overwrite">Datne jau pastāv mērķa mapē</string>

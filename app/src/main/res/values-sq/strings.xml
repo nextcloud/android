@@ -147,8 +147,12 @@
     <string name="could_not_retrieve_url">Nuk mund të rikthej URL-në</string>
     <string name="create">Krijo</string>
     <string name="create_dir_fail_msg">S’u krijua dot dosja</string>
+    <string name="create_document">Dokument</string>
+    <string name="create_folder">Dosje</string>
     <string name="create_new">I ri</string>
     <string name="create_new_folder">Dosje e re</string>
+    <string name="create_presentation">Paraqitje</string>
+    <string name="create_spreadsheet">Fletëllogaritje</string>
     <string name="credentials_disabled">Kredencialet të pa aktivizuara</string>
     <string name="default_credentials_wrong">Kredenciele jo të sakta</string>
     <string name="delete_account">Hiqe llogarinë</string>

@@ -208,13 +208,17 @@
     <string name="could_not_retrieve_url">URL:n palautus epännistui</string>
     <string name="create">Luo</string>
     <string name="create_dir_fail_msg">Kansion luominen ei onnistunut</string>
+    <string name="create_document">Asiakirja</string>
+    <string name="create_folder">Kansio</string>
     <string name="create_link">Luo linkki</string>
     <string name="create_new">Uusi</string>
     <string name="create_new_document">Uusi dokumentti</string>
     <string name="create_new_folder">Uusi kansio</string>
     <string name="create_new_presentation">Uusi esitys</string>
     <string name="create_new_spreadsheet">Uusi laskentataulukko</string>
+    <string name="create_presentation">Esitys</string>
     <string name="create_rich_workspace">Lisään kansion kuvaus</string>
+    <string name="create_spreadsheet">Taulukko</string>
     <string name="credentials_disabled">Kirjautumistiedot poistettu käytöstä</string>
     <string name="daily_backup">Päivittäinen varmuuskopio</string>
     <string name="data_to_back_up">Varmuuskopioitavat tiedot</string>
@@ -383,6 +387,7 @@
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Ladataan…</string>
     <string name="file_list_no_app_for_file_type">Tälle tiedostotyypille ei löytynyt sovellusta.</string>
+    <string name="file_list_out_of_memory_description">Sisältöä ei voitu ladata</string>
     <string name="file_list_seconds_ago">sekuntia sitten</string>
     <string name="file_management_permission_optional">Tallennusoikeudet</string>
     <string name="file_management_permission_optional_text">%1$s toimii parhaiten, kun sille on myönnetty käyttöoikeus tallennustilan käyttöön. Voit myöntää täydet käyttöoikeudet tai vain luku-oikeudet kuviin ja videoihin.</string>

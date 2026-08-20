@@ -250,8 +250,10 @@
     <string name="could_not_retrieve_url">Níorbh fhéidir an URL a aisghabháil</string>
     <string name="create">Cruthaigh</string>
     <string name="create_dir_fail_msg">Níorbh fhéidir fillteán a chruthú</string>
+    <string name="create_document">Doiciméad</string>
     <string name="create_end_to_end_encrypted_share">Comhroinnt nasc</string>
     <string name="create_end_to_end_encrypted_share_title">Comhroinnt nasc criptithe ó cheann ceann go ceann</string>
+    <string name="create_folder">Fillteán</string>
     <string name="create_link">Cruthaigh nasc</string>
     <string name="create_new">Nua</string>
     <string name="create_new_document">Doiciméad nua</string>
@@ -259,7 +261,9 @@
     <string name="create_new_folder">Fillteán nua</string>
     <string name="create_new_presentation">Cur i láthair nua</string>
     <string name="create_new_spreadsheet">Scarbhileog nua</string>
+    <string name="create_presentation">Cur i láthair</string>
     <string name="create_rich_workspace">Cuir cur síos ar fhillteán leis</string>
+    <string name="create_spreadsheet">Scarbhileog</string>
     <string name="credentials_disabled">Dintiúir díchumasaithe</string>
     <string name="daily_backup">Cúltaca laethúil</string>
     <string name="data_to_back_up">Sonraí le cúltaca</string>
@@ -461,6 +465,7 @@
     <string name="file_list_live">BEO</string>
     <string name="file_list_loading">Á lódáil…</string>
     <string name="file_list_no_app_for_file_type">Níl aon aip socraithe chun an cineál comhaid seo a láimhseáil.</string>
+    <string name="file_list_out_of_memory_description">Níorbh fhéidir an t-ábhar a lódáil</string>
     <string name="file_list_seconds_ago">soicind ó shin</string>
     <string name="file_management_permission_optional">Ceadanna stórála</string>
     <string name="file_management_permission_optional_text">Is fearr a oibríonn %1$s le ceadanna chun an stóras a rochtain. Is féidir leat rochtain iomlán a roghnú ar gach comhad, nó rochtain inléite amháin ar ghrianghraif agus físeáin.</string>
@@ -640,6 +645,7 @@
     <string name="menu_item_sort_by_size_biggest_first">An ceann is mó ar dtús</string>
     <string name="menu_item_sort_by_size_smallest_first">Is lú ar dtús</string>
     <string name="more">Tuilleadh</string>
+    <string name="more_documents">Tuilleadh doiciméad</string>
     <string name="move_file_error">Tharla earráid agus iarracht á déanamh an comhad nó an fillteán seo a bhogadh</string>
     <string name="move_file_invalid_into_descendent">Ní féidir fillteán a bhogadh isteach i gceann dá fhillteáin bhunúsacha féin</string>
     <string name="move_file_invalid_overwrite">Tá an comhad i láthair cheana féin san fhillteán ceann scríbe</string>

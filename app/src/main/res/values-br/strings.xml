@@ -187,11 +187,13 @@
     <string name="could_not_retrieve_url">N\'eus ket bet gallet adkavout an URL</string>
     <string name="create">Krouiñ</string>
     <string name="create_dir_fail_msg">N\'eus ket bet gallet krouiñ an teuliad</string>
+    <string name="create_folder">Teuliad</string>
     <string name="create_new">Nevez</string>
     <string name="create_new_document">Teul nevez</string>
     <string name="create_new_folder">Renkell nevez</string>
     <string name="create_new_presentation">Kinnig nevez</string>
     <string name="create_new_spreadsheet">Taolenner nevez</string>
+    <string name="create_presentation">Kinnigadenn</string>
     <string name="create_rich_workspace">Ouzhpennañ un deskrivadur evit ar renkell</string>
     <string name="credentials_disabled">Diweredekaet eo ar c\'hredadurioù</string>
     <string name="daily_backup">Savete pemdeziek</string>

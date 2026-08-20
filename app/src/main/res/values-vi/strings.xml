@@ -174,11 +174,15 @@
     <string name="could_not_retrieve_url">Không thể truy xuất URL</string>
     <string name="create">Tạo</string>
     <string name="create_dir_fail_msg">Không thể tạo thư mục</string>
+    <string name="create_document">Tài liệu</string>
+    <string name="create_folder">Thư mục</string>
     <string name="create_new">Tạo mới</string>
     <string name="create_new_document">Tài liệu mới</string>
     <string name="create_new_folder">Tạo thư mục</string>
     <string name="create_new_presentation">Bản trình chiếu mới</string>
     <string name="create_new_spreadsheet">Bảng tính mới</string>
+    <string name="create_presentation">Buổi thuyết trình</string>
+    <string name="create_spreadsheet">Bảng tính</string>
     <string name="credentials_disabled">Đã vô hiệu hóa thông tin đăng nhập</string>
     <string name="daily_backup">Sao lưu hàng ngày</string>
     <string name="data_to_back_up">Dữ liệu được sao lưu</string>

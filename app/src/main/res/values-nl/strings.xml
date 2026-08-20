@@ -249,8 +249,10 @@
     <string name="could_not_retrieve_url">Kon URL niet ophalen</string>
     <string name="create">Creëren</string>
     <string name="create_dir_fail_msg">Kan map niet aanmaken</string>
+    <string name="create_document">Document</string>
     <string name="create_end_to_end_encrypted_share">Link delen</string>
     <string name="create_end_to_end_encrypted_share_title">Gedeelde links met end-to-end versleuteling</string>
+    <string name="create_folder">Map</string>
     <string name="create_link">Link aanmaken</string>
     <string name="create_new">Nieuw</string>
     <string name="create_new_document">Nieuw document</string>
@@ -258,7 +260,9 @@
     <string name="create_new_folder">Nieuwe map</string>
     <string name="create_new_presentation">Nieuwe presentatie</string>
     <string name="create_new_spreadsheet">Nieuw werkblad</string>
+    <string name="create_presentation">Presentatie</string>
     <string name="create_rich_workspace">Mapomschrijving toevoegen</string>
+    <string name="create_spreadsheet">Werkblad</string>
     <string name="credentials_disabled">Inloggegevens uitgeschakeld</string>
     <string name="daily_backup">Dagelijkse back-up</string>
     <string name="data_to_back_up">Te back-uppen data</string>
@@ -456,6 +460,7 @@
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Laden…</string>
     <string name="file_list_no_app_for_file_type">Er is geen app ingesteld om dit bestandsformaat te behandelen.</string>
+    <string name="file_list_out_of_memory_description">Kon inhoud niet laden</string>
     <string name="file_list_seconds_ago">seconden geleden</string>
     <string name="file_management_permission_optional">Opslagmachtigingen</string>
     <string name="file_management_permission_optional_text">%1$s werkt het best met opslagmachtigingen. Je kan kiezen tussen volledige toegang tot alle bestanden, of alleen lezen toegang tot foto\'s en video\'s.</string>

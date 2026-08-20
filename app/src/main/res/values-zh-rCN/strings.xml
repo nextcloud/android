@@ -250,8 +250,10 @@
     <string name="could_not_retrieve_url">无法获取地址</string>
     <string name="create">创建</string>
     <string name="create_dir_fail_msg">无法创建文件夹</string>
+    <string name="create_document">文档</string>
     <string name="create_end_to_end_encrypted_share">链接共享</string>
     <string name="create_end_to_end_encrypted_share_title">端到端加密链接共享</string>
+    <string name="create_folder">文件夹</string>
     <string name="create_link">创建链接</string>
     <string name="create_new">新建</string>
     <string name="create_new_document">新文档</string>
@@ -259,7 +261,9 @@
     <string name="create_new_folder">新文件夹</string>
     <string name="create_new_presentation">新演示文稿</string>
     <string name="create_new_spreadsheet">新表格</string>
+    <string name="create_presentation">演示文稿</string>
     <string name="create_rich_workspace">添加文件夹描述</string>
+    <string name="create_spreadsheet">电子表格</string>
     <string name="credentials_disabled">设备凭证已禁用</string>
     <string name="daily_backup">每日备份</string>
     <string name="data_to_back_up">要备份的数据</string>
@@ -461,6 +465,7 @@
     <string name="file_list_live">即时</string>
     <string name="file_list_loading">正在加载...</string>
     <string name="file_list_no_app_for_file_type">此文件类型未设置默认打开程序</string>
+    <string name="file_list_out_of_memory_description">无法加载内容</string>
     <string name="file_list_seconds_ago">几秒前</string>
     <string name="file_management_permission_optional">存储权限</string>
     <string name="file_management_permission_optional_text">%1$s在有权限访问的存储上工作得最好。您可以选择对所有文件获取完整权限，或者对照片和视频提供只读权限。</string>

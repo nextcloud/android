@@ -250,8 +250,11 @@
     <string name="could_not_retrieve_url">Adres alınamadı</string>
     <string name="create">Oluştur</string>
     <string name="create_dir_fail_msg">Klasör oluşturulamadı</string>
+    <string name="create_document">Belge</string>
+    <string name="create_encrypted_folder">Şifrelenmiş klasör</string>
     <string name="create_end_to_end_encrypted_share">Bağlantı paylaşımı</string>
     <string name="create_end_to_end_encrypted_share_title">Uçtan uca şifrelenmiş bağlantı paylaşımları</string>
+    <string name="create_folder">Klasör</string>
     <string name="create_link">Bağlantı oluştur</string>
     <string name="create_new">Yeni</string>
     <string name="create_new_document">Yeni belge</string>
@@ -259,7 +262,9 @@
     <string name="create_new_folder">Yeni klasör</string>
     <string name="create_new_presentation">Yeni sunum</string>
     <string name="create_new_spreadsheet">Yeni elektronik tablo</string>
+    <string name="create_presentation">Sunum</string>
     <string name="create_rich_workspace">Klasör açıklaması ekle</string>
+    <string name="create_spreadsheet">Elektronik tablo</string>
     <string name="credentials_disabled">Kimlik doğrulama bilgileri kullanılmıyor</string>
     <string name="daily_backup">Günlük yedek</string>
     <string name="data_to_back_up">Yedeklenecek veriler</string>
@@ -461,6 +466,7 @@
     <string name="file_list_live">CANLI</string>
     <string name="file_list_loading">Yükleniyor …</string>
     <string name="file_list_no_app_for_file_type">Bu dosya türü için uygulama bulunamadı.</string>
+    <string name="file_list_out_of_memory_description">İçerik yüklenemedi</string>
     <string name="file_list_seconds_ago">saniye önce</string>
     <string name="file_management_permission_optional">Depolama izinleri</string>
     <string name="file_management_permission_optional_text">%1$s depolamaya erişim izinleriyle en iyi şekilde çalışır. Tüm dosyalara tam erişim ya da fotoğraf ve videolara salt okunur erişim vermeyi seçebilirsiniz.</string>
@@ -640,6 +646,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Büyükten küçüğe</string>
     <string name="menu_item_sort_by_size_smallest_first">Küçükten büyüğe</string>
     <string name="more">Diğer</string>
+    <string name="more_documents">Diğer belgeler</string>
     <string name="move_file_error">Bu dosya ya da klasör taşınmaya çalışılırken bir sorun çıktı</string>
     <string name="move_file_invalid_into_descendent">Bir klasör kendi alt klasörü olarak taşınamaz</string>
     <string name="move_file_invalid_overwrite">Dosya hedef klasörde zaten var</string>
@@ -1076,6 +1083,7 @@
     <string name="unified_search_fragment_contact_not_found">Kişi bulunamadı, güncellemek için eşitleyebilirsiniz. İnternet üzerine yönlendiriliyor…</string>
     <string name="unified_search_fragment_permission_needed">Arama sonuçlarını açmak için izinler gereklidir. Yoksa İnternet üzerine yönlendirilir…</string>
     <string name="unified_search_fragment_search_in_this_folder">Bu klasör içindeki</string>
+    <string name="unified_search_fragment_search_takes_long">Arama normalden daha uzun sürüyor. Sunucu yanıt verir vermez sonuçlar görüntülenecek</string>
     <string name="unknown">Bilinmiyor</string>
     <string name="unlock_file">Dosyanın kilidini aç</string>
     <string name="unread_comments">Okunmamış yorumlar var</string>
@@ -1215,6 +1223,7 @@
     <string name="wait_checking_credentials">Kayıtlı kimlik bilgileri denetleniyor</string>
     <string name="wait_for_tmp_copy_from_private_storage">Dosya kişisel depolamadan kopyalanıyor</string>
     <string name="warn_rename_extension">Uzantının değiştirilmesi bu dosyanın başka bir uygulama ile açılmasına neden olabilir</string>
+    <string name="webview_not_available">Bu aygıtta Android Sistem WebView eksik ya da kapalı</string>
     <string name="what_s_new_image">Yenilikler görseli</string>
     <string name="whats_new_skip">Atla</string>
     <string name="whats_new_title">%1$s yenilikleri</string>

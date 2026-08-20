@@ -242,8 +242,10 @@
     <string name="could_not_retrieve_url">Nepodařilo se získat URL</string>
     <string name="create">Vytvořit</string>
     <string name="create_dir_fail_msg">Nepodařilo se vytvořit složku</string>
+    <string name="create_document">Dokument</string>
     <string name="create_end_to_end_encrypted_share">Sdílení odkazu</string>
     <string name="create_end_to_end_encrypted_share_title">Sdílení odkazem, šifrovaná mezi koncovými body</string>
+    <string name="create_folder">Složka</string>
     <string name="create_link">Vytvořit odkaz</string>
     <string name="create_new">Nové</string>
     <string name="create_new_document">Nový dokument</string>
@@ -251,7 +253,9 @@
     <string name="create_new_folder">Nová složka</string>
     <string name="create_new_presentation">Nová prezentace</string>
     <string name="create_new_spreadsheet">Nová tabulka</string>
+    <string name="create_presentation">Prezentace</string>
     <string name="create_rich_workspace">Přidat popis složky</string>
+    <string name="create_spreadsheet">Tabulka</string>
     <string name="credentials_disabled">Přihlašovací údaje znepřístupněny</string>
     <string name="daily_backup">Každodenní záloha</string>
     <string name="data_to_back_up">Data k zálohování</string>
@@ -449,6 +453,7 @@
     <string name="file_list_live">ŽIVĚ</string>
     <string name="file_list_loading">Načítání …</string>
     <string name="file_list_no_app_for_file_type">Není nastaveno pomocí které aplikace otevírat tento typ souboru.</string>
+    <string name="file_list_out_of_memory_description">Nepodařilo se načíst obsah</string>
     <string name="file_list_seconds_ago">před několika sekundami</string>
     <string name="file_management_permission_optional">Oprávnění k úložišti</string>
     <string name="file_management_permission_optional_text">%1$s funguje nejlépe s oprávněními pro přístup k úložišti. Je možné zvolit plný přístup k veškerým souborům nebo přístup pouze pro čtení k fotkám a videím.</string>
@@ -623,6 +628,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Největší jako první</string>
     <string name="menu_item_sort_by_size_smallest_first">Nejmenší jako první</string>
     <string name="more">Další</string>
+    <string name="more_documents">Další dokumenty</string>
     <string name="move_file_error">Při pokusu o přesun tohoto souboru či složky došlo k chybě</string>
     <string name="move_file_invalid_into_descendent">Není možné přesunout složku do její vlastní podsložky</string>
     <string name="move_file_invalid_overwrite">Soubor už v cílové složce existuje</string>

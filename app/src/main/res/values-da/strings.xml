@@ -225,13 +225,17 @@
     <string name="could_not_retrieve_url">Kunne ikke hente URL</string>
     <string name="create">Opret</string>
     <string name="create_dir_fail_msg">Kunne ikke oprette mappe</string>
+    <string name="create_document">Dokument</string>
+    <string name="create_folder">Mappe</string>
     <string name="create_link">Opret link</string>
     <string name="create_new">Nyt</string>
     <string name="create_new_document">Nyt dokument</string>
     <string name="create_new_folder">Ny mappe</string>
     <string name="create_new_presentation">Ny præsentation</string>
     <string name="create_new_spreadsheet">Nyt regneark</string>
+    <string name="create_presentation">Præsentation</string>
     <string name="create_rich_workspace">Tilføj mappebeskrivelse</string>
+    <string name="create_spreadsheet">Regneark</string>
     <string name="credentials_disabled">Legitimationsoplysninger deaktiverede</string>
     <string name="daily_backup">Daglig backup</string>
     <string name="data_to_back_up">Data at sikkerhedskopiere</string>
@@ -420,6 +424,7 @@
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Indlæser...</string>
     <string name="file_list_no_app_for_file_type">Ingen app er sat op til at håndtere denne filtype.</string>
+    <string name="file_list_out_of_memory_description">Kunne ikke indlæse indhold</string>
     <string name="file_list_seconds_ago">sekunder siden</string>
     <string name="file_management_permission_optional">Tilladelser for lagring</string>
     <string name="file_management_permission_optional_text">%1$s fungerer bedst når adgang til lager tillades. Du kan vælge fuld adgang til alle filer, eller læsebegrænset adgang til fotografier og videoer.</string>
@@ -585,6 +590,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Største først</string>
     <string name="menu_item_sort_by_size_smallest_first">Mindste først</string>
     <string name="more">Mere</string>
+    <string name="more_documents">Flere dokumenter</string>
     <string name="move_file_error">Der opstod en fejl under forsøg på at flytte denne mappe eller fil</string>
     <string name="move_file_invalid_into_descendent">Det er ikke muligt at flytte en mappe til en af dens egne undermapper</string>
     <string name="move_file_invalid_overwrite">Filen findes allerede i destinationsmappen</string>

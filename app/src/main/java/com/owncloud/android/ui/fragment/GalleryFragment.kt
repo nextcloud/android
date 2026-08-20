@@ -39,6 +39,7 @@ import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.EmptyRecyclerView
 import com.owncloud.android.ui.activity.FileDisplayActivity
@@ -264,20 +265,25 @@ class GalleryFragment :
         }
     }
 
-    fun searchCompleted(emptySearch: Boolean, lastTimeStamp: Long) {
+    fun searchCompleted(result: GallerySearchTask.Result) {
         if (!isAdded) return
 
         this.isPhotoSearchQueryRunning = false
 
-        if (lastTimeStamp > -1) {
-            endDate = lastTimeStamp
+        if (result.resultCode == RemoteOperationResult.ResultCode.OUT_OF_MEMORY) {
+            setEmptyListMessage(EmptyListState.OUT_OF_MEMORY)
+            return
+        }
+
+        if (result.lastTimestamp > -1) {
+            endDate = result.lastTimestamp
         }
 
         if (adapter?.isEmpty() == true) {
             setEmptyListMessage(SearchType.GALLERY_SEARCH)
         }
 
-        if (!emptySearch) {
+        if (!result.emptySearch) {
             showAllGalleryItems()
         }
 

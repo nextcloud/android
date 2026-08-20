@@ -250,8 +250,10 @@
     <string name="could_not_retrieve_url">Неможливо отримати посилання</string>
     <string name="create">Створити</string>
     <string name="create_dir_fail_msg">Неможливо створити каталог</string>
+    <string name="create_document">Документ</string>
     <string name="create_end_to_end_encrypted_share">Спільне посилання</string>
     <string name="create_end_to_end_encrypted_share_title">Наскрізно зашифровані спільні посилання</string>
+    <string name="create_folder">Каталог</string>
     <string name="create_link">Створити посилання</string>
     <string name="create_new">Створити</string>
     <string name="create_new_document">Новий документ</string>
@@ -259,7 +261,9 @@
     <string name="create_new_folder">Новий каталог</string>
     <string name="create_new_presentation">Нова презентація</string>
     <string name="create_new_spreadsheet">Нова електронна таблиця</string>
+    <string name="create_presentation">Презентація</string>
     <string name="create_rich_workspace">Додати опис каталогу</string>
+    <string name="create_spreadsheet">Таблиця</string>
     <string name="credentials_disabled">Дані авторизації не активні</string>
     <string name="daily_backup">Щоденне резервне збереження</string>
     <string name="data_to_back_up">Дані користувача для резервного збереження</string>
@@ -461,6 +465,7 @@
     <string name="file_list_live">НАЖИВО</string>
     <string name="file_list_loading">Завантаження…</string>
     <string name="file_list_no_app_for_file_type">Відсутній застосунок для відкриття файлу такого типу.</string>
+    <string name="file_list_out_of_memory_description">Не вдалося завантажити вміст</string>
     <string name="file_list_seconds_ago">кілька секунд тому</string>
     <string name="file_management_permission_optional">Доступ до пам\'яти</string>
     <string name="file_management_permission_optional_text">%1$s Найкраще працює з дозволами для доступу до зберігання. Ви можете вибрати повний доступ до всіх файлів або доступ лише для читання до фотографій і відео.</string>
@@ -640,6 +645,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Найбільші на початку</string>
     <string name="menu_item_sort_by_size_smallest_first">Найменші на початку</string>
     <string name="more">Більше</string>
+    <string name="more_documents">Більше документів</string>
     <string name="move_file_error">Виникла помилка при спробі перемістити файл або каталог</string>
     <string name="move_file_invalid_into_descendent">Неможливо перемістити каталог до одного з вкладених підкаталогів</string>
     <string name="move_file_invalid_overwrite">Файл вже присутній у каталозі призначення</string>

@@ -219,13 +219,17 @@
     <string name="could_not_retrieve_url">لا يمكن استرجاع الرابط</string>
     <string name="create">إنشاء</string>
     <string name="create_dir_fail_msg">تعذر إنشاء المُجلّد</string>
+    <string name="create_document">وثيقة</string>
+    <string name="create_folder">مجلد</string>
     <string name="create_link">أنشِئ رابطاً</string>
     <string name="create_new">جديد</string>
     <string name="create_new_document">مستند جديد</string>
     <string name="create_new_folder">مجلد جديد</string>
     <string name="create_new_presentation">عرض تقديمي جديد</string>
     <string name="create_new_spreadsheet">جدول بيانات جديد</string>
+    <string name="create_presentation">عرض تقديمي</string>
     <string name="create_rich_workspace">إضافة وصف للمجلد</string>
+    <string name="create_spreadsheet">جدول العمل</string>
     <string name="credentials_disabled">التصريح غير مفعل</string>
     <string name="daily_backup">النسخ الاحتياطي اليومي</string>
     <string name="data_to_back_up">البيانات التي سيتم نسخها احتياطيا</string>
@@ -565,6 +569,7 @@
     <string name="menu_item_sort_by_size_biggest_first">الأكبر أولا</string>
     <string name="menu_item_sort_by_size_smallest_first">الأصغر أولا</string>
     <string name="more">المزيد</string>
+    <string name="more_documents">مستندات أخرى</string>
     <string name="move_file_error">حدث خطأ أثناء محاولة نقل هذا الملف أو المجلد</string>
     <string name="move_file_invalid_into_descendent">لا يمكن نقل مجلد في مجلدات هوَّ يتضمنها</string>
     <string name="move_file_invalid_overwrite">هذا الملف موجود حالياً في المجلد المُّسّتَقبِل</string>

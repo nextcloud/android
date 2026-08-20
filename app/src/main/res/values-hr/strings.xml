@@ -242,6 +242,8 @@
     <string name="could_not_retrieve_url">Nije moguće dohvatiti URL</string>
     <string name="create">Stvori</string>
     <string name="create_dir_fail_msg">Nije moguće stvoriti mapu</string>
+    <string name="create_document">Dokument</string>
+    <string name="create_folder">Mapa</string>
     <string name="create_link">Stvori poveznicu</string>
     <string name="create_new">Novo</string>
     <string name="create_new_document">Novi dokument</string>
@@ -249,7 +251,9 @@
     <string name="create_new_folder">Nova mapa</string>
     <string name="create_new_presentation">Nova prezentacija</string>
     <string name="create_new_spreadsheet">Nova proračunska tablica</string>
+    <string name="create_presentation">Prezentacija</string>
     <string name="create_rich_workspace">Dodaj opis mape</string>
+    <string name="create_spreadsheet">Proračunska tablica</string>
     <string name="credentials_disabled">Vjerodajnice onemogućene</string>
     <string name="daily_backup">Svakodnevno sigurnosno kopiranje</string>
     <string name="data_to_back_up">Podaci za sigurnosno kopiranje</string>
@@ -447,6 +451,7 @@
     <string name="file_list_live">UŽIVO</string>
     <string name="file_list_loading">Učitavanje…</string>
     <string name="file_list_no_app_for_file_type">Nije postavljena nijedna aplikacija za obrađivanje ove vrste datoteka.</string>
+    <string name="file_list_out_of_memory_description">Poslužitelj nije dostupan</string>
     <string name="file_list_seconds_ago">prije nekoliko sekundi</string>
     <string name="file_management_permission_optional">Dopuštenja za pohranu</string>
     <string name="file_management_permission_optional_text">%1$sradi najbolje s dozvoljenim pristupom prostoru za pohranu. Možete odabrati potpuni pristup svim datotekama ili samo mogućnost \"čitanja\" za fotografije i video materijale.</string>

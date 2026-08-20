@@ -73,8 +73,9 @@ class OCFileListSearchTask(
                 updateAdapterData(fragment, cachedFiles)
             }
 
-            val result = fetchRemoteResults()?.takeIf { it.isSuccess } ?: run {
-                showSnackbarError(fragment)
+            val result = fetchRemoteResults()
+            if (result == null || !result.isSuccess) {
+                showError(fragment, result)
                 return@launch
             }
 
@@ -87,6 +88,15 @@ class OCFileListSearchTask(
             val remoteFiles = fetchAndSortRemoteFiles(searchType, cachedFiles, resultData, fragment)
             updateAdapterData(fragment, remoteFiles)
         }
+    }
+
+    private suspend fun showError(fragment: OCFileListFragment, result: RemoteOperationResult<List<Any>>?) {
+        if (result?.code == RemoteOperationResult.ResultCode.OUT_OF_MEMORY) {
+            withContext(Dispatchers.Main) { fragment.setEmptyListMessage(EmptyListState.OUT_OF_MEMORY) }
+            return
+        }
+
+        showSnackbarError(fragment)
     }
 
     private suspend fun showSnackbarError(fragment: OCFileListFragment) {

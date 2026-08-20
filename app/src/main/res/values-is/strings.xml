@@ -213,13 +213,17 @@
     <string name="could_not_retrieve_url">Tókst ekki að ná í slóð</string>
     <string name="create">Búa til</string>
     <string name="create_dir_fail_msg">gat ekki búið til möppuna %1</string>
+    <string name="create_document">Skjal</string>
+    <string name="create_folder">Mappa</string>
     <string name="create_link">Búa til tengil</string>
     <string name="create_new">Nýtt</string>
     <string name="create_new_document">Nýtt skjal</string>
     <string name="create_new_folder">Ný mappa</string>
     <string name="create_new_presentation">Ný kynning</string>
     <string name="create_new_spreadsheet">Nýr töflureiknir</string>
+    <string name="create_presentation">Kynning</string>
     <string name="create_rich_workspace">Bæta við lýsingu á möppu</string>
+    <string name="create_spreadsheet">Töflureiknisskjal</string>
     <string name="credentials_disabled">Auðkenni óvirk</string>
     <string name="daily_backup">Dagleg öryggisafritun</string>
     <string name="data_to_back_up">Gögn sem á að taka öryggisafrit af</string>
@@ -407,6 +411,7 @@
     <string name="file_list_live">BEINT</string>
     <string name="file_list_loading">Hleð inn…</string>
     <string name="file_list_no_app_for_file_type">Ekkert forrit er uppsett til að meðhöndla þessa tegund skráa.</string>
+    <string name="file_list_out_of_memory_description">Gat ekki hlaðið inn efni</string>
     <string name="file_list_seconds_ago">sekúndum síðan</string>
     <string name="file_management_permission_optional">Heimildir gagnageymslu</string>
     <string name="file_management_permission_optional_text">%1$s virkar best með heimildum til að nota geymslurými. Þú getur valið að gefa fullan aðgang að öllum skrám, eða aðgang til að einungis lesa ljósmyndir og myndskeið.</string>

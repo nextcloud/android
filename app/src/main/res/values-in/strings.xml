@@ -225,12 +225,14 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="could_not_retrieve_url">Tidak dapat mengambil URL</string>
     <string name="create">Buat</string>
     <string name="create_dir_fail_msg">Folder tidak dapat dibuat</string>
+    <string name="create_folder">Folder</string>
     <string name="create_link">Buat tautan</string>
     <string name="create_new">Baru</string>
     <string name="create_new_document">Dokumen baru</string>
     <string name="create_new_folder">Folder baru</string>
     <string name="create_new_presentation">Presentasi baru</string>
     <string name="create_new_spreadsheet">Spreadsheet baru</string>
+    <string name="create_presentation">Presentasi</string>
     <string name="create_rich_workspace">Tambahkan deskripsi folder</string>
     <string name="credentials_disabled">Kredensial dimatikan</string>
     <string name="daily_backup">Pencadangan harian</string>
@@ -419,6 +421,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="file_list_live">LANGSUNG</string>
     <string name="file_list_loading">Memuat…</string>
     <string name="file_list_no_app_for_file_type">Tidak ada aplikasi untuk membuka jenis berkas ini.</string>
+    <string name="file_list_out_of_memory_description">Tidak dapat memuat konten</string>
     <string name="file_list_seconds_ago">beberapa detik yang lalu</string>
     <string name="file_management_permission_optional">Izin penyimpanan</string>
     <string name="file_management_permission_optional_text">%1$s bekerja paling baik dengan izin akses penyimpanan. Anda dapat memilih akses ke semua berkas, atau akses hanya baca untuk foto dan video.</string>

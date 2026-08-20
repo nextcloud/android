@@ -250,8 +250,10 @@
     <string name="could_not_retrieve_url">Kunde inte hämta URL</string>
     <string name="create">Skapa</string>
     <string name="create_dir_fail_msg">Kunde inte skapa mapp</string>
+    <string name="create_document">Dokument</string>
     <string name="create_end_to_end_encrypted_share">Länkdelning</string>
     <string name="create_end_to_end_encrypted_share_title">Ände-till-ände-krypterade länkdelningar</string>
+    <string name="create_folder">Mapp</string>
     <string name="create_link">Skapa länk</string>
     <string name="create_new">Ny</string>
     <string name="create_new_document">Nytt dokument</string>
@@ -259,7 +261,9 @@
     <string name="create_new_folder">Ny mapp</string>
     <string name="create_new_presentation">Ny presentation</string>
     <string name="create_new_spreadsheet">Nytt kalkylblad</string>
+    <string name="create_presentation">Presentation</string>
     <string name="create_rich_workspace">Lägg till mappbeskrivning</string>
+    <string name="create_spreadsheet">Kalkylblad</string>
     <string name="credentials_disabled">Inloggningsuppgifter inaktiverade</string>
     <string name="daily_backup">Daglig säkerhetskopiering</string>
     <string name="data_to_back_up">Data att säkerhetskopiera</string>
@@ -461,6 +465,7 @@
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Läser in…</string>
     <string name="file_list_no_app_for_file_type">Det finns ingen app som kan hantera den här filtypen</string>
+    <string name="file_list_out_of_memory_description">Kunde inte ladda innehåll</string>
     <string name="file_list_seconds_ago">sekunder sedan</string>
     <string name="file_management_permission_optional">Lagringsbehörigheter</string>
     <string name="file_management_permission_optional_text">%1$s fungerar bäst med åtkomstbehörighet till lagringsutrymmet. Du kan välja att ha fullständig åtkomst till alla filer eller läsåtkomst till bilder och videor.</string>
@@ -640,6 +645,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Störst först</string>
     <string name="menu_item_sort_by_size_smallest_first">Minst först</string>
     <string name="more">Mer</string>
+    <string name="more_documents">Fler dokument</string>
     <string name="move_file_error">Ett fel uppstod vid försök att flytta denna fil eller mapp</string>
     <string name="move_file_invalid_into_descendent">Det är inte möjligt att flytta en mapp till en av dess undermappar</string>
     <string name="move_file_invalid_overwrite">Filen finns redan i målmappen</string>

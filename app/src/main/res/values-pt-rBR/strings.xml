@@ -250,8 +250,11 @@
     <string name="could_not_retrieve_url">Não foi possível recuperar a URL</string>
     <string name="create">Criar</string>
     <string name="create_dir_fail_msg">Não foi possível criar a pasta</string>
+    <string name="create_document">Documento</string>
+    <string name="create_encrypted_folder">Pasta criptografada</string>
     <string name="create_end_to_end_encrypted_share">Compartilhamento por link</string>
     <string name="create_end_to_end_encrypted_share_title">Compartilhamentos por link criptografados de ponta-a-ponta</string>
+    <string name="create_folder">Pasta</string>
     <string name="create_link">Criar link</string>
     <string name="create_new">Novo</string>
     <string name="create_new_document">Novo documento</string>
@@ -259,7 +262,9 @@
     <string name="create_new_folder">Nova pasta</string>
     <string name="create_new_presentation">Nova apresentação</string>
     <string name="create_new_spreadsheet">Nova planilha</string>
+    <string name="create_presentation">Apresentação</string>
     <string name="create_rich_workspace">Adicionar descrição da pasta</string>
+    <string name="create_spreadsheet">Planilha</string>
     <string name="credentials_disabled">Credenciais desabilitadas</string>
     <string name="daily_backup">Backup diário </string>
     <string name="data_to_back_up">Dados para backup </string>
@@ -461,6 +466,7 @@
     <string name="file_list_live">AO VIVO</string>
     <string name="file_list_loading">Carregando…</string>
     <string name="file_list_no_app_for_file_type">Nenhuma aplicação definida para manipular este tipo de arquivo.</string>
+    <string name="file_list_out_of_memory_description">Não foi possível carregar o conteúdo</string>
     <string name="file_list_seconds_ago">segundos atrás</string>
     <string name="file_management_permission_optional">Permissões de armazenamento</string>
     <string name="file_management_permission_optional_text">%1$s funciona melhor com permissões para acessar o armazenamento. Você pode escolher acesso total a todos os arquivos ou acesso somente leitura a fotos e vídeos.</string>
@@ -640,6 +646,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Maiores primeiro</string>
     <string name="menu_item_sort_by_size_smallest_first">Menores primeiro</string>
     <string name="more">Mais</string>
+    <string name="more_documents">Mais documentos</string>
     <string name="move_file_error">Ocorreu um erro ao tentar mover este arquivo ou pasta</string>
     <string name="move_file_invalid_into_descendent">Não é possível mover uma pasta para uma das suas próprias pastas subjacentes</string>
     <string name="move_file_invalid_overwrite">O arquivo já está presente na pasta destino</string>
@@ -1076,6 +1083,7 @@
     <string name="unified_search_fragment_contact_not_found">Contato não encontrado, você sempre pode sincronizar para atualizar. Redirecionando para web…</string>
     <string name="unified_search_fragment_permission_needed">São necessárias permissões para abrir o resultado da pesquisa, caso contrário, ele será redirecionado para a web…</string>
     <string name="unified_search_fragment_search_in_this_folder">Nesta pasta</string>
+    <string name="unified_search_fragment_search_takes_long">A pesquisa está demorando mais do que o normal. Os resultados aparecerão assim que o servidor responder</string>
     <string name="unknown">Desconhecido</string>
     <string name="unlock_file">Destrancar arquivo</string>
     <string name="unread_comments">Existem comentários não lidos</string>
@@ -1215,6 +1223,7 @@
     <string name="wait_checking_credentials">Verificando credenciais salvas</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando o arquivo da armazenagem privada</string>
     <string name="warn_rename_extension">Alterar a extensão pode fazer com que esse arquivo seja aberto em um aplicativo diferente</string>
+    <string name="webview_not_available">O Android System WebView não está instalado ou está desativado neste dispositivo</string>
     <string name="what_s_new_image">Imagem nova</string>
     <string name="whats_new_skip">Saltar</string>
     <string name="whats_new_title">Novo em %1$s</string>

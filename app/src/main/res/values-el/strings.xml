@@ -189,15 +189,19 @@
     <string name="could_not_retrieve_url">Αδυναμία ανάκτησης URL</string>
     <string name="create">Δημιουργία</string>
     <string name="create_dir_fail_msg">Αδυναμία δημιουργίας φακέλου</string>
+    <string name="create_document">Έγγραφο</string>
     <string name="create_end_to_end_encrypted_share">Διαμοιρασμός συνδέσμου</string>
     <string name="create_end_to_end_encrypted_share_title">Σύνδεσμοι διαμοιρασμού με κρυπτογράφηση από άκρο σε άκρο</string>
+    <string name="create_folder">Φάκελος</string>
     <string name="create_new">Νέα</string>
     <string name="create_new_document">Νέο έγγραφο</string>
     <string name="create_new_encrypted_folder">Νέος κρυπτογραφημένος φάκελος</string>
     <string name="create_new_folder">Νέος φάκελος</string>
     <string name="create_new_presentation">Νέα παρουσίαση</string>
     <string name="create_new_spreadsheet">Νέο λογιστικό φύλλο</string>
+    <string name="create_presentation">Παρουσίαση</string>
     <string name="create_rich_workspace">Προσθήκη περιγραφής φακέλου</string>
+    <string name="create_spreadsheet">Λογιστικό φύλλο</string>
     <string name="credentials_disabled">Απενεργοποιημένα διαπιστευτήρια</string>
     <string name="daily_backup">Ημερήσιο αντίγραφο ασφαλείας</string>
     <string name="data_to_back_up">Δεδομένα για δημιουργία αντιγράφου ασφαλείας</string>
@@ -487,6 +491,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Μεγαλύτερο πρώτα</string>
     <string name="menu_item_sort_by_size_smallest_first">Μικρότερο πρώτα</string>
     <string name="more">Περισσότερα</string>
+    <string name="more_documents">Περισσότερα έγγραφα</string>
     <string name="move_file_error">Παρουσιάστηκε σφάλμα κατά την προσπάθεια μετακίνησης αυτού του αρχείου ή φακέλου</string>
     <string name="move_file_invalid_into_descendent">Δεν είναι δυνατό να μετακινηθεί ο φάκελος σε έναν απογονικό</string>
     <string name="move_file_invalid_overwrite">Το αρχείο υπάρχει ήδη στο φάκελο προορισμού</string>

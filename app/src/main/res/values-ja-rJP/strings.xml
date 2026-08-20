@@ -247,8 +247,10 @@
     <string name="could_not_retrieve_url">URL を取得できませんでした</string>
     <string name="create">作成</string>
     <string name="create_dir_fail_msg">フォルダーを作成できません</string>
+    <string name="create_document">ドキュメント</string>
     <string name="create_end_to_end_encrypted_share">リンク共有</string>
     <string name="create_end_to_end_encrypted_share_title">End-to-End暗号化リンク共有</string>
+    <string name="create_folder">フォルダー</string>
     <string name="create_link">リンクを作成する</string>
     <string name="create_new">新規作成</string>
     <string name="create_new_document">新規ドキュメント</string>
@@ -256,7 +258,9 @@
     <string name="create_new_folder">新しいフォルダー</string>
     <string name="create_new_presentation">新規プレゼンテーション</string>
     <string name="create_new_spreadsheet">新規スプレッドシート</string>
+    <string name="create_presentation">プレゼンテーション</string>
     <string name="create_rich_workspace">フォルダの説明を追加</string>
+    <string name="create_spreadsheet">スプレッドシート</string>
     <string name="credentials_disabled">資格情報が無効です</string>
     <string name="daily_backup">毎日のバックアップ</string>
     <string name="data_to_back_up">バックアップするデータ</string>
@@ -445,6 +449,7 @@
     <string name="file_list_live">ライブ</string>
     <string name="file_list_loading">読み込み中…</string>
     <string name="file_list_no_app_for_file_type">このファイル形式に設定されたアプリがありません。</string>
+    <string name="file_list_out_of_memory_description">コンテンツをロードできませんでした</string>
     <string name="file_list_seconds_ago">数秒前</string>
     <string name="file_management_permission_optional">ストレージの権限</string>
     <string name="file_management_permission_optional_text">%1$sは、ストレージへのアクセスが許可されることでより良く動作します。全てのファイルへのフルアクセスまたは写真や動画への読み取り専用を選ぶことができます。</string>

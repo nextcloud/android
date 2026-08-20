@@ -81,7 +81,6 @@ import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.isActive
 import com.nextcloud.utils.extensions.isDialogFragmentReady
 import com.nextcloud.utils.extensions.lastFragment
-import com.nextcloud.utils.extensions.logFileSize
 import com.nextcloud.utils.extensions.navigateToAllFiles
 import com.nextcloud.utils.extensions.observeWorker
 import com.nextcloud.utils.extensions.setVisibleIf
@@ -210,10 +209,10 @@ class FileDisplayActivity :
 
     private var mWaitingToPreview: OCFile? = null
 
-    private var mSyncInProgress: Boolean = false
+    private var syncState: Parcelable = EmptyListState.LOADING
         set(value) {
             field = value
-            setEmptyListState()
+            listOfFilesFragment?.setEmptyListMessage(value)
         }
 
     private var pendingSyncFolderOperation: Runnable? = null
@@ -327,13 +326,14 @@ class FileDisplayActivity :
         if (savedInstanceState != null) {
             mWaitingToPreview =
                 savedInstanceState.getParcelableArgument(KEY_WAITING_TO_PREVIEW, OCFile::class.java)
-            mSyncInProgress = savedInstanceState.getBoolean(KEY_SYNC_IN_PROGRESS)
+            syncState = savedInstanceState.getParcelableArgument(KEY_SYNC_STATE, Parcelable::class.java)
+                ?: EmptyListState.LOADING
             mWaitingToSend = savedInstanceState.getParcelableArgument(KEY_WAITING_TO_SEND, OCFile::class.java)
             searchQuery = savedInstanceState.getString(KEY_SEARCH_QUERY)
             searchOpen = savedInstanceState.getBoolean(KEY_IS_SEARCH_OPEN, false)
         } else {
             mWaitingToPreview = null
-            mSyncInProgress = false
+            syncState = EmptyListState.LOADING
             mWaitingToSend = null
         }
     }
@@ -1362,21 +1362,17 @@ class FileDisplayActivity :
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        // responsibility of restore is preferred in onCreate() before than in
-        // onRestoreInstanceState when there are Fragments involved
         super.onSaveInstanceState(outState)
-        mWaitingToPreview.logFileSize(TAG)
-        outState.putParcelable(KEY_WAITING_TO_PREVIEW, mWaitingToPreview)
-        outState.putBoolean(KEY_SYNC_IN_PROGRESS, mSyncInProgress)
-        // outState.putBoolean(FileDisplayActivity.KEY_REFRESH_SHARES_IN_PROGRESS,
-        // mRefreshSharesInProgress);
-        outState.putParcelable(KEY_WAITING_TO_SEND, mWaitingToSend)
-        if (searchView != null) {
-            outState.putBoolean(KEY_IS_SEARCH_OPEN, searchView?.isIconified == false)
+        outState.run {
+            putParcelable(KEY_WAITING_TO_PREVIEW, mWaitingToPreview)
+            putParcelable(KEY_SYNC_STATE, syncState)
+            putParcelable(KEY_WAITING_TO_SEND, mWaitingToSend)
+            if (searchView != null) {
+                putBoolean(KEY_IS_SEARCH_OPEN, searchView?.isIconified == false)
+            }
+            putString(KEY_SEARCH_QUERY, searchQuery)
+            putBoolean(KEY_IS_SORT_GROUP_VISIBLE, sortListGroupVisibility())
         }
-        outState.putString(KEY_SEARCH_QUERY, searchQuery)
-        outState.putBoolean(KEY_IS_SORT_GROUP_VISIBLE, sortListGroupVisibility())
-        Log_OC.v(TAG, "onSaveInstanceState() end")
     }
 
     override fun onResume() {
@@ -1546,7 +1542,7 @@ class FileDisplayActivity :
             } catch (_: java.lang.RuntimeException) {
                 safelyDeleteResult(intent)
             } finally {
-                mSyncInProgress = false
+                onSyncFinished()
             }
         }
     }
@@ -1633,7 +1629,7 @@ class FileDisplayActivity :
             return
         }
 
-        if (mSyncInProgress || ocFileListFragment.isLoading) {
+        if (syncState == EmptyListState.LOADING || ocFileListFragment.isLoading) {
             return
         }
 
@@ -1677,6 +1673,7 @@ class FileDisplayActivity :
             RemoteOperationResult.ResultCode.NO_NETWORK_CONNECTION -> showInfoBox(R.string.offline_mode)
             RemoteOperationResult.ResultCode.HOST_NOT_AVAILABLE -> showInfoBox(R.string.host_not_available)
             RemoteOperationResult.ResultCode.SIGNING_TOS_NEEDED -> showTermsOfServiceDialog()
+            RemoteOperationResult.ResultCode.OUT_OF_MEMORY -> syncState = EmptyListState.OUT_OF_MEMORY
             else -> {}
         }
     }
@@ -1696,23 +1693,18 @@ class FileDisplayActivity :
             (syncResult.isException && syncResult.exception is AuthenticatorException)
     }
 
-    private fun setEmptyListState() {
-        listOfFilesFragment?.let {
-            when {
-                mSyncInProgress -> {
-                    it.setEmptyListMessage(EmptyListState.LOADING)
-                }
+    private fun onSyncFinished() {
+        if (syncState != EmptyListState.LOADING) {
+            return
+        }
 
-                MainApp.isOnlyOnDevice() -> {
-                    it.setEmptyListMessage(EmptyListState.ONLY_ON_DEVICE)
-                }
+        syncState = when {
+            MainApp.isOnlyOnDevice() -> EmptyListState.ONLY_ON_DEVICE
 
-                it.searchEvent?.searchType == SearchRemoteOperation.SearchType.FAVORITE_SEARCH -> {
-                    it.setEmptyListMessage(SearchType.FAVORITE_SEARCH)
-                }
+            listOfFilesFragment?.searchEvent?.searchType == SearchRemoteOperation.SearchType.FAVORITE_SEARCH ->
+                SearchType.FAVORITE_SEARCH
 
-                else -> it.setEmptyListMessage(SearchType.NO_SEARCH)
-            }
+            else -> SearchType.NO_SEARCH
         }
     }
 
@@ -2552,7 +2544,7 @@ class FileDisplayActivity :
     fun startSyncFolderOperation(folder: OCFile?, ignoreETag: Boolean, ignoreFocus: Boolean = false) {
         Log_OC.d(TAG, "startSyncFolderOperation called, ignoreEtag: $ignoreETag, ignoreFocus: $ignoreFocus")
 
-        if (!TextUtils.isEmpty(searchQuery) || !user.isPresent) {
+        if (!searchQuery.isNullOrEmpty() || !user.isPresent) {
             return
         }
 
@@ -2583,30 +2575,29 @@ class FileDisplayActivity :
     }
 
     private fun executeSyncFolderOperation(folder: OCFile?, ignoreETag: Boolean) {
-        val user = getUser()
-        if (!user.isPresent) {
-            return
+        val folder = folder ?: return
+
+        user.ifPresent { user ->
+            syncState = EmptyListState.LOADING
+
+            RefreshFolderOperation(
+                folder,
+                System.currentTimeMillis(),
+                false,
+                ignoreETag,
+                storageManager,
+                user,
+                applicationContext
+            ).execute(
+                account,
+                this,
+                { _, _ -> onSyncFinished() },
+                handler,
+                null
+            )
+
+            fetchRecommendedFilesIfNeeded(ignoreETag, folder)
         }
-
-        mSyncInProgress = true
-
-        RefreshFolderOperation(
-            folder,
-            System.currentTimeMillis(),
-            false,
-            ignoreETag,
-            storageManager,
-            user.get(),
-            applicationContext
-        ).execute(
-            account,
-            MainApp.getAppContext(),
-            this@FileDisplayActivity,
-            null,
-            null
-        )
-
-        fetchRecommendedFilesIfNeeded(ignoreETag, folder)
     }
 
     private fun fetchRecommendedFilesIfNeeded(ignoreETag: Boolean, folder: OCFile?) {
@@ -2619,8 +2610,8 @@ class FileDisplayActivity :
             return
         }
 
-        if (user.isPresent) {
-            val accountName = user.get().accountName
+        user.ifPresent { user ->
+            val accountName = user.accountName
             val fragment = this.listOfFilesFragment
             lifecycleScope.launch(Dispatchers.IO) {
                 val recommendedFiles = filesRepository.fetchRecommendedFiles(accountName, ignoreETag, storageManager)
@@ -3309,7 +3300,7 @@ class FileDisplayActivity :
         const val KEY_IS_SORT_GROUP_VISIBLE: String = "KEY_IS_SORT_GROUP_VISIBLE"
 
         private const val KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW"
-        private const val KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS"
+        private const val KEY_SYNC_STATE = "SYNC_STATE"
         private const val KEY_WAITING_TO_SEND = "WAITING_TO_SEND"
         private const val DIALOG_TAG_SHOW_TOS = "DIALOG_TAG_SHOW_TOS"
 

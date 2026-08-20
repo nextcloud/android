@@ -241,6 +241,8 @@
     <string name="could_not_retrieve_url">Haikuweza kupata URL</string>
     <string name="create">Tengeneza</string>
     <string name="create_dir_fail_msg">Haikuweza kutengeneza folda</string>
+    <string name="create_document">Nyaraka</string>
+    <string name="create_folder">Kisanduku</string>
     <string name="create_link">Tengeneza kiungo</string>
     <string name="create_new">Mpya</string>
     <string name="create_new_document">Waraka mpya</string>
@@ -248,7 +250,9 @@
     <string name="create_new_folder">Kisanduku kipya</string>
     <string name="create_new_presentation">Wasilisho jipya</string>
     <string name="create_new_spreadsheet">Lahajedwali mpya</string>
+    <string name="create_presentation">Wasilisho</string>
     <string name="create_rich_workspace">Ongeza maelezo ya folda</string>
+    <string name="create_spreadsheet">Lahajedwali</string>
     <string name="credentials_disabled">Kitambulisho kimezimwa</string>
     <string name="daily_backup">Hifadhi nakala ya kila siku</string>
     <string name="data_to_back_up">Data ya kuhifadhi nakala</string>
@@ -443,6 +447,7 @@
     <string name="file_list_live">MUBASHARA</string>
     <string name="file_list_loading">Inapakia</string>
     <string name="file_list_no_app_for_file_type">Hakuna programu iliyosanidiwa kushughulikia aina hii ya faili.</string>
+    <string name="file_list_out_of_memory_description">Haikuweza kupakia maudhui</string>
     <string name="file_list_seconds_ago">sukunde zilizopita</string>
     <string name="file_management_permission_optional">Ruhusa za kuhifadhi</string>
     <string name="file_management_permission_optional_text">%1$s inafanya kazi vyema ikiwa na ruhusa ya kufikia hifadhi. Unaweza kuchagua ufikiaji kamili wa faili zote, au ufikiaji wa kusoma tu kwa picha na video.</string>
@@ -612,6 +617,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Kubwa zaidi kwanza</string>
     <string name="menu_item_sort_by_size_smallest_first">Ndogo zaidi kwanza</string>
     <string name="more">Zaidi</string>
+    <string name="more_documents">Nyaraka zaidi</string>
     <string name="move_file_error">Hitilafu ilitokea wakati wa kujaribu kuhamisha faili au folda hii</string>
     <string name="move_file_invalid_into_descendent">Haiwezekani kuhamisha folda kwenye mojawapo ya folda zake za msingi</string>
     <string name="move_file_invalid_overwrite">Faili tayari iko kwenye folda lengwa</string>

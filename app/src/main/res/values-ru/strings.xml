@@ -250,8 +250,10 @@
     <string name="could_not_retrieve_url">Не удалось получить URL</string>
     <string name="create">Создать</string>
     <string name="create_dir_fail_msg">Не удалось создать каталог</string>
+    <string name="create_document">Документ</string>
     <string name="create_end_to_end_encrypted_share">Поделиться ссылкой</string>
     <string name="create_end_to_end_encrypted_share_title">Сквозное зашифрованное совместное использование ссылок</string>
+    <string name="create_folder">Каталог</string>
     <string name="create_link">Создать ссылку</string>
     <string name="create_new">Новый</string>
     <string name="create_new_document">Новый документ</string>
@@ -259,7 +261,9 @@
     <string name="create_new_folder">Новая папка</string>
     <string name="create_new_presentation">Новая презентация</string>
     <string name="create_new_spreadsheet">Новая таблица</string>
+    <string name="create_presentation">Презентация</string>
     <string name="create_rich_workspace">Добавить описание папки</string>
+    <string name="create_spreadsheet">Таблица</string>
     <string name="credentials_disabled">Учётная запись отключена</string>
     <string name="daily_backup">Ежедневное резервное копирование</string>
     <string name="data_to_back_up">Данные для резервного копирования</string>
@@ -461,6 +465,7 @@
     <string name="file_list_live">ТРАНСЛИРУЕТСЯ</string>
     <string name="file_list_loading">Получение данных…</string>
     <string name="file_list_no_app_for_file_type">Не найдено приложение для открытия этого типа файлов.</string>
+    <string name="file_list_out_of_memory_description">Не удалось загрузить содержимое.</string>
     <string name="file_list_seconds_ago">несколько секунд назад</string>
     <string name="file_management_permission_optional">Права на хранилище</string>
     <string name="file_management_permission_optional_text">%1$s работает лучше всего при наличии доступа к хранилищу. Вы можете выбрать полный доступ к файлам или доступ только для чтения к фото и видео.</string>

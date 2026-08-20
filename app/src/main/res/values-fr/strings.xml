@@ -250,8 +250,10 @@
     <string name="could_not_retrieve_url">Impossible de récupérer l\'URL</string>
     <string name="create">Créer</string>
     <string name="create_dir_fail_msg">Le dossier n\'a pas pu être créé</string>
+    <string name="create_document">Document</string>
     <string name="create_end_to_end_encrypted_share">Lien de partage</string>
     <string name="create_end_to_end_encrypted_share_title">Lien de partages chiffrés de bout en bout</string>
+    <string name="create_folder">Dossier</string>
     <string name="create_link">Créer un lien</string>
     <string name="create_new">Nouveau</string>
     <string name="create_new_document">Nouveau document</string>
@@ -259,7 +261,9 @@
     <string name="create_new_folder">Nouveau dossier</string>
     <string name="create_new_presentation">Nouvelle présentation</string>
     <string name="create_new_spreadsheet">Nouvelle feuille de calcul</string>
+    <string name="create_presentation">Présentation</string>
     <string name="create_rich_workspace">Ajouter une description du dossier</string>
+    <string name="create_spreadsheet">Feuille de calcul</string>
     <string name="credentials_disabled">Informations d\'identification désactivées</string>
     <string name="daily_backup">Sauvegarde journalière</string>
     <string name="data_to_back_up">Données à sauvegarder</string>
@@ -461,6 +465,7 @@
     <string name="file_list_live">EN DIRECT</string>
     <string name="file_list_loading">Chargement…</string>
     <string name="file_list_no_app_for_file_type">Aucune application trouvée pour ce type de fichier.</string>
+    <string name="file_list_out_of_memory_description">Impossible de charger le contenu</string>
     <string name="file_list_seconds_ago">à l\'instant</string>
     <string name="file_management_permission_optional">Autorisations d\'accès au stockage</string>
     <string name="file_management_permission_optional_text">%1$s fonctionne mieux avec les autorisations d\'accès au stockage. Vous pouvez choisir un accès complet à tous les fichiers ou un accès en lecture seule aux photos et vidéos.</string>
@@ -640,6 +645,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Taille : Grand en premier</string>
     <string name="menu_item_sort_by_size_smallest_first">Taille : Petit en premier</string>
     <string name="more">Plus</string>
+    <string name="more_documents">Plus de documents</string>
     <string name="move_file_error">Une erreur est survenue lors de la tentative de déplacement de ce fichier ou dossier</string>
     <string name="move_file_invalid_into_descendent">Il n\'est pas possible de déplacer un dossier vers un de ses descendants</string>
     <string name="move_file_invalid_overwrite">Le fichier existe déjà dans le dossier de destination</string>

@@ -250,8 +250,11 @@
     <string name="could_not_retrieve_url">不能取得網址</string>
     <string name="create">建立</string>
     <string name="create_dir_fail_msg">無法新增資料夾</string>
+    <string name="create_document">文件</string>
+    <string name="create_encrypted_folder">已加密資料夾</string>
     <string name="create_end_to_end_encrypted_share">連結分享</string>
     <string name="create_end_to_end_encrypted_share_title">端到端加密的連結分享</string>
+    <string name="create_folder">資料夾</string>
     <string name="create_link">創建連結</string>
     <string name="create_new">新</string>
     <string name="create_new_document">新文件</string>
@@ -259,7 +262,9 @@
     <string name="create_new_folder">新資料夾</string>
     <string name="create_new_presentation">新簡報</string>
     <string name="create_new_spreadsheet">新試算表</string>
+    <string name="create_presentation">簡報</string>
     <string name="create_rich_workspace">添加資料夾描述</string>
+    <string name="create_spreadsheet">試算表</string>
     <string name="credentials_disabled">認證方式已取消</string>
     <string name="daily_backup">每日備份</string>
     <string name="data_to_back_up">要備份的數據</string>
@@ -461,6 +466,7 @@
     <string name="file_list_live">直播</string>
     <string name="file_list_loading">載入中…</string>
     <string name="file_list_no_app_for_file_type">未設定處理此檔案類型適用的APP</string>
+    <string name="file_list_out_of_memory_description">無法載入內容</string>
     <string name="file_list_seconds_ago">秒前</string>
     <string name="file_management_permission_optional">儲存空間權限</string>
     <string name="file_management_permission_optional_text">%1$s 在有存取儲存空間的權限時運作得最好。您可以選擇完整存取所有檔案，或是對照片及影片的唯讀存取。</string>
@@ -640,6 +646,7 @@
     <string name="menu_item_sort_by_size_biggest_first">最大</string>
     <string name="menu_item_sort_by_size_smallest_first">最小</string>
     <string name="more">更多</string>
+    <string name="more_documents">更多文件</string>
     <string name="move_file_error">在移動檔案或資料夾時發生了錯誤</string>
     <string name="move_file_invalid_into_descendent">無法將資料夾移動到自己的子資料夾中。</string>
     <string name="move_file_invalid_overwrite">此檔案目前已存在於目標資料夾中。</string>
