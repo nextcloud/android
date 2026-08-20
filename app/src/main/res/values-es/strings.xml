@@ -465,6 +465,7 @@
     <string name="file_list_live">EN VIVO</string>
     <string name="file_list_loading">Cargando…</string>
     <string name="file_list_no_app_for_file_type">No hay una app configurada para manejar este tipo de archivos.</string>
+    <string name="file_list_out_of_memory_description">No se pudo cargar el contenido</string>
     <string name="file_list_seconds_ago">hace segundos</string>
     <string name="file_management_permission_optional">Permisos de almacenamiento</string>
     <string name="file_management_permission_optional_text">%1$s funciona mejor con permisos para acceder al almacenamiento. Puede escoger entre el acceso completo a los archivos, o acceso solo de lectura a fotos y vídeos.</string>

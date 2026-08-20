@@ -455,6 +455,7 @@
     <string name="file_list_live">ŽIVÉ</string>
     <string name="file_list_loading">Načítavam…</string>
     <string name="file_list_no_app_for_file_type">Aplikácia pre váš typ súboru sa nenašla.</string>
+    <string name="file_list_out_of_memory_description">Nepodarilo sa načítať obsah</string>
     <string name="file_list_seconds_ago">pred sekundami</string>
     <string name="file_management_permission_optional">Oprávnenia úložiska</string>
     <string name="file_management_permission_optional_text">%1$s funguje najlepšie s oprávnením pre prístup k úložisku. Môžete si vybrať úplný prístup ku všetkým súborom alebo prístup iba na čítanie k fotografiám a videám.</string>

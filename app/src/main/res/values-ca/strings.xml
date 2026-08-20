@@ -213,13 +213,17 @@
     <string name="could_not_retrieve_url">No s\'ha pogut recuperar la URL</string>
     <string name="create">Crea</string>
     <string name="create_dir_fail_msg">No s\'ha pogut crear la carpeta</string>
+    <string name="create_document">Document</string>
+    <string name="create_folder">Carpeta</string>
     <string name="create_link">Crea un enllaç</string>
     <string name="create_new">Crea</string>
     <string name="create_new_document">Nou document de text</string>
     <string name="create_new_folder">Carpeta nova</string>
     <string name="create_new_presentation">Nova presentació</string>
     <string name="create_new_spreadsheet">Nou full de càlcul</string>
+    <string name="create_presentation">Presentació</string>
     <string name="create_rich_workspace">Afegeix una descripció per a la carpeta</string>
+    <string name="create_spreadsheet">Full de càlcul</string>
     <string name="credentials_disabled">Credencials inhabilitades</string>
     <string name="daily_backup">Còpia de seguretat diària</string>
     <string name="data_to_back_up">Dades a fer una còpia de seguretat</string>

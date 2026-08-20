@@ -411,6 +411,7 @@
     <string name="file_list_live">BEINT</string>
     <string name="file_list_loading">Hleð inn…</string>
     <string name="file_list_no_app_for_file_type">Ekkert forrit er uppsett til að meðhöndla þessa tegund skráa.</string>
+    <string name="file_list_out_of_memory_description">Gat ekki hlaðið inn efni</string>
     <string name="file_list_seconds_ago">sekúndum síðan</string>
     <string name="file_management_permission_optional">Heimildir gagnageymslu</string>
     <string name="file_management_permission_optional_text">%1$s virkar best með heimildum til að nota geymslurými. Þú getur valið að gefa fullan aðgang að öllum skrám, eða aðgang til að einungis lesa ljósmyndir og myndskeið.</string>

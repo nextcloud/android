@@ -460,6 +460,7 @@
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Laden…</string>
     <string name="file_list_no_app_for_file_type">Er is geen app ingesteld om dit bestandsformaat te behandelen.</string>
+    <string name="file_list_out_of_memory_description">Kon inhoud niet laden</string>
     <string name="file_list_seconds_ago">seconden geleden</string>
     <string name="file_management_permission_optional">Opslagmachtigingen</string>
     <string name="file_management_permission_optional_text">%1$s werkt het best met opslagmachtigingen. Je kan kiezen tussen volledige toegang tot alle bestanden, of alleen lezen toegang tot foto\'s en video\'s.</string>

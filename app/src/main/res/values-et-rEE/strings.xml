@@ -465,6 +465,7 @@
     <string name="file_list_live">OTSE</string>
     <string name="file_list_loading">Laadimine…</string>
     <string name="file_list_no_app_for_file_type">Puudub rakendus seda tüüpi failide avamiseks.</string>
+    <string name="file_list_out_of_memory_description">Sisu laadimine ei õnnestunud</string>
     <string name="file_list_seconds_ago">sekundit tagasi</string>
     <string name="file_management_permission_optional">Andmeruumi õigused</string>
     <string name="file_management_permission_optional_text">%1$s vajab tõhusaks tööks õigust kasutada andmeruumi. Võid valida kõikide failide täisõiguste või fotode ja videote lugemisõiguse vahel.</string>

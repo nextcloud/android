@@ -387,6 +387,7 @@
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Ladataan…</string>
     <string name="file_list_no_app_for_file_type">Tälle tiedostotyypille ei löytynyt sovellusta.</string>
+    <string name="file_list_out_of_memory_description">Sisältöä ei voitu ladata</string>
     <string name="file_list_seconds_ago">sekuntia sitten</string>
     <string name="file_management_permission_optional">Tallennusoikeudet</string>
     <string name="file_management_permission_optional_text">%1$s toimii parhaiten, kun sille on myönnetty käyttöoikeus tallennustilan käyttöön. Voit myöntää täydet käyttöoikeudet tai vain luku-oikeudet kuviin ja videoihin.</string>

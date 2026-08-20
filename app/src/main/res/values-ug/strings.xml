@@ -436,6 +436,7 @@
     <string name="file_list_live">نەق مەيدان</string>
     <string name="file_list_loading">يۈكلەۋاتىدۇ…</string>
     <string name="file_list_no_app_for_file_type">بۇ ھۆججەت تىپىنى بىر تەرەپ قىلىدىغان ھېچقانداق دېتال قۇرۇلمىغان.</string>
+    <string name="file_list_out_of_memory_description">مەزمۇننى يۈكلىيەلمىدى</string>
     <string name="file_list_seconds_ago">سېكۇنت بۇرۇن</string>
     <string name="file_management_permission_optional">ساقلاش ئىجازەتنامىسى</string>
     <string name="file_management_permission_optional_text">%1$s ساقلاشقا رۇخسەت قىلىش بىلەن ئەڭ ياخشى ئىشلەيدۇ. بارلىق ھۆججەتلەرنى تولۇق زىيارەت قىلالايسىز ياكى رەسىم ۋە سىنلارنى ئوقۇشقىلا بولىدۇ.</string>

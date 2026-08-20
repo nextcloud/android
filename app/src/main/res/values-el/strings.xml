@@ -201,6 +201,7 @@
     <string name="create_new_spreadsheet">Νέο λογιστικό φύλλο</string>
     <string name="create_presentation">Παρουσίαση</string>
     <string name="create_rich_workspace">Προσθήκη περιγραφής φακέλου</string>
+    <string name="create_spreadsheet">Λογιστικό φύλλο</string>
     <string name="credentials_disabled">Απενεργοποιημένα διαπιστευτήρια</string>
     <string name="daily_backup">Ημερήσιο αντίγραφο ασφαλείας</string>
     <string name="data_to_back_up">Δεδομένα για δημιουργία αντιγράφου ασφαλείας</string>

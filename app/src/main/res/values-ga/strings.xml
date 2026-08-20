@@ -465,6 +465,7 @@
     <string name="file_list_live">BEO</string>
     <string name="file_list_loading">Á lódáil…</string>
     <string name="file_list_no_app_for_file_type">Níl aon aip socraithe chun an cineál comhaid seo a láimhseáil.</string>
+    <string name="file_list_out_of_memory_description">Níorbh fhéidir an t-ábhar a lódáil</string>
     <string name="file_list_seconds_ago">soicind ó shin</string>
     <string name="file_management_permission_optional">Ceadanna stórála</string>
     <string name="file_management_permission_optional_text">Is fearr a oibríonn %1$s le ceadanna chun an stóras a rochtain. Is féidir leat rochtain iomlán a roghnú ar gach comhad, nó rochtain inléite amháin ar ghrianghraif agus físeáin.</string>

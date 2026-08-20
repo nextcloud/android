@@ -460,6 +460,7 @@
     <string name="file_list_live">زنده</string>
     <string name="file_list_loading">در حال بارگذاری...</string>
     <string name="file_list_no_app_for_file_type">هیچ برنامه‌ای برای باز کردن این نوع فایل تنظیم نشده است.</string>
+    <string name="file_list_out_of_memory_description">محتوای مورد نظر بارگذاری نشد</string>
     <string name="file_list_seconds_ago">چند ثانیه پیش</string>
     <string name="file_management_permission_optional">مجوزهای ذخیره‌سازی</string>
     <string name="file_management_permission_optional_text">%1$s با دسترسی به فضای ذخیره‌سازی بهترین عملکرد را دارد. می‌توانید دسترسی کامل به همه فایل‌ها یا دسترسی فقط خواندنی به عکس‌ها و ویدیوها را انتخاب کنید.</string>
