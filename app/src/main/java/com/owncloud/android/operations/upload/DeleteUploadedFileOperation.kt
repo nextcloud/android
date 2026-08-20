@@ -34,8 +34,7 @@ class DeleteUploadedFileOperation(
     private val syncFolderHelper = SyncFolderHelper(context)
 
     suspend fun run(): RemoteOperationResult<*> {
-        // TODO: Refresh remote data with RefreshFolderOperation (and do recursively for inner folders)
-
+        // TODO: Refresh remote folder data recursively!
         val folder = storageManager.getFileByRemotePath(syncedFolder.remotePath)
         if (folder == null) {
             Log_OC.e(TAG, "Unable to obtain remote folder to refresh metadata")
@@ -76,12 +75,36 @@ class DeleteUploadedFileOperation(
                 Log_OC.i(TAG, "Unable to compare file ${localFile.name} with its remote counterpart, leaving in place")
                 return@forEach
             }
-            Log_OC.d(TAG, "LastSyncDate: ${ocFile?.lastSyncDateForProperties}, modificationTimestamp: ${ocFile.modificationTimestamp}")
 
-            ocFile.lastSyncDateForProperties < localFile.lastModified()
-            ocFile.modificationTimestamp == localFile.lastModified()
+            // Check the file wasn't modified after uploading
+            // TODO: Is this redundant?
+            val localLastMod = localFile.lastModified()
+            val lastSyncDate = ocFile.lastSyncDateForProperties
+            if ( lastSyncDate < localLastMod) {
+                Log_OC.i(TAG, "File ${localFile.name} has been modified ($localLastMod " +
+                    "after it was synced ($lastSyncDate), leaving in place")
+                return@forEach
+            }
+
+            // Check the file has same mod date. Note that the remote mod date is rounded to the second.
+            val remoteLastMod = ocFile.modificationTimestamp
+            if (remoteLastMod / 1000 != localLastMod / 1000) {
+                Log_OC.i(TAG, "Local and remote mod date differs for file file ${localFile.name}: " +
+                    "$localLastMod : $remoteLastMod, leaving in place")
+                return@forEach
+            }
+
+            // Check the file has same size
+            val localSize = localFile.length()
+            val remoteSize = ocFile.fileLength
+            if (localSize != remoteSize) {
+                Log_OC.d(TAG, "Local and remote file sizes differs for file ${localFile.name}: " +
+                    "$localSize : $remoteSize, leaving in place")
+                return@forEach
+            }
 
             // File deletion
+            // TODO: This requires an OwnCloudClient but we have a NextCloudClient
             /*
             val success = filesOperationHelper.removeFile(
                 file = ocFile,
@@ -95,7 +118,12 @@ class DeleteUploadedFileOperation(
                 Log_OC.e(TAG, "deleteUploadedItemFromSyncFolder: Error removing local file ${it.absolutePath}")
             }
             */
-            Log_OC.d(TAG, "DELETING FILE ${localFile.name}")
+            val deleted = localFile.delete()
+            if (deleted) {
+                Log_OC.i(TAG, "Deleted file ${localFile.name}")
+            } else {
+                Log_OC.e(TAG, "Error deleting file ${localFile.name}")
+            }
         }
 
         return RemoteOperationResult<Any?>(RemoteOperationResult.ResultCode.OK)
