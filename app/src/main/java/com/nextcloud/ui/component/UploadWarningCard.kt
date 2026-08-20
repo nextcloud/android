@@ -43,7 +43,7 @@ class UploadWarningCard(
             viewThemeUtils.material.run {
                 themeCardView(binding.batterySaverLayout)
                 colorMaterialButtonPrimaryBorderless(binding.batterySaverButton)
-                colorMaterialTextButton(binding.syncNowButton)
+                colorMaterialButtonPrimaryBorderless(binding.syncNowButton)
             }
 
             binding.batterySaverLayout.visibility = View.VISIBLE
