@@ -178,6 +178,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private static final String KEY_USERNAME = "USERNAME";
     private static final String KEY_PASSWORD = "PASSWORD";
     private static final String KEY_ASYNC_TASK_IN_PROGRESS = "AUTH_IN_PROGRESS";
+    private static final String KEY_DIRECT_LOGIN_ACTIVE = "DIRECT_LOGIN_ACTIVE";
 
     public static final String WEB_LOGIN = "/index.php/login/v2";
 
@@ -298,6 +299,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (savedInstanceState != null) {
             mWaitingForOpId = savedInstanceState.getLong(KEY_WAITING_FOR_OP_ID);
             mIsFirstAuthAttempt = savedInstanceState.getBoolean(KEY_AUTH_IS_FIRST_ATTEMPT_TAG);
+            isDirectLoginActive = savedInstanceState.getBoolean(KEY_DIRECT_LOGIN_ACTIVE);
         }
 
         boolean webViewLoginMethod = false;
@@ -404,6 +406,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private final ScheduledExecutorService loginFlowExecutorService = Executors.newSingleThreadScheduledExecutor();
     private boolean isLoginProcessCompleted = false;
     private boolean isRedirectedToTheDefaultBrowser = false;
+    private boolean isDirectLoginActive = false;
     private String baseUrl;
 
     private void poolLogin() {
@@ -805,6 +808,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         /// authentication
         outState.putBoolean(KEY_AUTH_IS_FIRST_ATTEMPT_TAG, mIsFirstAuthAttempt);
+        outState.putBoolean(KEY_DIRECT_LOGIN_ACTIVE, isDirectLoginActive);
 
         /// AsyncTask (User and password)
         if (mAsyncTask != null) {
@@ -1024,6 +1028,74 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mAsyncTask.execute(params);
     }
 
+    private void showLoginChoice() {
+        if (accountSetupBinding == null) {
+            return;
+        }
+        accountSetupBinding.browserLoginButton.setVisibility(View.VISIBLE);
+        accountSetupBinding.directLoginToggle.setVisibility(View.VISIBLE);
+        accountSetupBinding.browserLoginButton.setOnClickListener(v -> launchBrowserLogin());
+        accountSetupBinding.directLoginToggle.setOnClickListener(v -> {
+            isDirectLoginActive = true;
+            accountSetupBinding.browserLoginButton.setVisibility(View.GONE);
+            showDirectLoginSection();
+        });
+    }
+
+    private void showDirectLoginSection() {
+        if (accountSetupBinding == null) {
+            return;
+        }
+        accountSetupBinding.directLoginToggle.setVisibility(View.GONE);
+        accountSetupBinding.directLoginSection.setVisibility(View.VISIBLE);
+        accountSetupBinding.directLoginButton.setOnClickListener(v -> performDirectLogin());
+        accountSetupBinding.directLoginUsername.requestFocus();
+    }
+
+    private void launchBrowserLogin() {
+        accountSetupWebviewBinding = AccountSetupWebviewBinding.inflate(getLayoutInflater());
+        setContentView(accountSetupWebviewBinding.getRoot());
+
+        if (!isLoginProcessCompleted) {
+            if (!isRedirectedToTheDefaultBrowser) {
+                anonymouslyPostLoginRequest(mServerInfo.mBaseUrl + WEB_LOGIN);
+                isRedirectedToTheDefaultBrowser = true;
+            } else {
+                initLoginInfoView();
+            }
+        }
+    }
+
+    private void performDirectLogin() {
+        if (accountSetupBinding == null) {
+            return;
+        }
+
+        CharSequence username = accountSetupBinding.directLoginUsername.getText();
+        CharSequence password = accountSetupBinding.directLoginPassword.getText();
+        DirectLoginCredentials credentials = new DirectLoginCredentials(
+            username == null ? null : username.toString(),
+            password == null ? null : password.toString()
+        );
+
+        if (credentials.isUsernameEmpty()) {
+            accountSetupBinding.directLoginUsernameContainer.setError(getString(R.string.direct_login_username_required));
+            return;
+        }
+
+        if (credentials.isPasswordEmpty()) {
+            accountSetupBinding.directLoginPasswordContainer.setError(getString(R.string.direct_login_password_required));
+            return;
+        }
+
+        accountSetupBinding.directLoginUsernameContainer.setError(null);
+        accountSetupBinding.directLoginPasswordContainer.setError(null);
+
+        webViewUser = credentials.getUsername();
+        webViewPassword = credentials.getPassword();
+        checkBasicAuthorization(webViewUser, webViewPassword);
+    }
+
     /**
      * Callback method invoked when a RemoteOperation executed by this Activity finishes.
      * <p>
@@ -1093,18 +1165,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             if (webViewUser != null && !webViewUser.isEmpty() &&
                 webViewPassword != null && !webViewPassword.isEmpty()) {
                 checkBasicAuthorization(webViewUser, webViewPassword);
+            } else if (isDirectLoginActive) {
+                showDirectLoginSection();
             } else {
-                accountSetupWebviewBinding = AccountSetupWebviewBinding.inflate(getLayoutInflater());
-                setContentView(accountSetupWebviewBinding.getRoot());
-
-                if (!isLoginProcessCompleted) {
-                    if (!isRedirectedToTheDefaultBrowser) {
-                        anonymouslyPostLoginRequest(mServerInfo.mBaseUrl + WEB_LOGIN);
-                        isRedirectedToTheDefaultBrowser = true;
-                    } else {
-                        initLoginInfoView();
-                    }
-                }
+                showLoginChoice();
             }
         } else {
             updateServerStatusIconAndText(result);
@@ -1385,7 +1449,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
 
         } else {    // authorization fail due to client side - probably wrong credentials
-            if (accountSetupWebviewBinding != null) {
+            if (isDirectLoginActive) {
+                mAuthStatusIcon = R.drawable.ic_alert;
+                mAuthStatusText = getString(R.string.auth_unauthorized);
+                showAuthStatus();
+            } else if (accountSetupWebviewBinding != null) {
                 anonymouslyPostLoginRequest(mServerInfo.mBaseUrl + WEB_LOGIN);
             } else {
                 DisplayUtils.showSnackMessage(this, R.string.auth_access_failed, result.getLogMessage(this));

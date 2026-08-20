@@ -132,6 +132,98 @@
                 android:textColor="@color/login_text_color"
                 app:drawableStartCompat="@android:drawable/stat_notify_sync" />
 
+            <LinearLayout
+                android:id="@+id/direct_login_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/direct_login_username_container"
+                    style="@style/Widget.App.Login.TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/standard_padding"
+                    android:hint="@string/direct_login_username_hint"
+                    android:theme="@style/TextInputLayoutLogin">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/direct_login_username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textNoSuggestions"
+                        android:lines="1"
+                        android:minLines="1"
+                        android:paddingStart="@dimen/standard_padding"
+                        android:paddingEnd="@dimen/standard_padding"
+                        android:textColor="@color/login_text_color" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/direct_login_password_helper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/standard_half_padding"
+                    android:paddingStart="@dimen/standard_padding"
+                    android:paddingEnd="@dimen/standard_padding"
+                    android:text="@string/direct_login_password_helper_text"
+                    android:textColor="@color/white_helper_text"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/direct_login_password_container"
+                    style="@style/Widget.App.Login.TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/standard_quarter_padding"
+                    android:hint="@string/direct_login_password_hint"
+                    android:theme="@style/TextInputLayoutLogin"
+                    app:endIconMode="password_toggle"
+                    app:endIconTint="@color/login_text_color">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/direct_login_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:lines="1"
+                        android:minLines="1"
+                        android:paddingStart="@dimen/standard_padding"
+                        android:paddingEnd="@dimen/standard_padding"
+                        android:textColor="@color/login_text_color" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/direct_login_button"
+                    style="@style/OutlineLoginButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/standard_padding"
+                    android:text="@string/direct_login_button_label" />
+
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/browser_login_button"
+                style="@style/OutlineLoginButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_padding"
+                android:text="@string/browser_login_button_label"
+                android:visibility="gone" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/direct_login_toggle"
+                style="@style/Button.Borderless.Login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_half_padding"
+                android:text="@string/direct_login_toggle_label"
+                android:visibility="gone" />
+
             <ImageButton
                 android:id="@+id/scan_qr"
                 android:layout_width="wrap_content"
