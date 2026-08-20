@@ -787,14 +787,13 @@ public final class FileStorageUtils {
      *
      * @param file @link{OCFile}
      * @return boolean: true if there is enough space left
-     * @throws RuntimeException
      */
     public static boolean checkIfEnoughSpace(OCFile file) {
         // Get the remaining space on device
         long availableSpaceOnDevice = FileOperationsHelper.getAvailableSpaceOnDevice();
 
         if (availableSpaceOnDevice == -1) {
-            throw new RuntimeException("Error while computing available space");
+            return false;
         }
 
         return checkIfEnoughSpace(availableSpaceOnDevice, file);
