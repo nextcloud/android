@@ -13,6 +13,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.PowerManager
+import android.os.SystemClock
 import android.provider.Settings
 import android.view.View
 import androidx.core.net.toUri
@@ -25,6 +26,7 @@ import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FilesSyncHelper
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import java.util.concurrent.TimeUnit
 
 class UploadWarningCard(
     private val context: Context,
@@ -110,7 +112,13 @@ class UploadWarningCard(
     }
 
     private fun startAutoUploadViaIgnoringBatteryOptimization(view: View) {
-        val startedFolderCount = FilesSyncHelper.startAutoUploadForEnabledSyncedFolders(
+        val now = SystemClock.elapsedRealtime()
+        if (now - lastSyncNowTime < SYNC_NOW_COOLDOWN_MS) {
+            DisplayUtils.showSnackMessage(view, R.string.auto_upload_sync_now_min_warning)
+            return
+        }
+
+        FilesSyncHelper.startAutoUploadForEnabledSyncedFolders(
             syncedFolderProvider,
             backgroundJobManager,
             overridePowerSaving = true
@@ -118,12 +126,14 @@ class UploadWarningCard(
 
         backgroundJobManager.scheduleContentObserverJob(overridePowerSaving = true)
 
-        val message = if (startedFolderCount > 0) {
-            R.string.auto_upload_sync_now_started
-        } else {
-            R.string.auto_upload_sync_now_no_folder
-        }
+        lastSyncNowTime = now
 
-        DisplayUtils.showSnackMessage(view, message)
+        DisplayUtils.showSnackMessage(view, R.string.auto_upload_sync_now_started)
+    }
+
+    companion object {
+        private val SYNC_NOW_COOLDOWN_MS = TimeUnit.MINUTES.toMillis(SYNC_NOW_COOLDOWN_MINUTES)
+        private const val SYNC_NOW_COOLDOWN_MINUTES = 5L
+        private var lastSyncNowTime = 0L
     }
 }
