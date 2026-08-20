@@ -21,6 +21,7 @@ import android.view.View
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AlertDialog
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -31,7 +32,6 @@ import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.MediaFoldersDetectionWork
 import com.nextcloud.client.jobs.NotificationWork
-import com.nextcloud.client.jobs.autoUpload.SyncFolderHelper
 import com.nextcloud.client.jobs.operation.FileOperationHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.SubFolderRule
@@ -83,6 +83,8 @@ class SyncedFoldersActivity :
 
     companion object {
         private const val SYNCED_FOLDER_PREFERENCES_DIALOG_TAG = "SYNCED_FOLDER_PREFERENCES_DIALOG"
+        private const val SYNCED_FOLDER_DELETE_UPLOADED_DIALOG_TAG = "SYNCED_FOLDER_DELETE_UPLOADED_DIALOG_TAG"
+        private const val SYNCED_FOLDER_DELETE_ALL_UPLOADED_DIALOG_TAG = "SYNCED_FOLDER_DELETE_ALL_UPLOADED_DIALOG_TAG"
         private const val SUB_FOLDER_WARNING_DIALOG_TAG = "SUB_FOLDER_WARNING_DIALOG_TAG"
 
         // yes, there is a typo in this value
@@ -591,6 +593,8 @@ class SyncedFoldersActivity :
                 result = super.onOptionsItemSelected(item)
             }
 
+            R.id.action_auto_upload_all_folders_delete_uploaded -> onAllSyncFolderDeleteUploadedClick()
+
             else -> result = super.onOptionsItemSelected(item)
         }
         return result
@@ -604,22 +608,40 @@ class SyncedFoldersActivity :
             section
         )
 
-        dialogFragment?.let { folderPreferencesDialog ->
-            if (isDialogFragmentReady(folderPreferencesDialog) &&
-                lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)
-            ) {
-                val fragmentTransaction = supportFragmentManager
-                    .beginTransaction()
-                    .addToBackStack(null)
-
-                folderPreferencesDialog.show(fragmentTransaction, SYNCED_FOLDER_PREFERENCES_DIALOG_TAG)
-            } else {
-                Log_OC.d(TAG, "SyncedFolderPreferencesDialogFragment not ready")
-            }
-        }
+        showDialog(dialogFragment!!, SYNCED_FOLDER_PREFERENCES_DIALOG_TAG)
     }
 
+    private fun onAllSyncFolderDeleteUploadedClick() {
+        val dialog = ConfirmationDialogFragment.newInstance(
+            R.string.autoupload_delete_uploaded_all_dialog_description,
+            null,
+            R.string.autoupload_delete_uploaded_all_dialog_title,
+            R.drawable.selector_trashbin,
+            R.string.common_ok,
+            R.string.common_cancel,
+            -1
+        )
+        dialog.isCancelable = false
+        dialog.setOnConfirmationListener(object : ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
+            override fun onConfirmation(callerTag: String?) {
+                val syncedFolderArrayList = syncedFolderProvider.syncedFolders
+                syncedFolderArrayList
+                    .filter { it.isEnabled }
+                    .forEach { deleteUploadedItemFromSyncFolder(it) }
+            }
+
+            override fun onNeutral(callerTag: String?) {
+            }
+
+            override fun onCancel(callerTag: String?) {
+            }
+        })
+
+        showDialog(dialog, SYNCED_FOLDER_DELETE_ALL_UPLOADED_DIALOG_TAG)
+    }
     override fun onSyncFolderDeleteUploadedClick(section: Int, syncedFolderDisplayItem: SyncedFolderDisplayItem?) {
+        syncedFolderDisplayItem ?: return
+
         val dialog = ConfirmationDialogFragment.newInstance(
             R.string.autoupload_delete_uploaded_dialog_description,
             null,
@@ -632,38 +654,7 @@ class SyncedFoldersActivity :
         dialog.isCancelable = false
         dialog.setOnConfirmationListener(object : ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
             override fun onConfirmation(callerTag: String?) {
-                // DEBUG
-                lifecycleScope.launch {
-                    val client = clientRepository.getOwncloudClient() ?: return@launch
-                    val syncFolderHelper = SyncFolderHelper(this@SyncedFoldersActivity)
-                    val filesOperationHelper =
-                        FileOperationHelper(user.get(), this@SyncedFoldersActivity, fileDataStorageManager)
-                    val syncedFolderArrayList = syncedFolderProvider.syncedFolders
-                    // TODO: For each synced folder for which the files should be deleted locally
-                    val syncedFolder =
-                        syncedFolderArrayList[0]
-                    val localFolder = File(syncedFolder.localPath)
-                    val files = SyncedFolderUtils.getFileList(localFolder)
-                    files.forEach {
-                        val ocFile = storageManager.getFileByLocalPath(it.path)
-                        if (ocFile == null) {
-                            Log_OC.d(TAG, "Unable to obtain remote counterpart for file $ocFile")
-                            return@forEach
-                        }
-                        val success = filesOperationHelper.removeFile(
-                            file = ocFile,
-                            onlyLocalCopy = true,
-                            inBackground = true,
-                            client = client
-                        )
-                        if (success) {
-                            Log_OC.d(TAG, "Removed local file ${it.absolutePath}")
-                        } else {
-                            Log_OC.d(TAG, "Error removing local file ${it.absolutePath}")
-                        }
-                    }
-                }
-                // DEBUG
+                deleteUploadedItemFromSyncFolder(syncedFolderDisplayItem)
             }
 
             override fun onNeutral(callerTag: String?) {
@@ -672,6 +663,10 @@ class SyncedFoldersActivity :
             override fun onCancel(callerTag: String?) {
             }
         })
+        showDialog(dialog, SYNCED_FOLDER_DELETE_UPLOADED_DIALOG_TAG)
+    }
+
+    private fun showDialog(dialog: DialogFragment, tag: String) {
         if (isDialogFragmentReady(dialog) &&
             lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)
         ) {
@@ -679,9 +674,40 @@ class SyncedFoldersActivity :
                 .beginTransaction()
                 .addToBackStack(null)
 
-            dialog.show(fragmentTransaction, SYNCED_FOLDER_PREFERENCES_DIALOG_TAG)
+            dialog.show(fragmentTransaction, tag)
         } else {
             Log_OC.d(TAG, "SyncFolderDeleteUploaded dialog not ready")
+        }
+    }
+
+    // TODO: Temporary proof-of-concept impl, to be refactored and moved elsewhere
+    private fun deleteUploadedItemFromSyncFolder(syncedFolder: SyncedFolder) {
+        // TODO: Refresh remote data with RefreshFolderOperation (and do recursively for inner folders)
+        lifecycleScope.launch {
+            val client = clientRepository.getOwncloudClient() ?: return@launch
+            val filesOperationHelper =
+                FileOperationHelper(user.get(), this@SyncedFoldersActivity, fileDataStorageManager)
+            val localFolder = File(syncedFolder.localPath)
+            val files = SyncedFolderUtils.getFileList(localFolder)
+            files.forEach {
+                val ocFile = storageManager.getFileByLocalPath(it.path)
+                Log_OC.d(TAG, "LastSyncDate: ${ocFile?.lastSyncDateForProperties}")
+                if (ocFile == null) {
+                    Log_OC.i(TAG, "deleteUploadedItemFromSyncFolder: Leaving local-only file ${it.name} in place")
+                    return@forEach
+                }
+                val success = filesOperationHelper.removeFile(
+                    file = ocFile,
+                    onlyLocalCopy = true,
+                    inBackground = true,
+                    client = client
+                )
+                if (success) {
+                    Log_OC.i(TAG, "deleteUploadedItemFromSyncFolder: Removed local file ${it.absolutePath}")
+                } else {
+                    Log_OC.e(TAG, "deleteUploadedItemFromSyncFolder: Error removing local file ${it.absolutePath}")
+                }
+            }
         }
     }
 

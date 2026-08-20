@@ -916,6 +916,9 @@
     <string name="autoupload_delete_uploaded_dialog_title">Locally delete uploaded files</string>
     <string name="autoupload_delete_uploaded_dialog_description">All the files already uploaded to the cloud will be removed from the current device</string>
 
+    <string name="autoupload_delete_uploaded_all_dialog_title">Locally delete uploaded files for all auto upload folders</string>
+    <string name="autoupload_delete_uploaded_all_dialog_description">All the files already uploaded to the cloud will be removed from the current device for all the autoupload folders</string>
+
     <string name="empty" translatable="false"></string>
     <string name="test_server_button">Test server connection</string>
     <string name="info_separator" translatable="false">&#160;&#x2022;</string>
