@@ -22,6 +22,7 @@ import com.nextcloud.utils.ContactManager
 import com.nextcloud.utils.GlideHelper
 import com.nextcloud.utils.extensions.getType
 import com.nextcloud.utils.extensions.setVisibleIf
+import com.nextcloud.utils.thumbnail.ThumbnailArguments
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UnifiedSearchItemBinding
@@ -109,7 +110,11 @@ class UnifiedSearchItemViewHolder(
                 ImageViewCompat.setImageTintList(this, null)
             }
         } else {
-            thumbnailGenerator.setThumbnail(file, binding.thumbnail, shimmer = binding.thumbnailShimmer)
+            thumbnailGenerator.setThumbnail(
+                file,
+                binding.thumbnail,
+                ThumbnailArguments.withShimmer(binding.thumbnailShimmer)
+            )
         }
     }
 
