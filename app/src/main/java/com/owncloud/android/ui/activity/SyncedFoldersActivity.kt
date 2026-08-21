@@ -53,7 +53,6 @@ import com.owncloud.android.datamodel.SyncedFolderDisplayItem
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.operations.upload.DeleteUploadedFileOperation
 import com.owncloud.android.ui.adapter.SyncedFolderAdapter
 import com.owncloud.android.ui.adapter.storagePermissionBanner.setup
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration
@@ -62,6 +61,7 @@ import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment.OnSyncedFolderPreferenceListener
 import com.owncloud.android.ui.dialog.extensions.themeButtons
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable
+import com.owncloud.android.utils.FilesSyncHelper
 import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.SyncedFolderUtils
 import kotlinx.coroutines.Dispatchers
@@ -624,10 +624,7 @@ class SyncedFoldersActivity :
         dialog.isCancelable = false
         dialog.setOnConfirmationListener(object : ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
             override fun onConfirmation(callerTag: String?) {
-                val syncedFolderArrayList = syncedFolderProvider.syncedFolders
-                syncedFolderArrayList
-                    .filter { it.isEnabled }
-                    .forEach { deleteUploadedItemFromSyncFolder(it) }
+                FilesSyncHelper.startLocalDeletionForEnabledSyncedFolders(syncedFolderProvider, backgroundJobManager)
             }
 
             override fun onNeutral(callerTag: String?) {
@@ -654,7 +651,7 @@ class SyncedFoldersActivity :
         dialog.isCancelable = false
         dialog.setOnConfirmationListener(object : ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
             override fun onConfirmation(callerTag: String?) {
-                deleteUploadedItemFromSyncFolder(syncedFolderDisplayItem)
+                FilesSyncHelper.startLocalDeletionForSyncedFolder(syncedFolderDisplayItem, backgroundJobManager)
             }
 
             override fun onNeutral(callerTag: String?) {
@@ -677,19 +674,6 @@ class SyncedFoldersActivity :
             dialog.show(fragmentTransaction, tag)
         } else {
             Log_OC.d(TAG, "SyncFolderDeleteUploaded dialog not ready")
-        }
-    }
-
-    private fun deleteUploadedItemFromSyncFolder(syncedFolder: SyncedFolder) {
-        // TODO: Run in a background job with notifications to the user about the progression
-        val op = DeleteUploadedFileOperation(
-            syncedFolder,
-            user.get(),
-            this,
-            storageManager
-        )
-        lifecycleScope.launch {
-            op.run()
         }
     }
 

@@ -28,6 +28,7 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
+import com.nextcloud.client.jobs.autoUpload.AutoUploadLocalDeletionWorker
 import com.nextcloud.client.jobs.autoUpload.AutoUploadWorker
 import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorker
@@ -104,6 +105,7 @@ internal class BackgroundJobManagerImpl(
         const val JOB_DOWNLOAD_FOLDER = "download_folder"
         const val JOB_METADATA_SYNC = "metadata_sync"
         const val JOB_INTERNAL_TWO_WAY_SYNC = "internal_two_way_sync"
+        const val JOB_AUTO_UPLOAD_LOCAL_DELETION = "auto_upload_local_deletion"
 
         const val JOB_TEST = "test_job"
 
@@ -904,5 +906,32 @@ internal class BackgroundJobManagerImpl(
 
     override fun cancelFolderDownload() {
         workManager.cancelAllWorkByTag(JOB_DOWNLOAD_FOLDER)
+    }
+
+    override fun locallyDeleteAutoUploadedFiles(syncedFolders: List<SyncedFolder>) {
+        val syncedFolderIDs = syncedFolders.map { it.id }
+
+        val arguments = Data.Builder()
+            .putLongArray(AutoUploadLocalDeletionWorker.SYNCED_FOLDER_IDS, syncedFolderIDs.toLongArray())
+            .build()
+
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
+        val jobName = JOB_AUTO_UPLOAD_LOCAL_DELETION + "_" + syncedFolderIDs.joinToString("-")
+        val request = oneTimeRequestBuilder(
+            jobClass = AutoUploadLocalDeletionWorker::class,
+            jobName = jobName
+        )
+            .setInputData(arguments)
+            .setConstraints(constraints)
+            .build()
+
+        workManager.enqueueUniqueWork(
+            jobName,
+            ExistingWorkPolicy.KEEP,
+            request
+        )
     }
 }

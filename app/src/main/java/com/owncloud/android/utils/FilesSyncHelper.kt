@@ -15,6 +15,7 @@ import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.autoUpload.AutoUploadRequestResult
 import com.nextcloud.client.jobs.upload.FileUploadHelper.Companion.instance
 import com.nextcloud.client.network.ConnectivityService
+import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -74,5 +75,25 @@ object FilesSyncHelper {
         } else {
             AutoUploadRequestResult.STARTED
         }
+    }
+
+    @JvmStatic
+    fun startLocalDeletionForEnabledSyncedFolders(
+        provider: SyncedFolderProvider,
+        manager: BackgroundJobManager
+    ) {
+        Log_OC.d(TAG, "start local deletion worker for each enabled folder")
+
+        manager.locallyDeleteAutoUploadedFiles(provider.syncedFolders)
+    }
+
+    @JvmStatic
+    fun startLocalDeletionForSyncedFolder(
+        folder: SyncedFolder,
+        manager: BackgroundJobManager
+    ) {
+        Log_OC.d(TAG, "start local deletion worker for folder ${folder.localPath}")
+
+        manager.locallyDeleteAutoUploadedFiles(listOf(folder))
     }
 }

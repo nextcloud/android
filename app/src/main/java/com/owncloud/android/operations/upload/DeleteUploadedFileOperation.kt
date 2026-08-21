@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2026 Your Name <your@email.com>
+ * SPDX-FileCopyrightText: 2026 Daniele Verducci <daniele.verducci@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
@@ -60,7 +60,7 @@ class DeleteUploadedFileOperation(
             }
 
             val parentFolderRemotePath = ocFile.parentRemotePath
-            if (syncedFolder.isSubfolderByDate && parentFolderRemotePath !in refreshedFolders) {
+            if (/*syncedFolder.isSubfolderByDate &&*/ parentFolderRemotePath !in refreshedFolders) {
                 // Files are stored in subfolder by date on the server.
                 // Refresh only subfolders containing one of the files to be checked
                 val subFolder = storageManager.getFileByRemotePath(parentFolderRemotePath)
