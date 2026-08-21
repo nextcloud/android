@@ -9,11 +9,14 @@
  */
 package com.owncloud.android.utils
 
+import android.content.Context
+import androidx.work.WorkManager
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.upload.FileUploadHelper.Companion.instance
 import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.utils.extensions.isWorkScheduled
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -48,6 +51,20 @@ object FilesSyncHelper {
 
         return provider.syncedFolders
             .filter { it.isEnabled }
+            .onEach { manager.startAutoUpload(it, overridePowerSaving) }
+            .size
+    }
+
+    fun startAutoUploadForEnabledAndNotRunningSyncedFolders(
+        context: Context,
+        provider: SyncedFolderProvider,
+        manager: BackgroundJobManager,
+        overridePowerSaving: Boolean
+    ): Int {
+        val workManager = WorkManager.getInstance(context)
+
+        return provider.syncedFolders
+            .filter { it.isEnabled && !workManager.isWorkScheduled(manager.getAutoUploadTag(it.id)) }
             .onEach { manager.startAutoUpload(it, overridePowerSaving) }
             .size
     }

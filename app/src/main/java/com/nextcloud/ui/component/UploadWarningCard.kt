@@ -13,12 +13,14 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.PowerManager
-import android.os.SystemClock
 import android.provider.Settings
 import android.view.View
 import androidx.core.net.toUri
+import androidx.work.WorkManager
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.jobs.BackgroundJobManagerImpl.Companion.JOB_CONTENT_OBSERVER
+import com.nextcloud.utils.extensions.isWorkScheduled
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UploadWarningCardBinding
@@ -26,7 +28,6 @@ import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FilesSyncHelper
 import com.owncloud.android.utils.theme.ViewThemeUtils
-import java.util.concurrent.TimeUnit
 
 class UploadWarningCard(
     private val context: Context,
@@ -112,28 +113,20 @@ class UploadWarningCard(
     }
 
     private fun startAutoUploadViaIgnoringBatteryOptimization(view: View) {
-        val now = SystemClock.elapsedRealtime()
-        if (now - lastSyncNowTime < SYNC_NOW_COOLDOWN_MS) {
-            DisplayUtils.showSnackMessage(view, R.string.auto_upload_sync_now_min_warning)
-            return
-        }
-
-        FilesSyncHelper.startAutoUploadForEnabledSyncedFolders(
+        val startedAutoUploadSize = FilesSyncHelper.startAutoUploadForEnabledAndNotRunningSyncedFolders(
+            context,
             syncedFolderProvider,
             backgroundJobManager,
             overridePowerSaving = true
         )
 
-        backgroundJobManager.scheduleContentObserverJob(overridePowerSaving = true)
+        val isContentObserverScheduled = WorkManager.getInstance(context).isWorkScheduled(JOB_CONTENT_OBSERVER)
+        if (!isContentObserverScheduled) {
+            backgroundJobManager.scheduleContentObserverJob(overridePowerSaving = true)
+        }
 
-        lastSyncNowTime = now
-
-        DisplayUtils.showSnackMessage(view, R.string.auto_upload_sync_now_started)
-    }
-
-    companion object {
-        private val SYNC_NOW_COOLDOWN_MS = TimeUnit.MINUTES.toMillis(SYNC_NOW_COOLDOWN_MINUTES)
-        private const val SYNC_NOW_COOLDOWN_MINUTES = 5L
-        private var lastSyncNowTime = 0L
+        if (startedAutoUploadSize > 0 || !isContentObserverScheduled) {
+            DisplayUtils.showSnackMessage(view, R.string.auto_upload_sync_now_started)
+        }
     }
 }

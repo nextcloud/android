@@ -487,6 +487,10 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueueUniqueWork(JOB_CONTENT_OBSERVER, ExistingWorkPolicy.REPLACE, request)
     }
 
+    override fun getAutoUploadTag(syncedFolderID: Long): String {
+        return JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID
+    }
+
     override fun startAutoUpload(syncedFolder: SyncedFolder, overridePowerSaving: Boolean) {
         val syncedFolderID = syncedFolder.id
 
@@ -502,7 +506,7 @@ internal class BackgroundJobManagerImpl(
 
         val request = oneTimeRequestBuilder(
             jobClass = AutoUploadWorker::class,
-            jobName = JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID
+            jobName = getAutoUploadTag(syncedFolderID)
         )
             .setInputData(arguments)
             .setConstraints(constraints)
@@ -513,13 +517,9 @@ internal class BackgroundJobManagerImpl(
             )
             .build()
 
-        // an already scheduled run may still carry overridePowerSaving = false and would swallow an explicit
-        // user request, therefore replace it instead of keeping it
-        val policy = if (overridePowerSaving) ExistingWorkPolicy.REPLACE else ExistingWorkPolicy.KEEP
-
         workManager.enqueueUniqueWork(
-            JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID,
-            policy,
+            getAutoUploadTag(syncedFolderID),
+            ExistingWorkPolicy.KEEP,
             request
         )
     }
