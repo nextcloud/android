@@ -171,4 +171,5 @@ interface BackgroundJobManager {
     fun startMetadataSyncJob(currentDirPath: String)
     fun downloadFolder(folder: OCFile, accountName: String)
     fun cancelFolderDownload()
+    fun locallyDeleteAutoUploadedFiles(syncedFolders: List<SyncedFolder>)
 }
