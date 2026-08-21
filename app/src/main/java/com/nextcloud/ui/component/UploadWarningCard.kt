@@ -17,13 +17,25 @@ import android.provider.Settings
 import android.view.View
 import androidx.core.net.toUri
 import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.databinding.UploadWarningCardBinding
+import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.FilesSyncHelper
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
+@Suppress("LongParameterList")
 class UploadWarningCard(
     private val context: Context,
     private val powerManagementService: PowerManagementService,
+    private val syncedFolderProvider: SyncedFolderProvider,
+    private val backgroundJobManager: BackgroundJobManager,
+    private val scope: CoroutineScope,
     private val viewThemeUtils: ViewThemeUtils
 ) {
     fun bind(binding: UploadWarningCardBinding) {
@@ -33,12 +45,19 @@ class UploadWarningCard(
         binding.root.setVisibleIf(isBatterySaver || !isIgnoringOptimization)
 
         if (isBatterySaver) {
-            viewThemeUtils.material.themeCardView(binding.batterySaverLayout)
+            viewThemeUtils.material.run {
+                themeCardView(binding.batterySaverLayout)
+                colorMaterialButtonPrimaryBorderless(binding.batterySaverButton)
+                colorMaterialButtonPrimaryBorderless(binding.syncNowButton)
+            }
+
             binding.batterySaverLayout.visibility = View.VISIBLE
             binding.batterySaverButton.setOnClickListener {
                 openBatterySaverPage()
             }
-            viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(binding.batterySaverButton)
+            binding.syncNowButton.setOnClickListener {
+                startAutoUploadIgnoringBatterySaver(it)
+            }
         } else {
             binding.batterySaverLayout.visibility = View.GONE
         }
@@ -93,5 +112,15 @@ class UploadWarningCard(
         val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
         intent.data = "package:${context.packageName}".toUri()
         context.startActivity(intent)
+    }
+
+    private fun startAutoUploadIgnoringBatterySaver(view: View) {
+        scope.launch {
+            val result = withContext(Dispatchers.IO) {
+                FilesSyncHelper.startAutoUploadIgnoringPowerSaving(syncedFolderProvider, backgroundJobManager)
+            }
+
+            DisplayUtils.showSnackMessage(view, result.messageId)
+        }
     }
 }

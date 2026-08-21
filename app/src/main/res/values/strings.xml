@@ -1500,6 +1500,10 @@
     <string name="auto_upload_battery_optimization_reason">Nextcloud\'s background activity is limited by battery optimization.</string>
     <string name="auto_upload_battery_saver_action">Open battery saver settings</string>
     <string name="auto_upload_background_activity_action">Allow background activity</string>
+    <string name="auto_upload_sync_now_action">Sync now</string>
+    <string name="auto_upload_sync_now_started">Auto upload started</string>
+    <string name="auto_upload_sync_now_running">Auto upload already running</string>
+    <string name="auto_upload_sync_now_no_folder">No folder is set up for auto upload</string>
     <string name="auto_upload_delete_dialog_description">This will remove the folder and auto-upload configuration. Any unfinished uploads will be canceled.</string>
     <string name="auto_upload_sub_folder_warning">This folder is already included in the parent folder’s sync, which may cause duplicate uploads</string>
     <string name="sync_anyway">Sync anyway</string>
