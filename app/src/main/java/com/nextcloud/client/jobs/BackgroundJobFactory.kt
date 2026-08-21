@@ -24,6 +24,7 @@ import com.nextcloud.client.documentscan.GeneratePDFUseCase
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
 import com.nextcloud.client.integrations.deck.DeckApi
 import com.nextcloud.client.jobs.autoUpload.AutoUploadHelper
+import com.nextcloud.client.jobs.autoUpload.AutoUploadLocalDeletionWorker
 import com.nextcloud.client.jobs.autoUpload.AutoUploadWorker
 import com.nextcloud.client.jobs.autoUpload.FileSystemRepository
 import com.nextcloud.client.jobs.download.FileDownloadWorker
@@ -36,6 +37,7 @@ import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.datamodel.ArbitraryDataProvider
+import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.operations.factory.UploadFileOperationFactory
@@ -61,6 +63,7 @@ class BackgroundJobFactory @Inject constructor(
     private val resources: Resources,
     private val arbitraryDataProvider: ArbitraryDataProvider,
     private val uploadsStorageManager: UploadsStorageManager,
+    private val fileDataStorageManager: FileDataStorageManager,
     private val connectivityService: ConnectivityService,
     private val notificationManager: NotificationManager,
     private val eventBus: EventBus,
@@ -110,6 +113,7 @@ class BackgroundJobFactory @Inject constructor(
                 InternalTwoWaySyncWork::class -> createInternalTwoWaySyncWork(context, workerParameters)
                 MetadataWorker::class -> createMetadataWorker(context, workerParameters)
                 FolderDownloadWorker::class -> createFolderDownloadWorker(context, workerParameters)
+                AutoUploadLocalDeletionWorker::class -> createAutoUploadLocalDeletionWorker(context, workerParameters)
                 else -> null // caller falls back to default factory
             }
         }
@@ -327,5 +331,15 @@ class BackgroundJobFactory @Inject constructor(
             viewThemeUtils.get(),
             localBroadcastManager.get(),
             params
+        )
+
+    private fun createAutoUploadLocalDeletionWorker(context: Context, params: WorkerParameters):
+        AutoUploadLocalDeletionWorker =
+            AutoUploadLocalDeletionWorker(
+                context = context,
+                params = params,
+                userAccountManager = accountManager,
+                fileDataStorageManager = fileDataStorageManager,
+                syncedFolderProvider = syncedFolderProvider
         )
 }
