@@ -27,3 +27,12 @@ fun OwnCloudClient.getPreviewEndpoint(localFileId: Long, x: Int, y: Int): String
     localFileId +
     "&x=" + (x / 2) + "&y=" + (y / 2) +
     "&a=1&mode=cover&forceIcon=0"
+
+fun OwnCloudClient.getVideoPreviewEndpoint(localFileId: Long): String = baseUri
+    .toString() +
+    "/index.php/core/preview?fileId=" +
+    localFileId +
+    "&x=" + VIDEO_PREVIEW_SIZE + "&y=" + VIDEO_PREVIEW_SIZE +
+    "&a=1&forceIcon=0"
+
+private const val VIDEO_PREVIEW_SIZE = 1024
