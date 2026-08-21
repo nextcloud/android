@@ -10,7 +10,7 @@ package com.nextcloud.client.jobs.autoUpload
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.nextcloud.client.account.User
+import com.nextcloud.client.account.UserAccountManager
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
@@ -20,8 +20,8 @@ import com.owncloud.android.operations.upload.DeleteUploadedFileOperation
 class AutoUploadLocalDeletionWorker(
     private val context: Context,
     params: WorkerParameters,
-    private val user: User,
-    private val storageManager: FileDataStorageManager,
+    private val userAccountManager: UserAccountManager,
+    private val fileDataStorageManager: FileDataStorageManager,
     private val syncedFolderProvider: SyncedFolderProvider,
 ) : CoroutineWorker (context, params) {
 
@@ -45,9 +45,8 @@ class AutoUploadLocalDeletionWorker(
             .forEach {
                 val op = DeleteUploadedFileOperation(
                     it,
-                    user,
                     context,
-                    storageManager
+                    fileDataStorageManager
                 )
                 val res = op.run()
                 if (res.code != RemoteOperationResult.ResultCode.OK) {

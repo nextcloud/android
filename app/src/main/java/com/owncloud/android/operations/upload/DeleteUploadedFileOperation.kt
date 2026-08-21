@@ -8,7 +8,6 @@
 package com.owncloud.android.operations.upload
 
 import android.content.Context
-import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.autoUpload.SyncFolderHelper
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -23,7 +22,6 @@ import java.io.File
 
 class DeleteUploadedFileOperation(
     private val syncedFolder: SyncedFolder,
-    private val user: User,
     private val context: Context,
     private val storageManager: FileDataStorageManager
 ) {
@@ -34,8 +32,10 @@ class DeleteUploadedFileOperation(
     private val syncFolderHelper = SyncFolderHelper(context)
 
     suspend fun run(): RemoteOperationResult<*> {
+        Log_OC.d(TAG, "StorageManager user is ${storageManager.user}")
         // Obtain synced folder data
         val folder = storageManager.getFileByRemotePath(syncedFolder.remotePath)
+            ?: storageManager.getFileByLocalPath(syncedFolder.localPath)
         if (folder == null) {
             Log_OC.e(TAG, "Unable to obtain remote folder to refresh metadata")
             return RemoteOperationResult<Any?>(RemoteOperationResult.ResultCode.METADATA_NOT_FOUND)
@@ -54,6 +54,7 @@ class DeleteUploadedFileOperation(
         files.forEach { localFile ->
             val remotePath = syncFolderHelper.getAutoUploadRemotePath(syncedFolder, localFile)
             val ocFile = storageManager.getFileByRemotePath(remotePath)
+                ?: storageManager.getFileByLocalPath(localFile.absolutePath)
             if (ocFile == null) {
                 Log_OC.i(TAG, "Unable to compare file ${localFile.name} with its remote counterpart, leaving in place")
                 return@forEach
@@ -125,9 +126,9 @@ class DeleteUploadedFileOperation(
 
     private suspend fun refreshFolder(folder: OCFile, storageManager: FileDataStorageManager): Boolean =
         withContext(Dispatchers.IO) {
-            val operation = RefreshFolderOperation(folder, storageManager, user, context)
+            val operation = RefreshFolderOperation(folder, storageManager, storageManager.user, context)
             return@withContext try {
-                val result = operation.execute(user, context)
+                val result = operation.execute(storageManager.user, context)
                 if (result.isSuccess) {
                     Log_OC.d(TAG, "Successfully fetched metadata for: ${folder.remotePath}")
                     true
