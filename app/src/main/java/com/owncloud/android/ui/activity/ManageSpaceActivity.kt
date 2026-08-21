@@ -51,9 +51,11 @@ class ManageSpaceActivity :
         setContentView(binding.root)
 
         binding.run {
+
             manageActivityToolbar.setNavigationOnClickListener {
                 onBackPressedDispatcher.onBackPressed()
             }
+
             generalDescription.text = getString(R.string.manage_space_description, getString(R.string.app_name))
             clearDataButton.setOnClickListener {
                 lifecycleScope.launch {
@@ -61,6 +63,13 @@ class ManageSpaceActivity :
                 }
             }
             viewThemeUtils.material.colorMaterialButtonPrimaryTonal(clearDataButton)
+
+            autoUploadDeleteButton.setOnClickListener {
+                lifecycleScope.launch {
+                    clearAutoUploadData()
+                }
+            }
+            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(autoUploadDeleteButton)
         }
     }
 
@@ -147,6 +156,10 @@ class ManageSpaceActivity :
             } ?: return false
         }
         return dir?.delete() ?: false
+    }
+
+    private fun clearAutoUploadData() {
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {

@@ -26,11 +26,24 @@
         android:background="@color/appbar" />
 
     <TextView
-        android:id="@+id/general_description"
+        android:id="@+id/general_title"
         style="?android:attr/editTextPreferenceStyle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/manage_activity_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="@dimen/standard_margin"
+        android:text="@string/manage_space_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+    <TextView
+        android:id="@+id/general_description"
+        style="?android:attr/editTextPreferenceStyle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/general_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
@@ -49,6 +62,49 @@
         android:layout_margin="@dimen/standard_margin"
         android:contentDescription="@string/manage_space_clear_data"
         android:text="@string/manage_space_clear_data"
+        android:theme="@style/Button.Primary"
+        app:cornerRadius="@dimen/button_corner_radius" />
+
+    <TextView
+        android:id="@+id/auto_upload_title"
+        style="?android:attr/editTextPreferenceStyle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clearDataButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/standard_margin"
+        android:layout_marginEnd="@dimen/standard_margin"
+        android:layout_marginTop="@dimen/standard_double_margin"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:text="@string/manage_space_auto_upload_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+    <TextView
+        android:id="@+id/auto_upload_description"
+        style="?android:attr/editTextPreferenceStyle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/auto_upload_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="@dimen/standard_margin"
+        android:text="@string/manage_space_auto_upload_description" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/auto_upload_delete_button"
+        style="@style/Button.Primary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/auto_upload_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="@dimen/standard_margin"
+        android:contentDescription="@string/manage_space_clear_data"
+        android:text="@string/manage_space_auto_upload_clear_data"
         android:theme="@style/Button.Primary"
         app:cornerRadius="@dimen/button_corner_radius" />
 
