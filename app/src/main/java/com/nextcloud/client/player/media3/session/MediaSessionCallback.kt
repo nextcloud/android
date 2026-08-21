@@ -35,12 +35,19 @@ class MediaSessionCallback @Inject constructor(
         const val CLOSE_ACTION = "CLOSE_ACTION"
     }
 
+    /**
+     * The result of [super.onConnect] carries no available player commands since media3 1.11.0, so the connection has
+     * to be built from [ConnectionResult.AcceptedResultBuilder] instead. Forwarding the commands of the super result
+     * leaves the controller unable to change media items, prepare or play.
+     */
     override fun onConnect(session: MediaSession, controller: MediaSession.ControllerInfo): ConnectionResult {
-        val connectionResult = super.onConnect(session, controller)
-        val sessionCommandsBuilder = connectionResult.availableSessionCommands.buildUpon()
-        sessionCommandsBuilder.add(SessionCommand(CLOSE_ACTION, Bundle.EMPTY))
-        val sessionCommands = sessionCommandsBuilder.build()
-        return ConnectionResult.accept(sessionCommands, connectionResult.availablePlayerCommands)
+        val sessionCommands = ConnectionResult.DEFAULT_SESSION_COMMANDS
+            .buildUpon()
+            .add(SessionCommand(CLOSE_ACTION, Bundle.EMPTY))
+            .build()
+        return ConnectionResult.AcceptedResultBuilder(session)
+            .setAvailableSessionCommands(sessionCommands)
+            .build()
     }
 
     override fun onCustomCommand(

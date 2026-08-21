@@ -2051,9 +2051,6 @@ class FileDisplayActivity :
         } else if (PreviewTextFileFragment.canBePreviewed(file)) {
             setFabVisible?.onComplete(false)
             startTextPreview(file, false)
-        } else if (MimeTypeUtil.isVideo(file)) {
-            setFabVisible?.onComplete(false)
-            startImagePreview(file, true)
         } else if (canMediaPreviewed(file)) {
             setFabVisible?.onComplete(false)
             startMediaPreview(file, 0, true, true, false, true)
