@@ -1358,6 +1358,7 @@ class FileDisplayActivity :
         binding.fabMain.setImageResource(R.drawable.ic_plus)
         resetScrolling(true)
         showSortListGroup(false)
+        showBottomNavigationBar(true)
         supportFragmentManager.popBackStack()
     }
 
@@ -2768,6 +2769,7 @@ class FileDisplayActivity :
             val fragment = PreviewTextFileFragment.create(user, file, searchOpen, searchQuery)
             setLeftFragment(fragment, false)
             configureToolbarForPreview(file)
+            showBottomNavigationBar(false)
         } else {
             val previewIntent = Intent()
             previewIntent.putExtra(EXTRA_FILE, file)
