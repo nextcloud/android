@@ -20,8 +20,10 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.VirtualFolderType
 import com.owncloud.android.ui.fragment.FileFragment
+import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.MimeTypeUtil
 
 /**
  * Adapter class that provides Fragment instances
@@ -29,13 +31,18 @@ import com.owncloud.android.utils.FileStorageUtils
 class PreviewMediaPagerAdapter : FragmentStateAdapter {
 
     private var selectedFile: OCFile? = null
-    private var imageFiles: MutableList<OCFile> = mutableListOf()
+    private var mediaFiles: MutableList<OCFile> = mutableListOf()
     private val user: User
     private val mObsoleteFragments: MutableSet<Any>
     private val mObsoletePositions: MutableSet<Int>
     private val mDownloadErrors: MutableSet<Int>
     private val mStorageManager: FileDataStorageManager
     private val mCachedFragments: SparseArray<FileFragment>
+
+    /**
+     * The collection the pages come from, so that a media page can build the same playback queue.
+     */
+    private val searchType: SearchType?
 
     /**
      * Constructor
@@ -60,12 +67,13 @@ class PreviewMediaPagerAdapter : FragmentStateAdapter {
         this.user = user
         this.selectedFile = selectedFile
         mStorageManager = storageManager
-        imageFiles = mStorageManager.getFolderImagesAndVideos(parentFolder, onlyOnDevice)
+        searchType = null
+        mediaFiles = mStorageManager.getFolderImagesAndVideos(parentFolder, onlyOnDevice)
 
         val sortOrder = preferences.getSortOrderByFolder(parentFolder)
         val foldersBeforeFiles = preferences.isSortFoldersBeforeFiles()
         val favoritesFirst = preferences.isSortFavoritesFirst()
-        imageFiles = sortOrder.sortCloudFiles(imageFiles.toMutableList(), foldersBeforeFiles, favoritesFirst)
+        mediaFiles = sortOrder.sortCloudFiles(mediaFiles.toMutableList(), foldersBeforeFiles, favoritesFirst)
 
         mObsoleteFragments = HashSet()
         mObsoletePositions = HashSet()
@@ -93,19 +101,24 @@ class PreviewMediaPagerAdapter : FragmentStateAdapter {
 
         this.user = user
         mStorageManager = storageManager
+        searchType = when (type) {
+            VirtualFolderType.GALLERY -> SearchType.GALLERY_SEARCH
+            VirtualFolderType.FAVORITE -> SearchType.FAVORITE_SEARCH
+            else -> null
+        }
 
         if (type == VirtualFolderType.GALLERY) {
-            imageFiles = mStorageManager.allGalleryItems
-            imageFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(imageFiles)
+            mediaFiles = mStorageManager.allGalleryItems
+            mediaFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mediaFiles)
         } else {
-            imageFiles = mStorageManager.getVirtualFolderContent(type, true)
+            mediaFiles = mStorageManager.getVirtualFolderContent(type, true)
         }
 
         if (type == VirtualFolderType.FAVORITE) {
             val sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.favoritesListView)
             val foldersBeforeFiles = preferences.isSortFoldersBeforeFiles()
             val favoritesFirst = preferences.isSortFavoritesFirst()
-            imageFiles = sortOrder.sortCloudFiles(imageFiles.toMutableList(), foldersBeforeFiles, favoritesFirst)
+            mediaFiles = sortOrder.sortCloudFiles(mediaFiles.toMutableList(), foldersBeforeFiles, favoritesFirst)
         }
 
         mObsoleteFragments = HashSet()
@@ -115,7 +128,7 @@ class PreviewMediaPagerAdapter : FragmentStateAdapter {
     }
 
     fun delete(position: Int) {
-        if (position < 0 || position >= imageFiles.size) {
+        if (position < 0 || position >= mediaFiles.size) {
             return
         }
 
@@ -125,7 +138,7 @@ class PreviewMediaPagerAdapter : FragmentStateAdapter {
 
         mObsoletePositions.add(position)
 
-        imageFiles.removeAt(position)
+        mediaFiles.removeAt(position)
         mDownloadErrors.remove(position)
         mCachedFragments.remove(position)
 
@@ -134,7 +147,7 @@ class PreviewMediaPagerAdapter : FragmentStateAdapter {
 
     @Suppress("TooGenericExceptionCaught")
     fun getFileAt(position: Int): OCFile? = try {
-        imageFiles[position]
+        mediaFiles[position]
     } catch (_: IndexOutOfBoundsException) {
         null
     }
@@ -156,8 +169,8 @@ class PreviewMediaPagerAdapter : FragmentStateAdapter {
     }
 
     private fun fragmentForDownloaded(file: OCFile, ignoreFirstSavedState: Boolean): Fragment =
-        if (PreviewMediaFragment.isAudioOrVideo(file)) {
-            PreviewMediaFragment.newInstance(file, user)
+        if (file.isAudioOrVideo()) {
+            PreviewPlaybackFragment.newInstance(file, searchType)
         } else {
             PreviewImageFragment.newInstance(file, ignoreFirstSavedState, false)
         }
@@ -173,34 +186,36 @@ class PreviewMediaPagerAdapter : FragmentStateAdapter {
             // without first being downloaded.
             file.isEncrypted -> FileDownloadFragment.newInstance(file, user, ignoreFirstSavedState)
 
-            PreviewMediaFragment.isAudioOrVideo(file) ->
-                PreviewMediaFragment.newInstance(file, user)
+            file.isAudioOrVideo() -> PreviewPlaybackFragment.newInstance(file, searchType)
 
             else -> PreviewImageFragment.newInstance(file, ignoreFirstSavedState, true)
         }
     }
 
-    fun getFilePosition(file: OCFile): Int = imageFiles.indexOf(file)
+    private fun OCFile.isAudioOrVideo(): Boolean = MimeTypeUtil.isAudio(this) || MimeTypeUtil.isVideo(this)
+
+    fun getFilePosition(file: OCFile): Int = mediaFiles.indexOf(file)
 
     fun updateFile(position: Int, file: OCFile) {
-        val fragmentToUpdate = mCachedFragments[position]
-        if (fragmentToUpdate != null) {
-            mObsoleteFragments.add(fragmentToUpdate)
+        if (position < 0 || position >= mediaFiles.size) {
+            return
         }
+
+        mCachedFragments[position]?.let { mObsoleteFragments.add(it) }
         mObsoletePositions.add(position)
-        imageFiles[position] = file
+        mediaFiles[position] = file
     }
 
     fun pendingErrorAt(position: Int): Boolean = mDownloadErrors.contains(position)
 
     override fun createFragment(position: Int): Fragment = getItem(position)
 
-    override fun getItemCount(): Int = imageFiles.size
+    override fun getItemCount(): Int = mediaFiles.size
 
     override fun getItemId(position: Int): Long {
         // The item ID function is needed to detect whether the deletion of the current item needs a UI update
-        return imageFiles.getOrNull(position)?.fileId ?: position.toLong()
+        return mediaFiles.getOrNull(position)?.fileId ?: position.toLong()
     }
 
-    override fun containsItem(itemId: Long): Boolean = imageFiles.any { it.fileId == itemId }
+    override fun containsItem(itemId: Long): Boolean = mediaFiles.any { it.fileId == itemId }
 }

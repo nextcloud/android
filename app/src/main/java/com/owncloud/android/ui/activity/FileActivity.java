@@ -37,6 +37,7 @@ import com.nextcloud.client.jobs.download.FileDownloadWorker;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.network.NetworkChangeListener;
+import com.nextcloud.client.player.ui.PlayerActivity;
 import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
@@ -92,7 +93,6 @@ import com.owncloud.android.ui.fragment.filesRepository.FilesRepository;
 import com.owncloud.android.ui.fragment.filesRepository.RemoteFilesRepository;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
-import com.owncloud.android.ui.preview.PreviewMediaActivity;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
@@ -252,7 +252,7 @@ public abstract class FileActivity extends DrawerActivity
                 refreshList();
             }
         } else {
-            if (this instanceof PreviewMediaActivity) {
+            if (this instanceof PlayerActivity) {
                 hideInfoBox();
             } else {
                 showInfoBox(R.string.offline_mode);

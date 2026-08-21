@@ -9,10 +9,12 @@ package com.owncloud.android.ui.adapter
 
 import android.view.View
 import android.widget.TextView
+import com.nextcloud.client.player.ui.PlayerProgressIndicator
 
 internal interface ListGridItemViewHolder : ListViewHolder {
     val fileName: TextView
     val extension: TextView?
+    val playerProgressIndicator: PlayerProgressIndicator? get() = null
     val bidiFilename: TextView
     val bidiFilenameContainer: View
 }
