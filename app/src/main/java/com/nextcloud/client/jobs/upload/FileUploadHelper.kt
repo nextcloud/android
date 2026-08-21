@@ -24,6 +24,7 @@ import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.notifications.AppWideNotificationManager
+import com.nextcloud.model.OCUploadLocalPathData
 import com.nextcloud.utils.extensions.checkWCFRestrictions
 import com.nextcloud.utils.extensions.createOwncloudClient
 import com.nextcloud.utils.extensions.getUploadIds
@@ -253,49 +254,46 @@ class FileUploadHelper {
     }
 
     @JvmOverloads
-    @Suppress("LongParameterList")
-    fun uploadNewFiles(
-        user: User,
-        localPaths: Array<String>,
-        remotePaths: Array<String>,
-        localBehavior: Int,
-        createRemoteFolder: Boolean,
-        createdBy: Int,
-        requiresWifi: Boolean,
-        requiresCharging: Boolean,
-        nameCollisionPolicy: NameCollisionPolicy,
-        showSameFileAlreadyExistsNotification: Boolean = true
-    ) {
-        val uploads = localPaths.mapIndexed { index, localPath ->
-            fun createOCUpload(): OCUpload {
-                val result = OCUpload(localPath, remotePaths[index], user.accountName).apply {
-                    this.nameCollisionPolicy = nameCollisionPolicy
-                    isUseWifiOnly = requiresWifi
-                    isWhileChargingOnly = requiresCharging
-                    uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
-                    this.createdBy = createdBy
-                    isCreateRemoteFolder = createRemoteFolder
-                    localAction = localBehavior
-                }
+    fun uploadNewFiles(data: OCUploadLocalPathData, showSameFileAlreadyExistsNotification: Boolean = true) {
+        val uploads = getUploadsFromLocalPaths(data)
+        backgroundJobManager.startFilesUploadJob(
+            data.user,
+            uploads.getUploadIds(),
+            showSameFileAlreadyExistsNotification
+        )
+    }
 
+    @Suppress("LongParameterList")
+    fun uploadAndCopyNewFilesForAlbum(data: OCUploadLocalPathData, albumName: String) {
+        val uploads = getUploadsFromLocalPaths(data)
+        backgroundJobManager.startAlbumFilesUploadJob(
+            data.user,
+            uploads.getUploadIds(),
+            albumName
+        )
+    }
+
+    private fun getUploadsFromLocalPaths(data: OCUploadLocalPathData): List<OCUpload> =
+        data.localPaths.mapIndexed { index, localPath ->
+            fun createOCUpload(): OCUpload {
+                val result = data.toOCUpload(localPath, index)
                 val id = uploadsStorageManager.uploadDao.insertOrReplace(result.toUploadEntity())
                 result.uploadId = id
                 return result
             }
 
+            val remotePath = data.remotePaths[index]
             val entity = getUploadByPaths(
-                accountName = user.accountName,
+                accountName = data.user.accountName,
                 localPath = localPath,
-                remotePath = remotePaths[index]
+                remotePath = remotePath
             )
             if (entity != null) {
-                reusePendingUpload(entity, user) ?: createOCUpload()
+                reusePendingUpload(entity, data.user) ?: createOCUpload()
             } else {
                 createOCUpload()
             }
         }
-        backgroundJobManager.startFilesUploadJob(user, uploads.getUploadIds(), showSameFileAlreadyExistsNotification)
-    }
 
     private fun reusePendingUpload(entity: UploadEntity, user: User): OCUpload? {
         val capability = fileStorageManager.getCapability(user)

@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2023 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2019-2023 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey Vilas <alvaro@alvarobrey.com>
@@ -170,6 +171,7 @@ public class FileMenuFilter {
         filterUnsetEncrypted(toHide, endToEndEncryptionEnabled);
         filterSetPictureAs(toHide);
         filterStream(toHide);
+        filterAddToAlbum(toHide);
         filterLock(toHide, fileLockingEnabled);
         filterUnlock(toHide, fileLockingEnabled);
         filterPinToHome(toHide);
@@ -417,6 +419,17 @@ public class FileMenuFilter {
     private void filterStream(List<Integer> toHide) {
         if (files.isEmpty() || !isSingleFile() || !isSingleMedia() || containsEncryptedFile()) {
             toHide.add(R.id.action_stream_media);
+        }
+    }
+
+    private void filterAddToAlbum(List<Integer> toHide) {
+        if (files.isEmpty() || containsEncryptedFile()) {
+            toHide.add(R.id.action_add_to_album);
+            return;
+        }
+        OCFile file = files.iterator().next();
+        if (!MimeTypeUtil.isImageOrVideo(file)) {
+            toHide.add(R.id.action_add_to_album);
         }
     }
 

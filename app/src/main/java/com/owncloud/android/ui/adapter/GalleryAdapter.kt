@@ -22,7 +22,6 @@ import androidx.annotation.VisibleForTesting
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.client.account.User
-import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.toGalleryItems
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.databinding.GalleryHeaderBinding
@@ -43,7 +42,6 @@ class GalleryAdapter(
     val context: Context,
     user: User,
     ocFileListFragmentInterface: OCFileListFragmentInterface,
-    preferences: AppPreferences,
     transferServiceGetter: ComponentsGetter,
     private val viewThemeUtils: ViewThemeUtils,
     var columns: Int,
@@ -299,6 +297,16 @@ class GalleryAdapter(
 
     fun changeColumn(newColumn: Int) {
         columns = newColumn
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun showAlbumItems(albumItems: List<OCFile>) {
+        files = albumItems.toGalleryItems(columns, defaultThumbnailSize)
+        notifyDataSetChanged()
+    }
+
+    fun setCheckedItem(files: Set<OCFile>?) {
+        ocFileListDelegate.setCheckedItem(files)
     }
 
     fun markAsFavorite(remotePath: String, favorite: Boolean) {
