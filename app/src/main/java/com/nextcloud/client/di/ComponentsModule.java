@@ -18,7 +18,6 @@ import com.nextcloud.client.jobs.transfer.FileTransferService;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.logger.ui.LogsActivity;
 import com.nextcloud.client.logger.ui.LogsViewModel;
-import com.nextcloud.client.media.BackgroundPlayerService;
 import com.nextcloud.client.migrations.Migrations;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.onboarding.WhatsNewActivity;
@@ -128,7 +127,7 @@ import com.owncloud.android.ui.preview.FileDownloadFragment;
 import com.owncloud.android.ui.preview.PreviewBitmapActivity;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
-import com.owncloud.android.ui.preview.PreviewMediaFragment;
+import com.owncloud.android.ui.preview.PreviewPlaybackFragment;
 import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.ui.preview.PreviewTextStringFragment;
@@ -293,9 +292,6 @@ abstract class ComponentsModule {
     abstract BackupListFragment chooseContactListFragment();
 
     @ContributesAndroidInjector
-    abstract PreviewMediaFragment previewMediaFragment();
-
-    @ContributesAndroidInjector
     abstract PreviewTextFragment previewTextFragment();
 
     @ContributesAndroidInjector
@@ -303,6 +299,9 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract SetOnlineStatusBottomSheet setOnlineStatusBottomSheet();
+
+    @ContributesAndroidInjector
+    abstract PreviewPlaybackFragment previewPlaybackFragment();
 
     @ContributesAndroidInjector
     abstract PreviewTextFileFragment previewTextFileFragment();
@@ -497,9 +496,6 @@ abstract class ComponentsModule {
     abstract InternalTwoWaySyncActivity internalTwoWaySyncActivity();
 
     @OptIn(markerClass = UnstableApi.class)
-    @ContributesAndroidInjector
-    abstract BackgroundPlayerService backgroundPlayerService();
-
     @ContributesAndroidInjector
     abstract TermsOfServiceDialog termsOfServiceDialog();
 

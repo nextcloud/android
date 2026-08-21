@@ -1202,7 +1202,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         if (!file.isEncrypted() && mContainerActivity instanceof FileDisplayActivity fda && fda.canMediaPreviewed(file)) {
             setFabVisible(false);
-            fda.startMediaPreview(file, 0, true, true, true, true);
+            fda.startMediaPreview(file, true, true);
         } else if (webViewAvailable && editorUtils.getEditor(accountManager.getUser(), file.getMimeType()) != null && !file.isEncrypted()) {
             TextEditorWebView.Companion.startTextEditor(file, getContext());
         } else if (supportsDirectEditing(file, webViewAvailable)) {
