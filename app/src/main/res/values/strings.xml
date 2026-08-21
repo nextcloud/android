@@ -798,6 +798,9 @@
     <string name="manage_space_title">Manage space</string>
     <string name="manage_space_description">Settings, database and server certificates from %1$s\'s data will be deleted permanently. \n\nDownloaded files will be kept untouched.\n\nThis process can take a while.</string>
     <string name="manage_space_clear_data">Clear data</string>
+    <string name="manage_space_auto_upload_title">Locally delete auto uploaded files</string>
+    <string name="manage_space_auto_upload_description">All files already uploaded to the server from the Auto Upload folders will be deleted locally to free up space in the device.\n\nThis process can take a while.</string>
+    <string name="manage_space_auto_upload_clear_data">Locally delete auto uploaded files</string>
 
     <string name="local_file_not_found_message">File not found in local file system</string>
     <string name="confirmation_remove_files_from_album_message">Do you really want to remove the selected files from the album?</string>

@@ -680,8 +680,8 @@ class SyncedFoldersActivity :
         }
     }
 
-    // TODO: Temporary proof-of-concept impl, to be refactored and moved elsewhere
     private fun deleteUploadedItemFromSyncFolder(syncedFolder: SyncedFolder) {
+        // TODO: Run in a background job with notifications to the user about the progression
         val op = DeleteUploadedFileOperation(
             syncedFolder,
             user.get(),
