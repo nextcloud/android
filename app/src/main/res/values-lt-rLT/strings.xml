@@ -253,6 +253,7 @@
     <string name="create">Sukurti</string>
     <string name="create_dir_fail_msg">Nepavyko sukurti failo</string>
     <string name="create_document">Dokumentas</string>
+    <string name="create_encrypted_folder">Užšifruotas aplankas</string>
     <string name="create_end_to_end_encrypted_share">Nuorodos dalijimasis</string>
     <string name="create_end_to_end_encrypted_share_title">Ištisinio šifravimo nuorodų bendrinimas</string>
     <string name="create_folder">Aplankas</string>
@@ -1085,6 +1086,7 @@
     <string name="unified_search_fragment_contact_not_found">Kontaktas nerastas, visada galite sinchronizuoti, kad atnaujintumėte. Peradresuojama į žiniatinklį…</string>
     <string name="unified_search_fragment_permission_needed">Norint atidaryti paieškos rezultatus, reikalingi leidimai, kitaip jie bus nukreipti į žiniatinklį…</string>
     <string name="unified_search_fragment_search_in_this_folder">Šiame aplanke</string>
+    <string name="unified_search_fragment_search_takes_long">Paieška užtrunka ilgiau nei įprastai. Rezultatai pasirodys, kai tik serveris atsakys.</string>
     <string name="unknown">Nežinoma</string>
     <string name="unlock_file">Atrakinti failą</string>
     <string name="unread_comments">Yra neskaitytų komentarų</string>
@@ -1214,6 +1216,7 @@
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Svetainė</string>
     <string name="user_information_retrieval_error">Klaida gaunant vartotojo informaciją</string>
+    <string name="user_information_retrieval_error_message">Prašome dar kartą patikrinti interneto ryšį arba serverio būseną.</string>
     <string name="userinfo_no_info_headline">Asmeninės informacijos nėra</string>
     <string name="userinfo_no_info_text">Pridėkite vardą, nuotrauką ir kontaktinę informaciją savo profilio puslapyje.</string>
     <string name="username">Vartotojo vardas</string>
@@ -1223,6 +1226,7 @@
     <string name="wait_checking_credentials">Dekriptuojami prisijungimo duomenys</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopijuojamas failas iš privačios saugyklos</string>
     <string name="warn_rename_extension">Pakeitus plėtinį, šis failas gali būti atidarytas kitoje programėlėje</string>
+    <string name="webview_not_available">Šiame įrenginyje „Android System WebView“ trūksta arba ji išjungta</string>
     <string name="what_s_new_image">Koks naujas paveikslėlis</string>
     <string name="whats_new_skip">Praleisti</string>
     <string name="whats_new_title">Naujas %1$s</string>
