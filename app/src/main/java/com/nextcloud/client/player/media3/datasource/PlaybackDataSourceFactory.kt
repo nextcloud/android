@@ -22,7 +22,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import javax.inject.Inject
 
 @UnstableApi
-class DefaultDataSourceFactory @Inject constructor(
+class PlaybackDataSourceFactory @Inject constructor(
     private val context: Context,
     private val cache: Cache,
     private val fileDataStorageManager: FileDataStorageManager,
@@ -36,7 +36,7 @@ class DefaultDataSourceFactory @Inject constructor(
         .createDataSource()
 
     private fun createUpstreamDataSourceFactory() = DataSource.Factory {
-        DefaultDataSource(
+        PlaybackDataSource(
             delegate = DefaultDataSource.Factory(context, createHttpDataSourceFactory()).createDataSource(),
             fileDataStorageManager = fileDataStorageManager,
             ownCloudClient = clientFactory.create(accountManager.user)

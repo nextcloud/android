@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.player.media3.resumption.PlaybackResumptionConfigStore
-import com.nextcloud.client.player.model.PlaybackModel
+import com.nextcloud.client.player.media3.PlaybackModel
 import com.nextcloud.client.player.model.file.PlaybackFileType
 import com.nextcloud.client.player.model.file.PlaybackFiles
 import com.nextcloud.client.player.model.file.PlaybackFilesComparator
@@ -36,7 +36,7 @@ class PlayerLauncher @Inject constructor(
         currentLaunchJob?.cancel()
         currentLaunchJob = activity.lifecycleScope.launch {
             runCatching {
-                val fileType = file.getPlaybackFileType()
+                val fileType = PlaybackFileType.ofMimeType(file.mimeType)
                 playbackResumptionConfigStore.saveConfig(file.localId.toString(), file.parentId, fileType, searchType)
 
                 val currentPlaybackFile = file.toPlaybackFile()
@@ -54,8 +54,4 @@ class PlayerLauncher @Inject constructor(
             }
         }
     }
-
-    private fun OCFile.getPlaybackFileType(): PlaybackFileType = PlaybackFileType.entries
-        .firstOrNull { mimeType.startsWith(it.value, ignoreCase = true) }
-        ?: throw IllegalArgumentException("Unsupported file type: $mimeType")
 }

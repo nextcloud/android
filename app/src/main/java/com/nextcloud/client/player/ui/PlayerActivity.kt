@@ -26,6 +26,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.client.player.model.file.PlaybackFileType
 import com.nextcloud.client.player.ui.audio.AudioPlayerView
 import com.nextcloud.client.player.ui.video.VideoPlayerView
@@ -62,7 +63,7 @@ class PlayerActivity :
     }
 
     @Inject
-    lateinit var viewModelFactory: PlayerViewModel.Factory
+    lateinit var viewModelFactory: ViewModelFactory
 
     private val viewModel by viewModels<PlayerViewModel> { viewModelFactory }
 

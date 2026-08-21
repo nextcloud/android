@@ -8,6 +8,7 @@
 package com.nextcloud.client.player.media3.datasource
 
 import android.net.Uri
+import androidx.core.net.toUri
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.datasource.DataSource
 import androidx.media3.datasource.DataSpec
@@ -17,14 +18,12 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.files.StreamMediaFileOperation
 import com.owncloud.android.lib.common.OwnCloudClient
 import java.io.IOException
-import androidx.core.net.toUri
 
 @UnstableApi
-class DefaultDataSource(
+class PlaybackDataSource(
     private val delegate: DataSource,
     private val fileDataStorageManager: FileDataStorageManager,
-    private val ownCloudClient: OwnCloudClient,
-    private val streamOperationFactory: StreamMediaFileOperationFactory = DefaultStreamMediaFileOperationFactory()
+    private val ownCloudClient: OwnCloudClient
 ) : DataSource by delegate {
 
     override fun getResponseHeaders() = delegate.responseHeaders
@@ -45,8 +44,7 @@ class DefaultDataSource(
     }
 
     private fun openRemoteFile(dataSpec: DataSpec, fileId: Long): Long {
-        val streamMediaFileOperation = streamOperationFactory.create(fileId)
-        val result = streamMediaFileOperation.execute(ownCloudClient)
+        val result = StreamMediaFileOperation(fileId).execute(ownCloudClient)
         return if (result.isSuccess) {
             val uri = (result.data[0] as? String)?.toUri()
                 ?: throw IllegalStateException("url is not valid, cannot stream")
@@ -57,12 +55,4 @@ class DefaultDataSource(
     }
 
     private fun DataSpec.buildUpon(uri: Uri) = buildUpon().setUri(uri).build()
-}
-
-interface StreamMediaFileOperationFactory {
-    fun create(fileId: Long): StreamMediaFileOperation
-}
-
-class DefaultStreamMediaFileOperationFactory : StreamMediaFileOperationFactory {
-    override fun create(fileId: Long) = StreamMediaFileOperation(fileId)
 }

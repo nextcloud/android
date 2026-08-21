@@ -29,19 +29,16 @@ sealed interface PlaybackFilesComparator : Comparator<PlaybackFile> {
     }
 
     data class Folder(val sortType: FileSortOrder.SortType, val isAscending: Boolean) : PlaybackFilesComparator {
-        private val delegate = createDelegate()
+        private val sortTypeComparator: Comparator<PlaybackFile> = when (sortType) {
+            FileSortOrder.SortType.ALPHABET -> Comparator { a, b -> AlphanumericComparator.compare(a.name, b.name) }
+            FileSortOrder.SortType.SIZE -> compareBy { it.contentLength }
+            FileSortOrder.SortType.DATE -> compareBy { it.lastModified }
+        }
+
+        private val delegate = compareByDescending(PlaybackFile::isFavorite)
+            .thenComparing(if (isAscending) sortTypeComparator else sortTypeComparator.reversed())
 
         override fun compare(a: PlaybackFile, b: PlaybackFile): Int = delegate.compare(a, b)
-
-        private fun createDelegate(): Comparator<PlaybackFile> {
-            val sortTypeComparator: Comparator<PlaybackFile> = when (sortType) {
-                FileSortOrder.SortType.ALPHABET -> Comparator { a, b -> AlphanumericComparator.compare(a.name, b.name) }
-                FileSortOrder.SortType.SIZE -> compareBy { it.contentLength }
-                FileSortOrder.SortType.DATE -> compareBy { it.lastModified }
-            }
-            return compareByDescending(PlaybackFile::isFavorite)
-                .thenComparing(if (isAscending) sortTypeComparator else sortTypeComparator.reversed())
-        }
     }
 }
 

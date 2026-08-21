@@ -53,12 +53,6 @@ class PlaybackResumptionConfigStore @Inject constructor(private val context: Con
         }
     }
 
-    fun clear() {
-        preferences.edit {
-            clear()
-        }
-    }
-
     private fun playbackFileType(value: String): PlaybackFileType? = PlaybackFileType.entries.firstOrNull {
         it.value == value
     }

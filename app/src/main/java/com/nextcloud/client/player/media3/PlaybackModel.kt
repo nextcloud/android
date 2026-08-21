@@ -7,23 +7,22 @@
 
 package com.nextcloud.client.player.media3
 
+import android.content.ComponentName
+import android.content.Context
 import android.view.SurfaceView
+import androidx.annotation.OptIn
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.session.MediaController
 import androidx.media3.session.MediaSession
-import com.nextcloud.client.player.media3.common.MediaItemFactory
+import androidx.media3.session.SessionToken
 import com.nextcloud.client.player.media3.common.playbackFile
-import com.nextcloud.client.player.media3.controller.MediaControllerFactory
-import com.nextcloud.client.player.media3.controller.indexOfFirst
-import com.nextcloud.client.player.media3.controller.setRepeatMode
-import com.nextcloud.client.player.media3.controller.updateMediaItems
+import com.nextcloud.client.player.media3.common.toMediaItem
+import com.nextcloud.client.player.media3.common.indexOfFirst
+import com.nextcloud.client.player.media3.common.setRepeatMode
+import com.nextcloud.client.player.media3.common.updateMediaItems
 import com.nextcloud.client.player.media3.session.MediaSessionFactory
-import com.nextcloud.client.player.media3.session.MediaSessionHolder
-import com.nextcloud.client.player.model.PlaybackModel
-import com.nextcloud.client.player.model.PlaybackModelCompositeListener
 import com.nextcloud.client.player.model.PlaybackSettings
-import com.nextcloud.client.player.model.error.PlaybackErrorStrategy
 import com.nextcloud.client.player.model.file.PlaybackFile
 import com.nextcloud.client.player.model.file.PlaybackFiles
 import com.nextcloud.client.player.model.state.PlaybackState
@@ -37,37 +36,42 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.guava.await
 import kotlinx.coroutines.launch
-import java.util.Optional
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-@UnstableApi
-@Suppress("LongParameterList")
-class Media3PlaybackModel @Inject constructor(
-    private val stateFactory: PlaybackStateFactory,
+@OptIn(markerClass = [UnstableApi::class])
+@Suppress("TooManyFunctions")
+class PlaybackModel @Inject constructor(
+    private val context: Context,
     private val mediaSessionFactory: MediaSessionFactory,
-    private val controllerFactory: MediaControllerFactory,
-    private val playbackSettings: PlaybackSettings,
-    private val mediaItemFactory: MediaItemFactory,
-    private val playbackErrorStrategy: PlaybackErrorStrategy
-) : PlaybackModel,
-    MediaSessionHolder {
+    private val playbackSettings: PlaybackSettings
+) {
 
     companion object {
         private const val CHECK_PROGRESS_INTERVAL = 1000L
     }
 
-    private val modelCompositeListener = PlaybackModelCompositeListener()
+    interface Listener {
+
+        fun onPlaybackUpdate(state: PlaybackState)
+
+        fun onPlaybackError(error: Throwable) {
+            // Default empty implementation
+        }
+    }
+
+    private val listeners = mutableListOf<Listener>()
 
     private val checkProgressPeriodicAction = PeriodicAction(CHECK_PROGRESS_INTERVAL) {
-        state.ifPresent(modelCompositeListener::onPlaybackUpdate)
+        notifyPlaybackUpdate()
     }
 
     private val playerListener = PlaybackModelPlayerListener(
         checkProgressPeriodicAction,
-        this::onPlaybackUpdate,
+        this::notifyPlaybackUpdate,
         this::onPlaybackError
     )
 
@@ -76,7 +80,7 @@ class Media3PlaybackModel @Inject constructor(
             controller.removeListener(playerListener)
             controllerScope?.cancel()
             checkProgressPeriodicAction.stop()
-            state.ifPresent(modelCompositeListener::onPlaybackUpdate)
+            notifyPlaybackUpdate()
         }
     }
 
@@ -85,36 +89,39 @@ class Media3PlaybackModel @Inject constructor(
 
     private var mediaSession: MediaSession? = null
 
-    override val state: Optional<PlaybackState>
-        get() {
-            return stateFactory.create(controller)
-        }
+    val state: PlaybackState?
+        get() = controller?.toPlaybackState()
 
-    override fun getMediaSession(): MediaSession = mediaSession ?: mediaSessionFactory.create().also {
+    fun getMediaSession(): MediaSession = mediaSession ?: mediaSessionFactory.create().also {
         mediaSession = it
     }
 
-    override suspend fun start() {
-        controller = controllerFactory.create(controllerListener).apply {
-            addListener(playerListener)
-            setRepeatMode(playbackSettings.repeatMode)
-            shuffleModeEnabled = playbackSettings.isShuffle
-            controllerScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
-        }
+    suspend fun start() {
+        val sessionToken = SessionToken(context, ComponentName(context, PlaybackService::class.java))
+        controller = MediaController.Builder(context, sessionToken)
+            .setListener(controllerListener)
+            .buildAsync()
+            .await()
+            .apply {
+                addListener(playerListener)
+                setRepeatMode(playbackSettings.repeatMode)
+                shuffleModeEnabled = playbackSettings.isShuffle
+                controllerScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+            }
     }
 
-    override fun setFilesFlow(filesFlow: Flow<PlaybackFiles>) {
+    fun setFilesFlow(filesFlow: Flow<PlaybackFiles>) {
         controllerScope?.launch {
             filesFlow
                 .catch {
-                    modelCompositeListener.onPlaybackError(it)
+                    notifyPlaybackError(it)
                     release()
                 }
                 .collectLatest { setFiles(it) }
         }
     }
 
-    override fun setFiles(files: PlaybackFiles) {
+    fun setFiles(files: PlaybackFiles) {
         if (files.list.isEmpty()) {
             release()
             return
@@ -122,7 +129,7 @@ class Media3PlaybackModel @Inject constructor(
 
         controller?.let { controller ->
             val currentFile = controller.currentMediaItem?.mediaMetadata?.playbackFile
-            val mediaItems = files.list.map(mediaItemFactory::create)
+            val mediaItems = files.list.map { it.toMediaItem() }
 
             if (currentFile == null) {
                 controller.setMediaItems(mediaItems)
@@ -142,65 +149,67 @@ class Media3PlaybackModel @Inject constructor(
         .indexOfFirst { it.id == currentFile.id }
         .let { if (it in 0..files.list.lastIndex) it else 0 }
 
-    override fun release() {
+    fun release() {
         controller?.release()
         mediaSession?.player?.release()
         mediaSession?.release()
         mediaSession = null
     }
 
-    override fun setVideoSurfaceView(surfaceView: SurfaceView?) {
+    fun setVideoSurfaceView(surfaceView: SurfaceView?) {
         controller?.setVideoSurfaceView(surfaceView)
     }
 
-    override fun addListener(listener: PlaybackModel.Listener) {
-        modelCompositeListener.addListener(listener)
+    fun addListener(listener: Listener) {
+        if (!listeners.contains(listener)) {
+            listeners.add(listener)
+        }
     }
 
-    override fun removeListener(listener: PlaybackModel.Listener) {
-        modelCompositeListener.removeListener(listener)
+    fun removeListener(listener: Listener) {
+        listeners.remove(listener)
     }
 
-    override fun play() {
+    fun play() {
         controller?.run {
             prepare()
             play()
         }
     }
 
-    override fun pause() {
+    fun pause() {
         controller?.pause()
     }
 
-    override fun playNext() {
+    fun playNext() {
         controller?.run {
             seekToNextMediaItem()
             prepare()
         }
     }
 
-    override fun playPrevious() {
+    fun playPrevious() {
         controller?.run {
             seekToPreviousMediaItem()
             prepare()
         }
     }
 
-    override fun seekToPosition(positionInMilliseconds: Long) {
+    fun seekToPosition(positionInMilliseconds: Long) {
         controller?.seekTo(positionInMilliseconds)
     }
 
-    override fun setRepeatMode(repeatMode: RepeatMode) {
+    fun setRepeatMode(repeatMode: RepeatMode) {
         playbackSettings.setRepeatMode(repeatMode)
         controller?.setRepeatMode(repeatMode)
     }
 
-    override fun setShuffle(shuffle: Boolean) {
+    fun setShuffle(shuffle: Boolean) {
         playbackSettings.setShuffle(shuffle)
         controller?.shuffleModeEnabled = shuffle
     }
 
-    override fun switchToFile(file: PlaybackFile) {
+    fun switchToFile(file: PlaybackFile) {
         controller?.run {
             val mediaItemIndex = indexOfFirst { it.mediaId == file.id }
             if (mediaItemIndex >= 0 && mediaItemIndex != currentMediaItemIndex) {
@@ -210,7 +219,7 @@ class Media3PlaybackModel @Inject constructor(
         }
     }
 
-    override fun stopPlaying(file: OCFile) {
+    fun stopPlaying(file: OCFile) {
         controller?.run {
             val mediaItemIndex = indexOfFirst { it.mediaId == file.localId.toString() }
             if (mediaItemIndex >= 0) {
@@ -219,16 +228,33 @@ class Media3PlaybackModel @Inject constructor(
         }
     }
 
-    private fun onPlaybackUpdate() {
-        state.ifPresent(modelCompositeListener::onPlaybackUpdate)
+    private fun notifyPlaybackUpdate() {
+        val currentState = state ?: return
+        for (i in 0 until listeners.size) {
+            listeners.getOrNull(i)?.onPlaybackUpdate(currentState)
+        }
+    }
+
+    private fun notifyPlaybackError(error: Throwable) {
+        for (i in 0 until listeners.size) {
+            listeners.getOrNull(i)?.onPlaybackError(error)
+        }
     }
 
     private fun onPlaybackError(error: Throwable) {
-        modelCompositeListener.onPlaybackError(error)
-        state.ifPresent { state ->
-            if (playbackErrorStrategy.switchToNextSource(error, state)) {
+        notifyPlaybackError(error)
+        state?.let {
+            if (shouldSwitchToNextSource(it)) {
                 playNext()
             }
         }
+    }
+
+    private fun shouldSwitchToNextSource(state: PlaybackState): Boolean {
+        val currentFile = state.currentItemState?.file
+        val currentFiles = state.currentFiles
+        val oneFileInQueue = currentFiles.size == 1
+        val endOfQueue = currentFiles.indexOf(currentFile) == currentFiles.lastIndex
+        return !oneFileInQueue && !endOfQueue
     }
 }
