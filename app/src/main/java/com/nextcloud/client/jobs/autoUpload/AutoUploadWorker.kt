@@ -103,7 +103,7 @@ class AutoUploadWorker(
             }
 
             if (powerManagementService.isPowerSavingEnabled) {
-                Log_OC.w(TAG, "power saving mode enabled")
+                Log_OC.w(TAG, "power saving mode enabled - override power saving: $overridePowerSaving")
             }
 
             // insert entries based on selected local storage path

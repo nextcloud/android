@@ -25,8 +25,8 @@ fun WorkManager.isWorkScheduled(tag: String): Boolean = getWorkInfosByTag(tag).h
 /**
  * Unique work names are not tags, [getWorkInfosByTag] never matches them.
  */
-fun WorkManager.isUniqueWorkScheduled(uniqueWorkName: String): Boolean =
-    getWorkInfosForUniqueWork(uniqueWorkName).hasWorkIn(PENDING_STATES)
+fun WorkManager.isUniqueWorkRunning(uniqueWorkName: String): Boolean =
+    getWorkInfosForUniqueWork(uniqueWorkName).hasWorkIn(RUNNING_STATES)
 
 private fun ListenableFuture<List<WorkInfo>>.hasWorkIn(stateConditions: List<WorkInfo.State>): Boolean {
     var workInfoList: List<WorkInfo> = emptyList()

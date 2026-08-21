@@ -120,8 +120,8 @@ class UploadWarningCard(
     private fun startAutoUploadIgnoringBatterySaver(view: View) {
         scope.launch {
             val result = withContext(Dispatchers.IO) {
-                if (!backgroundJobManager.isContentObserverJobScheduled()) {
-                    backgroundJobManager.scheduleContentObserverJob()
+                if (!backgroundJobManager.isContentObserverRunning()) {
+                    backgroundJobManager.scheduleContentObserverJob(overridePowerSaving = true)
                 }
 
                 FilesSyncHelper.startAutoUploadIgnoringPowerSaving(syncedFolderProvider, backgroundJobManager)
