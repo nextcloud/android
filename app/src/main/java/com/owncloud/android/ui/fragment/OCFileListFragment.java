@@ -885,18 +885,18 @@ public class OCFileListFragment extends ExtendedListFragment implements
             // hide FAB in multi selection mode
             setFabVisible(false);
 
-            if (OCFileListFragment.this instanceof GalleryFragment) {
-                // hide the 3 dot menu icon while picking media for Albums
-                if (requireActivity() instanceof AlbumsPickerActivity) {
-                    item.setVisible(false);
-
-                    final MenuItem addAlbumItem = menu.findItem(R.id.add_to_album);
-                    // show add to album button when picking files from media to add to album
-                    addAlbumItem.setVisible(true);
-                }
+            if (OCFileListFragment.this instanceof GalleryFragment && getActivity() instanceof AlbumsPickerActivity) {
+                item.setVisible(false);
+                final MenuItem addAlbumItem = menu.findItem(R.id.add_to_album);
+                // show add to album button when picking files from media to add to album
+                addAlbumItem.setVisible(true);
             }
 
-            getCommonAdapter().setMultiSelect(true);
+            final var adapter = getCommonAdapter();
+            if (adapter != null) {
+                adapter.setMultiSelect(true);
+            }
+
             return true;
         }
 
