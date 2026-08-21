@@ -37,6 +37,7 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.worker.WorkerFilesPayload
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.extensions.isUniqueWorkScheduled
 import com.nextcloud.utils.extensions.isWorkScheduled
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolder
@@ -105,6 +106,8 @@ internal class BackgroundJobManagerImpl(
         const val JOB_INTERNAL_TWO_WAY_SYNC = "internal_two_way_sync"
 
         const val JOB_TEST = "test_job"
+
+        private const val TAG_SUFFIX_IGNORE_POWER_SAVING = "ignore_power_saving"
 
         const val TAG_PREFIX_NAME = "name"
         const val TAG_PREFIX_USER = "user"
@@ -464,11 +467,7 @@ internal class BackgroundJobManagerImpl(
     }
 
     @Suppress("MagicNumber")
-    override fun scheduleContentObserverJob(overridePowerSaving: Boolean) {
-        val arguments = Data.Builder()
-            .putBoolean(ContentObserverWork.OVERRIDE_POWER_SAVING, overridePowerSaving)
-            .build()
-
+    override fun scheduleContentObserverJob() {
         val constrains = Constraints.Builder()
             .addContentUriTrigger(MediaStore.Images.Media.INTERNAL_CONTENT_URI, true)
             .addContentUriTrigger(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, true)
@@ -481,15 +480,20 @@ internal class BackgroundJobManagerImpl(
 
         val request = oneTimeRequestBuilder(ContentObserverWork::class, JOB_CONTENT_OBSERVER)
             .setConstraints(constrains)
-            .setInputData(arguments)
             .build()
 
         workManager.enqueueUniqueWork(JOB_CONTENT_OBSERVER, ExistingWorkPolicy.REPLACE, request)
     }
 
-    override fun getAutoUploadTag(syncedFolderID: Long): String {
-        return JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID
-    }
+    override fun isContentObserverJobScheduled(): Boolean = workManager.isUniqueWorkScheduled(JOB_CONTENT_OBSERVER)
+
+    private fun autoUploadWorkName(syncedFolderID: Long): String = JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID
+
+    private fun autoUploadIgnorePowerSavingTag(syncedFolderID: Long): String =
+        autoUploadWorkName(syncedFolderID) + "_" + TAG_SUFFIX_IGNORE_POWER_SAVING
+
+    override fun isAutoUploadIgnoringPowerSavingScheduled(syncedFolderID: Long): Boolean =
+        workManager.isWorkScheduled(autoUploadIgnorePowerSavingTag(syncedFolderID))
 
     override fun startAutoUpload(syncedFolder: SyncedFolder, overridePowerSaving: Boolean) {
         val syncedFolderID = syncedFolder.id
@@ -504,9 +508,9 @@ internal class BackgroundJobManagerImpl(
             .setRequiresCharging(syncedFolder.isChargingOnly)
             .build()
 
-        val request = oneTimeRequestBuilder(
+        val requestBuilder = oneTimeRequestBuilder(
             jobClass = AutoUploadWorker::class,
-            jobName = getAutoUploadTag(syncedFolderID)
+            jobName = autoUploadWorkName(syncedFolderID)
         )
             .setInputData(arguments)
             .setConstraints(constraints)
@@ -515,12 +519,19 @@ internal class BackgroundJobManagerImpl(
                 DEFAULT_BACKOFF_CRITERIA_DELAY_SEC,
                 TimeUnit.SECONDS
             )
-            .build()
+
+        if (overridePowerSaving) {
+            requestBuilder.addTag(autoUploadIgnorePowerSavingTag(syncedFolderID))
+        }
+
+        // a scheduled run still carries its own overridePowerSaving flag, so keeping it would swallow the
+        // explicit user request and stop on the power saving check
+        val policy = if (overridePowerSaving) ExistingWorkPolicy.REPLACE else ExistingWorkPolicy.KEEP
 
         workManager.enqueueUniqueWork(
-            getAutoUploadTag(syncedFolderID),
-            ExistingWorkPolicy.KEEP,
-            request
+            autoUploadWorkName(syncedFolderID),
+            policy,
+            requestBuilder.build()
         )
     }
 

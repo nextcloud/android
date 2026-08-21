@@ -9,14 +9,12 @@
  */
 package com.owncloud.android.utils
 
-import android.content.Context
-import androidx.work.WorkManager
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.jobs.autoUpload.AutoUploadRequestResult
 import com.nextcloud.client.jobs.upload.FileUploadHelper.Companion.instance
 import com.nextcloud.client.network.ConnectivityService
-import com.nextcloud.utils.extensions.isWorkScheduled
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -55,17 +53,30 @@ object FilesSyncHelper {
             .size
     }
 
-    fun startAutoUploadForEnabledAndNotRunningSyncedFolders(
-        context: Context,
+    /**
+     * Folders whose upload already ignores power saving are left alone, so pressing sync now twice does not
+     * cancel and restart an upload that is running for the same reason.
+     */
+    fun startAutoUploadIgnoringPowerSaving(
         provider: SyncedFolderProvider,
-        manager: BackgroundJobManager,
-        overridePowerSaving: Boolean
-    ): Int {
-        val workManager = WorkManager.getInstance(context)
+        manager: BackgroundJobManager
+    ): AutoUploadRequestResult {
+        val enabledFolders = provider.syncedFolders.filter { it.isEnabled }
+        if (enabledFolders.isEmpty()) {
+            Log_OC.d(TAG, "no enabled synced folder to start")
+            return AutoUploadRequestResult.NO_ENABLED_FOLDER
+        }
 
-        return provider.syncedFolders
-            .filter { it.isEnabled && !workManager.isWorkScheduled(manager.getAutoUploadTag(it.id)) }
-            .onEach { manager.startAutoUpload(it, overridePowerSaving) }
-            .size
+        val startedFolders = enabledFolders
+            .filterNot { manager.isAutoUploadIgnoringPowerSavingScheduled(it.id) }
+            .onEach { manager.startAutoUpload(it, overridePowerSaving = true) }
+
+        Log_OC.d(TAG, "start auto upload ignoring power saving for ${startedFolders.size} folder(s)")
+
+        return if (startedFolders.isEmpty()) {
+            AutoUploadRequestResult.ALREADY_RUNNING
+        } else {
+            AutoUploadRequestResult.STARTED
+        }
     }
 }

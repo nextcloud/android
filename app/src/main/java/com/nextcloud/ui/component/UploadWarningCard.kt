@@ -15,12 +15,11 @@ import android.content.IntentFilter
 import android.os.PowerManager
 import android.provider.Settings
 import android.view.View
+import androidx.annotation.StringRes
 import androidx.core.net.toUri
-import androidx.work.WorkManager
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
-import com.nextcloud.client.jobs.BackgroundJobManagerImpl.Companion.JOB_CONTENT_OBSERVER
-import com.nextcloud.utils.extensions.isWorkScheduled
+import com.nextcloud.client.jobs.autoUpload.AutoUploadRequestResult
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UploadWarningCardBinding
@@ -28,12 +27,18 @@ import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FilesSyncHelper
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
+@Suppress("LongParameterList")
 class UploadWarningCard(
     private val context: Context,
     private val powerManagementService: PowerManagementService,
     private val syncedFolderProvider: SyncedFolderProvider,
     private val backgroundJobManager: BackgroundJobManager,
+    private val scope: CoroutineScope,
     private val viewThemeUtils: ViewThemeUtils
 ) {
     fun bind(binding: UploadWarningCardBinding) {
@@ -54,7 +59,7 @@ class UploadWarningCard(
                 openBatterySaverPage()
             }
             binding.syncNowButton.setOnClickListener {
-                startAutoUploadViaIgnoringBatteryOptimization(it)
+                startAutoUploadIgnoringBatterySaver(it)
             }
         } else {
             binding.batterySaverLayout.visibility = View.GONE
@@ -112,25 +117,24 @@ class UploadWarningCard(
         context.startActivity(intent)
     }
 
-    private fun startAutoUploadViaIgnoringBatteryOptimization(view: View) {
-        val startedAutoUploadSize = FilesSyncHelper.startAutoUploadForEnabledAndNotRunningSyncedFolders(
-            context,
-            syncedFolderProvider,
-            backgroundJobManager,
-            overridePowerSaving = true
-        )
+    private fun startAutoUploadIgnoringBatterySaver(view: View) {
+        scope.launch {
+            val result = withContext(Dispatchers.IO) {
+                if (!backgroundJobManager.isContentObserverJobScheduled()) {
+                    backgroundJobManager.scheduleContentObserverJob()
+                }
 
-        val isContentObserverScheduled = WorkManager.getInstance(context).isWorkScheduled(JOB_CONTENT_OBSERVER)
-        if (!isContentObserverScheduled) {
-            backgroundJobManager.scheduleContentObserverJob(overridePowerSaving = true)
+                FilesSyncHelper.startAutoUploadIgnoringPowerSaving(syncedFolderProvider, backgroundJobManager)
+            }
+
+            DisplayUtils.showSnackMessage(view, result.messageId())
         }
+    }
 
-        val messageId = if (startedAutoUploadSize > 0 || !isContentObserverScheduled) {
-            R.string.auto_upload_sync_now_started
-        } else {
-            R.string.auto_upload_sync_now_running
-        }
-
-        DisplayUtils.showSnackMessage(view, messageId)
+    @StringRes
+    private fun AutoUploadRequestResult.messageId(): Int = when (this) {
+        AutoUploadRequestResult.STARTED -> R.string.auto_upload_sync_now_started
+        AutoUploadRequestResult.ALREADY_RUNNING -> R.string.auto_upload_sync_now_running
+        AutoUploadRequestResult.NO_ENABLED_FOLDER -> R.string.auto_upload_sync_now_no_folder
     }
 }

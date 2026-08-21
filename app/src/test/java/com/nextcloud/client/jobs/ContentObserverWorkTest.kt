@@ -10,7 +10,6 @@ package com.nextcloud.client.jobs
 
 import android.content.Context
 import android.net.Uri
-import androidx.work.Data
 import androidx.work.WorkerParameters
 import com.nextcloud.client.database.dao.FileSystemDao
 import com.nextcloud.client.device.PowerManagementService
@@ -72,7 +71,6 @@ class ContentObserverWorkTest {
         )
         val uri: Uri = Mockito.mock(Uri::class.java)
         whenever(params.triggeredContentUris).thenReturn(listOf(uri))
-        whenever(params.inputData).thenReturn(Data.EMPTY)
     }
 
     @After
@@ -98,30 +96,13 @@ class ContentObserverWorkTest {
     }
 
     @Test
-    fun power_saving_stops_a_regular_run_before_folders_are_read() {
+    fun power_saving_stops_a_run_before_folders_are_read() {
         runBlocking {
             whenever(powerManagementService.isPowerSavingEnabled).thenReturn(true)
 
             worker.doWork()
 
             verify(folderProvider, never()).countEnabledSyncedFolders()
-        }
-    }
-
-    @Test
-    fun power_saving_does_not_stop_a_run_the_user_asked_for() {
-        runBlocking {
-            whenever(powerManagementService.isPowerSavingEnabled).thenReturn(true)
-            whenever(params.inputData).thenReturn(
-                Data.Builder()
-                    .putBoolean(ContentObserverWork.OVERRIDE_POWER_SAVING, true)
-                    .build()
-            )
-            whenever(folderProvider.countEnabledSyncedFolders()).thenReturn(0)
-
-            worker.doWork()
-
-            verify(folderProvider).countEnabledSyncedFolders()
         }
     }
 

@@ -172,6 +172,7 @@ class SyncedFoldersActivity :
             powerManagementService,
             syncedFolderProvider,
             backgroundJobManager,
+            lifecycleScope,
             viewThemeUtils
         )
         if (intent != null && intent.extras != null) {

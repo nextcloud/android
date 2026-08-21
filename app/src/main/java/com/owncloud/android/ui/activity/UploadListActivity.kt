@@ -98,6 +98,7 @@ class UploadListActivity :
             powerManagementService,
             syncedFolderProvider,
             backgroundJobManager,
+            lifecycleScope,
             viewThemeUtils
         )
         swipeListRefreshLayout = binding.swipeContainingList

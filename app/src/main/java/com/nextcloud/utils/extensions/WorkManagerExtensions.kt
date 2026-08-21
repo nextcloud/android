@@ -15,21 +15,28 @@ import java.util.concurrent.ExecutionException
 
 private const val TAG = "WorkManager"
 
-fun WorkManager.isWorkRunning(tag: String): Boolean = checkWork(tag, listOf(WorkInfo.State.RUNNING))
+private val RUNNING_STATES = listOf(WorkInfo.State.RUNNING)
+private val PENDING_STATES = listOf(WorkInfo.State.RUNNING, WorkInfo.State.ENQUEUED)
 
-fun WorkManager.isWorkScheduled(tag: String): Boolean =
-    checkWork(tag, listOf(WorkInfo.State.RUNNING, WorkInfo.State.ENQUEUED))
+fun WorkManager.isWorkRunning(tag: String): Boolean = getWorkInfosByTag(tag).hasWorkIn(RUNNING_STATES)
 
-private fun WorkManager.checkWork(tag: String, stateConditions: List<WorkInfo.State>): Boolean {
-    val statuses: ListenableFuture<List<WorkInfo>> = getWorkInfosByTag(tag)
+fun WorkManager.isWorkScheduled(tag: String): Boolean = getWorkInfosByTag(tag).hasWorkIn(PENDING_STATES)
+
+/**
+ * Unique work names are not tags, [getWorkInfosByTag] never matches them.
+ */
+fun WorkManager.isUniqueWorkScheduled(uniqueWorkName: String): Boolean =
+    getWorkInfosForUniqueWork(uniqueWorkName).hasWorkIn(PENDING_STATES)
+
+private fun ListenableFuture<List<WorkInfo>>.hasWorkIn(stateConditions: List<WorkInfo.State>): Boolean {
     var workInfoList: List<WorkInfo> = emptyList()
 
     try {
-        workInfoList = statuses.get()
+        workInfoList = get()
     } catch (e: ExecutionException) {
-        Log_OC.d(TAG, "ExecutionException in checkWork: $e")
+        Log_OC.d(TAG, "ExecutionException in hasWorkIn: $e")
     } catch (e: InterruptedException) {
-        Log_OC.d(TAG, "InterruptedException in checkWork: $e")
+        Log_OC.d(TAG, "InterruptedException in hasWorkIn: $e")
     }
 
     return workInfoList.any { workInfo -> stateConditions.contains(workInfo.state) }

@@ -8,6 +8,7 @@
 package com.owncloud.android.utils
 
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.jobs.autoUpload.AutoUploadRequestResult
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import org.junit.Assert.assertEquals
@@ -17,12 +18,14 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.never
 import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
 
 class FilesSyncHelperTest {
 
     private val backgroundJobManager: BackgroundJobManager = mock()
 
-    private fun syncedFolder(enabled: Boolean): SyncedFolder = mock {
+    private fun syncedFolder(id: Long, enabled: Boolean): SyncedFolder = mock {
+        on { this.id } doReturn id
         on { isEnabled } doReturn enabled
     }
 
@@ -32,23 +35,44 @@ class FilesSyncHelperTest {
 
     @Test
     fun `sync now starts only enabled folders and asks them to ignore power saving`() {
-        val enabled = syncedFolder(enabled = true)
-        val disabled = syncedFolder(enabled = false)
+        val enabled = syncedFolder(id = 1, enabled = true)
+        val disabled = syncedFolder(id = 2, enabled = false)
 
-        val startedFolderCount = FilesSyncHelper.startAutoUploadForEnabledSyncedFolders(
+        val result = FilesSyncHelper.startAutoUploadIgnoringPowerSaving(
             provider(enabled, disabled),
-            backgroundJobManager,
-            overridePowerSaving = true
+            backgroundJobManager
         )
 
-        assertEquals(1, startedFolderCount)
+        assertEquals(AutoUploadRequestResult.STARTED, result)
         verify(backgroundJobManager).startAutoUpload(enabled, true)
         verify(backgroundJobManager, never()).startAutoUpload(disabled, true)
     }
 
     @Test
+    fun `sync now leaves a folder alone that already ignores power saving`() {
+        val running = syncedFolder(id = 1, enabled = true)
+        whenever(backgroundJobManager.isAutoUploadIgnoringPowerSavingScheduled(running.id)).thenReturn(true)
+
+        val result = FilesSyncHelper.startAutoUploadIgnoringPowerSaving(provider(running), backgroundJobManager)
+
+        assertEquals(AutoUploadRequestResult.ALREADY_RUNNING, result)
+        verify(backgroundJobManager, never()).startAutoUpload(any(), any())
+    }
+
+    @Test
+    fun `sync now reports that there is nothing to upload without an enabled folder`() {
+        val result = FilesSyncHelper.startAutoUploadIgnoringPowerSaving(
+            provider(syncedFolder(id = 1, enabled = false)),
+            backgroundJobManager
+        )
+
+        assertEquals(AutoUploadRequestResult.NO_ENABLED_FOLDER, result)
+        verify(backgroundJobManager, never()).startAutoUpload(any(), any())
+    }
+
+    @Test
     fun `scheduled runs keep the power saving check enabled`() {
-        val enabled = syncedFolder(enabled = true)
+        val enabled = syncedFolder(id = 1, enabled = true)
 
         val startedFolderCount = FilesSyncHelper.startAutoUploadForEnabledSyncedFolders(
             provider(enabled),
@@ -58,17 +82,5 @@ class FilesSyncHelperTest {
 
         assertEquals(1, startedFolderCount)
         verify(backgroundJobManager).startAutoUpload(enabled, false)
-    }
-
-    @Test
-    fun `no enabled folder reports nothing to sync`() {
-        val startedFolderCount = FilesSyncHelper.startAutoUploadForEnabledSyncedFolders(
-            provider(syncedFolder(enabled = false)),
-            backgroundJobManager,
-            overridePowerSaving = true
-        )
-
-        assertEquals(0, startedFolderCount)
-        verify(backgroundJobManager, never()).startAutoUpload(any(), any())
     }
 }
