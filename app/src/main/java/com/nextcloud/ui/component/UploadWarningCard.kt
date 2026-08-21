@@ -125,8 +125,12 @@ class UploadWarningCard(
             backgroundJobManager.scheduleContentObserverJob(overridePowerSaving = true)
         }
 
-        if (startedAutoUploadSize > 0 || !isContentObserverScheduled) {
-            DisplayUtils.showSnackMessage(view, R.string.auto_upload_sync_now_started)
+        val messageId = if (startedAutoUploadSize > 0 || !isContentObserverScheduled) {
+            R.string.auto_upload_sync_now_started
+        } else {
+            R.string.auto_upload_sync_now_running
         }
+
+        DisplayUtils.showSnackMessage(view, messageId)
     }
 }
