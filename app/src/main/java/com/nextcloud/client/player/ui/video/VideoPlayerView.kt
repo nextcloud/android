@@ -13,10 +13,11 @@ import android.view.WindowInsets
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsCompat.Type
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.nextcloud.client.player.model.file.PlaybackFile
 import com.nextcloud.client.player.ui.PlayerView
 import com.owncloud.android.R
-import dagger.android.HasAndroidInjector
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -29,13 +30,9 @@ class VideoPlayerView(context: Context) : PlayerView(context) {
 
     override val layoutRes get() = R.layout.player_video_view
 
-    override val fragmentFactory get() = VideoFileFragmentFactory()
+    override val createFragment: (PlaybackFile) -> Fragment get() = { VideoFileFragment.createInstance(it) }
 
     private var hideControlsTimerJob: Job? = null
-
-    override fun inject(context: Context) {
-        (context.applicationContext as HasAndroidInjector).androidInjector().inject(this)
-    }
 
     override fun onStart() {
         super.onStart()

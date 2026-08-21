@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.nextcloud.client.player.media3.controller
+package com.nextcloud.client.player.media3.common
 
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player

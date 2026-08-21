@@ -9,13 +9,12 @@ package com.nextcloud.client.player.ui
 
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.logger.Logger
-import com.nextcloud.client.player.model.PlaybackModel
+import com.nextcloud.client.player.media3.PlaybackModel
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -26,9 +25,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import javax.inject.Provider
 import kotlin.coroutines.cancellation.CancellationException
-import kotlin.jvm.optionals.getOrNull
 
 class PlayerViewModel @Inject constructor(
     private val playbackModel: PlaybackModel,
@@ -70,7 +67,7 @@ class PlayerViewModel @Inject constructor(
     }
 
     private suspend fun getCurrentOCFile(): OCFile? {
-        val currentFileId = playbackModel.state.getOrNull()?.currentItemState?.file?.id
+        val currentFileId = playbackModel.state?.currentItemState?.file?.id
         return currentFileId
             ?.takeIf { it.isDigitsOnly() }
             ?.let { getOCFile(it.toLong()) }
@@ -104,11 +101,5 @@ class PlayerViewModel @Inject constructor(
     private fun onStreamFileClick(file: OCFile) {
         playbackModel.pause()
         eventChannel.trySend(PlayerScreenEvent.LaunchStreamFileIntent(file))
-    }
-
-    class Factory @Inject constructor(private val viewModelProvider: Provider<PlayerViewModel>) :
-        ViewModelProvider.Factory {
-
-        override fun <T : ViewModel> create(modelClass: Class<T>): T = viewModelProvider.get() as T
     }
 }

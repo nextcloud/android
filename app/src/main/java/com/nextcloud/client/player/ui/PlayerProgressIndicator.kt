@@ -11,7 +11,7 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.annotation.AttrRes
 import com.google.android.material.progressindicator.LinearProgressIndicator
-import com.nextcloud.client.player.model.PlaybackModel
+import com.nextcloud.client.player.media3.PlaybackModel
 import com.nextcloud.client.player.model.file.PlaybackFile
 import com.nextcloud.client.player.model.file.toPlaybackFile
 import com.nextcloud.client.player.model.state.PlaybackItemState
@@ -20,7 +20,6 @@ import com.nextcloud.client.player.model.state.PlayerState
 import com.owncloud.android.datamodel.OCFile
 import dagger.android.HasAndroidInjector
 import javax.inject.Inject
-import kotlin.jvm.optionals.getOrNull
 
 class PlayerProgressIndicator @JvmOverloads constructor(
     context: Context,
@@ -69,7 +68,7 @@ class PlayerProgressIndicator @JvmOverloads constructor(
     }
 
     private fun renderCurrentState() {
-        val itemState = playbackModel.state.getOrNull()?.currentItemState
+        val itemState = playbackModel.state?.currentItemState
         render(itemState)
     }
 
