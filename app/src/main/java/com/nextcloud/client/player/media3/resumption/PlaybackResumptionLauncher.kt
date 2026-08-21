@@ -9,8 +9,8 @@ package com.nextcloud.client.player.media3.resumption
 
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.session.MediaSession.MediaItemsWithStartPosition
-import com.nextcloud.client.player.media3.common.MediaItemFactory
-import com.nextcloud.client.player.model.PlaybackModel
+import com.nextcloud.client.player.media3.PlaybackModel
+import com.nextcloud.client.player.media3.common.toMediaItem
 import com.nextcloud.client.player.model.file.PlaybackFile
 import com.nextcloud.client.player.model.file.PlaybackFilesRepository
 import com.nextcloud.client.player.model.file.getPlaybackUri
@@ -25,7 +25,6 @@ import javax.inject.Inject
 class PlaybackResumptionLauncher @Inject constructor(
     private val playbackResumptionConfigStore: PlaybackResumptionConfigStore,
     private val playbackFilesRepository: PlaybackFilesRepository,
-    private val mediaItemFactory: MediaItemFactory,
     private val playbackModel: PlaybackModel
 ) {
 
@@ -52,7 +51,7 @@ class PlaybackResumptionLauncher @Inject constructor(
     }
 
     private fun List<PlaybackFile>.toMediaItemsWithStartPosition(currentFileId: String) = MediaItemsWithStartPosition(
-        map { mediaItemFactory.create(it) },
+        map { it.toMediaItem() },
         indexOfFirst { it.id == currentFileId },
         0
     )

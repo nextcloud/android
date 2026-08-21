@@ -11,19 +11,16 @@ import android.content.Context
 import android.view.WindowInsets
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsCompat.Type
+import androidx.fragment.app.Fragment
+import com.nextcloud.client.player.model.file.PlaybackFile
 import com.nextcloud.client.player.ui.PlayerView
 import com.owncloud.android.R
-import dagger.android.HasAndroidInjector
 
 class AudioPlayerView(context: Context) : PlayerView(context) {
 
     override val layoutRes get() = R.layout.player_audio_view
 
-    override val fragmentFactory get() = AudioFileFragmentFactory()
-
-    override fun inject(context: Context) {
-        (context.applicationContext as HasAndroidInjector).androidInjector().inject(this)
-    }
+    override val createFragment: (PlaybackFile) -> Fragment get() = { AudioFileFragment.createInstance(it) }
 
     override fun onStart() {
         super.onStart()

@@ -41,10 +41,4 @@ class PlaybackSettings @Inject constructor(context: Context) {
             putBoolean(SHUFFLE_KEY, shuffle)
         }
     }
-
-    fun reset() {
-        preferences.edit {
-            clear()
-        }
-    }
 }

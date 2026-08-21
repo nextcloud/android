@@ -17,7 +17,7 @@ import androidx.media3.session.SessionResult
 import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
 import com.nextcloud.client.player.media3.resumption.PlaybackResumptionLauncher
-import com.nextcloud.client.player.model.PlaybackModel
+import com.nextcloud.client.player.media3.PlaybackModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.guava.future
 import javax.inject.Inject
