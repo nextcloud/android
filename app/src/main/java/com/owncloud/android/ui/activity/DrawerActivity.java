@@ -639,9 +639,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             intent.setAction(FileDisplayActivity.LIST_GROUPFOLDERS);
             startActivity(intent);
         } else {
-            if (menuItem.getItemId() >= MENU_ITEM_EXTERNAL_LINK &&
-                menuItem.getItemId() <= MENU_ITEM_EXTERNAL_LINK + 100) {
-                // external link clicked
+            if (menuItem.getGroupId() == R.id.drawer_menu_external_links) {
                 externalLinkClicked(menuItem);
             } else {
                 Log_OC.w(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
@@ -791,26 +789,26 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void externalLinkClicked(MenuItem menuItem) {
+        int linkId = menuItem.getItemId() - MENU_ITEM_EXTERNAL_LINK;
         externalLinksProvider.getExternalLink(ExternalLinkType.LINK, externalLinks -> {
-            for (ExternalLink link : externalLinks) {
-                final var menuTitle = menuItem.getTitle();
-                if (menuTitle == null) {
-                    continue;
-                }
+            Optional<ExternalLink> optionalLink = externalLinks.stream()
+                .filter(link -> link.getId() == linkId)
+                .findFirst();
 
-                if (!menuTitle.toString().equalsIgnoreCase(link.getName())) {
-                    continue;
-                }
+            if (!optionalLink.isPresent()) {
+                Log_OC.w(TAG, "No external link found for menu item: " + menuItem.getTitle());
+                return Unit.INSTANCE;
+            }
 
-                if (link.getRedirect()) {
-                    DisplayUtils.startLinkIntent(DrawerActivity.this, link.getUrl());
-                } else {
-                    Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
-                    externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, link.getName());
-                    externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, link.getUrl());
-                    externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
-                    startActivity(externalWebViewIntent);
-                }
+            ExternalLink link = optionalLink.get();
+            if (link.getRedirect()) {
+                DisplayUtils.startLinkIntent(DrawerActivity.this, link.getUrl());
+            } else {
+                Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
+                externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, link.getName());
+                externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, link.getUrl());
+                externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
+                startActivity(externalWebViewIntent);
             }
             return Unit.INSTANCE;
         });
