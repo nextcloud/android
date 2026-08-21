@@ -401,15 +401,6 @@
     <string name="pass_code_removed">Passcode deleted</string>
     <string name="pass_code_stored">Passcode stored</string>
 
-    <string name="media_err_unsupported">Unsupported media codec</string>
-    <string name="media_err_io">Could not read the media file</string>
-    <string name="media_err_malformed">The media file has incorrect encoding</string>
-    <string name="media_err_timeout">Attempt to play file timed out</string>
-    <string name="media_err_invalid_progressive_playback">The media file cannot be streamed</string>
-    <string name="media_err_unknown">The built-in media player is unable to play the media file</string>
-    <string name="media_rewind_description">Rewind button</string>
-    <string name="media_play_pause_description">Play or pause button</string>
-    <string name="media_forward_description">Fast forward button</string>
 
     <string name="auth_no_net_conn_title">No network connection</string>
     <string name="auth_nossl_plain_ok_title">Secure connection unavailable.</string>
@@ -479,11 +470,6 @@
     <string name="ssl_validator_reason_hostname_not_verified">- The URL does not match the hostname in the certificate</string>
     <string name="ssl_validator_question">Do you want to trust this certificate anyway?</string>
     <string name="ssl_validator_not_saved">Could not save certificate</string>
-    <string name="media_player_seek_forward">Seek forward</string>
-    <string name="media_player_seek_backward">Seek backward</string>
-    <string name="media_player_play">Play</string>
-    <string name="media_player_pause">Pause</string>
-    <string name="media_player_playing">Playing media</string>
 
     <string name="ssl_validator_btn_details_see">Details</string>
     <string name="ssl_validator_btn_details_hide">Hide</string>
@@ -1054,7 +1040,6 @@
     <string name="trashbin_file_remove">Delete permanently</string>
     <string name="stream">Stream with…</string>
     <string name="stream_not_possible_headline">Internal streaming not possible</string>
-    <string name="stream_not_possible_message">Please download media instead or use external app.</string>
     <string name="folder_already_exists">Folder already exists</string>
     <string name="notification_icon">Notification icon</string>
     <string name="folder_confirm_create">Create</string>

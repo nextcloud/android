@@ -19,8 +19,7 @@ import com.nextcloud.client.player.model.ThumbnailLoader
 import com.nextcloud.client.player.model.file.PlaybackFile
 import com.nextcloud.client.player.model.state.PlaybackState
 import com.nextcloud.client.player.model.state.VideoSize
-import com.nextcloud.client.player.util.getDisplayHeight
-import com.nextcloud.client.player.util.getDisplayWidth
+import com.nextcloud.client.player.util.applyVideoSize
 import com.nextcloud.utils.extensions.getSerializableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PlayerVideoFileFragmentBinding
@@ -108,25 +107,7 @@ class VideoFileFragment :
 
         if (videoSize != null && previousVideoSize != videoSize) {
             previousVideoSize = videoSize
-            setVideoSize(videoSize.width, videoSize.height)
+            binding.surfaceView.applyVideoSize(videoSize)
         }
-    }
-
-    private fun setVideoSize(videoWidth: Int, videoHeight: Int) {
-        val screenWidth = requireContext().getDisplayWidth()
-        val screenHeight = requireContext().getDisplayHeight()
-        val screenProportion = screenWidth.toFloat() / screenHeight.toFloat()
-        val videoProportion = videoWidth.toFloat() / videoHeight.toFloat()
-
-        val layoutParams = binding.surfaceView.layoutParams
-        if (screenProportion < videoProportion) {
-            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
-            layoutParams.height = (screenWidth.toFloat() / videoProportion).toInt()
-        } else {
-            layoutParams.width = (videoProportion * screenHeight.toFloat()).toInt()
-            layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
-        }
-
-        binding.surfaceView.layoutParams = layoutParams
     }
 }

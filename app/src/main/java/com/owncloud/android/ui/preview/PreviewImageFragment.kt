@@ -65,7 +65,6 @@ import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment
 import com.owncloud.android.ui.fragment.FileFragment
-import com.owncloud.android.ui.preview.PreviewMediaFragment.Companion.newInstance
 import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
@@ -159,16 +158,11 @@ class PreviewImageFragment :
         }
     }
 
-    private fun playLivePhoto(file: OCFile?) {
-        if (file == null) {
-            return
-        }
-
+    private fun playLivePhoto(file: OCFile) {
         hideActionBar()
 
-        val mediaFragment: Fragment = newInstance(file, accountManager.user, autoplay = true, isLivePhoto = true)
-        val fragmentManager = requireActivity().supportFragmentManager
-        fragmentManager.beginTransaction().run {
+        val mediaFragment = PreviewPlaybackFragment.newInstance(file, searchType = null, autoplay = true)
+        requireActivity().supportFragmentManager.beginTransaction().run {
             replace(R.id.top, mediaFragment)
             addToBackStack(null)
             commit()
