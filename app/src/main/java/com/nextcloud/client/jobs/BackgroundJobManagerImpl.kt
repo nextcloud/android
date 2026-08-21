@@ -37,7 +37,6 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.worker.WorkerFilesPayload
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.utils.extensions.isUniqueWorkRunning
 import com.nextcloud.utils.extensions.isWorkScheduled
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolder
@@ -467,11 +466,7 @@ internal class BackgroundJobManagerImpl(
     }
 
     @Suppress("MagicNumber")
-    override fun scheduleContentObserverJob(overridePowerSaving: Boolean) {
-        val arguments = Data.Builder()
-            .putBoolean(ContentObserverWork.OVERRIDE_POWER_SAVING, overridePowerSaving)
-            .build()
-
+    override fun scheduleContentObserverJob() {
         val constrains = Constraints.Builder()
             .addContentUriTrigger(MediaStore.Images.Media.INTERNAL_CONTENT_URI, true)
             .addContentUriTrigger(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, true)
@@ -484,13 +479,10 @@ internal class BackgroundJobManagerImpl(
 
         val request = oneTimeRequestBuilder(ContentObserverWork::class, JOB_CONTENT_OBSERVER)
             .setConstraints(constrains)
-            .setInputData(arguments)
             .build()
 
         workManager.enqueueUniqueWork(JOB_CONTENT_OBSERVER, ExistingWorkPolicy.REPLACE, request)
     }
-
-    override fun isContentObserverRunning(): Boolean = workManager.isUniqueWorkRunning(JOB_CONTENT_OBSERVER)
 
     private fun autoUploadWorkName(syncedFolderID: Long): String = JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID
 
@@ -502,6 +494,13 @@ internal class BackgroundJobManagerImpl(
 
     override fun startAutoUpload(syncedFolder: SyncedFolder, overridePowerSaving: Boolean) {
         val syncedFolderID = syncedFolder.id
+
+        // the sync now button starts this folder and also lets the content observer request it, replacing the
+        // running one would cancel it mid upload
+        if (overridePowerSaving && isAutoUploadIgnoringPowerSavingScheduled(syncedFolderID)) {
+            Log_OC.d(TAG, "auto upload ignoring power saving already running for folder $syncedFolderID")
+            return
+        }
 
         val arguments = Data.Builder()
             .putBoolean(AutoUploadWorker.OVERRIDE_POWER_SAVING, overridePowerSaving)

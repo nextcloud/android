@@ -15,13 +15,10 @@ import android.content.IntentFilter
 import android.os.PowerManager
 import android.provider.Settings
 import android.view.View
-import androidx.annotation.StringRes
 import androidx.core.net.toUri
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
-import com.nextcloud.client.jobs.autoUpload.AutoUploadRequestResult
 import com.nextcloud.utils.extensions.setVisibleIf
-import com.owncloud.android.R
 import com.owncloud.android.databinding.UploadWarningCardBinding
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.utils.DisplayUtils
@@ -120,21 +117,10 @@ class UploadWarningCard(
     private fun startAutoUploadIgnoringBatterySaver(view: View) {
         scope.launch {
             val result = withContext(Dispatchers.IO) {
-                if (!backgroundJobManager.isContentObserverRunning()) {
-                    backgroundJobManager.scheduleContentObserverJob(overridePowerSaving = true)
-                }
-
                 FilesSyncHelper.startAutoUploadIgnoringPowerSaving(syncedFolderProvider, backgroundJobManager)
             }
 
-            DisplayUtils.showSnackMessage(view, result.messageId())
+            DisplayUtils.showSnackMessage(view, result.messageId)
         }
-    }
-
-    @StringRes
-    private fun AutoUploadRequestResult.messageId(): Int = when (this) {
-        AutoUploadRequestResult.STARTED -> R.string.auto_upload_sync_now_started
-        AutoUploadRequestResult.ALREADY_RUNNING -> R.string.auto_upload_sync_now_running
-        AutoUploadRequestResult.NO_ENABLED_FOLDER -> R.string.auto_upload_sync_now_no_folder
     }
 }

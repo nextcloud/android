@@ -12,7 +12,6 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.autoUpload.AutoUploadHelper
-import com.nextcloud.client.jobs.autoUpload.AutoUploadWorker
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.FilesSyncHelper
@@ -37,16 +36,12 @@ class ContentObserverWork(
 
     companion object {
         private const val TAG = "🔍" + "ContentObserverWork"
-        const val OVERRIDE_POWER_SAVING = "overridePowerSaving"
     }
-
-    private val overridePowerSaving: Boolean
-        get() = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         val workerName = BackgroundJobManagerImpl.formatClassTag(this@ContentObserverWork::class)
         backgroundJobManager.logStartOfWorker(workerName)
-        Log_OC.d(TAG, "started - override power saving: $overridePowerSaving")
+        Log_OC.d(TAG, "started")
 
         try {
             if (params.triggeredContentUris.isNotEmpty()) {
@@ -77,7 +72,7 @@ class ContentObserverWork(
     }
 
     private suspend fun checkAndTriggerAutoUpload() = withContext(Dispatchers.IO) {
-        if (powerManagementService.isPowerSavingEnabled && !overridePowerSaving) {
+        if (powerManagementService.isPowerSavingEnabled) {
             Log_OC.w(TAG, "⚡ Power saving mode active — skipping file sync.")
             return@withContext
         }
@@ -121,7 +116,7 @@ class ContentObserverWork(
             FilesSyncHelper.startAutoUploadForEnabledSyncedFolders(
                 syncedFolderProvider,
                 backgroundJobManager,
-                overridePowerSaving
+                false
             )
             Log_OC.d(TAG, "✅ auto upload triggered successfully for ${contentUris.size} file(s).")
         } catch (e: Exception) {
