@@ -212,7 +212,6 @@ class FileDetailSharingFragment :
                 binding.unifiedShare.initShareScreen(
                     viewModelStoreOwner = this@FileDetailSharingFragment,
                     sourceId = sourceId,
-                    filename = file.fileName,
                     internalLink = internalLink,
                     credentials = serverCredentials,
                     colorScheme = viewThemeUtils.files.getColorScheme(fileActivity)
