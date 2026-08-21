@@ -251,6 +251,7 @@
     <string name="create">Create</string>
     <string name="create_dir_fail_msg">Could not create folder</string>
     <string name="create_document">Document</string>
+    <string name="create_encrypted_folder">Encrypted folder</string>
     <string name="create_end_to_end_encrypted_share">Link share</string>
     <string name="create_end_to_end_encrypted_share_title">End-to-end encrypted link shares</string>
     <string name="create_folder">Folder</string>
@@ -1082,6 +1083,7 @@
     <string name="unified_search_fragment_contact_not_found">Contact not found, you can always sync to update. Redirecting to web…</string>
     <string name="unified_search_fragment_permission_needed">Permissions are required to open search result otherwise it will redirected to web…</string>
     <string name="unified_search_fragment_search_in_this_folder">In this folder</string>
+    <string name="unified_search_fragment_search_takes_long">Search is taking longer than usual. Results will appear as soon as the server responds</string>
     <string name="unknown">Unknown</string>
     <string name="unlock_file">Unlock file</string>
     <string name="unread_comments">Unread comments exist</string>
