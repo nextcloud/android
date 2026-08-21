@@ -53,10 +53,6 @@ object FilesSyncHelper {
             .size
     }
 
-    /**
-     * Folders whose upload already ignores power saving are left alone, so pressing sync now twice does not
-     * cancel and restart an upload that is running for the same reason.
-     */
     fun startAutoUploadIgnoringPowerSaving(
         provider: SyncedFolderProvider,
         manager: BackgroundJobManager
