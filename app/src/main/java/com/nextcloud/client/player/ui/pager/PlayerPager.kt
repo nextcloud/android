@@ -12,140 +12,27 @@ import android.os.Parcel
 import android.os.Parcelable
 import android.util.AttributeSet
 import android.widget.LinearLayout
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
-import com.nextcloud.client.player.ui.pager.adapter.AbstractFragmentPagerAdapter
-import com.nextcloud.client.player.ui.pager.adapter.DefaultFragmentPagerAdapter
-import com.nextcloud.client.player.ui.pager.adapter.InfiniteFragmentPagerAdapter
-import com.nextcloud.client.player.util.calculateShift
+import com.nextcloud.client.player.model.file.PlaybackFile
 import com.nextcloud.client.player.util.rotate
 import com.owncloud.android.R
 
-class PlayerPager<T> @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
+private const val NO_SHIFT = -1
+
+class PlayerPager @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
     LinearLayout(context, attrs) {
+
     private val viewPager: ViewPager
-    private lateinit var modeStrategy: ModeStrategy<T>
-    private lateinit var adapter: AbstractFragmentPagerAdapter<T>
-    private lateinit var onPageChangeListener: OnPageChangeListener
-    private var playerPagerListener: PlayerPagerListener<T>? = null
-    private var currentPosition = -1
-    private var shift = -1
-    private var restoredShift = -1
+    private lateinit var adapter: PlayerPagerAdapter
+    private var shift = NO_SHIFT
+    private var restoredShift = NO_SHIFT
 
-    init {
-        inflate(context, R.layout.player_pager, this)
-        viewPager = findViewById<ViewPager>(R.id.viewPager)
-    }
+    var onItemSelected: ((PlaybackFile) -> Unit)? = null
 
-    fun initialize(
-        fragmentManager: FragmentManager,
-        mode: PlayerPagerMode,
-        fragmentFactory: PlayerPagerFragmentFactory<T>
-    ) {
-        modeStrategy = createModeStrategy(mode)
-        adapter = modeStrategy.createAdapter(fragmentManager, fragmentFactory)
-        viewPager.setAdapter(adapter)
-        onPageChangeListener = modeStrategy.createListener()
-    }
-
-    private fun createModeStrategy(mode: PlayerPagerMode): ModeStrategy<T> = when (mode) {
-        PlayerPagerMode.DEFAULT -> FiniteModeStrategy()
-        PlayerPagerMode.INFINITE -> InfiniteModeStrategy()
-    }
-
-    fun setPlayerPagerListener(playerPagerListener: PlayerPagerListener<T>?) {
-        this.playerPagerListener = playerPagerListener
-    }
-
-    override fun onSaveInstanceState(): Parcelable {
-        val state = super.onSaveInstanceState()
-        val infiniteViewPagerState = InfiniteViewPagerState(state)
-        infiniteViewPagerState.shiftedPosition = shift
-        return infiniteViewPagerState
-    }
-
-    override fun onRestoreInstanceState(state: Parcelable?) {
-        val restoredState: InfiniteViewPagerState = state as InfiniteViewPagerState
-        super.onRestoreInstanceState(restoredState.superState)
-        restoredShift = restoredState.shiftedPosition
-    }
-
-    fun getItems(): List<T> = adapter.getEntities()
-
-    fun setItems(items: List<T>) {
-        var items = if (restoredShift != -1) shiftRestoredPosition(items) else items
-
-        val calculatedCurrentPositionWithOffsetIfNeeded =
-            modeStrategy.getCurrentPosition(adapter.count, currentPosition)
-
-        var currentItem: T? = null
-        if (calculatedCurrentPositionWithOffsetIfNeeded >= 0 &&
-            currentItemPositionsNotTheSameAfterShuffleMatch(calculatedCurrentPositionWithOffsetIfNeeded)
-        ) {
-            currentItem = adapter.getEntities()[calculatedCurrentPositionWithOffsetIfNeeded]
-            items = calculateShiftAndRotateList(items, calculatedCurrentPositionWithOffsetIfNeeded, currentItem)
-        }
-
-        adapter.setEntities(items)
-        if (currentItem != null) {
-            adapter.setCurrentEntity(if (!items.isEmpty()) currentItem else null)
-        }
-
-        notifyDataSetChangedWithoutCallingListener()
-        setCurrentItem(currentItem, false)
-    }
-
-    private fun currentItemPositionsNotTheSameAfterShuffleMatch(calculatedCurrentPosition: Int): Boolean =
-        adapter.getEntities().isEmpty() &&
-            this.currentPosition >= 0 &&
-            calculatedCurrentPosition < adapter.getEntities().size
-
-    private fun calculateShiftAndRotateList(
-        items: List<T>,
-        calculatedCurrentPositionWithOffsetForInfinityStrategy: Int,
-        currentItem: T?
-    ): List<T> {
-        shift = items.calculateShift(calculatedCurrentPositionWithOffsetForInfinityStrategy, currentItem)
-        return items.rotate(shift)
-    }
-
-    private fun notifyDataSetChangedWithoutCallingListener() {
-        viewPager.removeOnPageChangeListener(onPageChangeListener)
-        adapter.notifyDataSetChanged()
-        viewPager.addOnPageChangeListener(onPageChangeListener)
-    }
-
-    private fun shiftRestoredPosition(items: List<T>): List<T> {
-        shift = restoredShift
-        restoredShift = -1
-        return items.rotate(shift)
-    }
-
-    fun setCurrentItem(item: T?) {
-        setCurrentItem(item, true)
-    }
-
-    private fun setCurrentItem(item: T?, smoothScroll: Boolean) {
-        currentPosition = item?.let(adapter::getEntityIndex) ?: -1
-        if (currentPosition != -1 && viewPager.currentItem != currentPosition) {
-            viewPager.removeOnPageChangeListener(onPageChangeListener)
-            viewPager.setCurrentItem(currentPosition, smoothScroll)
-            viewPager.addOnPageChangeListener(onPageChangeListener)
-        }
-    }
-
-    private inner class DefaultOnPageChangeListener : OnPageChangeListener {
-        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) = Unit
-
-        override fun onPageSelected(position: Int) {
-            playerPagerListener?.onSwitchToItem(adapter.getEntityForPosition(position))
-        }
-
-        override fun onPageScrollStateChanged(state: Int) = Unit
-    }
-
-    private inner class InfinityOnPageChangeListener : OnPageChangeListener {
+    private val onPageChangeListener = object : OnPageChangeListener {
         override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) = Unit
 
         override fun onPageSelected(position: Int) {
@@ -157,47 +44,63 @@ class PlayerPager<T> @JvmOverloads constructor(context: Context, attrs: Attribut
                 viewPager.setCurrentItem(1, false)
                 return
             }
-            playerPagerListener?.onSwitchToItem(adapter.getEntityForPosition(position))
+            onItemSelected?.invoke(adapter.getEntityForPosition(position))
         }
 
         override fun onPageScrollStateChanged(state: Int) = Unit
     }
 
-    private interface ModeStrategy<T> {
-        fun createAdapter(
-            fragmentManager: FragmentManager,
-            fragmentFactory: PlayerPagerFragmentFactory<T>
-        ): AbstractFragmentPagerAdapter<T>
-
-        fun createListener(): OnPageChangeListener
-
-        fun getCurrentPosition(itemCount: Int, position: Int): Int
+    init {
+        inflate(context, R.layout.player_pager, this)
+        viewPager = findViewById(R.id.viewPager)
     }
 
-    private inner class FiniteModeStrategy : ModeStrategy<T> {
-        override fun createAdapter(
-            fragmentManager: FragmentManager,
-            fragmentFactory: PlayerPagerFragmentFactory<T>
-        ): AbstractFragmentPagerAdapter<T> = DefaultFragmentPagerAdapter(fragmentManager, fragmentFactory)
-
-        override fun createListener(): OnPageChangeListener = DefaultOnPageChangeListener()
-
-        override fun getCurrentPosition(itemCount: Int, position: Int): Int = position
+    fun initialize(fragmentManager: FragmentManager, createFragment: (PlaybackFile) -> Fragment) {
+        adapter = PlayerPagerAdapter(fragmentManager, createFragment)
+        viewPager.adapter = adapter
     }
 
-    private inner class InfiniteModeStrategy : ModeStrategy<T> {
-        override fun createAdapter(
-            fragmentManager: FragmentManager,
-            fragmentFactory: PlayerPagerFragmentFactory<T>
-        ): AbstractFragmentPagerAdapter<T> = InfiniteFragmentPagerAdapter(fragmentManager, fragmentFactory)
-
-        override fun createListener(): OnPageChangeListener = InfinityOnPageChangeListener()
-
-        override fun getCurrentPosition(itemCount: Int, position: Int): Int =
-            if (itemCount > 1) position - 1 else position
+    override fun onSaveInstanceState(): Parcelable {
+        val state = PlayerPagerState(super.onSaveInstanceState())
+        state.shiftedPosition = shift
+        return state
     }
 
-    class InfiniteViewPagerState : BaseSavedState {
+    override fun onRestoreInstanceState(state: Parcelable?) {
+        val restoredState = state as PlayerPagerState
+        super.onRestoreInstanceState(restoredState.superState)
+        restoredShift = restoredState.shiftedPosition
+    }
+
+    fun getItems(): List<PlaybackFile> = adapter.getEntities()
+
+    fun setItems(items: List<PlaybackFile>) {
+        adapter.setEntities(if (restoredShift != NO_SHIFT) shiftRestoredPosition(items) else items)
+        notifyDataSetChangedWithoutCallingListener()
+    }
+
+    fun setCurrentItem(item: PlaybackFile) {
+        val position = adapter.getEntityIndex(item)
+        if (position != -1 && viewPager.currentItem != position) {
+            viewPager.removeOnPageChangeListener(onPageChangeListener)
+            viewPager.setCurrentItem(position, true)
+            viewPager.addOnPageChangeListener(onPageChangeListener)
+        }
+    }
+
+    private fun notifyDataSetChangedWithoutCallingListener() {
+        viewPager.removeOnPageChangeListener(onPageChangeListener)
+        adapter.notifyDataSetChanged()
+        viewPager.addOnPageChangeListener(onPageChangeListener)
+    }
+
+    private fun shiftRestoredPosition(items: List<PlaybackFile>): List<PlaybackFile> {
+        shift = restoredShift
+        restoredShift = NO_SHIFT
+        return items.rotate(shift)
+    }
+
+    class PlayerPagerState : BaseSavedState {
         var shiftedPosition: Int = 0
 
         constructor(superState: Parcelable?) : super(superState)
@@ -213,11 +116,11 @@ class PlayerPager<T> @JvmOverloads constructor(context: Context, attrs: Attribut
 
         companion object {
             @JvmField
-            val CREATOR = object : Parcelable.Creator<InfiniteViewPagerState> {
+            val CREATOR = object : Parcelable.Creator<PlayerPagerState> {
 
-                override fun createFromParcel(parcel: Parcel): InfiniteViewPagerState = InfiniteViewPagerState(parcel)
+                override fun createFromParcel(parcel: Parcel): PlayerPagerState = PlayerPagerState(parcel)
 
-                override fun newArray(size: Int): Array<InfiniteViewPagerState?> = arrayOfNulls(size)
+                override fun newArray(size: Int): Array<PlayerPagerState?> = arrayOfNulls(size)
             }
         }
     }

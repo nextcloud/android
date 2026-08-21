@@ -10,7 +10,6 @@ package com.nextcloud.client.player.ui.control
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
@@ -19,7 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.flowWithLifecycle
-import com.nextcloud.client.player.model.PlaybackModel
+import com.nextcloud.client.player.media3.PlaybackModel
 import com.nextcloud.client.player.model.state.PlaybackItemState
 import com.nextcloud.client.player.model.state.PlaybackState
 import com.nextcloud.client.player.model.state.PlayerState
@@ -37,7 +36,6 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
-import kotlin.jvm.optionals.getOrNull
 
 private const val INDETERMINATE_TIME = "--:--"
 private const val TAG_CLICK_COMMAND_PLAY = "TAG_CLICK_COMMAND_PLAY"
@@ -59,8 +57,7 @@ private const val MINUTES_IN_HOUR = 60
 class PlayerControlView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0,
-    injectedPlaybackModel: PlaybackModel? = null
+    defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr),
     PlaybackModel.Listener {
 
@@ -74,11 +71,7 @@ class PlayerControlView @JvmOverloads constructor(
 
     init {
         if (!isInEditMode) {
-            if (injectedPlaybackModel == null) {
-                (context.applicationContext as HasAndroidInjector).androidInjector().inject(this)
-            } else {
-                playbackModel = injectedPlaybackModel
-            }
+            (context.applicationContext as HasAndroidInjector).androidInjector().inject(this)
             setDefaultTags()
             setListeners()
         }
@@ -101,7 +94,7 @@ class PlayerControlView @JvmOverloads constructor(
     }
 
     fun onStart() {
-        playbackModel.state.ifPresent(::render)
+        playbackModel.state?.let(::render)
         playbackModel.addListener(this)
     }
 
@@ -140,20 +133,20 @@ class PlayerControlView @JvmOverloads constructor(
 
         binding.ivNext.setOnClickListener { playbackModel.playNext() }
 
-        binding.ivPrevious.setOnClickListener(object : MultipleClickListener() {
-            override fun onSingleClick(view: View?) {
-                val state = playbackModel.state.getOrNull()?.currentItemState ?: return
-                if (state.playerState == PlayerState.PAUSED || state.playerState == PlayerState.PLAYING) {
-                    playbackModel.seekToPosition(0L)
-                } else {
-                    playbackModel.playPrevious()
-                }
-            }
-
-            override fun onDoubleClick(view: View?) {
-                playbackModel.playPrevious()
-            }
-        })
+        binding.ivPrevious.setOnClickListener(
+            MultipleClickListener(
+                onSingleClick = {
+                    playbackModel.state?.currentItemState?.let { state ->
+                        if (state.playerState == PlayerState.PAUSED || state.playerState == PlayerState.PLAYING) {
+                            playbackModel.seekToPosition(0L)
+                        } else {
+                            playbackModel.playPrevious()
+                        }
+                    }
+                },
+                onDoubleClick = { playbackModel.playPrevious() }
+            )
+        )
 
         binding.progressBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {

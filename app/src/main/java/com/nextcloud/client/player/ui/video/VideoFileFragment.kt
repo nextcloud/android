@@ -14,7 +14,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.nextcloud.client.player.model.PlaybackModel
+import com.nextcloud.client.player.media3.PlaybackModel
 import com.nextcloud.client.player.model.ThumbnailLoader
 import com.nextcloud.client.player.model.file.PlaybackFile
 import com.nextcloud.client.player.model.state.PlaybackState
@@ -27,7 +27,6 @@ import com.owncloud.android.databinding.PlayerVideoFileFragmentBinding
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.jvm.optionals.getOrNull
 
 class VideoFileFragment :
     Fragment(),
@@ -68,7 +67,7 @@ class VideoFileFragment :
 
     override fun onStart() {
         super.onStart()
-        render(playerModel.state.getOrNull())
+        render(playerModel.state)
         playerModel.addListener(this)
     }
 
