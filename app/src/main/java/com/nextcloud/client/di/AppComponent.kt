@@ -18,13 +18,11 @@ import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorkerReceiver
 import com.nextcloud.client.jobs.offlineOperations.receiver.OfflineOperationReceiver
 import com.nextcloud.client.jobs.upload.FileUploadBroadcastReceiver
 import com.nextcloud.client.jobs.upload.FileUploadHelper
-import com.nextcloud.client.media.BackgroundPlayerService
 import com.nextcloud.client.network.NetworkModule
 import com.nextcloud.client.onboarding.OnboardingModule
 import com.nextcloud.client.player.PlayerModule
 import com.nextcloud.client.preferences.PreferencesModule
 import com.owncloud.android.MainApp
-import com.owncloud.android.media.MediaControlView
 import com.owncloud.android.ui.ThemeableSwitchPreference
 import com.owncloud.android.ui.whatsnew.ProgressIndicator
 import dagger.BindsInstance
@@ -55,10 +53,6 @@ import javax.inject.Singleton
 @Singleton
 interface AppComponent {
     fun inject(app: MainApp)
-
-    fun inject(mediaControlView: MediaControlView)
-
-    fun inject(backgroundPlayerService: BackgroundPlayerService)
 
     fun inject(switchPreference: ThemeableSwitchPreference)
 

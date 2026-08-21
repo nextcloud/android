@@ -20,8 +20,10 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.VirtualFolderType
 import com.owncloud.android.ui.fragment.FileFragment
+import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.MimeTypeUtil
 
 /**
  * Adapter class that provides Fragment instances
@@ -36,6 +38,11 @@ class PreviewMediaPagerAdapter : FragmentStateAdapter {
     private val mDownloadErrors: MutableSet<Int>
     private val mStorageManager: FileDataStorageManager
     private val mCachedFragments: SparseArray<FileFragment>
+
+    /**
+     * The collection the pages come from, so that a media page can build the same playback queue.
+     */
+    private val searchType: SearchType?
 
     /**
      * Constructor
@@ -60,6 +67,7 @@ class PreviewMediaPagerAdapter : FragmentStateAdapter {
         this.user = user
         this.selectedFile = selectedFile
         mStorageManager = storageManager
+        searchType = null
         mediaFiles = mStorageManager.getFolderImagesAndVideos(parentFolder, onlyOnDevice)
 
         val sortOrder = preferences.getSortOrderByFolder(parentFolder)
@@ -93,6 +101,11 @@ class PreviewMediaPagerAdapter : FragmentStateAdapter {
 
         this.user = user
         mStorageManager = storageManager
+        searchType = when (type) {
+            VirtualFolderType.GALLERY -> SearchType.GALLERY_SEARCH
+            VirtualFolderType.FAVORITE -> SearchType.FAVORITE_SEARCH
+            else -> null
+        }
 
         if (type == VirtualFolderType.GALLERY) {
             mediaFiles = mStorageManager.allGalleryItems
@@ -156,8 +169,8 @@ class PreviewMediaPagerAdapter : FragmentStateAdapter {
     }
 
     private fun fragmentForDownloaded(file: OCFile, ignoreFirstSavedState: Boolean): Fragment =
-        if (PreviewMediaFragment.isAudioOrVideo(file)) {
-            PreviewMediaFragment.newInstance(file, user)
+        if (file.isAudioOrVideo()) {
+            PreviewPlaybackFragment.newInstance(file, searchType)
         } else {
             PreviewImageFragment.newInstance(file, ignoreFirstSavedState, false)
         }
@@ -173,12 +186,13 @@ class PreviewMediaPagerAdapter : FragmentStateAdapter {
             // without first being downloaded.
             file.isEncrypted -> FileDownloadFragment.newInstance(file, user, ignoreFirstSavedState)
 
-            PreviewMediaFragment.isAudioOrVideo(file) ->
-                PreviewMediaFragment.newInstance(file, user)
+            file.isAudioOrVideo() -> PreviewPlaybackFragment.newInstance(file, searchType)
 
             else -> PreviewImageFragment.newInstance(file, ignoreFirstSavedState, true)
         }
     }
+
+    private fun OCFile.isAudioOrVideo(): Boolean = MimeTypeUtil.isAudio(this) || MimeTypeUtil.isVideo(this)
 
     fun getFilePosition(file: OCFile): Int = mediaFiles.indexOf(file)
 
