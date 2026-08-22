@@ -15,6 +15,10 @@
             android:title="@string/autoupload_custom_folder"/>
 
         <item
+            android:id="@+id/action_manual_scan"
+            android:title="@string/autoupload_manual_scan"/>
+
+        <item
             android:id="@+id/action_disable_power_save_check"
             android:title="@string/autoupload_disable_power_save_check"
             android:visible="false"

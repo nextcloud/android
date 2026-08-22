@@ -879,6 +879,8 @@
     <string name="autoupload_hide_folder">Hide folder</string>
     <string name="autoupload_configure">Configure</string>
     <string name="synced_folders_configure_folders">Configure folders</string>
+    <string name="autoupload_manual_scan">Manual scan</string>
+    <string name="autoupload_manual_scan_started">Scanning for missing files…</string>
 
     <string name="empty" translatable="false"></string>
     <string name="test_server_button">Test server connection</string>
