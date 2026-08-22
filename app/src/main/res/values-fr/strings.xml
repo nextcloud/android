@@ -251,6 +251,7 @@
     <string name="create">Créer</string>
     <string name="create_dir_fail_msg">Le dossier n\'a pas pu être créé</string>
     <string name="create_document">Document</string>
+    <string name="create_encrypted_folder">Dossier chiffré</string>
     <string name="create_end_to_end_encrypted_share">Lien de partage</string>
     <string name="create_end_to_end_encrypted_share_title">Lien de partages chiffrés de bout en bout</string>
     <string name="create_folder">Dossier</string>
@@ -1082,6 +1083,7 @@
     <string name="unified_search_fragment_contact_not_found">Contact introuvable, vous pouvez toujours synchroniser pour mettre à jour. Redirection au web...</string>
     <string name="unified_search_fragment_permission_needed">Des permissions sont requises pour ouvrir le résultat de recherche, autrement ceci redirigera au web…</string>
     <string name="unified_search_fragment_search_in_this_folder">Dans ce dossier</string>
+    <string name="unified_search_fragment_search_takes_long">La recherche prend plus de temps que prévu. Les résultats seront affichés dès que le serveur répondra</string>
     <string name="unknown">Inconnu</string>
     <string name="unlock_file">Déverrouiller le fichier</string>
     <string name="unread_comments">Il y a des commentaire non lus</string>
@@ -1221,6 +1223,7 @@
     <string name="wait_checking_credentials">Vérification des identifiants enregistrés</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copie du fichier depuis le stockage privé</string>
     <string name="warn_rename_extension">La modification de l\'extension peut entraîner l\'ouverture de ce fichier dans une application différente.</string>
+    <string name="webview_not_available">Android System WebView est manquant ou désactivé sur cet appareil</string>
     <string name="what_s_new_image">Image quoi de neuf</string>
     <string name="whats_new_skip">Ignorer</string>
     <string name="whats_new_title">Nouveautés dans %1$s</string>
