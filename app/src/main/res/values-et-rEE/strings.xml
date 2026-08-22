@@ -251,6 +251,7 @@
     <string name="create">Loo</string>
     <string name="create_dir_fail_msg">Ei suuda kausta luua</string>
     <string name="create_document">Dokument</string>
+    <string name="create_encrypted_folder">Krüptitud kaust</string>
     <string name="create_end_to_end_encrypted_share">Jagamislink</string>
     <string name="create_end_to_end_encrypted_share_title">Läbivalt krüptitud jagamislingid</string>
     <string name="create_folder">Kaust</string>
@@ -1082,6 +1083,7 @@
     <string name="unified_search_fragment_contact_not_found">Kontakti ei leidu, sa võid andmete uuendamiseks alati sünkroniseerida. Suunan edasi veebi…</string>
     <string name="unified_search_fragment_permission_needed">Otsingutulemuste avamiseks on vajalikud vastavad õigused, vastasel juhul suunan päringu ümber veebi…</string>
     <string name="unified_search_fragment_search_in_this_folder">Selles kaustas</string>
+    <string name="unified_search_fragment_search_takes_long">Otsimine kestab kauem, kui peaks. Tulemused saavad olema nähtavad niipea, kui server edastab vastuse.</string>
     <string name="unknown">Teadmata</string>
     <string name="unlock_file">Eemalda faili lukustus</string>
     <string name="unread_comments">Leidub lugemata kommentaare</string>
