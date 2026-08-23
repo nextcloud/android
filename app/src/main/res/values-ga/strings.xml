@@ -251,6 +251,7 @@
     <string name="create">Cruthaigh</string>
     <string name="create_dir_fail_msg">Níorbh fhéidir fillteán a chruthú</string>
     <string name="create_document">Doiciméad</string>
+    <string name="create_encrypted_folder">Fillteán criptithe</string>
     <string name="create_end_to_end_encrypted_share">Comhroinnt nasc</string>
     <string name="create_end_to_end_encrypted_share_title">Comhroinnt nasc criptithe ó cheann ceann go ceann</string>
     <string name="create_folder">Fillteán</string>
@@ -1082,6 +1083,7 @@
     <string name="unified_search_fragment_contact_not_found">Níor aimsíodh an teagmhálaí, is féidir leat sioncronú a dhéanamh i gcónaí chun nuashonrú a dhéanamh. Á atreorú chuig an ngréasán…</string>
     <string name="unified_search_fragment_permission_needed">Teastaíonn ceadanna chun toradh cuardaigh a oscailt nó déanfar é a atreorú chuig an ngréasán…</string>
     <string name="unified_search_fragment_search_in_this_folder">Sa bhfillteán seo</string>
+    <string name="unified_search_fragment_search_takes_long">Tá an cuardach ag glacadh níos faide ná mar is gnách. Beidh na torthaí le feiceáil a luaithe a fhreagróidh an freastalaí.</string>
     <string name="unknown">Anaithnid</string>
     <string name="unlock_file">Díghlasáil an comhad</string>
     <string name="unread_comments">Tá tuairimí neamhléite ann</string>
@@ -1221,6 +1223,7 @@
     <string name="wait_checking_credentials">Dintiúir stóráilte a sheiceáil</string>
     <string name="wait_for_tmp_copy_from_private_storage">Comhad á chóipeáil ó stór príobháideach</string>
     <string name="warn_rename_extension">Seans go n-osclóidh an comhad seo i bhfeidhmchlár eile má athraítear an síneadh ama</string>
+    <string name="webview_not_available">Tá Radharc Gréasáin Chóras Android ar iarraidh nó díchumasaithe ar an ngléas seo</string>
     <string name="what_s_new_image">Cad atá íomhá nua</string>
     <string name="whats_new_skip">Scipeáil</string>
     <string name="whats_new_title">Nua i %1$s</string>
