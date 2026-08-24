@@ -1083,6 +1083,7 @@
     <string name="unified_search_fragment_contact_not_found">找不到聯絡人，您隨時可以同步更新。正在重新導向至網路 …</string>
     <string name="unified_search_fragment_permission_needed">開啟搜尋結果需要權限，否則其將會重新導向至網路 …</string>
     <string name="unified_search_fragment_search_in_this_folder">在此資料夾</string>
+    <string name="unified_search_fragment_search_takes_long">搜尋時間比平常更長。伺服器一回應，結果就會顯示出來</string>
     <string name="unknown">不詳</string>
     <string name="unlock_file">解鎖檔案</string>
     <string name="unread_comments">有未讀留言</string>
@@ -1222,6 +1223,7 @@
     <string name="wait_checking_credentials">檢查儲存的身分驗證</string>
     <string name="wait_for_tmp_copy_from_private_storage">從私有儲存空間複製檔案中</string>
     <string name="warn_rename_extension">更改擴展名可能會導致此檔案在不同的應用程式中打開</string>
+    <string name="webview_not_available">此裝置缺少 Android System WebView 或其已被停用</string>
     <string name="what_s_new_image">有什麼新圖像？</string>
     <string name="whats_new_skip">略過</string>
     <string name="whats_new_title">新增到 %1$s </string>
