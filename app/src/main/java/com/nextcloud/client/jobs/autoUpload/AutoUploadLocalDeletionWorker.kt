@@ -20,7 +20,9 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.upload.DeleteUploadedFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
+import com.owncloud.android.utils.FileUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import java.io.File
 
 class AutoUploadLocalDeletionWorker(
     private val context: Context,
@@ -54,11 +56,13 @@ class AutoUploadLocalDeletionWorker(
 
         val syncedFolderIDs = inputData.getLongArray(SYNCED_FOLDER_IDS)
             ?: throw IllegalArgumentException("$SYNCED_FOLDER_IDS param is mandatory")
-        val syncedFolders = syncedFolderIDs.map { syncedFolderProvider.getSyncedFolderByID(it) }
+        val syncedFolders = syncedFolderIDs
+            .map { syncedFolderProvider.getSyncedFolderByID(it) }
 
         syncedFolders
             .filterNotNull()
             .filter { it.isEnabled }
+            .filter { FileUtil.isFolderWritable(File(it.localPath)) }
             .forEach {
                 val op = DeleteUploadedFileOperation(
                     it,

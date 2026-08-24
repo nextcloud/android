@@ -909,7 +909,9 @@ internal class BackgroundJobManagerImpl(
     }
 
     override fun locallyDeleteAutoUploadedFiles(syncedFolders: List<SyncedFolder>) {
-        val syncedFolderIDs = syncedFolders.map { it.id }
+        val syncedFolderIDs = syncedFolders
+            .filter { it.isEnabled }
+            .map { it.id }
 
         val arguments = Data.Builder()
             .putLongArray(AutoUploadLocalDeletionWorker.SYNCED_FOLDER_IDS, syncedFolderIDs.toLongArray())
