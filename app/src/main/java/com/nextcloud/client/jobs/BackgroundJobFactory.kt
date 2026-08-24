@@ -340,6 +340,7 @@ class BackgroundJobFactory @Inject constructor(
                 params = params,
                 userAccountManager = accountManager,
                 fileDataStorageManager = fileDataStorageManager,
-                syncedFolderProvider = syncedFolderProvider
+                syncedFolderProvider = syncedFolderProvider,
+                viewThemeUtils = viewThemeUtils.get()
         )
 }
