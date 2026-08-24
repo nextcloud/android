@@ -60,7 +60,6 @@ class ManageSpaceActivity :
         setContentView(binding.root)
 
         binding.run {
-
             manageActivityToolbar.setNavigationOnClickListener {
                 onBackPressedDispatcher.onBackPressed()
             }

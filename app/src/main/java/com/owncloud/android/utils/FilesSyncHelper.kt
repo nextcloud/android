@@ -78,20 +78,14 @@ object FilesSyncHelper {
     }
 
     @JvmStatic
-    fun startLocalDeletionForEnabledSyncedFolders(
-        provider: SyncedFolderProvider,
-        manager: BackgroundJobManager
-    ) {
+    fun startLocalDeletionForEnabledSyncedFolders(provider: SyncedFolderProvider, manager: BackgroundJobManager) {
         Log_OC.d(TAG, "start local deletion worker for each enabled folder")
 
         manager.locallyDeleteAutoUploadedFiles(provider.syncedFolders)
     }
 
     @JvmStatic
-    fun startLocalDeletionForSyncedFolder(
-        folder: SyncedFolder,
-        manager: BackgroundJobManager
-    ) {
+    fun startLocalDeletionForSyncedFolder(folder: SyncedFolder, manager: BackgroundJobManager) {
         Log_OC.d(TAG, "start local deletion worker for folder ${folder.localPath}")
 
         manager.locallyDeleteAutoUploadedFiles(listOf(folder))

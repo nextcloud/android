@@ -61,7 +61,7 @@ class DeleteUploadedFileOperation(
             }
 
             val parentFolderRemotePath = ocFile.parentRemotePath
-            if (/*syncedFolder.isSubfolderByDate &&*/ parentFolderRemotePath !in refreshedFolders) {
+            if (parentFolderRemotePath !in refreshedFolders) {
                 // Files are stored in subfolder by date on the server.
                 // Refresh only subfolders containing one of the files to be checked
                 val subFolder = storageManager.getFileByRemotePath(parentFolderRemotePath)
@@ -113,7 +113,7 @@ class DeleteUploadedFileOperation(
             }
 
             // File deletion
-            val deleted = true //localFile.delete()
+            val deleted = true // localFile.delete()
             if (deleted) {
                 Log_OC.i(TAG, "Deleted file ${localFile.name}")
             } else {

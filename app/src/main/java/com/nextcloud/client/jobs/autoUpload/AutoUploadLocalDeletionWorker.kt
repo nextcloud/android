@@ -28,8 +28,8 @@ class AutoUploadLocalDeletionWorker(
     private val userAccountManager: UserAccountManager,
     private val fileDataStorageManager: FileDataStorageManager,
     private val syncedFolderProvider: SyncedFolderProvider,
-    val viewThemeUtils: ViewThemeUtils,
-) : CoroutineWorker (context, params) {
+    val viewThemeUtils: ViewThemeUtils
+) : CoroutineWorker(context, params) {
 
     companion object {
         const val SYNCED_FOLDER_IDS = "synced_folder_IDs"

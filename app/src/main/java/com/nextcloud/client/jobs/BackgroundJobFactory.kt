@@ -333,14 +333,15 @@ class BackgroundJobFactory @Inject constructor(
             params
         )
 
-    private fun createAutoUploadLocalDeletionWorker(context: Context, params: WorkerParameters):
-        AutoUploadLocalDeletionWorker =
-            AutoUploadLocalDeletionWorker(
-                context = context,
-                params = params,
-                userAccountManager = accountManager,
-                fileDataStorageManager = fileDataStorageManager,
-                syncedFolderProvider = syncedFolderProvider,
-                viewThemeUtils = viewThemeUtils.get()
-        )
+    private fun createAutoUploadLocalDeletionWorker(
+        context: Context,
+        params: WorkerParameters
+    ): AutoUploadLocalDeletionWorker = AutoUploadLocalDeletionWorker(
+        context = context,
+        params = params,
+        userAccountManager = accountManager,
+        fileDataStorageManager = fileDataStorageManager,
+        syncedFolderProvider = syncedFolderProvider,
+        viewThemeUtils = viewThemeUtils.get()
+    )
 }
