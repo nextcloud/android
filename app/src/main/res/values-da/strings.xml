@@ -962,7 +962,7 @@
     <string name="sync_status_button">Synkroniserer status knap</string>
     <string name="sync_string_files">Filer</string>
     <string name="sync_warning_button">Synkroniserings advarselsknap</string>
-    <string name="synced_folder_settings_button">Indstillinger knap</string>
+    <string name="synced_folder_settings_button">Indstillingsknap</string>
     <string name="synced_folders_configure_folders">Konfigurer mapper</string>
     <string name="synced_folders_new_info">Øjeblikkelig send er blevet fundamentalt nylanceret. Omkonfigurer din autoupload fra hovedmenuen.\n\nNyd den nye og udvidede auto upload.</string>
     <string name="synced_folders_no_results">Ingen medie mapper fundet</string>
