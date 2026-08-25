@@ -28,7 +28,6 @@ class AutoUploadLocalDeletionWorker(
     private val context: Context,
     params: WorkerParameters,
     private val userAccountManager: UserAccountManager,
-    private val fileDataStorageManager: FileDataStorageManager,
     private val syncedFolderProvider: SyncedFolderProvider,
     val viewThemeUtils: ViewThemeUtils
 ) : CoroutineWorker(context, params) {
@@ -64,6 +63,8 @@ class AutoUploadLocalDeletionWorker(
             .filter { it.isEnabled }
             .filter { FileUtil.isFolderWritable(File(it.localPath)) }
             .forEach {
+                val sharedFolderOwner = userAccountManager.getUser(it.account).get()
+                val fileDataStorageManager = FileDataStorageManager(sharedFolderOwner, context.contentResolver)
                 val op = DeleteUploadedFileOperation(
                     it,
                     context,

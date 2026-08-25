@@ -37,7 +37,6 @@ import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.datamodel.ArbitraryDataProvider
-import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.operations.factory.UploadFileOperationFactory
@@ -63,7 +62,6 @@ class BackgroundJobFactory @Inject constructor(
     private val resources: Resources,
     private val arbitraryDataProvider: ArbitraryDataProvider,
     private val uploadsStorageManager: UploadsStorageManager,
-    private val fileDataStorageManager: FileDataStorageManager,
     private val connectivityService: ConnectivityService,
     private val notificationManager: NotificationManager,
     private val eventBus: EventBus,
@@ -340,7 +338,6 @@ class BackgroundJobFactory @Inject constructor(
         context = context,
         params = params,
         userAccountManager = accountManager,
-        fileDataStorageManager = fileDataStorageManager,
         syncedFolderProvider = syncedFolderProvider,
         viewThemeUtils = viewThemeUtils.get()
     )
