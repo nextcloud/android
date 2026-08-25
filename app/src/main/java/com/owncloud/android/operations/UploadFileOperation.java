@@ -1410,7 +1410,6 @@ public class UploadFileOperation extends SyncOperation {
 
             default:
                 Log_OC.d(TAG, "DEFAULT local behaviour will be handled");
-                mFile.setStoragePath("");
                 saveUploadedFile(client);
                 break;
         }
