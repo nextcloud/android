@@ -65,6 +65,7 @@
             <trusting group="androidx.tracing"/>
             <trusting group="androidx.webkit" name="webkit" version="1.17.0"/>
             <trusting group="androidx.work"/>
+            <trusting group="com.google.android.gms"/>
             <trusting group="com.google.firebase"/>
             <trusting group="^androidx[.]compose($|([.].*))" regex="true"/>
             <trusting group="^com[.]android($|([.].*))" regex="true"/>
