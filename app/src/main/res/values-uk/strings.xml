@@ -251,6 +251,7 @@
     <string name="create">Створити</string>
     <string name="create_dir_fail_msg">Неможливо створити каталог</string>
     <string name="create_document">Документ</string>
+    <string name="create_encrypted_folder">Зашифрований каталог</string>
     <string name="create_end_to_end_encrypted_share">Спільне посилання</string>
     <string name="create_end_to_end_encrypted_share_title">Наскрізно зашифровані спільні посилання</string>
     <string name="create_folder">Каталог</string>
@@ -1082,6 +1083,7 @@
     <string name="unified_search_fragment_contact_not_found">Контакт не знайдено. Синхронізуйтеся для оновлення. Переспрямування на вебсайт...</string>
     <string name="unified_search_fragment_permission_needed">Для отримання результатів пошуку потрібні окреми дозволи, або перейти на вебсайт...</string>
     <string name="unified_search_fragment_search_in_this_folder">У цьому каталозі</string>
+    <string name="unified_search_fragment_search_takes_long">Пошук займає більше час, ніж зазвичай має бути. Результати з\'являться одразу після відповіді сервера.</string>
     <string name="unknown">Невідомо</string>
     <string name="unlock_file">Розблокувати файл</string>
     <string name="unread_comments">Доступні непрочитані коментарі</string>
@@ -1221,6 +1223,7 @@
     <string name="wait_checking_credentials">Перевірка збережених даних авторизації</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копіювання файлу з приватного сховища</string>
     <string name="warn_rename_extension">Зміна розширення файлу може призвести до того, що його буде відкривати інший застосунок</string>
+    <string name="webview_not_available">Android System WebView відсутній або вимкнено на пристрої</string>
     <string name="what_s_new_image">Зображення про нові функції</string>
     <string name="whats_new_skip">Пропустити</string>
     <string name="whats_new_title">Нове у %1$s</string>

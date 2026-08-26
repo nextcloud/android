@@ -211,6 +211,7 @@
     <string name="contacts_preferences_import_scheduled_fail">Import kunne ikke starte. Prøv venligst igen</string>
     <string name="contacts_preferences_no_file_found">Ingen fil fundet</string>
     <string name="contacts_preferences_something_strange_happened">Kunne ikke finde din sidste backup!</string>
+    <string name="conversation_screen_empty_content_title">Ingen samtaler fundet</string>
     <string name="conversation_screen_empty_conversation_list_title">Endnu ingen samtaler</string>
     <string name="conversation_screen_title">Samtaler</string>
     <string name="copied">Kopieret</string>
@@ -962,7 +963,7 @@
     <string name="sync_status_button">Synkroniserer status knap</string>
     <string name="sync_string_files">Filer</string>
     <string name="sync_warning_button">Synkroniserings advarselsknap</string>
-    <string name="synced_folder_settings_button">Indstillinger knap</string>
+    <string name="synced_folder_settings_button">Indstillingsknap</string>
     <string name="synced_folders_configure_folders">Konfigurer mapper</string>
     <string name="synced_folders_new_info">Øjeblikkelig send er blevet fundamentalt nylanceret. Omkonfigurer din autoupload fra hovedmenuen.\n\nNyd den nye og udvidede auto upload.</string>
     <string name="synced_folders_no_results">Ingen medie mapper fundet</string>
