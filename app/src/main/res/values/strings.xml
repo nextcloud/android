@@ -918,6 +918,8 @@
     <string name="autoupload_delete_uploaded_notif_started_title">Started to locally delete already uploaded files</string>
     <string name="autoupload_delete_uploaded_notif_ended_title">Locally deleted already uploaded files</string>
     <string name="autoupload_delete_uploaded_notif_error_title">Unable to locally delete already uploaded files</string>
+    <string name="autoupload_delete_uploaded_notif_ended_content">Freed up %1$s removing %2$d files across %3$d folders.</string>
+    <string name="autoupload_delete_uploaded_notif_ended_content_preserved">%1$d files have been left in place because their remote counterpart could not be safely identified.</string>
     <string name="synced_folders_configure_folders">Configure folders</string>
 
     <string name="autoupload_delete_uploaded_dialog_title">Locally delete uploaded files</string>

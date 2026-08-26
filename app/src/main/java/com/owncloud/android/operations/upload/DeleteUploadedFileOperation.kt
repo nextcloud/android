@@ -31,30 +31,34 @@ class DeleteUploadedFileOperation(
     }
     private val syncFolderHelper = SyncFolderHelper(context)
 
-    suspend fun run(): RemoteOperationResult<*> {
+    suspend fun run(): RemoteOperationResult<Stats> {
         Log_OC.d(TAG, "StorageManager user is ${storageManager.user}")
         // Obtain synced folder data
         val folder = storageManager.getFileByRemotePath(syncedFolder.remotePath)
             ?: storageManager.getFileByLocalPath(syncedFolder.localPath)
         if (folder == null) {
             Log_OC.e(TAG, "Unable to obtain remote folder to refresh metadata")
-            return RemoteOperationResult<Any?>(RemoteOperationResult.ResultCode.METADATA_NOT_FOUND)
+            return RemoteOperationResult<Stats>(RemoteOperationResult.ResultCode.METADATA_NOT_FOUND)
         }
 
         // Refresh synced folder metadata
         val metadataRefreshSuccess = refreshFolder(folder, storageManager)
         if (!metadataRefreshSuccess) {
             Log_OC.e(TAG, "Unable to refresh folder metadata")
-            return RemoteOperationResult<Any?>(RemoteOperationResult.ResultCode.METADATA_NOT_FOUND)
+            return RemoteOperationResult<Stats>(RemoteOperationResult.ResultCode.METADATA_NOT_FOUND)
         }
         val refreshedFolders = hashSetOf<String>(folder.remotePath)
 
         val localFolder = File(syncedFolder.localPath)
         val files = SyncedFolderUtils.getFileList(localFolder)
+
+        var filesPreserved = 0L
+        var filesRemoved = 0L
+        var spaceFreed = 0L
+
         files.forEach { localFile ->
             val remotePath = syncFolderHelper.getAutoUploadRemotePath(syncedFolder, localFile)
             val ocFile = storageManager.getFileByRemotePath(remotePath)
-                ?: storageManager.getFileByLocalPath(localFile.absolutePath)
             if (ocFile == null) {
                 Log_OC.i(TAG, "Unable to compare file ${localFile.name} with its remote counterpart, leaving in place")
                 return@forEach
@@ -67,17 +71,16 @@ class DeleteUploadedFileOperation(
                 val subFolder = storageManager.getFileByRemotePath(parentFolderRemotePath)
                 if (subFolder == null) {
                     Log_OC.e(TAG, "Subfolder $parentFolderRemotePath not found on the server")
-                    return RemoteOperationResult<Any?>(RemoteOperationResult.ResultCode.METADATA_NOT_FOUND)
+                    return RemoteOperationResult<Stats>(RemoteOperationResult.ResultCode.METADATA_NOT_FOUND)
                 }
                 val metadataRefreshSuccess = refreshFolder(subFolder, storageManager)
                 if (!metadataRefreshSuccess) {
                     Log_OC.e(TAG, "Unable to refresh folder metadata for $parentFolderRemotePath")
-                    return RemoteOperationResult<Any?>(RemoteOperationResult.ResultCode.METADATA_NOT_FOUND)
+                    return RemoteOperationResult<Stats>(RemoteOperationResult.ResultCode.METADATA_NOT_FOUND)
                 }
             }
 
             // Check the file wasn't modified after uploading
-            // TODO: Is this redundant?
             val localLastMod = localFile.lastModified()
             val lastSyncDate = ocFile.lastSyncDateForProperties
             if (lastSyncDate < localLastMod) {
@@ -86,6 +89,7 @@ class DeleteUploadedFileOperation(
                     "File ${localFile.name} has been modified ($localLastMod " +
                         "after it was synced ($lastSyncDate), leaving in place"
                 )
+                filesPreserved ++
                 return@forEach
             }
 
@@ -97,6 +101,7 @@ class DeleteUploadedFileOperation(
                     "Local and remote mod date differs for file file ${localFile.name}: " +
                         "$localLastMod : $remoteLastMod, leaving in place"
                 )
+                filesPreserved ++
                 return@forEach
             }
 
@@ -109,6 +114,7 @@ class DeleteUploadedFileOperation(
                     "Local and remote file sizes differs for file ${localFile.name}: " +
                         "$localSize : $remoteSize, leaving in place"
                 )
+                filesPreserved ++
                 return@forEach
             }
 
@@ -116,12 +122,20 @@ class DeleteUploadedFileOperation(
             val deleted = true // localFile.delete()
             if (deleted) {
                 Log_OC.i(TAG, "Deleted file ${localFile.name}")
+                filesRemoved ++
+                spaceFreed += localSize
             } else {
                 Log_OC.e(TAG, "Error deleting file ${localFile.name}")
             }
         }
 
-        return RemoteOperationResult<Any?>(RemoteOperationResult.ResultCode.OK)
+        val result = RemoteOperationResult<Stats>(RemoteOperationResult.ResultCode.OK)
+        result.resultData = Stats(
+            filesPreserved,
+            filesRemoved,
+            spaceFreed
+        )
+        return result
     }
 
     private suspend fun refreshFolder(folder: OCFile, storageManager: FileDataStorageManager): Boolean =
@@ -141,4 +155,16 @@ class DeleteUploadedFileOperation(
                 false
             }
         }
+
+    /**
+     * Contains the statistics about the run
+     * @param filesPreserved Files not deleted from the device
+     * @param filesRemoved Files deleted from the device
+     * @param spaceFreed Space freed deleting files on the device, in bytes
+     */
+    data class Stats(
+        val filesPreserved: Long,
+        val filesRemoved: Long,
+        val spaceFreed: Long
+    )
 }
