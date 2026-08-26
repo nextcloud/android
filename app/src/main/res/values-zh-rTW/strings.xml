@@ -140,7 +140,7 @@
     <string name="battery_optimization_message">您的裝置可能啟用了電池最佳化。自動上傳功能只能在排除此應用程式的情況下才能運作。</string>
     <string name="battery_optimization_title">電池最佳化</string>
     <string name="bottom_navigation_menu_assistant_label">助理</string>
-    <string name="bottom_navigation_menu_favorites_label">喜愛</string>
+    <string name="bottom_navigation_menu_favorites_label">最愛</string>
     <string name="bottom_navigation_menu_files_label">所有檔案</string>
     <string name="bottom_navigation_menu_media_label">媒體</string>
     <string name="busy">忙碌</string>
@@ -325,7 +325,7 @@
     <string name="drawer_item_activities">活動狀態</string>
     <string name="drawer_item_all_files">所有檔案</string>
     <string name="drawer_item_assistant">助理</string>
-    <string name="drawer_item_favorites">喜愛</string>
+    <string name="drawer_item_favorites">最愛</string>
     <string name="drawer_item_gallery">媒體</string>
     <string name="drawer_item_groupfolders">團隊資料夾</string>
     <string name="drawer_item_home">家目錄</string>
@@ -428,8 +428,8 @@
     <string name="failed_to_start_action">開始動作失敗！</string>
     <string name="failed_to_start_editor">無法啟動編輯器</string>
     <string name="failed_update_ui">更新使用者介面失敗</string>
-    <string name="favorite">新增至喜愛</string>
-    <string name="favorite_icon">喜愛</string>
+    <string name="favorite">新增至最愛</string>
+    <string name="favorite_icon">最愛</string>
     <string name="fifteenMinutes">15分鐘</string>
     <string name="file_activity_shared_file_cannot_be_updated">無法更新已分享的檔案</string>
     <string name="file_already_exists">檔案名稱已經存在</string>
@@ -443,8 +443,8 @@
     <string name="file_info_image_details_section_title">影像詳細資訊</string>
     <string name="file_keep">保留</string>
     <string name="file_list_empty">上傳一些內容或與您的裝置同步。</string>
-    <string name="file_list_empty_favorite_headline">還沒有喜愛的項目</string>
-    <string name="file_list_empty_favorites_filter_list">您標記為喜愛的檔案與資料夾會顯示在這裡。</string>
+    <string name="file_list_empty_favorite_headline">還沒有最愛的項目</string>
+    <string name="file_list_empty_favorites_filter_list">標記為最愛的檔案與資料夾會顯示在這裡。</string>
     <string name="file_list_empty_gallery">找不到圖片或影片</string>
     <string name="file_list_empty_headline">此處無檔案</string>
     <string name="file_list_empty_headline_search">在這個資料夾中沒有結果</string>
@@ -957,7 +957,7 @@
     <string name="signup_with_provider">向提供者註冊</string>
     <string name="single_sign_on_request_token" formatted="true">允許 %1$s 存取您的 Nextcloud 帳號 %2$s？</string>
     <string name="sort_by">排序依照</string>
-    <string name="sort_favorites_first">先排序喜愛</string>
+    <string name="sort_favorites_first">先排序最愛</string>
     <string name="sort_folders_before_files">將資料夾排序在檔案前</string>
     <string name="ssl_validator_btn_details_hide">隱藏</string>
     <string name="ssl_validator_btn_details_see">詳細資訊</string>
@@ -1000,7 +1000,7 @@
     <string name="storage_permission_dont_ask">不要詢問</string>
     <string name="storage_permission_media_read_only">媒體唯讀</string>
     <string name="storage_pictures">圖片</string>
-    <string name="store_full_desc">可自架且始終讓您掌控一切的生產力平台。\n功能：\n* 簡潔、現代的使用者介面，適合您伺服器的佈景主題\n* 上傳檔案到您的 Nextcloud 伺服器\n* 與其他人分享檔案\n* 讓您最愛的檔案與資料夾同步\n* 搜尋您伺服器上所有的資料夾\n* 以通知訊息保持更新\n* 多帳號支援\n* 使用指紋或 PIN 碼安全存取您的資料\n* 與 DAVx⁵ 整合（先前被稱為 DAVdroid），可輕易設定行事曆與聯絡人同步\n\n請至 https://github.com/nextcloud/android/issues 回報所有問題，並於 https://help.nextcloud.com/c/clients/android 討論此應用程式\n\n您是 Nextcloud 新手嗎？Nextcloud 是一個私人的檔案同步、共享與通訊的伺服器。它是自由軟體，您可以自行架設，或是付費請專業公司協助您建置。如此，您便可完全掌控您的照片、行事曆與聯絡人資料、您的文件與其他任何東西。\n\n請造訪 https://nextcloud.com 以取得更多資訊</string>
+    <string name="store_full_desc">自主架設的生產力平台，讓你完全掌控自己的資料。\n\n功能特色：\n* 簡潔現代的介面，完美契合伺服器主題\n* 將檔案上傳至您的 Nextcloud 伺服器\n* 與他人共用檔案\n* 保持最愛的檔案與資料夾同步\n* 搜尋伺服器上的所有資料夾\n* 自動上傳裝置所拍攝的照片與影片\n* 隨時掌握最新通知\n* 支援多帳號\n* 透過指紋或 PIN 碼安全存取您的資料\n* 整合 DAVx⁵（前身為 DAVdroid），輕鬆設定行事曆與聯絡人同步\n\n請至 https://github.com/nextcloud/android/issues 回報所有問題，並至 https://help.nextcloud.com/c/clients/android 討論此應用程式。\n\n初次接觸 Nextcloud？Nextcloud 是一套私人的檔案同步、共用與通訊伺服器。這是自由軟體，您可以自行架設或委託公司代管。透過這種方式，您可以完全掌控自己的照片、行事曆與聯絡人資料、文件以及所有一切。\n\n請至 https://nextcloud.com 了解更多關於 Nextcloud 的資訊</string>
     <string name="store_full_dev_desc">可自架且始終讓您掌控一切的生產力平台。\n這是官方的開發版本，每天都會提供任何未經測試的新功能的每日成品，它可能造成不穩定或資料遺失。此應用程式適合願意測試，且回報所遇到問題的使用者。不要將它用於您的生產力工作環境！\n\nF-Droid 同時提供了官方的開發版本與一般版本，兩者可同時安裝。</string>
     <string name="store_short_desc">讓您能完全掌控、可自架的生產力平台</string>
     <string name="store_short_dev_desc">讓您能完全掌控、可自架的生產力平台（開發者預覽版）</string>
@@ -1088,7 +1088,7 @@
     <string name="unlock_file">解鎖檔案</string>
     <string name="unread_comments">有未讀留言</string>
     <string name="unset_encrypted">取消加密</string>
-    <string name="unset_favorite">從喜愛中移除</string>
+    <string name="unset_favorite">從最愛中移除</string>
     <string name="unset_internal_two_way_sync_description">從內部雙向同步中移除資料夾</string>
     <string name="unshare_link_file_error">嘗試取消分享這個檔案或資料夾時發生錯誤。</string>
     <string name="unshare_link_file_no_exist">無法取消分享。請確認檔案是否存在。</string>
