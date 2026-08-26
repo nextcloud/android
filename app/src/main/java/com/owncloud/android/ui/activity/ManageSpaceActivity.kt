@@ -9,6 +9,7 @@ package com.owncloud.android.ui.activity
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.work.WorkManager
@@ -168,6 +169,9 @@ class ManageSpaceActivity :
 
     private fun clearAutoUploadData() {
         FilesSyncHelper.startLocalDeletionForEnabledSyncedFolders(syncedFolderProvider, backgroundJobManager)
+        Toast
+            .makeText(this, R.string.autoupload_delete_uploaded_notif_started_title, Toast.LENGTH_SHORT)
+            .show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
