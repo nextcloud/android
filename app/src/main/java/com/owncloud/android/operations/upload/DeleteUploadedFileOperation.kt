@@ -61,6 +61,7 @@ class DeleteUploadedFileOperation(
             val ocFile = storageManager.getFileByRemotePath(remotePath)
             if (ocFile == null) {
                 Log_OC.i(TAG, "Unable to compare file ${localFile.name} with its remote counterpart, leaving in place")
+                filesPreserved ++
                 return@forEach
             }
 
