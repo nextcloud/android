@@ -59,6 +59,7 @@ class AutoUploadLocalDeletionWorker(
         val syncedFolders = syncedFolderIDs
             .map { syncedFolderProvider.getSyncedFolderByID(it) }
 
+        var users = HashSet<String>()
         var filesPreserved = 0L
         var foldersAnalyzed = 0L
         var filesRemoved = 0L
@@ -70,6 +71,7 @@ class AutoUploadLocalDeletionWorker(
             .filter { FileUtil.isFolderWritable(File(it.localPath)) }
             .forEach {
                 val sharedFolderOwner = userAccountManager.getUser(it.account).get()
+                users.add(sharedFolderOwner.accountName)
                 val fileDataStorageManager = FileDataStorageManager(sharedFolderOwner, context.contentResolver)
                 val op = DeleteUploadedFileOperation(
                     it,
@@ -93,6 +95,7 @@ class AutoUploadLocalDeletionWorker(
         val runTimeMs = System.currentTimeMillis() - timeStarted
         showNotification(
             createSuccessNotification(
+                users.size,
                 foldersAnalyzed,
                 filesRemoved,
                 filesPreserved,
@@ -102,13 +105,14 @@ class AutoUploadLocalDeletionWorker(
         )
         Log_OC.d(
             TAG,
-            "Success: foldersAnalyzed=$foldersAnalyzed, filesPreserved=$filesPreserved, " +
+            "Success: users=$users, foldersAnalyzed=$foldersAnalyzed, filesPreserved=$filesPreserved, " +
                 "filesRemoved=$filesRemoved, spaceFreed=$spaceFreed bytes, runTimeMs=$runTimeMs"
         )
         return Result.success()
     }
 
     private fun createSuccessNotification(
+        users: Int,
         foldersRemoved: Long,
         filesRemoved: Long,
         filesPreserved: Long,
@@ -120,6 +124,7 @@ class AutoUploadLocalDeletionWorker(
             DisplayUtils.bytesToHumanReadable(spaceFreed),
             filesRemoved,
             foldersRemoved,
+            users,
             DisplayUtils.unixTimeDurationToHumanReadable(context, timeElapsed)
         )
         if (filesPreserved > 0) {

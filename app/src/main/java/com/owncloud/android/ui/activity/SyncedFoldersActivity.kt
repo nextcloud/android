@@ -617,9 +617,9 @@ class SyncedFoldersActivity :
             null,
             R.string.autoupload_delete_uploaded_all_dialog_title,
             R.drawable.selector_trashbin,
-            R.string.common_ok,
-            R.string.common_cancel,
-            -1
+            R.string.autoupload_delete_uploaded_all_dialog_button_all_users,
+            R.string.autoupload_delete_uploaded_all_dialog_button_current_user,
+            R.string.common_cancel
         )
         dialog.isCancelable = false
         dialog.setOnConfirmationListener(object : ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
@@ -627,9 +627,15 @@ class SyncedFoldersActivity :
                 FilesSyncHelper.startLocalDeletionForEnabledSyncedFolders(syncedFolderProvider, backgroundJobManager)
             }
 
-            override fun onNeutral(callerTag: String?) = Unit
+            override fun onCancel(callerTag: String?) {
+                FilesSyncHelper.startLocalDeletionForEnabledSyncedFolders(
+                    syncedFolderProvider,
+                    backgroundJobManager,
+                    user.get()
+                )
+            }
 
-            override fun onCancel(callerTag: String?) = Unit
+            override fun onNeutral(callerTag: String?) = Unit
         })
 
         showDialog(dialog, SYNCED_FOLDER_DELETE_ALL_UPLOADED_DIALOG_TAG)

@@ -35,7 +35,7 @@ class DeleteUploadedFileOperation(
 
     @Suppress("ReturnCount")
     suspend fun run(): RemoteOperationResult<Stats> {
-        Log_OC.d(TAG, "Analyzing folder ${syncedFolder.remotePath}")
+        Log_OC.d(TAG, "Analyzing folder ${syncedFolder.remotePath} from user ${syncedFolder.account}")
 
         // Obtain synced folder data
         val folder = storageManager.getFileByRemotePath(syncedFolder.remotePath)

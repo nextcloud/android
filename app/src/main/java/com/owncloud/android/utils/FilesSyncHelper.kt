@@ -9,6 +9,7 @@
  */
 package com.owncloud.android.utils
 
+import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
@@ -79,9 +80,24 @@ object FilesSyncHelper {
 
     @JvmStatic
     fun startLocalDeletionForEnabledSyncedFolders(provider: SyncedFolderProvider, manager: BackgroundJobManager) {
-        Log_OC.d(TAG, "start local deletion worker for each enabled folder")
+        Log_OC.d(TAG, "Start local deletion worker for each enabled folder by any user")
 
         manager.locallyDeleteAutoUploadedFiles(provider.syncedFolders)
+    }
+
+    @JvmStatic
+    fun startLocalDeletionForEnabledSyncedFolders(
+        provider: SyncedFolderProvider,
+        manager: BackgroundJobManager,
+        user: User
+    ) {
+        Log_OC.d(TAG, "start local deletion worker for each enabled folder under user ${user.accountName}")
+
+        manager.locallyDeleteAutoUploadedFiles(
+            provider.syncedFolders.filter {
+                it.account.equals(user.accountName)
+            }
+        )
     }
 
     @JvmStatic
