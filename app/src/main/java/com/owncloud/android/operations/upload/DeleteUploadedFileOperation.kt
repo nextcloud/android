@@ -63,7 +63,11 @@ class DeleteUploadedFileOperation(
         files.forEach { localFile ->
             Log_OC.d(TAG, "Analyzing file $localFile from folder ${folder.remotePath}")
             val remotePath = syncFolderHelper.getAutoUploadRemotePath(syncedFolder, localFile)
-            val ocFile = storageManager.getFileByRemotePath(remotePath)
+            val ocFile =
+                storageManager.getFileByRemotePath(remotePath)
+                    // If file is null, try searching in the parent folder,
+                    // in case it was uploaded before enabling isSubfolderByDate
+                    ?: storageManager.getFileByRemotePath("${folder.remotePath}${localFile.name}")
             if (ocFile == null) {
                 Log_OC.i(TAG, "Unable to compare file ${localFile.name} with its remote counterpart, leaving in place")
                 filesPreserved++
@@ -104,7 +108,7 @@ class DeleteUploadedFileOperation(
             if (remoteLastMod / MS_IN_SECOND != localLastMod / MS_IN_SECOND) {
                 Log_OC.i(
                     TAG,
-                    "Local and remote mod date differs for file file ${localFile.name}: " +
+                    "Local and remote mod date differs for file ${localFile.name}: " +
                         "$localLastMod : $remoteLastMod, leaving in place"
                 )
                 filesPreserved++
