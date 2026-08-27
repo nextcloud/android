@@ -83,7 +83,7 @@ class AutoUploadLocalDeletionWorker(
                     )
                     return Result.failure()
                 }
-                foldersAnalyzed ++
+                foldersAnalyzed++
                 filesPreserved += res.resultData.filesPreserved
                 filesRemoved += res.resultData.filesRemoved
                 spaceFreed += res.resultData.spaceFreed
@@ -118,10 +118,10 @@ class AutoUploadLocalDeletionWorker(
         if (filesPreserved > 0) {
             notificationContent +=
                 "\n" +
-                    context.getString(
-                        R.string.autoupload_delete_uploaded_notif_ended_content_preserved,
-                        filesPreserved
-                    )
+                context.getString(
+                    R.string.autoupload_delete_uploaded_notif_ended_content_preserved,
+                    filesPreserved
+                )
         }
         return createNotification(
             title = context.getString(R.string.autoupload_delete_uploaded_notif_ended_title),
@@ -129,16 +129,17 @@ class AutoUploadLocalDeletionWorker(
         )
     }
 
-    private fun createNotification(title: String, content: String? = null): Notification = notificationManager.notificationBuilder
-        .setContentTitle(title)
-        .setContentText(content)
-        .setSmallIcon(R.drawable.ic_delete)
-        .setSound(null)
-        .setVibrate(null)
-        .setOnlyAlertOnce(true)
-        .setSilent(true)
-        .setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_BACKGROUND_OPERATIONS)
-        .build()
+    private fun createNotification(title: String, content: String? = null): Notification =
+        notificationManager.notificationBuilder
+            .setContentTitle(title)
+            .setContentText(content)
+            .setSmallIcon(R.drawable.ic_delete)
+            .setSound(null)
+            .setVibrate(null)
+            .setOnlyAlertOnce(true)
+            .setSilent(true)
+            .setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_BACKGROUND_OPERATIONS)
+            .build()
 
     private fun showNotification(notification: Notification) = notificationManager.showNotification()
 }

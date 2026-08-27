@@ -627,11 +627,9 @@ class SyncedFoldersActivity :
                 FilesSyncHelper.startLocalDeletionForEnabledSyncedFolders(syncedFolderProvider, backgroundJobManager)
             }
 
-            override fun onNeutral(callerTag: String?) {
-            }
+            override fun onNeutral(callerTag: String?) = Unit
 
-            override fun onCancel(callerTag: String?) {
-            }
+            override fun onCancel(callerTag: String?) = Unit
         })
 
         showDialog(dialog, SYNCED_FOLDER_DELETE_ALL_UPLOADED_DIALOG_TAG)
@@ -654,11 +652,9 @@ class SyncedFoldersActivity :
                 FilesSyncHelper.startLocalDeletionForSyncedFolder(syncedFolderDisplayItem, backgroundJobManager)
             }
 
-            override fun onNeutral(callerTag: String?) {
-            }
+            override fun onNeutral(callerTag: String?) = Unit
 
-            override fun onCancel(callerTag: String?) {
-            }
+            override fun onCancel(callerTag: String?) = Unit
         })
         showDialog(dialog, SYNCED_FOLDER_DELETE_UPLOADED_DIALOG_TAG)
     }

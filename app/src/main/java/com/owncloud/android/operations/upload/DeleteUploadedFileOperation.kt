@@ -28,6 +28,8 @@ class DeleteUploadedFileOperation(
 
     companion object {
         const val TAG = "DeleteUploadedFileOperation"
+
+        const val MS_IN_SECOND = 1000
     }
     private val syncFolderHelper = SyncFolderHelper(context)
 
@@ -61,7 +63,7 @@ class DeleteUploadedFileOperation(
             val ocFile = storageManager.getFileByRemotePath(remotePath)
             if (ocFile == null) {
                 Log_OC.i(TAG, "Unable to compare file ${localFile.name} with its remote counterpart, leaving in place")
-                filesPreserved ++
+                filesPreserved++
                 return@forEach
             }
 
@@ -90,19 +92,19 @@ class DeleteUploadedFileOperation(
                     "File ${localFile.name} has been modified ($localLastMod " +
                         "after it was synced ($lastSyncDate), leaving in place"
                 )
-                filesPreserved ++
+                filesPreserved++
                 return@forEach
             }
 
             // Check the file has same mod date. Note that the remote mod date is rounded to the second.
             val remoteLastMod = ocFile.modificationTimestamp
-            if (remoteLastMod / 1000 != localLastMod / 1000) {
+            if (remoteLastMod / MS_IN_SECOND != localLastMod / MS_IN_SECOND) {
                 Log_OC.i(
                     TAG,
                     "Local and remote mod date differs for file file ${localFile.name}: " +
                         "$localLastMod : $remoteLastMod, leaving in place"
                 )
-                filesPreserved ++
+                filesPreserved++
                 return@forEach
             }
 
@@ -115,7 +117,7 @@ class DeleteUploadedFileOperation(
                     "Local and remote file sizes differs for file ${localFile.name}: " +
                         "$localSize : $remoteSize, leaving in place"
                 )
-                filesPreserved ++
+                filesPreserved++
                 return@forEach
             }
 
@@ -123,7 +125,7 @@ class DeleteUploadedFileOperation(
             val deleted = true // localFile.delete()
             if (deleted) {
                 Log_OC.i(TAG, "Deleted file ${localFile.name}")
-                filesRemoved ++
+                filesRemoved++
                 spaceFreed += localSize
             } else {
                 Log_OC.e(TAG, "Error deleting file ${localFile.name}")
@@ -163,9 +165,5 @@ class DeleteUploadedFileOperation(
      * @param filesRemoved Files deleted from the device
      * @param spaceFreed Space freed deleting files on the device, in bytes
      */
-    data class Stats(
-        val filesPreserved: Long,
-        val filesRemoved: Long,
-        val spaceFreed: Long
-    )
+    data class Stats(val filesPreserved: Long, val filesRemoved: Long, val spaceFreed: Long)
 }
