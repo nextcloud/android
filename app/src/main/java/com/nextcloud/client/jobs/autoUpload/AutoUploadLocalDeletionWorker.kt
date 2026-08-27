@@ -37,7 +37,7 @@ class AutoUploadLocalDeletionWorker(
         const val SYNCED_FOLDER_IDS = "synced_folder_IDs"
         const val NOTIFICATION_ID = 267
 
-        private const val TAG = "\uD83D\uDDD1\uFE0F AutoUploadLocalDeletionWorker"
+        private const val TAG = "AutoUploadLocalDeletionWorker"
     }
 
     private val notificationManager = WorkerNotificationManager(

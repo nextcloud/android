@@ -35,7 +35,8 @@ class DeleteUploadedFileOperation(
 
     @Suppress("ReturnCount")
     suspend fun run(): RemoteOperationResult<Stats> {
-        Log_OC.d(TAG, "StorageManager user is ${storageManager.user}")
+        Log_OC.d(TAG, "Analyzing folder ${syncedFolder.remotePath}")
+
         // Obtain synced folder data
         val folder = storageManager.getFileByRemotePath(syncedFolder.remotePath)
             ?: storageManager.getFileByLocalPath(syncedFolder.localPath)
@@ -60,6 +61,7 @@ class DeleteUploadedFileOperation(
         var spaceFreed = 0L
 
         files.forEach { localFile ->
+            Log_OC.d(TAG, "Analyzing file $localFile from folder ${folder.remotePath}")
             val remotePath = syncFolderHelper.getAutoUploadRemotePath(syncedFolder, localFile)
             val ocFile = storageManager.getFileByRemotePath(remotePath)
             if (ocFile == null) {
@@ -145,7 +147,7 @@ class DeleteUploadedFileOperation(
     private suspend fun refreshFolder(folder: OCFile, storageManager: FileDataStorageManager): Boolean =
         withContext(Dispatchers.IO) {
             val operation = RefreshFolderOperation(folder, storageManager, storageManager.user, context)
-            val result = operation.executeNextcloudClient(storageManager.user, context)
+            val result = operation.execute(storageManager.user, context)
             if (result.isSuccess) {
                 Log_OC.d(TAG, "Successfully fetched metadata for: ${folder.remotePath}")
                 true
