@@ -129,7 +129,7 @@ class DeleteUploadedFileOperation(
             }
 
             // File deletion
-            val deleted = true // localFile.delete()
+            val deleted = localFile.delete()
             if (deleted) {
                 Log_OC.i(TAG, "Deleted file ${localFile.name}")
                 filesRemoved++
