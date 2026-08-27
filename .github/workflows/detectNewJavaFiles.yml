@@ -20,7 +20,7 @@ concurrency:
 
 jobs:
   detectNewJavaFiles:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest-low
     steps:
       - id: file_changes
         uses: trilom/file-changes-action@a6ca26c14274c33b15e6499323aac178af06ad4b # v1.2.4
