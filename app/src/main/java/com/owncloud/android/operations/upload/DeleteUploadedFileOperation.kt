@@ -33,6 +33,7 @@ class DeleteUploadedFileOperation(
     }
     private val syncFolderHelper = SyncFolderHelper(context)
 
+    @Suppress("ReturnCount")
     suspend fun run(): RemoteOperationResult<Stats> {
         Log_OC.d(TAG, "StorageManager user is ${storageManager.user}")
         // Obtain synced folder data
@@ -144,17 +145,12 @@ class DeleteUploadedFileOperation(
     private suspend fun refreshFolder(folder: OCFile, storageManager: FileDataStorageManager): Boolean =
         withContext(Dispatchers.IO) {
             val operation = RefreshFolderOperation(folder, storageManager, storageManager.user, context)
-            return@withContext try {
-                val result = operation.execute(storageManager.user, context)
-                if (result.isSuccess) {
-                    Log_OC.d(TAG, "Successfully fetched metadata for: ${folder.remotePath}")
-                    true
-                } else {
-                    Log_OC.e(TAG, "Failed to fetch metadata for: ${folder.remotePath}")
-                    false
-                }
-            } catch (e: Exception) {
-                Log_OC.e(TAG, "Exception refreshing folder ${folder.remotePath}: ${e.message}", e)
+            val result = operation.executeNextcloudClient(storageManager.user, context)
+            if (result.isSuccess) {
+                Log_OC.d(TAG, "Successfully fetched metadata for: ${folder.remotePath}")
+                true
+            } else {
+                Log_OC.e(TAG, "Failed to fetch metadata for: ${folder.remotePath}")
                 false
             }
         }

@@ -105,6 +105,11 @@ public final class DisplayUtils {
     public static final String MONTH_PATTERN = "MMMM";
     public static final String YEAR_PATTERN = "yyyy";
 
+    public static final long SECOND_IN_MS = 1000;
+    public static final long MINUTE_IN_MS = 60 * SECOND_IN_MS;
+    public static final long HOUR_IN_MS = 60 * MINUTE_IN_MS;
+    public static final long DAY_IN_MS = 24 * HOUR_IN_MS;
+
     private DisplayUtils() {
         // utility class -> private constructor
     }
@@ -146,6 +151,48 @@ public final class DisplayUtils {
         Date date = new Date(milliseconds);
         DateFormat df = DateFormat.getDateTimeInstance();
         return df.format(date);
+    }
+
+    /**
+     * Converts Unix time duration to human readable format
+     *
+     * @param milliseconds that the operation did require
+     * @return The human readable time duration for the users locale
+     */
+    public static String unixTimeDurationToHumanReadable(Context context, long milliseconds) {
+        long days = milliseconds / DAY_IN_MS;
+        long hours = (milliseconds % DAY_IN_MS) / HOUR_IN_MS;
+        long minutes = (milliseconds % HOUR_IN_MS) / MINUTE_IN_MS;
+        long seconds = (milliseconds % MINUTE_IN_MS) / SECOND_IN_MS;
+
+        StringBuilder builder = new StringBuilder();
+
+        if (days > 0) {
+            builder.append(days);
+            builder.append(" ");
+            builder.append(context.getString(R.string.duration_days));
+            builder.append(", ");
+        }
+
+        if (hours > 0) {
+            builder.append(hours);
+            builder.append(" ");
+            builder.append(context.getString(R.string.duration_hours));
+            builder.append(", ");
+        }
+
+        if (minutes > 0) {
+            builder.append(minutes);
+            builder.append(" ");
+            builder.append(context.getString(R.string.duration_minutes));
+            builder.append(", ");
+        }
+
+        builder.append(seconds);
+        builder.append(" ");
+        builder.append(context.getString(R.string.duration_seconds));
+
+        return builder.toString();
     }
 
     /**

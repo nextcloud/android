@@ -63,6 +63,7 @@ class AutoUploadLocalDeletionWorker(
         var foldersAnalyzed = 0L
         var filesRemoved = 0L
         var spaceFreed = 0L
+        val timeStarted = System.currentTimeMillis()
         syncedFolders
             .filterNotNull()
             .filter { it.isEnabled }
@@ -89,17 +90,21 @@ class AutoUploadLocalDeletionWorker(
                 spaceFreed += res.resultData.spaceFreed
             }
 
-
+        val runTimeMs = System.currentTimeMillis() - timeStarted
         showNotification(
             createSuccessNotification(
                 foldersAnalyzed,
                 filesRemoved,
                 filesPreserved,
-                spaceFreed
+                spaceFreed,
+                runTimeMs
             )
         )
-        Log_OC.d(TAG, "Success: foldersAnalyzed=$foldersAnalyzed, filesPreserved=$filesPreserved, " +
-            "filesRemoved=$filesRemoved, spaceFreed=$spaceFreed bytes")
+        Log_OC.d(
+            TAG,
+            "Success: foldersAnalyzed=$foldersAnalyzed, filesPreserved=$filesPreserved, " +
+                "filesRemoved=$filesRemoved, spaceFreed=$spaceFreed bytes, runTimeMs=$runTimeMs"
+        )
         return Result.success()
     }
 
@@ -107,13 +112,15 @@ class AutoUploadLocalDeletionWorker(
         foldersRemoved: Long,
         filesRemoved: Long,
         filesPreserved: Long,
-        spaceFreed: Long
+        spaceFreed: Long,
+        timeElapsed: Long
     ): Notification {
         var notificationContent = context.getString(
             R.string.autoupload_delete_uploaded_notif_ended_content,
             DisplayUtils.bytesToHumanReadable(spaceFreed),
             filesRemoved,
-            foldersRemoved
+            foldersRemoved,
+            DisplayUtils.unixTimeDurationToHumanReadable(context, timeElapsed)
         )
         if (filesPreserved > 0) {
             notificationContent +=
