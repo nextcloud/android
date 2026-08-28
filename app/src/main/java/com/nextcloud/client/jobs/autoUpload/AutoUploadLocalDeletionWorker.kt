@@ -106,7 +106,8 @@ class AutoUploadLocalDeletionWorker(
         Log_OC.d(
             TAG,
             "Success: users=$users, foldersAnalyzed=$foldersAnalyzed, filesPreserved=$filesPreserved, " +
-                "filesRemoved=$filesRemoved, spaceFreed=$spaceFreed bytes, runTimeMs=$runTimeMs"
+                "filesRemoved=$filesRemoved, spaceFreed=$spaceFreed bytes, " +
+                "runTime=${DisplayUtils.unixTimeDurationToHumanReadable(context, runTimeMs)}"
         )
         return Result.success()
     }
@@ -119,22 +120,13 @@ class AutoUploadLocalDeletionWorker(
         spaceFreed: Long,
         timeElapsed: Long
     ): Notification {
-        var notificationContent = context.getString(
+        val notificationContent = context.getString(
             R.string.autoupload_delete_uploaded_notif_ended_content,
             DisplayUtils.bytesToHumanReadable(spaceFreed),
             filesRemoved,
             foldersRemoved,
-            users,
-            DisplayUtils.unixTimeDurationToHumanReadable(context, timeElapsed)
+            users
         )
-        if (filesPreserved > 0) {
-            notificationContent +=
-                "\n" +
-                context.getString(
-                    R.string.autoupload_delete_uploaded_notif_ended_content_preserved,
-                    filesPreserved
-                )
-        }
         return createNotification(
             title = context.getString(R.string.autoupload_delete_uploaded_notif_ended_title),
             content = notificationContent
