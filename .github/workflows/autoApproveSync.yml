@@ -26,7 +26,7 @@ permissions:
 jobs:
   auto-approve:
     name: Auto approve sync
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest-low
     if: ${{ contains(github.event.pull_request.labels.*.name, 'sync') && github.actor == 'nextcloud-android-bot' }}
     steps:
       - name: Disabled on forks

@@ -251,6 +251,7 @@
     <string name="create">Crear</string>
     <string name="create_dir_fail_msg">No se ha podido crear la carpeta</string>
     <string name="create_document">Documento</string>
+    <string name="create_encrypted_folder">Carpeta cifrada</string>
     <string name="create_end_to_end_encrypted_share">Compartir enlace</string>
     <string name="create_end_to_end_encrypted_share_title">Enlaces cifrados de extremo a extremo compartidos</string>
     <string name="create_folder">Carpeta</string>
@@ -1082,6 +1083,7 @@
     <string name="unified_search_fragment_contact_not_found">Contacto no encontrado, siempre puede sincronizar para actualizar. Redirigiendo a la web…</string>
     <string name="unified_search_fragment_permission_needed">Se requieren permisos para abrir el resultado de la búsqueda. De otra forma, se redirigirá a la web…</string>
     <string name="unified_search_fragment_search_in_this_folder">En esta carpeta</string>
+    <string name="unified_search_fragment_search_takes_long">La búsqueda está tardando más de lo habitual. Los resultados aparecerán en cuanto responda el servidor.</string>
     <string name="unknown">Desconocido</string>
     <string name="unlock_file">Desbloquear archivo</string>
     <string name="unread_comments">Hay comentarios no leídos</string>
