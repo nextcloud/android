@@ -86,8 +86,6 @@ open class ExtendedListFragment :
     SearchView.OnQueryTextListener,
     SearchView.OnCloseListener,
     Injectable {
-    private var maxColumnSize = 5
-
     @Inject
     lateinit var preferences: AppPreferences
 
@@ -146,7 +144,7 @@ open class ExtendedListFragment :
 
     open fun switchToGridView() {
         if (!isGridEnabled) {
-            recyclerView?.layoutManager = GridLayoutManager(context, columnsCount)
+            recyclerView?.layoutManager = AutofitGridLayoutManager(requireContext()) { targetColumnWidth }
         }
     }
 
@@ -375,9 +373,8 @@ open class ExtendedListFragment :
                 mScale = gridLayoutManager.spanCount.toFloat()
             }
             mScale *= 2f - scaleFactor
-            mScale = max(MIN_COLUMN_SIZE, min(mScale, maxColumnSize.toFloat()))
-            val scaleInt = mScale.roundToInt()
-            gridLayoutManager.setSpanCount(scaleInt)
+            mScale = max(MIN_COLUMN_SIZE, min(mScale, MAX_COLUMN_SCALE))
+            gridLayoutManager.requestLayout()
             mRecyclerView?.adapter?.notifyDataSetChanged()
         }
     }
@@ -437,13 +434,23 @@ open class ExtendedListFragment :
         preferences.setGridColumns(mScale)
     }
 
-    open val columnsCount: Int
+    /**
+     * Target width of one grid column in pixels.
+     *
+     * [mScale] is a zoom level: asking for more columns than the default means asking for
+     * smaller cells. The column count itself is worked out by [AutofitGridLayoutManager] from
+     * the width the list is actually given.
+     */
+    internal val targetColumnWidth: Int
         get() {
-            if (mScale == -1f) {
-                return AppPreferencesImpl.DEFAULT_GRID_COLUMN.roundToInt()
-            }
-            return mScale.roundToInt()
+            val zoom = (if (mScale > 0f) mScale else AppPreferencesImpl.DEFAULT_GRID_COLUMN) /
+                AppPreferencesImpl.DEFAULT_GRID_COLUMN
+            return (resources.getDimension(R.dimen.grid_item_default_width) / zoom).roundToInt()
         }
+
+    open val columnsCount: Int
+        get() = (recyclerView?.layoutManager as? GridLayoutManager)?.spanCount
+            ?: AppPreferencesImpl.DEFAULT_GRID_COLUMN.roundToInt()
 
     /*
      * Restore index and position
@@ -778,15 +785,7 @@ open class ExtendedListFragment :
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
 
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            maxColumnSize = 10
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            maxColumnSize = 5
-        }
-
-        if (isGridEnabled && columnsCount > maxColumnSize) {
-            (recyclerView?.layoutManager as GridLayoutManager).spanCount = maxColumnSize
-        }
+        // The column count follows the width the list is given, so nothing to do here.
     }
 
     protected fun setLayoutSwitchButton() {
@@ -821,5 +820,10 @@ open class ExtendedListFragment :
         private const val KEY_EMPTY_LIST_MESSAGE = "EMPTY_LIST_MESSAGE"
         private const val KEY_IS_GRID_VISIBLE = "IS_GRID_VISIBLE"
         private const val MIN_COLUMN_SIZE: Float = 2.0f
+
+        /**
+         * Highest number of columns the pinch gesture can select on a reference-width screen.
+         */
+        private const val MAX_COLUMN_SCALE: Float = 5.0f
     }
 }
