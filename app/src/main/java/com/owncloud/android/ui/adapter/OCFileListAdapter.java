@@ -880,12 +880,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             currentDirectory = directory;
         }
 
-        searchType = null;
-
         activity.runOnUiThread(this::notifyDataSetChanged);
     }
 
     public void prepareForSearchData(FileDataStorageManager storageManager, SearchType searchType) {
+        this.searchType = searchType;
         initStorageManagerShowShareAvatar(storageManager);
         clearSearchData(searchType);
     }
