@@ -53,11 +53,11 @@
         android:orientation="horizontal"
         android:padding="@dimen/standard_quarter_padding"
         android:translationZ="4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/thumbnail"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/thumbnail"
+        app:layout_constraintEnd_toEndOf="@id/thumbnail"
         app:layout_constraintHorizontal_bias="0.85"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/thumbnail"
+        app:layout_constraintTop_toTopOf="@id/thumbnail"
         app:layout_constraintVertical_bias="0.85">
 
         <ImageView
@@ -211,11 +211,9 @@
         android:text="@string/placeholder_filename"
         android:textSize="@dimen/grid_item_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toStartOf="@id/more"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/thumbnail"
-        app:layout_constraintWidth_percent="0.75"
+        app:layout_constraintTop_toBottomOf="@id/thumbnail"
         tools:visibility="visible" />
 
     <ImageButton
