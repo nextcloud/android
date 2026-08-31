@@ -48,6 +48,12 @@
             android:defaultValue="true"
             android:title="@string/sort_favorites_first"
             android:key="sort_favorites_first" />
+        <ListPreference
+            android:title="@string/prefs_grid_density_title"
+            android:key="grid_density"
+            android:entries="@array/prefs_grid_density_entries"
+            android:entryValues="@array/prefs_grid_density_values"
+            android:summary="%s" />
     </PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/prefs_category_details" android:key="details">

@@ -418,6 +418,21 @@ open class ExtendedListFragment :
         scrollToPosition(referencePosition)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onResume() {
+        super.onResume()
+
+        // The density may have been changed in the settings while this list was in the
+        // background, and the stored value is only read when the view is created.
+        val stored = preferences.getGridColumns()
+        if (stored != mScale) {
+            mScale = stored
+            // The layout manager reads the target column width again on its next layout.
+            recyclerView?.requestLayout()
+            recyclerView?.adapter?.notifyDataSetChanged()
+        }
+    }
+
     override fun onSaveInstanceState(savedInstanceState: Bundle) {
         super.onSaveInstanceState(savedInstanceState)
         Log_OC.d(TAG, "onSaveInstanceState()")
