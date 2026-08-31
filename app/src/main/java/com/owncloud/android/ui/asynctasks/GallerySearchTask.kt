@@ -89,7 +89,8 @@ class GallerySearchTask(
     private fun handleSuccess(operationResult: RemoteOperationResult<*>): Result {
         val remoteFiles = operationResult.data.filterIsInstance<RemoteFile>()
         val lastTimestamp = findLastTimestamp(remoteFiles)
-        val emptySearch = parseMedia(lastTimestamp, endDate, remoteFiles)
+        parseMedia(lastTimestamp, endDate, remoteFiles)
+        val emptySearch = remoteFiles.isEmpty()
         return Result(operationResult.code, emptySearch, lastTimestamp)
     }
 
