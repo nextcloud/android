@@ -12,6 +12,7 @@ package com.owncloud.android.utils
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.jobs.autoUpload.AutoUploadRequestResult
 import com.nextcloud.client.jobs.upload.FileUploadHelper.Companion.instance
 import com.nextcloud.client.network.ConnectivityService
 import com.owncloud.android.datamodel.SyncedFolderProvider
@@ -43,13 +44,35 @@ object FilesSyncHelper {
         provider: SyncedFolderProvider,
         manager: BackgroundJobManager,
         overridePowerSaving: Boolean
-    ) {
+    ): Int {
         Log_OC.d(TAG, "start auto upload worker for each enabled folder")
 
-        provider.syncedFolders.forEach {
-            if (it.isEnabled) {
-                manager.startAutoUpload(it, overridePowerSaving)
-            }
+        return provider.syncedFolders
+            .filter { it.isEnabled }
+            .onEach { manager.startAutoUpload(it, overridePowerSaving) }
+            .size
+    }
+
+    fun startAutoUploadIgnoringPowerSaving(
+        provider: SyncedFolderProvider,
+        manager: BackgroundJobManager
+    ): AutoUploadRequestResult {
+        val enabledFolders = provider.syncedFolders.filter { it.isEnabled }
+        if (enabledFolders.isEmpty()) {
+            Log_OC.d(TAG, "no enabled synced folder to start")
+            return AutoUploadRequestResult.NO_ENABLED_FOLDER
+        }
+
+        val startedFolders = enabledFolders
+            .filterNot { manager.isAutoUploadIgnoringPowerSavingScheduled(it.id) }
+            .onEach { manager.startAutoUpload(it, overridePowerSaving = true) }
+
+        Log_OC.d(TAG, "start auto upload ignoring power saving for ${startedFolders.size} folder(s)")
+
+        return if (startedFolders.isEmpty()) {
+            AutoUploadRequestResult.ALREADY_RUNNING
+        } else {
+            AutoUploadRequestResult.STARTED
         }
     }
 }
