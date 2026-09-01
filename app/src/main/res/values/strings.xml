@@ -1553,4 +1553,15 @@
     <string name="governance_permission_denied">You do not have permission to change this label</string>
     <string name="file_info_governance_section_title">Governance</string>
     <string name="file_info_image_details_section_title">Image details</string>
+    <string name="prefs_grid_density_title">Grid density</string>
+    <string-array name="prefs_grid_density_entries">
+        <item>Spacious</item>
+        <item>Default</item>
+        <item>Compact</item>
+    </string-array>
+    <string-array name="prefs_grid_density_values" translatable="false">
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
 </resources>

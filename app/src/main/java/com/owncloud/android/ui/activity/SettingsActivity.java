@@ -27,6 +27,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
@@ -966,6 +967,30 @@ public class SettingsActivity extends PreferenceActivity
                 return true;
             });
         }
+
+        setupGridDensityPreference();
+    }
+
+    /**
+     * The grid density shares its stored value with the pinch to zoom gesture in the file list,
+     * so picking a density here and pinching the grid are two ways of setting the same thing.
+     */
+    private void setupGridDensityPreference() {
+        if (!(findPreference("grid_density") instanceof ListPreference densityPref)) {
+            return;
+        }
+
+        densityPref.setValue(String.valueOf(Math.round(preferences.getGridColumns())));
+
+        densityPref.setOnPreferenceChangeListener((preference, newValue) -> {
+            try {
+                preferences.setGridColumns(Float.parseFloat(newValue.toString()));
+            } catch (NumberFormatException e) {
+                Log_OC.w(TAG, "Ignoring unusable grid density value: " + newValue);
+                return false;
+            }
+            return true;
+        });
     }
 
     private void updateThemePreferenceSummary(String themeValue) {
