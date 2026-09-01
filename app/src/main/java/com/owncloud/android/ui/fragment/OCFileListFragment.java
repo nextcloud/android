@@ -1168,7 +1168,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return;
         }
 
-        if (PreviewImageFragment.canBePreviewed(file) && mContainerActivity instanceof FileDisplayActivity fda) {
+        if (mContainerActivity instanceof FileDisplayActivity fda && fda.canPreviewInMediaPager(file)) {
             fda.previewImageWithSearchContext(file, searchFragment, currentSearchType);
         } else if (file.isDown() && mContainerActivity instanceof FileDisplayActivity fda) {
             fda.previewFile(file, this::setFabVisible);
