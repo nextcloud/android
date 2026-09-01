@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.player.media3.PlaybackModel
@@ -33,6 +34,8 @@ class VideoFileFragment :
 
     companion object {
         private const val ARGUMENT_FILE = "ARGUMENT_FILE"
+        private const val SURFACE_ALPHA_VISIBLE = 1f
+        private const val SURFACE_ALPHA_HIDDEN = 0f
 
         fun createInstance(file: PlaybackFile) = VideoFileFragment().apply {
             arguments = bundleOf(ARGUMENT_FILE to file)
@@ -45,23 +48,28 @@ class VideoFileFragment :
     @Inject
     lateinit var thumbnailLoader: ThumbnailLoader
 
-    private lateinit var file: PlaybackFile
-
-    private lateinit var binding: PlayerVideoFileFragmentBinding
+    private var _binding: PlayerVideoFileFragmentBinding? = null
+    private val binding get() = checkNotNull(_binding) { "Binding accessed outside of the view lifecycle" }
 
     private var previousVideoSize: VideoSize? = null
+
+    private val file by lazy {
+        requireNotNull(arguments.getSerializableArgument(ARGUMENT_FILE, PlaybackFile::class.java)) {
+            "VideoFileFragment requires a $ARGUMENT_FILE argument"
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AndroidSupportInjection.inject(this)
-        val playbackFile = arguments.getSerializableArgument(ARGUMENT_FILE, PlaybackFile::class.java)
-        this.file = playbackFile ?: throw IllegalArgumentException("bundle is not containing playback file")
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = PlayerVideoFileFragmentBinding.inflate(inflater, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
+        PlayerVideoFileFragmentBinding.inflate(inflater, container, false).also { _binding = it }.root
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         loadFileThumbnail()
-        return binding.root
     }
 
     override fun onStart() {
@@ -75,39 +83,43 @@ class VideoFileFragment :
         super.onStop()
     }
 
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
+
     override fun onPlaybackUpdate(state: PlaybackState) {
         render(state)
     }
 
-    private fun loadFileThumbnail() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            val context = context ?: return@launch
-            val thumbnailSize = context.resources.getDimension(R.dimen.player_album_cover_size)
-            val thumbnail = thumbnailLoader.await(context, file, thumbnailSize.toInt(), thumbnailSize.toInt())
-            thumbnail?.let(binding.thumbnail::setImageBitmap)
-        }
+    private fun loadFileThumbnail() = viewLifecycleOwner.lifecycleScope.launch {
+        val thumbnailSize = resources.getDimensionPixelSize(R.dimen.player_album_cover_size)
+        val thumbnail = thumbnailLoader.await(requireContext(), file, thumbnailSize, thumbnailSize) ?: return@launch
+        binding.thumbnail.setImageBitmap(thumbnail)
     }
 
     private fun render(state: PlaybackState?) {
         val currentItemState = state?.currentItemState
+
         if (currentItemState?.file == file) {
             showVideo(currentItemState.videoSize)
-        } else {
-            binding.surfaceView.visibility = View.GONE
-            if (currentItemState == null) {
-                playerModel.setVideoSurfaceView(null)
-            }
+            return
+        }
+
+        binding.surfaceView.isVisible = false
+        if (currentItemState == null) {
+            playerModel.setVideoSurfaceView(null)
         }
     }
 
     private fun showVideo(videoSize: VideoSize?) {
         playerModel.setVideoSurfaceView(binding.surfaceView)
-        binding.surfaceView.visibility = View.VISIBLE
-        binding.surfaceView.alpha = if (videoSize != null) 1f else 0f
+        binding.surfaceView.isVisible = true
+        binding.surfaceView.alpha = if (videoSize == null) SURFACE_ALPHA_HIDDEN else SURFACE_ALPHA_VISIBLE
 
-        if (videoSize != null && previousVideoSize != videoSize) {
-            previousVideoSize = videoSize
-            binding.surfaceView.applyVideoSize(videoSize)
-        }
+        if (videoSize == null || previousVideoSize == videoSize) return
+
+        previousVideoSize = videoSize
+        binding.surfaceView.applyVideoSize(videoSize)
     }
 }
