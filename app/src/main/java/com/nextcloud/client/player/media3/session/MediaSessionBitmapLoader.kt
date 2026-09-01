@@ -96,9 +96,9 @@ class MediaSessionBitmapLoader @Inject constructor(
 
     private fun getDefaultBitmap(file: PlaybackFile?): Bitmap {
         val drawable = if (file != null && MimeTypeUtil.isVideo(file.mimeType)) {
-            ContextCompat.getDrawable(context, R.drawable.player_ic_notification_video)
+            ContextCompat.getDrawable(context, R.drawable.video_white)
         } else {
-            ContextCompat.getDrawable(context, R.drawable.player_ic_notification_audio)
+            ContextCompat.getDrawable(context, R.drawable.player_ic_audio)
         }
         return drawable?.toBitmap() ?: throw IllegalStateException("Could not decode resource")
     }
