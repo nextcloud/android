@@ -93,9 +93,10 @@ class VideoFileFragment :
     }
 
     private fun loadFileThumbnail() = viewLifecycleOwner.lifecycleScope.launch {
-        val thumbnailSize = resources.getDimensionPixelSize(R.dimen.player_album_cover_size)
-        val thumbnail = thumbnailLoader.await(requireContext(), file, thumbnailSize, thumbnailSize) ?: return@launch
-        binding.thumbnail.setImageBitmap(thumbnail)
+        val context = context ?: return@launch
+        val thumbnailSize = context.resources.getDimensionPixelSize(R.dimen.player_album_cover_size)
+        val thumbnail = thumbnailLoader.await(context, file, thumbnailSize, thumbnailSize) ?: return@launch
+        _binding?.thumbnail?.setImageBitmap(thumbnail)
     }
 
     private fun render(state: PlaybackState?) {
