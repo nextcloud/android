@@ -79,6 +79,7 @@ class PlaybackModel @Inject constructor(
     private val controllerListener = object : MediaController.Listener {
         override fun onDisconnected(controller: MediaController) {
             controller.removeListener(playerListener)
+            videoSurfaceView = null
             invalidateCurrentFiles()
             controllerScope?.cancel()
             checkProgressPeriodicAction.stop()
@@ -90,6 +91,10 @@ class PlaybackModel @Inject constructor(
     private var controller: Player? = null
 
     private var mediaSession: MediaSession? = null
+
+    var onPictureInPictureClose: (() -> Unit)? = null
+
+    private var videoSurfaceView: SurfaceView? = null
 
     private var cachedCurrentFiles: List<PlaybackFile>? = null
     private var cachedMediaIds: List<String>? = null
@@ -118,6 +123,7 @@ class PlaybackModel @Inject constructor(
     }
 
     suspend fun start() {
+        videoSurfaceView = null
         val sessionToken = SessionToken(context, ComponentName(context, PlaybackService::class.java))
         controller = MediaController.Builder(context, sessionToken)
             .setListener(controllerListener)
@@ -171,6 +177,7 @@ class PlaybackModel @Inject constructor(
         .let { if (it in 0..files.list.lastIndex) it else 0 }
 
     fun release() {
+        videoSurfaceView = null
         controller?.release()
         mediaSession?.player?.release()
         mediaSession?.release()
@@ -178,6 +185,11 @@ class PlaybackModel @Inject constructor(
     }
 
     fun setVideoSurfaceView(surfaceView: SurfaceView?) {
+        if (videoSurfaceView === surfaceView) {
+            return
+        }
+
+        videoSurfaceView = surfaceView
         controller?.setVideoSurfaceView(surfaceView)
     }
 

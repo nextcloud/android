@@ -54,12 +54,23 @@ class PlayerActivity :
 
     companion object {
         private const val PLAYBACK_FILE_TYPE: String = "PLAYBACK_FILE_TYPE"
+        private const val ENTER_PICTURE_IN_PICTURE: String = "ENTER_PICTURE_IN_PICTURE"
+        private const val RESUME_PLAYBACK: String = "RESUME_PLAYBACK"
 
         fun createIntent(context: Context, playbackFileType: PlaybackFileType): Intent =
             Intent(context, PlayerActivity::class.java).apply {
                 putExtra(PLAYBACK_FILE_TYPE, playbackFileType)
                 addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
             }
+
+        fun createPictureInPictureIntent(
+            context: Context,
+            playbackFileType: PlaybackFileType,
+            resumePlayback: Boolean
+        ): Intent = createIntent(context, playbackFileType).apply {
+            putExtra(ENTER_PICTURE_IN_PICTURE, true)
+            putExtra(RESUME_PLAYBACK, resumePlayback)
+        }
     }
 
     @Inject
@@ -75,12 +86,18 @@ class PlayerActivity :
 
     private var onBackPressedCallback: OnBackPressedCallback? = null
 
+    private var keepPlaybackAliveOnFinish = false
+
+    private var enterPictureInPictureOnResume = false
+    private var resumePlaybackOnResume = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         ViewCompat.setOnApplyWindowInsetsListener(window.decorView) { _, windowInsets -> windowInsets }
 
         playbackFileType = intent.getPlaybackFileType()
+        readPictureInPictureRequest(intent)
         createPlayerView()
 
         viewModel.eventFlow
@@ -105,6 +122,7 @@ class PlayerActivity :
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         playbackFileType = intent.getPlaybackFileType()
+        readPictureInPictureRequest(intent)
         recreatePlayerView()
         onBackPressedCallback?.isEnabled = canUsePictureInPictureMode()
     }
@@ -134,6 +152,26 @@ class PlayerActivity :
         playerView.onStart()
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (!enterPictureInPictureOnResume) {
+            return
+        }
+        enterPictureInPictureOnResume = false
+
+        if (resumePlaybackOnResume) {
+            playbackModel.play()
+        }
+        if (canUsePictureInPictureMode()) {
+            switchToPictureInPictureMode()
+        }
+    }
+
+    private fun readPictureInPictureRequest(intent: Intent) {
+        enterPictureInPictureOnResume = intent.getBooleanExtra(ENTER_PICTURE_IN_PICTURE, false)
+        resumePlaybackOnResume = intent.getBooleanExtra(RESUME_PLAYBACK, false)
+    }
+
     override fun onStop() {
         super.onStop()
         playerView.onStop()
@@ -141,19 +179,22 @@ class PlayerActivity :
 
     override fun onDestroy() {
         super.onDestroy()
-        if (isFinishing && playbackFileType == PlaybackFileType.VIDEO) {
+        playbackModel.onPictureInPictureClose = null
+        if (isFinishing && !keepPlaybackAliveOnFinish && playbackFileType == PlaybackFileType.VIDEO) {
             playbackModel.release()
         }
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        recreatePlayerView()
+
         if (isInPictureInPictureMode) {
             (playerView as? VideoPlayerView)?.hideControls()
-        } else {
-            (playerView as? VideoPlayerView)?.showControls()
+            return
         }
+
+        recreatePlayerView()
+        (playerView as? VideoPlayerView)?.showControls()
     }
 
     override fun onUserLeaveHint() {
@@ -165,6 +206,16 @@ class PlayerActivity :
 
     override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean, newConfig: Configuration) {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
+
+        playbackModel.onPictureInPictureClose = if (isInPictureInPictureMode) {
+            {
+                keepPlaybackAliveOnFinish = true
+                finish()
+            }
+        } else {
+            null
+        }
+
         if (!isInPictureInPictureMode && lifecycle.currentState == Lifecycle.State.CREATED) {
             finish() // Finish the activity if the user closes the PIP window
         }

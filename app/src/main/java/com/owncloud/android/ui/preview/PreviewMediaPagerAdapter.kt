@@ -30,6 +30,8 @@ import com.owncloud.android.utils.MimeTypeUtil
  */
 class PreviewMediaPagerAdapter : FragmentStateAdapter {
 
+    var autoplayFileId: Long? = null
+
     private var selectedFile: OCFile? = null
     private var mediaFiles: MutableList<OCFile> = mutableListOf()
     private val user: User
@@ -170,7 +172,7 @@ class PreviewMediaPagerAdapter : FragmentStateAdapter {
 
     private fun fragmentForDownloaded(file: OCFile, ignoreFirstSavedState: Boolean): Fragment =
         if (file.isAudioOrVideo()) {
-            PreviewPlaybackFragment.newInstance(file, searchType)
+            PreviewPlaybackFragment.newInstance(file, searchType, takeAutoplay(file))
         } else {
             PreviewImageFragment.newInstance(file, ignoreFirstSavedState, false)
         }
@@ -186,10 +188,19 @@ class PreviewMediaPagerAdapter : FragmentStateAdapter {
             // without first being downloaded.
             file.isEncrypted -> FileDownloadFragment.newInstance(file, user, ignoreFirstSavedState)
 
-            file.isAudioOrVideo() -> PreviewPlaybackFragment.newInstance(file, searchType)
+            file.isAudioOrVideo() -> PreviewPlaybackFragment.newInstance(file, searchType, takeAutoplay(file))
 
             else -> PreviewImageFragment.newInstance(file, ignoreFirstSavedState, true)
         }
+    }
+
+    private fun takeAutoplay(file: OCFile): Boolean {
+        if (file.fileId != autoplayFileId) {
+            return false
+        }
+
+        autoplayFileId = null
+        return true
     }
 
     private fun OCFile.isAudioOrVideo(): Boolean = MimeTypeUtil.isAudio(this) || MimeTypeUtil.isVideo(this)

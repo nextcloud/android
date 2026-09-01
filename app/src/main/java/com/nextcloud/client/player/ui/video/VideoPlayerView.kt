@@ -90,6 +90,11 @@ class VideoPlayerView(context: Context) : PlayerView(context) {
 
     private fun restartHideControlsTimer() {
         hideControlsTimerJob?.cancel()
+
+        if (activity.isInPictureInPictureMode) {
+            return
+        }
+
         hideControlsTimerJob = activity.lifecycleScope.launch {
             delay(HIDE_CONTROLS_DELAY)
             hideControls()

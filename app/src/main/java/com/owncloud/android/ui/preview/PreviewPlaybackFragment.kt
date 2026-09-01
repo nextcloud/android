@@ -11,6 +11,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -18,16 +20,21 @@ import com.nextcloud.client.player.media3.PlaybackModel
 import com.nextcloud.client.player.model.ThumbnailLoader
 import com.nextcloud.client.player.model.file.PlaybackFile
 import com.nextcloud.client.player.model.file.toPlaybackFile
+import com.nextcloud.client.player.model.file.PlaybackFileType
 import com.nextcloud.client.player.model.state.PlaybackState
+import com.nextcloud.client.player.model.state.PlayerState
 import com.nextcloud.client.player.model.state.VideoSize
+import com.nextcloud.client.player.ui.PlayerActivity
 import com.nextcloud.client.player.ui.PlayerLauncher
 import com.nextcloud.client.player.util.applyVideoSize
+import com.nextcloud.client.player.util.isPictureInPictureAllowed
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PreviewPlaybackFragmentBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.fragment.SearchType
+import com.owncloud.android.utils.MimeTypeUtil
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -72,6 +79,8 @@ class PreviewPlaybackFragment :
     private var autoplay: Boolean = false
     private var previousVideoSize: VideoSize? = null
 
+    private var pictureInPictureCallback: OnBackPressedCallback? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AndroidSupportInjection.inject(this)
@@ -85,11 +94,35 @@ class PreviewPlaybackFragment :
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = PreviewPlaybackFragmentBinding.inflate(inflater, container, false)
         loadThumbnail()
+        registerPictureInPictureOnBack()
         return binding.root
+    }
+
+    private fun registerPictureInPictureOnBack() {
+        if (!MimeTypeUtil.isVideo(file) || !requireContext().isPictureInPictureAllowed()) {
+            return
+        }
+
+        pictureInPictureCallback = requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            enabled = false
+        ) {
+            val resumePlayback = playbackModel.state?.currentItemState?.playerState == PlayerState.PLAYING
+            startActivity(
+                PlayerActivity.createPictureInPictureIntent(
+                    requireContext(),
+                    PlaybackFileType.VIDEO,
+                    resumePlayback
+                )
+            )
+            requireActivity().finish()
+        }
     }
 
     override fun onResume() {
         super.onResume()
+        playbackModel.onPictureInPictureClose?.invoke()
+        pictureInPictureCallback?.isEnabled = true
         preparePlayback()
         playbackModel.addListener(this)
         binding.playerControlView.onStart()
@@ -97,6 +130,7 @@ class PreviewPlaybackFragment :
     }
 
     override fun onPause() {
+        pictureInPictureCallback?.isEnabled = false
         binding.playerControlView.onStop()
         playbackModel.removeListener(this)
         if (isCurrentItem(playbackModel.state)) {

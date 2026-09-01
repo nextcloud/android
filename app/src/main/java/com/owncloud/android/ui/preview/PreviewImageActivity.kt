@@ -212,6 +212,10 @@ class PreviewImageActivity :
         }
         position = position?.toDouble()?.let { max(it, 0.0).toInt() }
 
+        if (savedPosition == null) {
+            previewMediaPagerAdapter?.autoplayFileId = file?.fileId
+        }
+
         viewPager?.adapter = previewMediaPagerAdapter
         viewPager?.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -276,7 +280,7 @@ class PreviewImageActivity :
         if (isDrawerOpen) {
             closeDrawer()
         } else {
-            backToDisplayActivity()
+            onBackPressedDispatcher.onBackPressed()
         }
 
         return true
