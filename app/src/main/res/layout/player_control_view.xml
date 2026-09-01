@@ -15,7 +15,7 @@
         android:id="@+id/progressPanel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/player_progress_panel_margin_bottom"
+        android:layout_marginBottom="@dimen/player_panel_margin_bottom"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="@dimen/player_progress_panel_padding_horizontal"
@@ -43,7 +43,7 @@
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/player_bottom_bar_margin_bottom"
+        android:layout_marginBottom="@dimen/player_bottom_margin_bottom"
         android:gravity="center"
         android:orientation="horizontal">
 
