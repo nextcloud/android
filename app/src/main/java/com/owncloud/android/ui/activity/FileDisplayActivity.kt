@@ -2056,6 +2056,9 @@ class FileDisplayActivity :
         }
     }
 
+    fun canPreviewInMediaPager(file: OCFile?): Boolean =
+        PreviewImageFragment.canBePreviewed(file) || (file != null && MimeTypeUtil.isVideo(file))
+
     fun previewImageWithSearchContext(file: OCFile, searchFragment: Boolean, currentSearchType: SearchType?) {
         val type = if (searchFragment) {
             when (currentSearchType) {
@@ -2067,7 +2070,8 @@ class FileDisplayActivity :
             null
         }
 
-        startImagePreview(file, file.isDown, type)
+        val showPreview = file.isDown || MimeTypeUtil.isVideo(file)
+        startImagePreview(file, showPreview, type)
     }
 
     fun previewFile(file: OCFile, setFabVisible: CompletionCallback?) {
