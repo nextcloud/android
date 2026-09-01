@@ -34,6 +34,10 @@ class VideoPlayerView(context: Context) : PlayerView(context) {
 
     private var hideControlsTimerJob: Job? = null
 
+    init {
+        topBar.setBackgroundResource(R.color.player_video_toolbar_background_color)
+    }
+
     override fun onStart() {
         super.onStart()
         showControls()
