@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   ~ Nextcloud - Android Client
   ~
-  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
-  ~ SPDX-License-Identifier: GPL-2.0
+  ~ SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
   -->
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,32 +18,33 @@
         android:id="@+id/icon"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:importantForAccessibility="no"
         android:layout_marginTop="@dimen/player_audio_album_cover_margin_vertical"
         android:layout_marginBottom="@dimen/player_audio_album_cover_margin_vertical"
+        android:importantForAccessibility="no"
         android:src="@drawable/player_ic_audio"
-        custom:layout_constraintBottom_toTopOf="@id/title"
-        custom:layout_constraintEnd_toEndOf="parent"
-        custom:layout_constraintStart_toStartOf="parent"
-        custom:layout_constraintTop_toTopOf="parent"
-        custom:layout_constraintWidth_max="@dimen/player_file_icon_size"
-        custom:layout_constraintHeight_max="@dimen/player_file_icon_size" />
+        app:layout_constraintBottom_toTopOf="@id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_max="@dimen/player_file_icon_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_max="@dimen/player_file_icon_size" />
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/album_cover"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:importantForAccessibility="no"
         android:layout_marginTop="@dimen/player_audio_album_cover_margin_vertical"
         android:layout_marginBottom="@dimen/player_audio_album_cover_margin_vertical"
-        custom:layout_constraintBottom_toTopOf="@id/title"
-        custom:layout_constraintDimensionRatio="1:1"
-        custom:layout_constraintEnd_toEndOf="parent"
-        custom:layout_constraintStart_toStartOf="parent"
-        custom:layout_constraintTop_toTopOf="parent"
-        custom:layout_constraintWidth_max="@dimen/player_album_cover_size" />
+        android:importantForAccessibility="no"
+        app:layout_constraintBottom_toTopOf="@id/title"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_max="@dimen/player_album_cover_size"
+        app:shapeAppearance="@style/ShapeAppearance.App.Player.AlbumCover" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,25 +53,23 @@
         android:marqueeRepeatLimit="marquee_forever"
         android:scrollHorizontally="true"
         android:singleLine="true"
-        android:textColor="@color/player_default_text_color"
-        android:textSize="@dimen/player_audio_title_text_size"
-        custom:layout_constraintBottom_toTopOf="@id/file_details"
-        custom:layout_constraintEnd_toEndOf="parent"
-        custom:layout_constraintStart_toStartOf="parent"
-        tools:text="Imagine Dragons • Whatever It Takes" />
+        android:textAppearance="@style/TextAppearance.App.Player.AudioTitle"
+        app:layout_constraintBottom_toTopOf="@id/file_details"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Artist name • Track title" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/file_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/player_audio_file_details_margin_bottom"
         android:ellipsize="end"
         android:singleLine="true"
-        android:textColor="@color/player_default_text_color"
-        android:textSize="@dimen/player_audio_file_details_text_size"
-        custom:layout_constraintBottom_toBottomOf="parent"
-        custom:layout_constraintEnd_toEndOf="parent"
-        custom:layout_constraintStart_toStartOf="parent"
-        tools:text="8.08MB, Modified on: 6/13/24" />
+        android:textAppearance="@style/TextAppearance.App.Player.AudioFileDetails"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="12.3 MB, Modified: 2 days ago" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

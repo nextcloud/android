@@ -524,6 +524,18 @@
         </item>
     </style>
 
+    <style name="TextAppearance.App.Player.AudioTitle" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:textColor">@color/player_default_text_color</item>
+        <item name="android:textSize">@dimen/player_audio_title_text_size</item>
+    </style>
+
+    <style name="TextAppearance.App.Player.AudioFileDetails" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:textColor">@color/player_default_text_color</item>
+        <item name="android:textSize">@dimen/player_audio_file_details_text_size</item>
+    </style>
+
+    <style name="ShapeAppearance.App.Player.AlbumCover" parent="ShapeAppearance.Material3.Corner.None" />
+
     <style name="PlayerSeekBarStyle" parent="@android:style/Widget.SeekBar">
         <item name="android:progressDrawable">@drawable/player_progress_drawable</item>
         <item name="android:thumb">@drawable/player_progress_thumb_selector</item>
