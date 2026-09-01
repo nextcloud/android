@@ -16,7 +16,7 @@
         android:layout_height="@dimen/player_file_icon_size"
         android:layout_gravity="center"
         android:importantForAccessibility="no"
-        android:src="@drawable/player_ic_video" />
+        android:src="@drawable/video_white" />
 
     <ImageView
         android:id="@+id/thumbnail"

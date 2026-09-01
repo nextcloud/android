@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+  -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="oval">
+            <size
+                android:width="@dimen/player_progress_thumb_pressed_size"
+                android:height="@dimen/player_progress_thumb_pressed_size" />
+
+            <solid android:color="@color/player_progressbar_thumb_halo_color" />
+        </shape>
+    </item>
+
+    <item android:gravity="center">
+        <shape android:shape="oval">
+            <size
+                android:width="@dimen/player_progress_thumb_size"
+                android:height="@dimen/player_progress_thumb_size" />
+
+            <solid android:color="@color/player_accent_color" />
+        </shape>
+    </item>
+
+</layer-list>

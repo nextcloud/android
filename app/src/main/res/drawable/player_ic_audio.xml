@@ -1,16 +1,25 @@
 <!--
-  ~ Nextcloud - Android Client
+  ~ Copyright (C) 2026 The Android Open Source Project
   ~
-  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
-  ~ SPDX-License-Identifier: GPL-2.0
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
   -->
-
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="48dp"
-    android:height="48dp"
-    android:viewportWidth="16"
-    android:viewportHeight="16">
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
     <path
-        android:fillColor="@color/player_default_icon_color"
-        android:pathData="m12.97,0.5c-0.26,0 -4.795,1 -7.17,1.5 -0.47,0.1 -0.8,0.53 -0.8,1v8c-0.56,-0.06 -1.144,0.0625 -1.65,0.34 -1.226,0.67 -1.7,2.06 -1.066,3.11 0.64,1.05 2.15,1.35 3.37,0.68 0.846,-0.45 1.346,-1.28 1.346,-2.13v-8l5,-1v6.016c-0.56,-0.058 -1.144,0.0625 -1.65,0.34 -1.226,0.67 -1.7,2.06 -1.066,3.11 0.64,1.046 2.15,1.35 3.37,0.68 0.846,-0.466 1.346,-1.296 1.346,-2.146v-10.525c0,-0.565 -0.466,-0.975 -1.03,-0.975z" />
+        android:fillColor="@android:color/white"
+        android:pathData="M12,3v9.28c-0.47,-0.17 -0.97,-0.28 -1.5,-0.28C8.01,12 6,14.01 6,16.5S8.01,21 10.5,21c2.31,0 4.2,-1.75 4.45,-4H15V6h4V3h-7z" />
 </vector>
