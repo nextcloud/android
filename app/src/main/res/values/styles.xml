@@ -509,11 +509,6 @@
         <item name="cornerSizeTopRight">0dp</item>
     </style>
 
-    <style name="Dialog.FullscreenVideo" parent="android:Theme.Material.NoActionBar.Fullscreen">
-        <item name="android:windowBackground">@android:color/black</item>
-        <item name="android:colorControlHighlight">@color/primary</item>
-    </style>
-
     <style name="ChipIncomingTextAppearance" parent="TextAppearance.MaterialComponents.Chip">
         <item name="android:textColor">#de000000</item>
     </style>
