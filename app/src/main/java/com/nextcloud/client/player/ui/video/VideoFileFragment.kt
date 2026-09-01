@@ -11,7 +11,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -21,7 +20,8 @@ import com.nextcloud.client.player.model.file.PlaybackFile
 import com.nextcloud.client.player.model.state.PlaybackState
 import com.nextcloud.client.player.model.state.VideoSize
 import com.nextcloud.client.player.util.applyVideoSize
-import com.nextcloud.utils.extensions.getSerializableArgument
+import com.nextcloud.client.player.util.getPlaybackFile
+import com.nextcloud.client.player.util.putPlaybackFile
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PlayerVideoFileFragmentBinding
 import dagger.android.support.AndroidSupportInjection
@@ -38,7 +38,7 @@ class VideoFileFragment :
         private const val SURFACE_ALPHA_HIDDEN = 0f
 
         fun createInstance(file: PlaybackFile) = VideoFileFragment().apply {
-            arguments = bundleOf(ARGUMENT_FILE to file)
+            arguments = Bundle().apply { putPlaybackFile(ARGUMENT_FILE, file) }
         }
     }
 
@@ -54,7 +54,7 @@ class VideoFileFragment :
     private var previousVideoSize: VideoSize? = null
 
     private val file by lazy {
-        requireNotNull(arguments.getSerializableArgument(ARGUMENT_FILE, PlaybackFile::class.java)) {
+        requireNotNull(arguments.getPlaybackFile(ARGUMENT_FILE)) {
             "VideoFileFragment requires a $ARGUMENT_FILE argument"
         }
     }

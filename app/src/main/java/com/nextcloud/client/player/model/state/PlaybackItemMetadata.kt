@@ -7,8 +7,6 @@
 
 package com.nextcloud.client.player.model.state
 
-import java.io.Serializable
-
 data class PlaybackItemMetadata(
     val title: CharSequence,
     val artist: CharSequence? = null,
@@ -18,4 +16,4 @@ data class PlaybackItemMetadata(
     val description: CharSequence? = null,
     val artworkData: ByteArray? = null,
     val artworkUri: CharSequence? = null
-) : Serializable
+)
