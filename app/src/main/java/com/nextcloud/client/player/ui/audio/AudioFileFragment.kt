@@ -19,6 +19,7 @@ import com.nextcloud.client.player.model.ThumbnailLoader
 import com.nextcloud.client.player.model.file.PlaybackFile
 import com.nextcloud.client.player.model.state.PlaybackItemMetadata
 import com.nextcloud.client.player.model.state.PlaybackState
+import com.nextcloud.utils.extensions.getSerializableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PlayerAudioFileFragmentBinding
 import com.owncloud.android.utils.DisplayUtils
@@ -33,6 +34,7 @@ open class AudioFileFragment :
 
     companion object {
         private const val ARGUMENT_FILE = "ARGUMENT_FILE"
+        private const val DETAILS_SEPARATOR = ", "
 
         fun createInstance(file: PlaybackFile) = AudioFileFragment().apply {
             arguments = bundleOf(ARGUMENT_FILE to file)
@@ -45,24 +47,33 @@ open class AudioFileFragment :
     @Inject
     lateinit var thumbnailLoader: ThumbnailLoader
 
-    private lateinit var binding: PlayerAudioFileFragmentBinding
-    private lateinit var loadFileThumbnailJob: Job
+    private var _binding: PlayerAudioFileFragmentBinding? = null
+    private val binding get() = checkNotNull(_binding) { "Binding accessed outside of the view lifecycle" }
+
+    private var fileThumbnailJob: Job? = null
     private var isFileThumbnailLoaded = false
     private var metadata: PlaybackItemMetadata? = null
-    private val file by lazy { arguments?.getSerializable(ARGUMENT_FILE) as PlaybackFile }
+
+    private val file by lazy {
+        requireNotNull(arguments.getSerializableArgument(ARGUMENT_FILE, PlaybackFile::class.java)) {
+            "AudioFileFragment requires a $ARGUMENT_FILE argument"
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AndroidSupportInjection.inject(this)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = PlayerAudioFileFragmentBinding.inflate(inflater, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
+        PlayerAudioFileFragmentBinding.inflate(inflater, container, false).also { _binding = it }.root
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.title.isSelected = true
         binding.title.text = file.getNameWithoutExtension()
         binding.fileDetails.text = file.getDetailsText()
-        loadFileThumbnailJob = loadFileThumbnail()
-        return binding.getRoot()
+        fileThumbnailJob = loadFileThumbnail()
     }
 
     override fun onStart() {
@@ -76,34 +87,41 @@ open class AudioFileFragment :
         super.onStop()
     }
 
+    override fun onDestroyView() {
+        fileThumbnailJob = null
+        _binding = null
+        super.onDestroyView()
+    }
+
     override fun onPlaybackUpdate(state: PlaybackState) {
-        state.currentItemState?.let {
-            if (it.file.id == file.id && it.metadata != null && it.metadata != metadata) {
-                onMetadataUpdate(it.metadata)
-            }
-        }
+        val itemState = state.currentItemState?.takeIf { it.file.id == file.id } ?: return
+        val newMetadata = itemState.metadata?.takeIf { it != metadata } ?: return
+        onMetadataUpdate(newMetadata)
     }
 
     private fun onMetadataUpdate(metadata: PlaybackItemMetadata) {
         this.metadata = metadata
-        if (!isFileThumbnailLoaded && (metadata.artworkData != null || metadata.artworkUri != null)) {
-            loadFileThumbnailJob.takeIf { it.isActive }?.cancel()
+
+        if (!isFileThumbnailLoaded && metadata.hasArtwork()) {
+            fileThumbnailJob?.cancel()
             loadMetadataArtwork(metadata)
         }
-        binding.title.text = if (metadata.artist.isNullOrEmpty()) {
-            metadata.title
-        } else {
-            "${metadata.artist} • ${metadata.title}"
-        }
+
+        binding.title.text = metadata.toTitleText()
+    }
+
+    private fun PlaybackItemMetadata.hasArtwork(): Boolean = artworkData != null || artworkUri != null
+
+    private fun PlaybackItemMetadata.toTitleText(): CharSequence = when {
+        artist.isNullOrEmpty() -> title
+        else -> getString(R.string.player_audio_title_with_artist, artist, title)
     }
 
     private fun loadFileThumbnail(): Job = viewLifecycleOwner.lifecycleScope.launch {
-        val thumbnailSize = resources.getDimension(R.dimen.player_album_cover_size).toInt()
-        val thumbnail = thumbnailLoader.await(requireContext(), file, thumbnailSize, thumbnailSize)
-        if (thumbnail != null) {
-            binding.albumCover.setImageBitmap(thumbnail)
-            isFileThumbnailLoaded = true
-        }
+        val thumbnailSize = resources.getDimensionPixelSize(R.dimen.player_album_cover_size)
+        val thumbnail = thumbnailLoader.await(requireContext(), file, thumbnailSize, thumbnailSize) ?: return@launch
+        binding.albumCover.setImageBitmap(thumbnail)
+        isFileThumbnailLoaded = true
     }
 
     private fun loadMetadataArtwork(metadata: PlaybackItemMetadata) {
@@ -111,11 +129,10 @@ open class AudioFileFragment :
         thumbnailLoader.load(binding.albumCover, source, file.id)
     }
 
-    private fun PlaybackFile.getDetailsText(): String {
-        val size = if (contentLength > 0) DisplayUtils.bytesToHumanReadable(contentLength) else ""
-        val date = if (lastModified > 0) getLastModifiedText(lastModified) else ""
-        return if (size.isNotEmpty() && date.isNotEmpty()) "$size, $date" else size + date
-    }
+    private fun PlaybackFile.getDetailsText(): String = listOfNotNull(
+        contentLength.takeIf { it > 0 }?.let { DisplayUtils.bytesToHumanReadable(it) },
+        lastModified.takeIf { it > 0 }?.let(::getLastModifiedText)
+    ).joinToString(DETAILS_SEPARATOR)
 
     private fun getLastModifiedText(lastModified: Long): String {
         val relativeTimestamp = DisplayUtils.getRelativeTimestamp(context, lastModified)
