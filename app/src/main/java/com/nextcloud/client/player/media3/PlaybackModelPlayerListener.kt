@@ -23,7 +23,8 @@ import com.nextcloud.client.player.util.PeriodicAction
 class PlaybackModelPlayerListener(
     private val checkProgressPeriodicAction: PeriodicAction,
     private val onPlaybackUpdate: () -> Unit,
-    private val onPlaybackError: (Throwable) -> Unit
+    private val onPlaybackError: (Throwable) -> Unit,
+    private val onPlaylistChanged: () -> Unit
 ) : Player.Listener {
 
     companion object {
@@ -35,6 +36,9 @@ class PlaybackModelPlayerListener(
     }
 
     override fun onTimelineChanged(timeline: Timeline, reason: Int) {
+        if (reason == Player.TIMELINE_CHANGE_REASON_PLAYLIST_CHANGED) {
+            onPlaylistChanged()
+        }
         onPlaybackUpdate()
     }
 
