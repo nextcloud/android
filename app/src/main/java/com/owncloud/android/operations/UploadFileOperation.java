@@ -294,6 +294,10 @@ public class UploadFileOperation extends SyncOperation {
         return mIgnoringPowerSaveMode;
     }
 
+    public void setIgnoringPowerSaveMode(boolean value) {
+        this.mIgnoringPowerSaveMode = value;
+    }
+
     public User getUser() {
         return user;
     }
