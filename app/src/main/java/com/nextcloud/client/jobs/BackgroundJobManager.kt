@@ -120,6 +120,10 @@ interface BackgroundJobManager {
 
     fun startImmediateFilesExportJob(files: Collection<OCFile>): LiveData<JobInfo?>
 
+    /**
+     * @param overridePowerSaving uploads even while the device is in power saving mode. Such a run replaces an
+     * already scheduled run of the same folder, because that one would otherwise stop on the power saving check.
+     */
     fun startAutoUpload(syncedFolder: SyncedFolder, overridePowerSaving: Boolean = false)
 
     fun cancelTwoWaySyncJob()
@@ -140,7 +144,7 @@ interface BackgroundJobManager {
     fun getFileUploads(user: User): LiveData<List<JobInfo>>
     fun cancelFilesUploadJob(user: User)
     fun isStartFileUploadJobScheduled(accountName: String): Boolean
-
+    fun isAutoUploadIgnoringPowerSavingScheduled(syncedFolderID: Long): Boolean
     fun cancelFilesDownloadJob(accountName: String, fileId: Long)
 
     @Suppress("LongParameterList")

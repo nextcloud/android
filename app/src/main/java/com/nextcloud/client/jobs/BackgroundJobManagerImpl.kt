@@ -106,6 +106,8 @@ internal class BackgroundJobManagerImpl(
 
         const val JOB_TEST = "test_job"
 
+        private const val TAG_SUFFIX_IGNORE_POWER_SAVING = "ignore_power_saving"
+
         const val TAG_PREFIX_NAME = "name"
         const val TAG_PREFIX_USER = "user"
         const val TAG_PREFIX_CLASS = "class"
@@ -482,8 +484,23 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueueUniqueWork(JOB_CONTENT_OBSERVER, ExistingWorkPolicy.REPLACE, request)
     }
 
+    private fun autoUploadWorkName(syncedFolderID: Long): String = JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID
+
+    private fun autoUploadIgnorePowerSavingTag(syncedFolderID: Long): String =
+        autoUploadWorkName(syncedFolderID) + "_" + TAG_SUFFIX_IGNORE_POWER_SAVING
+
+    override fun isAutoUploadIgnoringPowerSavingScheduled(syncedFolderID: Long): Boolean =
+        workManager.isWorkScheduled(autoUploadIgnorePowerSavingTag(syncedFolderID))
+
     override fun startAutoUpload(syncedFolder: SyncedFolder, overridePowerSaving: Boolean) {
         val syncedFolderID = syncedFolder.id
+
+        // the sync now button starts this folder and also lets the content observer request it, replacing the
+        // running one would cancel it mid upload
+        if (overridePowerSaving && isAutoUploadIgnoringPowerSavingScheduled(syncedFolderID)) {
+            Log_OC.d(TAG, "auto upload ignoring power saving already running for folder $syncedFolderID")
+            return
+        }
 
         val arguments = Data.Builder()
             .putBoolean(AutoUploadWorker.OVERRIDE_POWER_SAVING, overridePowerSaving)
@@ -495,9 +512,9 @@ internal class BackgroundJobManagerImpl(
             .setRequiresCharging(syncedFolder.isChargingOnly)
             .build()
 
-        val request = oneTimeRequestBuilder(
+        val requestBuilder = oneTimeRequestBuilder(
             jobClass = AutoUploadWorker::class,
-            jobName = JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID
+            jobName = autoUploadWorkName(syncedFolderID)
         )
             .setInputData(arguments)
             .setConstraints(constraints)
@@ -506,12 +523,19 @@ internal class BackgroundJobManagerImpl(
                 DEFAULT_BACKOFF_CRITERIA_DELAY_SEC,
                 TimeUnit.SECONDS
             )
-            .build()
+
+        if (overridePowerSaving) {
+            requestBuilder.addTag(autoUploadIgnorePowerSavingTag(syncedFolderID))
+        }
+
+        // a scheduled run still carries its own overridePowerSaving flag, so keeping it would swallow the
+        // explicit user request and stop on the power saving check
+        val policy = if (overridePowerSaving) ExistingWorkPolicy.REPLACE else ExistingWorkPolicy.KEEP
 
         workManager.enqueueUniqueWork(
-            JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID,
-            ExistingWorkPolicy.KEEP,
-            request
+            autoUploadWorkName(syncedFolderID),
+            policy,
+            requestBuilder.build()
         )
     }
 
