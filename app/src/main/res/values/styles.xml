@@ -519,9 +519,24 @@
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">end</item>
         <item name="android:gravity">center</item>
+        <item name="android:textAppearance">@style/TextAppearance.App.Player.ProgressTime</item>
+    </style>
+
+    <style name="TextAppearance.App.Player.Toolbar" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textColor">@color/player_toolbar_text_color</item>
+        <item name="android:textSize">@dimen/player_toolbar_text_size</item>
+    </style>
+
+    <style name="TextAppearance.App.Player.ProgressTime" parent="TextAppearance.Material3.BodyMedium">
         <item name="android:textColor">@color/player_default_text_color</item>
-        <item name="android:textSize">@dimen/player_progress_time_text_size
-        </item>
+        <item name="android:textSize">@dimen/player_progress_time_text_size</item>
+    </style>
+
+    <style name="PlayerToolbarIconButtonStyle" parent="@style/Widget.AppTheme.Button.IconButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="iconSize">@dimen/player_toolbar_icon_size</item>
+        <item name="iconTint">@color/player_toolbar_icon_color</item>
     </style>
 
     <style name="TextAppearance.App.Player.AudioTitle" parent="TextAppearance.Material3.BodyLarge">
