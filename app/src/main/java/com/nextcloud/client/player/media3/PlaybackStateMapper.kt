@@ -16,7 +16,6 @@ import com.nextcloud.client.player.model.state.PlaybackState
 import com.nextcloud.client.player.model.state.PlayerState
 import com.nextcloud.client.player.model.state.RepeatMode
 import com.nextcloud.client.player.model.state.VideoSize
-import com.owncloud.android.lib.common.utils.Log_OC
 
 fun Player.toPlaybackState(currentFiles: List<PlaybackFile>): PlaybackState = PlaybackState(
     currentFiles = currentFiles,
