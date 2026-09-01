@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   ~ Nextcloud - Android Client
   ~
-  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
-  ~ SPDX-License-Identifier: GPL-2.0
+  ~ SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
   -->
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/player_background_color">
@@ -18,11 +19,12 @@
         android:importantForAccessibility="no"
         android:src="@drawable/video_white" />
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/thumbnail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:importantForAccessibility="no" />
+        android:importantForAccessibility="no"
+        app:shapeAppearance="@style/ShapeAppearance.App.Player.Media" />
 
     <SurfaceView
         android:id="@+id/surfaceView"

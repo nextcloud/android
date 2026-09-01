@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   ~ Nextcloud - Android Client
   ~
-  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
-  ~ SPDX-License-Identifier: GPL-2.0
+  ~ SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
   -->
-
 <resources>
-    <!-- Player -->
     <dimen name="player_toolbar_height">56dp</dimen>
-    <dimen name="player_audio_album_cover_margin_vertical">24dp</dimen>
-    <dimen name="player_audio_title_margin_bottom">8dp</dimen>
-    <dimen name="player_audio_file_details_margin_bottom">24dp</dimen>
-    <dimen name="player_progress_panel_margin_bottom">16dp</dimen>
-    <dimen name="player_bottom_bar_margin_bottom">16dp</dimen>
+    <dimen name="player_cover_margin_vertical">24dp</dimen>
+    <dimen name="player_title_margin_bottom">8dp</dimen>
+    <dimen name="player_file_margin_bottom">24dp</dimen>
+    <dimen name="player_panel_margin_bottom">16dp</dimen>
+    <dimen name="player_bottom_margin_bottom">16dp</dimen>
 </resources>

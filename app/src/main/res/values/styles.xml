@@ -549,7 +549,7 @@
         <item name="android:textSize">@dimen/player_audio_file_details_text_size</item>
     </style>
 
-    <style name="ShapeAppearance.App.Player.AlbumCover" parent="ShapeAppearance.Material3.Corner.None" />
+    <style name="ShapeAppearance.App.Player.Media" parent="ShapeAppearance.Material3.Corner.None" />
 
     <style name="PlayerSeekBarStyle" parent="@android:style/Widget.SeekBar">
         <item name="android:progressDrawable">@drawable/player_progress_drawable</item>
