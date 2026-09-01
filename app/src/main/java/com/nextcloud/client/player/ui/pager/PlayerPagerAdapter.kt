@@ -9,16 +9,19 @@ package com.nextcloud.client.player.ui.pager
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.lifecycle.Lifecycle
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.nextcloud.client.player.model.file.PlaybackFile
 
 /**
  * Pads the item list with a copy of the last item at the front and a copy of the first item at the end, so that
  * [PlayerPager] can wrap around and give the impression of an endless pager.
  */
-@Suppress("DEPRECATION")
-class PlayerPagerAdapter(fragmentManager: FragmentManager, private val createFragment: (PlaybackFile) -> Fragment) :
-    FragmentStatePagerAdapter(fragmentManager) {
+class PlayerPagerAdapter(
+    fragmentManager: FragmentManager,
+    lifecycle: Lifecycle,
+    private val fragmentFactory: (PlaybackFile) -> Fragment
+) : FragmentStateAdapter(fragmentManager, lifecycle) {
 
     private var paddedEntities = mutableListOf<PlaybackFile>()
 
@@ -38,13 +41,18 @@ class PlayerPagerAdapter(fragmentManager: FragmentManager, private val createFra
 
     fun getEntityForPosition(position: Int): PlaybackFile = paddedEntities[position]
 
-    override fun getItem(position: Int): Fragment = createFragment(paddedEntities[position])
+    override fun getItemCount(): Int = paddedEntities.size
 
-    override fun getCount(): Int = paddedEntities.size
+    override fun createFragment(position: Int): Fragment = fragmentFactory(paddedEntities[position])
 
-    override fun getItemPosition(item: Any): Int = POSITION_NONE
+    override fun getItemId(position: Int): Long = itemIdAt(position)
 
-    private fun isPadded(): Boolean = paddedEntities.size > 1
+    override fun containsItem(itemId: Long): Boolean = paddedEntities.indices.any { itemIdAt(it) == itemId }
+
+    private fun itemIdAt(position: Int): Long =
+        (position.toLong() shl Int.SIZE_BITS) or paddedEntities[position].id.hashCode().toUInt().toLong()
+
+    fun isPadded(): Boolean = paddedEntities.size > 1
 
     private fun addStubs(sources: List<PlaybackFile>): MutableList<PlaybackFile> {
         val result = sources.toMutableList()
