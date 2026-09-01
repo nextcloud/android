@@ -72,12 +72,14 @@ class PlaybackModel @Inject constructor(
     private val playerListener = PlaybackModelPlayerListener(
         checkProgressPeriodicAction,
         this::notifyPlaybackUpdate,
-        this::onPlaybackError
+        this::onPlaybackError,
+        this::onPlaylistChanged
     )
 
     private val controllerListener = object : MediaController.Listener {
         override fun onDisconnected(controller: MediaController) {
             controller.removeListener(playerListener)
+            invalidateCurrentFiles()
             controllerScope?.cancel()
             checkProgressPeriodicAction.stop()
             notifyPlaybackUpdate()
@@ -89,8 +91,27 @@ class PlaybackModel @Inject constructor(
 
     private var mediaSession: MediaSession? = null
 
+    private var cachedCurrentFiles: List<PlaybackFile>? = null
+    private var cachedMediaIds: List<String>? = null
+
     val state: PlaybackState?
-        get() = controller?.toPlaybackState()
+        get() = controller?.toPlaybackState(currentFiles())
+
+    private fun currentFiles(): List<PlaybackFile> = cachedCurrentFiles
+        ?: (controller?.readCurrentFiles() ?: emptyList()).also { cachedCurrentFiles = it }
+
+    private fun onPlaylistChanged() {
+        val mediaIds = controller?.readMediaIds() ?: emptyList()
+        if (mediaIds == cachedMediaIds) return
+
+        cachedMediaIds = mediaIds
+        cachedCurrentFiles = null
+    }
+
+    private fun invalidateCurrentFiles() {
+        cachedMediaIds = null
+        cachedCurrentFiles = null
+    }
 
     fun getMediaSession(): MediaSession = mediaSession ?: mediaSessionFactory.create().also {
         mediaSession = it

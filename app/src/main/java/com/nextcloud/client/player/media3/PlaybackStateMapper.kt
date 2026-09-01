@@ -16,15 +16,22 @@ import com.nextcloud.client.player.model.state.PlaybackState
 import com.nextcloud.client.player.model.state.PlayerState
 import com.nextcloud.client.player.model.state.RepeatMode
 import com.nextcloud.client.player.model.state.VideoSize
+import com.owncloud.android.lib.common.utils.Log_OC
 
-fun Player.toPlaybackState(): PlaybackState = PlaybackState(
-    currentFiles = getCurrentFiles(),
+fun Player.toPlaybackState(currentFiles: List<PlaybackFile>): PlaybackState = PlaybackState(
+    currentFiles = currentFiles,
     currentItemState = getCurrentItemState(),
     repeatMode = mapRepeatMode(),
     shuffle = shuffleModeEnabled
 )
 
-private fun Player.getCurrentFiles(): List<PlaybackFile> = buildList {
+fun Player.readMediaIds(): List<String> = buildList {
+    for (i in 0 until mediaItemCount) {
+        add(getMediaItemAt(i).mediaId)
+    }
+}
+
+fun Player.readCurrentFiles(): List<PlaybackFile> = buildList {
     for (i in 0 until mediaItemCount) {
         val mediaItem = getMediaItemAt(i)
         val playbackFile = mediaItem.mediaMetadata.playbackFile
