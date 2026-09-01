@@ -7,8 +7,9 @@
 
 package com.nextcloud.client.player.model.file
 
-import java.io.Serializable
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class PlaybackFile(
     val id: String,
     val uri: String,
@@ -17,6 +18,6 @@ data class PlaybackFile(
     val contentLength: Long,
     val lastModified: Long,
     val isFavorite: Boolean
-) : Serializable {
+) {
     fun getNameWithoutExtension(): String = name.substringBeforeLast(".")
 }
