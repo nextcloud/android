@@ -526,7 +526,9 @@
 
     <style name="PlayerSeekBarStyle" parent="@android:style/Widget.SeekBar">
         <item name="android:progressDrawable">@drawable/player_progress_drawable</item>
-        <item name="android:thumb">@drawable/player_progress_thumb</item>
+        <item name="android:thumb">@drawable/player_progress_thumb_selector</item>
+        <item name="android:paddingStart">@dimen/player_progress_thumb_halo_radius</item>
+        <item name="android:paddingEnd">@dimen/player_progress_thumb_halo_radius</item>
         <item name="android:minHeight">@dimen/player_progress_drawable_height</item>
         <item name="android:maxHeight">@dimen/player_progress_drawable_height</item>
     </style>
@@ -550,5 +552,10 @@
 
         <item name="iconGravity">textStart</item>
         <item name="iconPadding">0dp</item>
+    </style>
+
+    <style name="ShapeAppearance.Player.AlbumCover" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/player_album_cover_corner_radius</item>
     </style>
 </resources>
