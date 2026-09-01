@@ -701,7 +701,7 @@ public class UploadFileOperation extends SyncOperation {
                                           long creationTimestamp,
                                           long size) {
 
-        if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
+        if (size > ChunkedFileUploadRemoteOperation.MIN_CHUNK_SIZE) {
             boolean onWifiConnection = connectivityService.getConnectivity().isWifi();
 
             mUploadOperation = new ChunkedFileUploadRemoteOperation(encryptedTempFile.getAbsolutePath(),
@@ -1126,7 +1126,7 @@ public class UploadFileOperation extends SyncOperation {
                 Log_OC.d(TAG, "file size set to " + formattedFileSize);
 
                 // decide whether chunked or not
-                if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
+                if (size > ChunkedFileUploadRemoteOperation.MIN_CHUNK_SIZE) {
                     Log_OC.d(TAG, "chunked upload operation will be used");
 
                     boolean onWifiConnection = connectivityService.getConnectivity().isWifi();
