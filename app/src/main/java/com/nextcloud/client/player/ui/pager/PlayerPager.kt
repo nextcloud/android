@@ -31,6 +31,7 @@ private const val OFFSCREEN_PAGE_LIMIT = 1
 class PlayerPager @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
     LinearLayout(context, attrs) {
 
+    @SuppressLint("WrongConstant")
     private val viewPager = ViewPager2(context).apply {
         id = R.id.player_view_pager
         offscreenPageLimit = OFFSCREEN_PAGE_LIMIT

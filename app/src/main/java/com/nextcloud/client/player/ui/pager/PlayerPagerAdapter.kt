@@ -7,6 +7,7 @@
 
 package com.nextcloud.client.player.ui.pager
 
+import android.annotation.SuppressLint
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
@@ -27,6 +28,7 @@ class PlayerPagerAdapter(
 
     fun getEntities(): List<PlaybackFile> = if (isPadded()) removeStubs(paddedEntities) else paddedEntities
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setEntities(entities: List<PlaybackFile>) {
         paddedEntities = if (entities.size > 1) addStubs(entities) else entities.toMutableList()
         notifyDataSetChanged()

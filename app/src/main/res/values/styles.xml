@@ -581,9 +581,4 @@
         <item name="iconGravity">textStart</item>
         <item name="iconPadding">0dp</item>
     </style>
-
-    <style name="ShapeAppearance.Player.AlbumCover" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">@dimen/player_album_cover_corner_radius</item>
-    </style>
 </resources>
