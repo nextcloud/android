@@ -19,10 +19,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Process
-import android.util.DisplayMetrics
 import android.view.SurfaceView
+import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
 import androidx.media3.common.Player
@@ -250,28 +249,6 @@ object PlayerUtil {
         return mode == AppOpsManager.MODE_ALLOWED
     }
 
-    fun Context.getDisplayWidth(): Int = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-        windowManager.currentWindowMetrics.bounds.width()
-    } else {
-        getDisplayMetrics().widthPixels
-    }
-
-    fun Context.getDisplayHeight(): Int = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-        windowManager.currentWindowMetrics.bounds.height()
-    } else {
-        getDisplayMetrics().heightPixels
-    }
-
-    private val Context.windowManager: WindowManager
-        get() = getSystemService(Context.WINDOW_SERVICE) as WindowManager
-
-    @Suppress("DEPRECATION")
-    private fun Context.getDisplayMetrics(): DisplayMetrics {
-        val displayMetrics = DisplayMetrics()
-        windowManager.defaultDisplay.getRealMetrics(displayMetrics)
-        return displayMetrics
-    }
-
     fun <T> List<T>.rotate(shift: Int): List<T> {
         val copy = ArrayList(this)
         Collections.rotate(copy, shift)
@@ -282,19 +259,29 @@ object PlayerUtil {
      * Letterboxes the surface inside its container so the video keeps its aspect ratio.
      */
     fun SurfaceView.applyVideoSize(videoSize: VideoSize) {
-        val screenWidth = context.getDisplayWidth()
-        val screenHeight = context.getDisplayHeight()
-        val screenProportion = screenWidth.toFloat() / screenHeight.toFloat()
+        val container = parent as? View
+        val containerWidth = container?.width ?: 0
+        val containerHeight = container?.height ?: 0
+        if (containerWidth <= 0 || containerHeight <= 0) return
+
+        val containerProportion = containerWidth.toFloat() / containerHeight.toFloat()
         val videoProportion = videoSize.width.toFloat() / videoSize.height.toFloat()
 
+        val targetWidth: Int
+        val targetHeight: Int
+        if (containerProportion < videoProportion) {
+            targetWidth = ViewGroup.LayoutParams.MATCH_PARENT
+            targetHeight = (containerWidth.toFloat() / videoProportion).toInt()
+        } else {
+            targetWidth = (videoProportion * containerHeight.toFloat()).toInt()
+            targetHeight = ViewGroup.LayoutParams.MATCH_PARENT
+        }
+
+        if (layoutParams.width == targetWidth && layoutParams.height == targetHeight) return
+
         layoutParams = layoutParams.apply {
-            if (screenProportion < videoProportion) {
-                width = ViewGroup.LayoutParams.MATCH_PARENT
-                height = (screenWidth.toFloat() / videoProportion).toInt()
-            } else {
-                width = (videoProportion * screenHeight.toFloat()).toInt()
-                height = ViewGroup.LayoutParams.MATCH_PARENT
-            }
+            width = targetWidth
+            height = targetHeight
         }
     }
 }

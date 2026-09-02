@@ -448,6 +448,13 @@ class PreviewImageActivity :
         FileDownloadHelper.instance().downloadFileIfNotStartedBefore(user, file)
     }
 
+    fun showFilePage(localId: Long) {
+        val position = previewMediaPagerAdapter?.getPositionByLocalId(localId) ?: return
+        if (position < 0 || viewPager?.currentItem == position) return
+
+        viewPager?.setCurrentItem(position, true)
+    }
+
     /**
      * This method will be invoked when a new page becomes selected. Animation is not necessarily
      * complete.

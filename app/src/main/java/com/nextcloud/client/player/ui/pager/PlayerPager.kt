@@ -25,7 +25,6 @@ import com.owncloud.android.R
 private const val NO_SHIFT = -1
 private const val NO_POSITION = -1
 private const val FIRST_ENTITY_POSITION = 1
-
 private const val OFFSCREEN_PAGE_LIMIT = 1
 
 class PlayerPager @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
@@ -79,6 +78,11 @@ class PlayerPager @JvmOverloads constructor(context: Context, attrs: AttributeSe
         restoredShift = restoredState.shiftedPosition
     }
 
+    fun release() {
+        viewPager.unregisterOnPageChangeCallback(onPageChangeCallback)
+        viewPager.adapter = null
+    }
+
     fun getItems(): List<PlaybackFile> = adapter.getEntities()
 
     fun setItems(items: List<PlaybackFile>) {
@@ -86,13 +90,21 @@ class PlayerPager @JvmOverloads constructor(context: Context, attrs: AttributeSe
         notifyDataSetChangedWithoutCallingListener()
     }
 
+    fun showNext() {
+        viewPager.setCurrentItem(viewPager.currentItem + 1, true)
+    }
+
+    fun showPrevious() {
+        viewPager.setCurrentItem(viewPager.currentItem - 1, true)
+    }
+
     fun setCurrentItem(item: PlaybackFile) {
         val position = adapter.getEntityIndex(item)
-        if (position != NO_POSITION && viewPager.currentItem != position) {
-            viewPager.unregisterOnPageChangeCallback(onPageChangeCallback)
-            viewPager.setCurrentItem(position, true)
-            viewPager.registerOnPageChangeCallback(onPageChangeCallback)
-        }
+        if (position == NO_POSITION || viewPager.currentItem == position) return
+
+        viewPager.unregisterOnPageChangeCallback(onPageChangeCallback)
+        viewPager.setCurrentItem(position, viewPager.isLaidOut)
+        viewPager.registerOnPageChangeCallback(onPageChangeCallback)
     }
 
     private fun isStubPosition(position: Int): Boolean = position == 0 || position >= lastStubPosition

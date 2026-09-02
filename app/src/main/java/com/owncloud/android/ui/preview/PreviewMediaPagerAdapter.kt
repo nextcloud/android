@@ -207,6 +207,8 @@ class PreviewMediaPagerAdapter : FragmentStateAdapter {
 
     fun getFilePosition(file: OCFile): Int = mediaFiles.indexOf(file)
 
+    fun getPositionByLocalId(localId: Long): Int = mediaFiles.indexOfFirst { it.localId == localId }
+
     fun updateFile(position: Int, file: OCFile) {
         if (position < 0 || position >= mediaFiles.size) {
             return

@@ -69,6 +69,10 @@ class PlayerControlView @JvmOverloads constructor(
 
     val binding = PlayerControlViewBinding.inflate(LayoutInflater.from(context), this, true)
 
+    var onNextClick: () -> Unit = { playbackModel.playNext() }
+
+    var onPreviousClick: () -> Unit = { playbackModel.playPrevious() }
+
     init {
         if (!isInEditMode) {
             (context.applicationContext as HasAndroidInjector).androidInjector().inject(this)
@@ -131,22 +135,9 @@ class PlayerControlView @JvmOverloads constructor(
             playbackModel.setShuffle(binding.ivRandom.tag == TAG_CLICK_COMMAND_SHUFFLE)
         }
 
-        binding.ivNext.setOnClickListener { playbackModel.playNext() }
+        binding.ivNext.setOnClickListener { onNextClick() }
 
-        binding.ivPrevious.setOnClickListener(
-            MultipleClickListener(
-                onSingleClick = {
-                    playbackModel.state?.currentItemState?.let { state ->
-                        if (state.playerState == PlayerState.PAUSED || state.playerState == PlayerState.PLAYING) {
-                            playbackModel.seekToPosition(0L)
-                        } else {
-                            playbackModel.playPrevious()
-                        }
-                    }
-                },
-                onDoubleClick = { playbackModel.playPrevious() }
-            )
-        )
+        binding.ivPrevious.setOnClickListener { onPreviousClick() }
 
         binding.progressBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
