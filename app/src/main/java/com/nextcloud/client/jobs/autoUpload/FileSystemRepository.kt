@@ -13,9 +13,11 @@ import android.os.Build
 import android.provider.MediaStore
 import com.nextcloud.client.database.dao.FileSystemDao
 import com.nextcloud.client.database.entity.FilesystemEntity
+import com.nextcloud.client.database.entity.UploadEntity
 import com.nextcloud.utils.extensions.shouldSkipFile
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.SyncedFolderUtils
@@ -200,11 +202,19 @@ class FileSystemRepository(
 
             val fileModified = (lastModified ?: file.lastModified())
             val hasNotChanged = entity?.fileModified == fileModified
-            val fileSentForUpload = entity?.fileSentForUpload == 1
+            var fileSentForUpload = entity?.fileSentForUpload == 1
 
-            if (hasNotChanged && fileSentForUpload) {
-                Log_OC.d(TAG, "File hasn't changed since last scan. skipping: $localPath")
-                return
+            if (entity != null && hasNotChanged && fileSentForUpload) {
+                if (wasUploadFinished(entity, syncedFolder, localPath, file)) {
+                    Log_OC.d(TAG, "File hasn't changed since last scan. skipping: $localPath")
+                    return
+                }
+
+                Log_OC.w(TAG, "marked as sent but upload never finished, queueing again: $localPath")
+                deleteUnfinishedUpload(entity, syncedFolder, localPath, file)
+
+                // the upload never finished, so the checks below must not skip it as an already handled old file
+                fileSentForUpload = false
             }
 
             if (syncedFolder.shouldSkipFile(file, fileModified, creationTime, fileSentForUpload)) {
@@ -230,6 +240,50 @@ class FileSystemRepository(
         } catch (e: Exception) {
             Log_OC.e(TAG, "Failed to insert/update file: $localPath", e)
         }
+    }
+
+    private fun wasUploadFinished(
+        entity: FilesystemEntity,
+        syncedFolder: SyncedFolder,
+        localPath: String,
+        file: File
+    ): Boolean {
+        val upload = getUpload(entity, syncedFolder, localPath, file) ?: return true
+
+        return upload.status == UploadStatus.UPLOAD_SUCCEEDED.value ||
+            upload.status == UploadStatus.UPLOAD_CANCELLED.value
+    }
+
+    private fun deleteUnfinishedUpload(
+        entity: FilesystemEntity,
+        syncedFolder: SyncedFolder,
+        localPath: String,
+        file: File
+    ) {
+        val remotePath = getUpload(entity, syncedFolder, localPath, file)?.remotePath ?: return
+
+        uploadsStorageManager.uploadDao.deleteByRemotePathAndAccountName(
+            remotePath = remotePath,
+            accountName = syncedFolder.account
+        )
+
+        Log_OC.d(TAG, "deleted unfinished upload record of remotePath: $remotePath")
+    }
+
+    private fun getUpload(
+        entity: FilesystemEntity,
+        syncedFolder: SyncedFolder,
+        localPath: String,
+        file: File
+    ): UploadEntity? {
+        // the entity keeps the path the worker used
+        val remotePath = entity.remotePath ?: syncFolderHelper.getAutoUploadRemotePath(syncedFolder, file)
+
+        return uploadsStorageManager.uploadDao.getUploadByAccountAndPaths(
+            accountName = syncedFolder.account,
+            localPath = localPath,
+            remotePath = remotePath
+        )
     }
 
     private fun getFileChecksum(file: File): Long? = try {
