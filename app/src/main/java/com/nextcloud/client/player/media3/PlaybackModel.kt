@@ -16,14 +16,7 @@ import androidx.media3.common.util.UnstableApi
 import androidx.media3.session.MediaController
 import androidx.media3.session.MediaSession
 import androidx.media3.session.SessionToken
-import com.nextcloud.client.player.util.PlayerUtil.playbackFile
-import com.nextcloud.client.player.util.PlayerUtil.readCurrentFiles
-import com.nextcloud.client.player.util.PlayerUtil.readMediaIds
-import com.nextcloud.client.player.util.PlayerUtil.toPlaybackState
-import com.nextcloud.client.player.util.PlayerUtil.toMediaItem
-import com.nextcloud.client.player.util.PlayerUtil.indexOfFirst
-import com.nextcloud.client.player.util.PlayerUtil.setRepeatMode
-import com.nextcloud.client.player.util.PlayerUtil.updateMediaItems
+import com.google.common.util.concurrent.ListenableFuture
 import com.nextcloud.client.player.media3.session.MediaSessionFactory
 import com.nextcloud.client.player.model.PlaybackSettings
 import com.nextcloud.client.player.model.file.PlaybackFile
@@ -31,6 +24,14 @@ import com.nextcloud.client.player.model.file.PlaybackFiles
 import com.nextcloud.client.player.model.state.PlaybackState
 import com.nextcloud.client.player.model.state.RepeatMode
 import com.nextcloud.client.player.util.PeriodicAction
+import com.nextcloud.client.player.util.PlayerUtil.indexOfFirst
+import com.nextcloud.client.player.util.PlayerUtil.playbackFile
+import com.nextcloud.client.player.util.PlayerUtil.readCurrentFiles
+import com.nextcloud.client.player.util.PlayerUtil.readMediaIds
+import com.nextcloud.client.player.util.PlayerUtil.setRepeatMode
+import com.nextcloud.client.player.util.PlayerUtil.toMediaItem
+import com.nextcloud.client.player.util.PlayerUtil.toPlaybackState
+import com.nextcloud.client.player.util.PlayerUtil.updateMediaItems
 import com.owncloud.android.datamodel.OCFile
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -39,10 +40,13 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.guava.await
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
+import java.util.concurrent.ExecutionException
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 
 @Singleton
 @OptIn(markerClass = [UnstableApi::class])
@@ -58,12 +62,8 @@ class PlaybackModel @Inject constructor(
     }
 
     interface Listener {
-
         fun onPlaybackUpdate(state: PlaybackState)
-
-        fun onPlaybackError(error: Throwable) {
-            // Default empty implementation
-        }
+        fun onPlaybackError(error: Throwable) = Unit
     }
 
     private val listeners = mutableListOf<Listener>()
@@ -140,6 +140,25 @@ class PlaybackModel @Inject constructor(
             }
     }
 
+    private suspend fun <T> ListenableFuture<T>.await(): T = suspendCancellableCoroutine { cont ->
+        addListener(
+            {
+                try {
+                    cont.resume(get())
+                } catch (e: ExecutionException) {
+                    cont.resumeWithException(e.cause ?: e)
+                } catch (e: Exception) {
+                    cont.resumeWithException(e)
+                }
+            },
+            Runnable::run
+        )
+
+        cont.invokeOnCancellation {
+            cancel(false)
+        }
+    }
+
     fun setFilesFlow(filesFlow: Flow<PlaybackFiles>) {
         controllerScope?.launch {
             filesFlow
@@ -177,7 +196,7 @@ class PlaybackModel @Inject constructor(
     private fun getNextFileIndex(files: PlaybackFiles, currentFile: PlaybackFile): Int = (files.list + currentFile)
         .sortedWith(files.comparator)
         .indexOfFirst { it.id == currentFile.id }
-        .let { if (it in 0..files.list.lastIndex) it else 0 }
+        .let { if (it in files.list.indices) it else 0 }
 
     fun release() {
         videoSurfaceView = null
@@ -224,13 +243,6 @@ class PlaybackModel @Inject constructor(
         }
     }
 
-    fun playPrevious() {
-        controller?.run {
-            seekToPreviousMediaItem()
-            prepare()
-        }
-    }
-
     fun seekToPosition(positionInMilliseconds: Long) {
         controller?.seekTo(positionInMilliseconds)
     }
@@ -266,13 +278,13 @@ class PlaybackModel @Inject constructor(
 
     private fun notifyPlaybackUpdate() {
         val currentState = state ?: return
-        for (i in 0 until listeners.size) {
+        for (i in listeners.indices) {
             listeners.getOrNull(i)?.onPlaybackUpdate(currentState)
         }
     }
 
     private fun notifyPlaybackError(error: Throwable) {
-        for (i in 0 until listeners.size) {
+        for (i in listeners.indices) {
             listeners.getOrNull(i)?.onPlaybackError(error)
         }
     }

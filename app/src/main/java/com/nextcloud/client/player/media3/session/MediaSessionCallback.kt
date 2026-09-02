@@ -16,10 +16,12 @@ import androidx.media3.session.SessionCommand
 import androidx.media3.session.SessionResult
 import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
-import com.nextcloud.client.player.media3.resumption.PlaybackResumptionLauncher
+import com.google.common.util.concurrent.SettableFuture
 import com.nextcloud.client.player.media3.PlaybackModel
+import com.nextcloud.client.player.media3.resumption.PlaybackResumptionLauncher
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.guava.future
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -62,9 +64,21 @@ class MediaSessionCallback @Inject constructor(
         return Futures.immediateFuture(SessionResult(SessionResult.RESULT_SUCCESS))
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onPlaybackResumption(
         mediaSession: MediaSession,
         controller: MediaSession.ControllerInfo,
         isForPlayback: Boolean
-    ): ListenableFuture<MediaItemsWithStartPosition> = GlobalScope.future { playbackResumptionLauncher.launch() }
+    ): ListenableFuture<MediaItemsWithStartPosition> {
+        val future = SettableFuture.create<MediaItemsWithStartPosition>()
+        GlobalScope.launch {
+            try {
+                val result = playbackResumptionLauncher.launch()
+                future.set(result)
+            } catch (e: Exception) {
+                future.setException(e)
+            }
+        }
+        return future
+    }
 }

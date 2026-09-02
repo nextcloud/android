@@ -16,9 +16,9 @@ import androidx.media3.common.util.UnstableApi
 import androidx.media3.session.MediaSession
 import androidx.media3.session.MediaSession.ControllerInfo
 import androidx.media3.session.MediaSessionService
-import com.nextcloud.client.player.util.PlayerUtil.playbackFile
 import com.nextcloud.client.player.model.file.PlaybackFileType
 import com.nextcloud.client.player.ui.PlayerActivity
+import com.nextcloud.client.player.util.PlayerUtil.playbackFile
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
