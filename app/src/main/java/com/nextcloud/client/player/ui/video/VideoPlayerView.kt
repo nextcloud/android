@@ -40,7 +40,9 @@ class VideoPlayerView(context: Context) : PlayerView(context) {
 
     override fun onStart() {
         super.onStart()
-        showControls()
+        if (!activity.isInPictureInPictureMode) {
+            showControls()
+        }
     }
 
     override fun onStop() {
