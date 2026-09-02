@@ -909,6 +909,20 @@
     <string name="file_not_synced">File could not be synced. Showing latest available version.</string>
 
     <!-- Auto upload -->
+    <string name="autoupload_delete_uploaded_all_dialog_button_all_users">From all users</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_current_user">From current user</string>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_files">
+        <item quantity="one">%d file</item>
+        <item quantity="other">%d files</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_folders">
+        <item quantity="one">%d folder</item>
+        <item quantity="other">%d folders</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_users">
+        <item quantity="one">%d user</item>
+        <item quantity="other">%d users</item>
+    </plurals>
     <string name="autoupload_custom_folder">Set up a custom folder</string>
     <string name="autoupload_create_new_custom_folder">Create new custom folder setup</string>
     <string name="autoupload_hide_folder">Hide folder</string>
