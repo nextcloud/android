@@ -228,6 +228,9 @@ class GalleryFragment :
 
     override fun getCommonAdapter(): CommonOCFileListAdapterInterface? = adapter
 
+    val currentMediaState: MediaState?
+        get() = bottomSheet?.currMediaState
+
     override fun onResume() {
         super.onResume()
 
