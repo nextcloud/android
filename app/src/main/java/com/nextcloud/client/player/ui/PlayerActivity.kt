@@ -69,8 +69,6 @@ class PlayerActivity :
 
     private var keepPlaybackAliveOnFinish = false
 
-    private var configurationChangedInPictureInPicture = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
@@ -144,19 +142,12 @@ class PlayerActivity :
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
 
+        val videoPlayerView = playerView as? VideoPlayerView ?: return
         if (isInPictureInPictureMode) {
-            configurationChangedInPictureInPicture = true
-            (playerView as? VideoPlayerView)?.hideControls()
-            return
+            videoPlayerView.hideControls()
+        } else {
+            videoPlayerView.showControls()
         }
-
-        rebuildPlayerViewForCurrentConfiguration()
-    }
-
-    private fun rebuildPlayerViewForCurrentConfiguration() {
-        configurationChangedInPictureInPicture = false
-        recreatePlayerView()
-        (playerView as? VideoPlayerView)?.showControls()
     }
 
     override fun onUserLeaveHint() {
@@ -183,8 +174,8 @@ class PlayerActivity :
             return
         }
 
-        if (!isInPictureInPictureMode && configurationChangedInPictureInPicture) {
-            rebuildPlayerViewForCurrentConfiguration()
+        if (!isInPictureInPictureMode) {
+            (playerView as? VideoPlayerView)?.showControls()
         }
     }
 

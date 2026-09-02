@@ -80,6 +80,7 @@ class PreviewPlaybackFragment :
     private var playbackCollection = PlaybackCollection.FOLDER
     private var autoplay: Boolean = false
     private var wasCurrentItem = false
+    private var renderedVideoSize: VideoSize? = null
 
     private var pictureInPictureCallback: OnBackPressedCallback? = null
 
@@ -200,6 +201,7 @@ class PreviewPlaybackFragment :
 
         val playbackMovedOn = wasCurrentItem && ownsPlayback(binding.surfaceView)
         wasCurrentItem = false
+        renderedVideoSize = null
         binding.surfaceView.visibility = View.GONE
         if (playbackMovedOn) {
             showPageOfCurrentItem(state)
@@ -228,11 +230,15 @@ class PreviewPlaybackFragment :
         if (ownsPlayback(binding.surfaceView)) {
             playbackModel.setVideoSurfaceView(binding.surfaceView)
         }
-        binding.surfaceView.visibility = View.VISIBLE
-        binding.surfaceView.alpha = if (videoSize != null) SURFACE_ALPHA_VISIBLE else SURFACE_ALPHA_HIDDEN
 
-        if (videoSize != null) {
-            binding.surfaceView.applyVideoSize(videoSize)
+        val size = videoSize ?: renderedVideoSize
+        renderedVideoSize = size
+
+        binding.surfaceView.visibility = View.VISIBLE
+        binding.surfaceView.alpha = if (size != null) SURFACE_ALPHA_VISIBLE else SURFACE_ALPHA_HIDDEN
+
+        if (size != null) {
+            binding.surfaceView.applyVideoSize(size)
         }
     }
 }

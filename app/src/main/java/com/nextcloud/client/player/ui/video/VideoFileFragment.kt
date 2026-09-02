@@ -52,6 +52,8 @@ class VideoFileFragment :
     private var _binding: PlayerVideoFileFragmentBinding? = null
     private val binding get() = checkNotNull(_binding) { "Binding accessed outside of the view lifecycle" }
 
+    private var renderedVideoSize: VideoSize? = null
+
     private val file by lazy {
         requireNotNull(arguments.getPlaybackFile(ARGUMENT_FILE)) {
             "VideoFileFragment requires a $ARGUMENT_FILE argument"
@@ -115,6 +117,7 @@ class VideoFileFragment :
             return
         }
 
+        renderedVideoSize = null
         binding.surfaceView.isVisible = false
         if (currentItemState == null) {
             playerModel.setVideoSurfaceView(null)
@@ -125,11 +128,15 @@ class VideoFileFragment :
         if (ownsPlayback(binding.surfaceView)) {
             playerModel.setVideoSurfaceView(binding.surfaceView)
         }
+
+        val size = videoSize ?: renderedVideoSize
+        renderedVideoSize = size
+
         binding.surfaceView.isVisible = true
-        binding.surfaceView.alpha = if (videoSize == null) SURFACE_ALPHA_HIDDEN else SURFACE_ALPHA_VISIBLE
+        binding.surfaceView.alpha = if (size == null) SURFACE_ALPHA_HIDDEN else SURFACE_ALPHA_VISIBLE
 
-        if (videoSize == null) return
+        if (size == null) return
 
-        binding.surfaceView.applyVideoSize(videoSize)
+        binding.surfaceView.applyVideoSize(size)
     }
 }
