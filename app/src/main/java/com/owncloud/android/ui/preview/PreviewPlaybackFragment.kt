@@ -99,6 +99,7 @@ class PreviewPlaybackFragment :
         loadThumbnail()
         registerPictureInPictureOnBack()
         binding.playerControlView.navigator = activity as? MediaNavigator
+        updatePlayerControlsVisibility()
         binding.root.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
             if (ownsPlayback(binding.surfaceView)) render(playbackModel.state)
         }
@@ -155,7 +156,6 @@ class PreviewPlaybackFragment :
 
     override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean) {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode)
-        binding.playerControlView.isVisible = !isInPictureInPictureMode
         render(playbackModel.state)
     }
 
@@ -190,6 +190,8 @@ class PreviewPlaybackFragment :
     }
 
     private fun render(state: PlaybackState?) {
+        updatePlayerControlsVisibility()
+
         if (isCurrentItem(state)) {
             wasCurrentItem = true
             showVideo(state?.currentItemState?.videoSize)
@@ -217,6 +219,10 @@ class PreviewPlaybackFragment :
     private fun previewActivity(): PreviewImageActivity? = activity as? PreviewImageActivity
 
     private fun isInPictureInPictureMode(): Boolean = activity?.isInPictureInPictureMode == true
+
+    private fun updatePlayerControlsVisibility() {
+        binding.playerControlView.isVisible = !isInPictureInPictureMode()
+    }
 
     private fun showVideo(videoSize: VideoSize?) {
         if (ownsPlayback(binding.surfaceView)) {
