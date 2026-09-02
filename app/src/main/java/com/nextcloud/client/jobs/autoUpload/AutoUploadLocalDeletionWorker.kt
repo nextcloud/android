@@ -36,6 +36,7 @@ class AutoUploadLocalDeletionWorker(
     companion object {
         const val SYNCED_FOLDER_IDS = "synced_folder_IDs"
         const val NOTIFICATION_ID = 267
+        const val MS_IN_SECOND = 1000
 
         private const val TAG = "AutoUploadLocalDeletionWorker"
     }
@@ -106,8 +107,7 @@ class AutoUploadLocalDeletionWorker(
         Log_OC.d(
             TAG,
             "Success: users=$users, foldersAnalyzed=$foldersAnalyzed, filesPreserved=$filesPreserved, " +
-                "filesRemoved=$filesRemoved, spaceFreed=$spaceFreed bytes, " +
-                "runTime=${runTimeMs/1000} seconds"
+                "filesRemoved=$filesRemoved, spaceFreed=$spaceFreed bytes, runTime=${runTimeMs / MS_IN_SECOND} seconds"
         )
         return Result.success()
     }
@@ -137,7 +137,7 @@ class AutoUploadLocalDeletionWorker(
                 R.plurals.autoupload_delete_uploaded_notif_ended_content_users,
                 users,
                 users
-            ),
+            )
         )
         return createNotification(
             title = context.getString(R.string.autoupload_delete_uploaded_notif_ended_title),
