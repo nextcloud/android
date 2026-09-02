@@ -8,6 +8,7 @@ package com.nextcloud.ui.tags.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.ui.text.toLowerCase
 import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.ui.tags.adapter.viewholder.CreateTagViewHolder
 import com.nextcloud.ui.tags.adapter.viewholder.TagViewHolder
@@ -35,7 +36,7 @@ class TagListAdapter(private val onTagChecked: (Tag, Boolean) -> Unit, private v
             allTags
         } else {
             allTags.filter { it.name.contains(searchQuery, ignoreCase = true) }
-        }
+        }.sortedBy { it.name.lowercase() }
 
         showCreateItem = searchQuery.isNotBlank() && tags.none { it.name.equals(searchQuery, ignoreCase = true) }
 

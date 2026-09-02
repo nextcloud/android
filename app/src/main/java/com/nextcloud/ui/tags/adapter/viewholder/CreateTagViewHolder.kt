@@ -12,10 +12,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.owncloud.android.R
 
-class CreateTagViewHolder(
-    itemView: View,
-    private val onCreateTag: (String) -> Unit
-) : RecyclerView.ViewHolder(itemView) {
+class CreateTagViewHolder(itemView: View, private val onCreateTag: (String) -> Unit) :
+    RecyclerView.ViewHolder(itemView) {
     private val colorDot: View = itemView.findViewById(R.id.tag_color_dot)
     private val tagName: TextView = itemView.findViewById(R.id.tag_name)
     private val checkBox: CheckBox = itemView.findViewById(R.id.tag_checkbox)
