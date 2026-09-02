@@ -154,6 +154,7 @@ class GalleryFragment :
         photoSearchTask?.cancel()
         savedScrollState = recyclerView?.layoutManager?.onSaveInstanceState()
         savedLoadedItemCount = loadedItemCount
+        savedMediaState = bottomSheet?.currMediaState
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -177,6 +178,9 @@ class GalleryFragment :
         menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_GRID_AND_SORT
         requireActivity().invalidateOptionsMenu()
 
+        if (savedMediaState != null) {
+            bottomSheet?.currMediaState = savedMediaState!!
+        }
         updateSubtitle(bottomSheet?.currMediaState)
 
         // Restore the previously loaded window so a saved scroll position still resolves to a valid item.
@@ -308,7 +312,7 @@ class GalleryFragment :
         // TODO: Fix folder change, it seems it doesn't work at all
         loadedItemCount = INITIAL_GALLERY_WINDOW
         restoreScrollPending = false
-        clearSavedScrollState()
+        clearSavedViewState()
         endDate = System.currentTimeMillis() / 1000
         isPhotoSearchQueryRunning = true
         runGallerySearchTask()
@@ -380,7 +384,7 @@ class GalleryFragment :
     override fun updateMediaContent(mediaState: MediaState) {
         loadedItemCount = INITIAL_GALLERY_WINDOW
         restoreScrollPending = false
-        clearSavedScrollState()
+        clearSavedViewState()
         showAllGalleryItems()
     }
 
@@ -482,10 +486,12 @@ class GalleryFragment :
         // so the grid reopens at the same scroll position and with the same loaded window.
         private var savedScrollState: Parcelable? = null
         private var savedLoadedItemCount: Int? = null
+        private var savedMediaState: MediaState? = null
 
-        fun clearSavedScrollState() {
+        fun clearSavedViewState() {
             savedScrollState = null
             savedLoadedItemCount = null
+            savedMediaState = null
         }
     }
 }
