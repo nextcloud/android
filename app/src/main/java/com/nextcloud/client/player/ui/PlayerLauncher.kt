@@ -17,7 +17,7 @@ import com.nextcloud.client.player.model.file.PlaybackFileType
 import com.nextcloud.client.player.model.file.PlaybackFiles
 import com.nextcloud.client.player.model.file.PlaybackFilesComparator
 import com.nextcloud.client.player.model.file.PlaybackFilesRepository
-import com.nextcloud.client.player.model.file.toPlaybackFile
+import com.nextcloud.client.player.util.PlayerUtil.toPlaybackFile
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.fragment.SearchType
 import kotlinx.coroutines.Job

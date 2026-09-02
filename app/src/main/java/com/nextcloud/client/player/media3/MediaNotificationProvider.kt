@@ -11,7 +11,7 @@ import android.content.Context
 import androidx.media3.common.MediaMetadata
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.session.DefaultMediaNotificationProvider
-import com.nextcloud.client.player.media3.common.playbackFile
+import com.nextcloud.client.player.util.PlayerUtil.playbackFile
 
 @UnstableApi
 class MediaNotificationProvider(context: Context) : DefaultMediaNotificationProvider(context) {

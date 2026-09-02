@@ -19,7 +19,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.widget.ViewPager2
 import com.nextcloud.client.player.model.file.PlaybackFile
-import com.nextcloud.client.player.util.rotate
+import com.nextcloud.client.player.util.PlayerUtil.rotate
 import com.owncloud.android.R
 
 private const val NO_SHIFT = -1

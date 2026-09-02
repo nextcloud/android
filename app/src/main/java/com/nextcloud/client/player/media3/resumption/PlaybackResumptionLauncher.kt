@@ -10,10 +10,10 @@ package com.nextcloud.client.player.media3.resumption
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.session.MediaSession.MediaItemsWithStartPosition
 import com.nextcloud.client.player.media3.PlaybackModel
-import com.nextcloud.client.player.media3.common.toMediaItem
+import com.nextcloud.client.player.util.PlayerUtil.toMediaItem
 import com.nextcloud.client.player.model.file.PlaybackFile
 import com.nextcloud.client.player.model.file.PlaybackFilesRepository
-import com.nextcloud.client.player.model.file.getPlaybackUri
+import com.nextcloud.client.player.util.PlayerUtil.getPlaybackUri
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.first
