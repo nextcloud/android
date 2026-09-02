@@ -15,6 +15,7 @@ import com.owncloud.android.datamodel.OCFileDepth
 import com.owncloud.android.datamodel.OCFileDepth.DeepLevel
 import com.owncloud.android.datamodel.OCFileDepth.FirstLevel
 import com.owncloud.android.datamodel.OCFileDepth.Root
+import com.owncloud.android.ui.events.EncryptionEvent
 import com.owncloud.android.utils.FileStorageUtils
 import java.util.Calendar
 import java.util.Date
@@ -82,3 +83,10 @@ private fun transformToRows(list: List<OCFile>, columns: Int, defaultSize: Int):
         .chunked(columns)
         .map { chunk -> GalleryRow(chunk, defaultSize, defaultSize) }
 }
+
+fun OCFile.toEncryptionEvent(encrypt: Boolean): EncryptionEvent = EncryptionEvent(
+    localId,
+    remoteId,
+    remotePath,
+    encrypt
+)

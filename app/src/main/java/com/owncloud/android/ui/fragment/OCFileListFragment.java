@@ -26,7 +26,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.Pair;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -56,12 +55,14 @@ import com.nextcloud.ui.fileactions.FileAction;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.ShortcutUtil;
-import com.nextcloud.utils.e2ee.E2EVersionHelper;
+import com.nextcloud.utils.e2ee.E2EEActionResolver;
+import com.nextcloud.utils.e2ee.E2EEDialogPresenter;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.FragmentExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.nextcloud.utils.extensions.OCFileExtensionsKt;
+import com.nextcloud.utils.extensions.OCFileListFragmentExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.fileNameValidator.FileNameValidator;
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator;
@@ -73,19 +74,13 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.OCFileDepth;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
-import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1;
-import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedMetadata;
-import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFolderMetadataFileV1;
-import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.files.ToggleFavoriteRemoteOperation;
-import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.Type;
 import com.owncloud.android.ui.activity.AlbumsPickerActivity;
@@ -105,7 +100,6 @@ import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.dialog.SyncFileNotEnoughSpaceDialogFragment;
-import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.CommentsEvent;
 import com.owncloud.android.ui.events.EncryptionEvent;
@@ -118,8 +112,6 @@ import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaActivity;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.EncryptionUtils;
-import com.owncloud.android.utils.EncryptionUtilsV2;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -127,14 +119,12 @@ import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.WebViewUtil;
 import com.owncloud.android.utils.theme.ThemeUtils;
 
-import org.apache.commons.httpclient.HttpStatus;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -149,13 +139,11 @@ import androidx.annotation.OptIn;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.media3.common.util.UnstableApi;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import kotlin.Unit;
 
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
-import static com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment.SETUP_ENCRYPTION_DIALOG_TAG;
 import static com.owncloud.android.ui.fragment.SearchType.FAVORITE_SEARCH;
 import static com.owncloud.android.ui.fragment.SearchType.FILE_SEARCH;
 import static com.owncloud.android.ui.fragment.SearchType.GALLERY_SEARCH;
@@ -214,8 +202,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject SyncedFolderProvider syncedFolderProvider;
     @Inject AppScanOptionalFeature appScanOptionalFeature;
     @Inject ThumbnailGenerator thumbnailGenerator;
-
-    protected FileFragment.ContainerActivity mContainerActivity;
+    @Inject public E2EEActionResolver e2eeActionResolver;
+    public E2EEDialogPresenter e2eeDialogPresenter;
+    private EncryptedFolderClickHandler clickHandler;
+    public FolderEncryption folderEncryption;
+    public FileFragment.ContainerActivity mContainerActivity;
 
     protected OCFile mFile;
     protected OCFileListAdapter mAdapter;
@@ -265,12 +256,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
         setSearchArgs(state);
         mFile = BundleExtensionsKt.getParcelableArgument(state, KEY_FILE, OCFile.class);
         searchFragment = currentSearchType != null && isSearchEventSet(searchEvent);
+        folderEncryption = new FolderEncryption(this);
+        clickHandler = new EncryptedFolderClickHandler(this);
+        e2eeDialogPresenter = new E2EEDialogPresenter(this);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        listenSetupEncryptionDialogResult();
+        OCFileListFragmentExtensionsKt.listenEncryptionDialogResult(this);
     }
 
     @Override
@@ -428,7 +422,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             setFabVisible(false);
         } else {
             if (mFile != null) {
-                setFabVisible(mFile.canCreateFileAndFolder());
+                setFabVisible(canCreateInside(mFile));
             } else {
                 setFabVisible(true);
             }
@@ -468,6 +462,19 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (getActivity() instanceof FileDisplayActivity fda) {
             fda.updateActionBarTitleAndHomeButton(fda.getCurrentDir());
         }
+    }
+
+    private boolean isReadOnlyFolder(OCFile folder) {
+        if (folder == null || mContainerActivity == null) {
+            return false;
+        }
+
+        final var storageManager = mContainerActivity.getStorageManager();
+        return storageManager != null && storageManager.isReadOnly(folder);
+    }
+
+    private boolean canCreateInside(OCFile folder) {
+        return folder.canCreateFileAndFolder() && !isReadOnlyFolder(folder);
     }
 
     protected void setAdapter(Bundle args) {
@@ -545,26 +552,19 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void createFolder(boolean encrypted) {
+        if (encrypted) {
+            clickHandler.onNewEncryptedFolder();
+            return;
+        }
+
+        showCreateFolderDialog(false);
+    }
+
+    public void showCreateFolderDialog(boolean encrypted) {
         final var activity = getActivity();
         if (activity == null) {
             Log_OC.e(TAG, "activity is null, cannot create a folder");
             return;
-        }
-
-        if (encrypted) {
-            User user = accountManager.getUser();
-            String publicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PUBLIC_KEY);
-            String privateKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PRIVATE_KEY);
-
-            if (publicKey.isEmpty() || privateKey.isEmpty()) {
-                Log_OC.w(TAG,"cannot create encrypted folder directly, needs to setup encryption first");
-
-                activity.runOnUiThread(() -> {
-                    final var dialog = SetupEncryptionDialogFragment.newInstance(user, mFile.getRemotePath());
-                    dialog.show(getParentFragmentManager(), SETUP_ENCRYPTION_DIALOG_TAG);
-                });
-                return;
-            }
         }
 
         CreateFolderDialogFragment.newInstance(mFile, encrypted)
@@ -1140,56 +1140,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         if (file.isEncrypted()) {
-            User user = ((FileActivity) mContainerActivity).getUser().orElseThrow(RuntimeException::new);
-
-            // check if e2e app is enabled
-            OCCapability ocCapability = mContainerActivity.getStorageManager()
-                .getCapability(user.getAccountName());
-
-            if (ocCapability.getEndToEndEncryption().isFalse() ||
-                ocCapability.getEndToEndEncryption().isUnknown()) {
-
-                if (getRecyclerView() != null) {
-                    Snackbar.make(getRecyclerView(), R.string.end_to_end_encryption_not_enabled,
-                                  Snackbar.LENGTH_LONG).show();
-                }
-
-                return;
-            }
-            // check if keys are stored
-            if (FileOperationsHelper.isEndToEndEncryptionSetup(requireContext(), user)) {
-                // update state and view of this fragment
-                searchFragment = false;
-                mHideFab = false;
-
-                if (mContainerActivity instanceof FolderPickerActivity &&
-                    ((FolderPickerActivity) mContainerActivity)
-                        .isDoNotEnterEncryptedFolder()) {
-
-                    if (getRecyclerView() != null) {
-                        Snackbar.make(getRecyclerView(),
-                                      R.string.copy_move_to_encrypted_folder_not_supported,
-                                      Snackbar.LENGTH_LONG).show();
-                    }
-                } else {
-                    browseToFolder(file, position);
-                }
-            } else {
-                Log_OC.d(TAG, "no public key for " + user.getAccountName());
-
-                FragmentManager fragmentManager = getParentFragmentManager();
-                if (fragmentManager.findFragmentByTag(SETUP_ENCRYPTION_DIALOG_TAG) == null && requireActivity() instanceof FileActivity fileActivity) {
-                    fileActivity.connectivityService.isNetworkAndServerAvailable(result -> {
-                        if (result) {
-                            SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user, file.getRemotePath());
-                            dialog.show(fragmentManager, SETUP_ENCRYPTION_DIALOG_TAG);
-                        } else {
-                            DisplayUtils.showSnackMessage(fileActivity, R.string.internet_connection_required_for_encrypted_folder_setup);
-                        }
-                        return Unit.INSTANCE;
-                    });
-                }
-            }
+            clickHandler.onEncryptedFolderClick(file, position);
         } else {
             // update state and view of this fragment
             searchFragment = false;
@@ -1324,7 +1275,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         return fileDepth;
     }
 
-    private void browseToFolder(OCFile file, int position) {
+    protected void browseToFolder(OCFile file, int position) {
         setFileDepth(file);
 
         if (currentSearchType == FAVORITE_SEARCH) {
@@ -1336,52 +1287,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         mContainerActivity.onBrowsedDownTo(file);
         // save index and top position
         saveIndexAndTopPosition(position);
-    }
-
-    private void listenSetupEncryptionDialogResult() {
-        getParentFragmentManager().setFragmentResultListener(
-            SetupEncryptionDialogFragment.RESULT_REQUEST_KEY,
-            this,
-            (requestKey, bundle) -> {
-                boolean result = bundle.getBoolean(SetupEncryptionDialogFragment.SUCCESS, false);
-                if (!result) {
-                    Log_OC.d(TAG, "setup encryption dialog is dismissed");
-                    boolean cancelled = bundle.getBoolean(SetupEncryptionDialogFragment.RESULT_KEY_CANCELLED, false);
-                    if (cancelled) {
-                        browseToRoot();
-                    }
-                    return;
-                }
-
-                String fileRemotePath = bundle.getString(SetupEncryptionDialogFragment.ARG_FILE_PATH, null);
-                if (fileRemotePath == null) {
-                    Log_OC.e(TAG, "file path is null");
-                    return;
-                }
-
-                OCFile file = mContainerActivity.getStorageManager().getFileByDecryptedRemotePath(fileRemotePath);
-                if (file == null) {
-                    Log_OC.e(TAG,"file is null, cannot toggle encryption");
-                    return;
-                }
-
-                if (file.isRootDirectory()) {
-                    Log_OC.d(TAG, "result of setup encryption triggered in root directory, this call is for " +
-                        "creating encrypted folder");
-                    createFolder(true);
-                    return;
-                }
-
-                mContainerActivity.getFileOperationsHelper().toggleEncryption(file, true);
-                mAdapter.updateFileEncryptionById(file.getRemoteId(), true);
-                searchFragment = false;
-                setFileDepth(file);
-                listDirectory(file, MainApp.isOnlyOnDevice());
-                mContainerActivity.onBrowsedDownTo(file);
-
-                int position = mAdapter.getItemPosition(file);
-                saveIndexAndTopPosition(position);
-            });
     }
 
     /**
@@ -1582,7 +1487,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         searchFragment = false;
 
         if (mFile != null) {
-            setFabVisible(mFile.canCreateFileAndFolder());
+            setFabVisible(canCreateInside(mFile));
         }
 
         final var currentFile = getCurrentFile();
@@ -1698,9 +1603,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
         updateSortButton();
         setLayoutSwitchButton();
 
-        setFabVisible(!mHideFab);
+        boolean readOnly = isReadOnlyFolder(mFile);
+        setFabVisible(!mHideFab && !readOnly);
         slideHideBottomBehaviourForBottomNavigationView(!mHideFab);
-        setFabEnabled(mFile != null && (mFile.canCreateFileAndFolder() || mFile.isOfflineOperation()));
+        setFabEnabled(mFile != null && !readOnly && (mFile.canCreateFileAndFolder() || mFile.isOfflineOperation()));
 
         invalidateActionMode();
     }
@@ -1813,7 +1719,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         if (mFile != null) {
-            setFabVisible(mFile.canCreateFileAndFolder());
+            setFabVisible(canCreateInside(mFile));
         }
 
         slideHideBottomBehaviourForBottomNavigationView(true);
@@ -1967,160 +1873,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(EncryptionEvent event) {
-        new Thread(() -> {{
-            final User user = accountManager.getUser();
-
-            // check if keys are stored
-            String publicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PUBLIC_KEY);
-            String privateKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PRIVATE_KEY);
-
-            FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
-            OCFile file = storageManager.getFileByRemoteId(event.getRemoteId());
-
-            if (publicKey.isEmpty() || privateKey.isEmpty()) {
-                Log_OC.d(TAG, "no public key for " + user.getAccountName());
-
-
-                requireActivity().runOnUiThread(() -> {
-                    SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user, file.getRemotePath());
-                    dialog.show(getParentFragmentManager(), SETUP_ENCRYPTION_DIALOG_TAG);
-                });
-            } else {
-                // TODO E2E: if encryption fails, to not set it as encrypted!
-                encryptFolder(file,
-                              event.getLocalId(),
-                              event.getRemoteId(),
-                              event.getRemotePath(),
-                              event.getShouldBeEncrypted(),
-                              publicKey,
-                              privateKey,
-                              storageManager);
-            }
-        }}).start();
-    }
-
-    private void encryptFolder(OCFile folder,
-                               long localId,
-                               String remoteId,
-                               String remotePath,
-                               boolean shouldBeEncrypted,
-                               String publicKeyString,
-                               String privateKeyString,
-                               FileDataStorageManager storageManager) {
-        try {
-            Log_OC.d(TAG, "encrypt folder " + folder.getRemoteId());
-            User user = accountManager.getUser();
-            OwnCloudClient client = clientFactory.create(user);
-            final var remoteOperationResult = new ToggleEncryptionRemoteOperation(localId,
-                                                                                              remotePath,
-                                                                                              shouldBeEncrypted)
-                .execute(client);
-
-            if (remoteOperationResult.isSuccess()) {
-                OCCapability ocCapability = mContainerActivity.getStorageManager().getCapability(user.getAccountName());
-                final var isE2EEV2 = E2EVersionHelper.INSTANCE.isV2Plus(ocCapability);
-                long e2eCounter = EncryptionUtils.E2E_V1_INITIAL_COUNTER;
-                if (isE2EEV2) {
-                    e2eCounter = EncryptionUtils.E2E_V2_INITIAL_COUNTER;
-                }
-
-                // lock folder
-                String token = EncryptionUtils.lockFolder(folder, client, e2eCounter);
-
-                if (E2EVersionHelper.INSTANCE.isV2Plus(ocCapability)) {
-                    // Update metadata
-                    Pair<Boolean, DecryptedFolderMetadataFile> metadataPair = EncryptionUtils.retrieveMetadata(folder,
-                                                                                                               client,
-                                                                                                               privateKeyString,
-                                                                                                               publicKeyString,
-                                                                                                               storageManager,
-                                                                                                               user,
-                                                                                                               requireContext(),
-                                                                                                               arbitraryDataProvider);
-
-                    boolean metadataExists = metadataPair.first;
-                    DecryptedFolderMetadataFile metadata = metadataPair.second;
-
-                    new EncryptionUtilsV2().serializeAndUploadMetadata(folder,
-                                                                       metadata,
-                                                                       token,
-                                                                       client,
-                                                                       metadataExists,
-                                                                       requireContext(),
-                                                                       user,
-                                                                       storageManager);
-
-                    // unlock folder
-                    EncryptionUtils.unlockFolder(folder, client, token);
-
-
-                } else if (E2EVersionHelper.INSTANCE.isV1(ocCapability)) {
-                    // new metadata
-                    String publicKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY);
-                    
-                    DecryptedFolderMetadataFileV1 metadata = new DecryptedFolderMetadataFileV1();
-                    metadata.setMetadata(new DecryptedMetadata());
-
-                    final var e2eeVersion = storageManager.getE2EEVersionObject(user);
-                    final var e2eeVersionAsString = e2eeVersion.getValue();
-                    metadata.getMetadata().setVersion(Double.parseDouble(e2eeVersionAsString));
-
-                    metadata.getMetadata().setMetadataKeys(new HashMap<>());
-                    String metadataKey = EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateKey());
-                    String encryptedMetadataKey = EncryptionUtils.encryptStringAsymmetric(metadataKey, publicKey);
-                    metadata.getMetadata().setMetadataKey(encryptedMetadataKey);
-
-                    EncryptedFolderMetadataFileV1 encryptedFolderMetadata = EncryptionUtils.encryptFolderMetadata(metadata,
-                                                                                                                  publicKey,
-                                                                                                                  folder.getLocalId(),
-                                                                                                                  user,
-                                                                                                                  arbitraryDataProvider
-                                                                                                                 );
-                    String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
-
-                    // upload metadata
-                    EncryptionUtils.uploadMetadata(folder,
-                                                   serializedFolderMetadata,
-                                                   token,
-                                                   client,
-                                                   false,
-                                                   e2eeVersion,
-                                                   "",
-                                                   arbitraryDataProvider,
-                                                   user);
-                    
-                    // unlock folder
-                    EncryptionUtils.unlockFolderV1(folder, client, token);
-                } else if (ocCapability.getEndToEndEncryptionApiVersion() == E2EVersion.UNKNOWN) {
-                    throw new IllegalArgumentException("Unknown E2E version");
-                }
-
-                requireActivity().runOnUiThread(() -> {
-                    boolean isFileExists = (mAdapter.getFileByRemoteId(remoteId) != null);
-                    if (!isFileExists) {
-                        OCFile newFile = storageManager.getFileByRemoteId(remoteId);
-                        mAdapter.insertFile(newFile);
-                    }
-
-                    mAdapter.updateFileEncryptionById(remoteId, shouldBeEncrypted);
-                });
-            } else if (remoteOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN && getRecyclerView() != null) {
-                requireActivity().runOnUiThread(() -> Snackbar.make(getRecyclerView(),
-                                                            R.string.end_to_end_encryption_folder_not_empty,
-                                                            Snackbar.LENGTH_LONG).show());
-            } else {
-                requireActivity().runOnUiThread(() -> {{
-                    if (getRecyclerView() != null) {
-                        Snackbar.make(getRecyclerView(),
-                                      R.string.common_error_unknown,
-                                      Snackbar.LENGTH_LONG).show();
-                    }
-                }});
-            }
-
-        } catch (Throwable e) {
-            Log_OC.e(TAG, "Error creating encrypted folder", e);
-        }
+        event.onResult(this);
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)

@@ -16,6 +16,9 @@ import com.owncloud.android.R
 import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment
 import com.owncloud.android.utils.DisplayUtils
 
+/**
+ * Only needed for SettingsActivity
+ */
 class SetupEncryptionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,16 +48,14 @@ class SetupEncryptionActivity : AppCompatActivity() {
         setupEncryptionDialogFragment.show(supportFragmentManager, "setup_encryption")
     }
 
-    private fun buildResultIntentFromBundle(result: Bundle): Intent {
-        val intent = Intent()
-        intent.putExtra(
+    private fun buildResultIntentFromBundle(result: Bundle): Intent = Intent().apply {
+        putExtra(
             SetupEncryptionDialogFragment.SUCCESS,
             result.getBoolean(SetupEncryptionDialogFragment.SUCCESS)
         )
-        intent.putExtra(
+        putExtra(
             SetupEncryptionDialogFragment.ARG_FILE_PATH,
             result.getInt(SetupEncryptionDialogFragment.ARG_FILE_PATH)
         )
-        return intent
     }
 }
