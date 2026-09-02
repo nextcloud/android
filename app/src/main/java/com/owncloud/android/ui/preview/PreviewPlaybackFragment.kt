@@ -52,6 +52,8 @@ class PreviewPlaybackFragment :
         private const val ARGUMENT_FILE = "ARGUMENT_FILE"
         private const val ARGUMENT_SEARCH_TYPE = "ARGUMENT_SEARCH_TYPE"
         private const val ARGUMENT_AUTOPLAY = "ARGUMENT_AUTOPLAY"
+        private const val SURFACE_ALPHA_VISIBLE = 1f
+        private const val SURFACE_ALPHA_HIDDEN = 0f
 
         fun newInstance(file: OCFile, searchType: SearchType?, autoplay: Boolean = false) =
             PreviewPlaybackFragment().apply {
@@ -77,7 +79,6 @@ class PreviewPlaybackFragment :
     private lateinit var playbackFile: PlaybackFile
     private var searchType: SearchType? = null
     private var autoplay: Boolean = false
-    private var previousVideoSize: VideoSize? = null
 
     private var pictureInPictureCallback: OnBackPressedCallback? = null
 
@@ -95,6 +96,9 @@ class PreviewPlaybackFragment :
         binding = PreviewPlaybackFragmentBinding.inflate(inflater, container, false)
         loadThumbnail()
         registerPictureInPictureOnBack()
+        binding.root.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+            if (isResumed) render(playbackModel.state)
+        }
         return binding.root
     }
 
@@ -173,18 +177,23 @@ class PreviewPlaybackFragment :
     private fun render(state: PlaybackState?) {
         if (!isCurrentItem(state)) {
             binding.surfaceView.visibility = View.GONE
+            showPageOfCurrentItem(state)
             return
         }
         showVideo(state?.currentItemState?.videoSize)
     }
 
+    private fun showPageOfCurrentItem(state: PlaybackState?) {
+        val localId = state?.currentItemState?.file?.id?.toLongOrNull() ?: return
+        (activity as? PreviewImageActivity)?.showFilePage(localId)
+    }
+
     private fun showVideo(videoSize: VideoSize?) {
         playbackModel.setVideoSurfaceView(binding.surfaceView)
         binding.surfaceView.visibility = View.VISIBLE
-        binding.surfaceView.alpha = if (videoSize != null) 1f else 0f
+        binding.surfaceView.alpha = if (videoSize != null) SURFACE_ALPHA_VISIBLE else SURFACE_ALPHA_HIDDEN
 
-        if (videoSize != null && previousVideoSize != videoSize) {
-            previousVideoSize = videoSize
+        if (videoSize != null) {
             binding.surfaceView.applyVideoSize(videoSize)
         }
     }

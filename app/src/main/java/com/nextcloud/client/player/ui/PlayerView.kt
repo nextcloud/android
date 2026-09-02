@@ -74,6 +74,8 @@ abstract class PlayerView @JvmOverloads constructor(
             (context.applicationContext as HasAndroidInjector).androidInjector().inject(this)
             playerPager.initialize(activity.supportFragmentManager, activity.lifecycle, createFragment)
             playerPager.onItemSelected = { playbackModel.switchToFile(it) }
+            playerControlView.onNextClick = { playerPager.showNext() }
+            playerControlView.onPreviousClick = { playerPager.showPrevious() }
             findViewById<View>(R.id.back).setOnClickListener { activity.onBackPressedDispatcher.onBackPressed() }
         }
     }
@@ -95,6 +97,11 @@ abstract class PlayerView @JvmOverloads constructor(
     open fun onStop() {
         playbackModel.removeListener(this)
         playerControlView.onStop()
+    }
+
+    @CallSuper
+    open fun release() {
+        playerPager.release()
     }
 
     override fun onPlaybackUpdate(state: PlaybackState) {

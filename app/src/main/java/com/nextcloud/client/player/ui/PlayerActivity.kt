@@ -47,6 +47,8 @@ import javax.inject.Inject
 
 private const val PIP_ASPECT_RATIO_WIDTH = 16
 private const val PIP_ASPECT_RATIO_HEIGHT = 9
+private const val MIN_PIP_ASPECT_RATIO = 0.42f
+private const val MAX_PIP_ASPECT_RATIO = 2.39f
 
 class PlayerActivity :
     FileActivity(),
@@ -82,7 +84,7 @@ class PlayerActivity :
 
     private lateinit var playerView: PlayerView
 
-    private val pipAspectRatio = Rational(PIP_ASPECT_RATIO_WIDTH, PIP_ASPECT_RATIO_HEIGHT)
+    private val defaultPipAspectRatio = Rational(PIP_ASPECT_RATIO_WIDTH, PIP_ASPECT_RATIO_HEIGHT)
 
     private var onBackPressedCallback: OnBackPressedCallback? = null
 
@@ -139,6 +141,7 @@ class PlayerActivity :
 
     private fun recreatePlayerView() {
         playerView.onStop()
+        playerView.release()
         createPlayerView()
         playerView.onStart()
     }
@@ -229,19 +232,32 @@ class PlayerActivity :
         enterPictureInPictureMode(params)
     }
 
-    private fun createPictureInPictureParams(): PictureInPictureParams = PictureInPictureParams.Builder().let {
-        it.setAspectRatio(pipAspectRatio)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            it.setAutoEnterEnabled(true)
+    private fun createPictureInPictureParams(): PictureInPictureParams {
+        val aspectRatio = getPictureInPictureAspectRatio()
+        return PictureInPictureParams.Builder().let {
+            it.setAspectRatio(aspectRatio)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                it.setAutoEnterEnabled(true)
+            }
+            it.setSourceRectHint(getSourceRectHint(aspectRatio))
+            it.build()
         }
-        it.setSourceRectHint(getSourceRectHint())
-        it.build()
     }
 
-    private fun getSourceRectHint(): Rect {
+    private fun getPictureInPictureAspectRatio(): Rational {
+        val videoSize = playbackModel.state?.currentItemState?.videoSize ?: return defaultPipAspectRatio
+        val ratio = videoSize.width.toFloat() / videoSize.height.toFloat()
+        return if (ratio < MIN_PIP_ASPECT_RATIO || ratio > MAX_PIP_ASPECT_RATIO) {
+            defaultPipAspectRatio
+        } else {
+            Rational(videoSize.width, videoSize.height)
+        }
+    }
+
+    private fun getSourceRectHint(aspectRatio: Rational): Rect {
         val containerRect = Rect()
         playerView.getGlobalVisibleRect(containerRect)
-        val sourceHeightHint = (containerRect.width() / pipAspectRatio.toFloat()).toInt()
+        val sourceHeightHint = (containerRect.width() / aspectRatio.toFloat()).toInt()
         return Rect(
             containerRect.left,
             containerRect.top + (containerRect.height() - sourceHeightHint) / 2,

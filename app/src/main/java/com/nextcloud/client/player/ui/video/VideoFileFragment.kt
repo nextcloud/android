@@ -7,8 +7,10 @@
 
 package com.nextcloud.client.player.ui.video
 
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.SurfaceView
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -51,8 +53,6 @@ class VideoFileFragment :
     private var _binding: PlayerVideoFileFragmentBinding? = null
     private val binding get() = checkNotNull(_binding) { "Binding accessed outside of the view lifecycle" }
 
-    private var previousVideoSize: VideoSize? = null
-
     private val file by lazy {
         requireNotNull(arguments.getPlaybackFile(ARGUMENT_FILE)) {
             "VideoFileFragment requires a $ARGUMENT_FILE argument"
@@ -70,12 +70,20 @@ class VideoFileFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadFileThumbnail()
+        binding.root.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+            render(playerModel.state)
+        }
     }
 
     override fun onStart() {
         super.onStart()
         render(playerModel.state)
         playerModel.addListener(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        render(playerModel.state)
     }
 
     override fun onStop() {
@@ -100,6 +108,7 @@ class VideoFileFragment :
     }
 
     private fun render(state: PlaybackState?) {
+        val binding = _binding ?: return
         val currentItemState = state?.currentItemState
 
         if (currentItemState?.file == file) {
@@ -114,13 +123,16 @@ class VideoFileFragment :
     }
 
     private fun showVideo(videoSize: VideoSize?) {
-        playerModel.setVideoSurfaceView(binding.surfaceView)
+        if (binding.surfaceView.ownsPlayback()) {
+            playerModel.setVideoSurfaceView(binding.surfaceView)
+        }
         binding.surfaceView.isVisible = true
         binding.surfaceView.alpha = if (videoSize == null) SURFACE_ALPHA_HIDDEN else SURFACE_ALPHA_VISIBLE
 
-        if (videoSize == null || previousVideoSize == videoSize) return
+        if (videoSize == null) return
 
-        previousVideoSize = videoSize
         binding.surfaceView.applyVideoSize(videoSize)
     }
+
+    private fun SurfaceView.ownsPlayback(): Boolean = isResumed || getGlobalVisibleRect(Rect())
 }
