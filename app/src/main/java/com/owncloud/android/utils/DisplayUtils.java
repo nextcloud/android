@@ -154,48 +154,6 @@ public final class DisplayUtils {
     }
 
     /**
-     * Converts Unix time duration to human readable format
-     *
-     * @param milliseconds that the operation did require
-     * @return The human readable time duration for the users locale
-     */
-    public static String unixTimeDurationToHumanReadable(Context context, long milliseconds) {
-        long days = milliseconds / DAY_IN_MS;
-        long hours = (milliseconds % DAY_IN_MS) / HOUR_IN_MS;
-        long minutes = (milliseconds % HOUR_IN_MS) / MINUTE_IN_MS;
-        long seconds = (milliseconds % MINUTE_IN_MS) / SECOND_IN_MS;
-
-        StringBuilder builder = new StringBuilder();
-
-        if (days > 0) {
-            builder.append(days);
-            builder.append(" ");
-            builder.append(context.getString(R.string.duration_days));
-            builder.append(", ");
-        }
-
-        if (hours > 0) {
-            builder.append(hours);
-            builder.append(" ");
-            builder.append(context.getString(R.string.duration_hours));
-            builder.append(", ");
-        }
-
-        if (minutes > 0) {
-            builder.append(minutes);
-            builder.append(" ");
-            builder.append(context.getString(R.string.duration_minutes));
-            builder.append(", ");
-        }
-
-        builder.append(seconds);
-        builder.append(" ");
-        builder.append(context.getString(R.string.duration_seconds));
-
-        return builder.toString();
-    }
-
-    /**
      * beautifies a given URL by removing any http/https protocol prefix.
      *
      * @param url to be beautified url

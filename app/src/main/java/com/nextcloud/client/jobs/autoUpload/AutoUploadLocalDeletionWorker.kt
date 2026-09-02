@@ -107,7 +107,7 @@ class AutoUploadLocalDeletionWorker(
             TAG,
             "Success: users=$users, foldersAnalyzed=$foldersAnalyzed, filesPreserved=$filesPreserved, " +
                 "filesRemoved=$filesRemoved, spaceFreed=$spaceFreed bytes, " +
-                "runTime=${DisplayUtils.unixTimeDurationToHumanReadable(context, runTimeMs)}"
+                "runTime=${runTimeMs/1000} seconds"
         )
         return Result.success()
     }
