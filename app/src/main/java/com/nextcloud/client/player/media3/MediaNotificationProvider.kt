@@ -16,10 +16,9 @@ import com.nextcloud.client.player.media3.common.playbackFile
 @UnstableApi
 class MediaNotificationProvider(context: Context) : DefaultMediaNotificationProvider(context) {
 
-    override fun getNotificationContentTitle(metadata: MediaMetadata): CharSequence? =
-        if (metadata.title.isNullOrEmpty()) {
-            metadata.playbackFile?.getNameWithoutExtension()
-        } else {
-            metadata.title
-        }
+    override fun getNotificationContentTitle(metadata: MediaMetadata): CharSequence =
+        metadata.title ?: metadata.playbackFile?.getNameWithoutExtension() ?: ""
+
+    override fun getNotificationContentText(metadata: MediaMetadata): CharSequence =
+        metadata.artist ?: metadata.albumTitle ?: ""
 }
