@@ -7,15 +7,11 @@
 
 package com.nextcloud.client.player.ui
 
-import android.app.PictureInPictureParams
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.Rect
 import android.media.AudioManager
-import android.os.Build
 import android.os.Bundle
-import android.util.Rational
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
@@ -30,7 +26,6 @@ import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.client.player.model.file.PlaybackFileType
 import com.nextcloud.client.player.ui.audio.AudioPlayerView
 import com.nextcloud.client.player.ui.video.VideoPlayerView
-import com.nextcloud.client.player.util.PlayerUtil.isPictureInPictureAllowed
 import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet
 import com.nextcloud.utils.extensions.getSerializableArgument
@@ -45,34 +40,18 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
-private const val PIP_ASPECT_RATIO_WIDTH = 16
-private const val PIP_ASPECT_RATIO_HEIGHT = 9
-private const val MIN_PIP_ASPECT_RATIO = 0.42f
-private const val MAX_PIP_ASPECT_RATIO = 2.39f
-
 class PlayerActivity :
     FileActivity(),
     Injectable {
 
     companion object {
         private const val PLAYBACK_FILE_TYPE: String = "PLAYBACK_FILE_TYPE"
-        private const val ENTER_PICTURE_IN_PICTURE: String = "ENTER_PICTURE_IN_PICTURE"
-        private const val RESUME_PLAYBACK: String = "RESUME_PLAYBACK"
 
         fun createIntent(context: Context, playbackFileType: PlaybackFileType): Intent =
             Intent(context, PlayerActivity::class.java).apply {
                 putExtra(PLAYBACK_FILE_TYPE, playbackFileType)
                 addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
             }
-
-        fun createPictureInPictureIntent(
-            context: Context,
-            playbackFileType: PlaybackFileType,
-            resumePlayback: Boolean
-        ): Intent = createIntent(context, playbackFileType).apply {
-            putExtra(ENTER_PICTURE_IN_PICTURE, true)
-            putExtra(RESUME_PLAYBACK, resumePlayback)
-        }
     }
 
     @Inject
@@ -84,14 +63,11 @@ class PlayerActivity :
 
     private lateinit var playerView: PlayerView
 
-    private val defaultPipAspectRatio = Rational(PIP_ASPECT_RATIO_WIDTH, PIP_ASPECT_RATIO_HEIGHT)
+    private val pictureInPicture by lazy { VideoPictureInPicture(this, playbackModel, autoEnter = true) }
 
     private var onBackPressedCallback: OnBackPressedCallback? = null
 
     private var keepPlaybackAliveOnFinish = false
-
-    private var enterPictureInPictureOnResume = false
-    private var resumePlaybackOnResume = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -99,7 +75,6 @@ class PlayerActivity :
         ViewCompat.setOnApplyWindowInsetsListener(window.decorView) { _, windowInsets -> windowInsets }
 
         playbackFileType = intent.getPlaybackFileType()
-        readPictureInPictureRequest(intent)
         createPlayerView()
 
         viewModel.eventFlow
@@ -108,14 +83,12 @@ class PlayerActivity :
             .launchIn(lifecycleScope)
 
         onBackPressedCallback = onBackPressedDispatcher.addCallback(this) {
-            val isVideoPlayback = playbackFileType == PlaybackFileType.VIDEO
-
-            if (isPictureInPictureAllowed() && isVideoPlayback) {
-                switchToPictureInPictureMode()
-            } else {
-                file = file?.parentId?.let { storageManager.getFileById(it) }
-                finish()
+            if (canUsePictureInPictureMode() && pictureInPicture.enter(playerView)) {
+                return@addCallback
             }
+
+            file = file?.parentId?.let { storageManager.getFileById(it) }
+            finish()
         }
 
         volumeControlStream = AudioManager.STREAM_MUSIC
@@ -124,9 +97,7 @@ class PlayerActivity :
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         playbackFileType = intent.getPlaybackFileType()
-        readPictureInPictureRequest(intent)
         recreatePlayerView()
-        onBackPressedCallback?.isEnabled = canUsePictureInPictureMode()
     }
 
     private fun createPlayerView() {
@@ -153,26 +124,6 @@ class PlayerActivity :
     override fun onStart() {
         super.onStart()
         playerView.onStart()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (!enterPictureInPictureOnResume) {
-            return
-        }
-        enterPictureInPictureOnResume = false
-
-        if (resumePlaybackOnResume) {
-            playbackModel.play()
-        }
-        if (canUsePictureInPictureMode()) {
-            switchToPictureInPictureMode()
-        }
-    }
-
-    private fun readPictureInPictureRequest(intent: Intent) {
-        enterPictureInPictureOnResume = intent.getBooleanExtra(ENTER_PICTURE_IN_PICTURE, false)
-        resumePlaybackOnResume = intent.getBooleanExtra(RESUME_PLAYBACK, false)
     }
 
     override fun onStop() {
@@ -203,7 +154,7 @@ class PlayerActivity :
     override fun onUserLeaveHint() {
         super.onUserLeaveHint()
         if (canUsePictureInPictureMode()) {
-            switchToPictureInPictureMode()
+            pictureInPicture.enter(playerView)
         }
     }
 
@@ -225,46 +176,7 @@ class PlayerActivity :
     }
 
     private fun canUsePictureInPictureMode(): Boolean =
-        playbackFileType == PlaybackFileType.VIDEO && isPictureInPictureAllowed()
-
-    private fun switchToPictureInPictureMode() {
-        val params = createPictureInPictureParams()
-        enterPictureInPictureMode(params)
-    }
-
-    private fun createPictureInPictureParams(): PictureInPictureParams {
-        val aspectRatio = getPictureInPictureAspectRatio()
-        return PictureInPictureParams.Builder().let {
-            it.setAspectRatio(aspectRatio)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                it.setAutoEnterEnabled(true)
-            }
-            it.setSourceRectHint(getSourceRectHint(aspectRatio))
-            it.build()
-        }
-    }
-
-    private fun getPictureInPictureAspectRatio(): Rational {
-        val videoSize = playbackModel.state?.currentItemState?.videoSize ?: return defaultPipAspectRatio
-        val ratio = videoSize.width.toFloat() / videoSize.height.toFloat()
-        return if (ratio < MIN_PIP_ASPECT_RATIO || ratio > MAX_PIP_ASPECT_RATIO) {
-            defaultPipAspectRatio
-        } else {
-            Rational(videoSize.width, videoSize.height)
-        }
-    }
-
-    private fun getSourceRectHint(aspectRatio: Rational): Rect {
-        val containerRect = Rect()
-        playerView.getGlobalVisibleRect(containerRect)
-        val sourceHeightHint = (containerRect.width() / aspectRatio.toFloat()).toInt()
-        return Rect(
-            containerRect.left,
-            containerRect.top + (containerRect.height() - sourceHeightHint) / 2,
-            containerRect.right,
-            containerRect.top + (containerRect.height() + sourceHeightHint) / 2
-        )
-    }
+        playbackFileType == PlaybackFileType.VIDEO && pictureInPicture.isAllowed
 
     private fun handleEvent(event: PlayerScreenEvent) {
         when (event) {

@@ -560,6 +560,9 @@ class AlbumItemsFragment :
             PreviewImageFragment.canBePreviewed(file) ->
                 activity.startImagePreview(file, !file.isDown, VirtualFolderType.ALBUM)
 
+            MimeTypeUtil.isVideo(file) ->
+                activity.startImagePreview(file, true, VirtualFolderType.ALBUM)
+
             file.isDown && canBePreviewed(file) ->
                 activity.startMediaPreview(file, showPreview = true, streamMedia = false)
 

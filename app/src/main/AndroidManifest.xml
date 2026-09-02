@@ -384,7 +384,9 @@
             android:theme="@style/PreferenceTheme" />
         <activity
             android:name=".ui.preview.PreviewImageActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:exported="false"
+            android:supportsPictureInPicture="true"
             android:theme="@style/Theme.ownCloud.Overlay" />
         <activity
             android:name="com.nextcloud.client.player.ui.PlayerActivity"

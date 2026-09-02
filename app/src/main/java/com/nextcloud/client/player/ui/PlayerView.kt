@@ -74,8 +74,7 @@ abstract class PlayerView @JvmOverloads constructor(
             (context.applicationContext as HasAndroidInjector).androidInjector().inject(this)
             playerPager.initialize(activity.supportFragmentManager, activity.lifecycle, createFragment)
             playerPager.onItemSelected = { playbackModel.switchToFile(it) }
-            playerControlView.onNextClick = { playerPager.showNext() }
-            playerControlView.onPreviousClick = { playerPager.showPrevious() }
+            playerControlView.navigator = playerPager
             findViewById<View>(R.id.back).setOnClickListener { activity.onBackPressedDispatcher.onBackPressed() }
         }
     }

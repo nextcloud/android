@@ -14,20 +14,20 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.player.media3.PlaybackModel
 import com.nextcloud.client.player.model.ThumbnailLoader
 import com.nextcloud.client.player.model.file.PlaybackFile
 import com.nextcloud.client.player.util.PlayerUtil.toPlaybackFile
-import com.nextcloud.client.player.model.file.PlaybackFileType
 import com.nextcloud.client.player.model.state.PlaybackState
-import com.nextcloud.client.player.model.state.PlayerState
 import com.nextcloud.client.player.model.state.VideoSize
-import com.nextcloud.client.player.ui.PlayerActivity
+import com.nextcloud.client.player.ui.MediaNavigator
 import com.nextcloud.client.player.ui.PlayerLauncher
 import com.nextcloud.client.player.util.PlayerUtil.applyVideoSize
 import com.nextcloud.client.player.util.PlayerUtil.isPictureInPictureAllowed
+import com.nextcloud.client.player.util.PlayerUtil.ownsPlayback
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
 import com.owncloud.android.R
@@ -96,8 +96,9 @@ class PreviewPlaybackFragment :
         binding = PreviewPlaybackFragmentBinding.inflate(inflater, container, false)
         loadThumbnail()
         registerPictureInPictureOnBack()
+        binding.playerControlView.navigator = activity as? MediaNavigator
         binding.root.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
-            if (isResumed) render(playbackModel.state)
+            if (ownsPlayback(binding.surfaceView)) render(playbackModel.state)
         }
         return binding.root
     }
@@ -111,16 +112,19 @@ class PreviewPlaybackFragment :
             viewLifecycleOwner,
             enabled = false
         ) {
-            val resumePlayback = playbackModel.state?.currentItemState?.playerState == PlayerState.PLAYING
-            startActivity(
-                PlayerActivity.createPictureInPictureIntent(
-                    requireContext(),
-                    PlaybackFileType.VIDEO,
-                    resumePlayback
-                )
-            )
-            requireActivity().finish()
+            if (previewActivity()?.enterPictureInPicture() == true) {
+                return@addCallback
+            }
+
+            isEnabled = false
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        playbackModel.addListener(this)
+        render(playbackModel.state)
     }
 
     override fun onResume() {
@@ -128,7 +132,6 @@ class PreviewPlaybackFragment :
         playbackModel.onPictureInPictureClose?.invoke()
         pictureInPictureCallback?.isEnabled = true
         preparePlayback()
-        playbackModel.addListener(this)
         binding.playerControlView.onStart()
         render(playbackModel.state)
     }
@@ -136,12 +139,22 @@ class PreviewPlaybackFragment :
     override fun onPause() {
         pictureInPictureCallback?.isEnabled = false
         binding.playerControlView.onStop()
-        playbackModel.removeListener(this)
-        if (isCurrentItem(playbackModel.state)) {
+        if (!isInPictureInPictureMode() && isCurrentItem(playbackModel.state)) {
             playbackModel.pause()
             playbackModel.setVideoSurfaceView(null)
         }
         super.onPause()
+    }
+
+    override fun onStop() {
+        playbackModel.removeListener(this)
+        super.onStop()
+    }
+
+    override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean) {
+        super.onPictureInPictureModeChanged(isInPictureInPictureMode)
+        binding.playerControlView.isVisible = !isInPictureInPictureMode
+        render(playbackModel.state)
     }
 
     override fun onPlaybackUpdate(state: PlaybackState) {
@@ -175,21 +188,36 @@ class PreviewPlaybackFragment :
     }
 
     private fun render(state: PlaybackState?) {
-        if (!isCurrentItem(state)) {
-            binding.surfaceView.visibility = View.GONE
-            showPageOfCurrentItem(state)
+        if (isCurrentItem(state)) {
+            showVideo(state?.currentItemState?.videoSize)
             return
         }
-        showVideo(state?.currentItemState?.videoSize)
+
+        val wasShowingPlayback = ownsPlayback(binding.surfaceView)
+        binding.surfaceView.visibility = View.GONE
+        if (wasShowingPlayback) {
+            showPageOfCurrentItem(state)
+        }
     }
 
     private fun showPageOfCurrentItem(state: PlaybackState?) {
-        val localId = state?.currentItemState?.file?.id?.toLongOrNull() ?: return
-        (activity as? PreviewImageActivity)?.showFilePage(localId)
+        val previewActivity = previewActivity() ?: return
+        val localId = state?.currentItemState?.file?.id?.toLongOrNull()
+        if (localId != null && previewActivity.showFilePage(localId)) return
+
+        if (isInPictureInPictureMode()) {
+            previewActivity.finishKeepingPlayback()
+        }
     }
 
+    private fun previewActivity(): PreviewImageActivity? = activity as? PreviewImageActivity
+
+    private fun isInPictureInPictureMode(): Boolean = activity?.isInPictureInPictureMode == true
+
     private fun showVideo(videoSize: VideoSize?) {
-        playbackModel.setVideoSurfaceView(binding.surfaceView)
+        if (ownsPlayback(binding.surfaceView)) {
+            playbackModel.setVideoSurfaceView(binding.surfaceView)
+        }
         binding.surfaceView.visibility = View.VISIBLE
         binding.surfaceView.alpha = if (videoSize != null) SURFACE_ALPHA_VISIBLE else SURFACE_ALPHA_HIDDEN
 

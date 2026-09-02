@@ -7,10 +7,8 @@
 
 package com.nextcloud.client.player.ui.video
 
-import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.SurfaceView
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -23,6 +21,7 @@ import com.nextcloud.client.player.model.state.PlaybackState
 import com.nextcloud.client.player.model.state.VideoSize
 import com.nextcloud.client.player.util.PlayerUtil.applyVideoSize
 import com.nextcloud.client.player.util.PlayerUtil.getPlaybackFile
+import com.nextcloud.client.player.util.PlayerUtil.ownsPlayback
 import com.nextcloud.client.player.util.PlayerUtil.putPlaybackFile
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PlayerVideoFileFragmentBinding
@@ -123,7 +122,7 @@ class VideoFileFragment :
     }
 
     private fun showVideo(videoSize: VideoSize?) {
-        if (binding.surfaceView.ownsPlayback()) {
+        if (ownsPlayback(binding.surfaceView)) {
             playerModel.setVideoSurfaceView(binding.surfaceView)
         }
         binding.surfaceView.isVisible = true
@@ -133,6 +132,4 @@ class VideoFileFragment :
 
         binding.surfaceView.applyVideoSize(videoSize)
     }
-
-    private fun SurfaceView.ownsPlayback(): Boolean = isResumed || getGlobalVisibleRect(Rect())
 }

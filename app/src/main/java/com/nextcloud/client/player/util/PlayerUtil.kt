@@ -13,6 +13,7 @@ import android.content.ContentResolver
 import android.content.Context
 import android.content.pm.PackageManager
 import android.database.ContentObserver
+import android.graphics.Rect
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -22,6 +23,7 @@ import android.os.Process
 import android.view.SurfaceView
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
 import androidx.media3.common.Player
@@ -248,6 +250,9 @@ object PlayerUtil {
         }
         return mode == AppOpsManager.MODE_ALLOWED
     }
+
+    fun Fragment.ownsPlayback(surfaceView: SurfaceView): Boolean =
+        isResumed || surfaceView.getGlobalVisibleRect(Rect())
 
     fun <T> List<T>.rotate(shift: Int): List<T> {
         val copy = ArrayList(this)
