@@ -251,8 +251,7 @@ object PlayerUtil {
         return mode == AppOpsManager.MODE_ALLOWED
     }
 
-    fun Fragment.ownsPlayback(surfaceView: SurfaceView): Boolean =
-        isResumed || surfaceView.getGlobalVisibleRect(Rect())
+    fun Fragment.ownsPlayback(surfaceView: SurfaceView): Boolean = isResumed || surfaceView.getGlobalVisibleRect(Rect())
 
     fun <T> List<T>.rotate(shift: Int): List<T> {
         val copy = ArrayList(this)

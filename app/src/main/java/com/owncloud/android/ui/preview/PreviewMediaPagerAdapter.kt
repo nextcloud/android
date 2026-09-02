@@ -89,10 +89,7 @@ class PreviewMediaPagerAdapter : FragmentStateAdapter {
         cachedFragments = SparseArray()
     }
 
-    private fun loadVirtualFolderMediaFiles(
-        type: VirtualFolderType,
-        preferences: AppPreferences
-    ): MutableList<OCFile> {
+    private fun loadVirtualFolderMediaFiles(type: VirtualFolderType, preferences: AppPreferences): MutableList<OCFile> {
         val source = if (type == VirtualFolderType.GALLERY) {
             storageManager.allGalleryItems
         } else {
