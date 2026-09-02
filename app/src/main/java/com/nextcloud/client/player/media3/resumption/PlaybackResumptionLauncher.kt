@@ -29,9 +29,9 @@ class PlaybackResumptionLauncher @Inject constructor(
 ) {
 
     suspend fun launch(): MediaItemsWithStartPosition = runCatching {
-        val (currentFileId, folderId, fileType, searchType) = playbackResumptionConfigStore.loadConfig()
+        val (currentFileId, folderId, fileType, collection) = playbackResumptionConfigStore.loadConfig()
             ?: throw IllegalStateException("Playback resumption config is null")
-        val playbackFilesFlow = playbackFilesRepository.observe(folderId, fileType, searchType)
+        val playbackFilesFlow = playbackFilesRepository.observe(folderId, fileType, collection)
         val playbackFiles = playbackFilesFlow.first().list.ifEmpty {
             throw IllegalStateException("Playback files are empty")
         }

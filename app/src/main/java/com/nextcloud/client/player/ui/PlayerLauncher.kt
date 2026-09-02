@@ -13,13 +13,13 @@ import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.player.media3.PlaybackModel
 import com.nextcloud.client.player.media3.resumption.PlaybackResumptionConfigStore
+import com.nextcloud.client.player.model.file.PlaybackCollection
 import com.nextcloud.client.player.model.file.PlaybackFileType
 import com.nextcloud.client.player.model.file.PlaybackFiles
 import com.nextcloud.client.player.model.file.PlaybackFilesComparator
 import com.nextcloud.client.player.model.file.PlaybackFilesRepository
 import com.nextcloud.client.player.util.PlayerUtil.toPlaybackFile
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.ui.fragment.SearchType
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.util.concurrent.CancellationException
@@ -36,9 +36,9 @@ class PlayerLauncher @Inject constructor(
     /**
      * Starts playback and opens [PlayerActivity] on top of [activity].
      */
-    fun launch(activity: AppCompatActivity, file: OCFile, searchType: SearchType?) {
+    fun launch(activity: AppCompatActivity, file: OCFile, collection: PlaybackCollection) {
         run(activity) {
-            val fileType = prepareQueue(file, searchType)
+            val fileType = prepareQueue(file, collection)
             playbackModel.play()
             activity.startActivity(PlayerActivity.createIntent(activity, fileType))
         }
@@ -48,9 +48,9 @@ class PlayerLauncher @Inject constructor(
      * Loads [file] and the media of its collection into the player without opening [PlayerActivity], so that a host
      * screen can render the playback itself.
      */
-    fun prepare(owner: LifecycleOwner, file: OCFile, searchType: SearchType?, autoplay: Boolean = false) {
+    fun prepare(owner: LifecycleOwner, file: OCFile, collection: PlaybackCollection, autoplay: Boolean = false) {
         run(owner) {
-            prepareQueue(file, searchType)
+            prepareQueue(file, collection)
             if (autoplay) {
                 playbackModel.play()
             }
@@ -67,13 +67,13 @@ class PlayerLauncher @Inject constructor(
         }
     }
 
-    private suspend fun prepareQueue(file: OCFile, searchType: SearchType?): PlaybackFileType {
+    private suspend fun prepareQueue(file: OCFile, collection: PlaybackCollection): PlaybackFileType {
         val fileType = PlaybackFileType.ofMimeType(file.mimeType)
-        playbackResumptionConfigStore.saveConfig(file.localId.toString(), file.parentId, fileType, searchType)
+        playbackResumptionConfigStore.saveConfig(file.localId.toString(), file.parentId, fileType, collection)
 
         playbackModel.start()
         playbackModel.setFiles(PlaybackFiles(listOf(file.toPlaybackFile()), PlaybackFilesComparator.NONE))
-        playbackModel.setFilesFlow(playbackFilesRepository.observe(file.parentId, fileType, searchType))
+        playbackModel.setFilesFlow(playbackFilesRepository.observe(file.parentId, fileType, collection))
         return fileType
     }
 }
