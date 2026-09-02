@@ -20,9 +20,9 @@ import androidx.media3.datasource.DataSourceBitmapLoader
 import com.google.common.util.concurrent.ListenableFuture
 import com.google.common.util.concurrent.ListeningExecutorService
 import com.google.common.util.concurrent.MoreExecutors
-import com.nextcloud.client.player.util.PlayerUtil.playbackFile
 import com.nextcloud.client.player.model.ThumbnailLoader
 import com.nextcloud.client.player.model.file.PlaybackFile
+import com.nextcloud.client.player.util.PlayerUtil.playbackFile
 import com.owncloud.android.R
 import com.owncloud.android.utils.MimeTypeUtil
 import java.util.concurrent.Callable
