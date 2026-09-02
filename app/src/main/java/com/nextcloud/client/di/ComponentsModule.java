@@ -34,6 +34,7 @@ import com.nextcloud.ui.SetStatusMessageBottomSheet;
 import com.nextcloud.ui.albumItemActions.AlbumItemActionsBottomSheet;
 import com.nextcloud.ui.composeActivity.ComposeActivity;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
+import com.nextcloud.ui.tags.TagManagementBottomSheet;
 import com.nextcloud.ui.trashbinFileActions.TrashbinFileActionsBottomSheet;
 import com.nmc.android.ui.LauncherActivity;
 import com.owncloud.android.MainApp;
@@ -512,6 +513,9 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract SetStatusMessageBottomSheet setStatusMessageBottomSheet();
+
+    @ContributesAndroidInjector
+    abstract TagManagementBottomSheet tagManagementBottomSheet();
 
     @ContributesAndroidInjector
     abstract NavigatorActivity navigatorActivity();
