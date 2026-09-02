@@ -11,6 +11,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -22,6 +23,7 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Lifecycle
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
@@ -33,6 +35,8 @@ import com.nextcloud.client.jobs.download.FileDownloadEventBroadcaster
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.download.SendShareDownloader
+import com.nextcloud.client.player.ui.MediaNavigator
+import com.nextcloud.client.player.ui.VideoPictureInPicture
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.model.WorkerState
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -74,6 +78,7 @@ class PreviewImageActivity :
     OnRemoteOperationListener,
     OnFilesRemovedListener,
     SendShareDialog.SendShareDialogDownloader,
+    MediaNavigator,
     Injectable {
     private var livePhotoFile: OCFile? = null
     private var viewPager: ViewPager2? = null
@@ -91,6 +96,10 @@ class PreviewImageActivity :
 
     private var isDownloadWorkStarted = false
     private var screenState = PreviewImageActivityState.Idle
+
+    private val pictureInPicture by lazy { VideoPictureInPicture(this, playbackModel, autoEnter = false) }
+    private var wasSystemUiVisibleBeforePictureInPicture = true
+    private var keepPlaybackOnFinish = false
 
     @Inject
     lateinit var preferences: AppPreferences
@@ -448,11 +457,66 @@ class PreviewImageActivity :
         FileDownloadHelper.instance().downloadFileIfNotStartedBefore(user, file)
     }
 
-    fun showFilePage(localId: Long) {
-        val position = previewMediaPagerAdapter?.getPositionByLocalId(localId) ?: return
-        if (position < 0 || viewPager?.currentItem == position) return
+    fun showFilePage(localId: Long): Boolean {
+        val position = previewMediaPagerAdapter?.getPositionByLocalId(localId) ?: NO_POSITION
+        if (position < 0) return false
+        if (viewPager?.currentItem != position) {
+            viewPager?.setCurrentItem(position, true)
+        }
+
+        return true
+    }
+
+    fun finishKeepingPlayback() {
+        keepPlaybackOnFinish = true
+        finish()
+    }
+
+    override val hasNext: Boolean
+        get() = currentPage() + 1 < (previewMediaPagerAdapter?.itemCount ?: 0)
+
+    override val hasPrevious: Boolean
+        get() = currentPage() > 0
+
+    override fun showNext() = showPage(currentPage() + 1)
+
+    override fun showPrevious() = showPage(currentPage() - 1)
+
+    private fun currentPage(): Int = viewPager?.currentItem ?: 0
+
+    private fun showPage(position: Int) {
+        val itemCount = previewMediaPagerAdapter?.itemCount ?: return
+        if (position < 0 || position >= itemCount) return
 
         viewPager?.setCurrentItem(position, true)
+    }
+
+    fun enterPictureInPicture(): Boolean = viewPager?.let { pictureInPicture.enter(it) } == true
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        if (isFinishing || isInPictureInPictureMode) return
+
+        initViewPager()
+    }
+
+    override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean, newConfig: Configuration) {
+        super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
+
+        if (isInPictureInPictureMode) {
+            wasSystemUiVisibleBeforePictureInPicture = isSystemUIVisible
+            toggleActionBarVisibility(true)
+            return
+        }
+
+        toggleActionBarVisibility(!wasSystemUiVisibleBeforePictureInPicture)
+
+        if (lifecycle.currentState != Lifecycle.State.CREATED) return
+
+        if (!keepPlaybackOnFinish) {
+            playbackModel.release()
+        }
+        finish()
     }
 
     /**
@@ -576,6 +640,7 @@ class PreviewImageActivity :
         const val EXTRA_VIRTUAL_TYPE: String = "EXTRA_VIRTUAL_TYPE"
         private const val KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER"
         private const val KEY_SYSTEM_VISIBLE = "TRUE"
+        private const val NO_POSITION = -1
 
         fun previewFileIntent(context: Context?, user: User?, file: OCFile?): Intent =
             Intent(context, PreviewImageActivity::class.java).apply {

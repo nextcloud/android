@@ -23,6 +23,7 @@ import com.nextcloud.client.player.model.state.PlaybackItemState
 import com.nextcloud.client.player.model.state.PlaybackState
 import com.nextcloud.client.player.model.state.PlayerState
 import com.nextcloud.client.player.model.state.RepeatMode
+import com.nextcloud.client.player.ui.MediaNavigator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PlayerControlViewBinding
 import dagger.android.HasAndroidInjector
@@ -69,9 +70,7 @@ class PlayerControlView @JvmOverloads constructor(
 
     val binding = PlayerControlViewBinding.inflate(LayoutInflater.from(context), this, true)
 
-    var onNextClick: () -> Unit = { playbackModel.playNext() }
-
-    var onPreviousClick: () -> Unit = { playbackModel.playPrevious() }
+    var navigator: MediaNavigator? = null
 
     init {
         if (!isInEditMode) {
@@ -135,9 +134,9 @@ class PlayerControlView @JvmOverloads constructor(
             playbackModel.setShuffle(binding.ivRandom.tag == TAG_CLICK_COMMAND_SHUFFLE)
         }
 
-        binding.ivNext.setOnClickListener { onNextClick() }
+        binding.ivNext.setOnClickListener { navigator?.showNext() }
 
-        binding.ivPrevious.setOnClickListener { onPreviousClick() }
+        binding.ivPrevious.setOnClickListener { navigator?.showPrevious() }
 
         binding.progressBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -167,7 +166,7 @@ class PlayerControlView @JvmOverloads constructor(
         renderRepeatButton(playbackState.repeatMode == RepeatMode.SINGLE)
         renderShuffleButton(playbackState.shuffle)
         renderPlayPauseButton(playbackState.currentItemState?.playerState == PlayerState.PLAYING)
-        renderNextPreviousButtons(playbackState)
+        renderNextPreviousButtons()
         renderProgressBar(playbackState.currentItemState)
     }
 
@@ -207,9 +206,9 @@ class PlayerControlView @JvmOverloads constructor(
         binding.ivPlayPause.tag = if (isPlaying) TAG_CLICK_COMMAND_PAUSE else TAG_CLICK_COMMAND_PLAY
     }
 
-    private fun renderNextPreviousButtons(playbackState: PlaybackState) {
-        binding.ivNext.setEnabled(playbackState.currentItemState != null && playbackState.currentFiles.size > 1)
-        binding.ivPrevious.setEnabled(playbackState.currentItemState != null && playbackState.currentFiles.isNotEmpty())
+    private fun renderNextPreviousButtons() {
+        binding.ivNext.isEnabled = navigator?.hasNext == true
+        binding.ivPrevious.isEnabled = navigator?.hasPrevious == true
     }
 
     private fun renderProgressBar(playbackItemState: PlaybackItemState?) {

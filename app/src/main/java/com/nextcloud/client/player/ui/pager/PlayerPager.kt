@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.widget.ViewPager2
 import com.nextcloud.client.player.model.file.PlaybackFile
+import com.nextcloud.client.player.ui.MediaNavigator
 import com.nextcloud.client.player.util.PlayerUtil.rotate
 import com.owncloud.android.R
 
@@ -28,7 +29,8 @@ private const val FIRST_ENTITY_POSITION = 1
 private const val OFFSCREEN_PAGE_LIMIT = 1
 
 class PlayerPager @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
-    LinearLayout(context, attrs) {
+    LinearLayout(context, attrs),
+    MediaNavigator {
 
     @SuppressLint("WrongConstant")
     private val viewPager = ViewPager2(context).apply {
@@ -90,11 +92,15 @@ class PlayerPager @JvmOverloads constructor(context: Context, attrs: AttributeSe
         notifyDataSetChangedWithoutCallingListener()
     }
 
-    fun showNext() {
+    override val hasNext: Boolean get() = adapter.itemCount > 1
+
+    override val hasPrevious: Boolean get() = adapter.itemCount > 1
+
+    override fun showNext() {
         viewPager.setCurrentItem(viewPager.currentItem + 1, true)
     }
 
-    fun showPrevious() {
+    override fun showPrevious() {
         viewPager.setCurrentItem(viewPager.currentItem - 1, true)
     }
 

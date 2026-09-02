@@ -115,6 +115,7 @@ class PreviewMediaPagerAdapter : FragmentStateAdapter {
         } else {
             mediaFiles = mStorageManager.getVirtualFolderContent(type, true)
         }
+        mediaFiles = mediaFiles.filter { MimeTypeUtil.isImageOrVideo(it) }.toMutableList()
 
         if (type == VirtualFolderType.FAVORITE) {
             val sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.favoritesListView)
