@@ -65,6 +65,7 @@ class MediaSessionCallback @Inject constructor(
     }
 
     @OptIn(DelicateCoroutinesApi::class)
+    @Suppress("TooGenericExceptionCaught")
     override fun onPlaybackResumption(
         mediaSession: MediaSession,
         controller: MediaSession.ControllerInfo,

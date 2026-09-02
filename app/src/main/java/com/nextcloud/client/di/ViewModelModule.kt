@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.nextcloud.client.documentscan.DocumentScanViewModel
 import com.nextcloud.client.etm.EtmViewModel
 import com.nextcloud.client.logger.ui.LogsViewModel
+import com.nextcloud.client.player.ui.PlayerViewModel
 import com.nextcloud.ui.fileactions.FileActionsViewModel
 import com.nextcloud.ui.tags.TagManagementViewModel
 import com.nextcloud.ui.trashbinFileActions.TrashbinFileActionsViewModel
@@ -62,6 +63,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(TagManagementViewModel::class)
     abstract fun tagManagementViewModel(vm: TagManagementViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PlayerViewModel::class)
+    abstract fun playerViewModel(vm: PlayerViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
