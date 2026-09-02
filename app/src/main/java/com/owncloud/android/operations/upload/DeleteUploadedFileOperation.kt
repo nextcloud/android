@@ -33,7 +33,7 @@ class DeleteUploadedFileOperation(
     }
     private val syncFolderHelper = SyncFolderHelper(context)
 
-    @Suppress("NestedBlockDepth")
+    @Suppress("NestedBlockDepth", "ReturnCount")
     suspend fun run(): RemoteOperationResult<Stats> {
         Log_OC.d(TAG, "Analyzing folder ${syncedFolder.remotePath} from user ${syncedFolder.account}")
 
