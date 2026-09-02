@@ -15,8 +15,8 @@ import com.nextcloud.client.player.util.PlayerUtil.toPlaybackFile
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.VirtualFolderType
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
-import com.owncloud.android.ui.fragment.SearchType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.debounce
@@ -36,12 +36,25 @@ class PlaybackFilesRepository @Inject constructor(
     private val preferences: AppPreferences
 ) {
 
-    fun observe(folderId: Long, fileType: PlaybackFileType, searchType: SearchType?): Flow<PlaybackFiles> =
-        when (searchType) {
-            SearchType.FAVORITE_SEARCH -> observeFavoritePlaybackFiles(fileType)
-            SearchType.GALLERY_SEARCH -> observeGalleryPlaybackFiles(fileType)
-            SearchType.SHARED_FILTER -> observeSharedPlaybackFiles(fileType)
-            else -> observeFolderPlaybackFiles(folderId, fileType, MainApp.isOnlyOnDevice())
+    fun observe(folderId: Long, fileType: PlaybackFileType, collection: PlaybackCollection): Flow<PlaybackFiles> =
+        when (collection) {
+            PlaybackCollection.FAVORITES -> observeFavoritePlaybackFiles(fileType)
+            PlaybackCollection.GALLERY -> observeGalleryPlaybackFiles(fileType)
+            PlaybackCollection.SHARED -> observeSharedPlaybackFiles(fileType)
+            PlaybackCollection.ALBUM -> observeAlbumPlaybackFiles(fileType)
+            PlaybackCollection.FOLDER -> observeFolderPlaybackFiles(folderId, fileType, MainApp.isOnlyOnDevice())
+        }
+
+    private fun observeAlbumPlaybackFiles(fileType: PlaybackFileType): Flow<PlaybackFiles> =
+        observeData(ProviderTableMeta.CONTENT_URI, true) {
+            withContext(Dispatchers.IO) {
+                storageManager.getVirtualFolderContent(VirtualFolderType.ALBUM, false)
+                    .asSequence()
+                    .filter { it.mimeType.startsWith(fileType.value, ignoreCase = true) }
+                    .map { it.toPlaybackFile() }
+                    .sortedWith(PlaybackFilesComparator.ALBUM)
+                    .let { PlaybackFiles(it.toList(), PlaybackFilesComparator.ALBUM) }
+            }
         }
 
     private fun observeFavoritePlaybackFiles(fileType: PlaybackFileType): Flow<PlaybackFiles> =

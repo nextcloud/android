@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.player.media3.PlaybackModel
 import com.nextcloud.client.player.model.ThumbnailLoader
+import com.nextcloud.client.player.model.file.PlaybackCollection
 import com.nextcloud.client.player.model.file.PlaybackFile
 import com.nextcloud.client.player.util.PlayerUtil.toPlaybackFile
 import com.nextcloud.client.player.model.state.PlaybackState
@@ -33,7 +34,6 @@ import com.nextcloud.utils.extensions.getSerializableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PreviewPlaybackFragmentBinding
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.utils.MimeTypeUtil
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.coroutines.launch
@@ -50,16 +50,16 @@ class PreviewPlaybackFragment :
 
     companion object {
         private const val ARGUMENT_FILE = "ARGUMENT_FILE"
-        private const val ARGUMENT_SEARCH_TYPE = "ARGUMENT_SEARCH_TYPE"
+        private const val ARGUMENT_COLLECTION = "ARGUMENT_COLLECTION"
         private const val ARGUMENT_AUTOPLAY = "ARGUMENT_AUTOPLAY"
         private const val SURFACE_ALPHA_VISIBLE = 1f
         private const val SURFACE_ALPHA_HIDDEN = 0f
 
-        fun newInstance(file: OCFile, searchType: SearchType?, autoplay: Boolean = false) =
+        fun newInstance(file: OCFile, collection: PlaybackCollection, autoplay: Boolean = false) =
             PreviewPlaybackFragment().apply {
                 arguments = bundleOf(
                     ARGUMENT_FILE to file,
-                    ARGUMENT_SEARCH_TYPE to searchType,
+                    ARGUMENT_COLLECTION to collection,
                     ARGUMENT_AUTOPLAY to autoplay
                 )
             }
@@ -77,8 +77,9 @@ class PreviewPlaybackFragment :
     private lateinit var binding: PreviewPlaybackFragmentBinding
     private lateinit var file: OCFile
     private lateinit var playbackFile: PlaybackFile
-    private var searchType: SearchType? = null
+    private var playbackCollection = PlaybackCollection.FOLDER
     private var autoplay: Boolean = false
+    private var wasCurrentItem = false
 
     private var pictureInPictureCallback: OnBackPressedCallback? = null
 
@@ -88,7 +89,8 @@ class PreviewPlaybackFragment :
         file = arguments.getParcelableArgument(ARGUMENT_FILE, OCFile::class.java)
             ?: throw IllegalArgumentException("bundle is not containing a file")
         playbackFile = file.toPlaybackFile()
-        searchType = arguments.getSerializableArgument(ARGUMENT_SEARCH_TYPE, SearchType::class.java)
+        playbackCollection = arguments.getSerializableArgument(ARGUMENT_COLLECTION, PlaybackCollection::class.java)
+            ?: PlaybackCollection.FOLDER
         autoplay = arguments?.getBoolean(ARGUMENT_AUTOPLAY) == true
     }
 
@@ -173,7 +175,7 @@ class PreviewPlaybackFragment :
                 playbackModel.play()
             }
         } else {
-            playerLauncher.prepare(this, file, searchType, autoplay)
+            playerLauncher.prepare(this, file, playbackCollection, autoplay)
         }
     }
 
@@ -189,13 +191,15 @@ class PreviewPlaybackFragment :
 
     private fun render(state: PlaybackState?) {
         if (isCurrentItem(state)) {
+            wasCurrentItem = true
             showVideo(state?.currentItemState?.videoSize)
             return
         }
 
-        val wasShowingPlayback = ownsPlayback(binding.surfaceView)
+        val playbackMovedOn = wasCurrentItem && ownsPlayback(binding.surfaceView)
+        wasCurrentItem = false
         binding.surfaceView.visibility = View.GONE
-        if (wasShowingPlayback) {
+        if (playbackMovedOn) {
             showPageOfCurrentItem(state)
         }
     }

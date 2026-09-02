@@ -57,6 +57,7 @@ import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSmallThumbnail
 import com.nextcloud.utils.extensions.typedActivity
 import com.owncloud.android.MainApp
+import com.nextcloud.client.player.model.file.PlaybackCollection
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PreviewImageFragmentBinding
 import com.owncloud.android.datamodel.OCFile
@@ -168,7 +169,7 @@ class PreviewImageFragment :
     private fun playLivePhoto(file: OCFile) {
         hideActionBar()
 
-        val mediaFragment = PreviewPlaybackFragment.newInstance(file, searchType = null, autoplay = true)
+        val mediaFragment = PreviewPlaybackFragment.newInstance(file, PlaybackCollection.FOLDER, autoplay = true)
         requireActivity().supportFragmentManager.beginTransaction().run {
             replace(R.id.top, mediaFragment)
             addToBackStack(null)

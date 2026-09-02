@@ -72,6 +72,7 @@ import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.network.ClientFactory.CreationException
+import com.nextcloud.client.player.model.file.toPlaybackCollection
 import com.nextcloud.client.player.ui.PlayerLauncher
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.IntentUtil
@@ -2746,8 +2747,8 @@ class FileDisplayActivity :
     }
 
     private fun startMediaActivity(file: OCFile) {
-        val searchType = listOfFilesFragment?.currentSearchType
-        playerLauncher.launch(this, file, searchType)
+        val collection = listOfFilesFragment?.currentSearchType.toPlaybackCollection()
+        playerLauncher.launch(this, file, collection)
     }
 
     fun configureToolbarForPreview(file: OCFile?) {

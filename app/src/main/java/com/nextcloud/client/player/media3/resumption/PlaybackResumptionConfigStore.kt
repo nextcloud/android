@@ -9,8 +9,8 @@ package com.nextcloud.client.player.media3.resumption
 
 import android.content.Context
 import androidx.core.content.edit
+import com.nextcloud.client.player.model.file.PlaybackCollection
 import com.nextcloud.client.player.model.file.PlaybackFileType
-import com.owncloud.android.ui.fragment.SearchType
 import javax.inject.Inject
 
 class PlaybackResumptionConfigStore @Inject constructor(private val context: Context) {
@@ -19,7 +19,7 @@ class PlaybackResumptionConfigStore @Inject constructor(private val context: Con
         private const val CURRENT_FILE_ID_KEY = "current_file_id"
         private const val FOLDER_ID_KEY = "folder_id"
         private const val FILE_TYPE_KEY = "file_type"
-        private const val SEARCH_TYPE_KEY = "search_type"
+        private const val COLLECTION_KEY = "collection"
     }
 
     private val preferences by lazy {
@@ -30,20 +30,26 @@ class PlaybackResumptionConfigStore @Inject constructor(private val context: Con
         val currentFileId = preferences.getString(CURRENT_FILE_ID_KEY, null)
         val folderId = preferences.getLong(FOLDER_ID_KEY, 0L)
         val fileType = preferences.getString(FILE_TYPE_KEY, null)?.let(::playbackFileType)
-        val searchType = preferences.getString(SEARCH_TYPE_KEY, null)?.let(::searchType)
+        val collection = preferences.getString(COLLECTION_KEY, null)?.let(::playbackCollection)
+            ?: PlaybackCollection.FOLDER
         return if (currentFileId != null && folderId != 0L && fileType != null) {
-            PlaybackResumptionConfig(currentFileId, folderId, fileType, searchType)
+            PlaybackResumptionConfig(currentFileId, folderId, fileType, collection)
         } else {
             null
         }
     }
 
-    fun saveConfig(currentFileId: String, folderId: Long, fileType: PlaybackFileType, searchType: SearchType?) {
+    fun saveConfig(
+        currentFileId: String,
+        folderId: Long,
+        fileType: PlaybackFileType,
+        collection: PlaybackCollection
+    ) {
         preferences.edit {
             putString(CURRENT_FILE_ID_KEY, currentFileId)
             putLong(FOLDER_ID_KEY, folderId)
             putString(FILE_TYPE_KEY, fileType.value)
-            putString(SEARCH_TYPE_KEY, searchType?.name)
+            putString(COLLECTION_KEY, collection.name)
         }
     }
 
@@ -57,5 +63,6 @@ class PlaybackResumptionConfigStore @Inject constructor(private val context: Con
         it.value == value
     }
 
-    private fun searchType(name: String): SearchType? = SearchType.entries.firstOrNull { it.name == name }
+    private fun playbackCollection(name: String): PlaybackCollection? =
+        PlaybackCollection.entries.firstOrNull { it.name == name }
 }
