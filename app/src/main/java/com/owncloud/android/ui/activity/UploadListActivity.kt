@@ -93,7 +93,14 @@ class UploadListActivity :
         binding = UploadListLayoutBinding.inflate(layoutInflater)
         val binding = binding!!
         setContentView(binding.getRoot())
-        uploadWarningCard = UploadWarningCard(this, powerManagementService, viewThemeUtils)
+        uploadWarningCard = UploadWarningCard(
+            this,
+            powerManagementService,
+            syncedFolderProvider,
+            backgroundJobManager,
+            lifecycleScope,
+            viewThemeUtils
+        )
         swipeListRefreshLayout = binding.swipeContainingList
 
         // this activity has no file really bound, it's for multiple accounts at the same time; should no inherit
@@ -179,6 +186,8 @@ class UploadListActivity :
             accountManager,
             powerManagementService
         )
+
+        loadItems()
     }
 
     override fun onStart() {

@@ -251,6 +251,7 @@
     <string name="create">Skapa</string>
     <string name="create_dir_fail_msg">Kunde inte skapa mapp</string>
     <string name="create_document">Dokument</string>
+    <string name="create_encrypted_folder">Krypterad mapp</string>
     <string name="create_end_to_end_encrypted_share">Länkdelning</string>
     <string name="create_end_to_end_encrypted_share_title">Ände-till-ände-krypterade länkdelningar</string>
     <string name="create_folder">Mapp</string>
@@ -1083,6 +1084,7 @@
     <string name="unified_search_fragment_contact_not_found">Kontakten hittades inte. Du kan synkronisera för att uppdatera. Omdirigerar till webben…</string>
     <string name="unified_search_fragment_permission_needed">Behörigheter krävs för att öppna sökresultatet. Annars omdirigeras du till webben…</string>
     <string name="unified_search_fragment_search_in_this_folder">I denna mapp</string>
+    <string name="unified_search_fragment_search_takes_long">Sökningen tar längre tid än vanligt. Resultaten visas så snart servern svarar</string>
     <string name="unknown">Okänd</string>
     <string name="unlock_file">Lås upp fil</string>
     <string name="unread_comments">Olästa kommentarer finns</string>
@@ -1212,6 +1214,7 @@
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Webbplats</string>
     <string name="user_information_retrieval_error">Ett fel uppstod när användarinformationen hämtades</string>
+    <string name="user_information_retrieval_error_message">Kontrollera internetanslutningen eller serverstatusen en gång till</string>
     <string name="userinfo_no_info_headline">Ingen personlig information angiven</string>
     <string name="userinfo_no_info_text">Lägg till namn, bild och kontaktuppgifter på din profilsida.</string>
     <string name="username">Användarnamn</string>
@@ -1221,6 +1224,7 @@
     <string name="wait_checking_credentials">Kontrollerar lagrade inloggningsuppgifter</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierar fil från privat lagring</string>
     <string name="warn_rename_extension">Om du ändrar filändelsen kan filen öppnas i en annan app</string>
+    <string name="webview_not_available">Android System WebView saknas eller är inaktiverat på den här enheten</string>
     <string name="what_s_new_image">Bild för Vad är nytt</string>
     <string name="whats_new_skip">Hoppa över</string>
     <string name="whats_new_title">Nytt i %1$s</string>

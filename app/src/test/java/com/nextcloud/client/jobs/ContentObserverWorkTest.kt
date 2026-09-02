@@ -27,6 +27,7 @@ import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
+import org.mockito.kotlin.never
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
@@ -91,6 +92,17 @@ class ContentObserverWorkTest {
             // THEN
             //      worker reschedules itself unconditionally
             verify(backgroundJobManager).scheduleContentObserverJob()
+        }
+    }
+
+    @Test
+    fun power_saving_stops_a_run_before_folders_are_read() {
+        runBlocking {
+            whenever(powerManagementService.isPowerSavingEnabled).thenReturn(true)
+
+            worker.doWork()
+
+            verify(folderProvider, never()).countEnabledSyncedFolders()
         }
     }
 

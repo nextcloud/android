@@ -214,7 +214,7 @@
     <string name="confirmation_remove_folder_alert">%1$s klasörünü ve içindekileri silmek istediğinize emin misiniz?</string>
     <string name="confirmation_remove_folders_alert">Seçilmiş ögeleri ve içindekileri silmek istediğinize emin misiniz?</string>
     <string name="confirmation_remove_local">Yalnızca yerel</string>
-    <string name="conflict_dialog_error">Çakışma çözümleme penceresi oluşturulamadı</string>
+    <string name="conflict_dialog_error">Çakışma çözümleme iletişim kutusu oluşturulamadı</string>
     <string name="conflict_folder_headline">Klasör çakışması</string>
     <string name="conflict_local_file">Yerel dosya</string>
     <string name="conflict_message_description">İki sürümü de saklamayı seçerseniz, yerel dosyanın adına bir numara eklenecek.</string>
@@ -389,7 +389,7 @@
     <string name="error_retrieving_file">Dosya alınırken sorun çıktı</string>
     <string name="error_retrieving_templates">Kalıplar alınırken sorun çıktı</string>
     <string name="error_setting_status_message">Durum iletisi ayarlanırken sorun çıktı!</string>
-    <string name="error_showing_encryption_dialog">Şifreleme kurulumu penceresi görüntülenirken sorun çıktı!</string>
+    <string name="error_showing_encryption_dialog">Şifreleme kurulumu iletişim kutusu görüntülenirken sorun çıktı!</string>
     <string name="error_starting_direct_camera_upload">Kamera başlatılamadı</string>
     <string name="error_starting_doc_scan">Belge taramasına başlanırken sorun çıktı</string>
     <string name="error_uploading_direct_camera_upload">Alınan ortam yüklenemedi</string>
@@ -422,7 +422,7 @@
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Bu klasörde dosya oluşturma ya da yükleme izniniz yok.</string>
     <string name="external_shares">Dış paylaşımlar</string>
     <string name="fab_label">Ekle ya da yükle</string>
-    <string name="failed_to_create_conflict_dialog">Çakışma penceresi oluşturulamadı</string>
+    <string name="failed_to_create_conflict_dialog">Çakışma iletişim kutusu oluşturulamadı</string>
     <string name="failed_to_download">Dosya indirme yöneticisine aktarılamadı</string>
     <string name="failed_to_print">Dosya yazdırılamadı</string>
     <string name="failed_to_start_action">İşlem başlatılamadı!</string>

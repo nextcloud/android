@@ -752,7 +752,7 @@
     <string name="prefs_add_account">Pridėti paskyrą</string>
     <string name="prefs_all_files_access_summary">Leiskite programėlei pasiekti ir tvarkyti visus jūsų įrenginyje esančius failus</string>
     <string name="prefs_all_files_access_title">Prieiga prie visų failų</string>
-    <string name="prefs_calendar_contacts">Sinchronizuoti kalendorių ir adresatus</string>
+    <string name="prefs_calendar_contacts">Sinchronizuoti kalendorių ir kontaktus</string>
     <string name="prefs_calendar_contacts_no_store_error">Nėra įdiegta nei F-Droid, nei Google Play</string>
     <string name="prefs_calendar_contacts_summary">Nustatykite DAVx⁵ (anksčiau žinomą kaip DAVdroid) (1.3.0+ versija) einamajai paskyrai</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalendoriaus ir kontaktų sinchronizavimo sąranka</string>
