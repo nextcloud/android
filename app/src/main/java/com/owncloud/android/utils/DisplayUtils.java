@@ -105,11 +105,6 @@ public final class DisplayUtils {
     public static final String MONTH_PATTERN = "MMMM";
     public static final String YEAR_PATTERN = "yyyy";
 
-    public static final long SECOND_IN_MS = 1000;
-    public static final long MINUTE_IN_MS = 60 * SECOND_IN_MS;
-    public static final long HOUR_IN_MS = 60 * MINUTE_IN_MS;
-    public static final long DAY_IN_MS = 24 * HOUR_IN_MS;
-
     private DisplayUtils() {
         // utility class -> private constructor
     }
