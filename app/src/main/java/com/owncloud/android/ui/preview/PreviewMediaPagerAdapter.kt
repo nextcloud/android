@@ -22,6 +22,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.VirtualFolderType
 import com.owncloud.android.ui.fragment.FileFragment
+import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog.MediaState
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.MimeTypeUtil
@@ -67,12 +68,14 @@ class PreviewMediaPagerAdapter : FragmentStateAdapter {
         cachedFragments = SparseArray()
     }
 
+    @Suppress("LongParameterList")
     constructor(
         fragmentActivity: FragmentActivity,
         type: VirtualFolderType?,
         user: User,
         storageManager: FileDataStorageManager,
-        preferences: AppPreferences
+        preferences: AppPreferences,
+        mediaState: MediaState?
     ) : super(fragmentActivity) {
         requireNotNull(type) { "NULL parent folder" }
         require(type != VirtualFolderType.NONE) { "NONE virtual folder type" }
@@ -81,7 +84,7 @@ class PreviewMediaPagerAdapter : FragmentStateAdapter {
         this@PreviewMediaPagerAdapter.storageManager = storageManager
         playbackCollection = type.toPlaybackCollection()
 
-        mediaFiles = loadVirtualFolderMediaFiles(type, preferences)
+        mediaFiles = loadVirtualFolderMediaFiles(type, preferences, mediaState)
 
         obsoleteFragments = HashSet()
         obsoletePositions = HashSet()
@@ -89,13 +92,26 @@ class PreviewMediaPagerAdapter : FragmentStateAdapter {
         cachedFragments = SparseArray()
     }
 
-    private fun loadVirtualFolderMediaFiles(type: VirtualFolderType, preferences: AppPreferences): MutableList<OCFile> {
+    private fun loadVirtualFolderMediaFiles(
+        type: VirtualFolderType,
+        preferences: AppPreferences,
+        mediaState: MediaState?
+    ): MutableList<OCFile> {
         val source = if (type == VirtualFolderType.GALLERY) {
-            storageManager.allGalleryItems
+            val mediaFolderPath = preferences.getLastSelectedMediaFolder()
+            storageManager.allGalleryItems.filter { it.remotePath.startsWith(mediaFolderPath) }
         } else {
             storageManager.getVirtualFolderContent(type, false)
         }
-        val mediaFiles = source.filter { MimeTypeUtil.isImageOrVideo(it) }.toMutableList()
+        val mediaFiles = source
+            .filter {
+                when (mediaState) {
+                    MediaState.MEDIA_STATE_PHOTOS_ONLY -> MimeTypeUtil.isImage(it)
+                    MediaState.MEDIA_STATE_VIDEOS_ONLY -> MimeTypeUtil.isVideo(it)
+                    else -> MimeTypeUtil.isImageOrVideo(it)
+                }
+            }
+            .toMutableList()
 
         if (type != VirtualFolderType.FAVORITE) {
             return FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mediaFiles)

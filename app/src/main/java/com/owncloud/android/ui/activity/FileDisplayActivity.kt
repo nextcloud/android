@@ -80,6 +80,7 @@ import com.nextcloud.model.OCUploadLocalPathData
 import com.nextcloud.model.WorkerState.OfflineOperationsCompleted
 import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.getSerializableArgument
 import com.nextcloud.utils.extensions.isActive
 import com.nextcloud.utils.extensions.isDialogFragmentReady
 import com.nextcloud.utils.extensions.lastFragment
@@ -136,6 +137,7 @@ import com.owncloud.android.ui.fragment.EmptyListState
 import com.owncloud.android.ui.fragment.FileDetailFragment
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.fragment.GalleryFragment
+import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog.MediaState
 import com.owncloud.android.ui.fragment.GroupfolderListFragment
 import com.owncloud.android.ui.fragment.OCFileListFragment
 import com.owncloud.android.ui.fragment.SearchType
@@ -2071,8 +2073,14 @@ class FileDisplayActivity :
             null
         }
 
+        val mediaState = if (type == VirtualFolderType.GALLERY) {
+            (listOfFilesFragment as? GalleryFragment)?.currentMediaState
+        } else {
+            null
+        }
+
         val showPreview = file.isDown || MimeTypeUtil.isVideo(file)
-        startImagePreview(file, showPreview, type)
+        startImagePreview(file, showPreview, type, mediaState)
     }
 
     fun previewFile(file: OCFile, setFabVisible: CompletionCallback?) {
@@ -2700,7 +2708,12 @@ class FileDisplayActivity :
         }
     }
 
-    fun startImagePreview(file: OCFile, showPreview: Boolean, type: VirtualFolderType? = null) {
+    fun startImagePreview(
+        file: OCFile,
+        showPreview: Boolean,
+        type: VirtualFolderType? = null,
+        mediaState: MediaState? = null
+    ) {
         if (user.isEmpty) {
             Log_OC.e(TAG, "cannot start image preview")
             return
@@ -2711,6 +2724,7 @@ class FileDisplayActivity :
             putExtra(EXTRA_LIVE_PHOTO_FILE, file.livePhotoVideo)
             putExtra(EXTRA_USER, user.get())
             type?.let { putExtra(PreviewImageActivity.EXTRA_VIRTUAL_TYPE, it) }
+            mediaState?.let { putExtra(PreviewImageActivity.EXTRA_MEDIA_STATE, it) }
         }
 
         if (showPreview) {
@@ -2952,7 +2966,8 @@ class FileDisplayActivity :
             startImagePreview(
                 file,
                 true,
-                virtualType
+                virtualType,
+                bundle.getSerializableArgument(PreviewImageActivity.EXTRA_MEDIA_STATE, MediaState::class.java)
             )
         } else {
             startImagePreview(file, true)

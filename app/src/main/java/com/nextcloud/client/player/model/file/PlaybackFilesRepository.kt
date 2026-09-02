@@ -72,8 +72,10 @@ class PlaybackFilesRepository @Inject constructor(
     private fun observeGalleryPlaybackFiles(fileType: PlaybackFileType): Flow<PlaybackFiles> =
         observeData(ProviderTableMeta.CONTENT_URI, true) {
             withContext(Dispatchers.IO) {
+                val mediaFolderPath = preferences.getLastSelectedMediaFolder()
                 storageManager.allGalleryItems
                     .asSequence()
+                    .filter { it.remotePath.startsWith(mediaFolderPath) }
                     .filter { it.mimeType.startsWith(fileType.value, ignoreCase = true) }
                     .map { it.toPlaybackFile() }
                     .sortedWith(PlaybackFilesComparator.GALLERY)

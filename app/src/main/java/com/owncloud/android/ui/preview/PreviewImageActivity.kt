@@ -14,7 +14,6 @@ import android.content.IntentFilter
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toDrawable
@@ -59,6 +58,7 @@ import com.owncloud.android.ui.activity.OnFilesRemovedListener
 import com.owncloud.android.ui.dialog.SendShareDialog
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.fragment.GalleryFragment
+import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog.MediaState
 import com.owncloud.android.ui.preview.model.PreviewImageActivityState
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
@@ -158,22 +158,24 @@ class PreviewImageActivity :
 
     private fun applyDisplayCutOutTopPadding() {
         window.decorView.setOnApplyWindowInsetsListener { view, insets ->
-            val displayCutout = insets.displayCutout
-            if (displayCutout != null) {
-                val safeInsetTop = displayCutout.safeInsetTop
-                val viewPager = findViewById<View>(R.id.fragmentPager)
-                viewPager.setPadding(
-                    viewPager.paddingLeft,
-                    safeInsetTop,
-                    viewPager.paddingRight,
-                    viewPager.paddingBottom
-                )
-                viewPager.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
-            }
-
+            updatePagerDisplayCutOutPadding(isInPictureInPictureMode, insets.displayCutout?.safeInsetTop ?: 0)
             view.onApplyWindowInsets(insets)
         }
     }
+
+    private fun updatePagerDisplayCutOutPadding(inPictureInPictureMode: Boolean, safeInsetTop: Int) {
+        val pager = viewPager ?: findViewById(R.id.fragmentPager) ?: return
+        val topPadding = if (inPictureInPictureMode) 0 else safeInsetTop
+
+        pager.setPadding(pager.paddingLeft, topPadding, pager.paddingRight, pager.paddingBottom)
+
+        if (topPadding > 0) {
+            pager.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
+        }
+    }
+
+    private fun displayCutOutSafeInsetTop(): Int =
+        ViewCompat.getRootWindowInsets(window.decorView)?.displayCutout?.safeInsetTop ?: 0
 
     fun toggleActionBarVisibility(hide: Boolean) {
         if (hide) {
@@ -193,7 +195,8 @@ class PreviewImageActivity :
                 type,
                 user,
                 storageManager,
-                preferences
+                preferences,
+                intent.getSerializableArgument(EXTRA_MEDIA_STATE, MediaState::class.java)
             )
         } else {
             val parentFolder = file?.let { storageManager.getFileById(it.parentId) }
@@ -502,6 +505,7 @@ class PreviewImageActivity :
 
     override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean, newConfig: Configuration) {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
+        updatePagerDisplayCutOutPadding(isInPictureInPictureMode, displayCutOutSafeInsetTop())
 
         if (isInPictureInPictureMode) {
             wasSystemUiVisibleBeforePictureInPicture = isSystemUIVisible
@@ -638,6 +642,7 @@ class PreviewImageActivity :
     companion object {
         val TAG: String = PreviewImageActivity::class.java.simpleName
         const val EXTRA_VIRTUAL_TYPE: String = "EXTRA_VIRTUAL_TYPE"
+        const val EXTRA_MEDIA_STATE: String = "EXTRA_MEDIA_STATE"
         private const val KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER"
         private const val KEY_SYSTEM_VISIBLE = "TRUE"
         private const val NO_POSITION = -1
