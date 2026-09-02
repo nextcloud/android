@@ -42,4 +42,5 @@
     <item name="action_share_album" type="id"/>
     <item name="action_rename_album" type="id"/>
     <item name="action_delete_album" type="id"/>
+    <item name="player_view_pager" type="id"/>
 </resources>
