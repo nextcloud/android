@@ -18,14 +18,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.nextcloud.ui.tags.adapter.TagListAdapter
-import com.nextcloud.ui.tags.model.TagUiState
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
+import com.nextcloud.ui.tags.adapter.TagListAdapter
+import com.nextcloud.ui.tags.model.TagUiState
 import com.owncloud.android.databinding.TagManagementBottomSheetBinding
 import com.owncloud.android.lib.resources.tags.Tag
 import com.owncloud.android.utils.theme.ViewThemeUtils

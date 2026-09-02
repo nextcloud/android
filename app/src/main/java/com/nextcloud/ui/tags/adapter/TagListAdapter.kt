@@ -6,9 +6,9 @@
  */
 package com.nextcloud.ui.tags.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.compose.ui.text.toLowerCase
 import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.ui.tags.adapter.viewholder.CreateTagViewHolder
 import com.nextcloud.ui.tags.adapter.viewholder.TagViewHolder
@@ -28,6 +28,7 @@ class TagListAdapter(private val onTagChecked: (Tag, Boolean) -> Unit, private v
         private const val VIEW_TYPE_CREATE = 1
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun update(allTags: List<Tag>, assignedIds: Set<String>, searchQuery: String) {
         this.assignedTagIds = assignedIds
         this.query = searchQuery

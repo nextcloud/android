@@ -513,7 +513,7 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract SetStatusMessageBottomSheet setStatusMessageBottomSheet();
-    
+
     @ContributesAndroidInjector
     abstract TagManagementBottomSheet tagManagementBottomSheet();
 

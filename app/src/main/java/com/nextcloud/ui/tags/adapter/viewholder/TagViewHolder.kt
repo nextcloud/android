@@ -6,11 +6,11 @@
  */
 package com.nextcloud.ui.tags.adapter.viewholder
 
-import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.widget.CheckBox
 import android.widget.TextView
+import androidx.core.graphics.toColorInt
 import androidx.recyclerview.widget.RecyclerView
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.tags.Tag
@@ -24,9 +24,10 @@ class TagViewHolder(itemView: View, private val onTagChecked: (Tag, Boolean) -> 
     fun bind(tag: Tag, isAssigned: Boolean) {
         tagName.text = tag.name
 
-        if (tag.color != null) {
+        val tagColor = tag.color
+        if (tagColor != null) {
             try {
-                val color = Color.parseColor(tag.color)
+                val color = tagColor.toColorInt()
                 val background = colorDot.background
                 if (background is GradientDrawable) {
                     background.setColor(color)

@@ -9,8 +9,8 @@ package com.nextcloud.ui.tags
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.account.CurrentAccountProvider
-import com.nextcloud.ui.tags.model.TagUiState
 import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.ui.tags.model.TagUiState
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.tags.CreateTagRemoteOperation

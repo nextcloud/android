@@ -335,7 +335,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 getFile().getLocalId(),
                 getFile().getTags()
             );
-//            FileActionsBottomSheet bottomSheet =  FileActionsBottomSheet.Companion.newInstance(getFile(), false);
             bottomSheet.show(getChildFragmentManager(), "tag_management");
         });
         binding.tagsGroup.addView(editChip);
