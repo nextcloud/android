@@ -791,7 +791,11 @@ class EncryptionUtilsV2IT : EncryptionIT() {
 
         val signature = encryptionUtilsV2.getMessageSignature(enc1Cert, enc1PrivateKey, encrypted)
 
-        val result = encryptionUtilsV2.verifyMetadata(encrypted, metadataFile, 0, signature)
+        val tampered = encrypted.copy(
+            metadata = encrypted.metadata.copy(ciphertext = encrypted.metadata.ciphertext.reversed())
+        )
+
+        val result = encryptionUtilsV2.verifyMetadata(tampered, metadataFile, 0, signature)
 
         assertFalse(result)
     }
