@@ -13,7 +13,7 @@ import androidx.annotation.AttrRes
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.nextcloud.client.player.media3.PlaybackModel
 import com.nextcloud.client.player.model.file.PlaybackFile
-import com.nextcloud.client.player.model.file.toPlaybackFile
+import com.nextcloud.client.player.util.PlayerUtil.toPlaybackFile
 import com.nextcloud.client.player.model.state.PlaybackItemState
 import com.nextcloud.client.player.model.state.PlaybackState
 import com.nextcloud.client.player.model.state.PlayerState

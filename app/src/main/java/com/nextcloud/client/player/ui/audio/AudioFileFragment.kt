@@ -18,8 +18,8 @@ import com.nextcloud.client.player.model.ThumbnailLoader
 import com.nextcloud.client.player.model.file.PlaybackFile
 import com.nextcloud.client.player.model.state.PlaybackItemMetadata
 import com.nextcloud.client.player.model.state.PlaybackState
-import com.nextcloud.client.player.util.getPlaybackFile
-import com.nextcloud.client.player.util.putPlaybackFile
+import com.nextcloud.client.player.util.PlayerUtil.getPlaybackFile
+import com.nextcloud.client.player.util.PlayerUtil.putPlaybackFile
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PlayerAudioFileFragmentBinding
 import com.owncloud.android.utils.DisplayUtils

@@ -10,7 +10,8 @@ package com.nextcloud.client.player.model.file
 import android.content.ContentUris
 import android.content.Context
 import android.net.Uri
-import com.nextcloud.client.player.util.observeContentChanges
+import com.nextcloud.client.player.util.PlayerUtil.observeContentChanges
+import com.nextcloud.client.player.util.PlayerUtil.toPlaybackFile
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager

@@ -12,7 +12,7 @@ import androidx.core.net.toUri
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.datasource.DataSource
 import androidx.media3.datasource.DataSpec
-import com.nextcloud.client.player.model.file.getRemoteFileId
+import com.nextcloud.client.player.util.PlayerUtil.getRemoteFileId
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.files.StreamMediaFileOperation
