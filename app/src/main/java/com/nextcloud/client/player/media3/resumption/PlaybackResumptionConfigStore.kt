@@ -39,12 +39,7 @@ class PlaybackResumptionConfigStore @Inject constructor(private val context: Con
         }
     }
 
-    fun saveConfig(
-        currentFileId: String,
-        folderId: Long,
-        fileType: PlaybackFileType,
-        collection: PlaybackCollection
-    ) {
+    fun saveConfig(currentFileId: String, folderId: Long, fileType: PlaybackFileType, collection: PlaybackCollection) {
         preferences.edit {
             putString(CURRENT_FILE_ID_KEY, currentFileId)
             putLong(FOLDER_ID_KEY, folderId)
