@@ -140,6 +140,7 @@ class PlaybackModel @Inject constructor(
             }
     }
 
+    @Suppress("TooGenericExceptionCaught")
     private suspend fun <T> ListenableFuture<T>.await(): T = suspendCancellableCoroutine { cont ->
         addListener(
             {
