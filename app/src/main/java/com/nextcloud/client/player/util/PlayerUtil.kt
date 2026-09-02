@@ -15,7 +15,6 @@ import android.content.pm.PackageManager
 import android.database.ContentObserver
 import android.graphics.Rect
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -242,12 +241,7 @@ object PlayerUtil {
             return false
         }
 
-        val mode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            appOpsManager.unsafeCheckOpNoThrow(AppOpsManager.OPSTR_PICTURE_IN_PICTURE, Process.myUid(), packageName)
-        } else {
-            @Suppress("DEPRECATION")
-            appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_PICTURE_IN_PICTURE, Process.myUid(), packageName)
-        }
+        val mode = appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_PICTURE_IN_PICTURE, Process.myUid(), packageName)
         return mode == AppOpsManager.MODE_ALLOWED
     }
 

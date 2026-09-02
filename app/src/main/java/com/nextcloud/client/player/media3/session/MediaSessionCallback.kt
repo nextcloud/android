@@ -45,7 +45,7 @@ class MediaSessionCallback @Inject constructor(
             .buildUpon()
             .add(SessionCommand(CLOSE_ACTION, Bundle.EMPTY))
             .build()
-        return ConnectionResult.AcceptedResultBuilder(session)
+        return ConnectionResult.AcceptedResultBuilder(session, controller)
             .setAvailableSessionCommands(sessionCommands)
             .build()
     }
@@ -64,6 +64,7 @@ class MediaSessionCallback @Inject constructor(
 
     override fun onPlaybackResumption(
         mediaSession: MediaSession,
-        controller: MediaSession.ControllerInfo
+        controller: MediaSession.ControllerInfo,
+        isForPlayback: Boolean
     ): ListenableFuture<MediaItemsWithStartPosition> = GlobalScope.future { playbackResumptionLauncher.launch() }
 }

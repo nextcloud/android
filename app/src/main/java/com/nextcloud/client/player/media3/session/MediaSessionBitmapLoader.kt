@@ -33,7 +33,7 @@ import javax.inject.Inject
 class MediaSessionBitmapLoader @Inject constructor(
     private val context: Context,
     private val thumbnailLoader: ThumbnailLoader
-) : BitmapLoader by DataSourceBitmapLoader(context) {
+) : BitmapLoader by DataSourceBitmapLoader.Builder(context).build() {
 
     companion object {
         private const val THUMBNAIL_TARGET_SIZE = 160
