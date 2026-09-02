@@ -99,6 +99,7 @@ class PreviewImageActivity :
 
     private val pictureInPicture by lazy { VideoPictureInPicture(this, playbackModel, autoEnter = false) }
     private var wasSystemUiVisibleBeforePictureInPicture = true
+    private var configurationChangedInPictureInPicture = false
     private var keepPlaybackOnFinish = false
 
     @Inject
@@ -498,8 +499,18 @@ class PreviewImageActivity :
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        if (isFinishing || isInPictureInPictureMode) return
+        if (isFinishing) return
 
+        if (isInPictureInPictureMode) {
+            configurationChangedInPictureInPicture = true
+            return
+        }
+
+        rebuildViewPagerForCurrentConfiguration()
+    }
+
+    private fun rebuildViewPagerForCurrentConfiguration() {
+        configurationChangedInPictureInPicture = false
         initViewPager()
     }
 
@@ -515,7 +526,12 @@ class PreviewImageActivity :
 
         toggleActionBarVisibility(!wasSystemUiVisibleBeforePictureInPicture)
 
-        if (lifecycle.currentState != Lifecycle.State.CREATED) return
+        if (lifecycle.currentState != Lifecycle.State.CREATED) {
+            if (configurationChangedInPictureInPicture) {
+                rebuildViewPagerForCurrentConfiguration()
+            }
+            return
+        }
 
         if (!keepPlaybackOnFinish) {
             playbackModel.release()

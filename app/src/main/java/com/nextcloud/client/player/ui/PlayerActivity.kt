@@ -69,6 +69,8 @@ class PlayerActivity :
 
     private var keepPlaybackAliveOnFinish = false
 
+    private var configurationChangedInPictureInPicture = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
@@ -143,10 +145,16 @@ class PlayerActivity :
         super.onConfigurationChanged(newConfig)
 
         if (isInPictureInPictureMode) {
+            configurationChangedInPictureInPicture = true
             (playerView as? VideoPlayerView)?.hideControls()
             return
         }
 
+        rebuildPlayerViewForCurrentConfiguration()
+    }
+
+    private fun rebuildPlayerViewForCurrentConfiguration() {
+        configurationChangedInPictureInPicture = false
         recreatePlayerView()
         (playerView as? VideoPlayerView)?.showControls()
     }
@@ -172,6 +180,11 @@ class PlayerActivity :
 
         if (!isInPictureInPictureMode && lifecycle.currentState == Lifecycle.State.CREATED) {
             finish() // Finish the activity if the user closes the PIP window
+            return
+        }
+
+        if (!isInPictureInPictureMode && configurationChangedInPictureInPicture) {
+            rebuildPlayerViewForCurrentConfiguration()
         }
     }
 
