@@ -2,7 +2,7 @@
  * Nextcloud - Android Client
  *
  * SPDX-FileCopyrightText: 2018-2023 Tobias Kaminsky <tobias@kaminsky.me>
- * SPDX-FileCopyrightText: 2021 TSI-mc
+ * SPDX-FileCopyrightText: 2021-2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2017-2018 Andy Scherzinger <info@andy-scherzinger.de>
  * SPDX-FileCopyrightText: 2015 ownCloud Inc.
@@ -42,6 +42,10 @@ import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.albums.CreateNewAlbumRemoteOperation;
+import com.owncloud.android.lib.resources.albums.PublicShareLinkAlbumRemoteOperation;
+import com.owncloud.android.lib.resources.albums.RemoveAlbumRemoteOperation;
+import com.owncloud.android.lib.resources.albums.RenameAlbumRemoteOperation;
 import com.owncloud.android.lib.resources.files.RestoreFileVersionRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.FileVersion;
 import com.owncloud.android.lib.resources.shares.OCShare;
@@ -64,6 +68,7 @@ import com.owncloud.android.operations.UpdateNoteForShareOperation;
 import com.owncloud.android.operations.UpdateShareInfoOperation;
 import com.owncloud.android.operations.UpdateSharePermissionsOperation;
 import com.owncloud.android.operations.UpdateShareViaLinkOperation;
+import com.owncloud.android.operations.albums.CopyFileToAlbumOperation;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -106,6 +111,7 @@ public class OperationsService extends Service {
     public static final String EXTRA_IN_BACKGROUND = "IN_BACKGROUND";
     public static final String EXTRA_FILES_DOWNLOAD_LIMIT = "FILES_DOWNLOAD_LIMIT";
     public static final String EXTRA_SHARE_ATTRIBUTES = "SHARE_ATTRIBUTES";
+    public static final String EXTRA_CREATE_ALBUM_SHARE = "CREATE_ALBUM_SHARE";
 
     public static final String ACTION_CREATE_SHARE_VIA_LINK = "CREATE_SHARE_VIA_LINK";
     public static final String ACTION_CREATE_SECURE_FILE_DROP = "CREATE_SECURE_FILE_DROP";
@@ -127,6 +133,12 @@ public class OperationsService extends Service {
     public static final String ACTION_CHECK_CURRENT_CREDENTIALS = "CHECK_CURRENT_CREDENTIALS";
     public static final String ACTION_RESTORE_VERSION = "RESTORE_VERSION";
     public static final String ACTION_UPDATE_FILES_DOWNLOAD_LIMIT = "UPDATE_FILES_DOWNLOAD_LIMIT";
+    public static final String ACTION_CREATE_ALBUM = "CREATE_ALBUM";
+    public static final String EXTRA_ALBUM_NAME = "ALBUM_NAME";
+    public static final String ACTION_ALBUM_COPY_FILE = "ALBUM_COPY_FILE";
+    public static final String ACTION_RENAME_ALBUM = "RENAME_ALBUM";
+    public static final String ACTION_REMOVE_ALBUM = "REMOVE_ALBUM";
+    public static final String ACTION_PUBLIC_SHARE_LINK_ALBUM = "PUBLIC_SHARE_LINK_ALBUM";
 
     private ServiceHandler mOperationsHandler;
     private OperationsServiceBinder mOperationsBinder;
@@ -784,6 +796,34 @@ public class OperationsService extends Service {
                         if (shareId > 0) {
                             operation = new SetFilesDownloadLimitOperation(shareId, newLimit, fileDataStorageManager, getApplicationContext());
                         }
+                        break;
+
+                    case ACTION_CREATE_ALBUM:
+                        String albumName = operationIntent.getStringExtra(EXTRA_ALBUM_NAME);
+                        operation = new CreateNewAlbumRemoteOperation(albumName);
+                        break;
+
+                    case ACTION_ALBUM_COPY_FILE:
+                        remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                        newParentPath = operationIntent.getStringExtra(EXTRA_NEW_PARENT_PATH);
+                        operation = new CopyFileToAlbumOperation(remotePath, newParentPath, fileDataStorageManager);
+                        break;
+
+                    case ACTION_RENAME_ALBUM:
+                        remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                        String newAlbumName = operationIntent.getStringExtra(EXTRA_NEWNAME);
+                        operation = new RenameAlbumRemoteOperation(remotePath, newAlbumName);
+                        break;
+
+                    case ACTION_REMOVE_ALBUM:
+                        String albumNameToRemove = operationIntent.getStringExtra(EXTRA_ALBUM_NAME);
+                        operation = new RemoveAlbumRemoteOperation(albumNameToRemove);
+                        break;
+
+                    case ACTION_PUBLIC_SHARE_LINK_ALBUM:
+                        String albmName = operationIntent.getStringExtra(EXTRA_ALBUM_NAME);
+                        boolean isCreateShare = operationIntent.getBooleanExtra(EXTRA_CREATE_ALBUM_SHARE, false);
+                        operation = new PublicShareLinkAlbumRemoteOperation(albmName, isCreateShare);
                         break;
 
                     default:

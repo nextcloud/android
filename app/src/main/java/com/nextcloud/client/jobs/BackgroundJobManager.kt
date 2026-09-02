@@ -2,6 +2,7 @@
  * Nextcloud - Android Client
  *
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.nextcloud.client.jobs
@@ -141,6 +142,7 @@ interface BackgroundJobManager {
         showSameFileAlreadyExistsNotification: Boolean,
         skipAutoUploadCheck: Boolean = false
     )
+    fun startAlbumFilesUploadJob(user: User, uploadIds: LongArray, albumName: String)
     fun getFileUploads(user: User): LiveData<List<JobInfo>>
     fun cancelFilesUploadJob(user: User)
     fun isStartFileUploadJobScheduled(accountName: String): Boolean

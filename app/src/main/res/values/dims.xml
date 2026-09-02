@@ -2,6 +2,7 @@
 <!--
   ~ Nextcloud - Android Client
   ~
+  ~ SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
   ~ SPDX-FileCopyrightText: 2022 Álvaro Brey  <alvaro@alvarobrey.com>
   ~ SPDX-FileCopyrightText: 2015-2022 Andy Scherzinger <info@andy-scherzinger.de>
   ~ SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
@@ -48,12 +49,15 @@
     <dimen name="grid_layout_item_size">10dp</dimen>
     <dimen name="grid_layout_margin_end">2dp</dimen>
     <dimen name="grid_sync_item_layout_next_text_size">22sp</dimen>
-    <dimen name="grid_container_margin">2dp</dimen>
+    <dimen name="grid_container_margin">16dp</dimen>
     <dimen name="selected_grid_container_radius">4dp</dimen>
     <dimen name="grid_checkbox_size">18dp</dimen>
     <dimen name="grid_checkbox_margin">6dp</dimen>
     <dimen name="grid_recommended_file_container_width">160dp</dimen>
     <dimen name="grid_container_default_max_file_name">80dp</dimen>
+
+    <dimen name="album_container_height">300dp</dimen>
+
 
     <dimen name="button_width">140dp</dimen>
     <dimen name="button_extra_width">180dp</dimen>
@@ -155,4 +159,5 @@
     <dimen name="adaptive_icon_padding">18dp</dimen>
     <dimen name="tag_height">18dp</dimen>
     <dimen name="search_bar_icon_size">24dp</dimen>
+    <dimen name="album_list_image_corner_radius">4dp</dimen>
 </resources>
