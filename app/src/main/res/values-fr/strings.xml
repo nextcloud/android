@@ -30,9 +30,15 @@
     <string name="activity_chooser_send_file_title">Envoyer</string>
     <string name="activity_chooser_title">Envoyer le lien vers…</string>
     <string name="activity_icon">Activité</string>
+    <string name="add_media">Ajouter un média</string>
     <string name="add_new_public_share">Ajouter un nouveau lien de partage public</string>
     <string name="add_new_secure_file_drop">Ajouter un nouveau dépôt de fichier sécurisé</string>
+    <string name="add_to_album">Ajouter à l’album</string>
     <string name="add_to_cloud">Ajouter à %1$s</string>
+    <string name="album_delete">Supprimer l’album</string>
+    <string name="album_rename_conflict">Ce nom est déjà utilisé.</string>
+    <string name="album_share">Partager l\'album</string>
+    <string name="album_stop_sharing">Arrêter le partage</string>
     <string name="app_config_base_url_title">URL de base</string>
     <string name="app_config_disable_clipboard_title">Désactiver le Presse-papiers</string>
     <string name="app_config_disable_intro_title">Désactiver l\'introduction</string>
@@ -123,6 +129,10 @@
     <string name="auto_upload_on_wifi">Téléverser par Wi-Fi uniquement</string>
     <string name="auto_upload_path">/TéléversementAuto</string>
     <string name="auto_upload_sub_folder_warning">Ce dossier fait partie de la synchronisation du dossier parent, ce qui peut créer des doublons.</string>
+    <string name="auto_upload_sync_now_action">Synchroniser maintenant</string>
+    <string name="auto_upload_sync_now_no_folder">Aucun dossier n\'est configuré pour le téléversement automatique</string>
+    <string name="auto_upload_sync_now_running">Téléversement automatique déjà en cours d\'exécution</string>
+    <string name="auto_upload_sync_now_started">Téléversement automatique démarré</string>
     <string name="auto_upload_wifi_only_warning_info">En attente du Wi-Fi pour commencer le téléversement</string>
     <string name="auto_upload_worker_start_text">Téléversement des fichiers de %1$s vers %2$s</string>
     <string name="autoupload_configure">Configurer</string>
@@ -249,6 +259,7 @@
     <string name="could_not_retrieve_shares">Impossible de récupérer les partages</string>
     <string name="could_not_retrieve_url">Impossible de récupérer l\'URL</string>
     <string name="create">Créer</string>
+    <string name="create_album_dialog_title">Nouvel album</string>
     <string name="create_dir_fail_msg">Le dossier n\'a pas pu être créé</string>
     <string name="create_document">Document</string>
     <string name="create_encrypted_folder">Dossier chiffré</string>
@@ -323,6 +334,7 @@
     <string name="drawer_community">Communauté</string>
     <string name="drawer_header_background">Image d\'arrière-plan de l\'en-tête du menu-tiroir</string>
     <string name="drawer_item_activities">Activités</string>
+    <string name="drawer_item_album">Albums</string>
     <string name="drawer_item_all_files">Tous les fichiers</string>
     <string name="drawer_item_assistant">Assistant</string>
     <string name="drawer_item_favorites">Favoris</string>
@@ -424,6 +436,7 @@
     <string name="fab_label">Ajouter ou téléverser</string>
     <string name="failed_to_create_conflict_dialog">Échec de la création de la boîte de dialogue de conflit</string>
     <string name="failed_to_download">Transmission du fichier au gestionnaire de téléchargement échoué</string>
+    <string name="failed_to_load_tags">Impossible de charger les étiquettes</string>
     <string name="failed_to_print">Impossible d\'imprimer le fichier</string>
     <string name="failed_to_start_action">Impossible de lancer l\'action !</string>
     <string name="failed_to_start_editor">Impossible de lancer l\'éditeur</string>
@@ -623,6 +636,7 @@
     <string name="manage_space_clear_data">Effacer les données</string>
     <string name="manage_space_description">Les paramètres, la base de données et les certificats du serveur provenant de %1$s seront définitivement effacés. \n\nLes fichiers téléchargés ne seront pas impactés.\n\nCette opération peut prendre du temps.</string>
     <string name="manage_space_title">Gestion de l\'espace</string>
+    <string name="manage_tags">Gérer les étiquettes</string>
     <string name="media_err_invalid_progressive_playback">Le fichier ne peut être streamer</string>
     <string name="media_err_io">Impossible de lire le fichier média</string>
     <string name="media_err_malformed">Le fichier média n\'est pas correctement encodé</string>
@@ -832,6 +846,7 @@
     <string name="reload">Recharger</string>
     <string name="remote">(distant)</string>
     <string name="remote_file_fetch_failed">Impossible de trouver le fichier</string>
+    <string name="remove">Supprimer</string>
     <string name="remove_e2e">Vous pouvez retirer le chiffrement de bout en bout localement sur ce client</string>
     <string name="remove_e2e_keys_and_files_dialog_warning">Cette opération supprimera tous les fichiers chiffrés ainsi que les clés privées et publiques. Voulez-vous vraiment continuer ?</string>
     <string name="remove_e2e_message">Vous pouvez retirer le chiffrement de bout en bout localement sur ce client. Les fichiers chiffrés resteront sur le serveur, mais ne seront plus synchronisés avec cet ordinateur.</string>
@@ -841,6 +856,7 @@
     <string name="remove_notification_failed">Erreur lors de la suppression des notifications.</string>
     <string name="remove_push_notification">Supprimer</string>
     <string name="remove_success_msg">Supprimé</string>
+    <string name="rename_dialog_button">Renommer</string>
     <string name="rename_dialog_title">Entrez un nouveau nom</string>
     <string name="rename_local_fail_msg">Impossible de renommer la version locale; veuillez réessayer avec un nom différent</string>
     <string name="rename_server_fail_msg">Impossible de renommer, le nom est déjà utilisé</string>

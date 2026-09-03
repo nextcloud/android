@@ -29,7 +29,11 @@
     <string name="activity_icon">Dejavnosti</string>
     <string name="add_new_public_share">Nova javna povezava za souporabo</string>
     <string name="add_new_secure_file_drop">Dodaj novo mesto varnega pošiljanja</string>
+    <string name="add_to_album">Dodaj album</string>
     <string name="add_to_cloud">Dodaj v %1$s</string>
+    <string name="album_delete">Izbriši album</string>
+    <string name="album_rename_conflict">Vpisano uporabniško ime je že v uporabi</string>
+    <string name="album_stop_sharing">Prekini souporabo</string>
     <string name="app_config_base_url_title">Osnovni naslov URL</string>
     <string name="app_config_proxy_port_title">Vrata posredniškega strežnika</string>
     <string name="app_widget_description">Pokaži en gradnik iz nadzorne plošče</string>
@@ -187,6 +191,7 @@
     <string name="could_not_retrieve_shares">Naslovov mest souporabe ni mogoče pridobiti</string>
     <string name="could_not_retrieve_url">Naslova URL ni mogoče pridobiti</string>
     <string name="create">Ustvari</string>
+    <string name="create_album_dialog_title">Nov album</string>
     <string name="create_dir_fail_msg">Ni mogoče ustvariti mape</string>
     <string name="create_document">Dokument</string>
     <string name="create_folder">Mapa</string>
@@ -244,6 +249,7 @@
     <string name="drawer_community">Skupnost</string>
     <string name="drawer_header_background">Slika ozadja glave bočnega okna</string>
     <string name="drawer_item_activities">Dejavnosti</string>
+    <string name="drawer_item_album">Albumi</string>
     <string name="drawer_item_all_files">Vse datoteke</string>
     <string name="drawer_item_assistant">Pomočnik</string>
     <string name="drawer_item_favorites">Priljubljene</string>
@@ -322,6 +328,7 @@
     <string name="etm_transfer_type_upload">Pošlji</string>
     <string name="fab_label">Dodaj ali pošlji</string>
     <string name="failed_to_download">Podajanje datoteke na upravljalnik prenosov je spodletelo</string>
+    <string name="failed_to_load_tags">Nalaganje oznak je spodletelo</string>
     <string name="failed_to_print">Tiskanje datoteke je spodletelo</string>
     <string name="failed_to_start_editor">Začenjanje urejevalnika je spodletelo</string>
     <string name="failed_update_ui">Posodabljanje uporabniškega vmesnika je spodletelo</string>
@@ -472,6 +479,7 @@
     <string name="manage_space_clear_data">Počisti podatke</string>
     <string name="manage_space_description">Nastavitve, podatkovna zbirka, in potrdila strežnika na računu %1$s bodo trajno izbrisana. \n\nPrejete datoteke bodo ostale nedotaknjene.\n\nOpravilo je lahko dolgotrajno.</string>
     <string name="manage_space_title">Upravljanje s prostorom</string>
+    <string name="manage_tags">Upravljanje oznak</string>
     <string name="media_err_invalid_progressive_playback">Predstavne datoteke ni mogoče predvajati v pretoku</string>
     <string name="media_err_io">Predstavne datoteke ni mogoče prebrati.</string>
     <string name="media_err_malformed">Predstavna datoteka ni pravilno kodirana.</string>
@@ -630,12 +638,14 @@
     <string name="reload">Ponovno naloži</string>
     <string name="remote">(oddaljeno) </string>
     <string name="remote_file_fetch_failed">Iskanje datoteke je spodletelo!</string>
+    <string name="remove">Odstrani</string>
     <string name="remove_e2e">Na tej napravi lahko odstranite krajevno celovito šifriranje E2E</string>
     <string name="remove_e2e_message">V tem odjemalcu je mogoče krajevno odstraniti šifriranje E2E. Šifrirane datoteke bodo ostale shranjene na strežniku, vendar s to napravo ne bodo več usklajevane.</string>
     <string name="remove_fail_msg">Brisanje je spodletelo</string>
     <string name="remove_notification_failed">Odstranjevanje obvestil je spodletelo.</string>
     <string name="remove_push_notification">Odstrani</string>
     <string name="remove_success_msg">Izbrisano</string>
+    <string name="rename_dialog_button">Preimenuj</string>
     <string name="rename_dialog_title">Vnesite novo ime</string>
     <string name="rename_local_fail_msg">Ni mogoče preimenovati krajevne kopije. Poskusite vpisati drugačno ime.</string>
     <string name="rename_server_fail_msg">Preimenovanje ni mogoče. Ime je že uporabljeno.</string>
@@ -661,6 +671,7 @@
     <string name="screenshot_05_autoUpload_heading">Samodejno pošiljanje</string>
     <string name="screenshot_06_davdroid_heading">Koledar in stiki</string>
     <string name="search_error">Napaka pridobivanja zadetkov iskanja</string>
+    <string name="search_tags">Poišči oznake</string>
     <string name="select_all">Izberi vse</string>
     <string name="select_media_folder">Nastavi mapo predstavne vsebine</string>
     <string name="select_one_template">Izbor predloge</string>

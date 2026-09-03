@@ -30,7 +30,11 @@
     <string name="activity_icon">Aktifitas</string>
     <string name="add_new_public_share">Tambahkan tautan berbagi baru</string>
     <string name="add_new_secure_file_drop">Tambahkan tempat penyimpanan file aman</string>
+    <string name="add_to_album">Tambahkan album</string>
     <string name="add_to_cloud">Tambahkan ke %1$s</string>
+    <string name="album_delete">Hapus album</string>
+    <string name="album_rename_conflict">Nama ini sudah digunakan.</string>
+    <string name="album_stop_sharing">Berhenti berbagi</string>
     <string name="app_config_base_url_title">URL Dasar</string>
     <string name="app_config_disable_clipboard_title">Matikan Papan Salin</string>
     <string name="app_config_disable_intro_title">Matikan Intro</string>
@@ -224,6 +228,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="could_not_retrieve_shares">Tidak dapat menerima berkas bersama</string>
     <string name="could_not_retrieve_url">Tidak dapat mengambil URL</string>
     <string name="create">Buat</string>
+    <string name="create_album_dialog_title">Album baru</string>
     <string name="create_dir_fail_msg">Folder tidak dapat dibuat</string>
     <string name="create_folder">Folder</string>
     <string name="create_link">Buat tautan</string>
@@ -290,6 +295,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="drawer_community">Komunitas</string>
     <string name="drawer_header_background">Gambar latar belakang tajuk laci</string>
     <string name="drawer_item_activities">Aktivitas</string>
+    <string name="drawer_item_album">Album</string>
     <string name="drawer_item_all_files">Semua berkas</string>
     <string name="drawer_item_assistant">Asisten</string>
     <string name="drawer_item_favorites">Disukai</string>
@@ -384,6 +390,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="external_shares">Berbagi eksternal</string>
     <string name="fab_label">Tambahkan atau unggah</string>
     <string name="failed_to_download">Gagal memberikan berkas ke pengelola unduhan</string>
+    <string name="failed_to_load_tags">Gagal memuat tag</string>
     <string name="failed_to_print">Gagal mencetak berkas</string>
     <string name="failed_to_start_editor">Gagal memulai editor</string>
     <string name="failed_update_ui">Gagal memperbarui UI</string>
@@ -570,6 +577,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="manage_space_clear_data">Bersihkan data</string>
     <string name="manage_space_description">Pengaturan, database dan sertifikat server dari data %1$s akan dihapus secara permanen. \n\nBerkas terunduh akan tetap terjaga.\n\nProses ini dapat memakan waktu lama.</string>
     <string name="manage_space_title">Kelola ruang</string>
+    <string name="manage_tags">Kelola tag</string>
     <string name="media_err_invalid_progressive_playback">File media tidak dapat di-stream</string>
     <string name="media_err_io">Tidak dapat membaca berkas media</string>
     <string name="media_err_malformed">Berkas media tidak di encoding dengan benar</string>
@@ -768,6 +776,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="reload">Muat ulang</string>
     <string name="remote">remote</string>
     <string name="remote_file_fetch_failed">Gagal menemukan berkas!</string>
+    <string name="remove">Hapus</string>
     <string name="remove_e2e">Anda dapat menghapus enkripsi end-to-end secara lokal pada klien ini.</string>
     <string name="remove_e2e_keys_and_files_dialog_warning">Operasi ini akan menghapus semua berkas yang dienkripsi, kunci publik, dan kunci privat. Apakah Anda yakin?</string>
     <string name="remove_e2e_message">Anda dapat menghapus enkripsi end-to-end secara lokal pada klien ini. Berkas-berkas yang dienkripsi akan tetap ada di server, tetapi tidak akan disinkronkan ke komputer ini lagi.</string>
@@ -777,6 +786,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="remove_notification_failed">Gagal menghapus notifikasi.</string>
     <string name="remove_push_notification">Hapus</string>
     <string name="remove_success_msg">Dihapus</string>
+    <string name="rename_dialog_button">Ganti nama</string>
     <string name="rename_dialog_title">Masukkan nama baru</string>
     <string name="rename_local_fail_msg">Tidak dapat mengganti nama salinan lokal, coba nama yang berbeda</string>
     <string name="rename_server_fail_msg">Pengubahan nama tidak memungkinkan, nama sudah diambil</string>
@@ -807,6 +817,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="screenshot_06_davdroid_heading">Kalender dan kontak</string>
     <string name="screenshot_06_davdroid_subline">Sinkronisasi dengan DAVx⁵</string>
     <string name="search_error">Kesalahan saat mendapatkan hasil pencarian</string>
+    <string name="search_tags">Cari tag</string>
     <string name="secure_share_not_set_up">Pembagian aman tidak disetel untuk pengguna ini</string>
     <string name="secure_share_search">Pembagian aman...</string>
     <string name="select_all">Pilih semua</string>

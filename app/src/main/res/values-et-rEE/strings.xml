@@ -30,9 +30,14 @@
     <string name="activity_chooser_send_file_title">Saada</string>
     <string name="activity_chooser_title">Saada link…</string>
     <string name="activity_icon">Tegevus</string>
+    <string name="add_media">Lisa multimeediat</string>
     <string name="add_new_public_share">Lisa uus avalik jagamislink</string>
     <string name="add_new_secure_file_drop">Lisa uus turvaline failiedastus</string>
     <string name="add_to_cloud">Lisa %1$s-sse</string>
+    <string name="album_delete">Kustuta album</string>
+    <string name="album_rename_conflict">See nimi on juba kasutusel.</string>
+    <string name="album_share">Jaga albumit</string>
+    <string name="album_stop_sharing">Lõpeta jagamine</string>
     <string name="app_config_base_url_title">Baasaadress</string>
     <string name="app_config_disable_clipboard_title">Keela lõikelaua kasutamine</string>
     <string name="app_config_disable_intro_title">Keela sissejuhatus</string>
@@ -123,6 +128,10 @@
     <string name="auto_upload_on_wifi">Laadi üles ainult mahupiiranguta WiFi võrgus</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Kuna ülalpool asuv kaust kuulub sünkroonimisele, siis see kaust on juba kaasatud ning nii võivad tekkida topelt üleslaadimised</string>
+    <string name="auto_upload_sync_now_action">Sünkrooni kohe nüüd</string>
+    <string name="auto_upload_sync_now_no_folder">Ükski kaust pole automaatseks üleslaadimiseks seadistatud</string>
+    <string name="auto_upload_sync_now_running">Automaatne üleslaadimine juba on töös</string>
+    <string name="auto_upload_sync_now_started">Automaatne üleslaadimine on käivitunud</string>
     <string name="auto_upload_wifi_only_warning_info">Ootan sünkroonimiseks WiFi ühenduse loomist</string>
     <string name="auto_upload_worker_start_text">Laadin faile üles: „%1$s“ → „%2$s“</string>
     <string name="autoupload_configure">Seadista</string>
@@ -249,6 +258,7 @@
     <string name="could_not_retrieve_shares">Jaosmeedia laadimine ei õnnestunud</string>
     <string name="could_not_retrieve_url">Võrguaadressi laadimine ei õnnestu</string>
     <string name="create">Loo</string>
+    <string name="create_album_dialog_title">Uus album</string>
     <string name="create_dir_fail_msg">Ei suuda kausta luua</string>
     <string name="create_document">Dokument</string>
     <string name="create_encrypted_folder">Krüptitud kaust</string>
@@ -282,7 +292,7 @@
     <string name="digest_algorithm_not_available">See räsialgoritm pole sinu telefonis saadaval.</string>
     <string name="direct_login_confirm_message">Kas soovid logida %1$s kasutajakontoga %2$s serverisse?</string>
     <string name="direct_login_confirm_title">Kinnita sisselogimine</string>
-    <string name="direct_login_failed">Otselingiga sisselogimine ebaõnnestus!</string>
+    <string name="direct_login_failed">Otselingiga sisselogimine ei õnnestunud!</string>
     <string name="direct_login_text">Kasutades „%1$s“ kontot logi sisse teenusesse „%2$s“</string>
     <string name="disable_new_media_folder_detection_notifications">Lülita välja</string>
     <string name="dismiss">Jäta vahele</string>
@@ -424,6 +434,7 @@
     <string name="fab_label">Lisa või laadi üles</string>
     <string name="failed_to_create_conflict_dialog">Failikonfilktiteabe vaate loomine ei õnnestu</string>
     <string name="failed_to_download">Ei õnnestunud faili allalaadimishaldurile edasi anda</string>
+    <string name="failed_to_load_tags">Siltide laadimine ei õnnestunud</string>
     <string name="failed_to_print">Faili trükkimine ei õnnestunud</string>
     <string name="failed_to_start_action">Tegevuse käivitamine ei õnnestunud!</string>
     <string name="failed_to_start_editor">Ei õnnestunud avada muutmisvaadet</string>
@@ -623,6 +634,7 @@
     <string name="manage_space_clear_data">Kustuta andmed</string>
     <string name="manage_space_description">Järgnevaga kustutatakse jäädavalt kõik „%1$s“ andmete seadistused, andmebaasikirjed ja sertifikaadid.\n\nAllalaaditud failid jäävad alles.\n\nKogu toiming võib märgatavalt aega võtta.</string>
     <string name="manage_space_title">Halda andmeruumi</string>
+    <string name="manage_tags">Halda silte</string>
     <string name="media_err_invalid_progressive_playback">Seda multimeediafaili ei saa voogedastada</string>
     <string name="media_err_io">Meediafaili lugemine ebaõnnestus</string>
     <string name="media_err_malformed">Sellel meediafailil on vigane kodeering</string>
@@ -645,7 +657,7 @@
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_size_biggest_first">Suuremad esimesena</string>
     <string name="menu_item_sort_by_size_smallest_first">Väiksemad esimesenaa</string>
-    <string name="more">Rohkem</string>
+    <string name="more">Veel</string>
     <string name="more_documents">Veel dokumente</string>
     <string name="move_file_error">Selle faili või kausta teisaldamisel tekkis viga</string>
     <string name="move_file_invalid_into_descendent">Kausta ei saa teisaldada tema enda alamkausta</string>
@@ -832,6 +844,7 @@
     <string name="reload">Laadi uuesti</string>
     <string name="remote">(kaugseade)</string>
     <string name="remote_file_fetch_failed">Faili ei õnnestunud leida!</string>
+    <string name="remove">Eemalda</string>
     <string name="remove_e2e">Sa võid läbiva krüptimise sellest kohalikust klientrakendusest eemaldada</string>
     <string name="remove_e2e_keys_and_files_dialog_warning">Järgnevaga eemaldad kõik krüptitud failid ning oma privaatvõtmed ja avalikud võtmed. Kas oled kindel, et soovid jätkata?</string>
     <string name="remove_e2e_message">Sa võid läbiva krüptimise sellest kohalikust klientrakendusest eemaldada. Krüptitud failid jäävad serverisse alles, aga neid enam siia arvutisse või seadmesse ei sünkroniseerita.</string>
@@ -841,6 +854,7 @@
     <string name="remove_notification_failed">Teavituse eemaldamine ei õnnestunud.</string>
     <string name="remove_push_notification">Eemalda</string>
     <string name="remove_success_msg">Kustutatud</string>
+    <string name="rename_dialog_button">Muuda nime</string>
     <string name="rename_dialog_title">Sisesta uus nimi</string>
     <string name="rename_local_fail_msg">Lokaalse koopia nime muutmine ei õnnestunud, palun proovi teist nime</string>
     <string name="rename_server_fail_msg">Nime muutmine pole võimalik, nimi on juba kasutuses</string>
@@ -1072,7 +1086,7 @@
     <string name="trashbin_file_not_deleted">„%1$s“ faili kustutamine ei õnnestunud!</string>
     <string name="trashbin_file_not_restored">„%1$s“ faili taastamine ei õnnestunud!</string>
     <string name="trashbin_file_remove">Kustuta jäädavalt</string>
-    <string name="trashbin_loading_failed">Ei õnnestunud laadida prügikasti!</string>
+    <string name="trashbin_loading_failed">Prügikasti laadimine ei õnnestunud!</string>
     <string name="trashbin_not_emptied">Ei õnnestunud faile jäädavalt kustutada!</string>
     <string name="two_way_sync_activity_disable_all_button_title">Lülita välja kõikide kaustade puhul</string>
     <string name="two_way_sync_activity_empty_list_desc">Kahepoolselt sünkroniseeritava kausta seadistamiseks palun lülita see võimalus sisse antud kausta üksikasjade vaatest.</string>
@@ -1233,7 +1247,7 @@
     <string name="worker_download">Failid on allalaadimisel…</string>
     <string name="write_email">Saada kiri</string>
     <string name="wrong_storage_path">Andmeruumi kausta pole olemas!</string>
-    <string name="wrong_storage_path_desc">See võis tekkida varukoopia taastamisest teises seadmes. Järgnevaks kasutan vaikimisi seadistusi. Andmeruumi kausta muutmiseks või  kohendamiseks kasuta seadistusi.</string>
+    <string name="wrong_storage_path_desc">See võis tekkida varukoopia taastamisest teises seadmes. Järgnevaks kasutan vaikimisi seadistusi. Andmeruumi kausta muutmiseks või kohendamiseks kasuta seadistusi.</string>
     <plurals name="hours">
         <item quantity="one">%d tund</item>
         <item quantity="other">%d tundi</item>

@@ -32,7 +32,11 @@
     <string name="activity_icon">アクティビティ</string>
     <string name="add_new_public_share">新しい公開共有リンクを追加する</string>
     <string name="add_new_secure_file_drop">新しい安全なファイルドロップを追加</string>
+    <string name="add_to_album">アルバムに追加</string>
     <string name="add_to_cloud">%1$s に追加</string>
+    <string name="album_delete">アルバムの削除</string>
+    <string name="album_rename_conflict">この名前は既に使用されています。</string>
+    <string name="album_stop_sharing">共有の停止</string>
     <string name="app_config_base_url_title">ベース URL</string>
     <string name="app_config_disable_clipboard_title">クリップボードを無効化</string>
     <string name="app_config_disable_intro_title">イントロを無効化</string>
@@ -246,6 +250,7 @@
     <string name="could_not_retrieve_shares">共有元を取得できませんでした</string>
     <string name="could_not_retrieve_url">URL を取得できませんでした</string>
     <string name="create">作成</string>
+    <string name="create_album_dialog_title">新しいアルバム</string>
     <string name="create_dir_fail_msg">フォルダーを作成できません</string>
     <string name="create_document">ドキュメント</string>
     <string name="create_end_to_end_encrypted_share">リンク共有</string>
@@ -317,6 +322,7 @@
     <string name="drawer_community">コミュニティ</string>
     <string name="drawer_header_background">ドロワーヘッダーの背景イメージ</string>
     <string name="drawer_item_activities">アクティビティ</string>
+    <string name="drawer_item_album">アルバム</string>
     <string name="drawer_item_all_files">すべてのファイル</string>
     <string name="drawer_item_assistant">アシスタント</string>
     <string name="drawer_item_favorites">お気に入り</string>
@@ -412,6 +418,7 @@
     <string name="external_shares">外部共有</string>
     <string name="fab_label">追加またはアップロード</string>
     <string name="failed_to_download">ダウンロードマネージャーにファイルを渡せませんでした</string>
+    <string name="failed_to_load_tags">タグの読込に失敗しました</string>
     <string name="failed_to_print">ファイルの印刷に失敗</string>
     <string name="failed_to_start_editor">エディターの起動に失敗しました</string>
     <string name="failed_update_ui">UIの更新に失敗しました</string>
@@ -599,6 +606,7 @@
     <string name="manage_space_clear_data">データのクリア</string>
     <string name="manage_space_description">%1$s のデータから 設定、データベース、サーバー証明書が完全に削除されます。\n\n ダウンロードされたファイルはそのまま残ります。\n\n 実行中はしばらく時間がかかります。</string>
     <string name="manage_space_title">管理領域</string>
+    <string name="manage_tags">タグを管理</string>
     <string name="media_err_invalid_progressive_playback">このメディアファイルはストリーミングできません</string>
     <string name="media_err_io">メディアファイルを読み込めません</string>
     <string name="media_err_malformed">不正なエンコードのメディアファイルです</string>
@@ -796,6 +804,7 @@
     <string name="reload">再読み込み</string>
     <string name="remote">(リモート)</string>
     <string name="remote_file_fetch_failed">ファイルが見つかりません！</string>
+    <string name="remove">削除</string>
     <string name="remove_e2e">このクライアントでローカルに End-to-End 暗号化を解除できます</string>
     <string name="remove_e2e_message">このクライアントでローカルに End-to-End 暗号化を解除できます。暗号化されたファイルはサーバ上に残りますが、このコンピュータには同期されなくなります。</string>
     <string name="remove_fail_msg">削除失敗</string>
@@ -804,6 +813,7 @@
     <string name="remove_notification_failed">通知の削除に失敗</string>
     <string name="remove_push_notification">削除</string>
     <string name="remove_success_msg">削除済み</string>
+    <string name="rename_dialog_button">名前を変更</string>
     <string name="rename_dialog_title">新しい名前を入力</string>
     <string name="rename_local_fail_msg">ローカルコピーの名前が変更できません。別の名前を試してください</string>
     <string name="rename_server_fail_msg">名前の変更ができません。その名前は使われています</string>
@@ -834,6 +844,7 @@
     <string name="screenshot_06_davdroid_heading">カレンダーと連絡先</string>
     <string name="screenshot_06_davdroid_subline">DAVx⁵で同期</string>
     <string name="search_error">検索結果の取得中にエラーが発生しました</string>
+    <string name="search_tags">タグを検索</string>
     <string name="secure_share_not_set_up">このユーザのためにセキュアな共有が設定されていません</string>
     <string name="secure_share_search">セキュアシェア...</string>
     <string name="select_all">すべて選択</string>

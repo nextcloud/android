@@ -645,6 +645,7 @@
     <string name="reload">Volver a cargar</string>
     <string name="remote">(remoto)</string>
     <string name="remote_file_fetch_failed">¡No se pudo encontrar el archivo!</string>
+    <string name="remove">Eliminar</string>
     <string name="remove_e2e">Puede eliminar la encriptación de extremo a extremo localmente en este cliente</string>
     <string name="remove_e2e_message">Puede eliminar la encriptación de extremo a extremo localmente en este cliente. Los archivos encriptados permanecerán en el servidor, pero no se sincronizarán más con esta computadora.</string>
     <string name="remove_fail_msg">Borrado fallido</string>
@@ -653,6 +654,7 @@
     <string name="remove_notification_failed">Error al borrar la notificación.</string>
     <string name="remove_push_notification">Eliminar</string>
     <string name="remove_success_msg">Borrado</string>
+    <string name="rename_dialog_button">Renombrar</string>
     <string name="rename_dialog_title">Ingrese un nombre nuevo</string>
     <string name="rename_local_fail_msg">No se pudo cambiar el nombre de la copia local, intente con un nombre diferente</string>
     <string name="rename_server_fail_msg">No se puede renombrar, el nombre ya está utilizado</string>

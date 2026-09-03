@@ -215,6 +215,7 @@
     <string name="etm_transfer_type_download">Elŝuti</string>
     <string name="etm_transfer_type_upload">Alŝuti</string>
     <string name="fab_label">Aldoni aŭ alŝuti</string>
+    <string name="failed_to_load_tags">Ŝargo de la etikedoj malsukcesis</string>
     <string name="favorite">Aldoni al pliŝataĵoj</string>
     <string name="favorite_icon">Pliŝatataj</string>
     <string name="file_delete">Forigi</string>
@@ -426,6 +427,7 @@
     <string name="remove_notification_failed">Malsukcesis forigi sciigon.</string>
     <string name="remove_push_notification">Forigi</string>
     <string name="remove_success_msg">Forigita</string>
+    <string name="rename_dialog_button">Alinomi</string>
     <string name="rename_dialog_title">Enigu novan nomon</string>
     <string name="rename_local_fail_msg">Ne eblis alinomi lokan kopion, provu uzi alian nomon</string>
     <string name="rename_server_fail_msg">Ne eblis alinomi: la nomo jam uziĝas</string>

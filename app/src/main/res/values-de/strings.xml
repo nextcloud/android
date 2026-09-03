@@ -33,6 +33,7 @@
     <string name="add_new_public_share">Öffentlichen Freigabe-Link hinzufügen</string>
     <string name="add_new_secure_file_drop">Neue sichere Dateiablage hinzufügen</string>
     <string name="add_to_cloud">Hinzufügen zu %1$s</string>
+    <string name="album_share">Album teilen</string>
     <string name="app_config_base_url_title">Basis-URL</string>
     <string name="app_config_disable_clipboard_title">Zwischenablage deaktivieren</string>
     <string name="app_config_disable_intro_title">Intro deaktivieren</string>
@@ -123,6 +124,10 @@
     <string name="auto_upload_on_wifi">Nur über gebührenfreies WLAN hochladen</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Dieser Ordner ist bereits in der Synchronisierung des übergeordneten Ordners enthalten, was zu doppelten Uploads führen kann</string>
+    <string name="auto_upload_sync_now_action">Jetzt synchronisieren</string>
+    <string name="auto_upload_sync_now_no_folder">Für das automatische Hochladen ist kein Ordner eingerichtet</string>
+    <string name="auto_upload_sync_now_running">Automatisches Hochladen läuft bereits</string>
+    <string name="auto_upload_sync_now_started">Automatisches Hochladen gestartet</string>
     <string name="auto_upload_wifi_only_warning_info">Warte auf WLAN für den Beginn des Hochladens</string>
     <string name="auto_upload_worker_start_text">Lade Dateien von %1$s nach %2$s hoch</string>
     <string name="autoupload_configure">Einrichten</string>
@@ -623,6 +628,7 @@
     <string name="manage_space_clear_data">Daten löschen</string>
     <string name="manage_space_description">Einstellungen, Datenbank und Serverzertifikate von %1$s\'s Daten werden dauerhaft gelöscht.\n\nHerunter geladene Dateien bleiben unangetastet.\n\nDieser Vorgang kann eine Zeit dauern.</string>
     <string name="manage_space_title">Verwalte Speicherplatz</string>
+    <string name="manage_tags">Schlagworte verwalten</string>
     <string name="media_err_invalid_progressive_playback">Die Mediendatei kann nicht gestreamt werden</string>
     <string name="media_err_io">Die Mediendatei konnte nicht gelesen werden</string>
     <string name="media_err_malformed">Mediendatei ist nicht korrekt encodiert</string>
@@ -841,6 +847,7 @@
     <string name="remove_notification_failed">Benachrichtigungen konnten nicht entfernt werden</string>
     <string name="remove_push_notification">Entfernen</string>
     <string name="remove_success_msg">Gelöscht</string>
+    <string name="rename_dialog_button">Umbenennen</string>
     <string name="rename_dialog_title">Geben Sie einen neuen Namen ein</string>
     <string name="rename_local_fail_msg">Die lokale Kopie konnte nicht umbenannt werden. Versuche es mit einem anderen Namen.</string>
     <string name="rename_server_fail_msg">Umbenennen nicht möglich. Der Name wird bereits verwendet.</string>

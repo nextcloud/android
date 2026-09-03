@@ -32,6 +32,9 @@
     <string name="add_new_public_share">افزودن پیوند اشتراک‌گذاری عمومی جدید</string>
     <string name="add_new_secure_file_drop">یک دراپ فایل امن جدید اضافه کنید.</string>
     <string name="add_to_cloud">افزودن به %1$s</string>
+    <string name="album_delete">حذف آلبوم</string>
+    <string name="album_rename_conflict">این نام قبلاً استفاده شده است.</string>
+    <string name="album_share">اشتراک‌گذاری آلبوم</string>
     <string name="app_config_base_url_title">بی‌یوآرال</string>
     <string name="app_config_disable_clipboard_title">غیرفعال کردن کلیپ‌بورد</string>
     <string name="app_config_disable_intro_title">غیرفعال‌سازی معرفی</string>
@@ -248,6 +251,7 @@
     <string name="could_not_retrieve_shares">امکان بازگردانی اشتراک‌گذاری‌ها وجود ندارد</string>
     <string name="could_not_retrieve_url">URL قابل بازیابی نیست</string>
     <string name="create">ساخت</string>
+    <string name="create_album_dialog_title">آلبوم جدید</string>
     <string name="create_dir_fail_msg">امکان ساخت پوشه وجود ندارد</string>
     <string name="create_document">سند</string>
     <string name="create_end_to_end_encrypted_share">اشتراک پیوندی</string>
@@ -420,6 +424,7 @@
     <string name="fab_label">اضافه یا بارگذاری کنید</string>
     <string name="failed_to_create_conflict_dialog">ایجاد دیالوگ تعارض ناموفق بود</string>
     <string name="failed_to_download">ارسال فایل برای مدیر بارگیری انجام نشد</string>
+    <string name="failed_to_load_tags">بارگذاری برچسب‌ها انجام نشد</string>
     <string name="failed_to_print">چاپ پرونده انجام نشد</string>
     <string name="failed_to_start_action">اقدام شروع نشد!</string>
     <string name="failed_to_start_editor">ویرایشگر شروع نشد</string>
@@ -614,6 +619,7 @@
     <string name="manage_space_clear_data">پاک‌سازی اطلاعات</string>
     <string name="manage_space_description">تنظیمات، پایگاه داده و گواهی‌های سرور از داده‌های %1$s برای همیشه حذف خواهند شد. فایل‌های دریافت‌شده دست‌نخورده باقی می‌مانند. این فرایند ممکن است زمان‌بر باشد.</string>
     <string name="manage_space_title">مدیریت فضا</string>
+    <string name="manage_tags">مدیریت برچسب ها</string>
     <string name="media_err_invalid_progressive_playback">پرونده رسانه قابل پخش جریانی نیست</string>
     <string name="media_err_io">فایل رسانه‌ای قابل خواندن نیست</string>
     <string name="media_err_malformed">فایل رسانه دارای کدگذاری نادرست است</string>
@@ -824,6 +830,7 @@
     <string name="reload">بارگیری مجدد</string>
     <string name="remote">(از راه دور)</string>
     <string name="remote_file_fetch_failed">یافتن پرونده انجام نشد</string>
+    <string name="remove">حذف</string>
     <string name="remove_e2e">می‌توانید رمزگذاری سرتاسری را به‌صورت محلی در این سرویس‌گیرنده حذف کنید.</string>
     <string name="remove_e2e_keys_and_files_dialog_warning">این عملیات تمام فایل‌های رمزگذاری‌شده، کلیدهای خصوصی و عمومی را حذف خواهد کرد. آیا مطمئن هستید؟</string>
     <string name="remove_e2e_message">می‌توانید رمزگذاری سرتاسری را به‌صورت محلی در این سرویس‌گیرنده حذف کنید. فایل‌های رمزگذاری‌شده روی سرور باقی می‌مانند، اما دیگر با این رایانه همگام‌سازی نمی‌شوند.</string>
@@ -833,6 +840,7 @@
     <string name="remove_notification_failed">حذف اعلان انجام نشد.</string>
     <string name="remove_push_notification">حذف</string>
     <string name="remove_success_msg">حذف‌شده</string>
+    <string name="rename_dialog_button">تغییرنام</string>
     <string name="rename_dialog_title">نام جدید را وارد کنید</string>
     <string name="rename_local_fail_msg">تغییر نام نسخه محلی امکان‌پذیر نیست، نام دیگری را امتحان کنید.</string>
     <string name="rename_server_fail_msg">تغییر نام ممکن نیست، این نام قبلاً استفاده شده است.</string>

@@ -29,6 +29,7 @@
     <string name="activity_icon">פעילות</string>
     <string name="add_new_public_share">הוסף קישור שיתוף ציבורי חדש</string>
     <string name="add_to_cloud">הוספה אל %1$s</string>
+    <string name="album_stop_sharing">הפסקת שיתוף</string>
     <string name="app_config_base_url_title">כתובת בסיס</string>
     <string name="app_config_proxy_port_title">פתחת מתווך</string>
     <string name="app_widget_description">מצג וידג׳ט אחד מלוח הבקרה</string>
@@ -169,6 +170,7 @@
     <string name="could_not_retrieve_shares">לא ניתן למשוך את השיתופים</string>
     <string name="could_not_retrieve_url">לא ניתן לקבל כתובת</string>
     <string name="create">יצירה</string>
+    <string name="create_album_dialog_title">אלבום חדש</string>
     <string name="create_dir_fail_msg">לא ניתן ליצור תיקייה</string>
     <string name="create_document">מסמך</string>
     <string name="create_folder">תיקייה</string>
@@ -215,6 +217,7 @@
     <string name="drawer_community">קהילה</string>
     <string name="drawer_header_background">תמונת רקע של כותרת מגירה</string>
     <string name="drawer_item_activities">פעילויות</string>
+    <string name="drawer_item_album">אלבומים</string>
     <string name="drawer_item_all_files">כל הקבצים</string>
     <string name="drawer_item_favorites">מועדפים</string>
     <string name="drawer_item_gallery">מדיה</string>
@@ -275,6 +278,7 @@
     <string name="etm_transfer_type_upload">העלאה</string>
     <string name="fab_label">הוספה או העלאה</string>
     <string name="failed_to_download">העברת הקובץ למנהל ההורדות נכשלה</string>
+    <string name="failed_to_load_tags">טעינת התגיות נכשלה</string>
     <string name="failed_to_print">הדפסת הקובץ נכשלה</string>
     <string name="failed_to_start_editor">התחלת העורך נכשלה</string>
     <string name="favorite">הוספה למועדפים</string>
@@ -386,6 +390,7 @@
     <string name="manage_space_clear_data">ניקוי מידע</string>
     <string name="manage_space_description">הגדרות, מסד נתונים ואישורי שרת של מידע %1$s ימחק לחלוטין. \n\nקבצים שירדו ישארו ללא שינוי.\n\nהתהליך ימשך זמן מה.</string>
     <string name="manage_space_title">ניהול מקום</string>
+    <string name="manage_tags">ניהול תגיות</string>
     <string name="media_err_io">לא ניתן לקרוא את קובץ המדיה</string>
     <string name="media_err_malformed">לקובץ המידע יש קידוד שגוי</string>
     <string name="media_err_timeout">הניסיון לנגן את הקובץ ארך זמן רב מדי</string>
@@ -513,10 +518,12 @@
     <string name="recommended_files_title">קבצים מומלצים</string>
     <string name="reload">טעינה מחדש</string>
     <string name="remote_file_fetch_failed">איתור הקובץ נכשל!</string>
+    <string name="remove">הסרה</string>
     <string name="remove_fail_msg">המחיקה נכשלה</string>
     <string name="remove_notification_failed">הסרת ההתראה נכשלה.</string>
     <string name="remove_push_notification">הסרה</string>
     <string name="remove_success_msg">נמחק</string>
+    <string name="rename_dialog_button">שינוי שם</string>
     <string name="rename_dialog_title">נא להזין שם חדש</string>
     <string name="rename_local_fail_msg">לא ניתן לשנות שם של עותק מקומי, נא לנסות שם אחר</string>
     <string name="rename_server_fail_msg">אי אפשר לשנות שם, השם כבר תפוס</string>

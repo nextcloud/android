@@ -32,7 +32,12 @@
     <string name="activity_icon">动态</string>
     <string name="add_new_public_share">添加新的公共共享链接</string>
     <string name="add_new_secure_file_drop">添加新的安全文件投放箱</string>
+    <string name="add_to_album">添加至相册</string>
     <string name="add_to_cloud">添加%1$s</string>
+    <string name="album_delete">删除相册</string>
+    <string name="album_rename_conflict">此名称已被使用。</string>
+    <string name="album_share">分享相册</string>
+    <string name="album_stop_sharing">停止共享</string>
     <string name="app_config_base_url_title">基础 URL</string>
     <string name="app_config_disable_clipboard_title">禁用剪贴板</string>
     <string name="app_config_disable_intro_title">禁用简介</string>
@@ -249,6 +254,7 @@
     <string name="could_not_retrieve_shares">无法检索共享</string>
     <string name="could_not_retrieve_url">无法获取地址</string>
     <string name="create">创建</string>
+    <string name="create_album_dialog_title">新相册</string>
     <string name="create_dir_fail_msg">无法创建文件夹</string>
     <string name="create_document">文档</string>
     <string name="create_end_to_end_encrypted_share">链接共享</string>
@@ -322,6 +328,7 @@
     <string name="drawer_community">社区</string>
     <string name="drawer_header_background">抽屉标题的背景图片</string>
     <string name="drawer_item_activities">动态</string>
+    <string name="drawer_item_album">相册</string>
     <string name="drawer_item_all_files">全部文件</string>
     <string name="drawer_item_assistant">助手</string>
     <string name="drawer_item_favorites">收藏</string>
@@ -423,6 +430,7 @@
     <string name="fab_label">添加或上传</string>
     <string name="failed_to_create_conflict_dialog">无法创建冲突对话框</string>
     <string name="failed_to_download">无法将文件传递给下载管理器</string>
+    <string name="failed_to_load_tags">无法加载标签</string>
     <string name="failed_to_print">打印文件已失败</string>
     <string name="failed_to_start_action">无法启动操作！</string>
     <string name="failed_to_start_editor">启动编辑器失败</string>
@@ -622,6 +630,7 @@
     <string name="manage_space_clear_data">清除数据</string>
     <string name="manage_space_description">来自%1$s数据的设置，数据库和服务器证书将被永久删除。\n\n下载的文件将保持不变。\n\n此过程可能需要一段时间。</string>
     <string name="manage_space_title">管理空间</string>
+    <string name="manage_tags">管理标签</string>
     <string name="media_err_invalid_progressive_playback">此媒体文件无法流播</string>
     <string name="media_err_io">无法读取媒体文件</string>
     <string name="media_err_malformed">媒体文件的编码不正确</string>
@@ -830,6 +839,7 @@
     <string name="reload">重新加载</string>
     <string name="remote">(远程)</string>
     <string name="remote_file_fetch_failed">查找文件失败！</string>
+    <string name="remove">移除</string>
     <string name="remove_e2e">您可以在该客户端上本地删除端对端加密</string>
     <string name="remove_e2e_keys_and_files_dialog_warning">此操作将移除所有加密文件、私钥和公钥。您确定吗？</string>
     <string name="remove_e2e_message">您可以在该客户端上本地删除端对端加密。加密文件将保留在服务器上，但不会再同步到该电脑。</string>
@@ -839,6 +849,7 @@
     <string name="remove_notification_failed">移除通知失败</string>
     <string name="remove_push_notification">移除</string>
     <string name="remove_success_msg">已删除</string>
+    <string name="rename_dialog_button">重命名</string>
     <string name="rename_dialog_title">输入一个新的名称</string>
     <string name="rename_local_fail_msg">本地副本无法重命名，尝试其他名称</string>
     <string name="rename_server_fail_msg">无法重命名，名字已经被占用</string>
@@ -875,6 +886,7 @@
     <string name="screenshot_06_davdroid_heading">日历和联系人</string>
     <string name="screenshot_06_davdroid_subline">与 DAVx⁵ 同步</string>
     <string name="search_error">获取搜索结果时出错</string>
+    <string name="search_tags">搜索标签</string>
     <string name="secure_share_not_set_up">还未为此用户设置安全共享功能</string>
     <string name="secure_share_search">安全共享…</string>
     <string name="select_all">全部选择</string>

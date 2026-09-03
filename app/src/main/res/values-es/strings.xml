@@ -33,6 +33,8 @@
     <string name="add_new_public_share">Añadir un nuevo enlace público</string>
     <string name="add_new_secure_file_drop">Añadir una nueva entrega de archivos segura</string>
     <string name="add_to_cloud">Añadir a %1$s</string>
+    <string name="album_rename_conflict">Este nombre ya está en uso.</string>
+    <string name="album_share">Compartir álbum</string>
     <string name="app_config_base_url_title">URL base</string>
     <string name="app_config_disable_clipboard_title">Deshabilitar el portapapeles</string>
     <string name="app_config_disable_intro_title">Deshabilitar la introducción</string>
@@ -249,6 +251,7 @@
     <string name="could_not_retrieve_shares">No se han podido recuperar los recursos compartidos</string>
     <string name="could_not_retrieve_url">No se ha podido recuperar la URL</string>
     <string name="create">Crear</string>
+    <string name="create_album_dialog_title">Nuevo álbum</string>
     <string name="create_dir_fail_msg">No se ha podido crear la carpeta</string>
     <string name="create_document">Documento</string>
     <string name="create_encrypted_folder">Carpeta cifrada</string>
@@ -424,6 +427,7 @@
     <string name="fab_label">Añadir o subir</string>
     <string name="failed_to_create_conflict_dialog">Fallo al crear el diálogo de conflicto</string>
     <string name="failed_to_download">Error al enviar el fichero al gestor de descargas</string>
+    <string name="failed_to_load_tags">Fallo al cargar etiquetas</string>
     <string name="failed_to_print">Fallo al imprimir el archivo</string>
     <string name="failed_to_start_action">¡Fallo al iniciar la acción!</string>
     <string name="failed_to_start_editor">Fallo al inicial el editor</string>
@@ -623,6 +627,7 @@
     <string name="manage_space_clear_data">Limpiar datos</string>
     <string name="manage_space_description">Las opciones, certificados y bases de datos de %1$s serán borrados permanentemente.\n\nLos archivos bajados no se tocarán.\n\nEste proceso tardará algún tiempo.</string>
     <string name="manage_space_title">Gestionar espacio</string>
+    <string name="manage_tags">Gestionar etiquetas</string>
     <string name="media_err_invalid_progressive_playback">El archivo multimedia no puede ser transmitido</string>
     <string name="media_err_io">El archivo de medios no se ha podido leer</string>
     <string name="media_err_malformed">El archivo de medios tiene una codificación incorrecta</string>
@@ -832,6 +837,7 @@
     <string name="reload">Volver a cargar</string>
     <string name="remote">(remoto)</string>
     <string name="remote_file_fetch_failed">¡No se pudo encontrar el archivo!</string>
+    <string name="remove">Quitar</string>
     <string name="remove_e2e">Puede eliminar el cifrado de extremo a extremo localmente en este cliente</string>
     <string name="remove_e2e_keys_and_files_dialog_warning">Esta operación eliminará todos los archivos cifrados y las claves privadas y públicas. ¿Estás seguro?</string>
     <string name="remove_e2e_message">Puede quitar el cifrado de un extremo a otro localmente en este cliente. Los archivos cifrados permanecerán en el servidor, pero ya no se sincronizarán con esta computadora.</string>
@@ -841,6 +847,7 @@
     <string name="remove_notification_failed">Fallo al quitar notificación.</string>
     <string name="remove_push_notification">Quitar</string>
     <string name="remove_success_msg">Eliminado</string>
+    <string name="rename_dialog_button">Renombrar</string>
     <string name="rename_dialog_title">Introduce un nombre nuevo</string>
     <string name="rename_local_fail_msg">No se ha podido cambiar el nombre de la copia local, prueba un nombre diferente</string>
     <string name="rename_server_fail_msg">No se ha podido dar un nombre nuevo, el nombre ya está tomado</string>

@@ -31,6 +31,10 @@
     <string name="add_new_public_share">Gehitu partekatzeko esteka berria</string>
     <string name="add_new_secure_file_drop">Gehitu fitxategi jaregite seguru berria</string>
     <string name="add_to_cloud">Gehitu %1$s</string>
+    <string name="album_delete">Ezabatu albuma</string>
+    <string name="album_rename_conflict">Izen hau dagoeneko erabiltzen ari da.</string>
+    <string name="album_share">Partekatu albuma</string>
+    <string name="album_stop_sharing">Partekatzeari utzi</string>
     <string name="app_config_base_url_title">Oinarri URLa</string>
     <string name="app_config_disable_clipboard_title">Desgaitu arbela</string>
     <string name="app_config_disable_intro_title">Desgaitu introdukzioa</string>
@@ -216,6 +220,7 @@
     <string name="could_not_retrieve_shares">Ezin izan dira partekatzeak berreskuratu</string>
     <string name="could_not_retrieve_url">Ezin izan da URLa berreskuratu</string>
     <string name="create">Sortu</string>
+    <string name="create_album_dialog_title">Album berria</string>
     <string name="create_dir_fail_msg">Ezin izan da karpeta sortu</string>
     <string name="create_document">Dokumentua</string>
     <string name="create_folder">Karpeta</string>
@@ -368,6 +373,7 @@
     <string name="external_shares">Kanpoko partekatzeak</string>
     <string name="fab_label">Gehitu edo igo</string>
     <string name="failed_to_download">Huts egin du fitxategia deskarga-kudeatzailera pasatzean</string>
+    <string name="failed_to_load_tags">Etiketak kargatzeak huts egin du</string>
     <string name="failed_to_print">Huts egin du fitxategia inprimatzean</string>
     <string name="failed_to_start_editor">Ezin izan da editorea abiatu</string>
     <string name="failed_update_ui">Erabiltzaile Interfazea (UI) eguneratzeak huts egin du</string>
@@ -544,6 +550,7 @@
     <string name="manage_space_clear_data">Garbitu datuak</string>
     <string name="manage_space_description">%1$s(r)en ezarpenak, datu-basea eta zerbitzariaren ziurtagiriak betirako ezabatuko dira.\n\n Deskargatutako fitxategiak ez dira ukituko.\n\n Prozesu honek denbora behar du.</string>
     <string name="manage_space_title">Kudeatu lekua</string>
+    <string name="manage_tags">Kudeatu etiketak</string>
     <string name="media_err_invalid_progressive_playback">Ezin da multimedia fitxategia transmititu</string>
     <string name="media_err_io">Ezin izan da multimedia fitxategia irakurri</string>
     <string name="media_err_malformed">Multimedia fitxategiak kodeketa desegokia du</string>
@@ -733,6 +740,7 @@
     <string name="reload">Birkargatu</string>
     <string name="remote">(urrunekoa)</string>
     <string name="remote_file_fetch_failed">Fitxategia bilatzeak huts egin du!</string>
+    <string name="remove">Kendu</string>
     <string name="remove_e2e">Lokalean, muturretik muturrerako enkriptatzea ken dezakezu bezero honetan</string>
     <string name="remove_e2e_message">Lokalean, muturretik muturrerako enkriptatzea ken dezakezu bezero honetan. Enkriptatutako fitxategiek zerbitzarian jarraituko dute, baina ez dira ordenagailu honekin sinkronizatuko.</string>
     <string name="remove_fail_msg">Ezabatzeak huts egin du</string>
@@ -741,6 +749,7 @@
     <string name="remove_notification_failed">Huts egin du jakinarazpena kentzean</string>
     <string name="remove_push_notification">Ezabatu</string>
     <string name="remove_success_msg">Ezabatuta</string>
+    <string name="rename_dialog_button">Berrizendatu</string>
     <string name="rename_dialog_title">Idatzi izen berri bat</string>
     <string name="rename_local_fail_msg">Ezin izan da kopia lokala berrizendatu, saiatu beste izen batekin</string>
     <string name="rename_server_fail_msg">Ezin izan da berrizendatu, izena hartua zegoen</string>

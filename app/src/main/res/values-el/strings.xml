@@ -28,6 +28,7 @@
     <string name="activity_icon">Δραστηριότητα</string>
     <string name="add_new_public_share">Προσθήκη νέου δημόσιου κοινόχρηστου συνδέσμου</string>
     <string name="add_to_cloud">Προσθήκη στο %1$s</string>
+    <string name="album_share">Διαμοιρασμός άλμπουμ</string>
     <string name="app_config_base_url_title">Βασική URL</string>
     <string name="app_config_proxy_port_title">Θύρα διαμεσολαβητή</string>
     <string name="app_widget_description">Εμφάνιση ενός γραφικού στοιχείου από τον πίνακα ελέγχου</string>
@@ -471,6 +472,7 @@
     <string name="manage_space_clear_data">Εκκαθάριση δεδομένων</string>
     <string name="manage_space_description">Τα πιστοποιητικά ρυθμίσεων, βάσης δεδομένων και διακομιστή από τα δεδομένα %1$s\'s θα διαγραφούν μόνιμα.\n\nΤα ληφθέντα αρχεία θα παραμείνουν ανέπαφα.\n\nΑυτή η διαδικασία ενδεχομένως να διαρκέσει αρκετά.</string>
     <string name="manage_space_title">Διαχείριση χώρου</string>
+    <string name="manage_tags">Διαχείριση ετικετών</string>
     <string name="media_err_invalid_progressive_playback">Το αρχείο πολυμέσων δεν μπορεί να μεταδοθεί</string>
     <string name="media_err_io">Αδυναμία ανάγνωσης αρχείου πολυμέσων</string>
     <string name="media_err_malformed">Εσφαλμένη κωδικοποίηση αρχείου πολυμέσων</string>
@@ -630,6 +632,7 @@
     <string name="remove_notification_failed">Αποτυχία αφαίρεσης της ειδοποίησης.</string>
     <string name="remove_push_notification">Αφαίρεση</string>
     <string name="remove_success_msg">Διαγράφηκε</string>
+    <string name="rename_dialog_button">Μετονομασία</string>
     <string name="rename_dialog_title">Εισάγετε νέο όνομα</string>
     <string name="rename_local_fail_msg">Αδυναμία μετονομασίας τοπικού αντιγράφου, δοκιμάστε διαφορετικό όνομα</string>
     <string name="rename_server_fail_msg">Αδύνατη μετονομασία, το όνομα έχει ήδη δοθεί</string>
