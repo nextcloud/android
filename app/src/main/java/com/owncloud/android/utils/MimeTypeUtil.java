@@ -330,6 +330,27 @@ public final class MimeTypeUtil {
         return isPDF(file.getMimeType()) || isPDF(getMimeTypeFromPath(file.getRemotePath()));
     }
 
+    public static boolean isZip(String mimeType) {
+        if (mimeType == null) {
+            return false;
+        }
+        String lower = mimeType.toLowerCase(Locale.ROOT);
+        return lower.equals("application/zip")
+            || lower.equals("application/x-7z-compressed")
+            || lower.equals("application/x-bzip2")
+            || lower.equals("application/x-compressed")
+            || lower.equals("application/x-deb")
+            || lower.equals("application/gzip")
+            || lower.equals("application/x-gzip")
+            || lower.equals("application/x-rar-compressed")
+            || lower.equals("application/x-tar")
+            || lower.equals("application/vnd.android.package-archive");
+    }
+
+    public static boolean isZip(ServerFileInterface file) {
+        return isZip(file.getMimeType());
+    }
+
     /**
      * Extracts the mime type for the given file.
      *

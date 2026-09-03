@@ -585,6 +585,9 @@ public final class ThumbnailsCacheManager {
             String imageKey = FileExtensionsKt.getSmallThumbnailKey(file);
 
             boolean updateEnforced = (file instanceof OCFile && ((OCFile) file).isUpdateThumbnailNeeded());
+            if (MimeTypeUtil.isZip(file)) {
+                return null;
+            }
 
             // Try to load thumbnail from disk cache
             if (!updateEnforced) {
