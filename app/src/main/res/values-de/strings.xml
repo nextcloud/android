@@ -35,10 +35,22 @@
     <string name="add_new_secure_file_drop">Neue sichere Dateiablage hinzufügen</string>
     <string name="add_to_album">Zum Album hinzufügen</string>
     <string name="add_to_cloud">Hinzufügen zu %1$s</string>
+    <string name="album_already_exists">Album existiert bereits</string>
+    <string name="album_copy_file_conflict">Existiert bereits</string>
+    <string name="album_create_new_link">Neuen Link erstellen</string>
+    <string name="album_default_sharing_text">Jeder kann nur ansehen</string>
     <string name="album_delete">Album löschen</string>
+    <string name="album_delete_failed_message">Einige der Dateien konnten nicht gelöscht werden.</string>
+    <string name="album_file_added_message">Datei hinzugefügt</string>
+    <string name="album_name_empty">Albumname darf nicht leer sein</string>
+    <string name="album_picker_toolbar_title">Album auswählen</string>
+    <string name="album_rename">Album umbenennen</string>
     <string name="album_rename_conflict">Dieser Name wird bereits verwendet.</string>
     <string name="album_share">Album teilen</string>
+    <string name="album_share_link">Link zum Album teilen</string>
     <string name="album_stop_sharing">Freigabe löschen</string>
+    <string name="album_unsupported_file">Nicht unterstützte Medien</string>
+    <string name="album_upload_from_account">Wähle Bilder vom Konto aus</string>
     <string name="app_config_base_url_title">Basis-URL</string>
     <string name="app_config_disable_clipboard_title">Zwischenablage deaktivieren</string>
     <string name="app_config_disable_intro_title">Intro deaktivieren</string>
@@ -220,7 +232,9 @@
     <string name="configure_new_media_folder_detection_notifications">Konfigurieren</string>
     <string name="confirm_removal">Lokale Verschlüsselung entfernen</string>
     <string name="confirmation_remove_file_alert">Soll %1$s gelöscht werden?</string>
+    <string name="confirmation_remove_file_from_album_message">Soll die Datei %1$s aus dem Album entfernt werden?</string>
     <string name="confirmation_remove_files_alert">Sollen die ausgewählten Elemente gelöscht werden?</string>
+    <string name="confirmation_remove_files_from_album_message">Sollen die ausgewählten Dateien aus dem Album entfernt werden?</string>
     <string name="confirmation_remove_folder_alert">Soll %1$s und deren Inhalte gelöscht werden?</string>
     <string name="confirmation_remove_folders_alert">Sollen die ausgewählten Elemente und deren Inhalt gelöscht werden?</string>
     <string name="confirmation_remove_local">Nur lokal</string>
@@ -259,6 +273,7 @@
     <string name="could_not_retrieve_shares">Freigaben konnten nicht abgerufen werden</string>
     <string name="could_not_retrieve_url">URL konnte nicht abgerufen werden</string>
     <string name="create">Erstellen</string>
+    <string name="create_album_dialog_message">Den neuen Albumnamen eingeben</string>
     <string name="create_album_dialog_title">Neues Album</string>
     <string name="create_dir_fail_msg">Verzeichnis konnte nicht erstellt werden</string>
     <string name="create_document">Dokument</string>
@@ -276,6 +291,7 @@
     <string name="create_presentation">Präsentation</string>
     <string name="create_rich_workspace">Ordnerbeschreibung hinzufügen</string>
     <string name="create_spreadsheet">Tabellenkalkulation</string>
+    <string name="create_tag_format">Schlagwort erstellen: \"%1$s\"</string>
     <string name="credentials_disabled">Zugangsdaten ausgeschaltet</string>
     <string name="daily_backup">Tägliche Sicherung</string>
     <string name="data_to_back_up">Zu sichernde Daten</string>
@@ -364,6 +380,8 @@
     <string name="ecosystem_apps_more">Weitere Nextcloud-Apps</string>
     <string name="editor_web_view_cannot_open_file">Dateiauswahl konnte nicht geöffnet werden</string>
     <string name="email_pick_failed">E-Mail-Adresse konnte nicht ausgewählt werden.</string>
+    <string name="empty_albums_message">Sie können alle Ihre Fotos in so vielen Alben organisieren, wie Sie möchten. Sie haben noch kein Album erstellt.</string>
+    <string name="empty_albums_title">Alben für Ihre Fotos erstellen</string>
     <string name="encrypted">Als verschlüsselt festlegen</string>
     <string name="end_to_end_encryption_certificate_unavailable">Serverzertifikat kann nicht abgerufen werden</string>
     <string name="end_to_end_encryption_certificate_verification_failed">Der öffentliche Schlüssel konnte nicht verifiziert werden</string>
@@ -645,6 +663,7 @@
     <string name="media_err_unsupported">Medien-Codec wird nicht unterstützt</string>
     <string name="media_forward_description">Vorspulknopf</string>
     <string name="media_notif_ticker">%1$s Musik Player</string>
+    <string name="media_picker_toolbar_title">Mediendateien auswählen</string>
     <string name="media_play_pause_description">Wiedergabe-/Pause Knopf</string>
     <string name="media_player_pause">Pausieren</string>
     <string name="media_player_play">Spielen</string>
@@ -856,6 +875,7 @@
     <string name="remove_notification_failed">Benachrichtigungen konnten nicht entfernt werden</string>
     <string name="remove_push_notification">Entfernen</string>
     <string name="remove_success_msg">Gelöscht</string>
+    <string name="rename_album_dialog_title">Album umbenennen</string>
     <string name="rename_dialog_button">Umbenennen</string>
     <string name="rename_dialog_title">Geben Sie einen neuen Namen ein</string>
     <string name="rename_local_fail_msg">Die lokale Kopie konnte nicht umbenannt werden. Versuche es mit einem anderen Namen.</string>
@@ -1251,6 +1271,14 @@
     <string name="write_email">E-Mail senden</string>
     <string name="wrong_storage_path">Speicherordner existiert nicht!</string>
     <string name="wrong_storage_path_desc">Ursache könnte die Wiederherstellung einer Sicherungskopie auf einem anderen Gerät sein. Der Standard-Ordner wird jetzt wieder verwendet. Bitte überprüfen Sie die Einstellungen bezüglich des Speicherortes.</string>
+    <plurals name="album_items_text">
+        <item quantity="one">%1$d Element — %2$s</item>
+        <item quantity="other">%1$d Elemente — %2$s</item>
+    </plurals>
+    <plurals name="album_elements_text">
+        <item quantity="one">%d Element</item>
+        <item quantity="other">%d Elemente</item>
+    </plurals>
     <plurals name="hours">
         <item quantity="one">%d Stunde</item>
         <item quantity="other">%d Stunden</item>
