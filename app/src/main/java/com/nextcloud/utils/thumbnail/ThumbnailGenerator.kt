@@ -8,7 +8,6 @@
 package com.nextcloud.utils.thumbnail
 
 import android.widget.ImageView
-import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.owncloud.android.datamodel.OCFile
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -18,17 +17,15 @@ class ThumbnailGenerator @Inject constructor(
     val fileThumbnailGenerator: FileThumbnailGenerator,
     val folderThumbnailGenerator: FolderThumbnailGenerator
 ) {
-
-    @JvmOverloads
-    fun setThumbnail(ocFile: OCFile?, view: ImageView?, isGrid: Boolean = false, shimmer: LoaderImageView? = null) {
+    fun setThumbnail(ocFile: OCFile?, view: ImageView?, arguments: ThumbnailArguments = ThumbnailArguments.none) {
         if (ocFile == null || view == null) {
             return
         }
 
         when {
             ocFile.isOfflineOperation -> fileThumbnailGenerator.setOfflineOperationThumbnail(ocFile, view)
-            ocFile.isFolder -> folderThumbnailGenerator.setFolderThumbnail(ocFile, view, shimmer)
-            else -> fileThumbnailGenerator.setThumbnail(ocFile, view, isGrid, shimmer)
+            ocFile.isFolder -> folderThumbnailGenerator.setFolderThumbnail(ocFile, view, arguments.shimmer)
+            else -> fileThumbnailGenerator.setThumbnail(ocFile, view, arguments)
         }
     }
 }

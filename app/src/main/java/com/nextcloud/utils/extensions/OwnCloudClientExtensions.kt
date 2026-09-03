@@ -27,3 +27,10 @@ fun OwnCloudClient.getPreviewEndpoint(localFileId: Long, x: Int, y: Int): String
     localFileId +
     "&x=" + (x / 2) + "&y=" + (y / 2) +
     "&a=1&mode=cover&forceIcon=0"
+
+fun OwnCloudClient.getVideoPreviewEndpoint(localFileId: Long, size: Int): String = baseUri
+    .toString() +
+    "/index.php/core/preview?fileId=" +
+    localFileId +
+    "&x=" + size + "&y=" + size +
+    "&a=1&forceIcon=0"

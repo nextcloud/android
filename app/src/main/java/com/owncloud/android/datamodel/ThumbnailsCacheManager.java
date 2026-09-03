@@ -7,6 +7,7 @@
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2015 ownCloud Inc.
  * SPDX-FileCopyrightText: 2014 David A. Velasco <dvelasco@solidgear.es>
+ * SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
 package com.owncloud.android.datamodel;
@@ -88,6 +89,7 @@ import static com.nextcloud.utils.extensions.ThumbnailsCacheManagerExtensionsKt.
  */
 public final class ThumbnailsCacheManager {
     private static final int READ_TIMEOUT = 40000;
+    private static final int[] VIDEO_PREVIEW_SIZES = {1024, 512, 256, 128, 64};
     private static final int CONNECTION_TIMEOUT = 5000;
 
     /** Cache key prefix {@code <prefix><remoteId>}; sized from {@link #getScreenDimension()}. */
@@ -437,6 +439,7 @@ public final class ThumbnailsCacheManager {
         private GetMethod getMethod;
         private Listener mListener;
         private boolean gridViewEnabled = false;
+        private boolean hideVideoOverlay = false;
 
         public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager, User user)
                 throws IllegalArgumentException {
@@ -461,11 +464,13 @@ public final class ThumbnailsCacheManager {
                                        User user,
                                        List<ThumbnailGenerationTask> asyncTasks,
                                        boolean gridViewEnabled,
-                                       String imageKey)
+                                       String imageKey,
+                                       boolean hideVideoOverlay)
             throws IllegalArgumentException {
             this(imageView, storageManager, user, asyncTasks);
             this.gridViewEnabled = gridViewEnabled;
             mImageKey = imageKey;
+            this.hideVideoOverlay = hideVideoOverlay;
         }
 
         public GetMethod getGetMethod() {
@@ -508,7 +513,7 @@ public final class ThumbnailsCacheManager {
                 if (mFile instanceof ServerFileInterface) {
                     thumbnail = doThumbnailFromOCFileInBackground();
 
-                    if (MimeTypeUtil.isVideo((ServerFileInterface) mFile) && thumbnail != null) {
+                    if (MimeTypeUtil.isVideo((ServerFileInterface) mFile) && thumbnail != null && !hideVideoOverlay) {
                         thumbnail = addVideoOverlay(thumbnail, MainApp.getAppContext());
                     }
                 } else if (mFile instanceof File) {
@@ -517,7 +522,7 @@ public final class ThumbnailsCacheManager {
                     String url = ((File) mFile).getAbsolutePath();
                     String mMimeType = FileStorageUtils.getMimeTypeFromName(url);
 
-                    if (MimeTypeUtil.isVideo(mMimeType) && thumbnail != null) {
+                    if (MimeTypeUtil.isVideo(mMimeType) && thumbnail != null && !hideVideoOverlay) {
                         thumbnail = addVideoOverlay(thumbnail, MainApp.getAppContext());
                     }
                     //} else {  do nothing
@@ -1267,6 +1272,52 @@ public final class ThumbnailsCacheManager {
         }
     }
 
+    private static Bitmap downloadVideoPreview(OCFile file) {
+        for (int size : VIDEO_PREVIEW_SIZES) {
+            Bitmap preview = downloadPreview(file,
+                                             OwnCloudClientExtensionsKt.getVideoPreviewEndpoint(mClient,
+                                                                                                file.getLocalId(),
+                                                                                                size));
+            if (preview != null) {
+                return preview;
+            }
+        }
+
+        return null;
+    }
+
+    private static Bitmap downloadPreview(OCFile file, String uri) {
+        Log_OC.d(TAG, "generating resized image: " + file.getFileName() + " URI: " + uri);
+
+        GetMethod getMethod = null;
+
+        try {
+            getMethod = new GetMethod(uri);
+            getMethod.getParams().setSoTimeout(READ_TIMEOUT);
+
+            int status = mClient.executeMethod(getMethod);
+            if (status != HttpStatus.SC_OK) {
+                Log_OC.e(TAG, "cannot generate thumbnail not supported file type, status: " + status
+                    + " file: " + file.getRemotePath());
+                mClient.exhaustResponse(getMethod.getResponseBodyAsStream());
+                return null;
+            }
+
+            try (InputStream inputStream = getMethod.getResponseBodyAsStream()) {
+                Bitmap preview = BitmapFactory.decodeStream(inputStream);
+                Log_OC.d(TAG, "resized image generated");
+                return preview;
+            }
+        } catch (Exception e) {
+            Log_OC.e(TAG, "doResizedBitmap: ", e);
+            return null;
+        } finally {
+            if (getMethod != null) {
+                getMethod.releaseConnection();
+            }
+        }
+    }
+
     @VisibleForTesting
     public static void clearCache() {
         synchronized (mThumbnailsDiskCacheLock) {
@@ -1306,39 +1357,20 @@ public final class ThumbnailsCacheManager {
                 file.setUpdateThumbnailNeeded(false);
             }
         } else if (mClient != null) {
-            GetMethod getMethod = null;
+            thumbnail = MimeTypeUtil.isVideo(file)
+                ? downloadVideoPreview(file)
+                : downloadPreview(file,
+                                  OwnCloudClientExtensionsKt.getPreviewEndpoint(mClient,
+                                                                                file.getLocalId(),
+                                                                                pxW,
+                                                                                pxH));
 
-            try {
-                String uri = OwnCloudClientExtensionsKt.getPreviewEndpoint(mClient, file.getLocalId(), pxW, pxH);
-                Log_OC.d(TAG, "generating resized image: " + file.getFileName() + " URI: " + uri);
+            if (thumbnail != null && PNG_MIMETYPE.equalsIgnoreCase(file.getMimeType())) {
+                thumbnail = handlePNG(thumbnail, thumbnail.getWidth(), thumbnail.getHeight());
+            }
 
-                getMethod = new GetMethod(uri);
-                getMethod.getParams().setSoTimeout(READ_TIMEOUT);
-
-                int status = mClient.executeMethod(getMethod);
-                if (status == HttpStatus.SC_OK) {
-                    try (InputStream inputStream = getMethod.getResponseBodyAsStream()) {
-                        thumbnail = BitmapFactory.decodeStream(inputStream);
-                        Log_OC.d(TAG, "resized image generated");
-                    }
-                } else {
-                    Log_OC.e(TAG, "cannot generate thumbnail not supported file type, status: " + status + " file: " + file.getRemotePath());
-                    mClient.exhaustResponse(getMethod.getResponseBodyAsStream());
-                }
-
-                if (thumbnail != null && PNG_MIMETYPE.equalsIgnoreCase(file.getMimeType())) {
-                    thumbnail = handlePNG(thumbnail, thumbnail.getWidth(), thumbnail.getHeight());
-                }
-
-                if (thumbnail != null) {
-                    addBitmapToCache(imageKey, thumbnail);
-                }
-            } catch (Exception e) {
-                Log_OC.e(TAG, "doResizedBitmap: ", e);
-            } finally {
-                if (getMethod != null) {
-                    getMethod.releaseConnection();
-                }
+            if (thumbnail != null) {
+                addBitmapToCache(imageKey, thumbnail);
             }
         }
 

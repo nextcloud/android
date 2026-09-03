@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2024 TSI-mc <surinder.kumar@t-systems.com>
+ * SPDX-FileCopyrightText: 2024-2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
@@ -31,8 +31,10 @@ import com.nextcloud.ui.ChooseStorageLocationDialogFragment;
 import com.nextcloud.ui.fileInfo.FileInfoFragment;
 import com.nextcloud.ui.SetOnlineStatusBottomSheet;
 import com.nextcloud.ui.SetStatusMessageBottomSheet;
+import com.nextcloud.ui.albumItemActions.AlbumItemActionsBottomSheet;
 import com.nextcloud.ui.composeActivity.ComposeActivity;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
+import com.nextcloud.ui.tags.TagManagementBottomSheet;
 import com.nextcloud.ui.trashbinFileActions.TrashbinFileActionsBottomSheet;
 import com.nmc.android.ui.LauncherActivity;
 import com.owncloud.android.MainApp;
@@ -46,6 +48,7 @@ import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 import com.owncloud.android.services.AccountManagerService;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.syncadapter.FileSyncService;
+import com.owncloud.android.ui.activity.AlbumsPickerActivity;
 import com.owncloud.android.ui.activity.BaseActivity;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
@@ -79,6 +82,7 @@ import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog;
+import com.owncloud.android.ui.dialog.CreateAlbumDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
@@ -113,6 +117,9 @@ import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.SharedListFragment;
 import com.owncloud.android.ui.fragment.UnifiedSearchFragment;
+import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment;
+import com.owncloud.android.ui.fragment.albums.bottomsheet.AlbumSharingBottomSheet;
+import com.owncloud.android.ui.fragment.albums.AlbumsFragment;
 import com.owncloud.android.ui.fragment.community.CommunityFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.BackupFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment;
@@ -508,8 +515,29 @@ abstract class ComponentsModule {
     abstract SetStatusMessageBottomSheet setStatusMessageBottomSheet();
 
     @ContributesAndroidInjector
+    abstract TagManagementBottomSheet tagManagementBottomSheet();
+
+    @ContributesAndroidInjector
     abstract NavigatorActivity navigatorActivity();
 
     @ContributesAndroidInjector
     abstract CommunityFragment communityFragment();
+
+    @ContributesAndroidInjector
+    abstract AlbumsPickerActivity albumsPickerActivity();
+
+    @ContributesAndroidInjector
+    abstract CreateAlbumDialogFragment createAlbumDialogFragment();
+
+    @ContributesAndroidInjector
+    abstract AlbumsFragment albumsFragment();
+
+    @ContributesAndroidInjector
+    abstract AlbumItemsFragment albumItemsFragment();
+
+    @ContributesAndroidInjector
+    abstract AlbumItemActionsBottomSheet albumItemActionsBottomSheet();
+
+    @ContributesAndroidInjector
+    abstract AlbumSharingBottomSheet albumSharingBottomSheet();
 }

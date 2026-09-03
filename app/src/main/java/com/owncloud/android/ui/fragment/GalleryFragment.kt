@@ -9,6 +9,7 @@
  */
 package com.owncloud.android.ui.fragment
 
+import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -32,8 +33,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.utils.extensions.getGalleryItemsPageSuspended
 import com.nextcloud.utils.extensions.getParcelableArgument
-import kotlinx.coroutines.Job
 import com.nextcloud.utils.extensions.getTypedActivity
+import com.nextcloud.utils.extensions.isLandscape
 import com.nextcloud.utils.extensions.toGalleryItems
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
@@ -42,6 +43,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.EmptyRecyclerView
+import com.owncloud.android.ui.activity.AlbumsPickerActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.activity.FolderPickerActivity
 import com.owncloud.android.ui.activity.ToolbarActivity
@@ -50,7 +52,9 @@ import com.owncloud.android.ui.adapter.GalleryAdapter
 import com.owncloud.android.ui.asynctasks.GallerySearchTask
 import com.owncloud.android.ui.events.ChangeMenuEvent
 import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog.MediaState
+import com.owncloud.android.ui.fragment.helper.ColumnCount
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -72,18 +76,24 @@ class GalleryFragment :
     override var columnsCount: Int = 0
         private set
 
+    private var isFromAlbum = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         searchFragment = true
-
-        setupBottomSheet()
-        setupColumnCount()
+        arguments?.let {
+            isFromAlbum = it.getBoolean(AlbumsPickerActivity.EXTRA_FROM_ALBUM, false)
+        }
+        bottomSheet = GalleryFragmentBottomSheetDialog()
+        columnsCount = ColumnCount.Wide.get(resources.isLandscape())
         registerRefreshSearchEventReceiver()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        addMenuProvider()
+        if (!isFromAlbum) {
+            addMenuProvider()
+        }
     }
 
     private fun addMenuProvider() {
@@ -97,31 +107,21 @@ class GalleryFragment :
                 }
 
                 override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                    if (menuItem.itemId == R.id.action_three_dot_icon && bottomSheet != null) {
-                        showBottomSheet()
-                        return true
+                    val sheet = bottomSheet ?: return false
+                    if (menuItem.itemId != R.id.action_three_dot_icon) {
+                        return false
                     }
 
-                    return false
+                    if (!sheet.isVisible) {
+                        sheet.show(childFragmentManager, FRAGMENT_TAG_BOTTOM_SHEET)
+                    }
+
+                    return true
                 }
             },
             viewLifecycleOwner,
             Lifecycle.State.RESUMED
         )
-    }
-
-    private fun setupBottomSheet() {
-        if (bottomSheet == null) {
-            bottomSheet = GalleryFragmentBottomSheetDialog()
-        }
-    }
-
-    private fun setupColumnCount() {
-        columnsCount = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            MAX_LANDSCAPE_COLUMN_SIZE
-        } else {
-            MAX_PORTRAIT_COLUMN_SIZE
-        }
     }
 
     private fun registerRefreshSearchEventReceiver() {
@@ -154,6 +154,7 @@ class GalleryFragment :
         photoSearchTask?.cancel()
         savedScrollState = recyclerView?.layoutManager?.onSaveInstanceState()
         savedLoadedItemCount = loadedItemCount
+        savedMediaState = bottomSheet?.currMediaState
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -177,6 +178,9 @@ class GalleryFragment :
         menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_GRID_AND_SORT
         requireActivity().invalidateOptionsMenu()
 
+        if (savedMediaState != null) {
+            bottomSheet?.currMediaState = savedMediaState!!
+        }
         updateSubtitle(bottomSheet?.currMediaState)
 
         // Restore the previously loaded window so a saved scroll position still resolves to a valid item.
@@ -191,7 +195,6 @@ class GalleryFragment :
             requireContext(),
             accountManager.user,
             this,
-            preferences,
             mContainerActivity,
             viewThemeUtils,
             this.columnsCount,
@@ -213,13 +216,7 @@ class GalleryFragment :
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            columnsCount = MAX_LANDSCAPE_COLUMN_SIZE
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            columnsCount = MAX_PORTRAIT_COLUMN_SIZE
-        }
-
+        columnsCount = ColumnCount.Wide.get(newConfig.isLandscape())
         adapter?.changeColumn(columnsCount)
         showAllGalleryItems()
     }
@@ -290,12 +287,6 @@ class GalleryFragment :
         Log_OC.d(this, "End gallery search")
     }
 
-    private fun showBottomSheet() {
-        if (bottomSheet?.isVisible == false) {
-            bottomSheet?.show(getChildFragmentManager(), FRAGMENT_TAG_BOTTOM_SHEET)
-        }
-    }
-
     override fun selectMediaFolder() {
         val intent = Intent(requireActivity(), FolderPickerActivity::class.java).apply {
             putExtra(FolderPickerActivity.EXTRA_ACTION, FolderPickerActivity.CHOOSE_LOCATION)
@@ -306,7 +297,7 @@ class GalleryFragment :
     private val folderPickerLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        if (result.resultCode == android.app.Activity.RESULT_OK) {
+        if (result.resultCode == Activity.RESULT_OK) {
             val data = result.data
             val chosenFolder = data?.getParcelableArgument(FolderPickerActivity.EXTRA_FOLDER, OCFile::class.java)
 
@@ -321,7 +312,7 @@ class GalleryFragment :
         // TODO: Fix folder change, it seems it doesn't work at all
         loadedItemCount = INITIAL_GALLERY_WINDOW
         restoreScrollPending = false
-        clearSavedScrollState()
+        clearSavedViewState()
         endDate = System.currentTimeMillis() / 1000
         isPhotoSearchQueryRunning = true
         runGallerySearchTask()
@@ -393,7 +384,7 @@ class GalleryFragment :
     override fun updateMediaContent(mediaState: MediaState) {
         loadedItemCount = INITIAL_GALLERY_WINDOW
         restoreScrollPending = false
-        clearSavedScrollState()
+        clearSavedViewState()
         showAllGalleryItems()
     }
 
@@ -437,7 +428,7 @@ class GalleryFragment :
 
     private fun updateSubtitle(mediaState: MediaState?) {
         val toolbarActivity = getTypedActivity(ToolbarActivity::class.java)
-        if (!isAdded || toolbarActivity == null) {
+        if (!isAdded || toolbarActivity == null || isFromAlbum) {
             return
         }
 
@@ -464,6 +455,16 @@ class GalleryFragment :
         }
     }
 
+    fun addImagesToAlbum(checkedFiles: Set<OCFile>) {
+        if (!isFromAlbum) {
+            return
+        }
+
+        getTypedActivity(AlbumsPickerActivity::class.java)?.addFilesToAlbum(checkedFiles)
+        exitSelectionMode()
+        requireActivity().finish()
+    }
+
     override fun setGridViewColumns(scaleFactor: Float) = Unit
 
     fun markAsFavorite(remotePath: String, favorite: Boolean) {
@@ -481,17 +482,16 @@ class GalleryFragment :
 
         const val REFRESH_SEARCH_EVENT_RECEIVER: String = "refreshSearchEventReceiver"
 
-        private const val MAX_LANDSCAPE_COLUMN_SIZE = 5
-        private const val MAX_PORTRAIT_COLUMN_SIZE = 2
-
         // Kept across the activity recreation that happens when returning from the media preview,
         // so the grid reopens at the same scroll position and with the same loaded window.
         private var savedScrollState: Parcelable? = null
         private var savedLoadedItemCount: Int? = null
+        private var savedMediaState: MediaState? = null
 
-        fun clearSavedScrollState() {
+        fun clearSavedViewState() {
             savedScrollState = null
             savedLoadedItemCount = null
+            savedMediaState = null
         }
     }
 }

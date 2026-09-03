@@ -10,6 +10,7 @@ package com.owncloud.android.ui.adapter
 import android.content.Context
 import android.view.View
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
+import com.nextcloud.utils.thumbnail.ThumbnailArguments
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.databinding.UnifiedSearchCurrentDirectoryItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -41,7 +42,11 @@ class UnifiedSearchCurrentDirItemViewHolder(
             binding.filename.text = filename
         }
 
-        thumbnailGenerator.setThumbnail(file, binding.thumbnail, shimmer = binding.thumbnailShimmer)
+        thumbnailGenerator.setThumbnail(
+            file,
+            binding.thumbnail,
+            ThumbnailArguments.withShimmer(binding.thumbnailShimmer)
+        )
 
         binding.more.setOnClickListener {
             action.openFile(file.decryptedRemotePath, true)
