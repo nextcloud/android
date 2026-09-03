@@ -238,6 +238,7 @@ class PlaybackModel @Inject constructor(
         mediaSession?.player?.release()
         mediaSession?.release()
         mediaSession = null
+        notifyPlaybackUpdate()
     }
 
     fun clearVideoSurfaceView(surfaceView: SurfaceView) {
@@ -317,11 +318,18 @@ class PlaybackModel @Inject constructor(
     }
 
     private fun notifyPlaybackUpdate() {
-        val currentState = state ?: return
+        val currentState = state ?: releasedState()
         for (i in listeners.indices) {
             listeners.getOrNull(i)?.onPlaybackUpdate(currentState)
         }
     }
+
+    private fun releasedState(): PlaybackState = PlaybackState(
+        currentFiles = emptyList(),
+        currentItemState = null,
+        repeatMode = playbackSettings.repeatMode,
+        shuffle = playbackSettings.isShuffle
+    )
 
     private fun notifyPlaybackError(error: Throwable) {
         for (i in listeners.indices) {

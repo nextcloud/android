@@ -48,7 +48,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.cancel
+import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 
@@ -451,7 +451,7 @@ class OCFileListDelegate(
 
     @Suppress("TooGenericExceptionCaught")
     fun cleanup() {
-        ioScope.cancel()
+        ioScope.coroutineContext.cancelChildren()
 
         try {
             GalleryImageGenerationJob.cancelAllActiveJobs()
