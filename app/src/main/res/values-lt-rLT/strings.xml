@@ -30,9 +30,15 @@
     <string name="activity_chooser_send_file_title">Siųsti</string>
     <string name="activity_chooser_title">Siųsti nuorodą…</string>
     <string name="activity_icon">Veikla</string>
+    <string name="add_media">Pridėti mediją</string>
     <string name="add_new_public_share">Pridėti naują viešo bendrinimo nuorodą</string>
     <string name="add_new_secure_file_drop">Pridėti naują saugų failų numetimą</string>
+    <string name="add_to_album">Pridėti į albumą</string>
     <string name="add_to_cloud">Pridėti į %1$s</string>
+    <string name="album_delete">Ištrinti albumą</string>
+    <string name="album_rename_conflict">Šis pavadinimas jau yra naudojamas.</string>
+    <string name="album_share">Bendrinti albumą</string>
+    <string name="album_stop_sharing">Stabdyti dalijimąsi</string>
     <string name="app_config_base_url_title">Bazinis URL</string>
     <string name="app_config_disable_clipboard_title">Išjungti iškarpinę</string>
     <string name="app_config_disable_intro_title">Išjungti įvadą</string>
@@ -251,6 +257,7 @@
     <string name="could_not_retrieve_shares">Nepavyko gauti bendrinimų</string>
     <string name="could_not_retrieve_url">Nepavyko nuskaityti URL</string>
     <string name="create">Sukurti</string>
+    <string name="create_album_dialog_title">Naujas albumas</string>
     <string name="create_dir_fail_msg">Nepavyko sukurti failo</string>
     <string name="create_document">Dokumentas</string>
     <string name="create_encrypted_folder">Užšifruotas aplankas</string>
@@ -325,6 +332,7 @@
     <string name="drawer_community">Bendruomenė</string>
     <string name="drawer_header_background">Šoninio meniu antraštės foninis paveikslėlis</string>
     <string name="drawer_item_activities">Veiklos</string>
+    <string name="drawer_item_album">Albumai</string>
     <string name="drawer_item_all_files">Visi failai</string>
     <string name="drawer_item_assistant">Asistentas</string>
     <string name="drawer_item_favorites">Mėgstami</string>
@@ -426,6 +434,7 @@
     <string name="fab_label">Pridėti arba įkelti</string>
     <string name="failed_to_create_conflict_dialog">Nepavyko sukurti konflikto dialogo lango</string>
     <string name="failed_to_download">Nepavyko perduoti failo į atsiuntimų tvarkytuvę</string>
+    <string name="failed_to_load_tags">Nepavyko įkelti žymų</string>
     <string name="failed_to_print">Nepavyko spausdinti failo</string>
     <string name="failed_to_start_action">Nepavyko pradėti veiksmo!</string>
     <string name="failed_to_start_editor">Nepavyko paleisti redaktoriaus</string>
@@ -625,6 +634,7 @@
     <string name="manage_space_clear_data">Išvalyti duomenis</string>
     <string name="manage_space_description">Nustatymai, duomenų bazė ir serverio sertifikatai iš %1$s duomenų bus ištrinti negrįžtamai. \n\nAtsisiųsti failai bus išsaugoti.\n\nŠis procesas gali užtrukti.</string>
     <string name="manage_space_title">Tvarkyti vietą</string>
+    <string name="manage_tags">Tvarkyti žymas</string>
     <string name="media_err_invalid_progressive_playback">Medijos failas negali būti transliuojamas</string>
     <string name="media_err_io">Nepavyko perskaityti medijos failo.
 </string>
@@ -835,6 +845,7 @@
     <string name="reload">Įkelti iš naujo</string>
     <string name="remote">(nuotolinis)</string>
     <string name="remote_file_fetch_failed">Nepavyko rasti failo!</string>
+    <string name="remove">Šalinti</string>
     <string name="remove_e2e">Šiame kliente galite pašalinti visą šifravimą vietoje</string>
     <string name="remove_e2e_keys_and_files_dialog_warning">Ši operacija pašalins visus užšifruotus failus, privačius ir viešuosius raktus. Ar tikrai norite tai padaryti?</string>
     <string name="remove_e2e_message">Šiame kliente galite pašalinti ištisinį šifravimą. Užšifruoti failai liks serveryje, bet nebebus sinchronizuojami su šiuo kompiuteriu.</string>
@@ -844,6 +855,7 @@
     <string name="remove_notification_failed">Nepavyko pašalinti pranešimo.</string>
     <string name="remove_push_notification">Šalinti</string>
     <string name="remove_success_msg">Ištrinta</string>
+    <string name="rename_dialog_button">Pervadinti</string>
     <string name="rename_dialog_title">Įveskite naują pavadinimą</string>
     <string name="rename_local_fail_msg">Nepavyko pervadinti vietinės kopijos, pabandykite kitą pavadinimą</string>
     <string name="rename_server_fail_msg">Pervadinimas neįmanomas, pavadinimas jau užimtas</string>
@@ -880,6 +892,7 @@
     <string name="screenshot_06_davdroid_heading">Kalendorius ir adresatai</string>
     <string name="screenshot_06_davdroid_subline">Sinchronizavimas su DAVx⁵</string>
     <string name="search_error">Klaida gaunant paieškos rezultatus</string>
+    <string name="search_tags">Ieškoti žymų</string>
     <string name="secure_share_not_set_up">Šiam vartotojui nenustatytas saugus bendrinimas</string>
     <string name="secure_share_search">Saugus bendrinimas…</string>
     <string name="select_all">Pažymėti viską</string>

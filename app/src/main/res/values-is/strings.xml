@@ -30,7 +30,11 @@
     <string name="activity_icon">Virkni</string>
     <string name="add_new_public_share">Bæta við nýjum opinberum tengli</string>
     <string name="add_new_secure_file_drop">Bæta við nýrri öruggri sleppingu skráa</string>
+    <string name="add_to_album">Bæta í albúm</string>
     <string name="add_to_cloud">Bæta við %1$s</string>
+    <string name="album_delete">Eyða albúmi</string>
+    <string name="album_rename_conflict">Þetta nafn er nú þegar í notkun.</string>
+    <string name="album_stop_sharing">Hætta deilingu</string>
     <string name="app_config_base_url_title">Grunnslóð</string>
     <string name="app_config_disable_clipboard_title">Gera klippispjald óvirkt</string>
     <string name="app_config_disable_intro_title">Gera kynningu óvirka</string>
@@ -202,6 +206,7 @@
     <string name="contacts_preferences_no_file_found">Engin skrá fannst</string>
     <string name="contacts_preferences_something_strange_happened">Gat ekki fundið síðasta öryggisafritið þitt!</string>
     <string name="conversation_screen_title">Samtöl</string>
+    <string name="copied">Afritað</string>
     <string name="copy_file_error">Villa kom upp við að reyna að afrita þessa skrá eða möppu</string>
     <string name="copy_file_invalid_into_descendent">Ekki er hægt að afrita möppu inn í eina af undirmöppum sínum</string>
     <string name="copy_file_invalid_overwrite">Skráin er þegar til í móttökumöppunni</string>
@@ -212,6 +217,7 @@
     <string name="could_not_retrieve_shares">Tókst ekki að ná í sameignir</string>
     <string name="could_not_retrieve_url">Tókst ekki að ná í slóð</string>
     <string name="create">Búa til</string>
+    <string name="create_album_dialog_title">Nýtt albúm</string>
     <string name="create_dir_fail_msg">gat ekki búið til möppuna %1</string>
     <string name="create_document">Skjal</string>
     <string name="create_folder">Mappa</string>
@@ -280,6 +286,7 @@
     <string name="drawer_community">Samfélag</string>
     <string name="drawer_header_background">Bakgrunnsmynd á haus hliðarspjalds</string>
     <string name="drawer_item_activities">Aðgerðir</string>
+    <string name="drawer_item_album">Albúm</string>
     <string name="drawer_item_all_files">Allar skrár</string>
     <string name="drawer_item_assistant">Meðhjálpari</string>
     <string name="drawer_item_favorites">Eftirlæti</string>
@@ -374,6 +381,7 @@
     <string name="external_shares">Utanaðkomandi sameignir</string>
     <string name="fab_label">Bæta við eða senda inn</string>
     <string name="failed_to_download">Mistókst að senda skrá í niðurhalsstýringu</string>
+    <string name="failed_to_load_tags">Mistókst að hlaða inn merkjum</string>
     <string name="failed_to_print">Mistókst að prenta skrá</string>
     <string name="failed_to_start_editor">Mistókst að ræsa ritil</string>
     <string name="failed_update_ui">Mistókst að uppfæra viðmótið</string>
@@ -556,6 +564,7 @@
     <string name="manage_space_clear_data">Hreinsa gögn</string>
     <string name="manage_space_description">Stillingum, gagnagrunni og skilríkjum vefþjóns úr gögnum %1$s verður eytt endanlega. \n\nSóttar skrár verða ekki snertar.\n\nÞetta ferli getur tekið drjúga stund.</string>
     <string name="manage_space_title">Sýsla með geymslurými</string>
+    <string name="manage_tags">Sýsla með merki</string>
     <string name="media_err_invalid_progressive_playback">Ekki tókst að streyma margmiðlunarskrá</string>
     <string name="media_err_io">Gat ekki lesið margmiðlunarskrána</string>
     <string name="media_err_malformed">Margmiðlunarskráin er með ranga kóðun</string>
@@ -751,6 +760,7 @@
     <string name="reload">Endurhlaða</string>
     <string name="remote">(fjartengt)</string>
     <string name="remote_file_fetch_failed">Mistókst að finna skrá!</string>
+    <string name="remove">Fjarlægja</string>
     <string name="remove_e2e">Þú getur fjarlægt staðværa enda-í-enda dulritun úr þessu forriti</string>
     <string name="remove_e2e_message">Þú getur fjarlægt staðværa enda-í-enda dulritun úr þessu forriti. Dulrituðu skrárnar munu haldast á netþjóninum, en verða ekki lengur samstilltar við þessa tölvu.</string>
     <string name="remove_fail_msg">Mistókst að eyða</string>
@@ -759,6 +769,7 @@
     <string name="remove_notification_failed">Mistókst að fjarlægja tilkynningu.</string>
     <string name="remove_push_notification">Fjarlægja</string>
     <string name="remove_success_msg">Eytt</string>
+    <string name="rename_dialog_button">Endurnefna</string>
     <string name="rename_dialog_title">Settu inn nýtt nafn</string>
     <string name="rename_local_fail_msg">Gat endurnefnt staðvært afrit, prófaðu annað heiti</string>
     <string name="rename_server_fail_msg">Ekki hægt að endurnefna, heitið er frátekið</string>
@@ -789,6 +800,7 @@
     <string name="screenshot_06_davdroid_heading">Dagatal og tengiliðir</string>
     <string name="screenshot_06_davdroid_subline">Samstilla við DAVx⁵</string>
     <string name="search_error">Villa við að sækja leitarniðurstöður</string>
+    <string name="search_tags">Leita að merkjum</string>
     <string name="secure_share_not_set_up">Örugg deiling er ekki sett upp fyrir þennan notanda</string>
     <string name="secure_share_search">Örugg sameign…</string>
     <string name="select_all">Velja allt</string>
@@ -1092,6 +1104,7 @@
     <string name="user_info_email">Tölvupóstur</string>
     <string name="user_info_groups">Hópar</string>
     <string name="user_info_phone">Símanúmer</string>
+    <string name="user_info_profile">Snið</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Vefsvæði</string>
     <string name="user_information_retrieval_error">Villa við að sækja upplýsingar um notanda</string>

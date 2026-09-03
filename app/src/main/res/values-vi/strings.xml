@@ -28,6 +28,7 @@
     <string name="activity_icon">Hoạt động</string>
     <string name="add_new_public_share">Thêm liên kết chia sẻ công khai mới</string>
     <string name="add_to_cloud">Thêm vào %1$s</string>
+    <string name="album_rename_conflict">Tên này đã được sử dụng.</string>
     <string name="app_widget_description">Hiện thị lối tắt từ dashboard</string>
     <string name="appbar_search_in">Tìm kiếm trong %s</string>
     <string name="appear_offline">Đang offline</string>
@@ -226,6 +227,7 @@
     <string name="drawer_community">Cộng đồng</string>
     <string name="drawer_header_background">Hình nền của thanh tiêu đề</string>
     <string name="drawer_item_activities">Hoạt động</string>
+    <string name="drawer_item_album">Albums</string>
     <string name="drawer_item_all_files">Tất cả tệp tin</string>
     <string name="drawer_item_favorites">Ưa thích</string>
     <string name="drawer_item_gallery">Phương tiện</string>
@@ -422,6 +424,7 @@
     <string name="manage_space_clear_data">Xóa dữ liệu</string>
     <string name="manage_space_description">Các cài đặt, cơ sở dữ liệu và chứng chỉ máy chủ từ dữ liệu của %1$s sẽ bị xóa vĩnh viễn. \n\nTệp đã tải xuống sẽ được giữ nguyên.\n\nQuá trình này có thể mất một lúc.</string>
     <string name="manage_space_title">Quản lý dung lượng</string>
+    <string name="manage_tags">Quản lý nhãn</string>
     <string name="media_err_invalid_progressive_playback">Không thể truyền tệp phương tiện này</string>
     <string name="media_err_io">Không thể đọc tập tin media</string>
     <string name="media_err_malformed">Tệp media có mã hóa không chính xác</string>
@@ -572,10 +575,12 @@
     <string name="reload">Tải lại</string>
     <string name="remote">(từ xa)</string>
     <string name="remote_file_fetch_failed">Không tìm thấy tệp!</string>
+    <string name="remove">Xoá</string>
     <string name="remove_fail_msg">Lỗi khi xóa</string>
     <string name="remove_notification_failed">Không xóa được thông báo.</string>
     <string name="remove_push_notification">Xóa</string>
     <string name="remove_success_msg">Đã xóa</string>
+    <string name="rename_dialog_button">Đổi tên</string>
     <string name="rename_dialog_title">Nhập tên mới</string>
     <string name="rename_local_fail_msg">Không thể đổi tên bản sao cục bộ, hãy thử một tên khác</string>
     <string name="rename_server_fail_msg">Không thể đổi tên, tên đã được sử dụng</string>

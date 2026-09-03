@@ -30,7 +30,12 @@
     <string name="activity_icon">활동</string>
     <string name="add_new_public_share">새 공개된 공유 링크</string>
     <string name="add_new_secure_file_drop">안전한 파일 공유를 새로 추가</string>
+    <string name="add_to_album">앨범에 추가</string>
     <string name="add_to_cloud">%1$s(으)로 추가</string>
+    <string name="album_delete">앨범 삭제</string>
+    <string name="album_rename_conflict">이 이름은 이미 사용 중입니다.</string>
+    <string name="album_share">앨범 공유</string>
+    <string name="album_stop_sharing">공유 중지</string>
     <string name="app_config_base_url_title">기본 URL</string>
     <string name="app_config_disable_clipboard_title">클립보드 비활성화</string>
     <string name="app_config_disable_intro_title">소개 비활성화</string>
@@ -214,6 +219,7 @@
     <string name="could_not_retrieve_shares">공유를 가져올 수 없습니다.</string>
     <string name="could_not_retrieve_url">주소를 불러올 수 없습니다.</string>
     <string name="create">생성</string>
+    <string name="create_album_dialog_title">새 앨범</string>
     <string name="create_dir_fail_msg">폴더를 만들 수 없음</string>
     <string name="create_document">문서</string>
     <string name="create_folder">폴더</string>
@@ -275,6 +281,7 @@
     <string name="drawer_community">커뮤니티</string>
     <string name="drawer_header_background">배경 그림 및 서랍 헤더</string>
     <string name="drawer_item_activities">활동</string>
+    <string name="drawer_item_album">앨범</string>
     <string name="drawer_item_all_files">모든 파일</string>
     <string name="drawer_item_assistant">어시스턴트</string>
     <string name="drawer_item_favorites">즐겨찾기</string>
@@ -363,6 +370,7 @@
     <string name="external_shares">외부 공유</string>
     <string name="fab_label">추가 또는 업로드</string>
     <string name="failed_to_download">다운로드 관리자에게 파일을 전달할 수 없음</string>
+    <string name="failed_to_load_tags">태그 불러오기 실패</string>
     <string name="failed_to_print">파일을 출력할 수 없음</string>
     <string name="failed_to_start_editor">에디터 실행 실패</string>
     <string name="failed_update_ui">UI 업데이트 실패</string>
@@ -537,6 +545,7 @@
     <string name="manage_space_clear_data">데이터 지우기</string>
     <string name="manage_space_description">%1$s의 데이터에서 설정, 데이터베이스, 서버 인증서를 삭제합니다.\n\n다운로드한 파일은 변경되지 않습니다.\n\n이 작업은 시간이 걸릴 수 있습니다.</string>
     <string name="manage_space_title">저장 공간 관리</string>
+    <string name="manage_tags">태그 관리하기</string>
     <string name="media_err_invalid_progressive_playback">미디어 파일을 스트리밍 할 수 없습니다.</string>
     <string name="media_err_io">미디어 파일을 읽을 수 없음</string>
     <string name="media_err_malformed">미디어 파일의 인코딩이 잘못됨</string>
@@ -719,6 +728,7 @@
     <string name="reload">새로 고침</string>
     <string name="remote">(원격)</string>
     <string name="remote_file_fetch_failed">파일을 찾을 수 없음</string>
+    <string name="remove">삭제</string>
     <string name="remove_e2e">당신은 이 고객에 대하여 종단간 암호화를 일부 제거할 수 있습니다.</string>
     <string name="remove_e2e_message">당신은 이 고객에 대하여 종단간 암호화를 일부 제거할 수 있습니다. 암호화된 파일들은 서버에 남아있을 것이지만, 더이상 이 컴퓨터에 동기화 되지 않을 것입니다.</string>
     <string name="remove_fail_msg">삭제할 수 없음</string>
@@ -727,6 +737,7 @@
     <string name="remove_notification_failed">알림을 지우는데 실패했습니다.</string>
     <string name="remove_push_notification">삭제</string>
     <string name="remove_success_msg">삭제함</string>
+    <string name="rename_dialog_button">이름 바꾸기</string>
     <string name="rename_dialog_title">새 이름 입력</string>
     <string name="rename_local_fail_msg">로컬 파일의 이름을 변경할 수 없습니다. 다른 이름을 입력하십시오</string>
     <string name="rename_server_fail_msg">이름을 변경할 수 없음. 이름이 이미 사용중입니다.</string>
@@ -756,6 +767,7 @@
     <string name="screenshot_05_autoUpload_subline">사진과 동영상을 위해</string>
     <string name="screenshot_06_davdroid_heading">캘린더와 연락처</string>
     <string name="search_error">검색 결과 조회 오류</string>
+    <string name="search_tags">태그 검색</string>
     <string name="secure_share_not_set_up">이 사용자에 대해 보안 공유가 설정되지 않았습니다</string>
     <string name="secure_share_search">보안 공유...</string>
     <string name="select_all">모두 선택</string>

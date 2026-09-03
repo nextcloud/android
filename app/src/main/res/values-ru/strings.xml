@@ -32,7 +32,12 @@
     <string name="activity_icon">События</string>
     <string name="add_new_public_share">Добавить новую общедоступную ссылку</string>
     <string name="add_new_secure_file_drop">Добавить новую защищённую передачу файлов</string>
+    <string name="add_to_album">Добавить в альбом</string>
     <string name="add_to_cloud">Добавить в %1$s</string>
+    <string name="album_delete">Удалить альбом</string>
+    <string name="album_rename_conflict">Это название уже используется.</string>
+    <string name="album_share">Опубликовать альбом</string>
+    <string name="album_stop_sharing">Закрыть общий доступ</string>
     <string name="app_config_base_url_title">Основной URL</string>
     <string name="app_config_disable_clipboard_title">Отключить буфер обмена</string>
     <string name="app_config_disable_intro_title">Отключить введение</string>
@@ -249,6 +254,7 @@
     <string name="could_not_retrieve_shares">Не удалось получить перечень общих ресурсов</string>
     <string name="could_not_retrieve_url">Не удалось получить URL</string>
     <string name="create">Создать</string>
+    <string name="create_album_dialog_title">Создать альбом</string>
     <string name="create_dir_fail_msg">Не удалось создать каталог</string>
     <string name="create_document">Документ</string>
     <string name="create_end_to_end_encrypted_share">Поделиться ссылкой</string>
@@ -322,6 +328,7 @@
     <string name="drawer_community">Сообщество</string>
     <string name="drawer_header_background">Фоновое изображение заголовка</string>
     <string name="drawer_item_activities">События</string>
+    <string name="drawer_item_album">Альбомы</string>
     <string name="drawer_item_all_files">Все файлы</string>
     <string name="drawer_item_assistant">Помощник</string>
     <string name="drawer_item_favorites">Избранное</string>
@@ -423,6 +430,7 @@
     <string name="fab_label">Добавить или выгрузить</string>
     <string name="failed_to_create_conflict_dialog">Не удалось создать диалог разрешения конфликтов</string>
     <string name="failed_to_download">Не удалось передать файл в диспетчер загрузок</string>
+    <string name="failed_to_load_tags">Не удалось загрузить метки</string>
     <string name="failed_to_print">Ошибка печати файла</string>
     <string name="failed_to_start_action">Не удалось выполнить действие!</string>
     <string name="failed_to_start_editor">Не удалось запустить редактор</string>
@@ -622,6 +630,7 @@
     <string name="manage_space_clear_data">Очистить данные</string>
     <string name="manage_space_description">Настройки, сертификаты базы данных и сервера из данных %1$s будут удалены навсегда. \n\nЗагруженные файлы будут сохранены нетронутыми. \n\nЭтот процесс может занять некоторое время.</string>
     <string name="manage_space_title">Управление свободным местом</string>
+    <string name="manage_tags">Управление метками</string>
     <string name="media_err_invalid_progressive_playback">Невозможно организовать потоковую передачу медиафайла</string>
     <string name="media_err_io">Медиафайл не может быть прочитан</string>
     <string name="media_err_malformed">Медиафайл некорректно закодирован</string>
@@ -830,6 +839,7 @@
     <string name="reload">Перезагрузить</string>
     <string name="remote">(удалённо)</string>
     <string name="remote_file_fetch_failed">Не удалось найти файл.</string>
+    <string name="remove">Удалить</string>
     <string name="remove_e2e">Вы можете удалить сквозное шифрование локально на этом клиенте</string>
     <string name="remove_e2e_keys_and_files_dialog_warning">Эта операция удалит все зашифрованные файлы, закрытые и открытые ключи. Вы уверены?</string>
     <string name="remove_e2e_message">Вы можете удалить сквозное шифрование локально на этом клиенте. Зашифрованные файлы останутся на сервере, но больше не будут синхронизироваться с этим компьютером.</string>
@@ -839,6 +849,7 @@
     <string name="remove_notification_failed">Не удалось скрыть уведомление.</string>
     <string name="remove_push_notification">Удалить</string>
     <string name="remove_success_msg">Удалено</string>
+    <string name="rename_dialog_button">Переименовать</string>
     <string name="rename_dialog_title">Введите новое имя</string>
     <string name="rename_local_fail_msg">Невозможно переименовать локальную копию, попробуйте другое имя</string>
     <string name="rename_server_fail_msg">Переименование невозможно, имя занято</string>
@@ -875,6 +886,7 @@
     <string name="screenshot_06_davdroid_heading">Календарь и контакты</string>
     <string name="screenshot_06_davdroid_subline">Синхронизация с DAVx⁵</string>
     <string name="search_error">Ошибка при получении результатов поиска</string>
+    <string name="search_tags">Поиск по меткам</string>
     <string name="secure_share_not_set_up">Безопасная публикация не настроена для данного пользователя</string>
     <string name="secure_share_search">Безопасный общий доступ…</string>
     <string name="select_all">Выбрать все</string>

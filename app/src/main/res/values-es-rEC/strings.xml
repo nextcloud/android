@@ -28,7 +28,11 @@
     <string name="activity_icon">Actividad</string>
     <string name="add_new_public_share">Agregar nuevo enlace público compartido</string>
     <string name="add_new_secure_file_drop">Agregar nueva carpeta segura de archivos</string>
+    <string name="add_to_album">Agregar al álbum</string>
     <string name="add_to_cloud">Agregar a %1$s</string>
+    <string name="album_delete">Eliminar álbum</string>
+    <string name="album_share">Compartir álbum</string>
+    <string name="album_stop_sharing">Dejar de compartir</string>
     <string name="app_config_base_url_title">URL Base</string>
     <string name="app_config_proxy_port_title">Puerto del proxy</string>
     <string name="app_widget_description">Muestra un widget del panel de control</string>
@@ -181,6 +185,7 @@
     <string name="could_not_retrieve_shares">No se pudieron recuperar los compartidos</string>
     <string name="could_not_retrieve_url">No se pudo recuperar la URL</string>
     <string name="create">Crear</string>
+    <string name="create_album_dialog_title">Nuevo álbum</string>
     <string name="create_dir_fail_msg">No fue posible crear la carpeta</string>
     <string name="create_document">Documento</string>
     <string name="create_folder">Carpeta</string>
@@ -235,6 +240,7 @@
     <string name="drawer_community">Comunidad</string>
     <string name="drawer_header_background">Imagen de fondo para el encabezado de la barra de navegación</string>
     <string name="drawer_item_activities">Actividades</string>
+    <string name="drawer_item_album">Álbumes</string>
     <string name="drawer_item_all_files">Todos los archivos</string>
     <string name="drawer_item_favorites">Favoritos</string>
     <string name="drawer_item_gallery">Multimedia</string>
@@ -307,6 +313,7 @@
     <string name="etm_transfer_type_upload">Cargar</string>
     <string name="fab_label">Agregar o subir</string>
     <string name="failed_to_download">Fallo al pasar el archivo al administrador de descargas</string>
+    <string name="failed_to_load_tags">Error al cargar las etiquetas</string>
     <string name="failed_to_print">Fallo al imprimir el archivo</string>
     <string name="failed_to_start_editor">Fallo al iniciar el editor</string>
     <string name="failed_update_ui">Fallo al actualizar la interfaz de usuario</string>
@@ -447,6 +454,7 @@
     <string name="manage_space_clear_data">Borrar datos</string>
     <string name="manage_space_description">Las configuraciones, base de datos y certificados del servidor de los datos de %1$s serán borrados permanentemente.\n\nLos archivos descargados se mantendrán sin cambios.\n\nEste proceso puede tomar algo de tiempo. </string>
     <string name="manage_space_title">Administrar espacio</string>
+    <string name="manage_tags">Gestionar etiquetas</string>
     <string name="media_err_invalid_progressive_playback">No se puede transmitir el archivo multimedia</string>
     <string name="media_err_io">No fue posible leer el archivo de medios</string>
     <string name="media_err_malformed">El archivo de medios tiene una codificación incorrecta</string>
@@ -605,6 +613,7 @@
     <string name="remove_notification_failed">Fallo al eliminar la notificación.</string>
     <string name="remove_push_notification">Eliminar</string>
     <string name="remove_success_msg">Eliminado</string>
+    <string name="rename_dialog_button">Renombrar</string>
     <string name="rename_dialog_title">Ingresa un nombre nuevo</string>
     <string name="rename_local_fail_msg">No se pudo renombrar la copia local, intenta con un nombre diferente </string>
     <string name="rename_server_fail_msg">No fue posible renombrar, el nombre ya está ocupado</string>
@@ -629,6 +638,7 @@
     <string name="screenshot_04_accounts_subline">en un solo lugar</string>
     <string name="screenshot_05_autoUpload_heading">Carga automática</string>
     <string name="search_error">Error al obtener los resultados de búsqueda</string>
+    <string name="search_tags">Buscar etiquetas</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="select_media_folder">Configurar carpeta multimedia</string>
     <string name="select_one_template">Por favor, selecciona una plantilla</string>

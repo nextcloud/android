@@ -20,6 +20,9 @@
     <string name="activities_no_results_headline"> Entá nun hai actividá</string>
     <string name="activity_chooser_send_file_title">Unviar</string>
     <string name="activity_icon">Actividá</string>
+    <string name="add_to_album">Amestar al álbum</string>
+    <string name="album_delete">Desaniciar l\'álbum</string>
+    <string name="album_stop_sharing">Dexar de compartir</string>
     <string name="app_config_base_url_title">URL base</string>
     <string name="app_config_proxy_port_title">Puertu del proxy</string>
     <string name="appbar_search_in">Buscar en: %s</string>
@@ -111,6 +114,7 @@
     <string name="copy_file_not_found">Nun ye posible copiar. Comprueba si\'l ficheru esiste.</string>
     <string name="copy_link">Copiar enllaz</string>
     <string name="create">Crear</string>
+    <string name="create_album_dialog_title">Álbum nuevu</string>
     <string name="create_dir_fail_msg">Nun pudo crease la carpeta</string>
     <string name="create_document">Documentu</string>
     <string name="create_folder">Carpeta</string>
@@ -151,6 +155,7 @@
     <string name="drawer_community">Comunidá</string>
     <string name="drawer_header_background">Imaxe del fondu de la testera del caxón</string>
     <string name="drawer_item_activities">Actividaes</string>
+    <string name="drawer_item_album">Álbumes</string>
     <string name="drawer_item_all_files">Tolos ficheros</string>
     <string name="drawer_item_assistant">Asistente</string>
     <string name="drawer_item_favorites">Favoritos</string>
@@ -216,6 +221,7 @@
     <string name="etm_transfer_type_upload">Xunir</string>
     <string name="fab_label">Amestar o xubir</string>
     <string name="failed_to_download">Nun se pue pasar el ficheru al xestor de descargues</string>
+    <string name="failed_to_load_tags">Nun se puen cargar les etiquetes</string>
     <string name="failed_to_print">Nun se pue imprentar el ficheru</string>
     <string name="failed_to_start_editor">Nun se pue aniciar l\'editor</string>
     <string name="failed_update_ui">Nun se pue anovar la IU</string>
@@ -324,6 +330,7 @@
     <string name="logs_status_loading">Cargando…</string>
     <string name="manage_space_clear_data">Llimpiar datos</string>
     <string name="manage_space_title">Alministrar espaciu</string>
+    <string name="manage_tags">Xestionar les etiquetes</string>
     <string name="media_err_io">Nun pudo lleese\'l ficheru de medios</string>
     <string name="media_err_malformed">El ficheru de medios tien una codificación incorreuta</string>
     <string name="media_err_timeout">Escoso\'l tiempu pa reproducir el ficheru</string>
@@ -436,6 +443,7 @@
     <string name="reload">Volver cargar</string>
     <string name="remote">(remotu)</string>
     <string name="remote_file_fetch_failed">¡Nun se pue atopar el ficheru!</string>
+    <string name="remove">Quitar</string>
     <string name="remove_e2e">Pues quitar el cifráu d\'estremu a estremu llocalmente nesti veceru</string>
     <string name="remove_fail_msg">El desaniciu falló</string>
     <string name="remove_local_account">Quitar la cuenta llocal</string>
@@ -443,6 +451,7 @@
     <string name="remove_notification_failed">Nun se pue quitar l\'avisu.</string>
     <string name="remove_push_notification">Quitar</string>
     <string name="remove_success_msg">Desanicióse</string>
+    <string name="rename_dialog_button">Renomar</string>
     <string name="rename_dialog_title">Introduz un nome nuevu</string>
     <string name="rename_local_fail_msg">Nun se pudo renomar la copia llocal, prueba con otru nome</string>
     <string name="rename_server_fail_msg">El cambéu de nome nun ye posible, el nome yá ta n\'usu</string>

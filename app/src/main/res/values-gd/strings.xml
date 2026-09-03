@@ -492,10 +492,12 @@
     <string name="recommend_urls">%1$s no %2$s</string>
     <string name="remote">(cèin)</string>
     <string name="remote_file_fetch_failed">Cha deach am faidhle a lorg!</string>
+    <string name="remove">Thoir air falbh</string>
     <string name="remove_fail_msg">Dh’fhàillig leis an sguabadh às</string>
     <string name="remove_notification_failed">Cha deach leinn am brath a thoirt air falbh.</string>
     <string name="remove_push_notification">Thoir air falbh</string>
     <string name="remove_success_msg">Chaidh a sguabadh às</string>
+    <string name="rename_dialog_button">Thoir ainm ùr air</string>
     <string name="rename_dialog_title">Cuir a-steach ainm ùr</string>
     <string name="rename_local_fail_msg">Cha b’ urrainn dhuinn an t-ainm ùr a thoirt air an lethbhreac ionadail, feuch ainm eile</string>
     <string name="rename_server_fail_msg">Tha ghabh an t-ainm ùr a thoirt air on a tha e ’ga chleachdadh mu thràth</string>

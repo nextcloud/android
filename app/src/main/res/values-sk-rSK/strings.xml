@@ -31,7 +31,12 @@
     <string name="activity_icon">Aktivita</string>
     <string name="add_new_public_share">Pridajte nový odkaz na verejné zdieľanie</string>
     <string name="add_new_secure_file_drop">Pridať nový zabezpečený file drop</string>
+    <string name="add_to_album">Pridať do albumu</string>
     <string name="add_to_cloud">Pridaj do %1$s</string>
+    <string name="album_delete">Zmazať album</string>
+    <string name="album_rename_conflict">Toto meno je už používané.</string>
+    <string name="album_share">Zdieľať album</string>
+    <string name="album_stop_sharing">Ukončiť sprístupnenie</string>
     <string name="app_config_base_url_title">Základná URL</string>
     <string name="app_config_disable_clipboard_title">Zakázať Schránku</string>
     <string name="app_config_disable_intro_title">Zakázať intro</string>
@@ -243,6 +248,7 @@
     <string name="could_not_retrieve_shares">Nie je možné získať zdieľania</string>
     <string name="could_not_retrieve_url">Nepodarilo sa načítať webovú adresu</string>
     <string name="create">Vytvoriť</string>
+    <string name="create_album_dialog_title">Nový album</string>
     <string name="create_dir_fail_msg">Nemožno vytvoriť priečinok</string>
     <string name="create_document">Dokument</string>
     <string name="create_end_to_end_encrypted_share">Zdieľať odkaz</string>
@@ -314,6 +320,7 @@
     <string name="drawer_community">Komunita</string>
     <string name="drawer_header_background">Obrázok na pozadí hlavičky panela</string>
     <string name="drawer_item_activities">Aktivity</string>
+    <string name="drawer_item_album">Albumy</string>
     <string name="drawer_item_all_files">Všetky súbory</string>
     <string name="drawer_item_assistant">Asistent</string>
     <string name="drawer_item_favorites">Obľúbené</string>
@@ -415,6 +422,7 @@
     <string name="fab_label">Pridať alebo nahrať</string>
     <string name="failed_to_create_conflict_dialog">Nepodarilo sa vytvoriť dialóg o konflikte</string>
     <string name="failed_to_download">Nepodarilo sa odovzdať súbor správcovi preberania</string>
+    <string name="failed_to_load_tags">Nepodarilo sa načítať štítky</string>
     <string name="failed_to_print">Nepodarilo sa vytlačiť súbor</string>
     <string name="failed_to_start_action">Spustenie akcie zlyhalo!</string>
     <string name="failed_to_start_editor">Nepodarilo sa spustiť editor</string>
@@ -608,6 +616,7 @@
     <string name="manage_space_clear_data">Vyčistiť dáta</string>
     <string name="manage_space_description">Nastavenie, databázové a servrové certifikáty z dát %1$sbudú trvalo vymazané.\n\nStiahnuté súbory budú zachované.\n\nTento proces môže chvíľu trvať.</string>
     <string name="manage_space_title">Spravovať miesto</string>
+    <string name="manage_tags">Spravovať štítky</string>
     <string name="media_err_invalid_progressive_playback">Multimediálny súbor sa nedá streamovať</string>
     <string name="media_err_io">Nepodarilo sa prečítať súbor médií</string>
     <string name="media_err_malformed">Súbor médií má neplatné kódovanie</string>
@@ -814,6 +823,7 @@
     <string name="reload">Znovu načítať</string>
     <string name="remote">(vzdialené)</string>
     <string name="remote_file_fetch_failed">Nepodarilo sa nájsť súbor</string>
+    <string name="remove">Odobrať</string>
     <string name="remove_e2e">Môžete odstrániť end-to-end šifrovanie lokálne na tomto klientovi.</string>
     <string name="remove_e2e_message">Môžete odstrániť end-to-end šifrovanie lokálne na tomto klientovi. Šifrované súbory zostanú na serveri, ale už nebudú synchronizované s týmto počítačom.</string>
     <string name="remove_fail_msg">Zmazanie zlyhalo</string>
@@ -822,6 +832,7 @@
     <string name="remove_notification_failed">Odstránenie upozornenia zlyhalo.</string>
     <string name="remove_push_notification">Odstrániť</string>
     <string name="remove_success_msg">Zmazané</string>
+    <string name="rename_dialog_button">Premenovať</string>
     <string name="rename_dialog_title">Zadajte nové meno</string>
     <string name="rename_local_fail_msg">Nepodarilo sa premenovať lokálnu kópiu, skúste iné meno</string>
     <string name="rename_server_fail_msg">Premenovanie sa nepodarilo, meno sa už používa</string>
@@ -852,6 +863,7 @@
     <string name="screenshot_06_davdroid_heading">Kalendár a Kontakty</string>
     <string name="screenshot_06_davdroid_subline">Synchronizácia s DAVx5</string>
     <string name="search_error">Chyba pri získavaní výsledkov vyhľadávania</string>
+    <string name="search_tags">Vyhľadať štítky</string>
     <string name="secure_share_not_set_up">Zabezpečené zdieľanie nie je nastavené pre tohto užívateľa.</string>
     <string name="secure_share_search">Bezpečné zdieľanie…</string>
     <string name="select_all">Vybrať všetko</string>

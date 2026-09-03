@@ -27,7 +27,11 @@
     <string name="activity_chooser_title">Испрати линк до…</string>
     <string name="activity_icon">Активност</string>
     <string name="add_new_public_share">Додади нов линк за споделување</string>
+    <string name="add_to_album">Додади во албум</string>
     <string name="add_to_cloud">Додади во %1$s</string>
+    <string name="album_delete">Избриши албум</string>
+    <string name="album_rename_conflict">Името е веќе во употреба.</string>
+    <string name="album_share">Сподели албум</string>
     <string name="app_config_proxy_port_title">Proxy порта</string>
     <string name="app_widget_description">Прикажува еден виџет од контролната табла</string>
     <string name="appbar_search_in">Барај во %s</string>
@@ -172,6 +176,7 @@
     <string name="could_not_retrieve_shares">Неможе да се превземат споделувањата</string>
     <string name="could_not_retrieve_url">Неможе да се превземе адресата</string>
     <string name="create">Креирај</string>
+    <string name="create_album_dialog_title">Нов албум</string>
     <string name="create_dir_fail_msg">Не може да креира папка</string>
     <string name="create_document">Документ</string>
     <string name="create_folder">Папка</string>
@@ -216,6 +221,7 @@
     <string name="drawer_community">Заедница</string>
     <string name="drawer_header_background">Background image of drawer header</string>
     <string name="drawer_item_activities">Активности</string>
+    <string name="drawer_item_album">Албуми</string>
     <string name="drawer_item_all_files">Сите датотеки</string>
     <string name="drawer_item_assistant">Асистент</string>
     <string name="drawer_item_favorites">Омилени</string>
@@ -234,6 +240,7 @@
     <string name="drawer_quota_unlimited">искористено %1$s</string>
     <string name="drawer_synced_folders">Автоматско прикачување</string>
     <string name="ecosystem_apps_display_assistant">Асистент</string>
+    <string name="ecosystem_apps_display_more">Повеќе</string>
     <string name="encrypted">Постави како енкриптирано</string>
     <string name="end_to_end_encryption_confirm_button">Постави енкрипција</string>
     <string name="end_to_end_encryption_decrypting">Дешифрирање…</string>
@@ -281,6 +288,7 @@
     <string name="external_shares">Надворешни споделувања</string>
     <string name="fab_label">Додади или прикачи</string>
     <string name="failed_to_download">Неуспешно поставување на датотеката во менаџерот за превземање</string>
+    <string name="failed_to_load_tags">Неуспешно вчитување на ознаки</string>
     <string name="failed_to_print">Неуспешно печатење не датотеката</string>
     <string name="favorite">Додади во фаворити</string>
     <string name="favorite_icon">Омилен</string>
@@ -401,6 +409,7 @@
     <string name="manage_space_clear_data">Исчисти податоци</string>
     <string name="manage_space_description">Подесувањата, Базата со податоци и сертификатот на серверот од корисникот %1$s ќе бидат трајно избришани. \n\nПревземените датотеки ќе остават во уредот.\n\nОваа операција може да потрае некое време.</string>
     <string name="manage_space_title">Управување со просторот за складирање</string>
+    <string name="manage_tags">Уреди ги ознаките</string>
     <string name="media_err_io">Неможе да се прочита датотеката</string>
     <string name="media_err_malformed">Медиа датотеката не е точно енкодирана</string>
     <string name="media_err_timeout">Тајм аут при обидот за репродукција</string>
@@ -537,10 +546,12 @@
     <string name="reload">Reload</string>
     <string name="remote">(далечински)</string>
     <string name="remote_file_fetch_failed">Неуспешно барање на датотеката!</string>
+    <string name="remove">Отстрани </string>
     <string name="remove_fail_msg">Неуспешно бришење</string>
     <string name="remove_notification_failed">Неуспешно бришење на известувањата.</string>
     <string name="remove_push_notification">Отстрани</string>
     <string name="remove_success_msg">Избришан</string>
+    <string name="rename_dialog_button">Преименувај</string>
     <string name="rename_dialog_title">Внеси ново име</string>
     <string name="rename_local_fail_msg">Локалната копија не може да се преименува; пробајте со друго име</string>
     <string name="rename_server_fail_msg">Преименувањето не е возможно, тоа име веќе е зафатено</string>

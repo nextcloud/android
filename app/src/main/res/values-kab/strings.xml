@@ -32,6 +32,7 @@
     <string name="add_new_public_share">Rnu aseɣwen amaynut n beṭṭu azayez</string>
     <string name="add_new_secure_file_drop">Rnu asers n ufaylu aɣelsan amaynut</string>
     <string name="add_to_cloud">Rnu ɣer %1$s</string>
+    <string name="album_rename_conflict">Isem-a yettuseqdec yakan</string>
     <string name="app_config_base_url_title">URL n uzadur</string>
     <string name="app_config_disable_clipboard_title">Sens Tecfawit</string>
     <string name="app_config_disable_intro_title">Sens Tazwart</string>
@@ -280,6 +281,7 @@
     <string name="drawer_close">Mdel agalis adisan</string>
     <string name="drawer_community">Tamezdagnut</string>
     <string name="drawer_item_activities">Irmuden</string>
+    <string name="drawer_item_album">Albums</string>
     <string name="drawer_item_all_files">Akk ifuyla</string>
     <string name="drawer_item_assistant">Amallal</string>
     <string name="drawer_item_favorites">Imenyafen</string>
@@ -649,8 +651,10 @@
     <string name="privacy">Vie privée</string>
     <string name="recommend_urls">%1$s neɣ %2$s</string>
     <string name="reload">Smiren</string>
+    <string name="remove">Kkes</string>
     <string name="remove_push_notification">Kkes</string>
     <string name="remove_success_msg">Yettwakkes</string>
+    <string name="rename_dialog_button">Beddel isem</string>
     <string name="rename_dialog_title">Sekcem isem amaynut</string>
     <string name="restore_item">Err-it-id</string>
     <string name="retry">Ɛreḍ tikkelt-nniḍen</string>

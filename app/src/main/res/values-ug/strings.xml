@@ -30,7 +30,11 @@
     <string name="activity_icon">پائالىيەت</string>
     <string name="add_new_public_share">يېڭى ئاممىۋى ئورتاقلىشىش ئۇلانمىسىنى قوشۇڭ</string>
     <string name="add_new_secure_file_drop">يېڭى بىخەتەر ھۆججەت چۈشۈرۈش</string>
+    <string name="add_to_album">ئالبۇمغا قوشۇڭ</string>
     <string name="add_to_cloud">%1$s غا قوشۇڭ</string>
+    <string name="album_delete">ئالبۇمنى ئۆچۈرۈڭ</string>
+    <string name="album_rename_conflict">بۇ ئىسىم ئاللىقاچان ئىشلىتىلىۋاتىدۇ.</string>
+    <string name="album_share">ئالبۇمنى ھەمبەھىرلەش</string>
     <string name="app_config_base_url_title">ئاساسى URL</string>
     <string name="app_config_disable_clipboard_title">كۆچۈرۈش تاخ</string>
     <string name="app_config_disable_intro_title">سىننى چەكلەڭ</string>
@@ -230,6 +234,7 @@
     <string name="could_not_retrieve_shares">پاينى ئەسلىگە كەلتۈرەلمىدى</string>
     <string name="could_not_retrieve_url">URL نى ئەسلىگە كەلتۈرەلمىدى</string>
     <string name="create">قۇر</string>
+    <string name="create_album_dialog_title">يېڭى پىلاستىنكا</string>
     <string name="create_dir_fail_msg">ھۆججەت قىسقۇچ قۇرالمىدى</string>
     <string name="create_document">پۈتۈك</string>
     <string name="create_folder">قىسقۇچ</string>
@@ -299,6 +304,7 @@
     <string name="drawer_community">مەھەللە</string>
     <string name="drawer_header_background">تارتما ماۋزۇنىڭ تەگلىك رەسىمى</string>
     <string name="drawer_item_activities">پائالىيەت</string>
+    <string name="drawer_item_album">توپلام</string>
     <string name="drawer_item_all_files">بارلىق ھۆججەتلەر</string>
     <string name="drawer_item_assistant">ياردەمچى</string>
     <string name="drawer_item_favorites">ياقتۇرىدىغانلار</string>
@@ -397,6 +403,7 @@
     <string name="fab_label">قوشۇش ياكى يوللاش</string>
     <string name="failed_to_create_conflict_dialog">زىددىيەت كۆزنىكى قۇرالمىدى</string>
     <string name="failed_to_download">باشقۇرغۇچىنى چۈشۈرۈش ئۈچۈن ھۆججەت يوللىيالمىدى</string>
+    <string name="failed_to_load_tags">خەتكۈچلەرنى يۈكلىيەلمىدى</string>
     <string name="failed_to_print">ھۆججەت بېسىش مەغلۇب بولدى</string>
     <string name="failed_to_start_editor">تەھرىرلىگۈچنى قوزغىتىش مەغلۇب بولدى</string>
     <string name="failed_update_ui">UI نى يېڭىلاش مەغلۇب بولدى</string>
@@ -585,6 +592,7 @@
     <string name="manage_space_clear_data">سانلىق مەلۇماتنى تازىلاش</string>
     <string name="manage_space_description">%1$s نىڭ سانلىق مەلۇماتلىرىدىن تەڭشەك ، ساندان ۋە مۇلازىمېتىر گۇۋاھنامىسى مەڭگۈلۈك ئۆچۈرۈلىدۇ. \ n \ n چۈشۈرۈلگەن ھۆججەتلەر تۇتۇلمايدۇ. \ n \ n بۇ جەريانغا بىر ئاز ۋاقىت كېتىدۇ.</string>
     <string name="manage_space_title">بوشلۇقنى باشقۇرۇش</string>
+    <string name="manage_tags">خەتكۈچلەرنى باشقۇرۇش</string>
     <string name="media_err_invalid_progressive_playback">مېدىيا ھۆججىتىنى ئاقلاشقا بولمايدۇ</string>
     <string name="media_err_io">مېدىيا ھۆججىتىنى ئوقۇيالمىدى</string>
     <string name="media_err_malformed">مېدىيا ھۆججىتىدە كودلاش خاتا</string>
@@ -787,6 +795,7 @@
     <string name="reload">قايتا يۈكلەڭ</string>
     <string name="remote">(يىراق)</string>
     <string name="remote_file_fetch_failed">ھۆججەت تاپالمىدى!</string>
+    <string name="remove">ئۆچۈرۈڭ</string>
     <string name="remove_e2e">سىز بۇ خېرىداردا يەرلىكتىن ئاخىرىغىچە مەخپىيلەشتۈرۈشنى ئۆچۈرەلەيسىز</string>
     <string name="remove_e2e_message">بۇ خېرىداردا يەرلىكتىن ئاخىرىغىچە مەخپىيلەشتۈرۈشنى ئۆچۈرەلەيسىز. شىفىرلانغان ھۆججەتلەر مۇلازىمېتىردا قالىدۇ ، ئەمما بۇ كومپيۇتېرغا ئەمدى ماسقەدەملەنمەيدۇ.</string>
     <string name="remove_fail_msg">ئۆچۈرۈش مەغلۇب بولدى</string>
@@ -795,6 +804,7 @@
     <string name="remove_notification_failed">ئۇقتۇرۇشنى ئۆچۈرەلمىدى.</string>
     <string name="remove_push_notification">ئۆچۈرۈڭ</string>
     <string name="remove_success_msg">ئۆچۈرۈلدى</string>
+    <string name="rename_dialog_button">ئىسىم ئۆزگەرتىش</string>
     <string name="rename_dialog_title">يېڭى ئىسىم كىرگۈزۈڭ</string>
     <string name="rename_local_fail_msg">يەرلىك نۇسخىنىڭ نامىنى ئۆزگەرتەلمىدى ، باشقا ئىسىمنى سىناپ بېقىڭ</string>
     <string name="rename_server_fail_msg">ئىسىم ئۆزگەرتىش مۇمكىن ئەمەس ، ئىسمى ئاللىبۇرۇن ئېلىنغان</string>
@@ -825,6 +835,7 @@
     <string name="screenshot_06_davdroid_heading">كالېندار ۋە ئالاقىداشلار</string>
     <string name="screenshot_06_davdroid_subline">DAVx5 بىلەن ماسقەدەملەش</string>
     <string name="search_error">ئىزدەش نەتىجىسىگە ئېرىشىشتە خاتالىق</string>
+    <string name="search_tags">ئىزدەش خەتكۈچلىرى</string>
     <string name="secure_share_not_set_up">بۇ ئىشلەتكۈچى ئۈچۈن بىخەتەر ئورتاقلىشىش ئورنىتىلمىغان</string>
     <string name="secure_share_search">بىخەتەر ئورتاقلىشىش…</string>
     <string name="select_all">ھەممىنى تاللاڭ</string>

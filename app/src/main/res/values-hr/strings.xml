@@ -31,7 +31,10 @@
     <string name="activity_icon">Aktivnost</string>
     <string name="add_new_public_share">Dodaj novu poveznicu za javno dijeljenje</string>
     <string name="add_new_secure_file_drop">Dodaj novi sigurni prijenos datoteka</string>
+    <string name="add_to_album">Dodaj u album</string>
     <string name="add_to_cloud">Dodaj na %1$s</string>
+    <string name="album_delete">Izbriši album</string>
+    <string name="album_rename_conflict">Ovaj naziv se već koristi</string>
     <string name="app_config_base_url_title">Osnovni URL</string>
     <string name="app_config_disable_clipboard_title">Onemogući međuspremnik</string>
     <string name="app_config_disable_intro_title">Onemogući uvod</string>
@@ -241,6 +244,7 @@
     <string name="could_not_retrieve_shares">Dohvaćanje dijeljenja nije uspjelo</string>
     <string name="could_not_retrieve_url">Nije moguće dohvatiti URL</string>
     <string name="create">Stvori</string>
+    <string name="create_album_dialog_title">Novi album</string>
     <string name="create_dir_fail_msg">Nije moguće stvoriti mapu</string>
     <string name="create_document">Dokument</string>
     <string name="create_folder">Mapa</string>
@@ -310,6 +314,7 @@
     <string name="drawer_community">Zajednica</string>
     <string name="drawer_header_background">Pozadinska slika zaglavlja ladice</string>
     <string name="drawer_item_activities">Aktivnosti</string>
+    <string name="drawer_item_album">Albumi</string>
     <string name="drawer_item_all_files">Sve datoteke</string>
     <string name="drawer_item_assistant">Asistent</string>
     <string name="drawer_item_favorites">Favoriti</string>
@@ -411,6 +416,7 @@
     <string name="fab_label">Dodaj ili otpremi</string>
     <string name="failed_to_create_conflict_dialog">Nije uspjelo stvaranje dijaloga sukoba</string>
     <string name="failed_to_download">Neuspješno prosljeđivanje datoteke upravitelju preuzimanja</string>
+    <string name="failed_to_load_tags">Učitavanje oznaka nije uspjelo</string>
     <string name="failed_to_print">Ispisivanje datoteke nije uspjelo</string>
     <string name="failed_to_start_action">Nije uspjelo pokretanje radnje!</string>
     <string name="failed_to_start_editor">Nije uspjelo pokretanje uređivača</string>
@@ -603,6 +609,7 @@
     <string name="manage_space_clear_data">Izbriši podatke</string>
     <string name="manage_space_description">Trajno će se izbrisati postavke, baze podataka i vjerodajnice poslužitelja iz podataka %1$s. \n\nPreuzete datoteke ostat će nepromijenjene.\n\nOvaj postupak može potrajati.</string>
     <string name="manage_space_title">Upravljaj prostorom</string>
+    <string name="manage_tags">Upravljaj oznakama</string>
     <string name="media_err_invalid_progressive_playback">Medijsku datoteku nije moguće reproducirati strujanjem</string>
     <string name="media_err_io">Nije moguće pročitati medijsku datoteku</string>
     <string name="media_err_malformed">Medijska datoteka je neispravno kodirana</string>
@@ -808,6 +815,7 @@
     <string name="reload">Ponovno učitaj</string>
     <string name="remote">(na daljinu)</string>
     <string name="remote_file_fetch_failed">Datoteka nije pronađena!</string>
+    <string name="remove">Ukloni</string>
     <string name="remove_e2e">Ukloni E2E šifriranje</string>
     <string name="remove_e2e_message">Ovo će ukloniti lokalne podatke za šifriranje s kraja na kraj na ovom uređaju. Šifrirane datoteke na poslužitelju neće biti izbrisane.</string>
     <string name="remove_fail_msg">Brisanje nije uspjelo</string>
@@ -816,6 +824,7 @@
     <string name="remove_notification_failed">Nije uspjelo uklanjanje obavijesti.</string>
     <string name="remove_push_notification">Ukloni</string>
     <string name="remove_success_msg">Izbrisano</string>
+    <string name="rename_dialog_button">Preimenuj</string>
     <string name="rename_dialog_title">Unesite novi naziv</string>
     <string name="rename_local_fail_msg">Nije moguće preimenovati lokalnu kopiju, pokušajte s drugim nazivom</string>
     <string name="rename_server_fail_msg">Preimenovanje nije moguće, naziv je već zauzet</string>
@@ -846,6 +855,7 @@
     <string name="screenshot_06_davdroid_heading">Sinkronizirajte kontakte i kalendar</string>
     <string name="screenshot_06_davdroid_subline">Povežite kontakte i kalendar s uređajem putem DAVx⁵.</string>
     <string name="search_error">Pogreška pri dohvaćanju rezultata pretraživanja</string>
+    <string name="search_tags">Oznake pretraživanja</string>
     <string name="secure_share_not_set_up">Sigurno dijeljenje nije postavljeno</string>
     <string name="secure_share_search">Pretraži za sigurno dijeljenje</string>
     <string name="select_all">Odaberi sve</string>

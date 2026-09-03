@@ -445,6 +445,7 @@
     <string name="remove_notification_failed">Greška pri uklanjanju obaveštenja.</string>
     <string name="remove_push_notification">Ukloni</string>
     <string name="remove_success_msg">Obrisano</string>
+    <string name="rename_dialog_button">Preimenuj</string>
     <string name="rename_dialog_title">Unesite nov naziv</string>
     <string name="rename_local_fail_msg">Lokalna kopija ne može da se preimenuje, probajte drugo ime</string>
     <string name="rename_server_fail_msg">Preimenovanje nije moguće, ime je već zauzeto</string>

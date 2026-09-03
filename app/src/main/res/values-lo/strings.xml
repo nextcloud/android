@@ -30,7 +30,10 @@
     <string name="activity_icon">ກິດຈະກໍາ</string>
     <string name="add_new_public_share">ເພິ່ມການແບ່ງປັນສາທາລະນະໃໝ່</string>
     <string name="add_new_secure_file_drop">ຕື່ມການວາງໄຟລ໌ທີ່ປອດໄພໃໝ່</string>
+    <string name="add_to_album">ເພີ່ມໃສ່ອະລະບໍ້າ</string>
     <string name="add_to_cloud">ເພີ່ມໃສ່ %1$s</string>
+    <string name="album_rename_conflict">This name is already in use.</string>
+    <string name="album_share">ແບ່ງປັນອາລະບ້ຳ</string>
     <string name="app_config_base_url_title">Base URL</string>
     <string name="app_config_disable_clipboard_title">Disable Clipboard</string>
     <string name="app_config_disable_intro_title">Disable Intro</string>
@@ -224,6 +227,7 @@
     <string name="could_not_retrieve_shares">ບໍ່ສາມາດເອົາການແບ່ງປັນຄືນໄດ້</string>
     <string name="could_not_retrieve_url">ບໍ່ສາມາດເກັບURL ໄດ້</string>
     <string name="create">ສ້າງ</string>
+    <string name="create_album_dialog_title">ອະລະບໍ້າໃໝ່</string>
     <string name="create_dir_fail_msg">ບໍ່ສາມາດສ້າງໂຟນເດີໄດ້</string>
     <string name="create_document">ເອກະສານ</string>
     <string name="create_folder">Folder</string>
@@ -293,6 +297,7 @@
     <string name="drawer_community">ຊຸມຊົນ</string>
     <string name="drawer_header_background">ຮູບພາບເບື້ອງຫຼັງຂອງຫົວຂໍ້</string>
     <string name="drawer_item_activities">ບັນດາກິດຈະກຳ</string>
+    <string name="drawer_item_album">ອະລະບໍ້າ</string>
     <string name="drawer_item_all_files">ຟາຍທັງໝົດ</string>
     <string name="drawer_item_assistant">Assistant</string>
     <string name="drawer_item_favorites">ລາຍການທີ່ມັກ</string>
@@ -388,6 +393,7 @@
     <string name="external_shares">ການແບ່ງປັນພາຍນອກ</string>
     <string name="fab_label">ເພີ່ມ ຫຼື ອັບໂຫຼດ</string>
     <string name="failed_to_download">ບໍ່ສາມາດຜ່ານຟາຍ ເພື່ອຈັດການດາວໂຫລດ</string>
+    <string name="failed_to_load_tags">ໂຫຼດແທັກບໍ່ສຳເລັດ</string>
     <string name="failed_to_print">ພິມຟາຍບໍ່ສຳເລັດ</string>
     <string name="failed_to_start_editor">ເລີ່ມແກ້ໄຂບໍ່ສຳເລັດ</string>
     <string name="failed_update_ui">ອັບເດດ  UI ບໍ່ສຳເລັດ</string>
@@ -575,6 +581,7 @@
     <string name="manage_space_clear_data">ລ້າງຂໍ້ມູນ</string>
     <string name="manage_space_description">ການຕັ້ງຄ່າ, ຖານຂໍ້ມູນ ແລະ ໃບຢັ້ງຢືນເຊີເວີຈາກຂໍ້ມູນ %1$s\'s ຈະຖືກລຶບອອກຢ່າງຖາວອນ. \n\nຟາຍທີ່ຖືກໂຫຼດບໍ່ໄດ້ເກັບຮັກສາໄວ້.\n\nຂະບວນການນີ້ຈະໃຊ້ເວລາໄລຍະຫນຶ່ງ.</string>
     <string name="manage_space_title">ຈັດການພື້ນທີ່</string>
+    <string name="manage_tags">ຈັດການປ້າຍກຳກັບ</string>
     <string name="media_err_invalid_progressive_playback">The media file cannot be streamed</string>
     <string name="media_err_io">ບໍ່ສາມາດອ່ານຟາຍສື່ມວນຊົນໄດ້</string>
     <string name="media_err_malformed">ຟາຍສື່ມວນຊົນມີ ການ ເຂົ້າລະຫັດບໍ່ຖືກຕ້ອງ</string>
@@ -774,6 +781,7 @@
     <string name="reload">ໂຫຼດຄຶນ</string>
     <string name="remote">(ໄລຍະໄກ)</string>
     <string name="remote_file_fetch_failed">ຊອກຫາຟາຍບໍ່ສຳເລັດ</string>
+    <string name="remove">ລຶບອອກ</string>
     <string name="remove_e2e">You can remove end-to-end encryption locally on this client</string>
     <string name="remove_e2e_message">You can remove end-to-end encryption locally on this client. The encrypted files will remain on server, but will not be synced to this computer any longer.</string>
     <string name="remove_fail_msg">ການລຶບບໍ່ສຳເລັດ</string>
@@ -782,6 +790,7 @@
     <string name="remove_notification_failed">ບໍ່ສາມາດລຶບການແຈ້ງການແຈ້ງເຕືອນໄດ້.</string>
     <string name="remove_push_notification">ຍ້າຍອອກ</string>
     <string name="remove_success_msg">ລືບ</string>
+    <string name="rename_dialog_button">ປ່ຽນຊື່</string>
     <string name="rename_dialog_title">ໃສ່ຊື່ໃໝ່</string>
     <string name="rename_local_fail_msg">ບໍ່ສາມາດປ່ຽນຊື່ສໍາເນົາໃນຊ່ອງເກັບຂໍ້ມູນໄດ້, ລອງໃຊ້ຊື່ອື່ນ</string>
     <string name="rename_server_fail_msg">ປ່ຽນຊື່ບໍ່ໄດ້  ມີຊື່ແລ້ວ</string>
@@ -812,6 +821,7 @@
     <string name="screenshot_06_davdroid_heading">Calendar and contacts</string>
     <string name="screenshot_06_davdroid_subline">Sync with DAVx⁵</string>
     <string name="search_error">Error getting search results</string>
+    <string name="search_tags">ຄົ້ນຫາແທັກ</string>
     <string name="secure_share_not_set_up">Secure sharing is not set up for this user</string>
     <string name="secure_share_search">Secure share…</string>
     <string name="select_all">ເລືອກທັງໝົດ</string>

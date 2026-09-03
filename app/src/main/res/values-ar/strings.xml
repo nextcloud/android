@@ -31,7 +31,12 @@
     <string name="activity_icon">النشاط</string>
     <string name="add_new_public_share">إضافة رابط مشاركة عام جديد</string>
     <string name="add_new_secure_file_drop">أضف ملف ألاصل </string>
+    <string name="add_to_album">إضِف إلى ألبوم</string>
     <string name="add_to_cloud">إضافة إلى %1$s</string>
+    <string name="album_delete">حذف الألبوم</string>
+    <string name="album_rename_conflict">هذا الاسم سبق استعماله.</string>
+    <string name="album_share">مشاركة الألبوم</string>
+    <string name="album_stop_sharing">أوقف المشاركة</string>
     <string name="app_config_base_url_title">عنوان URL الأساسي</string>
     <string name="app_config_disable_clipboard_title">تعطيل الحافظة</string>
     <string name="app_config_disable_intro_title">تعطيل المقدمة</string>
@@ -218,6 +223,7 @@
     <string name="could_not_retrieve_shares">لايمكن استعادة المشاركات</string>
     <string name="could_not_retrieve_url">لا يمكن استرجاع الرابط</string>
     <string name="create">إنشاء</string>
+    <string name="create_album_dialog_title">ألبوم جديد</string>
     <string name="create_dir_fail_msg">تعذر إنشاء المُجلّد</string>
     <string name="create_document">وثيقة</string>
     <string name="create_folder">مجلد</string>
@@ -279,6 +285,7 @@
     <string name="drawer_community">المنتدى</string>
     <string name="drawer_header_background">صورة خلفية الدرج العلوي</string>
     <string name="drawer_item_activities">النشاطات</string>
+    <string name="drawer_item_album">الألبومات</string>
     <string name="drawer_item_all_files">كل الملفات</string>
     <string name="drawer_item_assistant">المُساعِد</string>
     <string name="drawer_item_favorites">المفضلة </string>
@@ -371,6 +378,7 @@
     <string name="external_shares">مشاركات خارجية</string>
     <string name="fab_label">أضف أو ارفع</string>
     <string name="failed_to_download">حدث خطأ في تمرير الملف لمدير التنزيل</string>
+    <string name="failed_to_load_tags">فشل في تحميل الوسوم</string>
     <string name="failed_to_print">حدث خطأ في طباعة الملف</string>
     <string name="failed_to_start_editor">حدث خطأ في بدء المحرر</string>
     <string name="failed_update_ui">فشل تحديث UI</string>
@@ -549,6 +557,7 @@
 
 قد تستغرق هذه العملية بعض الوقت.</string>
     <string name="manage_space_title">إدارة المساحة</string>
+    <string name="manage_tags">إدارة الوسوم</string>
     <string name="media_err_invalid_progressive_playback">ملف الوسائط لا يمكن بثه</string>
     <string name="media_err_io">تعذرت قراءة ملف الوسائط</string>
     <string name="media_err_malformed">يحتوي ملف الوسائط على ترميز غير صحيح</string>
@@ -738,6 +747,7 @@
     <string name="reload">إعادة تحميل</string>
     <string name="remote">(عن بعد)</string>
     <string name="remote_file_fetch_failed">فشل في العثور على الملف!</string>
+    <string name="remove">حذف</string>
     <string name="remove_e2e">يُمكنك إلغاء التشفير المحلي لهذا العميل</string>
     <string name="remove_e2e_message">يُمكنك إلغاء التشفير المحلي لهذا العميل. هذا الملف المُشفّر سوف يبقى على الخادم لكن لن تتم مزامنته مع هذا الحاسوب بعد الآن.</string>
     <string name="remove_fail_msg">فشلت عملية الحذف</string>
@@ -746,6 +756,7 @@
     <string name="remove_notification_failed">فشل في إزالة الإشعار.</string>
     <string name="remove_push_notification">حذف</string>
     <string name="remove_success_msg">تم حذفه</string>
+    <string name="rename_dialog_button">إعادة التسمية</string>
     <string name="rename_dialog_title">أدخل اسما جديداً</string>
     <string name="rename_local_fail_msg">تعذرت إعادة تسمية النسخة المحلية ، حاول استخدام اسم مختلف</string>
     <string name="rename_server_fail_msg">إعادة التسمية غير ممكنة ، الاسم مأخوذ بالفعل</string>
@@ -775,6 +786,7 @@
     <string name="screenshot_05_autoUpload_subline">للصور مقاطع الفيديو الخاصة بك</string>
     <string name="screenshot_06_davdroid_heading">القويم و جهات الاتصال</string>
     <string name="search_error">خطاء في الحصول على نتائج البحث</string>
+    <string name="search_tags">البحث عن الوسوم</string>
     <string name="secure_share_not_set_up">المشاركة الآمنة لم يتم إعدادها بالنسبة لهذا المستخدِم</string>
     <string name="secure_share_search">مشاركة آمنة ...</string>
     <string name="select_all">تحديد الكل</string>

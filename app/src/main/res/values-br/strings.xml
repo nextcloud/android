@@ -569,6 +569,7 @@
     <string name="remove_notification_failed">N\'eus ket bet gallet lemel ar gemennadenn kuit</string>
     <string name="remove_push_notification">Lemel</string>
     <string name="remove_success_msg">Dilamet</string>
+    <string name="rename_dialog_button">Adenvel</string>
     <string name="rename_dialog_title">Lakaat un anv nevez</string>
     <string name="rename_local_fail_msg">Dibosuple adenvel an eilenn diabarzh, klaskit un anv all</string>
     <string name="rename_server_fail_msg">Dibosuple adenvel, anv kemeret dija</string>

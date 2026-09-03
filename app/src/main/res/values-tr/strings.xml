@@ -30,9 +30,15 @@
     <string name="activity_chooser_send_file_title">Gönder</string>
     <string name="activity_chooser_title">Bağlantıyı şuraya gönder …</string>
     <string name="activity_icon">İşlem</string>
+    <string name="add_media">Ortam ekle</string>
     <string name="add_new_public_share">Yeni herkese açık paylaşım bağlantısı ekle</string>
     <string name="add_new_secure_file_drop">Yeni güvenli dosya bırakma ekle</string>
+    <string name="add_to_album">Albüme ekle</string>
     <string name="add_to_cloud">%1$s üzerine ekle</string>
+    <string name="album_delete">Albümü sil</string>
+    <string name="album_rename_conflict">Bu ad zaten kullanılıyor.</string>
+    <string name="album_share">Albümü paylaş</string>
+    <string name="album_stop_sharing">Paylaşımı durdur</string>
     <string name="app_config_base_url_title">Temel adres</string>
     <string name="app_config_disable_clipboard_title">Pano kullanılmasın</string>
     <string name="app_config_disable_intro_title">Giriş kullanılmasın</string>
@@ -123,6 +129,10 @@
     <string name="auto_upload_on_wifi">Yalnızca kotasız kablosuz ağda yüklensin</string>
     <string name="auto_upload_path">/OtomatikYükleme</string>
     <string name="auto_upload_sub_folder_warning">Bu klasör, üst klasörün eşitlemesine zaten katılmış olduğundan yinelenen yüklemelere neden olabilir.</string>
+    <string name="auto_upload_sync_now_action">Şimdi eşitle</string>
+    <string name="auto_upload_sync_now_no_folder">Otomatik yükleme için bir klasör ayarlanmamış</string>
+    <string name="auto_upload_sync_now_running">Otomatik yükleme zaten çalışıyor</string>
+    <string name="auto_upload_sync_now_started">Otomatik yükleme başlatıldı</string>
     <string name="auto_upload_wifi_only_warning_info">Yüklemenin başlatılması için Wi-Fi bağlantısı bekleniyor</string>
     <string name="auto_upload_worker_start_text">%1$s üzerindeki dosyalar %2$s üzerine yükleniyor</string>
     <string name="autoupload_configure">Yapılandır</string>
@@ -249,6 +259,7 @@
     <string name="could_not_retrieve_shares">Paylaşımlar alınamadı</string>
     <string name="could_not_retrieve_url">Adres alınamadı</string>
     <string name="create">Oluştur</string>
+    <string name="create_album_dialog_title">Yeni albüm</string>
     <string name="create_dir_fail_msg">Klasör oluşturulamadı</string>
     <string name="create_document">Belge</string>
     <string name="create_encrypted_folder">Şifrelenmiş klasör</string>
@@ -323,6 +334,7 @@
     <string name="drawer_community">Topluluk</string>
     <string name="drawer_header_background">Çekmece üst bilgisinin arka plan görseli</string>
     <string name="drawer_item_activities">İşlemler</string>
+    <string name="drawer_item_album">Albümler</string>
     <string name="drawer_item_all_files">Tüm dosyalar</string>
     <string name="drawer_item_assistant">Yardımcı</string>
     <string name="drawer_item_favorites">Sık kullanılanlar</string>
@@ -424,6 +436,7 @@
     <string name="fab_label">Ekle ya da yükle</string>
     <string name="failed_to_create_conflict_dialog">Çakışma iletişim kutusu oluşturulamadı</string>
     <string name="failed_to_download">Dosya indirme yöneticisine aktarılamadı</string>
+    <string name="failed_to_load_tags">Etiketler yüklenemedi</string>
     <string name="failed_to_print">Dosya yazdırılamadı</string>
     <string name="failed_to_start_action">İşlem başlatılamadı!</string>
     <string name="failed_to_start_editor">Düzenleyici başlatılamadı</string>
@@ -623,6 +636,7 @@
     <string name="manage_space_clear_data">Verileri temizle</string>
     <string name="manage_space_description">%1$s verilerinden ayarlar, veri tabanı ve sunucu sertifikaları kalıcı olarak silinecek. \n\nİndirilen dosyalara dokunulmayacak.\n\nBu işlem biraz zaman alabilir.</string>
     <string name="manage_space_title">Alan yönetimi</string>
+    <string name="manage_tags">Etiket yönetimi</string>
     <string name="media_err_invalid_progressive_playback">Ortam dosyası akışı sağlanamadı</string>
     <string name="media_err_io">Ortam dosyası okunamadı</string>
     <string name="media_err_malformed">Ortam dosyası doğru şekilde kodlanmamış</string>
@@ -832,6 +846,7 @@
     <string name="reload">Yeniden yükle</string>
     <string name="remote">(uzak)</string>
     <string name="remote_file_fetch_failed">Dosya bulunamadı!</string>
+    <string name="remove">Kaldır</string>
     <string name="remove_e2e">Bu istemciden uçtan uca şifrelemeyi yerel olarak kaldırabilirsiniz</string>
     <string name="remove_e2e_keys_and_files_dialog_warning">Bu işlem tüm şifrelenmiş dosyaları, kişisel ve herkese açık anahtarları kaldıracak. Emin misiniz?</string>
     <string name="remove_e2e_message">Bu istemcide yerel olarak uçtan uca şifrelemeyi kaldırabilirsiniz. Şifrelenmiş dosyalar sunucuda kalır, ancak artık bu bilgisayarla eşitlenmez.</string>
@@ -841,6 +856,7 @@
     <string name="remove_notification_failed">Bildirim silinemedi.</string>
     <string name="remove_push_notification">Sil</string>
     <string name="remove_success_msg">Silindi</string>
+    <string name="rename_dialog_button">Yeniden adlandır</string>
     <string name="rename_dialog_title">Yeni bir ad yazın</string>
     <string name="rename_local_fail_msg">Yerel kopyanın adı değiştirilemedi. Lütfen başka bir ad deneyin</string>
     <string name="rename_server_fail_msg">Ad zaten kullanıldığından yeniden adlandırılamadı</string>
@@ -877,6 +893,7 @@
     <string name="screenshot_06_davdroid_heading">Takvim ve kişiler</string>
     <string name="screenshot_06_davdroid_subline">DAVx⁵ ile eşitle</string>
     <string name="search_error">Arama sonuçları alınırken sorun çıktı</string>
+    <string name="search_tags">Etiket ara</string>
     <string name="secure_share_not_set_up">Bu kullanıcı için güvenli paylaşım kurulmamış</string>
     <string name="secure_share_search">Güvenli paylaşım…</string>
     <string name="select_all">Tümünü seç</string>

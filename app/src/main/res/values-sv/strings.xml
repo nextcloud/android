@@ -30,9 +30,15 @@
     <string name="activity_chooser_send_file_title">Skicka</string>
     <string name="activity_chooser_title">Skicka länk till…</string>
     <string name="activity_icon">Aktivitet</string>
+    <string name="add_media">Lägg till media</string>
     <string name="add_new_public_share">Lägg till en ny offentlig delningslänk</string>
     <string name="add_new_secure_file_drop">Lägg till ett nytt säkert filinkast</string>
+    <string name="add_to_album">Lägg till i album</string>
     <string name="add_to_cloud">Lägg till %1$s</string>
+    <string name="album_delete">Ta bort album</string>
+    <string name="album_rename_conflict">Namnet används redan.</string>
+    <string name="album_share">Dela album</string>
+    <string name="album_stop_sharing">Sluta dela</string>
     <string name="app_config_base_url_title">Bas-URL</string>
     <string name="app_config_disable_clipboard_title">Inaktivera urklipp</string>
     <string name="app_config_disable_intro_title">Inaktivera introduktion</string>
@@ -123,6 +129,10 @@
     <string name="auto_upload_on_wifi">Ladda endast upp via Wi-Fi utan datatak</string>
     <string name="auto_upload_path">/AutomatiskUppladdning</string>
     <string name="auto_upload_sub_folder_warning">Denna mapp ingår redan i synkroniseringen av den överordnade mappen, vilket kan orsaka dubbla uppladdningar</string>
+    <string name="auto_upload_sync_now_action">Synkronisera nu</string>
+    <string name="auto_upload_sync_now_no_folder">Ingen mapp har ställts in för automatisk uppladdning</string>
+    <string name="auto_upload_sync_now_running">Automatisk uppladdning körs redan</string>
+    <string name="auto_upload_sync_now_started">Automatisk uppladdning startade</string>
     <string name="auto_upload_wifi_only_warning_info">Väntar på Wi-Fi för att starta uppladdning</string>
     <string name="auto_upload_worker_start_text">Laddar upp filer från %1$s till %2$s</string>
     <string name="autoupload_configure">Konfigurera</string>
@@ -249,6 +259,7 @@
     <string name="could_not_retrieve_shares">Kunde inte hämta delade mappar</string>
     <string name="could_not_retrieve_url">Kunde inte hämta URL</string>
     <string name="create">Skapa</string>
+    <string name="create_album_dialog_title">Nytt album</string>
     <string name="create_dir_fail_msg">Kunde inte skapa mapp</string>
     <string name="create_document">Dokument</string>
     <string name="create_encrypted_folder">Krypterad mapp</string>
@@ -323,6 +334,7 @@
     <string name="drawer_community">Community</string>
     <string name="drawer_header_background">Bakgrundsbild på appskärmsrubriken</string>
     <string name="drawer_item_activities">Aktiviteter</string>
+    <string name="drawer_item_album">Album</string>
     <string name="drawer_item_all_files">Alla filer</string>
     <string name="drawer_item_assistant">Assistent</string>
     <string name="drawer_item_favorites">Favoriter</string>
@@ -424,6 +436,7 @@
     <string name="fab_label">Lägg till eller ladda upp</string>
     <string name="failed_to_create_conflict_dialog">Kunde inte skapa konfliktdialog</string>
     <string name="failed_to_download">Det gick inte att skicka filen till hämtningshanteraren</string>
+    <string name="failed_to_load_tags">Det gick inte att läsa in taggarna</string>
     <string name="failed_to_print">Kunde inte skriva ut filen</string>
     <string name="failed_to_start_action">Det gick inte att starta åtgärden!</string>
     <string name="failed_to_start_editor">Det gick inte att starta redigeraren</string>
@@ -623,6 +636,7 @@
     <string name="manage_space_clear_data">Rensa data</string>
     <string name="manage_space_description">Inställningar, databas och servercertifikat från %1$s kommer att raderas permanent.\n\nHämtade filer kommer inte att raderas eller ändras.\n\nDetta kan ta en stund.</string>
     <string name="manage_space_title">Hantera utrymme</string>
+    <string name="manage_tags">Hantera taggar</string>
     <string name="media_err_invalid_progressive_playback">Mediefilen kan inte strömmas</string>
     <string name="media_err_io">Kunde inte läsa mediafilen</string>
     <string name="media_err_malformed">Mediafilen har felaktig kodning</string>
@@ -833,6 +847,7 @@
     <string name="reload">Uppdatera</string>
     <string name="remote">(fjärr)</string>
     <string name="remote_file_fetch_failed">Kunde inte hitta filen!</string>
+    <string name="remove">Ta bort</string>
     <string name="remove_e2e">Du kan ta bort ände-till-ände-kryptering lokalt på denna klient</string>
     <string name="remove_e2e_keys_and_files_dialog_warning">Den här åtgärden tar bort alla krypterade filer samt privata och offentliga nycklar. Är du säker?</string>
     <string name="remove_e2e_message">Du kan ta bort ände-till-ände-kryptering lokalt på den här klienten. De krypterade filerna finns kvar på servern men synkroniseras inte längre med den här enheten.</string>
@@ -842,6 +857,7 @@
     <string name="remove_notification_failed">Det gick inte att ta bort aviseringen.</string>
     <string name="remove_push_notification">Ta bort</string>
     <string name="remove_success_msg">Borttagen</string>
+    <string name="rename_dialog_button">Byt namn</string>
     <string name="rename_dialog_title">Ange ett nytt namn</string>
     <string name="rename_local_fail_msg">Det gick inte att byta namn på lokal kopia, prova ett annat namn</string>
     <string name="rename_server_fail_msg">Det går inte att byta namn eftersom namnet redan används</string>
@@ -878,6 +894,7 @@
     <string name="screenshot_06_davdroid_heading">Kalender och kontakter</string>
     <string name="screenshot_06_davdroid_subline">Synkronisera med DAVx⁵</string>
     <string name="search_error">Ett fel uppstod vid sökning</string>
+    <string name="search_tags">Sök taggar</string>
     <string name="secure_share_not_set_up">Säker delning är inte konfigurerad för denna användare</string>
     <string name="secure_share_search">Säker delning…</string>
     <string name="select_all">Välj alla</string>

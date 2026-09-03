@@ -26,6 +26,7 @@
     <string name="activity_chooser_title">Sendi ligilon al...</string>
     <string name="activity_icon">Aktivaĵoj</string>
     <string name="add_to_cloud">Aldoni al %1$s</string>
+    <string name="album_stop_sharing">Ĉesi kunhavigi</string>
     <string name="appbar_search_in">Serĉi en 1%s</string>
     <string name="assistant_task_status_unknown">nekonata</string>
     <string name="auth_access_failed">Aliro malsukcesis: %1$s</string>
@@ -215,6 +216,7 @@
     <string name="etm_transfer_type_download">Elŝuti</string>
     <string name="etm_transfer_type_upload">Alŝuti</string>
     <string name="fab_label">Aldoni aŭ alŝuti</string>
+    <string name="failed_to_load_tags">Ŝargo de la etikedoj malsukcesis</string>
     <string name="favorite">Aldoni al pliŝataĵoj</string>
     <string name="favorite_icon">Pliŝatataj</string>
     <string name="file_delete">Forigi</string>
@@ -426,6 +428,7 @@
     <string name="remove_notification_failed">Malsukcesis forigi sciigon.</string>
     <string name="remove_push_notification">Forigi</string>
     <string name="remove_success_msg">Forigita</string>
+    <string name="rename_dialog_button">Alinomi</string>
     <string name="rename_dialog_title">Enigu novan nomon</string>
     <string name="rename_local_fail_msg">Ne eblis alinomi lokan kopion, provu uzi alian nomon</string>
     <string name="rename_server_fail_msg">Ne eblis alinomi: la nomo jam uziĝas</string>
