@@ -144,8 +144,6 @@ class GalleryFragment :
 
         LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(refreshSearchEventReceiver)
 
-        adapter?.cleanup()
-        adapter?.setLayoutManager(null)
         adapter = null
 
         super.onDestroyView()

@@ -52,17 +52,24 @@ class PreviewPlaybackFragment :
         private const val ARGUMENT_FILE = "ARGUMENT_FILE"
         private const val ARGUMENT_COLLECTION = "ARGUMENT_COLLECTION"
         private const val ARGUMENT_AUTOPLAY = "ARGUMENT_AUTOPLAY"
+        private const val ARGUMENT_PICTURE_IN_PICTURE_ON_BACK = "ARGUMENT_PICTURE_IN_PICTURE_ON_BACK"
         private const val SURFACE_ALPHA_VISIBLE = 1f
         private const val SURFACE_ALPHA_HIDDEN = 0f
 
-        fun newInstance(file: OCFile, collection: PlaybackCollection, autoplay: Boolean = false) =
-            PreviewPlaybackFragment().apply {
-                arguments = bundleOf(
-                    ARGUMENT_FILE to file,
-                    ARGUMENT_COLLECTION to collection,
-                    ARGUMENT_AUTOPLAY to autoplay
-                )
-            }
+        @Suppress("LongParameterList")
+        fun newInstance(
+            file: OCFile,
+            collection: PlaybackCollection,
+            autoplay: Boolean = false,
+            pictureInPictureOnBack: Boolean = true
+        ) = PreviewPlaybackFragment().apply {
+            arguments = bundleOf(
+                ARGUMENT_FILE to file,
+                ARGUMENT_COLLECTION to collection,
+                ARGUMENT_AUTOPLAY to autoplay,
+                ARGUMENT_PICTURE_IN_PICTURE_ON_BACK to pictureInPictureOnBack
+            )
+        }
     }
 
     @Inject
@@ -79,6 +86,7 @@ class PreviewPlaybackFragment :
     private lateinit var playbackFile: PlaybackFile
     private var playbackCollection = PlaybackCollection.FOLDER
     private var autoplay: Boolean = false
+    private var pictureInPictureOnBack: Boolean = true
     private var wasCurrentItem = false
     private var renderedVideoSize: VideoSize? = null
 
@@ -93,6 +101,7 @@ class PreviewPlaybackFragment :
         playbackCollection = arguments.getSerializableArgument(ARGUMENT_COLLECTION, PlaybackCollection::class.java)
             ?: PlaybackCollection.FOLDER
         autoplay = arguments?.getBoolean(ARGUMENT_AUTOPLAY) == true
+        pictureInPictureOnBack = arguments?.getBoolean(ARGUMENT_PICTURE_IN_PICTURE_ON_BACK) != false
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -108,7 +117,11 @@ class PreviewPlaybackFragment :
     }
 
     private fun registerPictureInPictureOnBack() {
-        if (!MimeTypeUtil.isVideo(file) || !requireContext().isPictureInPictureAllowed()) {
+        if (!pictureInPictureOnBack || !MimeTypeUtil.isVideo(file)) {
+            return
+        }
+
+        if (!requireContext().isPictureInPictureAllowed()) {
             return
         }
 
