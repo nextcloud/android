@@ -2442,6 +2442,8 @@ public class FileDataStorageManager {
 
         contentValues.put(ProviderTableMeta.CAPABILITIES_MOD_REWRITE_WORKING, capability.getModRewriteWorking().getValue());
 
+        contentValues.put(ProviderTableMeta.CAPABILITIES_CHUNKED_UPLOAD_MAX_SIZE, capability.getChunkedUploadMaxSize());
+
         return contentValues;
     }
 
@@ -2642,6 +2644,9 @@ public class FileDataStorageManager {
             capability.setClientIntegrationJson(getString(cursor, ProviderTableMeta.CAPABILITIES_CLIENT_INTEGRATION_JSON));
 
             capability.setModRewriteWorking(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_MOD_REWRITE_WORKING));
+
+            capability.setChunkedUploadMaxSize(
+                getLong(cursor, ProviderTableMeta.CAPABILITIES_CHUNKED_UPLOAD_MAX_SIZE));
         }
 
         return capability;

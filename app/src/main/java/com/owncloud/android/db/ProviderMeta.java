@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 102;
+    public static final int DB_VERSION = 103;
 
     private ProviderMeta() {
         // No instance
@@ -296,6 +296,7 @@ public class ProviderMeta {
         public static final String CAPABILITIES_HAS_VALID_SUBSCRIPTION = "has_valid_subscription";
         public static final String CAPABILITIES_CLIENT_INTEGRATION_JSON = "client_integration_json";
         public static final String CAPABILITIES_MOD_REWRITE_WORKING = "mod_rewrite_working";
+        public static final String CAPABILITIES_CHUNKED_UPLOAD_MAX_SIZE = "chunked_upload_max_size";
 
         //Columns of Uploads table
         public static final String UPLOADS_LOCAL_PATH = "local_path";

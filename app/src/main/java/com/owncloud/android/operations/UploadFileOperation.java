@@ -143,7 +143,7 @@ public class UploadFileOperation extends SyncOperation {
     private volatile int mCreatedBy;
     private boolean mOnWifiOnly;
     private boolean mWhileChargingOnly;
-    private volatile boolean mIgnoringPowerSaveMode;
+    private boolean mIgnoringPowerSaveMode;
     private final boolean mDisableRetries;
 
     private volatile boolean mWasRenamed;
@@ -294,8 +294,8 @@ public class UploadFileOperation extends SyncOperation {
         return mIgnoringPowerSaveMode;
     }
 
-    public void setIgnoringPowerSaveMode(boolean ignoringPowerSaveMode) {
-        mIgnoringPowerSaveMode = ignoringPowerSaveMode;
+    public void setIgnoringPowerSaveMode(boolean value) {
+        this.mIgnoringPowerSaveMode = value;
     }
 
     public User getUser() {
@@ -705,7 +705,8 @@ public class UploadFileOperation extends SyncOperation {
                                           long creationTimestamp,
                                           long size) {
 
-        if (size > ChunkedFileUploadRemoteOperation.MIN_CHUNK_SIZE) {
+        final long serverMaxChunkSize = getCapabilities().getChunkedUploadMaxSize();
+        if (size > ChunkedFileUploadRemoteOperation.chunkSize(mOnWifiOnly, serverMaxChunkSize)) {
             boolean onWifiConnection = connectivityService.getConnectivity().isWifi();
 
             mUploadOperation = new ChunkedFileUploadRemoteOperation(encryptedTempFile.getAbsolutePath(),
@@ -716,7 +717,8 @@ public class UploadFileOperation extends SyncOperation {
                                                                     onWifiConnection,
                                                                     token,
                                                                     creationTimestamp,
-                                                                    mDisableRetries
+                                                                    mDisableRetries,
+                                                                    serverMaxChunkSize
             );
         } else {
             mUploadOperation = new UploadFileRemoteOperation(encryptedTempFile.getAbsolutePath(),
@@ -1006,38 +1008,38 @@ public class UploadFileOperation extends SyncOperation {
     }
     // endregion
 
-    private RemoteOperationResult<Object> checkConditions(File originalFile) {
-        RemoteOperationResult<Object> remoteOperationResult = null;
+    private RemoteOperationResult checkConditions(File originalFile) {
+        RemoteOperationResult remoteOperationResult = null;
 
         // check that connectivity conditions are met and delays the upload otherwise
         Connectivity connectivity = connectivityService.getConnectivity();
         if (mOnWifiOnly && (!connectivity.isWifi() || connectivity.isMetered())) {
             Log_OC.d(TAG, "Upload delayed until WiFi is available: " + getRemotePath());
-            remoteOperationResult = new RemoteOperationResult<>(ResultCode.DELAYED_FOR_WIFI);
+            remoteOperationResult = new RemoteOperationResult(ResultCode.DELAYED_FOR_WIFI);
         }
 
         // check if charging conditions are met and delays the upload otherwise
         final BatteryStatus battery = powerManagementService.getBattery();
         if (mWhileChargingOnly && !battery.isCharging()) {
             Log_OC.d(TAG, "Upload delayed until the device is charging: " + getRemotePath());
-            remoteOperationResult = new RemoteOperationResult<>(ResultCode.DELAYED_FOR_CHARGING);
+            remoteOperationResult = new RemoteOperationResult(ResultCode.DELAYED_FOR_CHARGING);
         }
 
         // check that device is not in power save mode
         if (!mIgnoringPowerSaveMode && powerManagementService.isPowerSavingEnabled()) {
             Log_OC.d(TAG, "Upload delayed because device is in power save mode: " + getRemotePath());
-            remoteOperationResult = new RemoteOperationResult<>(ResultCode.DELAYED_IN_POWER_SAVE_MODE);
+            remoteOperationResult = new RemoteOperationResult(ResultCode.DELAYED_IN_POWER_SAVE_MODE);
         }
 
         // check if the file continues existing before schedule the operation
         if (!originalFile.exists()) {
             Log_OC.d(TAG, mOriginalStoragePath + " does not exist anymore");
-            remoteOperationResult = new RemoteOperationResult<>(ResultCode.LOCAL_FILE_NOT_FOUND);
+            remoteOperationResult = new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
         }
 
         // check that internet is not behind walled garden
         if (!connectivityService.getConnectivity().isConnected() || connectivityService.isInternetWalled()) {
-            remoteOperationResult = new RemoteOperationResult<>(ResultCode.NO_NETWORK_CONNECTION);
+            remoteOperationResult = new RemoteOperationResult(ResultCode.NO_NETWORK_CONNECTION);
         }
 
         return remoteOperationResult;
@@ -1129,15 +1131,15 @@ public class UploadFileOperation extends SyncOperation {
                 updateSize(size);
                 Log_OC.d(TAG, "file size set to " + formattedFileSize);
 
-                // decide whether chunked or not
-                if (size > ChunkedFileUploadRemoteOperation.MIN_CHUNK_SIZE) {
+                final long serverMaxChunkSize = getCapabilities().getChunkedUploadMaxSize();
+                if (size > ChunkedFileUploadRemoteOperation.chunkSize(mOnWifiOnly, serverMaxChunkSize)) {
                     Log_OC.d(TAG, "chunked upload operation will be used");
 
                     boolean onWifiConnection = connectivityService.getConnectivity().isWifi();
                     mUploadOperation = new ChunkedFileUploadRemoteOperation(
                         mFile.getStoragePath(), mFile.getRemotePath(), mFile.getMimeType(),
                         mFile.getEtagInConflict(), lastModifiedTimestamp, creationTimestamp,
-                        onWifiConnection, mDisableRetries);
+                        onWifiConnection, mDisableRetries, serverMaxChunkSize);
                 } else {
                     Log_OC.d(TAG, "upload file operation will be used");
 
@@ -1421,7 +1423,7 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     private OCCapability getCapabilities() {
-        return CapabilityUtils.getCapability(mContext);
+        return CapabilityUtils.getCapability(user, mContext);
     }
 
     /**
