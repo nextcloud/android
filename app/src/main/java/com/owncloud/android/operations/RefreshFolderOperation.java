@@ -615,6 +615,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             // we parse content, so either the folder itself or its direct parent (which we check) must be encrypted
             boolean encrypted = updatedFile.isEncrypted() || mLocalFolder.isEncrypted();
             updatedFile.setEncrypted(encrypted);
+            updatedFile.setReadOnly(localFile != null && localFile.isReadOnly());
 
             updatedFiles.add(updatedFile);
         }

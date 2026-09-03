@@ -37,6 +37,7 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.EditorUtils;
+import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -944,10 +945,7 @@ public class FileOperationsHelper {
         }
 
         Log_OC.d(TAG, "toggling encryption for: " + file.getRemotePath());
-        EventBus.getDefault().post(new EncryptionEvent(file.getLocalId(),
-                                                       file.getRemoteId(),
-                                                       file.getRemotePath(),
-                                                       shouldBeEncrypted));
+        EventBus.getDefault().post(OCFileExtensionsKt.toEncryptionEvent(file, shouldBeEncrypted));
     }
 
     public void toggleFileLock(OCFile file, boolean shouldBeLocked) {

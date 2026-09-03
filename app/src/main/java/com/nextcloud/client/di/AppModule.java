@@ -38,17 +38,21 @@ import com.nextcloud.client.migrations.MigrationsDb;
 import com.nextcloud.client.migrations.MigrationsManager;
 import com.nextcloud.client.migrations.MigrationsManagerImpl;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.notifications.AppNotificationManager;
 import com.nextcloud.client.notifications.AppNotificationManagerImpl;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.Throttler;
-import com.owncloud.android.providers.UsersAndGroupsSearchConfig;
+import com.nextcloud.utils.e2ee.E2EEActionResolver;
+import com.nextcloud.utils.e2ee.E2EEKeyInspector;
+import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
+import com.owncloud.android.providers.UsersAndGroupsSearchConfig;
 import com.owncloud.android.ui.activities.data.activities.ActivitiesRepository;
 import com.owncloud.android.ui.activities.data.activities.ActivitiesServiceApi;
 import com.owncloud.android.ui.activities.data.activities.ActivitiesServiceApiImpl;
@@ -57,7 +61,6 @@ import com.owncloud.android.ui.activities.data.files.FilesRepository;
 import com.owncloud.android.ui.activities.data.files.FilesServiceApiImpl;
 import com.owncloud.android.ui.activities.data.files.RemoteFilesRepository;
 import com.owncloud.android.ui.dialog.setupEncryption.CertificateValidator;
-import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -280,4 +283,23 @@ class AppModule {
         return new FolderThumbnailGenerator(appPreferences, viewThemeUtils, context, accountManager);
     }
 
+    @Provides
+    E2EEKeyInspector e2eeKeyInspector(
+        Context context,
+        FileDataStorageManager fileDataStorageManager,
+        CertificateValidator certificateValidator,
+        ArbitraryDataProvider arbitraryDataProvider,
+        UserAccountManager accountManager) {
+        return new E2EEKeyInspector(context, fileDataStorageManager, certificateValidator, arbitraryDataProvider, accountManager);
+    }
+
+    @Provides
+    E2EEActionResolver e2eeActionResolver(
+        FileDataStorageManager fileDataStorageManager,
+        ArbitraryDataProvider arbitraryDataProvider,
+        UserAccountManager accountManager,
+        ConnectivityService connectivityService,
+        E2EEKeyInspector e2eeKeyInspector) {
+        return new E2EEActionResolver(fileDataStorageManager, arbitraryDataProvider, accountManager, connectivityService, e2eeKeyInspector);
+    }
 }

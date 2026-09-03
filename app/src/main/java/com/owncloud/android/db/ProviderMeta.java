@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 103;
+    public static final int DB_VERSION = 104;
 
     private ProviderMeta() {
         // No instance
@@ -115,6 +115,7 @@ public class ProviderMeta {
         public static final String FILE_FAVORITE = "favorite";
         public static final String FILE_HIDDEN = "hidden";
         public static final String FILE_IS_ENCRYPTED = "is_encrypted";
+        public static final String FILE_IS_READ_ONLY = "is_read_only";
         public static final String FILE_MOUNT_TYPE = "mount_type";
         public static final String FILE_HAS_PREVIEW = "has_preview";
         public static final String FILE_UNREAD_COMMENTS_COUNT = "unread_comments_count";
@@ -169,6 +170,7 @@ public class ProviderMeta {
                                                                     FILE_FAVORITE,
                                                                     FILE_HIDDEN,
                                                                     FILE_IS_ENCRYPTED,
+                                                                    FILE_IS_READ_ONLY,
                                                                     FILE_MOUNT_TYPE,
                                                                     FILE_HAS_PREVIEW,
                                                                     FILE_UNREAD_COMMENTS_COUNT,

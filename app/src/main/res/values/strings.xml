@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Nextcloud - Android Client
   ~
   ~ SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
@@ -1485,6 +1484,28 @@
 
     <string name="pause_upload">Pause</string>
     <string name="cancel_upload">Cancel</string>
+
+    <string name="encryption_new_folder_no_network">Cannot reach the server. Try creating the folder again later.</string>
+    <string name="encryption_new_folder_check_failed">Could not check your encryption keys. Try creating the folder again.</string>
+    <string name="encryption_new_folder_unavailable">Cannot create encrypted folders. End-to-end encryption is not set up on this server.</string>
+
+    <string name="encryption_open_no_network">Cannot reach the server. Try opening the folder again later.</string>
+    <string name="encryption_open_check_failed">Could not check your encryption keys. Try opening the folder again.</string>
+    <string name="encryption_open_unavailable">Cannot open this folder. End-to-end encryption is not set up on this server.</string>
+
+    <string name="encryption_encrypt_no_network">Cannot reach the server. Try encrypting the folder again later.</string>
+    <string name="encryption_encrypt_check_failed">Could not check your encryption keys. Try encrypting the folder again.</string>
+    <string name="encryption_encrypt_unavailable">Cannot encrypt this folder. End-to-end encryption is not set up on this server.</string>
+
+    <string name="encryption_open_key_mismatch">The encryption key stored on this device does not match the key required for this folder.</string>
+
+    <string name="encryption_key_checking_keys">Checking keys…</string>
+    <string name="encryption_key_handle_key_removed_title">Encryption keys changed</string>
+    <string name="encryption_key_handle_no_keys_description">This folder cannot be opened because its encryption keys no longer exist on this device or on the server.</string>
+    <string name="encryption_key_handle_folder_read_only_description">The encryption keys of this account were removed or replaced, so the contents of this folder can no longer be decrypted.\n\nThe folder is read only from now on. To use encrypted folders again, backup this folder and set up your new encryption key in the settings.</string>
+    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">The encryption keys of this account were removed or replaced.\n\nSet up your new encryption key in the settings before you encrypt a folder.</string>
+    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">The encryption key stored on this device is not valid anymore. Keys are revoked from server. \n\nBackup previously created encrypted folder. \n\nThen remove encryption locally from settings to create new encryption folder.</string>
+    <string name="encryption_key_handle_key_keys_only_on_device_description">The encryption key stored on this device is not valid anymore. Keys are revoked from server. \n\nRemove encryption locally from settings to create new encryption folder.</string>
 
     <string name="internal_two_way_sync">Internal two way sync</string>
     <string name="prefs_two_way_sync_summary">Manage internal folders for two way sync</string>
