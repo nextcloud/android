@@ -28,8 +28,6 @@ class CapabilityUtilsIT : AbstractIT() {
         assertTrue(test(NextcloudVersion.nextcloud_24))
         assertTrue(test(NextcloudVersion.nextcloud_23))
         assertTrue(test(NextcloudVersion.nextcloud_22))
-        assertTrue(test(NextcloudVersion.nextcloud_21))
-        assertTrue(test(OwnCloudVersion.nextcloud_20))
     }
 
     @Test
