@@ -16,6 +16,7 @@ import android.database.ContentObserver
 import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
+import android.util.LruCache
 import android.os.Handler
 import android.os.Looper
 import android.os.Process
@@ -51,8 +52,11 @@ object PlayerUtil {
     private const val NO_INDEX = -1
     private const val UNKNOWN_CONTENT_LENGTH = -1L
     private const val SECOND_IN_MILLISECONDS = 1000L
+    private const val PLAYBACK_FILE_CACHE_SIZE = 512
 
     private val playbackJson = Json { ignoreUnknownKeys = true }
+
+    private val playbackFileCache = LruCache<String, PlaybackFile>(PLAYBACK_FILE_CACHE_SIZE)
 
     fun PlaybackFile.toMediaItem(): MediaItem = MediaItem
         .Builder()
@@ -89,25 +93,17 @@ object PlayerUtil {
             ?.let { currentMediaId -> newMediaItems.indexOfFirst { it.mediaId == currentMediaId } }
             ?.takeIf { it >= 0 }
 
-        if (oldCurrentMediaItemIndex != null && newCurrentMediaItemIndex != null) {
-            if (oldCurrentMediaItemIndex < mediaItemCount - 1) {
-                removeMediaItems(oldCurrentMediaItemIndex + 1, mediaItemCount)
-            }
-            if (newCurrentMediaItemIndex < newMediaItems.size - 1) {
-                val itemsToAdd = newMediaItems.subList(newCurrentMediaItemIndex + 1, newMediaItems.size)
-                addMediaItems(itemsToAdd)
-            }
-            if (oldCurrentMediaItemIndex > 0) {
-                removeMediaItems(0, oldCurrentMediaItemIndex)
-            }
-            if (newCurrentMediaItemIndex > 0) {
-                val itemsToAdd = newMediaItems.subList(0, newCurrentMediaItemIndex)
-                addMediaItems(0, itemsToAdd)
-            }
-            replaceMediaItem(newCurrentMediaItemIndex, newMediaItems[newCurrentMediaItemIndex])
-        } else {
+        if (oldCurrentMediaItemIndex == null || newCurrentMediaItemIndex == null) {
             setMediaItems(newMediaItems)
+            return
         }
+
+        replaceMediaItems(
+            oldCurrentMediaItemIndex + 1,
+            mediaItemCount,
+            newMediaItems.subList(newCurrentMediaItemIndex + 1, newMediaItems.size)
+        )
+        replaceMediaItems(0, oldCurrentMediaItemIndex, newMediaItems.subList(0, newCurrentMediaItemIndex))
     }
 
     fun Player.setRepeatMode(mode: RepeatMode) {
@@ -222,7 +218,11 @@ object PlayerUtil {
 
     fun Bundle?.getPlaybackFile(key: String): PlaybackFile? {
         val encoded = this?.getString(key) ?: return null
-        return runCatching { playbackJson.decodeFromString<PlaybackFile>(encoded) }.getOrNull()
+
+        return playbackFileCache[encoded]
+            ?: runCatching { playbackJson.decodeFromString<PlaybackFile>(encoded) }
+                .getOrNull()
+                ?.also { playbackFileCache.put(encoded, it) }
     }
 
     fun ContentResolver.observeContentChanges(uri: Uri, notifyForDescendants: Boolean) = callbackFlow {

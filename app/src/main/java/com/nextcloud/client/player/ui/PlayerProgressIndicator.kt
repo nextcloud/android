@@ -58,8 +58,7 @@ class PlayerProgressIndicator @JvmOverloads constructor(
     }
 
     override fun onPlaybackUpdate(state: PlaybackState) {
-        val itemState = state.currentItemState
-        render(itemState)
+        render(state.currentItemState)
     }
 
     fun setFile(file: OCFile) {
@@ -68,8 +67,12 @@ class PlayerProgressIndicator @JvmOverloads constructor(
     }
 
     private fun renderCurrentState() {
-        val itemState = playbackModel.state?.currentItemState
-        render(itemState)
+        if (playbackFile == null) {
+            visibility = GONE
+            return
+        }
+
+        render(playbackModel.state?.currentItemState)
     }
 
     private fun render(itemState: PlaybackItemState?) {

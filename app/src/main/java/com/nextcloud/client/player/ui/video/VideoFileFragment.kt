@@ -93,6 +93,7 @@ class VideoFileFragment :
     }
 
     override fun onDestroyView() {
+        _binding?.let { playerModel.clearVideoSurfaceView(it.surfaceView) }
         _binding = null
         super.onDestroyView()
     }
@@ -104,7 +105,7 @@ class VideoFileFragment :
     private fun loadFileThumbnail() = viewLifecycleOwner.lifecycleScope.launch {
         val context = context ?: return@launch
         val thumbnailSize = context.resources.getDimensionPixelSize(R.dimen.player_album_cover_size)
-        val thumbnail = thumbnailLoader.await(context, file, thumbnailSize, thumbnailSize) ?: return@launch
+        val thumbnail = thumbnailLoader.await(file, thumbnailSize, thumbnailSize) ?: return@launch
         _binding?.thumbnail?.setImageBitmap(thumbnail)
     }
 

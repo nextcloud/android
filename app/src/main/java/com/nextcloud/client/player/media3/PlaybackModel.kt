@@ -206,7 +206,10 @@ class PlaybackModel @Inject constructor(
             return
         }
 
-        val controller = controller ?: return
+        controller?.let { applyFiles(it, files) }
+    }
+
+    private fun applyFiles(controller: MediaController, files: PlaybackFiles) {
         val mediaItems = files.list.map { it.toMediaItem() }
 
         if (controller.readMediaIds() == mediaItems.map { it.mediaId }) {
@@ -235,6 +238,12 @@ class PlaybackModel @Inject constructor(
         mediaSession?.player?.release()
         mediaSession?.release()
         mediaSession = null
+    }
+
+    fun clearVideoSurfaceView(surfaceView: SurfaceView) {
+        if (videoSurfaceView === surfaceView) {
+            setVideoSurfaceView(null)
+        }
     }
 
     fun setVideoSurfaceView(surfaceView: SurfaceView?) {

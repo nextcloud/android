@@ -71,7 +71,7 @@ interface FileDao {
             " AND file_owner = :fileOwner" +
             " AND path LIKE :pathPrefix || '%'" +
             " AND (:mimeFilter IS NULL OR content_type LIKE :mimeFilter)" +
-            " ORDER BY modified DESC" +
+            " ORDER BY modified DESC, ${ProviderTableMeta._ID} DESC" +
             " LIMIT :limit OFFSET :offset"
     )
     suspend fun getGalleryItemsPageSuspended(

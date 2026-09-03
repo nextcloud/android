@@ -385,16 +385,13 @@ class PreviewImageActivity :
     }
 
     private fun setDownloadedItem(downloadedFile: OCFile?) {
-        val position = savedPosition ?: return
         val adapter = previewMediaPagerAdapter ?: return
-        val file = downloadedFile ?: return
+        val position = savedPosition ?: return
 
-        if (adapter.getFileAt(position)?.fileId != file.fileId) {
-            return
+        if (downloadedFile != null && adapter.getFileAt(position)?.fileId == downloadedFile.fileId) {
+            adapter.updateFile(position, downloadedFile)
+            adapter.notifyItemChanged(position)
         }
-
-        adapter.updateFile(position, file)
-        adapter.notifyItemChanged(position)
     }
 
     private fun selectPageOnDownload() {

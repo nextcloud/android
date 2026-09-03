@@ -93,6 +93,7 @@ class PlayerControlView @JvmOverloads constructor(
             viewScope?.cancel()
             viewScope = null
         }
+        navigator = null
         super.onDetachedFromWindow()
     }
 
