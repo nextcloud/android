@@ -231,6 +231,10 @@ class AlbumItemsFragment :
     override fun onDestroyView() {
         lastMediaItemPosition = 0
         addMediaFab = null
+        binding.listRoot.adapter = null
+        binding.listRoot.layoutManager = null
+        adapter?.setLayoutManager(null)
+        adapter = null
         super.onDestroyView()
     }
 

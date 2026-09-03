@@ -26,30 +26,34 @@ import java.util.concurrent.Future
 import javax.inject.Inject
 import kotlin.coroutines.resume
 
-class ThumbnailLoader @Inject constructor(clientFactory: ClientFactory, userAccountManager: UserAccountManager) {
+class ThumbnailLoader @Inject constructor(
+    context: Context,
+    clientFactory: ClientFactory,
+    userAccountManager: UserAccountManager
+) {
+    private val appContext = context.applicationContext
     private val client by lazy { clientFactory.createNextcloudClient(userAccountManager.user) }
 
-    suspend fun await(context: Context, file: PlaybackFile, width: Int, height: Int): Bitmap? =
-        withContext(Dispatchers.IO) {
-            suspendCancellableCoroutine { continuation ->
-                runCatching {
-                    val future = load(context, file, width, height)
-                    continuation.invokeOnCancellation { future.cancel(true) }
-                    continuation.resume(future.get())
-                }.onFailure {
-                    if (it is CancellationException) throw it
-                    continuation.resume(null)
-                }
+    suspend fun await(file: PlaybackFile, width: Int, height: Int): Bitmap? = withContext(Dispatchers.IO) {
+        suspendCancellableCoroutine { continuation ->
+            runCatching {
+                val future = load(file, width, height)
+                continuation.invokeOnCancellation { future.cancel(true) }
+                continuation.resume(future.get())
+            }.onFailure {
+                if (it is CancellationException) throw it
+                continuation.resume(null)
             }
         }
-
-    fun load(context: Context, file: PlaybackFile, width: Int, height: Int): Future<Bitmap> {
-        val url = createUrl(file, width, height)
-        return load(context, url, file.id, width, height)
     }
 
-    fun load(context: Context, model: Any, fileId: String?, width: Int, height: Int): Future<Bitmap> = Glide
-        .with(context)
+    fun load(file: PlaybackFile, width: Int, height: Int): Future<Bitmap> {
+        val url = createUrl(file, width, height)
+        return load(url, file.id, width, height)
+    }
+
+    fun load(model: Any, fileId: String?, width: Int, height: Int): Future<Bitmap> = Glide
+        .with(appContext)
         .asBitmap()
         .load(model)
         .signature(ObjectKey(fileId ?: model.toString()))

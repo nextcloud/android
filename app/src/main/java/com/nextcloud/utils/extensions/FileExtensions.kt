@@ -25,7 +25,12 @@ fun OCFile?.logFileSize(tag: String) {
     Log_OC.d(tag, "onSaveInstanceState: $size, raw byte $rawByte")
 }
 
-fun ServerFileInterface.getThumbnailKeys(): List<String> = listOf(getBigThumbnailKey(), getSmallThumbnailKey())
+fun ServerFileInterface.getThumbnailKeys(): List<String> = listOf(
+    getBigThumbnailKey(),
+    getSmallThumbnailKey(),
+    videoOverlayKey(getBigThumbnailKey()),
+    videoOverlayKey(getSmallThumbnailKey())
+)
 
 fun ServerFileInterface.getBigThumbnail(): Bitmap? = ThumbnailsCacheManager.getBitmapFromDiskCache(getBigThumbnailKey())
 
@@ -35,6 +40,8 @@ fun ServerFileInterface.getSmallThumbnail(): Bitmap? =
     ThumbnailsCacheManager.getBitmapFromDiskCache(getSmallThumbnailKey())
 
 fun ServerFileInterface.getSmallThumbnailKey(): String = ThumbnailsCacheManager.PREFIX_THUMBNAIL + remoteId
+
+fun videoOverlayKey(thumbnailKey: String): String = ThumbnailsCacheManager.PREFIX_VIDEO_OVERLAY + thumbnailKey
 
 fun File?.getSmallThumbnail(): Bitmap? = ThumbnailsCacheManager.getBitmapFromDiskCache(getSmallThumbnailKey())
 

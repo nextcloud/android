@@ -120,7 +120,7 @@ open class AudioFileFragment :
     private fun loadFileThumbnail(): Job = viewLifecycleOwner.lifecycleScope.launch {
         val context = context ?: return@launch
         val thumbnailSize = context.resources.getDimensionPixelSize(R.dimen.player_album_cover_size)
-        val thumbnail = thumbnailLoader.await(context, file, thumbnailSize, thumbnailSize) ?: return@launch
+        val thumbnail = thumbnailLoader.await(file, thumbnailSize, thumbnailSize) ?: return@launch
         val albumCover = _binding?.albumCover ?: return@launch
         albumCover.setImageBitmap(thumbnail)
         isFileThumbnailLoaded = true

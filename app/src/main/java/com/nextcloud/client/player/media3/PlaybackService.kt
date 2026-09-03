@@ -25,10 +25,16 @@ import javax.inject.Inject
 @UnstableApi
 class PlaybackService : MediaSessionService() {
 
+    companion object {
+        private const val SESSION_ACTIVITY_REQUEST_CODE = 1
+    }
+
     @Inject
     lateinit var playbackModel: PlaybackModel
 
     private var bindingCount: Int = 0
+
+    private var sessionActivityFileType: PlaybackFileType? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -39,7 +45,7 @@ class PlaybackService : MediaSessionService() {
     override fun onGetSession(controllerInfo: ControllerInfo): MediaSession? = playbackModel.getMediaSession()
 
     override fun onUpdateNotification(session: MediaSession, startInForegroundRequired: Boolean) {
-        createSessionActivity(session.player.currentMediaItem)?.let(session::setSessionActivity)
+        updateSessionActivity(session)
         super.onUpdateNotification(session, startInForegroundRequired)
     }
 
@@ -70,19 +76,29 @@ class PlaybackService : MediaSessionService() {
         super.onDestroy()
     }
 
-    private fun createSessionActivity(currentMediaItem: MediaItem?): PendingIntent? {
-        val currentFile = currentMediaItem?.mediaMetadata?.playbackFile ?: return null
-        val fileType = PlaybackFileType.entries
-            .firstOrNull { currentFile.mimeType.startsWith(it.value, ignoreCase = true) }
-            ?: throw IllegalArgumentException("Unsupported file type: ${currentFile.mimeType}")
-
-        val intent = PlayerActivity.createIntent(this, fileType)
-        val requestCode = System.currentTimeMillis().toInt()
-
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            PendingIntent.getActivity(this, requestCode, intent, PendingIntent.FLAG_IMMUTABLE)
-        } else {
-            PendingIntent.getActivity(this, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    private fun updateSessionActivity(session: MediaSession) {
+        val fileType = session.player.currentMediaItem.playbackFileType() ?: return
+        if (fileType == sessionActivityFileType) {
+            return
         }
+
+        sessionActivityFileType = fileType
+        session.setSessionActivity(createSessionActivity(fileType))
+    }
+
+    private fun MediaItem?.playbackFileType(): PlaybackFileType? {
+        val mimeType = this?.mediaMetadata?.playbackFile?.mimeType ?: return null
+        return PlaybackFileType.entries.firstOrNull { mimeType.startsWith(it.value, ignoreCase = true) }
+    }
+
+    private fun createSessionActivity(fileType: PlaybackFileType): PendingIntent {
+        val intent = PlayerActivity.createIntent(this, fileType)
+        val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        } else {
+            PendingIntent.FLAG_UPDATE_CURRENT
+        }
+
+        return PendingIntent.getActivity(this, SESSION_ACTIVITY_REQUEST_CODE, intent, flags)
     }
 }

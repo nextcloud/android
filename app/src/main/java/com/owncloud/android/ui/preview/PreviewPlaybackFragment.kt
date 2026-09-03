@@ -155,6 +155,14 @@ class PreviewPlaybackFragment :
         super.onStop()
     }
 
+    override fun onDestroyView() {
+        playbackModel.clearVideoSurfaceView(binding.surfaceView)
+        binding.playerControlView.navigator = null
+        pictureInPictureCallback?.remove()
+        pictureInPictureCallback = null
+        super.onDestroyView()
+    }
+
     override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean) {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode)
         render(playbackModel.state)
@@ -186,7 +194,7 @@ class PreviewPlaybackFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             val context = context ?: return@launch
             val size = context.resources.getDimension(R.dimen.player_album_cover_size).toInt()
-            thumbnailLoader.await(context, playbackFile, size, size)?.let(binding.thumbnail::setImageBitmap)
+            thumbnailLoader.await(playbackFile, size, size)?.let(binding.thumbnail::setImageBitmap)
         }
     }
 

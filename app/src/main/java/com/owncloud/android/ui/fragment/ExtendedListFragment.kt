@@ -354,6 +354,20 @@ open class ExtendedListFragment :
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
+        mRecyclerView?.setOnTouchListener(null)
+        mRecyclerView?.adapter = null
+        mRecyclerView?.layoutManager = null
+        mRecyclerView = null
+        mRefreshListLayout?.setOnRefreshListener(null)
+        mRefreshListLayout = null
+        mSortButton = null
+        mSwitchGridViewButton = null
+        mEmptyListContainer = null
+        mEmptyListMessage = null
+        mEmptyListHeadline = null
+        mEmptyListIcon = null
+        closeButton = null
+        mScaleGestureDetector = null
     }
 
     private inner class ScaleListener : SimpleOnScaleGestureListener() {

@@ -82,14 +82,14 @@ class MediaSessionBitmapLoader @Inject constructor(
     private fun getBitmapFromMetadata(metadata: MediaMetadata, fileId: String?): Bitmap? {
         val model = metadata.artworkData ?: metadata.artworkUri ?: return null
         return runCatching {
-            thumbnailLoader.load(context, model, fileId, thumbnailSize, thumbnailSize).get()
+            thumbnailLoader.load(model, fileId, thumbnailSize, thumbnailSize).get()
         }.getOrElse {
             null
         }
     }
 
     private fun getBitmapForFile(file: PlaybackFile): Bitmap? = runCatching {
-        thumbnailLoader.load(context, file, thumbnailSize, thumbnailSize).get()
+        thumbnailLoader.load(file, thumbnailSize, thumbnailSize).get()
     }.getOrElse {
         null
     }
