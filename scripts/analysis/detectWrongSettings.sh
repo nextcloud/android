@@ -12,7 +12,7 @@ libraryHash=$(grep 'androidLibraryVersion =' gradle/libs.versions.toml \
     | cut -d '=' -f2 \
     | tr -d ' "' )
 
-baseBranch="master"
+baseBranch="stable-3.35.x"
 
 # Fetch last 10 commit SHAs from GitHub, without quotes
 lastHashes=$(curl -s "https://api.github.com/repos/nextcloud/android-library/commits?sha=$baseBranch" \
