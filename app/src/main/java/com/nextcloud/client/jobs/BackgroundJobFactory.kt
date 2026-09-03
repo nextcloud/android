@@ -24,6 +24,7 @@ import com.nextcloud.client.documentscan.GeneratePDFUseCase
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
 import com.nextcloud.client.integrations.deck.DeckApi
 import com.nextcloud.client.jobs.autoUpload.AutoUploadHelper
+import com.nextcloud.client.jobs.autoUpload.AutoUploadLocalDeletionWorker
 import com.nextcloud.client.jobs.autoUpload.AutoUploadWorker
 import com.nextcloud.client.jobs.autoUpload.FileSystemRepository
 import com.nextcloud.client.jobs.download.FileDownloadWorker
@@ -110,6 +111,7 @@ class BackgroundJobFactory @Inject constructor(
                 InternalTwoWaySyncWork::class -> createInternalTwoWaySyncWork(context, workerParameters)
                 MetadataWorker::class -> createMetadataWorker(context, workerParameters)
                 FolderDownloadWorker::class -> createFolderDownloadWorker(context, workerParameters)
+                AutoUploadLocalDeletionWorker::class -> createAutoUploadLocalDeletionWorker(context, workerParameters)
                 else -> null // caller falls back to default factory
             }
         }
@@ -328,4 +330,15 @@ class BackgroundJobFactory @Inject constructor(
             localBroadcastManager.get(),
             params
         )
+
+    private fun createAutoUploadLocalDeletionWorker(
+        context: Context,
+        params: WorkerParameters
+    ): AutoUploadLocalDeletionWorker = AutoUploadLocalDeletionWorker(
+        context = context,
+        params = params,
+        userAccountManager = accountManager,
+        syncedFolderProvider = syncedFolderProvider,
+        viewThemeUtils = viewThemeUtils.get()
+    )
 }

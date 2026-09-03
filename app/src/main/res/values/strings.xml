@@ -798,6 +798,9 @@
     <string name="manage_space_title">Manage space</string>
     <string name="manage_space_description">Settings, database and server certificates from %1$s\'s data will be deleted permanently. \n\nDownloaded files will be kept untouched.\n\nThis process can take a while.</string>
     <string name="manage_space_clear_data">Clear data</string>
+    <string name="manage_space_auto_upload_title">Locally delete auto uploaded files</string>
+    <string name="manage_space_auto_upload_description">All files already uploaded to the server from the Auto Upload folders will be deleted locally to free up space in the device.\n\nThis process can take a while.</string>
+    <string name="manage_space_auto_upload_clear_data">Locally delete auto uploaded files</string>
 
     <string name="local_file_not_found_message">File not found in local file system</string>
     <string name="confirmation_remove_files_from_album_message">Do you really want to remove the selected files from the album?</string>
@@ -906,11 +909,37 @@
     <string name="file_not_synced">File could not be synced. Showing latest available version.</string>
 
     <!-- Auto upload -->
+    <string name="autoupload_delete_uploaded_all_dialog_button_all_users">From all users</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_current_user">From current user</string>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_files">
+        <item quantity="one">%d file</item>
+        <item quantity="other">%d files</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_folders">
+        <item quantity="one">%d folder</item>
+        <item quantity="other">%d folders</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_users">
+        <item quantity="one">%d user</item>
+        <item quantity="other">%d users</item>
+    </plurals>
     <string name="autoupload_custom_folder">Set up a custom folder</string>
     <string name="autoupload_create_new_custom_folder">Create new custom folder setup</string>
     <string name="autoupload_hide_folder">Hide folder</string>
     <string name="autoupload_configure">Configure</string>
+    <string name="autoupload_delete_uploaded">Locally delete uploaded files</string>
+    <string name="autoupload_delete_uploaded_notif_ticker">Local files deletion</string>
+    <string name="autoupload_delete_uploaded_notif_started_title">Started to locally delete already uploaded files in background</string>
+    <string name="autoupload_delete_uploaded_notif_ended_title">Locally deleted already uploaded files</string>
+    <string name="autoupload_delete_uploaded_notif_error_title">Unable to locally delete already uploaded files</string>
+    <string name="autoupload_delete_uploaded_notif_ended_content">Freed up %1$s removing %2$s across %3$s from %4$s.</string>
     <string name="synced_folders_configure_folders">Configure folders</string>
+
+    <string name="autoupload_delete_uploaded_dialog_title">Locally delete uploaded files</string>
+    <string name="autoupload_delete_uploaded_dialog_description">All the files already uploaded to the cloud will be removed from the current device</string>
+
+    <string name="autoupload_delete_uploaded_all_dialog_title">Locally delete uploaded files for all auto upload folders</string>
+    <string name="autoupload_delete_uploaded_all_dialog_description">All the files already uploaded to the cloud will be removed from the current device for all the autoupload folders from all the configured users</string>
 
     <string name="empty" translatable="false"></string>
     <string name="test_server_button">Test server connection</string>
