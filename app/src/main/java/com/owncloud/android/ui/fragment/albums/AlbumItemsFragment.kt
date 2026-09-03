@@ -231,6 +231,7 @@ class AlbumItemsFragment :
     override fun onDestroyView() {
         lastMediaItemPosition = 0
         addMediaFab = null
+        binding.listRoot.adapter = null
         super.onDestroyView()
     }
 
@@ -318,7 +319,7 @@ class AlbumItemsFragment :
             setUpSelectionMode()
         }
 
-        binding.listRoot.adapter = adapter
+        if (binding.listRoot.adapter == null) binding.listRoot.adapter = adapter
 
         lastMediaItemPosition?.let { binding.listRoot.layoutManager?.scrollToPosition(it) }
     }
@@ -563,20 +564,17 @@ class AlbumItemsFragment :
             MimeTypeUtil.isVideo(file) ->
                 activity.startImagePreview(file, true, VirtualFolderType.ALBUM)
 
-            file.isDown && canBePreviewed(file) ->
+            file.isDown && activity.canMediaPreviewed(file) ->
                 activity.startMediaPreview(file, showPreview = true, streamMedia = false)
 
             file.isDown -> containerActivity?.fileOperationsHelper?.openFile(file)
 
-            canBePreviewed(file) && !file.isEncrypted ->
+            activity.canMediaPreviewed(file) && !file.isEncrypted ->
                 activity.startMediaPreview(file, showPreview = true, streamMedia = true)
 
             else -> Log_OC.d(TAG, "Couldn't handle item click")
         }
     }
-
-    fun canBePreviewed(file: OCFile?): Boolean =
-        file != null && (MimeTypeUtil.isAudio(file) || MimeTypeUtil.isVideo(file))
 
     override fun onLongItemClicked(file: OCFile): Boolean {
         if (selectionMode?.isActionModeActive == true) {

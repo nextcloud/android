@@ -321,7 +321,6 @@ class GalleryAdapter(
 
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
         super.onDetachedFromRecyclerView(recyclerView)
-        recyclerView.layoutManager = null
         setLayoutManager(null)
         cleanup()
     }
