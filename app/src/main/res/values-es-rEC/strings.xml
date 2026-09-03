@@ -28,6 +28,7 @@
     <string name="activity_icon">Actividad</string>
     <string name="add_new_public_share">Agregar nuevo enlace público compartido</string>
     <string name="add_new_secure_file_drop">Agregar nueva carpeta segura de archivos</string>
+    <string name="add_to_album">Agregar al álbum</string>
     <string name="add_to_cloud">Agregar a %1$s</string>
     <string name="album_delete">Eliminar álbum</string>
     <string name="album_share">Compartir álbum</string>
@@ -239,6 +240,7 @@
     <string name="drawer_community">Comunidad</string>
     <string name="drawer_header_background">Imagen de fondo para el encabezado de la barra de navegación</string>
     <string name="drawer_item_activities">Actividades</string>
+    <string name="drawer_item_album">Álbumes</string>
     <string name="drawer_item_all_files">Todos los archivos</string>
     <string name="drawer_item_favorites">Favoritos</string>
     <string name="drawer_item_gallery">Multimedia</string>
@@ -636,6 +638,7 @@
     <string name="screenshot_04_accounts_subline">en un solo lugar</string>
     <string name="screenshot_05_autoUpload_heading">Carga automática</string>
     <string name="search_error">Error al obtener los resultados de búsqueda</string>
+    <string name="search_tags">Buscar etiquetas</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="select_media_folder">Configurar carpeta multimedia</string>
     <string name="select_one_template">Por favor, selecciona una plantilla</string>

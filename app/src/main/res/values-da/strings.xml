@@ -28,9 +28,14 @@
     <string name="activity_chooser_send_file_title">Send</string>
     <string name="activity_chooser_title">Send link til...</string>
     <string name="activity_icon">Aktivitet</string>
+    <string name="add_media">Tilføj medier</string>
     <string name="add_new_public_share">Tilføj nyt offentligt link til deling</string>
     <string name="add_new_secure_file_drop">Tilføj nyt, sikkert fil drop</string>
+    <string name="add_to_album">Tilføj til album</string>
     <string name="add_to_cloud">Tilføj til %1$s</string>
+    <string name="album_delete">Slet album</string>
+    <string name="album_rename_conflict">Dette navn er allerede i brug.</string>
+    <string name="album_stop_sharing">Stop deling</string>
     <string name="app_config_base_url_title">Grund URL</string>
     <string name="app_config_disable_clipboard_title">Deaktiver klippebord</string>
     <string name="app_config_disable_intro_title">Deaktiver intro</string>
@@ -225,6 +230,7 @@
     <string name="could_not_retrieve_shares">Kunne ikke hente delte drev</string>
     <string name="could_not_retrieve_url">Kunne ikke hente URL</string>
     <string name="create">Opret</string>
+    <string name="create_album_dialog_title">Nyt album</string>
     <string name="create_dir_fail_msg">Kunne ikke oprette mappe</string>
     <string name="create_document">Dokument</string>
     <string name="create_folder">Mappe</string>
@@ -293,6 +299,7 @@
     <string name="drawer_community">Onlinefællesskab</string>
     <string name="drawer_header_background">Baggrundsbillede af folderhoved</string>
     <string name="drawer_item_activities">Aktiviteter</string>
+    <string name="drawer_item_album">Album</string>
     <string name="drawer_item_all_files">Alle filer</string>
     <string name="drawer_item_assistant">Assistent</string>
     <string name="drawer_item_favorites">Favoritter</string>
@@ -388,6 +395,7 @@
     <string name="external_shares">Eksterne delinger</string>
     <string name="fab_label">Tilføj eller send</string>
     <string name="failed_to_download">Fejl ved overførsel af fil til download manager</string>
+    <string name="failed_to_load_tags">Kunne ikke indlæse tags</string>
     <string name="failed_to_print">Fejl ved udskrivning af fil</string>
     <string name="failed_to_start_editor">Kunne ikke starte editor</string>
     <string name="failed_update_ui">Formåede ikke at opdatere UI</string>
@@ -769,6 +777,7 @@
     <string name="reload">Genindlæs</string>
     <string name="remote">(fjernt)</string>
     <string name="remote_file_fetch_failed">Kunne ikke finde fil!</string>
+    <string name="remove">Fjern</string>
     <string name="remove_e2e">Du kan fjerne end-to-end kryptering lokalt på denne klient</string>
     <string name="remove_e2e_message">Du kan fjerne end-to-end kryptering lokalt på denne klient. De krypterede filer vil forblive på serveren, men vil ikke længere blive synkroniseret til denne computer.</string>
     <string name="remove_fail_msg">Sletning fejlede</string>
@@ -808,6 +817,7 @@
     <string name="screenshot_06_davdroid_heading">Kalender og kontakter</string>
     <string name="screenshot_06_davdroid_subline">Synkronisér med DAVx⁵ </string>
     <string name="search_error">Fejl ved indhenting af søgeresultater</string>
+    <string name="search_tags">Søg tags</string>
     <string name="secure_share_not_set_up">Sikker deling er ikke sat op for denne bruger</string>
     <string name="secure_share_search">Sikker deling...</string>
     <string name="select_all">Vælg alle</string>

@@ -30,6 +30,7 @@
     <string name="activity_icon">Jarduera</string>
     <string name="add_new_public_share">Gehitu partekatzeko esteka berria</string>
     <string name="add_new_secure_file_drop">Gehitu fitxategi jaregite seguru berria</string>
+    <string name="add_to_album">Gehitu albumera</string>
     <string name="add_to_cloud">Gehitu %1$s</string>
     <string name="album_delete">Ezabatu albuma</string>
     <string name="album_rename_conflict">Izen hau dagoeneko erabiltzen ari da.</string>
@@ -282,6 +283,7 @@
     <string name="drawer_community">Komunitatea</string>
     <string name="drawer_header_background">Goiburuko kutxaren atzeko planoaren irudia</string>
     <string name="drawer_item_activities">Jarduerak</string>
+    <string name="drawer_item_album">Albumak</string>
     <string name="drawer_item_all_files">Fitxategi guztiak</string>
     <string name="drawer_item_assistant">Morroia</string>
     <string name="drawer_item_favorites">Gogokoak</string>
@@ -780,6 +782,7 @@
     <string name="screenshot_06_davdroid_heading">Egutegia eta kontaktuak</string>
     <string name="screenshot_06_davdroid_subline">Sinkronizatu DAVx⁵-ren bidez</string>
     <string name="search_error">Errorea bilaketaren emaitzak lortzean</string>
+    <string name="search_tags">Bilatu etiketak</string>
     <string name="secure_share_not_set_up">Partekatze segurua ez dago konfiguratuta erabiltzaile honentzat</string>
     <string name="secure_share_search">Partekatze segurua...</string>
     <string name="select_all">Hautatu dena</string>

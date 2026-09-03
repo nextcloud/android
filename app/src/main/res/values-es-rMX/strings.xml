@@ -29,6 +29,7 @@
     <string name="activity_icon">Actividad</string>
     <string name="add_new_public_share">Añadir un nuevo enlace publico</string>
     <string name="add_new_secure_file_drop">Añadir una nueva entrega de archivos segura</string>
+    <string name="add_to_album">Añadir al álbum</string>
     <string name="add_to_cloud">Agregar a %1$s</string>
     <string name="album_delete">Eliminar álbum</string>
     <string name="album_rename_conflict">Este nombre ya está en uso.</string>
@@ -255,6 +256,7 @@
     <string name="drawer_community">Comunidad</string>
     <string name="drawer_header_background">Imagen de fondo para el encabezado de la barra de navegación</string>
     <string name="drawer_item_activities">Actividades</string>
+    <string name="drawer_item_album">Álbumes</string>
     <string name="drawer_item_all_files">Todos los archivos</string>
     <string name="drawer_item_assistant">Asistente</string>
     <string name="drawer_item_favorites">Favoritos</string>
@@ -700,6 +702,7 @@
     <string name="screenshot_05_autoUpload_subline">para sus fotos y videos</string>
     <string name="screenshot_06_davdroid_heading">Calendario y contactos</string>
     <string name="search_error">Error al obtener los resultados de búsqueda</string>
+    <string name="search_tags">Buscar etiquetas</string>
     <string name="secure_share_not_set_up">Compartir en modo seguro no está configurado para este usuario</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="select_media_folder">Establecer la carpeta multimedia</string>

@@ -31,6 +31,7 @@
     <string name="activity_icon">فعالیت</string>
     <string name="add_new_public_share">افزودن پیوند اشتراک‌گذاری عمومی جدید</string>
     <string name="add_new_secure_file_drop">یک دراپ فایل امن جدید اضافه کنید.</string>
+    <string name="add_to_album">افزودن به آلبوم</string>
     <string name="add_to_cloud">افزودن به %1$s</string>
     <string name="album_delete">حذف آلبوم</string>
     <string name="album_rename_conflict">این نام قبلاً استفاده شده است.</string>
@@ -323,6 +324,7 @@
     <string name="drawer_community">انجمن</string>
     <string name="drawer_header_background">تصویر پس‌زمینهٔ سربرگ کشو</string>
     <string name="drawer_item_activities">فعالیت‌ها</string>
+    <string name="drawer_item_album">آلبوم‌ها</string>
     <string name="drawer_item_all_files">تمامی فایل‌ها</string>
     <string name="drawer_item_assistant">دستیار</string>
     <string name="drawer_item_favorites">مورد علاقه</string>
@@ -871,6 +873,7 @@
     <string name="screenshot_06_davdroid_heading">تقویم و مخاطب‌ها</string>
     <string name="screenshot_06_davdroid_subline">همگام‌سازی با DAVx⁵</string>
     <string name="search_error">خطا در دریافت نتایج جستجو</string>
+    <string name="search_tags">جستجوی برچسب‌ها</string>
     <string name="secure_share_not_set_up">اشتراک‌گذاری امن برای این حساب تنظیم نشده است</string>
     <string name="secure_share_search">اشتراک امن…</string>
     <string name="select_all">انتخاب همه</string>

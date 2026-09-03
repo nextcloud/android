@@ -26,9 +26,14 @@
     <string name="activity_chooser_send_file_title">Αποστολή</string>
     <string name="activity_chooser_title">Αποστολή συνδέσμου σε…</string>
     <string name="activity_icon">Δραστηριότητα</string>
+    <string name="add_media">Προσθήκη πολυμέσων</string>
     <string name="add_new_public_share">Προσθήκη νέου δημόσιου κοινόχρηστου συνδέσμου</string>
+    <string name="add_to_album">Προσθήκη στο άλμπουμ</string>
     <string name="add_to_cloud">Προσθήκη στο %1$s</string>
+    <string name="album_delete">Διαγραφή άλμπουμ</string>
+    <string name="album_rename_conflict">Αυτό το όνομα χρησιμοποιείται ήδη.</string>
     <string name="album_share">Διαμοιρασμός άλμπουμ</string>
+    <string name="album_stop_sharing">Διακοπή διαμοιρασμού</string>
     <string name="app_config_base_url_title">Βασική URL</string>
     <string name="app_config_proxy_port_title">Θύρα διαμεσολαβητή</string>
     <string name="app_widget_description">Εμφάνιση ενός γραφικού στοιχείου από τον πίνακα ελέγχου</string>
@@ -189,6 +194,7 @@
     <string name="could_not_retrieve_shares">Αδυναμία ανάκτησης κοινόχρηστων</string>
     <string name="could_not_retrieve_url">Αδυναμία ανάκτησης URL</string>
     <string name="create">Δημιουργία</string>
+    <string name="create_album_dialog_title">Νέο άλμπουμ</string>
     <string name="create_dir_fail_msg">Αδυναμία δημιουργίας φακέλου</string>
     <string name="create_document">Έγγραφο</string>
     <string name="create_end_to_end_encrypted_share">Διαμοιρασμός συνδέσμου</string>
@@ -249,6 +255,7 @@
     <string name="drawer_community">Κοινότητα</string>
     <string name="drawer_header_background">Φωτογραφία φόντου επικεφαλίδας συρταριού</string>
     <string name="drawer_item_activities">Δραστηριότητες</string>
+    <string name="drawer_item_album">Άλμπουμ</string>
     <string name="drawer_item_all_files">Όλα τα αρχεία</string>
     <string name="drawer_item_assistant">Βοηθός</string>
     <string name="drawer_item_favorites">Αγαπημένα</string>
@@ -328,6 +335,7 @@
     <string name="external_shares">Εξωτερικοί διαμοιρασμοί</string>
     <string name="fab_label">Προσθήκη ή μεταφόρτωση</string>
     <string name="failed_to_download">Αποτυχία διαβίβασης αρχείου στο διαχειριστή λήψεων </string>
+    <string name="failed_to_load_tags">Απέτυχε η φόρτωση ετικετών</string>
     <string name="failed_to_print">Απέτυχε να εκτυπώσει το αρχείο</string>
     <string name="failed_to_start_editor">Αποτυχία εκκίνησης προγράμματος επεξεργασίας</string>
     <string name="failed_update_ui">Αποτυχία ενημέρωσης του UI</string>
@@ -626,6 +634,7 @@
     <string name="reload">Επαναφόρτωση</string>
     <string name="remote">(εξ αποστάσεως)</string>
     <string name="remote_file_fetch_failed">Η εύρεση αρχείου απέτυχε!</string>
+    <string name="remove">Αφαίρεση</string>
     <string name="remove_e2e">Μπορείτε να αφαιρέσετε την κρυπτογράφηση άκρο-άκρο τοπικά σε αυτή τη συσκευή</string>
     <string name="remove_e2e_message">Μπορείτε να αφαιρέσετε την κρυπτογράφηση άκρο-άκρο τοπικά σε αυτή τη συσκευή. Τα κρυπρογραφημένα αρχεία θα παραμείνουν στον διακομιστή, αλλά δε θα συγχρονίζονται πλέον σε αυτόν τον υπολογιστή</string>
     <string name="remove_fail_msg">Αποτυχία διαγραφής</string>
@@ -658,6 +667,7 @@
     <string name="screenshot_05_autoUpload_heading">Αυτόματη μεταφόρτωση</string>
     <string name="screenshot_06_davdroid_heading">Ημερολόγιο και Επαφές</string>
     <string name="search_error">Σφάλμα λήψης αποτελεσμάτων αναζήτησης</string>
+    <string name="search_tags">Ετικέτες αναζήτησης</string>
     <string name="select_all">Επιλογή όλων</string>
     <string name="select_media_folder">Επίλεξε φάκελο πολυμέσων</string>
     <string name="select_one_template">Παρακαλούμε επιλέξτε ένα πρότυπο</string>

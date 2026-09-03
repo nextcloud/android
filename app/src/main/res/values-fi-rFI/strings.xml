@@ -749,6 +749,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="screenshot_05_autoUpload_subline">kuvillesi ja videoillesi</string>
     <string name="screenshot_06_davdroid_heading">Kalenteri ja yhteystiedot</string>
     <string name="search_error">Virhe hakutulosten noutamisessa</string>
+    <string name="search_tags">Etsi tunnisteita</string>
     <string name="secure_share_not_set_up">Turvallsta jakoa ei ole asetettu tälle käyttäjälle</string>
     <string name="select_all">Valitse kaikki</string>
     <string name="select_media_folder">Aseta kansio medialle</string>

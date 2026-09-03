@@ -30,11 +30,15 @@
     <string name="activity_chooser_send_file_title">Send</string>
     <string name="activity_chooser_title">Send link to…</string>
     <string name="activity_icon">Activity</string>
+    <string name="add_media">Add media</string>
     <string name="add_new_public_share">Add new public share link</string>
     <string name="add_new_secure_file_drop">Add new secure file drop</string>
+    <string name="add_to_album">Add to album</string>
     <string name="add_to_cloud">Add to %1$s</string>
+    <string name="album_delete">Delete album</string>
     <string name="album_rename_conflict">This name is already in use.</string>
     <string name="album_share">Share album</string>
+    <string name="album_stop_sharing">Stop sharing</string>
     <string name="app_config_base_url_title">Base URL</string>
     <string name="app_config_disable_clipboard_title">Disable Clipboard</string>
     <string name="app_config_disable_intro_title">Disable Intro</string>
@@ -251,6 +255,7 @@
     <string name="could_not_retrieve_shares">Could not retrieve shares</string>
     <string name="could_not_retrieve_url">Could not retrieve URL</string>
     <string name="create">Create</string>
+    <string name="create_album_dialog_title">New album</string>
     <string name="create_dir_fail_msg">Could not create folder</string>
     <string name="create_document">Document</string>
     <string name="create_encrypted_folder">Encrypted folder</string>
@@ -325,6 +330,7 @@
     <string name="drawer_community">Community</string>
     <string name="drawer_header_background">Background image of drawer header</string>
     <string name="drawer_item_activities">Activities</string>
+    <string name="drawer_item_album">Albums</string>
     <string name="drawer_item_all_files">All files</string>
     <string name="drawer_item_assistant">Assistant</string>
     <string name="drawer_item_favorites">Favourites</string>
@@ -883,6 +889,7 @@
     <string name="screenshot_06_davdroid_heading">Calendar and contacts</string>
     <string name="screenshot_06_davdroid_subline">Sync with DAVx⁵</string>
     <string name="search_error">Error getting search results</string>
+    <string name="search_tags">Search tags</string>
     <string name="secure_share_not_set_up">Secure sharing is not set up for this user</string>
     <string name="secure_share_search">Secure share…</string>
     <string name="select_all">Select all</string>

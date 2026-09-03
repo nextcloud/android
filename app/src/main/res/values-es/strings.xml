@@ -32,9 +32,12 @@
     <string name="activity_icon">Actividad</string>
     <string name="add_new_public_share">Añadir un nuevo enlace público</string>
     <string name="add_new_secure_file_drop">Añadir una nueva entrega de archivos segura</string>
+    <string name="add_to_album">Añadir al álbum</string>
     <string name="add_to_cloud">Añadir a %1$s</string>
+    <string name="album_delete">Eliminar álbum</string>
     <string name="album_rename_conflict">Este nombre ya está en uso.</string>
     <string name="album_share">Compartir álbum</string>
+    <string name="album_stop_sharing">Dejar de compatir</string>
     <string name="app_config_base_url_title">URL base</string>
     <string name="app_config_disable_clipboard_title">Deshabilitar el portapapeles</string>
     <string name="app_config_disable_intro_title">Deshabilitar la introducción</string>
@@ -326,6 +329,7 @@
     <string name="drawer_community">Comunidad</string>
     <string name="drawer_header_background">Imagen de fondo del encabezado del cajón</string>
     <string name="drawer_item_activities">Actividades</string>
+    <string name="drawer_item_album">Álbumes</string>
     <string name="drawer_item_all_files">Todos los archivos</string>
     <string name="drawer_item_assistant">Asistente</string>
     <string name="drawer_item_favorites">Favoritos</string>
@@ -884,6 +888,7 @@
     <string name="screenshot_06_davdroid_heading">Calendario y contactos</string>
     <string name="screenshot_06_davdroid_subline">Sincronizar con DAVx⁵</string>
     <string name="search_error">Error al cargar resultados de búsqueda</string>
+    <string name="search_tags">Buscar etiquetas</string>
     <string name="secure_share_not_set_up">Compartir en modo seguro no está configurado para este usuario</string>
     <string name="secure_share_search">Asegurar recurso compartido...</string>
     <string name="select_all">Seleccionar todo</string>

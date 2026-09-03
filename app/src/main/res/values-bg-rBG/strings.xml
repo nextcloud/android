@@ -30,7 +30,12 @@
     <string name="activity_icon">Активност</string>
     <string name="add_new_public_share">Добавете нова връзка за публично споделяне</string>
     <string name="add_new_secure_file_drop">Добавяне на ново, защитено пускане на файлове</string>
+    <string name="add_to_album">Добави към албум</string>
     <string name="add_to_cloud">Добави към %1$s</string>
+    <string name="album_delete">Изтриване на албум</string>
+    <string name="album_rename_conflict">Това име вече се използва.</string>
+    <string name="album_share">Споделяне на албум</string>
+    <string name="album_stop_sharing">Спри споделянето</string>
     <string name="app_config_base_url_title">Основен URL адрес</string>
     <string name="app_config_disable_clipboard_title"> Изключи клипборда</string>
     <string name="app_config_disable_intro_title">Изключи въведението</string>
@@ -201,6 +206,7 @@
 Споделянията не могат да бъдат извлечени</string>
     <string name="could_not_retrieve_url">URL адресът не може да бъде извлечен</string>
     <string name="create">Създай</string>
+    <string name="create_album_dialog_title">Нов албум</string>
     <string name="create_dir_fail_msg">Не може да се създаде папка</string>
     <string name="create_document">Документ</string>
     <string name="create_folder">Папка</string>
@@ -256,6 +262,7 @@
     <string name="drawer_community">Общност</string>
     <string name="drawer_header_background">Фоново изображение на заглавката на чекмедже/панел/</string>
     <string name="drawer_item_activities">Активност</string>
+    <string name="drawer_item_album">Албуми</string>
     <string name="drawer_item_all_files">Всички файлове</string>
     <string name="drawer_item_assistant">Асистент</string>
     <string name="drawer_item_favorites">Любими</string>
@@ -330,6 +337,7 @@
     <string name="etm_transfer_type_upload">Качване</string>
     <string name="fab_label">Добави или качи</string>
     <string name="failed_to_download">Неуспешно предаване на файл на мениджъра за изтегляне</string>
+    <string name="failed_to_load_tags">Неуспешно зареждане на етикети</string>
     <string name="failed_to_print">Неуспешен печат на файл</string>
     <string name="failed_to_start_editor">Неуспешно стартиране на редактора</string>
     <string name="failed_update_ui">Неуспешно обновяване на UI /потребителски интерфейс/</string>
@@ -469,6 +477,7 @@
     <string name="manage_space_clear_data">Изчисти данните</string>
     <string name="manage_space_description">Настройките, базата от данни и сървърните сертификати от %1$sя ще бъдат изтрити перманентно. \\n\\nИзтеглените файлове ще бъдат запазени непокътнати.\\n\\nТози процес може да отнеме известно време.</string>
     <string name="manage_space_title">Управление на място</string>
+    <string name="manage_tags">Управление на маркери</string>
     <string name="media_err_invalid_progressive_playback">Мултимедийният файл не може да се излъчва</string>
     <string name="media_err_io">Медия файлът не може да бъде прочетен</string>
     <string name="media_err_malformed">Неправилно кодиран медиен файл</string>
@@ -620,12 +629,14 @@
     <string name="reload">Презареди</string>
     <string name="remote">(отдалечен)</string>
     <string name="remote_file_fetch_failed">Неуспешно намиране на файл!</string>
+    <string name="remove">Премахване</string>
     <string name="remove_e2e">Можете да премахнете локално цялостното криптиране към този клиент</string>
     <string name="remove_e2e_message">Можете да премахнете локално цялостното криптиране към този клиент. Криптираните файлове ще останат на сървъра, но вече няма да се синхронизират с този компютър.</string>
     <string name="remove_fail_msg">Изтриването неуспешно</string>
     <string name="remove_notification_failed">Неуспешно премахване на известие.</string>
     <string name="remove_push_notification">Премахване</string>
     <string name="remove_success_msg">Изтрито</string>
+    <string name="rename_dialog_button">Преименуване</string>
     <string name="rename_dialog_title">Въведете ново име</string>
     <string name="rename_local_fail_msg">Локалното копие не може да бъде преименувано; опитайте с друго име</string>
     <string name="rename_server_fail_msg">Сървърът не може да бъде преименуван</string>
@@ -650,6 +661,7 @@
     <string name="screenshot_04_accounts_subline">на едно място</string>
     <string name="screenshot_05_autoUpload_heading">Автоматично качване</string>
     <string name="search_error">Грешка при получаване на резултатите от търсенето</string>
+    <string name="search_tags">Търсене на етикети</string>
     <string name="select_all">Избери всички</string>
     <string name="select_media_folder">Задаване на медийна папка</string>
     <string name="select_one_template">Моля, изберете един шаблон </string>

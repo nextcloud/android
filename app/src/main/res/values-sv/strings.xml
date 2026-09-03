@@ -35,10 +35,22 @@
     <string name="add_new_secure_file_drop">Lägg till ett nytt säkert filinkast</string>
     <string name="add_to_album">Lägg till i album</string>
     <string name="add_to_cloud">Lägg till %1$s</string>
+    <string name="album_already_exists">Albumet finns redan</string>
+    <string name="album_copy_file_conflict">Finns redan.</string>
+    <string name="album_create_new_link">Skapa ny länk</string>
+    <string name="album_default_sharing_text">Alla kan bara visa</string>
     <string name="album_delete">Ta bort album</string>
+    <string name="album_delete_failed_message">Det gick inte att ta bort vissa av filerna.</string>
+    <string name="album_file_added_message">Filen har lagts till</string>
+    <string name="album_name_empty">Albumnamnet får inte vara tomt</string>
+    <string name="album_picker_toolbar_title">Välj album</string>
+    <string name="album_rename">Byt namn på album</string>
     <string name="album_rename_conflict">Namnet används redan.</string>
     <string name="album_share">Dela album</string>
+    <string name="album_share_link">Dela länk till album</string>
     <string name="album_stop_sharing">Sluta dela</string>
+    <string name="album_unsupported_file">Mediaformatet stöds inte</string>
+    <string name="album_upload_from_account">Välj bilder från kontot</string>
     <string name="app_config_base_url_title">Bas-URL</string>
     <string name="app_config_disable_clipboard_title">Inaktivera urklipp</string>
     <string name="app_config_disable_intro_title">Inaktivera introduktion</string>
@@ -220,7 +232,9 @@
     <string name="configure_new_media_folder_detection_notifications">Konfigurera</string>
     <string name="confirm_removal">Ta bort lokal kryptering</string>
     <string name="confirmation_remove_file_alert">Vill du verkligen ta bort %1$s?</string>
+    <string name="confirmation_remove_file_from_album_message">Vill du verkligen ta bort filen %1$s från albumet?</string>
     <string name="confirmation_remove_files_alert">Vill du verkligen ta bort de valda objekten?</string>
+    <string name="confirmation_remove_files_from_album_message">Vill du verkligen ta bort de valda filerna från albumet?</string>
     <string name="confirmation_remove_folder_alert">Vill du verkligen ta bort %1$s och dess innehåll?</string>
     <string name="confirmation_remove_folders_alert">Vill du verkligen ta bort de valda objekten och deras innehåll?</string>
     <string name="confirmation_remove_local">Endast lokalt</string>
@@ -259,6 +273,7 @@
     <string name="could_not_retrieve_shares">Kunde inte hämta delade mappar</string>
     <string name="could_not_retrieve_url">Kunde inte hämta URL</string>
     <string name="create">Skapa</string>
+    <string name="create_album_dialog_message">Ange ditt nya albumnamn</string>
     <string name="create_album_dialog_title">Nytt album</string>
     <string name="create_dir_fail_msg">Kunde inte skapa mapp</string>
     <string name="create_document">Dokument</string>
@@ -276,6 +291,7 @@
     <string name="create_presentation">Presentation</string>
     <string name="create_rich_workspace">Lägg till mappbeskrivning</string>
     <string name="create_spreadsheet">Kalkylblad</string>
+    <string name="create_tag_format">Skapa tagg: ”%1$s”</string>
     <string name="credentials_disabled">Inloggningsuppgifter inaktiverade</string>
     <string name="daily_backup">Daglig säkerhetskopiering</string>
     <string name="data_to_back_up">Data att säkerhetskopiera</string>
@@ -364,6 +380,8 @@
     <string name="ecosystem_apps_more">Fler Nextcloud-appar</string>
     <string name="editor_web_view_cannot_open_file">Kan inte öppna filväljaren</string>
     <string name="email_pick_failed">Det gick inte att välja e-postadress.</string>
+    <string name="empty_albums_message">Du kan ordna alla dina foton i så många album du vill. Du har inte skapat något album ännu.</string>
+    <string name="empty_albums_title">Skapa album för dina foton</string>
     <string name="encrypted">Markera som krypterad</string>
     <string name="end_to_end_encryption_certificate_unavailable">Kunde inte hämta servercertifikatet</string>
     <string name="end_to_end_encryption_certificate_verification_failed">Det gick inte att verifiera den offentliga nyckeln</string>
@@ -645,6 +663,7 @@
     <string name="media_err_unsupported">Mediekoden stöds inte</string>
     <string name="media_forward_description">Snabbspolningsknapp</string>
     <string name="media_notif_ticker">%1$s-musikspelare</string>
+    <string name="media_picker_toolbar_title">Välj mediefiler</string>
     <string name="media_play_pause_description">Knapp för att spela upp eller pausa</string>
     <string name="media_player_pause">Pausa</string>
     <string name="media_player_play">Spela</string>
@@ -857,6 +876,7 @@
     <string name="remove_notification_failed">Det gick inte att ta bort aviseringen.</string>
     <string name="remove_push_notification">Ta bort</string>
     <string name="remove_success_msg">Borttagen</string>
+    <string name="rename_album_dialog_title">Byt namn på album</string>
     <string name="rename_dialog_button">Byt namn</string>
     <string name="rename_dialog_title">Ange ett nytt namn</string>
     <string name="rename_local_fail_msg">Det gick inte att byta namn på lokal kopia, prova ett annat namn</string>
@@ -1252,6 +1272,14 @@
     <string name="write_email">Skicka e-post</string>
     <string name="wrong_storage_path">Datalagringsmapp finns inte!</string>
     <string name="wrong_storage_path_desc">Detta kan bero på att en säkerhetskopia har återställts på en annan enhet. Standardplatsen används i stället. Kontrollera inställningarna för att ändra datalagringsmappen.</string>
+    <plurals name="album_items_text">
+        <item quantity="one">%1$d objekt — %2$s</item>
+        <item quantity="other">%1$d objekt — %2$s</item>
+    </plurals>
+    <plurals name="album_elements_text">
+        <item quantity="one">%d objekt</item>
+        <item quantity="other">%d objekt</item>
+    </plurals>
     <plurals name="hours">
         <item quantity="one">%d timme</item>
         <item quantity="other">%d timmar</item>
