@@ -1,0 +1,10 @@
+## 35.0.0 RC1 (September 03, 2026)
+
+- NC Governance
+- Albums
+- Auto upload: clean up uploaded files
+- Manage tags on files/folders  
+
+Minimum: NC 22 Server, Android 9 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/130
