@@ -7,7 +7,6 @@
 
 package com.owncloud.android.ui.adapter.helper
 
-import com.nextcloud.android.common.ui.network.auth.ServerCredentials
 import com.nextcloud.android.common.ui.share.avatar.ShareAvatarRepository
 import com.nextcloud.android.common.ui.share.model.api.share.Share
 import com.nextcloud.client.account.User
@@ -15,14 +14,12 @@ import com.nextcloud.client.database.entity.FileEntity
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.filterFilenames
 import com.nextcloud.utils.extensions.isTempFile
+import com.nextcloud.utils.extensions.supportsUnifiedShare
 import com.nextcloud.utils.extensions.toServerCredentials
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
-import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.lib.resources.shares.ShareeUser
-import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.MimeTypeUtil
 import kotlinx.coroutines.CoroutineScope
@@ -64,25 +61,13 @@ class OCFileListAdapterHelper {
         }
     }
 
-    // TODO: check if server provides backward compatibility
     fun getAvatarSharees(file: OCFile, user: User?, userId: String?, onComplete: (List<ShareeUser>) -> Unit) {
         scope.launch {
-            val result = if (supportsUnifiedShare(user) && user != null) {
-                val credentials = getServerCredentials(user) ?: return@launch
-                val sourceId = file.remoteId
-                val repository = ShareAvatarRepository(credentials).fetchShareAvatars(sourceId)
-                repository?.toAvatarSharees() ?: listOf()
+            val credentials = user?.toServerCredentials()
+            val result = if (credentials != null && credentials.supportsUnifiedShare()) {
+                ShareAvatarRepository(credentials).fetchShareAvatars(file.remoteId)?.toAvatarSharees().orEmpty()
             } else {
-                val sharees = file.sharees
-                val ownerId = file.ownerId
-
-                val ownerSharee = if (!ownerId.isNullOrEmpty() && ownerId != userId) {
-                    ShareeUser(ownerId, file.ownerDisplayName, ShareType.USER).takeIf { it !in sharees }
-                } else {
-                    null
-                }
-
-                listOfNotNull(ownerSharee) + sharees.asReversed()
+                file.toLocalSharees(userId)
             }
 
             withContext(Dispatchers.Main) {
@@ -91,25 +76,20 @@ class OCFileListAdapterHelper {
         }
     }
 
-    private fun supportsUnifiedShare(user: User?): Boolean =
-        user?.server?.version?.isNewerOrEqual(NextcloudVersion.nextcloud_34) == true
+    private fun OCFile.toLocalSharees(userId: String?): List<ShareeUser> {
+        val ownerSharee = ownerId
+            ?.takeIf { it.isNotEmpty() && it != userId }
+            ?.let { ShareeUser(it, ownerDisplayName, ShareType.USER) }
+            ?.takeIf { it !in sharees }
+
+        return listOfNotNull(ownerSharee) + sharees.asReversed()
+    }
 
     private fun List<Share>.toAvatarSharees(): List<ShareeUser> = asSequence()
         .flatMap { share -> share.invitedRecipients }
         .distinctBy { recipient -> recipient.value }
         .map { recipient -> ShareeUser(recipient.value, recipient.displayName, ShareType.USER) }
         .toList()
-
-    @Suppress("TooGenericExceptionCaught")
-    private fun getServerCredentials(user: User): ServerCredentials? = try {
-        OwnCloudClientManagerFactory
-            .getDefaultSingleton()
-            .getClientFor(user.toOwnCloudAccount(), MainApp.getAppContext())
-            .toServerCredentials(user.server.uri.toString())
-    } catch (e: Exception) {
-        Log_OC.e(TAG, "Failed to create client for share avatars", e)
-        null
-    }
 
     suspend fun prepareFileList(
         directory: OCFile,
@@ -241,9 +221,5 @@ class OCFileListAdapterHelper {
     fun cleanup() {
         job?.cancel()
         job = null
-    }
-
-    companion object {
-        private val TAG = OCFileListAdapterHelper::class.java.simpleName
     }
 }
