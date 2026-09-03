@@ -19,6 +19,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.VisibleForTesting
+import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.client.account.User
@@ -316,6 +317,13 @@ class GalleryAdapter(
             files = allFiles.toGalleryItems(columns, defaultThumbnailSize)
             notifyItemChanged(file)
         }
+    }
+
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView)
+        recyclerView.layoutManager = null
+        setLayoutManager(null)
+        cleanup()
     }
 
     override fun onBindFooterViewHolder(holder: SectionedViewHolder?, section: Int) = Unit

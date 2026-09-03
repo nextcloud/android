@@ -169,7 +169,12 @@ class PreviewImageFragment :
     private fun playLivePhoto(file: OCFile) {
         hideActionBar()
 
-        val mediaFragment = PreviewPlaybackFragment.newInstance(file, PlaybackCollection.FOLDER, autoplay = true)
+        val mediaFragment = PreviewPlaybackFragment.newInstance(
+            file,
+            PlaybackCollection.FOLDER,
+            autoplay = true,
+            pictureInPictureOnBack = false
+        )
         requireActivity().supportFragmentManager.beginTransaction().run {
             replace(R.id.top, mediaFragment)
             addToBackStack(null)
