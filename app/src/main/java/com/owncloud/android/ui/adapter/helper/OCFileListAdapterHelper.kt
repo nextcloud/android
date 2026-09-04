@@ -7,10 +7,15 @@
 
 package com.owncloud.android.ui.adapter.helper
 
+import com.nextcloud.android.common.ui.share.avatar.ShareAvatarRepository
+import com.nextcloud.android.common.ui.share.model.api.share.Share
+import com.nextcloud.client.account.User
 import com.nextcloud.client.database.entity.FileEntity
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.filterFilenames
 import com.nextcloud.utils.extensions.isTempFile
+import com.nextcloud.utils.extensions.supportsUnifiedShare
+import com.nextcloud.utils.extensions.toServerCredentials
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.shares.ShareType
@@ -56,18 +61,35 @@ class OCFileListAdapterHelper {
         }
     }
 
-    fun getAvatarSharees(file: OCFile, userId: String?): List<ShareeUser> {
-        val sharees = file.sharees
-        val ownerId = file.ownerId
+    fun getAvatarSharees(file: OCFile, user: User?, userId: String?, onComplete: (List<ShareeUser>) -> Unit) {
+        scope.launch {
+            val credentials = user?.toServerCredentials()
+            val result = if (credentials != null && credentials.supportsUnifiedShare()) {
+                ShareAvatarRepository(credentials).fetchShareAvatars(file.remoteId)?.toAvatarSharees().orEmpty()
+            } else {
+                file.toLocalSharees(userId)
+            }
 
-        val ownerSharee = if (!ownerId.isNullOrEmpty() && ownerId != userId) {
-            ShareeUser(ownerId, file.ownerDisplayName, ShareType.USER).takeIf { it !in sharees }
-        } else {
-            null
+            withContext(Dispatchers.Main) {
+                onComplete(result)
+            }
         }
+    }
+
+    private fun OCFile.toLocalSharees(userId: String?): List<ShareeUser> {
+        val ownerSharee = ownerId
+            ?.takeIf { it.isNotEmpty() && it != userId }
+            ?.let { ShareeUser(it, ownerDisplayName, ShareType.USER) }
+            ?.takeIf { it !in sharees }
 
         return listOfNotNull(ownerSharee) + sharees.asReversed()
     }
+
+    private fun List<Share>.toAvatarSharees(): List<ShareeUser> = asSequence()
+        .flatMap { share -> share.invitedRecipients }
+        .distinctBy { recipient -> recipient.value }
+        .map { recipient -> ShareeUser(recipient.value, recipient.displayName, ShareType.USER) }
+        .toList()
 
     suspend fun prepareFileList(
         directory: OCFile,

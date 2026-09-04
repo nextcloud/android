@@ -2446,6 +2446,8 @@ public class FileDataStorageManager {
 
         contentValues.put(ProviderTableMeta.CAPABILITIES_CHUNKED_UPLOAD_MAX_SIZE, capability.getChunkedUploadMaxSize());
 
+        contentValues.put(ProviderTableMeta.CAPABILITIES_SHARING_JSON, capability.getSharingJson());
+
         return contentValues;
     }
 
@@ -2649,6 +2651,8 @@ public class FileDataStorageManager {
 
             capability.setChunkedUploadMaxSize(
                 getLong(cursor, ProviderTableMeta.CAPABILITIES_CHUNKED_UPLOAD_MAX_SIZE));
+
+            capability.setSharingJson(getString(cursor, ProviderTableMeta.CAPABILITIES_SHARING_JSON));
         }
 
         return capability;

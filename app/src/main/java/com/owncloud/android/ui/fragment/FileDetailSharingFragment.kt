@@ -31,6 +31,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
+import com.nextcloud.android.common.ui.network.auth.ServerCredentials
+import com.nextcloud.android.common.ui.share.initShareScreen
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
@@ -40,6 +42,8 @@ import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.mergeDistinctByToken
 import com.nextcloud.utils.extensions.setVisibleIf
+import com.nextcloud.utils.extensions.supportsUnifiedShare
+import com.nextcloud.utils.extensions.toServerCredentials
 import com.nextcloud.utils.mdm.MDMConfig.shareViaUser
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileDetailsSharingFragmentBinding
@@ -126,25 +130,13 @@ class FileDetailSharingFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         fileActivity ?: return
         fileDataStorageManager = fileActivity?.storageManager
         fileOperationsHelper = fileActivity?.fileOperationsHelper
-
-        startAnimation()
-
-        val userId = getUserId()
-
-        setupInternalShares(userId)
-        setupExternalShares(userId)
-
-        binding?.pickContactEmailBtn?.setOnClickListener { checkContactPermission() }
-
-        fetchSharees()
-        setupView()
+        initializeSharingMode()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FileDetailsSharingFragmentBinding.inflate(inflater, container, false)
         return binding!!.getRoot()
     }
@@ -177,6 +169,49 @@ class FileDetailSharingFragment :
     // endregion
 
     // region private methods
+    private fun initializeSharingMode() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                user?.toServerCredentials()?.takeIf { it.supportsUnifiedShare() }
+            }?.let(::showUnifiedShare) ?: showLegacyShare()
+        }
+    }
+
+    private fun showLegacyShare() {
+        binding?.sharingModeProgress?.visibility = View.GONE
+
+        val userId = getUserId()
+        setupInternalShares(userId)
+        setupExternalShares(userId)
+
+        startShimmerAnimation()
+        setupLegacyShareUi()
+        fetchSharees()
+    }
+
+    private fun showUnifiedShare(credentials: ServerCredentials) {
+        val binding = binding ?: return
+        val user = user ?: return
+        val file = file ?: return
+        val sourceId = file.remoteId ?: return
+
+        binding.sharingModeProgress.visibility = View.GONE
+        binding.shareContainer.visibility = View.GONE
+        binding.unifiedShare.visibility = View.VISIBLE
+
+        val shimmerLayout = binding.shimmerLayout.root
+        shimmerLayout.clearAnimation()
+        shimmerLayout.visibility = View.GONE
+
+        binding.unifiedShare.initShareScreen(
+            viewModelStoreOwner = this,
+            sourceId = sourceId,
+            internalLink = createInternalLink(user, file, capabilities),
+            credentials = credentials,
+            colorScheme = viewThemeUtils.files.getColorScheme(requireContext())
+        )
+    }
+
     private fun initArguments(savedInstanceState: Bundle?) {
         val args = (savedInstanceState ?: arguments) ?: return
         file = args.getParcelableArgument(ARG_FILE, OCFile::class.java)
@@ -222,9 +257,11 @@ class FileDetailSharingFragment :
 
     private fun createShareListLayoutManager(): LinearLayoutManager = LinearLayoutManager(requireContext())
 
-    private fun startAnimation() {
+    private fun startShimmerAnimation() {
+        val shimmerLayout = binding?.shimmerLayout?.root ?: return
+        shimmerLayout.visibility = View.VISIBLE
         val blinkAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.blink)
-        binding?.shimmerLayout?.getRoot()?.startAnimation(blinkAnimation)
+        shimmerLayout.startAnimation(blinkAnimation)
     }
 
     private fun fetchSharees() {
@@ -243,16 +280,16 @@ class FileDetailSharingFragment :
             if (result) {
                 refreshCapabilitiesFromDB()
                 refreshSharesFromDB()
-                stopLoadingAnimationAndShowShareContainer()
+                hideShimmerAndShowShareContainer()
                 return@launch
             }
 
-            stopLoadingAnimationAndShowShareContainer()
+            hideShimmerAndShowShareContainer()
             DisplayUtils.showSnackMessage(this@FileDetailSharingFragment, R.string.error_fetching_sharees)
         }
     }
 
-    private fun stopLoadingAnimationAndShowShareContainer() {
+    private fun hideShimmerAndShowShareContainer() {
         binding?.run {
             shimmerLayout.root.run {
                 clearAnimation()
@@ -272,25 +309,27 @@ class FileDetailSharingFragment :
         }
     }
 
-    private fun setupView() {
+    private fun setupLegacyShareUi() {
         resetSearchView()
         setShareWithYou()
 
         binding?.run {
+            pickContactEmailBtn.setOnClickListener { checkContactPermission() }
+
             FileDetailSharingFragmentHelper.setupSearchView(
                 fileActivity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager?,
                 searchView,
                 fileActivity?.componentName
             )
 
-            themeView(this)
-            setupShareList(this)
+            applyLegacyShareTheme(this)
+            setupShowAllButtons(this)
 
             if (file?.canReshare() == true && !FileDetailSharingFragmentHelper.isPublicShareDisabled(capabilities)) {
                 val parentFile = file?.parentId?.let { fileDataStorageManager?.getFileById(it) }
-                setupShareView(this, parentFile)
+                configureCreateLinkSection(this, parentFile)
             } else {
-                setupDisabledShareView(this)
+                disableResharingUi(this)
             }
 
             checkShareViaUser()
@@ -310,7 +349,7 @@ class FileDetailSharingFragment :
         }
     }
 
-    private fun themeView(binding: FileDetailsSharingFragmentBinding) {
+    private fun applyLegacyShareTheme(binding: FileDetailsSharingFragmentBinding) {
         binding.run {
             viewThemeUtils.material.run {
                 themeSearchCardView(searchCardWrapper)
@@ -332,7 +371,7 @@ class FileDetailSharingFragment :
         }
     }
 
-    private fun setupShareList(binding: FileDetailsSharingFragmentBinding) {
+    private fun setupShowAllButtons(binding: FileDetailsSharingFragmentBinding) {
         binding.run {
             sharesListInternalShowAll.setOnClickListener {
                 expandOrCollapseAdapter(internalShareeListAdapter, sharesListInternalShowAll)
@@ -352,7 +391,7 @@ class FileDetailSharingFragment :
         button.setText(actionTextId)
     }
 
-    private fun setupViewForEncryptedShare(binding: FileDetailsSharingFragmentBinding) {
+    private fun configureEncryptedShareUi(binding: FileDetailsSharingFragmentBinding) {
         binding.run {
             internalShareHeadline.text = resources.getString(R.string.internal_share_headline_end_to_end_encrypted)
             internalShareDescription.visibility = View.VISIBLE
@@ -374,7 +413,7 @@ class FileDetailSharingFragment :
                     searchView.setQueryHint(resources.getString(R.string.secure_share_search))
 
                     if (file?.isSharedViaLink == true) {
-                        setupSearchViewForSharedLink(searchView)
+                        disableSearchViewForFileDrop(searchView)
                     }
                 }
             }
@@ -386,16 +425,16 @@ class FileDetailSharingFragment :
         binding.createLink.visibility = View.GONE
     }
 
-    private fun setupSearchViewForSharedLink(searchView: SearchView) {
+    private fun disableSearchViewForFileDrop(searchView: SearchView) {
         searchView.setQueryHint(resources.getString(R.string.share_not_allowed_when_file_drop))
         searchView.inputType = InputType.TYPE_NULL
         toggleSearchViewEnable(searchView, false)
     }
 
-    private fun setupShareView(binding: FileDetailsSharingFragmentBinding, parentFile: OCFile?) {
+    private fun configureCreateLinkSection(binding: FileDetailsSharingFragmentBinding, parentFile: OCFile?) {
         binding.run {
             if (file?.isEncrypted == true || (parentFile != null && parentFile.isEncrypted)) {
-                setupViewForEncryptedShare(this)
+                configureEncryptedShareUi(this)
             } else {
                 createLink.setText(R.string.create_link)
                 searchView.setQueryHint(getResources().getString(R.string.share_search_internal))
@@ -405,7 +444,7 @@ class FileDetailSharingFragment :
         }
     }
 
-    private fun setupDisabledShareView(binding: FileDetailsSharingFragmentBinding) {
+    private fun disableResharingUi(binding: FileDetailsSharingFragmentBinding) {
         binding.run {
             searchView.setQueryHint(getResources().getString(R.string.resharing_is_not_allowed))
             createLink.visibility = View.GONE
@@ -518,9 +557,9 @@ class FileDetailSharingFragment :
         FileActivity.showShareLinkDialog(fileActivity, file, publicShare.shareLink)
     }
 
-    private fun refreshUiFromDB() {
+    private fun refreshLegacyShareUiFromDb() {
         refreshSharesFromDB()
-        setupView()
+        setupLegacyShareUi()
     }
 
     private fun unShareWith(share: OCShare) {
@@ -812,9 +851,9 @@ class FileDetailSharingFragment :
         }
 
         if (result.isSuccess) {
-            refreshUiFromDB()
+            refreshLegacyShareUiFromDb()
         } else {
-            setupView()
+            setupLegacyShareUi()
         }
     }
 

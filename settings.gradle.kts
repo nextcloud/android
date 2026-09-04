@@ -54,7 +54,6 @@ includeBuild("../android_library") {
 
 /*
 Needed for local android common library
-
 includeBuild("../android_common") {
     dependencySubstitution {
         substitute(module("com.github.nextcloud.android-common:core"))
