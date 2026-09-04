@@ -255,8 +255,10 @@ class FileDetailSharingFragment :
     private fun createShareListLayoutManager(): LinearLayoutManager = LinearLayoutManager(requireContext())
 
     private fun startShimmerAnimation() {
+        val shimmerLayout = binding?.shimmerLayout?.root ?: return
+        shimmerLayout.visibility = View.VISIBLE
         val blinkAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.blink)
-        binding?.shimmerLayout?.getRoot()?.startAnimation(blinkAnimation)
+        shimmerLayout.startAnimation(blinkAnimation)
     }
 
     private fun fetchSharees() {
