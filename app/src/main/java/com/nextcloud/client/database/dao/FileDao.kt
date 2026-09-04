@@ -191,4 +191,7 @@ interface FileDao {
 
     @Query("UPDATE filelist SET is_read_only = :readOnly WHERE file_owner = :fileOwner AND path = :path")
     fun setReadOnly(fileOwner: String, path: String, readOnly: Int): Int
+
+    @Update
+    fun updateAll(entities: List<FileEntity>)
 }
