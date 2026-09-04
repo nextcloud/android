@@ -9,6 +9,4 @@
     <dimen name="player_cover_margin_vertical">8dp</dimen>
     <dimen name="player_title_margin_bottom">0dp</dimen>
     <dimen name="player_file_margin_bottom">8dp</dimen>
-    <dimen name="player_panel_margin_bottom">0dp</dimen>
-    <dimen name="player_bottom_margin_bottom">8dp</dimen>
 </resources>
