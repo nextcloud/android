@@ -142,6 +142,9 @@ class PlayerControlView @JvmOverloads constructor(
         }
 
         binding.ivRepeat.setOnClickListener {
+            // Repeat and Random are mutually exclusive
+            playbackModel.setShuffle(false)
+
             when (binding.ivRepeat.tag) {
                 TAG_CLICK_COMMAND_REPEAT -> playbackModel.setRepeatMode(RepeatMode.SINGLE)
                 TAG_CLICK_COMMAND_DO_NOT_REPEAT -> playbackModel.setRepeatMode(RepeatMode.ALL)
@@ -149,6 +152,9 @@ class PlayerControlView @JvmOverloads constructor(
         }
 
         binding.ivRandom.setOnClickListener {
+            // Repeat and Random are mutually exclusive
+            playbackModel.setRepeatMode(RepeatMode.OFF)
+
             playbackModel.setShuffle(binding.ivRandom.tag == TAG_CLICK_COMMAND_SHUFFLE)
         }
 
