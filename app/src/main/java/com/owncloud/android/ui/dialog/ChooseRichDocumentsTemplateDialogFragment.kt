@@ -301,7 +301,7 @@ class ChooseRichDocumentsTemplateDialogFragment :
             name,
             fileDataStorageManager.getCapability(currentAccount.user),
             requireContext(),
-            fileNames ?: setOf()
+            fileNames
         )
 
         return when {
