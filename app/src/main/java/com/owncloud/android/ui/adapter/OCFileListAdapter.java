@@ -133,7 +133,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final long footerId = UUID.randomUUID().getLeastSignificantBits();
     private final long headerId = UUID.randomUUID().getLeastSignificantBits();
 
-    private List<OCFile> recommendedFiles = new ArrayList<>();
+    private final List<OCFile> recommendedFiles = new ArrayList<>();
     private RecommendedFilesAdapter recommendedFilesAdapter;
     private final OCFileListAdapterHelper helper = new OCFileListAdapterHelper();
     private final ThumbnailGenerator thumbnailGenerator;
@@ -189,7 +189,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         setHasStableIds(true);
 
-        // initialise thumbnails cache on background thread
+        // initialize thumbnails cache on background thread
         ThumbnailsCacheManager.initDiskCacheAsync();
         isRTL = DisplayUtils.isRTL();
     }
@@ -936,6 +936,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.sortOrder = sortOrder;
     }
 
+    @NonNull
     public Set<OCFile> getCheckedItems() {
         return ocFileListDelegate.getCheckedItems();
     }
@@ -997,15 +998,15 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return ((ImageView) callContext).getTag().equals(tag);
     }
 
-    public boolean isCheckedFile(OCFile file) {
+    public boolean isCheckedFile(@NonNull OCFile file) {
         return ocFileListDelegate.isCheckedFile(file);
     }
 
-    public void addCheckedFile(OCFile file) {
+    public void addCheckedFile(@NonNull OCFile file) {
         ocFileListDelegate.addCheckedFile(file);
     }
 
-    public void setHighlightedItem(OCFile file) {
+    public void setHighlightedItem(@NonNull OCFile file) {
         ocFileListDelegate.setHighlightedItem(file);
     }
 
@@ -1023,7 +1024,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @NonNull
     @Override
-    public String getPopupText(View view, int position) {
+    public String getPopupText(@NonNull View view, int position) {
         OCFile file = getItem(position);
 
         if (file == null || sortOrder == null) {
@@ -1073,7 +1074,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     // payload only for local file indicator
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position, @NonNull List<Object> payloads) {
-        if (!payloads.isEmpty() && payloads.get(0) instanceof Integer iconId && holder instanceof ListViewHolder listViewHolder) {
+        if (!payloads.isEmpty() && payloads.get(0) instanceof Integer iconId && 
+            holder instanceof ListViewHolder listViewHolder) {
             listViewHolder.getLocalFileIndicator().setImageResource(iconId);
             listViewHolder.getLocalFileIndicator().setVisibility(View.VISIBLE);
             // skip full rebind
