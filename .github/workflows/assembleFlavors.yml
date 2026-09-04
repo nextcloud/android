@@ -27,7 +27,7 @@ jobs:
             -   uses: gradle/actions/wrapper-validation@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
             -   name: compile
                 run: |
-                    echo "org.gradle.jvmargs=-Xmx6g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" >> gradle.properties
+                    echo "org.gradle.jvmargs=-Xmx10g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" >> gradle.properties
                     echo "org.gradle.caching=true" >> gradle.properties
                     echo "org.gradle.parallel=true" >> gradle.properties
                     echo "org.gradle.configureondemand=true" >> gradle.properties
