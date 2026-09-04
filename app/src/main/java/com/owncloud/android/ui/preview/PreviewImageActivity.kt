@@ -154,6 +154,8 @@ class PreviewImageActivity :
 
         observeWorkerState()
         applyDisplayCutOutTopPadding()
+
+
         handleBackPress()
 
         lifecycle.addObserver(sendShareDownloader)
@@ -170,7 +172,16 @@ class PreviewImageActivity :
         window.decorView.setOnApplyWindowInsetsListener { view, insets ->
             updatePagerDisplayCutOutPadding(isInPictureInPictureMode, insets.displayCutout?.safeInsetTop ?: 0)
             view.onApplyWindowInsets(insets)
+            insets
         }
+        /*
+        ViewCompat.setOnApplyWindowInsetsListener(window.decorView) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout())
+            v.updatePadding(
+                top = insets.top
+            )
+            WindowInsetsCompat.CONSUMED
+        }*/
     }
 
     private fun updatePagerDisplayCutOutPadding(inPictureInPictureMode: Boolean, safeInsetTop: Int) {

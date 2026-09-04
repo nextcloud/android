@@ -89,18 +89,6 @@ class PlayerControlView @JvmOverloads constructor(
             viewScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
             collectSeekBarChanges()
         }
-
-        // Clear insets to avoid covering ui
-        ViewCompat.setOnApplyWindowInsetsListener(binding.progressPanel) { v, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.updateLayoutParams<MarginLayoutParams> {
-                topMargin = insets.top
-                leftMargin = insets.left
-                bottomMargin = insets.bottom
-                rightMargin = insets.right
-            }
-            WindowInsetsCompat.CONSUMED
-        }
     }
 
     override fun onDetachedFromWindow() {
@@ -115,6 +103,18 @@ class PlayerControlView @JvmOverloads constructor(
     fun onStart() {
         playbackModel.state?.let(::render)
         playbackModel.addListener(this)
+
+        // Clear insets to avoid covering ui
+        ViewCompat.setOnApplyWindowInsetsListener(binding.playerControlPanel) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.updateLayoutParams<MarginLayoutParams> {
+                //topMargin = insets.top
+                leftMargin = insets.left
+                bottomMargin = insets.bottom
+                rightMargin = insets.right
+            }
+            WindowInsetsCompat.CONSUMED
+        }
     }
 
     fun onStop() {
