@@ -178,6 +178,8 @@ class FileDetailSharingFragment :
     }
 
     private fun showLegacyShare() {
+        binding?.sharingModeProgress?.visibility = View.GONE
+
         val userId = getUserId()
         setupInternalShares(userId)
         setupExternalShares(userId)
@@ -193,6 +195,7 @@ class FileDetailSharingFragment :
         val file = file ?: return
         val sourceId = file.remoteId ?: return
 
+        binding.sharingModeProgress.visibility = View.GONE
         binding.shareContainer.visibility = View.GONE
         binding.unifiedShare.visibility = View.VISIBLE
 
