@@ -10,6 +10,7 @@
     <string name="action_edit">Upraviť</string>
     <string name="action_empty_notifications">Odstrániť všetky upozornenia</string>
     <string name="action_empty_trashbin">Vyprázdniť kôš</string>
+    <string name="action_open_in_web_editor">Otvoriť vo webovom editore</string>
     <string name="action_send_share">Odoslať/Zdieľať</string>
     <string name="action_switch_grid_view">Zobrazenie mriežky</string>
     <string name="action_switch_list_view">Zobrazenie zoznamu</string>
@@ -29,14 +30,27 @@
     <string name="activity_chooser_send_file_title">Odoslať</string>
     <string name="activity_chooser_title">Odoslať odkaz…</string>
     <string name="activity_icon">Aktivita</string>
+    <string name="add_media">Pridať médiá</string>
     <string name="add_new_public_share">Pridajte nový odkaz na verejné zdieľanie</string>
     <string name="add_new_secure_file_drop">Pridať nový zabezpečený file drop</string>
     <string name="add_to_album">Pridať do albumu</string>
     <string name="add_to_cloud">Pridaj do %1$s</string>
+    <string name="album_already_exists">Album už existuje</string>
+    <string name="album_copy_file_conflict">Už existuje.</string>
+    <string name="album_create_new_link">Vytvoriť nový odkaz</string>
+    <string name="album_default_sharing_text">Všetci môžu iba zobrazovať</string>
     <string name="album_delete">Zmazať album</string>
+    <string name="album_delete_failed_message">Nepodarilo sa odstrániť niekoľko súborov.</string>
+    <string name="album_file_added_message">Súbor bol úspešne pridaný</string>
+    <string name="album_name_empty">Názov albumu nemôže byť prázdny</string>
+    <string name="album_picker_toolbar_title">Vybrať album</string>
+    <string name="album_rename">Premenovať album</string>
     <string name="album_rename_conflict">Toto meno je už používané.</string>
     <string name="album_share">Zdieľať album</string>
+    <string name="album_share_link">Zdieľať odkaz na album</string>
     <string name="album_stop_sharing">Ukončiť sprístupnenie</string>
+    <string name="album_unsupported_file">Nepodporované médium</string>
+    <string name="album_upload_from_account">Vybrať obrázky z účtu</string>
     <string name="app_config_base_url_title">Základná URL</string>
     <string name="app_config_disable_clipboard_title">Zakázať Schránku</string>
     <string name="app_config_disable_intro_title">Zakázať intro</string>
@@ -116,6 +130,10 @@
     <string name="authenticator_activity_login_error">Pri spracovaní vašej žiadosti o prihlásenie sa vyskytol problém. Skúste to znova neskôr.</string>
     <string name="authenticator_activity_no_web_browser_found">Pre tento odkaz nie je k dispozícii žiadny prehliadač.</string>
     <string name="authenticator_activity_please_complete_login_process">Prosím, dokončite proces prihlasovania vo vašom prehliadači</string>
+    <string name="auto_upload_background_activity_action">Povoliť aktivitu na pozadí</string>
+    <string name="auto_upload_battery_optimization_reason">Aktivita Nextcloudu na pozadí je obmedzená optimalizáciou batérie.</string>
+    <string name="auto_upload_battery_saver_action">Otvoriť nastavenia šetrenia batérie</string>
+    <string name="auto_upload_battery_saver_reason">Šetrenie batérie je aktívne a môže pozastaviť nahrávanie.</string>
     <string name="auto_upload_delete_dialog_description">Týmto sa odstráni priečinok a konfigurácia automatického nahrávania. Všetky nedokončené nahrávania budú zrušené.</string>
     <string name="auto_upload_delete_dialog_title">Vymazať priečinok automatického nahrávania?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ponechané v pôvodnom priečinku, pretože je iba na čítanie</string>
@@ -123,15 +141,32 @@
     <string name="auto_upload_on_wifi">Nahrávaj iba na neobmedzenom Wi-Fi</string>
     <string name="auto_upload_path">/AutomatickéNahrávanie</string>
     <string name="auto_upload_sub_folder_warning">Tento adresár je už zahrnutý v synchronizácii nadradeného adresára, čo môže spôsobiť duplicitné nahrávania</string>
+    <string name="auto_upload_sync_now_action">Synchronizovať teraz</string>
+    <string name="auto_upload_sync_now_no_folder">Pre automatické nahrávanie nie je nastavený žiadny priečinok</string>
+    <string name="auto_upload_sync_now_running">Automatické nahrávanie už prebieha</string>
+    <string name="auto_upload_sync_now_started">Automatické nahrávanie sa začalo</string>
     <string name="auto_upload_wifi_only_warning_info">Čaká sa na Wi-Fi pre spustenie nahrávania.</string>
     <string name="auto_upload_worker_start_text">Nahrávanie súborov z %1$s do %2$s</string>
     <string name="autoupload_configure">Nastaviť</string>
     <string name="autoupload_create_new_custom_folder">Nastavenie vytvorenia vlastného priečinku</string>
     <string name="autoupload_custom_folder">Nastaviť vlastný priečinok</string>
+    <string name="autoupload_delete_uploaded">Odstrániť nahrané súbory lokálne</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_all_users">Od všetkých používateľov</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_current_user">Od aktuálneho používateľa</string>
+    <string name="autoupload_delete_uploaded_all_dialog_description">Všetky súbory, ktoré už boli nahrané do cloudu, sa odstránia z aktuálneho zariadenia vo všetkých priečinkoch automatického nahrávania všetkých nakonfigurovaných používateľov</string>
+    <string name="autoupload_delete_uploaded_all_dialog_title">Lokálne odstrániť nahrané súbory zo všetkých priečinkov automatického nahrávania</string>
+    <string name="autoupload_delete_uploaded_dialog_description">Všetky súbory, ktoré už boli nahrané do cloudu, sa odstránia z aktuálneho zariadenia</string>
+    <string name="autoupload_delete_uploaded_dialog_title">Lokálne odstrániť nahrané súbory</string>
+    <string name="autoupload_delete_uploaded_notif_ended_content">Uvoľnilo sa %1$s odstránením %2$s v %3$s od %4$s.</string>
+    <string name="autoupload_delete_uploaded_notif_ended_title">Lokálne odstránené už nahrané súbory</string>
+    <string name="autoupload_delete_uploaded_notif_error_title">Už nahrané súbory sa nepodarilo lokálne odstrániť</string>
+    <string name="autoupload_delete_uploaded_notif_started_title">Začalo sa lokálne odstraňovanie už nahraných súborov na pozadí</string>
+    <string name="autoupload_delete_uploaded_notif_ticker">Odstránenie lokálnych súborov</string>
     <string name="autoupload_disable_power_save_check">Vypnúť kontrolu úspory energie</string>
     <string name="autoupload_hide_folder">Skryť priečinok</string>
     <string name="avatar">Avatar</string>
     <string name="away">Preč</string>
+    <string name="backup_list_adapter_local_contacts">Lokálne kontakty</string>
     <string name="backup_settings">Nastavenie zálohovania</string>
     <string name="backup_title">Zálohovanie kontaktov a kalendára</string>
     <string name="battery_optimization_close">Zatvoriť</string>
@@ -209,7 +244,9 @@
     <string name="configure_new_media_folder_detection_notifications">Nastaviť</string>
     <string name="confirm_removal">Odstrániť lokálne šifrovanie</string>
     <string name="confirmation_remove_file_alert">Naozaj chcete odstrániť %1$s?</string>
+    <string name="confirmation_remove_file_from_album_message">Naozaj chcete odstrániť súbor %1$s z albumu?</string>
     <string name="confirmation_remove_files_alert">Naozaj chcete odstrániť vybraté položky?</string>
+    <string name="confirmation_remove_files_from_album_message">Naozaj chcete odstrániť vybrané súbory z albumu?</string>
     <string name="confirmation_remove_folder_alert">Naozaj chcete odstrániť %1$s a jeho obsah?</string>
     <string name="confirmation_remove_folders_alert">Naozaj chcete odstrániť vybraté položky a ich obsah?</string>
     <string name="confirmation_remove_local">Iba lokálne</string>
@@ -248,9 +285,11 @@
     <string name="could_not_retrieve_shares">Nie je možné získať zdieľania</string>
     <string name="could_not_retrieve_url">Nepodarilo sa načítať webovú adresu</string>
     <string name="create">Vytvoriť</string>
+    <string name="create_album_dialog_message">Zadajte názov nového albumu</string>
     <string name="create_album_dialog_title">Nový album</string>
     <string name="create_dir_fail_msg">Nemožno vytvoriť priečinok</string>
     <string name="create_document">Dokument</string>
+    <string name="create_encrypted_folder">Šifrovaný priečinok</string>
     <string name="create_end_to_end_encrypted_share">Zdieľať odkaz</string>
     <string name="create_end_to_end_encrypted_share_title">Konverzácie cez odkazy s end-to-end šifrovaním</string>
     <string name="create_folder">Priečinok</string>
@@ -264,6 +303,7 @@
     <string name="create_presentation">Prezentácia</string>
     <string name="create_rich_workspace">Pridať popis adresára</string>
     <string name="create_spreadsheet">Tabuľka</string>
+    <string name="create_tag_format">Vytvoriť značku: „%1$s“</string>
     <string name="credentials_disabled">Prihlasovacie údaje zakázané</string>
     <string name="daily_backup">Denná záloha</string>
     <string name="data_to_back_up">Dáta pre zálohovanie</string>
@@ -279,6 +319,8 @@
     <string name="dialog_close">Zatvoriť</string>
     <string name="did_not_check_for_dupes">Nekontrolovať duplicity</string>
     <string name="digest_algorithm_not_available">Algoritmus digest nie je na vašom telefóne dostupný.</string>
+    <string name="direct_login_confirm_message">Chcete sa prihlásiť pomocou %1$s na server %2$s?</string>
+    <string name="direct_login_confirm_title">Potvrdiť prihlásenie</string>
     <string name="direct_login_failed">Prihlásenie pomocou priameho odkazu zlyhalo!</string>
     <string name="direct_login_text">Prihlásiť sa s %1$s do %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">Zakázať</string>
@@ -350,7 +392,26 @@
     <string name="ecosystem_apps_more">Ďalšie Nextcloud aplikácie</string>
     <string name="editor_web_view_cannot_open_file">Nie je možné otvoriť výber súboru</string>
     <string name="email_pick_failed">Nepodarilo sa vybrať e-mailovú adresu.</string>
+    <string name="empty_albums_message">Svoje fotografie môžete usporiadať do ľubovoľného počtu albumov. Zatiaľ ste nevytvorili žiadny album.</string>
+    <string name="empty_albums_title">Vytvorte albumy pre svoje fotografie</string>
     <string name="encrypted">Nastaviť ako zašifrované</string>
+    <string name="encryption_encrypt_check_failed">Nepodarilo sa skontrolovať vaše šifrovacie kľúče. Skúste priečinok zašifrovať znova.</string>
+    <string name="encryption_encrypt_no_network">Server nie je dostupný. Skúste priečinok zašifrovať znova neskôr.</string>
+    <string name="encryption_encrypt_unavailable">Tento priečinok sa nedá zašifrovať. Na tomto serveri nie je nastavené end-to-end šifrovanie.</string>
+    <string name="encryption_key_checking_keys">Kontrolujú sa kľúče…</string>
+    <string name="encryption_key_handle_folder_read_only_description">Šifrovacie kľúče tohto účtu boli odstránené alebo nahradené, takže obsah tohto priečinka už nie je možné dešifrovať.\n\nPriečinok je odteraz iba na čítanie. Ak chcete znova používať šifrované priečinky, zálohujte tento priečinok a v nastaveniach nastavte nový šifrovací kľúč.</string>
+    <string name="encryption_key_handle_key_keys_only_on_device_description">Šifrovací kľúč uložený v tomto zariadení už nie je platný. Kľúče boli odvolané na serveri.\n\nV nastaveniach odstráňte miestne šifrovanie, aby ste mohli vytvoriť nový šifrovaný priečinok.</string>
+    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">Šifrovací kľúč uložený v tomto zariadení už nie je platný. Kľúče boli odvolané na serveri.\n\nZálohujte predtým vytvorený šifrovaný priečinok.\n\nPotom v nastaveniach odstráňte miestne šifrovanie, aby ste mohli vytvoriť nový šifrovaný priečinok.</string>
+    <string name="encryption_key_handle_key_removed_title">Zmenili sa šifrovacie kľúče.</string>
+    <string name="encryption_key_handle_no_keys_description">Tento priečinok nemožno otvoriť, pretože jeho šifrovacie kľúče už neexistujú v tomto zariadení ani na serveri.</string>
+    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">Šifrovacie kľúče tohto účtu boli odstránené alebo nahradené.\n\nPred zašifrovaním priečinka nastavte nový šifrovací kľúč v nastaveniach.</string>
+    <string name="encryption_new_folder_check_failed">Nepodarilo sa skontrolovať vaše šifrovacie kľúče. Skúste priečinok vytvoriť znova.</string>
+    <string name="encryption_new_folder_no_network">Server nie je dostupný. Skúste priečinok vytvoriť znova neskôr.</string>
+    <string name="encryption_new_folder_unavailable">Nemožno vytvárať šifrované priečinky. Na tomto serveri nie je nastavené end-to-end šifrovanie.</string>
+    <string name="encryption_open_check_failed">Nepodarilo sa skontrolovať vaše šifrovacie kľúče. Skúste priečinok otvoriť znova.</string>
+    <string name="encryption_open_key_mismatch">Šifrovací kľúč uložený v tomto zariadení sa nezhoduje s kľúčom potrebným pre tento priečinok.</string>
+    <string name="encryption_open_no_network">Server nie je dostupný. Skúste priečinok otvoriť znova neskôr.</string>
+    <string name="encryption_open_unavailable">Tento priečinok nemožno otvoriť. Na tomto serveri nie je nastavené end-to-end šifrovanie.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Nepodarilo sa získať certifikát servera</string>
     <string name="end_to_end_encryption_certificate_verification_failed">Nepodarilo sa overiť verejný kľúč</string>
     <string name="end_to_end_encryption_confirm_button">Nastavenie šifrovania</string>
@@ -438,6 +499,8 @@
     <string name="file_detail_sharing_fragment_no_contact_app_message">Nie je k dispozícii žiadna aplikácia pre výber kontaktov</string>
     <string name="file_details_no_content">Nepodarilo sa načítať podrobnosti</string>
     <string name="file_icon">Súbor</string>
+    <string name="file_info_governance_section_title">Spravovanie</string>
+    <string name="file_info_image_details_section_title">Podrobnosti obrázka</string>
     <string name="file_keep">Ponechať</string>
     <string name="file_list_empty">Nahrajte nejaký obsah alebo synchronizujte so svojimi zariadeniami.</string>
     <string name="file_list_empty_favorite_headline">Zatiaľ nemáte nič obľúbené</string>
@@ -508,6 +571,7 @@
     <string name="filedetails_download">Stiahnuť</string>
     <string name="filedetails_export">Export</string>
     <string name="filedetails_renamed_in_upload_msg">Súbor bol premenovaný na %1$s počas nahrávania</string>
+    <string name="filedetails_sync_all_files">Synchronizovať všetko</string>
     <string name="filedetails_sync_file">Synchronizovať</string>
     <string name="filedisplay_no_file_selected">Nebol vybraný súbor</string>
     <string name="filename_empty">Názov súboru nemôže byť prázdny</string>
@@ -546,7 +610,10 @@
     <string name="forward">Preposlať</string>
     <string name="fourHours">4 hodiny</string>
     <string name="governance_file_retention_label">Uchovávanie súborov</string>
+    <string name="governance_legal_hold_label">Právne uchovanie</string>
     <string name="governance_no_label">Žiadne</string>
+    <string name="governance_permission_denied">Nemáte povolenie meniť toto označenie</string>
+    <string name="governance_sensitivity_label">Označenie citlivosti</string>
     <string name="gplay_restriction">Google obmedzil sťahovanie APK/AAB súborov!</string>
     <string name="grid_file_features_live_photo_content_description">Tento ikonka označuje dostupnosť živej fotografie.</string>
     <string name="hidden_file_name_warning">Názov bude mať za následok skrytý súbor</string>
@@ -613,6 +680,9 @@
     <string name="logs_status_not_filtered">Záznamy: %1$d kB, bez filtra</string>
     <string name="logs_title">Záznamy</string>
     <string name="maintenance_mode">Server je v móde údržby</string>
+    <string name="manage_space_auto_upload_clear_data">Odstrániť lokálne automaticky nahrané súbory</string>
+    <string name="manage_space_auto_upload_description">Všetky súbory, ktoré už boli nahrané na server z priečinkov automatického nahrávania, sa odstránia zo zariadenia.\n\nTento proces môže chvíľu trvať.</string>
+    <string name="manage_space_auto_upload_title">Odstrániť lokálne automaticky nahrané súbory</string>
     <string name="manage_space_clear_data">Vyčistiť dáta</string>
     <string name="manage_space_description">Nastavenie, databázové a servrové certifikáty z dát %1$sbudú trvalo vymazané.\n\nStiahnuté súbory budú zachované.\n\nTento proces môže chvíľu trvať.</string>
     <string name="manage_space_title">Spravovať miesto</string>
@@ -625,6 +695,7 @@
     <string name="media_err_unsupported">Nepodporovaný kodek</string>
     <string name="media_forward_description">Tlačidlo \"rýchlo vpred\"</string>
     <string name="media_notif_ticker">Hudobný prehrávač %1$s</string>
+    <string name="media_picker_toolbar_title">Vybrať mediálne súbory</string>
     <string name="media_play_pause_description">Tlačidlo prehrávania / pauzy</string>
     <string name="media_player_pause">Pauza</string>
     <string name="media_player_play">Hrať</string>
@@ -786,6 +857,8 @@
     <string name="prefs_manage_accounts">Spravovať účty</string>
     <string name="prefs_recommend">Odporučiť priateľom</string>
     <string name="prefs_remove_e2e">Lokálne odstrániť šifrovanie</string>
+    <string name="prefs_remove_e2e_keys_and_files">Odstrániť šifrované súbory a kľúče</string>
+    <string name="prefs_renew_e2e_certificate">Obnoviť šifrovací certifikát</string>
     <string name="prefs_setup_e2e">Nastaviť šifrovanie end-to-end</string>
     <string name="prefs_show_ecosystem_apps">Zobraziť prepínač aplikácií</string>
     <string name="prefs_show_ecosystem_apps_summary">Návrhy Nextcloud aplikácií v navigačnom záhlaví</string>
@@ -808,6 +881,7 @@
     <string name="preview_image_file_is_not_downloaded">Súbor nebol stiahnutý</string>
     <string name="preview_media_unhandled_http_code_message">Súbor je momentálne uzamknutý iným užívateľom alebo procesom, a preto ho nemožno odstrániť. Skúste to znova neskôr.</string>
     <string name="preview_sorry">Prepáčte</string>
+    <string name="preview_text_string_fragment_open_rich_text_editor_error_message">Nepodarilo sa otvoriť textový editor</string>
     <string name="privacy">Súkromie</string>
     <string name="push_notifications_not_implemented">Push notifikácie sú vypnuté z dôvodu závislosti na proprietárnych službách Google Play</string>
     <string name="push_notifications_old_login">Žiadne push notifikácie z dôvodu zastaraného prihlásenia.  Prosím skúste znova pridať váš účet.</string>
@@ -825,6 +899,7 @@
     <string name="remote_file_fetch_failed">Nepodarilo sa nájsť súbor</string>
     <string name="remove">Odobrať</string>
     <string name="remove_e2e">Môžete odstrániť end-to-end šifrovanie lokálne na tomto klientovi.</string>
+    <string name="remove_e2e_keys_and_files_dialog_warning">Táto operácia odstráni všetky šifrované súbory, súkromné a verejné kľúče. Naozaj chcete pokračovať?</string>
     <string name="remove_e2e_message">Môžete odstrániť end-to-end šifrovanie lokálne na tomto klientovi. Šifrované súbory zostanú na serveri, ale už nebudú synchronizované s týmto počítačom.</string>
     <string name="remove_fail_msg">Zmazanie zlyhalo</string>
     <string name="remove_local_account">Odstrániť lokálny účet</string>
@@ -832,10 +907,17 @@
     <string name="remove_notification_failed">Odstránenie upozornenia zlyhalo.</string>
     <string name="remove_push_notification">Odstrániť</string>
     <string name="remove_success_msg">Zmazané</string>
+    <string name="rename_album_dialog_title">Premenovať album</string>
     <string name="rename_dialog_button">Premenovať</string>
     <string name="rename_dialog_title">Zadajte nové meno</string>
     <string name="rename_local_fail_msg">Nepodarilo sa premenovať lokálnu kópiu, skúste iné meno</string>
     <string name="rename_server_fail_msg">Premenovanie sa nepodarilo, meno sa už používa</string>
+    <string name="renew_e2e_certificate_dialog_message">Týmto obnovíte svoj certifikát end-to-end šifrovania. Vaše existujúce kľúče a šifrované súbory zostanú nezmenené. Chcete pokračovať?</string>
+    <string name="renew_e2e_certificate_error">Nepodarilo sa obnoviť šifrovací certifikát</string>
+    <string name="renew_e2e_certificate_private_key_missing">Šifrovací súkromný kľúč sa nenašiel</string>
+    <string name="renew_e2e_certificate_success">Šifrovací certifikát bol obnovený</string>
+    <string name="renew_e2e_certificate_summary">Obnoviť certifikát end-to-end šifrovania a ponechať existujúce kľúče</string>
+    <string name="renew_e2e_certificate_valid_until">Platný do %1$s. Klepnutím obnovíte certifikát a ponecháte existujúce kľúče.</string>
     <string name="request_account_deletion">Žiadosť o zmazanie účtu</string>
     <string name="request_account_deletion_button">Žiadosť o zmazanie</string>
     <string name="request_account_deletion_details">Žiadosť o trvalé odstránenie účtu poskytovateľom</string>
@@ -1004,6 +1086,8 @@
     <string name="subtitle_videos_only">Iba videá</string>
     <string name="suggest">Navrhnúť</string>
     <string name="sync">Synchronizovať</string>
+    <string name="sync_all_action_dialog_description">Stiahnu sa všetky obsiahnuté súbory a priečinky. V závislosti od pripojenia to môže vyžadovať značné množstvo úložiska a určitý čas.</string>
+    <string name="sync_all_action_dialog_title">Synchronizovať celý priečinok?</string>
     <string name="sync_anyway">Aj napriek tomu synchronizovať</string>
     <string name="sync_conflict_notification_action_title">Vyriešiť konflikty</string>
     <string name="sync_conflict_notification_description">Zistené konflikty pri nahrávaní. Otvorte nahrávania a vyriešte ich.</string>
@@ -1068,6 +1152,7 @@
     <string name="unified_search_fragment_contact_not_found">Kontakt sa nenašiel, vždy ho môžete synchronizovať a aktualizovať. Prebieha presmerovanie na web…</string>
     <string name="unified_search_fragment_permission_needed">Pre otvorenie výsledku vyhľadávania sú potrebné práva, inak bude presmerovaný na web…</string>
     <string name="unified_search_fragment_search_in_this_folder">V tomto priečinku</string>
+    <string name="unified_search_fragment_search_takes_long">Vyhľadávanie trvá dlhšie než zvyčajne. Výsledky sa zobrazia hneď, ako server odpovie.</string>
     <string name="unknown">Neznámy</string>
     <string name="unlock_file">Odomknúť súbor</string>
     <string name="unread_comments">Existujú neprečítané komentáre</string>
@@ -1114,6 +1199,8 @@
     <string name="upload_local_storage_full">Lokálne úložište je plné</string>
     <string name="upload_local_storage_not_copied">Nepodarilo sa skopírovať súbor na lokálne úložište</string>
     <string name="upload_lock_failed">Uzamknutie priečinka zlyhalo</string>
+    <string name="upload_locked_message">Server je zaneprázdnený. Opakovanie pokusu…</string>
+    <string name="upload_locked_title">Prebieha nahrávanie</string>
     <string name="upload_manually_cancelled">Nahrávanie bolo zrušené užívateľom</string>
     <string name="upload_missing_storage_permission_allow_file_access">Povoliť prístup ku všetkým súborom</string>
     <string name="upload_missing_storage_permission_app_permissions">Povolenia aplikácie</string>
@@ -1125,6 +1212,11 @@
     <string name="upload_query_move_foreign_files">Pre skopírovanie vybratých súborov do adresára %1$s nie je dostatok voľného miesta. Chcete ich namiesto toho presunúť?</string>
     <string name="upload_quota_exceeded">Kapacita úložiska prekročená</string>
     <string name="upload_scan_doc_upload">Naskenujte dokument z fotoaparátu</string>
+    <string name="upload_sync_conflict_check">Pri poslednom nahrávaní mohol vzniknúť konflikt. Klepnutím ho skontrolujete.</string>
+    <string name="upload_sync_conflict_check_error">Nepodarilo sa skontrolovať konflikty pri nahrávaní. Skúste to znova.</string>
+    <string name="upload_sync_conflict_checking">Kontrolujú sa konflikty pri nahrávaní…</string>
+    <string name="upload_sync_conflict_not_exists">Konflikt vyriešený.</string>
+    <string name="upload_sync_conflict_same_file">Nezistil sa žiadny konflikt. Súbor je rovnaký.</string>
     <string name="upload_unknown_error">Neznáma chyba</string>
     <string name="uploader_btn_alternative_text">Vybrať</string>
     <string name="uploader_btn_upload_text">Nahrať</string>
@@ -1190,6 +1282,7 @@
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Web stránka</string>
     <string name="user_information_retrieval_error">Chyba počas získavania informácií o používateľovi</string>
+    <string name="user_information_retrieval_error_message">Znova skontrolujte internetové pripojenie alebo stav servera.</string>
     <string name="userinfo_no_info_headline">Osobné informácie neboli nastavené</string>
     <string name="userinfo_no_info_text">Pridaj meno, obrázok a kontakt na profilovú stránku.</string>
     <string name="username">Používateľské meno</string>
@@ -1199,6 +1292,7 @@
     <string name="wait_checking_credentials">Overujem uložené prihlasovacie údaje</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírovanie súboru z privátneho úložiska</string>
     <string name="warn_rename_extension">Zmena prípony môže spôsobiť, že sa tento súbor otvorí v inej aplikácii</string>
+    <string name="webview_not_available">V tomto zariadení chýba Android System WebView alebo je vypnutý.</string>
     <string name="what_s_new_image">Obrázok čo je nové</string>
     <string name="whats_new_skip">Preskočiť</string>
     <string name="whats_new_title">Nové v %1$s</string>
@@ -1209,6 +1303,18 @@
     <string name="write_email">Odoslať email</string>
     <string name="wrong_storage_path">Priečinok pre úložisko dát neexistuje!</string>
     <string name="wrong_storage_path_desc">Môže to byť spôsobené obnovením zálohy na inom zariadení. Návrat na predvolené hodnoty. Skontrolujte priečinok a upravte adresár pre ukladanie údajov.</string>
+    <plurals name="album_items_text">
+        <item quantity="one">%1$d položka — %2$s</item>
+        <item quantity="few">%1$d položky — %2$s</item>
+        <item quantity="many">%1$d položiek — %2$s</item>
+        <item quantity="other">%1$d položiek — %2$s</item>
+    </plurals>
+    <plurals name="album_elements_text">
+        <item quantity="one">%d položka</item>
+        <item quantity="few">%d položky</item>
+        <item quantity="many">%d položiek</item>
+        <item quantity="other">%d položiek</item>
+    </plurals>
     <plurals name="hours">
         <item quantity="one">%d hodina</item>
         <item quantity="few">%d hodiny</item>
@@ -1328,6 +1434,42 @@
         <item quantity="few">%d vybraté</item>
         <item quantity="many">%d vybraných</item>
         <item quantity="other">%d vybraných</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_files">
+        <item quantity="one">%d súbor</item>
+        <item quantity="few">%d súbory</item>
+        <item quantity="many">%d súborov</item>
+        <item quantity="other">%d súborov</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_folders">
+        <item quantity="one">%d priečinok</item>
+        <item quantity="few">%d priečinky</item>
+        <item quantity="many">%d priečinkov</item>
+        <item quantity="other">%d priečinkov</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_users">
+        <item quantity="one">%d používateľ</item>
+        <item quantity="few">%d používatelia</item>
+        <item quantity="many">%d používateľov</item>
+        <item quantity="other">%d používateľov</item>
+    </plurals>
+    <plurals name="passcode_delay_seconds">
+        <item quantity="one">Skúste to znova o %d sekundu, pretože bolo vykonaných príliš veľa nesprávnych pokusov</item>
+        <item quantity="few">Skúste to znova o %d sekundy, pretože bolo vykonaných príliš veľa nesprávnych pokusov</item>
+        <item quantity="many">Skúste to znova o %d sekúnd, pretože bolo vykonaných príliš veľa nesprávnych pokusov</item>
+        <item quantity="other">Skúste to znova o %d sekúnd, pretože bolo vykonaných príliš veľa nesprávnych pokusov</item>
+    </plurals>
+    <plurals name="passcode_delay_minutes">
+        <item quantity="one">Skúste to znova o %d minútu, pretože bolo vykonaných príliš veľa nesprávnych pokusov</item>
+        <item quantity="few">Skúste to znova o %d minúty, pretože bolo vykonaných príliš veľa nesprávnych pokusov</item>
+        <item quantity="many">Skúste to znova o %d minút, pretože bolo vykonaných príliš veľa nesprávnych pokusov</item>
+        <item quantity="other">Skúste to znova o %d minút, pretože bolo vykonaných príliš veľa nesprávnych pokusov</item>
+    </plurals>
+    <plurals name="passcode_delay_minutes_seconds">
+        <item quantity="one">Skúste to znova o %1$d min a %2$d s kvôli príliš veľkému počtu nesprávnych pokusov.</item>
+        <item quantity="few">Skúste to znova o %1$d min a %2$d s kvôli príliš veľkému počtu nesprávnych pokusov.</item>
+        <item quantity="many">Skúste to znova o %1$d min a %2$d s kvôli príliš veľkému počtu nesprávnych pokusov.</item>
+        <item quantity="other">Skúste to znova o %1$d min a %2$d s kvôli príliš veľkému počtu nesprávnych pokusov.</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d zostáva stiahnuť</item>

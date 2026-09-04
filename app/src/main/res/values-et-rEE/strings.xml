@@ -150,6 +150,17 @@
     <string name="autoupload_configure">Seadista</string>
     <string name="autoupload_create_new_custom_folder">Loo uus kohandatud kausta seadistus</string>
     <string name="autoupload_custom_folder">Seadista kohandatud kaust</string>
+    <string name="autoupload_delete_uploaded">Kustuta üleslaaditud failid kohalikust seadmest</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_all_users">Kõikidelt kasutajatelt</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_current_user">Praeguselt kasutajalt</string>
+    <string name="autoupload_delete_uploaded_all_dialog_description">Kõik juba pilve laaditud failid eemaldatakse kohalikust seadmest kõikide kasutajate automaatse üleslaadimise kaustadest</string>
+    <string name="autoupload_delete_uploaded_all_dialog_title">Kõik juba pilve laaditud failid eemaldatakse kohalikust seadmest kõikidest automaatse üleslaadimise kaustadest</string>
+    <string name="autoupload_delete_uploaded_dialog_description">Kõik juba pilve laaditud failid eemaldatakse kohalikust seadmest.</string>
+    <string name="autoupload_delete_uploaded_dialog_title">Kustuta üleslaaditud failid kohalikust seadmest</string>
+    <string name="autoupload_delete_uploaded_notif_ended_title">Juba üleslaaditud kohalikud failid on kustutatud</string>
+    <string name="autoupload_delete_uploaded_notif_error_title">Juba üleslaaditud kohalike failide kustutamine ei õnnestunud</string>
+    <string name="autoupload_delete_uploaded_notif_started_title">Juba üleslaaditud kohalike failide kustutamine käivitus taustal</string>
+    <string name="autoupload_delete_uploaded_notif_ticker">Kohalike failide kustutamine</string>
     <string name="autoupload_disable_power_save_check">Lülita akusääste kontroll välja</string>
     <string name="autoupload_hide_folder">Peida kaust</string>
     <string name="avatar">Tunnuspilt ehk avatar</string>
@@ -383,6 +394,23 @@
     <string name="empty_albums_message">Sa võid oma fotosid hallata nii mitme albumine, kui parasjagu tahad. Hetkel sa pole veel ühtegi albumit koostanud.</string>
     <string name="empty_albums_title">Koosta oma fotodest albumeid</string>
     <string name="encrypted">Määra krüptituks</string>
+    <string name="encryption_encrypt_check_failed">Sinu krüptovõtmete kontrollimine ei õnnestunud. Proovi kausta uuesti krüptida.</string>
+    <string name="encryption_encrypt_no_network">Server pole leitav. Proovi kausta hiljem uuesti krüptida.</string>
+    <string name="encryption_encrypt_unavailable">Selle kausta krüptimine pole võimalik. Läbiv krüptimine on selles serveris seadistamata.</string>
+    <string name="encryption_key_checking_keys">Kontrollin võtmeid…</string>
+    <string name="encryption_key_handle_folder_read_only_description">Selle kasutajakonto krüptovõtmed on eemaldatud või asendatud ja seega antud kausta sisu enam ei saa dekrüptida.\n\nNüüdsest on see kaust vaid loetavas olekus. Kasutamaks uuesti kaustade krüptimist, tee kausta sisust varukoopia ning seadista uued krüptovõtmed.</string>
+    <string name="encryption_key_handle_key_keys_only_on_device_description">Sellesse nutiseadmesse salvestatud krüptovõti pole enam kehtiv. Võtmed on tühistatud serveri poolelt.\n\nEemalda krüptimine kohalikest seadistustest ja loo uus krüptokaust.</string>
+    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">Sellesse nutiseadmesse salvestatud krüptovõti pole enam kehtiv. Võtmed on tühistatud serveri poolelt.\n\nTee varasemalt krüptitud kausta sisust varukoopia.\n\nEemalda krüptimine kohalikest seadistustest ja loo uus krüptokaust.</string>
+    <string name="encryption_key_handle_key_removed_title">Krüptovõtmed on muutunud</string>
+    <string name="encryption_key_handle_no_keys_description">Kausta krüptovõtmeid pole enam ei selles nutiseadmes ega serveris ja seega seda kausta ei saa enam avada.</string>
+    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">Selle kasutajakonto krüptovõtmed on kas eemaldatud või asendatud.\n\nEnne kausta krüptimist seadista oma uus krüptovõti.</string>
+    <string name="encryption_new_folder_check_failed">Sinu krüptovõtmete kontrollimine ei õnnestunud. Proovi kausta uuesti lisada.</string>
+    <string name="encryption_new_folder_no_network">Server pole leitav. Proovi kausta hiljem uuesti lisada.</string>
+    <string name="encryption_new_folder_unavailable">Krüptitud kaustade loomine pole võimalik. Läbiv krüptimine on selles serveris seadistamata.</string>
+    <string name="encryption_open_check_failed">Sinu krüptovõtmete kontrollimine ei õnnestunud. Proovi kausta uuesti avada.</string>
+    <string name="encryption_open_key_mismatch">Selles nutiseadmes salvestatud krüptovõti ei vasta selle kausta jaoks vajalikule võtmele.</string>
+    <string name="encryption_open_no_network">Server pole leitav. Proovi kausta hiljem uuesti avada.</string>
+    <string name="encryption_open_unavailable">Selle kausta avamine pole võimalik. Läbiv krüptimine on selles serveris seadistamata.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Serveri sertifikaadi laadimine ei õnnestu</string>
     <string name="end_to_end_encryption_certificate_verification_failed">Avaliku võtme verifitseerimine ei õnnestu</string>
     <string name="end_to_end_encryption_confirm_button">Võta krüptimine kasutusele</string>
@@ -651,6 +679,9 @@
     <string name="logs_status_not_filtered">Logid: %1$d kB, filtrit pole</string>
     <string name="logs_title">Logid</string>
     <string name="maintenance_mode">Server on hooldusrežiimis</string>
+    <string name="manage_space_auto_upload_clear_data">Kustuta automaatselt üleslaaditud failid kohalikust seadmest</string>
+    <string name="manage_space_auto_upload_description">Kõik automaatsete üleslaadimiste kaustadest serverisse üleslaaditud failid kustutatakse andmeruumi vabastamise nimel.\n\nSelle toimingu jaoks võib kuluda aega.</string>
+    <string name="manage_space_auto_upload_title">Kustuta automaatselt üleslaaditud failid kohalikust seadmest</string>
     <string name="manage_space_clear_data">Kustuta andmed</string>
     <string name="manage_space_description">Järgnevaga kustutatakse jäädavalt kõik „%1$s“ andmete seadistused, andmebaasikirjed ja sertifikaadid.\n\nAllalaaditud failid jäävad alles.\n\nKogu toiming võib märgatavalt aega võtta.</string>
     <string name="manage_space_title">Halda andmeruumi</string>
@@ -1358,6 +1389,18 @@
     <plurals name="items_selected_count">
         <item quantity="one">%d valitud</item>
         <item quantity="other">%d valitud</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_files">
+        <item quantity="one">%d fail</item>
+        <item quantity="other">%d faili</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_folders">
+        <item quantity="one">%d kaust</item>
+        <item quantity="other">%d kausta</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_users">
+        <item quantity="one">%d kasutaja</item>
+        <item quantity="other">%d kasutajat</item>
     </plurals>
     <plurals name="passcode_delay_seconds">
         <item quantity="one">Liiga paljude vigaste katsete tõttu palun proovi uuesti %d sekundi pärast</item>
