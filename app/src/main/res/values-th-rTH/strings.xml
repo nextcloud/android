@@ -30,6 +30,7 @@
     <string name="activity_icon">กิจกรรม</string>
     <string name="add_new_public_share">เพื่มลิงก์การแชร์แบบสาธารณะ</string>
     <string name="add_to_cloud">เพิ่มไปยัง %1$s</string>
+    <string name="album_stop_sharing">ยกเลิกการแชร์</string>
     <string name="app_config_disable_clipboard_title">ปิดใช้งานคลิปบอร์ด</string>
     <string name="app_config_disable_multiaccount_title">ปิดใช้งานหลายบัญชี</string>
     <string name="app_config_disable_sharing_title">ปิดใช้งานการแชร์</string>
@@ -237,6 +238,7 @@
     <string name="drawer_community">ชุมชน</string>
     <string name="drawer_header_background">รูปภาพพื้นหลังของส่วนหัวแถบเมนูเลื่อนด้านข้าง</string>
     <string name="drawer_item_activities">กิจกรรม</string>
+    <string name="drawer_item_album">อัลบั้ม</string>
     <string name="drawer_item_all_files">ไฟล์ทั้งหมด</string>
     <string name="drawer_item_favorites">รายการโปรด</string>
     <string name="drawer_item_gallery">สื่อ</string>
@@ -496,8 +498,10 @@
     <string name="recommend_text">ฉันอยากชวนคุณมาใช้ %1$s บนอุปกรณ์ของคุณ\nดาวน์โหลดที่นี่: %2$s</string>
     <string name="recommended_files_title">ไฟล์แนะนำ</string>
     <string name="reload">โหลดใหม่</string>
+    <string name="remove">ลบออก</string>
     <string name="remove_push_notification">ลบออก</string>
     <string name="remove_success_msg">ลบแล้ว</string>
+    <string name="rename_dialog_button">เปลี่ยนชื่อ</string>
     <string name="rename_dialog_title">กรอกชื่อใหม่</string>
     <string name="request_account_deletion">ขอลบบัญชี</string>
     <string name="restore_item">คืนค่า</string>

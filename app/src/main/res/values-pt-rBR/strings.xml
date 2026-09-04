@@ -30,9 +30,15 @@
     <string name="activity_chooser_send_file_title">Enviar</string>
     <string name="activity_chooser_title">Enviar link para…</string>
     <string name="activity_icon">Atividade</string>
+    <string name="add_media">Adicionar mídia</string>
     <string name="add_new_public_share">Adicionar novo link de compartilhamento público</string>
     <string name="add_new_secure_file_drop">Adicionar novo depósito de arquivos seguro</string>
+    <string name="add_to_album">Adicionar a álbum</string>
     <string name="add_to_cloud">Adicionar em %1$s</string>
+    <string name="album_delete">Excluir álbum</string>
+    <string name="album_rename_conflict">Este nome já está em uso.</string>
+    <string name="album_share">Compartilhar álbum</string>
+    <string name="album_stop_sharing">Parar compartilhamento</string>
     <string name="app_config_base_url_title">URL base</string>
     <string name="app_config_disable_clipboard_title">Desativar área de transferência</string>
     <string name="app_config_disable_intro_title">Desativar introdução</string>
@@ -123,6 +129,10 @@
     <string name="auto_upload_on_wifi">Enviar só por Wi-Fi não medida</string>
     <string name="auto_upload_path">/UploadAutomático</string>
     <string name="auto_upload_sub_folder_warning">Esta pasta já está incluída na sincronização da pasta pai, o que pode causar uploads duplicados</string>
+    <string name="auto_upload_sync_now_action">Sincronizar agora</string>
+    <string name="auto_upload_sync_now_no_folder">Não há nenhuma pasta configurada para upload automático</string>
+    <string name="auto_upload_sync_now_running">O upload automático já está em andamento</string>
+    <string name="auto_upload_sync_now_started">O upload automático foi iniciado</string>
     <string name="auto_upload_wifi_only_warning_info">Aguardando o Wi-Fi para iniciar o upload</string>
     <string name="auto_upload_worker_start_text">Fazendo upload de arquivos de %1$s para %2$s</string>
     <string name="autoupload_configure">Configurar</string>
@@ -249,6 +259,7 @@
     <string name="could_not_retrieve_shares">Não foi possível recuperar os compartilhamentos</string>
     <string name="could_not_retrieve_url">Não foi possível recuperar a URL</string>
     <string name="create">Criar</string>
+    <string name="create_album_dialog_title">Novo álbum</string>
     <string name="create_dir_fail_msg">Não foi possível criar a pasta</string>
     <string name="create_document">Documento</string>
     <string name="create_encrypted_folder">Pasta criptografada</string>
@@ -323,6 +334,7 @@
     <string name="drawer_community">Comunidade</string>
     <string name="drawer_header_background">Imagem do plano de fundo do cabeçalho</string>
     <string name="drawer_item_activities">Atividades</string>
+    <string name="drawer_item_album">Álbuns</string>
     <string name="drawer_item_all_files">Todos os arquivos</string>
     <string name="drawer_item_assistant">Assistente</string>
     <string name="drawer_item_favorites">Favoritos</string>
@@ -424,6 +436,7 @@
     <string name="fab_label">Adicionar ou enviar</string>
     <string name="failed_to_create_conflict_dialog">Falha ao criar caixa de diálogo de conflito</string>
     <string name="failed_to_download">Erro ao enviar o arquivo ao gerenciador de downloads</string>
+    <string name="failed_to_load_tags">Falha ao carregar etiquetas</string>
     <string name="failed_to_print">Erro ao imprimir o arquivo</string>
     <string name="failed_to_start_action">Falha ao iniciar a ação!</string>
     <string name="failed_to_start_editor">Erro ao iniciar editor</string>
@@ -623,6 +636,7 @@
     <string name="manage_space_clear_data">Limpar dados</string>
     <string name="manage_space_description">Configurações, banco de dados e certificados do servidor de dados de %1$s serão excluídos permanentemente.\n\nArquivos baixados serão mantidos intocados.\n\nEste processo pode levar um tempo.</string>
     <string name="manage_space_title">Gerenciar o espaço</string>
+    <string name="manage_tags">Gerenciar etiquetas</string>
     <string name="media_err_invalid_progressive_playback">O arquivo de mídia não pode ser transmitido </string>
     <string name="media_err_io">Não foi possível ler o arquivo de mídia</string>
     <string name="media_err_malformed">O arquivo de mídia tem uma codificação incorreta</string>
@@ -832,6 +846,7 @@
     <string name="reload">Recarregar</string>
     <string name="remote">(remoto)</string>
     <string name="remote_file_fetch_failed">Erro ao encontrar arquivo!</string>
+    <string name="remove">Remover</string>
     <string name="remove_e2e">Você pode remover a criptografia de ponta-a-ponta localmente neste cliente</string>
     <string name="remove_e2e_keys_and_files_dialog_warning">Esta operação irá remover todos os arquivos criptografados, bem como as chaves privadas e públicas. Tem certeza?</string>
     <string name="remove_e2e_message">Você pode remover a criptografia de ponta-a-ponta localmente neste cliente. Os arquivos criptografados permanecerão no servidor, mas não será mais sincronizados com este computador.</string>
@@ -841,6 +856,7 @@
     <string name="remove_notification_failed">Erro ao remover a notificação.</string>
     <string name="remove_push_notification">Remover</string>
     <string name="remove_success_msg">Excluído</string>
+    <string name="rename_dialog_button">Renomear</string>
     <string name="rename_dialog_title">Digite um novo nome</string>
     <string name="rename_local_fail_msg">Não foi possível renomear a cópia local, tente um nome diferente</string>
     <string name="rename_server_fail_msg">Não foi possível renomear pois o nome já existe</string>
@@ -877,6 +893,7 @@
     <string name="screenshot_06_davdroid_heading">Calendário e contatos</string>
     <string name="screenshot_06_davdroid_subline">Sincronizar com DAVx⁵</string>
     <string name="search_error">Erro ao obter os resultados da pesquisa </string>
+    <string name="search_tags">Pesquisar etiquetas</string>
     <string name="secure_share_not_set_up">O compartilhamento seguro não está configurado para este usuário</string>
     <string name="secure_share_search">Compartilhamento seguro…</string>
     <string name="select_all">Selecionar tudo</string>

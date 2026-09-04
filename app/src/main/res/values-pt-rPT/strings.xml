@@ -31,7 +31,12 @@
     <string name="activity_icon">Atividade</string>
     <string name="add_new_public_share">Adicionar nova hiperligação de partilha pública</string>
     <string name="add_new_secure_file_drop">Adicionar nova entrega segura de ficheiros</string>
+    <string name="add_to_album">Adicionar ao álbum</string>
     <string name="add_to_cloud">Adicionar a %1$s</string>
+    <string name="album_delete">Excluir álbum</string>
+    <string name="album_rename_conflict">Este nome já está em uso.</string>
+    <string name="album_share">Partilhar álbum</string>
+    <string name="album_stop_sharing">Parar partilha</string>
     <string name="app_config_base_url_title">URL Base</string>
     <string name="app_config_disable_clipboard_title">Desativar Área de Transferência</string>
     <string name="app_config_disable_intro_title">Desativar Introdução</string>
@@ -233,6 +238,7 @@
     <string name="could_not_retrieve_shares">Não foi possível obter as partilhas</string>
     <string name="could_not_retrieve_url">Não foi possível obter o URL</string>
     <string name="create">Criar</string>
+    <string name="create_album_dialog_title">Novo álbum</string>
     <string name="create_dir_fail_msg">Não foi possível criar a pasta</string>
     <string name="create_document">Documento</string>
     <string name="create_end_to_end_encrypted_share">Compartilhamento por link</string>
@@ -300,6 +306,7 @@
     <string name="drawer_community">Comunidade</string>
     <string name="drawer_header_background">Imagem de fundo de drawer header</string>
     <string name="drawer_item_activities">Atividades</string>
+    <string name="drawer_item_album">Álbuns</string>
     <string name="drawer_item_all_files">Todos os ficheiros</string>
     <string name="drawer_item_assistant">Assistente</string>
     <string name="drawer_item_favorites">Favoritos</string>
@@ -396,6 +403,7 @@
     <string name="fab_label">Adicionar ou enviar</string>
     <string name="failed_to_create_conflict_dialog">Falha ao criar caixa de diálogo de conflito</string>
     <string name="failed_to_download">Falhou a passagem do ficheiro ao gestor de transferências</string>
+    <string name="failed_to_load_tags">Falha ao carregar as etiquetas</string>
     <string name="failed_to_print">Não foi possível imprimir o ficheiro</string>
     <string name="failed_to_start_editor">Falha ao iniciar o editor</string>
     <string name="failed_update_ui">Falha ao atualizar a IU</string>
@@ -574,6 +582,7 @@
     <string name="manage_space_clear_data">Limpar dados</string>
     <string name="manage_space_description">As definiçóes, base de dados e certificados de servidor referentes aos dados de %1$s serão eliminados paras sempre. \n\nOs ficheiros transferidos serão mantidos inalterados.\n\nEste processo pode demorar algum tempo.</string>
     <string name="manage_space_title">Gerir espaço</string>
+    <string name="manage_tags">Gerir etiquetas</string>
     <string name="media_err_invalid_progressive_playback">O ficheiro multimédia não pode ser disponibilizado</string>
     <string name="media_err_io">Não foi possível ler o ficheiro de multimédia</string>
     <string name="media_err_malformed">O ficheiro de multimédia tem codificação incorreta</string>
@@ -766,6 +775,7 @@
     <string name="reload">Recarregar</string>
     <string name="remote">(remoto)</string>
     <string name="remote_file_fetch_failed">Não foi possível encontrar o ficheiro!</string>
+    <string name="remove">Remover</string>
     <string name="remove_e2e">Pode remover a encriptação ponta-a-ponta  localmente neste cliente</string>
     <string name="remove_e2e_keys_and_files_dialog_warning">Esta operação irá remover todos os arquivos criptografados, bem como as chaves privadas e públicas. Tem certeza?</string>
     <string name="remove_e2e_message">Pode remover a encriptação ponta-a-ponta localmente neste cliente. Os ficheiros encriptados permanecerão no servidor, mas deixarão de ser sincronizados com este computador.</string>
@@ -774,6 +784,7 @@
     <string name="remove_notification_failed">Falha ao remover notificação.</string>
     <string name="remove_push_notification">Remover</string>
     <string name="remove_success_msg">Eliminado</string>
+    <string name="rename_dialog_button">Renomear</string>
     <string name="rename_dialog_title">Introduza um novo nome</string>
     <string name="rename_local_fail_msg">Não foi possível renomear a cópia local, tente um nome diferente</string>
     <string name="rename_server_fail_msg">Renomeação impossível, nome já utilizado</string>
@@ -802,6 +813,7 @@
     <string name="screenshot_05_autoUpload_subline">para suas fotos e vídeos</string>
     <string name="screenshot_06_davdroid_heading">Calendário e contatos</string>
     <string name="search_error">Erro ao obter resultados da pesquisa</string>
+    <string name="search_tags">Pesquisar Etiquetas</string>
     <string name="secure_share_not_set_up">O compartilhamento seguro não está configurado para este usuário</string>
     <string name="select_all">Selecionar tudo</string>
     <string name="select_media_folder">Definir pasta de multimédia</string>

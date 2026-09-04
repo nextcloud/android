@@ -155,7 +155,9 @@ data class CapabilityEntity(
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_CLIENT_INTEGRATION_JSON)
     val clientIntegrationJson: String?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_MOD_REWRITE_WORKING)
-    val modRewriteWorking: Int?
+    val modRewriteWorking: Int?,
+    @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_CHUNKED_UPLOAD_MAX_SIZE)
+    val chunkedUploadMaxSize: Long?
 )
 
 @Suppress("LongMethod", "ReturnCount")
@@ -238,6 +240,7 @@ fun CapabilityEntity?.toOCCapability(): OCCapability {
     capability.hasValidSubscription = intToBoolean(this.hasValidSubscription)
     capability.clientIntegrationJson = this.clientIntegrationJson
     capability.modRewriteWorking = intToBoolean(this.modRewriteWorking)
+    capability.chunkedUploadMaxSize = this.chunkedUploadMaxSize ?: OCCapability.CHUNKED_UPLOAD_MAX_SIZE_UNKNOWN
 
     return capability
 }

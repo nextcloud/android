@@ -177,6 +177,7 @@ public class FileMenuFilter {
         filterPinToHome(toHide);
         filterRetry(toHide);
         filterPermissionActions(toHide);
+        filterReadOnly(toHide);
 
         return toHide;
     }
@@ -383,6 +384,31 @@ public class FileMenuFilter {
             // Always hide in single file fragments
             toHide.add(R.id.action_select_all_action_menu);
         }
+    }
+
+    private void filterReadOnly(Collection<Integer> toHide) {
+        boolean anyReadOnly = false;
+        for (OCFile file : files) {
+            if (storageManager.isReadOnly(file)) {
+                anyReadOnly = true;
+                break;
+            }
+        }
+
+        if (!anyReadOnly) {
+            return;
+        }
+
+        toHide.add(R.id.action_remove_file);
+        toHide.add(R.id.action_rename_file);
+        toHide.add(R.id.action_move_or_copy);
+        toHide.add(R.id.action_edit);
+        toHide.add(R.id.action_encrypted);
+        toHide.add(R.id.action_unset_encrypted);
+        toHide.add(R.id.action_lock_file);
+        toHide.add(R.id.action_unlock_file);
+        toHide.add(R.id.action_favorite);
+        toHide.add(R.id.action_unset_favorite);
     }
 
     private void filterRemove(List<Integer> toHide, boolean synchronizing) {

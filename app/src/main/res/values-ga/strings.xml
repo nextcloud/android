@@ -30,9 +30,14 @@
     <string name="activity_chooser_send_file_title">Seol</string>
     <string name="activity_chooser_title">Seol nasc chuig…</string>
     <string name="activity_icon">Gníomhaíocht</string>
+    <string name="add_media">Cuir meáin leis</string>
     <string name="add_new_public_share">Cuir nasc comhroinnte poiblí nua leis</string>
     <string name="add_new_secure_file_drop">Cuir titim comhad slán nua leis</string>
+    <string name="add_to_album">Cuir leis an albam</string>
     <string name="add_to_cloud">Cuir le %1$s</string>
+    <string name="album_delete">Scriosadh albam</string>
+    <string name="album_rename_conflict">Tá an t-ainm seo in úsáid cheana féin.</string>
+    <string name="album_share">Albam a roinnt</string>
     <string name="app_config_base_url_title">URL an bhunaigh</string>
     <string name="app_config_disable_clipboard_title">Díchumasaigh an Ghearrthaisce</string>
     <string name="app_config_disable_intro_title">Díchumasaigh an Réamhrá</string>
@@ -249,6 +254,7 @@
     <string name="could_not_retrieve_shares">Níorbh fhéidir scaireanna a aisghabháil</string>
     <string name="could_not_retrieve_url">Níorbh fhéidir an URL a aisghabháil</string>
     <string name="create">Cruthaigh</string>
+    <string name="create_album_dialog_title">Albam nua</string>
     <string name="create_dir_fail_msg">Níorbh fhéidir fillteán a chruthú</string>
     <string name="create_document">Doiciméad</string>
     <string name="create_encrypted_folder">Fillteán criptithe</string>
@@ -323,6 +329,7 @@
     <string name="drawer_community">Pobal</string>
     <string name="drawer_header_background">Íomhá cúlra de cheanntásc tarraiceán</string>
     <string name="drawer_item_activities">Gníomhaíochtaí</string>
+    <string name="drawer_item_album">Albaim</string>
     <string name="drawer_item_all_files">Gach comhad</string>
     <string name="drawer_item_assistant">Cúntóir</string>
     <string name="drawer_item_favorites">Ceanáin</string>
@@ -424,6 +431,7 @@
     <string name="fab_label">Cuir leis nó uaslódáil</string>
     <string name="failed_to_create_conflict_dialog">Theip ar chomhrá coinbhleachta a chruthú</string>
     <string name="failed_to_download">Theip ar an gcomhad a chur ar aghaidh chuig an mbainisteoir íoslódála</string>
+    <string name="failed_to_load_tags">Theip ar lódáil clibeanna</string>
     <string name="failed_to_print">Theip ar an gcomhad a phriontáil</string>
     <string name="failed_to_start_action">Theip ar an ngníomh a thosú!</string>
     <string name="failed_to_start_editor">Theip ar an eagarthóir a thosú</string>
@@ -623,6 +631,7 @@
     <string name="manage_space_clear_data">Sonraí soiléire</string>
     <string name="manage_space_description">Scriosfar socruithe, bunachar sonraí agus teastais an fhreastalaí ó shonraí %1$s go buan. \n\nCoimeádfar comhaid íosluchtaithe gan teagmháil.\n\nTógfaidh an próiseas seo tamall.</string>
     <string name="manage_space_title">Bainistigh spás</string>
+    <string name="manage_tags">Bainistigh clibeanna</string>
     <string name="media_err_invalid_progressive_playback">Ní féidir an comhad meán a shruthú</string>
     <string name="media_err_io">Níorbh fhéidir an comhad meán a léamh</string>
     <string name="media_err_malformed">Tá ionchódú mícheart ar an gcomhad meán</string>
@@ -832,6 +841,7 @@
     <string name="reload">Athlódáil</string>
     <string name="remote">(iargúlta)</string>
     <string name="remote_file_fetch_failed">Theip ar an gcomhad a aimsiú!</string>
+    <string name="remove">Bain</string>
     <string name="remove_e2e">Is féidir leat criptiú ceann go ceann a bhaint go háitiúil ar an gcliant seo</string>
     <string name="remove_e2e_keys_and_files_dialog_warning">Bainfear gach comhad criptithe, eochracha príobháideacha agus poiblí leis an oibríocht seo. An bhfuil tú cinnte?</string>
     <string name="remove_e2e_message">Is féidir leat criptiú ceann go ceann a bhaint go háitiúil ar an gcliant seo. Fanfaidh na comhaid criptithe ar an bhfreastalaí, ach ní shioncronófar iad leis an ríomhaire seo a thuilleadh.</string>
@@ -841,6 +851,7 @@
     <string name="remove_notification_failed">Theip ar an bhfógra a bhaint.</string>
     <string name="remove_push_notification">Bain</string>
     <string name="remove_success_msg">Scriosta</string>
+    <string name="rename_dialog_button">Athainmnigh</string>
     <string name="rename_dialog_title">Cuir isteach ainm nua</string>
     <string name="rename_local_fail_msg">Níorbh fhéidir cóip logánta a athainmniú, bain triail as ainm eile</string>
     <string name="rename_server_fail_msg">Ní féidir athainmniú a dhéanamh, ainm glactha cheana féin</string>
@@ -877,6 +888,7 @@
     <string name="screenshot_06_davdroid_heading">Féilire agus teagmhálacha</string>
     <string name="screenshot_06_davdroid_subline">Sioncrónaigh le DAVx⁵</string>
     <string name="search_error">Earráid agus torthaí cuardaigh á bhfáil</string>
+    <string name="search_tags">Cuardaigh clibeanna</string>
     <string name="secure_share_not_set_up">Níl comhroinnt shlán socraithe don úsáideoir seo</string>
     <string name="secure_share_search">Comhroinn slán…</string>
     <string name="select_all">Roghnú go léir</string>

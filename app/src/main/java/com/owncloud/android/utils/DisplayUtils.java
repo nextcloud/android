@@ -504,6 +504,39 @@ public final class DisplayUtils {
     }
 
     // region snackbar
+    public static Snackbar createAndShowSnackMessage(Fragment fragment, @StringRes int messageResource) {
+        if (fragment == null) {
+            Log_OC.e(TAG, "snackbar cannot be shown fragment is null");
+            return null;
+        }
+
+        final var activity = fragment.getActivity();
+        if (activity == null) {
+            Log_OC.e(TAG, "snackbar cannot be shown activity is null");
+            return null;
+        }
+
+        final var snackbar = Snackbar.make(
+            activity.findViewById(android.R.id.content),
+            messageResource,
+            Snackbar.LENGTH_INDEFINITE);
+
+        var fab = findFABView(activity);
+        if (fab != null && fab.getVisibility() == View.VISIBLE) {
+            snackbar.setAnchorView(fab);
+        }
+
+        mainLooper.post(snackbar::show);
+        return snackbar;
+    }
+
+    public static void dismissSnackMessage(@Nullable Snackbar snackbar) {
+        if (snackbar == null) {
+            return;
+        }
+        mainLooper.post(snackbar::dismiss);
+    }
+
     public static void showSnackMessage(Fragment fragment, @StringRes int messageResource) {
         if (fragment == null) {
             Log_OC.e(TAG, "snackbar cannot be shown fragment is null");

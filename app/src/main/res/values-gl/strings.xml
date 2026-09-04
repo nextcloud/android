@@ -31,7 +31,12 @@
     <string name="activity_icon">Actividade</string>
     <string name="add_new_public_share">Engadir unha nova ligazón para compartir pública</string>
     <string name="add_new_secure_file_drop">Engadir unha nova entrega segura de ficheiro</string>
+    <string name="add_to_album">Engadir ao álbum</string>
     <string name="add_to_cloud">Engadir en %1$s</string>
+    <string name="album_delete">Eliminar álbum</string>
+    <string name="album_rename_conflict">Este nome xa está a ser usado</string>
+    <string name="album_share">Compartir álbum</string>
+    <string name="album_stop_sharing">Deixar de compartir</string>
     <string name="app_config_base_url_title">URL base</string>
     <string name="app_config_disable_clipboard_title">Desactivar o portapapeis.</string>
     <string name="app_config_disable_intro_title">Desactivar a introdución</string>
@@ -247,6 +252,7 @@
     <string name="could_not_retrieve_shares">Non foi posíbel recuperar as comparticións</string>
     <string name="could_not_retrieve_url">Non foi posíbel recuperar o URL</string>
     <string name="create">Crear</string>
+    <string name="create_album_dialog_title">Novo álbum</string>
     <string name="create_dir_fail_msg">Non foi posíbel crear o cartafol</string>
     <string name="create_document">Documento</string>
     <string name="create_end_to_end_encrypted_share">Ligazón para compartir</string>
@@ -318,6 +324,7 @@
     <string name="drawer_community">Comunidade</string>
     <string name="drawer_header_background">Imaxe de fondo do cabeceira do caixón</string>
     <string name="drawer_item_activities">Actividades</string>
+    <string name="drawer_item_album">Álbums</string>
     <string name="drawer_item_all_files">Todos os ficheiros</string>
     <string name="drawer_item_assistant">Asistente</string>
     <string name="drawer_item_favorites">Favoritos</string>
@@ -419,6 +426,7 @@
     <string name="fab_label">Engadir ou enviar</string>
     <string name="failed_to_create_conflict_dialog">Produciuse un fallo ao crear o diálogo de conflito</string>
     <string name="failed_to_download">Produciuse un fallo ao pasar o ficheiro para o xestor de descargas</string>
+    <string name="failed_to_load_tags">Produciuse un fallo ao cargar as etiquetas</string>
     <string name="failed_to_print">Produciuse un fallo ao imprimir o ficheiro</string>
     <string name="failed_to_start_action">Produciuse un fallo ao iniciar a acción!</string>
     <string name="failed_to_start_editor">Produciuse un fallo ao iniciar o editor</string>
@@ -612,6 +620,7 @@
     <string name="manage_space_clear_data">Limpar os datos</string>
     <string name="manage_space_description">Van ser eliminados definitivamente os axustes , base de datos e certificados do servidor de %1$s.\n\nOs ficheiros descargados conservaranse sen cambios.\n\nEste proceso pode levar bastante tempo.</string>
     <string name="manage_space_title">Xestionar o espazo</string>
+    <string name="manage_tags">Xestionar as etiquetas</string>
     <string name="media_err_invalid_progressive_playback">Non é posíbel transmitir o ficheiro multimedia</string>
     <string name="media_err_io">Non foi posíbel ler o ficheiro multimedia</string>
     <string name="media_err_malformed">O ficheiro multimedia ten unha codificación incorrecta</string>
@@ -821,6 +830,7 @@
     <string name="reload">Volver cargar</string>
     <string name="remote">(remoto)</string>
     <string name="remote_file_fetch_failed">Produciuse un fallo ao atopar o ficheiro!</string>
+    <string name="remove">Retirar</string>
     <string name="remove_e2e">Pode retirar a cifraxe de extremo a extremo localmente neste cliente</string>
     <string name="remove_e2e_keys_and_files_dialog_warning">Esta operación eliminará todos os ficheiros cifrados e as claves privadas e públicas. Seguro que queres continuar?</string>
     <string name="remove_e2e_message">Pode retirar a cifraxe de extremo a extremo localmente neste cliente. Os ficheiros cifrados permanecerán no servidor, mais xa non se sincronizarán con este computador.</string>
@@ -830,6 +840,7 @@
     <string name="remove_notification_failed">Produciuse un fallo ao retirar a notificación.</string>
     <string name="remove_push_notification">Retirar</string>
     <string name="remove_success_msg">Eliminado</string>
+    <string name="rename_dialog_button">Cambiar o nome</string>
     <string name="rename_dialog_title">Introduza un nome novo</string>
     <string name="rename_local_fail_msg">Non foi posíbel cambiarlle o nome a copia local, ténteo cun un nome diferente</string>
     <string name="rename_server_fail_msg">Non foi posíbel cambiarlle o nome, o nome xa está ocupado</string>
@@ -860,6 +871,7 @@
     <string name="screenshot_06_davdroid_heading">Calendario e contactos</string>
     <string name="screenshot_06_davdroid_subline">Sincronizar con DAVx⁵</string>
     <string name="search_error">Produciuse un erro ao obter os resultados da busca</string>
+    <string name="search_tags">Etiquetas de busca</string>
     <string name="secure_share_not_set_up">A compartición segura non está definida para este usuario</string>
     <string name="secure_share_search">Compartición segura…</string>
     <string name="select_all">Seleccionar todo</string>

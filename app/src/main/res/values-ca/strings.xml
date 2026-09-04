@@ -28,7 +28,11 @@
     <string name="activity_chooser_title">Envia l\'enllaç a…</string>
     <string name="activity_icon">Activitat</string>
     <string name="add_new_public_share">Afegeix nou enllaç d\'accés públic</string>
+    <string name="add_to_album">Afegeix a un àlbum</string>
     <string name="add_to_cloud">Afegeix a %1$s</string>
+    <string name="album_delete">Suprimeix l\'àlbum</string>
+    <string name="album_rename_conflict">Aquest nom ja s\'utilitza.</string>
+    <string name="album_stop_sharing">Deixar de compartir</string>
     <string name="app_config_base_url_title">URL base</string>
     <string name="app_config_disable_clipboard_title">Inhabilitació del porta-retalls</string>
     <string name="app_config_disable_intro_title">Inhabilitació de la introducció</string>
@@ -212,6 +216,7 @@
     <string name="could_not_retrieve_shares">No s\'ha pogut recuperar la compartició</string>
     <string name="could_not_retrieve_url">No s\'ha pogut recuperar la URL</string>
     <string name="create">Crea</string>
+    <string name="create_album_dialog_title">Àlbum nou</string>
     <string name="create_dir_fail_msg">No s\'ha pogut crear la carpeta</string>
     <string name="create_document">Document</string>
     <string name="create_folder">Carpeta</string>
@@ -273,6 +278,7 @@
     <string name="drawer_community">Comunitat</string>
     <string name="drawer_header_background">Imatge de fons de la capçalera del calaix</string>
     <string name="drawer_item_activities">Activitats</string>
+    <string name="drawer_item_album">Àlbums</string>
     <string name="drawer_item_all_files">Tots els fitxers</string>
     <string name="drawer_item_assistant">Assistent</string>
     <string name="drawer_item_favorites">Preferits</string>
@@ -359,6 +365,7 @@
     <string name="external_shares">Comparticions externes</string>
     <string name="fab_label">Afegir o pujada</string>
     <string name="failed_to_download">Ha fallat el lliurament del fitxer al gestor de baixades</string>
+    <string name="failed_to_load_tags">No s\'han pogut carregar les etiquetes</string>
     <string name="failed_to_print">Ha fallat imprimir el fitxer</string>
     <string name="failed_to_start_editor">Ha fallat l\'arrancada de l\'editor</string>
     <string name="failed_update_ui">No s\'ha pogut actualitzar la IU</string>
@@ -532,6 +539,7 @@
     <string name="manage_space_clear_data">Neteja dades</string>
     <string name="manage_space_description">Els paràmetres, la base de dades i els certificats del servidor %1$s se suprimiran de forma permanent. \n\nEls fitxers descarregats romandran intactes.\n\n Aquest procés pot trigar una estona.</string>
     <string name="manage_space_title">Gestió d\'espai</string>
+    <string name="manage_tags">Administrar les etiquetes</string>
     <string name="media_err_invalid_progressive_playback">No es pot reproduir el fitxer multimèdia</string>
     <string name="media_err_io">No s\'ha pogut llegir el fitxer multimèdia</string>
     <string name="media_err_malformed">El fitxer multimèdia té una codificació incorrecta</string>
@@ -712,12 +720,14 @@
     <string name="reload">Recarrega</string>
     <string name="remote">(remot)</string>
     <string name="remote_file_fetch_failed">No s\'ha pogut trobar l\'arxiu!</string>
+    <string name="remove">Suprimir</string>
     <string name="remove_e2e">Podeu suprimir el xifratge d\'extrem a extrem localment en aquest client</string>
     <string name="remove_e2e_message">Podeu suprimir el xifratge d\'extrem a extrem localment en aquest client. Els fitxers xifrats romandran al servidor, però ja no se sincronitzaran amb aquest ordinador.</string>
     <string name="remove_fail_msg">No s\'ha pogut completar l\'eliminació</string>
     <string name="remove_notification_failed">Ha fallat la supressió de la notificació.</string>
     <string name="remove_push_notification">Suprimeix</string>
     <string name="remove_success_msg">Suprimit</string>
+    <string name="rename_dialog_button">Canviar el nom</string>
     <string name="rename_dialog_title">Introduiu un nom nou</string>
     <string name="rename_local_fail_msg">No s\'ha pogut canviar el nom de la còpia local, intenteu-ho amb amb un altre nom</string>
     <string name="rename_server_fail_msg">El canvi de nom no és possible, el nom ja es troba en ús</string>
@@ -742,6 +752,7 @@
     <string name="screenshot_05_autoUpload_heading">Pujada automàtica</string>
     <string name="screenshot_06_davdroid_heading">Calendari i contactes</string>
     <string name="search_error">S\'ha produït un error en obtenir els resultats de la cerca</string>
+    <string name="search_tags">Cerca etiquetes</string>
     <string name="select_all">Selecciona-ho tot</string>
     <string name="select_media_folder">Configura la carpeta multimèdia</string>
     <string name="select_one_template">Seleccioneu una plantilla</string>

@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 102;
+    public static final int DB_VERSION = 104;
 
     private ProviderMeta() {
         // No instance
@@ -115,6 +115,7 @@ public class ProviderMeta {
         public static final String FILE_FAVORITE = "favorite";
         public static final String FILE_HIDDEN = "hidden";
         public static final String FILE_IS_ENCRYPTED = "is_encrypted";
+        public static final String FILE_IS_READ_ONLY = "is_read_only";
         public static final String FILE_MOUNT_TYPE = "mount_type";
         public static final String FILE_HAS_PREVIEW = "has_preview";
         public static final String FILE_UNREAD_COMMENTS_COUNT = "unread_comments_count";
@@ -169,6 +170,7 @@ public class ProviderMeta {
                                                                     FILE_FAVORITE,
                                                                     FILE_HIDDEN,
                                                                     FILE_IS_ENCRYPTED,
+                                                                    FILE_IS_READ_ONLY,
                                                                     FILE_MOUNT_TYPE,
                                                                     FILE_HAS_PREVIEW,
                                                                     FILE_UNREAD_COMMENTS_COUNT,
@@ -296,6 +298,7 @@ public class ProviderMeta {
         public static final String CAPABILITIES_HAS_VALID_SUBSCRIPTION = "has_valid_subscription";
         public static final String CAPABILITIES_CLIENT_INTEGRATION_JSON = "client_integration_json";
         public static final String CAPABILITIES_MOD_REWRITE_WORKING = "mod_rewrite_working";
+        public static final String CAPABILITIES_CHUNKED_UPLOAD_MAX_SIZE = "chunked_upload_max_size";
 
         //Columns of Uploads table
         public static final String UPLOADS_LOCAL_PATH = "local_path";

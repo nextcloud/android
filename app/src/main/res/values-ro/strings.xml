@@ -30,6 +30,7 @@
     <string name="add_new_public_share">Adaugă un link public partajat nou</string>
     <string name="add_new_secure_file_drop">Adaugă o nouă încărcare securizată de fișier</string>
     <string name="add_to_cloud">Adaugă la 1 %1$s</string>
+    <string name="album_stop_sharing">Oprește partajarea</string>
     <string name="app_config_base_url_title">URL-ul de bază</string>
     <string name="app_config_disable_clipboard_title">Dezactivează clipboard</string>
     <string name="app_config_disable_intro_title">Deactivează introducerea</string>
@@ -516,6 +517,7 @@
     <string name="manage_space_clear_data">Elimină datele</string>
     <string name="manage_space_description">Setările, bazele de date și certificatele serverului ale %1$s vor fi șterse permanent. \n\nFișierele descărcate vor fi păstrate intacte.\n\nAcest proces poate dura mai mult timp.</string>
     <string name="manage_space_title">Administrare spațiu</string>
+    <string name="manage_tags">Administrați etichete</string>
     <string name="media_err_invalid_progressive_playback">Fișierul media nu poate fi difuzat</string>
     <string name="media_err_io">Nu s-a putut citi fișierul media</string>
     <string name="media_err_malformed">Fișierul media are codare incorectă</string>
@@ -667,11 +669,13 @@
     <string name="reload">Reîncarcă</string>
     <string name="remote">(la distanță)</string>
     <string name="remote_file_fetch_failed">Eșuare în găsirea fișierului!</string>
+    <string name="remove">Elimină</string>
     <string name="remove_e2e">Poți elimina encripția end-to-end locală pentru acest client</string>
     <string name="remove_fail_msg">Eliminare eșuată</string>
     <string name="remove_notification_failed">Eșuare în eliminarea notificărilor.</string>
     <string name="remove_push_notification">Șterge</string>
     <string name="remove_success_msg">Șters</string>
+    <string name="rename_dialog_button">Redenumire</string>
     <string name="rename_dialog_title">Introduceţi un nou nume</string>
     <string name="rename_local_fail_msg">Nu s-a putut redenumi copia locală, încercați un alt nume</string>
     <string name="rename_server_fail_msg">Redenumirea nu este posibilă, numele este deja luat</string>

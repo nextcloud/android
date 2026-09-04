@@ -31,7 +31,12 @@
     <string name="activity_icon">Tevékenység</string>
     <string name="add_new_public_share">Új nyilvános megosztási hivatkozás hozzáadása</string>
     <string name="add_new_secure_file_drop">Új biztonságos fájllerakat hozzáadása</string>
+    <string name="add_to_album">Hozzáadás az albumhoz</string>
     <string name="add_to_cloud">Hozzáadás ehhez: %1$s</string>
+    <string name="album_delete">Album törlése</string>
+    <string name="album_rename_conflict">Ez a név már foglalt.</string>
+    <string name="album_share">Album megosztása</string>
+    <string name="album_stop_sharing">Megosztás befejezése</string>
     <string name="app_config_base_url_title">Alap webcím</string>
     <string name="app_config_disable_clipboard_title">Vágólap letiltása</string>
     <string name="app_config_disable_intro_title">Bevezető kikapcsolása</string>
@@ -248,6 +253,7 @@
     <string name="could_not_retrieve_shares">Nem sikerült lekérni a megosztásokat</string>
     <string name="could_not_retrieve_url">A webcím nem kérhető le</string>
     <string name="create">Létrehozás</string>
+    <string name="create_album_dialog_title">Új album</string>
     <string name="create_dir_fail_msg">A mappa létrehozása sikertelen</string>
     <string name="create_document">Dokumentum</string>
     <string name="create_end_to_end_encrypted_share">Megosztási hivatkozás</string>
@@ -319,6 +325,7 @@
     <string name="drawer_community">Közösség</string>
     <string name="drawer_header_background">A fiókfejléc háttérképe</string>
     <string name="drawer_item_activities">Tevékenységek</string>
+    <string name="drawer_item_album">Albumok</string>
     <string name="drawer_item_all_files">Összes fájl</string>
     <string name="drawer_item_assistant">Asszisztens</string>
     <string name="drawer_item_favorites">Kedvencek</string>
@@ -420,6 +427,7 @@
     <string name="fab_label">Hozzáadás vagy feltöltés</string>
     <string name="failed_to_create_conflict_dialog">Nem sikerült létrehozni az ütközéskezelő párbeszédablakot</string>
     <string name="failed_to_download">Nem sikerült átadni a fájlt a letöltéskezelőnek</string>
+    <string name="failed_to_load_tags">A címkék betöltése sikertelen</string>
     <string name="failed_to_print">A fájl nyomtatása sikertelen</string>
     <string name="failed_to_start_action">Nem sikerült elkezdeni a műveletet.</string>
     <string name="failed_to_start_editor">A szerkesztő indítása sikertelen</string>
@@ -614,6 +622,7 @@
     <string name="manage_space_clear_data">Adatok törlése</string>
     <string name="manage_space_description">A beállítások, az adatbázisok és a kiszolgáló tanúsítványok véglegesen törlésre kerülnek %1$s adataiból. \n\nA letöltött fájlok érintetlenek maradnak.\n\nEz eltarthat egy darabig.</string>
     <string name="manage_space_title">Tárhelykezelés</string>
+    <string name="manage_tags">Címkék kezelése</string>
     <string name="media_err_invalid_progressive_playback">A médiafájl nem közvetíthető</string>
     <string name="media_err_io">A médiafájl nem olvasható</string>
     <string name="media_err_malformed">A médiafájl kódolása hibás</string>
@@ -821,6 +830,7 @@
     <string name="reload">Újratöltés</string>
     <string name="remote">(távoli)</string>
     <string name="remote_file_fetch_failed">A fájl nem található.</string>
+    <string name="remove">Eltávolítás</string>
     <string name="remove_e2e">Helyileg eltávolíthatja a végpontok közti titkosítást ennél a kliensnél</string>
     <string name="remove_e2e_keys_and_files_dialog_warning">Ez a művelet eltávolítja az összes titkosított fájlt, privát és nyilvános kulcsot. Biztos benne?</string>
     <string name="remove_e2e_message">Helyileg eltávolíthatja a végpontok közti titkosítást ennél a kliensnél. A titkosított fájlok továbbra is a kiszolgálón maradnak, de már nem lesznek szinkronizálva erre a számítógépre.</string>
@@ -830,6 +840,7 @@
     <string name="remove_notification_failed">Az értesítés eltávolítása sikertelen.</string>
     <string name="remove_push_notification">Eltávolítás</string>
     <string name="remove_success_msg">Törölve</string>
+    <string name="rename_dialog_button">Átnevezés</string>
     <string name="rename_dialog_title">Adjon meg egy új nevet</string>
     <string name="rename_local_fail_msg">A helyi másolat nem nevezhető át, próbáljon meg egy másik nevet</string>
     <string name="rename_server_fail_msg">Nem nevezhető át, ez a név már foglalt</string>
@@ -860,6 +871,7 @@
     <string name="screenshot_06_davdroid_heading">Naptár és névjegyek</string>
     <string name="screenshot_06_davdroid_subline">Szinkronizálás DAVx⁵-tel</string>
     <string name="search_error">Hiba a keresési találatok lekérésekor</string>
+    <string name="search_tags">Címkék keresése</string>
     <string name="secure_share_not_set_up">A biztonságos megosztás nincs beállítva ennek a felhasználónak</string>
     <string name="secure_share_search">Biztonságos megosztás…</string>
     <string name="select_all">Összes kiválasztása</string>

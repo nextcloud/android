@@ -170,6 +170,7 @@
     <string name="could_not_retrieve_shares">No at fatu a recuperare is cumpartziduras</string>
     <string name="could_not_retrieve_url">No at fatu a recuperare s\'URL</string>
     <string name="create">Crea</string>
+    <string name="create_album_dialog_title">Album nou</string>
     <string name="create_dir_fail_msg">No at fatu a creare sa cartella</string>
     <string name="create_document">Documentu</string>
     <string name="create_folder">Cartella</string>
@@ -213,6 +214,7 @@
     <string name="drawer_community">Comunidade</string>
     <string name="drawer_header_background">Immàgine de isfundu de s\'intestatzione de su calàsciu</string>
     <string name="drawer_item_activities">Atividades</string>
+    <string name="drawer_item_album">Album</string>
     <string name="drawer_item_all_files">Totu is archìvios</string>
     <string name="drawer_item_favorites">Preferidos</string>
     <string name="drawer_item_gallery">Elementos multimediales</string>
@@ -278,6 +280,7 @@
     <string name="etm_transfer_type_upload">Càrriga</string>
     <string name="fab_label">Agiunghe o càrriga</string>
     <string name="failed_to_download">Non s\'est pòdidu passare su documentu a sa gestione de iscarrigamentu</string>
+    <string name="failed_to_load_tags">No at fatu a carrigare is etichetas</string>
     <string name="failed_to_print">No at fatu a imprentare su documentu</string>
     <string name="failed_to_start_editor">Non s\'est pòdidu abèrrere su modificadore</string>
     <string name="failed_update_ui">Non s\'est pòdidu agiornare UI</string>
@@ -406,6 +409,7 @@
     <string name="manage_space_clear_data">Lìmpia is datos</string>
     <string name="manage_space_description">Cunfiguratziones, base de datos e tzertificados de su serbidore dae datos de %1$sant a èssere eliminados de su totu. \n\nIs documentos no ant a èssere pigados in cunsideru.\n\n Pro custu protzessu ci podet bòlere unu pagu de tempus.</string>
     <string name="manage_space_title">Gesti su logu</string>
+    <string name="manage_tags">Gesti etichetas</string>
     <string name="media_err_invalid_progressive_playback">S\'archìviu multimediale non podet èssere trasmìtidu</string>
     <string name="media_err_io">No at fatu a lèghere s\'archìviu multimediale</string>
     <string name="media_err_malformed">Sa codìfica de su cuntenutu multimediale no es curreta</string>
@@ -552,6 +556,7 @@
     <string name="reload">Torra a carrigare</string>
     <string name="remote">(remotu)</string>
     <string name="remote_file_fetch_failed">Chirca de documentos faddida!</string>
+    <string name="remove">Boga</string>
     <string name="remove_fail_msg">Cantzelladura faddida</string>
     <string name="remove_notification_failed">No at fatu a nche bogare sa notìfica.</string>
     <string name="remove_push_notification">Boga</string>
@@ -578,6 +583,7 @@
     <string name="screenshot_05_autoUpload_heading">Carrigamentu automàticu</string>
     <string name="screenshot_05_autoUpload_subline">pro is fotografias e vìdeos tuos</string>
     <string name="screenshot_06_davdroid_heading">Calendàriu e cuntatos</string>
+    <string name="search_tags">Chirca etichetas</string>
     <string name="select_all">Seletziona totu</string>
     <string name="select_media_folder">Cunfigura sa cartella de is elementos multimediales</string>
     <string name="select_one_template">Sèbera unu tema</string>

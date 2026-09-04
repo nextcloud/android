@@ -1,0 +1,21 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+package com.nextcloud.utils.extensions
+
+import com.nextcloud.client.network.ConnectivityService
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.coroutines.resume
+
+suspend fun ConnectivityService.isNetworkAndServerAvailableSuspended(): Boolean =
+    suspendCancellableCoroutine { continuation ->
+        isNetworkAndServerAvailable { available ->
+            if (continuation.isActive) {
+                continuation.resume(available)
+            }
+        }
+    }

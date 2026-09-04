@@ -32,7 +32,12 @@
     <string name="activity_icon">Ваші дії</string>
     <string name="add_new_public_share">Додати нове публічне посилання</string>
     <string name="add_new_secure_file_drop">Додати новий захищений файл</string>
+    <string name="add_to_album">Додати в альбом</string>
     <string name="add_to_cloud">Додати до хмари %1$s</string>
+    <string name="album_delete">Вилучити альбом</string>
+    <string name="album_rename_conflict">Це ім\'я вже використовується</string>
+    <string name="album_share">Поділитися альбомом</string>
+    <string name="album_stop_sharing">Не ділитися</string>
     <string name="app_config_base_url_title">Основний URL</string>
     <string name="app_config_disable_clipboard_title">Вимкнути буфер обміну</string>
     <string name="app_config_disable_intro_title">Вимкнути презентацію</string>
@@ -249,6 +254,7 @@
     <string name="could_not_retrieve_shares">Не вдалося отримати спільні дані</string>
     <string name="could_not_retrieve_url">Неможливо отримати посилання</string>
     <string name="create">Створити</string>
+    <string name="create_album_dialog_title">Новий альбом</string>
     <string name="create_dir_fail_msg">Неможливо створити каталог</string>
     <string name="create_document">Документ</string>
     <string name="create_encrypted_folder">Зашифрований каталог</string>
@@ -323,6 +329,7 @@
     <string name="drawer_community">Спільнота</string>
     <string name="drawer_header_background">Зображення тла верхньої панелі</string>
     <string name="drawer_item_activities">Події</string>
+    <string name="drawer_item_album">Альбоми</string>
     <string name="drawer_item_all_files">Усі документи</string>
     <string name="drawer_item_assistant">Помічник</string>
     <string name="drawer_item_favorites">Із зірочкою</string>
@@ -424,6 +431,7 @@
     <string name="fab_label">Додати або завантажити</string>
     <string name="failed_to_create_conflict_dialog">Не вдалося створити вікно з інформацією про конфлікт</string>
     <string name="failed_to_download">Не вдалося передати файл до менеджера звантажень</string>
+    <string name="failed_to_load_tags">Не вдалося завантажити мітки</string>
     <string name="failed_to_print">Не вдалося роздрукувати файл</string>
     <string name="failed_to_start_action">Не вдалося виконати дію!</string>
     <string name="failed_to_start_editor">Не вдалося відкрити редактор</string>
@@ -623,6 +631,7 @@
     <string name="manage_space_clear_data">Очистити дані</string>
     <string name="manage_space_description">Налаштування, база даних та дані сертифікатів сервера від %1$s буде вилучено без можливості відновлення.\n\nФайли, які було звантажено, буде збережено.\n\nЦей процес триватиме певний час.</string>
     <string name="manage_space_title">Керувати простором</string>
+    <string name="manage_tags">Керування мітками</string>
     <string name="media_err_invalid_progressive_playback">Неможливо транслювати мультимедійний файл</string>
     <string name="media_err_io">Неможливо відкрити мультимедійний файл</string>
     <string name="media_err_malformed">Мультимедійний файл має неправильно кодування</string>
@@ -832,6 +841,7 @@
     <string name="reload">Перезавантажити</string>
     <string name="remote">(віддалено)</string>
     <string name="remote_file_fetch_failed">Не знайдено файл!</string>
+    <string name="remove">Вилучити</string>
     <string name="remove_e2e">Ви можете вилучити наскрізне шифрування на пристрої на цьому клієнті</string>
     <string name="remove_e2e_keys_and_files_dialog_warning">У результаті цієї дії всі зашировані файли, приватні та публічні ключі буде вилучено. Продовжити?</string>
     <string name="remove_e2e_message">Ви можете вилучити наскрізне шифрування на пристрої на цьому клієнті. Зашифровані файли залишатимуться на сервері, але більше не синхронізуватимуться з цим комп\'ютером.</string>
@@ -841,6 +851,7 @@
     <string name="remove_notification_failed">Неможливо зняти сповіщення.</string>
     <string name="remove_push_notification">Вилучити</string>
     <string name="remove_success_msg">Вилучено</string>
+    <string name="rename_dialog_button">Перейменувати</string>
     <string name="rename_dialog_title">Введіть нове ім\'я</string>
     <string name="rename_local_fail_msg">Неможливо перейменувати локальну копію, спробуйте інше ім\'я</string>
     <string name="rename_server_fail_msg">Неможливо перейменувати, таке ім\'я уже існує</string>
@@ -877,6 +888,7 @@
     <string name="screenshot_06_davdroid_heading">Календар та контакти</string>
     <string name="screenshot_06_davdroid_subline">Синхронізувати з DAVx⁵</string>
     <string name="search_error">Помилка під час отримання результатів</string>
+    <string name="search_tags">Шукати мітки</string>
     <string name="secure_share_not_set_up">Безпечну передачу у спільний доступ не налаштовано для цього користувача</string>
     <string name="secure_share_search">Безпечний спільний доступ...</string>
     <string name="select_all">Вибрати все</string>

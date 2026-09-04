@@ -31,7 +31,12 @@
     <string name="activity_icon">Aktywność</string>
     <string name="add_new_public_share">Dodaj nowy link publiczny do udostępnienia</string>
     <string name="add_new_secure_file_drop">Dodaj nowe bezpieczne zrzuty plików</string>
+    <string name="add_to_album">Dodaj do albumu</string>
     <string name="add_to_cloud">Dodaj do %1$s</string>
+    <string name="album_delete">Usuń album</string>
+    <string name="album_rename_conflict">Ta nazwa jest już używana.</string>
+    <string name="album_share">Udostępnij album</string>
+    <string name="album_stop_sharing">Cofnij udostępnianie</string>
     <string name="app_config_base_url_title">Podstawowy adres URL</string>
     <string name="app_config_disable_clipboard_title">Wyłącz schowek</string>
     <string name="app_config_disable_intro_title">Wyłącz intro</string>
@@ -247,6 +252,7 @@
     <string name="could_not_retrieve_shares">Nie udało się pobrać udziałów</string>
     <string name="could_not_retrieve_url">Nie można pobrać adresu URL</string>
     <string name="create">Utwórz</string>
+    <string name="create_album_dialog_title">Nowy album</string>
     <string name="create_dir_fail_msg">Nie udało się utworzyć katalogu</string>
     <string name="create_document">Dokument</string>
     <string name="create_end_to_end_encrypted_share">Udostępnianie linkiem</string>
@@ -318,6 +324,7 @@
     <string name="drawer_community">Społeczność</string>
     <string name="drawer_header_background">Tło nagłówka menu rozwijanego</string>
     <string name="drawer_item_activities">Aktywność</string>
+    <string name="drawer_item_album">Albumy</string>
     <string name="drawer_item_all_files">Wszystkie pliki</string>
     <string name="drawer_item_assistant">Asystent</string>
     <string name="drawer_item_favorites">Ulubione</string>
@@ -419,6 +426,7 @@
     <string name="fab_label">Dodaj lub wyślij</string>
     <string name="failed_to_create_conflict_dialog">Nie udało się utworzyć okna dialogowego konfliktu</string>
     <string name="failed_to_download">Nie udało się przekazać pliku do menedżera pobierania</string>
+    <string name="failed_to_load_tags">Nie udało się załadować etykiet</string>
     <string name="failed_to_print">Nie udało się wydrukować pliku</string>
     <string name="failed_to_start_action">Nie udało się rozpocząć akcji!</string>
     <string name="failed_to_start_editor">Nie można uruchomić edytora</string>
@@ -612,6 +620,7 @@
     <string name="manage_space_clear_data">Wyczyść dane</string>
     <string name="manage_space_description">Ustawienia, bazy danych i certyfikaty serwera %1$s zostaną trwale usunięte.\n\nPobrane pliki pozostaną na swoich miejscach.\n\nTen proces może trochę potrwać.</string>
     <string name="manage_space_title">Zarządzaj przestrzenią</string>
+    <string name="manage_tags">Zarządzaj etykietami</string>
     <string name="media_err_invalid_progressive_playback">Plik multimedialny nie może być przesyłany strumieniowo</string>
     <string name="media_err_io">Nie można odczytać pliku</string>
     <string name="media_err_malformed">Nieprawidłowe kodowanie pliku multimedialnego</string>
@@ -820,6 +829,7 @@
     <string name="reload">Przeładuj</string>
     <string name="remote">(zdalne)</string>
     <string name="remote_file_fetch_failed">Nie znaleziono pliku!</string>
+    <string name="remove">Usuń</string>
     <string name="remove_e2e">Możesz usunąć szyfrowanie end-to-end lokalnie na tym kliencie</string>
     <string name="remove_e2e_keys_and_files_dialog_warning">Ta operacja usunie wszystkie zaszyfrowane pliki, klucze prywatny i publiczny. Czy jesteś pewien?</string>
     <string name="remove_e2e_message">Szyfrowanie end-to-end można usunąć lokalnie na tym kliencie. Zaszyfrowane pliki pozostaną na serwerze, ale nie będą już synchronizowane z tym komputerem.</string>
@@ -829,6 +839,7 @@
     <string name="remove_notification_failed">Usunięcie powiadomienia nie powiodło się.</string>
     <string name="remove_push_notification">Usuń</string>
     <string name="remove_success_msg">Usunięto</string>
+    <string name="rename_dialog_button">Zmień nazwę</string>
     <string name="rename_dialog_title">Wprowadź nową nazwę</string>
     <string name="rename_local_fail_msg">Nie można zmienić nazwy lokalnej kopii, użyj innej nazwy</string>
     <string name="rename_server_fail_msg">Nie można zmienić nazwy, nazwa jest już zajęta</string>
@@ -859,6 +870,7 @@
     <string name="screenshot_06_davdroid_heading">Kalendarz i kontakty</string>
     <string name="screenshot_06_davdroid_subline">Synchronizuj z DAVx⁵</string>
     <string name="search_error">Błąd podczas pobierania wyników wyszukiwania</string>
+    <string name="search_tags">Szukaj etykiet</string>
     <string name="secure_share_not_set_up">Dla tego użytkownika nie skonfigurowano bezpiecznego udostępniania</string>
     <string name="secure_share_search">Bezpieczne udostępnianie…</string>
     <string name="select_all">Wybierz wszystko</string>

@@ -27,7 +27,9 @@
     <string name="activity_chooser_send_file_title">Sūtīt</string>
     <string name="activity_chooser_title">Nosūtīt saiti uz…</string>
     <string name="activity_icon">Darbības</string>
+    <string name="add_to_album">Pievienot albumam</string>
     <string name="add_to_cloud">Pievienot %1$s</string>
+    <string name="album_stop_sharing">Beigt koplietošanu</string>
     <string name="app_config_proxy_port_title">Starpniekservera ports</string>
     <string name="appbar_search_in">Meklēt %s</string>
     <string name="assistant_screen_empty_content_title">Sveiciens! Ar ko šodien varu palīdzēt?</string>
@@ -153,6 +155,7 @@
     <string name="could_not_download_image">Nevarēja lejupielādēt pilnu attēlu</string>
     <string name="could_not_retrieve_url">Neizdevās iegūt URL </string>
     <string name="create">Izveidot</string>
+    <string name="create_album_dialog_title">Jauns albums</string>
     <string name="create_dir_fail_msg">Nevarēja izveidot mapi</string>
     <string name="create_document">Dokuments</string>
     <string name="create_folder">Mape</string>
@@ -197,6 +200,7 @@
     <string name="drawer_close">Aizvērt malu</string>
     <string name="drawer_community">Kopiena</string>
     <string name="drawer_item_activities">Darbības</string>
+    <string name="drawer_item_album">Albumi</string>
     <string name="drawer_item_all_files">Visas datnes</string>
     <string name="drawer_item_favorites">Izlase</string>
     <string name="drawer_item_gallery">Informācijas nesēji</string>
@@ -477,9 +481,11 @@
     <string name="recommend_urls">%1$s vai %2$s</string>
     <string name="recommended_files_title">Ieteiktās datnes</string>
     <string name="reload">Reload</string>
+    <string name="remove">Noņemt</string>
     <string name="remove_fail_msg">Dzēšana neizdevās</string>
     <string name="remove_push_notification">Noņemt</string>
     <string name="remove_success_msg">Izdzēsta</string>
+    <string name="rename_dialog_button">Pārdēvēt</string>
     <string name="rename_dialog_title">Ievadīt jaunu nosaukumu</string>
     <string name="rename_local_fail_msg">Nevarēja pārdēvēt vietējo kopiju, jāmēģina cits nosaukums</string>
     <string name="rename_server_fail_msg">Pārsaukšana nav iespējama, nosaukums jau izmantots</string>

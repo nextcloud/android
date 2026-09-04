@@ -839,6 +839,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_PATH_DECRYPTED, fileOrFolder.getDecryptedRemotePath());
         cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, user.getAccountName());
         cv.put(ProviderTableMeta.FILE_IS_ENCRYPTED, fileOrFolder.isEncrypted());
+        cv.put(ProviderTableMeta.FILE_IS_READ_ONLY, fileOrFolder.isReadOnly());
         cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, fileOrFolder.getLastSyncDateForProperties());
         cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA, fileOrFolder.getLastSyncDateForData());
         cv.put(ProviderTableMeta.FILE_ETAG, fileOrFolder.getEtag());
@@ -1396,6 +1397,7 @@ public class FileDataStorageManager {
         ocFile.setEtagInConflict(fileEntity.getEtagInConflict());
         ocFile.setFavorite(nullToZero(fileEntity.getFavorite()) == 1);
         ocFile.setEncrypted(nullToZero(fileEntity.isEncrypted()) == 1);
+        ocFile.setReadOnly(nullToZero(fileEntity.isReadOnly()) == 1);
 //        if (ocFile.isEncrypted()) {
 //            ocFile.setFileName(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_NAME)));
 //        }
@@ -2442,6 +2444,8 @@ public class FileDataStorageManager {
 
         contentValues.put(ProviderTableMeta.CAPABILITIES_MOD_REWRITE_WORKING, capability.getModRewriteWorking().getValue());
 
+        contentValues.put(ProviderTableMeta.CAPABILITIES_CHUNKED_UPLOAD_MAX_SIZE, capability.getChunkedUploadMaxSize());
+
         return contentValues;
     }
 
@@ -2642,6 +2646,9 @@ public class FileDataStorageManager {
             capability.setClientIntegrationJson(getString(cursor, ProviderTableMeta.CAPABILITIES_CLIENT_INTEGRATION_JSON));
 
             capability.setModRewriteWorking(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_MOD_REWRITE_WORKING));
+
+            capability.setChunkedUploadMaxSize(
+                getLong(cursor, ProviderTableMeta.CAPABILITIES_CHUNKED_UPLOAD_MAX_SIZE));
         }
 
         return capability;
@@ -2830,6 +2837,34 @@ public class FileDataStorageManager {
         File saveDir = new File(FileStorageUtils.getSavePath(user.getAccountName()));
         FileStorageUtils.deleteRecursively(tempDir, storageManager);
         FileStorageUtils.deleteRecursively(saveDir, storageManager);
+    }
+
+    public void setReadOnly(OCFile file, boolean readOnly) {
+        OCFile root = getEncryptedRootFolder(file);
+        if (root != null) {
+            fileDao.setReadOnly(user.getAccountName(), root.getRemotePath(), readOnly ? 1 : 0);
+        }
+    }
+
+    public boolean isReadOnly(OCFile file) {
+        OCFile root = getEncryptedRootFolder(file);
+        return root != null && root.isReadOnly();
+    }
+
+    @Nullable
+    private OCFile getEncryptedRootFolder(OCFile file) {
+        if (file == null || !file.isEncrypted()) {
+            return null;
+        }
+
+        OCFile root = null;
+        OCFile current = getFileById(file.getFileId());
+        while (current != null && current.isEncrypted()) {
+            root = current;
+            current = getFileById(current.getParentId());
+        }
+
+        return root;
     }
 
     public List<OCFile> getAllFiles() {

@@ -30,9 +30,15 @@
     <string name="activity_chooser_send_file_title">寄出</string>
     <string name="activity_chooser_title">傳送連結至…</string>
     <string name="activity_icon">活動狀態</string>
+    <string name="add_media">新增媒體</string>
     <string name="add_new_public_share">新增公開分享連結</string>
     <string name="add_new_secure_file_drop">新增安全檔案投遞</string>
+    <string name="add_to_album">新增至相簿</string>
     <string name="add_to_cloud">新增到 %1$s </string>
+    <string name="album_delete">刪除相簿</string>
+    <string name="album_rename_conflict">此名稱已使用。</string>
+    <string name="album_share">分享相簿</string>
+    <string name="album_stop_sharing">停止分享</string>
     <string name="app_config_base_url_title">基礎 URL</string>
     <string name="app_config_disable_clipboard_title">停用剪貼簿</string>
     <string name="app_config_disable_intro_title">停用簡介</string>
@@ -123,6 +129,10 @@
     <string name="auto_upload_on_wifi">只在非計量收費的 Wi-Fi 上傳</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">此資料夾已包含在上層資料夾的同步中，這可能會導致重複上傳</string>
+    <string name="auto_upload_sync_now_action">立刻同步</string>
+    <string name="auto_upload_sync_now_no_folder">尚未設定用於自動上傳的資料夾</string>
+    <string name="auto_upload_sync_now_running">自動上傳功能已在執行</string>
+    <string name="auto_upload_sync_now_started">自動上傳已開始</string>
     <string name="auto_upload_wifi_only_warning_info">等待 Wi-Fi 開始上傳</string>
     <string name="auto_upload_worker_start_text">正在從 %1$s 上傳檔案到 %2$s</string>
     <string name="autoupload_configure">設定</string>
@@ -249,6 +259,7 @@
     <string name="could_not_retrieve_shares">無法擷取分享</string>
     <string name="could_not_retrieve_url">無法擷取 URL</string>
     <string name="create">建立</string>
+    <string name="create_album_dialog_title">新相簿</string>
     <string name="create_dir_fail_msg">無法建立資料夾</string>
     <string name="create_document">文件</string>
     <string name="create_encrypted_folder">加密的資料夾</string>
@@ -323,6 +334,7 @@
     <string name="drawer_community">社群</string>
     <string name="drawer_header_background">Drawer 標頭區塊的背景圖片</string>
     <string name="drawer_item_activities">活動狀態</string>
+    <string name="drawer_item_album">相簿</string>
     <string name="drawer_item_all_files">所有檔案</string>
     <string name="drawer_item_assistant">助理</string>
     <string name="drawer_item_favorites">最愛</string>
@@ -424,6 +436,7 @@
     <string name="fab_label">新增或上傳</string>
     <string name="failed_to_create_conflict_dialog">無法建立衝突對話方塊</string>
     <string name="failed_to_download">無法將檔案傳遞給下載管理程式</string>
+    <string name="failed_to_load_tags">標籤載入失敗</string>
     <string name="failed_to_print">檔案列印失敗</string>
     <string name="failed_to_start_action">開始動作失敗！</string>
     <string name="failed_to_start_editor">無法啟動編輯器</string>
@@ -623,6 +636,7 @@
     <string name="manage_space_clear_data">清除資料</string>
     <string name="manage_space_description">來自 %1$s 的設定，資料庫與伺服器憑證等相關資料將永久刪除。\n\n已下載的檔案將保留不會變動。\n\n此過程需要一點時間。</string>
     <string name="manage_space_title">管理空間</string>
+    <string name="manage_tags">管理標籤</string>
     <string name="media_err_invalid_progressive_playback">此媒體檔案無法以串流播放</string>
     <string name="media_err_io">無法讀取媒體檔案</string>
     <string name="media_err_malformed">媒體檔案編碼不正確</string>
@@ -832,6 +846,7 @@
     <string name="reload">重新載入</string>
     <string name="remote">（遠端）</string>
     <string name="remote_file_fetch_failed">找不到檔案！</string>
+    <string name="remove">移除</string>
     <string name="remove_e2e">您可以在此客戶端上移除本機的端對端加密</string>
     <string name="remove_e2e_keys_and_files_dialog_warning">此操作將會移除所有加密檔案、私鑰、公鑰。您確定嗎？</string>
     <string name="remove_e2e_message">您可以在此客戶端上移除本機的端對端加密。已加密的檔案將會保留在伺服器上，但不會再同步到此電腦。</string>
@@ -841,6 +856,7 @@
     <string name="remove_notification_failed">移除通知失敗。</string>
     <string name="remove_push_notification">移除</string>
     <string name="remove_success_msg">已刪除</string>
+    <string name="rename_dialog_button">重新命名</string>
     <string name="rename_dialog_title">輸入新名稱</string>
     <string name="rename_local_fail_msg">無法重新命名本機副本，請嘗試不同的名稱</string>
     <string name="rename_server_fail_msg">無法重新命名，該名稱已被使用</string>
@@ -877,6 +893,7 @@
     <string name="screenshot_06_davdroid_heading">行事曆與聯絡人</string>
     <string name="screenshot_06_davdroid_subline">使用 DAVx⁵ 同步</string>
     <string name="search_error">取得搜尋結果時發生錯誤</string>
+    <string name="search_tags">搜尋標籤</string>
     <string name="secure_share_not_set_up">尚未為此使用者設定安全分享</string>
     <string name="secure_share_search">安全分享……</string>
     <string name="select_all">全選</string>

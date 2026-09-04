@@ -188,4 +188,7 @@ interface FileDao {
 
     @Query("DELETE FROM filelist WHERE file_owner = :fileOwner AND path = :remotePath")
     fun deleteFileByRemotePath(fileOwner: String, remotePath: String): Int
+
+    @Query("UPDATE filelist SET is_read_only = :readOnly WHERE file_owner = :fileOwner AND path = :path")
+    fun setReadOnly(fileOwner: String, path: String, readOnly: Int): Int
 }

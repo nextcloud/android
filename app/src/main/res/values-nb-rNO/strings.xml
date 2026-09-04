@@ -31,7 +31,12 @@
     <string name="activity_icon">Aktivitet</string>
     <string name="add_new_public_share">Legg til ny offentlig delt lenke</string>
     <string name="add_new_secure_file_drop">Legg til ny sikker filkasse</string>
+    <string name="add_to_album">Legg til i album</string>
     <string name="add_to_cloud">Legg til %1$s</string>
+    <string name="album_delete">Slett album</string>
+    <string name="album_rename_conflict">Navnet er allerede i bruk.</string>
+    <string name="album_share">Del album</string>
+    <string name="album_stop_sharing">Avslutt deling</string>
     <string name="app_config_base_url_title">Grunnleggende URL-adresse</string>
     <string name="app_config_disable_clipboard_title">Slå av Utklippstavlen</string>
     <string name="app_config_disable_intro_title">Slå av Intro</string>
@@ -243,6 +248,7 @@
     <string name="could_not_retrieve_shares">Kunne ikke hente ressursen</string>
     <string name="could_not_retrieve_url">Kunne ikke hente URL</string>
     <string name="create">Opprett</string>
+    <string name="create_album_dialog_title">Nytt album</string>
     <string name="create_dir_fail_msg">Mappe kunne ikke opprettes</string>
     <string name="create_document">Dokument</string>
     <string name="create_end_to_end_encrypted_share">Linkdeling</string>
@@ -309,6 +315,7 @@
     <string name="drawer_community">Samfunn</string>
     <string name="drawer_header_background">Bakgrunsbilde for innledning på meny</string>
     <string name="drawer_item_activities">Aktiviteter</string>
+    <string name="drawer_item_album">Album</string>
     <string name="drawer_item_all_files">Alle filer</string>
     <string name="drawer_item_assistant">Assistent</string>
     <string name="drawer_item_favorites">Favoritter</string>
@@ -394,6 +401,7 @@
     <string name="etm_transfer_type_upload">Last opp</string>
     <string name="fab_label">Legg til eller last opp</string>
     <string name="failed_to_download">Kunne ikke sende filen til nedlastingsbehandleren</string>
+    <string name="failed_to_load_tags">Lasting av merkelapper feilet</string>
     <string name="failed_to_print">Mislykket å skrive ut filen</string>
     <string name="failed_to_start_editor">Start av editor feilet</string>
     <string name="failed_update_ui">Kunne ikke oppdatere brukergrensesnittet</string>
@@ -581,6 +589,7 @@
     <string name="manage_space_clear_data">Nullstill data</string>
     <string name="manage_space_description">Innstillinger, database og serversertifikater fra %1$s\'s filer vil bli slettet. \n\nNedlastede filer blir urørt.\n\nDette kan ta noe tid.</string>
     <string name="manage_space_title">Håndter plass</string>
+    <string name="manage_tags">Håndtere etiketter</string>
     <string name="media_err_invalid_progressive_playback">Mediafilen kan ikke strømmes</string>
     <string name="media_err_io">Mediafilen kunne ikke leses</string>
     <string name="media_err_malformed">Mediafilen er ikke riktig kodet</string>
@@ -784,6 +793,7 @@
     <string name="reload">Last inn på nytt</string>
     <string name="remote">(ekstern)</string>
     <string name="remote_file_fetch_failed">Kunne ikke finne filen!</string>
+    <string name="remove">Fjern</string>
     <string name="remove_e2e">Du kan fjerne ende-til-ende -kryptering lokalt på denne klienten</string>
     <string name="remove_e2e_keys_and_files_dialog_warning">Denne handlingen sletter all krypterte filer, private og offentlige nøkler. Er du sikker?</string>
     <string name="remove_e2e_message">Du kan fjerne ende-til-ende -kryptering lokalt på denne klienten. De krypterte filene vil forbli på serveren, men vil ikke bli synkronisert til denne maskinen lengre.</string>
@@ -793,6 +803,7 @@
     <string name="remove_notification_failed">Kunne ikke fjerne meldingen.</string>
     <string name="remove_push_notification">Fjern</string>
     <string name="remove_success_msg">Slettet</string>
+    <string name="rename_dialog_button">Endre navn</string>
     <string name="rename_dialog_title">Skriv inn et nytt navn</string>
     <string name="rename_local_fail_msg">Kunne ikke endre navn på lokal kopi, prøv et annet navn</string>
     <string name="rename_server_fail_msg">Endring av navn ikke mulig, navnet er allerde benyttet</string>
@@ -823,6 +834,7 @@
     <string name="screenshot_06_davdroid_heading">Kalender og kontakter</string>
     <string name="screenshot_06_davdroid_subline">Synkroniser med DAVx5</string>
     <string name="search_error">Feil ved henting av søke resultat</string>
+    <string name="search_tags">Søk i merkelapper</string>
     <string name="secure_share_not_set_up">Sikker deling er ikke konfigurert for denne brukeren</string>
     <string name="secure_share_search">Sikker deling...</string>
     <string name="select_all">Velg alle</string>
