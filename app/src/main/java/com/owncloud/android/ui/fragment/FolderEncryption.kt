@@ -49,9 +49,10 @@ class FolderEncryption(private val fragment: OCFileListFragment) {
             val publicKey = provider.getValue(user, EncryptionUtils.PUBLIC_KEY)
             val privateKey = provider.getValue(user, EncryptionUtils.PRIVATE_KEY)
             val client = fragment.clientFactory.create(user)
+            val nextcloudClient = fragment.clientFactory.createNextcloudClient(user)
 
             val result = ToggleEncryptionRemoteOperation(localId, remotePath, shouldBeEncrypted)
-                .execute(client)
+                .execute(nextcloudClient)
 
             return@withContext when {
                 result.isSuccess -> onToggleSuccess(
