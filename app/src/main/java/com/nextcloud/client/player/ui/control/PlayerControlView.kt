@@ -8,15 +8,15 @@
 package com.nextcloud.client.player.ui.control
 
 import android.content.Context
+import android.os.Build
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.WindowInsets
 import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
@@ -103,22 +103,24 @@ class PlayerControlView @JvmOverloads constructor(
     fun onStart() {
         playbackModel.state?.let(::render)
         playbackModel.addListener(this)
+    }
 
+    fun onStop() {
+        playbackModel.removeListener(this)
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         // Clear insets to avoid covering ui
-        ViewCompat.setOnApplyWindowInsetsListener(binding.playerControlPanel) { v, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.updateLayoutParams<MarginLayoutParams> {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val insets = rootWindowInsets.getInsets(WindowInsets.Type.systemBars())
+            binding.playerControlPanel.updateLayoutParams<MarginLayoutParams> {
                 //topMargin = insets.top
                 leftMargin = insets.left
                 bottomMargin = insets.bottom
                 rightMargin = insets.right
             }
-            WindowInsetsCompat.CONSUMED
         }
-    }
-
-    fun onStop() {
-        playbackModel.removeListener(this)
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
     }
 
     override fun onPlaybackUpdate(state: PlaybackState) {
