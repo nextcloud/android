@@ -5,7 +5,7 @@ name: "Assemble"
 
 on:
     pull_request:
-        branches: [ master, stable-* ]
+        branches: [master, stable-*]
 
 # Declare default permissions as read only.
 permissions: read-all
@@ -18,27 +18,27 @@ jobs:
     compile:
         runs-on: ubuntu-latest-max
         steps:
-            -   uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-            -   name: set up JDK 21
-                uses: actions/setup-java@dd06d9cba3e5552c54d9f8ea23572deb30010f7c # v6.0.0
-                with:
-                    distribution: "temurin"
-                    java-version: 21
-            -   uses: gradle/actions/wrapper-validation@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
-            -   name: compile
-                run: |
-                    echo "org.gradle.jvmargs=-Xmx10g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" >> gradle.properties
-                    echo "org.gradle.caching=true" >> gradle.properties
-                    echo "org.gradle.parallel=true" >> gradle.properties
-                    echo "org.gradle.configureondemand=true" >> gradle.properties
-                    ./gradlew assembleGeneric
-            -   name: Upload test build
-                uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-                with:
-                    name: folder
-                    path: .
-                    retention-days: 2
-                    include-hidden-files: true
+            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+            - name: set up JDK 21
+              uses: actions/setup-java@dd06d9cba3e5552c54d9f8ea23572deb30010f7c # v6.0.0
+              with:
+                  distribution: "temurin"
+                  java-version: 21
+            - uses: gradle/actions/wrapper-validation@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+            - name: compile
+              run: |
+                  echo "org.gradle.jvmargs=-Xmx10g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" >> gradle.properties
+                  echo "org.gradle.caching=true" >> gradle.properties
+                  echo "org.gradle.parallel=true" >> gradle.properties
+                  echo "org.gradle.configureondemand=true" >> gradle.properties
+                  ./gradlew assembleGeneric
+            - name: Upload test build
+              uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+              with:
+                  name: folder
+                  path: .
+                  retention-days: 2
+                  include-hidden-files: true
 
     flavor:
         runs-on: ubuntu-latest
@@ -46,23 +46,23 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                flavor: [ Generic, Gplay, Huawei ]
+                flavor: [Generic, Gplay, Huawei]
         steps:
             - name: Download test-build
               uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
               with:
-                name: folder
-            -   name: set up JDK 21
-                uses: actions/setup-java@dd06d9cba3e5552c54d9f8ea23572deb30010f7c # v6.0.0
-                with:
-                    distribution: "temurin"
-                    java-version: 21
-            -   uses: gradle/actions/wrapper-validation@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
-            -   name: Build ${{ matrix.flavor }}
-                run: |
-                    echo "org.gradle.jvmargs=-Xmx6g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" >> gradle.properties
-                    echo "org.gradle.caching=true" >> gradle.properties
-                    echo "org.gradle.parallel=true" >> gradle.properties
-                    echo "org.gradle.configureondemand=true" >> gradle.properties
-                    chmod +x ./gradlew
-                    ./gradlew assemble${{ matrix.flavor }}
+                  name: folder
+            - name: set up JDK 21
+              uses: actions/setup-java@dd06d9cba3e5552c54d9f8ea23572deb30010f7c # v6.0.0
+              with:
+                  distribution: "temurin"
+                  java-version: 21
+            - uses: gradle/actions/wrapper-validation@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+            - name: Build ${{ matrix.flavor }}
+              run: |
+                  echo "org.gradle.jvmargs=-Xmx6g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" >> gradle.properties
+                  echo "org.gradle.caching=true" >> gradle.properties
+                  echo "org.gradle.parallel=true" >> gradle.properties
+                  echo "org.gradle.configureondemand=true" >> gradle.properties
+                  chmod +x ./gradlew
+                  ./gradlew assemble${{ matrix.flavor }}
