@@ -230,8 +230,19 @@ public class FileDataStorageManager {
         return entity;
     }
 
-    public void createPendingFile(String path, String mimeType, long createdAt, long modificationTimestamp) {
-        OCFile file = new OCFile(path);
+    public void createPendingFile(String remotePath, String mimeType, long createdAt, long modificationTimestamp) {
+        final OCFile existingFile = getFileByRemotePath(remotePath);
+        final boolean existingFileIsTheSame =
+            existingFile != null &&
+            existingFile.getMimeType().equals(mimeType) &&
+            existingFile.getCreationTimestamp() == createdAt &&
+            existingFile.getModificationTimestamp() == modificationTimestamp;
+        if (existingFileIsTheSame) {
+            // In case the same file was already uploaded, do not overwrite it to avoid triggering a conflict
+            return;
+        }
+
+        OCFile file = new OCFile(remotePath);
         file.setMimeType(mimeType);
         file.setCreationTimestamp(createdAt);
         file.setModificationTimestamp(modificationTimestamp);
@@ -539,7 +550,7 @@ public class FileDataStorageManager {
     }
 
     public boolean saveFile(OCFile ocFile) {
-        Log_OC.d(TAG, "saving file: " + ocFile.getRemotePath());
+        Log_OC.d(TAG, "saving file " + ocFile.getFileName() + " into " + ocFile.getRemotePath());
 
         boolean overridden = false;
         final ContentValues cv = createContentValuesForFile(ocFile);
