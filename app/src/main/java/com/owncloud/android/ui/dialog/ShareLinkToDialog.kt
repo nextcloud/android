@@ -67,9 +67,9 @@ class ShareLinkToDialog : DialogFragment() {
             // add activity for copy to clipboard
             val copyToClipboardIntent = Intent(requireActivity(), CopyToClipboardActivity::class.java)
             val copyToClipboard = pm.queryIntentActivities(copyToClipboardIntent, 0)
-            if (copyToClipboard.isNotEmpty()) {
-                activities.add(copyToClipboard[0])
-            }
+            copyToClipboard
+                .firstOrNull { it.activityInfo.packageName == context?.packageName }
+                .also { activities.add(it) }
         }
 
         Collections.sort(activities, ResolveInfo.DisplayNameComparator(pm))
