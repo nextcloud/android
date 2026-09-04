@@ -17,12 +17,15 @@ import android.text.TextUtils;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorkerNotificationManager;
+import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.extensions.ExtensionsKt;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientFactory;
+import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.OperationCancelledException;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
@@ -146,13 +149,13 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
             if (result.isSuccess()) {
                 if (mRemoteFolderChanged || syncAll) {
-                    result = fetchAndSyncRemoteFolder(client);
+                    result = fetchAndSyncRemoteFolder();
                 } else {
                     prepareOpsFromLocalKnowledge();
                 }
 
                 if (result.isSuccess()) {
-                    syncContents(client);
+                    syncContents();
                 }
             }
 
@@ -208,13 +211,21 @@ public class SynchronizeFolderOperation extends SyncOperation {
     }
 
 
-    private RemoteOperationResult fetchAndSyncRemoteFolder(OwnCloudClient client) throws OperationCancelledException {
+    private RemoteOperationResult fetchAndSyncRemoteFolder() throws OperationCancelledException {
         if (mCancellationRequested.get()) {
             throw new OperationCancelledException();
         }
 
+        NextcloudClient nextcloudClient;
+        try {
+            nextcloudClient = OwnCloudClientFactory.createNextcloudClient(user, mContext);
+        } catch (AccountUtils.AccountNotFoundException | NullPointerException e) {
+            Log_OC.e(TAG, "Could not create NextcloudClient to synchronize " + mRemotePath, e);
+            return new RemoteOperationResult<>(e);
+        }
+
         ReadFolderRemoteOperation operation = new ReadFolderRemoteOperation(mRemotePath);
-        var result = operation.execute(client);
+        var result = operation.execute(nextcloudClient);
         Log_OC.d(TAG, "Synchronizing " + user.getAccountName() + mRemotePath);
         Log_OC.d(TAG, "Synchronizing remote id" + mLocalFolder.getRemoteId());
 
@@ -442,21 +453,27 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
     }
 
-    private void syncContents(OwnCloudClient client) throws OperationCancelledException {
+    private void syncContents() throws OperationCancelledException {
         startDirectDownloads();
         startContentSynchronizations(mFilesToSyncContents);
-        updateETag(client);
+        updateETag();
     }
 
     /**
      * Updates the eTag of the local folder after a successful synchronization.
      * This ensures that any changes to local files, which may alter the eTag, are correctly reflected.
-     *
-     * @param client the OwnCloudClient instance used to execute remote operations.
      */
-    private void updateETag(OwnCloudClient client) {
+    private void updateETag() {
+        NextcloudClient nextcloudClient;
+        try {
+            nextcloudClient = OwnCloudClientFactory.createNextcloudClient(user, mContext);
+        } catch (AccountUtils.AccountNotFoundException | NullPointerException e) {
+            Log_OC.e(TAG, "Could not create NextcloudClient to update eTag of " + mRemotePath, e);
+            return;
+        }
+
         ReadFolderRemoteOperation operation = new ReadFolderRemoteOperation(mRemotePath);
-        final var result = operation.execute(client);
+        final var result = operation.execute(nextcloudClient);
         if (!result.isSuccess()) {
             Log_OC.w(TAG, "Cannot update eTag, read folder operation is failed");
             return;

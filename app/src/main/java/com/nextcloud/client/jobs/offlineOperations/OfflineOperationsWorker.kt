@@ -280,17 +280,15 @@ class OfflineOperationsWorker(
     private fun getRemoteFile(remotePath: String): RemoteFile? {
         val mimeType = MimeTypeUtil.getMimeTypeFromPath(remotePath)
         val isFolder = MimeTypeUtil.isFolder(mimeType)
-        val client = ClientFactoryImpl(context).create(user)
-        val result = if (isFolder) {
-            ReadFolderRemoteOperation(remotePath).execute(client)
-        } else {
-            ReadFileRemoteOperation(remotePath).execute(client)
-        }
 
-        return if (result.isSuccess) {
-            result.data[0] as? RemoteFile
+        return if (isFolder) {
+            val nextcloudClient = ClientFactoryImpl(context).createNextcloudClient(user)
+            val result = ReadFolderRemoteOperation(remotePath).execute(nextcloudClient)
+            if (result.isSuccess) result.resultData.getOrNull(0) else null
         } else {
-            null
+            val client = ClientFactoryImpl(context).create(user)
+            val result = ReadFileRemoteOperation(remotePath).execute(client)
+            if (result.isSuccess) result.data[0] as? RemoteFile else null
         }
     }
 
