@@ -343,6 +343,11 @@ class FileUploadWorker(
                 Log_OC.e(TAG, "credentials are no longer valid, stopping uploads")
                 break
             }
+
+            if (result.isSuccess && result.resultData is String) {
+                // TODO: Save this to avoid the conflict, both in online and offline uploads
+                operation.file.etagOnServer = result.resultData.toString()
+            }
         }
 
         val uploadFilesResult = when {
