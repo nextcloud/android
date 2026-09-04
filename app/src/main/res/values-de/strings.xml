@@ -150,6 +150,18 @@
     <string name="autoupload_configure">Einrichten</string>
     <string name="autoupload_create_new_custom_folder">Erstellen Sie ein Setup für den eigenen Ordner</string>
     <string name="autoupload_custom_folder">Erstellen Sie einen eigenen Ordner</string>
+    <string name="autoupload_delete_uploaded">Hochgeladene Dateien lokal löschen</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_all_users">Von allen Benutzern</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_current_user">Vom aktuellen Benutzer</string>
+    <string name="autoupload_delete_uploaded_all_dialog_description">Alle bereits in die Cloud hochgeladenen Dateien werden vom aktuellen Gerät und aus allen Autoupload-Ordnern aller konfigurierten Benutzer entfernt</string>
+    <string name="autoupload_delete_uploaded_all_dialog_title">Hochgeladene Dateien aus allen Ordnern für automatisches Hochladen lokal löschen</string>
+    <string name="autoupload_delete_uploaded_dialog_description">Alle bereits in die Cloud hochgeladenen Dateien werden vom aktuellen Gerät entfernt</string>
+    <string name="autoupload_delete_uploaded_dialog_title">Hochgeladene Dateien lokal löschen</string>
+    <string name="autoupload_delete_uploaded_notif_ended_content">Durch das Entfernen von%2$s aus %3$s von %4$s wurde %1$s frei.</string>
+    <string name="autoupload_delete_uploaded_notif_ended_title">Bereits hochgeladene Dateien wurden lokal gelöscht</string>
+    <string name="autoupload_delete_uploaded_notif_error_title">Bereits hochgeladene Dateien können nicht lokal gelöscht werden</string>
+    <string name="autoupload_delete_uploaded_notif_started_title">Es wurde begonnen, bereits hochgeladene Dateien im Hintergrund lokal zu löschen</string>
+    <string name="autoupload_delete_uploaded_notif_ticker">Lokale Dateilöschung</string>
     <string name="autoupload_disable_power_save_check">Energiesparmodus deaktivieren</string>
     <string name="autoupload_hide_folder">Ordner verstecken</string>
     <string name="avatar">Avatar</string>
@@ -383,6 +395,23 @@
     <string name="empty_albums_message">Sie können alle Ihre Fotos in so vielen Alben organisieren, wie Sie möchten. Sie haben noch kein Album erstellt.</string>
     <string name="empty_albums_title">Alben für Ihre Fotos erstellen</string>
     <string name="encrypted">Als verschlüsselt festlegen</string>
+    <string name="encryption_encrypt_check_failed">Die Überprüfung Ihrer Verschlüsselungsschlüssel war fehlgeschlagen. Versuchen, den Ordner erneut zu verschlüsseln.</string>
+    <string name="encryption_encrypt_no_network">Der Server ist nicht erreichbar. Später erneut versuchen, den Ordner zu verschlüsseln.</string>
+    <string name="encryption_encrypt_unavailable">Dieser Ordner kann nicht verschlüsselt werden. Auf diesem Server ist keine Ende-zu-Ende-Verschlüsselung eingerichtet.</string>
+    <string name="encryption_key_checking_keys">Schlüsselprüfung …</string>
+    <string name="encryption_key_handle_folder_read_only_description">Die Verschlüsselungsschlüssel dieses Kontos wurden entfernt oder ersetzt, daher kann der Inhalt dieses Ordners nicht mehr entschlüsselt werden.\n\nDer Ordner ist ab sofort schreibgeschützt. Um verschlüsselte Ordner wieder verwenden zu können, sichern Sie diesen Ordner und richten Sie Ihren neuen Verschlüsselungsschlüssel in den Einstellungen ein.</string>
+    <string name="encryption_key_handle_key_keys_only_on_device_description">Der auf diesem Gerät gespeicherte Verschlüsselungsschlüssel ist ungültig. Die Schlüssel wurden vom Server widerrufen. \n\nDie lokale Verschlüsselung in den Einstellungen entfernen, um einen neuen Verschlüsselungsordner zu erstellen.</string>
+    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">Der auf diesem Gerät gespeicherte Verschlüsselungsschlüssel ist ungültig. Die Schlüssel wurden vom Server widerrufen. \n\nDen zuvor erstellten verschlüsselten Ordner sichern. \n\nAnschließend die lokale Verschlüsselung in den Einstellungen deaktivieren, um einen neuen verschlüsselten Ordner zu erstellen.</string>
+    <string name="encryption_key_handle_key_removed_title">Die Verschlüsselungsschlüssel wurden geändert</string>
+    <string name="encryption_key_handle_no_keys_description">Dieser Ordner kann nicht geöffnet werden, da seine Verschlüsselungsschlüssel weder auf diesem Gerät noch auf dem Server vorhanden sind.</string>
+    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">Die Verschlüsselungsschlüssel dieses Kontos wurden entfernt oder ersetzt.\n\nRichten Sie Ihren neuen Verschlüsselungsschlüssel in den Einstellungen ein, bevor Sie einen Ordner verschlüsseln.</string>
+    <string name="encryption_new_folder_check_failed">Die Überprüfung Ihrer Verschlüsselungsschlüssel war fehlgeschlagen. Bitte erstellen Sie den Ordner erneut.</string>
+    <string name="encryption_new_folder_no_network">Der Server ist nicht erreichbar. Später erneut versuchen, den Ordner zu erstellen.</string>
+    <string name="encryption_new_folder_unavailable">Es können keine verschlüsselten Ordner erstellt werden. Auf diesem Server ist keine Ende-zu-Ende-Verschlüsselung eingerichtet.</string>
+    <string name="encryption_open_check_failed">Ihre Verschlüsselungsschlüssel konnten nicht überprüft werden. Versuchen Sie erneut, den Ordner zu öffnen.</string>
+    <string name="encryption_open_key_mismatch">Der auf diesem Gerät gespeicherte Verschlüsselungsschlüssel stimmt nicht mit dem für diesen Ordner erforderlichen Schlüssel überein.</string>
+    <string name="encryption_open_no_network">Der Server ist nicht erreichbar. Später erneut versuchen, den Ordner zu öffnen.</string>
+    <string name="encryption_open_unavailable">Dieser Ordner kann nicht geöffnet werden. Auf diesem Server ist keine Ende-zu-Ende-Verschlüsselung eingerichtet.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Serverzertifikat kann nicht abgerufen werden</string>
     <string name="end_to_end_encryption_certificate_verification_failed">Der öffentliche Schlüssel konnte nicht verifiziert werden</string>
     <string name="end_to_end_encryption_confirm_button">Verschlüsselung einrichten</string>
@@ -651,6 +680,9 @@
     <string name="logs_status_not_filtered">Logs: %1$d kB, kein Filter</string>
     <string name="logs_title">Protokolle (Logs)</string>
     <string name="maintenance_mode">Server befindet sich im Wartungsmodus</string>
+    <string name="manage_space_auto_upload_clear_data">Automatisch hochgeladene Dateien lokal löschen</string>
+    <string name="manage_space_auto_upload_description">Alle bereits aus den Auto-Upload-Ordnern auf den Server hochgeladenen Dateien werden lokal gelöscht, um Speicherplatz auf dem Gerät freizugeben.\n\nDieser Vorgang kann einige Zeit dauern.</string>
+    <string name="manage_space_auto_upload_title">Automatisch hochgeladene Dateien lokal löschen</string>
     <string name="manage_space_clear_data">Daten löschen</string>
     <string name="manage_space_description">Einstellungen, Datenbank und Serverzertifikate von %1$s\'s Daten werden dauerhaft gelöscht.\n\nHerunter geladene Dateien bleiben unangetastet.\n\nDieser Vorgang kann eine Zeit dauern.</string>
     <string name="manage_space_title">Verwalte Speicherplatz</string>
@@ -1358,6 +1390,18 @@
     <plurals name="items_selected_count">
         <item quantity="one">%d ausgewählt</item>
         <item quantity="other">%d ausgewählt</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_files">
+        <item quantity="one">%d Datei</item>
+        <item quantity="other">%d Dateien</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_folders">
+        <item quantity="one">%d Ordner</item>
+        <item quantity="other">%d Ordner</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_users">
+        <item quantity="one">%d Benutzer</item>
+        <item quantity="other">%d Benutzer</item>
     </plurals>
     <plurals name="passcode_delay_seconds">
         <item quantity="one">In %d Sekunde erneut versuchen, da zu viele Fehlversuche erfolgt sind</item>

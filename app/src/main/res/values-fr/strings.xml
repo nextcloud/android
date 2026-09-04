@@ -38,6 +38,7 @@
     <string name="album_already_exists">L\'album existe déjà</string>
     <string name="album_copy_file_conflict">Existe déjà.</string>
     <string name="album_delete">Supprimer l’album</string>
+    <string name="album_file_added_message">Fichier ajouté avec succès</string>
     <string name="album_name_empty">Le nom de l\'album ne peut pas être vide</string>
     <string name="album_rename_conflict">Ce nom est déjà utilisé.</string>
     <string name="album_share">Partager l\'album</string>
@@ -371,6 +372,18 @@
     <string name="editor_web_view_cannot_open_file">Impossible d\'ouvrir le sélecteur de fichiers</string>
     <string name="email_pick_failed">Le choix de l\'adresse e-mail a échoué.</string>
     <string name="encrypted">Définir comme chiffré</string>
+    <string name="encryption_encrypt_check_failed">Impossible de vérifier vos clés de chiffrement. Essayez de chiffrer à nouveau le dossier.</string>
+    <string name="encryption_encrypt_no_network">Impossible de joindre le serveur. Essayez de chiffrer à nouveau le dossier plus tard.</string>
+    <string name="encryption_encrypt_unavailable">Impossible de chiffrer ce dossier. Le chiffrement de bout en bout n’est pas configuré sur ce serveur.</string>
+    <string name="encryption_key_checking_keys">Vérification des clés…</string>
+    <string name="encryption_key_handle_no_keys_description">Ce dossier ne peut pas être ouvert car ses clés de chiffrement n\'existent plus sur cet appareil ni sur le serveur.</string>
+    <string name="encryption_new_folder_check_failed">Impossible de vérifier vos clés de chiffrement. Essayez de créer le dossier à nouveau.</string>
+    <string name="encryption_new_folder_no_network">Impossible de joindre le serveur. Essayez de créer à nouveau le dossier plus tard.</string>
+    <string name="encryption_new_folder_unavailable">Impossible de créer des dossiers chiffrés. Le chiffrement de bout en bout n’est pas configuré sur ce serveur.</string>
+    <string name="encryption_open_check_failed">Impossible de vérifier vos clés de chiffrement. Essayez de rouvrir le dossier.</string>
+    <string name="encryption_open_key_mismatch">La clé de chiffrement enregistrée sur cet appareil ne correspond pas à celle requise pour ce dossier.</string>
+    <string name="encryption_open_no_network">Impossible de joindre le serveur. Essayez d\'ouvrir à nouveau le dossier plus tard.</string>
+    <string name="encryption_open_unavailable">Impossible d\'ouvrir ce dossier. Le chiffrement de bout en bout n’est pas configuré sur ce serveur.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Impossible de retrouver le certificat du serveur</string>
     <string name="end_to_end_encryption_certificate_verification_failed">Échec de la vérification de la clé publique</string>
     <string name="end_to_end_encryption_confirm_button">Configurer le chiffrement</string>
@@ -1361,6 +1374,21 @@
         <item quantity="one">%d sélectionné</item>
         <item quantity="many">%d sélectionnés</item>
         <item quantity="other">%d sélectionnés</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_files">
+        <item quantity="one">%d fichier</item>
+        <item quantity="many">%d fichiers</item>
+        <item quantity="other">%d fichiers</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_folders">
+        <item quantity="one">%d dossier</item>
+        <item quantity="many">%d dossiers</item>
+        <item quantity="other">%d dossiers</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_users">
+        <item quantity="one">%d utilisateur</item>
+        <item quantity="many">%d utilisateurs</item>
+        <item quantity="other">%d utilisateurs</item>
     </plurals>
     <plurals name="passcode_delay_seconds">
         <item quantity="one">Réessayez dans %d seconde en raison d’un trop grand nombre de tentatives incorrectes.</item>
