@@ -43,7 +43,7 @@
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/player_bottom_margin_bottom"
+        android:paddingBottom="@dimen/standard_padding"
         android:gravity="center"
         android:orientation="horizontal">
 
