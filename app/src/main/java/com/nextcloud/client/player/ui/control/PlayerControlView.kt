@@ -15,6 +15,9 @@ import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.flowWithLifecycle
@@ -85,6 +88,18 @@ class PlayerControlView @JvmOverloads constructor(
         if (!isInEditMode) {
             viewScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
             collectSeekBarChanges()
+        }
+
+        // Clear insets to avoid covering ui
+        ViewCompat.setOnApplyWindowInsetsListener(binding.progressPanel) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.updateLayoutParams<MarginLayoutParams> {
+                topMargin = insets.top
+                leftMargin = insets.left
+                bottomMargin = insets.bottom
+                rightMargin = insets.right
+            }
+            WindowInsetsCompat.CONSUMED
         }
     }
 
