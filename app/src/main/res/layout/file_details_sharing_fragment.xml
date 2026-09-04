@@ -243,4 +243,12 @@
         android:id="@+id/shimmer_layout"
         layout="@layout/file_details_sharing_shimmer" />
 
+    <ProgressBar
+        android:id="@+id/sharing_mode_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/standard_padding"
+        android:visibility="visible" />
+
 </FrameLayout>
