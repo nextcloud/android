@@ -64,18 +64,23 @@
     <string name="app_widget_description">Sýnir einn viðmótshluta af stjórnborði</string>
     <string name="appbar_search_in">Leita í %s</string>
     <string name="appear_offline">Birtast ótengt</string>
+    <string name="assistant_output_generation_warning_text">Textinn sem hér birtist er framleiddur af gervigreind. Yfirfarðu ævinlega þessar upplýsingar.</string>
     <string name="assistant_screen_chat_create_error">Mistókst að senda skilaboð</string>
     <string name="assistant_screen_chat_fetch_error">Mistókst að sækja spjallskilaboð</string>
     <string name="assistant_screen_chat_generate_error">Tókst ekki að búa til svar</string>
+    <string name="assistant_screen_conversations_go_back_to_assistant">Fara til baka á síðu meðhjálparans</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Ertu viss um að þú viljir eyða þessu verki?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Eyða verki</string>
     <string name="assistant_screen_empty_content_description">Prófaðu að senda skilaboð til að koma af stað samtali.</string>
+    <string name="assistant_screen_empty_content_title">Góðan daginn! Hvernig er hægt að aðstoða þig?</string>
+    <string name="assistant_screen_retry_response_generation">Prófa aftur að framleiða svar</string>
     <string name="assistant_screen_send_message">Senda skilaboð</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Opna samtalalista</string>
     <string name="assistant_screen_task_create_fail_message">Villa kom upp við að búa til verkið</string>
     <string name="assistant_screen_task_create_success_message">Verk búið til</string>
     <string name="assistant_screen_task_delete_fail_message">Villa kom upp við að eyða verkinu</string>
     <string name="assistant_screen_task_delete_success_message">Verki eytt</string>
+    <string name="assistant_screen_task_list_empty_warning">Verkefnalistinn er tómur. Skoðaðu uppsetningu meðhjálparaforritsins.</string>
     <string name="assistant_screen_task_list_error_state_message">Ekki er hægt að sækja verkefnalista, athugaðu nettenginguna þína.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Eyða verki</string>
     <string name="assistant_screen_task_output_empty_text">Yfirlitið yfir verkin er ekki tilbúið.</string>
@@ -127,6 +132,11 @@
     <string name="authenticator_activity_no_web_browser_found">Enginn vafri er ekki tiltækur sem getur opnað þennan tengil.</string>
     <string name="authenticator_activity_please_complete_login_process">Ljúktu innskráningarferlinu í vafranum þínum</string>
     <string name="auto_upload_background_activity_action">Leyfa bakgrunnsaðgerðir</string>
+    <string name="auto_upload_battery_optimization_reason">Bakgrunnsvirkni Nextcloud er takmörkuð af rafhlöðusparnaði.</string>
+    <string name="auto_upload_battery_saver_action">Opna stillingar rafhlöðusparnaðar</string>
+    <string name="auto_upload_battery_saver_reason">Rafhlöðusparnaðarkerfi er virkt og gæti gert hlé á innsendingu.</string>
+    <string name="auto_upload_delete_dialog_description">Þetta mun fjarlægja möppuna og grunnstillingar sjálfvirkra innsendinga. Hætt verður við allar óloknar innsendingar.</string>
+    <string name="auto_upload_delete_dialog_title">Eyða möppu sjálfvirkra innsendinga?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">haldið áfram í upprunalegri möppu, því hún er skrifvarin</string>
     <string name="auto_upload_low_battery_warning_info">Lítil hleðsla á rafhlöðu, innsending gæti tekið lengri tíma</string>
     <string name="auto_upload_on_wifi">Aðeins senda inn á gjaldfrjálsu WiFi-neti</string>
@@ -141,8 +151,18 @@
     <string name="autoupload_configure">Stilla</string>
     <string name="autoupload_create_new_custom_folder">Búa til nýja nýja sérsniðna uppsetningu á möppum</string>
     <string name="autoupload_custom_folder">Settu upp sérsniðna möppu</string>
+    <string name="autoupload_delete_uploaded">Eyða staðværum innsendum skrám</string>
     <string name="autoupload_delete_uploaded_all_dialog_button_all_users">Frá öllum notendum</string>
     <string name="autoupload_delete_uploaded_all_dialog_button_current_user">Frá núverandi notanda</string>
+    <string name="autoupload_delete_uploaded_all_dialog_description">Allar skrárnar sem þegar hafa verið sendar inn á tölvuský verða fjarlægðar af þessu tæki fyrir allar möppur sjálfvirkrar innsendingar frá öllum uppsettum notendum</string>
+    <string name="autoupload_delete_uploaded_all_dialog_title">Eyða staðværum innsendum skrám fyrir allar möppur sjálfvirkrar innsendingar</string>
+    <string name="autoupload_delete_uploaded_dialog_description">Allar skrárnar sem þegar hafa verið sendar inn á tölvuský verða fjarlægðar af þessu tæki</string>
+    <string name="autoupload_delete_uploaded_dialog_title">Eyða staðværum innsendum skrám</string>
+    <string name="autoupload_delete_uploaded_notif_ended_content">Losaði %1$s með að fjarlægja %2$s yfir %3$s frá %4$s.</string>
+    <string name="autoupload_delete_uploaded_notif_ended_title">Eyddi staðværum þegar innsendum skrám</string>
+    <string name="autoupload_delete_uploaded_notif_error_title">Tókst ekki að eyða staðværum þegar innsendum skrám</string>
+    <string name="autoupload_delete_uploaded_notif_started_title">Byrjaði að eyða staðværum þegar innsendum skrám í bakgrunni</string>
+    <string name="autoupload_delete_uploaded_notif_ticker">Eyðing staðværra skráa</string>
     <string name="autoupload_disable_power_save_check">Gera orkusparnaðarprófun óvirka</string>
     <string name="autoupload_hide_folder">Fela möppu</string>
     <string name="avatar">Auðkennismynd</string>
@@ -367,12 +387,32 @@
     <string name="e2e_not_yet_setup">Ekki búið að setja upp E2E</string>
     <string name="e2e_offline">Ekki mögulegt án internettengingar</string>
     <string name="e2e_signature_does_not_match">Undirritanir samsvara ekki</string>
+    <string name="e2e_signature_is_empty">Tókst ekki að sannreyna lýsigögn, undirritun er auð.</string>
     <string name="ecosystem_apps_display_assistant">Meðhjálpari</string>
     <string name="ecosystem_apps_display_more">Meira</string>
     <string name="ecosystem_apps_more">Fleiri Nextcloud-forrit</string>
+    <string name="editor_web_view_cannot_open_file">Tókst ekki að opna skráaval</string>
     <string name="email_pick_failed">Mistókst að velja tölvupóstfang.</string>
+    <string name="empty_albums_message">Þú getur skipulagt allar myndirnar þínar í eins mörgum albúmum og þú kýst. Þú hefur enn ekki útbúið nein albúm.</string>
+    <string name="empty_albums_title">Útbúðu albúm fyrir myndirnar þínar</string>
     <string name="encrypted">Setja sem dulritað</string>
+    <string name="encryption_encrypt_check_failed">Gat ekki athugað dulritunarlyklana þína. Prófaðu að dulrita möppuna aftur.</string>
+    <string name="encryption_encrypt_no_network">Tókst ekki að ná sambandi við netþjóninn. Prófaðu aftur síðar að dulrita möppuna.</string>
+    <string name="encryption_encrypt_unavailable">Tókst ekki að dulrita þessa möppu. Enda-í-enda dulritun er ekki sett upp á þessum netþjóni.</string>
+    <string name="encryption_key_checking_keys">Athuga dulritunarlykla…</string>
+    <string name="encryption_key_handle_folder_read_only_description">Dulritunarlyklar þessa aðgangs hafa verið fjarlægðir eða þeim skipt út, þannig að ekki er lengur hægt að afkóða innihald þessarar möppu. \n\nMappan er héðan í frá einungis lesanleg. Til að nota dulritaðar möppur aftur, þá skaltu taka öryggisafrit af þessari möppu og setja upp nýja dulritunarlykilinn þinn í stillingunum.</string>
+    <string name="encryption_key_handle_key_keys_only_on_device_description">Dulritunarlykillinn sem geymdur er á tækinu er ekki lengur gildur. Lyklar hafa verið afturkallaðir af netþjóninum. \n\nFjarlægðu dulritun staðvært í stillingunum til að búa til nýja dulritaða möppu.</string>
+    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">Dulritunarlykillinn sem geymdur er á tækinu er ekki lengur gildur. Lyklar hafa verið afturkallaðir af netþjóninum. \n\nTaktu öryggisafrit af áður útbúinni dulritaðri möppu. \n\nFjarlægðu síðan dulritun staðvært í stillingunum til að búa til nýja dulritaða möppu.</string>
     <string name="encryption_key_handle_key_removed_title">Dulritunarlyklar breyttust</string>
+    <string name="encryption_key_handle_no_keys_description">Tókst ekki að opna þessa möppu því dulritunarlyklar hennar eru ekki lengur til staðar á þessu tæki eða á netþjóninum.</string>
+    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">Dulritunarlyklar þessa notandaaðgangs voru fjarlægðir eða þeim skipt út.\n\nSettu upp nýja dulritunarlykilinn þinn í stillingunum áður en þú dulritar möppu.</string>
+    <string name="encryption_new_folder_check_failed">Gat ekki athugað dulritunarlyklana þína. Prófaðu aftur að búa til möppuna.</string>
+    <string name="encryption_new_folder_no_network">Tókst ekki að ná sambandi við netþjóninn. Prófaðu aftur síðar að búa til möppuna.</string>
+    <string name="encryption_new_folder_unavailable">Tókst ekki að búa til dulritaðar möppur. Enda-í-enda dulritun er ekki sett upp á þessum netþjóni.</string>
+    <string name="encryption_open_check_failed">Gat ekki athugað dulritunarlyklana þína. Prófaðu aftur að opna möppuna.</string>
+    <string name="encryption_open_key_mismatch">Dulritunarlykillinn sem geymdur er á tækinu samsvarar ekki lyklinum sem nauðsynlegur er fyrir þessa möppu.</string>
+    <string name="encryption_open_no_network">Tókst ekki að ná sambandi við netþjóninn. Prófaðu aftur síðar að opna möppuna.</string>
+    <string name="encryption_open_unavailable">Tókst ekki að opna þessa möppu. Enda-í-enda dulritun er ekki sett upp á þessum netþjóni.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Tókst ekki að ná í skilríki þjónsins</string>
     <string name="end_to_end_encryption_certificate_verification_failed">Mistókst að sannreyna dreifilykil</string>
     <string name="end_to_end_encryption_confirm_button">Setja upp dulritun</string>
@@ -442,9 +482,11 @@
     <string name="extented_list_fragment_empty_list_message_no_write_permission">Þú hefur ekki réttindi til að búa til eða senda inn skrár í þessari möppu.</string>
     <string name="external_shares">Utanaðkomandi sameignir</string>
     <string name="fab_label">Bæta við eða senda inn</string>
+    <string name="failed_to_create_conflict_dialog">Mistókst að búa til árekstraglugga</string>
     <string name="failed_to_download">Mistókst að senda skrá í niðurhalsstýringu</string>
     <string name="failed_to_load_tags">Mistókst að hlaða inn merkjum</string>
     <string name="failed_to_print">Mistókst að prenta skrá</string>
+    <string name="failed_to_start_action">Mistókst að ræsa aðgerð!</string>
     <string name="failed_to_start_editor">Mistókst að ræsa ritil</string>
     <string name="failed_update_ui">Mistókst að uppfæra viðmótið</string>
     <string name="favorite">Bæta í eftirlæti</string>
@@ -458,6 +500,7 @@
     <string name="file_detail_sharing_fragment_no_contact_app_message">Ekkert forrit tiltækt til að velja tengiliði</string>
     <string name="file_details_no_content">Mistókst að hlaða inn ítarupplýsingum</string>
     <string name="file_icon">Skrá</string>
+    <string name="file_info_governance_section_title">Stjórnunarhættir</string>
     <string name="file_info_image_details_section_title">Nánar um mynd</string>
     <string name="file_keep">Halda</string>
     <string name="file_list_empty">Sendu inn eitthvað efni eða samstilltu við tækin þín!</string>
@@ -544,6 +587,9 @@
     <string name="folder_best_viewed_in">Þessa möppu er best að skoða í %1$s.</string>
     <string name="folder_confirm_create">Búa til</string>
     <string name="folder_download_counter">%1$d af %2$d &#183; %3$s</string>
+    <string name="folder_download_error_notification_title">Villa kom upp við samstillingu á %s möppunni</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">Ekki nóg diskpláss, hætt við samstillingu</string>
+    <string name="folder_download_success_notification_title">%s mappa samstillt</string>
     <string name="folder_download_worker_ticker_id">Samstilli…</string>
     <string name="folder_list_empty_headline">Engar möppur hér</string>
     <string name="folder_name_empty">Möppuheiti má ekki vera tómt</string>
@@ -596,6 +642,7 @@
     <string name="instant_upload_existing">Senda líka inn fyrirliggjandi skrár</string>
     <string name="instant_upload_on_charging">Einungis senda inn þegar verið er að hlaða</string>
     <string name="instant_upload_path">/BeinInnsending</string>
+    <string name="internal_share_description_end_to_end_encrypted">Viðtakendur sameigna eru alltaf með aðgang að allri dulrituðu möppunni. Henni er aðeins hægt að deila með aðgöngum sem þegar hafa sett upp enda-í-enda dulritun.</string>
     <string name="internal_share_headline_end_to_end_encrypted">Enda-í-enda dulritaðar sameignir</string>
     <string name="internal_shares">Innri sameignir</string>
     <string name="internal_two_way_sync">Innbyggð tvíátta samstilling</string>
@@ -634,6 +681,9 @@
     <string name="logs_status_not_filtered">Atvikaskráning: %1$d kB, engin sía</string>
     <string name="logs_title">Aðgerðaskrár</string>
     <string name="maintenance_mode">Þjónn er í viðhaldsham</string>
+    <string name="manage_space_auto_upload_clear_data">Eyða staðværum sjálfvirkt innsendum skrám</string>
+    <string name="manage_space_auto_upload_description">Öllum skrám sem þegar er búið að senda inn á netþjóninn úr möppunni fyrir sjálfvirkt innsendar skrár verður eytt staðvært til að losa um pláss á tækinu.\n\nÞetta ferli getur tekið drjúga stund.</string>
+    <string name="manage_space_auto_upload_title">Eyða staðværum sjálfvirkt innsendum skrám</string>
     <string name="manage_space_clear_data">Hreinsa gögn</string>
     <string name="manage_space_description">Stillingum, gagnagrunni og skilríkjum vefþjóns úr gögnum %1$s verður eytt endanlega. \n\nSóttar skrár verða ekki snertar.\n\nÞetta ferli getur tekið drjúga stund.</string>
     <string name="manage_space_title">Sýsla með geymslurými</string>
@@ -693,6 +743,8 @@
     <string name="notification_action_failed">Mistókst að framkvæma aðgerð.</string>
     <string name="notification_channel_background_operations_description">Birta tilkynningar til að meðhöndla niðurstöður bakgrunnsaðgerða</string>
     <string name="notification_channel_background_operations_name">Bakgrunnsaðgerðir</string>
+    <string name="notification_channel_content_observer_description">Greinir staðværar breytingar skráa</string>
+    <string name="notification_channel_content_observer_name_short">Efniseftirlit</string>
     <string name="notification_channel_download_description">Sýnir framvindu niðurhals</string>
     <string name="notification_channel_download_name_short">Sótt gögn</string>
     <string name="notification_channel_file_sync_description">Sýnir framvindu og niðurstöður samstillingar skráa</string>
@@ -732,6 +784,7 @@
     <string name="overflow_menu">Valmynd með fleiru</string>
     <string name="pass_code_configure_your_pass_code">Settu inn lykilkóða</string>
     <string name="pass_code_enter_pass_code">Settu inn lykilkóðann þinn</string>
+    <string name="pass_code_explanation">Beðið verður um lykilkóðann í hvert skipti sem forritið er opnað eða opnað aftur eftir 5 sekúndur.</string>
     <string name="pass_code_mismatch">Lykilkóðarnir eru ekki eins</string>
     <string name="pass_code_reenter_your_pass_code">Settu aftur inn lykilkóðann þinn</string>
     <string name="pass_code_remove_your_pass_code">Eyða aðgangskóðanum þínum</string>
@@ -760,6 +813,7 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Endurnefna nýja útgáfu</string>
     <string name="pref_instant_name_collision_policy_title">Hvað á að gera ef skráin er þegar til staðar?</string>
     <string name="prefs_add_account">Bæta við notandaaðgangi</string>
+    <string name="prefs_all_files_access_summary">Leyfa forritinu aðgang til að stjórna öllum skrám á tækinu þínu</string>
     <string name="prefs_all_files_access_title">Aðgangur að öllum skrám</string>
     <string name="prefs_calendar_contacts">Samstilla dagatal og tengiliði</string>
     <string name="prefs_calendar_contacts_no_store_error">Hvorki F-Droid né Google Play eru uppsett</string>
@@ -804,6 +858,8 @@
     <string name="prefs_manage_accounts">Sýsla með notendaaðganga</string>
     <string name="prefs_recommend">Mæla með við vin</string>
     <string name="prefs_remove_e2e">Fjarlægja staðværa dulritun</string>
+    <string name="prefs_remove_e2e_keys_and_files">Fjarlægja dulritaðar skrár og dulritunarlykla</string>
+    <string name="prefs_renew_e2e_certificate">Endurnýja skilríki dulritunar</string>
     <string name="prefs_setup_e2e">Setja upp enda-í-enda dulritun</string>
     <string name="prefs_show_ecosystem_apps">Sýna forritaskipti</string>
     <string name="prefs_show_ecosystem_apps_summary">Tillögur Nextcloud-forrita í flakkfyrirsögn</string>
@@ -844,6 +900,8 @@
     <string name="remote_file_fetch_failed">Mistókst að finna skrá!</string>
     <string name="remove">Fjarlægja</string>
     <string name="remove_e2e">Þú getur fjarlægt staðværa enda-í-enda dulritun úr þessu forriti</string>
+    <string name="remove_e2e_keys_and_files_dialog_warning">Þessi aðgerð mun fjarlægja allar dulritaðar skrár, einkalykla og dreifilykla. Ertu viss?
+</string>
     <string name="remove_e2e_message">Þú getur fjarlægt staðværa enda-í-enda dulritun úr þessu forriti. Dulrituðu skrárnar munu haldast á netþjóninum, en verða ekki lengur samstilltar við þessa tölvu.</string>
     <string name="remove_fail_msg">Mistókst að eyða</string>
     <string name="remove_local_account">Fjarlægja staðværan aðgang</string>
@@ -856,6 +914,12 @@
     <string name="rename_dialog_title">Settu inn nýtt nafn</string>
     <string name="rename_local_fail_msg">Gat endurnefnt staðvært afrit, prófaðu annað heiti</string>
     <string name="rename_server_fail_msg">Ekki hægt að endurnefna, heitið er frátekið</string>
+    <string name="renew_e2e_certificate_dialog_message">Þetta mun endurnýja skilríki þitt fyrir enda-í-enda dulritun. Fyrirliggjandi dulritunarlyklar og dulritaðar skrár haldast óbreytt. Halda áfram?</string>
+    <string name="renew_e2e_certificate_error">Tókst ekki að endurnýja skilríki dulritunar</string>
+    <string name="renew_e2e_certificate_private_key_missing">Einkalykill dulritunar fannst ekki</string>
+    <string name="renew_e2e_certificate_success">Skilríki dulritunar endurnýjað</string>
+    <string name="renew_e2e_certificate_summary">Endurnýjaðu skilríki þitt fyrir enda-í-enda dulritun en haltu áfram í fyrirliggjandi dulritunarlykla</string>
+    <string name="renew_e2e_certificate_valid_until">Gildir til %1$s. Ýttu til að endurnýja en halda í fyrirliggjandi dulritunarlykla.</string>
     <string name="request_account_deletion">Biðja um að aðgangi sé eytt</string>
     <string name="request_account_deletion_button">Biðja um eyðingu</string>
     <string name="request_account_deletion_details">Biðja um endanlega eyðingu aðgangs hjá þjónustuveitu</string>
@@ -1002,6 +1066,8 @@
     <string name="storage_movies">Kvikmyndir</string>
     <string name="storage_music">Tónlist</string>
     <string name="storage_permission_all_files_access">Aðgangur að öllum skrám</string>
+    <string name="storage_permission_banner_auto_upload_text">Heimild um aðgang að geymslurými er nauðsynleg fyrir sjálfvirkar innsendingar.</string>
+    <string name="storage_permission_banner_upload_text">Heimild um aðgang að geymslurými er nauðsynleg fyrir innsendingar skráa.</string>
     <string name="storage_permission_dont_ask">Ekki spyrja</string>
     <string name="storage_permission_media_read_only">Skrifvarinn gagnamiðill</string>
     <string name="storage_pictures">Ljósmyndir</string>
@@ -1022,6 +1088,7 @@
     <string name="subtitle_videos_only">Einungis myndskeið</string>
     <string name="suggest">Stinga upp á</string>
     <string name="sync">Samstilla</string>
+    <string name="sync_all_action_dialog_description">Allar umluktar skrár og möppur verða sóttar. Þetta gæti krafist umtalsverðs geymslurýmis og tekið drjúgan tíma sem fer eftir tengingunni þinni.</string>
     <string name="sync_all_action_dialog_title">Samstilla alla möppuna?</string>
     <string name="sync_anyway">Samstilla samt</string>
     <string name="sync_conflict_notification_action_title">Leysa árekstra</string>
@@ -1087,6 +1154,7 @@
     <string name="unified_search_fragment_contact_not_found">Tengiliður fannst ekki, þú getur alltaf samstillt til að uppfæra. Endurbeini á vefinn…</string>
     <string name="unified_search_fragment_permission_needed">Krafist er heimilda til að opna leitarniðurstöður, annars mun þessu verða endurbeint á vefinn…</string>
     <string name="unified_search_fragment_search_in_this_folder">Í þessari möppu</string>
+    <string name="unified_search_fragment_search_takes_long">Leit er að taka lengri tíma en venjulega. Niðurstöður munu birtast um leið og netþjónninn svarar</string>
     <string name="unknown">Óþekkt</string>
     <string name="unlock_file">Aflæsa skrá</string>
     <string name="unread_comments">Ólesnar athugasemdir eru fyrirliggjandi</string>
@@ -1140,6 +1208,7 @@
     <string name="upload_missing_storage_permission_app_permissions">Heimildir forrits</string>
     <string name="upload_missing_storage_permission_description">Ekki er hægt að senda inn skrárnar þínar án aðgangs að gagnageymslu á tækinu. Ýttu til að gefa heimild.</string>
     <string name="upload_missing_storage_permission_title">Innsending stöðvuð - Krafist heimildar til aðgangs að gagnageymslu</string>
+    <string name="upload_notification_manager_content_intent_description">Þú getur fjarlægt eða haldið áfram með þetta í innsendingarglugganum</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Dulritun er aðeins möguleg með &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Ónógt pláss hamlar því að hægt sé að afrita valdar skrár í %1$s möppuna. Viltu færa þær þangað í staðinn?</string>
@@ -1176,7 +1245,7 @@
     <string name="uploader_upload_forbidden_permissions">til að senda inn í þessa möppu</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Sendi inn %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Sendi inn…</string>
-    <string name="uploader_upload_succeeded_content_single">%1$s var sent inn!</string>
+    <string name="uploader_upload_succeeded_content_single">%1$s var sent inn</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Hætta</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Uppsetning</string>
     <string name="uploader_wrn_no_account_text">Það eru engir %1$s aðgangar á tækinu þínu. Settu fyrst upp notandaaðgang.</string>
@@ -1215,6 +1284,7 @@
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Vefsvæði</string>
     <string name="user_information_retrieval_error">Villa við að sækja upplýsingar um notanda</string>
+    <string name="user_information_retrieval_error_message">Yfirfarðu internettenginguna þína eða athugaðu stöðuna á netþjóninum</string>
     <string name="userinfo_no_info_headline">Engar persónulegar upplýsingar stilltar</string>
     <string name="userinfo_no_info_text">Bættu nafni, mynd og tengiliðaupplýsingum á forsíðuna þína.</string>
     <string name="username">Notandanafn</string>
@@ -1224,6 +1294,7 @@
     <string name="wait_checking_credentials">Athuga geymd auðkenni</string>
     <string name="wait_for_tmp_copy_from_private_storage">Afrita skrá úr einkageymslu</string>
     <string name="warn_rename_extension">Sé skráarendingunni breytt gæti þessi skrá opnast með öðru forriti</string>
+    <string name="webview_not_available">Android System WebView vantar eða er óvirkt á þessu tæki</string>
     <string name="what_s_new_image">Mynd fyrir \'Hvað er nýtt\'</string>
     <string name="whats_new_skip">Sleppa</string>
     <string name="whats_new_title">Nýtt í %1$s</string>
@@ -1234,6 +1305,14 @@
     <string name="write_email">Senda tölvupóst</string>
     <string name="wrong_storage_path">Gagnageymslumappa er ekki til!</string>
     <string name="wrong_storage_path_desc">Þetta gæti verið af völdum endurheimtingar öryggisafrits á öðru tæki. Nota sjálfgefna varaleið. Athugaðu stillingarnar hvort þurfi að laga geymslumöppu gagna.</string>
+    <plurals name="album_items_text">
+        <item quantity="one">%1$d atriði — %2$s</item>
+        <item quantity="other">%1$d atriði — %2$s</item>
+    </plurals>
+    <plurals name="album_elements_text">
+        <item quantity="one">%d atriði</item>
+        <item quantity="other">%d atriði</item>
+    </plurals>
     <plurals name="hours">
         <item quantity="one">%d klukkustund</item>
         <item quantity="other">%d klukkustundir</item>
@@ -1290,6 +1369,10 @@
         <item quantity="one">Flutti út %d skrá, sleppti afgangnum vegna villu</item>
         <item quantity="other">Flutti út %d skrár, sleppti afgangnum vegna villu</item>
     </plurals>
+    <plurals name="file_upload_limit_message">
+        <item quantity="one">Þú getur sent inn allt að %d skrá í einu.</item>
+        <item quantity="other">Þú getur sent inn allt að %d skrár í einu.</item>
+    </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d mappa</item>
         <item quantity="other">%1$d möppur</item>
@@ -1309,6 +1392,30 @@
     <plurals name="items_selected_count">
         <item quantity="one">%d valið</item>
         <item quantity="other">%d valið</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_files">
+        <item quantity="one">%d skrá</item>
+        <item quantity="other">%d skrár</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_folders">
+        <item quantity="one">%d mappa</item>
+        <item quantity="other">%d möppur</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_users">
+        <item quantity="one">%d notandi</item>
+        <item quantity="other">%d notendur</item>
+    </plurals>
+    <plurals name="passcode_delay_seconds">
+        <item quantity="one">Prófaðu aftur eftir %d sekúndu vegna of margra rangra tilrauna</item>
+        <item quantity="other">Prófaðu aftur eftir %d sekúndur vegna of margra rangra tilrauna</item>
+    </plurals>
+    <plurals name="passcode_delay_minutes">
+        <item quantity="one">Prófaðu aftur eftir %d mínútu vegna of margra rangra tilrauna</item>
+        <item quantity="other">Prófaðu aftur eftir %d mínútur vegna of margra rangra tilrauna</item>
+    </plurals>
+    <plurals name="passcode_delay_minutes_seconds">
+        <item quantity="one">Prófaðu aftur eftir %1$d mínútu og %2$dsekúndur vegna of margra rangra tilrauna</item>
+        <item quantity="other">Prófaðu aftur eftir %1$d mínútur og %2$d sekúndur vegna of margra rangra tilrauna</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d niðurhal eftir</item>

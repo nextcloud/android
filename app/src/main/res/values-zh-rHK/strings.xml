@@ -35,9 +35,22 @@
     <string name="add_new_secure_file_drop">新增安全檔案投遞箱</string>
     <string name="add_to_album">添加至相簿</string>
     <string name="add_to_cloud">添加到 %1$s </string>
+    <string name="album_already_exists">相簿已存在</string>
+    <string name="album_copy_file_conflict">已存在。</string>
+    <string name="album_create_new_link">建立新連結</string>
+    <string name="album_default_sharing_text">所有人只能檢視</string>
     <string name="album_delete">刪除相簿</string>
+    <string name="album_delete_failed_message">部分檔案刪除失敗。</string>
+    <string name="album_file_added_message">已成功新增檔案</string>
+    <string name="album_name_empty">相簿名稱不能留空</string>
+    <string name="album_picker_toolbar_title">選擇相簿</string>
+    <string name="album_rename">重新命名相簿</string>
     <string name="album_rename_conflict">這個用戶名稱已經有人使用了。</string>
     <string name="album_share">分享相簿</string>
+    <string name="album_share_link">分享相簿連結</string>
+    <string name="album_stop_sharing">停止分享</string>
+    <string name="album_unsupported_file">不支援的媒體</string>
+    <string name="album_upload_from_account">從帳戶選擇影像</string>
     <string name="app_config_base_url_title">基礎 URL</string>
     <string name="app_config_disable_clipboard_title">停用剪貼板</string>
     <string name="app_config_disable_intro_title">停用簡介</string>
@@ -128,11 +141,27 @@
     <string name="auto_upload_on_wifi">僅在未計量的Wi-Fi上傳</string>
     <string name="auto_upload_path">自動上傳</string>
     <string name="auto_upload_sub_folder_warning">此資料夾已包含在父資料夾的同步中，這可能會導致重複上傳</string>
+    <string name="auto_upload_sync_now_action">立即同步</string>
+    <string name="auto_upload_sync_now_no_folder">尚未設定自動上載資料夾</string>
+    <string name="auto_upload_sync_now_running">自動上載已在執行</string>
+    <string name="auto_upload_sync_now_started">自動上載已開始</string>
     <string name="auto_upload_wifi_only_warning_info">等待 Wi-Fi 開始上傳</string>
     <string name="auto_upload_worker_start_text">正從 %1$s 上傳檔案至 %2$s</string>
     <string name="autoupload_configure">設定</string>
     <string name="autoupload_create_new_custom_folder">新增自訂資料夾</string>
     <string name="autoupload_custom_folder">設定自訂資料夾</string>
+    <string name="autoupload_delete_uploaded">從裝置刪除已上載的檔案</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_all_users">來自所有用戶</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_current_user">來自目前用戶</string>
+    <string name="autoupload_delete_uploaded_all_dialog_description">所有已上載至雲端的檔案，將從所有已設定用戶的所有自動上載資料夾中於目前裝置刪除</string>
+    <string name="autoupload_delete_uploaded_all_dialog_title">從裝置刪除所有自動上載資料夾中已上載的檔案</string>
+    <string name="autoupload_delete_uploaded_dialog_description">所有已上載至雲端的檔案將從目前裝置刪除</string>
+    <string name="autoupload_delete_uploaded_dialog_title">從裝置刪除已上載的檔案</string>
+    <string name="autoupload_delete_uploaded_notif_ended_content">已釋放 %1$s，從 %4$s 的 %3$s 中移除了 %2$s。</string>
+    <string name="autoupload_delete_uploaded_notif_ended_title">已從裝置刪除已上載的檔案</string>
+    <string name="autoupload_delete_uploaded_notif_error_title">無法從裝置刪除已上載的檔案</string>
+    <string name="autoupload_delete_uploaded_notif_started_title">已開始在背景從裝置刪除已上載的檔案</string>
+    <string name="autoupload_delete_uploaded_notif_ticker">刪除本機檔案</string>
     <string name="autoupload_disable_power_save_check">停用省電功能</string>
     <string name="autoupload_hide_folder">隱藏資料夾</string>
     <string name="avatar">虛擬化身</string>
@@ -215,7 +244,9 @@
     <string name="configure_new_media_folder_detection_notifications">設定</string>
     <string name="confirm_removal">移除近端加密</string>
     <string name="confirmation_remove_file_alert">你真的想要刪除 %1$s？</string>
+    <string name="confirmation_remove_file_from_album_message">確定要從相簿移除檔案 %1$s 嗎？</string>
     <string name="confirmation_remove_files_alert">您真的想要刪除所選的項目嗎？</string>
+    <string name="confirmation_remove_files_from_album_message">確定要從相簿移除所選檔案嗎？</string>
     <string name="confirmation_remove_folder_alert">你真的想要刪除 %1$s 與裡面的檔案？</string>
     <string name="confirmation_remove_folders_alert">您真的想要刪除所選項目和裡面的內容嗎？</string>
     <string name="confirmation_remove_local">只有近端</string>
@@ -254,6 +285,7 @@
     <string name="could_not_retrieve_shares">無法從雲端取得共用</string>
     <string name="could_not_retrieve_url">不能取得網址</string>
     <string name="create">建立</string>
+    <string name="create_album_dialog_message">輸入新的相簿名稱</string>
     <string name="create_album_dialog_title">新相簿</string>
     <string name="create_dir_fail_msg">無法新增資料夾</string>
     <string name="create_document">文件</string>
@@ -271,6 +303,7 @@
     <string name="create_presentation">簡報</string>
     <string name="create_rich_workspace">添加資料夾描述</string>
     <string name="create_spreadsheet">試算表</string>
+    <string name="create_tag_format">建立標籤：「%1$s」</string>
     <string name="credentials_disabled">認證方式已取消</string>
     <string name="daily_backup">每日備份</string>
     <string name="data_to_back_up">要備份的數據</string>
@@ -359,7 +392,26 @@
     <string name="ecosystem_apps_more">更多 Nextcloud 應用程式</string>
     <string name="editor_web_view_cannot_open_file">無法開啟檔案選取程式</string>
     <string name="email_pick_failed">無法挑選電郵地址。</string>
+    <string name="empty_albums_message">你可以建立任意數量的相簿來整理所有相片。你尚未建立任何相簿。</string>
+    <string name="empty_albums_title">為你的相片建立相簿</string>
     <string name="encrypted">設為已加密的</string>
+    <string name="encryption_encrypt_check_failed">無法檢查你的加密金鑰。請嘗試再次加密資料夾。</string>
+    <string name="encryption_encrypt_no_network">無法連接伺服器。請稍後再次嘗試加密資料夾。</string>
+    <string name="encryption_encrypt_unavailable">無法加密此資料夾。此伺服器尚未設定端對端加密。</string>
+    <string name="encryption_key_checking_keys">正在檢查金鑰…</string>
+    <string name="encryption_key_handle_folder_read_only_description">此帳戶的加密金鑰已被移除或取代，因此無法再解密此資料夾的內容。\n\n此資料夾由現在起將變為唯讀。如要再次使用加密資料夾，請先備份此資料夾，然後在設定中設定新的加密金鑰。</string>
+    <string name="encryption_key_handle_key_keys_only_on_device_description">儲存在此裝置上的加密金鑰已不再有效。伺服器已撤銷該金鑰。\n\n請在設定中移除本機加密設定，以建立新的加密資料夾。</string>
+    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">儲存在此裝置上的加密金鑰已不再有效。伺服器已撤銷該金鑰。\n\n請先備份先前建立的加密資料夾。\n\n然後在設定中移除本機加密設定，以建立新的加密資料夾。</string>
+    <string name="encryption_key_handle_key_removed_title">加密密鑰已更改</string>
+    <string name="encryption_key_handle_no_keys_description">無法開啟此資料夾，因為其加密金鑰已不存在於此裝置或伺服器上。</string>
+    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">此帳戶的加密金鑰已被移除或取代。\n\n請先在設定中設定新的加密金鑰，然後才加密資料夾。</string>
+    <string name="encryption_new_folder_check_failed">無法檢查你的加密金鑰。請嘗試再次建立資料夾。</string>
+    <string name="encryption_new_folder_no_network">無法連接伺服器。請稍後再次嘗試建立資料夾。</string>
+    <string name="encryption_new_folder_unavailable">無法建立加密資料夾。此伺服器尚未設定端對端加密。</string>
+    <string name="encryption_open_check_failed">無法檢查你的加密金鑰。請嘗試再次開啟資料夾。</string>
+    <string name="encryption_open_key_mismatch">儲存在此裝置上的加密金鑰與此資料夾所需的金鑰不相符。</string>
+    <string name="encryption_open_no_network">無法連接伺服器。請稍後再次嘗試開啟資料夾。</string>
+    <string name="encryption_open_unavailable">無法開啟此資料夾。此伺服器尚未設定端對端加密。</string>
     <string name="end_to_end_encryption_certificate_unavailable">無法擷取伺服器證書</string>
     <string name="end_to_end_encryption_certificate_verification_failed">無法驗證公鑰</string>
     <string name="end_to_end_encryption_confirm_button">設定加密</string>
@@ -628,6 +680,9 @@
     <string name="logs_status_not_filtered">記錄檔： %1$d kB（不篩選）</string>
     <string name="logs_title">紀錄檔</string>
     <string name="maintenance_mode">伺服器正處於維護模式</string>
+    <string name="manage_space_auto_upload_clear_data">從裝置刪除自動上載的檔案</string>
+    <string name="manage_space_auto_upload_description">所有已從「自動上載」資料夾上載至伺服器的檔案都會從裝置刪除，以釋放裝置空間。\n\n此程序可能需時一段時間。</string>
+    <string name="manage_space_auto_upload_title">從裝置刪除自動上載的檔案</string>
     <string name="manage_space_clear_data">清除資料</string>
     <string name="manage_space_description">來自%1$s的設定，數據庫與伺服器憑證相關資料將被永久刪除，已下載的檔案將不會變動，此過程需要花費一些時間。</string>
     <string name="manage_space_title">管理空間</string>
@@ -640,6 +695,7 @@
     <string name="media_err_unsupported">未支援的媒體編碼</string>
     <string name="media_forward_description">快進按鈕</string>
     <string name="media_notif_ticker">%1$s 音樂播放器</string>
+    <string name="media_picker_toolbar_title">選擇媒體檔案</string>
     <string name="media_play_pause_description">播放或暫停按鈕</string>
     <string name="media_player_pause">暫停</string>
     <string name="media_player_play">播放</string>
@@ -851,6 +907,7 @@
     <string name="remove_notification_failed">移除通知失敗</string>
     <string name="remove_push_notification">移除</string>
     <string name="remove_success_msg">已刪除</string>
+    <string name="rename_album_dialog_title">重新命名相簿</string>
     <string name="rename_dialog_button">重新命名</string>
     <string name="rename_dialog_title">輸入新名稱</string>
     <string name="rename_local_fail_msg">無法重新命名近端複本，請試用不同名稱</string>
@@ -1246,6 +1303,12 @@
     <string name="write_email">傳送電子郵件</string>
     <string name="wrong_storage_path">資料儲存資料夾不存在！</string>
     <string name="wrong_storage_path_desc">這可能是由於另一部設備上的備份還原所致。退回默認值。請檢查設置以調整數據存儲資料夾。</string>
+    <plurals name="album_items_text">
+        <item quantity="other">%1$d 個項目 — %2$s</item>
+    </plurals>
+    <plurals name="album_elements_text">
+        <item quantity="other">%d 個項目</item>
+    </plurals>
     <plurals name="hours">
         <item quantity="other">%d 小時</item>
     </plurals>
@@ -1305,6 +1368,15 @@
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="other">已選擇%d個</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_files">
+        <item quantity="other">%d 個檔案</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_folders">
+        <item quantity="other">%d 個資料夾</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_users">
+        <item quantity="other">%d 位用戶</item>
     </plurals>
     <plurals name="passcode_delay_seconds">
         <item quantity="other">由於錯誤嘗試次數過多，請於 %d 秒後再試。</item>
