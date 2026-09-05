@@ -87,6 +87,7 @@ workRuntime = "2.11.2"
 foundationVersion = "1.12.0"
 browserVersion = "1.10.0"
 kotlinxCoroutinesTestVersion = "1.11.0"
+kotlinxCoroutinesVersion = "1.11.0"
 
 [libraries]
 # Crypto
@@ -238,6 +239,8 @@ qrcodescanner = { module = "com.github.nextcloud-deps:qrcodescanner", version.re
 work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRuntime" }
 work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntime" }
 foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "foundationVersion" }
+
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesVersion" }
 
 [bundles]
 media3 = ["media3-ui", "media3-session", "media3-exoplayer", "media3-datasource"]

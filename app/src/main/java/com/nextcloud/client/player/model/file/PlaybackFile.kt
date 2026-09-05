@@ -1,0 +1,23 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2025 STRATO GmbH.
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+package com.nextcloud.client.player.model.file
+
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class PlaybackFile(
+    val id: String,
+    val uri: String,
+    val name: String,
+    val mimeType: String,
+    val contentLength: Long,
+    val lastModified: Long,
+    val isFavorite: Boolean
+) {
+    fun getNameWithoutExtension(): String = name.substringBeforeLast(".")
+}

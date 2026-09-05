@@ -71,7 +71,7 @@ interface FileDao {
             " AND file_owner = :fileOwner" +
             " AND path LIKE :pathPrefix || '%'" +
             " AND (:mimeFilter IS NULL OR content_type LIKE :mimeFilter)" +
-            " ORDER BY modified DESC" +
+            " ORDER BY modified DESC, ${ProviderTableMeta._ID} DESC" +
             " LIMIT :limit OFFSET :offset"
     )
     suspend fun getGalleryItemsPageSuspended(
@@ -168,6 +168,17 @@ interface FileDao {
     """
     )
     suspend fun getFavoriteFiles(fileOwner: String): List<FileEntity>
+
+    @Query(
+        """
+    SELECT * 
+    FROM filelist 
+    WHERE file_owner = :fileOwner 
+      AND favorite = 1
+    ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}
+    """
+    )
+    fun getFavoriteFilesNonBlocking(fileOwner: String): List<FileEntity>
 
     @Query("SELECT remote_id FROM filelist WHERE file_owner = :accountName AND remote_id IS NOT NULL")
     fun getAllRemoteIds(accountName: String): List<String>

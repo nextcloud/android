@@ -110,11 +110,9 @@ import com.owncloud.android.ui.fragment.helper.ParentFolderFinder;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
-import com.owncloud.android.ui.preview.PreviewMediaActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.WebViewUtil;
 import com.owncloud.android.utils.theme.ThemeUtils;
@@ -146,7 +144,6 @@ import kotlin.Unit;
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
 import static com.owncloud.android.ui.fragment.SearchType.FAVORITE_SEARCH;
 import static com.owncloud.android.ui.fragment.SearchType.FILE_SEARCH;
-import static com.owncloud.android.ui.fragment.SearchType.GALLERY_SEARCH;
 import static com.owncloud.android.ui.fragment.SearchType.NO_SEARCH;
 import static com.owncloud.android.ui.fragment.SearchType.RECENT_FILES_SEARCH;
 import static com.owncloud.android.ui.fragment.SearchType.SHARED_FILTER;
@@ -1171,27 +1168,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return;
         }
 
-        if (canPreviewInVirtualFolderPager(file) && mContainerActivity instanceof FileDisplayActivity fda) {
+        if (mContainerActivity instanceof FileDisplayActivity fda && fda.canPreviewInMediaPager(file)) {
             fda.previewImageWithSearchContext(file, searchFragment, currentSearchType);
         } else if (file.isDown() && mContainerActivity instanceof FileDisplayActivity fda) {
             fda.previewFile(file, this::setFabVisible);
         } else {
             handlePendingDownloadFile(file);
         }
-    }
-
-    /**
-     * In a gallery or favorites search the preview pager is built from the whole virtual folder, so a directly
-     * tapped video must open through the same pager as the images.
-     */
-    private boolean canPreviewInVirtualFolderPager(OCFile file) {
-        if (PreviewImageFragment.canBePreviewed(file)) {
-            return true;
-        }
-
-        boolean virtualFolderSearch = searchFragment
-            && (currentSearchType == GALLERY_SEARCH || currentSearchType == FAVORITE_SEARCH);
-        return virtualFolderSearch && MimeTypeUtil.isVideo(file);
     }
 
     private boolean supportsDirectEditing(OCFile file, boolean webViewAvailable) {
@@ -1222,12 +1205,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         boolean webViewAvailable = WebViewUtil.available(getContext());
 
-        if (MimeTypeUtil.isVideo(file) && !file.isEncrypted() && mContainerActivity instanceof FileDisplayActivity fda) {
+        if (!file.isEncrypted() && mContainerActivity instanceof FileDisplayActivity fda && fda.canMediaPreviewed(file)) {
             setFabVisible(false);
-            fda.startImagePreview(file, true, null);
-        } else if (PreviewMediaActivity.Companion.canBePreviewed(file) && !file.isEncrypted() && mContainerActivity instanceof FileDisplayActivity fda) {
-            setFabVisible(false);
-            fda.startMediaPreview(file, 0, true, true, true, true);
+            fda.startMediaPreview(file, true, true);
         } else if (webViewAvailable && editorUtils.getEditor(accountManager.getUser(), file.getMimeType()) != null && !file.isEncrypted()) {
             TextEditorWebView.Companion.startTextEditor(file, getContext());
         } else if (supportsDirectEditing(file, webViewAvailable)) {

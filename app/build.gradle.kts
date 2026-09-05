@@ -526,6 +526,7 @@ dependencies {
 
     // region Kotlin
     implementation(libs.kotlin.stdlib)
+    implementation(libs.kotlinx.coroutines.core)
     // endregion
 
     // region Stateless

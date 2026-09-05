@@ -60,7 +60,7 @@ fun List<OCFile>.toGalleryItems(columns: Int, defaultSize: Int): List<GalleryIte
     if (isEmpty()) return emptyList()
 
     val calendar = Calendar.getInstance()
-    return groupBy {
+    return distinctBy { it.fileId }.groupBy {
         calendar.timeInMillis = it.modificationTimestamp
         calendar.set(Calendar.DAY_OF_MONTH, 1)
         calendar.set(Calendar.HOUR_OF_DAY, 0)
