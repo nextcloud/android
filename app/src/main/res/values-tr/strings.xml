@@ -35,10 +35,22 @@
     <string name="add_new_secure_file_drop">Yeni güvenli dosya bırakma ekle</string>
     <string name="add_to_album">Albüme ekle</string>
     <string name="add_to_cloud">%1$s üzerine ekle</string>
+    <string name="album_already_exists">Albüm zaten var</string>
+    <string name="album_copy_file_conflict">Zaten var.</string>
+    <string name="album_create_new_link">Yeni bağlantı oluştur</string>
+    <string name="album_default_sharing_text">Herkes yalnızca görüntüleyebilir</string>
     <string name="album_delete">Albümü sil</string>
+    <string name="album_delete_failed_message">Birkaç dosya silinemedi.</string>
+    <string name="album_file_added_message">Dosya eklendi</string>
+    <string name="album_name_empty">Albüm adı boş olamaz</string>
+    <string name="album_picker_toolbar_title">Albüm seçin</string>
+    <string name="album_rename">Albümü yeniden adlandır</string>
     <string name="album_rename_conflict">Bu ad zaten kullanılıyor.</string>
     <string name="album_share">Albümü paylaş</string>
+    <string name="album_share_link">Albüm bağlantısını paylaş</string>
     <string name="album_stop_sharing">Paylaşımı durdur</string>
+    <string name="album_unsupported_file">Ortam desteklenmiyor</string>
+    <string name="album_upload_from_account">Hesaptan görseller seçin</string>
     <string name="app_config_base_url_title">Temel adres</string>
     <string name="app_config_disable_clipboard_title">Pano kullanılmasın</string>
     <string name="app_config_disable_intro_title">Giriş kullanılmasın</string>
@@ -138,6 +150,18 @@
     <string name="autoupload_configure">Yapılandır</string>
     <string name="autoupload_create_new_custom_folder">Özel klasör kurulumu oluştur</string>
     <string name="autoupload_custom_folder">Bir özel klasör kurun</string>
+    <string name="autoupload_delete_uploaded">Yüklenmiş dosyaları yerel olarak sil</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_all_users">Tüm kullanıcılardan</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_current_user">Geçerli kullanıcıdan</string>
+    <string name="autoupload_delete_uploaded_all_dialog_description">Geçerli aygıt üzerinde buluta zaten yüklenmiş tüm dosyalar, yapılandırılmış tüm kullanıcıların tüm otomatik yükleme klasörlerinden kaldırılacak.</string>
+    <string name="autoupload_delete_uploaded_all_dialog_title">Tüm otomatik yükleme klasörlerindeki yüklenmiş dosyalar yerel olarak silinsin</string>
+    <string name="autoupload_delete_uploaded_dialog_description">Buluta yüklenmiş tüm dosyalar geçerli aygıttan kaldırılacak</string>
+    <string name="autoupload_delete_uploaded_dialog_title">Yüklenmiş dosyaları yerel olarak sil</string>
+    <string name="autoupload_delete_uploaded_notif_ended_content">%1$s boşaltıldı %2$s kaldırıldı %3$s boyunca %4$s üzerinden.</string>
+    <string name="autoupload_delete_uploaded_notif_ended_title">Zaten yüklenmiş dosyalar yerel olarak silindi</string>
+    <string name="autoupload_delete_uploaded_notif_error_title">Daha önce yüklenmiş dosyalar yerel olarak silinemedi</string>
+    <string name="autoupload_delete_uploaded_notif_started_title">Zaten yüklenmiş dosyaların yerel olarak silinmesine arka planda başlandı</string>
+    <string name="autoupload_delete_uploaded_notif_ticker">Yerel dosyaları silme</string>
     <string name="autoupload_disable_power_save_check">Güç koruma denetimini kapat</string>
     <string name="autoupload_hide_folder">Klasörü gizle</string>
     <string name="avatar">Avatar</string>
@@ -220,7 +244,9 @@
     <string name="configure_new_media_folder_detection_notifications">Yapılandır</string>
     <string name="confirm_removal">Yerel şifrelemeyi kaldır</string>
     <string name="confirmation_remove_file_alert">%1$s dosyasını silmek istediğinize emin misiniz?</string>
+    <string name="confirmation_remove_file_from_album_message">%1$s dosyasını albümden kaldırmak istediğinize emin misiniz?</string>
     <string name="confirmation_remove_files_alert">Seçilmiş ögeleri silmek istediğinize emin misiniz?</string>
+    <string name="confirmation_remove_files_from_album_message">Seçilmiş dosyaları albümden kaldırmak istediğinize emin misiniz?</string>
     <string name="confirmation_remove_folder_alert">%1$s klasörünü ve içindekileri silmek istediğinize emin misiniz?</string>
     <string name="confirmation_remove_folders_alert">Seçilmiş ögeleri ve içindekileri silmek istediğinize emin misiniz?</string>
     <string name="confirmation_remove_local">Yalnızca yerel</string>
@@ -259,6 +285,7 @@
     <string name="could_not_retrieve_shares">Paylaşımlar alınamadı</string>
     <string name="could_not_retrieve_url">Adres alınamadı</string>
     <string name="create">Oluştur</string>
+    <string name="create_album_dialog_message">Yeni albümünüzün adını yazın</string>
     <string name="create_album_dialog_title">Yeni albüm</string>
     <string name="create_dir_fail_msg">Klasör oluşturulamadı</string>
     <string name="create_document">Belge</string>
@@ -276,6 +303,7 @@
     <string name="create_presentation">Sunum</string>
     <string name="create_rich_workspace">Klasör açıklaması ekle</string>
     <string name="create_spreadsheet">Elektronik tablo</string>
+    <string name="create_tag_format">Etiket oluştur: \"%1$s\"</string>
     <string name="credentials_disabled">Kimlik doğrulama bilgileri kullanılmıyor</string>
     <string name="daily_backup">Günlük yedek</string>
     <string name="data_to_back_up">Yedeklenecek veriler</string>
@@ -364,7 +392,26 @@
     <string name="ecosystem_apps_more">Diğer Nextcloud uygulamaları</string>
     <string name="editor_web_view_cannot_open_file">Dosya seçici açılamadı</string>
     <string name="email_pick_failed">E-posta adresi alınamadı.</string>
+    <string name="empty_albums_message">Tüm fotoğraflarınızı istediğiniz sayıda albümde düzenleyebilirsiniz. Henüz bir albüm oluşturmamışsınız.</string>
+    <string name="empty_albums_title">Fotoğraflarınız için albümler oluşturun</string>
     <string name="encrypted">Şifrelensin</string>
+    <string name="encryption_encrypt_check_failed">Şifreleme anahtarlarınız denetlenemedi. Klasörü yeniden şifrelemeyi deneyin.</string>
+    <string name="encryption_encrypt_no_network">Sunucuya ulaşılamadı. Bir süre sonra klasörü yeniden şifrelemeyi deneyin.</string>
+    <string name="encryption_encrypt_unavailable">Bu klasör şifrelenemedi. Bu sunucuda uçtan uca şifreleme ayarlanmamış.</string>
+    <string name="encryption_key_checking_keys">Anahtarlar denetleniyor…</string>
+    <string name="encryption_key_handle_folder_read_only_description">Bu hesabın şifreleme anahtarları kaldırılmış veya değiştirilmiş. Bu nedenle bu klasörün içeriğinin şifresi artık çözülemez.\n\nKlasör bundan sonra yalnızca okunabilir. Şifrelenmiş klasörleri yeniden kullanmak için bu klasörü yedekleyin ve ayarlardan yeni şifreleme anahtarınızı ayarlayın.</string>
+    <string name="encryption_key_handle_key_keys_only_on_device_description">Bu aygıt üzerinde kayıtlı şifreleme anahtarı artık geçerli değil. Anahtarlar sunucudan geçersiz kılınmış.\n\nYeni şifreleme klasörü oluşturmak için ayarlardan şifrelemeyi yerel olarak kaldırın.</string>
+    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">Bu aygıt üzerinde kayıtlı şifreleme anahtarı artık geçerli değil. Anahtarlar sunucudan geçersiz kılınmış.\n\nDaha önce oluşturulmuş şifrelenmiş klasörü yedekleyin.\n\nArdından, yeni şifreleme klasörü oluşturmak için ayarlardan şifrelemeyi yerel olarak kaldırın.</string>
+    <string name="encryption_key_handle_key_removed_title">Şifreleme anahtarları değiştirildi</string>
+    <string name="encryption_key_handle_no_keys_description">Şifreleme anahtarları artık bu aygıt veya sunucu üzerinde bulunmadığı için bu klasör açılamıyor.</string>
+    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">Bu hesabın şifreleme anahtarları kaldırılmış veya değiştirilmiş.\n\nBir klasörü şifrelemeden önce ayarlardan yeni şifreleme anahtarınızı ayarlayın.</string>
+    <string name="encryption_new_folder_check_failed">Şifreleme anahtarlarınız denetlenemedi. Klasörü yeniden oluşturmayı deneyin.</string>
+    <string name="encryption_new_folder_no_network">Sunucuya ulaşılamadı. Bir süre sonra klasörü yeniden oluşturmayı deneyin.</string>
+    <string name="encryption_new_folder_unavailable">Şifrelenmiş klasörler oluşturulamadı. Bu sunucuda uçtan uca şifreleme ayarlanmamış.</string>
+    <string name="encryption_open_check_failed">Şifreleme anahtarlarınız denetlenemedi. Klasörü yeniden açmayı deneyin.</string>
+    <string name="encryption_open_key_mismatch">Bu aygıt üzerinde kayıtlı şifreleme anahtarı, bu klasör için gereken anahtar ile eşleşmiyor.</string>
+    <string name="encryption_open_no_network">Sunucuya ulaşılamadı. Bir süre sonra klasörü yeniden açmayı deneyin.</string>
+    <string name="encryption_open_unavailable">Bu klasör açılamadı. Bu sunucuda uçtan uca şifreleme ayarlanmamış.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Sunucu sertifikası alınamadı</string>
     <string name="end_to_end_encryption_certificate_verification_failed">Herkese açık anahtar doğrulanamadı</string>
     <string name="end_to_end_encryption_confirm_button">Şifreleme kurulumu</string>
@@ -482,7 +529,7 @@
     <string name="file_list_out_of_memory_description">İçerik yüklenemedi</string>
     <string name="file_list_seconds_ago">saniye önce</string>
     <string name="file_management_permission_optional">Depolama izinleri</string>
-    <string name="file_management_permission_optional_text">%1$s depolamaya erişim izinleriyle en iyi şekilde çalışır. Tüm dosyalara tam erişim ya da fotoğraf ve videolara salt okunur erişim vermeyi seçebilirsiniz.</string>
+    <string name="file_management_permission_optional_text">%1$s depolama alanına erişim izinleriyle en iyi şekilde çalışır. Tüm dosyalara tam erişim ya da fotoğraf ve videolara salt okunur erişim vermeyi seçebilirsiniz.</string>
     <string name="file_migration_allow_media_indexing">Diğer uygulamalardan erişilebilsin</string>
     <string name="file_migration_checking_destination">Hedef denetleniyor …</string>
     <string name="file_migration_cleaning">Temizleniyor …</string>
@@ -633,6 +680,9 @@
     <string name="logs_status_not_filtered">Günlük kayıtları: %1$d kB, süzgeç yok</string>
     <string name="logs_title">Günlükler</string>
     <string name="maintenance_mode">Sunucu bakım kipinde</string>
+    <string name="manage_space_auto_upload_clear_data">Otomatik olarak yüklenmiş dosyaları yerel olarak sil</string>
+    <string name="manage_space_auto_upload_description">Otomatik yükleme klasörlerinden sunucuya zaten yüklenmiş tüm dosyalar, aygıt üzerinde yer açmak için yerel olarak silinecek.\n\nBu işlem biraz zaman alabilir.</string>
+    <string name="manage_space_auto_upload_title">Otomatik olarak yüklenmiş dosyaları yerel olarak sil</string>
     <string name="manage_space_clear_data">Verileri temizle</string>
     <string name="manage_space_description">%1$s verilerinden ayarlar, veri tabanı ve sunucu sertifikaları kalıcı olarak silinecek. \n\nİndirilen dosyalara dokunulmayacak.\n\nBu işlem biraz zaman alabilir.</string>
     <string name="manage_space_title">Alan yönetimi</string>
@@ -645,6 +695,7 @@
     <string name="media_err_unsupported">Ortam kod çözücüsü desteklenmiyor</string>
     <string name="media_forward_description">İleri alma düğmesi</string>
     <string name="media_notif_ticker">%1$s müzik oynatıcı</string>
+    <string name="media_picker_toolbar_title">Ortam dosyalarını seçin</string>
     <string name="media_play_pause_description">Oynatma ya da duraklatma düğmesi</string>
     <string name="media_player_pause">Duraklat</string>
     <string name="media_player_play">Oynat</string>
@@ -737,7 +788,7 @@
     <string name="pass_code_reenter_your_pass_code">Lütfen parolanızı yeniden yazın</string>
     <string name="pass_code_remove_your_pass_code">Parolanızı silin</string>
     <string name="pass_code_removed">Parola kodu silindi</string>
-    <string name="pass_code_stored">Parola depolandı</string>
+    <string name="pass_code_stored">Parola kaydedildi</string>
     <string name="pass_code_wrong">Parola yanlış</string>
     <string name="pause_upload">Duraklat</string>
     <string name="pdf_password_protected">Parola ile korunmuş PDF dosyaları açılamıyor. Lütfen bir dış PDF görüntüleyici kullanın.</string>
@@ -856,6 +907,7 @@
     <string name="remove_notification_failed">Bildirim silinemedi.</string>
     <string name="remove_push_notification">Sil</string>
     <string name="remove_success_msg">Silindi</string>
+    <string name="rename_album_dialog_title">Albümü yeniden adlandır</string>
     <string name="rename_dialog_button">Yeniden adlandır</string>
     <string name="rename_dialog_title">Yeni bir ad yazın</string>
     <string name="rename_local_fail_msg">Yerel kopyanın adı değiştirilemedi. Lütfen başka bir ad deneyin</string>
@@ -1145,7 +1197,7 @@
     <string name="upload_list_expand_header">Başlık genişlemesini aç/kapat</string>
     <string name="upload_list_resolve_conflict">Çakışmayı çözümle</string>
     <string name="upload_local_storage_full">Yerel depolama alanı doldu</string>
-    <string name="upload_local_storage_not_copied">Dosya yerel depolamaya kopyalanamadı</string>
+    <string name="upload_local_storage_not_copied">Dosya yerel depolama alanına kopyalanamadı</string>
     <string name="upload_lock_failed">Klasör kilitlenemedi</string>
     <string name="upload_locked_message">Sunucu meşgul. Yeniden deneniyor…</string>
     <string name="upload_locked_title">Yükleniyor</string>
@@ -1158,7 +1210,7 @@
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Şifreleme yalnızca >=Android 5.0 üzerinde kullanılabilir </string>
     <string name="upload_query_move_foreign_files">Seçilmiş dosyaları %1$s klasörüne kopyalamak için yeterli boş alan yok. Bu dosyaları kopyalamak yerine taşımak ister misiniz?</string>
-    <string name="upload_quota_exceeded">Depolama sınırına ulaşıldı</string>
+    <string name="upload_quota_exceeded">Depolama alanı sınırına ulaşıldı</string>
     <string name="upload_scan_doc_upload">Kamera ile belge tarama</string>
     <string name="upload_sync_conflict_check">Son yüklemenizden kaynaklanan bir çakışma olabilir. Kontrol etmek için dokunun.</string>
     <string name="upload_sync_conflict_check_error">Yükleme çakışmaları kontrol edilemedi. Lütfen yeniden deneyin.</string>
@@ -1238,7 +1290,7 @@
     <string name="video_overlay_icon">Görüntü kaplama simgesi</string>
     <string name="wait_a_moment">Lütfen bekleyin …</string>
     <string name="wait_checking_credentials">Kayıtlı kimlik bilgileri denetleniyor</string>
-    <string name="wait_for_tmp_copy_from_private_storage">Dosya kişisel depolamadan kopyalanıyor</string>
+    <string name="wait_for_tmp_copy_from_private_storage">Dosya kişisel depolama alanından kopyalanıyor</string>
     <string name="warn_rename_extension">Uzantının değiştirilmesi bu dosyanın başka bir uygulama ile açılmasına neden olabilir</string>
     <string name="webview_not_available">Bu aygıtta Android Sistem WebView eksik ya da kapalı</string>
     <string name="what_s_new_image">Yenilikler görseli</string>
@@ -1251,6 +1303,14 @@
     <string name="write_email">E-posta gönder</string>
     <string name="wrong_storage_path">Veri depolama klasörü bulunamadı!</string>
     <string name="wrong_storage_path_desc">Bunun nedeni bir yedeğin başka bir aygıta geri yüklenmesi olabilir. Varsayılan değerlere geri dönülüyor. Lütfen veri depolama klasörünü ayarlamak için ayarları denetleyin.</string>
+    <plurals name="album_items_text">
+        <item quantity="one">%1$d öge — %2$s</item>
+        <item quantity="other">%1$d öge — %2$s</item>
+    </plurals>
+    <plurals name="album_elements_text">
+        <item quantity="one">%d öge</item>
+        <item quantity="other">%d öge</item>
+    </plurals>
     <plurals name="hours">
         <item quantity="one">%d saat</item>
         <item quantity="other">%d saat</item>
@@ -1330,6 +1390,18 @@
     <plurals name="items_selected_count">
         <item quantity="one">%d seçilmiş</item>
         <item quantity="other">%d seçilmiş</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_files">
+        <item quantity="one">%d dosya</item>
+        <item quantity="other">%d dosya</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_folders">
+        <item quantity="one">%d klasör</item>
+        <item quantity="other">%d klasör</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_users">
+        <item quantity="one">%d kullanıcı</item>
+        <item quantity="other">%d kullanıcı</item>
     </plurals>
     <plurals name="passcode_delay_seconds">
         <item quantity="one">Çok sayıda hatalı deneme nedeniyle %d saniye sonra yeniden deneyin</item>

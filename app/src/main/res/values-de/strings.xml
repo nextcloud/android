@@ -153,7 +153,7 @@
     <string name="autoupload_delete_uploaded">Hochgeladene Dateien lokal löschen</string>
     <string name="autoupload_delete_uploaded_all_dialog_button_all_users">Von allen Benutzern</string>
     <string name="autoupload_delete_uploaded_all_dialog_button_current_user">Vom aktuellen Benutzer</string>
-    <string name="autoupload_delete_uploaded_all_dialog_description">Alle bereits in die Cloud hochgeladenen Dateien werden vom aktuellen Gerät und aus allen Autoupload-Ordnern aller konfigurierten Benutzer entfernt</string>
+    <string name="autoupload_delete_uploaded_all_dialog_description">Alle bereits in die Cloud hochgeladenen Dateien werden vom aktuellen Gerät und aus allen Ordnern für automatisches Hochladen aller eingerichteten Benutzer entfernt</string>
     <string name="autoupload_delete_uploaded_all_dialog_title">Hochgeladene Dateien aus allen Ordnern für automatisches Hochladen lokal löschen</string>
     <string name="autoupload_delete_uploaded_dialog_description">Alle bereits in die Cloud hochgeladenen Dateien werden vom aktuellen Gerät entfernt</string>
     <string name="autoupload_delete_uploaded_dialog_title">Hochgeladene Dateien lokal löschen</string>
@@ -398,14 +398,14 @@
     <string name="encryption_encrypt_check_failed">Die Überprüfung Ihrer Verschlüsselungsschlüssel war fehlgeschlagen. Versuchen, den Ordner erneut zu verschlüsseln.</string>
     <string name="encryption_encrypt_no_network">Der Server ist nicht erreichbar. Später erneut versuchen, den Ordner zu verschlüsseln.</string>
     <string name="encryption_encrypt_unavailable">Dieser Ordner kann nicht verschlüsselt werden. Auf diesem Server ist keine Ende-zu-Ende-Verschlüsselung eingerichtet.</string>
-    <string name="encryption_key_checking_keys">Schlüsselprüfung …</string>
+    <string name="encryption_key_checking_keys">Prüfe Schlüssel …</string>
     <string name="encryption_key_handle_folder_read_only_description">Die Verschlüsselungsschlüssel dieses Kontos wurden entfernt oder ersetzt, daher kann der Inhalt dieses Ordners nicht mehr entschlüsselt werden.\n\nDer Ordner ist ab sofort schreibgeschützt. Um verschlüsselte Ordner wieder verwenden zu können, sichern Sie diesen Ordner und richten Sie Ihren neuen Verschlüsselungsschlüssel in den Einstellungen ein.</string>
     <string name="encryption_key_handle_key_keys_only_on_device_description">Der auf diesem Gerät gespeicherte Verschlüsselungsschlüssel ist ungültig. Die Schlüssel wurden vom Server widerrufen. \n\nDie lokale Verschlüsselung in den Einstellungen entfernen, um einen neuen Verschlüsselungsordner zu erstellen.</string>
     <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">Der auf diesem Gerät gespeicherte Verschlüsselungsschlüssel ist ungültig. Die Schlüssel wurden vom Server widerrufen. \n\nDen zuvor erstellten verschlüsselten Ordner sichern. \n\nAnschließend die lokale Verschlüsselung in den Einstellungen deaktivieren, um einen neuen verschlüsselten Ordner zu erstellen.</string>
     <string name="encryption_key_handle_key_removed_title">Die Verschlüsselungsschlüssel wurden geändert</string>
     <string name="encryption_key_handle_no_keys_description">Dieser Ordner kann nicht geöffnet werden, da seine Verschlüsselungsschlüssel weder auf diesem Gerät noch auf dem Server vorhanden sind.</string>
     <string name="encryption_key_handle_setup_new_key_before_encrypting_description">Die Verschlüsselungsschlüssel dieses Kontos wurden entfernt oder ersetzt.\n\nRichten Sie Ihren neuen Verschlüsselungsschlüssel in den Einstellungen ein, bevor Sie einen Ordner verschlüsseln.</string>
-    <string name="encryption_new_folder_check_failed">Die Überprüfung Ihrer Verschlüsselungsschlüssel war fehlgeschlagen. Bitte erstellen Sie den Ordner erneut.</string>
+    <string name="encryption_new_folder_check_failed">Die Überprüfung Ihrer Verschlüsselungsschlüssel ist fehlgeschlagen. Bitte erstellen Sie den Ordner erneut.</string>
     <string name="encryption_new_folder_no_network">Der Server ist nicht erreichbar. Später erneut versuchen, den Ordner zu erstellen.</string>
     <string name="encryption_new_folder_unavailable">Es können keine verschlüsselten Ordner erstellt werden. Auf diesem Server ist keine Ende-zu-Ende-Verschlüsselung eingerichtet.</string>
     <string name="encryption_open_check_failed">Ihre Verschlüsselungsschlüssel konnten nicht überprüft werden. Versuchen Sie erneut, den Ordner zu öffnen.</string>

@@ -150,6 +150,18 @@
     <string name="autoupload_configure">Konfigurera</string>
     <string name="autoupload_create_new_custom_folder">Skapa en ny anpassad mappkonfiguration</string>
     <string name="autoupload_custom_folder">Skapa en anpassad mapp</string>
+    <string name="autoupload_delete_uploaded">Ta bort uppladdade filer lokalt</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_all_users">Från alla användare</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_current_user">Från aktuell användare</string>
+    <string name="autoupload_delete_uploaded_all_dialog_description">Alla filer som redan har laddats upp till molnet tas bort från den aktuella enheten för alla automatiska uppladdningsmappar från alla konfigurerade användare</string>
+    <string name="autoupload_delete_uploaded_all_dialog_title">Ta bort uppladdade filer lokalt för alla mappar med automatisk uppladdning</string>
+    <string name="autoupload_delete_uploaded_dialog_description">Alla filer som redan har laddats upp till molnet tas bort från den aktuella enheten</string>
+    <string name="autoupload_delete_uploaded_dialog_title">Ta bort uppladdade filer lokalt</string>
+    <string name="autoupload_delete_uploaded_notif_ended_content">Frigjorde %1$s genom att ta bort %2$s i %3$s från %4$s.</string>
+    <string name="autoupload_delete_uploaded_notif_ended_title">Tog bort redan uppladdade filer lokalt</string>
+    <string name="autoupload_delete_uploaded_notif_error_title">Det gick inte att ta bort redan uppladdade filer lokalt</string>
+    <string name="autoupload_delete_uploaded_notif_started_title">Började ta bort redan uppladdade filer lokalt i bakgrunden</string>
+    <string name="autoupload_delete_uploaded_notif_ticker">Borttagning av lokala filer</string>
     <string name="autoupload_disable_power_save_check">Inaktivera strömsparingskontrollen</string>
     <string name="autoupload_hide_folder">Dölj mapp</string>
     <string name="avatar">Avatar</string>
@@ -383,6 +395,23 @@
     <string name="empty_albums_message">Du kan ordna alla dina foton i så många album du vill. Du har inte skapat något album ännu.</string>
     <string name="empty_albums_title">Skapa album för dina foton</string>
     <string name="encrypted">Markera som krypterad</string>
+    <string name="encryption_encrypt_check_failed">Det gick inte att kontrollera dina krypteringsnycklar. Försök kryptera mappen igen.</string>
+    <string name="encryption_encrypt_no_network">Det går inte att nå servern. Försök kryptera mappen igen senare.</string>
+    <string name="encryption_encrypt_unavailable">Det går inte att kryptera den här mappen. End-to-end-kryptering är inte konfigurerad på den här servern.</string>
+    <string name="encryption_key_checking_keys">Kontrollerar nycklar…</string>
+    <string name="encryption_key_handle_folder_read_only_description">Krypteringsnycklarna för det här kontot har tagits bort eller ersatts, så innehållet i den här mappen kan inte längre dekrypteras.\n\nMappen är skrivskyddad från och med nu. Säkerhetskopiera mappen och konfigurera din nya krypteringsnyckel i inställningarna för att använda krypterade mappar igen.</string>
+    <string name="encryption_key_handle_key_keys_only_on_device_description">Krypteringsnyckeln som lagras på den här enheten är inte längre giltig. Nycklar har återkallats från servern. \n\nTa bort krypteringen lokalt i inställningarna för att skapa en ny krypterad mapp.</string>
+    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">Krypteringsnyckeln som lagras på den här enheten är inte längre giltig. Nycklar har återkallats från servern. \n\nSäkerhetskopiera den tidigare skapade krypterade mappen. \n\nTa sedan bort krypteringen lokalt i inställningarna för att skapa en ny krypterad mapp.</string>
+    <string name="encryption_key_handle_key_removed_title">Krypteringsnycklar ändrades</string>
+    <string name="encryption_key_handle_no_keys_description">Den här mappen kan inte öppnas eftersom dess krypteringsnycklar inte längre finns på den här enheten eller på servern.</string>
+    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">Krypteringsnycklarna för det här kontot har tagits bort eller ersatts.\n\nKonfigurera din nya krypteringsnyckel i inställningarna innan du krypterar en mapp.</string>
+    <string name="encryption_new_folder_check_failed">Det gick inte att kontrollera dina krypteringsnycklar. Försök skapa mappen igen.</string>
+    <string name="encryption_new_folder_no_network">Det går inte att nå servern. Försök skapa mappen igen senare.</string>
+    <string name="encryption_new_folder_unavailable">Det går inte att skapa krypterade mappar. End-to-end-kryptering är inte konfigurerad på den här servern.</string>
+    <string name="encryption_open_check_failed">Det gick inte att kontrollera dina krypteringsnycklar. Försök öppna mappen igen.</string>
+    <string name="encryption_open_key_mismatch">Krypteringsnyckeln på den här enheten stämmer inte överens med nyckeln som krävs för den här mappen.</string>
+    <string name="encryption_open_no_network">Det går inte att nå servern. Försök öppna mappen igen senare.</string>
+    <string name="encryption_open_unavailable">Det går inte att öppna den här mappen. End-to-end-kryptering är inte konfigurerad på den här servern.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Kunde inte hämta servercertifikatet</string>
     <string name="end_to_end_encryption_certificate_verification_failed">Det gick inte att verifiera den offentliga nyckeln</string>
     <string name="end_to_end_encryption_confirm_button">Aktivera kryptering</string>
@@ -651,6 +680,9 @@
     <string name="logs_status_not_filtered">Loggar: %1$d kB, inget filter</string>
     <string name="logs_title">Loggar</string>
     <string name="maintenance_mode">Server i underhållsläge</string>
+    <string name="manage_space_auto_upload_clear_data">Ta bort automatiskt uppladdade filer lokalt</string>
+    <string name="manage_space_auto_upload_description">Alla filer från mappar med automatisk uppladdning som redan har laddats upp till servern tas bort lokalt för att frigöra utrymme på enheten.\n\nProcessen kan ta en stund.</string>
+    <string name="manage_space_auto_upload_title">Ta bort automatiskt uppladdade filer lokalt</string>
     <string name="manage_space_clear_data">Rensa data</string>
     <string name="manage_space_description">Inställningar, databas och servercertifikat från %1$s kommer att raderas permanent.\n\nHämtade filer kommer inte att raderas eller ändras.\n\nDetta kan ta en stund.</string>
     <string name="manage_space_title">Hantera utrymme</string>
@@ -1359,6 +1391,18 @@
     <plurals name="items_selected_count">
         <item quantity="one">%d vald</item>
         <item quantity="other">%d valda</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_files">
+        <item quantity="one">%d fil</item>
+        <item quantity="other">%d filer</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_folders">
+        <item quantity="one">%d mapp</item>
+        <item quantity="other">%d mappar</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_users">
+        <item quantity="one">%d användare</item>
+        <item quantity="other">%d användare</item>
     </plurals>
     <plurals name="passcode_delay_seconds">
         <item quantity="one">Försök igen om %d sekund på grund av för många felaktiga försök</item>
