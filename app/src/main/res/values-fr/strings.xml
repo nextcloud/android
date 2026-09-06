@@ -144,8 +144,11 @@
     <string name="autoupload_configure">Configurer</string>
     <string name="autoupload_create_new_custom_folder">Créer une nouvelle configuration de dossier personnalisé</string>
     <string name="autoupload_custom_folder">Définir un dossier personnalisé</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_all_users">De tous les utilisateurs</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_current_user">De l\'utilisateur actuel</string>
     <string name="autoupload_delete_uploaded_all_dialog_description">Tous les fichiers déjà téléversés dans le cloud seront supprimés de l\'appareil actuel, pour tous les dossiers en téléversement automatique, à partir de tous les utilisateurs configurés</string>
     <string name="autoupload_delete_uploaded_dialog_description">Tous les fichiers déjà téléversés dans le cloud seront supprimés de l\'appareil actuel</string>
+    <string name="autoupload_delete_uploaded_notif_error_title">Impossible de supprimer localement les fichiers déjà téléversés</string>
     <string name="autoupload_delete_uploaded_notif_started_title">La suppression locale des fichiers déjà téléversés a démarré en arrière-plan</string>
     <string name="autoupload_disable_power_save_check">Désactiver l\'économie de batterie</string>
     <string name="autoupload_hide_folder">Masquer le dossier</string>
@@ -1281,6 +1284,11 @@
     <string name="write_email">Envoyer un e-mail</string>
     <string name="wrong_storage_path">Le dossier de stockage des données n\'existe pas !</string>
     <string name="wrong_storage_path_desc">Cela peut être dû à une restauration de sauvegarde sur un autre appareil. Retour aux valeurs par défaut. Veuillez vérifier les paramètres pour ajuster le chemin de stockage.</string>
+    <plurals name="album_items_text">
+        <item quantity="one">%1$d élément — %2$s</item>
+        <item quantity="many">%1$d éléments — %2$s</item>
+        <item quantity="other">%1$d éléments — %2$s</item>
+    </plurals>
     <plurals name="album_elements_text">
         <item quantity="one">%d élément</item>
         <item quantity="many">%d éléments</item>

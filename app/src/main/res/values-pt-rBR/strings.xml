@@ -47,7 +47,7 @@
     <string name="album_rename">Renomear álbum</string>
     <string name="album_rename_conflict">Este nome já está em uso.</string>
     <string name="album_share">Compartilhar álbum</string>
-    <string name="album_share_link">Compartilhar o link do álbum</string>
+    <string name="album_share_link">Compartilhar link do álbum</string>
     <string name="album_stop_sharing">Parar compartilhamento</string>
     <string name="album_unsupported_file">Mídia não compatível</string>
     <string name="album_upload_from_account">Selecionar imagens da conta</string>
@@ -157,6 +157,7 @@
     <string name="autoupload_delete_uploaded_all_dialog_title">Excluir localmente os arquivos enviados em todas as pastas de upload automático</string>
     <string name="autoupload_delete_uploaded_dialog_description">Todos os arquivos já enviados para a nuvem serão removidos do dispositivo atual</string>
     <string name="autoupload_delete_uploaded_dialog_title">Excluir localmente os arquivos enviados</string>
+    <string name="autoupload_delete_uploaded_notif_ended_content">Liberei %1$s removendo %2$s distribuídos por %3$s de %4$s.</string>
     <string name="autoupload_delete_uploaded_notif_ended_title">Excluir localmente arquivos já enviados</string>
     <string name="autoupload_delete_uploaded_notif_error_title">Não é possível excluir localmente arquivos já enviados</string>
     <string name="autoupload_delete_uploaded_notif_started_title">Iniciou a exclusão local, em segundo plano, dos arquivos já enviados</string>
@@ -243,7 +244,7 @@
     <string name="configure_new_media_folder_detection_notifications">Configurar</string>
     <string name="confirm_removal">Remover criptografia local</string>
     <string name="confirmation_remove_file_alert">Quer realmente excluir %1$s?</string>
-    <string name="confirmation_remove_file_from_album_message">Você realmente deseja excluir o arquivo %1$s do álbum?</string>
+    <string name="confirmation_remove_file_from_album_message">Você realmente deseja remover o arquivo %1$s do álbum?</string>
     <string name="confirmation_remove_files_alert">Quer realmente excluir os itens selecionados?</string>
     <string name="confirmation_remove_files_from_album_message">Você realmente deseja remover os arquivos selecionados do álbum?</string>
     <string name="confirmation_remove_folder_alert">Quer realmente excluir %1$s e seu conteúdo?</string>
