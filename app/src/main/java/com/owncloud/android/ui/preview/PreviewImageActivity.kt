@@ -153,7 +153,6 @@ class PreviewImageActivity :
         observeWorkerState()
         applyDisplayCutOutTopPadding()
 
-
         handleBackPress()
 
         lifecycle.addObserver(sendShareDownloader)
@@ -331,33 +330,36 @@ class PreviewImageActivity :
         val chosenFile = intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
 
         val optionalUser = user
-        if (optionalUser.isPresent) {
-            var file: OCFile? = chosenFile ?: file ?: throw IllegalStateException("Instanced with a NULL OCFile")
-            //updateActionBarTitle(file?.fileName)
-            // / Validate handled file (first media item to preview)
-            require(MimeTypeUtil.isImageOrVideo(file)) { "Non-image/video file passed as argument" }
+        if (!optionalUser.isPresent) {
+            finish()
+            return
+        }
 
-            // Update file according to DB file, if it is possible
-            if (file!!.fileId > FileDataStorageManager.ROOT_PARENT_ID) {
-                file = storageManager.getFileById(file.fileId)
-            }
+        var file: OCFile? = chosenFile ?: file ?: throw IllegalStateException("Instanced with a NULL OCFile")
+        // updateActionBarTitle(file?.fileName)
+        // / Validate handled file (first media item to preview)
+        require(MimeTypeUtil.isImageOrVideo(file)) { "Non-image/video file passed as argument" }
 
-            if (file != null) {
-                // / Refresh the activity according to the Account and OCFile set
-                setFile(file) // reset after getting it fresh from storageManager
-                updateActionBarTitle(getFile()?.fileName)
-                if (previewMediaPagerAdapter == null || previewMediaPagerAdapter?.getFilePosition(file) == -1) {
-                    savedPosition = null
-                    initViewPager(optionalUser.get())
-                } else {
-                    previewMediaPagerAdapter?.getFilePosition(file)?.let {
-                        viewPager?.currentItem = it
-                    }
-                }
+        // Update file according to DB file, if it is possible
+        if (file!!.fileId > FileDataStorageManager.ROOT_PARENT_ID) {
+            file = storageManager.getFileById(file.fileId)
+        }
+
+        if (file != null) {
+            // / Refresh the activity according to the Account and OCFile set
+            setFile(file) // reset after getting it fresh from storageManager
+            updateActionBarTitle(getFile()?.fileName)
+            if (previewMediaPagerAdapter == null || previewMediaPagerAdapter?.getFilePosition(file) == -1) {
+                savedPosition = null
+                initViewPager(optionalUser.get())
             } else {
-                // handled file not in the current Account
-                finish()
+                previewMediaPagerAdapter?.getFilePosition(file)?.let {
+                    viewPager?.currentItem = it
+                }
             }
+        } else {
+            // handled file not in the current Account
+            finish()
         }
     }
 

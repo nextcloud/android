@@ -114,7 +114,6 @@ class PlayerControlView @JvmOverloads constructor(
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val insets = rootWindowInsets.getInsets(WindowInsets.Type.systemBars())
             binding.playerControlPanel.updateLayoutParams<MarginLayoutParams> {
-                //topMargin = insets.top
                 leftMargin = insets.left
                 bottomMargin = insets.bottom
                 rightMargin = insets.right
