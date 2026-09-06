@@ -132,8 +132,6 @@ class PreviewImageActivity :
 
         setContentView(R.layout.preview_image_activity)
 
-        livePhotoFile = intent.getParcelableArgument(EXTRA_LIVE_PHOTO_FILE, OCFile::class.java)
-
         setupDrawer(menuItemId)
 
         val chosenFile = intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
@@ -160,6 +158,12 @@ class PreviewImageActivity :
 
         lifecycle.addObserver(sendShareDownloader)
         sendShareDownloader.restoreState(savedInstanceState)
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+
+        initializeContent(intent)
     }
 
     override fun downloadFile(file: OCFile, packageName: String, activityName: String) {
@@ -317,10 +321,19 @@ class PreviewImageActivity :
     public override fun onStart() {
         super.onStart()
         registerReceivers()
+        initializeContent(intent)
+    }
+
+    private fun initializeContent(newIntent: Intent?) {
+        val intent = newIntent ?: intent
+        livePhotoFile = intent.getParcelableArgument(EXTRA_LIVE_PHOTO_FILE, OCFile::class.java)
+
+        val chosenFile = intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
 
         val optionalUser = user
         if (optionalUser.isPresent) {
-            var file: OCFile? = file ?: throw IllegalStateException("Instanced with a NULL OCFile")
+            var file: OCFile? = chosenFile ?: file ?: throw IllegalStateException("Instanced with a NULL OCFile")
+            //updateActionBarTitle(file?.fileName)
             // / Validate handled file (first media item to preview)
             require(MimeTypeUtil.isImageOrVideo(file)) { "Non-image/video file passed as argument" }
 
@@ -335,6 +348,10 @@ class PreviewImageActivity :
                 updateActionBarTitle(getFile()?.fileName)
                 if (previewMediaPagerAdapter == null) {
                     initViewPager(optionalUser.get())
+                } else {
+                    previewMediaPagerAdapter?.getFilePosition(file)?.let {
+                        viewPager?.currentItem = it
+                    }
                 }
             } else {
                 // handled file not in the current Account
