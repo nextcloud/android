@@ -65,6 +65,7 @@ class ChooseTemplateDialogFragment :
     Injectable {
 
     private lateinit var fileNames: MutableSet<String>
+    private var hasUserInteracted = false
 
     @Inject
     lateinit var clientFactory: ClientFactory
@@ -142,6 +143,7 @@ class ChooseTemplateDialogFragment :
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) = Unit
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) = Unit
             override fun afterTextChanged(s: Editable) {
+                hasUserInteracted = true
                 checkFileNameAfterEachType()
             }
         })
@@ -224,71 +226,59 @@ class ChooseTemplateDialogFragment :
     private fun getOCCapability(): OCCapability = fileDataStorageManager.getCapability(currentAccount.user.accountName)
 
     override fun onClick(v: View) {
+        val selectedTemplate = adapter?.selectedTemplate
+            ?: return DisplayUtils.showSnackMessage(binding.list, R.string.select_one_template)
+
+        val state = resolveFilenameState()
+        if (state !is TemplateFilenameState.Valid) {
+            state.errorMessage?.let { DisplayUtils.showSnackMessage(requireActivity(), it.toString()) }
+            return
+        }
+
         val name = binding.filename.text.toString()
         val path = parentFolder?.remotePath + name
-        val selectedTemplate = adapter?.selectedTemplate
+        val fullPath = if (name.endsWith(selectedTemplate.extension)) {
+            path
+        } else {
+            path + DOT + selectedTemplate.extension
+        }
 
-        val errorMessage = FileNameValidator.checkFileName(name, getOCCapability(), requireContext())
+        createFromTemplate(selectedTemplate, fullPath)
+    }
 
-        when {
-            selectedTemplate == null -> {
-                DisplayUtils.showSnackMessage(binding.list, R.string.select_one_template)
-            }
+    private fun resolveFilenameState(): TemplateFilenameState {
+        val selectedTemplate = adapter?.selectedTemplate ?: return TemplateFilenameState.NoTemplateSelected
+        val name = binding.filename.text.toString().trim()
+        val validationError = FileNameValidator.checkFileName(name, getOCCapability(), requireContext(), fileNames)
 
-            errorMessage != null -> {
-                DisplayUtils.showSnackMessage(requireActivity(), errorMessage)
-            }
+        return when {
+            name.equals(DOT + selectedTemplate.extension, ignoreCase = true) ->
+                TemplateFilenameState.JustExtension(getString(R.string.enter_filename))
 
-            name.equals(DOT + selectedTemplate.extension, ignoreCase = true) -> {
-                DisplayUtils.showSnackMessage(binding.list, R.string.enter_filename)
-            }
+            validationError != null -> TemplateFilenameState.Invalid(validationError)
 
-            else -> {
-                val fullPath = if (!name.endsWith(selectedTemplate.extension)) {
-                    path + DOT + selectedTemplate.extension
-                } else {
-                    path
-                }
-                createFromTemplate(selectedTemplate, fullPath)
-            }
+            FileNameValidator.isFileHidden(name) ->
+                TemplateFilenameState.HiddenName(getText(R.string.hidden_file_name_warning))
+
+            name.substringAfterLast(DOT) != selectedTemplate.extension ->
+                TemplateFilenameState.ChangedExtension(getString(R.string.extension_cannot_be_changed))
+
+            else -> TemplateFilenameState.Valid
         }
     }
 
     private fun checkFileNameAfterEachType() {
-        if (positiveButton == null) return
+        val positiveButton = positiveButton ?: return
+        val state = resolveFilenameState()
 
-        val selectedTemplate = adapter?.selectedTemplate
-        val name = binding.filename.text.toString().trim()
-        val isNameJustExtension = selectedTemplate != null &&
-            name.equals(
-                DOT + selectedTemplate.extension,
-                ignoreCase = true
-            )
-        val fileNameValidatorResult =
-            FileNameValidator.checkFileName(name, getOCCapability(), requireContext(), fileNames)
+        val isValid = state is TemplateFilenameState.Valid
+        positiveButton.isEnabled = isValid
+        positiveButton.isClickable = isValid
 
-        val errorMessage = when {
-            isNameJustExtension -> null
-            fileNameValidatorResult != null -> fileNameValidatorResult
-            else -> null
-        }
+        if (!hasUserInteracted) return
 
-        val isNameValid = (errorMessage == null) && !name.equals(DOT + selectedTemplate?.extension, ignoreCase = true)
-        val isHiddenFileName = FileNameValidator.isFileHidden(name)
-        val isChangedExtension = name.substringAfterLast(DOT) != selectedTemplate?.extension
-
-        binding.filenameContainer.isErrorEnabled = !isNameValid || isHiddenFileName || isChangedExtension
-        binding.filenameContainer.error = when {
-            !isNameValid -> errorMessage ?: getString(R.string.enter_filename)
-            isHiddenFileName -> getText(R.string.hidden_file_name_warning)
-            isChangedExtension -> getString(R.string.extension_cannot_be_changed)
-            else -> null
-        }
-
-        positiveButton?.apply {
-            isEnabled = isNameValid && !isHiddenFileName && !isChangedExtension
-            isClickable = isEnabled
-        }
+        binding.filenameContainer.isErrorEnabled = state.errorMessage != null
+        binding.filenameContainer.error = state.errorMessage
     }
 
     @Suppress("LongParameterList", "DEPRECATION")
@@ -406,7 +396,8 @@ class ChooseTemplateDialogFragment :
             }
 
             if (templateList.templates.isEmpty()) {
-                DisplayUtils.showSnackMessage(fragment.binding.list, R.string.error_retrieving_templates)
+                fragment.dismiss()
+                DisplayUtils.showSnackMessage(fragment.requireActivity(), R.string.error_retrieving_templates)
                 return
             }
 
