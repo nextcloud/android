@@ -498,7 +498,7 @@ class AutoUploadWorker(
         true,
         FileDataStorageManager(user, context.contentResolver)
     ).apply {
-        if (overridePowerSaving) {
+        if (overridePowerSaving || !powerManagementService.blocksAutoUpload) {
             isIgnoringPowerSaveMode = true
         }
     }

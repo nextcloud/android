@@ -226,6 +226,21 @@ class FileStorageUtilsTest {
     }
 
     @Test
+    fun instantUploadPathNeverMirrorsALocalPathThatIsNotBelowTheSyncedFolder() {
+        val result = FileStorageUtils.getInstantUploadFilePath(
+            File("/storage/emulated/0/Pictures/Other/file.jpg"),
+            Locale.ROOT,
+            "/Autoupload/Camera",
+            "/storage/emulated/0/DCIM/Camera",
+            123123123L,
+            false,
+            SubFolderRule.YEAR_MONTH
+        )
+
+        assertEquals("/Autoupload/Camera/file.jpg", result)
+    }
+
+    @Test
     fun instantUploadPathStripsTheSyncedFolderOnlyFromTheStart() {
         val result = FileStorageUtils.getInstantUploadFilePath(
             File("/sdcard/DCIM/DCIM/file.jpg"),
