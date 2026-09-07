@@ -140,7 +140,7 @@ class ProfileBottomSheetDialog(
     private fun send(userId: String, action: Action) {
         when (action.appId) {
             "profile" -> openWebsite(action.hyperlink)
-            "core" -> sendEmail(action.hyperlink)
+            "core", "email" -> sendEmail(action.hyperlink)
             "spreed" -> openTalk(userId, action.hyperlink)
         }
     }
