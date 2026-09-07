@@ -954,7 +954,7 @@ public class FileOperationsHelper {
         }
     }
 
-    public void renameFile(OCFile file, String newFilename) {
+    public void renameFile(ServerFileInterface file, String newFilename) {
         Intent service = new Intent(fileActivity, OperationsService.class);
 
         service.setAction(OperationsService.ACTION_RENAME);
