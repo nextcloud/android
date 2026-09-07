@@ -26,7 +26,6 @@ import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.client.player.model.file.PlaybackFileType
 import com.nextcloud.client.player.ui.audio.AudioPlayerView
 import com.nextcloud.client.player.ui.video.VideoPlayerView
-import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet
 import com.nextcloud.utils.extensions.getSerializableArgument
 import com.owncloud.android.R
@@ -184,18 +183,19 @@ class PlayerActivity :
 
     private fun handleEvent(event: PlayerScreenEvent) {
         when (event) {
-            is PlayerScreenEvent.ShowFileActions -> showFileActions(event.file, event.actionIds)
+            is PlayerScreenEvent.ShowFileActions -> showFileActions(event.file, event.actionsToHide)
             is PlayerScreenEvent.ShowFileDetails -> showFileDetails(event.file)
             is PlayerScreenEvent.ShowFileExportStartedMessage -> showFileExportStartedMessage()
             is PlayerScreenEvent.ShowShareFileDialog -> fileOperationsHelper.sendShareFile(event.file)
             is PlayerScreenEvent.ShowRemoveFileDialog -> showRemoveFileDialog(event.file)
             is PlayerScreenEvent.LaunchOpenFileIntent -> fileOperationsHelper.openFile(event.file)
             is PlayerScreenEvent.LaunchStreamFileIntent -> fileOperationsHelper.streamMediaFile(event.file)
+            is PlayerScreenEvent.ToggleFileLock -> fileOperationsHelper.toggleFileLock(event.file, event.shouldBeLocked)
+            is PlayerScreenEvent.AddFileToAlbum -> fileOperationsHelper.addFileToAlbum(listOf(event.file))
         }
     }
 
-    private fun showFileActions(file: OCFile, actionIds: List<Int>) {
-        val actionsToHide = FileAction.entries.map(FileAction::id).filter { it !in actionIds }
+    private fun showFileActions(file: OCFile, actionsToHide: List<Int>) {
         FileActionsBottomSheet.newInstance(file, false, actionsToHide)
             .setResultListener(supportFragmentManager, this) { viewModel.onFileActionChosen(file, it) }
             .show(supportFragmentManager, "actions")

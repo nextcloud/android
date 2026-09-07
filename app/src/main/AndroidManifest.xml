@@ -393,7 +393,8 @@
             android:name="com.nextcloud.client.player.ui.PlayerActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:launchMode="singleTask"
-            android:supportsPictureInPicture="true" />
+            android:supportsPictureInPicture="true"
+            android:theme="@style/Theme.ownCloud.NoActionBar" />
 
         <service
             android:name="com.nextcloud.client.player.media3.PlaybackService"

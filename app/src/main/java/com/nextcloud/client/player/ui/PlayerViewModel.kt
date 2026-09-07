@@ -15,6 +15,7 @@ import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.player.media3.PlaybackModel
+import com.nextcloud.ui.fileactions.FileAction
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -41,28 +42,36 @@ class PlayerViewModel @Inject constructor(
     fun onMoreButtonClick() {
         viewModelScope.launch {
             val file = getCurrentOCFile() ?: return@launch
-            val actionIds = listOf(
-                R.id.action_see_details,
-                R.id.action_download_file,
-                R.id.action_export_file,
-                R.id.action_send_share_file,
-                R.id.action_remove_file,
-                R.id.action_open_file_with,
-                R.id.action_stream_media
-            )
-            eventChannel.trySend(PlayerScreenEvent.ShowFileActions(file, actionIds))
+            val actionsToHide = FileAction.getFilePreviewActions(file)
+            eventChannel.trySend(PlayerScreenEvent.ShowFileActions(file, actionsToHide))
         }
     }
 
     fun onFileActionChosen(file: OCFile, actionId: Int) {
         when (actionId) {
             R.id.action_see_details -> eventChannel.trySend(PlayerScreenEvent.ShowFileDetails(file))
+
             R.id.action_download_file -> startFileDownloading(file)
+
             R.id.action_export_file -> startFileExport(file)
+
             R.id.action_send_share_file -> eventChannel.trySend(PlayerScreenEvent.ShowShareFileDialog(file))
+
             R.id.action_remove_file -> eventChannel.trySend(PlayerScreenEvent.ShowRemoveFileDialog(file))
+
             R.id.action_open_file_with -> onOpenFileWithClick(file)
+
             R.id.action_stream_media -> onStreamFileClick(file)
+
+            R.id.action_lock_file -> eventChannel.trySend(
+                PlayerScreenEvent.ToggleFileLock(file, shouldBeLocked = true)
+            )
+
+            R.id.action_unlock_file -> eventChannel.trySend(
+                PlayerScreenEvent.ToggleFileLock(file, shouldBeLocked = false)
+            )
+
+            R.id.action_add_to_album -> eventChannel.trySend(PlayerScreenEvent.AddFileToAlbum(file))
         }
     }
 
