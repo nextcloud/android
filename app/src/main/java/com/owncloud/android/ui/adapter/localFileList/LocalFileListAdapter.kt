@@ -90,13 +90,6 @@ class LocalFileListAdapter(
     val filesCount: Int
         get() = visibleEntries.size
 
-    val checkedFilesPath: Array<String>
-        get() {
-            val result = FileHelper.listFilesRecursive(checkedFiles)
-            Log_OC.d(TAG, "Returning ${result.size} selected files")
-            return result.toTypedArray()
-        }
-
     fun isCheckedFile(file: File): Boolean = checkedFiles.contains(file)
 
     fun onItemCheckboxClicked(file: File) {
@@ -142,10 +135,10 @@ class LocalFileListAdapter(
         return if (index < 0) RecyclerView.NO_POSITION else index + headerOffset
     }
 
-    private fun shouldShowHeader(): Boolean = !PermissionUtil.checkStoragePermission(activity)
+    private var showsPermissionBanner = !PermissionUtil.checkStoragePermission(activity)
 
     private val headerOffset: Int
-        get() = if (shouldShowHeader()) HEADER_ITEM_COUNT else 0
+        get() = if (showsPermissionBanner) HEADER_ITEM_COUNT else 0
 
     override fun getItemCount(): Int = visibleEntries.size + FOOTER_ITEM_COUNT + headerOffset
 
@@ -377,6 +370,25 @@ class LocalFileListAdapter(
     @VisibleForTesting
     fun setFiles(newFiles: List<File>) {
         showFirstPage(newFiles)
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun refreshPermissionBanner() {
+        showsPermissionBanner = !PermissionUtil.checkStoragePermission(activity)
+        notifyDataSetChanged()
+    }
+
+    fun collectCheckedFilePaths(onCompleted: (Array<String>) -> Unit) {
+        val selection = checkedFiles.toList()
+
+        backgroundScope.launch {
+            val paths = FileHelper.listFilesRecursive(selection).toTypedArray()
+            Log_OC.d(TAG, "Collected ${paths.size} selected files")
+
+            withContext(Dispatchers.Main) {
+                onCompleted(paths)
+            }
+        }
     }
 
     fun cleanup() {
