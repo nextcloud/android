@@ -24,6 +24,7 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.upload.UploadDelayPolicy
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.getLog
 import com.nextcloud.utils.extensions.isConflict
 import com.nextcloud.utils.extensions.isNonRetryable
@@ -54,6 +55,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withContext
 import java.io.File
 import kotlin.coroutines.cancellation.CancellationException
+import kotlin.time.Duration.Companion.milliseconds
 
 @Suppress("LongParameterList", "TooManyFunctions", "TooGenericExceptionCaught")
 class AutoUploadWorker(
@@ -67,7 +69,8 @@ class AutoUploadWorker(
     private val repository: FileSystemRepository,
     val viewThemeUtils: ViewThemeUtils,
     localBroadcastManager: LocalBroadcastManager,
-    private val autoUploadHelper: AutoUploadHelper
+    private val autoUploadHelper: AutoUploadHelper,
+    private val preferences: AppPreferences
 ) : CoroutineWorker(context, params) {
 
     companion object {
@@ -98,7 +101,7 @@ class AutoUploadWorker(
 
             Log_OC.d(TAG, syncedFolder.getLog())
 
-            if (canExitEarly(syncFolderId)) {
+            if (isBlocked(syncFolderId)) {
                 return Result.success()
             }
 
@@ -106,8 +109,14 @@ class AutoUploadWorker(
                 Log_OC.w(TAG, "power saving mode enabled - override power saving: $overridePowerSaving")
             }
 
-            // insert entries based on selected local storage path
+            // The scan has to run before the scan interval decides there is nothing to do, otherwise files added
+            // since the previous run stay invisible until some other trigger happens to scan them in.
             autoUploadHelper.insertEntries(syncedFolder)
+
+            if (hasNothingToDo()) {
+                return Result.success()
+            }
+
             uploadFiles(syncedFolder)
 
             // only update last scan time after uploading files
@@ -187,9 +196,14 @@ class AutoUploadWorker(
     }
 
     @Suppress("ReturnCount")
-    private suspend fun canExitEarly(syncedFolderID: Long): Boolean {
-        if ((powerManagementService.isPowerSavingEnabled && !overridePowerSaving)) {
+    private fun isBlocked(syncedFolderID: Long): Boolean {
+        if (powerManagementService.blocksAutoUpload && !overridePowerSaving) {
             Log_OC.w(TAG, "⚡ Skipping: device is in power saving mode")
+            return true
+        }
+
+        if (preferences.isGlobalUploadPaused) {
+            Log_OC.w(TAG, "⏸️ Skipping: uploads are paused")
             return true
         }
 
@@ -198,27 +212,28 @@ class AutoUploadWorker(
             return true
         }
 
-        val hasPendingFiles = repository.hasPendingFiles(syncedFolder)
-        if (hasPendingFiles) {
+        return false
+    }
+
+    private suspend fun hasNothingToDo(): Boolean {
+        if (repository.hasPendingFiles(syncedFolder)) {
             Log_OC.d(TAG, "pending files found, starting...")
             return false
         }
 
         val totalScanInterval = syncedFolder.getTotalScanInterval(connectivityService, powerManagementService)
-        val currentTime = System.currentTimeMillis()
-        val passedScanInterval = totalScanInterval <= currentTime
+        val waitingForScanInterval = totalScanInterval > System.currentTimeMillis() && !overridePowerSaving
 
-        if (!passedScanInterval && !overridePowerSaving) {
+        if (waitingForScanInterval) {
             Log_OC.w(
                 TAG,
                 "skipped since started before scan interval and nothing todo: " + syncedFolder.localPath
             )
-            return true
+        } else {
+            Log_OC.d(TAG, "starting ...")
         }
 
-        Log_OC.d(TAG, "starting ...")
-
-        return false
+        return waitingForScanInterval
     }
 
     private fun getUserOrReturn(syncedFolder: SyncedFolder): User? {
@@ -277,18 +292,29 @@ class AutoUploadWorker(
             filePathsWithIds.forEachIndexed { batchIndex, (path, id) ->
                 ensureActive()
 
-                delay(retryPolicy.getDelay())
+                if (preferences.isGlobalUploadPaused) {
+                    Log_OC.w(TAG, "⏸️ uploads paused, stopping auto upload")
+                    return@withContext
+                }
+
+                delay(retryPolicy.getDelay().milliseconds)
 
                 val file = File(path)
                 val localPath = file.absolutePath
                 val remotePath = syncFolderHelper.getAutoUploadRemotePath(syncedFolder, file)
 
                 try {
+                    // A camera app can register the file with MediaStore before it finished writing it.
+                    if (file.isFile && file.length() == 0L) {
+                        Log_OC.w(TAG, "skipping empty file, still being written: $localPath")
+                        return@forEachIndexed
+                    }
+
                     val entityResult = getEntityResult(user, localPath, remotePath, capability)
                     if (entityResult !is AutoUploadEntityResult.Success) {
                         repository.markFileAsHandled(localPath, syncedFolder)
                         Log_OC.d(TAG, "marked file as handled: $localPath")
-                        continue
+                        return@forEachIndexed
                     }
 
                     var (uploadEntity, upload) = entityResult.data
@@ -297,7 +323,7 @@ class AutoUploadWorker(
                     if (path.isEmpty() || !file.exists()) {
                         Log_OC.w(TAG, "detected non-existing local file, removing entity")
                         deleteNonExistingFile(path, id, upload)
-                        continue
+                        return@forEachIndexed
                     }
 
                     try {
@@ -311,7 +337,12 @@ class AutoUploadWorker(
                         val operation = createUploadFileOperation(upload, user)
                         Log_OC.d(TAG, "🕒 uploading: $localPath, id: $generatedId")
 
-                        val result = operation.execute(client)
+                        FileUploadWorker.registerActiveUpload(operation)
+                        val result = try {
+                            operation.execute(client)
+                        } finally {
+                            FileUploadWorker.unregisterActiveUpload(operation.ocUploadId)
+                        }
                         fileUploadEventBroadcaster.sendUploadStarted(operation, context)
 
                         UploadErrorNotificationManager.handleResult(
@@ -363,7 +394,7 @@ class AutoUploadWorker(
                         if (path.isEmpty() || !file.exists()) {
                             Log_OC.w(TAG, "detected non-existing local file, removing entity")
                             deleteNonExistingFile(path, id, upload)
-                            continue
+                            return@forEachIndexed
                         }
                     }
                 } catch (e: Exception) {
@@ -385,6 +416,15 @@ class AutoUploadWorker(
         uploadsStorageManager.removeUpload(upload)
     }
 
+    private fun isResolvedByCurrentCollisionPolicy(lastUploadResult: UploadResult): Boolean {
+        val conflictResults = setOf(
+            UploadResult.SYNC_CONFLICT,
+            UploadResult.CONFLICT_ERROR
+        )
+
+        return lastUploadResult in conflictResults && syncedFolder.nameCollisionPolicy != NameCollisionPolicy.ASK_USER
+    }
+
     @Suppress("ReturnCount")
     private fun getEntityResult(
         user: User,
@@ -403,7 +443,7 @@ class AutoUploadWorker(
         )
 
         val lastUploadResult = uploadEntity?.lastResult?.let { UploadResult.fromValue(it) }
-        if (lastUploadResult?.isNonRetryable() == true) {
+        if (lastUploadResult?.isNonRetryable() == true && !isResolvedByCurrentCollisionPolicy(lastUploadResult)) {
             Log_OC.w(
                 TAG,
                 "last upload failed with ${lastUploadResult.value}, skipping auto-upload: $localPath"
