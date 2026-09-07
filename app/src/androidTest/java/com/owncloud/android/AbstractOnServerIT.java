@@ -131,12 +131,10 @@ public abstract class AbstractOnServerIT extends AbstractIT {
     }
 
     public static void deleteAllFilesOnServer() {
-        var result = new ReadFolderRemoteOperation("/").execute(client);
+        var result = new ReadFolderRemoteOperation("/").execute(nextcloudClient);
         assertTrue(result.getLogMessage(targetContext), result.isSuccess());
 
-        for (Object object : result.getData()) {
-            RemoteFile remoteFile = (RemoteFile) object;
-
+        for (RemoteFile remoteFile : result.getResultData()) {
             if (!Objects.equals(remoteFile.getRemotePath(), "/")) {
                 if (remoteFile.isEncrypted()) {
                     ToggleEncryptionRemoteOperation operation = new ToggleEncryptionRemoteOperation(remoteFile.getLocalId(),
@@ -144,7 +142,7 @@ public abstract class AbstractOnServerIT extends AbstractIT {
                                                                                                     false);
 
                     boolean operationResult = operation
-                        .execute(client)
+                        .execute(nextcloudClient)
                         .isSuccess();
 
                     if (!operationResult && isFolder(remoteFile)) {

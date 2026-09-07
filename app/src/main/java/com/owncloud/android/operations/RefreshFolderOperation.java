@@ -278,7 +278,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         if (result.isSuccess()) {
             if (mRemoteFolderChanged) {
-                result = fetchAndSyncRemoteFolder(client);
+                result = fetchAndSyncRemoteFolder();
             } else {
                 Log_OC.d(TAG, "💾 Remote folder is not changed, getting folder content from database");
                 mChildren = fileDataStorageManager.getFolderContent(mLocalFolder, false);
@@ -461,9 +461,18 @@ public class RefreshFolderOperation extends RemoteOperation {
         return result;
     }
 
-    private RemoteOperationResult fetchAndSyncRemoteFolder(OwnCloudClient client) {
+    private RemoteOperationResult fetchAndSyncRemoteFolder() {
         String remotePath = mLocalFolder.getRemotePath();
-        RemoteOperationResult result = new ReadFolderRemoteOperation(remotePath).execute(client);
+
+        NextcloudClient nextcloudClient;
+        try {
+            nextcloudClient = OwnCloudClientFactory.createNextcloudClient(user, mContext);
+        } catch (AccountUtils.AccountNotFoundException | NullPointerException e) {
+            Log_OC.e(TAG, "Could not create NextcloudClient to fetch " + remotePath, e);
+            return new RemoteOperationResult<>(e);
+        }
+
+        RemoteOperationResult result = new ReadFolderRemoteOperation(remotePath).execute(nextcloudClient);
         Log_OC.d(TAG, "⬇ eTag is changed or ignored, fetching folder: " + user.getAccountName() + remotePath);
 
         if (result.isSuccess()) {

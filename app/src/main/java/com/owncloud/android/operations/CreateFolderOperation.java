@@ -16,6 +16,7 @@ import android.content.Context;
 import android.util.Pair;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.e2ee.E2ECounterHelper;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.nextcloud.utils.extensions.OCFileExtensionsKt;
@@ -30,6 +31,8 @@ import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFolderMetadataFi
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFile;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientFactory;
+import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -208,8 +211,9 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                     }
                 }
 
+                NextcloudClient nextcloudClient = OwnCloudClientFactory.createNextcloudClient(user, context);
                 final var remoteFolderOperationResult = new ReadFolderRemoteOperation(encryptedRemotePath)
-                    .execute(client);
+                    .execute(nextcloudClient);
 
                 if (remoteFolderOperationResult.isSuccess() && remoteFolderOperationResult.getData().get(0) instanceof RemoteFile remoteFile) {
                     createdRemoteFolder = remoteFile;
@@ -220,7 +224,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                         newDir.getLocalId(),
                         newDir.getRemotePath(),
                         true)
-                        .execute(client);
+                        .execute(nextcloudClient);
 
                     if (!encryptionOperationResult.isSuccess()) {
                         throw new RuntimeException("Error creating encrypted subfolder!");
@@ -360,8 +364,9 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                     throw new RuntimeException("Could not unlock folder!");
                 }
 
+                NextcloudClient nextcloudClient = OwnCloudClientFactory.createNextcloudClient(user, context);
                 final var remoteFolderOperationResult = new ReadFolderRemoteOperation(encryptedRemotePath)
-                    .execute(client);
+                    .execute(nextcloudClient);
 
                 if (remoteFolderOperationResult.isSuccess() && remoteFolderOperationResult.getData().get(0) instanceof RemoteFile remoteFile) {
                     createdRemoteFolder = remoteFile;
@@ -372,7 +377,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                         newDir.getLocalId(),
                         newDir.getRemotePath(),
                         true)
-                        .execute(client);
+                        .execute(nextcloudClient);
 
                     if (!encryptionOperationResult.isSuccess()) {
                         throw new RuntimeException("Error creating encrypted subfolder!");
@@ -517,12 +522,17 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
         final var result = new CreateFolderRemoteOperation(remotePath, true).execute(client);
 
         if (result.isSuccess()) {
-            final var remoteFolderOperationResult = new ReadFolderRemoteOperation(remotePath)
-                .execute(client);
+            try {
+                NextcloudClient nextcloudClient = OwnCloudClientFactory.createNextcloudClient(user, context);
+                final var remoteFolderOperationResult = new ReadFolderRemoteOperation(remotePath)
+                    .execute(nextcloudClient);
 
-            if (remoteFolderOperationResult.isSuccess() &&
-                remoteFolderOperationResult.getData().get(0) instanceof RemoteFile remoteFile) {
-                createdRemoteFolder = remoteFile;
+                if (remoteFolderOperationResult.isSuccess() &&
+                    remoteFolderOperationResult.getData().get(0) instanceof RemoteFile remoteFile) {
+                    createdRemoteFolder = remoteFile;
+                }
+            } catch (AccountUtils.AccountNotFoundException | NullPointerException e) {
+                Log_OC.e(TAG, "Could not create NextcloudClient to read created folder " + remotePath, e);
             }
 
             saveFolderInDB();
