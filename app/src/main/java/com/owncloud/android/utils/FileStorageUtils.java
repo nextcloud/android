@@ -273,6 +273,31 @@ public final class FileStorageUtils {
     }
 
     /**
+     * Removes the synced folder from the beginning of a local file path, leaving only the part that has to be mirrored
+     * below the remote folder.
+     * <p>
+     * MediaStore does not guarantee that the letter case of the reported path matches the one the user configured
+     * (e.g. {@code DCIM/camera} for a folder set up as {@code DCIM/Camera}), so the prefix is matched case
+     * insensitively. Matching only the prefix also keeps a repeated path segment from being cut out of the middle.
+     */
+    private static String stripSyncedFolderPrefix(String absolutePath, String syncedFolderLocalPath) {
+        if (syncedFolderLocalPath == null || syncedFolderLocalPath.isEmpty()) {
+            return absolutePath;
+        }
+
+        String prefix = syncedFolderLocalPath.endsWith(OCFile.PATH_SEPARATOR)
+            ? syncedFolderLocalPath.substring(0, syncedFolderLocalPath.length() - 1)
+            : syncedFolderLocalPath;
+
+        if (!absolutePath.regionMatches(true, 0, prefix, 0, prefix.length())) {
+            Log_OC.w(TAG, "local file is not below its synced folder, keeping full path");
+            return absolutePath;
+        }
+
+        return absolutePath.substring(prefix.length());
+    }
+
+    /**
      * Returns the InstantUploadFilePath on the nextcloud instance
      *
      * @param dateTaken: Time in milliseconds since 1970 when the picture was taken.
@@ -291,7 +316,7 @@ public final class FileStorageUtils {
         }
         Log_OC.w(TAG, "FileStorageUtils:getInstantUploadFilePath subfolderByDate: " + subfolderByDate);
 
-        File parentFile = new File(file.getAbsolutePath().replace(syncedFolderLocalPath, "")).getParentFile();
+        File parentFile = new File(stripSyncedFolderPrefix(file.getAbsolutePath(), syncedFolderLocalPath)).getParentFile();
 
         String relativeSubfolderPath = "";
         if (parentFile == null) {
