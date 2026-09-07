@@ -144,7 +144,7 @@ class GalleryFragment :
 
         LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(refreshSearchEventReceiver)
 
-        adapter?.cleanup()
+        adapter = null
 
         super.onDestroyView()
     }
@@ -227,6 +227,9 @@ class GalleryFragment :
     }
 
     override fun getCommonAdapter(): CommonOCFileListAdapterInterface? = adapter
+
+    val currentMediaState: MediaState?
+        get() = bottomSheet?.currMediaState
 
     override fun onResume() {
         super.onResume()

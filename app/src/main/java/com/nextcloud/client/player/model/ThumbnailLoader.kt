@@ -1,0 +1,77 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2025 STRATO GmbH.
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+package com.nextcloud.client.player.model
+
+import android.content.Context
+import android.graphics.Bitmap
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.model.GlideUrl
+import com.bumptech.glide.load.model.LazyHeaders
+import com.bumptech.glide.signature.ObjectKey
+import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.client.player.model.file.PlaybackFile
+import com.owncloud.android.MainApp
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.withContext
+import java.util.concurrent.Future
+import javax.inject.Inject
+import kotlin.coroutines.resume
+
+class ThumbnailLoader @Inject constructor(
+    context: Context,
+    clientFactory: ClientFactory,
+    userAccountManager: UserAccountManager
+) {
+    private val appContext = context.applicationContext
+    private val client by lazy { clientFactory.createNextcloudClient(userAccountManager.user) }
+
+    suspend fun await(file: PlaybackFile, width: Int, height: Int): Bitmap? = withContext(Dispatchers.IO) {
+        suspendCancellableCoroutine { continuation ->
+            runCatching {
+                val future = load(file, width, height)
+                continuation.invokeOnCancellation { future.cancel(true) }
+                continuation.resume(future.get())
+            }.onFailure {
+                if (it is CancellationException) throw it
+                continuation.resume(null)
+            }
+        }
+    }
+
+    fun load(file: PlaybackFile, width: Int, height: Int): Future<Bitmap> {
+        val url = createUrl(file, width, height)
+        return load(url, file.id, width, height)
+    }
+
+    fun load(model: Any, fileId: String?, width: Int, height: Int): Future<Bitmap> = Glide
+        .with(appContext)
+        .asBitmap()
+        .load(model)
+        .signature(ObjectKey(fileId ?: model.toString()))
+        .submit(width, height)
+
+    fun load(imageView: ImageView, model: Any, fileId: String) {
+        Glide
+            .with(imageView)
+            .load(model)
+            .signature(ObjectKey(fileId))
+            .into(imageView)
+    }
+
+    private fun createUrl(file: PlaybackFile, width: Int, height: Int) = GlideUrl(
+        "${client.baseUri}/index.php/core/preview?fileId=${file.id}&x=$width&y=$height&a=1&mode=cover&forceIcon=0",
+        LazyHeaders.Builder()
+            .addHeader("Authorization", client.credentials)
+            .addHeader("User-Agent", MainApp.getUserAgent())
+            .build()
+    )
+}

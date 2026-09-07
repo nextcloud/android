@@ -231,11 +231,6 @@
         <item name="android:windowLightNavigationBar">false</item>
     </style>
 
-    <style name="Theme.ownCloud.Media" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
-        <item name="android:colorControlHighlight">@color/primary</item>
-    </style>
-
     <style name="ToolbarStyle.Overflow" parent="@style/Widget.AppCompat.ActionButton.Overflow">
         <item name="android:tint">@android:color/white</item>
     </style>
@@ -514,12 +509,76 @@
         <item name="cornerSizeTopRight">0dp</item>
     </style>
 
-    <style name="Dialog.FullscreenVideo" parent="android:Theme.Material.NoActionBar.Fullscreen">
-        <item name="android:windowBackground">@android:color/black</item>
-        <item name="android:colorControlHighlight">@color/primary</item>
-    </style>
-
     <style name="ChipIncomingTextAppearance" parent="TextAppearance.MaterialComponents.Chip">
         <item name="android:textColor">#de000000</item>
+    </style>
+
+    <style name="PlayerTimeTextViewStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/player_default_text_color</item>
+        <item name="android:textAppearance">@style/TextAppearance.App.Player.ProgressTime</item>
+    </style>
+
+    <style name="TextAppearance.App.Player.Toolbar" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textColor">@color/player_toolbar_text_color</item>
+        <item name="android:textSize">@dimen/player_toolbar_text_size</item>
+    </style>
+
+    <style name="TextAppearance.App.Player.ProgressTime" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/player_default_text_color</item>
+        <item name="android:textSize">@dimen/player_progress_time_text_size</item>
+    </style>
+
+    <style name="PlayerToolbarIconButtonStyle" parent="@style/Widget.AppTheme.Button.IconButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="iconSize">@dimen/player_toolbar_icon_size</item>
+        <item name="iconTint">@color/player_toolbar_icon_color</item>
+    </style>
+
+    <style name="TextAppearance.App.Player.AudioTitle" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:textColor">@color/player_default_text_color</item>
+        <item name="android:textSize">@dimen/player_audio_title_text_size</item>
+    </style>
+
+    <style name="TextAppearance.App.Player.AudioFileDetails" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:textColor">@color/player_default_text_color</item>
+        <item name="android:textSize">@dimen/player_audio_file_details_text_size</item>
+    </style>
+
+    <style name="ShapeAppearance.App.Player.Media" parent="ShapeAppearance.Material3.Corner.None" />
+
+    <style name="PlayerSeekBarStyle" parent="@android:style/Widget.SeekBar">
+        <item name="android:progressDrawable">@drawable/player_progress_drawable</item>
+        <item name="android:thumb">@drawable/player_progress_thumb_selector</item>
+        <item name="android:paddingStart">@dimen/player_progress_thumb_halo_radius</item>
+        <item name="android:paddingEnd">@dimen/player_progress_thumb_halo_radius</item>
+        <item name="android:minHeight">@dimen/player_progress_drawable_height</item>
+        <item name="android:maxHeight">@dimen/player_progress_drawable_height</item>
+    </style>
+
+    <style name="PlayerButtonStyle" parent="@style/Widget.Material3.Button.IconButton">
+        <item name="iconSize">32dp</item>
+
+        <item name="android:layout_width">@dimen/minimum_size_for_touchable_area</item>
+        <item name="android:layout_height">@dimen/minimum_size_for_touchable_area</item>
+
+        <item name="android:padding">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+
+        <item name="android:layout_marginStart">@dimen/player_button_margin_horizontal</item>
+        <item name="android:layout_marginEnd">@dimen/player_button_margin_horizontal</item>
+        <item name="android:layout_marginTop">@dimen/player_button_margin_vertical</item>
+        <item name="android:layout_marginBottom">@dimen/player_button_margin_vertical</item>
+
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">0dp</item>
     </style>
 </resources>

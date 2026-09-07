@@ -88,7 +88,6 @@ import com.owncloud.android.ui.fragment.helper.ColumnCount
 import com.owncloud.android.ui.helpers.UriUploader
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.ui.preview.PreviewImageFragment
-import com.owncloud.android.ui.preview.PreviewMediaActivity.Companion.canBePreviewed
 import com.owncloud.android.utils.ClipboardUtil
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.ErrorMessageAdapter
@@ -232,6 +231,7 @@ class AlbumItemsFragment :
     override fun onDestroyView() {
         lastMediaItemPosition = 0
         addMediaFab = null
+        binding.listRoot.adapter = null
         super.onDestroyView()
     }
 
@@ -319,7 +319,7 @@ class AlbumItemsFragment :
             setUpSelectionMode()
         }
 
-        binding.listRoot.adapter = adapter
+        if (binding.listRoot.adapter == null) binding.listRoot.adapter = adapter
 
         lastMediaItemPosition?.let { binding.listRoot.layoutManager?.scrollToPosition(it) }
     }
@@ -561,13 +561,16 @@ class AlbumItemsFragment :
             PreviewImageFragment.canBePreviewed(file) ->
                 activity.startImagePreview(file, !file.isDown, VirtualFolderType.ALBUM)
 
-            file.isDown && canBePreviewed(file) ->
-                activity.startMediaPreview(file, 0, true, true, false, true)
+            MimeTypeUtil.isVideo(file) ->
+                activity.startImagePreview(file, true, VirtualFolderType.ALBUM)
+
+            file.isDown && activity.canMediaPreviewed(file) ->
+                activity.startMediaPreview(file, showPreview = true, streamMedia = false)
 
             file.isDown -> containerActivity?.fileOperationsHelper?.openFile(file)
 
-            canBePreviewed(file) && !file.isEncrypted ->
-                activity.startMediaPreview(file, 0, true, true, true, true)
+            activity.canMediaPreviewed(file) && !file.isEncrypted ->
+                activity.startMediaPreview(file, showPreview = true, streamMedia = true)
 
             else -> Log_OC.d(TAG, "Couldn't handle item click")
         }
