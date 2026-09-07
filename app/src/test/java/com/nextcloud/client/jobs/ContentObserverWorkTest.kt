@@ -98,7 +98,7 @@ class ContentObserverWorkTest {
     @Test
     fun power_saving_stops_a_run_before_folders_are_read() {
         runBlocking {
-            whenever(powerManagementService.isPowerSavingEnabled).thenReturn(true)
+            whenever(powerManagementService.blocksAutoUpload).thenReturn(true)
 
             worker.doWork()
 
