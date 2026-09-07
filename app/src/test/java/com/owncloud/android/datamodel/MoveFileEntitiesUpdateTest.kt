@@ -56,6 +56,16 @@ class MoveFileEntitiesUpdateTest : MoveFilesTestBase() {
     }
 
     @Test
+    fun testMoveLocalFileWhenEncryptionFlagIsNullShouldUpdatePathDecryptedToNewPath() {
+        val entities = listOf(createFileEntity(path = OLD_PATH, pathDecrypted = OLD_PATH, isEncrypted = null))
+        val expectedDecryptedPath = TARGET_PATH
+
+        arrangeAndMove(entities)
+
+        assertEquals(expectedDecryptedPath, capturedEntities.captured.single().pathDecrypted)
+    }
+
+    @Test
     fun testMoveLocalFileWhenEncryptedFileShouldNotUpdatePathDecrypted() {
         val originalDecryptedPath = "/documents/encrypted_name"
         val entities = listOf(
