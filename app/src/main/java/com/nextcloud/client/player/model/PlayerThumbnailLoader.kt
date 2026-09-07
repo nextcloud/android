@@ -26,7 +26,7 @@ import java.util.concurrent.Future
 import javax.inject.Inject
 import kotlin.coroutines.resume
 
-class ThumbnailLoader @Inject constructor(
+class PlayerThumbnailLoader @Inject constructor(
     context: Context,
     clientFactory: ClientFactory,
     userAccountManager: UserAccountManager

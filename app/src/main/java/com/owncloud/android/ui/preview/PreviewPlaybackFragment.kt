@@ -18,7 +18,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.player.media3.PlaybackModel
-import com.nextcloud.client.player.model.ThumbnailLoader
+import com.nextcloud.client.player.model.PlayerThumbnailLoader
 import com.nextcloud.client.player.model.file.PlaybackCollection
 import com.nextcloud.client.player.model.file.PlaybackFile
 import com.nextcloud.client.player.util.PlayerUtil.toPlaybackFile
@@ -79,7 +79,7 @@ class PreviewPlaybackFragment :
     lateinit var playerLauncher: PlayerLauncher
 
     @Inject
-    lateinit var thumbnailLoader: ThumbnailLoader
+    lateinit var playerThumbnailLoader: PlayerThumbnailLoader
 
     private lateinit var binding: PreviewPlaybackFragmentBinding
     private lateinit var file: OCFile
@@ -207,7 +207,7 @@ class PreviewPlaybackFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             val context = context ?: return@launch
             val size = context.resources.getDimension(R.dimen.player_album_cover_size).toInt()
-            thumbnailLoader.await(playbackFile, size, size)?.let(binding.thumbnail::setImageBitmap)
+            playerThumbnailLoader.await(playbackFile, size, size)?.let(binding.thumbnail::setImageBitmap)
         }
     }
 
