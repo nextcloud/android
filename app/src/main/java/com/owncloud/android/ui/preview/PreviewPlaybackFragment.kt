@@ -63,7 +63,7 @@ class PreviewPlaybackFragment :
     lateinit var playerLauncher: PlayerLauncher
 
     @Inject
-    lateinit var thumbnailLoader: ThumbnailLoader
+    lateinit var playerThumbnailLoader: PlayerThumbnailLoader
 
     private lateinit var binding: PreviewPlaybackFragmentBinding
     private lateinit var file: OCFile

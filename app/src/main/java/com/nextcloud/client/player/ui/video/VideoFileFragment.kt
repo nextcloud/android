@@ -16,7 +16,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.player.media3.PlaybackModel
-import com.nextcloud.client.player.model.ThumbnailLoader
+import com.nextcloud.client.player.model.PlayerThumbnailLoader
 import com.nextcloud.client.player.model.file.PlaybackFile
 import com.nextcloud.client.player.model.state.PlaybackState
 import com.nextcloud.client.player.model.state.VideoSize
@@ -46,7 +46,7 @@ class VideoFileFragment :
     lateinit var playerModel: PlaybackModel
 
     @Inject
-    lateinit var thumbnailLoader: ThumbnailLoader
+    lateinit var playerThumbnailLoader: PlayerThumbnailLoader
 
     private var _binding: PlayerVideoFileFragmentBinding? = null
     private val binding get() = checkNotNull(_binding) { "Binding accessed outside of the view lifecycle" }

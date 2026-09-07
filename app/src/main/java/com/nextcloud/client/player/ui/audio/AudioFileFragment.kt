@@ -15,7 +15,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.player.media3.PlaybackModel
-import com.nextcloud.client.player.model.ThumbnailLoader
+import com.nextcloud.client.player.model.PlayerThumbnailLoader
 import com.nextcloud.client.player.model.file.PlaybackFile
 import com.nextcloud.client.player.model.state.PlaybackItemMetadata
 import com.nextcloud.client.player.model.state.PlaybackState
@@ -45,7 +45,7 @@ open class AudioFileFragment :
     lateinit var playbackModel: PlaybackModel
 
     @Inject
-    lateinit var thumbnailLoader: ThumbnailLoader
+    lateinit var playerThumbnailLoader: PlayerThumbnailLoader
 
     private var _binding: PlayerAudioFileFragmentBinding? = null
     private val binding get() = checkNotNull(_binding) { "Binding accessed outside of the view lifecycle" }
@@ -126,7 +126,7 @@ open class AudioFileFragment :
 
     private fun loadMetadataArtwork(metadata: PlaybackItemMetadata) {
         val source = metadata.artworkData ?: metadata.artworkUri ?: return
-        thumbnailLoader.load(binding.albumCover, source, file.id)
+        playerThumbnailLoader.load(binding.albumCover, source, file.id)
     }
 
     private fun PlaybackFile.getDetailsText(): String = listOfNotNull(
