@@ -171,11 +171,10 @@ fun FileDataStorageManager.moveFiles(ocFile: OCFile?, targetPath: String, target
     val accountName = user.accountName
     val defaultSavePath = FileStorageUtils.getSavePath(accountName)
 
-    val moved = moveLocalFiles(accountName, ocFile, defaultSavePath, targetPath)
-    if (!moved) return
-
     val originalMediaPaths =
         fileDao.moveFilesInDb(oldPath, targetPath, defaultSavePath, targetParent.fileId, accountName)
+
+    if (!moveLocalFiles(accountName, ocFile, defaultSavePath, targetPath)) return
 
     for (originalMediaPath in originalMediaPaths) {
         deleteFileInMediaScan(originalMediaPath)
@@ -237,7 +236,7 @@ private fun FileDao.moveFilesInDb(
         val newPath = targetPath + currentPath.substring(oldPath.length)
         entity.copy(
             path = newPath,
-            pathDecrypted = if (entity.isEncrypted == 0) newPath else entity.pathDecrypted,
+            pathDecrypted = if (entity.isEncrypted == 1) entity.pathDecrypted else newPath,
             storagePath = if (entity.storagePath?.startsWith(oldStoragePrefix) == true) {
                 newStoragePrefix + entity.storagePath.substring(oldStoragePrefix.length)
             } else {

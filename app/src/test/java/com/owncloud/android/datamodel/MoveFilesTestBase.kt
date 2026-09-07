@@ -71,15 +71,6 @@ abstract class MoveFilesTestBase {
             SAVE_PATH + secondArg<OCFile>().remotePath
         }
 
-        try {
-            val localOldFile = java.io.File(SAVE_PATH + OLD_PATH)
-            localOldFile.parentFile?.mkdirs()
-            if (!localOldFile.exists()) {
-                localOldFile.createNewFile()
-            }
-        } catch (_: Exception) {
-        }
-
         mockkStatic(TextUtils::class)
         every { TextUtils.isEmpty(any()) } answers { arg<CharSequence?>(0).isNullOrEmpty() }
 
@@ -171,6 +162,7 @@ abstract class MoveFilesTestBase {
         e2eCounter = null,
         internalTwoWaySync = null,
         internalTwoWaySyncResult = null,
-        uploaded = null
+        uploaded = null,
+        isReadOnly = null
     )
 }

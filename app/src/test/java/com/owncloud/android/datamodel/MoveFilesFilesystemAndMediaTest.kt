@@ -9,6 +9,7 @@ package com.owncloud.android.datamodel
 import android.media.MediaScannerConnection
 import com.owncloud.android.utils.FileStorageUtils
 import io.mockk.every
+import io.mockk.slot
 import io.mockk.verify
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -59,6 +60,28 @@ class MoveFilesFilesystemAndMediaTest : MoveFilesTestBase() {
         assertFalse(File(expectedTargetPath).exists())
         verify(exactly = 0) { manager.deleteFileInMediaScan(any()) }
         verify(exactly = 0) { MediaScannerConnection.scanFile(any(), any(), any(), any()) }
+    }
+
+    @Test
+    fun testMoveLocalFileWhenNoLocalCopyExistsShouldStillUpdateDatabasePaths() {
+        val folderPath = "/docs/"
+        val targetFolderPath = "/archive/docs/"
+        val capturedEntities = slot<List<com.nextcloud.client.database.entity.FileEntity>>()
+        every { mockFileDao.updateAll(capture(capturedEntities)) } returns Unit
+
+        doMove(
+            oldPath = folderPath,
+            targetPath = targetFolderPath,
+            entities = listOf(
+                createFileEntity(id = 1L, path = folderPath),
+                createFileEntity(id = 2L, path = "${folderPath}report.pdf")
+            )
+        )
+
+        assertEquals(
+            listOf(targetFolderPath, "${targetFolderPath}report.pdf"),
+            capturedEntities.captured.map { it.path }
+        )
     }
 
     @Test
