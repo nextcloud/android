@@ -211,6 +211,51 @@ class FileStorageUtilsTest {
     }
 
     @Test
+    fun instantUploadPathIgnoresLetterCaseOfTheSyncedFolder() {
+        val result = FileStorageUtils.getInstantUploadFilePath(
+            File("/storage/emulated/0/DCIM/camera/IMG_20260101_120000.jpg"),
+            Locale.ROOT,
+            "/Autoupload/Camera",
+            "/storage/emulated/0/DCIM/Camera",
+            123123123L,
+            false,
+            SubFolderRule.YEAR_MONTH
+        )
+
+        assertEquals("/Autoupload/Camera/IMG_20260101_120000.jpg", result)
+    }
+
+    @Test
+    fun instantUploadPathStripsTheSyncedFolderOnlyFromTheStart() {
+        val result = FileStorageUtils.getInstantUploadFilePath(
+            File("/sdcard/DCIM/DCIM/file.jpg"),
+            Locale.ROOT,
+            "/Camera",
+            "/sdcard/DCIM",
+            123123123L,
+            false,
+            SubFolderRule.YEAR_MONTH
+        )
+
+        assertEquals("/Camera/DCIM/file.jpg", result)
+    }
+
+    @Test
+    fun instantUploadPathToleratesATrailingSeparatorOnTheSyncedFolder() {
+        val result = FileStorageUtils.getInstantUploadFilePath(
+            File("/sdcard/DCIM/file.jpg"),
+            Locale.ROOT,
+            "/Camera",
+            "/sdcard/DCIM/",
+            123123123L,
+            false,
+            SubFolderRule.YEAR_MONTH
+        )
+
+        assertEquals("/Camera/file.jpg", result)
+    }
+
+    @Test
     fun testGetFilenameAndExtensionWhenGivenInvalidFilenamesWithSpecialChars() {
         val result = FileStorageUtils.getFilenameAndExtension("invoice\u202Ecod.exe", false, false)
         assertEquals("invoice\u202Ecod", result.first)
