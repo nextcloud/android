@@ -3,6 +3,7 @@
   ~
   ~ SPDX-FileCopyrightText: 2020-2024 Nextcloud GmbH
   ~ SPDX-FileCopyrightText: 2020-2024 Tobias Kaminsky <tobias@kaminsky.me>
+  ~ SPDX-FileCopyrightText: 2026 XeniaCloud
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
@@ -23,10 +24,13 @@
                 android:startY="1344.0002"
                 android:type="linear">
                 <item
-                    android:color="#FF0082C9"
+                    android:color="#FF001233"
                     android:offset="0" />
                 <item
-                    android:color="#FF1CAFFF"
+                    android:color="#FF002266"
+                    android:offset="0.55" />
+                <item
+                    android:color="#FF003399"
                     android:offset="1" />
             </gradient>
         </aapt:attr>
