@@ -64,6 +64,7 @@ class UnifiedSearchItemViewHolder(
         val entryType = entry.getType()
         bindThumbnail(entry, file, entryType)
         bindMoreButton(entry, file)
+        binding.favoriteAction.setVisibleIf(file?.isFavorite == true)
         binding.unifiedSearchItemLayout.setOnClickListener {
             searchEntryOnClick(entry, entryType)
         }
