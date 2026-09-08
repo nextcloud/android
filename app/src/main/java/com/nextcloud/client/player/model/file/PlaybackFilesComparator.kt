@@ -20,6 +20,10 @@ sealed interface PlaybackFilesComparator : Comparator<PlaybackFile> {
         override fun compare(a: PlaybackFile, b: PlaybackFile): Int = AlphanumericComparator.compare(a.name, b.name)
     }
 
+    object ALBUM : PlaybackFilesComparator {
+        override fun compare(a: PlaybackFile, b: PlaybackFile): Int = compareValuesBy(b, a) { it.lastModified }
+    }
+
     object GALLERY : PlaybackFilesComparator {
         override fun compare(a: PlaybackFile, b: PlaybackFile): Int = compareValuesBy(b, a) { it.lastModified }
     }

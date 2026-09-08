@@ -11,17 +11,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.player.media3.PlaybackModel
-import com.nextcloud.client.player.model.ThumbnailLoader
+import com.nextcloud.client.player.model.PlayerThumbnailLoader
 import com.nextcloud.client.player.model.file.PlaybackFile
 import com.nextcloud.client.player.model.state.PlaybackState
 import com.nextcloud.client.player.model.state.VideoSize
-import com.nextcloud.client.player.util.applyVideoSize
-import com.nextcloud.utils.extensions.getSerializableArgument
+import com.nextcloud.client.player.util.PlayerUtil.applyVideoSize
+import com.nextcloud.client.player.util.PlayerUtil.getPlaybackFile
+import com.nextcloud.client.player.util.PlayerUtil.ownsPlayback
+import com.nextcloud.client.player.util.PlayerUtil.putPlaybackFile
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PlayerVideoFileFragmentBinding
 import dagger.android.support.AndroidSupportInjection
@@ -38,7 +39,7 @@ class VideoFileFragment :
         private const val SURFACE_ALPHA_HIDDEN = 0f
 
         fun createInstance(file: PlaybackFile) = VideoFileFragment().apply {
-            arguments = bundleOf(ARGUMENT_FILE to file)
+            arguments = Bundle().apply { putPlaybackFile(ARGUMENT_FILE, file) }
         }
     }
 
@@ -46,15 +47,15 @@ class VideoFileFragment :
     lateinit var playerModel: PlaybackModel
 
     @Inject
-    lateinit var thumbnailLoader: ThumbnailLoader
+    lateinit var playerThumbnailLoader: PlayerThumbnailLoader
 
     private var _binding: PlayerVideoFileFragmentBinding? = null
     private val binding get() = checkNotNull(_binding) { "Binding accessed outside of the view lifecycle" }
 
-    private var previousVideoSize: VideoSize? = null
+    private var renderedVideoSize: VideoSize? = null
 
     private val file by lazy {
-        requireNotNull(arguments.getSerializableArgument(ARGUMENT_FILE, PlaybackFile::class.java)) {
+        requireNotNull(arguments.getPlaybackFile(ARGUMENT_FILE)) {
             "VideoFileFragment requires a $ARGUMENT_FILE argument"
         }
     }
@@ -70,6 +71,9 @@ class VideoFileFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadFileThumbnail()
+        binding.root.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+            render(playerModel.state)
+        }
     }
 
     override fun onStart() {
@@ -78,12 +82,18 @@ class VideoFileFragment :
         playerModel.addListener(this)
     }
 
+    override fun onResume() {
+        super.onResume()
+        render(playerModel.state)
+    }
+
     override fun onStop() {
         playerModel.removeListener(this)
         super.onStop()
     }
 
     override fun onDestroyView() {
+        _binding?.let { playerModel.clearVideoSurfaceView(it.surfaceView) }
         _binding = null
         super.onDestroyView()
     }
@@ -93,12 +103,14 @@ class VideoFileFragment :
     }
 
     private fun loadFileThumbnail() = viewLifecycleOwner.lifecycleScope.launch {
-        val thumbnailSize = resources.getDimensionPixelSize(R.dimen.player_album_cover_size)
-        val thumbnail = thumbnailLoader.await(requireContext(), file, thumbnailSize, thumbnailSize) ?: return@launch
-        binding.thumbnail.setImageBitmap(thumbnail)
+        val context = context ?: return@launch
+        val thumbnailSize = context.resources.getDimensionPixelSize(R.dimen.player_album_cover_size)
+        val thumbnail = playerThumbnailLoader.await(file, thumbnailSize, thumbnailSize) ?: return@launch
+        _binding?.thumbnail?.setImageBitmap(thumbnail)
     }
 
     private fun render(state: PlaybackState?) {
+        val binding = _binding ?: return
         val currentItemState = state?.currentItemState
 
         if (currentItemState?.file == file) {
@@ -106,6 +118,7 @@ class VideoFileFragment :
             return
         }
 
+        renderedVideoSize = null
         binding.surfaceView.isVisible = false
         if (currentItemState == null) {
             playerModel.setVideoSurfaceView(null)
@@ -113,13 +126,18 @@ class VideoFileFragment :
     }
 
     private fun showVideo(videoSize: VideoSize?) {
-        playerModel.setVideoSurfaceView(binding.surfaceView)
+        if (ownsPlayback(binding.surfaceView)) {
+            playerModel.setVideoSurfaceView(binding.surfaceView)
+        }
+
+        val size = videoSize ?: renderedVideoSize
+        renderedVideoSize = size
+
         binding.surfaceView.isVisible = true
-        binding.surfaceView.alpha = if (videoSize == null) SURFACE_ALPHA_HIDDEN else SURFACE_ALPHA_VISIBLE
+        binding.surfaceView.alpha = if (size == null) SURFACE_ALPHA_HIDDEN else SURFACE_ALPHA_VISIBLE
 
-        if (videoSize == null || previousVideoSize == videoSize) return
+        if (size == null) return
 
-        previousVideoSize = videoSize
-        binding.surfaceView.applyVideoSize(videoSize)
+        binding.surfaceView.applyVideoSize(size)
     }
 }

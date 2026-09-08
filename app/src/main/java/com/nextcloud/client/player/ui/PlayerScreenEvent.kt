@@ -11,7 +11,7 @@ import com.owncloud.android.datamodel.OCFile
 
 sealed interface PlayerScreenEvent {
 
-    data class ShowFileActions(val file: OCFile, val actionIds: List<Int>) : PlayerScreenEvent
+    data class ShowFileActions(val file: OCFile, val actionsToHide: List<Int>) : PlayerScreenEvent
 
     data class ShowFileDetails(val file: OCFile) : PlayerScreenEvent
 
@@ -24,4 +24,8 @@ sealed interface PlayerScreenEvent {
     data class LaunchOpenFileIntent(val file: OCFile) : PlayerScreenEvent
 
     data class LaunchStreamFileIntent(val file: OCFile) : PlayerScreenEvent
+
+    data class ToggleFileLock(val file: OCFile, val shouldBeLocked: Boolean) : PlayerScreenEvent
+
+    data class AddFileToAlbum(val file: OCFile) : PlayerScreenEvent
 }

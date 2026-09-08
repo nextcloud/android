@@ -7,15 +7,11 @@
 
 package com.nextcloud.client.player.ui
 
-import android.app.PictureInPictureParams
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.Rect
 import android.media.AudioManager
-import android.os.Build
 import android.os.Bundle
-import android.util.Rational
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
@@ -30,8 +26,6 @@ import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.client.player.model.file.PlaybackFileType
 import com.nextcloud.client.player.ui.audio.AudioPlayerView
 import com.nextcloud.client.player.ui.video.VideoPlayerView
-import com.nextcloud.client.player.util.isPictureInPictureAllowed
-import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet
 import com.nextcloud.utils.extensions.getSerializableArgument
 import com.owncloud.android.R
@@ -44,9 +38,6 @@ import com.owncloud.android.utils.DisplayUtils
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
-
-private const val PIP_ASPECT_RATIO_WIDTH = 16
-private const val PIP_ASPECT_RATIO_HEIGHT = 9
 
 class PlayerActivity :
     FileActivity(),
@@ -71,9 +62,11 @@ class PlayerActivity :
 
     private lateinit var playerView: PlayerView
 
-    private val pipAspectRatio = Rational(PIP_ASPECT_RATIO_WIDTH, PIP_ASPECT_RATIO_HEIGHT)
+    private val pictureInPicture by lazy { VideoPictureInPicture(this, playbackModel, autoEnter = true) }
 
     private var onBackPressedCallback: OnBackPressedCallback? = null
+
+    private var keepPlaybackAliveOnFinish = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -89,14 +82,12 @@ class PlayerActivity :
             .launchIn(lifecycleScope)
 
         onBackPressedCallback = onBackPressedDispatcher.addCallback(this) {
-            val isVideoPlayback = playbackFileType == PlaybackFileType.VIDEO
-
-            if (isPictureInPictureAllowed() && isVideoPlayback) {
-                switchToPictureInPictureMode()
-            } else {
-                file = file?.parentId?.let { storageManager.getFileById(it) }
-                finish()
+            if (canUsePictureInPictureMode() && pictureInPicture.enter(playerView)) {
+                return@addCallback
             }
+
+            file = file?.parentId?.let { storageManager.getFileById(it) }
+            finish()
         }
 
         volumeControlStream = AudioManager.STREAM_MUSIC
@@ -106,7 +97,6 @@ class PlayerActivity :
         super.onNewIntent(intent)
         playbackFileType = intent.getPlaybackFileType()
         recreatePlayerView()
-        onBackPressedCallback?.isEnabled = canUsePictureInPictureMode()
     }
 
     private fun createPlayerView() {
@@ -121,6 +111,7 @@ class PlayerActivity :
 
     private fun recreatePlayerView() {
         playerView.onStop()
+        playerView.release()
         createPlayerView()
         playerView.onStart()
     }
@@ -141,78 +132,70 @@ class PlayerActivity :
 
     override fun onDestroy() {
         super.onDestroy()
-        if (isFinishing && playbackFileType == PlaybackFileType.VIDEO) {
+        playbackModel.onPictureInPictureClose = null
+        if (isFinishing && !keepPlaybackAliveOnFinish && playbackFileType == PlaybackFileType.VIDEO) {
             playbackModel.release()
         }
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        recreatePlayerView()
+
+        val videoPlayerView = playerView as? VideoPlayerView ?: return
         if (isInPictureInPictureMode) {
-            (playerView as? VideoPlayerView)?.hideControls()
+            videoPlayerView.hideControls()
         } else {
-            (playerView as? VideoPlayerView)?.showControls()
+            videoPlayerView.showControls()
         }
     }
 
     override fun onUserLeaveHint() {
         super.onUserLeaveHint()
         if (canUsePictureInPictureMode()) {
-            switchToPictureInPictureMode()
+            pictureInPicture.enter(playerView)
         }
     }
 
     override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean, newConfig: Configuration) {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
+
+        playbackModel.onPictureInPictureClose = if (isInPictureInPictureMode) {
+            {
+                keepPlaybackAliveOnFinish = true
+                finish()
+            }
+        } else {
+            null
+        }
+
         if (!isInPictureInPictureMode && lifecycle.currentState == Lifecycle.State.CREATED) {
             finish() // Finish the activity if the user closes the PIP window
+            return
+        }
+
+        if (!isInPictureInPictureMode) {
+            (playerView as? VideoPlayerView)?.showControls()
         }
     }
 
     private fun canUsePictureInPictureMode(): Boolean =
-        playbackFileType == PlaybackFileType.VIDEO && isPictureInPictureAllowed()
-
-    private fun switchToPictureInPictureMode() {
-        val params = createPictureInPictureParams()
-        enterPictureInPictureMode(params)
-    }
-
-    private fun createPictureInPictureParams(): PictureInPictureParams = PictureInPictureParams.Builder().let {
-        it.setAspectRatio(pipAspectRatio)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            it.setAutoEnterEnabled(true)
-        }
-        it.setSourceRectHint(getSourceRectHint())
-        it.build()
-    }
-
-    private fun getSourceRectHint(): Rect {
-        val containerRect = Rect()
-        playerView.getGlobalVisibleRect(containerRect)
-        val sourceHeightHint = (containerRect.width() / pipAspectRatio.toFloat()).toInt()
-        return Rect(
-            containerRect.left,
-            containerRect.top + (containerRect.height() - sourceHeightHint) / 2,
-            containerRect.right,
-            containerRect.top + (containerRect.height() + sourceHeightHint) / 2
-        )
-    }
+        playbackFileType == PlaybackFileType.VIDEO && pictureInPicture.isAllowed
 
     private fun handleEvent(event: PlayerScreenEvent) {
         when (event) {
-            is PlayerScreenEvent.ShowFileActions -> showFileActions(event.file, event.actionIds)
+            is PlayerScreenEvent.ShowFileActions -> showFileActions(event.file, event.actionsToHide)
             is PlayerScreenEvent.ShowFileDetails -> showFileDetails(event.file)
             is PlayerScreenEvent.ShowFileExportStartedMessage -> showFileExportStartedMessage()
             is PlayerScreenEvent.ShowShareFileDialog -> fileOperationsHelper.sendShareFile(event.file)
             is PlayerScreenEvent.ShowRemoveFileDialog -> showRemoveFileDialog(event.file)
             is PlayerScreenEvent.LaunchOpenFileIntent -> fileOperationsHelper.openFile(event.file)
             is PlayerScreenEvent.LaunchStreamFileIntent -> fileOperationsHelper.streamMediaFile(event.file)
+            is PlayerScreenEvent.ToggleFileLock -> fileOperationsHelper.toggleFileLock(event.file, event.shouldBeLocked)
+            is PlayerScreenEvent.AddFileToAlbum -> fileOperationsHelper.addFileToAlbum(listOf(event.file))
         }
     }
 
-    private fun showFileActions(file: OCFile, actionIds: List<Int>) {
-        val actionsToHide = FileAction.entries.map(FileAction::id).filter { it !in actionIds }
+    private fun showFileActions(file: OCFile, actionsToHide: List<Int>) {
         FileActionsBottomSheet.newInstance(file, false, actionsToHide)
             .setResultListener(supportFragmentManager, this) { viewModel.onFileActionChosen(file, it) }
             .show(supportFragmentManager, "actions")

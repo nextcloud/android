@@ -8,13 +8,16 @@
 package com.nextcloud.client.player.ui.control
 
 import android.content.Context
+import android.os.Build
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.WindowInsets
 import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
+import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.flowWithLifecycle
@@ -23,6 +26,7 @@ import com.nextcloud.client.player.model.state.PlaybackItemState
 import com.nextcloud.client.player.model.state.PlaybackState
 import com.nextcloud.client.player.model.state.PlayerState
 import com.nextcloud.client.player.model.state.RepeatMode
+import com.nextcloud.client.player.ui.MediaNavigator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PlayerControlViewBinding
 import dagger.android.HasAndroidInjector
@@ -69,6 +73,8 @@ class PlayerControlView @JvmOverloads constructor(
 
     val binding = PlayerControlViewBinding.inflate(LayoutInflater.from(context), this, true)
 
+    var navigator: MediaNavigator? = null
+
     init {
         if (!isInEditMode) {
             (context.applicationContext as HasAndroidInjector).androidInjector().inject(this)
@@ -90,6 +96,7 @@ class PlayerControlView @JvmOverloads constructor(
             viewScope?.cancel()
             viewScope = null
         }
+        navigator = null
         super.onDetachedFromWindow()
     }
 
@@ -100,6 +107,19 @@ class PlayerControlView @JvmOverloads constructor(
 
     fun onStop() {
         playbackModel.removeListener(this)
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        // Clear insets to avoid covering ui
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val insets = rootWindowInsets.getInsets(WindowInsets.Type.systemBars())
+            binding.playerControlPanel.updateLayoutParams<MarginLayoutParams> {
+                leftMargin = insets.left
+                bottomMargin = insets.bottom
+                rightMargin = insets.right
+            }
+        }
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
     }
 
     override fun onPlaybackUpdate(state: PlaybackState) {
@@ -121,6 +141,9 @@ class PlayerControlView @JvmOverloads constructor(
         }
 
         binding.ivRepeat.setOnClickListener {
+            // Repeat and Random are mutually exclusive
+            playbackModel.setShuffle(false)
+
             when (binding.ivRepeat.tag) {
                 TAG_CLICK_COMMAND_REPEAT -> playbackModel.setRepeatMode(RepeatMode.SINGLE)
                 TAG_CLICK_COMMAND_DO_NOT_REPEAT -> playbackModel.setRepeatMode(RepeatMode.ALL)
@@ -128,25 +151,15 @@ class PlayerControlView @JvmOverloads constructor(
         }
 
         binding.ivRandom.setOnClickListener {
+            // Repeat and Random are mutually exclusive
+            playbackModel.setRepeatMode(RepeatMode.OFF)
+
             playbackModel.setShuffle(binding.ivRandom.tag == TAG_CLICK_COMMAND_SHUFFLE)
         }
 
-        binding.ivNext.setOnClickListener { playbackModel.playNext() }
+        binding.ivNext.setOnClickListener { navigator?.showNext() }
 
-        binding.ivPrevious.setOnClickListener(
-            MultipleClickListener(
-                onSingleClick = {
-                    playbackModel.state?.currentItemState?.let { state ->
-                        if (state.playerState == PlayerState.PAUSED || state.playerState == PlayerState.PLAYING) {
-                            playbackModel.seekToPosition(0L)
-                        } else {
-                            playbackModel.playPrevious()
-                        }
-                    }
-                },
-                onDoubleClick = { playbackModel.playPrevious() }
-            )
-        )
+        binding.ivPrevious.setOnClickListener { navigator?.showPrevious() }
 
         binding.progressBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -176,7 +189,7 @@ class PlayerControlView @JvmOverloads constructor(
         renderRepeatButton(playbackState.repeatMode == RepeatMode.SINGLE)
         renderShuffleButton(playbackState.shuffle)
         renderPlayPauseButton(playbackState.currentItemState?.playerState == PlayerState.PLAYING)
-        renderNextPreviousButtons(playbackState)
+        renderNextPreviousButtons()
         renderProgressBar(playbackState.currentItemState)
     }
 
@@ -216,9 +229,9 @@ class PlayerControlView @JvmOverloads constructor(
         binding.ivPlayPause.tag = if (isPlaying) TAG_CLICK_COMMAND_PAUSE else TAG_CLICK_COMMAND_PLAY
     }
 
-    private fun renderNextPreviousButtons(playbackState: PlaybackState) {
-        binding.ivNext.setEnabled(playbackState.currentItemState != null && playbackState.currentFiles.size > 1)
-        binding.ivPrevious.setEnabled(playbackState.currentItemState != null && playbackState.currentFiles.isNotEmpty())
+    private fun renderNextPreviousButtons() {
+        binding.ivNext.isEnabled = navigator?.hasNext == true
+        binding.ivPrevious.isEnabled = navigator?.hasPrevious == true
     }
 
     private fun renderProgressBar(playbackItemState: PlaybackItemState?) {

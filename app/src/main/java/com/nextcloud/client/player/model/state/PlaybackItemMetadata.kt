@@ -7,7 +7,7 @@
 
 package com.nextcloud.client.player.model.state
 
-import java.io.Serializable
+import java.util.Objects
 
 data class PlaybackItemMetadata(
     val title: CharSequence,
@@ -18,4 +18,14 @@ data class PlaybackItemMetadata(
     val description: CharSequence? = null,
     val artworkData: ByteArray? = null,
     val artworkUri: CharSequence? = null
-) : Serializable
+) {
+    override fun equals(other: Any?): Boolean = when {
+        this === other -> true
+        other !is PlaybackItemMetadata -> false
+        else -> describedFields() == other.describedFields() && artworkData.contentEquals(other.artworkData)
+    }
+
+    override fun hashCode(): Int = Objects.hash(describedFields(), artworkData?.contentHashCode())
+
+    private fun describedFields(): List<Any?> = listOf(title, artist, album, genre, year, description, artworkUri)
+}

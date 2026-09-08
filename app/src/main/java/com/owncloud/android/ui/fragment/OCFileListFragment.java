@@ -238,7 +238,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     protected MenuItemAddRemove menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
 
-    private List<MenuItem> mOriginalMenuItems = new ArrayList<>();
+    private final List<MenuItem> mOriginalMenuItems = new ArrayList<>();
 
     private static OCFileDepth fileDepth = OCFileDepth.Root;
 
@@ -308,14 +308,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
         try {
             mContainerActivity = (FileFragment.ContainerActivity) context;
         } catch (ClassCastException e) {
-            throw new IllegalArgumentException(context.toString() + " must implement " +
+            throw new IllegalArgumentException(context + " must implement " +
                                                    FileFragment.ContainerActivity.class.getSimpleName(), e);
         }
         try {
             setOnRefreshListener((OnEnforceableRefreshListener) context);
 
         } catch (ClassCastException e) {
-            throw new IllegalArgumentException(context.toString() + " must implement " +
+            throw new IllegalArgumentException(context + " must implement " +
                                                    OnEnforceableRefreshListener.class.getSimpleName(), e);
         }
     }
@@ -574,7 +574,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         action = action.setType("*/*").addCategory(Intent.CATEGORY_OPENABLE);
         action.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
 
-        getActivity().startActivityForResult(
+        requireActivity().startActivityForResult(
             Intent.createChooser(action, getString(R.string.upload_chooser_title)),
             FileDisplayActivity.REQUEST_CODE__SELECT_CONTENT_FROM_APPS
                                             );
@@ -764,8 +764,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     @Override
-    public void showTemplate(@NonNull Creator creator, @NonNull String headline) {
-        ChooseTemplateDialogFragment.newInstance(mFile, creator, headline).show(requireActivity().getSupportFragmentManager(),
+    public void showTemplate(Creator creator, String headline) {
+        ChooseTemplateDialogFragment.newInstance(mFile, creator, headline).show(requireActivity()
+                                                                                    .getSupportFragmentManager(), 
                                                                                 DIALOG_CREATE_DOCUMENT);
     }
 
@@ -907,7 +908,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
             final int checkedCount = checkedFiles.size();
 
             if (mActiveActionMode != null) {
-                String title = getResources().getQuantityString(R.plurals.items_selected_count, checkedCount, checkedCount);
+                String title = getResources().getQuantityString(R.plurals.items_selected_count, 
+                                                                checkedCount, 
+                                                                checkedCount);
                 mActiveActionMode.setTitle(title);
             }
 
@@ -981,7 +984,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (savedInstanceState != null) {
             mMultiChoiceModeListener.loadStateFrom(savedInstanceState);
         }
-        ((FileActivity) getActivity()).addDrawerListener(mMultiChoiceModeListener);
+        ((FileActivity) requireActivity()).addDrawerListener(mMultiChoiceModeListener);
     }
 
     /**
@@ -1129,7 +1132,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private void folderOnItemClick(OCFile file, int position) {
         if (requireActivity() instanceof FolderPickerActivity fpa) {
-            String filenameErrorMessage = FileNameValidator.INSTANCE.checkFileName(file.getFileName(), getCapabilities(), requireContext());
+            String filenameErrorMessage = FileNameValidator.INSTANCE.checkFileName(file.getFileName(), 
+                                                                                   getCapabilities(), 
+                                                                                   requireContext());
             if (filenameErrorMessage != null) {
                 DisplayUtils.showSnackMessage(fpa, filenameErrorMessage);
                 return;
@@ -1163,7 +1168,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return;
         }
 
-        if (PreviewImageFragment.canBePreviewed(file) && mContainerActivity instanceof FileDisplayActivity fda) {
+        if (mContainerActivity instanceof FileDisplayActivity fda && fda.canPreviewInMediaPager(file)) {
             fda.previewImageWithSearchContext(file, searchFragment, currentSearchType);
         } else if (file.isDown() && mContainerActivity instanceof FileDisplayActivity fda) {
             fda.previewFile(file, this::setFabVisible);
@@ -1309,7 +1314,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 return true;
             } else if (itemId == R.id.action_rename_file) {
                 RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(singleFile, mFile);
-                dialog.show(getFragmentManager(), FileDetailFragment.FTAG_RENAME_FILE);
+                dialog.show(requireFragmentManager(), FileDetailFragment.FTAG_RENAME_FILE);
                 return true;
             } else if (itemId == R.id.action_see_details) {
                 if (mActiveActionMode != null) {
@@ -1348,7 +1353,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (itemId == R.id.action_remove_file) {
             RemoveFilesDialogFragment dialog =
                 RemoveFilesDialogFragment.newInstance(new ArrayList<>(checkedFiles), mActiveActionMode);
-            dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
+            dialog.show(requireFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
             return true;
         } else if (itemId == R.id.action_download_file || itemId == R.id.action_sync_file) {
             syncAndCheckFiles(checkedFiles);
@@ -1442,7 +1447,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         action.putExtra(FolderPickerActivity.EXTRA_FOLDER, getCurrentFile());
         action.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION); // No animation since we stay in the same folder
         action.putExtra(FolderPickerActivity.EXTRA_ACTION, extraAction);
-        getActivity().startActivityForResult(action, requestCode);
+        requireActivity().startActivityForResult(action, requestCode);
     }
 
 

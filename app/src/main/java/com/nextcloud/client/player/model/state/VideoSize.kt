@@ -7,6 +7,4 @@
 
 package com.nextcloud.client.player.model.state
 
-import java.io.Serializable
-
-data class VideoSize(val width: Int, val height: Int) : Serializable
+data class VideoSize(val width: Int, val height: Int)

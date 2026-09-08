@@ -8,7 +8,6 @@
 package com.nextcloud.client.player.model.state
 
 import com.nextcloud.client.player.model.file.PlaybackFile
-import java.io.Serializable
 
 data class PlaybackItemState(
     val file: PlaybackFile,
@@ -17,4 +16,4 @@ data class PlaybackItemState(
     val videoSize: VideoSize?,
     val currentTimeInMilliseconds: Long,
     val maxTimeInMilliseconds: Long
-) : Serializable
+)

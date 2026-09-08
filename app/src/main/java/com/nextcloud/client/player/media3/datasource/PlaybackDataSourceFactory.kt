@@ -19,12 +19,13 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
+import dagger.Lazy
 import javax.inject.Inject
 
 @UnstableApi
 class PlaybackDataSourceFactory @Inject constructor(
     private val context: Context,
-    private val cache: Cache,
+    private val cache: Lazy<Cache>,
     private val fileDataStorageManager: FileDataStorageManager,
     private val clientFactory: ClientFactory,
     private val accountManager: UserAccountManager
@@ -32,7 +33,7 @@ class PlaybackDataSourceFactory @Inject constructor(
 
     override fun createDataSource(): DataSource = CacheDataSource.Factory()
         .setUpstreamDataSourceFactory(createUpstreamDataSourceFactory())
-        .setCache(cache)
+        .setCache(cache.get())
         .createDataSource()
 
     private fun createUpstreamDataSourceFactory() = DataSource.Factory {

@@ -7,9 +7,7 @@
 
 package com.nextcloud.client.player.model.state
 
-import java.io.Serializable
-
-enum class PlayerState : Serializable {
+enum class PlayerState {
     IDLE,
     PLAYING,
     PAUSED,

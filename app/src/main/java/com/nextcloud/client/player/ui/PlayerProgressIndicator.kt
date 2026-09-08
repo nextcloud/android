@@ -13,10 +13,10 @@ import androidx.annotation.AttrRes
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.nextcloud.client.player.media3.PlaybackModel
 import com.nextcloud.client.player.model.file.PlaybackFile
-import com.nextcloud.client.player.model.file.toPlaybackFile
 import com.nextcloud.client.player.model.state.PlaybackItemState
 import com.nextcloud.client.player.model.state.PlaybackState
 import com.nextcloud.client.player.model.state.PlayerState
+import com.nextcloud.client.player.util.PlayerUtil.toPlaybackFile
 import com.owncloud.android.datamodel.OCFile
 import dagger.android.HasAndroidInjector
 import javax.inject.Inject
@@ -58,8 +58,7 @@ class PlayerProgressIndicator @JvmOverloads constructor(
     }
 
     override fun onPlaybackUpdate(state: PlaybackState) {
-        val itemState = state.currentItemState
-        render(itemState)
+        render(state.currentItemState)
     }
 
     fun setFile(file: OCFile) {
@@ -68,8 +67,12 @@ class PlayerProgressIndicator @JvmOverloads constructor(
     }
 
     private fun renderCurrentState() {
-        val itemState = playbackModel.state?.currentItemState
-        render(itemState)
+        if (playbackFile == null) {
+            visibility = GONE
+            return
+        }
+
+        render(playbackModel.state?.currentItemState)
     }
 
     private fun render(itemState: PlaybackItemState?) {

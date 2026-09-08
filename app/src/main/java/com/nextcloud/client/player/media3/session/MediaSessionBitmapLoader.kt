@@ -20,9 +20,9 @@ import androidx.media3.datasource.DataSourceBitmapLoader
 import com.google.common.util.concurrent.ListenableFuture
 import com.google.common.util.concurrent.ListeningExecutorService
 import com.google.common.util.concurrent.MoreExecutors
-import com.nextcloud.client.player.media3.common.playbackFile
-import com.nextcloud.client.player.model.ThumbnailLoader
+import com.nextcloud.client.player.model.PlayerThumbnailLoader
 import com.nextcloud.client.player.model.file.PlaybackFile
+import com.nextcloud.client.player.util.PlayerUtil.playbackFile
 import com.owncloud.android.R
 import com.owncloud.android.utils.MimeTypeUtil
 import java.util.concurrent.Callable
@@ -32,8 +32,8 @@ import javax.inject.Inject
 @UnstableApi
 class MediaSessionBitmapLoader @Inject constructor(
     private val context: Context,
-    private val thumbnailLoader: ThumbnailLoader
-) : BitmapLoader by DataSourceBitmapLoader(context) {
+    private val playerThumbnailLoader: PlayerThumbnailLoader
+) : BitmapLoader by DataSourceBitmapLoader.Builder(context).build() {
 
     companion object {
         private const val THUMBNAIL_TARGET_SIZE = 160
@@ -82,14 +82,14 @@ class MediaSessionBitmapLoader @Inject constructor(
     private fun getBitmapFromMetadata(metadata: MediaMetadata, fileId: String?): Bitmap? {
         val model = metadata.artworkData ?: metadata.artworkUri ?: return null
         return runCatching {
-            thumbnailLoader.load(context, model, fileId, thumbnailSize, thumbnailSize).get()
+            playerThumbnailLoader.load(model, fileId, thumbnailSize, thumbnailSize).get()
         }.getOrElse {
             null
         }
     }
 
     private fun getBitmapForFile(file: PlaybackFile): Bitmap? = runCatching {
-        thumbnailLoader.load(context, file, thumbnailSize, thumbnailSize).get()
+        playerThumbnailLoader.load(file, thumbnailSize, thumbnailSize).get()
     }.getOrElse {
         null
     }
