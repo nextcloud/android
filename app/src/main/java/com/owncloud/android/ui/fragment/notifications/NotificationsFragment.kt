@@ -352,6 +352,9 @@ class NotificationsFragment :
         // after any action successfully completed remove the notification
         if (isSuccess) {
             adapter?.removeNotification(notification.notificationId)
+            if (adapter?.itemCount == 0) {
+                state = NotificationsUIState.Empty
+            }
         } else {
             adapter?.bindButtons(holder, notification)
             DisplayUtils.showSnackMessage(requireActivity(), getString(R.string.notification_action_failed))
