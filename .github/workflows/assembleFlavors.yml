@@ -24,25 +24,18 @@ jobs:
               with:
                   distribution: "temurin"
                   java-version: 21
-            - uses: gradle/actions/wrapper-validation@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
-            - name: Cache Gradle
-              uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-              with:
-                  path: |
-                      ~/.gradle/caches
-                      ~/.gradle/wrapper
-                      .gradle
-                  key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', 'gradle/libs.versions.toml', 'gradle/wrapper/gradle-wrapper.properties') }}-${{ github.run_id }}
-                  restore-keys: |
-                      gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', 'gradle/libs.versions.toml', 'gradle/wrapper/gradle-wrapper.properties') }}-
-                      gradle-${{ runner.os }}-
             - name: compile
               run: |
-                  echo "org.gradle.jvmargs=-Xmx10g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" >> gradle.properties
-                  echo "org.gradle.caching=true" >> gradle.properties
-                  echo "org.gradle.parallel=true" >> gradle.properties
-                  echo "org.gradle.configureondemand=true" >> gradle.properties
-                  ./gradlew assembleGeneric
+                echo "org.gradle.jvmargs=-Xmx10g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" >> gradle.properties
+                echo "org.gradle.caching=true" >> gradle.properties
+                echo "org.gradle.parallel=true" >> gradle.properties
+                echo "org.gradle.configureondemand=true" >> gradle.properties
+            - uses: gradle/actions/wrapper-validation@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+            - name: Gradle Cache
+              uses: burrunan/gradle-cache-action@404534c34a2faa40430357a3183522a845b04f3b # v3.0.3
+              with:
+                  job-id: assemble
+                  arguments: assembleGeneric
 
     flavor:
         runs-on: ubuntu-latest
@@ -59,21 +52,15 @@ jobs:
                   distribution: "temurin"
                   java-version: 21
             - uses: gradle/actions/wrapper-validation@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
-            - name: Restore Gradle cache
-              uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-              with:
-                  path: |
-                      ~/.gradle/caches
-                      ~/.gradle/wrapper
-                      .gradle
-                  key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', 'gradle/libs.versions.toml', 'gradle/wrapper/gradle-wrapper.properties') }}-${{ github.run_id }}
-                  restore-keys: |
-                      gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', 'gradle/libs.versions.toml', 'gradle/wrapper/gradle-wrapper.properties') }}-
-                      gradle-${{ runner.os }}-
-            - name: Build ${{ matrix.flavor }}
+            - name: compile
               run: |
-                  echo "org.gradle.jvmargs=-Xmx6g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" >> gradle.properties
+                  echo "org.gradle.jvmargs=-Xmx10g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" >> gradle.properties
                   echo "org.gradle.caching=true" >> gradle.properties
                   echo "org.gradle.parallel=true" >> gradle.properties
                   echo "org.gradle.configureondemand=true" >> gradle.properties
-                  ./gradlew assemble${{ matrix.flavor }}
+            - uses: gradle/actions/wrapper-validation@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+            - name: Gradle Cache
+              uses: burrunan/gradle-cache-action@404534c34a2faa40430357a3183522a845b04f3b # v3.0.3
+              with:
+                  job-id: assemble
+                  arguments: assemble${{ matrix.flavor }}
