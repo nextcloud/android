@@ -199,6 +199,7 @@ class OCFileListAdapterHelper {
     fun indexOfSameRemoteFile(files: List<OCFile>, target: OCFile): Int =
         files.indexOfFirst { isSameRemoteFile(it, target) }
 
+    @Suppress("ReturnCount")
     fun isSameRemoteFile(file: OCFile, target: OCFile): Boolean {
         if (file.fileId == target.fileId) {
             return true
