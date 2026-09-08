@@ -551,6 +551,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         } else {
             handleListMode(holder, filename, pair);
         }
+
+        final var playerProgressIndicator = holder.getPlayerProgressIndicator();
+        if (playerProgressIndicator != null) {
+            playerProgressIndicator.setFile(file);
+        }
     }
 
     private void handleGridMode(String filename, OCFileListGridItemViewHolder holder, Pair<String, String> filenamePair, OCFile file) {
