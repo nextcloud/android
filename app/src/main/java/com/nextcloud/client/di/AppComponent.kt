@@ -23,6 +23,7 @@ import com.nextcloud.client.onboarding.OnboardingModule
 import com.nextcloud.client.player.PlayerModule
 import com.nextcloud.client.preferences.PreferencesModule
 import com.owncloud.android.MainApp
+import com.owncloud.android.operations.SynchronizeFolderOperation
 import com.owncloud.android.ui.ThemeableSwitchPreference
 import com.owncloud.android.ui.whatsnew.ProgressIndicator
 import dagger.BindsInstance
@@ -67,6 +68,8 @@ interface AppComponent {
     fun inject(offlineOperationReceiver: OfflineOperationReceiver)
 
     fun inject(folderDownloadWorkerReceiver: FolderDownloadWorkerReceiver)
+
+    fun inject(synchronizeFolderOperation: SynchronizeFolderOperation)
 
     @Component.Builder
     interface Builder {

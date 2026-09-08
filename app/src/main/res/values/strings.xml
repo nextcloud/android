@@ -1638,4 +1638,5 @@
     <string name="player_control_view_play_pause_button_content_description">Play/Pause button</string>
     <string name="player_control_view_next_button_content_description">Next button</string>
     <string name="player_control_view_random_button_content_description">Random button</string>
+    <string name="run_two_way_sync">Run sync now</string>
 </resources>

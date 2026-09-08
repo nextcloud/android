@@ -15,13 +15,20 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorkerNotificationManager;
+import com.nextcloud.client.jobs.upload.FileUploadWorker;
+import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.extensions.ExtensionsKt;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
+import com.owncloud.android.db.OCUpload;
+import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.OperationCancelledException;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -37,11 +44,19 @@ import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.Vector;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import javax.inject.Inject;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import kotlin.Unit;
@@ -95,6 +110,10 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
     final FolderDownloadWorkerNotificationManager notificationManager;
 
+    @Inject UploadsStorageManager uploadsStorageManager;
+    @Inject ConnectivityService connectivityService;
+    @Inject PowerManagementService powerManagementService;
+
     /**
      * Creates a new instance of {@link SynchronizeFolderOperation}.
      *
@@ -120,6 +139,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         this.useWorkerWithNotification = useWorkerWithNotification;
         this.syncAll = syncAll;
         notificationManager = new FolderDownloadWorkerNotificationManager(context, false,null);
+        MainApp.getAppComponent().inject(this);
     }
 
 
@@ -445,6 +465,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
     private void syncContents(OwnCloudClient client) throws OperationCancelledException {
         startDirectDownloads();
         startContentSynchronizations(mFilesToSyncContents);
+        startUploadNewFiles();
         updateETag(client);
     }
 
@@ -468,6 +489,115 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
             final FileDataStorageManager storageManager = getStorageManager();
             storageManager.saveFile(mLocalFolder);
+        }
+    }
+    
+    private void startUploadNewFiles() {
+        List<OCFile> children = getStorageManager().getFolderContent(mLocalFolder, false);
+        
+        if (mLocalFolder.getStoragePath() == null) {
+            return;
+        }
+
+        File[] localFiles = new File(mLocalFolder.getStoragePath()).listFiles();
+        if (localFiles == null) {
+            return;
+        }
+        
+        Stream<File> sortedLocalFiles = Arrays.stream(localFiles).sorted(new Comparator<File>() {
+            @Override
+            public int compare(File o1, File o2) {
+                if (o1.isDirectory() && o2.isDirectory()) {
+                    return 0;
+                }
+                
+                if (o1.isFile() && o2.isFile()) {
+                    return 0; 
+                }
+                
+                if (o1.isDirectory() && o2.isFile()) {
+                    return -1;
+                }
+                
+                if (o1.isFile() && o2.isDirectory()) {
+                    return 1;
+                }
+                
+                return 0;
+            }
+        });
+
+        
+
+        Set<String> childFileNames = children.stream()
+            .map(OCFile::getFileName)
+            .collect(Collectors.toSet());
+
+        for (Iterator<File> it = sortedLocalFiles.iterator(); it.hasNext(); ) {
+            File localFile = it.next();
+            if (childFileNames.contains(localFile.getName())) {
+                continue;
+            }
+
+            if (localFile.isDirectory()) {
+                createRemoteFolder(localFile);
+            }
+
+            if (localFile.isFile()) {
+                uploadNewFile(localFile);
+            }
+        }
+    }
+
+    private void createRemoteFolder(File localFolder) {
+        String remotePath = mLocalFolder.getRemotePath() + localFolder.getName() + OCFile.PATH_SEPARATOR;
+        CreateFolderOperation operation = new CreateFolderOperation(remotePath, user, mContext, getStorageManager());
+        var result = operation.execute(getClient());
+
+        if (result.isSuccess()) {
+            Log_OC.d(TAG, "startUploadNewFiles created remote folder for: " + localFolder.getName());
+
+            new SynchronizeFolderOperation(
+                mContext,
+                remotePath,
+                user,
+                getStorageManager(),
+                false,
+                true
+            ).execute(mContext);
+            
+        } else {
+            Log_OC.d(TAG, "startUploadNewFiles failed to create remote folder for: " + localFolder.getName());
+        }
+    }
+
+    private void uploadNewFile(File localFile) {
+        String remotePath = mLocalFolder.getRemotePath() + localFile.getName();
+        OCUpload upload = new OCUpload(localFile.getAbsolutePath(), remotePath, user.getAccountName());
+        upload.setNameCollisionPolicy(NameCollisionPolicy.DEFAULT);
+        upload.setLocalAction(FileUploadWorker.LOCAL_BEHAVIOUR_FORGET);
+
+        UploadFileOperation operation = new UploadFileOperation(
+            uploadsStorageManager,
+            connectivityService,
+            powerManagementService,
+            user,
+            null,
+            upload,
+            upload.getNameCollisionPolicy(),
+            upload.getLocalAction(),
+            mContext,
+            false,
+            false,
+            getStorageManager()
+        );
+
+        var result = operation.execute(getClient());
+
+        if (result.isSuccess()) {
+            Log_OC.d(TAG, "startUploadNewFiles completed for: " + localFile.getName());
+        } else {
+            Log_OC.d(TAG, "startUploadNewFiles failed for: " + localFile.getName());
         }
     }
 
@@ -527,6 +657,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
         for (int current = 0; current < filesToSyncContents.size(); current++) {
             if (mCancellationRequested.get()) {
+                Log_OC.v(TAG, "cancelled...");
                 throw new OperationCancelledException();
             }
 
