@@ -24,6 +24,7 @@ object PowerManagementFactory {
     }
 
     @JvmStatic
+    @Suppress("MagicNumber")
     val mockCharging: PowerManagementService = object : PowerManagementService {
         override val isIgnoringOptimization: Boolean
             get() = true
