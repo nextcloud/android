@@ -236,7 +236,7 @@
     <androidx.compose.ui.platform.ComposeView
         android:id="@+id/unifiedShare"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:visibility="gone" />
 
     <include
