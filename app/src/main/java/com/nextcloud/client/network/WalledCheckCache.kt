@@ -17,7 +17,6 @@ import javax.inject.Singleton
 class WalledCheckCache @Inject constructor() {
     private val clock = ClockImpl()
 
-    private val connectivityCache = ConcurrentHashMap<ConnectivityKey, Connectivity>()
     private val walledStatusCache = ConcurrentHashMap<ConnectivityKey, Pair<Long, Boolean>>()
 
     fun setValue(key: ConnectivityKey, isWalled: Boolean) {
@@ -28,14 +27,18 @@ class WalledCheckCache @Inject constructor() {
         walledStatusCache.remove(key)
     }
 
+    /**
+     * Reachability is a property of the network the device sits on, and every account may be hosted on a different
+     * instance, so a network change invalidates all accounts' verdicts and not only the currently selected one.
+     */
+    fun clearAll() {
+        walledStatusCache.clear()
+    }
+
     fun getValue(key: ConnectivityKey): Boolean? {
         val entry = walledStatusCache[key] ?: return null
         val isExpired = (clock.currentTime - entry.first) >= CACHE_TIME_MS
         return if (isExpired) null else entry.second
-    }
-
-    fun putConnectivityValue(key: ConnectivityKey, connectivity: Connectivity) {
-        connectivityCache[key] = connectivity
     }
 
     companion object {

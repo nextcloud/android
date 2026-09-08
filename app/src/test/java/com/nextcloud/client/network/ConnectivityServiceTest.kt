@@ -21,6 +21,8 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.TestCoroutineScheduler
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
 import org.apache.commons.httpclient.HttpStatus
@@ -39,6 +41,7 @@ import org.mockito.kotlin.any
 import org.mockito.kotlin.argumentCaptor
 import org.mockito.kotlin.clearInvocations
 import org.mockito.kotlin.eq
+import org.mockito.kotlin.mock
 import org.mockito.kotlin.never
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
@@ -51,7 +54,9 @@ import java.net.URI
     ConnectivityServiceTest.IsConnected::class,
     ConnectivityServiceTest.WifiConnectionWalledStatusOnLegacyServer::class,
     ConnectivityServiceTest.WifiConnectionWalledStatus::class,
-    ConnectivityServiceTest.LocalNetworkFallback::class
+    ConnectivityServiceTest.LocalNetworkFallback::class,
+    ConnectivityServiceTest.StableNetwork::class,
+    ConnectivityServiceTest.MultipleAccounts::class
 )
 class ConnectivityServiceTest {
 
@@ -100,7 +105,7 @@ class ConnectivityServiceTest {
         lateinit var connectivityService: ConnectivityServiceImpl
 
         @OptIn(ExperimentalCoroutinesApi::class)
-        private val testDispatcher = StandardTestDispatcher()
+        private val testDispatcher = UnconfinedTestDispatcher()
 
         @OptIn(ExperimentalCoroutinesApi::class)
         @Before
@@ -139,7 +144,23 @@ class ConnectivityServiceTest {
                 clientFactory,
                 requestBuilder,
                 walledCheckCache
-            )
+            ).apply { ioDispatcher = testDispatcher }
+        }
+
+        fun capturedNetworkCallback(): ConnectivityManager.NetworkCallback {
+            val callbackCaptor = argumentCaptor<ConnectivityManager.NetworkCallback>()
+            verify(platformConnectivityManager).registerDefaultNetworkCallback(callbackCaptor.capture())
+            return callbackCaptor.firstValue
+        }
+
+        @OptIn(ExperimentalCoroutinesApi::class)
+        fun runPendingWork() {
+            testDispatcher.scheduler.advanceUntilIdle()
+        }
+
+        fun mockReachableServer() {
+            whenever(getRequest.execute(client)).thenReturn(HttpStatus.SC_NO_CONTENT)
+            whenever(getRequest.getResponseContentLength()).thenReturn(0L)
         }
     }
 
@@ -260,7 +281,6 @@ class ConnectivityServiceTest {
         @Before
         fun setUp() {
             connectivityService.updateConnectivity()
-            StandardTestDispatcher().scheduler.advanceUntilIdle()
             clearInvocations(requestBuilder, client, getRequest)
             connectivityService.connectivity.let {
                 assertTrue(it.isConnected)
@@ -317,6 +337,7 @@ class ConnectivityServiceTest {
             //      assume internet is not walled
             //      request IS sent
             assertEquals(false, result)
+            verify(getRequest, times(1)).execute(client)
         }
 
         @Test
@@ -346,6 +367,7 @@ class ConnectivityServiceTest {
 
             // THEN server reachability check is always performed, even on metered cellular
             assertEquals(false, result)
+            verify(getRequest, times(1)).execute(client)
         }
 
         fun mockResponse(contentLength: Long = 0, status: Int = HttpStatus.SC_OK) {
@@ -432,6 +454,142 @@ class ConnectivityServiceTest {
             assertFalse(connectivityService.isConnected)
             assertTrue(connectivityService.isInternetWalled())
             verify(requestBuilder, never()).invoke(any())
+        }
+    }
+
+    internal class StableNetwork : Base() {
+        private val notifications = mutableListOf<Boolean>()
+        private val listener = object : NetworkChangeListener {
+            override fun networkAndServerConnectionListener(isNetworkAndServerAvailable: Boolean) {
+                notifications.add(isNetworkAndServerAvailable)
+            }
+        }
+
+        @Before
+        fun setUp() {
+            mockReachableServer()
+            connectivityService.addListener(listener)
+            clearInvocations(requestBuilder, client, getRequest, walledCheckCache, accountManager)
+        }
+
+        @Test
+        fun `repeated capability callbacks on an unchanged network do no work`() {
+            val callback = capturedNetworkCallback()
+
+            repeat(TIMES_CALLBACK_FIRES) {
+                callback.onCapabilitiesChanged(network, networkCapabilities)
+            }
+            runPendingWork()
+
+            assertTrue("Listeners must not be notified without a change", notifications.isEmpty())
+            verify(requestBuilder, never()).invoke(any())
+            verify(getRequest, never()).execute(client)
+            verify(walledCheckCache, never()).clearAll()
+            verify(accountManager, never()).user
+        }
+
+        @Test
+        fun `changing transport notifies listeners once and keeps quiet afterwards`() {
+            val callback = capturedNetworkCallback()
+            whenever(networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)).thenReturn(false)
+            whenever(networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)).thenReturn(true)
+
+            callback.onCapabilitiesChanged(network, networkCapabilities)
+            repeat(TIMES_CALLBACK_FIRES) {
+                callback.onCapabilitiesChanged(network, networkCapabilities)
+            }
+            runPendingWork()
+
+            assertEquals(listOf(true), notifications)
+        }
+
+        @Test
+        fun `listeners are not notified again when server availability did not change`() {
+            val callback = capturedNetworkCallback()
+
+            whenever(networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)).thenReturn(false)
+            whenever(networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)).thenReturn(true)
+            callback.onCapabilitiesChanged(network, networkCapabilities)
+            runPendingWork()
+
+            whenever(networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)).thenReturn(true)
+            whenever(networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)).thenReturn(false)
+            callback.onCapabilitiesChanged(network, networkCapabilities)
+            runPendingWork()
+
+            assertEquals("Reachable server must be reported only once", listOf(true), notifications)
+        }
+
+        @Test
+        fun `losing and regaining the server is reported to listeners`() {
+            val callback = capturedNetworkCallback()
+
+            whenever(platformConnectivityManager.activeNetwork).thenReturn(null)
+            whenever(platformConnectivityManager.allNetworks).thenReturn(emptyArray())
+            callback.onLost(network)
+            runPendingWork()
+
+            whenever(platformConnectivityManager.activeNetwork).thenReturn(network)
+            whenever(platformConnectivityManager.allNetworks).thenReturn(arrayOf(network))
+            callback.onAvailable(network)
+            runPendingWork()
+
+            assertEquals(listOf(false, true), notifications)
+        }
+
+        @Test
+        fun `default network handover invalidates cached reachability of every account`() {
+            val callback = capturedNetworkCallback()
+
+            callback.onAvailable(network)
+
+            verify(walledCheckCache).clearAll()
+        }
+
+        private companion object {
+            const val TIMES_CALLBACK_FIRES = 5
+        }
+    }
+
+    internal class MultipleAccounts : Base() {
+        @Test
+        fun `reachability is cached per account and server`() {
+            val otherUser = mock<User>()
+            whenever(otherUser.accountName).thenReturn("other@nextcloud.localhost")
+            whenever(otherUser.server).thenReturn(Server(URI.create(OTHER_SERVER_URL), NextcloudVersion.nextcloud_31))
+            whenever(walledCheckCache.getValue(any())).thenReturn(null)
+            mockReachableServer()
+
+            connectivityService.isInternetWalled()
+            whenever(accountManager.user).thenReturn(otherUser)
+            connectivityService.isInternetWalled()
+
+            verify(walledCheckCache).setValue(eq(ConnectivityKey(user.accountName, SERVER_BASE_URL)), any())
+            verify(walledCheckCache).setValue(eq(ConnectivityKey(otherUser.accountName, OTHER_SERVER_URL)), any())
+        }
+
+        @Test
+        fun `every caller of isNetworkAndServerAvailable receives a result`() {
+            val scheduler = TestCoroutineScheduler()
+            val service = ConnectivityServiceImpl(
+                context,
+                accountManager,
+                clientFactory,
+                requestBuilder,
+                walledCheckCache
+            ).apply { ioDispatcher = StandardTestDispatcher(scheduler) }
+            mockReachableServer()
+            val results = mutableListOf<Boolean>()
+
+            service.isNetworkAndServerAvailable { results.add(it) }
+            service.isNetworkAndServerAvailable { results.add(it) }
+            scheduler.advanceUntilIdle()
+
+            assertEquals(listOf(true, true), results)
+        }
+
+        private companion object {
+            const val OTHER_SERVER_URL = "https://other.nextcloud.localhost"
         }
     }
 }
