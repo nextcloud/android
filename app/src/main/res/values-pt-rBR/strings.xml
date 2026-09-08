@@ -34,7 +34,6 @@
     <string name="add_new_public_share">Adicionar novo link de compartilhamento público</string>
     <string name="add_new_secure_file_drop">Adicionar novo depósito de arquivos seguro</string>
     <string name="add_to_album">Adicionar a álbum</string>
-    <string name="add_to_cloud">Adicionar em %1$s</string>
     <string name="album_already_exists">O álbum já existe</string>
     <string name="album_copy_file_conflict">Já existe.</string>
     <string name="album_create_new_link">Criar novo link</string>
@@ -157,7 +156,7 @@
     <string name="autoupload_delete_uploaded_all_dialog_title">Excluir localmente os arquivos enviados em todas as pastas de upload automático</string>
     <string name="autoupload_delete_uploaded_dialog_description">Todos os arquivos já enviados para a nuvem serão removidos do dispositivo atual</string>
     <string name="autoupload_delete_uploaded_dialog_title">Excluir localmente os arquivos enviados</string>
-    <string name="autoupload_delete_uploaded_notif_ended_content">Liberei %1$s removendo %2$s distribuídos por %3$s de %4$s.</string>
+    <string name="autoupload_delete_uploaded_notif_ended_content">Foram liberados %1$s removendo %2$s distribuídos por %3$s de %4$s.</string>
     <string name="autoupload_delete_uploaded_notif_ended_title">Excluir localmente arquivos já enviados</string>
     <string name="autoupload_delete_uploaded_notif_error_title">Não é possível excluir localmente arquivos já enviados</string>
     <string name="autoupload_delete_uploaded_notif_started_title">Iniciou a exclusão local, em segundo plano, dos arquivos já enviados</string>
@@ -296,8 +295,6 @@
     <string name="create_link">Criar link</string>
     <string name="create_new">Novo</string>
     <string name="create_new_document">Novo documento</string>
-    <string name="create_new_encrypted_folder">Nova pasta criptografada</string>
-    <string name="create_new_folder">Nova pasta</string>
     <string name="create_new_presentation">Nova apresentação</string>
     <string name="create_new_spreadsheet">Nova planilha</string>
     <string name="create_presentation">Apresentação</string>
@@ -798,6 +795,7 @@
     <string name="picture_set_as_no_app">Nenhum aplicativo encontrado para definir uma imagem</string>
     <string name="pin_home">Fixar na tela inicial</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
+    <string name="player_media_controls_close_action_title">Fechar</string>
     <string name="player_stop">para</string>
     <string name="player_toggle">alternar</string>
     <string name="please_select_a_server">Selecione um servidor…</string>
@@ -1448,4 +1446,4 @@
         <item quantity="many">%1$d downloads restantes</item>
         <item quantity="other">%1$d downloads restantes</item>
     </plurals>
-</resources>
+    </resources>

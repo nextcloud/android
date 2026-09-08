@@ -31,7 +31,6 @@
     <string name="add_new_public_share">يېڭى ئاممىۋى ئورتاقلىشىش ئۇلانمىسىنى قوشۇڭ</string>
     <string name="add_new_secure_file_drop">يېڭى بىخەتەر ھۆججەت چۈشۈرۈش</string>
     <string name="add_to_album">ئالبۇمغا قوشۇڭ</string>
-    <string name="add_to_cloud">%1$s غا قوشۇڭ</string>
     <string name="album_delete">ئالبۇمنى ئۆچۈرۈڭ</string>
     <string name="album_rename_conflict">بۇ ئىسىم ئاللىقاچان ئىشلىتىلىۋاتىدۇ.</string>
     <string name="album_share">ئالبۇمنى ھەمبەھىرلەش</string>
@@ -241,8 +240,6 @@
     <string name="create_link">ئۇلىنىش قۇر</string>
     <string name="create_new">يېڭى</string>
     <string name="create_new_document">يېڭى ھۆججەت</string>
-    <string name="create_new_encrypted_folder">يېڭى شىفىرلانغان قىسقۇچ</string>
-    <string name="create_new_folder">يېڭى ھۆججەت قىسقۇچ</string>
     <string name="create_new_presentation">يېڭى تونۇشتۇرۇش</string>
     <string name="create_new_spreadsheet">يېڭى ئېلېكترونلۇق جەدۋەل</string>
     <string name="create_presentation">لېكسىيە</string>
@@ -700,6 +697,7 @@
     <string name="picture_set_as_no_app">رەسىم ئورنىتىدىغان ھېچقانداق دېتال تېپىلمىدى</string>
     <string name="pin_home">باش ئېكرانغا مىخلا</string>
     <string name="pin_shortcut_label">%1$s نى ئېچىڭ</string>
+    <string name="player_media_controls_close_action_title">ياپ</string>
     <string name="player_stop">توختا</string>
     <string name="player_toggle">ئالماشتۇر</string>
     <string name="please_select_a_server">مۇلازىمېتىرنى تاللاڭ…</string>
@@ -1255,4 +1253,4 @@
         <item quantity="one">%1$d چۈشۈرۈش قالدى</item>
         <item quantity="other">%1$d چۈشۈرۈش قالدى</item>
     </plurals>
-</resources>
+    </resources>

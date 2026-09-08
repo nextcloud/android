@@ -33,7 +33,6 @@
     <string name="add_new_public_share">新しい公開共有リンクを追加する</string>
     <string name="add_new_secure_file_drop">新しい安全なファイルドロップを追加</string>
     <string name="add_to_album">アルバムに追加</string>
-    <string name="add_to_cloud">%1$s に追加</string>
     <string name="album_delete">アルバムの削除</string>
     <string name="album_rename_conflict">この名前は既に使用されています。</string>
     <string name="album_stop_sharing">共有の停止</string>
@@ -259,8 +258,6 @@
     <string name="create_link">リンクを作成する</string>
     <string name="create_new">新規作成</string>
     <string name="create_new_document">新規ドキュメント</string>
-    <string name="create_new_encrypted_folder">新しい暗号化フォルダー</string>
-    <string name="create_new_folder">新しいフォルダー</string>
     <string name="create_new_presentation">新規プレゼンテーション</string>
     <string name="create_new_spreadsheet">新規スプレッドシート</string>
     <string name="create_presentation">プレゼンテーション</string>
@@ -711,6 +708,7 @@
     <string name="picture_set_as_no_app">画像を設定するアプリが見つかりませんでした</string>
     <string name="pin_home">ホームスクリーンにピン留めする</string>
     <string name="pin_shortcut_label">%1$sを開く</string>
+    <string name="player_media_controls_close_action_title">閉じる</string>
     <string name="player_stop">中止</string>
     <string name="player_toggle">切替え</string>
     <string name="please_select_a_server">サーバを選択してください...</string>
@@ -1233,4 +1231,4 @@
     <plurals name="share_download_limit_description">
         <item quantity="other">%1$dが未ダウンロード</item>
     </plurals>
-</resources>
+    </resources>

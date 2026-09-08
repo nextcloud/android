@@ -33,7 +33,6 @@
     <string name="add_new_public_share">添加新的公共共享链接</string>
     <string name="add_new_secure_file_drop">添加新的安全文件投放箱</string>
     <string name="add_to_album">添加至相册</string>
-    <string name="add_to_cloud">添加%1$s</string>
     <string name="album_delete">删除相册</string>
     <string name="album_rename_conflict">此名称已被使用。</string>
     <string name="album_share">分享相册</string>
@@ -263,8 +262,6 @@
     <string name="create_link">创建链接</string>
     <string name="create_new">新建</string>
     <string name="create_new_document">新文档</string>
-    <string name="create_new_encrypted_folder">新加密文件夹</string>
-    <string name="create_new_folder">新文件夹</string>
     <string name="create_new_presentation">新演示文稿</string>
     <string name="create_new_spreadsheet">新表格</string>
     <string name="create_presentation">演示文稿</string>
@@ -740,6 +737,7 @@
     <string name="picture_set_as_no_app">找不到可以设置图片的应用程序</string>
     <string name="pin_home">固定到主屏幕</string>
     <string name="pin_shortcut_label">打开 1%1$s</string>
+    <string name="player_media_controls_close_action_title">关闭</string>
     <string name="player_stop">停止</string>
     <string name="player_toggle">切换</string>
     <string name="please_select_a_server">请选择服务器…</string>
@@ -1316,4 +1314,4 @@
     <plurals name="share_download_limit_description">
         <item quantity="other">剩余 %1$d 个下载</item>
     </plurals>
-</resources>
+    </resources>

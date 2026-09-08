@@ -34,7 +34,6 @@
     <string name="add_new_public_share">Yeni herkese açık paylaşım bağlantısı ekle</string>
     <string name="add_new_secure_file_drop">Yeni güvenli dosya bırakma ekle</string>
     <string name="add_to_album">Albüme ekle</string>
-    <string name="add_to_cloud">%1$s üzerine ekle</string>
     <string name="album_already_exists">Albüm zaten var</string>
     <string name="album_copy_file_conflict">Zaten var.</string>
     <string name="album_create_new_link">Yeni bağlantı oluştur</string>
@@ -296,8 +295,6 @@
     <string name="create_link">Bağlantı oluştur</string>
     <string name="create_new">Yeni</string>
     <string name="create_new_document">Yeni belge</string>
-    <string name="create_new_encrypted_folder">Yeni şifrelenmiş klasör</string>
-    <string name="create_new_folder">Yeni klasör</string>
     <string name="create_new_presentation">Yeni sunum</string>
     <string name="create_new_spreadsheet">Yeni elektronik tablo</string>
     <string name="create_presentation">Sunum</string>
@@ -798,6 +795,7 @@
     <string name="picture_set_as_no_app">Görselin ayarlanabileceği bir uygulama bulunamadı</string>
     <string name="pin_home">Girişe sabitle</string>
     <string name="pin_shortcut_label">%1$s aç</string>
+    <string name="player_media_controls_close_action_title">Kapat</string>
     <string name="player_stop">durdur</string>
     <string name="player_toggle">değiştir</string>
     <string name="please_select_a_server">Lütfen bir sunucu seçin…</string>
@@ -1419,4 +1417,4 @@
         <item quantity="one">%1$d indirme kaldı</item>
         <item quantity="other">%1$d indirme kaldı</item>
     </plurals>
-</resources>
+    </resources>

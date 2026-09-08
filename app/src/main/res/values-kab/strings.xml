@@ -31,7 +31,6 @@
     <string name="activity_icon">Armud</string>
     <string name="add_new_public_share">Rnu aseɣwen amaynut n beṭṭu azayez</string>
     <string name="add_new_secure_file_drop">Rnu asers n ufaylu aɣelsan amaynut</string>
-    <string name="add_to_cloud">Rnu ɣer %1$s</string>
     <string name="album_rename_conflict">Isem-a yettuseqdec yakan</string>
     <string name="app_config_base_url_title">URL n uzadur</string>
     <string name="app_config_disable_clipboard_title">Sens Tecfawit</string>
@@ -223,7 +222,6 @@
     <string name="create_link">Snulfu-d aseɣwen</string>
     <string name="create_new">Amaynut</string>
     <string name="create_new_document">Isemli amaynut</string>
-    <string name="create_new_folder">Akaram amaynut</string>
     <string name="create_new_presentation">Asenkid amaynut</string>
     <string name="create_new_spreadsheet">Ambellez amaynut </string>
     <string name="create_presentation">Tasmuli</string>
@@ -630,6 +628,7 @@
     <string name="permission_allow">Sireg</string>
     <string name="permission_deny">Agwi</string>
     <string name="pin_shortcut_label">Ldi %1$s</string>
+    <string name="player_media_controls_close_action_title">Mdel</string>
     <string name="pref_behaviour_entries_delete_file">yettwakkes</string>
     <string name="prefs_add_account">Rnu amiḍan</string>
     <string name="prefs_category_about">Γef</string>

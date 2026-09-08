@@ -31,7 +31,6 @@
     <string name="add_new_public_share">Tambahkan tautan berbagi baru</string>
     <string name="add_new_secure_file_drop">Tambahkan tempat penyimpanan file aman</string>
     <string name="add_to_album">Tambahkan album</string>
-    <string name="add_to_cloud">Tambahkan ke %1$s</string>
     <string name="album_delete">Hapus album</string>
     <string name="album_rename_conflict">Nama ini sudah digunakan.</string>
     <string name="album_stop_sharing">Berhenti berbagi</string>
@@ -234,7 +233,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="create_link">Buat tautan</string>
     <string name="create_new">Baru</string>
     <string name="create_new_document">Dokumen baru</string>
-    <string name="create_new_folder">Folder baru</string>
     <string name="create_new_presentation">Presentasi baru</string>
     <string name="create_new_spreadsheet">Spreadsheet baru</string>
     <string name="create_presentation">Presentasi</string>
@@ -682,6 +680,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="picture_set_as_no_app">Tidak ada aplikasi untuk menyetel gambar yang ditemukan.</string>
     <string name="pin_home">Sematkan ke tampilan beranda</string>
     <string name="pin_shortcut_label">Buka %1$s</string>
+    <string name="player_media_controls_close_action_title">Tutup</string>
     <string name="player_stop">hentikan</string>
     <string name="player_toggle">alihkan</string>
     <string name="please_select_a_server">Silahkan pilih server...</string>
@@ -1222,4 +1221,4 @@ Berikut ini adalah daftar berkas lokal, dan berkas jarak jauh di %5$s yang terhu
     <plurals name="share_download_limit_description">
         <item quantity="other">%1$d unduhan tersisa</item>
     </plurals>
-</resources>
+    </resources>

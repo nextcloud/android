@@ -28,7 +28,6 @@
     <string name="activity_icon">Активност</string>
     <string name="add_new_public_share">Додади нов линк за споделување</string>
     <string name="add_to_album">Додади во албум</string>
-    <string name="add_to_cloud">Додади во %1$s</string>
     <string name="album_delete">Избриши албум</string>
     <string name="album_rename_conflict">Името е веќе во употреба.</string>
     <string name="album_share">Сподели албум</string>
@@ -182,7 +181,6 @@
     <string name="create_folder">Папка</string>
     <string name="create_new">Ново</string>
     <string name="create_new_document">Нов Документ</string>
-    <string name="create_new_folder">Нова папка</string>
     <string name="create_new_presentation">Нова Презентација</string>
     <string name="create_new_spreadsheet">Нова Табела</string>
     <string name="create_presentation">Презентација</string>
@@ -482,6 +480,7 @@
     <string name="permission_deny">Забрани</string>
     <string name="picture_set_as_no_app">Не е пронајдена апликација за поставување на слики</string>
     <string name="pin_shortcut_label">Отвори %1$s</string>
+    <string name="player_media_controls_close_action_title">Затвори</string>
     <string name="player_stop">стоп</string>
     <string name="player_toggle">вклучи</string>
     <string name="power_save_check_dialog_message">Оневозможување на проверката за заштеда на енергијата може да овозможи прикачување на датотеки и кога батеријата е празна</string>

@@ -26,7 +26,6 @@
     <string name="activity_chooser_title">Cuir ceangal gu…</string>
     <string name="activity_icon">Gnìomhachd</string>
     <string name="add_new_public_share">Cuir ceangal co-roinnidh poblach ùr ris</string>
-    <string name="add_to_cloud">Cuir ri %1$s</string>
     <string name="appbar_search_in">Lorg am broinn %s</string>
     <string name="associated_account_not_found">Cha deach an cunntas co-cheangailte a lorg!</string>
     <string name="auth_access_failed">Dh’fhàillig leis an inntrigeadh: %1$s</string>
@@ -151,7 +150,6 @@
     <string name="could_not_retrieve_url">Cha b’ urrainn dhuinn an URL fhaighinn</string>
     <string name="create">Cruthaich</string>
     <string name="create_dir_fail_msg">Cha b’ urrainn dhuinn am pasgan a chruthachadh</string>
-    <string name="create_new_folder">Pasgan ùr</string>
     <string name="credentials_disabled">Chaidh an teisteas a chur à comas</string>
     <string name="default_credentials_wrong">Teisteas ceàrr</string>
     <string name="delete_account">Thoir air falbh an cunntas</string>
@@ -428,6 +426,7 @@
     <string name="permission_allow">Ceadaich</string>
     <string name="permission_deny">Diùlt</string>
     <string name="picture_set_as_no_app">Cha deach aplacaid a lorg airson dealbhan a chur leatha</string>
+    <string name="player_media_controls_close_action_title">Dùin</string>
     <string name="player_stop">cuir stad air</string>
     <string name="player_toggle">toglaich</string>
     <string name="power_save_check_dialog_message">Ma chuireas tu à comas dearbhadh caomhnadh cumhachd, dh’fhaoidte gun dèid faidhlichean a luchdadh suas nuair a bhios am bataraidh fann!</string>

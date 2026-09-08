@@ -32,7 +32,6 @@
     <string name="add_new_public_share">إضافة رابط مشاركة عام جديد</string>
     <string name="add_new_secure_file_drop">أضف ملف ألاصل </string>
     <string name="add_to_album">إضِف إلى ألبوم</string>
-    <string name="add_to_cloud">إضافة إلى %1$s</string>
     <string name="album_delete">حذف الألبوم</string>
     <string name="album_rename_conflict">هذا الاسم سبق استعماله.</string>
     <string name="album_share">مشاركة الألبوم</string>
@@ -230,7 +229,6 @@
     <string name="create_link">أنشِئ رابطاً</string>
     <string name="create_new">جديد</string>
     <string name="create_new_document">مستند جديد</string>
-    <string name="create_new_folder">مجلد جديد</string>
     <string name="create_new_presentation">عرض تقديمي جديد</string>
     <string name="create_new_spreadsheet">جدول بيانات جديد</string>
     <string name="create_presentation">عرض تقديمي</string>
@@ -655,6 +653,7 @@
     <string name="picture_set_as_no_app">لم يتم العثور على تطبيق لتعيين صورة به</string>
     <string name="pin_home">ثبِّت في الشاشة الرئيسية</string>
     <string name="pin_shortcut_label">فتح %1$s</string>
+    <string name="player_media_controls_close_action_title">إغلاق</string>
     <string name="player_stop">إيقاف</string>
     <string name="player_toggle">تبديل</string>
     <string name="please_select_a_server">من فضلك، قم بتحديد الخادم...</string>
@@ -1241,4 +1240,4 @@
         <item quantity="many">متبقي %1$d تنزيل</item>
         <item quantity="other">متبقي %1$d تنزيل</item>
     </plurals>
-</resources>
+    </resources>

@@ -34,7 +34,6 @@
     <string name="add_new_public_share">Pridėti naują viešo bendrinimo nuorodą</string>
     <string name="add_new_secure_file_drop">Pridėti naują saugų failų numetimą</string>
     <string name="add_to_album">Pridėti į albumą</string>
-    <string name="add_to_cloud">Pridėti į %1$s</string>
     <string name="album_delete">Ištrinti albumą</string>
     <string name="album_rename_conflict">Šis pavadinimas jau yra naudojamas.</string>
     <string name="album_share">Bendrinti albumą</string>
@@ -267,8 +266,6 @@
     <string name="create_link">Sukurti nuorodą</string>
     <string name="create_new">Nauja</string>
     <string name="create_new_document">Naujas dokumentas</string>
-    <string name="create_new_encrypted_folder">Nepavyko gauti pokalbių sąrašo</string>
-    <string name="create_new_folder">Naujas aplankas</string>
     <string name="create_new_presentation">Nauja pateiktis</string>
     <string name="create_new_spreadsheet">Nauja skaičiuoklė</string>
     <string name="create_presentation">Pateiktis</string>
@@ -746,6 +743,7 @@
     <string name="picture_set_as_no_app">Nerasta programėlė, su kuria būtų galima nustatyti nuotrauką</string>
     <string name="pin_home">Prisegti prie Pradžios ekrano</string>
     <string name="pin_shortcut_label">Atverti %1$s</string>
+    <string name="player_media_controls_close_action_title">Užverti</string>
     <string name="player_stop">stabdyti</string>
     <string name="player_toggle">perjungti</string>
     <string name="please_select_a_server">Pasirinkite serverį…</string>
@@ -1394,4 +1392,4 @@
         <item quantity="many">Liko %1$d atisiuntimų</item>
         <item quantity="other">Liko %1$d atisiuntimų</item>
     </plurals>
-</resources>
+    </resources>

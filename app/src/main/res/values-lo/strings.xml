@@ -31,7 +31,6 @@
     <string name="add_new_public_share">ເພິ່ມການແບ່ງປັນສາທາລະນະໃໝ່</string>
     <string name="add_new_secure_file_drop">ຕື່ມການວາງໄຟລ໌ທີ່ປອດໄພໃໝ່</string>
     <string name="add_to_album">ເພີ່ມໃສ່ອະລະບໍ້າ</string>
-    <string name="add_to_cloud">ເພີ່ມໃສ່ %1$s</string>
     <string name="album_rename_conflict">This name is already in use.</string>
     <string name="album_share">ແບ່ງປັນອາລະບ້ຳ</string>
     <string name="app_config_base_url_title">Base URL</string>
@@ -234,8 +233,6 @@
     <string name="create_link">Create link</string>
     <string name="create_new">New</string>
     <string name="create_new_document">New document</string>
-    <string name="create_new_encrypted_folder">New encrypted folder</string>
-    <string name="create_new_folder">ໂຟນເດີໃຫມ່</string>
     <string name="create_new_presentation">New presentation</string>
     <string name="create_new_spreadsheet">New spreadsheet</string>
     <string name="create_presentation">ການນຳສະເໜີ</string>
@@ -688,6 +685,7 @@
     <string name="picture_set_as_no_app">ບໍ່ພົບແອັບພລິເຄຊັນເພື່ອຕັ້ງຮູບດ້ວຍ</string>
     <string name="pin_home">Pin to home screen</string>
     <string name="pin_shortcut_label">ເປີດ %1$s</string>
+    <string name="player_media_controls_close_action_title">ປິດ</string>
     <string name="player_stop">ຢຸດ</string>
     <string name="player_toggle">ສະລັບ</string>
     <string name="please_select_a_server">Please select a server…</string>
@@ -1215,4 +1213,4 @@
     <plurals name="share_download_limit_description">
         <item quantity="other">%1$d downloads remaining</item>
     </plurals>
-</resources>
+    </resources>

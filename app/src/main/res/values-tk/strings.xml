@@ -27,7 +27,6 @@
     <string name="activity_chooser_title">Baglanyşyk iberiň ...</string>
     <string name="activity_icon">işjeňlik we hereket</string>
     <string name="add_new_public_share">Täze köpçülikleýin paýlaşma baglanyşygyny goşuň</string>
-    <string name="add_to_cloud">Goşuň%1$s</string>
     <string name="appbar_search_in">Gözlemek%siçinde</string>
     <string name="assistant_task_status_unknown">näbelli</string>
     <string name="associated_account_not_found">Baglanyşyk hasaby tapylmady!</string>
@@ -153,7 +152,6 @@
     <string name="could_not_retrieve_url">URL alyp bolmady</string>
     <string name="create">Dörediň</string>
     <string name="create_dir_fail_msg">Bukjany döredip bolmady</string>
-    <string name="create_new_folder">Täze papka döretmek</string>
     <string name="credentials_disabled">Şahsyýet maglumatlary ýapyldy</string>
     <string name="default_credentials_wrong">Nädogry şahsyýet maglumatlary</string>
     <string name="delete_account">Hasaby aýyryň</string>
@@ -423,6 +421,7 @@
     <string name="permission_allow">Rugsat ber</string>
     <string name="permission_deny">inkär et</string>
     <string name="picture_set_as_no_app">Surat goýmak üçin hiç bir programma tapylmady</string>
+    <string name="player_media_controls_close_action_title">Ýap</string>
     <string name="player_stop">Dur</string>
     <string name="player_toggle">üýtgetmek</string>
     <string name="power_save_check_dialog_message">Kuwwat tygşytlaýyş barlagyny öçürmek, batareýanyň pes ýagdaýynda faýl ýüklemegine sebäp bolup biler!</string>

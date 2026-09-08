@@ -29,7 +29,6 @@
     <string name="activity_icon">Activitate</string>
     <string name="add_new_public_share">Adaugă un link public partajat nou</string>
     <string name="add_new_secure_file_drop">Adaugă o nouă încărcare securizată de fișier</string>
-    <string name="add_to_cloud">Adaugă la 1 %1$s</string>
     <string name="album_stop_sharing">Oprește partajarea</string>
     <string name="app_config_base_url_title">URL-ul de bază</string>
     <string name="app_config_disable_clipboard_title">Dezactivează clipboard</string>
@@ -209,7 +208,6 @@
     <string name="create_folder">Director</string>
     <string name="create_new">Nou</string>
     <string name="create_new_document">Document nou</string>
-    <string name="create_new_folder">Director nou</string>
     <string name="create_new_presentation">Prezentare nouă</string>
     <string name="create_new_spreadsheet">Foaie de calcul nouă</string>
     <string name="create_presentation">Prezentare</string>
@@ -599,6 +597,7 @@
     <string name="permission_deny">Refuzați</string>
     <string name="picture_set_as_no_app">Nu a fost găsită o aplicație pentru a seta imaginea</string>
     <string name="pin_shortcut_label">Deschide %1$s</string>
+    <string name="player_media_controls_close_action_title">Închide</string>
     <string name="player_stop">stop</string>
     <string name="player_toggle">comută</string>
     <string name="power_save_check_dialog_message">Dezactivarea modului de economisire a bateriei ar putea rezulta în încărcarea de fișiere când bateria are un nivel scăzut!</string>

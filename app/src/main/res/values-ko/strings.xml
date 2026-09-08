@@ -31,7 +31,6 @@
     <string name="add_new_public_share">새 공개된 공유 링크</string>
     <string name="add_new_secure_file_drop">안전한 파일 공유를 새로 추가</string>
     <string name="add_to_album">앨범에 추가</string>
-    <string name="add_to_cloud">%1$s(으)로 추가</string>
     <string name="album_delete">앨범 삭제</string>
     <string name="album_rename_conflict">이 이름은 이미 사용 중입니다.</string>
     <string name="album_share">앨범 공유</string>
@@ -226,7 +225,6 @@
     <string name="create_link">링크 만들기</string>
     <string name="create_new">새 파일</string>
     <string name="create_new_document">새 문서</string>
-    <string name="create_new_folder">새 폴더</string>
     <string name="create_new_presentation">새 프레젠테이션</string>
     <string name="create_new_spreadsheet">새 스프레드시트</string>
     <string name="create_presentation">프레젠테이션</string>
@@ -637,6 +635,7 @@
     <string name="pick_contact_to_share_with">공유할 연락처를 선택</string>
     <string name="picture_set_as_no_app">사진을 설정할 앱을 찾을 수 없음</string>
     <string name="pin_shortcut_label">%1$s 열기</string>
+    <string name="player_media_controls_close_action_title">닫기</string>
     <string name="player_stop">멈추기</string>
     <string name="player_toggle">토글</string>
     <string name="please_select_a_server">서버를 선택해 주세요...</string>
@@ -1125,4 +1124,4 @@
     <plurals name="share_download_limit_description">
         <item quantity="other">%1$d 다운로드가 남았습니다</item>
     </plurals>
-</resources>
+    </resources>

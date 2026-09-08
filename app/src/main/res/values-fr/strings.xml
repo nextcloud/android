@@ -34,7 +34,6 @@
     <string name="add_new_public_share">Ajouter un nouveau lien de partage public</string>
     <string name="add_new_secure_file_drop">Ajouter un nouveau dépôt de fichier sécurisé</string>
     <string name="add_to_album">Ajouter à l’album</string>
-    <string name="add_to_cloud">Ajouter à %1$s</string>
     <string name="album_already_exists">L\'album existe déjà</string>
     <string name="album_copy_file_conflict">Existe déjà.</string>
     <string name="album_delete">Supprimer l’album</string>
@@ -284,8 +283,6 @@
     <string name="create_link">Créer un lien</string>
     <string name="create_new">Nouveau</string>
     <string name="create_new_document">Nouveau document</string>
-    <string name="create_new_encrypted_folder">Nouveau dossier chiffré</string>
-    <string name="create_new_folder">Nouveau dossier</string>
     <string name="create_new_presentation">Nouvelle présentation</string>
     <string name="create_new_spreadsheet">Nouvelle feuille de calcul</string>
     <string name="create_presentation">Présentation</string>
@@ -780,6 +777,7 @@
     <string name="picture_set_as_no_app">Aucune application trouvée pour utiliser cette image</string>
     <string name="pin_home">Épingler sur l\'écran d\'accueil</string>
     <string name="pin_shortcut_label">Ouvrir %1$s</string>
+    <string name="player_media_controls_close_action_title">Fermer</string>
     <string name="player_stop">arrêter</string>
     <string name="player_toggle">inverser</string>
     <string name="please_select_a_server">Veuillez sélectionner un serveur…</string>
@@ -1429,4 +1427,4 @@
         <item quantity="many">%1$d téléchargements restants</item>
         <item quantity="other">%1$d téléchargements restants</item>
     </plurals>
-</resources>
+    </resources>

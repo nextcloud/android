@@ -32,7 +32,6 @@
     <string name="add_new_public_share">Kiungo kipya cha ushiriki wa umma</string>
     <string name="add_new_secure_file_drop">Ongeza tone mpya la faili salama</string>
     <string name="add_to_album">Ongeza kwenye albamu</string>
-    <string name="add_to_cloud">Ongeza kwenye %1$s</string>
     <string name="album_delete">Futa albamu</string>
     <string name="album_rename_conflict">Jina hili liko katika matumizi tayari</string>
     <string name="app_config_base_url_title">URL ya msingi</string>
@@ -250,8 +249,6 @@
     <string name="create_link">Tengeneza kiungo</string>
     <string name="create_new">Mpya</string>
     <string name="create_new_document">Waraka mpya</string>
-    <string name="create_new_encrypted_folder">Folda mpya iliyosimbwa kwa njia fiche</string>
-    <string name="create_new_folder">Kisanduku kipya</string>
     <string name="create_new_presentation">Wasilisho jipya</string>
     <string name="create_new_spreadsheet">Lahajedwali mpya</string>
     <string name="create_presentation">Wasilisho</string>
@@ -711,6 +708,7 @@
     <string name="picture_set_as_no_app">Hakuna programu iliyopatikana ya kuweka picha nayo</string>
     <string name="pin_home">Bandika kwenye skrini ya nyumbani</string>
     <string name="pin_shortcut_label">Fungua %1$s</string>
+    <string name="player_media_controls_close_action_title">Funga</string>
     <string name="player_stop">acha</string>
     <string name="player_toggle">geuza</string>
     <string name="please_select_a_server">Tafadhali chagua seva...</string>
@@ -1277,4 +1275,4 @@
         <item quantity="one">%1$d download remaining</item>
         <item quantity="other">%1$dvipakuliwa vilivyosalia</item>
     </plurals>
-</resources>
+    </resources>

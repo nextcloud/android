@@ -31,7 +31,6 @@
     <string name="add_new_public_share">Добавете нова връзка за публично споделяне</string>
     <string name="add_new_secure_file_drop">Добавяне на ново, защитено пускане на файлове</string>
     <string name="add_to_album">Добави към албум</string>
-    <string name="add_to_cloud">Добави към %1$s</string>
     <string name="album_delete">Изтриване на албум</string>
     <string name="album_rename_conflict">Това име вече се използва.</string>
     <string name="album_share">Споделяне на албум</string>
@@ -213,7 +212,6 @@
     <string name="create_link">Създаване на връзка</string>
     <string name="create_new">Нов</string>
     <string name="create_new_document">Нов документ</string>
-    <string name="create_new_folder">Нова папка</string>
     <string name="create_new_presentation">Нова презентация</string>
     <string name="create_new_spreadsheet">Нова електронна таблица</string>
     <string name="create_presentation">Презентация</string>
@@ -557,6 +555,7 @@
     <string name="permission_deny">Не</string>
     <string name="picture_set_as_no_app">Няма намерени приложения за задаване на снимка</string>
     <string name="pin_shortcut_label">Отваряне на %1$s</string>
+    <string name="player_media_controls_close_action_title">Затваряне</string>
     <string name="player_stop">стоп</string>
     <string name="player_toggle">превключване</string>
     <string name="power_save_check_dialog_message">Деактивирането на проверката за пестене на енергия може да доведе до качване на файлове, в състояние с ниска батерия!</string>

@@ -32,7 +32,6 @@
     <string name="add_new_public_share">Dodaj novu poveznicu za javno dijeljenje</string>
     <string name="add_new_secure_file_drop">Dodaj novi sigurni prijenos datoteka</string>
     <string name="add_to_album">Dodaj u album</string>
-    <string name="add_to_cloud">Dodaj na %1$s</string>
     <string name="album_delete">Izbriši album</string>
     <string name="album_rename_conflict">Ovaj naziv se već koristi</string>
     <string name="app_config_base_url_title">Osnovni URL</string>
@@ -251,8 +250,6 @@
     <string name="create_link">Stvori poveznicu</string>
     <string name="create_new">Novo</string>
     <string name="create_new_document">Novi dokument</string>
-    <string name="create_new_encrypted_folder">Nova šifrirana mapa</string>
-    <string name="create_new_folder">Nova mapa</string>
     <string name="create_new_presentation">Nova prezentacija</string>
     <string name="create_new_spreadsheet">Nova proračunska tablica</string>
     <string name="create_presentation">Prezentacija</string>
@@ -719,6 +716,7 @@
     <string name="picture_set_as_no_app">Nije pronađena nijedna aplikacija za postavljanje slike s</string>
     <string name="pin_home">Prikvači na početni zaslon</string>
     <string name="pin_shortcut_label">Otvori %1$s</string>
+    <string name="player_media_controls_close_action_title">Zatvori</string>
     <string name="player_stop">zaustavi</string>
     <string name="player_toggle">uključi/isključi</string>
     <string name="please_select_a_server">Odaberite poslužitelj</string>
@@ -1307,4 +1305,4 @@
         <item quantity="few">Ova poveznica dopušta još %d preuzimanja.</item>
         <item quantity="other">Ova poveznica dopušta još %d preuzimanja.</item>
     </plurals>
-</resources>
+    </resources>
