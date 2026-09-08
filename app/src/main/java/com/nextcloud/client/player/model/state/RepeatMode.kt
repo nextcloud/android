@@ -7,9 +7,7 @@
 
 package com.nextcloud.client.player.model.state
 
-import java.io.Serializable
-
-enum class RepeatMode(val id: Int) : Serializable {
+enum class RepeatMode(val id: Int) {
     OFF(0),
     SINGLE(1),
     ALL(2)

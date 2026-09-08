@@ -11,15 +11,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.player.media3.PlaybackModel
-import com.nextcloud.client.player.model.ThumbnailLoader
+import com.nextcloud.client.player.model.PlayerThumbnailLoader
 import com.nextcloud.client.player.model.file.PlaybackFile
 import com.nextcloud.client.player.model.state.PlaybackItemMetadata
 import com.nextcloud.client.player.model.state.PlaybackState
-import com.nextcloud.utils.extensions.getSerializableArgument
+import com.nextcloud.client.player.util.PlayerUtil.getPlaybackFile
+import com.nextcloud.client.player.util.PlayerUtil.putPlaybackFile
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PlayerAudioFileFragmentBinding
 import com.owncloud.android.utils.DisplayUtils
@@ -37,7 +37,7 @@ open class AudioFileFragment :
         private const val DETAILS_SEPARATOR = ", "
 
         fun createInstance(file: PlaybackFile) = AudioFileFragment().apply {
-            arguments = bundleOf(ARGUMENT_FILE to file)
+            arguments = Bundle().apply { putPlaybackFile(ARGUMENT_FILE, file) }
         }
     }
 
@@ -45,7 +45,7 @@ open class AudioFileFragment :
     lateinit var playbackModel: PlaybackModel
 
     @Inject
-    lateinit var thumbnailLoader: ThumbnailLoader
+    lateinit var playerThumbnailLoader: PlayerThumbnailLoader
 
     private var _binding: PlayerAudioFileFragmentBinding? = null
     private val binding get() = checkNotNull(_binding) { "Binding accessed outside of the view lifecycle" }
@@ -55,7 +55,7 @@ open class AudioFileFragment :
     private var metadata: PlaybackItemMetadata? = null
 
     private val file by lazy {
-        requireNotNull(arguments.getSerializableArgument(ARGUMENT_FILE, PlaybackFile::class.java)) {
+        requireNotNull(arguments.getPlaybackFile(ARGUMENT_FILE)) {
             "AudioFileFragment requires a $ARGUMENT_FILE argument"
         }
     }
@@ -118,15 +118,17 @@ open class AudioFileFragment :
     }
 
     private fun loadFileThumbnail(): Job = viewLifecycleOwner.lifecycleScope.launch {
-        val thumbnailSize = resources.getDimensionPixelSize(R.dimen.player_album_cover_size)
-        val thumbnail = thumbnailLoader.await(requireContext(), file, thumbnailSize, thumbnailSize) ?: return@launch
-        binding.albumCover.setImageBitmap(thumbnail)
+        val context = context ?: return@launch
+        val thumbnailSize = context.resources.getDimensionPixelSize(R.dimen.player_album_cover_size)
+        val thumbnail = playerThumbnailLoader.await(file, thumbnailSize, thumbnailSize) ?: return@launch
+        val albumCover = _binding?.albumCover ?: return@launch
+        albumCover.setImageBitmap(thumbnail)
         isFileThumbnailLoaded = true
     }
 
     private fun loadMetadataArtwork(metadata: PlaybackItemMetadata) {
         val source = metadata.artworkData ?: metadata.artworkUri ?: return
-        thumbnailLoader.load(binding.albumCover, source, file.id)
+        playerThumbnailLoader.load(binding.albumCover, source, file.id)
     }
 
     private fun PlaybackFile.getDetailsText(): String = listOfNotNull(

@@ -11,16 +11,11 @@ import android.content.ComponentName
 import android.content.Context
 import android.view.SurfaceView
 import androidx.annotation.OptIn
-import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.session.MediaController
 import androidx.media3.session.MediaSession
 import androidx.media3.session.SessionToken
-import com.nextcloud.client.player.media3.common.playbackFile
-import com.nextcloud.client.player.media3.common.toMediaItem
-import com.nextcloud.client.player.media3.common.indexOfFirst
-import com.nextcloud.client.player.media3.common.setRepeatMode
-import com.nextcloud.client.player.media3.common.updateMediaItems
+import com.google.common.util.concurrent.ListenableFuture
 import com.nextcloud.client.player.media3.session.MediaSessionFactory
 import com.nextcloud.client.player.model.PlaybackSettings
 import com.nextcloud.client.player.model.file.PlaybackFile
@@ -28,18 +23,30 @@ import com.nextcloud.client.player.model.file.PlaybackFiles
 import com.nextcloud.client.player.model.state.PlaybackState
 import com.nextcloud.client.player.model.state.RepeatMode
 import com.nextcloud.client.player.util.PeriodicAction
+import com.nextcloud.client.player.util.PlayerUtil.indexOfFirst
+import com.nextcloud.client.player.util.PlayerUtil.playbackFile
+import com.nextcloud.client.player.util.PlayerUtil.readCurrentFiles
+import com.nextcloud.client.player.util.PlayerUtil.readMediaIds
+import com.nextcloud.client.player.util.PlayerUtil.setRepeatMode
+import com.nextcloud.client.player.util.PlayerUtil.toMediaItem
+import com.nextcloud.client.player.util.PlayerUtil.toPlaybackState
+import com.nextcloud.client.player.util.PlayerUtil.updateMediaItems
 import com.owncloud.android.datamodel.OCFile
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.guava.await
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
+import java.util.concurrent.ExecutionException
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 
 @Singleton
 @OptIn(markerClass = [UnstableApi::class])
@@ -55,12 +62,8 @@ class PlaybackModel @Inject constructor(
     }
 
     interface Listener {
-
         fun onPlaybackUpdate(state: PlaybackState)
-
-        fun onPlaybackError(error: Throwable) {
-            // Default empty implementation
-        }
+        fun onPlaybackError(error: Throwable) = Unit
     }
 
     private val listeners = mutableListOf<Listener>()
@@ -72,31 +75,68 @@ class PlaybackModel @Inject constructor(
     private val playerListener = PlaybackModelPlayerListener(
         checkProgressPeriodicAction,
         this::notifyPlaybackUpdate,
-        this::onPlaybackError
+        this::onPlaybackError,
+        this::onPlaylistChanged
     )
 
     private val controllerListener = object : MediaController.Listener {
         override fun onDisconnected(controller: MediaController) {
             controller.removeListener(playerListener)
-            controllerScope?.cancel()
+            if (this@PlaybackModel.controller === controller) {
+                this@PlaybackModel.controller = null
+            }
+            videoSurfaceView = null
+            invalidateCurrentFiles()
+            stopFilesFlow()
             checkProgressPeriodicAction.stop()
             notifyPlaybackUpdate()
         }
     }
 
     private var controllerScope: CoroutineScope? = null
-    private var controller: Player? = null
+    private var controller: MediaController? = null
+    private var filesFlowJob: Job? = null
 
     private var mediaSession: MediaSession? = null
 
+    var onPictureInPictureClose: (() -> Unit)? = null
+
+    private var videoSurfaceView: SurfaceView? = null
+
+    private var cachedCurrentFiles: List<PlaybackFile>? = null
+    private var cachedMediaIds: List<String>? = null
+
     val state: PlaybackState?
-        get() = controller?.toPlaybackState()
+        get() = controller?.toPlaybackState(currentFiles())
+
+    private fun currentFiles(): List<PlaybackFile> = cachedCurrentFiles
+        ?: (controller?.readCurrentFiles() ?: emptyList()).also { cachedCurrentFiles = it }
+
+    private fun onPlaylistChanged() {
+        val mediaIds = controller?.readMediaIds() ?: emptyList()
+        if (mediaIds == cachedMediaIds) return
+
+        cachedMediaIds = mediaIds
+        cachedCurrentFiles = null
+    }
+
+    private fun invalidateCurrentFiles() {
+        cachedMediaIds = null
+        cachedCurrentFiles = null
+    }
 
     fun getMediaSession(): MediaSession = mediaSession ?: mediaSessionFactory.create().also {
         mediaSession = it
     }
 
     suspend fun start() {
+        if (controller?.isConnected == true) {
+            return
+        }
+
+        releaseController()
+
+        videoSurfaceView = null
         val sessionToken = SessionToken(context, ComponentName(context, PlaybackService::class.java))
         controller = MediaController.Builder(context, sessionToken)
             .setListener(controllerListener)
@@ -106,12 +146,51 @@ class PlaybackModel @Inject constructor(
                 addListener(playerListener)
                 setRepeatMode(playbackSettings.repeatMode)
                 shuffleModeEnabled = playbackSettings.isShuffle
-                controllerScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
             }
+        controllerScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+    }
+
+    private fun releaseController() {
+        stopFilesFlow()
+        checkProgressPeriodicAction.stop()
+        invalidateCurrentFiles()
+
+        val current = controller ?: return
+        controller = null
+        current.removeListener(playerListener)
+        current.release()
+    }
+
+    private fun stopFilesFlow() {
+        filesFlowJob?.cancel()
+        filesFlowJob = null
+        controllerScope?.cancel()
+        controllerScope = null
+    }
+
+    @Suppress("TooGenericExceptionCaught")
+    private suspend fun <T> ListenableFuture<T>.await(): T = suspendCancellableCoroutine { cont ->
+        addListener(
+            {
+                try {
+                    cont.resume(get())
+                } catch (e: ExecutionException) {
+                    cont.resumeWithException(e.cause ?: e)
+                } catch (e: Exception) {
+                    cont.resumeWithException(e)
+                }
+            },
+            Runnable::run
+        )
+
+        cont.invokeOnCancellation {
+            cancel(false)
+        }
     }
 
     fun setFilesFlow(filesFlow: Flow<PlaybackFiles>) {
-        controllerScope?.launch {
+        filesFlowJob?.cancel()
+        filesFlowJob = controllerScope?.launch {
             filesFlow
                 .catch {
                     notifyPlaybackError(it)
@@ -127,36 +206,53 @@ class PlaybackModel @Inject constructor(
             return
         }
 
-        controller?.let { controller ->
-            val currentFile = controller.currentMediaItem?.mediaMetadata?.playbackFile
-            val mediaItems = files.list.map { it.toMediaItem() }
+        controller?.let { applyFiles(it, files) }
+    }
 
-            if (currentFile == null) {
-                controller.setMediaItems(mediaItems)
-            } else if (files.list.any { it.id == currentFile.id }) {
-                controller.updateMediaItems(mediaItems)
-            } else {
-                val nextFileIndex = getNextFileIndex(files, currentFile)
-                controller.setMediaItems(mediaItems, nextFileIndex, 0)
-            }
+    private fun applyFiles(controller: MediaController, files: PlaybackFiles) {
+        val mediaItems = files.list.map { it.toMediaItem() }
 
-            controller.prepare()
+        if (controller.readMediaIds() == mediaItems.map { it.mediaId }) {
+            return
         }
+
+        val currentFile = controller.currentMediaItem?.mediaMetadata?.playbackFile
+
+        when {
+            currentFile == null -> controller.setMediaItems(mediaItems)
+            files.list.any { it.id == currentFile.id } -> controller.updateMediaItems(mediaItems)
+            else -> controller.setMediaItems(mediaItems, getNextFileIndex(files, currentFile), 0)
+        }
+
+        controller.prepare()
     }
 
     private fun getNextFileIndex(files: PlaybackFiles, currentFile: PlaybackFile): Int = (files.list + currentFile)
         .sortedWith(files.comparator)
         .indexOfFirst { it.id == currentFile.id }
-        .let { if (it in 0..files.list.lastIndex) it else 0 }
+        .let { if (it in files.list.indices) it else 0 }
 
     fun release() {
-        controller?.release()
+        videoSurfaceView = null
+        releaseController()
         mediaSession?.player?.release()
         mediaSession?.release()
         mediaSession = null
+        notifyPlaybackUpdate()
+    }
+
+    fun clearVideoSurfaceView(surfaceView: SurfaceView) {
+        if (videoSurfaceView === surfaceView) {
+            setVideoSurfaceView(null)
+        }
     }
 
     fun setVideoSurfaceView(surfaceView: SurfaceView?) {
+        if (videoSurfaceView === surfaceView) {
+            return
+        }
+
+        videoSurfaceView = surfaceView
         controller?.setVideoSurfaceView(surfaceView)
     }
 
@@ -184,13 +280,6 @@ class PlaybackModel @Inject constructor(
     fun playNext() {
         controller?.run {
             seekToNextMediaItem()
-            prepare()
-        }
-    }
-
-    fun playPrevious() {
-        controller?.run {
-            seekToPreviousMediaItem()
             prepare()
         }
     }
@@ -229,14 +318,21 @@ class PlaybackModel @Inject constructor(
     }
 
     private fun notifyPlaybackUpdate() {
-        val currentState = state ?: return
-        for (i in 0 until listeners.size) {
+        val currentState = state ?: releasedState()
+        for (i in listeners.indices) {
             listeners.getOrNull(i)?.onPlaybackUpdate(currentState)
         }
     }
 
+    private fun releasedState(): PlaybackState = PlaybackState(
+        currentFiles = emptyList(),
+        currentItemState = null,
+        repeatMode = playbackSettings.repeatMode,
+        shuffle = playbackSettings.isShuffle
+    )
+
     private fun notifyPlaybackError(error: Throwable) {
-        for (i in 0 until listeners.size) {
+        for (i in listeners.indices) {
             listeners.getOrNull(i)?.onPlaybackError(error)
         }
     }

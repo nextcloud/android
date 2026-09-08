@@ -57,6 +57,7 @@ import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSmallThumbnail
 import com.nextcloud.utils.extensions.typedActivity
 import com.owncloud.android.MainApp
+import com.nextcloud.client.player.model.file.PlaybackCollection
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PreviewImageFragmentBinding
 import com.owncloud.android.datamodel.OCFile
@@ -103,7 +104,7 @@ class PreviewImageFragment :
     FileFragment(),
     Injectable {
     private var showResizedImage: Boolean? = null
-    private var bitmap: Bitmap? = null
+    private var ownedBitmap: Bitmap? = null
 
     private var ignoreFirstSavedState = false
     private var loadBitmapTask: LoadBitmapTask? = null
@@ -168,7 +169,7 @@ class PreviewImageFragment :
     private fun playLivePhoto(file: OCFile) {
         hideActionBar()
 
-        val mediaFragment = PreviewPlaybackFragment.newInstance(file, searchType = null, autoplay = true)
+        val mediaFragment = PreviewPlaybackFragment.newInstance(file, PlaybackCollection.FOLDER, autoplay = true)
         requireActivity().supportFragmentManager.beginTransaction().run {
             replace(R.id.top, mediaFragment)
             addToBackStack(null)
@@ -249,7 +250,6 @@ class PreviewImageFragment :
             binding.shimmer.visibility = View.VISIBLE
             binding.shimmerThumbnail.setImageBitmap(thumbnail)
             binding.image.visibility = View.GONE
-            bitmap = thumbnail
         } else {
             thumbnail = ThumbnailsCacheManager.mDefaultImg
         }
@@ -274,8 +274,6 @@ class PreviewImageFragment :
             binding.emptyListView.visibility = View.GONE
             binding.emptyListProgress.visibility = View.GONE
             binding.image.setBackgroundColor(resources.getColor(R.color.background_color_inverse))
-
-            bitmap = resizedImage
         } else {
             // generate new resized image
             if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, binding.image) &&
@@ -479,7 +477,7 @@ class PreviewImageFragment :
 
     @SuppressFBWarnings("Dm")
     override fun onDestroy() {
-        bitmap?.recycle()
+        ownedBitmap?.recycle()
         super.onDestroy()
     }
 
@@ -611,7 +609,7 @@ class PreviewImageFragment :
                 showErrorMessage(mErrorMessageId)
             }
 
-            if (result?.bitmap != null && bitmap != result.bitmap) {
+            if (result?.bitmap != null && ownedBitmap != result.bitmap) {
                 // unused bitmap, release it! (just in case)
                 result.bitmap.recycle()
             }
@@ -642,7 +640,7 @@ class PreviewImageFragment :
                     imageView.setImageBitmap(bitmap)
                 }
 
-                this@PreviewImageFragment.bitmap = bitmap // needs to be kept for recycling when not useful
+                this@PreviewImageFragment.ownedBitmap = bitmap
             } else {
                 if (drawable != null &&
                     MIME_TYPE_SVG.equals(result.ocFile.mimeType, ignoreCase = true)

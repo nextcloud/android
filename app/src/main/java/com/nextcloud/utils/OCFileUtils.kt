@@ -7,6 +7,7 @@
 package com.nextcloud.utils
 
 import android.graphics.Color
+import android.util.LruCache
 import android.graphics.drawable.BitmapDrawable
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
@@ -23,31 +24,31 @@ import com.owncloud.android.utils.MimeTypeUtil
 @Suppress("TooGenericExceptionCaught", "ReturnCount")
 object OCFileUtils {
     private const val TAG = "OCFileUtils"
+    private const val IMAGE_SIZE_CACHE_ENTRIES = 2048
+
+    private val imageSizes = LruCache<Long, Pair<Int, Int>>(IMAGE_SIZE_CACHE_ENTRIES)
 
     fun getImageSize(ocFile: OCFile, defaultThumbnailSize: Float): Pair<Int, Int> {
         val fallback = defaultThumbnailSize.toInt().coerceAtLeast(1)
         val fallbackPair = fallback to fallback
 
-        try {
-            Log_OC.d(TAG, "Getting image size for: ${ocFile.fileName}")
+        imageSizes.get(ocFile.fileId)?.let { return it }
 
+        try {
             // Server-provided
             ocFile.imageDimension?.let { dim ->
                 val w = dim.width.toInt().coerceAtLeast(1)
                 val h = dim.height.toInt().coerceAtLeast(1)
-                Log_OC.d(TAG, "Using server-provided imageDimension: $w x $h")
-                return w to h
+                return (w to h).also { imageSizes.put(ocFile.fileId, it) }
             }
 
             // Local file
             val path = ocFile.storagePath
             if (!path.isNullOrEmpty() && ocFile.exists()) {
-                path.getExifSize()?.let { return it }
-                path.getBitmapSize()?.let { return it }
+                path.getExifSize()?.let { return it.also { size -> imageSizes.put(ocFile.fileId, size) } }
+                path.getBitmapSize()?.let { return it.also { size -> imageSizes.put(ocFile.fileId, size) } }
             }
 
-            // 3 Fallback
-            Log_OC.d(TAG, "Fallback to default size: $fallback x $fallback")
             return fallbackPair
         } catch (e: Exception) {
             Log_OC.e(TAG, "Error getting image size for ${ocFile.fileName}", e)

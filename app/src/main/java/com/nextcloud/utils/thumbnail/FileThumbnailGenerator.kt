@@ -21,10 +21,11 @@ import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.model.OfflineOperationType
-import com.nextcloud.utils.extensions.getSmallThumbnail
+import com.nextcloud.utils.extensions.getSmallThumbnailKey
 import com.nextcloud.utils.extensions.startShimmer
 import com.nextcloud.utils.extensions.stopShimmer
 import com.nextcloud.utils.extensions.toFile
+import com.nextcloud.utils.extensions.videoOverlayKey
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -80,7 +81,7 @@ class FileThumbnailGenerator @Inject constructor(
             return
         }
 
-        val cached = file.getSmallThumbnail()
+        val cached = ThumbnailMemoryCache.get(file.getSmallThumbnailKey())
         if (cached == null || file.isUpdateThumbnailNeeded) {
             generate(file, view, arguments)
         } else {
@@ -119,10 +120,19 @@ class FileThumbnailGenerator @Inject constructor(
     private fun show(bitmap: Bitmap, file: OCFile, view: ImageView, arguments: ThumbnailArguments) {
         view.stopShimmer(arguments.shimmer)
 
-        if (MimeTypeUtil.isVideo(file)) {
-            view.setImageBitmap(ThumbnailsCacheManager.addVideoOverlay(bitmap, context))
+        if (MimeTypeUtil.isVideo(file) && !arguments.hideVideoOverlay) {
+            view.setImageBitmap(file.withVideoOverlay(bitmap))
         } else {
             BitmapUtils.setRoundedBitmapAccordingToListType(arguments.isGrid, bitmap, view)
+        }
+    }
+
+    private fun OCFile.withVideoOverlay(thumbnail: Bitmap): Bitmap {
+        val overlayKey = videoOverlayKey(getSmallThumbnailKey())
+        ThumbnailMemoryCache.get(overlayKey)?.let { return it }
+
+        return ThumbnailsCacheManager.addVideoOverlay(thumbnail, context).also {
+            ThumbnailMemoryCache.put(overlayKey, it)
         }
     }
 
@@ -149,24 +159,21 @@ class FileThumbnailGenerator @Inject constructor(
             return
         }
 
-        val cached = file.getSmallThumbnail()
+        val cached = ThumbnailMemoryCache.get(file.getSmallThumbnailKey())
         if (cached != null) {
-            view.setImageBitmap(cached)
-            view.stopShimmer(arguments.shimmer)
+            show(cached, file, view, arguments)
             return
         }
 
         tasks.removeIf { it.isCancelled || it.status == AsyncTask.Status.FINISHED }
 
-        if (tasks.none { it.imageKey == file.remoteId }) {
-            startTask(
-                file,
-                view,
-                arguments,
-                ThumbnailGenerationTaskObject(file, file.remoteId),
-                file.fileId
-            )
-        }
+        startTask(
+            file,
+            view,
+            arguments,
+            ThumbnailGenerationTaskObject(file, file.remoteId),
+            file.fileId
+        )
     }
 
     @Suppress("TooGenericExceptionCaught", "LongParameterList", "DEPRECATION")

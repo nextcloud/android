@@ -241,7 +241,6 @@ work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "w
 foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "foundationVersion" }
 
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesVersion" }
-kotlinx-coroutines-guava = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-guava", version.ref = "kotlinxCoroutinesVersion" }
 
 [bundles]
 media3 = ["media3-ui", "media3-session", "media3-exoplayer", "media3-datasource"]

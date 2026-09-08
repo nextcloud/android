@@ -35,8 +35,8 @@ class AudioPlayerView(context: Context) : PlayerView(context) {
         playerPager.setPadding(insets.left, 0, insets.right, 0)
         playerControlView.setPadding(insets.left, 0, insets.right, insets.bottom)
 
-        windowWrapper.setupStatusBar(R.color.player_background_color, false)
-        windowWrapper.setupNavigationBar(R.color.player_background_color, true)
+        windowWrapper.setupStatusBar(R.color.player_background_color)
+        windowWrapper.setupNavigationBar(R.color.player_background_color)
 
         return WindowInsetsCompat.CONSUMED.toWindowInsets()
     }

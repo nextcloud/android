@@ -39,6 +39,7 @@ import android.widget.ImageView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.BitmapExtensionsKt;
+import com.nextcloud.utils.thumbnail.ThumbnailMemoryCache;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.nextcloud.utils.extensions.OwnCloudClientExtensionsKt;
@@ -97,6 +98,9 @@ public final class ThumbnailsCacheManager {
 
     /** Cache key prefix {@code <prefix><remoteId>}; square, sized from {@link #getThumbnailDimension()}. */
     public static final String PREFIX_THUMBNAIL = "t";
+
+    /** Memory-only cache key prefix {@code <prefix><thumbnailKey>} for thumbnails with the video play overlay. */
+    public static final String PREFIX_VIDEO_OVERLAY = "o";
 
     private static final String TAG = ThumbnailsCacheManager.class.getSimpleName();
     private static final String PNG_MIMETYPE = "image/png";
@@ -223,12 +227,18 @@ public final class ThumbnailsCacheManager {
             return;
         }
 
+        List<String> keys = FileExtensionsKt.getThumbnailKeys(file);
+
+        for (String key : keys) {
+            ThumbnailMemoryCache.INSTANCE.remove(key);
+        }
+
         synchronized (mThumbnailsDiskCacheLock) {
             if (mThumbnailCache == null) {
                 return;
             }
 
-            for (String key: FileExtensionsKt.getThumbnailKeys(file)) {
+            for (String key : keys) {
                 mThumbnailCache.removeKey(key);
             }
         }
@@ -265,6 +275,7 @@ public final class ThumbnailsCacheManager {
             }
 
             mThumbnailCache.put(key, bitmap);
+            ThumbnailMemoryCache.INSTANCE.put(key, bitmap);
         }
     }
 
@@ -290,6 +301,11 @@ public final class ThumbnailsCacheManager {
     }
 
     public static Bitmap getBitmapFromDiskCache(String key) {
+        Bitmap fromMemory = ThumbnailMemoryCache.INSTANCE.get(key);
+        if (fromMemory != null) {
+            return fromMemory;
+        }
+
         synchronized (mThumbnailsDiskCacheLock) {
             // Wait while disk cache is started from background thread
             while (mThumbnailCacheStarting) {
@@ -300,7 +316,11 @@ public final class ThumbnailsCacheManager {
                 }
             }
             if (mThumbnailCache != null) {
-                return mThumbnailCache.getBitmap(key);
+                Bitmap fromDisk = mThumbnailCache.getBitmap(key);
+                if (fromDisk != null) {
+                    ThumbnailMemoryCache.INSTANCE.put(key, fromDisk);
+                }
+                return fromDisk;
             }
         }
         return null;

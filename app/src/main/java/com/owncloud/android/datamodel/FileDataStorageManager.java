@@ -524,12 +524,14 @@ public class FileDataStorageManager {
 
     public List<OCFile> getFolderImagesAndVideos(OCFile folder, boolean onlyOnDevice) {
         List<OCFile> mediaList = new ArrayList<>();
+        HashSet<String> mediaFileNames = new HashSet<>();
 
         if (folder != null) {
             List<OCFile> folderContent = getFolderContent(folder, onlyOnDevice);
 
             for (OCFile ocFile : folderContent) {
-                if (MimeTypeUtil.isImageOrVideo(ocFile)) {
+                if (MimeTypeUtil.isImageOrVideo(ocFile) && !mediaFileNames.contains(ocFile.getFileName())) {
+                    mediaFileNames.add(ocFile.getFileName());
                     mediaList.add(ocFile);
                 }
             }

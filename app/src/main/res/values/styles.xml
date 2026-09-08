@@ -519,6 +519,7 @@
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">end</item>
         <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/player_default_text_color</item>
         <item name="android:textAppearance">@style/TextAppearance.App.Player.ProgressTime</item>
     </style>
 
@@ -549,7 +550,7 @@
         <item name="android:textSize">@dimen/player_audio_file_details_text_size</item>
     </style>
 
-    <style name="ShapeAppearance.App.Player.AlbumCover" parent="ShapeAppearance.Material3.Corner.None" />
+    <style name="ShapeAppearance.App.Player.Media" parent="ShapeAppearance.Material3.Corner.None" />
 
     <style name="PlayerSeekBarStyle" parent="@android:style/Widget.SeekBar">
         <item name="android:progressDrawable">@drawable/player_progress_drawable</item>
@@ -579,10 +580,5 @@
 
         <item name="iconGravity">textStart</item>
         <item name="iconPadding">0dp</item>
-    </style>
-
-    <style name="ShapeAppearance.Player.AlbumCover" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">@dimen/player_album_cover_corner_radius</item>
     </style>
 </resources>

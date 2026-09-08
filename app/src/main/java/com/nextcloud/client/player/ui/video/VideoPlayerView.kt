@@ -40,7 +40,9 @@ class VideoPlayerView(context: Context) : PlayerView(context) {
 
     override fun onStart() {
         super.onStart()
-        showControls()
+        if (!activity.isInPictureInPictureMode) {
+            showControls()
+        }
     }
 
     override fun onStop() {
@@ -56,8 +58,8 @@ class VideoPlayerView(context: Context) : PlayerView(context) {
         topBar.setPadding(insets.left, insets.top, insets.right, 0)
         playerControlView.setPadding(insets.left, 0, insets.right, insets.bottom)
 
-        windowWrapper.setupStatusBar(R.color.player_video_toolbar_background_color, false)
-        windowWrapper.setupNavigationBar(R.color.player_video_control_view_background_color, false)
+        windowWrapper.setupStatusBar(R.color.player_video_toolbar_background_color)
+        windowWrapper.setupNavigationBar(R.color.player_video_control_view_background_color)
 
         return WindowInsetsCompat.CONSUMED.toWindowInsets()
     }
@@ -90,6 +92,11 @@ class VideoPlayerView(context: Context) : PlayerView(context) {
 
     private fun restartHideControlsTimer() {
         hideControlsTimerJob?.cancel()
+
+        if (activity.isInPictureInPictureMode) {
+            return
+        }
+
         hideControlsTimerJob = activity.lifecycleScope.launch {
             delay(HIDE_CONTROLS_DELAY)
             hideControls()
