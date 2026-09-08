@@ -256,12 +256,16 @@ public class FileDataStorageManager {
             BasicFileAttributes attr = Files.readAttributes(localFile.toPath(), BasicFileAttributes.class);
             String localName = localFile.getName();
             String remoteName = ocFile.getFileName();
+            long localSize = localFile.length();
+            long remoteSize = ocFile.getFileLength();
             long localCreated = attr.creationTime().toMillis() / 1000;          // Unix time in milliseconds
             long localModified = attr.lastModifiedTime().toMillis() / 1000;     // Unix time in milliseconds
             long remoteCreated = ocFile.getCreationTimestamp();                 // Unix time in seconds!
             long remoteModified = ocFile.getModificationTimestamp() / 1000;     // Unix time in milliseconds
+            Log.d(TAG, "localCreated:" + localCreated + " localModified:" + localModified + " remoteCreated" + remoteCreated + " remoteModified:" + remoteModified);
             final boolean existingFileIsTheSame =
                 remoteName.equals(localName) &&
+                remoteSize == localSize &&
                 remoteCreated == localCreated &&
                 remoteModified == localModified;
             return existingFileIsTheSame;
