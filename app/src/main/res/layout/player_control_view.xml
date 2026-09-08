@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/playerControlPanel"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/progressPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/player_panel_margin_bottom"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/player_progress_panel_padding_horizontal"
+        android:paddingEnd="@dimen/player_progress_panel_padding_horizontal">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvElapsed"
+            style="@style/PlayerTimeTextViewStyle" />
+
+        <SeekBar
+            android:id="@+id/progressBar"
+            style="@style/PlayerSeekBarStyle"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/player_progressbar_height"
+            android:layout_weight="1"
+            android:longClickable="false" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvTotalTime"
+            style="@style/PlayerTimeTextViewStyle" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/standard_padding"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ivRepeat"
+            style="@style/PlayerButtonStyle"
+            android:contentDescription="@string/player_control_view_repeat_button_content_description"
+            app:icon="@drawable/player_ic_repeat" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ivPrevious"
+            style="@style/PlayerButtonStyle"
+            android:contentDescription="@string/player_control_view_previous_button_content_description"
+            app:icon="@drawable/player_ic_skip_previous" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ivPlayPause"
+            style="@style/PlayerButtonStyle"
+            android:contentDescription="@string/player_control_view_play_pause_button_content_description"
+            app:icon="@drawable/player_ic_play" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ivNext"
+            style="@style/PlayerButtonStyle"
+            android:contentDescription="@string/player_control_view_next_button_content_description"
+            app:icon="@drawable/player_ic_skip_next" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ivRandom"
+            style="@style/PlayerButtonStyle"
+            android:contentDescription="@string/player_control_view_random_button_content_description"
+            app:icon="@drawable/player_ic_shuffle" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -524,12 +524,14 @@ public class FileDataStorageManager {
 
     public List<OCFile> getFolderImagesAndVideos(OCFile folder, boolean onlyOnDevice) {
         List<OCFile> mediaList = new ArrayList<>();
+        HashSet<String> mediaFileNames = new HashSet<>();
 
         if (folder != null) {
             List<OCFile> folderContent = getFolderContent(folder, onlyOnDevice);
 
             for (OCFile ocFile : folderContent) {
-                if (MimeTypeUtil.isImageOrVideo(ocFile)) {
+                if (MimeTypeUtil.isImageOrVideo(ocFile) && !mediaFileNames.contains(ocFile.getFileName())) {
+                    mediaFileNames.add(ocFile.getFileName());
                     mediaList.add(ocFile);
                 }
             }
@@ -2002,6 +2004,35 @@ public class FileDataStorageManager {
 
     }
 
+    public List<OCShare> getShares() {
+        String selection = ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + " = ?";
+        String[] selectionArgs = new String[]{user.getAccountName()};
+
+        Cursor cursor = null;
+        Uri uri = ProviderTableMeta.CONTENT_URI_SHARE;
+        if (getContentResolver() != null) {
+            cursor = getContentResolver().query(uri, null, selection, selectionArgs, null);
+        } else {
+            try {
+                cursor = getContentProviderClient().query(uri, null, selection, selectionArgs, null);
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, "Could not get list of shares: " + e.getMessage(), e);
+            }
+        }
+
+        ArrayList<OCShare> shares = new ArrayList<>();
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                do {
+                    shares.add(createShareInstance(cursor));
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        }
+
+        return shares;
+    }
+
     public List<OCShare> getSharesWithForAFile(String filePath, String accountName) {
         String selection = ProviderTableMeta.OCSHARES_PATH + AND
             + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + AND
@@ -2877,6 +2908,17 @@ public class FileDataStorageManager {
         }
 
         return folderContent;
+    }
+
+    public List<OCFile> getFavoriteFiles() {
+        List<FileEntity> fileEntities = fileDao.getFavoriteFilesNonBlocking(user.getAccountName());
+        List<OCFile> favoriteFiles = new ArrayList<>(fileEntities.size());
+
+        for (FileEntity fileEntity : fileEntities) {
+            favoriteFiles.add(createFileInstance(fileEntity));
+        }
+
+        return favoriteFiles;
     }
 
     private String getString(Cursor cursor, String columnName) {
