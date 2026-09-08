@@ -80,7 +80,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.IntStream;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -1126,18 +1125,17 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @SuppressLint("NotifyDataSetChanged")
     public void updateFile(@NonNull OCFile updatedFile) {
-        long fileId = updatedFile.getFileId();
+        int allIndex = helper.indexOfSameRemoteFile(mFilesAll, updatedFile);
+        if (allIndex != -1) {
+            mFilesAll.set(allIndex, updatedFile);
+        }
 
-        IntStream.range(0, mFilesAll.size())
-            .filter(i -> mFilesAll.get(i).getFileId() == fileId)
-            .findFirst()
-            .ifPresent(i -> mFilesAll.set(i, updatedFile));
+        int oldIndex = helper.indexOfSameRemoteFile(mFiles, updatedFile);
+        if (oldIndex == -1) {
+            return;
+        }
 
-        int oldIndex = IntStream.range(0, mFiles.size())
-            .filter(i -> mFiles.get(i).getFileId() == fileId)
-            .findFirst()
-            .orElse(-1);
-        if (oldIndex == -1) return;
+        long previousItemId = mFiles.get(oldIndex).getFileId();
 
         mFiles.remove(oldIndex);
         mFiles.add(updatedFile);
@@ -1161,10 +1159,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         int oldAdapterPos = oldIndex + headerOffset;
         int newAdapterPos = newIndex + headerOffset;
 
-        if (oldAdapterPos != newAdapterPos) {
-            notifyItemMoved(oldAdapterPos, newAdapterPos);
+        if (oldAdapterPos == newAdapterPos && previousItemId == updatedFile.getFileId()) {
+            notifyItemChanged(newAdapterPos);
+        } else {
+            notifyItemRemoved(oldAdapterPos);
+            notifyItemInserted(newAdapterPos);
         }
-        notifyItemChanged(newAdapterPos);
 
         if (shouldShowRecommendedFiles() && recommendedFilesAdapter != null && updatedFile.isRecommendedFile()) {
             int pos = recommendedFilesAdapter.getItemPosition(updatedFile);
