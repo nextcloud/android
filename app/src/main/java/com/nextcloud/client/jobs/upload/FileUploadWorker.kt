@@ -358,8 +358,10 @@ class FileUploadWorker(
             }
 
             if (result.isSuccess && result.resultData is String) {
-                // TODO: Save this to avoid the conflict, both in online and offline uploads
-                operation.file.etagOnServer = result.resultData.toString()
+                // Update the remote etag to avoid conflict when uploading same file, both in online and offline uploads
+                val file = operation.storageManager.getFileByRemotePath(upload.remotePath)
+                file?.etagOnServer = result.resultData.toString()
+                operation.storageManager.saveFile(file)
             }
         }
 
