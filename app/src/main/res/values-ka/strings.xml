@@ -28,7 +28,6 @@
     <string name="activity_icon">Activity</string>
     <string name="add_new_public_share">Add new public share link</string>
     <string name="add_new_secure_file_drop">Add new secure file drop</string>
-    <string name="add_to_cloud">Add to %1$s</string>
     <string name="app_widget_description">Shows one widget from dashboard</string>
     <string name="appbar_search_in">Search in %s</string>
     <string name="appear_offline">ხაზგარეშე გამოჩენა</string>
@@ -183,7 +182,6 @@
     <string name="create_folder">Folder</string>
     <string name="create_new">New</string>
     <string name="create_new_document">New document</string>
-    <string name="create_new_folder">New folder</string>
     <string name="create_new_presentation">New presentation</string>
     <string name="create_new_spreadsheet">New spreadsheet</string>
     <string name="create_presentation">Presentation</string>
@@ -538,6 +536,7 @@
     <string name="permission_deny">Deny</string>
     <string name="picture_set_as_no_app">No app found to set a picture with</string>
     <string name="pin_shortcut_label">Open %1$s</string>
+    <string name="player_media_controls_close_action_title">Close</string>
     <string name="player_stop">stop</string>
     <string name="player_toggle">toggle</string>
     <string name="power_save_check_dialog_message">Disabling power save check might result in uploading files when in low battery state!</string>

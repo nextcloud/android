@@ -34,10 +34,22 @@
     <string name="add_new_public_share">Cuir nasc comhroinnte poiblí nua leis</string>
     <string name="add_new_secure_file_drop">Cuir titim comhad slán nua leis</string>
     <string name="add_to_album">Cuir leis an albam</string>
-    <string name="add_to_cloud">Cuir le %1$s</string>
+    <string name="album_already_exists">Tá an t-albam ann cheana féin</string>
+    <string name="album_copy_file_conflict">Ann cheana féin.</string>
+    <string name="album_create_new_link">Cruthaigh nasc nua</string>
+    <string name="album_default_sharing_text">Ní féidir le gach duine ach féachaint</string>
     <string name="album_delete">Scriosadh albam</string>
+    <string name="album_delete_failed_message">Theip ar roinnt de na comhaid a scriosadh.</string>
+    <string name="album_file_added_message">Cuireadh an comhad leis go rathúil</string>
+    <string name="album_name_empty">Ní féidir ainm an albaim a fhágáil folamh</string>
+    <string name="album_picker_toolbar_title">Roghnaigh albam</string>
+    <string name="album_rename">Athainmnigh an t-albam</string>
     <string name="album_rename_conflict">Tá an t-ainm seo in úsáid cheana féin.</string>
     <string name="album_share">Albam a roinnt</string>
+    <string name="album_share_link">Comhroinn nasc chuig albam</string>
+    <string name="album_stop_sharing">Stop a roinnt</string>
+    <string name="album_unsupported_file">Meáin nach dtacaítear leo</string>
+    <string name="album_upload_from_account">Roghnaigh íomhánna ón gcuntas</string>
     <string name="app_config_base_url_title">URL an bhunaigh</string>
     <string name="app_config_disable_clipboard_title">Díchumasaigh an Ghearrthaisce</string>
     <string name="app_config_disable_intro_title">Díchumasaigh an Réamhrá</string>
@@ -128,11 +140,27 @@
     <string name="auto_upload_on_wifi">Uaslódáil ar Wi-Fi neamh-mhéadraithe amháin</string>
     <string name="auto_upload_path">/Uaslódáil Uathoibríoch</string>
     <string name="auto_upload_sub_folder_warning">Tá an fillteán seo san áireamh cheana féin i gcomhshioncronú an fhillteáin tuismitheora, rud a d’fhéadfadh uaslódálacha dúblacha a chruthú</string>
+    <string name="auto_upload_sync_now_action">Sioncrónaigh anois</string>
+    <string name="auto_upload_sync_now_no_folder">Níl aon fhillteán socraithe le haghaidh uaslódála uathoibríoch</string>
+    <string name="auto_upload_sync_now_running">Uaslódáil uathoibríoch ar siúl cheana féin</string>
+    <string name="auto_upload_sync_now_started">Tosaíodh an uaslódáil uathoibríoch</string>
     <string name="auto_upload_wifi_only_warning_info">Ag fanacht go dtosóidh Wi-Fi ag uaslódáil</string>
     <string name="auto_upload_worker_start_text">Ag uaslódáil comhad ó %1$s go %2$s</string>
     <string name="autoupload_configure">Cumraigh</string>
     <string name="autoupload_create_new_custom_folder">Cruthaigh socrú fillteán saincheaptha nua</string>
     <string name="autoupload_custom_folder">Socraigh fillteán saincheaptha</string>
+    <string name="autoupload_delete_uploaded">Scrios comhaid uaslódáilte go háitiúil</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_all_users">Ó gach úsáideoir</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_current_user">Ón úsáideoir reatha</string>
+    <string name="autoupload_delete_uploaded_all_dialog_description">Bainfear na comhaid uile atá uaslódáilte chuig an scamall cheana féin ón ngléas reatha do na fillteáin uath-uaslódála uile ó na húsáideoirí cumraithe uile.</string>
+    <string name="autoupload_delete_uploaded_all_dialog_title">Scrios comhaid uaslódáilte go háitiúil do gach fillteán uaslódála uathoibríoch</string>
+    <string name="autoupload_delete_uploaded_dialog_description">Bainfear na comhaid uile atá uaslódáilte chuig an scamall cheana féin ón ngléas reatha.</string>
+    <string name="autoupload_delete_uploaded_dialog_title">Scrios comhaid uaslódáilte go háitiúil</string>
+    <string name="autoupload_delete_uploaded_notif_ended_content">Scaoileadh %1$s ag baint %2$s thar %3$s ó %4$s.</string>
+    <string name="autoupload_delete_uploaded_notif_ended_title">Comhaid atá uaslódáilte cheana féin scriosta go háitiúil</string>
+    <string name="autoupload_delete_uploaded_notif_error_title">Ní féidir comhaid atá uaslódáilte cheana féin a scriosadh go háitiúil</string>
+    <string name="autoupload_delete_uploaded_notif_started_title">Tosaíodh ag scriosadh comhad atá uaslódáilte cheana féin go háitiúil sa chúlra</string>
+    <string name="autoupload_delete_uploaded_notif_ticker">Scriosadh comhad áitiúil</string>
     <string name="autoupload_disable_power_save_check">Díchumasaigh seiceáil sábhála cumhachta</string>
     <string name="autoupload_hide_folder">Folaigh fillteán</string>
     <string name="avatar">Abhatár</string>
@@ -215,7 +243,9 @@
     <string name="configure_new_media_folder_detection_notifications">Cumraigh</string>
     <string name="confirm_removal">Bain criptiú áitiúil</string>
     <string name="confirmation_remove_file_alert">An bhfuil tú cinnte gur mhaith leat %1$s a scriosadh?</string>
+    <string name="confirmation_remove_file_from_album_message">An bhfuil tú cinnte gur mhaith leat an comhad %1$s a bhaint den albam?</string>
     <string name="confirmation_remove_files_alert">An bhfuil tú cinnte gur mhaith leat na míreanna roghnaithe a scriosadh?</string>
+    <string name="confirmation_remove_files_from_album_message">An bhfuil tú cinnte gur mhaith leat na comhaid roghnaithe a bhaint den albam?</string>
     <string name="confirmation_remove_folder_alert">An bhfuil tú cinnte gur mhaith leat %1$s agus a bhfuil ann a scriosadh?</string>
     <string name="confirmation_remove_folders_alert">An bhfuil tú cinnte gur mhaith leat na míreanna roghnaithe agus a bhfuil iontu a scriosadh?</string>
     <string name="confirmation_remove_local">Áitiúil amháin</string>
@@ -254,6 +284,7 @@
     <string name="could_not_retrieve_shares">Níorbh fhéidir scaireanna a aisghabháil</string>
     <string name="could_not_retrieve_url">Níorbh fhéidir an URL a aisghabháil</string>
     <string name="create">Cruthaigh</string>
+    <string name="create_album_dialog_message">Cuir isteach ainm d\'albaim nua</string>
     <string name="create_album_dialog_title">Albam nua</string>
     <string name="create_dir_fail_msg">Níorbh fhéidir fillteán a chruthú</string>
     <string name="create_document">Doiciméad</string>
@@ -264,13 +295,12 @@
     <string name="create_link">Cruthaigh nasc</string>
     <string name="create_new">Nua</string>
     <string name="create_new_document">Doiciméad nua</string>
-    <string name="create_new_encrypted_folder">Fillteán criptithe nua</string>
-    <string name="create_new_folder">Fillteán nua</string>
     <string name="create_new_presentation">Cur i láthair nua</string>
     <string name="create_new_spreadsheet">Scarbhileog nua</string>
     <string name="create_presentation">Cur i láthair</string>
     <string name="create_rich_workspace">Cuir cur síos ar fhillteán leis</string>
     <string name="create_spreadsheet">Scarbhileog</string>
+    <string name="create_tag_format">Cruthaigh clib: \"%1$s\"</string>
     <string name="credentials_disabled">Dintiúir díchumasaithe</string>
     <string name="daily_backup">Cúltaca laethúil</string>
     <string name="data_to_back_up">Sonraí le cúltaca</string>
@@ -359,7 +389,27 @@
     <string name="ecosystem_apps_more">Tuilleadh aipeanna Nextcloud</string>
     <string name="editor_web_view_cannot_open_file">Ní féidir an roghnóir comhad a oscailt</string>
     <string name="email_pick_failed">Theip ar an seoladh ríomhphoist a phiocadh.</string>
+    <string name="empty_albums_message">Is féidir leat do ghrianghraif go léir a eagrú in aon oiread albaim agus is mian leat. Níl albam cruthaithe agat fós.</string>
+    <string name="empty_albums_title">Cruthaigh albaim do do ghrianghraif</string>
     <string name="encrypted">Socraigh mar criptithe</string>
+    <string name="encryption_encrypt_check_failed">Níorbh fhéidir d’eochracha criptithe a sheiceáil. Déan iarracht an fillteán a chriptiú arís.</string>
+    <string name="encryption_encrypt_no_network">Ní féidir teacht ar an bhfreastalaí. Déan iarracht an fillteán a chriptiú arís níos déanaí.</string>
+    <string name="encryption_encrypt_unavailable">Ní féidir an fillteán seo a chriptiú. Níl criptiú ó cheann ceann socraithe ar an bhfreastalaí seo.</string>
+    <string name="encryption_key_checking_keys">Ag seiceáil eochracha…</string>
+    <string name="encryption_key_handle_folder_read_only_description">Baineadh nó cuireadh eochracha criptithe an chuntais seo ina n-áit, mar sin ní féidir ábhar an fhillteáin seo a dhíchriptiú a thuilleadh.\n\nNíl an fillteán inléite ach amháin as seo amach. Chun fillteáin chriptithe a úsáid arís, déan cúltaca den fhillteán seo agus socraigh d\'eochair chriptithe nua sna socruithe.</string>
+    <string name="encryption_key_handle_key_keys_only_on_device_description">Níl an eochair chriptithe atá stóráilte ar an ngléas seo bailí a thuilleadh. Tá na heochracha cúlghairthe ón bhfreastalaí. \n\nBain an criptiú go háitiúil ó na socruithe chun fillteán criptithe nua a chruthú.</string>
+    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">Níl an eochair chriptithe atá stóráilte ar an ngléas seo bailí a thuilleadh. Tá na heochracha cúlghairthe ón bhfreastalaí. \n\nDéan cúltaca den fhillteán criptithe a cruthaíodh roimhe seo. \n\nAnsin bain an criptiú go háitiúil ó na socruithe chun fillteán criptithe nua a chruthú.</string>
+    <string name="encryption_key_handle_key_removed_title">Eochracha criptithe athraithe</string>
+    <string name="encryption_key_handle_no_keys_description">Ní féidir an fillteán seo a oscailt mar níl a eochracha criptithe ann a thuilleadh ar an ngléas seo ná ar an bhfreastalaí.</string>
+    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">Baineadh nó cuireadh eochracha criptithe an chuntais seo ina n-áit.\n\nSocraigh d\'eochair chriptithe nua sna socruithe sula ndéanann tú fillteán a chriptiú.
+</string>
+    <string name="encryption_new_folder_check_failed">Níorbh fhéidir d’eochracha criptithe a sheiceáil. Déan iarracht an fillteán a chruthú arís.</string>
+    <string name="encryption_new_folder_no_network">Ní féidir teacht ar an bhfreastalaí. Déan iarracht an fillteán a chruthú arís níos déanaí.</string>
+    <string name="encryption_new_folder_unavailable">Ní féidir fillteáin chriptithe a chruthú. Níl criptiú ó cheann ceann socraithe ar an bhfreastalaí seo.</string>
+    <string name="encryption_open_check_failed">Níorbh fhéidir d’eochracha criptithe a sheiceáil. Déan iarracht an fillteán a oscailt arís.</string>
+    <string name="encryption_open_key_mismatch">Ní hionann an eochair chriptithe atá stóráilte ar an ngléas seo agus an eochair atá ag teastáil don fhillteán seo.</string>
+    <string name="encryption_open_no_network">Ní féidir teacht ar an bhfreastalaí. Déan iarracht an fillteán a oscailt arís níos déanaí.</string>
+    <string name="encryption_open_unavailable">Ní féidir an fillteán seo a oscailt. Níl criptiú ó cheann ceann socraithe ar an bhfreastalaí seo.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Ní féidir teastas an fhreastalaí a fháil</string>
     <string name="end_to_end_encryption_certificate_verification_failed">Theip ar an eochair phoiblí a fhíorú</string>
     <string name="end_to_end_encryption_confirm_button">Socraigh criptiú</string>
@@ -628,6 +678,9 @@
     <string name="logs_status_not_filtered">Logchomhaid: %1$d kB, gan scagaire</string>
     <string name="logs_title">Logaí</string>
     <string name="maintenance_mode">Tá an freastalaí i mód cothabhála</string>
+    <string name="manage_space_auto_upload_clear_data">Scrios comhaid uath-uaslódáilte go háitiúil</string>
+    <string name="manage_space_auto_upload_description">Scriosfar go háitiúil gach comhad atá uaslódáilte cheana féin chuig an bhfreastalaí ó na fillteáin Uaslódála Uathoibríocha chun spás a shaoradh sa ghléas.\n\nFéadfaidh an próiseas seo tamall a thógáil.</string>
+    <string name="manage_space_auto_upload_title">Scrios comhaid uath-uaslódáilte go háitiúil</string>
     <string name="manage_space_clear_data">Sonraí soiléire</string>
     <string name="manage_space_description">Scriosfar socruithe, bunachar sonraí agus teastais an fhreastalaí ó shonraí %1$s go buan. \n\nCoimeádfar comhaid íosluchtaithe gan teagmháil.\n\nTógfaidh an próiseas seo tamall.</string>
     <string name="manage_space_title">Bainistigh spás</string>
@@ -640,6 +693,7 @@
     <string name="media_err_unsupported">Codec meáin gan tacaíocht</string>
     <string name="media_forward_description">Cnaipe tapa ar aghaidh</string>
     <string name="media_notif_ticker">Seinnteoir ceoil %1$s</string>
+    <string name="media_picker_toolbar_title">Roghnaigh comhaid meán</string>
     <string name="media_play_pause_description">Seinn nó cnaipe sos</string>
     <string name="media_player_pause">Sos</string>
     <string name="media_player_play">Imir</string>
@@ -742,6 +796,7 @@
     <string name="picture_set_as_no_app">Níor aimsíodh aon aip chun pictiúr a shocrú leis</string>
     <string name="pin_home">Pinn chuig an scáileán baile</string>
     <string name="pin_shortcut_label">Oscail %1$s</string>
+    <string name="player_media_controls_close_action_title">Dún</string>
     <string name="player_stop">stad</string>
     <string name="player_toggle">scoránaigh</string>
     <string name="please_select_a_server">Roghnaigh freastalaí le do thoil…</string>
@@ -851,6 +906,7 @@
     <string name="remove_notification_failed">Theip ar an bhfógra a bhaint.</string>
     <string name="remove_push_notification">Bain</string>
     <string name="remove_success_msg">Scriosta</string>
+    <string name="rename_album_dialog_title">Athainmnigh an t-albam</string>
     <string name="rename_dialog_button">Athainmnigh</string>
     <string name="rename_dialog_title">Cuir isteach ainm nua</string>
     <string name="rename_local_fail_msg">Níorbh fhéidir cóip logánta a athainmniú, bain triail as ainm eile</string>
@@ -1246,6 +1302,20 @@
     <string name="write_email">Seol ríomhphost</string>
     <string name="wrong_storage_path">Níl fillteán stórála sonraí ann!</string>
     <string name="wrong_storage_path_desc">D\'fhéadfadh sé seo a bheith mar gheall ar aischur cúltaca ar ghléas eile. Ag titim ar ais go réamhshocraithe. Seiceáil le do thoil socruithe chun fillteán stórála sonraí a choigeartú.</string>
+    <plurals name="album_items_text">
+        <item quantity="one">%1$d earra — %2$s</item>
+        <item quantity="two">%1$d earra — %2$s</item>
+        <item quantity="few">%1$d earra — %2$s</item>
+        <item quantity="many">%1$d earra — %2$s</item>
+        <item quantity="other">%1$d earra — %2$s</item>
+    </plurals>
+    <plurals name="album_elements_text">
+        <item quantity="one">%d earra</item>
+        <item quantity="two">%d earra</item>
+        <item quantity="few">%d earra</item>
+        <item quantity="many">%d earra</item>
+        <item quantity="other">%d earra</item>
+    </plurals>
     <plurals name="hours">
         <item quantity="one">%d uair</item>
         <item quantity="two">%d uair an chloig</item>
@@ -1386,6 +1456,27 @@
         <item quantity="many">%d roghnaithe</item>
         <item quantity="other">%d roghnaithe</item>
     </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_files">
+        <item quantity="one">%d comhad</item>
+        <item quantity="two">%d comhad</item>
+        <item quantity="few">%d comhad</item>
+        <item quantity="many">%d comhad</item>
+        <item quantity="other">%d comhad</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_folders">
+        <item quantity="one">%d fillteán</item>
+        <item quantity="two">%d fillteán</item>
+        <item quantity="few">%d fillteán</item>
+        <item quantity="many">%d fillteán</item>
+        <item quantity="other">%d fillteán</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_users">
+        <item quantity="one">%d úsáideoir</item>
+        <item quantity="two">%d úsáideoir</item>
+        <item quantity="few">%d úsáideoir</item>
+        <item quantity="many">%d úsáideoir</item>
+        <item quantity="other">%d úsáideoir</item>
+    </plurals>
     <plurals name="passcode_delay_seconds">
         <item quantity="one">Déan iarracht arís i %d soicind mar gheall ar an iomarca iarrachtaí míchearta</item>
         <item quantity="two">Déan iarracht arís i %d soicind mar gheall ar an iomarca iarrachtaí míchearta</item>
@@ -1414,4 +1505,4 @@
         <item quantity="many">%1$d íoslódálacha fágtha</item>
         <item quantity="other">%1$d íoslódálacha fágtha</item>
     </plurals>
-</resources>
+    </resources>

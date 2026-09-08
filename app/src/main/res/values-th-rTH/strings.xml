@@ -29,7 +29,6 @@
     <string name="activity_chooser_title">ส่งลิงก์ไปยัง...</string>
     <string name="activity_icon">กิจกรรม</string>
     <string name="add_new_public_share">เพื่มลิงก์การแชร์แบบสาธารณะ</string>
-    <string name="add_to_cloud">เพิ่มไปยัง %1$s</string>
     <string name="album_stop_sharing">ยกเลิกการแชร์</string>
     <string name="app_config_disable_clipboard_title">ปิดใช้งานคลิปบอร์ด</string>
     <string name="app_config_disable_multiaccount_title">ปิดใช้งานหลายบัญชี</string>
@@ -190,7 +189,6 @@
     <string name="create_folder">โฟลเดอร์</string>
     <string name="create_new">ใหม่</string>
     <string name="create_new_document">สร้างเอกสาร odt ใหม่</string>
-    <string name="create_new_folder">โฟลเดอร์ใหม่</string>
     <string name="create_new_presentation">สร้างงานนำเสนอ odp ใหม่</string>
     <string name="create_new_spreadsheet">สร้างตารางคำนวณ ods ใหม่</string>
     <string name="create_presentation">งานนำเสนอ</string>
@@ -470,6 +468,7 @@
     <string name="pass_code_stored">รหัสยืนยันที่เก็บไว้</string>
     <string name="pass_code_wrong">รหัสยืนยันไม่ถูกต้อง</string>
     <string name="pause_upload">หยุดชั่วคราว</string>
+    <string name="player_media_controls_close_action_title">ปิด</string>
     <string name="pref_behaviour_entries_keep_file">เก็บไว้ในโฟลเดอร์ต้นฉบับ</string>
     <string name="pref_behaviour_entries_move">ถูกย้ายไปยังโฟลเดอร์แอพพลิเคชัน</string>
     <string name="prefs_add_account">เพิ่มบัญชี</string>

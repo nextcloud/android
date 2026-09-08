@@ -32,7 +32,6 @@
     <string name="add_new_public_share">Engadir unha nova ligazón para compartir pública</string>
     <string name="add_new_secure_file_drop">Engadir unha nova entrega segura de ficheiro</string>
     <string name="add_to_album">Engadir ao álbum</string>
-    <string name="add_to_cloud">Engadir en %1$s</string>
     <string name="album_delete">Eliminar álbum</string>
     <string name="album_rename_conflict">Este nome xa está a ser usado</string>
     <string name="album_share">Compartir álbum</string>
@@ -261,8 +260,6 @@
     <string name="create_link">Crear ligazón</string>
     <string name="create_new">Novo</string>
     <string name="create_new_document">Novo documento</string>
-    <string name="create_new_encrypted_folder">Novo cartafol cifrado</string>
-    <string name="create_new_folder">Novo cartafol</string>
     <string name="create_new_presentation">Nova presentación</string>
     <string name="create_new_spreadsheet">Nova folla de cálculo</string>
     <string name="create_presentation">Presentación</string>
@@ -731,6 +728,7 @@
     <string name="picture_set_as_no_app">Non se atopou unha aplicación coa que definir unha imaxe</string>
     <string name="pin_home">Fixar na pantalla de Inicio</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
+    <string name="player_media_controls_close_action_title">Pechar</string>
     <string name="player_stop">parar</string>
     <string name="player_toggle">alternar</string>
     <string name="please_select_a_server">Seleccione un servidor…</string>
@@ -1320,4 +1318,4 @@
         <item quantity="one">%1$d descarga restante</item>
         <item quantity="other">%1$d descargas restantes</item>
     </plurals>
-</resources>
+    </resources>

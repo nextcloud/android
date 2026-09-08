@@ -32,7 +32,6 @@
     <string name="add_new_public_share">Voeg een nieuwe openbare deellink toe</string>
     <string name="add_new_secure_file_drop">Beveiligde bestands-drop</string>
     <string name="add_to_album">Toevoegen aan album</string>
-    <string name="add_to_cloud">Voeg toe aan %1$s</string>
     <string name="album_delete">Album verwijderen</string>
     <string name="album_rename_conflict">De naam is al in gebruik.</string>
     <string name="album_share">Album delen</string>
@@ -262,8 +261,6 @@
     <string name="create_link">Link aanmaken</string>
     <string name="create_new">Nieuw</string>
     <string name="create_new_document">Nieuw document</string>
-    <string name="create_new_encrypted_folder">Nieuwe versleutelde map</string>
-    <string name="create_new_folder">Nieuwe map</string>
     <string name="create_new_presentation">Nieuwe presentatie</string>
     <string name="create_new_spreadsheet">Nieuw werkblad</string>
     <string name="create_presentation">Presentatie</string>
@@ -732,6 +729,7 @@
     <string name="picture_set_as_no_app">Geen app gevonden om afbeelding in te stellen</string>
     <string name="pin_home">Vastzetten op startscherm</string>
     <string name="pin_shortcut_label">Open %1$s</string>
+    <string name="player_media_controls_close_action_title">Sluiten</string>
     <string name="player_stop">stop</string>
     <string name="player_toggle">omschakelen</string>
     <string name="please_select_a_server">Selecteer een server...</string>
@@ -1306,4 +1304,4 @@
         <item quantity="one">%1$d download resterend</item>
         <item quantity="other">%1$d downloads resterend</item>
     </plurals>
-</resources>
+    </resources>

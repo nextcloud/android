@@ -33,7 +33,6 @@
     <string name="add_new_public_share">Добавить новую общедоступную ссылку</string>
     <string name="add_new_secure_file_drop">Добавить новую защищённую передачу файлов</string>
     <string name="add_to_album">Добавить в альбом</string>
-    <string name="add_to_cloud">Добавить в %1$s</string>
     <string name="album_delete">Удалить альбом</string>
     <string name="album_rename_conflict">Это название уже используется.</string>
     <string name="album_share">Опубликовать альбом</string>
@@ -263,8 +262,6 @@
     <string name="create_link">Создать ссылку</string>
     <string name="create_new">Новый</string>
     <string name="create_new_document">Новый документ</string>
-    <string name="create_new_encrypted_folder">Новая зашифрованная папка</string>
-    <string name="create_new_folder">Новая папка</string>
     <string name="create_new_presentation">Новая презентация</string>
     <string name="create_new_spreadsheet">Новая таблица</string>
     <string name="create_presentation">Презентация</string>
@@ -740,6 +737,7 @@
     <string name="picture_set_as_no_app">Не найдено приложений для обработки изображений</string>
     <string name="pin_home">Закрепить на главном экране</string>
     <string name="pin_shortcut_label">Открыть %1$s</string>
+    <string name="player_media_controls_close_action_title">Закрыть</string>
     <string name="player_stop">остановить</string>
     <string name="player_toggle">переключить</string>
     <string name="please_select_a_server">Выберите сервер…</string>
@@ -1385,4 +1383,4 @@
         <item quantity="many">%1$d загрузок осталось</item>
         <item quantity="other">%1$d загрузок осталось</item>
     </plurals>
-</resources>
+    </resources>

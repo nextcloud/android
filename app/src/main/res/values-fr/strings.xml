@@ -34,11 +34,16 @@
     <string name="add_new_public_share">Ajouter un nouveau lien de partage public</string>
     <string name="add_new_secure_file_drop">Ajouter un nouveau dépôt de fichier sécurisé</string>
     <string name="add_to_album">Ajouter à l’album</string>
-    <string name="add_to_cloud">Ajouter à %1$s</string>
+    <string name="album_already_exists">L\'album existe déjà</string>
+    <string name="album_copy_file_conflict">Existe déjà.</string>
     <string name="album_delete">Supprimer l’album</string>
+    <string name="album_delete_failed_message">Échec de la suppression de quelques-uns des fichiers.</string>
+    <string name="album_file_added_message">Fichier ajouté avec succès</string>
+    <string name="album_name_empty">Le nom de l\'album ne peut pas être vide</string>
     <string name="album_rename_conflict">Ce nom est déjà utilisé.</string>
     <string name="album_share">Partager l\'album</string>
     <string name="album_stop_sharing">Arrêter le partage</string>
+    <string name="album_unsupported_file">Le média n\'est pas pris en charge </string>
     <string name="app_config_base_url_title">URL de base</string>
     <string name="app_config_disable_clipboard_title">Désactiver le Presse-papiers</string>
     <string name="app_config_disable_intro_title">Désactiver l\'introduction</string>
@@ -138,6 +143,12 @@
     <string name="autoupload_configure">Configurer</string>
     <string name="autoupload_create_new_custom_folder">Créer une nouvelle configuration de dossier personnalisé</string>
     <string name="autoupload_custom_folder">Définir un dossier personnalisé</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_all_users">De tous les utilisateurs</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_current_user">De l\'utilisateur actuel</string>
+    <string name="autoupload_delete_uploaded_all_dialog_description">Tous les fichiers déjà téléversés dans le cloud seront supprimés de l\'appareil actuel, pour tous les dossiers en téléversement automatique, à partir de tous les utilisateurs configurés</string>
+    <string name="autoupload_delete_uploaded_dialog_description">Tous les fichiers déjà téléversés dans le cloud seront supprimés de l\'appareil actuel</string>
+    <string name="autoupload_delete_uploaded_notif_error_title">Impossible de supprimer localement les fichiers déjà téléversés</string>
+    <string name="autoupload_delete_uploaded_notif_started_title">La suppression locale des fichiers déjà téléversés a démarré en arrière-plan</string>
     <string name="autoupload_disable_power_save_check">Désactiver l\'économie de batterie</string>
     <string name="autoupload_hide_folder">Masquer le dossier</string>
     <string name="avatar">Avatar</string>
@@ -220,7 +231,9 @@
     <string name="configure_new_media_folder_detection_notifications">Configurer</string>
     <string name="confirm_removal">Retirer le chiffrement local</string>
     <string name="confirmation_remove_file_alert">Souhaitez-vous vraiment supprimer %1$s ?</string>
+    <string name="confirmation_remove_file_from_album_message">Souhaitez-vous vraiment supprimer le fichier %1$s de l\'album ?</string>
     <string name="confirmation_remove_files_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ?</string>
+    <string name="confirmation_remove_files_from_album_message">Souhaitez-vous vraiment supprimer les fichiers sélectionnés de l\'album ?</string>
     <string name="confirmation_remove_folder_alert">Voulez-vous vraiment supprimer %1$s et ses contenus ?</string>
     <string name="confirmation_remove_folders_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ainsi que leurs contenus ?</string>
     <string name="confirmation_remove_local">Local seulement</string>
@@ -259,6 +272,7 @@
     <string name="could_not_retrieve_shares">Impossible de récupérer les partages</string>
     <string name="could_not_retrieve_url">Impossible de récupérer l\'URL</string>
     <string name="create">Créer</string>
+    <string name="create_album_dialog_message">Saisissez le nom de votre nouvel album</string>
     <string name="create_album_dialog_title">Nouvel album</string>
     <string name="create_dir_fail_msg">Le dossier n\'a pas pu être créé</string>
     <string name="create_document">Document</string>
@@ -269,8 +283,6 @@
     <string name="create_link">Créer un lien</string>
     <string name="create_new">Nouveau</string>
     <string name="create_new_document">Nouveau document</string>
-    <string name="create_new_encrypted_folder">Nouveau dossier chiffré</string>
-    <string name="create_new_folder">Nouveau dossier</string>
     <string name="create_new_presentation">Nouvelle présentation</string>
     <string name="create_new_spreadsheet">Nouvelle feuille de calcul</string>
     <string name="create_presentation">Présentation</string>
@@ -364,7 +376,24 @@
     <string name="ecosystem_apps_more">Plus d\'applis Nextcloud</string>
     <string name="editor_web_view_cannot_open_file">Impossible d\'ouvrir le sélecteur de fichiers</string>
     <string name="email_pick_failed">Le choix de l\'adresse e-mail a échoué.</string>
+    <string name="empty_albums_message">Vous pouvez organiser toutes vos photos dans autant d\'albums que vous voulez. Vous n\'avez pas créé d\'album pour le moment.</string>
     <string name="encrypted">Définir comme chiffré</string>
+    <string name="encryption_encrypt_check_failed">Impossible de vérifier vos clés de chiffrement. Essayez de chiffrer à nouveau le dossier.</string>
+    <string name="encryption_encrypt_no_network">Impossible de joindre le serveur. Essayez de chiffrer à nouveau le dossier plus tard.</string>
+    <string name="encryption_encrypt_unavailable">Impossible de chiffrer ce dossier. Le chiffrement de bout en bout n’est pas configuré sur ce serveur.</string>
+    <string name="encryption_key_checking_keys">Vérification des clés…</string>
+    <string name="encryption_key_handle_folder_read_only_description">Les clés de chiffrement de ce compte ont été supprimées ou remplacées, par conséquent, le contenu de ce dossier ne peut plus être déchiffré.\n\nLe dossier est à partir de maintenant en lecture seule. Pour utiliser à nouveau des dossiers chiffrés, faites une sauvegarde de ce dossier et configurez votre nouvelle clé de chiffrement dans les paramètres.</string>
+    <string name="encryption_key_handle_key_keys_only_on_device_description">La clé de chiffrement stockée sur cet appareil n\'est plus valide. Les clés sont révoquées du serveur. \n\nSupprimez le chiffrement localement à partir des paramètres pour créer un nouveau dossier de chiffrement.</string>
+    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">La clé de chiffrement stockée sur cet appareil n\'est plus valide. Les clés sont révoquées du serveur. \n\nFaites une sauvegarde du dossier chiffré précédemment créé. \n\nPuis supprimez le chiffrement localement à partir des paramètres pour créer un nouveau dossier de chiffrement.</string>
+    <string name="encryption_key_handle_no_keys_description">Ce dossier ne peut pas être ouvert car ses clés de chiffrement n\'existent plus sur cet appareil ni sur le serveur.</string>
+    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">Les clés de chiffrement de ce compte ont été supprimées ou remplacées.\n\nConfigurez une nouvelle clé de chiffrement dans les paramètres pour pouvoir chiffrer un dossier.</string>
+    <string name="encryption_new_folder_check_failed">Impossible de vérifier vos clés de chiffrement. Essayez de créer le dossier à nouveau.</string>
+    <string name="encryption_new_folder_no_network">Impossible de joindre le serveur. Essayez de créer à nouveau le dossier plus tard.</string>
+    <string name="encryption_new_folder_unavailable">Impossible de créer des dossiers chiffrés. Le chiffrement de bout en bout n’est pas configuré sur ce serveur.</string>
+    <string name="encryption_open_check_failed">Impossible de vérifier vos clés de chiffrement. Essayez de rouvrir le dossier.</string>
+    <string name="encryption_open_key_mismatch">La clé de chiffrement enregistrée sur cet appareil ne correspond pas à celle requise pour ce dossier.</string>
+    <string name="encryption_open_no_network">Impossible de joindre le serveur. Essayez d\'ouvrir à nouveau le dossier plus tard.</string>
+    <string name="encryption_open_unavailable">Impossible d\'ouvrir ce dossier. Le chiffrement de bout en bout n’est pas configuré sur ce serveur.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Impossible de retrouver le certificat du serveur</string>
     <string name="end_to_end_encryption_certificate_verification_failed">Échec de la vérification de la clé publique</string>
     <string name="end_to_end_encryption_confirm_button">Configurer le chiffrement</string>
@@ -633,6 +662,7 @@
     <string name="logs_status_not_filtered">Logs: %1$d Ko, pas de filtre</string>
     <string name="logs_title">Logs</string>
     <string name="maintenance_mode">Le serveur est en maintenance.</string>
+    <string name="manage_space_auto_upload_description">Tous les fichiers déjà téléversés sur le serveur depuis les dossiers de téléversement automatique seront supprimés localement pour libérer de la place sur l\'appareil.\n\nCe processus peut prendre un certain temps.</string>
     <string name="manage_space_clear_data">Effacer les données</string>
     <string name="manage_space_description">Les paramètres, la base de données et les certificats du serveur provenant de %1$s seront définitivement effacés. \n\nLes fichiers téléchargés ne seront pas impactés.\n\nCette opération peut prendre du temps.</string>
     <string name="manage_space_title">Gestion de l\'espace</string>
@@ -747,6 +777,7 @@
     <string name="picture_set_as_no_app">Aucune application trouvée pour utiliser cette image</string>
     <string name="pin_home">Épingler sur l\'écran d\'accueil</string>
     <string name="pin_shortcut_label">Ouvrir %1$s</string>
+    <string name="player_media_controls_close_action_title">Fermer</string>
     <string name="player_stop">arrêter</string>
     <string name="player_toggle">inverser</string>
     <string name="please_select_a_server">Veuillez sélectionner un serveur…</string>
@@ -893,6 +924,7 @@
     <string name="screenshot_06_davdroid_heading">Agenda et contacts</string>
     <string name="screenshot_06_davdroid_subline">Synchroniser avec DAVx⁵</string>
     <string name="search_error">Erreur lors de l\'obtention des résultats de recherche</string>
+    <string name="search_tags">Rechercher des étiquettes</string>
     <string name="secure_share_not_set_up">Le partage sécurité n\'est pas configuré pour cet utilisateur</string>
     <string name="secure_share_search">Partage sécurisé…</string>
     <string name="select_all">Tout sélectionner</string>
@@ -1250,6 +1282,16 @@
     <string name="write_email">Envoyer un e-mail</string>
     <string name="wrong_storage_path">Le dossier de stockage des données n\'existe pas !</string>
     <string name="wrong_storage_path_desc">Cela peut être dû à une restauration de sauvegarde sur un autre appareil. Retour aux valeurs par défaut. Veuillez vérifier les paramètres pour ajuster le chemin de stockage.</string>
+    <plurals name="album_items_text">
+        <item quantity="one">%1$d élément — %2$s</item>
+        <item quantity="many">%1$d éléments — %2$s</item>
+        <item quantity="other">%1$d éléments — %2$s</item>
+    </plurals>
+    <plurals name="album_elements_text">
+        <item quantity="one">%d élément</item>
+        <item quantity="many">%d éléments</item>
+        <item quantity="other">%d éléments</item>
+    </plurals>
     <plurals name="hours">
         <item quantity="one">%d heure</item>
         <item quantity="many">%d heures</item>
@@ -1350,6 +1392,21 @@
         <item quantity="many">%d sélectionnés</item>
         <item quantity="other">%d sélectionnés</item>
     </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_files">
+        <item quantity="one">%d fichier</item>
+        <item quantity="many">%d fichiers</item>
+        <item quantity="other">%d fichiers</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_folders">
+        <item quantity="one">%d dossier</item>
+        <item quantity="many">%d dossiers</item>
+        <item quantity="other">%d dossiers</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_users">
+        <item quantity="one">%d utilisateur</item>
+        <item quantity="many">%d utilisateurs</item>
+        <item quantity="other">%d utilisateurs</item>
+    </plurals>
     <plurals name="passcode_delay_seconds">
         <item quantity="one">Réessayez dans %d seconde en raison d’un trop grand nombre de tentatives incorrectes.</item>
         <item quantity="many">Réessayez dans %d secondes en raison d’un trop grand nombre de tentatives incorrectes.</item>
@@ -1370,4 +1427,4 @@
         <item quantity="many">%1$d téléchargements restants</item>
         <item quantity="other">%1$d téléchargements restants</item>
     </plurals>
-</resources>
+    </resources>
