@@ -233,7 +233,13 @@ public class FileDataStorageManager {
         return entity;
     }
 
-    public void createPendingFile(String remotePath, String mimeType, long createdAt, long modificationTimestamp, String localPath) {
+    public void createPendingFile(
+        String remotePath,
+        String mimeType,
+        long createdAt,
+        long modificationTimestamp,
+        String localPath
+     ) {
         final OCFile existingFile = getFileByRemotePath(remotePath);
         if (existingFile != null) {
             final File localFile = new File(localPath);
@@ -262,13 +268,11 @@ public class FileDataStorageManager {
             long localModified = attr.lastModifiedTime().toMillis() / 1000;     // Unix time in milliseconds
             long remoteCreated = ocFile.getCreationTimestamp();                 // Unix time in seconds!
             long remoteModified = ocFile.getModificationTimestamp() / 1000;     // Unix time in milliseconds
-            Log.d(TAG, "localCreated:" + localCreated + " localModified:" + localModified + " remoteCreated" + remoteCreated + " remoteModified:" + remoteModified);
-            final boolean existingFileIsTheSame =
+            return
                 remoteName.equals(localName) &&
                 remoteSize == localSize &&
                 remoteCreated == localCreated &&
                 remoteModified == localModified;
-            return existingFileIsTheSame;
         } catch (IOException e) {
             Log.e(TAG, "fileIsTheSame: unable to obtain local file attributes for comparing");
             return false;
