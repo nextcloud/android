@@ -14,9 +14,13 @@ import com.nextcloud.ui.tags.adapter.viewholder.CreateTagViewHolder
 import com.nextcloud.ui.tags.adapter.viewholder.TagViewHolder
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.tags.Tag
+import com.owncloud.android.utils.theme.ViewThemeUtils
 
-class TagListAdapter(private val onTagChecked: (Tag, Boolean) -> Unit, private val onCreateTag: (String) -> Unit) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class TagListAdapter(
+    private val viewThemeUtils: ViewThemeUtils,
+    private val onTagChecked: (Tag, Boolean) -> Unit,
+    private val onCreateTag: (String) -> Unit
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var tags: List<Tag> = emptyList()
     private var assignedTagIds: Set<String> = emptySet()
@@ -56,7 +60,7 @@ class TagListAdapter(private val onTagChecked: (Tag, Boolean) -> Unit, private v
             CreateTagViewHolder(view, onCreateTag)
         } else {
             val view = inflater.inflate(R.layout.tag_list_item, parent, false)
-            TagViewHolder(view, onTagChecked)
+            TagViewHolder(view, viewThemeUtils, onTagChecked)
         }
     }
 

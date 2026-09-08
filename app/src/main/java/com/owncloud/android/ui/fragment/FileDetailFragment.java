@@ -330,6 +330,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                                              .build());
         editChip.setEnsureMinTouchTargetSize(false);
         viewThemeUtils.material.themeChipSuggestion(editChip);
+        editChip.setChipIconTint(editChip.getTextColors());
         editChip.setOnClickListener(v -> {
             TagManagementBottomSheet bottomSheet = TagManagementBottomSheet.Companion.newInstance(
                 getFile().getLocalId(),
