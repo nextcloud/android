@@ -49,9 +49,10 @@
     -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- Runtime permissions introduced in Android 13 (API level 33) -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"
-        tools:ignore="PhotoAndVideoPolicy,SelectedPhotoAccess" />
+        tools:ignore="PhotoAndVideoPolicy" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"
-        tools:ignore="PhotoAndVideoPolicy,SelectedPhotoAccess" /> <!-- Needed for Android 14 (API level 34) -->
+        tools:ignore="PhotoAndVideoPolicy" /> <!-- Needed for Android 14 (API level 34) -->
+    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
     <!--
