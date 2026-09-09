@@ -24,27 +24,25 @@ import java.io.File
 
 object ConflictResolveDialogFactory {
 
-    private const val SECONDS_TO_MILLIS = 1000L
-    private const val UNKNOWN_FOLDER_SIZE = 0L
-
     fun forOffline(context: Context, leftFile: OfflineOperationEntity, rightFile: OCFile, user: User?):
         ConflictsResolveDialog {
-        val data = ConflictDialogData(
-            headline = context.getString(R.string.conflict_folder_headline),
-            description = context.getString(R.string.conflict_message_description_for_folder),
-            localFile = context.conflictFileData(
-                titleId = R.string.prefs_synced_folders_local_path_title,
-                timestamp = (leftFile.createdAt ?: 0L) * SECONDS_TO_MILLIS,
-                fileLength = UNKNOWN_FOLDER_SIZE
-            ),
-            serverFile = context.conflictFileData(R.string.prefs_synced_folders_remote_path_title, rightFile)
-        )
 
         val localFile =
             if (leftFile.type is OfflineOperationType.CreateFile)
                 (leftFile.type as OfflineOperationType.CreateFile).localPath.toFile()
             else
                 null
+
+        val data = ConflictDialogData(
+            headline = context.getString(R.string.choose_which_file),
+            description = context.getString(R.string.conflict_message_description),
+            localFile = context.conflictFileData(
+                titleId = R.string.conflict_local_file,
+                timestamp = (localFile?.lastModified() ?: 0L),
+                fileLength = (localFile?.length() ?: 0L)
+            ),
+            serverFile = context.conflictFileData(R.string.prefs_synced_folders_remote_path_title, rightFile)
+        )
 
         return createDialog(ConflictDialogType.Offline(data)) {
             putSerializable(ConflictsResolveDialog.ARG_LEFT_FILE, localFile)
