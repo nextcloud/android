@@ -28,7 +28,6 @@ import android.net.Uri;
 import android.os.RemoteException;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -79,8 +78,6 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -241,13 +238,11 @@ public class FileDataStorageManager {
         String localPath
      ) {
         final OCFile existingFile = getFileByRemotePath(remotePath);
-        if (existingFile != null) {
-            final File localFile = new File(localPath);
-            if (fileIsTheSame(existingFile, localFile)) {
-                // In case the same file was already uploaded, do not overwrite it to avoid triggering a conflict
-                Log_OC.i(TAG, "Creating pendingFile for an already uploaded file: keeping metadata");
-                return;
-            }
+        final File localFile = FileExtensionsKt.toFile(localPath);
+        if (FileExtensionsKt.isTheSameAs(existingFile, localFile)) {
+            // In case the same file was already uploaded, do not overwrite it to avoid triggering a conflict
+            Log_OC.i(TAG, "Creating pendingFile for an already uploaded file: keeping metadata");
+            return;
         }
 
         OCFile file = new OCFile(remotePath);
@@ -255,28 +250,6 @@ public class FileDataStorageManager {
         file.setCreationTimestamp(createdAt);
         file.setModificationTimestamp(modificationTimestamp);
         saveFileWithParent(file, MainApp.getAppContext());
-    }
-
-    private boolean fileIsTheSame(OCFile ocFile, File localFile) {
-        try {
-            BasicFileAttributes attr = Files.readAttributes(localFile.toPath(), BasicFileAttributes.class);
-            String localName = localFile.getName();
-            String remoteName = ocFile.getFileName();
-            long localSize = localFile.length();
-            long remoteSize = ocFile.getFileLength();
-            long localCreated = attr.creationTime().toMillis() / 1000;          // Unix time in milliseconds
-            long localModified = attr.lastModifiedTime().toMillis() / 1000;     // Unix time in milliseconds
-            long remoteCreated = ocFile.getCreationTimestamp();                 // Unix time in seconds!
-            long remoteModified = ocFile.getModificationTimestamp() / 1000;     // Unix time in milliseconds
-            return
-                remoteName.equals(localName) &&
-                remoteSize == localSize &&
-                remoteCreated == localCreated &&
-                remoteModified == localModified;
-        } catch (IOException e) {
-            Log.e(TAG, "fileIsTheSame: unable to obtain local file attributes for comparing");
-            return false;
-        }
     }
 
     public void createPendingDirectory(String path, long createdAt, long modificationTimestamp) {
