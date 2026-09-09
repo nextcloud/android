@@ -65,7 +65,9 @@ class OCFileListAdapterHelper {
         scope.launch {
             val credentials = user?.toServerCredentials()
             val result = if (credentials != null && credentials.supportsUnifiedShare()) {
-                ShareAvatarRepository(credentials).fetchShareAvatars(file.localId.toString())?.toAvatarSharees().orEmpty()
+                ShareAvatarRepository(
+                    credentials
+                ).fetchShareAvatars(file.localId.toString())?.toAvatarSharees().orEmpty()
             } else {
                 file.toLocalSharees(userId)
             }
