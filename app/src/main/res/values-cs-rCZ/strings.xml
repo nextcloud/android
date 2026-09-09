@@ -32,7 +32,6 @@
     <string name="add_new_public_share">Přidat nový veřejný odkaz na sdílení</string>
     <string name="add_new_secure_file_drop">Přidat nové bezpečné předání souborů</string>
     <string name="add_to_album">Přidat do alba</string>
-    <string name="add_to_cloud">Přidat k %1$s</string>
     <string name="album_delete">Smazat album</string>
     <string name="album_rename_conflict">Tento název už je využíván.</string>
     <string name="album_share">Nasdílet album</string>
@@ -255,8 +254,6 @@
     <string name="create_link">Vytvořit odkaz</string>
     <string name="create_new">Nové</string>
     <string name="create_new_document">Nový dokument</string>
-    <string name="create_new_encrypted_folder">Nová šifrovaná složka</string>
-    <string name="create_new_folder">Nová složka</string>
     <string name="create_new_presentation">Nová prezentace</string>
     <string name="create_new_spreadsheet">Nová tabulka</string>
     <string name="create_presentation">Prezentace</string>
@@ -724,6 +721,7 @@
     <string name="picture_set_as_no_app">Nenalezena žádná aplikace pro nastavení obrázku</string>
     <string name="pin_home">Připnout na domovskou obrazovku</string>
     <string name="pin_shortcut_label">Otevřít %1$s</string>
+    <string name="player_media_controls_close_action_title">Zavřít</string>
     <string name="player_stop">vypnout</string>
     <string name="player_toggle">přepnout</string>
     <string name="please_select_a_server">Vyberte server …</string>
@@ -1333,4 +1331,4 @@
         <item quantity="many">Zbývá %1$d stažení</item>
         <item quantity="other">Zbývají %1$d stažení</item>
     </plurals>
-</resources>
+    </resources>

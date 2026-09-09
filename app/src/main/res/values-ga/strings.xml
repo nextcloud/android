@@ -34,7 +34,6 @@
     <string name="add_new_public_share">Cuir nasc comhroinnte poiblí nua leis</string>
     <string name="add_new_secure_file_drop">Cuir titim comhad slán nua leis</string>
     <string name="add_to_album">Cuir leis an albam</string>
-    <string name="add_to_cloud">Cuir le %1$s</string>
     <string name="album_already_exists">Tá an t-albam ann cheana féin</string>
     <string name="album_copy_file_conflict">Ann cheana féin.</string>
     <string name="album_create_new_link">Cruthaigh nasc nua</string>
@@ -296,8 +295,6 @@
     <string name="create_link">Cruthaigh nasc</string>
     <string name="create_new">Nua</string>
     <string name="create_new_document">Doiciméad nua</string>
-    <string name="create_new_encrypted_folder">Fillteán criptithe nua</string>
-    <string name="create_new_folder">Fillteán nua</string>
     <string name="create_new_presentation">Cur i láthair nua</string>
     <string name="create_new_spreadsheet">Scarbhileog nua</string>
     <string name="create_presentation">Cur i láthair</string>
@@ -799,6 +796,7 @@
     <string name="picture_set_as_no_app">Níor aimsíodh aon aip chun pictiúr a shocrú leis</string>
     <string name="pin_home">Pinn chuig an scáileán baile</string>
     <string name="pin_shortcut_label">Oscail %1$s</string>
+    <string name="player_media_controls_close_action_title">Dún</string>
     <string name="player_stop">stad</string>
     <string name="player_toggle">scoránaigh</string>
     <string name="please_select_a_server">Roghnaigh freastalaí le do thoil…</string>
@@ -1507,4 +1505,4 @@
         <item quantity="many">%1$d íoslódálacha fágtha</item>
         <item quantity="other">%1$d íoslódálacha fágtha</item>
     </plurals>
-</resources>
+    </resources>

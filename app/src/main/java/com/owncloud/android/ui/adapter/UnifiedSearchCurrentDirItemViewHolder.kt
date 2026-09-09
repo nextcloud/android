@@ -10,6 +10,7 @@ package com.owncloud.android.ui.adapter
 import android.content.Context
 import android.view.View
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.thumbnail.ThumbnailArguments
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.databinding.UnifiedSearchCurrentDirectoryItemBinding
@@ -41,6 +42,8 @@ class UnifiedSearchCurrentDirItemViewHolder(
             binding.extension.text = extension
             binding.filename.text = filename
         }
+
+        binding.favoriteAction.setVisibleIf(file.isFavorite)
 
         thumbnailGenerator.setThumbnail(
             file,

@@ -24,7 +24,6 @@
     <string name="activity_chooser_send_file_title">Dërgoje</string>
     <string name="activity_chooser_title">Dërgoni lidhje te…</string>
     <string name="activity_icon">Veprimtari</string>
-    <string name="add_to_cloud">Shtojeni tek %1$s</string>
     <string name="album_stop_sharing">Resht së ndari</string>
     <string name="appbar_search_in">Kërkoni në %s</string>
     <string name="assistant_task_status_unknown">panjohur</string>
@@ -151,7 +150,6 @@
     <string name="create_document">Dokument</string>
     <string name="create_folder">Dosje</string>
     <string name="create_new">I ri</string>
-    <string name="create_new_folder">Dosje e re</string>
     <string name="create_presentation">Paraqitje</string>
     <string name="create_spreadsheet">Fletëllogaritje</string>
     <string name="credentials_disabled">Kredencialet të pa aktivizuara</string>
@@ -408,6 +406,7 @@
     <string name="permission_allow">Lejo</string>
     <string name="permission_deny">Refuzo</string>
     <string name="picture_set_as_no_app">Nuk u gjet asnjë aplikacion për të vendosur foton</string>
+    <string name="player_media_controls_close_action_title">Mbylleni</string>
     <string name="power_save_check_dialog_message">Çaktivizimi i kontrollit të ruajtjes së energjisë mund të rezultojë në ngarkimin e skedarëve kur gjendeni në gjendje të ulët të baterisë!</string>
     <string name="pref_behaviour_entries_delete_file">të fshira</string>
     <string name="pref_behaviour_entries_keep_file">mbajtur në dosjen origjinale</string>

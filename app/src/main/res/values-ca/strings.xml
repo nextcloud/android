@@ -29,7 +29,6 @@
     <string name="activity_icon">Activitat</string>
     <string name="add_new_public_share">Afegeix nou enllaç d\'accés públic</string>
     <string name="add_to_album">Afegeix a un àlbum</string>
-    <string name="add_to_cloud">Afegeix a %1$s</string>
     <string name="album_delete">Suprimeix l\'àlbum</string>
     <string name="album_rename_conflict">Aquest nom ja s\'utilitza.</string>
     <string name="album_stop_sharing">Deixar de compartir</string>
@@ -223,7 +222,6 @@
     <string name="create_link">Crea un enllaç</string>
     <string name="create_new">Crea</string>
     <string name="create_new_document">Nou document de text</string>
-    <string name="create_new_folder">Carpeta nova</string>
     <string name="create_new_presentation">Nova presentació</string>
     <string name="create_new_spreadsheet">Nou full de càlcul</string>
     <string name="create_presentation">Presentació</string>
@@ -631,6 +629,7 @@
     <string name="picture_set_as_no_app">No s\'ha trobat cap aplicació per establir-hi la foto</string>
     <string name="pin_home">Fixa-ho a la pantalla d\'inici</string>
     <string name="pin_shortcut_label">Obre %1$s</string>
+    <string name="player_media_controls_close_action_title">Tanca</string>
     <string name="player_stop">atura</string>
     <string name="player_toggle">commuta</string>
     <string name="please_select_a_server">Seleccioneu un servidor…</string>

@@ -34,7 +34,6 @@
     <string name="add_new_public_share">Lisa uus avalik jagamislink</string>
     <string name="add_new_secure_file_drop">Lisa uus turvaline failiedastus</string>
     <string name="add_to_album">Lisa albumisse</string>
-    <string name="add_to_cloud">Lisa %1$s-sse</string>
     <string name="album_already_exists">Album juba on olemas</string>
     <string name="album_copy_file_conflict">Juba on olemas.</string>
     <string name="album_create_new_link">Lisa uus link</string>
@@ -295,8 +294,6 @@
     <string name="create_link">Loo link</string>
     <string name="create_new">Uus</string>
     <string name="create_new_document">Uus dokument</string>
-    <string name="create_new_encrypted_folder">Uus krüptitud kaust</string>
-    <string name="create_new_folder">Uus kaust</string>
     <string name="create_new_presentation">Uus esitlus</string>
     <string name="create_new_spreadsheet">Uus arvutustabel</string>
     <string name="create_presentation">Esitlus</string>
@@ -797,6 +794,7 @@
     <string name="picture_set_as_no_app">Ei leidu rakendust pildi laiuse määramiseks</string>
     <string name="pin_home">Kinnita avalehele</string>
     <string name="pin_shortcut_label">Ava %1$s </string>
+    <string name="player_media_controls_close_action_title">Sulge</string>
     <string name="player_stop">lõpeta</string>
     <string name="player_toggle">lülita sisse/välja</string>
     <string name="please_select_a_server">Palun vali server…</string>
@@ -1418,4 +1416,4 @@
         <item quantity="one">Jäänud on %1$d allalaadimine</item>
         <item quantity="other">Jäänud on %1$d allalaadimist</item>
     </plurals>
-</resources>
+    </resources>

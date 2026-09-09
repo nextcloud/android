@@ -33,7 +33,6 @@
     <string name="add_new_public_share">Añadir un nuevo enlace público</string>
     <string name="add_new_secure_file_drop">Añadir una nueva entrega de archivos segura</string>
     <string name="add_to_album">Añadir al álbum</string>
-    <string name="add_to_cloud">Añadir a %1$s</string>
     <string name="album_delete">Eliminar álbum</string>
     <string name="album_rename_conflict">Este nombre ya está en uso.</string>
     <string name="album_share">Compartir álbum</string>
@@ -264,8 +263,6 @@
     <string name="create_link">Crear enlace</string>
     <string name="create_new">Nuevo</string>
     <string name="create_new_document">Nuevo documento</string>
-    <string name="create_new_encrypted_folder">Nueva carpeta cifrada</string>
-    <string name="create_new_folder">Nueva carpeta</string>
     <string name="create_new_presentation">Nueva presentación</string>
     <string name="create_new_spreadsheet">Nueva hoja de cálculo</string>
     <string name="create_presentation">Presentación</string>
@@ -742,6 +739,7 @@
     <string name="picture_set_as_no_app">No se ha encontrado una app para establecer con ella la imagen</string>
     <string name="pin_home">Anclar a la pantalla de inicio</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
+    <string name="player_media_controls_close_action_title">Cerrar</string>
     <string name="player_stop">parar</string>
     <string name="player_toggle">cambiar</string>
     <string name="please_select_a_server">Por favor, seleccione un servidor…</string>
@@ -1366,4 +1364,4 @@
         <item quantity="many">Quedan %1$d descargas</item>
         <item quantity="other">Quedan %1$d descargas</item>
     </plurals>
-</resources>
+    </resources>

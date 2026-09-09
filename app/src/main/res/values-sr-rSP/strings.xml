@@ -25,7 +25,6 @@
     <string name="activity_chooser_send_file_title">Pošalji</string>
     <string name="activity_chooser_title">Pošalji vezu…</string>
     <string name="activity_icon">Aktivnost</string>
-    <string name="add_to_cloud">Dodaj u %1$s</string>
     <string name="appbar_search_in">Pretraga u %s</string>
     <string name="appear_offline">Prikaži kao van mreže</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Da li ste sigurni da želite da izbrišete ovaj zadatak?</string>
@@ -146,7 +145,6 @@
     <string name="create_dir_fail_msg">Ne mogu da napravim fasciklu</string>
     <string name="create_new">Nov</string>
     <string name="create_new_document">Novi dokument</string>
-    <string name="create_new_folder">Nova fascikla</string>
     <string name="credentials_disabled">Akreditivi isključeni</string>
     <string name="default_credentials_wrong">Neispravni akreditivi</string>
     <string name="delete_account">Ukloni nalog</string>
@@ -387,6 +385,7 @@
     <string name="permission_allow">Dozvoli</string>
     <string name="permission_deny">Odbij</string>
     <string name="picture_set_as_no_app">Nijedna aplikacija nije nađena da se sa njom postavi slika</string>
+    <string name="player_media_controls_close_action_title">Zatvori</string>
     <string name="power_save_check_dialog_message">Isključivanje provere uštede baterije može da dovede do toga da otpremate fajlove sa praznom baterijom!</string>
     <string name="pref_behaviour_entries_delete_file">obrisano</string>
     <string name="pref_behaviour_entries_keep_file">ostavljen u izvornoj fascikli</string>

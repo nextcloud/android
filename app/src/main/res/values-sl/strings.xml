@@ -30,7 +30,6 @@
     <string name="add_new_public_share">Nova javna povezava za souporabo</string>
     <string name="add_new_secure_file_drop">Dodaj novo mesto varnega pošiljanja</string>
     <string name="add_to_album">Dodaj album</string>
-    <string name="add_to_cloud">Dodaj v %1$s</string>
     <string name="album_delete">Izbriši album</string>
     <string name="album_rename_conflict">Vpisano uporabniško ime je že v uporabi</string>
     <string name="album_stop_sharing">Prekini souporabo</string>
@@ -198,7 +197,6 @@
     <string name="create_link">Ustvari povezavo</string>
     <string name="create_new">Novo</string>
     <string name="create_new_document">Nov dokument</string>
-    <string name="create_new_folder">Nova mapa</string>
     <string name="create_new_presentation">Nova predstavitev</string>
     <string name="create_new_spreadsheet">Nova preglednica</string>
     <string name="create_presentation">Predstavitev</string>
@@ -562,6 +560,7 @@
     <string name="permission_deny">Zavrni</string>
     <string name="picture_set_as_no_app">Ni najdenega programa za nastavitev slike</string>
     <string name="pin_shortcut_label">Odpri %1$s</string>
+    <string name="player_media_controls_close_action_title">Zapri</string>
     <string name="player_stop">ustavi</string>
     <string name="player_toggle">preklopi</string>
     <string name="power_save_check_dialog_message">Onemogočanje varčevanja lahko povzroči pošiljanje datotek, ko je napetost baterije že nizka!</string>

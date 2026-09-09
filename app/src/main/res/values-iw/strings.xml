@@ -28,7 +28,6 @@
     <string name="activity_chooser_title">שליחת קישור אל…</string>
     <string name="activity_icon">פעילות</string>
     <string name="add_new_public_share">הוסף קישור שיתוף ציבורי חדש</string>
-    <string name="add_to_cloud">הוספה אל %1$s</string>
     <string name="album_stop_sharing">הפסקת שיתוף</string>
     <string name="app_config_base_url_title">כתובת בסיס</string>
     <string name="app_config_proxy_port_title">פתחת מתווך</string>
@@ -176,7 +175,6 @@
     <string name="create_folder">תיקייה</string>
     <string name="create_new">חדש</string>
     <string name="create_new_document">מסמך חדש</string>
-    <string name="create_new_folder">תיקייה חדשה</string>
     <string name="create_new_presentation">מצגת חדשה</string>
     <string name="create_new_spreadsheet">גיליון נתונים חדש</string>
     <string name="create_presentation">מצגת</string>
@@ -458,6 +456,7 @@
     <string name="permission_allow">לאפשר</string>
     <string name="permission_deny">לדחות</string>
     <string name="picture_set_as_no_app">לא נמצא יישומון להגדיר אתו תמונה</string>
+    <string name="player_media_controls_close_action_title">סגירה</string>
     <string name="power_save_check_dialog_message">השבתת בדיקת חיסכון בחשמל גורמת להעלאת קבצים כשהסוללה חלשה!</string>
     <string name="pref_behaviour_entries_delete_file">נמחק</string>
     <string name="pref_behaviour_entries_keep_file">נשמר בתיקייה מקורית</string>

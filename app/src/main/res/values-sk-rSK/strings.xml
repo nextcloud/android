@@ -34,7 +34,6 @@
     <string name="add_new_public_share">Pridajte nový odkaz na verejné zdieľanie</string>
     <string name="add_new_secure_file_drop">Pridať nový zabezpečený file drop</string>
     <string name="add_to_album">Pridať do albumu</string>
-    <string name="add_to_cloud">Pridaj do %1$s</string>
     <string name="album_already_exists">Album už existuje</string>
     <string name="album_copy_file_conflict">Už existuje.</string>
     <string name="album_create_new_link">Vytvoriť nový odkaz</string>
@@ -296,8 +295,6 @@
     <string name="create_link">Vytvoriť odkaz</string>
     <string name="create_new">Nový</string>
     <string name="create_new_document">Nový dokument</string>
-    <string name="create_new_encrypted_folder">Nová šifrovaná zložka</string>
-    <string name="create_new_folder">Nový priečinok</string>
     <string name="create_new_presentation">Nová prezentácia</string>
     <string name="create_new_spreadsheet">Nová tabuľka</string>
     <string name="create_presentation">Prezentácia</string>
@@ -798,6 +795,7 @@
     <string name="picture_set_as_no_app">Aplikácia na nastavenie obrázku sa nenašla</string>
     <string name="pin_home">Pripnúť na domovskú obrazovku</string>
     <string name="pin_shortcut_label">Otvoriť %1$s</string>
+    <string name="player_media_controls_close_action_title">Zavrieť</string>
     <string name="player_stop">zastaviť</string>
     <string name="player_toggle">prepnúť</string>
     <string name="please_select_a_server">Prosím vyberte server ...</string>
@@ -1477,4 +1475,4 @@
         <item quantity="many">%1$d zostáva stiahnuť</item>
         <item quantity="other">%1$d zostáva stiahnuť</item>
     </plurals>
-</resources>
+    </resources>

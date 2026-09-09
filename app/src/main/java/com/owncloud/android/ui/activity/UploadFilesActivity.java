@@ -58,6 +58,7 @@ import com.owncloud.android.utils.PermissionUtil;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 
@@ -117,6 +118,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     private SearchView mSearchView;
     private UploadFilesLayoutBinding binding;
     private boolean isWithinEncryptedFolder = false;
+    private String[] mChosenFilePaths;
 
     public LocalFileListFragment getFileListFragment() {
         return mFileListFragment;
@@ -523,13 +525,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
                 preferences.setUploaderBehaviour(FileUploadWorker.LOCAL_BEHAVIOUR_DELETE);
             } else {
-                final var chosenFiles = mFileListFragment.getCheckedFilePaths();
-                if (chosenFiles.length > FileUploadHelper.MAX_FILE_COUNT) {
-                    FileUploadHelper.Companion.instance().showFileUploadLimitMessage(this);
-                    return;
-                }
-
-                data.putExtra(EXTRA_CHOSEN_FILES, chosenFiles);
+                data.putExtra(EXTRA_CHOSEN_FILES, filesToUpload);
                 data.putExtra(LOCAL_BASE_PATH, mCurrentDir.getAbsolutePath());
 
                 // set result code
@@ -688,15 +684,25 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
                     finish();
                 }
             } else {
-                final var chosenFiles = mFileListFragment.getCheckedFilePaths();
-                if (chosenFiles.length > FileUploadHelper.MAX_FILE_COUNT) {
-                    FileUploadHelper.Companion.instance().showFileUploadLimitMessage(this);
-                    return;
-                }
-                boolean isPositionZero = (binding.uploadFilesSpinnerBehaviour.getSelectedItemPosition() == 0);
-                new CheckAvailableSpaceTask(this, chosenFiles).execute(isPositionZero);
+                collectChosenFiles(chosenFiles -> {
+                    boolean isPositionZero = (binding.uploadFilesSpinnerBehaviour.getSelectedItemPosition() == 0);
+                    new CheckAvailableSpaceTask(this, chosenFiles).execute(isPositionZero);
+                });
             }
         }
+    }
+
+    private void collectChosenFiles(Consumer<String[]> onCollected) {
+        mFileListFragment.collectCheckedFilePaths(chosenFiles -> {
+            if (chosenFiles.length > FileUploadHelper.MAX_FILE_COUNT) {
+                FileUploadHelper.Companion.instance().showFileUploadLimitMessage(this);
+                return Unit.INSTANCE;
+            }
+
+            mChosenFilePaths = chosenFiles;
+            onCollected.accept(chosenFiles);
+            return Unit.INSTANCE;
+        });
     }
 
     private void showSubFolderWarningDialog() {
@@ -735,17 +741,12 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     @Override
     public void onConfirmation(String callerTag) {
         Log_OC.d(TAG, "Positive button in dialog was clicked; dialog tag is " + callerTag);
-        final var chosenFiles = mFileListFragment.getCheckedFilePaths();
-        if (chosenFiles.length > FileUploadHelper.MAX_FILE_COUNT) {
-            FileUploadHelper.Companion.instance().showFileUploadLimitMessage(this);
-            return;
-        }
 
-        if (QUERY_TO_MOVE_DIALOG_TAG.equals(callerTag)) {
+        if (QUERY_TO_MOVE_DIALOG_TAG.equals(callerTag) && mChosenFilePaths != null) {
             // return the list of selected files to the caller activity (success),
             // signaling that they should be moved to the ownCloud folder, instead of copied
             Intent data = new Intent();
-            data.putExtra(EXTRA_CHOSEN_FILES, chosenFiles);
+            data.putExtra(EXTRA_CHOSEN_FILES, mChosenFilePaths);
             data.putExtra(LOCAL_BASE_PATH, mCurrentDir.getAbsolutePath());
             setResult(RESULT_OK_AND_MOVE, data);
             finish();

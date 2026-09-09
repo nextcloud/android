@@ -34,7 +34,6 @@
     <string name="add_new_public_share">Öffentlichen Freigabe-Link hinzufügen</string>
     <string name="add_new_secure_file_drop">Neue sichere Dateiablage hinzufügen</string>
     <string name="add_to_album">Zum Album hinzufügen</string>
-    <string name="add_to_cloud">Hinzufügen zu %1$s</string>
     <string name="album_already_exists">Album existiert bereits</string>
     <string name="album_copy_file_conflict">Existiert bereits</string>
     <string name="album_create_new_link">Neuen Link erstellen</string>
@@ -296,8 +295,6 @@
     <string name="create_link">Link erstellen</string>
     <string name="create_new">Neu</string>
     <string name="create_new_document">Neues Dokument</string>
-    <string name="create_new_encrypted_folder">Neuer verschlüsselter Ordner</string>
-    <string name="create_new_folder">Neuer Ordner</string>
     <string name="create_new_presentation">Neue Präsentation</string>
     <string name="create_new_spreadsheet">Neue Tabelle</string>
     <string name="create_presentation">Präsentation</string>
@@ -798,6 +795,7 @@
     <string name="picture_set_as_no_app">Keine App gefunden, mit der ein Bid gesetzt werden könnte</string>
     <string name="pin_home">An Startbildschirm anheften</string>
     <string name="pin_shortcut_label">%1$s öffnen</string>
+    <string name="player_media_controls_close_action_title">Schließen</string>
     <string name="player_stop">Stopp</string>
     <string name="player_toggle">Umschalten</string>
     <string name="please_select_a_server">Bitte einen Server auswählen …</string>
@@ -1419,4 +1417,4 @@
         <item quantity="one">%1$d verbleibender Download</item>
         <item quantity="other">%1$d verbleibende Downloads</item>
     </plurals>
-</resources>
+    </resources>

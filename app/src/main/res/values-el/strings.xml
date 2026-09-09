@@ -29,7 +29,6 @@
     <string name="add_media">Προσθήκη πολυμέσων</string>
     <string name="add_new_public_share">Προσθήκη νέου δημόσιου κοινόχρηστου συνδέσμου</string>
     <string name="add_to_album">Προσθήκη στο άλμπουμ</string>
-    <string name="add_to_cloud">Προσθήκη στο %1$s</string>
     <string name="album_delete">Διαγραφή άλμπουμ</string>
     <string name="album_rename_conflict">Αυτό το όνομα χρησιμοποιείται ήδη.</string>
     <string name="album_share">Διαμοιρασμός άλμπουμ</string>
@@ -202,8 +201,6 @@
     <string name="create_folder">Φάκελος</string>
     <string name="create_new">Νέα</string>
     <string name="create_new_document">Νέο έγγραφο</string>
-    <string name="create_new_encrypted_folder">Νέος κρυπτογραφημένος φάκελος</string>
-    <string name="create_new_folder">Νέος φάκελος</string>
     <string name="create_new_presentation">Νέα παρουσίαση</string>
     <string name="create_new_spreadsheet">Νέο λογιστικό φύλλο</string>
     <string name="create_presentation">Παρουσίαση</string>
@@ -562,6 +559,7 @@
     <string name="permission_deny">Απόρριψη</string>
     <string name="picture_set_as_no_app">Δεν βρέθηκε εφαρμογή για τον ορισμό φωτογραφίας</string>
     <string name="pin_shortcut_label">Άνοιγμα %1$s</string>
+    <string name="player_media_controls_close_action_title">Κλείσιμο</string>
     <string name="player_stop">Παύση</string>
     <string name="player_toggle">Εναλλαγή</string>
     <string name="power_save_check_dialog_message">Η απενεργοποίηση του έλεγχου εξοικονόμησης ενέργειας ίσως έχει ως αποτέλεσμα το ανέβασμα αρχείων ενώ βρίσκεστε σε κατάσταση χαμηλής μπαταρίας</string>

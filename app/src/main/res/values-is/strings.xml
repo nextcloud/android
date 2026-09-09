@@ -34,7 +34,6 @@
     <string name="add_new_public_share">Bæta við nýjum opinberum tengli</string>
     <string name="add_new_secure_file_drop">Bæta við nýrri öruggri sleppingu skráa</string>
     <string name="add_to_album">Bæta í albúm</string>
-    <string name="add_to_cloud">Bæta við %1$s</string>
     <string name="album_already_exists">Albúmið er þegar til</string>
     <string name="album_copy_file_conflict">Er þegar til.</string>
     <string name="album_create_new_link">Búa til nýjan tengil</string>
@@ -297,8 +296,6 @@
     <string name="create_link">Búa til tengil</string>
     <string name="create_new">Nýtt</string>
     <string name="create_new_document">Nýtt skjal</string>
-    <string name="create_new_encrypted_folder">Ný dulrituð mappa</string>
-    <string name="create_new_folder">Ný mappa</string>
     <string name="create_new_presentation">Ný kynning</string>
     <string name="create_new_spreadsheet">Nýr töflureiknir</string>
     <string name="create_presentation">Kynning</string>
@@ -799,6 +796,7 @@
     <string name="picture_set_as_no_app">Engin forrit fundust til að setja mynd</string>
     <string name="pin_home">Festa á upphafsskjá</string>
     <string name="pin_shortcut_label">Opna %1$s</string>
+    <string name="player_media_controls_close_action_title">Loka</string>
     <string name="player_stop">stöðva</string>
     <string name="player_toggle">víxla</string>
     <string name="please_select_a_server">Veldu netþjón…</string>
@@ -1421,4 +1419,4 @@
         <item quantity="one">%1$d niðurhal eftir</item>
         <item quantity="other">%1$d niðurhöl eftir</item>
     </plurals>
-</resources>
+    </resources>

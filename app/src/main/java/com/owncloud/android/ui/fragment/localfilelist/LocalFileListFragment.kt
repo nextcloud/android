@@ -7,7 +7,6 @@
 
 package com.owncloud.android.ui.fragment.localfilelist
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.os.Environment
@@ -191,8 +190,7 @@ class LocalFileListFragment :
     //endregion
 
     //region File selection
-    val checkedFilePaths: Array<String>
-        get() = adapter.checkedFilesPath
+    fun collectCheckedFilePaths(onCompleted: (Array<String>) -> Unit) = adapter.collectCheckedFilePaths(onCompleted)
 
     val checkedFilesCount: Int
         get() = adapter.checkedFilesCount()
@@ -266,9 +264,8 @@ class LocalFileListFragment :
         adapter.setFiles(newFiles)
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     fun setupStoragePermissionWarningBanner() {
-        adapter.notifyDataSetChanged()
+        adapter.refreshPermissionBanner()
     }
     //endregion
 

@@ -15,50 +15,75 @@
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
-    <FrameLayout
-        android:id="@+id/thumbnail_layout"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="@dimen/standard_list_item_size"
         android:layout_height="@dimen/standard_list_item_size">
 
-        <ImageView
-            android:id="@+id/thumbnail"
-            android:layout_width="@dimen/file_icon_size"
-            android:layout_height="@dimen/file_icon_size"
-            android:layout_gravity="center"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_find_in_page" />
+        <FrameLayout
+            android:id="@+id/thumbnail_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/thumbnail_overlay_icon"
-            android:layout_width="@dimen/iconized_single_line_item_icon_size"
-            android:layout_height="@dimen/iconized_single_line_item_icon_size"
-            android:layout_gravity="center"
-            android:contentDescription="@null"
-            android:padding="@dimen/standard_quarter_padding"
-            android:src="@drawable/ic_lock"
-            android:visibility="gone"
-            app:tint="@color/text_color_inverse"
-            tools:visibility="visible" />
+            <ImageView
+                android:id="@+id/thumbnail"
+                android:layout_width="@dimen/file_icon_size"
+                android:layout_height="@dimen/file_icon_size"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_find_in_page" />
 
-        <com.elyeproj.loaderviewlibrary.LoaderImageView
-            android:id="@+id/thumbnail_shimmer"
-            android:layout_width="@dimen/file_icon_size"
-            android:layout_height="@dimen/file_icon_size"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            app:corners="8" />
+            <ImageView
+                android:id="@+id/thumbnail_overlay_icon"
+                android:layout_width="@dimen/iconized_single_line_item_icon_size"
+                android:layout_height="@dimen/iconized_single_line_item_icon_size"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:padding="@dimen/standard_quarter_padding"
+                android:src="@drawable/ic_lock"
+                android:visibility="gone"
+                app:tint="@color/text_color_inverse"
+                tools:visibility="visible" />
+
+            <com.elyeproj.loaderviewlibrary.LoaderImageView
+                android:id="@+id/thumbnail_shimmer"
+                android:layout_width="@dimen/file_icon_size"
+                android:layout_height="@dimen/file_icon_size"
+                android:visibility="gone"
+                app:corners="8" />
+
+        </FrameLayout>
 
         <ImageView
             android:id="@+id/localFileIndicator"
             android:layout_width="@dimen/list_item_local_file_indicator_layout_width"
             android:layout_height="@dimen/list_item_local_file_indicator_layout_height"
-            android:layout_gravity="bottom|end"
             android:contentDescription="@string/downloader_download_succeeded_ticker"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_synced"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/thumbnail_layout"
+            app:layout_constraintEnd_toEndOf="@+id/thumbnail_layout"
+            app:layout_constraintStart_toEndOf="@+id/thumbnail_layout"
+            app:layout_constraintTop_toBottomOf="@+id/thumbnail_layout" />
 
-    </FrameLayout>
+        <ImageView
+            android:id="@+id/favorite_action"
+            android:layout_width="@dimen/list_item_favorite_action_layout_width"
+            android:layout_height="@dimen/list_item_favorite_action_layout_height"
+            android:contentDescription="@string/favorite"
+            android:scaleType="fitCenter"
+            android:src="@drawable/favorite"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/thumbnail_layout"
+            app:layout_constraintEnd_toEndOf="@+id/thumbnail_layout"
+            app:layout_constraintStart_toEndOf="@+id/thumbnail_layout"
+            app:layout_constraintTop_toTopOf="@+id/thumbnail_layout"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/titleContainer"

@@ -33,7 +33,6 @@
     <string name="add_new_public_share">Додати нове публічне посилання</string>
     <string name="add_new_secure_file_drop">Додати новий захищений файл</string>
     <string name="add_to_album">Додати в альбом</string>
-    <string name="add_to_cloud">Додати до хмари %1$s</string>
     <string name="album_delete">Вилучити альбом</string>
     <string name="album_rename_conflict">Це ім\'я вже використовується</string>
     <string name="album_share">Поділитися альбомом</string>
@@ -264,8 +263,6 @@
     <string name="create_link">Створити посилання</string>
     <string name="create_new">Створити</string>
     <string name="create_new_document">Новий документ</string>
-    <string name="create_new_encrypted_folder">Новий зашифрований каталог</string>
-    <string name="create_new_folder">Новий каталог</string>
     <string name="create_new_presentation">Нова презентація</string>
     <string name="create_new_spreadsheet">Нова електронна таблиця</string>
     <string name="create_presentation">Презентація</string>
@@ -742,6 +739,7 @@
     <string name="picture_set_as_no_app">Не знайдено застосунків для встановлення зображення для</string>
     <string name="pin_home">Закріпити на домівці</string>
     <string name="pin_shortcut_label">Відкрити %1$s</string>
+    <string name="player_media_controls_close_action_title">Закрити</string>
     <string name="player_stop">стоп</string>
     <string name="player_toggle">переключитися</string>
     <string name="please_select_a_server">Виберіть сервер...</string>
@@ -1390,4 +1388,4 @@
         <item quantity="many">%1$d залишилося завантажити</item>
         <item quantity="other">%1$d залишилося завантажити</item>
     </plurals>
-</resources>
+    </resources>

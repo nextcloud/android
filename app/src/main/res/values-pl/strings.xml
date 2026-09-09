@@ -32,7 +32,6 @@
     <string name="add_new_public_share">Dodaj nowy link publiczny do udostępnienia</string>
     <string name="add_new_secure_file_drop">Dodaj nowe bezpieczne zrzuty plików</string>
     <string name="add_to_album">Dodaj do albumu</string>
-    <string name="add_to_cloud">Dodaj do %1$s</string>
     <string name="album_delete">Usuń album</string>
     <string name="album_rename_conflict">Ta nazwa jest już używana.</string>
     <string name="album_share">Udostępnij album</string>
@@ -261,8 +260,6 @@
     <string name="create_link">Utwórz link</string>
     <string name="create_new">Nowy</string>
     <string name="create_new_document">Nowy dokument</string>
-    <string name="create_new_encrypted_folder">Nowy zaszyfrowany folder</string>
-    <string name="create_new_folder">Nowy katalog</string>
     <string name="create_new_presentation">Nowa prezentacja</string>
     <string name="create_new_spreadsheet">Nowy arkusz kalkulacyjny</string>
     <string name="create_presentation">Prezentacja</string>
@@ -731,6 +728,7 @@
     <string name="picture_set_as_no_app">Nie znaleziono aplikacji do ustawienia obrazu</string>
     <string name="pin_home">Przypnij do ekranu głównego</string>
     <string name="pin_shortcut_label">Otwórz %1$s</string>
+    <string name="player_media_controls_close_action_title">Zamknij</string>
     <string name="player_stop">zatrzymaj</string>
     <string name="player_toggle">przełącz</string>
     <string name="please_select_a_server">Wybierz serwer...</string>
@@ -1367,4 +1365,4 @@
         <item quantity="many">Pozostało %1$d pobrań</item>
         <item quantity="other">Pozostało %1$d pobrań</item>
     </plurals>
-</resources>
+    </resources>

@@ -34,7 +34,6 @@
     <string name="add_new_public_share">Lägg till en ny offentlig delningslänk</string>
     <string name="add_new_secure_file_drop">Lägg till ett nytt säkert filinkast</string>
     <string name="add_to_album">Lägg till i album</string>
-    <string name="add_to_cloud">Lägg till %1$s</string>
     <string name="album_already_exists">Albumet finns redan</string>
     <string name="album_copy_file_conflict">Finns redan.</string>
     <string name="album_create_new_link">Skapa ny länk</string>
@@ -296,8 +295,6 @@
     <string name="create_link">Skapa länk</string>
     <string name="create_new">Ny</string>
     <string name="create_new_document">Nytt dokument</string>
-    <string name="create_new_encrypted_folder">Ny krypterad mapp</string>
-    <string name="create_new_folder">Ny mapp</string>
     <string name="create_new_presentation">Ny presentation</string>
     <string name="create_new_spreadsheet">Nytt kalkylblad</string>
     <string name="create_presentation">Presentation</string>
@@ -798,6 +795,7 @@
     <string name="picture_set_as_no_app">Ingen app hittades för att ställa in en bild med</string>
     <string name="pin_home">Fäst på hemskärmen</string>
     <string name="pin_shortcut_label">Öppna %1$s</string>
+    <string name="player_media_controls_close_action_title">Stäng</string>
     <string name="player_stop">stopp</string>
     <string name="player_toggle">växla</string>
     <string name="please_select_a_server">Välj en server…</string>
@@ -1420,4 +1418,4 @@
         <item quantity="one">%1$d återstående nedladdning</item>
         <item quantity="other">%1$d återstående nedladdningar</item>
     </plurals>
-</resources>
+    </resources>

@@ -32,7 +32,6 @@
     <string name="add_new_public_share">Legg til ny offentlig delt lenke</string>
     <string name="add_new_secure_file_drop">Legg til ny sikker filkasse</string>
     <string name="add_to_album">Legg til i album</string>
-    <string name="add_to_cloud">Legg til %1$s</string>
     <string name="album_delete">Slett album</string>
     <string name="album_rename_conflict">Navnet er allerede i bruk.</string>
     <string name="album_share">Del album</string>
@@ -257,8 +256,6 @@
     <string name="create_link">Lag lenke</string>
     <string name="create_new">Ny</string>
     <string name="create_new_document">Nytt dokument</string>
-    <string name="create_new_encrypted_folder">Ny kryptert mappe</string>
-    <string name="create_new_folder">Ny mappe</string>
     <string name="create_new_presentation">Ny presentasjon</string>
     <string name="create_new_spreadsheet">Nytt regneark</string>
     <string name="create_presentation">Presentasjon</string>
@@ -695,6 +692,7 @@
     <string name="picture_set_as_no_app">Fant ikke noe app å sette bilde med.</string>
     <string name="pin_home">Fest til hjemmeskjermen</string>
     <string name="pin_shortcut_label">Åpne %1$s</string>
+    <string name="player_media_controls_close_action_title">Lukk</string>
     <string name="player_stop">stopp</string>
     <string name="player_toggle">av/på</string>
     <string name="please_select_a_server">Vennligst velg en tjener…</string>
@@ -1269,4 +1267,4 @@
         <item quantity="one">%1$d nedlasting gjenstår</item>
         <item quantity="other">%1$d nedlastinger gjenstår</item>
     </plurals>
-</resources>
+    </resources>
