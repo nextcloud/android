@@ -73,27 +73,7 @@ class OfflineOperationsRepository(private val fileDataStorageManager: FileDataSt
                     fileDataStorageManager.getFileById(parentId)?.let { ocFile ->
                         ocFile.decryptedRemotePath?.let { updatedPath ->
                             val newPath = updatedPath + nextOperation.filename + pathSeparator
-
-                            if (newPath != nextOperation.path) {
-                                nextOperation.apply {
-                                    type = when (type) {
-                                        is OfflineOperationType.CreateFile ->
-                                            (type as OfflineOperationType.CreateFile).copy(
-                                                remotePath = newPath
-                                            )
-
-                                        is OfflineOperationType.CreateFolder ->
-                                            (type as OfflineOperationType.CreateFolder).copy(
-                                                path = newPath
-                                            )
-
-                                        else -> type
-                                    }
-                                    path = newPath
-                                }
-                            } else {
-                                null
-                            }
+                            updateOperationPath(newPath, nextOperation)
                         }
                     }
                 }
