@@ -23,6 +23,7 @@ import java.nio.file.Path
 import java.nio.file.attribute.BasicFileAttributes
 
 private const val TAG = "FileExtensions"
+private const val MS_IN_SECOND = 1000
 
 fun OCFile?.logFileSize(tag: String) {
     val size = DisplayUtils.bytesToHumanReadable(this?.fileLength ?: -1)
@@ -126,10 +127,10 @@ fun OCFile?.isTheSameAs(localFile: File?): Boolean = try {
     val remoteName = this.fileName
     val localSize = localFile.length()
     val remoteSize = this.fileLength
-    val localCreated = attr.creationTime().toMillis() / 1000 // Unix time in milliseconds
-    val localModified = attr.lastModifiedTime().toMillis() / 1000 // Unix time in milliseconds
+    val localCreated = attr.creationTime().toMillis() / MS_IN_SECOND // Unix time in milliseconds
+    val localModified = attr.lastModifiedTime().toMillis() / MS_IN_SECOND // Unix time in milliseconds
     val remoteCreated = this.creationTimestamp // Unix time in seconds!
-    val remoteModified = this.modificationTimestamp / 1000 // Unix time in milliseconds
+    val remoteModified = this.modificationTimestamp / MS_IN_SECOND // Unix time in milliseconds
     remoteName == localName &&
         remoteSize == localSize &&
         remoteCreated == localCreated &&
