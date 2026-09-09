@@ -8,14 +8,19 @@
 package com.nextcloud.utils.extensions
 
 import android.graphics.Bitmap
+import android.util.Log
 import androidx.exifinterface.media.ExifInterface
+import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface
 import com.owncloud.android.utils.DisplayUtils
 import java.io.File
+import java.io.IOException
+import java.nio.file.Files
 import java.nio.file.Path
+import java.nio.file.attribute.BasicFileAttributes
 
 private const val TAG = "FileExtensions"
 
@@ -110,4 +115,26 @@ fun String.getBitmapSize(): Pair<Int, Int>? = try {
     if (w > 0 && h > 0) w to h else null
 } catch (_: Exception) {
     null
+}
+
+fun OCFile?.isTheSameAs(localFile: File?): Boolean = try {
+    this ?: return false
+    localFile ?: return false
+
+    val attr = Files.readAttributes(localFile.toPath(), BasicFileAttributes::class.java)
+    val localName = localFile.getName()
+    val remoteName = this.fileName
+    val localSize = localFile.length()
+    val remoteSize = this.fileLength
+    val localCreated = attr.creationTime().toMillis() / 1000 // Unix time in milliseconds
+    val localModified = attr.lastModifiedTime().toMillis() / 1000 // Unix time in milliseconds
+    val remoteCreated = this.creationTimestamp // Unix time in seconds!
+    val remoteModified = this.modificationTimestamp / 1000 // Unix time in milliseconds
+    remoteName == localName &&
+        remoteSize == localSize &&
+        remoteCreated == localCreated &&
+        remoteModified == localModified
+} catch (e: IOException) {
+    Log.e(FileDataStorageManager.TAG, "fileIsTheSame: unable to obtain local file attributes for comparing: $e")
+    false
 }
