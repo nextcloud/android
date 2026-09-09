@@ -34,6 +34,7 @@ import com.nextcloud.client.player.model.state.PlaybackState
 import com.nextcloud.client.player.model.state.PlayerState
 import com.nextcloud.client.player.model.state.RepeatMode
 import com.nextcloud.client.player.model.state.VideoSize
+import com.nextcloud.utils.extensions.resolveMimeType
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.utils.MimeTypeUtil
@@ -192,11 +193,6 @@ object PlayerUtil {
         lastModified = sharedDate * SECOND_IN_MILLISECONDS,
         isFavorite = isFavorite
     )
-
-    private fun OCFile.resolveMimeType(): String = mimeType
-        ?.takeIf { it.isNotEmpty() }
-        ?: remotePath?.let { MimeTypeUtil.getMimeTypeFromPath(it) }
-        ?: ""
 
     private fun OCShare.resolveMimeType(): String = mimetype
         ?.takeIf { it.isNotEmpty() }
