@@ -549,6 +549,10 @@ public class FileDataStorageManager {
             // only refresh folder operation must update eTag otherwise content of the folder may stay as outdated
             cv.remove(ProviderTableMeta.FILE_ETAG);
             cv.remove(ProviderTableMeta.FILE_STORAGE_PATH);
+
+            if (ocFile.isInternalFolderSync()) {
+                ensureLocalDirectoryForInternalTwoWaySync(ocFile);
+            }
         }
 
         boolean sameRemotePath = fileExists(ocFile.getRemotePath());
@@ -592,6 +596,23 @@ public class FileDataStorageManager {
         }
 
         return overridden;
+    }
+
+    /**
+     * A folder flagged for internal two-way sync must have a physical local directory as soon as
+     * it is flagged, so the user has somewhere to place new files right away instead of waiting
+     * for the next scheduled {@code InternalTwoWaySyncWork} run.
+     */
+    private void ensureLocalDirectoryForInternalTwoWaySync(OCFile folder) {
+        String savePath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), folder);
+        File localDir = new File(savePath);
+        if (localDir.exists() || localDir.mkdirs()) {
+            // storagePath is never persisted for folders (see cv.remove(FILE_STORAGE_PATH) above);
+            // it is only kept in-memory so callers holding this OCFile see the directory immediately.
+            folder.setStoragePath(savePath);
+        } else {
+            Log_OC.e(TAG, "Could not create local directory for internal two-way sync folder: " + savePath);
+        }
     }
 
     /**

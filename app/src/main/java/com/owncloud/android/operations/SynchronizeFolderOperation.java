@@ -85,6 +85,9 @@ public class SynchronizeFolderOperation extends SyncOperation {
     /** Locally cached information about folder to synchronize */
     private OCFile mLocalFolder;
 
+    /** 'True' means the folder to synchronize is part of an internal two-way sync folder tree */
+    private boolean mIsPartOfInternalTwoWaySync;
+
     /** Counter of conflicts found between local and remote files */
     private int mConflictsFound;
 
@@ -160,6 +163,12 @@ public class SynchronizeFolderOperation extends SyncOperation {
             if (mLocalFolder == null) {
                 Log_OC.e(TAG, "Local folder is null, cannot run synchronize folder operation, remote path: " + mRemotePath);
                 return new RemoteOperationResult<>(ResultCode.FILE_NOT_FOUND);
+            }
+
+            mIsPartOfInternalTwoWaySync = getStorageManager().isPartOfInternalTwoWaySync(mLocalFolder);
+
+            if (mIsPartOfInternalTwoWaySync) {
+                ensureLocalFolderExists();
             }
 
             result = checkForChanges(client);
@@ -253,6 +262,26 @@ public class SynchronizeFolderOperation extends SyncOperation {
         return result;
     }
 
+
+    /**
+     * A folder under internal two-way sync must exist on disk even before any content is
+     * downloaded into it, so the user has somewhere to place new local files/folders.
+     * {@link CreateFolderOperation} only registers a folder in the local database and never
+     * creates its physical directory, so {@code storagePath} can still be empty here.
+     */
+    private void ensureLocalFolderExists() {
+        String storagePath = mLocalFolder.getStoragePath();
+        if (TextUtils.isEmpty(storagePath)) {
+            storagePath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), mLocalFolder);
+            mLocalFolder.setStoragePath(storagePath);
+            getStorageManager().saveFile(mLocalFolder);
+        }
+
+        File localDir = new File(storagePath);
+        if (!localDir.exists() && !localDir.mkdirs()) {
+            Log_OC.e(TAG, "Could not create local directory for internal two-way sync folder: " + storagePath);
+        }
+    }
 
     private void removeLocalFolder() {
         FileDataStorageManager storageManager = getStorageManager();
@@ -356,9 +385,9 @@ public class SynchronizeFolderOperation extends SyncOperation {
             boolean encrypted = updatedFile.isEncrypted() || mLocalFolder.isEncrypted();
             updatedFile.setEncrypted(encrypted);
 
-            syncFileOrFolder(remoteFile, localFile);
-
-            updatedFiles.add(updatedFile);
+            if (syncFileOrFolder(remoteFile, localFile)) {
+                updatedFiles.add(updatedFile);
+            }
         }
 
         // update file name for encrypted files
@@ -407,17 +436,21 @@ public class SynchronizeFolderOperation extends SyncOperation {
      * Schedules synchronization for the given remote file or folder.
      * <p>
      * If the remote file is a regular file, a {@link SynchronizeFileOperation} is created
-     * and added to the list of pending file synchronizations.
+     * and added to the list of pending file synchronizations. Exception: in an internal two-way
+     * sync folder, a file that was downloaded before but is missing locally now is treated as
+     * deleted by the user and removed from the server instead of being re-downloaded.
      * If the remote file is a folder, the method triggers a folder synchronization operation,
      * which recursively synchronizes all nested files and subfolders.
      * </p>
      *
      * @param remoteFile the remote file or folder to synchronize
      * @param localFile the corresponding local file or folder
+     * @return {@code false} if {@code remoteFile} was deleted from the server and should no
+     *         longer be tracked locally, {@code true} otherwise
      * @throws OperationCancelledException if the synchronization was cancelled
      */
     @SuppressFBWarnings("JLM")
-    private void syncFileOrFolder(OCFile remoteFile, OCFile localFile) throws OperationCancelledException {
+    private boolean syncFileOrFolder(OCFile remoteFile, OCFile localFile) throws OperationCancelledException {
         if (remoteFile.isFolder()) {
             synchronized (mCancellationRequested) {
                 if (mCancellationRequested.get()) {
@@ -425,17 +458,57 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 }
                 startSyncFolderOperation(remoteFile.getRemotePath());
             }
+            return true;
+        }
+
+        if (mIsPartOfInternalTwoWaySync && isLocallyDeletedFile(localFile)) {
+            deleteRemoteFile(localFile);
+            return false;
+        }
+
+        SynchronizeFileOperation operation = new SynchronizeFileOperation(
+            localFile,
+            remoteFile,
+            user,
+            true,
+            mContext,
+            getStorageManager(),
+            useWorkerWithNotification
+        );
+        mFilesToSyncContents.add(operation);
+        return true;
+    }
+
+    /**
+     * A file counts as "deleted by the user" only if it was downloaded before (has a storage
+     * path) and that path no longer exists; a file that was never downloaded has an empty
+     * storage path and must not be mistaken for a local deletion.
+     */
+    private boolean isLocallyDeletedFile(OCFile localFile) {
+        if (localFile == null || localFile.isFolder()) {
+            return false;
+        }
+
+        String storagePath = localFile.getStoragePath();
+        return !TextUtils.isEmpty(storagePath) && !new File(storagePath).exists();
+    }
+
+    private void deleteRemoteFile(OCFile localFile) {
+        RemoveFileOperation operation = new RemoveFileOperation(
+            localFile,
+            false,
+            user,
+            false,
+            mContext,
+            getStorageManager()
+        );
+
+        var result = operation.execute(getClient());
+
+        if (result.isSuccess()) {
+            Log_OC.d(TAG, "Deleted remote file after local removal: " + localFile.getFileName());
         } else {
-            SynchronizeFileOperation operation = new SynchronizeFileOperation(
-                localFile,
-                remoteFile,
-                user,
-                true,
-                mContext,
-                getStorageManager(),
-                useWorkerWithNotification
-            );
-            mFilesToSyncContents.add(operation);
+            Log_OC.d(TAG, "Failed to delete remote file after local removal: " + localFile.getFileName());
         }
     }
 
@@ -575,7 +648,9 @@ public class SynchronizeFolderOperation extends SyncOperation {
         String remotePath = mLocalFolder.getRemotePath() + localFile.getName();
         OCUpload upload = new OCUpload(localFile.getAbsolutePath(), remotePath, user.getAccountName());
         upload.setNameCollisionPolicy(NameCollisionPolicy.DEFAULT);
-        upload.setLocalAction(FileUploadWorker.LOCAL_BEHAVIOUR_FORGET);
+        // the file already lives at its expected two-way-sync location, so it must stay linked
+        // as the local copy after upload instead of being forgotten
+        upload.setLocalAction(FileUploadWorker.LOCAL_BEHAVIOUR_COPY);
 
         UploadFileOperation operation = new UploadFileOperation(
             uploadsStorageManager,
