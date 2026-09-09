@@ -37,9 +37,9 @@ import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
+import com.owncloud.android.ui.dialog.conflict.ConflictResolveDialogFactory
 import com.owncloud.android.ui.dialog.conflict.ConflictsResolveDialog.Decision
 import com.owncloud.android.ui.dialog.conflict.ConflictsResolveDialog.OnConflictDecisionMadeListener
-import com.owncloud.android.ui.dialog.conflict.ConflictResolveDialogFactory
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
 import kotlinx.coroutines.Dispatchers
@@ -272,11 +272,12 @@ class ConflictsResolveActivity :
             return
         }
 
-        val (ft, _) = prepareDialogTransaction()
+        val (ft, user) = prepareDialogTransaction()
         ConflictResolveDialogFactory.forOffline(
             context = this,
             leftFile = offlineOperation,
-            rightFile = newFile!!
+            rightFile = newFile!!,
+            user = user
         ).show(ft, "conflictDialog")
     }
 
