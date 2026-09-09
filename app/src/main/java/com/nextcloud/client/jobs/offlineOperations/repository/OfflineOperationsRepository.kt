@@ -73,27 +73,7 @@ class OfflineOperationsRepository(private val fileDataStorageManager: FileDataSt
                     fileDataStorageManager.getFileById(parentId)?.let { ocFile ->
                         ocFile.decryptedRemotePath?.let { updatedPath ->
                             val newPath = updatedPath + nextOperation.filename + pathSeparator
-
-                            if (newPath != nextOperation.path) {
-                                nextOperation.apply {
-                                    type = when (type) {
-                                        is OfflineOperationType.CreateFile ->
-                                            (type as OfflineOperationType.CreateFile).copy(
-                                                remotePath = newPath
-                                            )
-
-                                        is OfflineOperationType.CreateFolder ->
-                                            (type as OfflineOperationType.CreateFolder).copy(
-                                                path = newPath
-                                            )
-
-                                        else -> type
-                                    }
-                                    path = newPath
-                                }
-                            } else {
-                                null
-                            }
+                            updateOperationPath(newPath, nextOperation)
                         }
                     }
                 }
@@ -101,8 +81,11 @@ class OfflineOperationsRepository(private val fileDataStorageManager: FileDataSt
             .forEach { dao.update(it) }
     }
 
-    override fun updateOperationForMove(operation: OfflineOperationEntity, file: OCFile, newPath: String) {
-        operation.apply {
+    private fun updateOperationPath(
+        newPath: String,
+        nextOperation: OfflineOperationEntity
+    ): OfflineOperationEntity? = if (newPath != nextOperation.path) {
+        nextOperation.apply {
             type = when (type) {
                 is OfflineOperationType.CreateFile ->
                     (type as OfflineOperationType.CreateFile).copy(
@@ -118,6 +101,12 @@ class OfflineOperationsRepository(private val fileDataStorageManager: FileDataSt
             }
             path = newPath
         }
+    } else {
+        null
+    }
+
+    override fun updateOperationForKeepBoth(operation: OfflineOperationEntity, newPath: String) {
+        updateOperationPath(newPath, operation)
         dao.update(operation)
     }
 
