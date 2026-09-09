@@ -590,19 +590,6 @@
     <string name="manage_space_description">%1$s نىڭ سانلىق مەلۇماتلىرىدىن تەڭشەك ، ساندان ۋە مۇلازىمېتىر گۇۋاھنامىسى مەڭگۈلۈك ئۆچۈرۈلىدۇ. \ n \ n چۈشۈرۈلگەن ھۆججەتلەر تۇتۇلمايدۇ. \ n \ n بۇ جەريانغا بىر ئاز ۋاقىت كېتىدۇ.</string>
     <string name="manage_space_title">بوشلۇقنى باشقۇرۇش</string>
     <string name="manage_tags">خەتكۈچلەرنى باشقۇرۇش</string>
-    <string name="media_err_invalid_progressive_playback">مېدىيا ھۆججىتىنى ئاقلاشقا بولمايدۇ</string>
-    <string name="media_err_io">مېدىيا ھۆججىتىنى ئوقۇيالمىدى</string>
-    <string name="media_err_malformed">مېدىيا ھۆججىتىدە كودلاش خاتا</string>
-    <string name="media_err_timeout">ھۆججەتنى ئويناشقا ئۇرۇنۇش ۋاقتى ئۆتۈپ كەتتى</string>
-    <string name="media_err_unknown">ئىچىگە ئورۇنلاشتۇرۇلغان مېدىيا قويغۇچ مېدىيا ھۆججىتىنى قويالمايدۇ</string>
-    <string name="media_err_unsupported">قوللىمايدىغان مېدىيا كودلىغۇچ</string>
-    <string name="media_forward_description">تېز ئىلگىرىلەش كۇنۇپكىسى</string>
-    <string name="media_notif_ticker">%1$s مۇزىكا قويغۇچ</string>
-    <string name="media_play_pause_description">قويۇش ياكى توختىتىش كۇنۇپكىسى</string>
-    <string name="media_player_pause">توختات</string>
-    <string name="media_player_play">ئويناش</string>
-    <string name="media_rewind_description">كەينىگە قايتۇرۇش كۇنۇپكىسى</string>
-    <string name="media_state_playing">%1$s (ئويناش)</string>
     <string name="menu_item_sort_by_date_newest_first">ئەڭ يېڭى</string>
     <string name="menu_item_sort_by_date_oldest_first">ئەڭ كونا</string>
     <string name="menu_item_sort_by_name_a_z">A - Z.</string>
@@ -698,8 +685,6 @@
     <string name="pin_home">باش ئېكرانغا مىخلا</string>
     <string name="pin_shortcut_label">%1$s نى ئېچىڭ</string>
     <string name="player_media_controls_close_action_title">ياپ</string>
-    <string name="player_stop">توختا</string>
-    <string name="player_toggle">ئالماشتۇر</string>
     <string name="please_select_a_server">مۇلازىمېتىرنى تاللاڭ…</string>
     <string name="power_save_check_dialog_message">توك تېجەش تەكشۈرۈشىنى چەكلىگەندە ، باتارېيە تۆۋەن ھالەتتە ھۆججەت يوللاشنى كەلتۈرۈپ چىقىرىشى مۇمكىن!</string>
     <string name="pref_behaviour_entries_delete_file">ئۆچۈرۈلدى</string>
@@ -963,7 +948,6 @@
     <string name="store_short_dev_desc">سىزنى كونترول قىلىدىغان ئۆزى ساھىبخانلىق قىلغان ئىشلەپچىقىرىش سۇپىسى (dev ئالدىن كۆرۈش نۇسخىسى)</string>
     <string name="stream">بىلەن يەتكۈز...</string>
     <string name="stream_not_possible_headline">ئىچكى ئېقىم مۇمكىن ئەمەس</string>
-    <string name="stream_not_possible_message">ئۇنىڭ ئورنىغا مېدىيا چۈشۈرۈڭ ياكى سىرتقى ئەپنى ئىشلىتىڭ.</string>
     <string name="sub_folder_rule_day">يىل / ئاي / كۈن</string>
     <string name="sub_folder_rule_month">يىل / ئاي</string>
     <string name="sub_folder_rule_year">يىل</string>

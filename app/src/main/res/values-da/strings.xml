@@ -578,19 +578,6 @@
     <string name="manage_space_description">Indstillinger, database og server certifikater fra %1$s\'s data vil blive permanent slettede.\n\nHentede filer vil forblive uberørte.\n\n Denne proces kan tage lidt tid.</string>
     <string name="manage_space_title">Håndter plads</string>
     <string name="manage_tags">Administrér tags</string>
-    <string name="media_err_invalid_progressive_playback">Medie filen kan ikke streames.</string>
-    <string name="media_err_io">Kunne ikke læse mediefil</string>
-    <string name="media_err_malformed">Mediefilen har en ugyldig indkodning.</string>
-    <string name="media_err_timeout">Ventetid på forsøg på afspilning udløbet</string>
-    <string name="media_err_unknown">Den indbyggede media afspiller kan ikke afspille filen</string>
-    <string name="media_err_unsupported">Ikke-understøttet medie codec</string>
-    <string name="media_forward_description">Hurtigt fremad-knap</string>
-    <string name="media_notif_ticker">%1$s musik afspiller</string>
-    <string name="media_play_pause_description">Afspil eller pause knap</string>
-    <string name="media_player_pause">Pause</string>
-    <string name="media_player_play">Afspil</string>
-    <string name="media_rewind_description">Tilbagespolingsknap</string>
-    <string name="media_state_playing">%1$s (afspiller)</string>
     <string name="menu_item_sort_by_date_newest_first">Nyeste først</string>
     <string name="menu_item_sort_by_date_oldest_first">Ældste først</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -682,8 +669,6 @@
     <string name="pin_home">Fastgør til hjemmeskærm</string>
     <string name="pin_shortcut_label">Åbn %1$s</string>
     <string name="player_media_controls_close_action_title">Luk</string>
-    <string name="player_stop">stop</string>
-    <string name="player_toggle">skift</string>
     <string name="please_select_a_server">Vælg venligst en server...</string>
     <string name="power_save_check_dialog_message">Deaktiver strømsparecheck kan føre til forsendelse af filer mens der ikke resterer meget strøm på batteriet</string>
     <string name="pref_behaviour_entries_delete_file">Slettet</string>
@@ -942,7 +927,6 @@
     <string name="store_short_dev_desc">Vært i eget hus produktivitets platform, hvor du bevarer kontrollen. (tidlig udviklingsversion)</string>
     <string name="stream">Stream med...</string>
     <string name="stream_not_possible_headline">Intern streaming ikke mulig</string>
-    <string name="stream_not_possible_message">Hent venligst media i stedet, eller brug ekstern app.</string>
     <string name="sub_folder_rule_day">År/Måned/Dag</string>
     <string name="sub_folder_rule_month">År/Måned</string>
     <string name="sub_folder_rule_year">År</string>

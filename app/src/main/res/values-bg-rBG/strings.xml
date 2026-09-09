@@ -476,19 +476,6 @@
     <string name="manage_space_description">Настройките, базата от данни и сървърните сертификати от %1$sя ще бъдат изтрити перманентно. \\n\\nИзтеглените файлове ще бъдат запазени непокътнати.\\n\\nТози процес може да отнеме известно време.</string>
     <string name="manage_space_title">Управление на място</string>
     <string name="manage_tags">Управление на маркери</string>
-    <string name="media_err_invalid_progressive_playback">Мултимедийният файл не може да се излъчва</string>
-    <string name="media_err_io">Медия файлът не може да бъде прочетен</string>
-    <string name="media_err_malformed">Неправилно кодиран медиен файл</string>
-    <string name="media_err_timeout">Опитът за възпроизвеждане на файла беше неуспешен</string>
-    <string name="media_err_unknown">Вграденият медия плеър не може да възпроизведе файла</string>
-    <string name="media_err_unsupported">Неподдържан медиен кодек</string>
-    <string name="media_forward_description">Бутон за превъртане напред</string>
-    <string name="media_notif_ticker">%1$s музикален плеър</string>
-    <string name="media_play_pause_description">Бутон възпроизведи / пауза </string>
-    <string name="media_player_pause">Пауза</string>
-    <string name="media_player_play">Пускане</string>
-    <string name="media_rewind_description">Бутон за превъртане назад</string>
-    <string name="media_state_playing">%1$s (възпроизвеждане)</string>
     <string name="menu_item_sort_by_date_newest_first">Най-нов</string>
     <string name="menu_item_sort_by_date_oldest_first">Най-стар</string>
     <string name="menu_item_sort_by_name_a_z">А - Я</string>
@@ -556,8 +543,6 @@
     <string name="picture_set_as_no_app">Няма намерени приложения за задаване на снимка</string>
     <string name="pin_shortcut_label">Отваряне на %1$s</string>
     <string name="player_media_controls_close_action_title">Затваряне</string>
-    <string name="player_stop">стоп</string>
-    <string name="player_toggle">превключване</string>
     <string name="power_save_check_dialog_message">Деактивирането на проверката за пестене на енергия може да доведе до качване на файлове, в състояние с ниска батерия!</string>
     <string name="pref_behaviour_entries_delete_file">изтрит</string>
     <string name="pref_behaviour_entries_keep_file">запазван в оригиналната папка</string>
@@ -765,7 +750,6 @@
     <string name="store_short_dev_desc">Самостоятелно хостваната платформа за производителност, която ви помага да поддържате контрол (версия за предварителен преглед на разработчиците)</string>
     <string name="stream">Стрийм с...</string>
     <string name="stream_not_possible_headline">Вътрешен стрийм не невъзможен</string>
-    <string name="stream_not_possible_message">Моля свалете медиа файла или използвайте външно приложение</string>
     <string name="sub_folder_rule_year">Година</string>
     <string name="subject_shared_with_you">\"%1$s\" бе споделено с вас</string>
     <string name="subject_user_shared_with_you">%1$s сподели с вас \"%2$s\"</string>

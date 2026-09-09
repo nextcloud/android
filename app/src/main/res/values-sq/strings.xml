@@ -342,18 +342,6 @@
     <string name="manage_space_clear_data">Pastroji të dhënat</string>
     <string name="manage_space_description">Rregullimet, baza e të dhënave dhe dëshmitë e serverit prej të dhënave nga %1$s do të fshihen përgjithmonë. \n\nSkedarët e shkarkuar do të ruhen të paprekura.\n\nKy proces mund të kërkoj ca kohë.</string>
     <string name="manage_space_title">Administroni hapësirë</string>
-    <string name="media_err_io">S\'u lexua dot skedari media</string>
-    <string name="media_err_malformed">Skedar media i koduar jo si duhet</string>
-    <string name="media_err_timeout">Mbaroi koha, teksa përpiqej të luhej</string>
-    <string name="media_err_unknown">Ndërtuesi i integruar i medias nuk mund të luajë skedarin medial</string>
-    <string name="media_err_unsupported">Kodek mediash i pambuluar</string>
-    <string name="media_forward_description">Butoni Përpara</string>
-    <string name="media_notif_ticker">Lojtësi %1$s i muzikës</string>
-    <string name="media_play_pause_description">Butoni Luaje ose Pushoje</string>
-    <string name="media_player_pause">Pauzë</string>
-    <string name="media_player_play">Luaje</string>
-    <string name="media_rewind_description">Butoni Mbrapsht</string>
-    <string name="media_state_playing">%1$s (po luhet)</string>
     <string name="menu_item_sort_by_date_newest_first">Më i riu në fillim</string>
     <string name="menu_item_sort_by_date_oldest_first">Më i vjetri në fillim</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -568,7 +556,6 @@
     <string name="store_short_dev_desc">The self-hosted productivity platform that keeps you in control (versioni i parapamjes dev)</string>
     <string name="stream">Rrjedh me...</string>
     <string name="stream_not_possible_headline">Rrjedhja e brendshme nuk është e mundur</string>
-    <string name="stream_not_possible_message">Ju lutemi të shkarkoni mediat ose të përdorni aplikacionin e jashtëm.</string>
     <string name="subject_shared_with_you">\"%1$s\" është ndarë me ju</string>
     <string name="subject_user_shared_with_you">%1$s ndau me ju \"%2$s\"</string>
     <string name="sync">Sinkronizo</string>

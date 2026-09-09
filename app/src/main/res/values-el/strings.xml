@@ -478,19 +478,6 @@
     <string name="manage_space_description">Τα πιστοποιητικά ρυθμίσεων, βάσης δεδομένων και διακομιστή από τα δεδομένα %1$s\'s θα διαγραφούν μόνιμα.\n\nΤα ληφθέντα αρχεία θα παραμείνουν ανέπαφα.\n\nΑυτή η διαδικασία ενδεχομένως να διαρκέσει αρκετά.</string>
     <string name="manage_space_title">Διαχείριση χώρου</string>
     <string name="manage_tags">Διαχείριση ετικετών</string>
-    <string name="media_err_invalid_progressive_playback">Το αρχείο πολυμέσων δεν μπορεί να μεταδοθεί</string>
-    <string name="media_err_io">Αδυναμία ανάγνωσης αρχείου πολυμέσων</string>
-    <string name="media_err_malformed">Εσφαλμένη κωδικοποίηση αρχείου πολυμέσων</string>
-    <string name="media_err_timeout">Λήξη χρόνου κατά την προσπάθεια αναπαραγωγής</string>
-    <string name="media_err_unknown">Η ενσωματωμένη εφαρμογή αναπαραγωγής πολυμέσων δεν μπορεί να αναπαράγει το αρχείο πολυμέσων</string>
-    <string name="media_err_unsupported">Δεν υποστηρίζεται η μορφή κωδικοποιήσης πολυμέσων</string>
-    <string name="media_forward_description">Κουμπί γρήγορης προώθησης</string>
-    <string name="media_notif_ticker">%1$sαναπαραγωγή μουσικής</string>
-    <string name="media_play_pause_description">Κουμπί αναπαραγωγής ή παύσης</string>
-    <string name="media_player_pause">Παύση</string>
-    <string name="media_player_play">Αναπαραγωγή</string>
-    <string name="media_rewind_description">Κουμπί ταχείας κίνησης πίσω</string>
-    <string name="media_state_playing">%1$s(αναπαραγωγή)</string>
     <string name="menu_item_sort_by_date_newest_first">Νεότερο πρώτα</string>
     <string name="menu_item_sort_by_date_oldest_first">Παλαιότερο πρώτα</string>
     <string name="menu_item_sort_by_name_a_z">Α - Ω</string>
@@ -560,8 +547,6 @@
     <string name="picture_set_as_no_app">Δεν βρέθηκε εφαρμογή για τον ορισμό φωτογραφίας</string>
     <string name="pin_shortcut_label">Άνοιγμα %1$s</string>
     <string name="player_media_controls_close_action_title">Κλείσιμο</string>
-    <string name="player_stop">Παύση</string>
-    <string name="player_toggle">Εναλλαγή</string>
     <string name="power_save_check_dialog_message">Η απενεργοποίηση του έλεγχου εξοικονόμησης ενέργειας ίσως έχει ως αποτέλεσμα το ανέβασμα αρχείων ενώ βρίσκεστε σε κατάσταση χαμηλής μπαταρίας</string>
     <string name="pref_behaviour_entries_delete_file">διαγραφεί</string>
     <string name="pref_behaviour_entries_keep_file">διατηρηθεί στον αρχικό φάκελο</string>
@@ -771,7 +756,6 @@
     <string name="store_short_dev_desc">Η αυτόνομη πλατφόρμα λειτουργικότητας που σας κρατά υπό έλεγχο (προεπισκόπηση έκδοσης dev)</string>
     <string name="stream">Ροή με…</string>
     <string name="stream_not_possible_headline">Η εσωτερική ροή δεν είναι δυνατή</string>
-    <string name="stream_not_possible_message">Παρακαλούμε να γίνει λήψη των μέσων ή να χρησιμοποιηθεί εξωτερική εφαρμογή</string>
     <string name="sub_folder_rule_year">Έτος</string>
     <string name="subject_shared_with_you">Ο \"%1$s\" διαμοιράστηκε μαζί σας</string>
     <string name="subject_user_shared_with_you">Ο %1$s διαμοιράστηκε το \"%2$s\" με εσάς</string>

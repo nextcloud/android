@@ -30,7 +30,7 @@
     <string name="activity_chooser_send_file_title">Saada</string>
     <string name="activity_chooser_title">Saada link…</string>
     <string name="activity_icon">Tegevus</string>
-    <string name="add_media">Lisa multimeediat</string>
+    <string name="add_media">Lisa multimeediumit</string>
     <string name="add_new_public_share">Lisa uus avalik jagamislink</string>
     <string name="add_new_secure_file_drop">Lisa uus turvaline failiedastus</string>
     <string name="add_to_album">Lisa albumisse</string>
@@ -156,6 +156,7 @@
     <string name="autoupload_delete_uploaded_all_dialog_title">Kõik juba pilve laaditud failid eemaldatakse kohalikust seadmest kõikidest automaatse üleslaadimise kaustadest</string>
     <string name="autoupload_delete_uploaded_dialog_description">Kõik juba pilve laaditud failid eemaldatakse kohalikust seadmest.</string>
     <string name="autoupload_delete_uploaded_dialog_title">Kustuta üleslaaditud failid kohalikust seadmest</string>
+    <string name="autoupload_delete_uploaded_notif_ended_content">Vabanes %1$s %4$s kasutaja %3$s-st kaustast kokku %2$s faili.</string>
     <string name="autoupload_delete_uploaded_notif_ended_title">Juba üleslaaditud kohalikud failid on kustutatud</string>
     <string name="autoupload_delete_uploaded_notif_error_title">Juba üleslaaditud kohalike failide kustutamine ei õnnestunud</string>
     <string name="autoupload_delete_uploaded_notif_started_title">Juba üleslaaditud kohalike failide kustutamine käivitus taustal</string>
@@ -388,7 +389,7 @@
     <string name="ecosystem_apps_more">Veel Nextcloudi rakendusi</string>
     <string name="editor_web_view_cannot_open_file">Failivalija avamine ei õnnestu</string>
     <string name="email_pick_failed">Ei õnnestu valida e-posti aadressi</string>
-    <string name="empty_albums_message">Sa võid oma fotosid hallata nii mitme albumine, kui parasjagu tahad. Hetkel sa pole veel ühtegi albumit koostanud.</string>
+    <string name="empty_albums_message">Sa võid oma fotosid hallata nii mitme albumina, kui parasjagu tahad. Hetkel sa pole veel ühtegi albumit koostanud.</string>
     <string name="empty_albums_title">Koosta oma fotodest albumeid</string>
     <string name="encrypted">Määra krüptituks</string>
     <string name="encryption_encrypt_check_failed">Sinu krüptovõtmete kontrollimine ei õnnestunud. Proovi kausta uuesti krüptida.</string>
@@ -683,23 +684,7 @@
     <string name="manage_space_description">Järgnevaga kustutatakse jäädavalt kõik „%1$s“ andmete seadistused, andmebaasikirjed ja sertifikaadid.\n\nAllalaaditud failid jäävad alles.\n\nKogu toiming võib märgatavalt aega võtta.</string>
     <string name="manage_space_title">Halda andmeruumi</string>
     <string name="manage_tags">Halda silte</string>
-    <string name="media_err_invalid_progressive_playback">Seda multimeediafaili ei saa voogedastada</string>
-    <string name="media_err_io">Meediafaili lugemine ebaõnnestus</string>
-    <string name="media_err_malformed">Sellel meediafailil on vigane kodeering</string>
-    <string name="media_err_timeout">Katse esitada meediafaili aegus</string>
-    <string name="media_err_unknown">Sisseehitatud meediaesitaja ei suuda seda meediafaili esitada</string>
-    <string name="media_err_unsupported">Mittetoetatud meedia koodek</string>
-    <string name="media_forward_description">Edasikerimise nupp</string>
-    <string name="media_notif_ticker">%1$s muusikaesitaja</string>
     <string name="media_picker_toolbar_title">Vali meediumifailid</string>
-    <string name="media_play_pause_description">Esitamise või pausi nupp</string>
-    <string name="media_player_pause">Peata</string>
-    <string name="media_player_play">Esita</string>
-    <string name="media_player_playing">Meedium on esitamisel</string>
-    <string name="media_player_seek_backward">Keri tagasi</string>
-    <string name="media_player_seek_forward">Keri edasi</string>
-    <string name="media_rewind_description">Tagasikerimise nupp</string>
-    <string name="media_state_playing">%1$s (esitamisel)</string>
     <string name="menu_item_sort_by_date_newest_first">Uuemad esimesena</string>
     <string name="menu_item_sort_by_date_oldest_first">Vanemad esimesena</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -718,7 +703,7 @@
     <string name="network_error_socket_timeout_exception">Serveriühenduse ootamisel tekkis viga. Toimingut pole võimalik lõpetada.</string>
     <string name="network_host_not_available">Toimingut pole võimalik lõpetada. Server pole leitav.</string>
     <string name="new_comment">Uus kommentaar...</string>
-    <string name="new_media_folder_detected">Tuvastasin uue meediakausta „%1$s“</string>
+    <string name="new_media_folder_detected">Tuvastasin uue meediumikausta „%1$s“.</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">video</string>
     <string name="new_notification">Uus teavitus</string>
@@ -794,9 +779,15 @@
     <string name="picture_set_as_no_app">Ei leidu rakendust pildi laiuse määramiseks</string>
     <string name="pin_home">Kinnita avalehele</string>
     <string name="pin_shortcut_label">Ava %1$s </string>
+    <string name="player_audio_title_with_artist">%1$s • %2$s</string>
+    <string name="player_control_view_next_button_content_description">Edasikerimise nupp</string>
+    <string name="player_control_view_play_pause_button_content_description">Esitamise/peatamise nupp</string>
+    <string name="player_control_view_previous_button_content_description">Tagasikerimise nupp</string>
+    <string name="player_control_view_random_button_content_description">Juhusliku esituse nupp</string>
+    <string name="player_control_view_repeat_button_content_description">Korduse nupp</string>
+    <string name="player_error_source_not_found">Allikat ei leidu</string>
+    <string name="player_last_modified">Muudetud: %s</string>
     <string name="player_media_controls_close_action_title">Sulge</string>
-    <string name="player_stop">lõpeta</string>
-    <string name="player_toggle">lülita sisse/välja</string>
     <string name="please_select_a_server">Palun vali server…</string>
     <string name="power_save_check_dialog_message">Energiasäästurežiimi keelamise tulemusel võib madala akutäitumuse tingimustes toimida failide sünkroniseerimine paremini! </string>
     <string name="pref_behaviour_entries_delete_file">kustutatud</string>
@@ -1072,7 +1063,6 @@
     <string name="store_short_dev_desc">Tarbetarkvara platvorm sinu omas serveris ja sinu kontrolli all (arendusversioon)</string>
     <string name="stream">Voogedasta kasutades…</string>
     <string name="stream_not_possible_headline">Sisemine voogedastus pole võimalik</string>
-    <string name="stream_not_possible_message">Selle asemel palun laadi meediafailid alla või kasuta välist rakendust.</string>
     <string name="sub_folder_rule_day">Aasta/Kuu/Päev</string>
     <string name="sub_folder_rule_month">Aasta/Kuu</string>
     <string name="sub_folder_rule_year">Aasta</string>
@@ -1416,4 +1406,8 @@
         <item quantity="one">Jäänud on %1$d allalaadimine</item>
         <item quantity="other">Jäänud on %1$d allalaadimist</item>
     </plurals>
-    </resources>
+    <plurals name="export_start">
+        <item quantity="one">Eksportimine algas (%d fail)</item>
+        <item quantity="other">Eksportimine algas (%d faili)</item>
+    </plurals>
+</resources>

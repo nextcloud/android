@@ -477,19 +477,6 @@
     <string name="manage_space_clear_data">Borrar datos</string>
     <string name="manage_space_description">Las configuraciones , base de datos y certificados del servidor de los datos de %1$s serán borrados permanentemente.\n\nLos archivos descargados se mantendrán sin cambios.\n\nEste proceso puede tomar algo de tiempo. </string>
     <string name="manage_space_title">Administrar espacio</string>
-    <string name="media_err_invalid_progressive_playback">No se puede transmitir el archivo multimedia</string>
-    <string name="media_err_io">No fue posible leer el archivo de medios</string>
-    <string name="media_err_malformed">El archivo de medios tiene una codificacion incorrecta</string>
-    <string name="media_err_timeout">El intento de reproducir el archivo agotó el tiempo de espera.</string>
-    <string name="media_err_unknown">El reproductor multimedia incorporado no puede reproducir el archivo multimedia</string>
-    <string name="media_err_unsupported">Codec no soportado</string>
-    <string name="media_forward_description">Botón de avanzar rápido</string>
-    <string name="media_notif_ticker">%1$s reproductor de música</string>
-    <string name="media_play_pause_description">Botón de reproducir o pausar</string>
-    <string name="media_player_pause">Pausar</string>
-    <string name="media_player_play">Reproducir</string>
-    <string name="media_rewind_description">Botón de rebobinar</string>
-    <string name="media_state_playing">%1$s (reproduciendo)</string>
     <string name="menu_item_sort_by_date_newest_first">Más reciente primero</string>
     <string name="menu_item_sort_by_date_oldest_first">Más antiguo primero</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -559,8 +546,6 @@
     <string name="picture_set_as_no_app">No se encontró ninguna aplicación para establecer una imagen con</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
     <string name="player_media_controls_close_action_title">Cerrar</string>
-    <string name="player_stop">detener</string>
-    <string name="player_toggle">cambiar</string>
     <string name="power_save_check_dialog_message">¡La desactivación de la verificación de ahorro de energía puede provocar la carga de archivos cuando la batería está baja!</string>
     <string name="pref_behaviour_entries_delete_file">Borrado</string>
     <string name="pref_behaviour_entries_keep_file">mantenido en la carpeta original</string>
@@ -781,7 +766,6 @@
     <string name="store_short_dev_desc">La plataforma de productividad autohospedada que lo mantiene en control (versión de vista previa del desarrollador)</string>
     <string name="stream">Transmitir con…</string>
     <string name="stream_not_possible_headline">Transmisión interna no es posible</string>
-    <string name="stream_not_possible_message">Por favor descargue los medios en su lugar o use una aplicación externa.</string>
     <string name="sub_folder_rule_day">Año/Mes/Día</string>
     <string name="sub_folder_rule_month">Año/Mes</string>
     <string name="sub_folder_rule_year">Año</string>

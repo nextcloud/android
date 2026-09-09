@@ -578,19 +578,6 @@
     <string name="manage_space_description">Поставке, база и серверски сертификати од података са %1$s ће бити заувек обрисани. \n\nВећ преузети фајлови неће бити дирани.\n\nОво може потрајати.</string>
     <string name="manage_space_title">Управљање простором</string>
     <string name="manage_tags">Управљање ознакама</string>
-    <string name="media_err_invalid_progressive_playback">Медијски фајл не може да се пусти</string>
-    <string name="media_err_io">Не могу да прочитам медијски фајл</string>
-    <string name="media_err_malformed">Медијски фајл има неисправно кодирање знакова</string>
-    <string name="media_err_timeout">Време за пуштање фајла је истекло</string>
-    <string name="media_err_unknown">Уграђени плејер не може да пусти овај медијски фајл</string>
-    <string name="media_err_unsupported">Неподржан кодек</string>
-    <string name="media_forward_description">Унапред</string>
-    <string name="media_notif_ticker">%1$s музички плејер</string>
-    <string name="media_play_pause_description">Пуштање-пауза</string>
-    <string name="media_player_pause">Паузирај</string>
-    <string name="media_player_play">Пусти</string>
-    <string name="media_rewind_description">Уназад</string>
-    <string name="media_state_playing">%1$s (пушта)</string>
     <string name="menu_item_sort_by_date_newest_first">прво новије</string>
     <string name="menu_item_sort_by_date_oldest_first">прво старије</string>
     <string name="menu_item_sort_by_name_a_z">по називу</string>
@@ -684,8 +671,6 @@
     <string name="pin_home">Закачи на почетни екран</string>
     <string name="pin_shortcut_label">Отвори %1$s</string>
     <string name="player_media_controls_close_action_title">Затвори</string>
-    <string name="player_stop">стоп</string>
-    <string name="player_toggle">пребацивање</string>
     <string name="please_select_a_server">Молимо вас да изаберете сервер</string>
     <string name="power_save_check_dialog_message">Искључивање провере стања батерије може да доведе до тога да отпремате фајлове са празном батеријом!</string>
     <string name="pref_behaviour_entries_delete_file">обрисано</string>
@@ -942,7 +927,6 @@
     <string name="store_short_dev_desc">Платформа продуктивности под вашом контролом (развојна верзија)</string>
     <string name="stream">Стримуј помоћу…</string>
     <string name="stream_not_possible_headline">Интерно стримовање није могуће</string>
-    <string name="stream_not_possible_message">Или преузмите медиј или користите спољну апликацију.</string>
     <string name="sub_folder_rule_day">Година/месец/дан</string>
     <string name="sub_folder_rule_month">Година/месец</string>
     <string name="sub_folder_rule_year">Година</string>

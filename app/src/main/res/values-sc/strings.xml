@@ -408,18 +408,6 @@
     <string name="manage_space_description">Cunfiguratziones, base de datos e tzertificados de su serbidore dae datos de %1$sant a èssere eliminados de su totu. \n\nIs documentos no ant a èssere pigados in cunsideru.\n\n Pro custu protzessu ci podet bòlere unu pagu de tempus.</string>
     <string name="manage_space_title">Gesti su logu</string>
     <string name="manage_tags">Gesti etichetas</string>
-    <string name="media_err_invalid_progressive_playback">S\'archìviu multimediale non podet èssere trasmìtidu</string>
-    <string name="media_err_io">No at fatu a lèghere s\'archìviu multimediale</string>
-    <string name="media_err_malformed">Sa codìfica de su cuntenutu multimediale no es curreta</string>
-    <string name="media_err_timeout">S\'intentu pro reprodùere su cuntenutu nch\'est iscàdidu</string>
-    <string name="media_err_unknown">Su letore multimediale non podet reproduere su cuntenutu multimediale</string>
-    <string name="media_err_unsupported">Codìfica de cuntenutu multimediale non suportada</string>
-    <string name="media_forward_description">Butone bae a in antis a sa lestra</string>
-    <string name="media_notif_ticker">%1$s riprodutore de mùsica</string>
-    <string name="media_play_pause_description">Butone reprodue o pàusa</string>
-    <string name="media_player_pause">Pàusa</string>
-    <string name="media_rewind_description">Butone torra in segus</string>
-    <string name="media_state_playing">%1$s (in riprodutzione)</string>
     <string name="menu_item_sort_by_date_newest_first">Prima su prus nou</string>
     <string name="menu_item_sort_by_date_oldest_first">Prima su prus betzu</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -482,8 +470,6 @@
     <string name="permission_deny">Nega</string>
     <string name="picture_set_as_no_app">Peruna aplicatzione agatada pro cunfigurare un\'immàgine</string>
     <string name="player_media_controls_close_action_title">Serra</string>
-    <string name="player_stop">firma</string>
-    <string name="player_toggle">parti</string>
     <string name="power_save_check_dialog_message">Disativare su controllu de su rispàrmiu de energia podet fàghere chi si carrighent documentos cun sa bateria bàscia!</string>
     <string name="pref_behaviour_entries_delete_file">cantzelladu</string>
     <string name="pref_behaviour_entries_keep_file">mantènnidu in sa cartella originale</string>
@@ -681,7 +667,6 @@
     <string name="store_short_dev_desc">Sa prataforma de produtividade chi ti lassat in controllu (versione de anteprima de s\'isvilupu)</string>
     <string name="stream">Direta cun...</string>
     <string name="stream_not_possible_headline">Su flussu internu non est possìbile</string>
-    <string name="stream_not_possible_message">Iscàrriga media o imprea s\'aplicatzione de foras.</string>
     <string name="sub_folder_rule_year">Annu</string>
     <string name="subject_shared_with_you">\"%1$s\" dd\'ant cumpartzidu cun tegus</string>
     <string name="subject_user_shared_with_you">%1$s at cumpartzidu \"%2$s\" cun tegus</string>

@@ -321,16 +321,6 @@
     <string name="manage_space_clear_data">Očisti podatke</string>
     <string name="manage_space_description">Podešavanja, baza i serverski sertifikati od podataka sa %1$s će biti zauvek obrisani. \n\nVeć skinuti fajlovi neće biti dirani.\n\nOvo može potrajati.</string>
     <string name="manage_space_title">Upravljanje prostorom</string>
-    <string name="media_err_io">Ne mogu da pročitam multimedijalni fajl</string>
-    <string name="media_err_malformed">Multimedijalni fajl ima neispravno kodiranje znakova</string>
-    <string name="media_err_timeout">Isteklo vreme pokušavajući da pustim fajl</string>
-    <string name="media_err_unknown">Ugrađeni multimedijalni plejer ne može da pusti ovaj fajl</string>
-    <string name="media_err_unsupported">Nepodržan kodek</string>
-    <string name="media_forward_description">Unapred</string>
-    <string name="media_notif_ticker">%1$s muzički plejer</string>
-    <string name="media_play_pause_description">Puštanje-pauza</string>
-    <string name="media_rewind_description">Unazad</string>
-    <string name="media_state_playing">%1$s (svira)</string>
     <string name="menu_item_sort_by_date_newest_first">prvo novije</string>
     <string name="menu_item_sort_by_date_oldest_first">prvo starije</string>
     <string name="menu_item_sort_by_name_a_z">po nazivu</string>
@@ -542,7 +532,6 @@
     <string name="store_short_dev_desc">Platforma za produktivnost koju i Vi možete da hostujete i koja Vam daje kontrolu (razvojna verzija)</string>
     <string name="stream">Strimuj sa…</string>
     <string name="stream_not_possible_headline">Interno strimovanje nije moguće</string>
-    <string name="stream_not_possible_message">Ili preuzmite multimediju ili koristite neku eksternu aplikaciju.</string>
     <string name="sub_folder_rule_day">Godina/Mesec/Dan</string>
     <string name="subject_shared_with_you">„%1$s“ je podeljen sa vama</string>
     <string name="subject_user_shared_with_you">%1$s deli „%2$s“ sa vama</string>

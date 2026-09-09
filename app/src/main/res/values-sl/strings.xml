@@ -478,19 +478,6 @@
     <string name="manage_space_description">Nastavitve, podatkovna zbirka, in potrdila strežnika na računu %1$s bodo trajno izbrisana. \n\nPrejete datoteke bodo ostale nedotaknjene.\n\nOpravilo je lahko dolgotrajno.</string>
     <string name="manage_space_title">Upravljanje s prostorom</string>
     <string name="manage_tags">Upravljanje oznak</string>
-    <string name="media_err_invalid_progressive_playback">Predstavne datoteke ni mogoče predvajati v pretoku</string>
-    <string name="media_err_io">Predstavne datoteke ni mogoče prebrati.</string>
-    <string name="media_err_malformed">Predstavna datoteka ni pravilno kodirana.</string>
-    <string name="media_err_timeout">Poskus predvajanja je časovno potekel</string>
-    <string name="media_err_unknown">Vgrajen predvajalnik predstavnih vsebin ne podpira podane vrsta datoteke</string>
-    <string name="media_err_unsupported">Nepodprt predstavni kodek</string>
-    <string name="media_forward_description">Gumb za hitro predvajanje naprej</string>
-    <string name="media_notif_ticker">Predvajalnik glasbe %1$s</string>
-    <string name="media_play_pause_description">Gumb za predvajanje in premor</string>
-    <string name="media_player_pause">Premor</string>
-    <string name="media_player_play">Predvajaj</string>
-    <string name="media_rewind_description">Vrni nazaj</string>
-    <string name="media_state_playing">%1$s (predvajanje)</string>
     <string name="menu_item_sort_by_date_newest_first">najprej najnovejše</string>
     <string name="menu_item_sort_by_date_oldest_first">najprej najstarejše</string>
     <string name="menu_item_sort_by_name_a_z">po abecedi naraščajoče A–Ž</string>
@@ -561,8 +548,6 @@
     <string name="picture_set_as_no_app">Ni najdenega programa za nastavitev slike</string>
     <string name="pin_shortcut_label">Odpri %1$s</string>
     <string name="player_media_controls_close_action_title">Zapri</string>
-    <string name="player_stop">ustavi</string>
-    <string name="player_toggle">preklopi</string>
     <string name="power_save_check_dialog_message">Onemogočanje varčevanja lahko povzroči pošiljanje datotek, ko je napetost baterije že nizka!</string>
     <string name="pref_behaviour_entries_delete_file">izbrisano</string>
     <string name="pref_behaviour_entries_keep_file">ohranjeno v izvorni mapi</string>
@@ -773,7 +758,6 @@
     <string name="store_short_dev_desc">Zasebno produkcijsko okolje pod vašim nadzorom (razvojna predogledna različica).</string>
     <string name="stream">Pretakaj s programom…</string>
     <string name="stream_not_possible_headline">Notranji pretok ni mogoč</string>
-    <string name="stream_not_possible_message">Poskusite prejeti predstavno vsebino, ali pa uporabiti zunanji program.</string>
     <string name="sub_folder_rule_day">Leto/Mesec/Dan</string>
     <string name="sub_folder_rule_month">Leto/Mesec</string>
     <string name="sub_folder_rule_year">Leto</string>

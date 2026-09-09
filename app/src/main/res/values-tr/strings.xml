@@ -684,23 +684,7 @@
     <string name="manage_space_description">%1$s verilerinden ayarlar, veri tabanı ve sunucu sertifikaları kalıcı olarak silinecek. \n\nİndirilen dosyalara dokunulmayacak.\n\nBu işlem biraz zaman alabilir.</string>
     <string name="manage_space_title">Alan yönetimi</string>
     <string name="manage_tags">Etiket yönetimi</string>
-    <string name="media_err_invalid_progressive_playback">Ortam dosyası akışı sağlanamadı</string>
-    <string name="media_err_io">Ortam dosyası okunamadı</string>
-    <string name="media_err_malformed">Ortam dosyası doğru şekilde kodlanmamış</string>
-    <string name="media_err_timeout">Oynatmaya çalışılırken zaman aşımına uğradı</string>
-    <string name="media_err_unknown">Ortam dosyası iç ortam oynatıcı ile oynatılamıyor</string>
-    <string name="media_err_unsupported">Ortam kod çözücüsü desteklenmiyor</string>
-    <string name="media_forward_description">İleri alma düğmesi</string>
-    <string name="media_notif_ticker">%1$s müzik oynatıcı</string>
     <string name="media_picker_toolbar_title">Ortam dosyalarını seçin</string>
-    <string name="media_play_pause_description">Oynatma ya da duraklatma düğmesi</string>
-    <string name="media_player_pause">Duraklat</string>
-    <string name="media_player_play">Oynat</string>
-    <string name="media_player_playing">Ortam oynatılıyor</string>
-    <string name="media_player_seek_backward">Geri atla</string>
-    <string name="media_player_seek_forward">İleri atla</string>
-    <string name="media_rewind_description">Geri alma düğmesi</string>
-    <string name="media_state_playing">%1$s (oynatılıyor)</string>
     <string name="menu_item_sort_by_date_newest_first">Yeniden eskiye</string>
     <string name="menu_item_sort_by_date_oldest_first">Eskiden Yeniye</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -795,9 +779,15 @@
     <string name="picture_set_as_no_app">Görselin ayarlanabileceği bir uygulama bulunamadı</string>
     <string name="pin_home">Girişe sabitle</string>
     <string name="pin_shortcut_label">%1$s aç</string>
+    <string name="player_audio_title_with_artist">%1$s • %2$s</string>
+    <string name="player_control_view_next_button_content_description">Sonraki düğmesi</string>
+    <string name="player_control_view_play_pause_button_content_description">Oynat/Duraklat düğmesi</string>
+    <string name="player_control_view_previous_button_content_description">Önceki düğmesi</string>
+    <string name="player_control_view_random_button_content_description">Rastgele düğmesi</string>
+    <string name="player_control_view_repeat_button_content_description">Yinele düğmesi</string>
+    <string name="player_error_source_not_found">Kaynak bulunamadı</string>
+    <string name="player_last_modified">Değiştirilme: %s</string>
     <string name="player_media_controls_close_action_title">Kapat</string>
-    <string name="player_stop">durdur</string>
-    <string name="player_toggle">değiştir</string>
     <string name="please_select_a_server">Lütfen bir sunucu seçin…</string>
     <string name="power_save_check_dialog_message">Güç koruma denetiminin kapatılması pil düzeyi düşükken dosyaların yüklenmesine neden olabilir!</string>
     <string name="pref_behaviour_entries_delete_file">silinecek</string>
@@ -1073,7 +1063,6 @@
     <string name="store_short_dev_desc">Sizin denetiminiz altında barındırılan üretkenlik platformu (geliştirici ön izlemesi)</string>
     <string name="stream">Şununla akıt …</string>
     <string name="stream_not_possible_headline">İç akış yapılamaz</string>
-    <string name="stream_not_possible_message">Onun yerine ortamı indirin ya da dış bir uygulama kullanın.</string>
     <string name="sub_folder_rule_day">Yıl/Ay/Gün</string>
     <string name="sub_folder_rule_month">Yıl/Ay</string>
     <string name="sub_folder_rule_year">Yıl</string>
@@ -1417,4 +1406,8 @@
         <item quantity="one">%1$d indirme kaldı</item>
         <item quantity="other">%1$d indirme kaldı</item>
     </plurals>
-    </resources>
+    <plurals name="export_start">
+        <item quantity="one">Dışa aktarma başlatıldı (%d dosya)</item>
+        <item quantity="other">Dışa aktarmalar başlatıldı (%d dosya)</item>
+    </plurals>
+</resources>

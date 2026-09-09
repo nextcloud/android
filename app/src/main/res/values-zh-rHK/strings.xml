@@ -684,23 +684,7 @@
     <string name="manage_space_description">來自%1$s的設定，數據庫與伺服器憑證相關資料將被永久刪除，已下載的檔案將不會變動，此過程需要花費一些時間。</string>
     <string name="manage_space_title">管理空間</string>
     <string name="manage_tags">管理標籤</string>
-    <string name="media_err_invalid_progressive_playback">此媒體檔案無法被串流播放</string>
-    <string name="media_err_io">無法讀取媒體檔案</string>
-    <string name="media_err_malformed">媒體檔案未被正確的編碼</string>
-    <string name="media_err_timeout">欲撥放的檔案已逾時</string>
-    <string name="media_err_unknown">內建播放器無法播放此媒體檔案</string>
-    <string name="media_err_unsupported">未支援的媒體編碼</string>
-    <string name="media_forward_description">快進按鈕</string>
-    <string name="media_notif_ticker">%1$s 音樂播放器</string>
     <string name="media_picker_toolbar_title">選擇媒體檔案</string>
-    <string name="media_play_pause_description">播放或暫停按鈕</string>
-    <string name="media_player_pause">暫停</string>
-    <string name="media_player_play">播放</string>
-    <string name="media_player_playing">正在播放媒體</string>
-    <string name="media_player_seek_backward">倒帶</string>
-    <string name="media_player_seek_forward">快轉</string>
-    <string name="media_rewind_description">倒回按鈕</string>
-    <string name="media_state_playing">%1$s（播放中）</string>
     <string name="menu_item_sort_by_date_newest_first">最新</string>
     <string name="menu_item_sort_by_date_oldest_first">最舊</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -795,9 +779,15 @@
     <string name="picture_set_as_no_app">沒有找到編輯圖片的應用程式</string>
     <string name="pin_home">釘選至主畫面</string>
     <string name="pin_shortcut_label">公開 %1$s</string>
+    <string name="player_audio_title_with_artist">%1$s • %2$s</string>
+    <string name="player_control_view_next_button_content_description">下一個按鈕</string>
+    <string name="player_control_view_play_pause_button_content_description">播放／暫停按鈕</string>
+    <string name="player_control_view_previous_button_content_description">上一個按鈕</string>
+    <string name="player_control_view_random_button_content_description">隨機播放按鈕</string>
+    <string name="player_control_view_repeat_button_content_description">重複播放按鈕</string>
+    <string name="player_error_source_not_found">找不到來源</string>
+    <string name="player_last_modified">修改時間：%s</string>
     <string name="player_media_controls_close_action_title">關閉</string>
-    <string name="player_stop">停止</string>
-    <string name="player_toggle">切換</string>
     <string name="please_select_a_server">請選擇伺服器 ...</string>
     <string name="power_save_check_dialog_message">停用省電功能時，就算電池電量偏低，檔案仍會持續上傳</string>
     <string name="pref_behaviour_entries_delete_file">已刪除</string>
@@ -1073,7 +1063,6 @@
     <string name="store_short_dev_desc">讓你能完全掌控、自建且具生產力的平台（開發者預覽版）</string>
     <string name="stream">串流…</string>
     <string name="stream_not_possible_headline">不可能使用內部串流</string>
-    <string name="stream_not_possible_message">請改為下載媒體或使用外部應用程式。</string>
     <string name="sub_folder_rule_day">年/月/日</string>
     <string name="sub_folder_rule_month">年/月</string>
     <string name="sub_folder_rule_year">年</string>
@@ -1388,4 +1377,7 @@
     <plurals name="share_download_limit_description">
         <item quantity="other">剩 %1$d 個下載</item>
     </plurals>
-    </resources>
+    <plurals name="export_start">
+        <item quantity="other">匯出已開始（%d個檔案）</item>
+    </plurals>
+</resources>
