@@ -3,7 +3,7 @@
 - New media player
 - New sharing UI for Nextcloud 35
 - Faster file listing
-- Sync now for auto-upload when device is in power saver mode
+- Manual Sync now button for auto-upload when device is in power saver mode
 - Auto upload improvements
 - End-to-end encryption improvements
 - Bugfixes and performance improvements
