@@ -17,7 +17,6 @@ import androidx.fragment.app.DialogFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.account.User
-import com.nextcloud.client.database.entity.OfflineOperationEntity
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
@@ -28,8 +27,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.ui.adapter.localFileList.LocalFileThumbnailBinder
-import com.owncloud.android.ui.dialog.parcel.ConflictDialogData
-import com.owncloud.android.ui.dialog.parcel.ConflictFileData
+import com.owncloud.android.ui.dialog.parcel.ConflictDialogType
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -47,7 +45,7 @@ class ConflictsResolveDialog :
     var listener: OnConflictDecisionMadeListener? = null
     private var positiveButton: MaterialButton? = null
 
-    private var data: ConflictDialogData? = null
+    private lateinit var dialogType: ConflictDialogType
     private var user: User? = null
     private var leftDataFile: File? = null
     private var rightDataFile: OCFile? = null
@@ -113,7 +111,8 @@ class ConflictsResolveDialog :
         val bundle = savedInstanceState ?: arguments
 
         if (bundle != null) {
-            data = bundle.getParcelableArgument(ARG_CONFLICT_DATA, ConflictDialogData::class.java)
+            dialogType = bundle.getParcelableArgument(ARG_CONFLICT_DATA, ConflictDialogType::class.java)
+                ?: throw IllegalArgumentException("$ARG_CONFLICT_DATA is required")
             leftDataFile = bundle.getSerializableArgument(ARG_LEFT_FILE, File::class.java)
             rightDataFile = bundle.getParcelableArgument(ARG_RIGHT_FILE, OCFile::class.java)
             user = bundle.getParcelableArgument(ARG_USER, User::class.java)
@@ -127,7 +126,7 @@ class ConflictsResolveDialog :
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.run {
-            putParcelable(ARG_CONFLICT_DATA, data)
+            putParcelable(ARG_CONFLICT_DATA, dialogType)
         }
     }
 
@@ -156,20 +155,20 @@ class ConflictsResolveDialog :
         .setNegativeButton(R.string.common_cancel) { _: DialogInterface?, _: Int ->
             listener?.conflictDecisionMade(Decision.CANCEL)
         }
-        .setTitle(data?.dialogTitle)
+        .setTitle(dialogType.data.dialogTitle)
 
     private fun okButtonClick() {
         binding.run {
-            val isDialogTitleNotExists = (data?.dialogTitle == null)
+            val isDialogTypeOffline = (dialogType is ConflictDialogType.Offline)
             val decision = when {
                 leftCheckbox.isChecked && rightCheckbox.isChecked ->
-                    if (isDialogTitleNotExists) Decision.KEEP_BOTH_FOLDER else Decision.KEEP_BOTH
+                    if (isDialogTypeOffline) Decision.KEEP_BOTH_FOLDER else Decision.KEEP_BOTH
 
                 leftCheckbox.isChecked ->
-                    if (isDialogTitleNotExists) Decision.KEEP_OFFLINE_FOLDER else Decision.KEEP_LOCAL
+                    if (isDialogTypeOffline) Decision.KEEP_OFFLINE_FOLDER else Decision.KEEP_LOCAL
 
                 rightCheckbox.isChecked ->
-                    if (isDialogTitleNotExists) Decision.KEEP_SERVER_FOLDER else Decision.KEEP_SERVER
+                    if (isDialogTypeOffline) Decision.KEEP_SERVER_FOLDER else Decision.KEEP_SERVER
 
                 else -> null
             }
@@ -180,8 +179,9 @@ class ConflictsResolveDialog :
 
     private fun setupUI() {
         binding.run {
-            data?.let {
-                val (leftData, rightData) = it.checkboxData
+            dialogType.data.let {
+                val leftData = it.localFile
+                val rightData = it.serverFile
 
                 headline.visibility = if (it.headline == null) {
                     View.GONE
@@ -269,88 +269,9 @@ class ConflictsResolveDialog :
     }
 
     companion object {
-        private const val ARG_CONFLICT_DATA = "CONFLICT_DATA"
-        private const val ARG_LEFT_FILE = "LEFT_FILE"
-        private const val ARG_RIGHT_FILE = "RIGHT_FILE"
-        private const val ARG_USER = "USER"
-
-        @JvmStatic
-        fun newInstance(
-            title: String,
-            context: Context,
-            leftFile: OCFile,
-            rightFile: OCFile,
-            user: User?
-        ): ConflictsResolveDialog {
-            val file = File(leftFile.storagePath)
-            val conflictData = getFileConflictData(title, file, rightFile, context)
-
-            val bundle = Bundle().apply {
-                putParcelable(ARG_CONFLICT_DATA, conflictData)
-                putSerializable(ARG_LEFT_FILE, file)
-                putParcelable(ARG_RIGHT_FILE, rightFile)
-                putParcelable(ARG_USER, user)
-            }
-
-            return ConflictsResolveDialog().apply {
-                arguments = bundle
-            }
-        }
-
-        fun newInstance(context: Context, leftFile: OfflineOperationEntity, rightFile: OCFile): ConflictsResolveDialog {
-            val conflictData = getFolderConflictData(leftFile, rightFile, context)
-
-            val bundle = Bundle().apply {
-                putParcelable(ARG_CONFLICT_DATA, conflictData)
-                putParcelable(ARG_RIGHT_FILE, rightFile)
-            }
-
-            return ConflictsResolveDialog().apply {
-                arguments = bundle
-            }
-        }
-
-        @Suppress("MagicNumber")
-        private fun getFolderConflictData(
-            offlineOperation: OfflineOperationEntity,
-            rightFile: OCFile,
-            context: Context
-        ): ConflictDialogData {
-            val leftTitle = context.getString(R.string.prefs_synced_folders_local_path_title)
-            val leftTimestamp =
-                DisplayUtils.getRelativeTimestamp(context, offlineOperation.createdAt?.times(1000L) ?: 0)
-            val leftFileSize = DisplayUtils.bytesToHumanReadable(0)
-            val leftCheckBoxData = ConflictFileData(leftTitle, leftTimestamp.toString(), leftFileSize)
-
-            val rightTitle = context.getString(R.string.prefs_synced_folders_remote_path_title)
-            val rightTimestamp = DisplayUtils.getRelativeTimestamp(context, rightFile.modificationTimestamp)
-            val rightFileSize = DisplayUtils.bytesToHumanReadable(rightFile.fileLength)
-            val rightCheckBoxData = ConflictFileData(rightTitle, rightTimestamp.toString(), rightFileSize)
-
-            val title = context.getString(R.string.conflict_folder_headline)
-            val description = context.getString(R.string.conflict_message_description_for_folder)
-            return ConflictDialogData(null, title, description, Pair(leftCheckBoxData, rightCheckBoxData))
-        }
-
-        private fun getFileConflictData(
-            title: String,
-            leftFile: File,
-            rightFile: OCFile,
-            context: Context
-        ): ConflictDialogData {
-            val leftTitle = context.getString(R.string.conflict_local_file)
-            val leftTimestamp = DisplayUtils.getRelativeTimestamp(context, leftFile.lastModified())
-            val leftFileSize = DisplayUtils.bytesToHumanReadable(leftFile.length())
-            val leftCheckBoxData = ConflictFileData(leftTitle, leftTimestamp.toString(), leftFileSize)
-
-            val rightTitle = context.getString(R.string.conflict_server_file)
-            val rightTimestamp = DisplayUtils.getRelativeTimestamp(context, rightFile.modificationTimestamp)
-            val rightFileSize = DisplayUtils.bytesToHumanReadable(rightFile.fileLength)
-            val rightCheckBoxData = ConflictFileData(rightTitle, rightTimestamp.toString(), rightFileSize)
-
-            val headline = context.getString(R.string.choose_which_file)
-            val description = context.getString(R.string.conflict_message_description)
-            return ConflictDialogData(title, headline, description, Pair(leftCheckBoxData, rightCheckBoxData))
-        }
+        const val ARG_CONFLICT_DATA = "CONFLICT_DATA"
+        const val ARG_LEFT_FILE = "LEFT_FILE"
+        const val ARG_RIGHT_FILE = "RIGHT_FILE"
+        const val ARG_USER = "USER"
     }
 }
