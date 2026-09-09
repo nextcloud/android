@@ -21,7 +21,9 @@ import com.google.android.material.textfield.TextInputLayout
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.utils.e2ee.model.E2EEAction
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.getSerializableArgument
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
 import com.owncloud.android.databinding.SetupEncryptionDialogBinding
@@ -243,6 +245,7 @@ class SetupEncryptionDialogFragment :
             return Bundle().apply {
                 putBoolean(SUCCESS, true)
                 putString(ARG_FILE_PATH, requireArguments().getString(ARG_FILE_PATH))
+                putSerializable(ARG_ACTION, arguments.getSerializableArgument(ARG_ACTION, E2EEAction::class.java))
             }
         }
 
@@ -526,6 +529,7 @@ class SetupEncryptionDialogFragment :
         const val SETUP_ENCRYPTION_RESULT_CODE = 101
         const val SETUP_ENCRYPTION_DIALOG_TAG = "SETUP_ENCRYPTION_DIALOG_TAG"
         const val ARG_FILE_PATH = "ARG_FILE_PATH"
+        const val ARG_ACTION = "ARG_ACTION"
         const val RESULT_REQUEST_KEY = "RESULT_REQUEST"
         const val RESULT_KEY_CANCELLED = "IS_CANCELLED"
         private const val NUMBER_OF_WORDS = 12
@@ -537,11 +541,12 @@ class SetupEncryptionDialogFragment :
         private const val KEY_GENERATE = "KEY_GENERATE"
 
         @JvmStatic
-        fun newInstance(user: User?, filePath: String?): SetupEncryptionDialogFragment =
+        fun newInstance(user: User?, filePath: String?, action: E2EEAction?): SetupEncryptionDialogFragment =
             SetupEncryptionDialogFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(ARG_USER, user)
                     putString(ARG_FILE_PATH, filePath)
+                    putSerializable(ARG_ACTION, action)
                 }
             }
     }

@@ -201,7 +201,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject ThumbnailGenerator thumbnailGenerator;
     @Inject public E2EEActionResolver e2eeActionResolver;
     public E2EEDialogPresenter e2eeDialogPresenter;
-    private EncryptedFolderClickHandler clickHandler;
+    public EncryptedFolderClickHandler clickHandler;
     public FolderEncryption folderEncryption;
     public FileFragment.ContainerActivity mContainerActivity;
 
