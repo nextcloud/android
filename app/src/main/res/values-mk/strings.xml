@@ -408,18 +408,6 @@
     <string name="manage_space_description">Подесувањата, Базата со податоци и сертификатот на серверот од корисникот %1$s ќе бидат трајно избришани. \n\nПревземените датотеки ќе остават во уредот.\n\nОваа операција може да потрае некое време.</string>
     <string name="manage_space_title">Управување со просторот за складирање</string>
     <string name="manage_tags">Уреди ги ознаките</string>
-    <string name="media_err_io">Неможе да се прочита датотеката</string>
-    <string name="media_err_malformed">Медиа датотеката не е точно енкодирана</string>
-    <string name="media_err_timeout">Тајм аут при обидот за репродукција</string>
-    <string name="media_err_unknown">Вградениот музучки плеер неможе да ја уклучи датотеката</string>
-    <string name="media_err_unsupported">Неподржан кодек на медиумот</string>
-    <string name="media_forward_description">Копче за брзо премотување</string>
-    <string name="media_notif_ticker">%1$s пуштач на музика</string>
-    <string name="media_play_pause_description">Копче за пуштање или пауза</string>
-    <string name="media_player_pause">Пауза</string>
-    <string name="media_player_play">Слајдшоу</string>
-    <string name="media_rewind_description">Копче за премотување</string>
-    <string name="media_state_playing">%1$s (свири)</string>
     <string name="menu_item_sort_by_date_newest_first">Новите прво</string>
     <string name="menu_item_sort_by_date_oldest_first">Старите прво</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -481,8 +469,6 @@
     <string name="picture_set_as_no_app">Не е пронајдена апликација за поставување на слики</string>
     <string name="pin_shortcut_label">Отвори %1$s</string>
     <string name="player_media_controls_close_action_title">Затвори</string>
-    <string name="player_stop">стоп</string>
-    <string name="player_toggle">вклучи</string>
     <string name="power_save_check_dialog_message">Оневозможување на проверката за заштеда на енергијата може да овозможи прикачување на датотеки и кога батеријата е празна</string>
     <string name="pref_behaviour_entries_delete_file">избришана</string>
     <string name="pref_behaviour_entries_keep_file">зачувај во оргиналната папка</string>
@@ -665,7 +651,6 @@
     <string name="store_short_dev_desc">Продуктивна платформа која можете сами да ја хостирате и која ви дава целосна контрола (dev верзија за разгледување)</string>
     <string name="stream">Стримувај со…</string>
     <string name="stream_not_possible_headline">Внатрешен стримин не е возможен</string>
-    <string name="stream_not_possible_message">Please download media instead or use external app.</string>
     <string name="sub_folder_rule_year">Година</string>
     <string name="subject_shared_with_you">\"%1$s\" е споделено со тебе</string>
     <string name="subject_user_shared_with_you">%1$s сподели \"%2$s\" со тебе</string>

@@ -516,19 +516,6 @@
     <string name="manage_space_description">Setările, bazele de date și certificatele serverului ale %1$s vor fi șterse permanent. \n\nFișierele descărcate vor fi păstrate intacte.\n\nAcest proces poate dura mai mult timp.</string>
     <string name="manage_space_title">Administrare spațiu</string>
     <string name="manage_tags">Administrați etichete</string>
-    <string name="media_err_invalid_progressive_playback">Fișierul media nu poate fi difuzat</string>
-    <string name="media_err_io">Nu s-a putut citi fișierul media</string>
-    <string name="media_err_malformed">Fișierul media are codare incorectă</string>
-    <string name="media_err_timeout">Încercarea de a reda fișierul a expirat</string>
-    <string name="media_err_unknown">Media player-ul încorporat nu poate reda fișierul media</string>
-    <string name="media_err_unsupported">Codec media fără suport</string>
-    <string name="media_forward_description">Butonul pentru repede înainte</string>
-    <string name="media_notif_ticker">%1$s</string>
-    <string name="media_play_pause_description">Buton de play sau pauză </string>
-    <string name="media_player_pause">Pauză</string>
-    <string name="media_player_play">Start Joc</string>
-    <string name="media_rewind_description">Butonul rewind</string>
-    <string name="media_state_playing">%1$s (redare)</string>
     <string name="menu_item_sort_by_date_newest_first">Cel mai nou mai întâi</string>
     <string name="menu_item_sort_by_date_oldest_first">Cel mai vechi mai întâi</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -598,8 +585,6 @@
     <string name="picture_set_as_no_app">Nu a fost găsită o aplicație pentru a seta imaginea</string>
     <string name="pin_shortcut_label">Deschide %1$s</string>
     <string name="player_media_controls_close_action_title">Închide</string>
-    <string name="player_stop">stop</string>
-    <string name="player_toggle">comută</string>
     <string name="power_save_check_dialog_message">Dezactivarea modului de economisire a bateriei ar putea rezulta în încărcarea de fișiere când bateria are un nivel scăzut!</string>
     <string name="pref_behaviour_entries_delete_file">șterge</string>
     <string name="pref_behaviour_entries_keep_file">păstrate in dosarul original</string>
@@ -797,7 +782,6 @@
     <string name="store_short_dev_desc">Platforma găzduită și controlată de tine(versiunea pentru dezvoltatori)</string>
     <string name="stream">Transmite cu...</string>
     <string name="stream_not_possible_headline">Transmisia internă nu este posibilă </string>
-    <string name="stream_not_possible_message">Vă rugăm descărcați fișierul media sau folosiți o aplicație externă.</string>
     <string name="sub_folder_rule_day">An/Lună/Zi</string>
     <string name="sub_folder_rule_month">An/Lună</string>
     <string name="sub_folder_rule_year">An</string>

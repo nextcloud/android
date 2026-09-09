@@ -544,19 +544,6 @@
     <string name="manage_space_description">%1$s의 데이터에서 설정, 데이터베이스, 서버 인증서를 삭제합니다.\n\n다운로드한 파일은 변경되지 않습니다.\n\n이 작업은 시간이 걸릴 수 있습니다.</string>
     <string name="manage_space_title">저장 공간 관리</string>
     <string name="manage_tags">태그 관리하기</string>
-    <string name="media_err_invalid_progressive_playback">미디어 파일을 스트리밍 할 수 없습니다.</string>
-    <string name="media_err_io">미디어 파일을 읽을 수 없음</string>
-    <string name="media_err_malformed">미디어 파일의 인코딩이 잘못됨</string>
-    <string name="media_err_timeout">재생 시도 중 시간이 초과됨</string>
-    <string name="media_err_unknown">내장 미디어 재생기로 파일을 재생할 수 없음</string>
-    <string name="media_err_unsupported">지원하지 않는 미디어 코덱</string>
-    <string name="media_forward_description">빨리감기 단추</string>
-    <string name="media_notif_ticker">%1$s 음악 재생기</string>
-    <string name="media_play_pause_description">재생 혹은 일시 정지 단추</string>
-    <string name="media_player_pause">일시 정지</string>
-    <string name="media_player_play">재생</string>
-    <string name="media_rewind_description">되감기 단추</string>
-    <string name="media_state_playing">%1$s(재생 중)</string>
     <string name="menu_item_sort_by_date_newest_first">최신 항목 먼저</string>
     <string name="menu_item_sort_by_date_oldest_first">오래된 항목 먼저</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -636,8 +623,6 @@
     <string name="picture_set_as_no_app">사진을 설정할 앱을 찾을 수 없음</string>
     <string name="pin_shortcut_label">%1$s 열기</string>
     <string name="player_media_controls_close_action_title">닫기</string>
-    <string name="player_stop">멈추기</string>
-    <string name="player_toggle">토글</string>
     <string name="please_select_a_server">서버를 선택해 주세요...</string>
     <string name="power_save_check_dialog_message">에너지 절약을 비활성화하면 배터리 부족 상태에서 파일을 업로드 할 수 있습니다!</string>
     <string name="pref_behaviour_entries_delete_file">삭제됨</string>
@@ -877,7 +862,6 @@
     <string name="store_short_dev_desc">컨트롤 가능한 자체 호스팅 생산성 플랫폼 (디바이스 미리 보기 버전)</string>
     <string name="stream">다음과 스트리밍</string>
     <string name="stream_not_possible_headline">내부 스트리밍 불가능</string>
-    <string name="stream_not_possible_message">대신 미디어를 다운로드하거나 외부 앱을 사용하십시오.</string>
     <string name="sub_folder_rule_day">연/월/일</string>
     <string name="sub_folder_rule_month">연/월</string>
     <string name="sub_folder_rule_year">년</string>

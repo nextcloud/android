@@ -436,18 +436,6 @@
     <string name="manage_space_clear_data">Lemel ar roadennoù</string>
     <string name="manage_space_description">Stummoù, rouadennoù-diaz ha sertifikad ar servijour eus roadennoù %1$s a vo lamet da virvikenn.\n\nAr restroù pellgarget a vo gwarnet ep cheñch anezho.\n\nKemmer a raio un tammig amzer.</string>
     <string name="manage_space_title">Merañ ar plas</string>
-    <string name="media_err_io">ne vez ket lennet ar restr media</string>
-    <string name="media_err_malformed">Ar restr media en deus en enc\'hodañ fal</string>
-    <string name="media_err_timeout">Re hir a amzer o klask lenn ar restr</string>
-    <string name="media_err_unknown">Ar lenner media diabarzh na c\'hell ket lenn ar restr media</string>
-    <string name="media_err_unsupported">N\'eo ket douget ar c\'hodek media</string>
-    <string name="media_forward_description">Bouton mont war raok</string>
-    <string name="media_notif_ticker">Lenner musik %1$s</string>
-    <string name="media_play_pause_description">Bouton Lenn pe pose</string>
-    <string name="media_player_pause">Ehanañ</string>
-    <string name="media_player_play">C\'hoari</string>
-    <string name="media_rewind_description">Bouton mont war gil</string>
-    <string name="media_state_playing">%1$s (o lenn)</string>
     <string name="menu_item_sort_by_date_newest_first">An hini nevesañ da gentañ</string>
     <string name="menu_item_sort_by_date_oldest_first">An hini kozhoñ da gentañ</string>
     <string name="menu_item_sort_by_name_a_z">A-Z</string>
@@ -669,7 +657,6 @@
     <string name="store_short_dev_desc">Ur pladenn ober a ost anezhi e unan a laosk ac\'hanoc\'h e kontrol (stumm ragwellout amprouiñ)</string>
     <string name="stream">Redañ gant ...</string>
     <string name="stream_not_possible_headline">N\'eo ket posuple ober ur redadenn diabarzh</string>
-    <string name="stream_not_possible_message">Pellgargit ar media kentoc\'h pe implijit ur meziant diavaez mar-plij</string>
     <string name="subject_shared_with_you">\"%1$s\" a zo bet rannet deoc\'h</string>
     <string name="subject_user_shared_with_you">%1$s en deus rannet \"%2$s\" deoc\'h</string>
     <string name="sync">Kemprenañ</string>

@@ -423,19 +423,6 @@
     <string name="manage_space_description">Các cài đặt, cơ sở dữ liệu và chứng chỉ máy chủ từ dữ liệu của %1$s sẽ bị xóa vĩnh viễn. \n\nTệp đã tải xuống sẽ được giữ nguyên.\n\nQuá trình này có thể mất một lúc.</string>
     <string name="manage_space_title">Quản lý dung lượng</string>
     <string name="manage_tags">Quản lý nhãn</string>
-    <string name="media_err_invalid_progressive_playback">Không thể truyền tệp phương tiện này</string>
-    <string name="media_err_io">Không thể đọc tập tin media</string>
-    <string name="media_err_malformed">Tệp media có mã hóa không chính xác</string>
-    <string name="media_err_timeout">Cố gắng phát tệp đã hết thời gian chờ</string>
-    <string name="media_err_unknown">Trình phát đa phương tiện tích hợp không thể phát tệp media</string>
-    <string name="media_err_unsupported">Codec của media không được hỗ trợ</string>
-    <string name="media_forward_description">Nút đẩy nhanh tốc độ phát</string>
-    <string name="media_notif_ticker">%1$s trình nghe nhạc</string>
-    <string name="media_play_pause_description">Nút phát hoặc tạm dừng</string>
-    <string name="media_player_pause">Tạm dừng</string>
-    <string name="media_player_play">Phát</string>
-    <string name="media_rewind_description">Nút chuyển lại</string>
-    <string name="media_state_playing">%1$s (đang phát)</string>
     <string name="menu_item_sort_by_date_newest_first">Mới trước</string>
     <string name="menu_item_sort_by_date_oldest_first">Cũ trước</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -503,8 +490,6 @@
     <string name="picture_set_as_no_app">Không tìm thấy ứng dụng nào để đặt ảnh với</string>
     <string name="pin_shortcut_label">Mở trong %1$s</string>
     <string name="player_media_controls_close_action_title">Đóng</string>
-    <string name="player_stop">dừng</string>
-    <string name="player_toggle">bật/tắt</string>
     <string name="power_save_check_dialog_message">Việc tắt kiểm tra tiết kiệm năng lượng có thể dẫn đến việc tải tệp lên khi ở trạng thái pin yếu!</string>
     <string name="pref_behaviour_entries_delete_file">đã xóa</string>
     <string name="pref_behaviour_entries_keep_file">giữ trong thư mục gốc</string>
@@ -699,7 +684,6 @@
     <string name="store_short_dev_desc">Nền tảng năng suất tự lưu trữ giúp bạn kiểm soát (phiên bản xem trước của nhà phát triển)</string>
     <string name="stream">Phát trực tiếp với…</string>
     <string name="stream_not_possible_headline">Không thể phát trực tuyến nội bộ</string>
-    <string name="stream_not_possible_message">Vui lòng tải xuống media thay thế hoặc sử dụng ứng dụng bên ngoài.</string>
     <string name="sub_folder_rule_year">Năm</string>
     <string name="subject_shared_with_you">\"%1$s\" đã chia sẽ với bạn</string>
     <string name="subject_user_shared_with_you">%1$s đã chia sẽ \"%2$s\" với bạn</string>

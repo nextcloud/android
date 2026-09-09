@@ -667,22 +667,6 @@
     <string name="manage_space_description">Les paramètres, la base de données et les certificats du serveur provenant de %1$s seront définitivement effacés. \n\nLes fichiers téléchargés ne seront pas impactés.\n\nCette opération peut prendre du temps.</string>
     <string name="manage_space_title">Gestion de l\'espace</string>
     <string name="manage_tags">Gérer les étiquettes</string>
-    <string name="media_err_invalid_progressive_playback">Le fichier ne peut être streamer</string>
-    <string name="media_err_io">Impossible de lire le fichier média</string>
-    <string name="media_err_malformed">Le fichier média n\'est pas correctement encodé</string>
-    <string name="media_err_timeout">Délai dépassé pour la lecture du morceau</string>
-    <string name="media_err_unknown">Le fichier média ne peut être lu avec le lecteur intégré</string>
-    <string name="media_err_unsupported">Le codec de ce média n\'est pas pris en charge </string>
-    <string name="media_forward_description">Bouton d\'avance rapide</string>
-    <string name="media_notif_ticker">Lecteur de musique %1$s</string>
-    <string name="media_play_pause_description">Bouton de lecture ou de pause</string>
-    <string name="media_player_pause">Pause</string>
-    <string name="media_player_play">Lire</string>
-    <string name="media_player_playing">Lecture du média</string>
-    <string name="media_player_seek_backward">Retour rapide</string>
-    <string name="media_player_seek_forward">Avance rapide</string>
-    <string name="media_rewind_description">Bouton de retour arrière</string>
-    <string name="media_state_playing">%1$s (lecture)</string>
     <string name="menu_item_sort_by_date_newest_first">Date : Récent en premier</string>
     <string name="menu_item_sort_by_date_oldest_first">Date : Ancien en premier</string>
     <string name="menu_item_sort_by_name_a_z">Nom : de A à Z</string>
@@ -777,9 +761,13 @@
     <string name="picture_set_as_no_app">Aucune application trouvée pour utiliser cette image</string>
     <string name="pin_home">Épingler sur l\'écran d\'accueil</string>
     <string name="pin_shortcut_label">Ouvrir %1$s</string>
+    <string name="player_audio_title_with_artist">%1$s • %2$s</string>
+    <string name="player_control_view_next_button_content_description">Bouton suivant</string>
+    <string name="player_control_view_play_pause_button_content_description">Bouton de lecture/pause </string>
+    <string name="player_control_view_previous_button_content_description">Bouton précédent</string>
+    <string name="player_control_view_repeat_button_content_description">Bouton de répétition</string>
+    <string name="player_error_source_not_found">Source non trouvée</string>
     <string name="player_media_controls_close_action_title">Fermer</string>
-    <string name="player_stop">arrêter</string>
-    <string name="player_toggle">inverser</string>
     <string name="please_select_a_server">Veuillez sélectionner un serveur…</string>
     <string name="power_save_check_dialog_message">Désactiver l\'économie de batterie peut entraîner le téléversement de fichiers même avec un faible niveau de batterie !</string>
     <string name="pref_behaviour_entries_delete_file">supprimé</string>
@@ -1054,7 +1042,6 @@
     <string name="store_short_dev_desc">La plateforme de productivité auto-hébergée qui vous permet de garder le contrôle (version de développement en démonstration)</string>
     <string name="stream">Diffuser avec…</string>
     <string name="stream_not_possible_headline">Diffusion interne impossible</string>
-    <string name="stream_not_possible_message">Merci, à la place, de télécharger le média ou d\'utiliser une application externe.</string>
     <string name="sub_folder_rule_day">Année/Mois/Jour</string>
     <string name="sub_folder_rule_month">Année/Mois</string>
     <string name="sub_folder_rule_year">Année</string>
@@ -1427,4 +1414,9 @@
         <item quantity="many">%1$d téléchargements restants</item>
         <item quantity="other">%1$d téléchargements restants</item>
     </plurals>
-    </resources>
+    <plurals name="export_start">
+        <item quantity="one">L\'exportation a démarré (%d fichier)</item>
+        <item quantity="many">Les exportations ont démarré (%d fichiers)</item>
+        <item quantity="other">Les exportations ont démarré (%d fichiers)</item>
+    </plurals>
+</resources>

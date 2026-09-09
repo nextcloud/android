@@ -357,17 +357,6 @@
     <string name="manage_space_clear_data">Falamhaich an dàta</string>
     <string name="manage_space_description">Thèid na roghainnean, an stòr-dàta is teisteanasan fhrithealaichean a sguabadh às gu buan on dàta aig %1$s.\n\nCha doir seo buaidh air na faidhlichean a chaidh a luchdadh a-nuas.\n\nBheir am pròiseas seo greis mhath.</string>
     <string name="manage_space_title">Stiùir an àite</string>
-    <string name="media_err_invalid_progressive_playback">Cha ghabh am faidhle meadhain a shruthadh</string>
-    <string name="media_err_io">Cha b’ urrainn dhuinn am faidhle meadhain a leughadh</string>
-    <string name="media_err_malformed">Tha còdachadh ceàrr air an fhaidhle meadhain</string>
-    <string name="media_err_timeout">Dh’fhalbh an ùine air an oidhirp gus am faidhle seo a chluich</string>
-    <string name="media_err_unknown">Chan urrainn dhan chluicheadair mheadhanan ’na bhroinn am faidhle meadhain a chluich</string>
-    <string name="media_err_unsupported">Codec meadhain ris nach cuirear taic</string>
-    <string name="media_forward_description">Am putan “toinn air adhart”</string>
-    <string name="media_notif_ticker">Cluicheadair ciùil %1$s</string>
-    <string name="media_play_pause_description">Am putan “Cluich” no “Cuir ’na stad”</string>
-    <string name="media_rewind_description">Am putan “Toinn air ais”</string>
-    <string name="media_state_playing">%1$s (’ga chluich)</string>
     <string name="menu_item_sort_by_date_newest_first">As ùire an toiseach</string>
     <string name="menu_item_sort_by_date_oldest_first">As sine an toiseach</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -427,8 +416,6 @@
     <string name="permission_deny">Diùlt</string>
     <string name="picture_set_as_no_app">Cha deach aplacaid a lorg airson dealbhan a chur leatha</string>
     <string name="player_media_controls_close_action_title">Dùin</string>
-    <string name="player_stop">cuir stad air</string>
-    <string name="player_toggle">toglaich</string>
     <string name="power_save_check_dialog_message">Ma chuireas tu à comas dearbhadh caomhnadh cumhachd, dh’fhaoidte gun dèid faidhlichean a luchdadh suas nuair a bhios am bataraidh fann!</string>
     <string name="pref_behaviour_entries_delete_file">air sguabadh às</string>
     <string name="pref_behaviour_entries_keep_file">’ga chumail sa phasgan tùsail</string>
@@ -600,7 +587,6 @@
     <string name="store_short_dev_desc">An t-ùrlar tarbhachd as urrainn dhut fhèin òstadh ’nad làmhan-sa (tionndadh ro-sheallaidh dhan luchd-leasachaidh)</string>
     <string name="stream">Sruthaich le…</string>
     <string name="stream_not_possible_headline">Cha ghabh sruthadh inntearnail a dhèanamh</string>
-    <string name="stream_not_possible_message">Luchdaich a-nuas meadhan ’na àite no cleachd aplacaid air an taobh a-muigh.</string>
     <string name="subject_shared_with_you">Chaidh “%1$s” a cho-roinneadh leat</string>
     <string name="subject_user_shared_with_you">Cho-roinn %1$s “%2$s” leat</string>
     <string name="sync">Sioncronaich</string>

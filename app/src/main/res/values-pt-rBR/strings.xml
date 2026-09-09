@@ -684,23 +684,7 @@
     <string name="manage_space_description">Configurações, banco de dados e certificados do servidor de dados de %1$s serão excluídos permanentemente.\n\nArquivos baixados serão mantidos intocados.\n\nEste processo pode levar um tempo.</string>
     <string name="manage_space_title">Gerenciar o espaço</string>
     <string name="manage_tags">Gerenciar etiquetas</string>
-    <string name="media_err_invalid_progressive_playback">O arquivo de mídia não pode ser transmitido </string>
-    <string name="media_err_io">Não foi possível ler o arquivo de mídia</string>
-    <string name="media_err_malformed">O arquivo de mídia tem uma codificação incorreta</string>
-    <string name="media_err_timeout">Tempo esgotado tentando reproduzir o arquivo</string>
-    <string name="media_err_unknown">O media player embutido não consegue tocar esta mídia</string>
-    <string name="media_err_unsupported">O codec de mídia não é suportado</string>
-    <string name="media_forward_description">Botão de avanço rápido</string>
-    <string name="media_notif_ticker">%1$s player</string>
     <string name="media_picker_toolbar_title">Selecionar arquivos de mídia</string>
-    <string name="media_play_pause_description">Botão reproduzir ou pausar</string>
-    <string name="media_player_pause">Pausar</string>
-    <string name="media_player_play">Reproduzir</string>
-    <string name="media_player_playing">Reproduzindo mídia</string>
-    <string name="media_player_seek_backward">Buscar para trás</string>
-    <string name="media_player_seek_forward">Buscar para a frente</string>
-    <string name="media_rewind_description">Botão rebobinar</string>
-    <string name="media_state_playing">%1$s (tocando)</string>
     <string name="menu_item_sort_by_date_newest_first">Mais novos primeiro</string>
     <string name="menu_item_sort_by_date_oldest_first">Mais antigos primeiro</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -795,9 +779,15 @@
     <string name="picture_set_as_no_app">Nenhum aplicativo encontrado para definir uma imagem</string>
     <string name="pin_home">Fixar na tela inicial</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
+    <string name="player_audio_title_with_artist">%1$s • %2$s</string>
+    <string name="player_control_view_next_button_content_description">Botão Próximo</string>
+    <string name="player_control_view_play_pause_button_content_description">Botão Reproduzir/Pausar</string>
+    <string name="player_control_view_previous_button_content_description">Botão Anterior</string>
+    <string name="player_control_view_random_button_content_description">Botão Aleatório</string>
+    <string name="player_control_view_repeat_button_content_description">Botão Repetir</string>
+    <string name="player_error_source_not_found">Fonte não encotrada</string>
+    <string name="player_last_modified">Modificado: %s</string>
     <string name="player_media_controls_close_action_title">Fechar</string>
-    <string name="player_stop">para</string>
-    <string name="player_toggle">alternar</string>
     <string name="please_select_a_server">Selecione um servidor…</string>
     <string name="power_save_check_dialog_message">Desativar a verificação de economia de energia pode resultar em uploads com a bateria baixa!</string>
     <string name="pref_behaviour_entries_delete_file">excluído</string>
@@ -1073,7 +1063,6 @@
     <string name="store_short_dev_desc">A plataforma de produtividade auto-hospedada que mantém você no controle (versão preview)</string>
     <string name="stream">Stream com…</string>
     <string name="stream_not_possible_headline">Streaming interno não é possível</string>
-    <string name="stream_not_possible_message">Faça o download da mídia ou use um aplicativo externo.</string>
     <string name="sub_folder_rule_day">Ano/mês/dia</string>
     <string name="sub_folder_rule_month">Ano/mês</string>
     <string name="sub_folder_rule_year">Ano</string>
@@ -1446,4 +1435,9 @@
         <item quantity="many">%1$d downloads restantes</item>
         <item quantity="other">%1$d downloads restantes</item>
     </plurals>
-    </resources>
+    <plurals name="export_start">
+        <item quantity="one">Exportação iniciada (%d arquivo)</item>
+        <item quantity="many">Exportações iniciadas (%d de arquivos)</item>
+        <item quantity="other">Exportações iniciadas (%d arquivos)</item>
+    </plurals>
+</resources>

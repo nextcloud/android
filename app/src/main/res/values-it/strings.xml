@@ -563,19 +563,6 @@
     <string name="manage_space_description">Impostazioni, database e certificati del server dai dati di %1$s saranno eliminati definitivamente.\n\nI file scaricati non saranno interessati.\n\nQuesto processo può richiedere del tempo.</string>
     <string name="manage_space_title">Gestisci lo spazio</string>
     <string name="manage_tags">Gestisci etichette</string>
-    <string name="media_err_invalid_progressive_playback">Il file multimediale non può essere trasmesso</string>
-    <string name="media_err_io">Impossibile leggere il file multimediale</string>
-    <string name="media_err_malformed">Il file multimediale ha una codifica non corretta</string>
-    <string name="media_err_timeout">Il tentativo di riprodurre il file è scaduto</string>
-    <string name="media_err_unknown">Il lettore multimediale integrato non è in grado di riprodurre il file</string>
-    <string name="media_err_unsupported">Codificatore multimediale non supportato</string>
-    <string name="media_forward_description">Pulsante Avanti veloce</string>
-    <string name="media_notif_ticker">Lettore musicale %1$s</string>
-    <string name="media_play_pause_description">Pulsante Riproduci o pausa</string>
-    <string name="media_player_pause">Pausa</string>
-    <string name="media_player_play">Gioca</string>
-    <string name="media_rewind_description">Pulsante Riavvolgi</string>
-    <string name="media_state_playing">%1$s (in riproduzione)</string>
     <string name="menu_item_sort_by_date_newest_first">Prima i più recenti</string>
     <string name="menu_item_sort_by_date_oldest_first">Prima i più datati</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -656,8 +643,6 @@
     <string name="picture_set_as_no_app">Nessuna applicazione trovata per impostare un\'immagine</string>
     <string name="pin_shortcut_label">Apri %1$s</string>
     <string name="player_media_controls_close_action_title">Chiudi</string>
-    <string name="player_stop">ferma</string>
-    <string name="player_toggle">attiva</string>
     <string name="please_select_a_server">Per favore, seleziona un server...</string>
     <string name="power_save_check_dialog_message">La disabilitazione del controllo di risparmio energetico potrebbe risultare in caricamenti di file in uno stato di bassa carica della batteria.</string>
     <string name="pref_behaviour_entries_delete_file">eliminato</string>
@@ -915,7 +900,6 @@
     <string name="store_short_dev_desc">La piattaforma di produttività auto-gestita che ti lascia al comando (versione in anteprima di sviluppo)</string>
     <string name="stream">Trasmetti con…</string>
     <string name="stream_not_possible_headline">Trasmissione interna non possibile</string>
-    <string name="stream_not_possible_message">Scarica invece il media o usa un\'applicazione esterna.</string>
     <string name="sub_folder_rule_day">Anno/Mese/Giorno</string>
     <string name="sub_folder_rule_month">Anno/Mese</string>
     <string name="sub_folder_rule_year">Anno</string>
