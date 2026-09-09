@@ -1786,6 +1786,7 @@ public class UploadFileOperation extends SyncOperation {
         file.setModificationTimestamp(remoteFile.getModifiedTimestamp());
         file.setModificationTimestampAtLastSyncForData(remoteFile.getModifiedTimestamp());
         file.setEtag(remoteFile.getEtag());
+        file.setEtagOnServer(remoteFile.getEtag());
         file.setRemoteId(remoteFile.getRemoteId());
         file.setPermissions(remoteFile.getPermissions());
         file.setUploadTimestamp(remoteFile.getUploadTimestamp());
