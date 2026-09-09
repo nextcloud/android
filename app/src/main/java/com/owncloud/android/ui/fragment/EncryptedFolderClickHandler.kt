@@ -48,7 +48,7 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
 
                 E2EEKeyCheck.ONLY_ON_SERVER, E2EEKeyCheck.MISSING_EVERYWHERE -> {
                     Log_OC.d(TAG, "keys found on server but missing locally, redirecting to encryption setup")
-                    fragment.showEncryptionDialog(OCFile.ROOT_PATH)
+                    fragment.showEncryptionDialog(OCFile.ROOT_PATH, E2EEAction.NEW_FOLDER)
                 }
 
                 E2EEKeyCheck.SAME_AS_SERVER -> {
@@ -86,7 +86,7 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
                     }
 
                     E2EEKeyCheck.ONLY_ON_SERVER -> {
-                        fragment.showEncryptionDialog(file.remotePath)
+                        fragment.showEncryptionDialog(file.remotePath, E2EEAction.OPEN)
                     }
 
                     E2EEKeyCheck.MISSING_EVERYWHERE -> {
@@ -114,6 +114,16 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
         }
     }
 
+    fun openAfterKeySetup(file: OCFile) {
+        fragment.lifecycleScope.launch {
+            if (fragment.e2eeActionResolver.checkFolderMetadataKey(file)) {
+                onEncryptionSetupComplete(file, fragment.adapter.getItemPosition(file))
+            } else {
+                DisplayUtils.showSnackMessage(fragment, R.string.encryption_open_key_mismatch)
+            }
+        }
+    }
+
     private fun dismissCheckingSnackbar() {
         DisplayUtils.dismissSnackMessage(checkingKeysSnackbar)
         checkingKeysSnackbar = null
@@ -131,7 +141,7 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
         if (FileOperationsHelper.isEndToEndEncryptionSetup(fragment.context, user)) {
             onEncryptionSetupComplete(file, position)
         } else {
-            fragment.showEncryptionDialog(file.remotePath)
+            fragment.showEncryptionDialog(file.remotePath, E2EEAction.OPEN)
         }
     }
 
