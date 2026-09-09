@@ -371,9 +371,10 @@ public class FileDataStorageManager {
         String currentDateTime = DateExtensionsKt.currentDateRepresentation(new Date(), formatPattern);
 
         String newFolderName = oldFileName + " - " + currentDateTime;
-        String newPath = parentFolder.getDecryptedRemotePath() + newFolderName + OCFile.PATH_SEPARATOR;
+        String newPath = parentFolder.getDecryptedRemotePath() + newFolderName +
+            (file.isFolder() ? OCFile.PATH_SEPARATOR : "");
+        offlineOperationsRepository.updateOperationForMove(entity, file, newPath);
         moveLocalFile(file, newPath, parentFolder.getDecryptedRemotePath());
-        offlineOperationsRepository.updateNextOperations(entity);
     }
 
     @Nullable
