@@ -8,6 +8,7 @@
 package com.owncloud.android.datamodel
 
 import com.nextcloud.client.database.entity.FileEntity
+import com.nextcloud.utils.extensions.getFolderContentEntitiesSuspended
 import com.owncloud.android.ui.adapter.helper.OCFileListAdapterDataProvider
 
 @Suppress("ReturnCount")
@@ -17,7 +18,7 @@ class OCFileListAdapterDataProviderImpl(private val storageManager: FileDataStor
         storageManager.offlineOperationsRepository.convertToOCFiles(id)
 
     override suspend fun getFolderContent(id: Long): List<FileEntity> =
-        storageManager.fileDao.getFolderContentSuspended(id)
+        storageManager.getFolderContentEntitiesSuspended(id)
 
     override fun createFileInstance(entity: FileEntity): OCFile = storageManager.createFileInstance(entity)
 }
