@@ -24,14 +24,18 @@ import java.io.File
 
 object ConflictResolveDialogFactory {
 
-    fun forOffline(context: Context, leftFile: OfflineOperationEntity, rightFile: OCFile, user: User?):
-        ConflictsResolveDialog {
-
+    fun forOffline(
+        context: Context,
+        leftFile: OfflineOperationEntity,
+        rightFile: OCFile,
+        user: User?
+    ): ConflictsResolveDialog {
         val localFile =
-            if (leftFile.type is OfflineOperationType.CreateFile)
+            if (leftFile.type is OfflineOperationType.CreateFile) {
                 (leftFile.type as OfflineOperationType.CreateFile).localPath.toFile()
-            else
+            } else {
                 null
+            }
 
         val data = ConflictDialogData(
             headline = context.getString(R.string.choose_which_file),
