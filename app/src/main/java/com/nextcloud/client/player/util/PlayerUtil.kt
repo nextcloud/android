@@ -177,7 +177,7 @@ object PlayerUtil {
         id = localId.toString(),
         uri = getPlaybackUri().toString(),
         name = fileName,
-        mimeType = mimeType,
+        mimeType = resolveMimeType(),
         contentLength = fileLength,
         lastModified = modificationTimestamp,
         isFavorite = isFavorite
@@ -187,13 +187,18 @@ object PlayerUtil {
         id = fileSource.toString(),
         uri = getPlaybackUri().toString(),
         name = path?.let { File(it).name } ?: "",
-        mimeType = getMimeType(),
+        mimeType = resolveMimeType(),
         contentLength = UNKNOWN_CONTENT_LENGTH,
         lastModified = sharedDate * SECOND_IN_MILLISECONDS,
         isFavorite = isFavorite
     )
 
-    private fun OCShare.getMimeType(): String = mimetype
+    private fun OCFile.resolveMimeType(): String = mimeType
+        ?.takeIf { it.isNotEmpty() }
+        ?: remotePath?.let { MimeTypeUtil.getMimeTypeFromPath(it) }
+        ?: ""
+
+    private fun OCShare.resolveMimeType(): String = mimetype
         ?.takeIf { it.isNotEmpty() }
         ?: path?.let { MimeTypeUtil.getMimeTypeFromPath(it) }
         ?: ""
