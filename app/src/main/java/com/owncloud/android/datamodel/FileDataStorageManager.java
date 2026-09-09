@@ -54,6 +54,7 @@ import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
+import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
@@ -70,6 +71,7 @@ import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.tags.Tag;
 import com.owncloud.android.operations.RemoteOperationFailedException;
+import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -367,10 +369,7 @@ public class FileDataStorageManager {
         moveLocalFile(file, newPath, parentFolder.getDecryptedRemotePath());
     }
 
-    @SuppressLint("SimpleDateFormat")
-    public void keepOfflineOperationAndServerFile(OfflineOperationEntity entity, OCFile file) {
-        if (file == null) return;
-
+    public void keepOfflineOperationAndServerFile(OfflineOperationEntity entity, OCFile file, OwnCloudClient client) {
         String oldFileName = entity.getFilename();
         if (oldFileName == null) return;
 
