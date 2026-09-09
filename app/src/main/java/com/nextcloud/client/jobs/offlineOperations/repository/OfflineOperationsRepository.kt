@@ -101,6 +101,26 @@ class OfflineOperationsRepository(private val fileDataStorageManager: FileDataSt
             .forEach { dao.update(it) }
     }
 
+    override fun updateOperationForMove(operation: OfflineOperationEntity, file: OCFile, newPath: String) {
+        operation.apply {
+            type = when (type) {
+                is OfflineOperationType.CreateFile ->
+                    (type as OfflineOperationType.CreateFile).copy(
+                        remotePath = newPath
+                    )
+
+                is OfflineOperationType.CreateFolder ->
+                    (type as OfflineOperationType.CreateFolder).copy(
+                        path = newPath
+                    )
+
+                else -> type
+            }
+            path = newPath
+        }
+        dao.update(operation)
+    }
+
     override fun convertToOCFiles(fileId: Long): List<OCFile> =
         dao.getSubEntitiesByParentOCFileId(fileId).map { entity ->
             OCFile(entity.path).apply {
