@@ -193,7 +193,7 @@ class FileDetailSharingFragment :
         val binding = binding ?: return
         val user = user ?: return
         val file = file ?: return
-        val sourceId = file.remoteId ?: return
+        val sourceId = file.localId.toString() ?: return
 
         binding.sharingModeProgress.visibility = View.GONE
         binding.shareContainer.visibility = View.GONE
