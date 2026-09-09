@@ -19,9 +19,9 @@ import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Companion.ARG_CONFL
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Companion.ARG_LEFT_FILE
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Companion.ARG_RIGHT_FILE
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Companion.ARG_USER
-import com.owncloud.android.ui.dialog.parcel.ConflictDialogData
-import com.owncloud.android.ui.dialog.parcel.ConflictDialogType
-import com.owncloud.android.ui.dialog.parcel.ConflictFileData
+import com.owncloud.android.ui.dialog.conflict.model.ConflictDialogData
+import com.owncloud.android.ui.dialog.conflict.model.ConflictDialogType
+import com.owncloud.android.ui.dialog.conflict.model.ConflictFileData
 import com.owncloud.android.utils.DisplayUtils
 import java.io.File
 
