@@ -108,26 +108,13 @@ class ConflictsResolveDialog :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val bundle = savedInstanceState ?: arguments
-
-        if (bundle != null) {
-            dialogType = bundle.getParcelableArgument(ARG_CONFLICT_DATA, ConflictDialogType::class.java)
-                ?: throw IllegalArgumentException("$ARG_CONFLICT_DATA is required")
-            leftDataFile = bundle.getSerializableArgument(ARG_LEFT_FILE, File::class.java)
-            rightDataFile = bundle.getParcelableArgument(ARG_RIGHT_FILE, OCFile::class.java)
-            user = bundle.getParcelableArgument(ARG_USER, User::class.java)
-        } else {
-            activity?.let {
-                DisplayUtils.showSnackMessage(it, R.string.failed_to_create_conflict_dialog)
-            }
+        val bundle = requireArguments()
+        dialogType = requireNotNull(bundle.getParcelableArgument(ARG_CONFLICT_DATA, ConflictDialogType::class.java)) {
+            "$ARG_CONFLICT_DATA is required, create this dialog through ConflictResolveDialogFactory"
         }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.run {
-            putParcelable(ARG_CONFLICT_DATA, dialogType)
-        }
+        leftDataFile = bundle.getSerializableArgument(ARG_LEFT_FILE, File::class.java)
+        rightDataFile = bundle.getParcelableArgument(ARG_RIGHT_FILE, OCFile::class.java)
+        user = bundle.getParcelableArgument(ARG_USER, User::class.java)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -155,7 +142,7 @@ class ConflictsResolveDialog :
         .setNegativeButton(R.string.common_cancel) { _: DialogInterface?, _: Int ->
             listener?.conflictDecisionMade(Decision.CANCEL)
         }
-        .setTitle(dialogType.data.dialogTitle)
+        .setTitle(dialogType.dialogTitle)
 
     private fun okButtonClick() {
         binding.run {
@@ -178,35 +165,26 @@ class ConflictsResolveDialog :
     }
 
     private fun setupUI() {
+        val data = dialogType.data
+
         binding.run {
-            dialogType.data.let {
-                val leftData = it.localFile
-                val rightData = it.serverFile
+            headline.text = data.headline
+            description.text = data.description
 
-                headline.visibility = if (it.headline == null) {
-                    View.GONE
-                } else {
-                    View.VISIBLE
-                }
-                headline.text = it.headline
+            leftCheckbox.text = data.localFile.title
+            leftTimestamp.text = data.localFile.timestamp
+            leftFileSize.text = data.localFile.fileSize
 
-                description.text = it.description
+            rightCheckbox.text = data.serverFile.title
+            rightTimestamp.text = data.serverFile.timestamp
+            rightFileSize.text = data.serverFile.fileSize
 
-                leftCheckbox.text = leftData.title
-                leftTimestamp.text = leftData.timestamp
-                leftFileSize.text = leftData.fileSize
-
-                rightCheckbox.text = rightData.title
-                rightTimestamp.text = rightData.timestamp
-                rightFileSize.text = rightData.fileSize
-
-                if (leftDataFile != null && rightDataFile != null && user != null) {
-                    setThumbnailsForFileConflicts()
-                } else {
-                    val folderIcon = MimeTypeUtil.getDefaultFolderIcon(requireContext(), viewThemeUtils)
-                    leftThumbnail.setImageDrawable(folderIcon)
-                    rightThumbnail.setImageDrawable(folderIcon)
-                }
+            if (leftDataFile != null && rightDataFile != null && user != null) {
+                setThumbnailsForFileConflicts()
+            } else {
+                val folderIcon = MimeTypeUtil.getDefaultFolderIcon(requireContext(), viewThemeUtils)
+                leftThumbnail.setImageDrawable(folderIcon)
+                rightThumbnail.setImageDrawable(folderIcon)
             }
         }
     }
@@ -269,9 +247,9 @@ class ConflictsResolveDialog :
     }
 
     companion object {
-        const val ARG_CONFLICT_DATA = "CONFLICT_DATA"
-        const val ARG_LEFT_FILE = "LEFT_FILE"
-        const val ARG_RIGHT_FILE = "RIGHT_FILE"
-        const val ARG_USER = "USER"
+        internal const val ARG_CONFLICT_DATA = "CONFLICT_DATA"
+        internal const val ARG_LEFT_FILE = "LEFT_FILE"
+        internal const val ARG_RIGHT_FILE = "RIGHT_FILE"
+        internal const val ARG_USER = "USER"
     }
 }

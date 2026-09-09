@@ -12,18 +12,21 @@ import kotlinx.parcelize.Parcelize
 
 sealed interface ConflictDialogType : Parcelable {
     val data: ConflictDialogData
+    val dialogTitle: String?
 
     @Parcelize
-    data class Offline(override val data: ConflictDialogData) : ConflictDialogType
+    data class Offline(override val data: ConflictDialogData) : ConflictDialogType {
+        override val dialogTitle: String?
+            get() = null
+    }
 
     @Parcelize
-    data class Normal(override val data: ConflictDialogData) : ConflictDialogType
+    data class Normal(override val dialogTitle: String, override val data: ConflictDialogData) : ConflictDialogType
 }
 
 @Parcelize
 data class ConflictDialogData(
-    val dialogTitle: String?,
-    val headline: String?,
+    val headline: String,
     val description: String,
     val localFile: ConflictFileData,
     val serverFile: ConflictFileData

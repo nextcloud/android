@@ -273,7 +273,7 @@ class ConflictsResolveActivity :
         }
 
         val (ft, _) = prepareDialogTransaction()
-        ConflictResolveDialogFactory().forOffline(
+        ConflictResolveDialogFactory.forOffline(
             context = this,
             leftFile = offlineOperation,
             rightFile = newFile!!
@@ -307,7 +307,7 @@ class ConflictsResolveActivity :
     private fun showFileConflictDialog(remotePath: String) {
         val (ft, user) = prepareDialogTransaction()
         if (existingFile != null && storageManager.fileExists(remotePath) && newFile != null) {
-            ConflictResolveDialogFactory().forNormal(
+            ConflictResolveDialogFactory.forNormal(
                 title = storageManager.getDecryptedPath(existingFile!!),
                 context = this,
                 leftFile = newFile!!,

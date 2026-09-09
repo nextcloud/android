@@ -9,6 +9,7 @@ package com.owncloud.android.ui.dialog.conflict
 
 import android.content.Context
 import android.os.Bundle
+import androidx.annotation.StringRes
 import com.nextcloud.client.account.User
 import com.nextcloud.client.database.entity.OfflineOperationEntity
 import com.owncloud.android.R
@@ -24,38 +25,25 @@ import com.owncloud.android.ui.dialog.parcel.ConflictFileData
 import com.owncloud.android.utils.DisplayUtils
 import java.io.File
 
-class ConflictResolveDialogFactory {
+object ConflictResolveDialogFactory {
+
+    private const val SECONDS_TO_MILLIS = 1000L
+    private const val UNKNOWN_FOLDER_SIZE = 0L
+
     fun forOffline(context: Context, leftFile: OfflineOperationEntity, rightFile: OCFile): ConflictsResolveDialog {
-        val leftTitle = context.getString(R.string.prefs_synced_folders_local_path_title)
-        val leftTimestamp =
-            DisplayUtils.getRelativeTimestamp(context, leftFile.createdAt?.times(1000L) ?: 0)
-        val leftFileSize = DisplayUtils.bytesToHumanReadable(0)
-        val leftCheckBoxData = ConflictFileData(leftTitle, leftTimestamp.toString(), leftFileSize)
-
-        val rightTitle = context.getString(R.string.prefs_synced_folders_remote_path_title)
-        val rightTimestamp = DisplayUtils.getRelativeTimestamp(context, rightFile.modificationTimestamp)
-        val rightFileSize = DisplayUtils.bytesToHumanReadable(rightFile.fileLength)
-        val rightCheckBoxData = ConflictFileData(rightTitle, rightTimestamp.toString(), rightFileSize)
-
-        val title = context.getString(R.string.conflict_folder_headline)
-        val description = context.getString(R.string.conflict_message_description_for_folder)
-        val data = ConflictDialogType.Offline(
-            ConflictDialogData(
-                null,
-                title,
-                description,
-                leftCheckBoxData,
-                rightCheckBoxData
-            )
+        val data = ConflictDialogData(
+            headline = context.getString(R.string.conflict_folder_headline),
+            description = context.getString(R.string.conflict_message_description_for_folder),
+            localFile = context.conflictFileData(
+                titleId = R.string.prefs_synced_folders_local_path_title,
+                timestamp = (leftFile.createdAt ?: 0L) * SECONDS_TO_MILLIS,
+                fileLength = UNKNOWN_FOLDER_SIZE
+            ),
+            serverFile = context.conflictFileData(R.string.prefs_synced_folders_remote_path_title, rightFile)
         )
 
-        val bundle = Bundle().apply {
-            putParcelable(ARG_CONFLICT_DATA, data)
+        return createDialog(ConflictDialogType.Offline(data)) {
             putParcelable(ARG_RIGHT_FILE, rightFile)
-        }
-
-        return ConflictsResolveDialog().apply {
-            arguments = bundle
         }
     }
 
@@ -66,38 +54,40 @@ class ConflictResolveDialogFactory {
         rightFile: OCFile,
         user: User?
     ): ConflictsResolveDialog {
-        val file = File(leftFile.storagePath)
-        val leftTitle = context.getString(R.string.conflict_local_file)
-        val leftTimestamp = DisplayUtils.getRelativeTimestamp(context, file.lastModified())
-        val leftFileSize = DisplayUtils.bytesToHumanReadable(file.length())
-        val leftCheckBoxData = ConflictFileData(leftTitle, leftTimestamp.toString(), leftFileSize)
-
-        val rightTitle = context.getString(R.string.conflict_server_file)
-        val rightTimestamp = DisplayUtils.getRelativeTimestamp(context, rightFile.modificationTimestamp)
-        val rightFileSize = DisplayUtils.bytesToHumanReadable(rightFile.fileLength)
-        val rightCheckBoxData = ConflictFileData(rightTitle, rightTimestamp.toString(), rightFileSize)
-
-        val headline = context.getString(R.string.choose_which_file)
-        val description = context.getString(R.string.conflict_message_description)
-        val data = ConflictDialogType.Normal(
-            ConflictDialogData(
-                title,
-                headline,
-                description,
-                leftCheckBoxData,
-                rightCheckBoxData
-            )
+        val localFile = File(leftFile.storagePath)
+        val data = ConflictDialogData(
+            headline = context.getString(R.string.choose_which_file),
+            description = context.getString(R.string.conflict_message_description),
+            localFile = context.conflictFileData(
+                titleId = R.string.conflict_local_file,
+                timestamp = localFile.lastModified(),
+                fileLength = localFile.length()
+            ),
+            serverFile = context.conflictFileData(R.string.conflict_server_file, rightFile)
         )
 
-        val bundle = Bundle().apply {
-            putParcelable(ARG_CONFLICT_DATA, data)
-            putSerializable(ARG_LEFT_FILE, file)
+        return createDialog(ConflictDialogType.Normal(title, data)) {
+            putSerializable(ARG_LEFT_FILE, localFile)
             putParcelable(ARG_RIGHT_FILE, rightFile)
             putParcelable(ARG_USER, user)
         }
-
-        return ConflictsResolveDialog().apply {
-            arguments = bundle
-        }
     }
+
+    private fun Context.conflictFileData(@StringRes titleId: Int, file: OCFile): ConflictFileData =
+        conflictFileData(titleId, file.modificationTimestamp, file.fileLength)
+
+    private fun Context.conflictFileData(@StringRes titleId: Int, timestamp: Long, fileLength: Long): ConflictFileData =
+        ConflictFileData(
+            title = getString(titleId),
+            timestamp = DisplayUtils.getRelativeTimestamp(this, timestamp).toString(),
+            fileSize = DisplayUtils.bytesToHumanReadable(fileLength)
+        )
+
+    private fun createDialog(type: ConflictDialogType, putFiles: Bundle.() -> Unit): ConflictsResolveDialog =
+        ConflictsResolveDialog().apply {
+            arguments = Bundle().apply {
+                putParcelable(ARG_CONFLICT_DATA, type)
+                putFiles()
+            }
+        }
 }

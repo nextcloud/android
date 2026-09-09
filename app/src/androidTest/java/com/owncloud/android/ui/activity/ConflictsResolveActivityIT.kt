@@ -69,7 +69,7 @@ class ConflictsResolveActivityIT : AbstractIT() {
         launchActivity<ConflictsResolveActivity>(intent).use { scenario ->
             var dialog: ConflictsResolveDialog? = null
             scenario.onActivity { sut ->
-                dialog = ConflictResolveDialogFactory().forNormal(
+                dialog = ConflictResolveDialogFactory.forNormal(
                     storageManager.getDecryptedPath(existingFile),
                     targetContext,
                     newFile,
