@@ -356,13 +356,6 @@ class FileUploadWorker(
                 Log_OC.e(TAG, "credentials are no longer valid, stopping uploads")
                 break
             }
-
-            if (result.isSuccess && result.resultData is String) {
-                // Update the remote etag to avoid conflict when uploading same file, both in online and offline uploads
-                val file = operation.storageManager.getFileByRemotePath(upload.remotePath)
-                file?.etagOnServer = result.resultData.toString()
-                operation.storageManager.saveFile(file)
-            }
         }
 
         val uploadFilesResult = when {
