@@ -125,6 +125,19 @@ class FileUploadWorker(
             it.remotePath == remotePath && it.user.accountName == accountName
         }
 
+        /**
+         * [activeOperations] tracks every upload running in this process, not only the ones this worker started.
+         * Auto upload has to register here too, otherwise a retry pass sees its in-progress row as abandoned and
+         * reschedules it, and the cancel action in the upload list has nothing to cancel.
+         */
+        fun registerActiveUpload(operation: UploadFileOperation) {
+            activeOperations[operation.ocUploadId] = operation
+        }
+
+        fun unregisterActiveUpload(uploadId: Long) {
+            activeOperations.remove(uploadId)
+        }
+
         fun getUploadAction(action: String): Int = when (action) {
             "LOCAL_BEHAVIOUR_FORGET" -> LOCAL_BEHAVIOUR_FORGET
             "LOCAL_BEHAVIOUR_MOVE" -> LOCAL_BEHAVIOUR_MOVE

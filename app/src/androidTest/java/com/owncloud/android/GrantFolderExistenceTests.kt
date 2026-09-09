@@ -7,8 +7,7 @@
 package com.owncloud.android
 
 import com.nextcloud.client.account.UserAccountManagerImpl
-import com.nextcloud.client.device.BatteryStatus
-import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.utils.PowerManagementFactory
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
@@ -36,11 +35,7 @@ class GrantFolderExistenceTests : AbstractOnServerIT() {
         targetContext.contentResolver
     )
 
-    private val powerManagementServiceMock = object : PowerManagementService {
-        override val isPowerSavingEnabled = false
-        override val isIgnoringOptimization = true
-        override val battery = BatteryStatus(false, 0)
-    }
+    private val powerManagementServiceMock = PowerManagementFactory.mock
 
     @Before
     @Throws(IOException::class)

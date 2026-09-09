@@ -39,7 +39,7 @@ class UploadWarningCard(
     private val viewThemeUtils: ViewThemeUtils
 ) {
     fun bind(binding: UploadWarningCardBinding) {
-        val isBatterySaver = powerManagementService.isPowerSavingEnabled
+        val isBatterySaver = powerManagementService.blocksAutoUpload
         val isIgnoringOptimization = powerManagementService.isIgnoringOptimization
 
         binding.root.setVisibleIf(isBatterySaver || !isIgnoringOptimization)

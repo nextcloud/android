@@ -10,8 +10,7 @@
 package com.owncloud.android.files.services
 
 import com.nextcloud.client.account.UserAccountManagerImpl
-import com.nextcloud.client.device.BatteryStatus
-import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.utils.PowerManagementFactory
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -30,11 +29,7 @@ class FileUploaderIT : AbstractOnServerIT() {
 
     private lateinit var uploadsStorageManager: UploadsStorageManager
 
-    private val powerManagementServiceMock = object : PowerManagementService {
-        override val isIgnoringOptimization = true
-        override val isPowerSavingEnabled = false
-        override val battery = BatteryStatus()
-    }
+    private val powerManagementServiceMock = PowerManagementFactory.mock
 
     @Before
     fun setUp() {
