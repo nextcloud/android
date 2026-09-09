@@ -29,6 +29,7 @@ import com.nextcloud.client.core.Clock
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
 import com.nextcloud.client.jobs.autoUpload.AutoUploadLocalDeletionWorker
+import com.nextcloud.client.jobs.autoUpload.AutoUploadRescanWorker
 import com.nextcloud.client.jobs.autoUpload.AutoUploadWorker
 import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorker
@@ -495,6 +496,16 @@ internal class BackgroundJobManagerImpl(
 
     override fun isAutoUploadIgnoringPowerSavingScheduled(syncedFolderID: Long): Boolean =
         workManager.isWorkScheduled(autoUploadIgnorePowerSavingTag(syncedFolderID))
+
+    override fun schedulePeriodicAutoUpload() {
+        val request = periodicRequestBuilder(
+            jobClass = AutoUploadRescanWorker::class,
+            jobName = JOB_PERIODIC_FILES_SYNC,
+            constraints = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
+        ).build()
+
+        workManager.enqueueUniquePeriodicWork(JOB_PERIODIC_FILES_SYNC, ExistingPeriodicWorkPolicy.KEEP, request)
+    }
 
     override fun startAutoUpload(syncedFolder: SyncedFolder, overridePowerSaving: Boolean) {
         val syncedFolderID = syncedFolder.id

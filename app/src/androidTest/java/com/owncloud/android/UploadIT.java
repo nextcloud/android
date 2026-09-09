@@ -9,7 +9,7 @@
 package com.owncloud.android;
 
 import com.nextcloud.client.account.UserAccountManagerImpl;
-import com.nextcloud.client.device.BatteryStatus;
+import com.nextcloud.utils.PowerManagementFactory;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.ConnectivityManagerFactory;
@@ -38,8 +38,6 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import androidx.annotation.NonNull;
-
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertNotNull;
@@ -55,22 +53,7 @@ public class UploadIT extends AbstractOnServerIT {
         new UploadsStorageManager(UserAccountManagerImpl.fromContext(targetContext),
                                   targetContext.getContentResolver());
 
-    private PowerManagementService powerManagementServiceMock = new PowerManagementService() {
-        @Override
-        public boolean isIgnoringOptimization() {
-            return true;
-        }
-
-        @Override
-        public boolean isPowerSavingEnabled() {
-            return false;
-        }
-        @NonNull
-        @Override
-        public BatteryStatus getBattery() {
-            return new BatteryStatus(false, 0);
-        }
-    };
+    private final PowerManagementService powerManagementServiceMock = PowerManagementFactory.getMock();
 
     @Before
     public void before() throws IOException {
@@ -208,24 +191,7 @@ public class UploadIT extends AbstractOnServerIT {
 
     @Test
     public void testUploadOnChargingOnlyAndCharging() {
-        PowerManagementService powerManagementServiceMock = new PowerManagementService() {
-            @Override
-            public boolean isIgnoringOptimization() {
-                return true;
-            }
-
-            @Override
-            public boolean isPowerSavingEnabled() {
-                return false;
-            }
-
-            @NonNull
-            @Override
-            public BatteryStatus getBattery() {
-                return new BatteryStatus(true, 100);
-            }
-        };
-
+        final var powerManagementServiceMock = PowerManagementFactory.getMockCharging();
         OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/empty.txt",
                                          FOLDER + "charging.txt", account.name);
         ocUpload.setWhileChargingOnly(true);

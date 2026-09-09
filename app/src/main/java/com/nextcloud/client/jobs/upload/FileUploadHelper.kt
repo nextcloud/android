@@ -90,6 +90,8 @@ class FileUploadHelper {
 
         const val MAX_FILE_COUNT = 500
 
+        const val MAX_UPLOADS_PER_QUERY = 500
+
         val mBoundListeners = HashMap<String, OnDatatransferProgressListener>()
 
         private val retryInProgress = AtomicBoolean(false)
@@ -377,6 +379,10 @@ class FileUploadHelper {
      * If `null`, uploads matching the given [status] from all accounts are returned.
      * @param status The [UploadStatus] to filter uploads by (e.g., `UPLOAD_FAILED`).
      * @param nameCollisionPolicy The [NameCollisionPolicy] to filter uploads by (e.g., `SKIP`).
+     *
+     * At most [MAX_UPLOADS_PER_QUERY] of the newest uploads are returned. A history that grew into the tens of
+     * thousands of rows cannot be held in memory at once, and neither the upload list nor a retry pass needs more
+     * than a page of it.
      */
     suspend fun getUploadsByStatus(
         accountName: String?,
@@ -386,9 +392,14 @@ class FileUploadHelper {
     ): List<OCUpload> {
         val dao = uploadsStorageManager.uploadDao
         return if (accountName != null) {
-            dao.getUploadsByAccountNameAndStatus(accountName, status.value, nameCollisionPolicy?.serialize())
+            dao.getUploadsByAccountNameAndStatus(
+                accountName,
+                status.value,
+                nameCollisionPolicy?.serialize(),
+                MAX_UPLOADS_PER_QUERY
+            )
         } else {
-            dao.getUploadsByStatus(status.value, nameCollisionPolicy?.serialize())
+            dao.getUploadsByStatus(status.value, nameCollisionPolicy?.serialize(), MAX_UPLOADS_PER_QUERY)
         }.mapNotNull {
             it.toOCUpload(capability)
         }
