@@ -14,15 +14,20 @@ import androidx.core.graphics.toColorInt
 import androidx.recyclerview.widget.RecyclerView
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.tags.Tag
+import com.owncloud.android.utils.theme.ViewThemeUtils
 
-class TagViewHolder(itemView: View, private val onTagChecked: (Tag, Boolean) -> Unit) :
-    RecyclerView.ViewHolder(itemView) {
+class TagViewHolder(
+    itemView: View,
+    private val viewThemeUtils: ViewThemeUtils,
+    private val onTagChecked: (Tag, Boolean) -> Unit
+) : RecyclerView.ViewHolder(itemView) {
     private val colorDot: View = itemView.findViewById(R.id.tag_color_dot)
     private val tagName: TextView = itemView.findViewById(R.id.tag_name)
     private val checkBox: CheckBox = itemView.findViewById(R.id.tag_checkbox)
 
     fun bind(tag: Tag, isAssigned: Boolean) {
         tagName.text = tag.name
+        viewThemeUtils.platform.themeCheckbox(checkBox)
 
         val tagColor = tag.color
         if (tagColor != null) {

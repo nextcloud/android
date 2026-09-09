@@ -57,6 +57,8 @@ class TagManagementBottomSheet :
         bottomSheetDialog.behavior.skipCollapsed = true
 
         viewThemeUtils.platform.colorViewBackground(binding.bottomSheet, ColorRole.SURFACE)
+        viewThemeUtils.material.colorTextInputLayout(binding.searchInputLayout)
+        viewThemeUtils.material.colorProgressBar(binding.loadingIndicator)
 
         setupAdapter()
         setupSearch()
@@ -71,6 +73,7 @@ class TagManagementBottomSheet :
 
     private fun setupAdapter() {
         tagAdapter = TagListAdapter(
+            viewThemeUtils = viewThemeUtils,
             onTagChecked = { tag, isChecked ->
                 if (isChecked) {
                     viewModel.assignTag(tag)
