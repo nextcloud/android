@@ -25,9 +25,9 @@ import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.db.OCUpload
-import com.owncloud.android.ui.dialog.ConflictsResolveDialog
-import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Decision
-import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionMadeListener
+import com.owncloud.android.ui.dialog.conflict.ConflictsResolveDialog
+import com.owncloud.android.ui.dialog.conflict.ConflictsResolveDialog.Decision
+import com.owncloud.android.ui.dialog.conflict.ConflictsResolveDialog.OnConflictDecisionMadeListener
 import com.owncloud.android.ui.dialog.conflict.ConflictResolveDialogFactory
 import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.FileStorageUtils

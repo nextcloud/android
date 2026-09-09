@@ -14,11 +14,6 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.database.entity.OfflineOperationEntity
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.ui.dialog.ConflictsResolveDialog
-import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Companion.ARG_CONFLICT_DATA
-import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Companion.ARG_LEFT_FILE
-import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Companion.ARG_RIGHT_FILE
-import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Companion.ARG_USER
 import com.owncloud.android.ui.dialog.conflict.model.ConflictDialogData
 import com.owncloud.android.ui.dialog.conflict.model.ConflictDialogType
 import com.owncloud.android.ui.dialog.conflict.model.ConflictFileData
@@ -43,7 +38,7 @@ object ConflictResolveDialogFactory {
         )
 
         return createDialog(ConflictDialogType.Offline(data)) {
-            putParcelable(ARG_RIGHT_FILE, rightFile)
+            putParcelable(ConflictsResolveDialog.ARG_RIGHT_FILE, rightFile)
         }
     }
 
@@ -67,9 +62,9 @@ object ConflictResolveDialogFactory {
         )
 
         return createDialog(ConflictDialogType.Normal(title, data)) {
-            putSerializable(ARG_LEFT_FILE, localFile)
-            putParcelable(ARG_RIGHT_FILE, rightFile)
-            putParcelable(ARG_USER, user)
+            putSerializable(ConflictsResolveDialog.ARG_LEFT_FILE, localFile)
+            putParcelable(ConflictsResolveDialog.ARG_RIGHT_FILE, rightFile)
+            putParcelable(ConflictsResolveDialog.ARG_USER, user)
         }
     }
 
@@ -86,7 +81,7 @@ object ConflictResolveDialogFactory {
     private fun createDialog(type: ConflictDialogType, putFiles: Bundle.() -> Unit): ConflictsResolveDialog =
         ConflictsResolveDialog().apply {
             arguments = Bundle().apply {
-                putParcelable(ARG_CONFLICT_DATA, type)
+                putParcelable(ConflictsResolveDialog.ARG_CONFLICT_DATA, type)
                 putFiles()
             }
         }

@@ -4,7 +4,7 @@
  * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.dialog
+package com.owncloud.android.ui.dialog.conflict
 
 import android.app.Dialog
 import android.content.Context

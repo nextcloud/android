@@ -79,7 +79,7 @@ import com.owncloud.android.ui.dialog.AppPassCodeDialog;
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
-import com.owncloud.android.ui.dialog.ConflictsResolveDialog;
+import com.owncloud.android.ui.dialog.conflict.ConflictsResolveDialog;
 import com.owncloud.android.ui.dialog.CreateAlbumDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
