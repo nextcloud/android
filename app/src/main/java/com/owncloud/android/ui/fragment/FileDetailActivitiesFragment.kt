@@ -31,6 +31,7 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ClientFactory.CreationException
 import com.nextcloud.common.NextcloudClient
+import com.nextcloud.utils.ResultParser.list
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileDetailsActivitiesFragmentBinding
@@ -302,40 +303,40 @@ class FileDetailActivitiesFragment :
         versions: ArrayList<Any?>?,
         lastGiven: Long
     ) {
-        val data = result.data
-        if (result.isSuccess && data != null) {
-            val activitiesAndVersions = data[0] as ArrayList<Any?>
-            this.lastGiven = data[1] as Long
-
-            if (activitiesAndVersions.isEmpty()) {
-                this.lastGiven = END_REACHED.toLong()
+        val payload = result.list<Any>()
+        if (payload.size < ACTIVITIES_PAYLOAD_SIZE) {
+            Log_OC.d(TAG, result.logMessage)
+            val logMessage = if (result.httpCode == HttpStatus.SC_NOT_MODIFIED) {
+                getString(R.string.activities_no_results_message)
+            } else {
+                result.getLogMessage(activity)
             }
 
-            if (restoreFileVersionSupported && versions != null) {
-                activitiesAndVersions.addAll(versions)
+            if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+                setErrorContent(logMessage)
+                isLoadingActivities = false
             }
 
-            if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
-                populateList(activitiesAndVersions, lastGiven == -1L)
-            }
-
-            isDataFetched = true
+            isDataFetched = false
             return
         }
 
-        Log_OC.d(TAG, result.logMessage)
-        val logMessage = if (result.httpCode == HttpStatus.SC_NOT_MODIFIED) {
-            getString(R.string.activities_no_results_message)
-        } else {
-            result.getLogMessage(activity)
+        val activitiesAndVersions = payload[0] as ArrayList<Any?>
+        this.lastGiven = payload[1] as Long
+
+        if (activitiesAndVersions.isEmpty()) {
+            this.lastGiven = END_REACHED.toLong()
         }
 
-        if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
-            setErrorContent(logMessage)
-            isLoadingActivities = false
+        if (restoreFileVersionSupported && versions != null) {
+            activitiesAndVersions.addAll(versions)
         }
 
-        isDataFetched = false
+        if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
+            populateList(activitiesAndVersions, lastGiven == -1L)
+        }
+
+        isDataFetched = true
     }
     // endregion
 
@@ -479,6 +480,9 @@ class FileDetailActivitiesFragment :
         private const val ARG_USER = "USER"
         private const val END_REACHED = 0
         private const val LOAD_MORE_THRESHOLD = 5
+
+        // the activities result carries the activity list and the paging marker
+        private const val ACTIVITIES_PAYLOAD_SIZE = 2
 
         @JvmStatic
         fun newInstance(file: OCFile?, user: User?): FileDetailActivitiesFragment =
