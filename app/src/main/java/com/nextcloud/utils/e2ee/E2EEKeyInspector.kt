@@ -15,9 +15,11 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFolderMetadataFileV1
 import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedFolderMetadataFile
+import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.e2ee.GetMetadataRemoteOperation
+import com.owncloud.android.lib.resources.e2ee.MetadataResponse
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.lib.resources.users.GetPublicKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.GetServerPublicKeyRemoteOperation
@@ -87,11 +89,6 @@ class E2EEKeyInspector @Inject constructor(
             Log_OC.d(TAG, "checking folder metadata key")
 
             val client = OwnCloudClientFactory.createOwnCloudClient(accountManager.currentAccount, context)
-            val metadataResult = GetMetadataRemoteOperation(folder.localId).execute(client)
-
-            if (!metadataResult.isSuccess) {
-                return@withContext false
-            }
 
             val privateKey = arbitraryDataProvider.getValue(accountManager.user, EncryptionUtils.PRIVATE_KEY)
             if (privateKey.isEmpty()) {
@@ -99,26 +96,48 @@ class E2EEKeyInspector @Inject constructor(
                 return@withContext false
             }
 
-            val metadata = metadataResult.resultData
-
             return@withContext if (E2EVersionHelper.isV2Plus(capability)) {
-                decryptsMetadataV2(metadata.metadata, privateKey, client.userId)
+                decryptsMetadataV2(client, privateKey, folder)
             } else {
-                decryptsMetadataV1(metadata.metadata, privateKey, folder.localId)
+                decryptsMetadataV1(client, privateKey, folder)
             }
         }
 
-    private fun decryptsMetadataV2(serializedMetadata: String, privateKey: String, userId: String): Boolean {
+    private fun obtainMetadata(client: OwnCloudClient, folder: OCFile): MetadataResponse? {
+        val metadataResult = GetMetadataRemoteOperation(folder.localId).execute(client)
+
+        if (!metadataResult.isSuccess) {
+            return null
+        }
+
+        return metadataResult.resultData
+    }
+
+    private fun getNearestEncryptedMetadataKey(client: OwnCloudClient, folder: OCFile): String? {
+        val metadata = obtainMetadata(client, folder) ?: return null
         val metadataFile = EncryptionUtils.deserializeJSON(
-            serializedMetadata,
+            metadata.metadata,
             object : TypeToken<EncryptedFolderMetadataFile>() {}
         )
 
-        val user = metadataFile.users.find { it.userId == userId }
-            ?: throw IllegalStateException("cannot find current user in metadata")
+        val user = metadataFile.users?.find { it.userId == client.userId }
+        if (user != null) {
+            return user.encryptedMetadataKey
+        }
+
+        val parentFolder = storageManager.getFileById(folder.parentId)
+        if (parentFolder?.isEncrypted == true) {
+            return getNearestEncryptedMetadataKey(client, parentFolder)
+        }
+
+        return null
+    }
+
+    private fun decryptsMetadataV2(client: OwnCloudClient, privateKey: String, folder: OCFile): Boolean {
+        val encryptedMetadataKey = getNearestEncryptedMetadataKey(client, folder) ?: return false
 
         return try {
-            EncryptionUtils.decryptStringAsymmetricV2(user.encryptedMetadataKey, privateKey)
+            EncryptionUtils.decryptStringAsymmetricV2(encryptedMetadataKey, privateKey)
             true
         } catch (e: Exception) {
             Log_OC.w(TAG, "user tried to decrypt folder's metadata with different private key: $e")
@@ -126,9 +145,10 @@ class E2EEKeyInspector @Inject constructor(
         }
     }
 
-    private fun decryptsMetadataV1(serializedMetadata: String, privateKey: String, folderLocalId: Long): Boolean {
+    private fun decryptsMetadataV1(client: OwnCloudClient, privateKey: String, folder: OCFile): Boolean {
+        val metadata = obtainMetadata(client, folder) ?: return false
         val metadataFile = EncryptionUtils.deserializeJSON(
-            serializedMetadata,
+            metadata.metadata,
             object : TypeToken<EncryptedFolderMetadataFileV1?>() {}
         )
 
@@ -138,7 +158,7 @@ class E2EEKeyInspector @Inject constructor(
                 privateKey,
                 arbitraryDataProvider,
                 accountManager.user,
-                folderLocalId
+                folder.localId
             )
             true
         } catch (e: Exception) {
