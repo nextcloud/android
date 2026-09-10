@@ -67,6 +67,7 @@ class UnifiedSearchFragmentIT : AbstractIT() {
             scenario.onActivity { activity ->
                 val sut = UnifiedSearchFragment.newInstance(null, null, "/")
                 val testViewModel = UnifiedSearchViewModel(activity.application)
+                testViewModel.setCurrentAccountProvider(activity.userAccountManager)
                 testViewModel.setConnectivityService(activity.connectivityServiceMock)
                 val localRepository = UnifiedSearchFakeRepository()
                 testViewModel.setRepository(localRepository)

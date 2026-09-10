@@ -19,6 +19,7 @@ import com.nextcloud.client.player.model.file.PlaybackFiles
 import com.nextcloud.client.player.model.file.PlaybackFilesComparator
 import com.nextcloud.client.player.model.file.PlaybackFilesRepository
 import com.nextcloud.client.player.util.PlayerUtil.toPlaybackFile
+import com.nextcloud.utils.extensions.resolveMimeType
 import com.owncloud.android.datamodel.OCFile
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -68,7 +69,7 @@ class PlayerLauncher @Inject constructor(
     }
 
     private suspend fun prepareQueue(file: OCFile, collection: PlaybackCollection): PlaybackFileType {
-        val fileType = PlaybackFileType.ofMimeType(file.mimeType)
+        val fileType = PlaybackFileType.ofMimeType(file.resolveMimeType())
         playbackResumptionConfigStore.saveConfig(file.localId.toString(), file.parentId, fileType, collection)
 
         playbackModel.start()

@@ -28,6 +28,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.asynctasks.GetRemoteFileTask
 import com.owncloud.android.ui.fragment.UnifiedSearchFragmentScreenState
 import javax.inject.Inject
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -58,6 +59,10 @@ class UnifiedSearchViewModel(application: Application) :
     private lateinit var repository: IUnifiedSearchRepository
     private var results: MutableMap<ProviderID, UnifiedSearchMetadata> = mutableMapOf()
     private var searchResultsVersion = 0
+
+    private val sectionBuildErrorHandler = CoroutineExceptionHandler { _, throwable ->
+        Log_OC.e(TAG, "Cannot build search result sections", throwable)
+    }
 
     override val screenState: MutableLiveData<UnifiedSearchFragmentScreenState> =
         MutableLiveData(UnifiedSearchFragmentScreenState.ShowingContent)
@@ -208,7 +213,7 @@ class UnifiedSearchViewModel(application: Application) :
 
         val version = ++searchResultsVersion
 
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO + sectionBuildErrorHandler) {
             val sections = buildSections(snapshot)
 
             withContext(Dispatchers.Main) {
@@ -272,6 +277,11 @@ class UnifiedSearchViewModel(application: Application) :
     @VisibleForTesting
     fun setConnectivityService(connectivityService: ConnectivityService) {
         this.connectivityService = connectivityService
+    }
+
+    @VisibleForTesting
+    fun setCurrentAccountProvider(currentAccountProvider: CurrentAccountProvider) {
+        this.currentAccountProvider = currentAccountProvider
     }
 
     override fun updateScreenState(state: UnifiedSearchFragmentScreenState) {
