@@ -370,7 +370,7 @@ class GalleryFragment :
 
     private fun loadMoreWhenEndReached(recyclerView: RecyclerView, dy: Int) {
         if (dy <= 0 || paginationState != GalleryPaginationState.IDLE) {
-// scrolling up, a page is already loading, or there is nothing left to load
+            // scrolling up, a page is already loading, or there is nothing left to load
             return
         }
 
