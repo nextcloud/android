@@ -30,10 +30,6 @@ scripts/wait_for_emulator.sh || exit 1
 adb logcat -c
 adb logcat > logcat.txt &
 LOGCAT_PID=$!
-# Screenshot tests only run when updating/testing screenshots. Tests annotated with
-# com.nextcloud.test.Flaky are known to be unstable and must not block a pull request; AGP 9.4.0
-# truncates an instrumentation argument value at its first comma, so notAnnotation carries a single
-# annotation and FlakyTestFilter is passed separately.
 ./gradlew createGplayDebugCoverageReport \
 -Pcoverage \
 -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest \
