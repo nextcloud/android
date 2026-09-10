@@ -22,8 +22,8 @@ import com.nextcloud.utils.extensions.getBigThumbnail
 import com.nextcloud.utils.extensions.makeRounded
 import com.nextcloud.utils.extensions.setMediaPlaceholder
 import com.nextcloud.utils.extensions.setMediaThumbnail
-import com.nextcloud.utils.extensions.showsMediaThumbnailOf
 import com.nextcloud.utils.extensions.setVisibleIf
+import com.nextcloud.utils.extensions.showsMediaThumbnailOf
 import com.nextcloud.utils.extensions.stopShimmer
 import com.nextcloud.utils.mdm.MDMConfig
 import com.nextcloud.utils.thumbnail.ThumbnailArguments
@@ -32,7 +32,6 @@ import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
-import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.AlbumsPickerActivity
 import com.owncloud.android.ui.activity.ComponentsGetter
