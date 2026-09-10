@@ -6,11 +6,11 @@
  */
 package com.nextcloud.utils
 
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.util.LruCache
-import android.graphics.drawable.BitmapDrawable
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toDrawable
 import com.nextcloud.utils.extensions.getBitmapSize
 import com.nextcloud.utils.extensions.getExifSize
@@ -25,8 +25,10 @@ import com.owncloud.android.utils.MimeTypeUtil
 object OCFileUtils {
     private const val TAG = "OCFileUtils"
     private const val IMAGE_SIZE_CACHE_ENTRIES = 2048
+    private const val PLACEHOLDER_SIZE_PX = 256
 
     private val imageSizes = LruCache<Long, Pair<Int, Int>>(IMAGE_SIZE_CACHE_ENTRIES)
+    private val placeholders = mutableMapOf<Int, Bitmap>()
 
     fun getImageSize(ocFile: OCFile, defaultThumbnailSize: Float): Pair<Int, Int> {
         val fallback = defaultThumbnailSize.toInt().coerceAtLeast(1)
@@ -57,7 +59,7 @@ object OCFileUtils {
         return fallbackPair
     }
 
-    fun getMediaPlaceholder(file: OCFile, imageDimension: Pair<Int, Int>): BitmapDrawable {
+    fun getMediaPlaceholder(file: OCFile): Drawable {
         val context = MainApp.getAppContext()
 
         val drawableId = if (MimeTypeUtil.isImage(file)) {
@@ -68,15 +70,12 @@ object OCFileUtils {
             R.drawable.file
         }
 
-        val drawable = ContextCompat.getDrawable(context, drawableId)
-            ?: return Color.GRAY.toDrawable().toBitmap(imageDimension.first, imageDimension.second)
-                .toDrawable(context.resources)
-
-        val bitmap = BitmapUtils.drawableToBitmap(
-            drawable,
-            imageDimension.first,
-            imageDimension.second
-        )
+        val bitmap = synchronized(placeholders) {
+            placeholders.getOrPut(drawableId) {
+                val drawable = ContextCompat.getDrawable(context, drawableId) ?: Color.GRAY.toDrawable()
+                BitmapUtils.drawableToBitmap(drawable, PLACEHOLDER_SIZE_PX, PLACEHOLDER_SIZE_PX)
+            }
+        }
 
         return bitmap.toDrawable(context.resources)
     }
