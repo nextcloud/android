@@ -12,13 +12,13 @@
 
     <!-- App name  and other strings-->
     <string name="app_name">Nextcloud Dev</string>
-    <string name="account_type">nextcloud.beta</string>     <!-- better if was a domain name; but changing it now would require migrate accounts when the app is updated -->
-    <string name="authority">org.nextcloud.beta.provider</string>    <!-- better if was the app package with ".provider" appended ; it identifies the provider -->
-    <string name="users_and_groups_search_authority">org.nextcloud.beta.android.providers.UsersAndGroupsSearchProvider</string>
-    <string name="users_and_groups_share_with">org.nextcloud.beta.android.providers.UsersAndGroupsSearchProvider.action.SHARE_WITH</string>
-    <string name="document_provider_authority">org.nextcloud.beta.documents</string>
-    <string name="file_provider_authority">org.nextcloud.beta.files</string>
-    <string name="image_cache_provider_authority">org.nextcloud.beta.android.providers.imageCache</string>
+    <string name="account_type">xeniacloud.beta</string>     <!-- better if was a domain name; but changing it now would require migrate accounts when the app is updated -->
+    <string name="authority">eu.xeniacloud.files.beta.provider</string>    <!-- better if was the app package with ".provider" appended ; it identifies the provider -->
+    <string name="users_and_groups_search_authority">eu.xeniacloud.files.beta.providers.UsersAndGroupsSearchProvider</string>
+    <string name="users_and_groups_share_with">eu.xeniacloud.files.beta.providers.UsersAndGroupsSearchProvider.action.SHARE_WITH</string>
+    <string name="document_provider_authority">eu.xeniacloud.files.beta.documents</string>
+    <string name="file_provider_authority">eu.xeniacloud.files.beta.fileprovider</string>
+    <string name="image_cache_provider_authority">eu.xeniacloud.files.beta.imageCache.provider</string>
     <string name="default_display_name_for_root_folder">Nextcloud Dev</string>
     
     <bool name="logger_enabled">true</bool>
