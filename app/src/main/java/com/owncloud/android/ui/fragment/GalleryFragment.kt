@@ -74,6 +74,8 @@ class GalleryFragment :
 
     private var bottomSheet: GalleryFragmentBottomSheetDialog? = null
 
+    private val showPaginationLoader = Runnable { binding?.paginationLoader.setVisibleIf(true) }
+
     private var isLoadingNextPage = false
         set(value) {
             if (field == value) {
@@ -154,6 +156,8 @@ class GalleryFragment :
         photoSearchTask = null
 
         LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(refreshSearchEventReceiver)
+
+        binding?.paginationLoader?.removeCallbacks(showPaginationLoader)
 
         adapter = null
 
@@ -292,7 +296,13 @@ class GalleryFragment :
 
     private fun updatePaginationLoader() {
         val loader = binding?.paginationLoader ?: return
-        loader.setVisibleIf(isLoadingNextPage && adapter?.isEmpty() == false)
+        loader.removeCallbacks(showPaginationLoader)
+
+        if (isLoadingNextPage && adapter?.isEmpty() == false) {
+            loader.postDelayed(showPaginationLoader, PAGINATION_LOADER_DELAY_IN_MS)
+        } else {
+            loader.setVisibleIf(false)
+        }
     }
 
     fun searchCompleted(result: GallerySearchTask.Result) {
@@ -510,6 +520,7 @@ class GalleryFragment :
         private const val MAX_ITEMS_PER_ROW = 10
         private const val FRAGMENT_TAG_BOTTOM_SHEET = "data"
         private const val ITEM_VIEW_CACHE_SIZE = 8
+        private const val PAGINATION_LOADER_DELAY_IN_MS = 500L
 
         private const val INITIAL_GALLERY_WINDOW = 500
         private const val GALLERY_WINDOW_INCREMENT = 500
