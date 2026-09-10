@@ -90,7 +90,7 @@ class FileThumbnailGenerator @Inject constructor(
         view.stopShimmer(arguments.shimmer)
 
         if (MimeTypeUtil.isVideo(file) && !arguments.hideVideoOverlay) {
-            view.setImageBitmap(ThumbnailsCacheManager.addVideoOverlay(bitmap, context))
+            view.setImageBitmap(VideoOverlayGenerator.addOverlay(bitmap, context))
         } else {
             BitmapUtils.setRoundedBitmapAccordingToListType(arguments.isGrid, bitmap, view)
         }

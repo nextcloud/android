@@ -19,7 +19,6 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
@@ -42,6 +41,7 @@ import com.nextcloud.utils.BitmapExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.nextcloud.utils.extensions.OwnCloudClientExtensionsKt;
+import com.nextcloud.utils.thumbnail.VideoOverlayGenerator;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -57,7 +57,6 @@ import com.owncloud.android.ui.adapter.DiskLruImageCache;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.BitmapUtils;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -118,17 +117,6 @@ public final class ThumbnailsCacheManager {
     private static OwnCloudClient mClient;
     public static final int THUMBNAIL_SIZE_IN_KB = 512;
     private static final int RESIZED_IMAGE_SIZE_IN_KB = 10240;
-    private static final float PLAY_BUTTON_SIZE_IN_DP = 24f;
-    private static final int PLAY_BUTTON_ALPHA = 230;
-
-    private static volatile Bitmap mPlayButton;
-    private static final Paint mPlayButtonPaint = createPlayButtonPaint();
-
-    private static Paint createPlayButtonPaint() {
-        Paint paint = new Paint();
-        paint.setAlpha(PLAY_BUTTON_ALPHA);
-        return paint;
-    }
 
     public static final Bitmap mDefaultImg = BitmapFactory.decodeResource(MainApp.getAppContext().getResources(),
             R.drawable.file_image);
@@ -375,7 +363,7 @@ public final class ThumbnailsCacheManager {
                 thumbnail = doResizedImageInBackground(file, storageManager);
 
                 if (MimeTypeUtil.isVideo(file) && thumbnail != null) {
-                    thumbnail = addVideoOverlay(thumbnail, MainApp.getAppContext());
+                    thumbnail = VideoOverlayGenerator.addOverlay(thumbnail, MainApp.getAppContext());
                 }
 
             } catch (OutOfMemoryError oome) {
@@ -530,7 +518,7 @@ public final class ThumbnailsCacheManager {
                     thumbnail = doThumbnailFromOCFileInBackground();
 
                     if (MimeTypeUtil.isVideo((ServerFileInterface) mFile) && thumbnail != null && !hideVideoOverlay) {
-                        thumbnail = addVideoOverlay(thumbnail, MainApp.getAppContext());
+                        thumbnail = VideoOverlayGenerator.addOverlay(thumbnail, MainApp.getAppContext());
                     }
                 } else if (mFile instanceof File) {
                     thumbnail = doFileInBackground();
@@ -539,7 +527,7 @@ public final class ThumbnailsCacheManager {
                     String mMimeType = FileStorageUtils.getMimeTypeFromName(url);
 
                     if (MimeTypeUtil.isVideo(mMimeType) && thumbnail != null && !hideVideoOverlay) {
-                        thumbnail = addVideoOverlay(thumbnail, MainApp.getAppContext());
+                        thumbnail = VideoOverlayGenerator.addOverlay(thumbnail, MainApp.getAppContext());
                     }
                     //} else {  do nothing
                 }
@@ -1114,50 +1102,6 @@ public final class ThumbnailsCacheManager {
             }
         }
         return null;
-    }
-
-    public static Bitmap addVideoOverlay(Bitmap thumbnail, Context context) {
-        Bitmap playButton = getPlayButton(context);
-        if (playButton == null) {
-            return thumbnail;
-        }
-
-        int px = playButton.getWidth();
-
-        Bitmap resultBitmap = Bitmap.createBitmap(thumbnail.getWidth(),
-                                                  thumbnail.getHeight(),
-                                                  Bitmap.Config.ARGB_8888);
-
-        Canvas c = new Canvas(resultBitmap);
-        c.drawBitmap(thumbnail, 0, 0, null);
-
-        float left = (thumbnail.getWidth() - px) / 2f;
-        float top = (thumbnail.getHeight() - px) / 2f;
-
-        c.drawBitmap(playButton, left, top, mPlayButtonPaint);
-
-        return resultBitmap;
-    }
-
-    @Nullable
-    private static Bitmap getPlayButton(Context context) {
-        Bitmap cached = mPlayButton;
-        if (cached != null && !cached.isRecycled()) {
-            return cached;
-        }
-
-        Drawable playButtonDrawable = ResourcesCompat.getDrawable(MainApp.getAppContext().getResources(),
-                                                                  R.drawable.video_white,
-                                                                  null);
-        if (playButtonDrawable == null) {
-            return null;
-        }
-
-        int px = DisplayUtils.convertDpToPixel(PLAY_BUTTON_SIZE_IN_DP, context);
-        cached = BitmapUtils.drawableToBitmap(playButtonDrawable, px, px);
-        mPlayButton = cached;
-
-        return cached;
     }
 
     public static class AsyncThumbnailDrawable extends BitmapDrawable {
