@@ -46,6 +46,7 @@ import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
@@ -67,7 +68,6 @@ class OCFileListDelegate(
     private var viewThemeUtils: ViewThemeUtils,
     private val syncFolderProvider: SyncedFolderProvider? = null
 ) {
-    private val tag = "OCFileListDelegate"
     private val checkedFiles: MutableSet<OCFile> = HashSet()
     private var highlightedItem: OCFile? = null
     var isMultiSelect = false
@@ -109,24 +109,25 @@ class OCFileListDelegate(
         shimmer: LoaderImageView?,
         imageView: ImageView,
         file: OCFile,
-        galleryRowHolder: GalleryRowHolder,
-        imageDimension: Pair<Int, Int>
+        galleryRowHolder: GalleryRowHolder
     ) {
         GalleryImageGenerationJob.cancelPreviousJob(imageView)
 
         imageView.tag = file.fileId
+        bindGalleryRowListeners(imageView, file, galleryRowHolder)
 
         val displayable = file.takeUnless { it.isUpdateThumbnailNeeded }?.displayableThumbnailFromMemory()
         if (displayable != null) {
+            imageView.scaleType = ImageView.ScaleType.CENTER_CROP
             imageView.setImageBitmap(displayable)
             imageView.stopShimmer(shimmer)
-            bindGalleryRowListeners(imageView, file, galleryRowHolder)
             return
         }
 
-        imageView.setImageDrawable(OCFileUtils.getMediaPlaceholder(file, imageDimension))
+        imageView.scaleType = ImageView.ScaleType.FIT_XY
+        imageView.setImageDrawable(OCFileUtils.getMediaPlaceholder(file))
 
-        val job = ioScope.launch {
+        val job = ioScope.launch(start = CoroutineStart.LAZY) {
             try {
                 galleryImageGenerationJob.run(
                     file,
@@ -134,22 +135,12 @@ class OCFileListDelegate(
                     object : GalleryImageGenerationListener {
                         override fun onSuccess() {
                             if (imageView.tag == file.fileId) {
-                                Log_OC.d(tag, "setGalleryImage.onSuccess()")
-                                galleryRowHolder.binding.rowLayout.invalidate()
                                 imageView.stopShimmer(shimmer)
-                            }
-                        }
-
-                        override fun onNewGalleryImage() {
-                            if (imageView.tag == file.fileId) {
-                                Log_OC.d(tag, "setGalleryImage.updateRowVisuals()")
-                                galleryRowHolder.updateRowVisuals()
                             }
                         }
 
                         override fun onError() {
                             if (imageView.tag == file.fileId) {
-                                Log_OC.d(tag, "setGalleryImage.onError()")
                                 imageView.stopShimmer(shimmer)
                             }
                         }
@@ -162,29 +153,28 @@ class OCFileListDelegate(
         }
 
         GalleryImageGenerationJob.storeJob(job, imageView)
-
-        bindGalleryRowListeners(imageView, file, galleryRowHolder)
+        job.start()
     }
 
-    private fun OCFile.displayableThumbnailFromMemory(): Bitmap? {
-        val thumbnailKey = listOf(getBigThumbnailKey(), getSmallThumbnailKey())
-            .firstOrNull { ThumbnailMemoryCache.get(it) != null }
-            ?: return null
-        val thumbnail = ThumbnailMemoryCache.get(thumbnailKey)
+    fun cancelGalleryRow(imageView: ImageView) {
+        GalleryImageGenerationJob.cancelPreviousJob(imageView)
+    }
 
-        return when {
-            thumbnail == null -> null
-            MimeTypeUtil.isVideo(this) -> withVideoOverlay(thumbnailKey, thumbnail)
-            else -> thumbnail
+    private fun OCFile.displayableThumbnailFromMemory(): Bitmap? =
+        cachedThumbnail(getBigThumbnailKey()) ?: cachedThumbnail(getSmallThumbnailKey())
+
+    private fun OCFile.cachedThumbnail(thumbnailKey: String): Bitmap? {
+        if (!MimeTypeUtil.isVideo(this)) {
+            return ThumbnailMemoryCache.get(thumbnailKey)
         }
-    }
 
-    private fun withVideoOverlay(thumbnailKey: String, thumbnail: Bitmap): Bitmap {
         val overlayKey = videoOverlayKey(thumbnailKey)
 
         return ThumbnailMemoryCache.get(overlayKey)
-            ?: ThumbnailsCacheManager.addVideoOverlay(thumbnail, context).also {
-                ThumbnailMemoryCache.put(overlayKey, it)
+            ?: ThumbnailMemoryCache.get(thumbnailKey)?.let { thumbnail ->
+                ThumbnailsCacheManager.addVideoOverlay(thumbnail, context).also {
+                    ThumbnailMemoryCache.put(overlayKey, it)
+                }
             }
     }
 
