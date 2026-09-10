@@ -86,11 +86,11 @@ class GalleryFragment :
         }
         bottomSheet = GalleryFragmentBottomSheetDialog()
         columnsCount = ColumnCount.Wide.get(resources.isLandscape())
-        registerRefreshSearchEventReceiver()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        registerRefreshSearchEventReceiver()
         if (!isFromAlbum) {
             addMenuProvider()
         }
@@ -131,7 +131,7 @@ class GalleryFragment :
 
     private val refreshSearchEventReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            getTypedActivity(FileDisplayActivity::class.java)?.startPhotoSearch(R.id.nav_gallery)
+            showAllGalleryItems()
         }
     }
 
@@ -211,7 +211,11 @@ class GalleryFragment :
 
         val layoutManager = GridLayoutManager(context, 1)
         adapter?.setLayoutManager(layoutManager)
-        recyclerView?.setLayoutManager(layoutManager)
+        recyclerView?.run {
+            setLayoutManager(layoutManager)
+            setItemViewCacheSize(ITEM_VIEW_CACHE_SIZE)
+            itemAnimator = null
+        }
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -245,7 +249,10 @@ class GalleryFragment :
 
     private fun handleSearchEvent() {
         prepareCurrentSearch(searchEvent)
-        setEmptyListMessage(EmptyListState.LOADING)
+
+        if (adapter?.isEmpty() != false) {
+            setEmptyListMessage(EmptyListState.LOADING)
+        }
 
         // always show first stored items
         showAllGalleryItems()
@@ -352,7 +359,7 @@ class GalleryFragment :
         val lastVisibleItem: Int = gridLayoutManager.findLastCompletelyVisibleItemPosition()
         val visibleItemCount: Int = gridLayoutManager.childCount
 
-        if (lastVisibleItem == RecyclerView.NO_POSITION) {
+        if (lastVisibleItem <= 0) {
             return
         }
 
@@ -393,6 +400,7 @@ class GalleryFragment :
 
     fun showAllGalleryItems() {
         val mediaState = bottomSheet?.currMediaState ?: return
+        val rowLayout = adapter?.rowLayout() ?: return
 
         val mimeFilter = when (mediaState) {
             MediaState.MEDIA_STATE_PHOTOS_ONLY -> IMAGE_MIME_FILTER
@@ -409,7 +417,7 @@ class GalleryFragment :
                 loadedItemCount
             )
 
-            val galleryItems = items.toGalleryItems(columnsCount, ThumbnailsCacheManager.getThumbnailDimension())
+            val galleryItems = items.toGalleryItems(rowLayout)
 
             withContext(Dispatchers.Main) {
                 if (galleryItems.isEmpty()) {
@@ -477,6 +485,7 @@ class GalleryFragment :
     companion object {
         private const val MAX_ITEMS_PER_ROW = 10
         private const val FRAGMENT_TAG_BOTTOM_SHEET = "data"
+        private const val ITEM_VIEW_CACHE_SIZE = 8
 
         private const val INITIAL_GALLERY_WINDOW = 500
         private const val GALLERY_WINDOW_INCREMENT = 500
