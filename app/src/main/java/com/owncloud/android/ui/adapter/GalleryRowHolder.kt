@@ -27,6 +27,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 private const val CHECKED_SCALE = 0.8f
+private const val PLACEHOLDER_ICON_INSET_RATIO = 0.32f
 private const val UNCHECKED_SCALE = 1.0f
 
 private const val SHIMMER_INDEX = 0
@@ -125,8 +126,11 @@ class GalleryRowHolder(
         applySelection(thumbnail, isChecked)
         applyCheckBox(checkbox, isChecked)
 
-        ocFileListDelegate.bindGalleryRow(shimmer, thumbnail, file, this)
+        ocFileListDelegate.bindGalleryRow(shimmer, thumbnail, file, this, placeholderInset(size))
     }
+
+    private fun placeholderInset(size: GalleryCellSize): Int =
+        (minOf(size.width, size.height) * PLACEHOLDER_ICON_INSET_RATIO).toInt()
 
     private fun applyCellSize(view: View, size: GalleryCellSize, endMargin: Int, bottomMargin: Int) {
         val params = view.layoutParams as FrameLayout.LayoutParams

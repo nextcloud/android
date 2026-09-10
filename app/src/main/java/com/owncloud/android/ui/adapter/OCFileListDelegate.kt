@@ -8,7 +8,6 @@
 package com.owncloud.android.ui.adapter
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.view.View
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
@@ -19,17 +18,16 @@ import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.gallery.GalleryImageGenerationJob
 import com.nextcloud.client.jobs.gallery.GalleryImageGenerationListener
 import com.nextcloud.client.jobs.upload.FileUploadHelper
-import com.nextcloud.utils.OCFileUtils
-import com.nextcloud.utils.extensions.getBigThumbnailKey
-import com.nextcloud.utils.extensions.getSmallThumbnailKey
+import com.nextcloud.utils.extensions.getBigThumbnail
 import com.nextcloud.utils.extensions.makeRounded
+import com.nextcloud.utils.extensions.setMediaPlaceholder
+import com.nextcloud.utils.extensions.setMediaThumbnail
+import com.nextcloud.utils.extensions.showsMediaThumbnailOf
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.extensions.stopShimmer
 import com.nextcloud.utils.mdm.MDMConfig
-import com.nextcloud.utils.extensions.videoOverlayKey
 import com.nextcloud.utils.thumbnail.ThumbnailArguments
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
-import com.nextcloud.utils.thumbnail.ThumbnailMemoryCache
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -109,23 +107,29 @@ class OCFileListDelegate(
         shimmer: LoaderImageView?,
         imageView: ImageView,
         file: OCFile,
-        galleryRowHolder: GalleryRowHolder
+        galleryRowHolder: GalleryRowHolder,
+        placeholderInset: Int
     ) {
-        GalleryImageGenerationJob.cancelPreviousJob(imageView)
-
-        imageView.tag = file.fileId
         bindGalleryRowListeners(imageView, file, galleryRowHolder)
 
-        val displayable = file.takeUnless { it.isUpdateThumbnailNeeded }?.displayableThumbnailFromMemory()
-        if (displayable != null) {
-            imageView.scaleType = ImageView.ScaleType.CENTER_CROP
-            imageView.setImageBitmap(displayable)
+        if (imageView.showsMediaThumbnailOf(file) && !file.isUpdateThumbnailNeeded) {
+            imageView.tag = file.fileId
             imageView.stopShimmer(shimmer)
             return
         }
 
-        imageView.scaleType = ImageView.ScaleType.FIT_XY
-        imageView.setImageDrawable(OCFileUtils.getMediaPlaceholder(file))
+        GalleryImageGenerationJob.cancelPreviousJob(imageView)
+
+        imageView.tag = file.fileId
+
+        val cached = file.takeUnless { it.isUpdateThumbnailNeeded }?.getBigThumbnail()
+        if (cached != null) {
+            imageView.setMediaThumbnail(file, cached)
+            imageView.stopShimmer(shimmer)
+            return
+        }
+
+        imageView.setMediaPlaceholder(file, placeholderInset)
 
         val job = ioScope.launch(start = CoroutineStart.LAZY) {
             try {
@@ -158,24 +162,6 @@ class OCFileListDelegate(
 
     fun cancelGalleryRow(imageView: ImageView) {
         GalleryImageGenerationJob.cancelPreviousJob(imageView)
-    }
-
-    private fun OCFile.displayableThumbnailFromMemory(): Bitmap? =
-        cachedThumbnail(getBigThumbnailKey()) ?: cachedThumbnail(getSmallThumbnailKey())
-
-    private fun OCFile.cachedThumbnail(thumbnailKey: String): Bitmap? {
-        if (!MimeTypeUtil.isVideo(this)) {
-            return ThumbnailMemoryCache.get(thumbnailKey)
-        }
-
-        val overlayKey = videoOverlayKey(thumbnailKey)
-
-        return ThumbnailMemoryCache.get(overlayKey)
-            ?: ThumbnailMemoryCache.get(thumbnailKey)?.let { thumbnail ->
-                ThumbnailsCacheManager.addVideoOverlay(thumbnail, context).also {
-                    ThumbnailMemoryCache.put(overlayKey, it)
-                }
-            }
     }
 
     private fun bindGalleryRowListeners(imageView: ImageView, file: OCFile, galleryRowHolder: GalleryRowHolder) {

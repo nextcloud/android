@@ -6,29 +6,23 @@
  */
 package com.nextcloud.utils
 
-import android.graphics.Bitmap
-import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.util.LruCache
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.toDrawable
 import com.nextcloud.utils.extensions.getBitmapSize
 import com.nextcloud.utils.extensions.getExifSize
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.MimeTypeUtil
 
 @Suppress("TooGenericExceptionCaught", "ReturnCount")
 object OCFileUtils {
     private const val TAG = "OCFileUtils"
     private const val IMAGE_SIZE_CACHE_ENTRIES = 2048
-    private const val PLACEHOLDER_SIZE_PX = 256
 
     private val imageSizes = LruCache<Long, Pair<Int, Int>>(IMAGE_SIZE_CACHE_ENTRIES)
-    private val placeholders = mutableMapOf<Int, Bitmap>()
 
     fun getImageSize(ocFile: OCFile, defaultThumbnailSize: Float): Pair<Int, Int> {
         val fallback = defaultThumbnailSize.toInt().coerceAtLeast(1)
@@ -59,7 +53,7 @@ object OCFileUtils {
         return fallbackPair
     }
 
-    fun getMediaPlaceholder(file: OCFile): Drawable {
+    fun getMediaPlaceholder(file: OCFile): Drawable? {
         val context = MainApp.getAppContext()
 
         val drawableId = if (MimeTypeUtil.isImage(file)) {
@@ -70,13 +64,6 @@ object OCFileUtils {
             R.drawable.file
         }
 
-        val bitmap = synchronized(placeholders) {
-            placeholders.getOrPut(drawableId) {
-                val drawable = ContextCompat.getDrawable(context, drawableId) ?: Color.GRAY.toDrawable()
-                BitmapUtils.drawableToBitmap(drawable, PLACEHOLDER_SIZE_PX, PLACEHOLDER_SIZE_PX)
-            }
-        }
-
-        return bitmap.toDrawable(context.resources)
+        return ContextCompat.getDrawable(context, drawableId)
     }
 }

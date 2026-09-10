@@ -25,7 +25,6 @@ import com.nextcloud.utils.extensions.getSmallThumbnailKey
 import com.nextcloud.utils.extensions.startShimmer
 import com.nextcloud.utils.extensions.stopShimmer
 import com.nextcloud.utils.extensions.toFile
-import com.nextcloud.utils.extensions.videoOverlayKey
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -69,6 +68,7 @@ class FileThumbnailGenerator @Inject constructor(
     )
 
     private val tasks = CopyOnWriteArrayList<ThumbnailGenerationTask>()
+    private val placeholders = mutableMapOf<String, Bitmap>()
 
     fun setThumbnail(file: OCFile, view: ImageView, arguments: ThumbnailArguments) {
         if (file.remoteId == null) {
@@ -76,12 +76,7 @@ class FileThumbnailGenerator @Inject constructor(
             return
         }
 
-        if (!file.isPreviewAvailable) {
-            generate(file, view, arguments)
-            return
-        }
-
-        val cached = ThumbnailMemoryCache.get(file.getSmallThumbnailKey())
+        val cached = ThumbnailsCacheManager.getBitmapFromDiskCache(file.getSmallThumbnailKey())
         if (cached == null || file.isUpdateThumbnailNeeded) {
             generate(file, view, arguments)
         } else {
@@ -89,6 +84,16 @@ class FileThumbnailGenerator @Inject constructor(
         }
 
         applyPngBackground(file, view)
+    }
+
+    private fun show(bitmap: Bitmap, file: OCFile, view: ImageView, arguments: ThumbnailArguments) {
+        view.stopShimmer(arguments.shimmer)
+
+        if (MimeTypeUtil.isVideo(file) && !arguments.hideVideoOverlay) {
+            view.setImageBitmap(ThumbnailsCacheManager.addVideoOverlay(bitmap, context))
+        } else {
+            BitmapUtils.setRoundedBitmapAccordingToListType(arguments.isGrid, bitmap, view)
+        }
     }
 
     fun setOfflineOperationThumbnail(file: OCFile, view: ImageView) {
@@ -117,25 +122,6 @@ class FileThumbnailGenerator @Inject constructor(
         tasks.clear()
     }
 
-    private fun show(bitmap: Bitmap, file: OCFile, view: ImageView, arguments: ThumbnailArguments) {
-        view.stopShimmer(arguments.shimmer)
-
-        if (MimeTypeUtil.isVideo(file) && !arguments.hideVideoOverlay) {
-            view.setImageBitmap(file.withVideoOverlay(bitmap))
-        } else {
-            BitmapUtils.setRoundedBitmapAccordingToListType(arguments.isGrid, bitmap, view)
-        }
-    }
-
-    private fun OCFile.withVideoOverlay(thumbnail: Bitmap): Bitmap {
-        val overlayKey = videoOverlayKey(getSmallThumbnailKey())
-        ThumbnailMemoryCache.get(overlayKey)?.let { return it }
-
-        return ThumbnailsCacheManager.addVideoOverlay(thumbnail, context).also {
-            ThumbnailMemoryCache.put(overlayKey, it)
-        }
-    }
-
     private fun setLocalThumbnail(file: OCFile, view: ImageView, arguments: ThumbnailArguments) {
         val localFile = file.storagePath.toFile()
 
@@ -156,12 +142,6 @@ class FileThumbnailGenerator @Inject constructor(
     @Suppress("DEPRECATION")
     private fun generate(file: OCFile, view: ImageView, arguments: ThumbnailArguments) {
         if (!ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, view)) {
-            return
-        }
-
-        val cached = ThumbnailMemoryCache.get(file.getSmallThumbnailKey())
-        if (cached != null) {
-            show(cached, file, view, arguments)
             return
         }
 
@@ -244,13 +224,15 @@ class FileThumbnailGenerator @Inject constructor(
 
     private fun OCFile.mimeIcon(): Drawable? = MimeTypeUtil.getFileTypeIcon(mimeType, fileName, context, viewThemeUtils)
 
-    private fun OCFile.placeholder(): Bitmap {
-        val drawable = mimeIcon()
-            ?: ResourcesCompat.getDrawable(context.resources, R.drawable.file_image, null)
-            ?: Color.GRAY.toDrawable()
-        val size = ThumbnailsCacheManager.getThumbnailDimension()
+    private fun OCFile.placeholder(): Bitmap = synchronized(placeholders) {
+        placeholders.getOrPut(mimeType.orEmpty()) {
+            val drawable = mimeIcon()
+                ?: ResourcesCompat.getDrawable(context.resources, R.drawable.file_image, null)
+                ?: Color.GRAY.toDrawable()
+            val size = ThumbnailsCacheManager.getThumbnailDimension()
 
-        return BitmapUtils.drawableToBitmap(drawable, size, size)
+            BitmapUtils.drawableToBitmap(drawable, size, size)
+        }
     }
 
     private fun applyPngBackground(file: ServerFileInterface, view: ImageView) {
