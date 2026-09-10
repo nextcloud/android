@@ -36,10 +36,12 @@
     <string name="add_to_album">Ajouter à l’album</string>
     <string name="album_already_exists">L\'album existe déjà</string>
     <string name="album_copy_file_conflict">Existe déjà.</string>
+    <string name="album_create_new_link">Créer un nouveau lien</string>
     <string name="album_delete">Supprimer l’album</string>
     <string name="album_delete_failed_message">Échec de la suppression de quelques-uns des fichiers.</string>
     <string name="album_file_added_message">Fichier ajouté avec succès</string>
     <string name="album_name_empty">Le nom de l\'album ne peut pas être vide</string>
+    <string name="album_rename">Renommer l\'album</string>
     <string name="album_rename_conflict">Ce nom est déjà utilisé.</string>
     <string name="album_share">Partager l\'album</string>
     <string name="album_stop_sharing">Arrêter le partage</string>
@@ -65,7 +67,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_description">Êtes-vous sûr de vouloir supprimer cette tâche ?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Supprimer la tâche</string>
     <string name="assistant_screen_empty_content_description">Essayez d\'envoyer un message pour déclencher une conversation.</string>
-    <string name="assistant_screen_empty_content_title">Bonjour ! En quoi puis-je vous aider aujourd’hui ?</string>
+    <string name="assistant_screen_empty_content_title">Bonjour ! En quoi puis-je vous aider aujourd’hui ?</string>
     <string name="assistant_screen_retry_response_generation">Réessayer la génération de réponse</string>
     <string name="assistant_screen_send_message">Envoyer un message</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Ouvrir la liste des conversations</string>
@@ -85,7 +87,7 @@
     <string name="assistant_task_status_running">en cours</string>
     <string name="assistant_task_status_scheduled">planifié</string>
     <string name="assistant_task_status_successful">réussite</string>
-    <string name="assistant_task_status_text">Etat de la tâche : %1$s</string>
+    <string name="assistant_task_status_text">État de la tâche : %1$s</string>
     <string name="assistant_task_status_unknown">Inconnu</string>
     <string name="assistant_thinking">En cours de réflexion...</string>
     <string name="associated_account_not_found">Compte associé introuvable !</string>
@@ -143,12 +145,16 @@
     <string name="autoupload_configure">Configurer</string>
     <string name="autoupload_create_new_custom_folder">Créer une nouvelle configuration de dossier personnalisé</string>
     <string name="autoupload_custom_folder">Définir un dossier personnalisé</string>
+    <string name="autoupload_delete_uploaded">Supprimer localement les fichiers téléversés</string>
     <string name="autoupload_delete_uploaded_all_dialog_button_all_users">De tous les utilisateurs</string>
     <string name="autoupload_delete_uploaded_all_dialog_button_current_user">De l\'utilisateur actuel</string>
     <string name="autoupload_delete_uploaded_all_dialog_description">Tous les fichiers déjà téléversés dans le cloud seront supprimés de l\'appareil actuel, pour tous les dossiers en téléversement automatique, à partir de tous les utilisateurs configurés</string>
     <string name="autoupload_delete_uploaded_dialog_description">Tous les fichiers déjà téléversés dans le cloud seront supprimés de l\'appareil actuel</string>
+    <string name="autoupload_delete_uploaded_dialog_title">Supprimer localement les fichiers téléversés</string>
+    <string name="autoupload_delete_uploaded_notif_ended_title">Supprimer localement les fichiers déjà téléversés</string>
     <string name="autoupload_delete_uploaded_notif_error_title">Impossible de supprimer localement les fichiers déjà téléversés</string>
     <string name="autoupload_delete_uploaded_notif_started_title">La suppression locale des fichiers déjà téléversés a démarré en arrière-plan</string>
+    <string name="autoupload_delete_uploaded_notif_ticker">Suppression des fichiers locaux</string>
     <string name="autoupload_disable_power_save_check">Désactiver l\'économie de batterie</string>
     <string name="autoupload_hide_folder">Masquer le dossier</string>
     <string name="avatar">Avatar</string>
@@ -385,6 +391,7 @@
     <string name="encryption_key_handle_folder_read_only_description">Les clés de chiffrement de ce compte ont été supprimées ou remplacées, par conséquent, le contenu de ce dossier ne peut plus être déchiffré.\n\nLe dossier est à partir de maintenant en lecture seule. Pour utiliser à nouveau des dossiers chiffrés, faites une sauvegarde de ce dossier et configurez votre nouvelle clé de chiffrement dans les paramètres.</string>
     <string name="encryption_key_handle_key_keys_only_on_device_description">La clé de chiffrement stockée sur cet appareil n\'est plus valide. Les clés sont révoquées du serveur. \n\nSupprimez le chiffrement localement à partir des paramètres pour créer un nouveau dossier de chiffrement.</string>
     <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">La clé de chiffrement stockée sur cet appareil n\'est plus valide. Les clés sont révoquées du serveur. \n\nFaites une sauvegarde du dossier chiffré précédemment créé. \n\nPuis supprimez le chiffrement localement à partir des paramètres pour créer un nouveau dossier de chiffrement.</string>
+    <string name="encryption_key_handle_key_removed_title">Clés de chiffrement modifiées</string>
     <string name="encryption_key_handle_no_keys_description">Ce dossier ne peut pas être ouvert car ses clés de chiffrement n\'existent plus sur cet appareil ni sur le serveur.</string>
     <string name="encryption_key_handle_setup_new_key_before_encrypting_description">Les clés de chiffrement de ce compte ont été supprimées ou remplacées.\n\nConfigurez une nouvelle clé de chiffrement dans les paramètres pour pouvoir chiffrer un dossier.</string>
     <string name="encryption_new_folder_check_failed">Impossible de vérifier vos clés de chiffrement. Essayez de créer le dossier à nouveau.</string>
@@ -662,7 +669,9 @@
     <string name="logs_status_not_filtered">Logs: %1$d Ko, pas de filtre</string>
     <string name="logs_title">Logs</string>
     <string name="maintenance_mode">Le serveur est en maintenance.</string>
+    <string name="manage_space_auto_upload_clear_data">Supprimer localement les fichiers auto-téléversés</string>
     <string name="manage_space_auto_upload_description">Tous les fichiers déjà téléversés sur le serveur depuis les dossiers de téléversement automatique seront supprimés localement pour libérer de la place sur l\'appareil.\n\nCe processus peut prendre un certain temps.</string>
+    <string name="manage_space_auto_upload_title">Supprimer localement les fichiers auto-téléversés</string>
     <string name="manage_space_clear_data">Effacer les données</string>
     <string name="manage_space_description">Les paramètres, la base de données et les certificats du serveur provenant de %1$s seront définitivement effacés. \n\nLes fichiers téléchargés ne seront pas impactés.\n\nCette opération peut prendre du temps.</string>
     <string name="manage_space_title">Gestion de l\'espace</string>
@@ -875,6 +884,7 @@
     <string name="remove_notification_failed">Erreur lors de la suppression des notifications.</string>
     <string name="remove_push_notification">Supprimer</string>
     <string name="remove_success_msg">Supprimé</string>
+    <string name="rename_album_dialog_title">Renommer l\'album</string>
     <string name="rename_dialog_button">Renommer</string>
     <string name="rename_dialog_title">Entrez un nouveau nom</string>
     <string name="rename_local_fail_msg">Impossible de renommer la version locale; veuillez réessayer avec un nom différent</string>
@@ -1053,7 +1063,7 @@
     <string name="suggest">Suggérer</string>
     <string name="sync">Synchroniser</string>
     <string name="sync_all_action_dialog_description">Tous les fichiers et dossiers contenus seront téléchargés. Cette opération peut nécessiter un espace de stockage important et prendre un certain temps, selon votre connexion.</string>
-    <string name="sync_all_action_dialog_title">Synchroniser l’intégralité du dossier ?</string>
+    <string name="sync_all_action_dialog_title">Synchroniser l’intégralité du dossier ?</string>
     <string name="sync_anyway">Synchroniser quand même</string>
     <string name="sync_conflict_notification_action_title">Résoudre les conflits</string>
     <string name="sync_conflict_notification_description">Des conflits de téléversement ont été détectés. Ouvrez les téléversements pour les résoudre.</string>
