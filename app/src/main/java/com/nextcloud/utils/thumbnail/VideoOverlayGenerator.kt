@@ -22,14 +22,12 @@ object VideoOverlayGenerator {
     private const val PLAY_BUTTON_SIZE_IN_DP = 24f
     private const val PLAY_BUTTON_ALPHA = 230
 
-    private val playButtonPaint = Paint().apply { alpha = PLAY_BUTTON_ALPHA }
-
-    @Volatile
-    private var playButton: Bitmap? = null
+    private val playButtons = mutableMapOf<Int, Bitmap>()
 
     @JvmStatic
     fun addOverlay(thumbnail: Bitmap, context: Context): Bitmap {
         val overlay = getPlayButton(context) ?: return thumbnail
+        val paint = Paint().apply { alpha = PLAY_BUTTON_ALPHA }
 
         return createBitmap(thumbnail.width, thumbnail.height).applyCanvas {
             drawBitmap(thumbnail, 0f, 0f, null)
@@ -37,20 +35,17 @@ object VideoOverlayGenerator {
                 overlay,
                 (thumbnail.width - overlay.width) / 2f,
                 (thumbnail.height - overlay.height) / 2f,
-                playButtonPaint
+                paint
             )
         }
     }
 
-    private fun getPlayButton(context: Context): Bitmap? {
-        cachedPlayButton()?.let { return it }
+    private fun getPlayButton(context: Context): Bitmap? = synchronized(playButtons) {
+        val densityDpi = context.resources.displayMetrics.densityDpi
 
-        return synchronized(this) {
-            cachedPlayButton() ?: createPlayButton(context)?.also { playButton = it }
-        }
+        playButtons[densityDpi]?.takeIf { !it.isRecycled }
+            ?: createPlayButton(context)?.also { playButtons[densityDpi] = it }
     }
-
-    private fun cachedPlayButton(): Bitmap? = playButton?.takeIf { !it.isRecycled }
 
     private fun createPlayButton(context: Context): Bitmap? {
         val drawable = ResourcesCompat.getDrawable(context.resources, R.drawable.video_white, null)
