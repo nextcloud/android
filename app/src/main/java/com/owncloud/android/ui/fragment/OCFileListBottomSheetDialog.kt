@@ -420,17 +420,11 @@ class OCFileListBottomSheetDialog(
 
     private fun filterActionsForOfflineOperations() {
         fileActivity.connectivityService.isNetworkAndServerAvailable { result: Boolean? ->
-            if (file.isRootDirectory) {
-                return@isNetworkAndServerAvailable
-            }
-
             if (!result!! || file.isOfflineOperation) {
                 binding.run {
                     menuCreateRichWorkspace.visibility = View.GONE
-                    menuUploadFromApp.visibility = View.GONE
-                    menuDirectCameraUpload.visibility = View.GONE
-                    menuScanDocUpload.visibility = View.GONE
                     creatorsOverviewContainer.visibility = View.GONE
+                    menuEncryptedMkdir.visibility = View.GONE
                 }
             }
         }
