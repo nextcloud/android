@@ -779,6 +779,14 @@
     <string name="picture_set_as_no_app">沒有找到圖片可設定的應用程式</string>
     <string name="pin_home">釘選至主畫面</string>
     <string name="pin_shortcut_label">開啟 %1$s</string>
+    <string name="player_audio_title_with_artist">%1$s • %2$s</string>
+    <string name="player_control_view_next_button_content_description">下一頁按鈕</string>
+    <string name="player_control_view_play_pause_button_content_description">播放/暫停按鈕</string>
+    <string name="player_control_view_previous_button_content_description">上一頁按鈕</string>
+    <string name="player_control_view_random_button_content_description">隨機按鈕</string>
+    <string name="player_control_view_repeat_button_content_description">重複播放按鈕</string>
+    <string name="player_error_source_not_found">找不到來源</string>
+    <string name="player_last_modified">修改時間：%s</string>
     <string name="player_media_controls_close_action_title">關閉</string>
     <string name="please_select_a_server">請選取伺服器……</string>
     <string name="power_save_check_dialog_message">停用省電檢查時，就算電池電量偏低，檔案仍會持續上傳！</string>
@@ -1369,4 +1377,7 @@
     <plurals name="share_download_limit_description">
         <item quantity="other">剩 %1$d 個下載</item>
     </plurals>
-    </resources>
+    <plurals name="export_start">
+        <item quantity="other">已開始匯出（%d 個檔案）</item>
+    </plurals>
+</resources>
