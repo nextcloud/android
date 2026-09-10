@@ -8,23 +8,21 @@
 package com.nextcloud.client.jobs.gallery
 
 import android.graphics.Bitmap
+import android.graphics.Point
 import android.media.ThumbnailUtils
 import android.os.Build
 import android.provider.MediaStore
 import android.util.Size
+import android.view.WindowManager
 import android.widget.ImageView
-import androidx.core.content.ContextCompat
 import com.nextcloud.client.account.User
 import com.nextcloud.utils.extensions.getBigThumbnail
 import com.nextcloud.utils.extensions.getBigThumbnailKey
 import com.nextcloud.utils.extensions.getSmallThumbnail
-import com.nextcloud.utils.extensions.getSmallThumbnailKey
 import com.nextcloud.utils.extensions.isPNG
+import com.nextcloud.utils.extensions.setMediaThumbnail
 import com.nextcloud.utils.extensions.toFile
-import com.nextcloud.utils.extensions.videoOverlayKey
-import com.nextcloud.utils.thumbnail.ThumbnailMemoryCache
 import com.owncloud.android.MainApp
-import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
@@ -115,24 +113,24 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
     private suspend fun getBitmap(file: OCFile): Bitmap? = withContext(Dispatchers.IO) {
         val cached = file.getBigThumbnail()
         if (cached != null && !file.isUpdateThumbnailNeeded) {
-            return@withContext withCachedVideoOverlay(file, cached, file.getBigThumbnailKey())
+            return@withContext cached
         }
 
         if (file.isDown) {
             val local = decodeLocalThumbnail(file)
             if (local != null) {
                 ThumbnailsCacheManager.addBitmapToCache(file.getBigThumbnailKey(), local)
-                return@withContext withCachedVideoOverlay(file, local, file.getBigThumbnailKey())
+                return@withContext local
             }
         }
 
         val remote = semaphore.withPermit { fetchFromServer(file) }
         if (remote != null) {
-            return@withContext withCachedVideoOverlay(file, remote, file.getBigThumbnailKey())
+            return@withContext remote
         }
 
         file.getSmallThumbnail()?.let { small ->
-            return@withContext withCachedVideoOverlay(file, small, file.getSmallThumbnailKey())
+            return@withContext small
         }
 
         null
@@ -145,21 +143,22 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
     }
 
     private fun createImageThumbnail(file: OCFile): Bitmap? {
-        val box = ThumbnailsCacheManager.getResizedImageDimension()
+        val wm = MainApp.getAppContext().getSystemService(android.content.Context.WINDOW_SERVICE) as WindowManager
+        val p = Point()
+        wm.defaultDisplay.getSize(p)
 
-        var bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.storagePath, box.x, box.y) ?: return null
+        val pxW = p.x
+        val pxH = p.y
+
+        val cacheKey = file.getBigThumbnailKey()
+
+        var bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.storagePath, pxW, pxH) ?: return null
 
         if (file.isPNG()) {
-            bitmap = ThumbnailsCacheManager.handlePNG(bitmap, bitmap.width, bitmap.height)
+            bitmap = ThumbnailsCacheManager.handlePNG(bitmap, pxW, pxH)
         }
 
-        val thumbnail = ThumbnailsCacheManager.addThumbnailToCache(
-            file.getBigThumbnailKey(),
-            bitmap,
-            file.storagePath,
-            bitmap.width,
-            bitmap.height
-        )
+        val thumbnail = ThumbnailsCacheManager.addThumbnailToCache(cacheKey, bitmap, file.storagePath, pxW, pxH)
         file.isUpdateThumbnailNeeded = false
 
         return thumbnail
@@ -193,19 +192,6 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
         null
     }
 
-    private fun withCachedVideoOverlay(file: OCFile, bitmap: Bitmap, sourceKey: String): Bitmap {
-        if (!MimeTypeUtil.isVideo(file)) {
-            return bitmap
-        }
-
-        val overlayKey = videoOverlayKey(sourceKey)
-        ThumbnailMemoryCache.get(overlayKey)?.let { return it }
-
-        return ThumbnailsCacheManager.addVideoOverlay(bitmap, MainApp.getAppContext()).also {
-            ThumbnailMemoryCache.put(overlayKey, it)
-        }
-    }
-
     private suspend fun setThumbnail(
         bitmap: Bitmap,
         file: OCFile,
@@ -214,17 +200,8 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
     ) = withContext(Dispatchers.Main) {
         val tagId = file.fileId.toString()
 
-        if (imageView.tag.toString() == tagId) {
-            if (file.isPNG()) {
-                imageView.setBackgroundColor(
-                    ContextCompat.getColor(MainApp.getAppContext(), R.color.bg_default)
-                )
-            }
-
-            if (imageView.isAttachedToWindow) {
-                imageView.scaleType = ImageView.ScaleType.CENTER_CROP
-                imageView.setImageBitmap(bitmap)
-            }
+        if (imageView.tag.toString() == tagId && imageView.isAttachedToWindow) {
+            imageView.setMediaThumbnail(file, bitmap)
         }
 
         listener.onSuccess()
