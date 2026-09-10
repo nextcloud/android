@@ -31,10 +31,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.utils.extensions.getGalleryItemsPageSuspended
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.extensions.isLandscape
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.extensions.toGalleryItems
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
@@ -62,7 +64,6 @@ import kotlinx.coroutines.withContext
 class GalleryFragment :
     OCFileListFragment(),
     GalleryFragmentBottomSheetActions {
-    var isPhotoSearchQueryRunning: Boolean = false
     private var photoSearchTask: Job? = null
     private var showGalleryJob: Job? = null
     private var endDate: Long = 0
@@ -72,6 +73,12 @@ class GalleryFragment :
     private var adapter: GalleryAdapter? = null
 
     private var bottomSheet: GalleryFragmentBottomSheetDialog? = null
+
+    private var paginationState: GalleryPaginationState = GalleryPaginationState.IDLE
+        set(value) {
+            field = value
+            updatePaginationLoader()
+        }
 
     override var columnsCount: Int = 0
         private set
@@ -209,6 +216,10 @@ class GalleryFragment :
             (recyclerView as EmptyRecyclerView).setHasFooter(false)
         }
 
+        binding?.paginationProgress?.let {
+            viewThemeUtils.platform.colorCircularProgressBar(it, ColorRole.PRIMARY)
+        }
+
         val layoutManager = GridLayoutManager(context, 1)
         adapter?.setLayoutManager(layoutManager)
         recyclerView?.run {
@@ -227,6 +238,7 @@ class GalleryFragment :
 
     override fun onRefresh() {
         super.onRefresh()
+        paginationState = GalleryPaginationState.IDLE
         handleSearchEvent()
     }
 
@@ -263,19 +275,30 @@ class GalleryFragment :
     }
 
     private fun searchAndDisplay() {
-        if (!isPhotoSearchQueryRunning && endDate <= 0) {
+        if (paginationState == GalleryPaginationState.LOADING || endDate > 0) {
             // fix an issue when the method is called after loading the gallery and pressing play on a movie
             // to avoid reloading, check if endDate has already a value which is not -1 or 0
-            endDate = System.currentTimeMillis() / 1000
-            isPhotoSearchQueryRunning = true
-            runGallerySearchTask()
+            return
         }
+
+        endDate = System.currentTimeMillis() / 1000
+        runGallerySearchTask()
+    }
+
+    private fun updatePaginationLoader() {
+        val loader = binding?.paginationLoader ?: return
+        val isLoadingNextPage = paginationState == GalleryPaginationState.LOADING && adapter?.isEmpty() == false
+        loader.setVisibleIf(isLoadingNextPage)
     }
 
     fun searchCompleted(result: GallerySearchTask.Result) {
         if (!isAdded) return
 
-        this.isPhotoSearchQueryRunning = false
+        paginationState = when {
+            result.resultCode != RemoteOperationResult.ResultCode.OK -> GalleryPaginationState.FAILED
+            result.emptySearch -> GalleryPaginationState.COMPLETED
+            else -> GalleryPaginationState.IDLE
+        }
 
         if (result.resultCode == RemoteOperationResult.ResultCode.OUT_OF_MEMORY) {
             setEmptyListMessage(EmptyListState.OUT_OF_MEMORY)
@@ -320,11 +343,11 @@ class GalleryFragment :
 
     private fun searchAndDisplayAfterChangingFolder() {
         // TODO: Fix folder change, it seems it doesn't work at all
+        paginationState = GalleryPaginationState.IDLE
         loadedItemCount = INITIAL_GALLERY_WINDOW
         restoreScrollPending = false
         clearSavedViewState()
         endDate = System.currentTimeMillis() / 1000
-        isPhotoSearchQueryRunning = true
         runGallerySearchTask()
     }
 
@@ -333,6 +356,8 @@ class GalleryFragment :
             Log_OC.w(TAG, "container activity is null, can't run search task")
             return
         }
+
+        paginationState = GalleryPaginationState.LOADING
 
         photoSearchTask = GallerySearchTask(
             this,
@@ -344,8 +369,8 @@ class GalleryFragment :
     }
 
     private fun loadMoreWhenEndReached(recyclerView: RecyclerView, dy: Int) {
-        if (dy <= 0 || isPhotoSearchQueryRunning) {
-// scrolling up or search query already active, do not search gallery
+        if (dy <= 0 || paginationState != GalleryPaginationState.IDLE) {
+// scrolling up, a page is already loading, or there is nothing left to load
             return
         }
 
@@ -372,7 +397,6 @@ class GalleryFragment :
                 Log_OC.d(this, "Gallery swipe: retrieve items to check the chronology")
             }
 
-            this.isPhotoSearchQueryRunning = true
             runGallerySearchTask()
             // no more files in the gallery, retrieve the next ones
         } else if ((totalItemCount - visibleItemCount) <= (lastVisibleItem + MAX_ITEMS_PER_ROW) &&
@@ -386,12 +410,12 @@ class GalleryFragment :
             endDate = lastItemTimestamp
             loadedItemCount += GALLERY_WINDOW_INCREMENT
             showAllGalleryItems()
-            isPhotoSearchQueryRunning = true
             runGallerySearchTask()
         }
     }
 
     override fun updateMediaContent(mediaState: MediaState) {
+        paginationState = GalleryPaginationState.IDLE
         loadedItemCount = INITIAL_GALLERY_WINDOW
         restoreScrollPending = false
         clearSavedViewState()
