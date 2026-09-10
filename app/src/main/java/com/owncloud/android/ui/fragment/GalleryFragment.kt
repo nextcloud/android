@@ -74,7 +74,7 @@ class GalleryFragment :
 
     private var bottomSheet: GalleryFragmentBottomSheetDialog? = null
 
-    private var paginationState: GalleryPaginationState = GalleryPaginationState.IDLE
+    private var isLoadingNextPage = false
         set(value) {
             field = value
             updatePaginationLoader()
@@ -159,6 +159,7 @@ class GalleryFragment :
     override fun onPause() {
         super.onPause()
         photoSearchTask?.cancel()
+        isLoadingNextPage = false
         savedScrollState = recyclerView?.layoutManager?.onSaveInstanceState()
         savedLoadedItemCount = loadedItemCount
         savedMediaState = bottomSheet?.currMediaState
@@ -238,7 +239,7 @@ class GalleryFragment :
 
     override fun onRefresh() {
         super.onRefresh()
-        paginationState = GalleryPaginationState.IDLE
+        isLoadingNextPage = false
         handleSearchEvent()
     }
 
@@ -275,7 +276,7 @@ class GalleryFragment :
     }
 
     private fun searchAndDisplay() {
-        if (paginationState == GalleryPaginationState.LOADING || endDate > 0) {
+        if (isLoadingNextPage || endDate > 0) {
             // fix an issue when the method is called after loading the gallery and pressing play on a movie
             // to avoid reloading, check if endDate has already a value which is not -1 or 0
             return
@@ -287,18 +288,13 @@ class GalleryFragment :
 
     private fun updatePaginationLoader() {
         val loader = binding?.paginationLoader ?: return
-        val isLoadingNextPage = paginationState == GalleryPaginationState.LOADING && adapter?.isEmpty() == false
-        loader.setVisibleIf(isLoadingNextPage)
+        loader.setVisibleIf(isLoadingNextPage && adapter?.isEmpty() == false)
     }
 
     fun searchCompleted(result: GallerySearchTask.Result) {
         if (!isAdded) return
 
-        paginationState = when {
-            result.resultCode != RemoteOperationResult.ResultCode.OK -> GalleryPaginationState.FAILED
-            result.emptySearch -> GalleryPaginationState.COMPLETED
-            else -> GalleryPaginationState.IDLE
-        }
+        isLoadingNextPage = false
 
         if (result.resultCode == RemoteOperationResult.ResultCode.OUT_OF_MEMORY) {
             setEmptyListMessage(EmptyListState.OUT_OF_MEMORY)
@@ -343,7 +339,7 @@ class GalleryFragment :
 
     private fun searchAndDisplayAfterChangingFolder() {
         // TODO: Fix folder change, it seems it doesn't work at all
-        paginationState = GalleryPaginationState.IDLE
+        isLoadingNextPage = false
         loadedItemCount = INITIAL_GALLERY_WINDOW
         restoreScrollPending = false
         clearSavedViewState()
@@ -357,7 +353,7 @@ class GalleryFragment :
             return
         }
 
-        paginationState = GalleryPaginationState.LOADING
+        isLoadingNextPage = true
 
         photoSearchTask = GallerySearchTask(
             this,
@@ -369,8 +365,8 @@ class GalleryFragment :
     }
 
     private fun loadMoreWhenEndReached(recyclerView: RecyclerView, dy: Int) {
-        if (dy <= 0 || paginationState != GalleryPaginationState.IDLE) {
-            // scrolling up, a page is already loading, or there is nothing left to load
+        if (dy <= 0 || isLoadingNextPage) {
+            // scrolling up or search query already active, do not search gallery
             return
         }
 
@@ -415,7 +411,7 @@ class GalleryFragment :
     }
 
     override fun updateMediaContent(mediaState: MediaState) {
-        paginationState = GalleryPaginationState.IDLE
+        isLoadingNextPage = false
         loadedItemCount = INITIAL_GALLERY_WINDOW
         restoreScrollPending = false
         clearSavedViewState()
