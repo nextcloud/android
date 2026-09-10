@@ -1,0 +1,13 @@
+## 35.0.0 RC2 (September 09, 2026)
+
+- New media player
+- New sharing UI for Nextcloud 35
+- Faster file listing
+- Manual Sync now button for auto-upload when device is in power saver mode
+- Auto upload improvements
+- End-to-end encryption improvements
+- Bugfixes and performance improvements
+
+Minimum: NC 22 Server, Android 9 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/130
