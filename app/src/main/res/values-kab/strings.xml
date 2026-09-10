@@ -538,16 +538,6 @@
     <string name="maintenance_mode">Aqeddac atan deg uskar n ibeddi useggam</string>
     <string name="manage_space_clear_data">Sfeḍ isefka</string>
     <string name="manage_space_title">Sefrek tallunt</string>
-    <string name="media_err_io">Ulamek taɣuri n ufaylu umidya</string>
-    <string name="media_err_malformed">Afaylu amidya yesɛa asettengel d arameɣtu</string>
-    <string name="media_err_timeout">Aneɛruḍ n tɣuṛi n ufaylu yeǧǧa-t wakud</string>
-    <string name="media_err_unsupported">Akudak n umidya ur yettwasefrak ara</string>
-    <string name="media_notif_ticker">%1$s imeɣri n uẓawan</string>
-    <string name="media_play_pause_description">Taqeffalt n tɣuṛi neɣ usarǧu</string>
-    <string name="media_player_pause">Aḥbas</string>
-    <string name="media_player_play">Urar</string>
-    <string name="media_rewind_description">Taqeffalt n tuɣalin </string>
-    <string name="media_state_playing">%1$s (taɣuṛi)</string>
     <string name="menu_item_sort_by_date_newest_first">Imaynuten d imezwura</string>
     <string name="menu_item_sort_by_date_oldest_first">Iqbuṛen d imezwura</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>

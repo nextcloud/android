@@ -23,14 +23,11 @@ fun UploadResult.isNonRetryable(): Boolean = when (this) {
     UploadResult.QUOTA_EXCEEDED,
     UploadResult.PRIVILEGES_ERROR,
 
-    // most cases covered and mapped from RemoteOperationResult. Most likely UploadResult.UNKNOWN this error will
-    // occur again
-    UploadResult.UNKNOWN,
-
     // user's choice
     UploadResult.CANCELLED -> true
 
-    // everything else may succeed after retry
+    // Everything else may succeed after retry. UNKNOWN in particular must stay retryable: it is the catch-all for
+    // unmapped transport failures
     else -> false
 }
 

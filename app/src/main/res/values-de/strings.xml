@@ -684,23 +684,7 @@
     <string name="manage_space_description">Einstellungen, Datenbank und Serverzertifikate von %1$s\'s Daten werden dauerhaft gelöscht.\n\nHerunter geladene Dateien bleiben unangetastet.\n\nDieser Vorgang kann eine Zeit dauern.</string>
     <string name="manage_space_title">Verwalte Speicherplatz</string>
     <string name="manage_tags">Schlagworte verwalten</string>
-    <string name="media_err_invalid_progressive_playback">Die Mediendatei kann nicht gestreamt werden</string>
-    <string name="media_err_io">Die Mediendatei konnte nicht gelesen werden</string>
-    <string name="media_err_malformed">Mediendatei ist nicht korrekt encodiert</string>
-    <string name="media_err_timeout">Wartezeit beim Abspielversuch abgelaufen</string>
-    <string name="media_err_unknown">Der interne Player kann die Mediendatei nicht abspielen</string>
-    <string name="media_err_unsupported">Medien-Codec wird nicht unterstützt</string>
-    <string name="media_forward_description">Vorspulknopf</string>
-    <string name="media_notif_ticker">%1$s Musik Player</string>
     <string name="media_picker_toolbar_title">Mediendateien auswählen</string>
-    <string name="media_play_pause_description">Wiedergabe-/Pause Knopf</string>
-    <string name="media_player_pause">Pausieren</string>
-    <string name="media_player_play">Spielen</string>
-    <string name="media_player_playing">Medien abspielen</string>
-    <string name="media_player_seek_backward">Rückwärts suchen</string>
-    <string name="media_player_seek_forward">Vorwärts suchen</string>
-    <string name="media_rewind_description">Rückspulknopf</string>
-    <string name="media_state_playing">%1$s (wird abgespielt)</string>
     <string name="menu_item_sort_by_date_newest_first">Neue zuerst</string>
     <string name="menu_item_sort_by_date_oldest_first">Älteste zuerst</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -795,9 +779,15 @@
     <string name="picture_set_as_no_app">Keine App gefunden, mit der ein Bid gesetzt werden könnte</string>
     <string name="pin_home">An Startbildschirm anheften</string>
     <string name="pin_shortcut_label">%1$s öffnen</string>
+    <string name="player_audio_title_with_artist">%1$s • %2$s</string>
+    <string name="player_control_view_next_button_content_description">Nächste Schaltfläche</string>
+    <string name="player_control_view_play_pause_button_content_description">Wiedergabe-/Pause Schaltfläche</string>
+    <string name="player_control_view_previous_button_content_description">Vorherige Schaltfläche</string>
+    <string name="player_control_view_random_button_content_description">Zufällige Schaltfläche</string>
+    <string name="player_control_view_repeat_button_content_description">Schaltfläche wiederholen</string>
+    <string name="player_error_source_not_found">Quelle nicht gefunden</string>
+    <string name="player_last_modified">Geändert: %s</string>
     <string name="player_media_controls_close_action_title">Schließen</string>
-    <string name="player_stop">Stopp</string>
-    <string name="player_toggle">Umschalten</string>
     <string name="please_select_a_server">Bitte einen Server auswählen …</string>
     <string name="power_save_check_dialog_message">Bei deaktiviertem Energiesparmodus werden Daten auch bei niedrigem Batterieladezustand hochgeladen.</string>
     <string name="pref_behaviour_entries_delete_file">gelöscht</string>
@@ -1073,7 +1063,6 @@
     <string name="store_short_dev_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle (Vorab- Entwicklungsversion)</string>
     <string name="stream">Streamen mit …</string>
     <string name="stream_not_possible_headline">Internes Streamen nicht möglich</string>
-    <string name="stream_not_possible_message">Laden Sie sich den Inhalt herunter oder nutzen Sie eine externe App.</string>
     <string name="sub_folder_rule_day">Jahr/Monat/Tag</string>
     <string name="sub_folder_rule_month">Jahr/Monat</string>
     <string name="sub_folder_rule_year">Jahr</string>
@@ -1417,4 +1406,8 @@
         <item quantity="one">%1$d verbleibender Download</item>
         <item quantity="other">%1$d verbleibende Downloads</item>
     </plurals>
-    </resources>
+    <plurals name="export_start">
+        <item quantity="one">Export gestartet (%d Datei)</item>
+        <item quantity="other">Exportieren gestartet (%d Dateien)</item>
+    </plurals>
+</resources>

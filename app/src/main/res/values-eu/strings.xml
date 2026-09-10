@@ -551,19 +551,6 @@
     <string name="manage_space_description">%1$s(r)en ezarpenak, datu-basea eta zerbitzariaren ziurtagiriak betirako ezabatuko dira.\n\n Deskargatutako fitxategiak ez dira ukituko.\n\n Prozesu honek denbora behar du.</string>
     <string name="manage_space_title">Kudeatu lekua</string>
     <string name="manage_tags">Kudeatu etiketak</string>
-    <string name="media_err_invalid_progressive_playback">Ezin da multimedia fitxategia transmititu</string>
-    <string name="media_err_io">Ezin izan da multimedia fitxategia irakurri</string>
-    <string name="media_err_malformed">Multimedia fitxategiak kodeketa desegokia du</string>
-    <string name="media_err_timeout">Fitxategia erreproduzitzeko denbora-muga gainditu da</string>
-    <string name="media_err_unknown">Multimedia erreproduzitzaile integratuak ezin du multimedia fitxategia erreproduzitu</string>
-    <string name="media_err_unsupported">Onartzen ez den multimedia kodeka</string>
-    <string name="media_forward_description">Bizkor aurreratu botoia</string>
-    <string name="media_notif_ticker">%1$s musika erreproduzigailua</string>
-    <string name="media_play_pause_description">Erreproduzitu edo pausatu botoia</string>
-    <string name="media_player_pause">Gelditu</string>
-    <string name="media_player_play">Jokatu</string>
-    <string name="media_rewind_description">Birbobinatu botoia</string>
-    <string name="media_state_playing">%1$s (erreproduzitzen)</string>
     <string name="menu_item_sort_by_date_newest_first">Berriena lehenengo</string>
     <string name="menu_item_sort_by_date_oldest_first">Zaharrena lehenengo</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -648,8 +635,6 @@
     <string name="pin_home">Finkatu pantaila nagusian</string>
     <string name="pin_shortcut_label">Ireki %1$s</string>
     <string name="player_media_controls_close_action_title">Itxi</string>
-    <string name="player_stop">gelditu</string>
-    <string name="player_toggle">txandakatu</string>
     <string name="please_select_a_server">Hautatu zerbitzari bat...</string>
     <string name="power_save_check_dialog_message">Energia aurrezteko kontrola desgaituz gero, fitxategiak bateria baxu dagoenean igo litezke!</string>
     <string name="pref_behaviour_entries_delete_file">ezabatua</string>
@@ -898,7 +883,6 @@
     <string name="store_short_dev_desc">Kontrola zuri ematen dizun norberak ostatutako produktibitate plataforma (garapeneko aurrerapen bertsioa)</string>
     <string name="stream">Transmititu honekin...</string>
     <string name="stream_not_possible_headline">Barneko transmisioa ez da posible</string>
-    <string name="stream_not_possible_message">Bestela deskargatu multimedia edo erabili kanpoko aplikazio bat.</string>
     <string name="sub_folder_rule_day">Urtea/Hilabetea/Eguna</string>
     <string name="sub_folder_rule_month">Urtea/Hilabetea</string>
     <string name="sub_folder_rule_year">Urtea</string>

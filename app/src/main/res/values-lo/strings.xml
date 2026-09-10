@@ -579,19 +579,6 @@
     <string name="manage_space_description">ການຕັ້ງຄ່າ, ຖານຂໍ້ມູນ ແລະ ໃບຢັ້ງຢືນເຊີເວີຈາກຂໍ້ມູນ %1$s\'s ຈະຖືກລຶບອອກຢ່າງຖາວອນ. \n\nຟາຍທີ່ຖືກໂຫຼດບໍ່ໄດ້ເກັບຮັກສາໄວ້.\n\nຂະບວນການນີ້ຈະໃຊ້ເວລາໄລຍະຫນຶ່ງ.</string>
     <string name="manage_space_title">ຈັດການພື້ນທີ່</string>
     <string name="manage_tags">ຈັດການປ້າຍກຳກັບ</string>
-    <string name="media_err_invalid_progressive_playback">The media file cannot be streamed</string>
-    <string name="media_err_io">ບໍ່ສາມາດອ່ານຟາຍສື່ມວນຊົນໄດ້</string>
-    <string name="media_err_malformed">ຟາຍສື່ມວນຊົນມີ ການ ເຂົ້າລະຫັດບໍ່ຖືກຕ້ອງ</string>
-    <string name="media_err_timeout">ການເຂົ້າຟາຍໝົດເວລາ</string>
-    <string name="media_err_unknown">ແອັບສື່ມວນຊົນບໍ່ ສາມາດຫຼິ້ນໄດ້</string>
-    <string name="media_err_unsupported">ລະຫັດສື່ມວນຊົນທີ່ບໍ່ໄດ້ຮັບການສະຫນັບສະຫນູນ</string>
-    <string name="media_forward_description">ປຸ່ມກົດໄປຂ້າງຫນ້າ</string>
-    <string name="media_notif_ticker">ເຄື່ອງຫຼິ້ນເພງ%1$s</string>
-    <string name="media_play_pause_description">ປຸ່ມ ຫຼິ້ນ ຫຼື ຢຸດ</string>
-    <string name="media_player_pause">Pause</string>
-    <string name="media_player_play">Play</string>
-    <string name="media_rewind_description">ປຸຸ່ມກັບຄືນ</string>
-    <string name="media_state_playing"> (ຫຼິ້ນ)%1$s</string>
     <string name="menu_item_sort_by_date_newest_first">ໃໝ່ທີ່ສຸດກ່ອນ</string>
     <string name="menu_item_sort_by_date_oldest_first">ເກົ່າທີສຸດກ່ອນ</string>
     <string name="menu_item_sort_by_name_a_z">A-Z</string>
@@ -686,8 +673,6 @@
     <string name="pin_home">Pin to home screen</string>
     <string name="pin_shortcut_label">ເປີດ %1$s</string>
     <string name="player_media_controls_close_action_title">ປິດ</string>
-    <string name="player_stop">ຢຸດ</string>
-    <string name="player_toggle">ສະລັບ</string>
     <string name="please_select_a_server">Please select a server…</string>
     <string name="power_save_check_dialog_message">ການກວດກາການປະຢັດພະລັງງານອາດຈະສົ່ງຜົນໃນອັບໂຫຼດຟາຍເມື່ອແບັດເຕີຣີຕ່ໍາ!</string>
     <string name="pref_behaviour_entries_delete_file">ລຶບແລ້ວ</string>
@@ -944,7 +929,6 @@
     <string name="store_short_dev_desc">ປະສິດພາບການເຮັດວຽກຂອງ ຟາດຟອມ ທີ່ເຮັດໜ້າທີ່ດ້ວຍໂຕມັນເອງ ແລະ ທ່ານຄຸ້ມຄອງໄດ້ (ເວີຊັ້ນຕົວຢ່າງ)</string>
     <string name="stream">ກະຈາຍດ້ວຍ</string>
     <string name="stream_not_possible_headline">ບໍ່ສາມາດກະຈາຍພາຍໃນໄດ້</string>
-    <string name="stream_not_possible_message">ກະລຸນາດາວໂຫລດສື່ມວນຊົນແທນ ຫຼື ໃຊ້ແອັບພາຍນອກ</string>
     <string name="sub_folder_rule_day">Year/Month/Day</string>
     <string name="sub_folder_rule_month">Year/Month</string>
     <string name="sub_folder_rule_year">ປີ</string>

@@ -601,19 +601,6 @@
     <string name="manage_space_description">Mipangilio, hifadhidata na vyeti vya seva kutoka kwa data ya %1$s vitafutwa kabisa. \n\nFaili zilizopakuliwa zitawekwa bila kuguswa.\n\nMchakato huu unaweza kuchukua muda.</string>
     <string name="manage_space_title">Dhibiti nafasi</string>
     <string name="manage_tags">Dhibiti lebo</string>
-    <string name="media_err_invalid_progressive_playback">Faili ya midia haiwezi kutiririshwa</string>
-    <string name="media_err_io">Haikuweza kusoma faili ya midia</string>
-    <string name="media_err_malformed">Faili ya midia ina usimbaji usio sahihi</string>
-    <string name="media_err_timeout">Jaribio la kucheza faili limeisha</string>
-    <string name="media_err_unknown">Kicheza media kilichojengewa ndani hakiwezi kucheza faili ya midia</string>
-    <string name="media_err_unsupported">Kodeki ya midia isiyotumika</string>
-    <string name="media_forward_description">Kitufe cha kusonga mbele kwa kasi</string>
-    <string name="media_notif_ticker">%1$s kicheza muziki</string>
-    <string name="media_play_pause_description">Kitufe cha kucheza au kusitisha</string>
-    <string name="media_player_pause">Sitisha</string>
-    <string name="media_player_play">Cheza</string>
-    <string name="media_rewind_description">Kitufe cha kurudi nyuma</string>
-    <string name="media_state_playing">%1$s (inacheza)</string>
     <string name="menu_item_sort_by_date_newest_first">Mpya kwanza</string>
     <string name="menu_item_sort_by_date_oldest_first">Ya zamani kwanza</string>
     <string name="menu_item_sort_by_name_a_z">A mpaka Z</string>
@@ -709,8 +696,6 @@
     <string name="pin_home">Bandika kwenye skrini ya nyumbani</string>
     <string name="pin_shortcut_label">Fungua %1$s</string>
     <string name="player_media_controls_close_action_title">Funga</string>
-    <string name="player_stop">acha</string>
-    <string name="player_toggle">geuza</string>
     <string name="please_select_a_server">Tafadhali chagua seva...</string>
     <string name="power_save_check_dialog_message">Kuzima hundi ya kuokoa nishati kunaweza kusababisha kupakia faili zikiwa katika hali ya chini ya betri!</string>
     <string name="pref_behaviour_entries_delete_file">imefutwa</string>
@@ -975,7 +960,6 @@
     <string name="store_short_dev_desc">Jukwaa la tija linalojipangisha mwenyewe ambalo hukuweka katika udhibiti (toleo la onyesho la kukagua dev)</string>
     <string name="stream">Tiririsha kwa...</string>
     <string name="stream_not_possible_headline">Utiririshaji wa ndani hauwezekani</string>
-    <string name="stream_not_possible_message">Tafadhali pakua midia badala yake au utumie programu ya nje.</string>
     <string name="sub_folder_rule_day">Mwaka/Mwezi/Siku</string>
     <string name="sub_folder_rule_month">Mwaka/Mwezi</string>
     <string name="sub_folder_rule_year">Mwaka</string>

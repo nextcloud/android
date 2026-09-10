@@ -556,19 +556,6 @@
 قد تستغرق هذه العملية بعض الوقت.</string>
     <string name="manage_space_title">إدارة المساحة</string>
     <string name="manage_tags">إدارة الوسوم</string>
-    <string name="media_err_invalid_progressive_playback">ملف الوسائط لا يمكن بثه</string>
-    <string name="media_err_io">تعذرت قراءة ملف الوسائط</string>
-    <string name="media_err_malformed">يحتوي ملف الوسائط على ترميز غير صحيح</string>
-    <string name="media_err_timeout">انتهت مهلة محاولة تشغيل الملف</string>
-    <string name="media_err_unknown">مشغل الوسائط المضمن غير قادر على تشغيل ملف الوسائط</string>
-    <string name="media_err_unsupported">ترميز غير مدعّم</string>
-    <string name="media_forward_description">زر التقدم للأمام</string>
-    <string name="media_notif_ticker">مشغل الموسيقى %1$s</string>
-    <string name="media_play_pause_description">زر التشغيل أو الإيقاف</string>
-    <string name="media_player_pause">إيقاف</string>
-    <string name="media_player_play">تشغيل</string>
-    <string name="media_rewind_description">زر الترجيع</string>
-    <string name="media_state_playing">%1$s  (يتم التشغيل)</string>
     <string name="menu_item_sort_by_date_newest_first">الأحدث أولا</string>
     <string name="menu_item_sort_by_date_oldest_first">الأقدم أولا</string>
     <string name="menu_item_sort_by_name_a_z">أ - ى</string>
@@ -654,8 +641,6 @@
     <string name="pin_home">ثبِّت في الشاشة الرئيسية</string>
     <string name="pin_shortcut_label">فتح %1$s</string>
     <string name="player_media_controls_close_action_title">إغلاق</string>
-    <string name="player_stop">إيقاف</string>
-    <string name="player_toggle">تبديل</string>
     <string name="please_select_a_server">من فضلك، قم بتحديد الخادم...</string>
     <string name="power_save_check_dialog_message">قد يؤدي تعطيل فحص حفظ الطاقة إلى تحميل الملفات عندما تكون حالة البطارية منخفضة!</string>
     <string name="pref_behaviour_entries_delete_file">خذفت</string>
@@ -902,7 +887,6 @@
     <string name="store_short_dev_desc">منصة إنتاجية ذاتية الاستضافة تبقيك متحكمًا (نسخة المطوريين)</string>
     <string name="stream">بث بإستخدام…</string>
     <string name="stream_not_possible_headline">البث الداخلي غير ممكن</string>
-    <string name="stream_not_possible_message">يرجى تنزيل الوسائط بدلاً من ذلك أو استخدام تطبيق خارجي.</string>
     <string name="sub_folder_rule_day">سنة/شهر/يوم</string>
     <string name="sub_folder_rule_month">سنة/شهر</string>
     <string name="sub_folder_rule_year">السنة</string>

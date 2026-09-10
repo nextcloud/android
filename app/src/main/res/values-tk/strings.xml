@@ -353,16 +353,6 @@
     <string name="manage_space_clear_data">Maglumatlary arassala</string>
     <string name="manage_space_description">Sazlamalar, maglumatlar binýady we serwer şahadatnamalary %1$shemişelik ýok ediler. \n\n Ýüklenen faýllar elýeterli bolmaz. \n\n Bu amal birneme wagt alyp biler.</string>
     <string name="manage_space_title">Boş ýeri dolandyryň</string>
-    <string name="media_err_io">Media faýly okap bolmady</string>
-    <string name="media_err_malformed">Media faýlynda nädogry kodlama bar</string>
-    <string name="media_err_timeout">Faýl oýnamak synanyşygy gutardy</string>
-    <string name="media_err_unknown">Gurlan media pleýer media faýlyny oýnap bilmeýär</string>
-    <string name="media_err_unsupported">Media kodek goldanmaýar</string>
-    <string name="media_forward_description">Çalt öňe sürmek düwmesi</string>
-    <string name="media_notif_ticker">%1$saýdym-saz pleýer</string>
-    <string name="media_play_pause_description">Oýna ýa-da duruzmak düwmesi</string>
-    <string name="media_rewind_description">Yza gaýtarmak düwmesi</string>
-    <string name="media_state_playing">%1$s(oýnamak)</string>
     <string name="menu_item_sort_by_date_newest_first">Ilki bilen iň täze</string>
     <string name="menu_item_sort_by_date_oldest_first">Ilki bilen iň köne</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -422,8 +412,6 @@
     <string name="permission_deny">inkär et</string>
     <string name="picture_set_as_no_app">Surat goýmak üçin hiç bir programma tapylmady</string>
     <string name="player_media_controls_close_action_title">Ýap</string>
-    <string name="player_stop">Dur</string>
-    <string name="player_toggle">üýtgetmek</string>
     <string name="power_save_check_dialog_message">Kuwwat tygşytlaýyş barlagyny öçürmek, batareýanyň pes ýagdaýynda faýl ýüklemegine sebäp bolup biler!</string>
     <string name="pref_behaviour_entries_delete_file">Pozuldy</string>
     <string name="pref_behaviour_entries_keep_file">Asyl bukjada saklanýar</string>
@@ -593,7 +581,6 @@
     <string name="store_short_dev_desc">Sizi gözegçilikde saklaýan, öndürijiligi ýokarlandyrmak üçin öz-özüni dolandyrýan platforma (deslapky wersiýa)</string>
     <string name="stream">Bilen akym…</string>
     <string name="stream_not_possible_headline">Içerki akym mümkin däl</string>
-    <string name="stream_not_possible_message">Munuň ýerine mediýa göçürip alyň ýa-da daşarky programmany ulanyň.</string>
     <string name="subject_shared_with_you">\"%1$s\" siziň bilen paýlaşyldy</string>
     <string name="subject_user_shared_with_you">Siziň bilen %1$spaýlaşdy%2$s</string>
     <string name="sync">Sinhronlamak</string>

@@ -684,23 +684,7 @@
     <string name="manage_space_description">Settings, database and server certificates from %1$s\'s data will be deleted permanently. \n\nDownloaded files will be kept untouched.\n\nThis process can take a while.</string>
     <string name="manage_space_title">Manage space</string>
     <string name="manage_tags">Manage tags</string>
-    <string name="media_err_invalid_progressive_playback">The media file cannot be streamed</string>
-    <string name="media_err_io">Could not read the media file</string>
-    <string name="media_err_malformed">The media file has incorrect encoding</string>
-    <string name="media_err_timeout">Attempt to play file timed out</string>
-    <string name="media_err_unknown">The built-in media player is unable to play the media file</string>
-    <string name="media_err_unsupported">Unsupported media codec</string>
-    <string name="media_forward_description">Fast-forward button</string>
-    <string name="media_notif_ticker">%1$s music player</string>
     <string name="media_picker_toolbar_title">Pick media files</string>
-    <string name="media_play_pause_description">Play or pause button</string>
-    <string name="media_player_pause">Pause</string>
-    <string name="media_player_play">Play</string>
-    <string name="media_player_playing">Playing media</string>
-    <string name="media_player_seek_backward">Seek backward</string>
-    <string name="media_player_seek_forward">Seek forward</string>
-    <string name="media_rewind_description">Rewind button</string>
-    <string name="media_state_playing">%1$s (playing)</string>
     <string name="menu_item_sort_by_date_newest_first">Newest first</string>
     <string name="menu_item_sort_by_date_oldest_first">Oldest first</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -795,9 +779,15 @@
     <string name="picture_set_as_no_app">No app found to set a picture with</string>
     <string name="pin_home">Pin to home screen</string>
     <string name="pin_shortcut_label">Open %1$s</string>
+    <string name="player_audio_title_with_artist">%1$s • %2$s</string>
+    <string name="player_control_view_next_button_content_description">Next button</string>
+    <string name="player_control_view_play_pause_button_content_description">Play/Pause button</string>
+    <string name="player_control_view_previous_button_content_description">Previous button</string>
+    <string name="player_control_view_random_button_content_description">Random button</string>
+    <string name="player_control_view_repeat_button_content_description">Repeat button</string>
+    <string name="player_error_source_not_found">Source not found</string>
+    <string name="player_last_modified">Modified: %s</string>
     <string name="player_media_controls_close_action_title">Close</string>
-    <string name="player_stop">stop</string>
-    <string name="player_toggle">toggle</string>
     <string name="please_select_a_server">Please select a server…</string>
     <string name="power_save_check_dialog_message">Disabling power save check might result in uploading files when in low battery state!</string>
     <string name="pref_behaviour_entries_delete_file">deleted</string>
@@ -1073,7 +1063,6 @@
     <string name="store_short_dev_desc">The self-hosted productivity platform that keeps you in control (dev preview version)</string>
     <string name="stream">Stream with…</string>
     <string name="stream_not_possible_headline">Internal streaming not possible</string>
-    <string name="stream_not_possible_message">Please download media instead or use external app.</string>
     <string name="sub_folder_rule_day">Year/Month/Day</string>
     <string name="sub_folder_rule_month">Year/Month</string>
     <string name="sub_folder_rule_year">Year</string>
@@ -1417,4 +1406,8 @@
         <item quantity="one">%1$d download remaining</item>
         <item quantity="other">%1$d downloads remaining</item>
     </plurals>
-    </resources>
+    <plurals name="export_start">
+        <item quantity="one">Export started (%d file)</item>
+        <item quantity="other">Exports started (%d files)</item>
+    </plurals>
+</resources>

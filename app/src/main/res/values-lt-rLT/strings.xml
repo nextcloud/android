@@ -632,23 +632,6 @@
     <string name="manage_space_description">Nustatymai, duomenų bazė ir serverio sertifikatai iš %1$s duomenų bus ištrinti negrįžtamai. \n\nAtsisiųsti failai bus išsaugoti.\n\nŠis procesas gali užtrukti.</string>
     <string name="manage_space_title">Tvarkyti vietą</string>
     <string name="manage_tags">Tvarkyti žymas</string>
-    <string name="media_err_invalid_progressive_playback">Medijos failas negali būti transliuojamas</string>
-    <string name="media_err_io">Nepavyko perskaityti medijos failo.
-</string>
-    <string name="media_err_malformed">Medijos failas yra nepalaikomos koduotės.</string>
-    <string name="media_err_timeout">Baigėsi laukimo laikas bandant paleisti</string>
-    <string name="media_err_unknown">Įtaisytąjai medijos leistuvei nepavyko atkurti medijos failo</string>
-    <string name="media_err_unsupported">Nepalaikomas kodekas</string>
-    <string name="media_forward_description">Prasukimo mygtukas</string>
-    <string name="media_notif_ticker">%1$s muzikos grotuvas</string>
-    <string name="media_play_pause_description">Grojimo arba pauzės mygtukas</string>
-    <string name="media_player_pause">Pristabdyti</string>
-    <string name="media_player_play">Groti</string>
-    <string name="media_player_playing">Leidžiama medija</string>
-    <string name="media_player_seek_backward">Ieškokite atgal</string>
-    <string name="media_player_seek_forward">Ieškokite į priekį</string>
-    <string name="media_rewind_description">Atsukimo mygtukas</string>
-    <string name="media_state_playing">%1$s (atkuriama)</string>
     <string name="menu_item_sort_by_date_newest_first">Naujausi pirma</string>
     <string name="menu_item_sort_by_date_oldest_first">Seniausi pirma</string>
     <string name="menu_item_sort_by_name_a_z">A - Ž</string>
@@ -744,8 +727,6 @@
     <string name="pin_home">Prisegti prie Pradžios ekrano</string>
     <string name="pin_shortcut_label">Atverti %1$s</string>
     <string name="player_media_controls_close_action_title">Užverti</string>
-    <string name="player_stop">stabdyti</string>
-    <string name="player_toggle">perjungti</string>
     <string name="please_select_a_server">Pasirinkite serverį…</string>
     <string name="power_save_check_dialog_message">Išjungtas energijos taupymo tikrinimas gali įtakoti failų įkėlimą, kai akumuliatoriaus energija yra maža!</string>
     <string name="pref_behaviour_entries_delete_file">Ištrintas</string>
@@ -1020,7 +1001,6 @@
     <string name="store_short_dev_desc">Savarankiškai talpinama produktyvumo platforma, kurioje galite kontroliuoti savo darbą (dev versija)</string>
     <string name="stream">Transliuoti naudojant…</string>
     <string name="stream_not_possible_headline">Nepavyko paleisti naudojant vidinį grotuvą</string>
-    <string name="stream_not_possible_message">Prašome, parsisiųskite mediją arba naudokite išorinę programėlę.</string>
     <string name="sub_folder_rule_day">Metai/Mėnesis/Diena</string>
     <string name="sub_folder_rule_month">Metai/Mėnesis</string>
     <string name="sub_folder_rule_year">Metai</string>

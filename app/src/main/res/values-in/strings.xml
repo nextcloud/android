@@ -53,6 +53,7 @@
     <string name="assistant_screen_empty_content_description">Coba kirim pesan untuk memulai percakapan.</string>
     <string name="assistant_screen_empty_content_title">Halo! Apa yang bisa saya bantu hari ini?</string>
     <string name="assistant_screen_retry_response_generation">Coba lagi pembuatan respons</string>
+    <string name="assistant_screen_send_message">Kirim pesan</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Buka daftar percakapan</string>
     <string name="assistant_screen_task_create_fail_message">Terjadi kesalahan saat membuat tugas</string>
     <string name="assistant_screen_task_create_success_message">Tugas dibuat</string>
@@ -64,6 +65,7 @@
     <string name="assistant_task_detail_screen_input_button_title">Input</string>
     <string name="assistant_task_detail_screen_output_button_title">Output</string>
     <string name="assistant_task_status_failed">gagal</string>
+    <string name="assistant_task_status_running">berjalan</string>
     <string name="assistant_task_status_unknown">tidak diketahui</string>
     <string name="assistant_thinking">Sedang memikir …</string>
     <string name="associated_account_not_found">Akun terkait tidak ditemukan!</string>
@@ -214,6 +216,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="contacts_preferences_no_file_found">Tidak ada berkas ditemukan.</string>
     <string name="contacts_preferences_something_strange_happened">Tidak dapat menemukan pencadangan terakhir kamu!</string>
     <string name="conversation_screen_delete_button_title">Hapus percakapan</string>
+    <string name="conversation_screen_empty_content_title">Tidak ada percakapan yang ditemukan</string>
     <string name="conversation_screen_empty_conversation_list_title">Belum ada percakapan</string>
     <string name="conversation_screen_title">Percakapan</string>
     <string name="copied">Tersalin</string>
@@ -576,19 +579,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="manage_space_description">Pengaturan, database dan sertifikat server dari data %1$s akan dihapus secara permanen. \n\nBerkas terunduh akan tetap terjaga.\n\nProses ini dapat memakan waktu lama.</string>
     <string name="manage_space_title">Kelola ruang</string>
     <string name="manage_tags">Kelola tag</string>
-    <string name="media_err_invalid_progressive_playback">File media tidak dapat di-stream</string>
-    <string name="media_err_io">Tidak dapat membaca berkas media</string>
-    <string name="media_err_malformed">Berkas media tidak di encoding dengan benar</string>
-    <string name="media_err_timeout">Waktu habis saat mencoba untuk main</string>
-    <string name="media_err_unknown">Berkas media tidak dapat diputar dengan pemutar media yang ada</string>
-    <string name="media_err_unsupported">Kodek media tidak didukung</string>
-    <string name="media_forward_description">Tombol maju</string>
-    <string name="media_notif_ticker">Pemutar musik %1$s</string>
-    <string name="media_play_pause_description">Tombol main dan jeda</string>
-    <string name="media_player_pause">Jeda</string>
-    <string name="media_player_play">Putar</string>
-    <string name="media_rewind_description">Tombol mundur</string>
-    <string name="media_state_playing">%1$s (dimainkan)</string>
     <string name="menu_item_sort_by_date_newest_first">Terbaru</string>
     <string name="menu_item_sort_by_date_oldest_first">Paling lama</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -681,8 +671,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="pin_home">Sematkan ke tampilan beranda</string>
     <string name="pin_shortcut_label">Buka %1$s</string>
     <string name="player_media_controls_close_action_title">Tutup</string>
-    <string name="player_stop">hentikan</string>
-    <string name="player_toggle">alihkan</string>
     <string name="please_select_a_server">Silahkan pilih server...</string>
     <string name="power_save_check_dialog_message">Menonaktifkan pemeriksaan penghematan daya dapat mengakibatkan pengunggahan berkas dalam keadaan baterai rendah!</string>
     <string name="pref_behaviour_entries_delete_file">terhapus</string>
@@ -944,7 +932,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="store_short_dev_desc">Platform produktivitas mandiri yang memberi Anda kendali penuh (versi dev preview)</string>
     <string name="stream">Stream menggunakan…</string>
     <string name="stream_not_possible_headline">Streaming internal tidak memungkinkan</string>
-    <string name="stream_not_possible_message">Silakan unduh media atau gunakan aplikasi eksternal.</string>
     <string name="sub_folder_rule_day">Tahun/Bulan/Hari</string>
     <string name="sub_folder_rule_month">Tahun/Bulan</string>
     <string name="sub_folder_rule_year">Tahun</string>
@@ -1217,6 +1204,9 @@ Berikut ini adalah daftar berkas lokal, dan berkas jarak jauh di %5$s yang terhu
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="other">%d dipilih</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_users">
+        <item quantity="other">%d pengguna</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="other">%1$d unduhan tersisa</item>
