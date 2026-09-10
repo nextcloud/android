@@ -76,6 +76,10 @@ class GalleryFragment :
 
     private var isLoadingNextPage = false
         set(value) {
+            if (field == value) {
+                return
+            }
+
             field = value
             updatePaginationLoader()
         }
