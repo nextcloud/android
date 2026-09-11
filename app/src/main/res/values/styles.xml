@@ -531,12 +531,18 @@
         <item name="android:textColor">@color/player_default_text_color</item>
     </style>
 
-    <style name="PlayerToolbarIconButtonStyle" parent="Widget.Material3Expressive.Button.IconButton">
-        <item name="materialThemeOverlay">@style/ThemeOverlay.Material3Expressive.Button.IconButton.Standard</item>
-        <item name="materialSizeOverlay">@style/SizeOverlay.Material3Expressive.Button.IconButton.Small</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="iconTint">@color/player_toolbar_icon_color</item>
+    <style name="PlayerToolbarStyle" parent="Widget.Material3.Toolbar.OnSurface">
+        <item name="android:theme">@style/ThemeOverlay.App.Player.Toolbar</item>
+        <item name="titleTextAppearance">@style/TextAppearance.App.Player.Toolbar</item>
+        <item name="titleTextColor">@color/player_toolbar_text_color</item>
+        <item name="navigationIconTint">@color/player_toolbar_icon_color</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Player.Toolbar" parent="">
+        <item name="colorControlNormal">@color/player_toolbar_icon_color</item>
+        <item name="colorOnSurface">@color/player_toolbar_text_color</item>
+        <item name="colorOnSurfaceVariant">@color/player_toolbar_icon_color</item>
     </style>
 
     <style name="TextAppearance.App.Player.AudioTitle" parent="TextAppearance.Material3.TitleMedium">

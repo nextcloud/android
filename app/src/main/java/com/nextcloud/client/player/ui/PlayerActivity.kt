@@ -12,7 +12,6 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.media.AudioManager
 import android.os.Bundle
-import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
@@ -104,8 +103,7 @@ class PlayerActivity :
             PlaybackFileType.AUDIO -> AudioPlayerView(this)
             PlaybackFileType.VIDEO -> VideoPlayerView(this)
         }
-        val moreButton = playerView.findViewById<View>(R.id.more)
-        moreButton.setOnClickListener { viewModel.onMoreButtonClick() }
+        playerView.onMoreClick = { viewModel.onMoreButtonClick() }
         setContentView(playerView)
     }
 

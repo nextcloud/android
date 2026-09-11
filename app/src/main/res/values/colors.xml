@@ -98,5 +98,6 @@
     <color name="player_toolbar_icon_color">@color/white</color>
     <color name="player_video_toolbar_background_color">#21000000</color>
     <color name="player_video_control_view_background_color">#21000000</color>
+    <color name="player_video_scrim_color">#B3000000</color>
     <color name="player_progressbar_background_color">#979797</color>
 </resources>
