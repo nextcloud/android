@@ -82,7 +82,7 @@ jobs:
         run: |
           sudo apt-get -y install qrencode
           qrencoded=$(qrencode -t UTF8i "$ARTIFACT_URL")
-          echo "qr=$qrencoded" >> "$GITHUB_OUTPUT"
+          echo "qr=\"$qrencoded\"" >> "$GITHUB_OUTPUT"
       - name: Comment PR
         if: ${{ steps.check-secrets.outputs.ok == 'true' }}
         uses: thollander/actions-comment-pull-request@e4a76dd2b0a3c2027c3fd84147a67c22ee4c90fa
