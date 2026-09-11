@@ -19,6 +19,7 @@ import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.flowWithLifecycle
+import com.nextcloud.android.common.ui.color.ColorUtil
 import com.nextcloud.client.player.media3.PlaybackModel
 import com.nextcloud.client.player.model.state.PlaybackItemState
 import com.nextcloud.client.player.model.state.PlaybackState
@@ -29,7 +30,6 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.PlayerControlViewBinding
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import dagger.android.HasAndroidInjector
-import dynamiccolor.DynamicScheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
@@ -65,18 +65,21 @@ class PlayerControlView @JvmOverloads constructor(
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
 
+    @Inject
+    lateinit var colorUtil: ColorUtil
+
     private val seekPositionFlow = MutableSharedFlow<Int>(extraBufferCapacity = 1)
     private var viewScope: CoroutineScope? = null
 
     val binding = PlayerControlViewBinding.inflate(LayoutInflater.from(context), this, true)
 
-    private val darkScheme: DynamicScheme by lazy {
-        DynamicScheme.from(viewThemeUtils.getScheme(context), true)
+    private val serverPrimaryColor: Int by lazy { viewThemeUtils.getScheme(context).sourceColorArgb }
+
+    private val serverPrimaryTint: ColorStateList by lazy { ColorStateList.valueOf(serverPrimaryColor) }
+
+    private val onServerPrimaryTint: ColorStateList by lazy {
+        ColorStateList.valueOf(colorUtil.getForegroundColorForBackgroundColor(serverPrimaryColor))
     }
-
-    private val accentTint: ColorStateList by lazy { ColorStateList.valueOf(darkScheme.primary) }
-
-    private val onAccentTint: ColorStateList by lazy { ColorStateList.valueOf(darkScheme.onPrimary) }
 
     private val transportIconTint: ColorStateList? by lazy {
         ContextCompat.getColorStateList(context, R.color.player_control_icon_tint)
@@ -85,7 +88,7 @@ class PlayerControlView @JvmOverloads constructor(
     private val toggleIconTint: ColorStateList by lazy {
         ColorStateList(
             arrayOf(intArrayOf(android.R.attr.state_checked), intArrayOf()),
-            intArrayOf(darkScheme.primary, ContextCompat.getColor(context, R.color.player_default_icon_color))
+            intArrayOf(serverPrimaryColor, ContextCompat.getColor(context, R.color.player_default_icon_color))
         )
     }
 
@@ -148,11 +151,11 @@ class PlayerControlView @JvmOverloads constructor(
             ivNext.iconTint = transportIconTint
             ivRepeat.iconTint = toggleIconTint
             ivRandom.iconTint = toggleIconTint
-            ivPlayPause.backgroundTintList = accentTint
-            ivPlayPause.iconTint = onAccentTint
+            ivPlayPause.backgroundTintList = serverPrimaryTint
+            ivPlayPause.iconTint = onServerPrimaryTint
 
-            slider.trackActiveTintList = accentTint
-            slider.thumbTintList = accentTint
+            slider.trackActiveTintList = serverPrimaryTint
+            slider.thumbTintList = serverPrimaryTint
             slider.setLabelFormatter { formatTime(it.toInt(), slider.valueTo.toInt()) }
         }
     }
