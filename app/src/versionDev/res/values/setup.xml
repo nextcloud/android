@@ -19,7 +19,7 @@
     <string name="document_provider_authority">eu.xeniacloud.files.beta.documents</string>
     <string name="file_provider_authority">eu.xeniacloud.files.beta.fileprovider</string>
     <string name="image_cache_provider_authority">eu.xeniacloud.files.beta.imageCache.provider</string>
-    <string name="default_display_name_for_root_folder">Nextcloud Dev</string>
+    <string name="default_display_name_for_root_folder">XeniaCloud Dev</string>
     
     <bool name="logger_enabled">true</bool>
     <string name="dev_changelog">https://github.com/nextcloud/android/commits/master</string>
