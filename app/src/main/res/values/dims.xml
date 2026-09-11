@@ -26,6 +26,10 @@
     <dimen name="file_icon_rounded_corner_radius_for_grid_mode">3dp</dimen>
     <integer name="file_avatar_px">512</integer>
     <dimen name="drawer_content_horizontal_padding">28dp</dimen>
+    <dimen name="pagination_loader_corner_radius">24dp</dimen>
+    <dimen name="pagination_loader_elevation">4dp</dimen>
+    <dimen name="pagination_loader_indicator_size">24dp</dimen>
+    <dimen name="pagination_loader_track_thickness">3dp</dimen>
     <dimen name="standard_padding">16dp</dimen>
     <dimen name="card_corner_radius">12dp</dimen>
     <dimen name="standard_double_padding">32dp</dimen>

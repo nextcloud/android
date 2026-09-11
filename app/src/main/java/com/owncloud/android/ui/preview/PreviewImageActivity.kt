@@ -162,7 +162,10 @@ class PreviewImageActivity :
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
 
-        initializeContent(intent)
+        // every later read goes through getIntent(), so the selection of the new intent would be lost otherwise
+        intent?.let { setIntent(it) }
+
+        initializeContent()
     }
 
     override fun downloadFile(file: OCFile, packageName: String, activityName: String) {
@@ -320,47 +323,61 @@ class PreviewImageActivity :
     public override fun onStart() {
         super.onStart()
         registerReceivers()
-        initializeContent(intent)
+        initializeContent()
     }
 
-    private fun initializeContent(newIntent: Intent?) {
-        val intent = newIntent ?: intent
-        livePhotoFile = intent.getParcelableArgument(EXTRA_LIVE_PHOTO_FILE, OCFile::class.java)
-
-        val chosenFile = intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
-
+    private fun initializeContent() {
         val optionalUser = user
         if (!optionalUser.isPresent) {
             finish()
             return
         }
 
-        var file: OCFile? = chosenFile ?: file ?: throw IllegalStateException("Instanced with a NULL OCFile")
-        // updateActionBarTitle(file?.fileName)
-        // / Validate handled file (first media item to preview)
-        require(MimeTypeUtil.isImageOrVideo(file)) { "Non-image/video file passed as argument" }
+        livePhotoFile = intent.getParcelableArgument(EXTRA_LIVE_PHOTO_FILE, OCFile::class.java)
 
-        // Update file according to DB file, if it is possible
-        if (file!!.fileId > FileDataStorageManager.ROOT_PARENT_ID) {
-            file = storageManager.getFileById(file.fileId)
-        }
+        val chosenFile = intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
+        val requestedFile = chosenFile ?: file ?: throw IllegalStateException("Instanced with a NULL OCFile")
+        require(MimeTypeUtil.isImageOrVideo(requestedFile)) { "Non-image/video file passed as argument" }
 
-        if (file != null) {
-            // / Refresh the activity according to the Account and OCFile set
-            setFile(file) // reset after getting it fresh from storageManager
-            updateActionBarTitle(getFile()?.fileName)
-            if (previewMediaPagerAdapter == null || previewMediaPagerAdapter?.getFilePosition(file) == -1) {
-                savedPosition = null
-                initViewPager(optionalUser.get())
-            } else {
-                previewMediaPagerAdapter?.getFilePosition(file)?.let {
-                    viewPager?.currentItem = it
-                }
-            }
-        } else {
+        val currentFile = requestedFile.refreshedFromDatabase()
+        if (currentFile == null) {
             // handled file not in the current Account
             finish()
+            return
         }
+
+        val isNewSelection = currentFile != file
+
+        setFile(currentFile)
+        showFile(currentFile, optionalUser.get(), isNewSelection)
+    }
+
+    private fun OCFile.refreshedFromDatabase(): OCFile? = if (fileId > FileDataStorageManager.ROOT_PARENT_ID) {
+        storageManager.getFileById(fileId)
+    } else {
+        this
+    }
+
+    private fun showFile(file: OCFile, user: User, isNewSelection: Boolean) {
+        val position = previewMediaPagerAdapter?.getFilePosition(file) ?: NO_POSITION
+        val pagerNeedsRebuild = position == NO_POSITION
+
+        // a restart must not pull the user back to the file the activity was started with
+        if (!pagerNeedsRebuild && !isNewSelection) {
+            return
+        }
+
+        updateActionBarTitle(file.fileName)
+
+        if (pagerNeedsRebuild) {
+            savedPosition = null
+            initViewPager(user)
+            return
+        }
+
+        // a rebuilt pager restores the remembered position, so it has to follow the selection right away
+        savedPosition = position
+        viewPager?.setCurrentItem(position, false)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
