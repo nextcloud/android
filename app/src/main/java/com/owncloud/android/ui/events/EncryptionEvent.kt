@@ -26,7 +26,7 @@ class EncryptionEvent(val localId: Long, val remoteId: String, val remotePath: S
                 }
 
                 E2EEKeyCheck.ONLY_ON_SERVER, E2EEKeyCheck.MISSING_EVERYWHERE -> {
-                    fragment.showEncryptionDialog(remotePath)
+                    fragment.showEncryptionDialog(remotePath, E2EEAction.ENCRYPT)
                 }
 
                 E2EEKeyCheck.ONLY_ON_DEVICE, E2EEKeyCheck.DIFFERS_FROM_SERVER -> {
