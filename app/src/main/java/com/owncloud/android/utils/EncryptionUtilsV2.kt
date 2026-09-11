@@ -193,7 +193,7 @@ class EncryptionUtilsV2 {
             )
         } else {
             // Top folder
-            val encryptedUser = metadataFile.users.find { it.userId == userId }
+            val encryptedUser = metadataFile.users?.find { it.userId == userId }
                 ?: throw IllegalStateException("Cannot find current user in metadata")
 
             val decryptedMetadataKey = decryptMetadataKey(encryptedUser, privateKey)
