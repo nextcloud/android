@@ -8,14 +8,12 @@
 package com.nextcloud.client.player.ui.control
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.os.Build
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.WindowInsets
 import android.widget.LinearLayout
-import android.widget.SeekBar
-import android.widget.SeekBar.OnSeekBarChangeListener
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.Lifecycle
@@ -31,6 +29,7 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.PlayerControlViewBinding
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import dagger.android.HasAndroidInjector
+import dynamiccolor.DynamicScheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
@@ -44,13 +43,6 @@ import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 
 private const val INDETERMINATE_TIME = "--:--"
-private const val TAG_CLICK_COMMAND_PLAY = "TAG_CLICK_COMMAND_PLAY"
-private const val TAG_CLICK_COMMAND_PAUSE = "TAG_CLICK_COMMAND_PAUSE"
-private const val TAG_CLICK_COMMAND_REPEAT = "TAG_CLICK_COMMAND_REPEAT"
-private const val TAG_CLICK_COMMAND_DO_NOT_REPEAT = "TAG_CLICK_COMMAND_DO_NOT_REPEAT"
-private const val TAG_CLICK_COMMAND_SHUFFLE = "TAG_CLICK_COMMAND_SHUFFLE"
-private const val TAG_CLICK_COMMAND_DO_NOT_SHUFFLE = "TAG_CLICK_COMMAND_DO_NOT_SHUFFLE"
-private const val TAG_CLICK_COMMAND_UNKNOWN = "TAG_CLICK_COMMAND_UNKNOWN"
 
 private const val PROGRESS_CHANGE_DEBOUNCE_MS = 200L
 private const val DEFAULT_MIN_PROGRESS = 0
@@ -73,18 +65,39 @@ class PlayerControlView @JvmOverloads constructor(
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
 
-    private val seekBarProgressChangeFlow = MutableSharedFlow<Int>(extraBufferCapacity = 1)
+    private val seekPositionFlow = MutableSharedFlow<Int>(extraBufferCapacity = 1)
     private var viewScope: CoroutineScope? = null
 
     val binding = PlayerControlViewBinding.inflate(LayoutInflater.from(context), this, true)
+
+    // The panel always sits on the dark player background, so the scheme has to be the dark one
+    // regardless of the system theme: the light scheme resolves the server color to a low tone
+    // that is unreadable here.
+    private val darkScheme: DynamicScheme by lazy {
+        DynamicScheme.from(viewThemeUtils.getScheme(context), true)
+    }
+
+    private val accentTint: ColorStateList by lazy { ColorStateList.valueOf(darkScheme.primary) }
+
+    private val onAccentTint: ColorStateList by lazy { ColorStateList.valueOf(darkScheme.onPrimary) }
+
+    private val transportIconTint: ColorStateList? by lazy {
+        ContextCompat.getColorStateList(context, R.color.player_control_icon_tint)
+    }
+
+    private val toggleIconTint: ColorStateList by lazy {
+        ColorStateList(
+            arrayOf(intArrayOf(android.R.attr.state_checked), intArrayOf()),
+            intArrayOf(darkScheme.primary, ContextCompat.getColor(context, R.color.player_default_icon_color))
+        )
+    }
 
     var navigator: MediaNavigator? = null
 
     init {
         if (!isInEditMode) {
             (context.applicationContext as HasAndroidInjector).androidInjector().inject(this)
-            setDefaultTags()
-            themeButton()
+            themeControls()
             setListeners()
         }
     }
@@ -93,7 +106,7 @@ class PlayerControlView @JvmOverloads constructor(
         super.onAttachedToWindow()
         if (!isInEditMode) {
             viewScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
-            collectSeekBarChanges()
+            collectSeekPositions()
         }
     }
 
@@ -132,71 +145,66 @@ class PlayerControlView @JvmOverloads constructor(
         render(state)
     }
 
-    private fun setDefaultTags() {
-        binding.ivPlayPause.tag = TAG_CLICK_COMMAND_UNKNOWN
-        binding.ivRandom.tag = TAG_CLICK_COMMAND_UNKNOWN
-        binding.ivRepeat.tag = TAG_CLICK_COMMAND_UNKNOWN
+    private fun themeControls() {
+        binding.run {
+            ivPrevious.iconTint = transportIconTint
+            ivNext.iconTint = transportIconTint
+            ivRepeat.iconTint = toggleIconTint
+            ivRandom.iconTint = toggleIconTint
+            ivPlayPause.backgroundTintList = accentTint
+            ivPlayPause.iconTint = onAccentTint
+
+            slider.trackActiveTintList = accentTint
+            slider.thumbTintList = accentTint
+            slider.setLabelFormatter { formatTime(it.toInt(), slider.valueTo.toInt()) }
+        }
     }
 
     private fun setListeners() {
         binding.ivPlayPause.setOnClickListener {
-            when (binding.ivPlayPause.tag) {
-                TAG_CLICK_COMMAND_PLAY -> playbackModel.play()
-                TAG_CLICK_COMMAND_PAUSE -> playbackModel.pause()
+            if (binding.ivPlayPause.isChecked) {
+                playbackModel.play()
+            } else {
+                playbackModel.pause()
             }
         }
 
+        // The model renders back synchronously, which resets the button that was just toggled, so the
+        // state the tap asked for has to be read before the first call into the model.
         binding.ivRepeat.setOnClickListener {
+            val repeatSingle = binding.ivRepeat.isChecked
+
             // Repeat and Random are mutually exclusive
             playbackModel.setShuffle(false)
 
-            when (binding.ivRepeat.tag) {
-                TAG_CLICK_COMMAND_REPEAT -> playbackModel.setRepeatMode(RepeatMode.SINGLE)
-                TAG_CLICK_COMMAND_DO_NOT_REPEAT -> playbackModel.setRepeatMode(RepeatMode.ALL)
-            }
+            playbackModel.setRepeatMode(if (repeatSingle) RepeatMode.SINGLE else RepeatMode.ALL)
         }
 
         binding.ivRandom.setOnClickListener {
+            val shuffle = binding.ivRandom.isChecked
+
             // Repeat and Random are mutually exclusive
             playbackModel.setRepeatMode(RepeatMode.OFF)
 
-            playbackModel.setShuffle(binding.ivRandom.tag == TAG_CLICK_COMMAND_SHUFFLE)
+            playbackModel.setShuffle(shuffle)
         }
 
         binding.ivNext.setOnClickListener { navigator?.showNext() }
 
         binding.ivPrevious.setOnClickListener { navigator?.showPrevious() }
 
-        binding.progressBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                if (fromUser) {
-                    seekBarProgressChangeFlow.tryEmit(progress)
-                }
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) = Unit
-        })
-    }
-
-    private fun themeButton() {
-        viewThemeUtils.material.run {
-            binding.run {
-                colorMaterialButtonContent(ivRepeat)
-                colorMaterialButtonContent(ivPrevious)
-                colorMaterialButtonContent(ivPlayPause)
-                colorMaterialButtonContent(ivNext)
-                colorMaterialButtonContent(ivRandom)
+        binding.slider.addOnChangeListener { _, value, fromUser ->
+            if (fromUser) {
+                seekPositionFlow.tryEmit(value.toInt())
             }
         }
     }
 
     @OptIn(FlowPreview::class)
-    private fun collectSeekBarChanges() {
+    private fun collectSeekPositions() {
         val viewScope = viewScope ?: return
         val lifecycleOwner = (context as? LifecycleOwner) ?: return
-        seekBarProgressChangeFlow
+        seekPositionFlow
             .debounce(PROGRESS_CHANGE_DEBOUNCE_MS.milliseconds)
             .flowWithLifecycle(lifecycleOwner.lifecycle, Lifecycle.State.STARTED)
             .onEach { playbackModel.seekToPosition(it.toLong()) }
@@ -204,63 +212,34 @@ class PlayerControlView @JvmOverloads constructor(
     }
 
     private fun render(playbackState: PlaybackState) {
-        renderRepeatButton(playbackState.repeatMode == RepeatMode.SINGLE)
-        renderShuffleButton(playbackState.shuffle)
-        renderPlayPauseButton(playbackState.currentItemState?.playerState == PlayerState.PLAYING)
-        renderNextPreviousButtons()
-        renderProgressBar(playbackState.currentItemState)
-    }
-
-    private fun renderRepeatButton(repeatSingle: Boolean) {
-        binding.ivRepeat.iconTint = ContextCompat.getColorStateList(
-            binding.root.context,
-            if (repeatSingle) {
-                R.color.player_accent_color
-            } else {
-                R.color.player_default_icon_color
-            }
-        )
-        binding.ivRepeat.tag = if (repeatSingle) TAG_CLICK_COMMAND_DO_NOT_REPEAT else TAG_CLICK_COMMAND_REPEAT
-    }
-
-    private fun renderShuffleButton(shuffle: Boolean) {
-        binding.ivRandom.iconTint = ContextCompat.getColorStateList(
-            binding.root.context,
-            if (shuffle) {
-                R.color.player_accent_color
-            } else {
-                R.color.player_default_icon_color
-            }
-        )
-        binding.ivRandom.tag = if (shuffle) TAG_CLICK_COMMAND_DO_NOT_SHUFFLE else TAG_CLICK_COMMAND_SHUFFLE
-    }
-
-    private fun renderPlayPauseButton(isPlaying: Boolean) {
-        binding.ivPlayPause.icon = AppCompatResources.getDrawable(
-            binding.root.context,
-            if (isPlaying) {
-                R.drawable.player_ic_pause
-            } else {
-                R.drawable.player_ic_play
-            }
-        )
-        binding.ivPlayPause.tag = if (isPlaying) TAG_CLICK_COMMAND_PAUSE else TAG_CLICK_COMMAND_PLAY
-    }
-
-    private fun renderNextPreviousButtons() {
+        binding.ivRepeat.isChecked = playbackState.repeatMode == RepeatMode.SINGLE
+        binding.ivRandom.isChecked = playbackState.shuffle
+        binding.ivPlayPause.isChecked = playbackState.currentItemState?.playerState == PlayerState.PLAYING
         binding.ivNext.isEnabled = navigator?.hasNext == true
         binding.ivPrevious.isEnabled = navigator?.hasPrevious == true
+        renderProgress(playbackState.currentItemState)
     }
 
-    private fun renderProgressBar(playbackItemState: PlaybackItemState?) {
+    private fun renderProgress(playbackItemState: PlaybackItemState?) {
         val enabled = playbackItemState != null && playbackItemState.maxTimeInMilliseconds > DEFAULT_MIN_PROGRESS
         val max = if (enabled) playbackItemState.maxTimeInMilliseconds.toInt() else DEFAULT_MAX_PROGRESS
         val progress = if (enabled) playbackItemState.currentTimeInMilliseconds.toInt() else DEFAULT_MIN_PROGRESS
-        binding.progressBar.isEnabled = enabled
-        binding.progressBar.max = max
-        binding.progressBar.progress = progress
+        binding.slider.isEnabled = enabled
+        moveSliderTo(max.toFloat(), progress.toFloat())
         binding.tvElapsed.text = if (enabled) formatTime(progress, max) else INDETERMINATE_TIME
         binding.tvTotalTime.text = if (enabled) formatTime(max, max) else INDETERMINATE_TIME
+    }
+
+    // Slider rejects a value outside its range, so the value has to leave the old range before
+    // valueTo can shrink below it.
+    private fun moveSliderTo(valueTo: Float, value: Float) {
+        binding.slider.run {
+            if (this.valueTo != valueTo) {
+                this.value = valueFrom
+                this.valueTo = valueTo
+            }
+            this.value = value.coerceIn(valueFrom, this.valueTo)
+        }
     }
 
     private fun formatTime(current: Int, max: Int): String {
