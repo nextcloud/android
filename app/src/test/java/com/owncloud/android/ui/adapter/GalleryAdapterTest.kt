@@ -100,11 +100,11 @@ class GalleryAdapterTest {
         val list = listOf(
             GalleryItems(
                 1649317247,
-                listOf(GalleryRow(listOf(OCFile("/1.md"), OCFile("/2.md")), thumbnailSize, thumbnailSize))
+                listOf(GalleryRow(listOf(OCFile("/1.md"), OCFile("/2.md")), emptyList()))
             ),
             GalleryItems(
                 1649317248,
-                listOf(GalleryRow(listOf(OCFile("/1.md"), OCFile("/2.md")), thumbnailSize, thumbnailSize))
+                listOf(GalleryRow(listOf(OCFile("/1.md"), OCFile("/2.md")), emptyList()))
             )
         )
 
@@ -147,8 +147,7 @@ class GalleryAdapterTest {
                         parentId = 0
                     }
                 ),
-                thumbnailSize,
-                thumbnailSize
+                emptyList()
             )
         )
         rows.add(
@@ -163,8 +162,7 @@ class GalleryAdapterTest {
                         parentId = 0
                     }
                 ),
-                thumbnailSize,
-                thumbnailSize
+                emptyList()
             )
         )
         val alreadyUsedFileIds = listOf(row1File1, row1File2, row2File1, row2File2)
@@ -183,8 +181,7 @@ class GalleryAdapterTest {
                         OCFile("/$id1.md").apply { fileId = id1 },
                         OCFile("/$id2.md").apply { fileId = id2 }
                     ),
-                    thumbnailSize,
-                    thumbnailSize
+                    emptyList()
                 )
             )
         }

@@ -19,7 +19,6 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
@@ -39,10 +38,10 @@ import android.widget.ImageView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.BitmapExtensionsKt;
-import com.nextcloud.utils.thumbnail.ThumbnailMemoryCache;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.nextcloud.utils.extensions.OwnCloudClientExtensionsKt;
+import com.nextcloud.utils.thumbnail.VideoOverlayGenerator;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -58,7 +57,6 @@ import com.owncloud.android.ui.adapter.DiskLruImageCache;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.BitmapUtils;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -229,10 +227,6 @@ public final class ThumbnailsCacheManager {
 
         List<String> keys = FileExtensionsKt.getThumbnailKeys(file);
 
-        for (String key : keys) {
-            ThumbnailMemoryCache.INSTANCE.remove(key);
-        }
-
         synchronized (mThumbnailsDiskCacheLock) {
             if (mThumbnailCache == null) {
                 return;
@@ -275,7 +269,6 @@ public final class ThumbnailsCacheManager {
             }
 
             mThumbnailCache.put(key, bitmap);
-            ThumbnailMemoryCache.INSTANCE.put(key, bitmap);
         }
     }
 
@@ -301,11 +294,6 @@ public final class ThumbnailsCacheManager {
     }
 
     public static Bitmap getBitmapFromDiskCache(String key) {
-        Bitmap fromMemory = ThumbnailMemoryCache.INSTANCE.get(key);
-        if (fromMemory != null) {
-            return fromMemory;
-        }
-
         synchronized (mThumbnailsDiskCacheLock) {
             // Wait while disk cache is started from background thread
             while (mThumbnailCacheStarting) {
@@ -316,11 +304,7 @@ public final class ThumbnailsCacheManager {
                 }
             }
             if (mThumbnailCache != null) {
-                Bitmap fromDisk = mThumbnailCache.getBitmap(key);
-                if (fromDisk != null) {
-                    ThumbnailMemoryCache.INSTANCE.put(key, fromDisk);
-                }
-                return fromDisk;
+                return mThumbnailCache.getBitmap(key);
             }
         }
         return null;
@@ -379,7 +363,7 @@ public final class ThumbnailsCacheManager {
                 thumbnail = doResizedImageInBackground(file, storageManager);
 
                 if (MimeTypeUtil.isVideo(file) && thumbnail != null) {
-                    thumbnail = addVideoOverlay(thumbnail, MainApp.getAppContext());
+                    thumbnail = VideoOverlayGenerator.addOverlay(thumbnail, MainApp.getAppContext());
                 }
 
             } catch (OutOfMemoryError oome) {
@@ -534,7 +518,7 @@ public final class ThumbnailsCacheManager {
                     thumbnail = doThumbnailFromOCFileInBackground();
 
                     if (MimeTypeUtil.isVideo((ServerFileInterface) mFile) && thumbnail != null && !hideVideoOverlay) {
-                        thumbnail = addVideoOverlay(thumbnail, MainApp.getAppContext());
+                        thumbnail = VideoOverlayGenerator.addOverlay(thumbnail, MainApp.getAppContext());
                     }
                 } else if (mFile instanceof File) {
                     thumbnail = doFileInBackground();
@@ -543,7 +527,7 @@ public final class ThumbnailsCacheManager {
                     String mMimeType = FileStorageUtils.getMimeTypeFromName(url);
 
                     if (MimeTypeUtil.isVideo(mMimeType) && thumbnail != null && !hideVideoOverlay) {
-                        thumbnail = addVideoOverlay(thumbnail, MainApp.getAppContext());
+                        thumbnail = VideoOverlayGenerator.addOverlay(thumbnail, MainApp.getAppContext());
                     }
                     //} else {  do nothing
                 }
@@ -1118,37 +1102,6 @@ public final class ThumbnailsCacheManager {
             }
         }
         return null;
-    }
-
-    public static Bitmap addVideoOverlay(Bitmap thumbnail, Context context) {
-
-        Drawable playButtonDrawable = ResourcesCompat.getDrawable(MainApp.getAppContext().getResources(),
-                                                                  R.drawable.video_white,
-                                                                  null);
-
-        int px = DisplayUtils.convertDpToPixel(24f, context);
-
-        Bitmap playButton = BitmapUtils.drawableToBitmap(playButtonDrawable, px, px);
-
-        Bitmap resizedPlayButton = Bitmap.createScaledBitmap(playButton, px, px, true);
-
-        Bitmap resultBitmap = Bitmap.createBitmap(thumbnail.getWidth(),
-                                                  thumbnail.getHeight(),
-                                                  Bitmap.Config.ARGB_8888);
-
-        Canvas c = new Canvas(resultBitmap);
-
-
-        c.drawBitmap(thumbnail, 0, 0, null);
-
-        float left = (thumbnail.getWidth() - px) / 2f;
-        float top = (thumbnail.getHeight() - px) / 2f;
-
-        Paint p = new Paint();
-        p.setAlpha(230);
-        c.drawBitmap(resizedPlayButton, left, top, p);
-
-        return resultBitmap;
     }
 
     public static class AsyncThumbnailDrawable extends BitmapDrawable {
