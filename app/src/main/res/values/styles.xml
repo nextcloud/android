@@ -519,38 +519,37 @@
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">end</item>
         <item name="android:gravity">center</item>
-        <item name="android:textColor">@color/player_default_text_color</item>
         <item name="android:textAppearance">@style/TextAppearance.App.Player.ProgressTime</item>
+        <item name="android:textColor">@color/player_default_text_color</item>
     </style>
 
     <style name="TextAppearance.App.Player.Toolbar" parent="TextAppearance.Material3.TitleLarge">
         <item name="android:textColor">@color/player_toolbar_text_color</item>
-        <item name="android:textSize">@dimen/player_toolbar_text_size</item>
     </style>
 
-    <style name="TextAppearance.App.Player.ProgressTime" parent="TextAppearance.Material3.BodyMedium">
+    <style name="TextAppearance.App.Player.ProgressTime" parent="TextAppearance.Material3.LabelLarge">
         <item name="android:textColor">@color/player_default_text_color</item>
-        <item name="android:textSize">@dimen/player_progress_time_text_size</item>
     </style>
 
-    <style name="PlayerToolbarIconButtonStyle" parent="@style/Widget.AppTheme.Button.IconButton">
+    <style name="PlayerToolbarIconButtonStyle" parent="Widget.Material3Expressive.Button.IconButton">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.Material3Expressive.Button.IconButton.Standard</item>
+        <item name="materialSizeOverlay">@style/SizeOverlay.Material3Expressive.Button.IconButton.Small</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="iconSize">@dimen/player_toolbar_icon_size</item>
         <item name="iconTint">@color/player_toolbar_icon_color</item>
     </style>
 
-    <style name="TextAppearance.App.Player.AudioTitle" parent="TextAppearance.Material3.BodyLarge">
+    <style name="TextAppearance.App.Player.AudioTitle" parent="TextAppearance.Material3.TitleMedium">
         <item name="android:textColor">@color/player_default_text_color</item>
-        <item name="android:textSize">@dimen/player_audio_title_text_size</item>
     </style>
 
     <style name="TextAppearance.App.Player.AudioFileDetails" parent="TextAppearance.Material3.BodySmall">
         <item name="android:textColor">@color/player_default_text_color</item>
-        <item name="android:textSize">@dimen/player_audio_file_details_text_size</item>
     </style>
 
     <style name="ShapeAppearance.App.Player.Media" parent="ShapeAppearance.Material3.Corner.None" />
+
+    <style name="ShapeAppearance.App.Player.AlbumCover" parent="ShapeAppearance.Material3.Corner.Large" />
 
     <style name="PlayerSliderStyle" parent="Widget.Material3.Slider">
         <item name="labelBehavior">gone</item>

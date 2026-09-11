@@ -18,8 +18,8 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/back"
         style="@style/PlayerToolbarIconButtonStyle"
-        android:layout_marginStart="@dimen/player_back_button_margin_start"
-        android:layout_marginEnd="@dimen/player_back_button_margin_end"
+        android:layout_marginStart="@dimen/player_toolbar_icon_margin_horizontal"
+        android:layout_marginEnd="@dimen/player_toolbar_title_margin_start"
         android:contentDescription="@string/common_back"
         app:icon="@drawable/ic_arrow_back" />
 
@@ -31,13 +31,15 @@
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:singleLine="true"
-        android:textColor="@color/player_toolbar_text_color"
         android:textAppearance="@style/TextAppearance.App.Player.Toolbar"
+        android:textColor="@color/player_toolbar_text_color"
         tools:text="Player title" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/more"
         style="@style/PlayerToolbarIconButtonStyle"
+        android:layout_marginStart="@dimen/player_toolbar_title_margin_start"
+        android:layout_marginEnd="@dimen/player_toolbar_icon_margin_horizontal"
         android:contentDescription="@string/overflow_menu"
         app:icon="@drawable/ic_dots_vertical" />
 
