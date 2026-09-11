@@ -6,7 +6,6 @@
   -->
 <resources>
     <dimen name="player_toolbar_height">64dp</dimen>
-    <dimen name="player_toolbar_icon_margin_horizontal">12dp</dimen>
     <dimen name="player_file_fragment_padding_horizontal">24dp</dimen>
     <dimen name="player_cover_margin_vertical">24dp</dimen>
     <dimen name="player_file_margin_bottom">48dp</dimen>

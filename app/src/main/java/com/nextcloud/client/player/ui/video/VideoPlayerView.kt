@@ -36,7 +36,7 @@ class VideoPlayerView(context: Context) : PlayerView(context) {
     private var hideControlsTimerJob: Job? = null
 
     init {
-        topBar.setBackgroundResource(R.color.player_video_toolbar_background_color)
+        topBar.setBackgroundResource(R.drawable.player_video_top_scrim)
     }
 
     override fun onStart() {
@@ -56,7 +56,7 @@ class VideoPlayerView(context: Context) : PlayerView(context) {
         val windowInsetsCompat = WindowInsetsCompat.toWindowInsetsCompat(windowInsets)
         val insets = windowInsetsCompat.getInsets(Type.systemBars() or Type.displayCutout())
 
-        topBar.setPadding(insets.left, insets.top, insets.right, 0)
+        applyTopBarInsets(insets)
         playerControlView.setPadding(insets.left, 0, insets.right, insets.bottom)
 
         windowWrapper.setupStatusBar(R.color.player_video_toolbar_background_color)

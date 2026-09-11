@@ -70,9 +70,6 @@ class PlayerControlView @JvmOverloads constructor(
 
     val binding = PlayerControlViewBinding.inflate(LayoutInflater.from(context), this, true)
 
-    // The panel always sits on the dark player background, so the scheme has to be the dark one
-    // regardless of the system theme: the light scheme resolves the server color to a low tone
-    // that is unreadable here.
     private val darkScheme: DynamicScheme by lazy {
         DynamicScheme.from(viewThemeUtils.getScheme(context), true)
     }
@@ -169,8 +166,6 @@ class PlayerControlView @JvmOverloads constructor(
             }
         }
 
-        // The model renders back synchronously, which resets the button that was just toggled, so the
-        // state the tap asked for has to be read before the first call into the model.
         binding.ivRepeat.setOnClickListener {
             val repeatSingle = binding.ivRepeat.isChecked
 
@@ -230,8 +225,6 @@ class PlayerControlView @JvmOverloads constructor(
         binding.tvTotalTime.text = if (enabled) formatTime(max, max) else INDETERMINATE_TIME
     }
 
-    // Slider rejects a value outside its range, so the value has to leave the old range before
-    // valueTo can shrink below it.
     private fun moveSliderTo(valueTo: Float, value: Float) {
         binding.slider.run {
             if (this.valueTo != valueTo) {

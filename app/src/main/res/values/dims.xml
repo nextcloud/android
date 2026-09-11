@@ -167,8 +167,6 @@
 
     <!-- Player -->
     <dimen name="player_toolbar_height">56dp</dimen>
-    <dimen name="player_toolbar_icon_margin_horizontal">4dp</dimen>
-    <dimen name="player_toolbar_title_margin_start">12dp</dimen>
     <dimen name="player_file_fragment_padding_horizontal">16dp</dimen>
     <dimen name="player_cover_margin_vertical">16dp</dimen>
     <dimen name="player_title_margin_bottom">8dp</dimen>

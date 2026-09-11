@@ -31,7 +31,7 @@ class AudioPlayerView(context: Context) : PlayerView(context) {
         val windowInsetsCompat = WindowInsetsCompat.toWindowInsetsCompat(windowInsets)
         val insets = windowInsetsCompat.getInsets(Type.systemBars() or Type.displayCutout())
 
-        topBar.setPadding(insets.left, insets.top, insets.right, 0)
+        applyTopBarInsets(insets)
         playerPager.setPadding(insets.left, 0, insets.right, 0)
         playerControlView.setPadding(insets.left, 0, insets.right, insets.bottom)
 
