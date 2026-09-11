@@ -11,6 +11,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.GradientDrawable
 import android.util.TypedValue
+import android.view.Gravity
 import android.view.View
 import android.view.ViewOutlineProvider
 import android.widget.ImageView
@@ -56,14 +57,21 @@ fun ImageView.setMediaThumbnail(file: OCFile, bitmap: Bitmap) {
         background = null
     }
 
-    foreground = if (MimeTypeUtil.isVideo(file)) {
-        ContextCompat.getDrawable(context, R.drawable.video_white)
-    } else {
-        null
-    }
+    applyVideoOverlay(file)
 
     setImageBitmap(bitmap)
     setTag(R.id.media_thumbnail_file_id, file.fileId)
+}
+
+private fun ImageView.applyVideoOverlay(file: OCFile) {
+    if (!MimeTypeUtil.isVideo(file)) {
+        foreground = null
+        return
+    }
+
+    // without a gravity the foreground is stretched over the whole cell, which distorts the icon
+    foregroundGravity = Gravity.CENTER
+    foreground = ContextCompat.getDrawable(context, R.drawable.video_white)
 }
 
 fun ImageView.showsMediaThumbnailOf(file: OCFile): Boolean = getTag(R.id.media_thumbnail_file_id) == file.fileId
