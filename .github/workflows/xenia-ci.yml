@@ -6,7 +6,9 @@ name: "XeniaCloud CI"
 on:
     workflow_dispatch:
     push:
-        branches: [ xenia-rebrand ]
+        branches: [ master ]
+    pull_request:
+        branches: [ master ]
 
 permissions: read-all
 
