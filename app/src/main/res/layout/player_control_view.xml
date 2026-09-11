@@ -26,13 +26,12 @@
             android:id="@+id/tvElapsed"
             style="@style/PlayerTimeTextViewStyle" />
 
-        <SeekBar
-            android:id="@+id/progressBar"
-            style="@style/PlayerSeekBarStyle"
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider"
+            style="@style/PlayerSliderStyle"
             android:layout_width="0dp"
-            android:layout_height="@dimen/player_progressbar_height"
-            android:layout_weight="1"
-            android:longClickable="false" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvTotalTime"
@@ -48,35 +47,47 @@
         android:gravity="center"
         android:orientation="horizontal">
 
+        <Space style="@style/PlayerControlSpacerStyle" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/ivRepeat"
-            style="@style/PlayerButtonStyle"
+            style="@style/PlayerControlToggleButtonStyle"
             android:contentDescription="@string/player_control_view_repeat_button_content_description"
             app:icon="@drawable/player_ic_repeat" />
 
+        <Space style="@style/PlayerControlSpacerStyle" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/ivPrevious"
-            style="@style/PlayerButtonStyle"
+            style="@style/PlayerControlButtonStyle"
             android:contentDescription="@string/player_control_view_previous_button_content_description"
             app:icon="@drawable/player_ic_skip_previous" />
 
+        <Space style="@style/PlayerControlSpacerStyle" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/ivPlayPause"
-            style="@style/PlayerButtonStyle"
+            style="@style/PlayerPlayPauseButtonStyle"
             android:contentDescription="@string/player_control_view_play_pause_button_content_description"
-            app:icon="@drawable/player_ic_play" />
+            app:icon="@drawable/player_ic_play_pause" />
+
+        <Space style="@style/PlayerControlSpacerStyle" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/ivNext"
-            style="@style/PlayerButtonStyle"
+            style="@style/PlayerControlButtonStyle"
             android:contentDescription="@string/player_control_view_next_button_content_description"
             app:icon="@drawable/player_ic_skip_next" />
 
+        <Space style="@style/PlayerControlSpacerStyle" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/ivRandom"
-            style="@style/PlayerButtonStyle"
+            style="@style/PlayerControlToggleButtonStyle"
             android:contentDescription="@string/player_control_view_random_button_content_description"
             app:icon="@drawable/player_ic_shuffle" />
+
+        <Space style="@style/PlayerControlSpacerStyle" />
 
     </LinearLayout>
 

@@ -21,6 +21,7 @@ import com.owncloud.android.R
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.milliseconds
 
 class VideoPlayerView(context: Context) : PlayerView(context) {
 
@@ -98,7 +99,7 @@ class VideoPlayerView(context: Context) : PlayerView(context) {
         }
 
         hideControlsTimerJob = activity.lifecycleScope.launch {
-            delay(HIDE_CONTROLS_DELAY)
+            delay(HIDE_CONTROLS_DELAY.milliseconds)
             hideControls()
         }
     }
