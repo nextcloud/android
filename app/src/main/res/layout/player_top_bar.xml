@@ -31,6 +31,7 @@
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:singleLine="true"
+        android:textColor="@color/player_toolbar_text_color"
         android:textAppearance="@style/TextAppearance.App.Player.Toolbar"
         tools:text="Player title" />
 
