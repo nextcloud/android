@@ -81,7 +81,7 @@ jobs:
           ARTIFACT_URL: ${{ steps.upload-apk.outputs.artifact-url }}
         run: |
           sudo apt-get -y install qrencode
-          qrencoded=$(qrencode -t UTF8i "$ARTIFACT_URL" | base64)
+          qrencoded=$(qrencode -t UTF8i "$ARTIFACT_URL" | base64 --wrap=0)
           echo "qr=\"$qrencoded\"" >> "$GITHUB_OUTPUT"
       - name: Comment PR
         if: ${{ steps.check-secrets.outputs.ok == 'true' }}
