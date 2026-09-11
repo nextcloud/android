@@ -55,6 +55,7 @@ import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
+import com.owncloud.android.lib.resources.status.NextcloudVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.operations.e2e.E2EClientData;
@@ -475,12 +476,15 @@ public class UploadFileOperation extends SyncOperation {
         final boolean isResumingEncryptedUpload = (mFolderUnlockToken != null && !mFolderUnlockToken.isEmpty());
         if (!isResumingEncryptedUpload && (parent == null || mRemoteFolderToBeCreated)) {
             Log_OC.d(TAG, "verifying remote parent folder exists: " + remoteParentPath);
-            final var result = grantFolderExistence(remoteParentPath, client);
 
-            if (!result.isSuccess()) {
-                Log_OC.e(TAG, "grantFolderExistence failed for: " + remoteParentPath + ", code: " +
-                    result.getCode() + ", message: " + result.getMessage());
-                return result;
+            if (!getCapabilities().getVersion().isNewerOrEqual(NextcloudVersion.nextcloud_32)) {
+                // No automatic folder creation before Nextcloud 32, create them
+                final var result = grantFolderExistence(remoteParentPath, client);
+                if (!result.isSuccess()) {
+                    Log_OC.e(TAG, "grantFolderExistence failed for: " + remoteParentPath + ", code: " +
+                        result.getCode() + ", message: " + result.getMessage());
+                    return result;
+                }
             }
 
             parent = getStorageManager().getFileByPath(remoteParentPath);
