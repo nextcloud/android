@@ -81,7 +81,8 @@ jobs:
           ARTIFACT_URL: ${{ steps.upload-apk.outputs.artifact-url }}
         run: |
           sudo apt-get -y install qrencode
-          qrencode -t UTF8i "$ARTIFACT_URL" >> "$GITHUB_OUTPUT"
+          qrencoded=$(qrencode -t UTF8i "$ARTIFACT_URL")
+          echo "qr=$qrencoded" >> "$GITHUB_OUTPUT"
       - name: Comment PR
         if: ${{ steps.check-secrets.outputs.ok == 'true' }}
         uses: thollander/actions-comment-pull-request@e4a76dd2b0a3c2027c3fd84147a67c22ee4c90fa
@@ -98,7 +99,7 @@ jobs:
             | **Version** | `${{ github.event.number }}` |
             | **Available until** | 7 days after this build |
 
-            ${{ steps.qr.outputs }}
+            ${{ steps.qr.outputs.qr }}
 
             The QA build installs alongside a released Nextcloud app, so you can keep
             using your existing install while testing.
