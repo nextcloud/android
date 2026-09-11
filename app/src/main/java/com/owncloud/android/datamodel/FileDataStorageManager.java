@@ -54,6 +54,7 @@ import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
+import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
@@ -70,6 +71,7 @@ import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.tags.Tag;
 import com.owncloud.android.operations.RemoteOperationFailedException;
+import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -200,7 +202,7 @@ public class FileDataStorageManager {
             }
 
             offlineOperationDao.insert(entity);
-            createPendingFile(remotePath, mimeType, createdAt, modificationTimestamp);
+            createPendingFile(remotePath, mimeType, createdAt, modificationTimestamp, localPath);
         }
     }
 
@@ -230,8 +232,22 @@ public class FileDataStorageManager {
         return entity;
     }
 
-    public void createPendingFile(String path, String mimeType, long createdAt, long modificationTimestamp) {
-        OCFile file = new OCFile(path);
+    public void createPendingFile(
+        String remotePath,
+        String mimeType,
+        long createdAt,
+        long modificationTimestamp,
+        String localPath
+     ) {
+        final OCFile existingFile = getFileByRemotePath(remotePath);
+        final File localFile = FileExtensionsKt.toFile(localPath);
+        if (FileExtensionsKt.isTheSameAs(existingFile, localFile)) {
+            // In case the same file was already uploaded, do not overwrite it to avoid triggering a conflict
+            Log_OC.i(TAG, "Creating pendingFile for an already uploaded file: keeping metadata");
+            return;
+        }
+
+        OCFile file = new OCFile(remotePath);
         file.setMimeType(mimeType);
         file.setCreationTimestamp(createdAt);
         file.setModificationTimestamp(modificationTimestamp);
@@ -340,10 +356,7 @@ public class FileDataStorageManager {
         moveLocalFile(file, newPath, parentFolder.getDecryptedRemotePath());
     }
 
-    @SuppressLint("SimpleDateFormat")
-    public void keepOfflineOperationAndServerFile(OfflineOperationEntity entity, OCFile file) {
-        if (file == null) return;
-
+    public void keepOfflineOperationAndServerFile(OfflineOperationEntity entity, OCFile file, OwnCloudClient client) {
         String oldFileName = entity.getFilename();
         if (oldFileName == null) return;
 
@@ -353,13 +366,13 @@ public class FileDataStorageManager {
         OCFile parentFolder = getFileById(parentOCFileId);
         if (parentFolder == null) return;
 
-        DateFormatPattern formatPattern = DateFormatPattern.FullDateWithHours;
-        String currentDateTime = DateExtensionsKt.currentDateRepresentation(new Date(), formatPattern);
-
-        String newFolderName = oldFileName + " - " + currentDateTime;
-        String newPath = parentFolder.getDecryptedRemotePath() + newFolderName + OCFile.PATH_SEPARATOR;
-        moveLocalFile(file, newPath, parentFolder.getDecryptedRemotePath());
-        offlineOperationsRepository.updateNextOperations(entity);
+        final String newPath = UploadFileOperation.getNewAvailableRemotePath(
+            client,
+            (entity.getPath() != null) ? entity.getPath() : file.getDecryptedRemotePath(),
+            List.of(oldFileName),
+            file.isEncrypted()
+        );
+        offlineOperationsRepository.updateOperationForKeepBoth(entity, newPath);
     }
 
     @Nullable
@@ -541,7 +554,7 @@ public class FileDataStorageManager {
     }
 
     public boolean saveFile(OCFile ocFile) {
-        Log_OC.d(TAG, "saving file: " + ocFile.getRemotePath());
+        Log_OC.d(TAG, "saving file " + ocFile.getFileName() + " into " + ocFile.getRemotePath());
 
         boolean overridden = false;
         final ContentValues cv = createContentValuesForFile(ocFile);
