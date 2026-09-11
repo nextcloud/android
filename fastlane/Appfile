@@ -1,2 +1,2 @@
 json_key_file "~/.gradle/Google\ Play\ Android\ Developer-Fastlane.json"
-package_name "com.nextcloud.client"
+package_name "eu.xeniacloud.files"
