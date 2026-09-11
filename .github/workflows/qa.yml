@@ -83,7 +83,7 @@ jobs:
           sudo apt-get -y install qrencode
           {
             echo 'text<<QR_EOF'
-            qrencode -t UTF8i -m 2 "$ARTIFACT_URL"
+            qrencode -t ASCII -m 2 "$ARTIFACT_URL" | sed 's/#/█/g'
             echo 'QR_EOF'
           } >> "$GITHUB_OUTPUT"
 
