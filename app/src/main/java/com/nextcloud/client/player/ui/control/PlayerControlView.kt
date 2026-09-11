@@ -29,6 +29,7 @@ import com.nextcloud.client.player.model.state.RepeatMode
 import com.nextcloud.client.player.ui.MediaNavigator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PlayerControlViewBinding
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import dagger.android.HasAndroidInjector
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -40,6 +41,7 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.milliseconds
 
 private const val INDETERMINATE_TIME = "--:--"
 private const val TAG_CLICK_COMMAND_PLAY = "TAG_CLICK_COMMAND_PLAY"
@@ -68,6 +70,9 @@ class PlayerControlView @JvmOverloads constructor(
     @Inject
     lateinit var playbackModel: PlaybackModel
 
+    @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
+
     private val seekBarProgressChangeFlow = MutableSharedFlow<Int>(extraBufferCapacity = 1)
     private var viewScope: CoroutineScope? = null
 
@@ -79,6 +84,7 @@ class PlayerControlView @JvmOverloads constructor(
         if (!isInEditMode) {
             (context.applicationContext as HasAndroidInjector).androidInjector().inject(this)
             setDefaultTags()
+            themeButton()
             setListeners()
         }
     }
@@ -174,12 +180,24 @@ class PlayerControlView @JvmOverloads constructor(
         })
     }
 
+    private fun themeButton() {
+        viewThemeUtils.material.run {
+            binding.run {
+                colorMaterialButtonContent(ivRepeat)
+                colorMaterialButtonContent(ivPrevious)
+                colorMaterialButtonContent(ivPlayPause)
+                colorMaterialButtonContent(ivNext)
+                colorMaterialButtonContent(ivRandom)
+            }
+        }
+    }
+
     @OptIn(FlowPreview::class)
     private fun collectSeekBarChanges() {
         val viewScope = viewScope ?: return
         val lifecycleOwner = (context as? LifecycleOwner) ?: return
         seekBarProgressChangeFlow
-            .debounce(PROGRESS_CHANGE_DEBOUNCE_MS)
+            .debounce(PROGRESS_CHANGE_DEBOUNCE_MS.milliseconds)
             .flowWithLifecycle(lifecycleOwner.lifecycle, Lifecycle.State.STARTED)
             .onEach { playbackModel.seekToPosition(it.toLong()) }
             .launchIn(viewScope)
