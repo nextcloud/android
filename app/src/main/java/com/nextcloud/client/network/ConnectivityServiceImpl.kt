@@ -25,6 +25,7 @@ import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.net.ssl.SSLException
+import kotlin.time.Duration.Companion.seconds
 
 @Suppress("TooGenericExceptionCaught", "ReturnCount")
 class ConnectivityServiceImpl(
@@ -38,6 +39,9 @@ class ConnectivityServiceImpl(
     companion object {
         private const val TAG = "ConnectivityServiceImpl"
         private const val CONNECTIVITY_CHECK_ROUTE = "/index.php/204"
+
+        private var lastCapabilityCheckMs = 0L
+        private val CAPABILITY_CHANGE_DEBOUNCE = 15.seconds
     }
 
     // region private values
@@ -60,8 +64,12 @@ class ConnectivityServiceImpl(
         }
 
         override fun onCapabilitiesChanged(network: Network, networkCapabilities: NetworkCapabilities) {
-            Log_OC.d(TAG, "capability changed")
-            updateConnectivity()
+            val now = System.currentTimeMillis()
+            if (now - lastCapabilityCheckMs >= CAPABILITY_CHANGE_DEBOUNCE.inWholeMilliseconds) {
+                Log_OC.d(TAG, "resolving network capabilities to compare")
+                lastCapabilityCheckMs = now
+                updateConnectivity()
+            }
         }
     }
     // endregion
@@ -148,9 +156,7 @@ class ConnectivityServiceImpl(
     fun updateConnectivity() {
         val currentKey = key
         val previous = currentConnectivity
-
         val capabilities = resolveNetworkCapabilities()
-
         val newConnectivity = if (capabilities == null) {
             Log_OC.w(TAG, "no network capabilities found, connectivity is disconnected")
             Connectivity.DISCONNECTED
@@ -169,6 +175,7 @@ class ConnectivityServiceImpl(
         }
 
         if (previous != newConnectivity) {
+            Log_OC.d(TAG, "network capability changed - notifying listeners")
             currentConnectivity = newConnectivity
             walledCheckCache.putConnectivityValue(currentKey, newConnectivity)
 
@@ -178,6 +185,7 @@ class ConnectivityServiceImpl(
                 )
 
             if (isStructural) {
+                Log_OC.d(TAG, "network structurally capability changed - clearing walled cache as well")
                 walledCheckCache.clear(currentKey)
             }
             notifyListeners()
