@@ -419,18 +419,14 @@ class OCFileListBottomSheetDialog(
     }
 
     private fun filterActionsForOfflineOperations() {
-        fileActivity.connectivityService.isNetworkAndServerAvailable { result: Boolean? ->
-            if (file.isRootDirectory) {
-                return@isNetworkAndServerAvailable
-            }
-
-            if (!result!! || file.isOfflineOperation) {
+        fileActivity.connectivityService.isNetworkAndServerAvailable { available: Boolean? ->
+            // root directory doesn't have a remote_id and thus always reports as offlineOperation
+            val isOfflineOperation = file.isOfflineOperation && !file.isRootDirectory
+            if (available != true || isOfflineOperation) {
                 binding.run {
                     menuCreateRichWorkspace.visibility = View.GONE
-                    menuUploadFromApp.visibility = View.GONE
-                    menuDirectCameraUpload.visibility = View.GONE
-                    menuScanDocUpload.visibility = View.GONE
                     creatorsOverviewContainer.visibility = View.GONE
+                    menuEncryptedMkdir.visibility = View.GONE
                 }
             }
         }
