@@ -870,7 +870,13 @@ class EncryptionUtilsV2 {
             return false
         }
 
+        Log_OC.e("TEST_HASH", "decryptedFolderMetadataFile: $decryptedFolderMetadataFile")
+        Log_OC.e("TEST_HASH", "decryptedFolderMetadataFile2: ${decryptedFolderMetadataFile.metadata.metadataKey}")
+
         val hashedMetadataKey = hashMetadataKey(decryptedFolderMetadataFile.metadata.metadataKey)
+        Log_OC.e("TEST_HASH", "decryptedFolderMetadataFile3: $hashedMetadataKey")
+        Log_OC.e("TEST_HASH", "decryptedFolderMetadataFile4: ${decryptedFolderMetadataFile.metadata.keyChecksums}")
+
         if (!decryptedFolderMetadataFile.metadata.keyChecksums.contains(hashedMetadataKey)) {
             MainApp.showMessage(R.string.e2e_hash_not_found)
             return false
