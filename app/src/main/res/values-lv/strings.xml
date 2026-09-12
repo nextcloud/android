@@ -240,6 +240,7 @@
     <string name="favorite_icon">Izlasē</string>
     <string name="fifteenMinutes">15 minūtes</string>
     <string name="file_delete">Izdzēst</string>
+    <string name="file_detail_activity_error">Kļūda datnes darbību iegūšanā</string>
     <string name="file_icon">Datne</string>
     <string name="file_keep">Paturēt</string>
     <string name="file_list_empty">Augšupielādē kaut ko vai sinhronizē saturu ar savām ierīcēm!</string>
