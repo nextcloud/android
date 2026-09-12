@@ -129,6 +129,7 @@
     <string name="autoupload_hide_folder">Skrýt složku</string>
     <string name="avatar">Avatar</string>
     <string name="away">Pryč</string>
+    <string name="backup_list_adapter_local_contacts">Lokální kontakty</string>
     <string name="backup_settings">Nastavení zálohování</string>
     <string name="backup_title">Záloha kontaktů a kalendáře</string>
     <string name="battery_optimization_close">Zavřít</string>
@@ -503,6 +504,7 @@
     <string name="filedetails_download">Stáhnout</string>
     <string name="filedetails_export">Exportovat</string>
     <string name="filedetails_renamed_in_upload_msg">Soubor přejmenován %1$s při nahrávání</string>
+    <string name="filedetails_sync_all_files">Synchronizovat vše</string>
     <string name="filedetails_sync_file">Synchronizovat</string>
     <string name="filedisplay_no_file_selected">Nevybrán žádný soubor</string>
     <string name="filename_empty">Soubor je třeba nějak nazvat</string>

@@ -10,6 +10,7 @@ package com.nextcloud.utils.extensions
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.GalleryItems
 import com.owncloud.android.datamodel.GalleryRow
+import com.owncloud.android.datamodel.GalleryRowLayout
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.OCFileDepth
 import com.owncloud.android.datamodel.OCFileDepth.DeepLevel
@@ -56,7 +57,7 @@ fun OCFile?.getDepth(): OCFileDepth? {
     return DeepLevel
 }
 
-fun List<OCFile>.toGalleryItems(columns: Int, defaultSize: Int): List<GalleryItems> {
+fun List<OCFile>.toGalleryItems(layout: GalleryRowLayout): List<GalleryItems> {
     if (isEmpty()) return emptyList()
 
     val calendar = Calendar.getInstance()
@@ -70,18 +71,18 @@ fun List<OCFile>.toGalleryItems(columns: Int, defaultSize: Int): List<GalleryIte
         calendar.timeInMillis
     }
         .map { (date, filesList) ->
-            GalleryItems(date, transformToRows(filesList, columns, defaultSize))
+            GalleryItems(date, transformToRows(filesList, layout))
         }
         .sortedByDescending { it.date }
 }
 
-private fun transformToRows(list: List<OCFile>, columns: Int, defaultSize: Int): List<GalleryRow> {
+private fun transformToRows(list: List<OCFile>, layout: GalleryRowLayout): List<GalleryRow> {
     if (list.isEmpty()) return emptyList()
 
     return list
         .sortedByDescending { it.modificationTimestamp }
-        .chunked(columns)
-        .map { chunk -> GalleryRow(chunk, defaultSize, defaultSize) }
+        .chunked(layout.columns)
+        .map { chunk -> GalleryRow(chunk, layout.measure(chunk)) }
 }
 
 fun OCFile.toEncryptionEvent(encrypt: Boolean): EncryptionEvent = EncryptionEvent(

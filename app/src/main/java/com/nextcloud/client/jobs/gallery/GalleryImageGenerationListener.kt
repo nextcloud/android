@@ -9,6 +9,5 @@ package com.nextcloud.client.jobs.gallery
 
 interface GalleryImageGenerationListener {
     fun onSuccess()
-    fun onNewGalleryImage()
     fun onError()
 }
