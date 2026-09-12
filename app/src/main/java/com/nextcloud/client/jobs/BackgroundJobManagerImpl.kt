@@ -894,6 +894,16 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueueUniquePeriodicWork(JOB_INTERNAL_TWO_WAY_SYNC, ExistingPeriodicWorkPolicy.UPDATE, request)
     }
 
+    override fun runNowInternal2WaySync() {
+        val request = oneTimeRequestBuilder(
+            jobClass = InternalTwoWaySyncWork::class,
+            jobName = JOB_INTERNAL_TWO_WAY_SYNC
+        )
+            .build()
+
+        workManager.enqueueUniqueWork(JOB_INTERNAL_TWO_WAY_SYNC, ExistingWorkPolicy.REPLACE, request)
+    }
+
     override fun downloadFolder(folder: OCFile, accountName: String) {
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
