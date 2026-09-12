@@ -34,8 +34,6 @@ class PlayerProgressIndicator @JvmOverloads constructor(
     private var playbackFile: PlaybackFile? = null
 
     init {
-        indicatorTrackGapSize = 0
-        trackStopIndicatorSize = 0
         if (!isInEditMode) {
             (context.applicationContext as HasAndroidInjector).androidInjector().inject(this)
         }

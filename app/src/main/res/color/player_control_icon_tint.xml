@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+  -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:alpha="0.38"
+        android:color="@color/player_default_icon_color"
+        android:state_enabled="false" />
+
+    <item android:color="@color/player_default_icon_color" />
+
+</selector>

@@ -9,14 +9,14 @@ package com.nextcloud.client.player.ui
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.View
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.Insets
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.appbar.MaterialToolbar
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.player.media3.PlaybackModel
@@ -63,10 +63,11 @@ abstract class PlayerView @JvmOverloads constructor(
     protected val activity: AppCompatActivity by lazy { context as AppCompatActivity }
     protected val windowWrapper: WindowWrapper by lazy { WindowWrapper(activity.window) }
 
-    protected val topBar: View by lazy { findViewById(R.id.topBar) }
-    protected val titleTextView: TextView by lazy { findViewById(R.id.title) }
+    protected val topBar: MaterialToolbar by lazy { findViewById(R.id.topBar) }
     protected val playerPager: PlayerPager by lazy { findViewById(R.id.playerPager) }
     protected val playerControlView: PlayerControlView by lazy { findViewById(R.id.playerControlView) }
+
+    var onMoreClick: (() -> Unit)? = null
 
     init {
         inflate(context, layoutRes, this)
@@ -75,8 +76,20 @@ abstract class PlayerView @JvmOverloads constructor(
             playerPager.initialize(activity.supportFragmentManager, activity.lifecycle, createFragment)
             playerPager.onItemSelected = { playbackModel.switchToFile(it) }
             playerControlView.navigator = playerPager
-            findViewById<View>(R.id.back).setOnClickListener { activity.onBackPressedDispatcher.onBackPressed() }
+            topBar.setNavigationOnClickListener { activity.onBackPressedDispatcher.onBackPressed() }
+            topBar.setOnMenuItemClickListener { menuItem ->
+                val isMore = menuItem.itemId == R.id.action_more
+                if (isMore) {
+                    onMoreClick?.invoke()
+                }
+                isMore
+            }
         }
+    }
+
+    protected fun applyTopBarInsets(insets: Insets) {
+        val actionInset = resources.getDimensionPixelSize(R.dimen.standard_quarter_padding)
+        topBar.setPadding(insets.left, insets.top, insets.right + actionInset, 0)
     }
 
     @CallSuper
@@ -151,10 +164,10 @@ abstract class PlayerView @JvmOverloads constructor(
 
         if (state.currentItemState != null) {
             val file = state.currentItemState.file
-            titleTextView.text = file.getNameWithoutExtension()
+            topBar.title = file.getNameWithoutExtension()
             playerPager.setCurrentItem(file)
         } else {
-            titleTextView.text = ""
+            topBar.title = ""
         }
     }
 }

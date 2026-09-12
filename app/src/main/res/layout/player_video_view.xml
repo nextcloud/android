@@ -22,6 +22,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@color/player_video_control_view_background_color" />
+        android:background="@drawable/player_video_control_scrim" />
 
 </FrameLayout>
