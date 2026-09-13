@@ -168,7 +168,8 @@ internal class BackgroundJobManagerImpl(
                 user = metadata.get(TAG_PREFIX_USER) ?: NOT_SET_VALUE,
                 started = timestamp,
                 progress = info.progress.getInt("progress", -1),
-                workerClass = metadata.get(TAG_PREFIX_CLASS) ?: NOT_SET_VALUE
+                workerClass = metadata.get(TAG_PREFIX_CLASS) ?: NOT_SET_VALUE,
+                output = info.outputData.keyValueMap
             )
         } else {
             null

@@ -18,6 +18,7 @@ import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import androidx.core.app.NotificationCompat
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import androidx.work.workDataOf
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.worker.WorkerFilesPayload
 import com.owncloud.android.R
@@ -46,6 +47,12 @@ class FilesExportWork(
     companion object {
         private const val NOTIFICATION_ID = 179
         const val FILES_TO_DOWNLOAD = "files_to_download"
+
+        // Read back from JobInfo.output so the caller can confirm the export on screen
+        // with the same counts the summary notification reports.
+        const val EXPORTED_COUNT = "exported_count"
+        const val FAILED_COUNT = "failed_count"
+
         private val TAG = FilesExportWork::class.simpleName
     }
 
@@ -58,7 +65,7 @@ class FilesExportWork(
         if (fileIds.isEmpty()) {
             Log_OC.w(TAG, "file export was started without any file")
             WorkerFilesPayload.cleanup(path)
-            return Result.success()
+            return Result.success(exportCounts(0, 0))
         }
 
         val storageManager = FileDataStorageManager(user, contentResolver)
@@ -67,12 +74,14 @@ class FilesExportWork(
             val (succeeded, failed) = exportFiles(fileIds, storageManager)
             notificationManager.cancel(NOTIFICATION_ID)
             showSummaryNotification(succeeded, failed)
+            return Result.success(exportCounts(succeeded, failed))
         } finally {
             WorkerFilesPayload.cleanup(path)
         }
-
-        return Result.success()
     }
+
+    private fun exportCounts(succeeded: Int, failed: Int) =
+        workDataOf(EXPORTED_COUNT to succeeded, FAILED_COUNT to failed)
 
     @Suppress("DEPRECATION")
     private suspend fun exportFiles(fileIDs: List<Long>, storageManager: FileDataStorageManager): Pair<Int, Int> =

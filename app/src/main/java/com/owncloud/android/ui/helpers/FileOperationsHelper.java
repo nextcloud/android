@@ -15,12 +15,14 @@ package com.owncloud.android.ui.helpers;
 
 import android.accounts.Account;
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.StatFs;
@@ -29,9 +31,13 @@ import android.text.TextUtils;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.jobs.BackgroundJobManager;
+import com.nextcloud.client.jobs.FilesExportWork;
+import com.nextcloud.client.jobs.JobInfo;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
@@ -101,6 +107,10 @@ import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.work.WorkInfo;
 import kotlin.Unit;
 
 /**
@@ -1128,7 +1138,69 @@ public class FileOperationsHelper {
                             Context context,
                             View view,
                             BackgroundJobManager backgroundJobManager) {
-        backgroundJobManager.startImmediateFilesExportJob(files);
+        LiveData<JobInfo> job = backgroundJobManager.startImmediateFilesExportJob(files);
+
+        if (view == null || !(context instanceof LifecycleOwner lifecycleOwner)) {
+            return;
+        }
+
+        job.observe(lifecycleOwner, new Observer<>() {
+            @Override
+            public void onChanged(JobInfo jobInfo) {
+                if (jobInfo == null || !WorkInfo.State.SUCCEEDED.name().equals(jobInfo.getState())) {
+                    return;
+                }
+                job.removeObserver(this);
+                showExportResult(view, jobInfo);
+            }
+        });
+    }
+
+    private void showExportResult(View view, JobInfo jobInfo) {
+        // The job outlives the screen that started it. The observer is scoped to the host
+        // activity, so by the time it fires the fragment's view may be detached and
+        // Snackbar.make would fail to find a parent. The notification still reports the
+        // outcome in that case.
+        if (!view.isAttachedToWindow()) {
+            return;
+        }
+
+        int exported = readCount(jobInfo, FilesExportWork.EXPORTED_COUNT);
+        int failed = readCount(jobInfo, FilesExportWork.FAILED_COUNT);
+
+        if (exported == 0 && failed == 0) {
+            return;
+        }
+
+        // Same wording as the summary notification, so the two never disagree.
+        Resources resources = view.getResources();
+        String message;
+        if (failed == 0) {
+            message = resources.getQuantityString(R.plurals.export_successful, exported, exported);
+        } else if (exported == 0) {
+            message = resources.getQuantityString(R.plurals.export_failed, failed, failed);
+        } else {
+            message = resources.getQuantityString(R.plurals.export_partially_failed, exported, exported);
+        }
+
+        Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
+        if (exported > 0) {
+            snackbar.setAction(R.string.locate_folder, v -> {
+                Intent intent = new Intent(DownloadManager.ACTION_VIEW_DOWNLOADS);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                try {
+                    view.getContext().startActivity(intent);
+                } catch (ActivityNotFoundException e) {
+                    Log_OC.w(TAG, "No activity handles ACTION_VIEW_DOWNLOADS");
+                }
+            });
+        }
+        snackbar.show();
+    }
+
+    private int readCount(JobInfo jobInfo, String key) {
+        Object value = jobInfo.getOutput().get(key);
+        return value instanceof Integer ? (Integer) value : 0;
     }
 
     public long getOpIdWaitingFor() {
