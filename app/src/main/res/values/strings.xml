@@ -171,7 +171,7 @@
     <string name="prefs_lock_device_credentials_not_setup">No device credentials have been set up.</string>
     <string name="prefs_show_hidden_files">Show hidden files</string>
     <string name="prefs_show_ecosystem_apps">Show app switcher</string>
-    <string name="prefs_show_ecosystem_apps_summary">Nextcloud app suggestions in navigation heading</string>
+    <string name="prefs_show_ecosystem_apps_summary">Xenia app suggestions in navigation heading</string>
     <string name="prefs_enable_media_scan_notifications">Show media scan notifications</string>
     <string name="prefs_enable_media_scan_notifications_summary">Notify about newly found media folders</string>
     <string name="prefs_calendar_contacts">Sync calendar and contacts</string>
@@ -1468,9 +1468,9 @@
     <string name="image_editor_flip_vertical">Flip vertically</string>
     <string name="image_editor_unable_to_edit_image">Unable to edit image.</string>
     <string name="image_editor_file_edited_suffix">edited</string>
-    <string name="ecosystem_apps_notes" translatable="false">Nextcloud Notes</string>
-    <string name="ecosystem_apps_talk" translatable="false">Nextcloud Talk</string>
-    <string name="ecosystem_apps_more">More Nextcloud Apps</string>
+    <string name="ecosystem_apps_notes" translatable="false">Xenia Notes</string>
+    <string name="ecosystem_apps_talk" translatable="false">Xenia Talk</string>
+    <string name="ecosystem_apps_more">More Xenia Apps</string>
     <string name="ecosystem_apps_display_notes" translatable="false">Notes</string>
     <string name="ecosystem_apps_display_talk" translatable="false">Talk</string>
     <string name="ecosystem_apps_display_more">More</string>

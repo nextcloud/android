@@ -475,8 +475,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 };
                 LayerDrawable layerDrawable = new LayerDrawable(drawables);
 
-                String name = capability.getServerName();
-                setDrawerHeaderLogo(layerDrawable, name);
+                setDrawerHeaderLogo(layerDrawable);
             }
 
             @Override
@@ -546,18 +545,13 @@ public abstract class DrawerActivity extends ToolbarActivity
         banner.setVisibility(View.VISIBLE);
     }
 
-    private void setDrawerHeaderLogo(Drawable drawable, String serverName) {
+    // The server name is deliberately not drawn beside the logo. Upstream assumes a themed
+    // instance supplies an icon-only mark that the name completes; XeniaCloud's theming logo
+    // is a full wordmark, so drawing both renders the brand name twice.
+    private void setDrawerHeaderLogo(Drawable drawable) {
         ImageView imageHeader = mNavigationViewHeader.findViewById(R.id.drawer_header_logo);
         imageHeader.setImageDrawable(drawable);
         imageHeader.setAdjustViewBounds(true);
-
-        if (!TextUtils.isEmpty(serverName)) {
-            TextView serverNameView = mNavigationViewHeader.findViewById(R.id.drawer_header_server_name);
-            serverNameView.setVisibility(View.VISIBLE);
-            serverNameView.setText(serverName);
-            serverNameView.setTextColor(themeColorUtils.unchangedFontColor(this));
-        }
-
     }
 
     /**

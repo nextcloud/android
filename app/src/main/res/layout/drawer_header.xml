@@ -31,22 +31,7 @@
             android:contentDescription="@null"
             android:maxWidth="96dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/nextcloud_logo" />
-
-        <TextView
-            android:id="@+id/drawer_header_server_name"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/standard_half_margin"
-            android:ellipsize="end"
-            android:fontFamily="sans-serif"
-            android:gravity="center_vertical"
-            android:maxLines="2"
-            android:textColor="@color/text_color_inverse"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:visibility="gone"
-            tools:ignore="RtlHardcoded" />
+            android:src="@drawable/xenia_logo" />
 
     </LinearLayout>
 
