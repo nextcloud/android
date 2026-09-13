@@ -49,8 +49,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
-import com.nextcloud.android.common.core.utils.ecosystem.EcosystemApp;
-import com.nextcloud.android.common.core.utils.ecosystem.EcosystemManager;
+import com.nextcloud.client.ecosystem.XeniaEcosystemApp;
+import com.nextcloud.client.ecosystem.XeniaEcosystemManager;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
@@ -229,7 +229,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         return R.id.nav_all_files;
     }
 
-    private EcosystemManager ecosystemManager;
+    private XeniaEcosystemManager ecosystemManager;
 
     @Inject
     AppPreferences preferences;
@@ -497,11 +497,15 @@ public abstract class DrawerActivity extends ToolbarActivity
         final var optionalUser = getUser();
         if (optionalUser.isPresent()) {
             final var accountName = optionalUser.get().getAccountName();
-            notesView.setOnClickListener(v -> ecosystemManager.openApp(EcosystemApp.NOTES, accountName));
-            talkView.setOnClickListener(v -> ecosystemManager.openApp(EcosystemApp.TALK, accountName));
+            notesView.setOnClickListener(v -> ecosystemManager.openApp(XeniaEcosystemApp.NOTES, accountName));
+            talkView.setOnClickListener(v -> ecosystemManager.openApp(XeniaEcosystemApp.TALK, accountName));
         }
 
-        moreView.setOnClickListener(v -> LinkHelper.INSTANCE.openAppStore("Nextcloud", true, this));
+        // TODO(XNT-54): re-enable once XeniaCloud has real store listings. Upstream
+        //  points this at a Play Store search for its own publisher; there is nothing
+        //  to search for yet, so the tile is hidden rather than sending users to an
+        //  empty result - or worse, to upstream's apps.
+        moreView.setVisibility(View.GONE);
         assistantView.setOnClickListener(v -> startAssistantScreen());
         final var optionalCapabilities = getCapabilities();
         if (optionalCapabilities.isPresent()) {
@@ -797,7 +801,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         startActivity(intent);
     }
 
-    public EcosystemManager getEcosystemManager() {
+    public XeniaEcosystemManager getEcosystemManager() {
         return ecosystemManager;
     }
 
@@ -1170,7 +1174,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         externalLinksProvider = new ExternalLinksProvider(getContentResolver());
         arbitraryDataProvider = new ArbitraryDataProviderImpl(this);
-        ecosystemManager = new EcosystemManager(this);
+        ecosystemManager = new XeniaEcosystemManager(this);
     }
 
     @Override

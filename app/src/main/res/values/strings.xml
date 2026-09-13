@@ -1474,6 +1474,9 @@
     <string name="ecosystem_apps_display_notes" translatable="false">Notes</string>
     <string name="ecosystem_apps_display_talk" translatable="false">Talk</string>
     <string name="ecosystem_apps_display_more">More</string>
+    <string name="xenia_ecosystem_account_missing">Account is missing. Cannot open the app.</string>
+    <string name="xenia_ecosystem_account_invalid">Invalid account format. Must be an email.</string>
+    <string name="xenia_ecosystem_app_not_installed">App is not installed.</string>
     <string name="filedetails_details">Details</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_fnumber">ƒ/%s</string>
