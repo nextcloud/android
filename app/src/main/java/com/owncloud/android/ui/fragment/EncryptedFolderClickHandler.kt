@@ -131,7 +131,7 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
 
     private fun onFolderKeyVerified(file: OCFile, position: Int, fileActivity: FileActivity) {
         val user = fileActivity.user.orElseThrow { RuntimeException() }
-        val capability = fragment.mContainerActivity.getStorageManager().getCapability(user.accountName)
+        val capability = fragment.containerActivity.getStorageManager().getCapability(user.accountName)
 
         if (capability.endToEndEncryption.isFalse || capability.endToEndEncryption.isUnknown) {
             DisplayUtils.showSnackMessage(fragment, R.string.end_to_end_encryption_not_enabled)
@@ -149,7 +149,7 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
         fragment.searchFragment = false
         fragment.mHideFab = false
 
-        val folderPickerActivity = fragment.mContainerActivity as? FolderPickerActivity
+        val folderPickerActivity = fragment.containerActivity as? FolderPickerActivity
         if (folderPickerActivity?.isDoNotEnterEncryptedFolder == true) {
             DisplayUtils.showSnackMessage(fragment, R.string.copy_move_to_encrypted_folder_not_supported)
         } else {
