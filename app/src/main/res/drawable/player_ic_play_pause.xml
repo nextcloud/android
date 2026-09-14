@@ -7,9 +7,9 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:state_pressed="true"
-        android:drawable="@drawable/player_progress_thumb_pressed" />
+        android:drawable="@drawable/player_ic_pause"
+        android:state_checked="true" />
 
-    <item android:drawable="@drawable/player_progress_thumb" />
+    <item android:drawable="@drawable/player_ic_play" />
 
 </selector>

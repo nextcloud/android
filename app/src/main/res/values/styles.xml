@@ -519,66 +519,74 @@
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">end</item>
         <item name="android:gravity">center</item>
-        <item name="android:textColor">@color/player_default_text_color</item>
         <item name="android:textAppearance">@style/TextAppearance.App.Player.ProgressTime</item>
+        <item name="android:textColor">@color/player_default_text_color</item>
     </style>
 
     <style name="TextAppearance.App.Player.Toolbar" parent="TextAppearance.Material3.TitleLarge">
         <item name="android:textColor">@color/player_toolbar_text_color</item>
-        <item name="android:textSize">@dimen/player_toolbar_text_size</item>
     </style>
 
-    <style name="TextAppearance.App.Player.ProgressTime" parent="TextAppearance.Material3.BodyMedium">
+    <style name="TextAppearance.App.Player.ProgressTime" parent="TextAppearance.Material3.LabelLarge">
         <item name="android:textColor">@color/player_default_text_color</item>
-        <item name="android:textSize">@dimen/player_progress_time_text_size</item>
     </style>
 
-    <style name="PlayerToolbarIconButtonStyle" parent="@style/Widget.AppTheme.Button.IconButton">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="iconSize">@dimen/player_toolbar_icon_size</item>
-        <item name="iconTint">@color/player_toolbar_icon_color</item>
+    <style name="PlayerToolbarStyle" parent="Widget.Material3.Toolbar.OnSurface">
+        <item name="android:theme">@style/ThemeOverlay.App.Player.Toolbar</item>
+        <item name="titleTextAppearance">@style/TextAppearance.App.Player.Toolbar</item>
+        <item name="titleTextColor">@color/player_toolbar_text_color</item>
+        <item name="navigationIconTint">@color/player_toolbar_icon_color</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
-    <style name="TextAppearance.App.Player.AudioTitle" parent="TextAppearance.Material3.BodyLarge">
+    <style name="ThemeOverlay.App.Player.Toolbar" parent="">
+        <item name="colorControlNormal">@color/player_toolbar_icon_color</item>
+        <item name="colorOnSurface">@color/player_toolbar_text_color</item>
+        <item name="colorOnSurfaceVariant">@color/player_toolbar_icon_color</item>
+    </style>
+
+    <style name="TextAppearance.App.Player.AudioTitle" parent="TextAppearance.Material3.TitleMedium">
         <item name="android:textColor">@color/player_default_text_color</item>
-        <item name="android:textSize">@dimen/player_audio_title_text_size</item>
     </style>
 
     <style name="TextAppearance.App.Player.AudioFileDetails" parent="TextAppearance.Material3.BodySmall">
         <item name="android:textColor">@color/player_default_text_color</item>
-        <item name="android:textSize">@dimen/player_audio_file_details_text_size</item>
     </style>
 
     <style name="ShapeAppearance.App.Player.Media" parent="ShapeAppearance.Material3.Corner.None" />
 
-    <style name="PlayerSeekBarStyle" parent="@android:style/Widget.SeekBar">
-        <item name="android:progressDrawable">@drawable/player_progress_drawable</item>
-        <item name="android:thumb">@drawable/player_progress_thumb_selector</item>
-        <item name="android:paddingStart">@dimen/player_progress_thumb_halo_radius</item>
-        <item name="android:paddingEnd">@dimen/player_progress_thumb_halo_radius</item>
-        <item name="android:minHeight">@dimen/player_progress_drawable_height</item>
-        <item name="android:maxHeight">@dimen/player_progress_drawable_height</item>
+    <style name="ShapeAppearance.App.Player.AlbumCover" parent="ShapeAppearance.Material3.Corner.Large" />
+
+    <style name="PlayerSliderStyle" parent="Widget.Material3.Slider">
+        <item name="labelBehavior">gone</item>
+        <item name="trackColorInactive">@color/player_progressbar_background_color</item>
     </style>
 
-    <style name="PlayerButtonStyle" parent="@style/Widget.Material3.Button.IconButton">
-        <item name="iconSize">32dp</item>
+    <style name="PlayerControlSpacerStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
 
-        <item name="android:layout_width">@dimen/minimum_size_for_touchable_area</item>
-        <item name="android:layout_height">@dimen/minimum_size_for_touchable_area</item>
-
-        <item name="android:padding">0dp</item>
-        <item name="android:insetLeft">0dp</item>
-        <item name="android:insetRight">0dp</item>
-        <item name="android:insetTop">0dp</item>
-        <item name="android:insetBottom">0dp</item>
-
-        <item name="android:layout_marginStart">@dimen/player_button_margin_horizontal</item>
-        <item name="android:layout_marginEnd">@dimen/player_button_margin_horizontal</item>
+    <style name="PlayerControlButtonStyle" parent="Widget.Material3Expressive.Button.IconButton">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.Material3Expressive.Button.IconButton.Standard</item>
+        <item name="materialSizeOverlay">@style/SizeOverlay.Material3Expressive.Button.IconButton.Small</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/player_button_margin_vertical</item>
         <item name="android:layout_marginBottom">@dimen/player_button_margin_vertical</item>
+    </style>
 
-        <item name="iconGravity">textStart</item>
-        <item name="iconPadding">0dp</item>
+    <style name="PlayerControlToggleButtonStyle" parent="PlayerControlButtonStyle">
+        <item name="android:checkable">true</item>
+    </style>
+
+    <style name="PlayerPlayPauseButtonStyle" parent="Widget.Material3Expressive.Button.IconButton.Filled">
+        <item name="materialSizeOverlay">@style/SizeOverlay.Material3Expressive.Button.IconButton.Medium</item>
+        <item name="android:checkable">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/player_button_margin_vertical</item>
+        <item name="android:layout_marginBottom">@dimen/player_button_margin_vertical</item>
     </style>
 </resources>
