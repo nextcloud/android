@@ -110,7 +110,6 @@ import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.fragment.helper.ParentFolderFinder;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
-import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -200,11 +199,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject SyncedFolderProvider syncedFolderProvider;
     @Inject AppScanOptionalFeature appScanOptionalFeature;
     @Inject ThumbnailGenerator thumbnailGenerator;
-    @Inject public E2EEActionResolver e2eeActionResolver;
-    public E2EEDialogPresenter e2eeDialogPresenter;
-    public EncryptedFolderClickHandler clickHandler;
-    public FolderEncryption folderEncryption;
-    public FileFragment.ContainerActivity mContainerActivity;
+
+    @Inject E2EEActionResolver e2eeActionResolver;
+    private E2EEDialogPresenter e2eeDialogPresenter;
+    private EncryptedFolderClickHandler clickHandler;
+    private FolderEncryption folderEncryption;
+    private FileFragment.ContainerActivity mContainerActivity;
 
     protected OCFile mFile;
     protected OCFileListAdapter mAdapter;
@@ -321,6 +321,26 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
+    public FileFragment.ContainerActivity getContainerActivity() {
+        return mContainerActivity;
+    }
+
+    public FolderEncryption getFolderEncryption() {
+        return folderEncryption;
+    }
+
+    public EncryptedFolderClickHandler getEncryptedClickHandler() {
+        return clickHandler;
+    }
+
+    public E2EEDialogPresenter getE2eeDialogPresenter() {
+        return e2eeDialogPresenter;
+    }
+
+    public E2EEActionResolver getE2eeActionResolver() {
+        return e2eeActionResolver;
+    }
+
     public void setSearchArgs(Bundle state) {
         SearchType argSearchType = NO_SEARCH;
         SearchEvent argSearchEvent = null;
@@ -386,8 +406,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mAdapter.cancelAllPendingTasks();
         }
 
-        if (getActivity() != null) {
-            getActivity().getIntent().removeExtra(OCFileListFragment.SEARCH_EVENT);
+        final var activity = getActivity();
+        if (activity != null) {
+            activity.getIntent().removeExtra(OCFileListFragment.SEARCH_EVENT);
         }
     }
 
@@ -1165,8 +1186,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private void fileOnItemClick(OCFile file) {
         Integer errorMessageId = checkFileBeforeOpen(file);
-        if (getRecyclerView() != null && errorMessageId != null) {
-            Snackbar.make(getRecyclerView(), errorMessageId, Snackbar.LENGTH_LONG).show();
+        final var recyclerView = getRecyclerView();
+        if (recyclerView != null && errorMessageId != null) {
+            Snackbar.make(recyclerView, errorMessageId, Snackbar.LENGTH_LONG).show();
             return;
         }
 
@@ -1205,15 +1227,21 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return;
         }
 
-        boolean webViewAvailable = WebViewUtil.available(getContext());
+        final var context = getContext();
+        if (context == null) {
+            Log_OC.e(TAG, "context not available");
+            return;
+        }
+
+        boolean webViewAvailable = WebViewUtil.available(context);
 
         if (!file.isEncrypted() && mContainerActivity instanceof FileDisplayActivity fda && fda.canMediaPreviewed(file)) {
             setFabVisible(false);
             fda.startMediaPreview(file, true, true);
         } else if (webViewAvailable && editorUtils.getEditor(accountManager.getUser(), file.getMimeType()) != null && !file.isEncrypted()) {
-            TextEditorWebView.Companion.startTextEditor(file, getContext());
+            TextEditorWebView.Companion.startTextEditor(file, context);
         } else if (supportsDirectEditing(file, webViewAvailable)) {
-            mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(file, getContext());
+            mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(file, context);
         } else if (mContainerActivity instanceof FileDisplayActivity fda) {
             fda.startDownloadForPreview(file, mFile);
 
@@ -1654,8 +1682,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
             }
         }
 
-        if (FILE_SEARCH != currentSearchType && getActivity() != null) {
-            getActivity().invalidateOptionsMenu();
+        if (FILE_SEARCH != currentSearchType) {
+            final var activity = getActivity();
+            if (activity != null) {
+                activity.invalidateOptionsMenu();
+            }
         }
     }
 
@@ -1875,20 +1906,21 @@ public class OCFileListFragment extends ExtendedListFragment implements
             if (result.isSuccess()) {
                 // TODO only refresh the modified file?
                 new Handler(Looper.getMainLooper()).post(this::onRefresh);
-            } else if (getRecyclerView() != null) {
-                Snackbar.make(getRecyclerView(),
-                              R.string.error_file_lock,
-                              Snackbar.LENGTH_LONG).show();
+            } else {
+                final var recyclerView = getRecyclerView();
+                if (recyclerView == null) {
+                    return;
+                }
+                Snackbar.make(recyclerView, R.string.error_file_lock, Snackbar.LENGTH_LONG).show();
             }
 
         } catch (ClientFactory.CreationException e) {
             Log_OC.e(TAG, "Cannot create client", e);
-
-            if (getRecyclerView() != null) {
-                Snackbar.make(getRecyclerView(),
-                              R.string.error_file_lock,
-                              Snackbar.LENGTH_LONG).show();
+            final var recyclerView = getRecyclerView();
+            if (recyclerView == null) {
+                return;
             }
+            Snackbar.make(recyclerView, R.string.error_file_lock, Snackbar.LENGTH_LONG).show();
         }
     }
 
@@ -1944,11 +1976,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
      */
     @SuppressLint("NotifyDataSetChanged")
     public void selectAllFiles(boolean select) {
-        if (getRecyclerView() == null) {
+        final var recyclerView = getRecyclerView();
+        if (recyclerView == null) {
             return;
         }
 
-        final var adapter = getRecyclerView().getAdapter();
+        final var adapter = recyclerView.getAdapter();
         if (adapter instanceof  CommonOCFileListAdapterInterface commonInterface) {
             commonInterface.selectAll(select);
             adapter.notifyDataSetChanged();
@@ -2112,22 +2145,26 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * @param enabled Desired visibility for the FAB.
      */
     public void setFabEnabled(final boolean enabled) {
-        if (mFabMain == null) {
+        final var fabMain = mFabMain;
+        if (fabMain == null) {
             // is not available in FolderPickerActivity
             return;
         }
 
-        if (getActivity() != null) {
-            getActivity().runOnUiThread(() -> {
-                if (enabled) {
-                    mFabMain.setEnabled(true);
-                    viewThemeUtils.material.themeFAB(mFabMain);
-                } else {
-                    mFabMain.setEnabled(false);
-                    viewThemeUtils.material.themeFAB(mFabMain);
-                }
-            });
+        final var activity = getActivity();
+        if (activity == null) {
+            return;
         }
+
+        activity.runOnUiThread(() -> {
+            if (enabled) {
+                fabMain.setEnabled(true);
+                viewThemeUtils.material.themeFAB(fabMain);
+            } else {
+                fabMain.setEnabled(false);
+                viewThemeUtils.material.themeFAB(fabMain);
+            }
+        });
     }
 
     /**

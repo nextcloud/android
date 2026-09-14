@@ -66,7 +66,7 @@ fun OCFileListFragment.listenEncryptionDialogResult() {
         when (action) {
             E2EEAction.NEW_FOLDER -> createFolder(true)
 
-            E2EEAction.OPEN -> folderFromResult(bundle)?.let { clickHandler.openAfterKeySetup(it) }
+            E2EEAction.OPEN -> folderFromResult(bundle)?.let { encryptedClickHandler.openAfterKeySetup(it) }
 
             E2EEAction.ENCRYPT -> folderFromResult(bundle)?.let { file ->
                 lifecycleScope.launch {
@@ -84,7 +84,7 @@ private fun OCFileListFragment.folderFromResult(bundle: Bundle): OCFile? {
         return null
     }
 
-    val file = mContainerActivity.storageManager.getFileByEncryptedRemotePath(remotePath)
+    val file = containerActivity.storageManager.getFileByEncryptedRemotePath(remotePath)
     if (file == null) {
         Log_OC.e(TAG, "file is null, cannot continue encryption action")
     }

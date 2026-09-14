@@ -38,7 +38,7 @@ class FolderEncryption(private val fragment: OCFileListFragment) {
         val shouldBeEncrypted = event.shouldBeEncrypted
 
         try {
-            val storageManager = fragment.mContainerActivity.storageManager
+            val storageManager = fragment.containerActivity.storageManager
             val folder = storageManager.getFileByRemoteId(remoteId) ?: run {
                 Log_OC.e(TAG, "folder is null, cannot encrypt")
                 return@withContext false
