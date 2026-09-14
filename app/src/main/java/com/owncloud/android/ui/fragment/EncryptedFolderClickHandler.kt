@@ -48,7 +48,7 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
 
                 E2EEKeyCheck.ONLY_ON_SERVER, E2EEKeyCheck.MISSING_EVERYWHERE -> {
                     Log_OC.d(TAG, "keys found on server but missing locally, redirecting to encryption setup")
-                    fragment.showEncryptionDialog(OCFile.ROOT_PATH)
+                    fragment.showEncryptionDialog(OCFile.ROOT_PATH, E2EEAction.NEW_FOLDER)
                 }
 
                 E2EEKeyCheck.SAME_AS_SERVER -> {
@@ -86,7 +86,7 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
                     }
 
                     E2EEKeyCheck.ONLY_ON_SERVER -> {
-                        fragment.showEncryptionDialog(file.remotePath)
+                        fragment.showEncryptionDialog(file.remotePath, E2EEAction.OPEN)
                     }
 
                     E2EEKeyCheck.MISSING_EVERYWHERE -> {
@@ -114,6 +114,16 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
         }
     }
 
+    fun openAfterKeySetup(file: OCFile) {
+        fragment.lifecycleScope.launch {
+            if (fragment.e2eeActionResolver.checkFolderMetadataKey(file)) {
+                onEncryptionSetupComplete(file, fragment.adapter.getItemPosition(file))
+            } else {
+                DisplayUtils.showSnackMessage(fragment, R.string.encryption_open_key_mismatch)
+            }
+        }
+    }
+
     private fun dismissCheckingSnackbar() {
         DisplayUtils.dismissSnackMessage(checkingKeysSnackbar)
         checkingKeysSnackbar = null
@@ -121,7 +131,7 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
 
     private fun onFolderKeyVerified(file: OCFile, position: Int, fileActivity: FileActivity) {
         val user = fileActivity.user.orElseThrow { RuntimeException() }
-        val capability = fragment.mContainerActivity.getStorageManager().getCapability(user.accountName)
+        val capability = fragment.containerActivity.getStorageManager().getCapability(user.accountName)
 
         if (capability.endToEndEncryption.isFalse || capability.endToEndEncryption.isUnknown) {
             DisplayUtils.showSnackMessage(fragment, R.string.end_to_end_encryption_not_enabled)
@@ -131,7 +141,7 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
         if (FileOperationsHelper.isEndToEndEncryptionSetup(fragment.context, user)) {
             onEncryptionSetupComplete(file, position)
         } else {
-            fragment.showEncryptionDialog(file.remotePath)
+            fragment.showEncryptionDialog(file.remotePath, E2EEAction.OPEN)
         }
     }
 
@@ -139,7 +149,7 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
         fragment.searchFragment = false
         fragment.mHideFab = false
 
-        val folderPickerActivity = fragment.mContainerActivity as? FolderPickerActivity
+        val folderPickerActivity = fragment.containerActivity as? FolderPickerActivity
         if (folderPickerActivity?.isDoNotEnterEncryptedFolder == true) {
             DisplayUtils.showSnackMessage(fragment, R.string.copy_move_to_encrypted_folder_not_supported)
         } else {

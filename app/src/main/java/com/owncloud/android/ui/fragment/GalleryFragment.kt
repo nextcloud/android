@@ -211,7 +211,7 @@ class GalleryFragment :
             requireContext(),
             accountManager.user,
             this,
-            mContainerActivity,
+            containerActivity,
             viewThemeUtils,
             this.columnsCount,
             ThumbnailsCacheManager.getThumbnailDimension(),
@@ -362,7 +362,7 @@ class GalleryFragment :
     }
 
     private fun runGallerySearchTask() {
-        if (mContainerActivity == null) {
+        if (containerActivity == null) {
             Log_OC.w(TAG, "container activity is null, can't run search task")
             return
         }
@@ -372,7 +372,7 @@ class GalleryFragment :
         photoSearchTask = GallerySearchTask(
             this,
             accountManager.user,
-            mContainerActivity.getStorageManager(),
+            containerActivity.getStorageManager(),
             endDate,
             limit
         ).execute()
@@ -445,7 +445,7 @@ class GalleryFragment :
         showGalleryJob?.cancel()
         showGalleryJob = lifecycleScope.launch(Dispatchers.Default) {
             val remotePath = preferences.getLastSelectedMediaFolder()
-            val items = mContainerActivity.storageManager.getGalleryItemsPageSuspended(
+            val items = containerActivity.storageManager.getGalleryItemsPageSuspended(
                 remotePath,
                 mimeFilter,
                 loadedItemCount

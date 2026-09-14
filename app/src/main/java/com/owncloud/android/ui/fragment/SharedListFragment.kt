@@ -75,7 +75,7 @@ class SharedListFragment :
         val fetchResult = ReadFileRemoteOperation(partialFile.remotePath).execute(user, context)
         if (fetchResult.isSuccess) {
             val remoteFile = (fetchResult.data[0] as RemoteFile).apply {
-                val existingFile = mContainerActivity.storageManager.getFileByDecryptedRemotePath(remotePath)
+                val existingFile = containerActivity.storageManager.getFileByDecryptedRemotePath(remotePath)
 
                 // Use previous eTag if exists to prevent break checkForChanges logic in RefreshFolderOperation.
                 // Otherwise RefreshFolderOperation will show empty list
@@ -88,7 +88,7 @@ class SharedListFragment :
                 parentId = partialFile.parentId
             }
             FileStorageUtils.searchForLocalFileInDefaultPath(file, user.accountName)
-            val savedFile = mContainerActivity.storageManager.saveFileWithParent(file, context)
+            val savedFile = containerActivity.storageManager.saveFileWithParent(file, context)
             savedFile
         } else {
             logger.e(SHARED_TAG, "Error fetching file")
