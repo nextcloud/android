@@ -111,22 +111,19 @@ class E2EEKeyInspector @Inject constructor(
 
     private fun decryptsMetadataV2(ocFile: OCFile, privateKey: String, client: OwnCloudClient): Boolean {
         val userId = client.userId
-        val metadata = EncryptionUtilsV2().retrieveTopMostMetadata(
-            ocFile,
-            storageManager,
-            client,
-            userId,
-            privateKey,
-            accountManager.user,
-            context,
-            arbitraryDataProvider
-        )
-        val user = metadata.users.find { it.userId == userId }
-            ?: throw IllegalStateException("cannot find current user in metadata")
 
         return try {
-            EncryptionUtils.decryptStringAsymmetricV2(user.decryptedMetadataKey, privateKey)
-            true
+            val metadataKey = EncryptionUtilsV2().retrieveTopMostMetadataKey(
+                ocFile,
+                storageManager,
+                client,
+                userId,
+                privateKey,
+                accountManager.user,
+                context,
+                arbitraryDataProvider
+            )
+            !metadataKey.isEmpty()
         } catch (e: Exception) {
             Log_OC.w(TAG, "user tried to decrypt folder's metadata with different private key: $e")
             false
