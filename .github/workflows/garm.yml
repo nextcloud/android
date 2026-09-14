@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
     test:
-        runs-on: ubuntu-24.04
+        runs-on: ubuntu-latest-max
         services:
             server:
                 image: ${{ matrix.server == 'stable22' && 'ghcr.io/nextcloud/continuous-integration-shallow-server-php8.0:1' || 'ghcr.io/nextcloud/continuous-integration-shallow-server-php8.3:latest' }}
