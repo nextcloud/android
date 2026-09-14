@@ -780,6 +780,14 @@
     <string name="picture_set_as_no_app">Níor aimsíodh aon aip chun pictiúr a shocrú leis</string>
     <string name="pin_home">Pinn chuig an scáileán baile</string>
     <string name="pin_shortcut_label">Oscail %1$s</string>
+    <string name="player_audio_title_with_artist">%1$s • %2$s</string>
+    <string name="player_control_view_next_button_content_description">Cnaipe ‘Ar Aghaidh’</string>
+    <string name="player_control_view_play_pause_button_content_description">Cnaipe Seinn/Sos</string>
+    <string name="player_control_view_previous_button_content_description">Cnaipe roimhe seo</string>
+    <string name="player_control_view_random_button_content_description">Cnaipe randamach</string>
+    <string name="player_control_view_repeat_button_content_description">Cnaipe athchleachta</string>
+    <string name="player_error_source_not_found">Níor aimsíodh an fhoinse</string>
+    <string name="player_last_modified">Athraithe: %s</string>
     <string name="player_media_controls_close_action_title">Dún</string>
     <string name="please_select_a_server">Roghnaigh freastalaí le do thoil…</string>
     <string name="power_save_check_dialog_message">D\'fhéadfadh sé go n-uaslódálfar comhaid nuair a bhíonn an cadhnra íseal má dhíchumasaítear seiceáil coigilte cumhachta!</string>
@@ -1486,4 +1494,11 @@
         <item quantity="many">%1$d íoslódálacha fágtha</item>
         <item quantity="other">%1$d íoslódálacha fágtha</item>
     </plurals>
-    </resources>
+    <plurals name="export_start">
+        <item quantity="one">Cuireadh tús le heaspórtálacha (%d comhad)</item>
+        <item quantity="two">Cuireadh tús le heaspórtálacha (%d comhad)</item>
+        <item quantity="few">Cuireadh tús le heaspórtálacha (%d comhad)</item>
+        <item quantity="many">Cuireadh tús le heaspórtálacha (%d comhad)</item>
+        <item quantity="other">Cuireadh tús le heaspórtálacha (%d comhad)</item>
+    </plurals>
+</resources>

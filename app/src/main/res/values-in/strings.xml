@@ -232,6 +232,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="create">Buat</string>
     <string name="create_album_dialog_title">Album baru</string>
     <string name="create_dir_fail_msg">Folder tidak dapat dibuat</string>
+    <string name="create_document">Dokumen</string>
     <string name="create_folder">Folder</string>
     <string name="create_link">Buat tautan</string>
     <string name="create_new">Baru</string>
@@ -1148,6 +1149,9 @@ Berikut ini adalah daftar berkas lokal, dan berkas jarak jauh di %5$s yang terhu
     <string name="write_email">Kirim email</string>
     <string name="wrong_storage_path">Folder penyimpanan data tidak ada!</string>
     <string name="wrong_storage_path_desc">Ini mungkin disebabkan oleh pemulihan cadangan pada perangkat lain. Kembali ke bawaan. Silakan periksa pengaturan untuk menyesuaikan folder penyimpanan data.</string>
+    <plurals name="album_elements_text">
+        <item quantity="other">%d item</item>
+    </plurals>
     <plurals name="hours">
         <item quantity="other">%d jam</item>
     </plurals>
