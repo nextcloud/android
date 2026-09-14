@@ -473,40 +473,42 @@ public class UploadFileOperation extends SyncOperation {
         Log_OC.d(TAG, "parent lookup for path: " + remoteParentPath + " → " +
             (parent == null ? "not found in DB" : "found, id=" + parent.getFileId()));
 
-        final boolean isResumingEncryptedUpload = (mFolderUnlockToken != null && !mFolderUnlockToken.isEmpty());
-        if (!isResumingEncryptedUpload && (parent == null || mRemoteFolderToBeCreated)) {
-            Log_OC.d(TAG, "verifying remote parent folder exists: " + remoteParentPath);
 
-            if (!getCapabilities().getVersion().isNewerOrEqual(NextcloudVersion.nextcloud_32)) {
-                // No automatic folder creation before Nextcloud 32, create them
+        // No automatic folder creation before Nextcloud 32
+        if (!getCapabilities().getVersion().isNewerOrEqual(NextcloudVersion.nextcloud_32)) {
+            final boolean isResumingEncryptedUpload = (mFolderUnlockToken != null && !mFolderUnlockToken.isEmpty());
+            if (!isResumingEncryptedUpload && (parent == null || mRemoteFolderToBeCreated)) {
+                Log_OC.d(TAG, "verifying remote parent folder exists: " + remoteParentPath);
                 final var result = grantFolderExistence(remoteParentPath, client);
+
                 if (!result.isSuccess()) {
                     Log_OC.e(TAG, "grantFolderExistence failed for: " + remoteParentPath + ", code: " +
                         result.getCode() + ", message: " + result.getMessage());
                     return result;
                 }
+
+                parent = getStorageManager().getFileByPath(remoteParentPath);
+                if (parent == null) {
+                    Log_OC.e(TAG, "parent still null after grantFolderExistence: " + remoteParentPath);
+                    return new RemoteOperationResult<>(ResultCode.UNKNOWN_ERROR);
+                }
+
+                Log_OC.d(TAG, "remote parent folder confirmed: " + remoteParentPath + ", id=" + parent.getFileId());
             }
 
-            parent = getStorageManager().getFileByPath(remoteParentPath);
             if (parent == null) {
-                Log_OC.e(TAG, "parent still null after grantFolderExistence: " + remoteParentPath);
-                return new RemoteOperationResult<>(ResultCode.UNKNOWN_ERROR);
+                Log_OC.e(TAG, "parent is null, cannot proceed: " + remoteParentPath + "," + " unlock token: " + mFolderUnlockToken);
+                return new RemoteOperationResult<>(false, "Parent folder not found", HttpStatus.SC_NOT_FOUND);
             }
-
-            Log_OC.d(TAG, "remote parent folder confirmed: " + remoteParentPath + ", id=" + parent.getFileId());
         }
-
-        if (parent == null) {
-            Log_OC.e(TAG, "parent is null, cannot proceed: " + remoteParentPath + "," + " unlock token: " + mFolderUnlockToken);
-            return new RemoteOperationResult<>(false, "Parent folder not found", HttpStatus.SC_NOT_FOUND);
-        }
-
-        // - resume of encrypted upload, then parent file exists already as unlock is only for direct parent
-        mFile.setParentId(parent.getFileId());
 
         // check if any parent is encrypted
         encryptedAncestor = FileStorageUtils.checkEncryptionStatus(parent, getStorageManager());
         mFile.setEncrypted(encryptedAncestor);
+        if (encryptedAncestor && parent != null) {
+            // - resume of encrypted upload, then parent file exists already as unlock is only for direct parent
+            mFile.setParentId(parent.getFileId());
+        }
 
         if (encryptedAncestor) {
             Log_OC.d(TAG, "⬆️🔗" + "encrypted upload");
