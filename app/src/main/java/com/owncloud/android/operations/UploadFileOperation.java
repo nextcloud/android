@@ -475,7 +475,7 @@ public class UploadFileOperation extends SyncOperation {
 
 
         // Create folders only for Nextcloud < 32; 32+ handles this automatically.
-        if (!getCapabilities().getVersion().isNewerOrEqual(NextcloudVersion.nextcloud_32)) {
+        if (getCapabilities().getVersion().isOlderThan(NextcloudVersion.nextcloud_32)) {
             final boolean isResumingEncryptedUpload = (mFolderUnlockToken != null && !mFolderUnlockToken.isEmpty());
             if (!isResumingEncryptedUpload && (parent == null || mRemoteFolderToBeCreated)) {
                 Log_OC.d(TAG, "verifying remote parent folder exists: " + remoteParentPath);
