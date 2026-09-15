@@ -40,7 +40,16 @@ jobs:
             -   uses: gradle/actions/wrapper-validation@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
             -   name: Setup Gradle
                 uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+            -   name: Runner resources
+                run: |
+                    free -h
+                    nproc
+                    df -h .
             -   name: Build ${{ matrix.flavor }}
                 run: |
-                    echo "org.gradle.jvmargs=-Xmx6g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" >> gradle.properties
+                    {
+                      echo "org.gradle.jvmargs=-Xmx4g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=768m"
+                      echo "kotlin.daemon.jvmargs=-Xmx3g -XX:+UseParallelGC -XX:MaxMetaspaceSize=512m"
+                      echo "org.gradle.workers.max=2"
+                    } >> gradle.properties
                     ./gradlew ${{ matrix.tasks }}
