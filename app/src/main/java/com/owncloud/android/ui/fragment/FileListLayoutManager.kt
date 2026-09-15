@@ -87,7 +87,7 @@ class FileListLayoutManager(private val fragment: OCFileListFragment, private va
 
         val layoutManager: RecyclerView.LayoutManager?
         if (grid) {
-            layoutManager = GridLayoutManager(context, fragment.columnsCount)
+            layoutManager = AutofitGridLayoutManager(context) { fragment.targetColumnWidth }
             layoutManager.spanSizeLookup = object : SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int = if (position == fragment.adapter.itemCount - 1 ||
                     (position == 0 && fragment.adapter.shouldShowHeader())
