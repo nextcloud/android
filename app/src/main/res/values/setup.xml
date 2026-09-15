@@ -37,6 +37,12 @@
     <!-- URLs and flags related -->
     <bool name="show_server_url_input">false</bool>
     <bool name="show_provider_or_own_installation">true</bool>
+    <!-- XeniaCloud is single-tenant, so onboarding must not offer provider signup or
+         self-hosting. This is deliberately a separate flag from
+         show_provider_or_own_installation above: that one is read by MDMConfig.showIntro(),
+         which also decides whether the onboarding flow launches at all, so turning it off
+         would suppress the onboarding screens entirely. -->
+    <bool name="show_onboarding_provider_options">false</bool>
     <string name="provider_registration_server">https://www.nextcloud.com/register</string>
 
     <!-- specify built in proxy -->
