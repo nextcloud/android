@@ -84,12 +84,12 @@ class RemoveFilesDialogFragment :
             ?.partition { it.isOfflineOperation }
             ?: (emptyList<OCFile>() to emptyList())
 
-        offlineFiles.forEach(fileDataStorageManager::deleteOfflineOperation)
-
         val listener = getTypedActivity(OnFilesRemovedListener::class.java)
         val fileActivity = getTypedActivity(FileActivity::class.java)
 
         fileActivity?.lifecycleScope?.launch(Dispatchers.IO) {
+            offlineFiles.forEach(fileDataStorageManager::deleteOfflineOperation)
+
             val (autoUploadEntities, filesToRemove) =
                 FileUploadHelper.instance().splitFilesByAutoUpload(files, userAccountManager.user.accountName)
             withContext(Dispatchers.Main) {
