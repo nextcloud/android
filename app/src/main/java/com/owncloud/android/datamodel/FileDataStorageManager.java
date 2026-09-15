@@ -235,6 +235,7 @@ public class FileDataStorageManager {
         file.setMimeType(mimeType);
         file.setCreationTimestamp(createdAt);
         file.setModificationTimestamp(modificationTimestamp);
+        file.setPermissions(getParentPermissions(path));
         saveFileWithParent(file, MainApp.getAppContext());
     }
 
@@ -243,7 +244,19 @@ public class FileDataStorageManager {
         directory.setMimeType(MimeType.DIRECTORY);
         directory.setCreationTimestamp(createdAt);
         directory.setModificationTimestamp(modificationTimestamp);
+        directory.setPermissions(getParentPermissions(path));
         saveFileWithParent(directory, MainApp.getAppContext());
+    }
+
+    @Nullable
+    private String getParentPermissions(String path) {
+        String parentPath = FileStorageUtils.getParentPath(path);
+        if (parentPath == null) {
+            return null;
+        }
+
+        OCFile parent = getFileByDecryptedRemotePath(parentPath);
+        return parent == null ? null : parent.getPermissions();
     }
 
     public void deleteOfflineOperation(OCFile file) {
