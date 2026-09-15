@@ -83,8 +83,8 @@ class FirstRunActivity :
 
         registerActivityResult()
         setupLoginButton()
-        setupSignupButton(MDMConfig.showIntro(this))
-        setupHostOwnServerTextView(MDMConfig.showIntro(this))
+        setupSignupButton(showProviderOptions())
+        setupHostOwnServerTextView(showProviderOptions())
         deleteAccountAtFirstLaunch()
         setupFeaturesViewAdapter()
         handleOnBackPressed()
@@ -129,6 +129,16 @@ class FirstRunActivity :
             }
         }
     }
+
+    /**
+     * Whether onboarding offers provider signup and self-hosting.
+     *
+     * Gated separately from [MDMConfig.showIntro], which also decides whether onboarding
+     * launches at all, so that a single-tenant build can drop these two calls to action
+     * while keeping the onboarding screens.
+     */
+    private fun showProviderOptions(): Boolean =
+        MDMConfig.showIntro(this) && resources.getBoolean(R.bool.show_onboarding_provider_options)
 
     private fun setupSignupButton(isProviderOrOwnInstallationVisible: Boolean) {
         defaultViewThemeUtils?.material?.colorMaterialButtonOutlinedOnPrimary(binding.signup)
