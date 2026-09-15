@@ -273,6 +273,11 @@ class OCFileListBottomSheetDialog(
     }
 
     private fun creatorsActionsFromCollabora(): List<CreatorAction> {
+        // richdocuments 11+ serves its creators through DirectEditing, so the legacy entries would be duplicates.
+        if (editorUtils.isRichDocumentsDirectEditingAvailable(user)) {
+            return emptyList()
+        }
+
         val creatorsActions = ArrayList<CreatorAction>()
 
         fileActivity.capabilities

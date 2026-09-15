@@ -48,6 +48,9 @@ class EditorUtils @Inject constructor(private val arbitraryDataProvider: Arbitra
         return editors.any { usesOfficeUserAgent(it) && (mimeType in it.mimetypes || mimeType in it.optionalMimetypes) }
     }
 
+    fun isRichDocumentsDirectEditingAvailable(user: User?): Boolean =
+        getEditors(user)?.any { it.id == RICH_DOCUMENTS_EDITOR_ID } == true
+
     private fun getEditors(user: User?): Collection<Editor>? {
         val json = arbitraryDataProvider.getValue(user, ArbitraryDataProvider.DIRECT_EDITING)
         if (json.isEmpty()) return null
@@ -57,6 +60,7 @@ class EditorUtils @Inject constructor(private val arbitraryDataProvider: Arbitra
     fun usesOfficeUserAgent(editor: Editor?): Boolean = editor?.id in OFFICE_EDITOR_IDS
 
     companion object {
+        private const val RICH_DOCUMENTS_EDITOR_ID = "richdocuments"
         private val OFFICE_EDITOR_IDS = setOf("onlyoffice", "eurooffice")
     }
 }

@@ -314,7 +314,7 @@ class ChooseTemplateDialogFragment :
                     path,
                     creator?.editor,
                     creator?.id,
-                    template.title
+                    template.id
                 ).execute(nextcloudClient)
                 if (!result.isSuccess) {
                     return ""
