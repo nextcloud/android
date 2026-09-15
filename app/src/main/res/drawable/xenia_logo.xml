@@ -5,8 +5,7 @@
   ~ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <!--
-  ~ Shown on the onboarding slides, the account-setup screen and the deep-link
-  ~ login screen.
+  ~ Drawer header fallback, used when the server supplies no theming logo.
   ~
   ~ The glyph is the same path as drawable/ic_launcher_foreground.xml, so the
   ~ launcher icon and every in-app logo stay the one mark. The inner group is that
@@ -14,15 +13,15 @@
   ~ drawable's frame.
 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="200dp"
-    android:height="100dp"
+    android:width="96dp"
+    android:height="68dp"
     android:viewportWidth="900"
-    android:viewportHeight="450">
+    android:viewportHeight="635">
     <group
-        android:scaleX="2.115000"
-        android:scaleY="2.115000"
-        android:translateX="-47.2894"
-        android:translateY="-243.1921">
+        android:scaleX="2.984500"
+        android:scaleY="2.984500"
+        android:translateX="-251.7306"
+        android:translateY="-343.1710">
         <group
             android:scaleX="1.041667"
             android:scaleY="1.041667"
