@@ -5,39 +5,15 @@
   ~ SPDX-License-Identifier: AGPL-3.0-or-later
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.appbar.MaterialToolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/topBar"
+    style="@style/PlayerToolbarStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical"
     android:minHeight="@dimen/player_toolbar_height"
-    android:orientation="horizontal">
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/back"
-        style="@style/PlayerToolbarIconButtonStyle"
-        android:layout_marginStart="@dimen/player_back_button_margin_start"
-        android:layout_marginEnd="@dimen/player_back_button_margin_end"
-        android:contentDescription="@string/common_back"
-        app:icon="@drawable/ic_arrow_back" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/title"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:ellipsize="end"
-        android:gravity="center_vertical"
-        android:singleLine="true"
-        android:textAppearance="@style/TextAppearance.App.Player.Toolbar"
-        tools:text="Player title" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/more"
-        style="@style/PlayerToolbarIconButtonStyle"
-        android:contentDescription="@string/overflow_menu"
-        app:icon="@drawable/ic_dots_vertical" />
-
-</LinearLayout>
+    app:menu="@menu/player_top_bar"
+    app:navigationContentDescription="@string/common_back"
+    app:navigationIcon="@drawable/ic_arrow_back"
+    tools:title="Player title" />

@@ -30,7 +30,7 @@ class SetupEncryptionActivity : AppCompatActivity() {
             finish()
         }
 
-        val setupEncryptionDialogFragment = SetupEncryptionDialogFragment.newInstance(user, null)
+        val setupEncryptionDialogFragment = SetupEncryptionDialogFragment.newInstance(user, null, null)
         supportFragmentManager.setFragmentResultListener(
             SetupEncryptionDialogFragment.RESULT_REQUEST_KEY,
             this

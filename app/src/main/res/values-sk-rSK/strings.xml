@@ -562,7 +562,7 @@
     <string name="file_not_synced">Súbor sa nepodarilo zosynchronizovať.  Zobrazuje sa posledná dostupná verzia.</string>
     <string name="file_rename">Premenovať</string>
     <string name="file_upload_worker_error_notification_title">Nahrávanie zlyhalo. Žiadne pripojenie k internetu</string>
-    <string name="file_upload_worker_same_file_already_exists">%suž existuje, konflikt nebol zistený</string>
+    <string name="file_upload_worker_same_file_already_exists">%s už existuje, konflikt nebol zistený</string>
     <string name="file_version_restored_error">Chyba pri obnove verzie súboru!</string>
     <string name="filedetails_details">Podrobnosti</string>
     <string name="filedetails_download">Stiahnuť</string>
@@ -750,11 +750,11 @@
     <string name="offline_mode_info_title">Nie ste pripojený, ale môžete pokračovať v práci</string>
     <string name="offline_operations_file_does_not_exists_yet">Súbor ešte neexistuje. Prosím, najprv nahrajte súbor.</string>
     <string name="offline_operations_worker_notification_create_file_conflict_text">Nepodarilo sa vytvoriť %s. Súbor s rovnakým názvom už existuje na serveri.</string>
-    <string name="offline_operations_worker_notification_create_folder_conflict_text">Nepodarilo sa vytvoriť %s. Na serveri už existuje priečinok so rovnakým názvom.</string>
+    <string name="offline_operations_worker_notification_create_folder_conflict_text">Nepodarilo sa vytvoriť %s. Na serveri už existuje priečinok s rovnakým názvom.</string>
     <string name="offline_operations_worker_notification_error_text">Offline operácia nemôže byť dokončená. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Offline operace</string>
     <string name="offline_operations_worker_notification_remove_conflict_text">Zrušené odstránenie %s. Súbor bol upravený na serveri.</string>
-    <string name="offline_operations_worker_notification_rename_conflict_text">Zrušené premenovanie %s. Súbor so rovnakým názvom už existuje na serveri.</string>
+    <string name="offline_operations_worker_notification_rename_conflict_text">Zrušené premenovanie %s. Súbor s rovnakým názvom už existuje na serveri.</string>
     <string name="offline_operations_worker_notification_start_text">Spúšťanie offline operácií</string>
     <string name="oneHour">1 hodina</string>
     <string name="online">Pripojené</string>
