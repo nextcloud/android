@@ -32,6 +32,7 @@ import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.operations.CreateFolderOperation
 import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.RenameFileOperation
+import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
@@ -67,8 +68,8 @@ class OfflineOperationsWorker(
 
             // check network connection
             if (!connectivityService.isNetworkAndServerAvailableSuspended()) {
-                Log_OC.w(TAG, "⚠️ No internet/server connection. Retrying later...")
-                return@withContext Result.retry()
+                Log_OC.w(TAG, "⚠️ No internet/server connection. Waiting for the next trigger...")
+                return@withContext Result.success()
             }
 
             // check offline operations
@@ -160,29 +161,52 @@ class OfflineOperationsWorker(
     }
     // endregion
 
+    private fun getExecutionPath(operation: OfflineOperationEntity): String? {
+        val path = operation.path ?: return null
+
+        return if (operation.type is OfflineOperationType.CreateFile) {
+            path.removeSuffix(OCFile.PATH_SEPARATOR)
+        } else {
+            path
+        }
+    }
+
+    private fun adoptRemoteFolder(operation: OfflineOperationEntity, remoteFile: RemoteFile, ocFile: OCFile?) {
+        ocFile?.let {
+            val adoptedFile = FileStorageUtils.fillOCFile(remoteFile).apply {
+                fileId = it.fileId
+                parentId = it.parentId
+                decryptedRemotePath = it.decryptedRemotePath
+            }
+
+            fileDataStorageManager.saveFile(adoptedFile)
+        }
+
+        repository.updateNextOperations(operation)
+        fileDataStorageManager.offlineOperationDao.delete(operation)
+        notificationManager.dismissNotification(operation.id)
+    }
+
     // region Operation Execution
     @Suppress("ComplexCondition", "LongMethod")
     private suspend fun executeOperation(
         operation: OfflineOperationEntity,
         client: OwnCloudClient
     ): OfflineOperationResult? = withContext(Dispatchers.IO) {
-        var path = (operation.path)
+        val path = getExecutionPath(operation)
         if (path == null) {
             Log_OC.w(TAG, "⚠️ Skipped: path is null for operation id=${operation.id}")
             return@withContext null
         }
 
-        if (operation.type is OfflineOperationType.CreateFile && path.endsWith(OCFile.PATH_SEPARATOR)) {
-            Log_OC.w(
-                TAG,
-                "Create file operation should not ends with path separator removing suffix, " +
-                    "operation id=${operation.id}"
-            )
-            path = path.removeSuffix(OCFile.PATH_SEPARATOR)
-        }
-
         val remoteFile = getRemoteFile(path)
         val ocFile = fileDataStorageManager.getFileByDecryptedRemotePath(path)
+
+        if (operation.type is OfflineOperationType.CreateFolder && remoteFile != null) {
+            Log_OC.d(TAG, "📂 Folder already exists on server, adopting it: $path")
+            adoptRemoteFolder(operation, remoteFile, ocFile)
+            return@withContext null
+        }
 
         if (remoteFile != null && ocFile != null && isFileChanged(remoteFile, ocFile)) {
             Log_OC.w(TAG, "⚠️ Conflict detected: File already exists on server. Skipping operation id=${operation.id}")
