@@ -1156,6 +1156,10 @@ class FileDisplayActivity :
                 } else {
                     lifecycleScope.launch(Dispatchers.IO) {
                         fileDataStorageManager.addCreateFileOfflineOperation(filePaths, decryptedRemotePaths)
+
+                        withContext(Dispatchers.Main) {
+                            refreshCurrentDirectory()
+                        }
                     }
                 }
             }

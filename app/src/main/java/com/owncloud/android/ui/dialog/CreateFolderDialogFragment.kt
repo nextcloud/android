@@ -196,24 +196,25 @@ class CreateFolderDialogFragment :
             val path = parentFolder?.decryptedRemotePath + newFolderName + OCFile.PATH_SEPARATOR
 
             val componentGetter = typedActivity<ComponentsGetter>()
-            val fda = typedActivity<FileDisplayActivity>()
             connectivityService.isNetworkAndServerAvailable {
                 if (it) {
                     componentGetter?.fileOperationsHelper?.createFolder(path, encrypted)
                 } else {
                     Log_OC.d(TAG, "Network not available, creating offline operation")
-                    lifecycleScope.launch(Dispatchers.IO) {
-                        fileDataStorageManager.addCreateFolderOfflineOperation(
-                            path,
-                            newFolderName,
-                            parentFolder?.fileId
-                        )
-
-                        withContext(Dispatchers.Main) {
-                            fda?.refreshCurrentDirectory()
-                        }
-                    }
+                    createFolderOfflineOperation(path, newFolderName)
                 }
+            }
+        }
+    }
+
+    private fun createFolderOfflineOperation(path: String, folderName: String) {
+        val activity = typedActivity<FileDisplayActivity>() ?: return
+
+        activity.lifecycleScope.launch(Dispatchers.IO) {
+            fileDataStorageManager.addCreateFolderOfflineOperation(path, folderName, parentFolder?.fileId)
+
+            withContext(Dispatchers.Main) {
+                activity.refreshCurrentDirectory()
             }
         }
     }
