@@ -104,6 +104,14 @@ class AlbumFileUploadWorker(
             }
         }
 
+        fun pauseActiveUploads() {
+            activeOperations.values.forEach {
+                Log_OC.d(TAG, "upload operation is paused: ${it.remotePath}")
+                it.pause()
+            }
+            activeOperations.clear()
+        }
+
         fun getCurrentUpload(id: Long?): UploadFileOperation? = activeOperations[id]
 
         fun isUploading(remotePath: String?, accountName: String?): Boolean = activeOperations.values.any {

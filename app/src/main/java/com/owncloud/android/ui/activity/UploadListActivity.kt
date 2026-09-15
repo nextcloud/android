@@ -24,8 +24,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.client.jobs.upload.AlbumFileUploadWorker
 import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
 import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.utils.Throttler
 import com.nextcloud.ui.component.UploadWarningCard
@@ -237,8 +239,15 @@ class UploadListActivity :
 
     @SuppressLint("NotifyDataSetChanged")
     private fun toggleGlobalPause(item: MenuItem) {
-        preferences.setGlobalUploadPaused(!preferences.isGlobalUploadPaused())
+        val paused = !preferences.isGlobalUploadPaused()
+        preferences.setGlobalUploadPaused(paused)
         updateGlobalPauseIcon(item)
+
+        if (paused) {
+            FileUploadWorker.pauseActiveUploads()
+            AlbumFileUploadWorker.pauseActiveUploads()
+        }
+
         val uploadHelper = FileUploadHelper.instance()
         accountManager.getAllUsers().filterNotNull().forEach { user ->
             val ids = uploadsStorageManager.getCurrentUploadIds(user.accountName)
