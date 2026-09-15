@@ -279,9 +279,14 @@ class SetStatusMessageBottomSheet(val user: User, val currentStatus: Status?) :
                 { dismiss(it) }
             )
         } else {
+            // The server rejects a status update whose message field is empty,
+            // even when the caller is only changing the icon or clearAt. Fall
+            // back to a single space so those single-field updates go through.
+            // Matches the fix applied in nextcloud/talk-android@a89c5952fa.
+            val message = binding.customStatusInput.text.toString().ifEmpty { " " }
             asyncRunner.postQuickTask(
                 SetUserDefinedCustomStatusTask(
-                    binding.customStatusInput.text.toString(),
+                    message,
                     binding.emoji.text.toString(),
                     clearAt,
                     accountManager.currentOwnCloudAccount?.savedAccount,
