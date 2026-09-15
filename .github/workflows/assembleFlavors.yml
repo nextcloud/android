@@ -6,6 +6,8 @@ name: "Assemble"
 on:
     pull_request:
         branches: [ master, stable-* ]
+    push:
+        branches: [ master ]
 
 # Declare default permissions as read only.
 permissions: read-all
@@ -16,11 +18,18 @@ concurrency:
 
 jobs:
     flavor:
+        name: flavor (${{ matrix.flavor }})
         runs-on: ubuntu-latest
         strategy:
             fail-fast: false
             matrix:
-                flavor: [ Generic, Gplay, Huawei ]
+                include:
+                    -   flavor: Generic
+                        tasks: assembleGenericDebug
+                    -   flavor: Gplay
+                        tasks: assembleGplayDebug assembleGplayRelease
+                    -   flavor: Huawei
+                        tasks: assembleHuaweiDebug
         steps:
             -   uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
             -   name: set up JDK 21
@@ -29,10 +38,9 @@ jobs:
                     distribution: "temurin"
                     java-version: 21
             -   uses: gradle/actions/wrapper-validation@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+            -   name: Setup Gradle
+                uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
             -   name: Build ${{ matrix.flavor }}
                 run: |
                     echo "org.gradle.jvmargs=-Xmx6g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" >> gradle.properties
-                    echo "org.gradle.caching=true" >> gradle.properties
-                    echo "org.gradle.parallel=true" >> gradle.properties
-                    echo "org.gradle.configureondemand=true" >> gradle.properties
-                    ./gradlew assemble${{ matrix.flavor }}
+                    ./gradlew ${{ matrix.tasks }}
