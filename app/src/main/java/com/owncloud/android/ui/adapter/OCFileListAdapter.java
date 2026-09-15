@@ -27,7 +27,7 @@ import android.widget.ImageView;
 
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.google.android.material.chip.Chip;
-import com.nextcloud.android.common.core.utils.ecosystem.EcosystemApp;
+import com.nextcloud.client.ecosystem.XeniaEcosystemApp;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.entity.OfflineOperationEntity;
@@ -471,7 +471,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 if (activity instanceof DrawerActivity drawerActivity) {
                     final var ecosystemManager = drawerActivity.getEcosystemManager();
                     if (ecosystemManager != null) {
-                        listHeaderOpenInBinding.openInButton.setOnClickListener(v -> ecosystemManager.openApp(EcosystemApp.NOTES, user.getAccountName()));
+                        listHeaderOpenInBinding.openInButton.setOnClickListener(v -> ecosystemManager.openApp(XeniaEcosystemApp.NOTES, user.getAccountName()));
                     }
                 }
             }
