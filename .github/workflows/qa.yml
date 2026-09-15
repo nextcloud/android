@@ -37,7 +37,6 @@ jobs:
           java-version: 21
 
       - name: Build QA
-        id: build-qa
         if: ${{ steps.check-secrets.outputs.ok == 'true' }}
         env:
           KS_PASS: ${{ secrets.KS_PASS }}
@@ -47,70 +46,40 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mkdir -p "$HOME/.gradle"
-          {
-            echo "org.gradle.jvmargs=-Xmx3g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g"
-            echo "org.gradle.caching=true"
-            echo "org.gradle.parallel=true"
-            echo "org.gradle.configureondemand=true"
-          } > "$HOME/.gradle/gradle.properties"
+          echo "org.gradle.jvmargs=-Xmx3g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" > "$HOME/.gradle/gradle.properties"
+          echo "org.gradle.caching=true; org.gradle.parallel=true; org.gradle.configureondemand=true" >> "$HOME/.gradle/gradle.properties"
           [ -e app/build.gradle ] && sed -i "/qa/,/\}/ s/versionCode .*/versionCode ${{github.event.number}} /" "app/build.gradle"
           [ -e app/build.gradle ] && sed -i "/qa/,/\}/ s/versionName .*/versionName \"${{github.event.number}}\"/" "app/build.gradle"
           [ -e app/build.gradle.kts ] && sed -i "/qa/,/\}/ s/versionCode .*/versionCode = ${{github.event.number}} /" "app/build.gradle.kts"
           [ -e app/build.gradle.kts ] && sed -i "/qa/,/\}/ s/versionName .*/versionName = \"${{github.event.number}}\"/" "app/build.gradle.kts"
           ./gradlew assembleQaDebug
           $(find /usr/local/lib/android/sdk/build-tools/*/apksigner | sort | tail -n1) sign  --ks-pass pass:"$KS_PASS" --key-pass pass:"$KEY_PASS" --ks-key-alias key0 --ks ".github/workflows/QA_keystore.jks" app/build/outputs/apk/qa/debug/*qa-debug*.apk
-          apk=$(find app/build/outputs/apk/qa/debug -name '*qa-debug*.apk' | head -n1)
-          echo "apk-path=$apk" >> "$GITHUB_OUTPUT"
-          echo "apk-name=$(basename "$apk")" >> "$GITHUB_OUTPUT"
-          echo "apk-size=$(du -h "$apk" | cut -f1)" >> "$GITHUB_OUTPUT"
 
       - name: Upload APK
         id: upload-apk
-        if: ${{ steps.check-secrets.outputs.ok == 'true' }}
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
         with:
-          path: ${{ steps.build-qa.outputs.apk-path }}
-          if-no-files-found: error
+          path: app/build/outputs/apk/qa/debug/*qa-debug*.apk
           retention-days: 7
           archive: false
 
-      - name: Create QR code
-        if: ${{ steps.check-secrets.outputs.ok == 'true' }}
-        env:
-          ARTIFACT_URL: ${{ steps.upload-apk.outputs.artifact-url }}
+      - name: Create QR Code
         run: |
           sudo apt-get -y install qrencode
-          qrencode -s 8 -o qr.png "$ARTIFACT_URL"
+          qrencode -o qr.png "${{ steps.upload-apk.outputs.artifact-url }}"
 
-      - name: Upload QR code
+      - name: Upload QR
         id: upload-qr
-        if: ${{ steps.check-secrets.outputs.ok == 'true' }}
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
         with:
           path: qr.png
-          if-no-files-found: error
           retention-days: 7
           archive: false
 
       - name: Comment PR
-        if: ${{ steps.check-secrets.outputs.ok == 'true' }}
         uses: thollander/actions-comment-pull-request@e4a76dd2b0a3c2027c3fd84147a67c22ee4c90fa
         with:
-          comment-tag: qa-apk
-          mode: upsert
           message: |
-            ### :iphone: QA build
-
-            | | |
-            |---|---|
-            | **Download** | [${{ steps.build-qa.outputs.apk-name }}](${{ steps.upload-apk.outputs.artifact-url }}) (${{ steps.build-qa.outputs.apk-size }}) |
-            | **QR code** | [Open the QR code for this download](${{ steps.upload-qr.outputs.artifact-url }}) |
-            | **Commit** | ${{ github.event.pull_request.head.sha }} |
-            | **Version** | `${{ github.event.number }}` |
-            | **Available until** | 7 days after this build |
-
-            The QA build installs alongside a released Nextcloud app, so you can keep
-            using your existing install while testing.
-
-            Downloading the file requires a GitHub account, so open this link on the
-            device you want to test on, or transfer the APK to it.
+            APK file: ${{ steps.upload-apk.outputs.artifact-url }}
+            To test this change/fix you can simply download above APK file and install and test it in parallel to your existing Nextcloud app.
+            ![qrcode](${{ steps.upload-qr.outputs.artifact-url }}) (please click on link to get QR code displayed)
