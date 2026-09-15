@@ -87,7 +87,6 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
-import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
 import com.owncloud.android.operations.GetCapabilitiesOperation;
 import com.owncloud.android.ui.events.AccountRemovedEvent;
@@ -417,7 +416,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 drawerHeader.setBackgroundColor(primaryColor);
 
                 if (!TextUtils.isEmpty(serverLogoURL) && URLUtil.isValidUrl(serverLogoURL)) {
-                    Target<Drawable> target = createSVGLogoTarget(primaryColor, capability);
+                    Target<Drawable> target = createSVGLogoTarget(primaryColor);
                     GlideHelper.INSTANCE.loadIntoTarget(this,
                                                         accountManager.getCurrentOwnCloudAccount(),
                                                         serverLogoURL,
@@ -438,7 +437,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
-    private Target<Drawable> createSVGLogoTarget(int primaryColor, OCCapability capability) {
+    private Target<Drawable> createSVGLogoTarget(int primaryColor) {
         return new CustomTarget<>() {
             @Override
             public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
