@@ -16,7 +16,8 @@ data class JobInfo(
     val user: String = "",
     val workerClass: String = "",
     val started: Date = Date(0),
-    val progress: Int = 0
+    val progress: Int = 0,
+    val output: Map<String, Any?> = emptyMap()
 )
 
 data class LogEntry(
