@@ -103,7 +103,7 @@ jobs:
 
             | | |
             |---|---|
-            | **Download** | [${{ steps.build-qa.outputs.apk-name }}](${{ steps.upload-apk.outputs.artifact-url }}) (${{ steps.build-qa.outputs.apk-size }}) |
+            | **Download** | [${{ steps.build-qa.outputs.apk-name }}](${{ steps.upload-apk.outputs.artifact-url }}) |
             | **QR code** | [Open the QR code for this download](${{ steps.upload-qr.outputs.artifact-url }}) |
             | **Commit** | ${{ github.event.pull_request.head.sha }} |
             | **Version** | `${{ github.event.number }}` |
