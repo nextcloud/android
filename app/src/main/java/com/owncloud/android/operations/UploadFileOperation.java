@@ -158,6 +158,7 @@ public class UploadFileOperation extends SyncOperation {
 
     private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
     private final AtomicBoolean mUploadStarted = new AtomicBoolean(false);
+    private final AtomicBoolean mPaused = new AtomicBoolean(false);
 
     private Context mContext;
 
@@ -448,6 +449,7 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         mCancellationRequested.set(false);
+        mPaused.set(false);
         mUploadStarted.set(true);
 
         updateSize(0);
@@ -1589,6 +1591,15 @@ public class UploadFileOperation extends SyncOperation {
                 Log_OC.e(TAG, "No upload in progress. This should not happen.");
             }
         }
+    }
+
+    public void pause() {
+        mPaused.set(true);
+        cancel(ResultCode.USER_CANCELLED);
+    }
+
+    public boolean isPaused() {
+        return mPaused.get();
     }
 
     /**
