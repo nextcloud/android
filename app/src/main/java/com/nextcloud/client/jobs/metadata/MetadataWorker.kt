@@ -26,6 +26,7 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
     companion object {
         private const val TAG = "MetadataWorker"
         const val FILE_PATH = "file_path"
+        const val FOLDER_ALREADY_SYNCED = "folder_already_synced"
     }
 
     override suspend fun doWork(): Result {
@@ -49,7 +50,8 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
 
         Log_OC.d(TAG, "Starting metadata sync for folder: $filePath, id: ${currentDir.fileId}")
 
-        if (!refreshFolder(currentDir, storageManager)) return Result.failure()
+        val folderAlreadySynced = inputData.getBoolean(FOLDER_ALREADY_SYNCED, false)
+        if (!folderAlreadySynced && !refreshFolder(currentDir, storageManager)) return Result.failure()
 
         val refreshedDir = storageManager.getFileByPath(filePath) ?: run {
             Log_OC.e(TAG, "File not found after refresh: $filePath")
