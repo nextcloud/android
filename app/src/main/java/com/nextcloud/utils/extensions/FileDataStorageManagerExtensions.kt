@@ -187,31 +187,32 @@ fun FileDataStorageManager.moveFiles(ocFile: OCFile?, targetPath: String, target
 }
 
 fun FileDataStorageManager.createDirectoryTree(remotePath: String, createdRemoteFolder: RemoteFile) {
-    if (getFileByPath(FileStorageUtils.getParentPath(remotePath)) == null) {
+    if (getFileByEncryptedRemotePath(FileStorageUtils.getParentPath(remotePath)) == null) {
         // When parent of remote path is not created
         val subFolders = remotePath.split(OCFile.PATH_SEPARATOR.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         var composedRemotePath = OCFile.ROOT_PATH
 
         // For each ancestor folders create them recursively
         for (subFolder in subFolders) {
-            if (!subFolder.isEmpty()) {
+            if (subFolder.isNotEmpty()) {
                 composedRemotePath = composedRemotePath + subFolder + OCFile.PATH_SEPARATOR
                 createDirectoryTree(composedRemotePath, createdRemoteFolder)
             }
         }
     } else {
         // Create directory on DB
-        val newDir = OCFile(remotePath)
-        newDir.setMimeType(MimeType.DIRECTORY)
-        val parentId: Long = getFileByPath(FileStorageUtils.getParentPath(remotePath)).getFileId()
-        newDir.setParentId(parentId)
-        newDir.setRemoteId(createdRemoteFolder.remoteId)
-        newDir.setModificationTimestamp(System.currentTimeMillis())
-        newDir.setEncrypted(FileStorageUtils.checkEncryptionStatus(newDir, this))
-        newDir.setPermissions(createdRemoteFolder.permissions)
-        saveFile(newDir)
+        with(OCFile(remotePath)) {
+            mimeType = MimeType.DIRECTORY
+            val parentId: Long = getFileByEncryptedRemotePath(FileStorageUtils.getParentPath(remotePath)).getFileId()
+            setParentId(parentId)
+            remoteId = createdRemoteFolder.remoteId
+            modificationTimestamp = System.currentTimeMillis()
+            isEncrypted = FileStorageUtils.checkEncryptionStatus(this, this@createDirectoryTree)
+            permissions = createdRemoteFolder.permissions
+            saveFile(this)
+        }
 
-        Log_OC.d(FileDataStorageManager.TAG, "createDirectoryTree: created " + remotePath + " in Database")
+        Log_OC.d(FileDataStorageManager.TAG, "createDirectoryTree: created $remotePath in Database")
     }
 }
 
