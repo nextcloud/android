@@ -186,7 +186,7 @@ fun FileDataStorageManager.moveFiles(ocFile: OCFile?, targetPath: String, target
     }
 }
 
-fun FileDataStorageManager.createDirectoryTree(remotePath: String, createdRemoteFolder: RemoteFile) {
+fun FileDataStorageManager.createDirectoryTree(remotePath: String, createdRemoteFolder: RemoteFile?) {
     if (getFileByEncryptedRemotePath(FileStorageUtils.getParentPath(remotePath)) == null) {
         // When parent of remote path is not created
         val subFolders = remotePath.split(OCFile.PATH_SEPARATOR.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
@@ -205,10 +205,10 @@ fun FileDataStorageManager.createDirectoryTree(remotePath: String, createdRemote
             mimeType = MimeType.DIRECTORY
             val parentId: Long = getFileByEncryptedRemotePath(FileStorageUtils.getParentPath(remotePath)).getFileId()
             setParentId(parentId)
-            remoteId = createdRemoteFolder.remoteId
+            remoteId = createdRemoteFolder?.remoteId
             modificationTimestamp = System.currentTimeMillis()
             isEncrypted = FileStorageUtils.checkEncryptionStatus(this, this@createDirectoryTree)
-            permissions = createdRemoteFolder.permissions
+            permissions = createdRemoteFolder?.permissions
             saveFile(this)
         }
 
