@@ -242,8 +242,8 @@ public class FileDataStorageManager {
         final OCFile existingFile = getFileByRemotePath(remotePath);
         final File localFile = FileExtensionsKt.toFile(localPath);
         if (FileExtensionsKt.isTheSameAs(existingFile, localFile)) {
-            // In case the same file was already uploaded, do not overwrite it to avoid triggering a conflict
-            Log_OC.i(TAG, "Creating pendingFile for an already uploaded file: keeping metadata");
+            Log_OC.i(TAG, "Creating pendingFile for an already uploaded file: " +
+                "keeping metadata to avoid triggering a conflict");
             return;
         }
 
