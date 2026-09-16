@@ -27,6 +27,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.autoRename.AutoRename;
 import com.nextcloud.utils.e2ee.E2ECounterHelper;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
+import com.nextcloud.utils.extensions.FileDataStorageManagerExtensionsKt;
 import com.nextcloud.utils.extensions.RemoteOperationResultExtensionsKt;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
@@ -512,13 +513,21 @@ public class UploadFileOperation extends SyncOperation {
             mFile.setParentId(parent.getFileId());
         }
 
+        RemoteOperationResult result;
         if (encryptedAncestor) {
             Log_OC.d(TAG, "⬆️🔗" + "encrypted upload");
-            return encryptedUpload(client, parent);
+            result = encryptedUpload(client, parent);
         } else {
             Log_OC.d(TAG, "⬆️" + "normal upload");
-            return normalUpload(client);
+            result = normalUpload(client);
         }
+
+        if (result.isSuccess() && getCapabilities().getVersion().isNewerOrEqual(NextcloudVersion.nextcloud_32)) {
+            // Add the folders that the server creates automatically (from Nextcloud 32) to local db
+            FileDataStorageManagerExtensionsKt.createDirectoryTree(getStorageManager(), remoteParentPath, null);
+        }
+
+        return result;
     }
 
     // region E2E Upload
