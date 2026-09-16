@@ -14,6 +14,7 @@ import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.ConnectivityManagerFactory;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.test.SinceServer;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
@@ -321,6 +322,7 @@ public class UploadIT extends AbstractOnServerIT {
     }
 
     @Test
+    @SinceServer(majorVersion = 27)
     public void testCreationAndUploadTimestamp() throws IOException, AccountUtils.AccountNotFoundException {
         testOnlyOnServer(NextcloudVersion.nextcloud_27);
 
@@ -375,6 +377,7 @@ public class UploadIT extends AbstractOnServerIT {
     }
 
     @Test
+    @SinceServer(majorVersion = 27)
     public void testMetadata() throws IOException, AccountUtils.AccountNotFoundException {
         testOnlyOnServer(NextcloudVersion.nextcloud_27);
 

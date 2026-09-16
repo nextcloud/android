@@ -1340,6 +1340,12 @@
         <item quantity="many">%d выбрано</item>
         <item quantity="other">%d выбрано</item>
     </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_users">
+        <item quantity="one">%d пользователь</item>
+        <item quantity="few">%d пользователя</item>
+        <item quantity="many">%d пользователей</item>
+        <item quantity="other">%d пользователей</item>
+    </plurals>
     <plurals name="passcode_delay_seconds">
         <item quantity="one">%d секунда</item>
         <item quantity="few">%d секунды</item>
