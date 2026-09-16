@@ -24,7 +24,6 @@ import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.activity.SettingsActivity
 import javax.inject.Inject
-import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 
 class LauncherActivity : BaseActivity() {
@@ -90,6 +89,6 @@ class LauncherActivity : BaseActivity() {
 
     companion object {
         private val SPLASH_DURATION = 1500.milliseconds
-        private val NO_SPLASH_DURATION = Duration.ZERO
+        private val NO_SPLASH_DURATION = 100.milliseconds
     }
 }
