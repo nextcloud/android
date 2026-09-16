@@ -17,6 +17,7 @@ import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.MimeTypeUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -182,6 +183,35 @@ fun FileDataStorageManager.moveFiles(ocFile: OCFile?, targetPath: String, target
             (defaultSavePath + oldPath).length
         )
         FileDataStorageManager.triggerMediaScan(newMediaPath)
+    }
+}
+
+fun FileDataStorageManager.createDirectoryTree(remotePath: String, createdRemoteFolder: RemoteFile) {
+    if (getFileByPath(FileStorageUtils.getParentPath(remotePath)) == null) {
+        // When parent of remote path is not created
+        val subFolders = remotePath.split(OCFile.PATH_SEPARATOR.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        var composedRemotePath = OCFile.ROOT_PATH
+
+        // For each ancestor folders create them recursively
+        for (subFolder in subFolders) {
+            if (!subFolder.isEmpty()) {
+                composedRemotePath = composedRemotePath + subFolder + OCFile.PATH_SEPARATOR
+                createDirectoryTree(composedRemotePath, createdRemoteFolder)
+            }
+        }
+    } else {
+        // Create directory on DB
+        val newDir = OCFile(remotePath)
+        newDir.setMimeType(MimeType.DIRECTORY)
+        val parentId: Long = getFileByPath(FileStorageUtils.getParentPath(remotePath)).getFileId()
+        newDir.setParentId(parentId)
+        newDir.setRemoteId(createdRemoteFolder.remoteId)
+        newDir.setModificationTimestamp(System.currentTimeMillis())
+        newDir.setEncrypted(FileStorageUtils.checkEncryptionStatus(newDir, this))
+        newDir.setPermissions(createdRemoteFolder.permissions)
+        saveFile(newDir)
+
+        Log_OC.d(FileDataStorageManager.TAG, "createDirectoryTree: created " + remotePath + " in Database")
     }
 }
 
