@@ -20,6 +20,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: codeql-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
   analyze:
     name: Analyze
@@ -51,10 +55,9 @@ jobs:
         with:
           distribution: "temurin"
           java-version: 21
-      - name: Assemble
-        run: |
-          mkdir -p "$HOME/.gradle"
-          echo "org.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > "$HOME/.gradle/gradle.properties"
-          ./gradlew --no-daemon assembleDebug
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+      - name: Compile sources
+        run: ./gradlew --no-daemon --no-build-cache :app:compileGplayDebugSources
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@b96794f015dfd88f77b49b1c93e0fa7110f94c63 # v4.38.0
