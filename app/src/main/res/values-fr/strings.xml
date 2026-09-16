@@ -943,6 +943,7 @@
     <string name="send">Envoyer</string>
     <string name="send_copy_to">Envoyer une copie à</string>
     <string name="send_share">Envoyer le partage</string>
+    <string name="server_not_allowed">Serveur non autorisé</string>
     <string name="server_not_reachable">Impossible de charger le contenu</string>
     <string name="server_not_reachable_content">Il semble que l’appareil ne soit pas connecté à Internet</string>
     <string name="set_as">Utiliser comme</string>

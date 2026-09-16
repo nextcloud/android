@@ -943,6 +943,7 @@
     <string name="send">Saada</string>
     <string name="send_copy_to">Saada koopia asukohta</string>
     <string name="send_share">Saada jaosmeediat</string>
+    <string name="server_not_allowed">See server pole lubatud</string>
     <string name="server_not_reachable">Sisu laadimine ei õnnestunud</string>
     <string name="server_not_reachable_content">Seadmes ilmselt puudub internetiühendus</string>
     <string name="set_as">Määra kui</string>

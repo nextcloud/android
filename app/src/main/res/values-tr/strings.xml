@@ -943,6 +943,7 @@
     <string name="send">Gönder</string>
     <string name="send_copy_to">Kopyasını şuraya gönder</string>
     <string name="send_share">Paylaşım gönder</string>
+    <string name="server_not_allowed">Sunucuya izin verilmiyor</string>
     <string name="server_not_reachable">İçerik yüklenemedi</string>
     <string name="server_not_reachable_content">Bu aygıtın internet bağlantısı yok gibi görünüyor</string>
     <string name="set_as">Farklı ayarla</string>
