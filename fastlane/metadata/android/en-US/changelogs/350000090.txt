@@ -1,0 +1,17 @@
+## 35.0.0 (September 16, 2026)
+
+- NC Governance
+- Albums
+- New M3 Expressive media player
+- New sharing UI for Nextcloud 35
+- Faster file listing
+- Manual Sync now button for auto-upload when device is in power saver mode
+- Auto upload: clean up uploaded files
+- Manage tags on files/folders
+- Auto upload improvements
+- E2EE improvements
+- Bugfixes and performance improvements
+
+Minimum: NC 22 Server, Android 9 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/130
