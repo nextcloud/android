@@ -49,6 +49,8 @@ data class ShareEntity(
     val isPasswordProtected: Int?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_NOTE)
     val note: String?,
+    @ColumnInfo(name = ProviderTableMeta.OCSHARES_SEND_PASSWORD_BY_TALK)
+    val sendPasswordByTalk: Int?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD)
     val hideDownload: Int?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_SHARE_LINK)

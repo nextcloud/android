@@ -51,6 +51,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
     private final int permissions;
     private final String noteMessage;
     private final String sharePassword;
+    private final boolean isVideoVerification;
     private final boolean hideFileDownload;
     private final long expirationDateInMillis;
     private String label;
@@ -85,6 +86,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
                                           int permissions,
                                           String noteMessage,
                                           String sharePassword,
+                                          boolean isVideoVerification,
                                           long expirationDateInMillis,
                                           boolean hideFileDownload,
                                           String attributes,
@@ -105,6 +107,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
         this.hideFileDownload = hideFileDownload;
         this.noteMessage = noteMessage;
         this.sharePassword = sharePassword;
+        this.isVideoVerification = isVideoVerification;
         this.context = context;
         this.user = user;
         this.arbitraryDataProvider = arbitraryDataProvider;
@@ -164,6 +167,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
             attributes
         );
         operation.setGetShareDetails(true);
+        operation.setSendPasswordByTalk(isVideoVerification);
         RemoteOperationResult shareResult = operation.execute(client);
 
         if (!shareResult.isSuccess() || shareResult.getData().size() == 0) {

@@ -36,6 +36,7 @@ public class UpdateShareInfoOperation extends SyncOperation {
     private boolean hideFileDownload;
     private int permissions = -1;
     private String password;
+    private boolean isVideoVerification;
     private String label;
     private String attributes;
 
@@ -107,6 +108,7 @@ public class UpdateShareInfoOperation extends SyncOperation {
             updateOp.setPermissions(permissions);
         }
         updateOp.setPassword(password);
+        updateOp.setSendPasswordByTalk(isVideoVerification);
         updateOp.setLabel(label);
         updateOp.setAttributes(attributes);
 
@@ -153,6 +155,8 @@ public class UpdateShareInfoOperation extends SyncOperation {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public void setIsVideoVerification(boolean isVideoVerification) { this.isVideoVerification = isVideoVerification; }
 
     public void setLabel(String label) {
         this.label = label;

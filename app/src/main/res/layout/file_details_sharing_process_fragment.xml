@@ -175,6 +175,14 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/share_process_set_video_verification_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_half_margin"
+                android:minHeight="@dimen/minimum_size_for_touchable_area"
+                android:text="@string/share_no_video_verification_label"/>
+
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/share_process_set_exp_date_switch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -40,6 +40,7 @@ fun OCShare.toEntity(accountName: String): ShareEntity = ShareEntity(
     userId = userId,
     accountOwner = accountName,
     isPasswordProtected = if (isPasswordProtected) 1 else 0,
+    sendPasswordByTalk = if (isSendPasswordByTalk) 1 else 0,
     note = note,
     hideDownload = if (isHideFileDownload) 1 else 0,
     shareLink = shareLink,
