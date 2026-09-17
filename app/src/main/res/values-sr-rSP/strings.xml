@@ -25,7 +25,6 @@
     <string name="activity_chooser_send_file_title">Pošalji</string>
     <string name="activity_chooser_title">Pošalji vezu…</string>
     <string name="activity_icon">Aktivnost</string>
-    <string name="add_to_cloud">Dodaj u %1$s</string>
     <string name="appbar_search_in">Pretraga u %s</string>
     <string name="appear_offline">Prikaži kao van mreže</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Da li ste sigurni da želite da izbrišete ovaj zadatak?</string>
@@ -146,7 +145,6 @@
     <string name="create_dir_fail_msg">Ne mogu da napravim fasciklu</string>
     <string name="create_new">Nov</string>
     <string name="create_new_document">Novi dokument</string>
-    <string name="create_new_folder">Nova fascikla</string>
     <string name="credentials_disabled">Akreditivi isključeni</string>
     <string name="default_credentials_wrong">Neispravni akreditivi</string>
     <string name="delete_account">Ukloni nalog</string>
@@ -323,16 +321,6 @@
     <string name="manage_space_clear_data">Očisti podatke</string>
     <string name="manage_space_description">Podešavanja, baza i serverski sertifikati od podataka sa %1$s će biti zauvek obrisani. \n\nVeć skinuti fajlovi neće biti dirani.\n\nOvo može potrajati.</string>
     <string name="manage_space_title">Upravljanje prostorom</string>
-    <string name="media_err_io">Ne mogu da pročitam multimedijalni fajl</string>
-    <string name="media_err_malformed">Multimedijalni fajl ima neispravno kodiranje znakova</string>
-    <string name="media_err_timeout">Isteklo vreme pokušavajući da pustim fajl</string>
-    <string name="media_err_unknown">Ugrađeni multimedijalni plejer ne može da pusti ovaj fajl</string>
-    <string name="media_err_unsupported">Nepodržan kodek</string>
-    <string name="media_forward_description">Unapred</string>
-    <string name="media_notif_ticker">%1$s muzički plejer</string>
-    <string name="media_play_pause_description">Puštanje-pauza</string>
-    <string name="media_rewind_description">Unazad</string>
-    <string name="media_state_playing">%1$s (svira)</string>
     <string name="menu_item_sort_by_date_newest_first">prvo novije</string>
     <string name="menu_item_sort_by_date_oldest_first">prvo starije</string>
     <string name="menu_item_sort_by_name_a_z">po nazivu</string>
@@ -387,6 +375,7 @@
     <string name="permission_allow">Dozvoli</string>
     <string name="permission_deny">Odbij</string>
     <string name="picture_set_as_no_app">Nijedna aplikacija nije nađena da se sa njom postavi slika</string>
+    <string name="player_media_controls_close_action_title">Zatvori</string>
     <string name="power_save_check_dialog_message">Isključivanje provere uštede baterije može da dovede do toga da otpremate fajlove sa praznom baterijom!</string>
     <string name="pref_behaviour_entries_delete_file">obrisano</string>
     <string name="pref_behaviour_entries_keep_file">ostavljen u izvornoj fascikli</string>
@@ -445,6 +434,7 @@
     <string name="remove_notification_failed">Greška pri uklanjanju obaveštenja.</string>
     <string name="remove_push_notification">Ukloni</string>
     <string name="remove_success_msg">Obrisano</string>
+    <string name="rename_dialog_button">Preimenuj</string>
     <string name="rename_dialog_title">Unesite nov naziv</string>
     <string name="rename_local_fail_msg">Lokalna kopija ne može da se preimenuje, probajte drugo ime</string>
     <string name="rename_server_fail_msg">Preimenovanje nije moguće, ime je već zauzeto</string>
@@ -542,7 +532,6 @@
     <string name="store_short_dev_desc">Platforma za produktivnost koju i Vi možete da hostujete i koja Vam daje kontrolu (razvojna verzija)</string>
     <string name="stream">Strimuj sa…</string>
     <string name="stream_not_possible_headline">Interno strimovanje nije moguće</string>
-    <string name="stream_not_possible_message">Ili preuzmite multimediju ili koristite neku eksternu aplikaciju.</string>
     <string name="sub_folder_rule_day">Godina/Mesec/Dan</string>
     <string name="subject_shared_with_you">„%1$s“ je podeljen sa vama</string>
     <string name="subject_user_shared_with_you">%1$s deli „%2$s“ sa vama</string>

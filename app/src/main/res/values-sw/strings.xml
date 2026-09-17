@@ -31,7 +31,9 @@
     <string name="activity_icon">Shughuli</string>
     <string name="add_new_public_share">Kiungo kipya cha ushiriki wa umma</string>
     <string name="add_new_secure_file_drop">Ongeza tone mpya la faili salama</string>
-    <string name="add_to_cloud">Ongeza kwenye %1$s</string>
+    <string name="add_to_album">Ongeza kwenye albamu</string>
+    <string name="album_delete">Futa albamu</string>
+    <string name="album_rename_conflict">Jina hili liko katika matumizi tayari</string>
     <string name="app_config_base_url_title">URL ya msingi</string>
     <string name="app_config_disable_clipboard_title">Zima Ubao wa kunakili</string>
     <string name="app_config_disable_intro_title">Zima Utangulizi</string>
@@ -240,15 +242,18 @@
     <string name="could_not_retrieve_shares">Haikuweza kurejesha ushiriki</string>
     <string name="could_not_retrieve_url">Haikuweza kupata URL</string>
     <string name="create">Tengeneza</string>
+    <string name="create_album_dialog_title">Albamu mpya</string>
     <string name="create_dir_fail_msg">Haikuweza kutengeneza folda</string>
+    <string name="create_document">Nyaraka</string>
+    <string name="create_folder">Kisanduku</string>
     <string name="create_link">Tengeneza kiungo</string>
     <string name="create_new">Mpya</string>
     <string name="create_new_document">Waraka mpya</string>
-    <string name="create_new_encrypted_folder">Folda mpya iliyosimbwa kwa njia fiche</string>
-    <string name="create_new_folder">Kisanduku kipya</string>
     <string name="create_new_presentation">Wasilisho jipya</string>
     <string name="create_new_spreadsheet">Lahajedwali mpya</string>
+    <string name="create_presentation">Wasilisho</string>
     <string name="create_rich_workspace">Ongeza maelezo ya folda</string>
+    <string name="create_spreadsheet">Lahajedwali</string>
     <string name="credentials_disabled">Kitambulisho kimezimwa</string>
     <string name="daily_backup">Hifadhi nakala ya kila siku</string>
     <string name="data_to_back_up">Data ya kuhifadhi nakala</string>
@@ -305,6 +310,7 @@
     <string name="drawer_community">Jamii</string>
     <string name="drawer_header_background">Picha ya usuli ya kichwa cha droo</string>
     <string name="drawer_item_activities">Shughuli</string>
+    <string name="drawer_item_album">Albamu</string>
     <string name="drawer_item_all_files">Faili zote</string>
     <string name="drawer_item_assistant">Msaidizi</string>
     <string name="drawer_item_favorites">Vipendwa</string>
@@ -403,6 +409,7 @@
     <string name="fab_label">Ongeza au pakia</string>
     <string name="failed_to_create_conflict_dialog">Imeshindwa kuunda mazungumzo ya mzozo</string>
     <string name="failed_to_download">Imeshindwa kupitisha faili ili kupakua kidhibiti</string>
+    <string name="failed_to_load_tags">Imeshindwa kupakia lebo</string>
     <string name="failed_to_print">Imeshindwa kuchapisha faili</string>
     <string name="failed_to_start_action">Imeshindwa kuanza kitendo!</string>
     <string name="failed_to_start_editor">Imeshindwa kuanzisha kihariri</string>
@@ -443,6 +450,7 @@
     <string name="file_list_live">MUBASHARA</string>
     <string name="file_list_loading">Inapakia</string>
     <string name="file_list_no_app_for_file_type">Hakuna programu iliyosanidiwa kushughulikia aina hii ya faili.</string>
+    <string name="file_list_out_of_memory_description">Haikuweza kupakia maudhui</string>
     <string name="file_list_seconds_ago">sukunde zilizopita</string>
     <string name="file_management_permission_optional">Ruhusa za kuhifadhi</string>
     <string name="file_management_permission_optional_text">%1$s inafanya kazi vyema ikiwa na ruhusa ya kufikia hifadhi. Unaweza kuchagua ufikiaji kamili wa faili zote, au ufikiaji wa kusoma tu kwa picha na video.</string>
@@ -592,19 +600,7 @@
     <string name="manage_space_clear_data">Futa data</string>
     <string name="manage_space_description">Mipangilio, hifadhidata na vyeti vya seva kutoka kwa data ya %1$s vitafutwa kabisa. \n\nFaili zilizopakuliwa zitawekwa bila kuguswa.\n\nMchakato huu unaweza kuchukua muda.</string>
     <string name="manage_space_title">Dhibiti nafasi</string>
-    <string name="media_err_invalid_progressive_playback">Faili ya midia haiwezi kutiririshwa</string>
-    <string name="media_err_io">Haikuweza kusoma faili ya midia</string>
-    <string name="media_err_malformed">Faili ya midia ina usimbaji usio sahihi</string>
-    <string name="media_err_timeout">Jaribio la kucheza faili limeisha</string>
-    <string name="media_err_unknown">Kicheza media kilichojengewa ndani hakiwezi kucheza faili ya midia</string>
-    <string name="media_err_unsupported">Kodeki ya midia isiyotumika</string>
-    <string name="media_forward_description">Kitufe cha kusonga mbele kwa kasi</string>
-    <string name="media_notif_ticker">%1$s kicheza muziki</string>
-    <string name="media_play_pause_description">Kitufe cha kucheza au kusitisha</string>
-    <string name="media_player_pause">Sitisha</string>
-    <string name="media_player_play">Cheza</string>
-    <string name="media_rewind_description">Kitufe cha kurudi nyuma</string>
-    <string name="media_state_playing">%1$s (inacheza)</string>
+    <string name="manage_tags">Dhibiti lebo</string>
     <string name="menu_item_sort_by_date_newest_first">Mpya kwanza</string>
     <string name="menu_item_sort_by_date_oldest_first">Ya zamani kwanza</string>
     <string name="menu_item_sort_by_name_a_z">A mpaka Z</string>
@@ -612,6 +608,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Kubwa zaidi kwanza</string>
     <string name="menu_item_sort_by_size_smallest_first">Ndogo zaidi kwanza</string>
     <string name="more">Zaidi</string>
+    <string name="more_documents">Nyaraka zaidi</string>
     <string name="move_file_error">Hitilafu ilitokea wakati wa kujaribu kuhamisha faili au folda hii</string>
     <string name="move_file_invalid_into_descendent">Haiwezekani kuhamisha folda kwenye mojawapo ya folda zake za msingi</string>
     <string name="move_file_invalid_overwrite">Faili tayari iko kwenye folda lengwa</string>
@@ -698,8 +695,7 @@
     <string name="picture_set_as_no_app">Hakuna programu iliyopatikana ya kuweka picha nayo</string>
     <string name="pin_home">Bandika kwenye skrini ya nyumbani</string>
     <string name="pin_shortcut_label">Fungua %1$s</string>
-    <string name="player_stop">acha</string>
-    <string name="player_toggle">geuza</string>
+    <string name="player_media_controls_close_action_title">Funga</string>
     <string name="please_select_a_server">Tafadhali chagua seva...</string>
     <string name="power_save_check_dialog_message">Kuzima hundi ya kuokoa nishati kunaweza kusababisha kupakia faili zikiwa katika hali ya chini ya betri!</string>
     <string name="pref_behaviour_entries_delete_file">imefutwa</string>
@@ -794,6 +790,7 @@
     <string name="reload">Pakia upya</string>
     <string name="remote">(mbali)</string>
     <string name="remote_file_fetch_failed">Imeshindwa kupata faili!</string>
+    <string name="remove">Ondoa</string>
     <string name="remove_e2e">Unaweza kuondoa usimbaji fiche kutoka mwanzo hadi mwisho kwa mteja huyu</string>
     <string name="remove_e2e_message">Unaweza kuondoa usimbaji fiche kutoka mwanzo hadi mwisho kwenye kiteja hiki. Faili zilizosimbwa kwa njia fiche zitasalia kwenye seva, lakini hazitasawazishwa kwenye kompyuta hii tena.</string>
     <string name="remove_fail_msg">Imeshindwa kufuta</string>
@@ -802,6 +799,7 @@
     <string name="remove_notification_failed">Imeshindwa kuondoa arifa.</string>
     <string name="remove_push_notification">Ondoa</string>
     <string name="remove_success_msg">Vilivyofutwa</string>
+    <string name="rename_dialog_button">Badili jina</string>
     <string name="rename_dialog_title">Ingiza jina jipya</string>
     <string name="rename_local_fail_msg">Haikuweza kubadilisha jina la nakala ya ndani, jaribu jina tofauti</string>
     <string name="rename_server_fail_msg">Kubadilisha jina hakuwezekani, jina tayari limechukuliwa</string>
@@ -832,6 +830,7 @@
     <string name="screenshot_06_davdroid_heading">Kalenda na anwani</string>
     <string name="screenshot_06_davdroid_subline">Sawazisha na DAVx⁵</string>
     <string name="search_error">Hitilafu katika kupata matokeo ya utafutaji</string>
+    <string name="search_tags">Tafuta vitambulisho</string>
     <string name="secure_share_not_set_up">Ushiriki salama haujawekwa kwa mtumiaji huyu</string>
     <string name="secure_share_search">Linda kushiriki...</string>
     <string name="select_all">Chagua zote</string>
@@ -961,7 +960,6 @@
     <string name="store_short_dev_desc">Jukwaa la tija linalojipangisha mwenyewe ambalo hukuweka katika udhibiti (toleo la onyesho la kukagua dev)</string>
     <string name="stream">Tiririsha kwa...</string>
     <string name="stream_not_possible_headline">Utiririshaji wa ndani hauwezekani</string>
-    <string name="stream_not_possible_message">Tafadhali pakua midia badala yake au utumie programu ya nje.</string>
     <string name="sub_folder_rule_day">Mwaka/Mwezi/Siku</string>
     <string name="sub_folder_rule_month">Mwaka/Mwezi</string>
     <string name="sub_folder_rule_year">Mwaka</string>
@@ -1261,4 +1259,4 @@
         <item quantity="one">%1$d download remaining</item>
         <item quantity="other">%1$dvipakuliwa vilivyosalia</item>
     </plurals>
-</resources>
+    </resources>

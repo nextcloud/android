@@ -9,10 +9,28 @@ package com.nextcloud.client.database.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 
-@Entity(tableName = ProviderTableMeta.FILESYSTEM_TABLE_NAME)
+@Entity(
+    tableName = ProviderTableMeta.FILESYSTEM_TABLE_NAME,
+    indices = [
+        Index(
+            value = [
+                ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH,
+                ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID
+            ]
+        ),
+        Index(
+            value = [
+                ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID,
+                ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD,
+                ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER
+            ]
+        )
+    ]
+)
 data class FilesystemEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = ProviderTableMeta._ID)

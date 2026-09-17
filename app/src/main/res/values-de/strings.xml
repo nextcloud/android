@@ -30,9 +30,26 @@
     <string name="activity_chooser_send_file_title">Senden</string>
     <string name="activity_chooser_title">Link senden an …</string>
     <string name="activity_icon">Aktivitäten</string>
+    <string name="add_media">Medien hinzufügen</string>
     <string name="add_new_public_share">Öffentlichen Freigabe-Link hinzufügen</string>
     <string name="add_new_secure_file_drop">Neue sichere Dateiablage hinzufügen</string>
-    <string name="add_to_cloud">Hinzufügen zu %1$s</string>
+    <string name="add_to_album">Zum Album hinzufügen</string>
+    <string name="album_already_exists">Album existiert bereits</string>
+    <string name="album_copy_file_conflict">Existiert bereits</string>
+    <string name="album_create_new_link">Neuen Link erstellen</string>
+    <string name="album_default_sharing_text">Jeder kann nur ansehen</string>
+    <string name="album_delete">Album löschen</string>
+    <string name="album_delete_failed_message">Einige der Dateien konnten nicht gelöscht werden.</string>
+    <string name="album_file_added_message">Datei hinzugefügt</string>
+    <string name="album_name_empty">Albumname darf nicht leer sein</string>
+    <string name="album_picker_toolbar_title">Album auswählen</string>
+    <string name="album_rename">Album umbenennen</string>
+    <string name="album_rename_conflict">Dieser Name wird bereits verwendet.</string>
+    <string name="album_share">Album teilen</string>
+    <string name="album_share_link">Link zum Album teilen</string>
+    <string name="album_stop_sharing">Freigabe löschen</string>
+    <string name="album_unsupported_file">Nicht unterstützte Medien</string>
+    <string name="album_upload_from_account">Wähle Bilder vom Konto aus</string>
     <string name="app_config_base_url_title">Basis-URL</string>
     <string name="app_config_disable_clipboard_title">Zwischenablage deaktivieren</string>
     <string name="app_config_disable_intro_title">Intro deaktivieren</string>
@@ -123,11 +140,27 @@
     <string name="auto_upload_on_wifi">Nur über gebührenfreies WLAN hochladen</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Dieser Ordner ist bereits in der Synchronisierung des übergeordneten Ordners enthalten, was zu doppelten Uploads führen kann</string>
+    <string name="auto_upload_sync_now_action">Jetzt synchronisieren</string>
+    <string name="auto_upload_sync_now_no_folder">Für das automatische Hochladen ist kein Ordner eingerichtet</string>
+    <string name="auto_upload_sync_now_running">Automatisches Hochladen läuft bereits</string>
+    <string name="auto_upload_sync_now_started">Automatisches Hochladen gestartet</string>
     <string name="auto_upload_wifi_only_warning_info">Warte auf WLAN für den Beginn des Hochladens</string>
     <string name="auto_upload_worker_start_text">Lade Dateien von %1$s nach %2$s hoch</string>
     <string name="autoupload_configure">Einrichten</string>
     <string name="autoupload_create_new_custom_folder">Erstellen Sie ein Setup für den eigenen Ordner</string>
     <string name="autoupload_custom_folder">Erstellen Sie einen eigenen Ordner</string>
+    <string name="autoupload_delete_uploaded">Hochgeladene Dateien lokal löschen</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_all_users">Von allen Benutzern</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_current_user">Vom aktuellen Benutzer</string>
+    <string name="autoupload_delete_uploaded_all_dialog_description">Alle bereits in die Cloud hochgeladenen Dateien werden vom aktuellen Gerät und aus allen Ordnern für automatisches Hochladen aller eingerichteten Benutzer entfernt</string>
+    <string name="autoupload_delete_uploaded_all_dialog_title">Hochgeladene Dateien aus allen Ordnern für automatisches Hochladen lokal löschen</string>
+    <string name="autoupload_delete_uploaded_dialog_description">Alle bereits in die Cloud hochgeladenen Dateien werden vom aktuellen Gerät entfernt</string>
+    <string name="autoupload_delete_uploaded_dialog_title">Hochgeladene Dateien lokal löschen</string>
+    <string name="autoupload_delete_uploaded_notif_ended_content">Durch das Entfernen von%2$s aus %3$s von %4$s wurde %1$s frei.</string>
+    <string name="autoupload_delete_uploaded_notif_ended_title">Bereits hochgeladene Dateien wurden lokal gelöscht</string>
+    <string name="autoupload_delete_uploaded_notif_error_title">Bereits hochgeladene Dateien können nicht lokal gelöscht werden</string>
+    <string name="autoupload_delete_uploaded_notif_started_title">Es wurde begonnen, bereits hochgeladene Dateien im Hintergrund lokal zu löschen</string>
+    <string name="autoupload_delete_uploaded_notif_ticker">Lokale Dateilöschung</string>
     <string name="autoupload_disable_power_save_check">Energiesparmodus deaktivieren</string>
     <string name="autoupload_hide_folder">Ordner verstecken</string>
     <string name="avatar">Avatar</string>
@@ -210,7 +243,9 @@
     <string name="configure_new_media_folder_detection_notifications">Konfigurieren</string>
     <string name="confirm_removal">Lokale Verschlüsselung entfernen</string>
     <string name="confirmation_remove_file_alert">Soll %1$s gelöscht werden?</string>
+    <string name="confirmation_remove_file_from_album_message">Soll die Datei %1$s aus dem Album entfernt werden?</string>
     <string name="confirmation_remove_files_alert">Sollen die ausgewählten Elemente gelöscht werden?</string>
+    <string name="confirmation_remove_files_from_album_message">Sollen die ausgewählten Dateien aus dem Album entfernt werden?</string>
     <string name="confirmation_remove_folder_alert">Soll %1$s und deren Inhalte gelöscht werden?</string>
     <string name="confirmation_remove_folders_alert">Sollen die ausgewählten Elemente und deren Inhalt gelöscht werden?</string>
     <string name="confirmation_remove_local">Nur lokal</string>
@@ -249,17 +284,23 @@
     <string name="could_not_retrieve_shares">Freigaben konnten nicht abgerufen werden</string>
     <string name="could_not_retrieve_url">URL konnte nicht abgerufen werden</string>
     <string name="create">Erstellen</string>
+    <string name="create_album_dialog_message">Den neuen Albumnamen eingeben</string>
+    <string name="create_album_dialog_title">Neues Album</string>
     <string name="create_dir_fail_msg">Verzeichnis konnte nicht erstellt werden</string>
+    <string name="create_document">Dokument</string>
+    <string name="create_encrypted_folder">Verschlüsselter Ordner</string>
     <string name="create_end_to_end_encrypted_share">Linkfreigabe</string>
     <string name="create_end_to_end_encrypted_share_title">Ende-zu-Ende-verschlüsselte Linkfreigaben</string>
+    <string name="create_folder">Ordner</string>
     <string name="create_link">Link erstellen</string>
     <string name="create_new">Neu</string>
     <string name="create_new_document">Neues Dokument</string>
-    <string name="create_new_encrypted_folder">Neuer verschlüsselter Ordner</string>
-    <string name="create_new_folder">Neuer Ordner</string>
     <string name="create_new_presentation">Neue Präsentation</string>
     <string name="create_new_spreadsheet">Neue Tabelle</string>
+    <string name="create_presentation">Präsentation</string>
     <string name="create_rich_workspace">Ordnerbeschreibung hinzufügen</string>
+    <string name="create_spreadsheet">Tabellenkalkulation</string>
+    <string name="create_tag_format">Schlagwort erstellen: \"%1$s\"</string>
     <string name="credentials_disabled">Zugangsdaten ausgeschaltet</string>
     <string name="daily_backup">Tägliche Sicherung</string>
     <string name="data_to_back_up">Zu sichernde Daten</string>
@@ -318,6 +359,7 @@
     <string name="drawer_community">Gemeinschaft </string>
     <string name="drawer_header_background">Hintergrundbild des Kopfbereiches</string>
     <string name="drawer_item_activities">Aktivitäten</string>
+    <string name="drawer_item_album">Alben</string>
     <string name="drawer_item_all_files">Alle Dateien</string>
     <string name="drawer_item_assistant">Assistent</string>
     <string name="drawer_item_favorites">Favoriten</string>
@@ -347,7 +389,26 @@
     <string name="ecosystem_apps_more">Weitere Nextcloud-Apps</string>
     <string name="editor_web_view_cannot_open_file">Dateiauswahl konnte nicht geöffnet werden</string>
     <string name="email_pick_failed">E-Mail-Adresse konnte nicht ausgewählt werden.</string>
+    <string name="empty_albums_message">Sie können alle Ihre Fotos in so vielen Alben organisieren, wie Sie möchten. Sie haben noch kein Album erstellt.</string>
+    <string name="empty_albums_title">Alben für Ihre Fotos erstellen</string>
     <string name="encrypted">Als verschlüsselt festlegen</string>
+    <string name="encryption_encrypt_check_failed">Die Überprüfung Ihrer Verschlüsselungsschlüssel war fehlgeschlagen. Versuchen, den Ordner erneut zu verschlüsseln.</string>
+    <string name="encryption_encrypt_no_network">Der Server ist nicht erreichbar. Später erneut versuchen, den Ordner zu verschlüsseln.</string>
+    <string name="encryption_encrypt_unavailable">Dieser Ordner kann nicht verschlüsselt werden. Auf diesem Server ist keine Ende-zu-Ende-Verschlüsselung eingerichtet.</string>
+    <string name="encryption_key_checking_keys">Prüfe Schlüssel …</string>
+    <string name="encryption_key_handle_folder_read_only_description">Die Verschlüsselungsschlüssel dieses Kontos wurden entfernt oder ersetzt, daher kann der Inhalt dieses Ordners nicht mehr entschlüsselt werden.\n\nDer Ordner ist ab sofort schreibgeschützt. Um verschlüsselte Ordner wieder verwenden zu können, sichern Sie diesen Ordner und richten Sie Ihren neuen Verschlüsselungsschlüssel in den Einstellungen ein.</string>
+    <string name="encryption_key_handle_key_keys_only_on_device_description">Der auf diesem Gerät gespeicherte Verschlüsselungsschlüssel ist ungültig. Die Schlüssel wurden vom Server widerrufen. \n\nDie lokale Verschlüsselung in den Einstellungen entfernen, um einen neuen Verschlüsselungsordner zu erstellen.</string>
+    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">Der auf diesem Gerät gespeicherte Verschlüsselungsschlüssel ist ungültig. Die Schlüssel wurden vom Server widerrufen. \n\nDen zuvor erstellten verschlüsselten Ordner sichern. \n\nAnschließend die lokale Verschlüsselung in den Einstellungen deaktivieren, um einen neuen verschlüsselten Ordner zu erstellen.</string>
+    <string name="encryption_key_handle_key_removed_title">Die Verschlüsselungsschlüssel wurden geändert</string>
+    <string name="encryption_key_handle_no_keys_description">Dieser Ordner kann nicht geöffnet werden, da seine Verschlüsselungsschlüssel weder auf diesem Gerät noch auf dem Server vorhanden sind.</string>
+    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">Die Verschlüsselungsschlüssel dieses Kontos wurden entfernt oder ersetzt.\n\nRichten Sie Ihren neuen Verschlüsselungsschlüssel in den Einstellungen ein, bevor Sie einen Ordner verschlüsseln.</string>
+    <string name="encryption_new_folder_check_failed">Die Überprüfung Ihrer Verschlüsselungsschlüssel ist fehlgeschlagen. Bitte erstellen Sie den Ordner erneut.</string>
+    <string name="encryption_new_folder_no_network">Der Server ist nicht erreichbar. Später erneut versuchen, den Ordner zu erstellen.</string>
+    <string name="encryption_new_folder_unavailable">Es können keine verschlüsselten Ordner erstellt werden. Auf diesem Server ist keine Ende-zu-Ende-Verschlüsselung eingerichtet.</string>
+    <string name="encryption_open_check_failed">Ihre Verschlüsselungsschlüssel konnten nicht überprüft werden. Versuchen Sie erneut, den Ordner zu öffnen.</string>
+    <string name="encryption_open_key_mismatch">Der auf diesem Gerät gespeicherte Verschlüsselungsschlüssel stimmt nicht mit dem für diesen Ordner erforderlichen Schlüssel überein.</string>
+    <string name="encryption_open_no_network">Der Server ist nicht erreichbar. Später erneut versuchen, den Ordner zu öffnen.</string>
+    <string name="encryption_open_unavailable">Dieser Ordner kann nicht geöffnet werden. Auf diesem Server ist keine Ende-zu-Ende-Verschlüsselung eingerichtet.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Serverzertifikat kann nicht abgerufen werden</string>
     <string name="end_to_end_encryption_certificate_verification_failed">Der öffentliche Schlüssel konnte nicht verifiziert werden</string>
     <string name="end_to_end_encryption_confirm_button">Verschlüsselung einrichten</string>
@@ -419,6 +480,7 @@
     <string name="fab_label">Hinzufügen oder hochladen</string>
     <string name="failed_to_create_conflict_dialog">Die Erstellung des Konfliktdialogs ist fehlgeschlagen</string>
     <string name="failed_to_download">Datei konnte nicht an den Downloadmanager übergeben werden</string>
+    <string name="failed_to_load_tags">Schlagworte konnten nicht geladen werden</string>
     <string name="failed_to_print">Datei konnte nicht gedruckt werden</string>
     <string name="failed_to_start_action">Aktion konnte nicht gestartet werden!</string>
     <string name="failed_to_start_editor">Editor konnte nicht gestartet werden</string>
@@ -461,6 +523,7 @@
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Lade …</string>
     <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden.</string>
+    <string name="file_list_out_of_memory_description">Inhalt konnte nicht geladen werden</string>
     <string name="file_list_seconds_ago">Gerade eben</string>
     <string name="file_management_permission_optional">Speicherberechtigungen</string>
     <string name="file_management_permission_optional_text">%1$s funktioniert am besten mit Berechtigungen für den Zugriff auf den Speicher. Sie können vollen Zugriff auf alle Dateien oder schreibgeschützten Zugriff auf Fotos und Videos wählen.</string>
@@ -614,25 +677,14 @@
     <string name="logs_status_not_filtered">Logs: %1$d kB, kein Filter</string>
     <string name="logs_title">Protokolle (Logs)</string>
     <string name="maintenance_mode">Server befindet sich im Wartungsmodus</string>
+    <string name="manage_space_auto_upload_clear_data">Automatisch hochgeladene Dateien lokal löschen</string>
+    <string name="manage_space_auto_upload_description">Alle bereits aus den Auto-Upload-Ordnern auf den Server hochgeladenen Dateien werden lokal gelöscht, um Speicherplatz auf dem Gerät freizugeben.\n\nDieser Vorgang kann einige Zeit dauern.</string>
+    <string name="manage_space_auto_upload_title">Automatisch hochgeladene Dateien lokal löschen</string>
     <string name="manage_space_clear_data">Daten löschen</string>
     <string name="manage_space_description">Einstellungen, Datenbank und Serverzertifikate von %1$s\'s Daten werden dauerhaft gelöscht.\n\nHerunter geladene Dateien bleiben unangetastet.\n\nDieser Vorgang kann eine Zeit dauern.</string>
     <string name="manage_space_title">Verwalte Speicherplatz</string>
-    <string name="media_err_invalid_progressive_playback">Die Mediendatei kann nicht gestreamt werden</string>
-    <string name="media_err_io">Die Mediendatei konnte nicht gelesen werden</string>
-    <string name="media_err_malformed">Mediendatei ist nicht korrekt encodiert</string>
-    <string name="media_err_timeout">Wartezeit beim Abspielversuch abgelaufen</string>
-    <string name="media_err_unknown">Der interne Player kann die Mediendatei nicht abspielen</string>
-    <string name="media_err_unsupported">Medien-Codec wird nicht unterstützt</string>
-    <string name="media_forward_description">Vorspulknopf</string>
-    <string name="media_notif_ticker">%1$s Musik Player</string>
-    <string name="media_play_pause_description">Wiedergabe-/Pause Knopf</string>
-    <string name="media_player_pause">Pausieren</string>
-    <string name="media_player_play">Spielen</string>
-    <string name="media_player_playing">Medien abspielen</string>
-    <string name="media_player_seek_backward">Rückwärts suchen</string>
-    <string name="media_player_seek_forward">Vorwärts suchen</string>
-    <string name="media_rewind_description">Rückspulknopf</string>
-    <string name="media_state_playing">%1$s (wird abgespielt)</string>
+    <string name="manage_tags">Schlagworte verwalten</string>
+    <string name="media_picker_toolbar_title">Mediendateien auswählen</string>
     <string name="menu_item_sort_by_date_newest_first">Neue zuerst</string>
     <string name="menu_item_sort_by_date_oldest_first">Älteste zuerst</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -640,6 +692,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Größte zuerst</string>
     <string name="menu_item_sort_by_size_smallest_first">Kleinste zuerst</string>
     <string name="more">Mehr</string>
+    <string name="more_documents">Weitere Dokumente</string>
     <string name="move_file_error">Es ist ein Fehler beim Verschieben der Datei oder des Ordners aufgetreten.</string>
     <string name="move_file_invalid_into_descendent">Es ist nicht möglich, einen Ordner in einen seiner Unterordner zu verschieben</string>
     <string name="move_file_invalid_overwrite">Die Datei ist bereits im Zielordner vorhanden</string>
@@ -726,8 +779,15 @@
     <string name="picture_set_as_no_app">Keine App gefunden, mit der ein Bid gesetzt werden könnte</string>
     <string name="pin_home">An Startbildschirm anheften</string>
     <string name="pin_shortcut_label">%1$s öffnen</string>
-    <string name="player_stop">Stopp</string>
-    <string name="player_toggle">Umschalten</string>
+    <string name="player_audio_title_with_artist">%1$s • %2$s</string>
+    <string name="player_control_view_next_button_content_description">Nächste Schaltfläche</string>
+    <string name="player_control_view_play_pause_button_content_description">Wiedergabe-/Pause Schaltfläche</string>
+    <string name="player_control_view_previous_button_content_description">Vorherige Schaltfläche</string>
+    <string name="player_control_view_random_button_content_description">Zufällige Schaltfläche</string>
+    <string name="player_control_view_repeat_button_content_description">Schaltfläche wiederholen</string>
+    <string name="player_error_source_not_found">Quelle nicht gefunden</string>
+    <string name="player_last_modified">Geändert: %s</string>
+    <string name="player_media_controls_close_action_title">Schließen</string>
     <string name="please_select_a_server">Bitte einen Server auswählen …</string>
     <string name="power_save_check_dialog_message">Bei deaktiviertem Energiesparmodus werden Daten auch bei niedrigem Batterieladezustand hochgeladen.</string>
     <string name="pref_behaviour_entries_delete_file">gelöscht</string>
@@ -825,6 +885,7 @@
     <string name="reload">Neu laden</string>
     <string name="remote">(entfernt)</string>
     <string name="remote_file_fetch_failed">Datei nicht gefunden!</string>
+    <string name="remove">Entfernen</string>
     <string name="remove_e2e">Sie können die Ende-zu-Ende-Verschlüsselung lokal auf diesem Client entfernen</string>
     <string name="remove_e2e_keys_and_files_dialog_warning">Durch diesen Vorgang werden alle verschlüsselten Dateien sowie privaten und öffentlichen Schlüssel entfernt. Sind Sie sicher?</string>
     <string name="remove_e2e_message">Sie können die Ende-zu-Ende-Verschlüsselung lokal auf diesem Client entfernen. Die verschlüsselten Dateien bleiben auf dem Server, werden aber nicht mehr mit diesem Computer synchronisiert.</string>
@@ -834,6 +895,8 @@
     <string name="remove_notification_failed">Benachrichtigungen konnten nicht entfernt werden</string>
     <string name="remove_push_notification">Entfernen</string>
     <string name="remove_success_msg">Gelöscht</string>
+    <string name="rename_album_dialog_title">Album umbenennen</string>
+    <string name="rename_dialog_button">Umbenennen</string>
     <string name="rename_dialog_title">Geben Sie einen neuen Namen ein</string>
     <string name="rename_local_fail_msg">Die lokale Kopie konnte nicht umbenannt werden. Versuche es mit einem anderen Namen.</string>
     <string name="rename_server_fail_msg">Umbenennen nicht möglich. Der Name wird bereits verwendet.</string>
@@ -870,6 +933,7 @@
     <string name="screenshot_06_davdroid_heading">Kalender und Kontakte</string>
     <string name="screenshot_06_davdroid_subline">Synchronisation mit DAVx⁵</string>
     <string name="search_error">Fehler beim Abrufen der Suchergebnisse</string>
+    <string name="search_tags">Schlagworte suchen</string>
     <string name="secure_share_not_set_up">Sicheres teilen ist für diesen Benutzer nicht eingerichtet</string>
     <string name="secure_share_search">Sicheres teilen …</string>
     <string name="select_all">Alle auswählen</string>
@@ -879,6 +943,7 @@
     <string name="send">Senden</string>
     <string name="send_copy_to">Kopie senden an</string>
     <string name="send_share">Freigabe senden</string>
+    <string name="server_not_allowed">Server nicht erlaubt</string>
     <string name="server_not_reachable">Inhalt konnte nicht geladen werden</string>
     <string name="server_not_reachable_content">Das Gerät scheint nicht mit dem Internet verbunden zu sein</string>
     <string name="set_as">Setze als</string>
@@ -999,7 +1064,6 @@
     <string name="store_short_dev_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle (Vorab- Entwicklungsversion)</string>
     <string name="stream">Streamen mit …</string>
     <string name="stream_not_possible_headline">Internes Streamen nicht möglich</string>
-    <string name="stream_not_possible_message">Laden Sie sich den Inhalt herunter oder nutzen Sie eine externe App.</string>
     <string name="sub_folder_rule_day">Jahr/Monat/Tag</string>
     <string name="sub_folder_rule_month">Jahr/Monat</string>
     <string name="sub_folder_rule_year">Jahr</string>
@@ -1076,6 +1140,7 @@
     <string name="unified_search_fragment_contact_not_found">Kontakt nicht gefunden, Sie können jederzeit synchronisieren für eine Aktualisierung. Weiterleiten zum Web …</string>
     <string name="unified_search_fragment_permission_needed">Berechtigungen für das Öffnen der Suchergebnisse notwendig, ansonsten werden Sie zum Web weitergeleitet</string>
     <string name="unified_search_fragment_search_in_this_folder">In diesem Ordner</string>
+    <string name="unified_search_fragment_search_takes_long">Die Suche dauert länger als üblich. Ergebnisse werden angezeigt, sobald der Server antwortet</string>
     <string name="unknown">Unbekannt</string>
     <string name="unlock_file">Datei entsperren</string>
     <string name="unread_comments">Es gibt  ungelesene Kommentare</string>
@@ -1205,6 +1270,7 @@
     <string name="user_info_twitter">X</string>
     <string name="user_info_website">Webseite</string>
     <string name="user_information_retrieval_error">Fehler beim Laden der Nutzer-Informationen</string>
+    <string name="user_information_retrieval_error_message">Bitte die Internetverbindung erneut überprüfen oder den Serverstatus überprüfen</string>
     <string name="userinfo_no_info_headline">Keine persönlichen Infos eingestellt</string>
     <string name="userinfo_no_info_text">Fügen Sie Name, Bild und Kontaktdaten auf Ihrer Profilseite hinzu.</string>
     <string name="username">Benutzername</string>
@@ -1214,6 +1280,7 @@
     <string name="wait_checking_credentials">Überprüfe gespeicherte Anmeldeinformationen</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiere Datei von privatem Speicher</string>
     <string name="warn_rename_extension">Das Ändern der Erweiterung kann dazu führen, dass diese Datei in einer anderen Anwendung geöffnet wird</string>
+    <string name="webview_not_available">Android System WebView fehlt oder ist auf diesem Gerät deaktiviert</string>
     <string name="what_s_new_image">Was-gibt\'s-Neues-Bild</string>
     <string name="whats_new_skip">Überspringen</string>
     <string name="whats_new_title">Neu in %1$s</string>
@@ -1224,6 +1291,14 @@
     <string name="write_email">E-Mail senden</string>
     <string name="wrong_storage_path">Speicherordner existiert nicht!</string>
     <string name="wrong_storage_path_desc">Ursache könnte die Wiederherstellung einer Sicherungskopie auf einem anderen Gerät sein. Der Standard-Ordner wird jetzt wieder verwendet. Bitte überprüfen Sie die Einstellungen bezüglich des Speicherortes.</string>
+    <plurals name="album_items_text">
+        <item quantity="one">%1$d Element — %2$s</item>
+        <item quantity="other">%1$d Elemente — %2$s</item>
+    </plurals>
+    <plurals name="album_elements_text">
+        <item quantity="one">%d Element</item>
+        <item quantity="other">%d Elemente</item>
+    </plurals>
     <plurals name="hours">
         <item quantity="one">%d Stunde</item>
         <item quantity="other">%d Stunden</item>
@@ -1304,6 +1379,18 @@
         <item quantity="one">%d ausgewählt</item>
         <item quantity="other">%d ausgewählt</item>
     </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_files">
+        <item quantity="one">%d Datei</item>
+        <item quantity="other">%d Dateien</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_folders">
+        <item quantity="one">%d Ordner</item>
+        <item quantity="other">%d Ordner</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_users">
+        <item quantity="one">%d Benutzer</item>
+        <item quantity="other">%d Benutzer</item>
+    </plurals>
     <plurals name="passcode_delay_seconds">
         <item quantity="one">In %d Sekunde erneut versuchen, da zu viele Fehlversuche erfolgt sind</item>
         <item quantity="other">In %d Sekunden erneut versuchen, da zu viele Fehlversuche erfolgt sind</item>
@@ -1319,5 +1406,9 @@
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d verbleibender Download</item>
         <item quantity="other">%1$d verbleibende Downloads</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one">Export gestartet (%d Datei)</item>
+        <item quantity="other">Exportieren gestartet (%d Dateien)</item>
     </plurals>
 </resources>

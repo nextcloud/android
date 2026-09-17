@@ -32,5 +32,9 @@ sealed class DownloadKeyResult(open val descriptionId: Int? = null) {
 
     data object GeneratePassphraseSendCSR : DownloadKeyResult()
 
+    data object NoServerKey : DownloadKeyResult()
+
+    data class CompareKeys(val same: Boolean) : DownloadKeyResult()
+
     data class Success(val privateKey: String) : DownloadKeyResult()
 }

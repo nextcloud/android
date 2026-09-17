@@ -24,6 +24,8 @@ class OCFileListRecommendedItemViewHolder(private val binding: RecommendedFileIt
     val reason: TextView get() = binding.reason
     override val fileName: TextView get() = binding.filename
     override val extension: TextView? get() = binding.extension
+    override val bidiFilename: TextView get() = binding.bidiFilename
+    override val bidiFilenameContainer: View get() = binding.bidiFilenameContainer
     override val thumbnail: ImageView get() = binding.thumbnail
     override val shimmerThumbnail: LoaderImageView get() = binding.thumbnailShimmer
     override val favorite: ImageView get() = binding.favoriteAction

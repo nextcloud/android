@@ -8,6 +8,7 @@
 
 package com.nextcloud.utils
 
+import com.nextcloud.test.SinceServer
 import com.nextcloud.utils.autoRename.AutoRename
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFile
@@ -18,6 +19,7 @@ import org.junit.Before
 import org.junit.Test
 
 @Suppress("TooManyFunctions")
+@SinceServer(majorVersion = 30)
 class AutoRenameTests : AbstractOnServerIT() {
 
     private var capability: OCCapability = fileDataStorageManager.getCapability(account.name)

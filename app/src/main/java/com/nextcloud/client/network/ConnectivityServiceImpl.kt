@@ -10,7 +10,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
-import android.os.Build
+import android.os.SystemClock
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.operations.GetMethod
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -25,6 +25,7 @@ import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.net.ssl.SSLException
+import kotlin.time.Duration.Companion.seconds
 
 @Suppress("TooGenericExceptionCaught", "ReturnCount")
 class ConnectivityServiceImpl(
@@ -38,6 +39,8 @@ class ConnectivityServiceImpl(
     companion object {
         private const val TAG = "ConnectivityServiceImpl"
         private const val CONNECTIVITY_CHECK_ROUTE = "/index.php/204"
+
+        private val CAPABILITY_CHANGE_DEBOUNCE = 15.seconds
     }
 
     // region private values
@@ -46,6 +49,7 @@ class ConnectivityServiceImpl(
     private var notifyJob: Job? = null
     private val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     private val listeners = mutableSetOf<NetworkChangeListener>()
+    private var lastCapabilityCheckMs: Long? = null
 
     @Volatile
     private var currentConnectivity: Connectivity = Connectivity.DISCONNECTED
@@ -60,7 +64,11 @@ class ConnectivityServiceImpl(
         }
 
         override fun onCapabilitiesChanged(network: Network, networkCapabilities: NetworkCapabilities) {
-            Log_OC.d(TAG, "capability changed")
+            if (!shouldHandleCapabilityChange()) {
+                return
+            }
+
+            Log_OC.d(TAG, "resolving network capabilities to compare")
             updateConnectivity()
         }
     }
@@ -101,7 +109,7 @@ class ConnectivityServiceImpl(
         }
 
         val resolvedCapabilities = resolveNetworkCapabilities()
-        if (resolvedCapabilities == null || !isSupportedTransport(resolvedCapabilities)) {
+        if (resolvedCapabilities == null || !SupportedNetworkTransports.isSupportedTransport(resolvedCapabilities)) {
             Log_OC.e(TAG, "no usable network transport at check time, treating as walled")
             return true
         }
@@ -148,14 +156,12 @@ class ConnectivityServiceImpl(
     fun updateConnectivity() {
         val currentKey = key
         val previous = currentConnectivity
-
         val capabilities = resolveNetworkCapabilities()
-
         val newConnectivity = if (capabilities == null) {
             Log_OC.w(TAG, "no network capabilities found, connectivity is disconnected")
             Connectivity.DISCONNECTED
         } else {
-            val hasTransport = isSupportedTransport(capabilities)
+            val hasTransport = SupportedNetworkTransports.isSupportedTransport(capabilities)
             val hasInternetCapability = capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
 
             Connectivity(
@@ -169,6 +175,7 @@ class ConnectivityServiceImpl(
         }
 
         if (previous != newConnectivity) {
+            Log_OC.d(TAG, "network capability changed - notifying listeners")
             currentConnectivity = newConnectivity
             walledCheckCache.putConnectivityValue(currentKey, newConnectivity)
 
@@ -178,6 +185,7 @@ class ConnectivityServiceImpl(
                 )
 
             if (isStructural) {
+                Log_OC.d(TAG, "network structurally capability changed - clearing walled cache as well")
                 walledCheckCache.clear(currentKey)
             }
             notifyListeners()
@@ -195,6 +203,17 @@ class ConnectivityServiceImpl(
     // endregion
 
     // region private methods
+    private fun shouldHandleCapabilityChange(): Boolean {
+        val now = SystemClock.elapsedRealtime()
+        val last = lastCapabilityCheckMs
+        if (last != null && now - last < CAPABILITY_CHANGE_DEBOUNCE.inWholeMilliseconds) {
+            return false
+        }
+
+        lastCapabilityCheckMs = now
+        return true
+    }
+
     private fun notifyListeners() {
         if (listeners.isEmpty()) {
             return
@@ -219,20 +238,8 @@ class ConnectivityServiceImpl(
 
         return connectivityManager.allNetworks
             .mapNotNull { connectivityManager.getNetworkCapabilities(it) }
-            .firstOrNull { isSupportedTransport(it) }
+            .firstOrNull { SupportedNetworkTransports.isSupportedTransport(it) }
     }
-
-    private fun isSupportedTransport(capabilities: NetworkCapabilities) =
-        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN) ||
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) ||
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI_AWARE) ||
-            (
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
-                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_USB)
-                )
 
     private fun getWalledValueFromException(e: Exception): Boolean = when (e) {
         is UnknownHostException,

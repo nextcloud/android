@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2025 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro.brey@nextcloud.com>
  * SPDX-FileCopyrightText: 2018-2021 Tobias Kaminsky <tobias@kaminsky.me>
@@ -68,7 +69,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.activity.FolderPickerActivity
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener
 import com.owncloud.android.ui.activity.UploadFilesActivity
-import com.owncloud.android.ui.adapter.LocalFileListAdapter
+import com.owncloud.android.ui.adapter.localFileList.LocalFileListAdapter
 import com.owncloud.android.ui.adapter.OCFileListAdapter
 import com.owncloud.android.ui.events.SearchEvent
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -163,7 +164,9 @@ open class ExtendedListFragment :
 
     @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        val item = menu.findItem(R.id.action_search)
+        // while picking Media files from Gallery Fragment through AlbumPickerActivity
+        // there will be no search option so it we have to return it
+        val item = menu.findItem(R.id.action_search) ?: return
         searchView = item.actionView as SearchView?
         viewThemeUtils.androidx.themeToolbarSearchView(searchView!!)
         closeButton = searchView?.findViewById(androidx.appcompat.R.id.search_close_btn)
@@ -351,6 +354,20 @@ open class ExtendedListFragment :
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
+        mRecyclerView?.setOnTouchListener(null)
+        mRecyclerView?.adapter = null
+        mRecyclerView?.layoutManager = null
+        mRecyclerView = null
+        mRefreshListLayout?.setOnRefreshListener(null)
+        mRefreshListLayout = null
+        mSortButton = null
+        mSwitchGridViewButton = null
+        mEmptyListContainer = null
+        mEmptyListMessage = null
+        mEmptyListHeadline = null
+        mEmptyListIcon = null
+        closeButton = null
+        mScaleGestureDetector = null
     }
 
     private inner class ScaleListener : SimpleOnScaleGestureListener() {
@@ -724,6 +741,15 @@ open class ExtendedListFragment :
                     R.string.file_list_error_headline,
                     R.string.file_list_error_description,
                     R.drawable.ic_no_internet,
+                    false
+                )
+            }
+
+            EmptyListState.OUT_OF_MEMORY -> {
+                setMessageForEmptyList(
+                    R.string.common_error_out_memory,
+                    R.string.file_list_out_of_memory_description,
+                    R.drawable.ic_list_empty_error,
                     false
                 )
             }

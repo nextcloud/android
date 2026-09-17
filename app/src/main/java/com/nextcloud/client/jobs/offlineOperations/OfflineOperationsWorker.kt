@@ -18,6 +18,7 @@ import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.model.OfflineOperationType
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerStateObserver
+import com.nextcloud.utils.extensions.isNetworkAndServerAvailableSuspended
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClient
@@ -35,8 +36,6 @@ import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 private typealias OfflineOperationResult = Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>?
 
@@ -67,7 +66,7 @@ class OfflineOperationsWorker(
             Log_OC.d(TAG, "[$jobName] OfflineOperationsWorker started for user: ${user.accountName}")
 
             // check network connection
-            if (!isNetworkAndServerAvailable()) {
+            if (!connectivityService.isNetworkAndServerAvailableSuspended()) {
                 Log_OC.w(TAG, "⚠️ No internet/server connection. Retrying later...")
                 return@withContext Result.retry()
             }
@@ -160,12 +159,6 @@ class OfflineOperationsWorker(
         }
     }
     // endregion
-
-    private suspend fun isNetworkAndServerAvailable(): Boolean = suspendCoroutine { continuation ->
-        connectivityService.isNetworkAndServerAvailable { result ->
-            continuation.resume(result)
-        }
-    }
 
     // region Operation Execution
     @Suppress("ComplexCondition", "LongMethod")

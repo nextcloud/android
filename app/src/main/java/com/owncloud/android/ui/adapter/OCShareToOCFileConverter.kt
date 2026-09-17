@@ -122,6 +122,7 @@ object OCShareToOCFileConverter {
         note = firstShare.note
         fileId = firstShare.fileSource
         remoteId = firstShare.remoteId.toString()
+        localId = firstShare.fileSource
         this.firstShareTimestamp = firstShareTimestamp
         isFavorite = firstShare.isFavorite
     }

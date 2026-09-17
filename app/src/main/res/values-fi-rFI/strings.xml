@@ -29,7 +29,11 @@
     <string name="activity_chooser_title">Lähetä linkki…</string>
     <string name="activity_icon">Aktiviteetti</string>
     <string name="add_new_public_share">Lisää uusi julkinen jakolinkki</string>
-    <string name="add_to_cloud">Lisää kohteeseen %1$s</string>
+    <string name="add_to_album">Lisää albumiin</string>
+    <string name="album_delete">Poista albumi</string>
+    <string name="album_rename_conflict">Tämä nimi on jo käytössä.</string>
+    <string name="album_share">Jaa albumi</string>
+    <string name="album_stop_sharing">Lopeta jakaminen</string>
     <string name="app_config_disable_clipboard_title">Poista leikepöytä käytöstä</string>
     <string name="app_config_proxy_port_title">Välityspalvelimen portti</string>
     <string name="app_widget_description">Näyttää yhden pienoissovelluksen konsolista</string>
@@ -207,14 +211,18 @@
     <string name="could_not_retrieve_shares">Jakojen nouto ei onnistunut</string>
     <string name="could_not_retrieve_url">URL:n palautus epännistui</string>
     <string name="create">Luo</string>
+    <string name="create_album_dialog_title">Uusi albumi</string>
     <string name="create_dir_fail_msg">Kansion luominen ei onnistunut</string>
+    <string name="create_document">Asiakirja</string>
+    <string name="create_folder">Kansio</string>
     <string name="create_link">Luo linkki</string>
     <string name="create_new">Uusi</string>
     <string name="create_new_document">Uusi dokumentti</string>
-    <string name="create_new_folder">Uusi kansio</string>
     <string name="create_new_presentation">Uusi esitys</string>
     <string name="create_new_spreadsheet">Uusi laskentataulukko</string>
+    <string name="create_presentation">Esitys</string>
     <string name="create_rich_workspace">Lisään kansion kuvaus</string>
+    <string name="create_spreadsheet">Taulukko</string>
     <string name="credentials_disabled">Kirjautumistiedot poistettu käytöstä</string>
     <string name="daily_backup">Päivittäinen varmuuskopio</string>
     <string name="data_to_back_up">Varmuuskopioitavat tiedot</string>
@@ -262,6 +270,7 @@
     <string name="drawer_community">Yhteisö</string>
     <string name="drawer_header_background">Taustakuva \"Drawer\":in yläosassa</string>
     <string name="drawer_item_activities">Viimeisimmät tapahtumat</string>
+    <string name="drawer_item_album">Albumit</string>
     <string name="drawer_item_all_files">Kaikki tiedostot</string>
     <string name="drawer_item_assistant">Avustaja</string>
     <string name="drawer_item_favorites">Suosikit</string>
@@ -348,6 +357,7 @@
     <string name="external_shares">Ulkoiset jaot</string>
     <string name="fab_label">Lisää tai lähetä</string>
     <string name="failed_to_download">Tiedoston välittäminen latausmanagerille epäonnistui</string>
+    <string name="failed_to_load_tags">Tunnisteiden lataaminen epäonnistui</string>
     <string name="failed_to_print">Tiedoston tulostaminen epäonnistui</string>
     <string name="failed_to_start_editor">Editorin kaynnistäminen epäonnistui</string>
     <string name="failed_update_ui">Käyttöliittymän päivitys epäonnistui</string>
@@ -383,6 +393,7 @@
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Ladataan…</string>
     <string name="file_list_no_app_for_file_type">Tälle tiedostotyypille ei löytynyt sovellusta.</string>
+    <string name="file_list_out_of_memory_description">Sisältöä ei voitu ladata</string>
     <string name="file_list_seconds_ago">sekuntia sitten</string>
     <string name="file_management_permission_optional">Tallennusoikeudet</string>
     <string name="file_management_permission_optional_text">%1$s toimii parhaiten, kun sille on myönnetty käyttöoikeus tallennustilan käyttöön. Voit myöntää täydet käyttöoikeudet tai vain luku-oikeudet kuviin ja videoihin.</string>
@@ -518,19 +529,7 @@
     <string name="manage_space_clear_data">Tyhjennä tiedot</string>
     <string name="manage_space_description">Asetukset, tietokanta ja palvelinsertifikaatit %1$s:n tiedoista poistetaan pysyvästi. \n\nLadatut tiedostot säilyvät koskemattomina.\n\nTämä voi kestä jonkin aikaa.</string>
     <string name="manage_space_title">Hallitse tilaa</string>
-    <string name="media_err_invalid_progressive_playback">Mediatiedostoa ei voida suoratoistaa</string>
-    <string name="media_err_io">Mediatiedostoa ei voitu lukea</string>
-    <string name="media_err_malformed">Mediatiedostoa ei ole koodattu kelvollisesti</string>
-    <string name="media_err_timeout">Tiedoston toisto aikakatkaistiin.</string>
-    <string name="media_err_unknown">Sisäänrakennettu mediasoitin ei voi toistaa mediatiedostoa</string>
-    <string name="media_err_unsupported">Mediakoodekki ei ole tuettu</string>
-    <string name="media_forward_description">Eteenpäin kelaus -painike</string>
-    <string name="media_notif_ticker">%1$s-musiikkisoitin</string>
-    <string name="media_play_pause_description">Toisto tai keskeytys -painike</string>
-    <string name="media_player_pause">Keskeytä</string>
-    <string name="media_player_play">Esitys</string>
-    <string name="media_rewind_description">Taaksepäin kelaus -painike</string>
-    <string name="media_state_playing">%1$s (toistetaan)</string>
+    <string name="manage_tags">Hallitse tunnisteita</string>
     <string name="menu_item_sort_by_date_newest_first">Uusin ensin</string>
     <string name="menu_item_sort_by_date_oldest_first">Vanhin ensin</string>
     <string name="menu_item_sort_by_name_a_z">A - Ö</string>
@@ -609,8 +608,7 @@
     <string name="picture_set_as_no_app">Kuvan liittämiseksi ei löytynyt sovellusta</string>
     <string name="pin_home">Kiinnitä kotinäyttöön</string>
     <string name="pin_shortcut_label">Avaa %1$s</string>
-    <string name="player_stop">pysäytä</string>
-    <string name="player_toggle">vaihda</string>
+    <string name="player_media_controls_close_action_title">Sulje</string>
     <string name="please_select_a_server">Valitse palvelin...</string>
     <string name="power_save_check_dialog_message">Virransäästötilan tarkistuksen poistaminen saattaa johtaa tiedostojen lähettämiseen alhaisella akun varauksella!</string>
     <string name="pref_behaviour_entries_delete_file">Poistetaan</string>
@@ -697,6 +695,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="reload">Lataa uudelleen</string>
     <string name="remote">(etä)</string>
     <string name="remote_file_fetch_failed">Tiedostoa ei löytynyt!</string>
+    <string name="remove">Poista</string>
     <string name="remove_e2e">Voit poistaa päästä päähän -salauksen paikallisesti tästä asiakasohjelmasta</string>
     <string name="remove_e2e_message">Voit poistaa päästä päähän -salauksen paikallisesti tästä asiakasohjelmasta. Salatut tiedostot säilyvät palvelimella, mutta niitä ei synkronoida enää tähän tietokoneeseen.</string>
     <string name="remove_fail_msg">Poistaminen epäonnistui</string>
@@ -705,6 +704,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="remove_notification_failed">Ilmoitusta ei voitu poistaa</string>
     <string name="remove_push_notification">Poista</string>
     <string name="remove_success_msg">Poistettu</string>
+    <string name="rename_dialog_button">Nimeä uudelleen</string>
     <string name="rename_dialog_title">Anna uusi nimi</string>
     <string name="rename_local_fail_msg">Paikallisen kopion nimeä ei voitu muuttaa, yritä eri nimeä</string>
     <string name="rename_server_fail_msg">Nimen muutos epäonnistui, nimi on jo käytössä</string>
@@ -733,6 +733,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="screenshot_05_autoUpload_subline">kuvillesi ja videoillesi</string>
     <string name="screenshot_06_davdroid_heading">Kalenteri ja yhteystiedot</string>
     <string name="search_error">Virhe hakutulosten noutamisessa</string>
+    <string name="search_tags">Etsi tunnisteita</string>
     <string name="secure_share_not_set_up">Turvallsta jakoa ei ole asetettu tälle käyttäjälle</string>
     <string name="select_all">Valitse kaikki</string>
     <string name="select_media_folder">Aseta kansio medialle</string>
@@ -845,7 +846,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="store_short_dev_desc">Itse ylläpidettävä tuottavuusalusta, joka säilyttää kontrollin sinulla (kehitysversio)</string>
     <string name="stream">Suoratoista käyttämällä...</string>
     <string name="stream_not_possible_headline">Suoratoisto internetiin ei onnistu</string>
-    <string name="stream_not_possible_message">Ole hyvä ja lataa media tai käytä ulkopuolista sovellusta.</string>
     <string name="sub_folder_rule_day">Vuosi/kuukausi/päivä</string>
     <string name="sub_folder_rule_month">Vuosi/kuukausi</string>
     <string name="sub_folder_rule_year">Vuosi</string>
@@ -1102,4 +1102,4 @@ GNU yleinen lisenssi, versio 2</string>
         <item quantity="one">%1$d lataus jäljellä</item>
         <item quantity="other">%1$d latausta jäljellä</item>
     </plurals>
-</resources>
+    </resources>

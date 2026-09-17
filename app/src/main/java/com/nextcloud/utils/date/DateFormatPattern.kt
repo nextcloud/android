@@ -21,5 +21,10 @@ enum class DateFormatPattern(val pattern: String) {
     /**
      * March 03, 2026 14:38
      */
-    MonthDayYearTime("MMMM dd, yyyy HH:mm")
+    MonthDayYearTime("MMMM dd, yyyy HH:mm"),
+
+    /**
+     * Aug 2026
+     */
+    MonthWithYear("MMM yyyy")
 }

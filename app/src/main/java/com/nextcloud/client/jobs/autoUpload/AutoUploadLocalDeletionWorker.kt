@@ -1,0 +1,161 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2026 Daniele Verducci <daniele.verducci@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+package com.nextcloud.client.jobs.autoUpload
+
+import android.app.Notification
+import android.content.Context
+import androidx.work.CoroutineWorker
+import androidx.work.WorkerParameters
+import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.jobs.notification.WorkerNotificationManager
+import com.owncloud.android.R
+import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.operations.upload.DeleteUploadedFileOperation
+import com.owncloud.android.ui.notifications.NotificationUtils
+import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.FileUtil
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import java.io.File
+
+class AutoUploadLocalDeletionWorker(
+    private val context: Context,
+    params: WorkerParameters,
+    private val userAccountManager: UserAccountManager,
+    private val syncedFolderProvider: SyncedFolderProvider,
+    val viewThemeUtils: ViewThemeUtils
+) : CoroutineWorker(context, params) {
+
+    companion object {
+        const val SYNCED_FOLDER_IDS = "synced_folder_IDs"
+        const val NOTIFICATION_ID = 267
+        const val MS_IN_SECOND = 1000
+
+        private const val TAG = "AutoUploadLocalDeletionWorker"
+    }
+
+    private val notificationManager = WorkerNotificationManager(
+        NOTIFICATION_ID,
+        context,
+        viewThemeUtils,
+        R.string.autoupload_delete_uploaded_notif_ticker,
+        NotificationUtils.NOTIFICATION_CHANNEL_BACKGROUND_OPERATIONS
+    )
+
+    override suspend fun doWork(): Result {
+        showNotification(
+            createNotification(context.getString(R.string.autoupload_delete_uploaded_notif_started_title))
+        )
+        Log_OC.d(TAG, "Started")
+
+        val syncedFolderIDs = inputData.getLongArray(SYNCED_FOLDER_IDS)
+            ?: throw IllegalArgumentException("$SYNCED_FOLDER_IDS param is mandatory")
+        val syncedFolders = syncedFolderIDs
+            .map { syncedFolderProvider.getSyncedFolderByID(it) }
+
+        var users = HashSet<String>()
+        var filesPreserved = 0L
+        var foldersAnalyzed = 0L
+        var filesRemoved = 0L
+        var spaceFreed = 0L
+        val timeStarted = System.currentTimeMillis()
+        syncedFolders
+            .filterNotNull()
+            .filter { it.isEnabled }
+            .filter { FileUtil.isFolderWritable(File(it.localPath)) }
+            .forEach {
+                val sharedFolderOwner = userAccountManager.getUser(it.account).get()
+                users.add(sharedFolderOwner.accountName)
+                val fileDataStorageManager = FileDataStorageManager(sharedFolderOwner, context.contentResolver)
+                val op = DeleteUploadedFileOperation(
+                    it,
+                    context,
+                    fileDataStorageManager
+                )
+                val res = op.run()
+                if (res.code != RemoteOperationResult.ResultCode.OK) {
+                    Log_OC.d(TAG, "Failed")
+                    showNotification(
+                        createNotification(context.getString(R.string.autoupload_delete_uploaded_notif_error_title))
+                    )
+                    return Result.failure()
+                }
+                foldersAnalyzed++
+                filesPreserved += res.resultData.filesPreserved
+                filesRemoved += res.resultData.filesRemoved
+                spaceFreed += res.resultData.spaceFreed
+            }
+
+        val runTimeMs = System.currentTimeMillis() - timeStarted
+        showNotification(
+            createSuccessNotification(
+                users.size,
+                foldersAnalyzed,
+                filesRemoved,
+                filesPreserved,
+                spaceFreed,
+                runTimeMs
+            )
+        )
+        Log_OC.d(
+            TAG,
+            "Success: users=$users, foldersAnalyzed=$foldersAnalyzed, filesPreserved=$filesPreserved, " +
+                "filesRemoved=$filesRemoved, spaceFreed=$spaceFreed bytes, runTime=${runTimeMs / MS_IN_SECOND} seconds"
+        )
+        return Result.success()
+    }
+
+    private fun createSuccessNotification(
+        users: Int,
+        foldersRemoved: Long,
+        filesRemoved: Long,
+        filesPreserved: Long,
+        spaceFreed: Long,
+        timeElapsed: Long
+    ): Notification {
+        val notificationContent = context.getString(
+            R.string.autoupload_delete_uploaded_notif_ended_content,
+            DisplayUtils.bytesToHumanReadable(spaceFreed),
+            context.resources.getQuantityString(
+                R.plurals.autoupload_delete_uploaded_notif_ended_content_files,
+                filesRemoved.toInt(),
+                filesRemoved
+            ),
+            context.resources.getQuantityString(
+                R.plurals.autoupload_delete_uploaded_notif_ended_content_folders,
+                foldersRemoved.toInt(),
+                foldersRemoved
+            ),
+            context.resources.getQuantityString(
+                R.plurals.autoupload_delete_uploaded_notif_ended_content_users,
+                users,
+                users
+            )
+        )
+        return createNotification(
+            title = context.getString(R.string.autoupload_delete_uploaded_notif_ended_title),
+            content = notificationContent
+        )
+    }
+
+    private fun createNotification(title: String, content: String? = null): Notification =
+        notificationManager.notificationBuilder
+            .setContentTitle(title)
+            .setContentText(content)
+            .setSmallIcon(R.drawable.ic_delete)
+            .setSound(null)
+            .setVibrate(null)
+            .setOnlyAlertOnce(true)
+            .setSilent(true)
+            .setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_BACKGROUND_OPERATIONS)
+            .build()
+
+    private fun showNotification(notification: Notification) = notificationManager.showNotification()
+}

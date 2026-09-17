@@ -40,6 +40,7 @@ import com.owncloud.android.datamodel.SyncedFolderDisplayItem
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncMediaThumbnailDrawable
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.MediaThumbnailGenerationTask
+import com.owncloud.android.utils.FileUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -382,17 +383,25 @@ class SyncedFolderAdapter(
             menu
                 .findItem(R.id.action_auto_upload_folder_toggle_visibility)
                 .setChecked(item.isHidden)
+            updateDeletionMenuItem(
+                item,
+                menu.findItem(R.id.action_auto_upload_folder_delete_uploaded)
+            )
         }
 
         popup.show()
     }
 
     private fun optionsItemSelected(menuItem: MenuItem, section: Int, item: SyncedFolderDisplayItem): Boolean {
-        if (menuItem.itemId == R.id.action_auto_upload_folder_toggle_visibility) {
-            clickListener.onVisibilityToggleClick(section, item)
-        } else {
-            // default: R.id.action_create_custom_folder
-            clickListener.onSyncFolderSettingsClick(section, item)
+        when (menuItem.itemId) {
+            R.id.action_auto_upload_folder_toggle_visibility -> clickListener.onVisibilityToggleClick(section, item)
+
+            R.id.action_auto_upload_folder_settings -> clickListener.onSyncFolderSettingsClick(section, item)
+
+            R.id.action_auto_upload_folder_delete_uploaded -> clickListener.onSyncFolderDeleteUploadedClick(
+                section,
+                item
+            )
         }
         return true
     }
@@ -508,6 +517,7 @@ class SyncedFolderAdapter(
     interface ClickListener {
         fun onSyncStatusToggleClick(section: Int, item: SyncedFolderDisplayItem?)
         fun onSyncFolderSettingsClick(section: Int, syncedFolderDisplayItem: SyncedFolderDisplayItem?)
+        fun onSyncFolderDeleteUploadedClick(section: Int, syncedFolderDisplayItem: SyncedFolderDisplayItem?)
         fun onVisibilityToggleClick(section: Int, item: SyncedFolderDisplayItem?)
         fun showSubFolderWarningDialog()
     }
@@ -535,6 +545,17 @@ class SyncedFolderAdapter(
                 viewThemeUtils.platform.tintDrawable(context, R.drawable.ic_cloud_sync_on, ColorRole.PRIMARY)
         } else {
             syncStatusButton.icon = ContextCompat.getDrawable(context, R.drawable.ic_cloud_sync_off)
+        }
+    }
+
+    private fun updateDeletionMenuItem(syncedFolder: SyncedFolderDisplayItem, menuItem: MenuItem) {
+        val folderFile = syncedFolder.localPath?.let { File(it) }
+        lifecycleScope.launch {
+            val writable = FileUtil.isFolderWritable(folderFile)
+            withContext(Dispatchers.Main) {
+                menuItem.isEnabled = writable
+                menuItem.isVisible = writable
+            }
         }
     }
 

@@ -273,6 +273,37 @@ public final class FileStorageUtils {
     }
 
     /**
+     * Removes the synced folder from the beginning of a local file path, leaving only the subfolders that have to be
+     * mirrored below the remote folder.
+     * <p>
+     * Files are selected with a SQL {@code LIKE} on the synced folder path, which is case insensitive, so a folder
+     * configured as {@code DCIM/camera} also collects the files MediaStore stores under {@code DCIM/Camera}. The
+     * prefix therefore has to be removed case insensitively too, or the whole local path ends up on the server.
+     */
+    private static String stripSyncedFolderPrefix(String absolutePath, String syncedFolderLocalPath) {
+        if (syncedFolderLocalPath == null || syncedFolderLocalPath.isEmpty()) {
+            return absolutePath;
+        }
+
+        String prefix = syncedFolderLocalPath.endsWith(OCFile.PATH_SEPARATOR)
+            ? syncedFolderLocalPath.substring(0, syncedFolderLocalPath.length() - 1)
+            : syncedFolderLocalPath;
+
+        if (absolutePath.startsWith(prefix)) {
+            return absolutePath.substring(prefix.length());
+        }
+
+        if (absolutePath.regionMatches(true, 0, prefix, 0, prefix.length())) {
+            Log_OC.w(TAG, "local path differs from the synced folder in letter case only, stripping anyway");
+            return absolutePath.substring(prefix.length());
+        }
+
+        Log_OC.e(TAG, "local file is not below its synced folder, dropping the local subfolders");
+
+        return OCFile.PATH_SEPARATOR + new File(absolutePath).getName();
+    }
+
+    /**
      * Returns the InstantUploadFilePath on the nextcloud instance
      *
      * @param dateTaken: Time in milliseconds since 1970 when the picture was taken.
@@ -291,7 +322,7 @@ public final class FileStorageUtils {
         }
         Log_OC.w(TAG, "FileStorageUtils:getInstantUploadFilePath subfolderByDate: " + subfolderByDate);
 
-        File parentFile = new File(file.getAbsolutePath().replace(syncedFolderLocalPath, "")).getParentFile();
+        File parentFile = new File(stripSyncedFolderPrefix(file.getAbsolutePath(), syncedFolderLocalPath)).getParentFile();
 
         String relativeSubfolderPath = "";
         if (parentFile == null) {

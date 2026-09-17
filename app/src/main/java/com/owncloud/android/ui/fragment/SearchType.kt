@@ -45,5 +45,6 @@ enum class EmptyListState : Parcelable {
     ONLY_ON_DEVICE,
     LOCAL_FILE_LIST_EMPTY_FILE,
     LOCAL_FILE_LIST_EMPTY_FOLDER,
-    ERROR
+    ERROR,
+    OUT_OF_MEMORY
 }

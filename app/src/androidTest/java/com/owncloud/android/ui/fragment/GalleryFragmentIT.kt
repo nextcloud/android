@@ -29,11 +29,12 @@ import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.nextcloud.test.Flaky
 import com.nextcloud.test.TestActivity
+import com.nextcloud.utils.extensions.getBigThumbnail
+import com.nextcloud.utils.extensions.getBigThumbnailKey
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
-import com.owncloud.android.datamodel.ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.model.ImageDimension
 import com.owncloud.android.ui.adapter.GalleryRowHolder
@@ -221,9 +222,9 @@ class GalleryFragmentIT : AbstractIT() {
             drawRGB(random.nextInt(256), random.nextInt(256), random.nextInt(256))
             drawCircle(w / 2f, h / 2f, w.coerceAtMost(h) / 2f, Paint().apply { color = Color.BLACK })
         }
-        ThumbnailsCacheManager.addBitmapToCache(PREFIX_RESIZED_IMAGE + file.remoteId, bitmap)
+        ThumbnailsCacheManager.addBitmapToCache(file.getBigThumbnailKey(), bitmap)
 
-        assertNotNull(ThumbnailsCacheManager.getBitmapFromDiskCache(PREFIX_RESIZED_IMAGE + file.remoteId))
+        assertNotNull(file.getBigThumbnail())
 
         Log_OC.d("Gallery_thumbnail", "created $id with ${bitmap.width} x ${bitmap.height}")
     }

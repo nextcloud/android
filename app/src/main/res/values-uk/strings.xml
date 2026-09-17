@@ -10,6 +10,7 @@
     <string name="action_edit">Редагувати</string>
     <string name="action_empty_notifications">Очистити всі сповіщення</string>
     <string name="action_empty_trashbin">Очистити кошик</string>
+    <string name="action_open_in_web_editor">Відрити у вебредакторі</string>
     <string name="action_send_share">Надіслати або поділитися</string>
     <string name="action_switch_grid_view">Показувати сіткою</string>
     <string name="action_switch_list_view">Показувати списком</string>
@@ -31,7 +32,11 @@
     <string name="activity_icon">Ваші дії</string>
     <string name="add_new_public_share">Додати нове публічне посилання</string>
     <string name="add_new_secure_file_drop">Додати новий захищений файл</string>
-    <string name="add_to_cloud">Додати до хмари %1$s</string>
+    <string name="add_to_album">Додати в альбом</string>
+    <string name="album_delete">Вилучити альбом</string>
+    <string name="album_rename_conflict">Це ім\'я вже використовується</string>
+    <string name="album_share">Поділитися альбомом</string>
+    <string name="album_stop_sharing">Не ділитися</string>
     <string name="app_config_base_url_title">Основний URL</string>
     <string name="app_config_disable_clipboard_title">Вимкнути буфер обміну</string>
     <string name="app_config_disable_intro_title">Вимкнути презентацію</string>
@@ -248,17 +253,21 @@
     <string name="could_not_retrieve_shares">Не вдалося отримати спільні дані</string>
     <string name="could_not_retrieve_url">Неможливо отримати посилання</string>
     <string name="create">Створити</string>
+    <string name="create_album_dialog_title">Новий альбом</string>
     <string name="create_dir_fail_msg">Неможливо створити каталог</string>
+    <string name="create_document">Документ</string>
+    <string name="create_encrypted_folder">Зашифрований каталог</string>
     <string name="create_end_to_end_encrypted_share">Спільне посилання</string>
     <string name="create_end_to_end_encrypted_share_title">Наскрізно зашифровані спільні посилання</string>
+    <string name="create_folder">Каталог</string>
     <string name="create_link">Створити посилання</string>
     <string name="create_new">Створити</string>
     <string name="create_new_document">Новий документ</string>
-    <string name="create_new_encrypted_folder">Новий зашифрований каталог</string>
-    <string name="create_new_folder">Новий каталог</string>
     <string name="create_new_presentation">Нова презентація</string>
     <string name="create_new_spreadsheet">Нова електронна таблиця</string>
+    <string name="create_presentation">Презентація</string>
     <string name="create_rich_workspace">Додати опис каталогу</string>
+    <string name="create_spreadsheet">Таблиця</string>
     <string name="credentials_disabled">Дані авторизації не активні</string>
     <string name="daily_backup">Щоденне резервне збереження</string>
     <string name="data_to_back_up">Дані користувача для резервного збереження</string>
@@ -274,6 +283,8 @@
     <string name="dialog_close">закрити</string>
     <string name="did_not_check_for_dupes">Відсутня перевірка на наявність дублікатів.</string>
     <string name="digest_algorithm_not_available">Цей цифровий алгоритм недоступний на вашому телефоні.</string>
+    <string name="direct_login_confirm_message">Дійсно увійти з %1$s до %2$s?</string>
+    <string name="direct_login_confirm_title">Підтвердити вхід</string>
     <string name="direct_login_failed">Відмовлено у авторизації за прямим посиланням!</string>
     <string name="direct_login_text">Увійти до %2$s з %1$s</string>
     <string name="disable_new_media_folder_detection_notifications">Вимкнути</string>
@@ -315,6 +326,7 @@
     <string name="drawer_community">Спільнота</string>
     <string name="drawer_header_background">Зображення тла верхньої панелі</string>
     <string name="drawer_item_activities">Події</string>
+    <string name="drawer_item_album">Альбоми</string>
     <string name="drawer_item_all_files">Усі документи</string>
     <string name="drawer_item_assistant">Помічник</string>
     <string name="drawer_item_favorites">Із зірочкою</string>
@@ -416,6 +428,7 @@
     <string name="fab_label">Додати або завантажити</string>
     <string name="failed_to_create_conflict_dialog">Не вдалося створити вікно з інформацією про конфлікт</string>
     <string name="failed_to_download">Не вдалося передати файл до менеджера звантажень</string>
+    <string name="failed_to_load_tags">Не вдалося завантажити мітки</string>
     <string name="failed_to_print">Не вдалося роздрукувати файл</string>
     <string name="failed_to_start_action">Не вдалося виконати дію!</string>
     <string name="failed_to_start_editor">Не вдалося відкрити редактор</string>
@@ -431,6 +444,8 @@
     <string name="file_detail_sharing_fragment_no_contact_app_message">Відсутній застосунок для вибору контактів</string>
     <string name="file_details_no_content">Не вдалося завантажити подробиці</string>
     <string name="file_icon">Файл</string>
+    <string name="file_info_governance_section_title">Управління</string>
+    <string name="file_info_image_details_section_title">Деталі зображення</string>
     <string name="file_keep">Зберегти</string>
     <string name="file_list_empty">Додати дані або синхронізувати з вашими пристроями.</string>
     <string name="file_list_empty_favorite_headline">Поки що ви нічого не позначили зірочкою</string>
@@ -456,6 +471,7 @@
     <string name="file_list_live">НАЖИВО</string>
     <string name="file_list_loading">Завантаження…</string>
     <string name="file_list_no_app_for_file_type">Відсутній застосунок для відкриття файлу такого типу.</string>
+    <string name="file_list_out_of_memory_description">Не вдалося завантажити вміст</string>
     <string name="file_list_seconds_ago">кілька секунд тому</string>
     <string name="file_management_permission_optional">Доступ до пам\'яти</string>
     <string name="file_management_permission_optional_text">%1$s Найкраще працює з дозволами для доступу до зберігання. Ви можете вибрати повний доступ до всіх файлів або доступ лише для читання до фотографій і відео.</string>
@@ -538,7 +554,11 @@
     <string name="foreign_files_remote_text">Віддалено: %1$s</string>
     <string name="forward">Вперед</string>
     <string name="fourHours">4 години</string>
+    <string name="governance_file_retention_label">Зберігання файлів</string>
+    <string name="governance_legal_hold_label">Правові застереження</string>
     <string name="governance_no_label">Нічого</string>
+    <string name="governance_permission_denied">Відсутні права на зміну ярлика</string>
+    <string name="governance_sensitivity_label">Ярлик конфіденційності</string>
     <string name="gplay_restriction">Ґуґл обмежив звантаження файлів APK/AAB!</string>
     <string name="grid_file_features_live_photo_content_description">Цей значок означає доступність живого фото</string>
     <string name="hidden_file_name_warning">Назву буде наведено у прихованому файлі</string>
@@ -608,22 +628,7 @@
     <string name="manage_space_clear_data">Очистити дані</string>
     <string name="manage_space_description">Налаштування, база даних та дані сертифікатів сервера від %1$s буде вилучено без можливості відновлення.\n\nФайли, які було звантажено, буде збережено.\n\nЦей процес триватиме певний час.</string>
     <string name="manage_space_title">Керувати простором</string>
-    <string name="media_err_invalid_progressive_playback">Неможливо транслювати мультимедійний файл</string>
-    <string name="media_err_io">Неможливо відкрити мультимедійний файл</string>
-    <string name="media_err_malformed">Мультимедійний файл має неправильно кодування</string>
-    <string name="media_err_timeout">Час на відтворення файлу вичерпано</string>
-    <string name="media_err_unknown">Неможливо програти мультимедійний файл вбудованим медіапрогравачем</string>
-    <string name="media_err_unsupported">Кодек не підтримується</string>
-    <string name="media_forward_description">Перемотка вперед</string>
-    <string name="media_notif_ticker">%1$s музичний програвач</string>
-    <string name="media_play_pause_description">Відтворення або пауза</string>
-    <string name="media_player_pause">Пауза</string>
-    <string name="media_player_play">Грати</string>
-    <string name="media_player_playing">Програвання</string>
-    <string name="media_player_seek_backward">Шукати назад</string>
-    <string name="media_player_seek_forward">Шукати вперед</string>
-    <string name="media_rewind_description">Перемтка назад</string>
-    <string name="media_state_playing">%1$s (програвання)</string>
+    <string name="manage_tags">Керування мітками</string>
     <string name="menu_item_sort_by_date_newest_first">Новіші спочатку</string>
     <string name="menu_item_sort_by_date_oldest_first">Старіші спочатку</string>
     <string name="menu_item_sort_by_name_a_z">А - Я</string>
@@ -631,6 +636,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Найбільші на початку</string>
     <string name="menu_item_sort_by_size_smallest_first">Найменші на початку</string>
     <string name="more">Більше</string>
+    <string name="more_documents">Більше документів</string>
     <string name="move_file_error">Виникла помилка при спробі перемістити файл або каталог</string>
     <string name="move_file_invalid_into_descendent">Неможливо перемістити каталог до одного з вкладених підкаталогів</string>
     <string name="move_file_invalid_overwrite">Файл вже присутній у каталозі призначення</string>
@@ -717,8 +723,7 @@
     <string name="picture_set_as_no_app">Не знайдено застосунків для встановлення зображення для</string>
     <string name="pin_home">Закріпити на домівці</string>
     <string name="pin_shortcut_label">Відкрити %1$s</string>
-    <string name="player_stop">стоп</string>
-    <string name="player_toggle">переключитися</string>
+    <string name="player_media_controls_close_action_title">Закрити</string>
     <string name="please_select_a_server">Виберіть сервер...</string>
     <string name="power_save_check_dialog_message">Вимкнення заощадження батареї може вплинути на завантаження файлів при низькому заряді!</string>
     <string name="pref_behaviour_entries_delete_file">вилучено</string>
@@ -777,6 +782,7 @@
     <string name="prefs_recommend">Рекомендувати застосунок</string>
     <string name="prefs_remove_e2e">Вилучити шифрування на пристрої</string>
     <string name="prefs_remove_e2e_keys_and_files">Вилучити зашифровані файли та ключі шифрування</string>
+    <string name="prefs_renew_e2e_certificate">Оновити сертифікат шифрування</string>
     <string name="prefs_setup_e2e">Налаштувати наскрізне шифрування</string>
     <string name="prefs_show_ecosystem_apps">Показувати перемикач застосунків</string>
     <string name="prefs_show_ecosystem_apps_summary">Пропозиції застосунків Nextcloud у заголовку навігації</string>
@@ -815,6 +821,7 @@
     <string name="reload">Перезавантажити</string>
     <string name="remote">(віддалено)</string>
     <string name="remote_file_fetch_failed">Не знайдено файл!</string>
+    <string name="remove">Вилучити</string>
     <string name="remove_e2e">Ви можете вилучити наскрізне шифрування на пристрої на цьому клієнті</string>
     <string name="remove_e2e_keys_and_files_dialog_warning">У результаті цієї дії всі зашировані файли, приватні та публічні ключі буде вилучено. Продовжити?</string>
     <string name="remove_e2e_message">Ви можете вилучити наскрізне шифрування на пристрої на цьому клієнті. Зашифровані файли залишатимуться на сервері, але більше не синхронізуватимуться з цим комп\'ютером.</string>
@@ -824,9 +831,16 @@
     <string name="remove_notification_failed">Неможливо зняти сповіщення.</string>
     <string name="remove_push_notification">Вилучити</string>
     <string name="remove_success_msg">Вилучено</string>
+    <string name="rename_dialog_button">Перейменувати</string>
     <string name="rename_dialog_title">Введіть нове ім\'я</string>
     <string name="rename_local_fail_msg">Неможливо перейменувати локальну копію, спробуйте інше ім\'я</string>
     <string name="rename_server_fail_msg">Неможливо перейменувати, таке ім\'я уже існує</string>
+    <string name="renew_e2e_certificate_dialog_message">Таким чином буде оновлено ваш сертифікат наскрізного шифрування. Ваші поточні ключі та зашифровані файли залишаться без змін. Продовжити?</string>
+    <string name="renew_e2e_certificate_error">Не вдалося оновити сертифікат шифрування</string>
+    <string name="renew_e2e_certificate_private_key_missing">Приватний ключ шифрування не знайдено</string>
+    <string name="renew_e2e_certificate_success">Сертифікат шифрування оновлено</string>
+    <string name="renew_e2e_certificate_summary">Оновити ваш сертифікат наскрізного шифрування зі збереженням поточних ключів</string>
+    <string name="renew_e2e_certificate_valid_until">Дійсний до %1$s. Клацніть для оновлення зі збереженням поточних ключів.</string>
     <string name="request_account_deletion">Запит на вилучення облікового запису</string>
     <string name="request_account_deletion_button">Запит на вилучення</string>
     <string name="request_account_deletion_details">Запит на вилучення облікового запису з боку постачальника послуг</string>
@@ -854,6 +868,7 @@
     <string name="screenshot_06_davdroid_heading">Календар та контакти</string>
     <string name="screenshot_06_davdroid_subline">Синхронізувати з DAVx⁵</string>
     <string name="search_error">Помилка під час отримання результатів</string>
+    <string name="search_tags">Шукати мітки</string>
     <string name="secure_share_not_set_up">Безпечну передачу у спільний доступ не налаштовано для цього користувача</string>
     <string name="secure_share_search">Безпечний спільний доступ...</string>
     <string name="select_all">Вибрати все</string>
@@ -983,7 +998,6 @@
     <string name="store_short_dev_desc">Платформа з власним хостингом, яка надає можливість контролювати ваші ресурси (версія для попереднього ознайомлення)</string>
     <string name="stream">Транслювати з...</string>
     <string name="stream_not_possible_headline">Внутрішня трансляція неможлива</string>
-    <string name="stream_not_possible_message">Будь ласка, звантажте мультимедійний файл замість використання зовнішнього застосунку</string>
     <string name="sub_folder_rule_day">Рік/місяць/день</string>
     <string name="sub_folder_rule_month">Рік/місяць</string>
     <string name="sub_folder_rule_year">Рік</string>
@@ -1060,6 +1074,7 @@
     <string name="unified_search_fragment_contact_not_found">Контакт не знайдено. Синхронізуйтеся для оновлення. Переспрямування на вебсайт...</string>
     <string name="unified_search_fragment_permission_needed">Для отримання результатів пошуку потрібні окреми дозволи, або перейти на вебсайт...</string>
     <string name="unified_search_fragment_search_in_this_folder">У цьому каталозі</string>
+    <string name="unified_search_fragment_search_takes_long">Пошук займає більше час, ніж зазвичай має бути. Результати з\'являться одразу після відповіді сервера.</string>
     <string name="unknown">Невідомо</string>
     <string name="unlock_file">Розблокувати файл</string>
     <string name="unread_comments">Доступні непрочитані коментарі</string>
@@ -1189,6 +1204,7 @@
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Вебсайт</string>
     <string name="user_information_retrieval_error">Помилка під час отримання інформації про користувача</string>
+    <string name="user_information_retrieval_error_message">Перевірте повторно з\'єднання з мережею або статус доступності сервера.</string>
     <string name="userinfo_no_info_headline">Відсутня особиста інформація</string>
     <string name="userinfo_no_info_text">Додайте назву, зображення та деталі контакту на сторінці вашого профілю.</string>
     <string name="username">Ім\'я користувача</string>
@@ -1198,6 +1214,7 @@
     <string name="wait_checking_credentials">Перевірка збережених даних авторизації</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копіювання файлу з приватного сховища</string>
     <string name="warn_rename_extension">Зміна розширення файлу може призвести до того, що його буде відкривати інший застосунок</string>
+    <string name="webview_not_available">Android System WebView відсутній або вимкнено на пристрої</string>
     <string name="what_s_new_image">Зображення про нові функції</string>
     <string name="whats_new_skip">Пропустити</string>
     <string name="whats_new_title">Нове у %1$s</string>
@@ -1352,4 +1369,4 @@
         <item quantity="many">%1$d залишилося завантажити</item>
         <item quantity="other">%1$d залишилося завантажити</item>
     </plurals>
-</resources>
+    </resources>

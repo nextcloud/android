@@ -31,7 +31,10 @@
     <string name="activity_icon">فعالیت</string>
     <string name="add_new_public_share">افزودن پیوند اشتراک‌گذاری عمومی جدید</string>
     <string name="add_new_secure_file_drop">یک دراپ فایل امن جدید اضافه کنید.</string>
-    <string name="add_to_cloud">افزودن به %1$s</string>
+    <string name="add_to_album">افزودن به آلبوم</string>
+    <string name="album_delete">حذف آلبوم</string>
+    <string name="album_rename_conflict">این نام قبلاً استفاده شده است.</string>
+    <string name="album_share">اشتراک‌گذاری آلبوم</string>
     <string name="app_config_base_url_title">بی‌یوآرال</string>
     <string name="app_config_disable_clipboard_title">غیرفعال کردن کلیپ‌بورد</string>
     <string name="app_config_disable_intro_title">غیرفعال‌سازی معرفی</string>
@@ -248,17 +251,20 @@
     <string name="could_not_retrieve_shares">امکان بازگردانی اشتراک‌گذاری‌ها وجود ندارد</string>
     <string name="could_not_retrieve_url">URL قابل بازیابی نیست</string>
     <string name="create">ساخت</string>
+    <string name="create_album_dialog_title">آلبوم جدید</string>
     <string name="create_dir_fail_msg">امکان ساخت پوشه وجود ندارد</string>
+    <string name="create_document">سند</string>
     <string name="create_end_to_end_encrypted_share">اشتراک پیوندی</string>
     <string name="create_end_to_end_encrypted_share_title">اشتراک‌های پیوندی با رمزگذاری سرتاسری</string>
+    <string name="create_folder">پوشه</string>
     <string name="create_link">ایجاد پیوند</string>
     <string name="create_new">جدید</string>
     <string name="create_new_document">سند جدید</string>
-    <string name="create_new_encrypted_folder">پوشه رمزنگاری‌شده جدید</string>
-    <string name="create_new_folder">پوشه جدید</string>
     <string name="create_new_presentation">ارائه جدید</string>
     <string name="create_new_spreadsheet">صفحه‌گسترده جدید</string>
+    <string name="create_presentation">ارائه</string>
     <string name="create_rich_workspace">افزودن توضیحات پوشه</string>
+    <string name="create_spreadsheet">صفحه گسترده</string>
     <string name="credentials_disabled">اعتبارنامه غیرفعال است</string>
     <string name="daily_backup">پشتیبان روزانه</string>
     <string name="data_to_back_up">داده برای پشتیبان‌گیری</string>
@@ -315,6 +321,7 @@
     <string name="drawer_community">انجمن</string>
     <string name="drawer_header_background">تصویر پس‌زمینهٔ سربرگ کشو</string>
     <string name="drawer_item_activities">فعالیت‌ها</string>
+    <string name="drawer_item_album">آلبوم‌ها</string>
     <string name="drawer_item_all_files">تمامی فایل‌ها</string>
     <string name="drawer_item_assistant">دستیار</string>
     <string name="drawer_item_favorites">مورد علاقه</string>
@@ -416,6 +423,7 @@
     <string name="fab_label">اضافه یا بارگذاری کنید</string>
     <string name="failed_to_create_conflict_dialog">ایجاد دیالوگ تعارض ناموفق بود</string>
     <string name="failed_to_download">ارسال فایل برای مدیر بارگیری انجام نشد</string>
+    <string name="failed_to_load_tags">بارگذاری برچسب‌ها انجام نشد</string>
     <string name="failed_to_print">چاپ پرونده انجام نشد</string>
     <string name="failed_to_start_action">اقدام شروع نشد!</string>
     <string name="failed_to_start_editor">ویرایشگر شروع نشد</string>
@@ -456,6 +464,7 @@
     <string name="file_list_live">زنده</string>
     <string name="file_list_loading">در حال بارگذاری...</string>
     <string name="file_list_no_app_for_file_type">هیچ برنامه‌ای برای باز کردن این نوع فایل تنظیم نشده است.</string>
+    <string name="file_list_out_of_memory_description">محتوای مورد نظر بارگذاری نشد</string>
     <string name="file_list_seconds_ago">چند ثانیه پیش</string>
     <string name="file_management_permission_optional">مجوزهای ذخیره‌سازی</string>
     <string name="file_management_permission_optional_text">%1$s با دسترسی به فضای ذخیره‌سازی بهترین عملکرد را دارد. می‌توانید دسترسی کامل به همه فایل‌ها یا دسترسی فقط خواندنی به عکس‌ها و ویدیوها را انتخاب کنید.</string>
@@ -609,22 +618,7 @@
     <string name="manage_space_clear_data">پاک‌سازی اطلاعات</string>
     <string name="manage_space_description">تنظیمات، پایگاه داده و گواهی‌های سرور از داده‌های %1$s برای همیشه حذف خواهند شد. فایل‌های دریافت‌شده دست‌نخورده باقی می‌مانند. این فرایند ممکن است زمان‌بر باشد.</string>
     <string name="manage_space_title">مدیریت فضا</string>
-    <string name="media_err_invalid_progressive_playback">پرونده رسانه قابل پخش جریانی نیست</string>
-    <string name="media_err_io">فایل رسانه‌ای قابل خواندن نیست</string>
-    <string name="media_err_malformed">فایل رسانه دارای کدگذاری نادرست است</string>
-    <string name="media_err_timeout">تلاش برای پخش فایل به پایان رسیده است.</string>
-    <string name="media_err_unknown">دستگاه پخش رسانه داخلی قادر به پخش این پرونده رسانه نیست</string>
-    <string name="media_err_unsupported">کدک رسانه‌ای پشتیبانی نمی‌شود.</string>
-    <string name="media_forward_description">دکمهٔ جلو سریع</string>
-    <string name="media_notif_ticker">%1$s پخش‌کنندهٔ موسیقی</string>
-    <string name="media_play_pause_description">دکمهٔ پخش یا توقف</string>
-    <string name="media_player_pause">توقف</string>
-    <string name="media_player_play">پخش کردن</string>
-    <string name="media_player_playing">در حال پخش رسانه</string>
-    <string name="media_player_seek_backward">عقب‌گرد</string>
-    <string name="media_player_seek_forward">جستجوی رو به جلو</string>
-    <string name="media_rewind_description">دکمه بازگشت</string>
-    <string name="media_state_playing">%1$s (در حال پخش)</string>
+    <string name="manage_tags">مدیریت برچسب ها</string>
     <string name="menu_item_sort_by_date_newest_first">جدیدترین‌ها اول</string>
     <string name="menu_item_sort_by_date_oldest_first">قدیمی‌ترین‌ها اول</string>
     <string name="menu_item_sort_by_name_a_z">الف تا ی</string>
@@ -632,6 +626,7 @@
     <string name="menu_item_sort_by_size_biggest_first">بزرگترین اولویت</string>
     <string name="menu_item_sort_by_size_smallest_first">کوچک‌ترین اول</string>
     <string name="more">بیشتر</string>
+    <string name="more_documents">اسناد بیشتر</string>
     <string name="move_file_error">هنگام تلاش برای انتقال این فایل یا پوشه، خطایی رخ داد.</string>
     <string name="move_file_invalid_into_descendent">انتقال یک پوشه به زیرشاخه‌های خودش امکان‌پذیر نیست.</string>
     <string name="move_file_invalid_overwrite">فایل در حال حاضر در پوشه مقصد وجود دارد</string>
@@ -718,8 +713,7 @@
     <string name="picture_set_as_no_app">هیچ برنامه‌ای برای تنظیم عکس یافت نشد</string>
     <string name="pin_home">ثبت در صفحه اصلی</string>
     <string name="pin_shortcut_label">باز کنید %1$s</string>
-    <string name="player_stop">توقف</string>
-    <string name="player_toggle">تغییر وضعیت</string>
+    <string name="player_media_controls_close_action_title">بستن</string>
     <string name="please_select_a_server">لطفاً یک سرور انتخاب کنید…</string>
     <string name="power_save_check_dialog_message">غیرفعال کردن نشان صرفه‌جویی در مصرف برق ممکن است باعث شود بارگذاری پرونده‌ها در حالت باتری کم انجام شود!</string>
     <string name="pref_behaviour_entries_delete_file">حذف‌شده</string>
@@ -818,6 +812,7 @@
     <string name="reload">بارگیری مجدد</string>
     <string name="remote">(از راه دور)</string>
     <string name="remote_file_fetch_failed">یافتن پرونده انجام نشد</string>
+    <string name="remove">حذف</string>
     <string name="remove_e2e">می‌توانید رمزگذاری سرتاسری را به‌صورت محلی در این سرویس‌گیرنده حذف کنید.</string>
     <string name="remove_e2e_keys_and_files_dialog_warning">این عملیات تمام فایل‌های رمزگذاری‌شده، کلیدهای خصوصی و عمومی را حذف خواهد کرد. آیا مطمئن هستید؟</string>
     <string name="remove_e2e_message">می‌توانید رمزگذاری سرتاسری را به‌صورت محلی در این سرویس‌گیرنده حذف کنید. فایل‌های رمزگذاری‌شده روی سرور باقی می‌مانند، اما دیگر با این رایانه همگام‌سازی نمی‌شوند.</string>
@@ -827,6 +822,7 @@
     <string name="remove_notification_failed">حذف اعلان انجام نشد.</string>
     <string name="remove_push_notification">حذف</string>
     <string name="remove_success_msg">حذف‌شده</string>
+    <string name="rename_dialog_button">تغییرنام</string>
     <string name="rename_dialog_title">نام جدید را وارد کنید</string>
     <string name="rename_local_fail_msg">تغییر نام نسخه محلی امکان‌پذیر نیست، نام دیگری را امتحان کنید.</string>
     <string name="rename_server_fail_msg">تغییر نام ممکن نیست، این نام قبلاً استفاده شده است.</string>
@@ -857,6 +853,7 @@
     <string name="screenshot_06_davdroid_heading">تقویم و مخاطب‌ها</string>
     <string name="screenshot_06_davdroid_subline">همگام‌سازی با DAVx⁵</string>
     <string name="search_error">خطا در دریافت نتایج جستجو</string>
+    <string name="search_tags">جستجوی برچسب‌ها</string>
     <string name="secure_share_not_set_up">اشتراک‌گذاری امن برای این حساب تنظیم نشده است</string>
     <string name="secure_share_search">اشتراک امن…</string>
     <string name="select_all">انتخاب همه</string>
@@ -1004,7 +1001,6 @@
     <string name="store_short_dev_desc">بستر خودمیزبانی که اختیار کامل به شما می‌دهد</string>
     <string name="stream">جریان با…</string>
     <string name="stream_not_possible_headline">جریان داخلی امکان‌پذیر نیست</string>
-    <string name="stream_not_possible_message">لطفاً به جای آن رسانه را دریافت کنید یا از یک برنامه خارجی استفاده کنید.</string>
     <string name="sub_folder_rule_day">سال/ماه/روز</string>
     <string name="sub_folder_rule_month">سال/ماه</string>
     <string name="sub_folder_rule_year">سال</string>
@@ -1325,4 +1321,4 @@
         <item quantity="one">محدودیت دانلود: %d بار</item>
         <item quantity="other">محدودیت دانلود: %d بار</item>
     </plurals>
-</resources>
+    </resources>

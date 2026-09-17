@@ -31,7 +31,11 @@
     <string name="activity_icon">Activiteit</string>
     <string name="add_new_public_share">Voeg een nieuwe openbare deellink toe</string>
     <string name="add_new_secure_file_drop">Beveiligde bestands-drop</string>
-    <string name="add_to_cloud">Voeg toe aan %1$s</string>
+    <string name="add_to_album">Toevoegen aan album</string>
+    <string name="album_delete">Album verwijderen</string>
+    <string name="album_rename_conflict">De naam is al in gebruik.</string>
+    <string name="album_share">Album delen</string>
+    <string name="album_stop_sharing">Stop met delen</string>
     <string name="app_config_base_url_title">Basis URL</string>
     <string name="app_config_disable_clipboard_title">Klembord uitschakelen</string>
     <string name="app_config_disable_intro_title">Intro uitschakelen</string>
@@ -248,17 +252,20 @@
     <string name="could_not_retrieve_shares">Kon shares niet ophalen</string>
     <string name="could_not_retrieve_url">Kon URL niet ophalen</string>
     <string name="create">Creëren</string>
+    <string name="create_album_dialog_title">Nieuw album</string>
     <string name="create_dir_fail_msg">Kan map niet aanmaken</string>
+    <string name="create_document">Document</string>
     <string name="create_end_to_end_encrypted_share">Link delen</string>
     <string name="create_end_to_end_encrypted_share_title">Gedeelde links met end-to-end versleuteling</string>
+    <string name="create_folder">Map</string>
     <string name="create_link">Link aanmaken</string>
     <string name="create_new">Nieuw</string>
     <string name="create_new_document">Nieuw document</string>
-    <string name="create_new_encrypted_folder">Nieuwe versleutelde map</string>
-    <string name="create_new_folder">Nieuwe map</string>
     <string name="create_new_presentation">Nieuwe presentatie</string>
     <string name="create_new_spreadsheet">Nieuw werkblad</string>
+    <string name="create_presentation">Presentatie</string>
     <string name="create_rich_workspace">Mapomschrijving toevoegen</string>
+    <string name="create_spreadsheet">Werkblad</string>
     <string name="credentials_disabled">Inloggegevens uitgeschakeld</string>
     <string name="daily_backup">Dagelijkse back-up</string>
     <string name="data_to_back_up">Te back-uppen data</string>
@@ -315,6 +322,7 @@
     <string name="drawer_community">Gemeenschap</string>
     <string name="drawer_header_background">Achtergrondafbeelding in het menu</string>
     <string name="drawer_item_activities">Activiteiten</string>
+    <string name="drawer_item_album">Albums</string>
     <string name="drawer_item_all_files">Alle bestanden</string>
     <string name="drawer_item_assistant">Assistent</string>
     <string name="drawer_item_favorites">Favorieten</string>
@@ -416,6 +424,7 @@
     <string name="fab_label">Toevoegen of uploaden</string>
     <string name="failed_to_create_conflict_dialog">Kon het conflictvenster niet aanmaken</string>
     <string name="failed_to_download">Kon het bestand niet doorgeven aan de download beheerder</string>
+    <string name="failed_to_load_tags">Kon tags niet laden</string>
     <string name="failed_to_print">Kon bestand niet afdrukken</string>
     <string name="failed_to_start_action">De actie kon niet worden gestart!</string>
     <string name="failed_to_start_editor">Kon editor niet starten</string>
@@ -456,6 +465,7 @@
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Laden…</string>
     <string name="file_list_no_app_for_file_type">Er is geen app ingesteld om dit bestandsformaat te behandelen.</string>
+    <string name="file_list_out_of_memory_description">Kon inhoud niet laden</string>
     <string name="file_list_seconds_ago">seconden geleden</string>
     <string name="file_management_permission_optional">Opslagmachtigingen</string>
     <string name="file_management_permission_optional_text">%1$s werkt het best met opslagmachtigingen. Je kan kiezen tussen volledige toegang tot alle bestanden, of alleen lezen toegang tot foto\'s en video\'s.</string>
@@ -609,22 +619,7 @@
     <string name="manage_space_clear_data">Gegevens verwijderen</string>
     <string name="manage_space_description">Instellingen, database en servercertificaten van de data van %1$s zullen permanent worden verwijderd. \n\nGedownloade bestanden blijven onaangeroerd.\n\nDit proces kan even duren.</string>
     <string name="manage_space_title">Beheer ruimte</string>
-    <string name="media_err_invalid_progressive_playback">Mediabestand kan niet worden gestreamd</string>
-    <string name="media_err_io">Kon het mediabestand niet lezen</string>
-    <string name="media_err_malformed">Mediabestand niet goed gecodeerd</string>
-    <string name="media_err_timeout">Time-out tijdens het afspelen</string>
-    <string name="media_err_unknown">Mediabestand kan niet worden afgespeeld met de standaard mediaplayer</string>
-    <string name="media_err_unsupported">Niet-ondersteunde mediacodec</string>
-    <string name="media_forward_description">Doorspoelknop</string>
-    <string name="media_notif_ticker">%1$s muziekspeler</string>
-    <string name="media_play_pause_description">Speel- of pauzeknop</string>
-    <string name="media_player_pause">Pauze</string>
-    <string name="media_player_play">Spelen</string>
-    <string name="media_player_playing">Media afspelen</string>
-    <string name="media_player_seek_backward">Achteruitspoelen</string>
-    <string name="media_player_seek_forward">Vooruitspoelen</string>
-    <string name="media_rewind_description">Terugspoelknop</string>
-    <string name="media_state_playing">%1$s (speelt)</string>
+    <string name="manage_tags">Beheer labels</string>
     <string name="menu_item_sort_by_date_newest_first">Nieuwste eerst</string>
     <string name="menu_item_sort_by_date_oldest_first">Oudste eerst</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -718,8 +713,7 @@
     <string name="picture_set_as_no_app">Geen app gevonden om afbeelding in te stellen</string>
     <string name="pin_home">Vastzetten op startscherm</string>
     <string name="pin_shortcut_label">Open %1$s</string>
-    <string name="player_stop">stop</string>
-    <string name="player_toggle">omschakelen</string>
+    <string name="player_media_controls_close_action_title">Sluiten</string>
     <string name="please_select_a_server">Selecteer een server...</string>
     <string name="power_save_check_dialog_message">Uitschakelen stroombesparingscontrole kan resulteren in uploaden van bestanden met lage accustand!</string>
     <string name="pref_behaviour_entries_delete_file">verwijderd worden</string>
@@ -816,6 +810,7 @@
     <string name="reload">Herladen</string>
     <string name="remote">(remote)</string>
     <string name="remote_file_fetch_failed">Het bestand is niet gevonden!</string>
+    <string name="remove">Verwijderen</string>
     <string name="remove_e2e">Je kan end-to-end versleuteling lokaal op deze cliënt verwijderen</string>
     <string name="remove_e2e_keys_and_files_dialog_warning">Met deze handeling worden alle versleutelde bestanden en zowel de privé- als de openbare sleutels verwijderd. Weet je het zeker?</string>
     <string name="remove_e2e_message">Je kan end-to-end versleuteling lokaal op deze cliënt verwijderen. De versleutelde bestanden blijven beschikbaar op de server, maar worden niet meer gesynchroniseerd met deze computer.</string>
@@ -825,6 +820,7 @@
     <string name="remove_notification_failed">Niet gelukt om melding af te handelen</string>
     <string name="remove_push_notification">Verwijder</string>
     <string name="remove_success_msg">Verwijderd</string>
+    <string name="rename_dialog_button">Hernoemen</string>
     <string name="rename_dialog_title">Voer een nieuwe naam in</string>
     <string name="rename_local_fail_msg">Kon lokale kopie niet hernoemen, probeer een andere naam</string>
     <string name="rename_server_fail_msg">Hernoemen niet mogelijk, naam is al in gebruik</string>
@@ -855,6 +851,7 @@
     <string name="screenshot_06_davdroid_heading">Agenda en contactpersonen</string>
     <string name="screenshot_06_davdroid_subline">Synchronisatie met DAVx⁵</string>
     <string name="search_error">Fout bij het ophalen van de zoekresultaten</string>
+    <string name="search_tags">Zoek in tags</string>
     <string name="secure_share_not_set_up">Veilig delen is niet ingesteld voor deze gebruiker</string>
     <string name="secure_share_search">Veilig delen…</string>
     <string name="select_all">Alles selecteren</string>
@@ -984,7 +981,6 @@
     <string name="store_short_dev_desc">Het eigen-hosting productiviteitsplatform waarmee je zelf in control bent (dev preview versie)</string>
     <string name="stream">Streamen met…</string>
     <string name="stream_not_possible_headline">Intern streamen niet mogelijk</string>
-    <string name="stream_not_possible_message">Download media in plaats van gebruik externe app.</string>
     <string name="sub_folder_rule_day">Jaar/Maand/Dag</string>
     <string name="sub_folder_rule_month">Jaar/Maand</string>
     <string name="sub_folder_rule_year">Jaar</string>
@@ -1289,4 +1285,4 @@
         <item quantity="one">%1$d download resterend</item>
         <item quantity="other">%1$d downloads resterend</item>
     </plurals>
-</resources>
+    </resources>

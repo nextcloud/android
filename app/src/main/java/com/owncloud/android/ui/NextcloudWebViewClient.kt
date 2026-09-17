@@ -15,7 +15,6 @@ import android.webkit.SslErrorHandler
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
-import android.webkit.WebViewClient
 import androidx.fragment.app.FragmentManager
 import com.owncloud.android.authentication.AuthenticatorActivity
 import com.owncloud.android.lib.common.network.AdvancedX509KeyManager
@@ -28,7 +27,7 @@ import java.security.cert.CertificateException
 import java.security.cert.CertificateFactory
 import java.security.cert.X509Certificate
 
-open class NextcloudWebViewClient(val supportFragmentManager: FragmentManager) : WebViewClient() {
+open class NextcloudWebViewClient(val supportFragmentManager: FragmentManager) : SafeWebViewClient() {
 
     private val tag: String? = NextcloudWebViewClient::class.simpleName
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   ~ Nextcloud - Android Client
   ~
-  ~ SPDX-FileCopyrightText: 2024 TSI-mc <surinder.kumar@t-systems.com>
+  ~ SPDX-FileCopyrightText: 2024-2025 TSI-mc <surinder.kumar@t-systems.com>
   ~ SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
@@ -49,9 +49,10 @@
     -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- Runtime permissions introduced in Android 13 (API level 33) -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"
-        tools:ignore="PhotoAndVideoPolicy,SelectedPhotoAccess" />
+        tools:ignore="PhotoAndVideoPolicy" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"
-        tools:ignore="PhotoAndVideoPolicy,SelectedPhotoAccess" /> <!-- Needed for Android 14 (API level 34) -->
+        tools:ignore="PhotoAndVideoPolicy" /> <!-- Needed for Android 14 (API level 34) -->
+    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
     <!--
@@ -384,16 +385,20 @@
             android:theme="@style/PreferenceTheme" />
         <activity
             android:name=".ui.preview.PreviewImageActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:exported="false"
+            android:supportsPictureInPicture="true"
+            android:launchMode="singleTask"
             android:theme="@style/Theme.ownCloud.Overlay" />
         <activity
-            android:name=".ui.preview.PreviewMediaActivity"
-            android:configChanges="orientation|screenLayout|screenSize|keyboardHidden"
-            android:exported="false"
-            android:theme="@style/Theme.ownCloud.Media" />
+            android:name="com.nextcloud.client.player.ui.PlayerActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:launchMode="singleTask"
+            android:supportsPictureInPicture="true"
+            android:theme="@style/Theme.ownCloud.NoActionBar" />
 
         <service
-            android:name="com.nextcloud.client.media.BackgroundPlayerService"
+            android:name="com.nextcloud.client.player.media3.PlaybackService"
             android:exported="true"
             android:foregroundServiceType="mediaPlayback"
             tools:ignore="ExportedService">
@@ -401,6 +406,13 @@
                 <action android:name="androidx.media3.session.MediaSessionService" />
             </intent-filter>
         </service>
+
+        <receiver android:name="androidx.media3.session.MediaButtonReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+            </intent-filter>
+        </receiver>
 
         <service
             android:name=".authentication.AccountAuthenticatorService"
@@ -555,11 +567,6 @@
             android:name="com.nextcloud.client.jobs.transfer.FileTransferService"
             android:exported="false"
             android:foregroundServiceType="dataSync" />
-        <service
-            android:name="com.nextcloud.client.media.PlayerService"
-            android:exported="false"
-            android:foregroundServiceType="mediaPlayback" />
-
         <activity
             android:name=".ui.activity.PassCodeActivity"
             android:exported="false"
@@ -626,6 +633,9 @@
             android:launchMode="singleTop"
             android:theme="@style/Theme.ownCloud.Dialog.NoTitle"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.activity.AlbumsPickerActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.activity.ShareActivity"
             android:exported="false"

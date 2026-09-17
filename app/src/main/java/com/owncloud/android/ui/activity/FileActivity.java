@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2021 TSI-mc
+ * SPDX-FileCopyrightText: 2021-2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
  * SPDX-FileCopyrightText: 2017-2023 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
@@ -37,6 +37,7 @@ import com.nextcloud.client.jobs.download.FileDownloadWorker;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.network.NetworkChangeListener;
+import com.nextcloud.client.player.ui.PlayerActivity;
 import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
@@ -88,11 +89,12 @@ import com.owncloud.android.ui.events.DialogEventType;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment;
+import com.owncloud.android.ui.fragment.albums.AlbumsFragment;
 import com.owncloud.android.ui.fragment.filesRepository.FilesRepository;
 import com.owncloud.android.ui.fragment.filesRepository.RemoteFilesRepository;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
-import com.owncloud.android.ui.preview.PreviewMediaActivity;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
@@ -143,8 +145,6 @@ public abstract class FileActivity extends DrawerActivity
 
     public static final int REQUEST_CODE__UPDATE_CREDENTIALS = 0;
     public static final int REQUEST_CODE__LAST_SHARED = REQUEST_CODE__UPDATE_CREDENTIALS;
-
-    protected static final long DELAY_TO_REQUEST_OPERATIONS_LATER = 200;
 
     /* Dialog tags */
     private static final String DIALOG_UNTRUSTED_CERT = "DIALOG_UNTRUSTED_CERT";
@@ -254,7 +254,7 @@ public abstract class FileActivity extends DrawerActivity
                 refreshList();
             }
         } else {
-            if (this instanceof PreviewMediaActivity) {
+            if (this instanceof PlayerActivity) {
                 hideInfoBox();
             } else {
                 showInfoBox(R.string.offline_mode);
@@ -830,7 +830,21 @@ public abstract class FileActivity extends DrawerActivity
     }
 
     public void refreshList() {
-        final Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
+        if (isAlbumsFragment()) {
+            getFragment(AlbumsFragment.Companion.getTAG(), AlbumsFragment.class)
+                .ifPresent(AlbumsFragment::refreshAlbums);
+            return;
+        }
+
+        if (isAlbumItemsFragment()) {
+            getFragment(AlbumItemsFragment.Companion.getTAG(), AlbumItemsFragment.class)
+                .ifPresent(AlbumItemsFragment::refreshData);
+            return;
+        }
+
+        final var fragment =
+            getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
+
         if (fragment instanceof OCFileListFragment listFragment) {
             listFragment.onRefresh();
         } else if (fragment instanceof FileDetailFragment detailFragment) {

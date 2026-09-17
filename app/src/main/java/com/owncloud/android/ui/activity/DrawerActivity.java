@@ -57,6 +57,7 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.files.DeepLinkConstants;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.onboarding.FirstRunActivity;
+import com.nextcloud.client.player.media3.PlaybackModel;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
@@ -95,6 +96,8 @@ import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment;
+import com.owncloud.android.ui.fragment.albums.AlbumsFragment;
 import com.owncloud.android.ui.navigation.NavigatorActivity;
 import com.owncloud.android.ui.navigation.NavigatorScreen;
 import com.owncloud.android.ui.trashbin.TrashbinFragment;
@@ -128,6 +131,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hct.Hct;
 import kotlin.Unit;
@@ -148,6 +152,9 @@ public abstract class DrawerActivity extends ToolbarActivity
     private static final int RELATIVE_THRESHOLD_WARNING = 80;
     public static final int REQ_ALL_FILES_ACCESS = 3001;
     public static final int REQ_MEDIA_ACCESS = 3000;
+
+    @Inject
+    protected PlaybackModel playbackModel;
 
     /**
      * Reference to the drawer layout.
@@ -331,7 +338,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void openMediaTab(int menuItemId) {
-        GalleryFragment.Companion.clearSavedScrollState();
+        GalleryFragment.Companion.clearSavedViewState();
         resetOnlyPersonalAndOnDevice();
         setupToolbar();
         startPhotoSearch(menuItemId);
@@ -598,6 +605,17 @@ public abstract class DrawerActivity extends ToolbarActivity
             openFavoritesTab();
         } else if (itemId == R.id.nav_gallery) {
             openMediaTab(menuItem.getItemId());
+        } else if (itemId == R.id.nav_album) {
+            if (this instanceof FileDisplayActivity) {
+                replaceAlbumFragment();
+            } else {
+                // when user is not on FileDisplayActivity
+                // if user is on TrashbinActivity then we have to start activity again
+                Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.setAction(FileDisplayActivity.ALBUMS);
+                startActivity(intent);
+            }
         } else if (itemId == R.id.nav_on_device) {
             showOnDeviceFiles();
         } else if (itemId == R.id.nav_uploads) {
@@ -682,6 +700,8 @@ public abstract class DrawerActivity extends ToolbarActivity
                 startAssistantScreen();
             } else if (menuItemId == R.id.nav_gallery) {
                 openMediaTab(menuItem.getItemId());
+            } else if (menuItemId == R.id.nav_album) {
+                replaceAlbumFragment();
             }
 
             // Remove extra icon from the action bar
@@ -728,6 +748,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     public void openAddAccount() {
+        stopMediaPlayerAndHidePip();
         if (MDMConfig.INSTANCE.showIntro(this)) {
             Intent firstRunIntent = new Intent(getApplicationContext(), FirstRunActivity.class);
             firstRunIntent.putExtra(FirstRunActivity.EXTRA_ALLOW_CLOSE, true);
@@ -735,6 +756,10 @@ public abstract class DrawerActivity extends ToolbarActivity
         } else {
             startAccountCreation();
         }
+    }
+
+    protected void stopMediaPlayerAndHidePip() {
+        playbackModel.release();
     }
 
     private void resetFileDepth() {
@@ -1494,5 +1519,33 @@ public abstract class DrawerActivity extends ToolbarActivity
         return menuItemId == Menu.NONE ||
             menuItemId == R.id.nav_all_files ||
             menuItemId == R.id.nav_personal_files;
+    }
+
+    public void replaceAlbumFragment() {
+        if (isAlbumsFragment()) {
+            return;
+        }
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.addToBackStack(null);
+        transaction.replace(R.id.left_fragment_container, AlbumsFragment.Companion.newInstance(false), AlbumsFragment.Companion.getTAG());
+        transaction.commit();
+    }
+
+    public <T extends Fragment> Optional<T> getFragment(String tag, Class<T> clazz) {
+        return Optional.ofNullable(getSupportFragmentManager().findFragmentByTag(tag))
+            .filter(clazz::isInstance)
+            .map(clazz::cast);
+    }
+
+    public boolean isAlbumItemsFragment() {
+        return getFragment(AlbumItemsFragment.Companion.getTAG(), AlbumItemsFragment.class)
+            .filter(Fragment::isVisible)
+            .isPresent();
+    }
+
+    public boolean isAlbumsFragment() {
+        return getFragment(AlbumsFragment.Companion.getTAG(), AlbumsFragment.class)
+            .filter(Fragment::isVisible)
+            .isPresent();
     }
 }

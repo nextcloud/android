@@ -21,9 +21,13 @@ import com.owncloud.android.ui.interfaces.UnifiedSearchCurrentDirItemAction
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.ui.unifiedsearch.ProviderID
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
+import com.owncloud.android.ui.unifiedsearch.toUnifiedSearchEntry
 import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.ScreenshotTest
-import com.owncloud.android.utils.overlay.OverlayManager
+import com.nextcloud.utils.thumbnail.FileThumbnailGenerator
+import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
+import javax.inject.Provider
 import org.junit.Before
 import org.junit.Test
 
@@ -32,7 +36,7 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
 
     private val testClassName = "com.owncloud.android.ui.adapter.UnifiedSearchListAdapterIT"
 
-    private lateinit var overlayManager: OverlayManager
+    private lateinit var thumbnailGenerator: ThumbnailGenerator
     private lateinit var preferences: AppPreferences
 
     @Suppress("DEPRECATION")
@@ -98,7 +102,7 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
             UnifiedSearchSection(
                 providerID = name.lowercase().replace(" ", "_"),
                 name = name,
-                entries = entries,
+                entries = entries.map { it.toUnifiedSearchEntry(storageManager) },
                 hasMoreResults = false
             )
         }
@@ -108,7 +112,7 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
             UnifiedSearchSection(
                 providerID = name.lowercase().replace(" ", "_"),
                 name = name,
-                entries = entries,
+                entries = entries.map { it.toUnifiedSearchEntry(storageManager) },
                 hasMoreResults = true
             )
         }
@@ -134,11 +138,20 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
     ): UnifiedSearchListAdapter {
         val accountManager = UserAccountManagerImpl.fromContext(targetContext)
 
-        overlayManager = OverlayManager(
-            preferences = preferences,
-            viewThemeUtils = sut.viewThemeUtils,
-            context = targetContext,
-            accountManager = accountManager
+        thumbnailGenerator = ThumbnailGenerator(
+            fileThumbnailGenerator = FileThumbnailGenerator(
+                storageManager = Provider { sut.storageManager },
+                preferences = preferences,
+                viewThemeUtils = sut.viewThemeUtils,
+                context = targetContext,
+                accountManager = accountManager
+            ),
+            folderThumbnailGenerator = FolderThumbnailGenerator(
+                preferences = preferences,
+                viewThemeUtils = sut.viewThemeUtils,
+                context = targetContext,
+                accountManager = accountManager
+            )
         )
 
         val adapter = UnifiedSearchListAdapter(
@@ -152,12 +165,11 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
                     onClientReady: (com.nextcloud.common.NextcloudClient) -> Unit
                 ) = Unit
             },
-            user = sut.user.get(),
             context = sut,
             viewThemeUtils = sut.viewThemeUtils,
-            appPreferences = preferences,
             currentDirItemAction = noopCurrentDirAction,
-            overlayManager = overlayManager
+            thumbnailGenerator = thumbnailGenerator,
+            user = sut.user.get()
         )
 
         adapter.shouldShowFooters(true)

@@ -35,6 +35,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.utils.HashUtil;
 import com.nextcloud.utils.extensions.ContextExtensionsKt;
+import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.fileNameValidator.FileNameValidator;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -382,8 +383,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             Document document = toDocument(documentId);
             OCFile file = document.getFile();
 
-            boolean exists = ThumbnailsCacheManager.containsBitmap(ThumbnailsCacheManager.PREFIX_THUMBNAIL
-                                                                       + file.getRemoteId());
+            boolean exists = ThumbnailsCacheManager.containsBitmap(FileExtensionsKt.getSmallThumbnailKey(file));
             if (!exists) {
                 ThumbnailsCacheManager.generateThumbnailFromOCFile(file, document.getUser(), getContext());
             }

@@ -158,6 +158,7 @@ public class UploadFileOperation extends SyncOperation {
 
     private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
     private final AtomicBoolean mUploadStarted = new AtomicBoolean(false);
+    private final AtomicBoolean mPaused = new AtomicBoolean(false);
 
     private Context mContext;
 
@@ -292,6 +293,10 @@ public class UploadFileOperation extends SyncOperation {
 
     public boolean isIgnoringPowerSaveMode() {
         return mIgnoringPowerSaveMode;
+    }
+
+    public void setIgnoringPowerSaveMode(boolean value) {
+        this.mIgnoringPowerSaveMode = value;
     }
 
     public User getUser() {
@@ -444,6 +449,7 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         mCancellationRequested.set(false);
+        mPaused.set(false);
         mUploadStarted.set(true);
 
         updateSize(0);
@@ -468,10 +474,9 @@ public class UploadFileOperation extends SyncOperation {
         Log_OC.d(TAG, "parent lookup for path: " + remoteParentPath + " → " +
             (parent == null ? "not found in DB" : "found, id=" + parent.getFileId()));
 
-        // in case of a fresh upload with subfolder, where parent does not exist yet
-        if (parent == null && (mFolderUnlockToken == null || mFolderUnlockToken.isEmpty())) {
-            Log_OC.d(TAG, "parent not in DB and no unlock token, attempting to grant folder existence: "
-                + remoteParentPath);
+        final boolean isResumingEncryptedUpload = (mFolderUnlockToken != null && !mFolderUnlockToken.isEmpty());
+        if (!isResumingEncryptedUpload && (parent == null || mRemoteFolderToBeCreated)) {
+            Log_OC.d(TAG, "verifying remote parent folder exists: " + remoteParentPath);
             final var result = grantFolderExistence(remoteParentPath, client);
 
             if (!result.isSuccess()) {
@@ -486,8 +491,7 @@ public class UploadFileOperation extends SyncOperation {
                 return new RemoteOperationResult<>(ResultCode.UNKNOWN_ERROR);
             }
 
-            Log_OC.d(TAG, "parent created and retrieved successfully: " + remoteParentPath + ", id=" +
-                parent.getFileId());
+            Log_OC.d(TAG, "remote parent folder confirmed: " + remoteParentPath + ", id=" + parent.getFileId());
         }
 
         if (parent == null) {
@@ -703,7 +707,8 @@ public class UploadFileOperation extends SyncOperation {
                                           long creationTimestamp,
                                           long size) {
 
-        if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
+        final long serverMaxChunkSize = getCapabilities().getChunkedUploadMaxSize();
+        if (size > ChunkedFileUploadRemoteOperation.chunkSize(mOnWifiOnly, serverMaxChunkSize)) {
             boolean onWifiConnection = connectivityService.getConnectivity().isWifi();
 
             mUploadOperation = new ChunkedFileUploadRemoteOperation(encryptedTempFile.getAbsolutePath(),
@@ -714,7 +719,8 @@ public class UploadFileOperation extends SyncOperation {
                                                                     onWifiConnection,
                                                                     token,
                                                                     creationTimestamp,
-                                                                    mDisableRetries
+                                                                    mDisableRetries,
+                                                                    serverMaxChunkSize
             );
         } else {
             mUploadOperation = new UploadFileRemoteOperation(encryptedTempFile.getAbsolutePath(),
@@ -1127,15 +1133,15 @@ public class UploadFileOperation extends SyncOperation {
                 updateSize(size);
                 Log_OC.d(TAG, "file size set to " + formattedFileSize);
 
-                // decide whether chunked or not
-                if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
+                final long serverMaxChunkSize = getCapabilities().getChunkedUploadMaxSize();
+                if (size > ChunkedFileUploadRemoteOperation.chunkSize(mOnWifiOnly, serverMaxChunkSize)) {
                     Log_OC.d(TAG, "chunked upload operation will be used");
 
                     boolean onWifiConnection = connectivityService.getConnectivity().isWifi();
                     mUploadOperation = new ChunkedFileUploadRemoteOperation(
                         mFile.getStoragePath(), mFile.getRemotePath(), mFile.getMimeType(),
                         mFile.getEtagInConflict(), lastModifiedTimestamp, creationTimestamp,
-                        onWifiConnection, mDisableRetries);
+                        onWifiConnection, mDisableRetries, serverMaxChunkSize);
                 } else {
                     Log_OC.d(TAG, "upload file operation will be used");
 
@@ -1419,7 +1425,7 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     private OCCapability getCapabilities() {
-        return CapabilityUtils.getCapability(mContext);
+        return CapabilityUtils.getCapability(user, mContext);
     }
 
     /**
@@ -1585,6 +1591,15 @@ public class UploadFileOperation extends SyncOperation {
                 Log_OC.e(TAG, "No upload in progress. This should not happen.");
             }
         }
+    }
+
+    public void pause() {
+        mPaused.set(true);
+        cancel(ResultCode.USER_CANCELLED);
+    }
+
+    public boolean isPaused() {
+        return mPaused.get();
     }
 
     /**
@@ -1785,6 +1800,7 @@ public class UploadFileOperation extends SyncOperation {
         file.setRemoteId(remoteFile.getRemoteId());
         file.setPermissions(remoteFile.getPermissions());
         file.setUploadTimestamp(remoteFile.getUploadTimestamp());
+        file.setPreviewAvailable(remoteFile.isHasPreview());
     }
 
     public interface OnRenameListener {

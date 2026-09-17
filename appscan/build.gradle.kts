@@ -41,6 +41,8 @@ kotlin.compilerOptions {
 
 dependencies {
     implementation(libs.appcompat)
-    implementation(libs.document.scanning.android.sdk)
+    implementation(libs.document.scanning.android.sdk) {
+        exclude(group = "androidx.test", module = "monitor")
+    }
     implementation(libs.ui)
 }

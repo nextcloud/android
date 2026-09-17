@@ -15,7 +15,7 @@ permissions: read-all
 
 jobs:
   stale:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest-low
     permissions:
       issues: write
       pull-requests: write

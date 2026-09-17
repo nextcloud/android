@@ -21,6 +21,7 @@
     <color name="text_color_inverse">#ffffff</color>
     <color name="disabled_text">#ff888888</color>
     <color name="list_divider_background">#CAC4D0</color>
+    <color name="list_expand_icon_color">@color/list_divider_background</color>
     <color name="fg_inverse">#FFFFFF</color>
     <color name="filelist_icon_background">#DDDDDD</color>
     <color name="transparent">#00000000</color>
@@ -52,6 +53,7 @@
     <color name="login_btn_tint">#ffffff</color>
     <color name="login_btn_stroke">#ffffff</color>
     <color name="bg_default">#FFFFFF</color>
+    <color name="media_placeholder_background">#EEEEEE</color>
     <color name="background_color_inverse">#000000</color>
     <color name="primary_button_background_color">@color/color_accent</color>
     <color name="primary_button_text_color">#ffffff</color>
@@ -87,4 +89,15 @@
     <color name="fontSecondaryAppbar">#A5A5A5</color>
 
     <color name="bg_message_bubble">#EFEFEF</color>
+
+    <!-- Player -->
+    <color name="player_background_color">#111111</color>
+    <color name="player_default_text_color">@color/white</color>
+    <color name="player_toolbar_text_color">@color/white</color>
+    <color name="player_default_icon_color">@color/white</color>
+    <color name="player_toolbar_icon_color">@color/white</color>
+    <color name="player_video_toolbar_background_color">#21000000</color>
+    <color name="player_video_control_view_background_color">#21000000</color>
+    <color name="player_video_scrim_color">#B3000000</color>
+    <color name="player_progressbar_background_color">#979797</color>
 </resources>

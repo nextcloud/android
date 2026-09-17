@@ -8,6 +8,7 @@ package com.nextcloud.utils
 
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -29,176 +30,131 @@ class FileHelperTest {
         testDirectory.deleteRecursively()
     }
 
-    @Test
-    fun testListDirectoryEntriesWhenGivenNullDirectoryShouldReturnEmptyList() {
-        val result = FileHelper.listDirectoryEntries(null, 0, 10, false)
-        assertTrue(result.isEmpty())
+    private fun collectPages(directory: File?, pageSize: Int, fetchFolders: Boolean): List<List<File>> {
+        val pages = mutableListOf<List<File>>()
+
+        runBlocking {
+            FileHelper.forEachDirectoryPage(directory, pageSize, fetchFolders) { page ->
+                pages.add(page)
+            }
+        }
+
+        return pages
     }
 
     @Test
-    fun testListDirectoryEntriesWhenGivenNonExistentDirectoryShouldReturnEmptyList() {
+    fun testForEachDirectoryPageWhenGivenNullDirectoryShouldReportNoPage() {
+        assertTrue(collectPages(null, 10, false).isEmpty())
+    }
+
+    @Test
+    fun testForEachDirectoryPageWhenGivenNonExistentDirectoryShouldReportNoPage() {
         val nonExistent = File(testDirectory, "does_not_exist")
-        val result = FileHelper.listDirectoryEntries(nonExistent, 0, 10, false)
-        assertTrue(result.isEmpty())
+
+        assertTrue(collectPages(nonExistent, 10, false).isEmpty())
     }
 
     @Test
-    fun testListDirectoryEntriesWhenGivenFileInsteadOfDirectoryShouldReturnEmptyList() {
+    fun testForEachDirectoryPageWhenGivenFileInsteadOfDirectoryShouldReportNoPage() {
         val file = File(testDirectory, "test.txt")
         file.createNewFile()
-        val result = FileHelper.listDirectoryEntries(file, 0, 10, false)
-        assertTrue(result.isEmpty())
+
+        assertTrue(collectPages(file, 10, false).isEmpty())
     }
 
     @Test
-    fun testListDirectoryEntriesWhenGivenEmptyDirectoryShouldReturnEmptyList() {
-        val result = FileHelper.listDirectoryEntries(testDirectory, 0, 10, false)
-        assertTrue(result.isEmpty())
+    fun testForEachDirectoryPageWhenGivenEmptyDirectoryShouldReportNoPage() {
+        assertTrue(collectPages(testDirectory, 10, false).isEmpty())
     }
 
     @Test
-    fun testListDirectoryEntriesWhenFetchingFoldersShouldReturnOnlyFolders() {
+    fun testForEachDirectoryPageWhenPageSizeIsZeroShouldReportNoPage() {
+        for (i in 1..5) File(testDirectory, "file$i.txt").createNewFile()
+
+        assertTrue(collectPages(testDirectory, 0, false).isEmpty())
+    }
+
+    @Test
+    fun testForEachDirectoryPageWhenFetchingFoldersShouldReportOnlyFolders() {
         File(testDirectory, "folder1").mkdir()
         File(testDirectory, "folder2").mkdir()
         File(testDirectory, "file1.txt").createNewFile()
         File(testDirectory, "file2.txt").createNewFile()
 
-        val result = FileHelper.listDirectoryEntries(testDirectory, 0, 10, true)
+        val entries = collectPages(testDirectory, 10, true).flatten()
 
-        assertEquals(2, result.size)
-        assertTrue(result.all { it.isDirectory })
+        assertEquals(2, entries.size)
+        assertTrue(entries.all { it.isDirectory })
     }
 
     @Test
-    fun testListDirectoryEntriesWhenFetchingFilesShouldReturnOnlyFiles() {
+    fun testForEachDirectoryPageWhenFetchingFilesShouldReportOnlyFiles() {
         File(testDirectory, "folder1").mkdir()
         File(testDirectory, "folder2").mkdir()
         File(testDirectory, "file1.txt").createNewFile()
         File(testDirectory, "file2.txt").createNewFile()
 
-        val result = FileHelper.listDirectoryEntries(testDirectory, 0, 10, false)
+        val entries = collectPages(testDirectory, 10, false).flatten()
 
-        assertEquals(2, result.size)
-        assertTrue(result.all { it.isFile })
+        assertEquals(2, entries.size)
+        assertTrue(entries.all { it.isFile })
     }
 
     @Test
-    fun testListDirectoryEntriesWhenStartIndexProvidedShouldSkipCorrectNumberOfItems() {
-        for (i in 1..5) File(testDirectory, "file$i.txt").createNewFile()
-        val result = FileHelper.listDirectoryEntries(testDirectory, 2, 10, false)
-        assertEquals(3, result.size)
-    }
-
-    @Test
-    fun testListDirectoryEntriesWhenMaxItemsProvidedShouldLimitResults() {
-        for (i in 1..10) File(testDirectory, "file$i.txt").createNewFile()
-        val result = FileHelper.listDirectoryEntries(testDirectory, 0, 5, false)
-        assertEquals(5, result.size)
-    }
-
-    @Test
-    fun testListDirectoryEntriesWhenGivenStartIndexAndMaxItemsShouldReturnCorrectSubset() {
-        for (i in 1..10) File(testDirectory, "file$i.txt").createNewFile()
-        val result = FileHelper.listDirectoryEntries(testDirectory, 3, 4, false)
-        assertEquals(4, result.size)
-    }
-
-    @Test
-    fun testListDirectoryEntriesWhenStartIndexBeyondAvailableShouldReturnEmptyList() {
-        for (i in 1..3) File(testDirectory, "file$i.txt").createNewFile()
-        val result = FileHelper.listDirectoryEntries(testDirectory, 10, 5, false)
-        assertTrue(result.isEmpty())
-    }
-
-    @Test
-    fun testListDirectoryEntriesWhenMaxItemsBeyondAvailableShouldReturnAllItems() {
-        for (i in 1..3) File(testDirectory, "file$i.txt").createNewFile()
-        val result = FileHelper.listDirectoryEntries(testDirectory, 0, 100, false)
-        assertEquals(3, result.size)
-    }
-
-    @Test
-    fun testListDirectoryEntriesWhenFetchingFoldersWithOffsetShouldSkipCorrectly() {
+    fun testForEachDirectoryPageWhenGivenOnlyFoldersAndFetchingFilesShouldReportNoPage() {
         for (i in 1..5) File(testDirectory, "folder$i").mkdir()
+
+        assertTrue(collectPages(testDirectory, 10, false).isEmpty())
+    }
+
+    @Test
+    fun testForEachDirectoryPageWhenGivenOnlyFilesAndFetchingFoldersShouldReportNoPage() {
+        for (i in 1..5) File(testDirectory, "file$i.txt").createNewFile()
+
+        assertTrue(collectPages(testDirectory, 10, true).isEmpty())
+    }
+
+    @Test
+    fun testForEachDirectoryPageWhenPageSizeExceedsContentShouldReportSinglePage() {
         for (i in 1..3) File(testDirectory, "file$i.txt").createNewFile()
 
-        val result = FileHelper.listDirectoryEntries(testDirectory, 2, 10, true)
+        val pages = collectPages(testDirectory, 100, false)
 
-        assertEquals(3, result.size)
-        assertTrue(result.all { it.isDirectory })
+        assertEquals(1, pages.size)
+        assertEquals(3, pages.first().size)
     }
 
     @Test
-    fun testListDirectoryEntriesWhenFetchingFilesWithOffsetShouldSkipCorrectly() {
-        for (i in 1..3) File(testDirectory, "folder$i").mkdir()
-        for (i in 1..5) File(testDirectory, "file$i.txt").createNewFile()
+    fun testForEachDirectoryPageWhenPaginatingFoldersShouldFillEveryPageButTheLast() {
+        for (i in 1..10) File(testDirectory, "folder$i").mkdir()
 
-        val result = FileHelper.listDirectoryEntries(testDirectory, 2, 10, false)
+        val pages = collectPages(testDirectory, 3, true)
 
-        assertEquals(3, result.size)
-        assertTrue(result.all { it.isFile })
+        assertEquals(listOf(3, 3, 3, 1), pages.map { it.size })
     }
 
     @Test
-    fun testListDirectoryEntriesWhenGivenOnlyFoldersAndFetchingFilesShouldReturnEmptyList() {
-        for (i in 1..5) File(testDirectory, "folder$i").mkdir()
-        val result = FileHelper.listDirectoryEntries(testDirectory, 0, 10, false)
-        assertTrue(result.isEmpty())
+    fun testForEachDirectoryPageWhenContentIsAMultipleOfPageSizeShouldNotReportAnEmptyPage() {
+        for (i in 1..9) File(testDirectory, "file$i.txt").createNewFile()
+
+        val pages = collectPages(testDirectory, 3, false)
+
+        assertEquals(listOf(3, 3, 3), pages.map { it.size })
     }
 
     @Test
-    fun testListDirectoryEntriesWhenGivenOnlyFilesAndFetchingFoldersShouldReturnEmptyList() {
-        for (i in 1..5) File(testDirectory, "file$i.txt").createNewFile()
-        val result = FileHelper.listDirectoryEntries(testDirectory, 0, 10, true)
-        assertTrue(result.isEmpty())
-    }
-
-    @Test
-    fun testListDirectoryEntriesWhenMaxItemsIsZeroShouldReturnEmptyList() {
-        for (i in 1..5) File(testDirectory, "file$i.txt").createNewFile()
-        val result = FileHelper.listDirectoryEntries(testDirectory, 0, 0, false)
-        assertTrue(result.isEmpty())
-    }
-
-    @Test
-    fun testListDirectoryEntriesWhenGivenMixedContentShouldFilterCorrectly() {
+    fun testForEachDirectoryPageWhenGivenMixedContentShouldReportEveryEntryExactlyOnce() {
         for (i in 1..3) File(testDirectory, "folder$i").mkdir()
         for (i in 1..7) File(testDirectory, "file$i.txt").createNewFile()
 
-        val folders = FileHelper.listDirectoryEntries(testDirectory, 0, 10, true)
-        val files = FileHelper.listDirectoryEntries(testDirectory, 0, 10, false)
+        val folders = collectPages(testDirectory, 2, true).flatten()
+        val files = collectPages(testDirectory, 2, false).flatten()
 
         assertEquals(3, folders.size)
         assertEquals(7, files.size)
+        assertEquals(folders.size, folders.distinct().size)
+        assertEquals(files.size, files.distinct().size)
         assertTrue(folders.all { it.isDirectory })
         assertTrue(files.all { it.isFile })
-    }
-
-    @Test
-    fun testListDirectoryEntriesWhenPaginatingFoldersShouldWorkCorrectly() {
-        for (i in 1..10) File(testDirectory, "folder$i").mkdir()
-
-        val page1 = FileHelper.listDirectoryEntries(testDirectory, 0, 3, true)
-        val page2 = FileHelper.listDirectoryEntries(testDirectory, 3, 3, true)
-        val page3 = FileHelper.listDirectoryEntries(testDirectory, 6, 3, true)
-        val page4 = FileHelper.listDirectoryEntries(testDirectory, 9, 3, true)
-
-        assertEquals(3, page1.size)
-        assertEquals(3, page2.size)
-        assertEquals(3, page3.size)
-        assertEquals(1, page4.size)
-    }
-
-    @Test
-    fun testListDirectoryEntriesWhenPaginatingFilesShouldWorkCorrectly() {
-        for (i in 1..10) File(testDirectory, "file$i.txt").createNewFile()
-
-        val page1 = FileHelper.listDirectoryEntries(testDirectory, 0, 4, false)
-        val page2 = FileHelper.listDirectoryEntries(testDirectory, 4, 4, false)
-        val page3 = FileHelper.listDirectoryEntries(testDirectory, 8, 4, false)
-
-        assertEquals(4, page1.size)
-        assertEquals(4, page2.size)
-        assertEquals(2, page3.size)
     }
 }

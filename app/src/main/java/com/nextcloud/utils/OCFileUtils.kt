@@ -6,48 +6,45 @@
  */
 package com.nextcloud.utils
 
-import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.util.LruCache
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.toBitmap
-import androidx.core.graphics.drawable.toDrawable
 import com.nextcloud.utils.extensions.getBitmapSize
 import com.nextcloud.utils.extensions.getExifSize
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.MimeTypeUtil
 
 @Suppress("TooGenericExceptionCaught", "ReturnCount")
 object OCFileUtils {
     private const val TAG = "OCFileUtils"
+    private const val IMAGE_SIZE_CACHE_ENTRIES = 2048
+
+    private val imageSizes = LruCache<Long, Pair<Int, Int>>(IMAGE_SIZE_CACHE_ENTRIES)
 
     fun getImageSize(ocFile: OCFile, defaultThumbnailSize: Float): Pair<Int, Int> {
         val fallback = defaultThumbnailSize.toInt().coerceAtLeast(1)
         val fallbackPair = fallback to fallback
 
-        try {
-            Log_OC.d(TAG, "Getting image size for: ${ocFile.fileName}")
+        imageSizes.get(ocFile.fileId)?.let { return it }
 
+        try {
             // Server-provided
             ocFile.imageDimension?.let { dim ->
                 val w = dim.width.toInt().coerceAtLeast(1)
                 val h = dim.height.toInt().coerceAtLeast(1)
-                Log_OC.d(TAG, "Using server-provided imageDimension: $w x $h")
-                return w to h
+                return (w to h).also { imageSizes.put(ocFile.fileId, it) }
             }
 
             // Local file
             val path = ocFile.storagePath
             if (!path.isNullOrEmpty() && ocFile.exists()) {
-                path.getExifSize()?.let { return it }
-                path.getBitmapSize()?.let { return it }
+                path.getExifSize()?.let { return it.also { size -> imageSizes.put(ocFile.fileId, size) } }
+                path.getBitmapSize()?.let { return it.also { size -> imageSizes.put(ocFile.fileId, size) } }
             }
 
-            // 3 Fallback
-            Log_OC.d(TAG, "Fallback to default size: $fallback x $fallback")
             return fallbackPair
         } catch (e: Exception) {
             Log_OC.e(TAG, "Error getting image size for ${ocFile.fileName}", e)
@@ -56,7 +53,7 @@ object OCFileUtils {
         return fallbackPair
     }
 
-    fun getMediaPlaceholder(file: OCFile, imageDimension: Pair<Int, Int>): BitmapDrawable {
+    fun getMediaPlaceholder(file: OCFile): Drawable? {
         val context = MainApp.getAppContext()
 
         val drawableId = if (MimeTypeUtil.isImage(file)) {
@@ -67,16 +64,6 @@ object OCFileUtils {
             R.drawable.file
         }
 
-        val drawable = ContextCompat.getDrawable(context, drawableId)
-            ?: return Color.GRAY.toDrawable().toBitmap(imageDimension.first, imageDimension.second)
-                .toDrawable(context.resources)
-
-        val bitmap = BitmapUtils.drawableToBitmap(
-            drawable,
-            imageDimension.first,
-            imageDimension.second
-        )
-
-        return bitmap.toDrawable(context.resources)
+        return ContextCompat.getDrawable(context, drawableId)
     }
 }

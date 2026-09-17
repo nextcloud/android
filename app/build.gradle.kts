@@ -44,8 +44,6 @@ configurations.configureEach {
     exclude(group = "org.jetbrains", module = "annotations-java5")
 
     resolutionStrategy {
-        force(libs.objenesis)
-
         eachDependency {
             when (requested.group) {
                 "org.checkerframework" if requested.name != "checker-compat-qual" -> {
@@ -72,7 +70,7 @@ configurations.configureEach {
 
 // semantic versioning for version code
 val versionMajor = 35
-val versionMinor = 0
+val versionMinor = 1
 val versionPatch = 0
 val versionBuild = 50 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
@@ -120,7 +118,7 @@ android {
         compileSdk = 37
 
         ndk {
-            abiFilters += listOf("arm64-v8a", "x86_64")
+            abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
         }
 
         buildConfigField("boolean", "CI", ciBuild.toString())
@@ -528,6 +526,7 @@ dependencies {
 
     // region Kotlin
     implementation(libs.kotlin.stdlib)
+    implementation(libs.kotlinx.coroutines.core)
     // endregion
 
     // region Stateless

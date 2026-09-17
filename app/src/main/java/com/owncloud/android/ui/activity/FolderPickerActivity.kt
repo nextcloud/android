@@ -555,6 +555,8 @@ open class FolderPickerActivity :
             "Detekt.LongMethod"
         ) // legacy code
         override fun onReceive(context: Context, intent: Intent) {
+            var emptyListState = EmptyListState.LOCAL_FILE_LIST_EMPTY_FILE
+
             try {
                 val event = intent.action
                 Log_OC.d(TAG, "Received broadcast $event")
@@ -569,7 +571,14 @@ open class FolderPickerActivity :
                     return
                 }
 
+                if (ResultCode.OUT_OF_MEMORY == syncResult.code) {
+                    emptyListState = EmptyListState.OUT_OF_MEMORY
+                }
+
                 if (FileSyncAdapter.EVENT_FULL_SYNC_START != event) {
+                    // EVENT_SINGLE_FOLDER_CONTENTS_SYNCED fires only when the folder's content actually
+                    // changed, and EVENT_SINGLE_FOLDER_SHARES_SYNCED only when a sharee actually changed -
+                    // each is an independent, already-precise signal (RefreshFolderOperation.java).
                     var (currentFile, currentDir) = getCurrentFileAndDirectory()
 
                     if (currentDir == null) {
@@ -595,7 +604,7 @@ open class FolderPickerActivity :
                 // in owncloud library with broadcast notifications pending to process
                 DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT))
             } finally {
-                listOfFilesFragment?.setEmptyListMessage(EmptyListState.LOCAL_FILE_LIST_EMPTY_FILE)
+                listOfFilesFragment?.setEmptyListMessage(emptyListState)
             }
         }
 

@@ -29,7 +29,7 @@
     <string name="activity_icon">Activitate</string>
     <string name="add_new_public_share">Adaugă un link public partajat nou</string>
     <string name="add_new_secure_file_drop">Adaugă o nouă încărcare securizată de fișier</string>
-    <string name="add_to_cloud">Adaugă la 1 %1$s</string>
+    <string name="album_stop_sharing">Oprește partajarea</string>
     <string name="app_config_base_url_title">URL-ul de bază</string>
     <string name="app_config_disable_clipboard_title">Dezactivează clipboard</string>
     <string name="app_config_disable_intro_title">Deactivează introducerea</string>
@@ -204,12 +204,15 @@
     <string name="could_not_retrieve_url">Nu a fost găsit URL-ul</string>
     <string name="create">Crează</string>
     <string name="create_dir_fail_msg">Nu s-a putut crea directorul</string>
+    <string name="create_document">Document</string>
+    <string name="create_folder">Director</string>
     <string name="create_new">Nou</string>
     <string name="create_new_document">Document nou</string>
-    <string name="create_new_folder">Director nou</string>
     <string name="create_new_presentation">Prezentare nouă</string>
     <string name="create_new_spreadsheet">Foaie de calcul nouă</string>
+    <string name="create_presentation">Prezentare</string>
     <string name="create_rich_workspace">Adăugați descrierea directorului</string>
+    <string name="create_spreadsheet">Foaie de calcul</string>
     <string name="credentials_disabled">Autentificare dezactivată</string>
     <string name="daily_backup">Copie de rezervă zilnică</string>
     <string name="data_to_back_up">Date pentru copia de rezervă</string>
@@ -512,19 +515,7 @@
     <string name="manage_space_clear_data">Elimină datele</string>
     <string name="manage_space_description">Setările, bazele de date și certificatele serverului ale %1$s vor fi șterse permanent. \n\nFișierele descărcate vor fi păstrate intacte.\n\nAcest proces poate dura mai mult timp.</string>
     <string name="manage_space_title">Administrare spațiu</string>
-    <string name="media_err_invalid_progressive_playback">Fișierul media nu poate fi difuzat</string>
-    <string name="media_err_io">Nu s-a putut citi fișierul media</string>
-    <string name="media_err_malformed">Fișierul media are codare incorectă</string>
-    <string name="media_err_timeout">Încercarea de a reda fișierul a expirat</string>
-    <string name="media_err_unknown">Media player-ul încorporat nu poate reda fișierul media</string>
-    <string name="media_err_unsupported">Codec media fără suport</string>
-    <string name="media_forward_description">Butonul pentru repede înainte</string>
-    <string name="media_notif_ticker">%1$s</string>
-    <string name="media_play_pause_description">Buton de play sau pauză </string>
-    <string name="media_player_pause">Pauză</string>
-    <string name="media_player_play">Start Joc</string>
-    <string name="media_rewind_description">Butonul rewind</string>
-    <string name="media_state_playing">%1$s (redare)</string>
+    <string name="manage_tags">Administrați etichete</string>
     <string name="menu_item_sort_by_date_newest_first">Cel mai nou mai întâi</string>
     <string name="menu_item_sort_by_date_oldest_first">Cel mai vechi mai întâi</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -593,8 +584,7 @@
     <string name="permission_deny">Refuzați</string>
     <string name="picture_set_as_no_app">Nu a fost găsită o aplicație pentru a seta imaginea</string>
     <string name="pin_shortcut_label">Deschide %1$s</string>
-    <string name="player_stop">stop</string>
-    <string name="player_toggle">comută</string>
+    <string name="player_media_controls_close_action_title">Închide</string>
     <string name="power_save_check_dialog_message">Dezactivarea modului de economisire a bateriei ar putea rezulta în încărcarea de fișiere când bateria are un nivel scăzut!</string>
     <string name="pref_behaviour_entries_delete_file">șterge</string>
     <string name="pref_behaviour_entries_keep_file">păstrate in dosarul original</string>
@@ -663,11 +653,13 @@
     <string name="reload">Reîncarcă</string>
     <string name="remote">(la distanță)</string>
     <string name="remote_file_fetch_failed">Eșuare în găsirea fișierului!</string>
+    <string name="remove">Elimină</string>
     <string name="remove_e2e">Poți elimina encripția end-to-end locală pentru acest client</string>
     <string name="remove_fail_msg">Eliminare eșuată</string>
     <string name="remove_notification_failed">Eșuare în eliminarea notificărilor.</string>
     <string name="remove_push_notification">Șterge</string>
     <string name="remove_success_msg">Șters</string>
+    <string name="rename_dialog_button">Redenumire</string>
     <string name="rename_dialog_title">Introduceţi un nou nume</string>
     <string name="rename_local_fail_msg">Nu s-a putut redenumi copia locală, încercați un alt nume</string>
     <string name="rename_server_fail_msg">Redenumirea nu este posibilă, numele este deja luat</string>
@@ -747,6 +739,7 @@
     <string name="single_sign_on_request_token" formatted="true">Permite %1$s să acceseze contul tău Nextcloud %2$s ?</string>
     <string name="sort_by">Sortare după</string>
     <string name="sort_favorites_first">Sortați favoritele primele</string>
+    <string name="sort_folders_before_files">Sortează dosarele înainte de fișiere</string>
     <string name="ssl_validator_btn_details_hide">Ascunde</string>
     <string name="ssl_validator_btn_details_see">Detalii</string>
     <string name="ssl_validator_header">Nu s-a putut verifica identitatea serverului</string>
@@ -789,7 +782,6 @@
     <string name="store_short_dev_desc">Platforma găzduită și controlată de tine(versiunea pentru dezvoltatori)</string>
     <string name="stream">Transmite cu...</string>
     <string name="stream_not_possible_headline">Transmisia internă nu este posibilă </string>
-    <string name="stream_not_possible_message">Vă rugăm descărcați fișierul media sau folosiți o aplicație externă.</string>
     <string name="sub_folder_rule_day">An/Lună/Zi</string>
     <string name="sub_folder_rule_month">An/Lună</string>
     <string name="sub_folder_rule_year">An</string>
@@ -933,6 +925,7 @@
     <string name="user_info_email">E-mail</string>
     <string name="user_info_groups">Grupuri</string>
     <string name="user_info_phone">Număr telefon</string>
+    <string name="user_info_profile">Profil</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Site web</string>
     <string name="user_information_retrieval_error">Eroare în recuperarea informațiilor utilizatorului</string>

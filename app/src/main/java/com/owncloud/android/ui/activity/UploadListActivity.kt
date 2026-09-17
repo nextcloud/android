@@ -24,8 +24,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.client.jobs.upload.AlbumFileUploadWorker
 import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
 import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.utils.Throttler
 import com.nextcloud.ui.component.UploadWarningCard
@@ -41,6 +43,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation
 import com.owncloud.android.operations.CheckCurrentCredentialsOperation
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.operations.factory.UploadFileOperationFactory
 import com.owncloud.android.ui.adapter.uploadList.UploadListAdapter
 import com.owncloud.android.ui.adapter.uploadList.helper.ConflictHandlingResult
@@ -73,6 +76,8 @@ class UploadListActivity :
 
     @Inject lateinit var uploadFileOperationFactory: UploadFileOperationFactory
 
+    @Inject lateinit var thumbnailGenerator: ThumbnailGenerator
+
     private var uploadWarningCard: UploadWarningCard? = null
 
     private var swipeListRefreshLayout: SwipeRefreshLayout? = null
@@ -90,7 +95,14 @@ class UploadListActivity :
         binding = UploadListLayoutBinding.inflate(layoutInflater)
         val binding = binding!!
         setContentView(binding.getRoot())
-        uploadWarningCard = UploadWarningCard(this, powerManagementService, viewThemeUtils)
+        uploadWarningCard = UploadWarningCard(
+            this,
+            powerManagementService,
+            syncedFolderProvider,
+            backgroundJobManager,
+            lifecycleScope,
+            viewThemeUtils
+        )
         swipeListRefreshLayout = binding.swipeContainingList
 
         // this activity has no file really bound, it's for multiple accounts at the same time; should no inherit
@@ -112,13 +124,15 @@ class UploadListActivity :
         adapterHelper = UploadListAdapterHelper(this)
         uploadListAdapter = UploadListAdapter(
             this,
+            storageManager,
             uploadsStorageManager,
             userAccountManager,
             connectivityService,
             powerManagementService,
             viewThemeUtils,
             this,
-            adapterHelper
+            adapterHelper,
+            thumbnailGenerator
         )
 
         binding?.autoUploadBatterySaverWarningCard?.let {
@@ -174,6 +188,8 @@ class UploadListActivity :
             accountManager,
             powerManagementService
         )
+
+        loadItems()
     }
 
     override fun onStart() {
@@ -223,8 +239,15 @@ class UploadListActivity :
 
     @SuppressLint("NotifyDataSetChanged")
     private fun toggleGlobalPause(item: MenuItem) {
-        preferences.setGlobalUploadPaused(!preferences.isGlobalUploadPaused())
+        val paused = !preferences.isGlobalUploadPaused()
+        preferences.setGlobalUploadPaused(paused)
         updateGlobalPauseIcon(item)
+
+        if (paused) {
+            FileUploadWorker.pauseActiveUploads()
+            AlbumFileUploadWorker.pauseActiveUploads()
+        }
+
         val uploadHelper = FileUploadHelper.instance()
         accountManager.getAllUsers().filterNotNull().forEach { user ->
             val ids = uploadsStorageManager.getCurrentUploadIds(user.accountName)
