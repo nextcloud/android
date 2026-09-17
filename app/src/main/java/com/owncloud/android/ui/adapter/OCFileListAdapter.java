@@ -57,6 +57,7 @@ import com.owncloud.android.lib.resources.tags.Tag;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.activity.DrawerActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.adapter.helper.AvatarShareesProvider;
 import com.owncloud.android.ui.adapter.helper.OCFileListAdapterDataProvider;
 import com.owncloud.android.ui.adapter.helper.OCFileListAdapterHelper;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
@@ -135,6 +136,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final List<OCFile> recommendedFiles = new ArrayList<>();
     private RecommendedFilesAdapter recommendedFilesAdapter;
     private final OCFileListAdapterHelper helper = new OCFileListAdapterHelper();
+    private final AvatarShareesProvider avatarShareesProvider = new AvatarShareesProvider();
     private final ThumbnailGenerator thumbnailGenerator;
 
     public OCFileListAdapter(
@@ -601,6 +603,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         final var sharedAvatars = holder.getSharedAvatars();
 
         if (!(file.isSharedWithMe() || file.isSharedWithSharee()) || isMultiSelect() || gridView || hideItemOptions) {
+            sharedAvatars.setBoundFileId(null);
             sharedAvatars.setVisibility(View.GONE);
             if (sharedAvatars.getChildCount() > 0) {
                 sharedAvatars.removeAllViews();
@@ -608,14 +611,14 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return;
         }
 
-        sharedAvatars.setVisibility(View.VISIBLE);
-        if (sharedAvatars.getChildCount() > 0) {
-            sharedAvatars.removeAllViews();
-        }
+        final long fileId = file.getFileId();
+        sharedAvatars.setBoundFileId(fileId);
+        sharedAvatars.setOnClickListener(view -> ocFileListFragmentInterface.onShareIconClick(file));
 
-        helper.getAvatarSharees(file, user, userId, avatars -> {
-            sharedAvatars.setAvatars(user, avatars, viewThemeUtils);
-            sharedAvatars.setOnClickListener(view -> ocFileListFragmentInterface.onShareIconClick(file));
+        avatarShareesProvider.get(file, user, userId, avatars -> {
+            if (Long.valueOf(fileId).equals(sharedAvatars.getBoundFileId())) {
+                sharedAvatars.setAvatars(user, avatars, viewThemeUtils);
+            }
             return Unit.INSTANCE;
         });
     }
@@ -1103,6 +1106,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void cleanup() {
         ocFileListDelegate.cleanup();
         helper.cleanup();
+        avatarShareesProvider.cleanup();
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -1128,6 +1132,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @SuppressLint("NotifyDataSetChanged")
     public void updateFile(@NonNull OCFile updatedFile) {
+        avatarShareesProvider.invalidate(updatedFile);
+
         int allIndex = helper.indexOfSameRemoteFile(mFilesAll, updatedFile);
         if (allIndex != -1) {
             mFilesAll.set(allIndex, updatedFile);
