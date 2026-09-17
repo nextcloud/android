@@ -1,12 +1,14 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2023 TSI-mc
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.nmc.android.ui
 
 import android.content.Intent
+import android.os.SystemClock
 import android.view.View
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -46,9 +48,7 @@ class LauncherActivityIT : AbstractIT() {
     fun testSplashScreenWithEmptyTitlesShouldNotDelayNextScreen() {
         val activity = launchLauncherActivity()
 
-        instrumentation.waitForIdleSync()
-
-        assertTrue(activity.isFinishing)
+        assertTrue("Splash screen without titles did not open the next screen", activity.awaitFinishing())
     }
 
     private fun launchLauncherActivity(): LauncherActivity {
@@ -56,5 +56,25 @@ class LauncherActivityIT : AbstractIT() {
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
         return instrumentation.startActivitySync(intent) as LauncherActivity
+    }
+
+    private fun LauncherActivity.awaitFinishing(): Boolean {
+        val deadline = SystemClock.uptimeMillis() + FINISH_TIMEOUT_IN_MILLIS
+        var finishing = false
+
+        while (!finishing && SystemClock.uptimeMillis() < deadline) {
+            instrumentation.runOnMainSync { finishing = isFinishing }
+
+            if (!finishing) {
+                Thread.sleep(FINISH_POLL_INTERVAL_IN_MILLIS)
+            }
+        }
+
+        return finishing
+    }
+
+    companion object {
+        private const val FINISH_TIMEOUT_IN_MILLIS = 5000L
+        private const val FINISH_POLL_INTERVAL_IN_MILLIS = 50L
     }
 }
