@@ -357,6 +357,8 @@ public class FileDataStorageManager {
     }
 
     public void keepOfflineOperationAndServerFile(OfflineOperationEntity entity, OCFile file, OwnCloudClient client) {
+        if (file == null) return;
+
         String oldFileName = entity.getFilename();
         if (oldFileName == null) return;
 

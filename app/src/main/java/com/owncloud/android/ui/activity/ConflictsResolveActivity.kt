@@ -201,10 +201,11 @@ class ConflictsResolveActivity :
 
     private suspend fun keepBothFolder(offlineOperation: OfflineOperationEntity?, serverFile: OCFile?) {
         offlineOperation ?: return
+        val client = clientRepository.getOwncloudClient() ?: return
         fileDataStorageManager.keepOfflineOperationAndServerFile(
             offlineOperation,
             serverFile,
-            clientRepository.getOwncloudClient()
+            client
         )
         backgroundJobManager.startOfflineOperations()
         withContext(Dispatchers.Main) {
