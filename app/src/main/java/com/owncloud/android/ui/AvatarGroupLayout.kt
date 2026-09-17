@@ -47,19 +47,42 @@ class AvatarGroupLayout @JvmOverloads constructor(
     @Px
     private val overlapPx: Int = DisplayUtils.convertDpToPixel(24f, context)
 
+    var boundFileId: Long? = null
+        set(value) {
+            if (field != value) {
+                displayedSharees = null
+            }
+            field = value
+        }
+
+    private var displayedSharees: List<ShareeUser>? = null
+
     init {
         checkNotNull(borderDrawable)
         DrawableCompat.setTint(borderDrawable, ContextCompat.getColor(context, R.color.bg_default))
     }
 
     @Suppress("LongMethod", "TooGenericExceptionCaught")
-    fun setAvatars(user: User, sharees: MutableList<ShareeUser>, viewThemeUtils: ViewThemeUtils) {
+    fun setAvatars(user: User, sharees: List<ShareeUser>, viewThemeUtils: ViewThemeUtils) {
+        if (sharees == displayedSharees) {
+            return
+        }
+        displayedSharees = sharees
+
         val context = getContext()
         removeAllViews()
+
+        if (sharees.isEmpty()) {
+            visibility = GONE
+            return
+        }
+        visibility = VISIBLE
+
         var avatarLayoutParams: LayoutParams?
         val shareeSize = min(sharees.size, MAX_AVATAR_COUNT)
         val resources = context.resources
         val avatarRadius = resources.getDimension(R.dimen.list_item_avatar_icon_radius)
+        val serverName = user.accountName.substringAfterLast('@')
         var sharee: ShareeUser
 
         var avatarCount = 0
@@ -102,7 +125,7 @@ class AvatarGroupLayout @JvmOverloads constructor(
                     )
 
                     else -> {
-                        avatar.tag = sharee
+                        avatar.tag = "${sharee.userId}@$serverName"
                         DisplayUtils.setAvatar(
                             user,
                             sharee.userId!!,
