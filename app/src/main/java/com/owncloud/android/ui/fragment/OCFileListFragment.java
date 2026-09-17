@@ -1600,15 +1600,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     public void updateOCFile(@NonNull OCFile file) {
-        List<OCFile> mFiles = mAdapter.getFiles();
-        int index = mFiles.indexOf(file);
-        if (index == -1) {
-            Log_OC.d(TAG, "File cannot be found in adapter's files");
-            return;
-        }
-
-        mFiles.set(index, file);
-        mAdapter.notifyItemChanged(file);
+        mAdapter.replaceFile(file);
     }
 
     private void updateLayout() {
