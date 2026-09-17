@@ -943,6 +943,7 @@
     <string name="send">Send</string>
     <string name="send_copy_to">Send copy to</string>
     <string name="send_share">Send share</string>
+    <string name="server_not_allowed">Server not allowed</string>
     <string name="server_not_reachable">Could not load content</string>
     <string name="server_not_reachable_content">The device is likely not connected to the internet</string>
     <string name="set_as">Set As</string>
