@@ -196,6 +196,7 @@ fun FileDataStorageManager.moveFiles(ocFile: OCFile?, targetPath: String, target
  *
  * @return the new remote path, or null if the user is unauthorized in the provided path
  */
+@Suppress("ReturnCount")
 fun getRemotePathForConflictResolution(client: OwnCloudClient, remotePath: String, fileName: String): String? {
     val newName = generateFileNameForConflictResolution(fileName)
     val newPath = "$remotePath$newName"
@@ -203,10 +204,12 @@ fun getRemotePathForConflictResolution(client: OwnCloudClient, remotePath: Strin
     // Check if new name exists
     val operation = ExistenceCheckRemoteOperation(newPath, false)
     val existence = RemoteFileExistence.fromExistenceCheck(operation.execute(client))
-    if (existence == RemoteFileExistence.UNAUTHORIZED)
+    if (existence == RemoteFileExistence.UNAUTHORIZED) {
         return null
-    if (existence == RemoteFileExistence.DOES_NOT_EXIST)
+    }
+    if (existence == RemoteFileExistence.DOES_NOT_EXIST) {
         return newPath
+    }
     return getRemotePathForConflictResolution(client, remotePath, newName)
 }
 
@@ -214,7 +217,7 @@ fun generateFileNameForConflictResolution(fileName: String): String {
     val isFolder = fileName.endsWith(OCFile.PATH_SEPARATOR)
     val separator = if (isFolder) OCFile.PATH_SEPARATOR else "."
     var nameFirstPart = fileName.substringBeforeLast(separator)
-    var nameLastPart = fileName.substringAfterLast(separator, "")   // Extension or path separator
+    var nameLastPart = fileName.substringAfterLast(separator, "") // Extension or path separator
     if (nameLastPart.isNotEmpty()) nameLastPart = "$separator$nameLastPart"
     val regex = Regex("""(.*)\((\d+)\)$""", RegexOption.MULTILINE)
     if (regex.matches(nameFirstPart)) {
