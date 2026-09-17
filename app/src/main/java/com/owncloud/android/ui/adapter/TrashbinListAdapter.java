@@ -97,13 +97,26 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if (clear) {
             files.clear();
         }
-
+        filterHiddenFiles(trashbinFiles);
         files.addAll(trashbinFiles);
 
         files = preferences.getSortOrderByType(FileSortOrder.Type.trashBinView,
                                                FileSortOrder.SORT_NEW_TO_OLD).sortTrashbinFiles(files);
 
         notifyDataSetChanged();
+    }
+
+    private void filterHiddenFiles(List<TrashbinFile> files) {
+        if (!preferences.isShowHiddenFilesEnabled()) {
+            List<TrashbinFile> hiddenFiles = files.stream()
+                .filter(TrashbinFile::isHidden)
+                .toList();
+            List<String> hiddenFileNames = hiddenFiles.stream()
+                .map(TrashbinFile::getFileName)
+                .toList();
+            files.removeAll(hiddenFiles);
+            Log_OC.d(TAG, "Filtered Hidden files: " + hiddenFileNames);
+        }
     }
 
     @NonNull
