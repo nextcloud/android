@@ -5,6 +5,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+@Suppress("TooManyFunctions")
 package com.nextcloud.utils.extensions
 
 import android.graphics.Bitmap
@@ -21,6 +22,7 @@ import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.attribute.BasicFileAttributes
+
 
 private const val TAG = "FileExtensions"
 private const val MS_IN_SECOND = 1000

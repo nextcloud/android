@@ -42,17 +42,25 @@ object ConflictResolveDialogFactory {
 
         val data = ConflictDialogData(
             headline = context.getString(
-                if (isFolderConflict) R.string.conflict_folder_headline
-                else R.string.choose_which_file
+                if (isFolderConflict) {
+                    R.string.conflict_folder_headline
+                } else {
+                    R.string.choose_which_file
+                }
             ),
             description = context.getString(
-                if (isFolderConflict) R.string.conflict_message_description_for_folder
-                else R.string.conflict_message_description
+                if (isFolderConflict) {
+                    R.string.conflict_message_description_for_folder
+                } else {
+                    R.string.conflict_message_description
+                }
             ),
             localFile = context.conflictFileData(
                 titleId = R.string.conflict_local_file,
-                timestamp = (offlineCreatedLocalFile?.lastModified()
-                    ?: leftFile.createdAt?.times(SECONDS_TO_MILLIS) ?: 0L),
+                timestamp = (
+                    offlineCreatedLocalFile?.lastModified()
+                        ?: leftFile.createdAt?.times(SECONDS_TO_MILLIS) ?: 0L
+                    ),
                 fileLength = (offlineCreatedLocalFile?.length() ?: 0L)
             ),
             serverFile = context.conflictFileData(R.string.prefs_synced_folders_remote_path_title, rightFile)
