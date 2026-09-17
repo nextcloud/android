@@ -779,6 +779,14 @@
     <string name="picture_set_as_no_app">Aplikácia na nastavenie obrázku sa nenašla</string>
     <string name="pin_home">Pripnúť na domovskú obrazovku</string>
     <string name="pin_shortcut_label">Otvoriť %1$s</string>
+    <string name="player_audio_title_with_artist">%1$s • %2$s</string>
+    <string name="player_control_view_next_button_content_description">Tlačidlo Ďalej</string>
+    <string name="player_control_view_play_pause_button_content_description">Tlačidlo Prehrať/Pozastaviť</string>
+    <string name="player_control_view_previous_button_content_description">Tlačidlo Predchádzajúce</string>
+    <string name="player_control_view_random_button_content_description">Tlačidlo Náhodné</string>
+    <string name="player_control_view_repeat_button_content_description">Tlačidlo Opakovať</string>
+    <string name="player_error_source_not_found">Zdroj nebol nájdený</string>
+    <string name="player_last_modified">Upravené: %s</string>
     <string name="player_media_controls_close_action_title">Zavrieť</string>
     <string name="please_select_a_server">Prosím vyberte server ...</string>
     <string name="power_save_check_dialog_message">Vypnutie kontroly úspory energie môže spôsobiť nahrávanie súborov v čase keď je batérie takmer vybitá!</string>
@@ -935,6 +943,7 @@
     <string name="send">Odoslať</string>
     <string name="send_copy_to">Odoslať kópiu na</string>
     <string name="send_share">Odoslať zdieľanie</string>
+    <string name="server_not_allowed">Server nie je povolený</string>
     <string name="server_not_reachable">Nepodarilo sa načítať obsah</string>
     <string name="server_not_reachable_content">Zariadenie pravdepodobne nie je pripojené na internet.</string>
     <string name="set_as">Nastaviť ako</string>
@@ -1456,4 +1465,10 @@
         <item quantity="many">%1$d zostáva stiahnuť</item>
         <item quantity="other">%1$d zostáva stiahnuť</item>
     </plurals>
-    </resources>
+    <plurals name="export_start">
+        <item quantity="one">Export spustený (%d súbor)</item>
+        <item quantity="few">Exporty spustené (%d súbory)</item>
+        <item quantity="many">Exporty spustené (%d súborov)</item>
+        <item quantity="other">Exporty spustené (%d súborov)</item>
+    </plurals>
+</resources>
