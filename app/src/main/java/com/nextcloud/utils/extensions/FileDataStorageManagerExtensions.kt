@@ -12,10 +12,13 @@ import com.nextcloud.client.database.entity.model.ShareeKey
 import com.nextcloud.client.database.entity.toOCCapability
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.status.OCCapability
+import com.owncloud.android.operations.upload.RemoteFileExistence
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import kotlinx.coroutines.Dispatchers
@@ -183,6 +186,49 @@ fun FileDataStorageManager.moveFiles(ocFile: OCFile?, targetPath: String, target
         )
         FileDataStorageManager.triggerMediaScan(newMediaPath)
     }
+}
+
+/**
+ * Finds a suitable file name to resolve a conflict.
+ * Tries to concatenate a number to the name until it finds a non-existent one.
+ * E.g. for "file.txt" it will propose "file (2).txt". If that exists, then "file (3).txt" and so on.
+ * E.g. for "folder" it will propose "folder (2)/". If that exists, then "folder (3)/" and so on.
+ *
+ * @return the new remote path, or null if the user is unauthorized in the provided path
+ */
+fun getRemotePathForConflictResolution(client: OwnCloudClient, remotePath: String, fileName: String): String? {
+    val newName = generateFileNameForConflictResolution(fileName)
+    val newPath = "$remotePath$newName"
+
+    // Check if new name exists
+    val operation = ExistenceCheckRemoteOperation(newPath, false)
+    val existence = RemoteFileExistence.fromExistenceCheck(operation.execute(client))
+    if (existence == RemoteFileExistence.UNAUTHORIZED)
+        return null
+    if (existence == RemoteFileExistence.DOES_NOT_EXIST)
+        return newPath
+    return getRemotePathForConflictResolution(client, remotePath, newName)
+}
+
+fun generateFileNameForConflictResolution(fileName: String): String {
+    val isFolder = fileName.endsWith(OCFile.PATH_SEPARATOR)
+    val separator = if (isFolder) OCFile.PATH_SEPARATOR else "."
+    var nameFirstPart = fileName.substringBeforeLast(separator)
+    var nameLastPart = fileName.substringAfterLast(separator, "")   // Extension or path separator
+    if (nameLastPart.isNotEmpty()) nameLastPart = "$separator$nameLastPart"
+    val regex = Regex("""(.*)\((\d+)\)$""", RegexOption.MULTILINE)
+    if (regex.matches(nameFirstPart)) {
+        // Already a resolved conflict (i.e. "file (1).txt"). Update the number.
+        nameFirstPart = regex.replace(nameFirstPart, transform = { m ->
+            val baseName = m.groups[1]?.value
+            val number = m.groups[2]?.value?.toInt() ?: 0
+            "$baseName(${number + 1})"
+        })
+    } else {
+        // Add the number
+        nameFirstPart = "$nameFirstPart (1)"
+    }
+    return "$nameFirstPart$nameLastPart"
 }
 
 @Suppress("ReturnCount")
