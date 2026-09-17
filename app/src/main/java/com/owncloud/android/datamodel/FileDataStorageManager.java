@@ -362,17 +362,14 @@ public class FileDataStorageManager {
         String oldFileName = entity.getFilename();
         if (oldFileName == null) return;
 
-        Long parentOCFileId = entity.getParentOCFileId();
-        if (parentOCFileId == null) return;
+        String parentRemotePath = file.getParentRemotePath();
+        if (parentRemotePath == null || parentRemotePath.isEmpty())
+            return;
 
-        OCFile parentFolder = getFileById(parentOCFileId);
-        if (parentFolder == null) return;
-
-        final String newPath = UploadFileOperation.getNewAvailableRemotePath(
+        final String newPath = FileDataStorageManagerExtensionsKt.getRemotePathForConflictResolution(
             client,
-            (entity.getPath() != null) ? entity.getPath() : file.getDecryptedRemotePath(),
-            List.of(oldFileName),
-            file.isEncrypted()
+            parentRemotePath,
+            oldFileName
         );
         offlineOperationsRepository.updateOperationForKeepBoth(entity, newPath);
     }
