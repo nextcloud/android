@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
@@ -74,7 +74,7 @@ class FileIT : AbstractOnServerIT() {
         assertTrue("$folderPath was not downloaded", folderCopy.exists())
         assertTrue("$filePath was not downloaded", fileCopy.exists())
 
-        val result = RenameFileOperation(folderPath, NEW_FOLDER_NAME, storageManager).execute(targetContext)
+        val result = RenameFileOperation(folderPath, NEW_FOLDER_NAME, storageManager).execute(client)
         assertTrue("Rename of $folderPath failed: ${result.logMessage}", result.isSuccess)
 
         assertTrue("$renamedFolderPath has no local copy", localCopyOf(renamedFolderPath).exists())
@@ -100,7 +100,7 @@ class FileIT : AbstractOnServerIT() {
             storageManager,
             false,
             false
-        ).execute(targetContext)
+        ).execute(client)
 
         assertTrue("Sync of $remotePath failed: ${result.logMessage}", result.isSuccess)
     }
