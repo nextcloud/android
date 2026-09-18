@@ -615,12 +615,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         sharedAvatars.setBoundFileId(fileId);
         sharedAvatars.setOnClickListener(view -> ocFileListFragmentInterface.onShareIconClick(file));
 
-        avatarShareesProvider.get(file, user, userId, avatars -> {
-            if (Long.valueOf(fileId).equals(sharedAvatars.getBoundFileId())) {
-                sharedAvatars.setAvatars(user, avatars, viewThemeUtils);
-            }
-            return Unit.INSTANCE;
-        });
+        sharedAvatars.setAvatars(user, avatarShareesProvider.get(file, userId), viewThemeUtils);
     }
 
     private void bindListItemViewHolder(ListItemViewHolder holder, OCFile file) {
@@ -1106,7 +1101,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void cleanup() {
         ocFileListDelegate.cleanup();
         helper.cleanup();
-        avatarShareesProvider.cleanup();
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -1132,8 +1126,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @SuppressLint("NotifyDataSetChanged")
     public void updateFile(@NonNull OCFile updatedFile) {
-        avatarShareesProvider.invalidate(updatedFile);
-
         int allIndex = helper.indexOfSameRemoteFile(mFilesAll, updatedFile);
         if (allIndex != -1) {
             mFilesAll.set(allIndex, updatedFile);
