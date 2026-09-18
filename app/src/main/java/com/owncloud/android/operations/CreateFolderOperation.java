@@ -18,6 +18,7 @@ import android.util.Pair;
 import com.nextcloud.client.account.User;
 import com.nextcloud.utils.e2ee.E2ECounterHelper;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
+import com.nextcloud.utils.extensions.FileDataStorageManagerExtensionsKt;
 import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
@@ -552,33 +553,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
      * Save new directory in local database.
      */
     private void saveFolderInDB() {
-        if (getStorageManager().getFileByPath(FileStorageUtils.getParentPath(remotePath)) == null) {
-            // When parent of remote path is not created
-            String[] subFolders = remotePath.split(PATH_SEPARATOR);
-            String composedRemotePath = ROOT_PATH;
-
-            // For each ancestor folders create them recursively
-            for (String subFolder : subFolders) {
-                if (!subFolder.isEmpty()) {
-                    composedRemotePath = composedRemotePath + subFolder + PATH_SEPARATOR;
-                    remotePath = composedRemotePath;
-                    saveFolderInDB();
-                }
-            }
-        } else {
-            // Create directory on DB
-            OCFile newDir = new OCFile(remotePath);
-            newDir.setMimeType(MimeType.DIRECTORY);
-            long parentId = getStorageManager().getFileByPath(FileStorageUtils.getParentPath(remotePath)).getFileId();
-            newDir.setParentId(parentId);
-            newDir.setRemoteId(createdRemoteFolder.getRemoteId());
-            newDir.setModificationTimestamp(System.currentTimeMillis());
-            newDir.setEncrypted(FileStorageUtils.checkEncryptionStatus(newDir, getStorageManager()));
-            newDir.setPermissions(createdRemoteFolder.getPermissions());
-            getStorageManager().saveFile(newDir);
-
-            Log_OC.d(TAG, "Create directory " + remotePath + " in Database");
-        }
+        FileDataStorageManagerExtensionsKt.createDirectoryTree(getStorageManager(), remotePath, createdRemoteFolder);
     }
 
     public String getRemotePath() {
