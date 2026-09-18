@@ -1460,10 +1460,10 @@
         <item quantity="other">Skúste to znova o %1$d min a %2$d s kvôli príliš veľkému počtu nesprávnych pokusov.</item>
     </plurals>
     <plurals name="share_download_limit_description">
-        <item quantity="one">%1$d zostáva stiahnuť</item>
-        <item quantity="few">%1$d zostáva stiahnuť</item>
-        <item quantity="many">%1$d zostáva stiahnuť</item>
-        <item quantity="other">%1$d zostáva stiahnuť</item>
+        <item quantity="one">%1$d sťahovaní zostáva</item>
+        <item quantity="few">%1$d sťahovaní zostáva</item>
+        <item quantity="many">%1$d sťahovaní zostáva</item>
+        <item quantity="other">%1$d sťahovaní zostáva</item>
     </plurals>
     <plurals name="export_start">
         <item quantity="one">Export spustený (%d súbor)</item>
