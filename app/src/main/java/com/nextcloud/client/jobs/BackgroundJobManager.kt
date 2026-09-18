@@ -175,7 +175,7 @@ interface BackgroundJobManager {
     fun startPeriodicallyOfflineOperation()
     fun scheduleInternal2WaySync(intervalMinutes: Long)
     fun cancelAllFilesDownloadJobs()
-    fun startMetadataSyncJob(currentDirPath: String)
+    fun startMetadataSyncJob(currentDirPath: String, folderAlreadySynced: Boolean = false)
     fun downloadFolder(folder: OCFile, accountName: String)
     fun cancelFolderDownload()
     fun locallyDeleteAutoUploadedFiles(syncedFolders: List<SyncedFolder>)

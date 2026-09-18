@@ -407,6 +407,11 @@ public class RefreshFolderOperation extends RemoteOperation {
 
     private RemoteOperationResult checkForChanges(OwnCloudClient client) {
         mRemoteFolderChanged = true;
+
+        if (mIgnoreETag) {
+            return new RemoteOperationResult<>(ResultCode.OK);
+        }
+
         RemoteOperationResult<?> result;
         String remotePath = mLocalFolder.getRemotePath();
 
@@ -418,25 +423,21 @@ public class RefreshFolderOperation extends RemoteOperation {
         if (result.isSuccess()) {
             OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
 
-            if (!mIgnoreETag) {
-                // check if remote and local folder are different
-                String remoteFolderETag = remoteFolder.getEtag();
-                if (remoteFolderETag != null) {
-                    String localFolderEtag = mLocalFolder.getEtag();
-                    mRemoteFolderChanged = StringExtensionsKt.eTagChanged(remoteFolderETag, localFolderEtag);
-                    Log_OC.d(
-                        TAG,
-                        "📂 eTag check\n" +
-                            "  Path:        " + remoteFolder.getRemotePath() + "\n" +
-                            "  Local eTag:  " + localFolderEtag + "\n" +
-                            "  Remote eTag: " + remoteFolderETag + "\n" +
-                            "  Changed:     " + mRemoteFolderChanged
-                            );
-                } else {
-                    Log_OC.e(TAG, "Checked " + user.getAccountName() + remotePath + ": No ETag received from server");
-                }
+            // check if remote and local folder are different
+            String remoteFolderETag = remoteFolder.getEtag();
+            if (remoteFolderETag != null) {
+                String localFolderEtag = mLocalFolder.getEtag();
+                mRemoteFolderChanged = StringExtensionsKt.eTagChanged(remoteFolderETag, localFolderEtag);
+                Log_OC.d(
+                    TAG,
+                    "📂 eTag check\n" +
+                        "  Path:        " + remoteFolder.getRemotePath() + "\n" +
+                        "  Local eTag:  " + localFolderEtag + "\n" +
+                        "  Remote eTag: " + remoteFolderETag + "\n" +
+                        "  Changed:     " + mRemoteFolderChanged
+                        );
             } else {
-                Log_OC.d(TAG, "Ignoring eTag. mRemoteFolderChanged is true.");
+                Log_OC.e(TAG, "Checked " + user.getAccountName() + remotePath + ": No ETag received from server");
             }
 
             result = new RemoteOperationResult<>(ResultCode.OK);

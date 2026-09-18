@@ -560,9 +560,10 @@ internal class BackgroundJobManagerImpl(
         workManager.cancelAllWorkByTag(formatClassTag(FileDownloadWorker::class))
     }
 
-    override fun startMetadataSyncJob(currentDirPath: String) {
+    override fun startMetadataSyncJob(currentDirPath: String, folderAlreadySynced: Boolean) {
         val inputData = Data.Builder()
             .putString(MetadataWorker.FILE_PATH, currentDirPath)
+            .putBoolean(MetadataWorker.FOLDER_ALREADY_SYNCED, folderAlreadySynced)
             .build()
 
         val constrains = Constraints.Builder()
