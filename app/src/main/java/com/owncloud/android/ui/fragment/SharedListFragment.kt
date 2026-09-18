@@ -16,6 +16,7 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.common.SessionTimeOut
 import com.owncloud.android.R
+import com.nextcloud.utils.share.UnifiedShareSharees
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
@@ -88,6 +89,7 @@ class SharedListFragment :
                 parentId = partialFile.parentId
             }
             FileStorageUtils.searchForLocalFileInDefaultPath(file, user.accountName)
+            UnifiedShareSharees.fill(user, listOf(file))
             val savedFile = containerActivity.storageManager.saveFileWithParent(file, context)
             savedFile
         } else {

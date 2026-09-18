@@ -15,6 +15,7 @@ import android.content.ContentValues
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.share.UnifiedShareSharees
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -133,7 +134,7 @@ class OCFileListSearchTask(
                 resultData,
                 storageManager,
                 currentUser.accountName
-            )
+            ).also { UnifiedShareSharees.fill(currentUser, it) }
         } else {
             parseAndSaveVirtuals(resultData, fragment)
         }
@@ -216,6 +217,7 @@ class OCFileListSearchTask(
                     var ocFile = FileStorageUtils.fillOCFile(remoteFile)
                     FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, currentUser.accountName)
                     resolveLocalFileId(ocFile)
+                    UnifiedShareSharees.fill(currentUser, listOf(ocFile))
                     ocFile = storageManager.saveFileWithParent(ocFile, activity)
                     ocFile = handleEncryptionIfNeeded(ocFile, storageManager, activity) {
                         cachedClient ?: currentUser.toPlatformAccount().also { cachedClient = it }
