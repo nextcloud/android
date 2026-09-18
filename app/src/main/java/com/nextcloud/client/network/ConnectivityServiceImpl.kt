@@ -45,7 +45,6 @@ class ConnectivityServiceImpl(
 
     // region private values
     private val scope = CoroutineScope(Dispatchers.IO)
-    private var availabilityCheckJob: Job? = null
     private var notifyJob: Job? = null
     private val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     private val listeners = mutableSetOf<NetworkChangeListener>()
@@ -81,8 +80,7 @@ class ConnectivityServiceImpl(
 
     // region overridden methods
     override fun isNetworkAndServerAvailable(onCompleted: (Boolean) -> Unit) {
-        availabilityCheckJob?.cancel()
-        availabilityCheckJob = scope.launch {
+        scope.launch {
             val available = !isInternetWalled()
             Log_OC.d(TAG, "isNetworkAndServerAvailable: $available")
             withContext(Dispatchers.Main) {
