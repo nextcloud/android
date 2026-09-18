@@ -18,6 +18,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.ResultParser;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
+import com.nextcloud.utils.share.UnifiedShareSharees;
 import com.nextcloud.utils.extensions.StringExtensionsKt;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
@@ -628,6 +629,8 @@ public class RefreshFolderOperation extends RemoteOperation {
         } else if (object instanceof DecryptedFolderMetadataFile metadata) {
             updateFileNameForEncryptedFile(fileDataStorageManager, metadata, mLocalFolder);
         }
+
+        UnifiedShareSharees.fillBlocking(user, updatedFiles);
 
         fileDataStorageManager.saveFolder(remoteFolder, updatedFiles, localFilesMap.values());
 
