@@ -20,7 +20,6 @@ import com.google.gson.Gson
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
 import com.nextcloud.client.device.DeviceInfo
-import com.nextcloud.client.documentscan.AppScanOptionalFeature
 import com.nextcloud.utils.BuildHelper.isFlavourGPlay
 import com.nextcloud.utils.EditorUtils
 import com.nextcloud.utils.extensions.isNetworkAndServerAvailableSuspended
@@ -48,7 +47,6 @@ class OCFileListBottomSheetDialog(
     private val file: OCFile,
     private val viewThemeUtils: ViewThemeUtils,
     private val editorUtils: EditorUtils,
-    private val appScanOptionalFeature: AppScanOptionalFeature,
     private val arbitraryDataProvider: ArbitraryDataProvider
 ) : BottomSheetDialog(fileActivity) {
 
@@ -205,8 +203,6 @@ class OCFileListBottomSheetDialog(
         menuUploadFiles.setOnClickListenerAndDismiss(actions::uploadFiles)
 
         when {
-            appScanOptionalFeature.isAvailable -> menuScanDocUpload.setOnClickListenerAndDismiss(actions::scanDocUpload)
-
             actions.isScanDocUploadFromAppAvailable ->
                 menuScanDocUpload.setOnClickListenerAndDismiss(actions::scanDocUploadFromApp)
 
