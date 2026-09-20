@@ -19,7 +19,6 @@ import android.os.Looper
 import android.view.ViewGroup
 import android.webkit.SslErrorHandler
 import android.widget.TextView
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.fragment.app.DialogFragment
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.launchActivity
@@ -37,7 +36,6 @@ import com.nextcloud.android.lib.resources.profile.HoverCard
 import com.nextcloud.client.account.RegisteredUser
 import com.nextcloud.client.account.Server
 import com.nextcloud.client.device.DeviceInfo
-import com.nextcloud.client.documentscan.AppScanOptionalFeature
 import com.nextcloud.ui.ChooseAccountDialogFragment
 import com.nextcloud.ui.ChooseAccountDialogFragment.Companion.newInstance
 import com.nextcloud.ui.SetOnlineStatusBottomSheet
@@ -433,7 +431,6 @@ class DialogFragmentIT : AbstractIT() {
             override fun newSpreadsheet() = Unit
             override fun newPresentation() = Unit
             override fun directCameraUpload() = Unit
-            override fun scanDocUpload() = Unit
             override fun scanDocUploadFromApp() = Unit
             override val isScanDocUploadFromAppAvailable: Boolean
                 get() = false
@@ -503,11 +500,6 @@ class DialogFragmentIT : AbstractIT() {
                 }
                 CapabilityUtils.updateCapability(capability)
 
-                val appScanOptionalFeature: AppScanOptionalFeature = object : AppScanOptionalFeature() {
-                    override fun getScanContract(): ActivityResultContract<Unit, String?> =
-                        throw UnsupportedOperationException("Document scan is not available")
-                }
-
                 val viewThemeUtils = ViewThemeUtils(
                     materialSchemesForCurrentUser,
                     ColorUtil(targetContext)
@@ -523,8 +515,7 @@ class DialogFragmentIT : AbstractIT() {
                     ocFile,
                     fda.themeUtils,
                     viewThemeUtils,
-                    editorUtils,
-                    appScanOptionalFeature
+                    editorUtils
                 )
 
                 sut.show()
