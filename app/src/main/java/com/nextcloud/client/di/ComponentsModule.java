@@ -7,7 +7,6 @@
  */
 package com.nextcloud.client.di;
 
-import com.nextcloud.client.documentscan.DocumentScanActivity;
 import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.etm.EtmActivity;
 import com.nextcloud.client.etm.pages.EtmBackgroundJobsFragment;
@@ -467,9 +466,6 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract SendFilesDialog sendFilesDialog();
-
-    @ContributesAndroidInjector
-    abstract DocumentScanActivity documentScanActivity();
 
     @ContributesAndroidInjector
     abstract GroupfolderListFragment groupfolderListFragment();

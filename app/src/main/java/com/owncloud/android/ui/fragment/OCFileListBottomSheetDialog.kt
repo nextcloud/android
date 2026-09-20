@@ -28,7 +28,6 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.di.Injectable
-import com.nextcloud.client.documentscan.AppScanOptionalFeature
 import com.nextcloud.utils.BuildHelper.isFlavourGPlay
 import com.nextcloud.utils.EditorUtils
 import com.nextcloud.utils.extensions.isNetworkAndServerAvailableSuspended
@@ -59,8 +58,7 @@ class OCFileListBottomSheetDialog(
     private val file: OCFile,
     private val themeUtils: ThemeUtils,
     private val viewThemeUtils: ViewThemeUtils,
-    private val editorUtils: EditorUtils,
-    private val appScanOptionalFeature: AppScanOptionalFeature
+    private val editorUtils: EditorUtils
 ) : BottomSheetDialog(fileActivity),
     Injectable {
 
@@ -397,12 +395,7 @@ class OCFileListBottomSheetDialog(
                 dismiss()
             }
 
-            if (appScanOptionalFeature.isAvailable) {
-                menuScanDocUpload.setOnClickListener {
-                    actions.scanDocUpload()
-                    dismiss()
-                }
-            } else if (actions.isScanDocUploadFromAppAvailable) {
+            if (actions.isScanDocUploadFromAppAvailable) {
                 menuScanDocUpload.setOnClickListener {
                     actions.scanDocUploadFromApp()
                     dismiss()
