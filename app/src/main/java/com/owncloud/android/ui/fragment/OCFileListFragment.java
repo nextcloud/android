@@ -44,8 +44,6 @@ import com.nextcloud.android.lib.resources.files.ToggleFileLockRemoteOperation;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.documentscan.AppScanOptionalFeature;
-import com.nextcloud.client.documentscan.DocumentScanActivity;
 import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ClientFactory;
@@ -198,7 +196,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject EditorUtils editorUtils;
     @Inject ShortcutUtil shortcutUtil;
     @Inject SyncedFolderProvider syncedFolderProvider;
-    @Inject AppScanOptionalFeature appScanOptionalFeature;
     @Inject ThumbnailGenerator thumbnailGenerator;
     @Inject AvatarGenerator avatarGenerator;
 
@@ -563,8 +560,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                                                                        currentDir,
                                                                                        themeUtils,
                                                                                        viewThemeUtils,
-                                                                                       editorUtils,
-                                                                                       appScanOptionalFeature);
+                                                                                       editorUtils);
 
             dialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
             dialog.getBehavior().setSkipCollapsed(true);
@@ -633,23 +629,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         builder.create();
         builder.show();
-    }
-
-    @Override
-    public void scanDocUpload() {
-        FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
-
-        final OCFile currentFile = getCurrentFile();
-        if (fileDisplayActivity != null && currentFile != null && currentFile.isFolder()) {
-
-            Intent intent = new Intent(requireContext(), DocumentScanActivity.class);
-            intent.putExtra(DocumentScanActivity.EXTRA_FOLDER, currentFile.getRemotePath());
-            startActivity(intent);
-        } else {
-            Log.w(TAG, "scanDocUpload: Failed to start doc scanning, fileDisplayActivity=" + fileDisplayActivity +
-                ", currentFile=" + currentFile);
-            SnackbarUtil.show(this, R.string.error_starting_doc_scan);
-        }
     }
 
     @Override

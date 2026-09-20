@@ -33,7 +33,6 @@ interface OCFileListBottomSheetActions {
 
     fun newPresentation()
     fun directCameraUpload()
-    fun scanDocUpload()
 
     /**
      * Offers scanning a document in a supported external app and then upload to the current folder.
