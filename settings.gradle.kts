@@ -66,4 +66,4 @@ includeBuild("../android-common") {
 }
 */
 
-include(":app", ":appscan")
+include(":app")

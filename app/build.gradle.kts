@@ -347,13 +347,6 @@ tasks.named("check").configure {
 val kspConfiguration = "ksp"
 val kspAndroidTestConfiguration = "kspAndroidTest"
 val gplayImplementationConfiguration = "gplayImplementation"
-val huaweiImplementationConfiguration = "huaweiImplementation"
-val qaImplementationConfiguration = "qaImplementation"
-val appScanConfigurations = listOf(
-    gplayImplementationConfiguration,
-    huaweiImplementationConfiguration,
-    qaImplementationConfiguration
-)
 
 dependencies {
     // region Nextcloud library
@@ -449,13 +442,6 @@ dependencies {
     implementation(libs.androidsvg)
     implementation(libs.annotation)
     implementation(libs.emoji.google)
-    // endregion
-
-    // region AppScan, document scanner not available on FDroid (generic) due to OpenCV binaries
-    // To enable the feature for another variant, add its "<variant>Implementation" here.
-    appScanConfigurations.forEach { configuration ->
-        add(configuration, project(":appscan"))
-    }
     // endregion
 
     // region SpotBugs
