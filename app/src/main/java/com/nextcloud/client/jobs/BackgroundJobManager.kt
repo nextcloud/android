@@ -163,8 +163,6 @@ interface BackgroundJobManager {
         conflictUploadId: Long?
     )
 
-    fun startPdfGenerateAndUploadWork(user: User, uploadFolder: String, imagePaths: List<String>, pdfPath: String)
-
     fun scheduleTestJob()
     fun startImmediateTestJob()
     fun cancelTestJob()
