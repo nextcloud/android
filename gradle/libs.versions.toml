@@ -28,7 +28,6 @@ daggerVersion = "2.60.1"
 detektGradlePlugin = "1.23.8"
 dexopenerVersion = "2.0.5"
 disklrucacheVersion = "2.0.2"
-documentScannerVersion = "1.3.0"
 emojiGoogleVersion = "0.24.1"
 espressoVersion = "3.7.0"
 eventbusVersion = "3.3.1"
@@ -101,7 +100,6 @@ browser = { module = "androidx.browser:browser", version.ref = "browserVersion" 
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompatVersion" }
 cardview = { module = "androidx.cardview:cardview", version.ref = "cardviewVersion" }
 core-ktx = { module = "androidx.test:core-ktx", version.ref = "androidxTestVersion" }
-document-scanning-android-sdk = { module = "com.github.Hazzatur:Document-Scanning-Android-SDK", version.ref = "documentScannerVersion" }
 fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtxVersion" }
 exifinterface = { module = "androidx.exifinterface:exifinterface", version.ref = "exifinterfaceVersion" }
 material-icons-core = { module = "androidx.compose.material:material-icons-core", version.ref = "materialIconsCoreVersion" }
