@@ -27,7 +27,6 @@ import androidx.work.workDataOf
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.di.Injectable
-import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
 import com.nextcloud.client.jobs.autoUpload.AutoUploadLocalDeletionWorker
 import com.nextcloud.client.jobs.autoUpload.AutoUploadRescanWorker
 import com.nextcloud.client.jobs.autoUpload.AutoUploadWorker
@@ -97,7 +96,6 @@ internal class BackgroundJobManagerImpl(
         const val JOB_FILES_UPLOAD = "files_upload"
         const val JOB_FOLDER_DOWNLOAD = "folder_download"
         const val JOB_FILES_DOWNLOAD = "files_download"
-        const val JOB_PDF_GENERATION = "pdf_generation"
         const val JOB_IMMEDIATE_CALENDAR_BACKUP = "immediate_calendar_backup"
         const val JOB_IMMEDIATE_FILES_EXPORT = "immediate_files_export"
         const val JOB_OFFLINE_OPERATIONS = "offline_operations"
@@ -812,24 +810,6 @@ internal class BackgroundJobManagerImpl(
 
     override fun cancelFilesDownloadJob(accountName: String, fileId: Long) {
         workManager.cancelAllWorkByTag(startFileDownloadJobTag(accountName, fileId))
-    }
-
-    override fun startPdfGenerateAndUploadWork(
-        user: User,
-        uploadFolder: String,
-        imagePaths: List<String>,
-        pdfPath: String
-    ) {
-        val data = workDataOf(
-            GeneratePdfFromImagesWork.INPUT_IMAGE_FILE_PATHS to imagePaths.toTypedArray(),
-            GeneratePdfFromImagesWork.INPUT_OUTPUT_FILE_PATH to pdfPath,
-            GeneratePdfFromImagesWork.INPUT_UPLOAD_ACCOUNT to user.accountName,
-            GeneratePdfFromImagesWork.INPUT_UPLOAD_FOLDER to uploadFolder
-        )
-        val request = oneTimeRequestBuilder(GeneratePdfFromImagesWork::class, JOB_PDF_GENERATION)
-            .setInputData(data)
-            .build()
-        workManager.enqueue(request)
     }
 
     override fun scheduleTestJob() {
