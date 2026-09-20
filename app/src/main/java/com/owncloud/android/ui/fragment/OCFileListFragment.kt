@@ -43,8 +43,6 @@ import com.nextcloud.android.lib.resources.files.ToggleFileLockRemoteOperation
 import com.nextcloud.client.account.User
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.di.Injectable
-import com.nextcloud.client.documentscan.AppScanOptionalFeature
-import com.nextcloud.client.documentscan.DocumentScanActivity
 import com.nextcloud.client.utils.Throttler
 import com.nextcloud.repository.ClientRepository
 import com.nextcloud.ui.fileactions.FileAction
@@ -156,9 +154,6 @@ open class OCFileListFragment :
 
     @Inject
     lateinit var fileActionHandler: FileActionHandler
-
-    @Inject
-    lateinit var appScanOptionalFeature: AppScanOptionalFeature
 
     @Inject
     lateinit var thumbnailGenerator: ThumbnailGenerator
@@ -473,8 +468,7 @@ open class OCFileListFragment :
             currentDir,
             themeUtils,
             viewThemeUtils,
-            editorUtils,
-            appScanOptionalFeature
+            editorUtils
         ).run {
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
             behavior.skipCollapsed = true
@@ -572,24 +566,6 @@ open class OCFileListFragment :
 
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(fileDisplayActivity, builder)
         builder.show()
-    }
-
-    override fun scanDocUpload() {
-        val fileDisplayActivity = activity as? FileDisplayActivity
-        val currentFile = currentFile
-        if (fileDisplayActivity == null || currentFile == null || !currentFile.isFolder) {
-            Log_OC.w(
-                TAG,
-                "Cannot start document scan: activity=${activity?.javaClass?.simpleName}, " +
-                    "folder=${currentFile?.remotePath}, isFolder=${currentFile?.isFolder}"
-            )
-            SnackbarUtil.show(this, R.string.error_starting_doc_scan)
-            return
-        }
-
-        val intent = Intent(requireContext(), DocumentScanActivity::class.java)
-            .putExtra(DocumentScanActivity.EXTRA_FOLDER, currentFile.remotePath)
-        startActivity(intent)
     }
 
     @Suppress("DEPRECATION")
