@@ -1120,6 +1120,7 @@
     <string name="uploads_view_upload_status_failed_permission_error">権限エラー</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">信頼できないサーバー証明書</string>
     <string name="uploads_view_upload_status_service_interrupted">アプリが終了しました</string>
+    <string name="uploads_view_upload_status_skip">スキップ</string>
     <string name="uploads_view_upload_status_succeeded">完了</string>
     <string name="uploads_view_upload_status_succeeded_same_file">同じファイルがリモートに見つかったため、アップロードをスキップします</string>
     <string name="uploads_view_upload_status_unknown_fail">不明なエラー</string>
