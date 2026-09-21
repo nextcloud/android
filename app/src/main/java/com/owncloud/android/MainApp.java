@@ -61,7 +61,6 @@ import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias;
 import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
-import com.nmc.android.ui.LauncherActivity;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
@@ -465,11 +464,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
             @Override
             public void onActivityResumed(@NonNull Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onResume() starting");
-                // we are checking activity is not launcher activity because there is timer in launcher
-                // which will reopen the passcode screen
-                if (!(activity instanceof LauncherActivity)) {
-                    passCodeManager.onActivityResumed(activity);
-                }
+                passCodeManager.onActivityResumed(activity);
             }
 
             @Override
@@ -480,11 +475,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
             @Override
             public void onActivityStopped(@NonNull Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onStop() ending");
-                // since we are not showing passcode on launch activity
-                // so we don't need to call the stopped method as well
-                if (!(activity instanceof LauncherActivity)) {
-                    passCodeManager.onActivityStopped(activity);
-                }
+                passCodeManager.onActivityStopped(activity);
             }
 
             @Override

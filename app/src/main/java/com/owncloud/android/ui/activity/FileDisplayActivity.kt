@@ -88,6 +88,7 @@ import com.nextcloud.utils.extensions.navigateToAllFiles
 import com.nextcloud.utils.extensions.observeWorker
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.fileNameValidator.FileNameValidator.checkFolderPath
+import com.nextcloud.utils.mdm.MDMConfig
 import com.nextcloud.utils.view.FastScrollUtils
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
@@ -319,6 +320,26 @@ class FileDisplayActivity :
         startMetadataSyncForRoot()
         handleBackPress()
         setupDrawer(menuItemId)
+
+        if (savedInstanceState == null) {
+            openAppProtectionSetupIfEnforced()
+        }
+    }
+
+    /**
+     * An MDM administrator can require a device lock. Until one is configured the user has to stay in the settings,
+     * where [SettingsActivity] shows a non dismissable passcode dialog.
+     */
+    private fun openAppProtectionSetupIfEnforced() {
+        if (!MDMConfig.enforceProtection(this)) {
+            return
+        }
+
+        if (preferences.lockPreference != SettingsActivity.LOCK_NONE) {
+            return
+        }
+
+        startActivity(Intent(this, SettingsActivity::class.java))
     }
 
     /**

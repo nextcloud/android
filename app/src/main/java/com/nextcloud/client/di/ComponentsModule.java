@@ -34,7 +34,6 @@ import com.nextcloud.ui.composeActivity.ComposeActivity;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.ui.tags.TagManagementBottomSheet;
 import com.nextcloud.ui.trashbinFileActions.TrashbinFileActionsBottomSheet;
-import com.nmc.android.ui.LauncherActivity;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.DeepLinkLoginActivity;
@@ -473,9 +472,6 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract GroupfolderListFragment groupfolderListFragment();
-
-    @ContributesAndroidInjector
-    abstract LauncherActivity launcherActivity();
 
     @ContributesAndroidInjector
     abstract EditImageActivity editImageActivity();

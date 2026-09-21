@@ -141,10 +141,6 @@
     <!-- Push server url -->
     <string name="push_server_url" translatable="false"></string>
 
-    <!-- if contains values, will be used to show branding title below app icon in splash screen -->
-    <string name="splashScreenBold"></string>
-    <string name="splashScreenNormal"></string>
-
     <!-- Geocoding -->
     <string name="osm_geocoder_url" translatable="false">https://nominatim.openstreetmap.org/</string>
     <string name="osm_geocoder_contact" translatable="false">android@nextcloud.com</string>

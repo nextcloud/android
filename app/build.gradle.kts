@@ -362,10 +362,6 @@ dependencies {
     }
     // endregion
 
-    // region Splash Screen
-    implementation(libs.splashscreen)
-    // endregion
-
     // region Jetpack Compose
     implementation(platform(libs.compose.bom))
     implementation(libs.material.icons.core)

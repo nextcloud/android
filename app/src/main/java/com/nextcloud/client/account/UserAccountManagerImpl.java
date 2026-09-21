@@ -22,7 +22,6 @@ import android.text.TextUtils;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.extensions.AccountExtensionsKt;
-import com.nmc.android.ui.LauncherActivity;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -460,8 +459,8 @@ public class UserAccountManagerImpl implements UserAccountManager {
     @Override
     public void startAccountCreation(final Activity activity) {
 
-        // skipping AuthenticatorActivity redirection when user is on Launcher or FirstRun Activity
-        if (activity instanceof LauncherActivity || activity instanceof FirstRunActivity) return;
+        // skipping AuthenticatorActivity redirection when user is on FirstRun Activity
+        if (activity instanceof FirstRunActivity) return;
 
         Intent intent = new Intent(context, AuthenticatorActivity.class);
 

@@ -78,7 +78,6 @@ screengrabVersion = "2.1.1"
 sectionedRecyclerviewVersion = "0.6.1"
 shotVersion = "6.1.0"
 slfj = "2.0.19"
-splash-screen = "1.2.0"
 spotbugsGradlePlugin = "6.5.11"
 spotless = "8.10.2"
 stateless4jVersion = "2.6.0"
@@ -106,7 +105,6 @@ fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragm
 exifinterface = { module = "androidx.exifinterface:exifinterface", version.ref = "exifinterfaceVersion" }
 material-icons-core = { module = "androidx.compose.material:material-icons-core", version.ref = "materialIconsCoreVersion" }
 webkit = { module = "androidx.webkit:webkit", version.ref = "webkitVersion" }
-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splash-screen" }
 sectioned-recyclerview = { module = "com.github.nextcloud-deps:sectioned-recyclerview", version.ref = "sectionedRecyclerviewVersion" }
 legacy-support-v4 = { module = "androidx.legacy:legacy-support-v4", version.ref = "legacySupportV4Version" }
 library = { module = "me.zhanghai.android.fastscroll:library", version.ref = "libraryVersion" }
