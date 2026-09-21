@@ -9,6 +9,8 @@ package com.nextcloud.client.player.ui
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.widget.LinearLayout
 import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
@@ -26,6 +28,7 @@ import com.nextcloud.client.player.model.state.PlaybackState
 import com.nextcloud.client.player.ui.control.PlayerControlView
 import com.nextcloud.client.player.ui.pager.PlayerPager
 import com.nextcloud.client.player.util.WindowWrapper
+import com.nextcloud.utils.extensions.setVisibilityWithAnimation
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
@@ -69,6 +72,19 @@ abstract class PlayerView @JvmOverloads constructor(
 
     var onMoreClick: (() -> Unit)? = null
 
+    protected var isFullScreen = false
+        private set
+
+    private val tapDetector = GestureDetector(
+        context,
+        object : GestureDetector.SimpleOnGestureListener() {
+            override fun onSingleTapUp(event: MotionEvent): Boolean {
+                onTap(event)
+                return false
+            }
+        }
+    )
+
     init {
         inflate(context, layoutRes, this)
         if (!isInEditMode) {
@@ -85,6 +101,44 @@ abstract class PlayerView @JvmOverloads constructor(
                 isMore
             }
         }
+    }
+
+    override fun onInterceptTouchEvent(event: MotionEvent): Boolean {
+        tapDetector.onTouchEvent(event)
+        return super.onInterceptTouchEvent(event)
+    }
+
+    protected open fun onTap(event: MotionEvent) {
+        when {
+            isFullScreen -> showControls()
+            isTouchOnMedia(event) -> hideControls()
+        }
+    }
+
+    protected fun isTouchOnMedia(event: MotionEvent): Boolean = event.y > topBar.bottom && event.y < playerControlView.y
+
+    @CallSuper
+    open fun showControls() {
+        windowWrapper.showSystemBars()
+        if (!isFullScreen) {
+            return
+        }
+
+        isFullScreen = false
+        topBar.setVisibilityWithAnimation(true)
+        playerControlView.setVisibilityWithAnimation(true)
+    }
+
+    @CallSuper
+    open fun hideControls() {
+        windowWrapper.hideSystemBars()
+        if (isFullScreen) {
+            return
+        }
+
+        isFullScreen = true
+        topBar.setVisibilityWithAnimation(false)
+        playerControlView.setVisibilityWithAnimation(false)
     }
 
     protected fun applyTopBarInsets(insets: Insets) {

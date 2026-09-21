@@ -19,6 +19,9 @@ import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.MenuProvider
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -42,6 +45,7 @@ import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
+import com.nextcloud.utils.extensions.setVisibilityWithAnimation
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PreviewPlaybackFragmentBinding
 import com.owncloud.android.datamodel.OCFile
@@ -120,6 +124,7 @@ class PreviewPlaybackFragment :
     private var renderedVideoSize: VideoSize? = null
 
     private var pictureInPictureCallback: OnBackPressedCallback? = null
+    private var isFullScreen = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -138,6 +143,8 @@ class PreviewPlaybackFragment :
         loadThumbnail()
         registerPictureInPictureOnBack()
         binding.playerControlView.navigator = activity as? MediaNavigator
+        isFullScreen = previewActivity()?.isSystemUIVisible == false
+        binding.surfaceView.setOnClickListener { toggleFullScreen() }
         updatePlayerControlsVisibility()
         binding.root.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
             if (ownsPlayback(binding.surfaceView)) render(playbackModel.state)
@@ -399,8 +406,32 @@ class PreviewPlaybackFragment :
 
     private fun isInPictureInPictureMode(): Boolean = activity?.isInPictureInPictureMode == true
 
+    private fun toggleFullScreen() {
+        val previewActivity = previewActivity() ?: return
+        isFullScreen = !isFullScreen
+
+        previewActivity.toggleActionBarVisibility(isFullScreen)
+        binding.playerControlView.setVisibilityWithAnimation(!isFullScreen)
+
+        val insetsController = WindowCompat.getInsetsController(previewActivity.window, binding.root)
+        if (isFullScreen) {
+            insetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            insetsController.hide(WindowInsetsCompat.Type.systemBars())
+        } else {
+            insetsController.show(WindowInsetsCompat.Type.systemBars())
+        }
+    }
+
     private fun updatePlayerControlsVisibility() {
-        binding.playerControlView.isVisible = !isInPictureInPictureMode()
+        if (isInPictureInPictureMode()) {
+            binding.playerControlView.isVisible = false
+            return
+        }
+
+        // playback updates arrive every second, so they must not undo full screen or cut the fade short
+        if (!isFullScreen) {
+            binding.playerControlView.isVisible = true
+        }
     }
 
     private fun showVideo(videoSize: VideoSize?) {
