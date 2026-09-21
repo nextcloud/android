@@ -215,21 +215,28 @@ fun getRemotePathForConflictResolution(client: OwnCloudClient, remotePath: Strin
 
 fun generateFileNameForConflictResolution(fileName: String): String {
     val isFolder = fileName.endsWith(OCFile.PATH_SEPARATOR)
-    val separator = if (isFolder) OCFile.PATH_SEPARATOR else "."
-    var nameFirstPart = fileName.substringBeforeLast(separator)
-    var nameLastPart = fileName.substringAfterLast(separator, "") // Extension or path separator
-    if (nameLastPart.isNotEmpty()) nameLastPart = "$separator$nameLastPart"
+    val separator =
+        if (isFolder) OCFile.PATH_SEPARATOR
+        else if (fileName.indexOf(".") > 0) "."
+        else ""
+    var nameFirstPart =
+        if (separator.isNotEmpty()) fileName.substringBeforeLast(separator)
+        else fileName
+    var nameLastPart =
+        if (separator.isNotEmpty()) fileName.substringAfterLast(separator, "")
+        else "" // Extension or path separator
+    if (nameLastPart.isNotEmpty() || isFolder) nameLastPart = "$separator$nameLastPart"
     val regex = Regex("""(.*)\((\d+)\)$""", RegexOption.MULTILINE)
-    if (regex.matches(nameFirstPart)) {
+    nameFirstPart = if (regex.matches(nameFirstPart)) {
         // Already a resolved conflict (i.e. "file (1).txt"). Update the number.
-        nameFirstPart = regex.replace(nameFirstPart, transform = { m ->
+        regex.replace(nameFirstPart, transform = { m ->
             val baseName = m.groups[1]?.value
             val number = m.groups[2]?.value?.toInt() ?: 0
             "$baseName(${number + 1})"
         })
     } else {
         // Add the number
-        nameFirstPart = "$nameFirstPart (1)"
+        "$nameFirstPart (1)"
     }
     return "$nameFirstPart$nameLastPart"
 }
