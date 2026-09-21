@@ -19,9 +19,6 @@ import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.MenuProvider
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -33,7 +30,6 @@ import com.nextcloud.client.player.media3.PlaybackModel
 import com.nextcloud.client.player.model.PlayerThumbnailLoader
 import com.nextcloud.client.player.model.file.PlaybackCollection
 import com.nextcloud.client.player.model.file.PlaybackFile
-import com.nextcloud.client.player.util.PlayerUtil.toPlaybackFile
 import com.nextcloud.client.player.model.state.PlaybackState
 import com.nextcloud.client.player.model.state.VideoSize
 import com.nextcloud.client.player.ui.MediaNavigator
@@ -41,11 +37,13 @@ import com.nextcloud.client.player.ui.PlayerLauncher
 import com.nextcloud.client.player.util.PlayerUtil.applyVideoSize
 import com.nextcloud.client.player.util.PlayerUtil.isPictureInPictureAllowed
 import com.nextcloud.client.player.util.PlayerUtil.ownsPlayback
+import com.nextcloud.client.player.util.PlayerUtil.toPlaybackFile
 import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
 import com.nextcloud.utils.extensions.setVisibilityWithAnimation
+import com.nextcloud.utils.extensions.showSystemBar
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PreviewPlaybackFragmentBinding
 import com.owncloud.android.datamodel.OCFile
@@ -409,17 +407,9 @@ class PreviewPlaybackFragment :
     private fun toggleFullScreen() {
         val previewActivity = previewActivity() ?: return
         isFullScreen = !isFullScreen
-
-        previewActivity.toggleActionBarVisibility(isFullScreen)
+        previewActivity.toggleActionBarVisibility(!isFullScreen)
         binding.playerControlView.setVisibilityWithAnimation(!isFullScreen)
-
-        val insetsController = WindowCompat.getInsetsController(previewActivity.window, binding.root)
-        if (isFullScreen) {
-            insetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-            insetsController.hide(WindowInsetsCompat.Type.systemBars())
-        } else {
-            insetsController.show(WindowInsetsCompat.Type.systemBars())
-        }
+        previewActivity.window.showSystemBar(!isFullScreen, binding.root)
     }
 
     private fun updatePlayerControlsVisibility() {

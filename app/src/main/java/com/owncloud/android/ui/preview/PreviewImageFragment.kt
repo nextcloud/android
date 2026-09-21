@@ -162,7 +162,7 @@ class PreviewImageFragment :
 
     private fun hideActionBar() {
         (requireActivity() as PreviewImageActivity).run {
-            toggleActionBarVisibility(true)
+            toggleActionBarVisibility(false)
         }
     }
 
