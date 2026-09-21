@@ -10,6 +10,7 @@
     <string name="action_edit">Bewerken</string>
     <string name="action_empty_notifications">Ale meldingen wissen</string>
     <string name="action_empty_trashbin">Prullenbak legen</string>
+    <string name="action_open_in_web_editor">Open in online bewerker</string>
     <string name="action_send_share">Versturen/delen</string>
     <string name="action_switch_grid_view">Rasterindeling </string>
     <string name="action_switch_list_view">Lijstindeling</string>
@@ -29,13 +30,26 @@
     <string name="activity_chooser_send_file_title">Versturen</string>
     <string name="activity_chooser_title">Link versturen naar…</string>
     <string name="activity_icon">Activiteit</string>
+    <string name="add_media">Media toevoegen</string>
     <string name="add_new_public_share">Voeg een nieuwe openbare deellink toe</string>
     <string name="add_new_secure_file_drop">Beveiligde bestands-drop</string>
     <string name="add_to_album">Toevoegen aan album</string>
+    <string name="album_already_exists">Album bestaat al</string>
+    <string name="album_copy_file_conflict">Bestaat al. </string>
+    <string name="album_create_new_link">Maak nieuwe snelkoppeling</string>
+    <string name="album_default_sharing_text">Iedereen kan alleen weergeven</string>
     <string name="album_delete">Album verwijderen</string>
+    <string name="album_delete_failed_message">Een aantal bestanden konden niet verwijderd worden. </string>
+    <string name="album_file_added_message">Bestand succesvol toegevoegd</string>
+    <string name="album_name_empty">Naam van album kan niet leeg zijn</string>
+    <string name="album_picker_toolbar_title">Kies album</string>
+    <string name="album_rename">Hernoem album</string>
     <string name="album_rename_conflict">De naam is al in gebruik.</string>
     <string name="album_share">Album delen</string>
+    <string name="album_share_link">Deel snelkoppeling naar album</string>
     <string name="album_stop_sharing">Stop met delen</string>
+    <string name="album_unsupported_file">Niet-ondersteunde media</string>
+    <string name="album_upload_from_account">Kies afbeeldingen uit account</string>
     <string name="app_config_base_url_title">Basis URL</string>
     <string name="app_config_disable_clipboard_title">Klembord uitschakelen</string>
     <string name="app_config_disable_intro_title">Intro uitschakelen</string>
@@ -126,11 +140,27 @@
     <string name="auto_upload_on_wifi">Upload alleen met Wi-Fi</string>
     <string name="auto_upload_path">/AutomatischUploaden</string>
     <string name="auto_upload_sub_folder_warning">Deze map is al opgenomen in de synchronisatie van de bovenliggende map, wat kan leiden tot dubbele uploads.</string>
+    <string name="auto_upload_sync_now_action">Synchroniseer nu</string>
+    <string name="auto_upload_sync_now_no_folder">Geen map ingesteld voor automatisch uploaden</string>
+    <string name="auto_upload_sync_now_running">Automatisch uploaden draait al</string>
+    <string name="auto_upload_sync_now_started">Automatisch uploaden gestart</string>
     <string name="auto_upload_wifi_only_warning_info">Aan het wachten op WiFi om te beginnen met uploaden</string>
     <string name="auto_upload_worker_start_text">Bestanden aan het uploaden van %1$s naar %2$s</string>
     <string name="autoupload_configure">Configureren</string>
     <string name="autoupload_create_new_custom_folder">Maak aangepaste nieuwe map aan</string>
     <string name="autoupload_custom_folder">Instellen aangepaste map</string>
+    <string name="autoupload_delete_uploaded">Verwijder bestanden lokaal die geüpload zijn</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_all_users">Van alle gebruikers</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_current_user">Van huidige gebruiker</string>
+    <string name="autoupload_delete_uploaded_all_dialog_description">Alle bestanden die al geüpload zijn naar de cloud zullen verwijderd worden op het huidige apparaat uit alle mappen voor automatisch uploaden voor alle geconfigureerde gebruikers</string>
+    <string name="autoupload_delete_uploaded_all_dialog_title">Verwijder lokale bestanden voor alle mappen met automatisch uploaden</string>
+    <string name="autoupload_delete_uploaded_dialog_description">Alle bestanden die al zijn geüpload naar de cloud zullen verwijderd worden van dit apparaat</string>
+    <string name="autoupload_delete_uploaded_dialog_title">Verwijder bestanden lokaal die geüpload zijn</string>
+    <string name="autoupload_delete_uploaded_notif_ended_content">%1$s vrijgemaakt door %2$s te verwijderen over %3$s van %4$s</string>
+    <string name="autoupload_delete_uploaded_notif_ended_title">Bestanden lokaal verwijderd die geüpload zijn</string>
+    <string name="autoupload_delete_uploaded_notif_error_title">Kan lokale bestanden die geùpload zijn niet verwijderen</string>
+    <string name="autoupload_delete_uploaded_notif_started_title">Lokale bestanden die geüpload zijn worden op de achtergrond verwijderd</string>
+    <string name="autoupload_delete_uploaded_notif_ticker">Lokale bestanden verwijderen</string>
     <string name="autoupload_disable_power_save_check">Uitschakelen stroombesparingscontrole</string>
     <string name="autoupload_hide_folder">Verberg map</string>
     <string name="avatar">Avatar</string>
@@ -213,7 +243,9 @@
     <string name="configure_new_media_folder_detection_notifications">Configureren</string>
     <string name="confirm_removal">Verwijder lokale encryptie</string>
     <string name="confirmation_remove_file_alert">Wil je %1$s echt verwijderen?</string>
+    <string name="confirmation_remove_file_from_album_message">Wil je het bestand %1$secht verwijderen uit het album?</string>
     <string name="confirmation_remove_files_alert">Wil je de geselecteerde objecten echt verwijderen?</string>
+    <string name="confirmation_remove_files_from_album_message">Wil je echt de geselecteerde bestanden uit het album verwijderen?</string>
     <string name="confirmation_remove_folder_alert">Wil je %1$s en de inhoud ervan werkelijk verwijderen?</string>
     <string name="confirmation_remove_folders_alert">Wil je de geselecteerde objecten en hun inhoud echt verwijderen?</string>
     <string name="confirmation_remove_local">Alleen lokaal</string>
@@ -252,9 +284,11 @@
     <string name="could_not_retrieve_shares">Kon shares niet ophalen</string>
     <string name="could_not_retrieve_url">Kon URL niet ophalen</string>
     <string name="create">Creëren</string>
+    <string name="create_album_dialog_message">Geef de nieuwe naam op</string>
     <string name="create_album_dialog_title">Nieuw album</string>
     <string name="create_dir_fail_msg">Kan map niet aanmaken</string>
     <string name="create_document">Document</string>
+    <string name="create_encrypted_folder">Versleutelde map</string>
     <string name="create_end_to_end_encrypted_share">Link delen</string>
     <string name="create_end_to_end_encrypted_share_title">Gedeelde links met end-to-end versleuteling</string>
     <string name="create_folder">Map</string>
@@ -266,6 +300,7 @@
     <string name="create_presentation">Presentatie</string>
     <string name="create_rich_workspace">Mapomschrijving toevoegen</string>
     <string name="create_spreadsheet">Werkblad</string>
+    <string name="create_tag_format">Maak label “%1$s”</string>
     <string name="credentials_disabled">Inloggegevens uitgeschakeld</string>
     <string name="daily_backup">Dagelijkse back-up</string>
     <string name="data_to_back_up">Te back-uppen data</string>
@@ -281,6 +316,8 @@
     <string name="dialog_close">Sluiten</string>
     <string name="did_not_check_for_dupes">Heeft niet gecontroleerd op duplicaten.</string>
     <string name="digest_algorithm_not_available">Dit digest-algoritme is niet beschikbaar op je telefoon.</string>
+    <string name="direct_login_confirm_message">Wil je met %1$s aanmelden bij %2$s?</string>
+    <string name="direct_login_confirm_title">Bevestig aanmelding</string>
     <string name="direct_login_failed">Inloggen via directe link mislukt!</string>
     <string name="direct_login_text">Login met %1$s naar %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">Uitschakelen</string>
@@ -352,7 +389,26 @@
     <string name="ecosystem_apps_more">Meer Nextcloud Apps</string>
     <string name="editor_web_view_cannot_open_file">Bestandskeuzescherm kan niet worden geopend</string>
     <string name="email_pick_failed">Email adres ophalen mislukt.</string>
+    <string name="empty_albums_message">Je kunt al je foto’s organiseren in zoveel albums als je wilt. je hebt nog geen album aangemaakt. </string>
+    <string name="empty_albums_title">Maak albums voor je foto’s</string>
     <string name="encrypted">Instellen als versleuteld</string>
+    <string name="encryption_encrypt_check_failed">Encryptiesleutels konden niet gecontroleerd worden. Probeer de map nogmaals te versleutelen. </string>
+    <string name="encryption_encrypt_no_network">Kan de server niet bereiken. Probeer de map nogmaals te versleutelen. </string>
+    <string name="encryption_encrypt_unavailable">Kan deze map niet versleutelen. End-to-end versleuteling is niet ingesteld op deze server. </string>
+    <string name="encryption_key_checking_keys">Sleutels controleren…</string>
+    <string name="encryption_key_handle_folder_read_only_description">De encryptiesleutels van dit account zijn verwijderd of vervangen, dus de inhoud van deze map kan niet langer ontsleuteld worden. \n\nDe map is vanaf nu alleen-lezen. Om weer gebruik te maken van versleutelde mappen, maak een back-up van deze map en stel een nieuwe encryptiesleutel in via de instellingen. </string>
+    <string name="encryption_key_handle_key_keys_only_on_device_description">De encryptiesleutel op dit apparaat is niet meer geldig. Sleutels zijn ingetrokken door de server. \n\nVerwijder versleuteling lokaal via instellingen en creëer een. ieuwe versleutelde map. </string>
+    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">De encryptiesleutel op dit apparaat is niet meer geldig. Sleutels zijn ingetrokken door de server. \n\nMaak een back-up van de eerder aangemaakte map. \n\nVerwijder vervolgens de encryptie lokaal via instellingen om een nieuwe versleutelde map aan te maken. </string>
+    <string name="encryption_key_handle_key_removed_title">Encryptiesleutels gewijzigd</string>
+    <string name="encryption_key_handle_no_keys_description">De map kan niet geopend worden omdat de encryptiesleutels niet langer aanwezig zijn op dit apparaat of de server. </string>
+    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">De encryptiesleutels van dit account zijn verwijderd of vervangen. \n\n Maak een nieuwe encryptiesleutel via instellingen voordat je een map versleuteld. </string>
+    <string name="encryption_new_folder_check_failed">Kon je encryptiesleutels niet controleren. Probeer de map opnieuw aan te maken. </string>
+    <string name="encryption_new_folder_no_network">Kan de server niet bereiken. Probeer de map nogmaals te maken. </string>
+    <string name="encryption_new_folder_unavailable">Kan geen versleutelde mappen maken. End-to-end versleuteling is niet ingesteld op deze server. </string>
+    <string name="encryption_open_check_failed">Kon je encryptiesleutels niet controleren. Probeer de map nogmaals te openen. </string>
+    <string name="encryption_open_key_mismatch">De encryptiesleutel op dit apparaat komt niet overeen met de sleutel die voor deze map vereist wordt. </string>
+    <string name="encryption_open_no_network">Kan de server niet bereiken. Probeer de map nogmaals te openen. </string>
+    <string name="encryption_open_unavailable">Kan deze map niet openen. End-to-end versleuteling is niet ingesteld op deze server. </string>
     <string name="end_to_end_encryption_certificate_unavailable">Kan servercertificaat niet ophalen</string>
     <string name="end_to_end_encryption_certificate_verification_failed">Kon publieke sleutel niet verifiëren</string>
     <string name="end_to_end_encryption_confirm_button">Instellen versleuteling</string>
@@ -440,6 +496,8 @@
     <string name="file_detail_sharing_fragment_no_contact_app_message">Geen app beschikbaar voor het selecteren van contactpersonen</string>
     <string name="file_details_no_content">Kon details niet laden</string>
     <string name="file_icon">Bestand</string>
+    <string name="file_info_governance_section_title">Governance</string>
+    <string name="file_info_image_details_section_title">Details van afbeelding</string>
     <string name="file_keep">Behouden</string>
     <string name="file_list_empty">Upload je inhoud of synchroniseer met je apparaten.</string>
     <string name="file_list_empty_favorite_headline">Nog niets als favoriet gemarkeerd</string>
@@ -549,7 +607,10 @@
     <string name="forward">Doorsturen</string>
     <string name="fourHours">4 uur</string>
     <string name="governance_file_retention_label">Bewaartermijn van bestand</string>
+    <string name="governance_legal_hold_label">Wettelijke bewaarplicht</string>
     <string name="governance_no_label">Geen</string>
+    <string name="governance_permission_denied">Je hebt niet de rechten om dit label aan te passen</string>
+    <string name="governance_sensitivity_label">Gevoeligheidslabel</string>
     <string name="gplay_restriction">Google heeft het downloaden van APK/AAB files beperkt!</string>
     <string name="grid_file_features_live_photo_content_description">Dit pictogram geeft de beschikbaarheid van live foto aan</string>
     <string name="hidden_file_name_warning">Naam resulteert in een verborgen bestand</string>
@@ -616,10 +677,14 @@
     <string name="logs_status_not_filtered">Logs: %1$d kB, geen filter</string>
     <string name="logs_title">Logs</string>
     <string name="maintenance_mode">Server in onderhoudsmodus</string>
+    <string name="manage_space_auto_upload_clear_data">Verwijder automatisch geüploade bestanden lokaal</string>
+    <string name="manage_space_auto_upload_description">Alle bestanden die al zijn geüpload naar de server via de Automatisch Uploaden mappen zullen lokaal verwijderd worden om ruimte vrij te maken op het apparaat. \n\nDit proces kan even duren. </string>
+    <string name="manage_space_auto_upload_title">Verwijder automatisch geüploade bestanden lokaal</string>
     <string name="manage_space_clear_data">Gegevens verwijderen</string>
     <string name="manage_space_description">Instellingen, database en servercertificaten van de data van %1$s zullen permanent worden verwijderd. \n\nGedownloade bestanden blijven onaangeroerd.\n\nDit proces kan even duren.</string>
     <string name="manage_space_title">Beheer ruimte</string>
     <string name="manage_tags">Beheer labels</string>
+    <string name="media_picker_toolbar_title">Kies mediabestanden</string>
     <string name="menu_item_sort_by_date_newest_first">Nieuwste eerst</string>
     <string name="menu_item_sort_by_date_oldest_first">Oudste eerst</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -627,6 +692,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Grootste eerst</string>
     <string name="menu_item_sort_by_size_smallest_first">Kleinste eerst</string>
     <string name="more">Meer</string>
+    <string name="more_documents">Meer documenten</string>
     <string name="move_file_error">Er trad een fout op bij het verplaatsen van dit bestand of deze map</string>
     <string name="move_file_invalid_into_descendent">De map kan niet naar een onderliggende map worden verplaatst</string>
     <string name="move_file_invalid_overwrite">Het bestand bestaat al in de doelmap</string>
@@ -713,6 +779,14 @@
     <string name="picture_set_as_no_app">Geen app gevonden om afbeelding in te stellen</string>
     <string name="pin_home">Vastzetten op startscherm</string>
     <string name="pin_shortcut_label">Open %1$s</string>
+    <string name="player_audio_title_with_artist">%1$s • %2$s</string>
+    <string name="player_control_view_next_button_content_description">Volgende knop</string>
+    <string name="player_control_view_play_pause_button_content_description">Afspelen/pauzeren knop</string>
+    <string name="player_control_view_previous_button_content_description">Vorige knop</string>
+    <string name="player_control_view_random_button_content_description">Willekeurig knop</string>
+    <string name="player_control_view_repeat_button_content_description">Herhaal knop</string>
+    <string name="player_error_source_not_found">Bron niet gevonden</string>
+    <string name="player_last_modified">Gewijzigd: %s</string>
     <string name="player_media_controls_close_action_title">Sluiten</string>
     <string name="please_select_a_server">Selecteer een server...</string>
     <string name="power_save_check_dialog_message">Uitschakelen stroombesparingscontrole kan resulteren in uploaden van bestanden met lage accustand!</string>
@@ -772,6 +846,7 @@
     <string name="prefs_recommend">Aanbevelen bij een vriend</string>
     <string name="prefs_remove_e2e">Verwijder versleuteling volledig</string>
     <string name="prefs_remove_e2e_keys_and_files">Verwijder versleutelde bestanden en sleutels</string>
+    <string name="prefs_renew_e2e_certificate">Vernieuw encryptiecertificaat</string>
     <string name="prefs_setup_e2e">End-to-end versleuteling instellen</string>
     <string name="prefs_show_ecosystem_apps">Toon app switcher</string>
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud app suggesties in navigatiekopregel</string>
@@ -820,10 +895,17 @@
     <string name="remove_notification_failed">Niet gelukt om melding af te handelen</string>
     <string name="remove_push_notification">Verwijder</string>
     <string name="remove_success_msg">Verwijderd</string>
+    <string name="rename_album_dialog_title">Hernoem album</string>
     <string name="rename_dialog_button">Hernoemen</string>
     <string name="rename_dialog_title">Voer een nieuwe naam in</string>
     <string name="rename_local_fail_msg">Kon lokale kopie niet hernoemen, probeer een andere naam</string>
     <string name="rename_server_fail_msg">Hernoemen niet mogelijk, naam is al in gebruik</string>
+    <string name="renew_e2e_certificate_dialog_message">Dit zal je encryptiecertificaat vernieuwen. je huidige sleutels en versleutelde bestanden blijven ongewijzigd. Doorgaan?</string>
+    <string name="renew_e2e_certificate_error">Kon het encryptiecertificaat niet vernieuwen</string>
+    <string name="renew_e2e_certificate_private_key_missing">Privésleutel voor encryptie niet gevonden</string>
+    <string name="renew_e2e_certificate_success">Encryptiecertificaat vernieuwd</string>
+    <string name="renew_e2e_certificate_summary">Vernieuw je end-to-end encryptiecertificaat met behoud van je huidige sleutels</string>
+    <string name="renew_e2e_certificate_valid_until">Geldig tot %1$s. Tik om te vernieuwen met behoud van je huidige sleutels. </string>
     <string name="request_account_deletion">Verwijdering van account aanvragen </string>
     <string name="request_account_deletion_button">Verwijdering aanvragen</string>
     <string name="request_account_deletion_details">Vraag permanente verwijdering van het account aan bij de service provider</string>
@@ -861,6 +943,7 @@
     <string name="send">Versturen</string>
     <string name="send_copy_to">Stuur kopie naar</string>
     <string name="send_share">Share versturen</string>
+    <string name="server_not_allowed">Server niet toegestaan</string>
     <string name="server_not_reachable">Kon inhoud niet laden</string>
     <string name="server_not_reachable_content">Dit apparaat is mogelijk niet aangesloten op het internet</string>
     <string name="set_as">Stel in als</string>
@@ -1057,6 +1140,7 @@
     <string name="unified_search_fragment_contact_not_found">Contactpersoon niet gevonden. Je kan altijd synchroniseren voor een update. Doorsturen naar het web...</string>
     <string name="unified_search_fragment_permission_needed">Er zijn machtigingen nodig om de zoekresultaten te openen, anders wordt de opdracht doorgestuurd naar het web…</string>
     <string name="unified_search_fragment_search_in_this_folder">In deze map</string>
+    <string name="unified_search_fragment_search_takes_long">Zoeken duurt langer dan gebruikelijk. Resultaten zullen verschijnen wanneer de server reageert. </string>
     <string name="unknown">Onbekend</string>
     <string name="unlock_file">Ontgrendel bestand</string>
     <string name="unread_comments">Er zijn ongelezen reacties</string>
@@ -1186,6 +1270,7 @@
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Website</string>
     <string name="user_information_retrieval_error">Fout bij ophalen gebruikersinformatie</string>
+    <string name="user_information_retrieval_error_message">Controleer alsjeblieft je internetverbinding en de status van de server</string>
     <string name="userinfo_no_info_headline">Geen persoonlijke informatie ingesteld</string>
     <string name="userinfo_no_info_text">Voeg naam, foto en contact details op je profielpagina toe.</string>
     <string name="username">Gebruikersnaam</string>
@@ -1195,6 +1280,7 @@
     <string name="wait_checking_credentials">Opgeslagen inloggegevens nakijken</string>
     <string name="wait_for_tmp_copy_from_private_storage">Bestand vanaf privéopslag kopiëren</string>
     <string name="warn_rename_extension">Wijzigen van de extensie kan ertoe leiden dat dit bestand in een andere applicatie wordt geopend</string>
+    <string name="webview_not_available">Android System WebView ontbreekt of is uitgeschakeld op dit apparaat</string>
     <string name="what_s_new_image">Wat is nieuw afbeelding</string>
     <string name="whats_new_skip">Overslaan</string>
     <string name="whats_new_title">Nieuw in %1$s</string>
@@ -1205,6 +1291,14 @@
     <string name="write_email">Stuur e-mail</string>
     <string name="wrong_storage_path">Gegevensopslagmap bestaat niet!</string>
     <string name="wrong_storage_path_desc">Dit kan komen door een back-upherstel op een ander apparaat. Standaardinstelling wordt gebruikt. Controleer de instellingen om de gegevensopslagmap aan te passen.</string>
+    <plurals name="album_items_text">
+        <item quantity="one">%1$d item — %2$s</item>
+        <item quantity="other">%1$d items — %2$s</item>
+    </plurals>
+    <plurals name="album_elements_text">
+        <item quantity="one">%d item</item>
+        <item quantity="other">%d items</item>
+    </plurals>
     <plurals name="hours">
         <item quantity="one">%d uur</item>
         <item quantity="other">%d uren</item>
@@ -1261,6 +1355,10 @@
         <item quantity="one">%d bestand geëxporteerd, rest overgeslagen door fout</item>
         <item quantity="other">%d bestanden geëxporteerd, rest overgeslagen door fout</item>
     </plurals>
+    <plurals name="file_upload_limit_message">
+        <item quantity="one">Je kunt maximaal %d bestand tegelijk uploaden</item>
+        <item quantity="other">Je kunt maximaal %d bestanden tegelijk uploaden</item>
+    </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d mappen</item>
         <item quantity="other">%1$d mappen</item>
@@ -1281,8 +1379,36 @@
         <item quantity="one">%d geselecteerd</item>
         <item quantity="other">%d geselecteerd</item>
     </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_files">
+        <item quantity="one">%d bestand</item>
+        <item quantity="other">%d bestanden</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_folders">
+        <item quantity="one">%d map</item>
+        <item quantity="other">%d mappen</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_users">
+        <item quantity="one">%d gebruiker</item>
+        <item quantity="other">%d gebruikers</item>
+    </plurals>
+    <plurals name="passcode_delay_seconds">
+        <item quantity="one">Probeer opnieuw over %d seconde vanwege te veel verkeerde pogingen</item>
+        <item quantity="other">Probeer opnieuw over %d seconden vanwege te veel verkeerde pogingen</item>
+    </plurals>
+    <plurals name="passcode_delay_minutes">
+        <item quantity="one">Probeer opnieuw over %d minuut vanwege te veel verkeerde pogingen</item>
+        <item quantity="other">Probeer opnieuw over %d minuten vanwege te veel verkeerde pogingen</item>
+    </plurals>
+    <plurals name="passcode_delay_minutes_seconds">
+        <item quantity="one">Probeer opnieuw over %1$d minuut en %2$d seconden vanwege te veel verkeerde pogingen</item>
+        <item quantity="other">Probeer opnieuw over %1$d minuten en %2$d seconden vanwege te veel verkeerde pogingen</item>
+    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d download resterend</item>
         <item quantity="other">%1$d downloads resterend</item>
     </plurals>
-    </resources>
+    <plurals name="export_start">
+        <item quantity="one">Export gestart (%d bestand)</item>
+        <item quantity="other">Export gestart (%d bestanden)</item>
+    </plurals>
+</resources>
