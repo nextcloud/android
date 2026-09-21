@@ -136,16 +136,6 @@ class PlayerActivity :
         }
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-
-        if (!isInPictureInPictureMode) {
-            return
-        }
-
-        playerView.hideControls()
-    }
-
     override fun onUserLeaveHint() {
         super.onUserLeaveHint()
         if (canUsePictureInPictureMode()) {
@@ -165,13 +155,10 @@ class PlayerActivity :
             null
         }
 
+        // Finish the activity if the user closes the PIP window
         if (!isInPictureInPictureMode && lifecycle.currentState == Lifecycle.State.CREATED) {
-            finish() // Finish the activity if the user closes the PIP window
+            finish()
             return
-        }
-
-        if (!isInPictureInPictureMode) {
-            playerView.showControls()
         }
     }
 
