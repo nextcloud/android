@@ -217,16 +217,16 @@ fun generateFileNameForConflictResolution(fileName: String): String {
     var nameLastPart = fileName.substringAfterLast(separator, "")   // Extension or path separator
     if (nameLastPart.isNotEmpty()) nameLastPart = "$separator$nameLastPart"
     val regex = Regex("""(.*)\((\d+)\)$""", RegexOption.MULTILINE)
-    if (regex.matches(nameFirstPart)) {
+    nameFirstPart = if (regex.matches(nameFirstPart)) {
         // Already a resolved conflict (i.e. "file (1).txt"). Update the number.
-        nameFirstPart = regex.replace(nameFirstPart, transform = { m ->
+        regex.replace(nameFirstPart, transform = { m ->
             val baseName = m.groups[1]?.value
             val number = m.groups[2]?.value?.toInt() ?: 0
             "$baseName(${number + 1})"
         })
     } else {
         // Add the number
-        nameFirstPart = "$nameFirstPart (1)"
+        "$nameFirstPart (1)"
     }
     return "$nameFirstPart$nameLastPart"
 }
