@@ -8,26 +8,16 @@
 package com.nextcloud.client.player.ui.video
 
 import android.content.Context
-import android.view.MotionEvent
 import android.view.WindowInsets
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsCompat.Type
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.player.model.file.PlaybackFile
 import com.nextcloud.client.player.ui.PlayerView
 import com.owncloud.android.R
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlin.time.Duration.Companion.milliseconds
 
 class VideoPlayerView(context: Context) : PlayerView(context) {
-
-    companion object {
-        private const val HIDE_CONTROLS_DELAY = 5000L
-    }
-
     override val layoutRes get() = R.layout.player_video_view
 
     override val createFragment: (PlaybackFile) -> Fragment get() = { VideoFileFragment.createInstance(it) }
@@ -36,13 +26,6 @@ class VideoPlayerView(context: Context) : PlayerView(context) {
 
     init {
         topBar.setBackgroundResource(R.drawable.player_video_top_scrim)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        if (!activity.isInPictureInPictureMode) {
-            showControls()
-        }
     }
 
     override fun onStop() {
@@ -62,37 +45,6 @@ class VideoPlayerView(context: Context) : PlayerView(context) {
         windowWrapper.setupNavigationBar(R.color.player_video_control_view_background_color)
 
         return WindowInsetsCompat.CONSUMED.toWindowInsets()
-    }
-
-    override fun onTap(event: MotionEvent) {
-        when {
-            shouldShowControls -> showControls()
-            isTouchOnMedia(event) -> hideControls()
-            else -> restartHideControlsTimer()
-        }
-    }
-
-    override fun showControls() {
-        super.showControls()
-        restartHideControlsTimer()
-    }
-
-    override fun hideControls() {
-        super.hideControls()
-        cancelHideControlsTimer()
-    }
-
-    private fun restartHideControlsTimer() {
-        hideControlsTimerJob?.cancel()
-
-        if (activity.isInPictureInPictureMode) {
-            return
-        }
-
-        hideControlsTimerJob = activity.lifecycleScope.launch {
-            delay(HIDE_CONTROLS_DELAY.milliseconds)
-            hideControls()
-        }
     }
 
     private fun cancelHideControlsTimer() {
