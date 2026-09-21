@@ -66,7 +66,7 @@ class VideoPlayerView(context: Context) : PlayerView(context) {
 
     override fun onTap(event: MotionEvent) {
         when {
-            isFullScreen -> showControls()
+            shouldShowControls -> showControls()
             isTouchOnMedia(event) -> hideControls()
             else -> restartHideControlsTimer()
         }
