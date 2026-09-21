@@ -72,7 +72,7 @@ abstract class PlayerView @JvmOverloads constructor(
 
     var onMoreClick: (() -> Unit)? = null
 
-    protected var isFullScreen = false
+    protected var shouldShowControls = false
         private set
 
     private val tapDetector = GestureDetector(
@@ -110,7 +110,7 @@ abstract class PlayerView @JvmOverloads constructor(
 
     protected open fun onTap(event: MotionEvent) {
         when {
-            isFullScreen -> showControls()
+            shouldShowControls -> showControls()
             isTouchOnMedia(event) -> hideControls()
         }
     }
@@ -120,11 +120,11 @@ abstract class PlayerView @JvmOverloads constructor(
     @CallSuper
     open fun showControls() {
         windowWrapper.showSystemBars()
-        if (!isFullScreen) {
+        if (!shouldShowControls) {
             return
         }
 
-        isFullScreen = false
+        shouldShowControls = false
         topBar.setVisibilityWithAnimation(true)
         playerControlView.setVisibilityWithAnimation(true)
     }
@@ -132,11 +132,11 @@ abstract class PlayerView @JvmOverloads constructor(
     @CallSuper
     open fun hideControls() {
         windowWrapper.hideSystemBars()
-        if (isFullScreen) {
+        if (shouldShowControls) {
             return
         }
 
-        isFullScreen = true
+        shouldShowControls = true
         topBar.setVisibilityWithAnimation(false)
         playerControlView.setVisibilityWithAnimation(false)
     }
