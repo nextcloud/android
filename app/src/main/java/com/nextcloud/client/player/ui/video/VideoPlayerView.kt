@@ -12,7 +12,6 @@ import android.view.MotionEvent
 import android.view.WindowInsets
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsCompat.Type
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.player.model.file.PlaybackFile
@@ -65,29 +64,21 @@ class VideoPlayerView(context: Context) : PlayerView(context) {
         return WindowInsetsCompat.CONSUMED.toWindowInsets()
     }
 
-    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
-        if (event.action == MotionEvent.ACTION_DOWN) {
-            val isTouchOutsideControls = event.y < playerControlView.y && event.y > topBar.height
-            when {
-                !playerControlView.isVisible -> showControls()
-                isTouchOutsideControls -> hideControls()
-                else -> restartHideControlsTimer()
-            }
+    override fun onTap(event: MotionEvent) {
+        when {
+            isFullScreen -> showControls()
+            isTouchOnMedia(event) -> hideControls()
+            else -> restartHideControlsTimer()
         }
-        return super.dispatchTouchEvent(event)
     }
 
-    fun showControls() {
-        windowWrapper.showSystemBars()
-        topBar.visibility = VISIBLE
-        playerControlView.visibility = VISIBLE
+    override fun showControls() {
+        super.showControls()
         restartHideControlsTimer()
     }
 
-    fun hideControls() {
-        windowWrapper.hideSystemBars()
-        topBar.visibility = GONE
-        playerControlView.visibility = GONE
+    override fun hideControls() {
+        super.hideControls()
         cancelHideControlsTimer()
     }
 

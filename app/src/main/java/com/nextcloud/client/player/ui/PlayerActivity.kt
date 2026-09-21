@@ -139,12 +139,11 @@ class PlayerActivity :
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
 
-        val videoPlayerView = playerView as? VideoPlayerView ?: return
-        if (isInPictureInPictureMode) {
-            videoPlayerView.hideControls()
-        } else {
-            videoPlayerView.showControls()
+        if (!isInPictureInPictureMode) {
+            return
         }
+
+        playerView.hideControls()
     }
 
     override fun onUserLeaveHint() {
@@ -172,7 +171,7 @@ class PlayerActivity :
         }
 
         if (!isInPictureInPictureMode) {
-            (playerView as? VideoPlayerView)?.showControls()
+            playerView.showControls()
         }
     }
 
