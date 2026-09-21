@@ -6,7 +6,6 @@
  */
 package com.owncloud.android.ui.dialog.setupEncryption
 
-import android.accounts.AccountManager
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
@@ -30,15 +29,10 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.SetupEncryptionDialogBinding
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
-import com.owncloud.android.lib.common.accounts.AccountUtils
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.lib.resources.e2ee.CsrHelper
-import com.owncloud.android.lib.resources.users.DeletePublicKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.GetPrivateKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.GetPublicKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.GetServerPublicKeyRemoteOperation
-import com.owncloud.android.lib.resources.users.SendCSRRemoteOperation
-import com.owncloud.android.lib.resources.users.StorePrivateKeyRemoteOperation
 import com.owncloud.android.ui.dialog.extensions.themeButtons
 import com.owncloud.android.ui.dialog.setupEncryption.model.DownloadKeyResult
 import com.owncloud.android.utils.ClipboardUtil
@@ -363,81 +357,13 @@ class SetupEncryptionDialogFragment :
     private suspend fun generateNewKeys() {
         binding.encryptionStatus.setText(R.string.end_to_end_encryption_generating_keys)
         val context = context ?: return
-        val privateKey: String = withContext(Dispatchers.IO) {
-            //  - create CSR, push to server, store returned public key in database
-            //  - encrypt private key, push key to server, store unencrypted private key in database
-            try {
-                val certificate: String
-
-                // Create public/private key pair
-                val keyPair = EncryptionUtils.generateKeyPair()
-
-                // create CSR
-                val accountManager = AccountManager.get(context)
-                val user = user ?: return@withContext ""
-
-                val userId = accountManager.getUserData(user.toPlatformAccount(), AccountUtils.Constants.KEY_USER_ID)
-                val urlEncoded = CsrHelper().generateCsrPemEncodedString(keyPair, userId)
-                val operation = SendCSRRemoteOperation(urlEncoded)
-                val result = operation.executeNextcloudClient(user, context)
-
-                if (result.isSuccess) {
-                    certificate = result.resultData
-                    if (!EncryptionUtils.isMatchingKeys(keyPair, certificate)) {
-                        EncryptionUtils.reportE2eError(arbitraryDataProvider, user)
-                        throw RuntimeException("Wrong CSR returned")
-                    }
-                    Log_OC.d(TAG, "public key success")
-                } else {
-                    keyResult = KEY_FAILED
-                    return@withContext ""
-                }
-
-                val privateKey = keyPair.private
-                val privateKeyString = EncryptionUtils.encodeBytesToBase64String(privateKey.encoded)
-                val privatePemKeyString = EncryptionUtils.privateKeyToPEM(privateKey)
-                val encryptedPrivateKey = CryptoHelper.encryptPrivateKey(
-                    privatePemKeyString,
-                    generateMnemonicString(false)
-                )
-
-                // upload encryptedPrivateKey
-                val storePrivateKeyOperation = StorePrivateKeyRemoteOperation(encryptedPrivateKey)
-                val storePrivateKeyResult = storePrivateKeyOperation.executeNextcloudClient(user, context)
-                if (storePrivateKeyResult.isSuccess) {
-                    Log_OC.d(TAG, "private key success")
-                    arbitraryDataProvider?.storeOrUpdateKeyValue(
-                        user.accountName,
-                        EncryptionUtils.PRIVATE_KEY,
-                        privateKeyString
-                    )
-                    arbitraryDataProvider?.storeOrUpdateKeyValue(
-                        user.accountName,
-                        EncryptionUtils.PUBLIC_KEY,
-                        certificate
-                    )
-                    arbitraryDataProvider?.storeOrUpdateKeyValue(
-                        user.accountName,
-                        EncryptionUtils.MNEMONIC,
-                        generateMnemonicString(true)
-                    )
-                    keyResult = KEY_CREATED
-
-                    return@withContext storePrivateKeyResult.resultData
-                } else {
-                    val deletePublicKeyOperation = DeletePublicKeyRemoteOperation()
-                    deletePublicKeyOperation.executeNextcloudClient(user, context)
-                }
-            } catch (e: Exception) {
-                Log_OC.e(TAG, e.message)
-            }
-            keyResult = KEY_FAILED
-            return@withContext ""
-        }
+        val privateKey: String = EncryptionKeyGenerator.generatePrivateKey(context, user ?: return, keyWords)
 
         if (privateKey.isEmpty()) {
+            keyResult = KEY_FAILED
             errorSavingKeys()
         } else {
+            keyResult = KEY_GENERATE
             if (dialog == null) {
                 Log_OC.e(TAG, "Dialog is null cannot proceed further.")
                 return
@@ -445,21 +371,6 @@ class SetupEncryptionDialogFragment :
             requireDialog().dismiss()
             notifyResult()
         }
-    }
-
-    private fun generateMnemonicString(withWhitespace: Boolean): String {
-        val stringBuilder = StringBuilder()
-
-        keyWords?.let {
-            for (string in it) {
-                stringBuilder.append(string)
-                if (withWhitespace) {
-                    stringBuilder.append(' ')
-                }
-            }
-        }
-
-        return stringBuilder.toString()
     }
 
     @VisibleForTesting
@@ -471,7 +382,7 @@ class SetupEncryptionDialogFragment :
         requireDialog().setTitle(R.string.end_to_end_encryption_passphrase_title)
         binding.encryptionStatus.setText(R.string.end_to_end_encryption_keywords_description)
         viewThemeUtils.material.colorTextInputLayout(binding.encryptionPasswordInputContainer)
-        binding.encryptionPassphrase.text = generateMnemonicString(true)
+        binding.encryptionPassphrase.text = EncryptionKeyGenerator.generateMnemonicString(keyWords, true)
         binding.encryptionPassphrase.visibility = View.VISIBLE
 
         setupCopyPassphraseButton()
