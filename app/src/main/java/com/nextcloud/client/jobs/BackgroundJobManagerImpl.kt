@@ -503,9 +503,11 @@ internal class BackgroundJobManagerImpl(
     override fun isAutoUploadIgnoringPowerSavingScheduled(syncedFolderID: Long): Boolean =
         workManager.isWorkScheduled(autoUploadIgnorePowerSavingTag(syncedFolderID))
 
-    override fun isAnyAutoUploadScheduled(): Boolean {
-        return workManager.getWorkInfosByTag(formatClassTag(AutoUploadWorker::class))
-            .get().any { !it.state.isFinished }
+    override fun cancelEnqueuedAutoUploads() {
+        workManager.getWorkInfosByTag(formatClassTag(AutoUploadWorker::class))
+            .get()
+            .filter { it.state == WorkInfo.State.ENQUEUED && it.periodicityInfo != null }
+            .forEach { workManager.cancelWorkById(it.id) }
     }
 
     override fun schedulePeriodicAutoUpload() {
@@ -513,13 +515,7 @@ internal class BackgroundJobManagerImpl(
             jobClass = AutoUploadRescanWorker::class,
             jobName = JOB_PERIODIC_FILES_SYNC,
             constraints = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
-        )
-            .setBackoffCriteria(
-                BackoffPolicy.LINEAR,
-                DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES,
-                TimeUnit.MINUTES
-            )
-            .build()
+        ).build()
 
         workManager.enqueueUniquePeriodicWork(JOB_PERIODIC_FILES_SYNC, ExistingPeriodicWorkPolicy.KEEP, request)
     }

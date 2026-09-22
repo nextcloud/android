@@ -149,7 +149,7 @@ interface BackgroundJobManager {
     fun isStartFileUploadJobScheduled(accountName: String): Boolean
     fun isAutoUploadIgnoringPowerSavingScheduled(syncedFolderID: Long): Boolean
     fun schedulePeriodicAutoUpload()
-    fun isAnyAutoUploadScheduled(): Boolean
+    fun cancelEnqueuedAutoUploads()
     fun cancelFilesDownloadJob(accountName: String, fileId: Long)
 
     @Suppress("LongParameterList")
