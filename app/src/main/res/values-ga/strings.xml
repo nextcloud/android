@@ -944,6 +944,7 @@
     <string name="send">Seol</string>
     <string name="send_copy_to">Seol cóip chuig</string>
     <string name="send_share">Seol sciar</string>
+    <string name="server_not_allowed">Ní cheadaítear an freastalaí</string>
     <string name="server_not_reachable">Níorbh fhéidir an t-ábhar a lódáil</string>
     <string name="server_not_reachable_content">Is dócha nach bhfuil an gléas ceangailte leis an idirlíon</string>
     <string name="set_as">Socraigh Mar</string>
