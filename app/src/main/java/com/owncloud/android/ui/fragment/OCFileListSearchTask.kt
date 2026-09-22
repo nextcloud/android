@@ -15,6 +15,7 @@ import android.content.ContentValues
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.share.UnifiedShareSharees
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -32,7 +33,6 @@ import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.ui.adapter.OCShareToOCFileConverter
 import com.owncloud.android.ui.events.SearchEvent
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.MimeTypeUtil
@@ -103,7 +103,7 @@ class OCFileListSearchTask(
     private suspend fun showSnackbarError(fragment: OCFileListFragment) {
         withContext(Dispatchers.Main) {
             fragment.activity?.let {
-                DisplayUtils.showSnackMessage(it, R.string.error_fetching_sharees)
+                SnackbarUtil.show(it, R.string.error_fetching_sharees)
             }
         }
     }

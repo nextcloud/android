@@ -20,6 +20,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.utils.MenuUtils
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PreviewPdfFragmentBinding
@@ -27,7 +28,6 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.preview.PreviewBitmapActivity
-import com.owncloud.android.utils.DisplayUtils
 import javax.inject.Inject
 
 class PreviewPdfFragment :
@@ -70,7 +70,7 @@ class PreviewPdfFragment :
         } catch (e: SecurityException) {
             Log_OC.e(this, "onViewCreated: trying to open password protected PDF", e)
             parentFragmentManager.popBackStack()
-            DisplayUtils.showSnackMessage(binding.root, R.string.pdf_password_protected)
+            SnackbarUtil.show(binding.root, R.string.pdf_password_protected)
         }
     }
 

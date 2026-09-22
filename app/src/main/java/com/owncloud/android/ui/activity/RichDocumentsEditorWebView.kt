@@ -20,6 +20,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
@@ -28,7 +29,6 @@ import com.owncloud.android.operations.RichDocumentsCreateAssetOperation
 import com.owncloud.android.ui.asynctasks.PrintAsyncTask
 import com.owncloud.android.ui.asynctasks.RichDocumentsLoadUrlTask
 import com.owncloud.android.ui.fragment.OCFileListFragment
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.RichDocumentDownloadAsParser
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
@@ -101,7 +101,7 @@ class RichDocumentsEditorWebView : EditorWebView() {
                     )
                 }
             } else {
-                runOnUiThread { DisplayUtils.showSnackMessage(this, "Inserting image failed!") }
+                runOnUiThread { SnackbarUtil.show(this, "Inserting image failed!") }
             }
         }.start()
     }
@@ -128,7 +128,7 @@ class RichDocumentsEditorWebView : EditorWebView() {
     private fun printFile(url: Uri) {
         val account = accountManager.currentOwnCloudAccount
         if (account == null) {
-            DisplayUtils.showSnackMessage(webView, getString(R.string.failed_to_print))
+            SnackbarUtil.show(webView, getString(R.string.failed_to_print))
             return
         }
         val targetFile = File(FileStorageUtils.getTemporalPath(account.name) + "/print.pdf")

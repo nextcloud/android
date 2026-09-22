@@ -30,8 +30,6 @@ import android.content.res.Resources;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Handler;
-import android.os.Looper;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -40,8 +38,8 @@ import android.text.style.StyleSpan;
 import android.util.DisplayMetrics;
 import android.view.View;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
+import com.nextcloud.utils.SnackbarUtil;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
@@ -73,7 +71,6 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.widget.AppCompatDrawableManager;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -99,7 +96,6 @@ public final class DisplayUtils {
     private static final int BYTE_SIZE_DIVIDER = 1024;
     private static final double BYTE_SIZE_DIVIDER_DOUBLE = 1024.0;
     private static final int DATE_TIME_PARTS_SIZE = 2;
-    private static final Handler mainLooper = new Handler(Looper.getMainLooper());
     public static final String MONTH_YEAR_PATTERN = "MMMM yyyy";
     public static final String MONTH_PATTERN = "MMMM";
     public static final String YEAR_PATTERN = "yyyy";
@@ -496,148 +492,6 @@ public final class DisplayUtils {
         return text.toString();
     }
 
-    // region snackbar
-    public static Snackbar createAndShowSnackMessage(Fragment fragment, @StringRes int messageResource) {
-        if (fragment == null) {
-            Log_OC.e(TAG, "snackbar cannot be shown fragment is null");
-            return null;
-        }
-
-        final var activity = fragment.getActivity();
-        if (activity == null) {
-            Log_OC.e(TAG, "snackbar cannot be shown activity is null");
-            return null;
-        }
-
-        final var snackbar = Snackbar.make(
-            activity.findViewById(android.R.id.content),
-            messageResource,
-            Snackbar.LENGTH_INDEFINITE);
-
-        var fab = findFABView(activity);
-        if (fab != null && fab.getVisibility() == View.VISIBLE) {
-            snackbar.setAnchorView(fab);
-        }
-
-        mainLooper.post(snackbar::show);
-        return snackbar;
-    }
-
-    public static void dismissSnackMessage(@Nullable Snackbar snackbar) {
-        if (snackbar == null) {
-            return;
-        }
-        mainLooper.post(snackbar::dismiss);
-    }
-
-    public static void showSnackMessage(Fragment fragment, @StringRes int messageResource) {
-        if (fragment == null) {
-            Log_OC.e(TAG, "snackbar cannot be shown fragment is null");
-            return;
-        }
-
-        final var activity = fragment.getActivity();
-        if (activity == null) {
-            Log_OC.e(TAG, "snackbar cannot be shown activity is null");
-            return;
-        }
-
-        showSnackMessage(activity, messageResource);
-    }
-
-    public static void showSnackMessage(Activity activity, @StringRes int messageResource) {
-        if (activity == null) {
-            Log_OC.e(TAG, "snackbar cannot be shown activity is null");
-            return;
-        }
-
-        showSnackMessage(activity.findViewById(android.R.id.content), messageResource);
-    }
-
-    public static void showSnackMessage(Activity activity, @StringRes int messageResource, Object... formatArgs) {
-        if (activity == null) {
-            Log_OC.e(TAG, "snackbar cannot be shown activity is null");
-            return;
-        }
-
-        showSnackMessage(activity, activity.findViewById(android.R.id.content), messageResource, formatArgs);
-    }
-
-    public static void showSnackMessage(Context context, View view, @StringRes int messageResource, Object... formatArgs) {
-        if (context == null || view == null) {
-            Log_OC.e(TAG, "snackbar cannot be shown view is null");
-            return;
-        }
-
-        final var snackbar = Snackbar.make(view, String.format(context.getString(messageResource, formatArgs)), Snackbar.LENGTH_LONG);
-        snackbar.show();
-    }
-
-    public static void showSnackMessage(Activity activity, String message) {
-        if (activity == null) {
-            Log_OC.e(TAG, "snackbar cannot be shown activity is null");
-            return;
-        }
-
-        activity.runOnUiThread(() -> {
-            final var snackbar = Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG);
-            var fab = findFABView(activity);
-            if (fab != null && fab.getVisibility() == View.VISIBLE) {
-                snackbar.setAnchorView(fab);
-            }
-            snackbar.show();
-        });
-    }
-
-    public static void showSnackMessage(View view, @StringRes int messageResource) {
-        if (view == null) {
-            Log_OC.e(TAG, "snackbar cannot be shown view is null");
-            return;
-        }
-
-        mainLooper.post(() -> {
-            final var snackbar = Snackbar.make(view, messageResource, Snackbar.LENGTH_LONG);
-            var fab = findFABView(view.getRootView());
-            if (fab != null && fab.getVisibility() == View.VISIBLE) {
-                snackbar.setAnchorView(fab);
-            }
-            snackbar.show();
-        });
-    }
-
-    public static void showSnackMessage(View view, String message) {
-        if (view == null) {
-            Log_OC.e(TAG, "snackbar cannot be shown view is null");
-            return;
-        }
-
-        mainLooper.post(() -> {
-            final Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
-            snackbar.show();
-        });
-    }
-    // endregion
-
-    private static View findFABView(Activity activity) {
-        return activity.findViewById(R.id.fab_main);
-    }
-
-    private static View findFABView(View view) {
-        return view.findViewById(R.id.fab_main);
-    }
-
-
-    /**
-     * create a temporary message in a {@link Snackbar} bound to the given view.
-     *
-     * @param view            The view the {@link Snackbar} is bound to.
-     * @param messageResource The resource id of the string resource to use. Can be formatted text.
-     * @return The created {@link Snackbar}
-     */
-    public static Snackbar createSnackbar(View view, @StringRes int messageResource, int length) {
-        return Snackbar.make(view, messageResource, length);
-    }
-
     // Solution inspired by https://stackoverflow.com/questions/34936590/why-isnt-my-vector-drawable-scaling-as-expected
     // Copied from https://raw.githubusercontent.com/nextcloud/talk-android/8ec8606bc61878e87e3ac8ad32c8b72d4680013c/app/src/main/java/com/nextcloud/talk/utils/DisplayUtils.java
     // under GPL3
@@ -678,14 +532,6 @@ public final class DisplayUtils {
         return TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) == View.LAYOUT_DIRECTION_RTL;
     }
 
-    static public void showServerOutdatedSnackbar(Activity activity, int length) {
-        Snackbar.make(activity.findViewById(android.R.id.content),
-                      R.string.outdated_server, length)
-            .setAction(R.string.dismiss, v -> {
-            })
-            .show();
-    }
-
     static public void startLinkIntent(Activity activity, @StringRes int link) {
         startLinkIntent(activity, activity.getString(link));
     }
@@ -705,7 +551,7 @@ public final class DisplayUtils {
         if (intent.resolveActivity(activity.getPackageManager()) != null) {
             activity.startActivity(intent);
         } else {
-            DisplayUtils.showSnackMessage(activity, error);
+            SnackbarUtil.show(activity, error);
         }
     }
 

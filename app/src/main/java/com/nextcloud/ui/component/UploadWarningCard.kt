@@ -18,10 +18,10 @@ import android.view.View
 import androidx.core.net.toUri
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.databinding.UploadWarningCardBinding
 import com.owncloud.android.datamodel.SyncedFolderProvider
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FilesSyncHelper
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.CoroutineScope
@@ -120,7 +120,7 @@ class UploadWarningCard(
                 FilesSyncHelper.startAutoUploadIgnoringPowerSaving(syncedFolderProvider, backgroundJobManager)
             }
 
-            DisplayUtils.showSnackMessage(view, result.messageId)
+            SnackbarUtil.show(view, result.messageId)
         }
     }
 }

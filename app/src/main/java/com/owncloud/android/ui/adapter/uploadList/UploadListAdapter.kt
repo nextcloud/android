@@ -24,6 +24,7 @@ import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getStatusText
 import com.nextcloud.utils.extensions.isLastResultConflictError
 import com.nextcloud.utils.extensions.setVisibleIf
@@ -235,7 +236,7 @@ class UploadListAdapter(
             )
             if (showNotExistMessage) {
                 withContext(Dispatchers.Main) {
-                    DisplayUtils.showSnackMessage(activity, R.string.upload_action_file_not_exist_message)
+                    SnackbarUtil.show(activity, R.string.upload_action_file_not_exist_message)
                 }
             }
         }
@@ -478,7 +479,7 @@ class UploadListAdapter(
                 if (file != null) {
                     uploadHelper.retryUpload(item, user.get())
                 } else {
-                    DisplayUtils.showSnackMessage(
+                    SnackbarUtil.show(
                         activity,
                         R.string.local_file_not_found_message
                     )

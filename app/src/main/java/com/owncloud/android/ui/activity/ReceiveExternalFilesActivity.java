@@ -54,6 +54,7 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.model.OCUploadLocalPathData;
+import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
@@ -260,7 +261,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         if (mAccountManager.getAccountsByType(MainApp.getAccountType(this)).length == 0) {
             final var message = String.format(getString(R.string.uploader_wrn_no_account_text),
                                               getString(R.string.app_name));
-            DisplayUtils.showSnackMessage(this, message);
+            SnackbarUtil.show(this, message);
             return;
         }
 
@@ -320,13 +321,13 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
             String filenameErrorMessage = FileNameValidator.INSTANCE.checkFileName(file.getFileName(), optionalCapabilities.get(), this);
             if (filenameErrorMessage != null) {
-                DisplayUtils.showSnackMessage(this, filenameErrorMessage);
+                SnackbarUtil.show(this, filenameErrorMessage);
                 return;
             }
 
             if (file.isEncrypted() &&
                 !FileOperationsHelper.isEndToEndEncryptionSetup(this, getUser().orElseThrow(IllegalAccessError::new))) {
-                DisplayUtils.showSnackMessage(this, R.string.e2e_not_yet_setup);
+                SnackbarUtil.show(this, R.string.e2e_not_yet_setup);
 
                 return;
             }
@@ -937,7 +938,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private void startSyncFolderOperation(OCFile folder) {
         if (folder == null) {
-            DisplayUtils.showSnackMessage(this, R.string.receive_external_files_activity_start_sync_folder_is_not_exists_message);
+            SnackbarUtil.show(this, R.string.receive_external_files_activity_start_sync_folder_is_not_exists_message);
             return;
         }
 
@@ -947,7 +948,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             long currentSyncTime = System.currentTimeMillis();
             final var optionalUser = getUser();
             if (optionalUser.isEmpty()) {
-                DisplayUtils.showSnackMessage(this, R.string.user_information_retrieval_error);
+                SnackbarUtil.show(this, R.string.user_information_retrieval_error);
                 return;
             }
 
@@ -1037,7 +1038,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     public void uploadFiles() {
         if (mStreamsToUpload == null) {
-            DisplayUtils.showSnackMessage(this, R.string.receive_external_files_activity_unable_to_find_file_to_upload);
+            SnackbarUtil.show(this, R.string.receive_external_files_activity_unable_to_find_file_to_upload);
             return;
         }
 
@@ -1109,7 +1110,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             populateDirectoryList(null);
         } else {
             try {
-                DisplayUtils.showSnackMessage(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()));
+                SnackbarUtil.show(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()));
             } catch (NotFoundException e) {
                 Log_OC.e(TAG, "Error while trying to show fail message ", e);
             }
@@ -1258,7 +1259,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
                     if (currentDir == null) {
                         // current folder was removed from the server
-                        DisplayUtils.showSnackMessage(getActivity(), R.string.sync_current_folder_was_removed, getCurrentFolder().getFileName());
+                        SnackbarUtil.show(getActivity(), R.string.sync_current_folder_was_removed, getCurrentFolder().getFileName());
                         browseToRoot();
                     } else {
                         if (currentFile == null && !mFile.isFolder()) {

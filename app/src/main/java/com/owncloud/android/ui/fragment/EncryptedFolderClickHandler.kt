@@ -9,6 +9,7 @@ package com.owncloud.android.ui.fragment
 
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.e2ee.model.E2EEAction
 import com.nextcloud.utils.e2ee.model.E2EEKeyCheck
 import com.nextcloud.utils.extensions.showEncryptionDialog
@@ -18,7 +19,6 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FolderPickerActivity
 import com.owncloud.android.ui.helpers.FileOperationsHelper
-import com.owncloud.android.utils.DisplayUtils
 import kotlinx.coroutines.launch
 
 class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
@@ -33,7 +33,7 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
      * Executed when user taps the 'New encrypted folder' action.
      */
     fun onNewEncryptedFolder() {
-        checkingKeysSnackbar = DisplayUtils.createAndShowSnackMessage(
+        checkingKeysSnackbar = SnackbarUtil.showIndefinite(
             fragment,
             R.string.encryption_key_checking_keys
         )
@@ -43,7 +43,7 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
             dismissCheckingSnackbar()
             when (state) {
                 E2EEKeyCheck.NO_NETWORK, E2EEKeyCheck.CHECK_FAILED, E2EEKeyCheck.E2EE_UNAVAILABLE -> {
-                    state.getMessageId(E2EEAction.NEW_FOLDER)?.let { DisplayUtils.showSnackMessage(fragment, it) }
+                    state.getMessageId(E2EEAction.NEW_FOLDER)?.let { SnackbarUtil.show(fragment, it) }
                 }
 
                 E2EEKeyCheck.ONLY_ON_SERVER, E2EEKeyCheck.MISSING_EVERYWHERE -> {
@@ -69,7 +69,7 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
             return
         }
 
-        checkingKeysSnackbar = DisplayUtils.createAndShowSnackMessage(
+        checkingKeysSnackbar = SnackbarUtil.showIndefinite(
             fragment,
             R.string.encryption_key_checking_keys
         )
@@ -82,7 +82,7 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
 
                 when (state) {
                     E2EEKeyCheck.NO_NETWORK, E2EEKeyCheck.CHECK_FAILED, E2EEKeyCheck.E2EE_UNAVAILABLE -> {
-                        state.getMessageId(E2EEAction.OPEN)?.let { DisplayUtils.showSnackMessage(fragment, it) }
+                        state.getMessageId(E2EEAction.OPEN)?.let { SnackbarUtil.show(fragment, it) }
                     }
 
                     E2EEKeyCheck.ONLY_ON_SERVER -> {
@@ -91,7 +91,7 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
 
                     E2EEKeyCheck.MISSING_EVERYWHERE -> {
                         e2eeActionResolver.markFolderReadOnly(file)
-                        state.getMessageId(E2EEAction.OPEN)?.let { DisplayUtils.showSnackMessage(fragment, it) }
+                        state.getMessageId(E2EEAction.OPEN)?.let { SnackbarUtil.show(fragment, it) }
                     }
 
                     E2EEKeyCheck.ONLY_ON_DEVICE, E2EEKeyCheck.DIFFERS_FROM_SERVER -> {
@@ -103,7 +103,7 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
                         if (e2eeActionResolver.checkFolderMetadataKey(file)) {
                             onFolderKeyVerified(file, position, fileActivity)
                         } else {
-                            DisplayUtils.showSnackMessage(
+                            SnackbarUtil.show(
                                 fragment,
                                 R.string.encryption_open_key_mismatch
                             )
@@ -119,13 +119,13 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
             if (fragment.e2eeActionResolver.checkFolderMetadataKey(file)) {
                 onEncryptionSetupComplete(file, fragment.adapter.getItemPosition(file))
             } else {
-                DisplayUtils.showSnackMessage(fragment, R.string.encryption_open_key_mismatch)
+                SnackbarUtil.show(fragment, R.string.encryption_open_key_mismatch)
             }
         }
     }
 
     private fun dismissCheckingSnackbar() {
-        DisplayUtils.dismissSnackMessage(checkingKeysSnackbar)
+        SnackbarUtil.dismiss(checkingKeysSnackbar)
         checkingKeysSnackbar = null
     }
 
@@ -134,7 +134,7 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
         val capability = fragment.containerActivity.getStorageManager().getCapability(user.accountName)
 
         if (capability.endToEndEncryption.isFalse || capability.endToEndEncryption.isUnknown) {
-            DisplayUtils.showSnackMessage(fragment, R.string.end_to_end_encryption_not_enabled)
+            SnackbarUtil.show(fragment, R.string.end_to_end_encryption_not_enabled)
             return
         }
 
@@ -151,7 +151,7 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
 
         val folderPickerActivity = fragment.containerActivity as? FolderPickerActivity
         if (folderPickerActivity?.isDoNotEnterEncryptedFolder == true) {
-            DisplayUtils.showSnackMessage(fragment, R.string.copy_move_to_encrypted_folder_not_supported)
+            SnackbarUtil.show(fragment, R.string.copy_move_to_encrypted_folder_not_supported)
         } else {
             fragment.browseToFolder(file, position)
         }

@@ -26,6 +26,7 @@ import com.nextcloud.client.player.model.file.PlaybackFileType
 import com.nextcloud.client.player.ui.audio.AudioPlayerView
 import com.nextcloud.client.player.ui.video.VideoPlayerView
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getSerializableArgument
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
@@ -33,7 +34,6 @@ import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment
-import com.owncloud.android.utils.DisplayUtils
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -197,7 +197,7 @@ class PlayerActivity :
 
     private fun showFileExportStartedMessage() {
         val message = resources.getQuantityString(R.plurals.export_start, 1, 1)
-        DisplayUtils.showSnackMessage(playerView, message)
+        SnackbarUtil.show(playerView, message)
     }
 
     private fun showRemoveFileDialog(file: OCFile) {

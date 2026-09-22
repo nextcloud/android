@@ -40,6 +40,7 @@ import com.nextcloud.client.player.util.PlayerUtil.ownsPlayback
 import com.nextcloud.client.player.util.PlayerUtil.toPlaybackFile
 import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
 import com.nextcloud.utils.extensions.setVisibilityWithAnimation
@@ -52,7 +53,6 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.FetchRemoteFileOperation
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import dagger.android.support.AndroidSupportInjection
@@ -225,7 +225,7 @@ class PreviewPlaybackFragment :
                     onOverflowClick(isManualClick = true)
                 } else {
                     Log_OC.d(TAG, result?.logMessage)
-                    DisplayUtils.showSnackMessage(binding.root, result.getLogMessage(context))
+                    SnackbarUtil.show(binding.root, result.getLogMessage(context))
                 }
             }
         }

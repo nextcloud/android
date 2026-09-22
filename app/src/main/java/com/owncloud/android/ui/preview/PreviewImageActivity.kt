@@ -41,6 +41,7 @@ import com.nextcloud.client.player.ui.MediaNavigator
 import com.nextcloud.client.player.ui.VideoPictureInPicture
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.model.WorkerState
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
 import com.nextcloud.utils.extensions.observeWorker
@@ -64,7 +65,6 @@ import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.fragment.GalleryFragment
 import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog.MediaState
 import com.owncloud.android.ui.preview.model.PreviewImageActivityState
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 import kotlinx.coroutines.Job
@@ -657,7 +657,7 @@ class PreviewImageActivity :
 
     private fun startEditImageActivity(file: OCFile) {
         if (!file.isDown) {
-            DisplayUtils.showSnackMessage(this, R.string.preview_image_file_is_not_downloaded)
+            SnackbarUtil.show(this, R.string.preview_image_file_is_not_downloaded)
             return
         }
 

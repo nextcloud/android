@@ -79,6 +79,7 @@ import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.model.OCUploadLocalPathData
 import com.nextcloud.model.WorkerState.OfflineOperationsCompleted
 import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
 import com.nextcloud.utils.extensions.isActive
@@ -492,7 +493,7 @@ class FileDisplayActivity :
                 optionalCapability.get().hasValidSubscription.isTrue
             )
         ) {
-            DisplayUtils.showServerOutdatedSnackbar(this, Snackbar.LENGTH_LONG)
+            SnackbarUtil.showServerOutdated(this, Snackbar.LENGTH_LONG)
         }
     }
 
@@ -1061,7 +1062,7 @@ class FileDisplayActivity :
                             }
 
                             if (!file.renameTo(renamedFile)) {
-                                DisplayUtils.showSnackMessage(
+                                SnackbarUtil.show(
                                     this@FileDisplayActivity,
                                     R.string.error_uploading_direct_camera_upload
                                 )
@@ -1136,7 +1137,7 @@ class FileDisplayActivity :
                                 )
                             }
                         if (isValidFolderPath == false) {
-                            DisplayUtils.showSnackMessage(
+                            SnackbarUtil.show(
                                 this,
                                 R.string.file_name_validator_error_contains_reserved_names_or_invalid_characters
                             )
@@ -1161,7 +1162,7 @@ class FileDisplayActivity :
             }
         } else {
             Log_OC.d(TAG, "User clicked on 'Update' with no selection")
-            DisplayUtils.showSnackMessage(this, R.string.filedisplay_no_file_selected)
+            SnackbarUtil.show(this, R.string.filedisplay_no_file_selected)
         }
     }
 
@@ -1627,7 +1628,7 @@ class FileDisplayActivity :
     }
 
     private fun handleRemovedFolder(syncFolderRemotePath: String?) {
-        DisplayUtils.showSnackMessage(this, R.string.sync_current_folder_was_removed, syncFolderRemotePath)
+        SnackbarUtil.show(this, R.string.sync_current_folder_was_removed, syncFolderRemotePath)
         fileListFragment?.let {
             it.parentFolderFinder.getParentOnFirstParentRemoved(syncFolderRemotePath, storageManager)?.let { target ->
                 it.listDirectory(target, MainApp.isOnlyOnDevice())
@@ -1780,7 +1781,7 @@ class FileDisplayActivity :
                 }
                 if (renamedInUpload && !uploadedRemotePath.isNullOrBlank()) {
                     val newName = File(uploadedRemotePath).name
-                    DisplayUtils.showSnackMessage(
+                    SnackbarUtil.show(
                         this@FileDisplayActivity,
                         R.string.filedetails_renamed_in_upload_msg,
                         newName
@@ -2368,7 +2369,7 @@ class FileDisplayActivity :
                 leftFragment.getFileDetailActivitiesFragment().reload()
             }
         } else {
-            DisplayUtils.showSnackMessage(this, R.string.file_version_restored_error)
+            SnackbarUtil.show(this, R.string.file_version_restored_error)
         }
     }
 
@@ -2381,7 +2382,7 @@ class FileDisplayActivity :
     private fun onMoveFileOperationFinish(operation: MoveFileOperation?, result: RemoteOperationResult<*>) {
         if (!result.isSuccess) {
             try {
-                DisplayUtils.showSnackMessage(
+                SnackbarUtil.show(
                     this,
                     ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
                 )
@@ -2403,7 +2404,7 @@ class FileDisplayActivity :
             refreshGalleryFragmentIfNeeded()
         } else {
             try {
-                DisplayUtils.showSnackMessage(
+                SnackbarUtil.show(
                     this,
                     ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
                 )
@@ -2423,7 +2424,7 @@ class FileDisplayActivity :
         val optionalUser = user
         val renamedFile = operation.file
         if (!result.isSuccess || optionalUser.isEmpty) {
-            DisplayUtils.showSnackMessage(
+            SnackbarUtil.show(
                 this,
                 ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
             )
@@ -2520,9 +2521,9 @@ class FileDisplayActivity :
         } else {
             try {
                 if (RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS == result.code) {
-                    DisplayUtils.showSnackMessage(this, R.string.folder_already_exists)
+                    SnackbarUtil.show(this, R.string.folder_already_exists)
                 } else {
-                    DisplayUtils.showSnackMessage(
+                    SnackbarUtil.show(
                         this,
                         ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
                     )
@@ -3086,7 +3087,7 @@ class FileDisplayActivity :
     }
 
     private fun handleOpenFileViaIntent(intent: Intent) {
-        DisplayUtils.showSnackMessage(this, getString(R.string.retrieving_file))
+        SnackbarUtil.show(this, getString(R.string.retrieving_file))
 
         val userName = intent.getStringExtra(KEY_ACCOUNT)
         val fileId = intent.getStringExtra(KEY_FILE_ID)
@@ -3106,7 +3107,7 @@ class FileDisplayActivity :
                     accountClicked(optionalUser.get())
                 }
             } else {
-                DisplayUtils.showSnackMessage(this, getString(R.string.associated_account_not_found))
+                SnackbarUtil.show(this, getString(R.string.associated_account_not_found))
             }
         }
     }
@@ -3118,7 +3119,7 @@ class FileDisplayActivity :
         if (match == null) {
             handleDeepLink(uri)
         } else if (match.users.isEmpty()) {
-            DisplayUtils.showSnackMessage(this, getString(R.string.associated_account_not_found))
+            SnackbarUtil.show(this, getString(R.string.associated_account_not_found))
         } else if (match.users.size == SINGLE_USER_SIZE) {
             openFile(match.users[0], match.fileId)
         } else {
@@ -3210,7 +3211,7 @@ class FileDisplayActivity :
 
     private fun onFileRequestError(throwable: Throwable?) {
         dismissLoadingDialog()
-        DisplayUtils.showSnackMessage(this, getString(R.string.error_retrieving_file))
+        SnackbarUtil.show(this, getString(R.string.error_retrieving_file))
         Log_OC.e(TAG, "Requesting file from remote failed!", throwable)
     }
 
@@ -3253,7 +3254,7 @@ class FileDisplayActivity :
                     file = current
                     updateActionBarTitleAndHomeButton(null)
                 } else {
-                    fragment.view?.let { DisplayUtils.showSnackMessage(it, message) }
+                    fragment.view?.let { SnackbarUtil.show(it, message) }
                 }
 
                 selectedFile?.let(fragment::onItemClicked)
@@ -3273,7 +3274,7 @@ class FileDisplayActivity :
                     val account = accountManager.getUser(accountName).orElse(null)
                         ?: run {
                             Log_OC.w(TAG, "user is not present")
-                            DisplayUtils.showSnackMessage(this@FileDisplayActivity, R.string.account_not_found)
+                            SnackbarUtil.show(this@FileDisplayActivity, R.string.account_not_found)
                             return
                         }
 

@@ -31,6 +31,7 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ClientFactory.CreationException
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.fileNameValidator.FileNameValidator
 import com.owncloud.android.MainApp
@@ -48,7 +49,6 @@ import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.ui.activity.ExternalSiteWebView
 import com.owncloud.android.ui.activity.TextEditorWebView
 import com.owncloud.android.ui.adapter.TemplateAdapter
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.KeyboardUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -227,11 +227,11 @@ class ChooseTemplateDialogFragment :
 
     override fun onClick(v: View) {
         val selectedTemplate = adapter?.selectedTemplate
-            ?: return DisplayUtils.showSnackMessage(binding.list, R.string.select_one_template)
+            ?: return SnackbarUtil.show(binding.list, R.string.select_one_template)
 
         val state = resolveFilenameState()
         if (state !is TemplateFilenameState.Valid) {
-            state.errorMessage?.let { DisplayUtils.showSnackMessage(requireActivity(), it.toString()) }
+            state.errorMessage?.let { SnackbarUtil.show(requireActivity(), it.toString()) }
             return
         }
 
@@ -340,7 +340,7 @@ class ChooseTemplateDialogFragment :
             }
 
             if (url.isEmpty()) {
-                DisplayUtils.showSnackMessage(fragment.binding.list, R.string.error_creating_file_from_template)
+                SnackbarUtil.show(fragment.binding.list, R.string.error_creating_file_from_template)
                 return
             }
 
@@ -397,7 +397,7 @@ class ChooseTemplateDialogFragment :
 
             if (templateList.templates.isEmpty()) {
                 fragment.dismiss()
-                DisplayUtils.showSnackMessage(fragment.requireActivity(), R.string.error_retrieving_templates)
+                SnackbarUtil.show(fragment.requireActivity(), R.string.error_retrieving_templates)
                 return
             }
 
