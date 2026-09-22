@@ -43,6 +43,7 @@ import com.nextcloud.ui.fileactions.FileActionsBottomSheet
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
 import com.nextcloud.utils.extensions.setVisibilityWithAnimation
+import com.nextcloud.utils.extensions.showNavigationBar
 import com.nextcloud.utils.extensions.showSystemBar
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PreviewPlaybackFragmentBinding
@@ -409,7 +410,10 @@ class PreviewPlaybackFragment :
         isFullScreen = !isFullScreen
         previewActivity.toggleActionBarVisibility(!isFullScreen)
         binding.playerControlView.setVisibilityWithAnimation(!isFullScreen)
-        previewActivity.window.showSystemBar(!isFullScreen, binding.root)
+        previewActivity.window.run {
+            showSystemBar(!isFullScreen, binding.root)
+            showNavigationBar(!isFullScreen, binding.root)
+        }
     }
 
     private fun updatePlayerControlsVisibility() {
