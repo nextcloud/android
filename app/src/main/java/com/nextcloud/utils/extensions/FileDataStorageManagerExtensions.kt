@@ -216,15 +216,25 @@ fun getRemotePathForConflictResolution(client: OwnCloudClient, remotePath: Strin
 fun generateFileNameForConflictResolution(fileName: String): String {
     val isFolder = fileName.endsWith(OCFile.PATH_SEPARATOR)
     val separator =
-        if (isFolder) OCFile.PATH_SEPARATOR
-        else if (fileName.indexOf(".") > 0) "."
-        else ""
+        if (isFolder) {
+            OCFile.PATH_SEPARATOR
+        } else if (fileName.indexOf(".") > 0) {
+            "."
+        } else {
+            ""
+        }
     var nameFirstPart =
-        if (separator.isNotEmpty()) fileName.substringBeforeLast(separator)
-        else fileName
+        if (separator.isNotEmpty()) {
+            fileName.substringBeforeLast(separator)
+        } else {
+            fileName
+        }
     var nameLastPart =
-        if (separator.isNotEmpty()) fileName.substringAfterLast(separator, "")
-        else "" // Extension or path separator
+        if (separator.isNotEmpty()) {
+            fileName.substringAfterLast(separator, "")
+        } else {
+            "" // Extension or path separator
+        }
     if (nameLastPart.isNotEmpty() || isFolder) nameLastPart = "$separator$nameLastPart"
     val regex = Regex("""(.*)\((\d+)\)$""", RegexOption.MULTILINE)
     nameFirstPart = if (regex.matches(nameFirstPart)) {
