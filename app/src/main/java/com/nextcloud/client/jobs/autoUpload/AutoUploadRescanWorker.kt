@@ -29,6 +29,8 @@ class AutoUploadRescanWorker(
     }
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
+        backgroundJobManager.cancelLegacyPerFolderPeriodicAutoUpload()
+
         val requestedFolders = FilesSyncHelper.startAutoUploadForEnabledSyncedFoldersIfNotActive(
             syncedFolderProvider,
             backgroundJobManager
