@@ -44,12 +44,11 @@ import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.ArbitraryDataProvider;
-import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.TextDrawable;
+import com.owncloud.android.ui.adapter.helper.AvatarShareesProvider;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 
 import java.io.BufferedReader;
@@ -443,29 +442,23 @@ public final class DisplayUtils {
                 avatar.setTint(tintColor);
             }
         } else {
-            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
-            String eTag = arbitraryDataProvider.getValue(userId + "@" + serverName, ThumbnailsCacheManager.AVATAR);
-            String avatarKey = "a_" + userId + "_" + serverName + "_" + eTag;
-
-            // first show old one
-            avatar = BitmapUtils.bitmapToCircularBitmapDrawable(resources,
-                                                                ThumbnailsCacheManager.getBitmapFromDiskCache(avatarKey));
-
-            // if no one exists, show colored icon with initial char
-            if (avatar == null) {
-                try {
-                    avatar = TextDrawable.createAvatarByUserId(displayName,
-                                                               (avatarRadius - avatarBorder));
-                } catch (Exception e) {
-                    Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
-                    avatar = ResourcesCompat.getDrawable(resources,
-                                                         R.drawable.account_circle_white,
-                                                         null);
-                }
+            // show colored icon with initial char until the cached avatar has been read from disk
+            try {
+                avatar = TextDrawable.createAvatarByUserId(displayName,
+                                                           (avatarRadius - avatarBorder));
+            } catch (Exception e) {
+                Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
+                avatar = ResourcesCompat.getDrawable(resources,
+                                                     R.drawable.account_circle_white,
+                                                     null);
             }
         }
 
         listener.avatarGenerated(avatar, callContext);
+
+        if (!userId.isEmpty()) {
+            AvatarShareesProvider.showCachedAvatar(userId, serverName, listener, resources, callContext, context);
+        }
 
         // check for new avatar, eTag is compared, so only new one is downloaded
         final ThumbnailsCacheManager.AvatarGenerationTask task =
