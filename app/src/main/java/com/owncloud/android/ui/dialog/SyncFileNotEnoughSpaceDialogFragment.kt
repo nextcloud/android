@@ -11,11 +11,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.storage.StorageManager
 import androidx.activity.result.contract.ActivityResultContracts
+import com.nextcloud.utils.HumanReadableFormatter
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener
-import com.owncloud.android.utils.DisplayUtils
 
 class SyncFileNotEnoughSpaceDialogFragment :
     ConfirmationDialogFragment(),
@@ -66,8 +66,8 @@ class SyncFileNotEnoughSpaceDialogFragment :
                     ARG_MESSAGE_ARGUMENTS,
                     arrayOf(
                         file.fileName,
-                        DisplayUtils.bytesToHumanReadable(file.fileLength),
-                        DisplayUtils.bytesToHumanReadable(availableDeviceSpace)
+                        HumanReadableFormatter.bytesToHumanReadable(file.fileLength),
+                        HumanReadableFormatter.bytesToHumanReadable(availableDeviceSpace)
                     )
                 )
                 putParcelable(ARG_PASSED_FILE, file)

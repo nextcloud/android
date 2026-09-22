@@ -10,6 +10,7 @@ package com.owncloud.android.ui.adapter
 import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.nextcloud.utils.HumanReadableFormatter
 import com.owncloud.android.R
 import com.owncloud.android.databinding.InternalTwoWaySyncViewHolderBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -25,7 +26,7 @@ class InternalTwoWaySyncViewHolder(val binding: InternalTwoWaySyncViewHolderBind
         internalTwoWaySyncAdapter: InternalTwoWaySyncAdapter
     ) {
         binding.run {
-            size.text = DisplayUtils.bytesToHumanReadable(folder.fileLength)
+            size.text = HumanReadableFormatter.bytesToHumanReadable(folder.fileLength)
             name.text = folder.decryptedFileName
 
             if (folder.internalFolderSyncResult.isEmpty()) {

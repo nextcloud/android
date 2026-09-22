@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.client.account.User
+import com.nextcloud.utils.HumanReadableFormatter
 import com.owncloud.android.databinding.UploaderListItemLayoutBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -83,7 +84,7 @@ class ReceiveExternalFilesAdapter(
         viewHolder.binding.lastMod.text = DisplayUtils.getRelativeTimestamp(context, file.modificationTimestamp)
 
         if (!file.isFolder) {
-            viewHolder.binding.fileSize.text = DisplayUtils.bytesToHumanReadable(file.fileLength)
+            viewHolder.binding.fileSize.text = HumanReadableFormatter.bytesToHumanReadable(file.fileLength)
         }
 
         viewHolder.binding.fileSize.visibility = if (file.isFolder) {

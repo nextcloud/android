@@ -12,6 +12,7 @@ import android.os.Bundle
 import androidx.annotation.StringRes
 import com.nextcloud.client.account.User
 import com.nextcloud.client.database.entity.OfflineOperationEntity
+import com.nextcloud.utils.HumanReadableFormatter
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.dialog.conflict.model.ConflictDialogData
@@ -75,7 +76,7 @@ object ConflictResolveDialogFactory {
         ConflictFileData(
             title = getString(titleId),
             timestamp = DisplayUtils.getRelativeTimestamp(this, timestamp).toString(),
-            fileSize = DisplayUtils.bytesToHumanReadable(fileLength)
+            fileSize = HumanReadableFormatter.bytesToHumanReadable(fileLength)
         )
 
     private fun createDialog(type: ConflictDialogType, putFiles: Bundle.() -> Unit): ConflictsResolveDialog =

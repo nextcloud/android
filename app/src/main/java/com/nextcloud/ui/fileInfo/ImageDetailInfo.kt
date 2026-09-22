@@ -20,13 +20,13 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.NominatimClient
 import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.ui.fileInfo.model.ImageMetadata
+import com.nextcloud.utils.HumanReadableFormatter
 import com.nextcloud.utils.extensions.getSmallThumbnail
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileInfoFragmentBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.BitmapUtils
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -181,7 +181,7 @@ class ImageDetailInfo(private val fragment: FileInfoFragment, private val viewTh
     }
 
     fun gatherMetadata(file: OCFile): ImageMetadata {
-        val fileSize = DisplayUtils.bytesToHumanReadable(file.fileLength)
+        val fileSize = HumanReadableFormatter.bytesToHumanReadable(file.fileLength)
         val timestamp = maxOf(file.modificationTimestamp, file.creationTimestamp)
         return if (file.isDown) {
             gatherLocalMetadata(file, fileSize, timestamp)

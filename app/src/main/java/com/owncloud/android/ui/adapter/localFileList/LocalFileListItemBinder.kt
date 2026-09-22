@@ -10,6 +10,7 @@ import android.app.Activity
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.nextcloud.utils.HumanReadableFormatter
 import com.owncloud.android.R
 import com.owncloud.android.ui.interfaces.LocalFileListFragmentInterface
 import com.owncloud.android.utils.DisplayUtils
@@ -76,7 +77,7 @@ internal class LocalFileListItemBinder(
         } else {
             holder.fileSize.visibility = View.VISIBLE
             holder.fileSeparator.visibility = View.VISIBLE
-            holder.fileSize.text = DisplayUtils.bytesToHumanReadable(file.length())
+            holder.fileSize.text = HumanReadableFormatter.bytesToHumanReadable(file.length())
         }
 
         holder.lastModification.text = DisplayUtils.getRelativeTimestamp(activity, file.lastModified())

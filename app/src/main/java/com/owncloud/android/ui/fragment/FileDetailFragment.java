@@ -35,6 +35,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.ui.fileactions.FileAction;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.ui.tags.TagManagementBottomSheet;
+import com.nextcloud.utils.HumanReadableFormatter;
 import com.nextcloud.utils.MenuUtils;
 import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
@@ -609,7 +610,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             } else {
                 binding.filename.setVisibility(View.GONE);
             }
-            binding.size.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
+            binding.size.setText(HumanReadableFormatter.bytesToHumanReadable(file.getFileLength()));
 
             boolean showDetailedTimestamp = preferences.isShowDetailedTimestampEnabled();
             setFileModificationTimestamp(file, showDetailedTimestamp);
@@ -670,7 +671,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
     private void setFileModificationTimestamp(OCFile file, boolean showDetailedTimestamp) {
         if (showDetailedTimestamp) {
-            binding.lastModificationTimestamp.setText(DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
+            binding.lastModificationTimestamp.setText(HumanReadableFormatter.unixTimeToHumanReadable(file.getModificationTimestamp()));
         } else {
             binding.lastModificationTimestamp.setText(DisplayUtils.getRelativeTimestamp(getContext(),
                                                                                         file.getModificationTimestamp()));

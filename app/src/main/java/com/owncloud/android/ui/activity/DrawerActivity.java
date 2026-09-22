@@ -65,6 +65,7 @@ import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.nextcloud.ui.composeActivity.ComposeActivity;
 import com.nextcloud.ui.composeActivity.ComposeDestination;
 import com.nextcloud.utils.GlideHelper;
+import com.nextcloud.utils.HumanReadableFormatter;
 import com.nextcloud.utils.LinkHelper;
 import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
@@ -940,12 +941,12 @@ public abstract class DrawerActivity extends ToolbarActivity
         if (GetUserInfoRemoteOperation.SPACE_UNLIMITED == quotaValue) {
             mQuotaTextPercentage.setText(String.format(
                 getString(R.string.drawer_quota_unlimited),
-                DisplayUtils.bytesToHumanReadable(usedSpace)));
+                HumanReadableFormatter.bytesToHumanReadable(usedSpace)));
         } else {
             mQuotaTextPercentage.setText(String.format(
                 getString(R.string.drawer_quota),
-                DisplayUtils.bytesToHumanReadable(usedSpace),
-                DisplayUtils.bytesToHumanReadable(totalSpace)));
+                HumanReadableFormatter.bytesToHumanReadable(usedSpace),
+                HumanReadableFormatter.bytesToHumanReadable(totalSpace)));
         }
 
         mQuotaProgressBar.setProgress(relative);

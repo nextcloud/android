@@ -18,6 +18,7 @@ import androidx.lifecycle.lifecycleScope
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.HumanReadableFormatter
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ShareActivityBinding
 import com.owncloud.android.datamodel.OCFile
@@ -32,7 +33,6 @@ import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.operations.GetSharesForFileOperation
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import kotlinx.coroutines.Dispatchers
@@ -122,7 +122,7 @@ class ShareActivity :
         with(binding) {
             shareFileName.text = getString(R.string.share_file, file.fileName)
             viewThemeUtils.platform.colorViewBackground(shareHeaderDivider)
-            shareFileSize.text = DisplayUtils.bytesToHumanReadable(file.fileLength)
+            shareFileSize.text = HumanReadableFormatter.bytesToHumanReadable(file.fileLength)
         }
     }
 
@@ -150,7 +150,7 @@ class ShareActivity :
                 val length = (result.data.first() as? RemoteFile)?.length ?: return@launch
                 file.fileLength = length
                 withContext(Dispatchers.Main) {
-                    binding.shareFileSize.text = DisplayUtils.bytesToHumanReadable(length)
+                    binding.shareFileSize.text = HumanReadableFormatter.bytesToHumanReadable(length)
                 }
             }
         }
