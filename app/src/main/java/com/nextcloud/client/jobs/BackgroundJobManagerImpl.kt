@@ -490,16 +490,25 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueueUniqueWork(JOB_CONTENT_OBSERVER, ExistingWorkPolicy.REPLACE, request)
     }
 
-    override fun isAutoUploadScheduled(syncedFolderID: Long): Boolean =
-        workManager.isWorkScheduled(autoUploadWorkName(syncedFolderID))
-
     private fun autoUploadWorkName(syncedFolderID: Long): String = JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID
+
+    override fun isAutoUploadScheduled(syncedFolderID: Long): Boolean =
+        workManager.getWorkInfosForUniqueWork(autoUploadWorkName(syncedFolderID))
+            .get()
+            .any { !it.state.isFinished }
 
     private fun autoUploadIgnorePowerSavingTag(syncedFolderID: Long): String =
         autoUploadWorkName(syncedFolderID) + "_" + TAG_SUFFIX_IGNORE_POWER_SAVING
 
     override fun isAutoUploadIgnoringPowerSavingScheduled(syncedFolderID: Long): Boolean =
         workManager.isWorkScheduled(autoUploadIgnorePowerSavingTag(syncedFolderID))
+
+    override fun cancelLegacyPerFolderPeriodicAutoUpload() {
+        workManager.getWorkInfosByTag(formatClassTag(AutoUploadWorker::class))
+            .get()
+            .filter { !it.state.isFinished && it.periodicityInfo != null }
+            .forEach { workManager.cancelWorkById(it.id).result.get() }
+    }
 
     override fun schedulePeriodicAutoUpload() {
         val request = periodicRequestBuilder(
