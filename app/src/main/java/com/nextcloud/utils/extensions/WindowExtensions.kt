@@ -26,10 +26,22 @@ fun Window.showSystemBar(show: Boolean, view: View) {
     WindowCompat.getInsetsController(this, view).run {
         val types = WindowInsetsCompat.Type.systemBars()
         if (show) {
+            show(types)
+        } else {
             systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
             hide(types)
-        } else {
+        }
+    }
+}
+
+fun Window.showNavigationBar(show: Boolean, view: View) {
+    WindowCompat.getInsetsController(this, view).run {
+        val types = WindowInsetsCompat.Type.navigationBars()
+        if (show) {
             show(types)
+        } else {
+            systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            hide(types)
         }
     }
 }
