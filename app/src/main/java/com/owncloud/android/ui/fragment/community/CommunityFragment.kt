@@ -13,11 +13,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.utils.BuildHelper
 import com.nextcloud.utils.extensions.setHtmlContent
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FragmentCommunityBinding
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -85,7 +85,7 @@ class CommunityFragment : Fragment() {
 
         binding?.communityTestingReport?.let { viewThemeUtils.material.colorMaterialButtonPrimaryFilled(it) }
         binding?.communityTestingReport?.setOnClickListener {
-            DisplayUtils.startLinkIntent(requireActivity(), R.string.report_issue_empty_link)
+            IntentUtil.startLinkIntent(requireActivity(), R.string.report_issue_empty_link)
         }
     }
 
@@ -99,7 +99,7 @@ class CommunityFragment : Fragment() {
             binding?.communityBetaApk to R.string.beta_apk_link
         ).forEach { (view, linkRes) ->
             view?.setOnClickListener {
-                DisplayUtils.startLinkIntent(activity, linkRes)
+                IntentUtil.startLinkIntent(activity, linkRes)
             }
         }
     }

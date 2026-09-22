@@ -12,11 +12,11 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.utils.SnackbarUtil
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityShowErrorBinding
 import com.owncloud.android.utils.ClipboardUtil
-import com.owncloud.android.utils.DisplayUtils
 
 class ShowErrorActivity : AppCompatActivity() {
     private lateinit var binding: ActivityShowErrorBinding
@@ -46,7 +46,7 @@ class ShowErrorActivity : AppCompatActivity() {
     private fun reportIssue() {
         ClipboardUtil.copyToClipboard(this, binding.textViewError.text.toString(), true)
         val issueLink = getString(R.string.report_issue_link)
-        DisplayUtils.startLinkIntent(this, issueLink)
+        IntentUtil.startLinkIntent(this, issueLink)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -52,6 +52,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
+import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
@@ -77,7 +78,6 @@ import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.model.ExtendedSettingsActivityDialog;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DeviceCredentialUtils;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
@@ -251,7 +251,7 @@ public class SettingsActivity extends PreferenceActivity
             Preference pChangelogLink = findPreference("changelog_link");
             if (pChangelogLink != null) {
                 pChangelogLink.setOnPreferenceClickListener(preference -> {
-                    DisplayUtils.startLinkIntent(this, R.string.dev_changelog);
+                    IntentUtil.startLinkIntent(this, R.string.dev_changelog);
                     return true;
                 });
             }
@@ -296,7 +296,7 @@ public class SettingsActivity extends PreferenceActivity
             if (licenseEnabled) {
                 licensePreference.setSummary(R.string.prefs_gpl_v2);
                 licensePreference.setOnPreferenceClickListener(preference -> {
-                    DisplayUtils.startLinkIntent(this, R.string.license_url);
+                    IntentUtil.startLinkIntent(this, R.string.license_url);
                     return true;
                 });
             } else {
@@ -317,7 +317,7 @@ public class SettingsActivity extends PreferenceActivity
                         Intent intent;
                         if (MimeTypeUtil.isPDF(mimeType)) {
                             intent = new Intent(Intent.ACTION_VIEW, privacyUrl);
-                            DisplayUtils.startIntentIfAppAvailable(intent, this, R.string.no_pdf_app_available);
+                            IntentUtil.startIntentIfAppAvailable(intent, this, R.string.no_pdf_app_available);
                         } else {
                             intent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
                             intent.putExtra(ExternalSiteWebView.EXTRA_TITLE,
@@ -344,7 +344,7 @@ public class SettingsActivity extends PreferenceActivity
         if (sourcecodePreference != null) {
             if (sourcecodeEnabled) {
                 sourcecodePreference.setOnPreferenceClickListener(preference -> {
-                    DisplayUtils.startLinkIntent(this, R.string.sourcecode_url);
+                    IntentUtil.startLinkIntent(this, R.string.sourcecode_url);
                     return true;
                 });
             } else {
@@ -402,7 +402,7 @@ public class SettingsActivity extends PreferenceActivity
                     String imprintWeb = getString(R.string.url_imprint);
 
                     if (!imprintWeb.isEmpty()) {
-                        DisplayUtils.startLinkIntent(this, imprintWeb);
+                        IntentUtil.startLinkIntent(this, imprintWeb);
                     }
                     //ImprintDialog.newInstance(true).show(preference.get, "IMPRINT_DIALOG");
                     return true;
@@ -666,7 +666,7 @@ public class SettingsActivity extends PreferenceActivity
         if (pHelp != null) {
             if (helpEnabled) {
                 pHelp.setOnPreferenceClickListener(preference -> {
-                    DisplayUtils.startLinkIntent(this, R.string.url_help);
+                    IntentUtil.startLinkIntent(this, R.string.url_help);
                     return true;
                 });
             } else {
@@ -1055,7 +1055,7 @@ public class SettingsActivity extends PreferenceActivity
                 startActivity(installIntent);
             } else {
                 // no f-droid market app or Play store installed --> launch browser for f-droid url
-                DisplayUtils.startLinkIntent(this, "https://f-droid.org/packages/at.bitfire.davdroid/");
+                IntentUtil.startLinkIntent(this, "https://f-droid.org/packages/at.bitfire.davdroid/");
 
                 SnackbarUtil.show(this, R.string.prefs_calendar_contacts_no_store_error);
             }

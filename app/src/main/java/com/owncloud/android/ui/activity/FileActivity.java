@@ -38,6 +38,7 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.network.NetworkChangeListener;
 import com.nextcloud.client.player.ui.PlayerActivity;
+import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
@@ -97,7 +98,6 @@ import com.owncloud.android.ui.fragment.filesRepository.RemoteFilesRepository;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.utils.ClipboardUtil;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
@@ -733,11 +733,11 @@ public abstract class FileActivity extends DrawerActivity
         if (latestVersion > currentVersion) {
             String devApkLink = activity.getString(R.string.dev_link) + latestVersion + ".apk";
             if (openDirectly) {
-                DisplayUtils.startLinkIntent(activity, devApkLink);
+                IntentUtil.startLinkIntent(activity, devApkLink);
             } else {
                 Snackbar.make(activity.findViewById(android.R.id.content), R.string.dev_version_new_version_available,
                               Snackbar.LENGTH_LONG)
-                    .setAction(activity.getString(R.string.version_dev_download), v -> DisplayUtils.startLinkIntent(activity, devApkLink)).show();
+                    .setAction(activity.getString(R.string.version_dev_download), v -> IntentUtil.startLinkIntent(activity, devApkLink)).show();
             }
         } else {
             if (!inBackground) {
