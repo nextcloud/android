@@ -29,9 +29,9 @@ class AutoUploadRescanWorker(
     }
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
-        if (backgroundJobManager.isAnyAutoUploadScheduled()) {
-            return@withContext Result.retry()
-        }
+        // cancel enqueued ones so that we can re-start. Some workers may stuck
+        // thus we need to have clean start.
+        backgroundJobManager.cancelEnqueuedAutoUploads()
 
         val requestedFolders = FilesSyncHelper.startAutoUploadForEnabledSyncedFoldersIfNotActive(
             syncedFolderProvider,
