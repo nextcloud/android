@@ -44,6 +44,7 @@ import com.nextcloud.model.WorkerState
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
 import com.nextcloud.utils.extensions.observeWorker
+import com.nextcloud.utils.extensions.toggle
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -195,12 +196,8 @@ class PreviewImageActivity :
     private fun displayCutOutSafeInsetTop(): Int =
         ViewCompat.getRootWindowInsets(window.decorView)?.displayCutout?.safeInsetTop ?: 0
 
-    fun toggleActionBarVisibility(hide: Boolean) {
-        if (hide) {
-            supportActionBar?.hide()
-        } else {
-            supportActionBar?.show()
-        }
+    fun toggleActionBarVisibility(show: Boolean) {
+        supportActionBar?.toggle(show)
     }
 
     private fun initViewPager(user: User) {
@@ -543,11 +540,11 @@ class PreviewImageActivity :
 
         if (isInPictureInPictureMode) {
             wasSystemUiVisibleBeforePictureInPicture = isSystemUIVisible
-            toggleActionBarVisibility(true)
+            toggleActionBarVisibility(false)
             return
         }
 
-        toggleActionBarVisibility(!wasSystemUiVisibleBeforePictureInPicture)
+        toggleActionBarVisibility(wasSystemUiVisibleBeforePictureInPicture)
 
         if (lifecycle.currentState != Lifecycle.State.CREATED) return
 

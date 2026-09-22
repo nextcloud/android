@@ -38,7 +38,6 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import com.caverock.androidsvg.SVG
@@ -49,6 +48,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.client.player.model.file.PlaybackCollection
 import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
 import com.nextcloud.utils.extensions.clickWithDebounce
@@ -57,7 +57,6 @@ import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSmallThumbnail
 import com.nextcloud.utils.extensions.typedActivity
 import com.owncloud.android.MainApp
-import com.nextcloud.client.player.model.file.PlaybackCollection
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PreviewImageFragmentBinding
 import com.owncloud.android.datamodel.OCFile
@@ -162,7 +161,7 @@ class PreviewImageFragment :
 
     private fun hideActionBar() {
         (requireActivity() as PreviewImageActivity).run {
-            toggleActionBarVisibility(true)
+            toggleActionBarVisibility(false)
         }
     }
 
