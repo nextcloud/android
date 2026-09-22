@@ -23,6 +23,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 
+import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.utils.SnackbarUtil;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -150,7 +151,7 @@ public class ExternalSiteWebView extends FileActivity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 if (!request.isRedirect()) {
-                    DisplayUtils.startLinkIntent(self, request.getUrl());
+                    IntentUtil.startLinkIntent(self, request.getUrl());
                     return true;
                 }
                 return false;

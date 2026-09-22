@@ -24,6 +24,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.appinfo.AppInfo
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.mdm.MDMConfig
 import com.owncloud.android.BuildConfig
@@ -157,7 +158,7 @@ class FirstRunActivity :
         binding.hostOwnServer.visibility = if (isProviderOrOwnInstallationVisible) View.VISIBLE else View.GONE
         if (isProviderOrOwnInstallationVisible) {
             binding.hostOwnServer.setOnClickListener {
-                DisplayUtils.startLinkIntent(
+                IntentUtil.startLinkIntent(
                     this,
                     R.string.url_server_install
                 )

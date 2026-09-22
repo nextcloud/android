@@ -20,6 +20,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.player.media3.PlaybackModel
+import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.AccountRemovalDialogBinding
@@ -131,7 +132,7 @@ class AccountRemovalDialog :
         user?.let { user ->
             stopMediaPlayerAndHidePip()
             if (binding.radioRequestDeletion.isChecked) {
-                DisplayUtils.startLinkIntent(activity, user.server.uri.toString() + DROP_ACCOUNT_URI)
+                IntentUtil.startLinkIntent(requireActivity(), user.server.uri.toString() + DROP_ACCOUNT_URI)
             } else {
                 backgroundJobManager.startAccountRemovalJob(user.accountName, false)
             }

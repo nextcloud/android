@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.CurrentAccountProvider
+import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.text.RichSubjectFormatter
 import com.nextcloud.utils.text.RichSubjectParam
@@ -96,7 +97,7 @@ class NotificationListAdapter(
                 setTypeface(typeface, Typeface.BOLD)
                 text = subject
                 setOnClickListener {
-                    DisplayUtils.startLinkIntent(fragment.requireActivity(), notification.getLink())
+                    IntentUtil.startLinkIntent(fragment.requireActivity(), notification.getLink())
                 }
             }
         } else {

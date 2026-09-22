@@ -25,11 +25,9 @@ import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -39,7 +37,6 @@ import android.util.DisplayMetrics;
 import android.view.View;
 
 import com.nextcloud.client.account.User;
-import com.nextcloud.utils.SnackbarUtil;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
@@ -530,29 +527,6 @@ public final class DisplayUtils {
 
     public static boolean isRTL() {
         return TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) == View.LAYOUT_DIRECTION_RTL;
-    }
-
-    static public void startLinkIntent(Activity activity, @StringRes int link) {
-        startLinkIntent(activity, activity.getString(link));
-    }
-
-    static public void startLinkIntent(Activity activity, String url) {
-        if (!TextUtils.isEmpty(url)) {
-            startLinkIntent(activity, Uri.parse(url));
-        }
-    }
-
-    static public void startLinkIntent(Activity activity, Uri uri) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        DisplayUtils.startIntentIfAppAvailable(intent, activity, R.string.no_browser_available);
-    }
-
-    static public void startIntentIfAppAvailable(Intent intent, Activity activity, @StringRes int error) {
-        if (intent.resolveActivity(activity.getPackageManager()) != null) {
-            activity.startActivity(intent);
-        } else {
-            SnackbarUtil.show(activity, error);
-        }
     }
 
     static public void openSortingOrderDialogFragment(FragmentManager supportFragmentManager, FileSortOrder sortOrder) {
