@@ -39,6 +39,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.utils.IntentUtil
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.mergeDistinctByToken
 import com.nextcloud.utils.extensions.setVisibleIf
@@ -285,7 +286,7 @@ class FileDetailSharingFragment :
             }
 
             hideShimmerAndShowShareContainer()
-            DisplayUtils.showSnackMessage(this@FileDetailSharingFragment, R.string.error_fetching_sharees)
+            SnackbarUtil.show(this@FileDetailSharingFragment, R.string.error_fetching_sharees)
         }
     }
 
@@ -592,7 +593,7 @@ class FileDetailSharingFragment :
             return
         }
 
-        DisplayUtils.showSnackMessage(this, R.string.file_detail_sharing_fragment_no_contact_app_message)
+        SnackbarUtil.show(this, R.string.file_detail_sharing_fragment_no_contact_app_message)
     }
 
     private fun handleContactResult(contactUri: Uri) {
@@ -601,7 +602,7 @@ class FileDetailSharingFragment :
 
         val cursor = fileActivity?.contentResolver?.query(contactUri, projection, null, null, null)
         if (cursor == null) {
-            DisplayUtils.showSnackMessage(this, R.string.email_pick_failed)
+            SnackbarUtil.show(this, R.string.email_pick_failed)
             Log_OC.e(
                 TAG,
                 "Failed to pick email address as Cursor is null."
@@ -610,7 +611,7 @@ class FileDetailSharingFragment :
         }
 
         if (!cursor.moveToFirst()) {
-            DisplayUtils.showSnackMessage(this, R.string.email_pick_failed)
+            SnackbarUtil.show(this, R.string.email_pick_failed)
             Log_OC.e(
                 TAG,
                 "Failed to pick email address as no Email found."
@@ -621,7 +622,7 @@ class FileDetailSharingFragment :
         // The contact has only one email address, use it.
         val columnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS)
         if (columnIndex == -1) {
-            DisplayUtils.showSnackMessage(this, R.string.email_pick_failed)
+            SnackbarUtil.show(this, R.string.email_pick_failed)
             Log_OC.e(TAG, "Failed to pick email address.")
             cursor.close()
             return
@@ -712,7 +713,7 @@ class FileDetailSharingFragment :
                 fileDataStorageManager?.updateFileEntity(entity)
             }
         } else {
-            DisplayUtils.showSnackMessage(this, R.string.failed_update_ui)
+            SnackbarUtil.show(this, R.string.failed_update_ui)
         }
     }
 
@@ -732,7 +733,7 @@ class FileDetailSharingFragment :
         val user = user
 
         if (user == null) {
-            DisplayUtils.showSnackMessage(this, R.string.could_not_retrieve_url)
+            SnackbarUtil.show(this, R.string.could_not_retrieve_url)
             return
         }
 
@@ -876,7 +877,7 @@ class FileDetailSharingFragment :
         file = file?.fileId?.let { fileDataStorageManager?.getFileById(it) } ?: file
 
         internalShareeListAdapter?.removeAll() ?: run {
-            DisplayUtils.showSnackMessage(this, R.string.could_not_retrieve_shares)
+            SnackbarUtil.show(this, R.string.could_not_retrieve_shares)
             return
         }
 
@@ -902,7 +903,7 @@ class FileDetailSharingFragment :
         if (isGranted) {
             pickContactEmail()
         } else {
-            DisplayUtils.showSnackMessage(this, R.string.contact_no_permission)
+            SnackbarUtil.show(this, R.string.contact_no_permission)
         }
     }
 
@@ -912,13 +913,13 @@ class FileDetailSharingFragment :
         if (result.resultCode == Activity.RESULT_OK) {
             val intent = result.data
             if (intent == null) {
-                DisplayUtils.showSnackMessage(this, R.string.email_pick_failed)
+                SnackbarUtil.show(this, R.string.email_pick_failed)
                 return@registerForActivityResult
             }
 
             val contactUri = intent.data
             if (contactUri == null) {
-                DisplayUtils.showSnackMessage(this, R.string.email_pick_failed)
+                SnackbarUtil.show(this, R.string.email_pick_failed)
                 return@registerForActivityResult
             }
 

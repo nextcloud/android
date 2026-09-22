@@ -18,6 +18,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
@@ -28,7 +29,6 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.ui.adapter.localFileList.LocalFileThumbnailBinder
 import com.owncloud.android.ui.dialog.conflict.model.ConflictDialogType
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
@@ -89,7 +89,7 @@ class ConflictsResolveDialog :
 
         if (alertDialog == null) {
             activity?.let {
-                DisplayUtils.showSnackMessage(it, R.string.failed_to_create_conflict_dialog)
+                SnackbarUtil.show(it, R.string.failed_to_create_conflict_dialog)
             }
             return
         }

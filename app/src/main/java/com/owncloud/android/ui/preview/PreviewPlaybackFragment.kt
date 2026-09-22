@@ -30,7 +30,6 @@ import com.nextcloud.client.player.media3.PlaybackModel
 import com.nextcloud.client.player.model.PlayerThumbnailLoader
 import com.nextcloud.client.player.model.file.PlaybackCollection
 import com.nextcloud.client.player.model.file.PlaybackFile
-import com.nextcloud.client.player.util.PlayerUtil.toPlaybackFile
 import com.nextcloud.client.player.model.state.PlaybackState
 import com.nextcloud.client.player.model.state.VideoSize
 import com.nextcloud.client.player.ui.MediaNavigator
@@ -38,10 +37,15 @@ import com.nextcloud.client.player.ui.PlayerLauncher
 import com.nextcloud.client.player.util.PlayerUtil.applyVideoSize
 import com.nextcloud.client.player.util.PlayerUtil.isPictureInPictureAllowed
 import com.nextcloud.client.player.util.PlayerUtil.ownsPlayback
+import com.nextcloud.client.player.util.PlayerUtil.toPlaybackFile
 import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
+import com.nextcloud.utils.extensions.setVisibilityWithAnimation
+import com.nextcloud.utils.extensions.showNavigationBar
+import com.nextcloud.utils.extensions.showSystemBar
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PreviewPlaybackFragmentBinding
 import com.owncloud.android.datamodel.OCFile
@@ -49,7 +53,6 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.FetchRemoteFileOperation
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import dagger.android.support.AndroidSupportInjection
@@ -120,6 +123,7 @@ class PreviewPlaybackFragment :
     private var renderedVideoSize: VideoSize? = null
 
     private var pictureInPictureCallback: OnBackPressedCallback? = null
+    private var isFullScreen = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -138,6 +142,8 @@ class PreviewPlaybackFragment :
         loadThumbnail()
         registerPictureInPictureOnBack()
         binding.playerControlView.navigator = activity as? MediaNavigator
+        isFullScreen = previewActivity()?.isSystemUIVisible == false
+        binding.surfaceView.setOnClickListener { toggleFullScreen() }
         updatePlayerControlsVisibility()
         binding.root.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
             if (ownsPlayback(binding.surfaceView)) render(playbackModel.state)
@@ -219,7 +225,7 @@ class PreviewPlaybackFragment :
                     onOverflowClick(isManualClick = true)
                 } else {
                     Log_OC.d(TAG, result?.logMessage)
-                    DisplayUtils.showSnackMessage(binding.root, result.getLogMessage(context))
+                    SnackbarUtil.show(binding.root, result.getLogMessage(context))
                 }
             }
         }
@@ -399,8 +405,27 @@ class PreviewPlaybackFragment :
 
     private fun isInPictureInPictureMode(): Boolean = activity?.isInPictureInPictureMode == true
 
+    private fun toggleFullScreen() {
+        val previewActivity = previewActivity() ?: return
+        isFullScreen = !isFullScreen
+        previewActivity.toggleActionBarVisibility(!isFullScreen)
+        binding.playerControlView.setVisibilityWithAnimation(!isFullScreen)
+        previewActivity.window.run {
+            showSystemBar(!isFullScreen, binding.root)
+            showNavigationBar(!isFullScreen, binding.root)
+        }
+    }
+
     private fun updatePlayerControlsVisibility() {
-        binding.playerControlView.isVisible = !isInPictureInPictureMode()
+        if (isInPictureInPictureMode()) {
+            binding.playerControlView.isVisible = false
+            return
+        }
+
+        // playback updates arrive every second, so they must not undo full screen or cut the fade short
+        if (!isFullScreen) {
+            binding.playerControlView.isVisible = true
+        }
     }
 
     private fun showVideo(videoSize: VideoSize?) {

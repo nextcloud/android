@@ -14,6 +14,7 @@ import android.os.Environment
 import android.webkit.CookieManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.nextcloud.utils.SnackbarUtil
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 import kotlinx.coroutines.Dispatchers
@@ -86,7 +87,7 @@ class RichDocumentDownloader(private val activity: AppCompatActivity) {
                 R.string.failed_to_download
             }
 
-            DisplayUtils.showSnackMessage(activity, message)
+            SnackbarUtil.show(activity, message)
         }
     }
 

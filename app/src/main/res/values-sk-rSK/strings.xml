@@ -878,7 +878,7 @@
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Adresár sa nenašiel, operácia synchronizácie bola prerušená</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Nepodarilo sa nájsť súbor pre nahratie</string>
     <string name="recommend_subject">Vyskúšajte %1$s na vašom zariadení!</string>
-    <string name="recommend_text">Chcel by som odporučiť %1$s pre vaše zariadenie.\nZískať ho môžete aj tu: %2$s</string>
+    <string name="recommend_text">Chcem vás pozvať, aby ste používali %1$s vo svojom zariadení.\nStiahnite si ho tu: %2$s</string>
     <string name="recommend_urls">%1$s alebo %2$s</string>
     <string name="recommended_files_title">Odporúčané súbory</string>
     <string name="refresh_content">Obnoviť obsah</string>
@@ -1460,10 +1460,10 @@
         <item quantity="other">Skúste to znova o %1$d min a %2$d s kvôli príliš veľkému počtu nesprávnych pokusov.</item>
     </plurals>
     <plurals name="share_download_limit_description">
-        <item quantity="one">%1$d zostáva stiahnuť</item>
-        <item quantity="few">%1$d zostáva stiahnuť</item>
-        <item quantity="many">%1$d zostáva stiahnuť</item>
-        <item quantity="other">%1$d zostáva stiahnuť</item>
+        <item quantity="one">%1$d sťahovaní zostáva</item>
+        <item quantity="few">%1$d sťahovaní zostáva</item>
+        <item quantity="many">%1$d sťahovaní zostáva</item>
+        <item quantity="other">%1$d sťahovaní zostáva</item>
     </plurals>
     <plurals name="export_start">
         <item quantity="one">Export spustený (%d súbor)</item>

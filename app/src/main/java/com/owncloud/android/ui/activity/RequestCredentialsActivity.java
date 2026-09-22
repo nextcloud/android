@@ -18,11 +18,11 @@ import android.os.Bundle;
 import android.os.SystemClock;
 
 import com.nextcloud.client.preferences.AppPreferencesImpl;
+import com.nextcloud.utils.SnackbarUtil;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.DeviceCredentialUtils;
-import com.owncloud.android.utils.DisplayUtils;
 
 import androidx.annotation.Nullable;
 
@@ -54,7 +54,7 @@ public class RequestCredentialsActivity extends Activity {
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 finishWithResult(KEY_CHECK_RESULT_CANCEL);
             } else {
-                DisplayUtils.showSnackMessage(this, R.string.default_credentials_wrong);
+                SnackbarUtil.show(this, R.string.default_credentials_wrong);
                 requestCredentials();
             }
         }
@@ -67,7 +67,7 @@ public class RequestCredentialsActivity extends Activity {
         if (DeviceCredentialUtils.areCredentialsAvailable(this)) {
             requestCredentials();
         } else {
-            DisplayUtils.showSnackMessage(this, R.string.prefs_lock_device_credentials_not_setup);
+            SnackbarUtil.show(this, R.string.prefs_lock_device_credentials_not_setup);
             finishWithResult(KEY_CHECK_RESULT_CANCEL);
         }
     }

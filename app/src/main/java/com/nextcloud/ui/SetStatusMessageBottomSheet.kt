@@ -28,6 +28,7 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.SnackbarUtil
 import com.owncloud.android.R
 import com.owncloud.android.databinding.SetStatusMessageBottomSheetBinding
 import com.owncloud.android.datamodel.ArbitraryDataProvider
@@ -296,7 +297,7 @@ class SetStatusMessageBottomSheet(val user: User, val currentStatus: Status?) :
         if (boolean) {
             dismiss()
         } else {
-            DisplayUtils.showSnackMessage(view, view?.resources?.getString(R.string.error_setting_status_message))
+            SnackbarUtil.show(view, view?.resources?.getString(R.string.error_setting_status_message))
         }
     }
 

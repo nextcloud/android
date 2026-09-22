@@ -23,12 +23,12 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.typedActivity
 import com.owncloud.android.R
 import com.owncloud.android.databinding.CreateAlbumDialogBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.ui.activity.ComponentsGetter
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.KeyboardUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
@@ -159,7 +159,7 @@ class CreateAlbumDialogFragment :
         }
 
         if (errorMessage != null) {
-            DisplayUtils.showSnackMessage(requireActivity(), errorMessage)
+            SnackbarUtil.show(requireActivity(), errorMessage)
             return
         }
 
@@ -176,7 +176,7 @@ class CreateAlbumDialogFragment :
                 return@isNetworkAndServerAvailable
             }
 
-            DisplayUtils.showSnackMessage(requireActivity(), getString(R.string.offline_mode))
+            SnackbarUtil.show(requireActivity(), getString(R.string.offline_mode))
         }
     }
 

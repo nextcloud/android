@@ -21,6 +21,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.common.collect.Sets
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.typedActivity
 import com.nextcloud.utils.fileNameValidator.FileNameTextWatcher
@@ -33,7 +34,6 @@ import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.dialog.extensions.themeButtons
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.KeyboardUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
@@ -147,7 +147,7 @@ class RenameFileDialogFragment :
 
             val errorMessage = checkFileName(newFileName, oCCapability, requireContext())
             if (errorMessage != null) {
-                DisplayUtils.showSnackMessage(requireActivity(), errorMessage)
+                SnackbarUtil.show(requireActivity(), errorMessage)
                 return
             }
 

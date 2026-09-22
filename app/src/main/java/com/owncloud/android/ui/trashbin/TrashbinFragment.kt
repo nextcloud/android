@@ -41,6 +41,7 @@ import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.Throttler
 import com.nextcloud.ui.trashbinFileActions.TrashbinFileActionsBottomSheet
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FragmentTrashbinBinding
@@ -118,7 +119,7 @@ class TrashbinFragment :
             if (targetUser.isPresent) {
                 navigatorActivity.setUser(targetUser.get())
             } else {
-                DisplayUtils.showSnackMessage(this, R.string.associated_account_not_found)
+                SnackbarUtil.show(this, R.string.associated_account_not_found)
                 activity?.finish()
                 return
             }

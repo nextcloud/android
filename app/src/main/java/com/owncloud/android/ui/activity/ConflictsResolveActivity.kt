@@ -25,6 +25,7 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.upload.UploadNotificationManager
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.model.HTTPStatusCodes
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getDecryptedPath
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.logFileSize
@@ -40,7 +41,6 @@ import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.ui.dialog.conflict.ConflictsResolveDialog.Decision
 import com.owncloud.android.ui.dialog.conflict.ConflictsResolveDialog.OnConflictDecisionMadeListener
 import com.owncloud.android.ui.dialog.conflict.ConflictResolveDialogFactory
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -359,7 +359,7 @@ class ConflictsResolveActivity :
         }
 
         lifecycleScope.launch(Dispatchers.Main) {
-            DisplayUtils.showSnackMessage(this@ConflictsResolveActivity, message)
+            SnackbarUtil.show(this@ConflictsResolveActivity, message)
             finish()
         }
     }

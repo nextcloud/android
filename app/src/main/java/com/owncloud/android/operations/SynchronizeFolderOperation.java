@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.utils.share.UnifiedShareSharees;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorkerNotificationManager;
 import com.nextcloud.utils.extensions.ExtensionsKt;
@@ -349,6 +350,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
 
         // save updated contents in local database
+        UnifiedShareSharees.fillBlocking(user, updatedFiles);
+
         storageManager.saveFolder(remoteFolder, updatedFiles, localFilesMap.values());
         mLocalFolder.setLastSyncDateForData(System.currentTimeMillis());
         storageManager.saveFile(mLocalFolder);

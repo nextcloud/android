@@ -21,6 +21,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.e2ee.model.E2EEAction
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
@@ -41,7 +42,6 @@ import com.owncloud.android.lib.resources.users.StorePrivateKeyRemoteOperation
 import com.owncloud.android.ui.dialog.extensions.themeButtons
 import com.owncloud.android.ui.dialog.setupEncryption.model.DownloadKeyResult
 import com.owncloud.android.utils.ClipboardUtil
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.crypto.CryptoHelper
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -329,7 +329,7 @@ class SetupEncryptionDialogFragment :
                 val descriptionId = result.descriptionId ?: return
                 val description = getString(descriptionId)
                 dismiss()
-                DisplayUtils.showSnackMessage(requireActivity(), description)
+                SnackbarUtil.show(requireActivity(), description)
             }
         }
     }

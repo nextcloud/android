@@ -126,7 +126,7 @@
     <string name="authenticator_activity_cancel_login">Anmelden abbrechen</string>
     <string name="authenticator_activity_empty_base_url">Bitte eine gültige Serveradresse eingeben.</string>
     <string name="authenticator_activity_empty_response_message">Die Anmeldedaten konnten nicht abgerufen werden. Bitte noch einmal versuchen.</string>
-    <string name="authenticator_activity_login_error">Fehler bei der Verarbeitung Ihrer Anmeldeanforderung. Bitte versuchen Sie es später erneut.</string>
+    <string name="authenticator_activity_login_error">Fehler bei der Verarbeitung der Anmeldeanforderung. Bitte später erneut versuchen.</string>
     <string name="authenticator_activity_no_web_browser_found">Es ist kein Browser verfügbar, um diesen Link zu öffnen.</string>
     <string name="authenticator_activity_please_complete_login_process">Bitte schließen Sie den Anmeldevorgang in Ihrem Browser ab</string>
     <string name="auto_upload_background_activity_action">Hintergrundaktivität zulassen</string>
@@ -517,7 +517,7 @@
     <string name="file_list_empty_unified_search_no_results">Keine Ergebnisse für Ihre Suche gefunden</string>
     <string name="file_list_empty_unified_search_start_search">Beginnen Sie Ihre Suche</string>
     <string name="file_list_empty_unified_search_start_search_description">Geben Sie in die Suchleiste oben einen Begriff ein, um Dateien, Kontakte, Kalendertermine und mehr in Ihrem Konto zu finden.</string>
-    <string name="file_list_error_description">Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es später erneut.</string>
+    <string name="file_list_error_description">Bitte die Internetverbindung überprüfen und später erneut versuchen.</string>
     <string name="file_list_error_headline">Schlechte Verbindung</string>
     <string name="file_list_folder">Ordner</string>
     <string name="file_list_live">LIVE</string>

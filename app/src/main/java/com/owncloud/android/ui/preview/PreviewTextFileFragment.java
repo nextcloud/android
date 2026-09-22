@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.ui.fileactions.FileAction;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
+import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.R;
@@ -30,7 +31,6 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.TextEditorWebView;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import org.mozilla.universalchardet.ReaderFactory;
@@ -290,7 +290,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
     private void onFileActionChosen(final int itemId) {
         if (itemId == R.id.action_send_share_file) {
             if (getFile().isSharedWithMe() && !getFile().canReshare()) {
-                DisplayUtils.showSnackMessage(this, R.string.resharing_is_not_allowed);
+                SnackbarUtil.show(this, R.string.resharing_is_not_allowed);
             } else {
                 containerActivity.getFileOperationsHelper().sendShareFile(getFile());
             }

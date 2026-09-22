@@ -49,6 +49,7 @@ import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.client.utils.Throttler
 import com.nextcloud.ui.albumItemActions.AlbumItemActionsBottomSheet
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.extensions.isDialogFragmentReady
 import com.nextcloud.utils.extensions.isLandscape
@@ -89,7 +90,6 @@ import com.owncloud.android.ui.helpers.UriUploader
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.ui.preview.PreviewImageFragment
 import com.owncloud.android.utils.ClipboardUtil
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -738,7 +738,7 @@ class AlbumItemsFragment :
 
             withContext(Dispatchers.Main) {
                 if (failedFiles.isNotEmpty() && files.size > SINGLE_SELECTION) {
-                    DisplayUtils.showSnackMessage(requireActivity(), getString(R.string.album_delete_failed_message))
+                    SnackbarUtil.show(requireActivity(), getString(R.string.album_delete_failed_message))
                 }
 
                 dismissLoadingDialog()
@@ -762,7 +762,7 @@ class AlbumItemsFragment :
 
             if (files.size == SINGLE_SELECTION) {
                 val message = ErrorMessageAdapter.getErrorCauseMessage(result, operation, resources)
-                withContext(Dispatchers.Main) { DisplayUtils.showSnackMessage(requireActivity(), message) }
+                withContext(Dispatchers.Main) { SnackbarUtil.show(requireActivity(), message) }
             }
         }
 
@@ -815,7 +815,7 @@ class AlbumItemsFragment :
         val mediaUris = contentIntent.mediaUris()
 
         if (mediaUris.isEmpty()) {
-            DisplayUtils.showSnackMessage(requireActivity(), R.string.album_unsupported_file)
+            SnackbarUtil.show(requireActivity(), R.string.album_unsupported_file)
             return
         }
 

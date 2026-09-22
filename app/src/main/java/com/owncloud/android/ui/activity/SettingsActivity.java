@@ -52,6 +52,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
+import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.BuildConfig;
@@ -480,7 +481,7 @@ public class SettingsActivity extends PreferenceActivity
                         i.putExtra("EXTRA_USER", user);
                         startActivityForResult(i, ACTION_E2E);
                     } else {
-                        DisplayUtils.showSnackMessage(this, R.string.e2e_offline);
+                        SnackbarUtil.show(this, R.string.e2e_offline);
                     }
 
                     return true;
@@ -606,7 +607,7 @@ public class SettingsActivity extends PreferenceActivity
 
         preference.setOnPreferenceClickListener(p -> {
             if (!connectivityService.getConnectivity().isConnected()) {
-                DisplayUtils.showSnackMessage(this, R.string.e2e_offline);
+                SnackbarUtil.show(this, R.string.e2e_offline);
                 return true;
             }
 
@@ -632,9 +633,9 @@ public class SettingsActivity extends PreferenceActivity
     private void onRenewE2ECertificateResult(Preference preference, E2ECertificateRenewalResult result) {
         if (result instanceof E2ECertificateRenewalResult.Success) {
             updateRenewE2ECertificateSummary(preference);
-            DisplayUtils.showSnackMessage(this, R.string.renew_e2e_certificate_success);
+            SnackbarUtil.show(this, R.string.renew_e2e_certificate_success);
         } else if (result instanceof E2ECertificateRenewalResult.Failure) {
-            DisplayUtils.showSnackMessage(this, ((E2ECertificateRenewalResult.Failure) result).getMessageId());
+            SnackbarUtil.show(this, ((E2ECertificateRenewalResult.Failure) result).getMessageId());
         }
     }
 
@@ -742,7 +743,7 @@ public class SettingsActivity extends PreferenceActivity
                         launchDavDroidLogin();
                     } catch (Throwable t) {
                         Log_OC.e(TAG, "Error while setting up DavX5", t);
-                        DisplayUtils.showSnackMessage(
+                        SnackbarUtil.show(
                             activity,
                             R.string.prefs_davx5_setup_error);
                     }
@@ -914,9 +915,9 @@ public class SettingsActivity extends PreferenceActivity
             startActivityForResult(i, ACTION_REQUEST_PASSCODE);
         } else if (LOCK_DEVICE_CREDENTIALS.equals(lock)) {
             if (!DeviceCredentialUtils.areCredentialsAvailable(getApplicationContext())) {
-                DisplayUtils.showSnackMessage(this, R.string.prefs_lock_device_credentials_not_setup);
+                SnackbarUtil.show(this, R.string.prefs_lock_device_credentials_not_setup);
             } else {
-                DisplayUtils.showSnackMessage(this, R.string.prefs_lock_device_credentials_enabled);
+                SnackbarUtil.show(this, R.string.prefs_lock_device_credentials_enabled);
                 changeLockSetting(LOCK_DEVICE_CREDENTIALS);
             }
         }
@@ -1056,7 +1057,7 @@ public class SettingsActivity extends PreferenceActivity
                 // no f-droid market app or Play store installed --> launch browser for f-droid url
                 DisplayUtils.startLinkIntent(this, "https://f-droid.org/packages/at.bitfire.davdroid/");
 
-                DisplayUtils.showSnackMessage(this, R.string.prefs_calendar_contacts_no_store_error);
+                SnackbarUtil.show(this, R.string.prefs_calendar_contacts_no_store_error);
             }
         }
     }
@@ -1097,25 +1098,25 @@ public class SettingsActivity extends PreferenceActivity
                 }
                 appPrefs.apply();
                 changeLockSetting(LOCK_PASSCODE);
-                DisplayUtils.showSnackMessage(this, R.string.pass_code_stored);
+                SnackbarUtil.show(this, R.string.pass_code_stored);
             }
         } else if (requestCode == ACTION_CONFIRM_PASSCODE && resultCode == RESULT_OK) {
             if (data.getBooleanExtra(PassCodeActivity.KEY_CHECK_RESULT, false)) {
                 changeLockSetting(LOCK_NONE);
 
-                DisplayUtils.showSnackMessage(this, R.string.pass_code_removed);
+                SnackbarUtil.show(this, R.string.pass_code_removed);
                 if (!LOCK_NONE.equals(pendingLock)) {
                     enableLock(pendingLock);
                 }
             }
         } else if (requestCode == ACTION_REQUEST_CODE_DAVDROID_SETUP && resultCode == RESULT_OK) {
-            DisplayUtils.showSnackMessage(this, R.string.prefs_calendar_contacts_sync_setup_successful);
+            SnackbarUtil.show(this, R.string.prefs_calendar_contacts_sync_setup_successful);
         } else if (requestCode == ACTION_CONFIRM_DEVICE_CREDENTIALS && resultCode == RESULT_OK &&
             data.getIntExtra(RequestCredentialsActivity.KEY_CHECK_RESULT,
                              RequestCredentialsActivity.KEY_CHECK_RESULT_FALSE) ==
                 RequestCredentialsActivity.KEY_CHECK_RESULT_TRUE) {
             changeLockSetting(LOCK_NONE);
-            DisplayUtils.showSnackMessage(this, R.string.credentials_disabled);
+            SnackbarUtil.show(this, R.string.credentials_disabled);
             if (!LOCK_NONE.equals(pendingLock)) {
                 enableLock(pendingLock);
             }
@@ -1161,7 +1162,7 @@ public class SettingsActivity extends PreferenceActivity
     @VisibleForTesting
     public void handleMnemonicRequest(Intent data) {
         if (data == null) {
-            DisplayUtils.showSnackMessage(this, "Error retrieving mnemonic!");
+            SnackbarUtil.show(this, "Error retrieving mnemonic!");
         } else {
             if (data.getIntExtra(RequestCredentialsActivity.KEY_CHECK_RESULT,
                                  RequestCredentialsActivity.KEY_CHECK_RESULT_FALSE) ==
