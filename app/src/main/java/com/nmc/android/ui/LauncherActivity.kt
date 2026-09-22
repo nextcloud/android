@@ -10,11 +10,10 @@ package com.nmc.android.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import androidx.annotation.VisibleForTesting
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.mdm.MDMConfig
 import com.owncloud.android.R
@@ -23,6 +22,8 @@ import com.owncloud.android.databinding.ActivitySplashBinding
 import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.activity.SettingsActivity
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -68,9 +69,13 @@ class LauncherActivity : BaseActivity() {
         resources.getString(R.string.splashScreenNormal).isNotEmpty()
 
     private fun scheduleSplashScreen() {
-        val duration = if (hasBrandedTitle()) SPLASH_DURATION else NO_SPLASH_DURATION
+        lifecycleScope.launch {
+            if (hasBrandedTitle()) {
+                delay(SPLASH_DURATION)
+            }
 
-        Handler(Looper.getMainLooper()).postDelayed({ openNextScreen() }, duration.inWholeMilliseconds)
+            openNextScreen()
+        }
     }
 
     private fun openNextScreen() {
@@ -89,6 +94,5 @@ class LauncherActivity : BaseActivity() {
 
     companion object {
         private val SPLASH_DURATION = 1500.milliseconds
-        private val NO_SPLASH_DURATION = 100.milliseconds
     }
 }
