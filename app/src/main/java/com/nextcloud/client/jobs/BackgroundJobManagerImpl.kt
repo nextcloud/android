@@ -490,6 +490,9 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueueUniqueWork(JOB_CONTENT_OBSERVER, ExistingWorkPolicy.REPLACE, request)
     }
 
+    override fun isAutoUploadScheduled(syncedFolderID: Long): Boolean =
+        workManager.isWorkScheduled(autoUploadWorkName(syncedFolderID))
+
     private fun autoUploadWorkName(syncedFolderID: Long): String = JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID
 
     private fun autoUploadIgnorePowerSavingTag(syncedFolderID: Long): String =

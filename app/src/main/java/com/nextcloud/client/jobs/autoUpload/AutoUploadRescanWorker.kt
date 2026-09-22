@@ -29,10 +29,9 @@ class AutoUploadRescanWorker(
     }
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
-        val requestedFolders = FilesSyncHelper.startAutoUploadForEnabledSyncedFolders(
+        val requestedFolders = FilesSyncHelper.startAutoUploadForEnabledSyncedFoldersIfNotActive(
             syncedFolderProvider,
-            backgroundJobManager,
-            false
+            backgroundJobManager
         )
 
         Log_OC.d(TAG, "requested auto upload for $requestedFolders folder(s)")
