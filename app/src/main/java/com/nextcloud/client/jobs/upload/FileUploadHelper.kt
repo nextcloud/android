@@ -25,6 +25,7 @@ import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.notifications.AppWideNotificationManager
 import com.nextcloud.model.OCUploadLocalPathData
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.checkWCFRestrictions
 import com.nextcloud.utils.extensions.createOwncloudClient
 import com.nextcloud.utils.extensions.getUploadIds
@@ -51,7 +52,6 @@ import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.adapter.uploadList.helper.ConflictHandlingResult
 import com.owncloud.android.ui.adapter.uploadList.helper.UploadListAdapterActionHandler
-import com.owncloud.android.utils.DisplayUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -619,7 +619,7 @@ class FileUploadHelper {
             MAX_FILE_COUNT,
             MAX_FILE_COUNT
         )
-        DisplayUtils.showSnackMessage(activity, message)
+        SnackbarUtil.show(activity, message)
     }
 
     class UploadNotificationActionReceiver : BroadcastReceiver() {

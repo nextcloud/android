@@ -8,6 +8,7 @@
 package com.owncloud.android.ui.fragment
 
 import com.nextcloud.client.account.User
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.e2ee.E2EVersionHelper
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -17,7 +18,6 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation
 import com.owncloud.android.lib.resources.status.E2EVersion
 import com.owncloud.android.ui.events.EncryptionEvent
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.EncryptionUtilsV2
 import kotlinx.coroutines.Dispatchers
@@ -157,6 +157,6 @@ class FolderEncryption(private val fragment: OCFileListFragment) {
     }
 
     private suspend fun showSnackbar(messageResId: Int) = withContext(Dispatchers.Main) {
-        DisplayUtils.showSnackMessage(fragment, messageResId)
+        SnackbarUtil.show(fragment, messageResId)
     }
 }

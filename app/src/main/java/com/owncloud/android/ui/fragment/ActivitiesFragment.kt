@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.common.NextcloudClient
+import com.nextcloud.utils.SnackbarUtil
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FragmentActivitiesBinding
 import com.owncloud.android.datamodel.OCFile
@@ -35,7 +36,6 @@ import com.owncloud.android.ui.interfaces.ActivityListInterface
 import com.owncloud.android.ui.navigation.NavigatorActivity
 import com.owncloud.android.ui.preview.PreviewImageActivity
 import com.owncloud.android.ui.preview.PreviewImageFragment.Companion.canBePreviewed
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -159,7 +159,7 @@ class ActivitiesFragment :
         connectivityService.isNetworkAndServerAvailable {
             if (it) {
                 val view = view ?: return@isNetworkAndServerAvailable
-                DisplayUtils.showSnackMessage(view, error)
+                SnackbarUtil.show(view, error)
             } else {
                 showEmptyContent(
                     getString(R.string.server_not_reachable),
@@ -186,12 +186,12 @@ class ActivitiesFragment :
 
     override fun showActivityDetailUIIsNull() {
         val view = view ?: return
-        DisplayUtils.showSnackMessage(view, R.string.file_not_found)
+        SnackbarUtil.show(view, R.string.file_not_found)
     }
 
     override fun showActivityDetailError(error: String) {
         val view = view ?: return
-        DisplayUtils.showSnackMessage(view, error)
+        SnackbarUtil.show(view, error)
     }
 
     override fun showLoadingMessage() {

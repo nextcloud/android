@@ -23,6 +23,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 
+import com.nextcloud.utils.SnackbarUtil;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ExternalsiteWebviewBinding;
@@ -60,7 +61,7 @@ public class ExternalSiteWebView extends FileActivity {
 
         if (!WebViewUtil.available(this)) {
             super.onCreate(savedInstanceState);
-            DisplayUtils.showSnackMessage(this, R.string.webview_not_available);
+            SnackbarUtil.show(this, R.string.webview_not_available);
             finish();
             return;
         }

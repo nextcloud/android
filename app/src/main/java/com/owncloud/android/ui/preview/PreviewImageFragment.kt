@@ -51,6 +51,7 @@ import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.clickWithDebounce
 import com.nextcloud.utils.extensions.getBigThumbnailKey
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -412,7 +413,7 @@ class PreviewImageFragment :
                     onOverflowClick(isManualClick = true)
                 } else {
                     Log_OC.d(TAG, result?.logMessage)
-                    DisplayUtils.showSnackMessage(binding.root, result.getLogMessage(context))
+                    SnackbarUtil.show(binding.root, result.getLogMessage(context))
                 }
             }
         }

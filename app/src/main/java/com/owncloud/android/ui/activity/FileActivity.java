@@ -39,6 +39,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.network.NetworkChangeListener;
 import com.nextcloud.client.player.ui.PlayerActivity;
 import com.nextcloud.utils.EditorUtils;
+import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
@@ -390,7 +391,7 @@ public abstract class FileActivity extends DrawerActivity
             requestCredentialsUpdate();
 
             if (result.getCode() == ResultCode.UNAUTHORIZED) {
-                DisplayUtils.showSnackMessage(
+                SnackbarUtil.show(
                     this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
                                              );
             }
@@ -410,7 +411,7 @@ public abstract class FileActivity extends DrawerActivity
                 updateFileFromDB();
 
             } else if (result.getCode() != ResultCode.CANCELLED) {
-                DisplayUtils.showSnackMessage(
+                SnackbarUtil.show(
                     this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
                                              );
             }
@@ -423,7 +424,7 @@ public abstract class FileActivity extends DrawerActivity
                 updateFileFromDB();
 
             } else {
-                DisplayUtils.showSnackMessage(this,
+                SnackbarUtil.show(this,
                                               ErrorMessageAdapter.getErrorCauseMessage(result,
                                                                                        operation,
                                                                                        getResources()));
@@ -500,7 +501,7 @@ public abstract class FileActivity extends DrawerActivity
             updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
             startActivityForResult(updateAccountCredentials, REQUEST_CODE__UPDATE_CREDENTIALS);
         } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-            DisplayUtils.showSnackMessage(this, R.string.auth_account_does_not_exist);
+            SnackbarUtil.show(this, R.string.auth_account_does_not_exist);
         }
     }
 
@@ -534,7 +535,7 @@ public abstract class FileActivity extends DrawerActivity
 
         } else {
             if (!operation.getTransferWasRequested()) {
-                DisplayUtils.showSnackMessage(this, ErrorMessageAdapter.getErrorCauseMessage(result,
+                SnackbarUtil.show(this, ErrorMessageAdapter.getErrorCauseMessage(result,
                                                                                              operation, getResources()));
             }
             supportInvalidateOptionsMenu();
@@ -727,7 +728,7 @@ public abstract class FileActivity extends DrawerActivity
         }
 
         if (latestVersion == -1 || currentVersion == -1) {
-            DisplayUtils.showSnackMessage(activity, R.string.dev_version_no_information_available, Snackbar.LENGTH_LONG);
+            SnackbarUtil.show(activity, R.string.dev_version_no_information_available);
         }
         if (latestVersion > currentVersion) {
             String devApkLink = activity.getString(R.string.dev_link) + latestVersion + ".apk";
@@ -740,7 +741,7 @@ public abstract class FileActivity extends DrawerActivity
             }
         } else {
             if (!inBackground) {
-                DisplayUtils.showSnackMessage(activity, R.string.dev_version_no_new_version_available, Snackbar.LENGTH_LONG);
+                SnackbarUtil.show(activity, R.string.dev_version_no_new_version_available);
             }
         }
     }
@@ -804,7 +805,7 @@ public abstract class FileActivity extends DrawerActivity
                 sharingFragment.onUpdateShareInformation(result);
             }
         } else {
-            DisplayUtils.showSnackMessage(this, R.string.note_could_not_sent);
+            SnackbarUtil.show(this, R.string.note_could_not_sent);
         }
     }
 
@@ -886,7 +887,7 @@ public abstract class FileActivity extends DrawerActivity
                 if (ocFileListFragment.getAdapterFiles().contains(file)) {
                     ocFileListFragment.updateOCFile(file);
                 } else {
-                    DisplayUtils.showSnackMessage(this, R.string.file_activity_shared_file_cannot_be_updated);
+                    SnackbarUtil.show(this, R.string.file_activity_shared_file_cannot_be_updated);
                 }
             }
         } else {
@@ -965,7 +966,7 @@ public abstract class FileActivity extends DrawerActivity
             if (!existingSharees.contains(shareType + "_" + shareWith)) {
                 doShareWith(shareWith, shareType);
             } else {
-                DisplayUtils.showSnackMessage(this, getString(R.string.sharee_already_added_to_file));
+                SnackbarUtil.show(this, getString(R.string.sharee_already_added_to_file));
             }
         }
     }

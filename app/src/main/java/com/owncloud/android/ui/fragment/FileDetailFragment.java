@@ -36,6 +36,7 @@ import com.nextcloud.ui.fileactions.FileAction;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.ui.tags.TagManagementBottomSheet;
 import com.nextcloud.utils.MenuUtils;
+import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
@@ -852,13 +853,13 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                                        ShareType shareType,
                                        boolean secureShare) {
         if (getFile() == null) {
-            DisplayUtils.showSnackMessage(requireView(), R.string.file_not_found_cannot_share);
+            SnackbarUtil.show(requireView(), R.string.file_not_found_cannot_share);
             return;
         }
 
         final var file = getFile();
         if (Objects.equals(file.getOwnerId(), shareeName)) {
-            DisplayUtils.showSnackMessage(requireView(), R.string.file_detail_share_already_active);
+            SnackbarUtil.show(requireView(), R.string.file_detail_share_already_active);
             return;
         }
 

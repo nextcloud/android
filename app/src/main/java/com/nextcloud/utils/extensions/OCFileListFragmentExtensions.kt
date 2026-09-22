@@ -9,6 +9,7 @@ package com.nextcloud.utils.extensions
 
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.e2ee.model.E2EEAction
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
@@ -20,7 +21,6 @@ import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragm
 import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment.Companion.RESULT_REQUEST_KEY
 import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment.Companion.SUCCESS
 import com.owncloud.android.ui.fragment.OCFileListFragment
-import com.owncloud.android.utils.DisplayUtils
 import kotlinx.coroutines.launch
 
 private const val TAG = "OCFileListFragmentExtensions"
@@ -39,7 +39,7 @@ fun OCFileListFragment.showEncryptionDialog(remotePath: String?, action: E2EEAct
             return@isNetworkAndServerAvailable
         }
 
-        DisplayUtils.showSnackMessage(
+        SnackbarUtil.show(
             this,
             R.string.internet_connection_required_for_encrypted_folder_setup
         )
