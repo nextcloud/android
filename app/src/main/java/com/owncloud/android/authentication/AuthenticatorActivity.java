@@ -63,6 +63,7 @@ import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.common.PlainClient;
+import com.nextcloud.model.HTTPStatusCodes;
 import com.nextcloud.operations.PostMethod;
 import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
@@ -117,6 +118,7 @@ import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -401,17 +403,30 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
     // region LoginFlow
+    private static final long LOGIN_FLOW_POLL_INTERVAL_SECONDS = 30;
+
     private final ScheduledExecutorService loginFlowExecutorService = Executors.newSingleThreadScheduledExecutor();
+    private ScheduledFuture<?> loginFlowPollTask;
     private boolean isLoginProcessCompleted = false;
     private boolean isRedirectedToTheDefaultBrowser = false;
     private String baseUrl;
 
     private void poolLogin() {
-        loginFlowExecutorService.scheduleWithFixedDelay(() -> {
-            if (!isLoginProcessCompleted) {
-                performLoginFlowV2();
+        if (loginFlowPollTask != null && !loginFlowPollTask.isDone()) {
+            return;
+        }
+
+        loginFlowPollTask = loginFlowExecutorService.scheduleWithFixedDelay(() -> {
+            if (isLoginProcessCompleted) {
+                return;
             }
-        }, 0, 30, TimeUnit.SECONDS);
+
+            try {
+                performLoginFlowV2();
+            } catch (Exception e) {
+                Log_OC.e(TAG, "Error polling login flow: " + e);
+            }
+        }, 0, LOGIN_FLOW_POLL_INTERVAL_SECONDS, TimeUnit.SECONDS);
     }
 
     /**
@@ -553,35 +568,37 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         String response = post.getResponseBodyAsString();
 
         Log_OC.d(TAG, "performLoginFlowV2 status: " + status);
-        Log_OC.d(TAG, "performLoginFlowV2 response: " + response);
 
-        if (!response.isEmpty()) {
-            runOnUiThread(() -> completeLoginFlow(response, status));
+        if (status != HTTPStatusCodes.SUCCESS.getCode() || TextUtils.isEmpty(response)) {
+            return;
         }
+
+        runOnUiThread(() -> completeLoginFlow(response, status));
     }
 
     private void completeLoginFlow(String response, int status) {
+        final LoginUrlInfo loginUrlInfo;
+
         try {
-            LoginUrlInfo loginUrlInfo = gson.fromJson(response, LoginUrlInfo.class);
-            if (loginUrlInfo == null) {
-                Log_OC.e(TAG, "cannot complete login flow loginUrl is null");
+            loginUrlInfo = gson.fromJson(response, LoginUrlInfo.class);
+            if (loginUrlInfo == null || !loginUrlInfo.isValid(status)) {
+                Log_OC.d(TAG, "Login flow not granted yet, keep polling");
                 return;
             }
-            isLoginProcessCompleted = loginUrlInfo.isValid(status);
-
-            if (accountSetupBinding != null) {
-                accountSetupBinding.hostUrlInput.setText("");
-            }
-
-            mServerInfo.mBaseUrl = AuthenticatorUrlUtils.INSTANCE.normalizeUrlSuffix(loginUrlInfo.getServer());
-            webViewUser = loginUrlInfo.getLoginName();
-            webViewPassword = loginUrlInfo.getAppPassword();
         } catch (Exception e) {
-            Log_OC.d(TAG, "Error completeLoginFlow: " + e);
-            mServerStatusIcon = R.drawable.ic_alert;
-            mServerStatusText = getString(R.string.qr_could_not_be_read);
-            showServerStatus();
+            Log_OC.e(TAG, "Error completeLoginFlow: " + e);
+            return;
         }
+
+        isLoginProcessCompleted = true;
+
+        if (accountSetupBinding != null) {
+            accountSetupBinding.hostUrlInput.setText("");
+        }
+
+        mServerInfo.mBaseUrl = AuthenticatorUrlUtils.INSTANCE.normalizeUrlSuffix(loginUrlInfo.getServer());
+        webViewUser = loginUrlInfo.getLoginName();
+        webViewPassword = loginUrlInfo.getAppPassword();
 
         checkOcServer();
         loginFlowExecutorService.shutdown();
