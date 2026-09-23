@@ -142,9 +142,14 @@ android {
 
         buildTypes {
             release {
+                isMinifyEnabled = true
+                isShrinkResources = true
+                proguardFiles(
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
+                )
                 buildConfigField("String", "NC_TEST_SERVER_DATA_STRING", "\"\"")
             }
-
             debug {
                 enableUnitTestCoverage = project.hasProperty("coverage")
                 enableAndroidTestCoverage = project.hasProperty("coverage")
