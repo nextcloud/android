@@ -15,22 +15,17 @@ import java.util.Locale
 
 object HumanReadableFormatter {
 
-    private const val BYTE_SIZE_DIVIDER = 1024.0
-
     @JvmStatic
     fun bytesToHumanReadable(bytes: Long): String {
         if (bytes < 0) {
             return MainApp.string(R.string.common_pending)
         }
 
-        var size = bytes.toDouble()
-        var unitIndex = 0
-        while (size > BYTE_SIZE_DIVIDER && unitIndex < ByteUnit.entries.lastIndex) {
-            size /= BYTE_SIZE_DIVIDER
-            unitIndex++
-        }
-
+        val unitIndex = ((63 - java.lang.Long.numberOfLeadingZeros(bytes)) / 10)
+            .coerceIn(0, ByteUnit.entries.lastIndex)
         val unit = ByteUnit.entries[unitIndex]
+        val size = bytes.toDouble() / (1L shl (10 * unitIndex))
+
         return "${String.format(Locale.ROOT, "%.${unit.decimals}f", size)} ${unit.suffix}"
     }
 

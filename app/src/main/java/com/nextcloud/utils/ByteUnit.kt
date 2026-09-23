@@ -14,7 +14,5 @@ enum class ByteUnit(val suffix: String, val decimals: Int) {
     GIGABYTES("GB", 1),
     TERABYTES("TB", 1),
     PETABYTES("PB", 2),
-    EXABYTES("EB", 2),
-    ZETTABYTES("ZB", 2),
-    YOTTABYTES("YB", 2)
+    EXABYTES("EB", 2)
 }
