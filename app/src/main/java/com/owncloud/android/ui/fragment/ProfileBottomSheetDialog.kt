@@ -29,6 +29,7 @@ import com.google.android.material.button.MaterialButton
 import com.nextcloud.android.lib.resources.profile.Action
 import com.nextcloud.android.lib.resources.profile.HoverCard
 import com.nextcloud.client.account.User
+import com.nextcloud.client.utils.IntentUtil
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ProfileBottomSheetFragmentBinding
 import com.owncloud.android.utils.DisplayUtils
@@ -146,7 +147,7 @@ class ProfileBottomSheetDialog(
     }
 
     private fun openWebsite(url: String) {
-        DisplayUtils.startLinkIntent(fileActivity, url)
+        IntentUtil.startLinkIntent(fileActivity, url)
     }
 
     private fun sendEmail(email: String) {
@@ -155,7 +156,7 @@ class ProfileBottomSheetDialog(
             putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
         }
 
-        DisplayUtils.startIntentIfAppAvailable(intent, fileActivity, R.string.no_email_app_available)
+        IntentUtil.startIntentIfAppAvailable(intent, fileActivity, R.string.no_email_app_available)
     }
 
     private fun openTalk(userId: String, hyperlink: String) {

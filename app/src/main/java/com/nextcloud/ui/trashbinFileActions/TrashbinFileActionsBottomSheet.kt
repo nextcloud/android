@@ -26,6 +26,7 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.toOCFile
 import com.nextcloud.utils.thumbnail.ThumbnailArguments
 import com.owncloud.android.R
@@ -34,7 +35,6 @@ import com.owncloud.android.databinding.FileActionsBottomSheetItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile
-import com.owncloud.android.utils.DisplayUtils
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
@@ -111,7 +111,7 @@ class TrashbinFileActionsBottomSheet :
 
             TrashbinFileActionsViewModel.UiState.Error -> {
                 activity?.let {
-                    DisplayUtils.showSnackMessage(it, R.string.error_file_actions)
+                    SnackbarUtil.show(it, R.string.error_file_actions)
                 }
                 dismissAllowingStateLoss()
             }

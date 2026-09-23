@@ -59,12 +59,14 @@ import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.player.media3.PlaybackModel;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.nextcloud.ui.composeActivity.ComposeActivity;
 import com.nextcloud.ui.composeActivity.ComposeDestination;
 import com.nextcloud.utils.GlideHelper;
 import com.nextcloud.utils.LinkHelper;
+import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.DrawerActivityExtensionsKt;
 import com.nextcloud.utils.extensions.NavigationViewExtensionsKt;
@@ -828,7 +830,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 }
 
                 if (link.getRedirect()) {
-                    DisplayUtils.startLinkIntent(DrawerActivity.this, link.getUrl());
+                    IntentUtil.startLinkIntent(DrawerActivity.this, link.getUrl());
                 } else {
                     Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
                     externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, link.getName());
@@ -1457,7 +1459,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         DeepLinkConstants deepLinkType = DeepLinkConstants.Companion.fromPath(path);
         if (deepLinkType == null) {
-            DisplayUtils.showSnackMessage(this, getString(R.string.invalid_url));
+            SnackbarUtil.show(this, getString(R.string.invalid_url));
             return;
         }
 

@@ -37,6 +37,7 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.EditorUtils;
+import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -71,7 +72,6 @@ import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.events.FileLockEvent;
 import com.owncloud.android.ui.events.SyncEventFinished;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.UriUtils;
@@ -201,7 +201,7 @@ public class FileOperationsHelper {
 
             // if offline or walled garden, show old version with warning
             if (!connectivityService.getConnectivity().isConnected() || connectivityService.isInternetWalled()) {
-                DisplayUtils.showSnackMessage(fileActivity, R.string.file_not_synced);
+                SnackbarUtil.show(fileActivity, R.string.file_not_synced);
                 EventBus.getDefault().post(new SyncEventFinished(intent));
 
                 return;
@@ -248,7 +248,7 @@ public class FileOperationsHelper {
             if (file.isDown()) {
                 FileStorageUtils.checkIfFileFinishedSaving(file);
                 if (!result.isSuccess()) {
-                    DisplayUtils.showSnackMessage(fileActivity, R.string.file_not_synced);
+                    SnackbarUtil.show(fileActivity, R.string.file_not_synced);
                     try {
                         Thread.sleep(3000);
                     } catch (InterruptedException e) {
@@ -278,7 +278,7 @@ public class FileOperationsHelper {
             capability.getRichDocumentsDirectEditing().isTrue()) {
             openFileAsRichDocument(file, fileActivity);
         } else {
-            DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type);
+            SnackbarUtil.show(fileActivity, R.string.file_list_no_app_for_file_type);
         }
     }
 
@@ -332,13 +332,13 @@ public class FileOperationsHelper {
             }
 
             if (availableApps.isEmpty()) {
-                fileActivity.runOnUiThread(() -> DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type));
+                fileActivity.runOnUiThread(() -> SnackbarUtil.show(fileActivity, R.string.file_list_no_app_for_file_type));
 
                 return;
             }
 
             if (!result.isSuccess()) {
-                fileActivity.runOnUiThread(() -> DisplayUtils.showSnackMessage(fileActivity, R.string.file_not_synced));
+                fileActivity.runOnUiThread(() -> SnackbarUtil.show(fileActivity, R.string.file_not_synced));
 
                 // Sleep to show snackbar message
                 try {
@@ -353,7 +353,7 @@ public class FileOperationsHelper {
                     openFileWithIntent.setFlags(openFileWithIntent.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
                     fileActivity.startActivity(openFileWithIntent);
                 } catch (ActivityNotFoundException exception) {
-                    DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type);
+                    SnackbarUtil.show(fileActivity, R.string.file_list_no_app_for_file_type);
                 }
             });
         }).start();
@@ -416,7 +416,7 @@ public class FileOperationsHelper {
             fileActivity.dismissLoadingDialog();
 
             if (!result.isSuccess()) {
-                DisplayUtils.showSnackMessage(fileActivity, R.string.stream_not_possible_headline);
+                SnackbarUtil.show(fileActivity, R.string.stream_not_possible_headline);
                 return;
             }
 
@@ -855,7 +855,7 @@ public class FileOperationsHelper {
 
                 intent.setDataAndType(uri, file.getMimeType());
             } catch (ActivityNotFoundException exception) {
-                DisplayUtils.showSnackMessage(view, R.string.picture_set_as_no_app);
+                SnackbarUtil.show(view, R.string.picture_set_as_no_app);
             }
         } else {
             Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
@@ -1083,7 +1083,7 @@ public class FileOperationsHelper {
                 }
                 fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
             } else {
-                DisplayUtils.showSnackMessage(fileActivity, fileActivity.getString(R.string.offline_mode));
+                SnackbarUtil.show(fileActivity, fileActivity.getString(R.string.offline_mode));
             }
             return Unit.INSTANCE;
         });
@@ -1171,7 +1171,7 @@ public class FileOperationsHelper {
         if (intent.resolveActivity(activity.getPackageManager()) != null) {
             activity.startActivityForResult(intent, requestCode);
         } else {
-            DisplayUtils.showSnackMessage(activity, "No Camera found");
+            SnackbarUtil.show(activity, "No Camera found");
         }
     }
 

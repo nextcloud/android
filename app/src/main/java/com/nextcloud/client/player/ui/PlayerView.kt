@@ -26,12 +26,12 @@ import com.nextcloud.client.player.model.state.PlaybackState
 import com.nextcloud.client.player.ui.control.PlayerControlView
 import com.nextcloud.client.player.ui.pager.PlayerPager
 import com.nextcloud.client.player.util.WindowWrapper
+import com.nextcloud.utils.SnackbarUtil
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadFileOperation
-import com.owncloud.android.utils.DisplayUtils
 import dagger.android.HasAndroidInjector
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -124,7 +124,7 @@ abstract class PlayerView @JvmOverloads constructor(
         if (error is SourceException) {
             downloadFile()
         } else {
-            DisplayUtils.showSnackMessage(this, R.string.common_error_unknown)
+            SnackbarUtil.show(this, R.string.common_error_unknown)
         }
     }
 
@@ -145,7 +145,7 @@ abstract class PlayerView @JvmOverloads constructor(
             } else {
                 Log_OC.e(TAG, "cannot download file")
                 withContext(Dispatchers.Main) {
-                    DisplayUtils.showSnackMessage(this@PlayerView, R.string.player_error_source_not_found)
+                    SnackbarUtil.show(this@PlayerView, R.string.player_error_source_not_found)
                 }
             }
         }

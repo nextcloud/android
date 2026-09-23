@@ -28,11 +28,11 @@ import com.google.android.material.textfield.TextInputLayout
 import com.nextcloud.ui.fileInfo.model.GovernanceEvent
 import com.nextcloud.ui.fileInfo.model.GovernanceLabel
 import com.nextcloud.ui.fileInfo.model.GovernanceUiState
+import com.nextcloud.utils.SnackbarUtil
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileInfoFragmentBinding
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.dialog.extensions.themeButtons
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.first
@@ -74,7 +74,7 @@ class GovernanceDetailInfo(
             viewModel.events.collect { event ->
                 when (event) {
                     GovernanceEvent.PermissionDenied -> {
-                        DisplayUtils.showSnackMessage(fragment, R.string.governance_permission_denied)
+                        SnackbarUtil.show(fragment, R.string.governance_permission_denied)
                         currentLoadedState()?.let { refresh(it) }
                     }
                 }

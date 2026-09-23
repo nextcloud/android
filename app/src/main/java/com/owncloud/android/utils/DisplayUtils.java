@@ -25,13 +25,9 @@ import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Handler;
-import android.os.Looper;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -40,16 +36,14 @@ import android.text.style.StyleSpan;
 import android.util.DisplayMetrics;
 import android.view.View;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.ArbitraryDataProvider;
-import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.TextDrawable;
+import com.owncloud.android.ui.adapter.helper.AvatarShareesProvider;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 
 import java.io.BufferedReader;
@@ -74,7 +68,6 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.widget.AppCompatDrawableManager;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -100,7 +93,6 @@ public final class DisplayUtils {
     private static final int BYTE_SIZE_DIVIDER = 1024;
     private static final double BYTE_SIZE_DIVIDER_DOUBLE = 1024.0;
     private static final int DATE_TIME_PARTS_SIZE = 2;
-    private static final Handler mainLooper = new Handler(Looper.getMainLooper());
     public static final String MONTH_YEAR_PATTERN = "MMMM yyyy";
     public static final String MONTH_PATTERN = "MMMM";
     public static final String YEAR_PATTERN = "yyyy";
@@ -443,29 +435,23 @@ public final class DisplayUtils {
                 avatar.setTint(tintColor);
             }
         } else {
-            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
-            String eTag = arbitraryDataProvider.getValue(userId + "@" + serverName, ThumbnailsCacheManager.AVATAR);
-            String avatarKey = "a_" + userId + "_" + serverName + "_" + eTag;
-
-            // first show old one
-            avatar = BitmapUtils.bitmapToCircularBitmapDrawable(resources,
-                                                                ThumbnailsCacheManager.getBitmapFromDiskCache(avatarKey));
-
-            // if no one exists, show colored icon with initial char
-            if (avatar == null) {
-                try {
-                    avatar = TextDrawable.createAvatarByUserId(displayName,
-                                                               (avatarRadius - avatarBorder));
-                } catch (Exception e) {
-                    Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
-                    avatar = ResourcesCompat.getDrawable(resources,
-                                                         R.drawable.account_circle_white,
-                                                         null);
-                }
+            // show colored icon with initial char until the cached avatar has been read from disk
+            try {
+                avatar = TextDrawable.createAvatarByUserId(displayName,
+                                                           (avatarRadius - avatarBorder));
+            } catch (Exception e) {
+                Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
+                avatar = ResourcesCompat.getDrawable(resources,
+                                                     R.drawable.account_circle_white,
+                                                     null);
             }
         }
 
         listener.avatarGenerated(avatar, callContext);
+
+        if (!userId.isEmpty()) {
+            AvatarShareesProvider.showCachedAvatar(userId, serverName, listener, resources, callContext, context);
+        }
 
         // check for new avatar, eTag is compared, so only new one is downloaded
         final ThumbnailsCacheManager.AvatarGenerationTask task =
@@ -501,148 +487,6 @@ public final class DisplayUtils {
             Log_OC.e(TAG, e.getMessage());
         }
         return text.toString();
-    }
-
-    // region snackbar
-    public static Snackbar createAndShowSnackMessage(Fragment fragment, @StringRes int messageResource) {
-        if (fragment == null) {
-            Log_OC.e(TAG, "snackbar cannot be shown fragment is null");
-            return null;
-        }
-
-        final var activity = fragment.getActivity();
-        if (activity == null) {
-            Log_OC.e(TAG, "snackbar cannot be shown activity is null");
-            return null;
-        }
-
-        final var snackbar = Snackbar.make(
-            activity.findViewById(android.R.id.content),
-            messageResource,
-            Snackbar.LENGTH_INDEFINITE);
-
-        var fab = findFABView(activity);
-        if (fab != null && fab.getVisibility() == View.VISIBLE) {
-            snackbar.setAnchorView(fab);
-        }
-
-        mainLooper.post(snackbar::show);
-        return snackbar;
-    }
-
-    public static void dismissSnackMessage(@Nullable Snackbar snackbar) {
-        if (snackbar == null) {
-            return;
-        }
-        mainLooper.post(snackbar::dismiss);
-    }
-
-    public static void showSnackMessage(Fragment fragment, @StringRes int messageResource) {
-        if (fragment == null) {
-            Log_OC.e(TAG, "snackbar cannot be shown fragment is null");
-            return;
-        }
-
-        final var activity = fragment.getActivity();
-        if (activity == null) {
-            Log_OC.e(TAG, "snackbar cannot be shown activity is null");
-            return;
-        }
-
-        showSnackMessage(activity, messageResource);
-    }
-
-    public static void showSnackMessage(Activity activity, @StringRes int messageResource) {
-        if (activity == null) {
-            Log_OC.e(TAG, "snackbar cannot be shown activity is null");
-            return;
-        }
-
-        showSnackMessage(activity.findViewById(android.R.id.content), messageResource);
-    }
-
-    public static void showSnackMessage(Activity activity, @StringRes int messageResource, Object... formatArgs) {
-        if (activity == null) {
-            Log_OC.e(TAG, "snackbar cannot be shown activity is null");
-            return;
-        }
-
-        showSnackMessage(activity, activity.findViewById(android.R.id.content), messageResource, formatArgs);
-    }
-
-    public static void showSnackMessage(Context context, View view, @StringRes int messageResource, Object... formatArgs) {
-        if (context == null || view == null) {
-            Log_OC.e(TAG, "snackbar cannot be shown view is null");
-            return;
-        }
-
-        final var snackbar = Snackbar.make(view, String.format(context.getString(messageResource, formatArgs)), Snackbar.LENGTH_LONG);
-        snackbar.show();
-    }
-
-    public static void showSnackMessage(Activity activity, String message) {
-        if (activity == null) {
-            Log_OC.e(TAG, "snackbar cannot be shown activity is null");
-            return;
-        }
-
-        activity.runOnUiThread(() -> {
-            final var snackbar = Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG);
-            var fab = findFABView(activity);
-            if (fab != null && fab.getVisibility() == View.VISIBLE) {
-                snackbar.setAnchorView(fab);
-            }
-            snackbar.show();
-        });
-    }
-
-    public static void showSnackMessage(View view, @StringRes int messageResource) {
-        if (view == null) {
-            Log_OC.e(TAG, "snackbar cannot be shown view is null");
-            return;
-        }
-
-        mainLooper.post(() -> {
-            final var snackbar = Snackbar.make(view, messageResource, Snackbar.LENGTH_LONG);
-            var fab = findFABView(view.getRootView());
-            if (fab != null && fab.getVisibility() == View.VISIBLE) {
-                snackbar.setAnchorView(fab);
-            }
-            snackbar.show();
-        });
-    }
-
-    public static void showSnackMessage(View view, String message) {
-        if (view == null) {
-            Log_OC.e(TAG, "snackbar cannot be shown view is null");
-            return;
-        }
-
-        mainLooper.post(() -> {
-            final Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
-            snackbar.show();
-        });
-    }
-    // endregion
-
-    private static View findFABView(Activity activity) {
-        return activity.findViewById(R.id.fab_main);
-    }
-
-    private static View findFABView(View view) {
-        return view.findViewById(R.id.fab_main);
-    }
-
-
-    /**
-     * create a temporary message in a {@link Snackbar} bound to the given view.
-     *
-     * @param view            The view the {@link Snackbar} is bound to.
-     * @param messageResource The resource id of the string resource to use. Can be formatted text.
-     * @return The created {@link Snackbar}
-     */
-    public static Snackbar createSnackbar(View view, @StringRes int messageResource, int length) {
-        return Snackbar.make(view, messageResource, length);
     }
 
     // Solution inspired by https://stackoverflow.com/questions/34936590/why-isnt-my-vector-drawable-scaling-as-expected
@@ -683,37 +527,6 @@ public final class DisplayUtils {
 
     public static boolean isRTL() {
         return TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) == View.LAYOUT_DIRECTION_RTL;
-    }
-
-    static public void showServerOutdatedSnackbar(Activity activity, int length) {
-        Snackbar.make(activity.findViewById(android.R.id.content),
-                      R.string.outdated_server, length)
-            .setAction(R.string.dismiss, v -> {
-            })
-            .show();
-    }
-
-    static public void startLinkIntent(Activity activity, @StringRes int link) {
-        startLinkIntent(activity, activity.getString(link));
-    }
-
-    static public void startLinkIntent(Activity activity, String url) {
-        if (!TextUtils.isEmpty(url)) {
-            startLinkIntent(activity, Uri.parse(url));
-        }
-    }
-
-    static public void startLinkIntent(Activity activity, Uri uri) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        DisplayUtils.startIntentIfAppAvailable(intent, activity, R.string.no_browser_available);
-    }
-
-    static public void startIntentIfAppAvailable(Intent intent, Activity activity, @StringRes int error) {
-        if (intent.resolveActivity(activity.getPackageManager()) != null) {
-            activity.startActivity(intent);
-        } else {
-            DisplayUtils.showSnackMessage(activity, error);
-        }
     }
 
     static public void openSortingOrderDialogFragment(FragmentManager supportFragmentManager, FileSortOrder sortOrder) {

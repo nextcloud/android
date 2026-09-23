@@ -8,6 +8,7 @@
 package com.owncloud.android.ui.fragment.albums
 
 import android.content.res.Resources
+import com.nextcloud.utils.SnackbarUtil
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
@@ -18,7 +19,6 @@ import com.owncloud.android.lib.resources.albums.RemoveAlbumRemoteOperation
 import com.owncloud.android.lib.resources.albums.RenameAlbumRemoteOperation
 import com.owncloud.android.operations.albums.CopyFileToAlbumOperation
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.ErrorMessageAdapter
 
 class AlbumOperationListener(private val activity: FileDisplayActivity) {
@@ -47,7 +47,7 @@ class AlbumOperationListener(private val activity: FileDisplayActivity) {
                 fragment.refreshData()
             } else {
                 // files added directly from Media tab
-                DisplayUtils.showSnackMessage(
+                SnackbarUtil.show(
                     activity,
                     activity.getResources().getString(R.string.album_file_added_message)
                 )
@@ -83,7 +83,7 @@ class AlbumOperationListener(private val activity: FileDisplayActivity) {
         } else {
             try {
                 if (RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS == result.code) {
-                    DisplayUtils.showSnackMessage(activity, R.string.album_already_exists)
+                    SnackbarUtil.show(activity, R.string.album_already_exists)
                 } else {
                     showErrorMessage(operation, result)
                 }
@@ -116,7 +116,7 @@ class AlbumOperationListener(private val activity: FileDisplayActivity) {
     }
 
     private fun showErrorMessage(operation: RemoteOperation<*>, result: RemoteOperationResult<*>) {
-        DisplayUtils.showSnackMessage(
+        SnackbarUtil.show(
             activity,
             ErrorMessageAdapter.getErrorCauseMessage(result, operation, activity.getResources())
         )

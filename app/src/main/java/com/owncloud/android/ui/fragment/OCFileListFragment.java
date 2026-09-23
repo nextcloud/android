@@ -55,6 +55,7 @@ import com.nextcloud.ui.fileactions.FileAction;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.ShortcutUtil;
+import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.e2ee.E2EEActionResolver;
 import com.nextcloud.utils.e2ee.E2EEDialogPresenter;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
@@ -607,7 +608,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
 
         if (fileDisplayActivity == null) {
-            DisplayUtils.showSnackMessage(getView(), getString(R.string.error_starting_direct_camera_upload));
+            SnackbarUtil.show(getView(), getString(R.string.error_starting_direct_camera_upload));
             return;
         }
 
@@ -645,7 +646,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         } else {
             Log.w(TAG, "scanDocUpload: Failed to start doc scanning, fileDisplayActivity=" + fileDisplayActivity +
                 ", currentFile=" + currentFile);
-            DisplayUtils.showSnackMessage(this, R.string.error_starting_doc_scan);
+            SnackbarUtil.show(this, R.string.error_starting_doc_scan);
         }
     }
 
@@ -698,7 +699,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mContainerActivity.getFileOperationsHelper().openRichWorkspaceWithTextEditor(mFile, url, requireContext());
             return Unit.INSTANCE;
         }, () -> {
-            DisplayUtils.showSnackMessage(getView(), R.string.failed_to_start_editor);
+            SnackbarUtil.show(getView(), R.string.failed_to_start_editor);
             return Unit.INSTANCE;
         });
     }
@@ -1159,7 +1160,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                                                                    getCapabilities(), 
                                                                                    requireContext());
             if (filenameErrorMessage != null) {
-                DisplayUtils.showSnackMessage(fpa, filenameErrorMessage);
+                SnackbarUtil.show(fpa, filenameErrorMessage);
                 return;
             }
         }
@@ -1411,13 +1412,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
             String invalidFilename = checkInvalidFilenames(checkedFiles);
 
             if (invalidFilename != null) {
-                DisplayUtils.showSnackMessage(requireActivity(), getString(R.string.file_name_validator_rename_before_move_or_copy, invalidFilename));
+                SnackbarUtil.show(requireActivity(), getString(R.string.file_name_validator_rename_before_move_or_copy, invalidFilename));
                 return false;
             }
 
             if (!FileNameValidator.INSTANCE.checkParentRemotePaths(new ArrayList<>(checkedFiles), getCapabilities(), requireContext())) {
                 browseToRoot();
-                DisplayUtils.showSnackMessage(requireActivity(), R.string.file_name_validator_current_path_is_invalid);
+                SnackbarUtil.show(requireActivity(), R.string.file_name_validator_current_path_is_invalid);
                 return false;
             }
 

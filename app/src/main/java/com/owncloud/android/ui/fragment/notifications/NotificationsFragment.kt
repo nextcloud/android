@@ -33,6 +33,7 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.utils.BuildHelper
 import com.nextcloud.utils.GlideHelper
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.owncloud.android.R
 import com.owncloud.android.databinding.NotificationsLayoutBinding
@@ -48,7 +49,6 @@ import com.owncloud.android.ui.adapter.NotificationListAdapter
 import com.owncloud.android.ui.asynctasks.NotificationExecuteActionTask
 import com.owncloud.android.ui.fragment.notifications.model.NotificationsUIState
 import com.owncloud.android.ui.notifications.NotificationsContract
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.PushUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
@@ -253,7 +253,7 @@ class NotificationsFragment :
             else -> return
         }
 
-        DisplayUtils.showSnackMessage(this, messageRes)
+        SnackbarUtil.show(this, messageRes)
     }
 
     private fun isUsingOldLogin(): Boolean {
@@ -329,7 +329,7 @@ class NotificationsFragment :
                 state = NotificationsUIState.Empty
             }
         } else {
-            DisplayUtils.showSnackMessage(requireActivity(), getString(R.string.remove_notification_failed))
+            SnackbarUtil.show(requireActivity(), getString(R.string.remove_notification_failed))
         }
 
         fetchAndSetData(client)
@@ -340,7 +340,7 @@ class NotificationsFragment :
             adapter?.removeAllNotifications()
             state = NotificationsUIState.Empty
         } else {
-            DisplayUtils.showSnackMessage(requireActivity(), getString(R.string.clear_notifications_failed))
+            SnackbarUtil.show(requireActivity(), getString(R.string.clear_notifications_failed))
         }
     }
 
@@ -357,7 +357,7 @@ class NotificationsFragment :
             }
         } else {
             adapter?.bindButtons(holder, notification)
-            DisplayUtils.showSnackMessage(requireActivity(), getString(R.string.notification_action_failed))
+            SnackbarUtil.show(requireActivity(), getString(R.string.notification_action_failed))
         }
     }
 

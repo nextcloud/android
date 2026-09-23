@@ -18,6 +18,7 @@ import androidx.exifinterface.media.ExifInterface
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.NominatimClient
+import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.ui.fileInfo.model.ImageMetadata
 import com.nextcloud.utils.extensions.getSmallThumbnail
 import com.owncloud.android.MainApp
@@ -269,7 +270,7 @@ class ImageDetailInfo(private val fragment: FileInfoFragment, private val viewTh
         object : ItemizedIconOverlay.OnItemGestureListener<OverlayItem> {
             override fun onItemSingleTapUp(index: Int, item: OverlayItem): Boolean {
                 val intent = Intent(Intent.ACTION_VIEW, "geo:0,0?q=$latitude,$longitude".toUri())
-                DisplayUtils.startIntentIfAppAvailable(intent, fragment.activity, R.string.no_map_app_availble)
+                IntentUtil.startIntentIfAppAvailable(intent, fragment.requireActivity(), R.string.no_map_app_availble)
                 return true
             }
 

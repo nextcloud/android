@@ -23,6 +23,7 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.model.OCUploadLocalPathData
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityEditImageBinding
@@ -31,7 +32,6 @@ import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.FileActivity
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeType
 import java.io.File
 
@@ -87,7 +87,7 @@ class EditImageActivity :
 
     override fun onCropImageComplete(view: CropImageView, result: CropImageView.CropResult) {
         if (!result.isSuccessful) {
-            DisplayUtils.showSnackMessage(this, getString(R.string.image_editor_unable_to_edit_image))
+            SnackbarUtil.show(this, getString(R.string.image_editor_unable_to_edit_image))
             return
         }
         val resultUri = result.getUriFilePath(this, false)
@@ -113,7 +113,7 @@ class EditImageActivity :
 
     override fun onSetImageUriComplete(view: CropImageView, uri: Uri, error: Exception?) {
         if (error != null) {
-            DisplayUtils.showSnackMessage(this, getString(R.string.image_editor_unable_to_edit_image))
+            SnackbarUtil.show(this, getString(R.string.image_editor_unable_to_edit_image))
             return
         }
         view.visibility = View.VISIBLE

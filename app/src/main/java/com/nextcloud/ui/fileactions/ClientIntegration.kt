@@ -38,6 +38,7 @@ import com.nextcloud.operations.PostMethod
 import com.nextcloud.ui.composeActivity.ComposeActivity
 import com.nextcloud.ui.composeActivity.ComposeDestination
 import com.nextcloud.utils.GlideHelper
+import com.nextcloud.utils.SnackbarUtil
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileActionsBottomSheetBinding
 import com.owncloud.android.databinding.FileActionsBottomSheetItemBinding
@@ -201,7 +202,7 @@ class ClientIntegration(
     }
 
     private suspend fun showMessage(message: String) = withContext(Dispatchers.Main) {
-        DisplayUtils.showSnackMessage(sheet.requireActivity(), message)
+        SnackbarUtil.show(sheet.requireActivity(), message)
     }
 
     private fun parseTooltipResult(response: String?): TooltipResponse {
