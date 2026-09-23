@@ -80,6 +80,7 @@ import com.nextcloud.model.OCUploadLocalPathData
 import com.nextcloud.model.WorkerState.OfflineOperationsCompleted
 import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias
 import com.nextcloud.utils.SnackbarUtil
+import com.nextcloud.utils.extensions.addNavigationBarInsetToBottomMargin
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
 import com.nextcloud.utils.extensions.isActive
@@ -352,6 +353,7 @@ class FileDisplayActivity :
         // Inflate and set the layout view
         binding = FilesBinding.inflate(layoutInflater)
         setContentView(binding.getRoot())
+        binding.fabMain.addNavigationBarInsetToBottomMargin()
     }
 
     private fun initUI() {

@@ -237,10 +237,10 @@
 
     <!-- ACTION BAR STYLES -->
     <style name="Theme.ownCloud.Overlay.ActionBar" parent="@style/Widget.Material3.Toolbar">
-        <item name="android:background">@color/color_transparent</item>
+        <item name="android:background">@android:color/transparent</item>
         <item name="android:windowActionBarOverlay">true</item>
         <!-- Support library compatibility -->
-        <item name="background">@color/color_transparent</item>
+        <item name="background">@android:color/transparent</item>
         <item name="windowActionBarOverlay">true</item>
         <item name="titleTextColor">@color/white</item>
     </style>

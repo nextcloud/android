@@ -12,9 +12,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.SystemBarStyle
+import androidx.activity.enableEdgeToEdge
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.ViewCompat
@@ -120,6 +123,7 @@ class PreviewImageActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge(SystemBarStyle.dark(Color.TRANSPARENT), SystemBarStyle.dark(Color.TRANSPARENT))
 
         if (savedInstanceState != null &&
             !savedInstanceState.getBoolean(
@@ -141,7 +145,7 @@ class PreviewImageActivity :
             updateActionBarTitleAndHomeButton(chosenFile)
             viewThemeUtils.files.setWhiteBackButton(this, it)
             it.setDisplayHomeAsUpEnabled(true)
-            it.setBackgroundDrawable(R.color.black.toDrawable())
+            it.setBackgroundDrawable(ContextCompat.getColor(this, R.color.black).toDrawable())
         }
 
         setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)

@@ -8,28 +8,35 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/player_background_color">
+    android:background="@color/black">
 
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="@dimen/player_file_icon_size"
-        android:layout_height="@dimen/player_file_icon_size"
-        android:layout_gravity="center"
-        android:importantForAccessibility="no"
-        android:src="@drawable/video_white" />
-
-    <ImageView
-        android:id="@+id/thumbnail"
+    <FrameLayout
+        android:id="@+id/videoContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:importantForAccessibility="no" />
+        android:layout_height="match_parent">
 
-    <SurfaceView
-        android:id="@+id/surfaceView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:visibility="gone" />
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="@dimen/player_file_icon_size"
+            android:layout_height="@dimen/player_file_icon_size"
+            android:layout_gravity="center"
+            android:importantForAccessibility="no"
+            android:src="@drawable/video_white" />
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:importantForAccessibility="no" />
+
+        <SurfaceView
+            android:id="@+id/surfaceView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+    </FrameLayout>
 
     <com.nextcloud.client.player.ui.control.PlayerControlView
         android:id="@+id/playerControlView"

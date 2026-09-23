@@ -70,6 +70,7 @@ import com.nextcloud.utils.LinkHelper;
 import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.DrawerActivityExtensionsKt;
+import com.nextcloud.utils.extensions.DrawerLayoutExtensionsKt;
 import com.nextcloud.utils.extensions.NavigationViewExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
@@ -131,6 +132,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
+import androidx.core.view.ViewCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -172,6 +174,8 @@ public abstract class DrawerActivity extends ToolbarActivity
      * Reference to the navigation view header.
      */
     private View mNavigationViewHeader;
+
+    private boolean isDrawerPaddedForSystemBars;
 
     /**
      * Flag to signal if the account chooser is active.
@@ -262,6 +266,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
             // Setting up drawer header
             mNavigationViewHeader = drawerNavigationView.getHeaderView(0);
+            padDrawerForSystemBars();
             updateHeader();
 
             setupDrawerMenu(drawerNavigationView);
@@ -1491,8 +1496,19 @@ public abstract class DrawerActivity extends ToolbarActivity
         onNavigationItemClicked(navMenu.findItem(menuItemId));
     }
 
+    private void padDrawerForSystemBars() {
+        View quota = drawerNavigationView.findViewById(R.id.drawer_quota);
+        if (isDrawerPaddedForSystemBars || mDrawerLayout == null || mNavigationViewHeader == null || quota == null) {
+            return;
+        }
+
+        DrawerLayoutExtensionsKt.padDrawerContentForSystemBars(mDrawerLayout, mNavigationViewHeader, quota);
+        isDrawerPaddedForSystemBars = true;
+    }
+
     public void showBottomNavigationBar(boolean show) {
         ViewExtensionsKt.setVisibleIf(bottomNavigationView, show);
+        ViewCompat.requestApplyInsets(getWindow().getDecorView());
     }
 
     public BottomNavigationView getBottomNavigationView() {

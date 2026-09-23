@@ -32,6 +32,7 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.utils.extensions.WindowExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -87,6 +88,9 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         setSupportActionBar(mToolbar);
 
         mAppBar = findViewById(R.id.appbar);
+        if (mAppBar != null) {
+            WindowExtensionsKt.extendBarsBehindSystemBars(getWindow(), mAppBar, findViewById(R.id.bottom_navigation));
+        }
         mDefaultToolbar = findViewById(R.id.default_toolbar);
         mHomeSearchToolbar = findViewById(R.id.home_toolbar);
         mHomeSearchContainer = findViewById(R.id.home_search_container);
@@ -276,6 +280,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
 
         if (isShow) {
             viewThemeUtils.platform.resetStatusBar(this);
+            mAppBar.setBackgroundResource(R.color.bg_default);
             mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
                                                                                 R.animator.appbar_elevation_off));
             mDefaultToolbar.setVisibility(View.GONE);
@@ -286,6 +291,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
             mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
                                                                                 R.animator.appbar_elevation_on));
             viewThemeUtils.platform.themeStatusBar(this);
+            viewThemeUtils.platform.colorViewBackground(mAppBar);
             mDefaultToolbar.setVisibility(View.VISIBLE);
             mHomeSearchToolbar.setVisibility(View.GONE);
         }

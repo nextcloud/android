@@ -71,8 +71,6 @@
 
     <color name="background_color_png">#FFFFFF</color>
 
-    <!-- special transparent action bar colors for image preview -->
-    <color name="color_transparent">#201D2D44</color>
     <color name="color_dark_transparent">#40162233</color>
 
     <!-- Multiselect backgrounds -->
