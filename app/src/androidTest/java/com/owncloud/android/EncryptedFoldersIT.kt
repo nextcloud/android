@@ -15,6 +15,7 @@ import com.nextcloud.utils.e2ee.E2EEActionResolver
 import com.nextcloud.utils.e2ee.E2EEKeyInspector
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.status.GetCapabilitiesRemoteOperation
 import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.operations.CreateFolderOperation
 import com.owncloud.android.operations.e2e.E2EDeletionService
@@ -128,7 +129,11 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
 
     @Before
     fun encryptionSetup() {
-        val capability = storageManager.getCapability(user.accountName)
+        // Fetch capabiliy
+        val capability = GetCapabilitiesRemoteOperation(null).execute(client).getResultData()
+        storageManager.saveCapabilities(capability)
+
+        // Check end2end capability
         if (capability.endToEndEncryption.isFalse || capability.endToEndEncryption.isUnknown) {
             Log_OC.e(TAG, "Server does not support E2EE")
         }
