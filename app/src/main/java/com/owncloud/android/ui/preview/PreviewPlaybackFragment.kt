@@ -18,7 +18,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
-import androidx.appcompat.app.ActionBar
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -78,7 +77,6 @@ class PreviewPlaybackFragment :
         private const val ARGUMENT_PICTURE_IN_PICTURE_ON_BACK = "ARGUMENT_PICTURE_IN_PICTURE_ON_BACK"
         private const val SURFACE_ALPHA_VISIBLE = 1f
         private const val SURFACE_ALPHA_HIDDEN = 0f
-        private const val CONTROLS_ALPHA_VISIBLE = 1f
 
         @Suppress("LongParameterList")
         fun newInstance(
@@ -125,9 +123,6 @@ class PreviewPlaybackFragment :
 
     private var pictureInPictureCallback: OnBackPressedCallback? = null
     private var isFullScreen = false
-
-    private val visibleActionBar: ActionBar?
-        get() = previewActivity()?.supportActionBar?.takeUnless { isFullScreen || isInPictureInPictureMode() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -378,12 +373,6 @@ class PreviewPlaybackFragment :
     }
 
     private fun render(state: PlaybackState?) {
-        if (isCurrentItem(state) && !wasCurrentItem) {
-            isFullScreen = previewActivity()?.isSystemUIVisible == false
-            binding.playerControlView.isVisible = !isFullScreen
-            binding.playerControlView.alpha = CONTROLS_ALPHA_VISIBLE
-        }
-
         updatePlayerControlsVisibility()
 
         if (isCurrentItem(state)) {
@@ -420,7 +409,9 @@ class PreviewPlaybackFragment :
         isFullScreen = !isFullScreen
         previewActivity.toggleActionBarVisibility(!isFullScreen)
         binding.playerControlView.setVisibilityWithAnimation(!isFullScreen)
-        previewActivity.window.showNavigationBar(!isFullScreen, binding.root)
+        previewActivity.window.run {
+            showNavigationBar(!isFullScreen, binding.root)
+        }
     }
 
     private fun updatePlayerControlsVisibility() {
