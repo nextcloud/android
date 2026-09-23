@@ -7,13 +7,18 @@
 
 package com.owncloud.android
 
+import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.account.UserAccountManagerImpl
 import com.nextcloud.client.database.entity.FileEntity
 import com.nextcloud.client.network.NetworkModule
+import com.nextcloud.utils.e2ee.E2EEActionResolver
+import com.nextcloud.utils.e2ee.E2EEKeyInspector
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.operations.CreateFolderOperation
 import com.owncloud.android.operations.e2e.E2EDeletionService
+import com.owncloud.android.ui.dialog.setupEncryption.CertificateValidator
 import com.owncloud.android.ui.dialog.setupEncryption.EncryptionKeyGenerator
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
@@ -43,6 +48,26 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
             "accident",
             "account",
             "accuse"
+        )
+    }
+
+    private var e2eeActionResolver: E2EEActionResolver
+
+    init {
+        val accountManager: UserAccountManager = UserAccountManagerImpl.fromContext(targetContext)
+        val inspector = E2EEKeyInspector(
+            targetContext,
+            storageManager,
+            CertificateValidator(),
+            arbitraryDataProvider,
+            accountManager
+        )
+        e2eeActionResolver = E2EEActionResolver(
+            storageManager,
+            arbitraryDataProvider,
+            accountManager,
+            connectivityServiceMock,
+            inspector
         )
     }
 
@@ -132,6 +157,12 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
         // Obtain folder id
         val ocFile = storageManager.getFileByRemotePath(remotePath)
         assertNotNull(ocFile)
+
+        // Check folder metadata
+        runBlocking {
+            assertTrue(e2eeActionResolver.checkFolderMetadataKey(ocFile!!))
+        }
+
         // Open folder
         return runBlocking {
             storageManager.fileDao.getFolderContentSuspended(ocFile!!.fileId)
