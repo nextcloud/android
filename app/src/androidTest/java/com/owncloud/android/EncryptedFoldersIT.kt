@@ -17,6 +17,7 @@ import com.owncloud.android.operations.e2e.E2EDeletionService
 import com.owncloud.android.ui.dialog.setupEncryption.EncryptionKeyGenerator
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
+import org.junit.After
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
@@ -114,6 +115,12 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
         }
         // Check the key was generated
         assertNotEquals(privateKey, "")
+    }
+
+    @After
+    fun encryptionCleanup() {
+        // Delete existing encryption key, if any
+        E2EDeletionService(NetworkModule().clientFactory(targetContext)).deleteKeysAndFiles(user)
     }
 
     private fun createEncryptedFolder(remotePath: String): RemoteOperationResult<*> =
