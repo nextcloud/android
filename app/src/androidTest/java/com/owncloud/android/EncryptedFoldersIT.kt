@@ -13,14 +13,16 @@ import com.nextcloud.client.database.entity.FileEntity
 import com.nextcloud.client.network.NetworkModule
 import com.nextcloud.utils.e2ee.E2EEActionResolver
 import com.nextcloud.utils.e2ee.E2EEKeyInspector
-import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation
 import com.owncloud.android.lib.resources.status.GetCapabilitiesRemoteOperation
 import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.operations.CreateFolderOperation
+import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.operations.e2e.E2EDeletionService
 import com.owncloud.android.ui.dialog.setupEncryption.CertificateValidator
 import com.owncloud.android.ui.dialog.setupEncryption.EncryptionKeyGenerator
+import com.owncloud.android.utils.EncryptionUtils
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -53,6 +55,7 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
     }
 
     private var e2eeActionResolver: E2EEActionResolver
+    private var encryptionKeyGenerator: EncryptionKeyGenerator
 
     init {
         val accountManager: UserAccountManager = UserAccountManagerImpl.fromContext(targetContext)
@@ -70,29 +73,30 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
             connectivityServiceMock,
             inspector
         )
+        encryptionKeyGenerator = EncryptionKeyGenerator(targetContext, user)
     }
 
     @Test
     fun testCreateEncryptedFolder() {
         val result = createEncryptedFolder(FOLDER)
-        assertTrue(result.isSuccess)
+        assertTrue(result)
     }
 
     @Test
     fun testCreateEncryptedSubfolder() {
         // Create parent folder only for Nextcloud < 32; 32+ handles this automatically.
         if (capability.version.isOlderThan(NextcloudVersion.nextcloud_32)) {
-            assertTrue(createEncryptedFolder(FOLDER).isSuccess)
+            assertTrue(createEncryptedFolder(FOLDER))
         }
         val result = createEncryptedFolder(SUBFOLDER)
-        assertTrue(result.isSuccess)
+        assertTrue(result)
     }
 
     @Test
     fun testReadEncryptedFolder() {
         val remotePath = FOLDER
         // Create folder
-        assertTrue(createEncryptedFolder(remotePath).isSuccess)
+        assertTrue(createEncryptedFolder(remotePath))
         val files = listEncryptedFolder(remotePath)
         assertEquals(files.size, 0)
     }
@@ -101,7 +105,8 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
     fun testReadEncryptedSubfolder() {
         val remotePath = SUBFOLDER
         // Create folder
-        assertTrue(createEncryptedFolder(remotePath).isSuccess)
+        assertTrue(createEncryptedFolder(FOLDER))
+        assertTrue(createEncryptedFolder(remotePath))
         val files = listEncryptedFolder(remotePath)
         assertEquals(files.size, 0)
     }
@@ -141,7 +146,7 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
         E2EDeletionService(NetworkModule().clientFactory(targetContext)).deleteKeysAndFiles(user)
         // Create new encryption key
         val privateKey: String = runBlocking {
-            EncryptionKeyGenerator(targetContext, user).generatePrivateKey(KEYWORDS)
+            encryptionKeyGenerator.generatePrivateKey(KEYWORDS)
         }
         // Check the key was generated
         assertNotEquals(privateKey, "")
@@ -153,24 +158,51 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
         E2EDeletionService(NetworkModule().clientFactory(targetContext)).deleteKeysAndFiles(user)
     }
 
-    private fun createEncryptedFolder(remotePath: String): RemoteOperationResult<*> =
-        CreateFolderOperation(remotePath, user, targetContext, storageManager).apply {
+    private fun createEncryptedFolder(remotePath: String): Boolean {
+        val created = CreateFolderOperation(remotePath, user, targetContext, storageManager).apply {
             setEncrypt(true)
         }.execute(client)
+        val ocFile = storageManager.getFileByRemotePath(remotePath)
+        val encrypted = ToggleEncryptionRemoteOperation(ocFile!!.localId, remotePath, true)
+            .execute(client)
+        val publicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PUBLIC_KEY)
+        val privateKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PRIVATE_KEY)
+        if (encrypted.isSuccess) encryptionKeyGenerator.uploadEncryptedFolderMetadata(
+            ocFile,
+            client,
+            publicKey,
+            privateKey,
+            storageManager,
+            arbitraryDataProvider
+        )
+        return created.isSuccess && encrypted.isSuccess
+    }
 
     private fun listEncryptedFolder(remotePath: String): List<FileEntity> {
-        // Obtain folder id
         val ocFile = storageManager.getFileByRemotePath(remotePath)
         assertNotNull(ocFile)
+        val parent = storageManager.getFileById(ocFile!!.parentId)
+
+        // Refresh folder
+        val refreshResult = RefreshFolderOperation(
+            parent,
+            System.currentTimeMillis(),
+            false,
+            false,
+            storageManager,
+            user,
+            targetContext
+        ).execute(client)
+        assertTrue(refreshResult.isSuccess)
 
         // Check folder metadata
         runBlocking {
-            assertTrue(e2eeActionResolver.checkFolderMetadataKey(ocFile!!))
+            assertTrue(e2eeActionResolver.checkFolderMetadataKey(ocFile))
         }
 
         // Open folder
         return runBlocking {
-            storageManager.fileDao.getFolderContentSuspended(ocFile!!.fileId)
+            storageManager.fileDao.getFolderContentSuspended(ocFile.fileId)
         }
     }
 }
