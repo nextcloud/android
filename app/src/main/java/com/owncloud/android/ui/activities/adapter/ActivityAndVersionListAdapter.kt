@@ -71,7 +71,7 @@ class ActivityAndVersionListAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is VersionViewHolder) {
             val fileVersion = values[position] as FileVersion
-            holder.binding.size.text = HumanReadableFormatter.bytesToHumanReadable(fileVersion.fileLength)
+            holder.binding.size.text = HumanReadableFormatter.formatBytes(fileVersion.fileLength)
             holder.binding.time.text = DateFormat.format("HH:mm", Date(fileVersion.modifiedTimestamp).time)
             holder.binding.restore.setOnClickListener { versionListInterface.onRestoreClicked(fileVersion) }
         } else {

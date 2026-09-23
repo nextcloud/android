@@ -20,7 +20,7 @@ import java.nio.file.Path
 private const val TAG = "FileExtensions"
 
 fun OCFile?.logFileSize(tag: String) {
-    val size = HumanReadableFormatter.bytesToHumanReadable(this?.fileLength ?: -1)
+    val size = HumanReadableFormatter.formatBytes(this?.fileLength ?: -1)
     val rawByte = this?.fileLength ?: -1
     Log_OC.d(tag, "onSaveInstanceState: $size, raw byte $rawByte")
 }
@@ -48,7 +48,7 @@ fun File?.getSmallThumbnail(): Bitmap? = ThumbnailsCacheManager.getBitmapFromDis
 fun File?.getSmallThumbnailKey(): String = ThumbnailsCacheManager.PREFIX_THUMBNAIL + hashCode()
 
 fun File?.logFileSize(tag: String) {
-    val size = HumanReadableFormatter.bytesToHumanReadable(this?.length() ?: -1)
+    val size = HumanReadableFormatter.formatBytes(this?.length() ?: -1)
     val rawByte = this?.length() ?: -1
     Log_OC.d(tag, "onSaveInstanceState: $size, raw byte $rawByte")
 }

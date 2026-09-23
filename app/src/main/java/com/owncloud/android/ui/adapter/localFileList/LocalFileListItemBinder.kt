@@ -77,7 +77,7 @@ internal class LocalFileListItemBinder(
         } else {
             holder.fileSize.visibility = View.VISIBLE
             holder.fileSeparator.visibility = View.VISIBLE
-            holder.fileSize.text = HumanReadableFormatter.bytesToHumanReadable(file.length())
+            holder.fileSize.text = HumanReadableFormatter.formatBytes(file.length())
         }
 
         holder.lastModification.text = DisplayUtils.getRelativeTimestamp(activity, file.lastModified())

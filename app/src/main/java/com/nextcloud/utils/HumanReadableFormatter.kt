@@ -15,21 +15,24 @@ import java.util.Locale
 
 object HumanReadableFormatter {
 
+    private const val BITS_PER_UNIT = 10
+
     @JvmStatic
-    fun bytesToHumanReadable(bytes: Long): String {
+    fun formatBytes(bytes: Long): String {
         if (bytes < 0) {
             return MainApp.string(R.string.common_pending)
         }
 
-        val unitIndex = ((63 - java.lang.Long.numberOfLeadingZeros(bytes)) / 10)
-            .coerceIn(0, ByteUnit.entries.lastIndex)
+        val highestSetBit = Long.SIZE_BITS - 1 - bytes.countLeadingZeroBits()
+        val unitIndex = (highestSetBit / BITS_PER_UNIT).coerceIn(0, ByteUnit.entries.lastIndex)
         val unit = ByteUnit.entries[unitIndex]
-        val size = bytes.toDouble() / (1L shl (10 * unitIndex))
+        val size = bytes.toDouble() / (1L shl (BITS_PER_UNIT * unitIndex))
 
-        return "${String.format(Locale.ROOT, "%.${unit.decimals}f", size)} ${unit.suffix}"
+        val pattern = "%.${unit.decimals}f"
+        val formattedSize = String.format(Locale.ROOT, pattern, size)
+        return "$formattedSize ${unit.suffix}"
     }
 
     @JvmStatic
-    fun unixTimeToHumanReadable(milliseconds: Long): String =
-        DateFormat.getDateTimeInstance().format(Date(milliseconds))
+    fun formatDateTime(milliseconds: Long): String = DateFormat.getDateTimeInstance().format(Date(milliseconds))
 }

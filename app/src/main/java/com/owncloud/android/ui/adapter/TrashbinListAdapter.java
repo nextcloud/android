@@ -138,7 +138,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             trashbinFileViewHolder.binding.Filename.setText(file.getFileName());
 
             // fileSize
-            trashbinFileViewHolder.binding.fileSize.setText(HumanReadableFormatter.bytesToHumanReadable(file.getFileLength()));
+            trashbinFileViewHolder.binding.fileSize.setText(HumanReadableFormatter.formatBytes(file.getFileLength()));
 
             // originalLocation
             String location;

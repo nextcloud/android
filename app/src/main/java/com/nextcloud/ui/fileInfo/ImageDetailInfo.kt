@@ -181,7 +181,7 @@ class ImageDetailInfo(private val fragment: FileInfoFragment, private val viewTh
     }
 
     fun gatherMetadata(file: OCFile): ImageMetadata {
-        val fileSize = HumanReadableFormatter.bytesToHumanReadable(file.fileLength)
+        val fileSize = HumanReadableFormatter.formatBytes(file.fileLength)
         val timestamp = maxOf(file.modificationTimestamp, file.creationTimestamp)
         return if (file.isDown) {
             gatherLocalMetadata(file, fileSize, timestamp)

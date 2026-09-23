@@ -742,7 +742,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private String getFileSizeText(OCFile file, long size) {
         if (!file.isOfflineOperation()) {
-            return HumanReadableFormatter.bytesToHumanReadable(size);
+            return HumanReadableFormatter.formatBytes(size);
         }
 
         OfflineOperationEntity entity = mStorageManager.getOfflineEntityFromOCFile(file);
@@ -1045,7 +1045,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 Date date = new Date(milliseconds);
                 return dateFormat.format(date);
             case SIZE:
-                return HumanReadableFormatter.bytesToHumanReadable(file.getFileLength());
+                return HumanReadableFormatter.formatBytes(file.getFileLength());
             default:
                 Log_OC.d(TAG, "getPopupText: Unsupported sort order: " + sortOrder.getType());
                 return "";

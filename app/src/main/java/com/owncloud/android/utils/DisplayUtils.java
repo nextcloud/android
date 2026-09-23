@@ -224,7 +224,7 @@ public final class DisplayUtils {
 
         // in Future
         if (!showFuture && time > System.currentTimeMillis()) {
-            return HumanReadableFormatter.unixTimeToHumanReadable(time);
+            return HumanReadableFormatter.formatDateTime(time);
         }
         // < 60 seconds -> seconds ago
         long diff = System.currentTimeMillis() - time;

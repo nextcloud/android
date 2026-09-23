@@ -76,7 +76,7 @@ object ConflictResolveDialogFactory {
         ConflictFileData(
             title = getString(titleId),
             timestamp = DisplayUtils.getRelativeTimestamp(this, timestamp).toString(),
-            fileSize = HumanReadableFormatter.bytesToHumanReadable(fileLength)
+            fileSize = HumanReadableFormatter.formatBytes(fileLength)
         )
 
     private fun createDialog(type: ConflictDialogType, putFiles: Bundle.() -> Unit): ConflictsResolveDialog =

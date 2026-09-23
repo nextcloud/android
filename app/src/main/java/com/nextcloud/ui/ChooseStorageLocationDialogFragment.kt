@@ -121,8 +121,8 @@ class ChooseStorageLocationDialogFragment :
             return String.format(
                 getString(R.string.file_migration_free_space),
                 typeString,
-                HumanReadableFormatter.bytesToHumanReadable(usedSpace),
-                HumanReadableFormatter.bytesToHumanReadable(totalSpace)
+                HumanReadableFormatter.formatBytes(usedSpace),
+                HumanReadableFormatter.formatBytes(totalSpace)
             )
         } ?: typeString
     }

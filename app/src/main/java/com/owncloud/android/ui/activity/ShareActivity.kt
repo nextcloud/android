@@ -122,7 +122,7 @@ class ShareActivity :
         with(binding) {
             shareFileName.text = getString(R.string.share_file, file.fileName)
             viewThemeUtils.platform.colorViewBackground(shareHeaderDivider)
-            shareFileSize.text = HumanReadableFormatter.bytesToHumanReadable(file.fileLength)
+            shareFileSize.text = HumanReadableFormatter.formatBytes(file.fileLength)
         }
     }
 
@@ -150,7 +150,7 @@ class ShareActivity :
                 val length = (result.data.first() as? RemoteFile)?.length ?: return@launch
                 file.fileLength = length
                 withContext(Dispatchers.Main) {
-                    binding.shareFileSize.text = HumanReadableFormatter.bytesToHumanReadable(length)
+                    binding.shareFileSize.text = HumanReadableFormatter.formatBytes(length)
                 }
             }
         }

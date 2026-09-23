@@ -26,7 +26,7 @@ class InternalTwoWaySyncViewHolder(val binding: InternalTwoWaySyncViewHolderBind
         internalTwoWaySyncAdapter: InternalTwoWaySyncAdapter
     ) {
         binding.run {
-            size.text = HumanReadableFormatter.bytesToHumanReadable(folder.fileLength)
+            size.text = HumanReadableFormatter.formatBytes(folder.fileLength)
             name.text = folder.decryptedFileName
 
             if (folder.internalFolderSyncResult.isEmpty()) {

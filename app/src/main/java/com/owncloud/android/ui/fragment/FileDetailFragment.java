@@ -610,7 +610,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             } else {
                 binding.filename.setVisibility(View.GONE);
             }
-            binding.size.setText(HumanReadableFormatter.bytesToHumanReadable(file.getFileLength()));
+            binding.size.setText(HumanReadableFormatter.formatBytes(file.getFileLength()));
 
             boolean showDetailedTimestamp = preferences.isShowDetailedTimestampEnabled();
             setFileModificationTimestamp(file, showDetailedTimestamp);
@@ -671,7 +671,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
     private void setFileModificationTimestamp(OCFile file, boolean showDetailedTimestamp) {
         if (showDetailedTimestamp) {
-            binding.lastModificationTimestamp.setText(HumanReadableFormatter.unixTimeToHumanReadable(file.getModificationTimestamp()));
+            binding.lastModificationTimestamp.setText(HumanReadableFormatter.formatDateTime(file.getModificationTimestamp()));
         } else {
             binding.lastModificationTimestamp.setText(DisplayUtils.getRelativeTimestamp(getContext(),
                                                                                         file.getModificationTimestamp()));

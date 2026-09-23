@@ -133,7 +133,7 @@ open class AudioFileFragment :
     }
 
     private fun PlaybackFile.getDetailsText(): String = listOfNotNull(
-        contentLength.takeIf { it > 0 }?.let { HumanReadableFormatter.bytesToHumanReadable(it) },
+        contentLength.takeIf { it > 0 }?.let { HumanReadableFormatter.formatBytes(it) },
         lastModified.takeIf { it > 0 }?.let(::getLastModifiedText)
     ).joinToString(DETAILS_SEPARATOR)
 

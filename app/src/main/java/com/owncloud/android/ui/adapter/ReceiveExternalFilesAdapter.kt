@@ -28,7 +28,6 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager.ThumbnailGeneration
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
-import java.util.Objects
 
 @Suppress("LongParameterList")
 class ReceiveExternalFilesAdapter(
@@ -84,7 +83,7 @@ class ReceiveExternalFilesAdapter(
         viewHolder.binding.lastMod.text = DisplayUtils.getRelativeTimestamp(context, file.modificationTimestamp)
 
         if (!file.isFolder) {
-            viewHolder.binding.fileSize.text = HumanReadableFormatter.bytesToHumanReadable(file.fileLength)
+            viewHolder.binding.fileSize.text = HumanReadableFormatter.formatBytes(file.fileLength)
         }
 
         viewHolder.binding.fileSize.visibility = if (file.isFolder) {

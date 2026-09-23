@@ -66,8 +66,8 @@ class SyncFileNotEnoughSpaceDialogFragment :
                     ARG_MESSAGE_ARGUMENTS,
                     arrayOf(
                         file.fileName,
-                        HumanReadableFormatter.bytesToHumanReadable(file.fileLength),
-                        HumanReadableFormatter.bytesToHumanReadable(availableDeviceSpace)
+                        HumanReadableFormatter.formatBytes(file.fileLength),
+                        HumanReadableFormatter.formatBytes(availableDeviceSpace)
                     )
                 )
                 putParcelable(ARG_PASSED_FILE, file)

@@ -49,64 +49,64 @@ class HumanReadableFormatterTest {
 
     @Test
     fun `sizes below one kilobyte are shown as whole bytes`() {
-        assertEquals("0 B", HumanReadableFormatter.bytesToHumanReadable(0))
-        assertEquals("1 B", HumanReadableFormatter.bytesToHumanReadable(1))
-        assertEquals("512 B", HumanReadableFormatter.bytesToHumanReadable(512))
-        assertEquals("1023 B", HumanReadableFormatter.bytesToHumanReadable(1023))
+        assertEquals("0 B", HumanReadableFormatter.formatBytes(0))
+        assertEquals("1 B", HumanReadableFormatter.formatBytes(1))
+        assertEquals("512 B", HumanReadableFormatter.formatBytes(512))
+        assertEquals("1023 B", HumanReadableFormatter.formatBytes(1023))
     }
 
     @Test
     fun `each unit starts at exactly 1024 of the previous one`() {
-        assertEquals("1 KB", HumanReadableFormatter.bytesToHumanReadable(1L shl 10))
-        assertEquals("1.0 MB", HumanReadableFormatter.bytesToHumanReadable(1L shl 20))
-        assertEquals("1.0 GB", HumanReadableFormatter.bytesToHumanReadable(1L shl 30))
-        assertEquals("1.0 TB", HumanReadableFormatter.bytesToHumanReadable(1L shl 40))
-        assertEquals("1.00 PB", HumanReadableFormatter.bytesToHumanReadable(1L shl 50))
-        assertEquals("1.00 EB", HumanReadableFormatter.bytesToHumanReadable(1L shl 60))
+        assertEquals("1 KB", HumanReadableFormatter.formatBytes(1L shl 10))
+        assertEquals("1.0 MB", HumanReadableFormatter.formatBytes(1L shl 20))
+        assertEquals("1.0 GB", HumanReadableFormatter.formatBytes(1L shl 30))
+        assertEquals("1.0 TB", HumanReadableFormatter.formatBytes(1L shl 40))
+        assertEquals("1.00 PB", HumanReadableFormatter.formatBytes(1L shl 50))
+        assertEquals("1.00 EB", HumanReadableFormatter.formatBytes(1L shl 60))
     }
 
     @Test
     fun `kilobytes are rounded to whole numbers`() {
-        assertEquals("1 KB", HumanReadableFormatter.bytesToHumanReadable(1025))
-        assertEquals("2 KB", HumanReadableFormatter.bytesToHumanReadable(1536))
+        assertEquals("1 KB", HumanReadableFormatter.formatBytes(1025))
+        assertEquals("2 KB", HumanReadableFormatter.formatBytes(1536))
     }
 
     @Test
     fun `megabytes up to terabytes keep one decimal`() {
-        assertEquals("1.0 MB", HumanReadableFormatter.bytesToHumanReadable(1024L * 1024 + 1))
-        assertEquals("1.5 GB", HumanReadableFormatter.bytesToHumanReadable(1610612736))
-        assertEquals("5.0 GB", HumanReadableFormatter.bytesToHumanReadable(5L * 1024 * 1024 * 1024))
+        assertEquals("1.0 MB", HumanReadableFormatter.formatBytes(1024L * 1024 + 1))
+        assertEquals("1.5 GB", HumanReadableFormatter.formatBytes(1610612736))
+        assertEquals("5.0 GB", HumanReadableFormatter.formatBytes(5L * 1024 * 1024 * 1024))
     }
 
     @Test
     fun `petabytes and above keep two decimals`() {
-        assertEquals("1.00 PB", HumanReadableFormatter.bytesToHumanReadable((1L shl 50) + 1))
+        assertEquals("1.00 PB", HumanReadableFormatter.formatBytes((1L shl 50) + 1))
     }
 
     @Test
     fun `the largest possible size stays within the known units`() {
-        assertEquals("8.00 EB", HumanReadableFormatter.bytesToHumanReadable(Long.MAX_VALUE))
+        assertEquals("8.00 EB", HumanReadableFormatter.formatBytes(Long.MAX_VALUE))
     }
 
     @Test
     fun `a size is written with a decimal point in every locale`() {
         Locale.setDefault(Locale.GERMANY)
-        assertEquals("1.5 GB", HumanReadableFormatter.bytesToHumanReadable(1610612736))
+        assertEquals("1.5 GB", HumanReadableFormatter.formatBytes(1610612736))
 
         Locale.setDefault(Locale.forLanguageTag("ar-EG"))
-        assertEquals("1.5 GB", HumanReadableFormatter.bytesToHumanReadable(1610612736))
+        assertEquals("1.5 GB", HumanReadableFormatter.formatBytes(1610612736))
     }
 
     @Test
     fun `a negative size is pending`() {
-        assertEquals(pendingLabel, HumanReadableFormatter.bytesToHumanReadable(-1))
-        assertEquals(pendingLabel, HumanReadableFormatter.bytesToHumanReadable(Long.MIN_VALUE))
+        assertEquals(pendingLabel, HumanReadableFormatter.formatBytes(-1))
+        assertEquals(pendingLabel, HumanReadableFormatter.formatBytes(Long.MIN_VALUE))
     }
 
     @Test
     fun `a timestamp keeps its date and time when read back`() {
         val timestamp = 1790000000000
-        val formatted = HumanReadableFormatter.unixTimeToHumanReadable(timestamp)
+        val formatted = HumanReadableFormatter.formatDateTime(timestamp)
 
         val parsed = DateFormat.getDateTimeInstance().parse(formatted)
 
@@ -117,9 +117,9 @@ class HumanReadableFormatterTest {
     fun `a timestamp is formatted for the current locale`() {
         val timestamp = 1790000000000
 
-        val american = HumanReadableFormatter.unixTimeToHumanReadable(timestamp)
+        val american = HumanReadableFormatter.formatDateTime(timestamp)
         Locale.setDefault(Locale.GERMANY)
-        val german = HumanReadableFormatter.unixTimeToHumanReadable(timestamp)
+        val german = HumanReadableFormatter.formatDateTime(timestamp)
 
         assertNotEquals(american, german)
     }

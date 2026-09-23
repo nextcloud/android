@@ -277,7 +277,7 @@ class UploadListAdapter(
                 fileSizeFormat = "%s, "
             }
 
-            val fileSizeInBytes = HumanReadableFormatter.bytesToHumanReadable(item.fileSize)
+            val fileSizeInBytes = HumanReadableFormatter.formatBytes(item.fileSize)
             val uploadFileSize = String.format(fileSizeFormat, fileSizeInBytes)
             holder.binding.uploadFileSize.text = uploadFileSize
         } else {

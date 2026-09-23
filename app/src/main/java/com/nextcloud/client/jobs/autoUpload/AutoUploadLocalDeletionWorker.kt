@@ -122,7 +122,7 @@ class AutoUploadLocalDeletionWorker(
     ): Notification {
         val notificationContent = context.getString(
             R.string.autoupload_delete_uploaded_notif_ended_content,
-            HumanReadableFormatter.bytesToHumanReadable(spaceFreed),
+            HumanReadableFormatter.formatBytes(spaceFreed),
             context.resources.getQuantityString(
                 R.plurals.autoupload_delete_uploaded_notif_ended_content_files,
                 filesRemoved.toInt(),
