@@ -9,17 +9,15 @@ package com.owncloud.android.ui.fragment
 
 import com.nextcloud.client.account.User
 import com.nextcloud.utils.SnackbarUtil
-import com.nextcloud.utils.e2ee.E2EVersionHelper
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation
-import com.owncloud.android.lib.resources.status.E2EVersion
+import com.owncloud.android.ui.dialog.setupEncryption.EncryptionKeyGenerator
 import com.owncloud.android.ui.events.EncryptionEvent
 import com.owncloud.android.utils.EncryptionUtils
-import com.owncloud.android.utils.EncryptionUtilsV2
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.apache.commons.httpclient.HttpStatus
@@ -83,8 +81,7 @@ class FolderEncryption(private val fragment: OCFileListFragment) {
         }
     }
 
-    @Suppress("LongParameterList")
-    private suspend fun onToggleSuccess(
+    suspend fun onToggleSuccess(
         remoteId: String,
         shouldBeEncrypted: Boolean,
         folder: OCFile,
@@ -94,54 +91,15 @@ class FolderEncryption(private val fragment: OCFileListFragment) {
         privateKey: String,
         storageManager: FileDataStorageManager
     ): Boolean {
-        val capability = storageManager.getCapability(user.accountName)
-        val isE2EEV2 = E2EVersionHelper.isV2Plus(capability)
-        var e2eCounter = EncryptionUtils.E2E_V1_INITIAL_COUNTER
-        if (isE2EEV2) {
-            e2eCounter = EncryptionUtils.E2E_V2_INITIAL_COUNTER
-        }
-        val token = EncryptionUtils.lockFolder(folder, client, e2eCounter)
-
-        val result = when {
-            isE2EEV2 -> {
-                val result = EncryptionUtils.retrieveMetadata(
-                    folder,
-                    client,
-                    privateKey,
-                    publicKey,
-                    storageManager,
-                    user,
-                    fragment.requireContext(),
-                    fragment.arbitraryDataProvider
-                )
-                val encryptionUtil = EncryptionUtilsV2()
-                encryptionUtil.serializeAndUploadMetadata(
-                    folder,
-                    result.second,
-                    token,
-                    client,
-                    result.first,
-                    fragment.requireContext(),
-                    user,
-                    storageManager
-                )
-                EncryptionUtils.unlockFolder(folder, client, token)
-                true
-            }
-
-            E2EVersionHelper.isV1(capability) -> {
-                EncryptionUtils.unlockFolderV1(folder, client, token)
-                false
-            }
-
-            capability.endToEndEncryptionApiVersion == E2EVersion.UNKNOWN -> {
-                throw IllegalArgumentException("Unknown E2E version")
-            }
-
-            else -> {
-                false
-            }
-        }
+        val result = EncryptionKeyGenerator( fragment.requireContext(), user)
+            .uploadEncryptedFolderMetadata(
+                folder,
+                client,
+                publicKey,
+                privateKey,
+                storageManager,
+                fragment.arbitraryDataProvider
+            )
 
         withContext(Dispatchers.Main) {
             val isFileExists = (fragment.adapter.getFileByRemoteId(remoteId) != null)
