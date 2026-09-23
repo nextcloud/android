@@ -123,7 +123,12 @@ class PreviewImageActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge(SystemBarStyle.dark(Color.TRANSPARENT), SystemBarStyle.dark(Color.TRANSPARENT))
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.dark(Color.TRANSPARENT),
+            navigationBarStyle = SystemBarStyle.dark(Color.TRANSPARENT)
+        )
+        window.setBackgroundDrawable(ContextCompat.getColor(this, R.color.black).toDrawable())
+        ViewCompat.setOnApplyWindowInsetsListener(window.decorView, null)
 
         if (savedInstanceState != null &&
             !savedInstanceState.getBoolean(
@@ -156,8 +161,6 @@ class PreviewImageActivity :
         }
 
         observeWorkerState()
-        applyDisplayCutOutTopPadding()
-
         handleBackPress()
 
         lifecycle.addObserver(sendShareDownloader)
@@ -178,27 +181,6 @@ class PreviewImageActivity :
     }
 
     override fun getMenuItemId(): Int = R.id.nav_gallery
-
-    private fun applyDisplayCutOutTopPadding() {
-        window.decorView.setOnApplyWindowInsetsListener { view, insets ->
-            updatePagerDisplayCutOutPadding(isInPictureInPictureMode, insets.displayCutout?.safeInsetTop ?: 0)
-            view.onApplyWindowInsets(insets)
-        }
-    }
-
-    private fun updatePagerDisplayCutOutPadding(inPictureInPictureMode: Boolean, safeInsetTop: Int) {
-        val pager = viewPager ?: findViewById(R.id.fragmentPager) ?: return
-        val topPadding = if (inPictureInPictureMode) 0 else safeInsetTop
-
-        pager.setPadding(pager.paddingLeft, topPadding, pager.paddingRight, pager.paddingBottom)
-
-        if (topPadding > 0) {
-            pager.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
-        }
-    }
-
-    private fun displayCutOutSafeInsetTop(): Int =
-        ViewCompat.getRootWindowInsets(window.decorView)?.displayCutout?.safeInsetTop ?: 0
 
     fun toggleActionBarVisibility(show: Boolean) {
         supportActionBar?.toggle(show)
@@ -540,7 +522,6 @@ class PreviewImageActivity :
 
     override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean, newConfig: Configuration) {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
-        updatePagerDisplayCutOutPadding(isInPictureInPictureMode, displayCutOutSafeInsetTop())
 
         if (isInPictureInPictureMode) {
             wasSystemUiVisibleBeforePictureInPicture = isSystemUIVisible
