@@ -15,7 +15,6 @@ import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
-import androidx.appcompat.app.ActionBar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -30,27 +29,6 @@ fun View.addNavigationBarInsetToBottomMargin() {
             bottomMargin = baseBottomMargin + insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
         }
         insets
-    }
-}
-
-fun View.fitBetweenActionBarAndNavigationBar(visibleActionBar: ActionBar?) {
-    val container = parent as? View ?: return
-    val navigationBarHeight = visibleActionBar?.let {
-        ViewCompat.getRootWindowInsets(this)
-            ?.getInsetsIgnoringVisibility(WindowInsetsCompat.Type.navigationBars())
-            ?.bottom
-    } ?: 0
-    val containerTop = IntArray(2).also(container::getLocationInWindow)[1]
-    val containerBottom = containerTop + container.height
-    val top = ((visibleActionBar?.height ?: 0) - containerTop).coerceAtLeast(0)
-    val bottom = (navigationBarHeight - (rootView.height - containerBottom)).coerceAtLeast(0)
-    val params = layoutParams as? ViewGroup.MarginLayoutParams
-
-    if (params != null && (params.topMargin != top || params.bottomMargin != bottom)) {
-        updateLayoutParams<ViewGroup.MarginLayoutParams> {
-            topMargin = top
-            bottomMargin = bottom
-        }
     }
 }
 

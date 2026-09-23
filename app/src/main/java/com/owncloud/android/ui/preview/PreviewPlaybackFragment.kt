@@ -42,7 +42,6 @@ import com.nextcloud.client.player.util.PlayerUtil.toPlaybackFile
 import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet
 import com.nextcloud.utils.SnackbarUtil
-import com.nextcloud.utils.extensions.fitBetweenActionBarAndNavigationBar
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
 import com.nextcloud.utils.extensions.setVisibilityWithAnimation
@@ -151,7 +150,6 @@ class PreviewPlaybackFragment :
         binding.surfaceView.setOnClickListener { toggleFullScreen() }
         updatePlayerControlsVisibility()
         binding.root.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
-            binding.videoContainer.fitBetweenActionBarAndNavigationBar(visibleActionBar)
             if (ownsPlayback(binding.surfaceView)) render(playbackModel.state)
         }
         return binding.root
@@ -384,7 +382,6 @@ class PreviewPlaybackFragment :
             isFullScreen = previewActivity()?.isSystemUIVisible == false
             binding.playerControlView.isVisible = !isFullScreen
             binding.playerControlView.alpha = CONTROLS_ALPHA_VISIBLE
-            binding.videoContainer.fitBetweenActionBarAndNavigationBar(visibleActionBar)
         }
 
         updatePlayerControlsVisibility()
@@ -424,7 +421,6 @@ class PreviewPlaybackFragment :
         previewActivity.toggleActionBarVisibility(!isFullScreen)
         binding.playerControlView.setVisibilityWithAnimation(!isFullScreen)
         previewActivity.window.showNavigationBar(!isFullScreen, binding.root)
-        binding.videoContainer.fitBetweenActionBarAndNavigationBar(visibleActionBar)
     }
 
     private fun updatePlayerControlsVisibility() {
