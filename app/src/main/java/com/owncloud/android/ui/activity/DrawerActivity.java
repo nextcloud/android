@@ -65,6 +65,7 @@ import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.nextcloud.ui.composeActivity.ComposeActivity;
 import com.nextcloud.ui.composeActivity.ComposeDestination;
 import com.nextcloud.utils.GlideHelper;
+import com.nextcloud.utils.HumanReadableFormatter;
 import com.nextcloud.utils.LinkHelper;
 import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
@@ -102,7 +103,6 @@ import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment;
 import com.owncloud.android.ui.fragment.albums.AlbumsFragment;
 import com.owncloud.android.ui.navigation.NavigatorActivity;
 import com.owncloud.android.ui.navigation.NavigatorScreen;
-import com.owncloud.android.ui.trashbin.TrashbinFragment;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.DrawableUtil;
@@ -940,12 +940,12 @@ public abstract class DrawerActivity extends ToolbarActivity
         if (GetUserInfoRemoteOperation.SPACE_UNLIMITED == quotaValue) {
             mQuotaTextPercentage.setText(String.format(
                 getString(R.string.drawer_quota_unlimited),
-                DisplayUtils.bytesToHumanReadable(usedSpace)));
+                HumanReadableFormatter.formatBytes(usedSpace)));
         } else {
             mQuotaTextPercentage.setText(String.format(
                 getString(R.string.drawer_quota),
-                DisplayUtils.bytesToHumanReadable(usedSpace),
-                DisplayUtils.bytesToHumanReadable(totalSpace)));
+                HumanReadableFormatter.formatBytes(usedSpace),
+                HumanReadableFormatter.formatBytes(totalSpace)));
         }
 
         mQuotaProgressBar.setProgress(relative);
