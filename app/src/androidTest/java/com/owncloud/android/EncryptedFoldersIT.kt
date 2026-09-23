@@ -77,7 +77,6 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
         assertTrue(createEncryptedFolder(remotePath).isSuccess)
         val files = listEncryptedFolder(remotePath)
         assertEquals(files.size, 0)
-
     }
 
     @Test
@@ -87,22 +86,18 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
 
     @Test
     fun testUpdateEncryptedSubfolder() {
-
     }
 
-     @Test
-     fun testDeleteEncryptedFolder() {
+    @Test
+    fun testDeleteEncryptedFolder() {
+    }
 
-     }
-
-     @Test
-     fun testDeleteEncryptedSubfolder() {
-
-     }
+    @Test
+    fun testDeleteEncryptedSubfolder() {
+    }
 
     @Test
     fun testEncryptExistingFolder() {
-
     }
 
     @Before
@@ -115,17 +110,16 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
         E2EDeletionService(NetworkModule().clientFactory(targetContext)).deleteKeysAndFiles(user)
         // Create new encryption key
         val privateKey: String = runBlocking {
-            EncryptionKeyGenerator.generatePrivateKey(targetContext, user, KEYWORDS)
+            EncryptionKeyGenerator(targetContext, user).generatePrivateKey(KEYWORDS)
         }
         // Check the key was generated
         assertNotEquals(privateKey, "")
     }
 
-    private fun createEncryptedFolder(remotePath: String): RemoteOperationResult<*> {
-        return CreateFolderOperation(remotePath, user, targetContext, storageManager).apply {
+    private fun createEncryptedFolder(remotePath: String): RemoteOperationResult<*> =
+        CreateFolderOperation(remotePath, user, targetContext, storageManager).apply {
             setEncrypt(true)
         }.execute(client)
-    }
 
     private fun listEncryptedFolder(remotePath: String): List<FileEntity> {
         // Obtain folder id
@@ -136,6 +130,4 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
             storageManager.fileDao.getFolderContentSuspended(ocFile!!.fileId)
         }
     }
-
-
 }

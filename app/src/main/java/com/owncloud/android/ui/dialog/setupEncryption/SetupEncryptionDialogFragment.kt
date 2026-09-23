@@ -353,11 +353,11 @@ class SetupEncryptionDialogFragment :
         }
     }
 
-    @Suppress("LongMethod", "TooGenericExceptionCaught", "TooGenericExceptionThrown")
+    @Suppress("ReturnCount")
     private suspend fun generateNewKeys() {
         binding.encryptionStatus.setText(R.string.end_to_end_encryption_generating_keys)
         val context = context ?: return
-        val privateKey: String = EncryptionKeyGenerator.generatePrivateKey(context, user ?: return, keyWords)
+        val privateKey: String = EncryptionKeyGenerator(context, user ?: return).generatePrivateKey(keyWords)
 
         if (privateKey.isEmpty()) {
             keyResult = KEY_FAILED

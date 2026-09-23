@@ -22,16 +22,28 @@ import com.owncloud.android.utils.crypto.CryptoHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-object EncryptionKeyGenerator {
-    
-    val TAG: String = EncryptionKeyGenerator::class.java.simpleName
+class EncryptionKeyGenerator(val context: Context, val user: User) {
+    companion object {
+        val TAG: String = EncryptionKeyGenerator::class.java.simpleName
 
-    suspend fun generatePrivateKey(
-        context: Context,
-        user: User,
-        keyWords: ArrayList<String>?
-    ): String= withContext(Dispatchers.IO) {
+        fun generateMnemonicString(keyWords: ArrayList<String>?, withWhitespace: Boolean): String {
+            val stringBuilder = StringBuilder()
 
+            keyWords?.let {
+                for (string in it) {
+                    stringBuilder.append(string)
+                    if (withWhitespace) {
+                        stringBuilder.append(' ')
+                    }
+                }
+            }
+
+            return stringBuilder.toString()
+        }
+    }
+
+    @Suppress("TooGenericExceptionCaught", "TooGenericExceptionThrown", "ReturnCount")
+    suspend fun generatePrivateKey(keyWords: ArrayList<String>?): String = withContext(Dispatchers.IO) {
         val arbitraryDataProvider = ArbitraryDataProviderImpl(context)
 
         //  - create CSR, push to server, store returned public key in database
@@ -50,16 +62,16 @@ object EncryptionKeyGenerator {
             val operation = SendCSRRemoteOperation(urlEncoded)
             val result = operation.executeNextcloudClient(user, context)
 
-            if (result.isSuccess) {
-                certificate = result.resultData
-                if (!EncryptionUtils.isMatchingKeys(keyPair, certificate)) {
-                    EncryptionUtils.reportE2eError(arbitraryDataProvider, user)
-                    throw RuntimeException("Wrong CSR returned")
-                }
-                Log_OC.d(TAG, "public key success")
-            } else {
+            if (!result.isSuccess) {
                 return@withContext ""
             }
+
+            certificate = result.resultData
+            if (!EncryptionUtils.isMatchingKeys(keyPair, certificate)) {
+                EncryptionUtils.reportE2eError(arbitraryDataProvider, user)
+                throw RuntimeException("Wrong CSR returned")
+            }
+            Log_OC.d(TAG, "public key success")
 
             val privateKey = keyPair.private
             val privateKeyString = EncryptionUtils.encodeBytesToBase64String(privateKey.encoded)
@@ -72,47 +84,32 @@ object EncryptionKeyGenerator {
             // upload encryptedPrivateKey
             val storePrivateKeyOperation = StorePrivateKeyRemoteOperation(encryptedPrivateKey)
             val storePrivateKeyResult = storePrivateKeyOperation.executeNextcloudClient(user, context)
-            if (storePrivateKeyResult.isSuccess) {
-                Log_OC.d(TAG, "private key success")
-                arbitraryDataProvider.storeOrUpdateKeyValue(
-                    user.accountName,
-                    EncryptionUtils.PRIVATE_KEY,
-                    privateKeyString
-                )
-                arbitraryDataProvider.storeOrUpdateKeyValue(
-                    user.accountName,
-                    EncryptionUtils.PUBLIC_KEY,
-                    certificate
-                )
-                arbitraryDataProvider.storeOrUpdateKeyValue(
-                    user.accountName,
-                    EncryptionUtils.MNEMONIC,
-                    generateMnemonicString(keyWords, true)
-                )
-
-                return@withContext storePrivateKeyResult.resultData
-            } else {
+            if (!storePrivateKeyResult.isSuccess) {
                 val deletePublicKeyOperation = DeletePublicKeyRemoteOperation()
                 deletePublicKeyOperation.executeNextcloudClient(user, context)
+                return@withContext ""
             }
+
+            Log_OC.d(TAG, "private key success")
+            arbitraryDataProvider.storeOrUpdateKeyValue(
+                user.accountName,
+                EncryptionUtils.PRIVATE_KEY,
+                privateKeyString
+            )
+            arbitraryDataProvider.storeOrUpdateKeyValue(
+                user.accountName,
+                EncryptionUtils.PUBLIC_KEY,
+                certificate
+            )
+            arbitraryDataProvider.storeOrUpdateKeyValue(
+                user.accountName,
+                EncryptionUtils.MNEMONIC,
+                generateMnemonicString(keyWords, true)
+            )
+            return@withContext storePrivateKeyResult.resultData
         } catch (e: Exception) {
             Log_OC.e(TAG, e.message)
         }
         return@withContext ""
-    }
-
-    fun generateMnemonicString(keyWords: ArrayList<String>?, withWhitespace: Boolean): String {
-        val stringBuilder = StringBuilder()
-
-        keyWords?.let {
-            for (string in it) {
-                stringBuilder.append(string)
-                if (withWhitespace) {
-                    stringBuilder.append(' ')
-                }
-            }
-        }
-
-        return stringBuilder.toString()
     }
 }
