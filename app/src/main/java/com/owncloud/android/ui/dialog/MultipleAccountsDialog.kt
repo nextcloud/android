@@ -18,6 +18,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.avatar.AvatarGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.MultipleAccountsBinding
 import com.owncloud.android.ui.adapter.UserListAdapter
@@ -36,6 +37,10 @@ class MultipleAccountsDialog :
     @JvmField
     @Inject
     var viewThemeUtils: ViewThemeUtils? = null
+
+    @Inject
+    lateinit var avatarGenerator: AvatarGenerator
+
     var highlightCurrentlyActiveAccount = true
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -51,7 +56,8 @@ class MultipleAccountsDialog :
             false,
             highlightCurrentlyActiveAccount,
             false,
-            viewThemeUtils
+            viewThemeUtils,
+            avatarGenerator
         )
 
         binding.list.setHasFixedSize(true)

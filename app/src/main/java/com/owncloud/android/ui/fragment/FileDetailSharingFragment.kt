@@ -40,6 +40,8 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.utils.SnackbarUtil
+import com.nextcloud.utils.avatar.AvatarGenerationListener
+import com.nextcloud.utils.avatar.AvatarGenerator
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.mergeDistinctByToken
 import com.nextcloud.utils.extensions.setVisibleIf
@@ -72,8 +74,6 @@ import com.owncloud.android.ui.fragment.share.RemoteShareRepository
 import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.utils.ClipboardUtil.copyToClipboard
-import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import com.owncloud.android.utils.PermissionUtil.checkSelfPermission
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
@@ -116,6 +116,9 @@ class FileDetailSharingFragment :
 
     @Inject
     lateinit var searchConfig: UsersAndGroupsSearchConfig
+
+    @Inject
+    lateinit var avatarGenerator: AvatarGenerator
 
     // region lifecycle methods
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -251,7 +254,8 @@ class FileDetailSharingFragment :
         user,
         viewThemeUtils,
         (file?.isEncrypted == true),
-        type
+        type,
+        avatarGenerator
     ).apply {
         setHasStableIds(true)
     }
@@ -506,16 +510,12 @@ class FileDetailSharingFragment :
         val user = user ?: return
         val userId = file?.ownerId ?: return
 
-        DisplayUtils.setAvatar(
-            user,
+        avatarGenerator.setUserAvatar(
             userId,
             this@FileDetailSharingFragment,
-            resources.getDimension(
-                R.dimen.file_list_item_avatar_icon_radius
-            ),
-            resources,
+            resources.getDimension(R.dimen.file_list_item_avatar_icon_radius),
             sharedWithYouAvatar,
-            context
+            user = user
         )
 
         sharedWithYouAvatar.setVisibility(View.VISIBLE)
@@ -817,7 +817,8 @@ class FileDetailSharingFragment :
             userId,
             activity,
             clientFactory,
-            viewThemeUtils
+            viewThemeUtils,
+            avatarGenerator
         ).execute()
     }
 

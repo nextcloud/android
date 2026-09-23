@@ -12,6 +12,7 @@ import com.nextcloud.android.lib.resources.profile.GetHoverCardRemoteOperation
 import com.nextcloud.client.account.User
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.utils.SnackbarUtil
+import com.nextcloud.utils.avatar.AvatarGenerator
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.fragment.ProfileBottomSheetDialog
@@ -20,12 +21,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+@Suppress("LongParameterList")
 class RetrieveHoverCardAsyncTask(
     private val user: User,
     private val userId: String,
     private val activity: FragmentActivity,
     private val clientFactory: ClientFactory,
-    private val viewThemeUtils: ViewThemeUtils
+    private val viewThemeUtils: ViewThemeUtils,
+    private val avatarGenerator: AvatarGenerator
 ) {
     companion object {
         private const val TAG = "RetrieveHoverCardAsyncTask"
@@ -59,7 +62,8 @@ class RetrieveHoverCardAsyncTask(
                     activity,
                     user,
                     result,
-                    viewThemeUtils
+                    viewThemeUtils,
+                    avatarGenerator
                 )
                     .show()
             }

@@ -30,9 +30,10 @@ import com.nextcloud.android.lib.resources.profile.Action
 import com.nextcloud.android.lib.resources.profile.HoverCard
 import com.nextcloud.client.account.User
 import com.nextcloud.client.utils.IntentUtil
+import com.nextcloud.utils.avatar.AvatarGenerationListener
+import com.nextcloud.utils.avatar.AvatarGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ProfileBottomSheetFragmentBinding
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 private const val TEXT_SIZE = 16f
@@ -44,9 +45,10 @@ class ProfileBottomSheetDialog(
     private val fileActivity: FragmentActivity,
     private val user: User,
     private val hoverCard: HoverCard,
-    private val viewThemeUtils: ViewThemeUtils
+    private val viewThemeUtils: ViewThemeUtils,
+    private val avatarGenerator: AvatarGenerator
 ) : BottomSheetDialog(fileActivity),
-    DisplayUtils.AvatarGenerationListener {
+    AvatarGenerationListener {
     private var _binding: ProfileBottomSheetFragmentBinding? = null
 
     // This property is only valid between onCreateView and onDestroyView.
@@ -63,15 +65,13 @@ class ProfileBottomSheetDialog(
         viewThemeUtils.platform.themeDialog(binding.root)
 
         binding.icon.tag = hoverCard.userId
-        DisplayUtils.setAvatar(
-            user,
+        avatarGenerator.setUserAvatar(
             hoverCard.userId,
-            hoverCard.displayName,
             this,
             context.resources.getDimension(R.dimen.list_item_avatar_icon_radius),
-            context.resources,
             binding.icon,
-            context
+            displayName = hoverCard.displayName,
+            user = user
         )
 
         binding.displayName.text = hoverCard.displayName

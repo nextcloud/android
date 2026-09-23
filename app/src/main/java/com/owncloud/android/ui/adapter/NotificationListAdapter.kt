@@ -27,7 +27,7 @@ import androidx.core.view.size
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
-import com.nextcloud.client.account.CurrentAccountProvider
+import com.nextcloud.utils.avatar.AvatarGenerator
 import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.text.RichSubjectFormatter
@@ -48,12 +48,12 @@ class NotificationListAdapter(
     private val fragment: NotificationsFragment,
     private val viewThemeUtils: ViewThemeUtils,
     private val itemClick: NotificationsAdapterItemClick,
-    private val accountManager: CurrentAccountProvider
+    private val avatarGenerator: AvatarGenerator
 ) : RecyclerView.Adapter<NotificationListAdapter.NotificationViewHolder>() {
 
     private val notificationsList = ArrayList<Notification>()
     private val richSubjectFormatter by lazy {
-        RichSubjectFormatter(fragment.requireContext(), accountManager)
+        RichSubjectFormatter(fragment.requireContext(), avatarGenerator)
     }
 
     // region Adapter overrides

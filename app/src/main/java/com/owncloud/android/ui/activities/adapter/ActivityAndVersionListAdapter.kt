@@ -17,19 +17,22 @@ import com.nextcloud.common.NextcloudClient
 import com.nextcloud.utils.HumanReadableFormatter
 import com.owncloud.android.databinding.VersionListItemBinding
 import com.owncloud.android.lib.resources.activities.model.Activity
+import com.nextcloud.utils.avatar.AvatarGenerator
 import com.owncloud.android.lib.resources.files.model.FileVersion
 import com.owncloud.android.ui.interfaces.ActivityListInterface
 import com.owncloud.android.ui.interfaces.VersionListInterface
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.util.Date
 
+@Suppress("LongParameterList")
 class ActivityAndVersionListAdapter(
     context: FragmentActivity,
     currentAccountProvider: CurrentAccountProvider,
     activityListInterface: ActivityListInterface,
     private val versionListInterface: VersionListInterface.View,
-    viewThemeUtils: ViewThemeUtils
-) : ActivityListAdapter(context, currentAccountProvider, activityListInterface, true, viewThemeUtils) {
+    viewThemeUtils: ViewThemeUtils,
+    avatarGenerator: AvatarGenerator
+) : ActivityListAdapter(context, currentAccountProvider, activityListInterface, true, viewThemeUtils, avatarGenerator) {
 
     @SuppressLint("NotifyDataSetChanged")
     fun setActivityAndVersionItems(items: MutableList<Any?>, newClient: NextcloudClient?, clear: Boolean) {

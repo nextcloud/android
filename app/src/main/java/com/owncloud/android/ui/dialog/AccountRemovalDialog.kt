@@ -21,13 +21,14 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.player.media3.PlaybackModel
 import com.nextcloud.client.utils.IntentUtil
+import com.nextcloud.utils.avatar.AvatarGenerationListener
+import com.nextcloud.utils.avatar.AvatarGenerator
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.AccountRemovalDialogBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.ui.dialog.extensions.themeButtons
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -44,6 +45,9 @@ class AccountRemovalDialog :
 
     @Inject
     lateinit var playbackModel: PlaybackModel
+
+    @Inject
+    lateinit var avatarGenerator: AvatarGenerator
 
     private var user: User? = null
     private lateinit var alertDialog: AlertDialog
@@ -150,13 +154,11 @@ class AccountRemovalDialog :
         try {
             val imageView = binding.userIcon
             imageView.tag = user!!.accountName
-            DisplayUtils.setAvatar(
+            avatarGenerator.setAccountAvatar(
                 user!!,
                 this,
                 resources.getDimension(R.dimen.list_item_avatar_icon_radius),
-                resources,
-                imageView,
-                context
+                imageView
             )
         } catch (_: Exception) {
         }
