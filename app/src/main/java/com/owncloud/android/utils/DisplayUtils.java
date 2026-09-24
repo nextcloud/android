@@ -37,6 +37,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.utils.HumanReadableFormatter;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
@@ -52,13 +53,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.net.IDN;
 import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -84,14 +82,9 @@ import static com.owncloud.android.utils.FileSortOrder.SORT_Z_TO_A_ID;
 public final class DisplayUtils {
     private static final String TAG = DisplayUtils.class.getSimpleName();
 
-    private static final String[] sizeSuffixes = {"B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"};
-    private static final int[] sizeScales = {0, 0, 1, 1, 1, 2, 2, 2, 2};
-
     private static final String HTTP_PROTOCOL = "http://";
     private static final String HTTPS_PROTOCOL = "https://";
     private static final String TWITTER_HANDLE_PREFIX = "@";
-    private static final int BYTE_SIZE_DIVIDER = 1024;
-    private static final double BYTE_SIZE_DIVIDER_DOUBLE = 1024.0;
     private static final int DATE_TIME_PARTS_SIZE = 2;
     public static final String MONTH_YEAR_PATTERN = "MMMM yyyy";
     public static final String MONTH_PATTERN = "MMMM";
@@ -99,45 +92,6 @@ public final class DisplayUtils {
 
     private DisplayUtils() {
         // utility class -> private constructor
-    }
-
-    /**
-     * Converts the file size in bytes to human readable output.
-     * <ul>
-     *     <li>appends a size suffix, e.g. B, KB, MB etc.</li>
-     *     <li>rounds the size based on the suffix to 0,1 or 2 decimals</li>
-     * </ul>
-     *
-     * @param bytes Input file size
-     * @return something readable like "12 MB", {@link com.owncloud.android.R.string#common_pending} for negative
-     * byte values
-     */
-    public static String bytesToHumanReadable(long bytes) {
-        if (bytes < 0) {
-            return MainApp.string(R.string.common_pending);
-        } else {
-            double result = bytes;
-            int suffixIndex = 0;
-            while (result > BYTE_SIZE_DIVIDER && suffixIndex < sizeSuffixes.length) {
-                result /= BYTE_SIZE_DIVIDER_DOUBLE;
-                suffixIndex++;
-            }
-
-            return new BigDecimal(String.valueOf(result)).setScale(
-                sizeScales[suffixIndex], RoundingMode.HALF_UP) + " " + sizeSuffixes[suffixIndex];
-        }
-    }
-
-    /**
-     * Converts Unix time to human readable format
-     *
-     * @param milliseconds that have passed since 01/01/1970
-     * @return The human readable time for the users locale
-     */
-    public static String unixTimeToHumanReadable(long milliseconds) {
-        Date date = new Date(milliseconds);
-        DateFormat df = DateFormat.getDateTimeInstance();
-        return df.format(date);
     }
 
     /**
@@ -270,7 +224,7 @@ public final class DisplayUtils {
 
         // in Future
         if (!showFuture && time > System.currentTimeMillis()) {
-            return DisplayUtils.unixTimeToHumanReadable(time);
+            return HumanReadableFormatter.formatDateTime(time);
         }
         // < 60 seconds -> seconds ago
         long diff = System.currentTimeMillis() - time;

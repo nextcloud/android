@@ -24,6 +24,7 @@ import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.utils.HumanReadableFormatter
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getStatusText
 import com.nextcloud.utils.extensions.isLastResultConflictError
@@ -276,7 +277,7 @@ class UploadListAdapter(
                 fileSizeFormat = "%s, "
             }
 
-            val fileSizeInBytes = DisplayUtils.bytesToHumanReadable(item.fileSize)
+            val fileSizeInBytes = HumanReadableFormatter.formatBytes(item.fileSize)
             val uploadFileSize = String.format(fileSizeFormat, fileSizeInBytes)
             holder.binding.uploadFileSize.text = uploadFileSize
         } else {

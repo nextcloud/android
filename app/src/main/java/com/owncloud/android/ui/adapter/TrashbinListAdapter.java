@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.utils.HumanReadableFormatter;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.thumbnail.VideoOverlayGenerator;
@@ -137,7 +138,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             trashbinFileViewHolder.binding.Filename.setText(file.getFileName());
 
             // fileSize
-            trashbinFileViewHolder.binding.fileSize.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
+            trashbinFileViewHolder.binding.fileSize.setText(HumanReadableFormatter.formatBytes(file.getFileLength()));
 
             // originalLocation
             String location;

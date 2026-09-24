@@ -34,6 +34,7 @@ import com.nextcloud.client.database.entity.OfflineOperationEntity;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.model.OfflineOperationType;
+import com.nextcloud.utils.HumanReadableFormatter;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.nextcloud.utils.extensions.ImageViewExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
@@ -741,7 +742,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private String getFileSizeText(OCFile file, long size) {
         if (!file.isOfflineOperation()) {
-            return DisplayUtils.bytesToHumanReadable(size);
+            return HumanReadableFormatter.formatBytes(size);
         }
 
         OfflineOperationEntity entity = mStorageManager.getOfflineEntityFromOCFile(file);
@@ -1044,7 +1045,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 Date date = new Date(milliseconds);
                 return dateFormat.format(date);
             case SIZE:
-                return DisplayUtils.bytesToHumanReadable(file.getFileLength());
+                return HumanReadableFormatter.formatBytes(file.getFileLength());
             default:
                 Log_OC.d(TAG, "getPopupText: Unsupported sort order: " + sortOrder.getType());
                 return "";
