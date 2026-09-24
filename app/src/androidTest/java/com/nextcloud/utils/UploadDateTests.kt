@@ -15,8 +15,8 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.nextcloud.client.database.entity.UploadEntity
 import com.nextcloud.client.database.entity.toOCUpload
 import com.nextcloud.client.database.entity.toUploadEntity
+import com.nextcloud.utils.text.DisplayTextFormatter
 import com.owncloud.android.R
-import com.owncloud.android.utils.DisplayUtils
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -188,7 +188,7 @@ class UploadDateTests {
         minResolution: Long = DateUtils.MINUTE_IN_MILLIS,
         showFuture: Boolean = false
     ) {
-        val result = DisplayUtils.getRelativeDateTimeString(
+        val result = DisplayTextFormatter.formatRelativeDateTime(
             context,
             time,
             minResolution,

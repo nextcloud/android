@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.utils.date.DateFormatPattern
+import com.nextcloud.utils.text.DisplayTextFormatter
 import com.nextcloud.utils.thumbnail.ThumbnailArguments
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.R
@@ -22,7 +23,6 @@ import com.owncloud.android.databinding.AlbumsListItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.albums.PhotoAlbumEntry
-import com.owncloud.android.utils.DisplayUtils
 
 @Suppress("LongParameterList")
 class AlbumsAdapter(
@@ -52,7 +52,7 @@ class AlbumsAdapter(
             R.plurals.album_items_text,
             file.nbItems,
             file.nbItems,
-            DisplayUtils.getDateByPattern(file.createdDate, DateFormatPattern.MonthWithYear.pattern)
+            DisplayTextFormatter.formatDate(file.createdDate, DateFormatPattern.MonthWithYear)
         )
 
         gridViewHolder.albumName.setCompoundDrawablesWithIntrinsicBounds(

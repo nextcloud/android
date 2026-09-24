@@ -41,6 +41,7 @@ import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
+import com.nextcloud.utils.text.DisplayTextFormatter;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsFragmentBinding;
@@ -65,7 +66,6 @@ import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.events.EventBusFactory;
 import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.events.FileDownloadProgressEvent;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
@@ -673,8 +673,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         if (showDetailedTimestamp) {
             binding.lastModificationTimestamp.setText(HumanReadableFormatter.formatDateTime(file.getModificationTimestamp()));
         } else {
-            binding.lastModificationTimestamp.setText(DisplayUtils.getRelativeTimestamp(getContext(),
-                                                                                        file.getModificationTimestamp()));
+            binding.lastModificationTimestamp.setText(
+                DisplayTextFormatter.formatRelativeTimestamp(requireContext(), file.getModificationTimestamp()));
         }
     }
 

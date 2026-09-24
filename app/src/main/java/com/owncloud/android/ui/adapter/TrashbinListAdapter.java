@@ -23,6 +23,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.utils.HumanReadableFormatter;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
+import com.nextcloud.utils.text.DisplayTextFormatter;
 import com.nextcloud.utils.thumbnail.VideoOverlayGenerator;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ListFooterBinding;
@@ -33,7 +34,6 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile;
 import com.owncloud.android.ui.interfaces.TrashbinActivityInterface;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
@@ -151,8 +151,8 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             trashbinFileViewHolder.binding.originalLocation.setText(location);
 
             // deletion time
-            trashbinFileViewHolder.binding.deletionTimestamp.setText(DisplayUtils.getRelativeTimestamp(context,
-                    file.getDeletionTimestamp() * 1000));
+            trashbinFileViewHolder.binding.deletionTimestamp.setText(
+                DisplayTextFormatter.formatRelativeTimestamp(context, file.getDeletionTimestamp() * 1000));
 
             // checkbox
             if (isCheckedFile(file)) {
