@@ -115,6 +115,7 @@ import com.owncloud.android.utils.theme.ThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.fairscan.app.FairScan
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -570,17 +571,21 @@ open class OCFileListFragment :
 
     @Suppress("DEPRECATION")
     override fun scanDocUploadFromApp() {
-        requireActivity().startActivityForResult(
-            scanIntentExternalApp,
+        val activity = requireActivity()
+
+        // A separately installed FairScan wins over the built-in scanner, so users can pick up
+        // a newer FairScan release before Nextcloud itself updates the bundled version.
+        val scanIntent = if (scanIntentExternalApp.resolveActivity(activity.packageManager) != null) {
+            scanIntentExternalApp
+        } else {
+            FairScan.scanToPdfIntent(activity)
+        }
+
+        activity.startActivityForResult(
+            scanIntent,
             FileDisplayActivity.REQUEST_CODE__SELECT_CONTENT_FROM_APPS_AUTO_RENAME
         )
     }
-
-    override val isScanDocUploadFromAppAvailable: Boolean
-        get() {
-            val context = activity ?: return false
-            return scanIntentExternalApp.resolveActivity(context.packageManager) != null
-        }
 
     override fun uploadFiles() {
         val fileActivity = activity as? FileActivity
