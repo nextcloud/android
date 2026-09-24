@@ -11,6 +11,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.Context
 import android.graphics.Outline
+import android.graphics.Rect
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
@@ -102,4 +103,9 @@ fun <T : View?> T.slideHideBottomBehavior(visible: Boolean) {
             Log_OC.e("slideHideBottomBehavior", e.message)
         }
     }
+}
+
+fun View.boundsOnScreen(): Rect {
+    val location = IntArray(2).also { getLocationOnScreen(it) }
+    return Rect(location[0], location[1], location[0] + width, location[1] + height)
 }

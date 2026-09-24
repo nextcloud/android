@@ -30,6 +30,10 @@ public interface OCFileListFragmentInterface {
 
     void onItemClicked(OCFile file);
 
+    default void onItemClicked(OCFile file, View sourceView) {
+        onItemClicked(file);
+    }
+
     boolean onLongItemClicked(OCFile file);
 
     boolean isLoading();

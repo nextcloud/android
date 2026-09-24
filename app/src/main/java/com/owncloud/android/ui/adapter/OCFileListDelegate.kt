@@ -170,7 +170,7 @@ class OCFileListDelegate(
                     file
                 )
             } else {
-                ocFileListFragmentInterface.onItemClicked(file)
+                ocFileListFragmentInterface.onItemClicked(file, imageView)
                 AlbumItemsFragment.lastMediaItemPosition = galleryRowHolder.absoluteAdapterPosition
             }
         }
