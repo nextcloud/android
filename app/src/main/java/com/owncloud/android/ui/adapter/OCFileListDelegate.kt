@@ -18,10 +18,8 @@ import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.gallery.GalleryImageGenerationJob
 import com.nextcloud.client.jobs.gallery.GalleryImageGenerationListener
 import com.nextcloud.client.jobs.upload.FileUploadHelper
-import com.nextcloud.utils.extensions.getBigThumbnail
 import com.nextcloud.utils.extensions.makeRounded
 import com.nextcloud.utils.extensions.setMediaPlaceholder
-import com.nextcloud.utils.extensions.setMediaThumbnail
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.extensions.showsMediaThumbnailOf
 import com.nextcloud.utils.extensions.stopShimmer
@@ -120,13 +118,6 @@ class OCFileListDelegate(
         GalleryImageGenerationJob.cancelPreviousJob(imageView)
 
         imageView.tag = file.fileId
-
-        val cached = file.takeUnless { it.isUpdateThumbnailNeeded }?.getBigThumbnail()
-        if (cached != null) {
-            imageView.setMediaThumbnail(file, cached)
-            imageView.stopShimmer(shimmer)
-            return
-        }
 
         imageView.setMediaPlaceholder(file, placeholderInset)
 
