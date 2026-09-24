@@ -9,8 +9,11 @@ package com.nextcloud.utils.extensions
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Rect
+import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -35,6 +38,19 @@ fun Activity.showShareIntent(text: String?) {
 
     val shareIntent = Intent.createChooser(sendIntent, null)
     startActivity(shareIntent)
+}
+
+fun Activity.scaleUpAnimationFrom(boundsOnScreen: Rect): Bundle? {
+    val decorView = window.decorView
+    val decorLocation = IntArray(2).also { decorView.getLocationOnScreen(it) }
+
+    return ActivityOptionsCompat.makeScaleUpAnimation(
+        decorView,
+        boundsOnScreen.left - decorLocation[0],
+        boundsOnScreen.top - decorLocation[1],
+        boundsOnScreen.width(),
+        boundsOnScreen.height()
+    ).toBundle()
 }
 
 fun ComponentActivity.observeWorker(onCollect: (WorkerState?) -> Unit) {
