@@ -309,6 +309,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         NavigationViewExtensionsKt.highlightNavigationView(drawerNavigationView,
                                                            bottomNavigationView,
                                                            menuItemId);
+        SystemBarBackgroundCallbacks.apply(this, viewThemeUtils);
         Log_OC.d(TAG, "New menu item is: " + menuItemId);
     }
 
