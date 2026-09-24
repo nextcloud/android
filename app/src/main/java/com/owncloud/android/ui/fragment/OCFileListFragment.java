@@ -117,6 +117,8 @@ import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.WebViewUtil;
 import com.owncloud.android.utils.theme.ThemeUtils;
 
+import org.fairscan.app.FairScan;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -634,18 +636,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void scanDocUploadFromApp() {
-        requireActivity().startActivityForResult(
-            scanIntentExternalApp,
-            FileDisplayActivity.REQUEST_CODE__SELECT_CONTENT_FROM_APPS_AUTO_RENAME);
-    }
+        final Activity activity = requireActivity();
 
-    @Override
-    public boolean isScanDocUploadFromAppAvailable() {
-        var context = getActivity();
-        if (context == null) {
-            return false;
-        }
-        return scanIntentExternalApp.resolveActivity(context.getPackageManager()) != null;
+        // A separately installed FairScan wins over the built-in scanner, so users can pick up
+        // a newer FairScan release before Nextcloud itself updates the bundled version.
+        final Intent intent = scanIntentExternalApp.resolveActivity(activity.getPackageManager()) != null
+            ? scanIntentExternalApp
+            : FairScan.scanToPdfIntent(activity);
+
+        activity.startActivityForResult(intent, FileDisplayActivity.REQUEST_CODE__SELECT_CONTENT_FROM_APPS_AUTO_RENAME);
     }
 
     @Override
