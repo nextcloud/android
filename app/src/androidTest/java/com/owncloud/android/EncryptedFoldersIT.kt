@@ -85,7 +85,6 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
      * the latter is executed manually by the user later.
      */
 
-
     @Test
     fun testCreateEncryptedFolder() {
         createEncryptedFolder(FOLDER)
