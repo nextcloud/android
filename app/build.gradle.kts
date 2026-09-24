@@ -436,6 +436,10 @@ dependencies {
     implementation(libs.emoji.google)
     // endregion
 
+    // region FairScan
+    implementation(libs.fairscan)
+    // endregion
+
     // region SpotBugs
     spotbugsPlugins(libs.findsecbugs.plugin)
     spotbugsPlugins(libs.fb.contrib)
