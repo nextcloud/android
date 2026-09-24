@@ -11,11 +11,13 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.account.UserAccountManagerImpl
 import com.nextcloud.client.database.entity.FileEntity
 import com.nextcloud.client.network.NetworkModule
+import com.nextcloud.test.SinceServer
 import com.nextcloud.utils.e2ee.E2EEActionResolver
 import com.nextcloud.utils.e2ee.E2EEKeyInspector
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation
 import com.owncloud.android.lib.resources.status.GetCapabilitiesRemoteOperation
+import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.operations.CreateFolderOperation
 import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.operations.common.SyncOperation
@@ -33,6 +35,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
+@SinceServer(majorVersion = 30)
 open class EncryptedFoldersIT : AbstractOnServerIT() {
     companion object {
         val FOLDER = "/encryptedFolder/"
@@ -81,6 +84,8 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
      * as they are basically the same action (folder creation + encryption), the only difference being
      * the latter is executed manually by the user later.
      */
+
+
     @Test
     fun testCreateEncryptedFolder() {
         createEncryptedFolder(FOLDER)
@@ -121,6 +126,8 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
 
     @Before
     fun encryptionSetup() {
+        testOnlyOnServer(NextcloudVersion.nextcloud_30)
+
         // Fetch capability
         val capability = GetCapabilitiesRemoteOperation(null).execute(client).getResultData()
         storageManager.saveCapabilities(capability)
