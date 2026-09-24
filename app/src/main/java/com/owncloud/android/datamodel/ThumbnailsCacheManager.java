@@ -293,6 +293,15 @@ public final class ThumbnailsCacheManager {
         return null;
     }
 
+    public static Bitmap getBitmapFromDiskCacheWithoutLock(String key) {
+        DiskLruImageCache cache = mThumbnailCache;
+        if (cache == null) {
+            return null;
+        }
+
+        return cache.getBitmap(key);
+    }
+
     public static Bitmap getBitmapFromDiskCache(String key) {
         synchronized (mThumbnailsDiskCacheLock) {
             // Wait while disk cache is started from background thread
