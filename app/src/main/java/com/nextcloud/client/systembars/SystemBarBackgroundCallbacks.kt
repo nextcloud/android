@@ -12,7 +12,10 @@ import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
+import com.nextcloud.client.onboarding.FirstRunActivity
+import com.nmc.android.ui.LauncherActivity
 import com.owncloud.android.R
+import com.owncloud.android.authentication.AuthenticatorActivity
 import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import dynamiccolor.MaterialDynamicColors
@@ -26,6 +29,10 @@ class SystemBarBackgroundCallbacks(private val viewThemeUtilsProvider: Provider<
 
         @JvmStatic
         fun apply(activity: Activity, viewThemeUtils: ViewThemeUtils) {
+            if (activity is LauncherActivity || activity is AuthenticatorActivity || activity is FirstRunActivity) {
+                return
+            }
+
             val decorView = activity.window?.decorView as? FrameLayout ?: return
             val actionBarColor = dynamicColor.surface().getArgb(viewThemeUtils.getScheme(activity))
             val statusBarColor = statusBarColor(activity, actionBarColor)
