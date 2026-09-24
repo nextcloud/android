@@ -26,6 +26,7 @@ import com.owncloud.android.utils.EncryptionUtils
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.After
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
@@ -75,6 +76,11 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
         encryptionKeyGenerator = EncryptionKeyGenerator(targetContext, user)
     }
 
+    /**
+     * This test covers both encrypted folder creation and encryption of an existing (empty) folder,
+     * as they are basically the same action (folder creation + encryption), the only difference being
+     * the latter is executed manually by the user later.
+     */
     @Test
     fun testCreateEncryptedFolder() {
         createEncryptedFolder(FOLDER)
@@ -103,24 +109,14 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
     }
 
     @Test
-    fun testUpdateEncryptedFolder() {
-        // Rename folder
-    }
+    fun testUnencryptFolder() {
+        // Create encrypted folder
+        val ocFile = createEncryptedFolder(FOLDER)
+        assertTrue(ocFile.isFolder && ocFile.isEncrypted)
 
-    @Test
-    fun testUpdateEncryptedSubfolder() {
-    }
-
-    @Test
-    fun testDeleteEncryptedFolder() {
-    }
-
-    @Test
-    fun testDeleteEncryptedSubfolder() {
-    }
-
-    @Test
-    fun testEncryptExistingFolder() {
+        // Unencrypt it
+        encryptFolder(ocFile, false)
+        assertFalse(ocFile.isEncrypted)
     }
 
     @Before
@@ -162,7 +158,14 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
 
         val ocFile = storageManager.getFileByRemotePath(remotePath)
         assertNotNull(ocFile)
-        val encrypted = ToggleEncryptionRemoteOperation(ocFile!!.localId, remotePath, true)
+
+        encryptFolder(ocFile!!, true)
+
+        return ocFile
+    }
+
+    fun encryptFolder(ocFile: OCFile, encrypt: Boolean) {
+        val encrypted = ToggleEncryptionRemoteOperation(ocFile.localId, ocFile.remotePath, encrypt)
             .execute(client)
         assertTrue(encrypted.toString(), encrypted.isSuccess)
 
@@ -179,10 +182,8 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
         assertTrue(uploadedMetadata)
 
         // Set file as encrypted locally
-        ocFile.isEncrypted = true
+        ocFile.isEncrypted = encrypt
         assertTrue(storageManager.saveFile(ocFile))
-
-        return ocFile
     }
 
     fun createEncryptedSubfolder(folderName: String, parent: OCFile) {
