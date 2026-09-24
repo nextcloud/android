@@ -41,6 +41,7 @@ import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.nextcloud.utils.extensions.ImageViewExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
+import com.nextcloud.utils.text.DisplayTextFormatter;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.GridItemBinding;
@@ -678,12 +679,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         final long modificationTimestamp = file.getModificationTimestamp();
         if (modificationTimestamp > 0) {
-            holder.getLastModification().setText(DisplayUtils.getRelativeTimestamp(activity,
-                                                                                   modificationTimestamp));
+            holder.getLastModification().setText(
+                DisplayTextFormatter.formatRelativeTimestamp(activity, modificationTimestamp));
             holder.getLastModification().setVisibility(View.VISIBLE);
         } else if (file.getFirstShareTimestamp() > 0) {
             holder.getLastModification().setText(
-                DisplayUtils.getRelativeTimestamp(activity, file.getFirstShareTimestamp())
+                DisplayTextFormatter.formatRelativeTimestamp(activity, file.getFirstShareTimestamp())
                                                 );
             holder.getLastModification().setVisibility(View.VISIBLE);
         } else {

@@ -26,5 +26,11 @@ enum class DateFormatPattern(val pattern: String) {
     /**
      * Aug 2026
      */
-    MonthWithYear("MMM yyyy")
+    MonthWithYear("MMM yyyy"),
+
+    FullMonthWithYear("MMMM yyyy"),
+
+    FullMonth("MMMM"),
+
+    Year("yyyy")
 }

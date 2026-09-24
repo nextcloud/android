@@ -38,6 +38,7 @@ import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.avatar.AvatarGenerationListener
 import com.nextcloud.utils.avatar.AvatarGenerator
 import com.nextcloud.utils.extensions.setVisibleIf
+import com.nextcloud.utils.text.DisplayTextFormatter
 import com.nextcloud.utils.thumbnail.ThumbnailArguments
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileActionsBottomSheetBinding
@@ -304,7 +305,8 @@ class FileActionsBottomSheet :
     }
 
     private fun getLockedUntilText(lockInfo: FileActionsViewModel.LockInfo): CharSequence {
-        val relativeTimestamp = DisplayUtils.getRelativeTimestamp(context, lockInfo.lockedUntil!!, true)
+        val relativeTimestamp =
+            DisplayTextFormatter.formatRelativeTimestamp(requireContext(), lockInfo.lockedUntil!!, true)
         return getString(R.string.lock_expiration_info, relativeTimestamp)
     }
 

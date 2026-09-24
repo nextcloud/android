@@ -34,6 +34,7 @@ import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getSerializableArgument
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.extensions.setVisibleIf
+import com.nextcloud.utils.text.DisplayTextFormatter
 import com.owncloud.android.R
 import com.owncloud.android.databinding.BackupFragmentBinding
 import com.owncloud.android.datamodel.ArbitraryDataProvider
@@ -44,7 +45,6 @@ import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity
 import com.owncloud.android.ui.activity.SettingsActivity
 import com.owncloud.android.ui.fragment.FileFragment
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.PermissionUtil.checkSelfPermission
 import com.owncloud.android.utils.theme.ThemeUtils
@@ -214,7 +214,7 @@ class BackupFragment :
         }
         binding.lastBackupWithDate.text = getString(
             R.string.last_backup,
-            DisplayUtils.getRelativeTimestamp(contactsPreferenceActivity, lastBackupTimestamp)
+            DisplayTextFormatter.formatRelativeTimestamp(contactsPreferenceActivity, lastBackupTimestamp)
         )
     }
 

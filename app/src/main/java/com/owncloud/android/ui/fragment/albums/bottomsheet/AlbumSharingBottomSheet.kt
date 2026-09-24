@@ -20,6 +20,7 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.date.DateFormatPattern
 import com.nextcloud.utils.extensions.setVisibleIf
+import com.nextcloud.utils.text.DisplayTextFormatter
 import com.nextcloud.utils.thumbnail.ThumbnailArguments
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.R
@@ -30,7 +31,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.albums.PhotoAlbumEntry
 import com.owncloud.android.ui.fragment.albums.util.AlbumCollageLayout
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -99,7 +99,7 @@ class AlbumSharingBottomSheet(
             album.nbItems,
             album.nbItems
         )
-        albumDate.text = DisplayUtils.getDateByPattern(album.createdDate, DateFormatPattern.MonthWithYear.pattern)
+        albumDate.text = DisplayTextFormatter.formatDate(album.createdDate, DateFormatPattern.MonthWithYear)
     }
 
     private fun bindAlbumThumbnail(album: PhotoAlbumEntry) {

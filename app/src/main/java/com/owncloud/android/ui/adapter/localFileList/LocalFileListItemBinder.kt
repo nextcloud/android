@@ -11,9 +11,9 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.utils.HumanReadableFormatter
+import com.nextcloud.utils.text.DisplayTextFormatter
 import com.owncloud.android.R
 import com.owncloud.android.ui.interfaces.LocalFileListFragmentInterface
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 
@@ -80,6 +80,6 @@ internal class LocalFileListItemBinder(
             holder.fileSize.text = HumanReadableFormatter.formatBytes(file.length())
         }
 
-        holder.lastModification.text = DisplayUtils.getRelativeTimestamp(activity, file.lastModified())
+        holder.lastModification.text = DisplayTextFormatter.formatRelativeTimestamp(activity, file.lastModified())
     }
 }
