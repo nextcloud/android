@@ -43,7 +43,9 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
 
     companion object {
         private const val TAG = "GalleryImageGenerationJob"
+        private const val DISK_CACHE_READ_PERMITS = 2
         private val semaphore = Semaphore(maxOf(3, Runtime.getRuntime().availableProcessors() / 2))
+        private val diskCacheSemaphore = Semaphore(DISK_CACHE_READ_PERMITS)
         private val activeJobs = Collections.synchronizedMap(WeakHashMap<ImageView, Job>())
 
         fun cancelAllActiveJobs() {
@@ -111,7 +113,7 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
     }
 
     private suspend fun getBitmap(file: OCFile): Bitmap? = withContext(Dispatchers.IO) {
-        val cached = file.getBigThumbnail()
+        val cached = diskCacheSemaphore.withPermit { file.getBigThumbnail() }
         if (cached != null && !file.isUpdateThumbnailNeeded) {
             return@withContext cached
         }
@@ -200,7 +202,7 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
     ) = withContext(Dispatchers.Main) {
         val tagId = file.fileId.toString()
 
-        if (imageView.tag.toString() == tagId && imageView.isAttachedToWindow) {
+        if (imageView.tag.toString() == tagId) {
             imageView.setMediaThumbnail(file, bitmap)
         }
 
