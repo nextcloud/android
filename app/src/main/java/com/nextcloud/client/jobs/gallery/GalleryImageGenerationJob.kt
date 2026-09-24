@@ -16,7 +16,6 @@ import android.util.Size
 import android.view.WindowManager
 import android.widget.ImageView
 import com.nextcloud.client.account.User
-import com.nextcloud.utils.extensions.getBigThumbnail
 import com.nextcloud.utils.extensions.getBigThumbnailKey
 import com.nextcloud.utils.extensions.getSmallThumbnail
 import com.nextcloud.utils.extensions.isPNG
@@ -43,9 +42,7 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
 
     companion object {
         private const val TAG = "GalleryImageGenerationJob"
-        private const val DISK_CACHE_READ_PERMITS = 2
         private val semaphore = Semaphore(maxOf(3, Runtime.getRuntime().availableProcessors() / 2))
-        private val diskCacheSemaphore = Semaphore(DISK_CACHE_READ_PERMITS)
         private val activeJobs = Collections.synchronizedMap(WeakHashMap<ImageView, Job>())
 
         fun cancelAllActiveJobs() {
@@ -113,7 +110,7 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
     }
 
     private suspend fun getBitmap(file: OCFile): Bitmap? = withContext(Dispatchers.IO) {
-        val cached = diskCacheSemaphore.withPermit { file.getBigThumbnail() }
+        val cached = ThumbnailsCacheManager.getBitmapFromDiskCacheWithoutLock(file.getBigThumbnailKey())
         if (cached != null && !file.isUpdateThumbnailNeeded) {
             return@withContext cached
         }
