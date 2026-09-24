@@ -26,12 +26,18 @@ class SystemBarBackgroundCallbacks(private val viewThemeUtilsProvider: Provider<
 
     companion object {
         private val dynamicColor = MaterialDynamicColors()
+        private val excludedActivities = listOf(
+            LauncherActivity::class,
+            AuthenticatorActivity::class,
+            FirstRunActivity::class
+        )
+
+        private fun isExcluded(activity: Activity): Boolean =
+            excludedActivities.any { it.isInstance(activity) }
 
         @JvmStatic
         fun apply(activity: Activity, viewThemeUtils: ViewThemeUtils) {
-            if (activity is LauncherActivity || activity is AuthenticatorActivity || activity is FirstRunActivity) {
-                return
-            }
+            if (isExcluded(activity)) return
 
             val decorView = activity.window?.decorView as? FrameLayout ?: return
             val actionBarColor = dynamicColor.surface().getArgb(viewThemeUtils.getScheme(activity))
