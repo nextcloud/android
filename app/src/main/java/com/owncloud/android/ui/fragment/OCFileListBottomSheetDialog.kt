@@ -202,15 +202,7 @@ class OCFileListBottomSheetDialog(
         menuDirectCameraUpload.setOnClickListenerAndDismiss(actions::directCameraUpload)
         menuUploadFiles.setOnClickListenerAndDismiss(actions::uploadFiles)
 
-        when {
-            actions.isScanDocUploadFromAppAvailable ->
-                menuScanDocUpload.setOnClickListenerAndDismiss(actions::scanDocUploadFromApp)
-
-            else -> {
-                menuScanDocUpload.visibility = View.GONE
-                menuScanDocUploadDivider.visibility = View.GONE
-            }
-        }
+        menuScanDocUpload.setOnClickListenerAndDismiss(actions::scanDocUploadFromApp)
 
         menuMoreDocuments.setOnClickListener { bottomSheetViewSwitcher.showNext() }
         menuBack.setOnClickListener { bottomSheetViewSwitcher.showPrevious() }

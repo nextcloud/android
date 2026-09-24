@@ -35,14 +35,10 @@ interface OCFileListBottomSheetActions {
     fun directCameraUpload()
 
     /**
-     * Offers scanning a document in a supported external app and then upload to the current folder.
+     * Scans a document (in a separately installed FairScan if present, the built-in scanner
+     * otherwise) and uploads it to the current folder.
      */
     fun scanDocUploadFromApp()
-
-    /**
-     * @return true, if a supported external app is available for [.scanDocUploadFromApp]
-     */
-    val isScanDocUploadFromAppAvailable: Boolean
 
     /**
      * open template selection for creator @link Creator
