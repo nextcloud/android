@@ -13,6 +13,7 @@ package com.owncloud.android.ui.helpers
 import android.content.ContentResolver
 import android.net.Uri
 import android.os.Parcelable
+import androidx.annotation.VisibleForTesting
 import androidx.core.util.Function
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.account.User
@@ -138,7 +139,8 @@ class UriUploader @JvmOverloads constructor(
      * content:// URIs are checked against this app's own known provider authorities.
      * Other schemes fall back to a package-name substring match on the raw URI.
      */
-    private fun isSensitiveUri(uri: Uri): Boolean = if (uri.scheme == ContentResolver.SCHEME_CONTENT) {
+    @VisibleForTesting
+    internal fun isSensitiveUri(uri: Uri): Boolean = if (uri.scheme == ContentResolver.SCHEME_CONTENT) {
         uri.authority in sensitiveAuthorities
     } else {
         uri.toString().contains(activity.packageName)
