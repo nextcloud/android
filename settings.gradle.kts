@@ -38,6 +38,17 @@ dependencyResolutionManagement {
         }
         mavenCentral()
         maven("https://jitpack.io")
+        // FairScan isn't published to JitPack yet. Until then, it's consumed from mavenLocal,
+        // published there manually and explicitly, same as any other binary dependency you're
+        // developing against locally before it has a real release:
+        //   ./gradlew publishToMavenLocal
+        // Re-run that whenever the FairScan checkout is updated to a different commit/tag. Once
+        // FairScan publishes to JitPack for real, this mavenLocal entry goes away and the
+        // coordinate in gradle/libs.versions.toml switches to the JitPack one - nothing else
+        // about how :app depends on it changes.
+        mavenLocal {
+            content { includeGroup("org.fairscan") }
+        }
     }
 }
 
