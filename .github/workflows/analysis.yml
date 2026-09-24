@@ -61,6 +61,7 @@ jobs:
                 with:
                     distribution: "temurin"
                     java-version: 21
+            -   uses: ./.github/actions/publish-fairscan-to-maven-local
             -   name: Install dependencies
                 run: |
                     sudo apt install python3-defusedxml

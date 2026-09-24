@@ -26,5 +26,6 @@ jobs:
                 with:
                     distribution: "temurin"
                     java-version: 21
+            -   uses: ./.github/actions/publish-fairscan-to-maven-local
             -   name: Detect SNAPSHOT
                 run: scripts/analysis/detectWrongSettings.sh
