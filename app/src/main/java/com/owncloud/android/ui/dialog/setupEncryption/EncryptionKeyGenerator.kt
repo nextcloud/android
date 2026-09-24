@@ -119,6 +119,7 @@ class EncryptionKeyGenerator(val context: Context, val user: User) {
         }
         return@withContext ""
     }
+
     @Suppress("LongParameterList")
     fun uploadEncryptedFolderMetadata(
         folder: OCFile,
@@ -179,5 +180,4 @@ class EncryptionKeyGenerator(val context: Context, val user: User) {
 
         return result
     }
-
 }

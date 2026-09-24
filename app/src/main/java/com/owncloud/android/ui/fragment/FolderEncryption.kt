@@ -81,6 +81,7 @@ class FolderEncryption(private val fragment: OCFileListFragment) {
         }
     }
 
+    @Suppress("LongParameterList")
     suspend fun onToggleSuccess(
         remoteId: String,
         shouldBeEncrypted: Boolean,
@@ -91,7 +92,7 @@ class FolderEncryption(private val fragment: OCFileListFragment) {
         privateKey: String,
         storageManager: FileDataStorageManager
     ): Boolean {
-        val result = EncryptionKeyGenerator( fragment.requireContext(), user)
+        val result = EncryptionKeyGenerator(fragment.requireContext(), user)
             .uploadEncryptedFolderMetadata(
                 folder,
                 client,
