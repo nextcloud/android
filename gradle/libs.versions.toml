@@ -8,6 +8,8 @@ androidImageCropperVersion = "4.7.0"
 androidLibraryVersion ="20bcd79a8f514a0bb79d98a6e42af80e28ac9ab3"
 androidOpensslVersion = "3.5.6.1"
 androidPluginVersion = "9.4.1"
+# Temporarily using the "-SNAPSHOT" suffix for dev testing via to mavenLocal. Remove once published online
+fairscanVersion = "2.3.0-SNAPSHOT"
 androidsvgVersion = "1.4"
 androidxTestVersion = "1.7.0"
 annotationVersion = "1.10.0"
@@ -134,6 +136,7 @@ ext-strikethrough = { module = "io.noties.markwon:ext-strikethrough", version.re
 ext-tables = { module = "io.noties.markwon:ext-tables", version.ref = "markwonVersion" }
 ext-tasklist = { module = "io.noties.markwon:ext-tasklist", version.ref = "markwonVersion" }
 ez-vcard = { module = "com.googlecode.ez-vcard:ez-vcard", version.ref = "ezVcardVersion" }
+fairscan = { module = "org.fairscan:app", version.ref = "fairscanVersion" }
 findsecbugs-plugin = { module = "com.h3xstream.findsecbugs:findsecbugs-plugin", version.ref = "findsecbugsPluginVersion" }
 fb-contrib = { module = "com.mebigfatguy.fb-contrib:fb-contrib", version.ref = "fbContribVersion" }
 firebase-messaging = { module = "com.google.firebase:firebase-messaging", version.ref = "firebaseMessagingVersion" }
