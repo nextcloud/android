@@ -760,7 +760,7 @@
     <string name="online">Pripojené</string>
     <string name="online_status">Stav pripojenia</string>
     <string name="open_in_app">Otvoriť v %1$s</string>
-    <string name="outdated_server">Verzia servra už nie je podporovaná, prosím aktualizujte!</string>
+    <string name="outdated_server">Verzia servera už nie je podporovaná, prosím aktualizujte!</string>
     <string name="overflow_menu">Ďalšie menu</string>
     <string name="pass_code_configure_your_pass_code">Vložte svoje heslo</string>
     <string name="pass_code_enter_pass_code">Vložte prosím svoje heslo</string>
@@ -1151,7 +1151,7 @@
     <string name="unshare_link_file_no_exist">Zdieľanie nie je možné zrušiť. Skontrolujte, či súbor existuje.</string>
     <string name="unshare_link_forbidden_permissions">zrušiť sprístupnenie tohto súboru</string>
     <string name="unsharing_failed">Zrušenie zdieľania neúspešné</string>
-    <string name="untrusted_domain">Prísup cez nedôveryhodnú doménu.  Prosím skontrolujte dokumentáciu pre ďalšie informácie.</string>
+    <string name="untrusted_domain">Prístup cez nedôveryhodnú doménu. Prosím, skontrolujte dokumentáciu pre ďalšie informácie.</string>
     <string name="update_link_file_error">Pri pokuse o aktualizáciu sprístupnenia došlo k chybe.</string>
     <string name="update_link_file_no_exist">Nie je možné aktualizovať. Skontrolujte, či súbor existuje.</string>
     <string name="update_link_forbidden_permissions">aktualizovať toto sprístupnenie</string>
