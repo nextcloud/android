@@ -56,6 +56,7 @@ import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.ShortcutUtil;
 import com.nextcloud.utils.SnackbarUtil;
+import com.nextcloud.utils.avatar.AvatarGenerator;
 import com.nextcloud.utils.e2ee.E2EEActionResolver;
 import com.nextcloud.utils.e2ee.E2EEDialogPresenter;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
@@ -200,6 +201,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject SyncedFolderProvider syncedFolderProvider;
     @Inject AppScanOptionalFeature appScanOptionalFeature;
     @Inject ThumbnailGenerator thumbnailGenerator;
+    @Inject AvatarGenerator avatarGenerator;
 
     @Inject E2EEActionResolver e2eeActionResolver;
     private E2EEDialogPresenter e2eeDialogPresenter;
@@ -514,7 +516,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             hideItemOptions,
             isGridViewPreferred,
             viewThemeUtils,
-            thumbnailGenerator
+            thumbnailGenerator,
+            avatarGenerator
         );
 
         setRecyclerViewAdapter(mAdapter);

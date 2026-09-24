@@ -25,6 +25,7 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.utils.GlideHelper
+import com.nextcloud.utils.avatar.AvatarGenerator
 import com.nextcloud.utils.text.RichSubjectFormatter
 import com.nextcloud.utils.text.RichSubjectParam
 import com.owncloud.android.MainApp
@@ -50,13 +51,14 @@ import kotlin.math.floor
 import kotlin.math.log
 import kotlin.math.pow
 
-@Suppress("MagicNumber", "TooManyFunctions")
+@Suppress("MagicNumber", "TooManyFunctions", "LongParameterList")
 open class ActivityListAdapter(
     protected val context: FragmentActivity,
     private val currentAccountProvider: CurrentAccountProvider,
     private val activityListInterface: ActivityListInterface,
     private val isDetailView: Boolean,
-    private val viewThemeUtils: ViewThemeUtils
+    private val viewThemeUtils: ViewThemeUtils,
+    private val avatarGenerator: AvatarGenerator
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
     StickyHeaderAdapter {
 
@@ -64,7 +66,7 @@ open class ActivityListAdapter(
     val values: MutableList<Any> = mutableListOf()
     private val px = getThumbnailDimension()
     private var cachedNextcloudClient: NextcloudClient? = null
-    private val richSubjectFormatter by lazy { RichSubjectFormatter(context, currentAccountProvider) }
+    private val richSubjectFormatter by lazy { RichSubjectFormatter(context, avatarGenerator) }
 
     // region Public Methods
     @Suppress("NotifyDataSetChanged")

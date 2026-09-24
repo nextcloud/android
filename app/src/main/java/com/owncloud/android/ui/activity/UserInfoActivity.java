@@ -251,12 +251,10 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
     private void populateUserInfoUi(UserInfo userInfo) {
         binding.userinfoUsername.setText(user.getAccountName());
         binding.userinfoIcon.setTag(user.getAccountName());
-        DisplayUtils.setAvatar(user,
-                               this,
-                               mCurrentAccountAvatarRadiusDimension,
-                               getResources(),
-                               binding.userinfoIcon,
-                               this);
+        avatarGenerator.setAccountAvatar(user,
+                                         this,
+                                         mCurrentAccountAvatarRadiusDimension,
+                                         binding.userinfoIcon);
 
         if (userInfo != null && !TextUtils.isEmpty(userInfo.getDisplayName())) {
             binding.userinfoFullName.setText(userInfo.getDisplayName());

@@ -21,13 +21,11 @@
  */
 package com.owncloud.android.utils;
 
-import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Point;
-import android.graphics.drawable.Drawable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -40,11 +38,8 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.utils.HumanReadableFormatter;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.TextDrawable;
-import com.owncloud.android.ui.adapter.helper.AvatarShareesProvider;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 
 import java.io.BufferedReader;
@@ -60,12 +55,9 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.AppCompatDrawableManager;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -286,140 +278,6 @@ public final class DisplayUtils {
         int end = start + spanText.length();
         sb.setSpan(style, start, end, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         return sb;
-    }
-
-    public interface AvatarGenerationListener {
-        void avatarGenerated(Drawable avatarDrawable, Object callContext);
-
-        boolean shouldCallGeneratedCallback(String tag, Object callContext);
-    }
-
-    /**
-     * fetches and sets the avatar of the given account in the passed callContext
-     *
-     * @param user        the account to be used to connect to server
-     * @param avatarRadius   the avatar radius
-     * @param resources      reference for density information
-     * @param callContext    which context is called to set the generated avatar
-     */
-    public static void setAvatar(@NonNull User user, AvatarGenerationListener listener,
-                                 float avatarRadius, Resources resources, Object callContext, Context context) {
-
-        AccountManager accountManager = AccountManager.get(context);
-        String userId = accountManager.getUserData(user.toPlatformAccount(),
-                com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
-
-        if (userId == null) {
-            Log_OC.e(TAG, "user id is null, cannot set avatar");
-            return;
-        }
-
-        setAvatar(user, userId, listener, avatarRadius, resources, callContext, context);
-    }
-
-    /**
-     * fetches and sets the avatar of the given account in the passed callContext
-     *
-     * @param user        the account to be used to connect to server
-     * @param userId         the userId which avatar should be set
-     * @param avatarRadius   the avatar radius
-     * @param resources      reference for density information
-     * @param callContext    which context is called to set the generated avatar
-     */
-    public static void setAvatar(@NonNull User user, @NonNull String userId, AvatarGenerationListener listener,
-                                 float avatarRadius, Resources resources, Object callContext, Context context) {
-        setAvatar(user, userId, userId, listener, avatarRadius, resources, callContext, context);
-    }
-
-    /**
-     * fetches and sets the avatar of the given account in the passed callContext
-     *
-     * @param user         the account to be used to connect to server
-     * @param userId       the userId which avatar should be set
-     * @param displayName  displayName used to generate avatar with first char, only used as fallback
-     * @param avatarRadius the avatar radius
-     * @param resources    reference for density information
-     * @param callContext  which context is called to set the generated avatar
-     * @param context      general context
-     */
-    public static void setAvatar(@NonNull User user,
-                                 @NonNull String userId,
-                                 String displayName,
-                                 AvatarGenerationListener listener,
-                                 float avatarRadius,
-                                 Resources resources,
-                                 Object callContext,
-                                 Context context) {
-        setAvatar(user, userId, displayName, listener, avatarRadius, resources, callContext, context, 0);
-    }
-
-    /**
-     * fetches and sets the avatar of the given account in the passed callContext
-     *
-     * @param user           the account to be used to connect to server
-     * @param userId         the userId which avatar should be set
-     * @param displayName    displayName used to generate avatar with first char, only used as fallback
-     * @param avatarRadius   the avatar radius
-     * @param resources      reference for density information
-     * @param callContext    which context is called to set the generated avatar
-     * @param context        general context
-     * @param avatarBorder  value in case the avatar has a border, like in the case of the AvatarGroupLayout
-     */
-    public static void setAvatar(@NonNull User user,
-                                 @NonNull String userId,
-                                 String displayName,
-                                 AvatarGenerationListener listener,
-                                 float avatarRadius,
-                                 Resources resources,
-                                 Object callContext,
-                                 Context context,
-                                 int avatarBorder) {
-        if (callContext instanceof View v) {
-            v.setContentDescription(String.valueOf(user.toPlatformAccount().hashCode()));
-        }
-
-        final String accountName = user.getAccountName();
-        String serverName = accountName.substring(accountName.lastIndexOf('@') + 1);
-        Drawable avatar;
-
-        if (userId.isEmpty()) {
-            avatar = ContextCompat.getDrawable(context, R.drawable.ic_link);
-            if (avatar != null) {
-                int tintColor = ContextCompat.getColor(context, R.color.icon_on_nc_grey);
-                avatar.setTint(tintColor);
-            }
-        } else {
-            // show colored icon with initial char until the cached avatar has been read from disk
-            try {
-                avatar = TextDrawable.createAvatarByUserId(displayName,
-                                                           (avatarRadius - avatarBorder));
-            } catch (Exception e) {
-                Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
-                avatar = ResourcesCompat.getDrawable(resources,
-                                                     R.drawable.account_circle_white,
-                                                     null);
-            }
-        }
-
-        listener.avatarGenerated(avatar, callContext);
-
-        if (!userId.isEmpty()) {
-            AvatarShareesProvider.showCachedAvatar(userId, serverName, listener, resources, callContext, context);
-        }
-
-        // check for new avatar, eTag is compared, so only new one is downloaded
-        final ThumbnailsCacheManager.AvatarGenerationTask task =
-            new ThumbnailsCacheManager.AvatarGenerationTask(listener,
-                                                            callContext,
-                                                            user,
-                                                            resources,
-                                                            avatarRadius,
-                                                            userId,
-                                                            displayName,
-                                                            serverName,
-                                                            context);
-
-        task.execute(userId);
     }
 
     /**

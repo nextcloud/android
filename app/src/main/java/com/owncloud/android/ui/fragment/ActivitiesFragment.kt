@@ -20,6 +20,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.utils.SnackbarUtil
+import com.nextcloud.utils.avatar.AvatarGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FragmentActivitiesBinding
 import com.owncloud.android.datamodel.OCFile
@@ -60,6 +61,9 @@ class ActivitiesFragment :
     @Inject
     lateinit var userAccountManager: UserAccountManager
 
+    @Inject
+    lateinit var avatarGenerator: AvatarGenerator
+
     var binding: FragmentActivitiesBinding? = null
 
     private var adapter: ActivityListAdapter? = null
@@ -91,7 +95,8 @@ class ActivitiesFragment :
             userAccountManager,
             this,
             false,
-            viewThemeUtils
+            viewThemeUtils,
+            avatarGenerator
         )
         binding?.list?.adapter = adapter
         val layoutManager = LinearLayoutManager(requireContext())

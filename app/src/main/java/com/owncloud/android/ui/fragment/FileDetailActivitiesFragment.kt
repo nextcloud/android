@@ -32,6 +32,8 @@ import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ClientFactory.CreationException
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.utils.ResultParser.list
+import com.nextcloud.utils.avatar.AvatarGenerationListener
+import com.nextcloud.utils.avatar.AvatarGenerator
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileDetailsActivitiesFragmentBinding
@@ -52,8 +54,6 @@ import com.owncloud.android.ui.events.CommentsEvent
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.ui.interfaces.ActivityListInterface
 import com.owncloud.android.ui.interfaces.VersionListInterface
-import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -102,6 +102,9 @@ class FileDetailActivitiesFragment :
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
 
+    @Inject
+    lateinit var avatarGenerator: AvatarGenerator
+
     // region Lifecycle
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val arguments = checkNotNull(arguments) { "arguments are mandatory" }
@@ -126,13 +129,11 @@ class FileDetailActivitiesFragment :
         binding.submitComment.setOnClickListener { submitComment() }
         viewThemeUtils.material.colorTextInputLayout(binding.commentInputFieldContainer)
 
-        DisplayUtils.setAvatar(
+        avatarGenerator.setAccountAvatar(
             user!!,
             this,
             resources.getDimension(R.dimen.activity_icon_radius),
-            resources,
-            binding.avatar,
-            context
+            binding.avatar
         )
 
         return binding.root
@@ -167,7 +168,14 @@ class FileDetailActivitiesFragment :
         )
         binding.emptyList.emptyListView.visibility = View.GONE
 
-        adapter = ActivityAndVersionListAdapter(requireActivity(), accountManager, this, this, viewThemeUtils)
+        adapter = ActivityAndVersionListAdapter(
+            requireActivity(),
+            accountManager,
+            this,
+            this,
+            viewThemeUtils,
+            avatarGenerator
+        )
         binding.list.adapter = adapter
 
         val layoutManager = LinearLayoutManager(context)

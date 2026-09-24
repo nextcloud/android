@@ -35,6 +35,8 @@ import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.utils.SnackbarUtil
+import com.nextcloud.utils.avatar.AvatarGenerationListener
+import com.nextcloud.utils.avatar.AvatarGenerator
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.thumbnail.ThumbnailArguments
 import com.owncloud.android.R
@@ -46,7 +48,6 @@ import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.resources.files.model.FileLockType
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import com.owncloud.android.utils.FileStorageUtils
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -73,6 +74,9 @@ class FileActionsBottomSheet :
 
     @Inject
     lateinit var thumbnailGenerator: ThumbnailGenerator
+
+    @Inject
+    lateinit var avatarGenerator: AvatarGenerator
 
     private lateinit var viewModel: FileActionsViewModel
 
@@ -279,14 +283,11 @@ class FileActionsBottomSheet :
 
             override fun shouldCallGeneratedCallback(tag: String?, callContext: Any?): Boolean = false
         }
-        DisplayUtils.setAvatar(
-            currentUserProvider.user,
+        avatarGenerator.setUserAvatar(
             lockInfo.lockedBy,
             listener,
             resources.getDimension(R.dimen.list_item_avatar_icon_radius),
-            resources,
-            this,
-            requireContext()
+            this
         )
     }
 
