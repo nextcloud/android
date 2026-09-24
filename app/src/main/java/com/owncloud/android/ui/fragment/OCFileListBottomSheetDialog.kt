@@ -395,14 +395,9 @@ class OCFileListBottomSheetDialog(
                 dismiss()
             }
 
-            if (actions.isScanDocUploadFromAppAvailable) {
-                menuScanDocUpload.setOnClickListener {
-                    actions.scanDocUploadFromApp()
-                    dismiss()
-                }
-            } else {
-                menuScanDocUpload.visibility = View.GONE
-                menuScanDocUploadDivider.visibility = View.GONE
+            menuScanDocUpload.setOnClickListener {
+                actions.scanDocUploadFromApp()
+                dismiss()
             }
 
             menuUploadFiles.setOnClickListener {
