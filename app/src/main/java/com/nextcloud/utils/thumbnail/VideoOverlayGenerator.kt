@@ -13,9 +13,9 @@ import android.graphics.Paint
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.applyCanvas
 import androidx.core.graphics.createBitmap
+import com.nextcloud.utils.view.ScreenMetrics
 import com.owncloud.android.R
 import com.owncloud.android.utils.BitmapUtils
-import com.owncloud.android.utils.DisplayUtils
 
 object VideoOverlayGenerator {
 
@@ -50,7 +50,7 @@ object VideoOverlayGenerator {
     private fun createPlayButton(context: Context): Bitmap? {
         val drawable = ResourcesCompat.getDrawable(context.resources, R.drawable.video_white, null)
             ?: return null
-        val px = DisplayUtils.convertDpToPixel(PLAY_BUTTON_SIZE_IN_DP, context)
+        val px = ScreenMetrics.dpToPx(PLAY_BUTTON_SIZE_IN_DP, context)
         return BitmapUtils.drawableToBitmap(drawable, px, px)
     }
 }

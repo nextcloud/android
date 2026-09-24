@@ -14,7 +14,6 @@ import com.nextcloud.utils.HumanReadableFormatter
 import com.nextcloud.utils.date.DateFormatPattern
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
-import com.owncloud.android.utils.DisplayUtils
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -29,7 +28,7 @@ object DisplayTextFormatter {
     fun formatAccountName(user: User): String {
         val host = user.accountName.substringAfterLast(ACCOUNT_HOST_SEPARATOR)
         val displayName = user.toOwnCloudAccount().displayName
-        return "$displayName$ACCOUNT_HOST_SEPARATOR${DisplayUtils.convertIdn(host, false)}"
+        return "$displayName$ACCOUNT_HOST_SEPARATOR${LinkFormatter.toUnicodeDomain(host)}"
     }
 
     @JvmStatic

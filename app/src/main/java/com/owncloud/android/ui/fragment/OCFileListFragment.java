@@ -53,6 +53,7 @@ import com.nextcloud.client.utils.Throttler;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.ui.fileactions.FileAction;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
+import com.nextcloud.ui.sort.SortOrderUi;
 import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.ShortcutUtil;
 import com.nextcloud.utils.SnackbarUtil;
@@ -112,7 +113,6 @@ import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.fragment.helper.ParentFolderFinder;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.PermissionUtil;
@@ -149,7 +149,6 @@ import static com.owncloud.android.ui.fragment.SearchType.FILE_SEARCH;
 import static com.owncloud.android.ui.fragment.SearchType.NO_SEARCH;
 import static com.owncloud.android.ui.fragment.SearchType.RECENT_FILES_SEARCH;
 import static com.owncloud.android.ui.fragment.SearchType.SHARED_FILTER;
-import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
 
 /**
  * A Fragment that lists all files and folders in a given path.
@@ -464,7 +463,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         setEmptyView(searchEvent);
 
         if (mSortButton != null) {
-            mSortButton.setOnClickListener(v -> openSortingOrderDialogFragment(requireFragmentManager(),
+            mSortButton.setOnClickListener(v -> SortOrderUi.showDialog(requireFragmentManager(),
                                                                                preferences.getSortOrderByFolder(mFile)));
         }
 
@@ -1639,7 +1638,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 sortOrder = preferences.getSortOrderByFolder(mFile);
             }
 
-            mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
+            mSortButton.setText(SortOrderUi.labelRes(sortOrder));
         }
     }
 

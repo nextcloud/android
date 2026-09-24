@@ -24,11 +24,11 @@ import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.utils.avatar.AvatarGenerationListener
 import com.nextcloud.utils.avatar.AvatarGenerator
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.text.LinkFormatter
 import com.owncloud.android.R
 import com.owncloud.android.databinding.AccountRemovalDialogBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.ui.dialog.extensions.themeButtons
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -70,7 +70,7 @@ class AccountRemovalDialog :
         viewThemeUtils.platform.themeRadioButton(binding.radioRequestDeletion)
         alertDialog.themeButtons(viewThemeUtils)
         binding.userName.text = UserAccountManager.getDisplayName(user)
-        binding.account.text = user?.let { DisplayUtils.convertIdn(it.accountName, false) }
+        binding.account.text = user?.let { LinkFormatter.toUnicodeDomain(it.accountName) }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

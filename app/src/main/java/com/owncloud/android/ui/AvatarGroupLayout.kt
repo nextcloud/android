@@ -21,11 +21,11 @@ import com.nextcloud.client.account.User
 import com.nextcloud.utils.GlideHelper.loadCircularBitmapIntoImageView
 import com.nextcloud.utils.avatar.AvatarGenerationListener
 import com.nextcloud.utils.avatar.AvatarGenerator
+import com.nextcloud.utils.view.ScreenMetrics
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.lib.resources.shares.ShareeUser
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlin.math.min
 
@@ -40,13 +40,13 @@ class AvatarGroupLayout @JvmOverloads constructor(
     private val borderDrawable = ContextCompat.getDrawable(context, R.drawable.round_bgnd)
 
     @Px
-    private val avatarSize: Int = DisplayUtils.convertDpToPixel(40f, context)
+    private val avatarSize: Int = ScreenMetrics.dpToPx(40f, context)
 
     @Px
-    private val avatarBorderSize: Int = DisplayUtils.convertDpToPixel(2f, context)
+    private val avatarBorderSize: Int = ScreenMetrics.dpToPx(2f, context)
 
     @Px
-    private val overlapPx: Int = DisplayUtils.convertDpToPixel(24f, context)
+    private val overlapPx: Int = ScreenMetrics.dpToPx(24f, context)
 
     var boundFileId: Long? = null
         set(value) {
