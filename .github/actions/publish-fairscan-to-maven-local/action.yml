@@ -1,0 +1,44 @@
+# SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+
+name: "Publish FairScan to mavenLocal"
+description: >
+  Checks out FairScan and publishes it to mavenLocal so a subsequent Gradle build of :app in the
+  SAME job can resolve org.fairscan:app from mavenLocal(), as configured in settings.gradle.kts.
+  Must run in the same job as the nextcloud-android build (writes to ~/.m2/repository on the
+  runner's filesystem) and after a JDK 17-21 has already been set up by the calling workflow
+  (FairScan's Gradle 8.13 wrapper needs JDK 17-21; JDK 25 fails).
+
+inputs:
+  repository:
+    description: "FairScan repository to check out (owner/repo)."
+    required: false
+    # TEMPORARY: points at a fork+branch, not a tagged FairScan release. FairScan isn't published
+    # anywhere (no JitPack, no release with the new library shape) yet, so CI builds it from
+    # source. Update this default (and settings.gradle.kts' mavenLocal repository, and
+    # gradle/libs.versions.toml's fairscanVersion) once FairScan publishes a real, versioned release.
+    default: "phillab/FairScan"
+  ref:
+    description: "FairScan ref to build. See the 'repository' input comment: temporary."
+    required: false
+    default: "ph/offer_as_library"
+  path:
+    description: "Directory (relative to the job workspace) to check FairScan out into."
+    required: false
+    default: "fairscan-src"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout FairScan
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        repository: ${{ inputs.repository }}
+        ref: ${{ inputs.ref }}
+        path: ${{ inputs.path }}
+        persist-credentials: false
+
+    - name: Publish FairScan to mavenLocal
+      shell: bash
+      working-directory: ${{ inputs.path }}
+      run: ./gradlew --no-daemon publishToMavenLocal
