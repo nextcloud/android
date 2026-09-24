@@ -36,6 +36,7 @@ class SystemBarBackgroundCallbacks(private val viewThemeUtilsProvider: Provider<
             excludedActivities.any { it.isInstance(activity) }
 
         @JvmStatic
+        @Suppress("ReturnCount")
         fun apply(activity: Activity, viewThemeUtils: ViewThemeUtils) {
             if (isExcluded(activity)) return
 
