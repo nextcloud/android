@@ -197,21 +197,24 @@ fun FileDataStorageManager.moveFiles(ocFile: OCFile?, targetPath: String, target
  *
  * @return the new remote path, or null if the user is unauthorized in the provided path
  */
-@Suppress("ReturnCount")
-fun getRemotePathForConflictResolution(client: OwnCloudClient, remotePath: String, fileName: String): String? {
-    val newName = generateFileNameForConflictResolution(fileName)
-    val newPath = "$remotePath$newName"
+private const val MAX_CONFLICT_RESOLUTION_ATTEMPTS = 10
 
-    // Check if new name exists
-    val operation = ExistenceCheckRemoteOperation(newPath, false)
-    val existence = RemoteFileExistence.fromExistenceCheck(operation.execute(client))
-    if (existence == RemoteFileExistence.UNAUTHORIZED) {
-        return null
+fun getRemotePathForConflictResolution(client: OwnCloudClient, remotePath: String, fileName: String): String? {
+    var name = fileName
+    repeat(MAX_CONFLICT_RESOLUTION_ATTEMPTS) {
+        name = generateFileNameForConflictResolution(name)
+        val newPath = "$remotePath$name"
+
+        val result = ExistenceCheckRemoteOperation(newPath, false).execute(client)
+        if (!result.isSuccess) return null
+
+        when (RemoteFileExistence.fromExistenceCheck(result)) {
+            RemoteFileExistence.DOES_NOT_EXIST -> return newPath
+            RemoteFileExistence.UNAUTHORIZED -> return null
+            else -> Unit // exists, try next name
+        }
     }
-    if (existence == RemoteFileExistence.DOES_NOT_EXIST) {
-        return newPath
-    }
-    return getRemotePathForConflictResolution(client, remotePath, newName)
+    return null
 }
 
 fun generateFileNameForConflictResolution(fileName: String): String {
