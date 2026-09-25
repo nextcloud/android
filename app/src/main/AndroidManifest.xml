@@ -19,7 +19,8 @@
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="29"
-        tools:ignore="ScopedStorage" />
+        tools:ignore="ScopedStorage"
+        tools:replace="android:maxSdkVersion" />
     <uses-permission
         android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
@@ -673,10 +674,6 @@
             android:name=".ui.preview.PreviewBitmapActivity"
             android:exported="false"
             android:theme="@style/Theme.ownCloud.OverlayGrey" />
-        <activity
-            android:name="com.nextcloud.client.documentscan.DocumentScanActivity"
-            android:exported="false"
-            android:theme="@style/Theme.ownCloud.Toolbar" />
         <activity
             android:name="com.nextcloud.client.editimage.EditImageActivity"
             android:exported="false"

@@ -13,6 +13,7 @@ package com.owncloud.android.ui.helpers
 import android.content.ContentResolver
 import android.net.Uri
 import android.os.Parcelable
+import androidx.annotation.VisibleForTesting
 import androidx.core.util.Function
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.account.User
@@ -131,7 +132,29 @@ class UriUploader @JvmOverloads constructor(
         return uploadPath + displayName
     }
 
-    private fun isSensitiveUri(uri: Uri): Boolean = uri.toString().contains(activity.packageName)
+    /**
+     * Rejects URIs pointing at this app's own private data, so the upload-from-app flow can't be
+     * used to leak it.
+     *
+     * content:// URIs are checked against this app's own known provider authorities.
+     * Other schemes fall back to a package-name substring match on the raw URI.
+     */
+    @VisibleForTesting
+    internal fun isSensitiveUri(uri: Uri): Boolean = if (uri.scheme == ContentResolver.SCHEME_CONTENT) {
+        uri.authority in sensitiveAuthorities
+    } else {
+        uri.toString().contains(activity.packageName)
+    }
+
+    private val sensitiveAuthorities: Set<String> by lazy {
+        setOf(
+            activity.getString(R.string.authority),
+            activity.getString(R.string.file_provider_authority),
+            activity.getString(R.string.document_provider_authority),
+            activity.getString(R.string.image_cache_provider_authority),
+            activity.getString(R.string.users_and_groups_search_authority)
+        )
+    }
 
     /**
      * Requests the upload of a file in the local file system to [FileUploadHelper] service.

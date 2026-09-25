@@ -9,7 +9,6 @@ package com.nextcloud.client.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.nextcloud.client.documentscan.DocumentScanViewModel
 import com.nextcloud.client.etm.EtmViewModel
 import com.nextcloud.client.logger.ui.LogsViewModel
 import com.nextcloud.client.player.ui.PlayerViewModel
@@ -48,11 +47,6 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(FileActionsViewModel::class)
     abstract fun fileActionsViewModel(vm: FileActionsViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(DocumentScanViewModel::class)
-    abstract fun documentScanViewModel(vm: DocumentScanViewModel): ViewModel
 
     @Binds
     @IntoMap

@@ -36,6 +36,10 @@ jobs:
           distribution: "temurin"
           java-version: 21
 
+      - name: Publish FairScan to mavenLocal
+        if: ${{ steps.check-secrets.outputs.ok == 'true' }}
+        uses: ./.github/actions/publish-fairscan-to-maven-local
+
       - name: Build QA
         id: build-qa
         if: ${{ steps.check-secrets.outputs.ok == 'true' }}
