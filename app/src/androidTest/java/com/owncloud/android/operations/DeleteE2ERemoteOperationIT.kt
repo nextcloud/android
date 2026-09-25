@@ -31,7 +31,7 @@ class DeleteE2ERemoteOperationIT : AbstractOnServerIT() {
 
     @Test
     fun testDeletePrivateKey() {
-        val keyPair = EncryptionUtils.generateKeyPair()
+        val keyPair = EncryptionKeyGenerator.generateKeyPair()
         val privateKey = keyPair.private
         val keyPhrase = "moreovertelevisionfactorytendencyindependenceinternationalintellectualimpress" +
             "interestvolunteer"
