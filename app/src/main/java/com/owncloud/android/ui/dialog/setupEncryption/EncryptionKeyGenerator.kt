@@ -49,7 +49,7 @@ class EncryptionKeyGenerator(val context: Context, val user: User) {
     }
 
     @Suppress("TooGenericExceptionCaught", "TooGenericExceptionThrown", "ReturnCount")
-    suspend fun generatePrivateKey(keyWords: ArrayList<String>): String = withContext(Dispatchers.IO) {
+    suspend fun generatePrivateKey(keyWords: ArrayList<String>): PrivateKeyResult = withContext(Dispatchers.IO) {
         val arbitraryDataProvider = ArbitraryDataProviderImpl(context)
 
         //  - create CSR, push to server, store returned public key in database
@@ -69,7 +69,7 @@ class EncryptionKeyGenerator(val context: Context, val user: User) {
             val result = operation.executeNextcloudClient(user, context)
 
             if (!result.isSuccess) {
-                return@withContext ""
+                return@withContext PrivateKeyResult.Failed
             }
 
             certificate = result.resultData
@@ -93,7 +93,7 @@ class EncryptionKeyGenerator(val context: Context, val user: User) {
             if (!storePrivateKeyResult.isSuccess) {
                 val deletePublicKeyOperation = DeletePublicKeyRemoteOperation()
                 deletePublicKeyOperation.executeNextcloudClient(user, context)
-                return@withContext ""
+                return@withContext PrivateKeyResult.Failed
             }
 
             Log_OC.d(TAG, "private key success")
@@ -112,11 +112,11 @@ class EncryptionKeyGenerator(val context: Context, val user: User) {
                 EncryptionUtils.MNEMONIC,
                 generateMnemonicString(keyWords, true)
             )
-            return@withContext storePrivateKeyResult.resultData
+            return@withContext PrivateKeyResult.Success(storePrivateKeyResult.resultData)
         } catch (e: Exception) {
             Log_OC.e(TAG, e.message)
         }
-        return@withContext ""
+        return@withContext PrivateKeyResult.Failed
     }
 
     @Suppress("LongParameterList")
@@ -178,6 +178,11 @@ class EncryptionKeyGenerator(val context: Context, val user: User) {
         }
 
         return result
+    }
+
+    sealed class PrivateKeyResult {
+        data class Success(val key: String): PrivateKeyResult()
+        data object Failed: PrivateKeyResult()
     }
 
 }

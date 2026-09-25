@@ -29,7 +29,6 @@ import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -140,12 +139,12 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
         )
 
         // Create new encryption key
-        val privateKey: String = runBlocking {
+        val privateKey: EncryptionKeyGenerator.PrivateKeyResult = runBlocking {
             encryptionKeyGenerator.generatePrivateKey(KEYWORDS)
         }
 
         // Check the key was generated
-        assertNotEquals(privateKey, "")
+        assertTrue(privateKey is EncryptionKeyGenerator.PrivateKeyResult.Success)
     }
 
     @After
