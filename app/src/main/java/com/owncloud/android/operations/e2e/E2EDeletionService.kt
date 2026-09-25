@@ -11,6 +11,7 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import androidx.annotation.VisibleForTesting
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.network.ClientFactory
@@ -41,36 +42,38 @@ class E2EDeletionService(private val clientFactory: ClientFactory) {
 
     private fun deleteKeysAndFiles(user: User, onResult: (Boolean) -> Unit) {
         Thread {
-            val result = runCatching {
-                val client = clientFactory.createNextcloudClient(user)
-                var successfulOperationResultCount = 3
-
-                if (!DeletePrivateKeyRemoteOperation().execute(client).isSuccess) {
-                    successfulOperationResultCount -= 1
-                }
-
-                Log_OC.i(TAG, "🔑" + "private key is deleted")
-
-                if (!DeletePublicKeyRemoteOperation().execute(client).isSuccess) {
-                    successfulOperationResultCount -= 1
-                }
-
-                Log_OC.i(TAG, "🗝" + "public key is deleted")
-
-                if (!DeleteEncryptedFilesRemoteOperation().execute(client).isSuccess) {
-                    successfulOperationResultCount -= 1
-                }
-
-                Log_OC.i(TAG, "🗂️" + "encrypted files are deleted")
-
-                successfulOperationResultCount == 3
-            }.getOrElse { e ->
-                Log.e(TAG, "Cannot delete E2E keys and files", e)
-                false
-            }
-
+            val result = deleteKeysAndFiles(user)
             mainHandler.post { onResult(result) }
         }.start()
+    }
+
+    @VisibleForTesting
+    fun deleteKeysAndFiles(user: User): Boolean = runCatching {
+        val client = clientFactory.createNextcloudClient(user)
+        var successfulOperationResultCount = 3
+
+        if (!DeletePrivateKeyRemoteOperation().execute(client).isSuccess) {
+            successfulOperationResultCount -= 1
+        }
+
+        Log_OC.i(TAG, "🔑" + "private key is deleted")
+
+        if (!DeletePublicKeyRemoteOperation().execute(client).isSuccess) {
+            successfulOperationResultCount -= 1
+        }
+
+        Log_OC.i(TAG, "🗝" + "public key is deleted")
+
+        if (!DeleteEncryptedFilesRemoteOperation().execute(client).isSuccess) {
+            successfulOperationResultCount -= 1
+        }
+
+        Log_OC.i(TAG, "🗂️" + "encrypted files are deleted")
+
+        successfulOperationResultCount == 3
+    }.getOrElse { e ->
+        Log.e(TAG, "Cannot delete E2E keys and files", e)
+        false
     }
 
     companion object {

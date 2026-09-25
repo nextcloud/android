@@ -1074,17 +1074,6 @@ public final class EncryptionUtils {
     }
 
     /**
-     * Generates private/public key pair, used for asymmetric encryption
-     *
-     * @return KeyPair
-     */
-    public static KeyPair generateKeyPair() throws NoSuchAlgorithmException {
-        KeyPairGenerator keyGen = KeyPairGenerator.getInstance(RSA);
-        keyGen.initialize(2048, new SecureRandom());
-        return keyGen.generateKeyPair();
-    }
-
-    /**
      * Generates key for symmetric encryption
      *
      * @return byte[] byteArray of key
