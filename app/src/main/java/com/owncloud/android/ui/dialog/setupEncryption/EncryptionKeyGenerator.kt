@@ -24,33 +24,32 @@ import com.owncloud.android.lib.resources.users.DeletePublicKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.SendCSRRemoteOperation
 import com.owncloud.android.lib.resources.users.StorePrivateKeyRemoteOperation
 import com.owncloud.android.utils.EncryptionUtils
+import com.owncloud.android.utils.EncryptionUtils.RSA
 import com.owncloud.android.utils.EncryptionUtilsV2
 import com.owncloud.android.utils.crypto.CryptoHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.security.KeyPair
+import java.security.KeyPairGenerator
+import java.security.NoSuchAlgorithmException
+import java.security.SecureRandom
 
 class EncryptionKeyGenerator(val context: Context, val user: User) {
     companion object {
         val TAG: String = EncryptionKeyGenerator::class.java.simpleName
 
-        fun generateMnemonicString(keyWords: ArrayList<String>?, withWhitespace: Boolean): String {
-            val stringBuilder = StringBuilder()
+        fun generateMnemonicString(keyWords: List<String>, withWhitespace: Boolean): String =
+            keyWords.joinToString("") { if (withWhitespace) "$it " else it }
 
-            keyWords?.let {
-                for (string in it) {
-                    stringBuilder.append(string)
-                    if (withWhitespace) {
-                        stringBuilder.append(' ')
-                    }
-                }
-            }
-
-            return stringBuilder.toString()
-        }
+        @Throws(NoSuchAlgorithmException::class)
+        fun generateKeyPair(): KeyPair =
+            KeyPairGenerator.getInstance(RSA)
+                .apply { initialize(2048, SecureRandom()) }
+                .generateKeyPair()
     }
 
     @Suppress("TooGenericExceptionCaught", "TooGenericExceptionThrown", "ReturnCount")
-    suspend fun generatePrivateKey(keyWords: ArrayList<String>?): String = withContext(Dispatchers.IO) {
+    suspend fun generatePrivateKey(keyWords: ArrayList<String>): String = withContext(Dispatchers.IO) {
         val arbitraryDataProvider = ArbitraryDataProviderImpl(context)
 
         //  - create CSR, push to server, store returned public key in database
@@ -180,4 +179,5 @@ class EncryptionKeyGenerator(val context: Context, val user: User) {
 
         return result
     }
+
 }
