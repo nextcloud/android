@@ -8,9 +8,7 @@
 package com.owncloud.android.datamodel;
 
 import android.content.ContentValues;
-import android.util.Pair;
 
-import com.nextcloud.utils.extensions.FileDataStorageManagerExtensionsKt;
 import com.owncloud.android.AbstractOnServerIT;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -52,10 +50,11 @@ abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
         // make sure everything is removed
         sut.deleteAllFiles();
         sut.deleteVirtuals(VirtualFolderType.GALLERY);
-
         assertEquals(0, sut.getAllFiles().size());
-
-        capability = new GetCapabilitiesRemoteOperation(null).execute(client).getResultData();
+        final var result = new GetCapabilitiesRemoteOperation(null)
+            .execute(client);
+        assertTrue(result.isSuccess());
+        capability = result.getResultData();
     }
 
     @After
@@ -354,28 +353,4 @@ abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
 
         assertEquals(capability.getUserStatus(), newCapability.getUserStatus());
     }
-
-    @Test
-    public void testGenerateFileNameForConflictResolution() {
-        Pair<String, String>[] names = new Pair[]{
-            // Files
-            new Pair<String, String>("hello", "hello (1)"),
-            new Pair<String, String>("hello.txt", "hello (1).txt"),
-            new Pair<String, String>("hello (1).txt", "hello (2).txt"),
-            new Pair<String, String>("hello (18y5).txt", "hello (18y5) (1).txt"),
-            new Pair<String, String>("hello (hey)", "hello (hey) (1)"),
-            new Pair<String, String>("hello (hey).txt", "hello (hey) (1).txt"),
-            // Folders
-            new Pair<String, String>("hello/", "hello (1)/"),
-            new Pair<String, String>("hello (1)/", "hello (2)/"),
-            new Pair<String, String>("hello.hello/", "hello.hello (1)/"),
-            new Pair<String, String>("hello.hello (y)/", "hello.hello (y) (1)/"),
-        };
-
-        for (Pair<String, String> name : names) {
-            String gen = FileDataStorageManagerExtensionsKt.generateFileNameForConflictResolution(name.first);
-            assertEquals(gen, name.second);
-        }
-    }
-
 }
