@@ -12,6 +12,7 @@ package com.owncloud.android.files.services
 import com.nextcloud.client.account.UserAccountManagerImpl
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.utils.PowerManagementFactory
+import com.nextcloud.utils.extensions.getRemotePathForConflictResolution
 import com.nextcloud.utils.extensions.isTheSameAs
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.datamodel.OCFile
@@ -144,6 +145,18 @@ class FileUploaderIT : AbstractOnServerIT() {
         assertFalse(ocFile.isTheSameAs(originalFile))
     }
 
+    @Test
+    fun uploadAndCheckConflictingName() {
+        val originalFile = getDummyFile(EMPTY_FILE)
+        uploadOriginalFile(originalFile)
+        val newPath = getRemotePathForConflictResolution(
+            client,
+            OCFile.PATH_SEPARATOR,
+            REMOTE_FILE
+        )
+        assertEquals(newPath, "${OCFile.PATH_SEPARATOR}$REMOTE_FILE_NAME (1).$REMOTE_FILE_EXTENSION")
+    }
+
     private fun uploadOriginalFile(originalFile: File) {
         val operation = uploadOperation(originalFile, NameCollisionPolicy.DEFAULT).setRemoteFolderToBeCreated()
         assertTrue(operation.execute(client).isSuccess)
@@ -176,7 +189,10 @@ class FileUploaderIT : AbstractOnServerIT() {
     }
 
     companion object {
-        private const val REMOTE_PATH = "/testFile.txt"
+        private const val REMOTE_FILE_NAME = "testFile"
+        private const val REMOTE_FILE_EXTENSION = "txt"
+        private const val REMOTE_FILE = "$REMOTE_FILE_NAME.$REMOTE_FILE_EXTENSION"
+        private const val REMOTE_PATH = "${OCFile.PATH_SEPARATOR}$REMOTE_FILE"
         private const val REMOTE_PATH_RENAMED = "/testFile (2).txt"
         private const val CHUNKED_FILE = "chunkedFile.txt"
         private const val NON_EMPTY_FILE = "nonEmpty.txt"
