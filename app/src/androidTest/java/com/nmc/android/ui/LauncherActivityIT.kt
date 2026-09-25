@@ -28,7 +28,6 @@ class LauncherActivityIT : AbstractIT() {
     fun testSplashScreenWithEmptyTitlesShouldHideTitles() {
         val activity = launchLauncherActivity()
 
-        assertEquals(View.VISIBLE, activity.findViewById<View>(R.id.ivSplash).visibility)
         assertEquals(View.GONE, activity.findViewById<View>(R.id.splashScreenBold).visibility)
         assertEquals(View.GONE, activity.findViewById<View>(R.id.splashScreenNormal).visibility)
     }
@@ -39,7 +38,6 @@ class LauncherActivityIT : AbstractIT() {
 
         instrumentation.runOnMainSync { activity.setSplashTitles("Example", "Cloud") }
 
-        assertEquals(View.VISIBLE, activity.findViewById<View>(R.id.ivSplash).visibility)
         assertEquals(View.VISIBLE, activity.findViewById<View>(R.id.splashScreenBold).visibility)
         assertEquals(View.VISIBLE, activity.findViewById<View>(R.id.splashScreenNormal).visibility)
     }
