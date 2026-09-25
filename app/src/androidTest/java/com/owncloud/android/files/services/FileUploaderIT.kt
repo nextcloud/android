@@ -10,9 +10,12 @@
 package com.owncloud.android.files.services
 
 import com.nextcloud.client.account.UserAccountManagerImpl
-import com.nextcloud.utils.PowerManagementFactory
 import com.nextcloud.client.jobs.upload.FileUploadWorker
+import com.nextcloud.utils.PowerManagementFactory
+import com.nextcloud.utils.extensions.getRemotePathForConflictResolution
+import com.nextcloud.utils.extensions.isTheSameAs
 import com.owncloud.android.AbstractOnServerIT
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
@@ -106,19 +109,71 @@ class FileUploaderIT : AbstractOnServerIT() {
         assertRemoteFileLength(REMOTE_PATH, originalFile.length())
     }
 
+    @Test
+    fun uploadAndCheckFileIsTheSame() {
+        val filename = NON_EMPTY_FILE
+        val remotePath = OCFile.PATH_SEPARATOR + filename
+
+        // Upload file
+        val originalFile = getDummyFile(filename)
+        val operation = uploadOperation(
+            originalFile,
+            NameCollisionPolicy.DEFAULT,
+            remotePath
+        ).setRemoteFolderToBeCreated()
+        assertTrue(operation.execute(client).isSuccess)
+
+        // Check file metadata against remote one
+        val ocFile = storageManager.getFileByRemotePath(remotePath)
+        assertTrue(ocFile.isTheSameAs(originalFile))
+    }
+
+    @Test
+    fun uploadAndCheckFileIsNotTheSame() {
+        val filename = NON_EMPTY_FILE
+
+        // Upload file
+        val originalFile = getDummyFile(filename)
+        val operation = uploadOperation(
+            originalFile,
+            NameCollisionPolicy.DEFAULT
+        ).setRemoteFolderToBeCreated()
+        assertTrue(operation.execute(client).isSuccess)
+
+        // Check file metadata against remote one
+        val ocFile = storageManager.getFileByRemotePath(REMOTE_PATH)
+        assertFalse(ocFile.isTheSameAs(originalFile))
+    }
+
+    @Test
+    fun uploadAndCheckConflictingName() {
+        val originalFile = getDummyFile(EMPTY_FILE)
+        uploadOriginalFile(originalFile)
+        val newPath = getRemotePathForConflictResolution(
+            client,
+            OCFile.PATH_SEPARATOR,
+            REMOTE_FILE
+        )
+        assertEquals(newPath, "${OCFile.PATH_SEPARATOR}$REMOTE_FILE_NAME (1).$REMOTE_FILE_EXTENSION")
+    }
+
     private fun uploadOriginalFile(originalFile: File) {
         val operation = uploadOperation(originalFile, NameCollisionPolicy.DEFAULT).setRemoteFolderToBeCreated()
         assertTrue(operation.execute(client).isSuccess)
         assertRemoteFileLength(REMOTE_PATH, originalFile.length())
     }
 
-    private fun uploadOperation(localFile: File, nameCollisionPolicy: NameCollisionPolicy) = UploadFileOperation(
+    private fun uploadOperation(
+        localFile: File,
+        nameCollisionPolicy: NameCollisionPolicy,
+        remotePath: String = REMOTE_PATH
+    ) = UploadFileOperation(
         uploadsStorageManager,
         connectivityServiceMock,
         powerManagementServiceMock,
         user,
         null,
-        OCUpload(localFile.absolutePath, REMOTE_PATH, account.name),
+        OCUpload(localFile.absolutePath, remotePath, account.name),
         nameCollisionPolicy,
         FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
         targetContext,
@@ -134,7 +189,10 @@ class FileUploaderIT : AbstractOnServerIT() {
     }
 
     companion object {
-        private const val REMOTE_PATH = "/testFile.txt"
+        private const val REMOTE_FILE_NAME = "testFile"
+        private const val REMOTE_FILE_EXTENSION = "txt"
+        private const val REMOTE_FILE = "$REMOTE_FILE_NAME.$REMOTE_FILE_EXTENSION"
+        private const val REMOTE_PATH = "${OCFile.PATH_SEPARATOR}$REMOTE_FILE"
         private const val REMOTE_PATH_RENAMED = "/testFile (2).txt"
         private const val CHUNKED_FILE = "chunkedFile.txt"
         private const val NON_EMPTY_FILE = "nonEmpty.txt"

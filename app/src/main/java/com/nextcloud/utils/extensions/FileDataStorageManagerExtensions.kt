@@ -10,12 +10,16 @@ package com.nextcloud.utils.extensions
 import com.nextcloud.client.database.dao.FileDao
 import com.nextcloud.client.database.entity.model.ShareeKey
 import com.nextcloud.client.database.entity.toOCCapability
+import com.nextcloud.model.HTTPStatusCodes
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.status.OCCapability
+import com.owncloud.android.operations.upload.RemoteFileExistence
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import kotlinx.coroutines.Dispatchers
@@ -23,6 +27,7 @@ import kotlinx.coroutines.withContext
 import java.io.File
 
 private const val SHARE_PATH_QUERY_CHUNK_SIZE = 400
+private val conflictNameCounterSelectionRegex = Regex("""(.*)\((\d+)\)$""", RegexOption.MULTILINE)
 
 /**
  * Detects sharee additions/removals (by userId + shareType) for [remoteFiles], compared to what is stored
@@ -183,6 +188,73 @@ fun FileDataStorageManager.moveFiles(ocFile: OCFile?, targetPath: String, target
         )
         FileDataStorageManager.triggerMediaScan(newMediaPath)
     }
+}
+
+/**
+ * Finds a suitable file name to resolve a conflict.
+ * Tries to concatenate a number to the name until it finds a non-existent one.
+ * E.g. for "file.txt" it will propose "file (2).txt". If that exists, then "file (3).txt" and so on.
+ * E.g. for "folder" it will propose "folder (2)/". If that exists, then "folder (3)/" and so on.
+ *
+ * @return the new remote path, or null if the user is unauthorized in the provided path
+ */
+private const val MAX_CONFLICT_RESOLUTION_ATTEMPTS = 10
+
+@Suppress("ReturnCount")
+fun getRemotePathForConflictResolution(client: OwnCloudClient, remotePath: String, fileName: String): String? {
+    var name = fileName
+    repeat(MAX_CONFLICT_RESOLUTION_ATTEMPTS) {
+        name = generateFileNameForConflictResolution(name)
+        val newPath = "$remotePath$name"
+
+        val result = ExistenceCheckRemoteOperation(newPath, false).execute(client)
+        // 404 (File not found) case is a valid one in this case
+        if (!result.isSuccess && result.httpCode != HTTPStatusCodes.NOT_FOUND.code) return null
+
+        when (RemoteFileExistence.fromExistenceCheck(result)) {
+            RemoteFileExistence.DOES_NOT_EXIST -> return newPath
+            RemoteFileExistence.UNAUTHORIZED -> return null
+            else -> Unit // exists, try next name
+        }
+    }
+    return null
+}
+
+fun generateFileNameForConflictResolution(fileName: String): String {
+    val isFolder = fileName.endsWith(OCFile.PATH_SEPARATOR)
+    val separator =
+        if (isFolder) {
+            OCFile.PATH_SEPARATOR
+        } else if (fileName.indexOf(".") > 0) {
+            "."
+        } else {
+            ""
+        }
+    var nameFirstPart =
+        if (separator.isNotEmpty()) {
+            fileName.substringBeforeLast(separator)
+        } else {
+            fileName
+        }
+    var nameLastPart =
+        if (separator.isNotEmpty()) {
+            fileName.substringAfterLast(separator, "")
+        } else {
+            "" // Extension or path separator
+        }
+    if (nameLastPart.isNotEmpty() || isFolder) nameLastPart = "$separator$nameLastPart"
+    nameFirstPart = if (conflictNameCounterSelectionRegex.matches(nameFirstPart)) {
+        // Already a resolved conflict (i.e. "file (1).txt"). Update the number.
+        conflictNameCounterSelectionRegex.replace(nameFirstPart, transform = { m ->
+            val baseName = m.groups[1]?.value
+            val number = m.groups[2]?.value?.toInt() ?: 0
+            "$baseName(${number + 1})"
+        })
+    } else {
+        // Add the number
+        "$nameFirstPart (1)"
+    }
+    return "$nameFirstPart$nameLastPart"
 }
 
 @Suppress("ReturnCount")
