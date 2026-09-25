@@ -25,6 +25,7 @@ import com.owncloud.android.datamodel.e2e.v1.decrypted.Encrypted;
 import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFolderMetadataFileV1;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.e2ee.CsrHelper;
+import com.owncloud.android.ui.dialog.setupEncryption.EncryptionKeyGenerator;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.crypto.CryptoHelper;
 
