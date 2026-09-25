@@ -41,6 +41,7 @@ class EncryptionKeyGenerator(val context: Context, val user: User) {
         fun generateMnemonicString(keyWords: List<String>, withWhitespace: Boolean): String =
             keyWords.joinToString("") { if (withWhitespace) "$it " else it }
 
+        @JvmStatic
         @Throws(NoSuchAlgorithmException::class)
         fun generateKeyPair(): KeyPair =
             KeyPairGenerator.getInstance(RSA)
