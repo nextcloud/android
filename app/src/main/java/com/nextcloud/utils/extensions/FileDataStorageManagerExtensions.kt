@@ -206,7 +206,8 @@ fun getRemotePathForConflictResolution(client: OwnCloudClient, remotePath: Strin
         val newPath = "$remotePath$name"
 
         val result = ExistenceCheckRemoteOperation(newPath, false).execute(client)
-        if (!result.isSuccess) return null
+        // 404 (File not found) case is a valid one in this case
+        if (!result.isSuccess && result.httpCode != 404) return null
 
         when (RemoteFileExistence.fromExistenceCheck(result)) {
             RemoteFileExistence.DOES_NOT_EXIST -> return newPath
