@@ -10,6 +10,7 @@ package com.nextcloud.utils.extensions
 import com.nextcloud.client.database.dao.FileDao
 import com.nextcloud.client.database.entity.model.ShareeKey
 import com.nextcloud.client.database.entity.toOCCapability
+import com.nextcloud.model.HTTPStatusCodes
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClient
@@ -199,6 +200,7 @@ fun FileDataStorageManager.moveFiles(ocFile: OCFile?, targetPath: String, target
  */
 private const val MAX_CONFLICT_RESOLUTION_ATTEMPTS = 10
 
+@Suppress("ReturnCount")
 fun getRemotePathForConflictResolution(client: OwnCloudClient, remotePath: String, fileName: String): String? {
     var name = fileName
     repeat(MAX_CONFLICT_RESOLUTION_ATTEMPTS) {
@@ -207,7 +209,7 @@ fun getRemotePathForConflictResolution(client: OwnCloudClient, remotePath: Strin
 
         val result = ExistenceCheckRemoteOperation(newPath, false).execute(client)
         // 404 (File not found) case is a valid one in this case
-        if (!result.isSuccess && result.httpCode != 404) return null
+        if (!result.isSuccess && result.httpCode != HTTPStatusCodes.NOT_FOUND.code) return null
 
         when (RemoteFileExistence.fromExistenceCheck(result)) {
             RemoteFileExistence.DOES_NOT_EXIST -> return newPath
