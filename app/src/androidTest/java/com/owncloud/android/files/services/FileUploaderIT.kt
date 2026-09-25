@@ -135,7 +135,7 @@ class FileUploaderIT : AbstractOnServerIT() {
         val originalFile = getDummyFile(filename)
         val operation = uploadOperation(
             originalFile,
-            NameCollisionPolicy.DEFAULT,
+            NameCollisionPolicy.DEFAULT
         ).setRemoteFolderToBeCreated()
         assertTrue(operation.execute(client).isSuccess)
 
