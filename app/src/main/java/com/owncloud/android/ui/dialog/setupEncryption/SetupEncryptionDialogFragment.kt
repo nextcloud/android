@@ -357,19 +357,23 @@ class SetupEncryptionDialogFragment :
     private suspend fun generateNewKeys() {
         binding.encryptionStatus.setText(R.string.end_to_end_encryption_generating_keys)
         val context = context ?: return
-        val privateKey: String = EncryptionKeyGenerator(context, user ?: return).generatePrivateKey(keyWords ?: return)
 
-        if (privateKey.isEmpty()) {
-            keyResult = KEY_FAILED
-            errorSavingKeys()
-        } else {
-            keyResult = KEY_GENERATE
-            if (dialog == null) {
-                Log_OC.e(TAG, "Dialog is null cannot proceed further.")
-                return
+        val privateKeyResult = EncryptionKeyGenerator(context, user ?: return).generatePrivateKey(keyWords ?: return)
+        when(privateKeyResult) {
+            is EncryptionKeyGenerator.PrivateKeyResult.Success -> {
+                keyResult = KEY_GENERATE
+                if (dialog == null) {
+                    Log_OC.e(TAG, "Dialog is null cannot proceed further.")
+                    return
+                }
+                requireDialog().dismiss()
+                notifyResult()
             }
-            requireDialog().dismiss()
-            notifyResult()
+
+            EncryptionKeyGenerator.PrivateKeyResult.Failed -> {
+                keyResult = KEY_FAILED
+                errorSavingKeys()
+            }
         }
     }
 
