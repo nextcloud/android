@@ -516,19 +516,22 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
     private RemoteOperationResult<?> normalCreate(OwnCloudClient client) {
         final var result = new CreateFolderRemoteOperation(remotePath, true).execute(client);
 
-        if (result.isSuccess()) {
-            final var remoteFolderOperationResult = new ReadFolderRemoteOperation(remotePath)
-                .execute(client);
-
-            if (remoteFolderOperationResult.isSuccess() &&
-                remoteFolderOperationResult.getData().get(0) instanceof RemoteFile remoteFile) {
-                createdRemoteFolder = remoteFile;
-            }
-
-            saveFolderInDB();
-        } else {
+        if (!result.isSuccess()) {
             Log_OC.e(TAG, remotePath + " hasn't been created");
+            return result;
         }
+
+        final var readResult = new ReadFolderRemoteOperation(remotePath).execute(client);
+        final var readData = readResult.getData();
+
+        if (!readResult.isSuccess() || readData == null || readData.isEmpty() ||
+            !(readData.get(0) instanceof RemoteFile remoteFolder)) {
+            Log_OC.e(TAG, remotePath + " has been created but could not be read back");
+            return readResult;
+        }
+
+        createdRemoteFolder = remoteFolder;
+        saveFolderInDB();
 
         return result;
     }
