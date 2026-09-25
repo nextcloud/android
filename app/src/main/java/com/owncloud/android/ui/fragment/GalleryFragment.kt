@@ -21,6 +21,8 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.MotionEvent
+import android.view.ScaleGestureDetector
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
@@ -55,12 +57,13 @@ import com.owncloud.android.ui.asynctasks.GallerySearchTask
 import com.owncloud.android.ui.events.ChangeMenuEvent
 import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog.MediaState
 import com.owncloud.android.ui.fragment.helper.ColumnCount
+import com.owncloud.android.ui.fragment.helper.GalleryPinchListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-@Suppress("ForbiddenComment", "ReturnCount", "MagicNumber", "MaxLineLength")
+@Suppress("ForbiddenComment", "ReturnCount", "MagicNumber", "MaxLineLength", "TooManyFunctions")
 class GalleryFragment :
     OCFileListFragment(),
     GalleryFragmentBottomSheetActions {
@@ -70,6 +73,7 @@ class GalleryFragment :
     private val limit = 150
     private var loadedItemCount = INITIAL_GALLERY_WINDOW
     private var restoreScrollPending = false
+    private var scrollAnchorFile: OCFile? = null
     private var adapter: GalleryAdapter? = null
 
     private var bottomSheet: GalleryFragmentBottomSheetDialog? = null
@@ -98,7 +102,7 @@ class GalleryFragment :
             isFromAlbum = it.getBoolean(AlbumsPickerActivity.EXTRA_FROM_ALBUM, false)
         }
         bottomSheet = GalleryFragmentBottomSheetDialog()
-        columnsCount = ColumnCount.Wide.get(resources.isLandscape())
+        columnsCount = defaultColumnsCount(resources.isLandscape())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -182,6 +186,8 @@ class GalleryFragment :
             }
         })
 
+        setupPinchToChangeColumns()
+
         Log_OC.i(this, "onCreateView() in GalleryFragment end")
         return v
     }
@@ -240,7 +246,7 @@ class GalleryFragment :
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        columnsCount = ColumnCount.Wide.get(newConfig.isLandscape())
+        columnsCount = defaultColumnsCount(newConfig.isLandscape())
         adapter?.changeColumn(columnsCount)
         showAllGalleryItems()
     }
@@ -459,6 +465,7 @@ class GalleryFragment :
                 }
                 adapter?.updateList(galleryItems)
                 updateSubtitle(mediaState)
+                scrollToAnchorFile()
 
                 if (restoreScrollPending && galleryItems.isNotEmpty()) {
                     restoreScrollPending = false
@@ -512,12 +519,66 @@ class GalleryFragment :
 
     override fun setGridViewColumns(scaleFactor: Float) = Unit
 
+    private fun setupPinchToChangeColumns() {
+        val detector = ScaleGestureDetector(requireContext(), GalleryPinchListener(::changeColumnsBy))
+        recyclerView?.addOnItemTouchListener(object : RecyclerView.SimpleOnItemTouchListener() {
+            override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+                detector.onTouchEvent(e)
+                return detector.isInProgress
+            }
+
+            override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
+                detector.onTouchEvent(e)
+            }
+        })
+    }
+
+    private fun defaultColumnsCount(isLandscape: Boolean): Int =
+        if (isLandscape) ColumnCount.Wide.landscape else ColumnCount.Normal.portrait
+
+    private fun changeColumnsBy(delta: Int) {
+        val maxColumns = ColumnCount.Wide.get(resources.isLandscape())
+        val updated = (columnsCount + delta).coerceIn(MIN_COLUMNS, maxColumns)
+        if (updated == columnsCount) {
+            return
+        }
+
+        columnsCount = updated
+        adapter?.changeColumn(columnsCount)
+        scrollAnchorFile = scrollAnchorFile ?: firstVisibleFile()
+        showAllGalleryItems()
+    }
+
+    private fun firstVisibleFile(): OCFile? {
+        val layoutManager = recyclerView?.layoutManager as? GridLayoutManager ?: return null
+        val first = layoutManager.findFirstVisibleItemPosition()
+        val last = layoutManager.findLastVisibleItemPosition()
+        if (first == RecyclerView.NO_POSITION) {
+            return null
+        }
+
+        return (first..last).firstNotNullOfOrNull { adapter?.getItem(it) }
+    }
+
+    private fun scrollToAnchorFile() {
+        val file = scrollAnchorFile ?: return
+        scrollAnchorFile = null
+
+        val position = adapter?.getItemPosition(file) ?: return
+        if (position < 0) {
+            return
+        }
+
+        (recyclerView?.layoutManager as? GridLayoutManager)?.scrollToPositionWithOffset(position, 0)
+    }
+
     fun markAsFavorite(remotePath: String, favorite: Boolean) {
         adapter?.markAsFavorite(remotePath, favorite)
     }
 
     companion object {
         private const val MAX_ITEMS_PER_ROW = 10
+        private const val MIN_COLUMNS = 1
         private const val FRAGMENT_TAG_BOTTOM_SHEET = "data"
         private const val ITEM_VIEW_CACHE_SIZE = 8
         private const val PAGINATION_LOADER_DELAY_IN_MS = 500L

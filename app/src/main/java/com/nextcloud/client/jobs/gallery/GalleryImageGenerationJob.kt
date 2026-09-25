@@ -16,7 +16,6 @@ import android.util.Size
 import android.view.WindowManager
 import android.widget.ImageView
 import com.nextcloud.client.account.User
-import com.nextcloud.utils.extensions.getBigThumbnail
 import com.nextcloud.utils.extensions.getBigThumbnailKey
 import com.nextcloud.utils.extensions.getSmallThumbnail
 import com.nextcloud.utils.extensions.isPNG
@@ -111,7 +110,7 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
     }
 
     private suspend fun getBitmap(file: OCFile): Bitmap? = withContext(Dispatchers.IO) {
-        val cached = file.getBigThumbnail()
+        val cached = ThumbnailsCacheManager.getBitmapFromDiskCacheWithoutLock(file.getBigThumbnailKey())
         if (cached != null && !file.isUpdateThumbnailNeeded) {
             return@withContext cached
         }
@@ -200,7 +199,7 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
     ) = withContext(Dispatchers.Main) {
         val tagId = file.fileId.toString()
 
-        if (imageView.tag.toString() == tagId && imageView.isAttachedToWindow) {
+        if (imageView.tag.toString() == tagId) {
             imageView.setMediaThumbnail(file, bitmap)
         }
 
