@@ -21,30 +21,20 @@
  */
 package com.owncloud.android.utils;
 
-import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Point;
-import android.graphics.drawable.Drawable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
-import android.text.format.DateUtils;
 import android.text.style.StyleSpan;
 import android.util.DisplayMetrics;
 import android.view.View;
 
-import com.nextcloud.client.account.User;
-import com.nextcloud.utils.HumanReadableFormatter;
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.TextDrawable;
-import com.owncloud.android.ui.adapter.helper.AvatarShareesProvider;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 
 import java.io.BufferedReader;
@@ -55,17 +45,11 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.net.IDN;
 import java.nio.charset.Charset;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Locale;
-import java.util.TimeZone;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.AppCompatDrawableManager;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -85,10 +69,6 @@ public final class DisplayUtils {
     private static final String HTTP_PROTOCOL = "http://";
     private static final String HTTPS_PROTOCOL = "https://";
     private static final String TWITTER_HANDLE_PREFIX = "@";
-    private static final int DATE_TIME_PARTS_SIZE = 2;
-    public static final String MONTH_YEAR_PATTERN = "MMMM yyyy";
-    public static final String MONTH_PATTERN = "MMMM";
-    public static final String YEAR_PATTERN = "yyyy";
 
     private DisplayUtils() {
         // utility class -> private constructor
@@ -175,78 +155,6 @@ public final class DisplayUtils {
     }
 
     /**
-     * Creates the display string for a user.
-     *
-     * @return the display string for the given account data
-     */
-    public static String getAccountNameDisplayText(User user) {
-        final OwnCloudAccount ocs = user.toOwnCloudAccount();
-        final String accountName = user.getAccountName();
-        return ocs.getDisplayName()
-                + "@"
-                + convertIdn(accountName.substring(accountName.lastIndexOf('@') + 1), false);
-    }
-
-
-    /**
-     * calculates the relative time string based on the given modification timestamp.
-     *
-     * @param context the app's context
-     * @param modificationTimestamp the UNIX timestamp of the file modification time in milliseconds.
-     * @return a relative time string
-     */
-    public static CharSequence getRelativeTimestamp(Context context, long modificationTimestamp) {
-        return getRelativeDateTimeString(context, modificationTimestamp, DateUtils.SECOND_IN_MILLIS,
-                                         DateUtils.WEEK_IN_MILLIS, 0);
-    }
-
-    public static CharSequence getRelativeTimestamp(Context context, long modificationTimestamp, boolean showFuture) {
-        return getRelativeDateTimeString(context,
-                                         modificationTimestamp,
-                                         DateUtils.SECOND_IN_MILLIS,
-                                         DateUtils.WEEK_IN_MILLIS,
-                                         0,
-                                         showFuture);
-    }
-
-    public static CharSequence getRelativeDateTimeString(Context c, long time, long minResolution,
-                                                         long transitionResolution, int flags) {
-        return getRelativeDateTimeString(c, time, minResolution, transitionResolution, flags, false);
-    }
-
-    public static CharSequence getRelativeDateTimeString(Context c,
-                                                         long time,
-                                                         long minResolution,
-                                                         long transitionResolution,
-                                                         int flags,
-                                                         boolean showFuture) {
-
-
-        // in Future
-        if (!showFuture && time > System.currentTimeMillis()) {
-            return HumanReadableFormatter.formatDateTime(time);
-        }
-        // < 60 seconds -> seconds ago
-        long diff = System.currentTimeMillis() - time;
-        if (diff > 0 && diff < 60 * 1000 && minResolution == DateUtils.MINUTE_IN_MILLIS) {
-            return c.getString(R.string.file_list_seconds_ago);
-        } else {
-            CharSequence dateString = DateUtils.getRelativeDateTimeString(c, time, minResolution, transitionResolution, flags);
-
-            String[] parts = dateString.toString().split(",");
-            if (parts.length == DATE_TIME_PARTS_SIZE) {
-                if (parts[1].contains(":") && !parts[0].contains(":")) {
-                    return parts[0];
-                } else if (parts[0].contains(":") && !parts[1].contains(":")) {
-                    return parts[1];
-                }
-            }
-            // dateString contains unexpected format. fallback: use relative date time string from android api as is.
-            return dateString.toString();
-        }
-    }
-
-    /**
      * Gets the screen size in pixels.
      *
      * @param caller Activity calling; needed to get access to the {@link android.view.WindowManager}
@@ -286,140 +194,6 @@ public final class DisplayUtils {
         int end = start + spanText.length();
         sb.setSpan(style, start, end, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         return sb;
-    }
-
-    public interface AvatarGenerationListener {
-        void avatarGenerated(Drawable avatarDrawable, Object callContext);
-
-        boolean shouldCallGeneratedCallback(String tag, Object callContext);
-    }
-
-    /**
-     * fetches and sets the avatar of the given account in the passed callContext
-     *
-     * @param user        the account to be used to connect to server
-     * @param avatarRadius   the avatar radius
-     * @param resources      reference for density information
-     * @param callContext    which context is called to set the generated avatar
-     */
-    public static void setAvatar(@NonNull User user, AvatarGenerationListener listener,
-                                 float avatarRadius, Resources resources, Object callContext, Context context) {
-
-        AccountManager accountManager = AccountManager.get(context);
-        String userId = accountManager.getUserData(user.toPlatformAccount(),
-                com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
-
-        if (userId == null) {
-            Log_OC.e(TAG, "user id is null, cannot set avatar");
-            return;
-        }
-
-        setAvatar(user, userId, listener, avatarRadius, resources, callContext, context);
-    }
-
-    /**
-     * fetches and sets the avatar of the given account in the passed callContext
-     *
-     * @param user        the account to be used to connect to server
-     * @param userId         the userId which avatar should be set
-     * @param avatarRadius   the avatar radius
-     * @param resources      reference for density information
-     * @param callContext    which context is called to set the generated avatar
-     */
-    public static void setAvatar(@NonNull User user, @NonNull String userId, AvatarGenerationListener listener,
-                                 float avatarRadius, Resources resources, Object callContext, Context context) {
-        setAvatar(user, userId, userId, listener, avatarRadius, resources, callContext, context);
-    }
-
-    /**
-     * fetches and sets the avatar of the given account in the passed callContext
-     *
-     * @param user         the account to be used to connect to server
-     * @param userId       the userId which avatar should be set
-     * @param displayName  displayName used to generate avatar with first char, only used as fallback
-     * @param avatarRadius the avatar radius
-     * @param resources    reference for density information
-     * @param callContext  which context is called to set the generated avatar
-     * @param context      general context
-     */
-    public static void setAvatar(@NonNull User user,
-                                 @NonNull String userId,
-                                 String displayName,
-                                 AvatarGenerationListener listener,
-                                 float avatarRadius,
-                                 Resources resources,
-                                 Object callContext,
-                                 Context context) {
-        setAvatar(user, userId, displayName, listener, avatarRadius, resources, callContext, context, 0);
-    }
-
-    /**
-     * fetches and sets the avatar of the given account in the passed callContext
-     *
-     * @param user           the account to be used to connect to server
-     * @param userId         the userId which avatar should be set
-     * @param displayName    displayName used to generate avatar with first char, only used as fallback
-     * @param avatarRadius   the avatar radius
-     * @param resources      reference for density information
-     * @param callContext    which context is called to set the generated avatar
-     * @param context        general context
-     * @param avatarBorder  value in case the avatar has a border, like in the case of the AvatarGroupLayout
-     */
-    public static void setAvatar(@NonNull User user,
-                                 @NonNull String userId,
-                                 String displayName,
-                                 AvatarGenerationListener listener,
-                                 float avatarRadius,
-                                 Resources resources,
-                                 Object callContext,
-                                 Context context,
-                                 int avatarBorder) {
-        if (callContext instanceof View v) {
-            v.setContentDescription(String.valueOf(user.toPlatformAccount().hashCode()));
-        }
-
-        final String accountName = user.getAccountName();
-        String serverName = accountName.substring(accountName.lastIndexOf('@') + 1);
-        Drawable avatar;
-
-        if (userId.isEmpty()) {
-            avatar = ContextCompat.getDrawable(context, R.drawable.ic_link);
-            if (avatar != null) {
-                int tintColor = ContextCompat.getColor(context, R.color.icon_on_nc_grey);
-                avatar.setTint(tintColor);
-            }
-        } else {
-            // show colored icon with initial char until the cached avatar has been read from disk
-            try {
-                avatar = TextDrawable.createAvatarByUserId(displayName,
-                                                           (avatarRadius - avatarBorder));
-            } catch (Exception e) {
-                Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
-                avatar = ResourcesCompat.getDrawable(resources,
-                                                     R.drawable.account_circle_white,
-                                                     null);
-            }
-        }
-
-        listener.avatarGenerated(avatar, callContext);
-
-        if (!userId.isEmpty()) {
-            AvatarShareesProvider.showCachedAvatar(userId, serverName, listener, resources, callContext, context);
-        }
-
-        // check for new avatar, eTag is compared, so only new one is downloaded
-        final ThumbnailsCacheManager.AvatarGenerationTask task =
-            new ThumbnailsCacheManager.AvatarGenerationTask(listener,
-                                                            callContext,
-                                                            user,
-                                                            resources,
-                                                            avatarRadius,
-                                                            userId,
-                                                            displayName,
-                                                            serverName,
-                                                            context);
-
-        task.execute(userId);
     }
 
     /**
@@ -499,20 +273,5 @@ public final class DisplayUtils {
             case SORT_SMALL_TO_BIG_ID -> R.string.menu_item_sort_by_size_smallest_first;
             default -> R.string.menu_item_sort_by_name_a_z;
         };
-    }
-
-    public static String getDateByPattern(long timestamp, String pattern) {
-        return getDateByPattern(timestamp, null, pattern);
-    }
-
-    public static String getDateByPattern(long timestamp, @Nullable Context context, String pattern) {
-        DateFormat df;
-        if (context == null) {
-            context = MainApp.getAppContext();
-        }
-        df = new SimpleDateFormat(pattern, context.getResources().getConfiguration().locale);
-        df.setTimeZone(TimeZone.getTimeZone(TimeZone.getDefault().getID()));
-
-        return df.format(timestamp);
     }
 }

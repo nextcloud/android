@@ -27,9 +27,10 @@ import androidx.core.view.size
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
-import com.nextcloud.client.account.CurrentAccountProvider
+import com.nextcloud.utils.avatar.AvatarGenerator
 import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.utils.extensions.setVisibleIf
+import com.nextcloud.utils.text.DisplayTextFormatter
 import com.nextcloud.utils.text.RichSubjectFormatter
 import com.nextcloud.utils.text.RichSubjectParam
 import com.owncloud.android.R
@@ -40,7 +41,6 @@ import com.owncloud.android.lib.resources.notifications.models.RichObject
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.fragment.notifications.NotificationsAdapterItemClick
 import com.owncloud.android.ui.fragment.notifications.NotificationsFragment
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 @Suppress("TooManyFunctions")
@@ -48,12 +48,12 @@ class NotificationListAdapter(
     private val fragment: NotificationsFragment,
     private val viewThemeUtils: ViewThemeUtils,
     private val itemClick: NotificationsAdapterItemClick,
-    private val accountManager: CurrentAccountProvider
+    private val avatarGenerator: AvatarGenerator
 ) : RecyclerView.Adapter<NotificationListAdapter.NotificationViewHolder>() {
 
     private val notificationsList = ArrayList<Notification>()
     private val richSubjectFormatter by lazy {
-        RichSubjectFormatter(fragment.requireContext(), accountManager)
+        RichSubjectFormatter(fragment.requireContext(), avatarGenerator)
     }
 
     // region Adapter overrides
@@ -82,7 +82,7 @@ class NotificationListAdapter(
     // region Bind helpers
 
     private fun bindDateTime(holder: NotificationViewHolder, notification: Notification) {
-        val timestamp = DisplayUtils.getRelativeTimestamp(
+        val timestamp = DisplayTextFormatter.formatRelativeTimestamp(
             fragment.requireContext(),
             notification.getDatetime().time
         )

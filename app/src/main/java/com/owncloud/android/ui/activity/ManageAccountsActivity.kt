@@ -123,7 +123,8 @@ class ManageAccountsActivity :
             multipleAccountsSupported,
             true,
             true,
-            viewThemeUtils
+            viewThemeUtils,
+            avatarGenerator
         )
 
         recyclerView = findViewById(R.id.account_list)
@@ -272,7 +273,8 @@ class ManageAccountsActivity :
                             multipleAccountsSupported,
                             false,
                             true,
-                            viewThemeUtils
+                            viewThemeUtils,
+                            avatarGenerator
                         )
                         recyclerView?.adapter = userListAdapter
                         runOnUiThread { userListAdapter?.notifyDataSetChanged() }
@@ -331,7 +333,8 @@ class ManageAccountsActivity :
                 multipleAccountsSupported,
                 false,
                 true,
-                viewThemeUtils
+                viewThemeUtils,
+                avatarGenerator
             )
             recyclerView?.adapter = userListAdapter
         } else {

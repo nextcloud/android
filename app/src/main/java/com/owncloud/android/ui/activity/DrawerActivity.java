@@ -68,6 +68,8 @@ import com.nextcloud.utils.GlideHelper;
 import com.nextcloud.utils.HumanReadableFormatter;
 import com.nextcloud.utils.LinkHelper;
 import com.nextcloud.utils.SnackbarUtil;
+import com.nextcloud.utils.avatar.AvatarGenerationListener;
+import com.nextcloud.utils.avatar.AvatarGenerator;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.DrawerActivityExtensionsKt;
 import com.nextcloud.utils.extensions.NavigationViewExtensionsKt;
@@ -143,7 +145,7 @@ import kotlin.Unit;
  * generation.
  */
 public abstract class DrawerActivity extends ToolbarActivity
-    implements DisplayUtils.AvatarGenerationListener, Injectable {
+    implements AvatarGenerationListener, Injectable {
 
     private static final String TAG = DrawerActivity.class.getSimpleName();
     private static final String KEY_IS_ACCOUNT_CHOOSER_ACTIVE = "IS_ACCOUNT_CHOOSER_ACTIVE";
@@ -238,6 +240,9 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     @Inject
     protected ClientFactory clientFactory;
+
+    @Inject
+    public AvatarGenerator avatarGenerator;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {

@@ -159,7 +159,6 @@ import com.owncloud.android.ui.preview.PreviewTextFragment
 import com.owncloud.android.ui.preview.PreviewTextStringFragment
 import com.owncloud.android.ui.preview.pdf.PreviewPdfFragment.Companion.newInstance
 import com.owncloud.android.utils.DataHolderUtil
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.MimeTypeUtil
@@ -3047,13 +3046,11 @@ class FileDisplayActivity :
         val existingAccountName = existingUser.accountName
         mSwitchAccountButton.tag = existingAccountName
 
-        DisplayUtils.setAvatar(
+        avatarGenerator.setAccountAvatar(
             existingUser,
             this,
             getResources().getDimension(R.dimen.nav_drawer_menu_avatar_radius),
-            getResources(),
-            mSwitchAccountButton,
-            this
+            mSwitchAccountButton
         )
         val userChanged = (existingAccountName != lastDisplayedAccountName)
         if (userChanged) {

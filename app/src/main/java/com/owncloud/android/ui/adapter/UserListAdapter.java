@@ -23,6 +23,8 @@ import android.widget.ImageView;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.utils.avatar.AvatarGenerationListener;
+import com.nextcloud.utils.avatar.AvatarGenerator;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.AccountActionBinding;
@@ -39,7 +41,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
-                                implements DisplayUtils.AvatarGenerationListener {
+                                implements AvatarGenerationListener {
     private static final String TAG = UserListAdapter.class.getSimpleName();
 
     private final float accountAvatarRadiusDimension;
@@ -55,6 +57,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private final boolean showDotsMenu;
     private boolean highlightCurrentlyActiveAccount;
     private final ViewThemeUtils viewThemeUtils;
+    private final AvatarGenerator avatarGenerator;
 
     public UserListAdapter(Context context,
                            UserAccountManager accountManager,
@@ -63,7 +66,8 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                            boolean showAddAccount,
                            boolean showDotsMenu,
                            boolean highlightCurrentlyActiveAccount,
-                           final ViewThemeUtils viewThemeUtils) {
+                           final ViewThemeUtils viewThemeUtils,
+                           AvatarGenerator avatarGenerator) {
         this.context = context;
         this.accountManager = accountManager;
         this.values = values;
@@ -76,6 +80,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.showDotsMenu = showDotsMenu;
         this.viewThemeUtils = viewThemeUtils;
         this.highlightCurrentlyActiveAccount = highlightCurrentlyActiveAccount;
+        this.avatarGenerator = avatarGenerator;
     }
 
     @Override
@@ -218,7 +223,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public void bind(User user,
                          boolean userListItemEnabled,
                          boolean highlightCurrentlyActiveAccount,
-                         DisplayUtils.AvatarGenerationListener avatarGenerationListener) {
+                         AvatarGenerationListener avatarGenerationListener) {
             setData(user);
             setUser(user);
             setUsername(user);
@@ -269,16 +274,14 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
          *
          * @param user the account
          */
-        private void setAvatar(User user, DisplayUtils.AvatarGenerationListener avatarGenerationListener) {
+        private void setAvatar(User user, AvatarGenerationListener avatarGenerationListener) {
             try {
                 View viewItem = binding.userIcon;
                 viewItem.setTag(user.getAccountName());
-                DisplayUtils.setAvatar(user,
-                                       avatarGenerationListener,
-                                       accountAvatarRadiusDimension,
-                                       context.getResources(),
-                                       viewItem,
-                                       context);
+                avatarGenerator.setAccountAvatar(user,
+                                                 avatarGenerationListener,
+                                                 accountAvatarRadiusDimension,
+                                                 viewItem);
             } catch (Exception e) {
                 Log_OC.e(TAG, "Error calculating RGB value for account list item.", e);
                 // use user icon as a fallback

@@ -35,10 +35,13 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.utils.HumanReadableFormatter;
+import com.nextcloud.utils.avatar.AvatarGenerationListener;
+import com.nextcloud.utils.avatar.AvatarGenerator;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.nextcloud.utils.extensions.ImageViewExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
+import com.nextcloud.utils.text.DisplayTextFormatter;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.GridItemBinding;
@@ -97,7 +100,7 @@ import me.zhanghai.android.fastscroll.PopupTextProvider;
  */
 @SuppressWarnings("unchecked")
 public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
-    implements DisplayUtils.AvatarGenerationListener,
+    implements AvatarGenerationListener,
     CommonOCFileListAdapterInterface, PopupTextProvider {
 
     private final String userId;
@@ -139,6 +142,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final OCFileListAdapterHelper helper = new OCFileListAdapterHelper();
     private final AvatarShareesProvider avatarShareesProvider = new AvatarShareesProvider();
     private final ThumbnailGenerator thumbnailGenerator;
+    private final AvatarGenerator avatarGenerator;
 
     public OCFileListAdapter(
         Activity activity,
@@ -150,8 +154,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         boolean argHideItemOptions,
         boolean gridView,
         final ViewThemeUtils viewThemeUtils,
-        ThumbnailGenerator thumbnailGenerator) {
+        ThumbnailGenerator thumbnailGenerator,
+        AvatarGenerator avatarGenerator) {
         this.thumbnailGenerator = thumbnailGenerator;
+        this.avatarGenerator = avatarGenerator;
         this.ocFileListFragmentInterface = ocFileListFragmentInterface;
         this.activity = activity;
         this.preferences = preferences;
@@ -616,7 +622,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         sharedAvatars.setBoundFileId(fileId);
         sharedAvatars.setOnClickListener(view -> ocFileListFragmentInterface.onShareIconClick(file));
 
-        sharedAvatars.setAvatars(user, avatarShareesProvider.get(file, userId), viewThemeUtils);
+        sharedAvatars.setAvatars(user, avatarShareesProvider.get(file, userId), viewThemeUtils, avatarGenerator);
     }
 
     private void bindListItemViewHolder(ListItemViewHolder holder, OCFile file) {
@@ -673,12 +679,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         final long modificationTimestamp = file.getModificationTimestamp();
         if (modificationTimestamp > 0) {
-            holder.getLastModification().setText(DisplayUtils.getRelativeTimestamp(activity,
-                                                                                   modificationTimestamp));
+            holder.getLastModification().setText(
+                DisplayTextFormatter.formatRelativeTimestamp(activity, modificationTimestamp));
             holder.getLastModification().setVisibility(View.VISIBLE);
         } else if (file.getFirstShareTimestamp() > 0) {
             holder.getLastModification().setText(
-                DisplayUtils.getRelativeTimestamp(activity, file.getFirstShareTimestamp())
+                DisplayTextFormatter.formatRelativeTimestamp(activity, file.getFirstShareTimestamp())
                                                 );
             holder.getLastModification().setVisibility(View.VISIBLE);
         } else {

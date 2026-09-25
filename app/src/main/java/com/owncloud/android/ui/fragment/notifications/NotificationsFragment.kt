@@ -34,6 +34,7 @@ import com.nextcloud.common.NextcloudClient
 import com.nextcloud.utils.BuildHelper
 import com.nextcloud.utils.GlideHelper
 import com.nextcloud.utils.SnackbarUtil
+import com.nextcloud.utils.avatar.AvatarGenerator
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.owncloud.android.R
 import com.owncloud.android.databinding.NotificationsLayoutBinding
@@ -76,6 +77,9 @@ class NotificationsFragment :
 
     @Inject
     lateinit var preferences: AppPreferences
+
+    @Inject
+    lateinit var avatarGenerator: AvatarGenerator
 
     private var client: NextcloudClient? = null
 
@@ -302,7 +306,7 @@ class NotificationsFragment :
 
     private fun initializeAdapter() {
         if (adapter == null) {
-            adapter = NotificationListAdapter(this@NotificationsFragment, viewThemeUtils, this, accountManager)
+            adapter = NotificationListAdapter(this@NotificationsFragment, viewThemeUtils, this, avatarGenerator)
             binding?.list?.adapter = adapter
         }
     }
@@ -315,7 +319,7 @@ class NotificationsFragment :
 
     @VisibleForTesting
     fun initForTesting(state: NotificationsUIState) {
-        adapter = NotificationListAdapter(this@NotificationsFragment, viewThemeUtils, this, accountManager)
+        adapter = NotificationListAdapter(this@NotificationsFragment, viewThemeUtils, this, avatarGenerator)
         binding?.list?.adapter = adapter
         binding?.list?.layoutManager = LinearLayoutManager(requireContext())
         this.state = state

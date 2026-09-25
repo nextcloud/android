@@ -16,6 +16,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.client.account.User
 import com.nextcloud.utils.HumanReadableFormatter
+import com.nextcloud.utils.text.DisplayTextFormatter
 import com.owncloud.android.databinding.UploaderListItemLayoutBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -25,7 +26,6 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncThumbnailDrawable
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.ThumbnailGenerationTask
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.ThumbnailGenerationTaskObject
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
@@ -80,7 +80,8 @@ class ReceiveExternalFilesAdapter(
         val file = filteredFiles[position]
 
         viewHolder.binding.filename.text = file.fileName
-        viewHolder.binding.lastMod.text = DisplayUtils.getRelativeTimestamp(context, file.modificationTimestamp)
+        viewHolder.binding.lastMod.text =
+            DisplayTextFormatter.formatRelativeTimestamp(context, file.modificationTimestamp)
 
         if (!file.isFolder) {
             viewHolder.binding.fileSize.text = HumanReadableFormatter.formatBytes(file.fileLength)
