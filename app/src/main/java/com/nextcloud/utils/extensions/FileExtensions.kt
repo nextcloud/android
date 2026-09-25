@@ -127,13 +127,10 @@ fun OCFile?.isTheSameAs(localFile: File?): Boolean = try {
     val remoteName = this.fileName
     val localSize = localFile.length()
     val remoteSize = this.fileLength
-    val localCreated = attr.creationTime().toMillis() / MS_IN_SECOND // Unix time in milliseconds
     val localModified = attr.lastModifiedTime().toMillis() / MS_IN_SECOND // Unix time in milliseconds
-    val remoteCreated = this.creationTimestamp // Unix time in seconds!
     val remoteModified = this.modificationTimestamp / MS_IN_SECOND // Unix time in milliseconds
     remoteName == localName &&
         remoteSize == localSize &&
-        remoteCreated == localCreated &&
         remoteModified == localModified
 } catch (e: IOException) {
     Log.e(FileDataStorageManager.TAG, "fileIsTheSame: unable to obtain local file attributes for comparing: $e")
