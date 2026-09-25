@@ -14,6 +14,8 @@ import com.owncloud.android.db.ProviderMeta;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -48,11 +50,9 @@ public class FileDataStorageManagerContentProviderClientIT extends FileDataStora
         assertEquals(file.getRemotePath(), read.getRemotePath());
     }
 
-
-
     @Test
     public void testGenerateFileNameForConflictResolution() {
-        Pair<String, String>[] names = new Pair[]{
+        final var names = Arrays.asList(
             // Files
             new Pair<>("hello", "hello (1)"),
             new Pair<>("hello.txt", "hello (1).txt"),
@@ -61,15 +61,16 @@ public class FileDataStorageManagerContentProviderClientIT extends FileDataStora
             new Pair<>("hello (hey)", "hello (hey) (1)"),
             new Pair<>("hello (hey).txt", "hello (hey) (1).txt"),
             new Pair<>(".hello", ".hello (1)"),
+
             // Folders
             new Pair<>("hello/", "hello (1)/"),
             new Pair<>("hello (1)/", "hello (2)/"),
             new Pair<>("hello.hello/", "hello.hello (1)/"),
             new Pair<>("hello.hello (y)/", "hello.hello (y) (1)/"),
-            new Pair<>(".hello/", ".hello (1)/"),
-        };
+            new Pair<>(".hello/", ".hello (1)/")
+         );
 
-        for (Pair<String, String> name : names) {
+        for (final var name: names) {
             String gen = FileDataStorageManagerExtensionsKt.generateFileNameForConflictResolution(name.first);
             assertEquals(gen, name.second);
         }
