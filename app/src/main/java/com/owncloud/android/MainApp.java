@@ -58,6 +58,7 @@ import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
+import com.nextcloud.client.systembars.SystemBarBackgroundCallbacks;
 import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias;
 import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
@@ -292,6 +293,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         insertConscrypt();
 
         registerActivityLifecycleCallbacks(new ActivityInjector());
+        registerActivityLifecycleCallbacks(new SystemBarBackgroundCallbacks(viewThemeUtilsProvider));
 
         //update the app restart count when app is launched by the user
         inAppReviewHelper.resetAndIncrementAppRestartCounter();
