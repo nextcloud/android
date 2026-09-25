@@ -26,7 +26,7 @@ import kotlinx.coroutines.withContext
 import java.io.File
 
 private const val SHARE_PATH_QUERY_CHUNK_SIZE = 400
-private val CONFLICT_NAME_COUNTER_SELECTION_REGEX = Regex("""(.*)\((\d+)\)$""", RegexOption.MULTILINE)
+private val conflictNameCounterSelectionRegex = Regex("""(.*)\((\d+)\)$""", RegexOption.MULTILINE)
 
 /**
  * Detects sharee additions/removals (by userId + shareType) for [remoteFiles], compared to what is stored
@@ -237,9 +237,9 @@ fun generateFileNameForConflictResolution(fileName: String): String {
             "" // Extension or path separator
         }
     if (nameLastPart.isNotEmpty() || isFolder) nameLastPart = "$separator$nameLastPart"
-    nameFirstPart = if (CONFLICT_NAME_COUNTER_SELECTION_REGEX.matches(nameFirstPart)) {
+    nameFirstPart = if (conflictNameCounterSelectionRegex.matches(nameFirstPart)) {
         // Already a resolved conflict (i.e. "file (1).txt"). Update the number.
-        CONFLICT_NAME_COUNTER_SELECTION_REGEX.replace(nameFirstPart, transform = { m ->
+        conflictNameCounterSelectionRegex.replace(nameFirstPart, transform = { m ->
             val baseName = m.groups[1]?.value
             val number = m.groups[2]?.value?.toInt() ?: 0
             "$baseName(${number + 1})"
