@@ -10,6 +10,7 @@ package com.nextcloud.utils.extensions
 import com.nextcloud.client.database.dao.FileDao
 import com.nextcloud.client.database.entity.model.ShareeKey
 import com.nextcloud.client.database.entity.toOCCapability
+import com.nextcloud.model.HTTPStatusCodes
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClient
