@@ -64,9 +64,11 @@ import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.common.PlainClient;
 import com.nextcloud.operations.PostMethod;
+import com.nextcloud.utils.RawResourceReader;
 import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
+import com.nextcloud.utils.text.LinkFormatter;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.dialog.LoginDialog;
@@ -100,13 +102,11 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.WebViewUtil;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
-import java.io.InputStream;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -635,8 +635,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 accountSetupWebviewBinding.loginWebviewProgressBar.setVisibility(View.GONE);
                 accountSetupWebviewBinding.loginWebview.setVisibility(View.VISIBLE);
 
-                InputStream resources = getResources().openRawResource(R.raw.custom_error);
-                String customError = DisplayUtils.getData(resources);
+                String customError = RawResourceReader.readText(getResources(), R.raw.custom_error);
 
                 if (!customError.isEmpty()) {
                     accountSetupWebviewBinding.loginWebview.loadData(customError, "text/html; charset=UTF-8", null);
@@ -1015,7 +1014,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             // Handle internationalized domain names
             try {
-                uri = DisplayUtils.convertIdn(uri, true);
+                uri = LinkFormatter.toAsciiDomain(uri);
             } catch (IllegalArgumentException ex) {
                 // Let the Nextcloud library check the error of the malformed URI
                 Log_OC.e(TAG, "Error converting internationalized domain name " + uri, ex);

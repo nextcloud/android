@@ -21,13 +21,13 @@ import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.ui.sort.SortOrderUi
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.adapter.localFileList.LocalFileListAdapter
 import com.owncloud.android.ui.fragment.EmptyListState
 import com.owncloud.android.ui.fragment.ExtendedListFragment
 import com.owncloud.android.ui.interfaces.LocalFileListFragmentInterface
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileSortOrder
 import java.io.File
 
@@ -112,11 +112,11 @@ class LocalFileListFragment :
 
         button.setOnClickListener {
             val sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView)
-            DisplayUtils.openSortingOrderDialogFragment(parentFragmentManager, sortOrder)
+            SortOrderUi.showDialog(parentFragmentManager, sortOrder)
         }
 
         val sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView) ?: return
-        button.setText(DisplayUtils.getSortOrderStringId(sortOrder))
+        button.setText(SortOrderUi.labelRes(sortOrder))
     }
 
     private fun setupGridViewButton() {
@@ -217,7 +217,7 @@ class LocalFileListFragment :
 
     //region View options
     fun sortFiles(sortOrder: FileSortOrder) {
-        mSortButton?.setText(DisplayUtils.getSortOrderStringId(sortOrder))
+        mSortButton?.setText(SortOrderUi.labelRes(sortOrder))
         adapter.setSortOrder(sortOrder)
     }
 

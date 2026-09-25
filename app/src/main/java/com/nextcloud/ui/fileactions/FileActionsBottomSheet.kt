@@ -39,7 +39,10 @@ import com.nextcloud.utils.avatar.AvatarGenerationListener
 import com.nextcloud.utils.avatar.AvatarGenerator
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.text.DisplayTextFormatter
+import com.nextcloud.utils.text.SpanFormatter
 import com.nextcloud.utils.thumbnail.ThumbnailArguments
+import com.nextcloud.utils.view.LocaleDirection
+import com.nextcloud.utils.view.ScreenMetrics
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileActionsBottomSheetBinding
 import com.owncloud.android.databinding.FileActionsBottomSheetItemBinding
@@ -48,7 +51,6 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.resources.files.model.FileLockType
 import com.owncloud.android.ui.activity.ComponentsGetter
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -239,11 +241,11 @@ class FileActionsBottomSheet :
         val decryptedFileName = titleFile?.decryptedFileName
         if (decryptedFileName != null) {
             val isFolder = titleFile.isFolder
-            val isRTL = DisplayUtils.isRTL()
+            val isRTL = LocaleDirection.isRtl
             val (base, ext) = FileStorageUtils.getFilenameAndExtension(decryptedFileName, isFolder, isRTL)
-            val titleMaxWidth = DisplayUtils.convertDpToPixel(
+            val titleMaxWidth = ScreenMetrics.dpToPx(
                 requireContext().resources.configuration.screenWidthDp.times(FILENAME_MAX_WIDTH_PERCENTAGE).toFloat(),
-                context
+                requireContext()
             )
 
             binding.title.maxWidth = titleMaxWidth
@@ -297,7 +299,7 @@ class FileActionsBottomSheet :
             FileLockType.COLLABORATIVE -> R.string.locked_by_app
             else -> R.string.locked_by
         }
-        return DisplayUtils.createTextWithSpan(
+        return SpanFormatter.styleLast(
             getString(resource, lockInfo.lockedBy),
             lockInfo.lockedBy,
             StyleSpan(Typeface.BOLD)

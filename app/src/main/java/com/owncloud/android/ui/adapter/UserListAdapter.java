@@ -26,12 +26,12 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.utils.avatar.AvatarGenerationListener;
 import com.nextcloud.utils.avatar.AvatarGenerator;
 import com.nextcloud.utils.mdm.MDMConfig;
+import com.nextcloud.utils.text.LinkFormatter;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.AccountActionBinding;
 import com.owncloud.android.databinding.AccountItemBinding;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.ArrayList;
@@ -250,7 +250,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
          * @param user the account
          */
         private void setUser(User user) {
-            binding.account.setText(DisplayUtils.convertIdn(user.getAccountName(), false));
+            binding.account.setText(LinkFormatter.toUnicodeDomain(user.getAccountName()));
             binding.account.setTag(user.getAccountName());
         }
 
