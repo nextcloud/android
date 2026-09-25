@@ -65,7 +65,7 @@ class E2ECertificateRenewalMetadataVerificationTest {
 
     @Test
     fun oldCertificateInMetadataVerifiesSignatureCreatedWithRenewedCertificate() {
-        val keyPair = EncryptionUtils.generateKeyPair()
+        val keyPair = EncryptionKeyGenerator.generateKeyPair()
         val oldCertificate = createCertificate(keyPair, OLD_CERTIFICATE_SERIAL)
         val renewedCertificate = createCertificate(keyPair, RENEWED_CERTIFICATE_SERIAL)
 
@@ -86,7 +86,7 @@ class E2ECertificateRenewalMetadataVerificationTest {
 
     @Test
     fun unchangedOldMetadataStillVerifiesAfterRenewal() {
-        val keyPair = EncryptionUtils.generateKeyPair()
+        val keyPair = EncryptionKeyGenerator.generateKeyPair()
         val oldCertificate = createCertificate(keyPair, OLD_CERTIFICATE_SERIAL)
 
         val encryptedMetadata = buildEncryptedMetadata(toPem(oldCertificate))
@@ -99,7 +99,7 @@ class E2ECertificateRenewalMetadataVerificationTest {
 
     @Test
     fun signatureIsInterchangeableBetweenOldAndRenewedCertificate() {
-        val keyPair = EncryptionUtils.generateKeyPair()
+        val keyPair = EncryptionKeyGenerator.generateKeyPair()
         val oldCertificate = createCertificate(keyPair, OLD_CERTIFICATE_SERIAL)
         val renewedCertificate = createCertificate(keyPair, RENEWED_CERTIFICATE_SERIAL)
 

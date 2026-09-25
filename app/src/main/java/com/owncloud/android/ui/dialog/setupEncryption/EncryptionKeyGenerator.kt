@@ -58,7 +58,7 @@ class EncryptionKeyGenerator(val context: Context, val user: User) {
             val certificate: String
 
             // Create public/private key pair
-            val keyPair = EncryptionUtils.generateKeyPair()
+            val keyPair = EncryptionKeyGenerator.generateKeyPair()
 
             // create CSR
             val accountManager = AccountManager.get(context)

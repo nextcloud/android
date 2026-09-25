@@ -27,7 +27,7 @@ class EncryptionUtilsIT : EncryptionIT() {
     @Test
     fun saveAndRestorePublicKey() {
         val arbitraryDataProvider = ArbitraryDataProviderImpl(targetContext)
-        val keyPair = EncryptionUtils.generateKeyPair()
+        val keyPair = EncryptionKeyGenerator.generateKeyPair()
         val e2eUser = "e2e-user"
         val key = CsrHelper().generateCsrPemEncodedString(keyPair, e2eUser)
 

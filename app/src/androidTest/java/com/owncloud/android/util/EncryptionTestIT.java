@@ -154,7 +154,7 @@ public class EncryptionTestIT extends AbstractIT {
 
     @Test
     public void encryptStringAsymmetricCorrectPublicKey() throws Exception {
-        KeyPair keyPair = EncryptionUtils.generateKeyPair();
+        KeyPair keyPair = EncryptionKeyGenerator.generateKeyPair();
 
         byte[] key1 = generateKey();
         String base64encodedKey = encodeBytesToBase64String(key1);
@@ -169,8 +169,8 @@ public class EncryptionTestIT extends AbstractIT {
 
     @Test(expected = BadPaddingException.class)
     public void encryptStringAsymmetricWrongPublicKey() throws Exception {
-        KeyPair keyPair1 = EncryptionUtils.generateKeyPair();
-        KeyPair keyPair2 = EncryptionUtils.generateKeyPair();
+        KeyPair keyPair1 = EncryptionKeyGenerator.generateKeyPair();
+        KeyPair keyPair2 = EncryptionKeyGenerator.generateKeyPair();
 
         byte[] key1 = generateKey();
         String base64encodedKey = encodeBytesToBase64String(key1);
@@ -181,7 +181,7 @@ public class EncryptionTestIT extends AbstractIT {
 
     @Test
     public void testModulus() throws Exception {
-        KeyPair keyPair = EncryptionUtils.generateKeyPair();
+        KeyPair keyPair = EncryptionKeyGenerator.generateKeyPair();
         RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
         RSAPrivateCrtKey privateKey = (RSAPrivateCrtKey) keyPair.getPrivate();
 
