@@ -11,6 +11,7 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import androidx.annotation.VisibleForTesting
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.network.ClientFactory
@@ -19,7 +20,6 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.e2ee.DeleteEncryptedFilesRemoteOperation
 import com.owncloud.android.lib.resources.users.DeletePrivateKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.DeletePublicKeyRemoteOperation
-import org.jetbrains.annotations.VisibleForTesting
 
 @Suppress("MagicNumber")
 class E2EDeletionService(private val clientFactory: ClientFactory) {

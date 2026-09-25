@@ -357,7 +357,7 @@ class SetupEncryptionDialogFragment :
     private suspend fun generateNewKeys() {
         binding.encryptionStatus.setText(R.string.end_to_end_encryption_generating_keys)
         val context = context ?: return
-        val privateKey: String = EncryptionKeyGenerator(context, user ?: return).generatePrivateKey(keyWords)
+        val privateKey: String = EncryptionKeyGenerator(context, user ?: return).generatePrivateKey(keyWords ?: return)
 
         if (privateKey.isEmpty()) {
             keyResult = KEY_FAILED
@@ -382,7 +382,7 @@ class SetupEncryptionDialogFragment :
         requireDialog().setTitle(R.string.end_to_end_encryption_passphrase_title)
         binding.encryptionStatus.setText(R.string.end_to_end_encryption_keywords_description)
         viewThemeUtils.material.colorTextInputLayout(binding.encryptionPasswordInputContainer)
-        binding.encryptionPassphrase.text = EncryptionKeyGenerator.generateMnemonicString(keyWords, true)
+        binding.encryptionPassphrase.text = EncryptionKeyGenerator.generateMnemonicString(keyWords ?: return, true)
         binding.encryptionPassphrase.visibility = View.VISIBLE
 
         setupCopyPassphraseButton()
