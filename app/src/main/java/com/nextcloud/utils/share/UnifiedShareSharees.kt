@@ -9,6 +9,7 @@ package com.nextcloud.utils.share
 
 import com.nextcloud.android.common.ui.network.auth.ServerCredentials
 import com.nextcloud.android.common.ui.share.avatar.ShareAvatarRepository
+import com.nextcloud.android.common.ui.share.model.api.recipients.Recipient
 import com.nextcloud.android.common.ui.share.model.api.share.Share
 import com.nextcloud.client.account.User
 import com.nextcloud.utils.extensions.supportsUnifiedShare
@@ -75,19 +76,27 @@ object UnifiedShareSharees {
         unifiedShareSupport[accountName]?.let { return it }
 
         // a failed capability request stays uncached so that the next listing can resolve it again
-        val supported = runCatching { credentials.supportsUnifiedShare() }.getOrNull() ?: return false
-        unifiedShareSupport[accountName] = supported
+        val supported = runCatching { credentials.supportsUnifiedShare() }.getOrNull()
+        supported?.let { unifiedShareSupport[accountName] = it }
 
-        return supported
+        return supported == true
     }
 
     private suspend fun ShareAvatarRepository.fetchSharees(file: OCFile) {
-        file.sharees = fetchShareAvatars(file.localId.toString())?.toAvatarSharees().orEmpty()
+        val sharees = fetchShareAvatars(file.localId.toString())?.toAvatarSharees() ?: return
+        file.sharees = sharees
     }
 
     private fun List<Share>.toAvatarSharees(): List<ShareeUser> = asSequence()
         .flatMap { share -> share.invitedRecipients }
-        .distinctBy { recipient -> recipient.value }
-        .map { recipient -> ShareeUser(recipient.value, recipient.displayName, ShareType.USER) }
+        .distinctBy { recipient -> recipient.clazz to recipient.value }
+        .map { recipient -> ShareeUser(recipient.value, recipient.displayName, recipient.toShareType()) }
         .toList()
+
+    private fun Recipient.toShareType(): ShareType = when (clazz) {
+        Recipient.GROUP_RECIPIENT_CLASS -> ShareType.GROUP
+        Recipient.TEAM_RECIPIENT_CLASS -> ShareType.CIRCLE
+        Recipient.EMAIL_RECIPIENT_CLASS -> ShareType.EMAIL
+        else -> ShareType.USER
+    }
 }

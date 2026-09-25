@@ -176,7 +176,7 @@ class FileDetailSharingFragment :
     private fun initializeSharingMode() {
         viewLifecycleOwner.lifecycleScope.launch {
             withContext(Dispatchers.IO) {
-                user?.toServerCredentials()?.takeIf { it.supportsUnifiedShare() }
+                user?.toServerCredentials()?.takeIf { it.supportsUnifiedShare() == true }
             }?.let(::showUnifiedShare) ?: showLegacyShare()
         }
     }
