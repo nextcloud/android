@@ -28,6 +28,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.PassCodeActivity;
 import com.owncloud.android.ui.activity.SettingsActivity;
+import com.owncloud.android.ui.fragment.FolderLayout;
 import com.owncloud.android.utils.FileSortOrder;
 
 import java.lang.reflect.Type;
@@ -82,7 +83,6 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__AUTO_UPLOAD_SPLIT_OUT = "autoUploadEntriesSplitOut";
     private static final String PREF__AUTO_UPLOAD_INIT = "autoUploadInit";
     private static final String PREF__FOLDER_SORT_ORDER = "folder_sort_order";
-    private static final String PREF__FOLDER_LAYOUT = "folder_layout";
 
     private static final String PREF__LOCK_TIMESTAMP = "lock_timestamp";
     private static final String PREF__SHOW_MEDIA_SCAN_NOTIFICATIONS = "show_media_scan_notifications";
@@ -336,21 +336,39 @@ public final class AppPreferencesImpl implements AppPreferences {
     }
 
     @Override
-    public String getFolderLayout(OCFile folder) {
-        return getFolderPreference(context,
-                                   userAccountManager.getUser(),
-                                   PREF__FOLDER_LAYOUT,
-                                   folder,
-                                   FOLDER_LAYOUT_LIST);
+    public String getFolderLayout(FolderLayout layout) {
+        if (layout instanceof FolderLayout.Child child) {
+            // keep existing logic for child directories
+            return getFolderPreference(context,
+                                       userAccountManager.getUser(),
+                                       layout.getKey(),
+                                       child.getFolder(),
+                                       FOLDER_LAYOUT_LIST);
+        } else {
+            User user = userAccountManager.getUser();
+            if (user.isAnonymous()) {
+                return FOLDER_LAYOUT_LIST;
+            }
+
+            return preferences.getString(layout.getPrefKey(user), FOLDER_LAYOUT_LIST);
+        }
     }
 
     @Override
-    public void setFolderLayout(@Nullable OCFile folder, String layoutName) {
-        setFolderPreference(context,
-                            userAccountManager.getUser(),
-                            PREF__FOLDER_LAYOUT,
-                            folder,
-                            layoutName);
+    public void setFolderLayout(@NonNull FolderLayout layout, String layoutName) {
+        if (layout instanceof FolderLayout.Child child) {
+            setFolderPreference(context,
+                                userAccountManager.getUser(),
+                                child.getKey(),
+                                child.getFolder(),
+                                layoutName);
+            return;
+        }
+
+        // only use new way for root shared, favorite and all files
+        preferences.edit()
+            .putString(layout.getPrefKey(userAccountManager.getUser()), layoutName)
+            .apply();
     }
 
     @Override

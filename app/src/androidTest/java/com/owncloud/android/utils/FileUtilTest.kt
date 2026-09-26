@@ -1,61 +1,100 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2020 Andy Scherzinger <info@andy-scherzinger.de>
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 package com.owncloud.android.utils
 
 import com.owncloud.android.AbstractIT
-import org.junit.Assert
+import androidx.test.platform.app.InstrumentationRegistry
+import com.owncloud.android.utils.FileUtil.isFolderWritable
+import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Test
 import java.io.File
 
 class FileUtilTest : AbstractIT() {
-    @Test
-    fun assertNullInput() {
-        Assert.assertEquals("", FileUtil.getFilenameFromPathString(null))
+
+    private lateinit var context: android.content.Context
+
+    @Before
+    fun setup() {
+        context = InstrumentationRegistry.getInstrumentation().targetContext
     }
 
     @Test
-    fun assertEmptyInput() {
-        Assert.assertEquals("", FileUtil.getFilenameFromPathString(""))
+    fun testIsFolderWritableWhenGivenCacheDirShouldReturnTrue() = runBlocking {
+        val writableDir = context.cacheDir
+        val result = isFolderWritable(writableDir)
+        assertTrue("Internal cache directory should be writable", result)
     }
 
     @Test
-    fun assertFileInput() {
-        val file = getDummyFile("empty.txt")
-        Assert.assertEquals("empty.txt", FileUtil.getFilenameFromPathString(file.absolutePath))
+    fun testIsFolderWritableWhenGivenNonExistentDirShouldReturnFalse() = runBlocking {
+        val nonExistentFile = File(context.cacheDir, "ghost_folder_123")
+        val result = isFolderWritable(nonExistentFile)
+        assertFalse("Non-existent folder should not be writable", result)
     }
 
     @Test
-    fun assertSlashInput() {
-        val tempPath = File(FileStorageUtils.getTemporalPath(account.name) + File.pathSeparator + "folder")
-        if (!tempPath.exists()) {
-            Assert.assertTrue(tempPath.mkdirs())
+    fun testIsFolderWritableWhenGivenFileShouldReturnFalse() = runBlocking {
+        val regularFile = File(context.cacheDir, "test_file.txt")
+        regularFile.createNewFile()
+        val result = isFolderWritable(regularFile)
+        assertFalse("A regular file should not be treated as a writable folder", result)
+    }
+
+    @Test
+    fun testIsFolderWritableWhenGivenNullShouldReturnFalse() = runBlocking {
+        val result = isFolderWritable(null)
+        assertFalse("Null input should return false", result)
+    }
+
+    @Test
+    fun testIsFolderWritableWhenGivenReadOnlyDirShouldReturnFalse() = runBlocking {
+        val readOnlyDir = File(context.cacheDir, "readonly_test")
+        readOnlyDir.mkdir()
+
+        try {
+            readOnlyDir.setReadOnly()
+            val result = isFolderWritable(readOnlyDir)
+            assertFalse("Read-only directory should return false", result)
+        } finally {
+            readOnlyDir.setWritable(true)
+            readOnlyDir.delete()
         }
-        Assert.assertEquals("", FileUtil.getFilenameFromPathString(tempPath.absolutePath))
     }
 
     @Test
-    fun assertDotFileInput() {
-        val file = getDummyFile(".dotfile.ext")
-        Assert.assertEquals(".dotfile.ext", FileUtil.getFilenameFromPathString(file.absolutePath))
-    }
+    fun testIsFolderWritableWhenGivenNestedStructureShouldReturnTrue() = runBlocking {
+        val rootDir = File(context.cacheDir, "test_root")
+        rootDir.mkdir()
 
-    @Test
-    fun assertFolderInput() {
-        val tempPath = File(FileStorageUtils.getTemporalPath(account.name))
-        if (!tempPath.exists()) {
-            Assert.assertTrue(tempPath.mkdirs())
+        try {
+            val result = isFolderWritable(rootDir)
+            assertTrue("Should be able to create and delete nested temp structures", result)
+            val children = rootDir.list()
+            assertTrue("Temp directory should have been cleaned up", children == null || children.isEmpty())
+        } finally {
+            rootDir.delete()
         }
-
-        Assert.assertEquals("", FileUtil.getFilenameFromPathString(tempPath.absolutePath))
     }
 
     @Test
-    fun assertNoFileExtensionInput() {
-        val file = getDummyFile("file")
-        Assert.assertEquals("file", FileUtil.getFilenameFromPathString(file.absolutePath))
+    fun testIsFolderWritableWhenGivenReadonlyNestedStructureShouldReturnFalse() = runBlocking {
+        val readOnlyDir = File(context.cacheDir, "locked_dir")
+        readOnlyDir.mkdir()
+        readOnlyDir.setReadOnly()
+
+        try {
+            val result = isFolderWritable(readOnlyDir)
+            assertFalse("Should return false if temp folder creation fails", result)
+        } finally {
+            readOnlyDir.setWritable(true)
+            readOnlyDir.delete()
+        }
     }
 }

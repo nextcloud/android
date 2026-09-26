@@ -2,43 +2,18 @@
 <!--
   ~ Nextcloud - Android Client
   ~
-  ~ SPDX-FileCopyrightText: 2020 Andy Scherzinger <info@andy-scherzinger.de>
-  ~ SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
-  ~ SPDX-FileCopyrightText: 2020 Nextcloud GmbH
-  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
--->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/add_public_share"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/sharee_list_item_size"
-    android:orientation="horizontal">
-
-    <ImageView
-        android:layout_width="@dimen/share_icon_size"
-        android:layout_height="@dimen/share_icon_size"
-        android:layout_gravity="center_vertical"
-        android:layout_marginStart="@dimen/standard_margin"
-        android:layout_marginEnd="@dimen/standard_margin"
-        android:background="@drawable/round_bgnd"
-        android:contentDescription="@string/share"
-        android:padding="@dimen/standard_half_padding"
-        android:src="@drawable/shared_via_link" />
-
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="1"
-        android:text="@string/share_permission_secure_file_drop"
-        android:textSize="@dimen/two_line_primary_text_size" />
-
-    <ImageView
-        android:id="@+id/add_new_secure_file_drop"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
-        android:contentDescription="@string/add_new_secure_file_drop"
-        android:paddingStart="@dimen/standard_padding"
-        android:paddingEnd="@dimen/standard_padding"
-        android:src="@drawable/ic_plus" />
-</LinearLayout>
+  ~ SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+  -->
+<com.google.android.material.button.MaterialButton android:id="@+id/add_public_share"
+    style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+    android:layout_width="wrap_content"
+    android:layout_marginStart="@dimen/standard_half_margin"
+    android:layout_marginTop="@dimen/standard_half_margin"
+    android:layout_height="@dimen/minimum_size_for_touchable_area"
+    android:text="@string/create_end_to_end_encrypted_share"
+    app:icon="@drawable/ic_plus"
+    android:textColor="@color/text_color"
+    app:iconPadding="@dimen/standard_half_padding"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android" />

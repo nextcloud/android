@@ -24,13 +24,13 @@ import java.nio.file.SimpleFileVisitor
 import java.nio.file.attribute.BasicFileAttributes
 
 @Suppress("TooGenericExceptionCaught", "MagicNumber", "ReturnCount")
-class AutoUploadHelper {
+class AutoUploadHelper(private val repository: FileSystemRepository) {
     companion object {
         private const val TAG = "AutoUploadHelper"
         private const val MAX_DEPTH = 100
     }
 
-    fun insertEntries(folder: SyncedFolder, repository: FileSystemRepository) {
+    fun insertEntries(folder: SyncedFolder) {
         when (folder.type) {
             MediaFolderType.IMAGE -> {
                 repository.insertFromUri(MediaStore.Images.Media.INTERNAL_CONTENT_URI, folder)
@@ -43,7 +43,7 @@ class AutoUploadHelper {
             }
 
             else -> {
-                insertCustomFolderIntoDB(folder, repository)
+                insertCustomFolderIntoDB(folder)
             }
         }
     }
@@ -59,11 +59,7 @@ class AutoUploadHelper {
      * {@link ContentObserverWork##checkAndTriggerAutoUpload()}.
      * @return {@code true} if all changed content URIs were successfully stored; {@code false} otherwise.
      */
-    fun insertChangedEntries(
-        syncedFolder: SyncedFolder,
-        contentUris: Array<String>?,
-        repository: FileSystemRepository
-    ): Boolean {
+    fun insertChangedEntries(syncedFolder: SyncedFolder, contentUris: Array<String>?): Boolean {
         contentUris?.forEach { uriString ->
             try {
                 val uri = uriString.toUri()
@@ -79,7 +75,7 @@ class AutoUploadHelper {
         return true
     }
 
-    fun insertCustomFolderIntoDB(folder: SyncedFolder, repository: FileSystemRepository): Int {
+    fun insertCustomFolderIntoDB(folder: SyncedFolder): Int {
         val path = Paths.get(folder.localPath)
 
         if (!Files.exists(path)) {

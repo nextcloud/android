@@ -1,4 +1,4 @@
-FROM ubuntu:noble@sha256:cd1dba651b3080c3686ecf4e3c4220f026b521fb76978881737d24f200828b2b
+FROM ubuntu:resolute@sha256:da6fc2be547864451aa253836dd926da33623312df4a9a243e35dc877c378a78
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV ANDROID_HOME=/usr/lib/android-sdk
@@ -16,5 +16,4 @@ RUN mkdir -p "$HOME/.gradle" && \
     echo "org.gradle.jvmargs=-Xmx6g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" > "$HOME/.gradle/gradle.properties" && \
     echo "org.gradle.caching=true" >> "$HOME/.gradle/gradle.properties" && \
     echo "org.gradle.parallel=true" >> "$HOME/.gradle/gradle.properties" && \
-    echo "org.gradle.configureondemand=true" >> "$HOME/.gradle/gradle.properties" && \
-    echo "kapt.incremental.apt=true" >> "$HOME/.gradle/gradle.properties"
+    echo "org.gradle.configureondemand=true" >> "$HOME/.gradle/gradle.properties"

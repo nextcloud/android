@@ -27,15 +27,24 @@ internal class PowerManagementServiceImpl(
         }
     }
 
+    override val isIgnoringOptimization: Boolean
+        get() {
+            val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
+            return powerManager.isIgnoringBatteryOptimizations(context.packageName)
+        }
+
     override val isPowerSavingEnabled: Boolean
         get() {
             return platformPowerManager.isPowerSaveMode
         }
 
+    override val blocksAutoUpload: Boolean
+        get() = isPowerSavingEnabled && !isIgnoringOptimization
+
     @Suppress("MagicNumber") // 100% is 100, we're not doing Cobol
     override val battery: BatteryStatus
         get() {
-            val intent: Intent? = context.registerBroadcastReceiver(
+            val intent = context.registerBroadcastReceiver(
                 null,
                 IntentFilter(Intent.ACTION_BATTERY_CHANGED),
                 ReceiverFlag.NotExported
@@ -48,7 +57,7 @@ internal class PowerManagementServiceImpl(
                     else -> false
                 }
             } ?: false
-            val level = intent?.let { it ->
+            val level = intent?.let {
                 val level: Int = it.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
                 val scale: Int = it.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
                 (level * 100 / scale.toFloat()).toInt()

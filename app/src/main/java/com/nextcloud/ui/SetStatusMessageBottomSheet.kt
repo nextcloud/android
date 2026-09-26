@@ -28,6 +28,8 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.SnackbarUtil
+import com.nextcloud.utils.text.DisplayTextFormatter
 import com.owncloud.android.R
 import com.owncloud.android.databinding.SetStatusMessageBottomSheetBinding
 import com.owncloud.android.datamodel.ArbitraryDataProvider
@@ -37,7 +39,6 @@ import com.owncloud.android.lib.resources.users.Status
 import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.adapter.PredefinedStatusClickListener
 import com.owncloud.android.ui.adapter.PredefinedStatusListAdapter
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import com.vanniktech.emoji.EmojiManager
 import com.vanniktech.emoji.EmojiPopup
@@ -179,7 +180,7 @@ class SetStatusMessageBottomSheet(val user: User, val currentStatus: Status?) :
             binding.remainingClearTime.apply {
                 binding.clearStatusMessageTextView.text = getString(R.string.clear)
                 visibility = View.VISIBLE
-                text = DisplayUtils.getRelativeTimestamp(context, it.clearAt * ONE_SECOND_IN_MILLIS, true)
+                text = DisplayTextFormatter.formatRelativeTimestamp(context, it.clearAt * ONE_SECOND_IN_MILLIS, true)
                     .toString()
                     .replaceFirstChar { it.lowercase(Locale.getDefault()) }
                 setOnClickListener {
@@ -296,7 +297,7 @@ class SetStatusMessageBottomSheet(val user: User, val currentStatus: Status?) :
         if (boolean) {
             dismiss()
         } else {
-            DisplayUtils.showSnackMessage(view, view?.resources?.getString(R.string.error_setting_status_message))
+            SnackbarUtil.show(view, view?.resources?.getString(R.string.error_setting_status_message))
         }
     }
 
@@ -354,7 +355,10 @@ class SetStatusMessageBottomSheet(val user: User, val currentStatus: Status?) :
     @SuppressLint("NotifyDataSetChanged")
     @VisibleForTesting
     fun setPredefinedStatus(predefinedStatus: ArrayList<PredefinedStatus>) {
-        adapter.list = predefinedStatus
-        binding.predefinedStatusList.adapter?.notifyDataSetChanged()
+        this.predefinedStatus = predefinedStatus
+        if (this::adapter.isInitialized) {
+            adapter.list = predefinedStatus
+            binding.predefinedStatusList.adapter?.notifyDataSetChanged()
+        }
     }
 }

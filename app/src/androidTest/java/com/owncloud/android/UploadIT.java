@@ -9,11 +9,12 @@
 package com.owncloud.android;
 
 import com.nextcloud.client.account.UserAccountManagerImpl;
-import com.nextcloud.client.device.BatteryStatus;
+import com.nextcloud.utils.PowerManagementFactory;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
-import com.nextcloud.client.network.Connectivity;
+import com.nextcloud.client.network.ConnectivityManagerFactory;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.test.SinceServer;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
@@ -38,8 +39,6 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import androidx.annotation.NonNull;
-
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertNotNull;
@@ -55,39 +54,7 @@ public class UploadIT extends AbstractOnServerIT {
         new UploadsStorageManager(UserAccountManagerImpl.fromContext(targetContext),
                                   targetContext.getContentResolver());
 
-    private ConnectivityService connectivityServiceMock = new ConnectivityService() {
-        @Override
-        public void isNetworkAndServerAvailable(@NonNull GenericCallback<Boolean> callback) {
-
-        }
-
-        @Override
-        public boolean isConnected() {
-            return false;
-        }
-
-        @Override
-        public boolean isInternetWalled() {
-            return false;
-        }
-
-        @Override
-        public Connectivity getConnectivity() {
-            return Connectivity.CONNECTED_WIFI;
-        }
-    };
-
-    private PowerManagementService powerManagementServiceMock = new PowerManagementService() {
-        @Override
-        public boolean isPowerSavingEnabled() {
-            return false;
-        }
-        @NonNull
-        @Override
-        public BatteryStatus getBattery() {
-            return new BatteryStatus(false, 0);
-        }
-    };
+    private final PowerManagementService powerManagementServiceMock = PowerManagementFactory.getMock();
 
     @Before
     public void before() throws IOException {
@@ -225,19 +192,7 @@ public class UploadIT extends AbstractOnServerIT {
 
     @Test
     public void testUploadOnChargingOnlyAndCharging() {
-        PowerManagementService powerManagementServiceMock = new PowerManagementService() {
-            @Override
-            public boolean isPowerSavingEnabled() {
-                return false;
-            }
-
-            @NonNull
-            @Override
-            public BatteryStatus getBattery() {
-                return new BatteryStatus(true, 100);
-            }
-        };
-
+        final var powerManagementServiceMock = PowerManagementFactory.getMockCharging();
         OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/empty.txt",
                                          FOLDER + "charging.txt", account.name);
         ocUpload.setWhileChargingOnly(true);
@@ -267,27 +222,7 @@ public class UploadIT extends AbstractOnServerIT {
 
     @Test
     public void testUploadOnWifiOnlyButNoWifi() {
-        ConnectivityService connectivityServiceMock = new ConnectivityService() {
-            @Override
-            public void isNetworkAndServerAvailable(@NonNull GenericCallback<Boolean> callback) {
-
-            }
-
-            @Override
-            public boolean isConnected() {
-                return false;
-            }
-
-            @Override
-            public boolean isInternetWalled() {
-                return false;
-            }
-
-            @Override
-            public Connectivity getConnectivity() {
-                return new Connectivity(true, false, false, true);
-            }
-        };
+        ConnectivityService connectivityServiceMock = ConnectivityManagerFactory.INSTANCE.getWifi();
         OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/empty.txt",
                                          FOLDER + "noWifi.txt", account.name);
         ocUpload.setUseWifiOnly(true);
@@ -356,27 +291,7 @@ public class UploadIT extends AbstractOnServerIT {
 
     @Test
     public void testUploadOnWifiOnlyButMeteredWifi() {
-        ConnectivityService connectivityServiceMock = new ConnectivityService() {
-            @Override
-            public void isNetworkAndServerAvailable(@NonNull GenericCallback<Boolean> callback) {
-
-            }
-
-            @Override
-            public boolean isConnected() {
-                return false;
-            }
-
-            @Override
-            public boolean isInternetWalled() {
-                return false;
-            }
-
-            @Override
-            public Connectivity getConnectivity() {
-                return new Connectivity(true, true, true, true);
-            }
-        };
+        ConnectivityService connectivityServiceMock = ConnectivityManagerFactory.INSTANCE.getMetered();
         OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/empty.txt",
                                          FOLDER + "noWifi.txt",
                                          account.name);
@@ -407,6 +322,7 @@ public class UploadIT extends AbstractOnServerIT {
     }
 
     @Test
+    @SinceServer(majorVersion = 27)
     public void testCreationAndUploadTimestamp() throws IOException, AccountUtils.AccountNotFoundException {
         testOnlyOnServer(NextcloudVersion.nextcloud_27);
 
@@ -461,6 +377,7 @@ public class UploadIT extends AbstractOnServerIT {
     }
 
     @Test
+    @SinceServer(majorVersion = 27)
     public void testMetadata() throws IOException, AccountUtils.AccountNotFoundException {
         testOnlyOnServer(NextcloudVersion.nextcloud_27);
 

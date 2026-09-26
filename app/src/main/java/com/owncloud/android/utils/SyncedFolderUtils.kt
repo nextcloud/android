@@ -7,15 +7,19 @@
  */
 package com.owncloud.android.utils
 
+import com.nextcloud.utils.extensions.toFile
 import com.owncloud.android.datamodel.MediaFolder
 import com.owncloud.android.datamodel.MediaFolderType
 import com.owncloud.android.datamodel.SyncedFolder
+import com.owncloud.android.lib.common.utils.Log_OC
 import java.io.File
 
 /**
  * Utility class with methods for processing synced folders.
  */
 object SyncedFolderUtils {
+    private const val TAG = "SyncedFolderUtils"
+
     private val DISQUALIFIED_MEDIA_DETECTION_SOURCE = listOf(
         "cover.jpg",
         "cover.jpeg",
@@ -173,5 +177,26 @@ object SyncedFolderUtils {
             }
         }
         return false
+    }
+
+    @Suppress("ReturnCount")
+    fun validateForAutoUpload(path: String?): File? {
+        val file = path?.toFile()
+        if (file == null) {
+            Log_OC.w(TAG, "Ignoring file for upload (doesn't exist): $path")
+            return null
+        }
+
+        if (!isQualifiedFolder(file.parent)) {
+            Log_OC.w(TAG, "Ignoring file for upload (unqualified folder): $path")
+            return null
+        }
+
+        if (!isFileNameQualifiedForAutoUpload(file.name)) {
+            Log_OC.w(TAG, "Ignoring file for upload (unqualified file): $path")
+            return null
+        }
+
+        return file
     }
 }

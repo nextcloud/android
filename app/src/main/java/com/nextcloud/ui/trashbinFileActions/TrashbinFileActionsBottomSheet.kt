@@ -26,15 +26,16 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.toOCFile
+import com.nextcloud.utils.thumbnail.ThumbnailArguments
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileActionsBottomSheetBinding
 import com.owncloud.android.databinding.FileActionsBottomSheetItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.SyncedFolderProvider
-import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile
-import com.owncloud.android.utils.DisplayUtils
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -57,13 +58,14 @@ class TrashbinFileActionsBottomSheet :
     @Inject
     lateinit var syncedFolderProvider: SyncedFolderProvider
 
+    @Inject
+    lateinit var thumbnailGenerator: ThumbnailGenerator
+
     private lateinit var viewModel: TrashbinFileActionsViewModel
 
     private var _binding: FileActionsBottomSheetBinding? = null
     val binding
         get() = _binding!!
-
-    private val thumbnailAsyncTasks = mutableListOf<ThumbnailsCacheManager.ThumbnailGenerationTask>()
 
     fun interface ResultListener {
         fun onResult(@IdRes actionId: Int)
@@ -109,7 +111,7 @@ class TrashbinFileActionsBottomSheet :
 
             TrashbinFileActionsViewModel.UiState.Error -> {
                 activity?.let {
-                    DisplayUtils.showSnackMessage(it, R.string.error_file_actions)
+                    SnackbarUtil.show(it, R.string.error_file_actions)
                 }
                 dismissAllowingStateLoss()
             }
@@ -118,18 +120,10 @@ class TrashbinFileActionsBottomSheet :
 
     private fun loadFileThumbnail(titleFile: TrashbinFile?) {
         titleFile?.let {
-            DisplayUtils.setThumbnail(
+            thumbnailGenerator.setThumbnail(
                 it.toOCFile(),
                 binding.thumbnailLayout.thumbnail,
-                currentUserProvider.user,
-                storageManager,
-                thumbnailAsyncTasks,
-                false,
-                context,
-                binding.thumbnailLayout.thumbnailShimmer,
-                syncedFolderProvider.preferences,
-                viewThemeUtils,
-                syncedFolderProvider
+                ThumbnailArguments.withShimmer(binding.thumbnailLayout.thumbnailShimmer)
             )
         }
     }

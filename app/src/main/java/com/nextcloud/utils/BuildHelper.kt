@@ -9,7 +9,7 @@ package com.nextcloud.utils
 import com.owncloud.android.BuildConfig
 
 object BuildHelper {
-    const val GPLAY: String = "gplay"
+    fun isFlavourGPlay(): Boolean = BuildConfig.FLAVOR == "gplay"
 
-    fun isFlavourGPlay(): Boolean = GPLAY == BuildConfig.FLAVOR
+    fun isHuaweiFlavor(): Boolean = BuildConfig.FLAVOR == "huawei"
 }

@@ -31,7 +31,7 @@ fun SimpleAlertDialog(
     heightFraction: Float? = null,
     content: @Composable (() -> Unit)? = null,
     onComplete: () -> Unit,
-    dismiss: () -> Unit
+    onDismiss: () -> Unit
 ) {
     val modifier = if (heightFraction != null) {
         Modifier
@@ -46,7 +46,7 @@ fun SimpleAlertDialog(
         iconContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
         titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
         textContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-        onDismissRequest = { dismiss() },
+        onDismissRequest = { onDismiss() },
         title = {
             Text(text = title)
         },
@@ -66,7 +66,7 @@ fun SimpleAlertDialog(
         confirmButton = {
             FilledTonalButton(onClick = {
                 onComplete()
-                dismiss()
+                onDismiss()
             }) {
                 Text(
                     stringResource(id = R.string.common_ok)
@@ -74,7 +74,7 @@ fun SimpleAlertDialog(
             }
         },
         dismissButton = {
-            TextButton(onClick = { dismiss() }) {
+            TextButton(onClick = { onDismiss() }) {
                 Text(
                     stringResource(id = R.string.common_cancel)
                 )

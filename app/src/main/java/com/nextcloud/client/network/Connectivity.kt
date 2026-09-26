@@ -10,7 +10,8 @@ data class Connectivity(
     val isConnected: Boolean = false,
     val isMetered: Boolean = false,
     val isWifi: Boolean = false,
-    val isServerAvailable: Boolean? = null
+    val isServerAvailable: Boolean? = null,
+    val isVPN: Boolean = false
 ) {
     companion object {
         @JvmField
@@ -21,7 +22,8 @@ data class Connectivity(
             isConnected = true,
             isMetered = false,
             isWifi = true,
-            isServerAvailable = true
+            isServerAvailable = true,
+            isVPN = false
         )
     }
 }

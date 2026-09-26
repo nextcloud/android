@@ -1,75 +1,129 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Nextcloud - Android Client
-  ~
+  ~ SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
   ~ SPDX-FileCopyrightText: 2019 Daniel Bailey <daniel.bailey@grappleit.co.uk>
   ~ SPDX-FileCopyrightText: 2015-2017 Andy Scherzinger <info@andy-scherzinger.de>
   ~ SPDX-FileCopyrightText: 2016 Divay Prakash <divayprakash3@gmail.com>
   ~ SPDX-FileCopyrightText: 2013 ownCloud Inc.
   ~ SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fileDownloadLL"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:gravity="center_vertical"
-    android:orientation="vertical"
-    android:padding="@dimen/file_download_fragment_layout_padding">
-
-    <TextView
-        android:id="@+id/progressText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/alternate_fragment_margin"
-        android:text="@string/downloader_not_downloaded_yet"
-        android:textColor="@color/dark_background_text_color" />
+    android:clickable="true"
+    android:focusable="true">
 
     <LinearLayout
-        android:id="@+id/fdProgressBlock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/fragment_margin"
-        android:layout_marginBottom="@dimen/alternate_fragment_margin"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/standard_padding">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="0dp"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/progressCard"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:indeterminate="false"
-            android:indeterminateOnly="false" />
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
 
-        <ImageButton
-            android:id="@+id/cancelBtn"
-            android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/downloadingContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/standard_padding">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/standard_margin"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/minimum_size_for_touchable_area"
+                        android:layout_height="@dimen/minimum_size_for_touchable_area"
+                        android:contentDescription="@null"
+                        android:padding="@dimen/standard_half_padding"
+                        android:src="@drawable/ic_cloud_download"
+                        app:tint="?attr/colorPrimary" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/progressText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/fragment_margin"
+                        android:layout_weight="1"
+                        android:text="@string/downloader_not_downloaded_yet"
+                        android:textAppearance="?attr/textAppearanceTitleSmall"
+                        android:textColor="?attr/colorOnSurfaceVariant" />
+
+                </LinearLayout>
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/progressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/standard_margin"
+                    android:indeterminate="true"
+                    app:indicatorColor="?attr/colorPrimary"
+                    app:trackColor="?attr/colorSurfaceContainerHighest" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/cancelBtn"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="@string/common_cancel" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/errorCard"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/fragment_margin"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/common_cancel"
-            android:src="@drawable/ic_action_cancel_grey" />
+            android:layout_marginTop="@dimen/standard_margin"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:id="@+id/errorContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/standard_double_padding">
+
+                <ImageView
+                    android:id="@+id/error_image"
+                    android:layout_width="@dimen/standard_quadruple_icon_size"
+                    android:layout_height="@dimen/standard_quadruple_icon_size"
+                    android:layout_marginBottom="@dimen/standard_margin"
+                    android:contentDescription="@string/downloader_download_failed_ticker"
+                    android:src="@drawable/image_fail"
+                    app:tint="?attr/colorError" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/errorText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/downloader_download_failed_ticker"
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:textColor="@color/text_color" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/error_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/zero"
-        android:contentDescription="@string/downloader_download_failed_ticker"
-        android:src="@drawable/image_fail" />
-
-    <TextView
-        android:id="@+id/errorText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/file_download_fragment_display_text_margin"
-        android:text="@string/downloader_download_failed_ticker"
-        android:textColor="@color/dark_background_text_color" />
-
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

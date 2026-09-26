@@ -16,9 +16,9 @@ import androidx.work.WorkerParameters
 import com.nextcloud.client.logger.Logger
 import com.owncloud.android.lib.common.utils.Log_OC
 import net.fortuna.ical4j.data.CalendarBuilder
-import third_parties.sufficientlysecure.AndroidCalendar
-import third_parties.sufficientlysecure.CalendarSource
-import third_parties.sufficientlysecure.ProcessVEvent
+import thirdparties.sufficientlysecure.AndroidCalendar
+import thirdparties.sufficientlysecure.CalendarSource
+import thirdparties.sufficientlysecure.ProcessVEvent
 import java.io.File
 
 class CalendarImportWork(

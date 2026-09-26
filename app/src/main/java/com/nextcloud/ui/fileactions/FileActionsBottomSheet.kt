@@ -18,8 +18,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.os.BundleCompat
 import androidx.core.os.bundleOf
-import androidx.core.view.isEmpty
+import androidx.core.view.isNotEmpty
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
@@ -33,19 +34,25 @@ import com.nextcloud.android.lib.resources.clientintegration.Endpoint
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
+import com.nextcloud.utils.SnackbarUtil
+import com.nextcloud.utils.avatar.AvatarGenerationListener
+import com.nextcloud.utils.avatar.AvatarGenerator
 import com.nextcloud.utils.extensions.setVisibleIf
+import com.nextcloud.utils.text.DisplayTextFormatter
+import com.nextcloud.utils.text.SpanFormatter
+import com.nextcloud.utils.thumbnail.ThumbnailArguments
+import com.nextcloud.utils.view.LocaleDirection
+import com.nextcloud.utils.view.ScreenMetrics
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileActionsBottomSheetBinding
 import com.owncloud.android.databinding.FileActionsBottomSheetItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
-import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.resources.files.model.FileLockType
 import com.owncloud.android.ui.activity.ComponentsGetter
-import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import com.owncloud.android.utils.FileStorageUtils
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -68,6 +75,12 @@ class FileActionsBottomSheet :
     @Inject
     lateinit var syncedFolderProvider: SyncedFolderProvider
 
+    @Inject
+    lateinit var thumbnailGenerator: ThumbnailGenerator
+
+    @Inject
+    lateinit var avatarGenerator: AvatarGenerator
+
     private lateinit var viewModel: FileActionsViewModel
 
     private var _binding: FileActionsBottomSheetBinding? = null
@@ -75,8 +88,6 @@ class FileActionsBottomSheet :
         get() = _binding!!
 
     private lateinit var componentsGetter: ComponentsGetter
-
-    private val thumbnailAsyncTasks = mutableListOf<ThumbnailsCacheManager.ThumbnailGenerationTask>()
 
     private var endpoints: List<Endpoint>? = mutableListOf()
 
@@ -98,7 +109,9 @@ class FileActionsBottomSheet :
 
         viewModel.load(requireArguments(), componentsGetter)
 
-        endpoints = arguments?.getParcelableArrayList(FileActionsViewModel.ARG_ENDPOINTS)
+        endpoints = arguments?.let { bundle ->
+            BundleCompat.getParcelableArrayList(bundle, FileActionsViewModel.ARG_ENDPOINTS, Endpoint::class.java)
+        } ?: mutableListOf()
 
         val bottomSheetDialog = dialog as BottomSheetDialog
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
@@ -119,21 +132,21 @@ class FileActionsBottomSheet :
                 if (state.lockInfo != null) {
                     displayLockInfo(state.lockInfo)
                 }
-                displayActions(state.actions)
+                displayActions(state.titleFile, state.actions)
                 displayTitle(state.titleFile)
             }
 
             is FileActionsViewModel.UiState.LoadedForMultipleFiles -> {
                 setMultipleFilesThumbnail()
-                displayActions(state.actions)
+                displayActions(state.firstFile, state.actions)
                 displayTitle(state.fileCount)
             }
 
-            FileActionsViewModel.UiState.Loading -> {}
+            FileActionsViewModel.UiState.Loading -> Unit
 
             FileActionsViewModel.UiState.Error -> {
                 activity?.let {
-                    DisplayUtils.showSnackMessage(it, R.string.error_file_actions)
+                    SnackbarUtil.show(it, R.string.error_file_actions)
                 }
                 dismissAllowingStateLoss()
             }
@@ -142,18 +155,10 @@ class FileActionsBottomSheet :
 
     private fun loadFileThumbnail(titleFile: OCFile?) {
         titleFile?.let {
-            DisplayUtils.setThumbnail(
+            thumbnailGenerator.setThumbnail(
                 it,
                 binding.thumbnailLayout.thumbnail,
-                currentUserProvider.user,
-                storageManager,
-                thumbnailAsyncTasks,
-                false,
-                context,
-                binding.thumbnailLayout.thumbnailShimmer,
-                syncedFolderProvider.preferences,
-                viewThemeUtils,
-                syncedFolderProvider
+                ThumbnailArguments.withShimmer(binding.thumbnailLayout.thumbnailShimmer)
             )
         }
     }
@@ -203,26 +208,32 @@ class FileActionsBottomSheet :
         }
     }
 
-    private fun displayActions(actions: List<FileAction>) {
-        if (binding.fileActionsList.isEmpty()) {
-            actions.forEach { action ->
-                val view = inflateActionView(action)
-                binding.fileActionsList.addView(view)
-            }
+    private fun displayActions(file: OCFile?, actions: List<FileAction>) {
+        if (binding.fileActionsList.isNotEmpty()) {
+            return
+        }
 
-            // add client integration
-            if (endpoints != null) {
-                for (val e in endpoints) {
-                    val ui = clientIntegration.inflateClientIntegrationActionView(
-                        e,
-                        layoutInflater,
-                        binding,
-                        viewModel,
-                        viewThemeUtils
-                    )
-                    binding.fileActionsList.addView(ui)
-                }
-            }
+        actions.forEach { action ->
+            val view = inflateActionView(action)
+            binding.fileActionsList.addView(view)
+        }
+
+        val parentDir = file?.parentId?.let { storageManager.getFileById(it) }
+
+        if (endpoints.isNullOrEmpty() || parentDir?.isEncrypted == true) {
+            return
+        }
+
+        // add client integration
+        endpoints?.forEach {
+            val view = clientIntegration.inflateClientIntegrationActionView(
+                it,
+                layoutInflater,
+                binding,
+                viewModel,
+                viewThemeUtils
+            )
+            binding.fileActionsList.addView(view)
         }
     }
 
@@ -230,11 +241,11 @@ class FileActionsBottomSheet :
         val decryptedFileName = titleFile?.decryptedFileName
         if (decryptedFileName != null) {
             val isFolder = titleFile.isFolder
-            val isRTL = DisplayUtils.isRTL()
+            val isRTL = LocaleDirection.isRtl
             val (base, ext) = FileStorageUtils.getFilenameAndExtension(decryptedFileName, isFolder, isRTL)
-            val titleMaxWidth = DisplayUtils.convertDpToPixel(
+            val titleMaxWidth = ScreenMetrics.dpToPx(
                 requireContext().resources.configuration.screenWidthDp.times(FILENAME_MAX_WIDTH_PERCENTAGE).toFloat(),
-                context
+                requireContext()
             )
 
             binding.title.maxWidth = titleMaxWidth
@@ -275,14 +286,11 @@ class FileActionsBottomSheet :
 
             override fun shouldCallGeneratedCallback(tag: String?, callContext: Any?): Boolean = false
         }
-        DisplayUtils.setAvatar(
-            currentUserProvider.user,
+        avatarGenerator.setUserAvatar(
             lockInfo.lockedBy,
             listener,
             resources.getDimension(R.dimen.list_item_avatar_icon_radius),
-            resources,
-            this,
-            requireContext()
+            this
         )
     }
 
@@ -291,7 +299,7 @@ class FileActionsBottomSheet :
             FileLockType.COLLABORATIVE -> R.string.locked_by_app
             else -> R.string.locked_by
         }
-        return DisplayUtils.createTextWithSpan(
+        return SpanFormatter.styleLast(
             getString(resource, lockInfo.lockedBy),
             lockInfo.lockedBy,
             StyleSpan(Typeface.BOLD)
@@ -299,7 +307,8 @@ class FileActionsBottomSheet :
     }
 
     private fun getLockedUntilText(lockInfo: FileActionsViewModel.LockInfo): CharSequence {
-        val relativeTimestamp = DisplayUtils.getRelativeTimestamp(context, lockInfo.lockedUntil!!, true)
+        val relativeTimestamp =
+            DisplayTextFormatter.formatRelativeTimestamp(requireContext(), lockInfo.lockedUntil!!, true)
         return getString(R.string.lock_expiration_info, relativeTimestamp)
     }
 
@@ -364,7 +373,7 @@ class FileActionsBottomSheet :
                 FileActionsViewModel.ARG_FILES to ArrayList<OCFile>(files),
                 FileActionsViewModel.ARG_IS_OVERFLOW to isOverflow,
                 FileActionsViewModel.ARG_IN_SINGLE_FILE_FRAGMENT to inSingleFileFragment,
-                FileActionsViewModel.ARG_ENDPOINTS to endpoints
+                FileActionsViewModel.ARG_ENDPOINTS to java.util.ArrayList(endpoints)
             )
             additionalToHide?.let {
                 argsBundle.putIntArray(FileActionsViewModel.ARG_ADDITIONAL_FILTER, additionalToHide.toIntArray())

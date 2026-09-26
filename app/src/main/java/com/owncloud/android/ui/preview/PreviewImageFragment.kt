@@ -8,6 +8,7 @@
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2015 ownCloud Inc.
  * SPDX-FileCopyrightText: 2013-2015 David A. Velasco <dvelasco@solidgear.es>
+ * SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
 package com.owncloud.android.ui.preview
@@ -37,8 +38,8 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import com.caverock.androidsvg.SVG
 import com.caverock.androidsvg.SVGParseException
 import com.github.chrisbanes.photoview.PhotoView
@@ -47,10 +48,16 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.client.player.model.file.PlaybackCollection
 import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.clickWithDebounce
+import com.nextcloud.utils.extensions.getBigThumbnailKey
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.getSmallThumbnail
+import com.nextcloud.utils.extensions.typedActivity
+import com.nextcloud.utils.view.ScreenMetrics
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PreviewImageFragmentBinding
@@ -59,16 +66,18 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncResizedImageDrawable
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.ResizedImageGenerationTask
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.operations.FetchRemoteFileOperation
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment
 import com.owncloud.android.ui.fragment.FileFragment
-import com.owncloud.android.ui.preview.PreviewMediaFragment.Companion.newInstance
 import com.owncloud.android.utils.BitmapUtils
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import pl.droidsonroids.gif.GifDrawable
 import java.io.FileInputStream
 import java.io.FileNotFoundException
@@ -95,7 +104,7 @@ class PreviewImageFragment :
     FileFragment(),
     Injectable {
     private var showResizedImage: Boolean? = null
-    private var bitmap: Bitmap? = null
+    private var ownedBitmap: Bitmap? = null
 
     private var ignoreFirstSavedState = false
     private var loadBitmapTask: LoadBitmapTask? = null
@@ -153,20 +162,15 @@ class PreviewImageFragment :
 
     private fun hideActionBar() {
         (requireActivity() as PreviewImageActivity).run {
-            toggleActionBarVisibility(true)
+            toggleActionBarVisibility(false)
         }
     }
 
-    private fun playLivePhoto(file: OCFile?) {
-        if (file == null) {
-            return
-        }
-
+    private fun playLivePhoto(file: OCFile) {
         hideActionBar()
 
-        val mediaFragment: Fragment = newInstance(file, accountManager.user, 0, true, true)
-        val fragmentManager = requireActivity().supportFragmentManager
-        fragmentManager.beginTransaction().run {
+        val mediaFragment = PreviewPlaybackFragment.newInstance(file, PlaybackCollection.FOLDER, autoplay = true)
+        requireActivity().supportFragmentManager.beginTransaction().run {
             replace(R.id.top, mediaFragment)
             addToBackStack(null)
             commit()
@@ -233,7 +237,7 @@ class PreviewImageFragment :
 
         binding.image.tag = file.fileId
 
-        val screenSize = DisplayUtils.getScreenSize(activity)
+        val screenSize = ScreenMetrics.size(activity)
         val width = screenSize.x
         val height = screenSize.y
 
@@ -241,12 +245,11 @@ class PreviewImageFragment :
         binding.image.visibility = View.GONE
         binding.emptyListProgress.visibility = View.VISIBLE
 
-        var thumbnail = getThumbnailBitmap(file)
+        var thumbnail = file.getSmallThumbnail()
         if (thumbnail != null) {
             binding.shimmer.visibility = View.VISIBLE
             binding.shimmerThumbnail.setImageBitmap(thumbnail)
             binding.image.visibility = View.GONE
-            bitmap = thumbnail
         } else {
             thumbnail = ThumbnailsCacheManager.mDefaultImg
         }
@@ -271,8 +274,6 @@ class PreviewImageFragment :
             binding.emptyListView.visibility = View.GONE
             binding.emptyListProgress.visibility = View.GONE
             binding.image.setBackgroundColor(resources.getColor(R.color.background_color_inverse))
-
-            bitmap = resizedImage
         } else {
             // generate new resized image
             if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, binding.image) &&
@@ -313,11 +314,11 @@ class PreviewImageFragment :
         while (i < 3 && cachedImage == null) {
             try {
                 cachedImage = ThumbnailsCacheManager.getScaledBitmapFromDiskCache(
-                    ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId,
+                    file.getBigThumbnailKey(),
                     scaledWidth,
                     scaledHeight
                 )
-            } catch (e: OutOfMemoryError) {
+            } catch (_: OutOfMemoryError) {
                 scaledWidth /= 2
                 scaledHeight /= 2
             }
@@ -326,9 +327,6 @@ class PreviewImageFragment :
 
         return cachedImage
     }
-
-    private fun getThumbnailBitmap(file: OCFile): Bitmap? =
-        ThumbnailsCacheManager.getBitmapFromDiskCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.remoteId)
 
     override fun onStop() {
         Log_OC.d(TAG, "onStop starts")
@@ -361,17 +359,7 @@ class PreviewImageFragment :
 
                 override fun onMenuItemSelected(menuItem: MenuItem): Boolean = when (menuItem.itemId) {
                     R.id.custom_menu_placeholder_item -> {
-                        val file = file
-                        if (containerActivity.storageManager != null && file != null) {
-                            // Update the file
-                            val updatedFile = containerActivity.storageManager.getFileById(file.fileId)
-                            setFile(updatedFile)
-
-                            val fileNew = getFile()
-                            if (fileNew != null) {
-                                showFileActions(file)
-                            }
-                        }
+                        onOverflowClick()
                         true
                     }
 
@@ -381,6 +369,53 @@ class PreviewImageFragment :
             viewLifecycleOwner,
             Lifecycle.State.RESUMED
         )
+    }
+
+    @Suppress("ReturnCount")
+    private fun onOverflowClick(isManualClick: Boolean = false) {
+        val file = file ?: return
+        val storageManager = containerActivity.storageManager ?: return
+        val updatedFile = storageManager.getFileById(file.fileId)
+
+        // check for albums file for album file both local and remoteId will be same configured at operation level
+        if (!isManualClick && updatedFile != null && updatedFile.localId.toString() == updatedFile.remoteId) {
+            fetchFileMetaDataIfAbsent(updatedFile)
+            return
+        }
+
+        setFile(updatedFile)
+        val fileNew = getFile()
+        if (fileNew != null) {
+            showFileActions(file)
+        }
+    }
+
+    private fun fetchFileMetaDataIfAbsent(ocFile: OCFile) {
+        typedActivity<FileActivity>()?.showLoadingDialog(getString(R.string.wait_a_moment))
+        val context = context ?: return
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            val operation = FetchRemoteFileOperation(
+                context,
+                accountManager.user,
+                ocFile,
+                removeFileFromDb = true,
+                storageManager = containerActivity.storageManager
+            )
+            val result = operation.execute(context)
+
+            withContext(Dispatchers.Main) {
+                typedActivity<FileActivity>()?.dismissLoadingDialog()
+
+                if (result?.isSuccess == true && result.resultData != null) {
+                    file = result.resultData as OCFile
+                    onOverflowClick(isManualClick = true)
+                } else {
+                    Log_OC.d(TAG, result?.logMessage)
+                    SnackbarUtil.show(binding.root, result.getLogMessage(context))
+                }
+            }
+        }
     }
 
     private fun showFileActions(file: OCFile) {
@@ -415,7 +450,7 @@ class PreviewImageFragment :
                 val activity = containerActivity as FileActivity
                 activity.showSyncLoadingDialog(file.isFolder)
             }
-            containerActivity.fileOperationsHelper.syncFile(file)
+            containerActivity.fileOperationsHelper.syncFileOrFolder(file)
         } else if (itemId == R.id.action_cancel_sync) {
             containerActivity.fileOperationsHelper.cancelTransference(file)
         } else if (itemId == R.id.action_set_as_wallpaper) {
@@ -431,6 +466,8 @@ class PreviewImageFragment :
             )
         } else if (itemId == R.id.action_edit) {
             (requireActivity() as PreviewImageActivity).startImageEditor(file)
+        } else if (itemId == R.id.action_add_to_album) {
+            containerActivity.fileOperationsHelper.addFileToAlbum(listOf(file))
         }
     }
 
@@ -440,7 +477,7 @@ class PreviewImageFragment :
 
     @SuppressFBWarnings("Dm")
     override fun onDestroy() {
-        bitmap?.recycle()
+        ownedBitmap?.recycle()
         super.onDestroy()
     }
 
@@ -487,7 +524,7 @@ class PreviewImageFragment :
             val storagePath = ocFile.storagePath
             try {
                 val maxDownScale = 3 // could be a parameter passed to doInBackground(...)
-                val screenSize = DisplayUtils.getScreenSize(activity)
+                val screenSize = ScreenMetrics.size(activity)
                 var minWidth = screenSize.x
                 var minHeight = screenSize.y
                 var i = 0
@@ -572,7 +609,7 @@ class PreviewImageFragment :
                 showErrorMessage(mErrorMessageId)
             }
 
-            if (result?.bitmap != null && bitmap != result.bitmap) {
+            if (result?.bitmap != null && ownedBitmap != result.bitmap) {
                 // unused bitmap, release it! (just in case)
                 result.bitmap.recycle()
             }
@@ -603,7 +640,7 @@ class PreviewImageFragment :
                     imageView.setImageBitmap(bitmap)
                 }
 
-                this@PreviewImageFragment.bitmap = bitmap // needs to be kept for recycling when not useful
+                this@PreviewImageFragment.ownedBitmap = bitmap
             } else {
                 if (drawable != null &&
                     MIME_TYPE_SVG.equals(result.ocFile.mimeType, ignoreCase = true)

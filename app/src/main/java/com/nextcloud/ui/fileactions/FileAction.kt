@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
@@ -13,6 +14,7 @@ import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.utils.MimeTypeUtil
 
 enum class FileAction(
     @param:IdRes val id: Int,
@@ -39,7 +41,8 @@ enum class FileAction(
 
     // Uploads and downloads
     DOWNLOAD_FILE(R.id.action_download_file, R.string.filedetails_download, R.drawable.ic_cloud_download),
-    DOWNLOAD_FOLDER(R.id.action_sync_file, R.string.filedetails_sync_file, R.drawable.ic_sync),
+    SYNC_FOLDER(R.id.action_sync_file, R.string.filedetails_sync_file, R.drawable.ic_sync),
+    SYNC_ALL_FOLDERS(R.id.action_sync_all_files, R.string.filedetails_sync_all_files, R.drawable.ic_sync_all),
     CANCEL_SYNC(R.id.action_cancel_sync, R.string.common_cancel_sync, R.drawable.ic_sync_off),
 
     // File sharing
@@ -47,6 +50,7 @@ enum class FileAction(
     SEND_SHARE_FILE(R.id.action_send_share_file, R.string.action_send_share, R.drawable.ic_share),
     SEND_FILE(R.id.action_send_file, R.string.common_send, R.drawable.ic_share),
     OPEN_FILE_WITH(R.id.action_open_file_with, R.string.actionbar_open_with, R.drawable.ic_external),
+    OPEN_IN_WEB_EDITOR(R.id.action_open_in_web_editor, R.string.action_open_in_web_editor, R.drawable.file_doc),
     STREAM_MEDIA(R.id.action_stream_media, R.string.stream, R.drawable.ic_play_arrow),
     SET_AS_WALLPAPER(R.id.action_set_as_wallpaper, R.string.set_picture_as, R.drawable.ic_wallpaper),
 
@@ -62,7 +66,10 @@ enum class FileAction(
     PIN_TO_HOMESCREEN(R.id.action_pin_to_homescreen, R.string.pin_home, R.drawable.add_to_home_screen),
 
     // Retry for offline operation
-    RETRY(R.id.action_retry, R.string.retry, R.drawable.ic_retry);
+    RETRY(R.id.action_retry, R.string.retry, R.drawable.ic_retry),
+
+    // Add to Album operation for image and video files
+    ADD_TO_ALBUM(R.id.action_add_to_album, R.string.add_to_album, R.drawable.ic_album);
 
     constructor(id: Int, title: Int) : this(id, title, null)
 
@@ -71,7 +78,7 @@ enum class FileAction(
          * All file actions, in the order they should be displayed
          */
         fun getActions(files: Collection<OCFile>): List<FileAction> {
-            return mutableListOf(
+            val result = mutableListOf(
                 UNLOCK_FILE,
                 EDIT,
                 FAVORITE,
@@ -79,6 +86,7 @@ enum class FileAction(
                 SEE_DETAILS,
                 LOCK_FILE,
                 RENAME_FILE,
+                ADD_TO_ALBUM,
                 MOVE_OR_COPY,
                 DOWNLOAD_FILE,
                 EXPORT_FILE,
@@ -86,19 +94,32 @@ enum class FileAction(
                 SEND_SHARE_FILE,
                 SEND_FILE,
                 OPEN_FILE_WITH,
-                DOWNLOAD_FOLDER,
-                CANCEL_SYNC,
-                SELECT_ALL,
-                SELECT_NONE,
-                SET_ENCRYPTED,
-                UNSET_ENCRYPTED,
-                SET_AS_WALLPAPER,
-                PIN_TO_HOMESCREEN,
-                RETRY
-            ).apply {
-                val deleteOrLeaveShareAction = getDeleteOrLeaveShareAction(files) ?: return@apply
-                add(deleteOrLeaveShareAction)
+                OPEN_IN_WEB_EDITOR,
+                SYNC_FOLDER
+            )
+
+            if (files.size == 1 && files.first().isFolder && !files.first().isEncrypted) {
+                result.add(SYNC_ALL_FOLDERS)
             }
+
+            result.addAll(
+                listOf(
+                    CANCEL_SYNC,
+                    SELECT_ALL,
+                    SELECT_NONE,
+                    SET_ENCRYPTED,
+                    UNSET_ENCRYPTED,
+                    SET_AS_WALLPAPER,
+                    PIN_TO_HOMESCREEN,
+                    RETRY
+                )
+            )
+
+            getDeleteOrLeaveShareAction(files)?.let {
+                result.add(it)
+            }
+
+            return result
         }
 
         fun getFilePreviewActions(file: OCFile?): List<Int> {
@@ -113,7 +134,7 @@ enum class FileAction(
 
             if (file != null) {
                 val actionsToHide = getActionsToHide(setOf(file))
-                result.removeAll(actionsToHide)
+                result.removeAll(actionsToHide.toSet())
             }
 
             return result.toList()
@@ -124,8 +145,6 @@ enum class FileAction(
                 R.id.action_lock_file,
                 R.id.action_unlock_file,
                 R.id.action_edit,
-                R.id.action_favorite,
-                R.id.action_unset_favorite,
                 R.id.action_see_details,
                 R.id.action_move_or_copy,
                 R.id.action_stream_media,
@@ -136,6 +155,7 @@ enum class FileAction(
             if (file?.isFolder == true) {
                 result.add(R.id.action_send_file)
                 result.add(R.id.action_sync_file)
+                result.add(R.id.action_sync_all_files)
             }
 
             if (file?.isAPKorAAB == true) {
@@ -145,7 +165,7 @@ enum class FileAction(
 
             if (file != null) {
                 val actionsToHide = getActionsToHide(setOf(file))
-                result.removeAll(actionsToHide)
+                result.removeAll(actionsToHide.toSet())
             }
 
             return result.toList()
@@ -160,6 +180,7 @@ enum class FileAction(
                         R.id.action_favorite,
                         R.id.action_move_or_copy,
                         R.id.action_sync_file,
+                        R.id.action_sync_all_files,
                         R.id.action_encrypted,
                         R.id.action_unset_encrypted,
                         R.id.action_edit,
@@ -176,6 +197,7 @@ enum class FileAction(
                         R.id.action_send_share_file,
                         R.id.action_export_file,
                         R.id.action_sync_file,
+                        R.id.action_sync_all_files,
                         R.id.action_download_file
                     )
                 )
@@ -206,6 +228,10 @@ enum class FileAction(
 
             if (files.any { !it.canWrite() }) {
                 result.add(R.id.action_edit)
+            }
+
+            if (files.any { !MimeTypeUtil.isImageOrVideo(it) }) {
+                result.add(R.id.action_add_to_album)
             }
 
             if (files.any { it.isRecommendedFile }) {

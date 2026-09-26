@@ -72,13 +72,19 @@ class OfflineSyncWork(
         if (files != null) {
             for (file in files) {
                 val ocFile = storageManager.getFileByLocalPath(file.path)
+                val remotePath = ocFile?.remotePath
+                if (remotePath == null) {
+                    Log_OC.w(TAG, "remote path is null can't sync")
+                    continue
+                }
+
                 val synchronizeFileOperation = SynchronizeFileOperation(
-                    ocFile?.remotePath,
+                    remotePath,
                     user,
                     true,
                     context,
                     storageManager,
-                    true,
+                    false,
                     false
                 )
                 synchronizeFileOperation.execute(context)
@@ -133,7 +139,7 @@ class OfflineSyncWork(
                 result?.data?.get(0) as? String
             }
 
-            else -> if (connectivityService.isInternetWalled) {
+            else -> if (connectivityService.isInternetWalled()) {
                 Log_OC.d(TAG, "No connectivity, skipping sync")
                 null
             } else {

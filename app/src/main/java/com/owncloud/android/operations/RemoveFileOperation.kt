@@ -34,7 +34,7 @@ import com.owncloud.android.utils.MimeTypeUtil
 @Suppress("LongParameterList")
 class RemoveFileOperation(
     val file: OCFile,
-    private val onlyLocalCopy: Boolean,
+    val onlyLocalCopy: Boolean,
     private val user: User,
     val isInBackground: Boolean,
     private val context: Context,

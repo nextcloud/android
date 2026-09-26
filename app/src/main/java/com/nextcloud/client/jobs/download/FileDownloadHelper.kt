@@ -59,23 +59,17 @@ class FileDownloadHelper {
 
         files.forEach { file ->
             FileDownloadWorker.cancelOperation(user.accountName, file.fileId)
-            backgroundJobManager.cancelFilesDownloadJob(user, file.fileId)
+            backgroundJobManager.cancelFilesDownloadJob(user.accountName, file.fileId)
         }
     }
 
-    fun cancelAllDownloadsForAccount(accountName: String?, currentDownload: DownloadFileOperation?) {
-        if (accountName == null || currentDownload == null) return
-
-        val currentUser = currentDownload.user
-        val currentFile = currentDownload.file
-
-        if (!currentUser.nameEquals(accountName)) {
+    fun cancelAllDownloadsForAccount(accountName: String, currentDownloadAccountName: String, fileId: Long) {
+        if (!accountName.equals(currentDownloadAccountName, true)) {
             return
         }
 
-        currentDownload.cancel()
-        FileDownloadWorker.cancelOperation(currentUser.accountName, currentFile.fileId)
-        backgroundJobManager.cancelFilesDownloadJob(currentUser, currentFile.fileId)
+        FileDownloadWorker.cancelOperation(currentDownloadAccountName, fileId)
+        backgroundJobManager.cancelFilesDownloadJob(currentDownloadAccountName, fileId)
     }
 
     fun saveFile(file: OCFile, currentDownload: DownloadFileOperation?, storageManager: FileDataStorageManager?) {
@@ -85,8 +79,8 @@ class FileDownloadHelper {
             lastSyncDateForProperties = syncDate
             lastSyncDateForData = syncDate
             isUpdateThumbnailNeeded = true
-            modificationTimestamp = currentDownload?.modificationTimestamp ?: 0L
-            modificationTimestampAtLastSyncForData = currentDownload?.modificationTimestamp ?: 0L
+            modificationTimestamp = currentDownload?.getModificationTimestamp() ?: 0L
+            modificationTimestampAtLastSyncForData = currentDownload?.getModificationTimestamp() ?: 0L
             etag = currentDownload?.etag
             mimeType = currentDownload?.mimeType
             storagePath = currentDownload?.savePath

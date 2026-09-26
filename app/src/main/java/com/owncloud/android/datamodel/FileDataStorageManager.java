@@ -21,11 +21,10 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.content.OperationApplicationException;
 import android.database.Cursor;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
-import android.os.Build;
 import android.os.RemoteException;
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -35,6 +34,7 @@ import com.google.gson.JsonSyntaxException;
 import com.nextcloud.android.lib.resources.files.FileDownloadLimit;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.NextcloudDatabase;
+import com.nextcloud.client.database.dao.CapabilityDao;
 import com.nextcloud.client.database.dao.FileDao;
 import com.nextcloud.client.database.dao.OfflineOperationDao;
 import com.nextcloud.client.database.dao.RecommendedFileDao;
@@ -47,8 +47,12 @@ import com.nextcloud.model.OfflineOperationRawType;
 import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.model.ShareeEntry;
 import com.nextcloud.utils.date.DateFormatPattern;
+import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.nextcloud.utils.extensions.DateExtensionsKt;
+import com.nextcloud.utils.extensions.FileDataStorageManagerExtensionsKt;
+import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.MainApp;
+import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -92,7 +96,7 @@ import kotlin.Pair;
 
 @SuppressFBWarnings("CE")
 public class FileDataStorageManager {
-    private static final String TAG = FileDataStorageManager.class.getSimpleName();
+    public static final String TAG = FileDataStorageManager.class.getSimpleName();
 
     private static final String AND = " = ? AND ";
     private static final String FAILED_TO_INSERT_MSG = "Fail to insert insert file to database ";
@@ -111,6 +115,7 @@ public class FileDataStorageManager {
     public final OfflineOperationDao offlineOperationDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).offlineOperationDao();
     public final FileDao fileDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).fileDao();
     public final ShareDao shareDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).shareDao();
+    public final CapabilityDao capabilityDao = NextcloudDatabase.instance().capabilityDao();
 
     private final Gson gson = new Gson();
     public final OfflineOperationsRepositoryType offlineOperationsRepository;
@@ -145,6 +150,24 @@ public class FileDataStorageManager {
     public @Nullable
     OCFile getFileByDecryptedRemotePath(String path) {
         return getFileByPath(ProviderTableMeta.FILE_PATH_DECRYPTED, path);
+    }
+
+    /**
+     * Returns the {@link OCFile} for the given remote path.
+     * Tries the path as-is first; if not found, appends a trailing "/" for folders.
+     *
+     * @param path The file or folder path.
+     * @return The matching {@link OCFile}, or null if not found.
+     */
+    @Nullable
+    public OCFile getFileByRemotePath(String path) {
+        OCFile file = getFileByDecryptedRemotePath(path);
+
+        if (file == null) {
+            file = getFileByDecryptedRemotePath(path + OCFile.PATH_SEPARATOR);
+        }
+
+        return file;
     }
 
     public void addCreateFileOfflineOperation(String[] localPaths, String[] remotePaths) {
@@ -339,8 +362,12 @@ public class FileDataStorageManager {
         offlineOperationsRepository.updateNextOperations(entity);
     }
 
-    private @Nullable
-    OCFile getFileByPath(String type, String path) {
+    @Nullable
+    private OCFile getFileByPath(String type, String path) {
+        if (path == null) {
+            return null;
+        }
+
         final boolean shouldUseEncryptedPath = ProviderTableMeta.FILE_PATH.equals(type);
         FileEntity fileEntity = shouldUseEncryptedPath ?
             fileDao.getFileByEncryptedRemotePath(path, user.getAccountName()) :
@@ -493,6 +520,24 @@ public class FileDataStorageManager {
         }
 
         return imageList;
+    }
+
+    public List<OCFile> getFolderImagesAndVideos(OCFile folder, boolean onlyOnDevice) {
+        List<OCFile> mediaList = new ArrayList<>();
+        HashSet<String> mediaFileNames = new HashSet<>();
+
+        if (folder != null) {
+            List<OCFile> folderContent = getFolderContent(folder, onlyOnDevice);
+
+            for (OCFile ocFile : folderContent) {
+                if (MimeTypeUtil.isImageOrVideo(ocFile) && !mediaFileNames.contains(ocFile.getFileName())) {
+                    mediaFileNames.add(ocFile.getFileName());
+                    mediaList.add(ocFile);
+                }
+            }
+        }
+
+        return mediaList;
     }
 
     public boolean saveFile(OCFile ocFile) {
@@ -796,6 +841,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_PATH_DECRYPTED, fileOrFolder.getDecryptedRemotePath());
         cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, user.getAccountName());
         cv.put(ProviderTableMeta.FILE_IS_ENCRYPTED, fileOrFolder.isEncrypted());
+        cv.put(ProviderTableMeta.FILE_IS_READ_ONLY, fileOrFolder.isReadOnly());
         cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, fileOrFolder.getLastSyncDateForProperties());
         cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA, fileOrFolder.getLastSyncDateForData());
         cv.put(ProviderTableMeta.FILE_ETAG, fileOrFolder.getEtag());
@@ -868,250 +914,224 @@ public class FileDataStorageManager {
         return cv;
     }
 
+    // region remove file/folder
     public boolean removeFile(OCFile ocFile, boolean removeDBData, boolean removeLocalCopy) {
-        boolean success = true;
-
-        if (ocFile != null) {
-            if (ocFile.isFolder()) {
-                success = removeFolder(ocFile, removeDBData, removeLocalCopy);
-            } else {
-
-                if (removeDBData) {
-                    //Uri file_uri = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_FILE,
-                    // ""+file.getFileId());
-                    Uri file_uri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, ocFile.getFileId());
-                    String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PATH + "=?";
-
-                    String[] whereArgs = new String[]{user.getAccountName(), ocFile.getRemotePath()};
-                    int deleted = 0;
-                    if (getContentProviderClient() != null) {
-                        try {
-                            deleted = getContentProviderClient().delete(file_uri, where, whereArgs);
-                        } catch (RemoteException e) {
-                            Log_OC.d(TAG, e.getMessage(), e);
-                        }
-                    } else {
-                        deleted = getContentResolver().delete(file_uri, where, whereArgs);
-                    }
-                    success = deleted > 0;
-                }
-
-                String localPath = ocFile.getStoragePath();
-                if (removeLocalCopy && ocFile.isDown() && localPath != null && success) {
-                    success = new File(localPath).delete();
-                    if (success) {
-                        deleteFileInMediaScan(localPath);
-                    }
-
-                    if (success && !removeDBData) {
-                        // maybe unnecessary, but should be checked TODO remove if unnecessary
-                        ocFile.setStoragePath(null);
-                        saveFile(ocFile);
-                        saveConflict(ocFile, null);
-                    }
-                }
-            }
-        } else {
+        if (ocFile == null) {
+            Log_OC.e(TAG, "oc file is null, cannot delete it");
             return false;
+        }
+
+        if (ocFile.isFolder()) {
+            Log_OC.d(TAG, "deleting folder");
+            return removeFolder(ocFile, removeDBData, removeLocalCopy);
+        }
+
+        boolean success = true;
+        if (removeDBData) {
+            Log_OC.d(TAG, "deleting db data of file");
+            success = fileDao.deleteFileByRemotePath(user.getAccountName(), ocFile.getRemotePath()) > 0;
+        }
+
+        if (success) {
+            Log_OC.d(TAG, "deleting local copy of file");
+            success = removeLocalCopyIfNeeded(ocFile, removeLocalCopy, removeDBData);
         }
 
         return success;
     }
 
-
-    public boolean removeFolder(OCFile folder, boolean removeDBData, boolean removeLocalContent) {
-        boolean success = true;
-        if (folder != null && folder.isFolder()) {
-            if (removeDBData && folder.getFileId() != -1) {
-                success = removeFolderInDb(folder);
-            }
-            if (removeLocalContent && success) {
-                success = removeLocalFolder(folder);
-            }
-        } else {
-            success = false;
+    private boolean removeLocalCopyIfNeeded(OCFile ocFile, boolean removeLocalCopy, boolean removeDBData) {
+        if (!removeLocalCopy) {
+            Log_OC.w(TAG, "removeLocalCopyIfNeeded: removeLocalCopy=false");
+            return true;
         }
 
+        String localPath = ocFile.getStoragePath();
+        final var file = FileExtensionsKt.toFile(localPath);
+        if (file == null) {
+            Log_OC.w(TAG, "removeLocalCopyIfNeeded: file exists -> skip");
+            return true;
+        }
+
+        if (ocFile.isFolder()) {
+            Log_OC.w(TAG, "removeLocalCopyIfNeeded: file is folder -> skip");
+            return true;
+        }
+
+        String expectedPath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), ocFile);
+        if (!localPath.equalsIgnoreCase(expectedPath)) {
+            Log_OC.w(TAG, "removeLocalCopyIfNeeded: Path mismatch! Expected " + expectedPath
+                + " but found " + localPath + ". Skipping deletion to prevent data loss.");
+        }
+
+        Log_OC.d(TAG, "removeLocalCopyIfNeeded: deleting local file -> " + localPath);
+        boolean success = false;
+        try {
+            success = new File(expectedPath).delete();
+        } catch (Exception e) {
+            Log_OC.e(TAG, "removeLocalCopyIfNeeded: deletion error: ", e);
+        }
+        Log_OC.d(TAG, "removeLocalCopyIfNeeded: file deletion result=" + success);
+
+        if (!success) {
+            return false;
+        }
+
+        deleteFileInMediaScan(localPath);
+
+        if (!removeDBData) {
+            Log_OC.d(TAG, "removeLocalCopyIfNeeded: updating DB after local deletion");
+            ocFile.setStoragePath(null);
+            saveFile(ocFile);
+            saveConflict(ocFile, null);
+        }
+
+        return true;
+    }
+
+    public boolean removeFolder(OCFile folder, boolean removeDBData, boolean removeLocalContent) {
+        if (folder == null) {
+            Log_OC.d(TAG,"removeFolder: folder is null");
+            return false;
+        }
+
+        if (!folder.isFolder()) {
+            Log_OC.d(TAG,"removeFolder: not a folder -> " + folder.getRemotePath());
+            return false;
+        }
+
+        Log_OC.d(TAG,"removeFolder: start -> " + folder.getRemotePath() +
+                     " | removeDBData=" + removeDBData +
+                     " | removeLocalContent=" + removeLocalContent);
+
+        boolean success = true;
+
+        if (removeDBData && folder.getFileId() != -1) {
+            Log_OC.d(TAG,"removeFolder: removing from DB -> fileId=" + folder.getFileId());
+            success = removeFolderInDb(folder);
+            Log_OC.d(TAG,"removeFolder: DB removal result=" + success);
+        }
+
+        if (success && removeLocalContent) {
+            Log_OC.d(TAG,"removeFolder: removing local content -> " + folder.getStoragePath());
+            success = removeLocalFolder(folder);
+            Log_OC.d(TAG,"removeFolder: local removal result=" + success);
+        }
+
+        Log_OC.d(TAG, "removeFolder: finished -> result=" + success);
         return success;
     }
 
     private boolean removeFolderInDb(OCFile folder) {
-        Uri folderUri = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, String.valueOf(folder.getFileId()));
-        // for recursive deletion
-        String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PATH + "=?";
-        String[] whereArgs = new String[]{user.getAccountName(), folder.getRemotePath()};
-        int deleted = 0;
-        if (getContentProviderClient() != null) {
-            try {
-                deleted = getContentProviderClient().delete(folderUri, where, whereArgs);
-            } catch (RemoteException e) {
-                Log_OC.d(TAG, e.getMessage(), e);
-            }
-        } else {
-            deleted = getContentResolver().delete(folderUri, where, whereArgs);
-        }
-        return deleted > 0;
+        return fileDao.deleteFolderWithDescendants(user.getAccountName(), folder.getFileId()) > 0;
     }
 
     private boolean removeLocalFolder(OCFile folder) {
-        boolean success = true;
-        String localFolderPath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), folder);
-        File localFolder = new File(localFolderPath);
-
-        if (localFolder.exists()) {
-            // stage 1: remove the local files already registered in the files database
-            List<OCFile> files = getFolderContent(folder.getFileId(), false);
-            for (OCFile ocFile : files) {
-                if (ocFile.isFolder()) {
-                    success &= removeLocalFolder(ocFile);
-                } else if (ocFile.isDown()) {
-                    File localFile = new File(ocFile.getStoragePath());
-                    success &= localFile.delete();
-
-                    if (success) {
-                        // notify MediaScanner about removed file
-                        deleteFileInMediaScan(ocFile.getStoragePath());
-                        ocFile.setStoragePath(null);
-                        saveFile(ocFile);
-                    }
-                }
-            }
-
-            // stage 2: remove the folder itself and any local file inside out of sync;
-            //          for instance, after clearing the app cache or reinstalling
-            success &= removeLocalFolder(localFolder);
+        if (folder == null) {
+            Log_OC.d(TAG, "removeLocalFolder: folder is null");
+            return false;
         }
 
+        String localFolderPath = FileStorageUtils
+            .getDefaultSavePathFor(user.getAccountName(), folder);
+        File localFolder = new File(localFolderPath);
+
+        if (!localFolder.exists()) {
+            Log_OC.d(TAG, "removeLocalFolder: local folder does not exist -> " + localFolderPath);
+            return true;
+        }
+
+        Log_OC.d(TAG, "removeLocalFolder: start -> " + localFolderPath);
+
+        boolean success = true;
+
+        // remove DB content
+        List<OCFile> files = getFolderContent(folder.getFileId(), false);
+        Log_OC.d(TAG, "removeLocalFolder: found " + files.size() + " entries in DB");
+
+        for (OCFile ocFile : files) {
+            if (!success) {
+                break;
+            }
+
+            if (ocFile.isFolder()) {
+                Log_OC.d(TAG, "removeLocalFolder: removing subfolder -> " + ocFile.getRemotePath());
+                success = removeLocalFolder(ocFile);
+                Log_OC.d(TAG, "removeLocalFolder: subfolder removal result=" + success);
+
+            } else if (ocFile.isDown()) {
+
+                File localFile = new File(ocFile.getStoragePath());
+                Log_OC.d(TAG, "removeLocalFolder: deleting file -> " + ocFile.getStoragePath());
+
+                boolean deleted = localFile.delete();
+                success = deleted;
+
+                Log_OC.d(TAG, "removeLocalFolder: file deletion result=" + deleted);
+
+                if (deleted) {
+                    deleteFileInMediaScan(ocFile.getStoragePath());
+                    ocFile.setStoragePath(null);
+                    saveFile(ocFile);
+                }
+            }
+        }
+
+        // remove folder itself (and any untracked content)
+        if (success) {
+            Log_OC.d(TAG, "removeLocalFolder: deleting folder -> " + localFolder.getAbsolutePath());
+            success = removeLocalFolder(localFolder);
+            Log_OC.d(TAG, "removeLocalFolder: folder deletion result=" + success);
+        }
+
+        Log_OC.d(TAG, "removeLocalFolder: finished -> result=" + success);
         return success;
     }
 
     private boolean removeLocalFolder(File localFolder) {
-        boolean success = true;
-        File[] localFiles = localFolder.listFiles();
+        if (localFolder == null) {
+            Log_OC.d(TAG, "removeLocalFolder(File): folder is null");
+            return false;
+        }
 
-        if (localFiles != null) {
-            for (File localFile : localFiles) {
-                if (localFile.isDirectory()) {
-                    success &= removeLocalFolder(localFile);
+        if (!localFolder.exists()) {
+            Log_OC.d(TAG, "removeLocalFolder(File): folder does not exist -> " + localFolder.getAbsolutePath());
+            return true;
+        }
+
+        Log_OC.d(TAG, "removeLocalFolder(File): start -> " + localFolder.getAbsolutePath());
+
+        File[] children = localFolder.listFiles();
+        if (children != null) {
+            for (File child : children) {
+                boolean childDeleted;
+
+                if (child.isDirectory()) {
+                    childDeleted = removeLocalFolder(child);
                 } else {
-                    success &= localFile.delete();
+                    childDeleted = child.delete();
+                    Log_OC.d(TAG, "removeLocalFolder(File): deleting file -> " + child.getAbsolutePath() + " result=" + childDeleted);
+                }
+
+                if (!childDeleted) {
+                    Log_OC.d(TAG, "removeLocalFolder(File): failed at -> " + child.getAbsolutePath());
+                    return false;
                 }
             }
         }
-        success &= localFolder.delete();
 
-        return success;
+        boolean folderDeleted = localFolder.delete();
+        Log_OC.d(TAG, "removeLocalFolder(File): deleting folder -> " + localFolder.getAbsolutePath() + " result=" + folderDeleted);
+
+        return folderDeleted;
     }
+    // endregion
 
     /**
      * Updates database and file system for a file or folder that was moved to a different location.
-     * <p>
-     * TODO explore better (faster) implementations TODO throw exceptions up !
      */
     public void moveLocalFile(OCFile ocFile, String targetPath, String targetParentPath) {
-        if (ocFile.fileExists() && !OCFile.ROOT_PATH.equals(ocFile.getFileName())) {
-
-            OCFile targetParent = getFileByPath(targetParentPath);
-            if (targetParent == null) {
-                throw new IllegalStateException("Parent folder of the target path does not exist!!");
-            }
-
-            String oldPath = ocFile.getRemotePath();
-
-            /// 1. get all the descendants of the moved element in a single QUERY
-            List<FileEntity> fileEntities =
-                fileDao.getFolderWithDescendants(oldPath + "%", user.getAccountName());
-
-            /// 2. prepare a batch of update operations to change all the descendants
-            ArrayList<ContentProviderOperation> operations = new ArrayList<>(fileEntities.size());
-            String defaultSavePath = FileStorageUtils.getSavePath(user.getAccountName());
-            List<String> originalPathsToTriggerMediaScan = new ArrayList<>();
-            List<String> newPathsToTriggerMediaScan = new ArrayList<>();
-
-            int lengthOfOldPath = oldPath.length();
-            int lengthOfOldStoragePath = defaultSavePath.length() + lengthOfOldPath;
-            for (FileEntity fileEntity : fileEntities) {
-                ContentValues contentValues = new ContentValues(); // keep construction in the loop
-                OCFile childFile = createFileInstance(fileEntity);
-                contentValues.put(
-                    ProviderTableMeta.FILE_PATH,
-                    targetPath + childFile.getRemotePath().substring(lengthOfOldPath)
-                                 );
-
-                if (!childFile.isEncrypted()) {
-                    contentValues.put(
-                        ProviderTableMeta.FILE_PATH_DECRYPTED,
-                        targetPath + childFile.getRemotePath().substring(lengthOfOldPath)
-                                     );
-                }
-
-                if (childFile.getStoragePath() != null && childFile.getStoragePath().startsWith(defaultSavePath)) {
-                    // update link to downloaded content - but local move is not done here!
-                    String targetLocalPath = defaultSavePath + targetPath +
-                        childFile.getStoragePath().substring(lengthOfOldStoragePath);
-
-                    contentValues.put(ProviderTableMeta.FILE_STORAGE_PATH, targetLocalPath);
-
-                    if (MimeTypeUtil.isMedia(childFile.getMimeType())) {
-                        originalPathsToTriggerMediaScan.add(childFile.getStoragePath());
-                        newPathsToTriggerMediaScan.add(targetLocalPath);
-                    }
-
-                }
-
-                if (childFile.getRemotePath().equals(ocFile.getRemotePath())) {
-                    contentValues.put(ProviderTableMeta.FILE_PARENT, targetParent.getFileId());
-                }
-
-                operations.add(
-                    ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI)
-                        .withValues(contentValues)
-                        .withSelection(ProviderTableMeta._ID + " = ?", new String[]{String.valueOf(childFile.getFileId())})
-                        .build());
-
-            }
-
-            /// 3. apply updates in batch
-            try {
-                if (getContentResolver() != null) {
-                    getContentResolver().applyBatch(MainApp.getAuthority(), operations);
-                } else {
-                    getContentProviderClient().applyBatch(operations);
-                }
-
-            } catch (Exception e) {
-                Log_OC.e(TAG, "Fail to update " + ocFile.getFileId() + " and descendants in database", e);
-            }
-
-            /// 4. move in local file system
-            String originalLocalPath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), ocFile);
-            String targetLocalPath = defaultSavePath + targetPath;
-            File localFile = new File(originalLocalPath);
-            boolean renamed = false;
-
-            if (localFile.exists()) {
-                File targetFile = new File(targetLocalPath);
-                File targetFolder = targetFile.getParentFile();
-                if (targetFolder != null && !targetFolder.exists() && !targetFolder.mkdirs()) {
-                    Log_OC.e(TAG, "Unable to create parent folder " + targetFolder.getAbsolutePath());
-                }
-                renamed = localFile.renameTo(targetFile);
-            }
-
-            if (renamed) {
-                Iterator<String> pathIterator = originalPathsToTriggerMediaScan.iterator();
-                while (pathIterator.hasNext()) {
-                    // Notify MediaScanner about removed file
-                    deleteFileInMediaScan(pathIterator.next());
-                }
-
-                pathIterator = newPathsToTriggerMediaScan.iterator();
-                while (pathIterator.hasNext()) {
-                    // Notify MediaScanner about new file/folder
-                    triggerMediaScan(pathIterator.next());
-                }
-            }
-        }
+        FileDataStorageManagerExtensionsKt.moveFiles(this, ocFile, targetPath, targetParentPath);
     }
 
     public void copyLocalFile(OCFile ocFile, String targetPath) {
@@ -1275,6 +1295,7 @@ public class FileDataStorageManager {
         ocFile.setEtagInConflict(fileEntity.getEtagInConflict());
         ocFile.setFavorite(nullToZero(fileEntity.getFavorite()) == 1);
         ocFile.setEncrypted(nullToZero(fileEntity.isEncrypted()) == 1);
+        ocFile.setReadOnly(nullToZero(fileEntity.isReadOnly()) == 1);
 //        if (ocFile.isEncrypted()) {
 //            ocFile.setFileName(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_NAME)));
 //        }
@@ -1710,17 +1731,22 @@ public class FileDataStorageManager {
         }
     }
 
-    public void saveSharesFromRemoteFile(List<RemoteFile> shares) {
+    /**
+     * @return true if the sharees of any of the given files differ from what is currently stored locally.
+     */
+    public boolean saveSharesFromRemoteFile(List<RemoteFile> shares) {
         if (shares == null || shares.isEmpty()) {
-            return;
+            return false;
         }
 
-        // Prepare reset operations
         Set<String> uniquePaths = new HashSet<>();
         for (RemoteFile share : shares) {
             uniquePaths.add(share.getRemotePath());
         }
 
+        boolean sharesChanged = FileDataStorageManagerExtensionsKt.areShareesChanged(this, shares);
+
+        // Prepare reset operations
         ArrayList<ContentProviderOperation> resetOperations = new ArrayList<>();
         for (String path : uniquePaths) {
             resetShareFlagInAFile(path);
@@ -1738,6 +1764,8 @@ public class FileDataStorageManager {
         if (!insertOperations.isEmpty()) {
             applyBatch(insertOperations);
         }
+
+        return sharesChanged;
     }
 
     /**
@@ -1872,6 +1900,35 @@ public class FileDataStorageManager {
 
     }
 
+    public List<OCShare> getShares() {
+        String selection = ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + " = ?";
+        String[] selectionArgs = new String[]{user.getAccountName()};
+
+        Cursor cursor = null;
+        Uri uri = ProviderTableMeta.CONTENT_URI_SHARE;
+        if (getContentResolver() != null) {
+            cursor = getContentResolver().query(uri, null, selection, selectionArgs, null);
+        } else {
+            try {
+                cursor = getContentProviderClient().query(uri, null, selection, selectionArgs, null);
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, "Could not get list of shares: " + e.getMessage(), e);
+            }
+        }
+
+        ArrayList<OCShare> shares = new ArrayList<>();
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                do {
+                    shares.add(createShareInstance(cursor));
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        }
+
+        return shares;
+    }
+
     public List<OCShare> getSharesWithForAFile(String filePath, String accountName) {
         String selection = ProviderTableMeta.OCSHARES_PATH + AND
             + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + AND
@@ -1929,37 +1986,28 @@ public class FileDataStorageManager {
     }
 
     public static void triggerMediaScan(String path) {
-        triggerMediaScan(path, null);
+        triggerMediaScan(MainApp.getAppContext(), path, null);
     }
 
     public static void triggerMediaScan(String path, OCFile file) {
+        triggerMediaScan(MainApp.getAppContext(), path, file);
+    }
+
+    public static void triggerMediaScan(Context context, String path, OCFile file) {
         if (path != null && !TextUtils.isEmpty(path)) {
-            ContentValues values = new ContentValues();
-            ContentResolver contentResolver = MainApp.getAppContext().getContentResolver();
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
-                    if (file != null) {
-                        values.put(MediaStore.Images.Media.MIME_TYPE, file.getMimeType());
-                        values.put(MediaStore.Images.Media.TITLE, file.getFileName());
-                        values.put(MediaStore.Images.Media.DISPLAY_NAME, file.getFileName());
+            String mimeType = file != null ? file.getMimeType() : null;
+            MediaScannerConnection.scanFile(
+                context,
+                new String[]{path},
+                mimeType != null ? new String[]{mimeType} : null,
+                (scannedPath, scannedUri) -> {
+                    if (scannedUri != null) {
+                        Log_OC.d(TAG, "Media scan completed for " + scannedPath);
+                    } else {
+                        Log_OC.w(TAG, "Media scan failed for " + scannedPath);
                     }
-                    values.put(MediaStore.Images.Media.DATE_ADDED, System.currentTimeMillis() / 1000);
-                    values.put(MediaStore.Images.Media.RELATIVE_PATH, path);
-                    values.put(MediaStore.Images.Media.IS_PENDING, 0);
-                    try {
-                        contentResolver.insert(MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY),
-                                               values);
-                    } catch (IllegalArgumentException e) {
-                        Log_OC.e("MediaScanner", "Adding image to media scanner failed: " + e);
-                    }
-                } else {
-                    Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                    intent.setData(Uri.fromFile(new File(path)));
-                    MainApp.getAppContext().sendBroadcast(intent);
                 }
-            } else {
-                Log_OC.d(TAG, "SDK > 29, skipping media scan");
-            }
+            );
         }
     }
 
@@ -2301,6 +2349,7 @@ public class FileDataStorageManager {
         contentValues.put(ProviderTableMeta.CAPABILITIES_GROUPFOLDERS, capability.getGroupfolders().getValue());
         contentValues.put(ProviderTableMeta.CAPABILITIES_DROP_ACCOUNT, capability.getDropAccount().getValue());
         contentValues.put(ProviderTableMeta.CAPABILITIES_SECURITY_GUARD, capability.getSecurityGuard().getValue());
+        contentValues.put(ProviderTableMeta.CAPABILITIES_GOVERNANCE, capability.getGovernance().getValue());
 
         contentValues.put(ProviderTableMeta.CAPABILITIES_FORBIDDEN_FILENAME_CHARACTERS, capability.getForbiddenFilenameCharactersJson());
         contentValues.put(ProviderTableMeta.CAPABILITIES_FORBIDDEN_FILENAMES, capability.getForbiddenFilenamesJson());
@@ -2319,6 +2368,12 @@ public class FileDataStorageManager {
         contentValues.put(ProviderTableMeta.CAPABILITIES_HAS_VALID_SUBSCRIPTION, capability.getHasValidSubscription().getValue());
 
         contentValues.put(ProviderTableMeta.CAPABILITIES_CLIENT_INTEGRATION_JSON, capability.getClientIntegrationJson());
+
+        contentValues.put(ProviderTableMeta.CAPABILITIES_MOD_REWRITE_WORKING, capability.getModRewriteWorking().getValue());
+
+        contentValues.put(ProviderTableMeta.CAPABILITIES_CHUNKED_UPLOAD_MAX_SIZE, capability.getChunkedUploadMaxSize());
+
+        contentValues.put(ProviderTableMeta.CAPABILITIES_SHARING_JSON, capability.getSharingJson());
 
         return contentValues;
     }
@@ -2356,6 +2411,16 @@ public class FileDataStorageManager {
         }
 
         return cursor;
+    }
+
+    public String getE2EEVersion(@NonNull User user) {
+        return getE2EEVersionObject(user).getValue();
+    }
+
+    public E2EVersion getE2EEVersionObject(@NonNull User user) {
+        final var capabilities = getCapability(user);
+        final var serverE2EEVersion = capabilities.getEndToEndEncryptionApiVersion();
+        return E2EVersionHelper.INSTANCE.getMaxCompatibleE2EEVersion(serverE2EEVersion);
     }
 
     @NonNull
@@ -2490,6 +2555,7 @@ public class FileDataStorageManager {
             capability.setGroupfolders(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_GROUPFOLDERS));
             capability.setDropAccount(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_DROP_ACCOUNT));
             capability.setSecurityGuard(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_SECURITY_GUARD));
+            capability.setGovernance(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_GOVERNANCE));
 
             capability.setForbiddenFilenameCharactersJson(getString(cursor, ProviderTableMeta.CAPABILITIES_FORBIDDEN_FILENAME_CHARACTERS));
             capability.setForbiddenFilenamesJson(getString(cursor, ProviderTableMeta.CAPABILITIES_FORBIDDEN_FILENAMES));
@@ -2507,6 +2573,13 @@ public class FileDataStorageManager {
             capability.setHasValidSubscription(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_HAS_VALID_SUBSCRIPTION));
 
             capability.setClientIntegrationJson(getString(cursor, ProviderTableMeta.CAPABILITIES_CLIENT_INTEGRATION_JSON));
+
+            capability.setModRewriteWorking(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_MOD_REWRITE_WORKING));
+
+            capability.setChunkedUploadMaxSize(
+                getLong(cursor, ProviderTableMeta.CAPABILITIES_CHUNKED_UPLOAD_MAX_SIZE));
+
+            capability.setSharingJson(getString(cursor, ProviderTableMeta.CAPABILITIES_SHARING_JSON));
         }
 
         return capability;
@@ -2697,6 +2770,34 @@ public class FileDataStorageManager {
         FileStorageUtils.deleteRecursively(saveDir, storageManager);
     }
 
+    public void setReadOnly(OCFile file, boolean readOnly) {
+        OCFile root = getEncryptedRootFolder(file);
+        if (root != null) {
+            fileDao.setReadOnly(user.getAccountName(), root.getRemotePath(), readOnly ? 1 : 0);
+        }
+    }
+
+    public boolean isReadOnly(OCFile file) {
+        OCFile root = getEncryptedRootFolder(file);
+        return root != null && root.isReadOnly();
+    }
+
+    @Nullable
+    private OCFile getEncryptedRootFolder(OCFile file) {
+        if (file == null || !file.isEncrypted()) {
+            return null;
+        }
+
+        OCFile root = null;
+        OCFile current = getFileById(file.getFileId());
+        while (current != null && current.isEncrypted()) {
+            root = current;
+            current = getFileById(current.getParentId());
+        }
+
+        return root;
+    }
+
     public List<OCFile> getAllFiles() {
         // TODO - Apparently this method is used only by tests
         List<FileEntity> fileEntities = fileDao.getAllFiles(user.getAccountName());
@@ -2707,6 +2808,17 @@ public class FileDataStorageManager {
         }
 
         return folderContent;
+    }
+
+    public List<OCFile> getFavoriteFiles() {
+        List<FileEntity> fileEntities = fileDao.getFavoriteFilesNonBlocking(user.getAccountName());
+        List<OCFile> favoriteFiles = new ArrayList<>(fileEntities.size());
+
+        for (FileEntity fileEntity : fileEntities) {
+            favoriteFiles.add(createFileInstance(fileEntity));
+        }
+
+        return favoriteFiles;
     }
 
     private String getString(Cursor cursor, String columnName) {
@@ -2791,5 +2903,15 @@ public class FileDataStorageManager {
 
     public void updateFileEntity(@NonNull FileEntity entity) {
         fileDao.update(entity);
+    }
+
+    public void updateE2EECounter(OCFile file, DecryptedFolderMetadataFile metadata) {
+        updateE2EECounter(file, metadata.getMetadata().getCounter());
+    }
+
+    public void updateE2EECounter(OCFile file, long counter) {
+        Log_OC.d(TAG, "e2ee counter stored: " + counter + " for " + file.getDecryptedRemotePath());
+        file.setE2eCounter(counter);
+        saveFile(file);
     }
 }

@@ -15,7 +15,9 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.common.SessionTimeOut
+import com.nextcloud.utils.SnackbarUtil
 import com.owncloud.android.R
+import com.nextcloud.utils.share.UnifiedShareSharees
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
@@ -24,7 +26,6 @@ import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.lib.resources.shares.GetSharesRemoteOperation
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.events.SearchEvent
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -75,22 +76,21 @@ class SharedListFragment :
         val fetchResult = ReadFileRemoteOperation(partialFile.remotePath).execute(user, context)
         if (fetchResult.isSuccess) {
             val remoteFile = (fetchResult.data[0] as RemoteFile).apply {
-                val prevETag = mContainerActivity.storageManager.getFileByDecryptedRemotePath(remotePath)
+                val existingFile = containerActivity.storageManager.getFileByDecryptedRemotePath(remotePath)
 
                 // Use previous eTag if exists to prevent break checkForChanges logic in RefreshFolderOperation.
                 // Otherwise RefreshFolderOperation will show empty list
-                prevETag?.etag?.let {
-                    etag = prevETag.etag
+                existingFile?.etag?.let {
+                    etag = it
                 }
             }
-            val file = FileStorageUtils.fillOCFile(remoteFile)
-            FileStorageUtils.searchForLocalFileInDefaultPath(file, user.accountName)
-            val savedFile = mContainerActivity.storageManager.saveFileWithParent(file, context)
-            savedFile.apply {
-                isSharedViaLink = partialFile.isSharedViaLink
-                isSharedWithSharee = partialFile.isSharedWithSharee
-                sharees = partialFile.sharees
+            val file = FileStorageUtils.fillOCFile(remoteFile).apply {
+                fileId = partialFile.fileId
+                parentId = partialFile.parentId
             }
+            FileStorageUtils.searchForLocalFileInDefaultPath(file, user.accountName)
+            UnifiedShareSharees.fill(user, listOf(file))
+            val savedFile = containerActivity.storageManager.saveFileWithParent(file, context)
             savedFile
         } else {
             logger.e(SHARED_TAG, "Error fetching file")
@@ -108,7 +108,7 @@ class SharedListFragment :
                 if (file != null) {
                     block(file)
                 } else {
-                    DisplayUtils.showSnackMessage(requireActivity(), R.string.error_retrieving_file)
+                    SnackbarUtil.show(requireActivity(), R.string.error_retrieving_file)
                 }
             }
         }
@@ -120,7 +120,7 @@ class SharedListFragment :
                 val files = partialFiles.toMutableSet().mapNotNull { partialFile ->
                     fetchFileData(partialFile).also { fetched ->
                         if (fetched == null) {
-                            DisplayUtils.showSnackMessage(requireActivity(), R.string.error_retrieving_file)
+                            SnackbarUtil.show(requireActivity(), R.string.error_retrieving_file)
                         }
                     }
                 }

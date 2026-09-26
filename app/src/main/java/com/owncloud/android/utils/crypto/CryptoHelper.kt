@@ -34,7 +34,7 @@ object CryptoHelper {
 
     private const val TRANSFORMATION = "AES/GCM/NoPadding"
     private const val GCM_TAG_LENGTH = 16
-    private const val IV_LENGTH = 16
+    private const val IV_LENGTH = 12
     private const val SALT_LENGTH = 40
     private const val GCM_TLEN = GCM_TAG_LENGTH * 8
     private val charset = StandardCharsets.UTF_8

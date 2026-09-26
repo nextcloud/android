@@ -10,6 +10,7 @@
     <string name="action_edit">编辑</string>
     <string name="action_empty_notifications">清除所有通知</string>
     <string name="action_empty_trashbin">清空回收站</string>
+    <string name="action_open_in_web_editor">在网页编辑器中打开</string>
     <string name="action_send_share">发送/分享</string>
     <string name="action_switch_grid_view">网格视图</string>
     <string name="action_switch_list_view">列表视图</string>
@@ -31,7 +32,11 @@
     <string name="activity_icon">动态</string>
     <string name="add_new_public_share">添加新的公共共享链接</string>
     <string name="add_new_secure_file_drop">添加新的安全文件投放箱</string>
-    <string name="add_to_cloud">添加%1$s</string>
+    <string name="add_to_album">添加至相册</string>
+    <string name="album_delete">删除相册</string>
+    <string name="album_rename_conflict">此名称已被使用。</string>
+    <string name="album_share">分享相册</string>
+    <string name="album_stop_sharing">停止共享</string>
     <string name="app_config_base_url_title">基础 URL</string>
     <string name="app_config_disable_clipboard_title">禁用剪贴板</string>
     <string name="app_config_disable_intro_title">禁用简介</string>
@@ -48,11 +53,13 @@
     <string name="assistant_output_generation_warning_text">此处显示的输出结果由 AI 生成。请务必仔细检查。</string>
     <string name="assistant_screen_chat_create_error">无法发送消息</string>
     <string name="assistant_screen_chat_fetch_error">无法获取聊天消息</string>
+    <string name="assistant_screen_chat_generate_error">无法生成响应</string>
     <string name="assistant_screen_conversations_go_back_to_assistant">返回助手页面</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">您确定要删除这些任务吗？</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">删除任务</string>
     <string name="assistant_screen_empty_content_description">尝试发送消息来发起对话。</string>
     <string name="assistant_screen_empty_content_title">您好！请问我能帮您些什么？</string>
+    <string name="assistant_screen_retry_response_generation">重试响应生成</string>
     <string name="assistant_screen_send_message">发送消息</string>
     <string name="assistant_screen_task_bar_open_conversation_list">打开对话列表</string>
     <string name="assistant_screen_task_create_fail_message">创建任务时发生错误</string>
@@ -96,7 +103,6 @@
     <string name="auth_ssl_unverified_server_title">无法验证 SSL 服务器的身份</string>
     <string name="auth_testing_connection">测试连接</string>
     <string name="auth_timeout_title">服务器花了太长时间才响应</string>
-    <string name="auth_trying_to_login">正在尝试登录…</string>
     <string name="auth_unauthorized">用户名或密码错误</string>
     <string name="auth_unknown_error_exception_title">未知错误：%1$s</string>
     <string name="auth_unknown_error_http_title">发生了未知的HTTP错误</string>
@@ -110,13 +116,19 @@
     <string name="authenticator_activity_login_error">处理您的登录请求时出现问题。请稍后重试。</string>
     <string name="authenticator_activity_no_web_browser_found">没有浏览器可以打开此链接。</string>
     <string name="authenticator_activity_please_complete_login_process">请在浏览器中完成登录流程</string>
-    <string name="auto_upload_battery_saver_mode_warning">自动上传已暂停，因为省电模式已开启。</string>
+    <string name="auto_upload_background_activity_action">允许后台活动</string>
+    <string name="auto_upload_battery_optimization_reason">Nextcloud 的后台活动受到电池优化的限制。</string>
+    <string name="auto_upload_battery_saver_action">打开省电模式设置</string>
+    <string name="auto_upload_battery_saver_reason">省电模式已开启，可能会暂停上传。</string>
+    <string name="auto_upload_delete_dialog_description">这将移除文件夹和自动上传配置。任何未完成的上传都将被取消。</string>
+    <string name="auto_upload_delete_dialog_title">删除自动上传文件夹？</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">保持为原始的文件夹，即使它是只读的</string>
     <string name="auto_upload_low_battery_warning_info">电池电量低，上传可能需要更长时间</string>
     <string name="auto_upload_on_wifi">仅通过无流量限制的 Wi-Fi 上传</string>
     <string name="auto_upload_path">/自动上传</string>
     <string name="auto_upload_sub_folder_warning">此文件夹已包含在上级文件夹的同步中，这可能会导致重复上传</string>
     <string name="auto_upload_wifi_only_warning_info">正在等待 Wi-Fi 开始上传</string>
+    <string name="auto_upload_worker_start_text">正在将文件从 %1$s 上传到 %2$s</string>
     <string name="autoupload_configure">配置</string>
     <string name="autoupload_create_new_custom_folder">创建新的自定义文件夹设定</string>
     <string name="autoupload_custom_folder">设置一个自定义文件夹</string>
@@ -124,6 +136,7 @@
     <string name="autoupload_hide_folder">隐藏文件夹</string>
     <string name="avatar">头像</string>
     <string name="away">离开</string>
+    <string name="backup_list_adapter_local_contacts">本地联系人</string>
     <string name="backup_settings">备份设置</string>
     <string name="backup_title">通讯录和日历备份</string>
     <string name="battery_optimization_close">关闭</string>
@@ -240,15 +253,20 @@
     <string name="could_not_retrieve_shares">无法检索共享</string>
     <string name="could_not_retrieve_url">无法获取地址</string>
     <string name="create">创建</string>
+    <string name="create_album_dialog_title">新相册</string>
     <string name="create_dir_fail_msg">无法创建文件夹</string>
+    <string name="create_document">文档</string>
+    <string name="create_end_to_end_encrypted_share">链接共享</string>
+    <string name="create_end_to_end_encrypted_share_title">端到端加密链接共享</string>
+    <string name="create_folder">文件夹</string>
     <string name="create_link">创建链接</string>
     <string name="create_new">新建</string>
     <string name="create_new_document">新文档</string>
-    <string name="create_new_folder">新建文件夹</string>
     <string name="create_new_presentation">新演示文稿</string>
     <string name="create_new_spreadsheet">新表格</string>
+    <string name="create_presentation">演示文稿</string>
     <string name="create_rich_workspace">添加文件夹描述</string>
-    <string name="creates_rich_workspace">添加文件夹描述</string>
+    <string name="create_spreadsheet">电子表格</string>
     <string name="credentials_disabled">设备凭证已禁用</string>
     <string name="daily_backup">每日备份</string>
     <string name="data_to_back_up">要备份的数据</string>
@@ -264,6 +282,8 @@
     <string name="dialog_close">关闭</string>
     <string name="did_not_check_for_dupes">不检查重复项</string>
     <string name="digest_algorithm_not_available">算法不可用。</string>
+    <string name="direct_login_confirm_message">您想使用 %1$s 登录到 %2$s 吗？</string>
+    <string name="direct_login_confirm_title">确认登录</string>
     <string name="direct_login_failed">通过直接链接登录失败！</string>
     <string name="direct_login_text">使用 %1$s 登录至 %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">禁用</string>
@@ -305,16 +325,17 @@
     <string name="drawer_community">社区</string>
     <string name="drawer_header_background">抽屉标题的背景图片</string>
     <string name="drawer_item_activities">动态</string>
+    <string name="drawer_item_album">相册</string>
     <string name="drawer_item_all_files">全部文件</string>
     <string name="drawer_item_assistant">助手</string>
     <string name="drawer_item_favorites">收藏</string>
     <string name="drawer_item_gallery">媒体文件</string>
-    <string name="drawer_item_groupfolders">组文件夹</string>
+    <string name="drawer_item_groupfolders">团队文件夹</string>
     <string name="drawer_item_home">首页</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_item_on_device">此设备上的</string>
     <string name="drawer_item_personal_files">个人文件</string>
-    <string name="drawer_item_recently_modified">最近修改</string>
+    <string name="drawer_item_recent_files">最近的文件</string>
     <string name="drawer_item_shared">已共享</string>
     <string name="drawer_item_trashbin">回收站</string>
     <string name="drawer_item_uploads_list">上传</string>
@@ -323,7 +344,6 @@
     <string name="drawer_quota">%1$s 中 %2$s 已使用</string>
     <string name="drawer_quota_unlimited">%1$s 已使用</string>
     <string name="drawer_synced_folders">自动上传</string>
-    <string name="due_to_too_many_wrong_attempts">%s 由于错误尝试太多</string>
     <string name="e2e_counter_too_old">计数器过旧</string>
     <string name="e2e_hash_not_found">未找到哈希值</string>
     <string name="e2e_not_yet_setup">尚未安装端到端加密</string>
@@ -400,11 +420,14 @@
     <string name="etm_transfer_type">传输</string>
     <string name="etm_transfer_type_download">下载</string>
     <string name="etm_transfer_type_upload">上传</string>
+    <string name="export_in_progress">正在导出第 %1$d 个（共 %2$d 个）</string>
+    <string name="extension_cannot_be_changed">无法更改扩展名</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">您没有在此文件夹中创建或上传文件的权限。</string>
     <string name="external_shares">外部共享</string>
     <string name="fab_label">添加或上传</string>
     <string name="failed_to_create_conflict_dialog">无法创建冲突对话框</string>
     <string name="failed_to_download">无法将文件传递给下载管理器</string>
+    <string name="failed_to_load_tags">无法加载标签</string>
     <string name="failed_to_print">打印文件已失败</string>
     <string name="failed_to_start_action">无法启动操作！</string>
     <string name="failed_to_start_editor">启动编辑器失败</string>
@@ -420,6 +443,8 @@
     <string name="file_detail_sharing_fragment_no_contact_app_message">没有可用于选择联系人的应用</string>
     <string name="file_details_no_content">加载详情失败</string>
     <string name="file_icon">文件</string>
+    <string name="file_info_governance_section_title">治理</string>
+    <string name="file_info_image_details_section_title">图片详情</string>
     <string name="file_keep">保留</string>
     <string name="file_list_empty">上传一些内容或与你的设备同步。</string>
     <string name="file_list_empty_favorite_headline">暂无收藏</string>
@@ -431,7 +456,8 @@
     <string name="file_list_empty_local_search">没有文件或文件夹匹配你的搜索</string>
     <string name="file_list_empty_moving">这里空无一物。你可以添加一个文件夹。</string>
     <string name="file_list_empty_on_device">已下载的文件和文件夹将显示在此处</string>
-    <string name="file_list_empty_recently_modified">在过去的7天内没有被修改过的文件</string>
+    <string name="file_list_empty_recent_files_description">您最近修改的文件和文件夹将显示在此处。</string>
+    <string name="file_list_empty_recent_files_headline">近期无修改文件</string>
     <string name="file_list_empty_search">也许它在其他文件夹中？</string>
     <string name="file_list_empty_shared">你共享的文件和文件夹将显示在此处</string>
     <string name="file_list_empty_shared_headline">暂无共享</string>
@@ -444,6 +470,7 @@
     <string name="file_list_live">即时</string>
     <string name="file_list_loading">正在加载...</string>
     <string name="file_list_no_app_for_file_type">此文件类型未设置默认打开程序</string>
+    <string name="file_list_out_of_memory_description">无法加载内容</string>
     <string name="file_list_seconds_ago">几秒前</string>
     <string name="file_management_permission_optional">存储权限</string>
     <string name="file_management_permission_optional_text">%1$s在有权限访问的存储上工作得最好。您可以选择对所有文件获取完整权限，或者对照片和视频提供只读权限。</string>
@@ -488,6 +515,7 @@
     <string name="filedetails_download">下载</string>
     <string name="filedetails_export">导出</string>
     <string name="filedetails_renamed_in_upload_msg">文件在上传时被重命名为%1$s</string>
+    <string name="filedetails_sync_all_files">全部同步</string>
     <string name="filedetails_sync_file">同步</string>
     <string name="filedisplay_no_file_selected">没有选择文件</string>
     <string name="filename_empty">文件名不能为空。</string>
@@ -525,6 +553,11 @@
     <string name="foreign_files_remote_text">远程: %1$s</string>
     <string name="forward">向前</string>
     <string name="fourHours">4小时</string>
+    <string name="governance_file_retention_label">文件保留</string>
+    <string name="governance_legal_hold_label">法律保留</string>
+    <string name="governance_no_label">无</string>
+    <string name="governance_permission_denied">您没有更改此标签的权限</string>
+    <string name="governance_sensitivity_label">敏感度标签</string>
     <string name="gplay_restriction">Google 限制下载 APK/AAB 文件！</string>
     <string name="grid_file_features_live_photo_content_description">此图标表示实况照片的可用性</string>
     <string name="hidden_file_name_warning">名称会导致隐藏的文件</string>
@@ -552,6 +585,8 @@
     <string name="instant_upload_existing">同时上传现有文件</string>
     <string name="instant_upload_on_charging">仅在充电时上传</string>
     <string name="instant_upload_path">/实时上传</string>
+    <string name="internal_share_description_end_to_end_encrypted">共享对象始终可以访问完整的加密文件夹。但只能与已设置端到端加密的账号共享。</string>
+    <string name="internal_share_headline_end_to_end_encrypted">端到端加密共享</string>
     <string name="internal_shares">内部共享</string>
     <string name="internal_two_way_sync">内部双向同步</string>
     <string name="internal_two_way_sync_not_yet">还没有，很快就会同步</string>
@@ -580,6 +615,7 @@
     <string name="login">登录</string>
     <string name="login_url_helper_text">在浏览器中打开 %1$s 时显示的 web 界面的链接</string>
     <string name="logs_menu_delete">删除日志</string>
+    <string name="logs_menu_export">导出日志</string>
     <string name="logs_menu_refresh">刷新</string>
     <string name="logs_menu_search">搜索日志</string>
     <string name="logs_menu_send">通过电子邮件发送日志</string>
@@ -591,17 +627,7 @@
     <string name="manage_space_clear_data">清除数据</string>
     <string name="manage_space_description">来自%1$s数据的设置，数据库和服务器证书将被永久删除。\n\n下载的文件将保持不变。\n\n此过程可能需要一段时间。</string>
     <string name="manage_space_title">管理空间</string>
-    <string name="media_err_invalid_progressive_playback">此媒体文件无法流播</string>
-    <string name="media_err_io">无法读取媒体文件</string>
-    <string name="media_err_malformed">媒体文件的编码不正确</string>
-    <string name="media_err_timeout">尝试播放文件超时</string>
-    <string name="media_err_unknown">内置媒体播放器无法播放该媒体文件</string>
-    <string name="media_err_unsupported">不支持的媒体编码格式</string>
-    <string name="media_forward_description">快进按钮</string>
-    <string name="media_notif_ticker">%1$s 音乐播放器</string>
-    <string name="media_play_pause_description">播放 / 暂停按钮</string>
-    <string name="media_rewind_description">快退按钮</string>
-    <string name="media_state_playing">%1$s (正在播放)</string>
+    <string name="manage_tags">管理标签</string>
     <string name="menu_item_sort_by_date_newest_first">新文件在前</string>
     <string name="menu_item_sort_by_date_oldest_first">旧文件在前</string>
     <string name="menu_item_sort_by_name_a_z">按名称顺序</string>
@@ -695,8 +721,7 @@
     <string name="picture_set_as_no_app">找不到可以设置图片的应用程序</string>
     <string name="pin_home">固定到主屏幕</string>
     <string name="pin_shortcut_label">打开 1%1$s</string>
-    <string name="player_stop">停止</string>
-    <string name="player_toggle">切换</string>
+    <string name="player_media_controls_close_action_title">关闭</string>
     <string name="please_select_a_server">请选择服务器…</string>
     <string name="power_save_check_dialog_message">禁用节能检查可能会导致在低电池电量状态下仍然上传文件！</string>
     <string name="pref_behaviour_entries_delete_file">被删除</string>
@@ -754,6 +779,8 @@
     <string name="prefs_manage_accounts">管理账号</string>
     <string name="prefs_recommend">推荐给朋友</string>
     <string name="prefs_remove_e2e">在本地删除加密</string>
+    <string name="prefs_remove_e2e_keys_and_files">移除加密文件和密钥</string>
+    <string name="prefs_renew_e2e_certificate">续订加密证书</string>
     <string name="prefs_setup_e2e">设置端对端加密</string>
     <string name="prefs_show_ecosystem_apps">显示应用切换器</string>
     <string name="prefs_show_ecosystem_apps_summary">导航栏中的 Nextcloud 应用推荐</string>
@@ -776,6 +803,7 @@
     <string name="preview_image_file_is_not_downloaded">文件未下载</string>
     <string name="preview_media_unhandled_http_code_message">文件当前被其他用户或进程锁定，因此无法删除。请稍后再试。</string>
     <string name="preview_sorry">抱歉</string>
+    <string name="preview_text_string_fragment_open_rich_text_editor_error_message">无法打开文本编辑器</string>
     <string name="privacy">隐私</string>
     <string name="push_notifications_not_implemented">由于依赖于专有的Google Play服务，推送通知被禁用。</string>
     <string name="push_notifications_old_login">由于登录会话已过期，因此没有推送通知。请考虑重新添加你的账号。</string>
@@ -788,10 +816,12 @@
     <string name="recommend_urls">%1$s 或 %2$s</string>
     <string name="recommended_files_title">推荐文件</string>
     <string name="refresh_content">刷新内容</string>
-    <string name="reload">刷新</string>
+    <string name="reload">重新加载</string>
     <string name="remote">(远程)</string>
     <string name="remote_file_fetch_failed">查找文件失败！</string>
+    <string name="remove">移除</string>
     <string name="remove_e2e">您可以在该客户端上本地删除端对端加密</string>
+    <string name="remove_e2e_keys_and_files_dialog_warning">此操作将移除所有加密文件、私钥和公钥。您确定吗？</string>
     <string name="remove_e2e_message">您可以在该客户端上本地删除端对端加密。加密文件将保留在服务器上，但不会再同步到该电脑。</string>
     <string name="remove_fail_msg">删除失败</string>
     <string name="remove_local_account">移除本地帐户</string>
@@ -799,9 +829,16 @@
     <string name="remove_notification_failed">移除通知失败</string>
     <string name="remove_push_notification">移除</string>
     <string name="remove_success_msg">已删除</string>
+    <string name="rename_dialog_button">重命名</string>
     <string name="rename_dialog_title">输入一个新的名称</string>
     <string name="rename_local_fail_msg">本地副本无法重命名，尝试其他名称</string>
     <string name="rename_server_fail_msg">无法重命名，名字已经被占用</string>
+    <string name="renew_e2e_certificate_dialog_message">这将续订您的端到端加密证书。您现有的密钥和加密文件保持不变。继续？</string>
+    <string name="renew_e2e_certificate_error">无法续订加密证书</string>
+    <string name="renew_e2e_certificate_private_key_missing">未找到加密私钥</string>
+    <string name="renew_e2e_certificate_success">加密证书已续订</string>
+    <string name="renew_e2e_certificate_summary">在保留现有密钥的同时续订您的端到端加密证书</string>
+    <string name="renew_e2e_certificate_valid_until">有效期至 %1$s。点击续订，同时保留您现有的密钥。</string>
     <string name="request_account_deletion">请求删除账号</string>
     <string name="request_account_deletion_button">请求删除</string>
     <string name="request_account_deletion_details">请求服务商永久删除账号</string>
@@ -829,6 +866,7 @@
     <string name="screenshot_06_davdroid_heading">日历和联系人</string>
     <string name="screenshot_06_davdroid_subline">与 DAVx⁵ 同步</string>
     <string name="search_error">获取搜索结果时出错</string>
+    <string name="search_tags">搜索标签</string>
     <string name="secure_share_not_set_up">还未为此用户设置安全共享功能</string>
     <string name="secure_share_search">安全共享…</string>
     <string name="select_all">全部选择</string>
@@ -838,7 +876,6 @@
     <string name="send">发送</string>
     <string name="send_copy_to">发送副本至</string>
     <string name="send_share">发送共享</string>
-    <string name="sendbutton_description">发送按钮的图标</string>
     <string name="server_not_reachable">无法加载内容</string>
     <string name="server_not_reachable_content">设备可能未连接到互联网</string>
     <string name="set_as">设置</string>
@@ -880,7 +917,6 @@
     <string name="share_option_required">请在继续之前至少选择一个共享选项。</string>
     <string name="share_permission_can_edit">可以编辑</string>
     <string name="share_permission_file_request">文件请求</string>
-    <string name="share_permission_secure_file_drop">安全文件拖放</string>
     <string name="share_permission_view_only">仅查看</string>
     <string name="share_permissions">分享权限</string>
     <string name="share_re_share_permission">共享</string>
@@ -963,7 +999,6 @@
     <string name="store_short_dev_desc">让您掌控全局的自托管生产力平台（开发预览版）</string>
     <string name="stream">分享给…</string>
     <string name="stream_not_possible_headline">内部流无效</string>
-    <string name="stream_not_possible_message">请下载媒体或者使用外部应用代替。</string>
     <string name="sub_folder_rule_day">年/月/日</string>
     <string name="sub_folder_rule_month">年/月</string>
     <string name="sub_folder_rule_year">年</string>
@@ -974,6 +1009,8 @@
     <string name="subtitle_videos_only">仅视频</string>
     <string name="suggest">建议</string>
     <string name="sync">同步</string>
+    <string name="sync_all_action_dialog_description">将会下载所有包含的文件和文件夹。这可能需要大量的存储空间，并且需要一些时间，具体取决于您的连接。</string>
+    <string name="sync_all_action_dialog_title">同步整个文件夹？</string>
     <string name="sync_anyway">仍要同步</string>
     <string name="sync_conflict_notification_action_title">解决冲突</string>
     <string name="sync_conflict_notification_description">检测到上传冲突。请打开上传进行解决。</string>
@@ -1016,7 +1053,12 @@
     <string name="thumbnail_for_new_file_desc">新文件的缩略图</string>
     <string name="timeout_richDocuments">加载比预期时间要长</string>
     <string name="today">今天</string>
-    <string name="trashbin_activity_title">回收站</string>
+    <string name="translation_screen_hint_source">输入要翻译的文本…</string>
+    <string name="translation_screen_label_from">原文：</string>
+    <string name="translation_screen_label_to">译文：</string>
+    <string name="translation_screen_start_to_translate_task">按下按钮翻译</string>
+    <string name="translation_screen_task_processing">翻译时间比预期长。</string>
+    <string name="translation_screen_translating">正在翻译…</string>
     <string name="trashbin_empty_headline">没有被删除的文件</string>
     <string name="trashbin_empty_message">你可以在此处还原已删除的文件。</string>
     <string name="trashbin_file_not_deleted">文件 %1$s 无法被删除！</string>
@@ -1079,17 +1121,24 @@
     <string name="upload_local_storage_full">本地存储已满</string>
     <string name="upload_local_storage_not_copied">文件无法被复制到本地存储</string>
     <string name="upload_lock_failed">锁定文件夹失败</string>
+    <string name="upload_locked_message">服务器正忙。正在重试…</string>
+    <string name="upload_locked_title">上传正在进行中</string>
     <string name="upload_manually_cancelled">用户已取消上传</string>
     <string name="upload_missing_storage_permission_allow_file_access">允许所有文件访问</string>
     <string name="upload_missing_storage_permission_app_permissions">应用权限</string>
     <string name="upload_missing_storage_permission_description">如果无法访问本地存储，则无法上传您的文件。点击即可授予权限。</string>
     <string name="upload_missing_storage_permission_title">上传已停止 — 需要存储权限</string>
+    <string name="upload_notification_manager_content_intent_description">您可以从上传中移除或恢复它</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">加密功能仅适用于安卓 5.0 及以上版本</string>
     <string name="upload_query_move_foreign_files">空间不足将阻止将所选文件复制到%1$s文件夹中。 你想把它们移到那里吗？</string>
     <string name="upload_quota_exceeded">超出存储限额</string>
     <string name="upload_scan_doc_upload">使用相机扫描文档</string>
-    <string name="upload_sync_conflict">同步时发生异常，请手动同步</string>
+    <string name="upload_sync_conflict_check">可能与您上次上传的文件存在冲突。点击查看。</string>
+    <string name="upload_sync_conflict_check_error">无法检查上传冲突。请重试。</string>
+    <string name="upload_sync_conflict_checking">正在检查上传冲突…</string>
+    <string name="upload_sync_conflict_not_exists">冲突已解决。</string>
+    <string name="upload_sync_conflict_same_file">未检测到冲突。相同的文件。</string>
     <string name="upload_unknown_error">未知错误</string>
     <string name="uploader_btn_alternative_text">选择</string>
     <string name="uploader_btn_upload_text">上传</string>
@@ -1121,9 +1170,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">安装</string>
     <string name="uploader_wrn_no_account_text">您的设备上没有账号 %1$s。 请先设置一个账号。</string>
     <string name="uploader_wrn_no_account_title">没有找到账号</string>
+    <string name="uploads_view_group_completed_uploads">已完成</string>
     <string name="uploads_view_group_current_uploads">当前</string>
     <string name="uploads_view_group_failed_uploads">失败 / 等待重启</string>
-    <string name="uploads_view_group_finished_uploads">已上传</string>
     <string name="uploads_view_group_manually_cancelled_uploads">已取消</string>
     <string name="uploads_view_later_waiting_to_upload">等待上传</string>
     <string name="uploads_view_title">上传</string>
@@ -1136,7 +1185,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">本地文件未找到</string>
     <string name="uploads_view_upload_status_failed_permission_error">权限错误</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">不受信任的服务器证书</string>
-    <string name="uploads_view_upload_status_fetching_server_version">正在获取服务器版本…</string>
     <string name="uploads_view_upload_status_service_interrupted">应用程序已终止</string>
     <string name="uploads_view_upload_status_skip">已跳过</string>
     <string name="uploads_view_upload_status_skip_reason">同名文件已存在。</string>
@@ -1150,7 +1198,9 @@
     <string name="user_icon">用户</string>
     <string name="user_info_address">地址</string>
     <string name="user_info_email">电子邮箱</string>
+    <string name="user_info_groups">群组</string>
     <string name="user_info_phone">电话号码</string>
+    <string name="user_info_profile">个人资料</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">网站</string>
     <string name="user_information_retrieval_error">检索用户信息时报错</string>
@@ -1233,19 +1283,16 @@
     <plurals name="items_selected_count">
         <item quantity="other">已选择 %d 个</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="other">由于错误尝试太多，延迟了 %d 秒</item>
+    <plurals name="passcode_delay_seconds">
+        <item quantity="other">由于错误尝试太多，请在 %d 秒后重试</item>
     </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="other">由于错误尝试太多，延迟了 %d 分钟</item>
+    <plurals name="passcode_delay_minutes">
+        <item quantity="other">由于错误尝试太多，请在 %d 分钟后重试</item>
     </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="other">延迟了 %d 分钟</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="other">%d 秒</item>
+    <plurals name="passcode_delay_minutes_seconds">
+        <item quantity="other">由于错误尝试太多，请在 %1$d 分 %2$d 秒后重试</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="other">剩余 %1$d 个下载</item>
     </plurals>
-</resources>
+    </resources>

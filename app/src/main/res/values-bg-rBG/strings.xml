@@ -30,7 +30,11 @@
     <string name="activity_icon">Активност</string>
     <string name="add_new_public_share">Добавете нова връзка за публично споделяне</string>
     <string name="add_new_secure_file_drop">Добавяне на ново, защитено пускане на файлове</string>
-    <string name="add_to_cloud">Добави към %1$s</string>
+    <string name="add_to_album">Добави към албум</string>
+    <string name="album_delete">Изтриване на албум</string>
+    <string name="album_rename_conflict">Това име вече се използва.</string>
+    <string name="album_share">Споделяне на албум</string>
+    <string name="album_stop_sharing">Спри споделянето</string>
     <string name="app_config_base_url_title">Основен URL адрес</string>
     <string name="app_config_disable_clipboard_title"> Изключи клипборда</string>
     <string name="app_config_disable_intro_title">Изключи въведението</string>
@@ -41,7 +45,20 @@
     <string name="app_config_proxy_port_title">Порт на прокси сървъра</string>
     <string name="app_widget_description">Показва един изпълним модул от таблото за управление</string>
     <string name="appbar_search_in">Търсене в %s</string>
+    <string name="assistant_screen_chat_create_error">Неуспешно изпращане на съобщение</string>
+    <string name="assistant_screen_chat_fetch_error">Неуспешно извличане на съобщение от чата</string>
+    <string name="assistant_screen_chat_generate_error">Неуспешно съставяне на отговор</string>
+    <string name="assistant_screen_conversations_go_back_to_assistant">Назад към помощна страница</string>
+    <string name="assistant_screen_delete_task_alert_dialog_description">Сигурни ли сте, че искате да изтриете тази задача?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Изтрива задача</string>
+    <string name="assistant_screen_empty_content_description">Изпратете съобщение за да започнете разговор.</string>
+    <string name="assistant_screen_empty_content_title">Здравейте! С какво да ви помогна днес?</string>
+    <string name="assistant_screen_retry_response_generation">Опитай отново със съставяне на отговор</string>
+    <string name="assistant_screen_send_message">Изпрати съобщение</string>
+    <string name="assistant_screen_task_bar_open_conversation_list">Отвори списък с разговори</string>
+    <string name="assistant_screen_task_create_fail_message">Възникна грешка при създаването на задача</string>
+    <string name="assistant_screen_task_create_success_message">Задачата е създадена</string>
+    <string name="assistant_screen_task_delete_fail_message">Възникна грешка при изтриването на задача</string>
     <string name="assistant_screen_top_bar_title">Асистент</string>
     <string name="assistant_task_status_running">в процес</string>
     <string name="assistant_task_status_unknown">неясна</string>
@@ -67,7 +84,6 @@
     <string name="auth_ssl_unverified_server_title">Идентичността на SSL сървъра не може да бъде потвърдена</string>
     <string name="auth_testing_connection">Проверка на връзката</string>
     <string name="auth_timeout_title">Сървърът се забави прекалено много с отговора</string>
-    <string name="auth_trying_to_login">Опит за вписване…</string>
     <string name="auth_unauthorized">Грешно потребителско име или парола</string>
     <string name="auth_unknown_error_exception_title">Неизвестна грешка: %1$s</string>
     <string name="auth_unknown_error_http_title">Възникна неизвестна HTTP грешка!</string>
@@ -189,13 +205,16 @@
 Споделянията не могат да бъдат извлечени</string>
     <string name="could_not_retrieve_url">URL адресът не може да бъде извлечен</string>
     <string name="create">Създай</string>
+    <string name="create_album_dialog_title">Нов албум</string>
     <string name="create_dir_fail_msg">Не може да се създаде папка</string>
+    <string name="create_document">Документ</string>
+    <string name="create_folder">Папка</string>
     <string name="create_link">Създаване на връзка</string>
     <string name="create_new">Нов</string>
     <string name="create_new_document">Нов документ</string>
-    <string name="create_new_folder">Нова папка</string>
     <string name="create_new_presentation">Нова презентация</string>
     <string name="create_new_spreadsheet">Нова електронна таблица</string>
+    <string name="create_presentation">Презентация</string>
     <string name="credentials_disabled">Потребителските данни са спрени</string>
     <string name="daily_backup">Ежедневно архивиране</string>
     <string name="data_to_back_up">Данни за архивиране</string>
@@ -241,6 +260,7 @@
     <string name="drawer_community">Общност</string>
     <string name="drawer_header_background">Фоново изображение на заглавката на чекмедже/панел/</string>
     <string name="drawer_item_activities">Активност</string>
+    <string name="drawer_item_album">Албуми</string>
     <string name="drawer_item_all_files">Всички файлове</string>
     <string name="drawer_item_assistant">Асистент</string>
     <string name="drawer_item_favorites">Любими</string>
@@ -249,7 +269,6 @@
     <string name="drawer_item_notifications">Известия</string>
     <string name="drawer_item_on_device">На устройството</string>
     <string name="drawer_item_personal_files">Лични файлове</string>
-    <string name="drawer_item_recently_modified">Последно преработени</string>
     <string name="drawer_item_shared">Споделени</string>
     <string name="drawer_item_trashbin">Изтрити файлове</string>
     <string name="drawer_item_uploads_list">Качени</string>
@@ -316,6 +335,7 @@
     <string name="etm_transfer_type_upload">Качване</string>
     <string name="fab_label">Добави или качи</string>
     <string name="failed_to_download">Неуспешно предаване на файл на мениджъра за изтегляне</string>
+    <string name="failed_to_load_tags">Неуспешно зареждане на етикети</string>
     <string name="failed_to_print">Неуспешен печат на файл</string>
     <string name="failed_to_start_editor">Неуспешно стартиране на редактора</string>
     <string name="failed_update_ui">Неуспешно обновяване на UI /потребителски интерфейс/</string>
@@ -338,7 +358,8 @@
     <string name="file_list_empty_local_search">Не бяха открити файлове или папки, които да отговарят на търсенето</string>
     <string name="file_list_empty_moving">Тук няма нищо. Можете да добавите папка.</string>
     <string name="file_list_empty_on_device">Свалените файлове и папки ще се показват тук.</string>
-    <string name="file_list_empty_recently_modified">Няма модифицирани файлове през последните 7 дни</string>
+    <string name="file_list_empty_recent_files_description">Файловете и папките, които наскоро сте променили, ще се покажат тук.</string>
+    <string name="file_list_empty_recent_files_headline">Няма наскоро модифицирани файлове</string>
     <string name="file_list_empty_search">Вероятно е в друга директория?</string>
     <string name="file_list_empty_shared">Споделените файлове и папки ще се показват тук.</string>
     <string name="file_list_empty_shared_headline">Все още нищо не е споделено</string>
@@ -405,6 +426,8 @@
     <string name="foreign_files_remote_text">Отдалечен: %1$s</string>
     <string name="forward">Напред</string>
     <string name="fourHours">4 чàса</string>
+    <string name="governance_file_retention_label">Запазване на файлове</string>
+    <string name="governance_no_label">Няма</string>
     <string name="grid_file_features_live_photo_content_description">Иконата служи за индикация дали \"live photo\" е налична</string>
     <string name="hidden_file_name_warning">Името ще доведе до скрит файл</string>
     <string name="hint_name">Име</string>
@@ -452,17 +475,7 @@
     <string name="manage_space_clear_data">Изчисти данните</string>
     <string name="manage_space_description">Настройките, базата от данни и сървърните сертификати от %1$sя ще бъдат изтрити перманентно. \\n\\nИзтеглените файлове ще бъдат запазени непокътнати.\\n\\nТози процес може да отнеме известно време.</string>
     <string name="manage_space_title">Управление на място</string>
-    <string name="media_err_invalid_progressive_playback">Мултимедийният файл не може да се излъчва</string>
-    <string name="media_err_io">Медия файлът не може да бъде прочетен</string>
-    <string name="media_err_malformed">Неправилно кодиран медиен файл</string>
-    <string name="media_err_timeout">Опитът за възпроизвеждане на файла беше неуспешен</string>
-    <string name="media_err_unknown">Вграденият медия плеър не може да възпроизведе файла</string>
-    <string name="media_err_unsupported">Неподдържан медиен кодек</string>
-    <string name="media_forward_description">Бутон за превъртане напред</string>
-    <string name="media_notif_ticker">%1$s музикален плеър</string>
-    <string name="media_play_pause_description">Бутон възпроизведи / пауза </string>
-    <string name="media_rewind_description">Бутон за превъртане назад</string>
-    <string name="media_state_playing">%1$s (възпроизвеждане)</string>
+    <string name="manage_tags">Управление на маркери</string>
     <string name="menu_item_sort_by_date_newest_first">Най-нов</string>
     <string name="menu_item_sort_by_date_oldest_first">Най-стар</string>
     <string name="menu_item_sort_by_name_a_z">А - Я</string>
@@ -529,8 +542,7 @@
     <string name="permission_deny">Не</string>
     <string name="picture_set_as_no_app">Няма намерени приложения за задаване на снимка</string>
     <string name="pin_shortcut_label">Отваряне на %1$s</string>
-    <string name="player_stop">стоп</string>
-    <string name="player_toggle">превключване</string>
+    <string name="player_media_controls_close_action_title">Затваряне</string>
     <string name="power_save_check_dialog_message">Деактивирането на проверката за пестене на енергия може да доведе до качване на файлове, в състояние с ниска батерия!</string>
     <string name="pref_behaviour_entries_delete_file">изтрит</string>
     <string name="pref_behaviour_entries_keep_file">запазван в оригиналната папка</string>
@@ -601,12 +613,14 @@
     <string name="reload">Презареди</string>
     <string name="remote">(отдалечен)</string>
     <string name="remote_file_fetch_failed">Неуспешно намиране на файл!</string>
+    <string name="remove">Премахване</string>
     <string name="remove_e2e">Можете да премахнете локално цялостното криптиране към този клиент</string>
     <string name="remove_e2e_message">Можете да премахнете локално цялостното криптиране към този клиент. Криптираните файлове ще останат на сървъра, но вече няма да се синхронизират с този компютър.</string>
     <string name="remove_fail_msg">Изтриването неуспешно</string>
     <string name="remove_notification_failed">Неуспешно премахване на известие.</string>
     <string name="remove_push_notification">Премахване</string>
     <string name="remove_success_msg">Изтрито</string>
+    <string name="rename_dialog_button">Преименуване</string>
     <string name="rename_dialog_title">Въведете ново име</string>
     <string name="rename_local_fail_msg">Локалното копие не може да бъде преименувано; опитайте с друго име</string>
     <string name="rename_server_fail_msg">Сървърът не може да бъде преименуван</string>
@@ -631,12 +645,12 @@
     <string name="screenshot_04_accounts_subline">на едно място</string>
     <string name="screenshot_05_autoUpload_heading">Автоматично качване</string>
     <string name="search_error">Грешка при получаване на резултатите от търсенето</string>
+    <string name="search_tags">Търсене на етикети</string>
     <string name="select_all">Избери всички</string>
     <string name="select_media_folder">Задаване на медийна папка</string>
     <string name="select_one_template">Моля, изберете един шаблон </string>
     <string name="select_template">Изберете шаблон</string>
     <string name="send">Изпрати</string>
-    <string name="sendbutton_description">Икона на бутон за изпращане</string>
     <string name="set_as">Задай като</string>
     <string name="set_online_status">Състояние</string>
     <string name="set_picture_as">Задай като</string>
@@ -666,7 +680,6 @@
     <string name="share_no_expiration_date_label">Срок на валидност</string>
     <string name="share_no_password_title">Задайте парола</string>
     <string name="share_permission_can_edit">Може да редактира</string>
-    <string name="share_permission_secure_file_drop">Защитено пускане на файлове</string>
     <string name="share_permission_view_only">Само изглед</string>
     <string name="share_re_share_permission">Споделяне</string>
     <string name="share_read_permission">Прочитане</string>
@@ -737,7 +750,6 @@
     <string name="store_short_dev_desc">Самостоятелно хостваната платформа за производителност, която ви помага да поддържате контрол (версия за предварителен преглед на разработчиците)</string>
     <string name="stream">Стрийм с...</string>
     <string name="stream_not_possible_headline">Вътрешен стрийм не невъзможен</string>
-    <string name="stream_not_possible_message">Моля свалете медиа файла или използвайте външно приложение</string>
     <string name="sub_folder_rule_year">Година</string>
     <string name="subject_shared_with_you">\"%1$s\" бе споделено с вас</string>
     <string name="subject_user_shared_with_you">%1$s сподели с вас \"%2$s\"</string>
@@ -779,7 +791,6 @@
     <string name="thumbnail_for_existing_file_description">Миниатюра за съществуващ файл</string>
     <string name="thumbnail_for_new_file_desc">Миниатюра за нов файл</string>
     <string name="today">Днес</string>
-    <string name="trashbin_activity_title">Изтрити файлове</string>
     <string name="trashbin_empty_headline">Няма изтрити файлове</string>
     <string name="trashbin_empty_message">Ще можете да възстановите изтритите файлове от тук.</string>
     <string name="trashbin_file_not_deleted">Файлът %1$s не може да бъде изтрит!</string>
@@ -827,7 +838,6 @@
     <string name="upload_old_android">Шифроването е възможно само с > = Android 5.0</string>
     <string name="upload_query_move_foreign_files">В папка %1$s няма достатъчно място за копиране на избраните файлове. Желаете ли да бъдат преместени?</string>
     <string name="upload_scan_doc_upload">Сканиране на документ от камера</string>
-    <string name="upload_sync_conflict">Конфликт при синхронизирането, необходимо е да го отстраните ръчно</string>
     <string name="upload_unknown_error">Неизвестна грешка</string>
     <string name="uploader_btn_alternative_text">Избиране</string>
     <string name="uploader_btn_upload_text">Качване</string>
@@ -857,9 +867,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Настройка</string>
     <string name="uploader_wrn_no_account_text">На устройството няма профил за %1$s. Моля съдайте такъв.</string>
     <string name="uploader_wrn_no_account_title">Не е открит профил</string>
+    <string name="uploads_view_group_completed_uploads">Завършен</string>
     <string name="uploads_view_group_current_uploads">Текущ</string>
     <string name="uploads_view_group_failed_uploads">Провален/в очакване на рестарт</string>
-    <string name="uploads_view_group_finished_uploads">Качени</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Отказано</string>
     <string name="uploads_view_later_waiting_to_upload">Изчакване за качване</string>
     <string name="uploads_view_title">Качени</string>
@@ -872,7 +882,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Локалният фаил не е намерен</string>
     <string name="uploads_view_upload_status_failed_permission_error">Грешка в правата</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Недоверен сървърен сертификат</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Извлича се версията на сървъра ...</string>
     <string name="uploads_view_upload_status_service_interrupted">Приложението бе терминирано</string>
     <string name="uploads_view_upload_status_succeeded">Завършено</string>
     <string name="uploads_view_upload_status_unknown_fail">Неизвестна грешка</string>
@@ -883,7 +892,9 @@
     <string name="user_icon">Потребител</string>
     <string name="user_info_address">Адрес</string>
     <string name="user_info_email">Имейл</string>
+    <string name="user_info_groups">Групи</string>
     <string name="user_info_phone">Телефонен номер</string>
+    <string name="user_info_profile">Профил</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Интернет страница</string>
     <string name="user_information_retrieval_error">Грешка при изтеглянето на потребителска информация</string>

@@ -18,7 +18,7 @@ import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 import com.owncloud.android.lib.resources.assistant.v2.model.TranslationRequest
 
 interface AssistantRemoteRepository {
-    suspend fun getTaskTypes(): List<TaskTypeData>?
+    suspend fun fetchTaskTypes(): List<TaskTypeData>?
 
     suspend fun createTask(input: String, taskType: TaskTypeData): RemoteOperationResult<Void>
 

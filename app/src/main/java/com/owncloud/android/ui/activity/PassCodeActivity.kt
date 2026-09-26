@@ -36,6 +36,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import androidx.activity.OnBackPressedCallback
 
 @Suppress("TooManyFunctions", "MagicNumber")
 class PassCodeActivity :
@@ -45,6 +46,7 @@ class PassCodeActivity :
     companion object {
         private val TAG = PassCodeActivity::class.java.simpleName
 
+        private const val ONE_SECOND_MS = 1000L
         private const val KEY_PASSCODE_DIGITS = "PASSCODE_DIGITS"
         private const val KEY_CONFIRMING_PASSCODE = "CONFIRMING_PASSCODE"
         const val ACTION_REQUEST_WITH_RESULT = "ACTION_REQUEST_WITH_RESULT"
@@ -78,6 +80,8 @@ class PassCodeActivity :
     private var changed = true // to control that only one blocks jump
     private var delayInSeconds = 0
 
+    private val delayFormatter by lazy { PassCodeDelayFormatter(resources) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         delayInSeconds = preferences.passCodeDelay
@@ -90,6 +94,20 @@ class PassCodeActivity :
         setSoftInputMode()
         setupUI(savedInstanceState)
         setTextListeners()
+        handleOnBackPressed()
+    }
+
+    private fun handleOnBackPressed() {
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (intent.action == ACTION_CHECK) return
+                    isEnabled = false
+                    onBackPressedDispatcher.onBackPressed()
+                }
+            }
+        )
     }
 
     private fun applyTint() {
@@ -354,45 +372,6 @@ class PassCodeActivity :
         }
     }
 
-    @Suppress("MagicNumber")
-    private fun getExplanationText(timeInSecond: Int): String = when {
-        timeInSecond < 60 -> resources.getQuantityString(
-            R.plurals.delay_message,
-            timeInSecond,
-            timeInSecond
-        )
-
-        else -> {
-            val minutes = timeInSecond / 60
-            val remainingSeconds = timeInSecond % 60
-
-            when {
-                remainingSeconds == 0 -> resources.getQuantityString(
-                    R.plurals.delay_message_minutes,
-                    minutes,
-                    minutes
-                )
-
-                else -> {
-                    val minuteText = resources.getQuantityString(
-                        R.plurals.delay_message_minutes_part,
-                        minutes,
-                        minutes
-                    )
-                    val secondText = resources.getQuantityString(
-                        R.plurals.delay_message_seconds_part,
-                        remainingSeconds,
-                        remainingSeconds
-                    )
-
-                    val prefixText = "$minuteText $secondText"
-                    getString(R.string.due_to_too_many_wrong_attempts, prefixText)
-                }
-            }
-        }
-    }
-
-    @Suppress("MagicNumber")
     private fun showDelay() {
         val pinBruteForceCount = preferences.pinBruteForceDelay()
         if (pinBruteForceCount <= 0) {
@@ -404,8 +383,8 @@ class PassCodeActivity :
         var counter = delayInSeconds
         lifecycleScope.launch(Dispatchers.Main) {
             while (counter != 0) {
-                binding.explanation.text = getExplanationText(counter)
-                delay(1000)
+                binding.explanation.text = delayFormatter.getExplanationText(counter)
+                delay(ONE_SECOND_MS)
                 counter -= 1
             }
 

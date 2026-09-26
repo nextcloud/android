@@ -29,7 +29,7 @@
     <string name="activity_icon">Activitate</string>
     <string name="add_new_public_share">Adaugă un link public partajat nou</string>
     <string name="add_new_secure_file_drop">Adaugă o nouă încărcare securizată de fișier</string>
-    <string name="add_to_cloud">Adaugă la 1 %1$s</string>
+    <string name="album_stop_sharing">Oprește partajarea</string>
     <string name="app_config_base_url_title">URL-ul de bază</string>
     <string name="app_config_disable_clipboard_title">Dezactivează clipboard</string>
     <string name="app_config_disable_intro_title">Deactivează introducerea</string>
@@ -75,7 +75,6 @@
     <string name="auth_ssl_unverified_server_title">Nu s-a putut verifica identitatea serverului SSL</string>
     <string name="auth_testing_connection">Testare conexiune</string>
     <string name="auth_timeout_title">Server-ului i-a luat prea mult timp sa raspunda</string>
-    <string name="auth_trying_to_login">Se încearcă autentificarea…</string>
     <string name="auth_unauthorized">Nume de utilizator sau parolă greșită</string>
     <string name="auth_unknown_error_exception_title">Eroare necunoscută: %1$s</string>
     <string name="auth_unknown_error_http_title">A apărut o eroare HTTP necunoscută!</string>
@@ -205,13 +204,15 @@
     <string name="could_not_retrieve_url">Nu a fost găsit URL-ul</string>
     <string name="create">Crează</string>
     <string name="create_dir_fail_msg">Nu s-a putut crea directorul</string>
+    <string name="create_document">Document</string>
+    <string name="create_folder">Director</string>
     <string name="create_new">Nou</string>
     <string name="create_new_document">Document nou</string>
-    <string name="create_new_folder">Director nou</string>
     <string name="create_new_presentation">Prezentare nouă</string>
     <string name="create_new_spreadsheet">Foaie de calcul nouă</string>
+    <string name="create_presentation">Prezentare</string>
     <string name="create_rich_workspace">Adăugați descrierea directorului</string>
-    <string name="creates_rich_workspace">Adăugă descrierea directorului</string>
+    <string name="create_spreadsheet">Foaie de calcul</string>
     <string name="credentials_disabled">Autentificare dezactivată</string>
     <string name="daily_backup">Copie de rezervă zilnică</string>
     <string name="data_to_back_up">Date pentru copia de rezervă</string>
@@ -265,12 +266,10 @@
     <string name="drawer_item_assistant">Asistent</string>
     <string name="drawer_item_favorites">Favorite</string>
     <string name="drawer_item_gallery">Media</string>
-    <string name="drawer_item_groupfolders">Gruparedirectoare</string>
     <string name="drawer_item_home">Acasă</string>
     <string name="drawer_item_notifications">Notificări</string>
     <string name="drawer_item_on_device">Pe dispozitiv</string>
     <string name="drawer_item_personal_files">Fișiere personale</string>
-    <string name="drawer_item_recently_modified">Modificate recent</string>
     <string name="drawer_item_shared">Partajate</string>
     <string name="drawer_item_trashbin">Fișiere șterse</string>
     <string name="drawer_item_uploads_list">Încărcări</string>
@@ -370,7 +369,8 @@
     <string name="file_list_empty_local_search">Niciun fișier sau dosar care să corespundă căutării dvs</string>
     <string name="file_list_empty_moving">Nu este nimic aici. Poți adăuga un dosar.</string>
     <string name="file_list_empty_on_device">FIșierele și dosarele descărcate vor apărea aici</string>
-    <string name="file_list_empty_recently_modified">Nu au fost găsite fișiere modificate în ultimele 7 zile</string>
+    <string name="file_list_empty_recent_files_description">Fișierele și dosarele modificate recent vor fi afișate aici</string>
+    <string name="file_list_empty_recent_files_headline">Niciun fișier modificat recent</string>
     <string name="file_list_empty_search">Poate că este într-un alt dosar?</string>
     <string name="file_list_empty_shared">FIșierele și dosarele partajate vor apărea aici</string>
     <string name="file_list_empty_shared_headline">Nimic partajat încă</string>
@@ -450,6 +450,7 @@
     <string name="foreign_files_remote_text">La distanță: %1$s</string>
     <string name="forward">Înainte</string>
     <string name="fourHours">4 ore</string>
+    <string name="governance_no_label">Niciuna</string>
     <string name="gplay_restriction">Google a restricționat descărcarea fișierelor APK/AAB!</string>
     <string name="grid_file_features_live_photo_content_description">Această pictogramă indică disponibilitatea fotografiei live</string>
     <string name="hidden_file_name_warning">Numele va rezulta într-un fișier ascuns</string>
@@ -514,17 +515,7 @@
     <string name="manage_space_clear_data">Elimină datele</string>
     <string name="manage_space_description">Setările, bazele de date și certificatele serverului ale %1$s vor fi șterse permanent. \n\nFișierele descărcate vor fi păstrate intacte.\n\nAcest proces poate dura mai mult timp.</string>
     <string name="manage_space_title">Administrare spațiu</string>
-    <string name="media_err_invalid_progressive_playback">Fișierul media nu poate fi difuzat</string>
-    <string name="media_err_io">Nu s-a putut citi fișierul media</string>
-    <string name="media_err_malformed">Fișierul media are codare incorectă</string>
-    <string name="media_err_timeout">Încercarea de a reda fișierul a expirat</string>
-    <string name="media_err_unknown">Media player-ul încorporat nu poate reda fișierul media</string>
-    <string name="media_err_unsupported">Codec media fără suport</string>
-    <string name="media_forward_description">Butonul pentru repede înainte</string>
-    <string name="media_notif_ticker">%1$s</string>
-    <string name="media_play_pause_description">Buton de play sau pauză </string>
-    <string name="media_rewind_description">Butonul rewind</string>
-    <string name="media_state_playing">%1$s (redare)</string>
+    <string name="manage_tags">Administrați etichete</string>
     <string name="menu_item_sort_by_date_newest_first">Cel mai nou mai întâi</string>
     <string name="menu_item_sort_by_date_oldest_first">Cel mai vechi mai întâi</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -593,8 +584,7 @@
     <string name="permission_deny">Refuzați</string>
     <string name="picture_set_as_no_app">Nu a fost găsită o aplicație pentru a seta imaginea</string>
     <string name="pin_shortcut_label">Deschide %1$s</string>
-    <string name="player_stop">stop</string>
-    <string name="player_toggle">comută</string>
+    <string name="player_media_controls_close_action_title">Închide</string>
     <string name="power_save_check_dialog_message">Dezactivarea modului de economisire a bateriei ar putea rezulta în încărcarea de fișiere când bateria are un nivel scăzut!</string>
     <string name="pref_behaviour_entries_delete_file">șterge</string>
     <string name="pref_behaviour_entries_keep_file">păstrate in dosarul original</string>
@@ -663,11 +653,13 @@
     <string name="reload">Reîncarcă</string>
     <string name="remote">(la distanță)</string>
     <string name="remote_file_fetch_failed">Eșuare în găsirea fișierului!</string>
+    <string name="remove">Elimină</string>
     <string name="remove_e2e">Poți elimina encripția end-to-end locală pentru acest client</string>
     <string name="remove_fail_msg">Eliminare eșuată</string>
     <string name="remove_notification_failed">Eșuare în eliminarea notificărilor.</string>
     <string name="remove_push_notification">Șterge</string>
     <string name="remove_success_msg">Șters</string>
+    <string name="rename_dialog_button">Redenumire</string>
     <string name="rename_dialog_title">Introduceţi un nou nume</string>
     <string name="rename_local_fail_msg">Nu s-a putut redenumi copia locală, încercați un alt nume</string>
     <string name="rename_server_fail_msg">Redenumirea nu este posibilă, numele este deja luat</string>
@@ -697,7 +689,6 @@
     <string name="select_one_template">Te rugăm selectează un șablon</string>
     <string name="select_template">Selectează șablon</string>
     <string name="send">Trimite</string>
-    <string name="sendbutton_description">Pictograma butonului de trimite</string>
     <string name="set_as">Setează ca</string>
     <string name="set_picture_as">Folosește imaginea ca</string>
     <string name="share">Partajează</string>
@@ -748,6 +739,7 @@
     <string name="single_sign_on_request_token" formatted="true">Permite %1$s să acceseze contul tău Nextcloud %2$s ?</string>
     <string name="sort_by">Sortare după</string>
     <string name="sort_favorites_first">Sortați favoritele primele</string>
+    <string name="sort_folders_before_files">Sortează dosarele înainte de fișiere</string>
     <string name="ssl_validator_btn_details_hide">Ascunde</string>
     <string name="ssl_validator_btn_details_see">Detalii</string>
     <string name="ssl_validator_header">Nu s-a putut verifica identitatea serverului</string>
@@ -790,7 +782,6 @@
     <string name="store_short_dev_desc">Platforma găzduită și controlată de tine(versiunea pentru dezvoltatori)</string>
     <string name="stream">Transmite cu...</string>
     <string name="stream_not_possible_headline">Transmisia internă nu este posibilă </string>
-    <string name="stream_not_possible_message">Vă rugăm descărcați fișierul media sau folosiți o aplicație externă.</string>
     <string name="sub_folder_rule_day">An/Lună/Zi</string>
     <string name="sub_folder_rule_month">An/Lună</string>
     <string name="sub_folder_rule_year">An</string>
@@ -835,7 +826,6 @@
     <string name="thumbnail_for_new_file_desc">Thumbnail pentru fișiere noi</string>
     <string name="timeout_richDocuments">Încarcarea durează mai mult decât ne așteptam</string>
     <string name="today">Astăzi</string>
-    <string name="trashbin_activity_title">Fișiere șterse</string>
     <string name="trashbin_empty_headline">Nu sunt fișiere șterse</string>
     <string name="trashbin_empty_message">Veți putea restabili fișierele șterse de aici</string>
     <string name="trashbin_file_not_deleted">Fișierul %1$s nu a putut fi șters!</string>
@@ -879,7 +869,6 @@
     <string name="upload_lock_failed">Blocarea dosarului a eșuat</string>
     <string name="upload_query_move_foreign_files">Nu există spațiu suficient pentru a copia fișierele selectate în dosarul %1$s. Doriți să le mutați în schimb?</string>
     <string name="upload_scan_doc_upload">Scanați documentul cu camera foto</string>
-    <string name="upload_sync_conflict">Conflict de sincronizare, vă rugăm rezolvați  problema manual</string>
     <string name="upload_unknown_error">Eroare necunoscută</string>
     <string name="uploader_btn_alternative_text">Alege</string>
     <string name="uploader_btn_upload_text">Încărcare</string>
@@ -909,9 +898,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Configurare</string>
     <string name="uploader_wrn_no_account_text">Nu există conturi %1$s pe dispozitivul tău. Te rugăm să configurezi unul mai întâi.</string>
     <string name="uploader_wrn_no_account_title">Nici un cont găsit</string>
+    <string name="uploads_view_group_completed_uploads">Terminat</string>
     <string name="uploads_view_group_current_uploads">Curent</string>
     <string name="uploads_view_group_failed_uploads">Repornire eșuată/în așteptare</string>
-    <string name="uploads_view_group_finished_uploads">Încărcat</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Anulat</string>
     <string name="uploads_view_later_waiting_to_upload">Se așteaptă încărcarea</string>
     <string name="uploads_view_title">Încărcări</string>
@@ -924,7 +913,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Fisier local negasit</string>
     <string name="uploads_view_upload_status_failed_permission_error">Eroare de permisiune</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certificat de server neacreditat</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Se caută versiunea serverului...</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplicație oprită</string>
     <string name="uploads_view_upload_status_succeeded">Terminat</string>
     <string name="uploads_view_upload_status_unknown_fail">Eroare necunoscută</string>
@@ -935,7 +923,9 @@
     <string name="user_icon">Utilizator</string>
     <string name="user_info_address">Adresă</string>
     <string name="user_info_email">E-mail</string>
+    <string name="user_info_groups">Grupuri</string>
     <string name="user_info_phone">Număr telefon</string>
+    <string name="user_info_profile">Profil</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Site web</string>
     <string name="user_information_retrieval_error">Eroare în recuperarea informațiilor utilizatorului</string>

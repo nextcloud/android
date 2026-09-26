@@ -23,6 +23,9 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class ConversationViewModel(private val remoteRepository: ConversationRemoteRepository) : ViewModel() {
+    private val _selectedConversationId = MutableStateFlow<Long?>(null)
+    val selectedConversationId: StateFlow<Long?> = _selectedConversationId
+
     private val _errorMessageId = MutableStateFlow<Int?>(null)
     val errorMessageId: StateFlow<Int?> = _errorMessageId
 
@@ -31,6 +34,12 @@ class ConversationViewModel(private val remoteRepository: ConversationRemoteRepo
 
     private val _conversations = MutableStateFlow<List<Conversation>>(listOf())
     val conversations: StateFlow<List<Conversation>> = _conversations.asStateFlow()
+
+    fun selectConversation(value: Long?) {
+        _selectedConversationId.update {
+            value
+        }
+    }
 
     fun fetchConversations() {
         _screenState.update {
@@ -63,7 +72,7 @@ class ConversationViewModel(private val remoteRepository: ConversationRemoteRepo
         }
     }
 
-    fun createConversation(title: String?, onResult: (Long) -> Unit) {
+    fun createConversation(title: String?, onResult: (Conversation) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             val timestamp = System.currentTimeMillis().div(MILLIS_PER_SECOND)
             val newConversation = remoteRepository.createConversation(title, timestamp)
@@ -71,7 +80,7 @@ class ConversationViewModel(private val remoteRepository: ConversationRemoteRepo
                 _conversations.update {
                     listOf(newConversation.session) + it
                 }
-                onResult(newConversation.session.id)
+                onResult(newConversation.session)
             } else {
                 _errorMessageId.update {
                     R.string.conversation_screen_create_error_title

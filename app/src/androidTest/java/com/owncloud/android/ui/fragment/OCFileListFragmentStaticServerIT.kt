@@ -22,6 +22,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isEnabled
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import com.nextcloud.test.Flaky
 import com.nextcloud.test.GrantStoragePermissionRule.Companion.grant
 import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
@@ -36,6 +37,7 @@ import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.ScreenshotTest
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.Matchers.not
+import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -51,6 +53,11 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
     @Before
     fun initIntentRecording() {
         Intents.init()
+    }
+
+    @After
+    fun releaseIntentRecording() {
+        Intents.release()
     }
 
     @Test
@@ -417,6 +424,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
     }
 
     @Test
+    @Flaky(reason = "Folder picker activity is occasionally not started before the intent assertions run")
     fun shouldStartMoveInParentFolder() {
         launchActivity<TestActivity>().use { scenario ->
             val fragment = OCFileListFragment()

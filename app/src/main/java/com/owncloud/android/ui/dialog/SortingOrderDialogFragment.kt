@@ -98,7 +98,13 @@ class SortingOrderDialogFragment :
     private inner class OnSortOrderClickListener : View.OnClickListener {
         override fun onClick(v: View) {
             dismissAllowingStateLoss()
-            (activity as OnSortingOrderListener?)?.onSortingOrderChosen(v.tag as FileSortOrder)
+
+            val listener = parentFragment as? OnSortingOrderListener
+                ?: activity as? OnSortingOrderListener
+                ?: requireActivity().supportFragmentManager.fragments
+                    .firstOrNull { it is OnSortingOrderListener } as? OnSortingOrderListener
+
+            listener?.onSortingOrderChosen(v.tag as FileSortOrder)
         }
     }
 

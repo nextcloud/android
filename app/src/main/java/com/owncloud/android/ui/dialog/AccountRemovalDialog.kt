@@ -14,18 +14,21 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.player.media3.PlaybackModel
+import com.nextcloud.client.utils.IntentUtil
+import com.nextcloud.utils.avatar.AvatarGenerationListener
+import com.nextcloud.utils.avatar.AvatarGenerator
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.text.LinkFormatter
 import com.owncloud.android.R
 import com.owncloud.android.databinding.AccountRemovalDialogBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
-import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
+import com.owncloud.android.ui.dialog.extensions.themeButtons
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -39,6 +42,12 @@ class AccountRemovalDialog :
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
+
+    @Inject
+    lateinit var playbackModel: PlaybackModel
+
+    @Inject
+    lateinit var avatarGenerator: AvatarGenerator
 
     private var user: User? = null
     private lateinit var alertDialog: AlertDialog
@@ -59,15 +68,9 @@ class AccountRemovalDialog :
 
         viewThemeUtils.platform.themeRadioButton(binding.radioLocalRemove)
         viewThemeUtils.platform.themeRadioButton(binding.radioRequestDeletion)
-        viewThemeUtils.material.colorMaterialButtonPrimaryTonal(
-            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE) as MaterialButton
-        )
-        viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(
-            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE) as MaterialButton
-        )
-
+        alertDialog.themeButtons(viewThemeUtils)
         binding.userName.text = UserAccountManager.getDisplayName(user)
-        binding.account.text = user?.let { DisplayUtils.convertIdn(it.accountName, false) }
+        binding.account.text = user?.let { LinkFormatter.toUnicodeDomain(it.accountName) }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -131,12 +134,17 @@ class AccountRemovalDialog :
      */
     private fun removeAccount() {
         user?.let { user ->
+            stopMediaPlayerAndHidePip()
             if (binding.radioRequestDeletion.isChecked) {
-                DisplayUtils.startLinkIntent(activity, user.server.uri.toString() + DROP_ACCOUNT_URI)
+                IntentUtil.startLinkIntent(requireActivity(), user.server.uri.toString() + DROP_ACCOUNT_URI)
             } else {
                 backgroundJobManager.startAccountRemovalJob(user.accountName, false)
             }
         }
+    }
+
+    private fun stopMediaPlayerAndHidePip() {
+        playbackModel.release()
     }
 
     /**
@@ -146,13 +154,11 @@ class AccountRemovalDialog :
         try {
             val imageView = binding.userIcon
             imageView.tag = user!!.accountName
-            DisplayUtils.setAvatar(
+            avatarGenerator.setAccountAvatar(
                 user!!,
                 this,
                 resources.getDimension(R.dimen.list_item_avatar_icon_radius),
-                resources,
-                imageView,
-                context
+                imageView
             )
         } catch (_: Exception) {
         }

@@ -56,6 +56,32 @@ interface FileDao {
     )
     fun getGalleryItems(startDate: Long, endDate: Long, fileOwner: String): List<FileEntity>
 
+    @Query(
+        "SELECT * FROM filelist WHERE modified >= :startDate" +
+            " AND modified < :endDate" +
+            " AND (content_type LIKE 'image/%' OR content_type LIKE 'video/%')" +
+            " AND file_owner = :fileOwner" +
+            " ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}"
+    )
+    suspend fun getGalleryItemsSuspended(startDate: Long, endDate: Long, fileOwner: String): List<FileEntity>
+
+    @Query(
+        "SELECT * FROM filelist" +
+            " WHERE (content_type LIKE 'image/%' OR content_type LIKE 'video/%')" +
+            " AND file_owner = :fileOwner" +
+            " AND path LIKE :pathPrefix || '%'" +
+            " AND (:mimeFilter IS NULL OR content_type LIKE :mimeFilter)" +
+            " ORDER BY modified DESC, ${ProviderTableMeta._ID} DESC" +
+            " LIMIT :limit OFFSET :offset"
+    )
+    suspend fun getGalleryItemsPageSuspended(
+        fileOwner: String,
+        pathPrefix: String,
+        mimeFilter: String?,
+        limit: Int,
+        offset: Int
+    ): List<FileEntity>
+
     @Query("SELECT * FROM filelist WHERE file_owner = :fileOwner ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}")
     fun getAllFiles(fileOwner: String): List<FileEntity>
 
@@ -91,20 +117,19 @@ interface FileDao {
 
     @Query(
         """
-    SELECT * 
-    FROM filelist 
-    WHERE parent = :parentId 
-      AND file_owner = :accountName 
-      AND (content_type != :dirType AND content_type != :webdavType)  
-    ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}
-    """
+    SELECT NOT EXISTS (
+        SELECT 1
+        FROM filelist
+        WHERE parent = :parentId
+          AND file_owner = :accountName
+          AND content_type IS NOT NULL
+          AND content_type != '${MimeType.DIRECTORY}'
+          AND content_type != '${MimeType.WEBDAV_FOLDER}'
+          AND (media_path IS NULL OR TRIM(media_path) = '')
     )
-    suspend fun getSubfiles(
-        parentId: Long,
-        accountName: String,
-        dirType: String = MimeType.DIRECTORY,
-        webdavType: String = MimeType.WEBDAV_FOLDER
-    ): List<FileEntity>
+"""
+    )
+    fun areAllFilesHaveMediaPath(parentId: Long, accountName: String): Boolean
 
     @Query(
         """
@@ -144,6 +169,40 @@ interface FileDao {
     )
     suspend fun getFavoriteFiles(fileOwner: String): List<FileEntity>
 
+    @Query(
+        """
+    SELECT * 
+    FROM filelist 
+    WHERE file_owner = :fileOwner 
+      AND favorite = 1
+    ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}
+    """
+    )
+    fun getFavoriteFilesNonBlocking(fileOwner: String): List<FileEntity>
+
     @Query("SELECT remote_id FROM filelist WHERE file_owner = :accountName AND remote_id IS NOT NULL")
     fun getAllRemoteIds(accountName: String): List<String>
+
+    @Query(
+        """
+    WITH RECURSIVE descendants AS (
+        SELECT _id FROM filelist WHERE _id = :folderId AND file_owner = :fileOwner
+        UNION ALL
+        SELECT f._id FROM filelist f
+        INNER JOIN descendants d ON f.parent = d._id
+        WHERE f.file_owner = :fileOwner
+    )
+    DELETE FROM filelist WHERE _id IN (SELECT _id FROM descendants)
+"""
+    )
+    fun deleteFolderWithDescendants(fileOwner: String, folderId: Long): Int
+
+    @Query("DELETE FROM filelist WHERE file_owner = :fileOwner AND path = :remotePath")
+    fun deleteFileByRemotePath(fileOwner: String, remotePath: String): Int
+
+    @Query("UPDATE filelist SET is_read_only = :readOnly WHERE file_owner = :fileOwner AND path = :path")
+    fun setReadOnly(fileOwner: String, path: String, readOnly: Int): Int
+
+    @Update
+    fun updateAll(entities: List<FileEntity>)
 }

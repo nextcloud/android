@@ -26,7 +26,6 @@
     <string name="activity_chooser_title">Cuir ceangal gu…</string>
     <string name="activity_icon">Gnìomhachd</string>
     <string name="add_new_public_share">Cuir ceangal co-roinnidh poblach ùr ris</string>
-    <string name="add_to_cloud">Cuir ri %1$s</string>
     <string name="appbar_search_in">Lorg am broinn %s</string>
     <string name="associated_account_not_found">Cha deach an cunntas co-cheangailte a lorg!</string>
     <string name="auth_access_failed">Dh’fhàillig leis an inntrigeadh: %1$s</string>
@@ -50,7 +49,6 @@
     <string name="auth_ssl_unverified_server_title">Cha b’ urrainn dhuinn dearbh-aithne an fhrithealaiche SSL a dhearbhadh</string>
     <string name="auth_testing_connection">A’ cur a’ cheangail fo dheuchainn</string>
     <string name="auth_timeout_title">Thug am frithealaiche ro fhada a’ freagairt</string>
-    <string name="auth_trying_to_login">A’ feuchainn ri do chlàradh a-steach…</string>
     <string name="auth_unauthorized">Ainm-cleachdaiche no facal-faire ceàrr</string>
     <string name="auth_unknown_error_exception_title">Mearachd nach aithne dhuinn: %1$s</string>
     <string name="auth_unknown_error_http_title">Thachair mearachd HTTP nach aithne dhuinn!</string>
@@ -152,7 +150,6 @@
     <string name="could_not_retrieve_url">Cha b’ urrainn dhuinn an URL fhaighinn</string>
     <string name="create">Cruthaich</string>
     <string name="create_dir_fail_msg">Cha b’ urrainn dhuinn am pasgan a chruthachadh</string>
-    <string name="create_new_folder">Pasgan ùr</string>
     <string name="credentials_disabled">Chaidh an teisteas a chur à comas</string>
     <string name="default_credentials_wrong">Teisteas ceàrr</string>
     <string name="delete_account">Thoir air falbh an cunntas</string>
@@ -190,7 +187,6 @@
     <string name="drawer_item_home">Dachaigh</string>
     <string name="drawer_item_notifications">Brathan</string>
     <string name="drawer_item_on_device">Air an uidheam</string>
-    <string name="drawer_item_recently_modified">Air atharrachadh o chionn goirid</string>
     <string name="drawer_item_shared">Co-roinnte</string>
     <string name="drawer_item_trashbin">Faidhlichean air an sguabadh às</string>
     <string name="drawer_item_uploads_list">Na chaidh a luchdadh suas</string>
@@ -265,7 +261,6 @@
     <string name="file_list_empty_headline_server_search">Gun toradh</string>
     <string name="file_list_empty_moving">Chan eil dad an-seo. ’S urrainn dhut pasgan a chur ris.</string>
     <string name="file_list_empty_on_device">Nochdaidh na faidhlichean ’s pasganan a luchdaich thu a-nuas an-seo.</string>
-    <string name="file_list_empty_recently_modified">Cha do lorg sinn faidhle a chaidh atharrachadh sna 7 làithean seo chaidh</string>
     <string name="file_list_empty_search">Saoil a bheil e ann am pasgan eile?</string>
     <string name="file_list_empty_shared">Nochdaidh na faidhlichean ’s pasganan cho-roinn thu an-seo.</string>
     <string name="file_list_empty_shared_headline">Chan eil dad ’ga cho-roinneadh fhathast</string>
@@ -327,6 +322,7 @@
     <string name="foreign_files_remote_text">Cèin: %1$s</string>
     <string name="forward">Sìn air adhart</string>
     <string name="fourHours">4 uairean a thìde</string>
+    <string name="governance_no_label">Chan eil gin</string>
     <string name="hint_name">Ainm</string>
     <string name="hint_note">Nòta</string>
     <string name="hint_password">Facal-faire</string>
@@ -344,6 +340,7 @@
     <string name="local_file_not_found_message">Cha deach faidhle a lorg san t-siostam fhaidhlichean ionadail</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Chan eil pasgan eile ann.</string>
+    <string name="lock_file">Lock file</string>
     <string name="log_send_mail_subject">Logaichean aplacaid Android %1$s</string>
     <string name="log_send_no_mail_app">Cha deach aplacaid a lorg airson logaichean a chur. Stàlaich cliant puist-d.</string>
     <string name="login">Clàraich a-steach</string>
@@ -360,17 +357,6 @@
     <string name="manage_space_clear_data">Falamhaich an dàta</string>
     <string name="manage_space_description">Thèid na roghainnean, an stòr-dàta is teisteanasan fhrithealaichean a sguabadh às gu buan on dàta aig %1$s.\n\nCha doir seo buaidh air na faidhlichean a chaidh a luchdadh a-nuas.\n\nBheir am pròiseas seo greis mhath.</string>
     <string name="manage_space_title">Stiùir an àite</string>
-    <string name="media_err_invalid_progressive_playback">Cha ghabh am faidhle meadhain a shruthadh</string>
-    <string name="media_err_io">Cha b’ urrainn dhuinn am faidhle meadhain a leughadh</string>
-    <string name="media_err_malformed">Tha còdachadh ceàrr air an fhaidhle meadhain</string>
-    <string name="media_err_timeout">Dh’fhalbh an ùine air an oidhirp gus am faidhle seo a chluich</string>
-    <string name="media_err_unknown">Chan urrainn dhan chluicheadair mheadhanan ’na bhroinn am faidhle meadhain a chluich</string>
-    <string name="media_err_unsupported">Codec meadhain ris nach cuirear taic</string>
-    <string name="media_forward_description">Am putan “toinn air adhart”</string>
-    <string name="media_notif_ticker">Cluicheadair ciùil %1$s</string>
-    <string name="media_play_pause_description">Am putan “Cluich” no “Cuir ’na stad”</string>
-    <string name="media_rewind_description">Am putan “Toinn air ais”</string>
-    <string name="media_state_playing">%1$s (’ga chluich)</string>
     <string name="menu_item_sort_by_date_newest_first">As ùire an toiseach</string>
     <string name="menu_item_sort_by_date_oldest_first">As sine an toiseach</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -429,8 +415,7 @@
     <string name="permission_allow">Ceadaich</string>
     <string name="permission_deny">Diùlt</string>
     <string name="picture_set_as_no_app">Cha deach aplacaid a lorg airson dealbhan a chur leatha</string>
-    <string name="player_stop">cuir stad air</string>
-    <string name="player_toggle">toglaich</string>
+    <string name="player_media_controls_close_action_title">Dùin</string>
     <string name="power_save_check_dialog_message">Ma chuireas tu à comas dearbhadh caomhnadh cumhachd, dh’fhaoidte gun dèid faidhlichean a luchdadh suas nuair a bhios am bataraidh fann!</string>
     <string name="pref_behaviour_entries_delete_file">air sguabadh às</string>
     <string name="pref_behaviour_entries_keep_file">’ga chumail sa phasgan tùsail</string>
@@ -493,10 +478,12 @@
     <string name="recommend_urls">%1$s no %2$s</string>
     <string name="remote">(cèin)</string>
     <string name="remote_file_fetch_failed">Cha deach am faidhle a lorg!</string>
+    <string name="remove">Thoir air falbh</string>
     <string name="remove_fail_msg">Dh’fhàillig leis an sguabadh às</string>
     <string name="remove_notification_failed">Cha deach leinn am brath a thoirt air falbh.</string>
     <string name="remove_push_notification">Thoir air falbh</string>
     <string name="remove_success_msg">Chaidh a sguabadh às</string>
+    <string name="rename_dialog_button">Thoir ainm ùr air</string>
     <string name="rename_dialog_title">Cuir a-steach ainm ùr</string>
     <string name="rename_local_fail_msg">Cha b’ urrainn dhuinn an t-ainm ùr a thoirt air an lethbhreac ionadail, feuch ainm eile</string>
     <string name="rename_server_fail_msg">Tha ghabh an t-ainm ùr a thoirt air on a tha e ’ga chleachdadh mu thràth</string>
@@ -518,7 +505,6 @@
     <string name="select_one_template">Tagh teamplaid</string>
     <string name="select_template">Tagh teamplaid</string>
     <string name="send">Cuir</string>
-    <string name="sendbutton_description">Ìomhaigheag putan a’ chuir</string>
     <string name="set_as">Suidhich mar</string>
     <string name="set_online_status">Staid air loidhne</string>
     <string name="set_picture_as">Cleachd an dealbh mar</string>
@@ -601,7 +587,6 @@
     <string name="store_short_dev_desc">An t-ùrlar tarbhachd as urrainn dhut fhèin òstadh ’nad làmhan-sa (tionndadh ro-sheallaidh dhan luchd-leasachaidh)</string>
     <string name="stream">Sruthaich le…</string>
     <string name="stream_not_possible_headline">Cha ghabh sruthadh inntearnail a dhèanamh</string>
-    <string name="stream_not_possible_message">Luchdaich a-nuas meadhan ’na àite no cleachd aplacaid air an taobh a-muigh.</string>
     <string name="subject_shared_with_you">Chaidh “%1$s” a cho-roinneadh leat</string>
     <string name="subject_user_shared_with_you">Cho-roinn %1$s “%2$s” leat</string>
     <string name="sync">Sioncronaich</string>
@@ -638,7 +623,6 @@
     <string name="thumbnail_for_existing_file_description">Dealbhag an fhaidhle a tha ann</string>
     <string name="thumbnail_for_new_file_desc">Dealbhag an fhaidhle ùir</string>
     <string name="today">An-diugh</string>
-    <string name="trashbin_activity_title">Faidhlichean air an sguabadh às</string>
     <string name="trashbin_empty_headline">Cha deach faidhle a sguabadh às</string>
     <string name="trashbin_empty_message">’S urrainn dhut faidhlichean air an sguabadh às aiseag an-seo.</string>
     <string name="trashbin_file_not_deleted">Cha b’ urrainn dhuinn am faidhle %1$s a sguabadh às!</string>
@@ -646,6 +630,7 @@
     <string name="trashbin_loading_failed">Dh’fhàillig luchdadh an sgudail!</string>
     <string name="trashbin_not_emptied">Cha b’ urrainn dhuinn na faidhlichean a sguabadh às gu buan!</string>
     <string name="unknown">Chan eil fhios</string>
+    <string name="unlock_file">Unlock file</string>
     <string name="unread_comments">Tha beachd gun leughadh ann</string>
     <string name="unset_encrypted">Neo-shuidhich an crioptachadh</string>
     <string name="unshare_link_file_error">Thachair mearachd le crìochnachadh co-roinneadh an fhaidhle no pasgain seo.</string>
@@ -679,7 +664,6 @@
     <string name="upload_lock_failed">Dh’fhàillig glasadh a’ phasgain</string>
     <string name="upload_old_android">Cha ghabh a chrioptachadh ach le &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Cha ghabh lethbhreac dhe na faidhlichean a thagh thu a chur dhan phasgan %1$s air sgàth ’s nach eil àite gu leòr ann. Am bu mhiann leat an gluasad a-null ’na àite?</string>
-    <string name="upload_sync_conflict">Còmhstri leis an t-sioncronachadh, am fuasgail thu a làimh i?</string>
     <string name="upload_unknown_error">Mearachd nach aithne dhuinn</string>
     <string name="uploader_btn_alternative_text">Tagh</string>
     <string name="uploader_btn_upload_text">Luchdaich suas</string>
@@ -709,9 +693,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Suidhich</string>
     <string name="uploader_wrn_no_account_text">Chan eil chunntas %1$s air an uidheam agad. Suidhich cunntas an toiseach.</string>
     <string name="uploader_wrn_no_account_title">Cha deach cunntas a lorg</string>
+    <string name="uploads_view_group_completed_uploads">Coileanta</string>
     <string name="uploads_view_group_current_uploads">Làithreach</string>
     <string name="uploads_view_group_failed_uploads">Dh’fhàillig e/ath-thòiseachadh ri dhèiligeadh</string>
-    <string name="uploads_view_group_finished_uploads">Air a luchdadh suas</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Sguireadh dheth</string>
     <string name="uploads_view_later_waiting_to_upload">A’ feitheamh ris an luchdadh suas</string>
     <string name="uploads_view_title">Na chaidh a luchdadh suas</string>
@@ -724,7 +708,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Cha deach am faidhle ionadail a lorg</string>
     <string name="uploads_view_upload_status_failed_permission_error">Mearachd le cead</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Teisteanas frithealaiche gun earbsa</string>
-    <string name="uploads_view_upload_status_fetching_server_version">A’ faighinn tionndadh an fhrithealaiche…</string>
     <string name="uploads_view_upload_status_service_interrupted">Chaidh an aplacaid a chrìochnachadh</string>
     <string name="uploads_view_upload_status_succeeded">Coileanta</string>
     <string name="uploads_view_upload_status_unknown_fail">Mearachd nach aithne dhuinn</string>

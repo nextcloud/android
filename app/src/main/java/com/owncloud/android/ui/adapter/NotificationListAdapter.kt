@@ -1,0 +1,325 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2023 TSI-mc
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
+ * SPDX-FileCopyrightText: 2018-2022 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2017 Andy Scherzinger <info@andy-scherzinger.de>
+ * SPDX-FileCopyrightText: 2017 Mario Danic <mario@lovelyhq.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ */
+package com.owncloud.android.ui.adapter
+
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.graphics.Typeface
+import android.text.SpannableStringBuilder
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.net.toUri
+import androidx.core.view.size
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.nextcloud.utils.avatar.AvatarGenerator
+import com.nextcloud.client.utils.IntentUtil
+import com.nextcloud.utils.extensions.setVisibleIf
+import com.nextcloud.utils.text.DisplayTextFormatter
+import com.nextcloud.utils.text.RichSubjectFormatter
+import com.nextcloud.utils.text.RichSubjectParam
+import com.owncloud.android.R
+import com.owncloud.android.databinding.NotificationListItemBinding
+import com.owncloud.android.lib.resources.notifications.models.Action
+import com.owncloud.android.lib.resources.notifications.models.Notification
+import com.owncloud.android.lib.resources.notifications.models.RichObject
+import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.ui.fragment.notifications.NotificationsAdapterItemClick
+import com.owncloud.android.ui.fragment.notifications.NotificationsFragment
+import com.owncloud.android.utils.theme.ViewThemeUtils
+
+@Suppress("TooManyFunctions")
+class NotificationListAdapter(
+    private val fragment: NotificationsFragment,
+    private val viewThemeUtils: ViewThemeUtils,
+    private val itemClick: NotificationsAdapterItemClick,
+    private val avatarGenerator: AvatarGenerator
+) : RecyclerView.Adapter<NotificationListAdapter.NotificationViewHolder>() {
+
+    private val notificationsList = ArrayList<Notification>()
+    private val richSubjectFormatter by lazy {
+        RichSubjectFormatter(fragment.requireContext(), avatarGenerator)
+    }
+
+    // region Adapter overrides
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = NotificationViewHolder(
+        NotificationListItemBinding.inflate(
+            LayoutInflater.from(fragment.requireContext()),
+            parent,
+            false
+        )
+    )
+
+    override fun getItemCount() = notificationsList.size
+
+    override fun onBindViewHolder(holder: NotificationViewHolder, position: Int) {
+        val notification = notificationsList[position]
+        bindDateTime(holder, notification)
+        bindSubject(holder, notification)
+        bindMessage(holder, notification)
+        bindIcon(holder, notification)
+        colorViewHolder(holder)
+        bindButtons(holder, notification)
+    }
+
+    // endregion
+
+    // region Bind helpers
+
+    private fun bindDateTime(holder: NotificationViewHolder, notification: Notification) {
+        val timestamp = DisplayTextFormatter.formatRelativeTimestamp(
+            fragment.requireContext(),
+            notification.getDatetime().time
+        )
+        holder.binding.datetime.text = timestamp
+    }
+
+    private fun bindSubject(holder: NotificationViewHolder, notification: Notification) {
+        val file = notification.subjectRichParameters[FILE]
+        if (file == null && !notification.getLink().isNullOrEmpty()) {
+            val subject = "${notification.getSubject()} ↗"
+            holder.binding.subject.run {
+                setTypeface(typeface, Typeface.BOLD)
+                text = subject
+                setOnClickListener {
+                    IntentUtil.startLinkIntent(fragment.requireActivity(), notification.getLink())
+                }
+            }
+        } else {
+            holder.binding.subject.run {
+                text = if (!notification.subjectRich.isNullOrEmpty()) {
+                    formatSubjectRich(notification)
+                } else {
+                    notification.getSubject()
+                }
+                val fileId = file?.id?.takeIf { it.isNotEmpty() }
+                setOnClickListener(fileId?.let { id -> View.OnClickListener { showFile(id) } })
+            }
+        }
+    }
+
+    private fun formatSubjectRich(notification: Notification): SpannableStringBuilder =
+        richSubjectFormatter.format(notification.getSubjectRich()) { tag ->
+            notification.subjectRichParameters[tag]?.toRichSubjectParam()
+        }
+
+    private fun RichObject.toRichSubjectParam(): RichSubjectParam {
+        val fileId = id?.takeIf { type == FILE && it.isNotEmpty() }
+            ?: return RichSubjectParam(type, id, name)
+
+        return RichSubjectParam(type, id, name) { showFile(fileId) }
+    }
+
+    private fun showFile(fileId: String) {
+        val intent = Intent(fragment.requireActivity(), FileDisplayActivity::class.java).apply {
+            action = Intent.ACTION_VIEW
+            putExtra(FileDisplayActivity.KEY_FILE_ID, fileId)
+        }
+        fragment.requireActivity().startActivity(intent)
+    }
+
+    private fun bindMessage(holder: NotificationViewHolder, notification: Notification) {
+        val message = notification.getMessage()
+        holder.binding.message.run {
+            if (!message.isNullOrEmpty()) {
+                text = message
+                visibility = View.VISIBLE
+            } else {
+                visibility = View.GONE
+            }
+        }
+    }
+
+    private fun bindIcon(holder: NotificationViewHolder, notification: Notification) {
+        if (notification.getIcon().isNullOrEmpty()) return
+        itemClick.onBindIcon(holder.binding.icon, notification.getIcon())
+    }
+
+    private fun colorViewHolder(holder: NotificationViewHolder) {
+        viewThemeUtils.platform.run {
+            holder.binding.run {
+                colorImageView(icon, ColorRole.ON_SURFACE_VARIANT)
+                colorTextView(subject, ColorRole.ON_SURFACE)
+                colorTextView(message, ColorRole.ON_SURFACE_VARIANT)
+                colorTextView(datetime, ColorRole.ON_SURFACE_VARIANT)
+            }
+        }
+
+        viewThemeUtils.material.colorMaterialButtonContent(holder.binding.dismiss, ColorRole.ON_SURFACE)
+    }
+    // endregion
+
+    // region Button binding
+    fun bindButtons(holder: NotificationViewHolder, notification: Notification) {
+        holder.binding.dismiss.setOnClickListener {
+            itemClick.deleteNotification(notification.notificationId)
+        }
+
+        val actions = notification.getActions()
+        holder.binding.buttons.run {
+            removeAllViews()
+            setVisibleIf(actions.isNotEmpty())
+        }
+
+        if (actions.isEmpty()) {
+            return
+        }
+
+        val params = buttonLayoutParams()
+
+        if (actions.size > 2) {
+            val overflowActions = ArrayList<Action>()
+            for (action in actions) {
+                if (action.primary) {
+                    addPrimaryButton(holder, action, notification, params)
+                } else {
+                    overflowActions.add(action)
+                }
+            }
+            val moreButton =
+                buildButton(transparent = true, label = fragment.getString(R.string.more), params = params) {
+                    showOverflowMenu(it, overflowActions, holder, notification)
+                }
+            viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(moreButton)
+            holder.binding.buttons.addView(moreButton)
+        } else {
+            for (action in actions) {
+                val button = buildButton(transparent = !action.primary, label = action.label, params = params) {
+                    onActionClicked(holder, action, notification)
+                }
+                if (action.primary) {
+                    viewThemeUtils.material.colorMaterialButtonPrimaryFilled(button)
+                } else {
+                    viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(button)
+                }
+                holder.binding.buttons.addView(button)
+            }
+        }
+    }
+
+    private fun addPrimaryButton(
+        holder: NotificationViewHolder,
+        action: Action,
+        notification: Notification,
+        params: LinearLayout.LayoutParams
+    ) {
+        val button = buildButton(transparent = false, label = action.label, params = params) {
+            onActionClicked(holder, action, notification)
+        }
+        viewThemeUtils.material.colorMaterialButtonPrimaryFilled(button)
+        holder.binding.buttons.addView(button)
+    }
+
+    private fun buildButton(
+        transparent: Boolean,
+        label: String?,
+        params: LinearLayout.LayoutParams,
+        onClick: (View) -> Unit
+    ): MaterialButton = MaterialButton(fragment.requireContext()).apply {
+        if (transparent) {
+            setBackgroundColor(ResourcesCompat.getColor(resources, android.R.color.transparent, null))
+        }
+        setAllCaps(false)
+        text = label
+        setCornerRadiusResource(R.dimen.button_corner_radius)
+        layoutParams = params
+        setGravity(Gravity.CENTER)
+        setOnClickListener(onClick)
+    }
+
+    private fun showOverflowMenu(
+        anchor: View,
+        overflowActions: List<Action>,
+        holder: NotificationViewHolder,
+        notification: Notification
+    ) {
+        PopupMenu(fragment.requireContext(), anchor).apply {
+            for (action in overflowActions) {
+                menu.add(action.label).setOnMenuItemClickListener {
+                    onActionClicked(holder, action, notification)
+                    true
+                }
+            }
+            show()
+        }
+    }
+
+    private fun onActionClicked(holder: NotificationViewHolder, action: Action, notification: Notification) {
+        setButtonEnabled(holder, false)
+        if (ACTION_TYPE_WEB == action.type) {
+            fragment.requireActivity().startActivity(
+                Intent(Intent.ACTION_VIEW).apply { data = action.link?.toUri() }
+            )
+        } else {
+            itemClick.onActionClick(holder, action, notification)
+        }
+    }
+
+    private fun buttonLayoutParams() = LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams.WRAP_CONTENT,
+        LinearLayout.LayoutParams.WRAP_CONTENT
+    ).apply {
+        val resources = fragment.resources
+        setMargins(
+            resources.getDimensionPixelOffset(R.dimen.standard_quarter_margin),
+            0,
+            resources.getDimensionPixelOffset(R.dimen.standard_half_margin),
+            0
+        )
+    }
+
+    // endregion
+
+    // region Data manipulation
+    @SuppressLint("NotifyDataSetChanged")
+    fun setNotificationItems(notificationItems: List<Notification>) {
+        notificationsList.clear()
+        notificationsList.addAll(notificationItems)
+        notifyDataSetChanged()
+    }
+
+    fun removeNotification(id: Int) {
+        val position = notificationsList.indexOfFirst { it.notificationId == id }
+        if (position != -1) {
+            notificationsList.removeAt(position)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, notificationsList.size)
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun removeAllNotifications() {
+        notificationsList.clear()
+        notifyDataSetChanged()
+    }
+
+    fun setButtonEnabled(holder: NotificationViewHolder, enabled: Boolean) {
+        for (i in 0 until holder.binding.buttons.size) {
+            holder.binding.buttons.getChildAt(i).isEnabled = enabled
+        }
+    }
+    // endregion
+
+    class NotificationViewHolder(var binding: NotificationListItemBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    companion object {
+        private const val FILE = "file"
+        private const val ACTION_TYPE_WEB = "WEB"
+    }
+}

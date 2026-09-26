@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2023 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2019-2023 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey Vilas <alvaro@alvarobrey.com>
@@ -158,6 +159,7 @@ public class FileMenuFilter {
         filterSelectAll(toHide, inSingleFileFragment);
         filterDeselectAll(toHide, inSingleFileFragment);
         filterOpenWith(toHide, synchronizing);
+        filterOpenInWebEditor(toHide);
         filterCancelSync(toHide, synchronizing);
         filterSync(toHide, synchronizing);
         filterShareFile(toHide, capability);
@@ -169,11 +171,13 @@ public class FileMenuFilter {
         filterUnsetEncrypted(toHide, endToEndEncryptionEnabled);
         filterSetPictureAs(toHide);
         filterStream(toHide);
+        filterAddToAlbum(toHide);
         filterLock(toHide, fileLockingEnabled);
         filterUnlock(toHide, fileLockingEnabled);
         filterPinToHome(toHide);
         filterRetry(toHide);
         filterPermissionActions(toHide);
+        filterReadOnly(toHide);
 
         return toHide;
     }
@@ -313,9 +317,15 @@ public class FileMenuFilter {
      */
     @NextcloudServer(max = 18)
     private boolean isRichDocumentEditingSupported(OCCapability capability, String mimeType) {
+        final var mimeTypeList = capability.getRichDocumentsMimeTypeList();
+        final var isMimeTypeListContainsMimeType = (mimeTypeList != null && mimeTypeList.contains(mimeType));
+
+        final var optionalMimeTypeList = capability.getRichDocumentsOptionalMimeTypeList();
+        final var isOptionalMimeTypeListContainsMimeType = (optionalMimeTypeList != null &&
+            optionalMimeTypeList.contains(mimeType));
+
         return isSingleFile() &&
-            (capability.getRichDocumentsMimeTypeList().contains(mimeType) ||
-                capability.getRichDocumentsOptionalMimeTypeList().contains(mimeType)) &&
+            (isMimeTypeListContainsMimeType || isOptionalMimeTypeListContainsMimeType) &&
             capability.getRichDocumentsDirectEditing().isTrue();
     }
 
@@ -323,6 +333,7 @@ public class FileMenuFilter {
         if (files.isEmpty() || (!anyFileDown() && !containsFolder()) || synchronizing || containsEncryptedFile()
             || containsEncryptedFolder()) {
             toHide.add(R.id.action_sync_file);
+            toHide.add(R.id.action_sync_all_files);
         }
     }
 
@@ -335,6 +346,19 @@ public class FileMenuFilter {
     private void filterOpenWith(Collection<Integer> toHide, boolean synchronizing) {
         if (!isSingleFile() || !anyFileDown() || synchronizing) {
             toHide.add(R.id.action_open_file_with);
+        }
+    }
+
+    private void filterOpenInWebEditor(Collection<Integer> toHide) {
+        if (!isSingleFile()) {
+            toHide.add(R.id.action_open_in_web_editor);
+            return;
+        }
+
+        OCFile file = files.iterator().next();
+        boolean canOpenLocally = file.isDown() && !file.isEncrypted();
+        if (!canOpenLocally || !editorUtils.isOfficeEditorAvailable(user, file.getMimeType())) {
+            toHide.add(R.id.action_open_in_web_editor);
         }
     }
 
@@ -360,6 +384,31 @@ public class FileMenuFilter {
             // Always hide in single file fragments
             toHide.add(R.id.action_select_all_action_menu);
         }
+    }
+
+    private void filterReadOnly(Collection<Integer> toHide) {
+        boolean anyReadOnly = false;
+        for (OCFile file : files) {
+            if (storageManager.isReadOnly(file)) {
+                anyReadOnly = true;
+                break;
+            }
+        }
+
+        if (!anyReadOnly) {
+            return;
+        }
+
+        toHide.add(R.id.action_remove_file);
+        toHide.add(R.id.action_rename_file);
+        toHide.add(R.id.action_move_or_copy);
+        toHide.add(R.id.action_edit);
+        toHide.add(R.id.action_encrypted);
+        toHide.add(R.id.action_unset_encrypted);
+        toHide.add(R.id.action_lock_file);
+        toHide.add(R.id.action_unlock_file);
+        toHide.add(R.id.action_favorite);
+        toHide.add(R.id.action_unset_favorite);
     }
 
     private void filterRemove(List<Integer> toHide, boolean synchronizing) {
@@ -396,6 +445,17 @@ public class FileMenuFilter {
     private void filterStream(List<Integer> toHide) {
         if (files.isEmpty() || !isSingleFile() || !isSingleMedia() || containsEncryptedFile()) {
             toHide.add(R.id.action_stream_media);
+        }
+    }
+
+    private void filterAddToAlbum(List<Integer> toHide) {
+        if (files.isEmpty() || containsEncryptedFile()) {
+            toHide.add(R.id.action_add_to_album);
+            return;
+        }
+        OCFile file = files.iterator().next();
+        if (!MimeTypeUtil.isImageOrVideo(file)) {
+            toHide.add(R.id.action_add_to_album);
         }
     }
 

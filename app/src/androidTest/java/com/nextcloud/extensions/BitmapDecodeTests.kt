@@ -70,6 +70,12 @@ class BitmapDecodeTests {
     }
 
     @Test
+    fun testToFileWhenPathIsNullShouldReturnNull() {
+        val result = null.toFile()
+        assertNull(result)
+    }
+
+    @Test
     fun testToFileWhenFileDoesNotExistShouldReturnNull() {
         val nonExistentPath = tempDir.resolve("does_not_exist.jpg")
         val result = nonExistentPath.absolutePathString().toFile()

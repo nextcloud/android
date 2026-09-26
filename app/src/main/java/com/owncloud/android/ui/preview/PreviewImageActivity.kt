@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Philipp Hasper <vcs@hasper.info>
  * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
@@ -10,28 +11,41 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toDrawable
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.nextcloud.client.account.User
+import com.nextcloud.client.database.entity.SyncedFolderEntity
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.editimage.EditImageActivity
+import com.nextcloud.client.jobs.download.FileDownloadEventBroadcaster
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.download.FileDownloadWorker
-import com.nextcloud.client.jobs.download.FileDownloadWorker.Companion.getDownloadFinishMessage
-import com.nextcloud.client.jobs.upload.FileUploadBroadcastManager
+import com.nextcloud.client.jobs.download.SendShareDownloader
+import com.nextcloud.client.player.model.file.PlaybackCollection
+import com.nextcloud.client.player.model.file.toPlaybackCollection
+import com.nextcloud.client.player.ui.MediaNavigator
+import com.nextcloud.client.player.ui.VideoPictureInPicture
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.model.WorkerState
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
 import com.nextcloud.utils.extensions.observeWorker
+import com.nextcloud.utils.extensions.toggle
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -45,36 +59,58 @@ import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.SynchronizeFileOperation
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.ui.activity.OnFilesRemovedListener
+import com.owncloud.android.ui.dialog.SendShareDialog
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.fragment.GalleryFragment
-import com.owncloud.android.ui.fragment.OCFileListFragment
+import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog.MediaState
 import com.owncloud.android.ui.preview.model.PreviewImageActivityState
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
-import java.io.Serializable
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.math.max
 import kotlin.math.min
 
 /**
- * Holds a swiping gallery where image files contained in an Nextcloud directory are shown.
+ * Holds a swiping gallery where image and video files contained in a Nextcloud directory are shown.
  */
 @Suppress("TooManyFunctions")
 class PreviewImageActivity :
     FileActivity(),
     FileFragment.ContainerActivity,
     OnRemoteOperationListener,
+    OnFilesRemovedListener,
+    SendShareDialog.SendShareDialogDownloader,
+    MediaNavigator,
     Injectable {
     private var livePhotoFile: OCFile? = null
     private var viewPager: ViewPager2? = null
-    private var previewImagePagerAdapter: PreviewImagePagerAdapter? = null
+    private var previewMediaPagerAdapter: PreviewMediaPagerAdapter? = null
     private var savedPosition: Int? = null
-    private var downloadFinishReceiver: DownloadFinishReceiver? = null
-    private var fullScreenAnchorView: View? = null
+    private var initViewPagerJob: Job? = null
+
+    private val onPageChangeCallback = object : OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            selectPage(position)
+        }
+    }
+
+    private val sendShareDownloader by lazy { SendShareDownloader(this, localBroadcastManager) }
+
+    private val downloadStartReceiver = DownloadStartReceiver()
+    private val downloadFinishReceiver = DownloadFinishReceiver()
+
+    private val windowInsetsController: WindowInsetsControllerCompat by lazy {
+        WindowCompat.getInsetsController(window, window.decorView)
+    }
 
     private var isDownloadWorkStarted = false
     private var screenState = PreviewImageActivityState.Idle
+
+    private val pictureInPicture by lazy { VideoPictureInPicture(this, playbackModel, autoEnter = false) }
+    private var wasSystemUiVisibleBeforePictureInPicture = true
+    private var keepPlaybackOnFinish = false
 
     @Inject
     lateinit var preferences: AppPreferences
@@ -97,8 +133,6 @@ class PreviewImageActivity :
 
         setContentView(R.layout.preview_image_activity)
 
-        livePhotoFile = intent.getParcelableArgument(EXTRA_LIVE_PHOTO_FILE, OCFile::class.java)
-
         setupDrawer(menuItemId)
 
         val chosenFile = intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
@@ -110,8 +144,6 @@ class PreviewImageActivity :
             it.setBackgroundDrawable(R.color.black.toDrawable())
         }
 
-        fullScreenAnchorView = window.decorView
-        // to keep our UI controls visibility in line with system bars visibility
         setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
         val requestWaitingForBinder = savedInstanceState?.getBoolean(KEY_WAITING_FOR_BINDER) ?: false
@@ -121,84 +153,95 @@ class PreviewImageActivity :
 
         observeWorkerState()
         applyDisplayCutOutTopPadding()
+
         handleBackPress()
+
+        lifecycle.addObserver(sendShareDownloader)
+        sendShareDownloader.restoreState(savedInstanceState)
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+
+        // every later read goes through getIntent(), so the selection of the new intent would be lost otherwise
+        intent?.let { setIntent(it) }
+
+        initializeContent()
+    }
+
+    override fun downloadFile(file: OCFile, packageName: String, activityName: String) {
+        sendShareDownloader.downloadFile(file, packageName, activityName)
     }
 
     override fun getMenuItemId(): Int = R.id.nav_gallery
 
     private fun applyDisplayCutOutTopPadding() {
         window.decorView.setOnApplyWindowInsetsListener { view, insets ->
-            val displayCutout = insets.displayCutout
-            if (displayCutout != null) {
-                val safeInsetTop = displayCutout.safeInsetTop
-                val viewPager = findViewById<View>(R.id.fragmentPager)
-                viewPager.setPadding(
-                    viewPager.paddingLeft,
-                    safeInsetTop,
-                    viewPager.paddingRight,
-                    viewPager.paddingBottom
-                )
-                viewPager.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
-            }
-
+            updatePagerDisplayCutOutPadding(isInPictureInPictureMode, insets.displayCutout?.safeInsetTop ?: 0)
             view.onApplyWindowInsets(insets)
         }
     }
 
-    fun toggleActionBarVisibility(hide: Boolean) {
-        if (hide) {
-            supportActionBar?.hide()
-        } else {
-            supportActionBar?.show()
+    private fun updatePagerDisplayCutOutPadding(inPictureInPictureMode: Boolean, safeInsetTop: Int) {
+        val pager = viewPager ?: findViewById(R.id.fragmentPager) ?: return
+        val topPadding = if (inPictureInPictureMode) 0 else safeInsetTop
+
+        pager.setPadding(pager.paddingLeft, topPadding, pager.paddingRight, pager.paddingBottom)
+
+        if (topPadding > 0) {
+            pager.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
         }
     }
 
+    private fun displayCutOutSafeInsetTop(): Int =
+        ViewCompat.getRootWindowInsets(window.decorView)?.displayCutout?.safeInsetTop ?: 0
+
+    fun toggleActionBarVisibility(show: Boolean) {
+        supportActionBar?.toggle(show)
+    }
+
     private fun initViewPager(user: User) {
-        val virtualFolderType = intent.getSerializableArgument(EXTRA_VIRTUAL_TYPE, Serializable::class.java)
+        initViewPagerJob?.cancel()
+        initViewPagerJob = lifecycleScope.launch {
+            showViewPager(user, loadMediaFiles())
+        }
+    }
+
+    private suspend fun loadMediaFiles(): List<OCFile> {
+        val loader = PreviewMediaFilesLoader(storageManager, preferences)
+        val virtualFolderType = intent.getSerializableArgument(EXTRA_VIRTUAL_TYPE, VirtualFolderType::class.java)
+
         if (virtualFolderType != null && virtualFolderType !== VirtualFolderType.NONE) {
-            val type = virtualFolderType as VirtualFolderType
-
-            previewImagePagerAdapter = PreviewImagePagerAdapter(
-                this,
-                type,
-                user,
-                storageManager,
-                preferences
-            )
-        } else {
-            val parentFolder = file?.let { storageManager.getFileById(it.parentId) }
-                ?: storageManager.getFileByEncryptedRemotePath(OCFile.ROOT_PATH)
-
-            previewImagePagerAdapter = PreviewImagePagerAdapter(
-                this,
-                livePhotoFile,
-                parentFolder,
-                user,
-                storageManager,
-                MainApp.isOnlyOnDevice(),
-                preferences
-            )
+            val mediaState = intent.getSerializableArgument(EXTRA_MEDIA_STATE, MediaState::class.java)
+            return loader.forVirtualFolder(virtualFolderType, mediaState)
         }
 
-        viewPager = findViewById(R.id.fragmentPager)
+        return loader.forFolder(file?.parentId, MainApp.isOnlyOnDevice())
+    }
 
-        var position = if (savedPosition !=
-            null
-        ) {
-            savedPosition
-        } else {
-            file?.let { previewImagePagerAdapter?.getFilePosition(it) }
+    private fun showViewPager(user: User, mediaFiles: List<OCFile>) {
+        val adapter = PreviewMediaPagerAdapter(
+            this,
+            mediaFiles,
+            playbackCollection(),
+            user,
+            livePhotoFile
+        )
+        previewMediaPagerAdapter = adapter
+
+        val position = (savedPosition ?: file?.let { adapter.getFilePosition(it) })?.coerceAtLeast(0)
+
+        if (savedPosition == null) {
+            adapter.autoplayFileId = file?.fileId
         }
-        position = position?.toDouble()?.let { max(it, 0.0).toInt() }
 
-        viewPager?.adapter = previewImagePagerAdapter
-        viewPager?.registerOnPageChangeCallback(object : OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                selectPage(position)
-            }
-        })
+        val pager = findViewById<ViewPager2>(R.id.fragmentPager)
+        viewPager = pager
+        pager.adapter = adapter
+        pager.unregisterOnPageChangeCallback(onPageChangeCallback)
+        pager.registerOnPageChangeCallback(onPageChangeCallback)
         if (position != null) {
-            viewPager?.setCurrentItem(position, false)
+            pager.setCurrentItem(position, false)
         }
 
         if (position == 0 && file?.isDown == false) {
@@ -208,9 +251,33 @@ class PreviewImageActivity :
         }
     }
 
-    private fun updateViewPagerAfterDeletionAndAdvanceForward() {
+    private fun playbackCollection(): PlaybackCollection {
+        val virtualFolderType = intent.getSerializableArgument(EXTRA_VIRTUAL_TYPE, VirtualFolderType::class.java)
+        return virtualFolderType
+            ?.takeIf { it !== VirtualFolderType.NONE }
+            ?.toPlaybackCollection()
+            ?: PlaybackCollection.FOLDER
+    }
+
+    override fun onFilesRemoved() {
+        initViewPager()
+    }
+
+    override fun onAutoUploadFolderRemoved(
+        entities: List<SyncedFolderEntity>,
+        filesToRemove: List<OCFile>,
+        onlyLocalCopy: Boolean
+    ) = Unit
+
+    fun initViewPager() {
+        if (user.isPresent) {
+            initViewPager(user.get())
+        }
+    }
+
+    fun updateViewPagerAfterDeletionAndAdvanceForward() {
         val deletePosition = viewPager?.currentItem ?: return
-        previewImagePagerAdapter?.let { adapter ->
+        previewMediaPagerAdapter?.let { adapter ->
             val nextPosition = min(deletePosition, adapter.itemCount - 1)
             viewPager?.setCurrentItem(nextPosition, true)
             adapter.delete(deletePosition)
@@ -239,7 +306,7 @@ class PreviewImageActivity :
         if (isDrawerOpen) {
             closeDrawer()
         } else {
-            backToDisplayActivity()
+            onBackPressedDispatcher.onBackPressed()
         }
 
         return true
@@ -253,43 +320,75 @@ class PreviewImageActivity :
     public override fun onStart() {
         super.onStart()
         registerReceivers()
+        initializeContent()
+    }
+
+    private fun initializeContent() {
         val optionalUser = user
-        if (optionalUser.isPresent) {
-            var file: OCFile? = file ?: throw IllegalStateException("Instanced with a NULL OCFile")
-            // / Validate handled file (first image to preview)
-            require(MimeTypeUtil.isImage(file)) { "Non-image file passed as argument" }
-
-            // Update file according to DB file, if it is possible
-            if (file!!.fileId > FileDataStorageManager.ROOT_PARENT_ID) {
-                file = storageManager.getFileById(file.fileId)
-            }
-
-            if (file != null) {
-                // / Refresh the activity according to the Account and OCFile set
-                setFile(file) // reset after getting it fresh from storageManager
-                updateActionBarTitle(getFile()?.fileName)
-                // if (!stateWasRecovered) {
-                initViewPager(optionalUser.get())
-
-                // }
-            } else {
-                // handled file not in the current Account
-                finish()
-            }
+        if (!optionalUser.isPresent) {
+            finish()
+            return
         }
+
+        livePhotoFile = intent.getParcelableArgument(EXTRA_LIVE_PHOTO_FILE, OCFile::class.java)
+
+        val chosenFile = intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
+        val requestedFile = chosenFile ?: file ?: throw IllegalStateException("Instanced with a NULL OCFile")
+        require(MimeTypeUtil.isImageOrVideo(requestedFile)) { "Non-image/video file passed as argument" }
+
+        val currentFile = requestedFile.refreshedFromDatabase()
+        if (currentFile == null) {
+            // handled file not in the current Account
+            finish()
+            return
+        }
+
+        val isNewSelection = currentFile != file
+
+        setFile(currentFile)
+        showFile(currentFile, optionalUser.get(), isNewSelection)
+    }
+
+    private fun OCFile.refreshedFromDatabase(): OCFile? = if (fileId > FileDataStorageManager.ROOT_PARENT_ID) {
+        storageManager.getFileById(fileId)
+    } else {
+        this
+    }
+
+    private fun showFile(file: OCFile, user: User, isNewSelection: Boolean) {
+        val position = previewMediaPagerAdapter?.getFilePosition(file) ?: NO_POSITION
+        val pagerNeedsRebuild = position == NO_POSITION
+
+        // a restart must not pull the user back to the file the activity was started with
+        if (!pagerNeedsRebuild && !isNewSelection) {
+            return
+        }
+
+        updateActionBarTitle(file.fileName)
+
+        if (pagerNeedsRebuild) {
+            savedPosition = null
+            initViewPager(user)
+            return
+        }
+
+        // a rebuilt pager restores the remembered position, so it has to follow the selection right away
+        savedPosition = position
+        viewPager?.setCurrentItem(position, false)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putBoolean(KEY_WAITING_FOR_BINDER, screenState == PreviewImageActivityState.WaitingForBinder)
         outState.putBoolean(KEY_SYSTEM_VISIBLE, isSystemUIVisible)
+        sendShareDownloader.saveState(outState)
     }
 
     override fun onRemoteOperationFinish(operation: RemoteOperation<*>?, result: RemoteOperationResult<*>) {
         super.onRemoteOperationFinish(operation, result)
 
         if (operation is RemoveFileOperation) {
-            previewImagePagerAdapter?.let {
+            previewMediaPagerAdapter?.let {
                 if (it.itemCount <= 1) {
                     backToDisplayActivity()
                     return
@@ -313,26 +412,6 @@ class PreviewImageActivity :
     private fun observeWorkerState() {
         observeWorker { state: WorkerState? ->
             when (state) {
-                is WorkerState.FileDownloadStarted -> {
-                    Log_OC.d(TAG, "Download worker started")
-                    isDownloadWorkStarted = true
-
-                    if (screenState == PreviewImageActivityState.WaitingForBinder) {
-                        selectPageOnDownload()
-                    }
-                }
-
-                is WorkerState.FileDownloadCompleted -> {
-                    Log_OC.d(TAG, "Download worker stopped")
-                    isDownloadWorkStarted = false
-
-                    if (screenState == PreviewImageActivityState.Edit) {
-                        onImageDownloadComplete(state.currentFile)
-                    } else {
-                        setDownloadedItem()
-                    }
-                }
-
                 else -> {
                     Log_OC.d(TAG, "Worker stopped")
                     isDownloadWorkStarted = false
@@ -341,20 +420,13 @@ class PreviewImageActivity :
         }
     }
 
-    private fun setDownloadedItem() {
-        savedPosition?.let { position ->
+    private fun setDownloadedItem(downloadedFile: OCFile?) {
+        val adapter = previewMediaPagerAdapter ?: return
+        val position = savedPosition ?: return
 
-            previewImagePagerAdapter?.run {
-                file?.let {
-                    updateFile(position, it)
-                    notifyItemChanged(position)
-                }
-            }
-
-            if (user.isPresent) {
-                initViewPager(user.get())
-                viewPager?.currentItem = position
-            }
+        if (downloadedFile != null && adapter.getFileAt(position)?.fileId == downloadedFile.fileId) {
+            adapter.updateFile(position, downloadedFile)
+            adapter.notifyItemChanged(position)
         }
     }
 
@@ -378,21 +450,24 @@ class PreviewImageActivity :
     }
 
     private fun registerReceivers() {
-        downloadFinishReceiver = DownloadFinishReceiver()
-        val downloadIntentFilter = IntentFilter(getDownloadFinishMessage())
-        localBroadcastManager.registerReceiver(downloadFinishReceiver!!, downloadIntentFilter)
+        localBroadcastManager.run {
+            val downloadStartIntentFilter = IntentFilter(FileDownloadEventBroadcaster.ACTION_DOWNLOAD_ENQUEUED)
+            registerReceiver(downloadStartReceiver, downloadStartIntentFilter)
 
-        val uploadFinishReceiver = UploadFinishReceiver()
-        val uploadIntentFilter = IntentFilter(FileUploadBroadcastManager.UPLOAD_FINISHED)
-        localBroadcastManager.registerReceiver(uploadFinishReceiver, uploadIntentFilter)
+            val downloadFinishIntentFilter = IntentFilter(FileDownloadEventBroadcaster.ACTION_DOWNLOAD_COMPLETED)
+            registerReceiver(downloadFinishReceiver, downloadFinishIntentFilter)
+        }
+    }
+
+    private fun unregisterReceivers() {
+        localBroadcastManager.run {
+            unregisterReceiver(downloadStartReceiver)
+            unregisterReceiver(downloadFinishReceiver)
+        }
     }
 
     public override fun onStop() {
-        if (downloadFinishReceiver != null) {
-            localBroadcastManager.unregisterReceiver(downloadFinishReceiver!!)
-            downloadFinishReceiver = null
-        }
-
+        unregisterReceivers()
         super.onStop()
     }
 
@@ -417,11 +492,66 @@ class PreviewImageActivity :
         showDetails(file)
     }
 
-    @JvmOverloads
-    fun requestForDownload(file: OCFile?, downloadBehaviour: String? = null) {
+    fun requestForDownload(file: OCFile?) {
         if (file == null) return
         val user = user.orElseThrow { RuntimeException() }
         FileDownloadHelper.instance().downloadFileIfNotStartedBefore(user, file)
+    }
+
+    fun showFilePage(localId: Long): Boolean {
+        val position = previewMediaPagerAdapter?.getPositionByLocalId(localId) ?: NO_POSITION
+        if (position < 0) return false
+        if (viewPager?.currentItem != position) {
+            viewPager?.setCurrentItem(position, true)
+        }
+
+        return true
+    }
+
+    fun finishKeepingPlayback() {
+        keepPlaybackOnFinish = true
+        finish()
+    }
+
+    override val hasNext: Boolean
+        get() = currentPage() + 1 < (previewMediaPagerAdapter?.itemCount ?: 0)
+
+    override val hasPrevious: Boolean
+        get() = currentPage() > 0
+
+    override fun showNext() = showPage(currentPage() + 1)
+
+    override fun showPrevious() = showPage(currentPage() - 1)
+
+    private fun currentPage(): Int = viewPager?.currentItem ?: 0
+
+    private fun showPage(position: Int) {
+        val itemCount = previewMediaPagerAdapter?.itemCount ?: return
+        if (position < 0 || position >= itemCount) return
+
+        viewPager?.setCurrentItem(position, true)
+    }
+
+    fun enterPictureInPicture(): Boolean = viewPager?.let { pictureInPicture.enter(it) } == true
+
+    override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean, newConfig: Configuration) {
+        super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
+        updatePagerDisplayCutOutPadding(isInPictureInPictureMode, displayCutOutSafeInsetTop())
+
+        if (isInPictureInPictureMode) {
+            wasSystemUiVisibleBeforePictureInPicture = isSystemUIVisible
+            toggleActionBarVisibility(false)
+            return
+        }
+
+        toggleActionBarVisibility(wasSystemUiVisibleBeforePictureInPicture)
+
+        if (lifecycle.currentState != Lifecycle.State.CREATED) return
+
+        if (!keepPlaybackOnFinish) {
+            playbackModel.release()
+        }
+        finish()
     }
 
     /**
@@ -434,7 +564,7 @@ class PreviewImageActivity :
         if (position == null) return
         savedPosition = position
 
-        val currentFile = previewImagePagerAdapter?.getFileAt(position)
+        val currentFile = previewMediaPagerAdapter?.getFileAt(position)
 
         if (!isDownloadWorkStarted) {
             screenState = PreviewImageActivityState.WaitingForBinder
@@ -442,7 +572,7 @@ class PreviewImageActivity :
             if (currentFile != null) {
                 if (currentFile.isEncrypted &&
                     !currentFile.isDown &&
-                    previewImagePagerAdapter?.pendingErrorAt(position) == false
+                    previewMediaPagerAdapter?.pendingErrorAt(position) == false
                 ) {
                     requestForDownload(currentFile)
                 }
@@ -471,51 +601,30 @@ class PreviewImageActivity :
      */
     private inner class DownloadFinishReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            previewNewImage(intent)
+            Log_OC.d(TAG, "Download worker stopped")
+            isDownloadWorkStarted = false
+            val accountName = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_ACCOUNT_NAME)
+            val downloadedRemotePath = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_REMOTE_PATH)
+            if (account.name != accountName || downloadedRemotePath == null) {
+                return
+            }
+            val file = storageManager.getFileByEncryptedRemotePath(downloadedRemotePath)
+
+            if (screenState == PreviewImageActivityState.Edit) {
+                onImageDownloadComplete(file)
+            } else {
+                setDownloadedItem(file)
+            }
         }
     }
 
-    private inner class UploadFinishReceiver : BroadcastReceiver() {
+    private inner class DownloadStartReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            previewNewImage(intent)
-        }
-    }
+            Log_OC.d(TAG, "Download worker started")
+            isDownloadWorkStarted = true
 
-    @Suppress("NestedBlockDepth", "ReturnCount")
-    private fun previewNewImage(intent: Intent) {
-        val accountName = intent.getStringExtra(FileDownloadWorker.EXTRA_ACCOUNT_NAME)
-        val downloadedRemotePath = intent.getStringExtra(FileDownloadWorker.EXTRA_REMOTE_PATH)
-        val downloadBehaviour = intent.getStringExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR)
-
-        if (account.name != accountName || downloadedRemotePath == null) {
-            return
-        }
-
-        val file = storageManager.getFileByEncryptedRemotePath(downloadedRemotePath)
-        val downloadWasFine = intent.getBooleanExtra(FileDownloadWorker.EXTRA_DOWNLOAD_RESULT, false)
-
-        if (EditImageActivity.OPEN_IMAGE_EDITOR == downloadBehaviour) {
-            startImageEditor(file)
-        } else {
-            val position = previewImagePagerAdapter?.getFilePosition(file) ?: return
-
-            if (position >= 0) {
-                if (downloadWasFine) {
-                    previewImagePagerAdapter?.updateFile(position, file)
-                } else {
-                    previewImagePagerAdapter?.updateWithDownloadError(position)
-                }
-                previewImagePagerAdapter?.notifyItemChanged(position)
-            } else if (downloadWasFine) {
-                val user = user
-
-                if (user.isPresent) {
-                    initViewPager(user.get())
-                    val newPosition = previewImagePagerAdapter?.getFilePosition(file) ?: return
-                    if (newPosition >= 0) {
-                        viewPager?.currentItem = newPosition
-                    }
-                }
+            if (screenState == PreviewImageActivityState.WaitingForBinder) {
+                selectPageOnDownload()
             }
         }
     }
@@ -524,13 +633,15 @@ class PreviewImageActivity :
         get() = supportActionBar == null || supportActionBar?.isShowing == true
 
     fun toggleFullScreen() {
-        fullScreenAnchorView?.let {
-            val visible = (it.systemUiVisibility and View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0
-            if (visible) {
-                hideSystemUI(it)
-            } else {
-                showSystemUI(it)
-            }
+        val rootInsets = ViewCompat.getRootWindowInsets(window.decorView) ?: return
+
+        // the content is laid out edge to edge so that showing and hiding the bars does not move it
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        if (rootInsets.isVisible(WindowInsetsCompat.Type.systemBars())) {
+            windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
+        } else {
+            windowInsetsController.show(WindowInsetsCompat.Type.systemBars())
         }
     }
 
@@ -540,13 +651,13 @@ class PreviewImageActivity :
         } else {
             showLoadingDialog(getString(R.string.preview_image_downloading_image_for_edit))
             screenState = PreviewImageActivityState.Edit
-            requestForDownload(file, EditImageActivity.OPEN_IMAGE_EDITOR)
+            requestForDownload(file)
         }
     }
 
     private fun startEditImageActivity(file: OCFile) {
         if (!file.isDown) {
-            DisplayUtils.showSnackMessage(this, R.string.preview_image_file_is_not_downloaded)
+            SnackbarUtil.show(this, R.string.preview_image_file_is_not_downloaded)
             return
         }
 
@@ -556,40 +667,16 @@ class PreviewImageActivity :
         startActivity(intent)
     }
 
-    override fun onBrowsedDownTo(folder: OCFile) {
-        // TODO Auto-generated method stub
-    }
-
-    override fun onTransferStateChanged(file: OCFile, downloading: Boolean, uploading: Boolean) {
-        // TODO Auto-generated method stub
-    }
-
-    @Suppress("DEPRECATION")
-    private fun hideSystemUI(anchorView: View) {
-        anchorView.systemUiVisibility = (
-            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_IMMERSIVE
-                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-            )
-    }
-
-    @Suppress("DEPRECATION")
-    private fun showSystemUI(anchorView: View) {
-        anchorView.systemUiVisibility = (
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-            )
-    }
+    override fun onBrowsedDownTo(folder: OCFile) = Unit
+    override fun onTransferStateChanged(file: OCFile, downloading: Boolean, uploading: Boolean) = Unit
 
     companion object {
         val TAG: String = PreviewImageActivity::class.java.simpleName
         const val EXTRA_VIRTUAL_TYPE: String = "EXTRA_VIRTUAL_TYPE"
+        const val EXTRA_MEDIA_STATE: String = "EXTRA_MEDIA_STATE"
         private const val KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER"
         private const val KEY_SYSTEM_VISIBLE = "TRUE"
+        private const val NO_POSITION = -1
 
         fun previewFileIntent(context: Context?, user: User?, file: OCFile?): Intent =
             Intent(context, PreviewImageActivity::class.java).apply {

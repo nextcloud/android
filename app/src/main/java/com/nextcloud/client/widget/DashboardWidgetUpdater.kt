@@ -19,7 +19,6 @@ import androidx.core.net.toUri
 import com.bumptech.glide.request.target.AppWidgetTarget
 import com.nextcloud.android.lib.resources.dashboard.DashboardButton
 import com.nextcloud.client.account.CurrentAccountProvider
-import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.utils.GlideHelper
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
@@ -32,9 +31,9 @@ import javax.inject.Inject
 
 class DashboardWidgetUpdater @Inject constructor(
     private val context: Context,
-    private val clientFactory: ClientFactory,
     private val accountProvider: CurrentAccountProvider
 ) {
+    private val scope = CoroutineScope(Dispatchers.IO)
 
     fun updateAppWidget(
         appWidgetManager: AppWidgetManager,
@@ -155,7 +154,7 @@ class DashboardWidgetUpdater @Inject constructor(
 
     private fun loadIcon(appWidgetId: Int, iconUrl: String, remoteViews: RemoteViews) {
         val target = AppWidgetTarget(context, R.id.icon, remoteViews, appWidgetId)
-        CoroutineScope(Dispatchers.IO).launch {
+        scope.launch {
             val client = OwnCloudClientManagerFactory.getDefaultSingleton()
                 .getNextcloudClientFor(accountProvider.user.toOwnCloudAccount(), context)
             val drawable = GlideHelper.getDrawable(context, client, iconUrl)

@@ -1,4 +1,5 @@
 # SPDX-FileCopyrightText: 2021-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
 # SPDX-FileCopyrightText: 2023 Andy Scherzinger <info@andy-scherzinger.de>
 # SPDX-License-Identifier: MIT
 name: "QA"
@@ -24,19 +25,20 @@ jobs:
         id: check-secrets
 
       - name: Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         if: ${{ steps.check-secrets.outputs.ok == 'true' }}
         with:
           persist-credentials: false
 
       - name: set up JDK 21
-        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
         if: ${{ steps.check-secrets.outputs.ok == 'true' }}
         with:
           distribution: "temurin"
           java-version: 21
 
       - name: Build QA
+        id: build-qa
         if: ${{ steps.check-secrets.outputs.ok == 'true' }}
         env:
           KS_PASS: ${{ secrets.KS_PASS }}
@@ -46,12 +48,69 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mkdir -p "$HOME/.gradle"
-          echo "org.gradle.jvmargs=-Xmx3g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" > "$HOME/.gradle/gradle.properties"
-          echo "org.gradle.caching=true; org.gradle.parallel=true; org.gradle.configureondemand=true; kapt.incremental.apt=true" >> "$HOME/.gradle/gradle.properties"
+          {
+            echo "org.gradle.jvmargs=-Xmx3g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g"
+            echo "org.gradle.caching=true"
+            echo "org.gradle.parallel=true"
+            echo "org.gradle.configureondemand=true"
+          } > "$HOME/.gradle/gradle.properties"
           [ -e app/build.gradle ] && sed -i "/qa/,/\}/ s/versionCode .*/versionCode ${{github.event.number}} /" "app/build.gradle"
           [ -e app/build.gradle ] && sed -i "/qa/,/\}/ s/versionName .*/versionName \"${{github.event.number}}\"/" "app/build.gradle"
           [ -e app/build.gradle.kts ] && sed -i "/qa/,/\}/ s/versionCode .*/versionCode = ${{github.event.number}} /" "app/build.gradle.kts"
           [ -e app/build.gradle.kts ] && sed -i "/qa/,/\}/ s/versionName .*/versionName = \"${{github.event.number}}\"/" "app/build.gradle.kts"
           ./gradlew assembleQaDebug
           $(find /usr/local/lib/android/sdk/build-tools/*/apksigner | sort | tail -n1) sign  --ks-pass pass:"$KS_PASS" --key-pass pass:"$KEY_PASS" --ks-key-alias key0 --ks ".github/workflows/QA_keystore.jks" app/build/outputs/apk/qa/debug/*qa-debug*.apk
-          .github/workflows/uploadArtifact.sh "$LOG_USERNAME" "$LOG_PASSWORD" "${{github.event.number}}" "${{github.event.number}}" "$GITHUB_TOKEN"
+          apk=$(find app/build/outputs/apk/qa/debug -name '*qa-debug*.apk' | head -n1)
+          {
+            echo "apk-path=$apk"
+            echo "apk-name=$(basename "$apk")"
+            echo "apk-size=$(du -h "$apk" | cut -f1)"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Upload APK
+        id: upload-apk
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
+        with:
+          path: app/build/outputs/apk/qa/debug/*qa-debug*.apk
+          retention-days: 7
+          archive: false
+
+      - name: Create QR Code
+        if: ${{ steps.check-secrets.outputs.ok == 'true' }}
+        env:
+          ARTIFACT_URL: ${{ steps.upload-apk.outputs.artifact-url }}
+        run: |
+          sudo apt-get -y install qrencode
+          qrencode -s 8 -o qr.png "$ARTIFACT_URL"
+
+      - name: Upload QR
+        id: upload-qr
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
+        with:
+          path: qr.png
+          if-no-files-found: error
+          retention-days: 7
+          archive: false
+
+      - name: Comment PR
+        if: ${{ steps.check-secrets.outputs.ok == 'true' }}
+        uses: thollander/actions-comment-pull-request@e4a76dd2b0a3c2027c3fd84147a67c22ee4c90fa
+        with:
+          comment-tag: qa-apk
+          mode: upsert
+          message: |
+            ### :iphone: QA build
+
+            | | |
+            |---|---|
+            | **Download** | [${{ steps.build-qa.outputs.apk-name }}](${{ steps.upload-apk.outputs.artifact-url }}) |
+            | **QR code** | [Open the QR code for this download](${{ steps.upload-qr.outputs.artifact-url }}) |
+            | **Commit** | ${{ github.event.pull_request.head.sha }} |
+            | **Version** | `${{ github.event.number }}` |
+            | **Available until** | 7 days after this build |
+
+            The QA build installs alongside a released Nextcloud app, so you can keep
+            using your existing install while testing.
+
+            Downloading the file requires a GitHub account, so open this link on the
+            device you want to test on, or transfer the APK to it.

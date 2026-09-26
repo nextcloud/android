@@ -1,0 +1,317 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+package com.nextcloud.test
+
+import com.owncloud.android.AbstractIT
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.MimeType
+import junit.framework.TestCase.assertFalse
+import junit.framework.TestCase.assertNotNull
+import junit.framework.TestCase.assertNull
+import junit.framework.TestCase.assertTrue
+import junit.framework.TestCase.fail
+import org.junit.After
+import org.junit.Before
+import org.junit.Test
+import java.io.File
+import kotlin.random.Random
+
+@Suppress("TooManyFunctions", "MagicNumber")
+class FileDeletionTests : AbstractIT() {
+
+    private val createdFilePaths = mutableListOf<String>()
+
+    @Before
+    fun setup() {
+        createdFilePaths.clear()
+    }
+
+    @After
+    fun cleanup() {
+        createdFilePaths.forEach { File(it).delete() }
+        createdFilePaths.clear()
+    }
+
+    private fun getRandomRemoteId(): String = Random
+        .nextLong(10_000_000L, 99_999_999L)
+        .toString()
+        .padEnd(32, '0')
+
+    private fun createFileAtExpectedPath(ocFile: OCFile, content: String = "Temporary test content"): File {
+        val expectedPath = FileStorageUtils.getDefaultSavePathFor(user.accountName, ocFile)
+        val localFile = File(expectedPath).apply {
+            parentFile?.mkdirs()
+            createNewFile()
+            writeText(content)
+        }
+        createdFilePaths.add(localFile.absolutePath)
+        return localFile
+    }
+
+    private fun createAndSaveSingleFileWithLocalCopy(): OCFile {
+        val now = System.currentTimeMillis()
+
+        val file = OCFile("/TestFile.txt").apply {
+            fileId = Random.nextLong(1, 10_000)
+            parentId = 0
+            remoteId = getRandomRemoteId()
+            fileLength = 1024
+            mimeType = MimeType.TEXT_PLAIN
+            creationTimestamp = now
+            modificationTimestamp = now
+            permissions = "RWDNV"
+        }
+
+        val localFile = createFileAtExpectedPath(file)
+        file.storagePath = localFile.absolutePath
+
+        storageManager.saveFile(file)
+
+        return file
+    }
+
+    private fun createAndSaveFolderTree(): OCFile {
+        val now = System.currentTimeMillis()
+        val rootFolder = OCFile("/TestFolder").apply {
+            fileId = Random.nextLong(1, 10_000)
+            parentId = 0
+            remoteId = getRandomRemoteId()
+            mimeType = MimeType.DIRECTORY
+            creationTimestamp = now
+            modificationTimestamp = now
+            permissions = "RWDNVCK"
+        }
+
+        val subFolder = OCFile("/TestFolder/Sub").apply {
+            fileId = rootFolder.fileId + 1
+            parentId = rootFolder.fileId
+            remoteId = getRandomRemoteId()
+            mimeType = MimeType.DIRECTORY
+            creationTimestamp = now
+            modificationTimestamp = now
+            permissions = "RWDNVCK"
+        }
+
+        val file1 = OCFile("/TestFolder/file1.txt").apply {
+            fileId = rootFolder.fileId + 2
+            parentId = rootFolder.fileId
+            remoteId = getRandomRemoteId()
+            fileLength = 512
+            mimeType = MimeType.TEXT_PLAIN
+            creationTimestamp = now
+            modificationTimestamp = now
+            permissions = "RWDNV"
+        }
+
+        val file2 = OCFile("/TestFolder/Sub/file2.txt").apply {
+            fileId = rootFolder.fileId + 3
+            parentId = subFolder.fileId
+            remoteId = getRandomRemoteId()
+            fileLength = 256
+            mimeType = MimeType.TEXT_PLAIN
+            creationTimestamp = now
+            modificationTimestamp = now
+            permissions = "RWDNV"
+        }
+
+        listOf(rootFolder, subFolder, file1, file2).forEach { storageManager.saveFile(it) }
+
+        val localFile1 = createFileAtExpectedPath(file1)
+        val localFile2 = createFileAtExpectedPath(file2)
+
+        file1.storagePath = localFile1.absolutePath
+        file2.storagePath = localFile2.absolutePath
+
+        storageManager.saveFile(file1)
+        storageManager.saveFile(file2)
+
+        return rootFolder
+    }
+
+    private fun getMixedOcFiles(): List<OCFile> {
+        val now = System.currentTimeMillis()
+
+        fun saveFolder(parentId: Long, path: String): OCFile = OCFile(path).apply {
+            this.parentId = parentId
+            remoteId = getRandomRemoteId()
+            mimeType = MimeType.DIRECTORY
+            creationTimestamp = now
+            modificationTimestamp = now
+            permissions = "RWDNVCK"
+        }.also { storageManager.saveFile(it) }
+
+        fun saveFileWithLocalCopy(parentId: Long, path: String, size: Long, mime: String): OCFile {
+            val ocFile = OCFile(path).apply {
+                this.parentId = parentId
+                remoteId = getRandomRemoteId()
+                fileLength = size
+                creationTimestamp = now
+                mimeType = mime
+                modificationTimestamp = now
+                permissions = "RWDNV"
+                storagePath = FileStorageUtils.getDefaultSavePathFor(user.accountName, this)
+            }
+            val localFile = File(ocFile.storagePath).apply {
+                parentFile?.mkdirs()
+                createNewFile()
+                writeText("test content")
+            }
+            createdFilePaths.add(localFile.absolutePath)
+            storageManager.saveFile(ocFile)
+            return ocFile
+        }
+
+        val root = saveFolder(0, "/")
+        val documents = saveFolder(root.fileId, "/Documents")
+        val photos = saveFolder(root.fileId, "/Photos")
+        val temp = saveFolder(root.fileId, "/Temp")
+        val projects = saveFolder(documents.fileId, "/Documents/Projects")
+        val vacation = saveFolder(photos.fileId, "/Photos/Vacation")
+        val archive = saveFolder(projects.fileId, "/Documents/Projects/Archive")
+        val nested = saveFolder(temp.fileId, "/Temp/Nested")
+        val emptyFolder = saveFolder(photos.fileId, "/Photos/EmptyFolder")
+
+        val allEntries = mutableListOf(root, documents, photos, temp, projects, vacation, archive, nested, emptyFolder)
+
+        allEntries.add(
+            saveFileWithLocalCopy(
+                projects.fileId,
+                "/Documents/Projects/spec.txt",
+                12000,
+                MimeType.TEXT_PLAIN
+            )
+        )
+        allEntries.add(saveFileWithLocalCopy(vacation.fileId, "/Photos/Vacation/img2.jpg", 300000, MimeType.JPEG))
+        allEntries.add(saveFileWithLocalCopy(documents.fileId, "/Documents/example.pdf", 150000, MimeType.PDF))
+        allEntries.add(saveFileWithLocalCopy(photos.fileId, "/Photos/cover.png", 80000, MimeType.PNG))
+        allEntries.add(
+            saveFileWithLocalCopy(
+                projects.fileId,
+                "/Documents/Projects/readme.txt",
+                2000,
+                MimeType.TEXT_PLAIN
+            )
+        )
+        allEntries.add(
+            saveFileWithLocalCopy(
+                archive.fileId,
+                "/Documents/Projects/Archive/old.bmp",
+                900000,
+                MimeType.BMP
+            )
+        )
+        allEntries.add(saveFileWithLocalCopy(vacation.fileId, "/Photos/Vacation/img1.jpg", 250000, MimeType.JPEG))
+        allEntries.add(saveFileWithLocalCopy(temp.fileId, "/Temp/tmp_file_1.txt", 400, MimeType.TEXT_PLAIN))
+        allEntries.add(saveFileWithLocalCopy(temp.fileId, "/Temp/tmp_file_2.txt", 800, MimeType.TEXT_PLAIN))
+        allEntries.add(saveFileWithLocalCopy(nested.fileId, "/Temp/Nested/deep.txt", 100, MimeType.TEXT_PLAIN))
+        allEntries.add(saveFileWithLocalCopy(documents.fileId, "/Documents/notes.txt", 1500, MimeType.TEXT_PLAIN))
+
+        return allEntries.sortedWith(
+            compareBy<OCFile> { it.isFolder }
+                .thenByDescending { it.remotePath.count { c -> c == '/' } }
+        )
+    }
+
+    @Test
+    fun deleteMixedFiles() {
+        var result = false
+        val files = getMixedOcFiles()
+
+        files.forEach {
+            result = storageManager.removeFile(it, true, true)
+            if (!result) {
+                fail("remove operation is failed")
+            }
+        }
+
+        assert(result)
+    }
+
+    @Test
+    fun removeNullFileShouldReturnsFalse() {
+        val result = storageManager.removeFile(null, true, true)
+        assertFalse(result)
+    }
+
+    @Test
+    fun deleteFileOnlyFromDb() {
+        val file = createAndSaveSingleFileWithLocalCopy()
+
+        val result = storageManager.removeFile(file, true, false)
+
+        assertTrue(result)
+
+        // verify DB no longer contains file
+        val fromDb = storageManager.getFileById(file.fileId)
+        assertNull(fromDb)
+
+        // verify local file still exists
+        assertTrue(File(file.storagePath).exists())
+    }
+
+    @Test
+    fun deleteFileOnlyLocalCopy() {
+        val file = createAndSaveSingleFileWithLocalCopy()
+
+        val result = storageManager.removeFile(file, false, true)
+
+        assertTrue(result)
+
+        // DB should still contain file
+        val fromDb = storageManager.getFileById(file.fileId)
+        assertNotNull(fromDb)
+
+        // Storage path should be null
+        assertNull(fromDb?.storagePath)
+    }
+
+    @Test
+    fun deleteFileDBAndLocal() {
+        val file = createAndSaveSingleFileWithLocalCopy()
+
+        val result = storageManager.removeFile(file, true, true)
+
+        assertTrue(result)
+
+        assertNull(storageManager.getFileById(file.fileId))
+        assertFalse(File(file.storagePath).exists())
+    }
+
+    @Test
+    fun deleteFolderRecursive() {
+        val folder = createAndSaveFolderTree()
+
+        val result = storageManager.removeFile(folder, true, true)
+
+        assertTrue(result)
+
+        // Folder removed from DB
+        assertNull(storageManager.getFileById(folder.fileId))
+
+        // subdirectories and files are removed
+        val children = storageManager.getAllFilesRecursivelyInsideFolder(folder)
+        assertTrue(children.isEmpty())
+
+        // local folder removed
+        val localPath = FileStorageUtils.getDefaultSavePathFor(user.accountName, folder)
+        assertFalse(File(localPath).exists())
+    }
+
+    @Test
+    fun removeFolderFileIdMinusOneSkipsDBDeletion() {
+        val folder = OCFile("/Test").apply {
+            fileId = -1
+            mimeType = MimeType.DIRECTORY
+        }
+
+        val result = storageManager.removeFile(folder, true, false)
+
+        assertTrue(result)
+    }
+}

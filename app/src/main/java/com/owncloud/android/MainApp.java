@@ -52,13 +52,13 @@ import com.nextcloud.client.logger.LegacyLoggerAdapter;
 import com.nextcloud.client.logger.Logger;
 import com.nextcloud.client.migrations.MigrationsManager;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.client.network.NetworkChangeListener;
 import com.nextcloud.client.network.WalledCheckCache;
 import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
-import com.nextcloud.receiver.NetworkChangeListener;
-import com.nextcloud.receiver.NetworkChangeReceiver;
+import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias;
 import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.nmc.android.ui.LauncherActivity;
@@ -78,14 +78,15 @@ import com.owncloud.android.datastorage.StoragePoint;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.NextcloudVersion;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.activity.SyncedFoldersActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ReceiversHelper;
 import com.owncloud.android.utils.SecurityUtils;
+import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.conscrypt.Conscrypt;
@@ -190,6 +191,8 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
 
     @Inject WalledCheckCache walledCheckCache;
 
+    @Inject ComposeProcessTextAlias composeProcessTextAlias;
+
     // workaround because injection is initialized on onAttachBaseContext
     // and getApplicationContext is null at that point, which crashes when getting current user
     @Inject Provider<ViewThemeUtils> viewThemeUtilsProvider;
@@ -199,8 +202,6 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
     private boolean mBound;
 
     private static AppComponent appComponent;
-
-    private NetworkChangeReceiver networkChangeReceiver;
 
     /**
      * Temporary hack
@@ -223,11 +224,6 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
      */
     public PowerManagementService getPowerManagementService() {
         return powerManagementService;
-    }
-
-    private void registerNetworkChangeReceiver() {
-        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(networkChangeReceiver, filter);
     }
 
     private String getAppProcessName() {
@@ -303,7 +299,6 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         logger.i(TAG, String.format(Locale.US, "Started %d migrations", startedMigrationsCount));
 
         new SecurityUtils();
-        DisplayUtils.useCompatVectorIfNeeded();
 
         fixStoragePath();
 
@@ -356,6 +351,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         if (backgroundJobManager != null) {
             backgroundJobManager.scheduleMediaFoldersDetectionJob();
             backgroundJobManager.startMediaFoldersDetectionJob();
+            backgroundJobManager.schedulePeriodicAutoUpload();
             backgroundJobManager.schedulePeriodicHealthStatus();
 
             if (preferences.isTwoWaySyncEnabled()) {
@@ -366,14 +362,10 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         }
 
         registerGlobalPassCodeProtection();
-        networkChangeReceiver = new NetworkChangeReceiver(this, connectivityService);
-        registerNetworkChangeReceiver();
-
         if (!MDMConfig.INSTANCE.sendFilesSupport(this)) {
             disableDocumentsStorageProvider();
         }
-
-
+        connectivityService.addListener(this);
     }
 
     public void disableDocumentsStorageProvider() {
@@ -387,11 +379,11 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
     private final LifecycleEventObserver lifecycleEventObserver = ((lifecycleOwner, event) -> {
         if (event == Lifecycle.Event.ON_START) {
             Log_OC.d(TAG, "APP IN FOREGROUND");
+            composeProcessTextAlias.configure();
 
             if (preferences.startAutoUploadOnStart()) {
                 FilesSyncHelper.startAutoUploadForEnabledSyncedFolders(syncedFolderProvider,
                                                                        backgroundJobManager,
-                                                                       new String[]{},
                                                                        false);
                 preferences.setLastAutoUploadOnStartTime(System.currentTimeMillis());
             }
@@ -1031,6 +1023,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
     @Override
     public void onTerminate() {
         super.onTerminate();
+        connectivityService.removeListener(this);
         ReceiversHelper.shutdown();
     }
 }

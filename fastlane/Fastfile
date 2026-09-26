@@ -121,7 +121,7 @@ desc "Create Generic release"
 lane :createGenericRelease do |options|
     SignedRelease(flavor:"Generic")
     sh("mv ../app/build/outputs/apk/generic/release/*.apk ../release/")
-    sh("mv ../release/generic-release-#{options[:versionCode]}.apk ../release/nextcloud-#{options[:versionCode]}.apk")
+    sh("mv ../release/app-generic-release.apk ../release/nextcloud-#{options[:versionCode]}.apk")
 end
 
 desc "Create Huawei release"

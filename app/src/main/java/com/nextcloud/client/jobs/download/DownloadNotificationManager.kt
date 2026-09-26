@@ -16,10 +16,9 @@ import com.owncloud.android.R
 import com.owncloud.android.operations.DownloadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
-import java.io.File
 import java.security.SecureRandom
 
-@Suppress("TooManyFunctions")
+@Suppress("TooManyFunctions", "MagicNumber")
 class DownloadNotificationManager(id: Int, private val context: Context, viewThemeUtils: ViewThemeUtils) :
     WorkerNotificationManager(
         id,
@@ -29,11 +28,8 @@ class DownloadNotificationManager(id: Int, private val context: Context, viewThe
         channelId = NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD
     ) {
 
-    private var lastPercent = -1
-
-    @Suppress("MagicNumber")
     fun prepareForStart(operation: DownloadFileOperation) {
-        currentOperationTitle = File(operation.savePath).name
+        currentOperationTitle = operation.file.fileName
 
         notificationBuilder.run {
             setContentTitle(currentOperationTitle)
@@ -51,20 +47,12 @@ class DownloadNotificationManager(id: Int, private val context: Context, viewThe
             .setProgress(0, 0, false)
     }
 
-    @Suppress("MagicNumber")
     fun updateDownloadProgress(percent: Int, totalToTransfer: Long) {
-        // If downloads are so fast, no need to notify again.
-        if (percent == lastPercent) {
-            return
-        }
-        lastPercent = percent
-
         val progressText = NumberFormatter.getPercentageText(percent)
         setProgress(percent, progressText, totalToTransfer < 0)
         showNotification()
     }
 
-    @Suppress("MagicNumber")
     fun dismissNotification() {
         dismissNotification(2000)
     }

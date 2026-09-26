@@ -9,10 +9,9 @@ package com.nextcloud.client.network
 
 import android.accounts.AccountManager
 import android.content.Context
-import android.net.ConnectivityManager
 import com.nextcloud.client.account.UserAccountManagerImpl
-import com.nextcloud.client.core.ClockImpl
 import com.nextcloud.client.network.ConnectivityServiceImpl.GetRequestBuilder
+import com.nextcloud.operations.GetMethod
 import com.owncloud.android.AbstractOnServerIT
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -21,15 +20,14 @@ import org.junit.Test
 class ConnectivityServiceImplIT : AbstractOnServerIT() {
     @Test
     fun testInternetWalled() {
-        val connectivityManager = targetContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val accountManager = targetContext.getSystemService(Context.ACCOUNT_SERVICE) as AccountManager
         val userAccountManager = UserAccountManagerImpl(targetContext, accountManager)
         val clientFactory = ClientFactoryImpl(targetContext)
-        val requestBuilder = GetRequestBuilder()
-        val walledCheckCache = WalledCheckCache(ClockImpl())
+        val requestBuilder = GetRequestBuilder { url -> GetMethod(url, false) }
+        val walledCheckCache = WalledCheckCache()
 
         val sut = ConnectivityServiceImpl(
-            connectivityManager,
+            targetContext,
             userAccountManager,
             clientFactory,
             requestBuilder,
@@ -37,6 +35,6 @@ class ConnectivityServiceImplIT : AbstractOnServerIT() {
         )
 
         assertTrue(sut.connectivity.isConnected)
-        assertFalse(sut.isInternetWalled)
+        assertFalse(sut.isInternetWalled())
     }
 }

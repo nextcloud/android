@@ -8,6 +8,7 @@
 package com.nextcloud.client.assistant
 
 import com.nextcloud.client.assistant.repository.remote.AssistantRemoteRepositoryImpl
+import com.nextcloud.test.SinceServer
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 import com.owncloud.android.lib.resources.status.NextcloudVersion
@@ -17,6 +18,7 @@ import org.junit.Before
 import org.junit.Test
 
 @Suppress("MagicNumber")
+@SinceServer(majorVersion = 28)
 class AssistantRepositoryTests : AbstractOnServerIT() {
 
     private var sut: AssistantRemoteRepositoryImpl? = null
@@ -35,7 +37,7 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
         }
 
         runBlocking {
-            val result = sut?.getTaskTypes()
+            val result = sut?.fetchTaskTypes()
             assertTrue(result?.isNotEmpty() == true)
         }
     }
@@ -87,17 +89,13 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
 
         testCreateTask()
 
-        sleep(120)
-
         runBlocking {
             val taskList = sut?.getTaskList("assistant")
             assertTrue(taskList != null)
 
-            sleep(120)
+            val taskId = taskList?.firstOrNull()?.id ?: return@runBlocking
 
-            assert((taskList?.size ?: 0) > 0)
-
-            val result = sut?.deleteTask(taskList!!.first().id)
+            val result = sut?.deleteTask(taskId)
             assertTrue(result?.isSuccess == true)
         }
     }

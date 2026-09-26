@@ -13,11 +13,13 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
+import com.bumptech.glide.Glide
 import com.nextcloud.client.account.User
-import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.common.NextcloudClient
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
+import com.nextcloud.utils.view.LocaleDirection
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UnifiedSearchCurrentDirectoryItemBinding
 import com.owncloud.android.databinding.UnifiedSearchEmptyBinding
@@ -26,30 +28,27 @@ import com.owncloud.android.databinding.UnifiedSearchHeaderBinding
 import com.owncloud.android.databinding.UnifiedSearchItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
+import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.ui.interfaces.UnifiedSearchCurrentDirItemAction
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 /**
  * This Adapter populates a SectionedRecyclerView with search results by unified search
  */
-@Suppress("LongParameterList")
+@Suppress("LongParameterList", "LongMethod")
 class UnifiedSearchListAdapter(
     private val supportsOpeningCalendarContactsLocally: Boolean,
     private val storageManager: FileDataStorageManager,
     private val listInterface: UnifiedSearchListInterface,
     private val filesAction: UnifiedSearchItemViewHolder.FilesAction,
-    private val user: User,
     private val context: Context,
     private val viewThemeUtils: ViewThemeUtils,
-    private val appPreferences: AppPreferences,
-    private val syncedFolderProvider: SyncedFolderProvider,
-    private val nextcloudClient: NextcloudClient,
-    private val currentDirItemAction: UnifiedSearchCurrentDirItemAction
+    private val currentDirItemAction: UnifiedSearchCurrentDirItemAction,
+    private val thumbnailGenerator: ThumbnailGenerator,
+    private val user: User
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
     companion object {
         private const val VIEW_TYPE_EMPTY = Int.MAX_VALUE
@@ -58,6 +57,49 @@ class UnifiedSearchListAdapter(
 
     private var currentDirItems: List<OCFile> = listOf()
     private var sections: List<UnifiedSearchSection> = emptyList()
+
+    init {
+        setHasStableIds(true)
+
+        // initialize thumbnails cache on background thread
+        ThumbnailsCacheManager.initDiskCacheAsync()
+    }
+
+    override fun getItemId(section: Int, position: Int): Long = when {
+        // Current directory section
+        isCurrentDirItem(section) -> {
+            currentDirItems.getOrNull(position)?.fileId ?: RecyclerView.NO_ID
+        }
+
+        // Normal unified search sections
+        else -> {
+            val index = getSectionIndex(section)
+            sections.getOrNull(index)
+                ?.entries
+                ?.getOrNull(position)?.searchResult?.hashCode()?.toLong() ?: RecyclerView.NO_ID
+        }
+    }
+
+    override fun getHeaderId(section: Int): Long = if (isCurrentDirItem(section)) {
+        Long.MAX_VALUE - 1
+    } else {
+        val index = getSectionIndex(section)
+        sections.getOrNull(index)?.name?.hashCode()?.toLong()
+            ?: RecyclerView.NO_ID
+    }
+
+    override fun getFooterId(section: Int): Long = if (isCurrentDirItem(section)) {
+        Long.MAX_VALUE
+    } else {
+        val index = getSectionIndex(section)
+        sections.getOrNull(index)?.let {
+            if (it.hasMoreResults) {
+                (it.name + "_footer").hashCode().toLong()
+            } else {
+                RecyclerView.NO_ID
+            }
+        } ?: RecyclerView.NO_ID
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder {
         val layoutInflater = LayoutInflater.from(context)
@@ -77,7 +119,7 @@ class UnifiedSearchListAdapter(
                     parent,
                     false
                 )
-                UnifiedSearchFooterViewHolder(binding, context, listInterface)
+                UnifiedSearchFooterViewHolder(binding, context, viewThemeUtils, listInterface)
             }
 
             VIEW_TYPE_ITEM -> {
@@ -89,28 +131,25 @@ class UnifiedSearchListAdapter(
                 UnifiedSearchItemViewHolder(
                     supportsOpeningCalendarContactsLocally,
                     binding,
-                    storageManager,
                     listInterface,
                     filesAction,
                     context,
-                    nextcloudClient,
-                    viewThemeUtils
+                    viewThemeUtils,
+                    thumbnailGenerator,
+                    FileOperationsHelper.isEndToEndEncryptionSetup(context, user)
                 )
             }
 
             VIEW_TYPE_CURRENT_DIR -> {
-                val isRTL = DisplayUtils.isRTL()
+                val isRTL = LocaleDirection.isRtl
                 val binding = UnifiedSearchCurrentDirectoryItemBinding.inflate(layoutInflater, parent, false)
                 UnifiedSearchCurrentDirItemViewHolder(
                     binding,
                     context,
-                    viewThemeUtils,
                     storageManager,
                     isRTL,
-                    user,
-                    appPreferences,
-                    syncedFolderProvider,
-                    currentDirItemAction
+                    currentDirItemAction,
+                    thumbnailGenerator
                 )
             }
 
@@ -186,6 +225,14 @@ class UnifiedSearchListAdapter(
         }
     }
 
+    override fun onViewRecycled(holder: SectionedViewHolder) {
+        super.onViewRecycled(holder)
+        if (holder is UnifiedSearchItemViewHolder) {
+            Glide.with(context).clear(holder.binding.thumbnail)
+            holder.binding.thumbnail.setImageDrawable(null)
+        }
+    }
+
     override fun onBindViewHolder(
         holder: SectionedViewHolder,
         section: Int,
@@ -226,9 +273,4 @@ class UnifiedSearchListAdapter(
     }
 
     fun hasLocalResults(): Boolean = currentDirItems.isNotEmpty()
-
-    init {
-        // initialise thumbnails cache on background thread
-        ThumbnailsCacheManager.initDiskCacheAsync()
-    }
 }

@@ -30,7 +30,11 @@
     <string name="activity_icon">Jarduera</string>
     <string name="add_new_public_share">Gehitu partekatzeko esteka berria</string>
     <string name="add_new_secure_file_drop">Gehitu fitxategi jaregite seguru berria</string>
-    <string name="add_to_cloud">Gehitu %1$s</string>
+    <string name="add_to_album">Gehitu albumera</string>
+    <string name="album_delete">Ezabatu albuma</string>
+    <string name="album_rename_conflict">Izen hau dagoeneko erabiltzen ari da.</string>
+    <string name="album_share">Partekatu albuma</string>
+    <string name="album_stop_sharing">Partekatzeari utzi</string>
     <string name="app_config_base_url_title">Oinarri URLa</string>
     <string name="app_config_disable_clipboard_title">Desgaitu arbela</string>
     <string name="app_config_disable_intro_title">Desgaitu introdukzioa</string>
@@ -44,6 +48,10 @@
     <string name="app_widget_description">Paneleko trepeta bat erakusten du</string>
     <string name="appbar_search_in">Bilatu %s(e)n</string>
     <string name="appear_offline">Lineaz kanpo agertzen da</string>
+    <string name="assistant_screen_chat_create_error">Ezin izan da mezua bidali</string>
+    <string name="assistant_screen_chat_fetch_error">Ezin izan dira txat-mezuak eskuratu</string>
+    <string name="assistant_screen_chat_generate_error">Ezin izan da erantzuna sortu</string>
+    <string name="assistant_screen_conversations_go_back_to_assistant">Itzuli laguntza orrira</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Ziur zeregin hau ezabatu nahi duzula?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Ezabatu zeregina</string>
     <string name="assistant_screen_task_create_fail_message">Errore bat gertatu da zeregina sortzean</string>
@@ -79,7 +87,6 @@
     <string name="auth_ssl_unverified_server_title">Ezin izan da SSL zerbitzariaren identitatea egiaztatu</string>
     <string name="auth_testing_connection">Konexioa probatzen</string>
     <string name="auth_timeout_title">Zerbitzariak denbora gehiegi hartu du erantzuteko</string>
-    <string name="auth_trying_to_login">Saioa hasten saiatzen…</string>
     <string name="auth_unauthorized">Erabiltzaile edo pasahitz okerra</string>
     <string name="auth_unknown_error_exception_title">Errore ezezaguna: %1$s</string>
     <string name="auth_unknown_error_http_title">HTTP errore ezezaguna gertatu da!</string>
@@ -213,15 +220,18 @@
     <string name="could_not_retrieve_shares">Ezin izan dira partekatzeak berreskuratu</string>
     <string name="could_not_retrieve_url">Ezin izan da URLa berreskuratu</string>
     <string name="create">Sortu</string>
+    <string name="create_album_dialog_title">Album berria</string>
     <string name="create_dir_fail_msg">Ezin izan da karpeta sortu</string>
+    <string name="create_document">Dokumentua</string>
+    <string name="create_folder">Karpeta</string>
     <string name="create_link">Sortu esteka</string>
     <string name="create_new">Berria</string>
     <string name="create_new_document">Dokumentu berria</string>
-    <string name="create_new_folder">Karpeta berria</string>
     <string name="create_new_presentation">Aurkezpen berria</string>
     <string name="create_new_spreadsheet">Kalkulu-orri berria</string>
+    <string name="create_presentation">Aurkezpena</string>
     <string name="create_rich_workspace">Gehitu karpetaren deskribapena</string>
-    <string name="creates_rich_workspace">Karpetaren deskribapena gehitzen du</string>
+    <string name="create_spreadsheet">Kalkulu-orria</string>
     <string name="credentials_disabled">Kredentzialak desgaituta</string>
     <string name="daily_backup">Eguneko babeskopia</string>
     <string name="data_to_back_up">Babesteko datuak</string>
@@ -271,16 +281,15 @@
     <string name="drawer_community">Komunitatea</string>
     <string name="drawer_header_background">Goiburuko kutxaren atzeko planoaren irudia</string>
     <string name="drawer_item_activities">Jarduerak</string>
+    <string name="drawer_item_album">Albumak</string>
     <string name="drawer_item_all_files">Fitxategi guztiak</string>
     <string name="drawer_item_assistant">Morroia</string>
     <string name="drawer_item_favorites">Gogokoak</string>
     <string name="drawer_item_gallery">Media</string>
-    <string name="drawer_item_groupfolders">Talde-karpetak</string>
     <string name="drawer_item_home">Etxea</string>
     <string name="drawer_item_notifications">Jakinarazpenak</string>
     <string name="drawer_item_on_device">Gailura</string>
     <string name="drawer_item_personal_files">Fitxategi pertsonalak</string>
-    <string name="drawer_item_recently_modified">Berriki aldatuak</string>
     <string name="drawer_item_shared">Partekatuta</string>
     <string name="drawer_item_trashbin">Ezabatutako fitxategiak</string>
     <string name="drawer_item_uploads_list">Kargak</string>
@@ -289,7 +298,6 @@
     <string name="drawer_quota">%1$s / %2$s erabilita</string>
     <string name="drawer_quota_unlimited">%1$s erabilita</string>
     <string name="drawer_synced_folders">Kargatu automatikoki</string>
-    <string name="due_to_too_many_wrong_attempts">%s okerreko saiakera gehiegi direla eta</string>
     <string name="e2e_counter_too_old">Kontagailua zaharregia da</string>
     <string name="e2e_hash_not_found">Traola ez da aurkitu</string>
     <string name="e2e_not_yet_setup">MME (E2E) ez dago konfiguratuta</string>
@@ -365,6 +373,7 @@
     <string name="external_shares">Kanpoko partekatzeak</string>
     <string name="fab_label">Gehitu edo igo</string>
     <string name="failed_to_download">Huts egin du fitxategia deskarga-kudeatzailera pasatzean</string>
+    <string name="failed_to_load_tags">Etiketak kargatzeak huts egin du</string>
     <string name="failed_to_print">Huts egin du fitxategia inprimatzean</string>
     <string name="failed_to_start_editor">Ezin izan da editorea abiatu</string>
     <string name="failed_update_ui">Erabiltzaile Interfazea (UI) eguneratzeak huts egin du</string>
@@ -389,7 +398,8 @@
     <string name="file_list_empty_local_search">Ez dago zure bilaketarekin bat datorren fitxategi edo karpetarik</string>
     <string name="file_list_empty_moving">Hemen ez dago ezer. Karpeta bat gehi dezakezu.</string>
     <string name="file_list_empty_on_device">Deskargaturiko fitxategiak eta karpetak hemen agertuko dira.</string>
-    <string name="file_list_empty_recently_modified">Ez da aurkitu azken 7 egunetan aldatu den fitxategirik</string>
+    <string name="file_list_empty_recent_files_description">Azkenaldian aldatu dituzun fitxategi eta karpetak hemen agertuko dira.</string>
+    <string name="file_list_empty_recent_files_headline">Ez dago azkenaldian aldatutako fitxategirik</string>
     <string name="file_list_empty_search">Agian beste karpeta batean dago?</string>
     <string name="file_list_empty_shared">Partekatzen dituzun fitxategiak eta karpetak hemen agertuko dira.</string>
     <string name="file_list_empty_shared_headline">Oraindik ez dago ezer partekatuta</string>
@@ -473,6 +483,8 @@
     <string name="foreign_files_remote_text">Urrunekoa: %1$s</string>
     <string name="forward">Birbidali</string>
     <string name="fourHours">4 ordu</string>
+    <string name="governance_file_retention_label">Fitxategiak mantentzea</string>
+    <string name="governance_no_label">Bat ere ez</string>
     <string name="gplay_restriction">Google-k muga jarri die APK/AAB fitxategien deskargei!</string>
     <string name="grid_file_features_live_photo_content_description">Ikono honek zuzeneko argazkiaren erabilgarritasuna adierazten du</string>
     <string name="hidden_file_name_warning">Izen honek ezkutuko fitxategi bat sortzea eragingo du</string>
@@ -538,17 +550,7 @@
     <string name="manage_space_clear_data">Garbitu datuak</string>
     <string name="manage_space_description">%1$s(r)en ezarpenak, datu-basea eta zerbitzariaren ziurtagiriak betirako ezabatuko dira.\n\n Deskargatutako fitxategiak ez dira ukituko.\n\n Prozesu honek denbora behar du.</string>
     <string name="manage_space_title">Kudeatu lekua</string>
-    <string name="media_err_invalid_progressive_playback">Ezin da multimedia fitxategia transmititu</string>
-    <string name="media_err_io">Ezin izan da multimedia fitxategia irakurri</string>
-    <string name="media_err_malformed">Multimedia fitxategiak kodeketa desegokia du</string>
-    <string name="media_err_timeout">Fitxategia erreproduzitzeko denbora-muga gainditu da</string>
-    <string name="media_err_unknown">Multimedia erreproduzitzaile integratuak ezin du multimedia fitxategia erreproduzitu</string>
-    <string name="media_err_unsupported">Onartzen ez den multimedia kodeka</string>
-    <string name="media_forward_description">Bizkor aurreratu botoia</string>
-    <string name="media_notif_ticker">%1$s musika erreproduzigailua</string>
-    <string name="media_play_pause_description">Erreproduzitu edo pausatu botoia</string>
-    <string name="media_rewind_description">Birbobinatu botoia</string>
-    <string name="media_state_playing">%1$s (erreproduzitzen)</string>
+    <string name="manage_tags">Kudeatu etiketak</string>
     <string name="menu_item_sort_by_date_newest_first">Berriena lehenengo</string>
     <string name="menu_item_sort_by_date_oldest_first">Zaharrena lehenengo</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -632,8 +634,7 @@
     <string name="picture_set_as_no_app">Ez da aplikaziorik aurkitu irudia ezartzeko</string>
     <string name="pin_home">Finkatu pantaila nagusian</string>
     <string name="pin_shortcut_label">Ireki %1$s</string>
-    <string name="player_stop">gelditu</string>
-    <string name="player_toggle">txandakatu</string>
+    <string name="player_media_controls_close_action_title">Itxi</string>
     <string name="please_select_a_server">Hautatu zerbitzari bat...</string>
     <string name="power_save_check_dialog_message">Energia aurrezteko kontrola desgaituz gero, fitxategiak bateria baxu dagoenean igo litezke!</string>
     <string name="pref_behaviour_entries_delete_file">ezabatua</string>
@@ -725,6 +726,7 @@
     <string name="reload">Birkargatu</string>
     <string name="remote">(urrunekoa)</string>
     <string name="remote_file_fetch_failed">Fitxategia bilatzeak huts egin du!</string>
+    <string name="remove">Kendu</string>
     <string name="remove_e2e">Lokalean, muturretik muturrerako enkriptatzea ken dezakezu bezero honetan</string>
     <string name="remove_e2e_message">Lokalean, muturretik muturrerako enkriptatzea ken dezakezu bezero honetan. Enkriptatutako fitxategiek zerbitzarian jarraituko dute, baina ez dira ordenagailu honekin sinkronizatuko.</string>
     <string name="remove_fail_msg">Ezabatzeak huts egin du</string>
@@ -733,6 +735,7 @@
     <string name="remove_notification_failed">Huts egin du jakinarazpena kentzean</string>
     <string name="remove_push_notification">Ezabatu</string>
     <string name="remove_success_msg">Ezabatuta</string>
+    <string name="rename_dialog_button">Berrizendatu</string>
     <string name="rename_dialog_title">Idatzi izen berri bat</string>
     <string name="rename_local_fail_msg">Ezin izan da kopia lokala berrizendatu, saiatu beste izen batekin</string>
     <string name="rename_server_fail_msg">Ezin izan da berrizendatu, izena hartua zegoen</string>
@@ -763,6 +766,7 @@
     <string name="screenshot_06_davdroid_heading">Egutegia eta kontaktuak</string>
     <string name="screenshot_06_davdroid_subline">Sinkronizatu DAVx⁵-ren bidez</string>
     <string name="search_error">Errorea bilaketaren emaitzak lortzean</string>
+    <string name="search_tags">Bilatu etiketak</string>
     <string name="secure_share_not_set_up">Partekatze segurua ez dago konfiguratuta erabiltzaile honentzat</string>
     <string name="secure_share_search">Partekatze segurua...</string>
     <string name="select_all">Hautatu dena</string>
@@ -771,7 +775,6 @@
     <string name="select_template">Hautatu txantiloia</string>
     <string name="send">Bidali</string>
     <string name="send_share">Bidali partekatzea</string>
-    <string name="sendbutton_description">Bidali botoiaren ikonoa</string>
     <string name="set_as">Ezarri honela</string>
     <string name="set_note">Ezarri oharra</string>
     <string name="set_picture_as">Erabili irudia honela</string>
@@ -805,7 +808,6 @@
     <string name="share_not_allowed_when_file_drop">Ez da birpartekatzea onartzen fitxategiak seguruen jariotzea erabiltzean</string>
     <string name="share_permission_can_edit">Editatu dezake</string>
     <string name="share_permission_file_request">Fitxategi eskaera</string>
-    <string name="share_permission_secure_file_drop">Fitxategi-jartze segurua</string>
     <string name="share_permission_view_only">Ikusi soilik</string>
     <string name="share_permissions">Partekatu baimenak</string>
     <string name="share_re_share_permission">Partekatu</string>
@@ -881,7 +883,6 @@
     <string name="store_short_dev_desc">Kontrola zuri ematen dizun norberak ostatutako produktibitate plataforma (garapeneko aurrerapen bertsioa)</string>
     <string name="stream">Transmititu honekin...</string>
     <string name="stream_not_possible_headline">Barneko transmisioa ez da posible</string>
-    <string name="stream_not_possible_message">Bestela deskargatu multimedia edo erabili kanpoko aplikazio bat.</string>
     <string name="sub_folder_rule_day">Urtea/Hilabetea/Eguna</string>
     <string name="sub_folder_rule_month">Urtea/Hilabetea</string>
     <string name="sub_folder_rule_year">Urtea</string>
@@ -931,7 +932,6 @@
     <string name="thumbnail_for_new_file_desc">Fitxategi berriaren koadro txikia</string>
     <string name="timeout_richDocuments">Karga espero den baino gehiago luzatzen ari da</string>
     <string name="today">Gaur</string>
-    <string name="trashbin_activity_title">Ezabatutako fitxategiak</string>
     <string name="trashbin_empty_headline">Ezabatutako fitxategirik ez</string>
     <string name="trashbin_empty_message">Hemendik ezabatutako fitxategiak berreskuratu ahal izango dituzu</string>
     <string name="trashbin_file_not_deleted"> %1$s fitxategia ezin da ezabatu!</string>
@@ -1000,7 +1000,6 @@
     <string name="upload_query_move_foreign_files">Hautatutako fitxategiak ezin dira %1$sra kopiatu ez dagoelako toki nahikorik. Kopiatu ordez bertara mugitu nahi dituzu?</string>
     <string name="upload_quota_exceeded">Biltegiratze kuota gainditu da</string>
     <string name="upload_scan_doc_upload">Eskaneatu dokumentua kamararekin</string>
-    <string name="upload_sync_conflict">Sinkronizazio gatazka, ebatzi eskuz</string>
     <string name="upload_unknown_error">Akats ezezaguna</string>
     <string name="uploader_btn_alternative_text">Aukeratu</string>
     <string name="uploader_btn_upload_text">Kargatu</string>
@@ -1032,9 +1031,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Konfigurazioa</string>
     <string name="uploader_wrn_no_account_text">Ez dago %1$s konturik zure gailuan. Mesedez, konfiguratu kontu bat lehenbizi.</string>
     <string name="uploader_wrn_no_account_title">Ez da konturik aurkitu</string>
+    <string name="uploads_view_group_completed_uploads">Osatua</string>
     <string name="uploads_view_group_current_uploads">Unekoa</string>
     <string name="uploads_view_group_failed_uploads">Berrabiarazteko zain/huts egin du.</string>
-    <string name="uploads_view_group_finished_uploads">Igoa</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Ezeztatua</string>
     <string name="uploads_view_later_waiting_to_upload">Igotzeko itxoiten</string>
     <string name="uploads_view_title">Kargak</string>
@@ -1047,7 +1046,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Fitxategi lokala ez da topatu</string>
     <string name="uploads_view_upload_status_failed_permission_error">Baimen errorea.</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Zerbitzariaren ziurtagiria ez da fidagarria</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Zerbitzariko bertsioa ekartzen...</string>
     <string name="uploads_view_upload_status_service_interrupted">App-ak bukatu du</string>
     <string name="uploads_view_upload_status_succeeded">Betea</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Fitxategi bera aurkitu da zerbitzarian, igoera saltatu da</string>
@@ -1059,7 +1057,9 @@
     <string name="user_icon">Erabiltzailea</string>
     <string name="user_info_address">Helbidea</string>
     <string name="user_info_email">Posta elektronikoa</string>
+    <string name="user_info_groups">Taldeak</string>
     <string name="user_info_phone">Telefono zenbakia</string>
+    <string name="user_info_profile">Profila</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Webgunea</string>
     <string name="user_information_retrieval_error">Akatsa erabiltzailearen informazioa eskuratzerakoan</string>
@@ -1158,24 +1158,8 @@
         <item quantity="one">aukeratuta %d</item>
         <item quantity="other">%d aukeratuta</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="one">Segundo %d-ez atzeratua saiakera oker gehiegi direla eta</item>
-        <item quantity="other">%dsegundoz atzeratua saiakera oker gehiegi direla eta</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="one">Segundo %d-ez atzeratua saiakera oker gehiegi direla eta</item>
-        <item quantity="other">%d segundoz atzeratua saiakera oker gehiegi direla eta</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="one">Minutu %d-ez atzeratua</item>
-        <item quantity="other">%d minutuz atzeratua</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">Segundo %d</item>
-        <item quantity="other">%d segundo</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">Deskarga %1$d falta da</item>
         <item quantity="other">%1$d deskarga falta dira</item>
     </plurals>
-</resources>
+    </resources>

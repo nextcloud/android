@@ -32,7 +32,7 @@
             <ImageView
                 android:layout_width="@dimen/standard_icon_size"
                 android:layout_height="@dimen/standard_icon_size"
-                android:contentDescription="@string/auto_upload_battery_saver_mode_warning"
+                android:contentDescription="@null"
                 android:src="@drawable/ic_warning"
                 app:tint="@color/log_level_warning" />
 

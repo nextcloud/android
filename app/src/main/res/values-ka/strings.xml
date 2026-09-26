@@ -28,9 +28,9 @@
     <string name="activity_icon">Activity</string>
     <string name="add_new_public_share">Add new public share link</string>
     <string name="add_new_secure_file_drop">Add new secure file drop</string>
-    <string name="add_to_cloud">Add to %1$s</string>
     <string name="app_widget_description">Shows one widget from dashboard</string>
     <string name="appbar_search_in">Search in %s</string>
+    <string name="appear_offline">ხაზგარეშე გამოჩენა</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Delete task</string>
     <string name="assistant_screen_send_message">Send message</string>
     <string name="assistant_screen_task_create_success_message">Task created</string>
@@ -57,7 +57,6 @@
     <string name="auth_ssl_unverified_server_title">Could not verify the identity of the SSL server</string>
     <string name="auth_testing_connection">Testing connection</string>
     <string name="auth_timeout_title">The server took too long to respond</string>
-    <string name="auth_trying_to_login">Trying to log in…</string>
     <string name="auth_unauthorized">Wrong username or password</string>
     <string name="auth_unknown_error_exception_title">Unknown error: %1$s</string>
     <string name="auth_unknown_error_http_title">Unknown HTTP error occurred!</string>
@@ -180,11 +179,12 @@
     <string name="could_not_retrieve_url">Could not retrieve URL</string>
     <string name="create">Create</string>
     <string name="create_dir_fail_msg">Could not create folder</string>
+    <string name="create_folder">Folder</string>
     <string name="create_new">New</string>
     <string name="create_new_document">New document</string>
-    <string name="create_new_folder">New folder</string>
     <string name="create_new_presentation">New presentation</string>
     <string name="create_new_spreadsheet">New spreadsheet</string>
+    <string name="create_presentation">Presentation</string>
     <string name="credentials_disabled">Credentials disabled</string>
     <string name="daily_backup">Daily backup</string>
     <string name="data_to_back_up">Data to back up</string>
@@ -233,11 +233,9 @@
     <string name="drawer_item_all_files">All files</string>
     <string name="drawer_item_favorites">Favorites</string>
     <string name="drawer_item_gallery">Media</string>
-    <string name="drawer_item_groupfolders">Groupfolders</string>
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_item_on_device">On device</string>
-    <string name="drawer_item_recently_modified">Recently modified</string>
     <string name="drawer_item_shared">Shared</string>
     <string name="drawer_item_trashbin">Deleted files</string>
     <string name="drawer_item_uploads_list">Uploads</string>
@@ -307,6 +305,7 @@
     <string name="etm_transfer_type_upload">Upload</string>
     <string name="fab_label">Add or upload</string>
     <string name="failed_to_download">Failed to pass file to download manager</string>
+    <string name="failed_to_load_tags">Failed to load tags</string>
     <string name="failed_to_print">Failed to print file</string>
     <string name="failed_to_start_editor">Failed to start editor</string>
     <string name="failed_update_ui">Failed to update UI</string>
@@ -328,7 +327,8 @@
     <string name="file_list_empty_headline_server_search">No results</string>
     <string name="file_list_empty_moving">Nothing in here. You can add a folder.</string>
     <string name="file_list_empty_on_device">Downloaded files and folders will show up here.</string>
-    <string name="file_list_empty_recently_modified">Found no files modified within the last 7 days</string>
+    <string name="file_list_empty_recent_files_description">Files and folders you recently modified will show up here.</string>
+    <string name="file_list_empty_recent_files_headline">No recently modified files</string>
     <string name="file_list_empty_search">Maybe it is in a different folder?</string>
     <string name="file_list_empty_shared">Files and folders you share will show up here.</string>
     <string name="file_list_empty_shared_headline">Nothing shared yet</string>
@@ -396,6 +396,7 @@
     <string name="foreign_files_remote_text">Remote: %1$s</string>
     <string name="forward">Forward</string>
     <string name="fourHours">4 hours</string>
+    <string name="governance_no_label">None</string>
     <string name="hidden_file_name_warning">Name will result in a hidden file</string>
     <string name="hint_name">Name</string>
     <string name="hint_note">Note</string>
@@ -455,17 +456,6 @@
     <string name="manage_space_clear_data">Clear data</string>
     <string name="manage_space_description">Settings, database and server certificates from %1$s\'s data will be deleted permanently. \n\nDownloaded files will be kept untouched.\n\nThis process can take a while.</string>
     <string name="manage_space_title">Manage space</string>
-    <string name="media_err_invalid_progressive_playback">The media file cannot be streamed</string>
-    <string name="media_err_io">Could not read the media file</string>
-    <string name="media_err_malformed">The media file has incorrect encoding</string>
-    <string name="media_err_timeout">Attempt to play file timed out</string>
-    <string name="media_err_unknown">The built-in media player is unable to play the media file</string>
-    <string name="media_err_unsupported">Unsupported media codec</string>
-    <string name="media_forward_description">Fast forward button</string>
-    <string name="media_notif_ticker">%1$s music player</string>
-    <string name="media_play_pause_description">Play or pause button</string>
-    <string name="media_rewind_description">Rewind button</string>
-    <string name="media_state_playing">%1$s (playing)</string>
     <string name="menu_item_sort_by_date_newest_first">Newest first</string>
     <string name="menu_item_sort_by_date_oldest_first">Oldest first</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -477,6 +467,7 @@
     <string name="move_file_invalid_into_descendent">It is not possible to move a folder into one of its own underlying folders</string>
     <string name="move_file_invalid_overwrite">The file is already present in the destination folder</string>
     <string name="move_file_not_found">Unable to move file. Please check whether it exists.</string>
+    <string name="mute_all_notifications">ყველა გაფრთხილების დადუმება</string>
     <string name="network_error_connect_timeout_exception">An error occurred while waiting for the server. Could not complete operation.</string>
     <string name="network_error_socket_exception">An error occurred during connection to the server</string>
     <string name="network_error_socket_timeout_exception">An error occurred while waiting for the server. Could not complete operation.</string>
@@ -533,8 +524,7 @@
     <string name="permission_deny">Deny</string>
     <string name="picture_set_as_no_app">No app found to set a picture with</string>
     <string name="pin_shortcut_label">Open %1$s</string>
-    <string name="player_stop">stop</string>
-    <string name="player_toggle">toggle</string>
+    <string name="player_media_controls_close_action_title">Close</string>
     <string name="power_save_check_dialog_message">Disabling power save check might result in uploading files when in low battery state!</string>
     <string name="pref_behaviour_entries_delete_file">deleted</string>
     <string name="pref_behaviour_entries_keep_file">kept in original folder</string>
@@ -550,6 +540,7 @@
     <string name="prefs_category_about">About</string>
     <string name="prefs_category_details">Details</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">ფაილები</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>
     <string name="prefs_category_sync">Sync</string>
@@ -607,6 +598,7 @@
     <string name="reload">Reload</string>
     <string name="remote">(remote)</string>
     <string name="remote_file_fetch_failed">Failed to find file!</string>
+    <string name="remove">Remove</string>
     <string name="remove_e2e">You can remove end-to-end encryption locally on this client</string>
     <string name="remove_e2e_message">You can remove end-to-end encryption locally on this client. The encrypted files will remain on server, but will not be synced to this computer any longer.</string>
     <string name="remove_fail_msg">Deletion failed</string>
@@ -615,6 +607,7 @@
     <string name="remove_notification_failed">Failed to remove notification.</string>
     <string name="remove_push_notification">Remove</string>
     <string name="remove_success_msg">Deleted</string>
+    <string name="rename_dialog_button">სახელის გადარქმევა</string>
     <string name="rename_dialog_title">Enter a new name</string>
     <string name="rename_local_fail_msg">Could not rename local copy, try a different name</string>
     <string name="rename_server_fail_msg">Renaming not possible, name already taken</string>
@@ -646,7 +639,6 @@
     <string name="select_one_template">Please select one template</string>
     <string name="select_template">Select template</string>
     <string name="send">Send</string>
-    <string name="sendbutton_description">Send button icon</string>
     <string name="set_as">Set As</string>
     <string name="set_online_status">Online status</string>
     <string name="set_picture_as">Use picture as</string>
@@ -675,7 +667,6 @@
     <string name="share_no_expiration_date_label">Set expiration date</string>
     <string name="share_no_password_title">Set password</string>
     <string name="share_permission_can_edit">Can edit</string>
-    <string name="share_permission_secure_file_drop">Secure file drop</string>
     <string name="share_permission_view_only">View only</string>
     <string name="share_re_share_permission">გაზიარება</string>
     <string name="share_read_permission">Read</string>
@@ -743,7 +734,6 @@
     <string name="store_short_dev_desc">The self-hosted productivity platform that keeps you in control (dev preview version)</string>
     <string name="stream">Stream with…</string>
     <string name="stream_not_possible_headline">Internal streaming not possible</string>
-    <string name="stream_not_possible_message">Please download media instead or use external app.</string>
     <string name="sub_folder_rule_day">Year/Month/Day</string>
     <string name="sub_folder_rule_month">Year/Month</string>
     <string name="sub_folder_rule_year">Year</string>
@@ -788,7 +778,6 @@
     <string name="thumbnail_for_new_file_desc">Thumbnail for new file</string>
     <string name="timeout_richDocuments">Loading is taking longer than expected</string>
     <string name="today">Today</string>
-    <string name="trashbin_activity_title">Deleted files</string>
     <string name="trashbin_empty_headline">No deleted files</string>
     <string name="trashbin_empty_message">You will be able to recover deleted files from here.</string>
     <string name="trashbin_file_not_deleted">File %1$s could not be deleted!</string>
@@ -834,7 +823,6 @@
     <string name="upload_query_move_foreign_files">Insufficient space prevents copying the selected files into the %1$s folder. Would you like to move them there instead?</string>
     <string name="upload_quota_exceeded">Storage quota exceeded</string>
     <string name="upload_scan_doc_upload">Scan document from camera</string>
-    <string name="upload_sync_conflict">Sync conflict, please resolve manually</string>
     <string name="upload_unknown_error">Unknown error</string>
     <string name="uploader_btn_alternative_text">Choose</string>
     <string name="uploader_btn_upload_text">Upload</string>
@@ -866,9 +854,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Setup</string>
     <string name="uploader_wrn_no_account_text">There are no %1$s accounts on your device. Please set up an account first.</string>
     <string name="uploader_wrn_no_account_title">No account found</string>
+    <string name="uploads_view_group_completed_uploads">Completed</string>
     <string name="uploads_view_group_current_uploads">Current</string>
     <string name="uploads_view_group_failed_uploads">Failed/pending restart</string>
-    <string name="uploads_view_group_finished_uploads">Uploaded</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Cancelled</string>
     <string name="uploads_view_later_waiting_to_upload">Waiting to upload</string>
     <string name="uploads_view_title">Uploads</string>
@@ -881,7 +869,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Local file not found</string>
     <string name="uploads_view_upload_status_failed_permission_error">Permission error</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Untrusted server certificate</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Fetching server version…</string>
     <string name="uploads_view_upload_status_service_interrupted">App terminated</string>
     <string name="uploads_view_upload_status_succeeded">Completed</string>
     <string name="uploads_view_upload_status_unknown_fail">Unknown error</string>
@@ -892,7 +879,9 @@
     <string name="user_icon">User</string>
     <string name="user_info_address">Address</string>
     <string name="user_info_email">Email</string>
+    <string name="user_info_groups">ჯგუფები</string>
     <string name="user_info_phone">Phone number</string>
+    <string name="user_info_profile">Profile</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Website</string>
     <string name="user_information_retrieval_error">Error retrieving user information</string>

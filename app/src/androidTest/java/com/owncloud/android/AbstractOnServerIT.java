@@ -16,11 +16,8 @@ import android.os.Bundle;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
-import com.nextcloud.client.device.BatteryStatus;
-import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.utils.PowerManagementFactory;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
-import com.nextcloud.client.network.Connectivity;
-import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
@@ -47,7 +44,6 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
 
-import androidx.annotation.NonNull;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import static org.junit.Assert.assertNotNull;
@@ -158,6 +154,11 @@ public abstract class AbstractOnServerIT extends AbstractIT {
 
                     assertTrue(operationResult);
                 }
+                
+                if (remoteFile.getPermissions().contains("M")) {
+                    // skip Teamfolders
+                    continue;
+                }
 
                 boolean removeResult = false;
                 for (int i = 0; i < 5; i++) {
@@ -172,7 +173,7 @@ public abstract class AbstractOnServerIT extends AbstractIT {
                     shortSleep();
                 }
 
-                assertTrue(removeResult);
+                assertTrue("Remove of " + remoteFile.getRemotePath() + " failed", removeResult);
             }
         }
     }
@@ -202,41 +203,7 @@ public abstract class AbstractOnServerIT extends AbstractIT {
     }
 
     public void uploadOCUpload(OCUpload ocUpload, int localBehaviour) {
-        ConnectivityService connectivityServiceMock = new ConnectivityService() {
-            @Override
-            public void isNetworkAndServerAvailable(@NonNull GenericCallback<Boolean> callback) {
-
-            }
-
-            @Override
-            public boolean isConnected() {
-                return false;
-            }
-
-            @Override
-            public boolean isInternetWalled() {
-                return false;
-            }
-
-            @Override
-            public Connectivity getConnectivity() {
-                return Connectivity.CONNECTED_WIFI;
-            }
-        };
-
-        PowerManagementService powerManagementServiceMock = new PowerManagementService() {
-            @NonNull
-            @Override
-            public BatteryStatus getBattery() {
-                return new BatteryStatus();
-            }
-
-            @Override
-            public boolean isPowerSavingEnabled() {
-                return false;
-            }
-        };
-
+        final var powerManagementServiceMock = PowerManagementFactory.getMock();
         UserAccountManager accountManager = UserAccountManagerImpl.fromContext(targetContext);
         UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(accountManager,
                                                                                 targetContext.getContentResolver());
@@ -248,7 +215,7 @@ public abstract class AbstractOnServerIT extends AbstractIT {
             user,
             null,
             ocUpload,
-            NameCollisionPolicy.DEFAULT,
+            NameCollisionPolicy.OVERWRITE,
             localBehaviour,
             targetContext,
             false,

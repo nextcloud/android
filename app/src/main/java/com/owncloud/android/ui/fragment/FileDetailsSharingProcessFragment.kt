@@ -17,6 +17,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
 import com.nextcloud.utils.extensions.isPublicOrMail
@@ -39,7 +40,6 @@ import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment
 import com.owncloud.android.ui.fragment.util.SharePermissionManager
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.utils.ClipboardUtil
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.CapabilityUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.text.SimpleDateFormat
@@ -139,6 +139,7 @@ class FileDetailsSharingProcessFragment :
 
     private var expirationDatePickerFragment: ExpirationDatePickerDialogFragment? = null
     private var downloadAttribute: String? = null
+    private var passwordModified = false
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -362,17 +363,20 @@ class FileDetailsSharingProcessFragment :
         maskPasswordInput()
     }
 
+    /**
+     * When a share already has a password, mask the field with placeholder dots.
+     * The first time the user focuses the field, its contents are cleared and
+     * [passwordModified] is set so we know to send the new value to the server.
+     */
     private fun maskPasswordInput() {
-        if (share?.isPasswordProtected == false) {
-            return
-        }
+        if (share?.isPasswordProtected == false) return
 
-        binding.shareProcessEnterPassword.run {
-            setText("••••••")
-            setOnFocusChangeListener { _, hasFocus ->
-                if (hasFocus) {
-                    text?.clear()
-                }
+        binding.shareProcessEnterPasswordContainer.hint = "••••••"
+        binding.shareProcessEnterPasswordContainer.placeholderText = "••••••"
+        binding.shareProcessEnterPassword.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus && !passwordModified) {
+                binding.shareProcessEnterPassword.text?.clear()
+                passwordModified = true
             }
         }
     }
@@ -752,15 +756,19 @@ class FileDetailsSharingProcessFragment :
     @Suppress("ReturnCount")
     private fun validateShareProcessFirst() {
         if (permission == OCShare.NO_PERMISSION) {
-            DisplayUtils.showSnackMessage(binding.root, R.string.no_share_permission_selected)
+            SnackbarUtil.show(this, R.string.no_share_permission_selected)
             return
         }
 
-        if (binding.shareProcessSetPasswordSwitch.isChecked &&
-            binding.shareProcessEnterPassword.text?.isBlank() == true
-        ) {
-            DisplayUtils.showSnackMessage(binding.root, R.string.share_link_empty_password)
-            return
+        if (binding.shareProcessSetPasswordSwitch.isChecked) {
+            val enteredPassword = binding.shareProcessEnterPassword.text?.toString()?.trim().orEmpty()
+            val hasExistingPassword = (share?.isPasswordProtected == true)
+            val needsPasswordEntry = (!hasExistingPassword || passwordModified)
+
+            if (needsPasswordEntry && enteredPassword.isBlank()) {
+                SnackbarUtil.show(this, R.string.share_link_empty_password)
+                return
+            }
         }
 
         if (binding.shareProcessSetExpDateSwitch.isChecked &&
@@ -773,7 +781,7 @@ class FileDetailsSharingProcessFragment :
         if (binding.shareProcessChangeNameSwitch.isChecked &&
             binding.shareProcessChangeName.text?.isBlank() == true
         ) {
-            DisplayUtils.showSnackMessage(binding.root, R.string.label_empty)
+            SnackbarUtil.show(this, R.string.label_empty)
             return
         }
 
@@ -790,13 +798,13 @@ class FileDetailsSharingProcessFragment :
     @Suppress("ReturnCount")
     private fun createShareOrUpdateNoteShare() {
         if (!isAnySharePermissionChecked()) {
-            DisplayUtils.showSnackMessage(requireActivity(), R.string.share_option_required)
+            SnackbarUtil.show(this, R.string.share_option_required)
             return
         }
 
         val noteText = binding.noteText.text.toString().trim()
         if (file == null && (share != null && share?.note == noteText)) {
-            DisplayUtils.showSnackMessage(requireActivity(), R.string.share_cannot_update_empty_note)
+            SnackbarUtil.show(this, R.string.share_cannot_update_empty_note)
             return
         }
 
@@ -807,7 +815,7 @@ class FileDetailsSharingProcessFragment :
             }
 
             file == null -> {
-                DisplayUtils.showSnackMessage(requireActivity(), R.string.file_not_found_cannot_share)
+                SnackbarUtil.show(this, R.string.file_not_found_cannot_share)
                 return
             }
 
@@ -825,11 +833,17 @@ class FileDetailsSharingProcessFragment :
             share?.attributes = null
         }
 
+        val password = when {
+            !binding.shareProcessSetPasswordSwitch.isChecked -> ""
+            share?.isPasswordProtected == true && !passwordModified -> null
+            else -> binding.shareProcessEnterPassword.text.toString().trim()
+        }
+
         fileOperationsHelper?.updateShareInformation(
             share,
             permission,
             binding.shareProcessHideDownloadCheckbox.isChecked,
-            binding.shareProcessEnterPassword.text.toString().trim(),
+            password,
             chosenExpDateInMills,
             binding.shareProcessChangeName.text.toString().trim()
         )

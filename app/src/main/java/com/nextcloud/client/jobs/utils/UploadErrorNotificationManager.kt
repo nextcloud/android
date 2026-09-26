@@ -8,6 +8,7 @@
 package com.nextcloud.client.jobs.utils
 
 import android.app.Notification
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
@@ -15,6 +16,8 @@ import androidx.core.app.NotificationCompat
 import com.nextcloud.client.jobs.notification.WorkerNotificationManager
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.UploadBroadcastAction
+import com.nextcloud.client.notifications.AppWideNotificationManager
+import com.nextcloud.utils.extensions.isConflict
 import com.nextcloud.utils.extensions.isFileSpecificError
 import com.owncloud.android.R
 import com.owncloud.android.authentication.AuthenticatorActivity
@@ -26,18 +29,22 @@ import com.owncloud.android.ui.activity.ConflictsResolveActivity
 import com.owncloud.android.utils.ErrorMessageAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.io.File
 
 object UploadErrorNotificationManager {
     private const val TAG = "UploadErrorNotificationManager"
 
+    fun dismissConflictResolveNotification(context: Context, id: Long) {
+        val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        manager.cancel(id.toInt())
+    }
+
     /**
      * Processes the result of an upload operation and manages error notifications.
-     * * It filters out successful or silent results and handles [ResultCode.SYNC_CONFLICT]
+     * * It filters out successful or silent results and handles [ResultCode.SYNC_CONFLICT], [ResultCode.CONFLICT]
      * by checking if the remote file is identical. If it's a "real" conflict or error,
      * it displays a notification with relevant actions (e.g., Resolve Conflict, Pause, Cancel).
      *
-     * @param onSameFileConflict Triggered only if result code is SYNC_CONFLICT and files are identical.
+     * @param onSameFileConflict Triggered only if result code is CONFLICT or SYNC_CONFLICT and files are identical.
      */
     @Suppress("ReturnCount")
     suspend fun handleResult(
@@ -45,11 +52,12 @@ object UploadErrorNotificationManager {
         notificationManager: WorkerNotificationManager,
         operation: UploadFileOperation,
         result: RemoteOperationResult<Any?>,
-        onSameFileConflict: suspend () -> Unit = {}
+        onSameFileConflict: suspend () -> Unit = {},
+        onLocked: () -> Unit = {}
     ) {
         Log_OC.d(TAG, "handle upload result with result code: " + result.code)
 
-        if (result.isSuccess || result.isCancelled || operation.isMissingPermissionThrown) {
+        if (result.isSuccess || operation.isMissingPermissionThrown) {
             Log_OC.d(TAG, "operation is successful, cancelled or lack of storage permission, notification skipped")
             return
         }
@@ -59,7 +67,9 @@ object UploadErrorNotificationManager {
             ResultCode.DELAYED_FOR_CHARGING,
             ResultCode.DELAYED_IN_POWER_SAVE_MODE,
             ResultCode.LOCAL_FILE_NOT_FOUND,
-            ResultCode.LOCK_FAILED
+            ResultCode.LOCK_FAILED,
+            ResultCode.CANCELLED,
+            ResultCode.USER_CANCELLED
         )
 
         if (result.code in silentCodes) {
@@ -68,11 +78,11 @@ object UploadErrorNotificationManager {
         }
 
         // do not show an error notification when uploading the same file again
-        if (result.code == ResultCode.SYNC_CONFLICT) {
+        if (result.code.isConflict()) {
             val isSameFile = withContext(Dispatchers.IO) {
                 FileUploadHelper.instance().isSameFileOnRemote(
                     operation.user,
-                    File(operation.storagePath),
+                    operation.storagePath,
                     operation.remotePath,
                     context
                 )
@@ -98,6 +108,10 @@ object UploadErrorNotificationManager {
         Log_OC.d(TAG, "🔔" + "notification created")
 
         withContext(Dispatchers.Main) {
+            if (result.code == ResultCode.LOCKED) {
+                onLocked()
+            }
+
             // if error code is file specific show new notification for each file
             if (result.code.isFileSpecificError()) {
                 notificationManager.showNotification(operation.ocUploadId.toInt(), notification)
@@ -131,10 +145,9 @@ object UploadErrorNotificationManager {
             )
 
             // actions for all error types
-            addAction(UploadBroadcastAction.PauseAndCancel(operation).pauseAction(context))
             addAction(UploadBroadcastAction.PauseAndCancel(operation).cancelAction(context))
 
-            if (result.code == ResultCode.SYNC_CONFLICT) {
+            if (result.code.isConflict()) {
                 addAction(
                     R.drawable.ic_cloud_upload,
                     context.getString(R.string.upload_list_resolve_conflict),
@@ -142,15 +155,20 @@ object UploadErrorNotificationManager {
                 )
             }
 
-            if (result.code == ResultCode.UNAUTHORIZED) {
-                setContentIntent(credentialPendingIntent(context, operation))
+            val pendingIntent = if (result.code == ResultCode.UNAUTHORIZED) {
+                credentialPendingIntent(context, operation)
+            } else {
+                AppWideNotificationManager.getUploadListPendingIntent(context)
             }
+            setContentIntent(pendingIntent)
         }.build()
     }
 
     private fun ResultCode.toFailedResultTitleId(): Int = when (this) {
         ResultCode.UNAUTHORIZED -> R.string.uploader_upload_failed_credentials_error
         ResultCode.SYNC_CONFLICT -> R.string.uploader_upload_failed_sync_conflict_error
+        ResultCode.CONFLICT -> R.string.uploader_upload_failed_sync_conflict_error
+        ResultCode.LOCKED -> R.string.upload_locked_title
         else -> R.string.uploader_upload_failed_ticker
     }
 
@@ -192,7 +210,7 @@ object UploadErrorNotificationManager {
             context,
             operation.ocUploadId.toInt(),
             intent,
-            PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
     }
 }

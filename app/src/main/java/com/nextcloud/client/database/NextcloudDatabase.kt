@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -17,6 +18,7 @@ import com.nextcloud.client.core.Clock
 import com.nextcloud.client.core.ClockImpl
 import com.nextcloud.client.database.dao.ArbitraryDataDao
 import com.nextcloud.client.database.dao.AssistantDao
+import com.nextcloud.client.database.dao.CapabilityDao
 import com.nextcloud.client.database.dao.FileDao
 import com.nextcloud.client.database.dao.FileSystemDao
 import com.nextcloud.client.database.dao.OfflineOperationDao
@@ -39,6 +41,7 @@ import com.nextcloud.client.database.entity.VirtualEntity
 import com.nextcloud.client.database.migrations.DatabaseMigrationUtil
 import com.nextcloud.client.database.migrations.MIGRATION_88_89
 import com.nextcloud.client.database.migrations.MIGRATION_97_98
+import com.nextcloud.client.database.migrations.MIGRATION_99_100
 import com.nextcloud.client.database.migrations.Migration67to68
 import com.nextcloud.client.database.migrations.RoomMigration
 import com.nextcloud.client.database.migrations.addLegacyMigrations
@@ -93,8 +96,16 @@ import com.owncloud.android.db.ProviderMeta
         AutoMigration(from = 93, to = 94, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class),
         AutoMigration(from = 94, to = 95, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class),
         AutoMigration(from = 95, to = 96),
-        AutoMigration(from = 96, to = 97, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class)
+        AutoMigration(from = 96, to = 97, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class),
         // manual migration used for 97 to 98
+        AutoMigration(from = 98, to = 99),
+        // manual migration used for 99 to 100
+        AutoMigration(from = 100, to = 101, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class),
+        AutoMigration(from = 101, to = 102, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class),
+        AutoMigration(from = 102, to = 103, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class),
+        AutoMigration(from = 103, to = 104),
+        AutoMigration(from = 104, to = 105),
+        AutoMigration(from = 105, to = 106, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class)
     ],
     exportSchema = true
 )
@@ -111,6 +122,7 @@ abstract class NextcloudDatabase : RoomDatabase() {
     abstract fun syncedFolderDao(): SyncedFolderDao
     abstract fun assistantDao(): AssistantDao
     abstract fun shareDao(): ShareDao
+    abstract fun capabilityDao(): CapabilityDao
 
     companion object {
         const val FIRST_ROOM_DB_VERSION = 65
@@ -133,6 +145,7 @@ abstract class NextcloudDatabase : RoomDatabase() {
                     .addMigrations(Migration67to68())
                     .addMigrations(MIGRATION_88_89)
                     .addMigrations(MIGRATION_97_98)
+                    .addMigrations(MIGRATION_99_100)
                     .build()
             }
             return instance!!

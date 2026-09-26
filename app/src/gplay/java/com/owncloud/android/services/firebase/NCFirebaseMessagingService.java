@@ -28,6 +28,9 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import dagger.android.AndroidInjection;
 
+/**
+ * Works only with gplay variant and Google Play Services installed devices.
+ */
 public class NCFirebaseMessagingService extends FirebaseMessagingService {
     @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;

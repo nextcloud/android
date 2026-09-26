@@ -9,7 +9,7 @@
     <string name="account_not_found">Konts nav atrasts!</string>
     <string name="action_edit">Labot</string>
     <string name="action_empty_notifications">Notīrīt visus paziņojumus</string>
-    <string name="action_empty_trashbin">Izdzēst miskastes saturu</string>
+    <string name="action_empty_trashbin">Iztīrīt atkritni</string>
     <string name="action_send_share">Nosūtīt/kopīgot</string>
     <string name="action_switch_grid_view">Režģa izkārtojums</string>
     <string name="action_switch_list_view">Saraksta izkārtojums</string>
@@ -27,7 +27,8 @@
     <string name="activity_chooser_send_file_title">Sūtīt</string>
     <string name="activity_chooser_title">Nosūtīt saiti uz…</string>
     <string name="activity_icon">Darbības</string>
-    <string name="add_to_cloud">Pievienot %1$s</string>
+    <string name="add_to_album">Pievienot albumam</string>
+    <string name="album_stop_sharing">Beigt koplietošanu</string>
     <string name="app_config_proxy_port_title">Starpniekservera ports</string>
     <string name="appbar_search_in">Meklēt %s</string>
     <string name="assistant_screen_empty_content_title">Sveiciens! Ar ko šodien varu palīdzēt?</string>
@@ -55,7 +56,6 @@
     <string name="auth_ssl_unverified_server_title">Nevar pārbaudīt SSL servera identitāti</string>
     <string name="auth_testing_connection">Notiek savienojuma testēšana</string>
     <string name="auth_timeout_title">Serveris pārāk ilgi neatbildēja</string>
-    <string name="auth_trying_to_login">Mēģina pieteikties…</string>
     <string name="auth_unauthorized">Nepareizs lietotājvārds vai parole</string>
     <string name="auth_unknown_error_exception_title">Nezināma kļūda: %1$s</string>
     <string name="auth_unknown_error_http_title">Nezināma HTTP kļūda!</string>
@@ -132,7 +132,7 @@
     <string name="community_release_candidate_text">Šis laidiena kandidāts (RC) ir gaidāma laidiena momentuzņēmums, un tam vajadzētu būt noturīgam. Savas iestatnes pārbaudīšana varētu palīdzēt par to pārliecināties. Pārbaudīšanai var pieteikties Play veikalā vai pašrocīgi, apskatot F-Droid sadaļu \"Versija\". </string>
     <string name="community_testing_bug_text">Atradi kļūdu vai nepilnību?</string>
     <string name="community_testing_headline">Palīdzi testējot</string>
-    <string name="community_testing_report_text">Ziņojiet par problēmu Github</string>
+    <string name="community_testing_report_text">Ziņot par nepilnību Github</string>
     <string name="configure_new_media_folder_detection_notifications">Konfigurēt</string>
     <string name="confirmation_remove_file_alert">Vai tiešām izdzēst %1$s?</string>
     <string name="confirmation_remove_files_alert">Vai tiešām izdzēst atlasītos vienumus?</string>
@@ -154,15 +154,18 @@
     <string name="could_not_download_image">Nevarēja lejupielādēt pilnu attēlu</string>
     <string name="could_not_retrieve_url">Neizdevās iegūt URL </string>
     <string name="create">Izveidot</string>
+    <string name="create_album_dialog_title">Jauns albums</string>
     <string name="create_dir_fail_msg">Nevarēja izveidot mapi</string>
+    <string name="create_document">Dokuments</string>
+    <string name="create_folder">Mape</string>
     <string name="create_link">Izveidot saiti</string>
     <string name="create_new">Jauns</string>
     <string name="create_new_document">Jauns dokuments</string>
-    <string name="create_new_folder">Jauna mape</string>
     <string name="create_new_presentation">Jauna prezentācija</string>
     <string name="create_new_spreadsheet">Jauna izklājlapa</string>
+    <string name="create_presentation">Prezentācija</string>
     <string name="create_rich_workspace">Pievienot mapes aprakstu</string>
-    <string name="creates_rich_workspace">Pievieno mapes aprakstu</string>
+    <string name="create_spreadsheet">Izklājlapa</string>
     <string name="credentials_disabled">Akreditācijas dati atspējoti</string>
     <string name="default_credentials_wrong">Nepareizi akreditācijas dati</string>
     <string name="delete_account">Noņemt kontu</string>
@@ -195,6 +198,7 @@
     <string name="drawer_close">Aizvērt malu</string>
     <string name="drawer_community">Kopiena</string>
     <string name="drawer_item_activities">Darbības</string>
+    <string name="drawer_item_album">Albumi</string>
     <string name="drawer_item_all_files">Visas datnes</string>
     <string name="drawer_item_favorites">Izlase</string>
     <string name="drawer_item_gallery">Informācijas nesēji</string>
@@ -202,7 +206,6 @@
     <string name="drawer_item_notifications">Paziņojumi</string>
     <string name="drawer_item_on_device">Ierīcē</string>
     <string name="drawer_item_personal_files">Personīgās datnes</string>
-    <string name="drawer_item_recently_modified">Nesen mainītie</string>
     <string name="drawer_item_shared">Koplietots</string>
     <string name="drawer_item_trashbin">Izdzēstās datnes</string>
     <string name="drawer_item_uploads_list">Augšupielādes</string>
@@ -237,16 +240,17 @@
     <string name="favorite_icon">Izlasē</string>
     <string name="fifteenMinutes">15 minūtes</string>
     <string name="file_delete">Izdzēst</string>
+    <string name="file_detail_activity_error">Kļūda datnes darbību iegūšanā</string>
     <string name="file_icon">Datne</string>
     <string name="file_keep">Paturēt</string>
     <string name="file_list_empty">Augšupielādē kaut ko vai sinhronizē saturu ar savām ierīcēm!</string>
     <string name="file_list_empty_favorite_headline">Izlasē vēl nekā nav</string>
+    <string name="file_list_empty_favorites_filter_list">Datnes un mapes, ko pievienosi izlasei, tiks rādītas šeit.</string>
     <string name="file_list_empty_headline">Šeit nav datņu</string>
     <string name="file_list_empty_headline_search">Šajā mapē nav iznākuma</string>
     <string name="file_list_empty_headline_server_search">Nav iznākuma</string>
     <string name="file_list_empty_local_search">Nav datņu vai mapju, kas atbilstu meklētajam</string>
     <string name="file_list_empty_moving">Šeit nekā nav. Var pievienot mapi.</string>
-    <string name="file_list_empty_recently_modified">Neatrada nevienu datni, kas izmainīta pēdējās 7 dienās</string>
     <string name="file_list_empty_search">Varbūt tas atrodas citā mapē?</string>
     <string name="file_list_empty_shared_headline">Nekas vēl nav koplietots</string>
     <string name="file_list_folder">mape</string>
@@ -309,6 +313,8 @@
     <string name="foreign_files_remote_text">Attāli: %1$s</string>
     <string name="forward">Turpināt</string>
     <string name="fourHours">4 stundas</string>
+    <string name="governance_file_retention_label">Datņu glabāšana</string>
+    <string name="governance_no_label">Nekas</string>
     <string name="hint_name">Vārds</string>
     <string name="hint_note">Piezīme</string>
     <string name="hint_password">Parole</string>
@@ -332,6 +338,7 @@
     <string name="local_file_list_empty">Šajā mapē nav datņu</string>
     <string name="local_file_not_found_message">Datne netika atrasta vietējā datņu sistēmā</string>
     <string name="local_folder_list_empty">Tālāku mapju vairs nav.</string>
+    <string name="lock_file">Lock file</string>
     <string name="log_send_mail_subject">%1$s Android lietotnes žurnāli</string>
     <string name="login">Pieteikties</string>
     <string name="login_url_helper_text">Saite uz %1$s tīmekļa saskarni, kad tā tiek atvērta pārlūkā.</string>
@@ -341,17 +348,6 @@
     <string name="manage_space_clear_data">Notīrīt datus</string>
     <string name="manage_space_description">Iestatījumi, datubāze un servera sertifikāti no %1$s datiem tiks neatgriezeniski izdzēsti. \n\nLejupielādētās datnes paliks neskartas.\n\nŠī darbība var aizņemt kādu laiku.</string>
     <string name="manage_space_title">Pārvaldīt vietu</string>
-    <string name="media_err_invalid_progressive_playback">Informācijas nesēja datni nevar straumēt</string>
-    <string name="media_err_io">Nevarēja nolasīt informācijas nesēja datni</string>
-    <string name="media_err_malformed">Informācijas nesēja datnei ir nepareizs kodējums</string>
-    <string name="media_err_timeout">Mēģinājums atskaņot datni noilga</string>
-    <string name="media_err_unknown">Iegultais atskaņotājs nevarēja atvērt datni.</string>
-    <string name="media_err_unsupported">Neatbalstīts informācijas nesēju kodekss</string>
-    <string name="media_forward_description">Patīšanas poga</string>
-    <string name="media_notif_ticker">%1$s mūzikas atskaņotājs</string>
-    <string name="media_play_pause_description">Atskaņot vai pauzēt</string>
-    <string name="media_rewind_description">Attīšanas poga</string>
-    <string name="media_state_playing">%1$s (atskaņot)</string>
     <string name="menu_item_sort_by_date_newest_first">Jaunākie pirms</string>
     <string name="menu_item_sort_by_date_oldest_first">Vecākie pirms</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -359,6 +355,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Lielākie pirms</string>
     <string name="menu_item_sort_by_size_smallest_first">Mazākie pirms</string>
     <string name="more">Vairāk</string>
+    <string name="more_documents">Vairāk dokumentu</string>
     <string name="move_file_error">Radās kļūda, mēģinot pārvietot šo datni vai mapi</string>
     <string name="move_file_invalid_into_descendent">Nav iespējams pārvietot mapi tās apakšmapē</string>
     <string name="move_file_invalid_overwrite">Datne jau pastāv mērķa mapē</string>
@@ -398,8 +395,7 @@
     <string name="picture_set_as_no_app">Nav atrasta neviena lietotne, ar ko iestatīt attēlu</string>
     <string name="pin_home">Piespraust sākuma ekrānam</string>
     <string name="pin_shortcut_label">Atvērt %1$s</string>
-    <string name="player_stop">apturēt</string>
-    <string name="player_toggle">pārslēgt</string>
+    <string name="player_media_controls_close_action_title">Aizvērt</string>
     <string name="please_select_a_server">Lūgums atlasīt serveri…</string>
     <string name="power_save_check_dialog_message">Enerģijas taupīšanas pārbaudes atspējošana var novest pie datņu augšupielādes, kad akumulatora uzlādes līmenis ir zems.</string>
     <string name="pref_behaviour_entries_delete_file">izdzēsta</string>
@@ -463,16 +459,18 @@
     <string name="preview_image_description">Attēla priekšskatījums</string>
     <string name="preview_image_error_no_local_file">Nav vietējās datnes, ko priekšskatīt</string>
     <string name="preview_image_error_unknown_format">Nevar attēlot attēlu</string>
-    <string name="preview_sorry">Atvainojiet</string>
+    <string name="preview_sorry">Atvainojamies</string>
     <string name="privacy">Privātums</string>
     <string name="recommend_subject">Izmēģini %1$s savā ierīcē!</string>
     <string name="recommend_text">Izmanto %1$s lietotni arī Tu.\nLejuplādē to šeit: %2$s</string>
     <string name="recommend_urls">%1$s vai %2$s</string>
     <string name="recommended_files_title">Ieteiktās datnes</string>
     <string name="reload">Reload</string>
+    <string name="remove">Noņemt</string>
     <string name="remove_fail_msg">Dzēšana neizdevās</string>
     <string name="remove_push_notification">Noņemt</string>
     <string name="remove_success_msg">Izdzēsta</string>
+    <string name="rename_dialog_button">Pārdēvēt</string>
     <string name="rename_dialog_title">Ievadīt jaunu nosaukumu</string>
     <string name="rename_local_fail_msg">Nevarēja pārdēvēt vietējo kopiju, jāmēģina cits nosaukums</string>
     <string name="rename_server_fail_msg">Pārsaukšana nav iespējama, nosaukums jau izmantots</string>
@@ -565,7 +563,7 @@
     <string name="sync_fail_in_favourites_ticker">Kept in sync datnes neizdevās</string>
     <string name="sync_fail_ticker">Sinhronizēšana neizdevās</string>
     <string name="sync_fail_ticker_unauthorized">Sinhronizēšana neizdevās, jāpiesakās vēlreiz</string>
-    <string name="sync_file_nothing_to_do_msg">Datnes saturs jau ir sinhronizēts</string>
+    <string name="sync_file_nothing_to_do_msg">Datnes saturs jau ir vienādots</string>
     <string name="sync_folder_failed_content">Mapes %1$s sinhronizēšanu nevarēja pabeigt</string>
     <string name="sync_foreign_files_forgotten_ticker">Dažas vietējās datnes tika aizmirstas</string>
     <string name="sync_not_enough_space_dialog_action_free_space">Atbrīvot vietu</string>
@@ -578,7 +576,6 @@
     <string name="thirtyMinutes">30 minūtes</string>
     <string name="thisWeek">Šonedēļ</string>
     <string name="today">Šodien</string>
-    <string name="trashbin_activity_title">Izdzēstās datnes</string>
     <string name="trashbin_empty_headline">Nav izdzēstu datņu</string>
     <string name="trashbin_empty_message">Šeit varēsi atgūt izdzēstās datnes.</string>
     <string name="trashbin_file_remove">Neatgriezeniski izdzēst</string>
@@ -586,6 +583,7 @@
     <string name="two_way_sync_activity_title">Iekšējā divvirzienu sinhronizēšana</string>
     <string name="unexpected_error_occurred">Neparedzēta kļūda</string>
     <string name="unknown">Nezināms</string>
+    <string name="unlock_file">Unlock file</string>
     <string name="unset_encrypted">Atstatīt šifrēšanu</string>
     <string name="unset_favorite">Noņemt no izlases</string>
     <string name="unset_internal_two_way_sync_description">Noņemt mapi no iekšējās divvirzienu sinhronizēšanas</string>
@@ -609,7 +607,6 @@
     <string name="upload_list_empty_text_auto_upload">Augšupielādē kaut ko vai ieslēdz automātisko augšupielādi!</string>
     <string name="upload_list_resolve_conflict">Atrisināt nesaderību</string>
     <string name="upload_query_move_foreign_files">Nepietiekama vieta liedz izvēlētās datnes kopēt mapē %1$s. Vai tās pārvietot tur?</string>
-    <string name="upload_sync_conflict">Sinhronizēšanas nesaderība, lūgums to pašrocīgi atrisināt</string>
     <string name="upload_unknown_error">Nezināma kļūda</string>
     <string name="uploader_btn_alternative_text">Izvēlēties</string>
     <string name="uploader_btn_upload_text">Augšupielādēt</string>
@@ -636,9 +633,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Iestatīt</string>
     <string name="uploader_wrn_no_account_text">Ierīcē nav neviena %1$s konta. Lūgums vispirms iestatīt kontu.</string>
     <string name="uploader_wrn_no_account_title">Nav atrastu kontu</string>
+    <string name="uploads_view_group_completed_uploads">Pabeigts</string>
     <string name="uploads_view_group_current_uploads">Pašreizējās</string>
     <string name="uploads_view_group_failed_uploads">Neizdevās/gaida atsākšanu</string>
-    <string name="uploads_view_group_finished_uploads">Augšupielādētas</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Atcelts</string>
     <string name="uploads_view_later_waiting_to_upload">Gaida augšupielādi</string>
     <string name="uploads_view_title">Augšupielādes</string>
@@ -651,7 +648,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Vietējā datne nav atrasta</string>
     <string name="uploads_view_upload_status_failed_permission_error">Tiesību kļūda</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Neuzticams servera sertifikāts</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Iegūst servera versiju…</string>
     <string name="uploads_view_upload_status_service_interrupted">Lietotne aizvērta</string>
     <string name="uploads_view_upload_status_succeeded">Pabeigts</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Atrasta tāda pati attālā datne, izlaiž augšupielādi</string>
@@ -662,7 +658,9 @@
     <string name="user_icon">Lietotājs</string>
     <string name="user_info_address">Adrese</string>
     <string name="user_info_email">E-pasts</string>
+    <string name="user_info_groups">Grupas</string>
     <string name="user_info_phone">Tālruņa numurs</string>
+    <string name="user_info_profile">Profils</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Mājaslapa</string>
     <string name="userinfo_no_info_headline">Personiskā informācija nav uzstādīta</string>
@@ -708,7 +706,7 @@
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="zero">Nevarēja sinhronizēt %1$d datņu (nesaderības: %2$d)</item>
         <item quantity="one">Nevarēja sinhronizēt %1$d datni (nesaderības: %2$d)</item>
-        <item quantity="other">Nevarēja sinhronizēt %1$d datnes (nesaderības: %2$d)</item>
+        <item quantity="other">Nevarēja vienādot %1$d datnes (nesaderības: %2$d)</item>
     </plurals>
     <plurals name="sync_foreign_files_forgotten_content">
         <item quantity="zero">Neizdevās %1$d datņu kopēšana no mapes \"%2$s\"</item>

@@ -2,26 +2,17 @@
 <!--
   ~ Nextcloud - Android Client
   ~
-  ~ SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
-  ~ SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger.de>
-  ~ SPDX-FileCopyrightText: 2018 Nextcloud GmbH
-  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
--->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  ~ SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+  -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ListItemLayout"
+    android:id="@+id/title"
+    style="@style/TextAppearance.Material3.HeadlineSmall"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
-
-    <TextView
-        android:id="@+id/title"
-        style="@style/TextAppearance.AppCompat.Body2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ellipsize="middle"
-        android:paddingHorizontal="@dimen/standard_padding"
-        android:paddingVertical="@dimen/standard_padding"
-        android:textColor="@color/color_accent"
-        tools:text="@string/placeholder_files" />
-</RelativeLayout>
+    android:ellipsize="middle"
+    android:paddingHorizontal="@dimen/standard_padding"
+    android:paddingVertical="@dimen/standard_padding"
+    android:textColor="@color/color_accent"
+    tools:text="@string/placeholder_files" />

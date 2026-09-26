@@ -1,16 +1,28 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Daniele Verducci <daniele.verducci@nextcloud.com>
  * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger.de>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.fragment
 
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
+import android.util.TypedValue
+import android.view.ContextThemeWrapper
+import android.view.Gravity
 import android.view.View
+import android.widget.LinearLayout
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
+import androidx.core.view.isEmpty
+import androidx.core.view.isNotEmpty
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.button.MaterialButton
 import com.google.gson.Gson
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
@@ -19,9 +31,11 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.documentscan.AppScanOptionalFeature
 import com.nextcloud.utils.BuildHelper.isFlavourGPlay
 import com.nextcloud.utils.EditorUtils
+import com.nextcloud.utils.extensions.isNetworkAndServerAvailableSuspended
+import com.nextcloud.utils.extensions.isTemplateAvailable
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
-import com.owncloud.android.databinding.FileListActionsBottomSheetCreatorBinding
 import com.owncloud.android.databinding.FileListActionsBottomSheetFragmentBinding
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
@@ -32,6 +46,9 @@ import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.theme.ThemeUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @Suppress("LongParameterList")
 class OCFileListBottomSheetDialog(
@@ -47,6 +64,47 @@ class OCFileListBottomSheetDialog(
 ) : BottomSheetDialog(fileActivity),
     Injectable {
 
+    companion object {
+        // Number of items to show in document creators overview
+        private const val CREATORS_OVERVIEW_ITEMS = 3
+        private val DIRECT_EDITING_CREATORS_OFFICE_IDS = arrayOf("document", "spreadsheet", "presentation")
+    }
+
+    private enum class CreatorType {
+        Office,
+        Other
+    }
+
+    private val templateActions = listOf(
+        CreatorAction(
+            text = context.getString(R.string.create_document),
+            icon = AppCompatResources.getDrawable(context, R.drawable.file_doc),
+            action = {
+                actions.newDocument()
+                dismiss()
+            },
+            type = CreatorType.Office
+        ),
+        CreatorAction(
+            text = context.getString(R.string.create_spreadsheet),
+            icon = AppCompatResources.getDrawable(context, R.drawable.file_xls),
+            action = {
+                actions.newSpreadsheet()
+                dismiss()
+            },
+            type = CreatorType.Office
+        ),
+        CreatorAction(
+            text = context.getString(R.string.create_presentation),
+            icon = AppCompatResources.getDrawable(context, R.drawable.file_ppt),
+            action = {
+                actions.newPresentation()
+                dismiss()
+            },
+            type = CreatorType.Office
+        )
+    )
+
     private lateinit var binding: FileListActionsBottomSheetFragmentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,12 +113,7 @@ class OCFileListBottomSheetDialog(
         setContentView(binding.getRoot())
 
         applyBranding()
-        binding.addToCloud.text = context.resources.getString(
-            R.string.add_to_cloud,
-            themeUtils.getDefaultDisplayNameForRootFolder(context)
-        )
 
-        checkTemplateVisibility()
         initCreatorContainer()
 
         if (!deviceInfo.hasCamera(context)) {
@@ -70,6 +123,7 @@ class OCFileListBottomSheetDialog(
         createRichWorkspace()
         setupClickListener()
         filterActionsForOfflineOperations()
+        checkCreateEncryptedFolderVisibility()
 
         if (MainApp.isClientBranded() && isFlavourGPlay()) {
             // this way we can have branded clients with that permission
@@ -81,81 +135,223 @@ class OCFileListBottomSheetDialog(
 
             if (!hasPermission) {
                 binding.menuUploadFiles.visibility = View.GONE
-                binding.uploadContentFromOtherApps.text = context.getString(R.string.upload_files)
+                binding.menuUploadFromApp.text = context.getString(R.string.upload_files)
             }
+        }
+    }
+
+    private fun checkCreateEncryptedFolderVisibility() {
+        fileActivity.capabilities.ifPresent { capabilities ->
+            binding.menuEncryptedMkdir.setVisibleIf(!file.isEncrypted && capabilities.endToEndEncryption.isTrue)
         }
     }
 
     private fun applyBranding() {
-        viewThemeUtils.platform.run {
+        viewThemeUtils.material.run {
             binding.run {
-                colorImageView(menuIconUploadFiles, ColorRole.PRIMARY)
-                colorImageView(menuIconUploadFromApp, ColorRole.PRIMARY)
-                colorImageView(menuIconDirectCameraUpload, ColorRole.PRIMARY)
-                colorImageView(menuIconScanDocUpload, ColorRole.PRIMARY)
-                colorImageView(menuIconMkdir, ColorRole.PRIMARY)
-                colorImageView(menuIconAddFolderInfo, ColorRole.PRIMARY)
+                colorMaterialButtonContent(menuUploadFiles, ColorRole.PRIMARY)
+                colorMaterialButtonContent(menuUploadFromApp, ColorRole.PRIMARY)
+                colorMaterialButtonContent(menuDirectCameraUpload, ColorRole.PRIMARY)
+                colorMaterialButtonContent(menuScanDocUpload, ColorRole.PRIMARY)
+                colorMaterialButtonContent(menuMkdir, ColorRole.PRIMARY)
+                colorMaterialButtonContent(menuEncryptedMkdir, ColorRole.PRIMARY)
+                colorMaterialButtonContent(menuCreateRichWorkspace, ColorRole.PRIMARY)
+                colorMaterialButtonContent(menuMoreDocuments, ColorRole.PRIMARY)
+                colorMaterialButtonContent(menuBack, ColorRole.PRIMARY)
 
-                colorViewBackground(binding.bottomSheet, ColorRole.SURFACE)
-            }
-        }
-    }
-
-    @Suppress("ComplexCondition")
-    private fun checkTemplateVisibility() {
-        val capability = fileActivity.capabilities
-        if (capability != null &&
-            capability.richDocuments.isTrue &&
-            capability.richDocumentsDirectEditing.isTrue &&
-            capability.richDocumentsTemplatesAvailable.isTrue &&
-            !file.isEncrypted
-        ) {
-            binding.templates.visibility = View.VISIBLE
-        }
-    }
-
-    @Suppress("DEPRECATION")
-    private fun initCreatorContainer() {
-        val json = ArbitraryDataProviderImpl(context)
-            .getValue(user, ArbitraryDataProvider.DIRECT_EDITING)
-
-        if (!json.isEmpty() && !file.isEncrypted) {
-            val directEditing = Gson().fromJson(json, DirectEditing::class.java)
-            if (directEditing.creators.isEmpty()) {
-                return
-            }
-
-            binding.creatorsContainer.visibility = View.VISIBLE
-
-            for (creator in directEditing.creators.values) {
-                val creatorViewBinding =
-                    FileListActionsBottomSheetCreatorBinding.inflate(layoutInflater)
-
-                val creatorView: View = creatorViewBinding.getRoot()
-
-                creatorViewBinding.creatorName.text = String.format(
-                    fileActivity.getString(R.string.editor_placeholder),
-                    fileActivity.getString(R.string.create_new),
-                    creator.name
+                viewThemeUtils.platform.tintDrawable(
+                    context,
+                    binding.menuMoreDocumentsExpand.drawable,
+                    ColorRole.PRIMARY
                 )
+            }
+        }
 
-                creatorViewBinding.creatorThumbnail.setImageDrawable(
-                    MimeTypeUtil.getFileTypeIcon(
-                        creator.mimetype,
-                        creator.extension,
-                        creatorViewBinding.creatorThumbnail.context,
-                        viewThemeUtils
+        viewThemeUtils.platform.colorViewBackground(binding.bottomSheet, ColorRole.SURFACE)
+
+        val textColor = ContextCompat.getColor(context, R.color.text_color)
+
+        binding.run {
+            menuUploadFiles.setTextColor(textColor)
+            menuUploadFromApp.setTextColor(textColor)
+            menuDirectCameraUpload.setTextColor(textColor)
+            menuScanDocUpload.setTextColor(textColor)
+            menuMkdir.setTextColor(textColor)
+            menuEncryptedMkdir.setTextColor(textColor)
+            menuCreateRichWorkspace.setTextColor(textColor)
+            menuMoreDocuments.setTextColor(textColor)
+        }
+    }
+
+    @Suppress("DEPRECATION", "LongMethod", "MagicNumber")
+    private fun initCreatorContainer() {
+        if (file.isEncrypted) {
+            return
+        }
+
+        // Create a list of supported creators, in the order to be shown (direct editing, then collabora)
+        val creatorsActions = ArrayList<CreatorAction>()
+
+        // Check direct editing
+        val directEditing = creatorsActionsFromDirectEditing()
+
+        // Check capabilities (e.g. collabora)
+        val capabilities = creatorsActionsFromCollabora()
+
+        // First Direct Editing Office (if any)
+        creatorsActions.addAll(directEditing.filter { it.type == CreatorType.Office })
+        // Then Capabilities Office (if any). Capabilities entry are all type office, no need to filter.
+        creatorsActions.addAll(capabilities)
+        // Then all the rest
+        creatorsActions.addAll(directEditing.filter { it.type != CreatorType.Office })
+
+        displayCreatorsActions(creatorsActions)
+    }
+
+    private fun displayCreatorsActions(creatorsActions: List<CreatorAction>) {
+        if (creatorsActions.isEmpty()) {
+            // If no creators at all, hide whole container (comprising separator)
+            binding.creatorsOverviewContainer.visibility = View.GONE
+            return
+        }
+
+        binding.creatorsOverviewContainer.visibility = View.VISIBLE
+
+        with(binding) {
+            creatorsOverview.removeAllViews()
+            creators.removeAllViews()
+
+            creatorsActions.forEachIndexed { index, action ->
+                if (creatorsActions.size == 1) {
+                    // Single element is shown as row in the overview
+                    creatorsOverview.addView(buildCreatorButton(action, false))
+                } else if (index < CREATORS_OVERVIEW_ITEMS) {
+                    // First x elements shown as boxes in the overview
+                    creatorsOverview.addView(buildCreatorButton(action, true))
+                } else {
+                    // Other elements shown as rows in the overflow view
+                    creators.addView(buildCreatorButton(action, false))
+                }
+            }
+
+            if (creatorsOverview.isNotEmpty()) {
+                creatorsOverview.visibility = View.VISIBLE
+            }
+
+            menuMoreDocumentsContainer.visibility = if (creators.isEmpty()) View.GONE else View.VISIBLE
+        }
+    }
+
+    private fun creatorsActionsFromDirectEditing(): List<CreatorAction> {
+        val creatorsActions = ArrayList<CreatorAction>()
+        ArbitraryDataProviderImpl(context)
+            .getValue(user, ArbitraryDataProvider.DIRECT_EDITING)
+            .takeIf(String::isNotEmpty)
+            ?.let { Gson().fromJson(it, DirectEditing::class.java) }
+            ?.creators
+            ?.values
+            ?.forEach { creator ->
+                val buttonText = creator.name
+                creatorsActions.add(
+                    CreatorAction(
+                        text = buttonText.replaceFirstChar(Char::titlecase),
+                        icon = MimeTypeUtil.getFileTypeIcon(
+                            creator.mimetype,
+                            creator.extension,
+                            context,
+                            viewThemeUtils
+                        ),
+                        action = {
+                            actions.showTemplate(creator, buttonText)
+                            dismiss()
+                        },
+                        type = if (creator.id in DIRECT_EDITING_CREATORS_OFFICE_IDS) {
+                            CreatorType.Office
+                        } else {
+                            CreatorType.Other
+                        }
+
                     )
                 )
+            }
+        return creatorsActions
+    }
 
-                creatorView.setOnClickListener {
-                    actions.showTemplate(creator, creatorViewBinding.creatorName.text.toString())
-                    dismiss()
+    private fun creatorsActionsFromCollabora(): List<CreatorAction> {
+        // richdocuments 11+ serves its creators through DirectEditing, so the legacy entries would be duplicates.
+        if (editorUtils.isRichDocumentsDirectEditingAvailable(user)) {
+            return emptyList()
+        }
+
+        val creatorsActions = ArrayList<CreatorAction>()
+
+        fileActivity.capabilities
+            .filter { it.isTemplateAvailable() }
+            .ifPresent { creatorsActions.addAll(templateActions) }
+
+        return creatorsActions
+    }
+
+    /**
+     * @param creatorAction Action for which the button is created
+     * @param showAsBox If true, creates a squarish view with weight to be displayed horizontally, otherwise a row
+     */
+    private fun buildCreatorButton(creatorAction: CreatorAction, showAsBox: Boolean): MaterialButton {
+        val itemHeight = context.resources.getDimensionPixelSize(
+            if (showAsBox) R.dimen.bottom_sheet_horizontal_item_height else R.dimen.bottom_sheet_item_height
+        )
+        val standardPadding = context.resources.getDimensionPixelSize(R.dimen.standard_padding)
+        val iconSize = context.resources.getDimensionPixelSize(R.dimen.iconized_single_line_item_icon_size)
+
+        val creatorButton = MaterialButton(
+            ContextThemeWrapper(
+                context,
+                R.style.ThemeOverlay_App_Button_BottomSheetItem
+            ),
+            null,
+            com.google.android.material.R.attr.materialButtonStyle
+        ).apply {
+            id = View.generateViewId()
+            layoutParams = LinearLayout.LayoutParams(
+                if (showAsBox) 0 else LinearLayout.LayoutParams.MATCH_PARENT,
+                itemHeight,
+                if (showAsBox) 1f else 0f
+            )
+
+            gravity = if (showAsBox) Gravity.CENTER else Gravity.START or Gravity.CENTER_VERTICAL
+            setPaddingRelative(standardPadding, 0, standardPadding, 0)
+
+            text = creatorAction.text
+            setTextColor(ContextCompat.getColor(context, R.color.text_color))
+            setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.bottom_sheet_text_size))
+            isAllCaps = false
+
+            icon = creatorAction.icon
+            this.iconSize = iconSize
+            this.iconPadding = if (showAsBox) 0 else standardPadding
+            if (showAsBox) {
+                this.setPadding(
+                    paddingLeft,
+                    paddingTop + standardPadding,
+                    paddingRight,
+                    paddingBottom + standardPadding
+                )
+            }
+            iconGravity = if (showAsBox) MaterialButton.ICON_GRAVITY_TOP else MaterialButton.ICON_GRAVITY_START
+            iconTint = null
+
+            cornerRadius =
+                if (showAsBox) {
+                    context.resources.getDimensionPixelSize(R.dimen.button_corner_radius)
+                } else {
+                    cornerRadius
                 }
 
-                binding.creators.addView(creatorView)
+            setOnClickListener {
+                creatorAction.action()
             }
         }
+        return creatorButton
     }
 
     private fun createRichWorkspace() {
@@ -166,14 +362,11 @@ class OCFileListBottomSheetDialog(
             // != "": info set -> hide button
             if (file.richWorkspace == null || "" != file.richWorkspace) {
                 binding.menuCreateRichWorkspace.visibility = View.GONE
-                binding.menuCreateRichWorkspaceDivider.visibility = View.GONE
             } else {
                 binding.menuCreateRichWorkspace.visibility = View.VISIBLE
-                binding.menuCreateRichWorkspaceDivider.visibility = View.VISIBLE
             }
         } else {
             binding.menuCreateRichWorkspace.visibility = View.GONE
-            binding.menuCreateRichWorkspaceDivider.visibility = View.GONE
         }
     }
 
@@ -185,7 +378,12 @@ class OCFileListBottomSheetDialog(
             }
 
             menuMkdir.setOnClickListener {
-                actions.createFolder()
+                actions.createFolder(encrypted = false)
+                dismiss()
+            }
+
+            menuEncryptedMkdir.setOnClickListener {
+                actions.createFolder(encrypted = true)
                 dismiss()
             }
 
@@ -204,8 +402,14 @@ class OCFileListBottomSheetDialog(
                     actions.scanDocUpload()
                     dismiss()
                 }
+            } else if (actions.isScanDocUploadFromAppAvailable) {
+                menuScanDocUpload.setOnClickListener {
+                    actions.scanDocUploadFromApp()
+                    dismiss()
+                }
             } else {
                 menuScanDocUpload.visibility = View.GONE
+                menuScanDocUploadDivider.visibility = View.GONE
             }
 
             menuUploadFiles.setOnClickListener {
@@ -213,41 +417,39 @@ class OCFileListBottomSheetDialog(
                 dismiss()
             }
 
-            menuNewDocument.setOnClickListener {
-                actions.newDocument()
-                dismiss()
+            menuMoreDocuments.setOnClickListener {
+                bottomSheetViewSwitcher.showNext()
             }
 
-            menuNewSpreadsheet.setOnClickListener {
-                actions.newSpreadsheet()
-                dismiss()
-            }
-
-            menuNewPresentation.setOnClickListener {
-                actions.newPresentation()
-                dismiss()
+            menuBack.setOnClickListener {
+                // Invert animation
+                bottomSheetViewSwitcher.showPrevious()
             }
         }
     }
 
     private fun filterActionsForOfflineOperations() {
-        fileActivity.connectivityService.isNetworkAndServerAvailable { result: Boolean? ->
-            if (file.isRootDirectory) {
-                return@isNetworkAndServerAvailable
+        lifecycleScope.launch {
+            val available = fileActivity.connectivityService.isNetworkAndServerAvailableSuspended()
+            if (available && (!file.isOfflineOperation || file.isRootDirectory)) {
+                return@launch
             }
-
-            if (!result!! || file.isOfflineOperation) {
-                binding.run {
-                    menuCreateRichWorkspace.visibility = View.GONE
-                    menuUploadFromApp.visibility = View.GONE
-                    menuDirectCameraUpload.visibility = View.GONE
-                    menuScanDocUpload.visibility = View.GONE
-                    menuNewDocument.visibility = View.GONE
-                    menuNewSpreadsheet.visibility = View.GONE
-                    menuNewPresentation.visibility = View.GONE
-                    creatorsContainer.visibility = View.GONE
-                }
-            }
+            hideCreationOptions()
         }
     }
+
+    private suspend fun hideCreationOptions() = withContext(Dispatchers.Main) {
+        binding.run {
+            menuCreateRichWorkspace.visibility = View.GONE
+            creatorsOverviewContainer.visibility = View.GONE
+            menuEncryptedMkdir.visibility = View.GONE
+        }
+    }
+
+    private data class CreatorAction(
+        val text: String,
+        val icon: Drawable?,
+        val action: () -> Unit,
+        val type: CreatorType
+    )
 }

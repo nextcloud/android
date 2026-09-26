@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   ~ Nextcloud - Android Client
   ~
-  ~ SPDX-FileCopyrightText: 2024 TSI-mc <surinder.kumar@t-systems.com>
+  ~ SPDX-FileCopyrightText: 2024-2025 TSI-mc <surinder.kumar@t-systems.com>
   ~ SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
@@ -11,13 +11,9 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
-    <uses-permission android:name="android.permission.WRITE_CALENDAR" /> <!-- Used for document scanning, but lib declares it as required, which it's not -->
-    <uses-feature
-        android:name="android.hardware.camera2"
-        android:required="false"
-        tools:node="replace" />
-    <!--
- WRITE_EXTERNAL_STORAGE may be enabled or disabled by the user after installation in
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <!-- 
+        WRITE_EXTERNAL_STORAGE may be enabled or disabled by the user after installation in
         API >= 23; the app needs to handle this
     -->
     <uses-permission
@@ -53,9 +49,10 @@
     -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- Runtime permissions introduced in Android 13 (API level 33) -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"
-        tools:ignore="PhotoAndVideoPolicy,SelectedPhotoAccess" />
+        tools:ignore="PhotoAndVideoPolicy" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"
-        tools:ignore="PhotoAndVideoPolicy,SelectedPhotoAccess" /> <!-- Needed for Android 14 (API level 34) -->
+        tools:ignore="PhotoAndVideoPolicy" /> <!-- Needed for Android 14 (API level 34) -->
+    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
     <!--
@@ -74,6 +71,7 @@
         <package android:name="it.niedermann.nextcloud.deck.play" />
         <package android:name="it.niedermann.nextcloud.deck.dev" />
         <package android:name="at.bitfire.davdroid" />
+        <package android:name="org.fairscan.app" />
 
         <intent>
             <action android:name="android.intent.action.VIEW" />
@@ -136,13 +134,20 @@
         <activity
             android:name="com.nextcloud.ui.composeActivity.ComposeActivity"
             android:exported="true"
-            android:label="@string/compose_activity_label">
+            android:label="@string/compose_activity_label"/>
+
+        <activity-alias
+            android:name="com.nextcloud.ui.composeActivity.ComposeProcessTextAlias"
+            android:targetActivity="com.nextcloud.ui.composeActivity.ComposeActivity"
+            android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.PROCESS_TEXT" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="text/plain" />
             </intent-filter>
-        </activity>
+
+        </activity-alias>
 
         <uses-library
             android:name="org.apache.http.legacy"
@@ -275,16 +280,6 @@
             android:name=".ui.activity.UserInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.NotificationsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.activity.CommunityActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.activities.ActivitiesActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:exported="false" />
-        <activity
             android:name=".ui.activity.SyncedFoldersActivity"
             android:exported="false" />
         <activity
@@ -390,16 +385,20 @@
             android:theme="@style/PreferenceTheme" />
         <activity
             android:name=".ui.preview.PreviewImageActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:exported="false"
+            android:supportsPictureInPicture="true"
+            android:launchMode="singleTask"
             android:theme="@style/Theme.ownCloud.Overlay" />
         <activity
-            android:name=".ui.preview.PreviewMediaActivity"
-            android:configChanges="orientation|screenLayout|screenSize|keyboardHidden"
-            android:exported="false"
-            android:theme="@style/Theme.ownCloud.Media" />
+            android:name="com.nextcloud.client.player.ui.PlayerActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:launchMode="singleTask"
+            android:supportsPictureInPicture="true"
+            android:theme="@style/Theme.ownCloud.NoActionBar" />
 
         <service
-            android:name="com.nextcloud.client.media.BackgroundPlayerService"
+            android:name="com.nextcloud.client.player.media3.PlaybackService"
             android:exported="true"
             android:foregroundServiceType="mediaPlayback"
             tools:ignore="ExportedService">
@@ -407,6 +406,13 @@
                 <action android:name="androidx.media3.session.MediaSessionService" />
             </intent-filter>
         </service>
+
+        <receiver android:name="androidx.media3.session.MediaButtonReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+            </intent-filter>
+        </receiver>
 
         <service
             android:name=".authentication.AccountAuthenticatorService"
@@ -561,11 +567,6 @@
             android:name="com.nextcloud.client.jobs.transfer.FileTransferService"
             android:exported="false"
             android:foregroundServiceType="dataSync" />
-        <service
-            android:name="com.nextcloud.client.media.PlayerService"
-            android:exported="false"
-            android:foregroundServiceType="mediaPlayback" />
-
         <activity
             android:name=".ui.activity.PassCodeActivity"
             android:exported="false"
@@ -594,10 +595,6 @@
         <activity
             android:name=".ui.activity.UploadListActivity"
             android:exported="false" />
-        <activity
-            android:name=".ui.trashbin.TrashbinActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:exported="true" />
         <activity
             android:name="com.nextcloud.client.onboarding.WhatsNewActivity"
             android:theme="@style/Theme.ownCloud.noActionBar.Login" />
@@ -637,12 +634,14 @@
             android:theme="@style/Theme.ownCloud.Dialog.NoTitle"
             android:windowSoftInputMode="adjustResize" />
         <activity
+            android:name=".ui.activity.AlbumsPickerActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.ShareActivity"
             android:exported="false"
             android:label="@string/share_dialog_title"
             android:launchMode="singleTop"
-            android:theme="@style/Theme.ownCloud.Dialog.NoTitle"
-            android:windowSoftInputMode="adjustResize">
+            android:theme="@style/Theme.ownCloud.ShareDialog">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -692,6 +691,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.navigation.NavigatorActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

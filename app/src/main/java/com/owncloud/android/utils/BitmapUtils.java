@@ -26,6 +26,7 @@ import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
 import com.nextcloud.utils.BitmapExtensionsKt;
+import com.nextcloud.utils.view.ScreenMetrics;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -443,7 +444,7 @@ public final class BitmapUtils {
 
     public static Bitmap createAvatarWithStatus(Bitmap avatar, StatusType statusType, @NonNull String icon, Context context) {
         float avatarRadius = getResources().getDimension(R.dimen.list_item_avatar_icon_radius);
-        int width = DisplayUtils.convertDpToPixel(2 * avatarRadius, context);
+        int width = ScreenMetrics.dpToPx(2 * avatarRadius, context);
 
         Bitmap output = Bitmap.createBitmap(width, width, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(output);

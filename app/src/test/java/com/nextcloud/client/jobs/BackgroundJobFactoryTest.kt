@@ -17,6 +17,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.database.NextcloudDatabase
 import com.nextcloud.client.database.dao.FileDao
+import com.nextcloud.client.database.dao.FileSystemDao
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.documentscan.GeneratePDFUseCase
@@ -28,6 +29,7 @@ import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.operations.factory.UploadFileOperationFactory
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import io.mockk.every
 import io.mockk.mockk
@@ -107,7 +109,11 @@ class BackgroundJobFactoryTest {
     @Mock
     private lateinit var db: NextcloudDatabase
 
+    @Mock private lateinit var fileSystemDao: FileSystemDao
+
     @Mock private lateinit var fileDao: FileDao
+
+    @Mock private lateinit var uploadFileOperationFactory: UploadFileOperationFactory
 
     private lateinit var factory: BackgroundJobFactory
 
@@ -119,6 +125,7 @@ class BackgroundJobFactoryTest {
         MockitoAnnotations.openMocks(this)
 
         whenever(db.fileDao()).thenReturn(fileDao)
+        whenever(db.fileSystemDao()).thenReturn(fileSystemDao)
 
         factory = BackgroundJobFactory(
             logger,
@@ -139,7 +146,8 @@ class BackgroundJobFactoryTest {
             { localBroadcastManager },
             generatePDFUseCase,
             syncedFolderProvider,
-            db
+            db,
+            uploadFileOperationFactory
         )
     }
 

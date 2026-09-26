@@ -115,9 +115,9 @@ class ContactsBackupIT : AbstractOnServerIT() {
             fail("ocFile.storagePath cannot be null")
         }
 
-        assertTrue(DownloadFileOperation(user, ocFile, targetContext).execute(client).isSuccess)
+        assertTrue(DownloadFileOperation(user, ocFile!!, targetContext).execute(client).isSuccess)
 
-        val file = ocFile?.storagePath?.let { File(it) }
+        val file = ocFile.storagePath?.let { File(it) }
         if (file == null) {
             fail("file cannot be null")
         }

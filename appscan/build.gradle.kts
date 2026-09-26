@@ -8,7 +8,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.android.library)
-    alias(libs.plugins.jetbrains.kotlin.android)
 }
 
 android {
@@ -16,7 +15,7 @@ android {
 
     defaultConfig {
         minSdk = 28
-        compileSdk = 36
+        compileSdk = 37
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -42,6 +41,8 @@ kotlin.compilerOptions {
 
 dependencies {
     implementation(libs.appcompat)
-    implementation(libs.document.scanning.android.sdk)
+    implementation(libs.document.scanning.android.sdk) {
+        exclude(group = "androidx.test", module = "monitor")
+    }
     implementation(libs.ui)
 }

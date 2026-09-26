@@ -43,7 +43,7 @@ apksigner sign --ks-pass env:VERSION_DEV_STORE_PASSWORD \
                --key-pass env:VERSION_DEV_KEY_PASSWORD \
                --ks $VERSION_DEV_STORE_FILE \
                --out ~/apks/nextcloud-dev-$date.apk \
-               ./app/build/outputs/apk/versionDev/release/versionDev-release-$date.apk
+               ./app/build/outputs/apk/versionDev/release/app-versionDev-release-unsigned.apk
 
 # use the current date
 echo $date > ~/apks/latest

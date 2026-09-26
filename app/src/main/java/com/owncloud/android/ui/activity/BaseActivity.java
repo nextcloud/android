@@ -150,7 +150,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
         sessionMixin.setAccount(account);
     }
 
-    protected void setUser(User user) {
+    public void setUser(User user) {
         sessionMixin.setUser(user);
     }
 
@@ -164,7 +164,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
      * @return Capabilities of the server where the current OC account lives. Null if the account is not
      * set yet.
      */
-    public OCCapability getCapabilities() {
+    public Optional<OCCapability> getCapabilities() {
         return sessionMixin.getCapabilities();
     }
 

@@ -16,10 +16,14 @@ import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.android.common.ui.util.extensions.applyEdgeToEdgeWithSystemBarPadding
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityManageSpaceBinding
+import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.utils.FilesSyncHelper
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -37,6 +41,15 @@ class ManageSpaceActivity :
     @Inject
     lateinit var userAccountManager: UserAccountManager
 
+    @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
+
+    @Inject
+    lateinit var syncedFolderProvider: SyncedFolderProvider
+
+    @Inject
+    lateinit var backgroundJobManager: BackgroundJobManager
+
     private lateinit var binding: ActivityManageSpaceBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,12 +63,21 @@ class ManageSpaceActivity :
             manageActivityToolbar.setNavigationOnClickListener {
                 onBackPressedDispatcher.onBackPressed()
             }
+
             generalDescription.text = getString(R.string.manage_space_description, getString(R.string.app_name))
             clearDataButton.setOnClickListener {
                 lifecycleScope.launch {
                     clearData()
                 }
             }
+            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(clearDataButton)
+
+            autoUploadDeleteButton.setOnClickListener {
+                lifecycleScope.launch {
+                    clearAutoUploadData()
+                }
+            }
+            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(autoUploadDeleteButton)
         }
     }
 
@@ -142,6 +164,13 @@ class ManageSpaceActivity :
             } ?: return false
         }
         return dir?.delete() ?: false
+    }
+
+    private fun clearAutoUploadData() {
+        FilesSyncHelper.startLocalDeletionForEnabledSyncedFolders(syncedFolderProvider, backgroundJobManager)
+        Snackbar
+            .make(binding.root, R.string.autoupload_delete_uploaded_notif_started_title, Snackbar.LENGTH_SHORT)
+            .show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {

@@ -25,7 +25,6 @@
     <string name="activity_chooser_send_file_title">Pošalji</string>
     <string name="activity_chooser_title">Pošalji vezu…</string>
     <string name="activity_icon">Aktivnost</string>
-    <string name="add_to_cloud">Dodaj u %1$s</string>
     <string name="appbar_search_in">Pretraga u %s</string>
     <string name="appear_offline">Prikaži kao van mreže</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Da li ste sigurni da želite da izbrišete ovaj zadatak?</string>
@@ -52,7 +51,6 @@
     <string name="auth_ssl_unverified_server_title">Ne mogu da proverim SSL identitet servera</string>
     <string name="auth_testing_connection">Proveravam vezu</string>
     <string name="auth_timeout_title">Serveru je trebalo predugo da se odazove</string>
-    <string name="auth_trying_to_login">Pokušavam prijavljivanje…</string>
     <string name="auth_unauthorized">Pogrešno ime ili lozinka</string>
     <string name="auth_unknown_error_exception_title">Nepoznata greška: %1$s</string>
     <string name="auth_unknown_error_http_title">Došlo je do nepoznate HTTP greške!</string>
@@ -147,7 +145,6 @@
     <string name="create_dir_fail_msg">Ne mogu da napravim fasciklu</string>
     <string name="create_new">Nov</string>
     <string name="create_new_document">Novi dokument</string>
-    <string name="create_new_folder">Nova fascikla</string>
     <string name="credentials_disabled">Akreditivi isključeni</string>
     <string name="default_credentials_wrong">Neispravni akreditivi</string>
     <string name="delete_account">Ukloni nalog</string>
@@ -184,7 +181,6 @@
     <string name="drawer_item_home">Početak</string>
     <string name="drawer_item_notifications">Obaveštenja</string>
     <string name="drawer_item_on_device">Na uređaju</string>
-    <string name="drawer_item_recently_modified">Nedavno izmenjeno</string>
     <string name="drawer_item_shared">Deljeno</string>
     <string name="drawer_item_trashbin">Obrisani fajlovi</string>
     <string name="drawer_item_uploads_list">Otpremanja</string>
@@ -240,7 +236,6 @@
     <string name="file_list_empty_headline_search">Nema rezultata u ovoj fascikli</string>
     <string name="file_list_empty_headline_server_search">Nema rezultata</string>
     <string name="file_list_empty_moving">Ovde nema ničeg. Možete dodati fasciklu.</string>
-    <string name="file_list_empty_recently_modified">Nije nađen nijedan fajl promenjen u poslednjih 7 dana.</string>
     <string name="file_list_empty_search">Možda su u nekoj drugoj fascikli?</string>
     <string name="file_list_empty_shared_headline">Još se ništa ne deli</string>
     <string name="file_list_folder">fascikla</string>
@@ -299,6 +294,7 @@
     <string name="foreign_files_remote_text">Udaljeni: %1$s</string>
     <string name="forward">Prosledi</string>
     <string name="fourHours">4 sata</string>
+    <string name="governance_no_label">Ništa</string>
     <string name="hint_name">Ime</string>
     <string name="hint_note">Beleška</string>
     <string name="hint_password">Lozinka</string>
@@ -325,16 +321,6 @@
     <string name="manage_space_clear_data">Očisti podatke</string>
     <string name="manage_space_description">Podešavanja, baza i serverski sertifikati od podataka sa %1$s će biti zauvek obrisani. \n\nVeć skinuti fajlovi neće biti dirani.\n\nOvo može potrajati.</string>
     <string name="manage_space_title">Upravljanje prostorom</string>
-    <string name="media_err_io">Ne mogu da pročitam multimedijalni fajl</string>
-    <string name="media_err_malformed">Multimedijalni fajl ima neispravno kodiranje znakova</string>
-    <string name="media_err_timeout">Isteklo vreme pokušavajući da pustim fajl</string>
-    <string name="media_err_unknown">Ugrađeni multimedijalni plejer ne može da pusti ovaj fajl</string>
-    <string name="media_err_unsupported">Nepodržan kodek</string>
-    <string name="media_forward_description">Unapred</string>
-    <string name="media_notif_ticker">%1$s muzički plejer</string>
-    <string name="media_play_pause_description">Puštanje-pauza</string>
-    <string name="media_rewind_description">Unazad</string>
-    <string name="media_state_playing">%1$s (svira)</string>
     <string name="menu_item_sort_by_date_newest_first">prvo novije</string>
     <string name="menu_item_sort_by_date_oldest_first">prvo starije</string>
     <string name="menu_item_sort_by_name_a_z">po nazivu</string>
@@ -389,6 +375,7 @@
     <string name="permission_allow">Dozvoli</string>
     <string name="permission_deny">Odbij</string>
     <string name="picture_set_as_no_app">Nijedna aplikacija nije nađena da se sa njom postavi slika</string>
+    <string name="player_media_controls_close_action_title">Zatvori</string>
     <string name="power_save_check_dialog_message">Isključivanje provere uštede baterije može da dovede do toga da otpremate fajlove sa praznom baterijom!</string>
     <string name="pref_behaviour_entries_delete_file">obrisano</string>
     <string name="pref_behaviour_entries_keep_file">ostavljen u izvornoj fascikli</string>
@@ -447,6 +434,7 @@
     <string name="remove_notification_failed">Greška pri uklanjanju obaveštenja.</string>
     <string name="remove_push_notification">Ukloni</string>
     <string name="remove_success_msg">Obrisano</string>
+    <string name="rename_dialog_button">Preimenuj</string>
     <string name="rename_dialog_title">Unesite nov naziv</string>
     <string name="rename_local_fail_msg">Lokalna kopija ne može da se preimenuje, probajte drugo ime</string>
     <string name="rename_server_fail_msg">Preimenovanje nije moguće, ime je već zauzeto</string>
@@ -467,7 +455,6 @@
     <string name="select_all">Označi sve</string>
     <string name="select_template">Odaberite šablon</string>
     <string name="send">Pošalji</string>
-    <string name="sendbutton_description">Ikona dugma za slanje</string>
     <string name="set_as">Postavi kao</string>
     <string name="set_online_status">Mrežni status</string>
     <string name="set_picture_as">Postavi sliku kao</string>
@@ -545,7 +532,6 @@
     <string name="store_short_dev_desc">Platforma za produktivnost koju i Vi možete da hostujete i koja Vam daje kontrolu (razvojna verzija)</string>
     <string name="stream">Strimuj sa…</string>
     <string name="stream_not_possible_headline">Interno strimovanje nije moguće</string>
-    <string name="stream_not_possible_message">Ili preuzmite multimediju ili koristite neku eksternu aplikaciju.</string>
     <string name="sub_folder_rule_day">Godina/Mesec/Dan</string>
     <string name="subject_shared_with_you">„%1$s“ je podeljen sa vama</string>
     <string name="subject_user_shared_with_you">%1$s deli „%2$s“ sa vama</string>
@@ -576,7 +562,6 @@
     <string name="thisWeek">Ove sedmice</string>
     <string name="thumbnail">Sličica</string>
     <string name="today">Danas</string>
-    <string name="trashbin_activity_title">Obrisani fajlovi</string>
     <string name="trashbin_empty_headline">Nema obrisanih fajlova</string>
     <string name="trashbin_file_not_deleted">Fajl %1$s ne može da se obriše!</string>
     <string name="trashbin_file_not_restored">Fajl %1$s ne može da se povrati!</string>
@@ -615,7 +600,6 @@
     <string name="upload_local_storage_not_copied">Fajl nije mogao da se kopira na lokalno skladište</string>
     <string name="upload_lock_failed">Neuspelo zaključavanje fascikle</string>
     <string name="upload_query_move_foreign_files">Nedovoljno mesta da se kopiraju označeni fajlovi u fasciklu %1$s. Da li želite možda da ih umesto kopiranja premestite tamo?</string>
-    <string name="upload_sync_conflict">Konflikt prilikom sinhronizacije, razrešite ga ručno</string>
     <string name="upload_unknown_error">Nepoznata greška</string>
     <string name="uploader_btn_alternative_text">Odaberi</string>
     <string name="uploader_btn_upload_text">Otpremi</string>
@@ -642,9 +626,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Podesi</string>
     <string name="uploader_wrn_no_account_text">Nema %1$s naloga na vašem uređaju. Najpre podesite nalog.</string>
     <string name="uploader_wrn_no_account_title">Nije pronađen nalog</string>
+    <string name="uploads_view_group_completed_uploads">Završeno</string>
     <string name="uploads_view_group_current_uploads">Tekuće</string>
     <string name="uploads_view_group_failed_uploads">Greška/čekam na ponovno pokretanje</string>
-    <string name="uploads_view_group_finished_uploads">Otpremljeno</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Otkazano</string>
     <string name="uploads_view_later_waiting_to_upload">Čekam otpremanje</string>
     <string name="uploads_view_title">Otpremanja</string>
@@ -666,6 +650,7 @@
     <string name="user_icon">Korisnik </string>
     <string name="user_info_address">Adresa</string>
     <string name="user_info_email">email</string>
+    <string name="user_info_groups">Grupe</string>
     <string name="user_info_phone">Broj telefona</string>
     <string name="user_info_twitter">Tviter</string>
     <string name="user_info_website">Sajt</string>

@@ -27,7 +27,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
@@ -53,8 +52,11 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
+import com.nextcloud.client.utils.IntentUtil;
+import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
+import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -64,8 +66,11 @@ import com.owncloud.android.datamodel.ExternalLinksProvider;
 import com.owncloud.android.lib.common.ExternalLink;
 import com.owncloud.android.lib.common.ExternalLinkType;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.e2e.E2ECertificateRenewalResult;
+import com.owncloud.android.operations.e2e.E2ECertificateRenewalService;
+import com.owncloud.android.operations.e2e.E2ECertificateValidity;
+import com.owncloud.android.operations.e2e.E2EDeletionService;
 import com.owncloud.android.providers.DocumentsStorageProvider;
-import com.owncloud.android.ui.ListPreferenceDialog;
 import com.owncloud.android.ui.ThemeableSwitchPreference;
 import com.owncloud.android.ui.asynctasks.LoadingVersionNumberTask;
 import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment;
@@ -73,14 +78,13 @@ import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.model.ExtendedSettingsActivityDialog;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DeviceCredentialUtils;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
-import java.util.ArrayList;
+import java.text.DateFormat;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -92,6 +96,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import kotlin.Unit;
 
 import static com.owncloud.android.ui.activity.DrawerActivity.REQ_ALL_FILES_ACCESS;
 
@@ -129,7 +134,7 @@ public class SettingsActivity extends PreferenceActivity
 
     private Uri serverBaseUri;
 
-    private ListPreferenceDialog lock;
+    private Preference lock;
     private ThemeableSwitchPreference showHiddenFiles;
     private ThemeableSwitchPreference showEcosystemApps;
     private AppCompatDelegate delegate;
@@ -137,6 +142,9 @@ public class SettingsActivity extends PreferenceActivity
     private  Preference prefDataLoc;
     private String storagePath;
     private String pendingLock;
+
+    private E2EDeletionService e2EDeletionService;
+    private E2ECertificateRenewalService e2eCertificateRenewalService;
 
     private User user;
     @Inject ArbitraryDataProvider arbitraryDataProvider;
@@ -164,6 +172,8 @@ public class SettingsActivity extends PreferenceActivity
         PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("preference_screen");
 
         user = accountManager.getUser();
+        e2EDeletionService = new E2EDeletionService(clientFactory);
+        e2eCertificateRenewalService = new E2ECertificateRenewalService(clientFactory, arbitraryDataProvider);
 
         // retrieve user's base uri
         setupBaseUri();
@@ -212,9 +222,8 @@ public class SettingsActivity extends PreferenceActivity
 
     private void showPasscodeDialogIfEnforceAppProtection() {
         if (MDMConfig.INSTANCE.enforceProtection(this) && Objects.equals(preferences.getLockPreference(), SettingsActivity.LOCK_NONE) && lock != null) {
-            lock.showDialog();
-            lock.dismissible(false);
-            lock.enableCancelButton(false);
+            Intent intent = ExtendedSettingsActivity.Companion.createIntent(this, ExtendedSettingsActivityDialog.AppPasscode, false);
+            startActivityForResult(intent, ExtendedSettingsActivityDialog.AppPasscode.getResultId());
         }
     }
 
@@ -242,7 +251,7 @@ public class SettingsActivity extends PreferenceActivity
             Preference pChangelogLink = findPreference("changelog_link");
             if (pChangelogLink != null) {
                 pChangelogLink.setOnPreferenceClickListener(preference -> {
-                    DisplayUtils.startLinkIntent(this, R.string.dev_changelog);
+                    IntentUtil.startLinkIntent(this, R.string.dev_changelog);
                     return true;
                 });
             }
@@ -287,7 +296,7 @@ public class SettingsActivity extends PreferenceActivity
             if (licenseEnabled) {
                 licensePreference.setSummary(R.string.prefs_gpl_v2);
                 licensePreference.setOnPreferenceClickListener(preference -> {
-                    DisplayUtils.startLinkIntent(this, R.string.license_url);
+                    IntentUtil.startLinkIntent(this, R.string.license_url);
                     return true;
                 });
             } else {
@@ -308,7 +317,7 @@ public class SettingsActivity extends PreferenceActivity
                         Intent intent;
                         if (MimeTypeUtil.isPDF(mimeType)) {
                             intent = new Intent(Intent.ACTION_VIEW, privacyUrl);
-                            DisplayUtils.startIntentIfAppAvailable(intent, this, R.string.no_pdf_app_available);
+                            IntentUtil.startIntentIfAppAvailable(intent, this, R.string.no_pdf_app_available);
                         } else {
                             intent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
                             intent.putExtra(ExternalSiteWebView.EXTRA_TITLE,
@@ -335,7 +344,7 @@ public class SettingsActivity extends PreferenceActivity
         if (sourcecodePreference != null) {
             if (sourcecodeEnabled) {
                 sourcecodePreference.setOnPreferenceClickListener(preference -> {
-                    DisplayUtils.startLinkIntent(this, R.string.sourcecode_url);
+                    IntentUtil.startLinkIntent(this, R.string.sourcecode_url);
                     return true;
                 });
             } else {
@@ -369,6 +378,10 @@ public class SettingsActivity extends PreferenceActivity
 
         removeE2E(preferenceCategoryMore);
 
+        removeE2EFilesAndKeys(preferenceCategoryMore);
+
+        setupRenewE2ECertificate(preferenceCategoryMore);
+
         setupHelpPreference(preferenceCategoryMore);
 
         setupRecommendPreference(preferenceCategoryMore);
@@ -389,7 +402,7 @@ public class SettingsActivity extends PreferenceActivity
                     String imprintWeb = getString(R.string.url_imprint);
 
                     if (!imprintWeb.isEmpty()) {
-                        DisplayUtils.startLinkIntent(this, imprintWeb);
+                        IntentUtil.startLinkIntent(this, imprintWeb);
                     }
                     //ImprintDialog.newInstance(true).show(preference.get, "IMPRINT_DIALOG");
                     return true;
@@ -468,7 +481,7 @@ public class SettingsActivity extends PreferenceActivity
                         i.putExtra("EXTRA_USER", user);
                         startActivityForResult(i, ACTION_E2E);
                     } else {
-                        DisplayUtils.showSnackMessage(this, R.string.e2e_offline);
+                        SnackbarUtil.show(this, R.string.e2e_offline);
                     }
 
                     return true;
@@ -538,6 +551,94 @@ public class SettingsActivity extends PreferenceActivity
         }
     }
 
+    private void removeE2EFilesAndKeys(PreferenceCategory preferenceCategoryMore) {
+        Preference preference = findPreference("remove_e2e_files_and_keys");
+        if (preference == null) {
+            return;
+        }
+
+        if (!BuildConfig.DEBUG || !FileOperationsHelper.isEndToEndEncryptionSetup(this, user)) {
+            preferenceCategoryMore.removePreference(preference);
+            return;
+        }
+
+        preference.setOnPreferenceClickListener(p -> {
+            showRemoveE2EKeysAndFilesAlertDialog(preferenceCategoryMore, preference);
+            return true;
+        });
+    }
+
+    private void showRemoveE2EKeysAndFilesAlertDialog(PreferenceCategory preferenceCategoryMore, Preference preference) {
+        if (e2EDeletionService == null) {
+            return;
+        }
+
+        e2EDeletionService.showRemoveE2EKeysAndFilesAlertDialog(this, user, success -> {
+            if (success) {
+                EncryptionUtils.removeE2E(arbitraryDataProvider, user);
+                preferenceCategoryMore.removePreference(preference);
+
+                Preference pMnemonic = findPreference("mnemonic");
+                if (pMnemonic != null) {
+                    preferenceCategoryMore.removePreference(pMnemonic);
+                }
+
+                Preference pRemoveE2E = findPreference("remove_e2e");
+                if (pRemoveE2E != null) {
+                    preferenceCategoryMore.removePreference(pRemoveE2E);
+                }
+            }
+            return Unit.INSTANCE;
+        });
+    }
+
+    private void setupRenewE2ECertificate(PreferenceCategory preferenceCategoryMore) {
+        Preference preference = findPreference("renew_e2e_certificate");
+        if (preference == null) {
+            return;
+        }
+
+        if (!BuildConfig.DEBUG || !FileOperationsHelper.isEndToEndEncryptionSetup(this, user)) {
+            preferenceCategoryMore.removePreference(preference);
+            return;
+        }
+
+        updateRenewE2ECertificateSummary(preference);
+
+        preference.setOnPreferenceClickListener(p -> {
+            if (!connectivityService.getConnectivity().isConnected()) {
+                SnackbarUtil.show(this, R.string.e2e_offline);
+                return true;
+            }
+
+            e2eCertificateRenewalService.showRenewCertificateDialog(this, user, result -> {
+                onRenewE2ECertificateResult(preference, result);
+                return Unit.INSTANCE;
+            });
+            return true;
+        });
+    }
+
+    private void updateRenewE2ECertificateSummary(Preference preference) {
+        E2ECertificateValidity validity = e2eCertificateRenewalService.getCertificateValidity(user);
+        if (validity == null) {
+            preference.setSummary(R.string.renew_e2e_certificate_summary);
+            return;
+        }
+
+        String validUntil = DateFormat.getDateInstance().format(validity.getNotAfter());
+        preference.setSummary(getString(R.string.renew_e2e_certificate_valid_until, validUntil));
+    }
+
+    private void onRenewE2ECertificateResult(Preference preference, E2ECertificateRenewalResult result) {
+        if (result instanceof E2ECertificateRenewalResult.Success) {
+            updateRenewE2ECertificateSummary(preference);
+            SnackbarUtil.show(this, R.string.renew_e2e_certificate_success);
+        } else if (result instanceof E2ECertificateRenewalResult.Failure) {
+            SnackbarUtil.show(this, ((E2ECertificateRenewalResult.Failure) result).getMessageId());
+        }
+    }
+
     private void showRemoveE2EAlertDialog(PreferenceCategory preferenceCategoryMore, Preference preference) {
         new MaterialAlertDialogBuilder(this, R.style.FallbackTheming_Dialog)
             .setTitle(R.string.prefs_e2e_mnemonic)
@@ -565,7 +666,7 @@ public class SettingsActivity extends PreferenceActivity
         if (pHelp != null) {
             if (helpEnabled) {
                 pHelp.setOnPreferenceClickListener(preference -> {
-                    DisplayUtils.startLinkIntent(this, R.string.url_help);
+                    IntentUtil.startLinkIntent(this, R.string.url_help);
                     return true;
                 });
             } else {
@@ -642,7 +743,7 @@ public class SettingsActivity extends PreferenceActivity
                         launchDavDroidLogin();
                     } catch (Throwable t) {
                         Log_OC.e(TAG, "Error while setting up DavX5", t);
-                        DisplayUtils.showSnackMessage(
+                        SnackbarUtil.show(
                             activity,
                             R.string.prefs_davx5_setup_error);
                     }
@@ -742,61 +843,31 @@ public class SettingsActivity extends PreferenceActivity
     private void setupLockPreference(PreferenceCategory preferenceCategoryDetails,
                                      boolean passCodeEnabled,
                                      boolean deviceCredentialsEnabled) {
-        boolean enforceProtection = MDMConfig.INSTANCE.enforceProtection(this);
-        lock = (ListPreferenceDialog) findPreference(PREFERENCE_LOCK);
-        int optionSize = 3;
-        if (enforceProtection) {
-            optionSize = 2;
-        }
-
+        lock = findPreference(PREFERENCE_LOCK);
         if (lock != null && (passCodeEnabled || deviceCredentialsEnabled)) {
-            ArrayList<String> lockEntries = new ArrayList<>(optionSize);
-            lockEntries.add(getString(R.string.prefs_lock_using_passcode));
-            lockEntries.add(getString(R.string.prefs_lock_using_device_credentials));
+            String currentLock = preferences.getLockPreference();
+            updateLockSummary(lock, currentLock);
 
-            ArrayList<String> lockValues = new ArrayList<>(optionSize);
-            lockValues.add(LOCK_PASSCODE);
-            lockValues.add(LOCK_DEVICE_CREDENTIALS);
-
-            if (!enforceProtection) {
-                lockEntries.add(getString(R.string.prefs_lock_none));
-                lockValues.add(LOCK_NONE);
-            }
-
-            if (!passCodeEnabled) {
-                lockEntries.remove(getString(R.string.prefs_lock_using_passcode));
-                lockValues.remove(LOCK_PASSCODE);
-            } else if (!deviceCredentialsEnabled || !DeviceCredentialUtils.areCredentialsAvailable(getApplicationContext())) {
-                lockEntries.remove(getString(R.string.prefs_lock_using_device_credentials));
-                lockValues.remove(LOCK_DEVICE_CREDENTIALS);
-            }
-
-            String[] lockEntriesArr = new String[lockEntries.size()];
-            lockEntriesArr = lockEntries.toArray(lockEntriesArr);
-            String[] lockValuesArr = new String[lockValues.size()];
-            lockValuesArr = lockValues.toArray(lockValuesArr);
-
-            lock.setEntries(lockEntriesArr);
-            lock.setEntryValues(lockValuesArr);
-            lock.setSummary(lock.getEntry());
-
-            lock.setOnPreferenceChangeListener((preference, o) -> {
-                pendingLock = LOCK_NONE;
-                String oldValue = ((ListPreference) preference).getValue();
-                String newValue = (String) o;
-                if (!oldValue.equals(newValue)) {
-                    if (LOCK_NONE.equals(oldValue)) {
-                        enableLock(newValue);
-                    } else {
-                        pendingLock = newValue;
-                        disableLock(oldValue);
-                    }
-                }
-                return false;
+            lock.setOnPreferenceClickListener(preference -> {
+                Intent intent = ExtendedSettingsActivity.Companion.createIntent(this, ExtendedSettingsActivityDialog.AppPasscode);
+                startActivityForResult(intent, ExtendedSettingsActivityDialog.AppPasscode.getResultId());
+                return true;
             });
         } else {
             preferenceCategoryDetails.removePreference(lock);
         }
+    }
+
+    private void updateLockSummary(Preference lockPreference, String lockValue) {
+        String summary;
+        if (LOCK_PASSCODE.equals(lockValue)) {
+            summary = getString(R.string.prefs_lock_using_passcode);
+        } else if (LOCK_DEVICE_CREDENTIALS.equals(lockValue)) {
+            summary = getString(R.string.prefs_lock_using_device_credentials);
+        } else {
+            summary = getString(R.string.prefs_lock_none);
+        }
+        lockPreference.setSummary(summary);
     }
 
     private void setupAutoUploadCategory(PreferenceScreen preferenceScreen) {
@@ -844,17 +915,19 @@ public class SettingsActivity extends PreferenceActivity
             startActivityForResult(i, ACTION_REQUEST_PASSCODE);
         } else if (LOCK_DEVICE_CREDENTIALS.equals(lock)) {
             if (!DeviceCredentialUtils.areCredentialsAvailable(getApplicationContext())) {
-                DisplayUtils.showSnackMessage(this, R.string.prefs_lock_device_credentials_not_setup);
+                SnackbarUtil.show(this, R.string.prefs_lock_device_credentials_not_setup);
             } else {
-                DisplayUtils.showSnackMessage(this, R.string.prefs_lock_device_credentials_enabled);
+                SnackbarUtil.show(this, R.string.prefs_lock_device_credentials_enabled);
                 changeLockSetting(LOCK_DEVICE_CREDENTIALS);
             }
         }
     }
 
     private void changeLockSetting(String value) {
-        lock.setValue(value);
-        lock.setSummary(lock.getEntry());
+        preferences.setLockPreference(value);
+        if (lock != null) {
+            updateLockSummary(lock, value);
+        }
         DocumentsStorageProvider.notifyRootsChanged(this);
     }
 
@@ -982,9 +1055,9 @@ public class SettingsActivity extends PreferenceActivity
                 startActivity(installIntent);
             } else {
                 // no f-droid market app or Play store installed --> launch browser for f-droid url
-                DisplayUtils.startLinkIntent(this, "https://f-droid.org/packages/at.bitfire.davdroid/");
+                IntentUtil.startLinkIntent(this, "https://f-droid.org/packages/at.bitfire.davdroid/");
 
-                DisplayUtils.showSnackMessage(this, R.string.prefs_calendar_contacts_no_store_error);
+                SnackbarUtil.show(this, R.string.prefs_calendar_contacts_no_store_error);
             }
         }
     }
@@ -1025,25 +1098,25 @@ public class SettingsActivity extends PreferenceActivity
                 }
                 appPrefs.apply();
                 changeLockSetting(LOCK_PASSCODE);
-                DisplayUtils.showSnackMessage(this, R.string.pass_code_stored);
+                SnackbarUtil.show(this, R.string.pass_code_stored);
             }
         } else if (requestCode == ACTION_CONFIRM_PASSCODE && resultCode == RESULT_OK) {
             if (data.getBooleanExtra(PassCodeActivity.KEY_CHECK_RESULT, false)) {
                 changeLockSetting(LOCK_NONE);
 
-                DisplayUtils.showSnackMessage(this, R.string.pass_code_removed);
+                SnackbarUtil.show(this, R.string.pass_code_removed);
                 if (!LOCK_NONE.equals(pendingLock)) {
                     enableLock(pendingLock);
                 }
             }
         } else if (requestCode == ACTION_REQUEST_CODE_DAVDROID_SETUP && resultCode == RESULT_OK) {
-            DisplayUtils.showSnackMessage(this, R.string.prefs_calendar_contacts_sync_setup_successful);
+            SnackbarUtil.show(this, R.string.prefs_calendar_contacts_sync_setup_successful);
         } else if (requestCode == ACTION_CONFIRM_DEVICE_CREDENTIALS && resultCode == RESULT_OK &&
             data.getIntExtra(RequestCredentialsActivity.KEY_CHECK_RESULT,
                              RequestCredentialsActivity.KEY_CHECK_RESULT_FALSE) ==
                 RequestCredentialsActivity.KEY_CHECK_RESULT_TRUE) {
             changeLockSetting(LOCK_NONE);
-            DisplayUtils.showSnackMessage(this, R.string.credentials_disabled);
+            SnackbarUtil.show(this, R.string.credentials_disabled);
             if (!LOCK_NONE.equals(pendingLock)) {
                 enableLock(pendingLock);
             }
@@ -1067,6 +1140,19 @@ public class SettingsActivity extends PreferenceActivity
                 // needed for to change status bar color
                 recreate();
             }
+        } else if (requestCode == ExtendedSettingsActivityDialog.AppPasscode.getResultId() && data != null) {
+            String selectedLock = data.getStringExtra(ExtendedSettingsActivityDialog.AppPasscode.getKey());
+            if (selectedLock != null) {
+                String currentLock = preferences.getLockPreference();
+                if (!currentLock.equals(selectedLock)) {
+                    if (LOCK_NONE.equals(currentLock)) {
+                        enableLock(selectedLock);
+                    } else {
+                        pendingLock = selectedLock;
+                        disableLock(currentLock);
+                    }
+                }
+            }
         } else if (requestCode == REQ_ALL_FILES_ACCESS) {
             final PreferenceCategory preferenceCategorySync = (PreferenceCategory) findPreference("sync");
             setupAllFilesAccessPreference(preferenceCategorySync);
@@ -1076,7 +1162,7 @@ public class SettingsActivity extends PreferenceActivity
     @VisibleForTesting
     public void handleMnemonicRequest(Intent data) {
         if (data == null) {
-            DisplayUtils.showSnackMessage(this, "Error retrieving mnemonic!");
+            SnackbarUtil.show(this, "Error retrieving mnemonic!");
         } else {
             if (data.getIntExtra(RequestCredentialsActivity.KEY_CHECK_RESULT,
                                  RequestCredentialsActivity.KEY_CHECK_RESULT_FALSE) ==
@@ -1175,14 +1261,16 @@ public class SettingsActivity extends PreferenceActivity
     }
 
     private void loadExternalSettingLinks(PreferenceCategory preferenceCategory) {
-        if (MDMConfig.INSTANCE.externalSiteSupport(this)) {
-            ExternalLinksProvider externalLinksProvider = new ExternalLinksProvider(getContentResolver());
+        if (!MDMConfig.INSTANCE.externalSiteSupport(this)) {
+            return;
+        }
 
-            for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.SETTINGS)) {
-
+        ExternalLinksProvider externalLinksProvider = new ExternalLinksProvider(getContentResolver());
+        externalLinksProvider.getExternalLink(ExternalLinkType.SETTINGS, externalLinks -> {
+            for (final ExternalLink link : externalLinks) {
                 // only add if it does not exist, in case activity is reused
                 if (findPreference(String.valueOf(link.getId())) == null) {
-                    Preference p = new Preference(this);
+                    Preference p = new Preference(SettingsActivity.this);
                     p.setTitle(link.getName());
                     p.setKey(String.valueOf(link.getId()));
 
@@ -1199,7 +1287,9 @@ public class SettingsActivity extends PreferenceActivity
                     preferenceCategory.addPreference(p);
                 }
             }
-        }
+            return Unit.INSTANCE;
+        });
+        externalLinksProvider.cleanup();
     }
 
     /**

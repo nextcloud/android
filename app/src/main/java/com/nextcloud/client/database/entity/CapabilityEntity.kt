@@ -11,6 +11,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
+import com.owncloud.android.lib.resources.status.CapabilityBooleanType
+import com.owncloud.android.lib.resources.status.E2EVersion
+import com.owncloud.android.lib.resources.status.OCCapability
 
 @Entity(tableName = ProviderTableMeta.CAPABILITIES_TABLE_NAME)
 data class CapabilityEntity(
@@ -123,14 +126,16 @@ data class CapabilityEntity(
     val dropAccount: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_SECURITY_GUARD)
     val securityGuard: Int?,
+    @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_GOVERNANCE)
+    val governance: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_FORBIDDEN_FILENAME_CHARACTERS)
-    val forbiddenFileNameCharacters: Int?,
+    val forbiddenFileNameCharacters: String?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_FORBIDDEN_FILENAMES)
-    val forbiddenFileNames: Int?,
+    val forbiddenFileNames: String?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_EXTENSIONS)
-    val forbiddenFileNameExtensions: Int?,
+    val forbiddenFileNameExtensions: String?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_BASE_NAMES)
-    val forbiddenFilenameBaseNames: Int?,
+    val forbiddenFilenameBaseNames: String?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_FILES_DOWNLOAD_LIMIT)
     val filesDownloadLimit: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_FILES_DOWNLOAD_LIMIT_DEFAULT)
@@ -148,5 +153,96 @@ data class CapabilityEntity(
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_HAS_VALID_SUBSCRIPTION)
     val hasValidSubscription: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_CLIENT_INTEGRATION_JSON)
-    val clientIntegrationJson: String?
+    val clientIntegrationJson: String?,
+    @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_MOD_REWRITE_WORKING)
+    val modRewriteWorking: Int?,
+    @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_CHUNKED_UPLOAD_MAX_SIZE)
+    val chunkedUploadMaxSize: Long?,
+    @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_SHARING_JSON)
+    val sharingJson: String?
 )
+
+@Suppress("LongMethod", "ReturnCount")
+fun CapabilityEntity?.toOCCapability(): OCCapability {
+    val capability = OCCapability()
+    if (this == null) return capability
+    val id = this.id ?: return capability
+
+    fun intToBoolean(value: Int?): CapabilityBooleanType =
+        value?.let { CapabilityBooleanType.fromValue(it) } ?: CapabilityBooleanType.UNKNOWN
+
+    capability.id = id.toLong()
+    capability.accountName = this.accountName
+    capability.versionMayor = this.versionMajor ?: 0
+    capability.versionMinor = this.versionMinor ?: 0
+    capability.versionMicro = this.versionMicro ?: 0
+    capability.versionString = this.versionString
+    capability.versionEdition = this.versionEditor
+    capability.extendedSupport = intToBoolean(this.extendedSupport)
+    capability.corePollInterval = this.corePollinterval ?: 0
+    capability.filesSharingApiEnabled = intToBoolean(this.sharingApiEnabled)
+    capability.filesSharingPublicEnabled = intToBoolean(this.sharingPublicEnabled)
+    capability.filesSharingPublicPasswordEnforced = intToBoolean(this.sharingPublicPasswordEnforced)
+    capability.filesSharingPublicAskForOptionalPassword = intToBoolean(this.sharingPublicAskForOptionalPassword)
+    capability.filesSharingPublicExpireDateEnabled = intToBoolean(this.sharingPublicExpireDateEnabled)
+    capability.filesSharingPublicExpireDateDays = this.sharingPublicExpireDateDays ?: 0
+    capability.filesSharingPublicExpireDateEnforced = intToBoolean(this.sharingPublicExpireDateEnforced)
+    capability.filesSharingPublicSendMail = intToBoolean(this.sharingPublicSendMail)
+    capability.filesSharingPublicUpload = intToBoolean(this.sharingPublicUpload)
+    capability.filesSharingUserSendMail = intToBoolean(this.sharingUserSendMail)
+    capability.filesSharingResharing = intToBoolean(this.sharingResharing)
+    capability.filesSharingFederationOutgoing = intToBoolean(this.sharingFederationOutgoing)
+    capability.filesSharingFederationIncoming = intToBoolean(this.sharingFederationIncoming)
+    capability.filesBigFileChunking = intToBoolean(this.filesBigfilechunking)
+    capability.filesUndelete = intToBoolean(this.filesUndelete)
+    capability.filesVersioning = intToBoolean(this.filesVersioning)
+    capability.externalLinks = intToBoolean(this.externalLinks)
+    capability.serverName = this.serverName
+    capability.serverColor = this.serverColor
+    capability.serverTextColor = this.serverTextColor
+    capability.serverElementColor = this.serverElementColor
+    capability.serverSlogan = this.serverSlogan
+    capability.serverLogo = this.serverLogo
+    capability.serverBackground = this.serverBackgroundUrl
+    capability.endToEndEncryption = intToBoolean(this.endToEndEncryption)
+    capability.endToEndEncryptionKeysExist = intToBoolean(this.endToEndEncryptionKeysExist)
+    capability.endToEndEncryptionApiVersion = this.endToEndEncryptionApiVersion?.let {
+        E2EVersion.fromValue(it)
+    } ?: E2EVersion.UNKNOWN
+    capability.serverBackgroundDefault = intToBoolean(this.serverBackgroundDefault)
+    capability.serverBackgroundPlain = intToBoolean(this.serverBackgroundPlain)
+    capability.activity = intToBoolean(this.activity)
+    capability.richDocuments = intToBoolean(this.richdocument)
+    capability.richDocumentsDirectEditing = intToBoolean(this.richdocumentDirectEditing)
+    capability.richDocumentsTemplatesAvailable = intToBoolean(this.richdocumentTemplates)
+    capability.richDocumentsMimeTypeList = this.richdocumentMimetypeList?.split(",") ?: emptyList()
+    capability.richDocumentsOptionalMimeTypeList = this.richdocumentOptionalMimetypeList?.split(",") ?: emptyList()
+    capability.richDocumentsProductName = this.richdocumentProductName
+    capability.directEditingEtag = this.directEditingEtag
+    capability.etag = this.etag
+    capability.userStatus = intToBoolean(this.userStatus)
+    capability.userStatusSupportsEmoji = intToBoolean(this.userStatusSupportsEmoji)
+    capability.userStatusSupportsBusy = intToBoolean(this.userStatusSupportsBusy)
+    capability.filesLockingVersion = this.filesLockingVersion
+    capability.assistant = intToBoolean(this.assistant)
+    capability.groupfolders = intToBoolean(this.groupfolders)
+    capability.dropAccount = intToBoolean(this.dropAccount)
+    capability.securityGuard = intToBoolean(this.securityGuard)
+    capability.governance = intToBoolean(this.governance)
+    capability.forbiddenFilenameCharactersJson = this.forbiddenFileNameCharacters
+    capability.forbiddenFilenamesJson = this.forbiddenFileNames
+    capability.forbiddenFilenameExtensionJson = this.forbiddenFileNameExtensions
+    capability.forbiddenFilenameBaseNamesJson = this.forbiddenFilenameBaseNames
+    capability.isWCFEnabled = intToBoolean(this.isWCFEnabled)
+    capability.filesDownloadLimit = intToBoolean(this.filesDownloadLimit)
+    capability.filesDownloadLimitDefault = this.filesDownloadLimitDefault ?: 0
+    capability.recommendations = intToBoolean(this.recommendation)
+    capability.notesFolderPath = this.notesFolderPath
+    capability.defaultPermissions = this.defaultPermissions ?: 0
+    capability.hasValidSubscription = intToBoolean(this.hasValidSubscription)
+    capability.clientIntegrationJson = this.clientIntegrationJson
+    capability.modRewriteWorking = intToBoolean(this.modRewriteWorking)
+    capability.chunkedUploadMaxSize = this.chunkedUploadMaxSize ?: OCCapability.CHUNKED_UPLOAD_MAX_SIZE_UNKNOWN
+
+    return capability
+}

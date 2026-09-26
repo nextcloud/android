@@ -13,20 +13,26 @@ import android.content.Context
 import android.content.Intent
 import androidx.work.ForegroundInfo
 import com.nextcloud.client.jobs.notification.WorkerNotificationManager
+import com.nextcloud.utils.extensions.mainThread
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlin.random.Random
 
-class FolderDownloadWorkerNotificationManager(private val context: Context, viewThemeUtils: ViewThemeUtils) :
-    WorkerNotificationManager(
-        id = NOTIFICATION_ID,
-        context,
-        viewThemeUtils,
-        tickerId = R.string.folder_download_worker_ticker_id,
-        channelId = NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD
-    ) {
+class FolderDownloadWorkerNotificationManager(
+    private val context: Context,
+    private val showCancel: Boolean = true,
+    viewThemeUtils: ViewThemeUtils?
+) : WorkerNotificationManager(
+    id = NOTIFICATION_ID,
+    context,
+    viewThemeUtils,
+    tickerId = R.string.folder_download_worker_ticker_id,
+    channelId = NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD
+) {
 
     companion object {
         private const val NOTIFICATION_ID = 391
@@ -42,11 +48,13 @@ class FolderDownloadWorkerNotificationManager(private val context: Context, view
 
             if (progress != null) {
                 setProgress(MAX_PROGRESS, progress, false)
-                addAction(
-                    R.drawable.ic_cancel,
-                    context.getString(R.string.common_cancel),
-                    getCancelPendingIntent()
-                )
+                if (showCancel) {
+                    addAction(
+                        R.drawable.ic_cancel,
+                        context.getString(R.string.common_cancel),
+                        getCancelPendingIntent()
+                    )
+                }
             } else {
                 setProgress(0, 0, false)
             }
@@ -66,35 +74,36 @@ class FolderDownloadWorkerNotificationManager(private val context: Context, view
     }
 
     @Suppress("MagicNumber")
-    fun getProgressNotification(
-        folderName: String,
-        filename: String,
-        currentIndex: Int,
-        totalFileSize: Int
-    ): Notification {
-        val currentFileIndex = (currentIndex + 1)
-        val description = context.getString(R.string.folder_download_counter, currentFileIndex, totalFileSize, filename)
-        val progress = (currentFileIndex * MAX_PROGRESS) / totalFileSize
-        return getNotification(folderName, description, progress)
+    fun showProgressNotification(folderName: String, filename: String, currentIndex: Int, totalFileSize: Int) {
+        mainThread(delay = 0) {
+            val currentFileIndex = (currentIndex + 1)
+            val description =
+                context.getString(R.string.folder_download_counter, currentFileIndex, totalFileSize, filename)
+            val progress = (currentFileIndex * MAX_PROGRESS) / totalFileSize
+            val notification = getNotification(folderName, description, progress)
+            showNotification(notification)
+        }
     }
 
     fun showCompletionNotification(folderName: String, success: Boolean) {
-        val titleId = if (success) {
-            R.string.folder_download_success_notification_title
-        } else {
-            R.string.folder_download_error_notification_title
+        mainThread(delay = 0) {
+            val titleId = if (success) {
+                R.string.folder_download_success_notification_title
+            } else {
+                R.string.folder_download_error_notification_title
+            }
+
+            val title = context.getString(titleId, folderName)
+
+            val notification = getNotification(title)
+            notificationManager.notify(NOTIFICATION_ID, notification)
         }
-
-        val title = context.getString(titleId, folderName)
-
-        val notification = getNotification(title)
-        notificationManager.notify(NOTIFICATION_ID, notification)
     }
 
-    fun showNotAvailableDiskSpace() {
+    suspend fun showNotAvailableDiskSpace() = withContext(Dispatchers.Main) {
         val title = context.getString(R.string.folder_download_insufficient_disk_space_notification_title)
         val notification = getNotification(title)
-        notificationManager.notify(NOTIFICATION_ID, notification)
+        notificationManager.notify(Random.nextInt(), notification)
     }
 
     fun getForegroundInfo(folder: OCFile?): ForegroundInfo {

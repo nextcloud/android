@@ -20,6 +20,7 @@ import androidx.test.filters.SdkSuppress
 import androidx.test.platform.app.InstrumentationRegistry
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.account.UserAccountManagerImpl
+import com.nextcloud.test.Flaky
 import com.nextcloud.test.GrantStoragePermissionRule
 import com.nextcloud.test.RetryTestRule
 import com.owncloud.android.AbstractIT
@@ -53,6 +54,7 @@ class LoginIT : AbstractIT() {
     @Throws(InterruptedException::class)
     @Suppress("MagicNumber", "SwallowedException")
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.Q)
+    @Flaky("Login no longer uses an in-app WebView, so espresso-web (Espresso.onWebView) cannot drive it. ")
     fun login() {
         val arguments = InstrumentationRegistry.getArguments()
         val baseUrl = arguments.getString("TEST_SERVER_URL")!!

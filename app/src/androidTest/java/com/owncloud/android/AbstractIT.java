@@ -6,7 +6,6 @@
  */
 package com.owncloud.android;
 
-import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
@@ -27,10 +26,9 @@ import com.nextcloud.android.common.ui.theme.MaterialSchemesImpl;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
-import com.nextcloud.client.device.BatteryStatus;
-import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.utils.PowerManagementFactory;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
-import com.nextcloud.client.network.Connectivity;
+import com.nextcloud.client.network.ConnectivityManagerFactory;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
@@ -67,17 +65,17 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.rule.GrantPermissionRule;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import androidx.test.runner.lifecycle.Stage;
 
@@ -95,8 +93,7 @@ public abstract class AbstractIT {
     @Rule
     public final TestRule storagePermissionRule = GrantStoragePermissionRule.grant();
 
-    @Rule
-    public GrantPermissionRule notificationsPermissionRule = GrantPermissionRule.grant(Manifest.permission.POST_NOTIFICATIONS);
+    protected ConnectivityService connectivityServiceMock = ConnectivityManagerFactory.INSTANCE.getMock();
 
     protected static OwnCloudClient client;
     protected static NextcloudClient nextcloudClient;
@@ -233,7 +230,7 @@ public abstract class AbstractIT {
         return AccountManager.get(targetContext).getAccounts();
     }
 
-    protected static void createDummyFiles() throws IOException {
+    protected static List<File> createDummyFiles() throws IOException {
         File tempPath = new File(FileStorageUtils.getTemporalPath(account.name));
         if (!tempPath.exists()) {
             assertTrue(tempPath.mkdirs());
@@ -241,9 +238,11 @@ public abstract class AbstractIT {
 
         assertTrue(tempPath.exists());
 
-        createFile("empty.txt", 0);
-        createFile("nonEmpty.txt", 100);
-        createFile("chunkedFile.txt", 500000);
+        return Arrays.asList(
+            createFile("empty.txt", 0),
+            createFile("nonEmpty.txt", 100),
+            createFile("chunkedFile.txt", 500000)
+        );
     }
 
     protected static File getDummyFile(String name) throws IOException {
@@ -366,41 +365,7 @@ public abstract class AbstractIT {
     }
 
     public void uploadOCUpload(OCUpload ocUpload) {
-        ConnectivityService connectivityServiceMock = new ConnectivityService() {
-            @Override
-            public void isNetworkAndServerAvailable(@NonNull GenericCallback<Boolean> callback) {
-
-            }
-
-            @Override
-            public boolean isConnected() {
-                return false;
-            }
-
-            @Override
-            public boolean isInternetWalled() {
-                return false;
-            }
-
-            @Override
-            public Connectivity getConnectivity() {
-                return Connectivity.CONNECTED_WIFI;
-            }
-        };
-
-        PowerManagementService powerManagementServiceMock = new PowerManagementService() {
-            @NonNull
-            @Override
-            public BatteryStatus getBattery() {
-                return new BatteryStatus();
-            }
-
-            @Override
-            public boolean isPowerSavingEnabled() {
-                return false;
-            }
-        };
-
+        final var powerManagementServiceMock = PowerManagementFactory.getMock();
         UserAccountManager accountManager = UserAccountManagerImpl.fromContext(targetContext);
         UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(accountManager,
                                                                                 targetContext.getContentResolver());

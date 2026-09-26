@@ -21,15 +21,16 @@ import android.widget.TextView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.ui.fileactions.FileAction;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
+import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.ui.activity.TextEditorWebView;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import org.mozilla.universalchardet.ReaderFactory;
@@ -289,7 +290,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
     private void onFileActionChosen(final int itemId) {
         if (itemId == R.id.action_send_share_file) {
             if (getFile().isSharedWithMe() && !getFile().canReshare()) {
-                DisplayUtils.showSnackMessage(getView(), R.string.resharing_is_not_allowed);
+                SnackbarUtil.show(this, R.string.resharing_is_not_allowed);
             } else {
                 containerActivity.getFileOperationsHelper().sendShareFile(getFile());
             }
@@ -306,11 +307,11 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
             if (containerActivity instanceof FileActivity activity) {
                 activity.showSyncLoadingDialog(getFile().isFolder());
             }
-            containerActivity.getFileOperationsHelper().syncFile(getFile());
+            containerActivity.getFileOperationsHelper().syncFileOrFolder(getFile());
         } else if(itemId == R.id.action_cancel_sync){
             containerActivity.getFileOperationsHelper().cancelTransference(getFile());
         } else if (itemId == R.id.action_edit) {
-            containerActivity.getFileOperationsHelper().openFileWithTextEditor(getFile(), getContext());
+            TextEditorWebView.Companion.startTextEditor(getFile(), getContext());
         }
     }
 

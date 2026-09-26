@@ -15,7 +15,7 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import com.nextcloud.test.TestActivity
-import com.nextcloud.ui.ImageDetailFragment
+import com.nextcloud.ui.fileInfo.FileInfoFragment
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
@@ -79,7 +79,7 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
             var activity: TestActivity? = null
             scenario.onActivity { sut ->
                 activity = sut
-                val fragment = ImageDetailFragment.newInstance(oCFile, user).apply {
+                val fragment = FileInfoFragment.newInstance(oCFile, user).apply {
                     hideMap()
                 }
                 sut.addFragment(fragment)

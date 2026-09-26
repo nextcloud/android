@@ -8,6 +8,7 @@
 package com.owncloud.android.ui.activity
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -120,7 +121,7 @@ class InternalTwoWaySyncActivity :
                 val folders = fileDataStorageManager.getInternalTwoWaySyncFolders(currentUser)
                 folders.forEach { folder ->
                     FileDownloadWorker.cancelOperation(currentUser.accountName, folder.fileId)
-                    backgroundJobManager.cancelFilesDownloadJob(currentUser, folder.fileId)
+                    backgroundJobManager.cancelFilesDownloadJob(currentUser.accountName, folder.fileId)
 
                     folder.internalFolderSyncTimestamp = -1L
                     fileDataStorageManager.saveFile(folder)
@@ -164,7 +165,10 @@ class InternalTwoWaySyncActivity :
                 handleDurationSelected(durations[position].first.inWholeMinutes)
             }
         }
-        viewThemeUtils.material.colorTextInputLayout(binding.twoWaySyncIntervalLayout)
+        binding.twoWaySyncIntervalLayout.run {
+            viewThemeUtils.material.colorTextInputLayout(this)
+            setEndIconTintList(ColorStateList.valueOf(viewThemeUtils.platform.getScheme(context).primary))
+        }
     }
 
     private fun handleDurationSelected(duration: Long) {

@@ -24,7 +24,7 @@
     <string name="data_folder">nextcloud</string>
     <string name="default_display_name_for_root_folder">Nextcloud</string>
     <string name="nextcloud_user_agent">Mozilla/5.0 (Android) Nextcloud-android/%1$s%2$s</string>
-    <string name="only_office_user_agent">Mozilla/5.0 (Android %1$s) Mobile Nextcloud-android/%2$s</string>
+    <string name="office_user_agent">Mozilla/5.0 (Android %1$s) Mobile Nextcloud-android/%2$s</string>
     <string name="name_for_branded_user_agent"></string>
 
     <!-- URLs and flags related -->
@@ -76,7 +76,6 @@
     <bool name="multiaccount_support">true</bool>
 
     <!-- Drawer options -->
-    <bool name="recently_modified_enabled">false</bool>
     <bool name="shared_enabled">true</bool>
     <bool name="show_drawer_logout">false</bool>
 
@@ -133,6 +132,7 @@
 
     <!--    [{\"name\":\"name1\",\"url\":\"url\"},{\"name\":\"name2\",\"url\":\"url1\"}]-->
     <string name="enforce_servers" translatable="false"></string>
+    <string name="suggested_server" translatable="false"></string>
 
     
     <!-- Files becomes Home -->

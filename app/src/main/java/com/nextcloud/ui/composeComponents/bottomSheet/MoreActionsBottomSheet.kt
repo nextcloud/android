@@ -37,7 +37,7 @@ import kotlinx.coroutines.launch
 @SuppressLint("ResourceAsColor")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MoreActionsBottomSheet(title: String? = null, actions: List<Triple<Int, Int, () -> Unit>>, dismiss: () -> Unit) {
+fun MoreActionsBottomSheet(title: String? = null, actions: List<Triple<Int, Int, () -> Unit>>, onDismiss: () -> Unit) {
     val sheetState = rememberModalBottomSheetState()
     val scope = rememberCoroutineScope()
 
@@ -45,7 +45,7 @@ fun MoreActionsBottomSheet(title: String? = null, actions: List<Triple<Int, Int,
         modifier = Modifier.padding(top = 32.dp),
         containerColor = colorScheme.surface,
         onDismissRequest = {
-            dismiss()
+            onDismiss()
         },
         sheetState = sheetState
     ) {
@@ -73,7 +73,7 @@ fun MoreActionsBottomSheet(title: String? = null, actions: List<Triple<Int, Int,
                                 .launch { sheetState.hide() }
                                 .invokeOnCompletion {
                                     if (!sheetState.isVisible) {
-                                        dismiss()
+                                        onDismiss()
                                         action.third()
                                     }
                                 }

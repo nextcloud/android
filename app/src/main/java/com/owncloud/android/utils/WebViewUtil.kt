@@ -15,6 +15,7 @@ import android.text.TextUtils
 import android.util.ArrayMap
 import android.util.Log
 import android.webkit.WebView
+import androidx.webkit.WebViewCompat
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import java.io.PrintWriter
 import java.io.StringWriter
@@ -80,5 +81,19 @@ class WebViewUtil {
 
     companion object {
         private const val PROXY_TAG = "PROXY"
+        private const val WEB_VIEW_TAG = "WEB_VIEW"
+
+        @JvmStatic
+        @Suppress("TooGenericExceptionCaught")
+        fun available(context: Context?): Boolean {
+            val context = context ?: return false
+
+            return try {
+                WebViewCompat.getCurrentWebViewPackage(context) != null
+            } catch (e: Exception) {
+                Log.w(WEB_VIEW_TAG, "WebView provider cannot be resolved: ${e.message}")
+                false
+            }
+        }
     }
 }

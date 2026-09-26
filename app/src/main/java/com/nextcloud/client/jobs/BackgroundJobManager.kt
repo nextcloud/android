@@ -2,6 +2,7 @@
  * Nextcloud - Android Client
  *
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.nextcloud.client.jobs
@@ -120,11 +121,11 @@ interface BackgroundJobManager {
 
     fun startImmediateFilesExportJob(files: Collection<OCFile>): LiveData<JobInfo?>
 
-    fun startAutoUpload(
-        syncedFolder: SyncedFolder,
-        overridePowerSaving: Boolean = false,
-        contentUris: Array<String?> = arrayOf()
-    )
+    /**
+     * @param overridePowerSaving uploads even while the device is in power saving mode. Such a run replaces an
+     * already scheduled run of the same folder, because that one would otherwise stop on the power saving check.
+     */
+    fun startAutoUpload(syncedFolder: SyncedFolder, overridePowerSaving: Boolean = false)
 
     fun cancelTwoWaySyncJob()
 
@@ -135,12 +136,19 @@ interface BackgroundJobManager {
 
     fun startNotificationJob(subject: String, signature: String)
     fun startAccountRemovalJob(accountName: String, remoteWipe: Boolean)
-    fun startFilesUploadJob(user: User, uploadIds: LongArray, showSameFileAlreadyExistsNotification: Boolean)
+    fun startFilesUploadJob(
+        user: User,
+        uploadIds: LongArray,
+        showSameFileAlreadyExistsNotification: Boolean,
+        skipAutoUploadCheck: Boolean = false
+    )
+    fun startAlbumFilesUploadJob(user: User, uploadIds: LongArray, albumName: String)
     fun getFileUploads(user: User): LiveData<List<JobInfo>>
     fun cancelFilesUploadJob(user: User)
     fun isStartFileUploadJobScheduled(accountName: String): Boolean
-
-    fun cancelFilesDownloadJob(user: User, fileId: Long)
+    fun isAutoUploadIgnoringPowerSavingScheduled(syncedFolderID: Long): Boolean
+    fun schedulePeriodicAutoUpload()
+    fun cancelFilesDownloadJob(accountName: String, fileId: Long)
 
     @Suppress("LongParameterList")
     fun startFileDownloadJob(
@@ -163,7 +171,6 @@ interface BackgroundJobManager {
     fun cancelAllJobs()
     fun schedulePeriodicHealthStatus()
     fun startHealthStatus()
-    fun isAutoUploadWorkerRunning(syncedFolderID: Long): Boolean
     fun startOfflineOperations()
     fun startPeriodicallyOfflineOperation()
     fun scheduleInternal2WaySync(intervalMinutes: Long)
@@ -171,4 +178,5 @@ interface BackgroundJobManager {
     fun startMetadataSyncJob(currentDirPath: String)
     fun downloadFolder(folder: OCFile, accountName: String)
     fun cancelFolderDownload()
+    fun locallyDeleteAutoUploadedFiles(syncedFolders: List<SyncedFolder>)
 }

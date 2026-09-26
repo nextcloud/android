@@ -10,12 +10,14 @@ package com.nextcloud.client.jobs.autoUpload
 import android.content.Context
 import androidx.exifinterface.media.ExifInterface
 import com.nextcloud.client.preferences.SubFolderRule
+import com.nextcloud.utils.autoRename.AutoRename
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.MediaFolderType
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.MimeType
+import com.owncloud.android.utils.theme.CapabilityUtils
 import java.io.File
 import java.text.ParsePosition
 import java.text.SimpleDateFormat
@@ -27,6 +29,14 @@ class SyncFolderHelper(private val context: Context) {
         private const val TAG = "SyncFolderHelper"
     }
 
+    /**
+     * Computes the auto upload remote path for a given file based on the current syncedFolder folder settings.
+     * Note that if the user changed the syncedFolder's settings after the file was already uploaded,
+     * this may not reflect the actual uploaded file's path.
+     * @param syncedFolder containing the file
+     * @param file contained in the syncedFolder
+     * @return the remote path based on the current syncedFolder folder settings
+     */
     fun getAutoUploadRemotePath(syncedFolder: SyncedFolder, file: File): String {
         val resources = context.resources
         val isLightVersion = resources.getBoolean(R.bool.syncedFolder_light)
@@ -46,7 +56,7 @@ class SyncFolderHelper(private val context: Context) {
             subFolderRule = syncedFolder.subfolderRule
         }
 
-        val result = FileStorageUtils.getInstantUploadFilePath(
+        var result = FileStorageUtils.getInstantUploadFilePath(
             file,
             resources.configuration.locales[0],
             remoteFolder,
@@ -55,6 +65,9 @@ class SyncFolderHelper(private val context: Context) {
             useSubfolders,
             subFolderRule
         )
+
+        val capability = CapabilityUtils.getCapability(context)
+        result = AutoRename.rename(result, capability)
 
         Log_OC.d(TAG, "auto upload remote path: $result")
 

@@ -8,185 +8,202 @@
 package com.nextcloud.client.jobs.gallery
 
 import android.graphics.Bitmap
+import android.graphics.Point
+import android.media.ThumbnailUtils
+import android.os.Build
+import android.provider.MediaStore
+import android.util.Size
+import android.view.WindowManager
 import android.widget.ImageView
-import androidx.core.content.ContextCompat
 import com.nextcloud.client.account.User
-import com.nextcloud.utils.allocationKilobyte
+import com.nextcloud.utils.extensions.getBigThumbnail
+import com.nextcloud.utils.extensions.getBigThumbnailKey
+import com.nextcloud.utils.extensions.getSmallThumbnail
 import com.nextcloud.utils.extensions.isPNG
+import com.nextcloud.utils.extensions.setMediaThumbnail
+import com.nextcloud.utils.extensions.toFile
 import com.owncloud.android.MainApp
-import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.MimeTypeUtil
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withContext
+import java.util.Collections
 import java.util.WeakHashMap
 
+@Suppress("DEPRECATION", "TooGenericExceptionCaught", "ReturnCount")
 class GalleryImageGenerationJob(private val user: User, private val storageManager: FileDataStorageManager) {
+
     companion object {
         private const val TAG = "GalleryImageGenerationJob"
-        private val semaphore = Semaphore(
-            maxOf(
-                3,
-                Runtime.getRuntime().availableProcessors() / 2
-            )
-        )
-        private val activeJobs = WeakHashMap<ImageView, Job>()
+        private val semaphore = Semaphore(maxOf(3, Runtime.getRuntime().availableProcessors() / 2))
+        private val activeJobs = Collections.synchronizedMap(WeakHashMap<ImageView, Job>())
 
         fun cancelAllActiveJobs() {
-            val entries = activeJobs.entries.toList()
-            for ((_, job) in entries) {
+            val jobsToCancel = synchronized(activeJobs) {
+                val list = activeJobs.values.toList()
+                activeJobs.clear()
+                list
+            }
+            for (job in jobsToCancel) {
                 job.cancel()
             }
-            activeJobs.clear()
         }
 
-        fun removeActiveJob(imageView: ImageView, job: CoroutineScope) {
-            if (isActiveJob(imageView, job)) {
-                removeJob(imageView)
+        fun removeActiveJob(imageView: ImageView, job: Job) {
+            synchronized(activeJobs) {
+                if (isActiveJob(imageView, job)) {
+                    removeJob(imageView)
+                }
             }
         }
 
-        fun isActiveJob(imageView: ImageView, job: CoroutineScope): Boolean = activeJobs[imageView] === job
+        fun isActiveJob(imageView: ImageView, job: Job): Boolean = synchronized(activeJobs) {
+            activeJobs[imageView] === job
+        }
 
         fun storeJob(job: Job, imageView: ImageView) {
-            activeJobs[imageView] = job
+            synchronized(activeJobs) {
+                activeJobs[imageView] = job
+            }
         }
 
         fun cancelPreviousJob(imageView: ImageView) {
-            activeJobs[imageView]?.cancel()
-            removeJob(imageView)
+            synchronized(activeJobs) {
+                activeJobs[imageView]?.cancel()
+                activeJobs.remove(imageView)
+            }
         }
 
         fun removeJob(imageView: ImageView) {
-            activeJobs.remove(imageView)
+            synchronized(activeJobs) {
+                activeJobs.remove(imageView)
+            }
         }
     }
 
-    @Suppress("TooGenericExceptionCaught")
     suspend fun run(file: OCFile, imageView: ImageView, listener: GalleryImageGenerationListener) {
         try {
-            var newImage = false
-
             if (file.remoteId == null && !file.isPreviewAvailable) {
                 Log_OC.e(TAG, "file has no remoteId and no preview")
-                withContext(Dispatchers.Main) {
-                    listener.onError()
-                }
+                withContext(Dispatchers.Main) { listener.onError() }
                 return
             }
 
-            val bitmap: Bitmap? = getBitmap(file, onThumbnailGeneration = {
-                newImage = true
-            })
+            val bitmap: Bitmap? = getBitmap(file)
 
             if (bitmap == null) {
-                withContext(Dispatchers.Main) {
-                    listener.onError()
-                }
+                withContext(Dispatchers.Main) { listener.onError() }
                 return
             }
 
-            setThumbnail(bitmap, file, imageView, newImage, listener)
-        } catch (e: Exception) {
-            Log_OC.e(TAG, "gallery image generation job: ", e)
-            withContext(Dispatchers.Main) {
-                listener.onError()
-            }
+            setThumbnail(bitmap, file, imageView, listener)
+        } catch (_: Exception) {
+            withContext(Dispatchers.Main) { listener.onError() }
         }
     }
 
-    private suspend fun getBitmap(file: OCFile, onThumbnailGeneration: () -> Unit): Bitmap? =
-        withContext(Dispatchers.IO) {
-            val key = file.remoteId
-            val cachedThumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId
-            )
-            if (cachedThumbnail != null && !file.isUpdateThumbnailNeeded) {
-                Log_OC.d(TAG, "cached thumbnail is used for: ${file.fileName}")
-                return@withContext getThumbnailFromCache(file, cachedThumbnail, key)
-            }
+    private suspend fun getBitmap(file: OCFile): Bitmap? = withContext(Dispatchers.IO) {
+        val cached = file.getBigThumbnail()
+        if (cached != null && !file.isUpdateThumbnailNeeded) {
+            return@withContext cached
+        }
 
-            Log_OC.d(TAG, "generating new thumbnail for: ${file.fileName}")
-
-            onThumbnailGeneration()
-            semaphore.withPermit {
-                return@withContext getThumbnailFromServerAndAddToCache(file, cachedThumbnail)
+        if (file.isDown) {
+            val local = decodeLocalThumbnail(file)
+            if (local != null) {
+                ThumbnailsCacheManager.addBitmapToCache(file.getBigThumbnailKey(), local)
+                return@withContext local
             }
         }
+
+        val remote = semaphore.withPermit { fetchFromServer(file) }
+        if (remote != null) {
+            return@withContext remote
+        }
+
+        file.getSmallThumbnail()?.let { small ->
+            return@withContext small
+        }
+
+        null
+    }
+
+    private fun decodeLocalThumbnail(file: OCFile): Bitmap? = if (MimeTypeUtil.isVideo(file)) {
+        createVideoThumbnail(file.storagePath)
+    } else {
+        createImageThumbnail(file)
+    }
+
+    private fun createImageThumbnail(file: OCFile): Bitmap? {
+        val wm = MainApp.getAppContext().getSystemService(android.content.Context.WINDOW_SERVICE) as WindowManager
+        val p = Point()
+        wm.defaultDisplay.getSize(p)
+
+        val pxW = p.x
+        val pxH = p.y
+
+        val cacheKey = file.getBigThumbnailKey()
+
+        var bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.storagePath, pxW, pxH) ?: return null
+
+        if (file.isPNG()) {
+            bitmap = ThumbnailsCacheManager.handlePNG(bitmap, pxW, pxH)
+        }
+
+        val thumbnail = ThumbnailsCacheManager.addThumbnailToCache(cacheKey, bitmap, file.storagePath, pxW, pxH)
+        file.isUpdateThumbnailNeeded = false
+
+        return thumbnail
+    }
+
+    private fun createVideoThumbnail(storagePath: String): Bitmap? {
+        val ioFile = storagePath.toFile() ?: return null
+        val size = ThumbnailsCacheManager.getThumbnailDimension()
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            try {
+                ThumbnailUtils.createVideoThumbnail(ioFile, Size(size, size), null)
+            } catch (e: Exception) {
+                Log_OC.e(TAG, "Failed to create video thumbnail from local file: ${e.message}")
+                null
+            }
+        } else {
+            @Suppress("DEPRECATION")
+            ThumbnailUtils.createVideoThumbnail(storagePath, MediaStore.Images.Thumbnails.MINI_KIND)
+        }
+    }
+
+    private suspend fun fetchFromServer(file: OCFile): Bitmap? = try {
+        val client = withContext(Dispatchers.IO) {
+            OwnCloudClientManagerFactory.getDefaultSingleton()
+                .getClientFor(user.toOwnCloudAccount(), MainApp.getAppContext())
+        }
+        ThumbnailsCacheManager.setClient(client)
+        ThumbnailsCacheManager.doResizedImageInBackground(file, storageManager)
+    } catch (t: Throwable) {
+        Log_OC.e(TAG, "Server fetch failed for $file", t)
+        null
+    }
 
     private suspend fun setThumbnail(
         bitmap: Bitmap,
         file: OCFile,
         imageView: ImageView,
-        newImage: Boolean,
         listener: GalleryImageGenerationListener
     ) = withContext(Dispatchers.Main) {
         val tagId = file.fileId.toString()
 
-        if (imageView.tag.toString() == tagId) {
-            if (file.isPNG()) {
-                imageView.setBackgroundColor(
-                    ContextCompat.getColor(
-                        MainApp.getAppContext(),
-                        R.color.bg_default
-                    )
-                )
-            }
-
-            if (newImage) {
-                listener.onNewGalleryImage()
-            }
-
-            if (imageView.isAttachedToWindow) {
-                imageView.setImageBitmap(bitmap)
-                imageView.invalidate()
-            }
+        if (imageView.tag.toString() == tagId && imageView.isAttachedToWindow) {
+            imageView.setMediaThumbnail(file, bitmap)
         }
 
         listener.onSuccess()
-    }
-
-    private fun getThumbnailFromCache(file: OCFile, thumbnail: Bitmap, key: String): Bitmap {
-        var result = thumbnail
-        if (MimeTypeUtil.isVideo(file)) {
-            result = ThumbnailsCacheManager.addVideoOverlay(thumbnail, MainApp.getAppContext())
-        }
-
-        if (thumbnail.allocationKilobyte() > ThumbnailsCacheManager.THUMBNAIL_SIZE_IN_KB) {
-            result = ThumbnailsCacheManager.getScaledThumbnailAfterSave(result, key)
-        }
-
-        return result
-    }
-
-    @Suppress("DEPRECATION", "TooGenericExceptionCaught")
-    private suspend fun getThumbnailFromServerAndAddToCache(file: OCFile, thumbnail: Bitmap?): Bitmap? {
-        var thumbnail = thumbnail
-        try {
-            val client = withContext(Dispatchers.IO) {
-                OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(
-                    user.toOwnCloudAccount(),
-                    MainApp.getAppContext()
-                )
-            }
-            ThumbnailsCacheManager.setClient(client)
-            thumbnail = ThumbnailsCacheManager.doResizedImageInBackground(file, storageManager)
-
-            if (MimeTypeUtil.isVideo(file) && thumbnail != null) {
-                thumbnail = ThumbnailsCacheManager.addVideoOverlay(thumbnail, MainApp.getAppContext())
-            }
-        } catch (t: Throwable) {
-            Log_OC.e(TAG, "Generation of gallery image for $file failed", t)
-        }
-
-        return thumbnail
     }
 }

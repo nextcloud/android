@@ -7,14 +7,24 @@
 
 package com.nextcloud.utils.e2ee
 
+import android.content.Context
 import com.google.gson.reflect.TypeToken
 import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFolderMetadataFileV1
 import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedFolderMetadataFile
 import com.owncloud.android.lib.resources.status.E2EVersion
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.utils.EncryptionUtils
+import com.owncloud.android.utils.theme.CapabilityUtils
 
 object E2EVersionHelper {
+
+    /**
+     * Returns true if the given E2EE version is v2 or newer.
+     */
+    fun isV2Plus(context: Context): Boolean {
+        val capability = CapabilityUtils.getCapability(context)
+        return isV2Plus(capability)
+    }
 
     /**
      * Returns true if the given E2EE version is v2 or newer.
@@ -24,7 +34,7 @@ object E2EVersionHelper {
     /**
      * Returns true if the given E2EE version is v2 or newer.
      */
-    fun isV2Plus(version: E2EVersion): Boolean = version == E2EVersion.V2_0 || version == E2EVersion.V2_1
+    fun isV2Plus(version: E2EVersion): Boolean = (version == E2EVersion.V2_0 || version == E2EVersion.V2_1)
 
     /**
      * Returns true if the given E2EE version is v1.x.
@@ -37,55 +47,36 @@ object E2EVersionHelper {
     fun isV1(version: E2EVersion): Boolean =
         version == E2EVersion.V1_0 || version == E2EVersion.V1_1 || version == E2EVersion.V1_2
 
-    /**
-     * Returns the latest supported E2EE version.
-     *
-     * @param isV2 indicates whether the E2EE v2 series should be used
-     */
-    fun latestVersion(isV2: Boolean): E2EVersion = if (isV2) {
-        E2EVersion.V2_1
-    } else {
-        E2EVersion.V1_2
+    fun getMaxCompatibleE2EEVersion(serverE2EEVersion: E2EVersion): E2EVersion {
+        if (serverE2EEVersion == E2EVersion.UNKNOWN && serverE2EEVersion.unknownValue.isNullOrEmpty()) {
+            return E2EVersion.UNKNOWN
+        }
+
+        E2EVersion.entries.forEach {
+            it.unknownValue = null
+        }
+
+        val clientMax = E2EVersion.max()
+        return minOf(serverE2EEVersion, clientMax)
     }
 
-    /**
-     * Maps a raw version string to an [E2EVersion].
-     *
-     * @param version version string
-     * @return resolved [E2EVersion] or [E2EVersion.UNKNOWN] if unsupported
-     */
-    fun fromVersionString(version: String?): E2EVersion = when (version?.trim()) {
-        "1.0" -> E2EVersion.V1_0
-        "1.1" -> E2EVersion.V1_1
-        "1.2" -> E2EVersion.V1_2
-        "2", "2.0" -> E2EVersion.V2_0
-        "2.1" -> E2EVersion.V2_1
-        else -> E2EVersion.UNKNOWN
-    }
-
-    /**
-     * Determines the E2EE version by inspecting encrypted folder metadata.
-     *
-     * Supports both V1 and V2 metadata formats and falls back safely
-     * to [E2EVersion.UNKNOWN] if parsing fails.
-     */
     fun fromMetadata(metadata: String): E2EVersion = runCatching {
-        val v1 = EncryptionUtils.deserializeJSON<EncryptedFolderMetadataFileV1>(
+        val v1 = EncryptionUtils.deserializeJSON(
             metadata,
             object : TypeToken<EncryptedFolderMetadataFileV1>() {}
         )
 
-        fromVersionString(v1?.metadata?.version.toString()).also {
+        E2EVersion.fromValue(v1?.metadata?.version.toString()).also {
             if (it == E2EVersion.UNKNOWN) {
                 throw IllegalStateException("Unknown V1 version")
             }
         }
     }.recoverCatching {
-        val v2 = EncryptionUtils.deserializeJSON<EncryptedFolderMetadataFile>(
+        val v2 = EncryptionUtils.deserializeJSON(
             metadata,
             object : TypeToken<EncryptedFolderMetadataFile>() {}
         )
 
-        fromVersionString(v2.version)
+        E2EVersion.fromValue(v2.version)
     }.getOrDefault(E2EVersion.UNKNOWN)
 }

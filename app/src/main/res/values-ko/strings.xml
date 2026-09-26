@@ -30,7 +30,11 @@
     <string name="activity_icon">활동</string>
     <string name="add_new_public_share">새 공개된 공유 링크</string>
     <string name="add_new_secure_file_drop">안전한 파일 공유를 새로 추가</string>
-    <string name="add_to_cloud">%1$s(으)로 추가</string>
+    <string name="add_to_album">앨범에 추가</string>
+    <string name="album_delete">앨범 삭제</string>
+    <string name="album_rename_conflict">이 이름은 이미 사용 중입니다.</string>
+    <string name="album_share">앨범 공유</string>
+    <string name="album_stop_sharing">공유 중지</string>
     <string name="app_config_base_url_title">기본 URL</string>
     <string name="app_config_disable_clipboard_title">클립보드 비활성화</string>
     <string name="app_config_disable_intro_title">소개 비활성화</string>
@@ -49,6 +53,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">결과 삭제</string>
     <string name="assistant_screen_empty_content_description">대화를 시작하기 위해 메시지를 보내보세요.</string>
     <string name="assistant_screen_empty_content_title">안녕하세요! 오늘은 무엇을 도와드릴까요?</string>
+    <string name="assistant_screen_retry_response_generation">응답 생성 재시도</string>
     <string name="assistant_screen_task_create_fail_message">작업을 생성하는 중에 오류가 발생했습니다.</string>
     <string name="assistant_screen_task_create_success_message">작업이 생성됨</string>
     <string name="assistant_screen_task_delete_fail_message">작업을 삭제하는 중에 오류가 발생했습니다.</string>
@@ -82,7 +87,6 @@
     <string name="auth_ssl_unverified_server_title">SSL 서버의 인증서를 검증할 수 없음</string>
     <string name="auth_testing_connection">연결 테스트 중</string>
     <string name="auth_timeout_title">서버 응답 시간이 초과됨</string>
-    <string name="auth_trying_to_login">로그인 시도 중…</string>
     <string name="auth_unauthorized">잘못된 사용자 이름 및 암호</string>
     <string name="auth_unknown_error_exception_title">알 수 없는 오류: %1$s</string>
     <string name="auth_unknown_error_http_title">알 수 없는 HTTP오류가 발생했습니다!</string>
@@ -214,15 +218,18 @@
     <string name="could_not_retrieve_shares">공유를 가져올 수 없습니다.</string>
     <string name="could_not_retrieve_url">주소를 불러올 수 없습니다.</string>
     <string name="create">생성</string>
+    <string name="create_album_dialog_title">새 앨범</string>
     <string name="create_dir_fail_msg">폴더를 만들 수 없음</string>
+    <string name="create_document">문서</string>
+    <string name="create_folder">폴더</string>
     <string name="create_link">링크 만들기</string>
     <string name="create_new">새 파일</string>
     <string name="create_new_document">새 문서</string>
-    <string name="create_new_folder">새 폴더</string>
     <string name="create_new_presentation">새 프레젠테이션</string>
     <string name="create_new_spreadsheet">새 스프레드시트</string>
+    <string name="create_presentation">프레젠테이션</string>
     <string name="create_rich_workspace">폴더 설명 추가</string>
-    <string name="creates_rich_workspace">폴더 설명 추가</string>
+    <string name="create_spreadsheet">스프레드시트</string>
     <string name="credentials_disabled">인증 비활성화됨</string>
     <string name="daily_backup">매일 백업</string>
     <string name="data_to_back_up">백업 할 날짜</string>
@@ -272,16 +279,15 @@
     <string name="drawer_community">커뮤니티</string>
     <string name="drawer_header_background">배경 그림 및 서랍 헤더</string>
     <string name="drawer_item_activities">활동</string>
+    <string name="drawer_item_album">앨범</string>
     <string name="drawer_item_all_files">모든 파일</string>
     <string name="drawer_item_assistant">어시스턴트</string>
     <string name="drawer_item_favorites">즐겨찾기</string>
     <string name="drawer_item_gallery">미디어</string>
-    <string name="drawer_item_groupfolders">그룹 폴더</string>
     <string name="drawer_item_home">홈</string>
     <string name="drawer_item_notifications">알림</string>
     <string name="drawer_item_on_device">장치</string>
     <string name="drawer_item_personal_files">개인 파일</string>
-    <string name="drawer_item_recently_modified">최근 수정됨</string>
     <string name="drawer_item_shared">공유됨</string>
     <string name="drawer_item_trashbin">삭제된 파일</string>
     <string name="drawer_item_uploads_list">업로드</string>
@@ -290,7 +296,6 @@
     <string name="drawer_quota">%2$s 중 %1$s 사용됨</string>
     <string name="drawer_quota_unlimited">%1$s 사용됨</string>
     <string name="drawer_synced_folders">자동 업로드</string>
-    <string name="due_to_too_many_wrong_attempts">너무 많은 잘못된 시도로 인해 %s</string>
     <string name="e2e_counter_too_old">카운터가 너무 오래되었습니다</string>
     <string name="e2e_hash_not_found">해시를 찾을 수 없습니다</string>
     <string name="e2e_not_yet_setup">E2E가 아직 설정되지 않음</string>
@@ -363,6 +368,7 @@
     <string name="external_shares">외부 공유</string>
     <string name="fab_label">추가 또는 업로드</string>
     <string name="failed_to_download">다운로드 관리자에게 파일을 전달할 수 없음</string>
+    <string name="failed_to_load_tags">태그 불러오기 실패</string>
     <string name="failed_to_print">파일을 출력할 수 없음</string>
     <string name="failed_to_start_editor">에디터 실행 실패</string>
     <string name="failed_update_ui">UI 업데이트 실패</string>
@@ -387,7 +393,8 @@
     <string name="file_list_empty_local_search">검색 결과가 없습니다</string>
     <string name="file_list_empty_moving">항목이 없습니다. 폴더를 추가할 수 있습니다.</string>
     <string name="file_list_empty_on_device">다운로드 받은 파일과 폴더가 여기 나타날 것입니다.</string>
-    <string name="file_list_empty_recently_modified">검색 결과 지난 7일간 수정한 파일 없음</string>
+    <string name="file_list_empty_recent_files_description">최근에 수정한 파일과 폴더가 이곳에 표시됩니다.</string>
+    <string name="file_list_empty_recent_files_headline">최근에 수정된 파일 없음</string>
     <string name="file_list_empty_search">다른 폴더에 있을 수도 있습니다.</string>
     <string name="file_list_empty_shared">당신이 공유한 파일과 폴더가 여기 나타날 것입니다.</string>
     <string name="file_list_empty_shared_headline">공유된 항목 없음</string>
@@ -469,6 +476,8 @@
     <string name="foreign_files_remote_text">원격: %1$s</string>
     <string name="forward">앞으로</string>
     <string name="fourHours">4 시간</string>
+    <string name="governance_file_retention_label">파일 보존 기한</string>
+    <string name="governance_no_label">없음</string>
     <string name="gplay_restriction">Google이 APK/AAB 파일 다운로드를 제한했습니다!</string>
     <string name="grid_file_features_live_photo_content_description">이 아이콘은 라이브 포토 사용 가능 여부를 표시합니다</string>
     <string name="hidden_file_name_warning">이 이름은 파일을 숨김처리 할 것입니다.</string>
@@ -534,17 +543,7 @@
     <string name="manage_space_clear_data">데이터 지우기</string>
     <string name="manage_space_description">%1$s의 데이터에서 설정, 데이터베이스, 서버 인증서를 삭제합니다.\n\n다운로드한 파일은 변경되지 않습니다.\n\n이 작업은 시간이 걸릴 수 있습니다.</string>
     <string name="manage_space_title">저장 공간 관리</string>
-    <string name="media_err_invalid_progressive_playback">미디어 파일을 스트리밍 할 수 없습니다.</string>
-    <string name="media_err_io">미디어 파일을 읽을 수 없음</string>
-    <string name="media_err_malformed">미디어 파일의 인코딩이 잘못됨</string>
-    <string name="media_err_timeout">재생 시도 중 시간이 초과됨</string>
-    <string name="media_err_unknown">내장 미디어 재생기로 파일을 재생할 수 없음</string>
-    <string name="media_err_unsupported">지원하지 않는 미디어 코덱</string>
-    <string name="media_forward_description">빨리감기 단추</string>
-    <string name="media_notif_ticker">%1$s 음악 재생기</string>
-    <string name="media_play_pause_description">재생 혹은 일시 정지 단추</string>
-    <string name="media_rewind_description">되감기 단추</string>
-    <string name="media_state_playing">%1$s(재생 중)</string>
+    <string name="manage_tags">태그 관리하기</string>
     <string name="menu_item_sort_by_date_newest_first">최신 항목 먼저</string>
     <string name="menu_item_sort_by_date_oldest_first">오래된 항목 먼저</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -623,8 +622,7 @@
     <string name="pick_contact_to_share_with">공유할 연락처를 선택</string>
     <string name="picture_set_as_no_app">사진을 설정할 앱을 찾을 수 없음</string>
     <string name="pin_shortcut_label">%1$s 열기</string>
-    <string name="player_stop">멈추기</string>
-    <string name="player_toggle">토글</string>
+    <string name="player_media_controls_close_action_title">닫기</string>
     <string name="please_select_a_server">서버를 선택해 주세요...</string>
     <string name="power_save_check_dialog_message">에너지 절약을 비활성화하면 배터리 부족 상태에서 파일을 업로드 할 수 있습니다!</string>
     <string name="pref_behaviour_entries_delete_file">삭제됨</string>
@@ -714,6 +712,7 @@
     <string name="reload">새로 고침</string>
     <string name="remote">(원격)</string>
     <string name="remote_file_fetch_failed">파일을 찾을 수 없음</string>
+    <string name="remove">삭제</string>
     <string name="remove_e2e">당신은 이 고객에 대하여 종단간 암호화를 일부 제거할 수 있습니다.</string>
     <string name="remove_e2e_message">당신은 이 고객에 대하여 종단간 암호화를 일부 제거할 수 있습니다. 암호화된 파일들은 서버에 남아있을 것이지만, 더이상 이 컴퓨터에 동기화 되지 않을 것입니다.</string>
     <string name="remove_fail_msg">삭제할 수 없음</string>
@@ -722,6 +721,7 @@
     <string name="remove_notification_failed">알림을 지우는데 실패했습니다.</string>
     <string name="remove_push_notification">삭제</string>
     <string name="remove_success_msg">삭제함</string>
+    <string name="rename_dialog_button">이름 바꾸기</string>
     <string name="rename_dialog_title">새 이름 입력</string>
     <string name="rename_local_fail_msg">로컬 파일의 이름을 변경할 수 없습니다. 다른 이름을 입력하십시오</string>
     <string name="rename_server_fail_msg">이름을 변경할 수 없음. 이름이 이미 사용중입니다.</string>
@@ -751,6 +751,7 @@
     <string name="screenshot_05_autoUpload_subline">사진과 동영상을 위해</string>
     <string name="screenshot_06_davdroid_heading">캘린더와 연락처</string>
     <string name="search_error">검색 결과 조회 오류</string>
+    <string name="search_tags">태그 검색</string>
     <string name="secure_share_not_set_up">이 사용자에 대해 보안 공유가 설정되지 않았습니다</string>
     <string name="secure_share_search">보안 공유...</string>
     <string name="select_all">모두 선택</string>
@@ -758,7 +759,6 @@
     <string name="select_one_template">하나의 템플릿을 선택하세요.</string>
     <string name="select_template">템플릿 선택</string>
     <string name="send">보내기</string>
-    <string name="sendbutton_description">보내기 버튼 아이콘</string>
     <string name="set_as">다음으로 설정</string>
     <string name="set_picture_as">다음으로 사진 사용</string>
     <string name="setup_e2e">종단간 암호화를 설정하는 동안, 당신은 다른 장치들에서 당신의 파일들을 열어야 할 무작위의 12 단어 니모닉을 수신할 것입니다. 이것은 당신의 장치에만 저장 될 것이고, 이 스크린에서 다시 보여질 수 있습니다. 이를 안전한 위치에 적어두세요!</string>
@@ -790,7 +790,6 @@
     <string name="share_not_allowed_when_file_drop">업로드 전용 보안 공유는 재공유가 허용되지 않습니다</string>
     <string name="share_permission_can_edit">편집 허용</string>
     <string name="share_permission_file_request">파일 요청</string>
-    <string name="share_permission_secure_file_drop">안전한 파일 공유</string>
     <string name="share_permission_view_only">읽기 전용</string>
     <string name="share_re_share_permission">공유하기</string>
     <string name="share_read_permission">읽기</string>
@@ -863,7 +862,6 @@
     <string name="store_short_dev_desc">컨트롤 가능한 자체 호스팅 생산성 플랫폼 (디바이스 미리 보기 버전)</string>
     <string name="stream">다음과 스트리밍</string>
     <string name="stream_not_possible_headline">내부 스트리밍 불가능</string>
-    <string name="stream_not_possible_message">대신 미디어를 다운로드하거나 외부 앱을 사용하십시오.</string>
     <string name="sub_folder_rule_day">연/월/일</string>
     <string name="sub_folder_rule_month">연/월</string>
     <string name="sub_folder_rule_year">년</string>
@@ -910,7 +908,6 @@
     <string name="thumbnail_for_new_file_desc">새로운 파일의 썸네일</string>
     <string name="timeout_richDocuments">불러오는 시간이 예상보다 길어지고 있습니다</string>
     <string name="today">오늘</string>
-    <string name="trashbin_activity_title">삭제된 파일</string>
     <string name="trashbin_empty_headline">삭제된 파일 없음</string>
     <string name="trashbin_empty_message">여기서 삭제했던 파일들을 복구할 수 있습니다.</string>
     <string name="trashbin_file_not_deleted">%1$s 파일을 삭제할 수 없습니다!</string>
@@ -978,7 +975,6 @@
     <string name="upload_query_move_foreign_files">공간이 부족해서 선택한 파일을 %1$s 폴더로 복사할 수 없습니다. 대신 이동하시겠습니까?</string>
     <string name="upload_quota_exceeded">저장소 할당량 초과됨</string>
     <string name="upload_scan_doc_upload">카메라로부터 문서 스캔</string>
-    <string name="upload_sync_conflict">동기화 충돌, 수동으로 해결해주세요.</string>
     <string name="upload_unknown_error">알 수 없는 오류</string>
     <string name="uploader_btn_alternative_text">선택</string>
     <string name="uploader_btn_upload_text">업로드</string>
@@ -1010,9 +1006,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">설정</string>
     <string name="uploader_wrn_no_account_text">이 장치에 %1$s 계정이 없습니다. 먼저 계정을 설정하십시오.</string>
     <string name="uploader_wrn_no_account_title">계정 없음</string>
+    <string name="uploads_view_group_completed_uploads">완료됨</string>
     <string name="uploads_view_group_current_uploads">현재</string>
     <string name="uploads_view_group_failed_uploads">다시 시작 실패/대기 중</string>
-    <string name="uploads_view_group_finished_uploads">업로드됨</string>
     <string name="uploads_view_group_manually_cancelled_uploads">취소됨</string>
     <string name="uploads_view_later_waiting_to_upload">업로드 대기 중</string>
     <string name="uploads_view_title">업로드</string>
@@ -1025,7 +1021,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">로컬 파일을 찾을 수 없음</string>
     <string name="uploads_view_upload_status_failed_permission_error">권한 오류</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">신뢰할 수 없는 서버 인증서</string>
-    <string name="uploads_view_upload_status_fetching_server_version">서버 버전 가져오는중...</string>
     <string name="uploads_view_upload_status_service_interrupted">앱 종료됨</string>
     <string name="uploads_view_upload_status_succeeded">완료됨</string>
     <string name="uploads_view_upload_status_succeeded_same_file">원격에서 동일한 파일이 발견되어 업로드를 건너뛰는 중</string>
@@ -1037,7 +1032,9 @@
     <string name="user_icon">사용자</string>
     <string name="user_info_address">주소</string>
     <string name="user_info_email">이메일</string>
+    <string name="user_info_groups">그룹</string>
     <string name="user_info_phone">전화번호</string>
+    <string name="user_info_profile">프로필</string>
     <string name="user_info_twitter">트위터</string>
     <string name="user_info_website">웹사이트</string>
     <string name="user_information_retrieval_error">사용자 정보를 불러오는 중 오류 발생</string>
@@ -1108,19 +1105,7 @@
     <plurals name="items_selected_count">
         <item quantity="other">%d개 선택됨</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="other">너무 많은 잘못된 시도로 %d초 지연</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="other">너무 많은 잘못된 시도로 %d분 지연</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="other">%d분 지연됨</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="other">%d초</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="other">%1$d 다운로드가 남았습니다</item>
     </plurals>
-</resources>
+    </resources>

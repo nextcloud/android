@@ -78,6 +78,7 @@ abstract class LocalConnection<S : Service>(protected val context: Context) : Se
         if (binder !is LocalBinder<*>) {
             throw IllegalStateException("Binder is not extending ${LocalBinder::class.java.name}")
         }
+        @Suppress("UNCHECKED_CAST") // Safe: type S guaranteed by service binding contract
         serviceBinder = binder as LocalBinder<S>
         onBound(binder)
     }

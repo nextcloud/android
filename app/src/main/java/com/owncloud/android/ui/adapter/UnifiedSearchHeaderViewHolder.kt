@@ -21,6 +21,6 @@ class UnifiedSearchHeaderViewHolder(
 
     fun bind(section: UnifiedSearchSection) {
         binding.title.text = section.name
-        viewThemeUtils.platform.colorPrimaryTextViewElement(binding.title)
+        viewThemeUtils.platform.colorTextView(binding.title)
     }
 }

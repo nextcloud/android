@@ -30,7 +30,9 @@
     <string name="activity_icon">ກິດຈະກໍາ</string>
     <string name="add_new_public_share">ເພິ່ມການແບ່ງປັນສາທາລະນະໃໝ່</string>
     <string name="add_new_secure_file_drop">ຕື່ມການວາງໄຟລ໌ທີ່ປອດໄພໃໝ່</string>
-    <string name="add_to_cloud">ເພີ່ມໃສ່ %1$s</string>
+    <string name="add_to_album">ເພີ່ມໃສ່ອະລະບໍ້າ</string>
+    <string name="album_rename_conflict">This name is already in use.</string>
+    <string name="album_share">ແບ່ງປັນອາລະບ້ຳ</string>
     <string name="app_config_base_url_title">Base URL</string>
     <string name="app_config_disable_clipboard_title">Disable Clipboard</string>
     <string name="app_config_disable_intro_title">Disable Intro</string>
@@ -49,6 +51,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Delete task</string>
     <string name="assistant_screen_empty_content_description">ລອງສົ່ງຂໍ້ຄວາມເພື່ອເລີ່ມການສົນທະນາ.</string>
     <string name="assistant_screen_empty_content_title">ສະບາຍດີ! ມີຫຍັງໃຫ້ຂ້ອຍຊ່ວຍມື້ນີ້ບໍ່?</string>
+    <string name="assistant_screen_retry_response_generation">ລອງສ້າງການຕອບກັບໃໝ່</string>
     <string name="assistant_screen_send_message">Send message</string>
     <string name="assistant_screen_task_create_fail_message">An error occurred while creating the task</string>
     <string name="assistant_screen_task_create_success_message">Task created</string>
@@ -84,7 +87,6 @@
     <string name="auth_ssl_unverified_server_title">ບໍ່ສາມາດຢັ້ງຢືນເຊີເວີ SSL ໄດ້</string>
     <string name="auth_testing_connection">ທົດລອງການເຊື່ອມຕໍ່</string>
     <string name="auth_timeout_title">ເຊີເວີໃຊ້ເວລາຕອບສະຫນອງດົນເກີນໄປ</string>
-    <string name="auth_trying_to_login">ພະຍາຍາມເຂົ້າສູ່ລະບົບ...</string>
     <string name="auth_unauthorized">ຊື່ຜູ້ໃຊ້ ຫຼື ລະຫັດຜ່ານຜິດ</string>
     <string name="auth_unknown_error_exception_title">ບໍ່ຮູ້ຈັກຂໍ້ຜິດພາດ:%1$s</string>
     <string name="auth_unknown_error_http_title">ເກີດຄວາມຜິດພາດ HTTP !</string>
@@ -98,7 +100,6 @@
     <string name="authenticator_activity_login_error">There was an issue processing your login request. Please try again later.</string>
     <string name="authenticator_activity_no_web_browser_found">No browser is available to open this link.</string>
     <string name="authenticator_activity_please_complete_login_process">Please complete login process in your browser</string>
-    <string name="auto_upload_battery_saver_mode_warning">Auto-upload is paused because Battery Saver is on.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ເກັບໄວ້ໃນໂຟນເດີດັ້ງເດີມ, ເປັນຮຸບແບບອ່ານຢ່າງດຽວ</string>
     <string name="auto_upload_low_battery_warning_info">Low battery, upload might take longer</string>
     <string name="auto_upload_on_wifi">ພຽງແຕ່ອັບໂຫຼດໃນ Wi-Fi ເທົ່ານັ້ນ</string>
@@ -225,15 +226,18 @@
     <string name="could_not_retrieve_shares">ບໍ່ສາມາດເອົາການແບ່ງປັນຄືນໄດ້</string>
     <string name="could_not_retrieve_url">ບໍ່ສາມາດເກັບURL ໄດ້</string>
     <string name="create">ສ້າງ</string>
+    <string name="create_album_dialog_title">ອະລະບໍ້າໃໝ່</string>
     <string name="create_dir_fail_msg">ບໍ່ສາມາດສ້າງໂຟນເດີໄດ້</string>
+    <string name="create_document">ເອກະສານ</string>
+    <string name="create_folder">Folder</string>
     <string name="create_link">Create link</string>
     <string name="create_new">New</string>
     <string name="create_new_document">New document</string>
-    <string name="create_new_folder">ໂຟນເດີໃຫມ່</string>
     <string name="create_new_presentation">New presentation</string>
     <string name="create_new_spreadsheet">New spreadsheet</string>
+    <string name="create_presentation">ການນຳສະເໜີ</string>
     <string name="create_rich_workspace">Add folder description</string>
-    <string name="creates_rich_workspace">Adds folder description</string>
+    <string name="create_spreadsheet">ສະເປຣດຊີດ</string>
     <string name="credentials_disabled">ຂໍ້ມູນປະຈໍາຕົວຖືກປິດ</string>
     <string name="daily_backup">Daily backup</string>
     <string name="data_to_back_up">Data to back up</string>
@@ -290,16 +294,16 @@
     <string name="drawer_community">ຊຸມຊົນ</string>
     <string name="drawer_header_background">ຮູບພາບເບື້ອງຫຼັງຂອງຫົວຂໍ້</string>
     <string name="drawer_item_activities">ບັນດາກິດຈະກຳ</string>
+    <string name="drawer_item_album">ອະລະບໍ້າ</string>
     <string name="drawer_item_all_files">ຟາຍທັງໝົດ</string>
     <string name="drawer_item_assistant">Assistant</string>
     <string name="drawer_item_favorites">ລາຍການທີ່ມັກ</string>
     <string name="drawer_item_gallery">ຊື່ມວນຊົນ</string>
-    <string name="drawer_item_groupfolders">Groupfolders</string>
+    <string name="drawer_item_groupfolders">Team folders</string>
     <string name="drawer_item_home">ໜ້າຫຼັກ</string>
     <string name="drawer_item_notifications">ການເເຈ້ງເຕືອນ</string>
     <string name="drawer_item_on_device">ເທິງອຸປະກອນ</string>
     <string name="drawer_item_personal_files">Personal files</string>
-    <string name="drawer_item_recently_modified">ແປງລ່າສຸດ</string>
     <string name="drawer_item_shared">ແບ່ງປັນ</string>
     <string name="drawer_item_trashbin">ລຶບຟາຍ</string>
     <string name="drawer_item_uploads_list">ອັບໂຫຼດ</string>
@@ -308,7 +312,6 @@
     <string name="drawer_quota">ນຳໃຊ້ %1$sຂອງ%2$s</string>
     <string name="drawer_quota_unlimited">ນຳໃຊ້%1$s</string>
     <string name="drawer_synced_folders">ອັບໂຫຼດອັດຕະໂນມັດ</string>
-    <string name="due_to_too_many_wrong_attempts">%s due to too many wrong attempts</string>
     <string name="e2e_counter_too_old">Counter is too old</string>
     <string name="e2e_hash_not_found">Hash not found</string>
     <string name="e2e_not_yet_setup">E2E not yet setup</string>
@@ -387,6 +390,7 @@
     <string name="external_shares">ການແບ່ງປັນພາຍນອກ</string>
     <string name="fab_label">ເພີ່ມ ຫຼື ອັບໂຫຼດ</string>
     <string name="failed_to_download">ບໍ່ສາມາດຜ່ານຟາຍ ເພື່ອຈັດການດາວໂຫລດ</string>
+    <string name="failed_to_load_tags">ໂຫຼດແທັກບໍ່ສຳເລັດ</string>
     <string name="failed_to_print">ພິມຟາຍບໍ່ສຳເລັດ</string>
     <string name="failed_to_start_editor">ເລີ່ມແກ້ໄຂບໍ່ສຳເລັດ</string>
     <string name="failed_update_ui">ອັບເດດ  UI ບໍ່ສຳເລັດ</string>
@@ -412,7 +416,8 @@
     <string name="file_list_empty_local_search">No file or folder matching your search</string>
     <string name="file_list_empty_moving">ບໍ່ມີຫຍັງໃນນີ້. ທ່ານສາມາດເພີ່ມໂຟນເດີໄດ້.</string>
     <string name="file_list_empty_on_device">ຟາຍແລະ ໂຟນ ເດີທີ່ດາວໂຫຼດ  ຈະສະແດງໃຫ້ເຫັນຢູ່ທີ່ນີ້ .</string>
-    <string name="file_list_empty_recently_modified">ບໍ່ພົບຟາຍດັດແປງພາຍໃນ 7 ວັນລ່າສຸດ</string>
+    <string name="file_list_empty_recent_files_description">Files and folders you recently modified will show up here.</string>
+    <string name="file_list_empty_recent_files_headline">No recently modified files</string>
     <string name="file_list_empty_search">ບາງທີອາດຢູ່ໃນໂຟນເດີທີ່ແຕກຕ່າງກັນ?</string>
     <string name="file_list_empty_shared">ຟາຍ ແລະ ໂຟນເດີ ທີ່ ທ່ານແບ່ງປັນຈະສະແດງ ໃຫ້ເຫັນຢູ່ທີ່ນີ້</string>
     <string name="file_list_empty_shared_headline">ຍັງບໍ່ມີການແບ່ງປັນເທື່ອ</string>
@@ -425,6 +430,7 @@
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">ກຳລັງໂຫຼດ</string>
     <string name="file_list_no_app_for_file_type">ບໍ່ມີແອັບພລິເຄຊັນທີ່ຕັ້ງໄວ້ເພື່ອຈັດການກັບຟາຍປະເພດນີ້.</string>
+    <string name="file_list_out_of_memory_description">Could not load content</string>
     <string name="file_list_seconds_ago">ວິນາທີຜ່ານມາ</string>
     <string name="file_management_permission_optional">Storage permissions</string>
     <string name="file_management_permission_optional_text">%1$s works best with permissions to access storage. You can choose full access to all files, or read-only access to photos and videos.</string>
@@ -505,6 +511,7 @@
     <string name="foreign_files_remote_text">ໄລຍະໄກ:%1$s</string>
     <string name="forward">ໄປຂ້າງຫນ້າ</string>
     <string name="fourHours">4 ຊົ່ວໂມງ</string>
+    <string name="governance_no_label">ບໍ່ມີ</string>
     <string name="gplay_restriction">Google restricted downloading APK/AAB files!</string>
     <string name="grid_file_features_live_photo_content_description">This icon indicates availability of live photo</string>
     <string name="hidden_file_name_warning">Name will result in a hidden file</string>
@@ -571,17 +578,7 @@
     <string name="manage_space_clear_data">ລ້າງຂໍ້ມູນ</string>
     <string name="manage_space_description">ການຕັ້ງຄ່າ, ຖານຂໍ້ມູນ ແລະ ໃບຢັ້ງຢືນເຊີເວີຈາກຂໍ້ມູນ %1$s\'s ຈະຖືກລຶບອອກຢ່າງຖາວອນ. \n\nຟາຍທີ່ຖືກໂຫຼດບໍ່ໄດ້ເກັບຮັກສາໄວ້.\n\nຂະບວນການນີ້ຈະໃຊ້ເວລາໄລຍະຫນຶ່ງ.</string>
     <string name="manage_space_title">ຈັດການພື້ນທີ່</string>
-    <string name="media_err_invalid_progressive_playback">The media file cannot be streamed</string>
-    <string name="media_err_io">ບໍ່ສາມາດອ່ານຟາຍສື່ມວນຊົນໄດ້</string>
-    <string name="media_err_malformed">ຟາຍສື່ມວນຊົນມີ ການ ເຂົ້າລະຫັດບໍ່ຖືກຕ້ອງ</string>
-    <string name="media_err_timeout">ການເຂົ້າຟາຍໝົດເວລາ</string>
-    <string name="media_err_unknown">ແອັບສື່ມວນຊົນບໍ່ ສາມາດຫຼິ້ນໄດ້</string>
-    <string name="media_err_unsupported">ລະຫັດສື່ມວນຊົນທີ່ບໍ່ໄດ້ຮັບການສະຫນັບສະຫນູນ</string>
-    <string name="media_forward_description">ປຸ່ມກົດໄປຂ້າງຫນ້າ</string>
-    <string name="media_notif_ticker">ເຄື່ອງຫຼິ້ນເພງ%1$s</string>
-    <string name="media_play_pause_description">ປຸ່ມ ຫຼິ້ນ ຫຼື ຢຸດ</string>
-    <string name="media_rewind_description">ປຸຸ່ມກັບຄືນ</string>
-    <string name="media_state_playing"> (ຫຼິ້ນ)%1$s</string>
+    <string name="manage_tags">ຈັດການປ້າຍກຳກັບ</string>
     <string name="menu_item_sort_by_date_newest_first">ໃໝ່ທີ່ສຸດກ່ອນ</string>
     <string name="menu_item_sort_by_date_oldest_first">ເກົ່າທີສຸດກ່ອນ</string>
     <string name="menu_item_sort_by_name_a_z">A-Z</string>
@@ -589,6 +586,7 @@
     <string name="menu_item_sort_by_size_biggest_first">ໃຫຍ່ທີ່ສຸດ</string>
     <string name="menu_item_sort_by_size_smallest_first">ນ້ອຍທີ່ສຸດ</string>
     <string name="more">ເພີ່ມເຕີມ</string>
+    <string name="more_documents">ເອກະສານເພີ່ມເຕີມ</string>
     <string name="move_file_error">ມີຂໍ້ຜິດພາດເກີດຂຶ້ນໃນຂະນະທີ່ພະຍາຍາມຍ້າຍຟາຍ ຫຼື ໂຟນເດີນີ້</string>
     <string name="move_file_invalid_into_descendent">ມັນເປັນໄປບໍ່ໄດ້ທີ່ຈະຍ້າຍໂຟນເດີເຂົ້າໄປໃນ ຫນຶ່ງໃນໂຟນເດີພື້ນຖານຂອງມັນເອງ</string>
     <string name="move_file_invalid_overwrite">ຟາຍແມ່ນມີຢູ່ແລ້ວໃນໂຟນເດີຈຸດຫມາຍປາຍທາງ</string>
@@ -674,8 +672,7 @@
     <string name="picture_set_as_no_app">ບໍ່ພົບແອັບພລິເຄຊັນເພື່ອຕັ້ງຮູບດ້ວຍ</string>
     <string name="pin_home">Pin to home screen</string>
     <string name="pin_shortcut_label">ເປີດ %1$s</string>
-    <string name="player_stop">ຢຸດ</string>
-    <string name="player_toggle">ສະລັບ</string>
+    <string name="player_media_controls_close_action_title">ປິດ</string>
     <string name="please_select_a_server">Please select a server…</string>
     <string name="power_save_check_dialog_message">ການກວດກາການປະຢັດພະລັງງານອາດຈະສົ່ງຜົນໃນອັບໂຫຼດຟາຍເມື່ອແບັດເຕີຣີຕ່ໍາ!</string>
     <string name="pref_behaviour_entries_delete_file">ລຶບແລ້ວ</string>
@@ -767,6 +764,7 @@
     <string name="reload">ໂຫຼດຄຶນ</string>
     <string name="remote">(ໄລຍະໄກ)</string>
     <string name="remote_file_fetch_failed">ຊອກຫາຟາຍບໍ່ສຳເລັດ</string>
+    <string name="remove">ລຶບອອກ</string>
     <string name="remove_e2e">You can remove end-to-end encryption locally on this client</string>
     <string name="remove_e2e_message">You can remove end-to-end encryption locally on this client. The encrypted files will remain on server, but will not be synced to this computer any longer.</string>
     <string name="remove_fail_msg">ການລຶບບໍ່ສຳເລັດ</string>
@@ -775,6 +773,7 @@
     <string name="remove_notification_failed">ບໍ່ສາມາດລຶບການແຈ້ງການແຈ້ງເຕືອນໄດ້.</string>
     <string name="remove_push_notification">ຍ້າຍອອກ</string>
     <string name="remove_success_msg">ລືບ</string>
+    <string name="rename_dialog_button">ປ່ຽນຊື່</string>
     <string name="rename_dialog_title">ໃສ່ຊື່ໃໝ່</string>
     <string name="rename_local_fail_msg">ບໍ່ສາມາດປ່ຽນຊື່ສໍາເນົາໃນຊ່ອງເກັບຂໍ້ມູນໄດ້, ລອງໃຊ້ຊື່ອື່ນ</string>
     <string name="rename_server_fail_msg">ປ່ຽນຊື່ບໍ່ໄດ້  ມີຊື່ແລ້ວ</string>
@@ -805,6 +804,7 @@
     <string name="screenshot_06_davdroid_heading">Calendar and contacts</string>
     <string name="screenshot_06_davdroid_subline">Sync with DAVx⁵</string>
     <string name="search_error">Error getting search results</string>
+    <string name="search_tags">ຄົ້ນຫາແທັກ</string>
     <string name="secure_share_not_set_up">Secure sharing is not set up for this user</string>
     <string name="secure_share_search">Secure share…</string>
     <string name="select_all">ເລືອກທັງໝົດ</string>
@@ -813,7 +813,6 @@
     <string name="select_template">ເລືອກຕົວຢ່າງ</string>
     <string name="send">ສົ່ງ</string>
     <string name="send_share">Send share</string>
-    <string name="sendbutton_description">ສົ່ງປຸ່ມ icon</string>
     <string name="server_not_reachable">Could not load content</string>
     <string name="server_not_reachable_content">The device is likely not connected to the internet</string>
     <string name="set_as">ຕັ້ງຄ່າເປັນ</string>
@@ -855,7 +854,6 @@
     <string name="share_option_required">Please select at least one sharing option before continuing.</string>
     <string name="share_permission_can_edit">ແກ້ໄຂໄດ້</string>
     <string name="share_permission_file_request">ຄຳຂໍໄຟລ໌</string>
-    <string name="share_permission_secure_file_drop">Secure file drop</string>
     <string name="share_permission_view_only">ເບິ່ງເທົ່ານັ້ນ</string>
     <string name="share_permissions">Share permissions</string>
     <string name="share_re_share_permission">ແບ່ງປັນ</string>
@@ -931,7 +929,6 @@
     <string name="store_short_dev_desc">ປະສິດພາບການເຮັດວຽກຂອງ ຟາດຟອມ ທີ່ເຮັດໜ້າທີ່ດ້ວຍໂຕມັນເອງ ແລະ ທ່ານຄຸ້ມຄອງໄດ້ (ເວີຊັ້ນຕົວຢ່າງ)</string>
     <string name="stream">ກະຈາຍດ້ວຍ</string>
     <string name="stream_not_possible_headline">ບໍ່ສາມາດກະຈາຍພາຍໃນໄດ້</string>
-    <string name="stream_not_possible_message">ກະລຸນາດາວໂຫລດສື່ມວນຊົນແທນ ຫຼື ໃຊ້ແອັບພາຍນອກ</string>
     <string name="sub_folder_rule_day">Year/Month/Day</string>
     <string name="sub_folder_rule_month">Year/Month</string>
     <string name="sub_folder_rule_year">ປີ</string>
@@ -981,7 +978,6 @@
     <string name="thumbnail_for_new_file_desc">ຮຸບຂະໜາດຫຍໍ້ຂອງຟາຍໃໝ່</string>
     <string name="timeout_richDocuments">Loading is taking longer than expected</string>
     <string name="today">ມື້ນີ້</string>
-    <string name="trashbin_activity_title">ຟາຍທີ່ ຖືກ ລຶບ</string>
     <string name="trashbin_empty_headline">ບໍ່ມີຟາຍທີ່ຖືກລຶບອອກ</string>
     <string name="trashbin_empty_message">ທ່ານຈະສາມາດກຸ້ຟາຍທີ່ຖືກລຶບອອກຈາກທີ່ນີ້.</string>
     <string name="trashbin_file_not_deleted">ຟາຍ%1$sບໍ່ສາມາດລຶບໄດ້!</string>
@@ -1054,7 +1050,6 @@
     <string name="upload_query_move_foreign_files">ພື້ນທີ່ບໍ່ພຽງພໍ ໃນການສໍາເນົາຟາຍທີ່ເລືອກເຂົ້າໄປໃນໂຟນເດີ %1$s. ທ່ານຕ້ອງຍ້າຍໄປຢູ່ຫັ້ນແທນບໍ?</string>
     <string name="upload_quota_exceeded">Storage quota exceeded</string>
     <string name="upload_scan_doc_upload">Scan document from camera</string>
-    <string name="upload_sync_conflict">Syncຜິດພາດ, ກະລຸນາແກ້ໄຂດ້ວຍມື</string>
     <string name="upload_unknown_error">ຜິດພາດທີ່ບໍ່ຮູ້ຈັກ</string>
     <string name="uploader_btn_alternative_text">ເລືອກ</string>
     <string name="uploader_btn_upload_text">ອັບໂຫຼດ</string>
@@ -1086,9 +1081,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">ການຕັ້ງຄ່າ</string>
     <string name="uploader_wrn_no_account_text">ບໍ່ມີບັນຊີ%1$sໃນອຸປະກອນຂອງທ່ານ. ກະລຸນາຕັ້ງບັນຊີກ່ອນ.</string>
     <string name="uploader_wrn_no_account_title">ບໍ່ພົບບັນຊີ</string>
+    <string name="uploads_view_group_completed_uploads">ສຳເລັດ</string>
     <string name="uploads_view_group_current_uploads">ປັດຈຸບັນ</string>
     <string name="uploads_view_group_failed_uploads">ການເລີ່ມບໍ່ສຳເລັດ/ຄ້າງ</string>
-    <string name="uploads_view_group_finished_uploads">ອັບໂຫຼດແລ້ວ</string>
     <string name="uploads_view_group_manually_cancelled_uploads">ຍົກເລີກ</string>
     <string name="uploads_view_later_waiting_to_upload">ລໍຖ້າເພື່ອອັບໂຫຼດ</string>
     <string name="uploads_view_title">ອັບໂຫຼດ</string>
@@ -1101,7 +1096,6 @@
     <string name="uploads_view_upload_status_failed_localfile_error">ບໍ່ພົບຟາຍ</string>
     <string name="uploads_view_upload_status_failed_permission_error">ການອະນຸຍາດຜິດພາດ</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">ໃບຢັ້ງຢືນເຊີເວີ ບໍ່ໜ້າເຊື່ອຖື</string>
-    <string name="uploads_view_upload_status_fetching_server_version">ກຳລັງນໍາເອົາເວີຊັ້ນເຊີເວີມາ</string>
     <string name="uploads_view_upload_status_service_interrupted">ແອັບ ໄດ້ຖືກຍົກເລີກ</string>
     <string name="uploads_view_upload_status_skip">Skipped</string>
     <string name="uploads_view_upload_status_skip_reason">A file with the same name already exists.</string>
@@ -1115,7 +1109,9 @@
     <string name="user_icon">ຜູ້ໃຊ້</string>
     <string name="user_info_address">ທີ່ຢູ່</string>
     <string name="user_info_email">ອິເມວ</string>
+    <string name="user_info_groups">ກຸ່ມ</string>
     <string name="user_info_phone">ເບີໂທລະສັບ</string>
+    <string name="user_info_profile">Profile</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">ເວັບໄຊ</string>
     <string name="user_information_retrieval_error">ຂໍ້ຜິດພາດໃນດຶງຂໍ້ມູນຂອງຜູ້ໃຊ້</string>
@@ -1198,19 +1194,7 @@
     <plurals name="items_selected_count">
         <item quantity="other">ເລືອກ%d</item>
     </plurals>
-    <plurals name="delay_message">
-        <item quantity="other">Delayed %d seconds due to too many wrong attempts</item>
-    </plurals>
-    <plurals name="delay_message_minutes">
-        <item quantity="other">Delayed %d minutes due to too many wrong attempts</item>
-    </plurals>
-    <plurals name="delay_message_minutes_part">
-        <item quantity="other">Delayed %d minutes</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="other">%d seconds</item>
-    </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="other">%1$d downloads remaining</item>
     </plurals>
-</resources>
+    </resources>

@@ -44,6 +44,15 @@ interface UploadDao {
     fun deleteByRemotePathAndAccountName(remotePath: String, accountName: String)
 
     @Query(
+        """
+    DELETE FROM ${ProviderTableMeta.UPLOADS_TABLE_NAME}
+    WHERE ${ProviderTableMeta.UPLOADS_LOCAL_PATH} = :localPath
+      AND ${ProviderTableMeta.UPLOADS_REMOTE_PATH} = :remotePath
+"""
+    )
+    suspend fun deleteByLocalRemotePath(localPath: String, remotePath: String)
+
+    @Query(
         "SELECT * FROM " + ProviderTableMeta.UPLOADS_TABLE_NAME +
             " WHERE " + ProviderTableMeta._ID + " = :id AND " +
             ProviderTableMeta.UPLOADS_ACCOUNT_NAME + " = :accountName " +
@@ -73,12 +82,24 @@ interface UploadDao {
 
     @Query(
         """
+    UPDATE ${ProviderTableMeta.UPLOADS_TABLE_NAME}
+    SET ${ProviderTableMeta.UPLOADS_STATUS} = :status
+    WHERE ${ProviderTableMeta.UPLOADS_ACCOUNT_NAME} = :accountName
+      AND ${ProviderTableMeta.UPLOADS_REMOTE_PATH} IN (:remotePaths)
+"""
+    )
+    suspend fun updateStatuses(remotePaths: List<String>, accountName: String, status: Int): Int
+
+    @Query(
+        """
     SELECT * FROM ${ProviderTableMeta.UPLOADS_TABLE_NAME}
     WHERE ${ProviderTableMeta.UPLOADS_STATUS} = :status
       AND (:nameCollisionPolicy IS NULL OR ${ProviderTableMeta.UPLOADS_NAME_COLLISION_POLICY} = :nameCollisionPolicy)
+    ORDER BY ${ProviderTableMeta._ID} DESC
+    LIMIT :limit
 """
     )
-    suspend fun getUploadsByStatus(status: Int, nameCollisionPolicy: Int? = null): List<UploadEntity>
+    suspend fun getUploadsByStatus(status: Int, nameCollisionPolicy: Int? = null, limit: Int): List<UploadEntity>
 
     @Query(
         """
@@ -86,11 +107,14 @@ interface UploadDao {
     WHERE ${ProviderTableMeta.UPLOADS_ACCOUNT_NAME} = :accountName
       AND ${ProviderTableMeta.UPLOADS_STATUS} = :status
       AND (:nameCollisionPolicy IS NULL OR ${ProviderTableMeta.UPLOADS_NAME_COLLISION_POLICY} = :nameCollisionPolicy)
+    ORDER BY ${ProviderTableMeta._ID} DESC
+    LIMIT :limit
 """
     )
     suspend fun getUploadsByAccountNameAndStatus(
         accountName: String,
         status: Int,
-        nameCollisionPolicy: Int? = null
+        nameCollisionPolicy: Int? = null,
+        limit: Int
     ): List<UploadEntity>
 }

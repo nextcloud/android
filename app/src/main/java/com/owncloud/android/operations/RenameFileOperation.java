@@ -91,8 +91,10 @@ public class RenameFileOperation extends SyncOperation {
             if (result.isSuccess()) {
                 if (file.isFolder()) {
                     getStorageManager().moveLocalFile(file, newRemotePath, parent);
-                    //saveLocalDirectory();
-
+                    file.setFileName(newName);
+                    if (!file.isEncrypted()) {
+                        file.setDecryptedRemotePath(newRemotePath);
+                    }
                 } else {
                     saveLocalFile(newRemotePath);
                 }

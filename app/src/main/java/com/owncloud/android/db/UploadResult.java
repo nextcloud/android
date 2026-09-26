@@ -12,6 +12,8 @@ package com.owncloud.android.db;
 
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public enum UploadResult {
@@ -39,7 +41,8 @@ public enum UploadResult {
     CANNOT_CREATE_FILE(20),
     LOCAL_STORAGE_NOT_COPIED(21),
     QUOTA_EXCEEDED(22),
-    SAME_FILE_CONFLICT(23);
+    SAME_FILE_CONFLICT(23),
+    SKIPPED(24);
 
     private final int value;
 
@@ -50,6 +53,10 @@ public enum UploadResult {
     public int getValue() {
         return value;
     }
+
+    public static final List<UploadResult> CONFLICT_ERRORS = List.of(
+        UploadResult.CONFLICT_ERROR,
+        UploadResult.SYNC_CONFLICT);
 
     private static final Map<Integer, UploadResult> valueMap = Map.ofEntries(
         Map.entry(0, UPLOADED),
@@ -75,7 +82,8 @@ public enum UploadResult {
         Map.entry(20, CANNOT_CREATE_FILE),
         Map.entry(21, LOCAL_STORAGE_NOT_COPIED),
         Map.entry(22, QUOTA_EXCEEDED),
-        Map.entry(23, SAME_FILE_CONFLICT)
+        Map.entry(23, SAME_FILE_CONFLICT),
+        Map.entry(24, SKIPPED)
                                                                             );
     public static UploadResult fromValue(int value) {
         return valueMap.getOrDefault(value, UNKNOWN);
@@ -95,7 +103,7 @@ public enum UploadResult {
             case OLD_ANDROID_API -> OLD_ANDROID_API;
             case SYNC_CONFLICT -> SYNC_CONFLICT;
             case FORBIDDEN -> PRIVILEGES_ERROR;
-            case CANCELLED -> CANCELLED;
+            case CANCELLED, USER_CANCELLED -> CANCELLED;
             case DELAYED_FOR_WIFI -> DELAYED_FOR_WIFI;
             case DELAYED_FOR_CHARGING -> DELAYED_FOR_CHARGING;
             case DELAYED_IN_POWER_SAVE_MODE -> DELAYED_IN_POWER_SAVE_MODE;

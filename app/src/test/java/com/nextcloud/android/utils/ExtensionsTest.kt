@@ -7,7 +7,10 @@
 package com.nextcloud.android.utils
 
 import com.nextcloud.utils.extensions.getFormattedStringDate
+import com.nextcloud.utils.extensions.extension
 import com.nextcloud.utils.extensions.isCurrentYear
+import com.nextcloud.utils.extensions.removeFileExtension
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -36,5 +39,13 @@ class ExtensionsTest {
         val actualYearNewValue = year2022TimeMills.getFormattedStringDate("")
         assertTrue(actualYearNewValue == "")
         assertFalse(actualYearNewValue == "2022")
+    }
+
+    @Test
+    fun fileExtensionHelpers_checkForEdgeCases() {
+        assertEquals("archive.tar", "archive.tar.gz".removeFileExtension())
+        assertEquals("gz", "archive.tar.gz".extension())
+        assertEquals("", ".gitignore".extension())
+        assertEquals("", "filename.".extension())
     }
 }

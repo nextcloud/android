@@ -11,11 +11,14 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.nextcloud.client.account.User
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment
-import com.owncloud.android.utils.DisplayUtils
 
+/**
+ * Only needed for SettingsActivity
+ */
 class SetupEncryptionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,11 +26,11 @@ class SetupEncryptionActivity : AppCompatActivity() {
         val user = intent?.getParcelableArgument("EXTRA_USER", User::class.java)
 
         if (user == null) {
-            DisplayUtils.showSnackMessage(this, R.string.error_showing_encryption_dialog)
+            SnackbarUtil.show(this, R.string.error_showing_encryption_dialog)
             finish()
         }
 
-        val setupEncryptionDialogFragment = SetupEncryptionDialogFragment.newInstance(user, -1)
+        val setupEncryptionDialogFragment = SetupEncryptionDialogFragment.newInstance(user, null, null)
         supportFragmentManager.setFragmentResultListener(
             SetupEncryptionDialogFragment.RESULT_REQUEST_KEY,
             this
@@ -45,16 +48,14 @@ class SetupEncryptionActivity : AppCompatActivity() {
         setupEncryptionDialogFragment.show(supportFragmentManager, "setup_encryption")
     }
 
-    private fun buildResultIntentFromBundle(result: Bundle): Intent {
-        val intent = Intent()
-        intent.putExtra(
+    private fun buildResultIntentFromBundle(result: Bundle): Intent = Intent().apply {
+        putExtra(
             SetupEncryptionDialogFragment.SUCCESS,
             result.getBoolean(SetupEncryptionDialogFragment.SUCCESS)
         )
-        intent.putExtra(
-            SetupEncryptionDialogFragment.ARG_POSITION,
-            result.getInt(SetupEncryptionDialogFragment.ARG_POSITION)
+        putExtra(
+            SetupEncryptionDialogFragment.ARG_FILE_PATH,
+            result.getInt(SetupEncryptionDialogFragment.ARG_FILE_PATH)
         )
-        return intent
     }
 }

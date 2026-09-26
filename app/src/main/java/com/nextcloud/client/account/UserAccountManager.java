@@ -9,6 +9,7 @@ package com.nextcloud.client.account;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 
 import com.owncloud.android.MainApp;
@@ -29,6 +30,9 @@ public interface UserAccountManager extends CurrentAccountProvider {
     int ACCOUNT_VERSION_WITH_PROPER_ID = 2;
     String ACCOUNT_USES_STANDARD_PASSWORD = "ACCOUNT_USES_STANDARD_PASSWORD";
     String PENDING_FOR_REMOVAL = "PENDING_FOR_REMOVAL";
+
+    @Nullable
+    Context getContext();
 
     @Nullable
     OwnCloudAccount getCurrentOwnCloudAccount();

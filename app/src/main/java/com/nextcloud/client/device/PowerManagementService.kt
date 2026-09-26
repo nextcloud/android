@@ -22,7 +22,14 @@ interface PowerManagementService {
     val isPowerSavingEnabled: Boolean
 
     /**
+     * Checks app is excluded from battery optimization or not
+     */
+    val isIgnoringOptimization: Boolean
+
+    /**
      * Checks current battery status using platform [android.os.BatteryManager]
      */
     val battery: BatteryStatus
+
+    val blocksAutoUpload: Boolean
 }

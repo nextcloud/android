@@ -16,4 +16,4 @@ Lütfen olabilecek sorunları https://github.com/nextcloud/android/issues adresi
 
 Nextcloud kullanmaya yeni mi başladınız? Nextcloud kişisel dosyaları eşitlemek ve paylaşmak için kullanılan bir iletişim sunucusudur. Özgür bir yazılımdır ve kendiniz barındırabileceğiniz gibi bir kuruluş üzerinde ücretli olarak barındırabilirsiniz. Böylece fotoğraflarınız, takviminiz, kişi bilgileriniz ve belgeleriniz gibi pek çok veriyi kendi kontrolunuz altında tutabilirsiniz.
 
-Nextcloud hakkında bilgi almak için https://nextcloud.com sitesine bakabilirsiniz.
+Nextcloud ile ilgili bilgi almak için https://nextcloud.com sitesine bakabilirsiniz.

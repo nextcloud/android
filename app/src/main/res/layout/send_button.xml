@@ -1,36 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Nextcloud - Android Client
   ~
-  ~ SPDX-FileCopyrightText: 2017 Tobias Kaminsky <tobias@kaminsky.me>
-  ~ SPDX-FileCopyrightText: 2017 Nextcloud GmbH
-  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
--->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  ~ SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+  -->
+<com.google.android.material.button.MaterialButton xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/send_button"
+    style="@style/Widget.Material3.Button.TextButton"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingTop="@dimen/standard_padding"
-    android:paddingStart="@dimen/alternate_half_padding"
-    android:paddingEnd="@dimen/alternate_half_padding"
-    tools:ignore="UseCompoundDrawables">
-
-    <ImageView
-        android:id="@+id/send_button_icon"
-        android:layout_width="@dimen/share_icon_size"
-        android:layout_height="@dimen/share_icon_size"
-        android:layout_gravity="center_horizontal"
-        android:contentDescription="@string/sendbutton_description"
-        tools:src="@mipmap/ic_launcher" />
-
-    <TextView
-        android:id="@+id/send_button_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center_horizontal"
-        android:paddingTop="@dimen/standard_half_padding"
-        android:textColor="@color/text_color"
-        tools:text="@string/placeholder_send_button" />
-</LinearLayout>
+    android:ellipsize="end"
+    android:gravity="center"
+    android:maxLines="2"
+    android:padding="@dimen/standard_half_padding"
+    android:textColor="@color/text_color"
+    android:textSize="@dimen/bottom_sheet_text_size"
+    app:iconGravity="top"
+    app:iconPadding="@dimen/standard_half_padding"
+    app:iconSize="@dimen/share_icon_size"
+    app:iconTint="@null"
+    tools:icon="@mipmap/ic_launcher"
+    tools:text="@string/placeholder_send_button" />

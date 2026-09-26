@@ -37,7 +37,7 @@ fun SyncedFolder.shouldSkipFile(
     }
 
     // If "upload existing files" is DISABLED, only upload files created after enabled time
-    if (!isExisting) {
+    if (!alsoUploadExistingFiles()) {
         if (creationTime != null) {
             if (creationTime < enabledTimestampMs) {
                 Log_OC.d(TAG, "Skipping pre-existing file (creation < enabled): ${file.absolutePath}")
@@ -85,11 +85,11 @@ fun SyncedFolder.calculateScanInterval(
 ): Pair<Long, Int?> {
     val defaultIntervalMillis = BackgroundJobManagerImpl.DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES * 60_000L
 
-    if (!connectivityService.isConnected() || connectivityService.isInternetWalled()) {
+    if (!connectivityService.isConnected || connectivityService.isInternetWalled()) {
         return defaultIntervalMillis * 2 to null
     }
 
-    if (isWifiOnly && !connectivityService.getConnectivity().isWifi) {
+    if (isWifiOnly && !connectivityService.connectivity.isWifi) {
         return defaultIntervalMillis * 4 to R.string.auto_upload_wifi_only_warning_info
     }
 
@@ -149,7 +149,7 @@ fun SyncedFolder.getLog(): String {
         📶 Wi-Fi only: $isWifiOnly
         🔌 Charging only: $isChargingOnly
         
-        📤 Upload existing files: $isExisting
+        📤 Upload existing files: ${alsoUploadExistingFiles()}
         ⚙️ Upload action: $uploadAction
         🧩 Name collision: $nameCollisionPolicy
         

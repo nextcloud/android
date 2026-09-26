@@ -19,18 +19,25 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.BackgroundJobManagerImpl
+import com.nextcloud.client.jobs.autoUpload.FileSystemRepository
+import com.nextcloud.client.jobs.autoUpload.SyncFolderHelper
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.ForegroundServiceHelper
 import com.nextcloud.utils.extensions.getPercent
-import com.nextcloud.utils.extensions.updateStatus
+import com.nextcloud.utils.extensions.isNonRetryable
+import com.nextcloud.utils.extensions.isUserCancellation
+import com.nextcloud.utils.extensions.toFile
 import com.owncloud.android.R
-import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.ForegroundServiceType
+import com.owncloud.android.datamodel.SyncedFolder
+import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus
 import com.owncloud.android.db.OCUpload
+import com.owncloud.android.db.UploadResult
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
@@ -39,12 +46,17 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
+import com.owncloud.android.operations.factory.UploadFileOperationFactory
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import java.io.File
+import java.util.concurrent.ConcurrentHashMap
+import kotlin.random.Random
+import kotlin.time.Duration.Companion.milliseconds
 import java.util.concurrent.ConcurrentHashMap
 
 @Suppress("LongParameterList", "TooGenericExceptionCaught")
@@ -57,7 +69,10 @@ class FileUploadWorker(
     val localBroadcastManager: LocalBroadcastManager,
     private val backgroundJobManager: BackgroundJobManager,
     val preferences: AppPreferences,
+    val filesystemRepository: FileSystemRepository,
+    val syncedFolderProvider: SyncedFolderProvider,
     val context: Context,
+    val uploadFileOperationFactory: UploadFileOperationFactory,
     val notificationManager: UploadNotificationManager,
     params: WorkerParameters
 ) : CoroutineWorker(context, params),
@@ -73,17 +88,12 @@ class FileUploadWorker(
         const val CURRENT_BATCH_INDEX = "batch_index"
         const val TOTAL_UPLOAD_SIZE = "total_upload_size"
         const val SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION = "show_same_file_already_exists_notification"
+        const val SKIP_AUTO_UPLOAD_CHECK = "skip_auto_upload_check"
 
         val activeUploadFileOperations = ConcurrentHashMap<String, UploadFileOperation>()
 
         private const val BATCH_SIZE = 100
 
-        const val EXTRA_UPLOAD_RESULT = "RESULT"
-        const val EXTRA_REMOTE_PATH = "REMOTE_PATH"
-        const val EXTRA_OLD_REMOTE_PATH = "OLD_REMOTE_PATH"
-        const val EXTRA_OLD_FILE_PATH = "OLD_FILE_PATH"
-        const val EXTRA_LINKED_TO_PATH = "LINKED_TO"
-        const val ACCOUNT_NAME = "ACCOUNT_NAME"
         const val EXTRA_ACCOUNT_NAME = "ACCOUNT_NAME"
         const val ACTION_CANCEL_BROADCAST = "CANCEL"
         const val LOCAL_BEHAVIOUR_COPY = 0
@@ -91,17 +101,55 @@ class FileUploadWorker(
         const val LOCAL_BEHAVIOUR_FORGET = 2
         const val LOCAL_BEHAVIOUR_DELETE = 3
 
-        fun cancelCurrentUpload(remotePath: String, accountName: String, onCompleted: () -> Unit) {
-            activeUploadFileOperations.values.forEach {
-                if (it.remotePath == remotePath && it.user.accountName == accountName) {
-                    it.cancel(ResultCode.USER_CANCELLED)
-                }
+        private val activeOperations = ConcurrentHashMap<Long, UploadFileOperation>()
+
+        @JvmOverloads
+        fun cancelUpload(remotePath: String?, accountName: String?, onCompleted: () -> Unit = {}) {
+            val operation =
+                activeOperations.values.find { it.remotePath == remotePath && it.user.accountName == accountName }
+
+            operation?.let {
+                Log_OC.d(TAG, "upload operation is cancelled: $remotePath")
+                operation.cancel(ResultCode.USER_CANCELLED)
+                activeOperations.remove(operation.ocUploadId)
             }
+
             onCompleted()
         }
 
-        fun isUploading(remotePath: String?, accountName: String?): Boolean = activeUploadFileOperations.values.any {
+        suspend fun cancelUploads(remotePaths: List<String>, accountName: String) {
+            withContext(Dispatchers.IO) {
+                remotePaths.forEach {
+                    cancelUpload(it, accountName)
+                }
+            }
+        }
+
+        fun pauseActiveUploads() {
+            activeOperations.values.forEach {
+                Log_OC.d(TAG, "upload operation is paused: ${it.remotePath}")
+                it.pause()
+            }
+            activeOperations.clear()
+        }
+
+        fun getCurrentUpload(id: Long?): UploadFileOperation? = activeOperations[id]
+
+        fun isUploading(remotePath: String?, accountName: String?): Boolean = activeOperations.values.any {
             it.remotePath == remotePath && it.user.accountName == accountName
+        }
+
+        /**
+         * [activeOperations] tracks every upload running in this process, not only the ones this worker started.
+         * Auto upload has to register here too, otherwise a retry pass sees its in-progress row as abandoned and
+         * reschedules it, and the cancel action in the upload list has nothing to cancel.
+         */
+        fun registerActiveUpload(operation: UploadFileOperation) {
+            activeOperations[operation.ocUploadId] = operation
+        }
+
+        fun unregisterActiveUpload(uploadId: Long) {
+            activeOperations.remove(uploadId)
         }
 
         fun getUploadAction(action: String): Int = when (action) {
@@ -116,14 +164,15 @@ class FileUploadWorker(
     private val lastUpdateTimes = ConcurrentHashMap<String, Long>()
 
     private val intents = FileUploaderIntents(context)
-    private val fileUploadBroadcastManager = FileUploadBroadcastManager(localBroadcastManager)
+    private val fileUploadEventBroadcaster = FileUploadEventBroadcaster(localBroadcastManager)
+    private val retryPolicy = UploadDelayPolicy()
 
     override suspend fun doWork(): Result = try {
+        trySetForeground()
+
         Log_OC.d(TAG, "FileUploadWorker started")
         val workerName = BackgroundJobManagerImpl.formatClassTag(this::class)
         backgroundJobManager.logStartOfWorker(workerName)
-
-        trySetForeground()
 
         val result = uploadFiles()
         backgroundJobManager.logEndOfWorker(workerName, result)
@@ -131,12 +180,14 @@ class FileUploadWorker(
         result
     } catch (t: Throwable) {
         Log_OC.e(TAG, "exception $t")
-        activeUploadFileOperations.values.forEach { it.cancel(null) }
+        activeOperations.values.forEach { it.cancel(null) }
+        activeOperations.clear()
         Result.failure()
     } finally {
         // Ensure all database operations are complete before signaling completion
         uploadsStorageManager.notifyObserversNow()
         notificationManager.dismissNotification()
+        retryPolicy.reset()
     }
 
     private suspend fun trySetForeground() {
@@ -184,6 +235,18 @@ class FileUploadWorker(
             .setSilent(true)
             .build()
 
+    private enum class UploadFilesResult {
+        Success,
+        Error,
+        Retry;
+
+        fun toWorkerResult(): Result = when (this) {
+            Success -> Result.success()
+            Error -> Result.failure()
+            Retry -> Result.retry()
+        }
+    }
+
     @Suppress("ReturnCount", "LongMethod", "DEPRECATION")
     private suspend fun uploadFiles(): Result = withContext(Dispatchers.IO) {
         val accountName = inputData.getString(ACCOUNT)
@@ -217,14 +280,45 @@ class FileUploadWorker(
             return@withContext Result.failure()
         }
 
+        val skipAutoUploadCheck = inputData.getBoolean(SKIP_AUTO_UPLOAD_CHECK, false)
+
         val user = optionalUser.get()
         val previouslyUploadedFileSize = currentBatchIndex * FileUploadHelper.MAX_FILE_COUNT
         val uploads = uploadsStorageManager.getUploadsByIds(uploadIds, accountName)
         val ocAccount = OwnCloudAccount(user.toPlatformAccount(), context)
         val client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context)
+        val syncFolderHelper = SyncFolderHelper(context)
+        val syncedFolders = syncedFolderProvider.syncedFolders
+        var hasRetryableFailure = false
+        var hasNonRetryableFailure = false
 
         for ((index, upload) in uploads.withIndex()) {
             ensureActive()
+
+            if (skip(upload)) {
+                Log_OC.d(
+                    TAG,
+                    "skipping already settled upload: ${upload.remotePath}, " +
+                        "status: ${upload.uploadStatus}, result: ${upload.lastResult}"
+                )
+                continue
+            }
+
+            if (isUploading(upload.remotePath, accountName)) {
+                Log_OC.d(TAG, "skipping upload, another worker is still transferring it: ${upload.remotePath}")
+                continue
+            }
+
+            delay(retryPolicy.getDelay().milliseconds)
+
+            if (!skipAutoUploadCheck && isBelongToAnySyncedFolder(upload, syncFolderHelper, syncedFolders)) {
+                Log_OC.d(TAG, "skipping upload, will be handled by AutoUploadWorker: ${upload.localPath}")
+                uploadsStorageManager.uploadDao.deleteByRemotePathAndAccountName(
+                    remotePath = upload.remotePath,
+                    accountName = accountName
+                )
+                continue
+            }
 
             if (preferences.isGlobalUploadPaused) {
                 Log_OC.d(TAG, "Upload is paused, skip uploading files!")
@@ -236,12 +330,12 @@ class FileUploadWorker(
 
             if (canExitEarly()) {
                 notificationManager.showConnectionErrorNotification()
-                return@withContext Result.failure()
+                return@withContext Result.retry()
             }
 
-            fileUploadBroadcastManager.sendAdded(context)
-            val operation = createUploadFileOperation(upload, user)
-            activeUploadFileOperations[operation.originalStoragePath] = operation
+            fileUploadEventBroadcaster.sendUploadEnqueued(context)
+            val operation = uploadFileOperationFactory.create(context, upload, this@FileUploadWorker)
+            activeOperations[upload.uploadId] = operation
 
             val currentIndex = (index + 1)
 
@@ -253,22 +347,62 @@ class FileUploadWorker(
             )
 
             val result = withContext(Dispatchers.IO) {
-                upload(upload, operation, user, client)
+                upload(operation, user, client)
             }
-            val entity = uploadsStorageManager.uploadDao.getUploadById(upload.uploadId, accountName)
-            uploadsStorageManager.updateStatus(entity, result.isSuccess)
-            activeUploadFileOperations.remove(operation.originalStoragePath)
+            activeOperations.remove(upload.uploadId)
 
+            // check quota first
             if (result.code == ResultCode.QUOTA_EXCEEDED) {
                 Log_OC.w(TAG, "Quota exceeded, stopping uploads")
                 notificationManager.showQuotaExceedNotification(operation)
                 break
             }
 
+            if (!result.isSuccess && !result.code.isUserCancellation()) {
+                Log_OC.e(TAG, "upload failed for ${upload.remotePath}: ${result.code}")
+                if (UploadResult.fromOperationResult(result).isNonRetryable()) {
+                    hasNonRetryableFailure = true
+                } else {
+                    hasRetryableFailure = true
+                }
+            }
+
             sendUploadFinishEvent(totalUploadSize, currentIndex, operation, result)
+
+            if (result.code == ResultCode.UNAUTHORIZED) {
+                Log_OC.e(TAG, "credentials are no longer valid, stopping uploads")
+                break
+            }
         }
 
-        return@withContext Result.success()
+        val uploadFilesResult = when {
+            hasRetryableFailure -> UploadFilesResult.Retry
+            hasNonRetryableFailure -> UploadFilesResult.Error
+            else -> UploadFilesResult.Success
+        }
+
+        return@withContext uploadFilesResult.toWorkerResult()
+    }
+
+    private fun skip(upload: OCUpload): Boolean = when (upload.uploadStatus) {
+        UploadStatus.UPLOAD_SUCCEEDED, UploadStatus.UPLOAD_CANCELLED -> true
+        UploadStatus.UPLOAD_FAILED -> upload.lastResult.isNonRetryable()
+        else -> false
+    }
+
+    @Suppress("ReturnCount")
+    suspend fun isBelongToAnySyncedFolder(
+        upload: OCUpload,
+        syncFolderHelper: SyncFolderHelper,
+        syncedFolders: List<SyncedFolder>
+    ): Boolean {
+        if (!filesystemRepository.isBelongToAnyAutoFolder(upload.localPath)) return false
+
+        return syncedFolders.any { folder ->
+            val file = upload.localPath.toFile() ?: return false
+            val expectedRemotePath = syncFolderHelper.getAutoUploadRemotePath(folder, file)
+            expectedRemotePath == upload.remotePath
+        }
     }
 
     private fun sendUploadFinishEvent(
@@ -284,10 +418,9 @@ class FileUploadWorker(
                 isLastUpload
 
         if (shouldBroadcast) {
-            fileUploadBroadcastManager.sendFinished(
+            fileUploadEventBroadcaster.sendUploadCompleted(
                 operation,
                 result,
-                operation.oldFile?.storagePath,
                 context
             )
         }
@@ -295,7 +428,7 @@ class FileUploadWorker(
 
     private fun canExitEarly(): Boolean {
         val result = !connectivityService.isConnected ||
-            connectivityService.isInternetWalled ||
+            connectivityService.isInternetWalled() ||
             isStopped
 
         if (result) {
@@ -307,70 +440,50 @@ class FileUploadWorker(
         return result
     }
 
-    private fun createUploadFileOperation(upload: OCUpload, user: User): UploadFileOperation = UploadFileOperation(
-        uploadsStorageManager,
-        connectivityService,
-        powerManagementService,
-        user,
-        null,
-        upload,
-        upload.nameCollisionPolicy,
-        upload.localAction,
-        context,
-        upload.isUseWifiOnly,
-        upload.isWhileChargingOnly,
-        true,
-        FileDataStorageManager(user, context.contentResolver)
-    ).apply {
-        addDataTransferProgressListener(this@FileUploadWorker)
-    }
-
     @Suppress("TooGenericExceptionCaught", "DEPRECATION")
     private suspend fun upload(
-        upload: OCUpload,
         operation: UploadFileOperation,
         user: User,
         client: OwnCloudClient
     ): RemoteOperationResult<Any?> = withContext(Dispatchers.IO) {
-        lateinit var result: RemoteOperationResult<Any?>
+        var result: RemoteOperationResult<Any?>
 
         try {
             val storageManager = operation.storageManager
+            fileUploadEventBroadcaster.sendUploadStarted(operation, context)
             result = operation.execute(client)
-            val task = ThumbnailsCacheManager.ThumbnailGenerationTask(storageManager, user)
-            val file = File(operation.originalStoragePath)
-            val remoteId: String? = operation.file.remoteId
-            task.execute(ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, remoteId))
-            fileUploadBroadcastManager.sendStarted(operation, context)
+
+            // only generate a thumbnail if the upload actually succeeded
+            if (result.isSuccess) {
+                val task = ThumbnailsCacheManager.ThumbnailGenerationTask(storageManager, user)
+                val file = File(operation.originalStoragePath)
+                val remoteId: String? = operation.file.remoteId
+                task.execute(ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, remoteId))
+            }
         } catch (e: Exception) {
             Log_OC.e(TAG, "Error uploading", e)
-            uploadsStorageManager.run {
-                uploadDao.getUploadById(upload.uploadId, user.accountName)?.let { entity ->
-                    updateStatus(
-                        entity,
-                        UploadsStorageManager.UploadStatus.UPLOAD_FAILED
-                    )
-                }
-            }
             result = RemoteOperationResult(e)
-        } finally {
-            if (!isStopped) {
-                UploadErrorNotificationManager.handleResult(
-                    context,
-                    notificationManager,
-                    operation,
-                    result,
-                    onSameFileConflict = {
-                        withContext(Dispatchers.Main) {
-                            val showSameFileAlreadyExistsNotification =
-                                inputData.getBoolean(SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION, false)
-                            if (showSameFileAlreadyExistsNotification) {
-                                notificationManager.showSameFileAlreadyExistsNotification(operation.fileName)
-                            }
+        }
+
+        if (!isStopped) {
+            UploadErrorNotificationManager.handleResult(
+                context,
+                notificationManager,
+                operation,
+                result,
+                onSameFileConflict = {
+                    withContext(Dispatchers.Main) {
+                        val showSameFileAlreadyExistsNotification =
+                            inputData.getBoolean(SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION, false)
+                        if (showSameFileAlreadyExistsNotification) {
+                            notificationManager.showSameFileAlreadyExistsNotification(operation.fileName)
                         }
                     }
-                )
-            }
+                },
+                onLocked = {
+                    retryPolicy.increase()
+                }
+            )
         }
 
         return@withContext result
@@ -381,7 +494,7 @@ class FileUploadWorker(
     private var lastUpdateTime = 0L
 
     /**
-     * Receives from [com.owncloud.android.operations.UploadFileOperation.normalUpload]
+     * Receives from [UploadFileOperation.normalUpload]
      */
     @Suppress("MagicNumber")
     override fun onTransferProgress(
@@ -399,6 +512,9 @@ class FileUploadWorker(
 
         if (percent != lastPercent && (currentTime - lastUpdateTime) >= minProgressUpdateInterval) {
             notificationManager.run {
+                val currentUploadFileOperation =
+                    activeOperations.values.find { it.originalStoragePath == fileAbsoluteName }
+
                 val accountName = operation.user.accountName
                 val remotePath = operation.remotePath
 
@@ -407,7 +523,7 @@ class FileUploadWorker(
                 if (accountName != null && remotePath != null) {
                     val key: String = FileUploadHelper.buildRemoteName(accountName, remotePath)
                     val boundListener = FileUploadHelper.mBoundListeners[key]
-                    val filename = operation.fileName ?: ""
+                    val filename = currentUploadFileOperation.fileName ?: ""
 
                     boundListener?.onTransferProgress(
                         progressRate,

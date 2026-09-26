@@ -20,7 +20,7 @@ enum class SearchType : Parcelable {
     FILE_SEARCH,
     FAVORITE_SEARCH,
     GALLERY_SEARCH,
-    RECENTLY_MODIFIED_SEARCH,
+    RECENT_FILES_SEARCH,
 
     // not a real filter, but nevertheless
     SHARED_FILTER,
@@ -30,7 +30,7 @@ enum class SearchType : Parcelable {
     fun titleId(): Int? = when (this) {
         FAVORITE_SEARCH -> R.string.drawer_item_favorites
         GALLERY_SEARCH -> R.string.drawer_item_gallery
-        RECENTLY_MODIFIED_SEARCH -> R.string.drawer_item_recently_modified
+        RECENT_FILES_SEARCH -> R.string.drawer_item_recent_files
         SHARED_FILTER -> R.string.drawer_item_shared
         ON_DEVICE -> R.string.drawer_item_on_device
         else -> null
@@ -45,5 +45,6 @@ enum class EmptyListState : Parcelable {
     ONLY_ON_DEVICE,
     LOCAL_FILE_LIST_EMPTY_FILE,
     LOCAL_FILE_LIST_EMPTY_FOLDER,
-    ERROR
+    ERROR,
+    OUT_OF_MEMORY
 }

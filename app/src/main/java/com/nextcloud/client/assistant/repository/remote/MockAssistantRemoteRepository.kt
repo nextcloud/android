@@ -22,7 +22,7 @@ import com.owncloud.android.lib.resources.assistant.v2.model.TranslationRequest
 
 @Suppress("MagicNumber")
 class MockAssistantRemoteRepository(private val giveEmptyTasks: Boolean = false) : AssistantRemoteRepository {
-    override suspend fun getTaskTypes(): List<TaskTypeData> = listOf(
+    override suspend fun fetchTaskTypes(): List<TaskTypeData> = listOf(
         TaskTypeData(
             id = "core:text2text",
             name = "Free text to text prompt",

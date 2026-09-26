@@ -27,18 +27,12 @@ import org.junit.Test
 class SetOnlineStatusBottomSheetIT : AbstractIT() {
 
     @get:Rule
-    val permissionRule: GrantPermissionRule = GrantPermissionRule.grant(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-        Manifest.permission.POST_NOTIFICATIONS
-    )
+    val permissionRule: GrantPermissionRule = GrantPermissionRule.grant(Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
     @Test
     fun open() {
         launchActivity<FileDisplayActivity>().use { scenario ->
             onView(isRoot()).check(matches(isDisplayed()))
-
-            onView(withId(R.id.clearStatusAfterSpinner))
-                .check(matches(isDisplayed()))
 
             scenario.onActivity { activity ->
                 val sut = SetOnlineStatusBottomSheet(
@@ -46,6 +40,8 @@ class SetOnlineStatusBottomSheetIT : AbstractIT() {
                 )
                 sut.show(activity.supportFragmentManager, "")
             }
+            onView(withId(R.id.onlineStatus))
+                .check(matches(isDisplayed()))
         }
     }
 }

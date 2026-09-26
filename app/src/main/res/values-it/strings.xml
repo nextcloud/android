@@ -30,7 +30,10 @@
     <string name="activity_icon">Attività</string>
     <string name="add_new_public_share">Aggiungi nuovo collegamento pubblico di condivisione</string>
     <string name="add_new_secure_file_drop">Aggiungi un nuovo drop file sicuro</string>
-    <string name="add_to_cloud">Aggiungi a %1$s</string>
+    <string name="add_to_album">Aggiungi all\'album</string>
+    <string name="album_delete">Elimina album</string>
+    <string name="album_rename_conflict">Questo nome è già utilizzato.</string>
+    <string name="album_stop_sharing">Interrompi la condivisione</string>
     <string name="app_config_base_url_title">URL di base</string>
     <string name="app_config_disable_clipboard_title">Disabilita Clipboard</string>
     <string name="app_config_disable_intro_title">Disabilita Intro</string>
@@ -58,6 +61,7 @@
     <string name="assistant_screen_task_list_error_state_message">Impossibile recuperare la lista dei Task, verifica la tua connessione a internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Elimina attività</string>
     <string name="assistant_screen_task_output_empty_text">Il risultato del task non è ancora pronto.</string>
+    <string name="assistant_screen_text_selected">Testo copiato da un\'altra app</string>
     <string name="assistant_screen_top_bar_title">Assistente</string>
     <string name="assistant_task_detail_screen_input_button_title">Input</string>
     <string name="assistant_task_detail_screen_output_button_title">Output</string>
@@ -86,7 +90,6 @@
     <string name="auth_ssl_unverified_server_title">Impossibile verificare l\'identità del server SSL</string>
     <string name="auth_testing_connection">Prova di connessione</string>
     <string name="auth_timeout_title">Il server ha richiesto troppo tempo per rispondere</string>
-    <string name="auth_trying_to_login">Tentativo di accesso in corso…</string>
     <string name="auth_unauthorized">Nome utente o password errati</string>
     <string name="auth_unknown_error_exception_title">Errore sconosciuto: %1$s</string>
     <string name="auth_unknown_error_http_title">Si è verificato un errore HTTP sconosciuto!</string>
@@ -100,7 +103,6 @@
     <string name="authenticator_activity_login_error">Si è verificato un problema nella richiesta di accesso. Riprova più tardi.</string>
     <string name="authenticator_activity_no_web_browser_found">Non è disponibile alcun browser per aprire questo collegamento.</string>
     <string name="authenticator_activity_please_complete_login_process">Completa la procedura di accesso nel tuo browser</string>
-    <string name="auto_upload_battery_saver_mode_warning">Il caricamento automatico è sospeso perché è attiva la funzione Risparmio batteria.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">lasciato nella cartella originale, poiché è in sola lettura</string>
     <string name="auto_upload_low_battery_warning_info">Batteria scarica, il caricamento potrebbe richiedere più tempo</string>
     <string name="auto_upload_on_wifi">Carica solo su Wi-Fi senza limitazioni</string>
@@ -229,15 +231,18 @@
     <string name="could_not_retrieve_shares">Impossibile recuperare le condivisioni</string>
     <string name="could_not_retrieve_url">Impossibile recuperare l\'URL</string>
     <string name="create">Crea</string>
+    <string name="create_album_dialog_title">Nuovo album</string>
     <string name="create_dir_fail_msg">Impossibile creare la cartella</string>
+    <string name="create_document">Documento</string>
+    <string name="create_folder">Cartella</string>
     <string name="create_link">Crea collegamento</string>
     <string name="create_new">Nuovo</string>
     <string name="create_new_document">Nuovo documento</string>
-    <string name="create_new_folder">Nuova cartella</string>
     <string name="create_new_presentation">Nuova presentazione</string>
     <string name="create_new_spreadsheet">Nuovo foglio elettronico</string>
+    <string name="create_presentation">Presentazione</string>
     <string name="create_rich_workspace">Aggiungi descrizione cartella</string>
-    <string name="creates_rich_workspace">Aggiungi una descrizione della cartella</string>
+    <string name="create_spreadsheet">Foglio elettronico</string>
     <string name="credentials_disabled">Credenziali disabilitate</string>
     <string name="daily_backup">Backup giornaliero</string>
     <string name="data_to_back_up">Dati di cui eseguire il backup</string>
@@ -287,16 +292,16 @@
     <string name="drawer_community">Comunità</string>
     <string name="drawer_header_background">Immagine di sfondo sull\'intestazione del cassetto</string>
     <string name="drawer_item_activities">Attività</string>
+    <string name="drawer_item_album">Album</string>
     <string name="drawer_item_all_files">Tutti i file</string>
     <string name="drawer_item_assistant">Assistente</string>
     <string name="drawer_item_favorites">Preferiti</string>
     <string name="drawer_item_gallery">Media</string>
-    <string name="drawer_item_groupfolders">Cartelle di gruppo</string>
+    <string name="drawer_item_groupfolders">Cartelle del team</string>
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_notifications">Notifiche</string>
     <string name="drawer_item_on_device">Su dispositivo</string>
     <string name="drawer_item_personal_files">File personali</string>
-    <string name="drawer_item_recently_modified">Modificato di recente</string>
     <string name="drawer_item_shared">Condiviso</string>
     <string name="drawer_item_trashbin">File eliminati</string>
     <string name="drawer_item_uploads_list">Caricamenti</string>
@@ -378,6 +383,7 @@
     <string name="external_shares">Condivisioni esterne</string>
     <string name="fab_label">Aggiungi o carica</string>
     <string name="failed_to_download">Passaggio del file al gestore degli scaricamenti non riuscito</string>
+    <string name="failed_to_load_tags">Caricamento etichette non riuscito</string>
     <string name="failed_to_print">Stampa del file non riuscita</string>
     <string name="failed_to_start_editor">Avvio dell\'editor non riuscito</string>
     <string name="failed_update_ui">Aggiornamento interfaccia non riuscito</string>
@@ -402,7 +408,8 @@
     <string name="file_list_empty_local_search">Nessun file o cartella corrisponde alla tua ricerca</string>
     <string name="file_list_empty_moving">Non c\'è niente qui. Puoi aggiungere una cartella.</string>
     <string name="file_list_empty_on_device">I file e le cartelle scaricati saranno mostrati qui.</string>
-    <string name="file_list_empty_recently_modified">Non è stato trovato alcun file modificato negli ultimi 7 giorni</string>
+    <string name="file_list_empty_recent_files_description">I file e le cartelle che hai modificato di recente saranno mostrati qui.</string>
+    <string name="file_list_empty_recent_files_headline">Nessun file modificato di recente</string>
     <string name="file_list_empty_search">Forse è in una cartella diversa?</string>
     <string name="file_list_empty_shared">I file e le cartelle che condividi saranno mostrati qui.</string>
     <string name="file_list_empty_shared_headline">Ancora nessuna condivisione</string>
@@ -412,6 +419,7 @@
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Caricamento in corso…</string>
     <string name="file_list_no_app_for_file_type">Nessuna applicazione configurata per gestire questo tipo di file.</string>
+    <string name="file_list_out_of_memory_description">Impossibile caricare il contenuto</string>
     <string name="file_list_seconds_ago">secondi fa</string>
     <string name="file_management_permission_optional">Autorizzazioni di archiviazione</string>
     <string name="file_management_permission_optional_text">%1$s funziona meglio con l\'autorizzazione di accedere all\'archiviazione. Puoi scegliere l\'accesso completo a tutti i file o quello in sola lettura a foto e video.</string>
@@ -486,6 +494,8 @@
     <string name="foreign_files_remote_text">Remoto %1$s</string>
     <string name="forward">Inoltra</string>
     <string name="fourHours">4 ore</string>
+    <string name="governance_file_retention_label">Conservazione file</string>
+    <string name="governance_no_label">Nessuno</string>
     <string name="gplay_restriction">Google ha limitato il download di file APK/AAB!</string>
     <string name="grid_file_features_live_photo_content_description">Questa icona indica la disponibilità di foto dal vivo</string>
     <string name="hidden_file_name_warning">Il nome renderà il file nascosto</string>
@@ -540,6 +550,7 @@
     <string name="login">Accedi</string>
     <string name="login_url_helper_text">Il collegamento alla tua interfaccia web di %1$s quando la apri nel browser.</string>
     <string name="logs_menu_delete">Elimina log</string>
+    <string name="logs_menu_export">Esporta log</string>
     <string name="logs_menu_refresh">Aggiorna</string>
     <string name="logs_menu_search">Cerca log</string>
     <string name="logs_menu_send">Invia log tramite email</string>
@@ -551,17 +562,7 @@
     <string name="manage_space_clear_data">Cancella i dati</string>
     <string name="manage_space_description">Impostazioni, database e certificati del server dai dati di %1$s saranno eliminati definitivamente.\n\nI file scaricati non saranno interessati.\n\nQuesto processo può richiedere del tempo.</string>
     <string name="manage_space_title">Gestisci lo spazio</string>
-    <string name="media_err_invalid_progressive_playback">Il file multimediale non può essere trasmesso</string>
-    <string name="media_err_io">Impossibile leggere il file multimediale</string>
-    <string name="media_err_malformed">Il file multimediale ha una codifica non corretta</string>
-    <string name="media_err_timeout">Il tentativo di riprodurre il file è scaduto</string>
-    <string name="media_err_unknown">Il lettore multimediale integrato non è in grado di riprodurre il file</string>
-    <string name="media_err_unsupported">Codificatore multimediale non supportato</string>
-    <string name="media_forward_description">Pulsante Avanti veloce</string>
-    <string name="media_notif_ticker">Lettore musicale %1$s</string>
-    <string name="media_play_pause_description">Pulsante Riproduci o pausa</string>
-    <string name="media_rewind_description">Pulsante Riavvolgi</string>
-    <string name="media_state_playing">%1$s (in riproduzione)</string>
+    <string name="manage_tags">Gestisci etichette</string>
     <string name="menu_item_sort_by_date_newest_first">Prima i più recenti</string>
     <string name="menu_item_sort_by_date_oldest_first">Prima i più datati</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -569,6 +570,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Prima i più grandi</string>
     <string name="menu_item_sort_by_size_smallest_first">Prima i più piccoli</string>
     <string name="more">Altro</string>
+    <string name="more_documents">Altri documenti</string>
     <string name="move_file_error">Si è verificato un errore durante il tentativo di spostare il file o la cartella</string>
     <string name="move_file_invalid_into_descendent">Impossibile spostare una cartella in una delle sue cartelle sottostanti</string>
     <string name="move_file_invalid_overwrite">Il file è già presente nella cartella di destinazione</string>
@@ -640,8 +642,7 @@
     <string name="pick_contact_to_share_with">Seleziona il contatto con cui condividere</string>
     <string name="picture_set_as_no_app">Nessuna applicazione trovata per impostare un\'immagine</string>
     <string name="pin_shortcut_label">Apri %1$s</string>
-    <string name="player_stop">ferma</string>
-    <string name="player_toggle">attiva</string>
+    <string name="player_media_controls_close_action_title">Chiudi</string>
     <string name="please_select_a_server">Per favore, seleziona un server...</string>
     <string name="power_save_check_dialog_message">La disabilitazione del controllo di risparmio energetico potrebbe risultare in caricamenti di file in uno stato di bassa carica della batteria.</string>
     <string name="pref_behaviour_entries_delete_file">eliminato</string>
@@ -735,6 +736,7 @@
     <string name="reload">Ricarica</string>
     <string name="remote">(remota)</string>
     <string name="remote_file_fetch_failed">File non trovato!</string>
+    <string name="remove">Rimuovi</string>
     <string name="remove_e2e">Su questo client puoi rimuovere localmente la cifratura end-to-end</string>
     <string name="remove_e2e_message">Su questo client puoi rimuovere localmente la cifratura end-to-end. I file cifrati rimarranno sul server, ma non verranno più sincronizzati su questo computer.</string>
     <string name="remove_fail_msg">Eliminazione non riuscita</string>
@@ -743,6 +745,7 @@
     <string name="remove_notification_failed">Rimozione notifica non riuscita.</string>
     <string name="remove_push_notification">Rimuovi</string>
     <string name="remove_success_msg">Eliminato</string>
+    <string name="rename_dialog_button">Rinomina</string>
     <string name="rename_dialog_title">Digita un nuovo nome</string>
     <string name="rename_local_fail_msg">La copia locale non può essere rinominata, prova un nome diverso</string>
     <string name="rename_server_fail_msg">Rinomina non consentita, nome già utilizzato</string>
@@ -773,6 +776,7 @@
     <string name="screenshot_06_davdroid_heading">Calendario e contatti</string>
     <string name="screenshot_06_davdroid_subline">Sincronizza con DAVx⁵</string>
     <string name="search_error">Errore nel recuperare i risultati della ricerca</string>
+    <string name="search_tags">Cerca etichette</string>
     <string name="secure_share_not_set_up">La condivisione sicura non è configurata per questo utente</string>
     <string name="secure_share_search">Condivisione sicura...</string>
     <string name="select_all">Seleziona tutto</string>
@@ -782,7 +786,6 @@
     <string name="send">Invia</string>
     <string name="send_copy_to">Invia copia a</string>
     <string name="send_share">Invia condivisione</string>
-    <string name="sendbutton_description">Icona pulsante di invio</string>
     <string name="server_not_reachable">Impossibile caricare il contenuto</string>
     <string name="server_not_reachable_content">È probabile che il dispositivo non sia connesso a Internet</string>
     <string name="set_as">Imposta come</string>
@@ -821,7 +824,6 @@
     <string name="share_option_required">Seleziona almeno un\'opzione di condivisione prima di continuare.</string>
     <string name="share_permission_can_edit">Può modificare</string>
     <string name="share_permission_file_request">Richiesta file</string>
-    <string name="share_permission_secure_file_drop">File drop sicuro</string>
     <string name="share_permission_view_only">Sola lettura</string>
     <string name="share_permissions">Permessi di condivisione</string>
     <string name="share_re_share_permission">Condividi</string>
@@ -853,7 +855,7 @@
     <string name="single_sign_on_request_token" formatted="true">Vuoi consentire a %1$s di accedere al tuo account Nextcloud %2$s?</string>
     <string name="sort_by">Ordina per</string>
     <string name="sort_favorites_first">Ordina prima i preferiti</string>
-    <string name="sort_folders_before_files">Ordina cartelle prima dei files</string>
+    <string name="sort_folders_before_files">Ordina cartelle prima dei file</string>
     <string name="ssl_validator_btn_details_hide">Nascondi</string>
     <string name="ssl_validator_btn_details_see">Dettagli</string>
     <string name="ssl_validator_header">L\'identità del server non può essere verificata</string>
@@ -898,7 +900,6 @@
     <string name="store_short_dev_desc">La piattaforma di produttività auto-gestita che ti lascia al comando (versione in anteprima di sviluppo)</string>
     <string name="stream">Trasmetti con…</string>
     <string name="stream_not_possible_headline">Trasmissione interna non possibile</string>
-    <string name="stream_not_possible_message">Scarica invece il media o usa un\'applicazione esterna.</string>
     <string name="sub_folder_rule_day">Anno/Mese/Giorno</string>
     <string name="sub_folder_rule_month">Anno/Mese</string>
     <string name="sub_folder_rule_year">Anno</string>
@@ -947,7 +948,6 @@
     <string name="thumbnail_for_new_file_desc">Miniatura per il nuovo file</string>
     <string name="timeout_richDocuments">Il caricamento sta impiegando più del previsto</string>
     <string name="today">Oggi</string>
-    <string name="trashbin_activity_title">File eliminati</string>
     <string name="trashbin_empty_headline">Nessun file eliminato</string>
     <string name="trashbin_empty_message">Potrai ripristinare i file eliminati da qui.</string>
     <string name="trashbin_file_not_deleted">Il file %1$s non può essere eliminato!</string>
@@ -1018,7 +1018,6 @@
     <string name="upload_query_move_foreign_files">La mancanza di spazio impedisce di copiare i file selezionati nella cartella %1$s. Vuoi spostarli in quella cartella?</string>
     <string name="upload_quota_exceeded">Quota di archiviazione superata</string>
     <string name="upload_scan_doc_upload">Scansiona il documento dalla fotocamera</string>
-    <string name="upload_sync_conflict">Conflitto di sincronizzazione, risolvi manualmente</string>
     <string name="upload_unknown_error">Errore sconosciuto</string>
     <string name="uploader_btn_alternative_text">Scegli</string>
     <string name="uploader_btn_upload_text">Carica</string>
@@ -1050,9 +1049,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Configurazione</string>
     <string name="uploader_wrn_no_account_text">Non ci sono account %1$s sul tuo dispositivo. Configura prima un account.</string>
     <string name="uploader_wrn_no_account_title">Nessun account trovato</string>
+    <string name="uploads_view_group_completed_uploads">Completate</string>
     <string name="uploads_view_group_current_uploads">Attuale</string>
     <string name="uploads_view_group_failed_uploads">Riavvio non riuscito/in corso</string>
-    <string name="uploads_view_group_finished_uploads">Caricati</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Annullato</string>
     <string name="uploads_view_later_waiting_to_upload">In attesa di caricamento</string>
     <string name="uploads_view_title">Caricamenti</string>
@@ -1065,9 +1064,9 @@
     <string name="uploads_view_upload_status_failed_localfile_error">File locale non trovato</string>
     <string name="uploads_view_upload_status_failed_permission_error">Errore di permessi</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certificato server non fidato</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Recupero versione del server…</string>
     <string name="uploads_view_upload_status_service_interrupted">Applicazione terminata</string>
     <string name="uploads_view_upload_status_skip">Saltato</string>
+    <string name="uploads_view_upload_status_skip_reason">Esiste già un file con lo stesso nome.</string>
     <string name="uploads_view_upload_status_succeeded">Completati</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Stesso file trovato in remoto, salto il caricamento</string>
     <string name="uploads_view_upload_status_unknown_fail">Errore sconosciuto</string>
@@ -1078,7 +1077,9 @@
     <string name="user_icon">Utente</string>
     <string name="user_info_address">Indirizzo</string>
     <string name="user_info_email">Email</string>
+    <string name="user_info_groups">Gruppi</string>
     <string name="user_info_phone">Numero di telefono</string>
+    <string name="user_info_profile">Profilo</string>
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Sito web</string>
     <string name="user_information_retrieval_error">Errore durante il recupero delle informazioni utente</string>
@@ -1195,10 +1196,5 @@
         <item quantity="one">%d selezionato</item>
         <item quantity="many">%d selezionati</item>
         <item quantity="other">%d selezionati</item>
-    </plurals>
-    <plurals name="delay_message_seconds_part">
-        <item quantity="one">%d secondo</item>
-        <item quantity="many">%d secondi</item>
-        <item quantity="other">%d secondi</item>
     </plurals>
     </resources>

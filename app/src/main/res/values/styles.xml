@@ -145,20 +145,6 @@
         <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
     </style>
 
-    <style name="ownCloud.Dialog" parent="Theme.Material3.DayNight.Dialog">
-        <item name="searchViewStyle">@style/ownCloud.SearchView</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
-    </style>
-
-    <style name="ProgressDialogTheme" parent="ownCloud.Dialog">
-        <item name="colorAccent">@color/color_accent</item>
-        <item name="android:textColor">@color/login_text_color</item>
-        <item name="android:windowFrame">@color/transparent</item>
-        <item name="android:windowBackground">@color/transparent</item>
-        <item name="android:windowTitleBackgroundStyle">@drawable/process_dialog_background</item>
-    </style>
-
     <style name="ownCloud.SearchView" parent="Widget.AppCompat.SearchView">
         <!-- Close button icon -->
         <item name="closeIcon">@drawable/ic_close</item>
@@ -245,10 +231,6 @@
         <item name="android:windowLightNavigationBar">false</item>
     </style>
 
-    <style name="Theme.ownCloud.Media" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
-    </style>
-
     <style name="ToolbarStyle.Overflow" parent="@style/Widget.AppCompat.ActionButton.Overflow">
         <item name="android:tint">@android:color/white</item>
     </style>
@@ -291,6 +273,13 @@
     <style name="Theme.ownCloud.Dialog.NoTitle" parent="@style/Theme.ownCloud.Dialog">
         <item name="windowNoTitle">true</item>
         <item name="colorAccent">@color/color_accent</item>
+    </style>
+
+    <style name="Theme.ownCloud.ShareDialog" parent="@style/Theme.ownCloud.Dialog.NoTitle">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
     </style>
 
     <style name="NavigationView_ItemTextAppearance">
@@ -337,6 +326,12 @@
     </style>
 
     <style name="NextcloudTextAppearanceMedium" parent="@style/TextAppearance.AppCompat.Medium"></style>
+
+    <style name="NextcloudTextAppearanceSectionTitle" parent="@style/TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/activity_list_item_title_header_text_size</item>
+    </style>
 
     <style name="Widget.App.Login.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.Login.TextInputLayout</item>
@@ -426,6 +421,39 @@
         <item name="iconPadding">0dp</item>
     </style>
 
+    <style name="Widget.App.Button.BottomSheetItem" parent="Widget.Material3.Button.TextButton.Icon">
+        <item name="cornerRadius">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="rippleColor">?attr/colorControlHighlight</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.App.Button.Circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="Widget.App.Button.BottomSheetIcon" parent="Widget.Material3.Button.IconButton">
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.App.Button.Circle</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="rippleColor">?attr/colorControlHighlight</item>
+    </style>
+
+    <style name="Widget.App.Divider.BottomSheetDivider" parent="Widget.Material3.MaterialDivider">
+        <item name="android:layout_marginVertical">@dimen/standard_half_margin</item>
+        <item name="android:layout_marginHorizontal">@dimen/bottom_sheet_menu_item_divider_standard_margin</item>
+        <item name="dividerColor">@color/list_divider_background</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Button.BottomSheetItem" parent="Widget.Material3.Button.IconButton">
+        <item name="materialButtonStyle">@style/Widget.App.Button.BottomSheetItem</item>
+    </style>
+
     <style name="Nextcloud.Material.TextButton" parent="Widget.Material3.Button.TextButton.Icon">
         <item name="android:typeface">sans</item>
         <item name="android:textStyle">bold</item>
@@ -459,18 +487,98 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <!-- Splash screen style attributes: https://developer.android.com/develop/ui/views/launch/splash-screen#set-theme -->
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
-        <!-- Set the splash screen background color -->
         <item name="windowSplashScreenBackground">@color/primary</item>
-
-        <!-- Set the splash screen animated icon  -->
-        <!-- Setting a transparent icon because of branding reason, showing icon is not accepted -->
-        <item name="windowSplashScreenAnimatedIcon">@android:color/transparent</item>
-
-        <!-- Set the theme of the Activity that directly follows your splash screen. -->
-        <!-- Required -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
         <item name="postSplashScreenTheme">@style/Theme.ownCloud.Launcher</item>
     </style>
 
+    <style name="ImageBottomRoundedShape">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">16dp</item>
+        <item name="cornerSizeBottomRight">16dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+    </style>
+
+    <style name="ChipIncomingTextAppearance" parent="TextAppearance.MaterialComponents.Chip">
+        <item name="android:textColor">#de000000</item>
+    </style>
+
+    <style name="PlayerTimeTextViewStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAppearance">@style/TextAppearance.App.Player.ProgressTime</item>
+        <item name="android:textColor">@color/player_default_text_color</item>
+    </style>
+
+    <style name="TextAppearance.App.Player.Toolbar" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textColor">@color/player_toolbar_text_color</item>
+    </style>
+
+    <style name="TextAppearance.App.Player.ProgressTime" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:textColor">@color/player_default_text_color</item>
+    </style>
+
+    <style name="PlayerToolbarStyle" parent="Widget.Material3.Toolbar.OnSurface">
+        <item name="android:theme">@style/ThemeOverlay.App.Player.Toolbar</item>
+        <item name="titleTextAppearance">@style/TextAppearance.App.Player.Toolbar</item>
+        <item name="titleTextColor">@color/player_toolbar_text_color</item>
+        <item name="navigationIconTint">@color/player_toolbar_icon_color</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Player.Toolbar" parent="">
+        <item name="colorControlNormal">@color/player_toolbar_icon_color</item>
+        <item name="colorOnSurface">@color/player_toolbar_text_color</item>
+        <item name="colorOnSurfaceVariant">@color/player_toolbar_icon_color</item>
+    </style>
+
+    <style name="TextAppearance.App.Player.AudioTitle" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textColor">@color/player_default_text_color</item>
+    </style>
+
+    <style name="TextAppearance.App.Player.AudioFileDetails" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:textColor">@color/player_default_text_color</item>
+    </style>
+
+    <style name="ShapeAppearance.App.Player.Media" parent="ShapeAppearance.Material3.Corner.None" />
+
+    <style name="ShapeAppearance.App.Player.AlbumCover" parent="ShapeAppearance.Material3.Corner.Large" />
+
+    <style name="PlayerSliderStyle" parent="Widget.Material3.Slider">
+        <item name="labelBehavior">gone</item>
+        <item name="trackColorInactive">@color/player_progressbar_background_color</item>
+    </style>
+
+    <style name="PlayerControlSpacerStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="PlayerControlButtonStyle" parent="Widget.Material3Expressive.Button.IconButton">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.Material3Expressive.Button.IconButton.Standard</item>
+        <item name="materialSizeOverlay">@style/SizeOverlay.Material3Expressive.Button.IconButton.Small</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/player_button_margin_vertical</item>
+        <item name="android:layout_marginBottom">@dimen/player_button_margin_vertical</item>
+    </style>
+
+    <style name="PlayerControlToggleButtonStyle" parent="PlayerControlButtonStyle">
+        <item name="android:checkable">true</item>
+    </style>
+
+    <style name="PlayerPlayPauseButtonStyle" parent="Widget.Material3Expressive.Button.IconButton.Filled">
+        <item name="materialSizeOverlay">@style/SizeOverlay.Material3Expressive.Button.IconButton.Medium</item>
+        <item name="android:checkable">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/player_button_margin_vertical</item>
+        <item name="android:layout_marginBottom">@dimen/player_button_margin_vertical</item>
+    </style>
 </resources>

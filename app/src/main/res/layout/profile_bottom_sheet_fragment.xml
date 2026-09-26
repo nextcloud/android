@@ -8,39 +8,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/bottom_sheet_item_height"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/standard_padding">
+
+    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
+        android:gravity="start|center_vertical"
         tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/icon"
             android:layout_width="@dimen/user_icon_size"
             android:layout_height="@dimen/user_icon_size"
-            android:layout_gravity="center_vertical"
-            android:layout_marginBottom="@dimen/standard_half_margin"
-            android:layout_marginEnd="@dimen/standard_margin"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:layout_marginStart="@dimen/standard_margin"
-            android:layout_marginTop="@dimen/standard_half_margin"
+            android:layout_marginHorizontal="@dimen/standard_margin"
             android:contentDescription="@string/user_icon"
             android:src="@drawable/ic_user_outline" />
 
         <TextView
             android:id="@+id/displayName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:ellipsize="end"
+            android:lines="1"
+            android:paddingStart="@dimen/zero"
             android:paddingTop="@dimen/standard_padding"
+            android:paddingEnd="@dimen/standard_padding"
             android:paddingBottom="@dimen/standard_padding"
-            tools:text="@string/placeholder_first_name_last_name"
+            android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
             android:textColor="@color/text_color"
-            android:textSize="@dimen/bottom_sheet_text_size" />
+            tools:text="@string/placeholder_first_name_last_name" />
     </LinearLayout>
 
     <LinearLayout

@@ -17,8 +17,9 @@ import com.owncloud.android.R;
 import com.owncloud.android.databinding.CalendarlistListItemBinding;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import third_parties.sufficientlysecure.AndroidCalendar;
+import thirdparties.sufficientlysecure.AndroidCalendar;
 
 class CalendarItemViewHolder extends SectionedViewHolder {
     public CalendarlistListItemBinding binding;
@@ -38,7 +39,7 @@ class CalendarItemViewHolder extends SectionedViewHolder {
         binding.spinner.setAdapter(adapter);
     }
 
-    public void setCalendars(ArrayList<AndroidCalendar> calendars) {
+    public void setCalendars(List<AndroidCalendar> calendars) {
         adapter.clear();
         adapter.addAll(calendars);
     }

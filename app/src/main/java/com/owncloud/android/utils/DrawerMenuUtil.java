@@ -24,14 +24,9 @@ public final class DrawerMenuUtil {
     }
 
     public static void filterSearchMenuItems(Menu menu,
-                                             User user,
-                                             Resources resources) {
+                                             User user) {
         if (user.isAnonymous()) {
             removeMenuItem(menu, R.id.nav_gallery, R.id.nav_favorites);
-        }
-
-        if (!resources.getBoolean(R.bool.recently_modified_enabled)) {
-            menu.removeItem(R.id.nav_recently_modified);
         }
     }
 

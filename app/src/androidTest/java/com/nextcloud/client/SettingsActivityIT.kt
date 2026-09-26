@@ -9,7 +9,6 @@
 package com.nextcloud.client
 
 import android.content.Intent
-import android.os.Looper
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -61,12 +60,8 @@ class SettingsActivityIT : AbstractIT() {
         }
     }
 
-    @Suppress("DEPRECATION")
     @Test
     fun showMnemonic() {
-        if (Looper.myLooper() == null) {
-            Looper.prepare()
-        }
         val intent = Intent().apply {
             putExtra(RequestCredentialsActivity.KEY_CHECK_RESULT, RequestCredentialsActivity.KEY_CHECK_RESULT_TRUE)
         }
@@ -76,13 +71,10 @@ class SettingsActivityIT : AbstractIT() {
         }
 
         launchActivity<SettingsActivity>().use { scenario ->
-            onView(isRoot()).check(matches(isDisplayed()))
-
             scenario.onActivity { sut ->
                 sut.handleMnemonicRequest(intent)
             }
 
-            Looper.myLooper()?.quitSafely()
             Assert.assertTrue(true)
         }
     }

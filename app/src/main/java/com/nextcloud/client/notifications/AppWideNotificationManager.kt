@@ -37,17 +37,21 @@ object AppWideNotificationManager {
 
     private const val SYNC_CONFLICT_NOTIFICATION_ID = 112
 
-    fun showSyncConflictNotification(context: Context) {
+    fun getUploadListPendingIntent(context: Context): PendingIntent {
         val intent = Intent(context, UploadListActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
 
-        val pendingIntent = PendingIntent.getActivity(
+        return PendingIntent.getActivity(
             context,
             SYNC_CONFLICT_NOTIFICATION_INTENT_REQ_CODE,
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
+    }
+
+    fun showSyncConflictNotification(context: Context) {
+        val pendingIntent = getUploadListPendingIntent(context)
 
         val actionIntent = Intent(context, SyncConflictNotificationBroadcastReceiver::class.java).apply {
             putExtra(SyncConflictNotificationBroadcastReceiver.NOTIFICATION_ID, SYNC_CONFLICT_NOTIFICATION_ID)

@@ -17,6 +17,35 @@ import com.owncloud.android.db.ProviderMeta
 
 @Dao
 interface FileSystemDao {
+    @Query(
+        """
+    UPDATE ${ProviderMeta.ProviderTableMeta.FILESYSTEM_TABLE_NAME}
+    SET ${ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_REMOTE_PATH} = :remotePath
+    WHERE ${ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH} = :localPath
+      AND ${ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID} = :syncedFolderId
+    """
+    )
+    suspend fun updateRemotePath(remotePath: String, localPath: String, syncedFolderId: String)
+
+    @Query(
+        """
+    SELECT *
+    FROM ${ProviderMeta.ProviderTableMeta.FILESYSTEM_TABLE_NAME}
+    WHERE ${ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID} = :syncedFolderId
+    """
+    )
+    suspend fun getBySyncedFolderId(syncedFolderId: String): List<FilesystemEntity>
+
+    @Query(
+        """
+    SELECT COUNT(*) > 0 FROM ${ProviderMeta.ProviderTableMeta.FILESYSTEM_TABLE_NAME}
+    WHERE ${ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH} = :localPath
+      AND ${ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID} IS NOT NULL
+    LIMIT 1
+"""
+    )
+    suspend fun isBelongToAnyAutoFolder(localPath: String): Boolean
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertOrReplace(filesystemEntity: FilesystemEntity)
 
@@ -66,4 +95,16 @@ interface FileSystemDao {
     """
     )
     fun getFileByPathAndFolder(localPath: String, syncedFolderId: String): FilesystemEntity?
+
+    @Query(
+        """
+    SELECT COUNT(*) > 0
+    FROM ${ProviderMeta.ProviderTableMeta.FILESYSTEM_TABLE_NAME}
+    WHERE ${ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID} = :syncedFolderId
+      AND ${ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD} = 0
+      AND ${ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER} = 0
+    LIMIT 1
+    """
+    )
+    suspend fun hasPendingFiles(syncedFolderId: String): Boolean
 }

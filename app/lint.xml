@@ -76,6 +76,11 @@
         <ignore path="build" />
     </issue>
 
+    <!-- Dagger factories generated for media3 @UnstableApi types cannot carry an @OptIn annotation. -->
+    <issue id="UnsafeOptInUsageError" severity="error">
+        <ignore path="build" />
+    </issue>
+
     <issue id="ObsoleteLintCustomCheck" severity="warning">
         <ignore path="**/fragment-1.2.5/**/lint.jar" />
         <ignore path="**/work-runtime-2.**/**/lint.jar" />

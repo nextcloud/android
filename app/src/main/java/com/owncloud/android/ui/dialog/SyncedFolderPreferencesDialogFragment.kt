@@ -19,10 +19,12 @@ import android.view.View
 import android.widget.AdapterView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.SubFolderRule
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.text.SpanFormatter
 import com.owncloud.android.R
 import com.owncloud.android.databinding.SyncedFoldersSettingsLayoutBinding
 import com.owncloud.android.datamodel.MediaFolderType
@@ -33,9 +35,12 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.FolderPickerActivity
 import com.owncloud.android.ui.activity.UploadFilesActivity
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.FileUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 import javax.inject.Inject
 
@@ -180,7 +185,7 @@ class SyncedFolderPreferencesDialogFragment :
             setEnabled(it.isEnabled)
 
             if (!TextUtils.isEmpty(it.localPath)) {
-                binding.syncedFoldersSettingsLocalFolderPath.text = DisplayUtils.createTextWithSpan(
+                binding.syncedFoldersSettingsLocalFolderPath.text = SpanFormatter.styleLast(
                     String.format(
                         getString(R.string.synced_folders_preferences_folder_path),
                         it.localPath
@@ -257,7 +262,7 @@ class SyncedFolderPreferencesDialogFragment :
     fun setLocalFolderSummary(path: String?) {
         syncedFolder?.localPath = path
         binding?.localFolderSummary?.text = FileStorageUtils.pathToUserFriendlyDisplay(path, activity, resources)
-        binding?.syncedFoldersSettingsLocalFolderPath?.text = DisplayUtils.createTextWithSpan(
+        binding?.syncedFoldersSettingsLocalFolderPath?.text = SpanFormatter.styleLast(
             String.format(
                 getString(R.string.synced_folders_preferences_folder_path),
                 syncedFolder!!.localPath
@@ -279,20 +284,29 @@ class SyncedFolderPreferencesDialogFragment :
             binding?.settingInstantBehaviourContainer?.alpha = ALPHA_DISABLED
             return
         }
-        if (syncedFolder!!.localPath != null &&
-            FileStorageUtils.isFolderWritable(File(syncedFolder!!.localPath))
-        ) {
-            binding?.settingInstantBehaviourContainer?.isEnabled = true
-            binding?.settingInstantBehaviourContainer?.alpha = ALPHA_ENABLED
-            binding?.settingInstantBehaviourSummary?.text =
-                uploadBehaviorItemStrings[syncedFolder!!.uploadActionInteger]
-        } else {
-            binding?.settingInstantBehaviourContainer?.isEnabled = false
-            binding?.settingInstantBehaviourContainer?.alpha = ALPHA_DISABLED
-            syncedFolder?.setUploadAction(
-                resources.getTextArray(R.array.pref_behaviour_entryValues)[0].toString()
-            )
-            binding?.settingInstantBehaviourSummary?.setText(R.string.auto_upload_file_behaviour_kept_in_folder)
+
+        val folderFile = syncedFolder?.localPath?.let { File(it) }
+        lifecycleScope.launch {
+            val writable = FileUtil.isFolderWritable(folderFile)
+            withContext(Dispatchers.Main) {
+                binding?.settingInstantBehaviourContainer?.run {
+                    if (writable) {
+                        isEnabled = true
+                        alpha = ALPHA_ENABLED
+                        binding?.settingInstantBehaviourSummary?.text =
+                            uploadBehaviorItemStrings[syncedFolder!!.uploadActionInteger]
+                    } else {
+                        isEnabled = false
+                        alpha = ALPHA_DISABLED
+                        syncedFolder?.setUploadAction(
+                            resources.getTextArray(R.array.pref_behaviour_entryValues)[0].toString()
+                        )
+                        binding?.settingInstantBehaviourSummary?.setText(
+                            R.string.auto_upload_file_behaviour_kept_in_folder
+                        )
+                    }
+                }
+            }
         }
     }
 

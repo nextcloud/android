@@ -12,7 +12,7 @@ import com.owncloud.android.utils.EncryptionUtils
 data class DecryptedMetadata(
     val keyChecksums: MutableList<String> = mutableListOf(),
     val deleted: Boolean = false,
-    var counter: Long = 0,
+    var counter: Long = EncryptionUtils.E2E_V2_INITIAL_COUNTER,
     val folders: MutableMap<String, String> = mutableMapOf(),
     val files: MutableMap<String, DecryptedFile> = mutableMapOf(),
     @Transient

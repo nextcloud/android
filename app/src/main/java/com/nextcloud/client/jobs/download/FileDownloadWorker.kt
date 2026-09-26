@@ -1,9 +1,8 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2023 Alper Ozturk <alper.ozturk@nextcloud.com>
- * SPDX-FileCopyrightText: 2023 Nextcloud GmbH
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 package com.nextcloud.client.jobs.download
 
@@ -21,8 +20,6 @@ import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.model.WorkerState
-import com.nextcloud.model.WorkerStateObserver
 import com.nextcloud.utils.ForegroundServiceHelper
 import com.nextcloud.utils.extensions.getPercent
 import com.owncloud.android.R
@@ -44,13 +41,14 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.util.AbstractList
 import java.util.Optional
 import java.util.Vector
+import java.util.concurrent.ConcurrentHashMap
 import kotlin.random.Random
 
 @Suppress("LongParameterList", "TooManyFunctions", "TooGenericExceptionCaught")
 class FileDownloadWorker(
     viewThemeUtils: ViewThemeUtils,
     private val accountManager: UserAccountManager,
-    private var localBroadcastManager: LocalBroadcastManager,
+    localBroadcastManager: LocalBroadcastManager,
     private val context: Context,
     params: WorkerParameters
 ) : CoroutineWorker(context, params),
@@ -79,14 +77,6 @@ class FileDownloadWorker(
         const val ACTIVITY_NAME = "ACTIVITY_NAME"
         const val PACKAGE_NAME = "PACKAGE_NAME"
         const val CONFLICT_UPLOAD_ID = "CONFLICT_UPLOAD_ID"
-        const val EXTRA_DOWNLOAD_RESULT = "EXTRA_DOWNLOAD_RESULT"
-        const val EXTRA_REMOTE_PATH = "EXTRA_REMOTE_PATH"
-        const val EXTRA_LINKED_TO_PATH = "EXTRA_LINKED_TO_PATH"
-        const val EXTRA_ACCOUNT_NAME = "EXTRA_ACCOUNT_NAME"
-
-        fun getDownloadAddedMessage(): String = FileDownloadWorker::class.java.name + "DOWNLOAD_ADDED"
-
-        fun getDownloadFinishMessage(): String = FileDownloadWorker::class.java.name + "DOWNLOAD_FINISH"
     }
 
     private var currentDownload: DownloadFileOperation? = null
@@ -94,7 +84,9 @@ class FileDownloadWorker(
     private var conflictUploadId: Long? = null
     private var lastPercent = 0
 
+    private val fileDownloadEventBroadcaster = FileDownloadEventBroadcaster(context, localBroadcastManager)
     private val intents = FileDownloadIntents(context)
+
     private var notificationManager = DownloadNotificationManager(
         Random.nextInt(),
         context,
@@ -113,11 +105,9 @@ class FileDownloadWorker(
 
     @Suppress("ReturnCount")
     override suspend fun doWork(): Result {
-        trySetForeground()
-
         return try {
             setUser()
-            val remotePath = inputData.keyValueMap[FILE_REMOTE_PATH] as String? ?: return Result.failure()
+            val remotePath = inputData.keyValueMap[FILE_REMOTE_PATH] as? String? ?: return Result.failure()
             val ocFile = fileDataStorageManager?.getFileByEncryptedRemotePath(remotePath) ?: return Result.failure()
             val requestDownloads = getRequestDownloads(ocFile)
             addAccountUpdateListener()
@@ -140,7 +130,6 @@ class FileDownloadWorker(
         } finally {
             Log_OC.d(TAG, "cleanup")
             notificationManager.dismissNotification()
-            setIdleWorkerState()
         }
     }
 
@@ -153,28 +142,21 @@ class FileDownloadWorker(
         )
     }
 
-    private suspend fun trySetForeground() {
+    private suspend fun trySetForeground(filename: String) {
         try {
-            val foregroundInfo = createWorkerForegroundInfo()
+            val foregroundInfo = createWorkerForegroundInfo(filename)
             setForeground(foregroundInfo)
         } catch (e: Exception) {
             Log_OC.w(TAG, "⚠️ Could not set foreground service: ${e.message}")
         }
     }
 
-    private fun createWorkerForegroundInfo(): ForegroundInfo = ForegroundServiceHelper.createWorkerForegroundInfo(
-        notificationManager.getId(),
-        notificationManager.getNotification(),
-        ForegroundServiceType.DataSync
-    )
-
-    private fun setWorkerState(user: User?) {
-        WorkerStateObserver.send(WorkerState.FileDownloadStarted(user, currentDownload))
-    }
-
-    private fun setIdleWorkerState() {
-        WorkerStateObserver.send(WorkerState.FileDownloadCompleted(getCurrentFile()))
-    }
+    private fun createWorkerForegroundInfo(filename: String): ForegroundInfo =
+        ForegroundServiceHelper.createWorkerForegroundInfo(
+            notificationManager.getId(),
+            notificationManager.getNotification(filename),
+            ForegroundServiceType.DataSync
+        )
 
     private fun removePendingDownload(accountName: String?) {
         pendingDownloads.remove(accountName)
@@ -192,6 +174,11 @@ class FileDownloadWorker(
 
         val requestedDownloads: AbstractList<String> = Vector()
 
+        val user = user ?: run {
+            Log_OC.e(TAG, "user cannot be null")
+            return requestedDownloads
+        }
+
         return try {
             files.forEach { file ->
                 val operation = DownloadFileOperation(
@@ -204,10 +191,9 @@ class FileDownloadWorker(
                     downloadType
                 )
 
-                operation.addDownloadDataTransferProgressListener(this)
-                operation.addDownloadDataTransferProgressListener(downloadProgressListener)
-                val (downloadKey, linkedToRemotePath) = pendingDownloads.putIfAbsent(
-                    user?.accountName,
+                operation.addProgressListener(this)
+                val (downloadKey, _) = pendingDownloads.putIfAbsent(
+                    user.accountName,
                     file.remotePath,
                     operation
                 ) ?: Pair(null, null)
@@ -216,9 +202,13 @@ class FileDownloadWorker(
                     requestedDownloads.add(downloadKey)
                 }
 
-                linkedToRemotePath?.let {
-                    localBroadcastManager.sendBroadcast(intents.newDownloadIntent(operation, linkedToRemotePath))
-                }
+                fileDownloadEventBroadcaster.sendDownloadEnqueued(
+                    operation.user.accountName,
+                    operation.remotePath,
+                    context.packageName,
+                    operation.file.fileId,
+                    operation.user.accountName
+                )
             }
 
             requestedDownloads
@@ -259,14 +249,13 @@ class FileDownloadWorker(
     }
 
     @Suppress("TooGenericExceptionCaught", "DEPRECATION")
-    private fun downloadFile(downloadKey: String) {
+    private suspend fun downloadFile(downloadKey: String) {
         currentDownload = pendingDownloads.get(downloadKey)
 
         if (currentDownload == null) {
             return
         }
 
-        setWorkerState(user)
         Log_OC.d(TAG, "downloading: $downloadKey")
 
         val isAccountExist = accountManager.exists(currentDownload?.user?.toPlatformAccount())
@@ -276,6 +265,7 @@ class FileDownloadWorker(
         }
 
         lastPercent = 0
+        trySetForeground(currentDownload?.file?.fileName ?: "")
         notificationManager.run {
             prepareForStart(currentDownload!!)
             setContentIntent(intents.detailsIntent(currentDownload!!), PendingIntent.FLAG_IMMUTABLE)
@@ -332,7 +322,7 @@ class FileDownloadWorker(
             checkDownloadError(it)
         }
 
-        val removeResult = pendingDownloads.removePayload(
+        pendingDownloads.removePayload(
             currentDownload?.user?.accountName,
             currentDownload?.remotePath
         )
@@ -342,13 +332,10 @@ class FileDownloadWorker(
         currentDownload?.run {
             notifyDownloadResult(this, downloadResult)
 
-            val downloadFinishedIntent = intents.downloadFinishedIntent(
+            fileDownloadEventBroadcaster.sendDownloadCompleted(
                 this,
-                downloadResult,
-                removeResult.second
+                downloadResult
             )
-
-            localBroadcastManager.sendBroadcast(downloadFinishedIntent)
         }
     }
 
@@ -418,7 +405,7 @@ class FileDownloadWorker(
         totalToTransfer: Long,
         filePath: String
     ) {
-        val percent: Int = downloadProgressListener.getPercent(totalTransferredSoFar, totalToTransfer)
+        val percent: Int = getPercent(totalTransferredSoFar, totalToTransfer)
         val currentTime = System.currentTimeMillis()
 
         if (percent != lastPercent && (currentTime - lastUpdateTime) >= minProgressUpdateInterval) {
@@ -430,13 +417,11 @@ class FileDownloadWorker(
 
         lastPercent = percent
         EventBusFactory.downloadProgressEventBus.post(FileDownloadProgressEvent(percent))
+        downloadProgressListener.onTransferProgress(progressRate, totalTransferredSoFar, totalToTransfer, filePath)
     }
 
-    // CHECK: Is this class still needed after conversion from Foreground Services to Worker?
     inner class FileDownloadProgressListener : OnDatatransferProgressListener {
-        private val boundListeners: MutableMap<Long, OnDatatransferProgressListener> = HashMap()
-
-        fun isDownloading(user: User?, file: OCFile?): Boolean = FileDownloadHelper.instance().isDownloading(user, file)
+        private val boundListeners = ConcurrentHashMap<Long, OnDatatransferProgressListener>()
 
         fun addDataTransferProgressListener(listener: OnDatatransferProgressListener?, file: OCFile?) {
             if (file == null || listener == null) {

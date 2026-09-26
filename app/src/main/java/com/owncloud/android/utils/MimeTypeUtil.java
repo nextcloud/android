@@ -99,6 +99,8 @@ public final class MimeTypeUtil {
                 return null;
             }
 
+            icon = icon.mutate();
+
             if (R.drawable.file_zip == iconId) {
                 viewThemeUtils.platform.tintDrawable(context, icon, ColorRole.PRIMARY);
             }

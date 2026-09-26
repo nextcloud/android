@@ -9,7 +9,6 @@ package com.owncloud.android.ui.dialog.setupEncryption
 import android.accounts.AccountManager
 import android.app.Dialog
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.VisibleForTesting
@@ -18,10 +17,15 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputLayout
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.utils.SnackbarUtil
+import com.nextcloud.utils.e2ee.model.E2EEAction
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.getSerializableArgument
+import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
 import com.owncloud.android.databinding.SetupEncryptionDialogBinding
 import com.owncloud.android.datamodel.ArbitraryDataProvider
@@ -35,21 +39,20 @@ import com.owncloud.android.lib.resources.users.GetPublicKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.GetServerPublicKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.SendCSRRemoteOperation
 import com.owncloud.android.lib.resources.users.StorePrivateKeyRemoteOperation
-import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.ui.dialog.extensions.themeButtons
+import com.owncloud.android.ui.dialog.setupEncryption.model.DownloadKeyResult
+import com.owncloud.android.utils.ClipboardUtil
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.crypto.CryptoHelper
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.apache.commons.httpclient.HttpStatus
 import java.io.IOException
 import java.lang.ref.WeakReference
-import java.util.Arrays
 import javax.inject.Inject
 
-/*
- *  Dialog to setup encryption
- */
 class SetupEncryptionDialogFragment :
     DialogFragment(),
     Injectable {
@@ -77,26 +80,9 @@ class SetupEncryptionDialogFragment :
 
     override fun onStart() {
         super.onStart()
-
-        setupAlertDialog()
+        dialog?.themeButtons(viewThemeUtils)
         lifecycleScope.launch {
             downloadKeys()
-        }
-    }
-
-    private fun setupAlertDialog() {
-        val alertDialog = dialog as AlertDialog?
-
-        if (alertDialog != null) {
-            positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE) as? MaterialButton?
-            positiveButton?.let {
-                viewThemeUtils.material.colorMaterialButtonPrimaryTonal(it)
-            }
-
-            negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE) as? MaterialButton?
-            negativeButton?.let {
-                viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(it)
-            }
         }
     }
 
@@ -117,6 +103,11 @@ class SetupEncryptionDialogFragment :
 
         // Setup layout
         viewThemeUtils.material.colorTextInputLayout(binding.encryptionPasswordInputContainer)
+        viewThemeUtils.material.colorProgressBar(binding.progressBar)
+
+        if (BuildConfig.DEBUG) {
+            binding.encryptionPasswordInputContainer.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
+        }
 
         val builder = buildMaterialAlertDialog(binding.root)
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(requireContext(), builder)
@@ -160,74 +151,80 @@ class SetupEncryptionDialogFragment :
     private fun decryptPrivateKey(dialog: DialogInterface) {
         Log_OC.d(TAG, "Decrypt private key")
         binding.encryptionStatus.setText(R.string.end_to_end_encryption_decrypting)
+        binding.progressBar.visibility = View.VISIBLE
 
-        try {
-            if (downloadKeyResult !is DownloadKeyResult.Success) {
-                Log_OC.d(TAG, "DownloadKeyResult is not success")
-                return
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                if (downloadKeyResult !is DownloadKeyResult.Success) {
+                    Log_OC.d(TAG, "DownloadKeyResult is not success")
+                    return@launch
+                }
+
+                val privateKey = (downloadKeyResult as DownloadKeyResult.Success).privateKey
+                val mnemonicUnchanged = binding.encryptionPasswordInput.text.toString().trim()
+                val mnemonic =
+                    binding.encryptionPasswordInput.text.toString().replace("\\s".toRegex(), "")
+                        .lowercase()
+                val decryptedPrivateKey = CryptoHelper.decryptPrivateKey(
+                    privateKey,
+                    mnemonic
+                )
+                val accountName = user?.accountName ?: return@launch
+
+                arbitraryDataProvider?.storeOrUpdateKeyValue(
+                    accountName,
+                    EncryptionUtils.PRIVATE_KEY,
+                    decryptedPrivateKey
+                )
+
+                Log_OC.d(TAG, "Private key successfully decrypted and stored")
+
+                arbitraryDataProvider?.storeOrUpdateKeyValue(
+                    accountName,
+                    EncryptionUtils.MNEMONIC,
+                    mnemonicUnchanged
+                )
+
+                // check if private key and public key match
+                val publicKey = arbitraryDataProvider?.getValue(
+                    accountName,
+                    EncryptionUtils.PUBLIC_KEY
+                )
+
+                val firstKey = EncryptionUtils.generateKey()
+                val base64encodedKey = EncryptionUtils.encodeBytesToBase64String(firstKey)
+                val encryptedString = EncryptionUtils.encryptStringAsymmetric(
+                    base64encodedKey,
+                    publicKey
+                )
+                val decryptedString = EncryptionUtils.decryptStringAsymmetric(
+                    encryptedString,
+                    decryptedPrivateKey
+                )
+                val secondKey = EncryptionUtils.decodeStringToBase64Bytes(decryptedString)
+
+                if (!firstKey.contentEquals(secondKey)) {
+                    EncryptionUtils.reportE2eError(arbitraryDataProvider, user)
+                    throw Exception("Keys do not match")
+                }
+
+                withContext(Dispatchers.Main) {
+                    dialog.dismiss()
+                    notifyResult()
+                }
+            } catch (e: Exception) {
+                Log_OC.e(TAG, "Error while decrypting private key: " + e.message)
+
+                withContext(Dispatchers.Main) {
+                    binding.encryptionStatus.setText(R.string.end_to_end_encryption_wrong_password)
+                    binding.progressBar.visibility = View.GONE
+                }
             }
-
-            val privateKey = (downloadKeyResult as DownloadKeyResult.Success).privateKey
-            if (privateKey.isNullOrEmpty()) {
-                Log_OC.e(TAG, "privateKey is null or empty")
-                return
-            }
-            val mnemonicUnchanged = binding.encryptionPasswordInput.text.toString().trim()
-            val mnemonic =
-                binding.encryptionPasswordInput.text.toString().replace("\\s".toRegex(), "")
-                    .lowercase()
-            val decryptedPrivateKey = CryptoHelper.decryptPrivateKey(
-                privateKey,
-                mnemonic
-            )
-            val accountName = user?.accountName ?: return
-
-            arbitraryDataProvider?.storeOrUpdateKeyValue(
-                accountName,
-                EncryptionUtils.PRIVATE_KEY,
-                decryptedPrivateKey
-            )
-            dialog.dismiss()
-
-            Log_OC.d(TAG, "Private key successfully decrypted and stored")
-
-            arbitraryDataProvider?.storeOrUpdateKeyValue(
-                accountName,
-                EncryptionUtils.MNEMONIC,
-                mnemonicUnchanged
-            )
-
-            // check if private key and public key match
-            val publicKey = arbitraryDataProvider?.getValue(
-                accountName,
-                EncryptionUtils.PUBLIC_KEY
-            )
-
-            val firstKey = EncryptionUtils.generateKey()
-            val base64encodedKey = EncryptionUtils.encodeBytesToBase64String(firstKey)
-            val encryptedString = EncryptionUtils.encryptStringAsymmetric(
-                base64encodedKey,
-                publicKey
-            )
-            val decryptedString = EncryptionUtils.decryptStringAsymmetric(
-                encryptedString,
-                decryptedPrivateKey
-            )
-            val secondKey = EncryptionUtils.decodeStringToBase64Bytes(decryptedString)
-
-            if (!Arrays.equals(firstKey, secondKey)) {
-                EncryptionUtils.reportE2eError(arbitraryDataProvider, user)
-                throw Exception("Keys do not match")
-            }
-
-            notifyResult()
-        } catch (e: Exception) {
-            binding.encryptionStatus.setText(R.string.end_to_end_encryption_wrong_password)
-            Log_OC.d(TAG, "Error while decrypting private key: " + e.message)
         }
     }
 
     private fun generateKey() {
+        binding.copyPassphraseButton.visibility = View.GONE
         binding.encryptionPassphrase.visibility = View.GONE
         positiveButton?.visibility = View.GONE
         negativeButton?.visibility = View.GONE
@@ -240,27 +237,15 @@ class SetupEncryptionDialogFragment :
     }
 
     private fun notifyResult() {
-        val targetFragment = targetFragment
-        targetFragment?.onActivityResult(
-            targetRequestCode,
-            SETUP_ENCRYPTION_RESULT_CODE,
-            resultIntent
-        )
         parentFragmentManager.setFragmentResult(RESULT_REQUEST_KEY, resultBundle)
     }
 
-    private val resultIntent: Intent
-        get() {
-            return Intent().apply {
-                putExtra(SUCCESS, true)
-                putExtra(ARG_POSITION, requireArguments().getInt(ARG_POSITION))
-            }
-        }
     private val resultBundle: Bundle
         get() {
             return Bundle().apply {
                 putBoolean(SUCCESS, true)
-                putInt(ARG_POSITION, requireArguments().getInt(ARG_POSITION))
+                putString(ARG_FILE_PATH, requireArguments().getString(ARG_FILE_PATH))
+                putSerializable(ARG_ACTION, arguments.getSerializableArgument(ARG_ACTION, E2EEAction::class.java))
             }
         }
 
@@ -279,30 +264,6 @@ class SetupEncryptionDialogFragment :
         super.onSaveInstanceState(outState)
     }
 
-    sealed class DownloadKeyResult(open val descriptionId: Int? = null) {
-        data class CertificateVerificationFailed(
-            override val descriptionId: Int = R.string.end_to_end_encryption_certificate_verification_failed
-        ) : DownloadKeyResult(descriptionId)
-
-        data class ServerPublicKeyUnavailable(
-            override val descriptionId: Int = R.string.end_to_end_encryption_server_public_key_unavailable
-        ) : DownloadKeyResult(descriptionId)
-
-        data class ServerPrivateKeyUnavailable(
-            override val descriptionId: Int = R.string.end_to_end_encryption_server_private_key_unavailable
-        ) : DownloadKeyResult(descriptionId)
-
-        data class CertificateUnavailable(
-            override val descriptionId: Int = R.string.end_to_end_encryption_certificate_unavailable
-        ) : DownloadKeyResult(descriptionId)
-
-        data class UnexpectedError(
-            override val descriptionId: Int = R.string.end_to_end_encryption_unexpected_error_occurred
-        ) : DownloadKeyResult(descriptionId)
-
-        data class Success(val privateKey: String?) : DownloadKeyResult()
-    }
-
     private suspend fun downloadKeys() {
         binding.encryptionStatus.setText(R.string.end_to_end_encryption_retrieving_keys)
         positiveButton?.visibility = View.INVISIBLE
@@ -312,14 +273,14 @@ class SetupEncryptionDialogFragment :
             val user = user ?: return@withContext DownloadKeyResult.UnexpectedError()
             val dataProvider = arbitraryDataProvider ?: return@withContext DownloadKeyResult.UnexpectedError()
 
+            // GetPublicKeyRemoteOperation is wrong naming it actually fetches certificate
             val certificateOperation = GetPublicKeyRemoteOperation()
             val certificateResult = certificateOperation.executeNextcloudClient(user, weakContext)
-            val savedPrivateKey = dataProvider.getValue(user.accountName, EncryptionUtils.PRIVATE_KEY)
             if (!certificateResult.isSuccess) {
                 // The certificate might not be available on the server yet.
-                // Therefore, the user needs to generate a new passphrase first.
-                return@withContext if (savedPrivateKey.isEmpty()) {
-                    DownloadKeyResult.Success(null)
+                // Therefore, the user needs to generate a new passphrase first, send csr.
+                return@withContext if (certificateResult.httpCode == HttpStatus.SC_NOT_FOUND) {
+                    DownloadKeyResult.GeneratePassphraseSendCSR
                 } else {
                     DownloadKeyResult.CertificateUnavailable()
                 }
@@ -351,41 +312,50 @@ class SetupEncryptionDialogFragment :
                 Log_OC.d(TAG, "private key successful downloaded for " + user.accountName)
                 keyResult = KEY_EXISTING_USED
                 val privateKey = privateKeyResult.resultData?.getKey()
-                DownloadKeyResult.Success(privateKey)
+                if (privateKey == null) {
+                    DownloadKeyResult.ServerPrivateKeyUnavailable()
+                } else {
+                    DownloadKeyResult.Success(privateKey)
+                }
             } else {
                 DownloadKeyResult.ServerPrivateKeyUnavailable()
             }
         }
 
         downloadKeyResult?.let { result ->
-            if (result is DownloadKeyResult.Success) {
-                handlePrivateKey(result.privateKey)
+            if (result is DownloadKeyResult.Success || result is DownloadKeyResult.GeneratePassphraseSendCSR) {
+                handlePrivateKey(result)
             } else {
                 val descriptionId = result.descriptionId ?: return
                 val description = getString(descriptionId)
                 dismiss()
-                DisplayUtils.showSnackMessage(requireActivity(), description)
+                SnackbarUtil.show(requireActivity(), description)
             }
         }
     }
 
-    private fun handlePrivateKey(privateKey: String?) {
-        if (privateKey == null) {
-            // first show info
-            try {
-                if (keyWords == null || keyWords!!.isEmpty()) {
-                    keyWords = EncryptionUtils.getRandomWords(NUMBER_OF_WORDS, context)
-                }
-                showMnemonicInfo()
-            } catch (e: IOException) {
-                binding.encryptionStatus.setText(R.string.common_error)
+    private fun handlePrivateKey(result: DownloadKeyResult) {
+        when (result) {
+            is DownloadKeyResult.Success -> {
+                binding.encryptionStatus.setText(R.string.end_to_end_encryption_enter_passphrase_to_access_files)
+                binding.encryptionPasswordInputContainer.visibility = View.VISIBLE
+                positiveButton?.visibility = View.VISIBLE
             }
-        } else if (privateKey.isNotEmpty()) {
-            binding.encryptionStatus.setText(R.string.end_to_end_encryption_enter_passphrase_to_access_files)
-            binding.encryptionPasswordInputContainer.visibility = View.VISIBLE
-            positiveButton?.visibility = View.VISIBLE
-        } else {
-            Log_OC.e(TAG, "Got empty private key string")
+
+            is DownloadKeyResult.GeneratePassphraseSendCSR -> {
+                try {
+                    if (keyWords.isNullOrEmpty()) {
+                        keyWords = EncryptionUtils.getRandomWords(NUMBER_OF_WORDS, context)
+                    }
+                    showMnemonicInfo()
+                } catch (_: IOException) {
+                    binding.encryptionStatus.setText(R.string.common_error)
+                }
+            }
+
+            else -> {
+                Log_OC.e(TAG, "Got empty private key string")
+            }
         }
     }
 
@@ -397,7 +367,7 @@ class SetupEncryptionDialogFragment :
             //  - create CSR, push to server, store returned public key in database
             //  - encrypt private key, push key to server, store unencrypted private key in database
             try {
-                val publicKeyString: String
+                val certificate: String
 
                 // Create public/private key pair
                 val keyPair = EncryptionUtils.generateKeyPair()
@@ -412,8 +382,8 @@ class SetupEncryptionDialogFragment :
                 val result = operation.executeNextcloudClient(user, context)
 
                 if (result.isSuccess) {
-                    publicKeyString = result.resultData
-                    if (!EncryptionUtils.isMatchingKeys(keyPair, publicKeyString)) {
+                    certificate = result.resultData
+                    if (!EncryptionUtils.isMatchingKeys(keyPair, certificate)) {
                         EncryptionUtils.reportE2eError(arbitraryDataProvider, user)
                         throw RuntimeException("Wrong CSR returned")
                     }
@@ -444,7 +414,7 @@ class SetupEncryptionDialogFragment :
                     arbitraryDataProvider?.storeOrUpdateKeyValue(
                         user.accountName,
                         EncryptionUtils.PUBLIC_KEY,
-                        publicKeyString
+                        certificate
                     )
                     arbitraryDataProvider?.storeOrUpdateKeyValue(
                         user.accountName,
@@ -504,6 +474,8 @@ class SetupEncryptionDialogFragment :
         binding.encryptionPassphrase.text = generateMnemonicString(true)
         binding.encryptionPassphrase.visibility = View.VISIBLE
 
+        setupCopyPassphraseButton()
+
         positiveButton?.setText(R.string.end_to_end_encryption_confirm_button)
         positiveButton?.visibility = View.VISIBLE
         negativeButton?.visibility = View.VISIBLE
@@ -515,6 +487,17 @@ class SetupEncryptionDialogFragment :
         }
 
         keyResult = KEY_GENERATE
+    }
+
+    private fun setupCopyPassphraseButton() {
+        if (!BuildConfig.DEBUG) {
+            return
+        }
+
+        binding.copyPassphraseButton.visibility = View.VISIBLE
+        binding.copyPassphraseButton.setOnClickListener {
+            ClipboardUtil.copyToClipboard(requireActivity(), binding.encryptionPassphrase.text.toString())
+        }
     }
 
     @VisibleForTesting
@@ -544,9 +527,9 @@ class SetupEncryptionDialogFragment :
     companion object {
         const val SUCCESS = "SUCCESS"
         const val SETUP_ENCRYPTION_RESULT_CODE = 101
-        const val SETUP_ENCRYPTION_REQUEST_CODE = 100
         const val SETUP_ENCRYPTION_DIALOG_TAG = "SETUP_ENCRYPTION_DIALOG_TAG"
-        const val ARG_POSITION = "ARG_POSITION"
+        const val ARG_FILE_PATH = "ARG_FILE_PATH"
+        const val ARG_ACTION = "ARG_ACTION"
         const val RESULT_REQUEST_KEY = "RESULT_REQUEST"
         const val RESULT_KEY_CANCELLED = "IS_CANCELLED"
         private const val NUMBER_OF_WORDS = 12
@@ -557,21 +540,14 @@ class SetupEncryptionDialogFragment :
         private const val KEY_FAILED = "KEY_FAILED"
         private const val KEY_GENERATE = "KEY_GENERATE"
 
-        /**
-         * Public factory method to create new SetupEncryptionDialogFragment instance
-         *
-         * @return Dialog ready to show.
-         */
         @JvmStatic
-        fun newInstance(user: User?, position: Int): SetupEncryptionDialogFragment {
-            val bundle = Bundle().apply {
-                putParcelable(ARG_USER, user)
-                putInt(ARG_POSITION, position)
+        fun newInstance(user: User?, filePath: String?, action: E2EEAction?): SetupEncryptionDialogFragment =
+            SetupEncryptionDialogFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable(ARG_USER, user)
+                    putString(ARG_FILE_PATH, filePath)
+                    putSerializable(ARG_ACTION, action)
+                }
             }
-
-            return SetupEncryptionDialogFragment().apply {
-                arguments = bundle
-            }
-        }
     }
 }

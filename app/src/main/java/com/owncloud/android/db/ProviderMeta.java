@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey  <alvaro@alvarobrey.com>
  * SPDX-FileCopyrightText: 2016-2021 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2016 ownCloud Inc.
@@ -23,7 +24,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 98;
+    public static final int DB_VERSION = 106;
 
     private ProviderMeta() {
         // No instance
@@ -114,6 +115,7 @@ public class ProviderMeta {
         public static final String FILE_FAVORITE = "favorite";
         public static final String FILE_HIDDEN = "hidden";
         public static final String FILE_IS_ENCRYPTED = "is_encrypted";
+        public static final String FILE_IS_READ_ONLY = "is_read_only";
         public static final String FILE_MOUNT_TYPE = "mount_type";
         public static final String FILE_HAS_PREVIEW = "has_preview";
         public static final String FILE_UNREAD_COMMENTS_COUNT = "unread_comments_count";
@@ -168,6 +170,7 @@ public class ProviderMeta {
                                                                     FILE_FAVORITE,
                                                                     FILE_HIDDEN,
                                                                     FILE_IS_ENCRYPTED,
+                                                                    FILE_IS_READ_ONLY,
                                                                     FILE_MOUNT_TYPE,
                                                                     FILE_HAS_PREVIEW,
                                                                     FILE_UNREAD_COMMENTS_COUNT,
@@ -282,6 +285,7 @@ public class ProviderMeta {
         public static final String CAPABILITIES_GROUPFOLDERS = "groupfolders";
         public static final String CAPABILITIES_DROP_ACCOUNT = "drop_account";
         public static final String CAPABILITIES_SECURITY_GUARD = "security_guard";
+        public static final String CAPABILITIES_GOVERNANCE = "governance";
         public static final String CAPABILITIES_FORBIDDEN_FILENAME_CHARACTERS = "forbidden_filename_characters";
         public static final String CAPABILITIES_FORBIDDEN_FILENAMES = "forbidden_filenames";
         public static final String CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_EXTENSIONS = "forbidden_filename_extensions";
@@ -293,6 +297,9 @@ public class ProviderMeta {
         public static final String CAPABILITIES_DEFAULT_PERMISSIONS = "default_permissions";
         public static final String CAPABILITIES_HAS_VALID_SUBSCRIPTION = "has_valid_subscription";
         public static final String CAPABILITIES_CLIENT_INTEGRATION_JSON = "client_integration_json";
+        public static final String CAPABILITIES_MOD_REWRITE_WORKING = "mod_rewrite_working";
+        public static final String CAPABILITIES_CHUNKED_UPLOAD_MAX_SIZE = "chunked_upload_max_size";
+        public static final String CAPABILITIES_SHARING_JSON = "sharing_json";
 
         //Columns of Uploads table
         public static final String UPLOADS_LOCAL_PATH = "local_path";
@@ -361,6 +368,7 @@ public class ProviderMeta {
 
         // Columns of filesystem data table
         public static final String FILESYSTEM_FILE_LOCAL_PATH = "local_path";
+        public static final String FILESYSTEM_FILE_REMOTE_PATH = "remote_path";
         public static final String FILESYSTEM_FILE_MODIFIED = "modified_at";
         public static final String FILESYSTEM_FILE_IS_FOLDER = "is_folder";
         public static final String FILESYSTEM_FILE_FOUND_RECENTLY = "found_at";

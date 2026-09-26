@@ -23,6 +23,7 @@ import android.util.Base64
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.net.toUri
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.google.gson.Gson
@@ -40,7 +41,8 @@ import com.owncloud.android.lib.resources.notifications.DeleteNotificationRemote
 import com.owncloud.android.lib.resources.notifications.GetNotificationRemoteOperation
 import com.owncloud.android.lib.resources.notifications.models.Notification
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.ui.activity.NotificationsActivity
+import com.owncloud.android.ui.navigation.NavigatorActivity
+import com.owncloud.android.ui.navigation.NavigatorScreen
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.PushUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -55,6 +57,7 @@ import java.io.IOException
 import java.security.GeneralSecurityException
 import java.security.PrivateKey
 import java.security.SecureRandom
+import javax.crypto.BadPaddingException
 import javax.crypto.Cipher
 import javax.inject.Inject
 
@@ -96,9 +99,7 @@ class NotificationWork constructor(
                         base64DecodedSubject
                     )
                     if (signatureVerification != null && signatureVerification.signatureValid) {
-                        val cipher = Cipher.getInstance("RSA/None/PKCS1Padding")
-                        cipher.init(Cipher.DECRYPT_MODE, privateKey)
-                        val decryptedSubject = cipher.doFinal(base64DecodedSubject)
+                        val decryptedSubject = decryptSubject(privateKey, base64DecodedSubject)
                         val gson = Gson()
                         val decryptedPushMessage = gson.fromJson(
                             String(decryptedSubject),
@@ -124,6 +125,17 @@ class NotificationWork constructor(
         return Result.success()
     }
 
+    private fun decryptSubject(privateKey: PrivateKey, base64DecodedSubject: ByteArray): ByteArray = try {
+        val cipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA-1AndMGF1Padding")
+        cipher.init(Cipher.DECRYPT_MODE, privateKey)
+        cipher.doFinal(base64DecodedSubject)
+    } catch (e: BadPaddingException) {
+        Log_OC.e(TAG, "OAEP padding failed, trying PKCS1 for compatibility", e)
+        val cipher = Cipher.getInstance("RSA/None/PKCS1Padding")
+        cipher.init(Cipher.DECRYPT_MODE, privateKey)
+        cipher.doFinal(base64DecodedSubject)
+    }
+
     @Suppress("LongMethod") // legacy code
     private fun sendNotification(notification: Notification, user: User) {
         val randomId = SecureRandom()
@@ -137,7 +149,7 @@ class NotificationWork constructor(
         } else {
             val intent: Intent
             if (file == null) {
-                intent = Intent(context, NotificationsActivity::class.java)
+                intent = NavigatorActivity.intent(context, NavigatorScreen.Notifications)
             } else {
                 intent = Intent(context, FileDisplayActivity::class.java)
                 intent.action = Intent.ACTION_VIEW
@@ -303,7 +315,7 @@ class NotificationWork constructor(
                                 val actionType = intent.getStringExtra(KEY_NOTIFICATION_ACTION_TYPE)
                                 val actionLink = intent.getStringExtra(KEY_NOTIFICATION_ACTION_LINK)
                                 val success: Boolean = if (!actionType.isNullOrEmpty() && !actionLink.isNullOrEmpty()) {
-                                    val resultCode = executeAction(actionType, actionLink, client)
+                                    val resultCode = executeAction(actionType, actionLink, client, context)
                                     resultCode == HttpStatus.SC_OK || resultCode == HttpStatus.SC_ACCEPTED
                                 } else {
                                     DeleteNotificationRemoteOperation(numericNotificationId)
@@ -330,9 +342,21 @@ class NotificationWork constructor(
         }
 
         @Suppress("ReturnCount") // legacy code
-        private fun executeAction(actionType: String, actionLink: String, client: OwnCloudClient): Int {
-            val method: HttpMethod
-            method = when (actionType) {
+        private fun executeAction(
+            actionType: String,
+            actionLink: String,
+            client: OwnCloudClient,
+            context: Context
+        ): Int {
+            if (actionType == "WEB") {
+                val browserIntent = Intent(Intent.ACTION_VIEW, actionLink.toUri()).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }
+                context.startActivity(browserIntent)
+                return HttpStatus.SC_OK
+            }
+
+            val method: HttpMethod = when (actionType) {
                 "GET" -> GetMethod(actionLink)
                 "POST" -> Utf8PostMethod(actionLink)
                 "DELETE" -> DeleteMethod(actionLink)

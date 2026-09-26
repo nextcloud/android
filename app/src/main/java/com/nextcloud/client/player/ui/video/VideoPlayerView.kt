@@ -1,0 +1,54 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2025 STRATO GmbH.
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+package com.nextcloud.client.player.ui.video
+
+import android.content.Context
+import android.view.WindowInsets
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsCompat.Type
+import androidx.fragment.app.Fragment
+import com.nextcloud.client.player.model.file.PlaybackFile
+import com.nextcloud.client.player.ui.PlayerView
+import com.owncloud.android.R
+import kotlinx.coroutines.Job
+
+class VideoPlayerView(context: Context) : PlayerView(context) {
+    override val layoutRes get() = R.layout.player_video_view
+
+    override val createFragment: (PlaybackFile) -> Fragment get() = { VideoFileFragment.createInstance(it) }
+
+    private var hideControlsTimerJob: Job? = null
+
+    init {
+        topBar.setBackgroundResource(R.drawable.player_video_top_scrim)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        cancelHideControlsTimer()
+        playbackModel.setVideoSurfaceView(null)
+    }
+
+    override fun onApplyWindowInsets(windowInsets: WindowInsets): WindowInsets? {
+        val windowInsetsCompat = WindowInsetsCompat.toWindowInsetsCompat(windowInsets)
+        val insets = windowInsetsCompat.getInsets(Type.systemBars() or Type.displayCutout())
+
+        applyTopBarInsets(insets)
+        playerControlView.setPadding(insets.left, 0, insets.right, insets.bottom)
+
+        windowWrapper.setupStatusBar(R.color.player_video_toolbar_background_color)
+        windowWrapper.setupNavigationBar(R.color.player_video_control_view_background_color)
+
+        return WindowInsetsCompat.CONSUMED.toWindowInsets()
+    }
+
+    private fun cancelHideControlsTimer() {
+        hideControlsTimerJob?.cancel()
+        hideControlsTimerJob = null
+    }
+}

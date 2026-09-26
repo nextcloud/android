@@ -188,7 +188,8 @@ public class CreateShareWithShareeOperation extends SyncOperation {
             boolean metadataExists;
             if (metadata == null) {
                 String cert = EncryptionUtils.retrievePublicKeyForUser(user, context);
-                metadata = new EncryptionUtilsV2().createDecryptedFolderMetadataFile();
+                String e2eeVersion = getStorageManager().getE2EEVersion(user);
+                metadata = new EncryptionUtilsV2().createDecryptedFolderMetadataFile(e2eeVersion);
                 metadata.getUsers().add(new DecryptedUser(client.getUserId(), cert, null));
 
                 metadataExists = false;

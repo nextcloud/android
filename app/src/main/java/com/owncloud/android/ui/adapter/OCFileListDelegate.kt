@@ -18,32 +18,37 @@ import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.gallery.GalleryImageGenerationJob
 import com.nextcloud.client.jobs.gallery.GalleryImageGenerationListener
 import com.nextcloud.client.jobs.upload.FileUploadHelper
-import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.utils.OCFileUtils
-import com.nextcloud.utils.extensions.getSubfiles
+import com.nextcloud.utils.extensions.getBigThumbnail
 import com.nextcloud.utils.extensions.makeRounded
+import com.nextcloud.utils.extensions.setMediaPlaceholder
+import com.nextcloud.utils.extensions.setMediaThumbnail
 import com.nextcloud.utils.extensions.setVisibleIf
+import com.nextcloud.utils.extensions.showsMediaThumbnailOf
+import com.nextcloud.utils.extensions.stopShimmer
 import com.nextcloud.utils.mdm.MDMConfig
+import com.nextcloud.utils.thumbnail.ThumbnailArguments
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
-import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.ui.activity.AlbumsPickerActivity
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.activity.FolderPickerActivity
-import com.owncloud.android.ui.fragment.GalleryFragment
 import com.owncloud.android.ui.fragment.SearchType
+import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.EncryptionUtils
+import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.cancel
+import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @Suppress("LongParameterList", "TooManyFunctions")
 class OCFileListDelegate(
@@ -53,7 +58,6 @@ class OCFileListDelegate(
     private val user: User,
     private val storageManager: FileDataStorageManager,
     private val hideItemOptions: Boolean,
-    private val preferences: AppPreferences,
     private val gridView: Boolean,
     private val transferServiceGetter: ComponentsGetter,
     private val showMetadata: Boolean,
@@ -61,11 +65,9 @@ class OCFileListDelegate(
     private var viewThemeUtils: ViewThemeUtils,
     private val syncFolderProvider: SyncedFolderProvider? = null
 ) {
-    private val tag = "OCFileListDelegate"
     private val checkedFiles: MutableSet<OCFile> = HashSet()
     private var highlightedItem: OCFile? = null
     var isMultiSelect = false
-    private val asyncTasks: MutableList<ThumbnailsCacheManager.ThumbnailGenerationTask> = ArrayList()
     private val ioScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private val galleryImageGenerationJob = GalleryImageGenerationJob(user, storageManager)
 
@@ -105,24 +107,30 @@ class OCFileListDelegate(
         imageView: ImageView,
         file: OCFile,
         galleryRowHolder: GalleryRowHolder,
-        imageDimension: Pair<Int, Int>
+        placeholderInset: Int
     ) {
-        // Cancel previous job for this ImageView
+        bindGalleryRowListeners(imageView, file, galleryRowHolder)
+
+        if (imageView.showsMediaThumbnailOf(file) && !file.isUpdateThumbnailNeeded) {
+            imageView.tag = file.fileId
+            imageView.stopShimmer(shimmer)
+            return
+        }
+
         GalleryImageGenerationJob.cancelPreviousJob(imageView)
 
         imageView.tag = file.fileId
 
-        // set placeholder before async job
-        val cached = ThumbnailsCacheManager.getBitmapFromDiskCache(
-            ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId
-        )
+        val cached = file.takeUnless { it.isUpdateThumbnailNeeded }?.getBigThumbnail()
         if (cached != null) {
-            imageView.setImageBitmap(cached)
-        } else {
-            imageView.setImageDrawable(OCFileUtils.getMediaPlaceholder(file, imageDimension))
+            imageView.setMediaThumbnail(file, cached)
+            imageView.stopShimmer(shimmer)
+            return
         }
 
-        val job = ioScope.launch {
+        imageView.setMediaPlaceholder(file, placeholderInset)
+
+        val job = ioScope.launch(start = CoroutineStart.LAZY) {
             try {
                 galleryImageGenerationJob.run(
                     file,
@@ -130,37 +138,41 @@ class OCFileListDelegate(
                     object : GalleryImageGenerationListener {
                         override fun onSuccess() {
                             if (imageView.tag == file.fileId) {
-                                Log_OC.d(tag, "setGalleryImage.onSuccess()")
-                                galleryRowHolder.binding.rowLayout.invalidate()
-                                DisplayUtils.stopShimmer(shimmer, imageView)
-                            }
-                        }
-
-                        override fun onNewGalleryImage() {
-                            if (imageView.tag == file.fileId) {
-                                Log_OC.d(tag, "setGalleryImage.updateRowVisuals()")
-                                galleryRowHolder.updateRowVisuals()
+                                imageView.stopShimmer(shimmer)
                             }
                         }
 
                         override fun onError() {
                             if (imageView.tag == file.fileId) {
-                                Log_OC.d(tag, "setGalleryImage.onError()")
-                                DisplayUtils.stopShimmer(shimmer, imageView)
+                                imageView.stopShimmer(shimmer)
                             }
                         }
                     }
                 )
             } finally {
-                GalleryImageGenerationJob.removeActiveJob(imageView, this)
+                val currentJob = coroutineContext.job
+                GalleryImageGenerationJob.removeActiveJob(imageView, currentJob)
             }
         }
 
         GalleryImageGenerationJob.storeJob(job, imageView)
+        job.start()
+    }
 
+    fun cancelGalleryRow(imageView: ImageView) {
+        GalleryImageGenerationJob.cancelPreviousJob(imageView)
+    }
+
+    private fun bindGalleryRowListeners(imageView: ImageView, file: OCFile, galleryRowHolder: GalleryRowHolder) {
         imageView.setOnClickListener {
-            ocFileListFragmentInterface.onItemClicked(file)
-            GalleryFragment.setLastMediaItemPosition(galleryRowHolder.absoluteAdapterPosition)
+            if (context is AlbumsPickerActivity) {
+                ocFileListFragmentInterface.onLongItemClicked(
+                    file
+                )
+            } else {
+                ocFileListFragmentInterface.onItemClicked(file)
+                AlbumItemsFragment.lastMediaItemPosition = galleryRowHolder.absoluteAdapterPosition
+            }
         }
 
         if (!hideItemOptions) {
@@ -175,28 +187,33 @@ class OCFileListDelegate(
         }
     }
 
-    fun setThumbnail(thumbnail: ImageView, shimmerThumbnail: LoaderImageView?, file: OCFile) {
-        DisplayUtils.setThumbnail(
-            file,
-            thumbnail,
-            user,
-            storageManager,
-            asyncTasks,
-            gridView,
-            context,
-            shimmerThumbnail,
-            preferences,
-            viewThemeUtils,
-            syncFolderProvider
-        )
-    }
-
     @Suppress("MagicNumber")
-    fun bindViewHolder(viewHolder: ListViewHolder, file: OCFile, currentDirectory: OCFile?, searchType: SearchType?) {
+    fun bindViewHolder(
+        viewHolder: ListViewHolder,
+        file: OCFile,
+        currentDirectory: OCFile?,
+        searchType: SearchType?,
+        thumbnailGenerator: ThumbnailGenerator
+    ) {
         // thumbnail
         viewHolder.imageFileName?.text = file.fileName
         viewHolder.thumbnail.tag = file.fileId
-        setThumbnail(viewHolder.thumbnail, viewHolder.shimmerThumbnail, file)
+        if (gridView) {
+            if (MimeTypeUtil.isImageOrVideo(file)) {
+                viewHolder.thumbnail.scaleType = ImageView.ScaleType.CENTER_CROP
+                viewHolder.thumbnail.setPadding(0, 0, 0, 0)
+            } else {
+                viewHolder.thumbnail.scaleType = ImageView.ScaleType.FIT_CENTER
+                val padding = context.resources.getDimensionPixelSize(R.dimen.standard_padding)
+                viewHolder.thumbnail.setPadding(padding, padding, padding, padding)
+            }
+        }
+
+        thumbnailGenerator.setThumbnail(
+            file,
+            viewHolder.thumbnail,
+            ThumbnailArguments(isGrid = gridView, hideVideoOverlay = false, viewHolder.shimmerThumbnail)
+        )
 
         // item layout + click listeners
         bindGridItemLayout(file, viewHolder)
@@ -323,13 +340,6 @@ class OCFileListDelegate(
         }
     }
 
-    private suspend fun isFolderFullyDownloaded(file: OCFile): Boolean = withContext(Dispatchers.IO) {
-        file.isFolder &&
-            storageManager.getSubfiles(file.fileId, user.accountName)
-                .takeIf { it.isNotEmpty() }
-                ?.all { it.isDown } == true
-    }
-
     private fun isSynchronizing(file: OCFile): Boolean {
         val operationsServiceBinder = transferServiceGetter.operationsServiceBinder
         val fileDownloadHelper = FileDownloadHelper.instance()
@@ -339,29 +349,36 @@ class OCFileListDelegate(
             fileUploadHelper.isUploading(file.remotePath, user.accountName)
     }
 
+    private fun OCFile.canCheckFolderDown(): Boolean = mimeType != null &&
+        isFolder &&
+        !isEncrypted &&
+        fileLength != 0L &&
+        !etag.isNullOrBlank()
+
+    @Suppress("ComplexCondition")
     private fun showLocalFileIndicator(file: OCFile, holder: ListViewHolder) {
-        ioScope.launch {
-            val isFullyDownloaded = isFolderFullyDownloaded(file)
-            val isSyncing = isSynchronizing(file)
-            val hasConflict = (file.etagInConflict != null)
-            val isDown = file.isDown
+        var isFolderDown = false
+        if (file.canCheckFolderDown()) {
+            isFolderDown = storageManager.fileDao.areAllFilesHaveMediaPath(file.fileId, user.accountName)
+        }
 
-            val icon = when {
-                isSyncing -> R.drawable.ic_synchronizing
-                hasConflict -> R.drawable.ic_synchronizing_error
-                isDown || isFullyDownloaded -> R.drawable.ic_synced
-                else -> null
-            }
+        val isSyncing = isSynchronizing(file)
+        val hasConflict = (file.etagInConflict != null)
+        val isDown = file.isDown
 
-            withContext(Dispatchers.Main) {
-                holder.localFileIndicator.run {
-                    if (icon != null && showMetadata) {
-                        setImageResource(icon)
-                        visibility = View.VISIBLE
-                    } else {
-                        visibility = View.GONE
-                    }
-                }
+        val icon = when {
+            isSyncing -> R.drawable.ic_synchronizing
+            hasConflict -> R.drawable.ic_synchronizing_error
+            isDown || isFolderDown -> R.drawable.ic_synced
+            else -> null
+        }
+
+        holder.localFileIndicator.run {
+            if (icon != null && showMetadata) {
+                setImageResource(icon)
+                visibility = View.VISIBLE
+            } else {
+                visibility = View.GONE
             }
         }
     }
@@ -397,34 +414,25 @@ class OCFileListDelegate(
                 if (showShareAvatar) null else R.drawable.shared_via_users to R.string.shared_icon_shared
             }
 
-            file.isSharedViaLink -> R.drawable.shared_via_link to R.string.shared_icon_shared_via_link
+            file.isShared || file.isSharedViaLink -> R.drawable.shared_via_link to R.string.shared_icon_shared_via_link
 
             else -> R.drawable.ic_unshared to R.string.shared_icon_share
         }
-    }
-
-    fun cancelAllPendingTasks() {
-        for (task in asyncTasks) {
-            task.cancel(true)
-            if (task.getMethod != null) {
-                Log_OC.d(TAG, "cancel: abort get method directly")
-                task.getMethod.abort()
-            }
-        }
-        asyncTasks.clear()
     }
 
     fun setShowShareAvatar(bool: Boolean) {
         showShareAvatar = bool
     }
 
+    @Suppress("TooGenericExceptionCaught")
     fun cleanup() {
-        ioScope.cancel()
+        ioScope.coroutineContext.cancelChildren()
 
-        GalleryImageGenerationJob.cancelAllActiveJobs()
-
-        // cancel async tasks from ThumbnailsCacheManager
-        cancelAllPendingTasks()
+        try {
+            GalleryImageGenerationJob.cancelAllActiveJobs()
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "exception: ", e)
+        }
 
         Log_OC.d(TAG, "background jobs cancelled")
     }
