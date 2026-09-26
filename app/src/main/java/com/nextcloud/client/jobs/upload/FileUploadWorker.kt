@@ -55,7 +55,6 @@ import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.concurrent.ConcurrentHashMap
-import kotlin.random.Random
 import kotlin.time.Duration.Companion.milliseconds
 
 @Suppress("LongParameterList", "TooGenericExceptionCaught")
@@ -72,6 +71,7 @@ class FileUploadWorker(
     val syncedFolderProvider: SyncedFolderProvider,
     val context: Context,
     val uploadFileOperationFactory: UploadFileOperationFactory,
+    val notificationManager: UploadNotificationManager,
     params: WorkerParameters
 ) : CoroutineWorker(context, params),
     OnDatatransferProgressListener {
@@ -87,6 +87,9 @@ class FileUploadWorker(
         const val TOTAL_UPLOAD_SIZE = "total_upload_size"
         const val SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION = "show_same_file_already_exists_notification"
         const val SKIP_AUTO_UPLOAD_CHECK = "skip_auto_upload_check"
+
+        val activeUploadFileOperations = ConcurrentHashMap<String, UploadFileOperation>()
+
         private const val BATCH_SIZE = 100
 
         const val EXTRA_ACCOUNT_NAME = "ACCOUNT_NAME"
@@ -155,9 +158,9 @@ class FileUploadWorker(
         }
     }
 
-    private var lastPercent = 0
-    private val notificationId = Random.nextInt()
-    private val notificationManager = UploadNotificationManager(context, viewThemeUtils, notificationId)
+    private val lastPercents = ConcurrentHashMap<String, Int>()
+    private val lastUpdateTimes = ConcurrentHashMap<String, Long>()
+
     private val intents = FileUploaderIntents(context)
     private val fileUploadEventBroadcaster = FileUploadEventBroadcaster(localBroadcastManager)
     private val retryPolicy = UploadDelayPolicy()
@@ -203,7 +206,7 @@ class FileUploadWorker(
         val notification = createNotification(notificationTitle)
 
         return ForegroundServiceHelper.createWorkerForegroundInfo(
-            notificationId,
+            notificationManager.getId(),
             notification,
             ForegroundServiceType.DataSync
         )
@@ -211,7 +214,7 @@ class FileUploadWorker(
 
     private suspend fun updateForegroundInfo(notification: Notification) {
         val foregroundInfo = ForegroundServiceHelper.createWorkerForegroundInfo(
-            notificationId,
+            notificationManager.getId(),
             notification,
             ForegroundServiceType.DataSync
         )
@@ -333,11 +336,11 @@ class FileUploadWorker(
             activeOperations[upload.uploadId] = operation
 
             val currentIndex = (index + 1)
-            val currentUploadIndex = (currentIndex + previouslyUploadedFileSize)
+
             notificationManager.prepareForStart(
                 operation,
                 startIntent = intents.openUploadListIntent(operation),
-                currentUploadIndex = currentUploadIndex,
+                currentUploadIndex = currentIndex,
                 totalUploadSize = totalUploadSize
             )
 
@@ -362,7 +365,7 @@ class FileUploadWorker(
                 }
             }
 
-            sendUploadFinishEvent(totalUploadSize, currentUploadIndex, operation, result)
+            sendUploadFinishEvent(totalUploadSize, currentIndex, operation, result)
 
             if (result.code == ResultCode.UNAUTHORIZED) {
                 Log_OC.e(TAG, "credentials are no longer valid, stopping uploads")
@@ -498,23 +501,27 @@ class FileUploadWorker(
         totalToTransfer: Long,
         fileAbsoluteName: String
     ) {
+        val operation = activeUploadFileOperations[fileAbsoluteName] ?: return
         val percent = getPercent(totalTransferredSoFar, totalToTransfer)
         val currentTime = System.currentTimeMillis()
+
+        val lastPercent = lastPercents[fileAbsoluteName] ?: 0
+        val lastUpdateTime = lastUpdateTimes[fileAbsoluteName] ?: 0L
 
         if (percent != lastPercent && (currentTime - lastUpdateTime) >= minProgressUpdateInterval) {
             notificationManager.run {
                 val currentUploadFileOperation =
                     activeOperations.values.find { it.originalStoragePath == fileAbsoluteName }
 
-                val accountName = currentUploadFileOperation?.user?.accountName
-                val remotePath = currentUploadFileOperation?.remotePath
+                val accountName = operation.user.accountName
+                val remotePath = operation.remotePath
 
-                updateUploadProgress(percent, currentUploadFileOperation)
+                updateUploadProgress(percent, operation)
 
                 if (accountName != null && remotePath != null) {
                     val key: String = FileUploadHelper.buildRemoteName(accountName, remotePath)
                     val boundListener = FileUploadHelper.mBoundListeners[key]
-                    val filename = currentUploadFileOperation.fileName ?: ""
+                    val filename = currentUploadFileOperation?.fileName ?: ""
 
                     boundListener?.onTransferProgress(
                         progressRate,
@@ -524,11 +531,10 @@ class FileUploadWorker(
                     )
                 }
 
-                dismissOldErrorNotification(currentUploadFileOperation)
+                dismissOldErrorNotification(operation)
             }
-            lastUpdateTime = currentTime
+            lastUpdateTimes[fileAbsoluteName] = currentTime
+            lastPercents[fileAbsoluteName] = percent
         }
-
-        lastPercent = percent
     }
 }
