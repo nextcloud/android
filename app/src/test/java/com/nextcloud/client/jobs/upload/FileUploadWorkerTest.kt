@@ -16,12 +16,15 @@ import com.nextcloud.android.common.ui.theme.MaterialSchemes
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.jobs.autoUpload.FileSystemRepository
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
+import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.operations.UploadFileOperation
+import com.owncloud.android.operations.factory.UploadFileOperationFactory
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import io.mockk.every
 import io.mockk.mockk
@@ -46,7 +49,10 @@ class FileUploadWorkerTest {
     private val localBroadcastManager: LocalBroadcastManager = mockk(relaxed = true)
     private val backgroundJobManager: BackgroundJobManager = mockk(relaxed = true)
     private val preferences: AppPreferences = mockk(relaxed = true)
+    private val filesystemRepository: FileSystemRepository = mockk(relaxed = true)
+    private val syncedFolderProvider: SyncedFolderProvider = mockk(relaxed = true)
     private val context: Context = mockk(relaxed = true)
+    private val uploadFileOperationFactory: UploadFileOperationFactory = mockk(relaxed = true)
     private val params: WorkerParameters = mockk(relaxed = true)
     private val systemNotificationManager: NotificationManager = mockk(relaxed = true)
     private val uploadNotificationManager: UploadNotificationManager = mockk(relaxed = true)
@@ -60,9 +66,9 @@ class FileUploadWorkerTest {
 
         val connectivity = mockk<Connectivity>()
         every { connectivity.isConnected } returns true
-        every { connectivityService.getConnectivity() } returns connectivity
+        every { connectivityService.connectivity } returns connectivity
         every { connectivityService.isConnected } returns true
-        every { connectivityService.isInternetWalled } returns false
+        every { connectivityService.isInternetWalled() } returns false
 
         worker = FileUploadWorker(
             uploadsStorageManager,
@@ -73,7 +79,10 @@ class FileUploadWorkerTest {
             localBroadcastManager,
             backgroundJobManager,
             preferences,
+            filesystemRepository,
+            syncedFolderProvider,
             context,
+            uploadFileOperationFactory,
             uploadNotificationManager,
             params
         )
@@ -163,11 +172,11 @@ class FileUploadWorkerTest {
         val operation = mockk<UploadFileOperation>(relaxed = true)
         every { operation.remotePath } returns remotePath
         every { operation.user.accountName } returns accountName
-        FileUploadWorker.activeUploadFileOperations["key"] = operation
+        FileUploadWorker.registerActiveUpload(operation)
 
         // WHEN
         var completed = false
-        FileUploadWorker.cancelCurrentUpload(remotePath, accountName) {
+        FileUploadWorker.cancelUpload(remotePath, accountName) {
             completed = true
         }
 
@@ -184,7 +193,7 @@ class FileUploadWorkerTest {
         val operation = mockk<UploadFileOperation>(relaxed = true)
         every { operation.remotePath } returns remotePath
         every { operation.user.accountName } returns accountName
-        FileUploadWorker.activeUploadFileOperations["key"] = operation
+        FileUploadWorker.registerActiveUpload(operation)
 
         // WHEN & THEN
         assertTrue(FileUploadWorker.isUploading(remotePath, accountName))

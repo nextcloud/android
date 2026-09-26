@@ -55,9 +55,7 @@ import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.concurrent.ConcurrentHashMap
-import kotlin.random.Random
 import kotlin.time.Duration.Companion.milliseconds
-import java.util.concurrent.ConcurrentHashMap
 
 @Suppress("LongParameterList", "TooGenericExceptionCaught")
 class FileUploadWorker(
@@ -523,7 +521,7 @@ class FileUploadWorker(
                 if (accountName != null && remotePath != null) {
                     val key: String = FileUploadHelper.buildRemoteName(accountName, remotePath)
                     val boundListener = FileUploadHelper.mBoundListeners[key]
-                    val filename = currentUploadFileOperation.fileName ?: ""
+                    val filename = currentUploadFileOperation?.fileName ?: ""
 
                     boundListener?.onTransferProgress(
                         progressRate,

@@ -268,6 +268,7 @@ class BackgroundJobFactory @Inject constructor(
             syncedFolderProvider,
             context,
             uploadFileOperationFactory,
+            UploadNotificationManager(context, viewThemeUtils.get(), Random.nextInt()),
             params
         )
 
