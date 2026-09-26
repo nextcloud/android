@@ -91,7 +91,7 @@ class FileUploadWorkerTest {
     @After
     fun tearDown() {
         unmockkAll()
-        FileUploadWorker.activeUploadFileOperations.clear()
+        FileUploadWorker.activeOperations.clear()
     }
 
     @Test
@@ -155,13 +155,17 @@ class FileUploadWorkerTest {
         // GIVEN
         val fileName = "testFile"
         val operation = mockk<UploadFileOperation>(relaxed = true)
-        FileUploadWorker.activeUploadFileOperations[fileName] = operation
+
+        every { operation.getOriginalStoragePath() } returns fileName
+        every { operation.getOCUploadId() } returns 1L
+        FileUploadWorker.registerActiveUpload(operation)
 
         // WHEN
         worker.onTransferProgress(100, 50, 100, fileName)
 
         // THEN
-        verify { uploadNotificationManager.updateUploadProgress(50, operation) }
+        verify { uploadNotificationManager.updateUploadProgress(50, match { true }) }
+        assertEquals(operation, FileUploadWorker.getCurrentUpload(1L))
     }
 
     @Test

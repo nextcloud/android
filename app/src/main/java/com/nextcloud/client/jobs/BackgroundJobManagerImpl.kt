@@ -671,7 +671,8 @@ internal class BackgroundJobManagerImpl(
         skipAutoUploadCheck: Boolean
     ) {
         defaultDispatcherScope.launch {
-            val chunkSize = (uploadIds.size / MAX_CONCURRENT_UPLOADS).coerceAtLeast(1)
+            // Using ceiling division to ensure we have at most MAX_CONCURRENT_UPLOADS batches
+            val chunkSize = ((uploadIds.size + MAX_CONCURRENT_UPLOADS - 1) / MAX_CONCURRENT_UPLOADS).coerceAtLeast(1)
             val batches = uploadIds.toList().chunked(chunkSize)
             val executionId = System.currentTimeMillis()
             val tag = "${startFileUploadJobTag(user.accountName)}_$executionId"

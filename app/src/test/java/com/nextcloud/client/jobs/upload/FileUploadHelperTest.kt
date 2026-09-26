@@ -34,13 +34,13 @@ class FileUploadHelperTest {
         every { MainApp.getAppComponent() } returns appComponent
 
         fileUploadHelper = FileUploadHelper()
-        FileUploadWorker.activeUploadFileOperations.clear()
+        FileUploadWorker.activeOperations.clear()
     }
 
     @After
     fun tearDown() {
         unmockkAll()
-        FileUploadWorker.activeUploadFileOperations.clear()
+        FileUploadWorker.activeOperations.clear()
     }
 
     @Test
@@ -51,8 +51,7 @@ class FileUploadHelperTest {
     @Test
     fun `isUploadingNow returns false when no active operations`() {
         val upload = mockk<OCUpload>()
-        every { upload.accountName } returns "account"
-        every { upload.remotePath } returns "/file.txt"
+        every { upload.uploadId } returns 1
 
         assertFalse(fileUploadHelper.isUploadingNow(upload))
     }
@@ -65,6 +64,7 @@ class FileUploadHelperTest {
         val upload = mockk<OCUpload>()
         every { upload.accountName } returns accountName
         every { upload.remotePath } returns remotePath
+        every { upload.uploadId } returns 1
 
         val operation = mockk<UploadFileOperation>()
         val user = mockk<User>()
@@ -73,7 +73,7 @@ class FileUploadHelperTest {
         every { operation.remotePath } returns remotePath
         every { operation.oldFile } returns null
 
-        FileUploadWorker.activeUploadFileOperations["key"] = operation
+        FileUploadWorker.activeOperations[1] = operation
 
         assertTrue(fileUploadHelper.isUploadingNow(upload))
     }
@@ -87,6 +87,7 @@ class FileUploadHelperTest {
         val upload = mockk<OCUpload>()
         every { upload.accountName } returns accountName
         every { upload.remotePath } returns oldRemotePath
+        every { upload.uploadId } returns 1
 
         val operation = mockk<UploadFileOperation>()
         val user = mockk<User>()
@@ -98,7 +99,7 @@ class FileUploadHelperTest {
         every { oldFile.remotePath } returns oldRemotePath
         every { operation.oldFile } returns oldFile
 
-        FileUploadWorker.activeUploadFileOperations["key"] = operation
+        FileUploadWorker.activeOperations[1] = operation
 
         assertTrue(fileUploadHelper.isUploadingNow(upload))
     }
@@ -110,6 +111,7 @@ class FileUploadHelperTest {
         val upload = mockk<OCUpload>()
         every { upload.accountName } returns "account1"
         every { upload.remotePath } returns remotePath
+        every { upload.uploadId } returns 1
 
         val operation = mockk<UploadFileOperation>()
         val user = mockk<User>()
@@ -118,7 +120,7 @@ class FileUploadHelperTest {
         every { operation.remotePath } returns remotePath
         every { operation.oldFile } returns null
 
-        FileUploadWorker.activeUploadFileOperations["key"] = operation
+        FileUploadWorker.activeOperations[1] = operation
 
         assertFalse(fileUploadHelper.isUploadingNow(upload))
     }
@@ -130,6 +132,7 @@ class FileUploadHelperTest {
         val upload = mockk<OCUpload>()
         every { upload.accountName } returns accountName
         every { upload.remotePath } returns "/other.txt"
+        every { upload.uploadId } returns 1
 
         val operation = mockk<UploadFileOperation>()
         val user = mockk<User>()
@@ -138,7 +141,7 @@ class FileUploadHelperTest {
         every { operation.remotePath } returns "/file.txt"
         every { operation.oldFile } returns null
 
-        FileUploadWorker.activeUploadFileOperations["key"] = operation
+        FileUploadWorker.activeOperations[1] = operation
 
         assertFalse(fileUploadHelper.isUploadingNow(upload))
     }

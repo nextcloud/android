@@ -88,8 +88,6 @@ class FileUploadWorker(
         const val SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION = "show_same_file_already_exists_notification"
         const val SKIP_AUTO_UPLOAD_CHECK = "skip_auto_upload_check"
 
-        val activeUploadFileOperations = ConcurrentHashMap<String, UploadFileOperation>()
-
         private const val BATCH_SIZE = 100
 
         const val EXTRA_ACCOUNT_NAME = "ACCOUNT_NAME"
@@ -99,7 +97,7 @@ class FileUploadWorker(
         const val LOCAL_BEHAVIOUR_FORGET = 2
         const val LOCAL_BEHAVIOUR_DELETE = 3
 
-        private val activeOperations = ConcurrentHashMap<Long, UploadFileOperation>()
+        val activeOperations = ConcurrentHashMap<Long, UploadFileOperation>()
 
         @JvmOverloads
         fun cancelUpload(remotePath: String?, accountName: String?, onCompleted: () -> Unit = {}) {
@@ -501,7 +499,9 @@ class FileUploadWorker(
         totalToTransfer: Long,
         fileAbsoluteName: String
     ) {
-        val operation = activeUploadFileOperations[fileAbsoluteName] ?: return
+        val currentUploadFileOperation =
+            activeOperations.values.find { it.originalStoragePath == fileAbsoluteName }
+
         val percent = getPercent(totalTransferredSoFar, totalToTransfer)
         val currentTime = System.currentTimeMillis()
 
@@ -510,18 +510,15 @@ class FileUploadWorker(
 
         if (percent != lastPercent && (currentTime - lastUpdateTime) >= minProgressUpdateInterval) {
             notificationManager.run {
-                val currentUploadFileOperation =
-                    activeOperations.values.find { it.originalStoragePath == fileAbsoluteName }
+                val accountName = currentUploadFileOperation?.user?.accountName
+                val remotePath = currentUploadFileOperation?.remotePath
 
-                val accountName = operation.user.accountName
-                val remotePath = operation.remotePath
-
-                updateUploadProgress(percent, operation)
+                updateUploadProgress(percent, currentUploadFileOperation)
 
                 if (accountName != null && remotePath != null) {
                     val key: String = FileUploadHelper.buildRemoteName(accountName, remotePath)
                     val boundListener = FileUploadHelper.mBoundListeners[key]
-                    val filename = currentUploadFileOperation?.fileName ?: ""
+                    val filename = currentUploadFileOperation.fileName ?: ""
 
                     boundListener?.onTransferProgress(
                         progressRate,
@@ -531,7 +528,7 @@ class FileUploadWorker(
                     )
                 }
 
-                dismissOldErrorNotification(operation)
+                dismissOldErrorNotification(currentUploadFileOperation)
             }
             lastUpdateTimes[fileAbsoluteName] = currentTime
             lastPercents[fileAbsoluteName] = percent

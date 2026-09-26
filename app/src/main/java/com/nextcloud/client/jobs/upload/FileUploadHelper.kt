@@ -21,7 +21,7 @@ import com.nextcloud.client.device.BatteryStatus
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.di.ApplicationScope
 import com.nextcloud.client.jobs.BackgroundJobManager
-import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.activeUploadFileOperations
+import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.activeOperations
 import com.nextcloud.client.notifications.AppWideNotificationManager
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
@@ -474,11 +474,13 @@ class FileUploadHelper {
 
     @Suppress("ReturnCount")
     fun isUploadingNow(upload: OCUpload?): Boolean {
-        val currentUploadFileOperation = FileUploadWorker.getCurrentUpload(upload?.uploadId)
-        if (currentUploadFileOperation == null || currentUploadFileOperation.user == null) return false
-        if (upload == null || upload.accountName != currentUploadFileOperation.user.accountName) return false
+        upload ?: return false
 
-        return activeUploadFileOperations.values.any { operation ->
+        val currentUploadFileOperation = FileUploadWorker.getCurrentUpload(upload.uploadId)
+        if (currentUploadFileOperation == null || currentUploadFileOperation.user == null) return false
+        if (upload.accountName != currentUploadFileOperation.user.accountName) return false
+
+        return activeOperations.values.any { operation ->
             operation.user?.accountName == upload.accountName &&
                 (
                     upload.remotePath == operation.remotePath ||
