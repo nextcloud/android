@@ -19,6 +19,7 @@ import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.bumptech.glide.Glide
 import com.nextcloud.client.account.User
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
+import com.nextcloud.utils.view.LocaleDirection
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UnifiedSearchCurrentDirectoryItemBinding
 import com.owncloud.android.databinding.UnifiedSearchEmptyBinding
@@ -32,7 +33,6 @@ import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.ui.interfaces.UnifiedSearchCurrentDirItemAction
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 /**
@@ -141,7 +141,7 @@ class UnifiedSearchListAdapter(
             }
 
             VIEW_TYPE_CURRENT_DIR -> {
-                val isRTL = DisplayUtils.isRTL()
+                val isRTL = LocaleDirection.isRtl
                 val binding = UnifiedSearchCurrentDirectoryItemBinding.inflate(layoutInflater, parent, false)
                 UnifiedSearchCurrentDirItemViewHolder(
                     binding,

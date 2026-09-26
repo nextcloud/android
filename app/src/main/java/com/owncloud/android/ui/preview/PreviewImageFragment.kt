@@ -57,6 +57,7 @@ import com.nextcloud.utils.extensions.getBigThumbnailKey
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSmallThumbnail
 import com.nextcloud.utils.extensions.typedActivity
+import com.nextcloud.utils.view.ScreenMetrics
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PreviewImageFragmentBinding
@@ -71,7 +72,6 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.utils.BitmapUtils
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
@@ -237,7 +237,7 @@ class PreviewImageFragment :
 
         binding.image.tag = file.fileId
 
-        val screenSize = DisplayUtils.getScreenSize(activity)
+        val screenSize = ScreenMetrics.size(activity)
         val width = screenSize.x
         val height = screenSize.y
 
@@ -524,7 +524,7 @@ class PreviewImageFragment :
             val storagePath = ocFile.storagePath
             try {
                 val maxDownScale = 3 // could be a parameter passed to doInBackground(...)
-                val screenSize = DisplayUtils.getScreenSize(activity)
+                val screenSize = ScreenMetrics.size(activity)
                 var minWidth = screenSize.x
                 var minHeight = screenSize.y
                 var i = 0

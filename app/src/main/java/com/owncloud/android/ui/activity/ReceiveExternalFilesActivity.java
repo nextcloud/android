@@ -54,6 +54,7 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.model.OCUploadLocalPathData;
+import com.nextcloud.ui.sort.SortOrderUi;
 import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
@@ -87,7 +88,6 @@ import com.owncloud.android.ui.fragment.TaskRetainerFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.helpers.UriUploader;
 import com.owncloud.android.utils.DataHolderUtil;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeType;
@@ -125,7 +125,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
 import static com.owncloud.android.utils.UriUtils.getDisplayNameForUri;
 
 /**
@@ -307,7 +306,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     @Override
     public void onSortingOrderChosen(FileSortOrder newSortOrder) {
         preferences.setSortOrder(mFile, newSortOrder);
-        sortButton.setText(DisplayUtils.getSortOrderStringId(newSortOrder));
+        sortButton.setText(SortOrderUi.labelRes(newSortOrder));
         populateDirectoryList(null);
     }
 
@@ -818,8 +817,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         sortButton = binding.toolbarLayout.sortButton;
         FileSortOrder sortOrder = preferences.getSortOrderByFolder(mFile);
-        sortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
-        sortButton.setOnClickListener(l -> openSortingOrderDialogFragment(getSupportFragmentManager(), sortOrder));
+        sortButton.setText(SortOrderUi.labelRes(sortOrder));
+        sortButton.setOnClickListener(l -> SortOrderUi.showDialog(getSupportFragmentManager(), sortOrder));
     }
 
     private void setupReceiveExternalFilesAdapter(List<OCFile> files) {

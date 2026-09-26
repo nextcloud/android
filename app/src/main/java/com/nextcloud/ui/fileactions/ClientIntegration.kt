@@ -39,13 +39,13 @@ import com.nextcloud.ui.composeActivity.ComposeActivity
 import com.nextcloud.ui.composeActivity.ComposeDestination
 import com.nextcloud.utils.GlideHelper
 import com.nextcloud.utils.SnackbarUtil
+import com.nextcloud.utils.view.ScreenMetrics
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileActionsBottomSheetBinding
 import com.owncloud.android.databinding.FileActionsBottomSheetItemBinding
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.ocs.ServerResponse
 import com.owncloud.android.lib.resources.status.Method
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -114,7 +114,7 @@ class ClientIntegration(
         }
 
         if (drawable is PictureDrawable) {
-            val defaultSize = DisplayUtils.convertDpToPixel(
+            val defaultSize = ScreenMetrics.dpToPx(
                 context.resources.getDimension(R.dimen.iconized_single_line_item_icon_size),
                 context
             ).toInt().coerceAtLeast(1)

@@ -75,6 +75,7 @@ import com.nextcloud.utils.extensions.DrawerActivityExtensionsKt;
 import com.nextcloud.utils.extensions.NavigationViewExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
+import com.nextcloud.utils.view.ScreenMetrics;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.PassCodeManager;
@@ -106,7 +107,6 @@ import com.owncloud.android.ui.fragment.albums.AlbumsFragment;
 import com.owncloud.android.ui.navigation.NavigatorActivity;
 import com.owncloud.android.ui.navigation.NavigatorScreen;
 import com.owncloud.android.utils.BitmapUtils;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.DrawableUtil;
 import com.owncloud.android.utils.DrawerMenuUtil;
 import com.owncloud.android.utils.FilesSyncHelper;
@@ -541,7 +541,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             ImageView imageView = (ImageView) view.getChildAt(0);
             imageView.setImageTintList(ColorStateList.valueOf(iconColor));
             GradientDrawable background = (GradientDrawable) imageView.getBackground();
-            background.setStroke(DisplayUtils.convertDpToPixel(1, this), iconColor);
+            background.setStroke(ScreenMetrics.dpToPx(1, this), iconColor);
             TextView textView = (TextView) view.getChildAt(1);
             textView.setTextColor(iconColor);
         }

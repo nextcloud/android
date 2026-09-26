@@ -34,6 +34,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.GlideHelper;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
+import com.nextcloud.utils.text.LinkFormatter;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UserInfoLayoutBinding;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -46,7 +47,6 @@ import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
 import com.owncloud.android.ui.adapter.UserInfoAdapter;
 import com.owncloud.android.ui.dialog.AccountRemovalDialog;
 import com.owncloud.android.ui.events.TokenPushEvent;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PushUtils;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -299,9 +299,9 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         addToListIfNeeded(result, R.drawable.ic_phone, userInfo.getPhone(), R.string.user_info_phone);
         addToListIfNeeded(result, R.drawable.ic_email, userInfo.getEmail(), R.string.user_info_email);
         addToListIfNeeded(result, R.drawable.ic_map_marker, userInfo.getAddress(), R.string.user_info_address);
-        addToListIfNeeded(result, R.drawable.ic_web, DisplayUtils.beautifyURL(userInfo.getWebsite()),
+        addToListIfNeeded(result, R.drawable.ic_web, LinkFormatter.removeScheme(userInfo.getWebsite()),
                     R.string.user_info_website);
-        addToListIfNeeded(result, R.drawable.ic_twitter, DisplayUtils.beautifyTwitterHandle(userInfo.getTwitter()),
+        addToListIfNeeded(result, R.drawable.ic_twitter, LinkFormatter.formatHandle(userInfo.getTwitter()),
                     R.string.user_info_twitter);
 
         return result;
