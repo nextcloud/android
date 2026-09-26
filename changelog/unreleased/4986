@@ -1,0 +1,6 @@
+Bugfix: Crash when returning from external-file receive screen
+
+A null guard has been added to `startSyncFolderOperation` in `ReceiveExternalFilesActivity` to prevent a NullPointerException when `getCurrentDir()` cannot resolve the current folder.
+
+https://github.com/owncloud/android/issues/4738
+https://github.com/owncloud/android/pull/4986
