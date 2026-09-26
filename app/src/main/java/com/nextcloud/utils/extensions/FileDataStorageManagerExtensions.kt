@@ -17,6 +17,7 @@ import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.MimeTypeUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -182,6 +183,36 @@ fun FileDataStorageManager.moveFiles(ocFile: OCFile?, targetPath: String, target
             (defaultSavePath + oldPath).length
         )
         FileDataStorageManager.triggerMediaScan(newMediaPath)
+    }
+}
+
+fun FileDataStorageManager.createDirectoryTree(remotePath: String, createdRemoteFolder: RemoteFile?) {
+    if (getFileByEncryptedRemotePath(FileStorageUtils.getParentPath(remotePath)) == null) {
+        // When parent of remote path is not created
+        val subFolders = remotePath.split(OCFile.PATH_SEPARATOR.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        var composedRemotePath = OCFile.ROOT_PATH
+
+        // For each ancestor folders create them recursively
+        for (subFolder in subFolders) {
+            if (subFolder.isNotEmpty()) {
+                composedRemotePath = composedRemotePath + subFolder + OCFile.PATH_SEPARATOR
+                createDirectoryTree(composedRemotePath, createdRemoteFolder)
+            }
+        }
+    } else {
+        // Create directory on DB
+        with(OCFile(remotePath)) {
+            mimeType = MimeType.DIRECTORY
+            val parentId: Long = getFileByEncryptedRemotePath(FileStorageUtils.getParentPath(remotePath)).getFileId()
+            setParentId(parentId)
+            remoteId = createdRemoteFolder?.remoteId
+            modificationTimestamp = System.currentTimeMillis()
+            isEncrypted = FileStorageUtils.checkEncryptionStatus(this, this@createDirectoryTree)
+            permissions = createdRemoteFolder?.permissions
+            saveFile(this)
+        }
+
+        Log_OC.d(FileDataStorageManager.TAG, "createDirectoryTree: created $remotePath in Database")
     }
 }
 
