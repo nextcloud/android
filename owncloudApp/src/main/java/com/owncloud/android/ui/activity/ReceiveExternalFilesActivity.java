@@ -628,6 +628,10 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     private void startSyncFolderOperation(OCFile folder) {
+        if (folder == null) {
+            Timber.w("startSyncFolderOperation called with a null folder; skipping sync");
+            return;
+        }
 
         mSyncInProgress = true;
 
