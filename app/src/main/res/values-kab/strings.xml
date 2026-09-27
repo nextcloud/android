@@ -31,7 +31,14 @@
     <string name="activity_icon">Armud</string>
     <string name="add_new_public_share">Rnu aseɣwen amaynut n beṭṭu azayez</string>
     <string name="add_new_secure_file_drop">Rnu asers n ufaylu aɣelsan amaynut</string>
+    <string name="album_picker_toolbar_title">Fren album</string>
+    <string name="album_rename">Snifel isem n walbum</string>
     <string name="album_rename_conflict">Isem-a yettuseqdec yakan</string>
+    <string name="album_share">Bḍu album</string>
+    <string name="album_share_link">Bḍu aseɣwen ɣer walbum</string>
+    <string name="album_stop_sharing">Ḥbes beṭṭu</string>
+    <string name="album_unsupported_file">Amidya ur yettusefrak ara</string>
+    <string name="album_upload_from_account">Fren tugniwin seg umiḍan</string>
     <string name="app_config_base_url_title">URL n uzadur</string>
     <string name="app_config_disable_clipboard_title">Sens Tecfawit</string>
     <string name="app_config_disable_intro_title">Sens Tazwart</string>
@@ -48,11 +55,13 @@
     <string name="assistant_output_generation_warning_text">Tuffɣa i d-yettwaseknen da tettusirew sɣur Tigzi Taragmawant. Selken yal tikkelt anect-a.</string>
     <string name="assistant_screen_chat_create_error">Tecceḍ tuzna n yizen</string>
     <string name="assistant_screen_chat_fetch_error">Ur izmir ara ad d-yawi iznan n udiwenni</string>
+    <string name="assistant_screen_chat_generate_error">Yecceḍ usirew n tririt</string>
     <string name="assistant_screen_conversations_go_back_to_assistant">Uɣal ɣer usebter amalal</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Tebɣiḍ ad tekkseḍ tawuri-agi? </string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Kkes tawuri</string>
     <string name="assistant_screen_empty_content_description">Ɛreḍ ad tazneḍ izen akken ad tessenkreḍ adiwenni.</string>
     <string name="assistant_screen_empty_content_title">Azul dagi! Deg wacu i zemreɣ ad ak-d-muddeɣ tallelt ass-a?</string>
+    <string name="assistant_screen_retry_response_generation">Ales asirew n tririt</string>
     <string name="assistant_screen_send_message">Azen izen</string>
     <string name="assistant_screen_task_bar_open_conversation_list">Ldi tabdert n udiwenni</string>
     <string name="assistant_screen_task_create_fail_message">Teḍra-d tuccḍa di tmerna n twuri</string>
@@ -658,6 +667,7 @@
     <string name="remove">Kkes</string>
     <string name="remove_push_notification">Kkes</string>
     <string name="remove_success_msg">Yettwakkes</string>
+    <string name="rename_album_dialog_title">Snifel isem n walbum</string>
     <string name="rename_dialog_button">Beddel isem</string>
     <string name="rename_dialog_title">Sekcem isem amaynut</string>
     <string name="restore_item">Err-it-id</string>
