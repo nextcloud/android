@@ -69,6 +69,7 @@ import java.util.concurrent.TimeoutException
     BackgroundJobManagerTest.ImmediateContactsBackup::class,
     BackgroundJobManagerTest.ImmediateContactsImport::class,
     BackgroundJobManagerTest.FilesUpload::class,
+    BackgroundJobManagerTest.FilesUploadNonBeta::class,
     BackgroundJobManagerTest.Tags::class
 )
 class BackgroundJobManagerTest {
@@ -109,7 +110,7 @@ class BackgroundJobManagerTest {
             preferences = mock()
             whenever(clock.currentTime).thenReturn(TIMESTAMP)
             whenever(clock.currentDate).thenReturn(Date(TIMESTAMP))
-            backgroundJobManager = BackgroundJobManagerImpl(workManager, clock, preferences)
+            backgroundJobManager = BackgroundJobManagerImpl(workManager, clock, preferences, context)
         }
 
         fun assertHasRequiredTags(tags: Set<String>, jobName: String, user: User? = null) {
@@ -394,6 +395,14 @@ class BackgroundJobManagerTest {
 
     class FilesUpload : Fixture() {
 
+        @Before
+        fun setUpFilesUploadTest() {
+            // Mock context resources to return true for is_beta to test the parallel upload logic
+            val resources = mock<android.content.res.Resources>()
+            whenever(resources.getBoolean(com.owncloud.android.R.bool.is_beta)).thenReturn(true)
+            whenever(context.resources).thenReturn(resources)
+        }
+
         @Test
         fun start_files_upload_job_enqueues_batches() {
             val uploadIds = longArrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
@@ -446,6 +455,38 @@ class BackgroundJobManagerTest {
             backgroundJobManager.startFilesUploadJob(user, uploadIds, true)
 
             verify(workManager, timeout(1000).times(0)).beginUniqueWork(any(), any(), any<List<OneTimeWorkRequest>>())
+        }
+    }
+
+    class FilesUploadNonBeta : Fixture() {
+
+        @Before
+        fun setUpFilesUploadNonBetaTest() {
+            // Mock context resources to return false for is_beta to test the sequential upload logic
+            val resources = mock<android.content.res.Resources>()
+            whenever(resources.getBoolean(com.owncloud.android.R.bool.is_beta)).thenReturn(false)
+            whenever(context.resources).thenReturn(resources)
+        }
+
+        @Test
+        fun start_files_upload_job_chains_sequentially_when_not_beta() {
+            val uploadIds = longArrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
+
+            val continuation: WorkContinuation = mock()
+            whenever(
+                workManager.beginUniqueWork(any(), any(), any<OneTimeWorkRequest>())
+            ).thenReturn(continuation)
+            whenever(continuation.then(any<OneTimeWorkRequest>())).thenReturn(continuation)
+            whenever(continuation.enqueue()).thenReturn(mock())
+
+            backgroundJobManager.startFilesUploadJob(user, uploadIds, true)
+
+            // Verify that beginUniqueWork was called (sequential chaining starts here)
+            verify(workManager, timeout(1000)).beginUniqueWork(
+                any(),
+                eq(ExistingWorkPolicy.APPEND_OR_REPLACE),
+                any<OneTimeWorkRequest>()
+            )
         }
     }
 

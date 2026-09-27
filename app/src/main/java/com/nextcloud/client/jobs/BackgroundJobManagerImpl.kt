@@ -6,6 +6,7 @@
  */
 package com.nextcloud.client.jobs
 
+import android.content.Context
 import android.provider.MediaStore
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -46,6 +47,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadType
+import com.owncloud.android.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -73,7 +75,8 @@ import kotlin.reflect.KClass
 internal class BackgroundJobManagerImpl(
     private val workManager: WorkManager,
     private val clock: Clock,
-    private val preferences: AppPreferences
+    private val preferences: AppPreferences,
+    private val context: Context
 ) : BackgroundJobManager,
     Injectable {
 
@@ -649,6 +652,111 @@ internal class BackgroundJobManagerImpl(
 
     private fun startFileUploadJobTag(accountName: String): String = JOB_FILES_UPLOAD + accountName
 
+    private fun isParallelUploadBetaEnabled(): Boolean = context.resources.getBoolean(R.bool.is_beta)
+
+    private fun buildUploadBatchData(
+        accountName: String,
+        uploadIds: List<Long>,
+        batchIndex: Int,
+        totalUploadSize: Int,
+        showSameFileAlreadyExistsNotification: Boolean,
+        skipAutoUploadCheck: Boolean
+    ): Data = Data.Builder()
+        .putBoolean(
+            FileUploadWorker.SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION,
+            showSameFileAlreadyExistsNotification
+        )
+        .putBoolean(FileUploadWorker.SKIP_AUTO_UPLOAD_CHECK, skipAutoUploadCheck)
+        .putString(FileUploadWorker.ACCOUNT, accountName)
+        .putInt(FileUploadWorker.TOTAL_UPLOAD_SIZE, totalUploadSize)
+        .putLongArray(FileUploadWorker.UPLOAD_IDS, uploadIds.toLongArray())
+        .putInt(FileUploadWorker.CURRENT_BATCH_INDEX, batchIndex)
+        .build()
+
+    private fun createFileUploadWorkRequest(
+        user: User,
+        tag: String,
+        data: Data,
+        constraints: Constraints
+    ): OneTimeWorkRequest = oneTimeRequestBuilder(FileUploadWorker::class, JOB_FILES_UPLOAD, user)
+        .addTag(tag)
+        .setInputData(data)
+        .setConstraints(constraints)
+        .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
+        .build()
+
+    private fun enqueueParallelUploadBatches(
+        user: User,
+        uploadIds: LongArray,
+        showSameFileAlreadyExistsNotification: Boolean,
+        skipAutoUploadCheck: Boolean
+    ) {
+        if (uploadIds.isEmpty()) return
+
+        val maxConcurrentUploads = MAX_CONCURRENT_UPLOADS
+        val chunkSize = ((uploadIds.size + maxConcurrentUploads - 1) / maxConcurrentUploads).coerceAtLeast(1)
+        val batches = uploadIds.toList().chunked(chunkSize)
+        val executionId = System.currentTimeMillis()
+        val tag = "${startFileUploadJobTag(user.accountName)}_$executionId"
+        val constraints = SupportedNetworkTransports.getConstraints()
+
+        val workRequests = batches.mapIndexed { index, batch ->
+            val data = buildUploadBatchData(
+                accountName = user.accountName,
+                uploadIds = batch,
+                batchIndex = index,
+                totalUploadSize = chunkSize,
+                showSameFileAlreadyExistsNotification = showSameFileAlreadyExistsNotification,
+                skipAutoUploadCheck = skipAutoUploadCheck
+            )
+            createFileUploadWorkRequest(user, tag, data, constraints)
+        }
+
+        if (workRequests.isNotEmpty()) {
+            workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.KEEP, workRequests)
+        }
+    }
+
+    private fun enqueueSequentialUploadBatches(
+        user: User,
+        uploadIds: LongArray,
+        showSameFileAlreadyExistsNotification: Boolean,
+        skipAutoUploadCheck: Boolean
+    ) {
+        if (uploadIds.isEmpty()) return
+
+        val batchSize = FileUploadHelper.MAX_FILE_COUNT
+        val batches = uploadIds.toList().chunked(batchSize)
+        val tag = startFileUploadJobTag(user.accountName)
+        val constraints = SupportedNetworkTransports.getConstraints()
+
+        val workRequests = batches.mapIndexed { index, batch ->
+            val data = buildUploadBatchData(
+                accountName = user.accountName,
+                uploadIds = batch,
+                batchIndex = index,
+                totalUploadSize = uploadIds.size,
+                showSameFileAlreadyExistsNotification = showSameFileAlreadyExistsNotification,
+                skipAutoUploadCheck = skipAutoUploadCheck
+            )
+            createFileUploadWorkRequest(user, tag, data, constraints)
+        }
+
+        if (workRequests.isEmpty()) return
+
+        var workChain = workManager.beginUniqueWork(
+            tag,
+            ExistingWorkPolicy.APPEND_OR_REPLACE,
+            workRequests.first()
+        )
+
+        workRequests.drop(1).forEach { request ->
+            workChain = workChain.then(request)
+        }
+
+        workChain.enqueue()
+    }
+
     override fun isStartFileUploadJobScheduled(accountName: String): Boolean =
         workManager.isWorkScheduled(startFileUploadJobTag(accountName))
 
@@ -671,40 +779,19 @@ internal class BackgroundJobManagerImpl(
         skipAutoUploadCheck: Boolean
     ) {
         defaultDispatcherScope.launch {
-            // Using ceiling division to ensure we have at most MAX_CONCURRENT_UPLOADS batches
-            val chunkSize = ((uploadIds.size + MAX_CONCURRENT_UPLOADS - 1) / MAX_CONCURRENT_UPLOADS).coerceAtLeast(1)
-            val batches = uploadIds.toList().chunked(chunkSize)
-            val executionId = System.currentTimeMillis()
-            val tag = "${startFileUploadJobTag(user.accountName)}_$executionId"
-
-            val constraints = SupportedNetworkTransports.getConstraints()
-
-            val workRequests = batches.mapIndexed { index, batch ->
-                val data = Data.Builder()
-                    .putBoolean(
-                        FileUploadWorker.SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION,
-                        showSameFileAlreadyExistsNotification
-                    )
-                    .putBoolean(FileUploadWorker.SKIP_AUTO_UPLOAD_CHECK, skipAutoUploadCheck)
-                .putString(FileUploadWorker.ACCOUNT, user.accountName)
-                    .putInt(FileUploadWorker.TOTAL_UPLOAD_SIZE, chunkSize)
-                    .putLongArray(FileUploadWorker.UPLOAD_IDS, batch.toLongArray())
-                    .putInt(FileUploadWorker.CURRENT_BATCH_INDEX, index)
-                    .build()
-
-                oneTimeRequestBuilder(FileUploadWorker::class, JOB_FILES_UPLOAD, user)
-                    .addTag(tag)
-                    .setInputData(data)
-                    .setConstraints(constraints)
-                    .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
-                    .build()
-            }
-
-            if (workRequests.isNotEmpty()) {
-                workManager.enqueueUniqueWork(
-                    tag,
-                    ExistingWorkPolicy.KEEP,
-                    workRequests
+            if (isParallelUploadBetaEnabled()) {
+                enqueueParallelUploadBatches(
+                    user,
+                    uploadIds,
+                    showSameFileAlreadyExistsNotification,
+                    skipAutoUploadCheck
+                )
+            } else {
+                enqueueSequentialUploadBatches(
+                    user,
+                    uploadIds,
+                    showSameFileAlreadyExistsNotification,
+                    skipAutoUploadCheck
                 )
             }
         }
@@ -721,6 +808,7 @@ internal class BackgroundJobManagerImpl(
      *                  within the worker.
      * @param albumName Album on which selected files should be copy after upload
      */
+
     override fun startAlbumFilesUploadJob(user: User, uploadIds: LongArray, albumName: String) {
         defaultDispatcherScope.launch {
             val batchSize = FileUploadHelper.MAX_FILE_COUNT
