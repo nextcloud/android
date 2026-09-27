@@ -468,6 +468,8 @@
     <string name="reload">Reload</string>
     <string name="remove">Noņemt</string>
     <string name="remove_fail_msg">Dzēšana neizdevās</string>
+    <string name="remove_local_account">Noņemt vietēju kontu</string>
+    <string name="remove_local_account_details">Noņemt no ierīces kontu un izdzēst visas vietējās datnes </string>
     <string name="remove_push_notification">Noņemt</string>
     <string name="remove_success_msg">Izdzēsta</string>
     <string name="rename_dialog_button">Pārdēvēt</string>
