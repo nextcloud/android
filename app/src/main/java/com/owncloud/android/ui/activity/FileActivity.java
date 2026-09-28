@@ -37,7 +37,7 @@ import com.nextcloud.client.jobs.download.FileDownloadWorker;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.network.NetworkChangeListener;
-import com.nextcloud.client.player.ui.PlayerActivity;
+import com.nextcloud.client.player.ui.audio.AudioPlayerActivity;
 import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.SnackbarUtil;
@@ -255,7 +255,7 @@ public abstract class FileActivity extends DrawerActivity
                 refreshList();
             }
         } else {
-            if (this instanceof PlayerActivity) {
+            if (this instanceof AudioPlayerActivity) {
                 hideInfoBox();
             } else {
                 showInfoBox(R.string.offline_mode);

@@ -16,10 +16,10 @@ import android.database.ContentObserver
 import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
-import android.util.LruCache
 import android.os.Handler
 import android.os.Looper
 import android.os.Process
+import android.util.LruCache
 import android.view.SurfaceView
 import android.view.View
 import android.view.ViewGroup

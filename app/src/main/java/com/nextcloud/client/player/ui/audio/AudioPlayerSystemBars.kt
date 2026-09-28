@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.nextcloud.client.player.util
+package com.nextcloud.client.player.ui.audio
 
 import android.view.Gravity
 import android.view.View
@@ -21,41 +21,35 @@ import androidx.core.graphics.Insets
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.updateLayoutParams
 import com.owncloud.android.R
 
 private const val LUMINANCE_THRESHOLD = 0.5
 
-class WindowWrapper(private val window: Window) {
+class AudioPlayerSystemBars(private val window: Window) {
     private val context = window.context
     private val insetsController = WindowCompat.getInsetsController(window, window.decorView)
 
-    fun showSystemBars() {
+    fun show() {
         insetsController.show(WindowInsetsCompat.Type.systemBars())
     }
 
-    fun hideSystemBars() {
-        insetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        insetsController.hide(WindowInsetsCompat.Type.systemBars())
-    }
-
-    fun setupStatusBar(@ColorRes backgroundColorRes: Int) {
+    fun setStatusBarBackground(@ColorRes backgroundColorRes: Int) {
         val backgroundColor = ContextCompat.getColor(context, backgroundColorRes)
         insetsController.isAppearanceLightStatusBars = isLightColor(backgroundColor)
         drawSystemBarBackground(
-            R.id.player_status_bar_background,
+            R.id.player_audio_status_bar_background,
             Gravity.TOP,
             backgroundColor,
             systemBarInsets(WindowInsetsCompat.Type.statusBars()).top
         )
     }
 
-    fun setupNavigationBar(@ColorRes backgroundColorRes: Int) {
+    fun setNavigationBarBackground(@ColorRes backgroundColorRes: Int) {
         val backgroundColor = ContextCompat.getColor(context, backgroundColorRes)
         insetsController.isAppearanceLightNavigationBars = isLightColor(backgroundColor)
         drawSystemBarBackground(
-            R.id.player_navigation_bar_background,
+            R.id.player_audio_navigation_bar_background,
             Gravity.BOTTOM,
             backgroundColor,
             systemBarInsets(WindowInsetsCompat.Type.navigationBars()).bottom

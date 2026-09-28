@@ -16,6 +16,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import com.nextcloud.ui.behavior.OnScrollBehavior
 import com.owncloud.android.lib.common.utils.Log_OC
 
@@ -101,5 +104,14 @@ fun <T : View?> T.slideHideBottomBehavior(visible: Boolean) {
         } catch (e: Exception) {
             Log_OC.e("slideHideBottomBehavior", e.message)
         }
+    }
+}
+
+fun View.addPaddingForNavBar() {
+    addOnLayoutChangeListener { view, _, _, _, _, _, _, _, _ ->
+        val insets = ViewCompat.getRootWindowInsets(view)
+            ?.getInsetsIgnoringVisibility(WindowInsetsCompat.Type.navigationBars())
+            ?: return@addOnLayoutChangeListener
+        view.updatePadding(left = insets.left, right = insets.right, bottom = insets.bottom)
     }
 }

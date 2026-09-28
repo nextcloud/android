@@ -108,7 +108,7 @@ class PreviewImageActivity :
     private var isDownloadWorkStarted = false
     private var screenState = PreviewImageActivityState.Idle
 
-    private val pictureInPicture by lazy { VideoPictureInPicture(this, playbackModel, autoEnter = false) }
+    private val pictureInPicture by lazy { VideoPictureInPicture(this, playbackModel) }
     private var wasSystemUiVisibleBeforePictureInPicture = true
     private var keepPlaybackOnFinish = false
 

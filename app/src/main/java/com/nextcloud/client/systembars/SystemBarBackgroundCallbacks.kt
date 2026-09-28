@@ -13,6 +13,7 @@ import android.widget.FrameLayout
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
 import com.nextcloud.client.onboarding.FirstRunActivity
+import com.nextcloud.client.player.ui.audio.AudioPlayerActivity
 import com.nmc.android.ui.LauncherActivity
 import com.owncloud.android.R
 import com.owncloud.android.authentication.AuthenticatorActivity
@@ -29,7 +30,8 @@ class SystemBarBackgroundCallbacks(private val viewThemeUtilsProvider: Provider<
         private val excludedActivities = listOf(
             LauncherActivity::class,
             AuthenticatorActivity::class,
-            FirstRunActivity::class
+            FirstRunActivity::class,
+            AudioPlayerActivity::class
         )
 
         private fun isExcluded(activity: Activity): Boolean = excludedActivities.any { it.isInstance(activity) }

@@ -27,13 +27,13 @@ import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.player.media3.PlaybackModel
+import com.nextcloud.client.player.media3.PlaybackQueueLoader
 import com.nextcloud.client.player.model.PlayerThumbnailLoader
 import com.nextcloud.client.player.model.file.PlaybackCollection
 import com.nextcloud.client.player.model.file.PlaybackFile
 import com.nextcloud.client.player.model.state.PlaybackState
 import com.nextcloud.client.player.model.state.VideoSize
 import com.nextcloud.client.player.ui.MediaNavigator
-import com.nextcloud.client.player.ui.PlayerLauncher
 import com.nextcloud.client.player.util.PlayerUtil.applyVideoSize
 import com.nextcloud.client.player.util.PlayerUtil.isPictureInPictureAllowed
 import com.nextcloud.client.player.util.PlayerUtil.ownsPlayback
@@ -43,6 +43,7 @@ import com.nextcloud.ui.fileactions.FileActionsBottomSheet
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
+import com.nextcloud.utils.extensions.addPaddingForNavBar
 import com.nextcloud.utils.extensions.setVisibilityWithAnimation
 import com.nextcloud.utils.extensions.showNavigationBar
 import com.nextcloud.utils.extensions.showSystemBar
@@ -61,11 +62,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-/**
- * Plays an audio or video page of the preview pager in place, so that swiping between images and media keeps the
- * user on the same screen. Playback itself is owned by the shared [PlaybackModel], the same one that drives
- * [com.nextcloud.client.player.ui.PlayerActivity], notification and background playback.
- */
 class PreviewPlaybackFragment :
     Fragment(),
     PlaybackModel.Listener {
@@ -75,31 +71,24 @@ class PreviewPlaybackFragment :
         private const val ARGUMENT_FILE = "ARGUMENT_FILE"
         private const val ARGUMENT_COLLECTION = "ARGUMENT_COLLECTION"
         private const val ARGUMENT_AUTOPLAY = "ARGUMENT_AUTOPLAY"
-        private const val ARGUMENT_PICTURE_IN_PICTURE_ON_BACK = "ARGUMENT_PICTURE_IN_PICTURE_ON_BACK"
         private const val SURFACE_ALPHA_VISIBLE = 1f
         private const val SURFACE_ALPHA_HIDDEN = 0f
 
-        @Suppress("LongParameterList")
-        fun newInstance(
-            file: OCFile,
-            collection: PlaybackCollection,
-            autoplay: Boolean = false,
-            pictureInPictureOnBack: Boolean = true
-        ) = PreviewPlaybackFragment().apply {
-            arguments = bundleOf(
-                ARGUMENT_FILE to file,
-                ARGUMENT_COLLECTION to collection,
-                ARGUMENT_AUTOPLAY to autoplay,
-                ARGUMENT_PICTURE_IN_PICTURE_ON_BACK to pictureInPictureOnBack
-            )
-        }
+        fun newInstance(file: OCFile, collection: PlaybackCollection, autoplay: Boolean = false) =
+            PreviewPlaybackFragment().apply {
+                arguments = bundleOf(
+                    ARGUMENT_FILE to file,
+                    ARGUMENT_COLLECTION to collection,
+                    ARGUMENT_AUTOPLAY to autoplay
+                )
+            }
     }
 
     @Inject
     lateinit var playbackModel: PlaybackModel
 
     @Inject
-    lateinit var playerLauncher: PlayerLauncher
+    lateinit var playbackQueueLoader: PlaybackQueueLoader
 
     @Inject
     lateinit var playerThumbnailLoader: PlayerThumbnailLoader
@@ -118,7 +107,6 @@ class PreviewPlaybackFragment :
     private lateinit var playbackFile: PlaybackFile
     private var playbackCollection = PlaybackCollection.FOLDER
     private var autoplay: Boolean = false
-    private var pictureInPictureOnBack: Boolean = true
     private var wasCurrentItem = false
     private var renderedVideoSize: VideoSize? = null
 
@@ -134,7 +122,6 @@ class PreviewPlaybackFragment :
         playbackCollection = arguments.getSerializableArgument(ARGUMENT_COLLECTION, PlaybackCollection::class.java)
             ?: PlaybackCollection.FOLDER
         autoplay = arguments?.getBoolean(ARGUMENT_AUTOPLAY) == true
-        pictureInPictureOnBack = arguments?.getBoolean(ARGUMENT_PICTURE_IN_PICTURE_ON_BACK) != false
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -142,6 +129,7 @@ class PreviewPlaybackFragment :
         loadThumbnail()
         registerPictureInPictureOnBack()
         binding.playerControlView.navigator = activity as? MediaNavigator
+        binding.playerControlView.addPaddingForNavBar()
         isFullScreen = previewActivity()?.isSystemUIVisible == false
         binding.surfaceView.setOnClickListener { toggleFullScreen() }
         updatePlayerControlsVisibility()
@@ -279,7 +267,7 @@ class PreviewPlaybackFragment :
     }
 
     private fun registerPictureInPictureOnBack() {
-        if (!pictureInPictureOnBack || !MimeTypeUtil.isVideo(file)) {
+        if (!MimeTypeUtil.isVideo(file)) {
             return
         }
 
@@ -308,7 +296,6 @@ class PreviewPlaybackFragment :
 
     override fun onResume() {
         super.onResume()
-        playbackModel.onPictureInPictureClose?.invoke()
         pictureInPictureCallback?.isEnabled = true
         preparePlayback()
         binding.playerControlView.onStart()
@@ -359,7 +346,11 @@ class PreviewPlaybackFragment :
                 playbackModel.play()
             }
         } else {
-            playerLauncher.prepare(this, file, playbackCollection, autoplay)
+            playbackQueueLoader.load(this, file, playbackCollection) {
+                if (autoplay) {
+                    playbackModel.play()
+                }
+            }
         }
     }
 

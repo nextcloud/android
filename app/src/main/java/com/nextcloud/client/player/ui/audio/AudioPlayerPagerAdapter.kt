@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.nextcloud.client.player.ui.pager
+package com.nextcloud.client.player.ui.audio
 
 import android.annotation.SuppressLint
 import androidx.fragment.app.Fragment
@@ -16,13 +16,10 @@ import com.nextcloud.client.player.model.file.PlaybackFile
 
 /**
  * Pads the item list with a copy of the last item at the front and a copy of the first item at the end, so that
- * [PlayerPager] can wrap around and give the impression of an endless pager.
+ * [AudioPlayerPager] can wrap around and give the impression of an endless pager.
  */
-class PlayerPagerAdapter(
-    fragmentManager: FragmentManager,
-    lifecycle: Lifecycle,
-    private val fragmentFactory: (PlaybackFile) -> Fragment
-) : FragmentStateAdapter(fragmentManager, lifecycle) {
+class AudioPlayerPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
+    FragmentStateAdapter(fragmentManager, lifecycle) {
 
     private var paddedEntities = mutableListOf<PlaybackFile>()
 
@@ -45,7 +42,7 @@ class PlayerPagerAdapter(
 
     override fun getItemCount(): Int = paddedEntities.size
 
-    override fun createFragment(position: Int): Fragment = fragmentFactory(paddedEntities[position])
+    override fun createFragment(position: Int): Fragment = AudioFileFragment.createInstance(paddedEntities[position])
 
     override fun getItemId(position: Int): Long = itemIdAt(position)
 
