@@ -391,10 +391,9 @@
             android:launchMode="singleTask"
             android:theme="@style/Theme.ownCloud.Overlay" />
         <activity
-            android:name="com.nextcloud.client.player.ui.PlayerActivity"
+            android:name="com.nextcloud.client.player.ui.audio.AudioPlayerActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:launchMode="singleTask"
-            android:supportsPictureInPicture="true"
             android:theme="@style/Theme.ownCloud.NoActionBar" />
 
         <service

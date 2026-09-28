@@ -1238,9 +1238,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         boolean webViewAvailable = WebViewUtil.available(context);
 
-        if (!file.isEncrypted() && mContainerActivity instanceof FileDisplayActivity fda && fda.canMediaPreviewed(file)) {
+        if (!file.isEncrypted() && mContainerActivity instanceof FileDisplayActivity fda && fda.canPreviewInAudioPlayer(file)) {
             setFabVisible(false);
-            fda.startMediaPreview(file, true, true);
+            fda.startAudioPreview(file, true, true);
         } else if (webViewAvailable && editorUtils.getEditor(accountManager.getUser(), file.getMimeType()) != null && !file.isEncrypted()) {
             TextEditorWebView.Companion.startTextEditor(file, context);
         } else if (supportsDirectEditing(file, webViewAvailable)) {

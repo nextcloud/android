@@ -22,11 +22,7 @@ private const val ASPECT_RATIO_HEIGHT = 9
 private const val MIN_ASPECT_RATIO = 0.42f
 private const val MAX_ASPECT_RATIO = 2.39f
 
-class VideoPictureInPicture(
-    private val activity: Activity,
-    private val playbackModel: PlaybackModel,
-    private val autoEnter: Boolean
-) {
+class VideoPictureInPicture(private val activity: Activity, private val playbackModel: PlaybackModel) {
 
     private val defaultAspectRatio = Rational(ASPECT_RATIO_WIDTH, ASPECT_RATIO_HEIGHT)
 
@@ -39,7 +35,7 @@ class VideoPictureInPicture(
         return PictureInPictureParams.Builder().let {
             it.setAspectRatio(aspectRatio)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                it.setAutoEnterEnabled(autoEnter)
+                it.setAutoEnterEnabled(false)
             }
             it.setSourceRectHint(getSourceRectHint(sourceView, aspectRatio))
             it.build()

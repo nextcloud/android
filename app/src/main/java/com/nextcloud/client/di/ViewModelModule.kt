@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.nextcloud.client.documentscan.DocumentScanViewModel
 import com.nextcloud.client.etm.EtmViewModel
 import com.nextcloud.client.logger.ui.LogsViewModel
-import com.nextcloud.client.player.ui.PlayerViewModel
+import com.nextcloud.client.player.ui.audio.AudioPlayerViewModel
 import com.nextcloud.ui.fileactions.FileActionsViewModel
 import com.nextcloud.ui.tags.TagManagementViewModel
 import com.nextcloud.ui.trashbinFileActions.TrashbinFileActionsViewModel
@@ -66,8 +66,8 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(PlayerViewModel::class)
-    abstract fun playerViewModel(vm: PlayerViewModel): ViewModel
+    @ViewModelKey(AudioPlayerViewModel::class)
+    abstract fun audioPlayerViewModel(vm: AudioPlayerViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory

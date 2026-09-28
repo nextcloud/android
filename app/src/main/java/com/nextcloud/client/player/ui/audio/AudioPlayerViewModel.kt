@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.nextcloud.client.player.ui
+package com.nextcloud.client.player.ui.audio
 
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModel
@@ -28,7 +28,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import kotlin.coroutines.cancellation.CancellationException
 
-class PlayerViewModel @Inject constructor(
+class AudioPlayerViewModel @Inject constructor(
     private val playbackModel: PlaybackModel,
     private val storageManager: FileDataStorageManager,
     private val userAccountManager: UserAccountManager,
@@ -36,42 +36,42 @@ class PlayerViewModel @Inject constructor(
     private val logger: Logger
 ) : ViewModel() {
 
-    private val eventChannel = Channel<PlayerScreenEvent>(Channel.BUFFERED)
-    val eventFlow: Flow<PlayerScreenEvent> = eventChannel.receiveAsFlow()
+    private val eventChannel = Channel<AudioPlayerScreenEvent>(Channel.BUFFERED)
+    val eventFlow: Flow<AudioPlayerScreenEvent> = eventChannel.receiveAsFlow()
 
     fun onMoreButtonClick() {
         viewModelScope.launch {
             val file = getCurrentOCFile() ?: return@launch
             val actionsToHide = FileAction.getFilePreviewActions(file)
-            eventChannel.trySend(PlayerScreenEvent.ShowFileActions(file, actionsToHide))
+            eventChannel.trySend(AudioPlayerScreenEvent.ShowFileActions(file, actionsToHide))
         }
     }
 
     fun onFileActionChosen(file: OCFile, actionId: Int) {
         when (actionId) {
-            R.id.action_see_details -> eventChannel.trySend(PlayerScreenEvent.ShowFileDetails(file))
+            R.id.action_see_details -> eventChannel.trySend(AudioPlayerScreenEvent.ShowFileDetails(file))
 
             R.id.action_download_file -> startFileDownloading(file)
 
             R.id.action_export_file -> startFileExport(file)
 
-            R.id.action_send_share_file -> eventChannel.trySend(PlayerScreenEvent.ShowShareFileDialog(file))
+            R.id.action_send_share_file -> eventChannel.trySend(AudioPlayerScreenEvent.ShowShareFileDialog(file))
 
-            R.id.action_remove_file -> eventChannel.trySend(PlayerScreenEvent.ShowRemoveFileDialog(file))
+            R.id.action_remove_file -> eventChannel.trySend(AudioPlayerScreenEvent.ShowRemoveFileDialog(file))
 
             R.id.action_open_file_with -> onOpenFileWithClick(file)
 
             R.id.action_stream_media -> onStreamFileClick(file)
 
             R.id.action_lock_file -> eventChannel.trySend(
-                PlayerScreenEvent.ToggleFileLock(file, shouldBeLocked = true)
+                AudioPlayerScreenEvent.ToggleFileLock(file, shouldBeLocked = true)
             )
 
             R.id.action_unlock_file -> eventChannel.trySend(
-                PlayerScreenEvent.ToggleFileLock(file, shouldBeLocked = false)
+                AudioPlayerScreenEvent.ToggleFileLock(file, shouldBeLocked = false)
             )
 
-            R.id.action_add_to_album -> eventChannel.trySend(PlayerScreenEvent.AddFileToAlbum(file))
+            R.id.action_add_to_album -> eventChannel.trySend(AudioPlayerScreenEvent.AddFileToAlbum(file))
         }
     }
 
@@ -87,7 +87,7 @@ class PlayerViewModel @Inject constructor(
             storageManager.getFileByLocalId(localId)
         }.getOrElse {
             if (it is CancellationException) throw it
-            logger.e(PlayerViewModel::class.java.simpleName, "Failed to get file by localId: $localId", it)
+            logger.e(AudioPlayerViewModel::class.java.simpleName, "Failed to get file by localId: $localId", it)
             null
         }
     }
@@ -99,16 +99,16 @@ class PlayerViewModel @Inject constructor(
 
     private fun startFileExport(file: OCFile) {
         backgroundJobManager.startImmediateFilesExportJob(listOf(file))
-        eventChannel.trySend(PlayerScreenEvent.ShowFileExportStartedMessage)
+        eventChannel.trySend(AudioPlayerScreenEvent.ShowFileExportStartedMessage)
     }
 
     private fun onOpenFileWithClick(file: OCFile) {
         playbackModel.pause()
-        eventChannel.trySend(PlayerScreenEvent.LaunchOpenFileIntent(file))
+        eventChannel.trySend(AudioPlayerScreenEvent.LaunchOpenFileIntent(file))
     }
 
     private fun onStreamFileClick(file: OCFile) {
         playbackModel.pause()
-        eventChannel.trySend(PlayerScreenEvent.LaunchStreamFileIntent(file))
+        eventChannel.trySend(AudioPlayerScreenEvent.LaunchStreamFileIntent(file))
     }
 }

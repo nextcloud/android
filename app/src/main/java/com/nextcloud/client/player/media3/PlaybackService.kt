@@ -11,14 +11,19 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
-import androidx.media3.common.MediaItem
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.session.MediaSession
 import androidx.media3.session.MediaSession.ControllerInfo
 import androidx.media3.session.MediaSessionService
+import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.player.media3.resumption.PlaybackResumptionConfigStore
+import com.nextcloud.client.player.model.file.PlaybackFile
 import com.nextcloud.client.player.model.file.PlaybackFileType
-import com.nextcloud.client.player.ui.PlayerActivity
+import com.nextcloud.client.player.model.file.toVirtualFolderType
+import com.nextcloud.client.player.ui.audio.AudioPlayerActivity
 import com.nextcloud.client.player.util.PlayerUtil.playbackFile
+import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.ui.preview.PreviewImageActivity
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
@@ -32,9 +37,15 @@ class PlaybackService : MediaSessionService() {
     @Inject
     lateinit var playbackModel: PlaybackModel
 
+    @Inject
+    lateinit var userAccountManager: UserAccountManager
+
+    @Inject
+    lateinit var playbackResumptionConfigStore: PlaybackResumptionConfigStore
+
     private var bindingCount: Int = 0
 
-    private var sessionActivityFileType: PlaybackFileType? = null
+    private var sessionActivityMediaId: String? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -77,22 +88,37 @@ class PlaybackService : MediaSessionService() {
     }
 
     private fun updateSessionActivity(session: MediaSession) {
-        val fileType = session.player.currentMediaItem.playbackFileType() ?: return
-        if (fileType == sessionActivityFileType) {
-            return
+        val mediaItem = session.player.currentMediaItem?.takeIf { it.mediaId != sessionActivityMediaId } ?: return
+        val intent = mediaItem.mediaMetadata.playbackFile?.let(::createSessionIntent) ?: return
+        sessionActivityMediaId = mediaItem.mediaId
+        session.setSessionActivity(createSessionActivity(intent))
+    }
+
+    private fun createSessionIntent(playbackFile: PlaybackFile): Intent? {
+        val fileType = PlaybackFileType.entries.firstOrNull {
+            playbackFile.mimeType.startsWith(it.value, ignoreCase = true)
         }
 
-        sessionActivityFileType = fileType
-        session.setSessionActivity(createSessionActivity(fileType))
+        return when (fileType) {
+            PlaybackFileType.AUDIO -> AudioPlayerActivity.createIntent(this)
+            PlaybackFileType.VIDEO -> createVideoPreviewIntent(playbackFile)
+            null -> null
+        }
     }
 
-    private fun MediaItem?.playbackFileType(): PlaybackFileType? {
-        val mimeType = this?.mediaMetadata?.playbackFile?.mimeType ?: return null
-        return PlaybackFileType.entries.firstOrNull { mimeType.startsWith(it.value, ignoreCase = true) }
+    private fun createVideoPreviewIntent(playbackFile: PlaybackFile): Intent? {
+        val user = userAccountManager.user
+        val file = playbackFile.id.toLongOrNull()
+            ?.let { FileDataStorageManager(user, contentResolver).getFileByLocalId(it) }
+            ?: return null
+        val virtualFolderType = playbackResumptionConfigStore.loadConfig()?.collection?.toVirtualFolderType()
+
+        return PreviewImageActivity.previewFileIntent(this, user, file).apply {
+            putExtra(PreviewImageActivity.EXTRA_VIRTUAL_TYPE, virtualFolderType)
+        }
     }
 
-    private fun createSessionActivity(fileType: PlaybackFileType): PendingIntent {
-        val intent = PlayerActivity.createIntent(this, fileType)
+    private fun createSessionActivity(intent: Intent): PendingIntent {
         val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         } else {

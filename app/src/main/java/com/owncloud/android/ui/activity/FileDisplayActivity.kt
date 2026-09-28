@@ -73,7 +73,7 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.network.ClientFactory.CreationException
 import com.nextcloud.client.player.model.file.toPlaybackCollection
-import com.nextcloud.client.player.ui.PlayerLauncher
+import com.nextcloud.client.player.ui.audio.AudioPlayerLauncher
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.model.OCUploadLocalPathData
@@ -242,7 +242,7 @@ class FileDisplayActivity :
     private var listFragmentJustCreated = false
 
     @Inject
-    lateinit var playerLauncher: PlayerLauncher
+    lateinit var audioPlayerLauncher: AudioPlayerLauncher
 
     @Inject
     lateinit var localBroadcastManager: LocalBroadcastManager
@@ -882,8 +882,7 @@ class FileDisplayActivity :
         }
     }
 
-    fun canMediaPreviewed(file: OCFile?): Boolean =
-        file != null && (MimeTypeUtil.isAudio(file) || MimeTypeUtil.isVideo(file))
+    fun canPreviewInAudioPlayer(file: OCFile?): Boolean = file != null && MimeTypeUtil.isAudio(file)
 
     private fun tryStartWaitingPreview(success: Boolean): Boolean {
         if (!success) return false
@@ -897,8 +896,8 @@ class FileDisplayActivity :
                 true
             }
 
-            canMediaPreviewed(file) -> {
-                startMediaPreview(file, true, true)
+            canPreviewInAudioPlayer(file) -> {
+                startAudioPreview(file, true, true)
                 true
             }
 
@@ -2096,9 +2095,9 @@ class FileDisplayActivity :
         } else if (PreviewTextFileFragment.canBePreviewed(file)) {
             setFabVisible?.onComplete(false)
             startTextPreview(file, false)
-        } else if (canMediaPreviewed(file)) {
+        } else if (canPreviewInAudioPlayer(file)) {
             setFabVisible?.onComplete(false)
-            startMediaPreview(file, true, false)
+            startAudioPreview(file, true, false)
         } else {
             fileOperationsHelper.openFile(file)
         }
@@ -2741,28 +2740,28 @@ class FileDisplayActivity :
     }
 
     /**
-     * Starts the preview of a media [OCFile], synchronizing it first when it is not available yet.
+     * Starts the preview of an audio [OCFile], synchronizing it first when it is not available yet.
      */
-    fun startMediaPreview(file: OCFile, showPreview: Boolean, streamMedia: Boolean) {
+    fun startAudioPreview(file: OCFile, showPreview: Boolean, streamMedia: Boolean) {
         val user = getUser()
         if (!user.isPresent) {
             return // not reachable under normal conditions
         }
         if ((showPreview && file.isDown && !file.isDownloading) || streamMedia) {
-            startMediaActivity(file)
+            startAudioPlayer(file)
         } else {
             val previewIntent = Intent()
             previewIntent.putExtra(EXTRA_FILE, file)
-            previewIntent.putExtra(MEDIA_PREVIEW, true)
+            previewIntent.putExtra(AUDIO_PREVIEW, true)
             val fileOperationsHelper =
                 FileOperationsHelper(this, userAccountManager, connectivityService, editorUtils)
             fileOperationsHelper.startSyncForFileAndIntent(file, previewIntent)
         }
     }
 
-    private fun startMediaActivity(file: OCFile) {
+    private fun startAudioPlayer(file: OCFile) {
         val collection = listOfFilesFragment?.currentSearchType.toPlaybackCollection()
-        playerLauncher.launch(this, file, collection)
+        audioPlayerLauncher.launch(this, file, collection)
     }
 
     fun configureToolbarForPreview(file: OCFile?) {
@@ -2959,8 +2958,8 @@ class FileDisplayActivity :
 
         if (event.intent.getBooleanExtra(TEXT_PREVIEW, false)) {
             startTextPreview(file, true)
-        } else if (event.intent.getBooleanExtra(MEDIA_PREVIEW, false)) {
-            startMediaPreview(file, true, true)
+        } else if (event.intent.getBooleanExtra(AUDIO_PREVIEW, false)) {
+            startAudioPreview(file, true, true)
         } else if (bundle.containsKey(PreviewImageActivity.EXTRA_VIRTUAL_TYPE)) {
             val virtualType = bundle.get(PreviewImageActivity.EXTRA_VIRTUAL_TYPE) as VirtualFolderType?
             startImagePreview(
@@ -3345,7 +3344,7 @@ class FileDisplayActivity :
         const val TAG_LIST_OF_FILES: String = "LIST_OF_FILES"
 
         const val TEXT_PREVIEW: String = "TEXT_PREVIEW"
-        const val MEDIA_PREVIEW: String = "MEDIA_PREVIEW"
+        const val AUDIO_PREVIEW: String = "AUDIO_PREVIEW"
 
         const val KEY_IS_SEARCH_OPEN: String = "IS_SEARCH_OPEN"
         const val KEY_SEARCH_QUERY: String = "SEARCH_QUERY"

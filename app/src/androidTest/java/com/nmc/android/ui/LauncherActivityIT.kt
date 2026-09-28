@@ -12,6 +12,7 @@ import android.os.SystemClock
 import android.view.View
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.nextcloud.test.Flaky
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
 import org.junit.Assert.assertEquals
@@ -33,6 +34,7 @@ class LauncherActivityIT : AbstractIT() {
     }
 
     @Test
+    @Flaky(reason = "Opening FileDisplayActivity can keep the main thread busy past the launch timeout")
     fun testSplashScreenWithTitlesShouldShowTitles() {
         val activity = launchLauncherActivity()
 

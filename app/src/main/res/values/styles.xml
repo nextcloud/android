@@ -545,8 +545,6 @@
         <item name="android:textColor">@color/player_default_text_color</item>
     </style>
 
-    <style name="ShapeAppearance.App.Player.Media" parent="ShapeAppearance.Material3.Corner.None" />
-
     <style name="ShapeAppearance.App.Player.AlbumCover" parent="ShapeAppearance.Material3.Corner.Large" />
 
     <style name="PlayerSliderStyle" parent="Widget.Material3.Slider">
