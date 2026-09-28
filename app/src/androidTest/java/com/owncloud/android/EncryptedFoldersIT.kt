@@ -24,7 +24,6 @@ import com.owncloud.android.operations.common.SyncOperation
 import com.owncloud.android.operations.e2e.E2EDeletionService
 import com.owncloud.android.ui.dialog.setupEncryption.CertificateValidator
 import com.owncloud.android.ui.dialog.setupEncryption.EncryptionKeyGenerator
-import com.owncloud.android.utils.EncryptionUtils
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -173,29 +172,6 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
         val encrypted = ToggleEncryptionRemoteOperation(ocFile.localId, ocFile.remotePath, encrypt)
             .execute(client)
         assertTrue(encrypted.toString(), encrypted.isSuccess)
-
-        // The server forbids locking a folder that is no longer encrypted, so metadata is only uploaded when encrypting
-        if (encrypt) {
-            uploadFolderMetadata(ocFile)
-        }
-
-        // Set file encryption state locally
-        ocFile.isEncrypted = encrypt
-        assertTrue(storageManager.saveFile(ocFile))
-    }
-
-    private fun uploadFolderMetadata(ocFile: OCFile) {
-        val publicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PUBLIC_KEY)
-        val privateKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PRIVATE_KEY)
-        val uploadedMetadata = encryptionKeyGenerator.uploadEncryptedFolderMetadata(
-            ocFile,
-            client,
-            publicKey,
-            privateKey,
-            storageManager,
-            arbitraryDataProvider
-        )
-        assertTrue(uploadedMetadata)
     }
 
     fun createEncryptedSubfolder(folderName: String, parent: OCFile): OCFile {
