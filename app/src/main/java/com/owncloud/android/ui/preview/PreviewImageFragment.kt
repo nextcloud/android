@@ -793,7 +793,7 @@ class PreviewImageFragment :
             if (binding.image.drawable is LayerDrawable) {
                 val layerDrawable = binding.image.drawable as LayerDrawable
 
-                val layerOne = if (previewImageActivity?.isSystemUIVisible == true) {
+                val layerOne = if (previewImageActivity?.isActionBarVisible == true) {
                     ResourcesCompat.getDrawable(resources, R.color.bg_default, null)
                 } else {
                     ResourcesCompat.getDrawable(

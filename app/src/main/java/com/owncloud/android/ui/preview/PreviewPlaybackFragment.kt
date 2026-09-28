@@ -43,8 +43,6 @@ import com.nextcloud.ui.fileactions.FileActionsBottomSheet
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
 import com.nextcloud.utils.extensions.setVisibilityWithAnimation
-import com.nextcloud.utils.extensions.showNavigationBar
-import com.nextcloud.utils.extensions.showSystemBar
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PreviewPlaybackFragmentBinding
 import com.owncloud.android.datamodel.OCFile
@@ -123,7 +121,9 @@ class PreviewPlaybackFragment :
     private var renderedVideoSize: VideoSize? = null
 
     private var pictureInPictureCallback: OnBackPressedCallback? = null
-    private var isFullScreen = false
+
+    private val previewActivity: PreviewImageActivity?
+        get() = activity as? PreviewImageActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -183,7 +183,7 @@ class PreviewPlaybackFragment :
     }
 
     private fun onOverflowClick(isManualClick: Boolean = false) {
-        val storageManager = previewActivity()?.storageManager ?: return
+        val storageManager = previewActivity?.storageManager ?: return
         val updatedFile = storageManager.getFileById(file.fileId)
 
         // check for albums file for album file both local and remoteId will be same configured at operation level
@@ -203,7 +203,7 @@ class PreviewPlaybackFragment :
     }
 
     private fun fetchFileMetaDataIfAbsent(ocFile: OCFile) {
-        val previewActivity = previewActivity() ?: return
+        val previewActivity = previewActivity ?: return
         val context = context ?: return
 
         previewActivity.showLoadingDialog(getString(R.string.wait_a_moment))
@@ -233,7 +233,7 @@ class PreviewPlaybackFragment :
 
     @Suppress("CyclomaticComplexMethod")
     private fun onFileActionChosen(itemId: Int) {
-        val previewActivity = previewActivity() ?: return
+        val previewActivity = previewActivity ?: return
         val fileOperationsHelper = previewActivity.fileOperationsHelper
 
         when (itemId) {
@@ -291,7 +291,7 @@ class PreviewPlaybackFragment :
             viewLifecycleOwner,
             enabled = false
         ) {
-            if (previewActivity()?.enterPictureInPicture() == true) {
+            if (previewActivity?.enterPictureInPicture() == true) {
                 return@addCallback
             }
 
@@ -392,7 +392,7 @@ class PreviewPlaybackFragment :
     }
 
     private fun showPageOfCurrentItem(state: PlaybackState?) {
-        val previewActivity = previewActivity() ?: return
+        val previewActivity = previewActivity ?: return
         val localId = state?.currentItemState?.file?.id?.toLongOrNull()
         if (localId != null && previewActivity.showFilePage(localId)) return
 
@@ -401,22 +401,12 @@ class PreviewPlaybackFragment :
         }
     }
 
-    private fun previewActivity(): PreviewImageActivity? = activity as? PreviewImageActivity
-
     private fun isInPictureInPictureMode(): Boolean = activity?.isInPictureInPictureMode == true
 
     private fun toggleFullScreen() {
-        val previewActivity = previewActivity() ?: return
-        isFullScreen = !isFullScreen
-        previewActivity.toggleActionBarVisibility(!isFullScreen)
-        binding.playerControlView.setVisibilityWithAnimation(!isFullScreen)
-        previewActivity.window.run {
-            if (isFullScreen) {
-                showSystemBar(false, binding.root)
-            } else {
-                showNavigationBar(true, binding.root)
-            }
-        }
+        val previewActivity = previewActivity ?: return
+        binding.playerControlView.setVisibilityWithAnimation(!previewActivity.isActionBarVisible)
+        previewActivity.toggleFullScreen()
     }
 
     private fun updatePlayerControlsVisibility() {
@@ -425,8 +415,7 @@ class PreviewPlaybackFragment :
             return
         }
 
-        // playback updates arrive every second, so they must not undo full screen or cut the fade short
-        if (!isFullScreen) {
+        if (previewActivity?.isActionBarVisible == true) {
             binding.playerControlView.isVisible = true
         }
     }

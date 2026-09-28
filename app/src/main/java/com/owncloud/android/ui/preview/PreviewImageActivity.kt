@@ -103,7 +103,9 @@ class PreviewImageActivity :
     private val downloadFinishReceiver = DownloadFinishReceiver()
 
     private val windowInsetsController: WindowInsetsControllerCompat by lazy {
-        WindowCompat.getInsetsController(window, window.decorView)
+        WindowCompat.getInsetsController(window, window.decorView).apply {
+            systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
     }
 
     private var isDownloadWorkStarted = false
@@ -124,7 +126,7 @@ class PreviewImageActivity :
 
         if (savedInstanceState != null &&
             !savedInstanceState.getBoolean(
-                KEY_SYSTEM_VISIBLE,
+                KEY_ACTION_BAR_VISIBLE,
                 true
             ) &&
             supportActionBar != null
@@ -390,7 +392,7 @@ class PreviewImageActivity :
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putBoolean(KEY_WAITING_FOR_BINDER, screenState == PreviewImageActivityState.WaitingForBinder)
-        outState.putBoolean(KEY_SYSTEM_VISIBLE, isSystemUIVisible)
+        outState.putBoolean(KEY_ACTION_BAR_VISIBLE, isActionBarVisible)
         sendShareDownloader.saveState(outState)
     }
 
@@ -549,12 +551,12 @@ class PreviewImageActivity :
         updatePagerDisplayCutOutPadding(isInPictureInPictureMode, displayCutOutSafeInsetTop())
 
         if (isInPictureInPictureMode) {
-            wasSystemUiVisibleBeforePictureInPicture = isSystemUIVisible
+            wasActionBarVisibleBeforePictureInPicture = isActionBarVisible
             toggleActionBarVisibility(false)
             return
         }
 
-        toggleActionBarVisibility(wasSystemUiVisibleBeforePictureInPicture)
+        toggleActionBarVisibility(wasActionBarVisibleBeforePictureInPicture)
 
         if (lifecycle.currentState != Lifecycle.State.CREATED) return
 
@@ -639,19 +641,19 @@ class PreviewImageActivity :
         }
     }
 
-    val isSystemUIVisible: Boolean
+    val isActionBarVisible: Boolean
         get() = supportActionBar == null || supportActionBar?.isShowing == true
 
     fun toggleFullScreen() {
-        val rootInsets = ViewCompat.getRootWindowInsets(window.decorView) ?: return
-
         // the content is laid out edge to edge so that showing and hiding the bars does not move it
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        if (rootInsets.isVisible(WindowInsetsCompat.Type.systemBars())) {
-            windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
+        val showBars = !isActionBarVisible
+        toggleActionBarVisibility(showBars)
+        if (showBars) {
+            windowInsetsController.show(WindowInsetsCompat.Type.navigationBars())
         } else {
-            windowInsetsController.show(WindowInsetsCompat.Type.systemBars())
+            windowInsetsController.hide(WindowInsetsCompat.Type.navigationBars())
         }
     }
 
@@ -685,7 +687,7 @@ class PreviewImageActivity :
         const val EXTRA_VIRTUAL_TYPE: String = "EXTRA_VIRTUAL_TYPE"
         const val EXTRA_MEDIA_STATE: String = "EXTRA_MEDIA_STATE"
         private const val KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER"
-        private const val KEY_SYSTEM_VISIBLE = "TRUE"
+        private const val KEY_ACTION_BAR_VISIBLE = "TRUE"
         private const val NO_POSITION = -1
 
         fun previewFileIntent(context: Context?, user: User?, file: OCFile?): Intent =
