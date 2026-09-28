@@ -31,6 +31,15 @@
     <string name="activity_icon">Armud</string>
     <string name="add_new_public_share">Rnu aseɣwen amaynut n beṭṭu azayez</string>
     <string name="add_new_secure_file_drop">Rnu asers n ufaylu aɣelsan amaynut</string>
+    <string name="add_to_album">Rnu ɣer walbum</string>
+    <string name="album_already_exists">Album yella yakan</string>
+    <string name="album_copy_file_conflict">Yella yakan.</string>
+    <string name="album_create_new_link">Snulfu-d aseɣwen amaynut</string>
+    <string name="album_default_sharing_text">Yal yiwen yezmer kan ad iwali</string>
+    <string name="album_delete">Kkes album</string>
+    <string name="album_delete_failed_message">Tukksa n kra n ifuyla ur teddi ara.</string>
+    <string name="album_file_added_message">Afaylu yettwarna akken iwata</string>
+    <string name="album_name_empty">Isem n walbum ulamek ara yili d ilem</string>
     <string name="album_picker_toolbar_title">Fren album</string>
     <string name="album_rename">Snifel isem n walbum</string>
     <string name="album_rename_conflict">Isem-a yettuseqdec yakan</string>
