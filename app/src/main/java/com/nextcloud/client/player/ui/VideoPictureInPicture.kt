@@ -10,6 +10,7 @@ package com.nextcloud.client.player.ui
 import android.app.Activity
 import android.app.PictureInPictureParams
 import android.graphics.Rect
+import android.os.Build
 import android.util.Rational
 import android.view.View
 import com.nextcloud.client.player.media3.PlaybackModel
@@ -33,6 +34,9 @@ class VideoPictureInPicture(private val activity: Activity, private val playback
         val aspectRatio = getAspectRatio(playbackModel.state?.currentItemState?.videoSize)
         return PictureInPictureParams.Builder().let {
             it.setAspectRatio(aspectRatio)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                it.setAutoEnterEnabled(false)
+            }
             it.setSourceRectHint(getSourceRectHint(sourceView, aspectRatio))
             it.build()
         }

@@ -7,6 +7,7 @@
 
 package com.nextcloud.client.player.ui.audio
 
+import android.content.Context
 import android.view.WindowInsets
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -32,13 +33,15 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class AudioPlayerView(private val activity: AppCompatActivity) :
-    LinearLayout(activity),
+class AudioPlayerView(context: Context) :
+    LinearLayout(context),
     PlaybackModel.Listener {
 
     companion object {
         private const val TAG = "AudioPlayerView"
     }
+
+    private val activity = context as AppCompatActivity
 
     @Inject
     lateinit var playbackModel: PlaybackModel

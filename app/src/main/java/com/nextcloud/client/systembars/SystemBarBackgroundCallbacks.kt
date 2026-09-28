@@ -18,6 +18,7 @@ import com.nmc.android.ui.LauncherActivity
 import com.owncloud.android.R
 import com.owncloud.android.authentication.AuthenticatorActivity
 import com.owncloud.android.ui.activity.DrawerActivity
+import com.owncloud.android.ui.preview.PreviewImageActivity
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import dynamiccolor.MaterialDynamicColors
 import javax.inject.Provider
@@ -31,7 +32,8 @@ class SystemBarBackgroundCallbacks(private val viewThemeUtilsProvider: Provider<
             LauncherActivity::class,
             AuthenticatorActivity::class,
             FirstRunActivity::class,
-            AudioPlayerActivity::class
+            AudioPlayerActivity::class,
+            PreviewImageActivity::class
         )
 
         private fun isExcluded(activity: Activity): Boolean = excludedActivities.any { it.isInstance(activity) }
