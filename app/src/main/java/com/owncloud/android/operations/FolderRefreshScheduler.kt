@@ -24,7 +24,7 @@ import kotlin.time.Duration.Companion.seconds
 
 class FolderRefreshScheduler(private val activity: FileDisplayActivity) {
     companion object {
-        private val ETAG_POLL_INTERVAL = 30.seconds
+        private val ETAG_POLL_INTERVAL = 10.seconds
         private const val TAG = "FolderRefreshScheduler"
     }
 
