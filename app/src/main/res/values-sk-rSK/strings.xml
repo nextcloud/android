@@ -1221,7 +1221,7 @@
     <string name="uploader_upload_failed_content_single">Nepodarilo sa nahrať %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Nahrávanie neúspešné, je potrebné sa znovu prihlásiť</string>
     <string name="uploader_upload_failed_sync_conflict_error">Konflikt pri nahrávaní súboru</string>
-    <string name="uploader_upload_failed_sync_conflict_error_content">Vyberte, ktorú  verziu %1$s si chcete ponechať </string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">Vyberte, ktorú verziu %1$s si chcete ponechať</string>
     <string name="uploader_upload_failed_ticker">Odoslanie bolo neúspešné</string>
     <string name="uploader_upload_files_behaviour">Možnosti nahratia</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Presunúť súbor do priečinku %1$s</string>
