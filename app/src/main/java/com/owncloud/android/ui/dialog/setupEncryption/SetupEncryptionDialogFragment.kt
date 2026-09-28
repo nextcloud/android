@@ -359,7 +359,7 @@ class SetupEncryptionDialogFragment :
         val context = context ?: return
 
         val privateKeyResult = EncryptionKeyGenerator(context, user ?: return).generatePrivateKey(keyWords ?: return)
-        when(privateKeyResult) {
+        when (privateKeyResult) {
             is EncryptionKeyGenerator.PrivateKeyResult.Success -> {
                 keyResult = KEY_GENERATE
                 if (dialog == null) {
