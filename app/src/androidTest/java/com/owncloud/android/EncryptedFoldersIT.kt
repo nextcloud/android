@@ -105,8 +105,8 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
 
     @Test
     fun testReadEncryptedSubfolder() {
-        createEncryptedFolder(FOLDER)
-        val subOCFile = createEncryptedFolder(SUBFOLDER)
+        val parent = createEncryptedFolder(FOLDER)
+        val subOCFile = createEncryptedSubfolder(SUBFOLDER, parent)
         val files = listEncryptedFolder(subOCFile)
         assertEquals(files.size, 0)
     }
@@ -174,6 +174,17 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
             .execute(client)
         assertTrue(encrypted.toString(), encrypted.isSuccess)
 
+        // The server forbids locking a folder that is no longer encrypted, so metadata is only uploaded when encrypting
+        if (encrypt) {
+            uploadFolderMetadata(ocFile)
+        }
+
+        // Set file encryption state locally
+        ocFile.isEncrypted = encrypt
+        assertTrue(storageManager.saveFile(ocFile))
+    }
+
+    private fun uploadFolderMetadata(ocFile: OCFile) {
         val publicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PUBLIC_KEY)
         val privateKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PRIVATE_KEY)
         val uploadedMetadata = encryptionKeyGenerator.uploadEncryptedFolderMetadata(
@@ -185,18 +196,14 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
             arbitraryDataProvider
         )
         assertTrue(uploadedMetadata)
-
-        // Set file as encrypted locally
-        ocFile.isEncrypted = encrypt
-        assertTrue(storageManager.saveFile(ocFile))
     }
 
-    fun createEncryptedSubfolder(folderName: String, parent: OCFile) {
+    fun createEncryptedSubfolder(folderName: String, parent: OCFile): OCFile {
         // An encrypted subfolder is a normal folder inside an encrypted one
         assertTrue(parent.isFolder && parent.isEncrypted)
 
         // Create folder
-        val path = "${parent.remotePath}${OCFile.PATH_SEPARATOR}${folderName}${OCFile.PATH_SEPARATOR}"
+        val path = parent.decryptedRemotePath + folderName
         val syncOp: SyncOperation = CreateFolderOperation(
             path,
             user,
@@ -208,7 +215,10 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
 
         // Check folder exists
         val ocFile = storageManager.getFileByRemotePath(path)
-        assertTrue(ocFile?.isFolder ?: false)
+        assertNotNull(ocFile)
+        assertTrue(ocFile!!.isFolder && ocFile.isEncrypted)
+
+        return ocFile
     }
 
     private fun listEncryptedFolder(ocFile: OCFile): List<FileEntity> {
