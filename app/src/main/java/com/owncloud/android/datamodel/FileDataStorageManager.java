@@ -371,6 +371,9 @@ public class FileDataStorageManager {
             parentRemotePath,
             oldFileName
         );
+        if (newPath == null)
+            return;
+
         offlineOperationsRepository.updateOperationForKeepBoth(entity, newPath);
     }
 
