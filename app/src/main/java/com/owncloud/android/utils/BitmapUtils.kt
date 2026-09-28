@@ -1,529 +1,297 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2020-2022 Tobias Kaminsky <tobias@kaminsky.me>
- * SPDX-FileCopyrightText: 23017-2018 Andy Scherzinger <info@andy-scherzinger.de>
+ * SPDX-FileCopyrightText: 2017-2018 Andy Scherzinger <info@andy-scherzinger.de>
  * SPDX-FileCopyrightText: 2015 ownCloud Inc.
  * SPDX-FileCopyrightText: 2014 David A. Velasco <dvelasco@solidgear.es>
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-package com.owncloud.android.utils;
+package com.owncloud.android.utils
 
-import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.BitmapFactory.Options;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
-import android.graphics.RectF;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.widget.ImageView;
+import android.content.Context
+import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Paint
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
+import android.graphics.PorterDuffXfermode
+import android.graphics.Rect
+import android.graphics.RectF
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.widget.ImageView
+import androidx.annotation.DimenRes
+import androidx.core.graphics.applyCanvas
+import androidx.core.graphics.blue
+import androidx.core.graphics.createBitmap
+import androidx.core.graphics.drawable.RoundedBitmapDrawable
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
+import androidx.core.graphics.green
+import androidx.core.graphics.red
+import androidx.core.graphics.scale
+import androidx.exifinterface.media.ExifInterface
+import com.nextcloud.utils.rotateBitmapViaExif
+import com.nextcloud.utils.view.ScreenMetrics.dpToPx
+import com.owncloud.android.MainApp
+import com.owncloud.android.R
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.users.Status
+import com.owncloud.android.lib.resources.users.StatusType
+import com.owncloud.android.ui.StatusDrawable
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
+import kotlin.math.min
+import kotlin.math.roundToInt
+import com.nextcloud.utils.decodeSampledBitmapFromFile as decodeSampledBitmap
 
-import com.nextcloud.utils.BitmapExtensionsKt;
-import com.nextcloud.utils.view.ScreenMetrics;
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.users.Status;
-import com.owncloud.android.lib.resources.users.StatusType;
-import com.owncloud.android.ui.StatusDrawable;
+@Suppress("TooManyFunctions")
+object BitmapUtils {
+    private const val TAG = "BitmapUtil"
+    private const val MD5_ALGORITHM = "MD5"
+    private const val HEX_BYTE_FORMAT = "%02x"
+    private const val HEX_RADIX = 16
+    private const val PALETTE_STEPS = 6
+    private const val OPAQUE_ALPHA = 255
+    private const val NO_CORNER_RADIUS = -1f
+    private const val UNSPECIFIED_SIZE = -1
+    private const val STATUS_SIZE_DIVISOR = 4
+    private const val STATUS_NO_CLEAR_AT = -1L
+    private const val CROP_MASK_COLOR = 0xFF424242.toInt()
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Locale;
+    private val MD5_HASH_REGEX = Regex("[0-9a-f]{32}")
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
-import androidx.exifinterface.media.ExifInterface;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
-import static com.nextcloud.utils.extensions.ThumbnailsCacheManagerExtensionsKt.getExifOrientation;
-
-/**
- * Utility class with methods for decoding Bitmaps.
- */
-public final class BitmapUtils {
-    public static final String TAG = BitmapUtils.class.getSimpleName();
-
-    private BitmapUtils() {
-        // utility class -> private constructor
+    @Suppress("MagicNumber")
+    private val usernamePalette: List<Color> by lazy {
+        val red = Color(182, 70, 157)
+        val yellow = Color(221, 203, 85)
+        val nextcloudBlue = Color(0, 130, 201)
+        mixPalette(red, yellow) + mixPalette(yellow, nextcloudBlue) + mixPalette(nextcloudBlue, red)
     }
 
-    public static Bitmap addColorFilter(Bitmap originalBitmap, int filterColor, int opacity) {
-        Bitmap resultBitmap = originalBitmap.copy(Bitmap.Config.ARGB_8888, true);
-        Canvas canvas = new Canvas(resultBitmap);
-        canvas.drawBitmap(resultBitmap, 0, 0, null);
+    private val resources: Resources
+        get() = MainApp.getAppContext().resources
 
-        Paint paint = new Paint();
-        paint.setColor(filterColor);
-
-        paint.setAlpha(opacity);
-
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
-        canvas.drawRect(0, 0, resultBitmap.getWidth(), resultBitmap.getHeight(), paint);
-
-        return resultBitmap;
+    fun addColorFilter(originalBitmap: Bitmap, filterColor: Int, opacity: Int): Bitmap {
+        val result = originalBitmap.copy(Bitmap.Config.ARGB_8888, true) ?: return originalBitmap
+        val paint = Paint().apply {
+            color = filterColor
+            alpha = opacity
+            xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP)
+        }
+        return result.applyCanvas {
+            drawBitmap(result, 0f, 0f, null)
+            drawRect(0f, 0f, result.width.toFloat(), result.height.toFloat(), paint)
+        }
     }
 
-    /**
-     * Decodes a bitmap from a file containing it minimizing the memory use, known that the bitmap will be drawn in a
-     * surface of reqWidth x reqHeight
-     *
-     * @param srcPath   Absolute path to the file containing the image.
-     * @param reqWidth  Width of the surface where the Bitmap will be drawn on, in pixels.
-     * @param reqHeight Height of the surface where the Bitmap will be drawn on, in pixels.
-     * @return decoded bitmap
-     */
-    @Nullable
-    public static Bitmap decodeSampledBitmapFromFile(String srcPath, int reqWidth, int reqHeight) {
-        return BitmapExtensionsKt.decodeSampledBitmapFromFile(srcPath, reqWidth, reqHeight);
+    @JvmStatic
+    fun decodeSampledBitmapFromFile(srcPath: String?, reqWidth: Int, reqHeight: Int): Bitmap? =
+        decodeSampledBitmap(srcPath, reqWidth, reqHeight)
+
+    fun retrieveBitmapFromFile(storagePath: String, minWidth: Int, minHeight: Int): Bitmap? {
+        val (originalWidth, originalHeight) = getImageResolution(storagePath)
+        if (originalWidth <= 0 || originalHeight <= 0) {
+            return null
+        }
+
+        val scaleFactor = min(minWidth.toFloat() / originalWidth, minHeight.toFloat() / originalHeight)
+        val scaledWidth = (originalWidth * scaleFactor).toInt()
+        val scaledHeight = (originalHeight * scaleFactor).toInt()
+        return decodeSampledBitmap(storagePath, scaledWidth, scaledHeight)
+            .rotateBitmapViaExif(readExifOrientation(storagePath))
     }
 
-    /**
-     * Decodes a bitmap from a file containing it minimizing the memory use. Scales image to screen size.
-     *
-     * @param storagePath   Absolute path to the file containing the image.
-     */
-    public static Bitmap retrieveBitmapFromFile(String storagePath, int minWidth, int minHeight){
-        // Get the original dimensions of the bitmap
-        var bitmapResolution = getImageResolution(storagePath);
-        var originalWidth = bitmapResolution[0];
-        var originalHeight = bitmapResolution[1];
+    @JvmStatic
+    fun calculateSampleFactor(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
+        val halfHeight = options.outHeight / 2
+        val halfWidth = options.outWidth / 2
+        val targetHeight = reqHeight.coerceAtLeast(0)
+        val targetWidth = reqWidth.coerceAtLeast(0)
+        var inSampleSize = 1
+        while (halfHeight / inSampleSize > targetHeight || halfWidth / inSampleSize > targetWidth) {
+            inSampleSize *= 2
+        }
 
-        // Calculate the scaling factors based on screen dimensions
-        var widthScaleFactor = (float) minWidth/ originalWidth;
-        var heightScaleFactor = (float) minHeight / originalHeight;
+        return inSampleSize
+    }
 
-        // Use the smaller scaling factor to maintain aspect ratio
-        var scaleFactor = Math.min(widthScaleFactor, heightScaleFactor);
+    @JvmStatic
+    fun scaleBitmap(bitmap: Bitmap, px: Float, width: Int, height: Int, max: Int): Bitmap {
+        val scale = px / max
+        return bitmap.scale((scale * width).roundToInt(), (scale * height).roundToInt())
+    }
 
-        // Calculate the new scaled width and height
-        var scaledWidth = (int) (originalWidth * scaleFactor);
-        var scaledHeight = (int) (originalHeight * scaleFactor);
+    @Suppress("TooGenericExceptionCaught")
+    private fun readExifOrientation(storagePath: String): Int = try {
+        ExifInterface(storagePath).getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
+    } catch (e: Exception) {
+        Log_OC.e(TAG, "Could not read orientation at: $storagePath, exception: $e")
+        ExifInterface.ORIENTATION_NORMAL
+    }
 
-        var shouldRotate = detectRotateImage(storagePath);
-        var result = decodeSampledBitmapFromFile(storagePath, scaledWidth, scaledHeight);
-        if (shouldRotate) {
-            int orientation = getExifOrientation(storagePath);
-            return BitmapExtensionsKt.rotateBitmapViaExif(result, orientation);
+    fun getImageResolution(srcPath: String?): IntArray {
+        val options = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+        BitmapFactory.decodeFile(srcPath, options)
+        return intArrayOf(options.outWidth, options.outHeight)
+    }
+
+    @JvmStatic
+    fun usernameToColor(name: String): Color {
+        val lowercaseName = name.lowercase()
+        val hash = if (MD5_HASH_REGEX.matches(lowercaseName)) {
+            lowercaseName
         } else {
-            return result;
-        }
-    }
-    /**
-     * Calculates a proper value for options.inSampleSize in order to decode a Bitmap minimizing the memory overload and
-     * covering a target surface of reqWidth x reqHeight if the original image is big enough.
-     *
-     * @param options   Bitmap decoding options; options.outHeight and options.inHeight should be set.
-     * @param reqWidth  Width of the surface where the Bitmap will be drawn on, in pixels.
-     * @param reqHeight Height of the surface where the Bitmap will be drawn on, in pixels.
-     * @return The largest inSampleSize value that is a power of 2 and keeps both height and width larger than reqWidth
-     * and reqHeight.
-     */
-    public static int calculateSampleFactor(Options options, int reqWidth, int reqHeight) {
-
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        int inSampleSize = 1;
-
-        if (height > reqHeight || width > reqWidth) {
-            final int halfHeight = height / 2;
-            final int halfWidth = width / 2;
-
-            // calculates the largest inSampleSize value (for smallest sample) that is a power of 2 and keeps both
-            // height and width **larger** than the requested height and width.
-            while ((halfHeight / inSampleSize) > reqHeight || (halfWidth / inSampleSize) > reqWidth) {
-                inSampleSize *= 2;
-            }
-        }
-
-        return inSampleSize;
-    }
-
-    /**
-     * scales a given bitmap depending on the given size parameters.
-     *
-     * @param bitmap the bitmap to be scaled
-     * @param px     the target pixel size
-     * @param width  the width
-     * @param height the height
-     * @param max    the max(height, width)
-     * @return the scaled bitmap
-     */
-    public static Bitmap scaleBitmap(Bitmap bitmap, float px, int width, int height, int max) {
-        float scale = px / max;
-        int w = Math.round(scale * width);
-        int h = Math.round(scale * height);
-        return Bitmap.createScaledBitmap(bitmap, w, h, true);
-    }
-
-    /**
-     * Detect if Image will be rotated according to EXIF orientation. Cf. http://www.daveperrett.com/articles/2012/07/28/exif-orientation-handling-is-a-ghetto/
-     *
-     * @param storagePath Path to source file of bitmap. Needed for EXIF information.
-     * @return true if image's orientation determines it will be rotated to where height and width change
-     */
-    public static boolean detectRotateImage(String storagePath) {
-        try {
-            ExifInterface exifInterface = new ExifInterface(storagePath);
-            int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
-
-            if (orientation != ExifInterface.ORIENTATION_NORMAL) {
-                switch (orientation) {
-                    // 5
-                    case ExifInterface.ORIENTATION_TRANSPOSE: {
-                        return true;
-                    }
-                    // 6
-                    case ExifInterface.ORIENTATION_ROTATE_90: {
-                        return true;
-                    }
-                    // 7
-                    case ExifInterface.ORIENTATION_TRANSVERSE: {
-                        return true;
-                    }
-                    // 8
-                    case ExifInterface.ORIENTATION_ROTATE_270: {
-                        return true;
-                    }
-                }
-            }
-        }
-        catch (Exception exception) {
-            Log_OC.e("BitmapUtil", "Could not read orientation at: " + storagePath);
-        }
-        return false;
-    }
-
-    public static int[] getImageResolution(String srcPath) {
-        Options options = new Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(srcPath, options);
-        return new int [] {options.outWidth, options.outHeight};
-    }
-
-    public static Color usernameToColor(String name) {
-        String hash = name.toLowerCase(Locale.ROOT);
-
-        // Check if the input is already a valid MD5 hash (32 hex characters)
-        if (hash.length() != 32 || !hash.matches("[0-9a-f]+")) {
             try {
-                hash = md5(hash);
-            } catch (NoSuchAlgorithmException e) {
-                int color = getResources().getColor(R.color.primary_dark);
-                return new Color(android.graphics.Color.red(color),
-                                 android.graphics.Color.green(color),
-                                 android.graphics.Color.blue(color));
+                md5(lowercaseName)
+            } catch (_: NoSuchAlgorithmException) {
+                return primaryDarkColor()
             }
         }
 
-        hash = hash.replaceAll("[^0-9a-f]", "");
-        int steps = 6;
-
-        Color[] finalPalette = generateColors(steps);
-
-        return finalPalette[hashToInt(hash, steps * 3)];
+        val hexDigitSum = hash.sumOf { it.digitToInt(HEX_RADIX) }
+        return usernamePalette[hexDigitSum % usernamePalette.size]
     }
 
-    private static int hashToInt(String hash, int maximum) {
-        int finalInt = 0;
-
-        // Sum the values of the hexadecimal digits
-        for (int i = 0; i < hash.length(); i++) {
-            // Efficient hex char-to-int conversion
-            finalInt += Character.digit(hash.charAt(i), 16);
-        }
-
-        // Return the sum modulo maximum
-        return finalInt % maximum;
+    private fun primaryDarkColor(): Color {
+        val color = resources.getColor(R.color.primary_dark, null)
+        return Color(color.red, color.green, color.blue)
     }
 
-    private static Color[] generateColors(int steps) {
-        Color red = new Color(182, 70, 157);
-        Color yellow = new Color(221, 203, 85);
-        Color blue = new Color(0, 130, 201); // Nextcloud blue
-
-        Color[] palette1 = mixPalette(steps, red, yellow);
-        Color[] palette2 = mixPalette(steps, yellow, blue);
-        Color[] palette3 = mixPalette(steps, blue, red);
-
-        Color[] resultPalette = new Color[palette1.length + palette2.length + palette3.length];
-        System.arraycopy(palette1, 0, resultPalette, 0, steps);
-        System.arraycopy(palette2, 0, resultPalette, steps, steps);
-        System.arraycopy(palette3, 0, resultPalette, steps * 2, steps);
-
-        return resultPalette;
+    private fun mixPalette(from: Color, to: Color): List<Color> = List(PALETTE_STEPS) { step ->
+        Color(mixChannel(from.r, to.r, step), mixChannel(from.g, to.g, step), mixChannel(from.b, to.b, step))
     }
 
-    @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
-    private static Color[] mixPalette(int steps, Color color1, Color color2) {
-        Color[] palette = new Color[steps];
-        palette[0] = color1;
+    private fun mixChannel(from: Int, to: Int, step: Int): Int =
+        (from + (to - from) / PALETTE_STEPS.toFloat() * step).toInt()
 
-        float[] step = stepCalc(steps, color1, color2);
-        for (int i = 1; i < steps; i++) {
-            int r = (int) (color1.r + step[0] * i);
-            int g = (int) (color1.g + step[1] * i);
-            int b = (int) (color1.b + step[2] * i);
+    private fun md5(value: String): String = MessageDigest.getInstance(MD5_ALGORITHM)
+        .digest(value.toByteArray())
+        .joinToString("") { HEX_BYTE_FORMAT.format(it) }
 
-            palette[i] = new Color(r, g, b);
-        }
+    fun bitmapToCircularBitmapDrawable(
+        resources: Resources,
+        bitmap: Bitmap?,
+        radius: Float = NO_CORNER_RADIUS
+    ): RoundedBitmapDrawable? {
+        bitmap ?: return null
 
-        return palette;
-    }
-
-    private static float[] stepCalc(int steps, Color color1, Color color2) {
-        float[] step = new float[3];
-
-        step[0] = (color2.r - color1.r) / (float) steps;
-        step[1] = (color2.g - color1.g) / (float) steps;
-        step[2] = (color2.b - color1.b) / (float) steps;
-
-        return step;
-    }
-
-    public static class Color {
-        public int a = 255;
-        public int r;
-        public int g;
-        public int b;
-
-        public Color(int r, int g, int b) {
-            this.r = r;
-            this.g = g;
-            this.b = b;
-        }
-
-        public Color(int a, int r, int g, int b) {
-            this.a = a;
-            this.r = r;
-            this.g = g;
-            this.b = b;
-        }
-
-        @Override
-        public boolean equals(@Nullable Object obj) {
-            if (!(obj instanceof Color other)) {
-                return false;
-            }
-
-            return this.r == other.r && this.g == other.g && this.b == other.b;
-        }
-
-        @Override
-        public int hashCode() {
-            return (r << 16) + (g << 8) + b;
-        }
-    }
-
-    public static String md5(String string) throws NoSuchAlgorithmException {
-        MessageDigest md5 = MessageDigest.getInstance("MD5");
-        // Use UTF-8 for consistency
-        byte[] hashBytes = md5.digest(string.getBytes(StandardCharsets.UTF_8));
-
-        StringBuilder hexString = new StringBuilder(32);
-        for (byte b : hashBytes) {
-            // Convert each byte to a 2-digit hex string
-            hexString.append(String.format("%02x", b));
-        }
-        return hexString.toString();
-    }
-
-    /**
-     * Returns a new circular bitmap drawable by creating it from a bitmap, setting initial target density based on the
-     * display metrics of the resources.
-     *
-     * @param resources the resources for initial target density
-     * @param bitmap    the original bitmap
-     * @return the circular bitmap
-     */
-    @Nullable
-    public static RoundedBitmapDrawable bitmapToCircularBitmapDrawable(Resources resources,
-                                                                       Bitmap bitmap,
-                                                                       float radius) {
-        if (bitmap == null) {
-            return null;
-        }
-
-        RoundedBitmapDrawable roundedBitmap = RoundedBitmapDrawableFactory.create(resources, bitmap);
-        roundedBitmap.setCircular(true);
-
-        if (radius != -1) {
-            roundedBitmap.setCornerRadius(radius);
-        }
-
-        return roundedBitmap;
-    }
-
-    @Nullable
-    public static RoundedBitmapDrawable bitmapToCircularBitmapDrawable(Resources resources, Bitmap bitmap) {
-        return bitmapToCircularBitmapDrawable(resources, bitmap, -1);
-    }
-
-    public static void setRoundedBitmap(Resources resources, Bitmap bitmap, float radius, ImageView imageView) {
-
-        imageView.setImageDrawable(BitmapUtils.bitmapToCircularBitmapDrawable(resources,
-                                                                              bitmap,
-                                                                              radius));
-    }
-
-    public static Bitmap drawableToBitmap(Drawable drawable) {
-        return drawableToBitmap(drawable, -1, -1);
-    }
-
-    @NonNull
-    public static Bitmap drawableToBitmap(Drawable drawable, int desiredWidth, int desiredHeight) {
-        if (drawable instanceof BitmapDrawable bitmapDrawable) {
-            if (bitmapDrawable.getBitmap() != null) {
-                return bitmapDrawable.getBitmap();
+        return RoundedBitmapDrawableFactory.create(resources, bitmap).apply {
+            isCircular = true
+            if (radius != NO_CORNER_RADIUS) {
+                cornerRadius = radius
             }
         }
-
-        Bitmap bitmap;
-        int width;
-        int height;
-
-        if (desiredWidth > 0 && desiredHeight > 0) {
-            width = desiredWidth;
-            height = desiredHeight;
-        } else {
-            if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
-                if (drawable.getBounds().width() > 0 && drawable.getBounds().height() > 0) {
-                    width = drawable.getBounds().width();
-                    height = drawable.getBounds().height();
-                } else {
-                    width = 1;
-                    height = 1;
-                }
-            } else {
-                width = drawable.getIntrinsicWidth();
-                height = drawable.getIntrinsicHeight();
-            }
-        }
-
-        bitmap = Bitmap.createBitmap(width,
-                                     height,
-                                     Bitmap.Config.ARGB_8888);
-
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
-        return bitmap;
     }
 
-    public static void setRoundedBitmapAccordingToListType(boolean gridView, Bitmap thumbnail, ImageView thumbnailView) {
+    @JvmStatic
+    @JvmOverloads
+    fun drawableToBitmap(
+        drawable: Drawable,
+        desiredWidth: Int = UNSPECIFIED_SIZE,
+        desiredHeight: Int = UNSPECIFIED_SIZE
+    ): Bitmap {
+        (drawable as? BitmapDrawable)?.bitmap?.let { return it }
+
+        val (width, height) = resolveBitmapSize(drawable, desiredWidth, desiredHeight)
+        return createBitmap(width, height).applyCanvas {
+            drawable.setBounds(0, 0, width, height)
+            drawable.draw(this)
+        }
+    }
+
+    private fun resolveBitmapSize(drawable: Drawable, desiredWidth: Int, desiredHeight: Int): Pair<Int, Int> {
+        val bounds = drawable.bounds
+        return when {
+            desiredWidth > 0 && desiredHeight > 0 -> desiredWidth to desiredHeight
+
+            drawable.intrinsicWidth > 0 && drawable.intrinsicHeight > 0 ->
+                drawable.intrinsicWidth to drawable.intrinsicHeight
+
+            bounds.width() > 0 && bounds.height() > 0 -> bounds.width() to bounds.height()
+
+            else -> 1 to 1
+        }
+    }
+
+    fun setRoundedBitmapAccordingToListType(gridView: Boolean, thumbnail: Bitmap?, thumbnailView: ImageView) {
         if (gridView) {
-            BitmapUtils.setRoundedBitmapForGridMode(thumbnail, thumbnailView);
+            setRoundedBitmapForGridMode(thumbnail, thumbnailView)
         } else {
-            BitmapUtils.setRoundedBitmap(thumbnail, thumbnailView);
+            setRoundedBitmap(thumbnail, thumbnailView)
         }
     }
 
-    public static void setRoundedBitmap(Bitmap thumbnail, ImageView imageView) {
-        BitmapUtils.setRoundedBitmap(getResources(),
-                                     thumbnail,
-                                     getResources().getDimension(R.dimen.file_icon_rounded_corner_radius),
-                                     imageView);
+    @JvmStatic
+    fun setRoundedBitmap(thumbnail: Bitmap?, imageView: ImageView) {
+        setRoundedBitmapWithRadius(thumbnail, imageView, R.dimen.file_icon_rounded_corner_radius)
     }
 
-    public static void setRoundedBitmapForGridMode(Bitmap thumbnail, ImageView imageView) {
-        BitmapUtils.setRoundedBitmap(getResources(),
-                                     thumbnail,
-                                     getResources().getDimension(R.dimen.file_icon_rounded_corner_radius_for_grid_mode),
-                                     imageView);
+    @JvmStatic
+    fun setRoundedBitmapForGridMode(thumbnail: Bitmap?, imageView: ImageView) {
+        setRoundedBitmapWithRadius(thumbnail, imageView, R.dimen.file_icon_rounded_corner_radius_for_grid_mode)
     }
 
-    public static Bitmap createAvatarWithStatus(Bitmap avatar, StatusType statusType, @NonNull String icon, Context context) {
-        float avatarRadius = getResources().getDimension(R.dimen.list_item_avatar_icon_radius);
-        int width = ScreenMetrics.dpToPx(2 * avatarRadius, context);
-
-        Bitmap output = Bitmap.createBitmap(width, width, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(output);
-
-        // avatar
-        Bitmap croppedBitmap = getCroppedBitmap(avatar, width);
-
-        canvas.drawBitmap(croppedBitmap, 0f, 0f, null);
-
-        // status
-        int statusSize = width / 4;
-
-        Status status = new Status(statusType, "", icon, -1);
-        StatusDrawable statusDrawable = new StatusDrawable(status, statusSize, context);
-
-        canvas.translate(width / 2f, width / 2f);
-        statusDrawable.draw(canvas);
-
-        return output;
+    private fun setRoundedBitmapWithRadius(bitmap: Bitmap?, imageView: ImageView, @DimenRes radiusRes: Int) {
+        val radius = resources.getDimension(radiusRes)
+        imageView.setImageDrawable(bitmapToCircularBitmapDrawable(resources, bitmap, radius))
     }
 
-    /**
-     * Inspired from https://www.demo2s.com/android/android-bitmap-get-a-round-version-of-the-bitmap.html
-     */
-    public static Bitmap roundBitmap(Bitmap bitmap) {
-        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+    @JvmStatic
+    fun createAvatarWithStatus(avatar: Bitmap, statusType: StatusType, icon: String, context: Context): Bitmap {
+        val avatarRadius = resources.getDimension(R.dimen.list_item_avatar_icon_radius)
+        val width = dpToPx(2 * avatarRadius, context)
+        val center = width / 2f
 
-        final Canvas canvas = new Canvas(output);
+        return createBitmap(width, width).applyCanvas {
+            drawBitmap(getCroppedBitmap(avatar, width), 0f, 0f, null)
 
-        final int color = R.color.white;
-        final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-        final RectF rectF = new RectF(rect);
-
-        paint.setAntiAlias(true);
-        canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(getResources().getColor(color, null));
-        canvas.drawOval(rectF, paint);
-
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(bitmap, rect, rect, paint);
-
-        return output;
+            val status = Status(statusType, "", icon, STATUS_NO_CLEAR_AT)
+            val statusDrawable = StatusDrawable(status, (width / STATUS_SIZE_DIVISOR).toFloat(), context)
+            translate(center, center)
+            statusDrawable.draw(this)
+        }
     }
 
-    /**
-     * from https://stackoverflow.com/a/38249623
-     **/
-    public static Bitmap tintImage(Bitmap bitmap, int color) {
-        Paint paint = new Paint();
-        paint.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN));
-        Bitmap bitmapResult = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmapResult);
-        canvas.drawBitmap(bitmap, 0, 0, paint);
-        return bitmapResult;
+    fun roundBitmap(bitmap: Bitmap): Bitmap {
+        val rect = Rect(0, 0, bitmap.width, bitmap.height)
+        val paint = Paint().apply {
+            isAntiAlias = true
+            color = resources.getColor(R.color.white, null)
+        }
+
+        return createBitmap(bitmap.width, bitmap.height).applyCanvas {
+            drawOval(RectF(rect), paint)
+            paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
+            drawBitmap(bitmap, rect, rect, paint)
+        }
     }
 
-    /**
-     * from https://stackoverflow.com/a/12089127
-     */
-    private static Bitmap getCroppedBitmap(Bitmap bitmap, int width) {
-        Bitmap output = Bitmap.createBitmap(width, width, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(output);
-        int color = -0xbdbdbe;
-        Paint paint = new Paint();
-        Rect rect = new Rect(0, 0, width, width);
-        paint.setAntiAlias(true);
-        canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(color);
-
-        canvas.drawCircle(width / 2f, width / 2f, width / 2f, paint);
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-
-        canvas.drawBitmap(Bitmap.createScaledBitmap(bitmap, width, width, false), rect, rect, paint);
-
-        return output;
+    fun tintImage(bitmap: Bitmap, color: Int): Bitmap {
+        val paint = Paint().apply { colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN) }
+        return createBitmap(bitmap.width, bitmap.height).applyCanvas { drawBitmap(bitmap, 0f, 0f, paint) }
     }
 
-    private static Resources getResources() {
-        return MainApp.getAppContext().getResources();
+    private fun getCroppedBitmap(bitmap: Bitmap, width: Int): Bitmap {
+        val rect = Rect(0, 0, width, width)
+        val radius = width / 2f
+        val paint = Paint().apply {
+            isAntiAlias = true
+            color = CROP_MASK_COLOR
+        }
+
+        return createBitmap(width, width).applyCanvas {
+            drawCircle(radius, radius, radius, paint)
+            paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
+            drawBitmap(bitmap.scale(width, width, filter = false), rect, rect, paint)
+        }
+    }
+
+    class Color(@JvmField val a: Int, @JvmField val r: Int, @JvmField val g: Int, @JvmField val b: Int) {
+        constructor(r: Int, g: Int, b: Int) : this(OPAQUE_ALPHA, r, g, b)
+        override fun equals(other: Any?): Boolean = other is Color && r == other.r && g == other.g && b == other.b
+        override fun hashCode(): Int = (r shl 16) + (g shl 8) + b
     }
 }
