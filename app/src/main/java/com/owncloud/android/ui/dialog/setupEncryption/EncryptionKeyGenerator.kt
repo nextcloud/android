@@ -43,10 +43,9 @@ class EncryptionKeyGenerator(val context: Context, val user: User) {
 
         @JvmStatic
         @Throws(NoSuchAlgorithmException::class)
-        fun generateKeyPair(): KeyPair =
-            KeyPairGenerator.getInstance(RSA)
-                .apply { initialize(2048, SecureRandom()) }
-                .generateKeyPair()
+        fun generateKeyPair(): KeyPair = KeyPairGenerator.getInstance(RSA)
+            .apply { initialize(2048, SecureRandom()) }
+            .generateKeyPair()
     }
 
     @Suppress("TooGenericExceptionCaught", "TooGenericExceptionThrown", "ReturnCount")
@@ -182,8 +181,7 @@ class EncryptionKeyGenerator(val context: Context, val user: User) {
     }
 
     sealed class PrivateKeyResult {
-        data class Success(val key: String): PrivateKeyResult()
-        data object Failed: PrivateKeyResult()
+        data class Success(val key: String) : PrivateKeyResult()
+        data object Failed : PrivateKeyResult()
     }
-
 }
