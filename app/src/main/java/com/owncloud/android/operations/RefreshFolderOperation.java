@@ -19,6 +19,7 @@ import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.ResultParser;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.nextcloud.utils.share.UnifiedShareSharees;
+import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.nextcloud.utils.extensions.StringExtensionsKt;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
@@ -617,6 +618,11 @@ public class RefreshFolderOperation extends RemoteOperation {
             boolean encrypted = updatedFile.isEncrypted() || mLocalFolder.isEncrypted();
             updatedFile.setEncrypted(encrypted);
             updatedFile.setReadOnly(localFile != null && localFile.isReadOnly());
+
+            if (!encrypted && OCFileExtensionsKt.isDownloadedFileChanged(localFile, remoteFile)) {
+                mFilesToSyncContents.add(new SynchronizeFileOperation(updatedFile, remoteFile, user, true, mContext,
+                                                                      fileDataStorageManager, true));
+            }
 
             updatedFiles.add(updatedFile);
         }
