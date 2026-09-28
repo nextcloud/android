@@ -20,11 +20,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 
 class FolderRefreshScheduler(private val activity: FileDisplayActivity) {
     companion object {
-        private const val ETAG_POLL_INTERVAL_MS = 30_000L
+        private val ETAG_POLL_INTERVAL = 30.seconds
         private const val TAG = "FolderRefreshScheduler"
     }
 
@@ -35,12 +35,12 @@ class FolderRefreshScheduler(private val activity: FileDisplayActivity) {
 
         job = activity.lifecycleScope.launch {
             while (isActive) {
-                delay(ETAG_POLL_INTERVAL_MS.milliseconds)
+                delay(ETAG_POLL_INTERVAL)
                 checkAndRefreshIfETagChanged()
             }
         }
 
-        Log_OC.d(TAG, "eTag polling started interval 30 seconds")
+        Log_OC.d(TAG, "eTag polling started interval $ETAG_POLL_INTERVAL")
     }
 
     fun stop() {
