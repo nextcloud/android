@@ -12,6 +12,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.OnBackPressedCallback
@@ -158,6 +159,15 @@ class PreviewImageActivity :
 
         lifecycle.addObserver(sendShareDownloader)
         sendShareDownloader.restoreState(savedInstanceState)
+        applyDarkSystemBars()
+    }
+
+    private fun applyDarkSystemBars() {
+        windowInsetsController.isAppearanceLightStatusBars = false
+        windowInsetsController.isAppearanceLightNavigationBars = false
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            window.isNavigationBarContrastEnforced = false
+        }
     }
 
     override fun onNewIntent(intent: Intent?) {
