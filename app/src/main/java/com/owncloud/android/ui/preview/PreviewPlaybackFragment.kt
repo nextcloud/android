@@ -402,8 +402,11 @@ class PreviewPlaybackFragment :
         previewActivity.toggleActionBarVisibility(!isFullScreen)
         binding.playerControlView.setVisibilityWithAnimation(!isFullScreen)
         previewActivity.window.run {
-            showSystemBar(!isFullScreen, binding.root)
-            showNavigationBar(!isFullScreen, binding.root)
+            if (isFullScreen) {
+                showSystemBar(false, binding.root)
+            } else {
+                showNavigationBar(true, binding.root)
+            }
         }
     }
 
