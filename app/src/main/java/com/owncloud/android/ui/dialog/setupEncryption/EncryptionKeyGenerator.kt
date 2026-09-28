@@ -37,6 +37,7 @@ import java.security.SecureRandom
 class EncryptionKeyGenerator(val context: Context, val user: User) {
     companion object {
         val TAG: String = EncryptionKeyGenerator::class.java.simpleName
+        const val ENCRYPTION_KEY_SIZE = 2048
 
         fun generateMnemonicString(keyWords: List<String>, withWhitespace: Boolean): String =
             keyWords.joinToString("") { if (withWhitespace) "$it " else it }
@@ -44,7 +45,7 @@ class EncryptionKeyGenerator(val context: Context, val user: User) {
         @JvmStatic
         @Throws(NoSuchAlgorithmException::class)
         fun generateKeyPair(): KeyPair = KeyPairGenerator.getInstance(RSA)
-            .apply { initialize(2048, SecureRandom()) }
+            .apply { initialize(ENCRYPTION_KEY_SIZE, SecureRandom()) }
             .generateKeyPair()
     }
 
