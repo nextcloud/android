@@ -2110,24 +2110,8 @@ class FileDisplayActivity :
     }
 
     fun refreshCurrentDirectory() {
-        val currentDir =
-            if (getCurrentDir() !=
-                null
-            ) {
-                storageManager.getFileByDecryptedRemotePath(getCurrentDir()?.remotePath)
-            } else {
-                null
-            }
-
-        val lastFragment = lastFragment()
-
-        var fileListFragment: OCFileListFragment? = null
-        if (lastFragment is OCFileListFragment) {
-            fileListFragment = lastFragment
-        }
-        if (fileListFragment == null) {
-            fileListFragment = listOfFilesFragment
-        }
+        val currentDir = getCurrentDir()?.let { storageManager.getFileByDecryptedRemotePath(it.remotePath) }
+        val fileListFragment = lastFragment() as? OCFileListFragment ?: listOfFilesFragment
         fileListFragment?.listDirectory(currentDir, MainApp.isOnlyOnDevice())
     }
 
