@@ -7,22 +7,17 @@
 
 package com.owncloud.android.ui.activity.filedisplayactivity
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.nextcloud.client.jobs.BackgroundJobManagerImpl
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
-import java.lang.ref.WeakReference
 import javax.inject.Inject
 
-class FileDisplayActivityViewModel @Inject constructor(
-    private val context: WeakReference<Context>,
-) : ViewModel() {
+class FileDisplayActivityViewModel @Inject constructor(private val workManager: WorkManager) : ViewModel() {
 
     suspend fun observeOfflineWorker(onComplete: () -> Unit) {
-        val context = context.get() ?: return
-        WorkManager.getInstance(context)
+        workManager
             .getWorkInfosByTagFlow(BackgroundJobManagerImpl.formatClassTag(OfflineOperationsWorker::class))
             .collect { workInfos ->
                 if (workInfos.any { it.state == WorkInfo.State.SUCCEEDED }) {

@@ -43,6 +43,7 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.WindowManager.BadTokenException
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.viewModels
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.SearchView
 import androidx.core.util.Function
@@ -62,6 +63,7 @@ import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.database.entity.SyncedFolderEntity
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.client.editimage.EditImageActivity
 import com.nextcloud.client.files.DeepLinkHandler
 import com.nextcloud.client.jobs.download.FileDownloadEventBroadcaster
@@ -274,7 +276,9 @@ class FileDisplayActivity :
     lateinit var passCodeManager: PassCodeManager
 
     @Inject
-    lateinit var viewModel: FileDisplayActivityViewModel
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val viewModel by viewModels<FileDisplayActivityViewModel> { viewModelFactory }
 
     /**
      * Indicates whether the downloaded file should be previewed immediately. Since `FileDownloadWorker` can be
