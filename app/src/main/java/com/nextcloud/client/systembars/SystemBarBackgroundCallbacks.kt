@@ -17,7 +17,7 @@ import com.nextcloud.client.player.ui.audio.AudioPlayerActivity
 import com.nmc.android.ui.LauncherActivity
 import com.owncloud.android.R
 import com.owncloud.android.authentication.AuthenticatorActivity
-import com.owncloud.android.ui.activity.DrawerActivity
+import com.owncloud.android.ui.activity.ToolbarActivity
 import com.owncloud.android.ui.preview.PreviewImageActivity
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import dynamiccolor.MaterialDynamicColors
@@ -58,7 +58,7 @@ class SystemBarBackgroundCallbacks(private val viewThemeUtilsProvider: Provider<
 
         @ColorInt
         private fun statusBarColor(activity: Activity, @ColorInt actionBarColor: Int): Int {
-            if (activity is DrawerActivity && activity.isToolbarStyleSearch) {
+            if (activity is ToolbarActivity && activity.isHomeSearchToolbarVisible) {
                 return ContextCompat.getColor(activity, R.color.bg_default)
             }
 
