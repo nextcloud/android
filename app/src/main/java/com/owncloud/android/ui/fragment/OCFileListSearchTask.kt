@@ -8,14 +8,16 @@
  */
 package com.owncloud.android.ui.fragment
 
+import android.accounts.Account
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.accounts.Account
 import android.content.ContentValues
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.SnackbarUtil
+import com.nextcloud.utils.extensions.getFavoriteFileEntities
+import com.nextcloud.utils.extensions.getSharedFileEntities
 import com.nextcloud.utils.share.UnifiedShareSharees
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -42,6 +44,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import java.lang.ref.WeakReference
+import kotlin.time.Duration.Companion.milliseconds
 
 @Suppress("LongParameterList", "ReturnCount", "TooGenericExceptionCaught")
 @SuppressLint("NotifyDataSetChanged")
@@ -114,9 +117,9 @@ class OCFileListSearchTask(
         fragment: OCFileListFragment
     ): List<OCFile> {
         val files = if (searchType == SearchRemoteOperation.SearchType.SHARED_FILTER) {
-            storageManager.fileDao.getSharedFiles(currentUser.accountName)
+            storageManager.getSharedFileEntities(currentUser.accountName)
         } else {
-            storageManager.fileDao.getFavoriteFiles(currentUser.accountName)
+            storageManager.getFavoriteFileEntities(currentUser.accountName)
         }.mapNotNull { storageManager.createFileInstance(it) }
 
         return sortSearchData(files, fragmentSearchType, fragment)
@@ -148,7 +151,7 @@ class OCFileListSearchTask(
         val context = fragment.context ?: return null
 
         return try {
-            withTimeoutOrNull(taskTimeout) {
+            withTimeoutOrNull(taskTimeout.milliseconds) {
                 remoteOperation.execute(currentUser, context)
             } ?: remoteOperation.executeNextcloudClient(currentUser, context)
         } catch (e: Exception) {
