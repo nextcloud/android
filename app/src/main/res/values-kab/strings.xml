@@ -10,6 +10,7 @@
     <string name="action_edit">Ẓreg</string>
     <string name="action_empty_notifications">Sfeḍ akk ilɣa</string>
     <string name="action_empty_trashbin">Silem taqecwalt</string>
+    <string name="action_open_in_web_editor">Ldi deg umaẓrag web</string>
     <string name="action_send_share">Azen/bḍu</string>
     <string name="action_switch_grid_view">Tamuɣli s tracca</string>
     <string name="action_switch_list_view">Timeẓri n tebdart</string>
@@ -29,6 +30,7 @@
     <string name="activity_chooser_send_file_title">Tuzna</string>
     <string name="activity_chooser_title">Azen aseɣwen ɣer... </string>
     <string name="activity_icon">Armud</string>
+    <string name="add_media">Rnu amidya</string>
     <string name="add_new_public_share">Rnu aseɣwen amaynut n beṭṭu azayez</string>
     <string name="add_new_secure_file_drop">Rnu asers n ufaylu aɣelsan amaynut</string>
     <string name="add_to_album">Rnu ɣer walbum</string>
@@ -92,6 +94,7 @@
     <string name="assistant_task_status_text">Addad n twuri: %1$s</string>
     <string name="assistant_task_status_unknown">arussin</string>
     <string name="assistant_thinking">Axemmem ...</string>
+    <string name="associated_account_not_found">Amiḍan i icudden ulac-it!</string>
     <string name="auth_access_failed">Anekcum yecceḍ: %1$s</string>
     <string name="auth_account_does_not_exist">Amiḍan ur yettwarna ara yakan deg yibenk-agi</string>
     <string name="auth_account_not_new">Amiḍan i yiwen n useqdac akked uqeddac yella yakan deg yibenk</string>
@@ -125,7 +128,13 @@
     <string name="authenticator_activity_login_error">Teḍra-d tuccḍa deg usesfer n usuter n tuqqna-k·m. Ma ulac aɣilif, ɛreḍ tikelt nniḍen ticki.</string>
     <string name="authenticator_activity_no_web_browser_found">Ulac iminig iwejden i welday n useɣwen.</string>
     <string name="authenticator_activity_please_complete_login_process">Ttxil-k·m, kemmel akala n tuqqna deg iminig-ik·im</string>
+    <string name="auto_upload_background_activity_action">Sireg armud deg ugilal</string>
+    <string name="auto_upload_battery_optimization_reason">Armud ugilal n Nextcloud yettwaḥaz s usekkey n uẓru.</string>
+    <string name="auto_upload_battery_saver_action">Ldi iɣewwaṛen n usekles n uẓru</string>
+    <string name="auto_upload_battery_saver_reason">Asekles n uẓru yermed yerna yezmer ad iseḥbes asali.</string>
+    <string name="auto_upload_delete_dialog_title">Kkes akaram n usali awurman?</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">eǧǧ deg ukaram aɣbalu, imi yella s wudem n tɣuṛi kan</string>
+    <string name="auto_upload_low_battery_warning_info">Drus i d-yeqqimen seg uẓru, asali yezmer ad iṭṭef ugar n wakud</string>
     <string name="auto_upload_path">/Asali s Wudem Awurman</string>
     <string name="auto_upload_sync_now_action">Mtawi tura</string>
     <string name="auto_upload_sync_now_no_folder">Ulac akaram i yettusbadun i usali awurman</string>
@@ -140,6 +149,7 @@
     <string name="autoupload_delete_uploaded_all_dialog_button_all_users">Seg iseqdacen meṛṛa</string>
     <string name="autoupload_delete_uploaded_all_dialog_button_current_user">Seg useqdac amiran</string>
     <string name="autoupload_delete_uploaded_dialog_title">Tukksa tadigant n ifuyla i d-yettwasulin</string>
+    <string name="autoupload_delete_uploaded_notif_ended_content">Aslelli n %1$s tukksa n %2$s ɣer tama %3$s seg %4$s.</string>
     <string name="autoupload_delete_uploaded_notif_ended_title">Ttwakksen yakan ifuyla i d-yettwasulin s wudem adigan</string>
     <string name="autoupload_delete_uploaded_notif_error_title">Ur yezmer ara ad yekkes s wudem adigan ifuyla i d-yettwasulin yakan</string>
     <string name="autoupload_delete_uploaded_notif_ticker">Tukksa n ifuyla idiganen</string>
