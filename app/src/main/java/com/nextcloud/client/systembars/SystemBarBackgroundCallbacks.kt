@@ -17,6 +17,7 @@ import com.nmc.android.ui.LauncherActivity
 import com.owncloud.android.R
 import com.owncloud.android.authentication.AuthenticatorActivity
 import com.owncloud.android.ui.activity.DrawerActivity
+import com.owncloud.android.ui.preview.PreviewImageActivity
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import dynamiccolor.MaterialDynamicColors
 import javax.inject.Provider
