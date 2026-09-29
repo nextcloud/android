@@ -486,6 +486,7 @@
     <string name="filename_forbidden_characters">Forbidden characters: / \\ &lt; &gt; : " | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Filename contains at least one invalid character</string>
     <string name="filename_empty">Filename cannot be empty</string>
+    <string name="filename_too_long">Filename cannot be longer than 250 characters</string>
     <string name="folder_name_empty">Folder name cannot be empty</string>
     <string name="label_empty">Label cannot be empty</string>
     <string name="wait_a_moment">Wait a moment…</string>
