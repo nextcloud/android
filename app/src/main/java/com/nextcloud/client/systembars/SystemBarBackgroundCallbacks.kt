@@ -54,7 +54,7 @@ class SystemBarBackgroundCallbacks(private val viewThemeUtilsProvider: Provider<
 
         @ColorInt
         private fun statusBarColor(activity: Activity, @ColorInt actionBarColor: Int): Int {
-            if (activity is DrawerActivity && activity.isToolbarStyleSearch) {
+            if (activity is ToolbarActivity && activity.isHomeSearchToolbarVisible) {
                 return ContextCompat.getColor(activity, R.color.bg_default)
             }
 
