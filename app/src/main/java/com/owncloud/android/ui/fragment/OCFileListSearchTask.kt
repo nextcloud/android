@@ -44,6 +44,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import java.lang.ref.WeakReference
+import kotlin.time.Duration.Companion.milliseconds
 
 @Suppress("LongParameterList", "ReturnCount", "TooGenericExceptionCaught")
 @SuppressLint("NotifyDataSetChanged")
@@ -150,7 +151,7 @@ class OCFileListSearchTask(
         val context = fragment.context ?: return null
 
         return try {
-            withTimeoutOrNull(taskTimeout) {
+            withTimeoutOrNull(taskTimeout.milliseconds) {
                 remoteOperation.execute(currentUser, context)
             } ?: remoteOperation.executeNextcloudClient(currentUser, context)
         } catch (e: Exception) {
