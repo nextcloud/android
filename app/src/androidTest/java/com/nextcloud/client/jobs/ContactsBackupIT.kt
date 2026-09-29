@@ -37,7 +37,7 @@ import java.io.IOException
 class ContactsBackupIT : AbstractOnServerIT() {
     private val workManager = WorkManager.getInstance(targetContext)
     private val preferences: AppPreferences = AppPreferencesImpl.fromContext(targetContext)
-    private val backgroundJobManager = BackgroundJobManagerImpl(workManager, ClockImpl(), preferences)
+    private val backgroundJobManager = BackgroundJobManagerImpl(workManager, ClockImpl(), preferences, targetContext)
 
     @get:Rule
     val writeContactsRule: GrantPermissionRule = GrantPermissionRule.grant(Manifest.permission.WRITE_CONTACTS)
