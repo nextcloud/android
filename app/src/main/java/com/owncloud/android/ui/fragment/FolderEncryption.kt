@@ -8,7 +8,6 @@
 package com.owncloud.android.ui.fragment
 
 import com.nextcloud.client.account.User
-import com.nextcloud.utils.e2ee.E2EVersionHelper
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
