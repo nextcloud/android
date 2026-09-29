@@ -1,239 +1,131 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2022 Unpublished <unpublished@users.noreply.github.com>
- * SPDX-FileCopyrightText: 2014-2017 Tobias Kaminsky <tobias@kaminsky.me>
- * SPDX-FileCopyrightText: 2017 Nextcloud GmbH
- * SPDX-FileCopyrightText: 2016 Iskra Delta <iskradelta@no-reply.github.com>
- * SPDX-FileCopyrightText: 2015 ownCloud Inc.
- * SPDX-FileCopyrightText: 2015 María Asensio Valverde <masensio@solidgear.es>
- * SPDX-FileCopyrightText: 2014 David A. Velasco <dvelasco@solidgear.es>
- * SPDX-FileCopyrightText: 2014 Jose Antonio Barros Ramos <jabarros@solidgear.es>
- * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.adapter;
+package com.owncloud.android.ui.adapter
 
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
-import android.graphics.BitmapFactory;
+import android.graphics.Bitmap
+import android.graphics.Bitmap.CompressFormat
+import android.graphics.BitmapFactory
+import com.jakewharton.disklrucache.DiskLruCache
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.utils.BitmapUtils
+import java.io.BufferedInputStream
+import java.io.BufferedOutputStream
+import java.io.File
+import java.io.IOException
+import java.io.InputStream
 
-import com.jakewharton.disklrucache.DiskLruCache;
-import com.owncloud.android.BuildConfig;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.BitmapUtils;
+class DiskLruImageCache
+@Throws(IOException::class)
+constructor(
+    diskCacheDir: File,
+    diskCacheSize: Int,
+    private val compressFormat: CompressFormat,
+    private val compressQuality: Int
+) {
+    private val diskCache: DiskLruCache =
+        DiskLruCache.open(diskCacheDir, CACHE_VERSION, VALUE_COUNT, diskCacheSize.toLong())
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-public class DiskLruImageCache {
-
-    private DiskLruCache mDiskCache;
-    private CompressFormat mCompressFormat;
-    private int mCompressQuality;
-    private static final int CACHE_VERSION = 1;
-    private static final int VALUE_COUNT = 1;
-    private static final int IO_BUFFER_SIZE = 8 * 1024;
-    private static final String CACHE_TEST_DISK = "cache_test_DISK_";
-
-    private static final String TAG = DiskLruImageCache.class.getSimpleName();
-
-    public DiskLruImageCache(File diskCacheDir, int diskCacheSize, CompressFormat compressFormat, int quality)
-        throws IOException {
-        mDiskCache = DiskLruCache.open(diskCacheDir, CACHE_VERSION, VALUE_COUNT, diskCacheSize);
-        mCompressFormat = compressFormat;
-        mCompressQuality = quality;
-    }
-
-    private boolean writeBitmapToFile(Bitmap bitmap, DiskLruCache.Editor editor) throws IOException {
-        try (OutputStream out = new BufferedOutputStream(editor.newOutputStream(0), IO_BUFFER_SIZE)) {
-            return bitmap.compress(mCompressFormat, mCompressQuality, out);
-        }
-    }
-
-    public void put(String key, Bitmap data) {
-
-        DiskLruCache.Editor editor = null;
-        String validKey = convertToValidKey(key);
+    fun put(key: String, data: Bitmap) {
+        var editor: DiskLruCache.Editor? = null
         try {
-            editor = mDiskCache.edit(validKey);
-            if (editor == null) {
-                return;
-            }
-
-            if (writeBitmapToFile(data, editor)) {
-                mDiskCache.flush();
-                editor.commit();
-                if (BuildConfig.DEBUG) {
-                    Log_OC.d(CACHE_TEST_DISK, "image put on disk cache " + validKey);
-                }
+            editor = diskCache.edit(key.toValidKey()) ?: return
+            if (writeBitmap(data, editor)) {
+                editor.commit()
             } else {
-                editor.abort();
-                if (BuildConfig.DEBUG) {
-                    Log_OC.d(CACHE_TEST_DISK, "ERROR on: image put on disk cache " + validKey);
-                }
+                editor.abort()
             }
-        } catch (IOException e) {
-            if (BuildConfig.DEBUG) {
-                Log_OC.d(CACHE_TEST_DISK, "ERROR on: image put on disk cache " + validKey);
-            }
-            try {
-                if (editor != null) {
-                    editor.abort();
-                }
-            } catch (IOException ex) {
-                Log_OC.d(TAG, "Error aborting editor", ex);
-            }
+        } catch (_: IOException) {
+            editor?.abortQuietly()
         }
     }
 
-    public Bitmap getScaledBitmap(String key, int width, int height) {
-        Bitmap bitmap = null;
-        String validKey = convertToValidKey(key);
-
-        try (DiskLruCache.Snapshot snapshot = mDiskCache.get(validKey)) {
-            if (snapshot == null) {
-                return null;
-            }
-
-            InputStream inputStream = snapshot.getInputStream(0);
-            if (inputStream != null) {
-                // First decode with inJustDecodeBounds=true to check dimensions
-                final BitmapFactory.Options options = new BitmapFactory.Options();
-                try (BufferedInputStream buffIn = new BufferedInputStream(inputStream, IO_BUFFER_SIZE)) {
-                    options.inScaled = true;
-                    options.inPurgeable = true;
-                    options.inPreferQualityOverSpeed = false;
-                    options.inMutable = false;
-                    options.inJustDecodeBounds = true;
-
-                    BitmapFactory.decodeStream(buffIn, null, options);
-                }
-
-                try (DiskLruCache.Snapshot snapshot2 = mDiskCache.get(validKey)) {
-                    inputStream = snapshot2.getInputStream(0);
-
-                    try (BufferedInputStream buffIn = new BufferedInputStream(inputStream, IO_BUFFER_SIZE)) {
-                        // Calculate inSampleSize
-                        options.inSampleSize = BitmapUtils.calculateSampleFactor(options, width, height);
-
-                        // Decode bitmap with inSampleSize set
-                        options.inJustDecodeBounds = false;
-                        bitmap = BitmapFactory.decodeStream(buffIn, null, options);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            Log_OC.e(TAG, e.getMessage(), e);
-        }
-
-        if (BuildConfig.DEBUG) {
-            Log_OC.d(CACHE_TEST_DISK, bitmap == null ? "not found" : "image read from disk " + validKey);
-        }
-
-        return bitmap;
+    @Suppress("TooGenericExceptionCaught")
+    fun getScaledBitmap(key: String, width: Int, height: Int): Bitmap? = try {
+        decodeScaled(key.toValidKey(), width, height)
+    } catch (e: Exception) {
+        Log_OC.e(TAG, e.message, e)
+        null
     }
 
-    public Bitmap getBitmap(String key) {
-        Bitmap bitmap = null;
-        DiskLruCache.Snapshot snapshot = null;
-        InputStream in = null;
-        BufferedInputStream buffIn = null;
-        String validKey = convertToValidKey(key);
+    fun getBitmap(key: String): Bitmap? = try {
+        readEntry(key.toValidKey()) { BitmapFactory.decodeStream(it) }
+    } catch (e: IOException) {
+        Log_OC.e(TAG, e.message, e)
+        null
+    }
 
+    fun containsKey(key: String): Boolean = try {
+        diskCache.get(key.toValidKey())?.use { true } == true
+    } catch (e: IOException) {
+        Log_OC.d(TAG, e.message, e)
+        false
+    }
+
+    fun clearCache() {
         try {
-            snapshot = mDiskCache.get(validKey);
-            if (snapshot == null) {
-                return null;
-            }
-            in = snapshot.getInputStream(0);
-            if (in != null) {
-                buffIn = new BufferedInputStream(in, IO_BUFFER_SIZE);
-                bitmap = BitmapFactory.decodeStream(buffIn);
-            }
-        } catch (IOException e) {
-            Log_OC.e(TAG, e.getMessage(), e);
-        } finally {
-            if (snapshot != null) {
-                snapshot.close();
-            }
-            if (buffIn != null) {
-                try {
-                    buffIn.close();
-                } catch (IOException e) {
-                    Log_OC.e(TAG, e.getMessage(), e);
-                }
-            }
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    Log_OC.e(TAG, e.getMessage(), e);
-                }
-            }
+            diskCache.delete()
+        } catch (e: IOException) {
+            Log_OC.d(TAG, e.message, e)
         }
-
-        if (BuildConfig.DEBUG) {
-            Log_OC.d(CACHE_TEST_DISK, bitmap == null ? "not found" : "image read from disk " + validKey);
-        }
-
-        return bitmap;
     }
 
-    public boolean containsKey(String key) {
-
-        boolean contained = false;
-        DiskLruCache.Snapshot snapshot = null;
-        String validKey = convertToValidKey(key);
+    fun removeKey(key: String) {
+        val validKey = key.toValidKey()
         try {
-            snapshot = mDiskCache.get(validKey);
-            contained = snapshot != null;
-        } catch (IOException e) {
-            Log_OC.d(TAG, e.getMessage(), e);
-        } finally {
-            if (snapshot != null) {
-                snapshot.close();
-            }
+            diskCache.remove(validKey)
+            Log_OC.d(TAG, "removeKey from cache: $validKey")
+        } catch (e: IOException) {
+            Log_OC.d(TAG, e.message, e)
         }
-
-        return contained;
-
     }
 
-    public void clearCache() {
-        if (BuildConfig.DEBUG) {
-            Log_OC.d(CACHE_TEST_DISK, "disk cache CLEARED");
+    @Throws(IOException::class)
+    private fun writeBitmap(bitmap: Bitmap, editor: DiskLruCache.Editor): Boolean =
+        BufferedOutputStream(editor.newOutputStream(VALUE_INDEX), IO_BUFFER_SIZE).use {
+            bitmap.compress(compressFormat, compressQuality, it)
         }
+
+    @Throws(IOException::class)
+    private fun decodeScaled(validKey: String, width: Int, height: Int): Bitmap? {
+        val options = readBounds(validKey) ?: return null
+        options.inSampleSize = BitmapUtils.calculateSampleFactor(options, width, height)
+        options.inJustDecodeBounds = false
+        return readEntry(validKey) { BitmapFactory.decodeStream(it, null, options) }
+    }
+
+    @Throws(IOException::class)
+    private fun readBounds(validKey: String): BitmapFactory.Options? = readEntry(validKey) { stream ->
+        BitmapFactory.Options().apply {
+            inJustDecodeBounds = true
+            BitmapFactory.decodeStream(stream, null, this)
+        }
+    }
+
+    @Throws(IOException::class)
+    private fun <T> readEntry(validKey: String, read: (InputStream) -> T): T? = diskCache.get(validKey)?.use {
+        BufferedInputStream(it.getInputStream(VALUE_INDEX), IO_BUFFER_SIZE).use(read)
+    }
+
+    private fun DiskLruCache.Editor.abortQuietly() {
         try {
-            mDiskCache.delete();
-        } catch (IOException e) {
-            Log_OC.d(TAG, e.getMessage(), e);
+            abort()
+        } catch (e: IOException) {
+            Log_OC.d(TAG, "Error aborting editor", e)
         }
     }
 
-    public File getCacheFolder() {
-        return mDiskCache.getDirectory();
-    }
+    private fun String.toValidKey(): String = hashCode().toString()
 
-    private String convertToValidKey(String key) {
-        return Integer.toString(key.hashCode());
-    }
+    companion object {
+        private const val CACHE_VERSION = 1
+        private const val VALUE_COUNT = 1
+        private const val VALUE_INDEX = 0
+        private const val IO_BUFFER_SIZE = 8 * 1024
 
-    /**
-     * Remove passed key from cache
-     *
-     * @param key
-     */
-    public void removeKey(String key) {
-        String validKey = convertToValidKey(key);
-        try {
-            mDiskCache.remove(validKey);
-            Log_OC.d(TAG, "removeKey from cache: " + validKey);
-        } catch (IOException e) {
-            Log_OC.d(TAG, e.getMessage(), e);
-        }
+        private val TAG = DiskLruImageCache::class.java.simpleName
     }
 }
