@@ -10,7 +10,11 @@ package com.owncloud.android.ui.navigation.animator
 import android.app.Activity
 import android.content.Intent
 import android.os.Build
+import android.os.Bundle
+import android.transition.Slide
+import android.view.Gravity
 import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
@@ -19,12 +23,40 @@ import com.owncloud.android.datamodel.OCFile
 
 class NavigationAnimator(private val activity: AppCompatActivity) {
 
-    fun slideUp(intent: Intent) {
+    private val isLaunchedWithSharedElement: Boolean
+        get() = activity.intent.getBooleanExtra(EXTRA_HAS_SHARED_ELEMENT, false)
+
+    fun slideUp(intent: Intent, sharedView: View? = null) {
+        if (startWithSharedElement(intent, sharedView)) {
+            return
+        }
+
         val options = ActivityOptionsCompat.makeCustomAnimation(activity, R.anim.slide_up, R.anim.hold)
         activity.startActivity(intent, options.toBundle())
     }
 
+    fun prepareSlideUpEnter(savedInstanceState: Bundle?, sharedViewProvider: () -> View?) {
+        if (!isLaunchedWithSharedElement) {
+            return
+        }
+
+        activity.window.enterTransition = bottomSlide()
+        activity.window.returnTransition = bottomSlide()
+
+        val sharedElementTransition =
+            SharedElementTransition(activity, ImageView.ScaleType.FIT_CENTER, sharedViewProvider)
+        sharedElementTransition.register()
+        if (savedInstanceState == null) {
+            sharedElementTransition.postponeUntilSharedViewReady()
+        }
+    }
+
     fun finishWithSlideDown() {
+        if (isLaunchedWithSharedElement) {
+            activity.supportFinishAfterTransition()
+            return
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             activity.overrideActivityTransition(Activity.OVERRIDE_TRANSITION_CLOSE, R.anim.hold, R.anim.slide_down)
             activity.finish()
@@ -37,19 +69,27 @@ class NavigationAnimator(private val activity: AppCompatActivity) {
     }
 
     fun scaleUp(intent: Intent, sourceView: View?) {
-        val sharedElementName = sourceView?.let { ViewCompat.getTransitionName(it) }
-        if (sourceView == null || sharedElementName == null) {
+        if (!startWithSharedElement(intent, sourceView)) {
             activity.startActivity(intent)
-            return
         }
-
-        intent.putExtra(EXTRA_HAS_SHARED_ELEMENT, true)
-        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sourceView, sharedElementName)
-        activity.startActivity(intent, options.toBundle())
     }
 
     fun finishWithScaleDown() {
         activity.supportFinishAfterTransition()
+    }
+
+    private fun startWithSharedElement(intent: Intent, sharedView: View?): Boolean {
+        val sharedElementName = sharedView?.let { ViewCompat.getTransitionName(it) } ?: return false
+
+        intent.putExtra(EXTRA_HAS_SHARED_ELEMENT, true)
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedView, sharedElementName)
+        activity.startActivity(intent, options.toBundle())
+        return true
+    }
+
+    private fun bottomSlide() = Slide(Gravity.BOTTOM).apply {
+        excludeTarget(android.R.id.statusBarBackground, true)
+        excludeTarget(android.R.id.navigationBarBackground, true)
     }
 
     companion object {

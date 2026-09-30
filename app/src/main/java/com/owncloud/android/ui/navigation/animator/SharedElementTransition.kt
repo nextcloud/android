@@ -9,10 +9,15 @@ package com.owncloud.android.ui.navigation.animator
 
 import android.view.View
 import android.view.ViewTreeObserver
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.SharedElementCallback
 
-class SharedElementTransition(private val activity: AppCompatActivity, private val sharedViewProvider: () -> View?) {
+class SharedElementTransition(
+    private val activity: AppCompatActivity,
+    private val startScaleType: ImageView.ScaleType? = null,
+    private val sharedViewProvider: () -> View?
+) {
     private val decorView: View
         get() = activity.window.decorView
 
@@ -47,7 +52,12 @@ class SharedElementTransition(private val activity: AppCompatActivity, private v
                 sharedElements: MutableList<View>,
                 snapshots: MutableList<View>
             ) {
-                sharedElements.forEach { it.background = null }
+                sharedElements.forEach {
+                    it.background = null
+                    if (it is ImageView && startScaleType != null) {
+                        it.scaleType = startScaleType
+                    }
+                }
             }
         })
     }
