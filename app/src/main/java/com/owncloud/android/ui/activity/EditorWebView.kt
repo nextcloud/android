@@ -118,7 +118,8 @@ abstract class EditorWebView : ExternalSiteWebView() {
         binding = RichdocumentsWebviewBinding.inflate(layoutInflater)
     }
 
-    override fun isWebViewBound(): Boolean = ::binding.isInitialized
+    override val isWebViewBound: Boolean
+        get() = ::binding.isInitialized
 
     override fun postOnCreate() {
         super.postOnCreate()
@@ -192,9 +193,11 @@ abstract class EditorWebView : ExternalSiteWebView() {
         uploadMessage = null
     }
 
-    override fun getWebView(): WebView = binding.webView
+    override val webView: WebView
+        get() = binding.webView
 
-    override fun getRootView(): View = binding.root
+    override val rootView: View
+        get() = binding.root
 
     override fun showToolbarByDefault(): Boolean = false
 

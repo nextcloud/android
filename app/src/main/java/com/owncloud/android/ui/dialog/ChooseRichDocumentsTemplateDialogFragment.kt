@@ -41,6 +41,7 @@ import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.activity.ExternalSiteWebView
+import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.RichDocumentsEditorWebView
 import com.owncloud.android.ui.adapter.RichDocumentsTemplateAdapter
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog.Companion.newInstance
@@ -373,7 +374,7 @@ class ChooseRichDocumentsTemplateDialogFragment :
                 val intent = Intent(MainApp.getAppContext(), RichDocumentsEditorWebView::class.java).apply {
                     putExtra(ExternalSiteWebView.EXTRA_TITLE, "Collabora")
                     putExtra(ExternalSiteWebView.EXTRA_URL, url)
-                    putExtra(ExternalSiteWebView.EXTRA_FILE, file)
+                    putExtra(FileActivity.EXTRA_FILE, file)
                     putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false)
                     putExtra(ExternalSiteWebView.EXTRA_TEMPLATE, template)
                 }

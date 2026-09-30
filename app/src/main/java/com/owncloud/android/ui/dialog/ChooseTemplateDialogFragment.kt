@@ -47,6 +47,7 @@ import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.ui.activity.ExternalSiteWebView
+import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.TextEditorWebView
 import com.owncloud.android.ui.adapter.TemplateAdapter
 import com.owncloud.android.utils.FileStorageUtils
@@ -347,7 +348,7 @@ class ChooseTemplateDialogFragment :
             val editorWebView = Intent(MainApp.getAppContext(), TextEditorWebView::class.java).apply {
                 putExtra(ExternalSiteWebView.EXTRA_TITLE, "Text")
                 putExtra(ExternalSiteWebView.EXTRA_URL, url)
-                putExtra(ExternalSiteWebView.EXTRA_FILE, file)
+                putExtra(FileActivity.EXTRA_FILE, file)
                 putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false)
             }
 
