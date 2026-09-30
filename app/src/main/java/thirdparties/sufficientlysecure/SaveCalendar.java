@@ -194,7 +194,7 @@ public class SaveCalendar {
                 msg += "\n" + res.getQuantityString(R.plurals.created_n_uids_to, numberOfCreatedUids, numberOfCreatedUids);
             }
 
-            // TODO replace DisplayUtils.showSnackMessage(activity, msg);
+            // TODO replace SnackbarUtil.show(activity, msg);
 
             upload(fileName);
         } else {

@@ -211,7 +211,7 @@ class PreviewImageActivityIT : AbstractOnServerIT() {
     }
 
     @Test
-    @Ignore(
+    @Flaky(
         "Offline deletion is following a different UX and it is also brittle: Deletion might happen 10 minutes later"
     )
     fun deleteFromSlideshow_remote_offline() {

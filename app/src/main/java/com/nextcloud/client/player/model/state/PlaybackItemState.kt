@@ -1,0 +1,19 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2025 STRATO GmbH.
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+package com.nextcloud.client.player.model.state
+
+import com.nextcloud.client.player.model.file.PlaybackFile
+
+data class PlaybackItemState(
+    val file: PlaybackFile,
+    val playerState: PlayerState,
+    val metadata: PlaybackItemMetadata?,
+    val videoSize: VideoSize?,
+    val currentTimeInMilliseconds: Long,
+    val maxTimeInMilliseconds: Long
+)

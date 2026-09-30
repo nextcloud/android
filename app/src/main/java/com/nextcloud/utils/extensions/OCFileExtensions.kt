@@ -10,11 +10,13 @@ package com.nextcloud.utils.extensions
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.GalleryItems
 import com.owncloud.android.datamodel.GalleryRow
+import com.owncloud.android.datamodel.GalleryRowLayout
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.OCFileDepth
 import com.owncloud.android.datamodel.OCFileDepth.DeepLevel
 import com.owncloud.android.datamodel.OCFileDepth.FirstLevel
 import com.owncloud.android.datamodel.OCFileDepth.Root
+import com.owncloud.android.ui.events.EncryptionEvent
 import com.owncloud.android.utils.FileStorageUtils
 import java.util.Calendar
 import java.util.Date
@@ -55,11 +57,11 @@ fun OCFile?.getDepth(): OCFileDepth? {
     return DeepLevel
 }
 
-fun List<OCFile>.toGalleryItems(columns: Int, defaultSize: Int): List<GalleryItems> {
+fun List<OCFile>.toGalleryItems(layout: GalleryRowLayout): List<GalleryItems> {
     if (isEmpty()) return emptyList()
 
     val calendar = Calendar.getInstance()
-    return groupBy {
+    return distinctBy { it.fileId }.groupBy {
         calendar.timeInMillis = it.modificationTimestamp
         calendar.set(Calendar.DAY_OF_MONTH, 1)
         calendar.set(Calendar.HOUR_OF_DAY, 0)
@@ -69,16 +71,23 @@ fun List<OCFile>.toGalleryItems(columns: Int, defaultSize: Int): List<GalleryIte
         calendar.timeInMillis
     }
         .map { (date, filesList) ->
-            GalleryItems(date, transformToRows(filesList, columns, defaultSize))
+            GalleryItems(date, transformToRows(filesList, layout))
         }
         .sortedByDescending { it.date }
 }
 
-private fun transformToRows(list: List<OCFile>, columns: Int, defaultSize: Int): List<GalleryRow> {
+private fun transformToRows(list: List<OCFile>, layout: GalleryRowLayout): List<GalleryRow> {
     if (list.isEmpty()) return emptyList()
 
     return list
         .sortedByDescending { it.modificationTimestamp }
-        .chunked(columns)
-        .map { chunk -> GalleryRow(chunk, defaultSize, defaultSize) }
+        .chunked(layout.columns)
+        .map { chunk -> GalleryRow(chunk, layout.measure(chunk)) }
 }
+
+fun OCFile.toEncryptionEvent(encrypt: Boolean): EncryptionEvent = EncryptionEvent(
+    localId,
+    remoteId,
+    remotePath,
+    encrypt
+)

@@ -123,7 +123,8 @@ class ManageAccountsActivity :
             multipleAccountsSupported,
             true,
             true,
-            viewThemeUtils
+            viewThemeUtils,
+            avatarGenerator
         )
 
         recyclerView = findViewById(R.id.account_list)
@@ -240,6 +241,7 @@ class ManageAccountsActivity :
     }
 
     override fun showFirstRunActivity() {
+        stopMediaPlayerAndHidePip()
         val intent = Intent(applicationContext, FirstRunActivity::class.java).apply {
             putExtra(FirstRunActivity.EXTRA_ALLOW_CLOSE, true)
         }
@@ -249,6 +251,7 @@ class ManageAccountsActivity :
     @Suppress("TooGenericExceptionCaught")
     @SuppressLint("NotifyDataSetChanged")
     override fun startAccountCreation() {
+        stopMediaPlayerAndHidePip()
         val am = AccountManager.get(applicationContext)
         am.addAccount(
             MainApp.getAccountType(this),
@@ -270,7 +273,8 @@ class ManageAccountsActivity :
                             multipleAccountsSupported,
                             false,
                             true,
-                            viewThemeUtils
+                            viewThemeUtils,
+                            avatarGenerator
                         )
                         recyclerView?.adapter = userListAdapter
                         runOnUiThread { userListAdapter?.notifyDataSetChanged() }
@@ -329,7 +333,8 @@ class ManageAccountsActivity :
                 multipleAccountsSupported,
                 false,
                 true,
-                viewThemeUtils
+                viewThemeUtils,
+                avatarGenerator
             )
             recyclerView?.adapter = userListAdapter
         } else {

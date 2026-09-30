@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2023 TSI-mc
+ * SPDX-FileCopyrightText: 2023-2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2018-2020 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2018-2020 Andy Scherzinger <info@andy-scherzinger.de>
@@ -37,6 +37,8 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.EditorUtils;
+import com.nextcloud.utils.SnackbarUtil;
+import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -55,6 +57,7 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.services.OperationsService;
+import com.owncloud.android.ui.activity.AlbumsPickerActivity;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.ExternalSiteWebView;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -69,7 +72,6 @@ import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.events.FileLockEvent;
 import com.owncloud.android.ui.events.SyncEventFinished;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.UriUtils;
@@ -199,7 +201,7 @@ public class FileOperationsHelper {
 
             // if offline or walled garden, show old version with warning
             if (!connectivityService.getConnectivity().isConnected() || connectivityService.isInternetWalled()) {
-                DisplayUtils.showSnackMessage(fileActivity, R.string.file_not_synced);
+                SnackbarUtil.show(fileActivity, R.string.file_not_synced);
                 EventBus.getDefault().post(new SyncEventFinished(intent));
 
                 return;
@@ -246,7 +248,7 @@ public class FileOperationsHelper {
             if (file.isDown()) {
                 FileStorageUtils.checkIfFileFinishedSaving(file);
                 if (!result.isSuccess()) {
-                    DisplayUtils.showSnackMessage(fileActivity, R.string.file_not_synced);
+                    SnackbarUtil.show(fileActivity, R.string.file_not_synced);
                     try {
                         Thread.sleep(3000);
                     } catch (InterruptedException e) {
@@ -276,7 +278,7 @@ public class FileOperationsHelper {
             capability.getRichDocumentsDirectEditing().isTrue()) {
             openFileAsRichDocument(file, fileActivity);
         } else {
-            DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type);
+            SnackbarUtil.show(fileActivity, R.string.file_list_no_app_for_file_type);
         }
     }
 
@@ -330,13 +332,13 @@ public class FileOperationsHelper {
             }
 
             if (availableApps.isEmpty()) {
-                fileActivity.runOnUiThread(() -> DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type));
+                fileActivity.runOnUiThread(() -> SnackbarUtil.show(fileActivity, R.string.file_list_no_app_for_file_type));
 
                 return;
             }
 
             if (!result.isSuccess()) {
-                fileActivity.runOnUiThread(() -> DisplayUtils.showSnackMessage(fileActivity, R.string.file_not_synced));
+                fileActivity.runOnUiThread(() -> SnackbarUtil.show(fileActivity, R.string.file_not_synced));
 
                 // Sleep to show snackbar message
                 try {
@@ -351,7 +353,7 @@ public class FileOperationsHelper {
                     openFileWithIntent.setFlags(openFileWithIntent.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
                     fileActivity.startActivity(openFileWithIntent);
                 } catch (ActivityNotFoundException exception) {
-                    DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type);
+                    SnackbarUtil.show(fileActivity, R.string.file_list_no_app_for_file_type);
                 }
             });
         }).start();
@@ -409,12 +411,12 @@ public class FileOperationsHelper {
         final User user = currentAccount.getUser();
         new Thread(() -> {
             StreamMediaFileOperation sfo = new StreamMediaFileOperation(file.getLocalId());
-            RemoteOperationResult result = sfo.execute(user, fileActivity);
+            final var result = sfo.execute(user, fileActivity);
 
             fileActivity.dismissLoadingDialog();
 
             if (!result.isSuccess()) {
-                DisplayUtils.showSnackMessage(fileActivity, R.string.stream_not_possible_headline);
+                SnackbarUtil.show(fileActivity, R.string.stream_not_possible_headline);
                 return;
             }
 
@@ -853,7 +855,7 @@ public class FileOperationsHelper {
 
                 intent.setDataAndType(uri, file.getMimeType());
             } catch (ActivityNotFoundException exception) {
-                DisplayUtils.showSnackMessage(view, R.string.picture_set_as_no_app);
+                SnackbarUtil.show(view, R.string.picture_set_as_no_app);
             }
         } else {
             Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
@@ -943,10 +945,7 @@ public class FileOperationsHelper {
         }
 
         Log_OC.d(TAG, "toggling encryption for: " + file.getRemotePath());
-        EventBus.getDefault().post(new EncryptionEvent(file.getLocalId(),
-                                                       file.getRemoteId(),
-                                                       file.getRemotePath(),
-                                                       shouldBeEncrypted));
+        EventBus.getDefault().post(OCFileExtensionsKt.toEncryptionEvent(file, shouldBeEncrypted));
     }
 
     public void toggleFileLock(OCFile file, boolean shouldBeLocked) {
@@ -955,7 +954,7 @@ public class FileOperationsHelper {
         }
     }
 
-    public void renameFile(OCFile file, String newFilename) {
+    public void renameFile(ServerFileInterface file, String newFilename) {
         Intent service = new Intent(fileActivity, OperationsService.class);
 
         service.setAction(OperationsService.ACTION_RENAME);
@@ -963,8 +962,6 @@ public class FileOperationsHelper {
         service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
         service.putExtra(OperationsService.EXTRA_NEWNAME, newFilename);
         mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
-
-        fileActivity.refreshList();
     }
 
 
@@ -1049,6 +1046,82 @@ public class FileOperationsHelper {
         fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
     }
 
+    public void createAlbum(String albumName) {
+        // Create Album
+        Intent service = new Intent(fileActivity, OperationsService.class);
+        service.setAction(OperationsService.ACTION_CREATE_ALBUM);
+        service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+        service.putExtra(OperationsService.EXTRA_ALBUM_NAME, albumName);
+        mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
+
+        fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
+    }
+
+    public void addFileToAlbum(Collection<OCFile> files) {
+        final ArrayList<String> paths = new ArrayList<>(files.size());
+        for (OCFile file : files) {
+            paths.add(file.getRemotePath());
+        }
+
+        fileActivity.startActivity(AlbumsPickerActivity.Companion.intentForPickingAlbum(fileActivity, paths));
+    }
+
+    public void albumCopyFiles(final List<String> filePaths, final String targetFolder) {
+        if (filePaths == null || filePaths.isEmpty()) {
+            return;
+        }
+
+        connectivityService.isNetworkAndServerAvailable(result -> {
+            if (result) {
+                for (String path : filePaths) {
+                    Intent service = new Intent(fileActivity, OperationsService.class);
+                    service.setAction(OperationsService.ACTION_ALBUM_COPY_FILE);
+                    service.putExtra(OperationsService.EXTRA_NEW_PARENT_PATH, targetFolder);
+                    service.putExtra(OperationsService.EXTRA_REMOTE_PATH, path);
+                    service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+                    mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
+                }
+                fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
+            } else {
+                SnackbarUtil.show(fileActivity, fileActivity.getString(R.string.offline_mode));
+            }
+            return Unit.INSTANCE;
+        });
+    }
+
+    public void renameAlbum(String oldAlbumName, String newAlbumName) {
+        Intent service = new Intent(fileActivity, OperationsService.class);
+
+        service.setAction(OperationsService.ACTION_RENAME_ALBUM);
+        service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+        service.putExtra(OperationsService.EXTRA_REMOTE_PATH, oldAlbumName);
+        service.putExtra(OperationsService.EXTRA_NEWNAME, newAlbumName);
+        mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
+
+        fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
+    }
+
+    public void removeAlbum(String albumName) {
+        Intent service = new Intent(fileActivity, OperationsService.class);
+        service.setAction(OperationsService.ACTION_REMOVE_ALBUM);
+        service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+        service.putExtra(OperationsService.EXTRA_ALBUM_NAME, albumName);
+        mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
+
+        fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
+    }
+
+    public void albumPublicShareLink(String albumName, boolean isCreateShare) {
+        Intent service = new Intent(fileActivity, OperationsService.class);
+        service.setAction(OperationsService.ACTION_PUBLIC_SHARE_LINK_ALBUM);
+        service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+        service.putExtra(OperationsService.EXTRA_ALBUM_NAME, albumName);
+        service.putExtra(OperationsService.EXTRA_CREATE_ALBUM_SHARE, isCreateShare);
+        mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
+
+        fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
+    }
+
     public void exportFiles(Collection<OCFile> files,
                             Context context,
                             View view,
@@ -1098,7 +1171,7 @@ public class FileOperationsHelper {
         if (intent.resolveActivity(activity.getPackageManager()) != null) {
             activity.startActivityForResult(intent, requestCode);
         } else {
-            DisplayUtils.showSnackMessage(activity, "No Camera found");
+            SnackbarUtil.show(activity, "No Camera found");
         }
     }
 

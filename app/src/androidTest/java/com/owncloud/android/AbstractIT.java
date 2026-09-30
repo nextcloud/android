@@ -26,8 +26,7 @@ import com.nextcloud.android.common.ui.theme.MaterialSchemesImpl;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
-import com.nextcloud.client.device.BatteryStatus;
-import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.utils.PowerManagementFactory;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.ConnectivityManagerFactory;
 import com.nextcloud.client.network.ConnectivityService;
@@ -73,7 +72,6 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
@@ -367,24 +365,7 @@ public abstract class AbstractIT {
     }
 
     public void uploadOCUpload(OCUpload ocUpload) {
-        PowerManagementService powerManagementServiceMock = new PowerManagementService() {
-            @Override
-            public boolean isIgnoringOptimization() {
-                return true;
-            }
-
-            @NonNull
-            @Override
-            public BatteryStatus getBattery() {
-                return new BatteryStatus();
-            }
-
-            @Override
-            public boolean isPowerSavingEnabled() {
-                return false;
-            }
-        };
-
+        final var powerManagementServiceMock = PowerManagementFactory.getMock();
         UserAccountManager accountManager = UserAccountManagerImpl.fromContext(targetContext);
         UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(accountManager,
                                                                                 targetContext.getContentResolver());

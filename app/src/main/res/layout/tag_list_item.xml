@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 Nextcloud GmbH and Nextcloud contributors
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+  -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/bottom_sheet_item_height"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/standard_padding">
+
+    <View
+        android:id="@+id/tag_color_dot"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:background="@drawable/ic_tag_color_dot" />
+
+    <TextView
+        android:id="@+id/tag_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="@dimen/standard_padding"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="16sp"
+        tools:text="Tag name" />
+
+    <CheckBox
+        android:id="@+id/tag_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

@@ -30,7 +30,10 @@
     <string name="activity_icon">Attività</string>
     <string name="add_new_public_share">Aggiungi nuovo collegamento pubblico di condivisione</string>
     <string name="add_new_secure_file_drop">Aggiungi un nuovo drop file sicuro</string>
-    <string name="add_to_cloud">Aggiungi a %1$s</string>
+    <string name="add_to_album">Aggiungi all\'album</string>
+    <string name="album_delete">Elimina album</string>
+    <string name="album_rename_conflict">Questo nome è già utilizzato.</string>
+    <string name="album_stop_sharing">Interrompi la condivisione</string>
     <string name="app_config_base_url_title">URL di base</string>
     <string name="app_config_disable_clipboard_title">Disabilita Clipboard</string>
     <string name="app_config_disable_intro_title">Disabilita Intro</string>
@@ -228,14 +231,18 @@
     <string name="could_not_retrieve_shares">Impossibile recuperare le condivisioni</string>
     <string name="could_not_retrieve_url">Impossibile recuperare l\'URL</string>
     <string name="create">Crea</string>
+    <string name="create_album_dialog_title">Nuovo album</string>
     <string name="create_dir_fail_msg">Impossibile creare la cartella</string>
+    <string name="create_document">Documento</string>
+    <string name="create_folder">Cartella</string>
     <string name="create_link">Crea collegamento</string>
     <string name="create_new">Nuovo</string>
     <string name="create_new_document">Nuovo documento</string>
-    <string name="create_new_folder">Nuova cartella</string>
     <string name="create_new_presentation">Nuova presentazione</string>
     <string name="create_new_spreadsheet">Nuovo foglio elettronico</string>
+    <string name="create_presentation">Presentazione</string>
     <string name="create_rich_workspace">Aggiungi descrizione cartella</string>
+    <string name="create_spreadsheet">Foglio elettronico</string>
     <string name="credentials_disabled">Credenziali disabilitate</string>
     <string name="daily_backup">Backup giornaliero</string>
     <string name="data_to_back_up">Dati di cui eseguire il backup</string>
@@ -285,6 +292,7 @@
     <string name="drawer_community">Comunità</string>
     <string name="drawer_header_background">Immagine di sfondo sull\'intestazione del cassetto</string>
     <string name="drawer_item_activities">Attività</string>
+    <string name="drawer_item_album">Album</string>
     <string name="drawer_item_all_files">Tutti i file</string>
     <string name="drawer_item_assistant">Assistente</string>
     <string name="drawer_item_favorites">Preferiti</string>
@@ -375,6 +383,7 @@
     <string name="external_shares">Condivisioni esterne</string>
     <string name="fab_label">Aggiungi o carica</string>
     <string name="failed_to_download">Passaggio del file al gestore degli scaricamenti non riuscito</string>
+    <string name="failed_to_load_tags">Caricamento etichette non riuscito</string>
     <string name="failed_to_print">Stampa del file non riuscita</string>
     <string name="failed_to_start_editor">Avvio dell\'editor non riuscito</string>
     <string name="failed_update_ui">Aggiornamento interfaccia non riuscito</string>
@@ -410,6 +419,7 @@
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Caricamento in corso…</string>
     <string name="file_list_no_app_for_file_type">Nessuna applicazione configurata per gestire questo tipo di file.</string>
+    <string name="file_list_out_of_memory_description">Impossibile caricare il contenuto</string>
     <string name="file_list_seconds_ago">secondi fa</string>
     <string name="file_management_permission_optional">Autorizzazioni di archiviazione</string>
     <string name="file_management_permission_optional_text">%1$s funziona meglio con l\'autorizzazione di accedere all\'archiviazione. Puoi scegliere l\'accesso completo a tutti i file o quello in sola lettura a foto e video.</string>
@@ -552,19 +562,7 @@
     <string name="manage_space_clear_data">Cancella i dati</string>
     <string name="manage_space_description">Impostazioni, database e certificati del server dai dati di %1$s saranno eliminati definitivamente.\n\nI file scaricati non saranno interessati.\n\nQuesto processo può richiedere del tempo.</string>
     <string name="manage_space_title">Gestisci lo spazio</string>
-    <string name="media_err_invalid_progressive_playback">Il file multimediale non può essere trasmesso</string>
-    <string name="media_err_io">Impossibile leggere il file multimediale</string>
-    <string name="media_err_malformed">Il file multimediale ha una codifica non corretta</string>
-    <string name="media_err_timeout">Il tentativo di riprodurre il file è scaduto</string>
-    <string name="media_err_unknown">Il lettore multimediale integrato non è in grado di riprodurre il file</string>
-    <string name="media_err_unsupported">Codificatore multimediale non supportato</string>
-    <string name="media_forward_description">Pulsante Avanti veloce</string>
-    <string name="media_notif_ticker">Lettore musicale %1$s</string>
-    <string name="media_play_pause_description">Pulsante Riproduci o pausa</string>
-    <string name="media_player_pause">Pausa</string>
-    <string name="media_player_play">Gioca</string>
-    <string name="media_rewind_description">Pulsante Riavvolgi</string>
-    <string name="media_state_playing">%1$s (in riproduzione)</string>
+    <string name="manage_tags">Gestisci etichette</string>
     <string name="menu_item_sort_by_date_newest_first">Prima i più recenti</string>
     <string name="menu_item_sort_by_date_oldest_first">Prima i più datati</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -572,6 +570,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Prima i più grandi</string>
     <string name="menu_item_sort_by_size_smallest_first">Prima i più piccoli</string>
     <string name="more">Altro</string>
+    <string name="more_documents">Altri documenti</string>
     <string name="move_file_error">Si è verificato un errore durante il tentativo di spostare il file o la cartella</string>
     <string name="move_file_invalid_into_descendent">Impossibile spostare una cartella in una delle sue cartelle sottostanti</string>
     <string name="move_file_invalid_overwrite">Il file è già presente nella cartella di destinazione</string>
@@ -643,8 +642,7 @@
     <string name="pick_contact_to_share_with">Seleziona il contatto con cui condividere</string>
     <string name="picture_set_as_no_app">Nessuna applicazione trovata per impostare un\'immagine</string>
     <string name="pin_shortcut_label">Apri %1$s</string>
-    <string name="player_stop">ferma</string>
-    <string name="player_toggle">attiva</string>
+    <string name="player_media_controls_close_action_title">Chiudi</string>
     <string name="please_select_a_server">Per favore, seleziona un server...</string>
     <string name="power_save_check_dialog_message">La disabilitazione del controllo di risparmio energetico potrebbe risultare in caricamenti di file in uno stato di bassa carica della batteria.</string>
     <string name="pref_behaviour_entries_delete_file">eliminato</string>
@@ -738,6 +736,7 @@
     <string name="reload">Ricarica</string>
     <string name="remote">(remota)</string>
     <string name="remote_file_fetch_failed">File non trovato!</string>
+    <string name="remove">Rimuovi</string>
     <string name="remove_e2e">Su questo client puoi rimuovere localmente la cifratura end-to-end</string>
     <string name="remove_e2e_message">Su questo client puoi rimuovere localmente la cifratura end-to-end. I file cifrati rimarranno sul server, ma non verranno più sincronizzati su questo computer.</string>
     <string name="remove_fail_msg">Eliminazione non riuscita</string>
@@ -746,6 +745,7 @@
     <string name="remove_notification_failed">Rimozione notifica non riuscita.</string>
     <string name="remove_push_notification">Rimuovi</string>
     <string name="remove_success_msg">Eliminato</string>
+    <string name="rename_dialog_button">Rinomina</string>
     <string name="rename_dialog_title">Digita un nuovo nome</string>
     <string name="rename_local_fail_msg">La copia locale non può essere rinominata, prova un nome diverso</string>
     <string name="rename_server_fail_msg">Rinomina non consentita, nome già utilizzato</string>
@@ -776,6 +776,7 @@
     <string name="screenshot_06_davdroid_heading">Calendario e contatti</string>
     <string name="screenshot_06_davdroid_subline">Sincronizza con DAVx⁵</string>
     <string name="search_error">Errore nel recuperare i risultati della ricerca</string>
+    <string name="search_tags">Cerca etichette</string>
     <string name="secure_share_not_set_up">La condivisione sicura non è configurata per questo utente</string>
     <string name="secure_share_search">Condivisione sicura...</string>
     <string name="select_all">Seleziona tutto</string>
@@ -899,7 +900,6 @@
     <string name="store_short_dev_desc">La piattaforma di produttività auto-gestita che ti lascia al comando (versione in anteprima di sviluppo)</string>
     <string name="stream">Trasmetti con…</string>
     <string name="stream_not_possible_headline">Trasmissione interna non possibile</string>
-    <string name="stream_not_possible_message">Scarica invece il media o usa un\'applicazione esterna.</string>
     <string name="sub_folder_rule_day">Anno/Mese/Giorno</string>
     <string name="sub_folder_rule_month">Anno/Mese</string>
     <string name="sub_folder_rule_year">Anno</string>

@@ -28,7 +28,9 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.utils.LinkHelper
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.setHtmlContent
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
@@ -37,7 +39,6 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.fragment.FileFragment
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.StringUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -199,9 +200,9 @@ abstract class PreviewTextFragment :
                     override fun configureConfiguration(builder: MarkwonConfiguration.Builder) {
                         builder.linkResolver { _, link ->
                             if (LinkHelper.isHttpOrHttpsLink(link)) {
-                                DisplayUtils.startLinkIntent(activity, link)
+                                IntentUtil.startLinkIntent(activity, link)
                             } else {
-                                DisplayUtils.showSnackMessage(
+                                SnackbarUtil.show(
                                     activity,
                                     activity.getString(R.string.link_not_followed_due_to_security_settings)
                                 )

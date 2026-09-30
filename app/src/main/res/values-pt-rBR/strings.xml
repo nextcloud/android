@@ -30,9 +30,26 @@
     <string name="activity_chooser_send_file_title">Enviar</string>
     <string name="activity_chooser_title">Enviar link para…</string>
     <string name="activity_icon">Atividade</string>
+    <string name="add_media">Adicionar mídia</string>
     <string name="add_new_public_share">Adicionar novo link de compartilhamento público</string>
     <string name="add_new_secure_file_drop">Adicionar novo depósito de arquivos seguro</string>
-    <string name="add_to_cloud">Adicionar em %1$s</string>
+    <string name="add_to_album">Adicionar a álbum</string>
+    <string name="album_already_exists">O álbum já existe</string>
+    <string name="album_copy_file_conflict">Já existe.</string>
+    <string name="album_create_new_link">Criar novo link</string>
+    <string name="album_default_sharing_text">Todos podem apenas visualizar</string>
+    <string name="album_delete">Excluir álbum</string>
+    <string name="album_delete_failed_message">Não foi possível excluir alguns arquivos.</string>
+    <string name="album_file_added_message">Arquivo adicionado com sucesso</string>
+    <string name="album_name_empty">O nome do álbum não pode ficar em branco</string>
+    <string name="album_picker_toolbar_title">Escolher álbum</string>
+    <string name="album_rename">Renomear álbum</string>
+    <string name="album_rename_conflict">Este nome já está em uso.</string>
+    <string name="album_share">Compartilhar álbum</string>
+    <string name="album_share_link">Compartilhar link do álbum</string>
+    <string name="album_stop_sharing">Parar compartilhamento</string>
+    <string name="album_unsupported_file">Mídia não compatível</string>
+    <string name="album_upload_from_account">Selecionar imagens da conta</string>
     <string name="app_config_base_url_title">URL base</string>
     <string name="app_config_disable_clipboard_title">Desativar área de transferência</string>
     <string name="app_config_disable_intro_title">Desativar introdução</string>
@@ -123,11 +140,27 @@
     <string name="auto_upload_on_wifi">Enviar só por Wi-Fi não medida</string>
     <string name="auto_upload_path">/UploadAutomático</string>
     <string name="auto_upload_sub_folder_warning">Esta pasta já está incluída na sincronização da pasta pai, o que pode causar uploads duplicados</string>
+    <string name="auto_upload_sync_now_action">Sincronizar agora</string>
+    <string name="auto_upload_sync_now_no_folder">Não há nenhuma pasta configurada para upload automático</string>
+    <string name="auto_upload_sync_now_running">O upload automático já está em andamento</string>
+    <string name="auto_upload_sync_now_started">O upload automático foi iniciado</string>
     <string name="auto_upload_wifi_only_warning_info">Aguardando o Wi-Fi para iniciar o upload</string>
     <string name="auto_upload_worker_start_text">Fazendo upload de arquivos de %1$s para %2$s</string>
     <string name="autoupload_configure">Configurar</string>
     <string name="autoupload_create_new_custom_folder">Criar nova configuração de pasta personalizada</string>
     <string name="autoupload_custom_folder">Configurar uma pasta personalizada</string>
+    <string name="autoupload_delete_uploaded">Excluir localmente os arquivos enviados</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_all_users">De todos os usuários</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_current_user">Do usuário atual</string>
+    <string name="autoupload_delete_uploaded_all_dialog_description">Todos os arquivos já enviados para a nuvem serão removidos do dispositivo atual em todas as pastas de upload automático de todos os usuários configurados</string>
+    <string name="autoupload_delete_uploaded_all_dialog_title">Excluir localmente os arquivos enviados em todas as pastas de upload automático</string>
+    <string name="autoupload_delete_uploaded_dialog_description">Todos os arquivos já enviados para a nuvem serão removidos do dispositivo atual</string>
+    <string name="autoupload_delete_uploaded_dialog_title">Excluir localmente os arquivos enviados</string>
+    <string name="autoupload_delete_uploaded_notif_ended_content">Foram liberados %1$s removendo %2$s distribuídos por %3$s de %4$s.</string>
+    <string name="autoupload_delete_uploaded_notif_ended_title">Excluir localmente arquivos já enviados</string>
+    <string name="autoupload_delete_uploaded_notif_error_title">Não é possível excluir localmente arquivos já enviados</string>
+    <string name="autoupload_delete_uploaded_notif_started_title">Iniciou a exclusão local, em segundo plano, dos arquivos já enviados</string>
+    <string name="autoupload_delete_uploaded_notif_ticker">Exclusão de arquivos locais</string>
     <string name="autoupload_disable_power_save_check">Desativar verificação de economia de energia</string>
     <string name="autoupload_hide_folder">Ocultar pasta</string>
     <string name="avatar">Avatar</string>
@@ -210,7 +243,9 @@
     <string name="configure_new_media_folder_detection_notifications">Configurar</string>
     <string name="confirm_removal">Remover criptografia local</string>
     <string name="confirmation_remove_file_alert">Quer realmente excluir %1$s?</string>
+    <string name="confirmation_remove_file_from_album_message">Você realmente deseja remover o arquivo %1$s do álbum?</string>
     <string name="confirmation_remove_files_alert">Quer realmente excluir os itens selecionados?</string>
+    <string name="confirmation_remove_files_from_album_message">Você realmente deseja remover os arquivos selecionados do álbum?</string>
     <string name="confirmation_remove_folder_alert">Quer realmente excluir %1$s e seu conteúdo?</string>
     <string name="confirmation_remove_folders_alert">Quer realmente excluir os itens selecionados e seus conteúdos?</string>
     <string name="confirmation_remove_local">Somente local</string>
@@ -249,17 +284,23 @@
     <string name="could_not_retrieve_shares">Não foi possível recuperar os compartilhamentos</string>
     <string name="could_not_retrieve_url">Não foi possível recuperar a URL</string>
     <string name="create">Criar</string>
+    <string name="create_album_dialog_message">Digite o nome do seu novo álbum</string>
+    <string name="create_album_dialog_title">Novo álbum</string>
     <string name="create_dir_fail_msg">Não foi possível criar a pasta</string>
+    <string name="create_document">Documento</string>
+    <string name="create_encrypted_folder">Pasta criptografada</string>
     <string name="create_end_to_end_encrypted_share">Compartilhamento por link</string>
     <string name="create_end_to_end_encrypted_share_title">Compartilhamentos por link criptografados de ponta-a-ponta</string>
+    <string name="create_folder">Pasta</string>
     <string name="create_link">Criar link</string>
     <string name="create_new">Novo</string>
     <string name="create_new_document">Novo documento</string>
-    <string name="create_new_encrypted_folder">Nova pasta criptografada</string>
-    <string name="create_new_folder">Nova pasta</string>
     <string name="create_new_presentation">Nova apresentação</string>
     <string name="create_new_spreadsheet">Nova planilha</string>
+    <string name="create_presentation">Apresentação</string>
     <string name="create_rich_workspace">Adicionar descrição da pasta</string>
+    <string name="create_spreadsheet">Planilha</string>
+    <string name="create_tag_format">Criar etiqueta: “%1$s”</string>
     <string name="credentials_disabled">Credenciais desabilitadas</string>
     <string name="daily_backup">Backup diário </string>
     <string name="data_to_back_up">Dados para backup </string>
@@ -318,6 +359,7 @@
     <string name="drawer_community">Comunidade</string>
     <string name="drawer_header_background">Imagem do plano de fundo do cabeçalho</string>
     <string name="drawer_item_activities">Atividades</string>
+    <string name="drawer_item_album">Álbuns</string>
     <string name="drawer_item_all_files">Todos os arquivos</string>
     <string name="drawer_item_assistant">Assistente</string>
     <string name="drawer_item_favorites">Favoritos</string>
@@ -347,7 +389,26 @@
     <string name="ecosystem_apps_more">Mais Aplicativos Nextcloud</string>
     <string name="editor_web_view_cannot_open_file">Não é possível abrir o seletor de arquivos</string>
     <string name="email_pick_failed">Falha ao escolher o endereço de e-mail.</string>
+    <string name="empty_albums_message">Você pode organizar todas as suas fotos em quantos álbuns quiser. Você ainda não criou nenhum álbum.</string>
+    <string name="empty_albums_title">Crie álbuns para suas fotos</string>
     <string name="encrypted">Definir como criptografado</string>
+    <string name="encryption_encrypt_check_failed">Não foi possível verificar suas chaves de criptografia. Tente criptografar a pasta novamente.</string>
+    <string name="encryption_encrypt_no_network">Não é possível acessar o servidor. Tente criptografar a pasta novamente mais tarde.</string>
+    <string name="encryption_encrypt_unavailable">Não é possível criptografar esta pasta. A criptografia de ponta-a-ponta não está configurada neste servidor.</string>
+    <string name="encryption_key_checking_keys">Verificando as chaves…</string>
+    <string name="encryption_key_handle_folder_read_only_description">As chaves de criptografia desta conta foram removidas ou substituídas, portanto, o conteúdo desta pasta não pode mais ser descriptografado.\n\nA partir de agora, a pasta estará apenas para leitura. Para voltar a usar pastas criptografadas, faça um backup desta pasta e configure sua nova chave de criptografia nas configurações.</string>
+    <string name="encryption_key_handle_key_keys_only_on_device_description">A chave de criptografia armazenada neste dispositivo não é mais válida. As chaves foram revogadas pelo servidor. \n\nRemova a criptografia localmente nas configurações para criar uma nova pasta criptografada.</string>
+    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">A chave de criptografia armazenada neste dispositivo não é mais válida. As chaves foram revogadas pelo servidor. \n\nFaça um backup da pasta criptografada criada anteriormente. \n\nEm seguida, remova a criptografia localmente nas configurações para criar uma nova pasta criptografada.</string>
+    <string name="encryption_key_handle_key_removed_title">Chaves de criptografia alteradas</string>
+    <string name="encryption_key_handle_no_keys_description">Esta pasta não pode ser aberta porque suas chaves de criptografia não existem mais neste dispositivo nem no servidor.</string>
+    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">As chaves de criptografia desta conta foram removidas ou substituídas.\n\nConfigure sua nova chave de criptografia nas configurações antes de criptografar uma pasta.</string>
+    <string name="encryption_new_folder_check_failed">Não foi possível verificar suas chaves de criptografia. Tente criar a pasta novamente.</string>
+    <string name="encryption_new_folder_no_network">Não é possível acessar o servidor. Tente criar a pasta novamente mais tarde.</string>
+    <string name="encryption_new_folder_unavailable">Não é possível criar pastas criptografadas. A criptografia de ponta-a-ponta não está configurada neste servidor.</string>
+    <string name="encryption_open_check_failed">Não foi possível verificar suas chaves de criptografia. Tente abrir a pasta novamente.</string>
+    <string name="encryption_open_key_mismatch">A chave de criptografia armazenada neste dispositivo não corresponde à chave necessária para esta pasta.</string>
+    <string name="encryption_open_no_network">Não é possível acessar o servidor. Tente abrir a pasta novamente mais tarde.</string>
+    <string name="encryption_open_unavailable">Não é possível abrir esta pasta. A criptografia de ponta-a-ponta não está configurada neste servidor.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Não é possível recuperar o certificado do servidor</string>
     <string name="end_to_end_encryption_certificate_verification_failed">Falha ao verificar a chave pública</string>
     <string name="end_to_end_encryption_confirm_button">Definir criptografia</string>
@@ -419,6 +480,7 @@
     <string name="fab_label">Adicionar ou enviar</string>
     <string name="failed_to_create_conflict_dialog">Falha ao criar caixa de diálogo de conflito</string>
     <string name="failed_to_download">Erro ao enviar o arquivo ao gerenciador de downloads</string>
+    <string name="failed_to_load_tags">Falha ao carregar etiquetas</string>
     <string name="failed_to_print">Erro ao imprimir o arquivo</string>
     <string name="failed_to_start_action">Falha ao iniciar a ação!</string>
     <string name="failed_to_start_editor">Erro ao iniciar editor</string>
@@ -461,6 +523,7 @@
     <string name="file_list_live">AO VIVO</string>
     <string name="file_list_loading">Carregando…</string>
     <string name="file_list_no_app_for_file_type">Nenhuma aplicação definida para manipular este tipo de arquivo.</string>
+    <string name="file_list_out_of_memory_description">Não foi possível carregar o conteúdo</string>
     <string name="file_list_seconds_ago">segundos atrás</string>
     <string name="file_management_permission_optional">Permissões de armazenamento</string>
     <string name="file_management_permission_optional_text">%1$s funciona melhor com permissões para acessar o armazenamento. Você pode escolher acesso total a todos os arquivos ou acesso somente leitura a fotos e vídeos.</string>
@@ -614,25 +677,14 @@
     <string name="logs_status_not_filtered">Logs: %1$d kB, sem filtro</string>
     <string name="logs_title">Logs</string>
     <string name="maintenance_mode">O servidor está em modo de manutenção</string>
+    <string name="manage_space_auto_upload_clear_data">Excluir localmente os arquivos enviados automaticamente</string>
+    <string name="manage_space_auto_upload_description">Todos os arquivos já enviados para o servidor a partir das pastas de upload automático serão excluídos localmente para liberar espaço no dispositivo.\n\nEsse processo pode demorar um pouco.</string>
+    <string name="manage_space_auto_upload_title">Excluir localmente os arquivos enviados automaticamente</string>
     <string name="manage_space_clear_data">Limpar dados</string>
     <string name="manage_space_description">Configurações, banco de dados e certificados do servidor de dados de %1$s serão excluídos permanentemente.\n\nArquivos baixados serão mantidos intocados.\n\nEste processo pode levar um tempo.</string>
     <string name="manage_space_title">Gerenciar o espaço</string>
-    <string name="media_err_invalid_progressive_playback">O arquivo de mídia não pode ser transmitido </string>
-    <string name="media_err_io">Não foi possível ler o arquivo de mídia</string>
-    <string name="media_err_malformed">O arquivo de mídia tem uma codificação incorreta</string>
-    <string name="media_err_timeout">Tempo esgotado tentando reproduzir o arquivo</string>
-    <string name="media_err_unknown">O media player embutido não consegue tocar esta mídia</string>
-    <string name="media_err_unsupported">O codec de mídia não é suportado</string>
-    <string name="media_forward_description">Botão de avanço rápido</string>
-    <string name="media_notif_ticker">%1$s player</string>
-    <string name="media_play_pause_description">Botão reproduzir ou pausar</string>
-    <string name="media_player_pause">Pausar</string>
-    <string name="media_player_play">Reproduzir</string>
-    <string name="media_player_playing">Reproduzindo mídia</string>
-    <string name="media_player_seek_backward">Buscar para trás</string>
-    <string name="media_player_seek_forward">Buscar para a frente</string>
-    <string name="media_rewind_description">Botão rebobinar</string>
-    <string name="media_state_playing">%1$s (tocando)</string>
+    <string name="manage_tags">Gerenciar etiquetas</string>
+    <string name="media_picker_toolbar_title">Selecionar arquivos de mídia</string>
     <string name="menu_item_sort_by_date_newest_first">Mais novos primeiro</string>
     <string name="menu_item_sort_by_date_oldest_first">Mais antigos primeiro</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -640,6 +692,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Maiores primeiro</string>
     <string name="menu_item_sort_by_size_smallest_first">Menores primeiro</string>
     <string name="more">Mais</string>
+    <string name="more_documents">Mais documentos</string>
     <string name="move_file_error">Ocorreu um erro ao tentar mover este arquivo ou pasta</string>
     <string name="move_file_invalid_into_descendent">Não é possível mover uma pasta para uma das suas próprias pastas subjacentes</string>
     <string name="move_file_invalid_overwrite">O arquivo já está presente na pasta destino</string>
@@ -726,8 +779,15 @@
     <string name="picture_set_as_no_app">Nenhum aplicativo encontrado para definir uma imagem</string>
     <string name="pin_home">Fixar na tela inicial</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
-    <string name="player_stop">para</string>
-    <string name="player_toggle">alternar</string>
+    <string name="player_audio_title_with_artist">%1$s • %2$s</string>
+    <string name="player_control_view_next_button_content_description">Botão Próximo</string>
+    <string name="player_control_view_play_pause_button_content_description">Botão Reproduzir/Pausar</string>
+    <string name="player_control_view_previous_button_content_description">Botão Anterior</string>
+    <string name="player_control_view_random_button_content_description">Botão Aleatório</string>
+    <string name="player_control_view_repeat_button_content_description">Botão Repetir</string>
+    <string name="player_error_source_not_found">Fonte não encotrada</string>
+    <string name="player_last_modified">Modificado: %s</string>
+    <string name="player_media_controls_close_action_title">Fechar</string>
     <string name="please_select_a_server">Selecione um servidor…</string>
     <string name="power_save_check_dialog_message">Desativar a verificação de economia de energia pode resultar em uploads com a bateria baixa!</string>
     <string name="pref_behaviour_entries_delete_file">excluído</string>
@@ -825,6 +885,7 @@
     <string name="reload">Recarregar</string>
     <string name="remote">(remoto)</string>
     <string name="remote_file_fetch_failed">Erro ao encontrar arquivo!</string>
+    <string name="remove">Remover</string>
     <string name="remove_e2e">Você pode remover a criptografia de ponta-a-ponta localmente neste cliente</string>
     <string name="remove_e2e_keys_and_files_dialog_warning">Esta operação irá remover todos os arquivos criptografados, bem como as chaves privadas e públicas. Tem certeza?</string>
     <string name="remove_e2e_message">Você pode remover a criptografia de ponta-a-ponta localmente neste cliente. Os arquivos criptografados permanecerão no servidor, mas não será mais sincronizados com este computador.</string>
@@ -834,6 +895,8 @@
     <string name="remove_notification_failed">Erro ao remover a notificação.</string>
     <string name="remove_push_notification">Remover</string>
     <string name="remove_success_msg">Excluído</string>
+    <string name="rename_album_dialog_title">Renomear álbum</string>
+    <string name="rename_dialog_button">Renomear</string>
     <string name="rename_dialog_title">Digite um novo nome</string>
     <string name="rename_local_fail_msg">Não foi possível renomear a cópia local, tente um nome diferente</string>
     <string name="rename_server_fail_msg">Não foi possível renomear pois o nome já existe</string>
@@ -870,6 +933,7 @@
     <string name="screenshot_06_davdroid_heading">Calendário e contatos</string>
     <string name="screenshot_06_davdroid_subline">Sincronizar com DAVx⁵</string>
     <string name="search_error">Erro ao obter os resultados da pesquisa </string>
+    <string name="search_tags">Pesquisar etiquetas</string>
     <string name="secure_share_not_set_up">O compartilhamento seguro não está configurado para este usuário</string>
     <string name="secure_share_search">Compartilhamento seguro…</string>
     <string name="select_all">Selecionar tudo</string>
@@ -879,6 +943,7 @@
     <string name="send">Enviar</string>
     <string name="send_copy_to">Enviar cópia para</string>
     <string name="send_share">Enviar compartilhamento</string>
+    <string name="server_not_allowed">Servidor não permitido</string>
     <string name="server_not_reachable">Não foi possível carregar o conteúdo</string>
     <string name="server_not_reachable_content">O dispositivo provavelmente não está conectado à Internet</string>
     <string name="set_as">Definir como</string>
@@ -999,7 +1064,6 @@
     <string name="store_short_dev_desc">A plataforma de produtividade auto-hospedada que mantém você no controle (versão preview)</string>
     <string name="stream">Stream com…</string>
     <string name="stream_not_possible_headline">Streaming interno não é possível</string>
-    <string name="stream_not_possible_message">Faça o download da mídia ou use um aplicativo externo.</string>
     <string name="sub_folder_rule_day">Ano/mês/dia</string>
     <string name="sub_folder_rule_month">Ano/mês</string>
     <string name="sub_folder_rule_year">Ano</string>
@@ -1076,6 +1140,7 @@
     <string name="unified_search_fragment_contact_not_found">Contato não encontrado, você sempre pode sincronizar para atualizar. Redirecionando para web…</string>
     <string name="unified_search_fragment_permission_needed">São necessárias permissões para abrir o resultado da pesquisa, caso contrário, ele será redirecionado para a web…</string>
     <string name="unified_search_fragment_search_in_this_folder">Nesta pasta</string>
+    <string name="unified_search_fragment_search_takes_long">A pesquisa está demorando mais do que o normal. Os resultados aparecerão assim que o servidor responder</string>
     <string name="unknown">Desconhecido</string>
     <string name="unlock_file">Destrancar arquivo</string>
     <string name="unread_comments">Existem comentários não lidos</string>
@@ -1205,6 +1270,7 @@
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Website</string>
     <string name="user_information_retrieval_error">Erro ao recuperar informação do usuário</string>
+    <string name="user_information_retrieval_error_message">Por favor, verifique novamente sua conexão com a internet ou verifique o status do servidor</string>
     <string name="userinfo_no_info_headline">Informações privadas não encontradas</string>
     <string name="userinfo_no_info_text">Adicionar nome, imagem e detalhes de contato na sua página de perfil.</string>
     <string name="username">Nome do usuário</string>
@@ -1214,6 +1280,7 @@
     <string name="wait_checking_credentials">Verificando credenciais salvas</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando o arquivo da armazenagem privada</string>
     <string name="warn_rename_extension">Alterar a extensão pode fazer com que esse arquivo seja aberto em um aplicativo diferente</string>
+    <string name="webview_not_available">O Android System WebView não está instalado ou está desativado neste dispositivo</string>
     <string name="what_s_new_image">Imagem nova</string>
     <string name="whats_new_skip">Saltar</string>
     <string name="whats_new_title">Novo em %1$s</string>
@@ -1224,6 +1291,16 @@
     <string name="write_email">Enviar e-mail</string>
     <string name="wrong_storage_path">A pasta de armazenamento de dados não existe!</string>
     <string name="wrong_storage_path_desc">Isto pode ser decorrente de uma restauração de backup em outro dispositivo. Retornando ao padrão. Verifique as configurações para ajustar a pasta de armazenamento.</string>
+    <plurals name="album_items_text">
+        <item quantity="one">%1$d item — %2$s</item>
+        <item quantity="many">%1$d de itens — %2$s</item>
+        <item quantity="other">%1$d itens — %2$s</item>
+    </plurals>
+    <plurals name="album_elements_text">
+        <item quantity="one">%d item</item>
+        <item quantity="many">%d de itens</item>
+        <item quantity="other">%d itens</item>
+    </plurals>
     <plurals name="hours">
         <item quantity="one">%d hora</item>
         <item quantity="many">%d horas</item>
@@ -1324,6 +1401,21 @@
         <item quantity="many">%d selecionados</item>
         <item quantity="other">%d selecionados</item>
     </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_files">
+        <item quantity="one">%d arquivo</item>
+        <item quantity="many">%d de arquivos</item>
+        <item quantity="other">%d arquivos</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_folders">
+        <item quantity="one">%d pasta</item>
+        <item quantity="many">%d de pastas</item>
+        <item quantity="other">%d pastas</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_users">
+        <item quantity="one">%d usuário</item>
+        <item quantity="many">%d de usuários</item>
+        <item quantity="other">%d usuários</item>
+    </plurals>
     <plurals name="passcode_delay_seconds">
         <item quantity="one">Tente novamente em %d segundo, pois houve muitas tentativas incorretas</item>
         <item quantity="many">Tente novamente em %d de segundos, pois houve muitas tentativas incorretas</item>
@@ -1343,5 +1435,10 @@
         <item quantity="one">%1$d download restante</item>
         <item quantity="many">%1$d downloads restantes</item>
         <item quantity="other">%1$d downloads restantes</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one">Exportação iniciada (%d arquivo)</item>
+        <item quantity="many">Exportações iniciadas (%d de arquivos)</item>
+        <item quantity="other">Exportações iniciadas (%d arquivos)</item>
     </plurals>
 </resources>

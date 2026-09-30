@@ -27,6 +27,7 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.ForegroundServiceHelper
 import com.nextcloud.utils.extensions.getPercent
 import com.nextcloud.utils.extensions.isNonRetryable
+import com.nextcloud.utils.extensions.isUserCancellation
 import com.nextcloud.utils.extensions.toFile
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ForegroundServiceType
@@ -34,6 +35,7 @@ import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.db.UploadResult
 import com.owncloud.android.lib.common.OwnCloudAccount
@@ -54,6 +56,7 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.random.Random
+import kotlin.time.Duration.Companion.milliseconds
 
 @Suppress("LongParameterList", "TooGenericExceptionCaught")
 class FileUploadWorker(
@@ -117,10 +120,31 @@ class FileUploadWorker(
             }
         }
 
+        fun pauseActiveUploads() {
+            activeOperations.values.forEach {
+                Log_OC.d(TAG, "upload operation is paused: ${it.remotePath}")
+                it.pause()
+            }
+            activeOperations.clear()
+        }
+
         fun getCurrentUpload(id: Long?): UploadFileOperation? = activeOperations[id]
 
         fun isUploading(remotePath: String?, accountName: String?): Boolean = activeOperations.values.any {
             it.remotePath == remotePath && it.user.accountName == accountName
+        }
+
+        /**
+         * [activeOperations] tracks every upload running in this process, not only the ones this worker started.
+         * Auto upload has to register here too, otherwise a retry pass sees its in-progress row as abandoned and
+         * reschedules it, and the cancel action in the upload list has nothing to cancel.
+         */
+        fun registerActiveUpload(operation: UploadFileOperation) {
+            activeOperations[operation.ocUploadId] = operation
+        }
+
+        fun unregisterActiveUpload(uploadId: Long) {
+            activeOperations.remove(uploadId)
         }
 
         fun getUploadAction(action: String): Int = when (action) {
@@ -260,12 +284,27 @@ class FileUploadWorker(
         val client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context)
         val syncFolderHelper = SyncFolderHelper(context)
         val syncedFolders = syncedFolderProvider.syncedFolders
-        var uploadFilesResult = UploadFilesResult.Success
+        var hasRetryableFailure = false
+        var hasNonRetryableFailure = false
 
         for ((index, upload) in uploads.withIndex()) {
             ensureActive()
 
-            delay(retryPolicy.getDelay())
+            if (skip(upload)) {
+                Log_OC.d(
+                    TAG,
+                    "skipping already settled upload: ${upload.remotePath}, " +
+                        "status: ${upload.uploadStatus}, result: ${upload.lastResult}"
+                )
+                continue
+            }
+
+            if (isUploading(upload.remotePath, accountName)) {
+                Log_OC.d(TAG, "skipping upload, another worker is still transferring it: ${upload.remotePath}")
+                continue
+            }
+
+            delay(retryPolicy.getDelay().milliseconds)
 
             if (!skipAutoUploadCheck && isBelongToAnySyncedFolder(upload, syncFolderHelper, syncedFolders)) {
                 Log_OC.d(TAG, "skipping upload, will be handled by AutoUploadWorker: ${upload.localPath}")
@@ -286,7 +325,7 @@ class FileUploadWorker(
 
             if (canExitEarly()) {
                 notificationManager.showConnectionErrorNotification()
-                return@withContext Result.failure()
+                return@withContext Result.retry()
             }
 
             fileUploadEventBroadcaster.sendUploadEnqueued(context)
@@ -314,15 +353,12 @@ class FileUploadWorker(
                 break
             }
 
-            // check upload result for worker
-            val uploadResult = UploadResult.fromOperationResult(result)
-            if (!result.isSuccess) {
+            if (!result.isSuccess && !result.code.isUserCancellation()) {
                 Log_OC.e(TAG, "upload failed for ${upload.remotePath}: ${result.code}")
-                if (uploadResult.isNonRetryable()) {
-                    uploadFilesResult = UploadFilesResult.Error
-                } else if (uploadFilesResult != UploadFilesResult.Error) {
-                    // only set retry if any other not failed before
-                    uploadFilesResult = UploadFilesResult.Retry
+                if (UploadResult.fromOperationResult(result).isNonRetryable()) {
+                    hasNonRetryableFailure = true
+                } else {
+                    hasRetryableFailure = true
                 }
             }
 
@@ -334,7 +370,19 @@ class FileUploadWorker(
             }
         }
 
+        val uploadFilesResult = when {
+            hasRetryableFailure -> UploadFilesResult.Retry
+            hasNonRetryableFailure -> UploadFilesResult.Error
+            else -> UploadFilesResult.Success
+        }
+
         return@withContext uploadFilesResult.toWorkerResult()
+    }
+
+    private fun skip(upload: OCUpload): Boolean = when (upload.uploadStatus) {
+        UploadStatus.UPLOAD_SUCCEEDED, UploadStatus.UPLOAD_CANCELLED -> true
+        UploadStatus.UPLOAD_FAILED -> upload.lastResult.isNonRetryable()
+        else -> false
     }
 
     @Suppress("ReturnCount")

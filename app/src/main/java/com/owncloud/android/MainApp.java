@@ -58,6 +58,7 @@ import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
+import com.nextcloud.client.systembars.SystemBarBackgroundCallbacks;
 import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias;
 import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
@@ -82,7 +83,6 @@ import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.activity.SyncedFoldersActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ReceiversHelper;
@@ -292,6 +292,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         insertConscrypt();
 
         registerActivityLifecycleCallbacks(new ActivityInjector());
+        registerActivityLifecycleCallbacks(new SystemBarBackgroundCallbacks(viewThemeUtilsProvider));
 
         //update the app restart count when app is launched by the user
         inAppReviewHelper.resetAndIncrementAppRestartCounter();
@@ -300,7 +301,6 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         logger.i(TAG, String.format(Locale.US, "Started %d migrations", startedMigrationsCount));
 
         new SecurityUtils();
-        DisplayUtils.useCompatVectorIfNeeded();
 
         fixStoragePath();
 
@@ -353,6 +353,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         if (backgroundJobManager != null) {
             backgroundJobManager.scheduleMediaFoldersDetectionJob();
             backgroundJobManager.startMediaFoldersDetectionJob();
+            backgroundJobManager.schedulePeriodicAutoUpload();
             backgroundJobManager.schedulePeriodicHealthStatus();
 
             if (preferences.isTwoWaySyncEnabled()) {

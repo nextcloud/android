@@ -67,7 +67,7 @@ class GroupfolderListFragment :
         GroupfoldersSearchTask(
             this,
             accountManager.user,
-            mContainerActivity.storageManager
+            containerActivity.storageManager
         ).execute()
     }
 

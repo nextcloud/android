@@ -11,21 +11,24 @@ import androidx.lifecycle.lifecycleScope
 import com.nextcloud.android.lib.resources.profile.GetHoverCardRemoteOperation
 import com.nextcloud.client.account.User
 import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.utils.SnackbarUtil
+import com.nextcloud.utils.avatar.AvatarGenerator
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.fragment.ProfileBottomSheetDialog
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+@Suppress("LongParameterList")
 class RetrieveHoverCardAsyncTask(
     private val user: User,
     private val userId: String,
     private val activity: FragmentActivity,
     private val clientFactory: ClientFactory,
-    private val viewThemeUtils: ViewThemeUtils
+    private val viewThemeUtils: ViewThemeUtils,
+    private val avatarGenerator: AvatarGenerator
 ) {
     companion object {
         private const val TAG = "RetrieveHoverCardAsyncTask"
@@ -51,7 +54,7 @@ class RetrieveHoverCardAsyncTask(
 
             withContext(Dispatchers.Main) {
                 if (result?.actions.isNullOrEmpty()) {
-                    DisplayUtils.showSnackMessage(activity, R.string.no_actions)
+                    SnackbarUtil.show(activity, R.string.no_actions)
                     return@withContext
                 }
 
@@ -59,7 +62,8 @@ class RetrieveHoverCardAsyncTask(
                     activity,
                     user,
                     result,
-                    viewThemeUtils
+                    viewThemeUtils,
+                    avatarGenerator
                 )
                     .show()
             }

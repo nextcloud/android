@@ -72,6 +72,7 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
                                        walledCheckCache);
             Log_OC.d(TAG, "scheduleContentObserverJob, called");
             backgroundJobManager.scheduleContentObserverJob();
+            backgroundJobManager.schedulePeriodicAutoUpload();
             MainApp.initContactsBackup(accountManager, backgroundJobManager);
         } else {
             Log_OC.d(TAG, "Getting wrong intent: " + intent.getAction());

@@ -19,5 +19,9 @@
             android:title="@string/autoupload_disable_power_save_check"
             android:visible="false"
             android:checkable="true" />
+
+        <item
+            android:id="@+id/action_auto_upload_all_folders_delete_uploaded"
+            android:title="@string/autoupload_delete_uploaded"/>
     </group>
 </menu>

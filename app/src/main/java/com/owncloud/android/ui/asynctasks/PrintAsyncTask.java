@@ -12,11 +12,11 @@ import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintManager;
 
+import com.nextcloud.utils.SnackbarUtil;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.RichDocumentsEditorWebView;
 import com.owncloud.android.ui.adapter.PrintAdapter;
-import com.owncloud.android.utils.DisplayUtils;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
@@ -129,7 +129,7 @@ public class PrintAsyncTask extends AsyncTask<Void, Void, Boolean> {
         PrintManager printManager = (PrintManager) richDocumentsWebView.getSystemService(PRINT_SERVICE);
 
         if (!result || printManager == null) {
-            DisplayUtils.showSnackMessage(richDocumentsWebView,
+            SnackbarUtil.show(richDocumentsWebView,
                                           richDocumentsWebView.getString(R.string.failed_to_print));
 
             return;

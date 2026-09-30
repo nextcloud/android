@@ -14,22 +14,25 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.common.NextcloudClient
+import com.nextcloud.utils.HumanReadableFormatter
 import com.owncloud.android.databinding.VersionListItemBinding
 import com.owncloud.android.lib.resources.activities.model.Activity
+import com.nextcloud.utils.avatar.AvatarGenerator
 import com.owncloud.android.lib.resources.files.model.FileVersion
 import com.owncloud.android.ui.interfaces.ActivityListInterface
 import com.owncloud.android.ui.interfaces.VersionListInterface
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.util.Date
 
+@Suppress("LongParameterList")
 class ActivityAndVersionListAdapter(
     context: FragmentActivity,
     currentAccountProvider: CurrentAccountProvider,
     activityListInterface: ActivityListInterface,
     private val versionListInterface: VersionListInterface.View,
-    viewThemeUtils: ViewThemeUtils
-) : ActivityListAdapter(context, currentAccountProvider, activityListInterface, true, viewThemeUtils) {
+    viewThemeUtils: ViewThemeUtils,
+    avatarGenerator: AvatarGenerator
+) : ActivityListAdapter(context, currentAccountProvider, activityListInterface, true, viewThemeUtils, avatarGenerator) {
 
     @SuppressLint("NotifyDataSetChanged")
     fun setActivityAndVersionItems(items: MutableList<Any?>, newClient: NextcloudClient?, clear: Boolean) {
@@ -71,7 +74,7 @@ class ActivityAndVersionListAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is VersionViewHolder) {
             val fileVersion = values[position] as FileVersion
-            holder.binding.size.text = DisplayUtils.bytesToHumanReadable(fileVersion.fileLength)
+            holder.binding.size.text = HumanReadableFormatter.formatBytes(fileVersion.fileLength)
             holder.binding.time.text = DateFormat.format("HH:mm", Date(fileVersion.modifiedTimestamp).time)
             holder.binding.restore.setOnClickListener { versionListInterface.onRestoreClicked(fileVersion) }
         } else {

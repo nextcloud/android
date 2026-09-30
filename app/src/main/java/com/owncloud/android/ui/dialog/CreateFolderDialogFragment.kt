@@ -26,6 +26,7 @@ import com.google.common.collect.Sets
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.autoRename.AutoRename
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.typedActivity
@@ -38,7 +39,6 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.KeyboardUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
@@ -126,8 +126,8 @@ class CreateFolderDialogFragment :
         }
 
         binding.userInput.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable) {}
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun afterTextChanged(s: Editable) = Unit
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) = Unit
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 checkFileNameAfterEachType(fileNames)
             }
@@ -187,7 +187,7 @@ class CreateFolderDialogFragment :
                 FileNameValidator.checkFileName(newFolderName, capabilities, requireContext())
 
             if (errorMessage != null) {
-                DisplayUtils.showSnackMessage(requireActivity(), errorMessage)
+                SnackbarUtil.show(requireActivity(), errorMessage)
                 return
             }
 

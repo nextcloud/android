@@ -1,0 +1,149 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+package com.owncloud.android
+
+import com.nextcloud.client.account.UserAccountManagerImpl
+import com.nextcloud.utils.PowerManagementFactory
+import com.nextcloud.client.jobs.upload.FileUploadWorker
+import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.db.OCUpload
+import com.owncloud.android.files.services.NameCollisionPolicy
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation
+import com.owncloud.android.lib.resources.files.RemoveFileRemoteOperation
+import com.owncloud.android.operations.UploadFileOperation
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
+import org.junit.Assert.fail
+import org.junit.Before
+import org.junit.Test
+import java.io.IOException
+
+class GrantFolderExistenceTests : AbstractOnServerIT() {
+
+    private val root = "/autoupload/"
+    private val yearFolder = root + "2026/"
+    private val monthFolder = yearFolder + "07/"
+
+    private val uploadsStorageManager = UploadsStorageManager(
+        UserAccountManagerImpl.fromContext(targetContext),
+        targetContext.contentResolver
+    )
+
+    private val powerManagementServiceMock = PowerManagementFactory.mock
+
+    @Before
+    @Throws(IOException::class)
+    fun before() {
+        createDummyFiles()
+    }
+
+    @Test
+    fun testUploadFileThenDeleteYearFolderOnServerOnlyThenUploadAgainShouldRecreateMonthFolderAndReturnOk() {
+        uploadAndAssertSuccess("first.txt")
+
+        assertTrue("month folder should exist on server", existsOnServer(monthFolder))
+        assertNotNull("month folder should be cached locally", storageManager.getFileByDecryptedRemotePath(monthFolder))
+
+        removeOnServer(yearFolder)
+
+        assertFalse("month folder should be deleted", existsOnServer(monthFolder))
+        assertNotNull(
+            "app still has a cached entry for the removed folder",
+            storageManager.getFileByDecryptedRemotePath(monthFolder)
+        )
+
+        // attempting upload to the same folder
+        val result = upload("nonEmpty.txt", monthFolder + "nonEmpty.txt")
+
+        assertEquals(
+            "upload must not fail with a conflict, the missing folder has to be recreated",
+            RemoteOperationResult.ResultCode.OK,
+            result.code
+        )
+        assertTrue("month folder should be recreated on server", existsOnServer(monthFolder))
+        assertTrue("uploaded file should exist on server", existsOnServer(monthFolder + "nonEmpty.txt"))
+    }
+
+    @Test
+    fun testUploadFileThenDeleteRootOnServerOnlyThenUploadAgainShouldRecreateAllFolderLevelsAndReturnOk() {
+        uploadAndAssertSuccess("first.txt")
+
+        removeOnServer(root)
+        assertFalse(existsOnServer(root))
+
+        val result = upload("nonEmpty.txt", monthFolder + "nonEmpty.txt")
+
+        assertEquals(
+            "every missing folder level has to be recreated",
+            RemoteOperationResult.ResultCode.OK,
+            result.code
+        )
+        assertTrue(existsOnServer(yearFolder))
+        assertTrue(existsOnServer(monthFolder))
+        assertTrue(existsOnServer(monthFolder + "nonEmpty.txt"))
+    }
+
+    private fun uploadAndAssertSuccess(filename: String) {
+        val result = upload(filename, monthFolder + filename)
+        assertTrue(result.logMessage, result.isSuccess)
+        assertTrue("uploaded file should exist on server", existsOnServer(monthFolder + filename))
+    }
+
+    private fun removeOnServer(remotePath: String) {
+        // the server keeps a transient lock on a just uploaded file, so a DELETE on one of its
+        // parent folders answers 423 until that lock expires
+        repeat(REMOVE_ATTEMPTS) {
+            if (RemoveFileRemoteOperation(remotePath).execute(client).isSuccess) {
+                return
+            }
+
+            shortSleep()
+        }
+
+        fail("$remotePath should be removed on server")
+    }
+
+    private fun existsOnServer(remotePath: String): Boolean =
+        ExistenceCheckRemoteOperation(remotePath, false).execute(client).isSuccess
+
+    private fun upload(localFileName: String, remotePath: String): RemoteOperationResult<*> {
+        val localFile = createFile(localFileName, FILE_LINE_COUNT)
+        assertTrue("local file must exist before uploading", localFile.exists())
+
+        val ocUpload = OCUpload(
+            localFile.absolutePath,
+            remotePath,
+            account.name
+        ).apply {
+            isCreateRemoteFolder = true
+            createdBy = UploadFileOperation.CREATED_AS_INSTANT_PICTURE
+        }
+
+        return UploadFileOperation(
+            uploadsStorageManager,
+            connectivityServiceMock,
+            powerManagementServiceMock,
+            user,
+            null,
+            ocUpload,
+            NameCollisionPolicy.ASK_USER,
+            FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
+            targetContext,
+            false,
+            false,
+            storageManager
+        ).execute(client)
+    }
+
+    companion object {
+        private const val FILE_LINE_COUNT = 100
+        private const val REMOVE_ATTEMPTS = 5
+    }
+}

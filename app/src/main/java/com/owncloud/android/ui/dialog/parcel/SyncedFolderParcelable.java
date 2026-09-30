@@ -45,7 +45,7 @@ public class SyncedFolderParcelable implements Parcelable {
         remotePath = syncedFolderDisplayItem.getRemotePath();
         wifiOnly = syncedFolderDisplayItem.isWifiOnly();
         chargingOnly = syncedFolderDisplayItem.isChargingOnly();
-        existing = syncedFolderDisplayItem.isExisting();
+        existing = syncedFolderDisplayItem.alsoUploadExistingFiles();
         enabled = syncedFolderDisplayItem.isEnabled();
         subfolderByDate = syncedFolderDisplayItem.isSubfolderByDate();
         type = syncedFolderDisplayItem.getType();

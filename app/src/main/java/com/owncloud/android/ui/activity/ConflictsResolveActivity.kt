@@ -25,6 +25,7 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.upload.UploadNotificationManager
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.model.HTTPStatusCodes
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getDecryptedPath
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.logFileSize
@@ -37,10 +38,9 @@ import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
-import com.owncloud.android.ui.dialog.ConflictsResolveDialog
-import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Decision
-import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionMadeListener
-import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.ui.dialog.conflict.ConflictsResolveDialog.Decision
+import com.owncloud.android.ui.dialog.conflict.ConflictsResolveDialog.OnConflictDecisionMadeListener
+import com.owncloud.android.ui.dialog.conflict.ConflictResolveDialogFactory
 import com.owncloud.android.utils.FileStorageUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -273,7 +273,7 @@ class ConflictsResolveActivity :
         }
 
         val (ft, _) = prepareDialogTransaction()
-        ConflictsResolveDialog.newInstance(
+        ConflictResolveDialogFactory.forOffline(
             context = this,
             leftFile = offlineOperation,
             rightFile = newFile!!
@@ -307,7 +307,7 @@ class ConflictsResolveActivity :
     private fun showFileConflictDialog(remotePath: String) {
         val (ft, user) = prepareDialogTransaction()
         if (existingFile != null && storageManager.fileExists(remotePath) && newFile != null) {
-            ConflictsResolveDialog.newInstance(
+            ConflictResolveDialogFactory.forNormal(
                 title = storageManager.getDecryptedPath(existingFile!!),
                 context = this,
                 leftFile = newFile!!,
@@ -359,7 +359,7 @@ class ConflictsResolveActivity :
         }
 
         lifecycleScope.launch(Dispatchers.Main) {
-            DisplayUtils.showSnackMessage(this@ConflictsResolveActivity, message)
+            SnackbarUtil.show(this@ConflictsResolveActivity, message)
             finish()
         }
     }

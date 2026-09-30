@@ -34,20 +34,25 @@ import com.nextcloud.android.lib.resources.clientintegration.Endpoint
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
+import com.nextcloud.utils.SnackbarUtil
+import com.nextcloud.utils.avatar.AvatarGenerationListener
+import com.nextcloud.utils.avatar.AvatarGenerator
 import com.nextcloud.utils.extensions.setVisibleIf
+import com.nextcloud.utils.text.DisplayTextFormatter
+import com.nextcloud.utils.text.SpanFormatter
+import com.nextcloud.utils.thumbnail.ThumbnailArguments
+import com.nextcloud.utils.view.LocaleDirection
+import com.nextcloud.utils.view.ScreenMetrics
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileActionsBottomSheetBinding
 import com.owncloud.android.databinding.FileActionsBottomSheetItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
-import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.resources.files.model.FileLockType
 import com.owncloud.android.ui.activity.ComponentsGetter
-import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import com.owncloud.android.utils.FileStorageUtils
-import com.owncloud.android.utils.overlay.OverlayManager
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -71,7 +76,10 @@ class FileActionsBottomSheet :
     lateinit var syncedFolderProvider: SyncedFolderProvider
 
     @Inject
-    lateinit var overlayManager: OverlayManager
+    lateinit var thumbnailGenerator: ThumbnailGenerator
+
+    @Inject
+    lateinit var avatarGenerator: AvatarGenerator
 
     private lateinit var viewModel: FileActionsViewModel
 
@@ -80,8 +88,6 @@ class FileActionsBottomSheet :
         get() = _binding!!
 
     private lateinit var componentsGetter: ComponentsGetter
-
-    private val thumbnailAsyncTasks = mutableListOf<ThumbnailsCacheManager.ThumbnailGenerationTask>()
 
     private var endpoints: List<Endpoint>? = mutableListOf()
 
@@ -140,7 +146,7 @@ class FileActionsBottomSheet :
 
             FileActionsViewModel.UiState.Error -> {
                 activity?.let {
-                    DisplayUtils.showSnackMessage(it, R.string.error_file_actions)
+                    SnackbarUtil.show(it, R.string.error_file_actions)
                 }
                 dismissAllowingStateLoss()
             }
@@ -149,18 +155,10 @@ class FileActionsBottomSheet :
 
     private fun loadFileThumbnail(titleFile: OCFile?) {
         titleFile?.let {
-            DisplayUtils.setThumbnail(
+            thumbnailGenerator.setThumbnail(
                 it,
                 binding.thumbnailLayout.thumbnail,
-                currentUserProvider.user,
-                storageManager,
-                thumbnailAsyncTasks,
-                false,
-                context,
-                binding.thumbnailLayout.thumbnailShimmer,
-                syncedFolderProvider.preferences,
-                viewThemeUtils,
-                overlayManager
+                ThumbnailArguments.withShimmer(binding.thumbnailLayout.thumbnailShimmer)
             )
         }
     }
@@ -243,11 +241,11 @@ class FileActionsBottomSheet :
         val decryptedFileName = titleFile?.decryptedFileName
         if (decryptedFileName != null) {
             val isFolder = titleFile.isFolder
-            val isRTL = DisplayUtils.isRTL()
+            val isRTL = LocaleDirection.isRtl
             val (base, ext) = FileStorageUtils.getFilenameAndExtension(decryptedFileName, isFolder, isRTL)
-            val titleMaxWidth = DisplayUtils.convertDpToPixel(
+            val titleMaxWidth = ScreenMetrics.dpToPx(
                 requireContext().resources.configuration.screenWidthDp.times(FILENAME_MAX_WIDTH_PERCENTAGE).toFloat(),
-                context
+                requireContext()
             )
 
             binding.title.maxWidth = titleMaxWidth
@@ -288,14 +286,11 @@ class FileActionsBottomSheet :
 
             override fun shouldCallGeneratedCallback(tag: String?, callContext: Any?): Boolean = false
         }
-        DisplayUtils.setAvatar(
-            currentUserProvider.user,
+        avatarGenerator.setUserAvatar(
             lockInfo.lockedBy,
             listener,
             resources.getDimension(R.dimen.list_item_avatar_icon_radius),
-            resources,
-            this,
-            requireContext()
+            this
         )
     }
 
@@ -304,7 +299,7 @@ class FileActionsBottomSheet :
             FileLockType.COLLABORATIVE -> R.string.locked_by_app
             else -> R.string.locked_by
         }
-        return DisplayUtils.createTextWithSpan(
+        return SpanFormatter.styleLast(
             getString(resource, lockInfo.lockedBy),
             lockInfo.lockedBy,
             StyleSpan(Typeface.BOLD)
@@ -312,7 +307,8 @@ class FileActionsBottomSheet :
     }
 
     private fun getLockedUntilText(lockInfo: FileActionsViewModel.LockInfo): CharSequence {
-        val relativeTimestamp = DisplayUtils.getRelativeTimestamp(context, lockInfo.lockedUntil!!, true)
+        val relativeTimestamp =
+            DisplayTextFormatter.formatRelativeTimestamp(requireContext(), lockInfo.lockedUntil!!, true)
         return getString(R.string.lock_expiration_info, relativeTimestamp)
     }
 

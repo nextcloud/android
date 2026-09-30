@@ -37,10 +37,12 @@ import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.common.NextcloudClient
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.extensions.searchFilesByName
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.extensions.typedActivity
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ListFragmentBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -60,14 +62,15 @@ import com.owncloud.android.ui.unifiedsearch.ProviderID
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
 import com.owncloud.android.ui.unifiedsearch.filterOutHiddenFiles
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.PermissionUtil
-import com.owncloud.android.utils.overlay.OverlayManager
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * Starts query to all capable unified search providers and displays them Opens result in our app, redirect to other
@@ -93,6 +96,7 @@ class UnifiedSearchFragment :
         private const val ARG_QUERY = "ARG_QUERY"
         private const val ARG_HIDDEN_FILES = "ARG_HIDDEN_FILES"
         private const val CURRENT_DIR_PATH = "CURRENT_DIR"
+        private const val SEARCH_TIMEOUT_MS = 30_000L
 
         fun newInstance(
             query: String?,
@@ -108,7 +112,7 @@ class UnifiedSearchFragment :
     }
 
     @Inject
-    lateinit var overlayManager: OverlayManager
+    lateinit var thumbnailGenerator: ThumbnailGenerator
 
     @Inject
     lateinit var vmFactory: ViewModelFactory
@@ -143,6 +147,7 @@ class UnifiedSearchFragment :
     private var showMoreActions = false
     private var currentDir: OCFile? = null
     private var initialQuery: String? = null
+    private var searchJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -207,7 +212,7 @@ class UnifiedSearchFragment :
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             val granted = permissions.entries.all { it.value }
             if (!granted) {
-                DisplayUtils.showSnackMessage(binding.root, R.string.unified_search_fragment_permission_needed)
+                SnackbarUtil.show(binding.root, R.string.unified_search_fragment_permission_needed)
             }
         }
 
@@ -319,6 +324,11 @@ class UnifiedSearchFragment :
         vm.searchResults.observe(viewLifecycleOwner, this::onSearchResultChanged)
         vm.isLoading.observe(viewLifecycleOwner) { loading ->
             binding.swipeContainingList.isRefreshing = loading
+            if (loading) {
+                startSearchTimeout()
+            } else {
+                searchJob?.cancel()
+            }
         }
         vm.screenState.observe(viewLifecycleOwner) {
             handleScreenState(it)
@@ -341,7 +351,7 @@ class UnifiedSearchFragment :
 
         vm.error.observe(viewLifecycleOwner) { error ->
             if (!error.isNullOrEmpty()) {
-                DisplayUtils.showSnackMessage(binding.root, error)
+                SnackbarUtil.show(binding.root, error)
             }
         }
         vm.browserUri.observe(viewLifecycleOwner) { uri ->
@@ -350,6 +360,19 @@ class UnifiedSearchFragment :
         }
         vm.file.observe(viewLifecycleOwner) {
             showFile(it, showMoreActions)
+        }
+    }
+
+    private fun startSearchTimeout() {
+        searchJob?.cancel()
+        searchJob = viewLifecycleOwner.lifecycleScope.launch {
+            delay(SEARCH_TIMEOUT_MS.milliseconds)
+            val currentBinding = _binding ?: return@launch
+            currentBinding.swipeContainingList.isRefreshing = false
+            SnackbarUtil.show(
+                currentBinding.root,
+                R.string.unified_search_fragment_search_takes_long
+            )
         }
     }
 
@@ -377,12 +400,11 @@ class UnifiedSearchFragment :
             storageManager,
             this@UnifiedSearchFragment,
             this@UnifiedSearchFragment,
-            currentAccountProvider.user,
             requireContext(),
             viewThemeUtils,
-            appPreferences,
             this@UnifiedSearchFragment,
-            overlayManager
+            thumbnailGenerator,
+            currentAccountProvider.user
         )
 
         adapter.shouldShowFooters(true)

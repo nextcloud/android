@@ -13,11 +13,12 @@ import android.content.Context
 import android.graphics.Outline
 import android.util.TypedValue
 import android.view.View
-import android.view.ViewGroup
 import android.view.ViewOutlineProvider
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import com.nextcloud.ui.behavior.OnScrollBehavior
-import com.owncloud.android.lib.common.utils.Log_OC
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
+import com.google.android.material.behavior.HideViewOnScrollBehavior
 
 fun View?.setVisibleIf(condition: Boolean) {
     if (this == null) return
@@ -57,18 +58,6 @@ fun View?.makeRounded(context: Context, cornerRadius: Float) {
     }
 }
 
-fun View?.setMargins(left: Int, top: Int, right: Int, bottom: Int) {
-    if (this == null) {
-        return
-    }
-
-    if (layoutParams is ViewGroup.MarginLayoutParams) {
-        val param = layoutParams as ViewGroup.MarginLayoutParams
-        param.setMargins(left, top, right, bottom)
-        requestLayout()
-    }
-}
-
 fun createRoundedOutline(context: Context, cornerRadiusValue: Float): ViewOutlineProvider =
     object : ViewOutlineProvider() {
         override fun getOutline(view: View, outline: Outline) {
@@ -86,20 +75,22 @@ fun createRoundedOutline(context: Context, cornerRadiusValue: Float): ViewOutlin
         }
     }
 
-@Suppress("UNCHECKED_CAST", "ReturnCount", "TooGenericExceptionCaught")
-fun <T : View?> T.slideHideBottomBehavior(visible: Boolean) {
-    this ?: return
-    val params = layoutParams as? CoordinatorLayout.LayoutParams ?: return
-    val behavior = params.behavior as? OnScrollBehavior<T> ?: return
-    post {
-        try {
-            if (visible) {
-                behavior.slideIn(this)
-            } else {
-                behavior.slideOut(this)
-            }
-        } catch (e: Exception) {
-            Log_OC.e("slideHideBottomBehavior", e.message)
-        }
+fun View?.slideHideBottomBehavior(visible: Boolean) {
+    val view = this ?: return
+    val params = view.layoutParams as? CoordinatorLayout.LayoutParams
+    if (params?.behavior !is HideViewOnScrollBehavior<*>) return
+
+    val behavior = HideViewOnScrollBehavior.from(view)
+    view.post {
+        if (visible) behavior.slideIn(view) else behavior.slideOut(view)
+    }
+}
+
+fun View.addPaddingForNavBar() {
+    addOnLayoutChangeListener { view, _, _, _, _, _, _, _, _ ->
+        val insets = ViewCompat.getRootWindowInsets(view)
+            ?.getInsetsIgnoringVisibility(WindowInsetsCompat.Type.navigationBars())
+            ?: return@addOnLayoutChangeListener
+        view.updatePadding(left = insets.left, right = insets.right, bottom = insets.bottom)
     }
 }

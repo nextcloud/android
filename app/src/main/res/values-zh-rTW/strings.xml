@@ -30,9 +30,26 @@
     <string name="activity_chooser_send_file_title">寄出</string>
     <string name="activity_chooser_title">傳送連結至…</string>
     <string name="activity_icon">活動狀態</string>
+    <string name="add_media">新增媒體</string>
     <string name="add_new_public_share">新增公開分享連結</string>
     <string name="add_new_secure_file_drop">新增安全檔案投遞</string>
-    <string name="add_to_cloud">新增到 %1$s </string>
+    <string name="add_to_album">新增至相簿</string>
+    <string name="album_already_exists">相簿已存在</string>
+    <string name="album_copy_file_conflict">已存在。</string>
+    <string name="album_create_new_link">建立新連結</string>
+    <string name="album_default_sharing_text">每個人都可以檢視</string>
+    <string name="album_delete">刪除相簿</string>
+    <string name="album_delete_failed_message">無法刪除其中幾個檔案。</string>
+    <string name="album_file_added_message">檔案新增失敗</string>
+    <string name="album_name_empty">相簿名稱不能為空</string>
+    <string name="album_picker_toolbar_title">挑選相簿</string>
+    <string name="album_rename">重新命名相簿</string>
+    <string name="album_rename_conflict">此名稱已使用。</string>
+    <string name="album_share">分享相簿</string>
+    <string name="album_share_link">分享相簿的連結</string>
+    <string name="album_stop_sharing">停止分享</string>
+    <string name="album_unsupported_file">不支援的媒體</string>
+    <string name="album_upload_from_account">從帳號選取影像</string>
     <string name="app_config_base_url_title">基礎 URL</string>
     <string name="app_config_disable_clipboard_title">停用剪貼簿</string>
     <string name="app_config_disable_intro_title">停用簡介</string>
@@ -123,11 +140,27 @@
     <string name="auto_upload_on_wifi">只在非計量收費的 Wi-Fi 上傳</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">此資料夾已包含在上層資料夾的同步中，這可能會導致重複上傳</string>
+    <string name="auto_upload_sync_now_action">立刻同步</string>
+    <string name="auto_upload_sync_now_no_folder">尚未設定用於自動上傳的資料夾</string>
+    <string name="auto_upload_sync_now_running">自動上傳功能已在執行</string>
+    <string name="auto_upload_sync_now_started">自動上傳已開始</string>
     <string name="auto_upload_wifi_only_warning_info">等待 Wi-Fi 開始上傳</string>
     <string name="auto_upload_worker_start_text">正在從 %1$s 上傳檔案到 %2$s</string>
     <string name="autoupload_configure">設定</string>
     <string name="autoupload_create_new_custom_folder">新增自訂資料夾</string>
     <string name="autoupload_custom_folder">設置自訂資料夾</string>
+    <string name="autoupload_delete_uploaded">本機刪除已上傳的檔案</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_all_users">來自所有使用者</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_current_user">來自目前的使用者</string>
+    <string name="autoupload_delete_uploaded_all_dialog_description">所有已上傳至雲端的檔案，都將從目前裝置中移除，範圍涵蓋所有已設定使用者所屬的所有自動上傳資料夾</string>
+    <string name="autoupload_delete_uploaded_all_dialog_title">針對所有自動上傳資料夾，本機刪除其已上傳的檔案</string>
+    <string name="autoupload_delete_uploaded_dialog_description">所有已上傳至雲端的檔案都將從目前裝置中移除</string>
+    <string name="autoupload_delete_uploaded_dialog_title">本機刪除已上傳的檔案</string>
+    <string name="autoupload_delete_uploaded_notif_ended_content">從 %4$s 處移除 %2$s，橫跨 %3$s，釋出 %1$s。</string>
+    <string name="autoupload_delete_uploaded_notif_ended_title">本機刪除已上傳的檔案</string>
+    <string name="autoupload_delete_uploaded_notif_error_title">無法本機刪除已上傳的檔案</string>
+    <string name="autoupload_delete_uploaded_notif_started_title">已開始在背景中本機刪除已上傳的檔案</string>
+    <string name="autoupload_delete_uploaded_notif_ticker">本機檔案刪除</string>
     <string name="autoupload_disable_power_save_check">停用省電檢查</string>
     <string name="autoupload_hide_folder">隱藏資料夾</string>
     <string name="avatar">頭像</string>
@@ -140,7 +173,7 @@
     <string name="battery_optimization_message">您的裝置可能啟用了電池最佳化。自動上傳功能只能在排除此應用程式的情況下才能運作。</string>
     <string name="battery_optimization_title">電池最佳化</string>
     <string name="bottom_navigation_menu_assistant_label">助理</string>
-    <string name="bottom_navigation_menu_favorites_label">喜愛</string>
+    <string name="bottom_navigation_menu_favorites_label">最愛</string>
     <string name="bottom_navigation_menu_files_label">所有檔案</string>
     <string name="bottom_navigation_menu_media_label">媒體</string>
     <string name="busy">忙碌</string>
@@ -210,7 +243,9 @@
     <string name="configure_new_media_folder_detection_notifications">設定</string>
     <string name="confirm_removal">移除本機加密</string>
     <string name="confirmation_remove_file_alert">您真的想要刪除 %1$s 嗎？</string>
+    <string name="confirmation_remove_file_from_album_message">您真的想要從相簿移除檔案 %1$s 嗎？</string>
     <string name="confirmation_remove_files_alert">您真的想要刪除所選的項目嗎？</string>
+    <string name="confirmation_remove_files_from_album_message">您真的想要從相簿移除選定的檔案嗎？</string>
     <string name="confirmation_remove_folder_alert">您真的想要刪除 %1$s 及其內容？</string>
     <string name="confirmation_remove_folders_alert">您真的想要刪除所選項目和裡面的內容嗎？</string>
     <string name="confirmation_remove_local">僅本機</string>
@@ -249,17 +284,23 @@
     <string name="could_not_retrieve_shares">無法擷取分享</string>
     <string name="could_not_retrieve_url">無法擷取 URL</string>
     <string name="create">建立</string>
+    <string name="create_album_dialog_message">輸入您的新相簿名稱</string>
+    <string name="create_album_dialog_title">新相簿</string>
     <string name="create_dir_fail_msg">無法建立資料夾</string>
+    <string name="create_document">文件</string>
+    <string name="create_encrypted_folder">加密的資料夾</string>
     <string name="create_end_to_end_encrypted_share">連結分享</string>
     <string name="create_end_to_end_encrypted_share_title">端到端連結分享</string>
+    <string name="create_folder">資料夾</string>
     <string name="create_link">建立連結</string>
     <string name="create_new">建立新的</string>
     <string name="create_new_document">新增文件</string>
-    <string name="create_new_encrypted_folder">新的加密資料夾</string>
-    <string name="create_new_folder">新增資料夾</string>
     <string name="create_new_presentation">新增投影片</string>
     <string name="create_new_spreadsheet">新增試算表</string>
+    <string name="create_presentation">簡報</string>
     <string name="create_rich_workspace">新增資料夾資訊</string>
+    <string name="create_spreadsheet">試算表</string>
+    <string name="create_tag_format">建立標籤：「%1$s」</string>
     <string name="credentials_disabled">憑證已停用</string>
     <string name="daily_backup">每日備份</string>
     <string name="data_to_back_up">要備份的資料</string>
@@ -318,9 +359,10 @@
     <string name="drawer_community">社群</string>
     <string name="drawer_header_background">Drawer 標頭區塊的背景圖片</string>
     <string name="drawer_item_activities">活動狀態</string>
+    <string name="drawer_item_album">相簿</string>
     <string name="drawer_item_all_files">所有檔案</string>
     <string name="drawer_item_assistant">助理</string>
-    <string name="drawer_item_favorites">喜愛</string>
+    <string name="drawer_item_favorites">最愛</string>
     <string name="drawer_item_gallery">媒體</string>
     <string name="drawer_item_groupfolders">團隊資料夾</string>
     <string name="drawer_item_home">家目錄</string>
@@ -347,7 +389,26 @@
     <string name="ecosystem_apps_more">更多 Nextcloud 應用程式</string>
     <string name="editor_web_view_cannot_open_file">無法開啟檔案選取程式</string>
     <string name="email_pick_failed">挑選電子郵件地址失敗。</string>
+    <string name="empty_albums_message">您可以將所有照片整理到任意數量的相簿中。您目前尚未建立任何相簿。</string>
+    <string name="empty_albums_title">為您的照片建立相簿</string>
     <string name="encrypted">設為已加密</string>
+    <string name="encryption_encrypt_check_failed">無法檢查您的加密金鑰。嘗試再次加密資料夾。</string>
+    <string name="encryption_encrypt_no_network">無法連線至伺服器。嘗試稍後再次加密資料夾。</string>
+    <string name="encryption_encrypt_unavailable">無法加密此資料夾。伺服器並未設定端到端加密。</string>
+    <string name="encryption_key_checking_keys">正在檢查金鑰⋯⋯</string>
+    <string name="encryption_key_handle_folder_read_only_description">此帳號的加密金鑰已被移除或更換，因此此資料夾的內容已無法解密。\n\n此資料夾從現在起將設為唯讀。若要再次使用加密資料夾，請備份此資料夾，並在設定中設定新的加密金鑰。</string>
+    <string name="encryption_key_handle_key_keys_only_on_device_description">儲存於此裝置上的加密金鑰已失效。該金鑰已從伺服器撤銷。 \n\n請從設定中移除本機加密，以建立新的加密資料夾。</string>
+    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">儲存於此裝置上的加密金鑰已失效。該金鑰已從伺服器撤銷。 \n\n請備份先前建立的加密資料夾。 \n\n接著，請在設定中移除本機加密，以便建立新的加密資料夾。</string>
+    <string name="encryption_key_handle_key_removed_title">加密金鑰已變更</string>
+    <string name="encryption_key_handle_no_keys_description">無法開啟此資料夾，因為其加密金鑰已不在此裝置或伺服器上。</string>
+    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">此帳號的加密金鑰已被移除或替換。\n\n在對資料夾進行加密之前，請先在設定中設定新的加密金鑰。</string>
+    <string name="encryption_new_folder_check_failed">無法檢查您的加密金鑰。嘗試再次建立資料夾。</string>
+    <string name="encryption_new_folder_no_network">無法連線至伺服器。嘗試稍後再次建立資料夾。</string>
+    <string name="encryption_new_folder_unavailable">無法建立加密資料夾。伺服器並未設定端到端加密。</string>
+    <string name="encryption_open_check_failed">無法檢查您的加密金鑰。嘗試再次開啟資料夾。</string>
+    <string name="encryption_open_key_mismatch">儲存於此裝置上的加密金鑰與此資料夾所需的金鑰不符。</string>
+    <string name="encryption_open_no_network">無法連線至伺服器。嘗試稍後再次開啟資料夾。</string>
+    <string name="encryption_open_unavailable">無法開啟此資料夾。伺服器並未設定端到端加密。</string>
     <string name="end_to_end_encryption_certificate_unavailable">無法擷取伺服器憑證</string>
     <string name="end_to_end_encryption_certificate_verification_failed">驗證公鑰失敗</string>
     <string name="end_to_end_encryption_confirm_button">設置加密</string>
@@ -419,12 +480,13 @@
     <string name="fab_label">新增或上傳</string>
     <string name="failed_to_create_conflict_dialog">無法建立衝突對話方塊</string>
     <string name="failed_to_download">無法將檔案傳遞給下載管理程式</string>
+    <string name="failed_to_load_tags">標籤載入失敗</string>
     <string name="failed_to_print">檔案列印失敗</string>
     <string name="failed_to_start_action">開始動作失敗！</string>
     <string name="failed_to_start_editor">無法啟動編輯器</string>
     <string name="failed_update_ui">更新使用者介面失敗</string>
-    <string name="favorite">新增至喜愛</string>
-    <string name="favorite_icon">喜愛</string>
+    <string name="favorite">新增至最愛</string>
+    <string name="favorite_icon">最愛</string>
     <string name="fifteenMinutes">15分鐘</string>
     <string name="file_activity_shared_file_cannot_be_updated">無法更新已分享的檔案</string>
     <string name="file_already_exists">檔案名稱已經存在</string>
@@ -438,8 +500,8 @@
     <string name="file_info_image_details_section_title">影像詳細資訊</string>
     <string name="file_keep">保留</string>
     <string name="file_list_empty">上傳一些內容或與您的裝置同步。</string>
-    <string name="file_list_empty_favorite_headline">還沒有喜愛的項目</string>
-    <string name="file_list_empty_favorites_filter_list">您標記為喜愛的檔案與資料夾會顯示在這裡。</string>
+    <string name="file_list_empty_favorite_headline">還沒有最愛的項目</string>
+    <string name="file_list_empty_favorites_filter_list">標記為最愛的檔案與資料夾會顯示在這裡。</string>
     <string name="file_list_empty_gallery">找不到圖片或影片</string>
     <string name="file_list_empty_headline">此處無檔案</string>
     <string name="file_list_empty_headline_search">在這個資料夾中沒有結果</string>
@@ -461,6 +523,7 @@
     <string name="file_list_live">即時</string>
     <string name="file_list_loading">正在載入…</string>
     <string name="file_list_no_app_for_file_type">未設置適合處理此檔案類型的應用程式。</string>
+    <string name="file_list_out_of_memory_description">無法載入內容</string>
     <string name="file_list_seconds_ago">幾秒前</string>
     <string name="file_management_permission_optional">儲存空間取用權</string>
     <string name="file_management_permission_optional_text">%1$s 在有儲存空間的取用權時運作得最好。您可以選擇完整存取所有檔案，或是限制照片及影片僅能唯讀存取。</string>
@@ -614,25 +677,14 @@
     <string name="logs_status_not_filtered">紀錄檔：%1$d kB（不篩選）</string>
     <string name="logs_title">紀錄檔</string>
     <string name="maintenance_mode">伺服器正處於維護模式</string>
+    <string name="manage_space_auto_upload_clear_data">本機刪除已自動上傳的檔案</string>
+    <string name="manage_space_auto_upload_description">所有已從「自動上傳」資料夾上傳至伺服器的檔案，都將從本機刪除，以釋放裝置的儲存空間。\n\n此過程可能需要一段時間。</string>
+    <string name="manage_space_auto_upload_title">本機刪除已自動上傳的檔案</string>
     <string name="manage_space_clear_data">清除資料</string>
     <string name="manage_space_description">來自 %1$s 的設定，資料庫與伺服器憑證等相關資料將永久刪除。\n\n已下載的檔案將保留不會變動。\n\n此過程需要一點時間。</string>
     <string name="manage_space_title">管理空間</string>
-    <string name="media_err_invalid_progressive_playback">此媒體檔案無法以串流播放</string>
-    <string name="media_err_io">無法讀取媒體檔案</string>
-    <string name="media_err_malformed">媒體檔案編碼不正確</string>
-    <string name="media_err_timeout">嘗試播放檔案逾時</string>
-    <string name="media_err_unknown">內建媒體播放器無法播放此媒體檔案</string>
-    <string name="media_err_unsupported">不支援的媒體編解碼器</string>
-    <string name="media_forward_description">快轉按鈕</string>
-    <string name="media_notif_ticker">%1$s 音樂播放器</string>
-    <string name="media_play_pause_description">播放或暫停按鈕</string>
-    <string name="media_player_pause">暫停</string>
-    <string name="media_player_play">播放</string>
-    <string name="media_player_playing">正在播放媒體</string>
-    <string name="media_player_seek_backward">倒帶</string>
-    <string name="media_player_seek_forward">快轉</string>
-    <string name="media_rewind_description">倒帶按鈕</string>
-    <string name="media_state_playing">%1$s（播放中）</string>
+    <string name="manage_tags">管理標籤</string>
+    <string name="media_picker_toolbar_title">挑選媒體檔案</string>
     <string name="menu_item_sort_by_date_newest_first">新的在前</string>
     <string name="menu_item_sort_by_date_oldest_first">舊的在前</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -640,6 +692,7 @@
     <string name="menu_item_sort_by_size_biggest_first">最大的在前</string>
     <string name="menu_item_sort_by_size_smallest_first">最小的在前</string>
     <string name="more">更多</string>
+    <string name="more_documents">更多文件</string>
     <string name="move_file_error">在移動此檔案或資料夾時發生錯誤</string>
     <string name="move_file_invalid_into_descendent">無法將資料夾移動到自己的子資料夾中</string>
     <string name="move_file_invalid_overwrite">此檔案已經存在於目標資料夾中</string>
@@ -726,8 +779,15 @@
     <string name="picture_set_as_no_app">沒有找到圖片可設定的應用程式</string>
     <string name="pin_home">釘選至主畫面</string>
     <string name="pin_shortcut_label">開啟 %1$s</string>
-    <string name="player_stop">停止</string>
-    <string name="player_toggle">切換</string>
+    <string name="player_audio_title_with_artist">%1$s • %2$s</string>
+    <string name="player_control_view_next_button_content_description">下一頁按鈕</string>
+    <string name="player_control_view_play_pause_button_content_description">播放/暫停按鈕</string>
+    <string name="player_control_view_previous_button_content_description">上一頁按鈕</string>
+    <string name="player_control_view_random_button_content_description">隨機按鈕</string>
+    <string name="player_control_view_repeat_button_content_description">重複播放按鈕</string>
+    <string name="player_error_source_not_found">找不到來源</string>
+    <string name="player_last_modified">修改時間：%s</string>
+    <string name="player_media_controls_close_action_title">關閉</string>
     <string name="please_select_a_server">請選取伺服器……</string>
     <string name="power_save_check_dialog_message">停用省電檢查時，就算電池電量偏低，檔案仍會持續上傳！</string>
     <string name="pref_behaviour_entries_delete_file">已刪除</string>
@@ -825,6 +885,7 @@
     <string name="reload">重新載入</string>
     <string name="remote">（遠端）</string>
     <string name="remote_file_fetch_failed">找不到檔案！</string>
+    <string name="remove">移除</string>
     <string name="remove_e2e">您可以在此客戶端上移除本機的端對端加密</string>
     <string name="remove_e2e_keys_and_files_dialog_warning">此操作將會移除所有加密檔案、私鑰、公鑰。您確定嗎？</string>
     <string name="remove_e2e_message">您可以在此客戶端上移除本機的端對端加密。已加密的檔案將會保留在伺服器上，但不會再同步到此電腦。</string>
@@ -834,6 +895,8 @@
     <string name="remove_notification_failed">移除通知失敗。</string>
     <string name="remove_push_notification">移除</string>
     <string name="remove_success_msg">已刪除</string>
+    <string name="rename_album_dialog_title">重新命名相簿</string>
+    <string name="rename_dialog_button">重新命名</string>
     <string name="rename_dialog_title">輸入新名稱</string>
     <string name="rename_local_fail_msg">無法重新命名本機副本，請嘗試不同的名稱</string>
     <string name="rename_server_fail_msg">無法重新命名，該名稱已被使用</string>
@@ -870,6 +933,7 @@
     <string name="screenshot_06_davdroid_heading">行事曆與聯絡人</string>
     <string name="screenshot_06_davdroid_subline">使用 DAVx⁵ 同步</string>
     <string name="search_error">取得搜尋結果時發生錯誤</string>
+    <string name="search_tags">搜尋標籤</string>
     <string name="secure_share_not_set_up">尚未為此使用者設定安全分享</string>
     <string name="secure_share_search">安全分享……</string>
     <string name="select_all">全選</string>
@@ -879,6 +943,7 @@
     <string name="send">傳送</string>
     <string name="send_copy_to">傳送副本至</string>
     <string name="send_share">傳送分享</string>
+    <string name="server_not_allowed">不允許伺服器</string>
     <string name="server_not_reachable">無法載入內容</string>
     <string name="server_not_reachable_content">裝置似乎無法連線至網際網路</string>
     <string name="set_as">設定為</string>
@@ -950,7 +1015,7 @@
     <string name="signup_with_provider">向提供者註冊</string>
     <string name="single_sign_on_request_token" formatted="true">允許 %1$s 存取您的 Nextcloud 帳號 %2$s？</string>
     <string name="sort_by">排序依照</string>
-    <string name="sort_favorites_first">先排序喜愛</string>
+    <string name="sort_favorites_first">先排序最愛</string>
     <string name="sort_folders_before_files">將資料夾排序在檔案前</string>
     <string name="ssl_validator_btn_details_hide">隱藏</string>
     <string name="ssl_validator_btn_details_see">詳細資訊</string>
@@ -993,13 +1058,12 @@
     <string name="storage_permission_dont_ask">不要詢問</string>
     <string name="storage_permission_media_read_only">媒體唯讀</string>
     <string name="storage_pictures">圖片</string>
-    <string name="store_full_desc">可自架且始終讓您掌控一切的生產力平台。\n功能：\n* 簡潔、現代的使用者介面，適合您伺服器的佈景主題\n* 上傳檔案到您的 Nextcloud 伺服器\n* 與其他人分享檔案\n* 讓您最愛的檔案與資料夾同步\n* 搜尋您伺服器上所有的資料夾\n* 以通知訊息保持更新\n* 多帳號支援\n* 使用指紋或 PIN 碼安全存取您的資料\n* 與 DAVx⁵ 整合（先前被稱為 DAVdroid），可輕易設定行事曆與聯絡人同步\n\n請至 https://github.com/nextcloud/android/issues 回報所有問題，並於 https://help.nextcloud.com/c/clients/android 討論此應用程式\n\n您是 Nextcloud 新手嗎？Nextcloud 是一個私人的檔案同步、共享與通訊的伺服器。它是自由軟體，您可以自行架設，或是付費請專業公司協助您建置。如此，您便可完全掌控您的照片、行事曆與聯絡人資料、您的文件與其他任何東西。\n\n請造訪 https://nextcloud.com 以取得更多資訊</string>
+    <string name="store_full_desc">自主架設的生產力平台，讓你完全掌控自己的資料。\n\n功能特色：\n* 簡潔現代的介面，完美契合伺服器主題\n* 將檔案上傳至您的 Nextcloud 伺服器\n* 與他人共用檔案\n* 保持最愛的檔案與資料夾同步\n* 搜尋伺服器上的所有資料夾\n* 自動上傳裝置所拍攝的照片與影片\n* 隨時掌握最新通知\n* 支援多帳號\n* 透過指紋或 PIN 碼安全存取您的資料\n* 整合 DAVx⁵（前身為 DAVdroid），輕鬆設定行事曆與聯絡人同步\n\n請至 https://github.com/nextcloud/android/issues 回報所有問題，並至 https://help.nextcloud.com/c/clients/android 討論此應用程式。\n\n初次接觸 Nextcloud？Nextcloud 是一套私人的檔案同步、共用與通訊伺服器。這是自由軟體，您可以自行架設或委託公司代管。透過這種方式，您可以完全掌控自己的照片、行事曆與聯絡人資料、文件以及所有一切。\n\n請至 https://nextcloud.com 了解更多關於 Nextcloud 的資訊</string>
     <string name="store_full_dev_desc">可自架且始終讓您掌控一切的生產力平台。\n這是官方的開發版本，每天都會提供任何未經測試的新功能的每日成品，它可能造成不穩定或資料遺失。此應用程式適合願意測試，且回報所遇到問題的使用者。不要將它用於您的生產力工作環境！\n\nF-Droid 同時提供了官方的開發版本與一般版本，兩者可同時安裝。</string>
     <string name="store_short_desc">讓您能完全掌控、可自架的生產力平台</string>
     <string name="store_short_dev_desc">讓您能完全掌控、可自架的生產力平台（開發者預覽版）</string>
     <string name="stream">串流播放…</string>
     <string name="stream_not_possible_headline">無法進行內部串流</string>
-    <string name="stream_not_possible_message">請改為下載媒體，或使用外部應用程式播放。</string>
     <string name="sub_folder_rule_day">年/月/日</string>
     <string name="sub_folder_rule_month">年/月</string>
     <string name="sub_folder_rule_year">年</string>
@@ -1076,11 +1140,12 @@
     <string name="unified_search_fragment_contact_not_found">找不到聯絡人，您隨時可以同步更新。正在重新導向至網路……</string>
     <string name="unified_search_fragment_permission_needed">開啟搜尋結果需要權限，否則其將會重新導向至網路……</string>
     <string name="unified_search_fragment_search_in_this_folder">在此資料夾</string>
+    <string name="unified_search_fragment_search_takes_long">搜尋時間比平常更長。伺服器一回應，結果就會顯示出來</string>
     <string name="unknown">未知</string>
     <string name="unlock_file">解鎖檔案</string>
     <string name="unread_comments">有未讀留言</string>
     <string name="unset_encrypted">取消加密</string>
-    <string name="unset_favorite">從喜愛中移除</string>
+    <string name="unset_favorite">從最愛中移除</string>
     <string name="unset_internal_two_way_sync_description">從內部雙向同步中移除資料夾</string>
     <string name="unshare_link_file_error">嘗試取消分享這個檔案或資料夾時發生錯誤。</string>
     <string name="unshare_link_file_no_exist">無法取消分享。請確認檔案是否存在。</string>
@@ -1205,6 +1270,7 @@
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">網站</string>
     <string name="user_information_retrieval_error">擷取使用者資訊時發生錯誤</string>
+    <string name="user_information_retrieval_error_message">請再次確認您的網路連線，或檢查伺服器狀態</string>
     <string name="userinfo_no_info_headline">未設定個人資訊</string>
     <string name="userinfo_no_info_text">在您的個人檔案中新增名字、頭像和聯絡資訊。</string>
     <string name="username">使用者名稱</string>
@@ -1214,6 +1280,7 @@
     <string name="wait_checking_credentials">正在檢查儲存的憑證</string>
     <string name="wait_for_tmp_copy_from_private_storage">從私有儲存空間複製檔案中</string>
     <string name="warn_rename_extension">變更副檔名可能會導致此檔案在其他應用程式中開啟</string>
+    <string name="webview_not_available">此裝置缺少 Android System WebView 或其已被停用</string>
     <string name="what_s_new_image">有什麼新消息圖片</string>
     <string name="whats_new_skip">略過</string>
     <string name="whats_new_title">%1$s 有什麼新功能</string>
@@ -1224,6 +1291,12 @@
     <string name="write_email">傳送電子郵件</string>
     <string name="wrong_storage_path">資料儲存資料夾不存在！</string>
     <string name="wrong_storage_path_desc">這可能是因為在另一台裝置上備份還原的關係。正在退回至預設值。請檢查設定以調整資料儲存資料夾。</string>
+    <plurals name="album_items_text">
+        <item quantity="other">%1$d 個項目 — %2$s</item>
+    </plurals>
+    <plurals name="album_elements_text">
+        <item quantity="other">%d 個項目</item>
+    </plurals>
     <plurals name="hours">
         <item quantity="other">%d小時 </item>
     </plurals>
@@ -1284,6 +1357,15 @@
     <plurals name="items_selected_count">
         <item quantity="other">已選取 %d 個</item>
     </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_files">
+        <item quantity="other">%d 個檔案</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_folders">
+        <item quantity="other">%d 個資料夾</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_users">
+        <item quantity="other">%d 個使用者</item>
+    </plurals>
     <plurals name="passcode_delay_seconds">
         <item quantity="other">由於錯誤嘗試次數過多，請於 %d 秒後再試。</item>
     </plurals>
@@ -1295,5 +1377,8 @@
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="other">剩 %1$d 個下載</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="other">已開始匯出（%d 個檔案）</item>
     </plurals>
 </resources>

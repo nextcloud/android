@@ -10,28 +10,23 @@ package com.owncloud.android.ui.adapter
 import android.content.Context
 import android.view.View
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
-import com.nextcloud.client.account.User
-import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.extensions.setVisibleIf
+import com.nextcloud.utils.thumbnail.ThumbnailArguments
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.databinding.UnifiedSearchCurrentDirectoryItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.interfaces.UnifiedSearchCurrentDirItemAction
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
-import com.owncloud.android.utils.overlay.OverlayManager
-import com.owncloud.android.utils.theme.ViewThemeUtils
 
 @Suppress("LongParameterList")
 class UnifiedSearchCurrentDirItemViewHolder(
     val binding: UnifiedSearchCurrentDirectoryItemBinding,
     val context: Context,
-    private val viewThemeUtils: ViewThemeUtils,
     private val storageManager: FileDataStorageManager,
     private val isRTL: Boolean,
-    private val user: User,
-    private val appPreferences: AppPreferences,
     private val action: UnifiedSearchCurrentDirItemAction,
-    private val overlayManager: OverlayManager
+    private val thumbnailGenerator: ThumbnailGenerator
 ) : SectionedViewHolder(binding.unifiedSearchCurrentDirItemLayout) {
 
     fun bind(file: OCFile) {
@@ -48,18 +43,12 @@ class UnifiedSearchCurrentDirItemViewHolder(
             binding.filename.text = filename
         }
 
-        DisplayUtils.setThumbnail(
+        binding.favoriteAction.setVisibleIf(file.isFavorite)
+
+        thumbnailGenerator.setThumbnail(
             file,
             binding.thumbnail,
-            user,
-            storageManager,
-            listOf(),
-            false,
-            context,
-            binding.thumbnailShimmer,
-            appPreferences,
-            viewThemeUtils,
-            overlayManager
+            ThumbnailArguments.withShimmer(binding.thumbnailShimmer)
         )
 
         binding.more.setOnClickListener {

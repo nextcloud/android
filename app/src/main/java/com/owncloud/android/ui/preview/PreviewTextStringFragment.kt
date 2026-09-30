@@ -23,10 +23,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.nextcloud.android.lib.richWorkspace.RichWorkspaceDirectEditingRemoteOperation
+import com.nextcloud.utils.SnackbarUtil
 import com.owncloud.android.R
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.utils.DisplayUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -123,7 +123,7 @@ class PreviewTextStringFragment : PreviewTextFragment() {
             } else {
                 withContext(Dispatchers.Main) {
                     activity?.let {
-                        DisplayUtils.showSnackMessage(
+                        SnackbarUtil.show(
                             it,
                             R.string.preview_text_string_fragment_open_rich_text_editor_error_message
                         )

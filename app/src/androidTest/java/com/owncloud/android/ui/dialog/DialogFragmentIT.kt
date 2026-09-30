@@ -612,7 +612,8 @@ class DialogFragmentIT : AbstractIT() {
                     fda,
                     user,
                     hoverCard,
-                    fda.viewThemeUtils
+                    fda.viewThemeUtils,
+                    fda.avatarGenerator
                 )
                 sut.show()
             }

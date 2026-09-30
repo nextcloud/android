@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2017 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2017 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -22,15 +23,16 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 
+import com.nextcloud.client.utils.IntentUtil;
+import com.nextcloud.utils.RawResourceReader;
+import com.nextcloud.utils.SnackbarUtil;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ExternalsiteWebviewBinding;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.NextcloudWebViewClient;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.WebViewUtil;
 
-import java.io.InputStream;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -56,6 +58,14 @@ public class ExternalSiteWebView extends FileActivity {
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
+
+        if (!WebViewUtil.available(this)) {
+            super.onCreate(savedInstanceState);
+            SnackbarUtil.show(this, R.string.webview_not_available);
+            finish();
+            return;
+        }
+
         bindView();
         showToolbar = showToolbarByDefault();
 
@@ -129,8 +139,7 @@ public class ExternalSiteWebView extends FileActivity {
         final ExternalSiteWebView self = this;
         getWebView().setWebViewClient(new NextcloudWebViewClient(getSupportFragmentManager()) {
             public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
-                InputStream resources = getResources().openRawResource(R.raw.custom_error);
-                String customError = DisplayUtils.getData(resources);
+                String customError = RawResourceReader.readText(getResources(), R.raw.custom_error);
 
                 if (!customError.isEmpty()) {
                     getWebView().loadData(customError, "text/html; charset=UTF-8", null);
@@ -140,7 +149,7 @@ public class ExternalSiteWebView extends FileActivity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 if (!request.isRedirect()) {
-                    DisplayUtils.startLinkIntent(self, request.getUrl());
+                    IntentUtil.startLinkIntent(self, request.getUrl());
                     return true;
                 }
                 return false;
@@ -153,7 +162,10 @@ public class ExternalSiteWebView extends FileActivity {
 
     @Override
     protected void onDestroy() {
-        getWebView().destroy();
+        WebView webView = getWebView();
+        if (webView != null) {
+            webView.destroy();
+        }
         super.onDestroy();
     }
 
@@ -232,6 +244,6 @@ public class ExternalSiteWebView extends FileActivity {
     }
 
     protected WebView getWebView() {
-        return binding.webView;
+        return binding == null ? null : binding.webView;
     }
 }

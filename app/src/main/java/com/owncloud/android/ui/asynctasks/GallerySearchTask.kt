@@ -47,7 +47,7 @@ class GallerySearchTask(
         val result = performSearch(context)
 
         withContext(Dispatchers.Main) {
-            fragment.searchCompleted(result.emptySearch, result.lastTimestamp)
+            fragment.searchCompleted(result)
         }
     }
 
@@ -62,7 +62,7 @@ class GallerySearchTask(
         return if (operationResult.isSuccess) {
             handleSuccess(operationResult)
         } else {
-            Result(false, false, NO_TIMESTAMP)
+            Result(operationResult.code, false, NO_TIMESTAMP)
         }
     }
 
@@ -89,14 +89,24 @@ class GallerySearchTask(
     private fun handleSuccess(operationResult: RemoteOperationResult<*>): Result {
         val remoteFiles = operationResult.data.filterIsInstance<RemoteFile>()
         val lastTimestamp = findLastTimestamp(remoteFiles)
-        val emptySearch = parseMedia(lastTimestamp, endDate, remoteFiles)
-        return Result(true, emptySearch, lastTimestamp)
+        parseMedia(lastTimestamp, endDate, remoteFiles)
+        val emptySearch = remoteFiles.isEmpty()
+        return Result(operationResult.code, emptySearch, lastTimestamp)
     }
 
     private fun findLastTimestamp(remoteFiles: List<RemoteFile>): Long =
         remoteFiles.lastOrNull()?.modifiedTimestamp?.div(MILLIS_PER_SECOND) ?: NO_TIMESTAMP
 
-    private fun parseMedia(startDate: Long, endDate: Long, remoteFiles: List<RemoteFile>): Boolean {
+    /**
+     * Sync local media files with theirs remote counterparts for the provided timespan (downloads missing,
+     * deletes removed ones, updates metadata).
+     *
+     * @param startDate start of timespan
+     * @param endDate end of timespan
+     * @param remoteFiles list of remote files in the folder. Only ones in the provided timespan are taken into
+     * consideration.
+     */
+    private fun parseMedia(startDate: Long, endDate: Long, remoteFiles: List<RemoteFile>) {
         val localFiles = storageManager.getGalleryItems(startDate * MILLIS_PER_SECOND, endDate * MILLIS_PER_SECOND)
 
         if (BuildConfig.DEBUG) {
@@ -149,8 +159,6 @@ class GallerySearchTask(
                     " deleted: $filesDeleted unchanged: $unchangedFiles"
             )
         }
-
-        return filesAdded <= 0 && filesUpdated <= 0 && filesDeleted <= 0
     }
 
     private fun enrichFromLocalStorage(file: RemoteFile) {
@@ -186,5 +194,9 @@ class GallerySearchTask(
         )
     }
 
-    data class Result(val success: Boolean, val emptySearch: Boolean, val lastTimestamp: Long)
+    data class Result(
+        val resultCode: RemoteOperationResult.ResultCode,
+        val emptySearch: Boolean,
+        val lastTimestamp: Long
+    )
 }

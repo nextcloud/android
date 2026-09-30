@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+<!--
+  ~ Only horizontal and bottom padding: the dialog message above the input already carries the Material spacing,
+  ~ while the custom view panel of an alert dialog brings none of its own.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/dialog_padding"
+    android:paddingEnd="@dimen/dialog_padding"
+    android:paddingBottom="@dimen/dialog_padding">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/user_input_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_name"
+        android:theme="@style/TextInputLayoutInputWarning">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/user_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="top"
+            android:importantForAutofill="no"
+            android:inputType="textNoSuggestions|textCapSentences"
+            android:scrollbars="vertical" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+</LinearLayout>

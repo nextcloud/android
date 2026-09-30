@@ -30,9 +30,26 @@
     <string name="activity_chooser_send_file_title">Skicka</string>
     <string name="activity_chooser_title">Skicka länk till…</string>
     <string name="activity_icon">Aktivitet</string>
+    <string name="add_media">Lägg till media</string>
     <string name="add_new_public_share">Lägg till en ny offentlig delningslänk</string>
     <string name="add_new_secure_file_drop">Lägg till ett nytt säkert filinkast</string>
-    <string name="add_to_cloud">Lägg till %1$s</string>
+    <string name="add_to_album">Lägg till i album</string>
+    <string name="album_already_exists">Albumet finns redan</string>
+    <string name="album_copy_file_conflict">Finns redan.</string>
+    <string name="album_create_new_link">Skapa ny länk</string>
+    <string name="album_default_sharing_text">Alla kan bara visa</string>
+    <string name="album_delete">Ta bort album</string>
+    <string name="album_delete_failed_message">Det gick inte att ta bort vissa av filerna.</string>
+    <string name="album_file_added_message">Filen har lagts till</string>
+    <string name="album_name_empty">Albumnamnet får inte vara tomt</string>
+    <string name="album_picker_toolbar_title">Välj album</string>
+    <string name="album_rename">Byt namn på album</string>
+    <string name="album_rename_conflict">Namnet används redan.</string>
+    <string name="album_share">Dela album</string>
+    <string name="album_share_link">Dela länk till album</string>
+    <string name="album_stop_sharing">Sluta dela</string>
+    <string name="album_unsupported_file">Mediaformatet stöds inte</string>
+    <string name="album_upload_from_account">Välj bilder från kontot</string>
     <string name="app_config_base_url_title">Bas-URL</string>
     <string name="app_config_disable_clipboard_title">Inaktivera urklipp</string>
     <string name="app_config_disable_intro_title">Inaktivera introduktion</string>
@@ -123,11 +140,27 @@
     <string name="auto_upload_on_wifi">Ladda endast upp via Wi-Fi utan datatak</string>
     <string name="auto_upload_path">/AutomatiskUppladdning</string>
     <string name="auto_upload_sub_folder_warning">Denna mapp ingår redan i synkroniseringen av den överordnade mappen, vilket kan orsaka dubbla uppladdningar</string>
+    <string name="auto_upload_sync_now_action">Synkronisera nu</string>
+    <string name="auto_upload_sync_now_no_folder">Ingen mapp har ställts in för automatisk uppladdning</string>
+    <string name="auto_upload_sync_now_running">Automatisk uppladdning körs redan</string>
+    <string name="auto_upload_sync_now_started">Automatisk uppladdning startade</string>
     <string name="auto_upload_wifi_only_warning_info">Väntar på Wi-Fi för att starta uppladdning</string>
     <string name="auto_upload_worker_start_text">Laddar upp filer från %1$s till %2$s</string>
     <string name="autoupload_configure">Konfigurera</string>
     <string name="autoupload_create_new_custom_folder">Skapa en ny anpassad mappkonfiguration</string>
     <string name="autoupload_custom_folder">Skapa en anpassad mapp</string>
+    <string name="autoupload_delete_uploaded">Ta bort uppladdade filer lokalt</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_all_users">Från alla användare</string>
+    <string name="autoupload_delete_uploaded_all_dialog_button_current_user">Från aktuell användare</string>
+    <string name="autoupload_delete_uploaded_all_dialog_description">Alla filer som redan har laddats upp till molnet tas bort från den aktuella enheten för alla automatiska uppladdningsmappar från alla konfigurerade användare</string>
+    <string name="autoupload_delete_uploaded_all_dialog_title">Ta bort uppladdade filer lokalt för alla mappar med automatisk uppladdning</string>
+    <string name="autoupload_delete_uploaded_dialog_description">Alla filer som redan har laddats upp till molnet tas bort från den aktuella enheten</string>
+    <string name="autoupload_delete_uploaded_dialog_title">Ta bort uppladdade filer lokalt</string>
+    <string name="autoupload_delete_uploaded_notif_ended_content">Frigjorde %1$s genom att ta bort %2$s i %3$s från %4$s.</string>
+    <string name="autoupload_delete_uploaded_notif_ended_title">Tog bort redan uppladdade filer lokalt</string>
+    <string name="autoupload_delete_uploaded_notif_error_title">Det gick inte att ta bort redan uppladdade filer lokalt</string>
+    <string name="autoupload_delete_uploaded_notif_started_title">Började ta bort redan uppladdade filer lokalt i bakgrunden</string>
+    <string name="autoupload_delete_uploaded_notif_ticker">Borttagning av lokala filer</string>
     <string name="autoupload_disable_power_save_check">Inaktivera strömsparingskontrollen</string>
     <string name="autoupload_hide_folder">Dölj mapp</string>
     <string name="avatar">Avatar</string>
@@ -210,7 +243,9 @@
     <string name="configure_new_media_folder_detection_notifications">Konfigurera</string>
     <string name="confirm_removal">Ta bort lokal kryptering</string>
     <string name="confirmation_remove_file_alert">Vill du verkligen ta bort %1$s?</string>
+    <string name="confirmation_remove_file_from_album_message">Vill du verkligen ta bort filen %1$s från albumet?</string>
     <string name="confirmation_remove_files_alert">Vill du verkligen ta bort de valda objekten?</string>
+    <string name="confirmation_remove_files_from_album_message">Vill du verkligen ta bort de valda filerna från albumet?</string>
     <string name="confirmation_remove_folder_alert">Vill du verkligen ta bort %1$s och dess innehåll?</string>
     <string name="confirmation_remove_folders_alert">Vill du verkligen ta bort de valda objekten och deras innehåll?</string>
     <string name="confirmation_remove_local">Endast lokalt</string>
@@ -249,17 +284,23 @@
     <string name="could_not_retrieve_shares">Kunde inte hämta delade mappar</string>
     <string name="could_not_retrieve_url">Kunde inte hämta URL</string>
     <string name="create">Skapa</string>
+    <string name="create_album_dialog_message">Ange ditt nya albumnamn</string>
+    <string name="create_album_dialog_title">Nytt album</string>
     <string name="create_dir_fail_msg">Kunde inte skapa mapp</string>
+    <string name="create_document">Dokument</string>
+    <string name="create_encrypted_folder">Krypterad mapp</string>
     <string name="create_end_to_end_encrypted_share">Länkdelning</string>
     <string name="create_end_to_end_encrypted_share_title">Ände-till-ände-krypterade länkdelningar</string>
+    <string name="create_folder">Mapp</string>
     <string name="create_link">Skapa länk</string>
     <string name="create_new">Ny</string>
     <string name="create_new_document">Nytt dokument</string>
-    <string name="create_new_encrypted_folder">Ny krypterad mapp</string>
-    <string name="create_new_folder">Ny mapp</string>
     <string name="create_new_presentation">Ny presentation</string>
     <string name="create_new_spreadsheet">Nytt kalkylblad</string>
+    <string name="create_presentation">Presentation</string>
     <string name="create_rich_workspace">Lägg till mappbeskrivning</string>
+    <string name="create_spreadsheet">Kalkylblad</string>
+    <string name="create_tag_format">Skapa tagg: ”%1$s”</string>
     <string name="credentials_disabled">Inloggningsuppgifter inaktiverade</string>
     <string name="daily_backup">Daglig säkerhetskopiering</string>
     <string name="data_to_back_up">Data att säkerhetskopiera</string>
@@ -318,6 +359,7 @@
     <string name="drawer_community">Community</string>
     <string name="drawer_header_background">Bakgrundsbild på appskärmsrubriken</string>
     <string name="drawer_item_activities">Aktiviteter</string>
+    <string name="drawer_item_album">Album</string>
     <string name="drawer_item_all_files">Alla filer</string>
     <string name="drawer_item_assistant">Assistent</string>
     <string name="drawer_item_favorites">Favoriter</string>
@@ -347,7 +389,26 @@
     <string name="ecosystem_apps_more">Fler Nextcloud-appar</string>
     <string name="editor_web_view_cannot_open_file">Kan inte öppna filväljaren</string>
     <string name="email_pick_failed">Det gick inte att välja e-postadress.</string>
+    <string name="empty_albums_message">Du kan ordna alla dina foton i så många album du vill. Du har inte skapat något album ännu.</string>
+    <string name="empty_albums_title">Skapa album för dina foton</string>
     <string name="encrypted">Markera som krypterad</string>
+    <string name="encryption_encrypt_check_failed">Det gick inte att kontrollera dina krypteringsnycklar. Försök kryptera mappen igen.</string>
+    <string name="encryption_encrypt_no_network">Det går inte att nå servern. Försök kryptera mappen igen senare.</string>
+    <string name="encryption_encrypt_unavailable">Det går inte att kryptera den här mappen. End-to-end-kryptering är inte konfigurerad på den här servern.</string>
+    <string name="encryption_key_checking_keys">Kontrollerar nycklar…</string>
+    <string name="encryption_key_handle_folder_read_only_description">Krypteringsnycklarna för det här kontot har tagits bort eller ersatts, så innehållet i den här mappen kan inte längre dekrypteras.\n\nMappen är skrivskyddad från och med nu. Säkerhetskopiera mappen och konfigurera din nya krypteringsnyckel i inställningarna för att använda krypterade mappar igen.</string>
+    <string name="encryption_key_handle_key_keys_only_on_device_description">Krypteringsnyckeln som lagras på den här enheten är inte längre giltig. Nycklar har återkallats från servern. \n\nTa bort krypteringen lokalt i inställningarna för att skapa en ny krypterad mapp.</string>
+    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">Krypteringsnyckeln som lagras på den här enheten är inte längre giltig. Nycklar har återkallats från servern. \n\nSäkerhetskopiera den tidigare skapade krypterade mappen. \n\nTa sedan bort krypteringen lokalt i inställningarna för att skapa en ny krypterad mapp.</string>
+    <string name="encryption_key_handle_key_removed_title">Krypteringsnycklar ändrades</string>
+    <string name="encryption_key_handle_no_keys_description">Den här mappen kan inte öppnas eftersom dess krypteringsnycklar inte längre finns på den här enheten eller på servern.</string>
+    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">Krypteringsnycklarna för det här kontot har tagits bort eller ersatts.\n\nKonfigurera din nya krypteringsnyckel i inställningarna innan du krypterar en mapp.</string>
+    <string name="encryption_new_folder_check_failed">Det gick inte att kontrollera dina krypteringsnycklar. Försök skapa mappen igen.</string>
+    <string name="encryption_new_folder_no_network">Det går inte att nå servern. Försök skapa mappen igen senare.</string>
+    <string name="encryption_new_folder_unavailable">Det går inte att skapa krypterade mappar. End-to-end-kryptering är inte konfigurerad på den här servern.</string>
+    <string name="encryption_open_check_failed">Det gick inte att kontrollera dina krypteringsnycklar. Försök öppna mappen igen.</string>
+    <string name="encryption_open_key_mismatch">Krypteringsnyckeln på den här enheten stämmer inte överens med nyckeln som krävs för den här mappen.</string>
+    <string name="encryption_open_no_network">Det går inte att nå servern. Försök öppna mappen igen senare.</string>
+    <string name="encryption_open_unavailable">Det går inte att öppna den här mappen. End-to-end-kryptering är inte konfigurerad på den här servern.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Kunde inte hämta servercertifikatet</string>
     <string name="end_to_end_encryption_certificate_verification_failed">Det gick inte att verifiera den offentliga nyckeln</string>
     <string name="end_to_end_encryption_confirm_button">Aktivera kryptering</string>
@@ -419,6 +480,7 @@
     <string name="fab_label">Lägg till eller ladda upp</string>
     <string name="failed_to_create_conflict_dialog">Kunde inte skapa konfliktdialog</string>
     <string name="failed_to_download">Det gick inte att skicka filen till hämtningshanteraren</string>
+    <string name="failed_to_load_tags">Det gick inte att läsa in taggarna</string>
     <string name="failed_to_print">Kunde inte skriva ut filen</string>
     <string name="failed_to_start_action">Det gick inte att starta åtgärden!</string>
     <string name="failed_to_start_editor">Det gick inte att starta redigeraren</string>
@@ -461,6 +523,7 @@
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Läser in…</string>
     <string name="file_list_no_app_for_file_type">Det finns ingen app som kan hantera den här filtypen</string>
+    <string name="file_list_out_of_memory_description">Kunde inte ladda innehåll</string>
     <string name="file_list_seconds_ago">sekunder sedan</string>
     <string name="file_management_permission_optional">Lagringsbehörigheter</string>
     <string name="file_management_permission_optional_text">%1$s fungerar bäst med åtkomstbehörighet till lagringsutrymmet. Du kan välja att ha fullständig åtkomst till alla filer eller läsåtkomst till bilder och videor.</string>
@@ -614,25 +677,14 @@
     <string name="logs_status_not_filtered">Loggar: %1$d kB, inget filter</string>
     <string name="logs_title">Loggar</string>
     <string name="maintenance_mode">Server i underhållsläge</string>
+    <string name="manage_space_auto_upload_clear_data">Ta bort automatiskt uppladdade filer lokalt</string>
+    <string name="manage_space_auto_upload_description">Alla filer från mappar med automatisk uppladdning som redan har laddats upp till servern tas bort lokalt för att frigöra utrymme på enheten.\n\nProcessen kan ta en stund.</string>
+    <string name="manage_space_auto_upload_title">Ta bort automatiskt uppladdade filer lokalt</string>
     <string name="manage_space_clear_data">Rensa data</string>
     <string name="manage_space_description">Inställningar, databas och servercertifikat från %1$s kommer att raderas permanent.\n\nHämtade filer kommer inte att raderas eller ändras.\n\nDetta kan ta en stund.</string>
     <string name="manage_space_title">Hantera utrymme</string>
-    <string name="media_err_invalid_progressive_playback">Mediefilen kan inte strömmas</string>
-    <string name="media_err_io">Kunde inte läsa mediafilen</string>
-    <string name="media_err_malformed">Mediafilen har felaktig kodning</string>
-    <string name="media_err_timeout">Uppspelningen tog för lång tid</string>
-    <string name="media_err_unknown">Den inbyggda mediaspelaren kan inte spela upp mediefilen</string>
-    <string name="media_err_unsupported">Mediekoden stöds inte</string>
-    <string name="media_forward_description">Snabbspolningsknapp</string>
-    <string name="media_notif_ticker">%1$s-musikspelare</string>
-    <string name="media_play_pause_description">Knapp för att spela upp eller pausa</string>
-    <string name="media_player_pause">Pausa</string>
-    <string name="media_player_play">Spela</string>
-    <string name="media_player_playing">Spelar upp media</string>
-    <string name="media_player_seek_backward">Spola bakåt</string>
-    <string name="media_player_seek_forward">Spola framåt</string>
-    <string name="media_rewind_description">Bakåtspolningsknapp</string>
-    <string name="media_state_playing">%1$s (spelas upp)</string>
+    <string name="manage_tags">Hantera taggar</string>
+    <string name="media_picker_toolbar_title">Välj mediefiler</string>
     <string name="menu_item_sort_by_date_newest_first">Nyaste först</string>
     <string name="menu_item_sort_by_date_oldest_first">Äldst först</string>
     <string name="menu_item_sort_by_name_a_z">A–Ö</string>
@@ -640,6 +692,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Störst först</string>
     <string name="menu_item_sort_by_size_smallest_first">Minst först</string>
     <string name="more">Mer</string>
+    <string name="more_documents">Fler dokument</string>
     <string name="move_file_error">Ett fel uppstod vid försök att flytta denna fil eller mapp</string>
     <string name="move_file_invalid_into_descendent">Det är inte möjligt att flytta en mapp till en av dess undermappar</string>
     <string name="move_file_invalid_overwrite">Filen finns redan i målmappen</string>
@@ -726,8 +779,15 @@
     <string name="picture_set_as_no_app">Ingen app hittades för att ställa in en bild med</string>
     <string name="pin_home">Fäst på hemskärmen</string>
     <string name="pin_shortcut_label">Öppna %1$s</string>
-    <string name="player_stop">stopp</string>
-    <string name="player_toggle">växla</string>
+    <string name="player_audio_title_with_artist">%1$s • %2$s</string>
+    <string name="player_control_view_next_button_content_description">Knappen Nästa</string>
+    <string name="player_control_view_play_pause_button_content_description">Knappen Spela upp/pausa</string>
+    <string name="player_control_view_previous_button_content_description">Knappen Föregående</string>
+    <string name="player_control_view_random_button_content_description">Knappen Slumpvis</string>
+    <string name="player_control_view_repeat_button_content_description">Knappen Upprepa</string>
+    <string name="player_error_source_not_found">Källan hittades inte</string>
+    <string name="player_last_modified">Ändrad: %s</string>
+    <string name="player_media_controls_close_action_title">Stäng</string>
     <string name="please_select_a_server">Välj en server…</string>
     <string name="power_save_check_dialog_message">Att inaktivera strömsparningskontrollen kan leda till att filer laddas upp trots låg batterinivå.</string>
     <string name="pref_behaviour_entries_delete_file">raderas</string>
@@ -826,6 +886,7 @@
     <string name="reload">Uppdatera</string>
     <string name="remote">(fjärr)</string>
     <string name="remote_file_fetch_failed">Kunde inte hitta filen!</string>
+    <string name="remove">Ta bort</string>
     <string name="remove_e2e">Du kan ta bort ände-till-ände-kryptering lokalt på denna klient</string>
     <string name="remove_e2e_keys_and_files_dialog_warning">Den här åtgärden tar bort alla krypterade filer samt privata och offentliga nycklar. Är du säker?</string>
     <string name="remove_e2e_message">Du kan ta bort ände-till-ände-kryptering lokalt på den här klienten. De krypterade filerna finns kvar på servern men synkroniseras inte längre med den här enheten.</string>
@@ -835,6 +896,8 @@
     <string name="remove_notification_failed">Det gick inte att ta bort aviseringen.</string>
     <string name="remove_push_notification">Ta bort</string>
     <string name="remove_success_msg">Borttagen</string>
+    <string name="rename_album_dialog_title">Byt namn på album</string>
+    <string name="rename_dialog_button">Byt namn</string>
     <string name="rename_dialog_title">Ange ett nytt namn</string>
     <string name="rename_local_fail_msg">Det gick inte att byta namn på lokal kopia, prova ett annat namn</string>
     <string name="rename_server_fail_msg">Det går inte att byta namn eftersom namnet redan används</string>
@@ -871,6 +934,7 @@
     <string name="screenshot_06_davdroid_heading">Kalender och kontakter</string>
     <string name="screenshot_06_davdroid_subline">Synkronisera med DAVx⁵</string>
     <string name="search_error">Ett fel uppstod vid sökning</string>
+    <string name="search_tags">Sök taggar</string>
     <string name="secure_share_not_set_up">Säker delning är inte konfigurerad för denna användare</string>
     <string name="secure_share_search">Säker delning…</string>
     <string name="select_all">Välj alla</string>
@@ -1000,7 +1064,6 @@
     <string name="store_short_dev_desc">Den självhostade produktivitetsplattformen som ger dig kontroll (förhandsversion för utvecklare)</string>
     <string name="stream">Streama med…</string>
     <string name="stream_not_possible_headline">Intern streaming är inte möjlig</string>
-    <string name="stream_not_possible_message">Hämta mediefilen eller använd en extern app.</string>
     <string name="sub_folder_rule_day">År/Månad/Dag</string>
     <string name="sub_folder_rule_month">År/Månad</string>
     <string name="sub_folder_rule_year">År</string>
@@ -1077,6 +1140,7 @@
     <string name="unified_search_fragment_contact_not_found">Kontakten hittades inte. Du kan synkronisera för att uppdatera. Omdirigerar till webben…</string>
     <string name="unified_search_fragment_permission_needed">Behörigheter krävs för att öppna sökresultatet. Annars omdirigeras du till webben…</string>
     <string name="unified_search_fragment_search_in_this_folder">I denna mapp</string>
+    <string name="unified_search_fragment_search_takes_long">Sökningen tar längre tid än vanligt. Resultaten visas så snart servern svarar</string>
     <string name="unknown">Okänd</string>
     <string name="unlock_file">Lås upp fil</string>
     <string name="unread_comments">Olästa kommentarer finns</string>
@@ -1206,6 +1270,7 @@
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Webbplats</string>
     <string name="user_information_retrieval_error">Ett fel uppstod när användarinformationen hämtades</string>
+    <string name="user_information_retrieval_error_message">Kontrollera internetanslutningen eller serverstatusen en gång till</string>
     <string name="userinfo_no_info_headline">Ingen personlig information angiven</string>
     <string name="userinfo_no_info_text">Lägg till namn, bild och kontaktuppgifter på din profilsida.</string>
     <string name="username">Användarnamn</string>
@@ -1215,6 +1280,7 @@
     <string name="wait_checking_credentials">Kontrollerar lagrade inloggningsuppgifter</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierar fil från privat lagring</string>
     <string name="warn_rename_extension">Om du ändrar filändelsen kan filen öppnas i en annan app</string>
+    <string name="webview_not_available">Android System WebView saknas eller är inaktiverat på den här enheten</string>
     <string name="what_s_new_image">Bild för Vad är nytt</string>
     <string name="whats_new_skip">Hoppa över</string>
     <string name="whats_new_title">Nytt i %1$s</string>
@@ -1225,6 +1291,14 @@
     <string name="write_email">Skicka e-post</string>
     <string name="wrong_storage_path">Datalagringsmapp finns inte!</string>
     <string name="wrong_storage_path_desc">Detta kan bero på att en säkerhetskopia har återställts på en annan enhet. Standardplatsen används i stället. Kontrollera inställningarna för att ändra datalagringsmappen.</string>
+    <plurals name="album_items_text">
+        <item quantity="one">%1$d objekt — %2$s</item>
+        <item quantity="other">%1$d objekt — %2$s</item>
+    </plurals>
+    <plurals name="album_elements_text">
+        <item quantity="one">%d objekt</item>
+        <item quantity="other">%d objekt</item>
+    </plurals>
     <plurals name="hours">
         <item quantity="one">%d timme</item>
         <item quantity="other">%d timmar</item>
@@ -1305,6 +1379,18 @@
         <item quantity="one">%d vald</item>
         <item quantity="other">%d valda</item>
     </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_files">
+        <item quantity="one">%d fil</item>
+        <item quantity="other">%d filer</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_folders">
+        <item quantity="one">%d mapp</item>
+        <item quantity="other">%d mappar</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_users">
+        <item quantity="one">%d användare</item>
+        <item quantity="other">%d användare</item>
+    </plurals>
     <plurals name="passcode_delay_seconds">
         <item quantity="one">Försök igen om %d sekund på grund av för många felaktiga försök</item>
         <item quantity="other">Försök igen om %d sekunder på grund av för många felaktiga försök</item>
@@ -1320,5 +1406,9 @@
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d återstående nedladdning</item>
         <item quantity="other">%1$d återstående nedladdningar</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one">Exporten har startat (%d fil)</item>
+        <item quantity="other">Exporten har startat (%d filer)</item>
     </plurals>
 </resources>

@@ -25,6 +25,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.fileNameValidator.FileNameValidator
 import com.owncloud.android.R
@@ -47,7 +48,6 @@ import com.owncloud.android.ui.fragment.EmptyListState
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.fragment.OCFileListFragment
 import com.owncloud.android.utils.DataHolderUtil
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.PathUtils
@@ -401,7 +401,7 @@ open class FolderPickerActivity :
         checkButtonStates(isFolderPathValid)
 
         if (!isFolderPathValid) {
-            DisplayUtils.showSnackMessage(
+            SnackbarUtil.show(
                 this,
                 R.string.file_name_validator_error_contains_reserved_names_or_invalid_characters
             )
@@ -521,7 +521,7 @@ open class FolderPickerActivity :
             fileListFragment?.onItemClicked(storageManager.getFileByPath(operation.remotePath))
         } else {
             try {
-                DisplayUtils.showSnackMessage(
+                SnackbarUtil.show(
                     this,
                     ErrorMessageAdapter.getErrorCauseMessage(result, operation, resources)
                 )
@@ -555,6 +555,8 @@ open class FolderPickerActivity :
             "Detekt.LongMethod"
         ) // legacy code
         override fun onReceive(context: Context, intent: Intent) {
+            var emptyListState = EmptyListState.LOCAL_FILE_LIST_EMPTY_FILE
+
             try {
                 val event = intent.action
                 Log_OC.d(TAG, "Received broadcast $event")
@@ -569,7 +571,14 @@ open class FolderPickerActivity :
                     return
                 }
 
+                if (ResultCode.OUT_OF_MEMORY == syncResult.code) {
+                    emptyListState = EmptyListState.OUT_OF_MEMORY
+                }
+
                 if (FileSyncAdapter.EVENT_FULL_SYNC_START != event) {
+                    // EVENT_SINGLE_FOLDER_CONTENTS_SYNCED fires only when the folder's content actually
+                    // changed, and EVENT_SINGLE_FOLDER_SHARES_SYNCED only when a sharee actually changed -
+                    // each is an independent, already-precise signal (RefreshFolderOperation.java).
                     var (currentFile, currentDir) = getCurrentFileAndDirectory()
 
                     if (currentDir == null) {
@@ -595,7 +604,7 @@ open class FolderPickerActivity :
                 // in owncloud library with broadcast notifications pending to process
                 DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT))
             } finally {
-                listOfFilesFragment?.setEmptyListMessage(EmptyListState.LOCAL_FILE_LIST_EMPTY_FILE)
+                listOfFilesFragment?.setEmptyListMessage(emptyListState)
             }
         }
 
@@ -614,7 +623,7 @@ open class FolderPickerActivity :
         }
 
         private fun browseRootForRemovedFolder() {
-            DisplayUtils.showSnackMessage(
+            SnackbarUtil.show(
                 activity,
                 R.string.sync_current_folder_was_removed,
                 currentFolder?.fileName

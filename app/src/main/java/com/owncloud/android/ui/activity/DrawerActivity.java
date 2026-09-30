@@ -57,18 +57,26 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.files.DeepLinkConstants;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.onboarding.FirstRunActivity;
+import com.nextcloud.client.player.media3.PlaybackModel;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.client.systembars.SystemBarBackgroundCallbacks;
+import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.nextcloud.ui.composeActivity.ComposeActivity;
 import com.nextcloud.ui.composeActivity.ComposeDestination;
 import com.nextcloud.utils.GlideHelper;
+import com.nextcloud.utils.HumanReadableFormatter;
 import com.nextcloud.utils.LinkHelper;
+import com.nextcloud.utils.SnackbarUtil;
+import com.nextcloud.utils.avatar.AvatarGenerationListener;
+import com.nextcloud.utils.avatar.AvatarGenerator;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.DrawerActivityExtensionsKt;
 import com.nextcloud.utils.extensions.NavigationViewExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
+import com.nextcloud.utils.view.ScreenMetrics;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.PassCodeManager;
@@ -95,11 +103,11 @@ import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment;
+import com.owncloud.android.ui.fragment.albums.AlbumsFragment;
 import com.owncloud.android.ui.navigation.NavigatorActivity;
 import com.owncloud.android.ui.navigation.NavigatorScreen;
-import com.owncloud.android.ui.trashbin.TrashbinFragment;
 import com.owncloud.android.utils.BitmapUtils;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.DrawableUtil;
 import com.owncloud.android.utils.DrawerMenuUtil;
 import com.owncloud.android.utils.FilesSyncHelper;
@@ -128,6 +136,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hct.Hct;
 import kotlin.Unit;
@@ -137,7 +146,7 @@ import kotlin.Unit;
  * generation.
  */
 public abstract class DrawerActivity extends ToolbarActivity
-    implements DisplayUtils.AvatarGenerationListener, Injectable {
+    implements AvatarGenerationListener, Injectable {
 
     private static final String TAG = DrawerActivity.class.getSimpleName();
     private static final String KEY_IS_ACCOUNT_CHOOSER_ACTIVE = "IS_ACCOUNT_CHOOSER_ACTIVE";
@@ -148,6 +157,9 @@ public abstract class DrawerActivity extends ToolbarActivity
     private static final int RELATIVE_THRESHOLD_WARNING = 80;
     public static final int REQ_ALL_FILES_ACCESS = 3001;
     public static final int REQ_MEDIA_ACCESS = 3000;
+
+    @Inject
+    protected PlaybackModel playbackModel;
 
     /**
      * Reference to the drawer layout.
@@ -230,6 +242,9 @@ public abstract class DrawerActivity extends ToolbarActivity
     @Inject
     protected ClientFactory clientFactory;
 
+    @Inject
+    public AvatarGenerator avatarGenerator;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
@@ -302,6 +317,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         NavigationViewExtensionsKt.highlightNavigationView(drawerNavigationView,
                                                            bottomNavigationView,
                                                            menuItemId);
+        SystemBarBackgroundCallbacks.apply(this, viewThemeUtils);
         Log_OC.d(TAG, "New menu item is: " + menuItemId);
     }
 
@@ -331,7 +347,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void openMediaTab(int menuItemId) {
-        GalleryFragment.Companion.clearSavedScrollState();
+        GalleryFragment.Companion.clearSavedViewState();
         resetOnlyPersonalAndOnDevice();
         setupToolbar();
         startPhotoSearch(menuItemId);
@@ -527,7 +543,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             ImageView imageView = (ImageView) view.getChildAt(0);
             imageView.setImageTintList(ColorStateList.valueOf(iconColor));
             GradientDrawable background = (GradientDrawable) imageView.getBackground();
-            background.setStroke(DisplayUtils.convertDpToPixel(1, this), iconColor);
+            background.setStroke(ScreenMetrics.dpToPx(1, this), iconColor);
             TextView textView = (TextView) view.getChildAt(1);
             textView.setTextColor(iconColor);
         }
@@ -598,6 +614,17 @@ public abstract class DrawerActivity extends ToolbarActivity
             openFavoritesTab();
         } else if (itemId == R.id.nav_gallery) {
             openMediaTab(menuItem.getItemId());
+        } else if (itemId == R.id.nav_album) {
+            if (this instanceof FileDisplayActivity) {
+                replaceAlbumFragment();
+            } else {
+                // when user is not on FileDisplayActivity
+                // if user is on TrashbinActivity then we have to start activity again
+                Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.setAction(FileDisplayActivity.ALBUMS);
+                startActivity(intent);
+            }
         } else if (itemId == R.id.nav_on_device) {
             showOnDeviceFiles();
         } else if (itemId == R.id.nav_uploads) {
@@ -680,6 +707,8 @@ public abstract class DrawerActivity extends ToolbarActivity
                 startAssistantScreen();
             } else if (menuItemId == R.id.nav_gallery) {
                 openMediaTab(menuItem.getItemId());
+            } else if (menuItemId == R.id.nav_album) {
+                replaceAlbumFragment();
             }
 
             // Remove extra icon from the action bar
@@ -726,6 +755,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     public void openAddAccount() {
+        stopMediaPlayerAndHidePip();
         if (MDMConfig.INSTANCE.showIntro(this)) {
             Intent firstRunIntent = new Intent(getApplicationContext(), FirstRunActivity.class);
             firstRunIntent.putExtra(FirstRunActivity.EXTRA_ALLOW_CLOSE, true);
@@ -733,6 +763,10 @@ public abstract class DrawerActivity extends ToolbarActivity
         } else {
             startAccountCreation();
         }
+    }
+
+    protected void stopMediaPlayerAndHidePip() {
+        playbackModel.release();
     }
 
     private void resetFileDepth() {
@@ -802,7 +836,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
             ExternalLink link = optionalLink.get();
             if (link.getRedirect()) {
-                DisplayUtils.startLinkIntent(DrawerActivity.this, link.getUrl());
+                IntentUtil.startLinkIntent(DrawerActivity.this, link.getUrl());
             } else {
                 Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
                 externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, link.getName());
@@ -810,6 +844,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
                 startActivity(externalWebViewIntent);
             }
+            
             return Unit.INSTANCE;
         });
     }
@@ -911,12 +946,12 @@ public abstract class DrawerActivity extends ToolbarActivity
         if (GetUserInfoRemoteOperation.SPACE_UNLIMITED == quotaValue) {
             mQuotaTextPercentage.setText(String.format(
                 getString(R.string.drawer_quota_unlimited),
-                DisplayUtils.bytesToHumanReadable(usedSpace)));
+                HumanReadableFormatter.formatBytes(usedSpace)));
         } else {
             mQuotaTextPercentage.setText(String.format(
                 getString(R.string.drawer_quota),
-                DisplayUtils.bytesToHumanReadable(usedSpace),
-                DisplayUtils.bytesToHumanReadable(totalSpace)));
+                HumanReadableFormatter.formatBytes(usedSpace),
+                HumanReadableFormatter.formatBytes(totalSpace)));
         }
 
         mQuotaProgressBar.setProgress(relative);
@@ -1430,7 +1465,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         DeepLinkConstants deepLinkType = DeepLinkConstants.Companion.fromPath(path);
         if (deepLinkType == null) {
-            DisplayUtils.showSnackMessage(this, getString(R.string.invalid_url));
+            SnackbarUtil.show(this, getString(R.string.invalid_url));
             return;
         }
 
@@ -1492,5 +1527,33 @@ public abstract class DrawerActivity extends ToolbarActivity
         return menuItemId == Menu.NONE ||
             menuItemId == R.id.nav_all_files ||
             menuItemId == R.id.nav_personal_files;
+    }
+
+    public void replaceAlbumFragment() {
+        if (isAlbumsFragment()) {
+            return;
+        }
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.addToBackStack(null);
+        transaction.replace(R.id.left_fragment_container, AlbumsFragment.Companion.newInstance(false), AlbumsFragment.Companion.getTAG());
+        transaction.commit();
+    }
+
+    public <T extends Fragment> Optional<T> getFragment(String tag, Class<T> clazz) {
+        return Optional.ofNullable(getSupportFragmentManager().findFragmentByTag(tag))
+            .filter(clazz::isInstance)
+            .map(clazz::cast);
+    }
+
+    public boolean isAlbumItemsFragment() {
+        return getFragment(AlbumItemsFragment.Companion.getTAG(), AlbumItemsFragment.class)
+            .filter(Fragment::isVisible)
+            .isPresent();
+    }
+
+    public boolean isAlbumsFragment() {
+        return getFragment(AlbumsFragment.Companion.getTAG(), AlbumsFragment.class)
+            .filter(Fragment::isVisible)
+            .isPresent();
     }
 }

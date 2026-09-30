@@ -53,6 +53,9 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.model.OCUploadLocalPathData;
+import com.nextcloud.ui.sort.SortOrderUi;
+import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
@@ -85,7 +88,6 @@ import com.owncloud.android.ui.fragment.TaskRetainerFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.helpers.UriUploader;
 import com.owncloud.android.utils.DataHolderUtil;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeType;
@@ -123,7 +125,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
 import static com.owncloud.android.utils.UriUtils.getDisplayNameForUri;
 
 /**
@@ -259,7 +260,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         if (mAccountManager.getAccountsByType(MainApp.getAccountType(this)).length == 0) {
             final var message = String.format(getString(R.string.uploader_wrn_no_account_text),
                                               getString(R.string.app_name));
-            DisplayUtils.showSnackMessage(this, message);
+            SnackbarUtil.show(this, message);
             return;
         }
 
@@ -305,7 +306,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     @Override
     public void onSortingOrderChosen(FileSortOrder newSortOrder) {
         preferences.setSortOrder(mFile, newSortOrder);
-        sortButton.setText(DisplayUtils.getSortOrderStringId(newSortOrder));
+        sortButton.setText(SortOrderUi.labelRes(newSortOrder));
         populateDirectoryList(null);
     }
 
@@ -319,13 +320,13 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
             String filenameErrorMessage = FileNameValidator.INSTANCE.checkFileName(file.getFileName(), optionalCapabilities.get(), this);
             if (filenameErrorMessage != null) {
-                DisplayUtils.showSnackMessage(this, filenameErrorMessage);
+                SnackbarUtil.show(this, filenameErrorMessage);
                 return;
             }
 
             if (file.isEncrypted() &&
                 !FileOperationsHelper.isEndToEndEncryptionSetup(this, getUser().orElseThrow(IllegalAccessError::new))) {
-                DisplayUtils.showSnackMessage(this, R.string.e2e_not_yet_setup);
+                SnackbarUtil.show(this, R.string.e2e_not_yet_setup);
 
                 return;
             }
@@ -816,8 +817,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         sortButton = binding.toolbarLayout.sortButton;
         FileSortOrder sortOrder = preferences.getSortOrderByFolder(mFile);
-        sortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
-        sortButton.setOnClickListener(l -> openSortingOrderDialogFragment(getSupportFragmentManager(), sortOrder));
+        sortButton.setText(SortOrderUi.labelRes(sortOrder));
+        sortButton.setOnClickListener(l -> SortOrderUi.showDialog(getSupportFragmentManager(), sortOrder));
     }
 
     private void setupReceiveExternalFilesAdapter(List<OCFile> files) {
@@ -936,7 +937,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private void startSyncFolderOperation(OCFile folder) {
         if (folder == null) {
-            DisplayUtils.showSnackMessage(this, R.string.receive_external_files_activity_start_sync_folder_is_not_exists_message);
+            SnackbarUtil.show(this, R.string.receive_external_files_activity_start_sync_folder_is_not_exists_message);
             return;
         }
 
@@ -946,7 +947,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             long currentSyncTime = System.currentTimeMillis();
             final var optionalUser = getUser();
             if (optionalUser.isEmpty()) {
-                DisplayUtils.showSnackMessage(this, R.string.user_information_retrieval_error);
+                SnackbarUtil.show(this, R.string.user_information_retrieval_error);
                 return;
             }
 
@@ -1021,22 +1022,22 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     public void uploadFile(String tmpName, String filename) {
-        FileUploadHelper.Companion.instance().uploadNewFiles(
-            getUser().orElseThrow(RuntimeException::new),
-            new String[]{ tmpName },
-            new String[]{ mFile.getRemotePath() + filename},
-            FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
-            true,
-            UploadFileOperation.CREATED_BY_USER,
-            false,
-            false,
-            NameCollisionPolicy.ASK_USER);
+        final var data = new OCUploadLocalPathData(getUser().orElseThrow(RuntimeException::new),
+                                                    new String[]{ tmpName },
+                                                    new String[]{ mFile.getRemotePath() + filename},
+                                                    FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
+                                                    true,
+                                                    UploadFileOperation.CREATED_BY_USER,
+                                                    false,
+                                                    false,
+                                                    NameCollisionPolicy.ASK_USER);
+        FileUploadHelper.Companion.instance().uploadNewFiles(data);
         finish();
     }
 
     public void uploadFiles() {
         if (mStreamsToUpload == null) {
-            DisplayUtils.showSnackMessage(this, R.string.receive_external_files_activity_unable_to_find_file_to_upload);
+            SnackbarUtil.show(this, R.string.receive_external_files_activity_unable_to_find_file_to_upload);
             return;
         }
 
@@ -1108,7 +1109,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             populateDirectoryList(null);
         } else {
             try {
-                DisplayUtils.showSnackMessage(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()));
+                SnackbarUtil.show(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()));
             } catch (NotFoundException e) {
                 Log_OC.e(TAG, "Error while trying to show fail message ", e);
             }
@@ -1257,7 +1258,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
                     if (currentDir == null) {
                         // current folder was removed from the server
-                        DisplayUtils.showSnackMessage(getActivity(), R.string.sync_current_folder_was_removed, getCurrentFolder().getFileName());
+                        SnackbarUtil.show(getActivity(), R.string.sync_current_folder_was_removed, getCurrentFolder().getFileName());
                         browseToRoot();
                     } else {
                         if (currentFile == null && !mFile.isFolder()) {

@@ -10,25 +10,34 @@ package com.nmc.android.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.text.TextUtils
 import android.view.View
 import androidx.annotation.VisibleForTesting
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.lifecycleScope
+import com.nextcloud.android.common.ui.util.extensions.applyEdgeToEdgeWithSystemBarPadding
+import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.mdm.MDMConfig
 import com.owncloud.android.R
 import com.owncloud.android.authentication.AuthenticatorActivity
 import com.owncloud.android.databinding.ActivitySplashBinding
-import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.activity.SettingsActivity
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.milliseconds
 
-class LauncherActivity : BaseActivity() {
+class LauncherActivity :
+    AppCompatActivity(),
+    Injectable {
 
     private lateinit var binding: ActivitySplashBinding
+
+    @Inject
+    lateinit var accountManager: UserAccountManager
 
     @Inject
     lateinit var appPreferences: AppPreferences
@@ -36,6 +45,7 @@ class LauncherActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         // Mandatory to call this before super method to show system launch screen for api level 31+
         installSplashScreen()
+        applyEdgeToEdgeWithSystemBarPadding()
 
         super.onCreate(savedInstanceState)
 
@@ -56,30 +66,42 @@ class LauncherActivity : BaseActivity() {
     }
 
     private fun updateTitleVisibility() {
-        if (TextUtils.isEmpty(resources.getString(R.string.splashScreenBold))) {
+        if (resources.getString(R.string.splashScreenBold).isEmpty()) {
             binding.splashScreenBold.visibility = View.GONE
         }
-        if (TextUtils.isEmpty(resources.getString(R.string.splashScreenNormal))) {
+        if (resources.getString(R.string.splashScreenNormal).isEmpty()) {
             binding.splashScreenNormal.visibility = View.GONE
         }
     }
 
+    private fun hasBrandedTitle(): Boolean = resources.getString(R.string.splashScreenBold).isNotEmpty() ||
+        resources.getString(R.string.splashScreenNormal).isNotEmpty()
+
     private fun scheduleSplashScreen() {
-        Handler(Looper.getMainLooper()).postDelayed({
-            if (user.isPresent) {
-                if (MDMConfig.enforceProtection(this) && appPreferences.lockPreference == SettingsActivity.LOCK_NONE) {
-                    startActivity(Intent(this, SettingsActivity::class.java))
-                } else {
-                    startActivity(Intent(this, FileDisplayActivity::class.java))
-                }
-            } else {
-                startActivity(Intent(this, AuthenticatorActivity::class.java))
+        lifecycleScope.launch {
+            if (hasBrandedTitle()) {
+                delay(SPLASH_DURATION)
             }
-            finish()
-        }, SPLASH_DURATION)
+
+            openNextScreen()
+        }
+    }
+
+    private fun openNextScreen() {
+        val nextScreen = when {
+            accountManager.user.isAnonymous -> AuthenticatorActivity::class.java
+
+            MDMConfig.enforceProtection(this) &&
+                appPreferences.lockPreference == SettingsActivity.LOCK_NONE -> SettingsActivity::class.java
+
+            else -> FileDisplayActivity::class.java
+        }
+
+        startActivity(Intent(this, nextScreen))
+        finish()
     }
 
     companion object {
-        const val SPLASH_DURATION = 1500L
+        private val SPLASH_DURATION = 1500.milliseconds
     }
 }

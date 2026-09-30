@@ -25,10 +25,10 @@ import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.db.OCUpload
-import com.owncloud.android.ui.dialog.ConflictsResolveDialog
-import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Companion.newInstance
-import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Decision
-import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionMadeListener
+import com.owncloud.android.ui.dialog.conflict.ConflictsResolveDialog
+import com.owncloud.android.ui.dialog.conflict.ConflictsResolveDialog.Decision
+import com.owncloud.android.ui.dialog.conflict.ConflictsResolveDialog.OnConflictDecisionMadeListener
+import com.owncloud.android.ui.dialog.conflict.ConflictResolveDialogFactory
 import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.ScreenshotTest
@@ -69,7 +69,7 @@ class ConflictsResolveActivityIT : AbstractIT() {
         launchActivity<ConflictsResolveActivity>(intent).use { scenario ->
             var dialog: ConflictsResolveDialog? = null
             scenario.onActivity { sut ->
-                dialog = newInstance(
+                dialog = ConflictResolveDialogFactory.forNormal(
                     storageManager.getDecryptedPath(existingFile),
                     targetContext,
                     newFile,

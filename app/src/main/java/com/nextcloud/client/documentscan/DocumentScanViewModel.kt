@@ -18,6 +18,7 @@ import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.logger.Logger
+import com.nextcloud.model.OCUploadLocalPathData
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.operations.UploadFileOperation
@@ -166,17 +167,8 @@ class DocumentScanViewModel @Inject constructor(
             uploadFolder + OCFile.PATH_SEPARATOR + File(it).name
         }.toTypedArray()
 
-        FileUploadHelper.instance().uploadNewFiles(
-            currentAccountProvider.user,
-            pageList.toTypedArray(),
-            uploadPaths,
-            FileUploadWorker.LOCAL_BEHAVIOUR_DELETE,
-            true,
-            UploadFileOperation.CREATED_BY_USER,
-            false,
-            false,
-            NameCollisionPolicy.ASK_USER
-        )
+        val data = OCUploadLocalPathData.forDocument(currentAccountProvider.user, pageList.toTypedArray(), uploadPaths)
+        FileUploadHelper.instance().uploadNewFiles(data)
     }
 
     fun onExportCanceled() {

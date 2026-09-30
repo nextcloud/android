@@ -18,14 +18,15 @@ import androidx.exifinterface.media.ExifInterface
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.NominatimClient
+import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.ui.fileInfo.model.ImageMetadata
+import com.nextcloud.utils.HumanReadableFormatter
+import com.nextcloud.utils.extensions.getSmallThumbnail
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileInfoFragmentBinding
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.utils.BitmapUtils
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -180,7 +181,7 @@ class ImageDetailInfo(private val fragment: FileInfoFragment, private val viewTh
     }
 
     fun gatherMetadata(file: OCFile): ImageMetadata {
-        val fileSize = DisplayUtils.bytesToHumanReadable(file.fileLength)
+        val fileSize = HumanReadableFormatter.formatBytes(file.fileLength)
         val timestamp = maxOf(file.modificationTimestamp, file.creationTimestamp)
         return if (file.isDown) {
             gatherLocalMetadata(file, fileSize, timestamp)
@@ -259,9 +260,7 @@ class ImageDetailInfo(private val fragment: FileInfoFragment, private val viewTh
 
     private fun imagePinDrawable(context: Context, file: OCFile): LayerDrawable =
         (ContextCompat.getDrawable(context, R.drawable.photo_pin) as LayerDrawable).apply {
-            val bitmap = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.remoteId
-            )
+            val bitmap = file.getSmallThumbnail()
             BitmapUtils.bitmapToCircularBitmapDrawable(fragment.resources, bitmap)?.let {
                 setDrawable(1, it)
             }
@@ -271,7 +270,7 @@ class ImageDetailInfo(private val fragment: FileInfoFragment, private val viewTh
         object : ItemizedIconOverlay.OnItemGestureListener<OverlayItem> {
             override fun onItemSingleTapUp(index: Int, item: OverlayItem): Boolean {
                 val intent = Intent(Intent.ACTION_VIEW, "geo:0,0?q=$latitude,$longitude".toUri())
-                DisplayUtils.startIntentIfAppAvailable(intent, fragment.activity, R.string.no_map_app_availble)
+                IntentUtil.startIntentIfAppAvailable(intent, fragment.requireActivity(), R.string.no_map_app_availble)
                 return true
             }
 

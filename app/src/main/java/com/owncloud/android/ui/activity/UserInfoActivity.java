@@ -28,13 +28,16 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.GlideHelper;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
+import com.nextcloud.utils.text.LinkFormatter;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UserInfoLayoutBinding;
+import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
@@ -44,7 +47,6 @@ import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
 import com.owncloud.android.ui.adapter.UserInfoAdapter;
 import com.owncloud.android.ui.dialog.AccountRemovalDialog;
 import com.owncloud.android.ui.events.TokenPushEvent;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PushUtils;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -125,9 +127,8 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
             viewThemeUtils.files.themeActionBar(this, actionBar);
         }
 
-        if (userInfo != null) {
-            populateUserInfoUi(userInfo);
-        } else {
+        populateUserInfoUi(userInfo);
+        if (userInfo == null) {
             setMultiListLoadingMessage();
             fetchAndSetData();
         }
@@ -179,6 +180,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         binding.emptyList.emptyListViewText.setText(message);
         binding.emptyList.emptyListIcon.setImageResource(errorResource);
 
+        binding.emptyList.emptyListView.setVisibility(View.VISIBLE);
         binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
         binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
         binding.userinfoList.setVisibility(View.GONE);
@@ -249,23 +251,31 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
     private void populateUserInfoUi(UserInfo userInfo) {
         binding.userinfoUsername.setText(user.getAccountName());
         binding.userinfoIcon.setTag(user.getAccountName());
-        DisplayUtils.setAvatar(user,
-                               this,
-                               mCurrentAccountAvatarRadiusDimension,
-                               getResources(),
-                               binding.userinfoIcon,
-                               this);
+        avatarGenerator.setAccountAvatar(user,
+                                         this,
+                                         mCurrentAccountAvatarRadiusDimension,
+                                         binding.userinfoIcon);
 
-        if (!TextUtils.isEmpty(userInfo.getDisplayName())) {
+        if (userInfo != null && !TextUtils.isEmpty(userInfo.getDisplayName())) {
             binding.userinfoFullName.setText(userInfo.getDisplayName());
+        } else {
+            try {
+                OwnCloudAccount oca = user.toOwnCloudAccount();
+                binding.userinfoFullName.setText(oca.getDisplayName());
+            } catch (Exception e) {
+                Log_OC.w(TAG, "Account not found right after being read; using account name instead");
+                binding.userinfoFullName.setText(UserAccountManager.getUsername(user));
+            }
         }
+
+        if (userInfo == null)
+            return;
 
         if (TextUtils.isEmpty(userInfo.getPhone()) && TextUtils.isEmpty(userInfo.getEmail())
             && TextUtils.isEmpty(userInfo.getAddress()) && TextUtils.isEmpty(userInfo.getTwitter())
             && TextUtils.isEmpty(userInfo.getWebsite())) {
             binding.userinfoList.setVisibility(View.GONE);
             binding.loadingContent.setVisibility(View.GONE);
-            binding.emptyList.emptyListView.setVisibility(View.VISIBLE);
 
             setErrorMessageForMultiList(getString(R.string.userinfo_no_info_headline),
                                         getString(R.string.userinfo_no_info_text), R.drawable.ic_user_outline);
@@ -289,9 +299,9 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         addToListIfNeeded(result, R.drawable.ic_phone, userInfo.getPhone(), R.string.user_info_phone);
         addToListIfNeeded(result, R.drawable.ic_email, userInfo.getEmail(), R.string.user_info_email);
         addToListIfNeeded(result, R.drawable.ic_map_marker, userInfo.getAddress(), R.string.user_info_address);
-        addToListIfNeeded(result, R.drawable.ic_web, DisplayUtils.beautifyURL(userInfo.getWebsite()),
+        addToListIfNeeded(result, R.drawable.ic_web, LinkFormatter.removeScheme(userInfo.getWebsite()),
                     R.string.user_info_website);
-        addToListIfNeeded(result, R.drawable.ic_twitter, DisplayUtils.beautifyTwitterHandle(userInfo.getTwitter()),
+        addToListIfNeeded(result, R.drawable.ic_twitter, LinkFormatter.formatHandle(userInfo.getTwitter()),
                     R.string.user_info_twitter);
 
         return result;
@@ -347,10 +357,10 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
                     // show error
                     runOnUiThread(() -> setErrorMessageForMultiList(
                         getString(R.string.user_information_retrieval_error),
-                        result.getLogMessage(this),
+                        getString(R.string.user_information_retrieval_error_message),
                         R.drawable.ic_list_empty_error)
                                  );
-                    Log_OC.d(TAG, result.getLogMessage());
+                    Log_OC.d(TAG, result.getLogMessage(this));
                 }
             }
         });

@@ -21,12 +21,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.utils.IntentUtil.createSendIntent
+import com.nextcloud.utils.SnackbarUtil
 import com.owncloud.android.R
 import com.owncloud.android.databinding.SendFilesFragmentBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.adapter.sendButton.SendButtonAdapter
 import com.owncloud.android.ui.adapter.sendButton.SendButtonData
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -73,7 +73,7 @@ class SendFilesDialog :
 
         if (matches.isEmpty()) {
             activity?.let {
-                DisplayUtils.showSnackMessage(it, R.string.no_send_app)
+                SnackbarUtil.show(it, R.string.no_send_app)
             }
             dismiss()
             return

@@ -12,9 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import com.owncloud.android.R;
+import com.owncloud.android.ui.SafeWebViewClient;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -51,7 +51,7 @@ public class FeatureWebFragment extends Fragment {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setAllowFileAccess(false);
-        webView.setWebViewClient(new WebViewClient());
+        webView.setWebViewClient(new SafeWebViewClient());
         webView.loadUrl(mWebUrl);
 
         return v;

@@ -19,12 +19,13 @@ import androidx.core.graphics.drawable.DrawableCompat
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
 import com.nextcloud.utils.GlideHelper.loadCircularBitmapIntoImageView
+import com.nextcloud.utils.avatar.AvatarGenerationListener
+import com.nextcloud.utils.avatar.AvatarGenerator
+import com.nextcloud.utils.view.ScreenMetrics
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.lib.resources.shares.ShareeUser
-import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlin.math.min
 
@@ -39,13 +40,23 @@ class AvatarGroupLayout @JvmOverloads constructor(
     private val borderDrawable = ContextCompat.getDrawable(context, R.drawable.round_bgnd)
 
     @Px
-    private val avatarSize: Int = DisplayUtils.convertDpToPixel(40f, context)
+    private val avatarSize: Int = ScreenMetrics.dpToPx(40f, context)
 
     @Px
-    private val avatarBorderSize: Int = DisplayUtils.convertDpToPixel(2f, context)
+    private val avatarBorderSize: Int = ScreenMetrics.dpToPx(2f, context)
 
     @Px
-    private val overlapPx: Int = DisplayUtils.convertDpToPixel(24f, context)
+    private val overlapPx: Int = ScreenMetrics.dpToPx(24f, context)
+
+    var boundFileId: Long? = null
+        set(value) {
+            if (field != value) {
+                displayedSharees = null
+            }
+            field = value
+        }
+
+    private var displayedSharees: List<ShareeUser>? = null
 
     init {
         checkNotNull(borderDrawable)
@@ -53,13 +64,31 @@ class AvatarGroupLayout @JvmOverloads constructor(
     }
 
     @Suppress("LongMethod", "TooGenericExceptionCaught")
-    fun setAvatars(user: User, sharees: MutableList<ShareeUser>, viewThemeUtils: ViewThemeUtils) {
+    fun setAvatars(
+        user: User,
+        sharees: List<ShareeUser>,
+        viewThemeUtils: ViewThemeUtils,
+        avatarGenerator: AvatarGenerator
+    ) {
+        if (sharees == displayedSharees) {
+            return
+        }
+        displayedSharees = sharees
+
         val context = getContext()
         removeAllViews()
+
+        if (sharees.isEmpty()) {
+            visibility = GONE
+            return
+        }
+        visibility = VISIBLE
+
         var avatarLayoutParams: LayoutParams?
         val shareeSize = min(sharees.size, MAX_AVATAR_COUNT)
         val resources = context.resources
         val avatarRadius = resources.getDimension(R.dimen.list_item_avatar_icon_radius)
+        val serverName = user.accountName.substringAfterLast('@')
         var sharee: ShareeUser
 
         var avatarCount = 0
@@ -102,17 +131,15 @@ class AvatarGroupLayout @JvmOverloads constructor(
                     )
 
                     else -> {
-                        avatar.tag = sharee
-                        DisplayUtils.setAvatar(
-                            user,
+                        avatar.tag = "${sharee.userId}@$serverName"
+                        avatarGenerator.setUserAvatar(
                             sharee.userId!!,
-                            sharee.displayName,
                             this,
                             avatarRadius,
-                            resources,
                             avatar,
-                            context,
-                            avatarBorderSize
+                            displayName = sharee.displayName,
+                            user = user,
+                            avatarBorder = avatarBorderSize
                         )
                     }
                 }
@@ -166,11 +193,11 @@ class AvatarGroupLayout @JvmOverloads constructor(
         }
     }
 
-    override fun avatarGenerated(avatarDrawable: Drawable?, callContext: Any) {
+    override fun avatarGenerated(avatarDrawable: Drawable?, callContext: Any?) {
         (callContext as ImageView).setImageDrawable(avatarDrawable)
     }
 
-    override fun shouldCallGeneratedCallback(tag: String?, callContext: Any): Boolean =
+    override fun shouldCallGeneratedCallback(tag: String?, callContext: Any?): Boolean =
         (callContext as ImageView).tag == tag
 
     companion object {

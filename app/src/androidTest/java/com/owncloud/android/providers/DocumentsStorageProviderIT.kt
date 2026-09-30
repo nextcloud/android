@@ -8,10 +8,15 @@ package com.owncloud.android.providers
 
 import android.provider.DocumentsContract
 import androidx.documentfile.provider.DocumentFile
+import com.nextcloud.client.account.UserAccountManagerImpl
+import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.test.RandomStringGenerator
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile.ROOT_PATH
+import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus
+import com.owncloud.android.db.OCUpload
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.providers.DocumentsProviderUtils.assertExistsOnServer
 import com.owncloud.android.providers.DocumentsProviderUtils.assertListFilesEquals
@@ -31,11 +36,15 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
+import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Test
 import kotlin.random.Random
 
 private const val MAX_FILE_NAME_LENGTH = 225
+
+// the provider can only enqueue the upload worker, so give it a generous budget before giving up
+private const val UPLOAD_POLL_ATTEMPTS = 45
 
 class DocumentsStorageProviderIT : AbstractOnServerIT() {
 
@@ -48,8 +57,17 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
     private val uri = DocumentsContract.buildTreeDocumentUri(authority, documentId)
     private val rootDir get() = DocumentFile.fromTreeUri(context, uri)!!
 
+    private val uploadsStorageManager = UploadsStorageManager(
+        UserAccountManagerImpl.fromContext(context),
+        contentResolver
+    )
+
     @Before
     fun before() {
+        // an upload left over by a previous test fails once its local file is gone, and WorkManager
+        // then drops everything appended behind it in the upload chain, including our own uploads
+        FileUploadHelper.instance().cancel(user.accountName)
+
         // DocumentsProvider#onCreate() is called when the application is started
         // which is *after* AbstractOnServerIT adds the accounts (when the app is freshly installed).
         // So we need to query our roots here to ensure that the internal storage map is initialized.
@@ -211,11 +229,7 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
             it!!.write(content1)
         }
 
-        // refresh
-        while (file1.getOCFile(storageManager)!!.etagOnServer == createdETag) {
-            shortSleep()
-            rootDir.listFiles()
-        }
+        awaitUploadedToServer(file1, createdETag)
 
         val remotePath = file1.getOCFile(storageManager)!!.remotePath
 
@@ -250,11 +264,7 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
             it!!.write(content1)
         }
 
-        // refresh
-        while (file1.getOCFile(storageManager)!!.etagOnServer == createdETag) {
-            shortSleep()
-            rootDir.listFiles()
-        }
+        awaitUploadedToServer(file1, createdETag)
 
         val content2 = "new content".toByteArray()
 
@@ -266,4 +276,31 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
         val bytes = contentResolver.openInputStream(file1.uri)?.readBytes() ?: ByteArray(0)
         assertEquals(String(content2), String(bytes))
     }
+
+    private fun awaitUploadedToServer(file: DocumentFile, etagBeforeUpload: String) {
+        val remotePath = file.getOCFile(storageManager)!!.remotePath
+
+        repeat(UPLOAD_POLL_ATTEMPTS) {
+            if (file.getOCFile(storageManager)!!.etagOnServer != etagBeforeUpload) {
+                return
+            }
+
+            failedUpload(remotePath)?.let {
+                fail("upload of $remotePath failed with ${it.lastResult}")
+            }
+
+            shortSleep()
+            rootDir.listFiles()
+        }
+
+        fail("upload of $remotePath did not finish, stored uploads: ${describeUploads()}")
+    }
+
+    private fun failedUpload(remotePath: String): OCUpload? = uploadsStorageManager
+        .getUploadsForAccount(user.accountName)
+        .firstOrNull { it.remotePath == remotePath && it.uploadStatus == UploadStatus.UPLOAD_FAILED }
+
+    private fun describeUploads(): String = uploadsStorageManager
+        .getUploadsForAccount(user.accountName)
+        .joinToString { "${it.remotePath} is ${it.uploadStatus} with ${it.lastResult}" }
 }

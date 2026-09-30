@@ -91,6 +91,35 @@ class TestPowerManagementService {
             //      power saving is disabled
             assertFalse(powerManagementService.isPowerSavingEnabled)
         }
+
+        private fun givenBatteryOptimizationIsIgnored(ignored: Boolean) {
+            whenever(context.getSystemService(Context.POWER_SERVICE)).thenReturn(platformPowerManager)
+            whenever(context.packageName).thenReturn("com.nextcloud.client")
+            whenever(platformPowerManager.isIgnoringBatteryOptimizations(any())).thenReturn(ignored)
+        }
+
+        @Test
+        fun `auto upload is blocked while the system still restricts the app`() {
+            whenever(platformPowerManager.isPowerSaveMode).thenReturn(true)
+            givenBatteryOptimizationIsIgnored(false)
+
+            assertTrue(powerManagementService.blocksAutoUpload)
+        }
+
+        @Test
+        fun `auto upload is not blocked once the app is excluded from battery optimization`() {
+            whenever(platformPowerManager.isPowerSaveMode).thenReturn(true)
+            givenBatteryOptimizationIsIgnored(true)
+
+            assertFalse(powerManagementService.blocksAutoUpload)
+        }
+
+        @Test
+        fun `auto upload is not blocked while battery saver is off`() {
+            whenever(platformPowerManager.isPowerSaveMode).thenReturn(false)
+
+            assertFalse(powerManagementService.blocksAutoUpload)
+        }
     }
 
     @SuppressLint("UnspecifiedRegisterReceiverFlag")

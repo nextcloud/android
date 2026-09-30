@@ -24,8 +24,11 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.utils.avatar.AvatarGenerationListener
+import com.nextcloud.utils.avatar.AvatarGenerator
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.mdm.MDMConfig
+import com.nextcloud.utils.view.ScreenMetrics
 import com.owncloud.android.R
 import com.owncloud.android.databinding.DialogChooseAccountBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -35,8 +38,6 @@ import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.ui.adapter.UserListAdapter
 import com.owncloud.android.ui.adapter.UserListItem
-import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -63,6 +64,9 @@ class ChooseAccountDialogFragment :
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
+
+    @Inject
+    lateinit var avatarGenerator: AvatarGenerator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,13 +96,11 @@ class ChooseAccountDialogFragment :
 
             // Defining user picture
             binding.currentAccount.userIcon.tag = user.accountName
-            DisplayUtils.setAvatar(
+            avatarGenerator.setAccountAvatar(
                 user,
                 this,
                 resources.getDimension(R.dimen.list_item_avatar_icon_radius),
-                resources,
-                binding.currentAccount.userIcon,
-                context
+                binding.currentAccount.userIcon
             )
 
             // Defining user texts, accounts, etc.
@@ -119,7 +121,8 @@ class ChooseAccountDialogFragment :
                 false,
                 false,
                 true,
-                viewThemeUtils
+                viewThemeUtils,
+                avatarGenerator
             )
 
             if (!MDMConfig.multiAccountSupport(requireContext())) {
@@ -241,7 +244,7 @@ class ChooseAccountDialogFragment :
     fun setStatus(newStatus: Status, context: Context) {
         currentStatus = newStatus
 
-        val size = DisplayUtils.convertDpToPixel(STATUS_SIZE_IN_DP, context)
+        val size = ScreenMetrics.dpToPx(STATUS_SIZE_IN_DP, context)
         binding.currentAccount.ticker.background = null
         binding.currentAccount.ticker.setImageDrawable(StatusDrawable(newStatus, size.toFloat(), context))
         binding.currentAccount.ticker.visibility = View.VISIBLE

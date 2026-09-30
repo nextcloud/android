@@ -10,11 +10,12 @@ package com.owncloud.android.ui.adapter
 import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.nextcloud.utils.HumanReadableFormatter
+import com.nextcloud.utils.text.DisplayTextFormatter
 import com.owncloud.android.R
 import com.owncloud.android.databinding.InternalTwoWaySyncViewHolderBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.utils.DisplayUtils
 
 class InternalTwoWaySyncViewHolder(val binding: InternalTwoWaySyncViewHolderBinding) :
     RecyclerView.ViewHolder(binding.root) {
@@ -25,7 +26,7 @@ class InternalTwoWaySyncViewHolder(val binding: InternalTwoWaySyncViewHolderBind
         internalTwoWaySyncAdapter: InternalTwoWaySyncAdapter
     ) {
         binding.run {
-            size.text = DisplayUtils.bytesToHumanReadable(folder.fileLength)
+            size.text = HumanReadableFormatter.formatBytes(folder.fileLength)
             name.text = folder.decryptedFileName
 
             if (folder.internalFolderSyncResult.isEmpty()) {
@@ -40,7 +41,7 @@ class InternalTwoWaySyncViewHolder(val binding: InternalTwoWaySyncViewHolderBind
             if (folder.internalFolderSyncTimestamp == 0L) {
                 syncTimestamp.text = context.getString(R.string.internal_two_way_sync_not_yet)
             } else {
-                syncTimestamp.text = DisplayUtils.getRelativeTimestamp(
+                syncTimestamp.text = DisplayTextFormatter.formatRelativeTimestamp(
                     context,
                     folder.internalFolderSyncTimestamp
                 )

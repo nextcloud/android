@@ -28,7 +28,6 @@
     <string name="activity_icon">Activity</string>
     <string name="add_new_public_share">Add new public share link</string>
     <string name="add_new_secure_file_drop">Add new secure file drop</string>
-    <string name="add_to_cloud">Add to %1$s</string>
     <string name="app_widget_description">Shows one widget from dashboard</string>
     <string name="appbar_search_in">Search in %s</string>
     <string name="appear_offline">ხაზგარეშე გამოჩენა</string>
@@ -180,11 +179,12 @@
     <string name="could_not_retrieve_url">Could not retrieve URL</string>
     <string name="create">Create</string>
     <string name="create_dir_fail_msg">Could not create folder</string>
+    <string name="create_folder">Folder</string>
     <string name="create_new">New</string>
     <string name="create_new_document">New document</string>
-    <string name="create_new_folder">New folder</string>
     <string name="create_new_presentation">New presentation</string>
     <string name="create_new_spreadsheet">New spreadsheet</string>
+    <string name="create_presentation">Presentation</string>
     <string name="credentials_disabled">Credentials disabled</string>
     <string name="daily_backup">Daily backup</string>
     <string name="data_to_back_up">Data to back up</string>
@@ -305,6 +305,7 @@
     <string name="etm_transfer_type_upload">Upload</string>
     <string name="fab_label">Add or upload</string>
     <string name="failed_to_download">Failed to pass file to download manager</string>
+    <string name="failed_to_load_tags">Failed to load tags</string>
     <string name="failed_to_print">Failed to print file</string>
     <string name="failed_to_start_editor">Failed to start editor</string>
     <string name="failed_update_ui">Failed to update UI</string>
@@ -455,18 +456,6 @@
     <string name="manage_space_clear_data">Clear data</string>
     <string name="manage_space_description">Settings, database and server certificates from %1$s\'s data will be deleted permanently. \n\nDownloaded files will be kept untouched.\n\nThis process can take a while.</string>
     <string name="manage_space_title">Manage space</string>
-    <string name="media_err_invalid_progressive_playback">The media file cannot be streamed</string>
-    <string name="media_err_io">Could not read the media file</string>
-    <string name="media_err_malformed">The media file has incorrect encoding</string>
-    <string name="media_err_timeout">Attempt to play file timed out</string>
-    <string name="media_err_unknown">The built-in media player is unable to play the media file</string>
-    <string name="media_err_unsupported">Unsupported media codec</string>
-    <string name="media_forward_description">Fast forward button</string>
-    <string name="media_notif_ticker">%1$s music player</string>
-    <string name="media_play_pause_description">Play or pause button</string>
-    <string name="media_player_play">Play</string>
-    <string name="media_rewind_description">Rewind button</string>
-    <string name="media_state_playing">%1$s (playing)</string>
     <string name="menu_item_sort_by_date_newest_first">Newest first</string>
     <string name="menu_item_sort_by_date_oldest_first">Oldest first</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -535,8 +524,7 @@
     <string name="permission_deny">Deny</string>
     <string name="picture_set_as_no_app">No app found to set a picture with</string>
     <string name="pin_shortcut_label">Open %1$s</string>
-    <string name="player_stop">stop</string>
-    <string name="player_toggle">toggle</string>
+    <string name="player_media_controls_close_action_title">Close</string>
     <string name="power_save_check_dialog_message">Disabling power save check might result in uploading files when in low battery state!</string>
     <string name="pref_behaviour_entries_delete_file">deleted</string>
     <string name="pref_behaviour_entries_keep_file">kept in original folder</string>
@@ -610,6 +598,7 @@
     <string name="reload">Reload</string>
     <string name="remote">(remote)</string>
     <string name="remote_file_fetch_failed">Failed to find file!</string>
+    <string name="remove">Remove</string>
     <string name="remove_e2e">You can remove end-to-end encryption locally on this client</string>
     <string name="remove_e2e_message">You can remove end-to-end encryption locally on this client. The encrypted files will remain on server, but will not be synced to this computer any longer.</string>
     <string name="remove_fail_msg">Deletion failed</string>
@@ -618,6 +607,7 @@
     <string name="remove_notification_failed">Failed to remove notification.</string>
     <string name="remove_push_notification">Remove</string>
     <string name="remove_success_msg">Deleted</string>
+    <string name="rename_dialog_button">სახელის გადარქმევა</string>
     <string name="rename_dialog_title">Enter a new name</string>
     <string name="rename_local_fail_msg">Could not rename local copy, try a different name</string>
     <string name="rename_server_fail_msg">Renaming not possible, name already taken</string>
@@ -744,7 +734,6 @@
     <string name="store_short_dev_desc">The self-hosted productivity platform that keeps you in control (dev preview version)</string>
     <string name="stream">Stream with…</string>
     <string name="stream_not_possible_headline">Internal streaming not possible</string>
-    <string name="stream_not_possible_message">Please download media instead or use external app.</string>
     <string name="sub_folder_rule_day">Year/Month/Day</string>
     <string name="sub_folder_rule_month">Year/Month</string>
     <string name="sub_folder_rule_year">Year</string>

@@ -7,6 +7,7 @@
 
 package com.nextcloud.utils
 
+import com.nextcloud.test.SinceServer
 import com.nextcloud.utils.fileNameValidator.FileNameValidator
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.R
@@ -42,6 +43,7 @@ class FileNameValidatorTests : AbstractOnServerIT() {
     }
 
     @Test
+    @SinceServer(majorVersion = 30)
     fun testInvalidCharacter() {
         testOnlyOnServer(NextcloudVersion.nextcloud_30)
 
@@ -53,6 +55,7 @@ class FileNameValidatorTests : AbstractOnServerIT() {
     }
 
     @Test
+    @SinceServer(majorVersion = 30)
     fun testReservedName() {
         testOnlyOnServer(NextcloudVersion.nextcloud_30)
 
@@ -61,6 +64,7 @@ class FileNameValidatorTests : AbstractOnServerIT() {
     }
 
     @Test
+    @SinceServer(majorVersion = 30)
     fun testForbiddenFilenameExtension() {
         testOnlyOnServer(NextcloudVersion.nextcloud_30)
 
@@ -141,6 +145,7 @@ class FileNameValidatorTests : AbstractOnServerIT() {
     }
 
     @Test
+    @SinceServer(majorVersion = 30)
     fun testFolderPathWithReservedName() {
         testOnlyOnServer(NextcloudVersion.nextcloud_30)
 
@@ -152,6 +157,7 @@ class FileNameValidatorTests : AbstractOnServerIT() {
     }
 
     @Test
+    @SinceServer(majorVersion = 30)
     fun testFilePathWithReservedName() {
         testOnlyOnServer(NextcloudVersion.nextcloud_30)
 
@@ -163,6 +169,7 @@ class FileNameValidatorTests : AbstractOnServerIT() {
     }
 
     @Test
+    @SinceServer(majorVersion = 30)
     fun testFolderPathWithInvalidCharacter() {
         testOnlyOnServer(NextcloudVersion.nextcloud_30)
 
@@ -174,6 +181,7 @@ class FileNameValidatorTests : AbstractOnServerIT() {
     }
 
     @Test
+    @SinceServer(majorVersion = 30)
     fun testFilePathWithInvalidCharacter() {
         testOnlyOnServer(NextcloudVersion.nextcloud_30)
 
@@ -203,6 +211,7 @@ class FileNameValidatorTests : AbstractOnServerIT() {
     }
 
     @Test
+    @SinceServer(majorVersion = 30)
     fun testFilePathWithNestedFolder() {
         testOnlyOnServer(NextcloudVersion.nextcloud_30)
 
@@ -222,6 +231,7 @@ class FileNameValidatorTests : AbstractOnServerIT() {
     }
 
     @Test
+    @SinceServer(majorVersion = 30)
     fun testOnlyFolderPathWithOneReservedName() {
         testOnlyOnServer(NextcloudVersion.nextcloud_30)
 

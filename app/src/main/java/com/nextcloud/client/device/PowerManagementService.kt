@@ -30,4 +30,6 @@ interface PowerManagementService {
      * Checks current battery status using platform [android.os.BatteryManager]
      */
     val battery: BatteryStatus
+
+    val blocksAutoUpload: Boolean
 }
