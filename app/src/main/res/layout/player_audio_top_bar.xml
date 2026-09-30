@@ -13,7 +13,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="@dimen/player_toolbar_height"
-    app:menu="@menu/player_top_bar"
+    app:menu="@menu/player_audio_top_bar"
     app:navigationContentDescription="@string/common_back"
     app:navigationIcon="@drawable/ic_arrow_back"
     tools:title="Player title" />

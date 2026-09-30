@@ -31,3 +31,10 @@ fun VirtualFolderType?.toPlaybackCollection(): PlaybackCollection = when (this) 
     VirtualFolderType.ALBUM -> PlaybackCollection.ALBUM
     else -> PlaybackCollection.FOLDER
 }
+
+fun PlaybackCollection.toVirtualFolderType(): VirtualFolderType = when (this) {
+    PlaybackCollection.FAVORITES -> VirtualFolderType.FAVORITE
+    PlaybackCollection.GALLERY -> VirtualFolderType.GALLERY
+    PlaybackCollection.ALBUM -> VirtualFolderType.ALBUM
+    PlaybackCollection.FOLDER, PlaybackCollection.SHARED -> VirtualFolderType.NONE
+}

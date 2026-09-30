@@ -40,7 +40,7 @@ class E2EEActionResolver @Inject constructor(
     }
 
     suspend fun checkFolderMetadataKey(file: OCFile): Boolean = withContext(Dispatchers.IO) {
-        val capability = storageManager.getCapability(accountManager.user)
+        val capability = storageManager.getCapability(accountManager.user.accountName)
         val canDecrypt = inspector.canDecryptFolderMetadata(file, capability)
         storageManager.setReadOnly(file, !canDecrypt)
         return@withContext canDecrypt

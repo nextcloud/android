@@ -564,13 +564,13 @@ class AlbumItemsFragment :
             MimeTypeUtil.isVideo(file) ->
                 activity.startImagePreview(file, true, VirtualFolderType.ALBUM)
 
-            file.isDown && activity.canMediaPreviewed(file) ->
-                activity.startMediaPreview(file, showPreview = true, streamMedia = false)
+            file.isDown && activity.canPreviewInAudioPlayer(file) ->
+                activity.startAudioPreview(file, showPreview = true, streamMedia = false)
 
             file.isDown -> containerActivity?.fileOperationsHelper?.openFile(file)
 
-            activity.canMediaPreviewed(file) && !file.isEncrypted ->
-                activity.startMediaPreview(file, showPreview = true, streamMedia = true)
+            activity.canPreviewInAudioPlayer(file) && !file.isEncrypted ->
+                activity.startAudioPreview(file, showPreview = true, streamMedia = true)
 
             else -> Log_OC.d(TAG, "Couldn't handle item click")
         }

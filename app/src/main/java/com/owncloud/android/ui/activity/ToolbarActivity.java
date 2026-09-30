@@ -32,6 +32,7 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.systembars.SystemBarBackgroundCallbacks;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -289,6 +290,12 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
             mDefaultToolbar.setVisibility(View.VISIBLE);
             mHomeSearchToolbar.setVisibility(View.GONE);
         }
+
+        SystemBarBackgroundCallbacks.apply(this, viewThemeUtils);
+    }
+
+    public boolean isHomeSearchToolbarVisible() {
+        return mHomeSearchToolbar != null && mHomeSearchToolbar.getVisibility() == View.VISIBLE;
     }
 
     /**

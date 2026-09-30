@@ -6,7 +6,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.nextcloud.client.player.ui.pager
+package com.nextcloud.client.player.ui.audio
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -14,7 +14,6 @@ import android.os.Parcel
 import android.os.Parcelable
 import android.util.AttributeSet
 import android.widget.LinearLayout
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.widget.ViewPager2
@@ -28,16 +27,16 @@ private const val NO_POSITION = -1
 private const val FIRST_ENTITY_POSITION = 1
 private const val OFFSCREEN_PAGE_LIMIT = 1
 
-class PlayerPager @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
+class AudioPlayerPager @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
     LinearLayout(context, attrs),
     MediaNavigator {
 
     @SuppressLint("WrongConstant")
     private val viewPager = ViewPager2(context).apply {
-        id = R.id.player_view_pager
+        id = R.id.player_audio_pager
         offscreenPageLimit = OFFSCREEN_PAGE_LIMIT
     }
-    private lateinit var adapter: PlayerPagerAdapter
+    private lateinit var adapter: AudioPlayerPagerAdapter
     private var shift = NO_SHIFT
     private var restoredShift = NO_SHIFT
 
@@ -63,26 +62,21 @@ class PlayerPager @JvmOverloads constructor(context: Context, attrs: AttributeSe
         addView(viewPager, LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
     }
 
-    fun initialize(fragmentManager: FragmentManager, lifecycle: Lifecycle, createFragment: (PlaybackFile) -> Fragment) {
-        adapter = PlayerPagerAdapter(fragmentManager, lifecycle, createFragment)
+    fun initialize(fragmentManager: FragmentManager, lifecycle: Lifecycle) {
+        adapter = AudioPlayerPagerAdapter(fragmentManager, lifecycle)
         viewPager.adapter = adapter
     }
 
     override fun onSaveInstanceState(): Parcelable {
-        val state = PlayerPagerState(super.onSaveInstanceState())
+        val state = AudioPlayerPagerState(super.onSaveInstanceState())
         state.shiftedPosition = shift
         return state
     }
 
     override fun onRestoreInstanceState(state: Parcelable?) {
-        val restoredState = state as PlayerPagerState
+        val restoredState = state as AudioPlayerPagerState
         super.onRestoreInstanceState(restoredState.superState)
         restoredShift = restoredState.shiftedPosition
-    }
-
-    fun release() {
-        viewPager.unregisterOnPageChangeCallback(onPageChangeCallback)
-        viewPager.adapter = null
     }
 
     fun getItems(): List<PlaybackFile> = adapter.getEntities()
@@ -137,7 +131,7 @@ class PlayerPager @JvmOverloads constructor(context: Context, attrs: AttributeSe
         return items.rotate(shift)
     }
 
-    class PlayerPagerState : BaseSavedState {
+    class AudioPlayerPagerState : BaseSavedState {
         var shiftedPosition: Int = 0
 
         constructor(superState: Parcelable?) : super(superState)
@@ -153,11 +147,11 @@ class PlayerPager @JvmOverloads constructor(context: Context, attrs: AttributeSe
 
         companion object {
             @JvmField
-            val CREATOR = object : Parcelable.Creator<PlayerPagerState> {
+            val CREATOR = object : Parcelable.Creator<AudioPlayerPagerState> {
 
-                override fun createFromParcel(parcel: Parcel): PlayerPagerState = PlayerPagerState(parcel)
+                override fun createFromParcel(parcel: Parcel): AudioPlayerPagerState = AudioPlayerPagerState(parcel)
 
-                override fun newArray(size: Int): Array<PlayerPagerState?> = arrayOfNulls(size)
+                override fun newArray(size: Int): Array<AudioPlayerPagerState?> = arrayOfNulls(size)
             }
         }
     }

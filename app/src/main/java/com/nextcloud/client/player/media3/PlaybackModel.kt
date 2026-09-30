@@ -99,8 +99,6 @@ class PlaybackModel @Inject constructor(
 
     private var mediaSession: MediaSession? = null
 
-    var onPictureInPictureClose: (() -> Unit)? = null
-
     private var videoSurfaceView: SurfaceView? = null
 
     private var cachedCurrentFiles: List<PlaybackFile>? = null
