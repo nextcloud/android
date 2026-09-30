@@ -55,7 +55,6 @@ class NavigationAnimator(private val activity: AppCompatActivity) {
         }
     }
 
-
     fun finishWithSlideDown() {
         if (isLaunchedWithSharedElement) {
             activity.setEnterSharedElementCallback(withoutSharedElements())
