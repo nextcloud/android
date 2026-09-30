@@ -11,7 +11,6 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.Context
 import android.graphics.Outline
-import android.graphics.Rect
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewOutlineProvider
@@ -20,11 +19,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import com.google.android.material.behavior.HideViewOnScrollBehavior
-
-fun View.boundsOnScreen(): Rect {
-    val location = IntArray(2).also { getLocationOnScreen(it) }
-    return Rect(location[0], location[1], location[0] + width, location[1] + height)
-}
 
 fun View?.setVisibleIf(condition: Boolean) {
     if (this == null) return
