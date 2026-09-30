@@ -228,7 +228,10 @@
     <string name="confirmation_remove_folder_alert">Tebɣiḍ ad tekkseḍ s tidet %1$s d ugbur-is?</string>
     <string name="confirmation_remove_folders_alert">D tidet tebɣiḍ ad tekkseḍ iferdisen yettwafernen akked igburen-nnsen?</string>
     <string name="confirmation_remove_local">Adigan kan</string>
+    <string name="conflict_folder_headline">Ccwal n ikaramen</string>
     <string name="conflict_local_file">Afaylu adigan</string>
+    <string name="conflict_message_description">Ma tferneḍ ileqman deg sin, afaylu adigan ad yawi amḍan yettwarna ɣer yisem-is.</string>
+    <string name="conflict_message_description_for_folder">Ma tferneḍ ileqman deg sin, akaram adigan ad yawi amḍan yettwarna ɣer yisem-is.</string>
     <string name="conflict_server_file">Afaylu n uqeddac</string>
     <string name="contact_backup_title">Aḥraz n yinermisen</string>
     <string name="contact_no_permission">Tisirag n unermis tettwasra.</string>
@@ -259,8 +262,13 @@
     <string name="could_not_retrieve_shares">Yegguma ad d-yawi ibuṭṭuyen</string>
     <string name="could_not_retrieve_url">Ur izmir ara ad d-yawi URL</string>
     <string name="create">Snulfu-d</string>
+    <string name="create_album_dialog_message">Sekcem isem n walbum-ik·im amaynut</string>
+    <string name="create_album_dialog_title">Album amaynut</string>
     <string name="create_dir_fail_msg">Ulamek asnulfu n ukaram</string>
     <string name="create_document">Isemli</string>
+    <string name="create_encrypted_folder">Akaram yettwawgelhen</string>
+    <string name="create_end_to_end_encrypted_share">Beṭṭu n useɣwen</string>
+    <string name="create_end_to_end_encrypted_share_title">Beṭṭu n useɣwen s uwgelhen seg yixef ɣer yixef</string>
     <string name="create_folder">Akaram</string>
     <string name="create_link">Snulfu-d aseɣwen</string>
     <string name="create_new">Amaynut</string>
@@ -282,6 +290,8 @@
     <string name="dev_version_no_information_available">Ulac talɣut iwejden</string>
     <string name="dev_version_no_new_version_available">Ulac lqem amaynut yewjed.</string>
     <string name="dialog_close">Mdel</string>
+    <string name="direct_login_confirm_message">Tebɣiḍ ad tkecmeḍ s %1$s ɣer %2$s?</string>
+    <string name="direct_login_confirm_title">Sentem tuqqna</string>
     <string name="direct_login_failed">Tuqqna s useɣwen usrid ur yeddi ara!</string>
     <string name="direct_login_text">Qqen s %1$s ar %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">Désactiver</string>
