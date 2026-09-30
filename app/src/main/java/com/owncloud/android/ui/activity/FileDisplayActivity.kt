@@ -46,7 +46,6 @@ import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.SearchView
-import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Function
 import androidx.core.view.MenuItemCompat
 import androidx.core.view.isVisible
@@ -156,6 +155,7 @@ import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.ui.helpers.UriUploader
 import com.owncloud.android.ui.interfaces.TransactionInterface
 import com.owncloud.android.ui.navigation.NavigatorScreen
+import com.owncloud.android.ui.navigation.animator.NavigationAnimator
 import com.owncloud.android.ui.preview.PreviewImageActivity
 import com.owncloud.android.ui.preview.PreviewImageFragment
 import com.owncloud.android.ui.preview.PreviewTextFileFragment
@@ -1331,8 +1331,8 @@ class FileDisplayActivity :
 
         // leaving the details right away would flash the list behind the preview while it fades in
         detailsFromPreview = DetailsFromPreviewState.ReturnedToPreview(state.fileBeforeDetails)
-        val options = ActivityOptionsCompat.makeCustomAnimation(this, android.R.anim.fade_in, R.anim.hold)
-        startActivity(previewIntent, options.toBundle())
+        val navigationAnimator = NavigationAnimator(this)
+        navigationAnimator.slideDown(previewIntent)
     }
 
     private fun leaveDetails(fileBeforeDetails: OCFile?) {

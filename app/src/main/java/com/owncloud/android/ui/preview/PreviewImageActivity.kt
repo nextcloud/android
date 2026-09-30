@@ -16,7 +16,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.OnBackPressedCallback
-import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.ViewCompat
@@ -66,6 +65,7 @@ import com.owncloud.android.ui.dialog.SendShareDialog
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.fragment.GalleryFragment
 import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog.MediaState
+import com.owncloud.android.ui.navigation.animator.NavigationAnimator
 import com.owncloud.android.ui.preview.model.PreviewImageActivityState
 import com.owncloud.android.utils.MimeTypeUtil
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
@@ -503,8 +503,8 @@ class PreviewImageActivity :
             addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
         }
 
-        val options = ActivityOptionsCompat.makeCustomAnimation(this, R.anim.slide_in_bottom, R.anim.hold)
-        startActivity(detailsIntent, options.toBundle())
+        val navigationAnimator = NavigationAnimator(this)
+        navigationAnimator.slideUp(detailsIntent)
         finish()
     }
 
