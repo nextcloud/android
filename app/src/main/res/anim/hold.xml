@@ -6,6 +6,6 @@
   ~ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <translate xmlns:android="http://schemas.android.com/apk/res/android"
-    android:duration="@android:integer/config_mediumAnimTime"
+    android:duration="300"
     android:fromYDelta="0"
     android:toYDelta="0" />

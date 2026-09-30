@@ -491,21 +491,14 @@ class PreviewImageActivity :
 
     @SuppressFBWarnings("DLS")
     override fun showDetails(file: OCFile) {
-        val virtualFolderType = intent.getSerializableArgument(EXTRA_VIRTUAL_TYPE, VirtualFolderType::class.java)
-        val mediaState = intent.getSerializableArgument(EXTRA_MEDIA_STATE, MediaState::class.java)
-
         val detailsIntent = Intent(this, FileDisplayActivity::class.java).apply {
             setAction(FileDisplayActivity.ACTION_DETAILS)
             putExtra(EXTRA_FILE, file)
             putExtra(FileDisplayActivity.EXTRA_RETURN_TO_PREVIEW, true)
-            virtualFolderType?.let { putExtra(EXTRA_VIRTUAL_TYPE, it) }
-            mediaState?.let { putExtra(EXTRA_MEDIA_STATE, it) }
-            addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
         }
 
         val navigationAnimator = NavigationAnimator(this)
         navigationAnimator.slideUp(detailsIntent)
-        finish()
     }
 
     override fun showDetails(file: OCFile, activeTab: Int) {
