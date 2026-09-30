@@ -236,7 +236,7 @@ class AppModule {
         return new AppNotificationManagerImpl(context,
                                               context.getResources(),
                                               platformNotificationsManager,
-                                              viewThemeUtilsProvider.get());
+                                              viewThemeUtilsProvider);
     }
 
     @Provides
@@ -274,7 +274,6 @@ class AppModule {
     }
 
     @Provides
-    @Singleton
     FolderThumbnailGenerator folderThumbnailGenerator(
         AppPreferences appPreferences,
         ViewThemeUtils viewThemeUtils,
