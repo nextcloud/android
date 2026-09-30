@@ -217,6 +217,8 @@
     </style>
 
     <style name="Theme.ownCloud.Overlay" parent="Theme.ownCloud.OverlayBase">
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:statusBarColor">@color/black</item>
         <item name="android:navigationBarColor">@color/black</item>
         <item name="toolbarStyle">@style/Theme.ownCloud.Overlay.ActionBar</item>
         <item name="actionOverflowButtonStyle">@style/ToolbarStyle.Overflow</item>
