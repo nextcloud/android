@@ -18,6 +18,7 @@ import android.webkit.ValueCallback
 import android.webkit.WebChromeClient
 import android.webkit.WebChromeClient.FileChooserParams
 import android.webkit.WebView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
@@ -47,6 +48,16 @@ abstract class EditorWebView : ExternalSiteWebView() {
 
     private var uploadMessage: ValueCallback<Array<Uri>>? = null
     private var loadingSnackbar: Snackbar? = null
+
+    private val fileChooserLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            val uris = if (result.resultCode == RESULT_OK) {
+                parseChosenFiles(result.resultCode, result.data)
+            } else {
+                null
+            }
+            completeFileChooser(uris)
+        }
 
     protected open fun loadUrl(url: String?) {
         onUrlLoaded(url)
@@ -158,7 +169,7 @@ abstract class EditorWebView : ExternalSiteWebView() {
             }
 
             return try {
-                startActivityForResult(intent, REQUEST_LOCAL_FILE)
+                fileChooserLauncher.launch(intent)
                 true
             } catch (_: ActivityNotFoundException) {
                 uploadMessage = null
@@ -166,21 +177,6 @@ abstract class EditorWebView : ExternalSiteWebView() {
                 false
             }
         }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode != RESULT_OK) {
-            if (requestCode == REQUEST_LOCAL_FILE) {
-                completeFileChooser(null)
-            }
-            return
-        }
-
-        if (requestCode == REQUEST_LOCAL_FILE) {
-            completeFileChooser(parseChosenFiles(resultCode, data))
-        }
-
-        super.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun parseChosenFiles(resultCode: Int, data: Intent?): Array<Uri>? {
@@ -275,7 +271,6 @@ abstract class EditorWebView : ExternalSiteWebView() {
     }
 
     companion object {
-        private const val REQUEST_LOCAL_FILE = 101
         private const val IMAGE_MIME_TYPE_FILTER = "image/*"
         private val PROXY_SETUP_DELAY = 1.seconds
         private val LOADING_TIMEOUT = 10.seconds
