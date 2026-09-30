@@ -49,7 +49,7 @@ import kotlin.math.roundToInt
 class FileThumbnailGenerator @Inject constructor(
     private val storageManager: Provider<FileDataStorageManager>,
     private val preferences: AppPreferences,
-    private val viewThemeUtils: ViewThemeUtils,
+    private val viewThemeUtils: Provider<ViewThemeUtils>,
     private val context: Context,
     private val accountManager: UserAccountManager
 ) {
@@ -222,10 +222,11 @@ class FileThumbnailGenerator @Inject constructor(
         }
     }
 
-    private fun OCFile.mimeIcon(): Drawable? = MimeTypeUtil.getFileTypeIcon(mimeType, fileName, context, viewThemeUtils)
+    private fun OCFile.mimeIcon(): Drawable? =
+        MimeTypeUtil.getFileTypeIcon(mimeType, fileName, context, viewThemeUtils.get())
 
     private fun OCFile.placeholder(): Bitmap = synchronized(placeholders) {
-        placeholders.getOrPut(mimeType.orEmpty()) {
+        placeholders.getOrPut("${accountManager.user.accountName}:${mimeType.orEmpty()}") {
             val drawable = mimeIcon()
                 ?: ResourcesCompat.getDrawable(context.resources, R.drawable.file_image, null)
                 ?: Color.GRAY.toDrawable()
