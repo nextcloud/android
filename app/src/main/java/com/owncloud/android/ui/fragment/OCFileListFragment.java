@@ -19,13 +19,15 @@ package com.owncloud.android.ui.fragment;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Parcelable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -46,10 +48,13 @@ import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.jobs.BackgroundJobManager;
+import com.nextcloud.client.jobs.upload.FileUploadHelper;
+import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.systembars.SystemBarBackgroundCallbacks;
 import com.nextcloud.client.utils.Throttler;
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.model.OCUploadLocalPathData;
 import com.nextcloud.ui.fileactions.FileAction;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.ui.sort.SortOrderUi;
@@ -111,6 +116,7 @@ import com.owncloud.android.ui.events.FileLockEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.fragment.helper.ParentFolderFinder;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
+import com.owncloud.android.ui.helpers.UriUploader;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -133,6 +139,8 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -229,6 +237,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private FileListLayoutManager fileListLayoutManager;
 
     private static final Intent scanIntentExternalApp = new Intent("org.fairscan.app.action.SCAN_TO_PDF");
+
+    private final ActivityResultLauncher<Intent> scanLauncher = registerForActivityResult(
+        new ActivityResultContracts.StartActivityForResult(),
+        result -> handleScanResult(result.getResultCode(), result.getData())
+    );
 
     @Inject DeviceInfo deviceInfo;
 
@@ -640,11 +653,72 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         // A separately installed FairScan wins over the built-in scanner, so users can pick up
         // a newer FairScan release before Nextcloud itself updates the bundled version.
-        final Intent intent = scanIntentExternalApp.resolveActivity(activity.getPackageManager()) != null
-            ? scanIntentExternalApp
-            : FairScan.scanToPdfIntent(activity);
+        boolean separateApp = scanIntentExternalApp.resolveActivity(activity.getPackageManager()) != null;
+        Intent scanIntent = separateApp ? scanIntentExternalApp : FairScan.scanToPdfIntent(activity, true);
 
-        activity.startActivityForResult(intent, FileDisplayActivity.REQUEST_CODE__SELECT_CONTENT_FROM_APPS_AUTO_RENAME);
+        scanLauncher.launch(scanIntent);
+    }
+
+    private void handleScanResult(int resultCode, @Nullable Intent data) {
+        Uri pdfUri = FairScan.pdfUriFromResult(resultCode, data);
+        if (pdfUri == null) {
+            return;
+        }
+
+        uploadScannedPdf(pdfUri);
+    }
+
+    private void uploadScannedPdf(@NonNull Uri pdfUri) {
+        if (!(getActivity() instanceof FileActivity fileActivity)) {
+            Log_OC.e(TAG, "Activity is null, cant upload scanned document");
+            return;
+        }
+
+        final var user = fileActivity.getUser();
+        if (user.isEmpty()) {
+            Log_OC.e(TAG, "User not exist, cant upload scanned document");
+            return;
+        }
+
+        final OCFile currentDir = getCurrentFile();
+        final String remotePath = currentDir != null ? currentDir.getRemotePath() : ROOT_PATH;
+
+        if (ContentResolver.SCHEME_FILE.equals(pdfUri.getScheme())) {
+            uploadEmbeddedScannedPdf(user.get(), pdfUri, remotePath);
+        } else {
+            uploadExternalScannedPdf(fileActivity, user.get(), pdfUri, remotePath);
+        }
+    }
+
+    private void uploadEmbeddedScannedPdf(@NonNull User user, @NonNull Uri pdfUri, @NonNull String remotePath) {
+        final String localPath = pdfUri.getPath();
+        if (localPath == null) {
+            Log_OC.e(TAG, "Scanned document has no local path, cant upload: " + pdfUri);
+            return;
+        }
+
+        final String remoteFilePath = remotePath + FileOperationsHelper.getTimestampedFileName(".pdf");
+        OCUploadLocalPathData data = OCUploadLocalPathData.Companion.forFile(
+            user,
+            new String[] { localPath },
+            new String[] { remoteFilePath },
+            FileUploadWorker.LOCAL_BEHAVIOUR_MOVE
+        );
+        FileUploadHelper.Companion.instance().uploadNewFiles(data);
+    }
+
+    private void uploadExternalScannedPdf(@NonNull FileActivity fileActivity, @NonNull User user, @NonNull Uri pdfUri,
+                                          @NonNull String remotePath) {
+        new UriUploader(
+            fileActivity,
+            new ArrayList<Parcelable>(List.of(pdfUri)),
+            remotePath,
+            user,
+            FileUploadWorker.LOCAL_BEHAVIOUR_DELETE,
+            false,
+            null,
+            null
+        ).uploadUris();
     }
 
     @Override
