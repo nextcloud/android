@@ -1187,7 +1187,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    private void fileOnItemClick(OCFile file) {
+    private void fileOnItemClick(OCFile file, @Nullable View sourceView) {
         Integer errorMessageId = checkFileBeforeOpen(file);
         final var recyclerView = getRecyclerView();
         if (recyclerView != null && errorMessageId != null) {
@@ -1196,7 +1196,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         if (mContainerActivity instanceof FileDisplayActivity fda && fda.canPreviewInMediaPager(file)) {
-            fda.previewImageWithSearchContext(file, searchFragment, currentSearchType);
+            fda.previewImageWithSearchContext(file, searchFragment, currentSearchType, sourceView);
         } else if (file.isDown() && mContainerActivity instanceof FileDisplayActivity fda) {
             fda.previewFile(file, this::setFabVisible);
         } else {
@@ -1257,8 +1257,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     @Override
-    @OptIn(markerClass = UnstableApi.class)
     public void onItemClicked(OCFile file) {
+        onItemClicked(file, null);
+    }
+
+    @Override
+    @OptIn(markerClass = UnstableApi.class)
+    public void onItemClicked(OCFile file, @Nullable View sourceView) {
         if (getCommonAdapter() != null && getCommonAdapter().isMultiSelect()) {
             toggleItemToCheckedList(file);
         } else {
@@ -1276,7 +1281,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 requireActivity().setResult(Activity.RESULT_OK, intent);
                 requireActivity().finish();
             } else if (!mOnlyFoldersClickable) {
-                fileOnItemClick(file);
+                fileOnItemClick(file, sourceView);
             }
         }
     }
