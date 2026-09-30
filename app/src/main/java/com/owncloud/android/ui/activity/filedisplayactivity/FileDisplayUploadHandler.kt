@@ -7,9 +7,7 @@
 package com.owncloud.android.ui.activity.filedisplayactivity
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Parcelable
-import androidx.core.util.Function
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
@@ -28,11 +26,9 @@ import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask.CheckAvailable
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.ui.helpers.UriUploader
 import com.owncloud.android.utils.StringUtils
-import com.owncloud.android.utils.UriUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.apache.commons.io.FilenameUtils
 import java.io.File
 
 class FileDisplayUploadHandler(
@@ -42,7 +38,7 @@ class FileDisplayUploadHandler(
 ) {
 
     // region Content from other apps
-    fun uploadContentFromApps(contentIntent: Intent, resultCode: Int, autoRename: Boolean) {
+    fun uploadContentFromApps(contentIntent: Intent, resultCode: Int) {
         val user = activity.user.orElse(null) ?: return
 
         val clipData = contentIntent.clipData
@@ -59,7 +55,6 @@ class FileDisplayUploadHandler(
         }
 
         val remotePath = activity.getCurrentDir()?.remotePath ?: OCFile.ROOT_PATH
-        val displayNameTransformer = if (autoRename) Function<Uri, String?> { timestampedFileName(it) } else null
 
         UriUploader(
             activity,
@@ -68,16 +63,8 @@ class FileDisplayUploadHandler(
             user,
             behaviour,
             showWaitingDialog = false,
-            copyTmpTaskListener = null,
-            fileDisplayNameTransformer = displayNameTransformer
+            copyTmpTaskListener = null
         ).uploadUris()
-    }
-
-    private fun timestampedFileName(uri: Uri): String? {
-        val displayName = UriUtils.getDisplayNameForUri(uri, activity.applicationContext)
-        if (displayName.isNullOrEmpty()) return null
-
-        return FileOperationsHelper.getTimestampedFileName("." + FilenameUtils.getExtension(displayName))
     }
     // endregion
 
