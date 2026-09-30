@@ -27,7 +27,6 @@ import android.content.ServiceConnection
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.content.res.Resources
-import android.graphics.Rect
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -48,6 +47,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.SearchView
 import androidx.core.util.Function
 import androidx.core.view.MenuItemCompat
+import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -87,7 +87,6 @@ import com.nextcloud.utils.extensions.isDialogFragmentReady
 import com.nextcloud.utils.extensions.lastFragment
 import com.nextcloud.utils.extensions.navigateToAllFiles
 import com.nextcloud.utils.extensions.observeWorker
-import com.nextcloud.utils.extensions.scaleUpAnimationFrom
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.fileNameValidator.FileNameValidator.checkFolderPath
 import com.nextcloud.utils.view.FastScrollUtils
@@ -2102,7 +2101,7 @@ class FileDisplayActivity :
         }
 
         val showPreview = file.isDown || MimeTypeUtil.isVideo(file)
-        startImagePreview(file, showPreview, type, mediaState, sourceView?.boundsOnScreen())
+        startImagePreview(file, showPreview, type, mediaState, sourceView)
     }
 
     fun previewFile(file: OCFile, setFabVisible: CompletionCallback?) {
@@ -2735,13 +2734,12 @@ class FileDisplayActivity :
         showPreview: Boolean,
         type: VirtualFolderType? = null,
         mediaState: MediaState? = null,
-        sourceBounds: Rect? = null
+        sourceView: View? = null
     ) {
         val intent = imagePreviewIntent(file, type, mediaState) ?: return
-        intent.sourceBounds = sourceBounds
 
         if (showPreview) {
-            startActivity(intent, sourceBounds?.let { scaleUpAnimationFrom(it) })
+            NavigationAnimator(this).scaleUp(intent, sourceView)
         } else {
             val helper = FileOperationsHelper(
                 this,
@@ -2996,12 +2994,16 @@ class FileDisplayActivity :
                 true,
                 virtualType,
                 bundle.getSerializableArgument(PreviewImageActivity.EXTRA_MEDIA_STATE, MediaState::class.java),
-                event.intent.sourceBounds
+                galleryThumbnailOf(file)
             )
         } else {
-            startImagePreview(file, true, sourceBounds = event.intent.sourceBounds)
+            startImagePreview(file, true, sourceView = galleryThumbnailOf(file))
         }
     }
+
+    private fun galleryThumbnailOf(file: OCFile): View? = leftFragment?.view
+        ?.findViewWithTag<View>(file.fileId)
+        ?.takeIf { it.isShown && ViewCompat.getTransitionName(it) == NavigationAnimator.sharedElementName(file) }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     fun onMessageEvent(event: TokenPushEvent?) {

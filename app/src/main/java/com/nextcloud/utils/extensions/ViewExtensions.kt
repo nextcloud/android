@@ -11,7 +11,6 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.Context
 import android.graphics.Outline
-import android.graphics.Rect
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
@@ -19,11 +18,6 @@ import android.view.ViewOutlineProvider
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.nextcloud.ui.behavior.OnScrollBehavior
 import com.owncloud.android.lib.common.utils.Log_OC
-
-fun View.boundsOnScreen(): Rect {
-    val location = IntArray(2).also { getLocationOnScreen(it) }
-    return Rect(location[0], location[1], location[0] + width, location[1] + height)
-}
 
 fun View?.setVisibleIf(condition: Boolean) {
     if (this == null) return
