@@ -162,11 +162,14 @@ public class ExternalSiteWebView extends FileActivity {
 
     @Override
     protected void onDestroy() {
-        WebView webView = getWebView();
-        if (webView != null) {
-            webView.destroy();
+        if (isWebViewBound()) {
+            getWebView().destroy();
         }
         super.onDestroy();
+    }
+
+    protected boolean isWebViewBound() {
+        return binding != null;
     }
 
     protected void bindView() {

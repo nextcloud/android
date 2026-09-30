@@ -6,319 +6,275 @@
  * SPDX-FileCopyrightText: 2019 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.owncloud.android.ui.activity;
+package com.owncloud.android.ui.activity
 
-import android.content.ActivityNotFoundException;
-import android.content.ClipData;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
-import android.net.Uri;
-import android.os.Handler;
-import android.view.View;
-import android.webkit.JavascriptInterface;
-import android.webkit.ValueCallback;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.graphics.drawable.Drawable
+import android.net.Uri
+import android.view.View
+import android.webkit.JavascriptInterface
+import android.webkit.ValueCallback
+import android.webkit.WebChromeClient
+import android.webkit.WebChromeClient.FileChooserParams
+import android.webkit.WebView
+import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.nextcloud.client.account.User
+import com.nextcloud.utils.SnackbarUtil
+import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.getSmallThumbnail
+import com.nextcloud.utils.extensions.isPNG
+import com.nextcloud.utils.thumbnail.VideoOverlayGenerator
+import com.owncloud.android.R
+import com.owncloud.android.databinding.RichdocumentsWebviewBinding
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.SyncedFolderObserver
+import com.owncloud.android.ui.asynctasks.TextEditorLoadUrlTask
+import com.owncloud.android.utils.MimeTypeUtil
+import com.owncloud.android.utils.RichDocumentDownloader
+import com.owncloud.android.utils.WebViewUtil
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.seconds
 
-import com.google.android.material.snackbar.Snackbar;
-import com.nextcloud.android.common.ui.theme.utils.ColorRole;
-import com.nextcloud.client.account.User;
-import com.nextcloud.utils.SnackbarUtil;
-import com.nextcloud.utils.extensions.FileExtensionsKt;
-import com.nextcloud.utils.extensions.IntentExtensionsKt;
-import com.nextcloud.utils.thumbnail.VideoOverlayGenerator;
-import com.owncloud.android.R;
-import com.owncloud.android.databinding.RichdocumentsWebviewBinding;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.SyncedFolderObserver;
-import com.owncloud.android.datamodel.SyncedFolderProvider;
-import com.owncloud.android.ui.asynctasks.TextEditorLoadUrlTask;
-import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.RichDocumentDownloader;
-import com.owncloud.android.utils.WebViewUtil;
+abstract class EditorWebView : ExternalSiteWebView() {
+    private lateinit var binding: RichdocumentsWebviewBinding
 
-import java.util.ArrayList;
-import java.util.Optional;
+    protected lateinit var fileName: String
 
-import javax.inject.Inject;
+    private var uploadMessage: ValueCallback<Array<Uri>>? = null
+    private var loadingSnackbar: Snackbar? = null
 
-public abstract class EditorWebView extends ExternalSiteWebView {
-    public static final int REQUEST_LOCAL_FILE = 101;
-    public ValueCallback<Uri[]> uploadMessage;
-    protected Snackbar loadingSnackbar;
-
-    protected String fileName;
-
-    RichdocumentsWebviewBinding binding;
-
-    @Inject SyncedFolderProvider syncedFolderProvider;
-
-    protected void loadUrl(String url) {
-        onUrlLoaded(url);
+    protected open fun loadUrl(url: String?) {
+        onUrlLoaded(url)
     }
 
-    protected void hideLoading() {
-        binding.thumbnail.setVisibility(View.GONE);
-        binding.filename.setVisibility(View.GONE);
-        binding.progressBar2.setVisibility(View.GONE);
-        getWebView().setVisibility(View.VISIBLE);
-
-        if (loadingSnackbar != null) {
-            loadingSnackbar.dismiss();
+    protected fun hideLoading() {
+        binding.run {
+            thumbnail.isVisible = false
+            filename.isVisible = false
+            progressBar2.isVisible = false
+            webView.isVisible = true
         }
+        loadingSnackbar?.dismiss()
     }
 
-    public void onUrlLoaded(String loadedUrl) {
-        this.url = loadedUrl;
+    fun onUrlLoaded(loadedUrl: String?) {
+        url = loadedUrl
 
-        if (!url.isEmpty()) {
-            new WebViewUtil().setProxyKKPlus(this.getWebView());
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ignored) {
+        if (loadedUrl.isNullOrEmpty()) {
+            SnackbarUtil.show(this, R.string.richdocuments_failed_to_load_document)
+            finish()
+            return
+        }
+
+        lifecycleScope.launch {
+            WebViewUtil().setProxyKKPlus(webView)
+            delay(PROXY_SETUP_DELAY)
+
+            if (loadedUrl != webView.url) {
+                webView.loadUrl(loadedUrl)
             }
 
-            if (!url.equals(this.getWebView().getUrl())) {
-                this.getWebView().loadUrl(url);
+            delay(LOADING_TIMEOUT)
+            if (!webView.isVisible) {
+                showLoadingTimeoutSnackbar()
+            }
+        }
+    }
+
+    private fun showLoadingTimeoutSnackbar() {
+        val snackbar = SnackbarUtil.create(
+            findViewById(android.R.id.content),
+            R.string.timeout_richDocuments,
+            Snackbar.LENGTH_INDEFINITE
+        ) ?: return
+
+        snackbar.setAction(R.string.common_cancel) { closeView() }
+        viewThemeUtils.material.themeSnackbar(snackbar)
+        loadingSnackbar = snackbar
+        snackbar.show()
+    }
+
+    private fun closeView() {
+        webView.destroy()
+        finish()
+    }
+
+    private fun reload() {
+        val user = user.orElse(null)
+        val file = file
+        if (!webView.isVisible || user == null || file == null) {
+            return
+        }
+
+        TextEditorLoadUrlTask(this, user, file, editorUtils).execute()
+    }
+
+    override fun bindView() {
+        binding = RichdocumentsWebviewBinding.inflate(layoutInflater)
+    }
+
+    override fun isWebViewBound(): Boolean = ::binding.isInitialized
+
+    override fun postOnCreate() {
+        super.postOnCreate()
+
+        viewThemeUtils.platform.colorCircularProgressBar(binding.progressBar2, ColorRole.PRIMARY)
+        webView.webChromeClient = createFileChooserClient()
+
+        file = intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
+        val file = file ?: run {
+            SnackbarUtil.show(this, R.string.richdocuments_failed_to_load_document)
+            finish()
+            return
+        }
+        fileName = file.fileName
+
+        val user = user.orElse(null) ?: run {
+            finish()
+            return
+        }
+        setThumbnailView(file, user)
+        binding.filename.text = fileName
+    }
+
+    private fun createFileChooserClient() = object : WebChromeClient() {
+        override fun onShowFileChooser(
+            webView: WebView?,
+            filePathCallback: ValueCallback<Array<Uri>>,
+            fileChooserParams: FileChooserParams
+        ): Boolean {
+            completeFileChooser(null)
+            uploadMessage = filePathCallback
+
+            val intent = fileChooserParams.createIntent().apply {
+                type = IMAGE_MIME_TYPE_FILTER
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
             }
 
-            new Handler().postDelayed(() -> {
-                if (this.getWebView().getVisibility() != View.VISIBLE) {
-                    Snackbar snackbar = SnackbarUtil.create(findViewById(android.R.id.content),
-                                                            R.string.timeout_richDocuments,
-                                                            Snackbar.LENGTH_INDEFINITE);
-                    if (snackbar != null) {
-                        snackbar.setAction(R.string.common_cancel, v -> closeView());
-                        viewThemeUtils.material.themeSnackbar(snackbar);
-                        setLoadingSnackbar(snackbar);
-                        snackbar.show();
-                    }
-                }
-            }, 10 * 1000);
-        } else {
-            SnackbarUtil.show(this, R.string.richdocuments_failed_to_load_document);
-            finish();
-        }
-    }
-
-    public void closeView() {
-        getWebView().destroy();
-        finish();
-    }
-
-    public void reload() {
-        if (getWebView().getVisibility() != View.VISIBLE) {
-            return;
-        }
-
-        Optional<User> user = getUser();
-        if (!user.isPresent()) {
-            return;
-        }
-
-        OCFile file = getFile();
-        if (file != null) {
-            TextEditorLoadUrlTask task = new TextEditorLoadUrlTask(this, user.get(), file, editorUtils);
-            task.execute();
-        }
-    }
-
-    @Override
-    protected void bindView() {
-        binding = RichdocumentsWebviewBinding.inflate(getLayoutInflater());
-    }
-
-    @Override
-    protected void postOnCreate() {
-        super.postOnCreate();
-
-        viewThemeUtils.platform.colorCircularProgressBar(binding.progressBar2, ColorRole.PRIMARY);
-
-        getWebView().setWebChromeClient(new WebChromeClient() {
-            final EditorWebView activity = EditorWebView.this;
-
-            @Override
-            public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback,
-                                             FileChooserParams fileChooserParams) {
-                if (uploadMessage != null) {
-                    uploadMessage.onReceiveValue(null);
-                    uploadMessage = null;
-                }
-
-                activity.uploadMessage = filePathCallback;
-
-                Intent intent = fileChooserParams.createIntent();
-                intent.setType("image/*");
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                try {
-                    activity.startActivityForResult(intent, REQUEST_LOCAL_FILE);
-                } catch (ActivityNotFoundException e) {
-                    uploadMessage = null;
-                    SnackbarUtil.show(EditorWebView.this, R.string.editor_web_view_cannot_open_file);
-                    return false;
-                }
-
-                return true;
+            return try {
+                startActivityForResult(intent, REQUEST_LOCAL_FILE)
+                true
+            } catch (_: ActivityNotFoundException) {
+                uploadMessage = null
+                SnackbarUtil.show(this@EditorWebView, R.string.editor_web_view_cannot_open_file)
+                false
             }
-        });
-
-        setFile(IntentExtensionsKt.getParcelableArgument(getIntent(), ExternalSiteWebView.EXTRA_FILE, OCFile.class));
-
-        if (getFile() == null) {
-            SnackbarUtil.show(this, R.string.richdocuments_failed_to_load_document);
-            finish();
         }
-
-        if (getFile() != null) {
-            fileName = getFile().getFileName();
-        }
-
-        Optional<User> user = getUser();
-        if (!user.isPresent()) {
-            finish();
-            return;
-        }
-        initLoadingScreen(user.get());
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (RESULT_OK != resultCode) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode != RESULT_OK) {
             if (requestCode == REQUEST_LOCAL_FILE) {
-                this.uploadMessage.onReceiveValue(null);
-                this.uploadMessage = null;
+                completeFileChooser(null)
             }
-            return;
+            return
         }
 
-        handleActivityResult(requestCode, resultCode, data);
-
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    protected void handleActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_LOCAL_FILE) {
-            handleLocalFile(data, resultCode);
-        }
-    }
-
-    protected void handleLocalFile(Intent data, int resultCode) {
-        if (uploadMessage == null) {
-            return;
+            completeFileChooser(parseChosenFiles(resultCode, data))
         }
 
-        if (data.getClipData() == null) {
-            // one file
-            uploadMessage.onReceiveValue(WebChromeClient.FileChooserParams.parseResult(resultCode, data));    
-        } else {
-            ArrayList<Uri> uris = new ArrayList<>();
-            // multiple files
-            for (int i = 0; i < data.getClipData().getItemCount(); i++) {
-                ClipData.Item item = data.getClipData().getItemAt(i);
-                uris.add(item.getUri());
-            }
-            
-            uploadMessage.onReceiveValue(uris.toArray(new Uri[0]));
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun parseChosenFiles(resultCode: Int, data: Intent?): Array<Uri>? {
+        val clipData = data?.clipData ?: return FileChooserParams.parseResult(resultCode, data)
+        return Array(clipData.itemCount) { clipData.getItemAt(it).uri }
+    }
+
+    private fun completeFileChooser(uris: Array<Uri>?) {
+        uploadMessage?.onReceiveValue(uris)
+        uploadMessage = null
+    }
+
+    override fun getWebView(): WebView = binding.webView
+
+    override fun getRootView(): View = binding.root
+
+    override fun showToolbarByDefault(): Boolean = false
+
+    private fun openShareDialog() {
+        val intent = Intent(this, ShareActivity::class.java).apply {
+            putExtra(EXTRA_FILE, file)
+            putExtra(EXTRA_USER, user.orElseThrow { RuntimeException() })
         }
-
-        uploadMessage = null;
+        startActivity(intent)
     }
 
-    protected WebView getWebView() {
-        return binding == null ? null : binding.webView;
-    }
-
-    protected View getRootView() {
-        return binding.getRoot();
-    }
-
-    protected boolean showToolbarByDefault() {
-        return false;
-    }
-
-    protected void initLoadingScreen(final User user) {
-        setThumbnailView(user);
-        binding.filename.setText(fileName);
-    }
-
-    private void openShareDialog() {
-        Intent intent = new Intent(this, ShareActivity.class);
-        intent.putExtra(FileActivity.EXTRA_FILE, getFile());
-        intent.putExtra(FileActivity.EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
-        startActivity(intent);
-    }
-
-    protected void setThumbnailView(final User user) {
+    private fun setThumbnailView(file: OCFile, user: User) {
         // Todo minimize: only icon by mimetype
-        OCFile file = getFile();
-        if (file.isFolder()) {
-            boolean isAutoUploadFolder = SyncedFolderObserver.INSTANCE.isAutoUploadFolder(file, user);
+        when {
+            file.isFolder -> binding.thumbnail.setImageDrawable(getFolderIcon(file, user))
 
-            Integer overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder);
-            LayerDrawable drawable = MimeTypeUtil.getFolderIcon(preferences.isDarkModeEnabled(), overlayIconId, this, viewThemeUtils);
-            binding.thumbnail.setImageDrawable(drawable);
-        } else {
-            if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
-                // Thumbnail in cache?
-                Bitmap thumbnail = FileExtensionsKt.getSmallThumbnail(file);
+            MimeTypeUtil.isImageOrVideo(file) && file.remoteId != null -> showCachedThumbnail(file)
 
-                if (thumbnail != null && !file.isUpdateThumbnailNeeded()) {
-                    if (MimeTypeUtil.isVideo(file)) {
-                        Bitmap withOverlay = VideoOverlayGenerator.addOverlay(thumbnail, this);
-                        binding.thumbnail.setImageBitmap(withOverlay);
-                    } else {
-                        binding.thumbnail.setImageBitmap(thumbnail);
-                    }
-                }
-
-                if ("image/png".equalsIgnoreCase(file.getMimeType())) {
-                    binding.thumbnail.setBackgroundColor(getResources().getColor(R.color.bg_default, getTheme()));
-                }
-            } else {
-                Drawable icon = MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
-                                                             file.getFileName(),
-                                                             getApplicationContext(),
-                                                             viewThemeUtils);
-                binding.thumbnail.setImageDrawable(icon);
-            }
+            else -> binding.thumbnail.setImageDrawable(
+                MimeTypeUtil.getFileTypeIcon(file.mimeType, file.fileName, applicationContext, viewThemeUtils)
+            )
         }
     }
 
-    protected void downloadFile(Uri uri, String filename) {
+    private fun getFolderIcon(file: OCFile, user: User): Drawable {
+        val isAutoUploadFolder = SyncedFolderObserver.isAutoUploadFolder(file, user)
+        val overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder)
+        return MimeTypeUtil.getFolderIcon(preferences.isDarkModeEnabled, overlayIconId, this, viewThemeUtils)
+    }
+
+    private fun showCachedThumbnail(file: OCFile) {
+        val thumbnail = file.getSmallThumbnail()
+        if (thumbnail != null && !file.isUpdateThumbnailNeeded) {
+            val bitmap = if (MimeTypeUtil.isVideo(file)) {
+                VideoOverlayGenerator.addOverlay(thumbnail, this)
+            } else {
+                thumbnail
+            }
+            binding.thumbnail.setImageBitmap(bitmap)
+        }
+
+        if (file.isPNG()) {
+            binding.thumbnail.setBackgroundColor(getColor(R.color.bg_default))
+        }
+    }
+
+    protected fun downloadFile(uri: Uri, filename: String?) {
         // downloadAs is invoked from the WebView JavaScript bridge thread, but WebView methods
         // (getSettings) must run on the main thread, so read the user agent there.
-        runOnUiThread(() -> {
-            String userAgent = getWebView().getSettings().getUserAgentString();
-            new RichDocumentDownloader(this).download(uri, filename, userAgent);
-        });
-    }
-
-    public void setLoadingSnackbar(Snackbar loadingSnackbar) {
-        this.loadingSnackbar = loadingSnackbar;
-    }
-
-    public class MobileInterface {
-        @JavascriptInterface
-        public void close() {
-            runOnUiThread(EditorWebView.this::closeView);
-        }
-
-        @JavascriptInterface
-        public void share() {
-            openShareDialog();
-        }
-
-        @JavascriptInterface
-        public void loaded() {
-            runOnUiThread(EditorWebView.this::hideLoading);
-        }
-
-        @JavascriptInterface
-        public void reload() {
-            EditorWebView.this.reload();
+        lifecycleScope.launch {
+            RichDocumentDownloader(this@EditorWebView).download(uri, filename, webView.settings.userAgentString)
         }
     }
 
+    open inner class MobileInterface {
+        @JavascriptInterface
+        fun close() {
+            lifecycleScope.launch { closeView() }
+        }
+
+        @JavascriptInterface
+        fun share() {
+            openShareDialog()
+        }
+
+        @JavascriptInterface
+        fun loaded() {
+            lifecycleScope.launch { hideLoading() }
+        }
+
+        @JavascriptInterface
+        fun reload() {
+            this@EditorWebView.reload()
+        }
+    }
+
+    companion object {
+        private const val REQUEST_LOCAL_FILE = 101
+        private const val IMAGE_MIME_TYPE_FILTER = "image/*"
+        private val PROXY_SETUP_DELAY = 1.seconds
+        private val LOADING_TIMEOUT = 10.seconds
+    }
 }
