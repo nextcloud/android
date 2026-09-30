@@ -19,8 +19,10 @@ package com.owncloud.android.ui.fragment
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -29,6 +31,7 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.IdRes
 import androidx.annotation.OptIn
 import androidx.annotation.StringRes
@@ -43,7 +46,10 @@ import com.nextcloud.android.lib.resources.files.ToggleFileLockRemoteOperation
 import com.nextcloud.client.account.User
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.utils.Throttler
+import com.nextcloud.model.OCUploadLocalPathData
 import com.nextcloud.repository.ClientRepository
 import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionHandler
@@ -106,6 +112,7 @@ import com.owncloud.android.ui.events.SearchEvent
 import com.owncloud.android.ui.fragment.FileFragment.ContainerActivity
 import com.owncloud.android.ui.fragment.helper.ParentFolderFinder
 import com.owncloud.android.ui.helpers.FileOperationsHelper
+import com.owncloud.android.ui.helpers.UriUploader
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import com.owncloud.android.utils.FileSortOrder
@@ -212,6 +219,9 @@ open class OCFileListFragment :
     private var fabMain: FloatingActionButton? = null
     private val multiChoiceModeListener by lazy { OCFileListMultiChoiceModeListener(this) }
     private val mainHandler = Handler(Looper.getMainLooper())
+    private val scanLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        handleScanResult(result.resultCode, result.data)
+    }
 
     private val activeActionMode: ActionMode?
         get() = multiChoiceModeListener.activeActionMode
@@ -569,22 +579,71 @@ open class OCFileListFragment :
         builder.show()
     }
 
-    @Suppress("DEPRECATION")
     override fun scanDocUploadFromApp() {
         val activity = requireActivity()
 
         // A separately installed FairScan wins over the built-in scanner, so users can pick up
         // a newer FairScan release before Nextcloud itself updates the bundled version.
-        val scanIntent = if (scanIntentExternalApp.resolveActivity(activity.packageManager) != null) {
-            scanIntentExternalApp
-        } else {
-            FairScan.scanToPdfIntent(activity)
+        val isSeparateAppInstalled = scanIntentExternalApp.resolveActivity(activity.packageManager) != null
+        val scanIntent = if (isSeparateAppInstalled) scanIntentExternalApp else FairScan.scanToPdfIntent(activity, true)
+
+        scanLauncher.launch(scanIntent)
+    }
+
+    private fun handleScanResult(resultCode: Int, data: Intent?) {
+        val pdfUri = FairScan.pdfUriFromResult(resultCode, data) ?: return
+        uploadScannedPdf(pdfUri)
+    }
+
+    private fun uploadScannedPdf(pdfUri: Uri) {
+        val fileActivity = activity as? FileActivity
+        if (fileActivity == null) {
+            Log_OC.e(TAG, "Activity is null, cant upload scanned document")
+            return
         }
 
-        activity.startActivityForResult(
-            scanIntent,
-            FileDisplayActivity.REQUEST_CODE__SELECT_CONTENT_FROM_APPS_AUTO_RENAME
+        val user = fileActivity.user.getOrNull()
+        if (user == null) {
+            Log_OC.e(TAG, "User not exist, cant upload scanned document")
+            return
+        }
+
+        val remotePath = currentFile?.remotePath ?: OCFile.ROOT_PATH
+
+        if (pdfUri.scheme == ContentResolver.SCHEME_FILE) {
+            uploadEmbeddedScannedPdf(user, pdfUri, remotePath)
+        } else {
+            uploadExternalScannedPdf(fileActivity, user, pdfUri, remotePath)
+        }
+    }
+
+    private fun uploadEmbeddedScannedPdf(user: User, pdfUri: Uri, remotePath: String) {
+        val localPath = pdfUri.path
+        if (localPath == null) {
+            Log_OC.e(TAG, "Scanned document has no local path, cant upload: $pdfUri")
+            return
+        }
+
+        val remoteFilePath = remotePath + FileOperationsHelper.getTimestampedFileName(PDF_EXTENSION)
+        val data = OCUploadLocalPathData.forFile(
+            user,
+            arrayOf(localPath),
+            arrayOf(remoteFilePath),
+            FileUploadWorker.LOCAL_BEHAVIOUR_MOVE
         )
+        FileUploadHelper.instance().uploadNewFiles(data)
+    }
+
+    private fun uploadExternalScannedPdf(fileActivity: FileActivity, user: User, pdfUri: Uri, remotePath: String) {
+        UriUploader(
+            fileActivity,
+            listOf(pdfUri),
+            remotePath,
+            user,
+            FileUploadWorker.LOCAL_BEHAVIOUR_DELETE,
+            showWaitingDialog = false,
+            copyTmpTaskListener = null
+        ).uploadUris()
     }
 
     override fun uploadFiles() {
@@ -1512,6 +1571,7 @@ open class OCFileListFragment :
 
         private const val ALL_MIME_TYPES = "*/*"
         private const val SCAN_TO_PDF_ACTION = "org.fairscan.app.action.SCAN_TO_PDF"
+        private const val PDF_EXTENSION = ".pdf"
 
         private const val ACTIVITY_TAB = 0
         private const val SHARING_TAB = 1
