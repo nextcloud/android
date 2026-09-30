@@ -524,7 +524,12 @@ class GalleryFragment :
         recyclerView?.addOnItemTouchListener(object : RecyclerView.SimpleOnItemTouchListener() {
             override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
                 detector.onTouchEvent(e)
-                return detector.isInProgress
+                if (e.actionMasked != MotionEvent.ACTION_POINTER_DOWN) {
+                    return false
+                }
+
+                rv.parent?.requestDisallowInterceptTouchEvent(true)
+                return true
             }
 
             override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
