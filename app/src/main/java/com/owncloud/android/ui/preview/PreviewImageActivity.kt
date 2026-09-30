@@ -319,8 +319,11 @@ class PreviewImageActivity :
             return null
         }
 
-        return viewPager?.findViewWithTag<View>(openedFileId)?.takeIf { it.isShown && it.isLaidOut }
+        return shownImageView(openedFileId)
     }
+
+    private fun shownImageView(fileId: Long): View? =
+        viewPager?.findViewWithTag<View>(fileId)?.takeIf { it.isShown && it.isLaidOut }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId != android.R.id.home) {
@@ -510,8 +513,12 @@ class PreviewImageActivity :
             putExtra(FileDisplayActivity.EXTRA_RETURN_TO_PREVIEW, true)
         }
 
+        val imageView = shownImageView(file.fileId)?.also {
+            ViewCompat.setTransitionName(it, NavigationAnimator.sharedElementName(file))
+        }
+
         val navigationAnimator = NavigationAnimator(this)
-        navigationAnimator.slideUp(detailsIntent)
+        navigationAnimator.slideUp(detailsIntent, imageView)
     }
 
     override fun showDetails(file: OCFile, activeTab: Int) {

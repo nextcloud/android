@@ -313,6 +313,10 @@ class FileDisplayActivity :
         initUI()
         initTaskRetainerFragment()
 
+        if (intent.getBooleanExtra(EXTRA_RETURN_TO_PREVIEW, false)) {
+            NavigationAnimator(this).prepareSlideUpEnter(savedInstanceState) { detailsHeaderImage() }
+        }
+
         // Restoring after UI has been inflated.
         if (savedInstanceState != null) {
             showSortListGroup(savedInstanceState.getBoolean(KEY_IS_SORT_GROUP_VISIBLE))
@@ -3000,6 +3004,9 @@ class FileDisplayActivity :
             startImagePreview(file, true, sourceView = galleryThumbnailOf(file))
         }
     }
+
+    private fun detailsHeaderImage(): View? =
+        previewImageView?.takeIf { it.isShown && it.isLaidOut && it.drawable != null }
 
     private fun galleryThumbnailOf(file: OCFile): View? = leftFragment?.view
         ?.findViewWithTag<View>(file.fileId)
