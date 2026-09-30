@@ -17,6 +17,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.app.SharedElementCallback
 import androidx.core.view.ViewCompat
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
@@ -43,16 +44,21 @@ class NavigationAnimator(private val activity: AppCompatActivity) {
         activity.window.enterTransition = bottomSlide()
         activity.window.returnTransition = bottomSlide()
 
-        val sharedElementTransition =
-            SharedElementTransition(activity, ImageView.ScaleType.FIT_CENTER, sharedViewProvider)
+        val sharedElementTransition = SharedElementTransition(
+            activity,
+            startScaleType = ImageView.ScaleType.FIT_CENTER,
+            sharedViewProvider = sharedViewProvider
+        )
         sharedElementTransition.register()
         if (savedInstanceState == null) {
             sharedElementTransition.postponeUntilSharedViewReady()
         }
     }
 
+
     fun finishWithSlideDown() {
         if (isLaunchedWithSharedElement) {
+            activity.setEnterSharedElementCallback(withoutSharedElements())
             activity.supportFinishAfterTransition()
             return
         }
@@ -85,6 +91,13 @@ class NavigationAnimator(private val activity: AppCompatActivity) {
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedView, sharedElementName)
         activity.startActivity(intent, options.toBundle())
         return true
+    }
+
+    private fun withoutSharedElements() = object : SharedElementCallback() {
+        override fun onMapSharedElements(names: MutableList<String>, sharedElements: MutableMap<String, View>) {
+            names.clear()
+            sharedElements.clear()
+        }
     }
 
     private fun bottomSlide() = Slide(Gravity.BOTTOM).apply {
