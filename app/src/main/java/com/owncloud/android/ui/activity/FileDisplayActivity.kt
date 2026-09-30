@@ -159,7 +159,6 @@ import com.owncloud.android.ui.preview.PreviewImageFragment
 import com.owncloud.android.ui.preview.PreviewTextFileFragment
 import com.owncloud.android.ui.preview.PreviewTextFragment
 import com.owncloud.android.ui.preview.PreviewTextStringFragment
-import com.owncloud.android.ui.preview.model.DetailsFromPreviewState
 import com.owncloud.android.ui.preview.pdf.PreviewPdfFragment.Companion.newInstance
 import com.owncloud.android.utils.DataHolderUtil
 import com.owncloud.android.utils.DisplayUtils
@@ -284,7 +283,7 @@ class FileDisplayActivity :
      */
     private var fileIDForImmediatePreview: Long = -1
 
-    private var detailsFromPreview: DetailsFromPreviewState? = null
+    private var isShowingDetailsFromPreview = false
 
     private lateinit var folderRefreshScheduler: FolderRefreshScheduler
 
@@ -450,6 +449,10 @@ class FileDisplayActivity :
             switchToSearchFragment(savedInstanceState)
         } else {
             createMinFragments(savedInstanceState)
+        }
+
+        if (savedInstanceState == null && intent.getBooleanExtra(EXTRA_RETURN_TO_PREVIEW, false)) {
+            handleSpecialIntents(intent)
         }
 
         upgradeNotificationForInstantUpload()
@@ -619,13 +622,10 @@ class FileDisplayActivity :
 
         when {
             ACTION_DETAILS.equals(action, ignoreCase = true) -> {
-                val fileBeforeDetails = getFile()
                 val file = getFileFromIntent(intent)
                 setFile(file)
                 showDetails(file)
-                if (intent.getBooleanExtra(EXTRA_RETURN_TO_PREVIEW, false)) {
-                    detailsFromPreview = DetailsFromPreviewState.ShowingDetails(intent, fileBeforeDetails)
-                }
+                isShowingDetailsFromPreview = intent.getBooleanExtra(EXTRA_RETURN_TO_PREVIEW, false)
             }
 
             Intent.ACTION_SEARCH == action -> handleSearchIntent(intent)
@@ -762,7 +762,7 @@ class FileDisplayActivity :
             return
         }
 
-        detailsFromPreview = null
+        isShowingDetailsFromPreview = false
         prepareFragmentBeforeCommit(showSortListGroup)
         commitFragment(fragment)
     }
@@ -1280,9 +1280,9 @@ class FileDisplayActivity :
                 after()
             }
 
-            detailsFromPreview is DetailsFromPreviewState.ShowingDetails && leftFragment is FileDetailFragment -> {
+            isShowingDetailsFromPreview && leftFragment is FileDetailFragment -> {
                 before()
-                returnToPreviewFromDetails()
+                NavigationAnimator(this).finishWithSlideDown()
                 after()
             }
 
@@ -1305,41 +1305,6 @@ class FileDisplayActivity :
                 after()
             }
         }
-    }
-
-    private fun returnToPreviewFromDetails() {
-        val state = detailsFromPreview as? DetailsFromPreviewState.ShowingDetails ?: return
-        detailsFromPreview = null
-
-        val detailsIntent = state.detailsIntent
-        val virtualFolderType = detailsIntent.getSerializableArgument(
-            PreviewImageActivity.EXTRA_VIRTUAL_TYPE,
-            VirtualFolderType::class.java
-        )
-        val mediaState = detailsIntent.getSerializableArgument(
-            PreviewImageActivity.EXTRA_MEDIA_STATE,
-            MediaState::class.java
-        )
-        val previewIntent = getFileFromIntent(detailsIntent)?.let {
-            imagePreviewIntent(it, virtualFolderType, mediaState)
-        }
-
-        if (previewIntent == null) {
-            leaveDetails(state.fileBeforeDetails)
-            return
-        }
-
-        // leaving the details right away would flash the list behind the preview while it fades in
-        detailsFromPreview = DetailsFromPreviewState.ReturnedToPreview(state.fileBeforeDetails)
-        val navigationAnimator = NavigationAnimator(this)
-        navigationAnimator.slideDown(previewIntent)
-    }
-
-    private fun leaveDetails(fileBeforeDetails: OCFile?) {
-        // onResume would otherwise pick the details file up from the intent again
-        intent?.removeExtra(EXTRA_FILE)
-        fileBeforeDetails?.let { setFile(it) }
-        popBack()
     }
 
     private fun handleOCFileListFragmentBackPress() {
@@ -3051,11 +3016,6 @@ class FileDisplayActivity :
         super.onStart()
 
         registerReceivers()
-
-        (detailsFromPreview as? DetailsFromPreviewState.ReturnedToPreview)?.let {
-            detailsFromPreview = null
-            leaveDetails(it.fileBeforeDetails)
-        }
 
         if (SettingsActivity.isBackPressed) {
             Log_OC.d(TAG, "User returned from settings activity, skipping reset content logic")
