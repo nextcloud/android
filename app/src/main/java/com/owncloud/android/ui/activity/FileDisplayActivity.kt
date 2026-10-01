@@ -324,7 +324,6 @@ class FileDisplayActivity :
 
         checkStoragePath()
         observeWorkerState()
-        startMetadataSyncForRoot()
         handleBackPress()
         setupDrawer(menuItemId)
     }
@@ -1629,6 +1628,10 @@ class FileDisplayActivity :
             currentFile = handleRemovedFileFromServer(currentFile, currentDir)
             updateFileList(fileListFragment, currentDir, syncFolderRemotePath)
             file = currentFile
+        }
+
+        if (isSyncFolderRemotePathRoot) {
+            startMetadataSyncForRoot()
         }
 
         handleSyncResult(event, syncResult)
@@ -3324,7 +3327,7 @@ class FileDisplayActivity :
 
     // region MetadataSyncJob
     private fun startMetadataSyncForRoot() {
-        backgroundJobManager.startMetadataSyncJob(OCFile.ROOT_PATH)
+        backgroundJobManager.startMetadataSyncJob(OCFile.ROOT_PATH, folderAlreadySynced = true)
     }
 
     private fun startMetadataSyncForCurrentDir() {
