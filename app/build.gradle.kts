@@ -110,6 +110,8 @@ android {
         minSdk = 28
         compileSdk = 37
         targetSdk = 36
+        // mayor.minor.hotfix.increment (for increment: 01-50=Alpha / 51-89=RC / 90-99=stable)
+        // xx   .xxx  .xx    .xx
         versionCode = 350010050
         versionName = "35.1.0 Alpha 51"
 
