@@ -251,7 +251,7 @@ public class FileDataStorageManager {
         file.setMimeType(mimeType);
         file.setCreationTimestamp(createdAt);
         file.setModificationTimestamp(modificationTimestamp);
-        file.setPermissions(getParentPermissions(path));
+        file.setPermissions(getParentPermissions(remotePath));
         saveFileWithParent(file, MainApp.getAppContext());
     }
 
