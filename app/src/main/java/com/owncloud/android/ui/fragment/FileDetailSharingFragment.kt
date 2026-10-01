@@ -133,7 +133,7 @@ class FileDetailSharingFragment :
         fileActivity ?: return
         fileDataStorageManager = fileActivity?.storageManager
         fileOperationsHelper = fileActivity?.fileOperationsHelper
-        initializeSharingMode()
+        showLegacyShare()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
