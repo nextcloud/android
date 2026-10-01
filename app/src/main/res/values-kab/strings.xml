@@ -290,6 +290,7 @@
     <string name="dev_version_no_information_available">Ulac talɣut iwejden</string>
     <string name="dev_version_no_new_version_available">Ulac lqem amaynut yewjed.</string>
     <string name="dialog_close">Mdel</string>
+    <string name="did_not_check_for_dupes">Ur sfeqdeɣ ara ɣef usligen.</string>
     <string name="direct_login_confirm_message">Tebɣiḍ ad tkecmeḍ s %1$s ɣer %2$s?</string>
     <string name="direct_login_confirm_title">Sentem tuqqna</string>
     <string name="direct_login_failed">Tuqqna s useɣwen usrid ur yeddi ara!</string>
@@ -337,10 +338,12 @@
     <string name="drawer_item_assistant">Amallal</string>
     <string name="drawer_item_favorites">Imenyafen</string>
     <string name="drawer_item_gallery">Amidya</string>
+    <string name="drawer_item_groupfolders">Ikaramen n terbaɛt</string>
     <string name="drawer_item_home">Asnubeg</string>
     <string name="drawer_item_notifications">Ilɣa</string>
     <string name="drawer_item_on_device">Ɣef yibenk</string>
     <string name="drawer_item_personal_files">Ifuyla udmawanen</string>
+    <string name="drawer_item_recent_files">Ifuyla n melmi kan</string>
     <string name="drawer_item_shared">Yettwabḍa</string>
     <string name="drawer_item_trashbin">Ifuyla yettwaksen</string>
     <string name="drawer_item_uploads_list">Ifuyla yettwaznen</string>
@@ -360,7 +363,14 @@
     <string name="ecosystem_apps_more">Ugar n isnasen Nextcloud</string>
     <string name="editor_web_view_cannot_open_file">Ur yezmir ara ad yeldi amsefran n yifuyla</string>
     <string name="email_pick_failed">Ur yezmir ara ad d-yawi tansa imayl.</string>
+    <string name="empty_albums_message">Tzemreḍ ad tessuddeseḍ akk tiwlafin-ik·im deg waṭas n yilbumen am wakken tebɣiḍ. Mazal ur d-tesnulfuḍ ara yakan album.</string>
+    <string name="empty_albums_title">Snulfu-d albumen i tewlafin-ik·im</string>
     <string name="encrypted">Sbadu-t d awgelhan</string>
+    <string name="encryption_encrypt_check_failed">D awezɣi aselken n tsura n uwgelhen. Ɛreḍ awgelhen n ukaram tikkelt nniḍen.</string>
+    <string name="encryption_encrypt_no_network">Ur yezmir ara ad yaweḍ ɣer uqeddac. Ɛreḍ awgelhen n ukaram tikkelt nniḍen ticki.</string>
+    <string name="encryption_encrypt_unavailable">Ur izmir ara ad iwgelhen akaram-agi. Awgelhen seg yixef ɣer yixef  ur yettusbadu ara ɣef uqeddac-agi.</string>
+    <string name="encryption_key_checking_keys">Aselken n tsura...</string>
+    <string name="encryption_key_handle_key_removed_title">Tisura n uwgelhen ttwasniflent</string>
     <string name="end_to_end_encryption_certificate_unavailable">Ur yezmir ara ad d-yawi aselkin n uqeddac</string>
     <string name="end_to_end_encryption_certificate_verification_failed">Ur yezmir ara aselken n tsarut tazayezt</string>
     <string name="end_to_end_encryption_confirm_button">Swel awgelhen</string>
