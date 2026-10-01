@@ -200,11 +200,9 @@ class ChooseTemplateDialogFragment :
 
     private fun createFromTemplate(template: Template, path: String) {
         lifecycleScope.launch {
-            var file: OCFile? = null
             val result = withContext(Dispatchers.IO) {
                 return@withContext try {
                     val user = currentAccount.user
-                    val client = clientFactory.create(user)
                     val nextcloudClient = clientFactory.createNextcloudClient(user)
                     val result = DirectEditingCreateFileRemoteOperation(
                         path,
@@ -212,19 +210,20 @@ class ChooseTemplateDialogFragment :
                         creator?.id,
                         template.id
                     ).execute(nextcloudClient)
+
                     if (!result.isSuccess) {
                         return@withContext CreateFileFromTemplateResult.FailedCreateFile
                     }
+
+                    val client = clientFactory.create(user)
                     val newFileResult = ReadFileRemoteOperation(path).execute(client)
                     if (!newFileResult.isSuccess) {
                         return@withContext CreateFileFromTemplateResult.FailedReadFile
                     }
-                    val storageManager = FileDataStorageManager(user, context?.contentResolver)
+
                     val temp = FileStorageUtils.fillOCFile(newFileResult.data[0] as RemoteFile)
-                    storageManager.saveFile(temp)
-                    file = storageManager.getFileByPath(path)
-                    result.resultData
-                    CreateFileFromTemplateResult.Success(result.resultData)
+                    fileDataStorageManager.saveFile(temp)
+                    CreateFileFromTemplateResult.Success(result.resultData, fileDataStorageManager.getFileByPath(path))
                 } catch (e: CreationException) {
                     Log_OC.e(TAG, "Error creating file from template!", e)
                     CreateFileFromTemplateResult.FailedCreateFromTemplate
@@ -242,7 +241,7 @@ class ChooseTemplateDialogFragment :
                         val editorWebView = Intent(MainApp.getAppContext(), TextEditorWebView::class.java).apply {
                             putExtra(ExternalSiteWebView.EXTRA_TITLE, "Text")
                             putExtra(ExternalSiteWebView.EXTRA_URL, result.url)
-                            putExtra(FileActivity.EXTRA_FILE, file)
+                            putExtra(FileActivity.EXTRA_FILE, result.file)
                             putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false)
                         }
 
@@ -343,17 +342,17 @@ class ChooseTemplateDialogFragment :
     }
 
     sealed class CreateFileFromTemplateResult {
-        data class Success(val url: String) : CreateFileFromTemplateResult()
+        data class Success(val url: String, val file: OCFile) : CreateFileFromTemplateResult()
 
         data object FailedCreateFile : CreateFileFromTemplateResult()
         data object FailedCreateFromTemplate : CreateFileFromTemplateResult()
         data object FailedReadFile : CreateFileFromTemplateResult()
-        data object FailedSaveLocalFile : CreateFileFromTemplateResult();
+        data object FailedSaveLocalFile : CreateFileFromTemplateResult()
 
         fun showError(view: View) {
             if (this is Success) return
 
-            val messageId = when(this) {
+            val messageId = when (this) {
                 FailedCreateFile -> R.string.error_creating_file
                 FailedCreateFromTemplate -> R.string.error_creating_file_from_template
                 FailedReadFile -> R.string.error_reading_file
