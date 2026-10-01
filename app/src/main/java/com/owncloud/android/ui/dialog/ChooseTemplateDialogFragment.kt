@@ -13,6 +13,7 @@ package com.owncloud.android.ui.dialog
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.ContentResolver
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
@@ -195,7 +196,15 @@ class ChooseTemplateDialogFragment :
     }
 
     private fun createFromTemplate(template: Template, path: String) {
-        CreateFileFromTemplateTask(this, clientFactory, currentAccount.user, template, path, creator).execute()
+        CreateFileFromTemplateTask(
+            this,
+            clientFactory,
+            currentAccount.user,
+            template,
+            path,
+            creator,
+            requireContext().contentResolver
+        ).execute()
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -285,21 +294,22 @@ class ChooseTemplateDialogFragment :
     @Suppress("LongParameterList", "DEPRECATION")
     private class CreateFileFromTemplateTask(
         chooseTemplateDialogFragment: ChooseTemplateDialogFragment,
-        private val clientFactory: ClientFactory?,
+        private val clientFactory: ClientFactory,
         private val user: User,
         private val template: Template,
         private val path: String,
-        private val creator: Creator?
-    ) : AsyncTask<Void, Void, String>() {
+        private val creator: Creator?,
+        private val contentResolver: ContentResolver
+    ) : AsyncTask<Void, Void, CreateFileFromTemplateResult>() {
         private val chooseTemplateDialogFragmentWeakReference: WeakReference<ChooseTemplateDialogFragment> =
             WeakReference(chooseTemplateDialogFragment)
         private var file: OCFile? = null
 
         @Deprecated("Deprecated in Java")
         @Suppress("ReturnCount") // legacy code
-        override fun doInBackground(vararg params: Void): String {
+        override fun doInBackground(vararg params: Void): CreateFileFromTemplateResult {
             return try {
-                val client = clientFactory?.create(user) ?: return ""
+                val client = clientFactory.create(user)
                 val nextcloudClient = clientFactory.createNextcloudClient(user)
                 val result = DirectEditingCreateFileRemoteOperation(
                     path,
@@ -308,54 +318,72 @@ class ChooseTemplateDialogFragment :
                     template.id
                 ).execute(nextcloudClient)
                 if (!result.isSuccess) {
-                    return ""
+                    return CreateFileFromTemplateResult.FailedCreateFile
                 }
                 val newFileResult = ReadFileRemoteOperation(path).execute(client)
                 if (!newFileResult.isSuccess) {
-                    return ""
+                    return CreateFileFromTemplateResult.FailedReadFile
                 }
-                val fragment = chooseTemplateDialogFragmentWeakReference.get() ?: return ""
-                val context = fragment.context
-                    ?: // fragment has been detached
-                    return ""
-                val storageManager = FileDataStorageManager(
-                    user,
-                    context.contentResolver
-                )
+                val storageManager = FileDataStorageManager(user, contentResolver)
                 val temp = FileStorageUtils.fillOCFile(newFileResult.data[0] as RemoteFile)
                 storageManager.saveFile(temp)
                 file = storageManager.getFileByPath(path)
                 result.resultData
+                CreateFileFromTemplateResult.Success(result.resultData)
             } catch (e: CreationException) {
                 Log_OC.e(TAG, "Error creating file from template!", e)
-                ""
+                CreateFileFromTemplateResult.FailedCreateFromTemplate
             }
         }
 
-        @Deprecated("Deprecated in Java")
-        override fun onPostExecute(url: String) {
+        override fun onPostExecute(result: CreateFileFromTemplateResult) {
             val fragment = chooseTemplateDialogFragmentWeakReference.get()
             if (fragment == null || !fragment.isAdded) {
                 Log_OC.e(TAG, "Error creating file from template!")
                 return
             }
 
-            if (url.isEmpty()) {
-                SnackbarUtil.show(fragment.binding.list, R.string.error_creating_file_from_template)
-                return
+            when (result) {
+                is CreateFileFromTemplateResult.Success -> {
+                    val editorWebView = Intent(MainApp.getAppContext(), TextEditorWebView::class.java).apply {
+                        putExtra(ExternalSiteWebView.EXTRA_TITLE, "Text")
+                        putExtra(ExternalSiteWebView.EXTRA_URL, result.url)
+                        putExtra(FileActivity.EXTRA_FILE, file)
+                        putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false)
+                    }
+
+                    fragment.run {
+                        startActivity(editorWebView)
+                        dismiss()
+                    }
+                }
+
+                else -> {
+                    result.showError(fragment.binding.list)
+                }
+            }
+        }
+    }
+
+    sealed class CreateFileFromTemplateResult {
+        data class Success(val url: String) : CreateFileFromTemplateResult()
+
+        data object FailedCreateFile : CreateFileFromTemplateResult()
+        data object FailedCreateFromTemplate : CreateFileFromTemplateResult()
+        data object FailedReadFile : CreateFileFromTemplateResult()
+        data object FailedSaveLocalFile : CreateFileFromTemplateResult();
+
+        fun showError(view: View) {
+            if (this is Success) return
+
+            val messageId = when(this) {
+                FailedCreateFile -> R.string.error_creating_file
+                FailedCreateFromTemplate -> R.string.error_creating_file_from_template
+                FailedReadFile -> R.string.error_reading_file
+                FailedSaveLocalFile -> R.string.error_saving_local_file
             }
 
-            val editorWebView = Intent(MainApp.getAppContext(), TextEditorWebView::class.java).apply {
-                putExtra(ExternalSiteWebView.EXTRA_TITLE, "Text")
-                putExtra(ExternalSiteWebView.EXTRA_URL, url)
-                putExtra(FileActivity.EXTRA_FILE, file)
-                putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false)
-            }
-
-            fragment.run {
-                startActivity(editorWebView)
-                dismiss()
-            }
+            SnackbarUtil.show(view, messageId)
         }
     }
 
