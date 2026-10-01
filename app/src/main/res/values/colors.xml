@@ -25,6 +25,7 @@
     <color name="fg_inverse">#FFFFFF</color>
     <color name="filelist_icon_background">#DDDDDD</color>
     <color name="transparent">#00000000</color>
+    <color name="gallery_selection_scrim">#33000000</color>
     <color name="secondary_text_color">#666666</color>
     <color name="highlight_textColor_Warning">#e53935</color>
 

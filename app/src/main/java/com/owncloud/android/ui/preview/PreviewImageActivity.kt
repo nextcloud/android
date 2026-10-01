@@ -15,6 +15,7 @@ import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toDrawable
@@ -65,6 +66,8 @@ import com.owncloud.android.ui.dialog.SendShareDialog
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.fragment.GalleryFragment
 import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog.MediaState
+import com.owncloud.android.ui.navigation.animator.NavigationAnimator
+import com.owncloud.android.ui.navigation.animator.SharedElementTransition
 import com.owncloud.android.ui.preview.model.PreviewImageActivityState
 import com.owncloud.android.utils.MimeTypeUtil
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
@@ -139,6 +142,7 @@ class PreviewImageActivity :
         setupDrawer(menuItemId)
 
         val chosenFile = intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
+        setupSharedElementTransition(savedInstanceState, chosenFile)
 
         supportActionBar?.let {
             updateActionBarTitleAndHomeButton(chosenFile)
@@ -303,10 +307,35 @@ class PreviewImageActivity :
             override fun handleOnBackPressed() {
                 sendRefreshSearchEventBroadcast()
                 isEnabled = false
-                onBackPressedDispatcher.onBackPressed()
+                NavigationAnimator(this@PreviewImageActivity).finishWithScaleDown()
             }
         })
     }
+
+    private fun setupSharedElementTransition(savedInstanceState: Bundle?, openedFile: OCFile?) {
+        val sharedElementTransition = SharedElementTransition(this) { openedImageView() }
+        sharedElementTransition.register()
+
+        val isLaunchedWithSharedElement = intent.getBooleanExtra(NavigationAnimator.EXTRA_HAS_SHARED_ELEMENT, false)
+        if (savedInstanceState == null && isLaunchedWithSharedElement &&
+            PreviewImageFragment.canBePreviewed(openedFile)
+        ) {
+            sharedElementTransition.postponeUntilSharedViewReady()
+        }
+    }
+
+    private fun openedImageView(): View? {
+        val openedFileId = intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)?.fileId
+        val shownFileId = viewPager?.currentItem?.let { previewMediaPagerAdapter?.getFileAt(it) }?.fileId
+        if (openedFileId == null || shownFileId != openedFileId) {
+            return null
+        }
+
+        return shownImageView(openedFileId)
+    }
+
+    private fun shownImageView(fileId: Long): View? =
+        viewPager?.findViewWithTag<View>(fileId)?.takeIf { it.isShown && it.isLaidOut }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId != android.R.id.home) {
@@ -490,14 +519,18 @@ class PreviewImageActivity :
 
     @SuppressFBWarnings("DLS")
     override fun showDetails(file: OCFile) {
-        val intent = Intent(this, FileDisplayActivity::class.java).apply {
+        val detailsIntent = Intent(this, FileDisplayActivity::class.java).apply {
             setAction(FileDisplayActivity.ACTION_DETAILS)
             putExtra(EXTRA_FILE, file)
-            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            putExtra(FileDisplayActivity.EXTRA_RETURN_TO_PREVIEW, true)
         }
 
-        startActivity(intent)
-        finish()
+        val imageView = shownImageView(file.fileId)?.also {
+            ViewCompat.setTransitionName(it, NavigationAnimator.sharedElementName(file))
+        }
+
+        val navigationAnimator = NavigationAnimator(this)
+        navigationAnimator.slideUp(detailsIntent, imageView)
     }
 
     override fun showDetails(file: OCFile, activeTab: Int) {

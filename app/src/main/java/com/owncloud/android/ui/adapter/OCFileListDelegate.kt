@@ -11,6 +11,7 @@ import android.content.Context
 import android.view.View
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
@@ -39,6 +40,7 @@ import com.owncloud.android.ui.activity.FolderPickerActivity
 import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
+import com.owncloud.android.ui.navigation.animator.NavigationAnimator
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -120,6 +122,7 @@ class OCFileListDelegate(
         GalleryImageGenerationJob.cancelPreviousJob(imageView)
 
         imageView.tag = file.fileId
+        ViewCompat.setTransitionName(imageView, NavigationAnimator.sharedElementName(file))
 
         val cached = file.takeUnless { it.isUpdateThumbnailNeeded }?.getBigThumbnail()
         if (cached != null) {
@@ -170,7 +173,7 @@ class OCFileListDelegate(
                     file
                 )
             } else {
-                ocFileListFragmentInterface.onItemClicked(file)
+                ocFileListFragmentInterface.onItemClicked(file, imageView)
                 AlbumItemsFragment.lastMediaItemPosition = galleryRowHolder.absoluteAdapterPosition
             }
         }

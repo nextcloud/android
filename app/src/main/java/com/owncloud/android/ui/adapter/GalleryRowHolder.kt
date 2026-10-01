@@ -10,6 +10,7 @@ package com.owncloud.android.ui.adapter
 
 import android.view.Gravity
 import android.view.View
+import android.view.ViewOutlineProvider
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
@@ -17,7 +18,7 @@ import androidx.core.view.get
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
-import com.nextcloud.utils.extensions.makeRounded
+import com.nextcloud.utils.extensions.createRoundedOutline
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.GalleryRowBinding
@@ -29,10 +30,12 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 private const val CHECKED_SCALE = 0.8f
 private const val PLACEHOLDER_ICON_INSET_RATIO = 0.32f
 private const val UNCHECKED_SCALE = 1.0f
+private const val SELECTION_ANIMATION_DURATION_MS = 150L
 
-private const val SHIMMER_INDEX = 0
-private const val THUMBNAIL_INDEX = 1
-private const val CHECKBOX_INDEX = 2
+private const val SELECTION_BACKGROUND_INDEX = 0
+private const val SHIMMER_INDEX = 1
+private const val THUMBNAIL_INDEX = 2
+private const val CHECKBOX_INDEX = 3
 
 class GalleryRowHolder(
     val binding: GalleryRowBinding,
@@ -44,9 +47,13 @@ class GalleryRowHolder(
 
     private val zero by lazy { context.resources.getInteger(R.integer.zero) }
     private val smallMargin by lazy { context.resources.getInteger(R.integer.small_margin) }
-    private val iconRadius by lazy { context.resources.getDimension(R.dimen.activity_icon_radius) }
-    private val standardMargin by lazy { context.resources.getDimension(R.dimen.standard_margin) }
-    private val checkBoxMargin by lazy { context.resources.getDimension(R.dimen.standard_quarter_padding) }
+    private val checkBoxMargin by lazy { context.resources.getDimensionPixelSize(R.dimen.standard_half_margin) }
+
+    private val selectedOutline by lazy {
+        val resources = context.resources
+        val radiusDp = resources.getDimension(R.dimen.activity_icon_radius) / resources.displayMetrics.density
+        createRoundedOutline(context, radiusDp)
+    }
 
     private val checkedDrawable by lazy {
         ContextCompat.getDrawable(context, R.drawable.ic_checkbox_marked)?.also {
@@ -54,8 +61,12 @@ class GalleryRowHolder(
         }
     }
 
+    private val checkedBackground by lazy {
+        ContextCompat.getDrawable(context, R.drawable.gallery_selection_checked_background)
+    }
+
     private val uncheckedDrawable by lazy {
-        ContextCompat.getDrawable(context, R.drawable.ic_checkbox_blank_outline)
+        ContextCompat.getDrawable(context, R.drawable.gallery_selection_unchecked)
     }
 
     fun bind(row: GalleryRow) {
@@ -83,6 +94,12 @@ class GalleryRowHolder(
     }
 
     private fun createCell(): FrameLayout {
+        val selectionBackground = View(context).apply {
+            visibility = View.GONE
+            layoutParams = FrameLayout.LayoutParams(0, 0)
+            viewThemeUtils.platform.colorViewBackground(this, ColorRole.SURFACE_CONTAINER_HIGHEST)
+        }
+
         val shimmer = LoaderImageView(context).apply {
             setImageResource(R.drawable.background)
             resetLoader()
@@ -101,12 +118,13 @@ class GalleryRowHolder(
                 FrameLayout.LayoutParams.WRAP_CONTENT
             ).apply {
                 gravity = Gravity.TOP or Gravity.START
-                marginStart = checkBoxMargin.toInt()
-                topMargin = checkBoxMargin.toInt()
+                marginStart = checkBoxMargin
+                topMargin = checkBoxMargin
             }
         }
 
         return FrameLayout(context).apply {
+            addView(selectionBackground)
             addView(shimmer)
             addView(thumbnail)
             addView(checkbox)
@@ -115,15 +133,19 @@ class GalleryRowHolder(
 
     private fun bindCell(index: Int, file: OCFile, size: GalleryCellSize, isLast: Boolean) {
         val frameLayout = binding.rowLayout[index] as FrameLayout
+        val selectionBackground = frameLayout[SELECTION_BACKGROUND_INDEX]
         val shimmer = frameLayout[SHIMMER_INDEX] as LoaderImageView
         val thumbnail = frameLayout[THUMBNAIL_INDEX] as ImageView
         val checkbox = frameLayout[CHECKBOX_INDEX] as ImageView
 
+        val endMargin = if (isLast) zero else smallMargin
         applyCellSize(shimmer, size, endMargin = zero, bottomMargin = zero)
-        applyCellSize(thumbnail, size, endMargin = if (isLast) zero else smallMargin, bottomMargin = smallMargin)
+        applyCellSize(thumbnail, size, endMargin = endMargin, bottomMargin = smallMargin)
+        applyCellSize(selectionBackground, size, endMargin = endMargin, bottomMargin = smallMargin)
 
         val isChecked = ocFileListDelegate.isCheckedFile(file)
-        applySelection(thumbnail, isChecked)
+        selectionBackground.setVisibleIf(isChecked)
+        applySelection(thumbnail, file, isChecked)
         applyCheckBox(checkbox, isChecked)
 
         ocFileListDelegate.bindGalleryRow(shimmer, thumbnail, file, this, placeholderInset(size))
@@ -150,32 +172,39 @@ class GalleryRowHolder(
         view.layoutParams = params
     }
 
-    private fun applySelection(imageView: ImageView, isChecked: Boolean) {
+    private fun applySelection(thumbnail: ImageView, file: OCFile, isChecked: Boolean) {
+        thumbnail.outlineProvider = if (isChecked) selectedOutline else ViewOutlineProvider.BACKGROUND
+        thumbnail.clipToOutline = isChecked
+
         val scale = if (isChecked) CHECKED_SCALE else UNCHECKED_SCALE
-        if (imageView.scaleX == scale) {
+        thumbnail.animate().cancel()
+
+        val isSameFileRebound = thumbnail.tag == file.fileId
+        if (!isSameFileRebound) {
+            thumbnail.scaleX = scale
+            thumbnail.scaleY = scale
             return
         }
 
-        imageView.scaleX = scale
-        imageView.scaleY = scale
-        imageView.makeRounded(context, if (isChecked) iconRadius else 0f)
+        thumbnail.animate()
+            .scaleX(scale)
+            .scaleY(scale)
+            .setDuration(SELECTION_ANIMATION_DURATION_MS)
+            .start()
     }
 
     private fun applyCheckBox(imageView: ImageView, isChecked: Boolean) {
-        if (ocFileListDelegate.isMultiSelect) {
-            val checkboxDrawable = if (isChecked) checkedDrawable else uncheckedDrawable
-
-            checkboxDrawable?.apply {
-                val margin = standardMargin.toInt()
-                setBounds(margin, margin, margin, margin)
-            }
-
-            if (imageView.drawable !== checkboxDrawable) {
-                imageView.setImageDrawable(checkboxDrawable)
-            }
+        val isMultiSelect = ocFileListDelegate.isMultiSelect
+        imageView.setVisibleIf(isMultiSelect)
+        if (!isMultiSelect) {
+            return
         }
 
-        imageView.setVisibleIf(ocFileListDelegate.isMultiSelect)
+        val checkboxDrawable = if (isChecked) checkedDrawable else uncheckedDrawable
+        if (imageView.drawable !== checkboxDrawable) {
+            imageView.setImageDrawable(checkboxDrawable)
+            imageView.background = if (isChecked) checkedBackground else null
+        }
     }
 
     private fun thumbnailAt(index: Int): ImageView =

@@ -80,6 +80,7 @@ if git log --pretty='format:%an' HEAD "^$lastBuildTag" | grep -q dependabot; the
 fi
 
 # changelog
+mkdir -p src/versionDev/fastlane/metadata/android/en-US/changelogs
 echo "$changelog" > src/versionDev/fastlane/metadata/android/en-US/changelogs/$date.txt
 
 git add .

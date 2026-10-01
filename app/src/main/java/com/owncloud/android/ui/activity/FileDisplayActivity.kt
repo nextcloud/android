@@ -47,6 +47,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.SearchView
 import androidx.core.util.Function
 import androidx.core.view.MenuItemCompat
+import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -152,6 +153,7 @@ import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.ui.helpers.UriUploader
 import com.owncloud.android.ui.interfaces.TransactionInterface
 import com.owncloud.android.ui.navigation.NavigatorScreen
+import com.owncloud.android.ui.navigation.animator.NavigationAnimator
 import com.owncloud.android.ui.preview.PreviewImageActivity
 import com.owncloud.android.ui.preview.PreviewImageFragment
 import com.owncloud.android.ui.preview.PreviewTextFileFragment
@@ -280,6 +282,8 @@ class FileDisplayActivity :
      */
     private var fileIDForImmediatePreview: Long = -1
 
+    private var isShowingDetailsFromPreview = false
+
     private lateinit var folderRefreshScheduler: FolderRefreshScheduler
 
     fun setFileIDForImmediatePreview(fileIDForImmediatePreview: Long) {
@@ -308,6 +312,10 @@ class FileDisplayActivity :
         initLayout()
         initUI()
         initTaskRetainerFragment()
+
+        if (intent.getBooleanExtra(EXTRA_RETURN_TO_PREVIEW, false)) {
+            NavigationAnimator(this).prepareSlideUpEnter(savedInstanceState) { detailsHeaderImage() }
+        }
 
         // Restoring after UI has been inflated.
         if (savedInstanceState != null) {
@@ -444,6 +452,10 @@ class FileDisplayActivity :
             switchToSearchFragment(savedInstanceState)
         } else {
             createMinFragments(savedInstanceState)
+        }
+
+        if (savedInstanceState == null && intent.getBooleanExtra(EXTRA_RETURN_TO_PREVIEW, false)) {
+            handleSpecialIntents(intent)
         }
 
         upgradeNotificationForInstantUpload()
@@ -616,6 +628,7 @@ class FileDisplayActivity :
                 val file = getFileFromIntent(intent)
                 setFile(file)
                 showDetails(file)
+                isShowingDetailsFromPreview = intent.getBooleanExtra(EXTRA_RETURN_TO_PREVIEW, false)
             }
 
             Intent.ACTION_SEARCH == action -> handleSearchIntent(intent)
@@ -752,6 +765,7 @@ class FileDisplayActivity :
             return
         }
 
+        isShowingDetailsFromPreview = false
         prepareFragmentBeforeCommit(showSortListGroup)
         commitFragment(fragment)
     }
@@ -1265,6 +1279,12 @@ class FileDisplayActivity :
             isDrawerOpen -> {
                 before()
                 closeDrawer()
+                after()
+            }
+
+            isShowingDetailsFromPreview && leftFragment is FileDetailFragment -> {
+                before()
+                NavigationAnimator(this).finishWithSlideDown()
                 after()
             }
 
@@ -2061,7 +2081,12 @@ class FileDisplayActivity :
     fun canPreviewInMediaPager(file: OCFile?): Boolean =
         PreviewImageFragment.canBePreviewed(file) || (file != null && MimeTypeUtil.isVideo(file))
 
-    fun previewImageWithSearchContext(file: OCFile, searchFragment: Boolean, currentSearchType: SearchType?) {
+    fun previewImageWithSearchContext(
+        file: OCFile,
+        searchFragment: Boolean,
+        currentSearchType: SearchType?,
+        sourceView: View?
+    ) {
         val type = if (searchFragment) {
             when (currentSearchType) {
                 SearchType.FAVORITE_SEARCH -> VirtualFolderType.FAVORITE
@@ -2079,7 +2104,7 @@ class FileDisplayActivity :
         }
 
         val showPreview = file.isDown || MimeTypeUtil.isVideo(file)
-        startImagePreview(file, showPreview, type, mediaState)
+        startImagePreview(file, showPreview, type, mediaState, sourceView)
     }
 
     fun previewFile(file: OCFile, setFabVisible: CompletionCallback?) {
@@ -2711,23 +2736,13 @@ class FileDisplayActivity :
         file: OCFile,
         showPreview: Boolean,
         type: VirtualFolderType? = null,
-        mediaState: MediaState? = null
+        mediaState: MediaState? = null,
+        sourceView: View? = null
     ) {
-        if (user.isEmpty) {
-            Log_OC.e(TAG, "cannot start image preview")
-            return
-        }
-
-        val intent = Intent(this, PreviewImageActivity::class.java).apply {
-            putExtra(EXTRA_FILE, file)
-            putExtra(EXTRA_LIVE_PHOTO_FILE, file.livePhotoVideo)
-            putExtra(EXTRA_USER, user.get())
-            type?.let { putExtra(PreviewImageActivity.EXTRA_VIRTUAL_TYPE, it) }
-            mediaState?.let { putExtra(PreviewImageActivity.EXTRA_MEDIA_STATE, it) }
-        }
+        val intent = imagePreviewIntent(file, type, mediaState) ?: return
 
         if (showPreview) {
-            startActivity(intent)
+            NavigationAnimator(this).scaleUp(intent, sourceView)
         } else {
             val helper = FileOperationsHelper(
                 this,
@@ -2736,6 +2751,21 @@ class FileDisplayActivity :
                 editorUtils
             )
             helper.startSyncForFileAndIntent(file, intent)
+        }
+    }
+
+    private fun imagePreviewIntent(file: OCFile, type: VirtualFolderType?, mediaState: MediaState?): Intent? {
+        if (user.isEmpty) {
+            Log_OC.e(TAG, "cannot start image preview")
+            return null
+        }
+
+        return Intent(this, PreviewImageActivity::class.java).apply {
+            putExtra(EXTRA_FILE, file)
+            putExtra(EXTRA_LIVE_PHOTO_FILE, file.livePhotoVideo)
+            putExtra(EXTRA_USER, user.get())
+            type?.let { putExtra(PreviewImageActivity.EXTRA_VIRTUAL_TYPE, it) }
+            mediaState?.let { putExtra(PreviewImageActivity.EXTRA_MEDIA_STATE, it) }
         }
     }
 
@@ -2966,12 +2996,20 @@ class FileDisplayActivity :
                 file,
                 true,
                 virtualType,
-                bundle.getSerializableArgument(PreviewImageActivity.EXTRA_MEDIA_STATE, MediaState::class.java)
+                bundle.getSerializableArgument(PreviewImageActivity.EXTRA_MEDIA_STATE, MediaState::class.java),
+                galleryThumbnailOf(file)
             )
         } else {
-            startImagePreview(file, true)
+            startImagePreview(file, true, sourceView = galleryThumbnailOf(file))
         }
     }
+
+    private fun detailsHeaderImage(): View? =
+        previewImageView?.takeIf { it.isShown && it.isLaidOut && it.drawable != null }
+
+    private fun galleryThumbnailOf(file: OCFile): View? = leftFragment?.view
+        ?.findViewWithTag<View>(file.fileId)
+        ?.takeIf { it.isShown && ViewCompat.getTransitionName(it) == NavigationAnimator.sharedElementName(file) }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     fun onMessageEvent(event: TokenPushEvent?) {
@@ -3320,6 +3358,7 @@ class FileDisplayActivity :
         private const val SEARCH_VIEW_FOCUS_DELAY = 100L
 
         const val ACTION_DETAILS: String = "com.owncloud.android.ui.activity.action.DETAILS"
+        const val EXTRA_RETURN_TO_PREVIEW: String = "RETURN_TO_PREVIEW"
 
         @JvmField
         val REQUEST_CODE__SELECT_CONTENT_FROM_APPS: Int = REQUEST_CODE__LAST_SHARED + 1
