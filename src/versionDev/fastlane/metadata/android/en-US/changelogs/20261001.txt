@@ -1,0 +1,14 @@
+fix(l10n): Update translations from Transifex
+use username
+fix kotlin spotless check
+fix transitions
+style(gallery): multi select animation
+slide up image from center
+use scale up and down for opening and close image
+use m3 slide down and up
+create navigation animator
+wip
+fix(media): navigation
+refactor(view-extension): slide behaviour
+refactor(disk-lru-image-cache): kotlin
+Rename .java to .kt
