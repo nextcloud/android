@@ -19,6 +19,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.annotation.WorkerThread
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
@@ -32,10 +33,10 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ClientFactory.CreationException
+import com.nextcloud.utils.ResultParser.data
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.fileNameValidator.FileNameValidator
-import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ChooseTemplateBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -200,61 +201,61 @@ class ChooseTemplateDialogFragment :
 
     private fun createFromTemplate(template: Template, path: String) {
         lifecycleScope.launch {
-            val result = withContext(Dispatchers.IO) {
-                return@withContext try {
-                    val user = currentAccount.user
-                    val nextcloudClient = clientFactory.createNextcloudClient(user)
-                    val result = DirectEditingCreateFileRemoteOperation(
-                        path,
-                        creator?.editor,
-                        creator?.id,
-                        template.id
-                    ).execute(nextcloudClient)
+            val result = withContext(Dispatchers.IO) { createFileOnServer(template, path) }
 
-                    if (!result.isSuccess) {
-                        return@withContext CreateFileFromTemplateResult.FailedCreateFile
-                    }
-
-                    val client = clientFactory.create(user)
-                    val newFileResult = ReadFileRemoteOperation(path).execute(client)
-                    if (!newFileResult.isSuccess) {
-                        return@withContext CreateFileFromTemplateResult.FailedReadFile
-                    }
-
-                    val temp = FileStorageUtils.fillOCFile(newFileResult.data[0] as RemoteFile)
-                    fileDataStorageManager.saveFile(temp)
-                    CreateFileFromTemplateResult.Success(result.resultData, fileDataStorageManager.getFileByPath(path))
-                } catch (e: CreationException) {
-                    Log_OC.e(TAG, "Error creating file from template!", e)
-                    CreateFileFromTemplateResult.FailedCreateFromTemplate
-                }
+            val binding = _binding
+            if (!isAdded || binding == null) {
+                Log_OC.w(TAG, "Dialog no longer attached, ignoring create from template result")
+                return@launch
             }
 
-            withContext(Dispatchers.Main) {
-                if (!isAdded) {
-                    Log_OC.e(TAG, "Error creating file from template!")
-                    return@withContext
-                }
-
-                when (result) {
-                    is CreateFileFromTemplateResult.Success -> {
-                        val editorWebView = Intent(MainApp.getAppContext(), TextEditorWebView::class.java).apply {
-                            putExtra(ExternalSiteWebView.EXTRA_TITLE, "Text")
-                            putExtra(ExternalSiteWebView.EXTRA_URL, result.url)
-                            putExtra(FileActivity.EXTRA_FILE, result.file)
-                            putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false)
-                        }
-
-                        startActivity(editorWebView)
-                        dismiss()
-                    }
-
-                    else -> {
-                        result.showError(binding.list)
-                    }
-                }
+            when (result) {
+                is CreateFileFromTemplateResult.Success -> openEditor(result)
+                else -> result.showError(binding.list)
             }
         }
+    }
+
+    @WorkerThread
+    private fun createFileOnServer(template: Template, path: String): CreateFileFromTemplateResult {
+        return try {
+            val user = currentAccount.user
+
+            val createResult = DirectEditingCreateFileRemoteOperation(path, creator?.editor, creator?.id, template.id)
+                .execute(clientFactory.createNextcloudClient(user))
+            val editorUrl = createResult.resultData?.takeIf { createResult.isSuccess }
+                ?: return CreateFileFromTemplateResult.FailedCreateFile
+
+            readAndStoreCreatedFile(user, path, editorUrl)
+        } catch (e: CreationException) {
+            Log_OC.e(TAG, "Error creating file from template!", e)
+            CreateFileFromTemplateResult.FailedCreateFromTemplate
+        }
+    }
+
+    @WorkerThread
+    private fun readAndStoreCreatedFile(user: User, path: String, editorUrl: String): CreateFileFromTemplateResult {
+        val remoteFile = ReadFileRemoteOperation(path)
+            .execute(clientFactory.create(user))
+            .data(RemoteFile::class.java)
+            ?: return CreateFileFromTemplateResult.FailedReadFile
+
+        fileDataStorageManager.saveFile(FileStorageUtils.fillOCFile(remoteFile))
+        return fileDataStorageManager.getFileByPath(path)
+            ?.let { CreateFileFromTemplateResult.Success(editorUrl, it) }
+            ?: CreateFileFromTemplateResult.FailedSaveLocalFile
+    }
+
+    private fun openEditor(result: CreateFileFromTemplateResult.Success) {
+        val editorWebView = Intent(requireContext(), TextEditorWebView::class.java).apply {
+            putExtra(ExternalSiteWebView.EXTRA_TITLE, "Text")
+            putExtra(ExternalSiteWebView.EXTRA_URL, result.url)
+            putExtra(FileActivity.EXTRA_FILE, result.file)
+            putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false)
+        }
+
+        startActivity(editorWebView)
+        dismiss()
     }
 
     @SuppressLint("NotifyDataSetChanged")
