@@ -22,7 +22,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.status.OCCapability
 
 object FileNameValidator {
-    // As defined, server-side, in FilenameValidator.php:validateFilename()
+    // As defined, server-side, in FilenameValidator::validateFilename
     private const val MAX_FILENAME_SIZE = 250
 
     /**
