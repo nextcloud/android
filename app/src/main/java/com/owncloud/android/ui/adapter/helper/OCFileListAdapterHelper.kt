@@ -7,15 +7,12 @@
 
 package com.owncloud.android.ui.adapter.helper
 
-import com.nextcloud.android.common.ui.share.avatar.ShareAvatarRepository
 import com.nextcloud.android.common.ui.share.model.api.share.Share
 import com.nextcloud.client.account.User
 import com.nextcloud.client.database.entity.FileEntity
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.filterFilenames
 import com.nextcloud.utils.extensions.isTempFile
-import com.nextcloud.utils.extensions.supportsUnifiedShare
-import com.nextcloud.utils.extensions.toServerCredentials
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.shares.ShareType
@@ -62,6 +59,8 @@ class OCFileListAdapterHelper {
     }
 
     fun getAvatarSharees(file: OCFile, user: User?, userId: String?, onComplete: (List<ShareeUser>) -> Unit) {
+        onComplete(file.toLocalSharees(userId))
+        /*
         scope.launch {
             val credentials = user?.toServerCredentials()
             val result = if (credentials != null && credentials.supportsUnifiedShare()) {
@@ -76,6 +75,7 @@ class OCFileListAdapterHelper {
                 onComplete(result)
             }
         }
+         */
     }
 
     private fun OCFile.toLocalSharees(userId: String?): List<ShareeUser> {
