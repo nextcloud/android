@@ -41,6 +41,20 @@ object FilesSyncHelper {
         )
     }
 
+    fun startAutoUploadForEnabledSyncedFoldersIfNotActive(
+        provider: SyncedFolderProvider,
+        manager: BackgroundJobManager
+    ): Int {
+        val startedFolders = provider.syncedFolders
+            .filter { it.isEnabled }
+            .filterNot { manager.isAutoUploadScheduled(it.id) }
+            .onEach { manager.startAutoUpload(it) }
+
+        Log_OC.d(TAG, "start auto upload for ${startedFolders.size} not already active folder(s)")
+
+        return startedFolders.size
+    }
+
     @JvmStatic
     fun startAutoUploadForEnabledSyncedFolders(
         provider: SyncedFolderProvider,
