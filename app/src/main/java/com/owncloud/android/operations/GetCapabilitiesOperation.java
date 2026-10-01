@@ -41,7 +41,6 @@ public class GetCapabilitiesOperation extends SyncOperation {
         if (result.isSuccess() && result.getResultData() != null) {
             // Read data from the result
             OCCapability capability = result.getResultData();
-            capability.setAccountName(storageManager.getUser().getAccountName());
 
             // Save the capabilities into database
             storageManager.saveCapabilities(capability);
