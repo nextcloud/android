@@ -26,7 +26,7 @@ concurrency:
 
 jobs:
     analysis:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-latest-max
         steps:
             - name: Disabled on forks
               if: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}

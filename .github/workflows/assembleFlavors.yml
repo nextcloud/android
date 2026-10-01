@@ -19,7 +19,7 @@ concurrency:
 jobs:
     flavor:
         name: flavor (${{ matrix.flavor }})
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-latest-max
         strategy:
             fail-fast: false
             matrix:
