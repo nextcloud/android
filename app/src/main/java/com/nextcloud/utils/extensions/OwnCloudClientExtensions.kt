@@ -40,4 +40,4 @@ fun OwnCloudClient.getVideoPreviewEndpoint(localFileId: Long, size: Int): String
  * Used in Android Common
  */
 fun OwnCloudClient.toServerCredentials(baseURL: String): ServerCredentials =
-    ServerCredentials(baseURL, userIdPlain, credentials.authToken)
+    ServerCredentials(baseURL, credentials.username, credentials.authToken)
