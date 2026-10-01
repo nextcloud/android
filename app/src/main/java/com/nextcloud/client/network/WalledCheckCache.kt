@@ -12,6 +12,8 @@ import com.nextcloud.client.core.ClockImpl
 import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.time.Duration.Companion.minutes
+import kotlin.time.Duration.Companion.seconds
 
 @Singleton
 class WalledCheckCache @Inject constructor() {
@@ -29,9 +31,10 @@ class WalledCheckCache @Inject constructor() {
     }
 
     fun getValue(key: ConnectivityKey): Boolean? {
-        val entry = walledStatusCache[key] ?: return null
-        val isExpired = (clock.currentTime - entry.first) >= CACHE_TIME_MS
-        return if (isExpired) null else entry.second
+        val (checkedAt, isWalled) = walledStatusCache[key] ?: return null
+        val cacheTime = if (isWalled) WALLED_CACHE_TIME_MS else REACHABLE_CACHE_TIME_MS
+        val isExpired = (clock.currentTime - checkedAt) >= cacheTime
+        return if (isExpired) null else isWalled
     }
 
     fun putConnectivityValue(key: ConnectivityKey, connectivity: Connectivity) {
@@ -39,6 +42,7 @@ class WalledCheckCache @Inject constructor() {
     }
 
     companion object {
-        private const val CACHE_TIME_MS = 10 * 60 * 1000
+        private val REACHABLE_CACHE_TIME_MS = 10.minutes.inWholeMilliseconds
+        private val WALLED_CACHE_TIME_MS = 30.seconds.inWholeMilliseconds
     }
 }

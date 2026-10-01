@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2024 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -16,6 +17,7 @@ import com.nextcloud.client.player.ui.PlayerViewModel
 import com.nextcloud.ui.fileactions.FileActionsViewModel
 import com.nextcloud.ui.tags.TagManagementViewModel
 import com.nextcloud.ui.trashbinFileActions.TrashbinFileActionsViewModel
+import com.owncloud.android.ui.activity.filedisplayactivity.FileDisplayActivityViewModel
 import com.owncloud.android.ui.preview.pdf.PreviewPdfViewModel
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
 import dagger.Binds
@@ -71,4 +73,9 @@ abstract class ViewModelModule {
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FileDisplayActivityViewModel::class)
+    abstract fun fileDisplayActivityViewModel(vm: FileDisplayActivityViewModel): ViewModel
 }
