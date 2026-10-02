@@ -72,7 +72,6 @@ import com.owncloud.android.ui.activity.SyncedFoldersActivity;
 import com.owncloud.android.ui.activity.TextEditorWebView;
 import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
-import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.ui.activity.UserInfoActivity;
 import com.owncloud.android.ui.dialog.AccountRemovalDialog;
 import com.owncloud.android.ui.dialog.AppPassCodeDialog;
@@ -122,6 +121,7 @@ import com.owncloud.android.ui.fragment.community.CommunityFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.BackupFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment;
 import com.owncloud.android.ui.fragment.notifications.NotificationsFragment;
+import com.owncloud.android.ui.fragment.uploadList.UploadListFragment;
 import com.owncloud.android.ui.navigation.NavigatorActivity;
 import com.owncloud.android.ui.preview.FileDownloadFragment;
 import com.owncloud.android.ui.preview.PreviewBitmapActivity;
@@ -146,6 +146,9 @@ import dagger.android.ContributesAndroidInjector;
 abstract class ComponentsModule {
     @ContributesAndroidInjector
     abstract TrashbinFragment trashbinFragment();
+
+    @ContributesAndroidInjector
+    abstract UploadListFragment uploadListFragment();
 
     @ContributesAndroidInjector
     abstract ActivitiesFragment activitiesFragment();
@@ -233,9 +236,6 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract UploadFilesActivity uploadFilesActivity();
-
-    @ContributesAndroidInjector
-    abstract UploadListActivity uploadListActivity();
 
     @ContributesAndroidInjector
     abstract UserInfoActivity userInfoActivity();
