@@ -1,3 +1,10 @@
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 # Worked Example: `UploadListActivity` → `UploadListFragment`
 
 This conversion was the hardest one so far, because the Activity extended `FileActivity`.
