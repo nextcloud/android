@@ -21,6 +21,7 @@ import com.nextcloud.client.device.BatteryStatus
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.di.ApplicationScope
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.jobs.upload.FileUploadHelper.Companion.MAX_UPLOADS_PER_QUERY
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.notifications.AppWideNotificationManager
@@ -599,6 +600,10 @@ class FileUploadHelper {
 
     @Suppress("MagicNumber", "ReturnCount", "ComplexCondition")
     fun isSameFileOnRemote(user: User?, localPath: String?, remotePath: String?, context: Context?): Boolean {
+        Log_OC.d(
+            "105127",
+            "isSameFileOnRemote user:[$user], localPath:[$localPath], remotePath:[$remotePath], context:[$context]"
+        )
         if (user == null || localPath == null || remotePath == null || context == null) {
             Log_OC.e(TAG, "cannot compare remote and local file")
             return false
@@ -606,6 +611,7 @@ class FileUploadHelper {
 
         val operation = ReadFileRemoteOperation(remotePath)
         val result: RemoteOperationResult<*> = operation.execute(user, context)
+        Log_OC.d("105127", "isSameFileOnRemote result:[${result.isSuccess}]")
         if (result.isSuccess) {
             val remoteFile = result.data[0] as RemoteFile
             return remoteFile.isSame(localPath)
