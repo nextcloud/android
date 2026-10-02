@@ -629,7 +629,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             showOnDeviceFiles();
         } else if (itemId == R.id.nav_uploads) {
             resetOnlyPersonalAndOnDevice();
-            startActivity(UploadListActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            pushFragment(NavigatorScreen.UploadList.INSTANCE);
         } else if (itemId == R.id.nav_trashbin) {
             resetOnlyPersonalAndOnDevice();
             pushFragment(NavigatorScreen.Trashbin.INSTANCE);

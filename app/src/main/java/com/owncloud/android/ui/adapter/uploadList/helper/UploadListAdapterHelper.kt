@@ -17,14 +17,14 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.ConflictsResolveActivity
-import com.owncloud.android.ui.activity.FileActivity
+import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.preview.PreviewImageFragment
 import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.MimeTypeUtil
 import java.io.File
 
-class UploadListAdapterHelper(private val activity: FileActivity) {
+class UploadListAdapterHelper(private val activity: DrawerActivity) {
 
     companion object {
         private const val TAG = "UploadListAdapterHelper"
@@ -33,7 +33,7 @@ class UploadListAdapterHelper(private val activity: FileActivity) {
 
     fun openConflictActivity(file: OCFile, upload: OCUpload) {
         file.setStoragePath(upload.localPath)
-        val user = activity.accountManager.getUser(upload.accountName)
+        val user = activity.userAccountManager.getUser(upload.accountName)
         user.ifPresent {
             val intent = ConflictsResolveActivity.createIntent(
                 file,
