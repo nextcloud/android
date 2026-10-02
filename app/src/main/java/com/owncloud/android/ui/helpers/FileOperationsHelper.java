@@ -307,8 +307,6 @@ public class FileOperationsHelper {
             return;
         }
 
-        fileActivity.showLoadingDialog(fileActivity.getResources().getString(R.string.sync_in_progress));
-
         new Thread(() -> {
             User user = currentAccount.getUser();
             final var storageManager = new FileDataStorageManager(user, fileActivity.getContentResolver());
@@ -318,7 +316,6 @@ public class FileOperationsHelper {
             final var sfo = new SynchronizeFileOperation(file,null, user, true, fileActivity, storageManager, false);
             final var result = sfo.execute(fileActivity);
 
-            fileActivity.dismissLoadingDialog();
             if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
                 // ISSUE 5: if the user is not running the app (this is a service!),
                 // this can be very intrusive; a notification should be preferred
