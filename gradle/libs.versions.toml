@@ -81,7 +81,6 @@ slfj = "2.0.20"
 splash-screen = "1.2.0"
 spotbugsGradlePlugin = "6.5.11"
 spotless = "8.10.2"
-stateless4jVersion = "2.6.0"
 webkitVersion = "1.17.0"
 workRuntime = "2.12.0"
 foundationVersion = "1.12.1"
@@ -222,8 +221,6 @@ junit-junit = { module = "junit:junit", version.ref = "junit" }
 screengrab = { module = "tools.fastlane:screengrab", version.ref = "screengrabVersion" }
 screenshot-core = { module = "com.facebook.testing.screenshot:core", version.ref = "coreVersion" }
 shot = { module = "com.karumi:shot", version.ref = "shotVersion" }
-
-stateless4j = { module = "com.github.stateless4j:stateless4j", version.ref = "stateless4jVersion" }
 
 # Markwon
 syntax-highlight = { module = "io.noties.markwon:syntax-highlight", version.ref = "markwonVersion" }

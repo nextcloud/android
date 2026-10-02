@@ -529,10 +529,6 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     // endregion
 
-    // region Stateless
-    implementation(libs.stateless4j)
-    // endregion
-
     // region Google Play dependencies, upon each update first test: new registration, receive push
     add(gplayImplementationConfiguration, libs.bundles.gplay)
     // endregion
