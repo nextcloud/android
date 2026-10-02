@@ -1,0 +1,59 @@
+fix build createPendingFile should pass remotePath
+use latest lib hash
+use ActivityResultContracts
+refactor(editor-site-web-view): kotlin
+Rename .java to .kt
+refactor(editor-web-view): kotlin
+Rename .java to .kt
+fix min chunk size
+fix interrupting with pinch and refresh
+use cached image without lock
+speed-up load from disk
+remove cache check since job already doing it
+add pinch listener for column change
+simplify refreshCurrentDirectory
+fix view model integration
+use view model and getWorkInfosByTagFlow to observe worker
+remove workaround observe worker logic
+fix file list refresh after adding offline operation
+walled connection should not cached for 5 minutes, separate walled and reachability cache timing
+do in io scope
+use result success since policy is keep and check remote file to prevent unnecessary job
+early exit for remove files if its empty
+early exit for remove files if its empty
+return value for fail scenario as well
+do not cancel previous job so that list action such as create can react
+refactor(bitmap-utils): kotlin
+Rename .java to .kt
+Fix SpotBugs
+Fixed lint
+Fixed getRemotePathForConflictResolution (broken after refactoring), written relevant test
+simplify logic, and add upper bound instead recursive loop
+Fixed lint
+Removed unreliable file creation date check
+Moved regexp outside of recurrency
+Lint
+Fixed bug in duplicate files renaming generator, fixed test
+Fix lint
+Implemented file conflict name generator specific for offlineOperations
+Fixes in conflict resolve dialog, see https://github.com/nextcloud/android/pull/17590/changes\#r4034298542
+Applied some proposed fixes from PR
+Applied suggestions from PR
+Fixed lint
+Fixed conflict resolution dialog content for offline uploads
+Working conflict resolution for "keep both" in offline upload, aligned new name to the one used for online
+Working fix proof of concept, to be refactored and not taking account edge cases
+Fixed detekt
+Removed wrongly-placed file update code from uploadworker and updaging etagOnServer field properly in UploadFileOperation
+Refactored java function: moved into FileExtensions
+fix/internal-104835: lint
+fix/internal-104835: check size as well
+fix/internal-104835: avoid showing conflict window for an unmodified, already uploaded file
+wip
+fix/internal-104835: do not overwrite existent file metadata
+cancel enqueued ones so that we can re-start. Some workers may stuck thus we need to have clean start.
+retry if already auto upload runs
+cancel per folder first
+fix(auto-upload): rescan periodic worker
+fail fast for ignore eTag thus no need read file operation
+remove deduplicated root folder refresh operation
