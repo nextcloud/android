@@ -9,15 +9,8 @@ package com.nextcloud.utils.extensions
 
 import android.app.Activity
 import android.content.Intent
-import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import com.nextcloud.model.WorkerState
-import com.nextcloud.model.WorkerStateObserver
-import kotlinx.coroutines.launch
 
 fun AppCompatActivity.isDialogFragmentReady(fragment: Fragment): Boolean = isActive() && !fragment.isStateSaved
 
@@ -35,14 +28,4 @@ fun Activity.showShareIntent(text: String?) {
 
     val shareIntent = Intent.createChooser(sendIntent, null)
     startActivity(shareIntent)
-}
-
-fun ComponentActivity.observeWorker(onCollect: (WorkerState?) -> Unit) {
-    lifecycleScope.launch {
-        repeatOnLifecycle(Lifecycle.State.STARTED) {
-            WorkerStateObserver.events.collect {
-                onCollect(it)
-            }
-        }
-    }
 }

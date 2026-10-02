@@ -42,11 +42,9 @@ import com.nextcloud.client.player.model.file.toPlaybackCollection
 import com.nextcloud.client.player.ui.MediaNavigator
 import com.nextcloud.client.player.ui.VideoPictureInPicture
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.model.WorkerState
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
-import com.nextcloud.utils.extensions.observeWorker
 import com.nextcloud.utils.extensions.toggle
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
@@ -158,7 +156,6 @@ class PreviewImageActivity :
             screenState = PreviewImageActivityState.WaitingForBinder
         }
 
-        observeWorkerState()
         applyDisplayCutOutTopPadding()
 
         handleBackPress()
@@ -447,17 +444,6 @@ class PreviewImageActivity :
     private fun onSynchronizeFileOperationFinish(result: RemoteOperationResult<*>) {
         if (result.isSuccess) {
             supportInvalidateOptionsMenu()
-        }
-    }
-
-    private fun observeWorkerState() {
-        observeWorker { state: WorkerState? ->
-            when (state) {
-                else -> {
-                    Log_OC.d(TAG, "Worker stopped")
-                    isDownloadWorkStarted = false
-                }
-            }
         }
     }
 

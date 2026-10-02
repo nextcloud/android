@@ -43,6 +43,7 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.WindowManager.BadTokenException
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.viewModels
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.SearchView
 import androidx.core.util.Function
@@ -63,6 +64,7 @@ import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.database.entity.SyncedFolderEntity
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.client.editimage.EditImageActivity
 import com.nextcloud.client.files.DeepLinkHandler
 import com.nextcloud.client.jobs.download.FileDownloadEventBroadcaster
@@ -78,7 +80,6 @@ import com.nextcloud.client.player.ui.audio.AudioPlayerLauncher
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.model.OCUploadLocalPathData
-import com.nextcloud.model.WorkerState.OfflineOperationsCompleted
 import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -87,7 +88,6 @@ import com.nextcloud.utils.extensions.isActive
 import com.nextcloud.utils.extensions.isDialogFragmentReady
 import com.nextcloud.utils.extensions.lastFragment
 import com.nextcloud.utils.extensions.navigateToAllFiles
-import com.nextcloud.utils.extensions.observeWorker
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.fileNameValidator.FileNameValidator.checkFolderPath
 import com.nextcloud.utils.view.FastScrollUtils
@@ -122,6 +122,7 @@ import com.owncloud.android.operations.SynchronizeFileOperation
 import com.owncloud.android.operations.albums.CopyFileToAlbumOperation
 import com.owncloud.android.syncadapter.FileSyncAdapter
 import com.owncloud.android.ui.CompletionCallback
+import com.owncloud.android.ui.activity.filedisplayactivity.FileDisplayActivityViewModel
 import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask
 import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask.CheckAvailableSpaceListener
 import com.owncloud.android.ui.asynctasks.FetchRemoteFileTask
@@ -276,6 +277,11 @@ class FileDisplayActivity :
     @Inject
     lateinit var passCodeManager: PassCodeManager
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val viewModel by viewModels<FileDisplayActivityViewModel> { viewModelFactory }
+
     /**
      * Indicates whether the downloaded file should be previewed immediately. Since `FileDownloadWorker` can be
      * triggered from multiple sources, this helps determine if an automatic preview is needed after download.
@@ -324,7 +330,6 @@ class FileDisplayActivity :
 
         checkStoragePath()
         observeWorkerState()
-        startMetadataSyncForRoot()
         handleBackPress()
         setupDrawer(menuItemId)
     }
@@ -1169,6 +1174,10 @@ class FileDisplayActivity :
                 } else {
                     lifecycleScope.launch(Dispatchers.IO) {
                         fileDataStorageManager.addCreateFileOfflineOperation(filePaths, decryptedRemotePaths)
+
+                        withContext(Dispatchers.Main) {
+                            refreshCurrentDirectory()
+                        }
                     }
                 }
             }
@@ -1631,6 +1640,10 @@ class FileDisplayActivity :
             file = currentFile
         }
 
+        if (isSyncFolderRemotePathRoot) {
+            startMetadataSyncForRoot()
+        }
+
         handleSyncResult(event, syncResult)
         DataHolderUtil.getInstance().delete(id)
         handleScrollBehaviour(fileListFragment)
@@ -2067,14 +2080,10 @@ class FileDisplayActivity :
     override fun isDrawerIndicatorAvailable(): Boolean = isRoot(getCurrentDir())
 
     private fun observeWorkerState() {
-        observeWorker { state ->
-            when (state) {
-                is OfflineOperationsCompleted -> {
-                    refreshCurrentDirectory()
-                }
-
-                else -> Unit
-            }
+        lifecycleScope.launch {
+            viewModel.observeOfflineWorker(onComplete = {
+                refreshCurrentDirectory()
+            })
         }
     }
 
@@ -2129,24 +2138,8 @@ class FileDisplayActivity :
     }
 
     fun refreshCurrentDirectory() {
-        val currentDir =
-            if (getCurrentDir() !=
-                null
-            ) {
-                storageManager.getFileByDecryptedRemotePath(getCurrentDir()?.remotePath)
-            } else {
-                null
-            }
-
-        val lastFragment = lastFragment()
-
-        var fileListFragment: OCFileListFragment? = null
-        if (lastFragment is OCFileListFragment) {
-            fileListFragment = lastFragment
-        }
-        if (fileListFragment == null) {
-            fileListFragment = listOfFilesFragment
-        }
+        val currentDir = getCurrentDir()?.let { storageManager.getFileByDecryptedRemotePath(it.remotePath) }
+        val fileListFragment = lastFragment() as? OCFileListFragment ?: listOfFilesFragment
         fileListFragment?.listDirectory(currentDir, MainApp.isOnlyOnDevice())
     }
 
@@ -3324,7 +3317,7 @@ class FileDisplayActivity :
 
     // region MetadataSyncJob
     private fun startMetadataSyncForRoot() {
-        backgroundJobManager.startMetadataSyncJob(OCFile.ROOT_PATH)
+        backgroundJobManager.startMetadataSyncJob(OCFile.ROOT_PATH, folderAlreadySynced = true)
     }
 
     private fun startMetadataSyncForCurrentDir() {
