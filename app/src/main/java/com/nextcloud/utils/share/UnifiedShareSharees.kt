@@ -71,18 +71,16 @@ object UnifiedShareSharees {
         }
     }
 
-    private suspend fun supportsUnifiedShare(accountName: String, credentials: ServerCredentials): Boolean {
-        unifiedShareSupport[accountName]?.let { return it }
-
-        // a failed capability request stays uncached so that the next listing can resolve it again
-        val supported = runCatching { credentials.supportsUnifiedShare() }.getOrNull() ?: return false
-        unifiedShareSupport[accountName] = supported
-
-        return supported
-    }
+    private suspend fun supportsUnifiedShare(accountName: String, credentials: ServerCredentials): Boolean =
+        unifiedShareSupport[accountName]
+            ?: runCatching { credentials.supportsUnifiedShare() }
+                .getOrNull()
+                ?.also { unifiedShareSupport[accountName] = it }
+            ?: false
 
     private suspend fun ShareAvatarRepository.fetchSharees(file: OCFile) {
-        file.sharees = fetchShareAvatars(file.localId.toString())?.toAvatarSharees().orEmpty()
+        val shares = fetchShareAvatars(file.localId.toString()) ?: return
+        file.sharees = shares.toAvatarSharees()
     }
 
     private fun List<Share>.toAvatarSharees(): List<ShareeUser> = asSequence()
