@@ -486,6 +486,7 @@
     <string name="filename_forbidden_characters">Forbidden characters: / \\ &lt; &gt; : " | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Filename contains at least one invalid character</string>
     <string name="filename_empty">Filename cannot be empty</string>
+    <string name="filename_too_long">Filename cannot be longer than 250 characters</string>
     <string name="folder_name_empty">Folder name cannot be empty</string>
     <string name="label_empty">Label cannot be empty</string>
     <string name="wait_a_moment">Wait a moment…</string>
@@ -1389,7 +1390,10 @@
     <string name="file_list_empty_unified_search_start_search_description">Type in the search bar above to find files, contacts, calendar events, and more across your account.</string>
 
     <string name="file_list_empty_gallery">Found no images or videos</string>
+    <string name="error_creating_file">Error creating file</string>
     <string name="error_creating_file_from_template">Error creating file from template</string>
+    <string name="error_reading_file">Error reading file</string>
+    <string name="error_saving_local_file">Error saving local file</string>
     <string name="no_send_app">No app available for sending the selected files</string>
     <string name="storage_permission_all_files_access">All files access</string>
     <string name="storage_permission_media_read_only">Media read-only</string>

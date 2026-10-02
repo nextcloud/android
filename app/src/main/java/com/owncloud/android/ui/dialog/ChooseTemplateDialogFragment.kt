@@ -19,8 +19,10 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.annotation.WorkerThread
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -31,10 +33,10 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ClientFactory.CreationException
+import com.nextcloud.utils.ResultParser.data
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.fileNameValidator.FileNameValidator
-import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ChooseTemplateBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -53,6 +55,9 @@ import com.owncloud.android.ui.adapter.TemplateAdapter
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.KeyboardUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.lang.ref.WeakReference
 import javax.inject.Inject
 
@@ -195,7 +200,62 @@ class ChooseTemplateDialogFragment :
     }
 
     private fun createFromTemplate(template: Template, path: String) {
-        CreateFileFromTemplateTask(this, clientFactory, currentAccount.user, template, path, creator).execute()
+        lifecycleScope.launch {
+            val result = withContext(Dispatchers.IO) { createFileOnServer(template, path) }
+
+            val binding = _binding
+            if (!isAdded || binding == null) {
+                Log_OC.w(TAG, "Dialog no longer attached, ignoring create from template result")
+                return@launch
+            }
+
+            when (result) {
+                is CreateFileFromTemplateResult.Success -> openEditor(result)
+                else -> result.showError(binding.list)
+            }
+        }
+    }
+
+    @WorkerThread
+    private fun createFileOnServer(template: Template, path: String): CreateFileFromTemplateResult {
+        return try {
+            val user = currentAccount.user
+
+            val createResult = DirectEditingCreateFileRemoteOperation(path, creator?.editor, creator?.id, template.id)
+                .execute(clientFactory.createNextcloudClient(user))
+            val editorUrl = createResult.resultData?.takeIf { createResult.isSuccess }
+                ?: return CreateFileFromTemplateResult.FailedCreateFile
+
+            readAndStoreCreatedFile(user, path, editorUrl)
+        } catch (e: CreationException) {
+            Log_OC.e(TAG, "Error creating file from template!", e)
+            CreateFileFromTemplateResult.FailedCreateFromTemplate
+        }
+    }
+
+    @WorkerThread
+    private fun readAndStoreCreatedFile(user: User, path: String, editorUrl: String): CreateFileFromTemplateResult {
+        val remoteFile = ReadFileRemoteOperation(path)
+            .execute(clientFactory.create(user))
+            .data(RemoteFile::class.java)
+            ?: return CreateFileFromTemplateResult.FailedReadFile
+
+        fileDataStorageManager.saveFile(FileStorageUtils.fillOCFile(remoteFile))
+        return fileDataStorageManager.getFileByPath(path)
+            ?.let { CreateFileFromTemplateResult.Success(editorUrl, it) }
+            ?: CreateFileFromTemplateResult.FailedSaveLocalFile
+    }
+
+    private fun openEditor(result: CreateFileFromTemplateResult.Success) {
+        val editorWebView = Intent(requireContext(), TextEditorWebView::class.java).apply {
+            putExtra(ExternalSiteWebView.EXTRA_TITLE, "Text")
+            putExtra(ExternalSiteWebView.EXTRA_URL, result.url)
+            putExtra(FileActivity.EXTRA_FILE, result.file)
+            putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false)
+        }
+
+        startActivity(editorWebView)
+        dismiss()
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -282,80 +342,25 @@ class ChooseTemplateDialogFragment :
         binding.filenameContainer.error = state.errorMessage
     }
 
-    @Suppress("LongParameterList", "DEPRECATION")
-    private class CreateFileFromTemplateTask(
-        chooseTemplateDialogFragment: ChooseTemplateDialogFragment,
-        private val clientFactory: ClientFactory?,
-        private val user: User,
-        private val template: Template,
-        private val path: String,
-        private val creator: Creator?
-    ) : AsyncTask<Void, Void, String>() {
-        private val chooseTemplateDialogFragmentWeakReference: WeakReference<ChooseTemplateDialogFragment> =
-            WeakReference(chooseTemplateDialogFragment)
-        private var file: OCFile? = null
+    sealed class CreateFileFromTemplateResult {
+        data class Success(val url: String, val file: OCFile) : CreateFileFromTemplateResult()
 
-        @Deprecated("Deprecated in Java")
-        @Suppress("ReturnCount") // legacy code
-        override fun doInBackground(vararg params: Void): String {
-            return try {
-                val client = clientFactory?.create(user) ?: return ""
-                val nextcloudClient = clientFactory.createNextcloudClient(user)
-                val result = DirectEditingCreateFileRemoteOperation(
-                    path,
-                    creator?.editor,
-                    creator?.id,
-                    template.id
-                ).execute(nextcloudClient)
-                if (!result.isSuccess) {
-                    return ""
-                }
-                val newFileResult = ReadFileRemoteOperation(path).execute(client)
-                if (!newFileResult.isSuccess) {
-                    return ""
-                }
-                val fragment = chooseTemplateDialogFragmentWeakReference.get() ?: return ""
-                val context = fragment.context
-                    ?: // fragment has been detached
-                    return ""
-                val storageManager = FileDataStorageManager(
-                    user,
-                    context.contentResolver
-                )
-                val temp = FileStorageUtils.fillOCFile(newFileResult.data[0] as RemoteFile)
-                storageManager.saveFile(temp)
-                file = storageManager.getFileByPath(path)
-                result.resultData
-            } catch (e: CreationException) {
-                Log_OC.e(TAG, "Error creating file from template!", e)
-                ""
-            }
-        }
+        data object FailedCreateFile : CreateFileFromTemplateResult()
+        data object FailedCreateFromTemplate : CreateFileFromTemplateResult()
+        data object FailedReadFile : CreateFileFromTemplateResult()
+        data object FailedSaveLocalFile : CreateFileFromTemplateResult()
 
-        @Deprecated("Deprecated in Java")
-        override fun onPostExecute(url: String) {
-            val fragment = chooseTemplateDialogFragmentWeakReference.get()
-            if (fragment == null || !fragment.isAdded) {
-                Log_OC.e(TAG, "Error creating file from template!")
-                return
+        fun showError(view: View) {
+            if (this is Success) return
+
+            val messageId = when (this) {
+                FailedCreateFile -> R.string.error_creating_file
+                FailedCreateFromTemplate -> R.string.error_creating_file_from_template
+                FailedReadFile -> R.string.error_reading_file
+                FailedSaveLocalFile -> R.string.error_saving_local_file
             }
 
-            if (url.isEmpty()) {
-                SnackbarUtil.show(fragment.binding.list, R.string.error_creating_file_from_template)
-                return
-            }
-
-            val editorWebView = Intent(MainApp.getAppContext(), TextEditorWebView::class.java).apply {
-                putExtra(ExternalSiteWebView.EXTRA_TITLE, "Text")
-                putExtra(ExternalSiteWebView.EXTRA_URL, url)
-                putExtra(FileActivity.EXTRA_FILE, file)
-                putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false)
-            }
-
-            fragment.run {
-                startActivity(editorWebView)
-                dismiss()
-            }
+            SnackbarUtil.show(view, messageId)
         }
     }
 
