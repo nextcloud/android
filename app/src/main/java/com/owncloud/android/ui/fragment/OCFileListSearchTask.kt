@@ -133,8 +133,8 @@ class OCFileListSearchTask(
                 sortedFilesInDb,
                 resultData,
                 storageManager,
-                currentUser.accountName
-            ).also { UnifiedShareSharees.fill(currentUser, it) }
+                currentUser
+            )
         } else {
             parseAndSaveVirtuals(resultData, fragment)
         }
@@ -211,14 +211,12 @@ class OCFileListSearchTask(
             val resultFiles = ArrayList<OCFile>()
             var cachedClient: Account? = null
 
-            for (obj in data) {
+            val files = data.filterIsInstance<RemoteFile>().mapNotNull(::toLocalOCFile)
+            UnifiedShareSharees.fill(currentUser, files)
+
+            for (file in files) {
                 try {
-                    val remoteFile = (obj as? RemoteFile) ?: continue
-                    var ocFile = FileStorageUtils.fillOCFile(remoteFile)
-                    FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, currentUser.accountName)
-                    resolveLocalFileId(ocFile)
-                    UnifiedShareSharees.fill(currentUser, listOf(ocFile))
-                    ocFile = storageManager.saveFileWithParent(ocFile, activity)
+                    var ocFile = storageManager.saveFileWithParent(file, activity)
                     ocFile = handleEncryptionIfNeeded(ocFile, storageManager, activity) {
                         cachedClient ?: currentUser.toPlatformAccount().also { cachedClient = it }
                     }
@@ -289,6 +287,16 @@ class OCFileListSearchTask(
         }
 
         return fileDataStorage.saveFileWithParent(ocFile, activity)
+    }
+
+    private fun toLocalOCFile(remoteFile: RemoteFile): OCFile? = try {
+        FileStorageUtils.fillOCFile(remoteFile).also {
+            FileStorageUtils.searchForLocalFileInDefaultPath(it, currentUser.accountName)
+            resolveLocalFileId(it)
+        }
+    } catch (e: Exception) {
+        Log_OC.e(TAG, "toLocalOCFile():", e)
+        null
     }
 
     private fun resolveLocalFileId(ocFile: OCFile) {
