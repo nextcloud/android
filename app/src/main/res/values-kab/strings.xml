@@ -332,6 +332,7 @@
     <string name="downloader_unexpected_error">Teḍra-d tuccḍa tarussint deg usider n ifuyla</string>
     <string name="drawer_close">Mdel agalis adisan</string>
     <string name="drawer_community">Tamezdagnut</string>
+    <string name="drawer_header_background">Tugna n ugilal n tsenṭit n leqjeṛ</string>
     <string name="drawer_item_activities">Irmuden</string>
     <string name="drawer_item_album">Albums</string>
     <string name="drawer_item_all_files">Akk ifuyla</string>
@@ -371,6 +372,13 @@
     <string name="encryption_encrypt_unavailable">Ur izmir ara ad iwgelhen akaram-agi. Awgelhen seg yixef ɣer yixef  ur yettusbadu ara ɣef uqeddac-agi.</string>
     <string name="encryption_key_checking_keys">Aselken n tsura...</string>
     <string name="encryption_key_handle_key_removed_title">Tisura n uwgelhen ttwasniflent</string>
+    <string name="encryption_new_folder_check_failed">Ulamek aselken n tsura-k·m n uwgelhen. Ɛreḍ ad d-tesnulfuḍ akaram i tikkelt nniḍen.</string>
+    <string name="encryption_new_folder_no_network">Ur yezmir ara ad yaweḍ aqeddac. Ɛreḍ ad d-tesnulfuḍ akaram tikkelt-nniḍen ticki.</string>
+    <string name="encryption_new_folder_unavailable">Ulamek asnulfu n ikaramen iwgelhanen. Awgelhen seg yixef ɣer yixef ur yettusbadu ara ɣef uqeddac-agi.</string>
+    <string name="encryption_open_check_failed">Ulamek aselken n tsura-k·m n uwgelhen. Ɛreḍ ad teldiḍ akaram tikkelt-nniḍen.</string>
+    <string name="encryption_open_key_mismatch">Tasarut n uwgelhen yettwaskelsen deg yibenk-agi ur temṣada ara akked tsarut n ukaram-agi.</string>
+    <string name="encryption_open_no_network">Ur yezmir ara ad yaweḍ aqeddac. Ɛreḍ ad teldiḍ akaram tikkelt-nniḍen ticki.</string>
+    <string name="encryption_open_unavailable">Ur izmir ara ad yeldi akaram-agi. Awgelhen seg yixef ɣer yixef ur yettusbadu ara ɣef uqeddac-agi.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Ur yezmir ara ad d-yawi aselkin n uqeddac</string>
     <string name="end_to_end_encryption_certificate_verification_failed">Ur yezmir ara aselken n tsarut tazayezt</string>
     <string name="end_to_end_encryption_confirm_button">Swel awgelhen</string>
@@ -402,8 +410,10 @@
     <string name="error_file_actions">Tuccḍa deg uskan n tigawin n ufaylu</string>
     <string name="error_file_lock">Tuccḍa deg ubeddel n waddad n usekkeṛ ufaylu</string>
     <string name="error_report_issue_action">Aneqqis</string>
+    <string name="error_report_issue_text">Mmel ugur i uḍfar? (yesra amiḍan n GitHub)</string>
     <string name="error_retrieving_file">Tuccḍa deg tririt n ufaylu</string>
     <string name="error_retrieving_templates">Tuccḍa deg tririt n tneɣrufin</string>
+    <string name="error_setting_status_message">Tuccḍa deg usbadu n yizen n waddad!</string>
     <string name="error_showing_encryption_dialog">Tuccḍa deg uskan n udiwenni n uwgelhen!</string>
     <string name="error_starting_direct_camera_upload">Tuccḍa deg usenker n tkamiṛat</string>
     <string name="error_uploading_direct_camera_upload">Yecceḍ usali n umidya</string>
