@@ -10,9 +10,7 @@ package com.nextcloud.utils.thumbnail
 import android.widget.ImageView
 import com.owncloud.android.datamodel.OCFile
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
 class ThumbnailGenerator @Inject constructor(
     val fileThumbnailGenerator: FileThumbnailGenerator,
     val folderThumbnailGenerator: FolderThumbnailGenerator
