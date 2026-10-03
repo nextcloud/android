@@ -14,7 +14,6 @@ package com.owncloud.android.ui.activity;
 
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -629,7 +628,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             showOnDeviceFiles();
         } else if (itemId == R.id.nav_uploads) {
             resetOnlyPersonalAndOnDevice();
-            startActivity(UploadListActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            pushFragment(NavigatorScreen.UploadList.INSTANCE);
         } else if (itemId == R.id.nav_trashbin) {
             resetOnlyPersonalAndOnDevice();
             pushFragment(NavigatorScreen.Trashbin.INSTANCE);
@@ -734,16 +733,6 @@ public abstract class DrawerActivity extends ToolbarActivity
         bundle.putParcelable(ComposeActivity.DESTINATION, destination);
         composeActivity.putExtras(bundle);
         startActivity(composeActivity);
-    }
-
-    void startActivity(Class<? extends Activity> activity) {
-        startActivity(new Intent(getApplicationContext(), activity));
-    }
-
-    private void startActivity(Class<? extends Activity> activity, int flags) {
-        Intent intent = new Intent(getApplicationContext(), activity);
-        intent.setFlags(flags);
-        startActivity(intent);
     }
 
     public void showManageAccountsDialog() {

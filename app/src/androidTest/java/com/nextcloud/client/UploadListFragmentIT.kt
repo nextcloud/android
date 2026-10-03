@@ -8,7 +8,7 @@
  */
 package com.nextcloud.client
 
-import androidx.test.core.app.launchActivity
+import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.DrawerActions
@@ -17,17 +17,19 @@ import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
-import com.owncloud.android.ui.activity.UploadListActivity
+import com.owncloud.android.ui.navigation.NavigatorActivity
+import com.owncloud.android.ui.navigation.NavigatorScreen
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Test
 
-class UploadListActivityActivityIT : AbstractIT() {
-    private val testClassName = "com.nextcloud.client.UploadListActivityActivityIT"
+class UploadListFragmentIT : AbstractIT() {
+    private val testClassName = "com.nextcloud.client.UploadListFragmentIT"
 
     @Test
     @ScreenshotTest
     fun openDrawer() {
-        launchActivity<UploadListActivity>().use { scenario ->
+        val intent = NavigatorActivity.intent(targetContext, NavigatorScreen.UploadList)
+        ActivityScenario.launch<NavigatorActivity>(intent).use { scenario ->
             onView(isRoot()).check(matches(isDisplayed()))
             onView(withId(R.id.drawer_layout)).perform(DrawerActions.open())
 
