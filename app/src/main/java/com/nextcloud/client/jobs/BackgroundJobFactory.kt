@@ -20,8 +20,6 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.database.NextcloudDatabase
 import com.nextcloud.client.device.PowerManagementService
-import com.nextcloud.client.documentscan.GeneratePDFUseCase
-import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
 import com.nextcloud.client.integrations.deck.DeckApi
 import com.nextcloud.client.jobs.autoUpload.AutoUploadHelper
 import com.nextcloud.client.jobs.autoUpload.AutoUploadLocalDeletionWorker
@@ -69,7 +67,6 @@ class BackgroundJobFactory @Inject constructor(
     private val deckApi: DeckApi,
     private val viewThemeUtils: Provider<ViewThemeUtils>,
     private val localBroadcastManager: Provider<LocalBroadcastManager>,
-    private val generatePdfUseCase: GeneratePDFUseCase,
     private val syncedFolderProvider: SyncedFolderProvider,
     private val database: NextcloudDatabase,
     private val uploadFileOperationFactory: UploadFileOperationFactory
@@ -106,7 +103,6 @@ class BackgroundJobFactory @Inject constructor(
                 FileUploadWorker::class -> createFilesUploadWorker(context, workerParameters)
                 AlbumFileUploadWorker::class -> createAlbumsFilesUploadWorker(context, workerParameters)
                 FileDownloadWorker::class -> createFilesDownloadWorker(context, workerParameters)
-                GeneratePdfFromImagesWork::class -> createPDFGenerateWork(context, workerParameters)
                 HealthStatusWork::class -> createHealthStatusWork(context, workerParameters)
                 TestJob::class -> createTestJob(context, workerParameters)
                 OfflineOperationsWorker::class -> createOfflineOperationsWorker(context, workerParameters)
@@ -290,17 +286,6 @@ class BackgroundJobFactory @Inject constructor(
             preferences,
             context,
             params
-        )
-
-    private fun createPDFGenerateWork(context: Context, params: WorkerParameters): GeneratePdfFromImagesWork =
-        GeneratePdfFromImagesWork(
-            appContext = context,
-            generatePdfUseCase = generatePdfUseCase,
-            viewThemeUtils = viewThemeUtils.get(),
-            notificationManager = notificationManager,
-            userAccountManager = accountManager,
-            logger = logger,
-            params = params
         )
 
     private fun createHealthStatusWork(context: Context, params: WorkerParameters): HealthStatusWork = HealthStatusWork(
