@@ -1,0 +1,11 @@
+fix(l10n): Update translations from Transifex
+fix(l10n): Update translations from Transifex
+remove flaky tests
+simplify createFileOnServer
+simplify comment
+get rid of the async task
+get rid of the async task
+simplify error handling
+Check filename length, similarly to what happens server-side
+Better error management during CreateFileFromTemplate
+Update Nextcloud Android library
