@@ -23,6 +23,9 @@ import org.junit.Test
 
 @Suppress("TooManyFunctions")
 class FileNameValidatorTests : AbstractOnServerIT() {
+    companion object {
+        private const val MAX_FILENAME_SIZE = 250
+    }
 
     private var capability: OCCapability = fileDataStorageManager.getCapability(account.name)
 
@@ -107,6 +110,20 @@ class FileNameValidatorTests : AbstractOnServerIT() {
     fun testBlankFileName() {
         val result = FileNameValidator.checkFileName("      ", capability, targetContext)
         assertEquals(targetContext.getString(R.string.filename_empty), result)
+    }
+
+    @Test
+    fun testLongFileName() {
+        val filename = "a".repeat(MAX_FILENAME_SIZE)
+        val result = FileNameValidator.checkFileName(filename, capability, targetContext)
+        assertNull(result)
+    }
+
+    @Test
+    fun testTooLongFileName() {
+        val filename = "a".repeat(MAX_FILENAME_SIZE + 1)
+        val result = FileNameValidator.checkFileName(filename, capability, targetContext)
+        assertEquals(targetContext.getString(R.string.filename_too_long), result)
     }
 
     @Test

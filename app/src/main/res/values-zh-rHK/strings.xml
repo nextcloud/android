@@ -436,14 +436,17 @@
     <string name="error_choosing_date">選擇日期時出錯</string>
     <string name="error_comment_file">留言錯誤</string>
     <string name="error_crash_title">%1$s失敗</string>
+    <string name="error_creating_file">建立檔案時發生錯誤</string>
     <string name="error_creating_file_from_template">從模板創建檔案時出錯</string>
     <string name="error_fetching_sharees">無法擷取共享對象。</string>
     <string name="error_file_actions">顯示檔案操作時出錯</string>
     <string name="error_file_lock">更改檔案上鎖狀態時出錯</string>
+    <string name="error_reading_file">讀取檔案時發生錯誤</string>
     <string name="error_report_issue_action">舉報</string>
     <string name="error_report_issue_text">想舉報問題？（需要GitHub帳戶）</string>
     <string name="error_retrieving_file">檢索檔案時發生錯誤</string>
     <string name="error_retrieving_templates">取得範本時發生錯誤</string>
+    <string name="error_saving_local_file">存儲近端檔案時發生錯誤</string>
     <string name="error_setting_status_message">設定狀態訊息時發生錯誤！</string>
     <string name="error_showing_encryption_dialog">顯示加密設定對話方塊時發生錯誤！</string>
     <string name="error_starting_direct_camera_upload">無法啟動相機</string>
@@ -575,6 +578,7 @@
     <string name="filename_forbidden_characters">禁止使用的字元： / \\ &lt; &gt;：\" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">檔案名至少要有一個有效字元</string>
     <string name="filename_hint">檔案名</string>
+    <string name="filename_too_long">檔案名不能長於250個字元</string>
     <string name="first_run_1_text">在您的控制下維持資料的安全</string>
     <string name="first_run_2_text">安全地協作、傳輸檔案</string>
     <string name="first_run_3_text">容易使用的 Webmail，日曆與通訊錄</string>
