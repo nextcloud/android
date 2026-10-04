@@ -436,14 +436,17 @@
     <string name="error_choosing_date">Fehler beim Auswählen des Datums</string>
     <string name="error_comment_file">Fehler beim Kommentieren der Datei</string>
     <string name="error_crash_title">%1$s abgestürzt</string>
+    <string name="error_creating_file">Fehler beim Erstellen der Datei</string>
     <string name="error_creating_file_from_template">Fehler beim Erzeugen einer Datei aus der Vorlage</string>
     <string name="error_fetching_sharees">Freigabeempfänger können nicht abgerufen werden</string>
     <string name="error_file_actions">Fehler beim Anzeigen von Dateiaktionen</string>
     <string name="error_file_lock">Fehler beim Ändern des Sperr-Status</string>
+    <string name="error_reading_file">Fehler beim Lesen der Datei</string>
     <string name="error_report_issue_action">Melden</string>
     <string name="error_report_issue_text">Problem melden? (benötigt ein GitHub-Konto)</string>
     <string name="error_retrieving_file">Fehler beim Abruf der Datei</string>
     <string name="error_retrieving_templates">Fehler beim Laden der Vorlagen</string>
+    <string name="error_saving_local_file">Fehler beim Speichern der lokalen Datei</string>
     <string name="error_setting_status_message">Fehler beim Festlegen der Statusnachricht!</string>
     <string name="error_showing_encryption_dialog">Fehler beim Anzeigen des Setup-Dialogs für Verschlüsselung!</string>
     <string name="error_starting_direct_camera_upload">Fehler beim Starten der Kamera</string>
@@ -575,6 +578,7 @@
     <string name="filename_forbidden_characters">Verbotene Zeichen: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Der Dateiname enthält mindestens ein ungültiges Zeichen</string>
     <string name="filename_hint">Dateiname</string>
+    <string name="filename_too_long">Dateiname darf nicht länger als 250 Zeichen sein</string>
     <string name="first_run_1_text">Halten Sie Ihre Daten sicher und unter Ihrer Kontrolle</string>
     <string name="first_run_2_text">Sichere Zusammenarbeit und Dateiaustausch</string>
     <string name="first_run_3_text">Benutzerfreundlicher Webmailer, Kalender und Kontakte</string>

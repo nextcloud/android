@@ -437,14 +437,17 @@
     <string name="error_choosing_date">Earráid agus dáta á roghnú</string>
     <string name="error_comment_file">Earráid agus comhad á rá</string>
     <string name="error_crash_title">Thuar %1$s</string>
+    <string name="error_creating_file">Earráid agus an comhad á chruthú</string>
     <string name="error_creating_file_from_template">Earráid agus comhad á chruthú as an teimpléad</string>
     <string name="error_fetching_sharees">Ní féidir scaireanna a fháil.</string>
     <string name="error_file_actions">Earráid agus gníomhartha comhaid á dtaispeáint</string>
     <string name="error_file_lock">Earráid agus stádas glasála comhaid á athrú</string>
+    <string name="error_reading_file">Earráid agus an comhad á léamh</string>
     <string name="error_report_issue_action">Tuairisc</string>
     <string name="error_report_issue_text">An bhfuil fonn ort an cheist a thuairisciú don rianaitheoir? (tá cuntas GitHub ag teastáil)</string>
     <string name="error_retrieving_file">Earráid agus an comhad á aisghabháil</string>
     <string name="error_retrieving_templates">Earráid agus teimpléid á n-aisghabháil</string>
+    <string name="error_saving_local_file">Earráid agus comhad áitiúil á shábháil</string>
     <string name="error_setting_status_message">Earráid ag socrú teachtaireachta stádais!</string>
     <string name="error_showing_encryption_dialog">Earráid agus dialóg socraithe criptithe á taispeáint!</string>
     <string name="error_starting_direct_camera_upload">Earráid agus ceamara á thosú</string>
@@ -576,6 +579,7 @@
     <string name="filename_forbidden_characters">Carachtair toirmiscthe: / \\ &lt; &gt; :\" | ?*</string>
     <string name="filename_forbidden_charaters_from_server">Tá carachtar neamhbhailí amháin ar a laghad san ainm comhaid</string>
     <string name="filename_hint">Ainm comhaid</string>
+    <string name="filename_too_long">Ní féidir leis an ainm comhaid a bheith níos faide ná 250 carachtar</string>
     <string name="first_run_1_text">Coinnigh do shonraí slán agus faoi do smacht</string>
     <string name="first_run_2_text">Comhoibriú slán agus malartú comhad</string>
     <string name="first_run_3_text">Ríomhphost ríomhphoist, féilire agus teagmhálaithe atá éasca le húsáid</string>

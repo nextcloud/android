@@ -30,6 +30,7 @@
     <string name="activity_icon">Aktiviteetti</string>
     <string name="add_new_public_share">Lisää uusi julkinen jakolinkki</string>
     <string name="add_to_album">Lisää albumiin</string>
+    <string name="album_create_new_link">Luo uusi linkki</string>
     <string name="album_delete">Poista albumi</string>
     <string name="album_rename_conflict">Tämä nimi on jo käytössä.</string>
     <string name="album_share">Jaa albumi</string>
@@ -43,6 +44,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_description">Haluatko varmasti poistaa tämän tehtävän?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Poista tehtävä</string>
     <string name="assistant_screen_empty_content_title">Hei! Miten voin auttaa sinua tänään?</string>
+    <string name="assistant_screen_send_message">Lähetä viesti</string>
     <string name="assistant_screen_task_create_fail_message">Tehtävän luonti epäonnistui</string>
     <string name="assistant_screen_task_create_success_message">Tehtävä luotu</string>
     <string name="assistant_screen_task_delete_fail_message">Tehtävän poisto epäonnistui</string>
