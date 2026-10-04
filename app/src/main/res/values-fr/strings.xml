@@ -436,14 +436,17 @@
     <string name="error_choosing_date">Erreur lors du choix de la date</string>
     <string name="error_comment_file">Erreur lors de l’ajout d’un commentaire au fichier</string>
     <string name="error_crash_title">%1$s a planté</string>
+    <string name="error_creating_file">Erreur lors de la création du fichier</string>
     <string name="error_creating_file_from_template">Erreur lors de la création du fichier à partir du modèle</string>
     <string name="error_fetching_sharees">Impossible de récupérer les destinataires du partage.</string>
     <string name="error_file_actions">Erreur d\'affichage des actions sur le fichier</string>
     <string name="error_file_lock">Erreur lors de la modification de l\'état de verrouillage du fichier</string>
+    <string name="error_reading_file">Erreur lors de la lecture du fichier</string>
     <string name="error_report_issue_action">Signaler</string>
     <string name="error_report_issue_text">Signaler le problème dans l’outil de suivi ? (nécessite un compte GitHub)</string>
     <string name="error_retrieving_file">Erreur lors de la récupération du fichier</string>
     <string name="error_retrieving_templates">Erreur lors de la récupération des modèles</string>
+    <string name="error_saving_local_file">Erreur lors de l\'enregistrement du fichier local</string>
     <string name="error_setting_status_message">Erreur lors de la définition du message de statut !</string>
     <string name="error_showing_encryption_dialog">Erreur lors de l’affichage de la boîte de dialogue de configuration du chiffrement !</string>
     <string name="error_starting_direct_camera_upload">Erreur au démarrage de l\'appareil photo</string>
@@ -575,6 +578,7 @@
     <string name="filename_forbidden_characters">Caractères interdits : / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Le nom du fichier contient au moins un caractère invalide</string>
     <string name="filename_hint">Nom du fichier</string>
+    <string name="filename_too_long">Le nom du fichier ne peut pas faire plus de 250 caractères</string>
     <string name="first_run_1_text">Sécurisez et contrôlez vos données</string>
     <string name="first_run_2_text">Collaboration et échange de fichiers en toute sécurité</string>
     <string name="first_run_3_text">Webmail, agenda et contacts faciles à utiliser</string>
