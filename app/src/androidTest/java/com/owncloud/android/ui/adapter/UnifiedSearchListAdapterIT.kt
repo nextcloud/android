@@ -142,7 +142,7 @@ class UnifiedSearchListAdapterIT : AbstractIT() {
             fileThumbnailGenerator = FileThumbnailGenerator(
                 storageManager = Provider { sut.storageManager },
                 preferences = preferences,
-                viewThemeUtils = sut.viewThemeUtils,
+                viewThemeUtils = Provider { sut.viewThemeUtils },
                 context = targetContext,
                 accountManager = accountManager
             ),
