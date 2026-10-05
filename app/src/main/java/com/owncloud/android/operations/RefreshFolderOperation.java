@@ -155,6 +155,8 @@ public class RefreshFolderOperation extends RemoteOperation {
     private final List<SynchronizeFileOperation> mFilesToSyncContents;
     // this will be used for every file when 'folder synchronization' replaces 'folder download'
 
+    private boolean syncChangedDownloadedFiles = true;
+
 
     /**
      * Creates a new instance of {@link RefreshFolderOperation}.
@@ -242,6 +244,10 @@ public class RefreshFolderOperation extends RemoteOperation {
 
     public Map<String, String> getForgottenLocalFiles() {
         return mForgottenLocalFiles;
+    }
+
+    public void setSyncChangedDownloadedFiles(boolean syncChangedDownloadedFiles) {
+        this.syncChangedDownloadedFiles = syncChangedDownloadedFiles;
     }
 
     /**
@@ -620,7 +626,8 @@ public class RefreshFolderOperation extends RemoteOperation {
             updatedFile.setEncrypted(encrypted);
             updatedFile.setReadOnly(localFile != null && localFile.isReadOnly());
 
-            if (!encrypted && OCFileExtensionsKt.isDownloadedFileChanged(localFile, remoteFile)) {
+            if (syncChangedDownloadedFiles && !encrypted &&
+                OCFileExtensionsKt.isDownloadedFileChanged(localFile, remoteFile)) {
                 mFilesToSyncContents.add(new SynchronizeFileOperation(updatedFile, remoteFile, user, true, mContext,
                                                                       fileDataStorageManager, true));
             }

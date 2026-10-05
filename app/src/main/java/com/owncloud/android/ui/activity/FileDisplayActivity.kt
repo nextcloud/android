@@ -2598,14 +2598,19 @@ class FileDisplayActivity :
      * @param ignoreFocus reloads file list even without focus, e.g. on tablet mode, focus can still be in detail view
      */
     @JvmOverloads
-    fun startSyncFolderOperation(folder: OCFile?, ignoreETag: Boolean, ignoreFocus: Boolean = false) {
+    fun startSyncFolderOperation(
+        folder: OCFile?,
+        ignoreETag: Boolean,
+        ignoreFocus: Boolean = false,
+        syncChangedDownloadedFiles: Boolean = true
+    ) {
         Log_OC.d(TAG, "startSyncFolderOperation called, ignoreEtag: $ignoreETag, ignoreFocus: $ignoreFocus")
 
         if (!searchQuery.isNullOrEmpty() || !user.isPresent) {
             return
         }
 
-        val syncFolder = Runnable { executeSyncFolderOperation(folder, ignoreETag) }
+        val syncFolder = Runnable { executeSyncFolderOperation(folder, ignoreETag, syncChangedDownloadedFiles) }
 
         // The refresh must not run while another window floats over the activity, e.g. a dialog that is being
         // dismissed or a rotation. Rather than waiting a fixed delay run right away when it already has focus
@@ -2631,7 +2636,7 @@ class FileDisplayActivity :
         }
     }
 
-    private fun executeSyncFolderOperation(folder: OCFile?, ignoreETag: Boolean) {
+    private fun executeSyncFolderOperation(folder: OCFile?, ignoreETag: Boolean, syncChangedDownloadedFiles: Boolean) {
         val folder = folder ?: return
 
         user.ifPresent { user ->
@@ -2645,7 +2650,9 @@ class FileDisplayActivity :
                 storageManager,
                 user,
                 applicationContext
-            ).execute(
+            ).apply {
+                setSyncChangedDownloadedFiles(syncChangedDownloadedFiles)
+            }.execute(
                 account,
                 this,
                 { _, _ -> onSyncFinished() },

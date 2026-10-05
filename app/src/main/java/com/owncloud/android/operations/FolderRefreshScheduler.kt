@@ -91,7 +91,7 @@ class FolderRefreshScheduler(private val activity: FileDisplayActivity) {
         when (result.code) {
             RemoteOperationResult.ResultCode.ETAG_CHANGED -> {
                 Log_OC.i(TAG, "eTag poll → eTag changed for '${currentDir.remotePath}', triggering sync")
-                activity.startSyncFolderOperation(currentDir, ignoreETag = true)
+                activity.startSyncFolderOperation(currentDir, ignoreETag = true, syncChangedDownloadedFiles = false)
             }
 
             RemoteOperationResult.ResultCode.ETAG_UNCHANGED -> {
@@ -100,7 +100,7 @@ class FolderRefreshScheduler(private val activity: FileDisplayActivity) {
 
             RemoteOperationResult.ResultCode.FILE_NOT_FOUND -> {
                 Log_OC.w(TAG, "eTag poll → directory not found on server")
-                activity.startSyncFolderOperation(currentDir, ignoreETag = true)
+                activity.startSyncFolderOperation(currentDir, ignoreETag = true, syncChangedDownloadedFiles = false)
             }
 
             else -> {
