@@ -310,6 +310,14 @@ public class FileOperationsHelper {
         new Thread(() -> {
             User user = currentAccount.getUser();
             final var storageManager = new FileDataStorageManager(user, fileActivity.getContentResolver());
+            final var storedFile = storageManager.getFileById(file.getFileId());
+            final boolean isDownloadedAndUpToDate = storedFile != null && storedFile.isDown() &&
+                !OCFileExtensionsKt.isLocalETagOutdated(storedFile);
+            if (isDownloadedAndUpToDate) {
+                startOpenFileIntent(openFileWithIntent);
+                return;
+            }
+
             // a fresh object is needed; many things could have occurred to the file
             // since it was registered to observe again, assuming that local files
             // are linked to a remote file AT MOST, SOMETHING TO BE DONE;
@@ -345,15 +353,19 @@ public class FileOperationsHelper {
                 }
             }
 
-            fileActivity.runOnUiThread(() -> {
-                try {
-                    openFileWithIntent.setFlags(openFileWithIntent.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    fileActivity.startActivity(openFileWithIntent);
-                } catch (ActivityNotFoundException exception) {
-                    SnackbarUtil.show(fileActivity, R.string.file_list_no_app_for_file_type);
-                }
-            });
+            startOpenFileIntent(openFileWithIntent);
         }).start();
+    }
+
+    private void startOpenFileIntent(Intent openFileWithIntent) {
+        fileActivity.runOnUiThread(() -> {
+            try {
+                openFileWithIntent.setFlags(openFileWithIntent.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
+                fileActivity.startActivity(openFileWithIntent);
+            } catch (ActivityNotFoundException exception) {
+                SnackbarUtil.show(fileActivity, R.string.file_list_no_app_for_file_type);
+            }
+        });
     }
 
     public void openFileAsRichDocument(OCFile file, Context context) {
