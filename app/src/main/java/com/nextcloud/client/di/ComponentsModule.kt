@@ -1,531 +1,533 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2024-2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.nextcloud.client.di;
+package com.nextcloud.client.di
 
-import com.nextcloud.client.documentscan.DocumentScanActivity;
-import com.nextcloud.client.editimage.EditImageActivity;
-import com.nextcloud.client.etm.EtmActivity;
-import com.nextcloud.client.etm.pages.EtmBackgroundJobsFragment;
-import com.nextcloud.client.jobs.BackgroundJobManagerImpl;
-import com.nextcloud.client.jobs.NotificationWork;
-import com.nextcloud.client.jobs.TestJob;
-import com.nextcloud.client.jobs.transfer.FileTransferService;
-import com.nextcloud.client.jobs.upload.FileUploadHelper;
-import com.nextcloud.client.logger.ui.LogsActivity;
-import com.nextcloud.client.logger.ui.LogsViewModel;
-import com.nextcloud.client.migrations.Migrations;
-import com.nextcloud.client.onboarding.FirstRunActivity;
-import com.nextcloud.client.onboarding.WhatsNewActivity;
-import com.nextcloud.client.widget.DashboardWidgetConfigurationActivity;
-import com.nextcloud.client.widget.DashboardWidgetProvider;
-import com.nextcloud.client.widget.DashboardWidgetService;
-import com.nextcloud.ui.ChooseAccountDialogFragment;
-import com.nextcloud.ui.ChooseStorageLocationDialogFragment;
-import com.nextcloud.ui.fileInfo.FileInfoFragment;
-import com.nextcloud.ui.SetOnlineStatusBottomSheet;
-import com.nextcloud.ui.SetStatusMessageBottomSheet;
-import com.nextcloud.ui.albumItemActions.AlbumItemActionsBottomSheet;
-import com.nextcloud.ui.composeActivity.ComposeActivity;
-import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
-import com.nextcloud.ui.tags.TagManagementBottomSheet;
-import com.nextcloud.ui.trashbinFileActions.TrashbinFileActionsBottomSheet;
-import com.nmc.android.ui.LauncherActivity;
-import com.owncloud.android.MainApp;
-import com.owncloud.android.authentication.AuthenticatorActivity;
-import com.owncloud.android.authentication.DeepLinkLoginActivity;
-import com.owncloud.android.files.BootupBroadcastReceiver;
-import com.owncloud.android.providers.DiskLruImageCacheFileProvider;
-import com.owncloud.android.providers.DocumentsStorageProvider;
-import com.owncloud.android.providers.FileContentProvider;
-import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
-import com.owncloud.android.services.AccountManagerService;
-import com.owncloud.android.services.OperationsService;
-import com.owncloud.android.syncadapter.FileSyncService;
-import com.owncloud.android.ui.activity.AlbumsPickerActivity;
-import com.owncloud.android.ui.activity.BaseActivity;
-import com.owncloud.android.ui.activity.ConflictsResolveActivity;
-import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
-import com.owncloud.android.ui.activity.CopyToClipboardActivity;
-import com.owncloud.android.ui.activity.DrawerActivity;
-import com.owncloud.android.ui.activity.ErrorsWhileCopyingHandlerActivity;
-import com.owncloud.android.ui.activity.ExternalSiteWebView;
-import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.activity.FilePickerActivity;
-import com.owncloud.android.ui.activity.FolderPickerActivity;
-import com.owncloud.android.ui.activity.InternalTwoWaySyncActivity;
-import com.owncloud.android.ui.activity.ManageAccountsActivity;
-import com.owncloud.android.ui.activity.ManageSpaceActivity;
-import com.owncloud.android.ui.activity.PassCodeActivity;
-import com.owncloud.android.ui.activity.ReceiveExternalFilesActivity;
-import com.owncloud.android.ui.activity.RequestCredentialsActivity;
-import com.owncloud.android.ui.activity.RichDocumentsEditorWebView;
-import com.owncloud.android.ui.activity.SettingsActivity;
-import com.owncloud.android.ui.activity.ShareActivity;
-import com.owncloud.android.ui.activity.SsoGrantPermissionActivity;
-import com.owncloud.android.ui.activity.SyncedFoldersActivity;
-import com.owncloud.android.ui.activity.TextEditorWebView;
-import com.owncloud.android.ui.activity.ToolbarActivity;
-import com.owncloud.android.ui.activity.UploadFilesActivity;
-import com.owncloud.android.ui.activity.UserInfoActivity;
-import com.owncloud.android.ui.dialog.AccountRemovalDialog;
-import com.owncloud.android.ui.dialog.AppPassCodeDialog;
-import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
-import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
-import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
-import com.owncloud.android.ui.dialog.conflict.ConflictsResolveDialog;
-import com.owncloud.android.ui.dialog.CreateAlbumDialogFragment;
-import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
-import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
-import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
-import com.owncloud.android.ui.dialog.LoadingDialog;
-import com.owncloud.android.ui.dialog.LocalStoragePathPickerDialogFragment;
-import com.owncloud.android.ui.dialog.MultipleAccountsDialog;
-import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
-import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
-import com.owncloud.android.ui.dialog.SendFilesDialog;
-import com.owncloud.android.ui.dialog.SendShareDialog;
-import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
-import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
-import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
-import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment;
-import com.owncloud.android.ui.dialog.SyncFileNotEnoughSpaceDialogFragment;
-import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
-import com.owncloud.android.ui.dialog.TermsOfServiceDialog;
-import com.owncloud.android.ui.dialog.ThemeSelectionDialog;
-import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment;
-import com.owncloud.android.ui.fragment.ActivitiesFragment;
-import com.owncloud.android.ui.fragment.ExtendedListFragment;
-import com.owncloud.android.ui.fragment.FeatureFragment;
-import com.owncloud.android.ui.fragment.FileDetailActivitiesFragment;
-import com.owncloud.android.ui.fragment.FileDetailFragment;
-import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
-import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
-import com.owncloud.android.ui.fragment.GalleryFragment;
-import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog;
-import com.owncloud.android.ui.fragment.GroupfolderListFragment;
-import com.owncloud.android.ui.fragment.localfilelist.LocalFileListFragment;
-import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog;
-import com.owncloud.android.ui.fragment.OCFileListFragment;
-import com.owncloud.android.ui.fragment.SharedListFragment;
-import com.owncloud.android.ui.fragment.UnifiedSearchFragment;
-import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment;
-import com.owncloud.android.ui.fragment.albums.bottomsheet.AlbumSharingBottomSheet;
-import com.owncloud.android.ui.fragment.albums.AlbumsFragment;
-import com.owncloud.android.ui.fragment.community.CommunityFragment;
-import com.owncloud.android.ui.fragment.contactsbackup.BackupFragment;
-import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment;
-import com.owncloud.android.ui.fragment.notifications.NotificationsFragment;
-import com.owncloud.android.ui.fragment.uploadList.UploadListFragment;
-import com.owncloud.android.ui.navigation.NavigatorActivity;
-import com.owncloud.android.ui.preview.FileDownloadFragment;
-import com.owncloud.android.ui.preview.PreviewBitmapActivity;
-import com.owncloud.android.ui.preview.PreviewImageActivity;
-import com.owncloud.android.ui.preview.PreviewImageFragment;
-import com.owncloud.android.ui.preview.PreviewPlaybackFragment;
-import com.owncloud.android.ui.preview.PreviewTextFileFragment;
-import com.owncloud.android.ui.preview.PreviewTextFragment;
-import com.owncloud.android.ui.preview.PreviewTextStringFragment;
-import com.owncloud.android.ui.preview.pdf.PreviewPdfFragment;
-import com.owncloud.android.ui.trashbin.TrashbinFragment;
-
-import androidx.annotation.OptIn;
-import androidx.media3.common.util.UnstableApi;
-import dagger.Module;
-import dagger.android.ContributesAndroidInjector;
+import androidx.annotation.OptIn
+import androidx.media3.common.util.UnstableApi
+import com.nextcloud.client.documentscan.DocumentScanActivity
+import com.nextcloud.client.editimage.EditImageActivity
+import com.nextcloud.client.etm.EtmActivity
+import com.nextcloud.client.etm.pages.EtmBackgroundJobsFragment
+import com.nextcloud.client.jobs.BackgroundJobManagerImpl
+import com.nextcloud.client.jobs.NotificationWork
+import com.nextcloud.client.jobs.TestJob
+import com.nextcloud.client.jobs.transfer.FileTransferService
+import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.client.logger.ui.LogsActivity
+import com.nextcloud.client.logger.ui.LogsViewModel
+import com.nextcloud.client.migrations.Migrations
+import com.nextcloud.client.onboarding.FirstRunActivity
+import com.nextcloud.client.onboarding.WhatsNewActivity
+import com.nextcloud.client.widget.DashboardWidgetConfigurationActivity
+import com.nextcloud.client.widget.DashboardWidgetProvider
+import com.nextcloud.client.widget.DashboardWidgetService
+import com.nextcloud.ui.ChooseAccountDialogFragment
+import com.nextcloud.ui.ChooseStorageLocationDialogFragment
+import com.nextcloud.ui.SetOnlineStatusBottomSheet
+import com.nextcloud.ui.SetStatusMessageBottomSheet
+import com.nextcloud.ui.albumItemActions.AlbumItemActionsBottomSheet
+import com.nextcloud.ui.composeActivity.ComposeActivity
+import com.nextcloud.ui.fileInfo.FileInfoFragment
+import com.nextcloud.ui.fileactions.FileActionsBottomSheet
+import com.nextcloud.ui.tags.TagManagementBottomSheet
+import com.nextcloud.ui.trashbinFileActions.TrashbinFileActionsBottomSheet
+import com.nmc.android.ui.LauncherActivity
+import com.owncloud.android.MainApp
+import com.owncloud.android.authentication.AuthenticatorActivity
+import com.owncloud.android.authentication.DeepLinkLoginActivity
+import com.owncloud.android.files.BootupBroadcastReceiver
+import com.owncloud.android.providers.DiskLruImageCacheFileProvider
+import com.owncloud.android.providers.DocumentsStorageProvider
+import com.owncloud.android.providers.FileContentProvider
+import com.owncloud.android.providers.UsersAndGroupsSearchProvider
+import com.owncloud.android.services.AccountManagerService
+import com.owncloud.android.services.OperationsService
+import com.owncloud.android.syncadapter.FileSyncService
+import com.owncloud.android.ui.activity.AlbumsPickerActivity
+import com.owncloud.android.ui.activity.BaseActivity
+import com.owncloud.android.ui.activity.ConflictsResolveActivity
+import com.owncloud.android.ui.activity.ContactsPreferenceActivity
+import com.owncloud.android.ui.activity.CopyToClipboardActivity
+import com.owncloud.android.ui.activity.DrawerActivity
+import com.owncloud.android.ui.activity.ErrorsWhileCopyingHandlerActivity
+import com.owncloud.android.ui.activity.ExternalSiteWebView
+import com.owncloud.android.ui.activity.FileActivity
+import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.ui.activity.FilePickerActivity
+import com.owncloud.android.ui.activity.FolderPickerActivity
+import com.owncloud.android.ui.activity.InternalTwoWaySyncActivity
+import com.owncloud.android.ui.activity.ManageAccountsActivity
+import com.owncloud.android.ui.activity.ManageSpaceActivity
+import com.owncloud.android.ui.activity.PassCodeActivity
+import com.owncloud.android.ui.activity.ReceiveExternalFilesActivity
+import com.owncloud.android.ui.activity.ReceiveExternalFilesActivity.DialogInputUploadFilename
+import com.owncloud.android.ui.activity.RequestCredentialsActivity
+import com.owncloud.android.ui.activity.RichDocumentsEditorWebView
+import com.owncloud.android.ui.activity.SettingsActivity
+import com.owncloud.android.ui.activity.ShareActivity
+import com.owncloud.android.ui.activity.SsoGrantPermissionActivity
+import com.owncloud.android.ui.activity.SyncedFoldersActivity
+import com.owncloud.android.ui.activity.TextEditorWebView
+import com.owncloud.android.ui.activity.ToolbarActivity
+import com.owncloud.android.ui.activity.UploadFilesActivity
+import com.owncloud.android.ui.activity.UserInfoActivity
+import com.owncloud.android.ui.dialog.AccountRemovalDialog
+import com.owncloud.android.ui.dialog.AppPassCodeDialog
+import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment
+import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment
+import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
+import com.owncloud.android.ui.dialog.CreateAlbumDialogFragment
+import com.owncloud.android.ui.dialog.CreateFolderDialogFragment
+import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment
+import com.owncloud.android.ui.dialog.IndeterminateProgressDialog
+import com.owncloud.android.ui.dialog.LoadingDialog
+import com.owncloud.android.ui.dialog.LocalStoragePathPickerDialogFragment
+import com.owncloud.android.ui.dialog.MultipleAccountsDialog
+import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment
+import com.owncloud.android.ui.dialog.RenameFileDialogFragment
+import com.owncloud.android.ui.dialog.SendFilesDialog
+import com.owncloud.android.ui.dialog.SendShareDialog
+import com.owncloud.android.ui.dialog.SharePasswordDialogFragment
+import com.owncloud.android.ui.dialog.SortingOrderDialogFragment
+import com.owncloud.android.ui.dialog.SslUntrustedCertDialog
+import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment
+import com.owncloud.android.ui.dialog.SyncFileNotEnoughSpaceDialogFragment
+import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment
+import com.owncloud.android.ui.dialog.TermsOfServiceDialog
+import com.owncloud.android.ui.dialog.ThemeSelectionDialog
+import com.owncloud.android.ui.dialog.conflict.ConflictsResolveDialog
+import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment
+import com.owncloud.android.ui.fragment.ActivitiesFragment
+import com.owncloud.android.ui.fragment.ExtendedListFragment
+import com.owncloud.android.ui.fragment.FeatureFragment
+import com.owncloud.android.ui.fragment.FileDetailActivitiesFragment
+import com.owncloud.android.ui.fragment.FileDetailFragment
+import com.owncloud.android.ui.fragment.FileDetailSharingFragment
+import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment
+import com.owncloud.android.ui.fragment.GalleryFragment
+import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog
+import com.owncloud.android.ui.fragment.GroupfolderListFragment
+import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog
+import com.owncloud.android.ui.fragment.OCFileListFragment
+import com.owncloud.android.ui.fragment.SharedListFragment
+import com.owncloud.android.ui.fragment.UnifiedSearchFragment
+import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment
+import com.owncloud.android.ui.fragment.albums.AlbumsFragment
+import com.owncloud.android.ui.fragment.albums.bottomsheet.AlbumSharingBottomSheet
+import com.owncloud.android.ui.fragment.community.CommunityFragment
+import com.owncloud.android.ui.fragment.contactsbackup.BackupFragment
+import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment
+import com.owncloud.android.ui.fragment.localfilelist.LocalFileListFragment
+import com.owncloud.android.ui.fragment.notifications.NotificationsFragment
+import com.owncloud.android.ui.fragment.uploadList.UploadListFragment
+import com.owncloud.android.ui.navigation.NavigatorActivity
+import com.owncloud.android.ui.preview.FileDownloadFragment
+import com.owncloud.android.ui.preview.PreviewBitmapActivity
+import com.owncloud.android.ui.preview.PreviewImageActivity
+import com.owncloud.android.ui.preview.PreviewImageFragment
+import com.owncloud.android.ui.preview.PreviewPlaybackFragment
+import com.owncloud.android.ui.preview.PreviewTextFileFragment
+import com.owncloud.android.ui.preview.PreviewTextFragment
+import com.owncloud.android.ui.preview.PreviewTextStringFragment
+import com.owncloud.android.ui.preview.pdf.PreviewPdfFragment
+import com.owncloud.android.ui.trashbin.TrashbinFragment
+import dagger.Module
+import dagger.android.ContributesAndroidInjector
 
 /**
  * Register classes that require dependency injection. This class is used by Dagger compiler only.
  */
 @Module
-abstract class ComponentsModule {
+@Suppress("TooManyFunctions")
+internal interface ComponentsModule {
     @ContributesAndroidInjector
-    abstract TrashbinFragment trashbinFragment();
+    fun trashbinFragment(): TrashbinFragment
 
     @ContributesAndroidInjector
-    abstract UploadListFragment uploadListFragment();
+    fun uploadListFragment(): UploadListFragment
 
     @ContributesAndroidInjector
-    abstract ActivitiesFragment activitiesFragment();
+    fun activitiesFragment(): ActivitiesFragment
 
     @ContributesAndroidInjector
-    abstract NotificationsFragment notificationFragment();
+    fun notificationFragment(): NotificationsFragment
 
     @ContributesAndroidInjector
-    abstract AuthenticatorActivity authenticatorActivity();
+    fun authenticatorActivity(): AuthenticatorActivity
 
     @ContributesAndroidInjector
-    abstract BaseActivity baseActivity();
+    fun baseActivity(): BaseActivity
 
     @ContributesAndroidInjector
-    abstract ConflictsResolveActivity conflictsResolveActivity();
+    fun conflictsResolveActivity(): ConflictsResolveActivity
 
     @ContributesAndroidInjector
-    abstract ContactsPreferenceActivity contactsPreferenceActivity();
+    fun contactsPreferenceActivity(): ContactsPreferenceActivity
 
     @ContributesAndroidInjector
-    abstract CopyToClipboardActivity copyToClipboardActivity();
+    fun copyToClipboardActivity(): CopyToClipboardActivity
 
     @ContributesAndroidInjector
-    abstract DeepLinkLoginActivity deepLinkLoginActivity();
+    fun deepLinkLoginActivity(): DeepLinkLoginActivity
 
     @ContributesAndroidInjector
-    abstract DrawerActivity drawerActivity();
+    fun drawerActivity(): DrawerActivity
 
     @ContributesAndroidInjector
-    abstract ErrorsWhileCopyingHandlerActivity errorsWhileCopyingHandlerActivity();
+    fun errorsWhileCopyingHandlerActivity(): ErrorsWhileCopyingHandlerActivity
 
     @ContributesAndroidInjector
-    abstract ExternalSiteWebView externalSiteWebView();
+    fun externalSiteWebView(): ExternalSiteWebView
 
     @ContributesAndroidInjector
-    abstract FileDisplayActivity fileDisplayActivity();
+    fun fileDisplayActivity(): FileDisplayActivity
 
     @ContributesAndroidInjector
-    abstract FilePickerActivity filePickerActivity();
+    fun filePickerActivity(): FilePickerActivity
 
     @ContributesAndroidInjector
-    abstract FirstRunActivity firstRunActivity();
+    fun firstRunActivity(): FirstRunActivity
 
     @ContributesAndroidInjector
-    abstract FolderPickerActivity folderPickerActivity();
+    fun folderPickerActivity(): FolderPickerActivity
 
     @ContributesAndroidInjector
-    abstract LogsActivity logsActivity();
+    fun logsActivity(): LogsActivity
 
     @ContributesAndroidInjector
-    abstract ManageAccountsActivity manageAccountsActivity();
+    fun manageAccountsActivity(): ManageAccountsActivity
 
     @ContributesAndroidInjector
-    abstract ManageSpaceActivity manageSpaceActivity();
+    fun manageSpaceActivity(): ManageSpaceActivity
 
     @ContributesAndroidInjector
-    abstract ComposeActivity composeActivity();
+    fun composeActivity(): ComposeActivity
 
     @ContributesAndroidInjector
-    abstract PassCodeActivity passCodeActivity();
+    fun passCodeActivity(): PassCodeActivity
 
     @ContributesAndroidInjector
-    abstract PreviewImageActivity previewImageActivity();
+    fun previewImageActivity(): PreviewImageActivity
 
     @ContributesAndroidInjector
-    abstract ReceiveExternalFilesActivity receiveExternalFilesActivity();
+    fun receiveExternalFilesActivity(): ReceiveExternalFilesActivity
 
     @ContributesAndroidInjector
-    abstract RequestCredentialsActivity requestCredentialsActivity();
+    fun requestCredentialsActivity(): RequestCredentialsActivity
 
     @ContributesAndroidInjector
-    abstract SettingsActivity settingsActivity();
+    fun settingsActivity(): SettingsActivity
 
     @ContributesAndroidInjector
-    abstract ShareActivity shareActivity();
+    fun shareActivity(): ShareActivity
 
     @ContributesAndroidInjector
-    abstract SsoGrantPermissionActivity ssoGrantPermissionActivity();
+    fun ssoGrantPermissionActivity(): SsoGrantPermissionActivity
 
     @ContributesAndroidInjector
-    abstract SyncedFoldersActivity syncedFoldersActivity();
+    fun syncedFoldersActivity(): SyncedFoldersActivity
 
     @ContributesAndroidInjector
-    abstract TrashbinFileActionsBottomSheet trashbinFileActionsBottomSheet();
+    fun trashbinFileActionsBottomSheet(): TrashbinFileActionsBottomSheet
 
     @ContributesAndroidInjector
-    abstract UploadFilesActivity uploadFilesActivity();
+    fun uploadFilesActivity(): UploadFilesActivity
 
     @ContributesAndroidInjector
-    abstract UserInfoActivity userInfoActivity();
+    fun userInfoActivity(): UserInfoActivity
 
     @ContributesAndroidInjector
-    abstract WhatsNewActivity whatsNewActivity();
+    fun whatsNewActivity(): WhatsNewActivity
 
     @ContributesAndroidInjector
-    abstract EtmActivity etmActivity();
+    fun etmActivity(): EtmActivity
 
     @ContributesAndroidInjector
-    abstract RichDocumentsEditorWebView richDocumentsWebView();
+    fun richDocumentsWebView(): RichDocumentsEditorWebView
 
     @ContributesAndroidInjector
-    abstract TextEditorWebView textEditorWebView();
+    fun textEditorWebView(): TextEditorWebView
 
     @ContributesAndroidInjector
-    abstract ExtendedListFragment extendedListFragment();
+    fun extendedListFragment(): ExtendedListFragment
 
     @ContributesAndroidInjector
-    abstract FileDetailFragment fileDetailFragment();
+    fun fileDetailFragment(): FileDetailFragment
 
     @ContributesAndroidInjector
-    abstract LocalFileListFragment localFileListFragment();
+    fun localFileListFragment(): LocalFileListFragment
 
     @ContributesAndroidInjector
-    abstract OCFileListFragment ocFileListFragment();
+    fun ocFileListFragment(): OCFileListFragment
 
     @ContributesAndroidInjector
-    abstract FileDetailActivitiesFragment fileDetailActivitiesFragment();
+    fun fileDetailActivitiesFragment(): FileDetailActivitiesFragment
 
     @ContributesAndroidInjector
-    abstract FileDetailsSharingProcessFragment fileDetailsSharingProcessFragment();
+    fun fileDetailsSharingProcessFragment(): FileDetailsSharingProcessFragment
 
     @ContributesAndroidInjector
-    abstract FileDetailSharingFragment fileDetailSharingFragment();
+    fun fileDetailSharingFragment(): FileDetailSharingFragment
 
     @ContributesAndroidInjector
-    abstract ChooseTemplateDialogFragment chooseTemplateDialogFragment();
+    fun chooseTemplateDialogFragment(): ChooseTemplateDialogFragment
 
     @ContributesAndroidInjector
-    abstract AccountRemovalDialog accountRemovalDialog();
+    fun accountRemovalDialog(): AccountRemovalDialog
 
     @ContributesAndroidInjector
-    abstract ChooseRichDocumentsTemplateDialogFragment chooseRichDocumentsTemplateDialogFragment();
+    fun chooseRichDocumentsTemplateDialogFragment(): ChooseRichDocumentsTemplateDialogFragment
 
     @ContributesAndroidInjector
-    abstract BackupFragment contactsBackupFragment();
+    fun contactsBackupFragment(): BackupFragment
 
     @ContributesAndroidInjector
-    abstract PreviewImageFragment previewImageFragment();
+    fun previewImageFragment(): PreviewImageFragment
 
     @ContributesAndroidInjector
-    abstract BackupListFragment chooseContactListFragment();
+    fun chooseContactListFragment(): BackupListFragment
 
     @ContributesAndroidInjector
-    abstract PreviewTextFragment previewTextFragment();
+    fun previewTextFragment(): PreviewTextFragment
 
     @ContributesAndroidInjector
-    abstract ChooseAccountDialogFragment chooseAccountDialogFragment();
+    fun chooseAccountDialogFragment(): ChooseAccountDialogFragment
 
     @ContributesAndroidInjector
-    abstract SetOnlineStatusBottomSheet setOnlineStatusBottomSheet();
+    fun setOnlineStatusBottomSheet(): SetOnlineStatusBottomSheet
 
     @ContributesAndroidInjector
-    abstract PreviewPlaybackFragment previewPlaybackFragment();
+    fun previewPlaybackFragment(): PreviewPlaybackFragment
 
     @ContributesAndroidInjector
-    abstract PreviewTextFileFragment previewTextFileFragment();
+    fun previewTextFileFragment(): PreviewTextFileFragment
 
     @ContributesAndroidInjector
-    abstract PreviewTextStringFragment previewTextStringFragment();
+    fun previewTextStringFragment(): PreviewTextStringFragment
 
     @ContributesAndroidInjector
-    abstract UnifiedSearchFragment searchFragment();
+    fun searchFragment(): UnifiedSearchFragment
 
     @ContributesAndroidInjector
-    abstract GalleryFragment photoFragment();
+    fun photoFragment(): GalleryFragment
 
     @ContributesAndroidInjector
-    abstract MultipleAccountsDialog multipleAccountsDialog();
+    fun multipleAccountsDialog(): MultipleAccountsDialog
 
     @ContributesAndroidInjector
-    abstract ReceiveExternalFilesActivity.DialogInputUploadFilename dialogInputUploadFilename();
+    fun dialogInputUploadFilename(): DialogInputUploadFilename
 
     @ContributesAndroidInjector
-    abstract BootupBroadcastReceiver bootupBroadcastReceiver();
+    fun bootupBroadcastReceiver(): BootupBroadcastReceiver
 
     @ContributesAndroidInjector
-    abstract NotificationWork.NotificationReceiver notificationWorkBroadcastReceiver();
+    fun notificationWorkBroadcastReceiver(): NotificationWork.NotificationReceiver
 
     @ContributesAndroidInjector
-    abstract FileContentProvider fileContentProvider();
+    fun fileContentProvider(): FileContentProvider
 
     @ContributesAndroidInjector
-    abstract UsersAndGroupsSearchProvider usersAndGroupsSearchProvider();
+    fun usersAndGroupsSearchProvider(): UsersAndGroupsSearchProvider
 
     @ContributesAndroidInjector
-    abstract DiskLruImageCacheFileProvider diskLruImageCacheFileProvider();
+    fun diskLruImageCacheFileProvider(): DiskLruImageCacheFileProvider
 
     @ContributesAndroidInjector
-    abstract DocumentsStorageProvider documentsStorageProvider();
+    fun documentsStorageProvider(): DocumentsStorageProvider
 
     @ContributesAndroidInjector
-    abstract AccountManagerService accountManagerService();
+    fun accountManagerService(): AccountManagerService
 
     @ContributesAndroidInjector
-    abstract OperationsService operationsService();
+    fun operationsService(): OperationsService
 
     @ContributesAndroidInjector
-    abstract FileTransferService fileDownloaderService();
+    fun fileDownloaderService(): FileTransferService
 
     @ContributesAndroidInjector
-    abstract FileSyncService fileSyncService();
+    fun fileSyncService(): FileSyncService
 
     @ContributesAndroidInjector
-    abstract DashboardWidgetService dashboardWidgetService();
+    fun dashboardWidgetService(): DashboardWidgetService
 
     @ContributesAndroidInjector
-    abstract PreviewPdfFragment previewPDFFragment();
+    fun previewPDFFragment(): PreviewPdfFragment
 
     @ContributesAndroidInjector
-    abstract SharedListFragment sharedFragment();
+    fun sharedFragment(): SharedListFragment
 
     @ContributesAndroidInjector
-    abstract FeatureFragment featureFragment();
+    fun featureFragment(): FeatureFragment
 
     @ContributesAndroidInjector
-    abstract IndeterminateProgressDialog indeterminateProgressDialog();
+    fun indeterminateProgressDialog(): IndeterminateProgressDialog
 
     @ContributesAndroidInjector
-    abstract SortingOrderDialogFragment sortingOrderDialogFragment();
+    fun sortingOrderDialogFragment(): SortingOrderDialogFragment
 
     @ContributesAndroidInjector
-    abstract ConfirmationDialogFragment confirmationDialogFragment();
+    fun confirmationDialogFragment(): ConfirmationDialogFragment
 
     @ContributesAndroidInjector
-    abstract ConflictsResolveDialog conflictsResolveDialog();
+    fun conflictsResolveDialog(): ConflictsResolveDialog
 
     @ContributesAndroidInjector
-    abstract CreateFolderDialogFragment createFolderDialogFragment();
+    fun createFolderDialogFragment(): CreateFolderDialogFragment
 
     @ContributesAndroidInjector
-    abstract ExpirationDatePickerDialogFragment expirationDatePickerDialogFragment();
+    fun expirationDatePickerDialogFragment(): ExpirationDatePickerDialogFragment
 
     @ContributesAndroidInjector
-    abstract FileActivity fileActivity();
+    fun fileActivity(): FileActivity
 
     @ContributesAndroidInjector
-    abstract FileDownloadFragment fileDownloadFragment();
+    fun fileDownloadFragment(): FileDownloadFragment
 
     @ContributesAndroidInjector
-    abstract LoadingDialog loadingDialog();
+    fun loadingDialog(): LoadingDialog
 
     @ContributesAndroidInjector
-    abstract LocalStoragePathPickerDialogFragment localStoragePathPickerDialogFragment();
+    fun localStoragePathPickerDialogFragment(): LocalStoragePathPickerDialogFragment
 
     @ContributesAndroidInjector
-    abstract LogsViewModel logsViewModel();
+    fun logsViewModel(): LogsViewModel
 
     @ContributesAndroidInjector
-    abstract MainApp mainApp();
+    fun mainApp(): MainApp
 
     @ContributesAndroidInjector
-    abstract Migrations migrations();
+    fun migrations(): Migrations
 
     @ContributesAndroidInjector
-    abstract NotificationWork notificationWork();
+    fun notificationWork(): NotificationWork
 
     @ContributesAndroidInjector
-    abstract RemoveFilesDialogFragment removeFilesDialogFragment();
+    fun removeFilesDialogFragment(): RemoveFilesDialogFragment
 
     @ContributesAndroidInjector
-    abstract SendShareDialog sendShareDialog();
+    fun sendShareDialog(): SendShareDialog
 
     @ContributesAndroidInjector
-    abstract SetupEncryptionDialogFragment setupEncryptionDialogFragment();
+    fun setupEncryptionDialogFragment(): SetupEncryptionDialogFragment
 
     @ContributesAndroidInjector
-    abstract ChooseStorageLocationDialogFragment chooseStorageLocationDialogFragment();
+    fun chooseStorageLocationDialogFragment(): ChooseStorageLocationDialogFragment
 
     @ContributesAndroidInjector
-    abstract ThemeSelectionDialog themeSelectionDialog();
+    fun themeSelectionDialog(): ThemeSelectionDialog
 
     @ContributesAndroidInjector
-    abstract AppPassCodeDialog appPassCodeDialog();
+    fun appPassCodeDialog(): AppPassCodeDialog
 
     @ContributesAndroidInjector
-    abstract SharePasswordDialogFragment sharePasswordDialogFragment();
+    fun sharePasswordDialogFragment(): SharePasswordDialogFragment
 
     @ContributesAndroidInjector
-    abstract SyncedFolderPreferencesDialogFragment syncedFolderPreferencesDialogFragment();
+    fun syncedFolderPreferencesDialogFragment(): SyncedFolderPreferencesDialogFragment
 
     @ContributesAndroidInjector
-    abstract ToolbarActivity toolbarActivity();
+    fun toolbarActivity(): ToolbarActivity
 
     @ContributesAndroidInjector
-    abstract StoragePermissionDialogFragment storagePermissionDialogFragment();
+    fun storagePermissionDialogFragment(): StoragePermissionDialogFragment
 
     @ContributesAndroidInjector
-    abstract OCFileListBottomSheetDialog ocfileListBottomSheetDialog();
+    fun ocfileListBottomSheetDialog(): OCFileListBottomSheetDialog
 
     @ContributesAndroidInjector
-    abstract RenameFileDialogFragment renameFileDialogFragment();
+    fun renameFileDialogFragment(): RenameFileDialogFragment
 
     @ContributesAndroidInjector
-    abstract SyncFileNotEnoughSpaceDialogFragment syncFileNotEnoughSpaceDialogFragment();
+    fun syncFileNotEnoughSpaceDialogFragment(): SyncFileNotEnoughSpaceDialogFragment
 
     @ContributesAndroidInjector
-    abstract DashboardWidgetConfigurationActivity dashboardWidgetConfigurationActivity();
+    fun dashboardWidgetConfigurationActivity(): DashboardWidgetConfigurationActivity
 
     @ContributesAndroidInjector
-    abstract DashboardWidgetProvider dashboardWidgetProvider();
+    fun dashboardWidgetProvider(): DashboardWidgetProvider
 
     @ContributesAndroidInjector
-    abstract GalleryFragmentBottomSheetDialog galleryFragmentBottomSheetDialog();
+    fun galleryFragmentBottomSheetDialog(): GalleryFragmentBottomSheetDialog
 
     @ContributesAndroidInjector
-    abstract PreviewBitmapActivity previewBitmapActivity();
+    fun previewBitmapActivity(): PreviewBitmapActivity
 
     @ContributesAndroidInjector
-    abstract FileUploadHelper fileUploadHelper();
+    fun fileUploadHelper(): FileUploadHelper
 
     @ContributesAndroidInjector
-    abstract SslUntrustedCertDialog sslUntrustedCertDialog();
+    fun sslUntrustedCertDialog(): SslUntrustedCertDialog
 
     @ContributesAndroidInjector
-    abstract FileActionsBottomSheet fileActionsBottomSheet();
+    fun fileActionsBottomSheet(): FileActionsBottomSheet
 
     @ContributesAndroidInjector
-    abstract SendFilesDialog sendFilesDialog();
+    fun sendFilesDialog(): SendFilesDialog
 
     @ContributesAndroidInjector
-    abstract DocumentScanActivity documentScanActivity();
+    fun documentScanActivity(): DocumentScanActivity
 
     @ContributesAndroidInjector
-    abstract GroupfolderListFragment groupfolderListFragment();
+    fun groupfolderListFragment(): GroupfolderListFragment
 
     @ContributesAndroidInjector
-    abstract LauncherActivity launcherActivity();
+    fun launcherActivity(): LauncherActivity
 
     @ContributesAndroidInjector
-    abstract EditImageActivity editImageActivity();
+    fun editImageActivity(): EditImageActivity
 
     @ContributesAndroidInjector
-    abstract FileInfoFragment fileInfoFragment();
+    fun fileInfoFragment(): FileInfoFragment
 
     @ContributesAndroidInjector
-    abstract EtmBackgroundJobsFragment etmBackgroundJobsFragment();
+    fun etmBackgroundJobsFragment(): EtmBackgroundJobsFragment
 
     @ContributesAndroidInjector
-    abstract BackgroundJobManagerImpl backgroundJobManagerImpl();
+    fun backgroundJobManagerImpl(): BackgroundJobManagerImpl
 
     @ContributesAndroidInjector
-    abstract TestJob testJob();
+    fun testJob(): TestJob
 
     @ContributesAndroidInjector
-    abstract InternalTwoWaySyncActivity internalTwoWaySyncActivity();
+    fun internalTwoWaySyncActivity(): InternalTwoWaySyncActivity
 
-    @OptIn(markerClass = UnstableApi.class)
+    @OptIn(UnstableApi::class)
     @ContributesAndroidInjector
-    abstract TermsOfServiceDialog termsOfServiceDialog();
+    fun termsOfServiceDialog(): TermsOfServiceDialog
 
     @ContributesAndroidInjector
-    abstract SetStatusMessageBottomSheet setStatusMessageBottomSheet();
+    fun setStatusMessageBottomSheet(): SetStatusMessageBottomSheet
 
     @ContributesAndroidInjector
-    abstract TagManagementBottomSheet tagManagementBottomSheet();
+    fun tagManagementBottomSheet(): TagManagementBottomSheet
 
     @ContributesAndroidInjector
-    abstract NavigatorActivity navigatorActivity();
+    fun navigatorActivity(): NavigatorActivity
 
     @ContributesAndroidInjector
-    abstract CommunityFragment communityFragment();
+    fun communityFragment(): CommunityFragment
 
     @ContributesAndroidInjector
-    abstract AlbumsPickerActivity albumsPickerActivity();
+    fun albumsPickerActivity(): AlbumsPickerActivity
 
     @ContributesAndroidInjector
-    abstract CreateAlbumDialogFragment createAlbumDialogFragment();
+    fun createAlbumDialogFragment(): CreateAlbumDialogFragment
 
     @ContributesAndroidInjector
-    abstract AlbumsFragment albumsFragment();
+    fun albumsFragment(): AlbumsFragment
 
     @ContributesAndroidInjector
-    abstract AlbumItemsFragment albumItemsFragment();
+    fun albumItemsFragment(): AlbumItemsFragment
 
     @ContributesAndroidInjector
-    abstract AlbumItemActionsBottomSheet albumItemActionsBottomSheet();
+    fun albumItemActionsBottomSheet(): AlbumItemActionsBottomSheet
 
     @ContributesAndroidInjector
-    abstract AlbumSharingBottomSheet albumSharingBottomSheet();
+    fun albumSharingBottomSheet(): AlbumSharingBottomSheet
 }
