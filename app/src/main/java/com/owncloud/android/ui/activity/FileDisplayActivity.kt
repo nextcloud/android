@@ -2014,7 +2014,7 @@ class FileDisplayActivity :
     override fun onBrowsedDownTo(directory: OCFile?) {
         file = directory
         resetScrollingAndUpdateActionBar()
-        startSyncFolderOperation(directory, false)
+        startSyncFolderOperation(directory, ignoreETag = false, syncChangedDownloadedFiles = true)
         startMetadataSyncForCurrentDir()
     }
 
@@ -2602,7 +2602,7 @@ class FileDisplayActivity :
         folder: OCFile?,
         ignoreETag: Boolean,
         ignoreFocus: Boolean = false,
-        syncChangedDownloadedFiles: Boolean = true
+        syncChangedDownloadedFiles: Boolean = false
     ) {
         Log_OC.d(TAG, "startSyncFolderOperation called, ignoreEtag: $ignoreETag, ignoreFocus: $ignoreFocus")
 
