@@ -56,6 +56,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -114,12 +115,12 @@ public class RefreshFolderOperation extends RemoteOperation {
     /**
      * Counter of conflicts found between local and remote files
      */
-    private int mConflictsFound;
+    private final AtomicInteger mConflictsFound = new AtomicInteger();
 
     /**
      * Counter of failed operations in synchronization of kept-in-sync files
      */
-    private int mFailsInKeptInSyncFound;
+    private final AtomicInteger mFailsInKeptInSyncFound = new AtomicInteger();
 
     /**
      * Map of remote and local paths to files that where locally stored in a location out of the ownCloud folder and
@@ -135,7 +136,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     /**
      * 'True' means that the remote folder changed and should be fetched
      */
-    private boolean mRemoteFolderChanged;
+    private volatile boolean mRemoteFolderChanged;
 
     /**
      * 'True' means that the sharees of at least one child of the folder changed
@@ -155,7 +156,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     private final List<SynchronizeFileOperation> mFilesToSyncContents;
     // this will be used for every file when 'folder synchronization' replaces 'folder download'
 
-    private boolean syncChangedDownloadedFiles = true;
+    private final boolean syncChangedDownloadedFiles;
 
 
     /**
@@ -177,6 +178,17 @@ public class RefreshFolderOperation extends RemoteOperation {
                                   FileDataStorageManager dataStorageManager,
                                   User user,
                                   Context context) {
+        this(folder, currentSyncTime, syncFullAccount, ignoreETag, dataStorageManager, user, context, true);
+    }
+
+    public RefreshFolderOperation(OCFile folder,
+                                  long currentSyncTime,
+                                  boolean syncFullAccount,
+                                  boolean ignoreETag,
+                                  FileDataStorageManager dataStorageManager,
+                                  User user,
+                                  Context context,
+                                  boolean syncChangedDownloadedFiles) {
         mLocalFolder = folder;
         mCurrentSyncTime = currentSyncTime;
         mSyncFullAccount = syncFullAccount;
@@ -188,6 +200,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         mIgnoreETag = ignoreETag;
         mOnlyFileMetadata = false;
         mFilesToSyncContents = new Vector<>();
+        this.syncChangedDownloadedFiles = syncChangedDownloadedFiles;
     }
 
     /**
@@ -208,6 +221,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         mIgnoreETag = false;
         mOnlyFileMetadata = true;
         mFilesToSyncContents = new Vector<>();
+        syncChangedDownloadedFiles = true;
 
         // since metadata worker working in background for sub-folders no need send folder refresh event
         isMetadataSyncWorkerRunning = true;
@@ -232,22 +246,19 @@ public class RefreshFolderOperation extends RemoteOperation {
         mIgnoreETag = ignoreETag;
         mOnlyFileMetadata = onlyFileMetadata;
         mFilesToSyncContents = new Vector<>();
+        syncChangedDownloadedFiles = true;
     }
 
     public int getConflictsFound() {
-        return mConflictsFound;
+        return mConflictsFound.get();
     }
 
     public int getFailsInKeptInSyncFound() {
-        return mFailsInKeptInSyncFound;
+        return mFailsInKeptInSyncFound.get();
     }
 
     public Map<String, String> getForgottenLocalFiles() {
         return mForgottenLocalFiles;
-    }
-
-    public void setSyncChangedDownloadedFiles(boolean syncChangedDownloadedFiles) {
-        this.syncChangedDownloadedFiles = syncChangedDownloadedFiles;
     }
 
     /**
@@ -268,8 +279,8 @@ public class RefreshFolderOperation extends RemoteOperation {
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result;
-        mFailsInKeptInSyncFound = 0;
-        mConflictsFound = 0;
+        mFailsInKeptInSyncFound.set(0);
+        mConflictsFound.set(0);
         mForgottenLocalFiles.clear();
 
         if (mLocalFolder == null) {
@@ -477,7 +488,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         if (result.isSuccess()) {
             synchronizeData(result.getData());
-            if (mConflictsFound > 0 || mFailsInKeptInSyncFound > 0) {
+            if (mConflictsFound.get() > 0 || mFailsInKeptInSyncFound.get() > 0) {
                 result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
                 // should be a different result code, but will do the job
             }
@@ -835,9 +846,9 @@ public class RefreshFolderOperation extends RemoteOperation {
             contentsResult = op.execute(mContext);   // async
             if (!contentsResult.isSuccess()) {
                 if (contentsResult.getCode() == ResultCode.SYNC_CONFLICT) {
-                    mConflictsFound++;
+                    mConflictsFound.incrementAndGet();
                 } else {
-                    mFailsInKeptInSyncFound++;
+                    mFailsInKeptInSyncFound.incrementAndGet();
                     if (contentsResult.getException() != null) {
                         Log_OC.e(TAG, "Error while synchronizing favourites : "
                             + contentsResult.getLogMessage(), contentsResult.getException());
