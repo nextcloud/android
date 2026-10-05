@@ -845,14 +845,17 @@ public class RefreshFolderOperation extends RemoteOperation {
         for (SynchronizeFileOperation operation : filesToSyncContents) {
             final RemoteOperationResult<?> result = operation.execute(mContext);
             if (result.isSuccess()) {
+                operation.printSuccess();
                 continue;
             }
 
             if (result.getCode() == ResultCode.SYNC_CONFLICT) {
+                operation.printConflict();
                 mConflictsFound.incrementAndGet();
                 continue;
             }
 
+            operation.printFailure();
             mFailsInKeptInSyncFound.incrementAndGet();
             logContentSynchronizationFailure(result);
         }
