@@ -429,6 +429,11 @@
     <string name="etm_background_job_state">Aɣir</string>
     <string name="etm_background_job_user">Aseqdac</string>
     <string name="etm_background_job_uuid">UUID</string>
+    <string name="etm_background_jobs">Imahilen n ugilal</string>
+    <string name="etm_background_jobs_cancel_all">Sefsex akk imahilen</string>
+    <string name="etm_background_jobs_schedule_test_job">Sɣiwes amahil n ukayad</string>
+    <string name="etm_background_jobs_start_test_job">Bdu amahil n usekyed</string>
+    <string name="etm_background_jobs_stop_test_job">Ḥbes amahil n usekyed</string>
     <string name="etm_preferences">Tiwelhiwin</string>
     <string name="etm_transfer">Asiweḍ n ufaylu</string>
     <string name="etm_transfer_remote_path">Abrid anmeggag</string>
@@ -471,6 +476,8 @@
     <string name="file_list_empty_local_search">Ulac afaylu neɣ akaram inmeɣran akked unadi-ik·im.</string>
     <string name="file_list_empty_moving">Ulac d acu yellan da. Tzemreḍ ad ternuḍ akaram.</string>
     <string name="file_list_empty_on_device">Ifuyla d ikaramen yettwasidren ad d-banen da.</string>
+    <string name="file_list_empty_recent_files_description">Ifuyla akked ikaramen i tbeddeleḍ melmi kan ad d-ttwaseknen dagi.</string>
+    <string name="file_list_empty_recent_files_headline">Ulac ifuyla ittwabeddelen melmi kan</string>
     <string name="file_list_empty_search">Ahat deg ukaram nniḍen?</string>
     <string name="file_list_empty_shared">Ifuyla akked ikaramen ara tebḍuḍ ad d-banen da.</string>
     <string name="file_list_empty_shared_headline">Ulac acu yettwabḍan yakan</string>
@@ -478,10 +485,12 @@
     <string name="file_list_empty_unified_search_start_search">Sekker anadi-k·m</string>
     <string name="file_list_empty_unified_search_start_search_description">Aru deg ufeggag n unadi uksawen akken ad tafeḍ ifuyla, inermisen, ineḍruyen n uwitay, akked wayen nniḍen deg umiḍan-ik·im.</string>
     <string name="file_list_error_description">Selken tuqqna-ik·m n internet neɣ ɛreḍ tikelt nniḍen ticki</string>
+    <string name="file_list_error_headline">Tuqqna txuṣṣ</string>
     <string name="file_list_folder">akaram</string>
     <string name="file_list_live">SRID</string>
     <string name="file_list_loading">Asali...</string>
     <string name="file_list_no_app_for_file_type">Ulac asnas ilaqen iwakken ad isefrek anaw-agi n ufaylu.</string>
+    <string name="file_list_out_of_memory_description">D awezɣi asali n ugbur</string>
     <string name="file_list_seconds_ago">Tasinin aya</string>
     <string name="file_management_permission_optional">tisirag n usekles</string>
     <string name="file_migration_allow_media_indexing">Sireg anekcum seg isnasen-nniḍen</string>
@@ -736,6 +745,7 @@
     <string name="select_one_template">Txil, fren yiwet n tmudemt</string>
     <string name="select_template">Fren tamudemt</string>
     <string name="send">Tuzna</string>
+    <string name="server_not_reachable">D awezɣi asali n ugbur</string>
     <string name="set_online_status">Addad n tuqqna</string>
     <string name="share">Bḍu</string>
     <string name="share_create_permission">Snulfu-d</string>
