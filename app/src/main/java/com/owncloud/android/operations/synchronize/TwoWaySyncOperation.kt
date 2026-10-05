@@ -49,10 +49,7 @@ class TwoWaySyncOperation(
 
     fun ensureLocalFolderExists(folder: OCFile) {
         val storagePath = folder.storagePath?.takeIf { it.isNotEmpty() }
-            ?: FileStorageUtils.getDefaultSavePathFor(user.accountName, folder).also {
-                folder.storagePath = it
-                storageManager.saveFile(folder)
-            }
+            ?: FileStorageUtils.getDefaultSavePathFor(user.accountName, folder).also { folder.storagePath = it }
 
         val directory = File(storagePath)
         isLocalFolderPresent = directory.exists()
