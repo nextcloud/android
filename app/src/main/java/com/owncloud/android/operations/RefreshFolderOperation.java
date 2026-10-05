@@ -178,7 +178,7 @@ public class RefreshFolderOperation extends RemoteOperation {
                                   FileDataStorageManager dataStorageManager,
                                   User user,
                                   Context context) {
-        this(folder, currentSyncTime, syncFullAccount, ignoreETag, dataStorageManager, user, context, true);
+        this(folder, currentSyncTime, syncFullAccount, ignoreETag, dataStorageManager, user, context, false);
     }
 
     public RefreshFolderOperation(OCFile folder,
@@ -221,7 +221,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         mIgnoreETag = false;
         mOnlyFileMetadata = true;
         mFilesToSyncContents = new Vector<>();
-        syncChangedDownloadedFiles = true;
+        syncChangedDownloadedFiles = false;
 
         // since metadata worker working in background for sub-folders no need send folder refresh event
         isMetadataSyncWorkerRunning = true;
@@ -246,7 +246,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         mIgnoreETag = ignoreETag;
         mOnlyFileMetadata = onlyFileMetadata;
         mFilesToSyncContents = new Vector<>();
-        syncChangedDownloadedFiles = true;
+        syncChangedDownloadedFiles = false;
     }
 
     public int getConflictsFound() {
