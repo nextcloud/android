@@ -91,6 +91,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
     private List<SynchronizeFileOperation> mFilesToSyncContents;
     // this will be used for every file when 'folder synchronization' replaces 'folder download'
 
+    private final List<String> mSubfoldersToSync;
+
     private final AtomicBoolean mCancellationRequested;
 
     private final boolean useWorkerWithNotification;
@@ -122,6 +124,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         mRemoteFolderChanged = false;
         mFilesForDirectDownload = new Vector<>();
         mFilesToSyncContents = new Vector<>();
+        mSubfoldersToSync = new ArrayList<>();
         mCancellationRequested = new AtomicBoolean(false);
         this.useWorkerWithNotification = useWorkerWithNotification;
         this.syncAll = syncAll;
@@ -278,6 +281,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
         mFilesForDirectDownload.clear();
         mFilesToSyncContents.clear();
+        mSubfoldersToSync.clear();
 
         if (mCancellationRequested.get()) {
             throw new OperationCancelledException();
@@ -366,6 +370,21 @@ public class SynchronizeFolderOperation extends SyncOperation {
         storageManager.saveFolder(remoteFolder, updatedFiles, localFilesMap.values());
         mLocalFolder.setLastSyncDateForData(System.currentTimeMillis());
         storageManager.saveFile(mLocalFolder);
+
+        // subfolder syncs look their folder up in the database, so they can only start after saveFolder()
+        startSubfolderSynchronizations();
+    }
+
+    @SuppressFBWarnings("JLM")
+    private void startSubfolderSynchronizations() throws OperationCancelledException {
+        for (String remotePath : mSubfoldersToSync) {
+            synchronized (mCancellationRequested) {
+                if (mCancellationRequested.get()) {
+                    throw new OperationCancelledException();
+                }
+                startSyncFolderOperation(remotePath);
+            }
+        }
     }
 
     private void updateLocalStateData(OCFile remoteFile, OCFile localFile, OCFile updatedFile) {
@@ -404,7 +423,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
      * and added to the list of pending file synchronizations. Exception: in an internal two-way
      * sync folder, a file that was downloaded before but is missing locally now is treated as
      * deleted by the user and removed from the server instead of being re-downloaded.
-     * If the remote file is a folder, the method triggers a folder synchronization operation,
+     * If the remote file is a folder, it is queued for a folder synchronization operation,
      * which recursively synchronizes all nested files and subfolders.
      * </p>
      *
@@ -412,17 +431,10 @@ public class SynchronizeFolderOperation extends SyncOperation {
      * @param localFile the corresponding local file or folder
      * @return {@code false} if {@code remoteFile} was deleted from the server and should no
      *         longer be tracked locally, {@code true} otherwise
-     * @throws OperationCancelledException if the synchronization was cancelled
      */
-    @SuppressFBWarnings("JLM")
-    private boolean syncFileOrFolder(OCFile remoteFile, OCFile localFile) throws OperationCancelledException {
+    private boolean syncFileOrFolder(OCFile remoteFile, OCFile localFile) {
         if (remoteFile.isFolder()) {
-            synchronized (mCancellationRequested) {
-                if (mCancellationRequested.get()) {
-                    throw new OperationCancelledException();
-                }
-                startSyncFolderOperation(remoteFile.getRemotePath());
-            }
+            mSubfoldersToSync.add(remoteFile.getRemotePath());
             return true;
         }
 
