@@ -32,6 +32,7 @@ import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.operations.common.SyncOperation;
+import com.owncloud.android.operations.synchronize.TwoWaySyncOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -71,6 +72,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
     /** Locally cached information about folder to synchronize */
     private OCFile mLocalFolder;
 
+    private boolean mIsPartOfInternalTwoWaySync;
+
     /** Counter of conflicts found between local and remote files */
     private int mConflictsFound;
 
@@ -95,6 +98,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
     private final boolean syncAll;
 
     final FolderDownloadWorkerNotificationManager notificationManager;
+
+    private final TwoWaySyncOperation twoWaySyncOperation;
 
     /**
      * Creates a new instance of {@link SynchronizeFolderOperation}.
@@ -121,6 +126,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         this.useWorkerWithNotification = useWorkerWithNotification;
         this.syncAll = syncAll;
         notificationManager = new FolderDownloadWorkerNotificationManager(context, false,null);
+        twoWaySyncOperation = new TwoWaySyncOperation(context, user, storageManager, mCancellationRequested);
     }
 
 
@@ -141,6 +147,11 @@ public class SynchronizeFolderOperation extends SyncOperation {
             if (mLocalFolder == null) {
                 Log_OC.e(TAG, "Local folder is null, cannot run synchronize folder operation, remote path: " + mRemotePath);
                 return new RemoteOperationResult<>(ResultCode.FILE_NOT_FOUND);
+            }
+
+            mIsPartOfInternalTwoWaySync = getStorageManager().isPartOfInternalTwoWaySync(mLocalFolder);
+            if (mIsPartOfInternalTwoWaySync) {
+                twoWaySyncOperation.ensureLocalFolderExists(mLocalFolder);
             }
 
             result = checkForChanges(client);
@@ -337,9 +348,9 @@ public class SynchronizeFolderOperation extends SyncOperation {
             boolean encrypted = updatedFile.isEncrypted() || mLocalFolder.isEncrypted();
             updatedFile.setEncrypted(encrypted);
 
-            syncFileOrFolder(remoteFile, localFile);
-
-            updatedFiles.add(updatedFile);
+            if (syncFileOrFolder(remoteFile, localFile)) {
+                updatedFiles.add(updatedFile);
+            }
         }
 
         // update file name for encrypted files
@@ -390,17 +401,21 @@ public class SynchronizeFolderOperation extends SyncOperation {
      * Schedules synchronization for the given remote file or folder.
      * <p>
      * If the remote file is a regular file, a {@link SynchronizeFileOperation} is created
-     * and added to the list of pending file synchronizations.
+     * and added to the list of pending file synchronizations. Exception: in an internal two-way
+     * sync folder, a file that was downloaded before but is missing locally now is treated as
+     * deleted by the user and removed from the server instead of being re-downloaded.
      * If the remote file is a folder, the method triggers a folder synchronization operation,
      * which recursively synchronizes all nested files and subfolders.
      * </p>
      *
      * @param remoteFile the remote file or folder to synchronize
      * @param localFile the corresponding local file or folder
+     * @return {@code false} if {@code remoteFile} was deleted from the server and should no
+     *         longer be tracked locally, {@code true} otherwise
      * @throws OperationCancelledException if the synchronization was cancelled
      */
     @SuppressFBWarnings("JLM")
-    private void syncFileOrFolder(OCFile remoteFile, OCFile localFile) throws OperationCancelledException {
+    private boolean syncFileOrFolder(OCFile remoteFile, OCFile localFile) throws OperationCancelledException {
         if (remoteFile.isFolder()) {
             synchronized (mCancellationRequested) {
                 if (mCancellationRequested.get()) {
@@ -408,18 +423,24 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 }
                 startSyncFolderOperation(remoteFile.getRemotePath());
             }
-        } else {
-            SynchronizeFileOperation operation = new SynchronizeFileOperation(
-                localFile,
-                remoteFile,
-                user,
-                true,
-                mContext,
-                getStorageManager(),
-                useWorkerWithNotification
-            );
-            mFilesToSyncContents.add(operation);
+            return true;
         }
+
+        if (mIsPartOfInternalTwoWaySync && twoWaySyncOperation.isDeletedLocally(localFile)) {
+            return !twoWaySyncOperation.deleteRemoteFile(localFile, getClient());
+        }
+
+        SynchronizeFileOperation operation = new SynchronizeFileOperation(
+            localFile,
+            remoteFile,
+            user,
+            true,
+            mContext,
+            getStorageManager(),
+            useWorkerWithNotification
+        );
+        mFilesToSyncContents.add(operation);
+        return true;
     }
 
     private void prepareOpsFromLocalKnowledge() throws OperationCancelledException {
@@ -448,6 +469,9 @@ public class SynchronizeFolderOperation extends SyncOperation {
     private void syncContents(OwnCloudClient client) throws OperationCancelledException {
         startDirectDownloads();
         startContentSynchronizations(mFilesToSyncContents);
+        if (mIsPartOfInternalTwoWaySync) {
+            twoWaySyncOperation.uploadNewLocalEntries(mLocalFolder, client);
+        }
         updateETag(client);
     }
 
