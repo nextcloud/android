@@ -15,10 +15,11 @@ import com.owncloud.android.lib.common.utils.Log_OC
 
 private const val TAG = "ServerCredentialsExtensions"
 
-suspend fun ServerCredentials.supportsUnifiedShare(): Boolean {
+suspend fun ServerCredentials.supportsUnifiedShare(): Boolean? {
     val capabilities = ShareRemoteRepository(NextcloudHttpClient.create(this))
         .fetchSharingCapabilities()
         .dataOrElse { Log_OC.e(TAG, "Failed to fetch sharing capabilities") }
+        ?: return null
 
-    return capabilities?.isUnifiedShareEnabled == true
+    return capabilities.isUnifiedShareEnabled
 }
