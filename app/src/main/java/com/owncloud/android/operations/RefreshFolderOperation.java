@@ -841,24 +841,32 @@ public class RefreshFolderOperation extends RemoteOperation {
      * @param filesToSyncContents Synchronization operations to execute.
      */
     private void startContentSynchronizations(List<SynchronizeFileOperation> filesToSyncContents) {
-        RemoteOperationResult contentsResult;
-        for (SynchronizeFileOperation op : filesToSyncContents) {
-            contentsResult = op.execute(mContext);   // async
-            if (!contentsResult.isSuccess()) {
-                if (contentsResult.getCode() == ResultCode.SYNC_CONFLICT) {
-                    mConflictsFound.incrementAndGet();
-                } else {
-                    mFailsInKeptInSyncFound.incrementAndGet();
-                    if (contentsResult.getException() != null) {
-                        Log_OC.e(TAG, "Error while synchronizing favourites : "
-                            + contentsResult.getLogMessage(), contentsResult.getException());
-                    } else {
-                        Log_OC.e(TAG, "Error while synchronizing favourites : "
-                            + contentsResult.getLogMessage());
-                    }
-                }
-            }   // won't let these fails break the synchronization process
+        // won't let these fails break the synchronization process
+        for (SynchronizeFileOperation operation : filesToSyncContents) {
+            final RemoteOperationResult<?> result = operation.execute(mContext);
+            if (result.isSuccess()) {
+                continue;
+            }
+
+            if (result.getCode() == ResultCode.SYNC_CONFLICT) {
+                mConflictsFound.incrementAndGet();
+                continue;
+            }
+
+            mFailsInKeptInSyncFound.incrementAndGet();
+            logContentSynchronizationFailure(result);
         }
+    }
+
+    private void logContentSynchronizationFailure(RemoteOperationResult<?> result) {
+        final String message = "Error while synchronizing favourites : " + result.getLogMessage(mContext);
+        final Exception exception = result.getException();
+        if (exception == null) {
+            Log_OC.e(TAG, message);
+            return;
+        }
+
+        Log_OC.e(TAG, message, exception);
     }
 
     /**
