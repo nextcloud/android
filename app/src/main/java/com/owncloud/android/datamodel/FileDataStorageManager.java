@@ -103,6 +103,7 @@ public class FileDataStorageManager {
     public static final int ROOT_PARENT_ID = 0;
     private static final String JSON_NULL_STRING = "null";
     private static final String JSON_EMPTY_ARRAY = "[]";
+    private static final long INTERNAL_TWO_WAY_SYNC_NEVER_SYNCED = 0L;
 
     private final ContentResolver contentResolver;
     private final ContentProviderClient contentProviderClient;
@@ -573,7 +574,7 @@ public class FileDataStorageManager {
             cv.remove(ProviderTableMeta.FILE_ETAG);
             cv.remove(ProviderTableMeta.FILE_STORAGE_PATH);
 
-            if (ocFile.isInternalFolderSync()) {
+            if (isFlaggedButNeverSynced(ocFile)) {
                 ensureLocalDirectoryForInternalTwoWaySync(ocFile);
             }
         }
@@ -619,6 +620,10 @@ public class FileDataStorageManager {
         }
 
         return overridden;
+    }
+
+    private boolean isFlaggedButNeverSynced(OCFile folder) {
+        return folder.getInternalFolderSyncTimestamp() == INTERNAL_TWO_WAY_SYNC_NEVER_SYNCED;
     }
 
     /**
