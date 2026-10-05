@@ -610,7 +610,7 @@
     <string name="foreign_files_remote_text">Fjern: %1$s</string>
     <string name="forward">Videresend</string>
     <string name="fourHours">4 timer</string>
-    <string name="governance_file_retention_label">Opbevaring af filer</string>
+    <string name="governance_file_retention_label">Sletteregel</string>
     <string name="governance_legal_hold_label">Juridisk tilbageholdelse</string>
     <string name="governance_no_label">Ingen</string>
     <string name="governance_permission_denied">Du har ikke rettighed til at ændre denne mærkat</string>
