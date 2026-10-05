@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2018-2023 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger.de>
@@ -44,8 +45,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Vector;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import kotlin.Unit;
 
 /**
@@ -72,18 +73,18 @@ public class SynchronizeFolderOperation extends SyncOperation {
     /** Locally cached information about folder to synchronize */
     private OCFile mLocalFolder;
 
-    private boolean mIsPartOfInternalTwoWaySync;
+    private volatile boolean mIsPartOfInternalTwoWaySync;
 
     /** Counter of conflicts found between local and remote files */
-    private int mConflictsFound;
+    private final AtomicInteger mConflictsFound = new AtomicInteger();
 
     /** Counter of failed operations in synchronization of kept-in-sync files */
-    private int mFailsInFileSyncsFound;
+    private final AtomicInteger mFailsInFileSyncsFound = new AtomicInteger();
 
     /**
      * 'True' means that the remote folder changed and should be fetched
      */
-    private boolean mRemoteFolderChanged;
+    private volatile boolean mRemoteFolderChanged;
 
     private List<OCFile> mFilesForDirectDownload;
     // to avoid extra PROPFINDs when there was no change in the folder
@@ -141,8 +142,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result;
-        mFailsInFileSyncsFound = 0;
-        mConflictsFound = 0;
+        mFailsInFileSyncsFound.set(0);
+        mConflictsFound.set(0);
 
         try {
             // get locally cached information about folder
@@ -235,7 +236,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
         if (result.isSuccess()) {
             synchronizeData(result.getData());
-            if (mConflictsFound > 0  || mFailsInFileSyncsFound > 0) {
+            if (mConflictsFound.get() > 0  || mFailsInFileSyncsFound.get() > 0) {
                 result = new RemoteOperationResult<>(ResultCode.SYNC_CONFLICT);
                     // should be a different result code, but will do the job
             }
@@ -371,19 +372,15 @@ public class SynchronizeFolderOperation extends SyncOperation {
         mLocalFolder.setLastSyncDateForData(System.currentTimeMillis());
         storageManager.saveFile(mLocalFolder);
 
-        // subfolder syncs look their folder up in the database, so they can only start after saveFolder()
         startSubfolderSynchronizations();
     }
 
-    @SuppressFBWarnings("JLM")
     private void startSubfolderSynchronizations() throws OperationCancelledException {
         for (String remotePath : mSubfoldersToSync) {
-            synchronized (mCancellationRequested) {
-                if (mCancellationRequested.get()) {
-                    throw new OperationCancelledException();
-                }
-                startSyncFolderOperation(remotePath);
+            if (mCancellationRequested.get()) {
+                throw new OperationCancelledException();
             }
+            startSyncFolderOperation(remotePath);
         }
     }
 
@@ -420,11 +417,11 @@ public class SynchronizeFolderOperation extends SyncOperation {
      * Schedules synchronization for the given remote file or folder.
      * <p>
      * If the remote file is a regular file, a {@link SynchronizeFileOperation} is created
-     * and added to the list of pending file synchronizations. Exception: in an internal two-way
-     * sync folder, a file that was downloaded before but is missing locally now is treated as
-     * deleted by the user and removed from the server instead of being re-downloaded.
+     * and added to the list of pending file synchronizations.
      * If the remote file is a folder, it is queued for a folder synchronization operation,
      * which recursively synchronizes all nested files and subfolders.
+     * Exception: in an internal two-way sync folder, a file or folder the user deleted locally
+     * is removed from the server instead of being re-downloaded.
      * </p>
      *
      * @param remoteFile the remote file or folder to synchronize
@@ -433,13 +430,13 @@ public class SynchronizeFolderOperation extends SyncOperation {
      *         longer be tracked locally, {@code true} otherwise
      */
     private boolean syncFileOrFolder(OCFile remoteFile, OCFile localFile) {
+        if (mIsPartOfInternalTwoWaySync && twoWaySyncOperation.isDeletedLocally(remoteFile, localFile)) {
+            return !twoWaySyncOperation.deleteRemoteFile(localFile, getClient());
+        }
+
         if (remoteFile.isFolder()) {
             mSubfoldersToSync.add(remoteFile.getRemotePath());
             return true;
-        }
-
-        if (mIsPartOfInternalTwoWaySync && twoWaySyncOperation.isDeletedLocally(localFile)) {
-            return !twoWaySyncOperation.deleteRemoteFile(localFile, getClient());
         }
 
         SynchronizeFileOperation operation = new SynchronizeFileOperation(
@@ -518,10 +515,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
         } else {
             try {
                 for (OCFile file: mFilesForDirectDownload) {
-                    synchronized (mCancellationRequested) {
-                        if (mCancellationRequested.get()) {
-                            break;
-                        }
+                    if (mCancellationRequested.get()) {
+                        break;
                     }
 
                     if (file == null) {
@@ -577,9 +572,9 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 notificationManager.showProgressNotification(folderName, file.getFileName(), current, total);
             } else {
                 if (result.getCode() == ResultCode.SYNC_CONFLICT) {
-                    mConflictsFound++;
+                    mConflictsFound.incrementAndGet();
                 } else {
-                    mFailsInFileSyncsFound++;
+                    mFailsInFileSyncsFound.incrementAndGet();
 
                     String message = "Error while synchronizing file : ";
 

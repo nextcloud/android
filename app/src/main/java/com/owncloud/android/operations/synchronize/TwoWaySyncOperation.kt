@@ -40,6 +40,9 @@ class TwoWaySyncOperation(
     @Inject
     lateinit var uploadFileOperationFactory: UploadFileOperationFactory
 
+    @Volatile
+    private var isLocalFolderPresent = false
+
     init {
         MainApp.getAppComponent().inject(this)
     }
@@ -52,24 +55,33 @@ class TwoWaySyncOperation(
             }
 
         val directory = File(storagePath)
-        if (!directory.exists() && !directory.mkdirs()) {
+        isLocalFolderPresent = directory.exists()
+        if (!isLocalFolderPresent && !directory.mkdirs()) {
             Log_OC.e(TAG, "Could not create local directory for internal two-way sync folder: $storagePath")
         }
     }
 
-    /**
-     * A missing parent directory means the storage itself is unavailable (e.g. unmounted SD card),
-     * which must not be mistaken for the user deleting the file.
-     */
-    fun isDeletedLocally(file: OCFile?): Boolean {
-        val storagePath = file
-            ?.takeUnless { it.isFolder }
-            ?.storagePath
-            ?.takeIf { it.isNotEmpty() }
-            ?: return false
+    fun isDeletedLocally(remote: OCFile, local: OCFile?): Boolean {
+        if (!isLocalFolderPresent || local == null || local.isFolder != remote.isFolder) {
+            return false
+        }
 
+        return if (local.isFolder) isFolderDeletedLocally(remote, local) else isFileDeletedLocally(local)
+    }
+
+    private fun isFileDeletedLocally(file: OCFile): Boolean {
+        val storagePath = file.storagePath?.takeIf { it.isNotEmpty() } ?: return false
         val localFile = File(storagePath)
         return !localFile.exists() && localFile.parentFile?.exists() == true
+    }
+
+    private fun isFolderDeletedLocally(remote: OCFile, local: OCFile): Boolean =
+        local.etag.equals(remote.etag, ignoreCase = true) &&
+            !File(FileStorageUtils.getDefaultSavePathFor(user.accountName, local)).exists() &&
+            hasDownloadedContent(local)
+
+    private fun hasDownloadedContent(folder: OCFile): Boolean = storageManager.getFolderContent(folder, false).any {
+        if (it.isFolder) hasDownloadedContent(it) else !it.storagePath.isNullOrEmpty()
     }
 
     fun deleteRemoteFile(file: OCFile, client: OwnCloudClient): Boolean {
@@ -83,9 +95,9 @@ class TwoWaySyncOperation(
         ).execute(client)
 
         if (result.isSuccess) {
-            Log_OC.d(TAG, "Deleted remote file after local removal: ${file.fileName}")
+            Log_OC.d(TAG, "Deleted remote ${file.remotePath} after local removal")
         } else {
-            Log_OC.w(TAG, "Failed to delete remote file after local removal: ${file.fileName}")
+            Log_OC.w(TAG, "Failed to delete remote ${file.remotePath} after local removal")
         }
 
         return result.isSuccess
@@ -124,7 +136,6 @@ class TwoWaySyncOperation(
     private fun uploadNewFile(parent: OCFile, file: File, client: OwnCloudClient) {
         val upload = OCUpload(file.absolutePath, parent.remotePath + file.name, user.accountName).apply {
             nameCollisionPolicy = NameCollisionPolicy.DEFAULT
-            // the file already lives at its two-way sync location, so it must stay linked as the local copy
             localAction = FileUploadWorker.LOCAL_BEHAVIOUR_COPY
             isUseWifiOnly = false
         }
