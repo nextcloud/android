@@ -18,7 +18,8 @@ import androidx.core.app.NotificationManagerCompat
 import com.nextcloud.client.notifications.action.SyncConflictNotificationBroadcastReceiver
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.ui.activity.UploadListActivity
+import com.owncloud.android.ui.navigation.NavigatorActivity
+import com.owncloud.android.ui.navigation.NavigatorScreen
 import com.owncloud.android.ui.notifications.NotificationUtils
 
 /**
@@ -38,7 +39,7 @@ object AppWideNotificationManager {
     private const val SYNC_CONFLICT_NOTIFICATION_ID = 112
 
     fun getUploadListPendingIntent(context: Context): PendingIntent {
-        val intent = Intent(context, UploadListActivity::class.java).apply {
+        val intent = NavigatorActivity.intent(context, NavigatorScreen.UploadList).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
 

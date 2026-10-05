@@ -592,9 +592,6 @@
             android:process=":crash"
             android:theme="@style/Theme.ownCloud.Toolbar" />
         <activity
-            android:name=".ui.activity.UploadListActivity"
-            android:exported="false" />
-        <activity
             android:name="com.nextcloud.client.onboarding.WhatsNewActivity"
             android:theme="@style/Theme.ownCloud.noActionBar.Login" />
         <activity
