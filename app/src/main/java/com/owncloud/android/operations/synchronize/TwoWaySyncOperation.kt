@@ -9,13 +9,10 @@ package com.owncloud.android.operations.synchronize
 
 import android.content.Context
 import com.nextcloud.client.account.User
-import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.upload.FileUploadWorker
-import com.nextcloud.client.network.ConnectivityService
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.OwnCloudClient
@@ -23,7 +20,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.CreateFolderOperation
 import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.SynchronizeFolderOperation
-import com.owncloud.android.operations.UploadFileOperation
+import com.owncloud.android.operations.factory.UploadFileOperationFactory
 import com.owncloud.android.utils.FileStorageUtils
 import java.io.File
 import java.util.concurrent.atomic.AtomicBoolean
@@ -41,13 +38,7 @@ class TwoWaySyncOperation(
     }
 
     @Inject
-    lateinit var uploadsStorageManager: UploadsStorageManager
-
-    @Inject
-    lateinit var connectivityService: ConnectivityService
-
-    @Inject
-    lateinit var powerManagementService: PowerManagementService
+    lateinit var uploadFileOperationFactory: UploadFileOperationFactory
 
     init {
         MainApp.getAppComponent().inject(this)
@@ -135,22 +126,12 @@ class TwoWaySyncOperation(
             nameCollisionPolicy = NameCollisionPolicy.DEFAULT
             // the file already lives at its two-way sync location, so it must stay linked as the local copy
             localAction = FileUploadWorker.LOCAL_BEHAVIOUR_COPY
+            isUseWifiOnly = false
         }
 
-        val result = UploadFileOperation(
-            uploadsStorageManager,
-            connectivityService,
-            powerManagementService,
-            user,
-            null,
-            upload,
-            upload.nameCollisionPolicy,
-            upload.localAction,
-            context,
-            false,
-            false,
-            storageManager
-        ).execute(client)
+        val result = uploadFileOperationFactory
+            .create(context, upload, user = user, storageManager = storageManager)
+            .execute(client)
 
         if (result.isSuccess) {
             Log_OC.d(TAG, "Uploaded new local file: ${file.name}")
