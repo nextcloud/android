@@ -25,240 +25,230 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.io.File
 
-/**
- * CRUD coverage for internal two-way sync, driving [SynchronizeFolderOperation] the same way
- * [com.nextcloud.client.jobs.InternalTwoWaySyncWork] does (`syncAll = true`).
- */
 class InternalTwoWaySyncIT : AbstractOnServerIT() {
 
-    private fun sync(remotePath: String): RemoteOperationResult<*> =
-        SynchronizeFolderOperation(targetContext, remotePath, user, getStorageManager(), false, true)
-            .execute(targetContext)
-
-    /** Creates [remotePath] on the server, downloads it once, then marks it for two-way sync. */
-    private fun setUpTwoWaySyncFolder(remotePath: String): OCFile {
-        createFolder(remotePath)
-        assertTrue(sync(remotePath).isSuccess)
-
-        val folder = getStorageManager().getFileByPath(remotePath)
-        folder.internalFolderSyncTimestamp = 0L
-        getStorageManager().saveFile(folder)
-        return folder
+    companion object {
+        private const val TWO_WAY_SYNC_ENABLED = 0L
+        private const val BINARY_MIME_TYPE = "application/octet-stream"
+        private const val MILLIS_IN_SECOND = 1000
+        private const val SERVER_POLL_ATTEMPTS = 10
+        private const val SMALL_DUMMY_FILE = "nonEmpty.txt"
+        private const val LARGE_DUMMY_FILE = "chunkedFile.txt"
+        private const val FILE_NAME = "file.bin"
+        private const val NESTED_FILE_NAME = "nested.bin"
+        private const val SUB_FOLDER_NAME = "sub"
     }
-
-    /** Uploads directly against the server, bypassing the local DB, to simulate a change made elsewhere. */
-    private fun uploadDirectlyToServer(localFile: File, remotePath: String) {
-        assertTrue(
-            UploadFileRemoteOperation(
-                localFile.absolutePath,
-                remotePath,
-                "text/plain",
-                System.currentTimeMillis() / 1000
-            ).execute(client).isSuccess
-        )
-    }
-
-    private fun existsOnServer(remotePath: String): Boolean =
-        ExistenceCheckRemoteOperation(remotePath, false).execute(client).isSuccess
 
     @Test
-    fun localCreate_file_isUploaded() {
+    fun testWhenLocalFileCreatedGivenShouldUploadToServer() {
         val folder = setUpTwoWaySyncFolder("/twoWaySyncLocalCreateFile/")
+        File(folder.storagePath, FILE_NAME).writeText("hello")
 
-        File(folder.storagePath, "newFile.txt").writeText("hello")
+        syncAndAssertSuccess(folder.remotePath)
 
-        assertTrue(sync(folder.remotePath).isSuccess)
-
-        val uploaded = getStorageManager().getFileByPath(folder.remotePath + "newFile.txt")
+        val uploaded = storageManager.getFileByPath(folder.childPath(FILE_NAME))
         assertNotNull(uploaded)
         assertTrue(File(uploaded.storagePath).exists())
-        assertTrue(existsOnServer(folder.remotePath + "newFile.txt"))
+        assertTrue(existsOnServer(folder.childPath(FILE_NAME)))
     }
 
     @Test
-    fun localCreate_folderWithContents_isCreatedAndUploaded() {
+    fun testWhenLocalFolderWithContentsCreatedGivenShouldCreateFolderAndUploadContents() {
         val folder = setUpTwoWaySyncFolder("/twoWaySyncLocalCreateFolder/")
+        val subFolder = File(folder.storagePath, SUB_FOLDER_NAME).apply { mkdir() }
+        File(subFolder, NESTED_FILE_NAME).writeText("nested")
 
-        val subFolder = File(folder.storagePath, "sub").apply { mkdir() }
-        File(subFolder, "nested.txt").writeText("nested")
+        syncAndAssertSuccess(folder.remotePath)
 
-        // createRemoteFolder() recurses synchronously, so one pass is enough here - unlike the
-        // remote-create-folder case below, which relies on an async OperationsService intent.
-        assertTrue(sync(folder.remotePath).isSuccess)
-
-        val remoteSubFolder = getStorageManager().getFileByPath(folder.remotePath + "sub/")
+        val remoteSubFolder = storageManager.getFileByPath(folder.childFolderPath(SUB_FOLDER_NAME))
         assertNotNull(remoteSubFolder)
         assertTrue(remoteSubFolder.isFolder)
 
-        val nested = getStorageManager().getFileByPath(folder.remotePath + "sub/nested.txt")
+        val nested = storageManager.getFileByPath(remoteSubFolder.childPath(NESTED_FILE_NAME))
         assertNotNull(nested)
         assertTrue(File(nested.storagePath).exists())
     }
 
     @Test
-    fun localUpdate_isUploaded() {
-        val folder = setUpTwoWaySyncFolder("/twoWaySyncLocalUpdate/")
-        uploadFile(getDummyFile("nonEmpty.txt"), folder.remotePath + "file.txt")
-        assertTrue(sync(folder.remotePath).isSuccess)
+    fun testWhenLocalFileUpdatedGivenShouldUploadNewVersion() {
+        val folder = setUpTwoWaySyncFolderWithFile("/twoWaySyncLocalUpdate/")
+        val before = storageManager.getFileByPath(folder.childPath(FILE_NAME))
 
-        val before = getStorageManager().getFileByPath(folder.remotePath + "file.txt")
-
-        shortSleep() // makes sure the new mtime is strictly after lastSyncDateForData
+        shortSleep()
         File(before.storagePath).writeText("updated by test")
 
-        assertTrue(sync(folder.remotePath).isSuccess)
+        syncAndAssertSuccess(folder.remotePath)
 
-        // an already-known file that changed locally is uploaded via FileUploadHelper's
-        // WorkManager job (SynchronizeFileOperation.handleLocalChange), not synchronously -
-        // poll the server instead of asserting right away
-        var updated = false
-        for (i in 0 until 10) {
-            val remote = ReadFileRemoteOperation(folder.remotePath + "file.txt").execute(client)
-            if (remote.isSuccess && (remote.data[0] as RemoteFile).etag != before.etag) {
-                updated = true
-                break
-            }
-            shortSleep()
-        }
-        assertTrue("Locally modified file was not uploaded within timeout", updated)
+        assertTrue(
+            "Locally modified file was not uploaded within timeout",
+            waitUntilServerEtagChanges(folder.childPath(FILE_NAME), before.etag)
+        )
     }
 
     @Test
-    fun localDelete_isRemovedFromServer() {
-        val folder = setUpTwoWaySyncFolder("/twoWaySyncLocalDelete/")
-        uploadFile(getDummyFile("nonEmpty.txt"), folder.remotePath + "file.txt")
-        assertTrue(sync(folder.remotePath).isSuccess)
-
-        val file = getStorageManager().getFileByPath(folder.remotePath + "file.txt")
+    fun testWhenLocalFileDeletedGivenShouldRemoveFromServer() {
+        val folder = setUpTwoWaySyncFolderWithFile("/twoWaySyncLocalDelete/")
+        val file = storageManager.getFileByPath(folder.childPath(FILE_NAME))
         assertTrue(File(file.storagePath).delete())
 
-        assertTrue(sync(folder.remotePath).isSuccess)
+        syncAndAssertSuccess(folder.remotePath)
 
-        assertNull(getStorageManager().getFileByPath(folder.remotePath + "file.txt"))
-        assertFalse(existsOnServer(folder.remotePath + "file.txt"))
+        assertNull(storageManager.getFileByPath(folder.childPath(FILE_NAME)))
+        assertFalse(existsOnServer(folder.childPath(FILE_NAME)))
     }
 
     @Test
-    fun remoteCreate_file_isDownloaded() {
+    fun testWhenRemoteFileCreatedGivenShouldDownload() {
         val folder = setUpTwoWaySyncFolder("/twoWaySyncRemoteCreateFile/")
+        uploadDirectlyToServer(getDummyFile(SMALL_DUMMY_FILE), folder.childPath(FILE_NAME))
 
-        uploadDirectlyToServer(getDummyFile("nonEmpty.txt"), folder.remotePath + "remote.txt")
+        syncAndAssertSuccess(folder.remotePath)
 
-        assertTrue(sync(folder.remotePath).isSuccess)
-
-        val downloaded = getStorageManager().getFileByPath(folder.remotePath + "remote.txt")
+        val downloaded = storageManager.getFileByPath(folder.childPath(FILE_NAME))
         assertNotNull(downloaded)
         assertTrue(File(downloaded.storagePath).exists())
     }
 
     @Test
-    fun remoteCreate_folderWithContents_isDownloaded() {
+    fun testWhenRemoteFolderWithContentsCreatedGivenShouldDownloadFolderAndContents() {
         val folder = setUpTwoWaySyncFolder("/twoWaySyncRemoteCreateFolder/")
-        val subFolderRemotePath = folder.remotePath + "remoteSub/"
+        val subFolderPath = folder.childFolderPath(SUB_FOLDER_NAME)
+        assertTrue(CreateFolderRemoteOperation(subFolderPath, true).execute(client).isSuccess)
+        uploadDirectlyToServer(getDummyFile(SMALL_DUMMY_FILE), subFolderPath + NESTED_FILE_NAME)
 
-        assertTrue(CreateFolderRemoteOperation(subFolderRemotePath, true).execute(client).isSuccess)
-        uploadDirectlyToServer(getDummyFile("nonEmpty.txt"), subFolderRemotePath + "nested.txt")
+        syncAndAssertSuccess(folder.remotePath)
 
-        assertTrue(sync(folder.remotePath).isSuccess)
-
-        val remoteSubFolder = getStorageManager().getFileByPath(subFolderRemotePath)
+        val remoteSubFolder = storageManager.getFileByPath(subFolderPath)
         assertNotNull(remoteSubFolder)
         assertTrue(remoteSubFolder.isFolder)
 
-        // descending into a newly discovered subfolder normally happens asynchronously via an
-        // OperationsService intent (SynchronizeFolderOperation#startSyncFolderOperation) -
-        // drive it directly here so the assertion below is deterministic
-        assertTrue(sync(subFolderRemotePath).isSuccess)
+        syncAndAssertSuccess(subFolderPath)
 
-        val nested = getStorageManager().getFileByPath(subFolderRemotePath + "nested.txt")
+        val nested = storageManager.getFileByPath(subFolderPath + NESTED_FILE_NAME)
         assertNotNull(nested)
         assertTrue(File(nested.storagePath).exists())
     }
 
     @Test
-    fun remoteUpdate_isDownloaded() {
-        val folder = setUpTwoWaySyncFolder("/twoWaySyncRemoteUpdate/")
-        uploadFile(getDummyFile("nonEmpty.txt"), folder.remotePath + "file.txt")
-        assertTrue(sync(folder.remotePath).isSuccess)
+    fun testWhenRemoteFileUpdatedGivenShouldDownloadNewVersion() {
+        val folder = setUpTwoWaySyncFolderWithFile("/twoWaySyncRemoteUpdate/")
+        val before = storageManager.getFileByPath(folder.childPath(FILE_NAME))
+        val newVersion = getDummyFile(LARGE_DUMMY_FILE)
+        uploadDirectlyToServer(newVersion, folder.childPath(FILE_NAME))
 
-        val before = getStorageManager().getFileByPath(folder.remotePath + "file.txt")
+        syncAndAssertSuccess(folder.remotePath)
 
-        uploadDirectlyToServer(getDummyFile("chunkedFile.txt"), folder.remotePath + "file.txt")
-
-        assertTrue(sync(folder.remotePath).isSuccess)
-
-        val after = getStorageManager().getFileByPath(folder.remotePath + "file.txt")
+        val after = storageManager.getFileByPath(folder.childPath(FILE_NAME))
         assertNotEquals(before.etag, after.etag)
-        assertEquals(getDummyFile("chunkedFile.txt").length(), File(after.storagePath).length())
+        assertEquals(newVersion.length(), File(after.storagePath).length())
     }
 
     @Test
-    fun remoteDelete_file_isRemovedLocally() {
-        val folder = setUpTwoWaySyncFolder("/twoWaySyncRemoteDeleteFile/")
-        uploadFile(getDummyFile("nonEmpty.txt"), folder.remotePath + "file.txt")
-        assertTrue(sync(folder.remotePath).isSuccess)
+    fun testWhenRemoteFileDeletedGivenShouldRemoveLocally() {
+        val folder = setUpTwoWaySyncFolderWithFile("/twoWaySyncRemoteDeleteFile/")
+        val localFile = File(storageManager.getFileByPath(folder.childPath(FILE_NAME)).storagePath)
+        assertTrue(localFile.exists())
+        assertTrue(RemoveFileRemoteOperation(folder.childPath(FILE_NAME)).execute(client).isSuccess)
 
-        val file = getStorageManager().getFileByPath(folder.remotePath + "file.txt")
-        assertTrue(File(file.storagePath).exists())
+        syncAndAssertSuccess(folder.remotePath)
 
-        assertTrue(RemoveFileRemoteOperation(folder.remotePath + "file.txt").execute(client).isSuccess)
-
-        assertTrue(sync(folder.remotePath).isSuccess)
-
-        assertNull(getStorageManager().getFileByPath(folder.remotePath + "file.txt"))
-        assertFalse(File(file.storagePath).exists())
+        assertNull(storageManager.getFileByPath(folder.childPath(FILE_NAME)))
+        assertFalse(localFile.exists())
     }
 
     @Test
-    fun remoteDelete_folderWithContents_isRemovedLocally() {
+    fun testWhenRemoteFolderWithContentsDeletedGivenShouldRemoveLocally() {
         val folder = setUpTwoWaySyncFolder("/twoWaySyncRemoteDeleteFolder/")
+        val subFolderPath = folder.childFolderPath(SUB_FOLDER_NAME)
+        val subFolder = File(folder.storagePath, SUB_FOLDER_NAME).apply { mkdir() }
+        File(subFolder, NESTED_FILE_NAME).writeText("nested")
+        syncAndAssertSuccess(folder.remotePath)
+        assertNotNull(storageManager.getFileByPath(subFolderPath))
+        assertTrue(RemoveFileRemoteOperation(subFolderPath).execute(client).isSuccess)
 
-        val subFolder = File(folder.storagePath, "sub").apply { mkdir() }
-        File(subFolder, "nested.txt").writeText("nested")
-        assertTrue(sync(folder.remotePath).isSuccess)
-        assertNotNull(getStorageManager().getFileByPath(folder.remotePath + "sub/"))
+        syncAndAssertSuccess(folder.remotePath)
 
-        assertTrue(RemoveFileRemoteOperation(folder.remotePath + "sub/").execute(client).isSuccess)
-
-        assertTrue(sync(folder.remotePath).isSuccess)
-
-        assertNull(getStorageManager().getFileByPath(folder.remotePath + "sub/"))
+        assertNull(storageManager.getFileByPath(subFolderPath))
         assertFalse(subFolder.exists())
     }
 
     @Test
-    fun conflict_bothSidesChanged_isMarked() {
-        val folder = setUpTwoWaySyncFolder("/twoWaySyncConflict/")
-        uploadFile(getDummyFile("nonEmpty.txt"), folder.remotePath + "file.txt")
-        assertTrue(sync(folder.remotePath).isSuccess)
-
-        val before = getStorageManager().getFileByPath(folder.remotePath + "file.txt")
+    fun testWhenBothSidesChangedGivenShouldMarkConflict() {
+        val folder = setUpTwoWaySyncFolderWithFile("/twoWaySyncConflict/")
+        val before = storageManager.getFileByPath(folder.childPath(FILE_NAME))
 
         shortSleep()
         File(before.storagePath).writeText("local edit")
-        uploadDirectlyToServer(getDummyFile("chunkedFile.txt"), folder.remotePath + "file.txt")
+        uploadDirectlyToServer(getDummyFile(LARGE_DUMMY_FILE), folder.childPath(FILE_NAME))
 
         sync(folder.remotePath)
 
-        val after = getStorageManager().getFileByPath(folder.remotePath + "file.txt")
-        assertNotNull(
-            "Concurrently changed file should have been flagged as conflicting",
-            after.etagInConflict
-        )
+        val after = storageManager.getFileByPath(folder.childPath(FILE_NAME))
+        assertNotNull("Concurrently changed file should have been flagged as conflicting", after.etagInConflict)
     }
 
     @Test
-    fun noChanges_secondSyncIsNoop() {
-        val folder = setUpTwoWaySyncFolder("/twoWaySyncNoop/")
-        uploadFile(getDummyFile("nonEmpty.txt"), folder.remotePath + "file.txt")
-        assertTrue(sync(folder.remotePath).isSuccess)
+    fun testWhenNoChangesGivenShouldSecondSyncNotWork() {
+        val folder = setUpTwoWaySyncFolderWithFile("/twoWaySyncNoop/")
+        val before = storageManager.getFileByPath(folder.childPath(FILE_NAME))
 
-        val before = getStorageManager().getFileByPath(folder.remotePath + "file.txt")
+        syncAndAssertSuccess(folder.remotePath)
 
-        assertTrue(sync(folder.remotePath).isSuccess)
-
-        val after = getStorageManager().getFileByPath(folder.remotePath + "file.txt")
+        val after = storageManager.getFileByPath(folder.childPath(FILE_NAME))
         assertEquals(before.etag, after.etag)
         assertEquals(before.fileId, after.fileId)
     }
+
+    private fun sync(remotePath: String): RemoteOperationResult<*> =
+        SynchronizeFolderOperation(targetContext, remotePath, user, storageManager, false, true)
+            .execute(targetContext)
+
+    private fun syncAndAssertSuccess(remotePath: String) = assertTrue(sync(remotePath).isSuccess)
+
+    private fun setUpTwoWaySyncFolder(remotePath: String): OCFile {
+        createFolder(remotePath)
+        syncAndAssertSuccess(remotePath)
+
+        return storageManager.getFileByPath(remotePath).apply {
+            internalFolderSyncTimestamp = TWO_WAY_SYNC_ENABLED
+            storageManager.saveFile(this)
+        }
+    }
+
+    private fun setUpTwoWaySyncFolderWithFile(remotePath: String): OCFile = setUpTwoWaySyncFolder(remotePath).also {
+        uploadFile(getDummyFile(SMALL_DUMMY_FILE), it.childPath(FILE_NAME))
+        syncAndAssertSuccess(it.remotePath)
+    }
+
+    private fun uploadDirectlyToServer(localFile: File, remotePath: String) {
+        val modificationTimestamp = System.currentTimeMillis() / MILLIS_IN_SECOND
+        val result = UploadFileRemoteOperation(
+            localFile.absolutePath,
+            remotePath,
+            BINARY_MIME_TYPE,
+            modificationTimestamp
+        ).execute(client)
+        assertTrue(result.isSuccess)
+    }
+
+    private fun existsOnServer(remotePath: String): Boolean =
+        ExistenceCheckRemoteOperation(remotePath, false).execute(client).isSuccess
+
+    private fun serverEtagOf(remotePath: String): String? = ReadFileRemoteOperation(remotePath)
+        .execute(client)
+        .takeIf { it.isSuccess }
+        ?.let { (it.data.first() as RemoteFile).etag }
+
+    private fun waitUntilServerEtagChanges(remotePath: String, previousEtag: String): Boolean =
+        (1..SERVER_POLL_ATTEMPTS).any {
+            val changed = serverEtagOf(remotePath)?.let { etag -> etag != previousEtag } == true
+            if (!changed) {
+                shortSleep()
+            }
+            changed
+        }
+
+    private fun OCFile.childPath(name: String): String = remotePath + name
+
+    private fun OCFile.childFolderPath(name: String): String = remotePath + name + OCFile.PATH_SEPARATOR
 }
