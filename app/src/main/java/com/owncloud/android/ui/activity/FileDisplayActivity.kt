@@ -2090,6 +2090,10 @@ class FileDisplayActivity :
     fun canPreviewInMediaPager(file: OCFile?): Boolean =
         PreviewImageFragment.canBePreviewed(file) || (file != null && MimeTypeUtil.isVideo(file))
 
+    /**
+     * Downloaded and non-downloaded images are handled later in
+     * [com.owncloud.android.ui.preview.PreviewMediaPagerAdapter.fragmentFor]
+     */
     fun previewImageWithSearchContext(
         file: OCFile,
         searchFragment: Boolean,
@@ -2112,13 +2116,7 @@ class FileDisplayActivity :
             null
         }
 
-        if (file.isDown || MimeTypeUtil.isVideo(file)) {
-            startImagePreview(file, true, type, mediaState, sourceView)
-            return
-        }
-
-        val intent = imagePreviewIntent(file, type, mediaState) ?: return
-        fileOperationsHelper.startSyncForOutdatedFileAndIntent(file, intent)
+        startImagePreview(file, true, type, mediaState, sourceView)
     }
 
     fun previewFile(file: OCFile, setFabVisible: CompletionCallback?) {
