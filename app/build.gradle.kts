@@ -426,7 +426,6 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
 
     // region other libraries
-    compileOnly(libs.org.jbundle.util.osgi.wrapped.org.apache.http.client)
     implementation(libs.commons.httpclient.commons.httpclient) // remove after entire switch to lib v2
     implementation(libs.jackrabbit.webdav) // remove after entire switch to lib v2
     implementation(libs.constraintlayout)
@@ -438,14 +437,12 @@ dependencies {
     implementation(libs.commons.io)
     implementation(libs.eventbus)
     implementation(libs.ez.vcard)
-    implementation(libs.nnio)
     implementation(libs.bcpkix.jdk18on)
     implementation(libs.gson)
     implementation(libs.sectioned.recyclerview)
     implementation(libs.photoview)
     implementation(libs.android.gif.drawable)
     implementation(libs.qrcodescanner) // "com.github.blikoon:QRCodeScanner:0.1.2"
-    implementation(libs.flexbox)
     implementation(libs.androidsvg)
     implementation(libs.annotation)
     implementation(libs.emoji.google)
@@ -527,10 +524,6 @@ dependencies {
     // region Kotlin
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
-    // endregion
-
-    // region Stateless
-    implementation(libs.stateless4j)
     // endregion
 
     // region Google Play dependencies, upon each update first test: new registration, receive push
