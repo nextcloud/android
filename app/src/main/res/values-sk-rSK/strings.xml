@@ -298,7 +298,7 @@
     <string name="create_new_presentation">Nová prezentácia</string>
     <string name="create_new_spreadsheet">Nová tabuľka</string>
     <string name="create_presentation">Prezentácia</string>
-    <string name="create_rich_workspace">Pridať popis adresára</string>
+    <string name="create_rich_workspace">Pridať popis priečinka</string>
     <string name="create_spreadsheet">Tabuľka</string>
     <string name="create_tag_format">Vytvoriť značku: „%1$s“</string>
     <string name="credentials_disabled">Prihlasovacie údaje zakázané</string>
