@@ -51,6 +51,7 @@ import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.nextcloud.utils.extensions.DateExtensionsKt;
 import com.nextcloud.utils.extensions.FileDataStorageManagerExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
+import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
@@ -579,8 +580,8 @@ public class FileDataStorageManager {
             cv.remove(ProviderTableMeta.FILE_ETAG);
             cv.remove(ProviderTableMeta.FILE_STORAGE_PATH);
 
-            if (isFlaggedButNeverSynced(ocFile)) {
-                ensureLocalDirectoryForInternalTwoWaySync(ocFile);
+            if (isInternalTwoWaySyncAndNeverSynced(ocFile)) {
+                OCFileExtensionsKt.createStoragePath(ocFile, user.getAccountName());
             }
         }
 
@@ -627,25 +628,8 @@ public class FileDataStorageManager {
         return overridden;
     }
 
-    private boolean isFlaggedButNeverSynced(OCFile folder) {
+    private boolean isInternalTwoWaySyncAndNeverSynced(OCFile folder) {
         return folder.getInternalFolderSyncTimestamp() == INTERNAL_TWO_WAY_SYNC_NEVER_SYNCED;
-    }
-
-    /**
-     * A folder flagged for internal two-way sync must have a physical local directory as soon as
-     * it is flagged, so the user has somewhere to place new files right away instead of waiting
-     * for the next scheduled {@code InternalTwoWaySyncWork} run.
-     */
-    private void ensureLocalDirectoryForInternalTwoWaySync(OCFile folder) {
-        String savePath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), folder);
-        File localDir = new File(savePath);
-        if (localDir.exists() || localDir.mkdirs()) {
-            // storagePath is never persisted for folders (see cv.remove(FILE_STORAGE_PATH) above);
-            // it is only kept in-memory so callers holding this OCFile see the directory immediately.
-            folder.setStoragePath(savePath);
-        } else {
-            Log_OC.e(TAG, "Could not create local directory for internal two-way sync folder: " + savePath);
-        }
     }
 
     /**
