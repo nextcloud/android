@@ -7,8 +7,10 @@
 
 package com.owncloud.android.ui.adapter.uploadList.helper
 
+import com.nextcloud.client.account.User
 import com.owncloud.android.db.OCUpload
 
 interface UploadListItemOnClick {
     fun onLastUploadResultConflictClick(upload: OCUpload)
+    fun onCredentialErrorClick(user: User)
 }

@@ -436,14 +436,17 @@
     <string name="error_choosing_date">Erro ao escolher a data </string>
     <string name="error_comment_file">Erro ao comentar arquivo</string>
     <string name="error_crash_title">%1$s travou</string>
+    <string name="error_creating_file">Erro ao criar o arquivo</string>
     <string name="error_creating_file_from_template">Erro ao criar o arquivo a partir do modelo</string>
     <string name="error_fetching_sharees">Não é possível obter os destinatários do compartilhamento.</string>
     <string name="error_file_actions">Erro ao mostrar as ações do arquivo</string>
     <string name="error_file_lock">Erro ao alterar o status de trancamento do arquivo</string>
+    <string name="error_reading_file">Erro ao ler o arquivo</string>
     <string name="error_report_issue_action">Reportar</string>
     <string name="error_report_issue_text">Reportar problema ao rastreador? (requer uma conta GitHub)</string>
     <string name="error_retrieving_file">Erro ao recuperar o arquivo</string>
     <string name="error_retrieving_templates">Erro recuperando modelos</string>
+    <string name="error_saving_local_file">Erro ao salvar o arquivo local</string>
     <string name="error_setting_status_message">Erro ao definir a mensagem de status!</string>
     <string name="error_showing_encryption_dialog">Erro ao mostrar o diálogo de configuração de criptografia!</string>
     <string name="error_starting_direct_camera_upload">Erro ao inicializar a câmera</string>
@@ -575,6 +578,7 @@
     <string name="filename_forbidden_characters">Caracteres proibidos: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">O nome do arquivo contém pelo menos um caractere inválido  </string>
     <string name="filename_hint">Nome de arquivo</string>
+    <string name="filename_too_long">O nome do arquivo não pode ter mais de 250 caracteres</string>
     <string name="first_run_1_text">Mantenha seus dados seguros e sob seu controle</string>
     <string name="first_run_2_text">Colaboração segura e troca de arquivos</string>
     <string name="first_run_3_text">Webmail, calendário e contatos fáceis de usar</string>

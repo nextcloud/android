@@ -11,17 +11,17 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import com.owncloud.android.operations.UploadFileOperation
-import com.owncloud.android.ui.activity.UploadListActivity
+import com.owncloud.android.ui.activity.FileActivity
+import com.owncloud.android.ui.navigation.NavigatorActivity
+import com.owncloud.android.ui.navigation.NavigatorScreen
 
 class FileUploaderIntents(private val context: Context) {
 
     fun openUploadListIntent(operation: UploadFileOperation?): PendingIntent {
-        val intent = UploadListActivity.createIntent(
-            operation?.file,
-            operation?.user,
-            Intent.FLAG_ACTIVITY_CLEAR_TOP,
-            context
-        )
+        val intent = NavigatorActivity.intent(context, NavigatorScreen.UploadList).apply {
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            putExtra(FileActivity.EXTRA_USER, operation?.user)
+        }
 
         return PendingIntent.getActivity(
             context,
