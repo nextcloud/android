@@ -30,7 +30,6 @@ do
     if [[ $1 = "noCI" ]]; then
         ./gradlew --console plain genericDebugExecuteScreenshotTests \
         $record \
-        -Pminify \
         -Pscreenshot=true \
         -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest \
         -Pandroid.testInstrumentationRunnerArguments.COLOR="$color" \
@@ -44,7 +43,6 @@ do
     else
         ./gradlew --console plain genericDebugExecuteScreenshotTests \
         $record \
-        -Pminify \
         -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest \
         -Pandroid.testInstrumentationRunnerArguments.COLOR="$color" \
         -Pandroid.testInstrumentationRunnerArguments.DARKMODE="$darkMode" </dev/null > /dev/null \

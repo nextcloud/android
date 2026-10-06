@@ -47,4 +47,5 @@ jobs:
                       echo "kotlin.daemon.jvmargs=-Xmx3g -XX:+UseParallelGC -XX:MaxMetaspaceSize=512m"
                       echo "org.gradle.workers.max=2"
                     } >> gradle.properties
-                    ./gradlew ${{ matrix.tasks }} -Pminify
+                    ./gradlew ${{ matrix.tasks }}
+

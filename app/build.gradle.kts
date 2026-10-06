@@ -20,8 +20,6 @@ val shotTest = System.getenv("SHOT_TEST") == "true"
 val ciBuild = System.getenv("CI") == "true"
 val perfAnalysis = project.hasProperty("perfAnalysis")
 
-val minify = project.hasProperty("minify")
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -151,7 +149,7 @@ android {
             }
             debug {
                 optimization {
-                    enable = minify
+                    enable = true
                 }
                 enableUnitTestCoverage = project.hasProperty("coverage")
                 enableAndroidTestCoverage = project.hasProperty("coverage")
