@@ -10,6 +10,7 @@ import android.provider.DocumentsContract
 import androidx.documentfile.provider.DocumentFile
 import com.nextcloud.client.account.UserAccountManagerImpl
 import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.test.RandomStringGenerator
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.R
@@ -17,6 +18,7 @@ import com.owncloud.android.datamodel.OCFile.ROOT_PATH
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus
 import com.owncloud.android.db.OCUpload
+import com.owncloud.android.db.UploadResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.providers.DocumentsProviderUtils.assertExistsOnServer
 import com.owncloud.android.providers.DocumentsProviderUtils.assertListFilesEquals
@@ -229,7 +231,7 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
             it!!.write(content1)
         }
 
-        awaitUploadedToServer(file1, createdETag)
+        awaitUploadedToServer(file1)
 
         val remotePath = file1.getOCFile(storageManager)!!.remotePath
 
@@ -264,7 +266,7 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
             it!!.write(content1)
         }
 
-        awaitUploadedToServer(file1, createdETag)
+        awaitUploadedToServer(file1)
 
         val content2 = "new content".toByteArray()
 
@@ -277,28 +279,34 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
         assertEquals(String(content2), String(bytes))
     }
 
-    private fun awaitUploadedToServer(file: DocumentFile, etagBeforeUpload: String) {
+    private fun awaitUploadedToServer(file: DocumentFile) {
         val remotePath = file.getOCFile(storageManager)!!.remotePath
 
         repeat(UPLOAD_POLL_ATTEMPTS) {
-            if (file.getOCFile(storageManager)!!.etagOnServer != etagBeforeUpload) {
+            val upload = upload(remotePath)
+            if (upload?.uploadStatus == UploadStatus.UPLOAD_FAILED ||
+                (upload?.uploadStatus == UploadStatus.UPLOAD_SUCCEEDED && upload.lastResult != UploadResult.UPLOADED)
+            ) {
+                fail("upload of $remotePath failed with ${upload.lastResult}")
+            }
+
+            // the status is stored before the worker deletes the local copy and saves the file,
+            // so the upload only counts as finished once the worker has released it
+            if (upload?.uploadStatus == UploadStatus.UPLOAD_SUCCEEDED &&
+                !FileUploadWorker.isUploading(remotePath, user.accountName)
+            ) {
                 return
             }
 
-            failedUpload(remotePath)?.let {
-                fail("upload of $remotePath failed with ${it.lastResult}")
-            }
-
             shortSleep()
-            rootDir.listFiles()
         }
 
         fail("upload of $remotePath did not finish, stored uploads: ${describeUploads()}")
     }
 
-    private fun failedUpload(remotePath: String): OCUpload? = uploadsStorageManager
+    private fun upload(remotePath: String): OCUpload? = uploadsStorageManager
         .getUploadsForAccount(user.accountName)
-        .firstOrNull { it.remotePath == remotePath && it.uploadStatus == UploadStatus.UPLOAD_FAILED }
+        .firstOrNull { it.remotePath == remotePath }
 
     private fun describeUploads(): String = uploadsStorageManager
         .getUploadsForAccount(user.accountName)
