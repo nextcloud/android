@@ -43,7 +43,7 @@ Project-specific skills live in `./.claude/skills/<skill-name>/`. Load a skill w
 
 Google publishes official agent skills for Android development at https://github.com/android/skills (overview: https://developer.android.com/tools/agents/android-skills). Use them when a task matches their trigger and no project-specific skill above covers it. Install one with the Android CLI (`android skills add <skill-name>`) or read its `SKILL.md` directly from the repository. Project-specific skills and the rules in this file take precedence over the official skills.
 
-- **`r8-analyzer`** (https://github.com/android/skills/tree/main/performance/r8-analyzer) — Analyzes the R8 configuration and keep rules for redundant, overly broad, or library-subsumed rules. Use it when changing `app/src/main/keepRules/`, `app/proguard-rules.pro`, or the release `optimization {}` block.
+- **`r8-analyzer`** (https://github.com/android/skills/tree/main/performance/r8-analyzer) — Analyzes the R8 configuration and keep rules for redundant, overly broad, or library-subsumed rules. Use it when changing the keep rules in `app/src/main/keepRules/` or the `optimization {}` blocks in `app/build.gradle.kts`.
 
 ## General Guidance
 
