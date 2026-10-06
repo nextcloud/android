@@ -1,0 +1,22 @@
+# Nextcloud - Android Client
+#
+# SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+# ical4j instantiates the classes named in src/main/resources/ical4j.properties with Class.forName(), which R8
+# cannot see because it does not rewrite .properties files.
+-keep class com.nextcloud.utils.ical.AndroidCompatTimeZoneRegistryFactory,
+            net.fortuna.ical4j.util.MapTimeZoneCache {
+    <init>();
+}
+
+# TzHelper loads msTimezones* with a path relative to its own package.
+-keeppackagenames net.fortuna.ical4j.transform.compliance
+
+# Android has no java.time.zone.ZoneRulesProvider. Only ical4j's default TimeZoneRegistryImpl reaches subclasses of it,
+# and ical4j.properties replaces that registry with AndroidCompatTimeZoneRegistryFactory (kept above).
+-dontwarn java.time.zone.ZoneRulesProvider
+
+# threeten-extra (an ical4j dependency) annotates Interval.toString() with an annotation from the optional joda-convert
+# dependency. A missing annotation class is ignored at runtime.
+-dontwarn org.joda.convert.ToString

@@ -15,8 +15,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 
-import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.nextcloud.appReview.AppReviewShownModel;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;

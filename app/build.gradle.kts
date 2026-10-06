@@ -20,7 +20,7 @@ val shotTest = System.getenv("SHOT_TEST") == "true"
 val ciBuild = System.getenv("CI") == "true"
 val perfAnalysis = project.hasProperty("perfAnalysis")
 
-val minify = project.hasProperty("minify") // shall be off by default
+val minify = project.hasProperty("minify")
 
 plugins {
     alias(libs.plugins.android.application)
@@ -143,20 +143,16 @@ android {
         flavorDimensions += "default"
 
         buildTypes {
-            fun com.android.build.api.dsl.BuildType.commonMinifyConfig() {
-                isMinifyEnabled = minify
-                isShrinkResources = minify
-                proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
-                )
-            }
             release {
-                commonMinifyConfig()
+                optimization {
+                    enable = true
+                }
                 buildConfigField("String", "NC_TEST_SERVER_DATA_STRING", "\"\"")
             }
             debug {
-                commonMinifyConfig()
+                optimization {
+                    enable = minify
+                }
                 enableUnitTestCoverage = project.hasProperty("coverage")
                 enableAndroidTestCoverage = project.hasProperty("coverage")
                 resConfigs("xxxhdpi")

@@ -1,0 +1,19 @@
+# Nextcloud - Android Client
+#
+# SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+# Commons HttpClient 3.1 is compiled for Java 1.4, so AuthPolicy and CookiePolicy resolve the auth schemes, cookie
+# specs and themselves through the class$("name") helper, whose strings R8 does not rewrite. The schemes and specs are
+# then created with Class.newInstance().
+-keep class org.apache.commons.httpclient.auth.AuthPolicy
+-keep class org.apache.commons.httpclient.cookie.CookiePolicy
+-keep class * implements org.apache.commons.httpclient.auth.AuthScheme {
+    public <init>();
+}
+-keep class * implements org.apache.commons.httpclient.cookie.CookieSpec {
+    public <init>();
+}
+
+# DavException loads statuscode.properties with a path relative to its own package.
+-keeppackagenames org.apache.jackrabbit.webdav
