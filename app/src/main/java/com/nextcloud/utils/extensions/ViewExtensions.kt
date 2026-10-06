@@ -17,6 +17,7 @@ import android.view.ViewOutlineProvider
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.doOnLayout
 import androidx.core.view.updatePadding
 import com.google.android.material.behavior.HideViewOnScrollBehavior
 
@@ -81,7 +82,7 @@ fun View?.slideHideBottomBehavior(visible: Boolean) {
     if (params?.behavior !is HideViewOnScrollBehavior<*>) return
 
     val behavior = HideViewOnScrollBehavior.from(view)
-    view.post {
+    view.doOnLayout {
         if (visible) behavior.slideIn(view) else behavior.slideOut(view)
     }
 }
