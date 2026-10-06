@@ -67,7 +67,6 @@ import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.activity.TextEditorWebView;
 import com.owncloud.android.ui.dialog.SendFilesDialog;
 import com.owncloud.android.ui.dialog.SendShareDialog;
-import com.owncloud.android.ui.events.EncryptionEvent;
 import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.events.FileLockEvent;
 import com.owncloud.android.ui.events.SyncEventFinished;
@@ -321,6 +320,24 @@ public class FileOperationsHelper {
             return;
         }
 
+        synchronizeFile(file, user, storageManager, () -> startOpenFileIntent(openFileWithIntent));
+    }
+
+    public void startSyncForOutdatedFileAndIntent(OCFile file, Intent intent) {
+        new Thread(() -> {
+            User user = currentAccount.getUser();
+            final var storageManager = new FileDataStorageManager(user, fileActivity.getContentResolver());
+            final Runnable postSyncEventFinished = () -> EventBus.getDefault().post(new SyncEventFinished(intent));
+            if (!isDownloadedAndOutdated(storageManager.getFileById(file.getFileId()))) {
+                postSyncEventFinished.run();
+                return;
+            }
+
+            synchronizeFile(file, user, storageManager, postSyncEventFinished);
+        }).start();
+    }
+
+    private void synchronizeFile(OCFile file, User user, FileDataStorageManager storageManager, Runnable onSynced) {
         // a fresh object is needed; many things could have occurred to the file
         // since it was registered to observe again, assuming that local files
         // are linked to a remote file AT MOST, SOMETHING TO BE DONE;
@@ -336,11 +353,15 @@ public class FileOperationsHelper {
             showFileNotSyncedMessage();
         }
 
-        startOpenFileIntent(openFileWithIntent);
+        onSynced.run();
     }
 
     private boolean isDownloadedAndUpToDate(@Nullable OCFile storedFile) {
         return storedFile != null && storedFile.isDown() && !OCFileExtensionsKt.isLocalETagOutdated(storedFile);
+    }
+
+    private boolean isDownloadedAndOutdated(@Nullable OCFile storedFile) {
+        return storedFile != null && storedFile.isDown() && OCFileExtensionsKt.isLocalETagOutdated(storedFile);
     }
 
     private void startConflictsResolveActivity(OCFile file, User user) {

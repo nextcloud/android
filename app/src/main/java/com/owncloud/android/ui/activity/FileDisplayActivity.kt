@@ -2112,8 +2112,13 @@ class FileDisplayActivity :
             null
         }
 
-        val showPreview = file.isDown || MimeTypeUtil.isVideo(file)
-        startImagePreview(file, showPreview, type, mediaState, sourceView)
+        if (file.isDown || MimeTypeUtil.isVideo(file)) {
+            startImagePreview(file, true, type, mediaState, sourceView)
+            return
+        }
+
+        val intent = imagePreviewIntent(file, type, mediaState) ?: return
+        fileOperationsHelper.startSyncForOutdatedFileAndIntent(file, intent)
     }
 
     fun previewFile(file: OCFile, setFabVisible: CompletionCallback?) {
@@ -2128,10 +2133,14 @@ class FileDisplayActivity :
             startPdfPreview(file)
         } else if (PreviewTextFileFragment.canBePreviewed(file)) {
             setFabVisible?.onComplete(false)
-            startTextPreview(file, false)
+            fileOperationsHelper.startSyncForOutdatedFileAndIntent(file, textPreviewIntent(file))
         } else if (canPreviewInAudioPlayer(file)) {
             setFabVisible?.onComplete(false)
-            startAudioPreview(file, true, false)
+            if (file.isDownloading) {
+                fileOperationsHelper.startSyncForOutdatedFileAndIntent(file, audioPreviewIntent(file))
+            } else {
+                startAudioPlayer(file)
+            }
         } else {
             fileOperationsHelper.openFile(file)
         }
@@ -2779,13 +2788,15 @@ class FileDisplayActivity :
         if ((showPreview && file.isDown && !file.isDownloading) || streamMedia) {
             startAudioPlayer(file)
         } else {
-            val previewIntent = Intent()
-            previewIntent.putExtra(EXTRA_FILE, file)
-            previewIntent.putExtra(AUDIO_PREVIEW, true)
             val fileOperationsHelper =
                 FileOperationsHelper(this, userAccountManager, connectivityService, editorUtils)
-            fileOperationsHelper.startSyncForFileAndIntent(file, previewIntent)
+            fileOperationsHelper.startSyncForFileAndIntent(file, audioPreviewIntent(file))
         }
+    }
+
+    private fun audioPreviewIntent(file: OCFile): Intent = Intent().apply {
+        putExtra(EXTRA_FILE, file)
+        putExtra(AUDIO_PREVIEW, true)
     }
 
     private fun startAudioPlayer(file: OCFile) {
@@ -2816,13 +2827,15 @@ class FileDisplayActivity :
             configureToolbarForPreview(file)
             showBottomNavigationBar(false)
         } else {
-            val previewIntent = Intent()
-            previewIntent.putExtra(EXTRA_FILE, file)
-            previewIntent.putExtra(TEXT_PREVIEW, true)
             val fileOperationsHelper =
                 FileOperationsHelper(this, userAccountManager, connectivityService, editorUtils)
-            fileOperationsHelper.startSyncForFileAndIntent(file, previewIntent)
+            fileOperationsHelper.startSyncForFileAndIntent(file, textPreviewIntent(file))
         }
+    }
+
+    private fun textPreviewIntent(file: OCFile?): Intent = Intent().apply {
+        putExtra(EXTRA_FILE, file)
+        putExtra(TEXT_PREVIEW, true)
     }
 
     /**
