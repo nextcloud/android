@@ -72,6 +72,8 @@ class TwoWaySyncOperation(
         return !localFile.exists() && localFile.parentFile?.exists() == true
     }
 
+    // we need eTag comparison because this return value used for deletion thus we must be sure
+    // because deleting it would also delete that new file
     private fun isFolderDeletedLocally(remote: OCFile, local: OCFile): Boolean =
         local.etag.equals(remote.etag, ignoreCase = true) &&
             !File(FileStorageUtils.getDefaultSavePathFor(user.accountName, local)).exists() &&
