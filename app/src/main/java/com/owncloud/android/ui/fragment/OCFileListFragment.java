@@ -49,6 +49,7 @@ import com.nextcloud.client.documentscan.DocumentScanActivity;
 import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.client.systembars.SystemBarBackgroundCallbacks;
 import com.nextcloud.client.utils.Throttler;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.ui.fileactions.FileAction;
@@ -905,6 +906,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             //set actionMode color
             int statusBarColor = ContextCompat.getColor(requireContext(), R.color.action_mode_background);
             viewThemeUtils.platform.colorStatusBar(requireActivity(), statusBarColor);
+            SystemBarBackgroundCallbacks.colorStatusBar(requireActivity(), statusBarColor);
 
             // hide FAB in multi selection mode
             setFabVisible(false);
@@ -982,6 +984,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             final var activity = getActivity();
             if (activity != null) {
                 viewThemeUtils.platform.resetStatusBar(activity);
+                SystemBarBackgroundCallbacks.apply(activity, viewThemeUtils);
             }
 
             final var adapter = getCommonAdapter();
