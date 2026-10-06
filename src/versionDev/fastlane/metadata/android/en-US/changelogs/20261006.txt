@@ -1,0 +1,15 @@
+fix(l10n): Update translations from Transifex
+refactor(di): convert to Kotlin
+Rename .java to .kt
+fix(l10n): Update translations from Transifex
+remove unused functions
+update callers
+update callers
+extract common logic that needed from file activity
+convert activity to fragment
+add agent skill for navigator
+  OCCapability capability = result.getResultData();
+use Provider for view theme utils since ViewThemeUtils can change and Provider can gives us retrieving multiple instances.
+set account name as well
+make the theme cache (memory-only) user account name aware instead url
+dont use singleton instance for thumbnails
