@@ -24,13 +24,12 @@ scripts/deleteOldComments.sh "$BRANCH" "IT" "$DRONE_PULL_REQUEST"
 
 scripts/wait_for_emulator.sh || exit 1
 
-./gradlew installGplayDebugAndroidTest -Pminify
+./gradlew installGplayDebugAndroidTest
 
 gradle_arguments=(
     -Pcoverage
     -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest
     -Pandroid.testInstrumentationRunnerArguments.filter=com.nextcloud.test.FlakyTestFilter,com.nextcloud.test.ServerVersionFilter
-    -Pminify
 )
 
 if [[ "$BRANCH" =~ ^stable([0-9]+)$ ]]; then
