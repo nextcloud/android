@@ -9,6 +9,7 @@
  */
 package com.owncloud.android.ui.activities.data.activities
 
+import androidx.annotation.VisibleForTesting
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.MainApp
@@ -59,13 +60,7 @@ class ActivitiesServiceApiImpl(private val accountManager: UserAccountManager) :
         val client = OwnCloudClientManagerFactory.getDefaultSingleton()
             .getNextcloudClientFor(ocAccount, context)
 
-        val operation = if (lastGiven > 0) {
-            GetActivitiesRemoteOperation(lastGiven)
-        } else {
-            GetActivitiesRemoteOperation()
-        }
-
-        val result = operation.execute(client)
+        val result = createOperation(lastGiven).execute(client)
 
         if (result.isSuccess && result.getData() != null) {
             val data = result.getData()
@@ -87,5 +82,15 @@ class ActivitiesServiceApiImpl(private val accountManager: UserAccountManager) :
 
     companion object {
         private val TAG: String = ActivitiesServiceApiImpl::class.java.simpleName
+
+        // Without a file ID the operation does not filter the activities by file
+        private const val NO_FILE_ID = -1L
+
+        @VisibleForTesting
+        internal fun createOperation(lastGiven: Long): GetActivitiesRemoteOperation = if (lastGiven > 0) {
+            GetActivitiesRemoteOperation(NO_FILE_ID, lastGiven)
+        } else {
+            GetActivitiesRemoteOperation()
+        }
     }
 }
