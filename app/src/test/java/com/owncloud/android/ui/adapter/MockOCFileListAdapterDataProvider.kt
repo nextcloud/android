@@ -9,7 +9,7 @@ package com.owncloud.android.ui.adapter
 
 import com.nextcloud.client.database.entity.FileEntity
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.ui.adapter.helper.OCFileListAdapterDataProvider
+import com.owncloud.android.ui.adapter.filelist.OCFileListAdapterDataProvider
 import com.owncloud.android.utils.MimeType
 
 @Suppress("LongParameterList", "MagicNumber")

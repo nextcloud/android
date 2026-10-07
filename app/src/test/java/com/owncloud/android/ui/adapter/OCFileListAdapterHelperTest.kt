@@ -11,7 +11,7 @@ import android.content.Context
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.ui.adapter.helper.OCFileListAdapterHelper
+import com.owncloud.android.ui.adapter.filelist.OCFileListAdapterHelper
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.MimeType
 import io.mockk.every
