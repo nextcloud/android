@@ -1,21 +1,12 @@
 # Nextcloud - Android Client
 #
-# SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# com.github.nextcloud:android-library ships no consumer rules, but parses OCS responses with Gson into models that
-# mostly lack @SerializedName, and the app persists several of them as JSON (DirectEditing, PredefinedStatus,
-# ShareeUser, Tag, ImageDimension, GeoLocation). The models are spread across operation packages, so only fields and
-# constructors are kept: unused classes are still removed and class names, methods and code are still optimized and
-# obfuscated. Keeping the constructors tells R8 full mode that Gson may instantiate the models; otherwise it treats
-# models without a reachable constructor call as never created and turns casts to them into ClassCastExceptions.
-# Move this into the library's consumer rules once it publishes them.
 -keepclassmembers class com.owncloud.android.lib.**, com.nextcloud.android.lib.** {
     !static !transient <fields>;
     <init>(...);
 }
 
-# R8 full mode keeps the Signature attribute only on kept classes. Gson resolves the type argument of these generic
-# OCS envelopes from it; without it the payload is parsed as a LinkedTreeMap and the cast to the model fails.
 -keep,allowobfuscation,allowshrinking class com.owncloud.android.lib.ocs.ServerResponse,
         com.owncloud.android.lib.ocs.OCSResponse

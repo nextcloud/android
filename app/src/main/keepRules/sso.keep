@@ -1,11 +1,8 @@
 # Nextcloud - Android Client
 #
-# SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# Single Sign-On client apps send these classes through Java serialization, so class names, field names and
-# serialVersionUID must match the Android-SingleSignOn library. They are never constructed in this app, so without
-# this rule R8 treats them as uninstantiated and removes them. PlainHeader is also returned to clients as Gson JSON.
 -keep class com.nextcloud.android.sso.aidl.NextcloudRequest,
             com.nextcloud.android.sso.QueryParam,
             com.nextcloud.android.sso.PlainHeader {

@@ -1,13 +1,8 @@
 # Nextcloud - Android Client
 #
-# SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# Gson maps JSON keys to field names by reflection. Gson's bundled rules only cover fields annotated with
-# @SerializedName, which these models do not use. Their JSON is either persisted (SharedPreferences, database),
-# exchanged with the server and other clients, or received from the server, so field names must stay as written.
-# Keeping the constructors tells R8 full mode that Gson may instantiate the models; otherwise it treats models without
-# a reachable constructor call as never created and turns casts to them into ClassCastExceptions.
 -keepclassmembers class com.owncloud.android.authentication.AuthObject,
         com.owncloud.android.authentication.Poll,
         com.owncloud.android.authentication.LoginUrlInfo,
@@ -23,8 +18,6 @@
     <init>(...);
 }
 
-# End-to-end encryption metadata is signed and shared with the server and the other Nextcloud clients.
-# EncryptionUtils serializes it with excludeFieldsWithModifiers(0), so every field is part of the format.
 -keepclassmembers class com.owncloud.android.datamodel.e2e.**,
         com.owncloud.android.datamodel.EncryptedFiledrop {
     <fields>;

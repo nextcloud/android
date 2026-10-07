@@ -1,11 +1,8 @@
 # Nextcloud - Android Client
 #
-# SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ez-vcard's CaseClasses look up the predefined parameter values (TelephoneType.CELL, ImageType.JPEG, ...) with
-# Class.getFields() and create unknown values through these constructors with getDeclaredConstructor().
-# SupportedVersionsHelper reads the @SupportedVersions annotation from the same public static fields.
 -keepclassmembers class * extends ezvcard.parameter.VCardParameter {
     public static <fields>;
     <init>(java.lang.String);
