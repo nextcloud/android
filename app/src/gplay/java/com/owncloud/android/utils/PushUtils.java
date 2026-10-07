@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2017-2018 Mario Danic <mario@lovelyhq.com>
@@ -15,7 +16,6 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Base64;
 
-import com.google.gson.Gson;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
@@ -24,8 +24,8 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
-import com.owncloud.android.datamodel.PushConfigurationState;
 import com.owncloud.android.datamodel.SignatureVerification;
+import com.owncloud.android.datamodel.pushconfig.PushConfigurationState;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -144,10 +144,8 @@ public final class PushUtils {
             if (remoteOperationResult.getHttpCode() == HttpStatus.SC_ACCEPTED) {
                 String arbitraryValue;
                 if (!TextUtils.isEmpty(arbitraryValue = arbitraryDataProvider.getValue(account.name, KEY_PUSH))) {
-                    Gson gson = new Gson();
-                    PushConfigurationState pushArbitraryData = gson.fromJson(arbitraryValue,
-                            PushConfigurationState.class);
-                    RemoteOperationResult unregisterResult = new UnregisterAccountDeviceForProxyOperation(
+                    PushConfigurationState pushArbitraryData = PushConfigurationState.fromJson(arbitraryValue);
+                    final var unregisterResult = new UnregisterAccountDeviceForProxyOperation(
                         context.getResources().getString(R.string.push_server_url),
                         pushArbitraryData.getDeviceIdentifier(),
                         pushArbitraryData.getDeviceIdentifierSignature(),
@@ -187,18 +185,16 @@ public final class PushUtils {
                 Context context = MainApp.getAppContext();
                 String providerValue;
                 PushConfigurationState accountPushData;
-                Gson gson = new Gson();
                 for (Account account : accountManager.getAccounts()) {
                     providerValue = arbitraryDataProvider.getValue(account.name, KEY_PUSH);
                     if (!TextUtils.isEmpty(providerValue)) {
-                        accountPushData = gson.fromJson(providerValue,
-                                PushConfigurationState.class);
+                        accountPushData = PushConfigurationState.fromJson(providerValue);
                     } else {
                         accountPushData = null;
                     }
 
                     if (accountPushData != null && !accountPushData.getPushToken().equals(token) &&
-                            !accountPushData.isShouldBeDeleted() ||
+                            !accountPushData.getShouldBeDeleted() ||
                             TextUtils.isEmpty(providerValue)) {
                         try {
                             OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
@@ -223,11 +219,18 @@ public final class PushUtils {
                                     .run();
 
                                 if (resultProxy.isSuccess()) {
+                                    String deviceIdentifier = pushResponse.getDeviceIdentifier();
+                                    String signature = pushResponse.getSignature();
+                                    String userPublicKey = pushResponse.getPublicKey();
+                                    if (deviceIdentifier == null || signature == null || userPublicKey == null) {
+                                        Log_OC.e(TAG, "Push registration response is incomplete, not storing it");
+                                        continue;
+                                    }
+
                                     PushConfigurationState pushArbitraryData = new PushConfigurationState(token,
-                                            pushResponse.getDeviceIdentifier(), pushResponse.getSignature(),
-                                            pushResponse.getPublicKey(), false);
+                                            deviceIdentifier, signature, userPublicKey, false);
                                     arbitraryDataProvider.storeOrUpdateKeyValue(account.name, KEY_PUSH,
-                                            gson.toJson(pushArbitraryData));
+                                            PushConfigurationState.toJson(pushArbitraryData));
                                 }
                             } else if (remoteOperationResult.getCode() ==
                                     RemoteOperationResult.ResultCode.ACCOUNT_USES_STANDARD_PASSWORD) {
@@ -243,7 +246,7 @@ public final class PushUtils {
                         } catch (OperationCanceledException e) {
                             Log_OC.d(TAG, "Failed via OperationCanceledException");
                         }
-                    } else if (accountPushData != null && accountPushData.isShouldBeDeleted()) {
+                    } else if (accountPushData != null && accountPushData.getShouldBeDeleted()) {
                         deleteRegistrationForAccount(account);
                     }
                 }
@@ -401,7 +404,6 @@ public final class PushUtils {
 
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
         String arbitraryValue;
-        Gson gson = new Gson();
         PushConfigurationState pushArbitraryData;
 
         try {
@@ -409,8 +411,8 @@ public final class PushUtils {
             if (accounts.length > 0) {
                 for (Account account : accounts) {
                     if (!TextUtils.isEmpty(arbitraryValue = arbitraryDataProvider.getValue(account.name, KEY_PUSH))) {
-                        pushArbitraryData = gson.fromJson(arbitraryValue, PushConfigurationState.class);
-                        if (!pushArbitraryData.isShouldBeDeleted()) {
+                        pushArbitraryData = PushConfigurationState.fromJson(arbitraryValue);
+                        if (!pushArbitraryData.getShouldBeDeleted()) {
                             publicKey = (PublicKey) readKeyFromString(true, pushArbitraryData.getUserPublicKey());
                             signature.initVerify(publicKey);
                             signature.update(subjectBytes);
