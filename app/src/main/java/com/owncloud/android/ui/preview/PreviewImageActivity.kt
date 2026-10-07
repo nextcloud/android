@@ -563,7 +563,7 @@ class PreviewImageActivity :
         viewPager?.setCurrentItem(position, true)
     }
 
-    fun enterPictureInPicture(): Boolean = viewPager?.let { pictureInPicture.enter(it) } == true
+    fun enterPictureInPicture(): Boolean = pictureInPicture.enter()
 
     override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean, newConfig: Configuration) {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
