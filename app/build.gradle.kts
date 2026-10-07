@@ -148,9 +148,6 @@ android {
                 buildConfigField("String", "NC_TEST_SERVER_DATA_STRING", "\"\"")
             }
             debug {
-                optimization {
-                    enable = true
-                }
                 enableUnitTestCoverage = project.hasProperty("coverage")
                 enableAndroidTestCoverage = project.hasProperty("coverage")
                 resConfigs("xxxhdpi")
