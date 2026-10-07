@@ -1135,6 +1135,7 @@ public class UploadFileOperation extends SyncOperation {
 
                 final long serverMaxChunkSize = getCapabilities().getChunkedUploadMaxSize();
                 Log_OC.d("CHUNK_SIZE","server max chunk size: " + serverMaxChunkSize);
+                Log_OC.d("CHUNK_SIZE", "calc chunk size: " + ChunkedFileUploadRemoteOperation.chunkSize(mOnWifiOnly, serverMaxChunkSize));
                 if (size > ChunkedFileUploadRemoteOperation.chunkSize(mOnWifiOnly, serverMaxChunkSize)) {
                     Log_OC.d(TAG, "chunked upload operation will be used");
 
