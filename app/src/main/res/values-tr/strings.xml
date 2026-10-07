@@ -663,7 +663,7 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Bu klasörde başka bir klasör yok.</string>
     <string name="locate_folder">Klasörü seçin</string>
-    <string name="lock_expiration_info">Geçerlilik süresi sonu: %1$s</string>
+    <string name="lock_expiration_info">Geçerlilik sonu: %1$s</string>
     <string name="lock_file">Dosyayı kilitle</string>
     <string name="locked_by">%1$s tarafından kilitlenmiş</string>
     <string name="locked_by_app">%1$s uygulaması tarafından kilitlenmiş</string>
