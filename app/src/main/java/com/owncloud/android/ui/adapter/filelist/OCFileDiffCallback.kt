@@ -4,7 +4,7 @@
  * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.adapter
+package com.owncloud.android.ui.adapter.filelist
 
 import androidx.recyclerview.widget.DiffUtil
 import com.owncloud.android.datamodel.OCFile

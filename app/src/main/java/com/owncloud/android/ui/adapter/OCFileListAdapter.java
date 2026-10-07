@@ -65,6 +65,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.filelist.AvatarShareesProvider;
 import com.owncloud.android.ui.adapter.filelist.OCFileListAdapterDataProvider;
 import com.owncloud.android.ui.adapter.filelist.OCFileListAdapterHelper;
+import com.owncloud.android.ui.adapter.filelist.OCFileListDiffer;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
@@ -89,10 +90,7 @@ import java.util.UUID;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
-import androidx.recyclerview.widget.AsyncDifferConfig;
-import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.ListUpdateCallback;
 import androidx.recyclerview.widget.RecyclerView;
 import kotlin.Pair;
 import kotlin.Unit;
@@ -146,33 +144,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final ThumbnailGenerator thumbnailGenerator;
     private final AvatarGenerator avatarGenerator;
 
-    private boolean headerDisplayed;
-
-    private final ListUpdateCallback listUpdateCallback = new ListUpdateCallback() {
-        @Override
-        public void onInserted(int position, int count) {
-            notifyItemRangeInserted(position + headerOffset(), count);
-        }
-
-        @Override
-        public void onRemoved(int position, int count) {
-            notifyItemRangeRemoved(position + headerOffset(), count);
-        }
-
-        @Override
-        public void onMoved(int fromPosition, int toPosition) {
-            notifyItemMoved(fromPosition + headerOffset(), toPosition + headerOffset());
-        }
-
-        @Override
-        public void onChanged(int position, int count, @Nullable Object payload) {
-            notifyItemRangeChanged(position + headerOffset(), count, payload);
-        }
-    };
-
-    private final AsyncListDiffer<OCFile> differ = new AsyncListDiffer<>(
-        listUpdateCallback,
-        new AsyncDifferConfig.Builder<>(new OCFileDiffCallback()).build());
+    private final OCFileListDiffer differ = new OCFileListDiffer(this, this::shouldShowHeader);
 
     public OCFileListAdapter(
         Activity activity,
@@ -249,14 +221,14 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void selectAll(boolean value) {
         if (value) {
-            ocFileListDelegate.addToCheckedFiles(mFiles());
+            ocFileListDelegate.addToCheckedFiles(getFiles());
         } else {
             clearCheckedItems();
         }
     }
 
     public int getItemPosition(@NonNull OCFile file) {
-        int position = mFiles().indexOf(file);
+        int position = getFiles().indexOf(file);
 
         if (shouldShowHeader()) {
             position = position + 1;
@@ -265,40 +237,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return position;
     }
 
-    private List<OCFile> mFiles() {
-        return differ.getCurrentList();
-    }
-
-    private int headerOffset() {
-        return shouldShowHeader() ? 1 : 0;
-    }
-
-    private void submitFiles(@NonNull List<OCFile> newFiles) {
-        differ.submitList(newFiles, () -> notifyItemChanged(getItemCount() - 1));
-    }
-
-    private void updateHeader() {
-        boolean shouldShowHeader = shouldShowHeader();
-
-        if (shouldShowHeader == headerDisplayed) {
-            if (shouldShowHeader) {
-                notifyItemChanged(0);
-            }
-            return;
-        }
-
-        headerDisplayed = shouldShowHeader;
-
-        if (shouldShowHeader) {
-            notifyItemInserted(0);
-        } else {
-            notifyItemRemoved(0);
-        }
-    }
-
     public void setFavoriteAttributeForItemID(String remotePath, boolean favorite, boolean removeFromList) {
         List<OCFile> filesToDelete = new ArrayList<>();
-        List<OCFile> newFiles = new ArrayList<>(mFiles());
+        List<OCFile> newFiles = new ArrayList<>(getFiles());
         OCFile changedFile = null;
         for (OCFile file : newFiles) {
             if (file.getRemotePath().equals(remotePath)) {
@@ -341,7 +282,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         final OCFile updatedFile = changedFile;
         new Handler(Looper.getMainLooper()).post(() -> {
             sortedFiles.removeAll(filesToDelete);
-            submitFiles(sortedFiles);
+            differ.submit(sortedFiles);
 
             if (updatedFile != null && !removeFromList) {
                 notifyItemChanged(getItemPosition(updatedFile));
@@ -350,7 +291,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public void refreshCommentsCount(String fileId) {
-        for (OCFile file : mFiles()) {
+        for (OCFile file : getFiles()) {
             if (file.getRemoteId().equals(fileId)) {
                 file.setUnreadCommentsCount(0);
                 break;
@@ -402,10 +343,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             position--;
         }
 
-        if (position == mFiles().size()) {
+        if (position == getFiles().size()) {
             return footerId;
-        } if (position < mFiles().size()) {
-            return mFiles().get(position).getFileId();
+        } if (position < getFiles().size()) {
+            return getFiles().get(position).getFileId();
         }
 
         // fallback
@@ -414,12 +355,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        return mFiles().size() + (shouldShowHeader() ? 2 : 1);
+        return getFiles().size() + (shouldShowHeader() ? 2 : 1);
     }
 
     @Nullable
     public OCFile getItem(int position) {
-        if (mFiles() == null || mFiles().isEmpty()) {
+        if (getFiles() == null || getFiles().isEmpty()) {
             return null;
         }
 
@@ -437,11 +378,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             newPosition = position - 1;
         }
 
-        if (newPosition >= mFiles().size()) {
+        if (newPosition >= getFiles().size()) {
             return null;
         }
 
-        return mFiles().get(newPosition);
+        return getFiles().get(newPosition);
     }
 
     @Override
@@ -450,8 +391,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return VIEW_TYPE_HEADER;
         }
 
-        if (shouldShowHeader() && position == mFiles().size() + 1 ||
-            (!shouldShowHeader() && position == mFiles().size())) {
+        if (shouldShowHeader() && position == getFiles().size() + 1 ||
+            (!shouldShowHeader() && position == getFiles().size())) {
             return VIEW_TYPE_FOOTER;
         }
 
@@ -468,7 +409,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public boolean isEmpty() {
-        return mFiles().isEmpty();
+        return getFiles().isEmpty();
     }
 
     @NonNull
@@ -790,7 +731,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void updateRecommendedFiles(@NonNull List<OCFile> value) {
         recommendedFiles.clear();
         recommendedFiles.addAll(value);
-        headerDisplayed = shouldShowHeader();
+        differ.syncHeaderState();
         notifyDataSetChanged();
     }
 
@@ -845,11 +786,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private String getFooterText() {
         int filesCount = 0;
         int foldersCount = 0;
-        int count = mFiles().size();
+        int count = getFiles().size();
         OCFile file;
         final boolean showHiddenFiles = preferences.isShowHiddenFilesEnabled();
         for (int i = 0; i < count; i++) {
-            file = mFiles().get(i);
+            file = getFiles().get(i);
             if (file.isFolder()) {
                 foldersCount++;
             } else {
@@ -961,8 +902,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 currentDirectory = directory;
             }
 
-            updateHeader();
-            submitFiles(new ArrayList<>(newFiles));
+            differ.updateHeader();
+            differ.submit(new ArrayList<>(newFiles));
         });
     }
 
@@ -1012,7 +953,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         boolean foldersBeforeFiles = preferences.isSortFoldersBeforeFiles();
         boolean favoritesFirst = preferences.isSortFavoritesFirst();
-        submitFiles(sortOrder.sortCloudFiles(new ArrayList<>(mFiles()), foldersBeforeFiles, favoritesFirst));
+        differ.submit(sortOrder.sortCloudFiles(new ArrayList<>(getFiles()), foldersBeforeFiles, favoritesFirst));
 
         this.sortOrder = sortOrder;
     }
@@ -1031,15 +972,15 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public void setFiles(List<OCFile> files) {
-        submitFiles(new ArrayList<>(files));
+        differ.submit(new ArrayList<>(files));
     }
 
     public List<OCFile> getFiles() {
-        return mFiles();
+        return differ.getFiles();
     }
 
     public void replaceFile(@NonNull OCFile file) {
-        List<OCFile> newFiles = new ArrayList<>(mFiles());
+        List<OCFile> newFiles = new ArrayList<>(getFiles());
         int index = newFiles.indexOf(file);
         if (index == -1) {
             Log_OC.d(TAG, "File cannot be found in adapter's files");
@@ -1047,7 +988,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         newFiles.set(index, file);
-        submitFiles(newFiles);
+        differ.submit(newFiles);
     }
 
     @Nullable
@@ -1065,9 +1006,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         mFilesAll.add(file);
 
-        List<OCFile> newFiles = new ArrayList<>(mFiles());
+        List<OCFile> newFiles = new ArrayList<>(getFiles());
         newFiles.add(file);
-        submitFiles(newFiles);
+        differ.submit(newFiles);
     }
 
     @Override
@@ -1144,7 +1085,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getFilesCount() {
-        return mFiles().size();
+        return getFiles().size();
     }
 
     @Override
@@ -1160,7 +1101,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @VisibleForTesting
     public void setCurrentDirectory(OCFile folder) {
         currentDirectory = folder;
-        headerDisplayed = shouldShowHeader();
+        differ.syncHeaderState();
     }
 
     // payload only for local file indicator
@@ -1192,15 +1133,15 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public void removeAllFiles() {
         mFilesAll.clear();
-        submitFiles(new ArrayList<>());
+        differ.submit(new ArrayList<>());
     }
 
     public void removeFile(@NonNull OCFile file) {
         mFilesAll.remove(file);
 
-        List<OCFile> newFiles = new ArrayList<>(mFiles());
+        List<OCFile> newFiles = new ArrayList<>(getFiles());
         newFiles.remove(file);
-        submitFiles(newFiles);
+        differ.submit(newFiles);
     }
 
     public void updateFile(@NonNull OCFile updatedFile) {
@@ -1209,7 +1150,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mFilesAll.set(allIndex, updatedFile);
         }
 
-        List<OCFile> newFiles = new ArrayList<>(mFiles());
+        List<OCFile> newFiles = new ArrayList<>(getFiles());
         int oldIndex = helper.indexOfSameRemoteFile(newFiles, updatedFile);
         if (oldIndex == -1) {
             return;
@@ -1227,7 +1168,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             newFiles = currentSortOrder.sortCloudFiles(newFiles, foldersBeforeFiles, favoritesFirst);
         }
 
-        submitFiles(newFiles);
+        differ.submit(newFiles);
 
         if (shouldShowRecommendedFiles() && recommendedFilesAdapter != null && updatedFile.isRecommendedFile()) {
             int pos = recommendedFilesAdapter.getItemPosition(updatedFile);
