@@ -166,7 +166,7 @@ public class UploadFileOperation extends SyncOperation {
 
     private final User user;
     private final OCUpload mUpload;
-    public final UploadsStorageManager uploadsStorageManager;
+    private final UploadsStorageManager uploadsStorageManager;
     private final ConnectivityService connectivityService;
     private final PowerManagementService powerManagementService;
 
@@ -176,7 +176,7 @@ public class UploadFileOperation extends SyncOperation {
     private final UploadFileResolver uploadFileResolver;
 
     public static OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType) {
-        return UploadFileResolver.Companion.obtainNewOCFileToUpload(remotePath, localPath, mimeType);
+        return UploadFileResolver.obtainNewOCFileToUpload(remotePath, localPath, mimeType);
     }
 
     public UploadFileOperation(UploadsStorageManager uploadsStorageManager,
@@ -362,6 +362,10 @@ public class UploadFileOperation extends SyncOperation {
 
     public long getOCUploadId() {
         return mOCUploadId;
+    }
+
+    public UploadsStorageManager getUploadsStorageManager() {
+        return uploadsStorageManager;
     }
 
     public Set<OnDatatransferProgressListener> getDataTransferListeners() {
