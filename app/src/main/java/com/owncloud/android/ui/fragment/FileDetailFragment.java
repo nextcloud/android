@@ -23,9 +23,11 @@ import android.view.ViewGroup;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.di.ViewModelFactory;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
@@ -40,6 +42,7 @@ import com.nextcloud.utils.MenuUtils;
 import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
+import com.nextcloud.utils.extensions.LifecycleOwnerExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.nextcloud.utils.text.DisplayTextFormatter;
 import com.owncloud.android.MainApp;
@@ -63,9 +66,8 @@ import com.owncloud.android.ui.adapter.FileDetailTabAdapter;
 import com.owncloud.android.ui.adapter.progressListener.DownloadProgressListener;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
-import com.owncloud.android.ui.events.EventBusFactory;
 import com.owncloud.android.ui.events.FavoriteEvent;
-import com.owncloud.android.ui.events.FileDownloadProgressEvent;
+import com.owncloud.android.ui.fragment.filedetail.FileDetailFragmentViewModel;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
@@ -85,6 +87,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 /**
@@ -108,6 +111,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     private DownloadProgressListener progressListener;
     private ToolbarActivity toolbarActivity;
     private int activeTab;
+    private FileDetailFragmentViewModel viewModel;
 
     @Inject AppPreferences preferences;
     @Inject ConnectivityService connectivityService;
@@ -116,6 +120,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     @Inject FileDataStorageManager storageManager;
     @Inject ViewThemeUtils viewThemeUtils;
     @Inject BackgroundJobManager backgroundJobManager;
+    @Inject ViewModelFactory vmFactory;
 
     /**
      * Public factory method to create new FileDetailFragment instances.
@@ -203,6 +208,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        viewModel = new ViewModelProvider(this, vmFactory).get(FileDetailFragmentViewModel.class);
+    }
+
+    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
@@ -253,7 +264,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         if (getFile() != null && user != null) {
-            viewThemeUtils.platform.themeHorizontalProgressBar(binding.progressBar);
+            viewThemeUtils.material.colorProgressBar(binding.progressBar, ColorRole.PRIMARY);
             viewThemeUtils.platform.themeCheckbox(binding.folderSyncButton);
             progressListener = new DownloadProgressListener(binding.progressBar);
             binding.cancelBtn.setOnClickListener(this);
@@ -263,7 +274,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             binding.folderSyncButton.setOnClickListener(this);
 
             updateFileDetails(false, false);
+            viewModel.observeDownloadProgress(user, getFile());
         }
+
+        LifecycleOwnerExtensionsKt.collectWhenStarted(getViewLifecycleOwner(),
+                                                      viewModel.getDownloadProgress(),
+                                                      this::onDownloadProgress);
 
         getChildFragmentManager().setFragmentResultListener(
             TagManagementBottomSheet.REQUEST_KEY,
@@ -437,7 +453,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         super.onStart();
         listenForTransferProgress();
         EventBus.getDefault().register(this);
-        EventBusFactory.INSTANCE.getDownloadProgressEventBus().register(this);
     }
 
     @Override
@@ -461,7 +476,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         }
 
         EventBus.getDefault().unregister(this);
-        EventBusFactory.INSTANCE.getDownloadProgressEventBus().unregister(this);
         super.onStop();
     }
 
@@ -579,6 +593,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         setFile(file);
         this.user = user;
         updateFileDetails(false, false);
+
+        if (viewModel != null && file != null && user != null) {
+            viewModel.observeDownloadProgress(user, file);
+        }
     }
 
     /**
@@ -658,15 +676,13 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onDownloadProgress(FileDownloadProgressEvent event) {
+    private void onDownloadProgress(int percent) {
         if (binding.progressBlock.getVisibility() != View.VISIBLE) {
             binding.progressBlock.setVisibility(View.VISIBLE);
         }
 
         binding.progressText.setText(R.string.downloader_download_in_progress_ticker);
-        binding.progressBar.setProgress(event.getPercent());
-        binding.progressBar.invalidate();
+        binding.progressBar.setProgressCompat(percent, true);
     }
 
     private void setFileModificationTimestamp(OCFile file, boolean showDetailedTimestamp) {
@@ -801,11 +817,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             return;
         }
 
-        if (containerActivity.getFileDownloadProgressListener() != null) {
-            containerActivity.getFileDownloadProgressListener().
-                addDataTransferProgressListener(progressListener, getFile());
-        }
-
         if (containerActivity.getFileUploaderHelper() != null) {
             OCFile file = getFile();
             if (user == null || file == null) {
@@ -819,10 +830,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
     private void leaveTransferProgress() {
         if (progressListener != null) {
-            if (containerActivity.getFileDownloadProgressListener() != null) {
-                containerActivity.getFileDownloadProgressListener().
-                    removeDataTransferProgressListener(progressListener, getFile());
-            }
             if (containerActivity.getFileUploaderHelper() != null) {
                 OCFile file = getFile();
 
