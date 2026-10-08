@@ -137,9 +137,7 @@ class PreviewMediaPagerAdapter(
 
     override fun getItemCount(): Int = mediaFiles.size
 
-    override fun getItemId(position: Int): Long {
-        return mediaFiles.getOrNull(position)?.pageId() ?: position.toLong()
-    }
+    override fun getItemId(position: Int): Long = mediaFiles.getOrNull(position)?.pageId() ?: position.toLong()
 
     override fun containsItem(itemId: Long): Boolean = mediaFiles.any { it.pageId() == itemId }
 
