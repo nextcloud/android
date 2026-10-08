@@ -17,6 +17,7 @@ import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule
 import com.caverock.androidsvg.SVG
 import com.owncloud.android.utils.svg.SVGorImage
+import com.owncloud.android.utils.svg.SvgBitmapDecoder
 import com.owncloud.android.utils.svg.SvgDecoder
 import com.owncloud.android.utils.svg.SvgDrawableTranscoder
 import com.owncloud.android.utils.svg.SvgOrImageBitmapTranscoder
@@ -31,6 +32,12 @@ class NextcloudGlideModule : AppGlideModule() {
             .register(SVGorImage::class.java, Bitmap::class.java, SvgOrImageBitmapTranscoder(SVG_SIZE, SVG_SIZE))
             .register(SVG::class.java, PictureDrawable::class.java, SvgDrawableTranscoder())
             .append(InputStream::class.java, SVG::class.java, SvgDecoder())
+            .append(
+                Registry.BUCKET_BITMAP,
+                InputStream::class.java,
+                Bitmap::class.java,
+                SvgBitmapDecoder(glide.bitmapPool)
+            )
     }
 
     // Disable manifest parsing to avoid adding similar modules twice.
