@@ -21,6 +21,11 @@ import com.owncloud.android.lib.common.accounts.AccountUtils;
 
 import java.io.IOException;
 
+/**
+ * @deprecated Inject {@link com.nextcloud.repository.ClientRepository} and use its suspend
+ * {@code getOwncloudClient()} / {@code getNextcloudClient()} functions instead.
+ */
+@Deprecated
 public interface ClientFactory {
 
     /**
