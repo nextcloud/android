@@ -58,6 +58,15 @@ constructor(
         null
     }
 
+    fun getDecodedSizeInKB(key: String): Int? = try {
+        readBounds(key.toValidKey())
+            ?.takeIf { it.outWidth > 0 && it.outHeight > 0 }
+            ?.let { it.outWidth * it.outHeight * ARGB_8888_BYTES_PER_PIXEL / BYTES_PER_KB }
+    } catch (e: IOException) {
+        Log_OC.e(TAG, e.message, e)
+        null
+    }
+
     fun containsKey(key: String): Boolean = try {
         diskCache.get(key.toValidKey())?.use { true } == true
     } catch (e: IOException) {
@@ -125,6 +134,8 @@ constructor(
         private const val VALUE_COUNT = 1
         private const val VALUE_INDEX = 0
         private const val IO_BUFFER_SIZE = 8 * 1024
+        private const val ARGB_8888_BYTES_PER_PIXEL = 4
+        private const val BYTES_PER_KB = 1024
 
         private val TAG = DiskLruImageCache::class.java.simpleName
     }

@@ -22,6 +22,7 @@ import android.graphics.Rect
 import android.graphics.RectF
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.media.MediaMetadataRetriever
 import android.widget.ImageView
 import androidx.annotation.DimenRes
 import androidx.core.graphics.applyCanvas
@@ -43,6 +44,7 @@ import com.owncloud.android.lib.resources.users.StatusType
 import com.owncloud.android.ui.StatusDrawable
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
+import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
 import com.nextcloud.utils.decodeSampledBitmapFromFile as decodeSampledBitmap
@@ -122,6 +124,46 @@ object BitmapUtils {
     fun scaleBitmap(bitmap: Bitmap, px: Float, width: Int, height: Int, max: Int): Bitmap {
         val scale = px / max
         return bitmap.scale((scale * width).roundToInt(), (scale * height).roundToInt())
+    }
+
+    @JvmStatic
+    fun fitsInto(bitmap: Bitmap, px: Int): Boolean = max(bitmap.width, bitmap.height) <= px
+
+    @JvmStatic
+    fun scaleToFit(bitmap: Bitmap, px: Int): Bitmap =
+        scaleBitmap(bitmap, px.toFloat(), bitmap.width, bitmap.height, max(bitmap.width, bitmap.height))
+
+    @JvmStatic
+    fun getLargestVideoDimension(retriever: MediaMetadataRetriever): Int {
+        val width = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH)?.toIntOrNull() ?: 0
+        val height = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT)?.toIntOrNull() ?: 0
+        return max(width, height)
+    }
+
+    @JvmStatic
+    fun centerCropOnPngBackground(source: Bitmap, width: Int, height: Int): Bitmap {
+        // a software Canvas cannot draw HARDWARE bitmaps, every other config can be drawn directly
+        val drawableSource = if (source.config == Bitmap.Config.HARDWARE) {
+            source.copy(Bitmap.Config.ARGB_8888, false)
+        } else {
+            source
+        }
+
+        val scale = max(width.toFloat() / source.width, height.toFloat() / source.height)
+        val scaledWidth = scale * source.width
+        val scaledHeight = scale * source.height
+        val left = (width - scaledWidth) / 2
+        val top = (height - scaledHeight) / 2
+        val targetRect = RectF(left, top, left + scaledWidth, top + scaledHeight)
+
+        return createBitmap(width, height).applyCanvas {
+            drawColor(resources.getColor(R.color.background_color_png, null))
+            drawBitmap(drawableSource, null, targetRect, null)
+        }.also {
+            if (drawableSource !== source) {
+                drawableSource.recycle()
+            }
+        }
     }
 
     @Suppress("TooGenericExceptionCaught")
