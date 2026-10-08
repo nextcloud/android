@@ -63,11 +63,11 @@ import com.owncloud.android.operations.e2e.E2EFiles;
 import com.owncloud.android.operations.upload.RemoteFileExistence;
 import com.owncloud.android.operations.upload.UploadFileException;
 import com.owncloud.android.operations.upload.UploadFileOperationExtensionsKt;
+import com.owncloud.android.operations.upload.UploadFileResolver;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.EncryptionUtilsV2;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.FileUtil;
-import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.UriUtils;
 import com.owncloud.android.utils.theme.CapabilityUtils;
@@ -95,11 +95,9 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.spec.InvalidParameterSpecException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -168,36 +166,17 @@ public class UploadFileOperation extends SyncOperation {
 
     private final User user;
     private final OCUpload mUpload;
-    private final UploadsStorageManager uploadsStorageManager;
+    public final UploadsStorageManager uploadsStorageManager;
     private final ConnectivityService connectivityService;
     private final PowerManagementService powerManagementService;
 
     private volatile boolean encryptedAncestor;
     private OCFile duplicatedEncryptedFile;
     private AtomicBoolean missingPermissionThrown = new AtomicBoolean(false);
+    private final UploadFileResolver uploadFileResolver;
 
     public static OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType) {
-        OCFile newFile = new OCFile(remotePath);
-        newFile.setStoragePath(localPath);
-        newFile.setLastSyncDateForProperties(0);
-        newFile.setLastSyncDateForData(0);
-
-        // size
-        if (!TextUtils.isEmpty(localPath)) {
-            File localFile = new File(localPath);
-            newFile.setFileLength(localFile.length());
-            newFile.setLastSyncDateForData(localFile.lastModified());
-        } // don't worry about not assigning size, the problems with localPath
-        // are checked when the UploadFileOperation instance is created
-
-        // MIME type
-        if (TextUtils.isEmpty(mimeType)) {
-            newFile.setMimeType(MimeTypeUtil.getBestMimeTypeByFilename(localPath));
-        } else {
-            newFile.setMimeType(mimeType);
-        }
-
-        return newFile;
+        return UploadFileResolver.Companion.obtainNewOCFileToUpload(remotePath, localPath, mimeType);
     }
 
     public UploadFileOperation(UploadsStorageManager uploadsStorageManager,
@@ -281,6 +260,7 @@ public class UploadFileOperation extends SyncOperation {
         mIgnoringPowerSaveMode = mCreatedBy == CREATED_BY_USER;
         mFolderUnlockToken = upload.getFolderUnlockToken();
         mDisableRetries = disableRetries;
+        uploadFileResolver = new UploadFileResolver(this);
     }
 
     public boolean isWifiRequired() {
@@ -452,7 +432,7 @@ public class UploadFileOperation extends SyncOperation {
         mPaused.set(false);
         mUploadStarted.set(true);
 
-        updateSize(0);
+        uploadFileResolver.updateSize(0);
         Log_OC.d(TAG, "file size set to 0KB before upload");
 
         String remoteParentPath = new File(getRemotePath()).getParent();
@@ -564,7 +544,7 @@ public class UploadFileOperation extends SyncOperation {
 
             E2EClientData clientData = new E2EClientData(client, token, publicKey);
 
-            List<String> fileNames = getCollidedFileNames(object);
+            List<String> fileNames = uploadFileResolver.getCollidedFileNames(object);
 
             final var collisionResult = checkNameCollision(parentFile, client, fileNames, parentFile.isEncrypted());
             if (collisionResult != null) {
@@ -601,7 +581,7 @@ public class UploadFileOperation extends SyncOperation {
             channel = channelResult.getThird();
 
             size = getChannelSize(channel);
-            updateSize(size);
+            uploadFileResolver.updateSize(size);
             setUploadOperationForE2E(token, e2eFiles.getEncryptedTempFile(), e2eData.getEncryptedFileName(), lastModifiedTimestamp, creationTimestamp, size);
 
             result = performE2EUpload(clientData);
@@ -665,23 +645,6 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         return metadata;
-    }
-
-    private List<String> getCollidedFileNames(Object object) {
-        List<String> result = new ArrayList<>();
-
-        if (object instanceof DecryptedFolderMetadataFileV1 metadata) {
-            for (DecryptedFile file : metadata.getFiles().values()) {
-                result.add(file.getEncrypted().getFilename());
-            }
-        } else if (object instanceof DecryptedFolderMetadataFile metadataFile) {
-            Map<String, com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFile> files = metadataFile.getMetadata().getFiles();
-            for (com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFile file : files.values()) {
-                result.add(file.getFilename());
-            }
-        }
-
-        return result;
     }
 
     private String getEncryptedFileName(Object object) {
@@ -1130,7 +1093,7 @@ public class UploadFileOperation extends SyncOperation {
                 }
 
                 final var formattedFileSize = Formatter.formatFileSize(mContext, size);
-                updateSize(size);
+                uploadFileResolver.updateSize(size);
                 Log_OC.d(TAG, "file size set to " + formattedFileSize);
 
                 final long serverMaxChunkSize = getCapabilities().getChunkedUploadMaxSize();
@@ -1228,14 +1191,6 @@ public class UploadFileOperation extends SyncOperation {
         return result;
     }
 
-    private void updateSize(long size) {
-        OCUpload ocUpload = uploadsStorageManager.getUploadById(getOCUploadId());
-        if (ocUpload != null) {
-            ocUpload.setFileSize(size);
-            uploadsStorageManager.updateUpload(ocUpload);
-        }
-    }
-
     private void logResult(RemoteOperationResult<?> result, String sourcePath, String targetPath) {
         if (result.isSuccess()) {
             Log_OC.i(TAG, "Upload of " + sourcePath + " to " + targetPath + ": " + result.getLogMessage());
@@ -1296,7 +1251,11 @@ public class UploadFileOperation extends SyncOperation {
                 case RENAME:
                     mRemotePath = getNewAvailableRemotePath(client, mRemotePath, fileNames, encrypted);
                     mWasRenamed = true;
-                    createNewOCFile(mRemotePath);
+
+                    final var newFile = uploadFileResolver.createNewOCFile(mFile, mRemotePath);
+                    mOldFile = mFile;
+                    mFile = newFile;
+
                     Log_OC.d(TAG, "File renamed as " + mRemotePath);
                     if (mRenameUploadListener != null) {
                         mRenameUploadListener.onRenameUpload();
@@ -1448,7 +1407,7 @@ public class UploadFileOperation extends SyncOperation {
         if (result.isSuccess()) {
             OCFile parentDir = getStorageManager().getFileByPath(pathToGrant);
             if (parentDir == null) {
-                parentDir = createLocalFolder(pathToGrant);
+                parentDir = uploadFileResolver.createLocalFolder(pathToGrant);
             }
             if (parentDir != null) {
                 result = new RemoteOperationResult<>(ResultCode.OK);
@@ -1457,50 +1416,6 @@ public class UploadFileOperation extends SyncOperation {
             }
         }
         return result;
-    }
-
-    private OCFile createLocalFolder(String remotePath) {
-        String parentPath = new File(remotePath).getParent();
-        parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ?
-            parentPath : parentPath + OCFile.PATH_SEPARATOR;
-        OCFile parent = getStorageManager().getFileByPath(parentPath);
-        if (parent == null) {
-            parent = createLocalFolder(parentPath);
-        }
-        if (parent != null) {
-            OCFile createdFolder = new OCFile(remotePath);
-            createdFolder.setMimeType(MimeType.DIRECTORY);
-            createdFolder.setParentId(parent.getFileId());
-            getStorageManager().saveFile(createdFolder);
-            return createdFolder;
-        }
-        return null;
-    }
-
-
-    /**
-     * Create a new OCFile mFile with new remote path. This is required if nameCollisionPolicy==RENAME. New file is
-     * stored as mFile, original as mOldFile.
-     *
-     * @param newRemotePath new remote path
-     */
-    private void createNewOCFile(String newRemotePath) {
-        // a new OCFile instance must be created for a new remote path
-        OCFile newFile = new OCFile(newRemotePath);
-        newFile.setCreationTimestamp(mFile.getCreationTimestamp());
-        newFile.setFileLength(mFile.getFileLength());
-        newFile.setMimeType(mFile.getMimeType());
-        newFile.setModificationTimestamp(mFile.getModificationTimestamp());
-        newFile.setModificationTimestampAtLastSyncForData(
-            mFile.getModificationTimestampAtLastSyncForData()
-                                                         );
-        newFile.setEtag(mFile.getEtag());
-        newFile.setLastSyncDateForProperties(mFile.getLastSyncDateForProperties());
-        newFile.setLastSyncDateForData(mFile.getLastSyncDateForData());
-        newFile.setStoragePath(mFile.getStoragePath());
-        newFile.setParentId(mFile.getParentId());
-        mOldFile = mFile;
-        mFile = newFile;
     }
 
     /**
@@ -1759,7 +1674,7 @@ public class UploadFileOperation extends SyncOperation {
         ReadFileRemoteOperation operation = new ReadFileRemoteOperation(path);
         RemoteOperationResult result = operation.execute(client);
         if (result.isSuccess()) {
-            updateOCFile(file, (RemoteFile) result.getData().get(0));
+            uploadFileResolver.updateOCFile(file, (RemoteFile) result.getData().get(0));
             file.setLastSyncDateForProperties(syncDate);
         } else {
             Log_OC.e(TAG, "Error reading properties of file after successful upload; this is gonna hurt...");
@@ -1790,22 +1705,7 @@ public class UploadFileOperation extends SyncOperation {
         task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, file.getRemoteId()));
     }
 
-    private void updateOCFile(OCFile file, RemoteFile remoteFile) {
-        file.setCreationTimestamp(remoteFile.getCreationTimestamp());
-        file.setFileLength(remoteFile.getLength());
-        file.setMimeType(remoteFile.getMimeType());
-        file.setModificationTimestamp(remoteFile.getModifiedTimestamp());
-        file.setModificationTimestampAtLastSyncForData(remoteFile.getModifiedTimestamp());
-        file.setEtag(remoteFile.getEtag());
-        file.setEtagOnServer(remoteFile.getEtag());
-        file.setRemoteId(remoteFile.getRemoteId());
-        file.setPermissions(remoteFile.getPermissions());
-        file.setUploadTimestamp(remoteFile.getUploadTimestamp());
-        file.setPreviewAvailable(remoteFile.isHasPreview());
-    }
-
     public interface OnRenameListener {
-
         void onRenameUpload();
     }
 }
