@@ -13,10 +13,11 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 
 @Serializable
-data class EnforcedServer(val name: String? = null, val url: String? = null) {
+data class EnforcedServer(val name: String, val url: String) {
     companion object {
-        // Branded setup.xml values of enforce_servers must be standard JSON. Lenient parsing and nullable fields
-        // keep loose input working, but single quotes and # comments are not parsed and crash the login screen.
+        // Branded setup.xml values of enforce_servers must be standard JSON with both name and url set.
+        // Lenient parsing keeps loose input working, but single quotes, # comments and missing or null fields
+        // are not parsed and crash the login screen.
         @OptIn(ExperimentalSerializationApi::class)
         private val json = Json {
             ignoreUnknownKeys = true
