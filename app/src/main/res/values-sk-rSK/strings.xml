@@ -1356,7 +1356,7 @@
         <item quantity="other">Zapísaných %1$d udalostí do %2$s</item>
     </plurals>
     <plurals name="created_n_uids_to">
-        <item quantity="one">Vytvorené %1$d nové UID</item>
+        <item quantity="one">Vytvorený %1$d nový UID</item>
         <item quantity="few">Vytvorených %1$d nových UID</item>
         <item quantity="many">Vytvorených %1$d nových UID</item>
         <item quantity="other">Vytvorených %1$d nových UID</item>
