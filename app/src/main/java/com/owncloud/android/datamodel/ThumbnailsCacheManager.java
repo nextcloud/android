@@ -18,9 +18,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Point;
-import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaMetadataRetriever;
@@ -74,7 +72,6 @@ import java.util.concurrent.Executors;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
-import androidx.core.content.ContextCompat;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import static com.nextcloud.utils.extensions.ThumbnailsCacheManagerExtensionsKt.getExifOrientation;
@@ -199,7 +196,7 @@ public final class ThumbnailsCacheManager {
      */
     public static Bitmap addThumbnailToCache(String imageKey, Bitmap bitmap, String path, int pxW, int pxH) {
 
-        Bitmap thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
+        Bitmap thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH, ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
 
         // Rotate image, obeying exif tag
         int orientation = getExifOrientation(path);
@@ -238,13 +235,8 @@ public final class ThumbnailsCacheManager {
                 return;
             }
 
-            // Check if the bitmap is already cached
-            Bitmap cachedBitmap = mThumbnailCache.getBitmap(key);
-            if (cachedBitmap == null) {
-                cachedBitmap = mThumbnailCache.getScaledBitmap(key, bitmap.getWidth(), bitmap.getHeight());
-            }
-
-            if (cachedBitmap != null && BitmapExtensionsKt.allocationKilobyte(cachedBitmap) <= THUMBNAIL_SIZE_IN_KB) {
+            Integer cachedSizeInKB = mThumbnailCache.getDecodedSizeInKB(key);
+            if (cachedSizeInKB != null && cachedSizeInKB <= THUMBNAIL_SIZE_IN_KB) {
                 Log_OC.d(TAG, "Cached version is already within size limits, no need to scale: " + key);
                 return;
             }
@@ -625,7 +617,7 @@ public final class ThumbnailsCacheManager {
 
                 if (bitmap != null) {
                     if (PNG_MIMETYPE.equalsIgnoreCase(ocFile.getMimeType())) {
-                        bitmap = handlePNG(bitmap, pxW, pxH);
+                        bitmap = BitmapUtils.centerCropOnPngBackground(bitmap, pxW, pxH);
                     }
 
                     thumbnail = addThumbnailToCache(imageKey, bitmap, ocFile.getStoragePath(), pxW, pxH);
@@ -644,7 +636,8 @@ public final class ThumbnailsCacheManager {
                 }
 
                 if (resizedImage != null) {
-                    thumbnail = ThumbnailUtils.extractThumbnail(resizedImage, pxW, pxH);
+                    thumbnail = ThumbnailUtils.extractThumbnail(resizedImage, pxW, pxH,
+                                                                ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
                     Log_OC.d(TAG, "Thumbnail generated from resized image cache for file: " + file.getFileName());
                 } else {
                     Log_OC.d(TAG, "No resized image cache available for file: " + file.getFileName());
@@ -685,7 +678,8 @@ public final class ThumbnailsCacheManager {
                         try (InputStream inputStream = getMethod.getResponseBodyAsStream()) {
                             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                             if (bitmap != null) {
-                                thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
+                                thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH,
+                                                                            ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
                                 Log_OC.d(TAG, "Thumbnail downloaded and extracted for file: " + file.getFileName());
                             } else {
                                 Log_OC.w(TAG, "Downloaded thumbnail bitmap is null for file: " + file.getFileName());
@@ -697,7 +691,7 @@ public final class ThumbnailsCacheManager {
                     }
 
                     if (thumbnail != null && PNG_MIMETYPE.equalsIgnoreCase(file.getMimeType())) {
-                        thumbnail = handlePNG(thumbnail, pxW, pxH);
+                        thumbnail = BitmapUtils.centerCropOnPngBackground(thumbnail, pxW, pxH);
                         Log_OC.d(TAG, "Handled PNG thumbnail for downloaded file: " + file.getFileName());
                     }
                 } catch (Exception e) {
@@ -864,34 +858,36 @@ public final class ThumbnailsCacheManager {
                         thumbnail = addThumbnailToCache(imageKey, bitmap, file.getPath(), px, px);
                     }
                 } else if (Type.VIDEO == type) {
-                    thumbnail = getThumbnailFromMediaRetriever(file);
-                    if (thumbnail != null) {
-                        // Scale down bitmap if too large.
-                        int px = getThumbnailDimension();
-                        int width = thumbnail.getWidth();
-                        int height = thumbnail.getHeight();
-                        int max = Math.max(width, height);
-                        if (max > px) {
-                            thumbnail = BitmapUtils.scaleBitmap(thumbnail, px, width, height, max);
-                            thumbnail = addThumbnailToCache(imageKey, thumbnail, file.getPath(), px, px);
-                        }
-                    }
+                    thumbnail = getVideoThumbnail(file, imageKey);
                 }
             }
 
             return thumbnail;
         }
 
-        private Bitmap getThumbnailFromMediaRetriever(File file) {
+        private Bitmap getVideoThumbnail(File file, String imageKey) {
             if (file == null || !file.exists()) {
                 Log_OC.w(TAG, "Cannot extract thumbnail: file is null or does not exist");
                 return null;
             }
 
+            int px = getThumbnailDimension();
             var retriever = new MediaMetadataRetriever();
             try {
                 retriever.setDataSource(file.getAbsolutePath());
-                return retriever.getFrameAtTime(-1);
+
+                if (BitmapUtils.getLargestVideoDimension(retriever) > px) {
+                    Bitmap frame = retriever.getScaledFrameAtTime(-1, MediaMetadataRetriever.OPTION_CLOSEST_SYNC,
+                                                                  px, px);
+                    return frame == null ? null : addThumbnailToCache(imageKey, frame, file.getPath(), px, px);
+                }
+
+                Bitmap frame = retriever.getFrameAtTime(-1);
+                if (frame == null || BitmapUtils.fitsInto(frame, px)) {
+                    return frame;
+                }
+
+                return addThumbnailToCache(imageKey, BitmapUtils.scaleToFit(frame, px), file.getPath(), px, px);
             } catch (Throwable t) {
                 Log_OC.w(TAG, "Failed to create bitmap from video " + file.getAbsolutePath());
                 return null;
@@ -981,37 +977,6 @@ public final class ThumbnailsCacheManager {
         }
     }
 
-    /**
-     * adapted from <a href="https://stackoverflow.com/a/8113368">...</a>
-     */
-    public static Bitmap handlePNG(Bitmap source, int newWidth, int newHeight) {
-        Bitmap softwareBitmap = source.copy(Bitmap.Config.ARGB_8888, false);
-
-        int sourceWidth = source.getWidth();
-        int sourceHeight = source.getHeight();
-
-        float xScale = (float) newWidth / sourceWidth;
-        float yScale = (float) newHeight / sourceHeight;
-        float scale = Math.max(xScale, yScale);
-
-        float scaledWidth = scale * sourceWidth;
-        float scaledHeight = scale * sourceHeight;
-
-        float left = (newWidth - scaledWidth) / 2;
-        float top = (newHeight - scaledHeight) / 2;
-
-        RectF targetRect = new RectF(left, top, left + scaledWidth, top + scaledHeight);
-
-        Bitmap dest = Bitmap.createBitmap(newWidth, newHeight, Bitmap.Config.ARGB_8888);
-
-        Canvas canvas = new Canvas(dest);
-        int color = ContextCompat.getColor(MainApp.getAppContext(),R.color.background_color_png);
-        canvas.drawColor(color);
-        canvas.drawBitmap(softwareBitmap, null, targetRect, null);
-
-        return dest;
-    }
-
     public static void generateResizedImage(OCFile file) {
         Point p = getScreenDimension();
         int pxW = p.x;
@@ -1023,7 +988,7 @@ public final class ThumbnailsCacheManager {
         if (bitmap != null) {
             // Handle PNG
             if (PNG_MIMETYPE.equalsIgnoreCase(file.getMimeType())) {
-                bitmap = handlePNG(bitmap, pxW, pxH);
+                bitmap = BitmapUtils.centerCropOnPngBackground(bitmap, pxW, pxH);
             }
 
             addThumbnailToCache(imageKey, bitmap, file.getStoragePath(), pxW, pxH);
@@ -1061,7 +1026,7 @@ public final class ThumbnailsCacheManager {
             if (status == HttpStatus.SC_OK) {
                 InputStream inputStream = getMethod.getResponseBodyAsStream();
                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
+                thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH, ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
             } else {
                 client.exhaustResponse(getMethod.getResponseBodyAsStream());
             }
@@ -1070,7 +1035,7 @@ public final class ThumbnailsCacheManager {
             if (thumbnail != null) {
                 // Handle PNG
                 if (PNG_MIMETYPE.equalsIgnoreCase(file.getMimeType())) {
-                    thumbnail = handlePNG(thumbnail, pxW, pxH);
+                    thumbnail = BitmapUtils.centerCropOnPngBackground(thumbnail, pxW, pxH);
                 }
 
                 Log_OC.d(TAG, "add thumbnail to cache: " + file.getFileName());
@@ -1164,7 +1129,7 @@ public final class ThumbnailsCacheManager {
             Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.getStoragePath(), pxW, pxH);
             if (bitmap != null) {
                 if (OCFileExtensionsKt.isPNG(file)) {
-                    bitmap = handlePNG(bitmap, pxW, pxH);
+                    bitmap = BitmapUtils.centerCropOnPngBackground(bitmap, pxW, pxH);
                 }
                 thumbnail = addThumbnailToCache(imageKey, bitmap, file.getStoragePath(), pxW, pxH);
                 file.setUpdateThumbnailNeeded(false);
@@ -1179,7 +1144,9 @@ public final class ThumbnailsCacheManager {
                                                                                 pxH));
 
             if (thumbnail != null && PNG_MIMETYPE.equalsIgnoreCase(file.getMimeType())) {
-                thumbnail = handlePNG(thumbnail, thumbnail.getWidth(), thumbnail.getHeight());
+                thumbnail = BitmapUtils.centerCropOnPngBackground(thumbnail,
+                                                                  thumbnail.getWidth(),
+                                                                  thumbnail.getHeight());
             }
 
             if (thumbnail != null) {

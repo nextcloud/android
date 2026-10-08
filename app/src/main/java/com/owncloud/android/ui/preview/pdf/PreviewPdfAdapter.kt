@@ -8,7 +8,6 @@
 package com.owncloud.android.ui.preview.pdf
 
 import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.pdf.PdfRenderer
 import android.view.LayoutInflater
@@ -28,11 +27,23 @@ class PreviewPdfAdapter(
 
     class ViewHolder(val binding: PreviewPdfPageItemBinding, val onClickListener: (Bitmap) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
+        private var pageBitmap: Bitmap? = null
+
         fun bind(bitmap: Bitmap) {
+            releaseBitmap()
+            pageBitmap = bitmap
             binding.page.setImageBitmap(bitmap)
             binding.root.setOnClickListener {
                 onClickListener(bitmap)
             }
+        }
+
+        fun releaseBitmap() {
+            val bitmap = pageBitmap ?: return
+            binding.page.setImageDrawable(null)
+            binding.root.setOnClickListener(null)
+            bitmap.recycle()
+            pageBitmap = null
         }
     }
 
@@ -49,19 +60,19 @@ class PreviewPdfAdapter(
         holder.bind(bitmap)
     }
 
+    override fun onViewRecycled(holder: ViewHolder) {
+        holder.releaseBitmap()
+        super.onViewRecycled(holder)
+    }
+
     private fun renderPage(page: PdfRenderer.Page) = page.use {
         val bitmap = createBitmapForPage(it)
         page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
         bitmap
     }
 
-    private fun createBitmapForPage(page: PdfRenderer.Page): Bitmap {
-        val bitmap = createBitmap(screenWidth, (screenWidth.toFloat() / page.width * page.height).toInt())
-
-        val canvas = Canvas(bitmap)
-        canvas.drawColor(Color.WHITE)
-        canvas.drawBitmap(bitmap, 0f, 0f, null)
-
-        return bitmap
-    }
+    private fun createBitmapForPage(page: PdfRenderer.Page): Bitmap =
+        createBitmap(screenWidth, (screenWidth.toFloat() / page.width * page.height).toInt()).apply {
+            eraseColor(Color.WHITE)
+        }
 }
