@@ -96,6 +96,16 @@ Use `StateFlow` and `MutableStateFlow` in ViewModels for state management. Colle
 
 Uses Dagger 2 for major Android components (`Activity`, `Fragment`, `Service`, `BroadcastReceiver`, `ContentProvider`). Manual constructor injection for other components.
 
+### Network Clients
+
+Get `OwnCloudClient` and `NextcloudClient` instances from `ClientRepository` (`com.nextcloud.repository`), never from `ClientFactory`.
+`ClientFactory` is deprecated and being phased out; do not add new usages of it, and replace it with `ClientRepository` when touching code that still uses it.
+
+- Inject `ClientRepository` with Dagger (`@Inject lateinit var clientRepository: ClientRepository`); it is bound to `RemoteClientRepository`, which resolves the current user via `UserAccountManager` on every call.
+- Activities extending `BaseActivity` already expose it via `getClientRepository()`.
+- Prefer the `suspend` functions `getOwncloudClient()` / `getNextcloudClient()` from a lifecycle-aware scope (`lifecycleScope`, `viewModelScope`); they switch to `Dispatchers.IO` and return `null` on failure, so handle `null` instead of catching exceptions.
+- Do not construct `RemoteClientRepository` manually.
+
 ### Extension Functions
 
 The `com.nextcloud.utils.extensions` package contains helper extensions organized by type (e.g., `FileExtensions.kt`, `StringExtensions.kt`, `ViewExtensions.kt`). Create focused extension files rather than putting multiple types in one file.
