@@ -436,14 +436,17 @@
     <string name="error_choosing_date">Viga kuupäeva valimisel</string>
     <string name="error_comment_file">Viga faili kommenteerimisel</string>
     <string name="error_crash_title">%1$s jooksis kokku</string>
+    <string name="error_creating_file">Viga faili loomisel</string>
     <string name="error_creating_file_from_template">Viga faili loomisel mallist</string>
     <string name="error_fetching_sharees">Ei õnnestunud laadida isikuid, kellele jagada</string>
     <string name="error_file_actions">Viga failide toimingute kuvamisel</string>
     <string name="error_file_lock">Viga faili lukustuse muutmisel</string>
+    <string name="error_reading_file">Viga faili lugemisel</string>
     <string name="error_report_issue_action">Teata</string>
     <string name="error_report_issue_text">Kas teatad veast meie veahaldusesse? (eeldab GitHubi kasutajakonto olemasolu)</string>
     <string name="error_retrieving_file">Viga faili laadimisel</string>
     <string name="error_retrieving_templates">Viga mallide laadimisel</string>
+    <string name="error_saving_local_file">Viga kohaliku faili salvestamisel</string>
     <string name="error_setting_status_message">Olekuteate lisamisel tekkis viga!</string>
     <string name="error_showing_encryption_dialog">Krüptimise vaate avamisel tekkis viga!</string>
     <string name="error_starting_direct_camera_upload">Viga kaamera käivitamisel</string>
@@ -575,6 +578,7 @@
     <string name="filename_forbidden_characters">Keelatud sümbolid:  / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Failinimes on vähemalt üks keelatud märk</string>
     <string name="filename_hint">Failinimi</string>
+    <string name="filename_too_long">Failinimi ei või olla pikem, kui 250 tähemärki</string>
     <string name="first_run_1_text">Hoia oma andmeid turvaliselt ja enda kontrolli all</string>
     <string name="first_run_2_text">Turvaline ühistöö ja failivahetus</string>
     <string name="first_run_3_text">Lihtsaltkasutatav veebimeil, kalender ja kontaktihaldus</string>
