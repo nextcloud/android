@@ -21,6 +21,7 @@ import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.operations.upload.RemoteFileExistence
 import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.MimeTypeUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -321,3 +322,41 @@ private fun FileDao.moveFilesInDb(
     updateAll(updated)
     return originalMediaPaths
 }
+
+fun FileDataStorageManager.createDirectoryTree(remotePath: String, createdRemoteFolder: RemoteFile?) {
+    val root = getFileByEncryptedRemotePath(OCFile.ROOT_PATH)
+    if (root == null) {
+        Log_OC.e(FileDataStorageManager.TAG, "createDirectoryTree: root folder not found, skipping $remotePath")
+        return
+    }
+
+    val folderPaths = remotePath
+        .split(OCFile.PATH_SEPARATOR)
+        .filter { it.isNotEmpty() }
+        .runningFold(OCFile.ROOT_PATH) { parentPath, name -> parentPath + name + OCFile.PATH_SEPARATOR }
+        .drop(1)
+
+    // Walk from root to leaf, passing each folder on as the parent of the next one.
+    // Existing folders are reused; missing ones are created, with remote metadata only on the leaf.
+    folderPaths.foldIndexed(root) { index, parent, path ->
+        val existingFolder = getFileByEncryptedRemotePath(path)
+        if (existingFolder != null) {
+            existingFolder
+        } else {
+            val metadata = if (index == folderPaths.lastIndex) createdRemoteFolder else null
+            saveFolder(path, parent, metadata)
+        }
+    }
+}
+
+private fun FileDataStorageManager.saveFolder(remotePath: String, parent: OCFile, metadata: RemoteFile?): OCFile =
+    OCFile(remotePath).apply {
+        mimeType = MimeType.DIRECTORY
+        parentId = parent.fileId
+        remoteId = metadata?.remoteId
+        permissions = metadata?.permissions
+        modificationTimestamp = System.currentTimeMillis()
+        isEncrypted = FileStorageUtils.checkEncryptionStatus(this, this@saveFolder)
+        saveFile(this)
+        Log_OC.d(FileDataStorageManager.TAG, "createDirectoryTree: created $remotePath in Database")
+    }
