@@ -30,7 +30,6 @@ import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.rule.GrantPermissionRule
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.nextcloud.android.common.ui.color.ColorUtil
 import com.nextcloud.android.lib.resources.profile.Action
 import com.nextcloud.android.lib.resources.profile.HoverCard
@@ -72,6 +71,7 @@ import com.owncloud.android.utils.theme.CapabilityUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import io.mockk.mockk
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Assert.fail
 import org.junit.Rule
 import org.junit.Test
@@ -717,22 +717,14 @@ class DialogFragmentIT : AbstractIT() {
     }
 
     @Test
-    fun testGson() {
-        val t = ArrayList<EnforcedServer?>().apply {
-            add(EnforcedServer("name", "url"))
-            add(EnforcedServer("name2", "url1"))
-        }
-
-        val s = Gson().toJson(t)
-        val t2 = Gson().fromJson<ArrayList<EnforcedServer>>(
-            s,
-            object : TypeToken<ArrayList<EnforcedServer?>?>() {
-            }.type
+    fun testEnforcedServerParsing() {
+        val expected = listOf(
+            EnforcedServer("name", "url"),
+            EnforcedServer("name2", "url1")
         )
 
-        val temp = ArrayList<String?>()
-        for (p in t2) {
-            temp.add(p.name)
-        }
+        val parsed = EnforcedServer.fromJson("""[{"name":"name","url":"url"},{"name":"name2","url":"url1"}]""")
+
+        assertEquals(expected, parsed)
     }
 }
