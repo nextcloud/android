@@ -697,6 +697,9 @@ class PreviewImageFragment :
 
                 bitmapWidth = convertDpToPixel(bitmap.width.toFloat(), getActivity())
                 bitmapHeight = convertDpToPixel(bitmap.height.toFloat(), getActivity())
+            } else if (bitmapDrawable is PictureDrawable) {
+                bitmapWidth = bitmapDrawable.intrinsicWidth
+                bitmapHeight = bitmapDrawable.intrinsicHeight
             } else {
                 if (bitmapDrawable == null) {
                     return layerDrawable
