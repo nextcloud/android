@@ -19,6 +19,11 @@ fun FileActivity.removeFiles(
     onlyLocalCopy: Boolean,
     filesRemovedListener: OnFilesRemovedListener?
 ) {
+    if (files.isEmpty()) {
+        filesRemovedListener?.onFilesRemoved()
+        return
+    }
+
     connectivityService.isNetworkAndServerAvailable { isAvailable ->
         if (isAvailable) {
             showLoadingDialog(getString(R.string.wait_a_moment))

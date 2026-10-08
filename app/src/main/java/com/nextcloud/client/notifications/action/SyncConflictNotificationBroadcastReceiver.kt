@@ -11,7 +11,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationManagerCompat
-import com.owncloud.android.ui.activity.UploadListActivity
+import com.owncloud.android.ui.navigation.NavigatorActivity
+import com.owncloud.android.ui.navigation.NavigatorScreen
 
 class SyncConflictNotificationBroadcastReceiver : BroadcastReceiver() {
     companion object {
@@ -25,7 +26,7 @@ class SyncConflictNotificationBroadcastReceiver : BroadcastReceiver() {
             NotificationManagerCompat.from(context).cancel(notificationId)
         }
 
-        val intent = Intent(context, UploadListActivity::class.java).apply {
+        val intent = NavigatorActivity.intent(context, NavigatorScreen.UploadList).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
         context.startActivity(intent)

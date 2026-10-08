@@ -11,6 +11,7 @@ import android.content.Context
 import android.view.View
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
@@ -18,10 +19,8 @@ import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.gallery.GalleryImageGenerationJob
 import com.nextcloud.client.jobs.gallery.GalleryImageGenerationListener
 import com.nextcloud.client.jobs.upload.FileUploadHelper
-import com.nextcloud.utils.extensions.getBigThumbnail
 import com.nextcloud.utils.extensions.makeRounded
 import com.nextcloud.utils.extensions.setMediaPlaceholder
-import com.nextcloud.utils.extensions.setMediaThumbnail
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.extensions.showsMediaThumbnailOf
 import com.nextcloud.utils.extensions.stopShimmer
@@ -39,6 +38,7 @@ import com.owncloud.android.ui.activity.FolderPickerActivity
 import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
+import com.owncloud.android.ui.navigation.animator.NavigationAnimator
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -120,13 +120,7 @@ class OCFileListDelegate(
         GalleryImageGenerationJob.cancelPreviousJob(imageView)
 
         imageView.tag = file.fileId
-
-        val cached = file.takeUnless { it.isUpdateThumbnailNeeded }?.getBigThumbnail()
-        if (cached != null) {
-            imageView.setMediaThumbnail(file, cached)
-            imageView.stopShimmer(shimmer)
-            return
-        }
+        ViewCompat.setTransitionName(imageView, NavigationAnimator.sharedElementName(file))
 
         imageView.setMediaPlaceholder(file, placeholderInset)
 
@@ -170,7 +164,7 @@ class OCFileListDelegate(
                     file
                 )
             } else {
-                ocFileListFragmentInterface.onItemClicked(file)
+                ocFileListFragmentInterface.onItemClicked(file, imageView)
                 AlbumItemsFragment.lastMediaItemPosition = galleryRowHolder.absoluteAdapterPosition
             }
         }

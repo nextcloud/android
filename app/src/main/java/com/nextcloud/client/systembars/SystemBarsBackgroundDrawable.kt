@@ -35,6 +35,10 @@ class SystemBarsBackgroundDrawable(
         invalidateSelf()
     }
 
+    fun setStatusBarColor(@ColorInt statusBarColor: Int) {
+        setColors(statusBarColor, navigationBarPaint.color)
+    }
+
     override fun draw(canvas: Canvas) {
         val insets = ViewCompat.getRootWindowInsets(decorView) ?: return
         drawStatusBar(canvas, insets.getInsets(WindowInsetsCompat.Type.statusBars()))

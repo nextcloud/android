@@ -436,14 +436,17 @@
     <string name="error_choosing_date">Tarih seçilirken sorun çıktı</string>
     <string name="error_comment_file">Dosyaya yorum yapılırken sorun çıktı</string>
     <string name="error_crash_title">%1$s çöktü</string>
+    <string name="error_creating_file">Dosya oluşturulurken sorun çıktı</string>
     <string name="error_creating_file_from_template">Kalıptan dosya oluşturulurken sorun çıktı</string>
     <string name="error_fetching_sharees">Paylaşımlar alınamadı.</string>
     <string name="error_file_actions">Dosya işlemleri görüntülenirken sorun çıktı</string>
     <string name="error_file_lock">Dosya kilidi durumu değiştirilirken sorun çıktı</string>
+    <string name="error_reading_file">Dosya okunurken sorun çıktı</string>
     <string name="error_report_issue_action">Hata bildirin</string>
     <string name="error_report_issue_text">İzleyici üzerine bir hata bildirmek ister misiniz? (GitHub hesabı gereklidir)</string>
     <string name="error_retrieving_file">Dosya alınırken sorun çıktı</string>
     <string name="error_retrieving_templates">Kalıplar alınırken sorun çıktı</string>
+    <string name="error_saving_local_file">Yerel dosya yazılırken sorun çıktı</string>
     <string name="error_setting_status_message">Durum iletisi ayarlanırken sorun çıktı!</string>
     <string name="error_showing_encryption_dialog">Şifreleme kurulumu iletişim kutusu görüntülenirken sorun çıktı!</string>
     <string name="error_starting_direct_camera_upload">Kamera başlatılamadı</string>
@@ -575,6 +578,7 @@
     <string name="filename_forbidden_characters">İzin verilmeyen karakterler: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Dosya adında en az bir geçersiz karakter var</string>
     <string name="filename_hint">Dosya adı</string>
+    <string name="filename_too_long">Dosya adı 250 karakterden uzun olamaz</string>
     <string name="first_run_1_text">Verilerinizi güvenli ve denetiminiz altında tutun</string>
     <string name="first_run_2_text">Güvenli iş birliği ve dosya aktarımı</string>
     <string name="first_run_3_text">İnternet üzerinden kolayca kullanılan e-posta, takvim ve kişiler</string>
@@ -659,7 +663,7 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Bu klasörde başka bir klasör yok.</string>
     <string name="locate_folder">Klasörü seçin</string>
-    <string name="lock_expiration_info">Geçerlilik süresi sonu: %1$s</string>
+    <string name="lock_expiration_info">Geçerlilik sonu: %1$s</string>
     <string name="lock_file">Dosyayı kilitle</string>
     <string name="locked_by">%1$s tarafından kilitlenmiş</string>
     <string name="locked_by_app">%1$s uygulaması tarafından kilitlenmiş</string>

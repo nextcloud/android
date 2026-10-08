@@ -11,7 +11,6 @@ package com.nmc.android.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
@@ -54,15 +53,6 @@ class LauncherActivity :
         setContentView(binding.root)
         updateTitleVisibility()
         scheduleSplashScreen()
-    }
-
-    @VisibleForTesting
-    fun setSplashTitles(boldText: String, normalText: String) {
-        binding.splashScreenBold.visibility = View.VISIBLE
-        binding.splashScreenNormal.visibility = View.VISIBLE
-
-        binding.splashScreenBold.text = boldText
-        binding.splashScreenNormal.text = normalText
     }
 
     private fun updateTitleVisibility() {

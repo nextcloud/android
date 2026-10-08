@@ -23,12 +23,13 @@ import com.owncloud.android.ui.preview.PreviewImageActivity
 import com.owncloud.android.ui.preview.PreviewImageFragment
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
+import javax.inject.Provider
 
 class AppNotificationManagerImpl @Inject constructor(
     private val context: Context,
     private val resources: Resources,
     private val platformNotificationsManager: NotificationManager,
-    private val viewThemeUtils: ViewThemeUtils
+    private val viewThemeUtils: Provider<ViewThemeUtils>
 ) : AppNotificationManager {
 
     companion object {
@@ -39,7 +40,7 @@ class AppNotificationManagerImpl @Inject constructor(
     private fun builder(channelId: String): NotificationCompat.Builder {
         val builder =
             NotificationCompat.Builder(context, channelId)
-        viewThemeUtils.androidx.themeNotificationCompatBuilder(context, builder)
+        viewThemeUtils.get().androidx.themeNotificationCompatBuilder(context, builder)
         return builder
     }
 

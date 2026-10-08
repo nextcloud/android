@@ -49,6 +49,7 @@ import com.nextcloud.client.documentscan.DocumentScanActivity;
 import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.client.systembars.SystemBarBackgroundCallbacks;
 import com.nextcloud.client.utils.Throttler;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.ui.fileactions.FileAction;
@@ -905,6 +906,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             //set actionMode color
             int statusBarColor = ContextCompat.getColor(requireContext(), R.color.action_mode_background);
             viewThemeUtils.platform.colorStatusBar(requireActivity(), statusBarColor);
+            SystemBarBackgroundCallbacks.colorStatusBar(requireActivity(), statusBarColor);
 
             // hide FAB in multi selection mode
             setFabVisible(false);
@@ -982,6 +984,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             final var activity = getActivity();
             if (activity != null) {
                 viewThemeUtils.platform.resetStatusBar(activity);
+                SystemBarBackgroundCallbacks.apply(activity, viewThemeUtils);
             }
 
             final var adapter = getCommonAdapter();
@@ -1187,7 +1190,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    private void fileOnItemClick(OCFile file) {
+    private void fileOnItemClick(OCFile file, @Nullable View sourceView) {
         Integer errorMessageId = checkFileBeforeOpen(file);
         final var recyclerView = getRecyclerView();
         if (recyclerView != null && errorMessageId != null) {
@@ -1196,7 +1199,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         if (mContainerActivity instanceof FileDisplayActivity fda && fda.canPreviewInMediaPager(file)) {
-            fda.previewImageWithSearchContext(file, searchFragment, currentSearchType);
+            fda.previewImageWithSearchContext(file, searchFragment, currentSearchType, sourceView);
         } else if (file.isDown() && mContainerActivity instanceof FileDisplayActivity fda) {
             fda.previewFile(file, this::setFabVisible);
         } else {
@@ -1257,8 +1260,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     @Override
-    @OptIn(markerClass = UnstableApi.class)
     public void onItemClicked(OCFile file) {
+        onItemClicked(file, null);
+    }
+
+    @Override
+    @OptIn(markerClass = UnstableApi.class)
+    public void onItemClicked(OCFile file, @Nullable View sourceView) {
         if (getCommonAdapter() != null && getCommonAdapter().isMultiSelect()) {
             toggleItemToCheckedList(file);
         } else {
@@ -1276,7 +1284,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 requireActivity().setResult(Activity.RESULT_OK, intent);
                 requireActivity().finish();
             } else if (!mOnlyFoldersClickable) {
-                fileOnItemClick(file);
+                fileOnItemClick(file, sourceView);
             }
         }
     }

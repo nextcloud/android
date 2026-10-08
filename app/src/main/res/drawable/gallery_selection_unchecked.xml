@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <size
+        android:width="@dimen/gallery_selection_indicator_size"
+        android:height="@dimen/gallery_selection_indicator_size" />
+    <solid android:color="@color/gallery_selection_scrim" />
+    <stroke
+        android:width="@dimen/standard_eighth_margin"
+        android:color="@color/white" />
+</shape>

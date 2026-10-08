@@ -39,6 +39,7 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.client.systembars.SystemBarBackgroundCallbacks
 import com.nextcloud.client.utils.Throttler
 import com.nextcloud.ui.sort.SortOrderUi
 import com.nextcloud.ui.trashbinFileActions.TrashbinFileActionsBottomSheet
@@ -560,10 +561,9 @@ class TrashbinFragment :
             mode.invalidate()
 
             if (activity != null) {
-                viewThemeUtils.platform.colorStatusBar(
-                    activity,
-                    ContextCompat.getColor(activity, R.color.action_mode_background)
-                )
+                val statusBarColor = ContextCompat.getColor(activity, R.color.action_mode_background)
+                viewThemeUtils.platform.colorStatusBar(activity, statusBarColor)
+                SystemBarBackgroundCallbacks.colorStatusBar(activity, statusBarColor)
             }
 
             adapter?.setMultiSelect(true)
@@ -619,6 +619,7 @@ class TrashbinFragment :
 
             if (activity != null) {
                 viewThemeUtils.platform.resetStatusBar(activity)
+                SystemBarBackgroundCallbacks.apply(activity, viewThemeUtils)
             }
 
             adapter?.setMultiSelect(false)

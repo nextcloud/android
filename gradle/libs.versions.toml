@@ -5,7 +5,7 @@
 androidCommonLibraryVersion = "e72c899b0cf0f456aabe4816cf07548abd8828e9"
 androidGifDrawableVersion = "1.2.32"
 androidImageCropperVersion = "4.7.0"
-androidLibraryVersion ="7f7103db2d88d531861700dce3cb5bfa6fb40612"
+androidLibraryVersion ="ee333d30c0e54653284e2f6e089479d0173d97ff"
 androidOpensslVersion = "3.5.6.1"
 androidPluginVersion = "9.4.1"
 androidsvgVersion = "1.4"
@@ -14,7 +14,6 @@ annotationVersion = "1.10.0"
 annotationsVersion = "3.0.1"
 appCompatVersion = "1.8.0"
 bcpkixJdk18onVersion = "1.84"
-cardviewVersion = "1.0.0"
 checker = "3.21.2"
 coilVersion = "2.7.0"
 commonsHttpclient = "3.1"
@@ -26,7 +25,6 @@ coreTestingVersion = "2.2.0"
 coreVersion = "0.15.0"
 daggerVersion = "2.60.1"
 detektGradlePlugin = "1.23.8"
-dexopenerVersion = "2.0.5"
 disklrucacheVersion = "2.0.2"
 documentScannerVersion = "1.3.0"
 emojiGoogleVersion = "0.24.1"
@@ -37,7 +35,6 @@ ezVcardVersion = "0.12.2"
 fbContribVersion = "7.7.4"
 findsecbugsPluginVersion = "1.14.0"
 firebaseMessagingVersion = "25.1.3"
-flexboxVersion = "3.0.0"
 fragmentKtxVersion = "1.9.1"
 glide = "5.0.9"
 gsonVersion = "2.14.0"
@@ -63,10 +60,8 @@ media3 = "1.11.1"
 mockitoKotlinVersion = "6.4.0"
 mockitoVersion = "5.22.0"
 mockkVersion = "1.14.11"
-nnioVersion = "0.3.1"
 objenesis = "3.5"
 orchestratorVersion = "1.6.1"
-orgJbundleUtilOsgiWrappedOrgApacheHttpClientVersion = "4.1.2"
 osmdroidAndroidVersion = "6.1.20"
 photoviewVersion = "2.3.0"
 playServicesBaseVersion = "18.11.0"
@@ -81,7 +76,6 @@ slfj = "2.0.20"
 splash-screen = "1.2.0"
 spotbugsGradlePlugin = "6.5.11"
 spotless = "8.10.2"
-stateless4jVersion = "2.6.0"
 webkitVersion = "1.17.0"
 workRuntime = "2.12.0"
 foundationVersion = "1.12.1"
@@ -99,7 +93,6 @@ bcpkix-jdk18on = { module = "org.bouncycastle:bcpkix-jdk18on", version.ref = "bc
 # UI
 browser = { module = "androidx.browser:browser", version.ref = "browserVersion" }
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompatVersion" }
-cardview = { module = "androidx.cardview:cardview", version.ref = "cardviewVersion" }
 core-ktx = { module = "androidx.test:core-ktx", version.ref = "androidxTestVersion" }
 document-scanning-android-sdk = { module = "com.github.Hazzatur:Document-Scanning-Android-SDK", version.ref = "documentScannerVersion" }
 fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtxVersion" }
@@ -129,7 +122,6 @@ annotation = { module = "androidx.annotation:annotation", version.ref = "annotat
 annotations = { module = "com.google.code.findbugs:annotations", version.ref = "annotationsVersion" }
 commons-httpclient-commons-httpclient = { module = "commons-httpclient:commons-httpclient", version.ref = "commonsHttpclient" }
 commons-io = { module = "commons-io:commons-io", version.ref = "commonsIoVersion" }
-dexopener = { module = "com.github.tmurakami:dexopener", version.ref = "dexopenerVersion" }
 disklrucache = { module = "com.jakewharton:disklrucache", version.ref = "disklrucacheVersion" }
 eventbus = { module = "org.greenrobot:eventbus", version.ref = "eventbusVersion" }
 ext-strikethrough = { module = "io.noties.markwon:ext-strikethrough", version.ref = "markwonVersion" }
@@ -139,7 +131,6 @@ ez-vcard = { module = "com.googlecode.ez-vcard:ez-vcard", version.ref = "ezVcard
 findsecbugs-plugin = { module = "com.h3xstream.findsecbugs:findsecbugs-plugin", version.ref = "findsecbugsPluginVersion" }
 fb-contrib = { module = "com.mebigfatguy.fb-contrib:fb-contrib", version.ref = "fbContribVersion" }
 firebase-messaging = { module = "com.google.firebase:firebase-messaging", version.ref = "firebaseMessagingVersion" }
-flexbox = { module = "com.google.android.flexbox:flexbox", version.ref = "flexboxVersion" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gsonVersion" }
 html = { module = "io.noties.markwon:html", version.ref = "markwonVersion" }
 ical4j = { module = "org.mnode.ical4j:ical4j", version.ref = "ical4jVersion" }
@@ -148,8 +139,6 @@ json = { module = "org.json:json", version.ref = "jsonVersion" }
 juniversalchardet = { module = "com.github.albfernandez:juniversalchardet", version.ref = "juniversalchardetVersion" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 leakcanary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary" }
-nnio = { module = "org.lukhnos:nnio", version.ref = "nnioVersion" }
-org-jbundle-util-osgi-wrapped-org-apache-http-client = { module = "org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client", version.ref = "orgJbundleUtilOsgiWrappedOrgApacheHttpClientVersion" }
 osmdroid-android = { module = "org.osmdroid:osmdroid-android", version.ref = "osmdroidAndroidVersion" }
 play-services-base = { module = "com.google.android.gms:play-services-base", version.ref = "playServicesBaseVersion" }
 review-ktx = { module = "com.google.android.play:review-ktx", version.ref = "reviewKtxVersion" }
@@ -221,9 +210,6 @@ junit-junit = { module = "junit:junit", version.ref = "junit" }
 # Screenshot Test
 screengrab = { module = "tools.fastlane:screengrab", version.ref = "screengrabVersion" }
 screenshot-core = { module = "com.facebook.testing.screenshot:core", version.ref = "coreVersion" }
-shot = { module = "com.karumi:shot", version.ref = "shotVersion" }
-
-stateless4j = { module = "com.github.stateless4j:stateless4j", version.ref = "stateless4jVersion" }
 
 # Markwon
 syntax-highlight = { module = "io.noties.markwon:syntax-highlight", version.ref = "markwonVersion" }
@@ -245,7 +231,7 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 [bundles]
 media3 = ["media3-ui", "media3-session", "media3-exoplayer", "media3-datasource"]
 espresso = ["espresso-core", "espresso-contrib", "espresso-web", "espresso-accessibility", "espresso-intents", "espresso-idling-resource"]
-ui = ["appcompat", "webkit", "cardview", "exifinterface", "fragment-ktx"]
+ui = ["appcompat", "webkit", "exifinterface", "fragment-ktx"]
 markdown-rendering = [
     "core",
     "ext-strikethrough",
@@ -267,7 +253,6 @@ unit-test = [
     "core-testing"
 ]
 mocking = [
-    "dexopener", # required to allow mocking on API 27 and older
     "mockito-kotlin",
     "mockk",
     "mockk-android",

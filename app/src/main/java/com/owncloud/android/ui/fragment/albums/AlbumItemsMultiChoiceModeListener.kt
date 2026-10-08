@@ -16,6 +16,7 @@ import android.widget.AbsListView
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentActivity
+import com.nextcloud.client.systembars.SystemBarBackgroundCallbacks
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.adapter.GalleryAdapter
@@ -79,10 +80,9 @@ internal class AlbumItemsMultiChoiceModeListener(
         inflatePlaceholderMenu(menu)
         mode.invalidate()
 
-        viewThemeUtils.platform.colorStatusBar(
-            activity,
-            ContextCompat.getColor(activity, R.color.action_mode_background)
-        )
+        val statusBarColor = ContextCompat.getColor(activity, R.color.action_mode_background)
+        viewThemeUtils.platform.colorStatusBar(activity, statusBarColor)
+        SystemBarBackgroundCallbacks.colorStatusBar(activity, statusBarColor)
 
         adapter?.setMultiSelect(true)
         onSelectionModeChanged(true)
@@ -114,6 +114,7 @@ internal class AlbumItemsMultiChoiceModeListener(
         activeActionMode = null
 
         viewThemeUtils.platform.resetStatusBar(activity)
+        SystemBarBackgroundCallbacks.apply(activity, viewThemeUtils)
 
         adapter?.setMultiSelect(false)
         adapter?.clearCheckedItems()

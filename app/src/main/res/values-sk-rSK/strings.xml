@@ -298,7 +298,7 @@
     <string name="create_new_presentation">Nová prezentácia</string>
     <string name="create_new_spreadsheet">Nová tabuľka</string>
     <string name="create_presentation">Prezentácia</string>
-    <string name="create_rich_workspace">Pridať popis adresára</string>
+    <string name="create_rich_workspace">Pridať popis priečinka</string>
     <string name="create_spreadsheet">Tabuľka</string>
     <string name="create_tag_format">Vytvoriť značku: „%1$s“</string>
     <string name="credentials_disabled">Prihlasovacie údaje zakázané</string>
@@ -436,14 +436,17 @@
     <string name="error_choosing_date">Chyba pri vyberaní dátumu</string>
     <string name="error_comment_file">Chyba pri pridaní komentáru k súboru</string>
     <string name="error_crash_title">%1$s zhavarovalo</string>
+    <string name="error_creating_file">Chyba pri vytváraní súboru</string>
     <string name="error_creating_file_from_template">Chyba pri vytváraní súboru zo šablóny</string>
     <string name="error_fetching_sharees">Nie je možné získať zdieľané položky.</string>
     <string name="error_file_actions">Chyba pri zobrazovaní akcií súboru</string>
     <string name="error_file_lock">Chyba pri zmene stavu uzamknutia súboru</string>
+    <string name="error_reading_file">Chyba pri čítaní súboru</string>
     <string name="error_report_issue_action">Hlásenie</string>
     <string name="error_report_issue_text">Nahlásiť chybu? (vyžaduje účet na Githube)</string>
     <string name="error_retrieving_file">Chyba pri získavaní súboru</string>
     <string name="error_retrieving_templates">Chyba pri načítaní šablón</string>
+    <string name="error_saving_local_file">Chyba pri ukladaní lokálneho súboru</string>
     <string name="error_setting_status_message">Chyba pri nastavovaní správy stavu!</string>
     <string name="error_showing_encryption_dialog">Chyba pri zobrazovaní dialogu nastavenia šifrovania!</string>
     <string name="error_starting_direct_camera_upload">Chyba pri otváraní fotoaparátu</string>
@@ -575,6 +578,7 @@
     <string name="filename_forbidden_characters">Zakázané znaky: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Názov súboru obsahuje najmenej jeden nepovolený znak</string>
     <string name="filename_hint">Názov súboru</string>
+    <string name="filename_too_long">Názov súboru nemôže byť dlhší ako 250 znakov</string>
     <string name="first_run_1_text">Majte svoje dáta pod vlastnou kontrolou a zabezpečené</string>
     <string name="first_run_2_text">Bezpečná spolupráca a výmena súborov</string>
     <string name="first_run_3_text">Jednoduchý webmail, kalendár a kontakty</string>
@@ -1352,7 +1356,7 @@
         <item quantity="other">Zapísaných %1$d udalostí do %2$s</item>
     </plurals>
     <plurals name="created_n_uids_to">
-        <item quantity="one">Vytvorené %1$d nové UID</item>
+        <item quantity="one">Vytvorený %1$d nový UID</item>
         <item quantity="few">Vytvorených %1$d nových UID</item>
         <item quantity="many">Vytvorených %1$d nových UID</item>
         <item quantity="other">Vytvorených %1$d nových UID</item>
@@ -1460,7 +1464,7 @@
         <item quantity="other">Skúste to znova o %1$d min a %2$d s kvôli príliš veľkému počtu nesprávnych pokusov.</item>
     </plurals>
     <plurals name="share_download_limit_description">
-        <item quantity="one">%1$d sťahovaní zostáva</item>
+        <item quantity="one">%1$d stiahnutie zostáva</item>
         <item quantity="few">%1$d sťahovaní zostáva</item>
         <item quantity="many">%1$d sťahovaní zostáva</item>
         <item quantity="other">%1$d sťahovaní zostáva</item>
