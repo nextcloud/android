@@ -824,29 +824,33 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     private void externalLinkClicked(MenuItem menuItem) {
         int linkId = menuItem.getItemId() - MENU_ITEM_EXTERNAL_LINK;
+
         externalLinksProvider.getExternalLink(ExternalLinkType.LINK, externalLinks -> {
-            Optional<ExternalLink> optionalLink = externalLinks.stream()
-                .filter(link -> link.getId() == linkId)
-                .findFirst();
+            ExternalLink link = externalLinks.stream()
+                .filter(candidate -> candidate.getId() == linkId)
+                .findFirst()
+                .orElse(null);
 
-            if (!optionalLink.isPresent()) {
+            if (link == null) {
                 Log_OC.w(TAG, "No external link found for menu item: " + menuItem.getTitle());
-                return Unit.INSTANCE;
-            }
-
-            ExternalLink link = optionalLink.get();
-            if (link.getRedirect()) {
-                IntentUtil.startLinkIntent(DrawerActivity.this, link.getUrl());
             } else {
-                Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
-                externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, link.getName());
-                externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, link.getUrl());
-                externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
-                startActivity(externalWebViewIntent);
+                openExternalLink(link);
             }
-            
             return Unit.INSTANCE;
         });
+    }
+
+    private void openExternalLink(ExternalLink link) {
+        if (link.getRedirect()) {
+            IntentUtil.startLinkIntent(this, link.getUrl());
+            return;
+        }
+
+        Intent intent = new Intent(getApplicationContext(), ExternalSiteWebView.class)
+            .putExtra(ExternalSiteWebView.EXTRA_TITLE, link.getName())
+            .putExtra(ExternalSiteWebView.EXTRA_URL, link.getUrl())
+            .putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
+        startActivity(intent);
     }
 
     /**
