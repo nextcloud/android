@@ -16,46 +16,38 @@ import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.MimeTypeUtil
 import java.io.File
 
-@Suppress("DEPRECATION")
 class UploadFileResolver(private val operation: UploadFileOperation) {
 
     companion object {
-        fun obtainNewOCFileToUpload(remotePath: String?, localPath: String?, mimeType: String?): OCFile {
-            val newFile = OCFile(remotePath).apply {
+        @JvmStatic
+        fun obtainNewOCFileToUpload(remotePath: String?, localPath: String?, mimeType: String?): OCFile =
+            OCFile(remotePath).apply {
                 setStoragePath(localPath)
                 lastSyncDateForProperties = 0
                 lastSyncDateForData = 0
+                if (!localPath.isNullOrEmpty()) {
+                    val localFile = File(localPath)
+                    fileLength = localFile.length()
+                    lastSyncDateForData = localFile.lastModified()
+                }
+                setMimeType(
+                    if (mimeType.isNullOrEmpty()) MimeTypeUtil.getBestMimeTypeByFilename(localPath) else mimeType
+                )
             }
-
-            if (!localPath.isNullOrEmpty()) {
-                val localFile = File(localPath)
-                newFile.fileLength = localFile.length()
-                newFile.lastSyncDateForData = localFile.lastModified()
-            }
-
-            if (mimeType.isNullOrEmpty()) {
-                newFile.mimeType = MimeTypeUtil.getBestMimeTypeByFilename(localPath)
-            } else {
-                newFile.mimeType = mimeType
-            }
-
-            return newFile
-        }
     }
 
-    val Any?.collidedFileNames: List<String>
-        get() = when (this) {
-            is DecryptedFolderMetadataFileV1 -> files.values.map { it.encrypted.filename }
-            is DecryptedFolderMetadataFile -> metadata.files.values.map { it.filename }
-            else -> emptyList()
-        }
+    @Suppress("DEPRECATION")
+    fun getCollidedFileNames(metadata: Any?): List<String> = when (metadata) {
+        is DecryptedFolderMetadataFileV1 -> metadata.files.values.map { it.encrypted.filename }
+        is DecryptedFolderMetadataFile -> metadata.metadata.files.values.map { it.filename }
+        else -> emptyList()
+    }
 
     fun updateSize(size: Long) {
         val storageManager = operation.uploadsStorageManager
-        val ocUpload = storageManager.getUploadById(operation.ocUploadId)
-        if (ocUpload != null) {
-            ocUpload.fileSize = size
-            storageManager.updateUpload(ocUpload)
+        storageManager.getUploadById(operation.ocUploadId)?.let {
+            it.fileSize = size
+            storageManager.updateUpload(it)
         }
     }
 
@@ -73,13 +65,10 @@ class UploadFileResolver(private val operation: UploadFileOperation) {
     }
 
     fun createLocalFolder(remotePath: String): OCFile? {
-        val parentPath = File(remotePath).parent
-            ?.let { if (it.endsWith(OCFile.PATH_SEPARATOR)) it else it + OCFile.PATH_SEPARATOR }
-            ?: return null
-
         val storageManager = operation.storageManager
-        val parent = storageManager.getFileByPath(parentPath)
-            ?: createLocalFolder(parentPath)
+        val parent = File(remotePath).parent
+            ?.let { if (it.endsWith(OCFile.PATH_SEPARATOR)) it else it + OCFile.PATH_SEPARATOR }
+            ?.let { storageManager.getFileByPath(it) ?: createLocalFolder(it) }
             ?: return null
 
         return OCFile(remotePath).apply {
@@ -89,16 +78,18 @@ class UploadFileResolver(private val operation: UploadFileOperation) {
     }
 
     fun updateOCFile(file: OCFile, remoteFile: RemoteFile) {
-        file.creationTimestamp = remoteFile.creationTimestamp
-        file.fileLength = remoteFile.length
-        file.setMimeType(remoteFile.mimeType)
-        file.modificationTimestamp = remoteFile.modifiedTimestamp
-        file.modificationTimestampAtLastSyncForData = remoteFile.modifiedTimestamp
-        file.setEtag(remoteFile.etag)
-        file.setEtagOnServer(remoteFile.etag)
-        file.setRemoteId(remoteFile.remoteId)
-        file.setPermissions(remoteFile.permissions)
-        file.uploadTimestamp = remoteFile.uploadTimestamp
-        file.isPreviewAvailable = remoteFile.isHasPreview
+        file.apply {
+            creationTimestamp = remoteFile.creationTimestamp
+            fileLength = remoteFile.length
+            mimeType = remoteFile.mimeType
+            modificationTimestamp = remoteFile.modifiedTimestamp
+            modificationTimestampAtLastSyncForData = remoteFile.modifiedTimestamp
+            etag = remoteFile.etag
+            etagOnServer = remoteFile.etag
+            remoteId = remoteFile.remoteId
+            permissions = remoteFile.permissions
+            uploadTimestamp = remoteFile.uploadTimestamp
+            isPreviewAvailable = remoteFile.isHasPreview
+        }
     }
 }
