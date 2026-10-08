@@ -7,7 +7,9 @@
 
 package com.nextcloud.utils.thumbnail
 
+import android.content.ComponentCallbacks2
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.Drawable
@@ -52,7 +54,7 @@ class FileThumbnailGenerator @Inject constructor(
     private val viewThemeUtils: Provider<ViewThemeUtils>,
     private val context: Context,
     private val accountManager: UserAccountManager
-) {
+) : ComponentCallbacks2 {
 
     companion object {
         private const val TAG = "FileThumbnailGenerator"
@@ -69,6 +71,21 @@ class FileThumbnailGenerator @Inject constructor(
 
     private val tasks = CopyOnWriteArrayList<ThumbnailGenerationTask>()
     private val placeholders = mutableMapOf<String, Bitmap>()
+
+    init {
+        context.applicationContext.registerComponentCallbacks(this)
+    }
+
+    override fun onTrimMemory(level: Int) {
+        if (level >= ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN) {
+            synchronized(placeholders) { placeholders.clear() }
+        }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) = Unit
+
+    @Deprecated("Deprecated in Java")
+    override fun onLowMemory() = Unit
 
     fun setThumbnail(file: OCFile, view: ImageView, arguments: ThumbnailArguments) {
         if (file.remoteId == null) {

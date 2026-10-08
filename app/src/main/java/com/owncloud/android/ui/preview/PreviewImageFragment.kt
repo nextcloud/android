@@ -332,7 +332,15 @@ class PreviewImageFragment :
         Log_OC.d(TAG, "onStop starts")
         loadBitmapTask?.cancel(true)
         loadBitmapTask = null
+        releaseOwnedBitmap()
         super.onStop()
+    }
+
+    private fun releaseOwnedBitmap() {
+        val bitmap = ownedBitmap ?: return
+        binding.image.setImageDrawable(null)
+        bitmap.recycle()
+        ownedBitmap = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
