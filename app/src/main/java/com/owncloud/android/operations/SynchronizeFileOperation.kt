@@ -104,7 +104,6 @@ class SynchronizeFileOperation : SyncOperation {
 
         val result = if (localFile?.isDown == false) {
             requestForDownload(localFile)
-            RemoteOperationResult<Any?>(RemoteOperationResult.ResultCode.OK)
         } else {
             syncWithServer(client)
         }
@@ -192,11 +191,12 @@ class SynchronizeFileOperation : SyncOperation {
         return RemoteOperationResult<Any?>(RemoteOperationResult.ResultCode.OK)
     }
 
+    @Suppress("ReturnCount")
     private fun handleServerChange(serverFile: OCFile): RemoteOperationResult<*> {
         localFile?.remoteId = serverFile.remoteId
 
         if (syncFileContents) {
-            requestForDownload(localFile)
+            return requestForDownload(localFile)
         } else {
             val local =
                 localFile ?: return RemoteOperationResult<Any?>(RemoteOperationResult.ResultCode.LOCAL_FILE_NOT_FOUND)
@@ -231,29 +231,28 @@ class SynchronizeFileOperation : SyncOperation {
         transferWasRequested = true
     }
 
-    private fun requestForDownload(file: OCFile?) {
-        val file = file ?: return
+    @Suppress("TooGenericExceptionCaught", "ReturnCount")
+    private fun requestForDownload(file: OCFile?): RemoteOperationResult<*> {
+        val file = file ?: return RemoteOperationResult<Any?>(RemoteOperationResult.ResultCode.LOCAL_FILE_NOT_FOUND)
         val fileDownloadHelper = FileDownloadHelper.instance()
 
         if (useWorkerWithNotification) {
-            Log_OC.d(TAG, "downloading file with worker: ${file.fileName}")
             fileDownloadHelper.downloadFile(user, file)
             transferWasRequested = true
-        } else {
-            Log_OC.d(TAG, "downloading file without worker: ${file.fileName}")
-            runCatching {
-                val operation = DownloadFileOperation(user, file, context)
-                val result = operation.execute(client)
-                transferWasRequested = true
-                if (result.isSuccess) {
-                    fileDownloadHelper.saveFile(file, operation, storageManager)
-                    Log_OC.d(TAG, "requestForDownload completed for: ${file.fileName}")
-                } else {
-                    Log_OC.d(TAG, "requestForDownload failed for: ${file.fileName}")
-                }
-            }.onFailure { e ->
-                Log_OC.d(TAG, "Exception caught at requestForDownload: $e")
+            return RemoteOperationResult<Any?>(RemoteOperationResult.ResultCode.OK)
+        }
+
+        return try {
+            val operation = DownloadFileOperation(user, file, context)
+            val result = operation.execute(client)
+            transferWasRequested = true
+            if (result.isSuccess) {
+                fileDownloadHelper.saveFile(file, operation, storageManager)
             }
+            result
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Inline download failed for ${file.remotePath}", e)
+            RemoteOperationResult<Any?>(e)
         }
     }
 
