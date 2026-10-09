@@ -51,7 +51,9 @@ import androidx.core.view.MenuItemCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -325,7 +327,7 @@ class FileDisplayActivity :
         }
 
         checkStoragePath()
-        observeWorkerState()
+        observeViewModel()
         handleBackPress()
         setupDrawer(menuItemId)
     }
@@ -2067,11 +2069,25 @@ class FileDisplayActivity :
 
     override fun isDrawerIndicatorAvailable(): Boolean = isRoot(getCurrentDir())
 
-    private fun observeWorkerState() {
+    private fun observeViewModel() {
         lifecycleScope.launch {
             viewModel.observeOfflineWorker(onComplete = {
                 refreshCurrentDirectory()
             })
+        }
+
+        lifecycleScope.launch {
+            viewModel.syncFolderResult.collect {
+                onSyncFinished()
+            }
+        }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.recommendedFiles.collect { files ->
+                    listOfFilesFragment?.adapter?.updateRecommendedFiles(files)
+                }
+            }
         }
     }
 
@@ -2292,7 +2308,7 @@ class FileDisplayActivity :
         }
 
         supportInvalidateOptionsMenu()
-        fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
+        viewModel.fetchRecommendedFiles(ignoreETag = true, currentDir)
     }
 
     override fun onAutoUploadFolderRemoved(
@@ -2464,7 +2480,7 @@ class FileDisplayActivity :
         }
 
         refreshGalleryFragmentIfNeeded()
-        fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
+        viewModel.fetchRecommendedFiles(ignoreETag = true, currentDir)
     }
 
     private fun onRenameFileOperationFinishForFileFragment(fragment: FileFragment, ocFile: OCFile, user: User) {
@@ -2627,19 +2643,9 @@ class FileDisplayActivity :
 
         syncState = EmptyListState.LOADING
 
-        lifecycleScope.launch {
-            viewModel.syncFolder(folder, ignoreETag)
-            onSyncFinished()
-        }
+        viewModel.syncFolder(folder, ignoreETag)
 
-        fetchRecommendedFilesIfNeeded(ignoreETag, folder)
-    }
-
-    private fun fetchRecommendedFilesIfNeeded(ignoreETag: Boolean, folder: OCFile?) {
-        lifecycleScope.launch {
-            val files = viewModel.fetchRecommendedFiles(ignoreETag, folder) ?: return@launch
-            listOfFilesFragment?.adapter?.updateRecommendedFiles(files)
-        }
+        viewModel.fetchRecommendedFiles(ignoreETag, folder)
     }
 
     private fun requestForDownload(file: OCFile, downloadBehaviour: String, packageName: String, activityName: String) {
