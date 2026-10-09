@@ -15,9 +15,7 @@ package com.owncloud.android.ui.activity;
 
 import android.animation.AnimatorInflater;
 import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -382,38 +380,10 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         return view.getVisibility() == View.VISIBLE;
     }
     /**
-     * Change the bitmap for the toolbar's preview image.
-     *
-     * @param bitmap bitmap of the preview image
-     */
-    public void setPreviewImageBitmap(Bitmap bitmap) {
-        if (mPreviewImage != null) {
-            mPreviewImage.setImageBitmap(bitmap);
-            setPreviewImageVisibility(true);
-        }
-    }
-
-    /**
-     * Change the drawable for the toolbar's preview image.
-     *
-     * @param drawable drawable of the preview image
-     */
-    public void setPreviewImageDrawable(Drawable drawable) {
-        if (mPreviewImage != null) {
-            mPreviewImage.setImageDrawable(drawable);
-            setPreviewImageVisibility(true);
-        }
-    }
-
-    /**
      * get the toolbar's preview image view.
      */
     public ImageView getPreviewImageView() {
         return mPreviewImage;
-    }
-
-    public FrameLayout getPreviewImageContainer() {
-        return mPreviewImageContainer;
     }
 
     public void updateToolbarSubtitle(@NonNull String subtitle) {
