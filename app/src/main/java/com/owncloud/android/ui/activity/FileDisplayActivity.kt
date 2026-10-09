@@ -51,7 +51,9 @@ import androidx.core.view.MenuItemCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -68,18 +70,15 @@ import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.client.editimage.EditImageActivity
 import com.nextcloud.client.files.DeepLinkHandler
 import com.nextcloud.client.jobs.download.FileDownloadEventBroadcaster
-import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.folderDownload.FolderDownloadEventBroadcaster
 import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
-import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.network.ClientFactory.CreationException
 import com.nextcloud.client.player.model.file.toPlaybackCollection
 import com.nextcloud.client.player.ui.audio.AudioPlayerLauncher
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.IntentUtil
-import com.nextcloud.model.OCUploadLocalPathData
 import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -112,7 +111,6 @@ import com.owncloud.android.lib.resources.files.SearchRemoteOperation
 import com.owncloud.android.lib.resources.notifications.GetNotificationsRemoteOperation
 import com.owncloud.android.operations.CopyFileOperation
 import com.owncloud.android.operations.CreateFolderOperation
-import com.owncloud.android.operations.DownloadType
 import com.owncloud.android.operations.FolderRefreshScheduler
 import com.owncloud.android.operations.MoveFileOperation
 import com.owncloud.android.operations.RefreshFolderOperation
@@ -329,7 +327,7 @@ class FileDisplayActivity :
         }
 
         checkStoragePath()
-        observeWorkerState()
+        observeViewModel()
         handleBackPress()
         setupDrawer(menuItemId)
     }
@@ -1161,15 +1159,7 @@ class FileDisplayActivity :
                             return@isNetworkAndServerAvailable
                         }
 
-                        val data = OCUploadLocalPathData.forFile(
-                            user.orElseThrow(Supplier { RuntimeException() }),
-                            filePaths,
-                            decryptedRemotePaths,
-                            behaviour,
-                            createRemoteFolder = true
-                        )
-
-                        FileUploadHelper.instance().uploadNewFiles(data)
+                        viewModel.uploadFiles(filePaths, decryptedRemotePaths, behaviour)
                     }
                 } else {
                     lifecycleScope.launch(Dispatchers.IO) {
@@ -2079,11 +2069,25 @@ class FileDisplayActivity :
 
     override fun isDrawerIndicatorAvailable(): Boolean = isRoot(getCurrentDir())
 
-    private fun observeWorkerState() {
+    private fun observeViewModel() {
         lifecycleScope.launch {
             viewModel.observeOfflineWorker(onComplete = {
                 refreshCurrentDirectory()
             })
+        }
+
+        lifecycleScope.launch {
+            viewModel.syncFolderResult.collect {
+                onSyncFinished()
+            }
+        }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.recommendedFiles.collect { files ->
+                    listOfFilesFragment?.adapter?.updateRecommendedFiles(files)
+                }
+            }
         }
     }
 
@@ -2304,7 +2308,7 @@ class FileDisplayActivity :
         }
 
         supportInvalidateOptionsMenu()
-        fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
+        viewModel.fetchRecommendedFiles(ignoreETag = true, currentDir)
     }
 
     override fun onAutoUploadFolderRemoved(
@@ -2476,7 +2480,7 @@ class FileDisplayActivity :
         }
 
         refreshGalleryFragmentIfNeeded()
-        fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
+        viewModel.fetchRecommendedFiles(ignoreETag = true, currentDir)
     }
 
     private fun onRenameFileOperationFinishForFileFragment(fragment: FileFragment, ocFile: OCFile, user: User) {
@@ -2572,9 +2576,8 @@ class FileDisplayActivity :
     }
 
     private fun requestForDownload() {
-        val user = user.orElseThrow(Supplier { RuntimeException() })
         mWaitingToPreview?.let {
-            FileDownloadHelper.instance().downloadFileIfNotStartedBefore(user, it)
+            viewModel.downloadFileIfNotStartedBefore(it)
         }
     }
 
@@ -2634,64 +2637,19 @@ class FileDisplayActivity :
     private fun executeSyncFolderOperation(folder: OCFile?, ignoreETag: Boolean) {
         val folder = folder ?: return
 
-        user.ifPresent { user ->
-            syncState = EmptyListState.LOADING
-
-            RefreshFolderOperation(
-                folder,
-                System.currentTimeMillis(),
-                false,
-                ignoreETag,
-                storageManager,
-                user,
-                applicationContext
-            ).execute(
-                account,
-                this,
-                { _, _ -> onSyncFinished() },
-                handler,
-                null
-            )
-
-            fetchRecommendedFilesIfNeeded(ignoreETag, folder)
-        }
-    }
-
-    private fun fetchRecommendedFilesIfNeeded(ignoreETag: Boolean, folder: OCFile?) {
-        val optionalCapabilities = capabilities
-        if (optionalCapabilities.isEmpty) {
+        if (user.isEmpty) {
             return
         }
 
-        if (folder?.isRootDirectory == false || optionalCapabilities.get().recommendations.isFalse) {
-            return
-        }
+        syncState = EmptyListState.LOADING
 
-        user.ifPresent { user ->
-            val accountName = user.accountName
-            val fragment = this.listOfFilesFragment
-            lifecycleScope.launch(Dispatchers.IO) {
-                val recommendedFiles = filesRepository.fetchRecommendedFiles(accountName, ignoreETag, storageManager)
-                withContext(Dispatchers.Main) {
-                    fragment?.adapter?.updateRecommendedFiles(recommendedFiles)
-                }
-            }
-        }
+        viewModel.syncFolder(folder, ignoreETag)
+
+        viewModel.fetchRecommendedFiles(ignoreETag, folder)
     }
 
     private fun requestForDownload(file: OCFile, downloadBehaviour: String, packageName: String, activityName: String) {
-        val currentUser = user.orElseThrow(Supplier { RuntimeException() })
-        if (!FileDownloadHelper.instance().isDownloading(currentUser, file)) {
-            FileDownloadHelper.instance().downloadFile(
-                currentUser,
-                file,
-                downloadBehaviour,
-                DownloadType.DOWNLOAD,
-                activityName,
-                packageName,
-                null
-            )
-        }
+        viewModel.downloadFile(file, downloadBehaviour, packageName, activityName)
     }
 
     private fun sendDownloadedFile(packageName: String, activityName: String) {
@@ -3317,12 +3275,12 @@ class FileDisplayActivity :
 
     // region MetadataSyncJob
     private fun startMetadataSyncForRoot() {
-        backgroundJobManager.startMetadataSyncJob(OCFile.ROOT_PATH, folderAlreadySynced = true)
+        viewModel.startMetadataSync(OCFile.ROOT_PATH, folderAlreadySynced = true)
     }
 
     private fun startMetadataSyncForCurrentDir() {
         val currentDirId = file?.decryptedRemotePath ?: return
-        backgroundJobManager.startMetadataSyncJob(currentDirId)
+        viewModel.startMetadataSync(currentDirId, folderAlreadySynced = false)
     }
     // endregion
 
