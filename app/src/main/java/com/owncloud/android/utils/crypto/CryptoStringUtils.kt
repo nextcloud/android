@@ -8,11 +8,6 @@
 package com.owncloud.android.utils.crypto
 
 object CryptoStringUtils {
-    fun rawPublicKey(publicKey: String): String = publicKey
-        .replace("-----BEGIN PUBLIC KEY-----", "")
-        .replace("-----END PUBLIC KEY-----", "")
-        .replace("\\s+".toRegex(), "")
-
     fun rawPrivateKey(privateKey: String): String = privateKey
         .replace("\n".toRegex(), "")
         .replace("-----BEGIN PRIVATE KEY-----", "")
