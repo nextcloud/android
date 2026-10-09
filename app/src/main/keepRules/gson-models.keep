@@ -1,0 +1,25 @@
+# Nextcloud - Android Client
+#
+# SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+-keepclassmembers class com.owncloud.android.authentication.AuthObject,
+        com.owncloud.android.authentication.Poll,
+        com.owncloud.android.authentication.LoginUrlInfo,
+        com.owncloud.android.authentication.EnforcedServer,
+        com.owncloud.android.datamodel.PushConfigurationState,
+        com.owncloud.android.datamodel.MediaFoldersModel,
+        com.owncloud.android.datamodel.DecryptedPushMessage,
+        com.nextcloud.client.jobs.LogEntry,
+        com.nextcloud.appReview.AppReviewShownModel,
+        com.nextcloud.client.NominatimClient$Companion$ReverseGeocodingResult,
+        com.nextcloud.model.OfflineOperationType$* {
+    !static !transient <fields>;
+    <init>(...);
+}
+
+-keepclassmembers class com.owncloud.android.datamodel.e2e.**,
+        com.owncloud.android.datamodel.EncryptedFiledrop {
+    <fields>;
+    <init>(...);
+}

@@ -1,0 +1,15 @@
+# Nextcloud - Android Client
+#
+# SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+-keep class org.apache.commons.httpclient.auth.AuthPolicy
+-keep class org.apache.commons.httpclient.cookie.CookiePolicy
+-keep class * implements org.apache.commons.httpclient.auth.AuthScheme {
+    public <init>();
+}
+-keep class * implements org.apache.commons.httpclient.cookie.CookieSpec {
+    public <init>();
+}
+
+-keeppackagenames org.apache.jackrabbit.webdav

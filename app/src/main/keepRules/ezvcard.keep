@@ -1,0 +1,11 @@
+# Nextcloud - Android Client
+#
+# SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+-keepclassmembers class * extends ezvcard.parameter.VCardParameter {
+    public static <fields>;
+    <init>(java.lang.String);
+    <init>(java.lang.String, ezvcard.VCardVersion[]);
+    <init>(java.lang.String, java.lang.String, java.lang.String);
+}
