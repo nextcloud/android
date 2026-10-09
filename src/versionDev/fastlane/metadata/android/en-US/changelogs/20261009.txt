@@ -1,0 +1,8 @@
+fix(l10n): Update translations from Transifex
+fix(l10n): Update translations from Transifex
+style(status-bar): multi-select
+expire cache in 10 mins so that client can update itself when in foreground
+improve unified share fetch
+chore: remove unused dependencies
+remove stateless4j
+Update Nextcloud Android library
