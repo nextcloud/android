@@ -22,7 +22,7 @@ import com.owncloud.android.ui.adapter.StoragePathAdapter.StoragePathAdapterList
 import com.owncloud.android.ui.adapter.StoragePathItem
 import com.owncloud.android.ui.dialog.extensions.themeButtons
 import com.owncloud.android.utils.FileStorageUtils
-import com.owncloud.android.utils.FileStorageUtils.StandardDirectory
+import com.owncloud.android.utils.StandardDirectory
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import javax.inject.Inject
