@@ -56,6 +56,11 @@ class SystemBarBackgroundCallbacks(private val viewThemeUtilsProvider: Provider<
             decorView.foreground = SystemBarsBackgroundDrawable(decorView, statusBarColor, actionBarColor)
         }
 
+        @JvmStatic
+        fun colorStatusBar(activity: Activity, @ColorInt color: Int) {
+            (activity.window?.decorView?.foreground as? SystemBarsBackgroundDrawable)?.setStatusBarColor(color)
+        }
+
         @ColorInt
         private fun statusBarColor(activity: Activity, @ColorInt actionBarColor: Int): Int {
             if (activity is ToolbarActivity && activity.isHomeSearchToolbarVisible) {

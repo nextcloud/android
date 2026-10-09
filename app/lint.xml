@@ -15,7 +15,6 @@
     </issue>
     <issue id="InvalidPackage">
         <ignore path="**/freemarker-2.*.*.jar" />
-        <ignore path="**/nnio-0.2.jar"/>
         <ignore path="**/bcpkix-jdk15on-1.69.jar" />
     </issue>
 
