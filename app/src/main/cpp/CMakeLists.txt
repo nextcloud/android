@@ -22,3 +22,15 @@ target_link_libraries(
     android
     log
 )
+
+add_library(
+    certificate_validator
+    SHARED
+    certificate_validator.cpp
+)
+
+target_link_libraries(
+    certificate_validator
+    openssl::crypto
+    log
+)
