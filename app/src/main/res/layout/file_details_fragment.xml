@@ -147,13 +147,14 @@
                 android:textColor="@color/list_item_lastmod_and_filesize_text"
                 android:text="@string/downloader_download_in_progress_ticker" />
 
-            <ProgressBar
+            <com.google.android.material.progressindicator.LinearProgressIndicator
                 android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:indeterminate="false"
-                android:indeterminateOnly="false" />
+                android:layout_marginTop="@dimen/standard_quarter_margin"
+                app:indicatorColor="?attr/colorPrimary"
+                app:trackColor="?attr/colorSurfaceContainerHighest" />
 
         </LinearLayout>
 

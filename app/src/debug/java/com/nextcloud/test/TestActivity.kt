@@ -12,7 +12,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.nextcloud.client.database.NextcloudDatabase
-import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.network.ConnectivityManagerFactory
 import com.nextcloud.utils.EditorUtils
@@ -99,8 +98,6 @@ class TestActivity :
     }
 
     override fun getFileUploaderHelper(): FileUploadHelper = FileUploadHelper.instance()
-
-    override fun getFileDownloadProgressListener(): FileDownloadWorker.FileDownloadProgressListener? = null
 
     override fun getStorageManager(): FileDataStorageManager {
         if (!this::storage.isInitialized) {
