@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
  * SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2016-2018 Andy Scherzinger <info@andy-scherzinger.de>
@@ -8,933 +9,514 @@
  * SPDX-FileCopyrightText: 2014 David A. Velasco <dvelasco@solidgear.es>
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-package com.owncloud.android.utils;
+package com.owncloud.android.utils
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.content.res.Resources;
-import android.net.Uri;
-import android.os.Environment;
-import android.text.TextUtils;
-import android.webkit.MimeTypeMap;
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.pm.PackageManager
+import android.content.res.Resources
+import android.net.Uri
+import android.os.Environment
+import android.webkit.MimeTypeMap
+import androidx.annotation.VisibleForTesting
+import androidx.core.app.ActivityCompat
+import com.nextcloud.client.preferences.SubFolderRule
+import com.nextcloud.utils.extensions.StringConstants
+import com.nextcloud.utils.extensions.getShareeList
+import com.nextcloud.utils.extensions.sharedViaLink
+import com.nextcloud.utils.extensions.sharedWithSharee
+import com.nextcloud.utils.extensions.tags
+import com.owncloud.android.MainApp
+import com.owncloud.android.R
+import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.files.model.RemoteFile
+import com.owncloud.android.ui.helpers.FileOperationsHelper
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
+import org.apache.commons.io.FilenameUtils
+import java.io.File
+import java.io.IOException
+import java.net.URLDecoder
+import java.nio.file.Files
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
-import com.nextcloud.client.preferences.SubFolderRule;
-import com.nextcloud.utils.extensions.RemoteFileExtensionsKt;
-import com.nextcloud.utils.extensions.StringConstants;
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.model.RemoteFile;
-import com.owncloud.android.lib.resources.shares.ShareType;
-import com.owncloud.android.lib.resources.shares.ShareeUser;
-import com.owncloud.android.ui.helpers.FileOperationsHelper;
+@Suppress("TooManyFunctions")
+object FileStorageUtils {
+    private val TAG: String = FileStorageUtils::class.java.simpleName
+    private const val AUTO_UPLOAD_TAG = "AutoUpload"
 
-import org.apache.commons.io.FilenameUtils;
+    private const val PATTERN_YYYY_MM = "yyyy/MM/"
+    private const val PATTERN_YYYY = "yyyy/"
+    private const val PATTERN_YYYY_MM_DD = "yyyy/MM/dd/"
+    private const val DEFAULT_FALLBACK_STORAGE_PATH = "/storage/sdcard0"
+    private const val DEFAULT_EXT_SD_CARD_PATH = "/storage/sdcard1"
+    private const val ANDROID_DATA_FOLDER = "/Android/data"
+    private const val EXTERNAL_FILES_TYPE = "external"
+    private const val TEMP_ENCRYPTED_FOLDER = "temp_encrypted_folder"
+    private const val ACCOUNT_NAME_ALLOWED_CHARS = "@"
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
+    private const val ENV_EXTERNAL_STORAGE = "EXTERNAL_STORAGE"
+    private const val ENV_SECONDARY_STORAGE = "SECONDARY_STORAGE"
+    private const val ENV_EMULATED_STORAGE_TARGET = "EMULATED_STORAGE_TARGET"
 
-import javax.annotation.Nullable;
+    private const val FILE_SAVE_POLL_INTERVAL_MS = 1000L
+    private const val UNKNOWN_AVAILABLE_SPACE = -1L
 
-import androidx.annotation.VisibleForTesting;
-import androidx.core.app.ActivityCompat;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import kotlin.Pair;
+    private const val FIRST_PRINTABLE_CHAR = ' '
+    private const val DELETE_CHAR = '\u007F'
 
-/**
- * Static methods to help in access to local file system.
- */
-public final class FileStorageUtils {
-    private static final String TAG = FileStorageUtils.class.getSimpleName();
+    private val BIDI_CONTROL_CHARACTERS = setOf(
+        '\u202A', '\u202B', '\u202C', '\u202D', '\u202E',
+        '\u200E', '\u200F', '\u2066', '\u2067', '\u2068',
+        '\u2069', '\u061C'
+    )
 
-    private static final String PATTERN_YYYY_MM = "yyyy/MM/";
-    private static final String PATTERN_YYYY = "yyyy/";
-    private static final String PATTERN_YYYY_MM_DD = "yyyy/MM/dd/";
-    private static final String DEFAULT_FALLBACK_STORAGE_PATH = "/storage/sdcard0";
+    private val INVALID_EXT_FILENAME_CHARS = setOf('"', '*', ':', '/', '<', '>', '?', '\\', '|', DELETE_CHAR)
 
-    private FileStorageUtils() {
-        // utility class -> private constructor
-    }
+    private val REPEATED_PATH_SEPARATORS = Regex("${OCFile.PATH_SEPARATOR}+")
 
-    public static boolean containsBidiControlCharacters(String filename) {
-        if (filename == null) return false;
+    private val MODIFICATION_TIMESTAMP_DESCENDING = compareByDescending<OCFile> { it.modificationTimestamp }
 
-        String decoded;
-        try {
-            decoded = URLDecoder.decode(filename, StandardCharsets.UTF_8.toString());
-        } catch (Exception e) {
-            decoded = filename;
+    @JvmStatic
+    fun containsBidiControlCharacters(filename: String?): Boolean {
+        if (filename == null) return false
+
+        val decoded = try {
+            URLDecoder.decode(filename, Charsets.UTF_8.name())
+        } catch (_: IllegalArgumentException) {
+            filename
         }
 
-        int[] bidiControlCharacters = {
-            0x202A, 0x202B, 0x202C, 0x202D, 0x202E,
-            0x200E, 0x200F, 0x2066, 0x2067, 0x2068,
-            0x2069, 0x061C
-        };
+        return decoded.any { it < FIRST_PRINTABLE_CHAR || it in BIDI_CONTROL_CHARACTERS }
+    }
 
-        for (int i = 0; i < decoded.length(); i++) {
-            int codePoint = decoded.codePointAt(i);
-            for (int chars : bidiControlCharacters) {
-                if (codePoint == chars) {
-                    return true;
-                }
+    @JvmStatic
+    fun getFilenameAndExtension(filename: String?, isFolder: Boolean, isRTL: Boolean): Pair<String?, String?> {
+        if (isFolder) return filename to ""
+
+        val base = FilenameUtils.getBaseName(filename)
+        val rawExtension: String = FilenameUtils.getExtension(filename)
+        val extension = if (rawExtension.isEmpty()) rawExtension else StringConstants.DOT + rawExtension
+
+        return if (isRTL) extension to base else base to extension
+    }
+
+    @JvmStatic
+    fun isValidExtFilename(name: String): Boolean = name.all(::isValidExtFilenameChar)
+
+    private fun isValidExtFilenameChar(c: Char): Boolean = c >= FIRST_PRINTABLE_CHAR && c !in INVALID_EXT_FILENAME_CHARS
+
+    @JvmStatic
+    fun getSavePath(accountName: String?): String =
+        joinPath(MainApp.getStoragePath(), MainApp.getDataFolder(), encodeAccountName(accountName))
+
+    @JvmStatic
+    fun getDefaultSavePathFor(accountName: String?, file: OCFile): String =
+        getSavePath(accountName) + file.decryptedRemotePath
+
+    @JvmStatic
+    fun getTemporalPath(accountName: String?): String = joinPath(
+        MainApp.getStoragePath(),
+        MainApp.getDataFolder(),
+        StringConstants.TEMP,
+        encodeAccountName(accountName)
+    )
+
+    @JvmStatic
+    fun getTemporalEncryptedFolderPath(accountName: String?): String =
+        joinPath(MainApp.getAppContext().filesDir.absolutePath, accountName, TEMP_ENCRYPTED_FOLDER)
+
+    @JvmStatic
+    fun getInternalTemporalPath(accountName: String?, context: Context): String =
+        getAppTempDirectoryPath(context) + encodeAccountName(accountName)
+
+    @JvmStatic
+    fun getAppTempDirectoryPath(context: Context): String =
+        joinPath(context.filesDir, MainApp.getDataFolder(), StringConstants.TEMP) + File.separator
+
+    private fun encodeAccountName(accountName: String?): String? = Uri.encode(accountName, ACCOUNT_NAME_ALLOWED_CHARS)
+
+    private fun joinPath(vararg segments: Any?): String = segments.joinToString(File.separator)
+
+    @JvmStatic
+    @get:SuppressLint("UsableSpace")
+    val usableSpace: Long
+        get() = File(MainApp.getStoragePath()).usableSpace
+
+    private fun getSubPathFromDate(date: Long, currentLocale: Locale?, subFolderRule: SubFolderRule?): String {
+        if (date == 0L) {
+            Log_OC.w(TAG, "FileStorageUtils:getSubPathFromDate date is zero")
+            return ""
+        }
+
+        val datePattern = when (subFolderRule) {
+            SubFolderRule.YEAR -> PATTERN_YYYY
+            SubFolderRule.YEAR_MONTH -> PATTERN_YYYY_MM
+            SubFolderRule.YEAR_MONTH_DAY -> PATTERN_YYYY_MM_DD
+            null -> ""
+        }
+
+        return SimpleDateFormat(datePattern, currentLocale)
+            .apply { timeZone = TimeZone.getTimeZone(TimeZone.getDefault().id) }
+            .format(Date(date))
+    }
+
+    private fun stripSyncedFolderPrefix(absolutePath: String, syncedFolderLocalPath: String?): String {
+        if (syncedFolderLocalPath.isNullOrEmpty()) return absolutePath
+
+        val prefix = syncedFolderLocalPath.removeSuffix(OCFile.PATH_SEPARATOR)
+
+        return when {
+            absolutePath.startsWith(prefix) -> absolutePath.substring(prefix.length)
+
+            absolutePath.startsWith(prefix, ignoreCase = true) -> {
+                Log_OC.w(TAG, "local path differs from the synced folder in letter case only, stripping anyway")
+                absolutePath.substring(prefix.length)
+            }
+
+            else -> {
+                Log_OC.e(TAG, "local file is not below its synced folder, dropping the local subfolders")
+                OCFile.PATH_SEPARATOR + File(absolutePath).name
             }
         }
-
-        for (char c : decoded.toCharArray()) {
-            if (c < 32) return true;
-        }
-
-        return false;
     }
 
-    public static Pair<String,String> getFilenameAndExtension(String filename, boolean isFolder, boolean isRTL) {
-        if (isFolder) {
-            return new Pair<>(filename, "");
-        }
+    @Suppress("LongParameterList")
+    @JvmStatic
+    fun getInstantUploadFilePath(
+        file: File,
+        current: Locale?,
+        remotePath: String?,
+        syncedFolderLocalPath: String?,
+        dateTaken: Long,
+        subfolderByDate: Boolean,
+        subFolderRule: SubFolderRule?
+    ): String {
+        val subfolderByDatePath = if (subfolderByDate) getSubPathFromDate(dateTaken, current, subFolderRule) else ""
+        Log_OC.w(TAG, "FileStorageUtils:getInstantUploadFilePath subfolderByDate: $subfolderByDate")
 
-        final String base =  FilenameUtils.getBaseName(filename);
-        String extension =  FilenameUtils.getExtension(filename);
-        if (!extension.isEmpty()) {
-            extension =  StringConstants.DOT + extension;
-        }
-
-        if (isRTL) {
-            return new Pair<>(extension, base);
-        } else {
-            return new Pair<>(base, extension);
-        }
-    }
-
-    public static boolean isValidExtFilename(String name) {
-        for (int i = 0; i < name.length(); i++) {
-            char c = name.charAt(i);
-            if (!isValidExtFilenameChar(c)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Checks whether the given character is valid in an extended file name.
-     * <p>
-     * Reference: <a href="https://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/os/FileUtils.java;l=997">
-     * android.os.FileUtils#isValidExtFilenameChar(char)
-     * </a> from the Android Open Source Project.
-     *
-     * @param c the character to validate
-     * @return true if the character is valid in a filename, false otherwise
-     */
-    private static boolean isValidExtFilenameChar(char c) {
-        if ((int) c <= 0x1F) {
-            return false;
-        }
-
-        return switch (c) {
-            case '"', '*', ':', '/', '<', '>', '?', '\\', '|', 0x7F -> false;
-            default -> true;
-        };
-    }
-
-    /**
-     * Get local owncloud storage path for accountName.
-     */
-    public static String getSavePath(String accountName) {
-        return MainApp.getStoragePath()
-                + File.separator
-                + MainApp.getDataFolder()
-                + File.separator
-                + Uri.encode(accountName, "@");
-        // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names,
-        // that can be in the accountName since 0.1.190B
-    }
-
-    /**
-     * Get local path where OCFile file is to be stored after upload. That is,
-     * corresponding local path (in local owncloud storage) to remote uploaded
-     * file.
-     * <p>
-     * e.g. /storage/emulated/0/Android/media/com.nextcloud.client/nextcloud/admin@example.cloud/folder/file.txt
-     */
-    public static String getDefaultSavePathFor(String accountName, OCFile file) {
-        return getSavePath(accountName) + file.getDecryptedRemotePath();
-    }
-
-    /**
-     * Get absolute path to tmp folder inside datafolder in sd-card for given accountName.
-     */
-    public static String getTemporalPath(String accountName) {
-        // FIXME broken in SDK 30
-        return MainApp.getStoragePath()
-                + File.separator
-                + MainApp.getDataFolder()
-                + File.separator
-                + StringConstants.TEMP
-                + File.separator
-                + Uri.encode(accountName, "@");
-        // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names,
-        // that can be in the accountName since 0.1.190B
-    }
-
-    public static String getTemporalEncryptedFolderPath(String accountName) {
-        return MainApp
-            .getAppContext()
-            .getFilesDir()
-            .getAbsolutePath()
-            + File.separator
-            + accountName
-            + File.separator
-            + "temp_encrypted_folder";
-    }
-
-    /**
-     * Get absolute path to tmp folder inside app folder for given accountName.
-     */
-    public static String getInternalTemporalPath(String accountName, Context context) {
-        return getAppTempDirectoryPath(context)
-                + Uri.encode(accountName, "@");
-        // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names,
-        // that can be in the accountName since 0.1.190B
-    }
-
-    /**
-     * @return /data/user/0/com.nextcloud.client/files/nextcloud/tmp/
-     */
-    public static String getAppTempDirectoryPath(Context context) {
-        return context.getFilesDir()
-            + File.separator
-            + MainApp.getDataFolder()
-            + File.separator
-            + StringConstants.TEMP
-            + File.separator;
-    }
-
-    /**
-     * Optimistic number of bytes available on sd-card. accountName is ignored.
-     *
-     * @return Optimistic number of available bytes (can be less)
-     */
-    @SuppressLint("UsableSpace")
-    public static long getUsableSpace() {
-        File savePath = new File(MainApp.getStoragePath());
-        return savePath.getUsableSpace();
-    }
-
-    /**
-     * Returns the a string like 2016/08/ for the passed date. If date is 0 an empty
-     * string is returned
-     *
-     * @param date: date in microseconds since 1st January 1970
-     * @return string: yyyy/mm/
-     */
-    private static String getSubPathFromDate(long date, Locale currentLocale, SubFolderRule subFolderRule) {
-        if (date == 0) {
-            Log_OC.w(TAG, "FileStorageUtils:getSubPathFromDate date is zero");
-            return "";
-        }
-        String datePattern = "";
-        if (subFolderRule == SubFolderRule.YEAR) {
-            datePattern = PATTERN_YYYY;
-        } else if (subFolderRule == SubFolderRule.YEAR_MONTH) {
-            datePattern = PATTERN_YYYY_MM;
-        } else if (subFolderRule == SubFolderRule.YEAR_MONTH_DAY) {
-            datePattern = PATTERN_YYYY_MM_DD;
-        }
-
-        Date d = new Date(date);
-
-        DateFormat df = new SimpleDateFormat(datePattern, currentLocale);
-        df.setTimeZone(TimeZone.getTimeZone(TimeZone.getDefault().getID()));
-
-        return df.format(d);
-    }
-
-    /**
-     * Removes the synced folder from the beginning of a local file path, leaving only the subfolders that have to be
-     * mirrored below the remote folder.
-     * <p>
-     * Files are selected with a SQL {@code LIKE} on the synced folder path, which is case insensitive, so a folder
-     * configured as {@code DCIM/camera} also collects the files MediaStore stores under {@code DCIM/Camera}. The
-     * prefix therefore has to be removed case insensitively too, or the whole local path ends up on the server.
-     */
-    private static String stripSyncedFolderPrefix(String absolutePath, String syncedFolderLocalPath) {
-        if (syncedFolderLocalPath == null || syncedFolderLocalPath.isEmpty()) {
-            return absolutePath;
-        }
-
-        String prefix = syncedFolderLocalPath.endsWith(OCFile.PATH_SEPARATOR)
-            ? syncedFolderLocalPath.substring(0, syncedFolderLocalPath.length() - 1)
-            : syncedFolderLocalPath;
-
-        if (absolutePath.startsWith(prefix)) {
-            return absolutePath.substring(prefix.length());
-        }
-
-        if (absolutePath.regionMatches(true, 0, prefix, 0, prefix.length())) {
-            Log_OC.w(TAG, "local path differs from the synced folder in letter case only, stripping anyway");
-            return absolutePath.substring(prefix.length());
-        }
-
-        Log_OC.e(TAG, "local file is not below its synced folder, dropping the local subfolders");
-
-        return OCFile.PATH_SEPARATOR + new File(absolutePath).getName();
-    }
-
-    /**
-     * Returns the InstantUploadFilePath on the nextcloud instance
-     *
-     * @param dateTaken: Time in milliseconds since 1970 when the picture was taken.
-     * @return instantUpload path, eg. /Camera/2017/01/fileName
-     */
-    public static String getInstantUploadFilePath(File file,
-                                                  Locale current,
-                                                  String remotePath,
-                                                  String syncedFolderLocalPath,
-                                                  long dateTaken,
-                                                  Boolean subfolderByDate,
-                                                  SubFolderRule subFolderRule) {
-        String subfolderByDatePath = "";
-        if (subfolderByDate) {
-            subfolderByDatePath = getSubPathFromDate(dateTaken, current, subFolderRule);
-        }
-        Log_OC.w(TAG, "FileStorageUtils:getInstantUploadFilePath subfolderByDate: " + subfolderByDate);
-
-        File parentFile = new File(stripSyncedFolderPrefix(file.getAbsolutePath(), syncedFolderLocalPath)).getParentFile();
-
-        String relativeSubfolderPath = "";
+        val parentFile = File(stripSyncedFolderPrefix(file.absolutePath, syncedFolderLocalPath)).parentFile
         if (parentFile == null) {
-            Log_OC.e("AutoUpload", "Parent folder does not exist!");
-        } else {
-            relativeSubfolderPath = parentFile.getAbsolutePath();
+            Log_OC.e(AUTO_UPLOAD_TAG, "Parent folder does not exist!")
         }
+        val relativeSubfolderPath = parentFile?.absolutePath.orEmpty()
 
-        // Path must be normalized; otherwise the next RefreshFolderOperation has a mismatch and deletes the local file.
-        return (remotePath +
-            OCFile.PATH_SEPARATOR +
-            subfolderByDatePath +
-            OCFile.PATH_SEPARATOR +
-            relativeSubfolderPath +
-            OCFile.PATH_SEPARATOR +
-            file.getName())
-            .replaceAll(OCFile.PATH_SEPARATOR + "+", OCFile.PATH_SEPARATOR);
+        return listOf(remotePath, subfolderByDatePath, relativeSubfolderPath, file.name)
+            .joinToString(OCFile.PATH_SEPARATOR)
+            .replace(REPEATED_PATH_SEPARATORS, OCFile.PATH_SEPARATOR)
     }
 
-
-    public static String getParentPath(String remotePath) {
-        String parentPath = new File(remotePath).getParent();
-        if (parentPath != null) {
-            parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath : parentPath + OCFile.PATH_SEPARATOR;
-        }
-        return parentPath;
+    @JvmStatic
+    fun getParentPath(remotePath: String): String? = File(remotePath).parent?.let { parentPath ->
+        if (parentPath.endsWith(OCFile.PATH_SEPARATOR)) parentPath else parentPath + OCFile.PATH_SEPARATOR
     }
 
-    /**
-     * Creates and populates a new {@link OCFile} object with the data read from the server.
-     *
-     * @param remote    remote file read from the server (remote file or folder).
-     * @return New OCFile instance representing the remote resource described by remote.
-     */
-    public static OCFile fillOCFile(RemoteFile remote) {
-        OCFile file = new OCFile(remote.getRemotePath());
-        file.setDecryptedRemotePath(remote.getRemotePath());
-        file.setCreationTimestamp(remote.getCreationTimestamp());
-        file.setUploadTimestamp(remote.getUploadTimestamp());
-        if (MimeType.DIRECTORY.equalsIgnoreCase(remote.getMimeType())) {
-            file.setFileLength(remote.getSize());
-        } else {
-            file.setFileLength(remote.getLength());
-        }
-        file.setMimeType(remote.getMimeType());
-        file.setModificationTimestamp(remote.getModifiedTimestamp());
-        file.setEtag(remote.getEtag());
-        file.setPermissions(remote.getPermissions());
-        file.setRemoteId(remote.getRemoteId());
-        file.setLocalId(remote.getLocalId());
-        file.setFavorite(remote.isFavorite());
-        if (file.isFolder()) {
-            file.setEncrypted(remote.isEncrypted());
-        }
-        file.setMountType(remote.getMountType());
-        file.setPreviewAvailable(remote.isHasPreview());
-        file.setUnreadCommentsCount(remote.getUnreadCommentsCount());
-        file.setOwnerId(remote.getOwnerId());
-        file.setOwnerDisplayName(remote.getOwnerDisplayName());
-        file.setNote(remote.getNote());
-
-        file.setSharees(RemoteFileExtensionsKt.getShareeList(remote));
-        file.setSharedWithSharee(RemoteFileExtensionsKt.sharedWithSharee(remote));
-        file.setSharedViaLink(RemoteFileExtensionsKt.sharedViaLink(remote));
-
-        file.setRichWorkspace(remote.getRichWorkspace());
-        file.setLocked(remote.isLocked());
-        file.setLockType(remote.getLockType());
-        file.setLockOwnerId(remote.getLockOwner());
-        file.setLockOwnerDisplayName(remote.getLockOwnerDisplayName());
-        file.setLockOwnerEditor(remote.getLockOwnerEditor());
-        file.setLockTimestamp(remote.getLockTimestamp());
-        file.setLockTimeout(remote.getLockTimeout());
-        file.setLockToken(remote.getLockToken());
-        file.setTags(RemoteFileExtensionsKt.tags(remote));
-        file.setImageDimension(remote.getImageDimension());
-        file.setGeoLocation(remote.getGeoLocation());
-        file.setLivePhoto(remote.getLivePhoto());
-        file.setHidden(remote.getHidden());
-
-        return file;
-    }
-
-    /**
-     * Creates and populates a new {@link RemoteFile} object with the data read from an {@link OCFile}.
-     *
-     * @param ocFile    OCFile
-     * @return New RemoteFile instance representing the resource described by ocFile.
-     */
-    public static RemoteFile fillRemoteFile(OCFile ocFile) {
-        RemoteFile file = new RemoteFile(ocFile.getRemotePath());
-        file.setCreationTimestamp(ocFile.getCreationTimestamp());
-        file.setLength(ocFile.getFileLength());
-        file.setMimeType(ocFile.getMimeType());
-        file.setModifiedTimestamp(ocFile.getModificationTimestamp());
-        file.setEtag(ocFile.getEtag());
-        file.setPermissions(ocFile.getPermissions());
-        file.setRemoteId(ocFile.getRemoteId());
-        file.setFavorite(ocFile.isFavorite());
-        return file;
-    }
-
-    public static List<OCFile> sortOcFolderDescDateModifiedWithoutFavoritesFirst(List<OCFile> files) {
-        final int multiplier = -1;
-        files.sort((o1, o2) -> multiplier * Long.compare(o1.getModificationTimestamp(), o2.getModificationTimestamp()));
-
-        return files;
-    }
-
-    public static List<OCFile> sortOcFolderDescDateModified(List<OCFile> files) {
-        files = sortOcFolderDescDateModifiedWithoutFavoritesFirst(files);
-
-        return FileSortOrder.sortCloudFilesByFavourite(files);
-    }
-
-
-    /**
-     * Local Folder size.
-     *
-     * @param dir File
-     * @return Size in bytes
-     */
-    public static long getFolderSize(File dir) {
-        if (dir == null || !dir.exists() || !dir.isDirectory()) {
-            return 0;
-        }
-
-        File[] files = dir.listFiles();
-        if (files == null) {
-            return 0;
-        }
-
-        long result = 0;
-        for (File f : files) {
-            if (f.isDirectory()) {
-                result += getFolderSize(f);
-                continue;
+    @JvmStatic
+    fun fillOCFile(remoteFile: RemoteFile?): OCFile {
+        val remote = requireNotNull(remoteFile)
+        return OCFile(remote.remotePath).apply {
+            decryptedRemotePath = remote.remotePath
+            creationTimestamp = remote.creationTimestamp
+            uploadTimestamp = remote.uploadTimestamp
+            val isRemoteDirectory = MimeType.DIRECTORY.equals(remote.mimeType, ignoreCase = true)
+            fileLength = if (isRemoteDirectory) remote.size else remote.length
+            mimeType = remote.mimeType
+            modificationTimestamp = remote.modifiedTimestamp
+            etag = remote.etag
+            permissions = remote.permissions
+            remoteId = remote.remoteId
+            localId = remote.localId
+            isFavorite = remote.isFavorite
+            if (isFolder) {
+                isEncrypted = remote.isEncrypted
             }
-            result += f.length();
-        }
+            mountType = remote.mountType
+            isPreviewAvailable = remote.isHasPreview
+            unreadCommentsCount = remote.unreadCommentsCount
+            ownerId = remote.ownerId
+            ownerDisplayName = remote.ownerDisplayName
+            note = remote.note
 
-        return result;
-    }
+            sharees = remote.getShareeList()
+            isSharedWithSharee = remote.sharedWithSharee()
+            isSharedViaLink = remote.sharedViaLink()
 
-
-    /**
-     * Mimetype String of a file.
-     *
-     * @param path the file path
-     * @return the mime type based on the file name
-     */
-    public static String getMimeTypeFromName(String path) {
-        String extension = "";
-        int pos = path.lastIndexOf('.');
-        if (pos >= 0) {
-            extension = path.substring(pos + 1);
-        }
-        String result = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.toLowerCase(Locale.ROOT));
-        return (result != null) ? result : "";
-    }
-
-    /**
-     * Scans the default location for saving local copies of files searching for
-     * a 'lost' file with the same full name as the {@link OCFile} received as
-     * parameter.
-     *
-     * This method helps to keep linked local copies of the files when the app is uninstalled, and then
-     * reinstalled in the device. OR after the cache of the app was deleted in system settings.
-     *
-     * The method is assuming that all the local changes in the file where synchronized in the past. This is dangerous,
-     * but assuming the contrary could lead to massive unnecessary synchronizations of downloaded file after deleting
-     * the app cache.
-     *
-     * This should be changed in the near future to avoid any chance of data loss, but we need to add some options
-     * to limit hard automatic synchronizations to wifi, unless the user wants otherwise.
-     *
-     * @param file         File to associate a possible 'lost' local file.
-     * @param accountName  File owner account name.
-     */
-    public static void searchForLocalFileInDefaultPath(OCFile file, String accountName) {
-        if ((file.getStoragePath() == null || !new File(file.getStoragePath()).exists()) && !file.isFolder()) {
-            File f = new File(FileStorageUtils.getDefaultSavePathFor(accountName, file));
-            if (f.exists()) {
-                file.setStoragePath(f.getAbsolutePath());
-                file.setLastSyncDateForData(f.lastModified());
-            }
+            richWorkspace = remote.richWorkspace
+            isLocked = remote.isLocked
+            lockType = remote.lockType
+            lockOwnerId = remote.lockOwner
+            lockOwnerDisplayName = remote.lockOwnerDisplayName
+            lockOwnerEditor = remote.lockOwnerEditor
+            lockTimestamp = remote.lockTimestamp
+            lockTimeout = remote.lockTimeout
+            lockToken = remote.lockToken
+            tags = remote.tags()
+            imageDimension = remote.imageDimension
+            geoLocation = remote.geoLocation
+            setLivePhoto(remote.livePhoto)
+            isHidden = remote.hidden
         }
     }
 
-    @SuppressFBWarnings(value = "OBL_UNSATISFIED_OBLIGATION_EXCEPTION_EDGE",
-        justification = "False-positive on the output stream")
-    public static boolean copyFile(File src, File target) {
-        boolean ret = true;
-
-        try (InputStream in = new FileInputStream(src);
-             OutputStream out = new FileOutputStream(target)) {
-            byte[] buf = new byte[1024];
-            int len;
-            while ((len = in.read(buf)) > 0) {
-                out.write(buf, 0, len);
-            }
-        } catch (IOException ex) {
-            ret = false;
-        }
-
-        return ret;
+    @JvmStatic
+    fun fillRemoteFile(ocFile: OCFile): RemoteFile = RemoteFile(ocFile.remotePath).apply {
+        creationTimestamp = ocFile.creationTimestamp
+        length = ocFile.fileLength
+        mimeType = ocFile.mimeType
+        modifiedTimestamp = ocFile.modificationTimestamp
+        etag = ocFile.etag
+        permissions = ocFile.permissions
+        remoteId = ocFile.remoteId
+        isFavorite = ocFile.isFavorite
     }
 
-    public static boolean moveFile(File sourceFile, File targetFile) {
-        if (copyFile(sourceFile, targetFile)) {
-            return sourceFile.delete();
-        } else {
-            return false;
-        }
+    @JvmStatic
+    fun sortOcFolderDescDateModifiedWithoutFavoritesFirst(files: List<OCFile>): List<OCFile> =
+        files.sortedWith(MODIFICATION_TIMESTAMP_DESCENDING)
+
+    @JvmStatic
+    fun sortOcFolderDescDateModified(files: MutableList<OCFile>): MutableList<OCFile> {
+        files.sortWith(MODIFICATION_TIMESTAMP_DESCENDING)
+        return FileSortOrder.sortCloudFilesByFavourite(files)
     }
 
-    public static boolean copyDirs(File sourceFolder, File targetFolder) {
-        if (!targetFolder.mkdirs()) {
-            return false;
-        }
+    @JvmStatic
+    fun getFolderSize(dir: File?): Long = dir
+        ?.takeIf { it.isDirectory }
+        ?.listFiles()
+        ?.sumOf { if (it.isDirectory) getFolderSize(it) else it.length() }
+        ?: 0L
 
-        File[] listFiles = sourceFolder.listFiles();
-
-        if (listFiles == null) {
-            return false;
-        }
-
-        for (File f : listFiles) {
-            if (f.isDirectory()) {
-                if (!copyDirs(f, new File(targetFolder, f.getName()))) {
-                    return false;
-                }
-            } else if (!FileStorageUtils.copyFile(f, new File(targetFolder, f.getName()))) {
-                return false;
-            }
-        }
-
-        return true;
+    @JvmStatic
+    fun getMimeTypeFromName(path: String): String {
+        val extension = path.substringAfterLast('.', missingDelimiterValue = "")
+        return MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.lowercase()).orEmpty()
     }
 
-    public static void deleteRecursively(File file, FileDataStorageManager storageManager) {
-        if (file.isDirectory()) {
-            File[] listFiles = file.listFiles();
+    @JvmStatic
+    fun searchForLocalFileInDefaultPath(file: OCFile, accountName: String?) {
+        if (file.isFolder || file.storagePath?.let { File(it).exists() } == true) return
 
-            if (listFiles == null) {
-                return;
-            }
+        val localFile = File(getDefaultSavePathFor(accountName, file))
+        if (!localFile.exists()) return
 
-            for (File child : listFiles) {
-                deleteRecursively(child, storageManager);
-            }
+        file.storagePath = localFile.absolutePath
+        file.lastSyncDateForData = localFile.lastModified()
+    }
+
+    @JvmStatic
+    @SuppressFBWarnings(
+        value = ["OBL_UNSATISFIED_OBLIGATION_EXCEPTION_EDGE"],
+        justification = "False-positive on the output stream"
+    )
+    fun copyFile(src: File, target: File): Boolean = try {
+        src.inputStream().use { input ->
+            target.outputStream().use { output -> input.copyTo(output) }
+        }
+        true
+    } catch (_: IOException) {
+        false
+    }
+
+    @JvmStatic
+    fun moveFile(sourceFile: File, targetFile: File): Boolean = copyFile(sourceFile, targetFile) && sourceFile.delete()
+
+    @JvmStatic
+    fun copyDirs(sourceFolder: File, targetFolder: File): Boolean {
+        if (!targetFolder.mkdirs()) return false
+
+        return sourceFolder.listFiles()?.all { child ->
+            val target = File(targetFolder, child.name)
+            if (child.isDirectory) copyDirs(child, target) else copyFile(child, target)
+        } ?: false
+    }
+
+    @Suppress("TooGenericExceptionCaught")
+    @JvmStatic
+    fun deleteRecursively(file: File, storageManager: FileDataStorageManager) {
+        if (file.isDirectory) {
+            val children = file.listFiles() ?: return
+            children.forEach { deleteRecursively(it, storageManager) }
         }
 
-        storageManager.deleteFileInMediaScan(file.getAbsolutePath());
+        storageManager.deleteFileInMediaScan(file.absolutePath)
         try {
-            Files.deleteIfExists(file.toPath());
-        } catch (Exception e) {
-            Log_OC.e("Error deleting file: ", e.getMessage());
+            Files.deleteIfExists(file.toPath())
+        } catch (e: Exception) {
+            Log_OC.e("Error deleting file: ", e.message)
         }
     }
 
-    public static boolean deleteRecursive(File file) {
-        boolean res = true;
-
-        if (file.isDirectory()) {
-            File[] listFiles = file.listFiles();
-
-            if (listFiles == null) {
-                return true;
-            }
-
-            for (File c : listFiles) {
-                res = deleteRecursive(c) && res;
-            }
-        }
-
-        return file.delete() && res;
-    }
-
-    public static void checkIfFileFinishedSaving(OCFile file) {
-        long lastModified = 0;
-        long lastSize = 0;
-        File realFile = new File(file.getStoragePath());
-
-        if (realFile.lastModified() != file.getModificationTimestamp() && realFile.length() != file.getFileLength()) {
-            while (realFile.lastModified() != lastModified && realFile.length() != lastSize) {
-                lastModified = realFile.lastModified();
-                lastSize = realFile.length();
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    Log_OC.d(TAG, "Failed to sleep for a bit");
-                }
-            }
-        }
-    }
-
-    /**
-     * Checks and returns true if file itself or ancestor is encrypted
-     *
-     * @param file           file to check
-     * @param storageManager up to date reference to storage manager
-     * @return true if file itself or ancestor is encrypted
-     */
-    public static boolean checkEncryptionStatus(OCFile file, FileDataStorageManager storageManager) {
-        if (file == null) {
-            Log_OC.e(TAG, "checkEncryptionStatus called with null file");
-            return false;
-        }
-
-        if (file.isEncrypted()) {
-            return true;
-        }
-
-        while (file != null && !OCFile.ROOT_PATH.equals(file.getDecryptedRemotePath())) {
-            if (file.isEncrypted()) {
-                return true;
-            }
-            file = storageManager.getFileById(file.getParentId());
-        }
-        return false;
-    }
-
-    /**
-     * Taken from https://github.com/TeamAmaze/AmazeFileManager/blob/54652548223d151f089bdc6fc868b13ca5ab20a9/app/src
-     * /main/java/com/amaze/filemanager/activities/MainActivity.java#L620 on 14.02.2019
-     */
-    @SuppressFBWarnings(value = "DMI_HARDCODED_ABSOLUTE_FILENAME",
-        justification = "Default Android fallback storage path")
-    public static List<String> getStorageDirectories(Context context) {
-        // Final set of paths
-        final List<String> rv = new ArrayList<>();
-        // Primary physical SD-CARD (not emulated)
-        final String rawExternalStorage = System.getenv("EXTERNAL_STORAGE");
-        // All Secondary SD-CARDs (all exclude primary) separated by ":"
-        final String rawSecondaryStoragesStr = System.getenv("SECONDARY_STORAGE");
-        // Primary emulated SD-CARD
-        final String rawEmulatedStorageTarget = System.getenv("EMULATED_STORAGE_TARGET");
-        if (TextUtils.isEmpty(rawEmulatedStorageTarget)) {
-            // Device has physical external storage; use plain paths.
-            if (TextUtils.isEmpty(rawExternalStorage)) {
-                // EXTERNAL_STORAGE undefined; falling back to default.
-                // Check for actual existence of the directory before adding to list
-                if (new File(DEFAULT_FALLBACK_STORAGE_PATH).exists()) {
-                    rv.add(DEFAULT_FALLBACK_STORAGE_PATH);
-                } else {
-                    //We know nothing else, use Environment's fallback
-                    rv.add(Environment.getExternalStorageDirectory().getAbsolutePath());
-                }
-            } else {
-                rv.add(rawExternalStorage);
-            }
+    @JvmStatic
+    fun deleteRecursive(file: File): Boolean {
+        val allChildrenDeleted = if (file.isDirectory) {
+            val children = file.listFiles() ?: return true
+            children.fold(true) { allDeleted, child -> deleteRecursive(child) && allDeleted }
         } else {
-            // Device has emulated storage; external storage paths should have
-            // userId burned into them.
-            final String rawUserId;
-            final String path = Environment.getExternalStorageDirectory().getAbsolutePath();
-            final String[] folders = OCFile.PATH_SEPARATOR.split(path);
-            final String lastFolder = folders[folders.length - 1];
-            boolean isDigit = false;
+            true
+        }
+
+        return file.delete() && allChildrenDeleted
+    }
+
+    @JvmStatic
+    fun checkIfFileFinishedSaving(file: OCFile) {
+        val realFile = File(file.storagePath)
+        if (realFile.lastModified() == file.modificationTimestamp || realFile.length() == file.fileLength) return
+
+        var lastModified = 0L
+        var lastSize = 0L
+        while (realFile.lastModified() != lastModified && realFile.length() != lastSize) {
+            lastModified = realFile.lastModified()
+            lastSize = realFile.length()
             try {
-                Integer.valueOf(lastFolder);
-                isDigit = true;
-            } catch (NumberFormatException ignored) {
-            }
-            rawUserId = isDigit ? lastFolder : "";
-
-            // /storage/emulated/0[1,2,...]
-            if (TextUtils.isEmpty(rawUserId)) {
-                rv.add(rawEmulatedStorageTarget);
-            } else {
-                rv.add(rawEmulatedStorageTarget + File.separator + rawUserId);
+                Thread.sleep(FILE_SAVE_POLL_INTERVAL_MS)
+            } catch (_: InterruptedException) {
+                Log_OC.d(TAG, "Failed to sleep for a bit")
             }
         }
-        // Add all secondary storages
-        if (!TextUtils.isEmpty(rawSecondaryStoragesStr)) {
-            // All Secondary SD-CARDs splited into array
-            final String[] rawSecondaryStorages = rawSecondaryStoragesStr.split(File.pathSeparator);
-            Collections.addAll(rv, rawSecondaryStorages);
-        }
-        if (checkStoragePermission(context)) {
-            rv.clear();
-        }
-
-        String[] extSdCardPaths = getExtSdCardPathsForActivity(context);
-        File f;
-        for (String extSdCardPath : extSdCardPaths) {
-            f = new File(extSdCardPath);
-            if (!rv.contains(extSdCardPath) && canListFiles(f)) {
-                rv.add(extSdCardPath);
-            }
-        }
-
-        return rv;
     }
 
-    /**
-     * Update the local path summary display. If a special directory is recognized, it is replaced by its name.
-     * <p>
-     * Example: /storage/emulated/0/Movies -> Internal Storage / Movies Example: /storage/ABC/non/standard/directory ->
-     * ABC /non/standard/directory
-     *
-     * @param path the path to display
-     * @return a user friendly path as defined in examples, or {@param path} if the storage device isn't recognized.
-     */
-    public static String pathToUserFriendlyDisplay(String path, Context context, Resources resources) {
-        // Determine storage device (external, sdcard...)
-        String storageDevice = null;
-        for (String storageDirectory : FileStorageUtils.getStorageDirectories(context)) {
-            if (path.startsWith(storageDirectory)) {
-                storageDevice = storageDirectory;
-                break;
+    @JvmStatic
+    fun checkEncryptionStatus(file: OCFile?, storageManager: FileDataStorageManager): Boolean {
+        if (file == null) {
+            Log_OC.e(TAG, "checkEncryptionStatus called with null file")
+            return false
+        }
+
+        return file.isEncrypted || selfAndAncestorsBelowRoot(file, storageManager).any { it.isEncrypted }
+    }
+
+    private fun selfAndAncestorsBelowRoot(file: OCFile, storageManager: FileDataStorageManager): Sequence<OCFile> =
+        generateSequence(file) { storageManager.getFileById(it.parentId) }
+            .takeWhile { OCFile.ROOT_PATH != it.decryptedRemotePath }
+
+    @JvmStatic
+    fun getStorageDirectories(context: Context): List<String> {
+        val storageDirectories = mutableListOf<String>()
+        if (!checkStoragePermission(context)) {
+            storageDirectories += primaryStorageDirectory()
+            storageDirectories += secondaryStorageDirectories()
+        }
+
+        getExtSdCardPathsForActivity(context).forEach { extSdCardPath ->
+            if (extSdCardPath !in storageDirectories && canListFiles(File(extSdCardPath))) {
+                storageDirectories += extSdCardPath
             }
         }
 
-        // If storage device was not found, display full path
-        if (storageDevice == null) {
-            return path;
-        }
+        return storageDirectories
+    }
 
-        // Default to full path without storage device path
-        String storageFolder;
-        try {
-            storageFolder = path.substring(storageDevice.length() + 1);
-        } catch (StringIndexOutOfBoundsException e) {
-            storageFolder = "";
-        }
+    @SuppressFBWarnings(
+        value = ["DMI_HARDCODED_ABSOLUTE_FILENAME"],
+        justification = "Default Android fallback storage path"
+    )
+    private fun primaryStorageDirectory(): String {
+        val emulatedStorageTarget = System.getenv(ENV_EMULATED_STORAGE_TARGET)
+        val externalStorage = System.getenv(ENV_EXTERNAL_STORAGE)
 
-        FileStorageUtils.StandardDirectory standardDirectory = FileStorageUtils.StandardDirectory.fromPath(storageFolder);
-        if (standardDirectory != null) {
-            // Friendly name of standard directory
-            storageFolder = " " + resources.getString(standardDirectory.getDisplayName());
+        return when {
+            !emulatedStorageTarget.isNullOrEmpty() -> emulatedStorageDirectory(emulatedStorageTarget)
+            !externalStorage.isNullOrEmpty() -> externalStorage
+            File(DEFAULT_FALLBACK_STORAGE_PATH).exists() -> DEFAULT_FALLBACK_STORAGE_PATH
+            else -> Environment.getExternalStorageDirectory().absolutePath
         }
+    }
 
-        // Shorten the storage device to a friendlier display name
-        if (storageDevice.startsWith(Environment.getExternalStorageDirectory().getAbsolutePath())) {
-            storageDevice = resources.getString(R.string.storage_internal_storage);
+    private fun emulatedStorageDirectory(emulatedStorageTarget: String): String {
+        val externalStoragePath = Environment.getExternalStorageDirectory().absolutePath
+        val lastFolder = OCFile.PATH_SEPARATOR
+            .split(externalStoragePath.toRegex())
+            .dropLastWhile { it.isEmpty() }
+            .last()
+        val userId = lastFolder.takeIf { it.toIntOrNull() != null }
+
+        return if (userId == null) emulatedStorageTarget else emulatedStorageTarget + File.separator + userId
+    }
+
+    private fun secondaryStorageDirectories(): List<String> = System.getenv(ENV_SECONDARY_STORAGE)
+        ?.takeIf { it.isNotEmpty() }
+        ?.split(File.pathSeparator)
+        ?.dropLastWhile { it.isEmpty() }
+        .orEmpty()
+
+    @JvmStatic
+    fun pathToUserFriendlyDisplay(path: String?, context: Context?, resources: Resources): String {
+        if (path == null || context == null) return path.orEmpty()
+
+        return getStorageDirectories(context)
+            .firstOrNull { path.startsWith(it) }
+            ?.let { storageDevice -> userFriendlyDisplay(path, storageDevice, resources) }
+            ?: path
+    }
+
+    private fun userFriendlyDisplay(path: String, storageDevice: String, resources: Resources): String {
+        val storageFolder = path.drop(storageDevice.length + 1)
+        val folderDisplayName = StandardDirectory.fromPath(storageFolder)
+            ?.let { " " + resources.getString(it.displayName) }
+            ?: storageFolder
+
+        val deviceDisplayName = if (storageDevice.startsWith(Environment.getExternalStorageDirectory().absolutePath)) {
+            resources.getString(R.string.storage_internal_storage)
         } else {
-            storageDevice = new File(storageDevice).getName();
+            File(storageDevice).name
         }
 
-        return resources.getString(R.string.local_folder_friendly_path, storageDevice, storageFolder);
+        return resources.getString(R.string.local_folder_friendly_path, deviceDisplayName, folderDisplayName)
     }
 
-    /**
-     * Taken from https://github.com/TeamAmaze/AmazeFileManager/blob/d11e0d2874c6067910e58e059859431a31ad6aee/app/src
-     * /main/java/com/amaze/filemanager/activities/superclasses/PermissionsActivity.java#L47 on 14.02.2019
-     */
-    private static boolean checkStoragePermission(Context context) {
-        // Verify that all required contact permissions have been granted.
-        return ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            == PackageManager.PERMISSION_GRANTED;
-    }
+    private fun checkStoragePermission(context: Context): Boolean =
+        ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+            PackageManager.PERMISSION_GRANTED
 
-    /**
-     * Taken from https://github.com/TeamAmaze/AmazeFileManager/blob/616f2a696823ab0e64ea7a017602dc08e783162e/app/src
-     * /main/java/com/amaze/filemanager/filesystem/FileUtil.java#L764 on 14.02.2019
-     */
-    private static String[] getExtSdCardPathsForActivity(Context context) {
-        List<String> paths = new ArrayList<>();
-        for (File file : context.getExternalFilesDirs("external")) {
-            if (file != null) {
-                int index = file.getAbsolutePath().lastIndexOf("/Android/data");
-                if (index < 0) {
-                    Log_OC.w(TAG, "Unexpected external file dir: " + file.getAbsolutePath());
-                } else {
-                    String path = file.getAbsolutePath().substring(0, index);
-                    try {
-                        path = new File(path).getCanonicalPath();
-                    } catch (IOException e) {
-                        // Keep non-canonical path.
-                    }
-                    paths.add(path);
-                }
-            }
-        }
-        if (paths.isEmpty()) {
-            paths.add("/storage/sdcard1");
-        }
-        return paths.toArray(new String[0]);
-    }
+    private fun getExtSdCardPathsForActivity(context: Context): List<String> = context
+        .getExternalFilesDirs(EXTERNAL_FILES_TYPE)
+        .filterNotNull()
+        .mapNotNull(::storageRootOf)
+        .ifEmpty { listOf(DEFAULT_EXT_SD_CARD_PATH) }
 
-    /**
-     * Taken from https://github.com/TeamAmaze/AmazeFileManager/blob/9cf1fd5ff1653c692cb54cf6bc71b572c19a11cd/app/src
-     * /main/java/com/amaze/filemanager/utils/files/FileUtils.java#L754 on 14.02.2019
-     */
-    private static boolean canListFiles(File f) {
-        return f.canRead() && f.isDirectory();
-    }
-
-    /**
-     * // Determine if space is enough to download the file
-     *
-     * @param file @link{OCFile}
-     * @return boolean: true if there is enough space left
-     * @throws RuntimeException
-     */
-    public static boolean checkIfEnoughSpace(OCFile file) {
-        // Get the remaining space on device
-        long availableSpaceOnDevice = FileOperationsHelper.getAvailableSpaceOnDevice();
-
-        if (availableSpaceOnDevice == -1) {
-            throw new RuntimeException("Error while computing available space");
+    private fun storageRootOf(externalFilesDir: File): String? {
+        val absolutePath = externalFilesDir.absolutePath
+        val index = absolutePath.lastIndexOf(ANDROID_DATA_FOLDER)
+        if (index < 0) {
+            Log_OC.w(TAG, "Unexpected external file dir: $absolutePath")
+            return null
         }
 
-        return checkIfEnoughSpace(availableSpaceOnDevice, file);
+        val path = absolutePath.substring(0, index)
+        return try {
+            File(path).canonicalPath
+        } catch (_: IOException) {
+            path
+        }
     }
-    
+
+    private fun canListFiles(f: File): Boolean = f.canRead() && f.isDirectory
+
+    @Suppress("TooGenericExceptionThrown")
+    @JvmStatic
+    fun checkIfEnoughSpace(file: OCFile): Boolean {
+        val availableSpaceOnDevice = FileOperationsHelper.getAvailableSpaceOnDevice()
+        if (availableSpaceOnDevice == UNKNOWN_AVAILABLE_SPACE) {
+            throw RuntimeException("Error while computing available space")
+        }
+
+        return checkIfEnoughSpace(availableSpaceOnDevice, file)
+    }
+
     @VisibleForTesting
-    public static boolean checkIfEnoughSpace(long availableSpaceOnDevice, OCFile file) {
-        if (file.isFolder()) {
-            // on folders we assume that we only need difference
-            return availableSpaceOnDevice > (file.getFileLength() - localFolderSize(file));
-        } else {
-            // on files complete file must first be stored, then target gets overwritten
-            return availableSpaceOnDevice > file.getFileLength();
-        }
+    @JvmStatic
+    fun checkIfEnoughSpace(availableSpaceOnDevice: Long, file: OCFile): Boolean = if (file.isFolder) {
+        availableSpaceOnDevice > file.fileLength - localFolderSize(file)
+    } else {
+        availableSpaceOnDevice > file.fileLength
     }
 
-    private static long localFolderSize(OCFile file) {
-        if (file.getStoragePath() == null) {
-            // not yet downloaded anything
-            return 0;
-        } else {
-            return FileStorageUtils.getFolderSize(new File(file.getStoragePath()));
-        }
-    }
-
-    /**
-     * Should be converted to an enum when we only support min SDK version for Environment.DIRECTORY_DOCUMENTS
-     */
-    public static class StandardDirectory {
-        public static final StandardDirectory PICTURES = new StandardDirectory(
-            Environment.DIRECTORY_PICTURES,
-            R.string.storage_pictures,
-            R.drawable.ic_image_grey600
-        );
-        public static final StandardDirectory CAMERA = new StandardDirectory(
-            Environment.DIRECTORY_DCIM,
-            R.string.storage_camera,
-            R.drawable.ic_camera
-        );
-
-        public static final StandardDirectory DOCUMENTS;
-
-        static {
-            DOCUMENTS = new StandardDirectory(
-                Environment.DIRECTORY_DOCUMENTS,
-                R.string.storage_documents,
-                R.drawable.ic_document_grey600
-            );
-        }
-
-        public static final StandardDirectory DOWNLOADS = new StandardDirectory(
-            Environment.DIRECTORY_DOWNLOADS,
-            R.string.storage_downloads,
-            R.drawable.ic_download_grey600
-        );
-        public static final StandardDirectory MOVIES = new StandardDirectory(
-            Environment.DIRECTORY_MOVIES,
-            R.string.storage_movies,
-            R.drawable.ic_movie_grey600
-        );
-        public static final StandardDirectory MUSIC = new StandardDirectory(
-            Environment.DIRECTORY_MUSIC,
-            R.string.storage_music,
-            R.drawable.ic_music_grey600
-        );
-
-        private final String name;
-        private final int displayNameResource;
-        private final int iconResource;
-
-        private StandardDirectory(String name, int displayNameResource, int iconResource) {
-            this.name = name;
-            this.displayNameResource = displayNameResource;
-            this.iconResource = iconResource;
-        }
-
-        public String getName() {
-            return this.name;
-        }
-
-        public int getDisplayName() {
-            return this.displayNameResource;
-        }
-
-        public int getIcon() {
-            return this.iconResource;
-        }
-
-        public static Collection<StandardDirectory> getStandardDirectories() {
-            Collection<StandardDirectory> standardDirectories = new HashSet<>();
-            standardDirectories.add(PICTURES);
-            standardDirectories.add(CAMERA);
-            if (DOCUMENTS != null) {
-                standardDirectories.add(DOCUMENTS);
-            }
-            standardDirectories.add(DOWNLOADS);
-            standardDirectories.add(MOVIES);
-            standardDirectories.add(MUSIC);
-            return standardDirectories;
-        }
-
-        @Nullable
-        public static StandardDirectory fromPath(String path) {
-            for (StandardDirectory directory : getStandardDirectories()) {
-                if (directory.getName().equals(path)) {
-                    return directory;
-                }
-            }
-            return null;
-        }
-    }
+    private fun localFolderSize(file: OCFile): Long = file.storagePath?.let { getFolderSize(File(it)) } ?: 0L
 }
