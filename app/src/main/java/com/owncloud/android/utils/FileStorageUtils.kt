@@ -348,7 +348,7 @@ object FileStorageUtils {
         try {
             Files.deleteIfExists(file.toPath())
         } catch (e: Exception) {
-            Log_OC.e("Error deleting file: ", e.message)
+            Log_OC.e(TAG, "Error deleting file: ${file.absolutePath}", e)
         }
     }
 
@@ -377,7 +377,9 @@ object FileStorageUtils {
             try {
                 Thread.sleep(FILE_SAVE_POLL_INTERVAL_MS)
             } catch (_: InterruptedException) {
-                Log_OC.d(TAG, "Failed to sleep for a bit")
+                Log_OC.d(TAG, "Interrupted while waiting for file to finish saving")
+                Thread.currentThread().interrupt()
+                break
             }
         }
     }
