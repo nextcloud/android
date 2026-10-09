@@ -8,7 +8,7 @@
 package com.owncloud.android.datamodel
 
 import com.nextcloud.client.database.entity.FileEntity
-import com.owncloud.android.ui.adapter.helper.OCFileListAdapterDataProvider
+import com.owncloud.android.ui.adapter.filelist.OCFileListAdapterDataProvider
 
 @Suppress("ReturnCount")
 class OCFileListAdapterDataProviderImpl(private val storageManager: FileDataStorageManager) :
