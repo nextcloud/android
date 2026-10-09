@@ -2636,24 +2636,9 @@ class FileDisplayActivity :
     }
 
     private fun fetchRecommendedFilesIfNeeded(ignoreETag: Boolean, folder: OCFile?) {
-        val optionalCapabilities = capabilities
-        if (optionalCapabilities.isEmpty) {
-            return
-        }
-
-        if (folder?.isRootDirectory == false || optionalCapabilities.get().recommendations.isFalse) {
-            return
-        }
-
-        user.ifPresent { user ->
-            val accountName = user.accountName
-            val fragment = this.listOfFilesFragment
-            lifecycleScope.launch(Dispatchers.IO) {
-                val recommendedFiles = filesRepository.fetchRecommendedFiles(accountName, ignoreETag, storageManager)
-                withContext(Dispatchers.Main) {
-                    fragment?.adapter?.updateRecommendedFiles(recommendedFiles)
-                }
-            }
+        lifecycleScope.launch {
+            val files = viewModel.fetchRecommendedFiles(ignoreETag, folder) ?: return@launch
+            listOfFilesFragment?.adapter?.updateRecommendedFiles(files)
         }
     }
 

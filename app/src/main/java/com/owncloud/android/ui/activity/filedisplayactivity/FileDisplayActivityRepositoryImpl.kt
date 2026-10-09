@@ -18,12 +18,15 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.operations.DownloadType
 import com.owncloud.android.operations.RefreshFolderOperation
+import com.owncloud.android.ui.fragment.filesRepository.FilesRepository
+import com.owncloud.android.utils.theme.CapabilityUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class FileDisplayActivityRepositoryImpl(
     private val context: Context,
     private val clientRepository: ClientRepository,
+    private val filesRepository: FilesRepository,
     private val storageManager: FileDataStorageManager,
     private val backgroundJobManager: BackgroundJobManager
 ) : FileDisplayActivityRepository {
@@ -31,9 +34,22 @@ class FileDisplayActivityRepositoryImpl(
     private val user
         get() = storageManager.user
 
+    private val capabilities
+        get() = CapabilityUtils.getCapability(user, context)
+
+    override suspend fun fetchRecommendedFiles(ignoreETag: Boolean, folder: OCFile?): ArrayList<OCFile>? {
+        if (folder?.isRootDirectory == false || capabilities.recommendations.isFalse) {
+            return null
+        }
+
+        return filesRepository.fetchRecommendedFiles(user.accountName, ignoreETag, storageManager)
+    }
+
     override suspend fun syncFolder(folder: OCFile, ignoreETag: Boolean): RemoteOperationResult<*> {
         val client = clientRepository.getOwncloudClient()
-            ?: return RemoteOperationResult<RemoteOperationResult.ResultCode>(RemoteOperationResult.ResultCode.UNKNOWN_ERROR)
+            ?: return RemoteOperationResult<RemoteOperationResult.ResultCode>(
+                RemoteOperationResult.ResultCode.UNKNOWN_ERROR
+            )
 
         return withContext(Dispatchers.IO) {
             RefreshFolderOperation(

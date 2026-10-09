@@ -58,6 +58,7 @@ import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.providers.UsersAndGroupsSearchConfig
 import com.owncloud.android.ui.activity.filedisplayactivity.FileDisplayActivityRepository
 import com.owncloud.android.ui.activity.filedisplayactivity.FileDisplayActivityRepositoryImpl
+import com.owncloud.android.ui.fragment.filesRepository.RemoteFilesRepository as OCFileListFilesRepository
 import com.owncloud.android.ui.activities.data.activities.ActivitiesRepository
 import com.owncloud.android.ui.activities.data.activities.ActivitiesServiceApi
 import com.owncloud.android.ui.activities.data.activities.ActivitiesServiceApiImpl
@@ -140,8 +141,13 @@ internal class AppModule {
         clientRepository: ClientRepository,
         storageManager: FileDataStorageManager,
         backgroundJobManager: BackgroundJobManager
-    ): FileDisplayActivityRepository =
-        FileDisplayActivityRepositoryImpl(context, clientRepository, storageManager, backgroundJobManager)
+    ): FileDisplayActivityRepository = FileDisplayActivityRepositoryImpl(
+        context,
+        clientRepository,
+        OCFileListFilesRepository(clientRepository, ProcessLifecycleOwner.get()),
+        storageManager,
+        backgroundJobManager
+    )
 
     @Provides
     fun currentAccountProvider(accountManager: UserAccountManager): CurrentAccountProvider = accountManager

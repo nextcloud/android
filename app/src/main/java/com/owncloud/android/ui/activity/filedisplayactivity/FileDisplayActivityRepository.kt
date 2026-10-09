@@ -11,6 +11,8 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 
 interface FileDisplayActivityRepository {
+    suspend fun fetchRecommendedFiles(ignoreETag: Boolean, folder: OCFile?): ArrayList<OCFile>?
+
     suspend fun syncFolder(folder: OCFile, ignoreETag: Boolean): RemoteOperationResult<*>
 
     fun downloadFileIfNotStartedBefore(file: OCFile)

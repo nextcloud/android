@@ -34,6 +34,9 @@ class FileDisplayActivityViewModel @Inject constructor(
     suspend fun syncFolder(folder: OCFile, ignoreETag: Boolean): RemoteOperationResult<*> =
         repository.syncFolder(folder, ignoreETag)
 
+    suspend fun fetchRecommendedFiles(ignoreETag: Boolean, folder: OCFile?): ArrayList<OCFile>? =
+        repository.fetchRecommendedFiles(ignoreETag, folder)
+
     fun downloadFileIfNotStartedBefore(file: OCFile) {
         repository.downloadFileIfNotStartedBefore(file)
     }
