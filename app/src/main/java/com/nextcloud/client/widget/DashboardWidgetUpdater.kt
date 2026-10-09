@@ -11,12 +11,12 @@ import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Build
 import android.view.View
 import android.widget.RemoteViews
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.net.toUri
-import com.bumptech.glide.request.target.AppWidgetTarget
 import com.nextcloud.android.lib.resources.dashboard.DashboardButton
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.utils.GlideHelper
@@ -26,7 +26,6 @@ import com.owncloud.android.utils.BitmapUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class DashboardWidgetUpdater @Inject constructor(
@@ -47,23 +46,24 @@ class DashboardWidgetUpdater @Inject constructor(
             data = toUri(Intent.URI_INTENT_SCHEME).toUri()
         }
 
-        val views = RemoteViews(context.packageName, R.layout.dashboard_widget).apply {
-            setRemoteAdapter(R.id.list, intent)
-            setEmptyView(R.id.list, R.id.empty_view)
-            setTextViewText(R.id.title, title)
+        scope.launch {
+            val icon = if (iconUrl.isNotEmpty()) loadIcon(iconUrl) else null
 
-            setAddButton(addButton, appWidgetId, this)
-            setPendingReload(this, appWidgetId)
-            setPendingClick(this)
+            val views = RemoteViews(context.packageName, R.layout.dashboard_widget).apply {
+                icon?.let { setImageViewBitmap(R.id.icon, it) }
+                setRemoteAdapter(R.id.list, intent)
+                setEmptyView(R.id.list, R.id.empty_view)
+                setTextViewText(R.id.title, title)
 
-            if (iconUrl.isNotEmpty()) {
-                loadIcon(appWidgetId, iconUrl, this)
+                setAddButton(addButton, appWidgetId, this)
+                setPendingReload(this, appWidgetId)
+                setPendingClick(this)
             }
-        }
 
-        appWidgetManager.run {
-            updateAppWidget(appWidgetId, views)
-            notifyAppWidgetViewDataChanged(appWidgetId, R.id.list)
+            appWidgetManager.run {
+                updateAppWidget(appWidgetId, views)
+                notifyAppWidgetViewDataChanged(appWidgetId, R.id.list)
+            }
         }
     }
 
@@ -152,18 +152,11 @@ class DashboardWidgetUpdater @Inject constructor(
     }
     // endregion
 
-    private fun loadIcon(appWidgetId: Int, iconUrl: String, remoteViews: RemoteViews) {
-        val target = AppWidgetTarget(context, R.id.icon, remoteViews, appWidgetId)
-        scope.launch {
-            val client = OwnCloudClientManagerFactory.getDefaultSingleton()
-                .getNextcloudClientFor(accountProvider.user.toOwnCloudAccount(), context)
-            val drawable = GlideHelper.getDrawable(context, client, iconUrl)
-            val bitmap = drawable?.toBitmap() ?: return@launch
-            val tintedBitmap = BitmapUtils.tintImage(bitmap, R.color.black)
-
-            withContext(Dispatchers.Main) {
-                target.onResourceReady(tintedBitmap, null)
-            }
-        }
+    private fun loadIcon(iconUrl: String): Bitmap? {
+        val client = OwnCloudClientManagerFactory.getDefaultSingleton()
+            .getNextcloudClientFor(accountProvider.user.toOwnCloudAccount(), context)
+        val iconSize = context.resources.getDimensionPixelSize(R.dimen.dashboard_widget_icon_size)
+        val bitmap = GlideHelper.getDrawable(context, client, iconUrl, iconSize)?.toBitmap() ?: return null
+        return BitmapUtils.tintImage(bitmap, context.getColor(R.color.black))
     }
 }

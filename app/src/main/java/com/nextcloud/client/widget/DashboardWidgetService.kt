@@ -26,10 +26,6 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.BitmapUtils
 import dagger.android.AndroidInjection
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class DashboardWidgetService : RemoteViewsService() {
@@ -78,33 +74,29 @@ class StackRemoteViewsFactory(
             // TODO show error
             Log_OC.e(this, "No user found!")
         }
-
-        onDataSetChanged()
     }
 
     override fun onDataSetChanged() {
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                if (!widgetConfiguration.user.isPresent) {
-                    Log_OC.w(TAG, "User not present for widget update")
-                    return@launch
-                }
+        Log_OC.d(TAG, "onDataSetChanged")
 
-                val client = clientFactory.createNextcloudClient(widgetConfiguration.user.get())
-                val result = DashboardGetWidgetItemsRemoteOperation(widgetConfiguration.widgetId, LIMIT_SIZE)
-                    .execute(client)
-                widgetItems = if (result.isSuccess) {
-                    result.resultData[widgetConfiguration.widgetId] ?: emptyList()
-                } else {
-                    emptyList()
-                }
-                hasLoadMore = widgetConfiguration.moreButton != null && widgetItems.size == LIMIT_SIZE
-            } catch (e: ClientFactory.CreationException) {
-                Log_OC.e(TAG, "Error updating widget", e)
-            }
+        if (!widgetConfiguration.user.isPresent) {
+            Log_OC.w(TAG, "User not present for widget update")
+            return
         }
 
-        Log_OC.d(TAG, "onDataSetChanged")
+        try {
+            val client = clientFactory.createNextcloudClient(widgetConfiguration.user.get())
+            val result = DashboardGetWidgetItemsRemoteOperation(widgetConfiguration.widgetId, LIMIT_SIZE)
+                .execute(client)
+            widgetItems = if (result.isSuccess) {
+                result.resultData[widgetConfiguration.widgetId] ?: emptyList()
+            } else {
+                emptyList()
+            }
+            hasLoadMore = widgetConfiguration.moreButton != null && widgetItems.size == LIMIT_SIZE
+        } catch (e: ClientFactory.CreationException) {
+            Log_OC.e(TAG, "Error updating widget", e)
+        }
     }
 
     override fun onDestroy() {
@@ -157,17 +149,11 @@ class StackRemoteViewsFactory(
     }
 
     private fun loadIcon(widgetItem: DashboardWidgetItem, remoteViews: RemoteViews) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val client = OwnCloudClientManagerFactory.getDefaultSingleton()
-                .getNextcloudClientFor(userAccountManager.user.toOwnCloudAccount(), context)
-            val pictureDrawable = GlideHelper.getDrawable(context, client, widgetItem.iconUrl)
-            val bitmap = pictureDrawable?.toBitmap() ?: return@launch
-
-            withContext(Dispatchers.Main) {
-                remoteViews.setRemoteImageView(bitmap)
-                return@withContext
-            }
-        }
+        val client = OwnCloudClientManagerFactory.getDefaultSingleton()
+            .getNextcloudClientFor(userAccountManager.user.toOwnCloudAccount(), context)
+        val iconSize = context.resources.getDimensionPixelSize(R.dimen.dashboard_widget_icon_size)
+        val bitmap = GlideHelper.getDrawable(context, client, widgetItem.iconUrl, iconSize)?.toBitmap() ?: return
+        remoteViews.setRemoteImageView(bitmap)
     }
 
     @Suppress("TooGenericExceptionCaught")

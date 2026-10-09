@@ -35,6 +35,7 @@ class PreviewMediaPagerAdapter(
     private val obsoletePositions: MutableSet<Int> = HashSet()
     private val downloadErrors: MutableSet<Int> = HashSet()
     private val cachedFragments: SparseArray<FileFragment> = SparseArray()
+    private val downloadedFileIds: MutableSet<Long> = HashSet()
 
     fun delete(position: Int) {
         if (position < 0 || position >= mediaFiles.size) {
@@ -124,6 +125,10 @@ class PreviewMediaPagerAdapter(
         cachedFragments[position]?.let { obsoleteFragments.add(it) }
         obsoletePositions.add(position)
         mediaFiles[position] = file
+
+        if (!file.isAudioOrVideo()) {
+            downloadedFileIds.add(file.fileId)
+        }
     }
 
     fun pendingErrorAt(position: Int): Boolean = downloadErrors.contains(position)
@@ -132,10 +137,9 @@ class PreviewMediaPagerAdapter(
 
     override fun getItemCount(): Int = mediaFiles.size
 
-    override fun getItemId(position: Int): Long {
-        // The item ID function is needed to detect whether the deletion of the current item needs a UI update
-        return mediaFiles.getOrNull(position)?.fileId ?: position.toLong()
-    }
+    override fun getItemId(position: Int): Long = mediaFiles.getOrNull(position)?.pageId() ?: position.toLong()
 
-    override fun containsItem(itemId: Long): Boolean = mediaFiles.any { it.fileId == itemId }
+    override fun containsItem(itemId: Long): Boolean = mediaFiles.any { it.pageId() == itemId }
+
+    private fun OCFile.pageId(): Long = if (fileId in downloadedFileIds) -fileId else fileId
 }

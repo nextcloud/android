@@ -15,8 +15,8 @@
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="@dimen/dashboard_widget_icon_size"
+        android:layout_height="@dimen/dashboard_widget_icon_size"
         android:layout_gravity="center_vertical"
         android:layout_marginEnd="@dimen/standard_half_margin"
         android:src="@drawable/ic_user_outline"

@@ -13,7 +13,6 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import android.graphics.drawable.PictureDrawable
 import android.widget.ImageView
 import androidx.activity.ComponentActivity
 import androidx.annotation.DrawableRes
@@ -21,7 +20,6 @@ import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.graphics.scale
-import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
@@ -33,6 +31,7 @@ import com.bumptech.glide.load.model.LazyHeaders
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.bumptech.glide.request.target.CustomViewTarget
+import com.bumptech.glide.request.target.DrawableImageViewTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.nextcloud.common.NextcloudClient
@@ -40,7 +39,6 @@ import com.nextcloud.utils.LinkHelper.validateAndGetURL
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -112,7 +110,7 @@ object GlideHelper {
                 ?.error(placeholder)
                 ?.apply { if (circleCrop) circleCrop() }
                 ?.withLogging("loadIntoImageView", url ?: "null")
-                ?.into(imageView) ?: imageView.setImageResource(placeholder)
+                ?.into(UntintedDrawableImageViewTarget(imageView)) ?: imageView.setImageResource(placeholder)
         } catch (e: Exception) {
             Log_OC.e(TAG, "exception loadIntoImageView: $e")
             imageView.setImageResource(placeholder)
@@ -121,8 +119,7 @@ object GlideHelper {
 
     /**
      * Loads an image into an [ImageView], rasterizing the result into a tintable drawable so a tint set on the view
-     * takes effect. SVGs decode into a [PictureDrawable] that ignores color filters and tint lists; rasterizing
-     * works around that.
+     * takes effect.
      *
      * @param context context used to build the Glide request and the rasterized drawable.
      * @param client authenticated client whose credentials are attached to the request; the load is skipped when null.
@@ -180,8 +177,16 @@ object GlideHelper {
         return bitmap.toDrawable(context.resources)
     }
 
-    fun getDrawable(context: Context, client: NextcloudClient?, urlString: String?): Drawable? = try {
-        createRequestBuilder<Drawable>(context, client, urlString)?.submit()?.get()
+    fun getDrawable(
+        context: Context,
+        client: NextcloudClient?,
+        urlString: String?,
+        sizePx: Int = Target.SIZE_ORIGINAL
+    ): Drawable? = try {
+        createRequestBuilder<Drawable>(context, client, urlString)
+            ?.withLogging("getDrawable", urlString ?: "null")
+            ?.submit(sizePx, sizePx)
+            ?.get()
     } catch (e: Exception) {
         Log_OC.e(TAG, "exception getDrawable: $e")
         null
@@ -251,30 +256,16 @@ object GlideHelper {
         }
     }
 
-    private fun isSVG(url: String): Boolean = (url.toUri().encodedPath?.endsWith(".svg") == true)
-
     private fun <T> RequestBuilder<T>.withLogging(methodName: String, identifier: String): RequestBuilder<T> =
         listener(GlideLogger(methodName, identifier))
 
-    @SuppressLint("CheckResult")
-    private fun createSvgRequestBuilder(
-        context: Context,
-        uri: String,
-        client: NextcloudClient,
-        placeholder: Int? = null
-    ): RequestBuilder<PictureDrawable> {
-        val glideUrl = createGlideUrl(uri, client)
-
-        return Glide.with(context)
-            .`as`(PictureDrawable::class.java)
-            .load(glideUrl)
-            .apply {
-                placeholder?.let {
-                    placeholder(it)
-                    error(it)
-                }
+    private class UntintedDrawableImageViewTarget(imageView: ImageView) : DrawableImageViewTarget(imageView) {
+        override fun setResource(resource: Drawable?) {
+            if (resource != null) {
+                view.imageTintList = null
             }
-            .listener(SvgSoftwareLayerSetter())
+            super.setResource(resource)
+        }
     }
 
     private fun createUrlRequestBuilder(
@@ -299,13 +290,7 @@ object GlideHelper {
         val validatedUrl = validateAndGetURL(url) ?: return null
 
         return try {
-            val isSVG = isSVG(validatedUrl)
-
-            if (isSVG) {
-                createSvgRequestBuilder(context, validatedUrl, client)
-            } else {
-                createUrlRequestBuilder(context, client, validatedUrl)
-            }.withLogging("createRequestBuilder", validatedUrl) as RequestBuilder<T>?
+            createUrlRequestBuilder(context, client, validatedUrl) as RequestBuilder<T>?
         } catch (e: Exception) {
             Log_OC.e(TAG, "exception createRequestBuilder: $e")
             null
