@@ -9,6 +9,7 @@
 package com.owncloud.android.ui.adapter
 
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewOutlineProvider
 import android.widget.FrameLayout
@@ -22,20 +23,21 @@ import com.nextcloud.utils.extensions.createRoundedOutline
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.GalleryRowBinding
+import com.owncloud.android.databinding.GalleryUnsupportedCellBinding
 import com.owncloud.android.datamodel.GalleryCellSize
 import com.owncloud.android.datamodel.GalleryRow
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 private const val CHECKED_SCALE = 0.8f
-private const val PLACEHOLDER_ICON_INSET_RATIO = 0.32f
 private const val UNCHECKED_SCALE = 1.0f
 private const val SELECTION_ANIMATION_DURATION_MS = 150L
 
 private const val SELECTION_BACKGROUND_INDEX = 0
 private const val SHIMMER_INDEX = 1
 private const val THUMBNAIL_INDEX = 2
-private const val CHECKBOX_INDEX = 3
+private const val UNSUPPORTED_INDEX = 3
+private const val CHECKBOX_INDEX = 4
 
 class GalleryRowHolder(
     val binding: GalleryRowBinding,
@@ -127,6 +129,7 @@ class GalleryRowHolder(
             addView(selectionBackground)
             addView(shimmer)
             addView(thumbnail)
+            addView(GalleryUnsupportedCellBinding.inflate(LayoutInflater.from(context), this, false).root)
             addView(checkbox)
         }
     }
@@ -136,23 +139,24 @@ class GalleryRowHolder(
         val selectionBackground = frameLayout[SELECTION_BACKGROUND_INDEX]
         val shimmer = frameLayout[SHIMMER_INDEX] as LoaderImageView
         val thumbnail = frameLayout[THUMBNAIL_INDEX] as ImageView
+        val unsupported = GalleryUnsupportedCellBinding.bind(frameLayout[UNSUPPORTED_INDEX])
         val checkbox = frameLayout[CHECKBOX_INDEX] as ImageView
 
         val endMargin = if (isLast) zero else smallMargin
         applyCellSize(shimmer, size, endMargin = zero, bottomMargin = zero)
         applyCellSize(thumbnail, size, endMargin = endMargin, bottomMargin = smallMargin)
+        applyCellSize(unsupported.root, size, endMargin = endMargin, bottomMargin = smallMargin)
         applyCellSize(selectionBackground, size, endMargin = endMargin, bottomMargin = smallMargin)
 
         val isChecked = ocFileListDelegate.isCheckedFile(file)
+        val isSameFileRebound = thumbnail.tag == file.fileId
         selectionBackground.setVisibleIf(isChecked)
-        applySelection(thumbnail, file, isChecked)
+        applySelection(thumbnail, isChecked, isSameFileRebound)
+        applySelection(unsupported.root, isChecked, isSameFileRebound)
         applyCheckBox(checkbox, isChecked)
 
-        ocFileListDelegate.bindGalleryRow(shimmer, thumbnail, file, this, placeholderInset(size))
+        ocFileListDelegate.bindGalleryRow(shimmer, thumbnail, unsupported, file, this)
     }
-
-    private fun placeholderInset(size: GalleryCellSize): Int =
-        (minOf(size.width, size.height) * PLACEHOLDER_ICON_INSET_RATIO).toInt()
 
     private fun applyCellSize(view: View, size: GalleryCellSize, endMargin: Int, bottomMargin: Int) {
         val params = view.layoutParams as FrameLayout.LayoutParams
@@ -172,21 +176,20 @@ class GalleryRowHolder(
         view.layoutParams = params
     }
 
-    private fun applySelection(thumbnail: ImageView, file: OCFile, isChecked: Boolean) {
-        thumbnail.outlineProvider = if (isChecked) selectedOutline else ViewOutlineProvider.BACKGROUND
-        thumbnail.clipToOutline = isChecked
+    private fun applySelection(view: View, isChecked: Boolean, isSameFileRebound: Boolean) {
+        view.outlineProvider = if (isChecked) selectedOutline else ViewOutlineProvider.BACKGROUND
+        view.clipToOutline = isChecked
 
         val scale = if (isChecked) CHECKED_SCALE else UNCHECKED_SCALE
-        thumbnail.animate().cancel()
+        view.animate().cancel()
 
-        val isSameFileRebound = thumbnail.tag == file.fileId
         if (!isSameFileRebound) {
-            thumbnail.scaleX = scale
-            thumbnail.scaleY = scale
+            view.scaleX = scale
+            view.scaleY = scale
             return
         }
 
-        thumbnail.animate()
+        view.animate()
             .scaleX(scale)
             .scaleY(scale)
             .setDuration(SELECTION_ANIMATION_DURATION_MS)

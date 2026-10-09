@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/media_placeholder_background"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/standard_half_padding"
+    android:visibility="gone">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="@dimen/file_icon_size"
+        android:layout_height="@dimen/file_icon_size"
+        android:contentDescription="@null"
+        tools:src="@drawable/file_image" />
+
+    <TextView
+        android:id="@+id/file_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/standard_quarter_margin"
+        android:ellipsize="middle"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textAppearance="?attr/textAppearanceLabelMedium"
+        android:textColor="@color/text_color"
+        android:textStyle="bold"
+        tools:text="IMG_0001.heic" />
+
+    <TextView
+        android:id="@+id/label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="@string/gallery_unsupported_file"
+        android:textAppearance="?attr/textAppearanceLabelSmall"
+        android:textColor="@color/secondary_text_color" />
+
+</LinearLayout>
