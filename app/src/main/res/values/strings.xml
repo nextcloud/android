@@ -53,6 +53,7 @@
     <string name="add_to_album">Add to album</string>
     <string name="album_file_added_message">File added successfully</string>
     <string name="album_unsupported_file">Unsupported media</string>
+    <string name="gallery_unsupported_file">Unsupported</string>
     <string name="album_upload_from_account">Select images from account</string>
     <string name="album_rename_conflict">This name is already in use.</string>
     <string name="album_copy_file_conflict">Already exists.</string>

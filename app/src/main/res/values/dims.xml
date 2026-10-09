@@ -157,8 +157,8 @@
     <dimen name="dialog_padding">24dp</dimen>
     <dimen name="splash_image_size">180dp</dimen>
     <dimen name="splash_text_size">20sp</dimen>
-    <integer name="small_margin">5</integer>
-    <integer name="zero">0</integer>
+    <dimen name="gallery_cell_spacing">2dp</dimen>
+    <integer name="gallery_selection_animation_duration">150</integer>
     <dimen name="txt_size_16sp">16sp</dimen>
     <!--Adaptive Icon size specified here:  https://developer.android.com/develop/ui/views/launch/icon_design_adaptive -->
     <dimen name="adaptive_icon_size">108dp</dimen>

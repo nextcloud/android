@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
+import androidx.core.view.isVisible
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
@@ -19,6 +20,7 @@ import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.gallery.GalleryImageGenerationJob
 import com.nextcloud.client.jobs.gallery.GalleryImageGenerationListener
 import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.utils.OCFileUtils
 import com.nextcloud.utils.extensions.makeRounded
 import com.nextcloud.utils.extensions.setMediaPlaceholder
 import com.nextcloud.utils.extensions.setVisibleIf
@@ -28,6 +30,7 @@ import com.nextcloud.utils.mdm.MDMConfig
 import com.nextcloud.utils.thumbnail.ThumbnailArguments
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.R
+import com.owncloud.android.databinding.GalleryUnsupportedCellBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
@@ -105,6 +108,7 @@ class OCFileListDelegate(
     fun bindGalleryRow(
         shimmer: LoaderImageView?,
         imageView: ImageView,
+        unsupported: GalleryUnsupportedCellBinding,
         file: OCFile,
         galleryRowHolder: GalleryRowHolder,
         placeholderInset: Int
@@ -113,7 +117,13 @@ class OCFileListDelegate(
 
         if (imageView.showsMediaThumbnailOf(file) && !file.isUpdateThumbnailNeeded) {
             imageView.tag = file.fileId
+            unsupported.root.setVisibleIf(false)
             imageView.stopShimmer(shimmer)
+            return
+        }
+
+        val showsUnsupportedOfFile = unsupported.root.isVisible && imageView.tag == file.fileId
+        if (showsUnsupportedOfFile && !file.isUpdateThumbnailNeeded) {
             return
         }
 
@@ -122,6 +132,7 @@ class OCFileListDelegate(
         imageView.tag = file.fileId
         ViewCompat.setTransitionName(imageView, NavigationAnimator.sharedElementName(file))
 
+        unsupported.root.setVisibleIf(false)
         imageView.setMediaPlaceholder(file, placeholderInset)
 
         val job = ioScope.launch(start = CoroutineStart.LAZY) {
@@ -137,9 +148,12 @@ class OCFileListDelegate(
                         }
 
                         override fun onError() {
-                            if (imageView.tag == file.fileId) {
-                                imageView.stopShimmer(shimmer)
+                            if (imageView.tag != file.fileId) {
+                                return
                             }
+
+                            imageView.stopShimmer(shimmer)
+                            showUnsupported(unsupported, file)
                         }
                     }
                 )
@@ -151,6 +165,12 @@ class OCFileListDelegate(
 
         GalleryImageGenerationJob.storeJob(job, imageView)
         job.start()
+    }
+
+    private fun showUnsupported(unsupported: GalleryUnsupportedCellBinding, file: OCFile) {
+        unsupported.icon.setImageDrawable(OCFileUtils.getMediaPlaceholder(file))
+        unsupported.fileName.text = file.fileName
+        unsupported.root.setVisibleIf(true)
     }
 
     fun cancelGalleryRow(imageView: ImageView) {
