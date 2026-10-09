@@ -8,36 +8,28 @@
  */
 package com.owncloud.android.ui.adapter
 
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.ViewOutlineProvider
-import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
-import androidx.core.view.get
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
-import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.utils.extensions.createRoundedOutline
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
+import com.owncloud.android.databinding.GalleryCellBinding
 import com.owncloud.android.databinding.GalleryRowBinding
-import com.owncloud.android.databinding.GalleryUnsupportedCellBinding
 import com.owncloud.android.datamodel.GalleryCellSize
 import com.owncloud.android.datamodel.GalleryRow
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 private const val CHECKED_SCALE = 0.8f
+private const val PLACEHOLDER_ICON_INSET_RATIO = 0.32f
 private const val UNCHECKED_SCALE = 1.0f
 private const val SELECTION_ANIMATION_DURATION_MS = 150L
-
-private const val SELECTION_BACKGROUND_INDEX = 0
-private const val SHIMMER_INDEX = 1
-private const val THUMBNAIL_INDEX = 2
-private const val UNSUPPORTED_INDEX = 3
-private const val CHECKBOX_INDEX = 4
 
 class GalleryRowHolder(
     val binding: GalleryRowBinding,
@@ -47,9 +39,10 @@ class GalleryRowHolder(
 ) : SectionedViewHolder(binding.root) {
     val context = galleryAdapter.context
 
+    private val cells = mutableListOf<GalleryCellBinding>()
+
     private val zero by lazy { context.resources.getInteger(R.integer.zero) }
     private val smallMargin by lazy { context.resources.getInteger(R.integer.small_margin) }
-    private val checkBoxMargin by lazy { context.resources.getDimensionPixelSize(R.dimen.standard_half_margin) }
 
     private val selectedOutline by lazy {
         val resources = context.resources
@@ -76,72 +69,34 @@ class GalleryRowHolder(
 
         row.files.forEachIndexed { index, file ->
             val size = row.cellSizes.getOrNull(index) ?: return@forEachIndexed
-            bindCell(index, file, size, isLast = index == row.files.lastIndex)
+            bindCell(cells[index], file, size, isLast = index == row.files.lastIndex)
         }
     }
 
     fun recycle() {
-        for (index in 0 until binding.rowLayout.childCount) {
-            ocFileListDelegate.cancelGalleryRow(thumbnailAt(index))
-        }
+        cells.forEach { ocFileListDelegate.cancelGalleryRow(it.thumbnail) }
     }
 
     private fun ensureCellCount(count: Int) {
-        if (binding.rowLayout.childCount == count) {
+        if (cells.size == count) {
             return
         }
 
         binding.rowLayout.removeAllViews()
-        repeat(count) { binding.rowLayout.addView(createCell()) }
-    }
-
-    private fun createCell(): FrameLayout {
-        val selectionBackground = View(context).apply {
-            visibility = View.GONE
-            layoutParams = FrameLayout.LayoutParams(0, 0)
-            viewThemeUtils.platform.colorViewBackground(this, ColorRole.SURFACE_CONTAINER_HIGHEST)
-        }
-
-        val shimmer = LoaderImageView(context).apply {
-            setImageResource(R.drawable.background)
-            resetLoader()
-            layoutParams = FrameLayout.LayoutParams(0, 0)
-        }
-
-        val thumbnail = ImageView(context).apply {
-            scaleType = ImageView.ScaleType.CENTER_CROP
-            layoutParams = FrameLayout.LayoutParams(0, 0)
-        }
-
-        val checkbox = ImageView(context).apply {
-            visibility = View.GONE
-            layoutParams = FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.WRAP_CONTENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT
-            ).apply {
-                gravity = Gravity.TOP or Gravity.START
-                marginStart = checkBoxMargin
-                topMargin = checkBoxMargin
-            }
-        }
-
-        return FrameLayout(context).apply {
-            addView(selectionBackground)
-            addView(shimmer)
-            addView(thumbnail)
-            addView(GalleryUnsupportedCellBinding.inflate(LayoutInflater.from(context), this, false).root)
-            addView(checkbox)
+        cells.clear()
+        repeat(count) {
+            val cell = createCell()
+            cells.add(cell)
+            binding.rowLayout.addView(cell.root)
         }
     }
 
-    private fun bindCell(index: Int, file: OCFile, size: GalleryCellSize, isLast: Boolean) {
-        val frameLayout = binding.rowLayout[index] as FrameLayout
-        val selectionBackground = frameLayout[SELECTION_BACKGROUND_INDEX]
-        val shimmer = frameLayout[SHIMMER_INDEX] as LoaderImageView
-        val thumbnail = frameLayout[THUMBNAIL_INDEX] as ImageView
-        val unsupported = GalleryUnsupportedCellBinding.bind(frameLayout[UNSUPPORTED_INDEX])
-        val checkbox = frameLayout[CHECKBOX_INDEX] as ImageView
+    private fun createCell(): GalleryCellBinding =
+        GalleryCellBinding.inflate(LayoutInflater.from(context), binding.rowLayout, false).apply {
+            viewThemeUtils.platform.colorViewBackground(selectionBackground, ColorRole.SURFACE_CONTAINER_HIGHEST)
+        }
 
+    private fun bindCell(cell: GalleryCellBinding, file: OCFile, size: GalleryCellSize, isLast: Boolean) = with(cell) {
         val endMargin = if (isLast) zero else smallMargin
         applyCellSize(shimmer, size, endMargin = zero, bottomMargin = zero)
         applyCellSize(thumbnail, size, endMargin = endMargin, bottomMargin = smallMargin)
@@ -155,11 +110,21 @@ class GalleryRowHolder(
         applySelection(unsupported.root, isChecked, isSameFileRebound)
         applyCheckBox(checkbox, isChecked)
 
-        ocFileListDelegate.bindGalleryRow(shimmer, thumbnail, unsupported, file, this)
+        ocFileListDelegate.bindGalleryRow(
+            shimmer,
+            thumbnail,
+            unsupported,
+            file,
+            this@GalleryRowHolder,
+            placeholderInset(size)
+        )
     }
 
+    private fun placeholderInset(size: GalleryCellSize): Int =
+        (minOf(size.width, size.height) * PLACEHOLDER_ICON_INSET_RATIO).toInt()
+
     private fun applyCellSize(view: View, size: GalleryCellSize, endMargin: Int, bottomMargin: Int) {
-        val params = view.layoutParams as FrameLayout.LayoutParams
+        val params = view.layoutParams as ViewGroup.MarginLayoutParams
 
         val unchanged = params.width == size.width &&
             params.height == size.height &&
@@ -209,7 +174,4 @@ class GalleryRowHolder(
             imageView.background = if (isChecked) checkedBackground else null
         }
     }
-
-    private fun thumbnailAt(index: Int): ImageView =
-        (binding.rowLayout[index] as FrameLayout)[THUMBNAIL_INDEX] as ImageView
 }

@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
+import androidx.core.view.isVisible
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
@@ -21,7 +22,7 @@ import com.nextcloud.client.jobs.gallery.GalleryImageGenerationListener
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.utils.OCFileUtils
 import com.nextcloud.utils.extensions.makeRounded
-import com.nextcloud.utils.extensions.setMediaLoading
+import com.nextcloud.utils.extensions.setMediaPlaceholder
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.extensions.showsMediaThumbnailOf
 import com.nextcloud.utils.extensions.stopShimmer
@@ -109,7 +110,8 @@ class OCFileListDelegate(
         imageView: ImageView,
         unsupported: GalleryUnsupportedCellBinding,
         file: OCFile,
-        galleryRowHolder: GalleryRowHolder
+        galleryRowHolder: GalleryRowHolder,
+        placeholderInset: Int
     ) {
         bindGalleryRowListeners(imageView, file, galleryRowHolder)
 
@@ -120,13 +122,18 @@ class OCFileListDelegate(
             return
         }
 
+        val showsUnsupportedOfFile = unsupported.root.isVisible && imageView.tag == file.fileId
+        if (showsUnsupportedOfFile && !file.isUpdateThumbnailNeeded) {
+            return
+        }
+
         GalleryImageGenerationJob.cancelPreviousJob(imageView)
 
         imageView.tag = file.fileId
         ViewCompat.setTransitionName(imageView, NavigationAnimator.sharedElementName(file))
 
         unsupported.root.setVisibleIf(false)
-        imageView.setMediaLoading(shimmer)
+        imageView.setMediaPlaceholder(file, placeholderInset)
 
         val job = ioScope.launch(start = CoroutineStart.LAZY) {
             try {
@@ -141,7 +148,7 @@ class OCFileListDelegate(
                         }
 
                         override fun onError() {
-                            if (imageView.tag != file.fileId || file.isPreviewAvailable) {
+                            if (imageView.tag != file.fileId) {
                                 return
                             }
 
