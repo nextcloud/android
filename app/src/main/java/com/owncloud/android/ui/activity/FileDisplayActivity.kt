@@ -68,18 +68,15 @@ import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.client.editimage.EditImageActivity
 import com.nextcloud.client.files.DeepLinkHandler
 import com.nextcloud.client.jobs.download.FileDownloadEventBroadcaster
-import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.folderDownload.FolderDownloadEventBroadcaster
 import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
-import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.network.ClientFactory.CreationException
 import com.nextcloud.client.player.model.file.toPlaybackCollection
 import com.nextcloud.client.player.ui.audio.AudioPlayerLauncher
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.IntentUtil
-import com.nextcloud.model.OCUploadLocalPathData
 import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -112,7 +109,6 @@ import com.owncloud.android.lib.resources.files.SearchRemoteOperation
 import com.owncloud.android.lib.resources.notifications.GetNotificationsRemoteOperation
 import com.owncloud.android.operations.CopyFileOperation
 import com.owncloud.android.operations.CreateFolderOperation
-import com.owncloud.android.operations.DownloadType
 import com.owncloud.android.operations.FolderRefreshScheduler
 import com.owncloud.android.operations.MoveFileOperation
 import com.owncloud.android.operations.RefreshFolderOperation
@@ -1161,15 +1157,7 @@ class FileDisplayActivity :
                             return@isNetworkAndServerAvailable
                         }
 
-                        val data = OCUploadLocalPathData.forFile(
-                            user.orElseThrow(Supplier { RuntimeException() }),
-                            filePaths,
-                            decryptedRemotePaths,
-                            behaviour,
-                            createRemoteFolder = true
-                        )
-
-                        FileUploadHelper.instance().uploadNewFiles(data)
+                        viewModel.uploadFiles(filePaths, decryptedRemotePaths, behaviour)
                     }
                 } else {
                     lifecycleScope.launch(Dispatchers.IO) {
@@ -2572,9 +2560,8 @@ class FileDisplayActivity :
     }
 
     private fun requestForDownload() {
-        val user = user.orElseThrow(Supplier { RuntimeException() })
         mWaitingToPreview?.let {
-            FileDownloadHelper.instance().downloadFileIfNotStartedBefore(user, it)
+            viewModel.downloadFileIfNotStartedBefore(it)
         }
     }
 
@@ -2634,27 +2621,18 @@ class FileDisplayActivity :
     private fun executeSyncFolderOperation(folder: OCFile?, ignoreETag: Boolean) {
         val folder = folder ?: return
 
-        user.ifPresent { user ->
-            syncState = EmptyListState.LOADING
-
-            RefreshFolderOperation(
-                folder,
-                System.currentTimeMillis(),
-                false,
-                ignoreETag,
-                storageManager,
-                user,
-                applicationContext
-            ).execute(
-                account,
-                this,
-                { _, _ -> onSyncFinished() },
-                handler,
-                null
-            )
-
-            fetchRecommendedFilesIfNeeded(ignoreETag, folder)
+        if (user.isEmpty) {
+            return
         }
+
+        syncState = EmptyListState.LOADING
+
+        lifecycleScope.launch {
+            viewModel.syncFolder(folder, ignoreETag)
+            onSyncFinished()
+        }
+
+        fetchRecommendedFilesIfNeeded(ignoreETag, folder)
     }
 
     private fun fetchRecommendedFilesIfNeeded(ignoreETag: Boolean, folder: OCFile?) {
@@ -2680,18 +2658,7 @@ class FileDisplayActivity :
     }
 
     private fun requestForDownload(file: OCFile, downloadBehaviour: String, packageName: String, activityName: String) {
-        val currentUser = user.orElseThrow(Supplier { RuntimeException() })
-        if (!FileDownloadHelper.instance().isDownloading(currentUser, file)) {
-            FileDownloadHelper.instance().downloadFile(
-                currentUser,
-                file,
-                downloadBehaviour,
-                DownloadType.DOWNLOAD,
-                activityName,
-                packageName,
-                null
-            )
-        }
+        viewModel.downloadFile(file, downloadBehaviour, packageName, activityName)
     }
 
     private fun sendDownloadedFile(packageName: String, activityName: String) {
@@ -3317,12 +3284,12 @@ class FileDisplayActivity :
 
     // region MetadataSyncJob
     private fun startMetadataSyncForRoot() {
-        backgroundJobManager.startMetadataSyncJob(OCFile.ROOT_PATH, folderAlreadySynced = true)
+        viewModel.startMetadataSync(OCFile.ROOT_PATH, folderAlreadySynced = true)
     }
 
     private fun startMetadataSyncForCurrentDir() {
         val currentDirId = file?.decryptedRemotePath ?: return
-        backgroundJobManager.startMetadataSyncJob(currentDirId)
+        viewModel.startMetadataSync(currentDirId, folderAlreadySynced = false)
     }
     // endregion
 

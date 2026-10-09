@@ -16,6 +16,7 @@ import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.media.AudioManager
 import android.os.Handler
+import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.account.UserAccountManager
@@ -27,6 +28,7 @@ import com.nextcloud.client.core.ClockImpl
 import com.nextcloud.client.core.ThreadPoolAsyncRunner
 import com.nextcloud.client.database.dao.ArbitraryDataDao
 import com.nextcloud.client.device.DeviceInfo
+import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.operation.FileOperationHelper
 import com.nextcloud.client.logger.FileLogHandler
 import com.nextcloud.client.logger.Logger
@@ -42,6 +44,8 @@ import com.nextcloud.client.notifications.AppNotificationManager
 import com.nextcloud.client.notifications.AppNotificationManagerImpl
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.Throttler
+import com.nextcloud.repository.ClientRepository
+import com.nextcloud.repository.RemoteClientRepository
 import com.nextcloud.utils.e2ee.E2EEActionResolver
 import com.nextcloud.utils.e2ee.E2EEKeyInspector
 import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator
@@ -52,6 +56,8 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.providers.UsersAndGroupsSearchConfig
+import com.owncloud.android.ui.activity.filedisplayactivity.FileDisplayActivityRepository
+import com.owncloud.android.ui.activity.filedisplayactivity.FileDisplayActivityRepositoryImpl
 import com.owncloud.android.ui.activities.data.activities.ActivitiesRepository
 import com.owncloud.android.ui.activities.data.activities.ActivitiesServiceApi
 import com.owncloud.android.ui.activities.data.activities.ActivitiesServiceApiImpl
@@ -123,6 +129,19 @@ internal class AppModule {
         currentAccountProvider: CurrentAccountProvider,
         context: Context
     ): FileDataStorageManager = FileDataStorageManager(currentAccountProvider.user, context.contentResolver)
+
+    @Provides
+    fun clientRepository(currentAccountProvider: CurrentAccountProvider, context: Context): ClientRepository =
+        RemoteClientRepository(currentAccountProvider.user, context, ProcessLifecycleOwner.get())
+
+    @Provides
+    fun fileDisplayActivityRepository(
+        context: Context,
+        clientRepository: ClientRepository,
+        storageManager: FileDataStorageManager,
+        backgroundJobManager: BackgroundJobManager
+    ): FileDisplayActivityRepository =
+        FileDisplayActivityRepositoryImpl(context, clientRepository, storageManager, backgroundJobManager)
 
     @Provides
     fun currentAccountProvider(accountManager: UserAccountManager): CurrentAccountProvider = accountManager
