@@ -8,6 +8,7 @@
 package com.nextcloud.utils.thumbnail
 
 import android.content.Context
+import android.graphics.drawable.LayerDrawable
 import android.view.View
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
@@ -52,13 +53,15 @@ class FolderThumbnailGenerator @Inject constructor(
         if (folder == null || !folder.isFolder) return
 
         imageView.stopShimmer(loaderImageView)
+        imageView.setImageDrawable(getFolderIcon(folder))
+    }
 
+    fun getFolderIcon(folder: OCFile): LayerDrawable {
         val isAutoUploadFolder =
             SyncedFolderObserver.isAutoUploadFolder(folder, accountManager.user)
         val isDarkModeActive = preferences.isDarkModeEnabled()
 
         val overlayIconId = folder.getFileOverlayIconId(isAutoUploadFolder)
-        val icon = MimeTypeUtil.getFolderIcon(isDarkModeActive, overlayIconId, context, viewThemeUtils)
-        imageView.setImageDrawable(icon)
+        return MimeTypeUtil.getFolderIcon(isDarkModeActive, overlayIconId, context, viewThemeUtils)
     }
 }
