@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <size android:width="@dimen/gallery_cell_spacing" />
+    <solid android:color="@android:color/transparent" />
+</shape>

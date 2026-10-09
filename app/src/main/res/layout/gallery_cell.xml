@@ -2,7 +2,7 @@
 <!--
   ~ Nextcloud - Android Client
   ~
-  ~ SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+  ~ SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
   ~ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -11,22 +11,23 @@
 
     <View
         android:id="@+id/selection_background"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:visibility="gone" />
 
     <com.elyeproj.loaderviewlibrary.LoaderImageView
         android:id="@+id/shimmer"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:contentDescription="@null" />
 
     <ImageView
         android:id="@+id/thumbnail"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:contentDescription="@null"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        android:stateListAnimator="@animator/gallery_cell_selection" />
 
     <include
         android:id="@+id/unsupported"
@@ -37,6 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|start"
+        android:background="@drawable/gallery_selection_checkbox_background"
         android:layout_marginStart="@dimen/standard_half_margin"
         android:layout_marginTop="@dimen/standard_half_margin"
         android:contentDescription="@null"

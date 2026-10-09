@@ -13,6 +13,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="@dimen/standard_half_padding"
+    android:stateListAnimator="@animator/gallery_cell_selection"
     android:visibility="gone">
 
     <ImageView
