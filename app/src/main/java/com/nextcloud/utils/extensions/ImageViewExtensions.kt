@@ -19,6 +19,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import com.elyeproj.loaderviewlibrary.LoaderImageView
+import com.nextcloud.utils.OCFileUtils
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.MimeTypeUtil
@@ -37,19 +38,13 @@ fun ImageView.stopShimmer(shimmer: LoaderImageView?) {
     setVisibility(View.VISIBLE)
 }
 
-fun ImageView.setMediaLoading(shimmer: LoaderImageView?) {
-    scaleType = ImageView.ScaleType.CENTER_CROP
-    setPadding(0, 0, 0, 0)
-    background = null
+fun ImageView.setMediaPlaceholder(file: OCFile, iconInset: Int) {
+    scaleType = ImageView.ScaleType.FIT_CENTER
+    setPadding(iconInset, iconInset, iconInset, iconInset)
+    setBackgroundResource(R.color.media_placeholder_background)
     foreground = null
-    setImageDrawable(null)
+    setImageDrawable(OCFileUtils.getMediaPlaceholder(file))
     setTag(R.id.media_thumbnail_file_id, null)
-
-    shimmer?.run {
-        setImageResource(R.drawable.background)
-        resetLoader()
-        visibility = View.VISIBLE
-    }
 }
 
 fun ImageView.setMediaThumbnail(file: OCFile, bitmap: Bitmap) {
