@@ -26,7 +26,7 @@ concurrency:
 
 jobs:
     analysis:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-latest-max
         steps:
             - name: Disabled on forks
               if: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}
@@ -70,7 +70,7 @@ jobs:
                 run: |
                     mkdir -p "$HOME/.gradle"
                     {
-                        echo "org.gradle.jvmargs=-Xmx1g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
+                        echo "org.gradle.jvmargs=-Xmx6g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
                         echo "org.gradle.configureondemand=true"
                     } > "$HOME/.gradle/gradle.properties"
                     scripts/analysis/analysis-wrapper.sh "${{ steps.get-vars.outputs.branch }}" "${{ secrets.LOG_USERNAME }}" "${{ secrets.LOG_PASSWORD }}" "$GITHUB_RUN_NUMBER" "${{ steps.get-vars.outputs.pr }}"
