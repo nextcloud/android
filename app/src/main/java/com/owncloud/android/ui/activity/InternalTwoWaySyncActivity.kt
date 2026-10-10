@@ -23,6 +23,7 @@ import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.utils.extensions.hourPlural
 import com.nextcloud.utils.extensions.minPlural
 import com.nextcloud.utils.extensions.setVisibleIf
+import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
 import com.owncloud.android.databinding.InternalTwoWaySyncLayoutBinding
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -202,6 +203,8 @@ class InternalTwoWaySyncActivity :
         menuInflater.inflate(R.menu.activity_internal_two_way_sync, menu)
         disableForAllFoldersMenuButton = menu?.findItem(R.id.action_dismiss_two_way_sync)
         checkDisableForAllFoldersMenuButtonVisibility()
+        menu?.findItem(R.id.action_run_two_way_sync)?.isVisible = BuildConfig.DEBUG
+
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -213,6 +216,10 @@ class InternalTwoWaySyncActivity :
 
             R.id.action_dismiss_two_way_sync -> {
                 disableTwoWaySyncAndWorkers()
+            }
+
+            R.id.action_run_two_way_sync -> {
+                backgroundJobManager.runNowInternal2WaySync()
             }
         }
 

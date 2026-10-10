@@ -74,7 +74,7 @@ class InternalTwoWaySyncWork(
                         user,
                         fileDataStorageManager,
                         false,
-                        false
+                        true
                     )
                 val operationResult = operation?.execute(context)
 
