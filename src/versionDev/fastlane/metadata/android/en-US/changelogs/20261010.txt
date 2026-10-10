@@ -1,0 +1,2 @@
+refactor(drawer): simplify external link click handling
+fix(drawer): open external links with local ID above 100
