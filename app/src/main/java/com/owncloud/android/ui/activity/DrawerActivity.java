@@ -19,7 +19,6 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -453,14 +452,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 Bitmap bitmap;
 
                 if (resource instanceof PictureDrawable pictureDrawable) {
-                    bitmap = Bitmap.createBitmap(
-                        pictureDrawable.getIntrinsicWidth(),
-                        pictureDrawable.getIntrinsicHeight(),
-                        Bitmap.Config.ARGB_8888);
-
-                    Canvas canvas = new Canvas(bitmap);
-                    canvas.drawPicture(pictureDrawable.getPicture());
-
+                    bitmap = BitmapUtils.rasterizePictureDrawable(pictureDrawable, MAX_LOGO_SIZE_PX);
                 } else if (resource instanceof BitmapDrawable bitmapDrawable) {
                     bitmap = bitmapDrawable.getBitmap();
                 } else {

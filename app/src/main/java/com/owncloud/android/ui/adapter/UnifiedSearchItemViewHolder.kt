@@ -127,6 +127,8 @@ class UnifiedSearchItemViewHolder(
 
         if (entry.thumbnailUrl.isNotBlank()) {
             filesAction.loadFileThumbnail(entry) { client ->
+                ImageViewCompat.setImageTintList(binding.thumbnail, null)
+
                 if (entryType == SearchResultEntryType.Avatar) {
                     GlideHelper.loadCircularBitmapIntoImageView(
                         context,

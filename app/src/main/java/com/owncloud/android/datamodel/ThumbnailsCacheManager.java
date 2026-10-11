@@ -112,11 +112,11 @@ public final class ThumbnailsCacheManager {
     public static final int THUMBNAIL_SIZE_IN_KB = 512;
     private static final int RESIZED_IMAGE_SIZE_IN_KB = 10240;
 
-    public static final Bitmap mDefaultImg = BitmapFactory.decodeResource(MainApp.getAppContext().getResources(),
-            R.drawable.file_image);
+    public static final Bitmap mDefaultImg = BitmapUtils.rasterizeDrawable(R.drawable.file_image,
+                                                                           getThumbnailDimension());
 
-    public static final Bitmap mDefaultVideo = BitmapFactory.decodeResource(MainApp.getAppContext().getResources(),
-            R.drawable.file_movie);
+    public static final Bitmap mDefaultVideo = BitmapUtils.rasterizeDrawable(R.drawable.file_movie,
+                                                                             getThumbnailDimension());
 
     private ThumbnailsCacheManager() {
     }

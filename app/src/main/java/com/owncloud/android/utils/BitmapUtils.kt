@@ -22,8 +22,11 @@ import android.graphics.Rect
 import android.graphics.RectF
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.PictureDrawable
 import android.widget.ImageView
 import androidx.annotation.DimenRes
+import androidx.annotation.DrawableRes
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.applyCanvas
 import androidx.core.graphics.blue
 import androidx.core.graphics.createBitmap
@@ -43,6 +46,7 @@ import com.owncloud.android.lib.resources.users.StatusType
 import com.owncloud.android.ui.StatusDrawable
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
+import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
 import com.nextcloud.utils.decodeSampledBitmapFromFile as decodeSampledBitmap
@@ -122,6 +126,24 @@ object BitmapUtils {
     fun scaleBitmap(bitmap: Bitmap, px: Float, width: Int, height: Int, max: Int): Bitmap {
         val scale = px / max
         return bitmap.scale((scale * width).roundToInt(), (scale * height).roundToInt())
+    }
+
+    @JvmStatic
+    fun rasterizeDrawable(@DrawableRes drawableId: Int, size: Int): Bitmap {
+        val drawable = checkNotNull(ResourcesCompat.getDrawable(resources, drawableId, null))
+        return drawableToBitmap(drawable, size, size)
+    }
+
+    @JvmStatic
+    fun rasterizePictureDrawable(pictureDrawable: PictureDrawable, maxSize: Int): Bitmap {
+        val width = pictureDrawable.intrinsicWidth
+        val height = pictureDrawable.intrinsicHeight
+        val factor = min(1f, maxSize.toFloat() / max(width, height))
+
+        return createBitmap((width * factor).roundToInt(), (height * factor).roundToInt()).applyCanvas {
+            scale(factor, factor)
+            drawPicture(pictureDrawable.picture)
+        }
     }
 
     @Suppress("TooGenericExceptionCaught")
