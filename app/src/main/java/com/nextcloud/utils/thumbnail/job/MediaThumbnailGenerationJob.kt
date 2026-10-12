@@ -70,34 +70,29 @@ class MediaThumbnailGenerationJob(
         return ThumbnailsCacheManager.addThumbnailToCache(key, bitmap, file.path, px, px)
     }
 
-    private fun generateVideoThumbnail(file: File, key: String): Bitmap? =
-        extractVideoFrame(file)?.let { frame -> downscaleAndCache(frame, file, key) }
-
-    private fun downscaleAndCache(frame: Bitmap, file: File, key: String): Bitmap {
-        val px = ThumbnailsCacheManager.getThumbnailDimension()
-        val width = frame.width
-        val height = frame.height
-        val longestSide = maxOf(width, height)
-
-        if (longestSide <= px) {
-            return frame
-        }
-
-        val scaled = BitmapUtils.scaleBitmap(frame, px.toFloat(), width, height, longestSide)
-        return ThumbnailsCacheManager.addThumbnailToCache(key, scaled, file.path, px, px)
-    }
-
     @Suppress("TooGenericExceptionCaught")
-    private fun extractVideoFrame(file: File): Bitmap? {
+    private fun generateVideoThumbnail(file: File, key: String): Bitmap? {
         if (!file.exists()) {
             Log_OC.w(TAG, "Cannot extract thumbnail: file does not exist")
             return null
         }
 
+        val px = ThumbnailsCacheManager.getThumbnailDimension()
         val retriever = MediaMetadataRetriever()
         return try {
             retriever.setDataSource(file.absolutePath)
-            retriever.getFrameAtTime(ANY_FRAME_TIME_US)
+            val isVideoLargerThanThumbnail = BitmapUtils.getLargestVideoDimension(retriever) > px
+            val frame = if (isVideoLargerThanThumbnail) {
+                retriever.getScaledFrameAtTime(ANY_FRAME_TIME_US, MediaMetadataRetriever.OPTION_CLOSEST_SYNC, px, px)
+            } else {
+                retriever.getFrameAtTime(ANY_FRAME_TIME_US)
+            }
+
+            when {
+                frame == null -> null
+                !isVideoLargerThanThumbnail && BitmapUtils.fitsInto(frame, px) -> frame
+                else -> ThumbnailsCacheManager.addThumbnailToCache(key, frame, file.path, px, px)
+            }
         } catch (_: Throwable) {
             Log_OC.w(TAG, "Failed to create bitmap from video ${file.absolutePath}")
             null
