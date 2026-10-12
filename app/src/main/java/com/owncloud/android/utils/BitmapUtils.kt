@@ -130,10 +130,6 @@ object BitmapUtils {
     fun fitsInto(bitmap: Bitmap, px: Int): Boolean = max(bitmap.width, bitmap.height) <= px
 
     @JvmStatic
-    fun scaleToFit(bitmap: Bitmap, px: Int): Bitmap =
-        scaleBitmap(bitmap, px.toFloat(), bitmap.width, bitmap.height, max(bitmap.width, bitmap.height))
-
-    @JvmStatic
     fun getLargestVideoDimension(retriever: MediaMetadataRetriever): Int {
         val width = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH)?.toIntOrNull() ?: 0
         val height = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT)?.toIntOrNull() ?: 0
