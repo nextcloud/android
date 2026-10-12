@@ -42,6 +42,8 @@ import com.nextcloud.client.notifications.AppNotificationManager
 import com.nextcloud.client.notifications.AppNotificationManagerImpl
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.Throttler
+import com.nextcloud.repository.ClientRepository
+import com.nextcloud.repository.RemoteClientRepository
 import com.nextcloud.utils.e2ee.E2EEActionResolver
 import com.nextcloud.utils.e2ee.E2EEKeyInspector
 import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator
@@ -113,6 +115,9 @@ internal class AppModule {
     @Provides
     fun filesRepository(accountManager: UserAccountManager, clientFactory: ClientFactory): FilesRepository =
         RemoteFilesRepository(FilesServiceApiImpl(accountManager, clientFactory))
+
+    @Provides
+    fun clientRepository(repository: RemoteClientRepository): ClientRepository = repository
 
     @Provides
     fun uploadsStorageManager(currentAccountProvider: CurrentAccountProvider, context: Context): UploadsStorageManager =

@@ -20,7 +20,6 @@ import com.nextcloud.client.mixins.SessionMixin;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.repository.ClientRepository;
-import com.nextcloud.repository.RemoteClientRepository;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -53,6 +52,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     @Inject UserAccountManager accountManager;
     @Inject AppPreferences preferences;
     @Inject FileDataStorageManager fileDataStorageManager;
+    @Inject ClientRepository clientRepository;
 
     private final AppPreferences.Listener onPreferencesChanged = new AppPreferences.Listener() {
         @Override
@@ -65,8 +65,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
         return accountManager;
     }
 
-    private ClientRepository clientRepository;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         AppCompatActivityExtensionsKt.applyEdgeToEdgeWithSystemBarPadding(this);
@@ -77,8 +75,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
         if (enableAccountHandling) {
             mixinRegistry.onCreate(savedInstanceState);
         }
-
-        clientRepository = new RemoteClientRepository(accountManager.getUser(), this, this);
     }
 
     @Override
