@@ -10,7 +10,6 @@ package com.owncloud.android.files
 import androidx.test.core.app.launchActivity
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nextcloud.client.account.User
-import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.test.TestActivity
 import com.nextcloud.utils.EditorUtils
@@ -49,9 +48,6 @@ class FileMenuFilterIT : AbstractIT() {
     private lateinit var mockFileUploaderBinder: FileUploadHelper
 
     @MockK
-    private lateinit var mockFileDownloadProgressListener: FileDownloadWorker.FileDownloadProgressListener
-
-    @MockK
     private lateinit var mockOperationsServiceBinder: OperationsService.OperationsServiceBinder
 
     @MockK
@@ -64,7 +60,6 @@ class FileMenuFilterIT : AbstractIT() {
         MockKAnnotations.init(this)
         every { mockFileUploaderBinder.isUploading(any(), any()) } returns false
         every { mockComponentsGetter.fileUploaderHelper } returns mockFileUploaderBinder
-        every { mockComponentsGetter.fileDownloadProgressListener } returns mockFileDownloadProgressListener
         every { mockOperationsServiceBinder.isSynchronizing(any(), any()) } returns false
         every { mockComponentsGetter.operationsServiceBinder } returns mockOperationsServiceBinder
         every { mockStorageManager.getFileById(any()) } returns OCFile("/")

@@ -32,7 +32,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.jobs.BackgroundJobManager;
-import com.nextcloud.client.jobs.download.FileDownloadWorker;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.network.NetworkChangeListener;
@@ -165,7 +164,6 @@ public abstract class FileActivity extends DrawerActivity
 
     private boolean mResumed;
 
-    protected FileDownloadWorker.FileDownloadProgressListener fileDownloadProgressListener;
     protected FileUploadHelper fileUploadHelper = FileUploadHelper.Companion.instance();
     protected boolean isFileDisplayActivityResumed = false;
 
@@ -630,11 +628,6 @@ public abstract class FileActivity extends DrawerActivity
                 // TODO whatever could be waiting for the service is unbound
             }
         }
-    }
-
-    @Override
-    public FileDownloadWorker.FileDownloadProgressListener getFileDownloadProgressListener() {
-        return fileDownloadProgressListener;
     }
 
     @Override
