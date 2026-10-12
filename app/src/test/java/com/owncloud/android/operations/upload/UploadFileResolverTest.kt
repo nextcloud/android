@@ -16,6 +16,8 @@ import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFile
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedMetadata
 import com.owncloud.android.db.OCUpload
+import com.owncloud.android.lib.resources.files.model.GeoLocation
+import com.owncloud.android.lib.resources.files.model.ImageDimension
 import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.utils.MimeType
@@ -201,6 +203,8 @@ class UploadFileResolverTest {
 
     @Test
     fun updateOCFileCopiesRemoteProperties() {
+        val imageDimension = ImageDimension(640f, 480f)
+        val geoLocation = GeoLocation(52.52, 13.405)
         val remoteFile: RemoteFile = mock {
             on { creationTimestamp } doReturn 1L
             on { length } doReturn 2L
@@ -211,6 +215,8 @@ class UploadFileResolverTest {
             on { permissions } doReturn "RGDNVW"
             on { uploadTimestamp } doReturn 4L
             on { isHasPreview } doReturn true
+            on { this.imageDimension } doReturn imageDimension
+            on { this.geoLocation } doReturn geoLocation
         }
         val file = OCFile("/photo.jpg")
 
@@ -227,6 +233,8 @@ class UploadFileResolverTest {
         assertEquals("RGDNVW", file.permissions)
         assertEquals(4L, file.uploadTimestamp)
         assertTrue(file.isPreviewAvailable)
+        assertEquals(imageDimension, file.imageDimension)
+        assertEquals(geoLocation, file.geoLocation)
     }
 
     private companion object {
