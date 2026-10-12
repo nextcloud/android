@@ -82,8 +82,8 @@ class FolderDownloadWorker(
         Log_OC.d(TAG, "🕒 started for ${user.accountName} | folder=${folder.fileName}")
 
         trySetForeground(folder)
-        folderDownloadEventBroadcaster.sendDownloadEnqueued(folder.fileId)
         pendingDownloads.add(folder.fileId)
+        folderDownloadEventBroadcaster.sendDownloadEnqueued(folder.fileId)
 
         val downloadHelper = FileDownloadHelper.instance()
 
@@ -125,6 +125,7 @@ class FolderDownloadWorker(
                     if (operationResult?.isSuccess == true && operation.downloadType === DownloadType.DOWNLOAD) {
                         getOCFile(operation)?.let { ocFile ->
                             downloadHelper.saveFile(ocFile, operation, storageManager)
+                            folderDownloadEventBroadcaster.sendFileDownloaded(ocFile.fileId)
                         }
                     }
 
@@ -148,8 +149,8 @@ class FolderDownloadWorker(
                 notificationManager.showCompletionNotification(folder.fileName, false)
                 Result.failure()
             } finally {
-                folderDownloadEventBroadcaster.sendDownloadCompleted(folder.fileId)
                 pendingDownloads.remove(folder.fileId)
+                folderDownloadEventBroadcaster.sendDownloadCompleted(folder.fileId)
 
                 // delay so that user can see the error or success notification
                 delay(2000)

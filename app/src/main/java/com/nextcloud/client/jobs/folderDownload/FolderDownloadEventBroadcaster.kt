@@ -23,6 +23,7 @@ class FolderDownloadEventBroadcaster(
 
         const val ACTION_DOWNLOAD_ENQUEUED = PREFIX + "ACTION_DOWNLOAD_ENQUEUED"
         const val ACTION_DOWNLOAD_COMPLETED = PREFIX + "ACTION_DOWNLOAD_COMPLETED"
+        const val ACTION_FILE_DOWNLOADED = PREFIX + "ACTION_FILE_DOWNLOADED"
 
         const val EXTRA_FILE_ID = PREFIX + "EXTRA_FILE_ID"
     }
@@ -41,6 +42,14 @@ class FolderDownloadEventBroadcaster(
         Log_OC.d(TAG, "Download completed broadcast sent")
 
         val intent = Intent(ACTION_DOWNLOAD_COMPLETED).apply {
+            putExtra(EXTRA_FILE_ID, id)
+        }
+
+        broadcastManager.sendBroadcast(intent)
+    }
+
+    fun sendFileDownloaded(id: Long) {
+        val intent = Intent(ACTION_FILE_DOWNLOADED).apply {
             putExtra(EXTRA_FILE_ID, id)
         }
 
