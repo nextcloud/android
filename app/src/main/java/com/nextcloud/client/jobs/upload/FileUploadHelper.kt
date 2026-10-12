@@ -523,10 +523,11 @@ class FileUploadHelper {
                             remotePath = file.remotePath
                         )
                     }
-                if (entity != null) {
-                    reusePendingUpload(entity, user) ?: createOCUpload()
-                } else {
-                    createOCUpload()
+                val reusedUpload = entity?.let { reusePendingUpload(it, user) } ?: return@let createOCUpload()
+                reusedUpload.apply {
+                    localAction = behaviour
+                    this.nameCollisionPolicy = nameCollisionPolicy
+                    uploadsStorageManager.uploadDao.insertOrReplace(toUploadEntity())
                 }
             }
         }
