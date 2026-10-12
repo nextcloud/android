@@ -26,6 +26,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.utils.IntentUtil.createSendIntent
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.mdm.MDMConfig
 import com.owncloud.android.BuildConfig
@@ -39,7 +40,6 @@ import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.adapter.sendButton.SendButtonAdapter
 import com.owncloud.android.ui.adapter.sendButton.SendButtonData
 import com.owncloud.android.ui.helpers.FileOperationsHelper
-import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -216,36 +216,31 @@ class SendShareDialog :
         this.fileOperationsHelper = fileOperationsHelper
     }
 
-    @Suppress("ReturnCount")
     override fun onSendButtonClick(sendButtonData: SendButtonData) {
-        val packageName = sendButtonData.packageName
-        val activityName = sendButtonData.activityName
         val file = file ?: return
+        val downloader = activity as? SendShareDialogDownloader
 
         try {
-            if (MimeTypeUtil.isImage(file) && !file.isDown) {
-                fileOperationsHelper?.sendCachedImage(file, packageName, activityName)
-                return
-            }
+            when (SendShareAction.resolve(file.isDown, downloader != null)) {
+                SendShareAction.SEND_NOW -> sendDownloadedFile(sendButtonData)
 
-            if (file.isDown) {
-                val activity = activity ?: return
-                sendIntent?.component = ComponentName(packageName, activityName)
-                activity.startActivity(Intent.createChooser(sendIntent, getString(R.string.send)))
-                return
-            }
+                SendShareAction.DOWNLOAD_FIRST ->
+                    downloader?.downloadFile(file, sendButtonData.packageName, sendButtonData.activityName)
 
-            Log_OC.d(TAG, file.remotePath + ": File must be downloaded")
-            val downloader = activity as? SendShareDialogDownloader
-            if (downloader == null) {
-                Log_OC.e(TAG, "Host activity does not implement SendShareDialogDownloader: $activity")
-                return
+                SendShareAction.DOWNLOAD_UNAVAILABLE -> {
+                    Log_OC.e(TAG, "Host activity does not implement SendShareDialogDownloader: $activity")
+                    SnackbarUtil.show(activity, R.string.send_share_download_unavailable)
+                }
             }
-
-            downloader.downloadFile(file, packageName, activityName)
         } finally {
             dismiss()
         }
+    }
+
+    private fun sendDownloadedFile(sendButtonData: SendButtonData) {
+        val activity = activity ?: return
+        sendIntent?.component = ComponentName(sendButtonData.packageName, sendButtonData.activityName)
+        activity.startActivity(Intent.createChooser(sendIntent, getString(R.string.send)))
     }
 
     interface SendShareDialogDownloader {

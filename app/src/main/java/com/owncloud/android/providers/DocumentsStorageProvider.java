@@ -15,6 +15,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -68,9 +69,12 @@ import com.owncloud.android.utils.theme.CapabilityUtils;
 import org.nextcloud.providers.cursors.FileCursor;
 import org.nextcloud.providers.cursors.RootCursor;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -105,6 +109,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     @VisibleForTesting
     static final String DOCUMENTID_SEPARATOR = "/";
     private static final int DOCUMENTID_PARTS = 2;
+    private static final int THUMBNAIL_PNG_QUALITY = 90;
     private final Map<String, FileDataStorageManager> rootIdToStorageManager = new HashMap<>();
 
     private final Executor executor = Executors.newCachedThreadPool();
@@ -388,12 +393,40 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                 ThumbnailsCacheManager.generateThumbnailFromOCFile(file, document.getUser(), getContext());
             }
 
-            return new AssetFileDescriptor(DiskLruImageCacheFileProvider.getParcelFileDescriptorForOCFile(file),
+            return new AssetFileDescriptor(getThumbnailFileDescriptor(file),
                                            0,
                                            file.getFileLength());
         } finally {
             Binder.restoreCallingIdentity(token);
         }
+    }
+
+    private ParcelFileDescriptor getThumbnailFileDescriptor(OCFile ocFile) throws FileNotFoundException {
+        Bitmap thumbnail = FileExtensionsKt.getBigThumbnail(ocFile);
+
+        if (thumbnail == null) {
+            thumbnail = FileExtensionsKt.getSmallThumbnail(ocFile);
+        }
+
+        if (thumbnail == null) {
+            thumbnail = ThumbnailsCacheManager.mDefaultImg;
+        }
+
+        File thumbnailFile = new File(MainApp.getAppContext().getCacheDir(), ocFile.getFileName());
+        try {
+            Files.createFile(thumbnailFile.toPath());
+
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            thumbnail.compress(Bitmap.CompressFormat.PNG, THUMBNAIL_PNG_QUALITY, bos);
+
+            try (FileOutputStream fos = new FileOutputStream(thumbnailFile)) {
+                fos.write(bos.toByteArray());
+            }
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Error writing thumbnail file: " + e.getMessage());
+        }
+
+        return ParcelFileDescriptor.open(thumbnailFile, ParcelFileDescriptor.MODE_READ_ONLY);
     }
 
     @Override

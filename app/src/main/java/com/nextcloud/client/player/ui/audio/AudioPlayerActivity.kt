@@ -19,6 +19,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
+import com.nextcloud.client.jobs.download.SendShareDownloader
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet
 import com.nextcloud.utils.SnackbarUtil
 import com.owncloud.android.R
@@ -27,13 +28,15 @@ import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment
+import com.owncloud.android.ui.dialog.SendShareDialog
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 class AudioPlayerActivity :
     FileActivity(),
-    Injectable {
+    Injectable,
+    SendShareDialog.SendShareDialogDownloader {
 
     companion object {
         fun createIntent(context: Context): Intent = Intent(context, AudioPlayerActivity::class.java).apply {
@@ -47,6 +50,8 @@ class AudioPlayerActivity :
     private val viewModel by viewModels<AudioPlayerViewModel> { viewModelFactory }
 
     private lateinit var audioPlayerView: AudioPlayerView
+
+    private val sendShareDownloader by lazy { SendShareDownloader(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -68,6 +73,18 @@ class AudioPlayerActivity :
         }
 
         volumeControlStream = AudioManager.STREAM_MUSIC
+
+        lifecycle.addObserver(sendShareDownloader)
+        sendShareDownloader.restoreState(savedInstanceState)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        sendShareDownloader.saveState(outState)
+    }
+
+    override fun downloadFile(file: OCFile, packageName: String, activityName: String) {
+        sendShareDownloader.downloadFile(file, packageName, activityName)
     }
 
     override fun onStart() {

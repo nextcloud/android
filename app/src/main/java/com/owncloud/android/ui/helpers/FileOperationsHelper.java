@@ -16,7 +16,6 @@ package com.owncloud.android.ui.helpers;
 import android.accounts.Account;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -74,7 +73,6 @@ import com.owncloud.android.ui.events.SyncEventFinished;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.UriUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -808,26 +806,6 @@ public class FileOperationsHelper {
         sendShareFile(file, !file.canReshare());
     }
 
-    public void sendCachedImage(OCFile file, String packageName, String activityName) {
-        if (file != null) {
-            Context context = MainApp.getAppContext();
-            Intent sendIntent = new Intent(Intent.ACTION_SEND);
-            // set MimeType
-            sendIntent.setType(file.getMimeType());
-            sendIntent.setComponent(new ComponentName(packageName, activityName));
-            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" +
-                                                                   context.getResources().getString(R.string.image_cache_provider_authority) +
-                                                                   file.getRemotePath()));
-            sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
-            sendIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-            fileActivity.startActivity(Intent.createChooser(sendIntent,
-                                                            context.getString(R.string.actionbar_send_file)));
-        } else {
-            Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
-        }
-    }
-
     public void setPictureAs(OCFile file, View view) {
         if (file != null) {
             Context context = MainApp.getAppContext();
@@ -835,17 +813,11 @@ public class FileOperationsHelper {
             Uri uri;
 
             try {
-                if (file.isDown()) {
-                    File externalFile = new File(file.getStoragePath());
+                File externalFile = new File(file.getStoragePath());
 
-                    intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    uri = FileProvider.getUriForFile(context,
-                                                     context.getResources().getString(R.string.file_provider_authority), externalFile);
-                } else {
-                    uri = Uri.parse(UriUtils.URI_CONTENT_SCHEME +
-                                        context.getResources().getString(R.string.image_cache_provider_authority) +
-                                        file.getRemotePath());
-                }
+                intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                uri = FileProvider.getUriForFile(context,
+                                                 context.getResources().getString(R.string.file_provider_authority), externalFile);
 
                 intent.setDataAndType(uri, file.getMimeType());
                 intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);

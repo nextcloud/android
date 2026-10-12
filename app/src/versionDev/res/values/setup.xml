@@ -18,7 +18,6 @@
     <string name="users_and_groups_share_with">org.nextcloud.beta.android.providers.UsersAndGroupsSearchProvider.action.SHARE_WITH</string>
     <string name="document_provider_authority">org.nextcloud.beta.documents</string>
     <string name="file_provider_authority">org.nextcloud.beta.files</string>
-    <string name="image_cache_provider_authority">org.nextcloud.beta.android.providers.imageCache</string>
     <string name="default_display_name_for_root_folder">Nextcloud Dev</string>
     
     <bool name="logger_enabled">true</bool>
