@@ -19,7 +19,6 @@ import com.owncloud.android.datamodel.OCFileDepth.Root
 import com.owncloud.android.ui.events.EncryptionEvent
 import com.owncloud.android.utils.FileStorageUtils
 import java.util.Calendar
-import java.util.Date
 
 fun List<OCFile>.filterFilenames(): List<OCFile> = distinctBy { it.fileName }
 
@@ -83,6 +82,19 @@ private fun transformToRows(list: List<OCFile>, layout: GalleryRowLayout): List<
         .sortedByDescending { it.modificationTimestamp }
         .chunked(layout.columns)
         .map { chunk -> GalleryRow(chunk, layout.measure(chunk)) }
+}
+
+fun OCFile?.isDownloadedFileChanged(serverFile: OCFile): Boolean {
+    if (this == null || !isDown || serverFile.isFolder) {
+        return false
+    }
+
+    return etag.eTagChanged(serverFile.etag)
+}
+
+fun OCFile.isLocalETagOutdated(): Boolean {
+    val serverETag = etagInConflict
+    return !serverETag.isNullOrEmpty() && etag.eTagChanged(serverETag)
 }
 
 fun OCFile.toEncryptionEvent(encrypt: Boolean): EncryptionEvent = EncryptionEvent(
