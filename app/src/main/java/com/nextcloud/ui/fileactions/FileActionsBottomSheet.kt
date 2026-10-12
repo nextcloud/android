@@ -320,17 +320,18 @@ class FileActionsBottomSheet :
         val itemBinding = FileActionsBottomSheetItemBinding.inflate(layoutInflater, binding.fileActionsList, false)
             .apply {
                 root.setOnClickListener {
-                    viewModel.onClick(action)
+                    val toggledAction = action.toggledFavorite()
+                    if (toggledAction == null) {
+                        viewModel.onClick(action)
+                        return@setOnClickListener
+                    }
+
+                    root.isClickable = false
+                    showAction(toggledAction, viewThemeUtils)
+                    val delay = resources.getInteger(android.R.integer.config_mediumAnimTime).toLong()
+                    root.postDelayed({ viewModel.onClick(action) }, delay)
                 }
-                text.setText(action.title)
-                if (action.icon != null) {
-                    val drawable =
-                        viewThemeUtils.platform.tintDrawable(
-                            requireContext(),
-                            AppCompatResources.getDrawable(requireContext(), action.icon)!!
-                        )
-                    icon.setImageDrawable(drawable)
-                }
+                showAction(action, viewThemeUtils)
             }
         return itemBinding.root
     }
@@ -380,5 +381,17 @@ class FileActionsBottomSheet :
             }
             arguments = argsBundle
         }
+    }
+}
+
+private fun FileActionsBottomSheetItemBinding.showAction(action: FileAction, viewThemeUtils: ViewThemeUtils) {
+    text.setText(action.title)
+    if (action.icon != null) {
+        val context = root.context
+        val drawable = viewThemeUtils.platform.tintDrawable(
+            context,
+            AppCompatResources.getDrawable(context, action.icon)!!
+        )
+        icon.setImageDrawable(drawable)
     }
 }

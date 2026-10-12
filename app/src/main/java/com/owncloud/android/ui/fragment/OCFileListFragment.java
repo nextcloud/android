@@ -746,6 +746,27 @@ public class OCFileListFragment extends ExtendedListFragment implements
         });
     }
 
+    public void openCurrentFolderActionsMenu() {
+        final OCFile currentFolder = getCurrentFile();
+        if (currentFolder == null || currentFolder.isRootDirectory()) {
+            return;
+        }
+
+        final Set<OCFile> checkedFiles = new HashSet<>();
+        checkedFiles.add(currentFolder);
+
+        throttler.run("overflowClick", () -> {
+            final var actionsToHide = FileAction.Companion.getCurrentFolderActionsToHide(currentFolder);
+            final var childFragmentManager = getChildFragmentManager();
+            final var actionBottomSheet = FileActionsBottomSheet.newInstance(currentFolder, true, actionsToHide)
+                .setResultListener(childFragmentManager, this, (id) -> onFileActionChosen(id, checkedFiles));
+
+            if (FragmentExtensionsKt.isDialogFragmentReady(this)) {
+                actionBottomSheet.show(childFragmentManager, "actions");
+            }
+        });
+    }
+
     @Override
     public void newDocument() {
         ChooseRichDocumentsTemplateDialogFragment.newInstance(mFile,
