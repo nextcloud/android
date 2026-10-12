@@ -2063,6 +2063,8 @@ class FileDisplayActivity :
 
         val detailFragment: Fragment = FileDetailFragment.newInstance(file, currentUser, activeTab)
         setLeftFragment(detailFragment, false)
+        // swap now, so no frame shows the list without its sort row
+        supportFragmentManager.executePendingTransactions()
         configureToolbarForPreview(file)
     }
 
