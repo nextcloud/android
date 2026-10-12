@@ -135,9 +135,11 @@ android {
 
         buildTypes {
             release {
+                optimization {
+                    enable = true
+                }
                 buildConfigField("String", "NC_TEST_SERVER_DATA_STRING", "\"\"")
             }
-
             debug {
                 enableUnitTestCoverage = project.hasProperty("coverage")
                 enableAndroidTestCoverage = project.hasProperty("coverage")

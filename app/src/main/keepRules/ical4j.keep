@@ -1,0 +1,14 @@
+# Nextcloud - Android Client
+#
+# SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+-keep class com.nextcloud.utils.ical.AndroidCompatTimeZoneRegistryFactory,
+            net.fortuna.ical4j.util.MapTimeZoneCache {
+    <init>();
+}
+
+-keeppackagenames net.fortuna.ical4j.transform.compliance
+
+-dontwarn java.time.zone.ZoneRulesProvider
+-dontwarn org.joda.convert.ToString
