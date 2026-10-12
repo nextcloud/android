@@ -7,15 +7,8 @@
 
 package com.owncloud.android.operations
 
-import com.owncloud.android.AbstractOnServerIT
-import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.resources.files.CreateFolderRemoteOperation
-import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation
-import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.RemoveFileRemoteOperation
-import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation
-import com.owncloud.android.lib.resources.files.model.RemoteFile
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
@@ -26,16 +19,9 @@ import org.junit.Test
 import java.io.File
 
 @Suppress("TooManyFunctions", "DEPRECATION")
-class InternalTwoWaySyncIT : AbstractOnServerIT() {
+class InternalTwoWaySyncIT : AbstractInternalTwoWaySyncIT() {
 
     companion object {
-        private const val TWO_WAY_SYNC_ENABLED = 0L
-        private const val BINARY_MIME_TYPE = "application/octet-stream"
-        private const val MILLIS_IN_SECOND = 1000
-        private const val SERVER_POLL_ATTEMPTS = 10
-        private const val SMALL_DUMMY_FILE = "nonEmpty.txt"
-        private const val LARGE_DUMMY_FILE = "chunkedFile.txt"
-        private const val FILE_NAME = "file.bin"
         private const val NESTED_FILE_NAME = "nested.bin"
         private const val SUB_FOLDER_NAME = "sub"
     }
@@ -199,57 +185,4 @@ class InternalTwoWaySyncIT : AbstractOnServerIT() {
         assertEquals(before.etag, after.etag)
         assertEquals(before.fileId, after.fileId)
     }
-
-    private fun sync(remotePath: String): RemoteOperationResult<*> =
-        SynchronizeFolderOperation(targetContext, remotePath, user, storageManager, false, true)
-            .execute(targetContext)
-
-    private fun syncAndAssertSuccess(remotePath: String) = assertTrue(sync(remotePath).isSuccess)
-
-    private fun setUpTwoWaySyncFolder(remotePath: String): OCFile {
-        createFolder(remotePath)
-        syncAndAssertSuccess(remotePath)
-
-        return storageManager.getFileByPath(remotePath).apply {
-            internalFolderSyncTimestamp = TWO_WAY_SYNC_ENABLED
-            storageManager.saveFile(this)
-        }
-    }
-
-    private fun setUpTwoWaySyncFolderWithFile(remotePath: String): OCFile = setUpTwoWaySyncFolder(remotePath).also {
-        uploadFile(getDummyFile(SMALL_DUMMY_FILE), it.childPath(FILE_NAME))
-        syncAndAssertSuccess(it.remotePath)
-    }
-
-    private fun uploadDirectlyToServer(localFile: File, remotePath: String) {
-        val modificationTimestamp = System.currentTimeMillis() / MILLIS_IN_SECOND
-        val result = UploadFileRemoteOperation(
-            localFile.absolutePath,
-            remotePath,
-            BINARY_MIME_TYPE,
-            modificationTimestamp
-        ).execute(client)
-        assertTrue(result.isSuccess)
-    }
-
-    private fun existsOnServer(remotePath: String): Boolean =
-        ExistenceCheckRemoteOperation(remotePath, false).execute(client).isSuccess
-
-    private fun serverEtagOf(remotePath: String): String? = ReadFileRemoteOperation(remotePath)
-        .execute(client)
-        .takeIf { it.isSuccess }
-        ?.let { (it.data.first() as RemoteFile).etag }
-
-    private fun waitUntilServerEtagChanges(remotePath: String, previousEtag: String): Boolean =
-        (1..SERVER_POLL_ATTEMPTS).any {
-            val changed = serverEtagOf(remotePath)?.let { etag -> etag != previousEtag } == true
-            if (!changed) {
-                shortSleep()
-            }
-            changed
-        }
-
-    private fun OCFile.childPath(name: String): String = remotePath + name
-
-    private fun OCFile.childFolderPath(name: String): String = remotePath + name + OCFile.PATH_SEPARATOR
 }
