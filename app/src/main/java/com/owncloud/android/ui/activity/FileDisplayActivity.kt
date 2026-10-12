@@ -2343,7 +2343,9 @@ class FileDisplayActivity :
             resetScrollingAndUpdateActionBar()
         }
 
-        if (leftFragment is OCFileListFragment && !operation.onlyLocalCopy) {
+        if (leftFragment is OCFileListFragment && operation.onlyLocalCopy) {
+            leftFragment.adapter?.notifyItemChanged(removedFile)
+        } else if (leftFragment is OCFileListFragment) {
             leftFragment.adapter?.removeFile(removedFile)
 
             if (leftFragment.adapter?.isEmpty == true) {
