@@ -108,7 +108,7 @@ class AvatarGroupLayout @JvmOverloads constructor(
             } else {
                 sharee = sharees[avatarCount]
                 when (sharee.shareType) {
-                    ShareType.GROUP, ShareType.EMAIL, ShareType.ROOM, ShareType.CIRCLE ->
+                    ShareType.GROUP, ShareType.EMAIL, ShareType.ROOM, ShareType.CIRCLE, ShareType.PUBLIC_LINK ->
                         viewThemeUtils.files.createAvatar(
                             sharee.shareType,
                             avatar,

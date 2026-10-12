@@ -113,6 +113,11 @@ class FilesSpecificViewThemeUtils @Inject constructor(
                 androidViewThemeUtils.colorImageViewBackgroundAndIcon(avatar)
             }
 
+            ShareType.PUBLIC_LINK -> {
+                createAvatarBase(R.drawable.ic_link, AvatarPadding.LARGE)
+                androidViewThemeUtils.colorImageViewBackgroundAndIcon(avatar)
+            }
+
             else -> Log_OC.d(TAG, "Unknown share type")
         }
     }
@@ -317,9 +322,7 @@ class FilesSpecificViewThemeUtils @Inject constructor(
         withScheme(autoCompleteTextView) { scheme ->
             autoCompleteTextView.setTextColor(dynamicColor.onSurface().getArgb(scheme))
             autoCompleteTextView.setHintTextColor(dynamicColor.onSurfaceVariant().getArgb(scheme))
-            autoCompleteTextView.setDropDownBackgroundTintList(
-                ColorStateList.valueOf(dynamicColor.surfaceContainer().getArgb(scheme))
-            )
+            autoCompleteTextView.dropDownBackgroundTintList = ColorStateList.valueOf(dynamicColor.surfaceContainer().getArgb(scheme))
         }
     }
 
