@@ -1802,8 +1802,6 @@ public class UploadFileOperation extends SyncOperation {
         file.setPermissions(remoteFile.getPermissions());
         file.setUploadTimestamp(remoteFile.getUploadTimestamp());
         file.setPreviewAvailable(remoteFile.isHasPreview());
-        file.setImageDimension(remoteFile.getImageDimension());
-        file.setGeoLocation(remoteFile.getGeoLocation());
     }
 
     public interface OnRenameListener {
