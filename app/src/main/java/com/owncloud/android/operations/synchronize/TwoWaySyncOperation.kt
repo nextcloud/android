@@ -9,6 +9,7 @@ package com.owncloud.android.operations.synchronize
 
 import android.content.Context
 import com.nextcloud.client.account.User
+import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -63,13 +64,17 @@ class TwoWaySyncOperation(
             return false
         }
 
-        return if (local.isFolder) isFolderDeletedLocally(remote, local) else isFileDeletedLocally(local)
+        return if (local.isFolder) isFolderDeletedLocally(remote, local) else isFileDeletedLocally(remote, local)
     }
 
-    private fun isFileDeletedLocally(file: OCFile): Boolean {
-        val storagePath = file.storagePath?.takeIf { it.isNotEmpty() } ?: return false
+    private fun isFileDeletedLocally(remote: OCFile, local: OCFile): Boolean {
+        val storagePath = local.storagePath?.takeIf { it.isNotEmpty() } ?: return false
         val localFile = File(storagePath)
-        return !localFile.exists() && localFile.parentFile?.exists() == true
+
+        return local.etag.equals(remote.etag, ignoreCase = true) &&
+            !FileUploadHelper.instance().isUploading(local.remotePath, user.accountName) &&
+            !localFile.exists() &&
+            localFile.parentFile?.exists() == true
     }
 
     // we need eTag comparison because this return value used for deletion thus we must be sure
