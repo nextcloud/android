@@ -13,8 +13,6 @@ import com.github.spotbugs.snom.SpotBugsTask
 import com.karumi.shot.ShotExtension
 import org.gradle.internal.jvm.Jvm
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import java.io.FileInputStream
-import java.util.Properties
 
 val shotTest = System.getenv("SHOT_TEST") == "true"
 val ciBuild = System.getenv("CI") == "true"
@@ -81,14 +79,9 @@ val ndkEnv = buildMap {
     }
 }
 
-val configProps = Properties().apply {
-    val file = rootProject.file("gradle.properties")
-    if (file.exists()) load(FileInputStream(file))
-}
-
-val ncTestServerUsername = configProps["NC_TEST_SERVER_USERNAME"]
-val ncTestServerPassword = configProps["NC_TEST_SERVER_PASSWORD"]
-val ncTestServerBaseUrl = configProps["NC_TEST_SERVER_BASEURL"]
+val ncTestServerUsername = providers.gradleProperty("NC_TEST_SERVER_USERNAME").get()
+val ncTestServerPassword = providers.gradleProperty("NC_TEST_SERVER_PASSWORD").get()
+val ncTestServerBaseUrl = providers.gradleProperty("NC_TEST_SERVER_BASEURL").get()
 
 android {
     // install this NDK version and CMake to produce smaller APKs. Build will still work if not installed
