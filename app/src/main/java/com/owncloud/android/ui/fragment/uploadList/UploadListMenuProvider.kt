@@ -12,18 +12,24 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.core.view.MenuProvider
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.upload.AlbumFileUploadWorker
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
+import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.utils.FilesSyncHelper
 
 class UploadListMenuProvider(
     private val context: Context,
     private val preferences: AppPreferences,
     private val userAccountManager: UserAccountManager,
     private val uploadsStorageManager: UploadsStorageManager,
+    private val syncedFolderProvider: SyncedFolderProvider,
+    private val backgroundJobManager: BackgroundJobManager,
+    private val uploadHelper: () -> FileUploadHelper = { FileUploadHelper.instance() },
     private val onGlobalPauseToggled: () -> Unit
 ) : MenuProvider {
 
@@ -61,12 +67,18 @@ class UploadListMenuProvider(
         if (paused) {
             FileUploadWorker.pauseActiveUploads()
             AlbumFileUploadWorker.pauseActiveUploads()
+        } else {
+            FilesSyncHelper.startAutoUploadForEnabledSyncedFolders(
+                syncedFolderProvider,
+                backgroundJobManager,
+                overridePowerSaving = false
+            )
         }
 
-        val uploadHelper = FileUploadHelper.instance()
+        val helper = uploadHelper()
         userAccountManager.allUsers.filterNotNull().forEach { user ->
             val ids = uploadsStorageManager.getCurrentUploadIds(user.accountName)
-            uploadHelper.cancelAndRestartUploadJob(user, ids)
+            helper.cancelAndRestartUploadJob(user, ids)
         }
         onGlobalPauseToggled()
     }
