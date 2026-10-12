@@ -56,9 +56,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.providers.UsersAndGroupsSearchConfig
-import com.owncloud.android.ui.activity.filedisplayactivity.FileDisplayActivityRepository
-import com.owncloud.android.ui.activity.filedisplayactivity.FileDisplayActivityRepositoryImpl
-import com.owncloud.android.ui.fragment.filesRepository.RemoteFilesRepository as OCFileListFilesRepository
 import com.owncloud.android.ui.activities.data.activities.ActivitiesRepository
 import com.owncloud.android.ui.activities.data.activities.ActivitiesServiceApi
 import com.owncloud.android.ui.activities.data.activities.ActivitiesServiceApiImpl
@@ -66,6 +63,8 @@ import com.owncloud.android.ui.activities.data.activities.RemoteActivitiesReposi
 import com.owncloud.android.ui.activities.data.files.FilesRepository
 import com.owncloud.android.ui.activities.data.files.FilesServiceApiImpl
 import com.owncloud.android.ui.activities.data.files.RemoteFilesRepository
+import com.owncloud.android.ui.activity.filedisplayactivity.FileDisplayActivityRepository
+import com.owncloud.android.ui.activity.filedisplayactivity.FileDisplayActivityRepositoryImpl
 import com.owncloud.android.ui.dialog.setupEncryption.CertificateValidator
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import dagger.Module
@@ -75,6 +74,7 @@ import java.io.File
 import javax.inject.Named
 import javax.inject.Provider
 import javax.inject.Singleton
+import com.owncloud.android.ui.fragment.filesRepository.RemoteFilesRepository as OCFileListFilesRepository
 
 @Module(includes = [ComponentsModule::class, VariantComponentsModule::class, BuildTypeComponentsModule::class])
 @Suppress("TooManyFunctions")
@@ -133,10 +133,6 @@ internal class AppModule {
         currentAccountProvider: CurrentAccountProvider,
         context: Context
     ): FileDataStorageManager = FileDataStorageManager(currentAccountProvider.user, context.contentResolver)
-
-    @Provides
-    fun clientRepository(currentAccountProvider: CurrentAccountProvider, context: Context): ClientRepository =
-        RemoteClientRepository(currentAccountProvider.user, context, ProcessLifecycleOwner.get())
 
     @Provides
     fun fileDisplayActivityRepository(
