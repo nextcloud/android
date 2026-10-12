@@ -7,7 +7,6 @@
  * SPDX-FileCopyrightText: 2020 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-@file:Suppress("DEPRECATION")
 
 package com.owncloud.android
 
@@ -41,6 +40,7 @@ import java.nio.file.attribute.BasicFileAttributes
 import java.util.concurrent.TimeUnit
 import kotlin.math.abs
 
+@Suppress("TooManyFunctions", "DEPRECATION")
 class UploadIT : AbstractOnServerIT() {
     private val uploadsStorageManager = UploadsStorageManager(
         UserAccountManagerImpl.fromContext(targetContext),
