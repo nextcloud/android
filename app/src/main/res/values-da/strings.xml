@@ -32,7 +32,7 @@
     <string name="activity_icon">Aktivitet</string>
     <string name="add_media">Tilføj medier</string>
     <string name="add_new_public_share">Tilføj nyt offentligt link til deling</string>
-    <string name="add_new_secure_file_drop">Tilføj nyt, sikkert fil drop</string>
+    <string name="add_new_secure_file_drop">Tilføj ny sikker fil-aflevering</string>
     <string name="add_to_album">Tilføj til album</string>
     <string name="album_already_exists">Albummet findes allerede</string>
     <string name="album_copy_file_conflict">Findes allerede.</string>
@@ -985,10 +985,10 @@
     <string name="share_link_with_label">Del link (%1$s)</string>
     <string name="share_no_expiration_date_label">Angiv udløbsdato</string>
     <string name="share_no_password_title">Skift adgangskode</string>
-    <string name="share_not_allowed_when_file_drop">Gen-deling er ikke tilladt under sikke fil drop</string>
+    <string name="share_not_allowed_when_file_drop">Videredeling er ikke tilladt ved sikker fil-aflevering</string>
     <string name="share_option_required">Vælg mindst én delingsmulighed, før du fortsætter.</string>
     <string name="share_permission_can_edit">Kan redigere</string>
-    <string name="share_permission_file_request">Filforespørgsler</string>
+    <string name="share_permission_file_request">Fil-forespørgsel</string>
     <string name="share_permission_view_only">Kun visning</string>
     <string name="share_permissions">Delingsrettigheder</string>
     <string name="share_re_share_permission">Del</string>
