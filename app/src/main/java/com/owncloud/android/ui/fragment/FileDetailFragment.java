@@ -11,7 +11,6 @@ package com.owncloud.android.ui.fragment;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -30,24 +29,22 @@ import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ClientFactory;
-import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.ui.fileactions.FileAction;
+import com.nextcloud.ui.fileDetail.FileDetailPreview;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.ui.tags.TagManagementBottomSheet;
 import com.nextcloud.utils.HumanReadableFormatter;
 import com.nextcloud.utils.MenuUtils;
 import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
-import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.nextcloud.utils.text.DisplayTextFormatter;
-import com.owncloud.android.MainApp;
+import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsFragmentBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -110,12 +107,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     private int activeTab;
 
     @Inject AppPreferences preferences;
-    @Inject ConnectivityService connectivityService;
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
     @Inject FileDataStorageManager storageManager;
     @Inject ViewThemeUtils viewThemeUtils;
     @Inject BackgroundJobManager backgroundJobManager;
+    @Inject FolderThumbnailGenerator folderThumbnailGenerator;
 
     /**
      * Public factory method to create new FileDetailFragment instances.
@@ -605,17 +602,14 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             OCFile file = getFile();
 
             // set file details
-            if (MimeTypeUtil.isImage(file)) {
-                binding.filename.setText(file.getFileName());
-            } else {
-                binding.filename.setVisibility(View.GONE);
-            }
+            binding.filename.setText(file.getFileName());
             binding.size.setText(HumanReadableFormatter.formatBytes(file.getFileLength()));
 
             boolean showDetailedTimestamp = preferences.isShowDetailedTimestampEnabled();
             setFileModificationTimestamp(file, showDetailedTimestamp);
 
             setFilePreview(file);
+            binding.filename.setVisibility(previewLoaded ? View.VISIBLE : View.GONE);
             setFavoriteIconStatus(file.isFavorite());
 
             // configure UI for depending upon local state of the file
@@ -705,56 +699,13 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
      * @param file a {@link OCFile} to be previewed
      */
     private void setFilePreview(OCFile file) {
-        Bitmap resizedImage;
-
-        if (toolbarActivity != null && MimeTypeUtil.isImage(file)) {
-            resizedImage = FileExtensionsKt.getBigThumbnail(file);
-
-            if (resizedImage != null && !file.isUpdateThumbnailNeeded()) {
-                toolbarActivity.setPreviewImageBitmap(resizedImage);
-                previewLoaded = true;
-            } else {
-                // show thumbnail while loading resized image
-                Bitmap thumbnail = FileExtensionsKt.getSmallThumbnail(file);
-                if (thumbnail != null) {
-                    toolbarActivity.setPreviewImageBitmap(thumbnail);
-                } else {
-                    thumbnail = ThumbnailsCacheManager.mDefaultImg;
-                }
-
-                // generate new resized image
-                if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(getFile(), toolbarActivity.getPreviewImageView()) &&
-                    containerActivity.getStorageManager() != null) {
-                    final ThumbnailsCacheManager.ResizedImageGenerationTask task =
-                        new ThumbnailsCacheManager.ResizedImageGenerationTask(this,
-                                                                              toolbarActivity.getPreviewImageView(),
-                                                                              toolbarActivity.getPreviewImageContainer(),
-                                                                              containerActivity.getStorageManager(),
-                                                                              connectivityService,
-                                                                              containerActivity.getStorageManager().getUser(),
-                                                                              getResources().getColor(R.color.background_color_inverse,
-                                                                                                      requireContext().getTheme())
-                        );
-
-                    if (resizedImage == null) {
-                        resizedImage = thumbnail;
-                    }
-
-                    final ThumbnailsCacheManager.AsyncResizedImageDrawable asyncDrawable =
-                        new ThumbnailsCacheManager.AsyncResizedImageDrawable(
-                            MainApp.getAppContext().getResources(),
-                            resizedImage,
-                            task
-                        );
-
-                    toolbarActivity.setPreviewImageDrawable(asyncDrawable);
-                    previewLoaded = true;
-                    task.execute(getFile());
-                }
-            }
-        } else {
+        if (toolbarActivity == null) {
             previewLoaded = false;
+            return;
         }
+
+        new FileDetailPreview(toolbarActivity, folderThumbnailGenerator, viewThemeUtils).show(file);
+        previewLoaded = true;
     }
 
     /**
