@@ -90,6 +90,8 @@ class UploadFileResolver(private val operation: UploadFileOperation) {
             permissions = remoteFile.permissions
             uploadTimestamp = remoteFile.uploadTimestamp
             isPreviewAvailable = remoteFile.isHasPreview
+            file.imageDimension = remoteFile.imageDimension
+            file.geoLocation = remoteFile.geoLocation
         }
     }
 }
