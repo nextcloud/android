@@ -65,12 +65,12 @@ class CopyAndUploadContentUrisTask(
         val localPaths = arrayOfNulls<String>(sourceUris.size)
         val resolvedRemotePaths = arrayOfNulls<String>(sourceUris.size)
         var currentTempPath: String? = null
+        val lastModifiedResolver = ContentUriLastModifiedResolver(contentResolver)
 
         return try {
             sourceUris.forEachIndexed { index, uri ->
                 val remotePath = remotePaths[index]
-                val lastModifiedResolver = ContentUriLastModifiedResolver(contentResolver, uri)
-                val lastModified = lastModifiedResolver.resolve()
+                val lastModified = lastModifiedResolver.resolve(uri)
 
                 currentTempPath = "${FileStorageUtils.getTemporalPath(user.accountName)}$remotePath"
                 val cacheFile = File(currentTempPath)
