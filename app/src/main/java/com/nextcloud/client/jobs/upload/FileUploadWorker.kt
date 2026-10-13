@@ -350,7 +350,7 @@ class FileUploadWorker(
             if (result.code == ResultCode.QUOTA_EXCEEDED) {
                 Log_OC.w(TAG, "Quota exceeded, stopping uploads")
                 notificationManager.showQuotaExceedNotification(operation)
-                break
+                return@withContext Result.failure()
             }
 
             if (!result.isSuccess && !result.code.isUserCancellation()) {
