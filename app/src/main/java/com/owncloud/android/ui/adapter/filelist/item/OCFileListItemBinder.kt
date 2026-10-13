@@ -8,8 +8,9 @@ package com.owncloud.android.ui.adapter.filelist.item
 
 import android.app.Activity
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.view.View
+import androidx.core.graphics.toColorInt
+import androidx.core.view.isNotEmpty
 import com.google.android.material.chip.Chip
 import com.nextcloud.client.account.User
 import com.nextcloud.model.OfflineOperationType
@@ -109,7 +110,7 @@ internal class OCFileListItemBinder(
         if (!isShared || !showItemOptions) {
             sharedAvatars.boundFileId = null
             sharedAvatars.visibility = View.GONE
-            if (sharedAvatars.childCount > 0) {
+            if (sharedAvatars.isNotEmpty()) {
                 sharedAvatars.removeAllViews()
             }
             return
@@ -159,7 +160,7 @@ internal class OCFileListItemBinder(
         }
 
         try {
-            val color = Color.parseColor(tagColor)
+            val color = tagColor.toColorInt()
             chip.chipStrokeColor = ColorStateList.valueOf(color)
             chip.setTextColor(color)
         } catch (e: IllegalArgumentException) {

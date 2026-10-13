@@ -124,6 +124,8 @@ class OCFileListAdapter(
         transferServiceGetter.storageManager ?: FileDataStorageManager(user, activity.contentResolver)
     private var adapterDataProvider: OCFileListAdapterDataProvider = OCFileListAdapterDataProviderImpl(storageManager)
     private val capability: OCCapability = CapabilityUtils.getCapability(user, activity)
+
+    @Suppress("DEPRECATION")
     private val userId: String? = AccountManager
         .get(activity)
         .getUserData(user.toPlatformAccount(), AccountUtils.Constants.KEY_USER_ID)
@@ -380,13 +382,9 @@ class OCFileListAdapter(
 
     fun shouldShowHeader(): Boolean {
         val directory = currentDirectory
-        if (directory == null || MainApp.isOnlyOnDevice()) {
-            return false
-        }
-
-        return shouldShowRecommendedFiles() ||
+        return !(directory == null || MainApp.isOnlyOnDevice()) && (shouldShowRecommendedFiles() ||
             headerBinder.shouldShowOpenInNotes(directory) ||
-            headerBinder.hasRichWorkspace(directory)
+            headerBinder.hasRichWorkspace(directory))
     }
 
     fun updateAdapter(newFiles: List<OCFile>, directory: OCFile?) {
