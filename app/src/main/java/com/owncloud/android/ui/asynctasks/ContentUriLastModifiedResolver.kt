@@ -16,7 +16,7 @@ import android.system.OsConstants
 import android.system.StructStat
 import java.util.concurrent.TimeUnit
 
-class ContentUriLastModifiedResolver(private val contentResolver: ContentResolver, private val uri: Uri) {
+class ContentUriLastModifiedResolver(private val contentResolver: ContentResolver) {
     companion object {
         private val TIMESTAMP_COLUMNS = listOf(
             DocumentsContract.Document.COLUMN_LAST_MODIFIED to TimeUnit.MILLISECONDS,
@@ -24,9 +24,9 @@ class ContentUriLastModifiedResolver(private val contentResolver: ContentResolve
         )
     }
 
-    fun resolve(): Long = fromMetadata().takeIf { it > 0L } ?: fromFileDescriptor()
+    fun resolve(uri: Uri): Long = fromMetadata(uri).takeIf { it > 0L } ?: fromFileDescriptor(uri)
 
-    private fun fromMetadata(): Long = runCatching {
+    private fun fromMetadata(uri: Uri): Long = runCatching {
         contentResolver.query(uri, null, null, null, null)?.use { cursor ->
             if (!cursor.moveToFirst()) return@use null
 
@@ -42,7 +42,7 @@ class ContentUriLastModifiedResolver(private val contentResolver: ContentResolve
         }
     }.getOrNull() ?: 0L
 
-    private fun fromFileDescriptor(): Long = runCatching {
+    private fun fromFileDescriptor(uri: Uri): Long = runCatching {
         contentResolver.openFileDescriptor(uri, "r")?.use { pfd ->
             Os.fstat(pfd.fileDescriptor)
                 .takeIf { OsConstants.S_ISREG(it.st_mode) }
