@@ -382,9 +382,11 @@ class OCFileListAdapter(
 
     fun shouldShowHeader(): Boolean {
         val directory = currentDirectory
-        return !(directory == null || MainApp.isOnlyOnDevice()) && (shouldShowRecommendedFiles() ||
-            headerBinder.shouldShowOpenInNotes(directory) ||
-            headerBinder.hasRichWorkspace(directory))
+        return !(directory == null || MainApp.isOnlyOnDevice()) && (
+            shouldShowRecommendedFiles() ||
+                headerBinder.shouldShowOpenInNotes(directory) ||
+                headerBinder.hasRichWorkspace(directory)
+            )
     }
 
     fun updateAdapter(newFiles: List<OCFile>, directory: OCFile?) {
