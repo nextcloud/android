@@ -273,7 +273,7 @@ class AlbumFileUploadWorker(
             if (result.code == ResultCode.QUOTA_EXCEEDED) {
                 Log_OC.w(TAG, "Quota exceeded, stopping uploads")
                 notificationManager.showQuotaExceedNotification(operation)
-                break
+                return@withContext Result.failure()
             }
 
             sendUploadFinishEvent(totalUploadSize, currentUploadIndex, operation, result)
