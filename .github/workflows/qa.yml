@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   qa:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest-max
     steps:
       - name: Check if secrets are available
         run: echo "ok=${{ secrets.KS_PASS != '' }}" >> "$GITHUB_OUTPUT"
@@ -35,7 +35,7 @@ jobs:
         if: ${{ steps.check-secrets.outputs.ok == 'true' }}
         with:
           distribution: "temurin"
-          java-version: 21
+          java-version: 25
 
       - name: Build QA
         id: build-qa
