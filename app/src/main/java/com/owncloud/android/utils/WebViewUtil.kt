@@ -21,6 +21,8 @@ import java.io.PrintWriter
 import java.io.StringWriter
 
 class WebViewUtil {
+    val proxyHost = OwnCloudClientManagerFactory.getProxyHost() ?: ""
+    val proxyPort = OwnCloudClientManagerFactory.getProxyPort()
 
     /**
      * From https://stackoverflow.com/a/18453384
@@ -30,9 +32,6 @@ class WebViewUtil {
     @SuppressLint("PrivateApi", "DiscouragedPrivateApi")
     @Suppress("TooGenericExceptionCaught", "NestedBlockDepth")
     fun setProxyKKPlus(webView: WebView) {
-        val proxyHost = OwnCloudClientManagerFactory.getProxyHost()
-        val proxyPort = OwnCloudClientManagerFactory.getProxyPort()
-
         if (TextUtils.isEmpty(proxyHost) || proxyPort <= 0) {
             return
         }
@@ -78,6 +77,8 @@ class WebViewUtil {
             Log.v(PROXY_TAG, exceptionAsString)
         }
     }
+
+    fun hasProxyConfig(): Boolean = OwnCloudClientManagerFactory.getProxyHost().isNotEmpty()
 
     companion object {
         private const val PROXY_TAG = "PROXY"
