@@ -26,7 +26,7 @@ interface CommonOCFileListAdapterInterface {
     )
 
     fun setHighlightedItem(file: OCFile)
-    fun setSortOrder(mFile: OCFile, sortOrder: FileSortOrder)
+    fun setSortOrder(mFile: OCFile?, sortOrder: FileSortOrder)
     fun addCheckedFile(file: OCFile)
     fun isCheckedFile(file: OCFile): Boolean
     fun getCheckedItems(): Set<OCFile>

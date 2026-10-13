@@ -85,7 +85,7 @@ class OCFileListSearchTask(
                 return@launch
             }
 
-            fragment.adapter.prepareForSearchData(storageManager, fragment.currentSearchType)
+            fragment.adapter.prepareForSearchData(fragment.currentSearchType)
             val remoteFiles = fetchAndSortRemoteFiles(searchType, cachedFiles, resultData, fragment)
             updateAdapterData(fragment, remoteFiles)
         }
