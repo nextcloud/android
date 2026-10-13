@@ -214,7 +214,6 @@ class FileDisplayActivity :
 
     private val folderDownloadStartedReceiver = FolderDownloadStartedReceiver()
     private val folderDownloadCompletedReceiver = FolderDownloadCompletedReceiver()
-    private val folderFileDownloadedReceiver = FolderFileDownloadedReceiver()
 
     private lateinit var albumOperationListener: AlbumOperationListener
 
@@ -1545,10 +1544,6 @@ class FileDisplayActivity :
                 IntentFilter(FolderDownloadEventBroadcaster.ACTION_DOWNLOAD_COMPLETED)
             registerReceiver(folderDownloadCompletedReceiver, folderDownloadFinishedIntentFilter)
 
-            val folderFileDownloadedIntentFilter =
-                IntentFilter(FolderDownloadEventBroadcaster.ACTION_FILE_DOWNLOADED)
-            registerReceiver(folderFileDownloadedReceiver, folderFileDownloadedIntentFilter)
-
             val fileDownloadStartedIntentFilter = IntentFilter(FileDownloadEventBroadcaster.ACTION_DOWNLOAD_ENQUEUED)
             registerReceiver(fileDownloadStartedReceiver, fileDownloadStartedIntentFilter)
 
@@ -1575,7 +1570,6 @@ class FileDisplayActivity :
             unregisterReceiver(fileDownloadCompletedReceiver)
             unregisterReceiver(folderDownloadStartedReceiver)
             unregisterReceiver(folderDownloadCompletedReceiver)
-            unregisterReceiver(folderFileDownloadedReceiver)
         }
     }
     // endregion
@@ -1905,9 +1899,6 @@ class FileDisplayActivity :
             Log_OC.d(TAG, "download worker started")
             val folder = getFolderFromFolderDownloadWorker(intent) ?: return
             updateFileDownloadIndicator(FileDownloadIndicator.Downloading, folder)
-            forEachMissingFileInCurrentDir(folder) {
-                updateFileDownloadIndicator(FileDownloadIndicator.Downloading, it)
-            }
         }
     }
 
@@ -1916,26 +1907,11 @@ class FileDisplayActivity :
             Log_OC.d(TAG, "download worker finished")
             val folder = getFolderFromFolderDownloadWorker(intent) ?: return
             updateFileDownloadIndicator(FileDownloadIndicator.Downloaded, folder)
-            forEachMissingFileInCurrentDir(folder) { ocFileListFragment?.adapter?.notifyItemChanged(it) }
-        }
-    }
 
-    private inner class FolderFileDownloadedReceiver : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            val file = getFolderFromFolderDownloadWorker(intent) ?: return
-            val adapter = ocFileListFragment?.adapter ?: return
-            val row = adapter.files.find { it == file } ?: return
-            row.storagePath = file.storagePath
-            adapter.notifyItemChanged(row)
+            if (folder.fileId == getCurrentDir()?.fileId) {
+                updateListOfFilesFragment()
+            }
         }
-    }
-
-    private fun forEachMissingFileInCurrentDir(folder: OCFile, action: (OCFile) -> Unit) {
-        if (folder.fileId != getCurrentDir()?.fileId) {
-            return
-        }
-
-        ocFileListFragment?.adapter?.files?.filter { !it.isFolder && !it.isDown }?.forEach(action)
     }
     // endregion
 
