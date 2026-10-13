@@ -1780,7 +1780,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(CommentsEvent event) {
-        mAdapter.refreshCommentsCount(event.getRemoteId());
+        mAdapter.markCommentsAsRead(event.getRemoteId());
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
@@ -1799,7 +1799,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 if (this instanceof GalleryFragment galleryFragment) {
                     galleryFragment.markAsFavorite(event.getRemotePath(), event.getShouldFavorite());
                 } else {
-                    mAdapter.setFavoriteAttributeForItemID(event.getRemotePath(), event.getShouldFavorite(), removeFromList);
+                    mAdapter.updateFavoriteState(event.getRemotePath(), event.getShouldFavorite(), removeFromList);
                 }
             }
 

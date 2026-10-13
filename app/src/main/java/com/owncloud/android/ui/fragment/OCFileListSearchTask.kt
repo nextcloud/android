@@ -191,7 +191,7 @@ class OCFileListSearchTask(
             }
         }
 
-        fragment.adapter.setSortOrder(sortOrder)
+        fragment.adapter.setDisplayedSortOrder(sortOrder)
         return sortOrder.sortCloudFiles(list.toMutableList(), foldersBeforeFiles, favoritesFirst)
     }
 

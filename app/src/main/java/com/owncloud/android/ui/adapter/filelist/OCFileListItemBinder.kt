@@ -44,6 +44,7 @@ internal class OCFileListItemBinder(
     private val avatarShareesProvider = AvatarShareesProvider()
     private val isRTL = LocaleDirection.isRtl
 
+    // region Public methods
     fun bindDetails(
         holder: ListItemViewHolder,
         file: OCFile,
@@ -85,7 +86,9 @@ internal class OCFileListItemBinder(
             is OCFileListViewHolder -> holder.gridLivePhotoIndicator.setVisibleIf(isLivePhoto)
         }
     }
+    // endregion
 
+    // region Private methods
     private fun bindPlainFilename(holder: ListGridItemViewHolder, filename: String?) {
         holder.fileName.text = filename
 
@@ -241,6 +244,7 @@ internal class OCFileListItemBinder(
         val iconRes = if (file.isLocked) R.drawable.ic_locked_dots_small else R.drawable.ic_dots_vertical
         overflowMenu.setImageResource(iconRes)
     }
+    // endregion
 
     companion object {
         private val TAG = OCFileListItemBinder::class.java.simpleName
