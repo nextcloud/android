@@ -9,8 +9,6 @@ package com.owncloud.android.ui.asynctasks
 import android.content.ContentResolver
 import android.content.Context
 import android.net.Uri
-import android.provider.DocumentsContract
-import android.provider.MediaStore
 import android.widget.Toast
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.upload.FileUploadHelper
@@ -27,7 +25,6 @@ import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.lang.ref.WeakReference
-import java.util.concurrent.TimeUnit
 
 class CopyAndUploadContentUrisTask(
     listener: OnCopyTmpFilesTaskListener?,
@@ -71,7 +68,8 @@ class CopyAndUploadContentUrisTask(
         return try {
             sourceUris.forEachIndexed { index, uri ->
                 val remotePath = remotePaths[index]
-                val lastModified = queryLastModified(contentResolver, uri)
+                val lastModifiedResolver = ContentUriLastModifiedResolver(contentResolver, uri)
+                val lastModified = lastModifiedResolver.resolve()
 
                 currentTempPath = "${FileStorageUtils.getTemporalPath(user.accountName)}$remotePath"
                 val cacheFile = File(currentTempPath)
@@ -131,25 +129,11 @@ class CopyAndUploadContentUrisTask(
         }
     }
 
-    private fun queryLastModified(contentResolver: ContentResolver, uri: Uri): Long = runCatching {
-        contentResolver.query(uri, null, null, null, null)?.use { cursor ->
-            if (!cursor.moveToFirst()) return@use 0L
-            val documentColumn = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_LAST_MODIFIED)
-            if (documentColumn >= 0 && !cursor.isNull(documentColumn)) return@use cursor.getLong(documentColumn)
-
-            val mediaColumn = cursor.getColumnIndex(MediaStore.MediaColumns.DATE_MODIFIED)
-            if (mediaColumn >= 0 && !cursor.isNull(mediaColumn)) {
-                TimeUnit.SECONDS.toMillis(cursor.getLong(mediaColumn))
-            } else {
-                0L
-            }
-        } ?: 0L
-    }.getOrDefault(0L)
-
     private fun applyLastModified(file: File, lastModified: Long) {
-        if (lastModified == 0L) return
-        runCatching { file.setLastModified(lastModified) }
-            .onFailure { Log_OC.w(TAG, "Could not set lastModified on cache file: ${it.message}") }
+        if (lastModified <= 0L) return
+        if (!file.setLastModified(lastModified)) {
+            Log_OC.w(TAG, "Could not set lastModified on cache file: ${file.path}")
+        }
     }
 
     private fun dispatchResult(result: ResultCode) {
