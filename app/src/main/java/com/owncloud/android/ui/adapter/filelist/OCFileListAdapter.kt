@@ -8,7 +8,7 @@
  * SPDX-FileCopyrightText: 2018 Nextcloud
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.owncloud.android.ui.adapter
+package com.owncloud.android.ui.adapter.filelist
 
 import android.accounts.AccountManager
 import android.annotation.SuppressLint
@@ -52,13 +52,22 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.ui.adapter.filelist.OCFileListAdapterDataProvider
-import com.owncloud.android.ui.adapter.filelist.OCFileListAdapterHelper
-import com.owncloud.android.ui.adapter.filelist.OCFileListDiffer
-import com.owncloud.android.ui.adapter.filelist.OCFileListFooterBinder
-import com.owncloud.android.ui.adapter.filelist.OCFileListHeaderBinder
-import com.owncloud.android.ui.adapter.filelist.OCFileListItemBinder
-import com.owncloud.android.ui.adapter.filelist.OCFileListViewType
+import com.owncloud.android.ui.adapter.filelist.data.OCFileListAdapterDataProvider
+import com.owncloud.android.ui.adapter.filelist.data.OCFileListAdapterHelper
+import com.owncloud.android.ui.adapter.filelist.data.OCFileListDiffer
+import com.owncloud.android.ui.adapter.filelist.footer.OCFileListFooterBinder
+import com.owncloud.android.ui.adapter.filelist.footer.OCFileListFooterViewHolder
+import com.owncloud.android.ui.adapter.filelist.header.OCFileListHeaderBinder
+import com.owncloud.android.ui.adapter.filelist.header.OCFileListHeaderViewHolder
+import com.owncloud.android.ui.adapter.filelist.item.ListGridItemViewHolder
+import com.owncloud.android.ui.adapter.filelist.item.ListItemViewHolder
+import com.owncloud.android.ui.adapter.filelist.item.ListViewHolder
+import com.owncloud.android.ui.adapter.filelist.item.OCFileListDelegate
+import com.owncloud.android.ui.adapter.filelist.item.OCFileListGridItemViewHolder
+import com.owncloud.android.ui.adapter.filelist.item.OCFileListItemBinder
+import com.owncloud.android.ui.adapter.filelist.item.OCFileListItemViewHolder
+import com.owncloud.android.ui.adapter.filelist.recommended.RecommendedFilesViewHolder
+import com.owncloud.android.ui.adapter.filelist.recommended.RecommendedFilesAdapter
 import com.owncloud.android.ui.fragment.OCFileListFragment
 import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
@@ -367,7 +376,7 @@ class OCFileListAdapter(
     // region Public methods
     fun getItem(position: Int): OCFile? = files.getOrNull(position - differ.headerOffset())
 
-    fun bindRecommendedFilesHolder(holder: OCFileListRecommendedItemViewHolder, file: OCFile) = bindFile(holder, file)
+    fun bindRecommendedFilesHolder(holder: RecommendedFilesViewHolder, file: OCFile) = bindFile(holder, file)
 
     fun shouldShowHeader(): Boolean {
         val directory = currentDirectory

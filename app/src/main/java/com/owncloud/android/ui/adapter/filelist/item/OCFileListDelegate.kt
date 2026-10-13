@@ -1,11 +1,12 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2022 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.owncloud.android.ui.adapter
+package com.owncloud.android.ui.adapter.filelist.item
 
 import android.content.Context
 import android.view.View
@@ -35,6 +36,8 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.AlbumsPickerActivity
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.activity.FolderPickerActivity
+import com.owncloud.android.ui.adapter.GalleryRowHolder
+import com.owncloud.android.ui.adapter.filelist.recommended.RecommendedFilesViewHolder
 import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
@@ -280,7 +283,7 @@ class OCFileListDelegate(
     private fun setItemLayoutOnClickListeners(file: OCFile, gridViewHolder: ListViewHolder) {
         gridViewHolder.itemLayout.setOnClickListener { ocFileListFragmentInterface.onItemClicked(file) }
 
-        if (!hideItemOptions && gridViewHolder !is OCFileListRecommendedItemViewHolder) {
+        if (!hideItemOptions && gridViewHolder !is RecommendedFilesViewHolder) {
             gridViewHolder.itemLayout.apply {
                 isLongClickable = true
                 setOnLongClickListener {

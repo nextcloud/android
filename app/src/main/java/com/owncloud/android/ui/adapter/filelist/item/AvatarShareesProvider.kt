@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.owncloud.android.ui.adapter.filelist
+package com.owncloud.android.ui.adapter.filelist.item
 
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.shares.ShareType

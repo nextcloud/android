@@ -5,7 +5,7 @@
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.owncloud.android.ui.adapter
+package com.owncloud.android.ui.adapter.filelist
 
 import com.nextcloud.client.account.User
 import com.owncloud.android.datamodel.FileDataStorageManager

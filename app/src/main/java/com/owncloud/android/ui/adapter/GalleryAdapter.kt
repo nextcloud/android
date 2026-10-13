@@ -37,6 +37,8 @@ import com.owncloud.android.datamodel.GalleryRowLayout
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.ComponentsGetter
+import com.owncloud.android.ui.adapter.filelist.CommonOCFileListAdapterInterface
+import com.owncloud.android.ui.adapter.filelist.item.OCFileListDelegate
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.theme.ViewThemeUtils

@@ -70,7 +70,7 @@ import com.owncloud.android.ui.activity.FolderPickerActivity
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener
 import com.owncloud.android.ui.activity.UploadFilesActivity
 import com.owncloud.android.ui.adapter.localFileList.LocalFileListAdapter
-import com.owncloud.android.ui.adapter.OCFileListAdapter
+import com.owncloud.android.ui.adapter.filelist.OCFileListAdapter
 import com.owncloud.android.ui.events.SearchEvent
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import org.greenrobot.eventbus.EventBus

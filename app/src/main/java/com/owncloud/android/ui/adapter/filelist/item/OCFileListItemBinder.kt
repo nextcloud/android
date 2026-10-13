@@ -4,7 +4,7 @@
  * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.adapter.filelist
+package com.owncloud.android.ui.adapter.filelist.item
 
 import android.app.Activity
 import android.content.res.ColorStateList
@@ -23,12 +23,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.tags.Tag
-import com.owncloud.android.ui.adapter.ListGridItemViewHolder
-import com.owncloud.android.ui.adapter.ListItemViewHolder
-import com.owncloud.android.ui.adapter.ListViewHolder
-import com.owncloud.android.ui.adapter.OCFileListGridItemViewHolder
-import com.owncloud.android.ui.adapter.OCFileListItemViewHolder
-import com.owncloud.android.ui.adapter.OCFileListViewHolder
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils

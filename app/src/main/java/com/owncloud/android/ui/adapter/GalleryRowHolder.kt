@@ -25,6 +25,7 @@ import com.owncloud.android.databinding.GalleryRowBinding
 import com.owncloud.android.datamodel.GalleryCellSize
 import com.owncloud.android.datamodel.GalleryRow
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.ui.adapter.filelist.item.OCFileListDelegate
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 private const val CHECKED_SCALE = 0.8f

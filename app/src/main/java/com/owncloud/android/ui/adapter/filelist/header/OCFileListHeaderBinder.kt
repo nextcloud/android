@@ -4,7 +4,7 @@
  * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.adapter.filelist
+package com.owncloud.android.ui.adapter.filelist.header
 
 import android.app.Activity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,8 +18,7 @@ import com.owncloud.android.databinding.ListHeaderOpenInBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.ui.activity.DrawerActivity
-import com.owncloud.android.ui.adapter.OCFileListHeaderViewHolder
-import com.owncloud.android.ui.adapter.RecommendedFilesAdapter
+import com.owncloud.android.ui.adapter.filelist.recommended.RecommendedFilesAdapter
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.ui.preview.PreviewTextFragment
 import com.owncloud.android.utils.theme.ViewThemeUtils

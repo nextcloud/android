@@ -4,7 +4,7 @@
  * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.adapter.filelist
+package com.owncloud.android.ui.adapter.filelist.footer
 
 import android.app.Activity
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
@@ -12,7 +12,6 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.ui.adapter.OCFileListFooterViewHolder
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
