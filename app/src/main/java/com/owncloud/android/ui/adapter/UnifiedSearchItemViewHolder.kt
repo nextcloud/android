@@ -11,6 +11,8 @@ import android.content.Context
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.widget.ImageViewCompat
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.bumptech.glide.Glide
@@ -21,7 +23,9 @@ import com.nextcloud.utils.CalendarEventManager
 import com.nextcloud.utils.ContactManager
 import com.nextcloud.utils.GlideHelper
 import com.nextcloud.utils.extensions.getType
+import com.nextcloud.utils.extensions.isMonochromeIcon
 import com.nextcloud.utils.extensions.setVisibleIf
+import com.nextcloud.utils.extensions.thumbnailUrlForSize
 import com.nextcloud.utils.thumbnail.ThumbnailArguments
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.R
@@ -104,7 +108,10 @@ class UnifiedSearchItemViewHolder(
 
     private fun bindLocalFileThumbnail(file: OCFile) {
         if (file.remoteId == null || !file.isPreviewAvailable) {
+            val iconSize = context.resources.getDimensionPixelSize(R.dimen.file_icon_size)
             val icon = MimeTypeUtil.getFileTypeIcon(file.mimeType, file.fileName, context, viewThemeUtils)
+                ?.toBitmap(iconSize, iconSize)
+                ?.toDrawable(context.resources)
             binding.thumbnail.apply {
                 setImageDrawable(icon)
                 clearColorFilter()
@@ -126,19 +133,29 @@ class UnifiedSearchItemViewHolder(
         }
 
         if (entry.thumbnailUrl.isNotBlank()) {
+            val iconSize = context.resources.getDimensionPixelSize(R.dimen.file_icon_size)
             filesAction.loadFileThumbnail(entry) { client ->
-                if (entryType == SearchResultEntryType.Avatar) {
-                    GlideHelper.loadCircularBitmapIntoImageView(
+                when {
+                    entryType == SearchResultEntryType.Avatar -> GlideHelper.loadCircularBitmapIntoImageView(
                         context,
                         entry.thumbnailUrl,
                         binding.thumbnail,
                         ContextCompat.getDrawable(context, R.drawable.ic_user)
                     )
-                } else {
-                    GlideHelper.loadIntoImageView(
+
+                    entry.isMonochromeIcon() -> GlideHelper.loadTintableIconIntoImageView(
                         context,
                         client,
                         entry.thumbnailUrl,
+                        binding.thumbnail,
+                        entryType.iconId(),
+                        iconSize
+                    )
+
+                    else -> GlideHelper.loadIntoImageView(
+                        context,
+                        client,
+                        entry.thumbnailUrlForSize(iconSize),
                         binding.thumbnail,
                         entryType.iconId(),
                         circleCrop = entry.rounded
