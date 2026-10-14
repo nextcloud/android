@@ -7,9 +7,14 @@
  */
 package com.owncloud.android.datamodel;
 
+import android.util.Pair;
+
+import com.nextcloud.utils.extensions.FileDataStorageManagerExtensionsKt;
 import com.owncloud.android.db.ProviderMeta;
 
 import org.junit.Test;
+
+import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -43,5 +48,31 @@ public class FileDataStorageManagerContentProviderClientIT extends FileDataStora
         assertNotNull(read);
 
         assertEquals(file.getRemotePath(), read.getRemotePath());
+    }
+
+    @Test
+    public void testGenerateFileNameForConflictResolution() {
+        final var names = Arrays.asList(
+            // Files
+            new Pair<>("hello", "hello (1)"),
+            new Pair<>("hello.txt", "hello (1).txt"),
+            new Pair<>("hello (1).txt", "hello (2).txt"),
+            new Pair<>("hello (18y5).txt", "hello (18y5) (1).txt"),
+            new Pair<>("hello (hey)", "hello (hey) (1)"),
+            new Pair<>("hello (hey).txt", "hello (hey) (1).txt"),
+            new Pair<>(".hello", ".hello (1)"),
+
+            // Folders
+            new Pair<>("hello/", "hello (1)/"),
+            new Pair<>("hello (1)/", "hello (2)/"),
+            new Pair<>("hello.hello/", "hello.hello (1)/"),
+            new Pair<>("hello.hello (y)/", "hello.hello (y) (1)/"),
+            new Pair<>(".hello/", ".hello (1)/")
+         );
+
+        for (final var name: names) {
+            String gen = FileDataStorageManagerExtensionsKt.generateFileNameForConflictResolution(name.first);
+            assertEquals(gen, name.second);
+        }
     }
 }
