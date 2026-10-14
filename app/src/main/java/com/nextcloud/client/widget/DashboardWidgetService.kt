@@ -162,7 +162,8 @@ class StackRemoteViewsFactory(
             val bitmap: Bitmap = if (widgetConfiguration.roundIcon) {
                 BitmapUtils.roundBitmap(source)
             } else {
-                source
+                val radius = context.resources.getDimension(R.dimen.file_icon_rounded_corner_radius)
+                BitmapUtils.roundCorners(source, radius)
             }
 
             setImageViewBitmap(R.id.icon, bitmap)
