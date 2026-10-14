@@ -5,11 +5,10 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.owncloud.android.ui.adapter
+package com.owncloud.android.ui.adapter.filelist.data
 
 import com.nextcloud.client.database.entity.FileEntity
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.ui.adapter.filelist.OCFileListAdapterDataProvider
 import com.owncloud.android.utils.MimeType
 
 @Suppress("LongParameterList", "MagicNumber")

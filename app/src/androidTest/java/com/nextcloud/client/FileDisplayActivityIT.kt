@@ -37,7 +37,7 @@ import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.operations.CreateFolderOperation
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.ui.adapter.OCFileListItemViewHolder
+import com.owncloud.android.ui.adapter.filelist.item.OCFileListItemViewHolder
 import com.owncloud.android.utils.EspressoIdlingResource
 import org.hamcrest.Matchers.allOf
 import org.junit.After

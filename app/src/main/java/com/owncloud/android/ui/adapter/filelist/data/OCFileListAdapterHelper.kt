@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.owncloud.android.ui.adapter.filelist
+package com.owncloud.android.ui.adapter.filelist.data
 
 import com.nextcloud.client.database.entity.FileEntity
 import com.nextcloud.client.preferences.AppPreferences

@@ -85,7 +85,7 @@ class OCFileListSearchTask(
                 return@launch
             }
 
-            fragment.adapter.prepareForSearchData(storageManager, fragment.currentSearchType)
+            fragment.adapter.prepareForSearchData(fragment.currentSearchType)
             val remoteFiles = fetchAndSortRemoteFiles(searchType, cachedFiles, resultData, fragment)
             updateAdapterData(fragment, remoteFiles)
         }
@@ -191,7 +191,7 @@ class OCFileListSearchTask(
             }
         }
 
-        fragment.adapter.setSortOrder(sortOrder)
+        fragment.adapter.setDisplayedSortOrder(sortOrder)
         return sortOrder.sortCloudFiles(list.toMutableList(), foldersBeforeFiles, favoritesFirst)
     }
 
