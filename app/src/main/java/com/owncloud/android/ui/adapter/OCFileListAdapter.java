@@ -268,6 +268,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
 
+        if (currentDirectory != null && currentDirectory.getRemotePath().equals(remotePath)) {
+            currentDirectory.setFavorite(favorite);
+            mStorageManager.saveFile(currentDirectory);
+        }
+
         final OCFile updatedFile = changedFile;
         new Handler(Looper.getMainLooper()).post(() -> {
             List<OCFile> sortedFiles = differ.sortForCurrentView(new ArrayList<>(differ.getLatestFiles()),
