@@ -278,7 +278,7 @@ public class FileMenuFilter {
     }
 
     private void filterSetPictureAs(List<Integer> toHide) {
-        if (!isSingleImage() || MimeTypeUtil.isSVG(files.iterator().next())) {
+        if (!isSingleImage() || MimeTypeUtil.isSVG(files.iterator().next()) || !allFileDown()) {
             toHide.add(R.id.action_set_as_wallpaper);
         }
     }

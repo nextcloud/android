@@ -503,12 +503,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/exposed_filepaths" />
         </provider>
-        <provider
-            android:name=".providers.DiskLruImageCacheFileProvider"
-            android:authorities="@string/image_cache_provider_authority"
-            android:exported="true"
-            android:grantUriPermissions="true"
-            android:permission="android.permission.MANAGE_DOCUMENTS" /> <!-- Disable WorkManager initialization. Whoever designed this, should pay closer attention -->
+        <!-- Disable WorkManager initialization. Whoever designed this, should pay closer attention -->
         <!-- to "best before" dates in his fridge. -->
         <!-- disable default provider -->
         <provider
