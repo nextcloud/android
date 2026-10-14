@@ -48,6 +48,7 @@ import com.nextcloud.model.ShareeEntry;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.nextcloud.utils.extensions.FileDataStorageManagerExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
+import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
@@ -103,6 +104,7 @@ public class FileDataStorageManager {
     public static final int ROOT_PARENT_ID = 0;
     private static final String JSON_NULL_STRING = "null";
     private static final String JSON_EMPTY_ARRAY = "[]";
+    private static final long INTERNAL_TWO_WAY_SYNC_NEVER_SYNCED = 0L;
 
     private final ContentResolver contentResolver;
     private final ContentProviderClient contentProviderClient;
@@ -572,6 +574,10 @@ public class FileDataStorageManager {
             // only refresh folder operation must update eTag otherwise content of the folder may stay as outdated
             cv.remove(ProviderTableMeta.FILE_ETAG);
             cv.remove(ProviderTableMeta.FILE_STORAGE_PATH);
+
+            if (isInternalTwoWaySyncAndNeverSynced(ocFile)) {
+                OCFileExtensionsKt.createStoragePath(ocFile, user.getAccountName());
+            }
         }
 
         boolean sameRemotePath = fileExists(ocFile.getRemotePath());
@@ -615,6 +621,10 @@ public class FileDataStorageManager {
         }
 
         return overridden;
+    }
+
+    private boolean isInternalTwoWaySyncAndNeverSynced(OCFile folder) {
+        return folder.getInternalFolderSyncTimestamp() == INTERNAL_TWO_WAY_SYNC_NEVER_SYNCED;
     }
 
     /**

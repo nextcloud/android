@@ -1406,9 +1406,15 @@ public class UploadFileOperation extends SyncOperation {
                 try {
                     move(originalFile, newFile);
                 } catch (IOException e) {
-                    Log_OC.e(TAG, "Error moving file", e);
+                    Log_OC.e(TAG, "Error moving file, keeping original: " + originalFile.getAbsolutePath(), e);
+                    mFile.setStoragePath("");
+                    saveUploadedFile(client);
+                    break;
                 }
-                getStorageManager().deleteFileInMediaScan(originalFile.getAbsolutePath());
+
+                if (!originalFile.equals(newFile)) {
+                    getStorageManager().deleteFileInMediaScan(originalFile.getAbsolutePath());
+                }
                 mFile.setStoragePath(newFile.getAbsolutePath());
                 saveUploadedFile(client);
                 if (MimeTypeUtil.isMedia(mFile.getMimeType())) {
@@ -1699,31 +1705,36 @@ public class UploadFileOperation extends SyncOperation {
      * @throws IOException exception if file cannot be read/wrote
      */
     private void move(File sourceFile, File targetFile) throws IOException {
+        if (targetFile.equals(sourceFile)) {
+            return;
+        }
 
-        if (!targetFile.equals(sourceFile)) {
-            File expectedFolder = targetFile.getParentFile();
-            Files.createDirectories(expectedFolder.toPath());
+        File expectedFolder = targetFile.getParentFile();
+        Files.createDirectories(expectedFolder.toPath());
 
-            if (expectedFolder.isDirectory()) {
-                if (!sourceFile.renameTo(targetFile)) {
-                    // try to copy and then delete
-                    Files.createFile(targetFile.toPath());
-                    try (
-                        FileChannel inChannel = new FileInputStream(sourceFile).getChannel();
-                        FileChannel outChannel = new FileOutputStream(targetFile).getChannel()
-                    ) {
-                        inChannel.transferTo(0, inChannel.size(), outChannel);
-                        Files.delete(sourceFile.toPath());
-                    } catch (Exception e) {
-                        mFile.setStoragePath(""); // forget the local file
-                        // by now, treat this as a success; the file was uploaded
-                        // the best option could be show a warning message
-                    }
-                }
+        if (!expectedFolder.isDirectory()) {
+            throw new IOException("Target folder is not a directory: " + expectedFolder.getAbsolutePath());
+        }
 
-            } else {
-                mFile.setStoragePath("");
-            }
+        if (sourceFile.renameTo(targetFile)) {
+            return;
+        }
+
+        Files.createFile(targetFile.toPath());
+        try (
+            FileChannel inChannel = new FileInputStream(sourceFile).getChannel();
+            FileChannel outChannel = new FileOutputStream(targetFile).getChannel()
+        ) {
+            inChannel.transferTo(0, inChannel.size(), outChannel);
+        } catch (IOException e) {
+            Files.deleteIfExists(targetFile.toPath());
+            throw e;
+        }
+
+        try {
+            Files.delete(sourceFile.toPath());
+        } catch (IOException e) {
+            Log_OC.w(TAG, "Moved file but could not delete source: " + sourceFile.getAbsolutePath());
         }
     }
 
