@@ -317,7 +317,7 @@
     <string name="downloader_download_in_progress_ticker">Скачивается…</string>
     <string name="downloader_download_succeeded_content">%1$s скачано</string>
     <string name="downloader_download_succeeded_ticker">Скачивание завершено</string>
-    <string name="downloader_file_download_cancelled">Загрузка некоторых файлов была отменена пользователем</string>
+    <string name="downloader_file_download_cancelled">Скачивание некоторых файлов было отменено пользователем</string>
     <string name="downloader_file_download_failed">Произошла ошибка во время скачивания файлов</string>
     <string name="downloader_not_downloaded_yet">Ещё не скачано</string>
     <string name="downloader_unexpected_error">Произошла непредвиденная ошибка во время скачивания файлов</string>
@@ -373,7 +373,7 @@
     <string name="end_to_end_encryption_server_public_key_unavailable">Не удается проверить публичный ключ</string>
     <string name="end_to_end_encryption_storing_keys">Сохранение ключей</string>
     <string name="end_to_end_encryption_title">Параметры шифрования</string>
-    <string name="end_to_end_encryption_unexpected_error_occurred">При загрузке ключей произошла непредвиденная ошибка</string>
+    <string name="end_to_end_encryption_unexpected_error_occurred">При скачивании ключей произошла непредвиденная ошибка</string>
     <string name="end_to_end_encryption_unsuccessful">Не удалось сохранить ключи шифрования, попробуйте ещё раз.</string>
     <string name="end_to_end_encryption_wrong_password">Ошибка расшифровывания. Неверный пароль?</string>
     <string name="enter_destination_filename">Введите целевое имя файла</string>
@@ -426,7 +426,7 @@
     <string name="external_shares">Внешние ссылки</string>
     <string name="fab_label">Добавить или выгрузить</string>
     <string name="failed_to_create_conflict_dialog">Не удалось создать диалог разрешения конфликтов</string>
-    <string name="failed_to_download">Не удалось передать файл в диспетчер загрузок</string>
+    <string name="failed_to_download">Не удалось передать файл в диспетчер скачиваний</string>
     <string name="failed_to_load_tags">Не удалось загрузить метки</string>
     <string name="failed_to_print">Ошибка печати файла</string>
     <string name="failed_to_start_action">Не удалось выполнить действие!</string>
@@ -558,7 +558,7 @@
     <string name="governance_no_label">Отсутствует</string>
     <string name="governance_permission_denied">У вас нет прав на изменение этого названия</string>
     <string name="governance_sensitivity_label">Метка чувствительности</string>
-    <string name="gplay_restriction">Google ограничил загрузку файлов APK/AAB!</string>
+    <string name="gplay_restriction">Google ограничил скачивание файлов APK/AAB!</string>
     <string name="grid_file_features_live_photo_content_description">Этот значок отображает доступность живого фото</string>
     <string name="hidden_file_name_warning">Имя приведет к скрытому файлу</string>
     <string name="hint_name">Имя</string>
@@ -797,7 +797,7 @@
     <string name="prefs_value_theme_light">Светлое</string>
     <string name="prefs_value_theme_system">Как в системе</string>
     <string name="preview_image_description">Предпросмотр</string>
-    <string name="preview_image_downloading_image_for_edit">Загрузка изображения для запуска экрана редактирования, пожалуйста, подождите…</string>
+    <string name="preview_image_downloading_image_for_edit">Скачивание изображения для открытия редактора, подождите…</string>
     <string name="preview_image_error_no_local_file">Отсутствует локальный файл для создания миниатюры</string>
     <string name="preview_image_error_unknown_format">Это изображение не может быть отображено</string>
     <string name="preview_image_file_is_not_downloaded">Файл не скачан</string>
@@ -879,7 +879,7 @@
     <string name="server_not_reachable">Не удалось загрузить содержимое.</string>
     <string name="server_not_reachable_content">Возможно, устройство не подключено к интернету.</string>
     <string name="set_as">Установить как</string>
-    <string name="set_download_limit_failed">Не удалось задать лимит загрузки. Пожалуйста, проверьте доступные возможности.</string>
+    <string name="set_download_limit_failed">Не удалось задать лимит скачиваний. Проверьте доступные возможности.</string>
     <string name="set_message">Установить сообщение</string>
     <string name="set_note">Создать заметку</string>
     <string name="set_online_status">Онлайн подключения</string>
@@ -887,14 +887,14 @@
     <string name="set_picture_as">Использовать изображение</string>
     <string name="setup_e2e">При настройке сквозного шифрования будет создана  мнемофраза из 12 слов, которая понадобится для открытия файлов на других устройствах. Мнемофраза будет сохранена  только на этом устройстве и может быть просмотрена повторно. Сохраните мнемофразу в надежном месте!</string>
     <string name="share">Общий ресурс</string>
-    <string name="share_allow_download_and_sync_permission">Разрешить загрузку и синхронизацию</string>
+    <string name="share_allow_download_and_sync_permission">Разрешить скачивание и синхронизацию</string>
     <string name="share_cannot_update_empty_note">Не удалось обновить общий ресурс. Пожалуйста, добавьте примечание и попробуйте снова.</string>
     <string name="share_copy_link">Создать и скопировать ссылку</string>
     <string name="share_create_permission">Создать</string>
     <string name="share_custom_permission">Пользовательские права доступа</string>
     <string name="share_delete_permission">Удалить</string>
     <string name="share_dialog_title">Общий доступ</string>
-    <string name="share_download_limit">Установите лимит загрузки</string>
+    <string name="share_download_limit">Задать лимит скачиваний</string>
     <string name="share_edit_permission">Редактирование</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_file">Общий ресурс «%1$s»</string>
@@ -928,7 +928,7 @@
     <string name="share_send_new_email">Отправить новое письмо</string>
     <string name="share_send_note">Примечание для получателя</string>
     <string name="share_settings">Настройки</string>
-    <string name="share_via_link_hide_download">Скрыть загрузку</string>
+    <string name="share_via_link_hide_download">Скрыть скачивание</string>
     <string name="share_via_link_section_title">Общий доступ по ссылке</string>
     <string name="share_via_link_send_link_label">Отправить ссылку</string>
     <string name="share_via_link_unset_password">Сброс</string>
@@ -1220,6 +1220,12 @@
     <string name="write_email">Отправить письмо</string>
     <string name="wrong_storage_path">Папка хранения данных не существует.</string>
     <string name="wrong_storage_path_desc">Это могло случиться после восстановления из резервной копии, созданной на другом устройстве. Будут использованы параметры по умолчанию, проверьте путь размещения папки хранения данных.</string>
+    <plurals name="album_elements_text">
+        <item quantity="one">%d элемент</item>
+        <item quantity="few">%d элемента</item>
+        <item quantity="many">%d элементов</item>
+        <item quantity="other">%d элемента</item>
+    </plurals>
     <plurals name="hours">
         <item quantity="one">%d час</item>
         <item quantity="few">%d часа</item>
@@ -1340,6 +1346,18 @@
         <item quantity="many">%d выбрано</item>
         <item quantity="other">%d выбрано</item>
     </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_files">
+        <item quantity="one">%d файл</item>
+        <item quantity="few">%d файла</item>
+        <item quantity="many">%d файлов</item>
+        <item quantity="other">%d файла</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_folders">
+        <item quantity="one">%d папка</item>
+        <item quantity="few">%d папки</item>
+        <item quantity="many">%d папок</item>
+        <item quantity="other">%d папки</item>
+    </plurals>
     <plurals name="autoupload_delete_uploaded_notif_ended_content_users">
         <item quantity="one">%d пользователь</item>
         <item quantity="few">%d пользователя</item>
@@ -1365,9 +1383,9 @@
         <item quantity="other">%1$d минуты %2$d секунд</item>
     </plurals>
     <plurals name="share_download_limit_description">
-        <item quantity="one">%1$d загрузка осталась</item>
-        <item quantity="few">%1$d загрузки осталось</item>
-        <item quantity="many">%1$d загрузок осталось</item>
-        <item quantity="other">%1$d загрузок осталось</item>
+        <item quantity="one">Осталось %1$d скачивание</item>
+        <item quantity="few">Осталось %1$d скачивания</item>
+        <item quantity="many">Осталось %1$d скачиваний</item>
+        <item quantity="other">Осталось %1$d скачивания</item>
     </plurals>
     </resources>
