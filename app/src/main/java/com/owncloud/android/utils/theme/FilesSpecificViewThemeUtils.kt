@@ -2,6 +2,7 @@
  * Nextcloud - Android Client
  *
  * SPDX-FileCopyrightText: 2022-2026 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
@@ -11,14 +12,15 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
 import android.preference.PreferenceCategory
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.annotation.Px
 import androidx.annotation.StringRes
@@ -34,6 +36,7 @@ import com.nextcloud.android.common.ui.theme.MaterialSchemes
 import com.nextcloud.android.common.ui.theme.ViewThemeUtilsBase
 import com.nextcloud.android.common.ui.theme.utils.AndroidViewThemeUtils
 import com.nextcloud.android.common.ui.theme.utils.AndroidXViewThemeUtils
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.android.common.ui.util.buildColorStateList
 import com.nextcloud.utils.view.FastScrollPopupBackground
 import com.owncloud.android.R
@@ -54,63 +57,41 @@ class FilesSpecificViewThemeUtils @Inject constructor(
     private val dynamicColor = MaterialDynamicColors()
 
     // not ported to common lib because PreferenceCategory is deprecated
+    @Suppress("DEPRECATION")
     fun themePreferenceCategory(category: PreferenceCategory) {
-        withScheme(category.context) {
-            val text: Spannable = SpannableString(category.title)
-            text.setSpan(
-                ForegroundColorSpan(it.primary),
-                0,
-                text.length,
-                Spannable.SPAN_INCLUSIVE_INCLUSIVE
-            )
-            category.title = text
+        withScheme(category.context) { scheme ->
+            category.title = SpannableString(category.title).apply {
+                setSpan(ForegroundColorSpan(scheme.primary), 0, length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+            }
         }
     }
 
     fun createAvatar(type: ShareType?, avatar: ImageView, context: Context) {
-        fun createAvatarBase(@DrawableRes icon: Int, padding: Int = AvatarPadding.SMALL) {
-            avatar.setImageResource(icon)
-            avatar.background = ResourcesCompat.getDrawable(
-                context.resources,
-                R.drawable.round_bgnd,
-                null
-            )
-            avatar.cropToPadding = true
-            avatar.scaleType = ImageView.ScaleType.CENTER_INSIDE
-            avatar.setPadding(padding, padding, padding, padding)
+        fun createAvatarBase(@DrawableRes icon: Int, @Px padding: Int = AvatarPadding.SMALL) = avatar.apply {
+            setImageResource(icon)
+            background = ResourcesCompat.getDrawable(context.resources, R.drawable.round_bgnd, null)
+            cropToPadding = true
+            scaleType = ImageView.ScaleType.CENTER_INSIDE
+            setPadding(padding, padding, padding, padding)
+        }
+
+        fun createThemedAvatar(@DrawableRes icon: Int, @Px padding: Int = AvatarPadding.SMALL) {
+            createAvatarBase(icon, padding)
+            androidViewThemeUtils.colorImageViewBackgroundAndIcon(avatar)
         }
 
         when (type) {
-            ShareType.GROUP -> {
-                createAvatarBase(R.drawable.ic_group)
-                androidViewThemeUtils.colorImageViewBackgroundAndIcon(avatar)
-            }
+            ShareType.GROUP, ShareType.FEDERATED_GROUP -> createThemedAvatar(R.drawable.ic_group)
 
-            ShareType.FEDERATED_GROUP -> {
-                createAvatarBase(R.drawable.ic_group)
-                androidViewThemeUtils.colorImageViewBackgroundAndIcon(avatar)
-            }
+            ShareType.ROOM -> createThemedAvatar(R.drawable.ic_talk, AvatarPadding.LARGE)
 
-            ShareType.ROOM -> {
-                createAvatarBase(R.drawable.ic_talk, AvatarPadding.LARGE)
-                androidViewThemeUtils.colorImageViewBackgroundAndIcon(avatar)
-            }
+            ShareType.EMAIL -> createThemedAvatar(R.drawable.ic_email, AvatarPadding.LARGE)
 
-            ShareType.CIRCLE -> {
-                createAvatarBase(R.drawable.ic_circles)
-                avatar.background.setColorFilter(
-                    context.resources.getColor(R.color.nc_grey),
-                    PorterDuff.Mode.SRC_IN
-                )
-                avatar.drawable.mutate().setColorFilter(
-                    context.resources.getColor(R.color.icon_on_nc_grey),
-                    PorterDuff.Mode.SRC_IN
-                )
-            }
+            ShareType.PUBLIC_LINK -> createThemedAvatar(R.drawable.ic_link, AvatarPadding.LARGE)
 
-            ShareType.EMAIL -> {
-                createAvatarBase(R.drawable.ic_email, AvatarPadding.LARGE)
-                androidViewThemeUtils.colorImageViewBackgroundAndIcon(avatar)
+            ShareType.CIRCLE -> createAvatarBase(R.drawable.ic_circles).run {
+                background.colorFilter = srcInColorFilter(context.getColor(R.color.nc_grey))
+                drawable.mutate().colorFilter = srcInColorFilter(context.getColor(R.color.icon_on_nc_grey))
             }
 
             else -> Log_OC.d(TAG, "Unknown share type")
@@ -128,138 +109,53 @@ class FilesSpecificViewThemeUtils @Inject constructor(
                 }
         }
 
-    private fun getThumbDrawable(context: Context): Drawable {
-        val thumbDrawable =
-            ResourcesCompat.getDrawable(
-                context.resources,
-                me.zhanghai.android.fastscroll.R.drawable.afs_md2_thumb,
-                null
-            )
-        return androidViewThemeUtils.tintPrimaryDrawable(context, thumbDrawable)!!
+    private fun getThumbDrawable(context: Context): Drawable = checkNotNull(
+        androidViewThemeUtils.tintDrawable(
+            context,
+            me.zhanghai.android.fastscroll.R.drawable.afs_md2_thumb,
+            ColorRole.PRIMARY
+        )
+    ) { "Fast scroller thumb drawable not found" }
+
+    private fun getHomeAsUpDrawable(context: Context, isMenu: Boolean): Drawable {
+        val icon = if (isMenu) R.drawable.ic_menu else R.drawable.ic_arrow_back
+        return getDrawable(context, icon)
     }
 
-    private fun getHomeAsUpIcon(isMenu: Boolean): Int {
-        val icon = if (isMenu) {
-            R.drawable.ic_menu
-        } else {
-            R.drawable.ic_arrow_back
-        }
-        return icon
-    }
+    private fun getDrawable(context: Context, @DrawableRes id: Int): Drawable =
+        checkNotNull(ResourcesCompat.getDrawable(context.resources, id, null)) { "Drawable $id not found" }
 
-    /**
-     * Sets title and colors the actionbar, the title and the back arrow
-     */
-    // TODO move back arrow resource to lib and use lib method directly?
     @JvmOverloads
     fun themeActionBar(context: Context, actionBar: ActionBar, title: String, isMenu: Boolean = false) {
-        val icon = getHomeAsUpIcon(isMenu)
-        val backArrow = ResourcesCompat.getDrawable(
-            context.resources,
-            icon,
-            null
-        )!!
-        androidXViewThemeUtils.themeActionBar(
-            context,
-            actionBar,
-            title,
-            backArrow
-        )
+        androidXViewThemeUtils.themeActionBar(context, actionBar, title, getHomeAsUpDrawable(context, isMenu))
     }
 
-    /**
-     * Sets title and colors the actionbar, the title and the back arrow
-     */
     @JvmOverloads
     fun themeActionBar(context: Context, actionBar: ActionBar, @StringRes titleRes: Int, isMenu: Boolean = false) {
-        val title = context.getString(titleRes)
-        themeActionBar(
-            context,
-            actionBar,
-            title,
-            isMenu
-        )
+        themeActionBar(context, actionBar, context.getString(titleRes), isMenu)
     }
 
-    /**
-     * Colors actionbar background and back arrow but not the title
-     */
     @JvmOverloads
     fun themeActionBar(context: Context, actionBar: ActionBar, isMenu: Boolean = false) {
-        val backArrow = ResourcesCompat.getDrawable(
-            context.resources,
-            getHomeAsUpIcon(isMenu),
-            null
-        )!!
-        androidXViewThemeUtils.themeActionBar(context, actionBar, backArrow)
+        androidXViewThemeUtils.themeActionBar(context, actionBar, getHomeAsUpDrawable(context, isMenu))
     }
 
-    fun themeTemplateCardView(cardView: MaterialCardView) {
-        withScheme(cardView.context) { scheme ->
-            cardView.setStrokeColor(
-                ColorStateList(
-                    arrayOf(
-                        intArrayOf(android.R.attr.state_checked),
-                        intArrayOf(-android.R.attr.state_checked)
-                    ),
-                    intArrayOf(
-                        scheme.primary,
-                        scheme.outline
-                    )
-                )
-            )
+    fun themeTemplateCardView(view: MaterialCardView) {
+        withScheme(view.context) { scheme ->
+            view.setStrokeColor(checkedColors(scheme.primary, scheme.outline))
         }
     }
 
-    fun themeStatusCardView(cardView: MaterialCardView) {
-        withScheme(cardView) { scheme ->
-            cardView.backgroundTintList =
-                ColorStateList(
-                    arrayOf(
-                        intArrayOf(android.R.attr.state_checked),
-                        intArrayOf(-android.R.attr.state_checked)
-                    ),
-                    intArrayOf(
-                        scheme.surfaceContainerHighest,
-                        scheme.surface
-                    )
-                )
-            cardView.setStrokeColor(
-                ColorStateList(
-                    arrayOf(
-                        intArrayOf(android.R.attr.state_checked),
-                        intArrayOf(-android.R.attr.state_checked)
-                    ),
-                    intArrayOf(
-                        scheme.onSecondaryContainer,
-                        scheme.outlineVariant
-                    )
-                )
-            )
+    fun themeStatusCardView(view: MaterialCardView) {
+        withScheme(view) { scheme ->
+            view.backgroundTintList = checkedColors(scheme.surfaceContainerHighest, scheme.surface)
+            view.setStrokeColor(checkedColors(scheme.onSecondaryContainer, scheme.outlineVariant))
         }
     }
 
-    fun themeFilledCardView(cardView: MaterialCardView) {
-        withScheme(cardView) { scheme ->
-            val background = cardView.context.getColor(R.color.grey_200)
-            cardView.backgroundTintList =
-                ColorStateList(
-                    arrayOf(
-                        intArrayOf(android.R.attr.state_checked),
-                        intArrayOf(-android.R.attr.state_checked)
-                    ),
-                    intArrayOf(
-                        scheme.secondaryContainer,
-                        background
-                    )
-                )
-        }
-    }
-
-    fun themeAvatarButton(shareImageView: ImageView) {
-        withScheme(shareImageView.context) { scheme ->
-            shareImageView.background.setColorFilter(scheme.primary, PorterDuff.Mode.SRC_IN)
-            shareImageView.drawable.mutate().setColorFilter(scheme.onPrimary, PorterDuff.Mode.SRC_IN)
+    fun themeFilledCardView(view: MaterialCardView) {
+        withScheme(view) { scheme ->
+            view.backgroundTintList = checkedColors(scheme.secondaryContainer, view.context.getColor(R.color.grey_200))
         }
     }
 
@@ -267,61 +163,59 @@ class FilesSpecificViewThemeUtils @Inject constructor(
         colorUtil.colorToHexString(scheme.primary)
     }
 
-    fun setWhiteBackButton(context: Context, supportActionBar: ActionBar) {
-        val backArrow = ResourcesCompat.getDrawable(context.resources, R.drawable.ic_arrow_back, null)
-        val tinted = androidViewThemeUtils.colorDrawable(backArrow!!, Color.WHITE)
-        supportActionBar.setHomeAsUpIndicator(tinted)
+    fun setWhiteBackButton(context: Context, actionBar: ActionBar) {
+        val backArrow = getDrawable(context, R.drawable.ic_arrow_back)
+        actionBar.setHomeAsUpIndicator(androidViewThemeUtils.colorDrawable(backArrow, Color.WHITE))
     }
 
-    fun themeContentSearchView(searchView: SearchView) {
-        withScheme(searchView) { scheme ->
-            // hacky as no default way is provided
-            val editText = searchView
-                .findViewById<View?>(androidx.appcompat.R.id.search_src_text) as AppCompatAutoCompleteTextView
-            val searchPlate = searchView.findViewById<View?>(androidx.appcompat.R.id.search_plate) as LinearLayout
-            val closeButton = searchView.findViewById<View?>(androidx.appcompat.R.id.search_close_btn) as ImageView
-            val searchButton = searchView.findViewById<View?>(androidx.appcompat.R.id.search_button) as ImageView
-            editText.setHintTextColor(scheme.onSurfaceVariant)
-            editText.highlightColor = scheme.inverseOnSurface
-            editText.setTextColor(scheme.onSurface)
-            closeButton.setColorFilter(scheme.onSurface)
-            searchButton.setColorFilter(scheme.onSurface)
-            searchPlate.setBackgroundColor(scheme.surfaceContainerHigh)
+    fun themeContentSearchView(view: SearchView) {
+        withScheme(view) { scheme ->
+            view.findViewById<AppCompatAutoCompleteTextView>(androidx.appcompat.R.id.search_src_text).run {
+                setHintTextColor(scheme.onSurfaceVariant)
+                highlightColor = scheme.inverseOnSurface
+                setTextColor(scheme.onSurface)
+            }
+            view.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn).setColorFilter(scheme.onSurface)
+            view.findViewById<ImageView>(androidx.appcompat.R.id.search_button).setColorFilter(scheme.onSurface)
+            view.findViewById<LinearLayout>(androidx.appcompat.R.id.search_plate)
+                .setBackgroundColor(scheme.surfaceContainerHigh)
         }
     }
 
     @JvmOverloads
-    fun colorNavigationView(navigationView: NavigationView, colorIcons: Boolean = true) {
-        withScheme(navigationView) { scheme ->
-            navigationView.run {
+    fun colorNavigationView(view: NavigationView, colorIcons: Boolean = true) {
+        withScheme(view) { scheme ->
+            view.run {
                 itemBackground?.setTintList(
-                    buildColorStateList(
-                        android.R.attr.state_checked to dynamicColor.secondaryContainer().getArgb(scheme),
-                        -android.R.attr.state_checked to Color.TRANSPARENT
-                    )
+                    checkedColors(dynamicColor.secondaryContainer().getArgb(scheme), Color.TRANSPARENT)
                 )
 
                 background.setTintList(ColorStateList.valueOf(dynamicColor.surface().getArgb(scheme)))
 
                 if (colorIcons) {
-                    itemIconTintList = buildColorStateList(
-                        android.R.attr.state_checked to dynamicColor.onSecondaryContainer().getArgb(scheme),
-                        -android.R.attr.state_checked to dynamicColor.onSurfaceVariant().getArgb(scheme)
+                    itemIconTintList = checkedColors(
+                        dynamicColor.onSecondaryContainer().getArgb(scheme),
+                        dynamicColor.onSurfaceVariant().getArgb(scheme)
                     )
                 }
             }
         }
     }
 
-    fun themeAutoCompleteTextView(autoCompleteTextView: MaterialAutoCompleteTextView) {
-        withScheme(autoCompleteTextView) { scheme ->
-            autoCompleteTextView.setTextColor(dynamicColor.onSurface().getArgb(scheme))
-            autoCompleteTextView.setHintTextColor(dynamicColor.onSurfaceVariant().getArgb(scheme))
-            autoCompleteTextView.setDropDownBackgroundTintList(
-                ColorStateList.valueOf(dynamicColor.surfaceContainer().getArgb(scheme))
-            )
+    fun themeAutoCompleteTextView(view: MaterialAutoCompleteTextView) {
+        withScheme(view) { scheme ->
+            view.setTextColor(dynamicColor.onSurface().getArgb(scheme))
+            view.setHintTextColor(dynamicColor.onSurfaceVariant().getArgb(scheme))
+            view.dropDownBackgroundTintList = ColorStateList.valueOf(dynamicColor.surfaceContainer().getArgb(scheme))
         }
     }
+
+    private fun checkedColors(@ColorInt checked: Int, @ColorInt unchecked: Int): ColorStateList = buildColorStateList(
+        android.R.attr.state_checked to checked,
+        -android.R.attr.state_checked to unchecked
+    )
+
+    private fun srcInColorFilter(@ColorInt color: Int) = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
 
     companion object {
         private val TAG = FilesSpecificViewThemeUtils::class.simpleName
