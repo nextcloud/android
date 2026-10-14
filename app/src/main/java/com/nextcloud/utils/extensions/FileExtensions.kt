@@ -134,6 +134,6 @@ fun OCFile?.isTheSameAs(localFile: File?): Boolean = try {
         remoteSize == localSize &&
         remoteModified == localModified
 } catch (e: IOException) {
-    Log.e(FileDataStorageManager.TAG, "fileIsTheSame: unable to obtain local file attributes for comparing: $e")
+    Log.e(TAG, "fileIsTheSame: unable to obtain local file attributes for comparing: $e")
     false
 }

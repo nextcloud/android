@@ -13,7 +13,6 @@
  */
 package com.owncloud.android.datamodel;
 
-import android.annotation.SuppressLint;
 import android.content.ContentProviderClient;
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
@@ -46,9 +45,7 @@ import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsR
 import com.nextcloud.model.OfflineOperationRawType;
 import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.model.ShareeEntry;
-import com.nextcloud.utils.date.DateFormatPattern;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
-import com.nextcloud.utils.extensions.DateExtensionsKt;
 import com.nextcloud.utils.extensions.FileDataStorageManagerExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.MainApp;
@@ -71,7 +68,6 @@ import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.tags.Tag;
 import com.owncloud.android.operations.RemoteOperationFailedException;
-import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -84,7 +80,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -251,7 +246,7 @@ public class FileDataStorageManager {
         file.setMimeType(mimeType);
         file.setCreationTimestamp(createdAt);
         file.setModificationTimestamp(modificationTimestamp);
-        file.setPermissions(getParentPermissions(path));
+        file.setPermissions(getParentPermissions(remotePath));
         saveFileWithParent(file, MainApp.getAppContext());
     }
 
@@ -379,16 +374,15 @@ public class FileDataStorageManager {
         if (parentRemotePath == null || parentRemotePath.isEmpty())
             return;
 
-        OCFile parentFolder = getFileById(parentOCFileId);
-        if (parentFolder == null) return;
+        final String newPath = FileDataStorageManagerExtensionsKt.getRemotePathForConflictResolution(
+            client,
+            parentRemotePath,
+            oldFileName
+        );
+        if (newPath == null)
+            return;
 
-        DateFormatPattern formatPattern = DateFormatPattern.FullDateWithHours;
-        String currentDateTime = DateExtensionsKt.currentDateRepresentation(new Date(), formatPattern);
-
-        String newFolderName = oldFileName + " - " + currentDateTime;
-        String newPath = parentFolder.getDecryptedRemotePath() + newFolderName + OCFile.PATH_SEPARATOR;
-        moveLocalFile(file, newPath, parentFolder.getDecryptedRemotePath());
-        offlineOperationsRepository.updateNextOperations(entity);
+        offlineOperationsRepository.updateOperationForKeepBoth(entity, newPath);
     }
 
     @Nullable
