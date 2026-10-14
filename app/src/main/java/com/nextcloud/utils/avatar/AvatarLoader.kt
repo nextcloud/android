@@ -120,13 +120,13 @@ class AvatarLoader @Inject constructor(
         }
 
         val bitmap = BitmapFactory.decodeStream(get.responseBodyAsStream)
-        val thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px)
+        val thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px, ThumbnailUtils.OPTIONS_RECYCLE_INPUT)
 
         if (thumbnail == null || newETag.isNullOrEmpty()) {
             return TextDrawable.createAvatar(request.user, request.avatarRadius)
         }
 
-        val avatar = ThumbnailsCacheManager.handlePNG(thumbnail, px, px)
+        val avatar = BitmapUtils.centerCropOnPngBackground(thumbnail, px, px)
         ThumbnailsCacheManager.addBitmapToCache(request.cacheKey(newETag), avatar)
         storeRefreshTimestamp(request)
         return toDrawable(request, avatar)

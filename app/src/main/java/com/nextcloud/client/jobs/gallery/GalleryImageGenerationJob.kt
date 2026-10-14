@@ -154,7 +154,7 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
         var bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.storagePath, pxW, pxH) ?: return null
 
         if (file.isPNG()) {
-            bitmap = ThumbnailsCacheManager.handlePNG(bitmap, pxW, pxH)
+            bitmap = BitmapUtils.centerCropOnPngBackground(bitmap, pxW, pxH)
         }
 
         val thumbnail = ThumbnailsCacheManager.addThumbnailToCache(cacheKey, bitmap, file.storagePath, pxW, pxH)

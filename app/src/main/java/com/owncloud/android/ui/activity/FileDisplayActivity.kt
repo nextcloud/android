@@ -1914,8 +1914,6 @@ class FileDisplayActivity :
                 updateFileDownloadIndicator(FileDownloadIndicator.Downloaded, it)
             }
 
-            fileDownloadProgressListener = null
-
             if (fileIDForImmediatePreview == -1L) {
                 Log_OC.d(TAG, "updating ui for file download")
                 updateUIForFileDownload(intent)
@@ -2164,7 +2162,6 @@ class FileDisplayActivity :
         override fun onServiceDisconnected(component: ComponentName) {
             if (component == ComponentName(this@FileDisplayActivity, FileDownloadWorker::class.java)) {
                 Log_OC.d(TAG, "Download service disconnected")
-                fileDownloadProgressListener = null
             }
         }
     }

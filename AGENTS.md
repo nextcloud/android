@@ -38,6 +38,13 @@ Project-specific skills live in `./.claude/skills/<skill-name>/`. Load a skill w
 
 - **`android-java-to-kotlin`** (`./.claude/skills/android-java-to-kotlin/SKILL.md`) — Completes a Java-to-Kotlin conversion in this Android app. Use it when finishing a conversion, when the user mentions "java to kotlin", "j2k", "convert java", or "make it idiomatic", or when a freshly IDE-converted `.kt` file needs cleanup. The workflow is two-person: the developer first runs the Android Studio converter (`Code > Convert Java File to Kotlin File`), then the agent drives the idiomatic second pass — fail-fast control flow, function decomposition, `lifecycleScope`/coroutines instead of Java threads, modern Android APIs, and project conventions (SPDX headers, no magic numbers, `@JvmStatic`). The conversion must preserve behaviour, and the agent must write a behaviour-locking test before declaring it done.
 - **`android-activity-to-navigator-fragment`** (`./.claude/skills/android-activity-to-navigator-fragment/SKILL.md`) — Converts a standalone Activity (typically a drawer destination) into a Fragment hosted by `NavigatorActivity`. Use it when the user mentions "navigator", `NavigatorActivity`, `NavigatorScreen`, or "convert activity to fragment". It covers registering the `NavigatorScreen`, the fragment and its layout, decoupling collaborators from `FileActivity`, rewiring every entry point with `NavigatorActivity.intent(...)`, DI and manifest cleanup, and migrating the screenshot test.
+- **`android-eventbus-to-workmanager-flow`** (`./.claude/skills/android-eventbus-to-workmanager-flow/SKILL.md`) — Replaces an EventBus event posted by a WorkManager worker with WorkManager observation through a ViewModel `Flow`. Use it when the user mentions "event bus", `EventBusFactory`, `@Subscribe`, "worker progress", or "observe worker". It covers publishing with `setProgress`, a ViewModel keyed by the unique work name, `ViewModelModule` registration, collecting from Kotlin or Java (`collectWhenStarted`) and deleting the event. The live example is `FileDetailFragmentViewModel`.
+
+### Android Skills
+
+Agent skills for Android development at https://github.com/android/skills (overview: https://developer.android.com/tools/agents/android-skills). Use them when a task matches their trigger and no project-specific skill above covers it. Install one with the Android CLI (`android skills add <skill-name>`) or read its `SKILL.md` directly from the repository. Project-specific skills and the rules in this file take precedence over the official skills.
+
+- **`r8-analyzer`** (https://github.com/android/skills/tree/main/performance/r8-analyzer) — Analyzes the R8 configuration and keep rules for redundant, overly broad, or library-subsumed rules. Use it when changing the keep rules in `app/src/main/keepRules/` or the `optimization {}` blocks in `app/build.gradle.kts`.
 
 ## General Guidance
 
@@ -95,6 +102,16 @@ Use `StateFlow` and `MutableStateFlow` in ViewModels for state management. Colle
 ### Dependency Injection
 
 Uses Dagger 2 for major Android components (`Activity`, `Fragment`, `Service`, `BroadcastReceiver`, `ContentProvider`). Manual constructor injection for other components.
+
+### Network Clients
+
+Get `OwnCloudClient` and `NextcloudClient` instances from `ClientRepository` (`com.nextcloud.repository`), never from `ClientFactory`.
+`ClientFactory` is deprecated and being phased out; do not add new usages of it, and replace it with `ClientRepository` when touching code that still uses it.
+
+- Inject `ClientRepository` with Dagger (`@Inject lateinit var clientRepository: ClientRepository`); it is bound to `RemoteClientRepository`, which resolves the current user via `UserAccountManager` on every call.
+- Activities extending `BaseActivity` already expose it via `getClientRepository()`.
+- Prefer the `suspend` functions `getOwncloudClient()` / `getNextcloudClient()` from a lifecycle-aware scope (`lifecycleScope`, `viewModelScope`); they switch to `Dispatchers.IO` and return `null` on failure, so handle `null` instead of catching exceptions.
+- Do not construct `RemoteClientRepository` manually.
 
 ### Extension Functions
 

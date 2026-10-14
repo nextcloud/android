@@ -137,6 +137,8 @@ internal class BackgroundJobManagerImpl(
         fun formatUserTag(user: User): String = "$TAG_PREFIX_USER:${user.accountName}"
         fun formatClassTag(jobClass: KClass<out ListenableWorker>): String = "$TAG_PREFIX_CLASS:${jobClass.simpleName}"
         fun formatTimeTag(startTimestamp: Long): String = "$TAG_PREFIX_START_TIMESTAMP:$startTimestamp"
+        fun formatFileDownloadTag(accountName: String, fileId: Long): String =
+            JOB_FOLDER_DOWNLOAD + accountName + fileId
 
         fun parseTag(tag: String): Pair<String, String>? {
             val key = tag.substringBefore(":", "")
@@ -779,9 +781,6 @@ internal class BackgroundJobManagerImpl(
         }
     }
 
-    private fun startFileDownloadJobTag(accountName: String, fileId: Long): String =
-        JOB_FOLDER_DOWNLOAD + accountName + fileId
-
     override fun startFileDownloadJob(
         user: User,
         file: OCFile,
@@ -791,7 +790,7 @@ internal class BackgroundJobManagerImpl(
         packageName: String,
         conflictUploadId: Long?
     ) {
-        val tag = startFileDownloadJobTag(user.accountName, file.fileId)
+        val tag = formatFileDownloadTag(user.accountName, file.fileId)
 
         val data = workDataOf(
             FileDownloadWorker.ACCOUNT_NAME to user.accountName,
@@ -824,7 +823,7 @@ internal class BackgroundJobManagerImpl(
     }
 
     override fun cancelFilesDownloadJob(accountName: String, fileId: Long) {
-        workManager.cancelAllWorkByTag(startFileDownloadJobTag(accountName, fileId))
+        workManager.cancelAllWorkByTag(formatFileDownloadTag(accountName, fileId))
     }
 
     override fun startPdfGenerateAndUploadWork(
@@ -901,6 +900,16 @@ internal class BackgroundJobManagerImpl(
             .build()
 
         workManager.enqueueUniquePeriodicWork(JOB_INTERNAL_TWO_WAY_SYNC, ExistingPeriodicWorkPolicy.UPDATE, request)
+    }
+
+    override fun runNowInternal2WaySync() {
+        val request = oneTimeRequestBuilder(
+            jobClass = InternalTwoWaySyncWork::class,
+            jobName = JOB_INTERNAL_TWO_WAY_SYNC
+        )
+            .build()
+
+        workManager.enqueueUniqueWork(JOB_INTERNAL_TWO_WAY_SYNC, ExistingWorkPolicy.REPLACE, request)
     }
 
     override fun downloadFolder(folder: OCFile, accountName: String) {
