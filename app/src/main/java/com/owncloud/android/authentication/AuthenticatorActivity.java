@@ -63,6 +63,7 @@ import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.common.PlainClient;
+import com.nextcloud.model.HTTPStatusCodes;
 import com.nextcloud.operations.PostMethod;
 import com.nextcloud.utils.RawResourceReader;
 import com.nextcloud.utils.SnackbarUtil;
@@ -168,6 +169,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private static final String KEY_SERVER_AUTH_METHOD = "SERVER_AUTH_METHOD";
     private static final String KEY_WAITING_FOR_OP_ID = "WAITING_FOR_OP_ID";
     private static final String KEY_ONLY_ADD = "onlyAdd";
+    private static final String KEY_LOGIN_FLOW_AUTH_OBJECT = "LOGIN_FLOW_AUTH_OBJECT";
 
     public static final byte ACTION_CREATE = 0;
     public static final byte ACTION_UPDATE_EXPIRED_TOKEN = 2;       // detected by the app
@@ -344,6 +346,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
             
             initServerPreFragment(savedInstanceState);
+            restorePendingLoginFlow(savedInstanceState);
         }
 
         ProcessLifecycleOwner.get().getLifecycle().addObserver(lifecycleEventObserver);
@@ -404,6 +407,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private final ScheduledExecutorService loginFlowExecutorService = Executors.newSingleThreadScheduledExecutor();
     private boolean isLoginProcessCompleted = false;
     private boolean isRedirectedToTheDefaultBrowser = false;
+    private boolean isServerCheckPendingServiceBinding = false;
     private String baseUrl;
 
     private void poolLogin() {
@@ -555,7 +559,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         Log_OC.d(TAG, "performLoginFlowV2 status: " + status);
         Log_OC.d(TAG, "performLoginFlowV2 response: " + response);
 
-        if (!response.isEmpty()) {
+        if (status == HTTPStatusCodes.SUCCESS.getCode() && !response.isEmpty()) {
             runOnUiThread(() -> completeLoginFlow(response, status));
         }
     }
@@ -583,9 +587,28 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             showServerStatus();
         }
 
-        checkOcServer();
+        if (mOperationsServiceBinder == null) {
+            isServerCheckPendingServiceBinding = true;
+        } else {
+            checkOcServer();
+        }
         loginFlowExecutorService.shutdown();
         ProcessLifecycleOwner.get().getLifecycle().removeObserver(lifecycleEventObserver);
+    }
+
+    private void restorePendingLoginFlow(Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+            return;
+        }
+
+        authObject = gson.fromJson(savedInstanceState.getString(KEY_LOGIN_FLOW_AUTH_OBJECT), AuthObject.class);
+        if (authObject == null) {
+            return;
+        }
+
+        accountSetupWebviewBinding = AccountSetupWebviewBinding.inflate(getLayoutInflater());
+        setContentView(accountSetupWebviewBinding.getRoot());
+        initLoginInfoView();
     }
 
     private final LifecycleEventObserver lifecycleEventObserver = ((lifecycleOwner, event) -> {
@@ -837,6 +860,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         /// authentication
         outState.putBoolean(KEY_AUTH_IS_FIRST_ATTEMPT_TAG, mIsFirstAuthAttempt);
+        if (authObject != null && !isLoginProcessCompleted) {
+            outState.putString(KEY_LOGIN_FLOW_AUTH_OBJECT, gson.toJson(authObject));
+        }
 
         /// AsyncTask (User and password)
         if (mAsyncTask != null) {
@@ -1171,6 +1197,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         cancelButton.setOnClickListener(v -> {
             loginFlowExecutorService.shutdown();
             ProcessLifecycleOwner.get().getLifecycle().removeObserver(lifecycleEventObserver);
+            authObject = null;
             recreate();
         });
     }
@@ -1775,6 +1802,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                     }
                 } else {
                     doOnResumeAndBound();
+                    if (isServerCheckPendingServiceBinding) {
+                        isServerCheckPendingServiceBinding = false;
+                        checkOcServer();
+                    }
                 }
             }
         }
