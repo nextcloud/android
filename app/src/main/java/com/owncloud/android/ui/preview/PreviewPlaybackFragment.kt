@@ -16,6 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
+import androidx.activity.trackPipAnimationHintView
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.MenuProvider
@@ -23,6 +24,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.jobs.BackgroundJobManager
@@ -127,7 +129,7 @@ class PreviewPlaybackFragment :
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = PreviewPlaybackFragmentBinding.inflate(inflater, container, false)
         loadThumbnail()
-        registerPictureInPictureOnBack()
+        setupPictureInPicture()
         binding.playerControlView.navigator = activity as? MediaNavigator
         binding.playerControlView.addPaddingForNavBar()
         binding.playerControlView.isVisible = previewActivity?.isActionBarVisible != false
@@ -266,7 +268,7 @@ class PreviewPlaybackFragment :
         }
     }
 
-    private fun registerPictureInPictureOnBack() {
+    private fun setupPictureInPicture() {
         if (!MimeTypeUtil.isVideo(file)) {
             return
         }
@@ -275,6 +277,15 @@ class PreviewPlaybackFragment :
             return
         }
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                requireActivity().trackPipAnimationHintView(binding.surfaceView)
+            }
+        }
+        registerPictureInPictureOnBack()
+    }
+
+    private fun registerPictureInPictureOnBack() {
         pictureInPictureCallback = requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             enabled = false
