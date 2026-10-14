@@ -10,6 +10,7 @@ package com.nextcloud.ui.fileDetail
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
+import com.nextcloud.utils.extensions.getBigThumbnail
 import com.nextcloud.utils.extensions.getSmallThumbnail
 import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator
 import com.nextcloud.utils.thumbnail.VideoOverlayGenerator
@@ -32,7 +33,7 @@ class FileDetailPreview(
             return
         }
 
-        val thumbnail = file.getSmallThumbnail()
+        val thumbnail = file.getBigThumbnail() ?: file.getSmallThumbnail()
         if (thumbnail == null) {
             setIcon(MimeTypeUtil.getFileTypeIcon(file.mimeType, file.fileName, toolbarActivity, viewThemeUtils))
         } else {
@@ -53,7 +54,7 @@ class FileDetailPreview(
 
     private fun setIcon(icon: Drawable) {
         previewImageView?.setImageDrawable(icon)
-        val padding = toolbarActivity.resources.getDimensionPixelSize(R.dimen.standard_double_padding)
+        val padding = toolbarActivity.resources.getDimensionPixelSize(R.dimen.file_details_preview_icon_padding)
         applyScaling(ImageView.ScaleType.FIT_CENTER, padding)
     }
 

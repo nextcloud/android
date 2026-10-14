@@ -77,7 +77,8 @@
             <FrameLayout
                 android:id="@+id/preview_image_frame"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/nav_drawer_header_height"
+                android:layout_height="@dimen/file_details_preview_height"
+                android:layout_below="@id/toolbar"
                 android:visibility="gone">
 
                 <!--                TODO add shimmer -->
@@ -85,14 +86,9 @@
                 <ImageView
                     android:id="@+id/preview_image"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/nav_drawer_header_height"
+                    android:layout_height="match_parent"
                     android:contentDescription="@string/preview_image_description"
                     android:scaleType="centerCrop" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/nav_drawer_header_height"
-                    android:background="@drawable/preview_image_gradient_shape" />
             </FrameLayout>
 
             <com.google.android.material.appbar.MaterialToolbar

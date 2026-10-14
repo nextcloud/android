@@ -13,6 +13,8 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="nav_drawer_header_height">164dp</dimen>
+    <dimen name="file_details_preview_height">112dp</dimen>
+    <dimen name="file_details_preview_icon_padding">16dp</dimen>
     <dimen name="nav_drawer_menu_avatar_radius">12sp</dimen>
     <dimen name="list_item_avatar_icon_radius">20dp</dimen>
     <dimen name="bottom_sheet_text_start_margin">40dp</dimen>

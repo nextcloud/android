@@ -15,7 +15,6 @@ package com.owncloud.android.ui.activity;
 
 import android.animation.AnimatorInflater;
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -347,13 +346,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
     }
 
     public void setPreviewImageVisibility(boolean isVisibility) {
-        if (mPreviewImage != null && mPreviewImageContainer != null) {
-            if (isVisibility) {
-                mToolbar.setTitle(null);
-                mToolbar.setBackgroundColor(Color.TRANSPARENT);
-            } else {
-                mToolbar.setBackgroundResource(R.color.appbar);
-            }
+        if (mPreviewImageContainer != null) {
             mPreviewImageContainer.setVisibility(isVisibility ? View.VISIBLE : View.GONE);
         }
     }
