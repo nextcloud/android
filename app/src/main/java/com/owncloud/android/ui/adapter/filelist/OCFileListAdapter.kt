@@ -66,8 +66,8 @@ import com.owncloud.android.ui.adapter.filelist.item.OCFileListDelegate
 import com.owncloud.android.ui.adapter.filelist.item.OCFileListGridItemViewHolder
 import com.owncloud.android.ui.adapter.filelist.item.OCFileListItemBinder
 import com.owncloud.android.ui.adapter.filelist.item.OCFileListItemViewHolder
-import com.owncloud.android.ui.adapter.filelist.recommended.RecommendedFilesViewHolder
 import com.owncloud.android.ui.adapter.filelist.recommended.RecommendedFilesAdapter
+import com.owncloud.android.ui.adapter.filelist.recommended.RecommendedFilesViewHolder
 import com.owncloud.android.ui.fragment.OCFileListFragment
 import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
@@ -509,6 +509,11 @@ class OCFileListAdapter(
             if (removeFromList) {
                 filesToDelete.add(file)
             }
+        }
+
+        if (currentDirectory?.remotePath == remotePath) {
+            currentDirectory?.isFavorite = isFavorite
+            storageManager.saveFile(currentDirectory)
         }
 
         mainHandler.post {
