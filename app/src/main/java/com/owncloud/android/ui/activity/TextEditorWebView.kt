@@ -11,6 +11,7 @@ package com.owncloud.android.ui.activity
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import androidx.activity.addCallback
 import androidx.core.net.toUri
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
@@ -43,6 +44,10 @@ class TextEditorWebView : EditorWebView() {
                 context.startActivity(it)
             }
         }
+
+        private const val CLICK_TEXT_CLOSE_BUTTON_SCRIPT =
+            "(function() { const button = document.querySelector('#direct-editor .icon-close'); " +
+                "if (!button) return false; button.click(); return true; })()"
     }
 
     @SuppressLint("AddJavascriptInterface") // suppress warning as webview is only used > Lollipop
@@ -76,6 +81,18 @@ class TextEditorWebView : EditorWebView() {
 
             webView.setDownloadListener { url, _, _, _, _ -> downloadFile(url.toUri(), fileName) }
             loadUrl(intent.getStringExtra(EXTRA_URL))
+            closeTextSessionOnBackPressed()
+        }
+    }
+
+    private fun closeTextSessionOnBackPressed() {
+        onBackPressedDispatcher.addCallback(this) {
+            isEnabled = false
+            webView.evaluateJavascript(CLICK_TEXT_CLOSE_BUTTON_SCRIPT) { isClosing ->
+                if (isClosing != "true") {
+                    finish()
+                }
+            }
         }
     }
 
