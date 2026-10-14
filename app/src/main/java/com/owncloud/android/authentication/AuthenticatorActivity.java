@@ -452,8 +452,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private String extractLoginUrl(String response) {
         try {
-            authObject = gson.fromJson(response, AuthObject.class);
-            if (authObject != null && !TextUtils.isEmpty(authObject.getLogin())) {
+            authObject = AuthObject.fromJson(response);
+            if (!TextUtils.isEmpty(authObject.getLogin())) {
                 return authObject.getLogin();
             } else {
                 Log_OC.e(TAG, "AuthObject parsing failed or login empty, trying JSONObject fallback");
@@ -601,11 +601,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             return;
         }
 
-        authObject = gson.fromJson(savedInstanceState.getString(KEY_LOGIN_FLOW_AUTH_OBJECT), AuthObject.class);
-        if (authObject == null) {
+        String authObjectJson = savedInstanceState.getString(KEY_LOGIN_FLOW_AUTH_OBJECT);
+        if (authObjectJson == null) {
             return;
         }
 
+        authObject = AuthObject.fromJson(authObjectJson);
         accountSetupWebviewBinding = AccountSetupWebviewBinding.inflate(getLayoutInflater());
         setContentView(accountSetupWebviewBinding.getRoot());
         initLoginInfoView();
@@ -861,7 +862,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         /// authentication
         outState.putBoolean(KEY_AUTH_IS_FIRST_ATTEMPT_TAG, mIsFirstAuthAttempt);
         if (authObject != null && !isLoginProcessCompleted) {
-            outState.putString(KEY_LOGIN_FLOW_AUTH_OBJECT, gson.toJson(authObject));
+            outState.putString(KEY_LOGIN_FLOW_AUTH_OBJECT, AuthObject.toJson(authObject));
         }
 
         /// AsyncTask (User and password)
