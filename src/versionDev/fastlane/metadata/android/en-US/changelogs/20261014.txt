@@ -1,0 +1,64 @@
+fix(l10n): Update translations from Transifex
+fix rest uploads
+fix updated upload
+fix move operation
+check remote file as well for is file delete
+add comment for isFolderDeletedLocally
+rename function for storage path that needed two way sync
+handle parent folder deletion
+handle parent folder deletion and fix spotbugs
+handle if server: creates new folder
+use UploadFileOperationFactory
+use TwoWaySyncOperation.kt instead bloat SynchronizeFolderOperation.java
+Internal two way sync: upload new created files/folders
+Internal two way sync: upload new created files/folders
+update callers
+add agent skills for further migrations
+update file detail fragment and make progress bar m3
+use new listening approach in worker
+add new view model for the proper observation
+remove dead file download progress listener
+remove event bus for file download progress observation
+expose file download job tag
+update tests
+fix build
+perf(bitmap): usage
+update updateOCFile
+update updateOCFile
+add tests
+refactor(upload-file-operation): upload file resolver
+fix tests
+Fix tests server data configuration for local dev
+verify metadata
+Update library to 2026-10-11
+fix(l10n): Update translations from Transifex
+chore(deps): update gradle to v9.8.1
+feat(file-details): previews
+logs errors
+refactor(file-storage-utils): kotlin
+Rename .java to .kt
+deprecate ClientFactory
+update AGENTS.md fur further usages
+use ClientRepository in AlbumItemsFragment for future reference
+inject dependencies for the remote client repository
+refactor(media-thumbnail-generation): kotlin
+update usage of the new push configuration data classes
+use app wide json kotlinx for other classes as well
+convert push configuration state to kotlin data class
+introduce app wide json util object for kotlinx.serialization
+refactor(upload-list-activity): kotlin
+Rename .java to .kt
+handle edge cases
+use OCFileListDiffer
+rename helper package to filelist
+perf(file-list): diff util
+fix garm
+update license header and remove comments
+fix slide behaviour crash when going back from settings
+remove pminify
+update agents md
+add new rules
+feat(build): gradle property to control optimization, set for CI
+feat(build): First step towards R8 minify - still crashing
+add branch for email appid in send() profileBottomSheet
+Update Nextcloud Android library
