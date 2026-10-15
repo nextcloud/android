@@ -7,6 +7,7 @@
 
 package com.nextcloud.utils.extensions
 
+import androidx.annotation.VisibleForTesting
 import com.nextcloud.utils.TimeConstants
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -51,7 +52,8 @@ fun RemoteFile.toAlbumItem(): OCFile = FileStorageUtils.fillOCFile(this).apply {
 }
 
 @Suppress("ReturnCount")
-private fun RemoteFile.areImageDimensionsSame(path: String): Boolean {
+@VisibleForTesting
+fun RemoteFile.areImageDimensionsSame(path: String): Boolean {
     val TAG = "areImageDimensionsSame"
     if (!MimeTypeUtil.isImage(mimeType)) {
         Log_OC.i(TAG, "Can't compare: it's not an image")
