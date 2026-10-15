@@ -1,0 +1,39 @@
+fix(l10n): Update translations from Transifex
+fix padding
+wip
+add HeaderFirstNestedScrollView
+make widget images rounded as well
+fix kotlin spotless
+handle picture drawable as well
+add monochrome icon support and use correct size for unified search
+update glide
+update widget calls
+unify widget icon sizes
+decode SVG
+update item id for downloaded files because FragmentStateAdapter.java relies on item id to remove and replace
+wip
+Create local folders metadata to reflect server's auto folder creation
+Moved dir tree creation to extensions (automatic java to kotlin conversion) Signed-off-by: daniele-verducci <daniele.verducci@nextcloud.com>
+Rebased
+Use isOlderThan on capabilities for code readability
+Apply suggestion from @alperozturk96
+Working new auto folder creation feature on uploads
+Updated android-library
+feature/create-folder-during-upload: use new auto folder creation feature
+add folder mark favorite action
+fix spotless check
+use kt extension and simplify
+reorganize package
+simplify adapter
+extract item binder
+convert java to kotlin
+Rename .java to .kt
+remove tests since its visible ui action
+revert file download indicator since out of scope of the feature and for folder download worker can cause issue
+fix(files): hide synced icon after deleting local copy
+feat(files): show syncing icon on files while folder downloads
+fix(files): avoid list shift when opening details
+feat(files): show actions for current folder in toolbar
+simplify AvatarGroupLayout
+simplify FilesSpecificViewThemeUtils
+fix
