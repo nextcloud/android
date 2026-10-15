@@ -9,6 +9,7 @@ package com.nextcloud.utils.extensions
 
 import com.nextcloud.utils.AppConstants
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.lib.resources.shares.ShareeUser
 import com.owncloud.android.lib.resources.tags.Tag
@@ -51,17 +52,24 @@ fun RemoteFile.toAlbumItem(): OCFile = FileStorageUtils.fillOCFile(this).apply {
 
 @Suppress("ReturnCount")
 private fun RemoteFile.areImageDimensionsSame(path: String): Boolean {
+    val TAG = "areImageDimensionsSame"
     if (!MimeTypeUtil.isImage(mimeType)) {
-        // can't compare it's not image
+        Log_OC.i(TAG, "Can't compare: it's not an image")
         return true
     }
 
     val localFileImageDimension = path.getExifSize() ?: path.getBitmapSize()
     if (localFileImageDimension == null) {
-        // can't compare local file image dimension is not determined
+        Log_OC.w(TAG, "Can't compare: local file image dimension is not determined")
         return true
     }
 
-    return localFileImageDimension.first.toFloat() == imageDimension?.width &&
-        localFileImageDimension.second.toFloat() == imageDimension?.height
+    val remoteFileImageDimension = imageDimension
+    if (remoteFileImageDimension == null) {
+        Log_OC.w(TAG, "Can't compare: remote file image dimension is not determined")
+        return true
+    }
+
+    return localFileImageDimension.first.toFloat() == remoteFileImageDimension.width &&
+        localFileImageDimension.second.toFloat() == remoteFileImageDimension.height
 }
