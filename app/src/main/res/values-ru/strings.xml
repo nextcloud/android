@@ -30,6 +30,7 @@
     <string name="activity_chooser_send_file_title">Отправить</string>
     <string name="activity_chooser_title">Отправить ссылку…</string>
     <string name="activity_icon">События</string>
+    <string name="add_media">Добавить медиафайлы</string>
     <string name="add_new_public_share">Добавить новую общедоступную ссылку</string>
     <string name="add_new_secure_file_drop">Добавить новую защищённую передачу файлов</string>
     <string name="add_to_album">Добавить в альбом</string>
@@ -281,7 +282,7 @@
     <string name="dev_version_no_new_version_available">Новая версия отсутствует.</string>
     <string name="dialog_close">Закрыть</string>
     <string name="did_not_check_for_dupes">Не проверено на наличие дубликатов</string>
-    <string name="digest_algorithm_not_available">Этот хэш алгоритм не доступен на этом телефоне.</string>
+    <string name="digest_algorithm_not_available">Этот алгоритм хеширования недоступен на телефоне.</string>
     <string name="direct_login_confirm_message">Вы хотите войти с помощью %1$s в %2$s?</string>
     <string name="direct_login_confirm_title">Подтвердить вход</string>
     <string name="direct_login_failed">Не удалось войти по прямой ссылке.</string>
@@ -345,7 +346,7 @@
     <string name="drawer_quota_unlimited">%1$s использовано</string>
     <string name="drawer_synced_folders">Автоматическая передача</string>
     <string name="e2e_counter_too_old">Счётчик слишком старый</string>
-    <string name="e2e_hash_not_found">Хэш не найден</string>
+    <string name="e2e_hash_not_found">Хеш не найден</string>
     <string name="e2e_not_yet_setup">Сквозное шифрование не настроено</string>
     <string name="e2e_offline">Невозможно без подключения к интернету</string>
     <string name="e2e_signature_does_not_match">Подпись не совпадает</string>
@@ -635,6 +636,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Сначала большие</string>
     <string name="menu_item_sort_by_size_smallest_first">Сначала маленькие</string>
     <string name="more">Больше</string>
+    <string name="more_documents">Ещё документы</string>
     <string name="move_file_error">Произошла ошибка при попытке перемещения этого файла или каталога</string>
     <string name="move_file_invalid_into_descendent">Невозможно переместить каталог в его подкаталог</string>
     <string name="move_file_invalid_overwrite">Файл уже существует в каталоге назначения</string>

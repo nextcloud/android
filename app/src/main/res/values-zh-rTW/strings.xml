@@ -922,6 +922,7 @@
     <string name="retrieving_file">正在擷取檔案…</string>
     <string name="retry">重試</string>
     <string name="richdocuments_failed_to_load_document">載入文件失敗！</string>
+    <string name="run_two_way_sync">立刻執行同步</string>
     <string name="scanQR_description">透過 QR Code 登入</string>
     <string name="scan_page">掃描頁面</string>
     <string name="screenshot_01_gridView_heading">保護您的資料</string>
