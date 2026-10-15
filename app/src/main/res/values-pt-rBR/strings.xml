@@ -922,6 +922,7 @@
     <string name="retrieving_file">Recuperando arquivo…</string>
     <string name="retry">Tentar novamente</string>
     <string name="richdocuments_failed_to_load_document">Falhou ao carregar documento!</string>
+    <string name="run_two_way_sync">Executar a sincronização agora</string>
     <string name="scanQR_description">Entrar via código QR</string>
     <string name="scan_page">Digitalizar página</string>
     <string name="screenshot_01_gridView_heading">Protegendo seus dados</string>
