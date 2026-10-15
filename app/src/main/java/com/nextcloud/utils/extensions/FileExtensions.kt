@@ -13,7 +13,6 @@ import android.graphics.Bitmap
 import android.util.Log
 import androidx.exifinterface.media.ExifInterface
 import com.nextcloud.utils.HumanReadableFormatter
-import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -131,10 +130,18 @@ fun OCFile?.isTheSameAs(localFile: File?): Boolean = try {
     val remoteSize = this.fileLength
     val localModified = attr.lastModifiedTime().toMillis() / MS_IN_SECOND // Unix time in milliseconds
     val remoteModified = this.modificationTimestamp / MS_IN_SECOND // Unix time in milliseconds
-    remoteName == localName &&
+    val isTheSame = remoteName == localName &&
         remoteSize == localSize &&
         remoteModified == localModified
+
+    Log_OC.d(
+        "105127",
+        "OCFileIsTheSameAs field:[local|remote] -> name:[$localName|$remoteName], " +
+            "size:[$localSize|$remoteSize], modified:[$localModified|$remoteModified], isTheSame:$isTheSame"
+    )
+
+    isTheSame
 } catch (e: IOException) {
-    Log.e(FileDataStorageManager.TAG, "fileIsTheSame: unable to obtain local file attributes for comparing: $e")
+    Log.e("105127", "OCFileIsTheSameAs fileIsTheSame: unable to obtain local file attributes for comparing: $e")
     false
 }
