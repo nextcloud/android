@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.ui.sort.SortOrderUi
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.ui.adapter.OCFileListAdapter
+import com.owncloud.android.ui.adapter.filelist.OCFileListAdapter
 import com.owncloud.android.utils.FileSortOrder
 
 class FileListLayoutManager(private val fragment: OCFileListFragment, private val preferences: AppPreferences) {

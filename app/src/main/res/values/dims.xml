@@ -13,6 +13,8 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="nav_drawer_header_height">164dp</dimen>
+    <dimen name="file_details_preview_height">112dp</dimen>
+    <dimen name="file_details_preview_icon_padding">16dp</dimen>
     <dimen name="nav_drawer_menu_avatar_radius">12sp</dimen>
     <dimen name="list_item_avatar_icon_radius">20dp</dimen>
     <dimen name="bottom_sheet_text_start_margin">40dp</dimen>
@@ -22,7 +24,7 @@
     <dimen name="file_icon_size">40dp</dimen>
     <dimen name="live_photo_indicator_margin">100dp</dimen>
     <dimen name="file_icon_size_grid">128dp</dimen>
-    <dimen name="file_icon_rounded_corner_radius">8dp</dimen>
+    <dimen name="file_icon_rounded_corner_radius">4dp</dimen>
     <dimen name="file_icon_rounded_corner_radius_for_grid_mode">3dp</dimen>
     <integer name="file_avatar_px">512</integer>
     <dimen name="drawer_content_horizontal_padding">28dp</dimen>
@@ -37,6 +39,7 @@
     <dimen name="standard_half_padding">8dp</dimen>
     <dimen name="standard_quarter_padding">4dp</dimen>
     <dimen name="standard_icon_size">32dp</dimen>
+    <dimen name="dashboard_widget_icon_size">32dp</dimen>
     <dimen name="governance_color_dot_size">12dp</dimen>
     <dimen name="standard_eight_padding">2dp</dimen>
     <dimen name="standard_margin">16dp</dimen>

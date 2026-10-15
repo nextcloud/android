@@ -23,7 +23,6 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isNotEmpty
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -320,26 +319,32 @@ class FileActionsBottomSheet :
         val itemBinding = FileActionsBottomSheetItemBinding.inflate(layoutInflater, binding.fileActionsList, false)
             .apply {
                 root.setOnClickListener {
+                    action.toggledFavorite()?.let { showAction(it, viewThemeUtils) }
                     viewModel.onClick(action)
                 }
-                text.setText(action.title)
-                if (action.icon != null) {
-                    val drawable =
-                        viewThemeUtils.platform.tintDrawable(
-                            requireContext(),
-                            AppCompatResources.getDrawable(requireContext(), action.icon)!!
-                        )
-                    icon.setImageDrawable(drawable)
-                }
+                showAction(action, viewThemeUtils)
             }
         return itemBinding.root
     }
 
     private fun dispatchActionClick(id: Int?) {
-        if (id != null) {
-            setFragmentResult(REQUEST_KEY, bundleOf(RESULT_KEY_ACTION_ID to id))
-            parentFragmentManager.clearFragmentResultListener(REQUEST_KEY)
+        if (id == null) {
+            return
+        }
+
+        // get the manager and dismiss before sending, as the result can replace the fragment hosting this sheet
+        val fragmentManager = parentFragmentManager
+        val isFavoriteToggle = id == R.id.action_favorite || id == R.id.action_unset_favorite
+        if (!isFavoriteToggle) {
             dismiss()
+        }
+
+        fragmentManager.setFragmentResult(REQUEST_KEY, bundleOf(RESULT_KEY_ACTION_ID to id))
+        fragmentManager.clearFragmentResultListener(REQUEST_KEY)
+
+        if (isFavoriteToggle) {
+            val delay = resources.getInteger(android.R.integer.config_mediumAnimTime).toLong()
+            binding.root.postDelayed({ dismissAllowingStateLoss() }, delay)
         }
     }
 
@@ -380,5 +385,17 @@ class FileActionsBottomSheet :
             }
             arguments = argsBundle
         }
+    }
+}
+
+private fun FileActionsBottomSheetItemBinding.showAction(action: FileAction, viewThemeUtils: ViewThemeUtils) {
+    text.setText(action.title)
+    if (action.icon != null) {
+        val context = root.context
+        val drawable = viewThemeUtils.platform.tintDrawable(
+            context,
+            AppCompatResources.getDrawable(context, action.icon)!!
+        )
+        icon.setImageDrawable(drawable)
     }
 }

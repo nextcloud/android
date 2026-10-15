@@ -922,6 +922,7 @@
     <string name="retrieving_file">Získava sa súbor…</string>
     <string name="retry">Zopakovať</string>
     <string name="richdocuments_failed_to_load_document">Nepodarilo sa načítať dokument!</string>
+    <string name="run_two_way_sync">Spustiť synchronizáciu teraz</string>
     <string name="scanQR_description">Prihlásiť sa pomocou QR kódu</string>
     <string name="scan_page">Skenovať stránku</string>
     <string name="screenshot_01_gridView_heading">Chránte vaše údaje</string>

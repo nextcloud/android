@@ -922,6 +922,7 @@
     <string name="retrieving_file">Dosya alınıyor …</string>
     <string name="retry">Yeniden dene</string>
     <string name="richdocuments_failed_to_load_document">Belge yüklenemedi!</string>
+    <string name="run_two_way_sync">Şimdi eşitle</string>
     <string name="scanQR_description">Kare kod ile oturum aç</string>
     <string name="scan_page">Sayfayı tara</string>
     <string name="screenshot_01_gridView_heading">Verilerinizi korumak</string>

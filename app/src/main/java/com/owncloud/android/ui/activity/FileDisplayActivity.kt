@@ -369,6 +369,7 @@ class FileDisplayActivity :
     private fun initUI() {
         setupHomeSearchToolbarWithSortAndListButtons()
         mMenuButton.setOnClickListener { v: View? -> openDrawer() }
+        findViewById<View>(R.id.toolbar).setOnClickListener { openCurrentFolderActions() }
         mSwitchAccountButton.setOnClickListener { v: View? -> showManageAccountsDialog() }
         mNotificationButton.setOnClickListener {
             pushFragment(NavigatorScreen.Notifications)
@@ -950,7 +951,22 @@ class FileDisplayActivity :
             }
         }
 
+        menu?.findItem(R.id.action_current_folder_actions)?.isVisible = canShowCurrentFolderActions()
+
         return super.onPrepareOptionsMenu(menu)
+    }
+
+    private fun canShowCurrentFolderActions(): Boolean = leftFragment is OCFileListFragment &&
+        !isDrawerOpen &&
+        !isSearchOpen() &&
+        !isRoot(getCurrentDir()) &&
+        listOfFilesFragment?.isSearchFragment == false &&
+        !isAlbumItemsFragment
+
+    private fun openCurrentFolderActions() {
+        if (canShowCurrentFolderActions()) {
+            listOfFilesFragment?.openCurrentFolderActionsMenu()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -1352,6 +1368,11 @@ class FileDisplayActivity :
 
         R.id.action_select_all -> {
             listOfFilesFragment?.selectAllFiles(true)
+            true
+        }
+
+        R.id.action_current_folder_actions -> {
+            openCurrentFolderActions()
             true
         }
 
@@ -1886,6 +1907,10 @@ class FileDisplayActivity :
             Log_OC.d(TAG, "download worker finished")
             val folder = getFolderFromFolderDownloadWorker(intent) ?: return
             updateFileDownloadIndicator(FileDownloadIndicator.Downloaded, folder)
+
+            if (folder.fileId == getCurrentDir()?.fileId) {
+                updateListOfFilesFragment()
+            }
         }
     }
     // endregion
@@ -2038,7 +2063,9 @@ class FileDisplayActivity :
 
         val detailFragment: Fragment = FileDetailFragment.newInstance(file, currentUser, activeTab)
         setLeftFragment(detailFragment, false)
-        configureToolbarForPreview(file)
+        // swap now, so no frame shows the list without its sort row
+        supportFragmentManager.executePendingTransactions()
+        updateActionBarForFile(file)
     }
 
     /**
@@ -2073,6 +2100,7 @@ class FileDisplayActivity :
             chosenFile = file // if no file is passed, current file decides
         }
         super.updateActionBarTitleAndHomeButton(chosenFile)
+        supportInvalidateOptionsMenu()
     }
 
     override fun isDrawerIndicatorAvailable(): Boolean = isRoot(getCurrentDir())
@@ -2291,7 +2319,9 @@ class FileDisplayActivity :
             resetScrollingAndUpdateActionBar()
         }
 
-        if (leftFragment is OCFileListFragment && !operation.onlyLocalCopy) {
+        if (leftFragment is OCFileListFragment && operation.onlyLocalCopy) {
+            leftFragment.adapter?.notifyItemChanged(removedFile)
+        } else if (leftFragment is OCFileListFragment) {
             leftFragment.adapter?.removeFile(removedFile)
 
             if (leftFragment.adapter?.isEmpty == true) {

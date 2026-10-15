@@ -307,6 +307,20 @@ object BitmapUtils {
         }
     }
 
+    fun roundCorners(bitmap: Bitmap, radius: Float): Bitmap {
+        val rect = Rect(0, 0, bitmap.width, bitmap.height)
+        val paint = Paint().apply {
+            isAntiAlias = true
+            color = resources.getColor(R.color.white, null)
+        }
+
+        return createBitmap(bitmap.width, bitmap.height).applyCanvas {
+            drawRoundRect(RectF(rect), radius, radius, paint)
+            paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
+            drawBitmap(bitmap, rect, rect, paint)
+        }
+    }
+
     fun tintImage(bitmap: Bitmap, color: Int): Bitmap {
         val paint = Paint().apply { colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN) }
         return createBitmap(bitmap.width, bitmap.height).applyCanvas { drawBitmap(bitmap, 0f, 0f, paint) }

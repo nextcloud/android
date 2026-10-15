@@ -96,8 +96,8 @@ import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.activity.TextEditorWebView;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
-import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
-import com.owncloud.android.ui.adapter.OCFileListAdapter;
+import com.owncloud.android.ui.adapter.filelist.CommonOCFileListAdapterInterface;
+import com.owncloud.android.ui.adapter.filelist.OCFileListAdapter;
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
@@ -738,6 +738,27 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             final var childFragmentManager = getChildFragmentManager();
             final var actionBottomSheet = FileActionsBottomSheet.newInstance(filesCount, checkedFiles, isOverflow, actionsToHide, endpoints)
+                .setResultListener(childFragmentManager, this, (id) -> onFileActionChosen(id, checkedFiles));
+
+            if (FragmentExtensionsKt.isDialogFragmentReady(this)) {
+                actionBottomSheet.show(childFragmentManager, "actions");
+            }
+        });
+    }
+
+    public void openCurrentFolderActionsMenu() {
+        final OCFile currentFolder = getCurrentFile();
+        if (currentFolder == null || currentFolder.isRootDirectory()) {
+            return;
+        }
+
+        final Set<OCFile> checkedFiles = new HashSet<>();
+        checkedFiles.add(currentFolder);
+
+        throttler.run("overflowClick", () -> {
+            final var actionsToHide = FileAction.Companion.getCurrentFolderActionsToHide(currentFolder);
+            final var childFragmentManager = getChildFragmentManager();
+            final var actionBottomSheet = FileActionsBottomSheet.newInstance(currentFolder, true, actionsToHide)
                 .setResultListener(childFragmentManager, this, (id) -> onFileActionChosen(id, checkedFiles));
 
             if (FragmentExtensionsKt.isDialogFragmentReady(this)) {
@@ -1759,7 +1780,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(CommentsEvent event) {
-        mAdapter.refreshCommentsCount(event.getRemoteId());
+        mAdapter.markCommentsAsRead(event.getRemoteId());
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
@@ -1778,7 +1799,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 if (this instanceof GalleryFragment galleryFragment) {
                     galleryFragment.markAsFavorite(event.getRemotePath(), event.getShouldFavorite());
                 } else {
-                    mAdapter.setFavoriteAttributeForItemID(event.getRemotePath(), event.getShouldFavorite(), removeFromList);
+                    mAdapter.updateFavoriteState(event.getRemotePath(), event.getShouldFavorite(), removeFromList);
                 }
             }
 

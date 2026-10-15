@@ -731,12 +731,12 @@
     <string name="notification_channel_content_observer_name_short">Sisuvaatleja</string>
     <string name="notification_channel_download_description">Näitab allalaadimise edenemist</string>
     <string name="notification_channel_download_name_short">Allalaadimised</string>
-    <string name="notification_channel_file_sync_description">Näitab failide sünkroniseerimise edenemist ja tulemusi</string>
-    <string name="notification_channel_file_sync_name">Failide sünkroniseerimimine</string>
+    <string name="notification_channel_file_sync_description">Näitab failide sünkroonimise edenemist ja tulemusi</string>
+    <string name="notification_channel_file_sync_name">Failide sünkroonimine</string>
     <string name="notification_channel_general_description">Näita teavitusi meediakaustade ja muu sarnase kohta</string>
     <string name="notification_channel_general_name">Üldised teavitused</string>
-    <string name="notification_channel_media_description">Muusikaesitaja edenemine</string>
-    <string name="notification_channel_media_name">Meediaesitaja</string>
+    <string name="notification_channel_media_description">Pleieri esitusjärg</string>
+    <string name="notification_channel_media_name">Meediumipleier</string>
     <string name="notification_channel_offline_operations_description">Näitab vallasrežiimis tegevuste edenemist</string>
     <string name="notification_channel_offline_operations_name_short">Vallasrežiimis tegevused</string>
     <string name="notification_channel_push_description">Näita serveri saadetud tõuketeavitusi: mainimised kommentaarides, uute kaugkaustade vastuvõtmine, peakasutaja postitused, jmt.</string>
@@ -922,6 +922,7 @@
     <string name="retrieving_file">Laadin faili…</string>
     <string name="retry">Proovi uuesti</string>
     <string name="richdocuments_failed_to_load_document">Dokumendi laadimine ei õnnestunud!</string>
+    <string name="run_two_way_sync">Käivita sünkroonimine kohe nüüd</string>
     <string name="scanQR_description">Logi sisse QR-koodiga</string>
     <string name="scan_page">Skaneeri lehte</string>
     <string name="screenshot_01_gridView_heading">Kaitstes sinu andmeid</string>

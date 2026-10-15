@@ -171,7 +171,7 @@ internal class SharedListFragmentIT : AbstractIT() {
                             .parseAndSaveShares(listOf(), shares, storageManager, user)
                     }
                     fragment.adapter.run {
-                        prepareForSearchData(storageManager, SearchType.SHARED_FILTER)
+                        prepareForSearchData(SearchType.SHARED_FILTER)
                         updateAdapter(newList, null)
                     }
                     EspressoIdlingResource.decrement()
