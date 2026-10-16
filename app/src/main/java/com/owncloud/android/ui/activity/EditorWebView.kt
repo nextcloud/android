@@ -83,8 +83,12 @@ abstract class EditorWebView : ExternalSiteWebView() {
         }
 
         lifecycleScope.launch {
-            WebViewUtil().setProxyKKPlus(webView)
-            delay(PROXY_SETUP_DELAY)
+            val wvUtil = WebViewUtil()
+
+            if (wvUtil.hasProxyConfig()) {
+                wvUtil.setProxyKKPlus(webView)
+                delay(PROXY_SETUP_DELAY)
+            }
 
             if (loadedUrl != webView.url) {
                 webView.loadUrl(loadedUrl)
