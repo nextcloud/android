@@ -19,6 +19,8 @@ object FileLockingHelper {
         if (!file.isLocked || file.lockOwnerId == null || file.lockType != FileLockType.MANUAL) {
             return false
         }
-        return file.lockOwnerId == userId
+        // Lock owner can always unlock. The file owner can as well: server-side
+        // LockService::canUnlock allows TYPE_USER locks for the file owner.
+        return file.lockOwnerId == userId || file.ownerId == userId
     }
 }
