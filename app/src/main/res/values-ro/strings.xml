@@ -29,6 +29,7 @@
     <string name="activity_icon">Activitate</string>
     <string name="add_new_public_share">Adaugă un link public partajat nou</string>
     <string name="add_new_secure_file_drop">Adaugă o nouă încărcare securizată de fișier</string>
+    <string name="album_rename_conflict">Acest nume este deja folosit.</string>
     <string name="album_stop_sharing">Oprește partajarea</string>
     <string name="app_config_base_url_title">URL-ul de bază</string>
     <string name="app_config_disable_clipboard_title">Dezactivează clipboard</string>
@@ -42,7 +43,9 @@
     <string name="app_config_proxy_port_title">Port proxy </string>
     <string name="app_widget_description">Arată un singur widget din panoul principal</string>
     <string name="appbar_search_in">Caută in %s</string>
+    <string name="appear_offline">Apari ca offline</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Sigur doriți să ștergeți acest task?</string>
+    <string name="assistant_screen_delete_task_alert_dialog_title">Șterge sarcina</string>
     <string name="assistant_screen_task_create_fail_message">A apărut o eroare la crearea taskului</string>
     <string name="assistant_screen_task_create_success_message">Sarcina a fost creată</string>
     <string name="assistant_screen_task_delete_fail_message">A apărut o eroare la ștergerea taskului</string>
@@ -135,6 +138,7 @@
     <string name="common_error">Eroare</string>
     <string name="common_error_out_memory">Memorie insuficientă </string>
     <string name="common_error_unknown">Eroare necunoscută</string>
+    <string name="common_leave_this_share">Părăsește această partajare</string>
     <string name="common_loading">Se încarcă…</string>
     <string name="common_next">Următorul</string>
     <string name="common_no">Nu</string>
@@ -167,6 +171,7 @@
     <string name="community_testing_bug_text">Ai găsit un bug? Se întâmplă ceva ciudat?</string>
     <string name="community_testing_headline">Ajută-ne să testăm</string>
     <string name="community_testing_report_text">Raportează o problemă pe Github</string>
+    <string name="compose_activity_label">Nextcloud Assistant</string>
     <string name="configure_new_media_folder_detection_notifications">Configurează</string>
     <string name="confirm_removal">Elimină criptarea locală</string>
     <string name="confirmation_remove_file_alert">Chiar doriți să ștergeți %1$s?</string>
@@ -343,8 +348,10 @@
     <string name="etm_transfer_type">Transfer</string>
     <string name="etm_transfer_type_download">Descărcare</string>
     <string name="etm_transfer_type_upload">Încărcare</string>
+    <string name="external_shares">Partajări externe</string>
     <string name="fab_label">Adaugă sau încarcă</string>
     <string name="failed_to_download">Trecerea fișierului către managerul de descărcare a eșuat</string>
+    <string name="failed_to_load_tags">Etichetele nu au putut fi încărcate</string>
     <string name="failed_to_print">Nu s-a putut imprima fișierul</string>
     <string name="failed_to_start_editor">Nu s-a putut porni editorul</string>
     <string name="failed_update_ui">Nu s-a putut actualiza interfața</string>
@@ -478,6 +485,7 @@
     <string name="instant_upload_existing">De asemenea încarcă fisiere existente</string>
     <string name="instant_upload_on_charging">Se încarcă numai în timpul alimentării cu curent</string>
     <string name="instant_upload_path">/Încărcare instantă</string>
+    <string name="internal_shares">Partajări interne</string>
     <string name="internal_two_way_sync">Sincronizare internă în două sensuri</string>
     <string name="internal_two_way_sync_not_yet">Nu încă, urmează să fie sincronizat în curând</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">Este necesară o conexiune la internet pentru a configura dosarul criptat</string>
@@ -527,6 +535,7 @@
     <string name="move_file_invalid_into_descendent">Nu este posibil să muți un dosar într-un descendent</string>
     <string name="move_file_invalid_overwrite">Fișierul există deja în dosarul de destinație</string>
     <string name="move_file_not_found">Nu se poate muta fișierul. Vă rugăm să verificați dacă acesta există.</string>
+    <string name="mute_all_notifications">Dezactivează toate notificările</string>
     <string name="network_error_connect_timeout_exception">A apărut o eroare în timp ce așteptam pentru raspunsul serverului. Operația nu a putut avea loc.</string>
     <string name="network_error_socket_exception">A apărut o eroare în timp ce se conecta la server</string>
     <string name="network_error_socket_timeout_exception">A apărut o eroare în timp ce așteptam pentru raspunsul serverului. Operația nu a putut avea loc.</string>
@@ -600,6 +609,7 @@
     <string name="prefs_category_about">Despre</string>
     <string name="prefs_category_details">Detalii</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">Fișiere</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Mai mult</string>
     <string name="prefs_category_sync">Sincronizare</string>
@@ -684,14 +694,17 @@
     <string name="screenshot_04_accounts_subline">într-un singur loc</string>
     <string name="screenshot_05_autoUpload_heading">Încărcare automată</string>
     <string name="search_error">Eroare la returnarea rezultatelor căutării</string>
+    <string name="search_tags">Caută etichete</string>
     <string name="select_all">Selectează tot</string>
     <string name="select_media_folder">Setează dosarul pentru media</string>
     <string name="select_one_template">Te rugăm selectează un șablon</string>
     <string name="select_template">Selectează șablon</string>
     <string name="send">Trimite</string>
     <string name="set_as">Setează ca</string>
+    <string name="set_online_status">Starea online</string>
     <string name="set_picture_as">Folosește imaginea ca</string>
     <string name="share">Partajează</string>
+    <string name="share_allow_download_and_sync_permission">Permite descărcarea și sincronizarea</string>
     <string name="share_create_permission">Crează</string>
     <string name="share_custom_permission">Permisiuni particularizate</string>
     <string name="share_delete_permission">Șterge</string>
@@ -715,6 +728,7 @@
     <string name="share_no_expiration_date_label">Specifică data expirării</string>
     <string name="share_no_password_title">Setare parolă</string>
     <string name="share_permission_can_edit">Poate edita</string>
+    <string name="share_permission_file_request">Cerere de fișiere</string>
     <string name="share_permission_view_only">Numai se vizualizează</string>
     <string name="share_re_share_permission">Partajează</string>
     <string name="share_read_permission">Citit</string>
@@ -838,6 +852,7 @@
     <string name="unlock_file">Deblochează fișierul</string>
     <string name="unread_comments">Există comentarii necitite</string>
     <string name="unset_encrypted">Dezactivați criptarea</string>
+    <string name="unset_favorite">Elimină din favorite</string>
     <string name="unshare_link_file_error">A apărut o eroare la eliminarea partajării acestui fișier sau folder.</string>
     <string name="unshare_link_file_no_exist">Imposibil de șters partajarea. Te rugăm să verifici dacă există fișierul.</string>
     <string name="unshare_link_forbidden_permissions">de a nu permite accesul la acest fisier</string>
@@ -867,6 +882,7 @@
     <string name="upload_local_storage_full">Stocarea locală este plină</string>
     <string name="upload_local_storage_not_copied">Fișierul nu a putut fi copiat în memoria locală</string>
     <string name="upload_lock_failed">Blocarea dosarului a eșuat</string>
+    <string name="upload_manually_cancelled">Încărcarea a fost anulată de utilizator</string>
     <string name="upload_query_move_foreign_files">Nu există spațiu suficient pentru a copia fișierele selectate în dosarul %1$s. Doriți să le mutați în schimb?</string>
     <string name="upload_scan_doc_upload">Scanați documentul cu camera foto</string>
     <string name="upload_unknown_error">Eroare necunoscută</string>
@@ -946,6 +962,26 @@
     <string name="write_email">Expediază mesajul</string>
     <string name="wrong_storage_path">Dosarul de stocare al datelor nu există!</string>
     <string name="wrong_storage_path_desc">Acest lucru s-ar putea datora unei rstaurări a unui backup pe un alt dispozitiv. Se restaurează opțiunea prestabilită. Vă rugăm verificați setările pentru a schimba dosarul de stocare a datelor.</string>
+    <plurals name="hours">
+        <item quantity="one">%d oră</item>
+        <item quantity="few">%d ore</item>
+        <item quantity="other">%d de ore</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d minut</item>
+        <item quantity="few">%d minute</item>
+        <item quantity="other">%d de minute</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">acum %d minut</item>
+        <item quantity="few">acum %d minute</item>
+        <item quantity="other">acum %d de minute</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">acum %d oră</item>
+        <item quantity="few">acum %d ore</item>
+        <item quantity="other">acum %d de ore</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nu s-a putut sincroniza %1$d fișierul (conflicte: %2$d )</item>
         <item quantity="few">Nu s-au putut sincroniza %1$d fișiere (conflicte: %2$d )</item>
@@ -1010,5 +1046,15 @@
         <item quantity="one">%dselectat</item>
         <item quantity="few">%dselectate</item>
         <item quantity="other">%dselectate</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_files">
+        <item quantity="one">%d fișier</item>
+        <item quantity="few">%d fișiere</item>
+        <item quantity="other">%d de fișiere</item>
+    </plurals>
+    <plurals name="autoupload_delete_uploaded_notif_ended_content_folders">
+        <item quantity="one">%d dosar</item>
+        <item quantity="few">%d dosare</item>
+        <item quantity="other">%d de dosare</item>
     </plurals>
     </resources>
