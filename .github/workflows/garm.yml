@@ -50,8 +50,6 @@ jobs:
                     distribution: "temurin"
                     java-version: 21
 
-            -   uses: ./.github/actions/publish-fairscan-to-maven-local
-
             -   name: Configure gradle daemon
                 run: |
                     mkdir -p $HOME/.gradle
