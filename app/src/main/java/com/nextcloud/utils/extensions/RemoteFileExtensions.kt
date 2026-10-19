@@ -7,7 +7,7 @@
 
 package com.nextcloud.utils.extensions
 
-import com.nextcloud.utils.TimeConstants
+import com.nextcloud.utils.AppConstants
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.lib.resources.shares.ShareeUser
@@ -20,14 +20,14 @@ fun RemoteFile.isSame(path: String?): Boolean {
     val localFile = path?.toFile() ?: return false
 
     // remote file timestamp in millisecond not microsecond
-    val localLastModifiedTimestamp = localFile.lastModified() / TimeConstants.MILLIS_PER_SECOND
+    val localLastModifiedTimestamp = localFile.lastModified() / AppConstants.MILLIS_PER_SECOND
     val localCreationTimestamp = FileUtil.getCreationTimestamp(localFile)
     val localSize: Long = localFile.length()
 
     return size == localSize &&
         localCreationTimestamp != null &&
         localCreationTimestamp == creationTimestamp &&
-        modifiedTimestamp == localLastModifiedTimestamp * TimeConstants.MILLIS_PER_SECOND &&
+        modifiedTimestamp == localLastModifiedTimestamp * AppConstants.MILLIS_PER_SECOND &&
         this.areImageDimensionsSame(path)
 }
 

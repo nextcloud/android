@@ -12,11 +12,12 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OCCapability
 import org.json.JSONException
+import com.nextcloud.utils.AppConstants.BYTES_PER_KB
 
 private val gson = Gson()
 
 private const val TAG = "OCCapabilityExtensions"
-private const val MAX_JSON_BYTES = 512 * 1024
+private const val MAX_JSON_BYTES = 512 * BYTES_PER_KB
 
 /**
  * Determines whether **Windows-compatible file (WCF)** restrictions should be applied

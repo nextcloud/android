@@ -22,6 +22,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.ui.activity.ConflictsResolveActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import com.nextcloud.utils.AppConstants.PROGRESS_PERCENTAGE_MAX
 
 class OfflineOperationsNotificationManager(private val context: Context, viewThemeUtils: ViewThemeUtils) :
     WorkerNotificationManager(
@@ -35,14 +36,12 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
     companion object {
         private const val ID = 121
         const val ERROR_ID = 122
-
-        private const val ONE_HUNDRED_PERCENT = 100
     }
 
     fun start() {
         notificationBuilder.run {
             setContentTitle(context.getString(R.string.offline_operations_worker_notification_start_text))
-            setProgress(ONE_HUNDRED_PERCENT, 0, false)
+            setProgress(PROGRESS_PERCENTAGE_MAX, 0, false)
         }
 
         showNotification()
@@ -60,11 +59,11 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
             filename
         }
 
-        val progress = (currentOperationIndex * ONE_HUNDRED_PERCENT) / totalOperationSize
+        val progress = (currentOperationIndex * PROGRESS_PERCENTAGE_MAX) / totalOperationSize
 
         notificationBuilder.run {
             setContentTitle(title)
-            setProgress(ONE_HUNDRED_PERCENT, progress, false)
+            setProgress(PROGRESS_PERCENTAGE_MAX, progress, false)
         }
 
         showNotification()

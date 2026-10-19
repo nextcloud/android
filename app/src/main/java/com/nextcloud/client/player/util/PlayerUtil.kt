@@ -43,6 +43,7 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import java.io.File
 import java.util.Collections
+import com.nextcloud.utils.AppConstants.MILLIS_PER_SECOND
 
 @Suppress("TooManyFunctions")
 object PlayerUtil {
@@ -52,7 +53,6 @@ object PlayerUtil {
     private const val PLAYBACK_FILE_KEY = "playback_file"
     private const val NO_INDEX = -1
     private const val UNKNOWN_CONTENT_LENGTH = -1L
-    private const val SECOND_IN_MILLISECONDS = 1000L
     private const val PLAYBACK_FILE_CACHE_SIZE = 512
 
     private val playbackFileCache = LruCache<String, PlaybackFile>(PLAYBACK_FILE_CACHE_SIZE)
@@ -188,7 +188,7 @@ object PlayerUtil {
         name = path?.let { File(it).name } ?: "",
         mimeType = resolveMimeType(),
         contentLength = UNKNOWN_CONTENT_LENGTH,
-        lastModified = sharedDate * SECOND_IN_MILLISECONDS,
+        lastModified = sharedDate * MILLIS_PER_SECOND,
         isFavorite = isFavorite
     )
 

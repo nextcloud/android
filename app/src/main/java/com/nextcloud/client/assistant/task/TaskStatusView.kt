@@ -36,6 +36,7 @@ import com.owncloud.android.lib.resources.assistant.v2.model.TaskInput
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskOutput
 import com.owncloud.android.lib.resources.status.OCCapability
 import java.util.concurrent.TimeUnit
+import com.nextcloud.utils.AppConstants.MILLIS_PER_SECOND
 
 @Composable
 fun TaskStatusView(task: Task, capability: OCCapability) {
@@ -72,7 +73,7 @@ fun TaskStatusView(task: Task, capability: OCCapability) {
 @Composable
 @Preview
 private fun TaskStatusViewPreview() {
-    val currentTime = System.currentTimeMillis() / 1000
+    val currentTime = System.currentTimeMillis() / MILLIS_PER_SECOND
 
     val tasks = listOf(
         Task(

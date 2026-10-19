@@ -35,6 +35,7 @@ import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import com.nextcloud.utils.AppConstants.MILLIS_PER_SECOND
 
 private typealias OfflineOperationResult = Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>?
 
@@ -49,8 +50,6 @@ class OfflineOperationsWorker(
     companion object {
         private val TAG = OfflineOperationsWorker::class.java.simpleName
         const val JOB_NAME = "JOB_NAME"
-
-        private const val ONE_SECOND = 1000L
     }
 
     private val fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
@@ -269,7 +268,7 @@ class OfflineOperationsWorker(
     @Suppress("DEPRECATION")
     private fun createFile(operation: OfflineOperationEntity, client: OwnCloudClient): OfflineOperationResult {
         val operationType = (operation.type as OfflineOperationType.CreateFile)
-        val lastModificationDate = System.currentTimeMillis() / ONE_SECOND
+        val lastModificationDate = System.currentTimeMillis() / MILLIS_PER_SECOND
         val createFileOperation = UploadFileRemoteOperation(
             operationType.localPath,
             operationType.remotePath,

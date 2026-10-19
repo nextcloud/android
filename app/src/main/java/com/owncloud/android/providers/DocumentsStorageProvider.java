@@ -34,6 +34,7 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.utils.HashUtil;
+import com.nextcloud.utils.AppConstants;
 import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.fileNameValidator.FileNameValidator;
@@ -681,11 +682,12 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         try {
             // perform the upload, no need for chunked operation as we have a empty file
             OwnCloudClient client = targetFolder.getClient();
+            final long nowSeconds = System.currentTimeMillis() / AppConstants.MILLIS_PER_SECOND;
             final var result = new UploadFileRemoteOperation(emptyFile.getAbsolutePath(),
                                                                          newFilePath,
                                                                          mimeType,
                                                                          "",
-                                                                         System.currentTimeMillis() / 1000,
+                                                                         nowSeconds,
                                                                          FileUtil.getCreationTimestamp(emptyFile),
                                                                          false)
                 .execute(client);

@@ -26,6 +26,7 @@ import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import com.nextcloud.utils.AppConstants.MILLIS_PER_SECOND
 
 class GallerySearchTask(
     private val fragment: GalleryFragment,
@@ -37,7 +38,6 @@ class GallerySearchTask(
     companion object {
         private const val NO_TIMESTAMP = -1L
         private const val DATE_FORMAT = "yyyy-MM-dd HH:mm:ss"
-        private const val MILLIS_PER_SECOND = 1000L
     }
 
     fun execute(): Job = fragment.lifecycleScope.launch(Dispatchers.IO) {

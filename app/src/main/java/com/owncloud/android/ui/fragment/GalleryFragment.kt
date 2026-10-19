@@ -62,6 +62,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import com.nextcloud.utils.AppConstants.MILLIS_PER_SECOND
 
 @Suppress("ForbiddenComment", "ReturnCount", "MagicNumber", "MaxLineLength", "TooManyFunctions")
 class GalleryFragment :
@@ -296,7 +297,7 @@ class GalleryFragment :
             return
         }
 
-        endDate = System.currentTimeMillis() / 1000
+        endDate = System.currentTimeMillis() / MILLIS_PER_SECOND
         runGallerySearchTask()
     }
 
@@ -363,7 +364,7 @@ class GalleryFragment :
         loadedItemCount = INITIAL_GALLERY_WINDOW
         restoreScrollPending = false
         clearSavedViewState()
-        endDate = System.currentTimeMillis() / 1000
+        endDate = System.currentTimeMillis() / MILLIS_PER_SECOND
         runGallerySearchTask()
     }
 
@@ -405,7 +406,7 @@ class GalleryFragment :
         }
 
         val lastFile = adapter?.getItem(lastVisibleItem - 1) ?: return
-        val lastItemTimestamp = lastFile.modificationTimestamp / 1000
+        val lastItemTimestamp = lastFile.modificationTimestamp / MILLIS_PER_SECOND
 
         // if we have already older media in the gallery then retrieve file in chronological order to fill the gap
         if (lastItemTimestamp < this.endDate) {

@@ -25,8 +25,9 @@ import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import com.nextcloud.utils.AppConstants.ONE_SECOND
 
-fun mainThread(delay: Long = 1000, action: () -> Unit) {
+fun mainThread(delay: Long = ONE_SECOND.inWholeMilliseconds, action: () -> Unit) {
     Handler(Looper.getMainLooper()).postDelayed({
         action()
     }, delay)

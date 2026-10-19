@@ -13,8 +13,7 @@ import com.nextcloud.utils.text.DisplayTextFormatter
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PredefinedStatusBinding
 import com.owncloud.android.lib.resources.users.PredefinedStatus
-
-private const val ONE_SECOND_IN_MILLIS = 1000
+import com.nextcloud.utils.AppConstants.MILLIS_PER_SECOND
 
 class PredefinedStatusViewHolder(private val binding: PredefinedStatusBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -30,7 +29,7 @@ class PredefinedStatusViewHolder(private val binding: PredefinedStatusBinding) :
             if (clearAt.type.equals("period")) {
                 binding.clearAt.text = DisplayTextFormatter.formatRelativeTimestamp(
                     context,
-                    System.currentTimeMillis() + clearAt.time.toInt() * ONE_SECOND_IN_MILLIS,
+                    System.currentTimeMillis() + clearAt.time.toInt() * MILLIS_PER_SECOND,
                     true
                 )
             } else {

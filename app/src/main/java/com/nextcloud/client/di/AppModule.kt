@@ -70,6 +70,7 @@ import java.io.File
 import javax.inject.Named
 import javax.inject.Provider
 import javax.inject.Singleton
+import com.nextcloud.utils.AppConstants.BYTES_PER_MB
 
 @Module(includes = [ComponentsModule::class, VariantComponentsModule::class, BuildTypeComponentsModule::class])
 @Suppress("TooManyFunctions")
@@ -266,7 +267,7 @@ internal class AppModule {
     companion object {
         private const val LOG_DIR_NAME = "logs"
         private const val LOG_FILE_NAME = "log.txt"
-        private const val LOG_FILE_MAX_SIZE_BYTES = 1024L * 1024L
+        private const val LOG_FILE_MAX_SIZE_BYTES = BYTES_PER_MB.toLong()
         private const val LOGGER_QUEUE_CAPACITY = 1000
         private const val UI_THREAD_POOL_SIZE = 4
         private const val IO_THREAD_POOL_SIZE = 8

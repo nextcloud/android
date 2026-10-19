@@ -32,6 +32,7 @@ import android.widget.ImageView;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.utils.AppConstants;
 import com.nextcloud.utils.BitmapExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.OCFileExtensionsKt;
@@ -76,9 +77,7 @@ import static com.nextcloud.utils.extensions.ThumbnailsCacheManagerExtensionsKt.
  * Manager for concurrent access to thumbnails cache.
  */
 public final class ThumbnailsCacheManager {
-    private static final int READ_TIMEOUT = 40000;
     private static final int[] VIDEO_PREVIEW_SIZES = {1024, 512, 256, 128, 64};
-    private static final int CONNECTION_TIMEOUT = 5000;
 
     /** Cache key prefix {@code <prefix><remoteId>}; sized from {@link #getScreenDimension()}. */
     public static final String PREFIX_RESIZED_IMAGE = "r";
@@ -98,7 +97,7 @@ public final class ThumbnailsCacheManager {
     private static volatile DiskLruImageCache mThumbnailCache;
     private static volatile boolean mThumbnailCacheStarting = true;
 
-    private static final int DISK_CACHE_SIZE = 1024 * 1024 * 200; // 200MB
+    private static final int DISK_CACHE_SIZE = 200 * AppConstants.BYTES_PER_MB;
     private static final CompressFormat mCompressFormat = CompressFormat.JPEG;
     private static final int mCompressQuality = 70;
     private static OwnCloudClient mClient;
@@ -667,7 +666,9 @@ public final class ThumbnailsCacheManager {
                     getMethod.setRequestHeader("Cookie", "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
                     getMethod.setRequestHeader(RemoteOperation.OCS_API_HEADER, RemoteOperation.OCS_API_HEADER_VALUE);
 
-                    int status = mClient.executeMethod(getMethod, READ_TIMEOUT, CONNECTION_TIMEOUT);
+                    int status = mClient.executeMethod(getMethod,
+                                                       AppConstants.DEFAULT_READ_TIMEOUT_MS,
+                                                       AppConstants.DEFAULT_CONNECTION_TIMEOUT_MS);
 
                     if (status == HttpStatus.SC_OK) {
                         try (InputStream inputStream = getMethod.getResponseBodyAsStream()) {
@@ -915,7 +916,7 @@ public final class ThumbnailsCacheManager {
 
         try {
             getMethod = new GetMethod(uri);
-            getMethod.getParams().setSoTimeout(READ_TIMEOUT);
+            getMethod.getParams().setSoTimeout(AppConstants.DEFAULT_READ_TIMEOUT_MS);
 
             int status = mClient.executeMethod(getMethod);
             if (status != HttpStatus.SC_OK) {
