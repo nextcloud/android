@@ -384,7 +384,7 @@
             android:exported="false"
             android:theme="@style/PreferenceTheme" />
         <activity
-            android:name=".ui.preview.PreviewImageActivity"
+            android:name=".ui.preview.PreviewMediaActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:exported="false"
             android:supportsPictureInPicture="true"

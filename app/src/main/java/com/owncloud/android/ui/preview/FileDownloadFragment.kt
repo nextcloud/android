@@ -74,7 +74,7 @@ class FileDownloadFragment :
 
         binding.cancelBtn.setOnClickListener(this)
         binding.fileDownloadLL.setOnClickListener {
-            getTypedActivity(PreviewImageActivity::class.java)?.toggleFullScreen()
+            getTypedActivity(PreviewMediaActivity::class.java)?.toggleFullScreen()
         }
 
         setButtonsForTransferring(isTransferring = !downloadError)

@@ -36,11 +36,10 @@ import org.junit.After
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Test
 import java.io.File
 
-class PreviewImageActivityIT : AbstractOnServerIT() {
+class PreviewMediaActivityIT : AbstractOnServerIT() {
     companion object {
         private const val REMOTE_FOLDER: String = "/PreviewImageActivityIT/"
     }
@@ -152,8 +151,8 @@ class PreviewImageActivityIT : AbstractOnServerIT() {
         }
         val expectedFileOrder = fileListTransformation(testFiles)
 
-        val intent = PreviewImageActivity.previewFileIntent(targetContext, user, expectedFileOrder.first())
-        launchActivity<PreviewImageActivity>(intent).use { scenario ->
+        val intent = PreviewMediaActivity.previewFileIntent(targetContext, user, expectedFileOrder.first())
+        launchActivity<PreviewMediaActivity>(intent).use { scenario ->
             if (offline) {
                 scenario.onActivity { activity ->
                     activity.connectivityService = connectivityServiceMock

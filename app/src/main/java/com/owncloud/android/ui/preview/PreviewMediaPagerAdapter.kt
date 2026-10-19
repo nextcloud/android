@@ -82,7 +82,7 @@ class PreviewMediaPagerAdapter(
         if (file.isAudioOrVideo()) {
             PreviewPlaybackFragment.newInstance(file, playbackCollection, takeAutoplay(file))
         } else {
-            PreviewImageFragment.newInstance(file, ignoreFirstSavedState, false)
+            PreviewMediaFragment.newInstance(file, ignoreFirstSavedState, false)
         }
 
     private fun fragmentForNotDownloaded(file: OCFile, position: Int, ignoreFirstSavedState: Boolean): Fragment {
@@ -98,7 +98,7 @@ class PreviewMediaPagerAdapter(
 
             file.isAudioOrVideo() -> PreviewPlaybackFragment.newInstance(file, playbackCollection, takeAutoplay(file))
 
-            else -> PreviewImageFragment.newInstance(file, ignoreFirstSavedState, true)
+            else -> PreviewMediaFragment.newInstance(file, ignoreFirstSavedState, true)
         }
     }
 

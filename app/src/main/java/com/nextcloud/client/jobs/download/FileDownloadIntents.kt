@@ -14,8 +14,8 @@ import com.owncloud.android.authentication.AuthenticatorActivity
 import com.owncloud.android.operations.DownloadFileOperation
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.ui.preview.PreviewImageActivity
-import com.owncloud.android.ui.preview.PreviewImageFragment
+import com.owncloud.android.ui.preview.PreviewMediaActivity
+import com.owncloud.android.ui.preview.PreviewMediaFragment
 
 class FileDownloadIntents(private val context: Context) {
 
@@ -31,8 +31,8 @@ class FileDownloadIntents(private val context: Context) {
     }
 
     fun detailsIntent(operation: DownloadFileOperation?): Intent = if (operation != null) {
-        if (PreviewImageFragment.canBePreviewed(operation.file)) {
-            Intent(context, PreviewImageActivity::class.java)
+        if (PreviewMediaFragment.canBePreviewed(operation.file)) {
+            Intent(context, PreviewMediaActivity::class.java)
         } else {
             Intent(context, FileDisplayActivity::class.java)
         }.apply {

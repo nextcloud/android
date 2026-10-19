@@ -19,7 +19,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.ConflictsResolveActivity
 import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.ui.preview.PreviewImageFragment
+import com.owncloud.android.ui.preview.PreviewMediaFragment
 import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.MimeTypeUtil
 import java.io.File
@@ -64,7 +64,7 @@ class UploadListAdapterHelper(private val activity: DrawerActivity) {
         }
 
         val optionalUser = activity.user
-        if (PreviewImageFragment.canBePreviewed(file) && optionalUser.isPresent) {
+        if (PreviewMediaFragment.canBePreviewed(file) && optionalUser.isPresent) {
             // show image preview and stay in uploads tab
             val intent = FileDisplayActivity.openFileIntent(activity, optionalUser.get(), file)
             activity.startActivity(intent)

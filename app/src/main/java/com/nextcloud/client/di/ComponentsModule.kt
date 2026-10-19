@@ -129,8 +129,8 @@ import com.owncloud.android.ui.fragment.uploadList.UploadListFragment
 import com.owncloud.android.ui.navigation.NavigatorActivity
 import com.owncloud.android.ui.preview.FileDownloadFragment
 import com.owncloud.android.ui.preview.PreviewBitmapActivity
-import com.owncloud.android.ui.preview.PreviewImageActivity
-import com.owncloud.android.ui.preview.PreviewImageFragment
+import com.owncloud.android.ui.preview.PreviewMediaActivity
+import com.owncloud.android.ui.preview.PreviewMediaFragment
 import com.owncloud.android.ui.preview.PreviewPlaybackFragment
 import com.owncloud.android.ui.preview.PreviewTextFileFragment
 import com.owncloud.android.ui.preview.PreviewTextFragment
@@ -213,7 +213,7 @@ internal interface ComponentsModule {
     fun passCodeActivity(): PassCodeActivity
 
     @ContributesAndroidInjector
-    fun previewImageActivity(): PreviewImageActivity
+    fun previewImageActivity(): PreviewMediaActivity
 
     @ContributesAndroidInjector
     fun receiveExternalFilesActivity(): ReceiveExternalFilesActivity
@@ -288,7 +288,7 @@ internal interface ComponentsModule {
     fun contactsBackupFragment(): BackupFragment
 
     @ContributesAndroidInjector
-    fun previewImageFragment(): PreviewImageFragment
+    fun previewImageFragment(): PreviewMediaFragment
 
     @ContributesAndroidInjector
     fun chooseContactListFragment(): BackupListFragment

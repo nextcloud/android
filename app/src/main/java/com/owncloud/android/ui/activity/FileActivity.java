@@ -92,7 +92,7 @@ import com.owncloud.android.ui.fragment.filesRepository.FilesRepository;
 import com.owncloud.android.ui.fragment.filesRepository.RemoteFilesRepository;
 import com.owncloud.android.ui.helpers.CredentialsUpdateHelper;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
-import com.owncloud.android.ui.preview.PreviewImageActivity;
+import com.owncloud.android.ui.preview.PreviewMediaActivity;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FilesSyncHelper;
@@ -220,7 +220,7 @@ public abstract class FileActivity extends DrawerActivity
                 savedInstanceState.getLong(KEY_WAITING_FOR_OP_ID, Long.MAX_VALUE)
                                                    );
             final ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null && !(this instanceof PreviewImageActivity)) {
+            if (actionBar != null && !(this instanceof PreviewMediaActivity)) {
                 viewThemeUtils.files.themeActionBar(this, actionBar, savedInstanceState.getString(KEY_ACTION_BAR_TITLE));
             }
         } else {

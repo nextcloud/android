@@ -111,8 +111,8 @@ class PreviewPlaybackFragment :
 
     private var pictureInPictureCallback: OnBackPressedCallback? = null
 
-    private val previewActivity: PreviewImageActivity?
-        get() = activity as? PreviewImageActivity
+    private val previewActivity: PreviewMediaActivity?
+        get() = activity as? PreviewMediaActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

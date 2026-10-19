@@ -19,8 +19,8 @@ import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
-import com.owncloud.android.ui.preview.PreviewImageActivity
-import com.owncloud.android.ui.preview.PreviewImageFragment
+import com.owncloud.android.ui.preview.PreviewMediaActivity
+import com.owncloud.android.ui.preview.PreviewMediaFragment
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 import javax.inject.Provider
@@ -70,8 +70,8 @@ class AppNotificationManagerImpl @Inject constructor(
             .setContentText(content)
 
         if (allowPreview) {
-            val openFileIntent = if (PreviewImageFragment.canBePreviewed(file)) {
-                PreviewImageActivity.previewFileIntent(context, fileOwner, file)
+            val openFileIntent = if (PreviewMediaFragment.canBePreviewed(file)) {
+                PreviewMediaActivity.previewFileIntent(context, fileOwner, file)
             } else {
                 FileDisplayActivity.openFileIntent(context, fileOwner, file)
             }

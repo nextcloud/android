@@ -23,7 +23,7 @@ import com.nextcloud.client.player.model.file.toVirtualFolderType
 import com.nextcloud.client.player.ui.audio.AudioPlayerActivity
 import com.nextcloud.client.player.util.PlayerUtil.playbackFile
 import com.owncloud.android.datamodel.FileDataStorageManager
-import com.owncloud.android.ui.preview.PreviewImageActivity
+import com.owncloud.android.ui.preview.PreviewMediaActivity
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
@@ -113,8 +113,8 @@ class PlaybackService : MediaSessionService() {
             ?: return null
         val virtualFolderType = playbackResumptionConfigStore.loadConfig()?.collection?.toVirtualFolderType()
 
-        return PreviewImageActivity.previewFileIntent(this, user, file).apply {
-            putExtra(PreviewImageActivity.EXTRA_VIRTUAL_TYPE, virtualFolderType)
+        return PreviewMediaActivity.previewFileIntent(this, user, file).apply {
+            putExtra(PreviewMediaActivity.EXTRA_VIRTUAL_TYPE, virtualFolderType)
         }
     }
 

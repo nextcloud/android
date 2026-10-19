@@ -35,8 +35,8 @@ import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.interfaces.ActivityListInterface
 import com.owncloud.android.ui.navigation.NavigatorActivity
-import com.owncloud.android.ui.preview.PreviewImageActivity
-import com.owncloud.android.ui.preview.PreviewImageFragment.Companion.canBePreviewed
+import com.owncloud.android.ui.preview.PreviewMediaActivity
+import com.owncloud.android.ui.preview.PreviewMediaFragment.Companion.canBePreviewed
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -179,7 +179,7 @@ class ActivitiesFragment :
         val context = context ?: return
         val user = userAccountManager.user
         val intent = if (canBePreviewed(ocFile)) {
-            Intent(context, PreviewImageActivity::class.java)
+            Intent(context, PreviewMediaActivity::class.java)
         } else {
             Intent(context, FileDisplayActivity::class.java)
         }.apply {
