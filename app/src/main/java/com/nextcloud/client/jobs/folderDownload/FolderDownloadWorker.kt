@@ -50,6 +50,8 @@ class FolderDownloadWorker(
         private val pendingDownloads: MutableSet<Long> = ConcurrentHashMap.newKeySet()
         fun isDownloading(id: Long): Boolean = pendingDownloads.contains(id)
         fun formatTag(folderId: Long): String = BackgroundJobManagerImpl.JOB_DOWNLOAD_FOLDER + folderId
+        fun formatParentTag(parentId: Long): String =
+            BackgroundJobManagerImpl.JOB_DOWNLOAD_FOLDER + "_parent_" + parentId
     }
 
     private val notificationManager = FolderDownloadWorkerNotificationManager(context, true, viewThemeUtils)
