@@ -101,6 +101,8 @@ lane :makeReleases do
     sh("rm -rf ../release/ && mkdir -p ../release")
     gradle(task: 'clean')
 
+    disableR8Optimization()
+
     createGenericRelease(versionCode:info["versionCode"])
 
     createGplayRelease(versionCode:info["versionCode"])
@@ -289,6 +291,14 @@ end
 
 private_lane :enableLogger do
     sh("sed -i s'#<bool name=\"logger_enabled\">true</bool>#<bool name=\"logger_enabled\">false</bool>#' ../app/src/main/res/values/setup.xml")
+end
+
+private_lane :disableR8Optimization do
+    path = "../app/build.gradle.kts"
+    text = File.read(path)
+    pattern = /(optimization\s*\{\s*enable\s*=\s*)(true|false)/
+    UI.user_error!("R8 optimization flag not found in #{path}") unless text.match?(pattern)
+    File.write(path, text.sub(pattern, "\\1false"))
 end
 
 desc "Upload to play store (beta)"
