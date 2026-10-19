@@ -2409,7 +2409,7 @@ class FileDisplayActivity :
 
             val leftFragment = this.leftFragment
             if (leftFragment is FileDetailFragment) {
-                leftFragment.getFileDetailActivitiesFragment().reload()
+                leftFragment.fileDetailActivitiesFragment?.reload()
             }
         } else {
             SnackbarUtil.show(this, R.string.file_version_restored_error)

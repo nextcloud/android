@@ -1,928 +1,783 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2021 TSI-mc
  * SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger.de>
  * SPDX-FileCopyrightText: 2016 ownCloud Inc.
  * SPDX-FileCopyrightText: 2011 Bartosz Przybylski <bart.p.pl@gmail.com>
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-package com.owncloud.android.ui.fragment;
+package com.owncloud.android.ui.fragment
 
-import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
+import android.content.Context
+import android.content.res.ColorStateList
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import androidx.annotation.DrawableRes
+import androidx.annotation.IdRes
+import androidx.annotation.StringRes
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.toColorInt
+import androidx.core.os.BundleCompat
+import androidx.core.view.MenuProvider
+import androidx.core.view.isVisible
+import androidx.fragment.app.commit
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.chip.Chip
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.tabs.TabLayout
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.nextcloud.client.account.User
+import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.di.ViewModelFactory
+import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.jobs.download.FileDownloadHelper
+import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.repository.ClientRepository
+import com.nextcloud.ui.fileDetail.FileDetailPreview
+import com.nextcloud.ui.fileactions.FileAction
+import com.nextcloud.ui.fileactions.FileActionsBottomSheet
+import com.nextcloud.ui.tags.TagManagementBottomSheet
+import com.nextcloud.utils.HumanReadableFormatter
+import com.nextcloud.utils.MenuUtils
+import com.nextcloud.utils.SnackbarUtil
+import com.nextcloud.utils.extensions.collectWhenStarted
+import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.mdm.MDMConfig
+import com.nextcloud.utils.text.DisplayTextFormatter
+import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator
+import com.owncloud.android.R
+import com.owncloud.android.databinding.FileDetailsFragmentBinding
+import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.files.ToggleFavoriteRemoteOperation
+import com.owncloud.android.lib.resources.shares.OCShare
+import com.owncloud.android.lib.resources.shares.ShareType
+import com.owncloud.android.lib.resources.tags.Tag
+import com.owncloud.android.ui.activity.DrawerActivity
+import com.owncloud.android.ui.activity.FileActivity
+import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.ui.activity.ToolbarActivity
+import com.owncloud.android.ui.adapter.FileDetailTabAdapter
+import com.owncloud.android.ui.adapter.progressListener.DownloadProgressListener
+import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment
+import com.owncloud.android.ui.dialog.RenameFileDialogFragment
+import com.owncloud.android.ui.events.FavoriteEvent
+import com.owncloud.android.ui.fragment.filedetail.FileDetailFragmentViewModel
+import com.owncloud.android.ui.helpers.FileOperationsHelper
+import com.owncloud.android.utils.EncryptionUtils
+import com.owncloud.android.utils.MimeTypeUtil
+import com.owncloud.android.utils.theme.CapabilityUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+import javax.inject.Inject
 
-import com.google.android.material.chip.Chip;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
-import com.nextcloud.android.common.ui.theme.utils.ColorRole;
-import com.nextcloud.client.account.User;
-import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.di.ViewModelFactory;
-import com.nextcloud.client.jobs.BackgroundJobManager;
-import com.nextcloud.client.jobs.download.FileDownloadHelper;
-import com.nextcloud.client.jobs.upload.FileUploadHelper;
-import com.nextcloud.client.network.ClientFactory;
-import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.ui.fileDetail.FileDetailPreview;
-import com.nextcloud.ui.fileactions.FileAction;
-import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
-import com.nextcloud.ui.tags.TagManagementBottomSheet;
-import com.nextcloud.utils.HumanReadableFormatter;
-import com.nextcloud.utils.MenuUtils;
-import com.nextcloud.utils.SnackbarUtil;
-import com.nextcloud.utils.extensions.BundleExtensionsKt;
-import com.nextcloud.utils.extensions.LifecycleOwnerExtensionsKt;
-import com.nextcloud.utils.mdm.MDMConfig;
-import com.nextcloud.utils.text.DisplayTextFormatter;
-import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator;
-import com.owncloud.android.R;
-import com.owncloud.android.databinding.FileDetailsFragmentBinding;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.ToggleFavoriteRemoteOperation;
-import com.owncloud.android.lib.resources.shares.OCShare;
-import com.owncloud.android.lib.resources.shares.ShareType;
-import com.owncloud.android.lib.resources.tags.Tag;
-import com.owncloud.android.ui.activity.DrawerActivity;
-import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.activity.ToolbarActivity;
-import com.owncloud.android.ui.adapter.FileDetailTabAdapter;
-import com.owncloud.android.ui.adapter.progressListener.DownloadProgressListener;
-import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
-import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
-import com.owncloud.android.ui.events.FavoriteEvent;
-import com.owncloud.android.ui.fragment.filedetail.FileDetailFragmentViewModel;
-import com.owncloud.android.utils.EncryptionUtils;
-import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.CapabilityUtils;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
+@Suppress("TooManyFunctions")
+class FileDetailFragment :
+    FileFragment(),
+    View.OnClickListener,
+    Injectable {
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+    // region Dependencies
+    @Inject
+    lateinit var preferences: AppPreferences
 
-import java.util.ArrayList;
-import java.util.Objects;
+    @Inject
+    lateinit var clientRepository: ClientRepository
 
-import javax.inject.Inject;
+    @Inject
+    lateinit var storageManager: FileDataStorageManager
 
-import androidx.annotation.IdRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager2.widget.ViewPager2;
+    @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
 
-/**
- * This Fragment is used to display the details about a file.
- */
-public class FileDetailFragment extends FileFragment implements OnClickListener, Injectable {
-    private static final String TAG = FileDetailFragment.class.getSimpleName();
-    private static final String FTAG_CONFIRMATION = "REMOVE_CONFIRMATION_FRAGMENT";
-    static final String FTAG_RENAME_FILE = "RENAME_FILE_FRAGMENT";
+    @Inject
+    lateinit var backgroundJobManager: BackgroundJobManager
 
-    private static final String ARG_FILE = "FILE";
-    private static final String ARG_PARENT_FOLDER = "PARENT_FOLDER";
-    private static final String ARG_USER = "USER";
-    private static final String ARG_ACTIVE_TAB = "TAB";
-    private View view;
-    private User user;
-    private OCFile parentFolder;
-    private boolean previewLoaded;
+    @Inject
+    lateinit var folderThumbnailGenerator: FolderThumbnailGenerator
 
-    private FileDetailsFragmentBinding binding;
-    private DownloadProgressListener progressListener;
-    private ToolbarActivity toolbarActivity;
-    private int activeTab;
-    private FileDetailFragmentViewModel viewModel;
+    @Inject
+    lateinit var vmFactory: ViewModelFactory
+    // endregion
 
-    @Inject AppPreferences preferences;
-    @Inject UserAccountManager accountManager;
-    @Inject ClientFactory clientFactory;
-    @Inject FileDataStorageManager storageManager;
-    @Inject ViewThemeUtils viewThemeUtils;
-    @Inject BackgroundJobManager backgroundJobManager;
-    @Inject FolderThumbnailGenerator folderThumbnailGenerator;
-    @Inject ViewModelFactory vmFactory;
+    // region State
+    private var inflatedRootView: View? = null
+    private var user: User? = null
+    private var parentFolder: OCFile? = null
+    private var previewLoaded = false
+    private var binding: FileDetailsFragmentBinding? = null
+    private var progressListener: DownloadProgressListener? = null
+    private var toolbarActivity: ToolbarActivity? = null
+    private var activeTab = ACTIVITIES_TAB_POSITION
+    private var viewModel: FileDetailFragmentViewModel? = null
 
-    /**
-     * Public factory method to create new FileDetailFragment instances.
-     * <p>
-     * When 'fileToDetail' or 'ocAccount' are null, creates a dummy layout (to use when a file wasn't tapped before).
-     *
-     * @param fileToDetail An {@link OCFile} to show in the fragment
-     * @param user         Currently active user
-     * @return New fragment with arguments set
-     */
-    public static FileDetailFragment newInstance(OCFile fileToDetail, OCFile parentFolder, User user) {
-        FileDetailFragment frag = new FileDetailFragment();
-        Bundle args = new Bundle();
-        args.putParcelable(ARG_FILE, fileToDetail);
-        args.putParcelable(ARG_PARENT_FOLDER, parentFolder);
-        args.putParcelable(ARG_USER, user);
-        frag.setArguments(args);
-        return frag;
+    private val tabAdapter: FileDetailTabAdapter?
+        get() = binding?.pager?.adapter as? FileDetailTabAdapter
+
+    private val fileOperationsHelper: FileOperationsHelper?
+        get() = containerActivity?.fileOperationsHelper
+
+    val fileDetailSharingFragment: FileDetailSharingFragment?
+        get() = tabAdapter?.fileDetailSharingFragment
+
+    val fileDetailActivitiesFragment: FileDetailActivitiesFragment?
+        get() = tabAdapter?.fileDetailActivitiesFragment
+
+    val isEmpty: Boolean
+        get() = file == null || user == null
+    // endregion
+
+    // region Lifecycle
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this, vmFactory)[FileDetailFragmentViewModel::class.java]
     }
 
-    /**
-     * Public factory method to create new FileDetailFragment instances.
-     * <p>
-     * When 'fileToDetail' or 'ocAccount' are null, creates a dummy layout (to use when a file wasn't tapped before).
-     *
-     * @param fileToDetail An {@link OCFile} to show in the fragment
-     * @param user         Currently active user
-     * @param activeTab    to be active tab
-     * @return New fragment with arguments set
-     */
-    public static FileDetailFragment newInstance(OCFile fileToDetail, User user, int activeTab) {
-        FileDetailFragment frag = new FileDetailFragment();
-        Bundle args = new Bundle();
-        args.putParcelable(ARG_FILE, fileToDetail);
-        args.putParcelable(ARG_USER, user);
-        args.putInt(ARG_ACTIVE_TAB, activeTab);
-        frag.setArguments(args);
-        return frag;
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val args = requireNotNull(arguments) { "Arguments may not be null" }
+        (activity as? DrawerActivity)?.showBottomNavigationBar(false)
+        readArguments(args)
+        savedInstanceState?.let(::restoreInstanceState)
 
-    /**
-     * Creates an empty details fragment.
-     *
-     * It's necessary to keep a public constructor without parameters; the system uses it when tries
-     * to reinstate a fragment automatically.
-     */
-    public FileDetailFragment() {
-        super();
-        user = null;
-        progressListener = null;
-    }
+        val binding = FileDetailsFragmentBinding.inflate(inflater, container, false)
+        this.binding = binding
+        inflatedRootView = binding.root
+        binding.detailContainer.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> fitTabContentToViewport() }
+        binding.pager.registerOnPageChangeCallback(createPageChangeCallback())
+        binding.tabLayout.addOnTabSelectedListener(createTabSelectedListener())
 
-    /**
-     * return the reference to the file detail sharing fragment to communicate with it.
-     *
-     * @return reference to the {@link FileDetailSharingFragment}
-     */
-    public FileDetailSharingFragment getFileDetailSharingFragment() {
-        if (binding == null) {
-            return null;
-        }
-
-        if (binding.pager.getAdapter() instanceof FileDetailTabAdapter adapter) {
-            return adapter.getFileDetailSharingFragment();
-        }
-
-        return null;
-    }
-
-    /**
-     * return the reference to the file detail activity fragment to communicate with it.
-     *
-     * @return reference to the {@link FileDetailActivitiesFragment}
-     */
-    public FileDetailActivitiesFragment getFileDetailActivitiesFragment() {
-        if (binding.pager.getAdapter() instanceof FileDetailTabAdapter adapter) {
-            return adapter.getFileDetailActivitiesFragment();
-        }
-
-        return null;
-    }
-
-    public void goBackToOCFileListFragment() {
-        requireActivity().getOnBackPressedDispatcher().onBackPressed();
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        viewModel = new ViewModelProvider(this, vmFactory).get(FileDetailFragmentViewModel.class);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        Bundle arguments = getArguments();
-
-        if (arguments == null) {
-            throw new IllegalArgumentException("Arguments may not be null");
-        }
-
-        if (getActivity() instanceof DrawerActivity drawerActivity) {
-            drawerActivity.showBottomNavigationBar(false);
-        }
-
-        setFile(BundleExtensionsKt.getParcelableArgument(arguments, ARG_FILE, OCFile.class));
-        parentFolder = BundleExtensionsKt.getParcelableArgument(arguments, ARG_PARENT_FOLDER, OCFile.class);
-        user = BundleExtensionsKt.getParcelableArgument(arguments, ARG_USER, User.class);
-        activeTab = arguments.getInt(ARG_ACTIVE_TAB, 0);
-
-        if (savedInstanceState != null) {
-            setFile(BundleExtensionsKt.getParcelableArgument(savedInstanceState, ARG_FILE, OCFile.class));
-            user = BundleExtensionsKt.getParcelableArgument(savedInstanceState, ARG_USER, User.class);
-        }
-
-        binding = FileDetailsFragmentBinding.inflate(inflater, container, false);
-        view = binding.getRoot();
-        binding.detailContainer.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight,
-                                                           oldBottom) -> fitTabContentToViewport());
-
-        if (getFile() == null || user == null) {
-            showEmptyContent();
+        if (isEmpty) {
+            showEmptyContent(binding)
         } else {
-            binding.emptyList.emptyListView.setVisibility(View.GONE);
+            binding.emptyList.emptyListView.visibility = View.GONE
         }
 
-        Context context = getContext();
-        if (context == null) {
-            return null;
-        }
-
-        refreshTagChips(context);
-
-        return view;
+        val context = context ?: return null
+        refreshTagChips(context)
+        return binding.root
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        if (getFile() != null && user != null) {
-            viewThemeUtils.material.colorProgressBar(binding.progressBar, ColorRole.PRIMARY);
-            viewThemeUtils.platform.themeCheckbox(binding.folderSyncButton);
-            progressListener = new DownloadProgressListener(binding.progressBar);
-            binding.cancelBtn.setOnClickListener(this);
-            binding.favorite.setOnClickListener(this);
-            binding.overflowMenu.setOnClickListener(this);
-            binding.lastModificationTimestamp.setOnClickListener(this);
-            binding.folderSyncButton.setOnClickListener(this);
-
-            updateFileDetails(false, false);
-            viewModel.observeDownloadProgress(user, getFile());
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val file = file
+        val user = user
+        if (file != null && user != null) {
+            setupFileDetailViews()
+            updateFileDetails(transferring = false, refresh = false)
+            viewModel?.observeDownloadProgress(user, file)
         }
 
-        LifecycleOwnerExtensionsKt.collectWhenStarted(getViewLifecycleOwner(),
-                                                      viewModel.getDownloadProgress(),
-                                                      this::onDownloadProgress);
+        collectDownloadProgress()
+        listenForTagUpdates()
+        addMenuProvider()
+    }
 
-        getChildFragmentManager().setFragmentResultListener(
+    override fun onDestroy() {
+        (activity as? DrawerActivity)?.showBottomNavigationBar(true)
+        super.onDestroy()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable(ARG_FILE, file)
+        outState.putParcelable(ARG_USER, user)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        listenForTransferProgress()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (previewLoaded) {
+            toolbarActivity?.setPreviewImageVisibility(true)
+        }
+    }
+
+    override fun onStop() {
+        leaveTransferProgress()
+        toolbarActivity?.hidePreviewImage()
+        EventBus.getDefault().unregister(this)
+        super.onStop()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is ToolbarActivity) {
+            toolbarActivity = context
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
+
+    override fun getView(): View? = super.getView() ?: inflatedRootView
+    // endregion
+
+    // region Setup
+    private fun readArguments(args: Bundle) {
+        file = args.getParcelableArgument(ARG_FILE, OCFile::class.java)
+        parentFolder = args.getParcelableArgument(ARG_PARENT_FOLDER, OCFile::class.java)
+        user = args.getParcelableArgument(ARG_USER, User::class.java)
+        activeTab = args.getInt(ARG_ACTIVE_TAB, ACTIVITIES_TAB_POSITION)
+    }
+
+    private fun restoreInstanceState(savedInstanceState: Bundle) {
+        file = savedInstanceState.getParcelableArgument(ARG_FILE, OCFile::class.java)
+        user = savedInstanceState.getParcelableArgument(ARG_USER, User::class.java)
+    }
+
+    private fun setupFileDetailViews() {
+        val binding = binding ?: return
+        viewThemeUtils.material.colorProgressBar(binding.progressBar, ColorRole.PRIMARY)
+        viewThemeUtils.platform.themeCheckbox(binding.folderSyncButton)
+        progressListener = DownloadProgressListener(binding.progressBar)
+        binding.run {
+            listOf(cancelBtn, favorite, overflowMenu, lastModificationTimestamp, folderSyncButton)
+                .forEach { it.setOnClickListener(this@FileDetailFragment) }
+        }
+    }
+
+    private fun collectDownloadProgress() {
+        val viewModel = viewModel ?: return
+        viewLifecycleOwner.collectWhenStarted(viewModel.downloadProgress) { onDownloadProgress(it) }
+    }
+
+    private fun listenForTagUpdates() {
+        childFragmentManager.setFragmentResultListener(
             TagManagementBottomSheet.REQUEST_KEY,
-            getViewLifecycleOwner(),
-            (requestKey, result) -> {
-                ArrayList<Tag> updatedTags = result.getParcelableArrayList(TagManagementBottomSheet.RESULT_KEY_TAGS);
-                if (updatedTags != null) {
-                    getFile().setTags(updatedTags);
-                    storageManager.saveFile(getFile());
-                    Context ctx = getContext();
-                    if (ctx != null) {
-                        refreshTagChips(ctx);
-                    }
-                }
-            }
-        );
+            viewLifecycleOwner
+        ) { _, result -> onTagsUpdated(result) }
     }
 
-    @Override
-    public void onDestroy() {
-        if (getActivity() instanceof DrawerActivity drawerActivity) {
-            drawerActivity.showBottomNavigationBar(true);
-        }
-        super.onDestroy();
+    private fun addMenuProvider() {
+        requireActivity().addMenuProvider(
+            object : MenuProvider {
+                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) = Unit
+
+                override fun onPrepareMenu(menu: Menu) = MenuUtils.hideAll(menu)
+
+                override fun onMenuItemSelected(menuItem: MenuItem) = false
+            },
+            viewLifecycleOwner,
+            Lifecycle.State.RESUMED
+        )
     }
+    // endregion
 
-    private void onOverflowIconClicked() {
-        final OCFile file = getFile();
-        final var additionalFilter = FileAction.Companion.getFileDetailActions(file);
-        final FragmentManager fragmentManager = getChildFragmentManager();
-        FileActionsBottomSheet.newInstance(file, true, additionalFilter)
-            .setResultListener(fragmentManager, this, this::optionsItemSelected)
-            .show(fragmentManager, "actions");
-    }
-
-    private void refreshTagChips(Context context) {
-        binding.tagsGroup.removeAllViews();
-        binding.tagsGroup.setVisibility(View.VISIBLE);
-
-        for (Tag tag : getFile().getTags()) {
-            Chip chip = new Chip(context);
-            chip.setText(tag.getName());
-            chip.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.bg_default,
-                                                                                       context.getTheme())));
-            chip.setShapeAppearanceModel(chip.getShapeAppearanceModel().toBuilder().setAllCornerSizes((100.0f))
-                                             .build());
-            chip.setEnsureMinTouchTargetSize(false);
-            chip.setClickable(false);
-            viewThemeUtils.material.themeChipSuggestion(chip);
-
-            if (tag.getColor() != null) {
-                int color = Color.parseColor(tag.getColor());
-                chip.setChipStrokeColor(ColorStateList.valueOf(color));
-                chip.setTextColor(color);
-            }
-
-            binding.tagsGroup.addView(chip);
-        }
-
-        Chip editChip = new Chip(context);
-        editChip.setChipIconResource(R.drawable.ic_edit);
-        editChip.setText(R.string.manage_tags);
-        editChip.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.bg_default,
-                                                                                       context.getTheme())));
-        editChip.setShapeAppearanceModel(editChip.getShapeAppearanceModel().toBuilder().setAllCornerSizes(100.0f)
-                                             .build());
-        editChip.setEnsureMinTouchTargetSize(false);
-        viewThemeUtils.material.themeChipSuggestion(editChip);
-        editChip.setChipIconTint(editChip.getTextColors());
-        editChip.setOnClickListener(v -> {
-            TagManagementBottomSheet bottomSheet = TagManagementBottomSheet.Companion.newInstance(
-                getFile().getLocalId(),
-                getFile().getTags()
-            );
-            bottomSheet.show(getChildFragmentManager(), "tag_management");
-        });
-        binding.tagsGroup.addView(editChip);
-    }
-
-    private void setupViewPager() {
-        binding.tabLayout.removeAllTabs();
-
-        binding.tabLayout.addTab(
-            binding
-                .tabLayout
-                .newTab()
-                .setText(R.string.drawer_item_activities)
-                .setIcon(R.drawable.selector_tab_activities)
-                                );
-
-        if (showSharingTab()) {
-            binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.share_dialog_title).setIcon(R.drawable.selector_tab_share));
-        }
-
-        if (showDetailsTab()) {
-            binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.filedetails_details).setIcon(R.drawable.info_24));
-        }
-
-        viewThemeUtils.material.themeTabLayout(binding.tabLayout);
-
-        final FileDetailTabAdapter adapter = new FileDetailTabAdapter(requireActivity(),
-                                                                      getFile(),
-                                                                      user,
-                                                                      showSharingTab(),
-                                                                      showDetailsTab());
-        binding.pager.setAdapter(adapter);
-
-        binding.pager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                final FileDetailActivitiesFragment fragment = getFileDetailActivitiesFragment();
-                if (activeTab == 0 && fragment != null) {
-                    fragment.markCommentsAsRead();
-                }
-                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                if (binding != null) {
-                    final var tab = binding.tabLayout.getTabAt(position);
-                    if (tab != null) {
-                        tab.select();
-                    }
-                }
-            }
-        });
-
-        binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                binding.pager.setCurrentItem(tab.getPosition());
-                if (tab.getPosition() == 0) {
-                    final FileDetailActivitiesFragment fragment = getFileDetailActivitiesFragment();
-                    if (fragment != null) {
-                        fragment.markCommentsAsRead();
-                    }
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                // unused at the moment
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                // unused at the moment
-            }
-        });
-
-        binding.tabLayout.post(() -> {
-            if (binding != null) {
-                TabLayout.Tab tab = binding.tabLayout.getTabAt(activeTab);
-                if (tab == null) return;
-                tab.select();
-            }
-        });
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelable(ARG_FILE, getFile());
-        outState.putParcelable(ARG_USER, user);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        listenForTransferProgress();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        if (toolbarActivity != null) {
-            if (previewLoaded) {
-                toolbarActivity.setPreviewImageVisibility(true);
-            }
-        }
-
-    }
-
-    @Override
-    public void onStop() {
-        leaveTransferProgress();
-
-        if (toolbarActivity != null) {
-            toolbarActivity.hidePreviewImage();
-        }
-
-        EventBus.getDefault().unregister(this);
-        super.onStop();
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        if (context instanceof ToolbarActivity) {
-            toolbarActivity = (ToolbarActivity) context;
+    // region File details
+    fun updateFileDetails(file: OCFile?, user: User?) {
+        this.file = file
+        this.user = user
+        updateFileDetails(transferring = false, refresh = false)
+        if (file != null && user != null) {
+            viewModel?.observeDownloadProgress(user, file)
         }
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
-
-    @Override
-    public View getView() {
-        return super.getView() == null ? view : super.getView();
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(@NonNull Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-
-        MenuUtils.hideAll(menu);
-    }
-
-    private void optionsItemSelected(@IdRes final int itemId) {
-        if (itemId == R.id.action_send_file) {
-            containerActivity.getFileOperationsHelper().sendShareFile(getFile(), true);
-        } else if (itemId == R.id.action_open_file_with) {
-            containerActivity.getFileOperationsHelper().openFile(getFile());
-        } else if (itemId == R.id.action_remove_file) {
-            RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(getFile());
-            dialog.show(getFragmentManager(), FTAG_CONFIRMATION);
-        } else if (itemId == R.id.action_rename_file) {
-            RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(getFile(), parentFolder);
-            dialog.show(getFragmentManager(), FTAG_RENAME_FILE);
-        } else if (itemId == R.id.action_cancel_sync) {
-            ((FileDisplayActivity) containerActivity).cancelTransference(getFile());
-        } else if (itemId == R.id.action_download_file || itemId == R.id.action_sync_file) {
-            if (containerActivity instanceof FileActivity activity) {
-                activity.showSyncLoadingDialog(getFile().isFolder());
-            }
-            containerActivity.getFileOperationsHelper().syncFileOrFolder(getFile());
-        } else if (itemId == R.id.action_export_file) {
-            ArrayList<OCFile> list = new ArrayList<>();
-            list.add(getFile());
-            containerActivity.getFileOperationsHelper().exportFiles(list,
-                                                                    getContext(),
-                                                                    getView(),
-                                                                    backgroundJobManager);
-        } else if (itemId == R.id.action_set_as_wallpaper) {
-            containerActivity.getFileOperationsHelper().setPictureAs(getFile(), getView());
-        } else if (itemId == R.id.action_retry) {
-            backgroundJobManager.startOfflineOperations();
-        } else if (itemId == R.id.action_encrypted) {
-            // TODO implement or remove
-        } else if (itemId == R.id.action_unset_encrypted) {// TODO implement or remove
-        } else if (itemId == R.id.action_favorite) {
-            containerActivity.getFileOperationsHelper().toggleFavoriteFile(getFile(), true);
-            setFavoriteIconStatus(true);
-        } else if (itemId == R.id.action_unset_favorite) {
-            containerActivity.getFileOperationsHelper().toggleFavoriteFile(getFile(), false);
-            setFavoriteIconStatus(false);
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        int id = v.getId();
-
-        if (id == R.id.cancelBtn) {
-            ((FileDisplayActivity) containerActivity).cancelTransference(getFile());
-        } else if (id == R.id.favorite) {
-            containerActivity.getFileOperationsHelper().toggleFavoriteFile(getFile(), !getFile().isFavorite());
-            setFavoriteIconStatus(!getFile().isFavorite());
-        } else if (id == R.id.overflow_menu) {
-            onOverflowIconClicked();
-        } else if (id == R.id.last_modification_timestamp) {
-            boolean showDetailedTimestamp = !preferences.isShowDetailedTimestampEnabled();
-            preferences.setShowDetailedTimestampEnabled(showDetailedTimestamp);
-            setFileModificationTimestamp(getFile(), showDetailedTimestamp);
-        } else if (id == R.id.folder_sync_button) {
-            if (binding.folderSyncButton.isChecked()) {
-                getFile().setInternalFolderSyncTimestamp(0L);
-            } else {
-                getFile().setInternalFolderSyncTimestamp(-1L);
-            }
-
-            storageManager.saveFile(getFile());
-        } else {
-            Log_OC.e(TAG, "Incorrect view clicked!");
-        }
-    }
-
-    /**
-     * Check if the fragment was created with an empty layout. An empty fragment can't show file details, must be
-     * replaced.
-     *
-     * @return True when the fragment was created with the empty layout.
-     */
-    public boolean isEmpty() {
-        return getFile() == null || user == null;
-    }
-
-    /**
-     * Use this method to signal this Activity that it shall update its view.
-     *
-     * @param file : An {@link OCFile}
-     */
-    public void updateFileDetails(OCFile file, User user) {
-        setFile(file);
-        this.user = user;
-        updateFileDetails(false, false);
-        if (viewModel != null && file != null && user != null) {
-            viewModel.observeDownloadProgress(user, file);
-        }
-    }
-
-    /**
-     * Updates the view with all relevant details about that file.
-     * <p>
-     * TODO Remove parameter when the transferring state of files is kept in database.
-     *
-     * @param transferring Flag signaling if the file should be considered as downloading or uploading, although
-     *                     {@link FileDownloadHelper#isDownloading(User, OCFile)}  and
-     *                     {@link FileUploadHelper#isUploading(String, String)} return false.
-     * @param refresh      If 'true', try to refresh the whole file from the database
-     */
-    public void updateFileDetails(boolean transferring, boolean refresh) {
-        if (readyToShow()) {
-            FileDataStorageManager storageManager = containerActivity.getStorageManager();
-
-            if (storageManager == null) {
-                return;
-            }
-
+    fun updateFileDetails(transferring: Boolean, refresh: Boolean) {
+        if (!isEmpty) {
+            val containerStorageManager = containerActivity?.storageManager ?: return
             if (refresh) {
-                setFile(storageManager.getFileByPath(getFile().getRemotePath()));
+                file = containerStorageManager.getFileByEncryptedRemotePath(file?.remotePath)
             }
-            OCFile file = getFile();
-
-            // set file details
-            binding.filename.setText(file.getFileName());
-            binding.size.setText(HumanReadableFormatter.formatBytes(file.getFileLength()));
-
-            boolean showDetailedTimestamp = preferences.isShowDetailedTimestampEnabled();
-            setFileModificationTimestamp(file, showDetailedTimestamp);
-
-            setFilePreview(file);
-            binding.filename.setVisibility(previewLoaded ? View.VISIBLE : View.GONE);
-            setFavoriteIconStatus(file.isFavorite());
-
-            // configure UI for depending upon local state of the file
-            if (transferring
-                || (FileDownloadHelper.Companion.instance().isDownloading(user, file))
-                || (FileUploadHelper.Companion.instance().isUploading(file.getRemotePath(), user.getAccountName()))) {
-                setButtonsForTransferring();
-
-            } else if (file.isDown()) {
-
-                setButtonsForDown();
-
-            } else {
-                // TODO load default preview image; when the local file is removed, the preview
-                // remains there
-                setButtonsForRemote();
-            }
-
-            FloatingActionButton fabMain = requireActivity().findViewById(R.id.fab_main);
-            if (fabMain != null) {
-                fabMain.hide();
-            }
-
-            binding.syncBlock.setVisibility(file.isFolder() ? View.VISIBLE : View.GONE);
-
-            if (file.isInternalFolderSync()) {
-                binding.folderSyncButton.setChecked(file.isInternalFolderSync());
-            } else {
-                if (storageManager.isPartOfInternalTwoWaySync(file)) {
-                    binding.folderSyncButton.setChecked(true);
-                    binding.folderSyncButton.setEnabled(false);
-                }
-            }
+            showFileDetails(containerStorageManager, transferring)
         }
 
-        setupViewPager();
-        final var view = getView();
-        if (view != null) {
-            view.invalidate();
+        setupViewPager()
+        view?.invalidate()
+    }
+
+    private fun showFileDetails(containerStorageManager: FileDataStorageManager, transferring: Boolean) {
+        val binding = binding
+        val file = file
+        val user = user
+        if (binding == null || file == null || user == null) return
+
+        binding.filename.text = file.fileName
+        binding.size.text = HumanReadableFormatter.formatBytes(file.fileLength)
+        setFileModificationTimestamp(file, preferences.isShowDetailedTimestampEnabled)
+        setFilePreview(file)
+        binding.filename.isVisible = previewLoaded
+        setFavoriteIconStatus(file.isFavorite)
+        updateTransferProgress(binding, file, user, transferring)
+        requireActivity().findViewById<FloatingActionButton>(R.id.fab_main)?.hide()
+        binding.syncBlock.isVisible = file.isFolder
+        updateFolderSyncButton(binding, file, containerStorageManager)
+    }
+
+    private fun updateFolderSyncButton(
+        binding: FileDetailsFragmentBinding,
+        file: OCFile,
+        containerStorageManager: FileDataStorageManager
+    ) {
+        if (file.isInternalFolderSync) {
+            binding.folderSyncButton.isChecked = true
+        } else if (containerStorageManager.isPartOfInternalTwoWaySync(file)) {
+            binding.folderSyncButton.isChecked = true
+            binding.folderSyncButton.isEnabled = false
         }
     }
 
-    public void onDownloadProgress(int percent) {
-        if (binding.progressBlock.getVisibility() != View.VISIBLE) {
-            binding.progressBlock.setVisibility(View.VISIBLE);
-        }
-
-        binding.progressText.setText(R.string.downloader_download_in_progress_ticker);
-        binding.progressBar.setProgressCompat(percent, true);
-    }
-
-    private void setFileModificationTimestamp(OCFile file, boolean showDetailedTimestamp) {
-        if (showDetailedTimestamp) {
-            binding.lastModificationTimestamp.setText(HumanReadableFormatter.formatDateTime(file.getModificationTimestamp()));
+    private fun setFileModificationTimestamp(file: OCFile, showDetailedTimestamp: Boolean) {
+        val timestamp = file.modificationTimestamp
+        binding?.lastModificationTimestamp?.text = if (showDetailedTimestamp) {
+            HumanReadableFormatter.formatDateTime(timestamp)
         } else {
-            binding.lastModificationTimestamp.setText(
-                DisplayTextFormatter.formatRelativeTimestamp(requireContext(), file.getModificationTimestamp()));
+            DisplayTextFormatter.formatRelativeTimestamp(requireContext(), timestamp)
         }
     }
 
-    private void setFavoriteIconStatus(boolean isFavorite) {
-        if (isFavorite) {
-            binding.favorite.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_star, null));
-            binding.favorite.setContentDescription(getString(R.string.unset_favorite));
-        } else {
-            binding.favorite.setImageDrawable(ResourcesCompat.getDrawable(getResources(),
-                                                                          R.drawable.ic_star_outline,
-                                                                          null));
-            binding.favorite.setContentDescription(getString(R.string.favorite));
-        }
-    }
-
-    /**
-     * Checks if the fragment is ready to show details of a OCFile
-     *
-     * @return 'True' when the fragment is ready to show details of a file
-     */
-    private boolean readyToShow() {
-        return getFile() != null && user != null;
-    }
-
-    /**
-     * Updates the file preview if possible
-     *
-     * @param file a {@link OCFile} to be previewed
-     */
-    private void setFilePreview(OCFile file) {
+    private fun setFilePreview(file: OCFile) {
+        val toolbarActivity = toolbarActivity
         if (toolbarActivity == null) {
-            previewLoaded = false;
-            return;
+            previewLoaded = false
+            return
         }
 
-        new FileDetailPreview(toolbarActivity, folderThumbnailGenerator, viewThemeUtils).show(file);
-        previewLoaded = true;
+        FileDetailPreview(toolbarActivity, folderThumbnailGenerator, viewThemeUtils).show(file)
+        previewLoaded = true
     }
 
-    /**
-     * Enables or disables buttons for a file being downloaded
-     */
-    private void setButtonsForTransferring() {
-        if (!isEmpty()) {
-            // show the progress bar for the transfer
-            binding.progressBlock.setVisibility(View.VISIBLE);
-            binding.progressText.setVisibility(View.VISIBLE);
-            if (FileDownloadHelper.Companion.instance().isDownloading(user, getFile())) {
-                binding.progressText.setText(R.string.downloader_download_in_progress_ticker);
-            } else {
-                if (FileUploadHelper.Companion.instance().isUploading(getFile().getRemotePath(), user.getAccountName())) {
-                    binding.progressText.setText(R.string.uploader_upload_in_progress_ticker);
-                }
+    private fun showEmptyContent(binding: FileDetailsFragmentBinding) {
+        binding.emptyList.emptyListView.visibility = View.VISIBLE
+        binding.detailContainer.visibility = View.GONE
+        binding.emptyList.emptyListViewHeadline.setText(R.string.file_details_no_content)
+        binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_list_empty_error)
+        binding.emptyList.emptyListIcon.visibility = View.VISIBLE
+    }
+    // endregion
+
+    // region Transfer progress
+    private fun updateTransferProgress(
+        binding: FileDetailsFragmentBinding,
+        file: OCFile,
+        user: User,
+        transferring: Boolean
+    ) {
+        if (transferring || isDownloading(file, user) || isUploading(file, user)) {
+            showTransferProgress(binding, file, user)
+        } else {
+            // TODO load default preview image; when the local file is removed, the preview remains there
+            binding.progressBlock.visibility = View.GONE
+        }
+    }
+
+    private fun showTransferProgress(binding: FileDetailsFragmentBinding, file: OCFile, user: User) {
+        binding.progressBlock.visibility = View.VISIBLE
+        binding.progressText.visibility = View.VISIBLE
+        when {
+            isDownloading(file, user) -> binding.progressText.setText(R.string.downloader_download_in_progress_ticker)
+            isUploading(file, user) -> binding.progressText.setText(R.string.uploader_upload_in_progress_ticker)
+        }
+    }
+
+    private fun isDownloading(file: OCFile, user: User): Boolean =
+        FileDownloadHelper.instance().isDownloading(user, file)
+
+    private fun isUploading(file: OCFile, user: User): Boolean =
+        FileUploadHelper.instance().isUploading(file.remotePath, user.accountName)
+
+    private fun onDownloadProgress(percent: Int) {
+        val binding = binding ?: return
+        binding.progressBlock.visibility = View.VISIBLE
+        binding.progressText.setText(R.string.downloader_download_in_progress_ticker)
+        binding.progressBar.setProgressCompat(percent, true)
+    }
+
+    fun listenForTransferProgress() {
+        val listener = progressListener
+        if (listener == null) {
+            Log_OC.d(TAG, "progressListener == null")
+            return
+        }
+
+        val targetKey = transferProgressTargetKey() ?: return
+        containerActivity?.fileUploaderHelper?.addUploadTransferProgressListener(listener, targetKey)
+    }
+
+    private fun leaveTransferProgress() {
+        val listener = progressListener ?: return
+        val targetKey = transferProgressTargetKey() ?: return
+        containerActivity?.fileUploaderHelper?.removeUploadTransferProgressListener(listener, targetKey)
+    }
+
+    private fun transferProgressTargetKey(): String? {
+        val user = user
+        val file = file
+        if (user == null || file == null) return null
+        return FileUploadHelper.buildRemoteName(user.accountName, file.remotePath)
+    }
+    // endregion
+
+    // region File actions
+    override fun onClick(v: View) {
+        val file = file ?: return
+        when (v.id) {
+            R.id.cancelBtn -> (containerActivity as? FileDisplayActivity)?.cancelTransference(file)
+
+            R.id.favorite -> {
+                fileOperationsHelper?.toggleFavoriteFile(file, !file.isFavorite)
+                setFavoriteIconStatus(!file.isFavorite)
             }
+
+            R.id.overflow_menu -> showFileActions()
+
+            R.id.last_modification_timestamp -> toggleDetailedTimestamp(file)
+
+            R.id.folder_sync_button -> updateInternalFolderSync(file)
+
+            else -> Log_OC.e(TAG, "Incorrect view clicked!")
         }
     }
 
-    /**
-     * Enables or disables buttons for a file locally available
-     */
-    private void setButtonsForDown() {
-        if (!isEmpty()) {
-            // hides the progress bar
-            binding.progressBlock.setVisibility(View.GONE);
+    private fun showFileActions() {
+        val file = file ?: return
+        FileActionsBottomSheet.newInstance(file, true, FileAction.getFileDetailActions(file))
+            .setResultListener(childFragmentManager, this) { itemId -> onFileActionSelected(itemId) }
+            .show(childFragmentManager, FTAG_FILE_ACTIONS)
+    }
+
+    private fun onFileActionSelected(@IdRes itemId: Int) {
+        val file = file ?: return
+        when (itemId) {
+            R.id.action_send_file -> fileOperationsHelper?.sendShareFile(file, true)
+
+            R.id.action_open_file_with -> fileOperationsHelper?.openFile(file)
+
+            R.id.action_remove_file -> RemoveFilesDialogFragment.newInstance(file)
+                .show(parentFragmentManager, FTAG_CONFIRMATION)
+
+            R.id.action_rename_file -> RenameFileDialogFragment.newInstance(file, parentFolder)
+                .show(parentFragmentManager, FTAG_RENAME_FILE)
+
+            R.id.action_cancel_sync -> (containerActivity as? FileDisplayActivity)?.cancelTransference(file)
+
+            R.id.action_download_file, R.id.action_sync_file -> syncFile(file)
+
+            R.id.action_export_file -> fileOperationsHelper?.exportFiles(
+                arrayListOf(file),
+                context,
+                view,
+                backgroundJobManager
+            )
+
+            R.id.action_set_as_wallpaper -> fileOperationsHelper?.setPictureAs(file, view)
+
+            R.id.action_retry -> backgroundJobManager.startOfflineOperations()
+
+            R.id.action_favorite -> setFavorite(file, true)
+
+            R.id.action_unset_favorite -> setFavorite(file, false)
         }
     }
 
-    /**
-     * Enables or disables buttons for a file not locally available
-     */
-    private void setButtonsForRemote() {
-        if (!isEmpty()) {
-            // hides the progress bar
-            binding.progressBlock.setVisibility(View.GONE);
-        }
+    private fun syncFile(file: OCFile) {
+        (containerActivity as? FileActivity)?.showSyncLoadingDialog(file.isFolder)
+        fileOperationsHelper?.syncFileOrFolder(file)
     }
 
-    public void listenForTransferProgress() {
-        if (progressListener == null) {
-            Log_OC.d(TAG, "progressListener == null");
-            return;
-        }
-
-        if (containerActivity.getFileUploaderHelper() != null) {
-            OCFile file = getFile();
-            if (user == null || file == null) {
-                return;
-            }
-
-            String targetKey = FileUploadHelper.Companion.buildRemoteName(user.getAccountName(), file.getRemotePath());
-            containerActivity.getFileUploaderHelper().addUploadTransferProgressListener(progressListener, targetKey);
-        }
+    private fun toggleDetailedTimestamp(file: OCFile) {
+        val showDetailedTimestamp = !preferences.isShowDetailedTimestampEnabled
+        preferences.isShowDetailedTimestampEnabled = showDetailedTimestamp
+        setFileModificationTimestamp(file, showDetailedTimestamp)
     }
 
-    private void leaveTransferProgress() {
-        if (progressListener != null) {
-            if (containerActivity.getFileUploaderHelper() != null) {
-                OCFile file = getFile();
-
-                if (user == null || file == null) {
-                    return;
-                }
-
-                String targetKey = FileUploadHelper.Companion.buildRemoteName(user.getAccountName(), file.getRemotePath());
-                containerActivity.getFileUploaderHelper().removeUploadTransferProgressListener(progressListener, targetKey);
-            }
+    private fun updateInternalFolderSync(file: OCFile) {
+        val binding = binding ?: return
+        file.internalFolderSyncTimestamp = if (binding.folderSyncButton.isChecked) {
+            FOLDER_SYNC_ENABLED_TIMESTAMP
+        } else {
+            FOLDER_SYNC_DISABLED_TIMESTAMP
         }
+        storageManager.saveFile(file)
+    }
+    // endregion
+
+    // region Favorite
+    private fun setFavorite(file: OCFile, isFavorite: Boolean) {
+        fileOperationsHelper?.toggleFavoriteFile(file, isFavorite)
+        setFavoriteIconStatus(isFavorite)
     }
 
-    private void showEmptyContent() {
-        binding.emptyList.emptyListView.setVisibility(View.VISIBLE);
-        binding.detailContainer.setVisibility(View.GONE);
-
-        binding.emptyList.emptyListViewHeadline.setText(R.string.file_details_no_content);
-
-        binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_list_empty_error);
-        binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
-    }
-
-    /**
-     * open the sharing process fragment for creating new share
-     *
-     */
-    public void initiateSharingProcess(String shareeName,
-                                       ShareType shareType,
-                                       boolean secureShare) {
-        if (getFile() == null) {
-            SnackbarUtil.show(requireView(), R.string.file_not_found_cannot_share);
-            return;
+    private fun setFavoriteIconStatus(isFavorite: Boolean) {
+        val binding = binding ?: return
+        val (iconRes, descriptionRes) = if (isFavorite) {
+            R.drawable.ic_star to R.string.unset_favorite
+        } else {
+            R.drawable.ic_star_outline to R.string.favorite
         }
-
-        final var file = getFile();
-        if (Objects.equals(file.getOwnerId(), shareeName)) {
-            SnackbarUtil.show(requireView(), R.string.file_detail_share_already_active);
-            return;
-        }
-
-        final var fileShareDetailFragment = FileDetailsSharingProcessFragment.newInstance(file, shareeName, shareType, secureShare);
-
-        requireActivity()
-            .getSupportFragmentManager()
-            .beginTransaction()
-            .add(R.id.sharing_frame_container, fileShareDetailFragment, FileDetailsSharingProcessFragment.TAG)
-            .commit();
-
-        showHideFragmentView(true);
-    }
-
-    /**
-     * method will handle the views need to be hidden when sharing process fragment shows
-     *
-     * @param isFragmentReplaced
-     */
-    public void showHideFragmentView(boolean isFragmentReplaced) {
-        binding.tabLayout.setVisibility(isFragmentReplaced ? View.GONE : View.VISIBLE);
-        binding.pager.setVisibility(isFragmentReplaced ? View.GONE : View.VISIBLE);
-        binding.sharingFrameContainer.setVisibility(isFragmentReplaced ? View.VISIBLE : View.GONE);
-    }
-
-    private void fitTabContentToViewport() {
-        int tabLayoutHeight = binding.tabLayout.getVisibility() == View.VISIBLE ? binding.tabLayout.getHeight() : 0;
-        int tabContentHeight = binding.detailContainer.getHeight() - tabLayoutHeight;
-        if (tabContentHeight <= 0) {
-            return;
-        }
-
-        setHeight(binding.pager, tabContentHeight);
-        setHeight(binding.sharingFrameContainer, tabContentHeight);
-    }
-
-    private void setHeight(View target, int height) {
-        ViewGroup.LayoutParams params = target.getLayoutParams();
-        if (params.height == height) {
-            return;
-        }
-
-        params.height = height;
-        target.post(target::requestLayout);
-    }
-
-    /**
-     * open the new sharing screen process to modify the created share
-     *
-     * @param share
-     * @param screenTypePermission
-     * @param isReshareShown
-     */
-    public void editExistingShare(OCShare share, int screenTypePermission, boolean isReshareShown) {
-        requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.sharing_frame_container,
-                                                                             FileDetailsSharingProcessFragment.newInstance(share, screenTypePermission, isReshareShown),
-                                                                             FileDetailsSharingProcessFragment.TAG)
-            .commit();
-        showHideFragmentView(true);
+        binding.favorite.setImageDrawable(ResourcesCompat.getDrawable(resources, iconRes, null))
+        binding.favorite.contentDescription = getString(descriptionRes)
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    public void onMessageEvent(FavoriteEvent event) {
-        try {
-            User user = accountManager.getUser();
-            OwnCloudClient client = clientFactory.create(user);
-
-            ToggleFavoriteRemoteOperation toggleFavoriteOperation = new ToggleFavoriteRemoteOperation(
-                event.getShouldFavorite(), event.getRemotePath());
-            RemoteOperationResult remoteOperationResult = toggleFavoriteOperation.execute(client);
-
-            if (remoteOperationResult.isSuccess()) {
-                getFile().setFavorite(event.getShouldFavorite());
-                OCFile file = storageManager.getFileByEncryptedRemotePath(event.getRemotePath());
-                file.setFavorite(event.getShouldFavorite());
-                storageManager.saveFile(file);
-            }
-
-        } catch (ClientFactory.CreationException e) {
-            Log_OC.e(TAG, "Error processing event", e);
+    fun onMessageEvent(event: FavoriteEvent) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            if (!toggleFavoriteOnServer(event)) return@launch
+            val file = file ?: return@launch
+            file.isFavorite = event.shouldFavorite
+            saveFavoriteState(event)
         }
     }
 
-    private boolean showSharingTab() {
-         if (!MDMConfig.INSTANCE.shareViaLink(requireContext()) && !MDMConfig.INSTANCE.shareViaUser(requireContext())) {
-            return false;
-        }
+    private suspend fun toggleFavoriteOnServer(event: FavoriteEvent): Boolean {
+        val client = clientRepository.getOwncloudClient() ?: return false
+        return ToggleFavoriteRemoteOperation(event.shouldFavorite, event.remotePath).execute(client).isSuccess
+    }
 
-        if (getFile().isEncrypted()) {
-            if (parentFolder == null) {
-                parentFolder = storageManager.getFileById(getFile().getParentId());
-            }
-            // sharing not allowed for encrypted files, thus only show first tab (activities)
-            // sharing not allowed for encrypted subfolders
-            return EncryptionUtils.supportsSecureFiledrop(getFile(), user) && !parentFolder.isEncrypted();
-        } else {
-            // unencrypted files/folders
-            return true;
+    private fun saveFavoriteState(event: FavoriteEvent) {
+        val storedFile = storageManager.getFileByEncryptedRemotePath(event.remotePath) ?: return
+        storedFile.isFavorite = event.shouldFavorite
+        storageManager.saveFile(storedFile)
+    }
+    // endregion
+
+    // region Tags
+    private fun onTagsUpdated(result: Bundle) {
+        val updatedTags = BundleCompat.getParcelableArrayList(
+            result,
+            TagManagementBottomSheet.RESULT_KEY_TAGS,
+            Tag::class.java
+        )
+        val file = file
+        if (updatedTags == null || file == null) return
+
+        file.tags = updatedTags
+        storageManager.saveFile(file)
+        context?.let(::refreshTagChips)
+    }
+
+    private fun refreshTagChips(context: Context) {
+        val binding = binding ?: return
+        binding.tagsGroup.removeAllViews()
+        binding.tagsGroup.visibility = View.VISIBLE
+
+        val file = file ?: return
+        file.tags.forEach { binding.tagsGroup.addView(createTagChip(context, it)) }
+        binding.tagsGroup.addView(createManageTagsChip(context))
+    }
+
+    private fun createTagChip(context: Context, tag: Tag): Chip = createDetailChip(context).apply {
+        text = tag.name
+        isClickable = false
+        viewThemeUtils.material.themeChipSuggestion(this)
+        tag.color?.toColorInt()?.let { color ->
+            chipStrokeColor = ColorStateList.valueOf(color)
+            setTextColor(color)
         }
     }
 
-    private boolean showDetailsTab() {
-        return CapabilityUtils.getCapability(getContext()).getGovernance().isTrue() ||
-            MimeTypeUtil.isMedia(getFile().getMimeType());
+    private fun createManageTagsChip(context: Context): Chip = createDetailChip(context).apply {
+        setChipIconResource(R.drawable.ic_edit)
+        setText(R.string.manage_tags)
+        viewThemeUtils.material.themeChipSuggestion(this)
+        chipIconTint = textColors
+        setOnClickListener { showTagManagement() }
+    }
+
+    private fun createDetailChip(context: Context): Chip {
+        val backgroundColor = ColorStateList.valueOf(resources.getColor(R.color.bg_default, context.theme))
+        return Chip(context).apply {
+            chipBackgroundColor = backgroundColor
+            shapeAppearanceModel = shapeAppearanceModel.toBuilder().setAllCornerSizes(CHIP_CORNER_SIZE).build()
+            setEnsureMinTouchTargetSize(false)
+        }
+    }
+
+    private fun showTagManagement() {
+        val file = file ?: return
+        TagManagementBottomSheet.newInstance(file.localId, file.tags)
+            .show(childFragmentManager, FTAG_TAG_MANAGEMENT)
+    }
+    // endregion
+
+    // region Tabs
+    private fun setupViewPager() {
+        val binding = binding
+        val file = file
+        val user = user
+        if (binding == null || file == null || user == null) return
+
+        val showSharingTab = showSharingTab(file, user)
+        val showDetailsTab = showDetailsTab(file)
+        setupTabs(binding.tabLayout, showSharingTab, showDetailsTab)
+
+        binding.pager.adapter = FileDetailTabAdapter(requireActivity(), file, user, showSharingTab, showDetailsTab)
+        binding.tabLayout.post { this.binding?.tabLayout?.getTabAt(activeTab)?.select() }
+    }
+
+    private fun setupTabs(tabLayout: TabLayout, showSharingTab: Boolean, showDetailsTab: Boolean) {
+        tabLayout.removeAllTabs()
+        tabLayout.addIconTab(R.string.drawer_item_activities, R.drawable.selector_tab_activities)
+        if (showSharingTab) {
+            tabLayout.addIconTab(R.string.share_dialog_title, R.drawable.selector_tab_share)
+        }
+        if (showDetailsTab) {
+            tabLayout.addIconTab(R.string.filedetails_details, R.drawable.info_24)
+        }
+        viewThemeUtils.material.themeTabLayout(tabLayout)
+    }
+
+    private fun TabLayout.addIconTab(@StringRes text: Int, @DrawableRes icon: Int) {
+        addTab(newTab().setText(text).setIcon(icon))
+    }
+
+    private fun createPageChangeCallback() = object : ViewPager2.OnPageChangeCallback() {
+        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            if (activeTab == ACTIVITIES_TAB_POSITION) {
+                fileDetailActivitiesFragment?.markCommentsAsRead()
+            }
+            super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+        }
+
+        override fun onPageSelected(position: Int) {
+            super.onPageSelected(position)
+            binding?.tabLayout?.getTabAt(position)?.select()
+        }
+    }
+
+    private fun createTabSelectedListener() = object : TabLayout.OnTabSelectedListener {
+        override fun onTabSelected(tab: TabLayout.Tab) {
+            binding?.pager?.currentItem = tab.position
+            if (tab.position == ACTIVITIES_TAB_POSITION) {
+                fileDetailActivitiesFragment?.markCommentsAsRead()
+            }
+        }
+
+        override fun onTabUnselected(tab: TabLayout.Tab) = Unit
+
+        override fun onTabReselected(tab: TabLayout.Tab) = Unit
+    }
+
+    private fun showSharingTab(file: OCFile, user: User): Boolean {
+        val context = requireContext()
+        if (!MDMConfig.shareViaLink(context) && !MDMConfig.shareViaUser(context)) return false
+        return !file.isEncrypted || canShareEncryptedFile(file, user)
+    }
+
+    private fun canShareEncryptedFile(file: OCFile, user: User): Boolean {
+        val parent = parentFolder ?: storageManager.getFileById(file.parentId).also { parentFolder = it }
+        // sharing not allowed for encrypted subfolders
+        return EncryptionUtils.supportsSecureFiledrop(file, user) && parent?.isEncrypted == false
+    }
+
+    private fun showDetailsTab(file: OCFile): Boolean =
+        CapabilityUtils.getCapability(context).governance.isTrue || MimeTypeUtil.isMedia(file.mimeType)
+
+    private fun fitTabContentToViewport() {
+        val binding = binding ?: return
+        val tabLayoutHeight = if (binding.tabLayout.isVisible) binding.tabLayout.height else 0
+        val tabContentHeight = binding.detailContainer.height - tabLayoutHeight
+        if (tabContentHeight <= 0) return
+
+        binding.pager.applyHeight(tabContentHeight)
+        binding.sharingFrameContainer.applyHeight(tabContentHeight)
+    }
+
+    private fun View.applyHeight(height: Int) {
+        val params = layoutParams ?: return
+        if (params.height == height) return
+
+        params.height = height
+        post { requestLayout() }
+    }
+    // endregion
+
+    // region Sharing
+    fun initiateSharingProcess(shareeName: String, shareType: ShareType, secureShare: Boolean) {
+        val file = file
+        if (file == null) {
+            SnackbarUtil.show(requireView(), R.string.file_not_found_cannot_share)
+            return
+        }
+
+        if (file.ownerId == shareeName) {
+            SnackbarUtil.show(requireView(), R.string.file_detail_share_already_active)
+            return
+        }
+
+        showSharingProcess(FileDetailsSharingProcessFragment.newInstance(file, shareeName, shareType, secureShare))
+    }
+
+    fun editExistingShare(share: OCShare, screenTypePermission: Int, isReshareShown: Boolean) {
+        showSharingProcess(FileDetailsSharingProcessFragment.newInstance(share, screenTypePermission, isReshareShown))
+    }
+
+    private fun showSharingProcess(fragment: FileDetailsSharingProcessFragment) {
+        requireActivity().supportFragmentManager.commit {
+            add(R.id.sharing_frame_container, fragment, FileDetailsSharingProcessFragment.TAG)
+        }
+        showHideFragmentView(true)
+    }
+
+    fun showHideFragmentView(isFragmentReplaced: Boolean) {
+        val binding = binding ?: return
+        binding.tabLayout.isVisible = !isFragmentReplaced
+        binding.pager.isVisible = !isFragmentReplaced
+        binding.sharingFrameContainer.isVisible = isFragmentReplaced
+    }
+
+    fun goBackToOCFileListFragment() {
+        requireActivity().onBackPressedDispatcher.onBackPressed()
+    }
+    // endregion
+
+    companion object {
+        private val TAG: String = FileDetailFragment::class.java.simpleName
+        private const val FTAG_CONFIRMATION = "REMOVE_CONFIRMATION_FRAGMENT"
+        private const val FTAG_FILE_ACTIONS = "actions"
+        private const val FTAG_TAG_MANAGEMENT = "tag_management"
+        const val FTAG_RENAME_FILE = "RENAME_FILE_FRAGMENT"
+
+        private const val ARG_FILE = "FILE"
+        private const val ARG_PARENT_FOLDER = "PARENT_FOLDER"
+        private const val ARG_USER = "USER"
+        private const val ARG_ACTIVE_TAB = "TAB"
+
+        private const val ACTIVITIES_TAB_POSITION = 0
+        private const val CHIP_CORNER_SIZE = 100f
+        private const val FOLDER_SYNC_ENABLED_TIMESTAMP = 0L
+        private const val FOLDER_SYNC_DISABLED_TIMESTAMP = -1L
+
+        @JvmStatic
+        fun newInstance(fileToDetail: OCFile?, parentFolder: OCFile?, user: User?): FileDetailFragment =
+            FileDetailFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable(ARG_FILE, fileToDetail)
+                    putParcelable(ARG_PARENT_FOLDER, parentFolder)
+                    putParcelable(ARG_USER, user)
+                }
+            }
+
+        @JvmStatic
+        fun newInstance(fileToDetail: OCFile?, user: User?, activeTab: Int): FileDetailFragment =
+            FileDetailFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable(ARG_FILE, fileToDetail)
+                    putParcelable(ARG_USER, user)
+                    putInt(ARG_ACTIVE_TAB, activeTab)
+                }
+            }
     }
 }
