@@ -670,9 +670,9 @@ class PreviewImageActivity :
         val showBars = !isActionBarVisible
         toggleActionBarVisibility(showBars)
         if (showBars) {
-            windowInsetsController.show(WindowInsetsCompat.Type.navigationBars())
+            windowInsetsController.show(WindowInsetsCompat.Type.systemBars())
         } else {
-            windowInsetsController.hide(WindowInsetsCompat.Type.navigationBars())
+            windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
         }
     }
 
