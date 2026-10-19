@@ -44,6 +44,8 @@ class FolderDownloadWorker(
         private const val TAG = "📂" + "FolderDownloadWorker"
         const val FOLDER_ID = "FOLDER_ID"
         const val ACCOUNT_NAME = "ACCOUNT_NAME"
+        const val FILE_ID = "FILE_ID"
+        const val IS_FILE_DOWNLOADED = "IS_FILE_DOWNLOADED"
         private val pendingDownloads: MutableSet<Long> = ConcurrentHashMap.newKeySet()
         fun isDownloading(id: Long): Boolean = pendingDownloads.contains(id)
     }
@@ -119,6 +121,7 @@ class FolderDownloadWorker(
                         files.size
                     )
 
+                    setProgress(workDataOf(FOLDER_ID to folder.fileId, FILE_ID to file.fileId))
                     val operation = DownloadFileOperation(user, file, context)
                     val operationResult = operation.execute(client)
 
@@ -132,6 +135,13 @@ class FolderDownloadWorker(
                         Log_OC.w(TAG, "⚠️ download failed for ${file.remotePath}: ${operationResult?.logMessage}")
                         overallSuccess = false
                     }
+                    setProgress(
+                        workDataOf(
+                            FOLDER_ID to folder.fileId,
+                            FILE_ID to file.fileId,
+                            IS_FILE_DOWNLOADED to (operationResult?.isSuccess == true)
+                        )
+                    )
                 }
 
                 notificationManager.showCompletionNotification(folder.fileName, overallSuccess)

@@ -1878,6 +1878,19 @@ class FileDisplayActivity :
         updateFileDownloadIndicator(FileDownloadIndicator.Downloading, folder)
     }
 
+    private fun onFolderFileDownloadProgress(folderId: Long, fileId: Long, isDownloaded: Boolean?) {
+        if (folderId != getCurrentDir()?.fileId) {
+            return
+        }
+
+        val iconId = when (isDownloaded) {
+            null -> FileDownloadIndicator.Downloading.iconId
+            true -> FileDownloadIndicator.Downloaded.iconId
+            false -> null
+        }
+        ocFileListFragment?.adapter?.updateFileIndicator(fileId, iconId)
+    }
+
     private fun onFolderDownloadCompleted(id: Long) {
         Log_OC.d(TAG, "download worker finished")
         val folder = getFolderFromFolderDownloadWorker(id) ?: return
@@ -2090,6 +2103,7 @@ class FileDisplayActivity :
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.observeFolderDownloadWorker(
                     onStarted = ::onFolderDownloadStarted,
+                    onFileProgress = ::onFolderFileDownloadProgress,
                     onCompleted = ::onFolderDownloadCompleted
                 )
             }

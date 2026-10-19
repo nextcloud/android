@@ -29,22 +29,29 @@ class FileDisplayActivityViewModel @Inject constructor(private val workManager: 
             }
     }
 
-    suspend fun observeFolderDownloadWorker(onStarted: (Long) -> Unit, onCompleted: (Long) -> Unit) {
+    suspend fun observeFolderDownloadWorker(
+        onStarted: (Long) -> Unit,
+        onFileProgress: (folderId: Long, fileId: Long, isDownloaded: Boolean?) -> Unit,
+        onCompleted: (Long) -> Unit
+    ) {
         var downloadingFolderId: Long? = null
         workManager
             .getWorkInfosForUniqueWorkFlow(BackgroundJobManagerImpl.JOB_DOWNLOAD_FOLDER)
-            .map { workInfos -> workInfos.firstNotNullOfOrNull { it.downloadingFolderId() } }
+            .map { workInfos -> workInfos.firstOrNull { it.state == WorkInfo.State.RUNNING }?.progress }
             .distinctUntilChanged()
-            .collect { folderId ->
-                downloadingFolderId?.let(onCompleted)
-                folderId?.let(onStarted)
-                downloadingFolderId = folderId
-            }
-    }
+            .collect { progress ->
+                val folderId = progress?.keyValueMap?.get(FolderDownloadWorker.FOLDER_ID) as? Long
+                if (folderId != downloadingFolderId) {
+                    downloadingFolderId?.let(onCompleted)
+                    folderId?.let(onStarted)
+                    downloadingFolderId = folderId
+                }
 
-    private fun WorkInfo.downloadingFolderId(): Long? = if (state == WorkInfo.State.RUNNING) {
-        progress.keyValueMap[FolderDownloadWorker.FOLDER_ID] as? Long
-    } else {
-        null
+                val fileId = progress?.keyValueMap?.get(FolderDownloadWorker.FILE_ID) as? Long
+                if (folderId != null && fileId != null) {
+                    val isDownloaded = progress.keyValueMap[FolderDownloadWorker.IS_FILE_DOWNLOADED] as? Boolean
+                    onFileProgress(folderId, fileId, isDownloaded)
+                }
+            }
     }
 }
