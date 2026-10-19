@@ -16,11 +16,15 @@ object FileLockingHelper {
      */
     @JvmStatic
     fun canUserUnlockFile(userId: String, file: OCFile): Boolean {
-        if (!file.isLocked || file.lockOwnerId == null || file.lockType != FileLockType.MANUAL) {
+        if (!file.isLocked) {
             return false
         }
-        // Lock owner can always unlock. The file owner can as well: server-side
-        // LockService::canUnlock allows TYPE_USER locks for the file owner.
-        return file.lockOwnerId == userId || file.ownerId == userId
+        if (file.lockType == FileLockType.MANUAL && file.lockOwnerId == userId) {
+            return true
+        }
+        // App locks (Text, OnlyOffice, ...) carry no lock owner id and are reported as
+        // COLLABORATIVE. The file owner may still unlock them: LockService::canUnlock
+        // accepts any TYPE_USER request from the file owner.
+        return file.lockType != FileLockType.TOKEN && file.ownerId == userId
     }
 }

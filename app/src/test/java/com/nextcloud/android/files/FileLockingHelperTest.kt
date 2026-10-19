@@ -46,6 +46,27 @@ class FileLockingHelperTest {
     }
 
     @Test
+    fun fileOwnerCanUnlockAppLock() {
+        val file = OCFile("/foo.docx").apply {
+            isLocked = true
+            lockOwnerId = null
+            lockType = FileLockType.COLLABORATIVE
+            ownerId = USER_NAME
+        }
+        Assert.assertTrue(FileLockingHelper.canUserUnlockFile(USER_NAME, file))
+    }
+
+    @Test
+    fun fileOwnerCannotUnlockTokenLock() {
+        val file = OCFile("/foo.docx").apply {
+            isLocked = true
+            lockType = FileLockType.TOKEN
+            ownerId = USER_NAME
+        }
+        Assert.assertFalse(FileLockingHelper.canUserUnlockFile(USER_NAME, file))
+    }
+
+    @Test
     fun typeNotManual_cannotUnlock() {
         val file = OCFile("/foo.md").apply {
             isLocked = true
