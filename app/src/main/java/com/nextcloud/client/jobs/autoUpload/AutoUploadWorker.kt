@@ -369,6 +369,11 @@ class AutoUploadWorker(
                                 return@withContext
                             }
 
+                            if (result.code == ResultCode.QUOTA_EXCEEDED) {
+                                Log_OC.w(TAG, "quota exceeded, stopping auto upload")
+                                return@withContext
+                            }
+
                             // Mark CONFLICT files as handled to prevent retries
                             if (result.code.isConflict()) {
                                 repository.markFileAsHandled(localPath, syncedFolder)
