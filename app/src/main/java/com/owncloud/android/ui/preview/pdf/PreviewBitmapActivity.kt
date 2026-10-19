@@ -5,7 +5,7 @@
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.preview
+package com.owncloud.android.ui.preview.pdf
 
 import android.graphics.BitmapFactory
 import android.os.Bundle

@@ -35,8 +35,8 @@ import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.interfaces.ActivityListInterface
 import com.owncloud.android.ui.navigation.NavigatorActivity
-import com.owncloud.android.ui.preview.PreviewMediaActivity
-import com.owncloud.android.ui.preview.PreviewMediaFragment.Companion.canBePreviewed
+import com.owncloud.android.ui.preview.media.PreviewMediaActivity
+import com.owncloud.android.ui.preview.media.PreviewMediaFragment.Companion.canBePreviewed
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 

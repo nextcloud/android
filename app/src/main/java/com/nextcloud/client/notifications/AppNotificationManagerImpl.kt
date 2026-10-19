@@ -19,8 +19,8 @@ import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
-import com.owncloud.android.ui.preview.PreviewMediaActivity
-import com.owncloud.android.ui.preview.PreviewMediaFragment
+import com.owncloud.android.ui.preview.media.PreviewMediaActivity
+import com.owncloud.android.ui.preview.media.PreviewMediaFragment
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 import javax.inject.Provider

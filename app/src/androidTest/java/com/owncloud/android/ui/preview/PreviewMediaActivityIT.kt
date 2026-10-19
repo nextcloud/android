@@ -30,6 +30,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation
+import com.owncloud.android.ui.preview.media.PreviewMediaActivity
 import com.owncloud.android.utils.FileStorageUtils
 import org.hamcrest.Matchers.allOf
 import org.junit.After

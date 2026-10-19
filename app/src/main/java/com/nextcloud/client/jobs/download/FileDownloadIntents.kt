@@ -14,8 +14,8 @@ import com.owncloud.android.authentication.AuthenticatorActivity
 import com.owncloud.android.operations.DownloadFileOperation
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.ui.preview.PreviewMediaActivity
-import com.owncloud.android.ui.preview.PreviewMediaFragment
+import com.owncloud.android.ui.preview.media.PreviewMediaActivity
+import com.owncloud.android.ui.preview.media.PreviewMediaFragment
 
 class FileDownloadIntents(private val context: Context) {
 

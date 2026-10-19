@@ -49,7 +49,7 @@ import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile;
 import com.owncloud.android.ui.adapter.DiskLruImageCache;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.ui.preview.PreviewMediaFragment;
+import com.owncloud.android.ui.preview.media.PreviewMediaFragment;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;

@@ -18,7 +18,7 @@ import com.nmc.android.ui.LauncherActivity
 import com.owncloud.android.R
 import com.owncloud.android.authentication.AuthenticatorActivity
 import com.owncloud.android.ui.activity.ToolbarActivity
-import com.owncloud.android.ui.preview.PreviewMediaActivity
+import com.owncloud.android.ui.preview.media.PreviewMediaActivity
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import dynamiccolor.MaterialDynamicColors
 import javax.inject.Provider

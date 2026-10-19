@@ -11,7 +11,7 @@
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
 
-package com.owncloud.android.ui.preview
+package com.owncloud.android.ui.preview.media
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -30,7 +30,7 @@ import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
-class FileDownloadFragment :
+class PreviewMediaDownloadFragment :
     FileFragment(),
     View.OnClickListener,
     Injectable {
@@ -133,10 +133,10 @@ class FileDownloadFragment :
         private const val ARG_FILE = "FILE"
         private const val ARG_IGNORE_FIRST = "IGNORE_FIRST"
         private const val ARG_USER = "USER"
-        private val TAG: String = FileDownloadFragment::class.java.simpleName
+        private val TAG: String = PreviewMediaDownloadFragment::class.java.simpleName
 
-        fun newInstance(file: OCFile?, user: User?, ignoreFirstSavedState: Boolean): FileDownloadFragment =
-            FileDownloadFragment().apply {
+        fun newInstance(file: OCFile?, user: User?, ignoreFirstSavedState: Boolean): PreviewMediaDownloadFragment =
+            PreviewMediaDownloadFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(ARG_FILE, file)
                     putParcelable(ARG_USER, user)

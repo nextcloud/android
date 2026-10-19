@@ -92,7 +92,7 @@ import com.owncloud.android.ui.fragment.filesRepository.FilesRepository;
 import com.owncloud.android.ui.fragment.filesRepository.RemoteFilesRepository;
 import com.owncloud.android.ui.helpers.CredentialsUpdateHelper;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
-import com.owncloud.android.ui.preview.PreviewMediaActivity;
+import com.owncloud.android.ui.preview.media.PreviewMediaActivity;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FilesSyncHelper;

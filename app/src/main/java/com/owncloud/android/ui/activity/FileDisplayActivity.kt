@@ -155,11 +155,11 @@ import com.owncloud.android.ui.helpers.UriUploader
 import com.owncloud.android.ui.interfaces.TransactionInterface
 import com.owncloud.android.ui.navigation.NavigatorScreen
 import com.owncloud.android.ui.navigation.animator.NavigationAnimator
-import com.owncloud.android.ui.preview.PreviewMediaActivity
-import com.owncloud.android.ui.preview.PreviewMediaFragment
-import com.owncloud.android.ui.preview.PreviewTextFileFragment
-import com.owncloud.android.ui.preview.PreviewTextFragment
-import com.owncloud.android.ui.preview.PreviewTextStringFragment
+import com.owncloud.android.ui.preview.media.PreviewMediaActivity
+import com.owncloud.android.ui.preview.media.PreviewMediaFragment
+import com.owncloud.android.ui.preview.text.PreviewTextFileFragment
+import com.owncloud.android.ui.preview.text.PreviewTextFragment
+import com.owncloud.android.ui.preview.text.PreviewTextStringFragment
 import com.owncloud.android.ui.preview.pdf.PreviewPdfFragment.Companion.newInstance
 import com.owncloud.android.utils.DataHolderUtil
 import com.owncloud.android.utils.ErrorMessageAdapter

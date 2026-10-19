@@ -20,7 +20,7 @@ import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.ui.adapter.filelist.recommended.RecommendedFilesAdapter
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
-import com.owncloud.android.ui.preview.PreviewTextFragment
+import com.owncloud.android.ui.preview.text.PreviewTextFragment
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 @Suppress("LongParameterList")

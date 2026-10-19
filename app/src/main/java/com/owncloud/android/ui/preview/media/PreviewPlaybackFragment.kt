@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.owncloud.android.ui.preview
+package com.owncloud.android.ui.preview.media
 
 import android.os.Bundle
 import android.view.LayoutInflater

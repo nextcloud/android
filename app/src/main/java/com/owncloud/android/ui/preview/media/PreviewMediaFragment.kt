@@ -11,7 +11,7 @@
  * SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-package com.owncloud.android.ui.preview
+package com.owncloud.android.ui.preview.media
 
 import android.annotation.SuppressLint
 import android.app.Activity

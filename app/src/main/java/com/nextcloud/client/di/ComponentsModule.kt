@@ -127,14 +127,14 @@ import com.owncloud.android.ui.fragment.localfilelist.LocalFileListFragment
 import com.owncloud.android.ui.fragment.notifications.NotificationsFragment
 import com.owncloud.android.ui.fragment.uploadList.UploadListFragment
 import com.owncloud.android.ui.navigation.NavigatorActivity
-import com.owncloud.android.ui.preview.FileDownloadFragment
-import com.owncloud.android.ui.preview.PreviewBitmapActivity
-import com.owncloud.android.ui.preview.PreviewMediaActivity
-import com.owncloud.android.ui.preview.PreviewMediaFragment
-import com.owncloud.android.ui.preview.PreviewPlaybackFragment
-import com.owncloud.android.ui.preview.PreviewTextFileFragment
-import com.owncloud.android.ui.preview.PreviewTextFragment
-import com.owncloud.android.ui.preview.PreviewTextStringFragment
+import com.owncloud.android.ui.preview.media.PreviewMediaDownloadFragment
+import com.owncloud.android.ui.preview.pdf.PreviewBitmapActivity
+import com.owncloud.android.ui.preview.media.PreviewMediaActivity
+import com.owncloud.android.ui.preview.media.PreviewMediaFragment
+import com.owncloud.android.ui.preview.media.PreviewPlaybackFragment
+import com.owncloud.android.ui.preview.text.PreviewTextFileFragment
+import com.owncloud.android.ui.preview.text.PreviewTextFragment
+import com.owncloud.android.ui.preview.text.PreviewTextStringFragment
 import com.owncloud.android.ui.preview.pdf.PreviewPdfFragment
 import com.owncloud.android.ui.trashbin.TrashbinFragment
 import dagger.Module
@@ -387,7 +387,7 @@ internal interface ComponentsModule {
     fun fileActivity(): FileActivity
 
     @ContributesAndroidInjector
-    fun fileDownloadFragment(): FileDownloadFragment
+    fun fileDownloadFragment(): PreviewMediaDownloadFragment
 
     @ContributesAndroidInjector
     fun loadingDialog(): LoadingDialog

@@ -23,7 +23,7 @@ import com.nextcloud.client.player.model.file.toVirtualFolderType
 import com.nextcloud.client.player.ui.audio.AudioPlayerActivity
 import com.nextcloud.client.player.util.PlayerUtil.playbackFile
 import com.owncloud.android.datamodel.FileDataStorageManager
-import com.owncloud.android.ui.preview.PreviewMediaActivity
+import com.owncloud.android.ui.preview.media.PreviewMediaActivity
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
