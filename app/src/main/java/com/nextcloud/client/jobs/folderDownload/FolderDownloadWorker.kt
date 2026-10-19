@@ -9,11 +9,11 @@ package com.nextcloud.client.jobs.folderDownload
 
 import android.content.Context
 import androidx.work.CoroutineWorker
-import androidx.work.Data
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.jobs.BackgroundJobManagerImpl
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -46,8 +46,10 @@ class FolderDownloadWorker(
         const val ACCOUNT_NAME = "ACCOUNT_NAME"
         const val FILE_ID = "FILE_ID"
         const val IS_FILE_DOWNLOADED = "IS_FILE_DOWNLOADED"
+        const val IS_FOLDER_DOWNLOADED = "IS_FOLDER_DOWNLOADED"
         private val pendingDownloads: MutableSet<Long> = ConcurrentHashMap.newKeySet()
         fun isDownloading(id: Long): Boolean = pendingDownloads.contains(id)
+        fun formatTag(folderId: Long): String = BackgroundJobManagerImpl.JOB_DOWNLOAD_FOLDER + folderId
     }
 
     private val notificationManager = FolderDownloadWorkerNotificationManager(context, true, viewThemeUtils)
@@ -84,7 +86,6 @@ class FolderDownloadWorker(
         Log_OC.d(TAG, "🕒 started for ${user.accountName} | folder=${folder.fileName}")
 
         trySetForeground(folder)
-        setProgress(workDataOf(FOLDER_ID to folder.fileId))
         pendingDownloads.add(folder.fileId)
 
         val downloadHelper = FileDownloadHelper.instance()
@@ -121,7 +122,7 @@ class FolderDownloadWorker(
                         files.size
                     )
 
-                    setProgress(workDataOf(FOLDER_ID to folder.fileId, FILE_ID to file.fileId))
+                    setProgress(workDataOf(FILE_ID to file.fileId))
                     val operation = DownloadFileOperation(user, file, context)
                     val operationResult = operation.execute(client)
 
@@ -137,7 +138,6 @@ class FolderDownloadWorker(
                     }
                     setProgress(
                         workDataOf(
-                            FOLDER_ID to folder.fileId,
                             FILE_ID to file.fileId,
                             IS_FILE_DOWNLOADED to (operationResult?.isSuccess == true)
                         )
@@ -159,7 +159,7 @@ class FolderDownloadWorker(
                 Result.failure()
             } finally {
                 pendingDownloads.remove(folder.fileId)
-                setProgress(Data.EMPTY)
+                setProgress(workDataOf(IS_FOLDER_DOWNLOADED to true))
 
                 // delay so that user can see the error or success notification
                 delay(2000.milliseconds)

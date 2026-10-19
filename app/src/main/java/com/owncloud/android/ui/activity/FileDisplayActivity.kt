@@ -290,6 +290,11 @@ class FileDisplayActivity :
 
     private lateinit var folderRefreshScheduler: FolderRefreshScheduler
 
+    override fun setFile(file: OCFile?) {
+        super.setFile(file)
+        file?.takeIf { it.isFolder }?.let { viewModel.setCurrentFolder(it.fileId) }
+    }
+
     fun setFileIDForImmediatePreview(fileIDForImmediatePreview: Long) {
         this.fileIDForImmediatePreview = fileIDForImmediatePreview
     }
@@ -1864,25 +1869,7 @@ class FileDisplayActivity :
     }
 
     // region FolderDownloadWorker observers
-    private fun getFolderFromFolderDownloadWorker(id: Long): OCFile? {
-        val folder = storageManager.getFileById(id)
-        if (folder == null) {
-            Log_OC.e(TAG, "folder not exists")
-        }
-        return folder
-    }
-
-    private fun onFolderDownloadStarted(id: Long) {
-        Log_OC.d(TAG, "download worker started")
-        val folder = getFolderFromFolderDownloadWorker(id) ?: return
-        updateFileDownloadIndicator(FileDownloadIndicator.Downloading, folder)
-    }
-
-    private fun onFolderFileDownloadProgress(folderId: Long, fileId: Long, isDownloaded: Boolean?) {
-        if (folderId != getCurrentDir()?.fileId) {
-            return
-        }
-
+    private fun onFolderFileDownloadProgress(fileId: Long, isDownloaded: Boolean?) {
         val iconId = when (isDownloaded) {
             null -> FileDownloadIndicator.Downloading.iconId
             true -> FileDownloadIndicator.Downloaded.iconId
@@ -1891,15 +1878,6 @@ class FileDisplayActivity :
         ocFileListFragment?.adapter?.updateFileIndicator(fileId, iconId)
     }
 
-    private fun onFolderDownloadCompleted(id: Long) {
-        Log_OC.d(TAG, "download worker finished")
-        val folder = getFolderFromFolderDownloadWorker(id) ?: return
-        updateFileDownloadIndicator(FileDownloadIndicator.Downloaded, folder)
-
-        if (folder.fileId == getCurrentDir()?.fileId) {
-            updateListOfFilesFragment()
-        }
-    }
     // endregion
 
     // region FileDownloadWorker receivers
@@ -2102,9 +2080,8 @@ class FileDisplayActivity :
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.observeFolderDownloadWorker(
-                    onStarted = ::onFolderDownloadStarted,
                     onFileProgress = ::onFolderFileDownloadProgress,
-                    onCompleted = ::onFolderDownloadCompleted
+                    onCompleted = ::updateListOfFilesFragment
                 )
             }
         }

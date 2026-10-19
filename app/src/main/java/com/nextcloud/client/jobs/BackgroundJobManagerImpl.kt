@@ -926,6 +926,7 @@ internal class BackgroundJobManagerImpl(
 
         val request = oneTimeRequestBuilder(FolderDownloadWorker::class, JOB_DOWNLOAD_FOLDER)
             .addTag(JOB_DOWNLOAD_FOLDER)
+            .addTag(FolderDownloadWorker.formatTag(folder.fileId))
             .setInputData(data)
             .setConstraints(constraints)
             .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)

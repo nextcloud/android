@@ -13,11 +13,17 @@ import androidx.work.WorkManager
 import com.nextcloud.client.jobs.BackgroundJobManagerImpl
 import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorker
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.mapNotNull
 import javax.inject.Inject
 
 class FileDisplayActivityViewModel @Inject constructor(private val workManager: WorkManager) : ViewModel() {
+
+    private val currentFolderId = MutableStateFlow<Long?>(null)
 
     suspend fun observeOfflineWorker(onComplete: () -> Unit) {
         workManager
@@ -29,29 +35,28 @@ class FileDisplayActivityViewModel @Inject constructor(private val workManager: 
             }
     }
 
+    fun setCurrentFolder(folderId: Long) {
+        currentFolderId.value = folderId
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
     suspend fun observeFolderDownloadWorker(
-        onStarted: (Long) -> Unit,
-        onFileProgress: (folderId: Long, fileId: Long, isDownloaded: Boolean?) -> Unit,
-        onCompleted: (Long) -> Unit
+        onFileProgress: (fileId: Long, isDownloaded: Boolean?) -> Unit,
+        onCompleted: () -> Unit
     ) {
-        var downloadingFolderId: Long? = null
-        workManager
-            .getWorkInfosForUniqueWorkFlow(BackgroundJobManagerImpl.JOB_DOWNLOAD_FOLDER)
-            .map { workInfos -> workInfos.firstOrNull { it.state == WorkInfo.State.RUNNING }?.progress }
+        currentFolderId
+            .filterNotNull()
+            .flatMapLatest { workManager.getWorkInfosByTagFlow(FolderDownloadWorker.formatTag(it)) }
+            .mapNotNull { workInfos -> workInfos.firstOrNull { it.state == WorkInfo.State.RUNNING }?.progress }
             .distinctUntilChanged()
             .collect { progress ->
-                val folderId = progress?.keyValueMap?.get(FolderDownloadWorker.FOLDER_ID) as? Long
-                if (folderId != downloadingFolderId) {
-                    downloadingFolderId?.let(onCompleted)
-                    folderId?.let(onStarted)
-                    downloadingFolderId = folderId
+                if (progress.getBoolean(FolderDownloadWorker.IS_FOLDER_DOWNLOADED, false)) {
+                    onCompleted()
+                    return@collect
                 }
 
-                val fileId = progress?.keyValueMap?.get(FolderDownloadWorker.FILE_ID) as? Long
-                if (folderId != null && fileId != null) {
-                    val isDownloaded = progress.keyValueMap[FolderDownloadWorker.IS_FILE_DOWNLOADED] as? Boolean
-                    onFileProgress(folderId, fileId, isDownloaded)
-                }
+                val fileId = progress.keyValueMap[FolderDownloadWorker.FILE_ID] as? Long ?: return@collect
+                onFileProgress(fileId, progress.keyValueMap[FolderDownloadWorker.IS_FILE_DOWNLOADED] as? Boolean)
             }
     }
 }
