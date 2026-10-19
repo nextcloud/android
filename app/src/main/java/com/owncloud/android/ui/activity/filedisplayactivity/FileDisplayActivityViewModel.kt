@@ -41,7 +41,7 @@ class FileDisplayActivityViewModel @Inject constructor(private val workManager: 
 
     @OptIn(ExperimentalCoroutinesApi::class)
     suspend fun observeFolderDownloadWorker(
-        onFileProgress: (fileId: Long, isDownloaded: Boolean?) -> Unit,
+        onFileProgress: (fileId: Long, previousFileId: Long?) -> Unit,
         onCompleted: () -> Unit
     ) {
         currentFolderId
@@ -56,7 +56,7 @@ class FileDisplayActivityViewModel @Inject constructor(private val workManager: 
                 }
 
                 val fileId = progress.keyValueMap[FolderDownloadWorker.FILE_ID] as? Long ?: return@collect
-                onFileProgress(fileId, progress.keyValueMap[FolderDownloadWorker.IS_FILE_DOWNLOADED] as? Boolean)
+                onFileProgress(fileId, progress.keyValueMap[FolderDownloadWorker.PREVIOUS_FILE_ID] as? Long)
             }
     }
 }

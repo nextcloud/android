@@ -45,7 +45,7 @@ class FolderDownloadWorker(
         const val FOLDER_ID = "FOLDER_ID"
         const val ACCOUNT_NAME = "ACCOUNT_NAME"
         const val FILE_ID = "FILE_ID"
-        const val IS_FILE_DOWNLOADED = "IS_FILE_DOWNLOADED"
+        const val PREVIOUS_FILE_ID = "PREVIOUS_FILE_ID"
         const val IS_FOLDER_DOWNLOADED = "IS_FOLDER_DOWNLOADED"
         private val pendingDownloads: MutableSet<Long> = ConcurrentHashMap.newKeySet()
         fun isDownloading(id: Long): Boolean = pendingDownloads.contains(id)
@@ -103,6 +103,7 @@ class FolderDownloadWorker(
                 }
 
                 var overallSuccess = true
+                var previousFileId: Long? = null
 
                 files.forEachIndexed { index, file ->
                     if (isStopped) {
@@ -122,7 +123,7 @@ class FolderDownloadWorker(
                         files.size
                     )
 
-                    setProgress(workDataOf(FILE_ID to file.fileId))
+                    setProgress(workDataOf(FILE_ID to file.fileId, PREVIOUS_FILE_ID to previousFileId))
                     val operation = DownloadFileOperation(user, file, context)
                     val operationResult = operation.execute(client)
 
@@ -136,12 +137,7 @@ class FolderDownloadWorker(
                         Log_OC.w(TAG, "⚠️ download failed for ${file.remotePath}: ${operationResult?.logMessage}")
                         overallSuccess = false
                     }
-                    setProgress(
-                        workDataOf(
-                            FILE_ID to file.fileId,
-                            IS_FILE_DOWNLOADED to (operationResult?.isSuccess == true)
-                        )
-                    )
+                    previousFileId = file.fileId
                 }
 
                 notificationManager.showCompletionNotification(folder.fileName, overallSuccess)

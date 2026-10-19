@@ -1869,13 +1869,10 @@ class FileDisplayActivity :
     }
 
     // region FolderDownloadWorker observers
-    private fun onFolderFileDownloadProgress(fileId: Long, isDownloaded: Boolean?) {
-        val iconId = when (isDownloaded) {
-            null -> FileDownloadIndicator.Downloading.iconId
-            true -> FileDownloadIndicator.Downloaded.iconId
-            false -> null
-        }
-        ocFileListFragment?.adapter?.updateFileIndicator(fileId, iconId)
+    private fun onFolderFileDownloadProgress(fileId: Long, previousFileId: Long?) {
+        val adapter = ocFileListFragment?.adapter ?: return
+        previousFileId?.let { storageManager.getFileById(it) }?.let(adapter::replaceFile)
+        adapter.updateFileIndicator(fileId, FileDownloadIndicator.Downloading.iconId)
     }
 
     // endregion
