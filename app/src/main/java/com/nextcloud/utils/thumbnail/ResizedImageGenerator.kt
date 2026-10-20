@@ -41,7 +41,7 @@ object ResizedImageGenerator {
             return cachedImage
         }
 
-        val screenSize = ScreenMetrics.defaultDisplaySize()
+        val screenSize = ScreenMetrics.size()
         val resizedImage = if (file.isDown && MimeTypeUtil.isImage(file)) {
             Log_OC.d(TAG, "creating from local file: ${file.remotePath}")
             val decodedImage = BitmapUtils.decodeSampledBitmapFromFile(file.storagePath, screenSize.x, screenSize.y)

@@ -142,7 +142,7 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
     }
 
     private fun createImageThumbnail(file: OCFile): Bitmap? {
-        val p = ScreenMetrics.defaultDisplaySize()
+        val p = ScreenMetrics.size()
 
         val pxW = p.x
         val pxH = p.y

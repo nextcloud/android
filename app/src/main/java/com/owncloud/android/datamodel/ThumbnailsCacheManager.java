@@ -68,7 +68,7 @@ import static com.nextcloud.utils.extensions.ThumbnailsCacheManagerExtensionsKt.
  * Manager for concurrent access to thumbnails cache.
  */
 public final class ThumbnailsCacheManager {
-    /** Cache key prefix {@code <prefix><remoteId>}; sized from {@link ScreenMetrics#defaultDisplaySize()}. */
+    /** Cache key prefix {@code <prefix><remoteId>}; sized from {@link ScreenMetrics#size()}. */
     public static final String PREFIX_RESIZED_IMAGE = "r";
 
     /** Cache key prefix {@code <prefix><remoteId>}; square, sized from {@link #getThumbnailDimension()}. */
@@ -676,7 +676,7 @@ public final class ThumbnailsCacheManager {
     }
 
     public static void generateResizedImage(OCFile file) {
-        Point p = ScreenMetrics.defaultDisplaySize();
+        Point p = ScreenMetrics.size();
         int pxW = p.x;
         int pxH = p.y;
         String imageKey = FileExtensionsKt.getBigThumbnailKey(file);
