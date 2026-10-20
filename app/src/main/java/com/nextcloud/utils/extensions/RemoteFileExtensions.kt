@@ -7,6 +7,7 @@
 
 package com.nextcloud.utils.extensions
 
+import androidx.annotation.VisibleForTesting
 import com.nextcloud.utils.AppConstants
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -16,6 +17,8 @@ import com.owncloud.android.lib.resources.tags.Tag
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.FileUtil
 import com.owncloud.android.utils.MimeTypeUtil
+
+private const val TAG = "RemoteFileExtensions"
 
 fun RemoteFile.isSame(path: String?): Boolean {
     val localFile = path?.toFile() ?: return false
@@ -51,22 +54,22 @@ fun RemoteFile.toAlbumItem(): OCFile = FileStorageUtils.fillOCFile(this).apply {
 }
 
 @Suppress("ReturnCount")
-private fun RemoteFile.areImageDimensionsSame(path: String): Boolean {
-    val TAG = "areImageDimensionsSame"
+@VisibleForTesting
+fun RemoteFile.areImageDimensionsSame(path: String): Boolean {
     if (!MimeTypeUtil.isImage(mimeType)) {
-        Log_OC.i(TAG, "Can't compare: it's not an image")
+        Log_OC.i(TAG, "areImageDimensionsSame: Can't compare: it's not an image")
         return true
     }
 
     val localFileImageDimension = path.getExifSize() ?: path.getBitmapSize()
     if (localFileImageDimension == null) {
-        Log_OC.w(TAG, "Can't compare: local file image dimension is not determined")
+        Log_OC.w(TAG, "areImageDimensionsSame: Can't compare: local file image dimension is not determined")
         return true
     }
 
     val remoteFileImageDimension = imageDimension
     if (remoteFileImageDimension == null) {
-        Log_OC.w(TAG, "Can't compare: remote file image dimension is not determined")
+        Log_OC.w(TAG, "areImageDimensionsSame: Can't compare: remote file image dimension is not determined")
         return true
     }
 
