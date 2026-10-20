@@ -50,6 +50,7 @@ import com.owncloud.android.ui.navigation.NavigatorActivity
 import com.owncloud.android.utils.FilesSyncHelper
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
+import com.nextcloud.utils.AppConstants.ONE_SECOND
 
 @Suppress("TooManyFunctions")
 class UploadListFragment :
@@ -105,7 +106,7 @@ class UploadListFragment :
     // region Lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        throttler.intervalMillis = THROTTLE_INTERVAL_MILLIS
+        throttler.intervalMillis = ONE_SECOND.inWholeMilliseconds
         if (savedInstanceState == null) {
             setUserFromIntent()
         }
@@ -289,7 +290,6 @@ class UploadListFragment :
     // endregion
 
     companion object {
-        private const val THROTTLE_INTERVAL_MILLIS = 1000L
         private const val SPAN_COUNT = 1
         private const val EMPTY_LIST_ICON_ALPHA = 0.5f
         private const val UPDATE_UPLOAD_LIST_KEY = "update_upload_list"

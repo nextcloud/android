@@ -23,6 +23,8 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.SyncedFolderUtils
 import java.io.File
 import java.util.zip.CRC32
+import com.nextcloud.utils.AppConstants.BYTES_PER_KB
+import com.nextcloud.utils.AppConstants.MILLIS_PER_SECOND
 
 @Suppress("TooGenericExceptionCaught", "NestedBlockDepth", "MagicNumber", "ReturnCount")
 class FileSystemRepository(
@@ -158,13 +160,13 @@ class FileSystemRepository(
                 val filePath = cursor.getString(idxData)
 
                 val lastModifiedMs = if (idxModified != -1) {
-                    cursor.getLong(idxModified) * 1000
+                    cursor.getLong(idxModified) * MILLIS_PER_SECOND
                 } else {
                     null
                 }
 
                 val creationTimeMs = if (idxAdded != -1) {
-                    cursor.getLong(idxAdded) * 1000
+                    cursor.getLong(idxAdded) * MILLIS_PER_SECOND
                 } else {
                     null
                 }
@@ -289,7 +291,7 @@ class FileSystemRepository(
     private fun getFileChecksum(file: File): Long? = try {
         file.inputStream().use { fis ->
             val crc = CRC32()
-            val buffer = ByteArray(64 * 1024)
+            val buffer = ByteArray(64 * BYTES_PER_KB)
             var bytesRead: Int
             while (fis.read(buffer).also { bytesRead = it } > 0) {
                 crc.update(buffer, 0, bytesRead)

@@ -40,6 +40,7 @@ import com.owncloud.android.utils.WebViewUtil
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.seconds
+import com.nextcloud.utils.AppConstants.ONE_SECOND
 
 abstract class EditorWebView : ExternalSiteWebView() {
     private lateinit var binding: RichdocumentsWebviewBinding
@@ -84,7 +85,7 @@ abstract class EditorWebView : ExternalSiteWebView() {
 
         lifecycleScope.launch {
             WebViewUtil().setProxyKKPlus(webView)
-            delay(PROXY_SETUP_DELAY)
+            delay(ONE_SECOND)
 
             if (loadedUrl != webView.url) {
                 webView.loadUrl(loadedUrl)
@@ -272,7 +273,6 @@ abstract class EditorWebView : ExternalSiteWebView() {
 
     companion object {
         private const val IMAGE_MIME_TYPE_FILTER = "image/*"
-        private val PROXY_SETUP_DELAY = 1.seconds
         private val LOADING_TIMEOUT = 10.seconds
     }
 }

@@ -24,6 +24,7 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.utils.AppConstants;
 import com.nextcloud.utils.autoRename.AutoRename;
 import com.nextcloud.utils.e2ee.E2ECounterHelper;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
@@ -580,7 +581,7 @@ public class UploadFileOperation extends SyncOperation {
                 return result;
             }
 
-            long lastModifiedTimestamp = e2eFiles.getOriginalFile().lastModified() / 1000;
+            long lastModifiedTimestamp = e2eFiles.getOriginalFile().lastModified() / AppConstants.MILLIS_PER_SECOND;
             Long creationTimestamp = FileUtil.getCreationTimestamp(e2eFiles.getOriginalFile());
             if (creationTimestamp == null) {
                 Log_OC.e(TAG, "UploadFileOperation creationTimestamp cannot be null");
@@ -1059,7 +1060,7 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             // Get the last modification date of the file from the file system
-            long lastModifiedTimestamp = originalFile.lastModified() / 1000;
+            long lastModifiedTimestamp = originalFile.lastModified() / AppConstants.MILLIS_PER_SECOND;
             final Long creationTimestamp = FileUtil.getCreationTimestamp(originalFile);
 
             Path filePath = Paths.get(mFile.getStoragePath());

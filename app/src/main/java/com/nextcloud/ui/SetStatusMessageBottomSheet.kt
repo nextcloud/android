@@ -48,6 +48,9 @@ import com.vanniktech.emoji.installForceSingleEmoji
 import java.util.Calendar
 import java.util.Locale
 import javax.inject.Inject
+import com.nextcloud.utils.AppConstants.MILLIS_PER_SECOND
+import com.nextcloud.utils.AppConstants.MINUTES_PER_HOUR
+import com.nextcloud.utils.AppConstants.SECONDS_PER_MINUTE
 
 private const val POS_DONT_CLEAR = 0
 private const val POS_FIFTEEN_MINUTES = 1
@@ -57,8 +60,6 @@ private const val POS_FOUR_HOURS = 4
 private const val POS_TODAY = 5
 private const val POS_END_OF_WEEK = 6
 
-private const val ONE_SECOND_IN_MILLIS = 1000
-private const val ONE_MINUTE_IN_SECONDS = 60
 private const val THIRTY_MINUTES = 30
 private const val FIFTEEN_MINUTES = 15
 private const val FOUR_HOURS = 4
@@ -180,7 +181,7 @@ class SetStatusMessageBottomSheet(val user: User, val currentStatus: Status?) :
             binding.remainingClearTime.apply {
                 binding.clearStatusMessageTextView.text = getString(R.string.clear)
                 visibility = View.VISIBLE
-                text = DisplayTextFormatter.formatRelativeTimestamp(context, it.clearAt * ONE_SECOND_IN_MILLIS, true)
+                text = DisplayTextFormatter.formatRelativeTimestamp(context, it.clearAt * MILLIS_PER_SECOND, true)
                     .toString()
                     .replaceFirstChar { it.lowercase(Locale.getDefault()) }
                 setOnClickListener {
@@ -199,23 +200,23 @@ class SetStatusMessageBottomSheet(val user: User, val currentStatus: Status?) :
             // don't clear
             POS_FIFTEEN_MINUTES -> {
                 // 15 minutes
-                System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + FIFTEEN_MINUTES * ONE_MINUTE_IN_SECONDS
+                System.currentTimeMillis() / MILLIS_PER_SECOND + FIFTEEN_MINUTES * SECONDS_PER_MINUTE
             }
 
             POS_HALF_AN_HOUR -> {
                 // 30 minutes
-                System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + THIRTY_MINUTES * ONE_MINUTE_IN_SECONDS
+                System.currentTimeMillis() / MILLIS_PER_SECOND + THIRTY_MINUTES * SECONDS_PER_MINUTE
             }
 
             POS_AN_HOUR -> {
                 // one hour
-                System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + ONE_MINUTE_IN_SECONDS * ONE_MINUTE_IN_SECONDS
+                System.currentTimeMillis() / MILLIS_PER_SECOND + MINUTES_PER_HOUR * SECONDS_PER_MINUTE
             }
 
             POS_FOUR_HOURS -> {
                 // four hours
-                System.currentTimeMillis() / ONE_SECOND_IN_MILLIS +
-                    FOUR_HOURS * ONE_MINUTE_IN_SECONDS * ONE_MINUTE_IN_SECONDS
+                System.currentTimeMillis() / MILLIS_PER_SECOND +
+                    FOUR_HOURS * MINUTES_PER_HOUR * SECONDS_PER_MINUTE
             }
 
             POS_TODAY -> {
@@ -239,7 +240,7 @@ class SetStatusMessageBottomSheet(val user: User, val currentStatus: Status?) :
 
     private fun clearAtToUnixTime(clearAt: ClearAt?): Long = when {
         clearAt?.type == CLEAR_AT_TYPE_PERIOD -> {
-            System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + clearAt.time.toLong()
+            System.currentTimeMillis() / MILLIS_PER_SECOND + clearAt.time.toLong()
         }
 
         clearAt?.type == CLEAR_AT_TYPE_END_OF && clearAt.time == "day" -> {
@@ -259,7 +260,7 @@ class SetStatusMessageBottomSheet(val user: User, val currentStatus: Status?) :
         return date
     }
 
-    private fun dateToSeconds(date: Calendar) = date.timeInMillis / ONE_SECOND_IN_MILLIS
+    private fun dateToSeconds(date: Calendar) = date.timeInMillis / MILLIS_PER_SECOND
 
     private fun clearStatus() {
         asyncRunner.postQuickTask(

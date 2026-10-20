@@ -46,6 +46,7 @@ import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsR
 import com.nextcloud.model.OfflineOperationRawType;
 import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.model.ShareeEntry;
+import com.nextcloud.utils.AppConstants;
 import com.nextcloud.utils.date.DateFormatPattern;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.nextcloud.utils.extensions.DateExtensionsKt;
@@ -193,7 +194,7 @@ public class FileDataStorageManager {
             long modificationTimestamp = System.currentTimeMillis();
 
             entity.setCreatedAt(createdAt);
-            entity.setModifiedAt(modificationTimestamp / 1000);
+            entity.setModifiedAt(modificationTimestamp / AppConstants.MILLIS_PER_SECOND);
             entity.setFilename(new File(remotePath).getName());
 
             String parentPath = new File(remotePath).getParent() + OCFile.PATH_SEPARATOR;
@@ -226,7 +227,7 @@ public class FileDataStorageManager {
         long modificationTimestamp = System.currentTimeMillis();
 
         entity.setCreatedAt(createdAt);
-        entity.setModifiedAt(modificationTimestamp / 1000);
+        entity.setModifiedAt(modificationTimestamp / AppConstants.MILLIS_PER_SECOND);
 
         offlineOperationDao.insert(entity);
         createPendingDirectory(path, createdAt, modificationTimestamp);
@@ -295,7 +296,7 @@ public class FileDataStorageManager {
         long modificationTimestamp = System.currentTimeMillis();
 
         entity.setCreatedAt(createdAt);
-        entity.setModifiedAt(modificationTimestamp / 1000);
+        entity.setModifiedAt(modificationTimestamp / AppConstants.MILLIS_PER_SECOND);
 
         offlineOperationDao.insert(entity);
     }
@@ -338,7 +339,7 @@ public class FileDataStorageManager {
         long modificationTimestamp = System.currentTimeMillis();
 
         entity.setCreatedAt(createdAt);
-        entity.setModifiedAt(modificationTimestamp / 1000);
+        entity.setModifiedAt(modificationTimestamp / AppConstants.MILLIS_PER_SECOND);
 
         offlineOperationDao.insert(entity);
     }

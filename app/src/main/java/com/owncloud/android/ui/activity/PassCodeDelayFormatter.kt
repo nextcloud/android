@@ -8,6 +8,7 @@ package com.owncloud.android.ui.activity
 
 import android.content.res.Resources
 import com.owncloud.android.R
+import com.nextcloud.utils.AppConstants.SECONDS_PER_MINUTE
 
 class PassCodeDelayFormatter(private val resources: Resources) {
 
@@ -35,9 +36,5 @@ class PassCodeDelayFormatter(private val resources: Resources) {
                 remainingSeconds
             )
         }
-    }
-
-    companion object {
-        const val SECONDS_PER_MINUTE = 60
     }
 }
