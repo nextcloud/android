@@ -11,6 +11,8 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Point
 import android.util.DisplayMetrics
+import android.view.WindowManager
+import com.owncloud.android.MainApp
 
 object ScreenMetrics {
 
@@ -18,6 +20,13 @@ object ScreenMetrics {
     fun size(activity: Activity?): Point = Point().also { size ->
         @Suppress("DEPRECATION")
         activity?.windowManager?.defaultDisplay?.getSize(size)
+    }
+
+    @JvmStatic
+    fun defaultDisplaySize(): Point = Point().also { size ->
+        val windowManager = MainApp.getAppContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        @Suppress("DEPRECATION")
+        windowManager.defaultDisplay.getSize(size)
     }
 
     @JvmStatic

@@ -24,8 +24,6 @@ import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
-import android.view.Display;
-import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.nextcloud.client.account.User;
@@ -33,6 +31,7 @@ import com.nextcloud.utils.AppConstants;
 import com.nextcloud.utils.BitmapExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.thumbnail.VideoOverlayGenerator;
+import com.nextcloud.utils.view.ScreenMetrics;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -69,7 +68,7 @@ import static com.nextcloud.utils.extensions.ThumbnailsCacheManagerExtensionsKt.
  * Manager for concurrent access to thumbnails cache.
  */
 public final class ThumbnailsCacheManager {
-    /** Cache key prefix {@code <prefix><remoteId>}; sized from {@link #getScreenDimension()}. */
+    /** Cache key prefix {@code <prefix><remoteId>}; sized from {@link ScreenMetrics#defaultDisplaySize()}. */
     public static final String PREFIX_RESIZED_IMAGE = "r";
 
     /** Cache key prefix {@code <prefix><remoteId>}; square, sized from {@link #getThumbnailDimension()}. */
@@ -161,14 +160,6 @@ public final class ThumbnailsCacheManager {
      *
      * @return Point
      */
-    public static Point getScreenDimension() {
-        WindowManager wm = (WindowManager) MainApp.getAppContext().getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        Point point = new Point();
-        display.getSize(point);
-        return point;
-    }
-
     /**
      * Add thumbnail to cache
      *
@@ -685,7 +676,7 @@ public final class ThumbnailsCacheManager {
     }
 
     public static void generateResizedImage(OCFile file) {
-        Point p = getScreenDimension();
+        Point p = ScreenMetrics.defaultDisplaySize();
         int pxW = p.x;
         int pxH = p.y;
         String imageKey = FileExtensionsKt.getBigThumbnailKey(file);

@@ -15,6 +15,7 @@ import com.nextcloud.utils.extensions.getBigThumbnailKey
 import com.nextcloud.utils.extensions.getPreviewEndpoint
 import com.nextcloud.utils.extensions.getVideoPreviewEndpoint
 import com.nextcloud.utils.extensions.isPNG
+import com.nextcloud.utils.view.ScreenMetrics
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
@@ -40,7 +41,7 @@ object ResizedImageGenerator {
             return cachedImage
         }
 
-        val screenSize = ThumbnailsCacheManager.getScreenDimension()
+        val screenSize = ScreenMetrics.defaultDisplaySize()
         val resizedImage = if (file.isDown && MimeTypeUtil.isImage(file)) {
             Log_OC.d(TAG, "creating from local file: ${file.remotePath}")
             val decodedImage = BitmapUtils.decodeSampledBitmapFromFile(file.storagePath, screenSize.x, screenSize.y)

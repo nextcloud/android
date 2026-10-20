@@ -8,12 +8,10 @@
 package com.nextcloud.client.jobs.gallery
 
 import android.graphics.Bitmap
-import android.graphics.Point
 import android.media.ThumbnailUtils
 import android.os.Build
 import android.provider.MediaStore
 import android.util.Size
-import android.view.WindowManager
 import android.widget.ImageView
 import com.nextcloud.client.account.User
 import com.nextcloud.utils.extensions.getBigThumbnailKey
@@ -22,6 +20,7 @@ import com.nextcloud.utils.extensions.isPNG
 import com.nextcloud.utils.extensions.setMediaThumbnail
 import com.nextcloud.utils.extensions.toFile
 import com.nextcloud.utils.thumbnail.ResizedImageGenerator
+import com.nextcloud.utils.view.ScreenMetrics
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -143,9 +142,7 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
     }
 
     private fun createImageThumbnail(file: OCFile): Bitmap? {
-        val wm = MainApp.getAppContext().getSystemService(android.content.Context.WINDOW_SERVICE) as WindowManager
-        val p = Point()
-        wm.defaultDisplay.getSize(p)
+        val p = ScreenMetrics.defaultDisplaySize()
 
         val pxW = p.x
         val pxH = p.y
