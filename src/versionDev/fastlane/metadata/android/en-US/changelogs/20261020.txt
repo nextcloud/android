@@ -1,0 +1,4 @@
+fix(l10n): Update translations from Transifex
+fix(l10n): Update translations from Transifex
+Keep screen on while video is playing
+Video/Image player: hide all system bars when going fullscreen instead of leaving the top system bar in place
