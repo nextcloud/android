@@ -300,19 +300,6 @@ public final class ThumbnailsCacheManager {
         return null;
     }
 
-    public static Bitmap getScaledThumbnailAfterSave(Bitmap thumbnail, String imageKey) {
-        Bitmap result = BitmapExtensionsKt.scaleUntil(thumbnail, THUMBNAIL_SIZE_IN_KB);
-
-        synchronized (mThumbnailsDiskCacheLock) {
-            if (mThumbnailCache != null) {
-                Log_OC.d(TAG, "Scaling bitmap before caching: " + imageKey);
-                mThumbnailCache.put(imageKey, result);
-            }
-        }
-
-        return result;
-    }
-
     public static class ResizedImageGenerationTask extends AsyncTask<Object, Void, Bitmap> {
         private final FileFragment fileFragment;
         private final FileDataStorageManager storageManager;
