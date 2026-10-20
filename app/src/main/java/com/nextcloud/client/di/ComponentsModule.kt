@@ -27,12 +27,12 @@ import com.nextcloud.client.onboarding.WhatsNewActivity
 import com.nextcloud.client.widget.DashboardWidgetConfigurationActivity
 import com.nextcloud.client.widget.DashboardWidgetProvider
 import com.nextcloud.client.widget.DashboardWidgetService
-import com.nextcloud.ui.ChooseAccountDialogFragment
-import com.nextcloud.ui.ChooseStorageLocationDialogFragment
-import com.nextcloud.ui.SetOnlineStatusBottomSheet
-import com.nextcloud.ui.SetStatusMessageBottomSheet
 import com.nextcloud.ui.albumItemActions.AlbumItemActionsBottomSheet
 import com.nextcloud.ui.composeActivity.ComposeActivity
+import com.nextcloud.ui.dialog.account.ChooseAccountDialogFragment
+import com.nextcloud.ui.dialog.account.onlineStatus.SetOnlineStatusBottomSheet
+import com.nextcloud.ui.dialog.account.statusMessage.SetStatusMessageBottomSheet
+import com.nextcloud.ui.dialog.chooseStorage.ChooseStorageLocationDialogFragment
 import com.nextcloud.ui.fileInfo.FileInfoFragment
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet
 import com.nextcloud.ui.tags.TagManagementBottomSheet
