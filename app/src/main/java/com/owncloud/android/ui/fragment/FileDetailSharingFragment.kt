@@ -740,12 +740,12 @@ class FileDetailSharingFragment :
         file?.let { FileActivity.showShareLinkDialog(fileActivity, file, createInternalLink(user, it, capabilities)) }
     }
 
-    private fun OCCapability?.isPasswordEnforced(): Boolean =
-        this?.filesSharingPublicPasswordEnforced?.isTrue == true &&
-            filesSharingPublicAskForOptionalPassword.isTrue
+    private fun OCCapability?.shouldAskForPublicLinkPassword(): Boolean =
+        this?.filesSharingPublicPasswordEnforced?.isTrue == true ||
+            this?.filesSharingPublicAskForOptionalPassword?.isTrue == true
 
     override fun createPublicShareLink() {
-        if (capabilities?.isPasswordEnforced() == true) {
+        if (capabilities.shouldAskForPublicLinkPassword()) {
             requestPasswordForShareViaLink(
                 true,
                 (capabilities?.filesSharingPublicAskForOptionalPassword?.isTrue == true)
