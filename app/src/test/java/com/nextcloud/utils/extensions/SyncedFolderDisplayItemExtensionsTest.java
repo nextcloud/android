@@ -5,7 +5,7 @@
  * SPDX-FileCopyrightText: 2019 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.owncloud.android.ui.fragment.autoUpload.data;
+package com.nextcloud.utils.extensions;
 
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.preferences.SubFolderRule;
@@ -23,7 +23,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-public class AutoUploadItemsLoaderTest {
+public class SyncedFolderDisplayItemExtensionsTest {
 
     @Test
     public void regular() {
@@ -107,7 +107,7 @@ public class AutoUploadItemsLoaderTest {
     private boolean sortAndTest(List<SyncedFolderDisplayItem> sortedList) {
         List<SyncedFolderDisplayItem> unsortedList = shuffle(sortedList);
 
-        return test(sortedList, AutoUploadItemsLoader.sortAutoUploadFolderItems(unsortedList));
+        return test(sortedList, SyncedFolderDisplayItemExtensionsKt.sortAutoUploadFolderItems(unsortedList));
     }
 
     private boolean test(List<SyncedFolderDisplayItem> target, List<SyncedFolderDisplayItem> actual) {
