@@ -352,7 +352,7 @@ class GalleryAdapter(
     fun rowLayout(): GalleryRowLayout = GalleryRowLayout(
         columns,
         context.resources.displayMetrics.widthPixels,
-        context.resources.getInteger(R.integer.small_margin),
+        context.resources.getDimensionPixelSize(R.dimen.gallery_cell_spacing),
         defaultThumbnailSize
     )
 
