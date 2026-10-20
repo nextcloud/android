@@ -395,13 +395,7 @@ public abstract class FileActivity extends DrawerActivity
 
             showUntrustedCertDialog(result);
 
-        } else if (operation == null ||
-            operation instanceof CreateShareWithShareeOperation ||
-            operation instanceof UnshareOperation ||
-            operation instanceof SynchronizeFolderOperation ||
-            operation instanceof UpdateShareViaLinkOperation ||
-            operation instanceof UpdateSharePermissionsOperation
-        ) {
+        } else if (operation == null || operation instanceof SynchronizeFolderOperation) {
             if (result.isSuccess()) {
                 updateFileFromDB();
 
@@ -780,7 +774,6 @@ public abstract class FileActivity extends DrawerActivity
     }
 
     private void onUpdateShareInformation(RemoteOperationResult result, @StringRes int defaultError) {
-        Snackbar snackbar;
         FileDetailSharingFragment sharingFragment = getShareFileFragment();
 
         if (result.isSuccess()) {
@@ -788,16 +781,19 @@ public abstract class FileActivity extends DrawerActivity
             if (sharingFragment != null) {
                 sharingFragment.onUpdateShareInformation(result);
             }
-        } else if (sharingFragment != null && sharingFragment.getView() != null) {
-            if (TextUtils.isEmpty(result.getMessage())) {
-                snackbar = Snackbar.make(sharingFragment.getView(), defaultError, Snackbar.LENGTH_LONG);
-            } else {
-                snackbar = Snackbar.make(sharingFragment.getView(), result.getMessage(), Snackbar.LENGTH_LONG);
-            }
-
-            viewThemeUtils.material.themeSnackbar(snackbar);
-            snackbar.show();
+            return;
         }
+
+        final String message = TextUtils.isEmpty(result.getMessage()) ? getString(defaultError) : result.getMessage();
+
+        if (sharingFragment == null || sharingFragment.getView() == null) {
+            SnackbarUtil.show(this, message);
+            return;
+        }
+
+        Snackbar snackbar = Snackbar.make(sharingFragment.getView(), message, Snackbar.LENGTH_LONG);
+        viewThemeUtils.material.themeSnackbar(snackbar);
+        snackbar.show();
     }
 
     public void refreshList() {
