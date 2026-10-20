@@ -117,7 +117,7 @@
     <string name="auth_testing_connection">Prófa tengingu</string>
     <string name="auth_timeout_title">Þjónninn var of lengi að svara</string>
     <string name="auth_unauthorized">Rangt notandanafn eða lykilorð.</string>
-    <string name="auth_unknown_error_exception_title">Óþekkt villa: %s</string>
+    <string name="auth_unknown_error_exception_title">Óþekkt villa: %1$s</string>
     <string name="auth_unknown_error_http_title">Óþekkt HTTP-villa kom upp!</string>
     <string name="auth_unknown_error_title">Óþekkt villa kom upp.</string>
     <string name="auth_unknown_host_title">Gat ekki fundið hýsilvél</string>
@@ -243,7 +243,7 @@
     <string name="compose_activity_label">Nextcloud Assistant meðhjálpari</string>
     <string name="configure_new_media_folder_detection_notifications">Stilla</string>
     <string name="confirm_removal">Fjarlægja staðværa dulritun</string>
-    <string name="confirmation_remove_file_alert">Viltu virkilega eyða \'%s\'?</string>
+    <string name="confirmation_remove_file_alert">Viltu virkilega eyða \'%1$s\'?</string>
     <string name="confirmation_remove_file_from_album_message">Viltu í alvörunni fjarlægja %1$s skrána úr albúminu?</string>
     <string name="confirmation_remove_files_alert">Ertu viss um að þú viljir eyða völdum atriðum?</string>
     <string name="confirmation_remove_files_from_album_message">Viltu í alvörunni fjarlægja valdar skrár úr albúminu?</string>
@@ -377,7 +377,7 @@
     <string name="drawer_logout">Skrá út</string>
     <string name="drawer_open">Opna hliðarspjald</string>
     <string name="drawer_quota">%1$s af %2$s notað</string>
-    <string name="drawer_quota_unlimited">%s notað</string>
+    <string name="drawer_quota_unlimited">%1$s notað</string>
     <string name="drawer_synced_folders">Sjálfvirk innsending</string>
     <string name="e2e_counter_too_old">Teljari er of gamall</string>
     <string name="e2e_hash_not_found">Tætigildi fannst ekki</string>
@@ -959,7 +959,7 @@
     <string name="share_edit_permission">Breyta</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_file">Deila %1$s</string>
-    <string name="share_group_clarification">%s hópurinn</string>
+    <string name="share_group_clarification">%1$s hópurinn</string>
     <string name="share_internal_link">Deila innri tengli</string>
     <string name="share_internal_link_to_file_text">Innri deilingartengill virkar bara fyrir notendur sem eiga aðgang að þessari skrá</string>
     <string name="share_internal_link_to_folder_text">Innri deilingartengill virkar bara fyrir notendur sem eiga aðgang að þessari möppu</string>
@@ -997,7 +997,7 @@
     <string name="shared_icon_share">Deila</string>
     <string name="shared_icon_shared">deilt</string>
     <string name="shared_icon_shared_via_link">deilt með tengli</string>
-    <string name="shared_with_you_by">Deilt með þér af %s</string>
+    <string name="shared_with_you_by">Deilt með þér af %1$s</string>
     <string name="sharee_add_failed">Mistókst að bæta við deilanda</string>
     <string name="sharee_already_added_to_file">Mistókst að bæta við sameign. Þessari skrá eða möppu hefur þegar verið deilt með þessum notanda eða hópi.</string>
     <string name="show_all">Birta allt</string>

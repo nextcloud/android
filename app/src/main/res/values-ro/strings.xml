@@ -29,6 +29,8 @@
     <string name="activity_icon">Activitate</string>
     <string name="add_new_public_share">Adaugă un link public partajat nou</string>
     <string name="add_new_secure_file_drop">Adaugă o nouă încărcare securizată de fișier</string>
+    <string name="add_to_album">Adaugă la album</string>
+    <string name="album_delete">Șterge albumul</string>
     <string name="album_rename_conflict">Acest nume este deja folosit.</string>
     <string name="album_stop_sharing">Oprește partajarea</string>
     <string name="app_config_base_url_title">URL-ul de bază</string>
@@ -208,6 +210,7 @@
     <string name="could_not_retrieve_shares">Nu am putut obține lista partajărilor</string>
     <string name="could_not_retrieve_url">Nu a fost găsit URL-ul</string>
     <string name="create">Crează</string>
+    <string name="create_album_dialog_title">Album nou</string>
     <string name="create_dir_fail_msg">Nu s-a putut crea directorul</string>
     <string name="create_document">Document</string>
     <string name="create_folder">Director</string>
@@ -267,6 +270,7 @@
     <string name="drawer_community">Comunitate</string>
     <string name="drawer_header_background">Imagine de fundal a antetului sertarului</string>
     <string name="drawer_item_activities">Activități</string>
+    <string name="drawer_item_album">Albume</string>
     <string name="drawer_item_all_files">Toate fișierele</string>
     <string name="drawer_item_assistant">Asistent</string>
     <string name="drawer_item_favorites">Favorite</string>
@@ -709,6 +713,7 @@
     <string name="share_custom_permission">Permisiuni particularizate</string>
     <string name="share_delete_permission">Șterge</string>
     <string name="share_dialog_title">Partajare</string>
+    <string name="share_download_limit">Setează limita de descărcare</string>
     <string name="share_edit_permission">Editează</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_file">Partajare %1$s</string>
