@@ -24,6 +24,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
+import com.nextcloud.utils.AppConstants.ONE_SECOND
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSmallThumbnail
@@ -36,11 +37,9 @@ import com.owncloud.android.datamodel.SyncedFolderObserver
 import com.owncloud.android.ui.asynctasks.TextEditorLoadUrlTask
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.RichDocumentDownloader
-import com.owncloud.android.utils.WebViewUtil
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.seconds
-import com.nextcloud.utils.AppConstants.ONE_SECOND
 
 abstract class EditorWebView : ExternalSiteWebView() {
     private lateinit var binding: RichdocumentsWebviewBinding
@@ -83,17 +82,18 @@ abstract class EditorWebView : ExternalSiteWebView() {
             return
         }
 
-        lifecycleScope.launch {
-            WebViewUtil().setProxyKKPlus(webView)
-            delay(ONE_SECOND)
+        proxyUtil?.applyProxy {
+            lifecycleScope.launch {
+                delay(ONE_SECOND)
 
-            if (loadedUrl != webView.url) {
-                webView.loadUrl(loadedUrl)
-            }
+                if (loadedUrl != webView.url) {
+                    webView.loadUrl(loadedUrl)
+                }
 
-            delay(LOADING_TIMEOUT)
-            if (!webView.isVisible) {
-                showLoadingTimeoutSnackbar()
+                delay(LOADING_TIMEOUT)
+                if (!webView.isVisible) {
+                    showLoadingTimeoutSnackbar()
+                }
             }
         }
     }
