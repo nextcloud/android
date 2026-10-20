@@ -296,6 +296,7 @@
          <trusted-key id="6016620F8A8FFBBBCC6D44F21AE999FF489B55CB">
             <trusting group="com.github.albfernandez" name="juniversalchardet" version="2.0.3"/>
             <trusting group="com.github.albfernandez" name="juniversalchardet" version="2.5.0"/>
+            <trusting group="com.github.albfernandez" name="juniversalchardet" version="2.5.1"/>
          </trusted-key>
          <trusted-key id="60200AC4AE761F1614D6C46766D68DAA073BE985">
             <trusting group="ch.qos.logback"/>
