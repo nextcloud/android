@@ -49,6 +49,7 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.player.model.file.PlaybackCollection
+import com.nextcloud.repository.ClientRepository
 import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
 import com.nextcloud.utils.SnackbarUtil
@@ -57,14 +58,12 @@ import com.nextcloud.utils.extensions.getBigThumbnailKey
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSmallThumbnail
 import com.nextcloud.utils.extensions.typedActivity
+import com.nextcloud.utils.thumbnail.job.ResizedImageGenerationJob
 import com.nextcloud.utils.view.ScreenMetrics
-import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PreviewImageFragmentBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
-import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncResizedImageDrawable
-import com.owncloud.android.datamodel.ThumbnailsCacheManager.ResizedImageGenerationTask
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.FetchRemoteFileOperation
 import com.owncloud.android.ui.activity.FileActivity
@@ -76,6 +75,7 @@ import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pl.droidsonroids.gif.GifDrawable
@@ -108,9 +108,13 @@ class PreviewMediaFragment :
 
     private var ignoreFirstSavedState = false
     private var loadBitmapTask: LoadBitmapTask? = null
+    private var resizedImageJob: Job? = null
 
     @Inject
     lateinit var connectivityService: ConnectivityService
+
+    @Inject
+    lateinit var clientRepository: ClientRepository
 
     @Inject
     lateinit var accountManager: UserAccountManager
@@ -266,7 +270,7 @@ class PreviewMediaFragment :
     }
 
     private fun adjustResizedImage(thumbnail: Bitmap?, width: Int, height: Int) {
-        var resizedImage = getResizedBitmap(file, width, height)
+        val resizedImage = getResizedBitmap(file, width, height)
 
         if (resizedImage != null && !file.isUpdateThumbnailNeeded) {
             binding.image.setImageBitmap(resizedImage)
@@ -275,31 +279,12 @@ class PreviewMediaFragment :
             binding.emptyListProgress.visibility = View.GONE
             binding.image.setBackgroundColor(resources.getColor(R.color.background_color_inverse))
         } else {
-            // generate new resized image
-            if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, binding.image) &&
-                containerActivity.storageManager != null
-            ) {
-                val task =
-                    ResizedImageGenerationTask(
-                        this,
-                        binding.image,
-                        binding.emptyListProgress,
-                        containerActivity.storageManager,
-                        connectivityService,
-                        containerActivity.storageManager.user,
-                        resources.getColor(R.color.background_color_inverse)
-                    )
-                if (resizedImage == null) {
-                    resizedImage = thumbnail
-                }
-                val asyncDrawable =
-                    AsyncResizedImageDrawable(
-                        MainApp.getAppContext().resources,
-                        resizedImage,
-                        task
-                    )
-                binding.image.setImageDrawable(asyncDrawable)
-                task.execute(file)
+            val storageManager = containerActivity.storageManager ?: return
+            val job = ResizedImageGenerationJob(this, storageManager, connectivityService, clientRepository)
+            binding.image.setImageBitmap(resizedImage ?: thumbnail)
+            resizedImageJob?.cancel()
+            resizedImageJob = viewLifecycleOwner.lifecycleScope.launch {
+                job.load(file, binding.image, binding.emptyListProgress)
             }
         }
     }

@@ -21,6 +21,7 @@ import com.nextcloud.utils.extensions.getSmallThumbnail
 import com.nextcloud.utils.extensions.isPNG
 import com.nextcloud.utils.extensions.setMediaThumbnail
 import com.nextcloud.utils.extensions.toFile
+import com.nextcloud.utils.thumbnail.ResizedImageGenerator
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -185,7 +186,7 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
                 .getClientFor(user.toOwnCloudAccount(), MainApp.getAppContext())
         }
         ThumbnailsCacheManager.setClient(client)
-        ThumbnailsCacheManager.doResizedImageInBackground(file, storageManager)
+        ResizedImageGenerator.getOrCreate(file, client, storageManager)
     } catch (t: Throwable) {
         Log_OC.e(TAG, "Server fetch failed for $file", t)
         null
