@@ -144,6 +144,12 @@ android {
                 enableUnitTestCoverage = project.hasProperty("coverage")
                 enableAndroidTestCoverage = project.hasProperty("coverage")
                 resConfigs("xxxhdpi")
+                // CI runs instrumented tests on x86_64 emulators and ships QA debug builds to testers
+                if (!ciBuild) {
+                    ndk {
+                        abiFilters += "arm64-v8a"
+                    }
+                }
             }
         }
 
@@ -194,7 +200,6 @@ android {
 
     buildFeatures {
         buildConfig = true
-        dataBinding = true
         viewBinding = true
         aidl = true
         compose = true
@@ -319,10 +324,7 @@ tasks.withType<SpotBugsTask>().configureEach {
     }
 }
 
-// Run the compiler as a separate process
 tasks.withType<JavaCompile>().configureEach {
-    options.isFork = true
-
     // Enable Incremental Compilation
     options.isIncremental = true
 }
