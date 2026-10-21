@@ -9,7 +9,7 @@ package com.owncloud.android.ui.model
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
-import com.nextcloud.ui.ChooseStorageLocationDialogFragment
+import com.nextcloud.ui.dialog.chooseStorage.ChooseStorageLocationDialogFragment
 import com.owncloud.android.ui.activity.ExtendedSettingsActivity
 import com.owncloud.android.ui.dialog.AppPassCodeDialog
 import com.owncloud.android.ui.dialog.ThemeSelectionDialog

@@ -61,7 +61,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.systembars.SystemBarBackgroundCallbacks;
 import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.common.NextcloudClient;
-import com.nextcloud.ui.ChooseAccountDialogFragment;
+import com.nextcloud.ui.dialog.account.ChooseAccountDialogFragment;
 import com.nextcloud.ui.composeActivity.ComposeActivity;
 import com.nextcloud.ui.composeActivity.ComposeDestination;
 import com.nextcloud.utils.GlideHelper;
