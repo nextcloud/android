@@ -63,6 +63,7 @@ import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.common.PlainClient;
+import com.nextcloud.model.HTTPStatusCodes;
 import com.nextcloud.operations.PostMethod;
 import com.nextcloud.utils.RawResourceReader;
 import com.nextcloud.utils.SnackbarUtil;
@@ -168,6 +169,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private static final String KEY_SERVER_AUTH_METHOD = "SERVER_AUTH_METHOD";
     private static final String KEY_WAITING_FOR_OP_ID = "WAITING_FOR_OP_ID";
     private static final String KEY_ONLY_ADD = "onlyAdd";
+    private static final String KEY_LOGIN_FLOW_AUTH_OBJECT = "LOGIN_FLOW_AUTH_OBJECT";
 
     public static final byte ACTION_CREATE = 0;
     public static final byte ACTION_UPDATE_EXPIRED_TOKEN = 2;       // detected by the app
@@ -344,8 +346,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
             
             initServerPreFragment(savedInstanceState);
+            restorePendingLoginFlow(savedInstanceState);
         }
 
+        Log_OC.d(TAG, "Started, action=" + (mAction == ACTION_CREATE ? "create account" : "update credentials") +
+            ", recreated=" + (savedInstanceState != null) + ", webViewLogin=" + webViewLoginMethod);
         ProcessLifecycleOwner.get().getLifecycle().addObserver(lifecycleEventObserver);
     }
 
@@ -396,7 +401,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         try {
             CookieManager.getInstance().removeAllCookies(null);
         } catch (Exception e) {
-            Log_OC.e(TAG, e.getMessage());
+            Log_OC.e(TAG, "Failed to delete web view cookies", e);
         }
     }
 
@@ -404,6 +409,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private final ScheduledExecutorService loginFlowExecutorService = Executors.newSingleThreadScheduledExecutor();
     private boolean isLoginProcessCompleted = false;
     private boolean isRedirectedToTheDefaultBrowser = false;
+    private boolean isServerCheckPendingServiceBinding = false;
     private String baseUrl;
 
     private void poolLogin() {
@@ -426,14 +432,17 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      */
     private void anonymouslyPostLoginRequest(String url) {
         if (TextUtils.isEmpty(url)) {
+            Log_OC.e(TAG, "Login flow v2: cannot start, login request URL is empty");
             SnackbarUtil.show(this, R.string.authenticator_activity_empty_base_url);
             return;
         }
         baseUrl = url;
+        Log_OC.d(TAG, "Login flow v2: requesting login URL from " + url);
 
         singleThreadExecutor.execute(() -> {
             String response = getResponseOfAnonymouslyPostLoginRequest();
             if (TextUtils.isEmpty(response)) {
+                Log_OC.e(TAG, "Login flow v2: login URL request returned an empty response");
                 SnackbarUtil.show(AuthenticatorActivity.this, R.string.authenticator_activity_empty_response_message);
                 return;
             }
@@ -448,14 +457,15 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private String extractLoginUrl(String response) {
         try {
-            authObject = gson.fromJson(response, AuthObject.class);
-            if (authObject != null && !TextUtils.isEmpty(authObject.getLogin())) {
+            authObject = AuthObject.fromJson(response);
+            if (!TextUtils.isEmpty(authObject.getLogin())) {
                 return authObject.getLogin();
             } else {
-                Log_OC.e(TAG, "AuthObject parsing failed or login empty, trying JSONObject fallback");
+                Log_OC.e(TAG, "Login flow v2: login URL missing in response, trying fallback parser");
             }
         } catch (Exception e) {
-            Log_OC.e(TAG, "Error parsing AuthObject: " + e.getMessage(), e);
+            Log_OC.e(TAG, "Login flow v2: response parsing failed, trying fallback parser: " +
+                e.getClass().getSimpleName());
         }
 
         try {
@@ -463,13 +473,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             if (!TextUtils.isEmpty(fallbackUrl)) {
                 return fallbackUrl;
             } else {
-                Log_OC.e(TAG, "Fallback JSONObject parsing failed or login empty");
+                Log_OC.e(TAG, "Login flow v2: fallback parser found no login URL");
             }
         } catch (Exception e) {
-            Log_OC.e(TAG, "Error parsing fallback JSONObject: " + e.getMessage(), e);
+            Log_OC.e(TAG, "Login flow v2: fallback parser failed: " + e.getClass().getSimpleName());
         }
 
-        Log_OC.e(TAG, "Both AuthObject and fallback parsing failed, returning default login URL");
+        Log_OC.e(TAG, "Login flow v2: no login URL in response, using default login URL");
         SnackbarUtil.show(this, R.string.authenticator_activity_login_error);
         return getResources().getString(R.string.webview_login_url);
     }
@@ -483,12 +493,14 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private String getResponseOfAnonymouslyPostLoginRequest() {
         PostMethod post = new PostMethod(baseUrl, false, new FormBody.Builder().build());
         PlainClient client = clientFactory.createPlainClient();
-        post.execute(client);
+        int status = post.execute(client);
+        Log_OC.d(TAG, "Login flow v2: login URL request finished with status " + status);
         return post.getResponseBodyAsString();
     }
 
     private void launchDefaultWebBrowser(String url) {
         if (url == null || url.isBlank()) {
+            Log_OC.e(TAG, "Login flow v2: cannot open browser, login URL is blank");
             SnackbarUtil.show(this, R.string.invalid_url);
             return;
         }
@@ -500,9 +512,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             int toolbarColor = ContextCompat.getColor(this, R.color.primary);
             AuthTabIntent authTabIntent = new AuthTabIntent.Builder().setColorScheme(toolbarColor).build();
             authTabIntent.launch(authTabResultLauncher, uri, loginScheme);
+            Log_OC.d(TAG, "Login flow v2: login page opened in Auth Tab");
             return;
         } catch (Exception e) {
-            Log_OC.e(TAG, "Auth Tab login URL launch failed: " + e);
+            Log_OC.e(TAG, "Login flow v2: Auth Tab launch failed: " + e.getClass().getSimpleName());
         }
 
         try {
@@ -510,12 +523,14 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             PackageManager packageManager = getPackageManager();
             if (intent.resolveActivity(packageManager) != null) {
                 startActivity(intent);
+                Log_OC.d(TAG, "Login flow v2: login page opened in external browser");
                 return;
             }
         } catch (Exception e) {
-            Log_OC.e(TAG, "External browser launch failed: " + e);
+            Log_OC.e(TAG, "Login flow v2: external browser launch failed: " + e.getClass().getSimpleName());
         }
 
+        Log_OC.e(TAG, "Login flow v2: no browser available to open login page");
         SnackbarUtil.show(this, R.string.authenticator_activity_no_web_browser_found);
     }
 
@@ -525,18 +540,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             String pollUrl = poll.getEndpoint();
             String token = poll.getToken();
 
-            if (TextUtils.isEmpty(pollUrl)) {
-                Log_OC.e(TAG, "auth object poll url is empty.");
-            }
-            if (TextUtils.isEmpty(token)) {
-                Log_OC.e(TAG, "auth object token is empty.");
-            }
-
             if (!TextUtils.isEmpty(pollUrl) && !TextUtils.isEmpty(token)) {
                 return new Pair<>(pollUrl, token);
             }
         }
 
+        Log_OC.w(TAG, "Login flow v2: poll endpoint or token missing, using fallback endpoint and token");
         return new Pair<>(baseUrl + "/poll", fallbackToken);
     }
 
@@ -552,10 +561,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         int status = post.execute(client);
         String response = post.getResponseBodyAsString();
 
-        Log_OC.d(TAG, "performLoginFlowV2 status: " + status);
-        Log_OC.d(TAG, "performLoginFlowV2 response: " + response);
+        if (status == HTTPStatusCodes.NOT_FOUND.getCode()) {
+            Log_OC.d(TAG, "Login flow v2: access not granted in browser yet, polling continues");
+            return;
+        }
 
-        if (!response.isEmpty()) {
+        Log_OC.d(TAG, "Login flow v2: poll finished with status " + status);
+        if (status == HTTPStatusCodes.SUCCESS.getCode() && !response.isEmpty()) {
             runOnUiThread(() -> completeLoginFlow(response, status));
         }
     }
@@ -564,10 +576,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         try {
             LoginUrlInfo loginUrlInfo = gson.fromJson(response, LoginUrlInfo.class);
             if (loginUrlInfo == null) {
-                Log_OC.e(TAG, "cannot complete login flow loginUrl is null");
+                Log_OC.e(TAG, "Login flow v2: cannot complete, poll response has no credentials");
                 return;
             }
             isLoginProcessCompleted = loginUrlInfo.isValid(status);
+            Log_OC.d(TAG, "Login flow v2: credentials received for " + loginUrlInfo.getServer() +
+                ", valid=" + isLoginProcessCompleted);
 
             if (accountSetupBinding != null) {
                 accountSetupBinding.hostUrlInput.setText("");
@@ -577,20 +591,43 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             webViewUser = loginUrlInfo.getLoginName();
             webViewPassword = loginUrlInfo.getAppPassword();
         } catch (Exception e) {
-            Log_OC.d(TAG, "Error completeLoginFlow: " + e);
+            Log_OC.e(TAG, "Login flow v2: poll response parsing failed: " + e.getClass().getSimpleName());
             mServerStatusIcon = R.drawable.ic_alert;
             mServerStatusText = getString(R.string.qr_could_not_be_read);
             showServerStatus();
         }
 
-        checkOcServer();
+        if (mOperationsServiceBinder == null) {
+            Log_OC.d(TAG, "Login flow v2: operations service not bound yet, server check deferred");
+            isServerCheckPendingServiceBinding = true;
+        } else {
+            checkOcServer();
+        }
         loginFlowExecutorService.shutdown();
         ProcessLifecycleOwner.get().getLifecycle().removeObserver(lifecycleEventObserver);
+        Log_OC.d(TAG, "Login flow v2: polling stopped");
+    }
+
+    private void restorePendingLoginFlow(Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+            return;
+        }
+
+        String authObjectJson = savedInstanceState.getString(KEY_LOGIN_FLOW_AUTH_OBJECT);
+        if (authObjectJson == null) {
+            return;
+        }
+
+        authObject = AuthObject.fromJson(authObjectJson);
+        Log_OC.d(TAG, "Login flow v2: pending flow restored after activity recreation");
+        accountSetupWebviewBinding = AccountSetupWebviewBinding.inflate(getLayoutInflater());
+        setContentView(accountSetupWebviewBinding.getRoot());
+        initLoginInfoView();
     }
 
     private final LifecycleEventObserver lifecycleEventObserver = ((lifecycleOwner, event) -> {
         if (event == Lifecycle.Event.ON_START && authObject != null && !TextUtils.isEmpty(authObject.getPoll().getToken())) {
-            Log_OC.d(TAG, "Start poolLogin");
+            Log_OC.d(TAG, "Login flow v2: app is in foreground, polling started");
             poolLogin();
         }
     });
@@ -650,6 +687,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             LoginUrlInfo loginUrlInfo = parseLoginDataUrl(prefix, dataString);
 
             if (!checkAllowedServers(loginUrlInfo.getServer())) {
+                Log_OC.w(TAG, "Login rejected, server is not allowed: " + loginUrlInfo.getServer());
                 mServerStatusIcon = R.drawable.ic_alert;
                 mServerStatusText = getString(R.string.server_not_allowed);
                 showServerStatus();
@@ -663,6 +701,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             webViewUser = loginUrlInfo.getLoginName();
             webViewPassword = loginUrlInfo.getAppPassword();
         } catch (Exception e) {
+            Log_OC.e(TAG, "Login data could not be parsed: " + e.getClass().getSimpleName());
             mServerStatusIcon = R.drawable.ic_alert;
             mServerStatusText = getString(R.string.qr_could_not_be_read);
             showServerStatus();
@@ -822,7 +861,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      */
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        //Log_OC.e(TAG, "onSaveInstanceState init" );
         super.onSaveInstanceState(outState);
 
         /// global state
@@ -837,6 +875,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         /// authentication
         outState.putBoolean(KEY_AUTH_IS_FIRST_ATTEMPT_TAG, mIsFirstAuthAttempt);
+        if (authObject != null && !isLoginProcessCompleted) {
+            outState.putString(KEY_LOGIN_FLOW_AUTH_OBJECT, AuthObject.toJson(authObject));
+        }
 
         /// AsyncTask (User and password)
         if (mAsyncTask != null) {
@@ -873,8 +914,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        Log_OC.d(TAG, "onNewIntent()");
-
         if (intent.getBooleanExtra(FirstRunActivity.EXTRA_EXIT, false)) {
             super.finish();
         }
@@ -886,8 +925,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         Uri data = intent.getData();
         if (data != null && data.toString().startsWith(getString(R.string.login_data_own_scheme))) {
+            Log_OC.d(TAG, "Login data received via deep link");
             if (!MDMConfig.INSTANCE.multiAccountSupport(this) &&
                 accountManager.getAccounts().length == 1) {
+                Log_OC.w(TAG, "Login rejected, multiple accounts are not allowed");
                 SnackbarUtil.show(this, R.string.no_mutliple_accounts_allowed);
                 finish();
                 return;
@@ -979,7 +1020,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mOperationsServiceBinder = null;
         }
 
-        Log_OC.d(TAG, "AuthenticatorActivity onDestroy called");
         singleThreadExecutor.shutdown();
         super.onDestroy();
     }
@@ -1009,7 +1049,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 uri = AuthenticatorUrlUtils.INSTANCE.normalizeScheme(uri);
             } catch (IllegalArgumentException ex) {
                 // Let the Nextcloud library check the error of the malformed URI
-                Log_OC.e(TAG, "Invalid URL", ex);
+                Log_OC.e(TAG, "Server check: cannot normalize scheme of " + uri, ex);
             }
 
             // Handle internationalized domain names
@@ -1017,7 +1057,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 uri = LinkFormatter.toAsciiDomain(uri);
             } catch (IllegalArgumentException ex) {
                 // Let the Nextcloud library check the error of the malformed URI
-                Log_OC.e(TAG, "Error converting internationalized domain name " + uri, ex);
+                Log_OC.e(TAG, "Server check: cannot convert internationalized domain name " + uri, ex);
             }
 
             if (accountSetupBinding != null) {
@@ -1034,8 +1074,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             if (mOperationsServiceBinder != null) {
                 mWaitingForOpId = mOperationsServiceBinder.queueNewOperation(getServerInfoIntent);
+                Log_OC.d(TAG, "Server check: started for " + uri);
             } else {
-                Log_OC.e(TAG, "Server check tried with OperationService unbound!");
+                Log_OC.e(TAG, "Server check: skipped, operations service is not bound");
             }
 
         }
@@ -1051,6 +1092,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
     private void accessRootFolder(OwnCloudCredentials credentials) {
+        Log_OC.d(TAG, "Credential check: started for " + mServerInfo.mBaseUrl);
         mAsyncTask = new AuthenticatorAsyncTask(this);
         Object[] params = {mServerInfo.mBaseUrl, credentials};
         mAsyncTask.execute(params);
@@ -1087,7 +1129,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                     success = true;
 
                 } catch (AccountNotFoundException e) {
-                    Log_OC.e(TAG, "Account " + mAccount + " was removed!", e);
+                    Log_OC.e(TAG, "Account: " + mAccount.name + " no longer exists", e);
                     SnackbarUtil.show(accountSetupBinding.scroll, R.string.auth_account_does_not_exist);
                     finish();
                 }
@@ -1101,7 +1143,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             int statusText = result.getCode() == ResultCode.MAINTENANCE_MODE ? R.string.maintenance_mode : R.string.auth_fail_get_user_name;
             updateStatusIconFailUserName(statusText);
             showAuthStatus();
-            Log_OC.e(TAG, "Access to user name failed: " + result.getLogMessage());
+            Log_OC.e(TAG, "User info: request failed, code=" + result.getCode() + ", " + result.getLogMessage());
         }
     }
 
@@ -1121,6 +1163,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             //      3. we got the server version
             //      4. we got the authentication method required by the server
             mServerInfo = (GetServerInfoOperation.ServerInfo) (result.getData().get(0));
+            Log_OC.d(TAG, "Server check: succeeded for " + mServerInfo.mBaseUrl);
 
             if (webViewUser != null && !webViewUser.isEmpty() &&
                 webViewPassword != null && !webViewPassword.isEmpty()) {
@@ -1139,6 +1182,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 }
             }
         } else {
+            Log_OC.e(TAG, "Server check: failed, code=" + result.getCode() + ", " + result.getLogMessage());
             updateServerStatusIconAndText(result);
             showServerStatus();
         }
@@ -1169,8 +1213,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         ViewCompat.requestApplyInsets(loginFlowLayout);
 
         cancelButton.setOnClickListener(v -> {
+            Log_OC.d(TAG, "Login flow v2: cancelled by user");
             loginFlowExecutorService.shutdown();
             ProcessLifecycleOwner.get().getLifecycle().removeObserver(lifecycleEventObserver);
+            authObject = null;
             recreate();
         });
     }
@@ -1365,7 +1411,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mAsyncTask = null;
 
         if (result.isSuccess()) {
-            Log_OC.d(TAG, "Successful access - time to save the account");
+            Log_OC.d(TAG, "Credential check: succeeded, saving account");
 
             boolean success = false;
 
@@ -1377,7 +1423,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                     success = true;
 
                 } catch (AccountNotFoundException e) {
-                    Log_OC.e(TAG, "Account " + mAccount + " was removed!", e);
+                    Log_OC.e(TAG, "Account: " + mAccount.name + " no longer exists", e);
                     SnackbarUtil.show(accountSetupBinding.scroll, R.string.auth_account_does_not_exist);
                     finish();
                 }
@@ -1402,6 +1448,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
 
         } else if (result.isServerFail() || result.isException()) {
+            Log_OC.e(TAG, "Credential check: server error, code=" + result.getCode() + ", " +
+                result.getLogMessage());
             /// server errors or exceptions in authorization take to requiring a new check of the server
             mServerInfo = new GetServerInfoOperation.ServerInfo();
 
@@ -1417,7 +1465,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
 
         } else {    // authorization fail due to client side - probably wrong credentials
+            Log_OC.e(TAG, "Credential check: rejected, code=" + result.getCode() + ", " + result.getLogMessage());
             if (accountSetupWebviewBinding != null) {
+                Log_OC.d(TAG, "Login flow v2: restarting flow after rejected credentials");
                 anonymouslyPostLoginRequest(mServerInfo.mBaseUrl + WEB_LOGIN);
             } else {
                 SnackbarUtil.show(this, R.string.auth_access_failed, result.getLogMessage(this));
@@ -1430,8 +1480,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             webViewPassword = null;
             webViewUser = null;
             deleteCookies();
-
-            Log_OC.d(TAG, "Access failed: " + result.getLogMessage());
         }
     }
 
@@ -1462,12 +1510,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                     new GetCapabilitiesOperation(storageManager).execute(MainApp.getAppContext());
                     handler.post(this::endSuccess);
                 } catch (Exception e) {
-                    Log_OC.e(TAG, "Failed to fetch capabilities", e);
+                    Log_OC.e(TAG, "Account: failed to fetch capabilities for " + mAccount.name, e);
                     handler.post(this::endSuccess);
                 }
             });
         } else {
-            Log_OC.w(TAG, "User not present for fetching capabilities");
+            Log_OC.w(TAG, "Account: " + mAccount.name + " not found, capabilities not fetched");
             endSuccess();
         }
     }
@@ -1496,6 +1544,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         Intent intent = new Intent();
         intent.putExtras(response);
         setResult(RESULT_OK, intent);
+        Log_OC.d(TAG, "Account: credentials updated for " + mAccount.name);
     }
 
     /**
@@ -1530,13 +1579,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             updateAuthStatusIconAndText(result);
             showAuthStatus();
 
-            Log_OC.d(TAG, result.getLogMessage());
+            Log_OC.w(TAG, "Account: " + accountName + " already exists");
             return false;
 
         } else {
             UserInfo userInfo = authResult.getResultData();
             if (userInfo == null) {
-                Log_OC.e(this, "Could not read user data!");
+                Log_OC.e(TAG, "Account: cannot create " + accountName + ", user info is missing");
                 return false;
             }
 
@@ -1577,6 +1626,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             // notify Document Provider
             DocumentsStorageProvider.notifyRootsChanged(this);
 
+            Log_OC.d(TAG, "Account: created " + accountName);
             return true;
         }
     }
@@ -1596,7 +1646,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private final ActivityResultLauncher<Intent> authTabResultLauncher = AuthTabIntent.registerActivityResultLauncher(
         this,
-        result -> Log_OC.d(TAG, "Auth Tab result code: " + result.resultCode)
+        result -> Log_OC.d(TAG, "Login flow v2: Auth Tab closed with result code " + result.resultCode)
     );
 
     private final ActivityResultLauncher<Intent> qrScanResultLauncher = registerForActivityResult(
@@ -1612,6 +1662,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 String resultData = data.getStringExtra("com.blikoon.qrcodescanner.got_qr_scan_relult");
 
                 if (resultData == null || !resultData.startsWith(getString(R.string.login_data_own_scheme))) {
+                    Log_OC.w(TAG, "QR login: scanned code does not contain login data");
                     mServerStatusIcon = R.drawable.ic_alert;
                     mServerStatusText = "QR Code could not be read!";
                     showServerStatus();
@@ -1620,8 +1671,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
                 if (!MDMConfig.INSTANCE.multiAccountSupport(this) &&
                     accountManager.getAccounts().length == 1) {
+                    Log_OC.w(TAG, "Login rejected, multiple accounts are not allowed");
                     SnackbarUtil.show(this, R.string.no_mutliple_accounts_allowed);
-                    
+
                     return;
                 }
 
@@ -1735,7 +1787,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             try {
                 dialog.dismiss();
             } catch (IllegalStateException e) {
-                Log_OC.e(TAG, e.getMessage());
+                Log_OC.e(TAG, "Waiting dialog dismiss failed, dismissing with state loss", e);
                 dialog.dismissAllowingStateLoss();
             }
         }
@@ -1769,12 +1821,19 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
                        login(loginUrlInfo);
                     } catch (Exception e) {
+                        Log_OC.e(TAG, "Login data from deep link could not be parsed: " +
+                            e.getClass().getSimpleName());
                         mServerStatusIcon = R.drawable.ic_alert;
                         mServerStatusText = getString(R.string.qr_could_not_be_read);
                         showServerStatus();
                     }
                 } else {
                     doOnResumeAndBound();
+                    if (isServerCheckPendingServiceBinding) {
+                        Log_OC.d(TAG, "Login flow v2: operations service bound, running deferred server check");
+                        isServerCheckPendingServiceBinding = false;
+                        checkOcServer();
+                    }
                 }
             }
         }
@@ -1784,7 +1843,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             if (component.equals(
                 new ComponentName(AuthenticatorActivity.this, OperationsService.class)
                                 )) {
-                Log_OC.e(TAG, "Operations service crashed");
+                Log_OC.e(TAG, "Operations service disconnected unexpectedly");
                 mOperationsServiceBinder = null;
             }
         }
