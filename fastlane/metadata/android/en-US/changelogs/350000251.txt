@@ -1,4 +1,4 @@
-## 35.0.2 (October 21, 2026)
+## 35.0.2 RC1 (October 21, 2026)
 
 - Bugfixes and performance improvements
 
