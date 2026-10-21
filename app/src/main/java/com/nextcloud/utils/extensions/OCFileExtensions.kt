@@ -22,6 +22,8 @@ import com.owncloud.android.utils.FileStorageUtils
 import java.io.File
 import java.util.Calendar
 
+private const val TAG = "OCFileExtensions"
+
 fun List<OCFile>.filterFilenames(): List<OCFile> = distinctBy { it.fileName }
 
 fun OCFile.isTempFile(): Boolean {
