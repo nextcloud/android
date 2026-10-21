@@ -47,5 +47,5 @@ class AndroidCompatTimeZoneRegistry : TimeZoneRegistry {
 
     override fun getZoneId(tzId: String): ZoneId = delegate.getZoneId(tzId)
 
-    override fun getTzId(zoneId: String): String = delegate.getTzId(zoneId)
+    override fun getTzId(zoneId: String): String? = delegate.getTzId(zoneId)
 }
