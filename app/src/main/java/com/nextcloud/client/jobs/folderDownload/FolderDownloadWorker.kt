@@ -15,6 +15,7 @@ import androidx.work.workDataOf
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.jobs.BackgroundJobManagerImpl
 import com.nextcloud.client.jobs.download.FileDownloadHelper
+import com.nextcloud.utils.AppConstants
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
@@ -27,7 +28,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import java.util.concurrent.ConcurrentHashMap
-import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * Only used for downloading files in first level of the folder, not subfolders.
@@ -160,7 +160,7 @@ class FolderDownloadWorker(
                 setProgress(workDataOf(IS_FOLDER_DOWNLOADED to true))
 
                 // delay so that user can see the error or success notification
-                delay(2000.milliseconds)
+                delay(AppConstants.TWO_SECOND)
                 notificationManager.dismiss()
             }
         }
