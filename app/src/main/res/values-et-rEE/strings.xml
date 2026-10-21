@@ -135,7 +135,7 @@
     <string name="auto_upload_battery_saver_reason">Akukasutuse optimeerimine on aktiivne ja see võib üleslaadimisi peatada.</string>
     <string name="auto_upload_delete_dialog_description">Järgnevaga eemaldad kausta ja automaatse üleslaadimise seadistused. Kõik lõpetamata üleslaadimised katkestatakse.</string>
     <string name="auto_upload_delete_dialog_title">Kas kustutad automaatse üleslaadimise kausta?</string>
-    <string name="auto_upload_file_behaviour_kept_in_folder">säilitatud lugemisõigustega algkaustas</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">kuna ta on lugemisõigustega, siis on säilitatud algkaustas</string>
     <string name="auto_upload_low_battery_warning_info">Aku on üsna tühi, üleslaadimine võib kesta kauem</string>
     <string name="auto_upload_on_wifi">Laadi üles ainult mahupiiranguta WiFi võrgus</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -681,7 +681,7 @@
     <string name="logs_status_not_filtered">Logid: %1$d kB, filtrit pole</string>
     <string name="logs_title">Logid</string>
     <string name="maintenance_mode">Server on hooldusrežiimis</string>
-    <string name="manage_space_auto_upload_clear_data">Kustuta automaatselt üleslaaditud failid kohalikust seadmest</string>
+    <string name="manage_space_auto_upload_clear_data">Kustuta automaatselt kohalikust seadmest üleslaaditud failid</string>
     <string name="manage_space_auto_upload_description">Kõik automaatsete üleslaadimiste kaustadest serverisse üleslaaditud failid kustutatakse andmeruumi vabastamise nimel.\n\nSelle toimingu jaoks võib kuluda aega.</string>
     <string name="manage_space_auto_upload_title">Kustuta automaatselt üleslaaditud failid kohalikust seadmest</string>
     <string name="manage_space_clear_data">Kustuta andmed</string>
@@ -691,10 +691,10 @@
     <string name="media_picker_toolbar_title">Vali meediumifailid</string>
     <string name="menu_item_sort_by_date_newest_first">Uuemad esimesena</string>
     <string name="menu_item_sort_by_date_oldest_first">Vanemad esimesena</string>
-    <string name="menu_item_sort_by_name_a_z">A - Z</string>
-    <string name="menu_item_sort_by_name_z_a">Z - A</string>
+    <string name="menu_item_sort_by_name_a_z">A - Y</string>
+    <string name="menu_item_sort_by_name_z_a">Y - A</string>
     <string name="menu_item_sort_by_size_biggest_first">Suuremad esimesena</string>
-    <string name="menu_item_sort_by_size_smallest_first">Väiksemad esimesenaa</string>
+    <string name="menu_item_sort_by_size_smallest_first">Väiksemad esimesena</string>
     <string name="more">Veel</string>
     <string name="more_documents">Veel dokumente</string>
     <string name="move_file_error">Selle faili või kausta teisaldamisel tekkis viga</string>
@@ -1019,7 +1019,7 @@
     <string name="sign_tos_failed">Palun tutvu kasutustingimustega!</string>
     <string name="signup_with_provider">Või liitu teenusepakkujaga</string>
     <string name="single_sign_on_request_token" formatted="true">Kas lubad „%1$s“ teenusel ligipääsu sinu Nextcloudi kasutajakontole „%2$s“?</string>
-    <string name="sort_by">Sorteeri</string>
+    <string name="sort_by">Järjesta</string>
     <string name="sort_favorites_first">Järjesta lemmikud esimesena</string>
     <string name="sort_folders_before_files">Järjesta kaustad enne faile</string>
     <string name="ssl_validator_btn_details_hide">Peida</string>
