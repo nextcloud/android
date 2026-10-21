@@ -15,11 +15,11 @@ import androidx.exifinterface.media.ExifInterface
 import com.nextcloud.utils.extensions.toFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.BitmapUtils.calculateSampleFactor
+import com.nextcloud.utils.AppConstants.BYTES_PER_KB
 
 private const val TAG = "BitmapExtension"
 
-@Suppress("MagicNumber")
-fun Bitmap.allocationKilobyte(): Int = allocationByteCount.div(1024)
+fun Bitmap.allocationKilobyte(): Int = allocationByteCount.div(BYTES_PER_KB)
 
 /**
  * Scales down the Bitmap step by step until its size allocation is within the specified size.

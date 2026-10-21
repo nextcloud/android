@@ -44,6 +44,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+import com.nextcloud.utils.AppConstants.ONE_SECOND
 
 @Suppress("TooManyFunctions")
 object FileStorageUtils {
@@ -64,7 +65,6 @@ object FileStorageUtils {
     private const val ENV_SECONDARY_STORAGE = "SECONDARY_STORAGE"
     private const val ENV_EMULATED_STORAGE_TARGET = "EMULATED_STORAGE_TARGET"
 
-    private const val FILE_SAVE_POLL_INTERVAL_MS = 1000L
     private const val UNKNOWN_AVAILABLE_SPACE = -1L
 
     private const val FIRST_PRINTABLE_CHAR = ' '
@@ -375,7 +375,7 @@ object FileStorageUtils {
             lastModified = realFile.lastModified()
             lastSize = realFile.length()
             try {
-                Thread.sleep(FILE_SAVE_POLL_INTERVAL_MS)
+                Thread.sleep(ONE_SECOND.inWholeMilliseconds)
             } catch (_: InterruptedException) {
                 Log_OC.d(TAG, "Interrupted while waiting for file to finish saving")
                 Thread.currentThread().interrupt()

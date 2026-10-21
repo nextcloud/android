@@ -55,6 +55,7 @@ import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.ui.fileactions.FileAction;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.ui.sort.SortOrderUi;
+import com.nextcloud.utils.AppConstants;
 import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.ShortcutUtil;
 import com.nextcloud.utils.SnackbarUtil;
@@ -130,6 +131,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -1903,8 +1905,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             capability
         );
 
-        long nowSeconds = System.currentTimeMillis() / 1000L;
-        long last14DaysTimestamp = nowSeconds - 14L * 24 * 60 * 60;
+        long nowSeconds = System.currentTimeMillis() / AppConstants.MILLIS_PER_SECOND;
+        long last14DaysTimestamp = nowSeconds - TimeUnit.DAYS.toSeconds(14);
 
         remoteOperation.setStartDate(last14DaysTimestamp);
         remoteOperation.setEndDate(nowSeconds);

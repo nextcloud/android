@@ -17,6 +17,7 @@ import java.io.BufferedOutputStream
 import java.io.File
 import java.io.IOException
 import java.io.InputStream
+import com.nextcloud.utils.AppConstants.BYTES_PER_KB
 
 class DiskLruImageCache
 @Throws(IOException::class)
@@ -133,9 +134,8 @@ constructor(
         private const val CACHE_VERSION = 1
         private const val VALUE_COUNT = 1
         private const val VALUE_INDEX = 0
-        private const val IO_BUFFER_SIZE = 8 * 1024
+        private const val IO_BUFFER_SIZE = 8 * BYTES_PER_KB
         private const val ARGB_8888_BYTES_PER_PIXEL = 4
-        private const val BYTES_PER_KB = 1024
 
         private val TAG = DiskLruImageCache::class.java.simpleName
     }
