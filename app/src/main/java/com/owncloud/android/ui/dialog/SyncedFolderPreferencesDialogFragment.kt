@@ -24,6 +24,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.SubFolderRule
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.text.SpanFormatter
 import com.owncloud.android.R
 import com.owncloud.android.databinding.SyncedFoldersSettingsLayoutBinding
 import com.owncloud.android.datamodel.MediaFolderType
@@ -34,7 +35,6 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.FolderPickerActivity
 import com.owncloud.android.ui.activity.UploadFilesActivity
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.FileUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -185,7 +185,7 @@ class SyncedFolderPreferencesDialogFragment :
             setEnabled(it.isEnabled)
 
             if (!TextUtils.isEmpty(it.localPath)) {
-                binding.syncedFoldersSettingsLocalFolderPath.text = DisplayUtils.createTextWithSpan(
+                binding.syncedFoldersSettingsLocalFolderPath.text = SpanFormatter.styleLast(
                     String.format(
                         getString(R.string.synced_folders_preferences_folder_path),
                         it.localPath
@@ -262,7 +262,7 @@ class SyncedFolderPreferencesDialogFragment :
     fun setLocalFolderSummary(path: String?) {
         syncedFolder?.localPath = path
         binding?.localFolderSummary?.text = FileStorageUtils.pathToUserFriendlyDisplay(path, activity, resources)
-        binding?.syncedFoldersSettingsLocalFolderPath?.text = DisplayUtils.createTextWithSpan(
+        binding?.syncedFoldersSettingsLocalFolderPath?.text = SpanFormatter.styleLast(
             String.format(
                 getString(R.string.synced_folders_preferences_folder_path),
                 syncedFolder!!.localPath

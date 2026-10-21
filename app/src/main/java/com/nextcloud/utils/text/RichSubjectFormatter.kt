@@ -19,13 +19,13 @@ import android.text.style.StyleSpan
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.google.android.material.chip.ChipDrawable
-import com.nextcloud.client.account.CurrentAccountProvider
+import com.nextcloud.utils.avatar.AvatarGenerationListener
+import com.nextcloud.utils.avatar.AvatarGenerator
 import com.owncloud.android.R
-import com.owncloud.android.utils.DisplayUtils
 import thirdparties.fresco.BetterImageSpan
 
-class RichSubjectFormatter(private val context: Context, private val currentAccountProvider: CurrentAccountProvider) :
-    DisplayUtils.AvatarGenerationListener {
+class RichSubjectFormatter(private val context: Context, private val avatarGenerator: AvatarGenerator) :
+    AvatarGenerationListener {
 
     fun format(richSubject: String, paramForTag: (String) -> RichSubjectParam?): SpannableStringBuilder {
         var text = richSubject
@@ -59,11 +59,11 @@ class RichSubjectFormatter(private val context: Context, private val currentAcco
         return ssb
     }
 
-    override fun avatarGenerated(avatarDrawable: Drawable, callContext: Any) {
+    override fun avatarGenerated(avatarDrawable: Drawable?, callContext: Any?) {
         (callContext as? ChipDrawable)?.chipIcon = avatarDrawable
     }
 
-    override fun shouldCallGeneratedCallback(tag: String, callContext: Any): Boolean = true
+    override fun shouldCallGeneratedCallback(tag: String?, callContext: Any?): Boolean = true
 
     private fun SpannableStringBuilder.applyMentionSpan(param: RichSubjectParam, start: Int, end: Int) {
         val name = param.name
@@ -71,15 +71,12 @@ class RichSubjectFormatter(private val context: Context, private val currentAcco
         val span = MentionChipSpan(chip, BetterImageSpan.ALIGN_CENTER, param.id.orEmpty(), name)
 
         param.id?.let { id ->
-            DisplayUtils.setAvatar(
-                currentAccountProvider.user,
+            avatarGenerator.setUserAvatar(
                 id,
-                name,
                 this@RichSubjectFormatter,
                 context.resources.getDimension(R.dimen.avatar_icon_radius),
-                context.resources,
                 chip,
-                context
+                displayName = name
             )
         }
 

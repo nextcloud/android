@@ -39,8 +39,11 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.client.systembars.SystemBarBackgroundCallbacks
 import com.nextcloud.client.utils.Throttler
+import com.nextcloud.ui.sort.SortOrderUi
 import com.nextcloud.ui.trashbinFileActions.TrashbinFileActionsBottomSheet
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FragmentTrashbinBinding
@@ -51,7 +54,6 @@ import com.owncloud.android.ui.dialog.SortingOrderDialogFragment.OnSortingOrderL
 import com.owncloud.android.ui.interfaces.TrashbinActivityInterface
 import com.owncloud.android.ui.navigation.NavigatorActivity
 import com.owncloud.android.ui.navigation.listener.NavigatorOnBackPressListener
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
@@ -118,7 +120,7 @@ class TrashbinFragment :
             if (targetUser.isPresent) {
                 navigatorActivity.setUser(targetUser.get())
             } else {
-                DisplayUtils.showSnackMessage(this, R.string.associated_account_not_found)
+                SnackbarUtil.show(this, R.string.associated_account_not_found)
                 activity?.finish()
                 return
             }
@@ -172,8 +174,9 @@ class TrashbinFragment :
         activity?.findViewById<View>(R.id.sort_list_button_group)?.visibility = View.VISIBLE
         activity?.findViewById<MaterialButton>(R.id.sort_button)?.run {
             setOnClickListener {
-                DisplayUtils.openSortingOrderDialogFragment(
-                    activity?.supportFragmentManager,
+                val fragmentManager = activity?.supportFragmentManager ?: return@setOnClickListener
+                SortOrderUi.showDialog(
+                    fragmentManager,
                     preferences.getSortOrderByType(
                         FileSortOrder.Type.trashBinView,
                         FileSortOrder.SORT_NEW_TO_OLD
@@ -181,7 +184,7 @@ class TrashbinFragment :
                 )
             }
 
-            setText(DisplayUtils.getSortOrderStringId(sortOrder))
+            setText(SortOrderUi.labelRes(sortOrder))
             visibility = View.VISIBLE
         }
 
@@ -313,9 +316,10 @@ class TrashbinFragment :
     }
 
     override fun onSortingOrderChosen(selection: FileSortOrder?) {
+        selection ?: return
         val navigatorActivity = getTypedActivity(NavigatorActivity::class.java)
         val sortButton = navigatorActivity?.findViewById<TextView>(R.id.sort_button)
-        sortButton?.setText(DisplayUtils.getSortOrderStringId(selection))
+        sortButton?.setText(SortOrderUi.labelRes(selection))
         trashbinListAdapter?.setSortOrder(selection)
     }
 
@@ -557,10 +561,9 @@ class TrashbinFragment :
             mode.invalidate()
 
             if (activity != null) {
-                viewThemeUtils.platform.colorStatusBar(
-                    activity,
-                    ContextCompat.getColor(activity, R.color.action_mode_background)
-                )
+                val statusBarColor = ContextCompat.getColor(activity, R.color.action_mode_background)
+                viewThemeUtils.platform.colorStatusBar(activity, statusBarColor)
+                SystemBarBackgroundCallbacks.colorStatusBar(activity, statusBarColor)
             }
 
             adapter?.setMultiSelect(true)
@@ -616,6 +619,7 @@ class TrashbinFragment :
 
             if (activity != null) {
                 viewThemeUtils.platform.resetStatusBar(activity)
+                SystemBarBackgroundCallbacks.apply(activity, viewThemeUtils)
             }
 
             adapter?.setMultiSelect(false)

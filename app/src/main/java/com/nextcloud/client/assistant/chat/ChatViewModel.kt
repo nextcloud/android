@@ -10,7 +10,7 @@ package com.nextcloud.client.assistant.chat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.assistant.repository.remote.AssistantRemoteRepository
-import com.nextcloud.utils.TimeConstants.MILLIS_PER_SECOND
+import com.nextcloud.utils.AppConstants.MILLIS_PER_SECOND
 import com.nextcloud.utils.date.DateFormatPattern
 import com.nextcloud.utils.date.DateFormatter
 import com.nextcloud.utils.extensions.isHuman

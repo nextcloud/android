@@ -23,7 +23,6 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isNotEmpty
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -34,7 +33,15 @@ import com.nextcloud.android.lib.resources.clientintegration.Endpoint
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
+import com.nextcloud.utils.SnackbarUtil
+import com.nextcloud.utils.avatar.AvatarGenerationListener
+import com.nextcloud.utils.avatar.AvatarGenerator
 import com.nextcloud.utils.extensions.setVisibleIf
+import com.nextcloud.utils.text.DisplayTextFormatter
+import com.nextcloud.utils.text.SpanFormatter
+import com.nextcloud.utils.thumbnail.ThumbnailArguments
+import com.nextcloud.utils.view.LocaleDirection
+import com.nextcloud.utils.view.ScreenMetrics
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileActionsBottomSheetBinding
 import com.owncloud.android.databinding.FileActionsBottomSheetItemBinding
@@ -43,8 +50,6 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.resources.files.model.FileLockType
 import com.owncloud.android.ui.activity.ComponentsGetter
-import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import com.owncloud.android.utils.FileStorageUtils
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -71,6 +76,9 @@ class FileActionsBottomSheet :
 
     @Inject
     lateinit var thumbnailGenerator: ThumbnailGenerator
+
+    @Inject
+    lateinit var avatarGenerator: AvatarGenerator
 
     private lateinit var viewModel: FileActionsViewModel
 
@@ -137,7 +145,7 @@ class FileActionsBottomSheet :
 
             FileActionsViewModel.UiState.Error -> {
                 activity?.let {
-                    DisplayUtils.showSnackMessage(it, R.string.error_file_actions)
+                    SnackbarUtil.show(it, R.string.error_file_actions)
                 }
                 dismissAllowingStateLoss()
             }
@@ -149,7 +157,7 @@ class FileActionsBottomSheet :
             thumbnailGenerator.setThumbnail(
                 it,
                 binding.thumbnailLayout.thumbnail,
-                shimmer = binding.thumbnailLayout.thumbnailShimmer
+                ThumbnailArguments.withShimmer(binding.thumbnailLayout.thumbnailShimmer)
             )
         }
     }
@@ -232,11 +240,11 @@ class FileActionsBottomSheet :
         val decryptedFileName = titleFile?.decryptedFileName
         if (decryptedFileName != null) {
             val isFolder = titleFile.isFolder
-            val isRTL = DisplayUtils.isRTL()
+            val isRTL = LocaleDirection.isRtl
             val (base, ext) = FileStorageUtils.getFilenameAndExtension(decryptedFileName, isFolder, isRTL)
-            val titleMaxWidth = DisplayUtils.convertDpToPixel(
+            val titleMaxWidth = ScreenMetrics.dpToPx(
                 requireContext().resources.configuration.screenWidthDp.times(FILENAME_MAX_WIDTH_PERCENTAGE).toFloat(),
-                context
+                requireContext()
             )
 
             binding.title.maxWidth = titleMaxWidth
@@ -277,14 +285,11 @@ class FileActionsBottomSheet :
 
             override fun shouldCallGeneratedCallback(tag: String?, callContext: Any?): Boolean = false
         }
-        DisplayUtils.setAvatar(
-            currentUserProvider.user,
+        avatarGenerator.setUserAvatar(
             lockInfo.lockedBy,
             listener,
             resources.getDimension(R.dimen.list_item_avatar_icon_radius),
-            resources,
-            this,
-            requireContext()
+            this
         )
     }
 
@@ -293,7 +298,7 @@ class FileActionsBottomSheet :
             FileLockType.COLLABORATIVE -> R.string.locked_by_app
             else -> R.string.locked_by
         }
-        return DisplayUtils.createTextWithSpan(
+        return SpanFormatter.styleLast(
             getString(resource, lockInfo.lockedBy),
             lockInfo.lockedBy,
             StyleSpan(Typeface.BOLD)
@@ -301,7 +306,8 @@ class FileActionsBottomSheet :
     }
 
     private fun getLockedUntilText(lockInfo: FileActionsViewModel.LockInfo): CharSequence {
-        val relativeTimestamp = DisplayUtils.getRelativeTimestamp(context, lockInfo.lockedUntil!!, true)
+        val relativeTimestamp =
+            DisplayTextFormatter.formatRelativeTimestamp(requireContext(), lockInfo.lockedUntil!!, true)
         return getString(R.string.lock_expiration_info, relativeTimestamp)
     }
 
@@ -313,26 +319,32 @@ class FileActionsBottomSheet :
         val itemBinding = FileActionsBottomSheetItemBinding.inflate(layoutInflater, binding.fileActionsList, false)
             .apply {
                 root.setOnClickListener {
+                    action.toggledFavorite()?.let { showAction(it, viewThemeUtils) }
                     viewModel.onClick(action)
                 }
-                text.setText(action.title)
-                if (action.icon != null) {
-                    val drawable =
-                        viewThemeUtils.platform.tintDrawable(
-                            requireContext(),
-                            AppCompatResources.getDrawable(requireContext(), action.icon)!!
-                        )
-                    icon.setImageDrawable(drawable)
-                }
+                showAction(action, viewThemeUtils)
             }
         return itemBinding.root
     }
 
     private fun dispatchActionClick(id: Int?) {
-        if (id != null) {
-            setFragmentResult(REQUEST_KEY, bundleOf(RESULT_KEY_ACTION_ID to id))
-            parentFragmentManager.clearFragmentResultListener(REQUEST_KEY)
+        if (id == null) {
+            return
+        }
+
+        // get the manager and dismiss before sending, as the result can replace the fragment hosting this sheet
+        val fragmentManager = parentFragmentManager
+        val isFavoriteToggle = id == R.id.action_favorite || id == R.id.action_unset_favorite
+        if (!isFavoriteToggle) {
             dismiss()
+        }
+
+        fragmentManager.setFragmentResult(REQUEST_KEY, bundleOf(RESULT_KEY_ACTION_ID to id))
+        fragmentManager.clearFragmentResultListener(REQUEST_KEY)
+
+        if (isFavoriteToggle) {
+            val delay = resources.getInteger(android.R.integer.config_mediumAnimTime).toLong()
+            binding.root.postDelayed({ dismissAllowingStateLoss() }, delay)
         }
     }
 
@@ -373,5 +385,17 @@ class FileActionsBottomSheet :
             }
             arguments = argsBundle
         }
+    }
+}
+
+private fun FileActionsBottomSheetItemBinding.showAction(action: FileAction, viewThemeUtils: ViewThemeUtils) {
+    text.setText(action.title)
+    if (action.icon != null) {
+        val context = root.context
+        val drawable = viewThemeUtils.platform.tintDrawable(
+            context,
+            AppCompatResources.getDrawable(context, action.icon)!!
+        )
+        icon.setImageDrawable(drawable)
     }
 }

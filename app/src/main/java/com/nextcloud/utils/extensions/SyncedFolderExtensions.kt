@@ -37,7 +37,7 @@ fun SyncedFolder.shouldSkipFile(
     }
 
     // If "upload existing files" is DISABLED, only upload files created after enabled time
-    if (!isExisting) {
+    if (!alsoUploadExistingFiles()) {
         if (creationTime != null) {
             if (creationTime < enabledTimestampMs) {
                 Log_OC.d(TAG, "Skipping pre-existing file (creation < enabled): ${file.absolutePath}")
@@ -149,7 +149,7 @@ fun SyncedFolder.getLog(): String {
         📶 Wi-Fi only: $isWifiOnly
         🔌 Charging only: $isChargingOnly
         
-        📤 Upload existing files: $isExisting
+        📤 Upload existing files: ${alsoUploadExistingFiles()}
         ⚙️ Upload action: $uploadAction
         🧩 Name collision: $nameCollisionPolicy
         

@@ -50,10 +50,11 @@ abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
         // make sure everything is removed
         sut.deleteAllFiles();
         sut.deleteVirtuals(VirtualFolderType.GALLERY);
-
         assertEquals(0, sut.getAllFiles().size());
-
-        capability = new GetCapabilitiesRemoteOperation(null).execute(client).getResultData();
+        final var result = new GetCapabilitiesRemoteOperation(null)
+            .execute(client);
+        assertTrue(result.isSuccess());
+        capability = result.getResultData();
     }
 
     @After
@@ -352,5 +353,4 @@ abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
 
         assertEquals(capability.getUserStatus(), newCapability.getUserStatus());
     }
-
 }

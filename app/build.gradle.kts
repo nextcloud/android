@@ -13,8 +13,6 @@ import com.github.spotbugs.snom.SpotBugsTask
 import com.karumi.shot.ShotExtension
 import org.gradle.internal.jvm.Jvm
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import java.io.FileInputStream
-import java.util.Properties
 
 val shotTest = System.getenv("SHOT_TEST") == "true"
 val ciBuild = System.getenv("CI") == "true"
@@ -70,7 +68,7 @@ configurations.configureEach {
 
 // semantic versioning for version code
 val versionMajor = 35
-val versionMinor = 0
+val versionMinor = 1
 val versionPatch = 0
 val versionBuild = 50 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
@@ -81,14 +79,9 @@ val ndkEnv = buildMap {
     }
 }
 
-val configProps = Properties().apply {
-    val file = rootProject.file("gradle.properties")
-    if (file.exists()) load(FileInputStream(file))
-}
-
-val ncTestServerUsername = configProps["NC_TEST_SERVER_USERNAME"]
-val ncTestServerPassword = configProps["NC_TEST_SERVER_PASSWORD"]
-val ncTestServerBaseUrl = configProps["NC_TEST_SERVER_BASEURL"]
+val ncTestServerUsername = providers.gradleProperty("NC_TEST_SERVER_USERNAME").get()
+val ncTestServerPassword = providers.gradleProperty("NC_TEST_SERVER_PASSWORD").get()
+val ncTestServerBaseUrl = providers.gradleProperty("NC_TEST_SERVER_BASEURL").get()
 
 android {
     // install this NDK version and CMake to produce smaller APKs. Build will still work if not installed
@@ -118,7 +111,7 @@ android {
         compileSdk = 37
 
         ndk {
-            abiFilters += listOf("arm64-v8a", "x86_64")
+            abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
         }
 
         buildConfigField("boolean", "CI", ciBuild.toString())
@@ -142,9 +135,11 @@ android {
 
         buildTypes {
             release {
+                optimization {
+                    enable = true
+                }
                 buildConfigField("String", "NC_TEST_SERVER_DATA_STRING", "\"\"")
             }
-
             debug {
                 enableUnitTestCoverage = project.hasProperty("coverage")
                 enableAndroidTestCoverage = project.hasProperty("coverage")
@@ -426,7 +421,6 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
 
     // region other libraries
-    compileOnly(libs.org.jbundle.util.osgi.wrapped.org.apache.http.client)
     implementation(libs.commons.httpclient.commons.httpclient) // remove after entire switch to lib v2
     implementation(libs.jackrabbit.webdav) // remove after entire switch to lib v2
     implementation(libs.constraintlayout)
@@ -438,14 +432,12 @@ dependencies {
     implementation(libs.commons.io)
     implementation(libs.eventbus)
     implementation(libs.ez.vcard)
-    implementation(libs.nnio)
     implementation(libs.bcpkix.jdk18on)
     implementation(libs.gson)
     implementation(libs.sectioned.recyclerview)
     implementation(libs.photoview)
     implementation(libs.android.gif.drawable)
     implementation(libs.qrcodescanner) // "com.github.blikoon:QRCodeScanner:0.1.2"
-    implementation(libs.flexbox)
     implementation(libs.androidsvg)
     implementation(libs.annotation)
     implementation(libs.emoji.google)
@@ -526,10 +518,7 @@ dependencies {
 
     // region Kotlin
     implementation(libs.kotlin.stdlib)
-    // endregion
-
-    // region Stateless
-    implementation(libs.stateless4j)
+    implementation(libs.kotlinx.coroutines.core)
     // endregion
 
     // region Google Play dependencies, upon each update first test: new registration, receive push

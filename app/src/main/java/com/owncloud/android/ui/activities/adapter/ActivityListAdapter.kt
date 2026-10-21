@@ -25,6 +25,8 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.utils.GlideHelper
+import com.nextcloud.utils.avatar.AvatarGenerator
+import com.nextcloud.utils.text.DisplayTextFormatter
 import com.nextcloud.utils.text.RichSubjectFormatter
 import com.nextcloud.utils.text.RichSubjectParam
 import com.owncloud.android.MainApp
@@ -39,7 +41,6 @@ import com.owncloud.android.lib.resources.activities.model.RichObject
 import com.owncloud.android.lib.resources.activities.models.PreviewObject
 import com.owncloud.android.ui.activities.StickyHeaderAdapter
 import com.owncloud.android.ui.interfaces.ActivityListInterface
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
@@ -50,13 +51,14 @@ import kotlin.math.floor
 import kotlin.math.log
 import kotlin.math.pow
 
-@Suppress("MagicNumber", "TooManyFunctions")
+@Suppress("MagicNumber", "TooManyFunctions", "LongParameterList")
 open class ActivityListAdapter(
     protected val context: FragmentActivity,
     private val currentAccountProvider: CurrentAccountProvider,
     private val activityListInterface: ActivityListInterface,
     private val isDetailView: Boolean,
-    private val viewThemeUtils: ViewThemeUtils
+    private val viewThemeUtils: ViewThemeUtils,
+    private val avatarGenerator: AvatarGenerator
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
     StickyHeaderAdapter {
 
@@ -64,7 +66,7 @@ open class ActivityListAdapter(
     val values: MutableList<Any> = mutableListOf()
     private val px = getThumbnailDimension()
     private var cachedNextcloudClient: NextcloudClient? = null
-    private val richSubjectFormatter by lazy { RichSubjectFormatter(context, currentAccountProvider) }
+    private val richSubjectFormatter by lazy { RichSubjectFormatter(context, avatarGenerator) }
 
     // region Public Methods
     @Suppress("NotifyDataSetChanged")
@@ -79,12 +81,10 @@ open class ActivityListAdapter(
 
     fun getHeaderDateString(context: Context, modificationTimestamp: Long): CharSequence =
         if ((System.currentTimeMillis() - modificationTimestamp) < DateUtils.WEEK_IN_MILLIS) {
-            DisplayUtils.getRelativeDateTimeString(
+            DisplayTextFormatter.formatRelativeDateTime(
                 context,
                 modificationTimestamp,
-                DateUtils.DAY_IN_MILLIS,
-                DateUtils.WEEK_IN_MILLIS,
-                0
+                DateUtils.DAY_IN_MILLIS
             )
         } else {
             DateFormat.format(

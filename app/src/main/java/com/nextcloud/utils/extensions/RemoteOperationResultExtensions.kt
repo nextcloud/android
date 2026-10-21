@@ -44,6 +44,8 @@ fun ResultCode.isFileSpecificError(): Boolean {
     return !generalErrorCodes.contains(this)
 }
 
+fun ResultCode.isUserCancellation(): Boolean = this == ResultCode.CANCELLED || this == ResultCode.USER_CANCELLED
+
 fun ResultCode.isConflict(): Boolean {
     val errorCodes = listOf(
         ResultCode.SYNC_CONFLICT,

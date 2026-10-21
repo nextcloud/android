@@ -15,6 +15,7 @@ import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFi
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedMetadata
 import com.owncloud.android.lib.resources.e2ee.CsrHelper
 import com.owncloud.android.operations.RefreshFolderOperation
+import com.owncloud.android.ui.dialog.setupEncryption.EncryptionKeyGenerator
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -27,7 +28,7 @@ class EncryptionUtilsIT : EncryptionIT() {
     @Test
     fun saveAndRestorePublicKey() {
         val arbitraryDataProvider = ArbitraryDataProviderImpl(targetContext)
-        val keyPair = EncryptionUtils.generateKeyPair()
+        val keyPair = EncryptionKeyGenerator.generateKeyPair()
         val e2eUser = "e2e-user"
         val key = CsrHelper().generateCsrPemEncodedString(keyPair, e2eUser)
 

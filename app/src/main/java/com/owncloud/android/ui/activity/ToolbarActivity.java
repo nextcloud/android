@@ -15,9 +15,6 @@ package com.owncloud.android.ui.activity;
 
 import android.animation.AnimatorInflater;
 import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -32,6 +29,7 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.systembars.SystemBarBackgroundCallbacks;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -289,6 +287,12 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
             mDefaultToolbar.setVisibility(View.VISIBLE);
             mHomeSearchToolbar.setVisibility(View.GONE);
         }
+
+        SystemBarBackgroundCallbacks.apply(this, viewThemeUtils);
+    }
+
+    public boolean isHomeSearchToolbarVisible() {
+        return mHomeSearchToolbar != null && mHomeSearchToolbar.getVisibility() == View.VISIBLE;
     }
 
     /**
@@ -342,13 +346,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
     }
 
     public void setPreviewImageVisibility(boolean isVisibility) {
-        if (mPreviewImage != null && mPreviewImageContainer != null) {
-            if (isVisibility) {
-                mToolbar.setTitle(null);
-                mToolbar.setBackgroundColor(Color.TRANSPARENT);
-            } else {
-                mToolbar.setBackgroundResource(R.color.appbar);
-            }
+        if (mPreviewImageContainer != null) {
             mPreviewImageContainer.setVisibility(isVisibility ? View.VISIBLE : View.GONE);
         }
     }
@@ -375,38 +373,10 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         return view.getVisibility() == View.VISIBLE;
     }
     /**
-     * Change the bitmap for the toolbar's preview image.
-     *
-     * @param bitmap bitmap of the preview image
-     */
-    public void setPreviewImageBitmap(Bitmap bitmap) {
-        if (mPreviewImage != null) {
-            mPreviewImage.setImageBitmap(bitmap);
-            setPreviewImageVisibility(true);
-        }
-    }
-
-    /**
-     * Change the drawable for the toolbar's preview image.
-     *
-     * @param drawable drawable of the preview image
-     */
-    public void setPreviewImageDrawable(Drawable drawable) {
-        if (mPreviewImage != null) {
-            mPreviewImage.setImageDrawable(drawable);
-            setPreviewImageVisibility(true);
-        }
-    }
-
-    /**
      * get the toolbar's preview image view.
      */
     public ImageView getPreviewImageView() {
         return mPreviewImage;
-    }
-
-    public FrameLayout getPreviewImageContainer() {
-        return mPreviewImageContainer;
     }
 
     public void updateToolbarSubtitle(@NonNull String subtitle) {

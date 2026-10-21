@@ -31,7 +31,11 @@
     <string name="activity_icon">Tevékenység</string>
     <string name="add_new_public_share">Új nyilvános megosztási hivatkozás hozzáadása</string>
     <string name="add_new_secure_file_drop">Új biztonságos fájllerakat hozzáadása</string>
-    <string name="add_to_cloud">Hozzáadás ehhez: %1$s</string>
+    <string name="add_to_album">Hozzáadás az albumhoz</string>
+    <string name="album_delete">Album törlése</string>
+    <string name="album_rename_conflict">Ez a név már foglalt.</string>
+    <string name="album_share">Album megosztása</string>
+    <string name="album_stop_sharing">Megosztás befejezése</string>
     <string name="app_config_base_url_title">Alap webcím</string>
     <string name="app_config_disable_clipboard_title">Vágólap letiltása</string>
     <string name="app_config_disable_intro_title">Bevezető kikapcsolása</string>
@@ -248,17 +252,20 @@
     <string name="could_not_retrieve_shares">Nem sikerült lekérni a megosztásokat</string>
     <string name="could_not_retrieve_url">A webcím nem kérhető le</string>
     <string name="create">Létrehozás</string>
+    <string name="create_album_dialog_title">Új album</string>
     <string name="create_dir_fail_msg">A mappa létrehozása sikertelen</string>
+    <string name="create_document">Dokumentum</string>
     <string name="create_end_to_end_encrypted_share">Megosztási hivatkozás</string>
     <string name="create_end_to_end_encrypted_share_title">Végpontok közti titkosítással rendelkező megosztási hivatkozások</string>
+    <string name="create_folder">Mappa</string>
     <string name="create_link">Hivatkozás létrehozása</string>
     <string name="create_new">Új</string>
     <string name="create_new_document">Új dokumentum</string>
-    <string name="create_new_encrypted_folder">Új titkosított mappa</string>
-    <string name="create_new_folder">Új mappa</string>
     <string name="create_new_presentation">Új bemutató</string>
     <string name="create_new_spreadsheet">Új munkafüzet</string>
+    <string name="create_presentation">Bemutató</string>
     <string name="create_rich_workspace">Mappaleírás hozzáadása</string>
+    <string name="create_spreadsheet">Munkafüzet</string>
     <string name="credentials_disabled">Hitelesítő adatok letiltva</string>
     <string name="daily_backup">Napi biztonsági mentés</string>
     <string name="data_to_back_up">Mentendő adatok</string>
@@ -315,6 +322,7 @@
     <string name="drawer_community">Közösség</string>
     <string name="drawer_header_background">A fiókfejléc háttérképe</string>
     <string name="drawer_item_activities">Tevékenységek</string>
+    <string name="drawer_item_album">Albumok</string>
     <string name="drawer_item_all_files">Összes fájl</string>
     <string name="drawer_item_assistant">Asszisztens</string>
     <string name="drawer_item_favorites">Kedvencek</string>
@@ -416,6 +424,7 @@
     <string name="fab_label">Hozzáadás vagy feltöltés</string>
     <string name="failed_to_create_conflict_dialog">Nem sikerült létrehozni az ütközéskezelő párbeszédablakot</string>
     <string name="failed_to_download">Nem sikerült átadni a fájlt a letöltéskezelőnek</string>
+    <string name="failed_to_load_tags">A címkék betöltése sikertelen</string>
     <string name="failed_to_print">A fájl nyomtatása sikertelen</string>
     <string name="failed_to_start_action">Nem sikerült elkezdeni a műveletet.</string>
     <string name="failed_to_start_editor">A szerkesztő indítása sikertelen</string>
@@ -456,6 +465,7 @@
     <string name="file_list_live">ÉLŐ</string>
     <string name="file_list_loading">Betöltés…</string>
     <string name="file_list_no_app_for_file_type">Nincs alkalmazás beállítva ehhez a fájltípushoz.</string>
+    <string name="file_list_out_of_memory_description">A tartalom nem tölthető be</string>
     <string name="file_list_seconds_ago">másodperce</string>
     <string name="file_management_permission_optional">Tárhely engedélyek</string>
     <string name="file_management_permission_optional_text">A %1$s a tároló engedéllyel működik a legjobban. Választhat, hogy az összes fájlhoz teljes hozzáférést ad, vagy csak írásvédett elérést a fényképekhez és a videókhoz.</string>
@@ -609,22 +619,7 @@
     <string name="manage_space_clear_data">Adatok törlése</string>
     <string name="manage_space_description">A beállítások, az adatbázisok és a kiszolgáló tanúsítványok véglegesen törlésre kerülnek %1$s adataiból. \n\nA letöltött fájlok érintetlenek maradnak.\n\nEz eltarthat egy darabig.</string>
     <string name="manage_space_title">Tárhelykezelés</string>
-    <string name="media_err_invalid_progressive_playback">A médiafájl nem közvetíthető</string>
-    <string name="media_err_io">A médiafájl nem olvasható</string>
-    <string name="media_err_malformed">A médiafájl kódolása hibás</string>
-    <string name="media_err_timeout">Időtúllépés a lejátszás kísérletekor</string>
-    <string name="media_err_unknown">A beépített médialejátszó nem tudja lejátszani a fájlt</string>
-    <string name="media_err_unsupported">Nem támogatott média kodek</string>
-    <string name="media_forward_description">Előre gomb</string>
-    <string name="media_notif_ticker">%1$s zenelejátszó</string>
-    <string name="media_play_pause_description">Lejátszás vagy szüneteltetés gomb</string>
-    <string name="media_player_pause">Szünet</string>
-    <string name="media_player_play">Lejátszás</string>
-    <string name="media_player_playing">Média lejátszása</string>
-    <string name="media_player_seek_backward">Tekerés előrefelé</string>
-    <string name="media_player_seek_forward">Tekerés visszafelé</string>
-    <string name="media_rewind_description">Vissza gomb</string>
-    <string name="media_state_playing">%1$s (lejátszás)</string>
+    <string name="manage_tags">Címkék kezelése</string>
     <string name="menu_item_sort_by_date_newest_first">Újabbak elöl</string>
     <string name="menu_item_sort_by_date_oldest_first">Régebbiek elöl</string>
     <string name="menu_item_sort_by_name_a_z">A – Z</string>
@@ -718,8 +713,7 @@
     <string name="picture_set_as_no_app">Nincs alkalmazás a képbeállításhoz</string>
     <string name="pin_home">Rögzítés a kezdőképernyőre</string>
     <string name="pin_shortcut_label">A(z) %1$s megnyitása</string>
-    <string name="player_stop">leállítás</string>
-    <string name="player_toggle">átváltás</string>
+    <string name="player_media_controls_close_action_title">Bezárás</string>
     <string name="please_select_a_server">Válasszon egy kiszolgálót…</string>
     <string name="power_save_check_dialog_message">Az energiagazdálkodási ellenőrzés letiltása fájlfeltöltést eredményezhet akkor is, ha az akkumulátor töltöttsége alacsony.</string>
     <string name="pref_behaviour_entries_delete_file">törölt</string>
@@ -816,6 +810,7 @@
     <string name="reload">Újratöltés</string>
     <string name="remote">(távoli)</string>
     <string name="remote_file_fetch_failed">A fájl nem található.</string>
+    <string name="remove">Eltávolítás</string>
     <string name="remove_e2e">Helyileg eltávolíthatja a végpontok közti titkosítást ennél a kliensnél</string>
     <string name="remove_e2e_keys_and_files_dialog_warning">Ez a művelet eltávolítja az összes titkosított fájlt, privát és nyilvános kulcsot. Biztos benne?</string>
     <string name="remove_e2e_message">Helyileg eltávolíthatja a végpontok közti titkosítást ennél a kliensnél. A titkosított fájlok továbbra is a kiszolgálón maradnak, de már nem lesznek szinkronizálva erre a számítógépre.</string>
@@ -825,6 +820,7 @@
     <string name="remove_notification_failed">Az értesítés eltávolítása sikertelen.</string>
     <string name="remove_push_notification">Eltávolítás</string>
     <string name="remove_success_msg">Törölve</string>
+    <string name="rename_dialog_button">Átnevezés</string>
     <string name="rename_dialog_title">Adjon meg egy új nevet</string>
     <string name="rename_local_fail_msg">A helyi másolat nem nevezhető át, próbáljon meg egy másik nevet</string>
     <string name="rename_server_fail_msg">Nem nevezhető át, ez a név már foglalt</string>
@@ -855,6 +851,7 @@
     <string name="screenshot_06_davdroid_heading">Naptár és névjegyek</string>
     <string name="screenshot_06_davdroid_subline">Szinkronizálás DAVx⁵-tel</string>
     <string name="search_error">Hiba a keresési találatok lekérésekor</string>
+    <string name="search_tags">Címkék keresése</string>
     <string name="secure_share_not_set_up">A biztonságos megosztás nincs beállítva ennek a felhasználónak</string>
     <string name="secure_share_search">Biztonságos megosztás…</string>
     <string name="select_all">Összes kiválasztása</string>
@@ -1002,7 +999,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="store_short_dev_desc">A saját üzemeltetésű irodai platform, amely az Ön kezébe adja az irányítást (fejlesztői előzetes verzió)</string>
     <string name="stream">Közvetítés…</string>
     <string name="stream_not_possible_headline">A belső közvetítés nem lehetséges</string>
-    <string name="stream_not_possible_message">Helyette töltse le a médiát, vagy használjon külső alkalmazást.</string>
     <string name="sub_folder_rule_day">Év/hónap/nap</string>
     <string name="sub_folder_rule_month">Év/hónap</string>
     <string name="sub_folder_rule_year">Év</string>
@@ -1323,4 +1319,4 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
         <item quantity="one">%1$d letöltés maradt</item>
         <item quantity="other">%1$d letöltés maradt</item>
     </plurals>
-</resources>
+    </resources>

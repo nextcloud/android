@@ -31,6 +31,7 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.utils.autoRename.AutoRename
 import com.nextcloud.utils.extensions.isConflict
+import com.nextcloud.utils.extensions.isUserCancellation
 import com.owncloud.android.MainApp
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
@@ -205,19 +206,6 @@ class UploadsStorageManager(
             arrayOf(id.toString())
         )
         Log_OC.d(TAG, "delete returns $result for upload with id $id")
-        if (result > 0) {
-            notifyObserversNow()
-        }
-        return result
-    }
-
-    private fun removeUpload(accountName: String?, remotePath: String?): Int {
-        val result = contentResolver.delete(
-            ProviderTableMeta.CONTENT_URI_UPLOADS,
-            ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "=? AND " + ProviderTableMeta.UPLOADS_REMOTE_PATH + "=?",
-            arrayOf(accountName, remotePath)
-        )
-        Log_OC.d(TAG, "delete returns $result for file $remotePath in $accountName")
         if (result > 0) {
             notifyObserversNow()
         }
@@ -476,9 +464,8 @@ class UploadsStorageManager(
     fun updateDatabaseUploadResult(uploadResult: RemoteOperationResult<*>, upload: UploadFileOperation) {
         Log_OC.d(TAG, "updateDatabaseUploadResult uploadResult: $uploadResult upload: $upload")
 
-        if (uploadResult.isCancelled) {
-            Log_OC.w(TAG, "upload is cancelled, removing upload")
-            removeUpload(upload.user.accountName, upload.remotePath)
+        if (upload.isPaused) {
+            Log_OC.d(TAG, "upload is paused, keeping it queued: ${upload.remotePath}")
             return
         }
 
@@ -492,7 +479,10 @@ class UploadsStorageManager(
         var result = UploadResult.fromOperationResult(uploadResult)
         val code = uploadResult.code
 
-        if (uploadResult.isSuccess) {
+        if (code.isUserCancellation()) {
+            status = UploadStatus.UPLOAD_CANCELLED
+            result = UploadResult.CANCELLED
+        } else if (uploadResult.isSuccess) {
             status = UploadStatus.UPLOAD_SUCCEEDED
             result = if (upload.wasSkipped()) UploadResult.SKIPPED else UploadResult.UPLOADED
         } else if (code.isConflict()) {

@@ -132,6 +132,7 @@
 
     <!--    [{\"name\":\"name1\",\"url\":\"url\"},{\"name\":\"name2\",\"url\":\"url1\"}]-->
     <string name="enforce_servers" translatable="false"></string>
+    <string name="suggested_server" translatable="false"></string>
 
     
     <!-- Files becomes Home -->

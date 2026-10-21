@@ -7,8 +7,7 @@
 package com.owncloud.android
 
 import com.nextcloud.client.account.UserAccountManagerImpl
-import com.nextcloud.client.device.BatteryStatus
-import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.utils.PowerManagementFactory
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
@@ -21,6 +20,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
+import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Test
 import java.io.IOException
@@ -36,11 +36,7 @@ class GrantFolderExistenceTests : AbstractOnServerIT() {
         targetContext.contentResolver
     )
 
-    private val powerManagementServiceMock = object : PowerManagementService {
-        override val isPowerSavingEnabled = false
-        override val isIgnoringOptimization = true
-        override val battery = BatteryStatus(false, 0)
-    }
+    private val powerManagementServiceMock = PowerManagementFactory.mock
 
     @Before
     @Throws(IOException::class)
@@ -55,7 +51,7 @@ class GrantFolderExistenceTests : AbstractOnServerIT() {
         assertTrue("month folder should exist on server", existsOnServer(monthFolder))
         assertNotNull("month folder should be cached locally", storageManager.getFileByDecryptedRemotePath(monthFolder))
 
-        removeYearFolderOnServerOnly()
+        removeOnServer(yearFolder)
 
         assertFalse("month folder should be deleted", existsOnServer(monthFolder))
         assertNotNull(
@@ -79,10 +75,7 @@ class GrantFolderExistenceTests : AbstractOnServerIT() {
     fun testUploadFileThenDeleteRootOnServerOnlyThenUploadAgainShouldRecreateAllFolderLevelsAndReturnOk() {
         uploadAndAssertSuccess("first.txt")
 
-        assertTrue(
-            "root folder should be removed",
-            RemoveFileRemoteOperation(root).execute(client).isSuccess
-        )
+        removeOnServer(root)
         assertFalse(existsOnServer(root))
 
         val result = upload("nonEmpty.txt", monthFolder + "nonEmpty.txt")
@@ -103,11 +96,18 @@ class GrantFolderExistenceTests : AbstractOnServerIT() {
         assertTrue("uploaded file should exist on server", existsOnServer(monthFolder + filename))
     }
 
-    private fun removeYearFolderOnServerOnly() {
-        assertTrue(
-            "year folder should be removed",
-            RemoveFileRemoteOperation(yearFolder).execute(client).isSuccess
-        )
+    private fun removeOnServer(remotePath: String) {
+        // the server keeps a transient lock on a just uploaded file, so a DELETE on one of its
+        // parent folders answers 423 until that lock expires
+        repeat(REMOVE_ATTEMPTS) {
+            if (RemoveFileRemoteOperation(remotePath).execute(client).isSuccess) {
+                return
+            }
+
+            shortSleep()
+        }
+
+        fail("$remotePath should be removed on server")
     }
 
     private fun existsOnServer(remotePath: String): Boolean =
@@ -144,5 +144,6 @@ class GrantFolderExistenceTests : AbstractOnServerIT() {
 
     companion object {
         private const val FILE_LINE_COUNT = 100
+        private const val REMOVE_ATTEMPTS = 5
     }
 }

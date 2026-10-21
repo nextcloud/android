@@ -20,13 +20,13 @@ import androidx.fragment.app.DialogFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PasswordDialogBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.ui.activity.FileActivity
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.KeyboardUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
@@ -69,7 +69,7 @@ class SharePasswordDialogFragment :
                     if (sharePassword != null) {
                         val password = sharePassword.toString()
                         if (!askForPassword && password.isBlank()) {
-                            DisplayUtils.showSnackMessage(binding?.root, R.string.share_link_empty_password)
+                            SnackbarUtil.show(binding?.root, R.string.share_link_empty_password)
                             return@setOnClickListener
                         }
                         if (share == null) {

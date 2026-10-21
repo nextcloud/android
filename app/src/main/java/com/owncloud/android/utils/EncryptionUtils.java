@@ -18,6 +18,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.nextcloud.client.account.User;
 import com.nextcloud.common.SessionTimeOutKt;
+import com.nextcloud.utils.AppConstants;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -425,12 +426,16 @@ public final class EncryptionUtils {
         E2EVersion version = E2EVersionHelper.INSTANCE.fromMetadata(serializedEncryptedMetadata);
 
         if (E2EVersionHelper.INSTANCE.isV2Plus(version)) {
-            EncryptionUtilsV2 encryptionUtilsV2 = new EncryptionUtilsV2();
-            return encryptionUtilsV2.parseAnyMetadata(getMetadataOperationResult.getResultData(),
-                                                      user,
-                                                      client,
-                                                      context,
-                                                      folder);
+            try {
+                return new EncryptionUtilsV2().parseAnyMetadata(getMetadataOperationResult.getResultData(),
+                                                                user,
+                                                                client,
+                                                                context,
+                                                                folder);
+            } catch (Exception e) {
+                Log_OC.e(TAG, "Could not decrypt metadata for " + folder.getDecryptedFileName(), e);
+                return null;
+            }
         } else if (E2EVersionHelper.INSTANCE.isV1(version)) {
             ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
             String privateKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY);
@@ -1070,17 +1075,6 @@ public final class EncryptionUtils {
     }
 
     /**
-     * Generates private/public key pair, used for asymmetric encryption
-     *
-     * @return KeyPair
-     */
-    public static KeyPair generateKeyPair() throws NoSuchAlgorithmException {
-        KeyPairGenerator keyGen = KeyPairGenerator.getInstance(RSA);
-        keyGen.initialize(2048, new SecureRandom());
-        return keyGen.generateKeyPair();
-    }
-
-    /**
      * Generates key for symmetric encryption
      *
      * @return byte[] byteArray of key
@@ -1501,7 +1495,7 @@ public final class EncryptionUtils {
             arbitraryDataProvider.storeOrUpdateKeyValue(
                 user.getAccountName(),
                 ArbitraryDataProvider.E2E_ERRORS_TIMESTAMP,
-                System.currentTimeMillis() / 1000
+                System.currentTimeMillis() / AppConstants.MILLIS_PER_SECOND
                                                        );
         }
     }

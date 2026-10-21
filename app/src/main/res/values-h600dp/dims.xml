@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<resources>
+    <dimen name="file_details_preview_height">164dp</dimen>
+    <dimen name="file_details_preview_icon_padding">32dp</dimen>
+</resources>

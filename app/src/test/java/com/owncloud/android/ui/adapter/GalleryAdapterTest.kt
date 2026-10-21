@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2022 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -89,7 +90,6 @@ class GalleryAdapterTest {
             context,
             user,
             ocFileListFragmentInterface,
-            preferences,
             transferServiceGetter,
             viewThemeUtils,
             5,
@@ -100,11 +100,11 @@ class GalleryAdapterTest {
         val list = listOf(
             GalleryItems(
                 1649317247,
-                listOf(GalleryRow(listOf(OCFile("/1.md"), OCFile("/2.md")), thumbnailSize, thumbnailSize))
+                listOf(GalleryRow(listOf(OCFile("/1.md"), OCFile("/2.md")), emptyList()))
             ),
             GalleryItems(
                 1649317248,
-                listOf(GalleryRow(listOf(OCFile("/1.md"), OCFile("/2.md")), thumbnailSize, thumbnailSize))
+                listOf(GalleryRow(listOf(OCFile("/1.md"), OCFile("/2.md")), emptyList()))
             )
         )
 
@@ -122,7 +122,6 @@ class GalleryAdapterTest {
             context,
             user,
             ocFileListFragmentInterface,
-            preferences,
             transferServiceGetter,
             viewThemeUtils,
             5,
@@ -148,8 +147,7 @@ class GalleryAdapterTest {
                         parentId = 0
                     }
                 ),
-                thumbnailSize,
-                thumbnailSize
+                emptyList()
             )
         )
         rows.add(
@@ -164,8 +162,7 @@ class GalleryAdapterTest {
                         parentId = 0
                     }
                 ),
-                thumbnailSize,
-                thumbnailSize
+                emptyList()
             )
         )
         val alreadyUsedFileIds = listOf(row1File1, row1File2, row2File1, row2File2)
@@ -184,8 +181,7 @@ class GalleryAdapterTest {
                         OCFile("/$id1.md").apply { fileId = id1 },
                         OCFile("/$id2.md").apply { fileId = id2 }
                     ),
-                    thumbnailSize,
-                    thumbnailSize
+                    emptyList()
                 )
             )
         }

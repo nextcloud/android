@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2021 TSI-mc
+ * SPDX-FileCopyrightText: 2021-2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
  * SPDX-FileCopyrightText: 2017-2023 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
@@ -15,7 +15,6 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.app.Activity;
 import android.content.ComponentName;
@@ -33,11 +32,13 @@ import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.jobs.BackgroundJobManager;
-import com.nextcloud.client.jobs.download.FileDownloadWorker;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.network.NetworkChangeListener;
+import com.nextcloud.client.player.ui.audio.AudioPlayerActivity;
+import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.utils.EditorUtils;
+import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
@@ -50,9 +51,6 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
-import com.owncloud.android.lib.common.OwnCloudCredentials;
 import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -88,13 +86,14 @@ import com.owncloud.android.ui.events.DialogEventType;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment;
+import com.owncloud.android.ui.fragment.albums.AlbumsFragment;
 import com.owncloud.android.ui.fragment.filesRepository.FilesRepository;
 import com.owncloud.android.ui.fragment.filesRepository.RemoteFilesRepository;
+import com.owncloud.android.ui.helpers.CredentialsUpdateHelper;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
-import com.owncloud.android.ui.preview.PreviewImageActivity;
-import com.owncloud.android.ui.preview.PreviewMediaActivity;
+import com.owncloud.android.ui.preview.media.PreviewMediaActivity;
 import com.owncloud.android.utils.ClipboardUtil;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
@@ -165,7 +164,6 @@ public abstract class FileActivity extends DrawerActivity
 
     private boolean mResumed;
 
-    protected FileDownloadWorker.FileDownloadProgressListener fileDownloadProgressListener;
     protected FileUploadHelper fileUploadHelper = FileUploadHelper.Companion.instance();
     protected boolean isFileDisplayActivityResumed = false;
 
@@ -222,7 +220,7 @@ public abstract class FileActivity extends DrawerActivity
                 savedInstanceState.getLong(KEY_WAITING_FOR_OP_ID, Long.MAX_VALUE)
                                                    );
             final ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null && !(this instanceof PreviewImageActivity)) {
+            if (actionBar != null && !(this instanceof PreviewMediaActivity)) {
                 viewThemeUtils.files.themeActionBar(this, actionBar, savedInstanceState.getString(KEY_ACTION_BAR_TITLE));
             }
         } else {
@@ -252,7 +250,7 @@ public abstract class FileActivity extends DrawerActivity
                 refreshList();
             }
         } else {
-            if (this instanceof PreviewMediaActivity) {
+            if (this instanceof AudioPlayerActivity) {
                 hideInfoBox();
             } else {
                 showInfoBox(R.string.offline_mode);
@@ -388,7 +386,7 @@ public abstract class FileActivity extends DrawerActivity
             requestCredentialsUpdate();
 
             if (result.getCode() == ResultCode.UNAUTHORIZED) {
-                DisplayUtils.showSnackMessage(
+                SnackbarUtil.show(
                     this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
                                              );
             }
@@ -408,7 +406,7 @@ public abstract class FileActivity extends DrawerActivity
                 updateFileFromDB();
 
             } else if (result.getCode() != ResultCode.CANCELLED) {
-                DisplayUtils.showSnackMessage(
+                SnackbarUtil.show(
                     this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
                                              );
             }
@@ -421,7 +419,7 @@ public abstract class FileActivity extends DrawerActivity
                 updateFileFromDB();
 
             } else {
-                DisplayUtils.showSnackMessage(this,
+                SnackbarUtil.show(this,
                                               ErrorMessageAdapter.getErrorCauseMessage(result,
                                                                                        operation,
                                                                                        getResources()));
@@ -471,34 +469,14 @@ public abstract class FileActivity extends DrawerActivity
         new CheckRemoteWipeTask(backgroundJobManager, account, new WeakReference<>(this)).execute();
     }
 
-    public void performCredentialsUpdate(Account account, Context context) {
+    public void performCredentialsUpdate(Account account) {
+        final var credentialsUpdateHelper = new CredentialsUpdateHelper(this);
         try {
-            /// step 1 - invalidate credentials of current account
-            OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
-            OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(ocAccount);
-
-            if (client != null) {
-                OwnCloudCredentials credentials = client.getCredentials();
-                if (credentials != null) {
-                    AccountManager accountManager = AccountManager.get(context);
-                    if (credentials.authTokenExpires()) {
-                        accountManager.invalidateAuthToken(account.type, credentials.getAuthToken());
-                    } else {
-                        accountManager.clearPassword(account);
-                    }
-                }
-            }
-
-            /// step 2 - request credentials to user
-            Intent updateAccountCredentials = new Intent(context, AuthenticatorActivity.class);
-            updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, account);
-            updateAccountCredentials.putExtra(
-                AuthenticatorActivity.EXTRA_ACTION,
-                AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
-            updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-            startActivityForResult(updateAccountCredentials, REQUEST_CODE__UPDATE_CREDENTIALS);
+            credentialsUpdateHelper.invalidateCredentials(account);
+            startActivityForResult(credentialsUpdateHelper.createUpdateCredentialsIntent(account),
+                                   REQUEST_CODE__UPDATE_CREDENTIALS);
         } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-            DisplayUtils.showSnackMessage(this, R.string.auth_account_does_not_exist);
+            SnackbarUtil.show(this, R.string.auth_account_does_not_exist);
         }
     }
 
@@ -532,7 +510,7 @@ public abstract class FileActivity extends DrawerActivity
 
         } else {
             if (!operation.getTransferWasRequested()) {
-                DisplayUtils.showSnackMessage(this, ErrorMessageAdapter.getErrorCauseMessage(result,
+                SnackbarUtil.show(this, ErrorMessageAdapter.getErrorCauseMessage(result,
                                                                                              operation, getResources()));
             }
             supportInvalidateOptionsMenu();
@@ -653,11 +631,6 @@ public abstract class FileActivity extends DrawerActivity
     }
 
     @Override
-    public FileDownloadWorker.FileDownloadProgressListener getFileDownloadProgressListener() {
-        return fileDownloadProgressListener;
-    }
-
-    @Override
     public FileUploadHelper getFileUploaderHelper() {
         return fileUploadHelper;
     }
@@ -725,20 +698,20 @@ public abstract class FileActivity extends DrawerActivity
         }
 
         if (latestVersion == -1 || currentVersion == -1) {
-            DisplayUtils.showSnackMessage(activity, R.string.dev_version_no_information_available, Snackbar.LENGTH_LONG);
+            SnackbarUtil.show(activity, R.string.dev_version_no_information_available);
         }
         if (latestVersion > currentVersion) {
             String devApkLink = activity.getString(R.string.dev_link) + latestVersion + ".apk";
             if (openDirectly) {
-                DisplayUtils.startLinkIntent(activity, devApkLink);
+                IntentUtil.startLinkIntent(activity, devApkLink);
             } else {
                 Snackbar.make(activity.findViewById(android.R.id.content), R.string.dev_version_new_version_available,
                               Snackbar.LENGTH_LONG)
-                    .setAction(activity.getString(R.string.version_dev_download), v -> DisplayUtils.startLinkIntent(activity, devApkLink)).show();
+                    .setAction(activity.getString(R.string.version_dev_download), v -> IntentUtil.startLinkIntent(activity, devApkLink)).show();
             }
         } else {
             if (!inBackground) {
-                DisplayUtils.showSnackMessage(activity, R.string.dev_version_no_new_version_available, Snackbar.LENGTH_LONG);
+                SnackbarUtil.show(activity, R.string.dev_version_no_new_version_available);
             }
         }
     }
@@ -802,7 +775,7 @@ public abstract class FileActivity extends DrawerActivity
                 sharingFragment.onUpdateShareInformation(result);
             }
         } else {
-            DisplayUtils.showSnackMessage(this, R.string.note_could_not_sent);
+            SnackbarUtil.show(this, R.string.note_could_not_sent);
         }
     }
 
@@ -828,7 +801,21 @@ public abstract class FileActivity extends DrawerActivity
     }
 
     public void refreshList() {
-        final Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
+        if (isAlbumsFragment()) {
+            getFragment(AlbumsFragment.Companion.getTAG(), AlbumsFragment.class)
+                .ifPresent(AlbumsFragment::refreshAlbums);
+            return;
+        }
+
+        if (isAlbumItemsFragment()) {
+            getFragment(AlbumItemsFragment.Companion.getTAG(), AlbumItemsFragment.class)
+                .ifPresent(AlbumItemsFragment::refreshData);
+            return;
+        }
+
+        final var fragment =
+            getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
+
         if (fragment instanceof OCFileListFragment listFragment) {
             listFragment.onRefresh();
         } else if (fragment instanceof FileDetailFragment detailFragment) {
@@ -870,7 +857,7 @@ public abstract class FileActivity extends DrawerActivity
                 if (ocFileListFragment.getAdapterFiles().contains(file)) {
                     ocFileListFragment.updateOCFile(file);
                 } else {
-                    DisplayUtils.showSnackMessage(this, R.string.file_activity_shared_file_cannot_be_updated);
+                    SnackbarUtil.show(this, R.string.file_activity_shared_file_cannot_be_updated);
                 }
             }
         } else {
@@ -949,7 +936,7 @@ public abstract class FileActivity extends DrawerActivity
             if (!existingSharees.contains(shareType + "_" + shareWith)) {
                 doShareWith(shareWith, shareType);
             } else {
-                DisplayUtils.showSnackMessage(this, getString(R.string.sharee_already_added_to_file));
+                SnackbarUtil.show(this, getString(R.string.sharee_already_added_to_file));
             }
         }
     }

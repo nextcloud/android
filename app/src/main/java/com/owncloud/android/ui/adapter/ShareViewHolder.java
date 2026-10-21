@@ -19,6 +19,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.utils.avatar.AvatarGenerationListener;
+import com.nextcloud.utils.avatar.AvatarGenerator;
 import com.nextcloud.utils.extensions.ImageViewExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsShareShareItemBinding;
@@ -26,7 +28,6 @@ import com.owncloud.android.datamodel.quickPermission.QuickPermissionType;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.fragment.util.SharePermissionManager;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import androidx.annotation.NonNull;
@@ -39,6 +40,7 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
     private Context context;
     private ViewThemeUtils viewThemeUtils;
     private boolean encrypted;
+    private AvatarGenerator avatarGenerator;
 
     public ShareViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -48,18 +50,20 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
                            User user,
                            Context context,
                            final ViewThemeUtils viewThemeUtils,
-                           boolean encrypted) {
+                           boolean encrypted,
+                           AvatarGenerator avatarGenerator) {
         this(binding.getRoot());
         this.binding = binding;
         this.user = user;
         this.context = context;
         this.viewThemeUtils = viewThemeUtils;
         this.encrypted = encrypted;
+        this.avatarGenerator = avatarGenerator;
     }
 
     public void bind(OCShare share,
                      ShareeListAdapterListener listener,
-                     DisplayUtils.AvatarGenerationListener avatarListener,
+                     AvatarGenerationListener avatarListener,
                      String userId,
                      float avatarRadiusDimension) {
         this.avatarRadiusDimension = avatarRadiusDimension;
@@ -93,14 +97,12 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
                     float avatarRadius = context.getResources().getDimension(R.dimen.list_item_avatar_icon_radius);
 
                     if (share.getShareWith() != null) {
-                        DisplayUtils.setAvatar(user,
-                                               share.getShareWith(),
-                                               share.getSharedWithDisplayName(),
-                                               avatarListener,
-                                               avatarRadius,
-                                               context.getResources(),
-                                               binding.icon,
-                                               context);
+                        avatarGenerator.setUserAvatar(share.getShareWith(),
+                                                      avatarListener,
+                                                      avatarRadius,
+                                                      binding.icon,
+                                                      share.getSharedWithDisplayName(),
+                                                      user);
                     }
 
                     binding.icon.setOnClickListener(v -> listener.showProfileBottomSheet(user, share.getShareWith()));

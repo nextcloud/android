@@ -12,10 +12,11 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import com.nextcloud.client.utils.IntentUtil
+import com.nextcloud.utils.SnackbarUtil
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityShowErrorBinding
 import com.owncloud.android.utils.ClipboardUtil
-import com.owncloud.android.utils.DisplayUtils
 
 class ShowErrorActivity : AppCompatActivity() {
     private lateinit var binding: ActivityShowErrorBinding
@@ -35,14 +36,9 @@ class ShowErrorActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbarInclude.toolbar)
         supportActionBar!!.title = createErrorTitle()
 
-        val snackbar = DisplayUtils.createSnackbar(
-            binding.errorPageContainer,
-            R.string.error_report_issue_text,
-            Snackbar.LENGTH_INDEFINITE
-        )
-            .setAction(R.string.error_report_issue_action) { reportIssue() }
-
-        snackbar.show()
+        SnackbarUtil.create(binding.errorPageContainer, R.string.error_report_issue_text, Snackbar.LENGTH_INDEFINITE)
+            ?.setAction(R.string.error_report_issue_action) { reportIssue() }
+            ?.show()
     }
 
     private fun createErrorTitle() = String.format(getString(R.string.error_crash_title), getString(R.string.app_name))
@@ -50,7 +46,7 @@ class ShowErrorActivity : AppCompatActivity() {
     private fun reportIssue() {
         ClipboardUtil.copyToClipboard(this, binding.textViewError.text.toString(), true)
         val issueLink = getString(R.string.report_issue_link)
-        DisplayUtils.startLinkIntent(this, issueLink)
+        IntentUtil.startLinkIntent(this, issueLink)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

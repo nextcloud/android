@@ -47,7 +47,7 @@ class FileUploadEventBroadcaster(private val broadcastManager: LocalBroadcastMan
      * - [UploadFileOperation] added
      *
      *  ### Observed by
-     *  - [com.owncloud.android.ui.activity.UploadListActivity.UploadFinishReceiver]
+     *  - [com.owncloud.android.ui.fragment.uploadList.UploadListFragment]
      *
      */
     fun sendUploadEnqueued(context: Context) {
@@ -66,7 +66,7 @@ class FileUploadEventBroadcaster(private val broadcastManager: LocalBroadcastMan
      * - [UploadFileOperation] started
      *
      *  ### Observed by
-     *  - [com.owncloud.android.ui.activity.UploadListActivity.UploadFinishReceiver]
+     *  - [com.owncloud.android.ui.fragment.uploadList.UploadListFragment]
      *
      */
     fun sendUploadStarted(upload: UploadFileOperation, context: Context) {
@@ -90,7 +90,7 @@ class FileUploadEventBroadcaster(private val broadcastManager: LocalBroadcastMan
      *
      *  ### Observed by
      *  - [com.owncloud.android.ui.activity.FileDisplayActivity.FileUploadCompletedReceiver]
-     *  - [com.owncloud.android.ui.activity.UploadListActivity.UploadFinishReceiver]
+     *  - [com.owncloud.android.ui.fragment.uploadList.UploadListFragment]
      *
      */
     fun sendUploadCompleted(upload: UploadFileOperation, uploadResult: RemoteOperationResult<*>, context: Context) {

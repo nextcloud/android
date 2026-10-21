@@ -24,6 +24,8 @@ import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.notifications.AppWideNotificationManager
+import com.nextcloud.model.OCUploadLocalPathData
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.checkWCFRestrictions
 import com.nextcloud.utils.extensions.createOwncloudClient
 import com.nextcloud.utils.extensions.getUploadIds
@@ -50,7 +52,6 @@ import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.adapter.uploadList.helper.ConflictHandlingResult
 import com.owncloud.android.ui.adapter.uploadList.helper.UploadListAdapterActionHandler
-import com.owncloud.android.utils.DisplayUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -88,6 +89,8 @@ class FileUploadHelper {
         private val TAG = FileUploadWorker::class.java.simpleName
 
         const val MAX_FILE_COUNT = 500
+
+        const val MAX_UPLOADS_PER_QUERY = 500
 
         val mBoundListeners = HashMap<String, OnDatatransferProgressListener>()
 
@@ -253,56 +256,61 @@ class FileUploadHelper {
     }
 
     @JvmOverloads
-    @Suppress("LongParameterList")
-    fun uploadNewFiles(
-        user: User,
-        localPaths: Array<String>,
-        remotePaths: Array<String>,
-        localBehavior: Int,
-        createRemoteFolder: Boolean,
-        createdBy: Int,
-        requiresWifi: Boolean,
-        requiresCharging: Boolean,
-        nameCollisionPolicy: NameCollisionPolicy,
-        showSameFileAlreadyExistsNotification: Boolean = true
-    ) {
-        val uploads = localPaths.mapIndexed { index, localPath ->
-            fun createOCUpload(): OCUpload {
-                val result = OCUpload(localPath, remotePaths[index], user.accountName).apply {
-                    this.nameCollisionPolicy = nameCollisionPolicy
-                    isUseWifiOnly = requiresWifi
-                    isWhileChargingOnly = requiresCharging
-                    uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
-                    this.createdBy = createdBy
-                    isCreateRemoteFolder = createRemoteFolder
-                    localAction = localBehavior
-                }
+    fun uploadNewFiles(data: OCUploadLocalPathData, showSameFileAlreadyExistsNotification: Boolean = true) {
+        val uploads = getUploadsFromLocalPaths(data)
+        backgroundJobManager.startFilesUploadJob(
+            data.user,
+            uploads.getUploadIds(),
+            showSameFileAlreadyExistsNotification
+        )
+    }
 
+    @Suppress("LongParameterList")
+    fun uploadAndCopyNewFilesForAlbum(data: OCUploadLocalPathData, albumName: String) {
+        val uploads = getUploadsFromLocalPaths(data)
+        backgroundJobManager.startAlbumFilesUploadJob(
+            data.user,
+            uploads.getUploadIds(),
+            albumName
+        )
+    }
+
+    private fun getUploadsFromLocalPaths(data: OCUploadLocalPathData): List<OCUpload> =
+        data.localPaths.mapIndexed { index, localPath ->
+            fun createOCUpload(): OCUpload {
+                val result = data.toOCUpload(localPath, index)
                 val id = uploadsStorageManager.uploadDao.insertOrReplace(result.toUploadEntity())
                 result.uploadId = id
                 return result
             }
 
+            val remotePath = data.remotePaths[index]
             val entity = getUploadByPaths(
-                accountName = user.accountName,
+                accountName = data.user.accountName,
                 localPath = localPath,
-                remotePath = remotePaths[index]
+                remotePath = remotePath
             )
             if (entity != null) {
-                reusePendingUpload(entity, user) ?: createOCUpload()
+                reusePendingUpload(entity, data.user, data.localBehavior, data.collisionPolicy) ?: createOCUpload()
             } else {
                 createOCUpload()
             }
         }
-        backgroundJobManager.startFilesUploadJob(user, uploads.getUploadIds(), showSameFileAlreadyExistsNotification)
-    }
 
-    private fun reusePendingUpload(entity: UploadEntity, user: User): OCUpload? {
+    private fun reusePendingUpload(
+        entity: UploadEntity,
+        user: User,
+        localBehaviour: Int,
+        nameCollisionPolicy: NameCollisionPolicy
+    ): OCUpload? {
         val capability = fileStorageManager.getCapability(user)
         val upload = entity.toOCUpload(capability) ?: return null
 
         upload.uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
-        uploadsStorageManager.updateUpload(upload)
+        upload.localAction = localBehaviour
+        upload.nameCollisionPolicy = nameCollisionPolicy
+        uploadsStorageManager.uploadDao.insertOrReplace(upload.toUploadEntity())
+        uploadsStorageManager.notifyObserversNow()
         return upload
     }
 
@@ -379,6 +387,10 @@ class FileUploadHelper {
      * If `null`, uploads matching the given [status] from all accounts are returned.
      * @param status The [UploadStatus] to filter uploads by (e.g., `UPLOAD_FAILED`).
      * @param nameCollisionPolicy The [NameCollisionPolicy] to filter uploads by (e.g., `SKIP`).
+     *
+     * At most [MAX_UPLOADS_PER_QUERY] of the newest uploads are returned. A history that grew into the tens of
+     * thousands of rows cannot be held in memory at once, and neither the upload list nor a retry pass needs more
+     * than a page of it.
      */
     suspend fun getUploadsByStatus(
         accountName: String?,
@@ -388,9 +400,14 @@ class FileUploadHelper {
     ): List<OCUpload> {
         val dao = uploadsStorageManager.uploadDao
         return if (accountName != null) {
-            dao.getUploadsByAccountNameAndStatus(accountName, status.value, nameCollisionPolicy?.serialize())
+            dao.getUploadsByAccountNameAndStatus(
+                accountName,
+                status.value,
+                nameCollisionPolicy?.serialize(),
+                MAX_UPLOADS_PER_QUERY
+            )
         } else {
-            dao.getUploadsByStatus(status.value, nameCollisionPolicy?.serialize())
+            dao.getUploadsByStatus(status.value, nameCollisionPolicy?.serialize(), MAX_UPLOADS_PER_QUERY)
         }.mapNotNull {
             it.toOCUpload(capability)
         }
@@ -515,7 +532,7 @@ class FileUploadHelper {
                         )
                     }
                 if (entity != null) {
-                    reusePendingUpload(entity, user) ?: createOCUpload()
+                    reusePendingUpload(entity, user, behaviour, nameCollisionPolicy) ?: createOCUpload()
                 } else {
                     createOCUpload()
                 }
@@ -610,7 +627,7 @@ class FileUploadHelper {
             MAX_FILE_COUNT,
             MAX_FILE_COUNT
         )
-        DisplayUtils.showSnackMessage(activity, message)
+        SnackbarUtil.show(activity, message)
     }
 
     class UploadNotificationActionReceiver : BroadcastReceiver() {

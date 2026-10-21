@@ -31,7 +31,11 @@
     <string name="activity_icon">Aktivita</string>
     <string name="add_new_public_share">Přidat nový veřejný odkaz na sdílení</string>
     <string name="add_new_secure_file_drop">Přidat nové bezpečné předání souborů</string>
-    <string name="add_to_cloud">Přidat k %1$s</string>
+    <string name="add_to_album">Přidat do alba</string>
+    <string name="album_delete">Smazat album</string>
+    <string name="album_rename_conflict">Tento název už je využíván.</string>
+    <string name="album_share">Nasdílet album</string>
+    <string name="album_stop_sharing">Ukončit sdílení</string>
     <string name="app_config_base_url_title">Základní URL</string>
     <string name="app_config_disable_clipboard_title">Zakázat schránku</string>
     <string name="app_config_disable_intro_title">Zakázat úvod</string>
@@ -125,6 +129,7 @@
     <string name="autoupload_hide_folder">Skrýt složku</string>
     <string name="avatar">Avatar</string>
     <string name="away">Pryč</string>
+    <string name="backup_list_adapter_local_contacts">Lokální kontakty</string>
     <string name="backup_settings">Nastavení zálohování</string>
     <string name="backup_title">Záloha kontaktů a kalendáře</string>
     <string name="battery_optimization_close">Zavřít</string>
@@ -241,17 +246,20 @@
     <string name="could_not_retrieve_shares">Nedaří se získat sdílení</string>
     <string name="could_not_retrieve_url">Nepodařilo se získat URL</string>
     <string name="create">Vytvořit</string>
+    <string name="create_album_dialog_title">Nové album</string>
     <string name="create_dir_fail_msg">Nepodařilo se vytvořit složku</string>
+    <string name="create_document">Dokument</string>
     <string name="create_end_to_end_encrypted_share">Sdílení odkazu</string>
     <string name="create_end_to_end_encrypted_share_title">Sdílení odkazem, šifrovaná mezi koncovými body</string>
+    <string name="create_folder">Složka</string>
     <string name="create_link">Vytvořit odkaz</string>
     <string name="create_new">Nové</string>
     <string name="create_new_document">Nový dokument</string>
-    <string name="create_new_encrypted_folder">Nová šifrovaná složka</string>
-    <string name="create_new_folder">Nová složka</string>
     <string name="create_new_presentation">Nová prezentace</string>
     <string name="create_new_spreadsheet">Nová tabulka</string>
+    <string name="create_presentation">Prezentace</string>
     <string name="create_rich_workspace">Přidat popis složky</string>
+    <string name="create_spreadsheet">Tabulka</string>
     <string name="credentials_disabled">Přihlašovací údaje znepřístupněny</string>
     <string name="daily_backup">Každodenní záloha</string>
     <string name="data_to_back_up">Data k zálohování</string>
@@ -308,6 +316,7 @@
     <string name="drawer_community">Komunita</string>
     <string name="drawer_header_background">Obrázek na pozadí hlavičky panelu</string>
     <string name="drawer_item_activities">Aktivity</string>
+    <string name="drawer_item_album">Alba</string>
     <string name="drawer_item_all_files">Všechny soubory</string>
     <string name="drawer_item_assistant">Asistent</string>
     <string name="drawer_item_favorites">Oblíbené</string>
@@ -408,6 +417,7 @@
     <string name="fab_label">Přidat nebo nahrát</string>
     <string name="failed_to_create_conflict_dialog">Nepodařilo se vytvořit dialog o konfliktu</string>
     <string name="failed_to_download">Předání souboru správci stahování se nezdařilo</string>
+    <string name="failed_to_load_tags">Štítky se nepodařilo načíst</string>
     <string name="failed_to_print">Soubor se nepodařilo vytisknout</string>
     <string name="failed_to_start_action">Spuštění akce se nezdařilo!</string>
     <string name="failed_to_start_editor">Editor se nepodařilo spustit</string>
@@ -449,6 +459,7 @@
     <string name="file_list_live">ŽIVĚ</string>
     <string name="file_list_loading">Načítání …</string>
     <string name="file_list_no_app_for_file_type">Není nastaveno pomocí které aplikace otevírat tento typ souboru.</string>
+    <string name="file_list_out_of_memory_description">Nepodařilo se načíst obsah</string>
     <string name="file_list_seconds_ago">před několika sekundami</string>
     <string name="file_management_permission_optional">Oprávnění k úložišti</string>
     <string name="file_management_permission_optional_text">%1$s funguje nejlépe s oprávněními pro přístup k úložišti. Je možné zvolit plný přístup k veškerým souborům nebo přístup pouze pro čtení k fotkám a videím.</string>
@@ -493,6 +504,7 @@
     <string name="filedetails_download">Stáhnout</string>
     <string name="filedetails_export">Exportovat</string>
     <string name="filedetails_renamed_in_upload_msg">Soubor přejmenován %1$s při nahrávání</string>
+    <string name="filedetails_sync_all_files">Synchronizovat vše</string>
     <string name="filedetails_sync_file">Synchronizovat</string>
     <string name="filedisplay_no_file_selected">Nevybrán žádný soubor</string>
     <string name="filename_empty">Soubor je třeba nějak nazvat</string>
@@ -600,22 +612,7 @@
     <string name="manage_space_clear_data">Vyčistit data</string>
     <string name="manage_space_description">Nastavení, databáze a certifikáty serverů z dat %1$s budou natrvalo smazány. \n\nStažené soubory zůstanou beze změny.\n\nTento proces může chvíli trvat.</string>
     <string name="manage_space_title">Spravovat úložný prostor</string>
-    <string name="media_err_invalid_progressive_playback">Soubor s médii se nedaří proudově vysílat (stream)</string>
-    <string name="media_err_io">Nepodařilo se číst soubor média</string>
-    <string name="media_err_malformed">Soubor médií nemá platné kódování</string>
-    <string name="media_err_timeout">Překročen časový limit pokusu o přehrání souboru</string>
-    <string name="media_err_unknown">Soubor s médii se nedaří přehrát vestavěným přehrávačem</string>
-    <string name="media_err_unsupported">Nepodporovaný kodek médií</string>
-    <string name="media_forward_description">Tlačítko Rychle vpřed</string>
-    <string name="media_notif_ticker"> %1$s přehrávač hudby</string>
-    <string name="media_play_pause_description">Tlačítko Přehrát/Pozastavit</string>
-    <string name="media_player_pause">Pozastavit</string>
-    <string name="media_player_play">Přehrát</string>
-    <string name="media_player_playing">Přehrávané médium</string>
-    <string name="media_player_seek_backward">Posunout nazpět</string>
-    <string name="media_player_seek_forward">Posunout vpřed</string>
-    <string name="media_rewind_description">Tlačítko přeskočit na začátek/konec</string>
-    <string name="media_state_playing">%1$s (přehrává)</string>
+    <string name="manage_tags">Spravovat štítky</string>
     <string name="menu_item_sort_by_date_newest_first">Nejnovější jako první</string>
     <string name="menu_item_sort_by_date_oldest_first">Nejstarší jako první</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
@@ -623,6 +620,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Největší jako první</string>
     <string name="menu_item_sort_by_size_smallest_first">Nejmenší jako první</string>
     <string name="more">Další</string>
+    <string name="more_documents">Další dokumenty</string>
     <string name="move_file_error">Při pokusu o přesun tohoto souboru či složky došlo k chybě</string>
     <string name="move_file_invalid_into_descendent">Není možné přesunout složku do její vlastní podsložky</string>
     <string name="move_file_invalid_overwrite">Soubor už v cílové složce existuje</string>
@@ -709,8 +707,7 @@
     <string name="picture_set_as_no_app">Nenalezena žádná aplikace pro nastavení obrázku</string>
     <string name="pin_home">Připnout na domovskou obrazovku</string>
     <string name="pin_shortcut_label">Otevřít %1$s</string>
-    <string name="player_stop">vypnout</string>
-    <string name="player_toggle">přepnout</string>
+    <string name="player_media_controls_close_action_title">Zavřít</string>
     <string name="please_select_a_server">Vyberte server …</string>
     <string name="power_save_check_dialog_message">Nezohledňování případného zapnutého režimu šetření energií může její spotřebou nahráváním souborů vést k ještě dřívějšímu vybití akumulátoru!</string>
     <string name="pref_behaviour_entries_delete_file">smazáno</string>
@@ -805,6 +802,7 @@
     <string name="reload">Načíst znovu</string>
     <string name="remote">(vzdálené)</string>
     <string name="remote_file_fetch_failed">Soubor se nepodařilo najít!</string>
+    <string name="remove">Odebrat</string>
     <string name="remove_e2e">Je možné šifrování mezi koncovými body odebrat lokálně na tomto klientovi</string>
     <string name="remove_e2e_message">Je možné šifrování mezi koncovými body odebrat lokálně na tomto klientovi. Šifrované soubory zůstanou na serveru, ale už nadále nebudou synchronizovány s tímto počítačem.</string>
     <string name="remove_fail_msg">Odstranění se nezdařilo</string>
@@ -813,6 +811,7 @@
     <string name="remove_notification_failed">Upozornění se nepodařilo odebrat.</string>
     <string name="remove_push_notification">Odebrat</string>
     <string name="remove_success_msg">Smazáno</string>
+    <string name="rename_dialog_button">Přejmenovat</string>
     <string name="rename_dialog_title">Zadejte nový název</string>
     <string name="rename_local_fail_msg">Nepodařilo se přejmenovat místní kopii – zkuste použít jiný název</string>
     <string name="rename_server_fail_msg">Přejmenování není možné – název už je použit</string>
@@ -843,6 +842,7 @@
     <string name="screenshot_06_davdroid_heading">Kalendář a kontakty</string>
     <string name="screenshot_06_davdroid_subline">Synchronizace s DAVx⁵</string>
     <string name="search_error">Chyba při získávání výsledků hledání</string>
+    <string name="search_tags">Hledat štítky</string>
     <string name="secure_share_not_set_up">Zabezpečené sdílení není pro tohoto uživatele nastaveno</string>
     <string name="secure_share_search">Zabezpečené sdílení …</string>
     <string name="select_all">Vybrat vše</string>
@@ -972,7 +972,6 @@
     <string name="store_short_dev_desc">Platforma pro produktivitu hostovaná u vás, kde vaše data jsou opravdu vaše (vývojová verze)</string>
     <string name="stream">Proudově vysílat pomocí …</string>
     <string name="stream_not_possible_headline">Vnitřní proudové vysílání není možné</string>
-    <string name="stream_not_possible_message">Médium si namísto toho stáhněte nebo použijte externí aplikaci.</string>
     <string name="sub_folder_rule_day">Rok/měsíc/den</string>
     <string name="sub_folder_rule_month">Rok/měsíc</string>
     <string name="sub_folder_rule_year">Rok</string>
@@ -1315,4 +1314,4 @@
         <item quantity="many">Zbývá %1$d stažení</item>
         <item quantity="other">Zbývají %1$d stažení</item>
     </plurals>
-</resources>
+    </resources>

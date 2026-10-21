@@ -22,6 +22,8 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.status.OCCapability
 
 object FileNameValidator {
+    // As defined, server-side, in FilenameValidator::validateFilename
+    private const val MAX_FILENAME_SIZE = 250
 
     /**
      * Checks the validity of a file name.
@@ -43,6 +45,10 @@ object FileNameValidator {
     ): String? {
         if (filename.isBlank()) {
             return context.getString(R.string.filename_empty)
+        }
+
+        if (filename.length > MAX_FILENAME_SIZE) {
+            return context.getString(R.string.filename_too_long)
         }
 
         if (isFileNameAlreadyExist(filename, existingFileNames)) {

@@ -38,10 +38,10 @@ import com.nextcloud.android.lib.resources.clientintegration.LayoutOrientation
 import com.nextcloud.android.lib.resources.clientintegration.LayoutRow
 import com.nextcloud.android.lib.resources.clientintegration.LayoutText
 import com.nextcloud.android.lib.resources.clientintegration.LayoutURL
+import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.utils.extensions.getActivity
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.status.OCCapability
-import com.owncloud.android.utils.DisplayUtils
 
 @Composable
 fun ClientIntegrationScreen(clientIntegrationUI: ClientIntegrationUI, baseUrl: String) {
@@ -103,7 +103,7 @@ private fun DisplayElement(element: Element, baseUrl: String, activity: Activity
 
 private fun openLink(activity: Activity?, baseUrl: String, relativeUrl: String) {
     activity?.let {
-        DisplayUtils.startLinkIntent(activity, baseUrl + relativeUrl)
+        IntentUtil.startLinkIntent(activity, baseUrl + relativeUrl)
     }
 }
 

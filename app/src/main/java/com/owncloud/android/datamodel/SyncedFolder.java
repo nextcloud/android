@@ -201,7 +201,7 @@ public class SyncedFolder implements Serializable, Cloneable {
      *
      * @return {@code true} if existing files should also be uploaded, {@code false} otherwise
      */
-    public boolean isExisting() {
+    public boolean alsoUploadExistingFiles() {
         return this.existing;
     }
 

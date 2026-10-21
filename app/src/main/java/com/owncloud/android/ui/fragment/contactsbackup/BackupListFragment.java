@@ -30,6 +30,7 @@ import com.nextcloud.client.jobs.transfer.Transfer;
 import com.nextcloud.client.jobs.transfer.TransferManagerConnection;
 import com.nextcloud.client.jobs.transfer.TransferState;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.IntExtensionsKt;
 import com.owncloud.android.R;
@@ -40,7 +41,6 @@ import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
 import com.owncloud.android.ui.asynctasks.LoadContactsTask;
 import com.owncloud.android.ui.events.VCardToggleEvent;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
@@ -478,7 +478,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
     // endregion
 
     private void showPermissionErrorMessage() {
-        DisplayUtils.showSnackMessage(this, R.string.contactlist_no_permission);
+        SnackbarUtil.show(this, R.string.contactlist_no_permission);
     }
 
     private Unit onDownloadUpdate(Transfer download) {

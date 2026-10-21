@@ -66,6 +66,7 @@
                         android:inputType="textUri|textNoSuggestions|textEmailAddress"
                         android:lines="1"
                         android:minLines="1"
+                        android:text="@string/suggested_server"
                         android:paddingStart="@dimen/standard_padding"
                         android:paddingEnd="@dimen/alternate_padding_right"
                         android:scrollbars="vertical"

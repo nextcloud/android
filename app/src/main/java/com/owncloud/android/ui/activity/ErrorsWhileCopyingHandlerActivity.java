@@ -28,13 +28,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
@@ -259,7 +259,7 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
                 // nothing else to do in this activity
                 finish();
             } else {
-                DisplayUtils.showSnackMessage(findViewById(android.R.id.content), R.string.foreign_files_fail);
+                SnackbarUtil.show(findViewById(android.R.id.content), R.string.foreign_files_fail);
             }
         }
     }

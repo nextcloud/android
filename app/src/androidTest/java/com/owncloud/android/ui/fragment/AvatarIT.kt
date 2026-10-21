@@ -16,12 +16,12 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.nextcloud.test.TestActivity
+import com.nextcloud.utils.view.ScreenMetrics
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.users.StatusType
 import com.owncloud.android.ui.TextDrawable
 import com.owncloud.android.utils.BitmapUtils
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Test
 
@@ -42,7 +42,7 @@ class AvatarIT : AbstractIT() {
 
             scenario.onActivity { sut ->
                 val avatarRadius = targetContext.resources.getDimension(R.dimen.list_item_avatar_icon_radius)
-                val width = DisplayUtils.convertDpToPixel(2 * avatarRadius, targetContext)
+                val width = ScreenMetrics.dpToPx(2 * avatarRadius, targetContext)
                 val fragment = sut.supportFragmentManager.fragments.last() as AvatarTestFragment
 
                 fragment.run {
@@ -79,7 +79,7 @@ class AvatarIT : AbstractIT() {
 
             scenario.onActivity { sut ->
                 val avatarRadius = targetContext.resources.getDimension(R.dimen.list_item_avatar_icon_radius)
-                val width = DisplayUtils.convertDpToPixel(2 * avatarRadius, targetContext)
+                val width = ScreenMetrics.dpToPx(2 * avatarRadius, targetContext)
 
                 val paulette = BitmapFactory.decodeFile(getFile("paulette.jpg").absolutePath)
                 val christine = BitmapFactory.decodeFile(getFile("christine.jpg").absolutePath)

@@ -18,6 +18,7 @@ import com.owncloud.android.R
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.utils.PermissionUtil.checkSelfPermission
+import com.nextcloud.utils.AppConstants.MILLIS_PER_SECOND
 
 class CalendarEventManager(private val context: Context) {
 
@@ -74,5 +75,4 @@ class CalendarEventManager(private val context: Context) {
     }
 }
 
-@Suppress("MagicNumber")
-private fun SearchResultEntry.createdAt(): Long? = attributes["createdAt"]?.toLongOrNull()?.times(1000L)
+private fun SearchResultEntry.createdAt(): Long? = attributes["createdAt"]?.toLongOrNull()?.times(MILLIS_PER_SECOND)

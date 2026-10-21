@@ -24,6 +24,7 @@ import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.fileNameValidator.FileNameValidator
@@ -40,10 +41,10 @@ import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.activity.ExternalSiteWebView
+import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.RichDocumentsEditorWebView
 import com.owncloud.android.ui.adapter.RichDocumentsTemplateAdapter
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog.Companion.newInstance
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.KeyboardUtils
 import com.owncloud.android.utils.NextcloudServer
@@ -237,15 +238,15 @@ class ChooseRichDocumentsTemplateDialogFragment :
 
     override fun onClick(v: View) {
         val selectedTemplate = adapter?.selectedTemplate
-            ?: return DisplayUtils.showSnackMessage(binding.list, R.string.select_one_template)
+            ?: return SnackbarUtil.show(binding.list, R.string.select_one_template)
 
         val state = resolveFilenameState()
         when (state) {
             is FilenameState.Invalid ->
-                DisplayUtils.showSnackMessage(requireActivity(), state.errorMessage)
+                SnackbarUtil.show(requireActivity(), state.errorMessage)
 
             is FilenameState.JustExtension ->
-                DisplayUtils.showSnackMessage(binding.list, R.string.enter_filename)
+                SnackbarUtil.show(binding.list, R.string.enter_filename)
 
             is FilenameState.Valid -> {
                 val name = fileNameText
@@ -373,7 +374,7 @@ class ChooseRichDocumentsTemplateDialogFragment :
                 val intent = Intent(MainApp.getAppContext(), RichDocumentsEditorWebView::class.java).apply {
                     putExtra(ExternalSiteWebView.EXTRA_TITLE, "Collabora")
                     putExtra(ExternalSiteWebView.EXTRA_URL, url)
-                    putExtra(ExternalSiteWebView.EXTRA_FILE, file)
+                    putExtra(FileActivity.EXTRA_FILE, file)
                     putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false)
                     putExtra(ExternalSiteWebView.EXTRA_TEMPLATE, template)
                 }
@@ -387,7 +388,7 @@ class ChooseRichDocumentsTemplateDialogFragment :
         if (!isAdded) return@withContext
         waitDialog?.dismiss()
         dismiss()
-        DisplayUtils.showSnackMessage(requireActivity(), stringRes)
+        SnackbarUtil.show(requireActivity(), stringRes)
     }
 
     @Suppress("DEPRECATION")
@@ -411,7 +412,7 @@ class ChooseRichDocumentsTemplateDialogFragment :
         withContext(Dispatchers.Main) {
             if (templateList.isEmpty()) {
                 dismiss()
-                DisplayUtils.showSnackMessage(requireActivity(), R.string.error_retrieving_templates)
+                SnackbarUtil.show(requireActivity(), R.string.error_retrieving_templates)
                 return@withContext
             }
 

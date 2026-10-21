@@ -15,7 +15,6 @@
     </issue>
     <issue id="InvalidPackage">
         <ignore path="**/freemarker-2.*.*.jar" />
-        <ignore path="**/nnio-0.2.jar"/>
         <ignore path="**/bcpkix-jdk15on-1.69.jar" />
     </issue>
 
@@ -73,6 +72,11 @@
     </issue>
 
     <issue id="NewApi" severity="error">
+        <ignore path="build" />
+    </issue>
+
+    <!-- Dagger factories generated for media3 @UnstableApi types cannot carry an @OptIn annotation. -->
+    <issue id="UnsafeOptInUsageError" severity="error">
         <ignore path="build" />
     </issue>
 

@@ -117,8 +117,11 @@ class GalleryFragmentBottomSheetDialog :
         actions?.updateMediaContent(currentMediaState)
     }
 
-    val currMediaState: MediaState
+    var currMediaState: MediaState
         get() = currentMediaState
+        set(value) {
+            currentMediaState = value
+        }
 
     enum class MediaState {
         MEDIA_STATE_DEFAULT,

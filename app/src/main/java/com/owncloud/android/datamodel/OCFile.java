@@ -100,6 +100,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private boolean favorite;
     private boolean hidden;
     private boolean encrypted;
+    private boolean readOnly;
     private WebdavEntry.MountType mountType;
     private int unreadCommentsCount;
     private String ownerId;
@@ -197,6 +198,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         favorite = source.readInt() == 1;
         hidden = source.readInt() == 1;
         encrypted = source.readInt() == 1;
+        readOnly = source.readInt() == 1;
         ownerId = source.readString();
         ownerDisplayName = source.readString();
         mountType = (WebdavEntry.MountType) source.readSerializable();
@@ -243,6 +245,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         dest.writeInt(favorite ? 1 : 0);
         dest.writeInt(hidden ? 1 : 0);
         dest.writeInt(encrypted ? 1 : 0);
+        dest.writeInt(readOnly ? 1 : 0);
         dest.writeString(ownerId);
         dest.writeString(ownerDisplayName);
         dest.writeSerializable(mountType);
@@ -517,6 +520,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         favorite = false;
         hidden = false;
         encrypted = false;
+        readOnly = false;
         mountType = WebdavEntry.MountType.INTERNAL;
         richWorkspace = "";
         firstShareTimestamp = 0;
@@ -851,6 +855,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return this.encrypted;
     }
 
+    public boolean isReadOnly() {
+        return this.readOnly;
+    }
+
     public WebdavEntry.MountType getMountType() {
         return this.mountType;
     }
@@ -965,6 +973,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public void setEncrypted(boolean encrypted) {
         this.encrypted = encrypted;
+    }
+
+    public void setReadOnly(boolean readOnly) {
+        this.readOnly = readOnly;
     }
 
     public void setMountType(WebdavEntry.MountType mountType) {

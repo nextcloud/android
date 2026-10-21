@@ -64,6 +64,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="top"
                         android:inputType="textUri|textNoSuggestions|textEmailAddress"
+                        android:text="@string/suggested_server"
                         android:lines="1"
                         android:minLines="1"
                         android:paddingStart="@dimen/standard_padding"

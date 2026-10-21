@@ -12,6 +12,7 @@
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list_fragment_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -33,6 +34,28 @@
             <include
                 android:id="@+id/empty_list"
                 layout="@layout/empty_list" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/pagination_loader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="@dimen/standard_margin"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/bg_default"
+                app:cardCornerRadius="@dimen/pagination_loader_corner_radius"
+                app:cardElevation="@dimen/pagination_loader_elevation"
+                tools:visibility="visible">
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/pagination_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/standard_half_padding"
+                    android:indeterminate="true"
+                    app:indicatorSize="@dimen/pagination_loader_indicator_size"
+                    app:trackThickness="@dimen/pagination_loader_track_thickness" />
+            </com.google.android.material.card.MaterialCardView>
         </FrameLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </RelativeLayout>

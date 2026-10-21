@@ -11,20 +11,20 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import androidx.core.content.FileProvider
+import com.nextcloud.utils.SnackbarUtil
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.ConflictsResolveActivity
-import com.owncloud.android.ui.activity.FileActivity
+import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.ui.preview.PreviewImageFragment
-import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.ui.preview.media.PreviewMediaFragment
 import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.MimeTypeUtil
 import java.io.File
 
-class UploadListAdapterHelper(private val activity: FileActivity) {
+class UploadListAdapterHelper(private val activity: DrawerActivity) {
 
     companion object {
         private const val TAG = "UploadListAdapterHelper"
@@ -33,7 +33,7 @@ class UploadListAdapterHelper(private val activity: FileActivity) {
 
     fun openConflictActivity(file: OCFile, upload: OCUpload) {
         file.setStoragePath(upload.localPath)
-        val user = activity.accountManager.getUser(upload.accountName)
+        val user = activity.userAccountManager.getUser(upload.accountName)
         user.ifPresent {
             val intent = ConflictsResolveActivity.createIntent(
                 file,
@@ -52,19 +52,19 @@ class UploadListAdapterHelper(private val activity: FileActivity) {
             return
         }
 
-        DisplayUtils.showSnackMessage(activity, R.string.local_file_not_found_message)
+        SnackbarUtil.show(activity, R.string.local_file_not_found_message)
     }
 
     fun onUploadedItemClick(upload: OCUpload) {
         val file = activity.storageManager.getFileByEncryptedRemotePath(upload.remotePath)
         if (file == null) {
-            DisplayUtils.showSnackMessage(activity, R.string.error_retrieving_file)
+            SnackbarUtil.show(activity, R.string.error_retrieving_file)
             Log_OC.i(TAG, "Could not find uploaded file on remote.")
             return
         }
 
         val optionalUser = activity.user
-        if (PreviewImageFragment.canBePreviewed(file) && optionalUser.isPresent) {
+        if (PreviewMediaFragment.canBePreviewed(file) && optionalUser.isPresent) {
             // show image preview and stay in uploads tab
             val intent = FileDisplayActivity.openFileIntent(activity, optionalUser.get(), file)
             activity.startActivity(intent)
@@ -82,7 +82,7 @@ class UploadListAdapterHelper(private val activity: FileActivity) {
     fun openFileWithDefault(localPath: String) {
         val uri = contentUriFor(localPath)
         if (uri == null) {
-            DisplayUtils.showSnackMessage(activity, R.string.error_retrieving_file)
+            SnackbarUtil.show(activity, R.string.error_retrieving_file)
             return
         }
 
@@ -96,7 +96,7 @@ class UploadListAdapterHelper(private val activity: FileActivity) {
             }
             activity.startActivity(intent)
         } catch (e: ActivityNotFoundException) {
-            DisplayUtils.showSnackMessage(activity, R.string.file_list_no_app_for_file_type)
+            SnackbarUtil.show(activity, R.string.file_list_no_app_for_file_type)
             Log_OC.i(TAG, "Could not find app for opening the local file: $e")
         }
     }

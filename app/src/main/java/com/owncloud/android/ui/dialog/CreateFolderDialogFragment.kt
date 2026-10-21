@@ -26,6 +26,7 @@ import com.google.common.collect.Sets
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.autoRename.AutoRename
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.typedActivity
@@ -38,7 +39,6 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.KeyboardUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
@@ -126,8 +126,8 @@ class CreateFolderDialogFragment :
         }
 
         binding.userInput.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable) {}
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun afterTextChanged(s: Editable) = Unit
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) = Unit
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 checkFileNameAfterEachType(fileNames)
             }
@@ -187,7 +187,7 @@ class CreateFolderDialogFragment :
                 FileNameValidator.checkFileName(newFolderName, capabilities, requireContext())
 
             if (errorMessage != null) {
-                DisplayUtils.showSnackMessage(requireActivity(), errorMessage)
+                SnackbarUtil.show(requireActivity(), errorMessage)
                 return
             }
 
@@ -196,24 +196,25 @@ class CreateFolderDialogFragment :
             val path = parentFolder?.decryptedRemotePath + newFolderName + OCFile.PATH_SEPARATOR
 
             val componentGetter = typedActivity<ComponentsGetter>()
-            val fda = typedActivity<FileDisplayActivity>()
             connectivityService.isNetworkAndServerAvailable {
                 if (it) {
                     componentGetter?.fileOperationsHelper?.createFolder(path, encrypted)
                 } else {
                     Log_OC.d(TAG, "Network not available, creating offline operation")
-                    lifecycleScope.launch(Dispatchers.IO) {
-                        fileDataStorageManager.addCreateFolderOfflineOperation(
-                            path,
-                            newFolderName,
-                            parentFolder?.fileId
-                        )
-
-                        withContext(Dispatchers.Main) {
-                            fda?.refreshCurrentDirectory()
-                        }
-                    }
+                    createFolderOfflineOperation(path, newFolderName)
                 }
+            }
+        }
+    }
+
+    private fun createFolderOfflineOperation(path: String, folderName: String) {
+        val activity = typedActivity<FileDisplayActivity>() ?: return
+
+        activity.lifecycleScope.launch(Dispatchers.IO) {
+            fileDataStorageManager.addCreateFolderOfflineOperation(path, folderName, parentFolder?.fileId)
+
+            withContext(Dispatchers.Main) {
+                activity.refreshCurrentDirectory()
             }
         }
     }

@@ -1,0 +1,69 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2025 STRATO GmbH.
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+package com.nextcloud.client.player.ui.audio
+
+import android.annotation.SuppressLint
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Lifecycle
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.nextcloud.client.player.model.file.PlaybackFile
+
+/**
+ * Pads the item list with a copy of the last item at the front and a copy of the first item at the end, so that
+ * [AudioPlayerPager] can wrap around and give the impression of an endless pager.
+ */
+class AudioPlayerPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
+    FragmentStateAdapter(fragmentManager, lifecycle) {
+
+    private var paddedEntities = mutableListOf<PlaybackFile>()
+
+    fun getEntities(): List<PlaybackFile> = if (isPadded()) removeStubs(paddedEntities) else paddedEntities
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setEntities(entities: List<PlaybackFile>) {
+        paddedEntities = if (entities.size > 1) addStubs(entities) else entities.toMutableList()
+        notifyDataSetChanged()
+    }
+
+    fun getEntityIndex(entity: PlaybackFile): Int = if (isPadded()) {
+        val index = removeStubs(paddedEntities).indexOf(entity)
+        if (index != -1) index + 1 else index
+    } else {
+        paddedEntities.indexOf(entity)
+    }
+
+    fun getEntityForPosition(position: Int): PlaybackFile = paddedEntities[position]
+
+    override fun getItemCount(): Int = paddedEntities.size
+
+    override fun createFragment(position: Int): Fragment = AudioFileFragment.createInstance(paddedEntities[position])
+
+    override fun getItemId(position: Int): Long = itemIdAt(position)
+
+    override fun containsItem(itemId: Long): Boolean = paddedEntities.indices.any { itemIdAt(it) == itemId }
+
+    private fun itemIdAt(position: Int): Long =
+        (position.toLong() shl Int.SIZE_BITS) or paddedEntities[position].id.hashCode().toUInt().toLong()
+
+    fun isPadded(): Boolean = paddedEntities.size > 1
+
+    private fun addStubs(sources: List<PlaybackFile>): MutableList<PlaybackFile> {
+        val result = sources.toMutableList()
+        result.add(0, result[result.size - 1])
+        result.add(result[1])
+        return result
+    }
+
+    private fun removeStubs(sources: List<PlaybackFile>): MutableList<PlaybackFile> {
+        val result = sources.toMutableList()
+        result.removeAt(0)
+        result.removeAt(result.size - 1)
+        return result
+    }
+}

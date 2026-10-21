@@ -29,6 +29,14 @@ class SyncFolderHelper(private val context: Context) {
         private const val TAG = "SyncFolderHelper"
     }
 
+    /**
+     * Computes the auto upload remote path for a given file based on the current syncedFolder folder settings.
+     * Note that if the user changed the syncedFolder's settings after the file was already uploaded,
+     * this may not reflect the actual uploaded file's path.
+     * @param syncedFolder containing the file
+     * @param file contained in the syncedFolder
+     * @return the remote path based on the current syncedFolder folder settings
+     */
     fun getAutoUploadRemotePath(syncedFolder: SyncedFolder, file: File): String {
         val resources = context.resources
         val isLightVersion = resources.getBoolean(R.bool.syncedFolder_light)

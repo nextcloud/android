@@ -270,7 +270,7 @@ public class ProcessVEvent {
         }
 
         // TODO show failure in starting context
-        // DisplayUtils.showSnackMessage(context, msg);
+        // SnackbarUtil.show(context, msg);
     }
 
     // Munge a VEvent so Android won't reject it, then convert to ContentValues for inserting

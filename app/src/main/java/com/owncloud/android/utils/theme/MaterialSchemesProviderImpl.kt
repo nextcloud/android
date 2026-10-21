@@ -29,14 +29,14 @@ internal class MaterialSchemesProviderImpl @Inject constructor(
     private val themeCache: MutableMap<String, MaterialSchemes> = ConcurrentHashMap()
 
     override fun getMaterialSchemesForUser(user: User): MaterialSchemes {
-        val url: String = user.server.uri.toString()
+        val accountName = user.accountName
 
-        if (!themeCache.containsKey(url)) {
+        if (!themeCache.containsKey(accountName)) {
             val capability = CapabilityUtils.getCapability(user, context)
-            themeCache[url] = getMaterialSchemesForCapability(capability)
+            themeCache[accountName] = getMaterialSchemesForCapability(capability)
         }
 
-        return themeCache[url]!!
+        return themeCache[accountName]!!
     }
 
     override fun getMaterialSchemesForCapability(capability: OCCapability): MaterialSchemes {

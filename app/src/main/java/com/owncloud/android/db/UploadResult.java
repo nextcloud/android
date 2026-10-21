@@ -103,7 +103,7 @@ public enum UploadResult {
             case OLD_ANDROID_API -> OLD_ANDROID_API;
             case SYNC_CONFLICT -> SYNC_CONFLICT;
             case FORBIDDEN -> PRIVILEGES_ERROR;
-            case CANCELLED -> CANCELLED;
+            case CANCELLED, USER_CANCELLED -> CANCELLED;
             case DELAYED_FOR_WIFI -> DELAYED_FOR_WIFI;
             case DELAYED_FOR_CHARGING -> DELAYED_FOR_CHARGING;
             case DELAYED_IN_POWER_SAVE_MODE -> DELAYED_IN_POWER_SAVE_MODE;

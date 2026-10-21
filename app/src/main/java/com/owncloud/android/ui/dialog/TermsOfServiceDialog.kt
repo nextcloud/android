@@ -23,12 +23,12 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.common.NextcloudClient
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.setHtmlContent
 import com.owncloud.android.R
 import com.owncloud.android.databinding.DialogShowTosBinding
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -141,7 +141,7 @@ class TermsOfServiceDialog :
 
             if (!signResult.isSuccess) {
                 withContext(Dispatchers.Main) {
-                    DisplayUtils.showSnackMessage(view, R.string.sign_tos_failed)
+                    SnackbarUtil.show(view, R.string.sign_tos_failed)
                 }
             }
         }

@@ -24,7 +24,10 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.appinfo.AppInfo
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.client.utils.IntentUtil
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.mdm.MDMConfig
+import com.nextcloud.utils.view.ScreenMetrics
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
 import com.owncloud.android.authentication.AuthenticatorActivity
@@ -33,7 +36,6 @@ import com.owncloud.android.features.FeatureItem
 import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.adapter.FeaturesViewAdapter
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -103,7 +105,7 @@ class FirstRunActivity :
                     val accountName = data?.getStringExtra(AccountManager.KEY_ACCOUNT_NAME)
                     val account = userAccountManager?.getAccountByName(accountName)
                     if (account == null) {
-                        DisplayUtils.showSnackMessage(this, R.string.account_creation_failed)
+                        SnackbarUtil.show(this, R.string.account_creation_failed)
                         return@registerForActivityResult
                     }
 
@@ -156,7 +158,7 @@ class FirstRunActivity :
         binding.hostOwnServer.visibility = if (isProviderOrOwnInstallationVisible) View.VISIBLE else View.GONE
         if (isProviderOrOwnInstallationVisible) {
             binding.hostOwnServer.setOnClickListener {
-                DisplayUtils.startLinkIntent(
+                IntentUtil.startLinkIntent(
                     this,
                     R.string.url_server_install
                 )
@@ -220,7 +222,7 @@ class FirstRunActivity :
             @Suppress("MagicNumber")
             LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                DisplayUtils.convertDpToPixel(if (isLandscape) 100f else 150f, this)
+                ScreenMetrics.dpToPx(if (isLandscape) 100f else 150f, this)
             )
         }
 

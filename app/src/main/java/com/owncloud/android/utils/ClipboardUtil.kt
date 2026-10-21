@@ -19,6 +19,7 @@ import androidx.work.Data
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.nextcloud.client.jobs.clipboard.ClipboardClearWorker
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.mdm.MDMConfig
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -37,7 +38,7 @@ object ClipboardUtil {
         }
 
         if (TextUtils.isEmpty(text)) {
-            DisplayUtils.showSnackMessage(activity, R.string.clipboard_no_text_to_copy)
+            SnackbarUtil.show(activity, R.string.clipboard_no_text_to_copy)
             return
         }
 
@@ -48,12 +49,12 @@ object ClipboardUtil {
             clipboardManager.setPrimaryClip(clip)
 
             if (showToast) {
-                DisplayUtils.showSnackMessage(activity, R.string.copied)
+                SnackbarUtil.show(activity, R.string.copied)
             }
 
             scheduleClipboardClearWorker(activity, text)
         } catch (e: Exception) {
-            DisplayUtils.showSnackMessage(activity, R.string.clipboard_unexpected_error)
+            SnackbarUtil.show(activity, R.string.clipboard_unexpected_error)
             Log_OC.e(TAG, "Exception caught while copying to clipboard", e)
         }
     }

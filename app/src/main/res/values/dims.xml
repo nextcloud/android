@@ -2,6 +2,7 @@
 <!--
   ~ Nextcloud - Android Client
   ~
+  ~ SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
   ~ SPDX-FileCopyrightText: 2022 Álvaro Brey  <alvaro@alvarobrey.com>
   ~ SPDX-FileCopyrightText: 2015-2022 Andy Scherzinger <info@andy-scherzinger.de>
   ~ SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
@@ -12,6 +13,8 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="nav_drawer_header_height">164dp</dimen>
+    <dimen name="file_details_preview_height">112dp</dimen>
+    <dimen name="file_details_preview_icon_padding">16dp</dimen>
     <dimen name="nav_drawer_menu_avatar_radius">12sp</dimen>
     <dimen name="list_item_avatar_icon_radius">20dp</dimen>
     <dimen name="bottom_sheet_text_start_margin">40dp</dimen>
@@ -21,10 +24,14 @@
     <dimen name="file_icon_size">40dp</dimen>
     <dimen name="live_photo_indicator_margin">100dp</dimen>
     <dimen name="file_icon_size_grid">128dp</dimen>
-    <dimen name="file_icon_rounded_corner_radius">8dp</dimen>
+    <dimen name="file_icon_rounded_corner_radius">4dp</dimen>
     <dimen name="file_icon_rounded_corner_radius_for_grid_mode">3dp</dimen>
     <integer name="file_avatar_px">512</integer>
     <dimen name="drawer_content_horizontal_padding">28dp</dimen>
+    <dimen name="pagination_loader_corner_radius">24dp</dimen>
+    <dimen name="pagination_loader_elevation">4dp</dimen>
+    <dimen name="pagination_loader_indicator_size">24dp</dimen>
+    <dimen name="pagination_loader_track_thickness">3dp</dimen>
     <dimen name="standard_padding">16dp</dimen>
     <dimen name="card_corner_radius">12dp</dimen>
     <dimen name="standard_double_padding">32dp</dimen>
@@ -32,6 +39,7 @@
     <dimen name="standard_half_padding">8dp</dimen>
     <dimen name="standard_quarter_padding">4dp</dimen>
     <dimen name="standard_icon_size">32dp</dimen>
+    <dimen name="dashboard_widget_icon_size">32dp</dimen>
     <dimen name="governance_color_dot_size">12dp</dimen>
     <dimen name="standard_eight_padding">2dp</dimen>
     <dimen name="standard_margin">16dp</dimen>
@@ -48,12 +56,16 @@
     <dimen name="grid_layout_item_size">10dp</dimen>
     <dimen name="grid_layout_margin_end">2dp</dimen>
     <dimen name="grid_sync_item_layout_next_text_size">22sp</dimen>
-    <dimen name="grid_container_margin">2dp</dimen>
+    <dimen name="grid_container_margin">16dp</dimen>
     <dimen name="selected_grid_container_radius">4dp</dimen>
     <dimen name="grid_checkbox_size">18dp</dimen>
     <dimen name="grid_checkbox_margin">6dp</dimen>
     <dimen name="grid_recommended_file_container_width">160dp</dimen>
+    <dimen name="grid_recommended_item_text_horizontal_margin">28dp</dimen>
     <dimen name="grid_container_default_max_file_name">80dp</dimen>
+
+    <dimen name="album_container_height">300dp</dimen>
+
 
     <dimen name="button_width">140dp</dimen>
     <dimen name="button_extra_width">180dp</dimen>
@@ -104,6 +116,7 @@
     <dimen name="activity_icon_width">32dp</dimen>
     <dimen name="activity_icon_height">32dp</dimen>
     <dimen name="activity_icon_radius">16dp</dimen>
+    <dimen name="gallery_selection_indicator_size">24dp</dimen>
     <dimen name="activity_icon_layout_right_end_margin">24dp</dimen>
     <dimen name="activity_list_item_grid_layout_left_start_margin">-3dp</dimen>
     <dimen name="activity_list_item_title_header_text_size">16sp</dimen>
@@ -147,12 +160,25 @@
     <dimen name="dialog_padding">24dp</dimen>
     <dimen name="splash_image_size">180dp</dimen>
     <dimen name="splash_text_size">20sp</dimen>
-    <integer name="small_margin">5</integer>
-    <integer name="zero">0</integer>
+    <dimen name="gallery_cell_spacing">2dp</dimen>
+    <integer name="gallery_selection_animation_duration">150</integer>
     <dimen name="txt_size_16sp">16sp</dimen>
     <!--Adaptive Icon size specified here:  https://developer.android.com/develop/ui/views/launch/icon_design_adaptive -->
     <dimen name="adaptive_icon_size">108dp</dimen>
     <dimen name="adaptive_icon_padding">18dp</dimen>
     <dimen name="tag_height">18dp</dimen>
     <dimen name="search_bar_icon_size">24dp</dimen>
+    <dimen name="album_list_image_corner_radius">4dp</dimen>
+
+    <!-- Player -->
+    <dimen name="player_toolbar_height">56dp</dimen>
+    <dimen name="player_file_fragment_padding_horizontal">16dp</dimen>
+    <dimen name="player_cover_margin_vertical">16dp</dimen>
+    <dimen name="player_title_margin_bottom">8dp</dimen>
+    <dimen name="player_file_margin_bottom">32dp</dimen>
+    <dimen name="player_album_cover_size">350dp</dimen>
+    <dimen name="player_file_icon_size">96dp</dimen>
+    <dimen name="player_progress_panel_padding_horizontal">@dimen/standard_padding</dimen>
+    <dimen name="player_panel_margin_bottom">@dimen/standard_padding</dimen>
+    <dimen name="player_button_margin_vertical">8dp</dimen>
 </resources>

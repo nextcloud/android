@@ -16,8 +16,7 @@ import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsR
 import com.nextcloud.client.network.ClientFactoryImpl
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.model.OfflineOperationType
-import com.nextcloud.model.WorkerState
-import com.nextcloud.model.WorkerStateObserver
+import com.nextcloud.utils.extensions.isNetworkAndServerAvailableSuspended
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClient
@@ -31,12 +30,12 @@ import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.operations.CreateFolderOperation
 import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.RenameFileOperation
+import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
+import com.nextcloud.utils.AppConstants.MILLIS_PER_SECOND
 
 private typealias OfflineOperationResult = Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>?
 
@@ -51,8 +50,6 @@ class OfflineOperationsWorker(
     companion object {
         private val TAG = OfflineOperationsWorker::class.java.simpleName
         const val JOB_NAME = "JOB_NAME"
-
-        private const val ONE_SECOND = 1000L
     }
 
     private val fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
@@ -67,9 +64,9 @@ class OfflineOperationsWorker(
             Log_OC.d(TAG, "[$jobName] OfflineOperationsWorker started for user: ${user.accountName}")
 
             // check network connection
-            if (!isNetworkAndServerAvailable()) {
-                Log_OC.w(TAG, "⚠️ No internet/server connection. Retrying later...")
-                return@withContext Result.retry()
+            if (!connectivityService.isNetworkAndServerAvailableSuspended()) {
+                Log_OC.w(TAG, "⚠️ No internet/server connection. Waiting for the next trigger...")
+                return@withContext Result.success()
             }
 
             // check offline operations
@@ -84,8 +81,6 @@ class OfflineOperationsWorker(
             val client = clientFactory.create(user)
             processOperations(operations, client)
 
-            // finish
-            WorkerStateObserver.send(WorkerState.OfflineOperationsCompleted)
             Log_OC.d(TAG, "🏁 Worker finished with result")
             return@withContext Result.success()
         } catch (e: Exception) {
@@ -161,10 +156,30 @@ class OfflineOperationsWorker(
     }
     // endregion
 
-    private suspend fun isNetworkAndServerAvailable(): Boolean = suspendCoroutine { continuation ->
-        connectivityService.isNetworkAndServerAvailable { result ->
-            continuation.resume(result)
+    private fun getExecutionPath(operation: OfflineOperationEntity): String? {
+        val path = operation.path ?: return null
+
+        return if (operation.type is OfflineOperationType.CreateFile) {
+            path.removeSuffix(OCFile.PATH_SEPARATOR)
+        } else {
+            path
         }
+    }
+
+    private fun adoptRemoteFolder(operation: OfflineOperationEntity, remoteFile: RemoteFile, ocFile: OCFile?) {
+        ocFile?.let {
+            val adoptedFile = FileStorageUtils.fillOCFile(remoteFile).apply {
+                fileId = it.fileId
+                parentId = it.parentId
+                decryptedRemotePath = it.decryptedRemotePath
+            }
+
+            fileDataStorageManager.saveFile(adoptedFile)
+        }
+
+        repository.updateNextOperations(operation)
+        fileDataStorageManager.offlineOperationDao.delete(operation)
+        notificationManager.dismissNotification(operation.id)
     }
 
     // region Operation Execution
@@ -173,23 +188,20 @@ class OfflineOperationsWorker(
         operation: OfflineOperationEntity,
         client: OwnCloudClient
     ): OfflineOperationResult? = withContext(Dispatchers.IO) {
-        var path = (operation.path)
+        val path = getExecutionPath(operation)
         if (path == null) {
             Log_OC.w(TAG, "⚠️ Skipped: path is null for operation id=${operation.id}")
             return@withContext null
         }
 
-        if (operation.type is OfflineOperationType.CreateFile && path.endsWith(OCFile.PATH_SEPARATOR)) {
-            Log_OC.w(
-                TAG,
-                "Create file operation should not ends with path separator removing suffix, " +
-                    "operation id=${operation.id}"
-            )
-            path = path.removeSuffix(OCFile.PATH_SEPARATOR)
-        }
-
         val remoteFile = getRemoteFile(path)
         val ocFile = fileDataStorageManager.getFileByDecryptedRemotePath(path)
+
+        if (operation.type is OfflineOperationType.CreateFolder && remoteFile != null) {
+            Log_OC.d(TAG, "📂 Folder already exists on server, adopting it: $path")
+            adoptRemoteFolder(operation, remoteFile, ocFile)
+            return@withContext null
+        }
 
         if (remoteFile != null && ocFile != null && isFileChanged(remoteFile, ocFile)) {
             Log_OC.w(TAG, "⚠️ Conflict detected: File already exists on server. Skipping operation id=${operation.id}")
@@ -256,7 +268,7 @@ class OfflineOperationsWorker(
     @Suppress("DEPRECATION")
     private fun createFile(operation: OfflineOperationEntity, client: OwnCloudClient): OfflineOperationResult {
         val operationType = (operation.type as OfflineOperationType.CreateFile)
-        val lastModificationDate = System.currentTimeMillis() / ONE_SECOND
+        val lastModificationDate = System.currentTimeMillis() / MILLIS_PER_SECOND
         val createFileOperation = UploadFileRemoteOperation(
             operationType.localPath,
             operationType.remotePath,

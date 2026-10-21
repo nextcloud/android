@@ -168,10 +168,10 @@ internal class SharedListFragmentIT : AbstractIT() {
 
                     val newList = runBlocking {
                         OCShareToOCFileConverter
-                            .parseAndSaveShares(listOf(), shares, storageManager, user.accountName)
+                            .parseAndSaveShares(listOf(), shares, storageManager, user)
                     }
                     fragment.adapter.run {
-                        prepareForSearchData(storageManager, SearchType.SHARED_FILTER)
+                        prepareForSearchData(SearchType.SHARED_FILTER)
                         updateAdapter(newList, null)
                     }
                     EspressoIdlingResource.decrement()

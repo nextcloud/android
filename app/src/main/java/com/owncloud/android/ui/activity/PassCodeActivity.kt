@@ -37,6 +37,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import androidx.activity.OnBackPressedCallback
+import com.nextcloud.utils.AppConstants.ONE_SECOND
 
 @Suppress("TooManyFunctions", "MagicNumber")
 class PassCodeActivity :
@@ -46,7 +47,6 @@ class PassCodeActivity :
     companion object {
         private val TAG = PassCodeActivity::class.java.simpleName
 
-        private const val ONE_SECOND_MS = 1000L
         private const val KEY_PASSCODE_DIGITS = "PASSCODE_DIGITS"
         private const val KEY_CONFIRMING_PASSCODE = "CONFIRMING_PASSCODE"
         const val ACTION_REQUEST_WITH_RESULT = "ACTION_REQUEST_WITH_RESULT"
@@ -384,7 +384,7 @@ class PassCodeActivity :
         lifecycleScope.launch(Dispatchers.Main) {
             while (counter != 0) {
                 binding.explanation.text = delayFormatter.getExplanationText(counter)
-                delay(ONE_SECOND_MS)
+                delay(ONE_SECOND)
                 counter -= 1
             }
 

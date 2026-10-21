@@ -13,10 +13,12 @@
 package com.owncloud.android.ui.trashbin
 
 import android.os.AsyncTask
+import androidx.annotation.StringRes
 import com.nextcloud.client.account.User
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ClientFactory.CreationException
 import com.owncloud.android.R
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.trashbin.EmptyTrashbinRemoteOperation
 import com.owncloud.android.lib.resources.trashbin.ReadTrashbinFolderRemoteOperation
@@ -131,6 +133,9 @@ class RemoteTrashbinRepository internal constructor(private val user: User, priv
     ) : AsyncTask<Void?, Void?, Boolean>() {
         private var trashbinFiles: List<TrashbinFile?>? = null
 
+        @StringRes
+        private var errorMessage: Int = R.string.trashbin_loading_failed
+
         @Deprecated("Deprecated in Java")
         override fun doInBackground(vararg voids: Void?): Boolean = try {
             val client = clientFactory.create(user)
@@ -139,6 +144,9 @@ class RemoteTrashbinRepository internal constructor(private val user: User, priv
                 trashbinFiles = result.resultData
                 true
             } else {
+                if (result.code == ResultCode.OUT_OF_MEMORY) {
+                    errorMessage = R.string.file_list_out_of_memory_description
+                }
                 false
             }
         } catch (e: CreationException) {
@@ -152,7 +160,7 @@ class RemoteTrashbinRepository internal constructor(private val user: User, priv
             if (success) {
                 callback.onSuccess(trashbinFiles)
             } else {
-                callback.onError(R.string.trashbin_loading_failed)
+                callback.onError(errorMessage)
             }
         }
     }

@@ -16,8 +16,7 @@ import android.os.Bundle;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
-import com.nextcloud.client.device.BatteryStatus;
-import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.utils.PowerManagementFactory;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
@@ -45,7 +44,6 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
 
-import androidx.annotation.NonNull;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import static org.junit.Assert.assertNotNull;
@@ -205,24 +203,7 @@ public abstract class AbstractOnServerIT extends AbstractIT {
     }
 
     public void uploadOCUpload(OCUpload ocUpload, int localBehaviour) {
-        PowerManagementService powerManagementServiceMock = new PowerManagementService() {
-            @Override
-            public boolean isIgnoringOptimization() {
-                return true;
-            }
-
-            @NonNull
-            @Override
-            public BatteryStatus getBattery() {
-                return new BatteryStatus();
-            }
-
-            @Override
-            public boolean isPowerSavingEnabled() {
-                return false;
-            }
-        };
-
+        final var powerManagementServiceMock = PowerManagementFactory.getMock();
         UserAccountManager accountManager = UserAccountManagerImpl.fromContext(targetContext);
         UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(accountManager,
                                                                                 targetContext.getContentResolver());

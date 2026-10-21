@@ -10,6 +10,7 @@ package com.nextcloud.client.database.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.nextcloud.utils.autoRename.AutoRename
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -21,7 +22,14 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.status.OCCapability
 import java.lang.IllegalArgumentException
 
-@Entity(tableName = ProviderTableMeta.UPLOADS_TABLE_NAME)
+@Entity(
+    tableName = ProviderTableMeta.UPLOADS_TABLE_NAME,
+    indices = [
+        Index(value = [ProviderTableMeta.UPLOADS_ACCOUNT_NAME, ProviderTableMeta.UPLOADS_STATUS]),
+        Index(value = [ProviderTableMeta.UPLOADS_REMOTE_PATH, ProviderTableMeta.UPLOADS_ACCOUNT_NAME]),
+        Index(value = [ProviderTableMeta.UPLOADS_ACCOUNT_NAME, ProviderTableMeta.UPLOADS_LOCAL_PATH])
+    ]
+)
 data class UploadEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = ProviderTableMeta._ID)

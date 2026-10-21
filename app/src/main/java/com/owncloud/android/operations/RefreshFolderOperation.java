@@ -18,6 +18,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.ResultParser;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
+import com.nextcloud.utils.share.UnifiedShareSharees;
 import com.nextcloud.utils.extensions.StringExtensionsKt;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
@@ -407,6 +408,11 @@ public class RefreshFolderOperation extends RemoteOperation {
 
     private RemoteOperationResult checkForChanges(OwnCloudClient client) {
         mRemoteFolderChanged = true;
+
+        if (mIgnoreETag) {
+            return new RemoteOperationResult<>(ResultCode.OK);
+        }
+
         RemoteOperationResult<?> result;
         String remotePath = mLocalFolder.getRemotePath();
 
@@ -418,25 +424,21 @@ public class RefreshFolderOperation extends RemoteOperation {
         if (result.isSuccess()) {
             OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
 
-            if (!mIgnoreETag) {
-                // check if remote and local folder are different
-                String remoteFolderETag = remoteFolder.getEtag();
-                if (remoteFolderETag != null) {
-                    String localFolderEtag = mLocalFolder.getEtag();
-                    mRemoteFolderChanged = StringExtensionsKt.eTagChanged(remoteFolderETag, localFolderEtag);
-                    Log_OC.d(
-                        TAG,
-                        "📂 eTag check\n" +
-                            "  Path:        " + remoteFolder.getRemotePath() + "\n" +
-                            "  Local eTag:  " + localFolderEtag + "\n" +
-                            "  Remote eTag: " + remoteFolderETag + "\n" +
-                            "  Changed:     " + mRemoteFolderChanged
-                            );
-                } else {
-                    Log_OC.e(TAG, "Checked " + user.getAccountName() + remotePath + ": No ETag received from server");
-                }
+            // check if remote and local folder are different
+            String remoteFolderETag = remoteFolder.getEtag();
+            if (remoteFolderETag != null) {
+                String localFolderEtag = mLocalFolder.getEtag();
+                mRemoteFolderChanged = StringExtensionsKt.eTagChanged(remoteFolderETag, localFolderEtag);
+                Log_OC.d(
+                    TAG,
+                    "📂 eTag check\n" +
+                        "  Path:        " + remoteFolder.getRemotePath() + "\n" +
+                        "  Local eTag:  " + localFolderEtag + "\n" +
+                        "  Remote eTag: " + remoteFolderETag + "\n" +
+                        "  Changed:     " + mRemoteFolderChanged
+                        );
             } else {
-                Log_OC.d(TAG, "Ignoring eTag. mRemoteFolderChanged is true.");
+                Log_OC.e(TAG, "Checked " + user.getAccountName() + remotePath + ": No ETag received from server");
             }
 
             result = new RemoteOperationResult<>(ResultCode.OK);
@@ -615,6 +617,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             // we parse content, so either the folder itself or its direct parent (which we check) must be encrypted
             boolean encrypted = updatedFile.isEncrypted() || mLocalFolder.isEncrypted();
             updatedFile.setEncrypted(encrypted);
+            updatedFile.setReadOnly(localFile != null && localFile.isReadOnly());
 
             updatedFiles.add(updatedFile);
         }
@@ -627,6 +630,8 @@ public class RefreshFolderOperation extends RemoteOperation {
         } else if (object instanceof DecryptedFolderMetadataFile metadata) {
             updateFileNameForEncryptedFile(fileDataStorageManager, metadata, mLocalFolder);
         }
+
+        UnifiedShareSharees.fillBlocking(user, updatedFiles);
 
         fileDataStorageManager.saveFolder(remoteFolder, updatedFiles, localFilesMap.values());
 

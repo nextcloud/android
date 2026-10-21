@@ -121,5 +121,7 @@ data class FileEntity(
     @ColumnInfo(name = ProviderTableMeta.FILE_INTERNAL_TWO_WAY_SYNC_RESULT)
     val internalTwoWaySyncResult: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_UPLOADED)
-    val uploaded: Long?
+    val uploaded: Long?,
+    @ColumnInfo(name = ProviderTableMeta.FILE_IS_READ_ONLY)
+    val isReadOnly: Int?
 )

@@ -17,10 +17,10 @@ import androidx.webkit.WebViewFeature
 import com.nextcloud.android.common.ui.util.PlatformThemeUtil
 import com.nextcloud.client.appinfo.AppInfo
 import com.nextcloud.client.device.DeviceInfo
+import com.nextcloud.utils.SnackbarUtil
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.asynctasks.TextEditorLoadUrlTask
-import com.owncloud.android.utils.DisplayUtils
 import javax.inject.Inject
 
 class TextEditorWebView : EditorWebView() {
@@ -50,7 +50,7 @@ class TextEditorWebView : EditorWebView() {
         super.postOnCreate()
 
         if (!user.isPresent) {
-            DisplayUtils.showSnackMessage(this, R.string.failed_to_start_editor)
+            SnackbarUtil.show(this, R.string.failed_to_start_editor)
             finish()
         }
 

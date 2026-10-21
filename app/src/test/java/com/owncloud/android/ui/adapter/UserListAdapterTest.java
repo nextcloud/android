@@ -6,6 +6,7 @@
  */
 package com.owncloud.android.ui.adapter;
 
+import com.nextcloud.utils.avatar.AvatarGenerator;
 import com.owncloud.android.R;
 import com.owncloud.android.ui.activity.ManageAccountsActivity;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
@@ -56,7 +57,8 @@ public class UserListAdapterTest {
                                               true,
                                               true,
                                               true,
-                                              viewThemeUtils);
+                                              viewThemeUtils,
+                                              mock(AvatarGenerator.class));
         assertEquals(0, userListAdapter.getItemCount());
     }
 
@@ -76,7 +78,8 @@ public class UserListAdapterTest {
                                               true,
                                               true,
                                               true,
-                                              viewThemeUtils);
+                                              viewThemeUtils,
+                                              mock(AvatarGenerator.class));
 
         assertEquals(2, userListAdapter.getItemCount());
     }
@@ -98,7 +101,8 @@ public class UserListAdapterTest {
                                               true,
                                               true,
                                               true,
-                                              viewThemeUtils);
+                                              viewThemeUtils,
+                                              mock(AvatarGenerator.class));
 
         UserListItem userListItem1 = new UserListItem();
         UserListItem userListItem2 = new UserListItem();
