@@ -69,6 +69,7 @@ import com.nextcloud.utils.extensions.MimeTypeExtensionsKt;
 import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.nextcloud.utils.extensions.OCFileListFragmentExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
+import com.nextcloud.utils.extensions.WebViewExtensionsKt;
 import com.nextcloud.utils.fileNameValidator.FileNameValidator;
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator;
 import com.nextcloud.utils.view.FastScrollUtils;
@@ -117,7 +118,6 @@ import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.WebViewUtil;
 import com.owncloud.android.utils.theme.ThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -1239,7 +1239,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return;
         }
 
-        boolean webViewAvailable = WebViewUtil.available(context);
+        boolean webViewAvailable = WebViewExtensionsKt.isWebViewAvailable(context);
 
         if (!file.isEncrypted() && mContainerActivity instanceof FileDisplayActivity fda && fda.canPreviewInAudioPlayer(file)) {
             setFabVisible(false);

@@ -27,7 +27,9 @@ import com.nextcloud.client.account.User
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSmallThumbnail
+import com.nextcloud.utils.extensions.hasProxyConfig
 import com.nextcloud.utils.extensions.isPNG
+import com.nextcloud.utils.extensions.setProxyKKPlus
 import com.nextcloud.utils.thumbnail.VideoOverlayGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.RichdocumentsWebviewBinding
@@ -36,7 +38,6 @@ import com.owncloud.android.datamodel.SyncedFolderObserver
 import com.owncloud.android.ui.asynctasks.TextEditorLoadUrlTask
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.RichDocumentDownloader
-import com.owncloud.android.utils.WebViewUtil
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.seconds
@@ -83,10 +84,8 @@ abstract class EditorWebView : ExternalSiteWebView() {
         }
 
         lifecycleScope.launch {
-            val wvUtil = WebViewUtil()
-
-            if (wvUtil.hasProxyConfig()) {
-                wvUtil.setProxyKKPlus(webView)
+            if (webView.hasProxyConfig()) {
+                webView.setProxyKKPlus()
                 delay(PROXY_SETUP_DELAY)
             }
 

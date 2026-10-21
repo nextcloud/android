@@ -67,6 +67,7 @@ import com.nextcloud.operations.PostMethod;
 import com.nextcloud.utils.RawResourceReader;
 import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
+import com.nextcloud.utils.extensions.WebViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.nextcloud.utils.text.LinkFormatter;
 import com.owncloud.android.MainApp;
@@ -104,7 +105,6 @@ import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.WebViewUtil;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.net.URLDecoder;
@@ -908,7 +908,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private void initSimpleSignupLogin() {
         viewThemeUtils.platform.colorCircularProgressBar(accountSetupWebviewBinding.loginWebviewProgressBar, ColorRole.ON_PRIMARY_CONTAINER);
         accountSetupWebviewBinding.loginWebview.setVisibility(View.GONE);
-        new WebViewUtil().setProxyKKPlus(accountSetupWebviewBinding.loginWebview);
+        WebViewExtensionsKt.setProxyKKPlus(accountSetupWebviewBinding.loginWebview);
 
         accountSetupWebviewBinding.loginWebview.getSettings().setAllowFileAccess(false);
         accountSetupWebviewBinding.loginWebview.getSettings().setJavaScriptEnabled(true);
@@ -921,7 +921,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         Map<String, String> headers = new HashMap<>();
         headers.put(RemoteOperation.OCS_API_HEADER, RemoteOperation.OCS_API_HEADER_VALUE);
 
-        new WebViewUtil().setProxyKKPlus(accountSetupWebviewBinding.loginWebview);
+        WebViewExtensionsKt.setProxyKKPlus(accountSetupWebviewBinding.loginWebview);
 
         accountSetupWebviewBinding.loginWebview.loadUrl(getString(R.string.provider_registration_server), headers);
         accountSetupWebviewBinding.loginFlowV2.loginFlowInfoV2.setVisibility(View.GONE);

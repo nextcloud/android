@@ -23,12 +23,13 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.utils.RawResourceReader
 import com.nextcloud.utils.SnackbarUtil
+import com.nextcloud.utils.extensions.isWebViewAvailable
+import com.nextcloud.utils.extensions.setProxyKKPlus
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ExternalsiteWebviewBinding
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.NextcloudWebViewClient
-import com.owncloud.android.utils.WebViewUtil
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 
 /**
@@ -47,7 +48,7 @@ open class ExternalSiteWebView : FileActivity() {
     final override fun onCreate(savedInstanceState: Bundle?) {
         Log_OC.v(TAG, "onCreate() start")
 
-        if (!WebViewUtil.available(this)) {
+        if (!this.isWebViewAvailable()) {
             super.onCreate(savedInstanceState)
             SnackbarUtil.show(this, R.string.webview_not_available)
             finish()
@@ -87,7 +88,7 @@ open class ExternalSiteWebView : FileActivity() {
         setupWebSettings(webView.settings)
         webView.webViewClient = createWebViewClient()
 
-        WebViewUtil().setProxyKKPlus(webView)
+        webView.setProxyKKPlus()
         url?.let { webView.loadUrl(it) }
     }
 
