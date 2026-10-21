@@ -11,7 +11,6 @@ package com.owncloud.android.ui.fragment;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,15 +22,17 @@ import android.view.ViewGroup;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.di.ViewModelFactory;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ClientFactory;
-import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.ui.fileDetail.FileDetailPreview;
 import com.nextcloud.ui.fileactions.FileAction;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.ui.tags.TagManagementBottomSheet;
@@ -39,15 +40,14 @@ import com.nextcloud.utils.HumanReadableFormatter;
 import com.nextcloud.utils.MenuUtils;
 import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
-import com.nextcloud.utils.extensions.FileExtensionsKt;
+import com.nextcloud.utils.extensions.LifecycleOwnerExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.nextcloud.utils.text.DisplayTextFormatter;
-import com.owncloud.android.MainApp;
+import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsFragmentBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -63,9 +63,8 @@ import com.owncloud.android.ui.adapter.FileDetailTabAdapter;
 import com.owncloud.android.ui.adapter.progressListener.DownloadProgressListener;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
-import com.owncloud.android.ui.events.EventBusFactory;
 import com.owncloud.android.ui.events.FavoriteEvent;
-import com.owncloud.android.ui.events.FileDownloadProgressEvent;
+import com.owncloud.android.ui.fragment.filedetail.FileDetailFragmentViewModel;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
@@ -85,6 +84,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 /**
@@ -108,14 +108,16 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     private DownloadProgressListener progressListener;
     private ToolbarActivity toolbarActivity;
     private int activeTab;
+    private FileDetailFragmentViewModel viewModel;
 
     @Inject AppPreferences preferences;
-    @Inject ConnectivityService connectivityService;
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
     @Inject FileDataStorageManager storageManager;
     @Inject ViewThemeUtils viewThemeUtils;
     @Inject BackgroundJobManager backgroundJobManager;
+    @Inject FolderThumbnailGenerator folderThumbnailGenerator;
+    @Inject ViewModelFactory vmFactory;
 
     /**
      * Public factory method to create new FileDetailFragment instances.
@@ -203,6 +205,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        viewModel = new ViewModelProvider(this, vmFactory).get(FileDetailFragmentViewModel.class);
+    }
+
+    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
@@ -233,6 +241,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
         binding = FileDetailsFragmentBinding.inflate(inflater, container, false);
         view = binding.getRoot();
+        binding.detailContainer.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight,
+                                                           oldBottom) -> fitTabContentToViewport());
 
         if (getFile() == null || user == null) {
             showEmptyContent();
@@ -253,7 +263,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         if (getFile() != null && user != null) {
-            viewThemeUtils.platform.themeHorizontalProgressBar(binding.progressBar);
+            viewThemeUtils.material.colorProgressBar(binding.progressBar, ColorRole.PRIMARY);
             viewThemeUtils.platform.themeCheckbox(binding.folderSyncButton);
             progressListener = new DownloadProgressListener(binding.progressBar);
             binding.cancelBtn.setOnClickListener(this);
@@ -263,7 +273,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             binding.folderSyncButton.setOnClickListener(this);
 
             updateFileDetails(false, false);
+            viewModel.observeDownloadProgress(user, getFile());
         }
+
+        LifecycleOwnerExtensionsKt.collectWhenStarted(getViewLifecycleOwner(),
+                                                      viewModel.getDownloadProgress(),
+                                                      this::onDownloadProgress);
 
         getChildFragmentManager().setFragmentResultListener(
             TagManagementBottomSheet.REQUEST_KEY,
@@ -437,7 +452,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         super.onStart();
         listenForTransferProgress();
         EventBus.getDefault().register(this);
-        EventBusFactory.INSTANCE.getDownloadProgressEventBus().register(this);
     }
 
     @Override
@@ -461,7 +475,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         }
 
         EventBus.getDefault().unregister(this);
-        EventBusFactory.INSTANCE.getDownloadProgressEventBus().unregister(this);
         super.onStop();
     }
 
@@ -579,6 +592,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         setFile(file);
         this.user = user;
         updateFileDetails(false, false);
+        if (viewModel != null && file != null && user != null) {
+            viewModel.observeDownloadProgress(user, file);
+        }
     }
 
     /**
@@ -605,17 +621,14 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             OCFile file = getFile();
 
             // set file details
-            if (MimeTypeUtil.isImage(file)) {
-                binding.filename.setText(file.getFileName());
-            } else {
-                binding.filename.setVisibility(View.GONE);
-            }
+            binding.filename.setText(file.getFileName());
             binding.size.setText(HumanReadableFormatter.formatBytes(file.getFileLength()));
 
             boolean showDetailedTimestamp = preferences.isShowDetailedTimestampEnabled();
             setFileModificationTimestamp(file, showDetailedTimestamp);
 
             setFilePreview(file);
+            binding.filename.setVisibility(previewLoaded ? View.VISIBLE : View.GONE);
             setFavoriteIconStatus(file.isFavorite());
 
             // configure UI for depending upon local state of the file
@@ -658,15 +671,13 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onDownloadProgress(FileDownloadProgressEvent event) {
+    public void onDownloadProgress(int percent) {
         if (binding.progressBlock.getVisibility() != View.VISIBLE) {
             binding.progressBlock.setVisibility(View.VISIBLE);
         }
 
         binding.progressText.setText(R.string.downloader_download_in_progress_ticker);
-        binding.progressBar.setProgress(event.getPercent());
-        binding.progressBar.invalidate();
+        binding.progressBar.setProgressCompat(percent, true);
     }
 
     private void setFileModificationTimestamp(OCFile file, boolean showDetailedTimestamp) {
@@ -705,56 +716,13 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
      * @param file a {@link OCFile} to be previewed
      */
     private void setFilePreview(OCFile file) {
-        Bitmap resizedImage;
-
-        if (toolbarActivity != null && MimeTypeUtil.isImage(file)) {
-            resizedImage = FileExtensionsKt.getBigThumbnail(file);
-
-            if (resizedImage != null && !file.isUpdateThumbnailNeeded()) {
-                toolbarActivity.setPreviewImageBitmap(resizedImage);
-                previewLoaded = true;
-            } else {
-                // show thumbnail while loading resized image
-                Bitmap thumbnail = FileExtensionsKt.getSmallThumbnail(file);
-                if (thumbnail != null) {
-                    toolbarActivity.setPreviewImageBitmap(thumbnail);
-                } else {
-                    thumbnail = ThumbnailsCacheManager.mDefaultImg;
-                }
-
-                // generate new resized image
-                if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(getFile(), toolbarActivity.getPreviewImageView()) &&
-                    containerActivity.getStorageManager() != null) {
-                    final ThumbnailsCacheManager.ResizedImageGenerationTask task =
-                        new ThumbnailsCacheManager.ResizedImageGenerationTask(this,
-                                                                              toolbarActivity.getPreviewImageView(),
-                                                                              toolbarActivity.getPreviewImageContainer(),
-                                                                              containerActivity.getStorageManager(),
-                                                                              connectivityService,
-                                                                              containerActivity.getStorageManager().getUser(),
-                                                                              getResources().getColor(R.color.background_color_inverse,
-                                                                                                      requireContext().getTheme())
-                        );
-
-                    if (resizedImage == null) {
-                        resizedImage = thumbnail;
-                    }
-
-                    final ThumbnailsCacheManager.AsyncResizedImageDrawable asyncDrawable =
-                        new ThumbnailsCacheManager.AsyncResizedImageDrawable(
-                            MainApp.getAppContext().getResources(),
-                            resizedImage,
-                            task
-                        );
-
-                    toolbarActivity.setPreviewImageDrawable(asyncDrawable);
-                    previewLoaded = true;
-                    task.execute(getFile());
-                }
-            }
-        } else {
+        if (toolbarActivity == null) {
             previewLoaded = false;
+            return;
         }
+
+        new FileDetailPreview(toolbarActivity, folderThumbnailGenerator, viewThemeUtils).show(file);
+        previewLoaded = true;
     }
 
     /**
@@ -801,11 +769,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             return;
         }
 
-        if (containerActivity.getFileDownloadProgressListener() != null) {
-            containerActivity.getFileDownloadProgressListener().
-                addDataTransferProgressListener(progressListener, getFile());
-        }
-
         if (containerActivity.getFileUploaderHelper() != null) {
             OCFile file = getFile();
             if (user == null || file == null) {
@@ -819,10 +782,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
     private void leaveTransferProgress() {
         if (progressListener != null) {
-            if (containerActivity.getFileDownloadProgressListener() != null) {
-                containerActivity.getFileDownloadProgressListener().
-                    removeDataTransferProgressListener(progressListener, getFile());
-            }
             if (containerActivity.getFileUploaderHelper() != null) {
                 OCFile file = getFile();
 
@@ -884,6 +843,27 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         binding.tabLayout.setVisibility(isFragmentReplaced ? View.GONE : View.VISIBLE);
         binding.pager.setVisibility(isFragmentReplaced ? View.GONE : View.VISIBLE);
         binding.sharingFrameContainer.setVisibility(isFragmentReplaced ? View.VISIBLE : View.GONE);
+    }
+
+    private void fitTabContentToViewport() {
+        int tabLayoutHeight = binding.tabLayout.getVisibility() == View.VISIBLE ? binding.tabLayout.getHeight() : 0;
+        int tabContentHeight = binding.detailContainer.getHeight() - tabLayoutHeight;
+        if (tabContentHeight <= 0) {
+            return;
+        }
+
+        setHeight(binding.pager, tabContentHeight);
+        setHeight(binding.sharingFrameContainer, tabContentHeight);
+    }
+
+    private void setHeight(View target, int height) {
+        ViewGroup.LayoutParams params = target.getLayoutParams();
+        if (params.height == height) {
+            return;
+        }
+
+        params.height = height;
+        target.post(target::requestLayout);
     }
 
     /**

@@ -19,11 +19,13 @@ import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
-import com.owncloud.android.ui.preview.PreviewImageActivity
-import com.owncloud.android.ui.preview.PreviewImageFragment
+import com.owncloud.android.ui.preview.media.PreviewMediaActivity
+import com.owncloud.android.ui.preview.media.PreviewMediaFragment
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 import javax.inject.Provider
+import com.nextcloud.utils.AppConstants.PROGRESS_PERCENTAGE_MAX
+import com.nextcloud.utils.AppConstants.PROGRESS_PERCENTAGE_MIN
 
 class AppNotificationManagerImpl @Inject constructor(
     private val context: Context,
@@ -31,11 +33,6 @@ class AppNotificationManagerImpl @Inject constructor(
     private val platformNotificationsManager: NotificationManager,
     private val viewThemeUtils: Provider<ViewThemeUtils>
 ) : AppNotificationManager {
-
-    companion object {
-        const val PROGRESS_PERCENTAGE_MAX = 100
-        const val PROGRESS_PERCENTAGE_MIN = 0
-    }
 
     private fun builder(channelId: String): NotificationCompat.Builder {
         val builder =
@@ -70,8 +67,8 @@ class AppNotificationManagerImpl @Inject constructor(
             .setContentText(content)
 
         if (allowPreview) {
-            val openFileIntent = if (PreviewImageFragment.canBePreviewed(file)) {
-                PreviewImageActivity.previewFileIntent(context, fileOwner, file)
+            val openFileIntent = if (PreviewMediaFragment.canBePreviewed(file)) {
+                PreviewMediaActivity.previewFileIntent(context, fileOwner, file)
             } else {
                 FileDisplayActivity.openFileIntent(context, fileOwner, file)
             }

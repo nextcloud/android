@@ -61,7 +61,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.systembars.SystemBarBackgroundCallbacks;
 import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.common.NextcloudClient;
-import com.nextcloud.ui.ChooseAccountDialogFragment;
+import com.nextcloud.ui.dialog.account.ChooseAccountDialogFragment;
 import com.nextcloud.ui.composeActivity.ComposeActivity;
 import com.nextcloud.ui.composeActivity.ComposeDestination;
 import com.nextcloud.utils.GlideHelper;
@@ -665,9 +665,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             intent.setAction(FileDisplayActivity.LIST_GROUPFOLDERS);
             startActivity(intent);
         } else {
-            if (menuItem.getItemId() >= MENU_ITEM_EXTERNAL_LINK &&
-                menuItem.getItemId() <= MENU_ITEM_EXTERNAL_LINK + 100) {
-                // external link clicked
+            if (menuItem.getGroupId() == R.id.drawer_menu_external_links) {
                 externalLinkClicked(menuItem);
             } else {
                 Log_OC.w(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
@@ -814,29 +812,34 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void externalLinkClicked(MenuItem menuItem) {
+        int linkId = menuItem.getItemId() - MENU_ITEM_EXTERNAL_LINK;
+
         externalLinksProvider.getExternalLink(ExternalLinkType.LINK, externalLinks -> {
-            for (ExternalLink link : externalLinks) {
-                final var menuTitle = menuItem.getTitle();
-                if (menuTitle == null) {
-                    continue;
-                }
+            ExternalLink link = externalLinks.stream()
+                .filter(candidate -> candidate.getId() == linkId)
+                .findFirst()
+                .orElse(null);
 
-                if (!menuTitle.toString().equalsIgnoreCase(link.getName())) {
-                    continue;
-                }
-
-                if (link.getRedirect()) {
-                    IntentUtil.startLinkIntent(DrawerActivity.this, link.getUrl());
-                } else {
-                    Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
-                    externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, link.getName());
-                    externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, link.getUrl());
-                    externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
-                    startActivity(externalWebViewIntent);
-                }
+            if (link == null) {
+                Log_OC.w(TAG, "No external link found for menu item: " + menuItem.getTitle());
+            } else {
+                openExternalLink(link);
             }
             return Unit.INSTANCE;
         });
+    }
+
+    private void openExternalLink(ExternalLink link) {
+        if (link.getRedirect()) {
+            IntentUtil.startLinkIntent(this, link.getUrl());
+            return;
+        }
+
+        Intent intent = new Intent(getApplicationContext(), ExternalSiteWebView.class)
+            .putExtra(ExternalSiteWebView.EXTRA_TITLE, link.getName())
+            .putExtra(ExternalSiteWebView.EXTRA_URL, link.getUrl())
+            .putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
+        startActivity(intent);
     }
 
     /**

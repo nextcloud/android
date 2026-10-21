@@ -11,6 +11,7 @@ import com.nextcloud.android.common.ui.network.auth.ServerCredentials
 import com.nextcloud.android.common.ui.share.avatar.ShareAvatarRepository
 import com.nextcloud.android.common.ui.share.model.api.share.Share
 import com.nextcloud.client.account.User
+import com.nextcloud.client.core.ClockImpl
 import com.nextcloud.utils.extensions.supportsUnifiedShare
 import com.nextcloud.utils.extensions.toServerCredentials
 import com.owncloud.android.datamodel.OCFile
@@ -24,6 +25,9 @@ import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withContext
 import java.util.concurrent.ConcurrentHashMap
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.minutes
 
 /**
  * Replaces the sharees PROPFIND reported with the ones the unified share API reports, at the point where the files
@@ -35,8 +39,10 @@ import java.util.concurrent.ConcurrentHashMap
  */
 object UnifiedShareSharees {
     private const val MAX_CONCURRENT_REQUESTS = 8
+    private val UNIFIED_SHARE_SUPPORT_CACHE_TIME = 10.minutes
 
-    private val unifiedShareSupport = ConcurrentHashMap<String, Boolean>()
+    private val clock = ClockImpl()
+    private val unifiedShareSupport = ConcurrentHashMap<String, Pair<Duration, Boolean>>()
 
     suspend fun fill(user: User, files: List<OCFile>) {
         if (files.isEmpty()) {
@@ -71,18 +77,24 @@ object UnifiedShareSharees {
         }
     }
 
-    private suspend fun supportsUnifiedShare(accountName: String, credentials: ServerCredentials): Boolean {
-        unifiedShareSupport[accountName]?.let { return it }
+    private suspend fun supportsUnifiedShare(accountName: String, credentials: ServerCredentials): Boolean =
+        cachedUnifiedShareSupport(accountName)
+            ?: runCatching { credentials.supportsUnifiedShare() }
+                .getOrNull()
+                ?.also { unifiedShareSupport[accountName] = Pair(timeSinceBoot(), it) }
+            ?: false
 
-        // a failed capability request stays uncached so that the next listing can resolve it again
-        val supported = runCatching { credentials.supportsUnifiedShare() }.getOrNull() ?: return false
-        unifiedShareSupport[accountName] = supported
-
-        return supported
+    private fun cachedUnifiedShareSupport(accountName: String): Boolean? {
+        val (checkedAt, isSupported) = unifiedShareSupport[accountName] ?: return null
+        val isExpired = timeSinceBoot() - checkedAt >= UNIFIED_SHARE_SUPPORT_CACHE_TIME
+        return if (isExpired) null else isSupported
     }
 
+    private fun timeSinceBoot(): Duration = clock.millisSinceBoot.milliseconds
+
     private suspend fun ShareAvatarRepository.fetchSharees(file: OCFile) {
-        file.sharees = fetchShareAvatars(file.localId.toString())?.toAvatarSharees().orEmpty()
+        val shares = fetchShareAvatars(file.localId.toString()) ?: return
+        file.sharees = shares.toAvatarSharees()
     }
 
     private fun List<Share>.toAvatarSharees(): List<ShareeUser> = asSequence()

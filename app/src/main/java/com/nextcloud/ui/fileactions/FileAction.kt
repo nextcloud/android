@@ -73,6 +73,12 @@ enum class FileAction(
 
     constructor(id: Int, title: Int) : this(id, title, null)
 
+    fun toggledFavorite(): FileAction? = when (this) {
+        FAVORITE -> UNSET_FAVORITE
+        UNSET_FAVORITE -> FAVORITE
+        else -> null
+    }
+
     companion object {
         /**
          * All file actions, in the order they should be displayed
@@ -207,6 +213,20 @@ enum class FileAction(
             result.addAll(actionsToHide)
 
             return result.toList()
+        }
+
+        fun getCurrentFolderActionsToHide(folder: OCFile): List<Int> {
+            val currentFolderActions = setOf(
+                R.id.action_send_share_file,
+                R.id.action_favorite,
+                R.id.action_unset_favorite,
+                R.id.action_see_details,
+                R.id.action_sync_file,
+                R.id.action_encrypted
+            )
+
+            return getFileListActionsToHide(setOf(folder)) +
+                entries.map { it.id }.filterNot { it in currentFolderActions }
         }
 
         fun getActionsToHide(files: Set<OCFile>): List<Int> {

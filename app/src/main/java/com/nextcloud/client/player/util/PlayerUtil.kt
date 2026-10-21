@@ -35,14 +35,15 @@ import com.nextcloud.client.player.model.state.PlayerState
 import com.nextcloud.client.player.model.state.RepeatMode
 import com.nextcloud.client.player.model.state.VideoSize
 import com.nextcloud.utils.extensions.resolveMimeType
+import com.nextcloud.utils.serialization.AppJson
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.utils.MimeTypeUtil
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.serialization.json.Json
 import java.io.File
 import java.util.Collections
+import com.nextcloud.utils.AppConstants.MILLIS_PER_SECOND
 
 @Suppress("TooManyFunctions")
 object PlayerUtil {
@@ -52,10 +53,7 @@ object PlayerUtil {
     private const val PLAYBACK_FILE_KEY = "playback_file"
     private const val NO_INDEX = -1
     private const val UNKNOWN_CONTENT_LENGTH = -1L
-    private const val SECOND_IN_MILLISECONDS = 1000L
     private const val PLAYBACK_FILE_CACHE_SIZE = 512
-
-    private val playbackJson = Json { ignoreUnknownKeys = true }
 
     private val playbackFileCache = LruCache<String, PlaybackFile>(PLAYBACK_FILE_CACHE_SIZE)
 
@@ -190,7 +188,7 @@ object PlayerUtil {
         name = path?.let { File(it).name } ?: "",
         mimeType = resolveMimeType(),
         contentLength = UNKNOWN_CONTENT_LENGTH,
-        lastModified = sharedDate * SECOND_IN_MILLISECONDS,
+        lastModified = sharedDate * MILLIS_PER_SECOND,
         isFavorite = isFavorite
     )
 
@@ -214,14 +212,14 @@ object PlayerUtil {
         ?.let { pathSegments.firstOrNull()?.toLongOrNull() }
 
     fun Bundle.putPlaybackFile(key: String, playbackFile: PlaybackFile) {
-        putString(key, playbackJson.encodeToString(playbackFile))
+        putString(key, AppJson.instance.encodeToString(playbackFile))
     }
 
     fun Bundle?.getPlaybackFile(key: String): PlaybackFile? {
         val encoded = this?.getString(key) ?: return null
 
         return playbackFileCache[encoded]
-            ?: runCatching { playbackJson.decodeFromString<PlaybackFile>(encoded) }
+            ?: runCatching { AppJson.instance.decodeFromString<PlaybackFile>(encoded) }
                 .getOrNull()
                 ?.also { playbackFileCache.put(encoded, it) }
     }

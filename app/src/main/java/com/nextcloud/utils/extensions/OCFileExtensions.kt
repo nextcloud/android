@@ -16,8 +16,10 @@ import com.owncloud.android.datamodel.OCFileDepth
 import com.owncloud.android.datamodel.OCFileDepth.DeepLevel
 import com.owncloud.android.datamodel.OCFileDepth.FirstLevel
 import com.owncloud.android.datamodel.OCFileDepth.Root
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.events.EncryptionEvent
 import com.owncloud.android.utils.FileStorageUtils
+import java.io.File
 import java.util.Calendar
 
 fun List<OCFile>.filterFilenames(): List<OCFile> = distinctBy { it.fileName }
@@ -103,3 +105,14 @@ fun OCFile.toEncryptionEvent(encrypt: Boolean): EncryptionEvent = EncryptionEven
     remotePath,
     encrypt
 )
+
+fun OCFile.createStoragePath(accountName: String) {
+    val savePath = FileStorageUtils.getDefaultSavePathFor(accountName, this)
+    val localDirectory = File(savePath)
+    if (!localDirectory.exists() && !localDirectory.mkdirs()) {
+        Log_OC.e(TAG, "Could not create local directory for internal two-way sync folder: $savePath")
+        return
+    }
+
+    storagePath = savePath
+}

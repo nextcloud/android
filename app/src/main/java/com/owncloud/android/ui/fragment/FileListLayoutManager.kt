@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.ui.sort.SortOrderUi
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.ui.adapter.OCFileListAdapter
+import com.owncloud.android.ui.adapter.filelist.OCFileListAdapter
 import com.owncloud.android.utils.FileSortOrder
 
 class FileListLayoutManager(private val fragment: OCFileListFragment, private val preferences: AppPreferences) {
@@ -91,7 +91,7 @@ class FileListLayoutManager(private val fragment: OCFileListFragment, private va
             layoutManager = GridLayoutManager(context, fragment.columnsCount)
             layoutManager.spanSizeLookup = object : SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int = if (position == fragment.adapter.itemCount - 1 ||
-                    (position == 0 && fragment.adapter.shouldShowHeader())
+                    (position == 0 && fragment.adapter.isHeaderDisplayed)
                 ) {
                     layoutManager.spanCount
                 } else {

@@ -7,7 +7,7 @@
 package com.nextcloud.client.assistant.repository.remote
 
 import com.nextcloud.common.NextcloudClient
-import com.nextcloud.utils.TimeConstants
+import com.nextcloud.utils.AppConstants
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.lib.resources.assistant.chat.CheckGenerationRemoteOperation
@@ -106,7 +106,7 @@ class AssistantRemoteRepositoryImpl(private val client: NextcloudClient, capabil
     }
 
     override suspend fun createConversation(title: String): CreateConversation? = withContext(Dispatchers.IO) {
-        val timestamp = System.currentTimeMillis().div(TimeConstants.MILLIS_PER_SECOND)
+        val timestamp = System.currentTimeMillis().div(AppConstants.MILLIS_PER_SECOND)
         val result = CreateConversationRemoteOperation(title, timestamp).execute(client)
         if (result.isSuccess) result.resultData else null
     }

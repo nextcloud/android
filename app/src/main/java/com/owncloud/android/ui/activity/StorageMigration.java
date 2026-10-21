@@ -20,6 +20,7 @@ import android.view.View;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.account.User;
+import com.nextcloud.utils.AppConstants;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -272,7 +273,7 @@ public class StorageMigration {
             for (Account ocAccount : mOcAccounts) {
                 while (ContentResolver.isSyncActive(ocAccount, mAuthority)) {
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(AppConstants.MILLIS_PER_SECOND);
                     } catch (InterruptedException e) {
                         Log_OC.w(TAG, "Thread interrupted while waiting for account to end syncing");
                         Thread.currentThread().interrupt();

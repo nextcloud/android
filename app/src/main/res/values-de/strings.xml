@@ -922,6 +922,7 @@
     <string name="retrieving_file">Abrufen der Datei …</string>
     <string name="retry">Wiederholen</string>
     <string name="richdocuments_failed_to_load_document">Das Dokument konnte nicht geladen werden!</string>
+    <string name="run_two_way_sync">Synchronisierung jetzt starten</string>
     <string name="scanQR_description">Anmelden mit QR-Code</string>
     <string name="scan_page">Seite scannen</string>
     <string name="screenshot_01_gridView_heading">Schützt Ihre Daten</string>

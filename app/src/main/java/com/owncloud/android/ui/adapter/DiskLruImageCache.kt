@@ -17,6 +17,7 @@ import java.io.BufferedOutputStream
 import java.io.File
 import java.io.IOException
 import java.io.InputStream
+import com.nextcloud.utils.AppConstants.BYTES_PER_KB
 
 class DiskLruImageCache
 @Throws(IOException::class)
@@ -53,6 +54,15 @@ constructor(
 
     fun getBitmap(key: String): Bitmap? = try {
         readEntry(key.toValidKey()) { BitmapFactory.decodeStream(it) }
+    } catch (e: IOException) {
+        Log_OC.e(TAG, e.message, e)
+        null
+    }
+
+    fun getDecodedSizeInKB(key: String): Int? = try {
+        readBounds(key.toValidKey())
+            ?.takeIf { it.outWidth > 0 && it.outHeight > 0 }
+            ?.let { it.outWidth * it.outHeight * ARGB_8888_BYTES_PER_PIXEL / BYTES_PER_KB }
     } catch (e: IOException) {
         Log_OC.e(TAG, e.message, e)
         null
@@ -124,7 +134,8 @@ constructor(
         private const val CACHE_VERSION = 1
         private const val VALUE_COUNT = 1
         private const val VALUE_INDEX = 0
-        private const val IO_BUFFER_SIZE = 8 * 1024
+        private const val IO_BUFFER_SIZE = 8 * BYTES_PER_KB
+        private const val ARGB_8888_BYTES_PER_PIXEL = 4
 
         private val TAG = DiskLruImageCache::class.java.simpleName
     }

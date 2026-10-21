@@ -436,14 +436,17 @@
     <string name="error_choosing_date">Ett fel uppstod när datum valdes</string>
     <string name="error_comment_file">Fel när filen kommenterades</string>
     <string name="error_crash_title">%1$s kraschade</string>
+    <string name="error_creating_file">Det gick inte att skapa filen</string>
     <string name="error_creating_file_from_template">Det gick inte att skapa en fil från mallen</string>
     <string name="error_fetching_sharees">Kunde inte hämta delningsmottagare.</string>
     <string name="error_file_actions">Det gick inte att visa filåtgärder</string>
     <string name="error_file_lock">Fel när fillåsstatusen ändrades</string>
+    <string name="error_reading_file">Det gick inte att läsa filen</string>
     <string name="error_report_issue_action">Rapportera</string>
     <string name="error_report_issue_text">Rapportera problemet i problemspåraren? (kräver ett GitHub-konto)</string>
     <string name="error_retrieving_file">Fel när filen hämtades</string>
     <string name="error_retrieving_templates">Fel vid hämtning av mallar</string>
+    <string name="error_saving_local_file">Det gick inte att spara den lokala filen</string>
     <string name="error_setting_status_message">Ett fel uppstod när statusmeddelandet skapades!</string>
     <string name="error_showing_encryption_dialog">Det gick inte att visa dialogrutan för krypteringsinställningar!</string>
     <string name="error_starting_direct_camera_upload">Fel vid start av kamera</string>
@@ -575,6 +578,7 @@
     <string name="filename_forbidden_characters">Förbjudna tecken är: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Filnamnet innehåller minst ett ogiltigt tecken</string>
     <string name="filename_hint">Filnamn</string>
+    <string name="filename_too_long">Filnamnet får inte vara längre än 250 tecken</string>
     <string name="first_run_1_text">Håll dina data säkra och under din kontroll</string>
     <string name="first_run_2_text">Säkert samarbete och filutbyte</string>
     <string name="first_run_3_text">Lättanvänd webmail, kalender och kontakter</string>
@@ -919,6 +923,7 @@
     <string name="retrieving_file">Hämtar fil…</string>
     <string name="retry">Försök igen</string>
     <string name="richdocuments_failed_to_load_document">Kunde inte läsa in dokument!</string>
+    <string name="run_two_way_sync">Synkronisera nu</string>
     <string name="scanQR_description">Logga in via QR-kod</string>
     <string name="scan_page">Skanna sida</string>
     <string name="screenshot_01_gridView_heading">Skydda dina data</string>
@@ -944,6 +949,7 @@
     <string name="send">Skicka</string>
     <string name="send_copy_to">Skicka kopia till</string>
     <string name="send_share">Skicka delning</string>
+    <string name="server_not_allowed">Servern är inte tillåten</string>
     <string name="server_not_reachable">Kunde inte ladda innehåll</string>
     <string name="server_not_reachable_content">Den här enheten är troligen inte ansluten till internet</string>
     <string name="set_as">Sätt som</string>

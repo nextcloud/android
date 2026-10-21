@@ -36,6 +36,7 @@ import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.utils.AppConstants;
 import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.OCFileExtensionsKt;
@@ -92,6 +93,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -192,7 +194,8 @@ public class FileOperationsHelper {
 
             // check if latest sync is >30s ago
             OCFile parent = storageManager.getFileById(file.getParentId());
-            if (parent != null && parent.getLastSyncDateForData() + 30 * 1000 > System.currentTimeMillis()) {
+            if (parent != null &&
+                parent.getLastSyncDateForData() + TimeUnit.SECONDS.toMillis(30) > System.currentTimeMillis()) {
                 EventBus.getDefault().post(new SyncEventFinished(intent));
 
                 return;

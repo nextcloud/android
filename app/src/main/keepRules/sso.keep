@@ -1,0 +1,14 @@
+# Nextcloud - Android Client
+#
+# SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+-keep class com.nextcloud.android.sso.aidl.NextcloudRequest,
+            com.nextcloud.android.sso.QueryParam,
+            com.nextcloud.android.sso.PlainHeader {
+    static final long serialVersionUID;
+    !static !transient <fields>;
+    <init>(...);
+    private void writeObject(java.io.ObjectOutputStream);
+    private void readObject(java.io.ObjectInputStream);
+}

@@ -1,19 +1,19 @@
-Platfoma locală de productivitate care vă menține în control.
+Platforma de productivitate găzduită pe propriul server, care te lasă pe tine la control.
 
-Caracteristici:
-* Interfață simplă, modernă, adaptată temei serverului
-* Încărcați fișiere în serverul Nextcloud
-* Partajați-le cu alții
-* Țineți fișierele și folderele preferate sincronizate
-* Căutați prin toate folderele de pe server
-* Auto Încărcarea fotografiilor și clipurilor video făcute de dispozitivul personal
-* Fiți la curent cu notificările
-* Suport pentru Multi-account
-* Acces sigur la date cu amprentă sau PIN
-* Integrae cu DAVx5 (anterior DAVdroid) pentru setarea simplă a sincronizării calendarului & Contactelor
+Funcționalități:
+* Interfață simplă și modernă, adaptată temei serverului tău
+* Încarcă fișiere pe serverul tău Nextcloud
+* Partajează-le cu alții
+* Păstrează sincronizate fișierele și dosarele favorite
+* Caută în toate dosarele de pe server
+* Încărcare automată pentru fotografiile și videoclipurile făcute cu dispozitivul
+* Rămâi la curent prin notificări
+* Suport pentru mai multe conturi
+* Acces securizat la date cu amprentă sau PIN
+* Integrare cu DAVx⁵ (cunoscut anterior ca DAVdroid) pentru configurarea ușoară a sincronizării calendarului și a contactelor
 
-Raportați orice problemă la https://github.com/nextcloud/android/issues și discutați despre această aplicație la https://help.nextcloud.com/c/clients/android
+Raportează problemele la https://github.com/nextcloud/android/issues și discută despre această aplicație la https://help.nextcloud.com/c/clients/android
 
-New cu Nextcloud? Nextcloud este un server privat de sincronizare fișiere & partajare și de comunicație. Este un software gratuit și puteți să-l găzduiți sau să plătiți o companie să o facă pentru dumneavoastră. Aveți astfel control asupra fotografiilor, datelor calendarului și despre contacte, documentelor și orice altceva.
+Nou în Nextcloud? Nextcloud este un server privat de sincronizare și partajare a fișierelor și de comunicare. Este software liber, pe care îl poți găzdui singur sau poți plăti o companie să o facă pentru tine. Astfel, tu deții controlul asupra fotografiilor, calendarului, contactelor, documentelor și a tot restul.
 
-Vizitați Nextcloud la https://nextcloud.com
+Descoperă Nextcloud la https://nextcloud.com

@@ -165,6 +165,7 @@
     <string name="contacts_preferences_something_strange_happened">Неможам да ја пронајдам последната резервна копија!</string>
     <string name="conversation_screen_empty_content_title">Нема пронајдено разговори</string>
     <string name="conversation_screen_title">Разговори</string>
+    <string name="copied">Копирано</string>
     <string name="copy_file_error">Настана грешка при обидот за копирање на оваа датотека или папка</string>
     <string name="copy_file_invalid_into_descendent">Не е возможно да се копира папката во истата таа папка</string>
     <string name="copy_file_invalid_overwrite">Датотеката веќе постои во папката</string>
@@ -375,6 +376,7 @@
     <string name="hint_password">Лозинка</string>
     <string name="host_not_available">Серверот не е достапен</string>
     <string name="host_your_own_server">Хостирајте го вашиот сервер</string>
+    <string name="image_preview_unit_seconds">%s s</string>
     <string name="instant_upload_existing">Прикачување на постоечките датотеки</string>
     <string name="instant_upload_on_charging">Прикачувај само додека се полни</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -767,6 +769,7 @@
     <string name="uploads_view_upload_status_failed_permission_error">Грешка во дозволите</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Сертификатот на серверот е недоверлив</string>
     <string name="uploads_view_upload_status_service_interrupted">Апликацијата е прекината</string>
+    <string name="uploads_view_upload_status_skip">Прескокнато</string>
     <string name="uploads_view_upload_status_succeeded">Завршено</string>
     <string name="uploads_view_upload_status_unknown_fail">Непозната грешка</string>
     <string name="uploads_view_upload_status_virus_detected">Детектиран е ВИРУС. Прикачувањето неможе да продолжи!</string>

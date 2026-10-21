@@ -32,7 +32,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.jobs.BackgroundJobManager;
-import com.nextcloud.client.jobs.download.FileDownloadWorker;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.network.NetworkChangeListener;
@@ -93,7 +92,7 @@ import com.owncloud.android.ui.fragment.filesRepository.FilesRepository;
 import com.owncloud.android.ui.fragment.filesRepository.RemoteFilesRepository;
 import com.owncloud.android.ui.helpers.CredentialsUpdateHelper;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
-import com.owncloud.android.ui.preview.PreviewImageActivity;
+import com.owncloud.android.ui.preview.media.PreviewMediaActivity;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FilesSyncHelper;
@@ -165,7 +164,6 @@ public abstract class FileActivity extends DrawerActivity
 
     private boolean mResumed;
 
-    protected FileDownloadWorker.FileDownloadProgressListener fileDownloadProgressListener;
     protected FileUploadHelper fileUploadHelper = FileUploadHelper.Companion.instance();
     protected boolean isFileDisplayActivityResumed = false;
 
@@ -222,7 +220,7 @@ public abstract class FileActivity extends DrawerActivity
                 savedInstanceState.getLong(KEY_WAITING_FOR_OP_ID, Long.MAX_VALUE)
                                                    );
             final ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null && !(this instanceof PreviewImageActivity)) {
+            if (actionBar != null && !(this instanceof PreviewMediaActivity)) {
                 viewThemeUtils.files.themeActionBar(this, actionBar, savedInstanceState.getString(KEY_ACTION_BAR_TITLE));
             }
         } else {
@@ -630,11 +628,6 @@ public abstract class FileActivity extends DrawerActivity
                 // TODO whatever could be waiting for the service is unbound
             }
         }
-    }
-
-    @Override
-    public FileDownloadWorker.FileDownloadProgressListener getFileDownloadProgressListener() {
-        return fileDownloadProgressListener;
     }
 
     @Override

@@ -7,8 +7,15 @@
 
 package com.nextcloud.utils.extensions
 
+import androidx.core.net.toUri
 import com.nextcloud.model.SearchResultEntryType
 import com.owncloud.android.lib.common.SearchResultEntry
+
+private const val SVG_EXTENSION = ".svg"
+private const val COLORED_ICON_SUFFIX = "-color.svg"
+private const val PREVIEW_PATH = "/core/preview"
+private const val PREVIEW_WIDTH_PARAMETER = "x"
+private const val PREVIEW_HEIGHT_PARAMETER = "y"
 
 fun SearchResultEntry.getType(): SearchResultEntryType {
     val value = icon.lowercase()
@@ -41,4 +48,24 @@ fun SearchResultEntry.getType(): SearchResultEntryType {
         isAvatarUrl(thumbnailUrl) -> SearchResultEntryType.Avatar
         else -> SearchResultEntryType.Unknown
     }
+}
+
+fun SearchResultEntry.isMonochromeIcon(): Boolean {
+    val path = thumbnailUrl.toUri().path ?: return false
+    return path.endsWith(SVG_EXTENSION, ignoreCase = true) && !path.endsWith(COLORED_ICON_SUFFIX, ignoreCase = true)
+}
+
+fun SearchResultEntry.thumbnailUrlForSize(sizePx: Int): String {
+    val uri = thumbnailUrl.toUri()
+    if (uri.path?.endsWith(PREVIEW_PATH) != true) {
+        return thumbnailUrl
+    }
+
+    val builder = uri.buildUpon().clearQuery()
+    uri.queryParameterNames.forEach { name ->
+        val isSizeParameter = name == PREVIEW_WIDTH_PARAMETER || name == PREVIEW_HEIGHT_PARAMETER
+        val value = if (isSizeParameter) sizePx.toString() else uri.getQueryParameter(name)
+        builder.appendQueryParameter(name, value)
+    }
+    return builder.build().toString()
 }

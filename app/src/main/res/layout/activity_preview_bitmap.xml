@@ -12,7 +12,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingTop="?attr/actionBarSize"
-    tools:context=".ui.preview.PreviewBitmapActivity">
+    tools:context=".ui.preview.pdf.PreviewBitmapActivity">
 
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/image"

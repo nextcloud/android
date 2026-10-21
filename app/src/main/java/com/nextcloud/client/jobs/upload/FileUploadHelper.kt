@@ -291,18 +291,26 @@ class FileUploadHelper {
                 remotePath = remotePath
             )
             if (entity != null) {
-                reusePendingUpload(entity, data.user) ?: createOCUpload()
+                reusePendingUpload(entity, data.user, data.localBehavior, data.collisionPolicy) ?: createOCUpload()
             } else {
                 createOCUpload()
             }
         }
 
-    private fun reusePendingUpload(entity: UploadEntity, user: User): OCUpload? {
+    private fun reusePendingUpload(
+        entity: UploadEntity,
+        user: User,
+        localBehaviour: Int,
+        nameCollisionPolicy: NameCollisionPolicy
+    ): OCUpload? {
         val capability = fileStorageManager.getCapability(user)
         val upload = entity.toOCUpload(capability) ?: return null
 
         upload.uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
-        uploadsStorageManager.updateUpload(upload)
+        upload.localAction = localBehaviour
+        upload.nameCollisionPolicy = nameCollisionPolicy
+        uploadsStorageManager.uploadDao.insertOrReplace(upload.toUploadEntity())
+        uploadsStorageManager.notifyObserversNow()
         return upload
     }
 
@@ -524,7 +532,7 @@ class FileUploadHelper {
                         )
                     }
                 if (entity != null) {
-                    reusePendingUpload(entity, user) ?: createOCUpload()
+                    reusePendingUpload(entity, user, behaviour, nameCollisionPolicy) ?: createOCUpload()
                 } else {
                     createOCUpload()
                 }

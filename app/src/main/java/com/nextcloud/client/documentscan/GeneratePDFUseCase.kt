@@ -52,6 +52,7 @@ class GeneratePDFUseCase @Inject constructor(private val logger: Logger) {
             val page = document.startPage(pageInfo)
             page.canvas.drawBitmap(bitmap, 0f, 0f, null)
             document.finishPage(page)
+            bitmap.recycle()
         }
     }
 

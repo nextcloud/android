@@ -23,9 +23,10 @@ import dagger.Provides
 import dagger.android.ContributesAndroidInjector
 import java.io.File
 import javax.inject.Singleton
+import com.nextcloud.utils.AppConstants.BYTES_PER_MB
 
 private const val PLAYER_CACHE_DIR_NAME = "player"
-private const val PLAYER_CACHE_SIZE = 300 * 1024 * 1024L
+private const val PLAYER_CACHE_SIZE = 300L * BYTES_PER_MB
 
 @Module(includes = [PlayerModule.AndroidInjector::class])
 class PlayerModule {

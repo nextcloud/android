@@ -15,18 +15,17 @@ import androidx.exifinterface.media.ExifInterface
 import com.nextcloud.utils.extensions.toFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.BitmapUtils.calculateSampleFactor
+import com.nextcloud.utils.AppConstants.BYTES_PER_KB
 
 private const val TAG = "BitmapExtension"
 
-@Suppress("MagicNumber")
-fun Bitmap.allocationKilobyte(): Int = allocationByteCount.div(1024)
+fun Bitmap.allocationKilobyte(): Int = allocationByteCount.div(BYTES_PER_KB)
 
 /**
- * Recursively scales down the Bitmap until its size allocation is within the specified size.
+ * Scales down the Bitmap step by step until its size allocation is within the specified size.
  *
- * This function checks if the current Bitmap's size (in kilobytes) is already within
- * the target size. If not, it scales the Bitmap down by a factor of `1.5` in both width and height
- * and calls itself recursively until the size condition is met.
+ * Each step scales the previous result down by a factor of `1.5` in both width and height. Intermediate
+ * bitmaps are recycled as soon as the next step exists; the receiver is never recycled.
  *
  * @receiver Bitmap The original Bitmap to be resized.
  * @param targetKB The target size in kilobytes (KB) that the Bitmap should be reduced to.
@@ -34,17 +33,19 @@ fun Bitmap.allocationKilobyte(): Int = allocationByteCount.div(1024)
  */
 @Suppress("MagicNumber")
 fun Bitmap.scaleUntil(targetKB: Int): Bitmap {
-    if (allocationKilobyte() <= targetKB) {
-        return this
-    }
-
     // 1.5 is used to gradually scale down while minimizing distortion
     val scaleRatio = 1.5
-    val width = width.div(scaleRatio).toInt()
-    val height = height.div(scaleRatio).toInt()
+    var result = this
 
-    val scaledBitmap = scale(width, height)
-    return scaledBitmap.scaleUntil(targetKB)
+    while (result.allocationKilobyte() > targetKB) {
+        val scaled = result.scale(result.width.div(scaleRatio).toInt(), result.height.div(scaleRatio).toInt())
+        if (result !== this && result !== scaled) {
+            result.recycle()
+        }
+        result = scaled
+    }
+
+    return result
 }
 
 /**

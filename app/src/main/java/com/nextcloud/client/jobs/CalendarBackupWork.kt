@@ -18,6 +18,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import thirdparties.sufficientlysecure.AndroidCalendar
 import thirdparties.sufficientlysecure.SaveCalendar
 import java.util.Calendar
+import kotlin.time.Duration.Companion.days
 
 class CalendarBackupWork(
     appContext: Context,
@@ -31,7 +32,7 @@ class CalendarBackupWork(
         val TAG = CalendarBackupWork::class.java.simpleName
         const val ACCOUNT = "account"
         const val FORCE = "force"
-        const val JOB_INTERVAL_MS: Long = 24 * 60 * 60 * 1000
+        val JOB_INTERVAL_MS = 1.days.inWholeMilliseconds
     }
 
     override fun doWork(): Result {

@@ -384,7 +384,7 @@
             android:exported="false"
             android:theme="@style/PreferenceTheme" />
         <activity
-            android:name=".ui.preview.PreviewImageActivity"
+            android:name=".ui.preview.media.PreviewMediaActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:exported="false"
             android:supportsPictureInPicture="true"
@@ -666,7 +666,7 @@
             android:exported="false"
             android:theme="@style/Theme.ownCloud.Toolbar" />
         <activity
-            android:name=".ui.preview.PreviewBitmapActivity"
+            android:name=".ui.preview.pdf.PreviewBitmapActivity"
             android:exported="false"
             android:theme="@style/Theme.ownCloud.OverlayGrey" />
         <activity

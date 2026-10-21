@@ -19,6 +19,13 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/action_current_folder_actions"
+        android:contentDescription="@string/overflow_menu"
+        android:icon="@drawable/ic_dots_vertical"
+        android:title="@string/overflow_menu"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/action_select_all"
         android:contentDescription="@string/select_all"
         android:icon="@drawable/ic_select_all"

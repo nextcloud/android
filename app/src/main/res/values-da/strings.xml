@@ -32,7 +32,7 @@
     <string name="activity_icon">Aktivitet</string>
     <string name="add_media">Tilføj medier</string>
     <string name="add_new_public_share">Tilføj nyt offentligt link til deling</string>
-    <string name="add_new_secure_file_drop">Tilføj nyt, sikkert fil drop</string>
+    <string name="add_new_secure_file_drop">Tilføj ny sikker fil-aflevering</string>
     <string name="add_to_album">Tilføj til album</string>
     <string name="album_already_exists">Albummet findes allerede</string>
     <string name="album_copy_file_conflict">Findes allerede.</string>
@@ -123,12 +123,12 @@
     <string name="auth_unknown_host_title">Kunne ikke finde host</string>
     <string name="auth_unsupported_multiaccount">%1$s understøtter ikke flere konti</string>
     <string name="auth_wrong_connection_title">Kunne ikke etablere forbindelse</string>
-    <string name="authenticator_activity_cancel_login">Annuller log på</string>
+    <string name="authenticator_activity_cancel_login">Annuller login</string>
     <string name="authenticator_activity_empty_base_url">Angiv en gyldig serveradresse.</string>
-    <string name="authenticator_activity_empty_response_message">Oplysningerne til at logge på kunne ikke hentes. Prøv igen.</string>
-    <string name="authenticator_activity_login_error">Der opstod et problem med din anmodning om at logge på. Prøv igen senere.</string>
+    <string name="authenticator_activity_empty_response_message">Loginoplysningerne kunne ikke hentes. Prøv igen.</string>
+    <string name="authenticator_activity_login_error">Der opstod et problem med din anmodning om at logge ind. Prøv igen senere.</string>
     <string name="authenticator_activity_no_web_browser_found">Der er ingen browser tilgængelig til at åbne dette link.</string>
-    <string name="authenticator_activity_please_complete_login_process">Fuldfør processen for at logge på i din browser</string>
+    <string name="authenticator_activity_please_complete_login_process">Fuldfør login i din browser</string>
     <string name="auto_upload_background_activity_action">Tillad baggrundsaktivitet</string>
     <string name="auto_upload_battery_optimization_reason">Nextclouds baggrundsaktivitet er begrænset af batterioptimering.</string>
     <string name="auto_upload_battery_saver_action">Åbn indstillinger for batterisparefunktion</string>
@@ -483,7 +483,7 @@
     <string name="fab_label">Tilføj eller send</string>
     <string name="failed_to_create_conflict_dialog">Konfliktdialogen kunne ikke oprettes</string>
     <string name="failed_to_download">Fejl ved overførsel af fil til download manager</string>
-    <string name="failed_to_load_tags">Kunne ikke indlæse tags</string>
+    <string name="failed_to_load_tags">Mærkerne kunne ikke indlæses</string>
     <string name="failed_to_print">Fejl ved udskrivning af fil</string>
     <string name="failed_to_start_action">Handlingen kunne ikke startes!</string>
     <string name="failed_to_start_editor">Kunne ikke starte editor</string>
@@ -922,6 +922,7 @@
     <string name="retrieving_file">Modtager fil …</string>
     <string name="retry">Prøv igen</string>
     <string name="richdocuments_failed_to_load_document">Fejl ved indlæsning af dokument!</string>
+    <string name="run_two_way_sync">Kør synkronisering nu</string>
     <string name="scanQR_description">Login med QR kode</string>
     <string name="scan_page">Scan side</string>
     <string name="screenshot_01_gridView_heading">Beskytter dine data</string>
@@ -937,7 +938,7 @@
     <string name="screenshot_06_davdroid_heading">Kalender og kontakter</string>
     <string name="screenshot_06_davdroid_subline">Synkroniser med DAVx⁵</string>
     <string name="search_error">Fejl ved indhenting af søgeresultater</string>
-    <string name="search_tags">Søg tags</string>
+    <string name="search_tags">Søg i mærker</string>
     <string name="secure_share_not_set_up">Sikker deling er ikke sat op for denne bruger</string>
     <string name="secure_share_search">Sikker deling …</string>
     <string name="select_all">Vælg alle</string>
@@ -985,10 +986,10 @@
     <string name="share_link_with_label">Del link (%1$s)</string>
     <string name="share_no_expiration_date_label">Angiv udløbsdato</string>
     <string name="share_no_password_title">Skift adgangskode</string>
-    <string name="share_not_allowed_when_file_drop">Gen-deling er ikke tilladt under sikke fil drop</string>
+    <string name="share_not_allowed_when_file_drop">Videredeling er ikke tilladt ved sikker fil-aflevering</string>
     <string name="share_option_required">Vælg mindst én delingsmulighed, før du fortsætter.</string>
     <string name="share_permission_can_edit">Kan redigere</string>
-    <string name="share_permission_file_request">Filforespørgsler</string>
+    <string name="share_permission_file_request">Fil-forespørgsel</string>
     <string name="share_permission_view_only">Kun visning</string>
     <string name="share_permissions">Delingsrettigheder</string>
     <string name="share_re_share_permission">Del</string>
@@ -1043,7 +1044,7 @@
     <string name="ssl_validator_null_cert">Certifikatet kunne ikke vises.</string>
     <string name="ssl_validator_question">Stoler du på certifikatet alligevel?</string>
     <string name="ssl_validator_reason_cert_expired">- Serverens certifikat er udløbet</string>
-    <string name="ssl_validator_reason_cert_not_trusted">- Serverens certifikat er ikke troværdigt</string>
+    <string name="ssl_validator_reason_cert_not_trusted">- Serverens certifikat er ikke pålideligt</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Serverens certifikat er for ung</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URL adressen stemmer ikke overens med værtsnavnet i certifikatet</string>
     <string name="status_message">Statusbesked</string>
@@ -1111,7 +1112,7 @@
     <string name="synced_folders_preferences_folder_path">For %1$s</string>
     <string name="synced_folders_type">Type</string>
     <string name="synced_icon">Synkroniseret</string>
-    <string name="tags">Tags</string>
+    <string name="tags">Mærker</string>
     <string name="terms_of_service_title">Servicebetingelser</string>
     <string name="terms_of_services_agree">Jeg accepterer ovenstående servicevilkår</string>
     <string name="test_server_button">Test server forbindelsen</string>

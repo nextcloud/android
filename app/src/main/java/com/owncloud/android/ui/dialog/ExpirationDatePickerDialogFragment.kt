@@ -26,6 +26,7 @@ import com.owncloud.android.R
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.util.Calendar
 import javax.inject.Inject
+import com.nextcloud.utils.AppConstants.ONE_SECOND
 
 /**
  * Dialog requesting a date after today.
@@ -103,7 +104,7 @@ class ExpirationDatePickerDialogFragment :
 
         // Prevent days in the past may be chosen
         val picker = dialog.datePicker
-        picker.minDate = tomorrowInMillis - 1000
+        picker.minDate = tomorrowInMillis - ONE_SECOND.inWholeMilliseconds
 
         // Enforce spinners view; ignored by MD-based theme in Android >=5, but calendar is REALLY buggy
         // in Android < 5, so let's be sure it never appears (in tablets both spinners and calendar are

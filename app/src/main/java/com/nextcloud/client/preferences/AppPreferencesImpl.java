@@ -15,8 +15,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 
-import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.nextcloud.appReview.AppReviewShownModel;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -35,6 +35,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -122,7 +123,8 @@ public final class AppPreferencesImpl implements AppPreferences {
     private final ListenerRegistry listeners;
 
     private static final int AUTO_UPLOAD_ON_START_DEBOUNCE_IN_MINUTES = 10;
-    private static final long AUTO_UPLOAD_ON_START_DEBOUNCE_MS = AUTO_UPLOAD_ON_START_DEBOUNCE_IN_MINUTES * 60 * 1000L;
+    private static final long AUTO_UPLOAD_ON_START_DEBOUNCE_MS =
+        TimeUnit.MINUTES.toMillis(AUTO_UPLOAD_ON_START_DEBOUNCE_IN_MINUTES);
 
     /**
      * Adapter delegating raw {@link SharedPreferences.OnSharedPreferenceChangeListener} calls with key-value pairs to

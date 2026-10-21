@@ -46,11 +46,13 @@ import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsR
 import com.nextcloud.model.OfflineOperationRawType;
 import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.model.ShareeEntry;
+import com.nextcloud.utils.AppConstants;
 import com.nextcloud.utils.date.DateFormatPattern;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.nextcloud.utils.extensions.DateExtensionsKt;
 import com.nextcloud.utils.extensions.FileDataStorageManagerExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
+import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
@@ -108,6 +110,7 @@ public class FileDataStorageManager {
     public static final int ROOT_PARENT_ID = 0;
     private static final String JSON_NULL_STRING = "null";
     private static final String JSON_EMPTY_ARRAY = "[]";
+    private static final long INTERNAL_TWO_WAY_SYNC_NEVER_SYNCED = 0L;
 
     private final ContentResolver contentResolver;
     private final ContentProviderClient contentProviderClient;
@@ -191,7 +194,7 @@ public class FileDataStorageManager {
             long modificationTimestamp = System.currentTimeMillis();
 
             entity.setCreatedAt(createdAt);
-            entity.setModifiedAt(modificationTimestamp / 1000);
+            entity.setModifiedAt(modificationTimestamp / AppConstants.MILLIS_PER_SECOND);
             entity.setFilename(new File(remotePath).getName());
 
             String parentPath = new File(remotePath).getParent() + OCFile.PATH_SEPARATOR;
@@ -224,7 +227,7 @@ public class FileDataStorageManager {
         long modificationTimestamp = System.currentTimeMillis();
 
         entity.setCreatedAt(createdAt);
-        entity.setModifiedAt(modificationTimestamp / 1000);
+        entity.setModifiedAt(modificationTimestamp / AppConstants.MILLIS_PER_SECOND);
 
         offlineOperationDao.insert(entity);
         createPendingDirectory(path, createdAt, modificationTimestamp);
@@ -293,7 +296,7 @@ public class FileDataStorageManager {
         long modificationTimestamp = System.currentTimeMillis();
 
         entity.setCreatedAt(createdAt);
-        entity.setModifiedAt(modificationTimestamp / 1000);
+        entity.setModifiedAt(modificationTimestamp / AppConstants.MILLIS_PER_SECOND);
 
         offlineOperationDao.insert(entity);
     }
@@ -336,7 +339,7 @@ public class FileDataStorageManager {
         long modificationTimestamp = System.currentTimeMillis();
 
         entity.setCreatedAt(createdAt);
-        entity.setModifiedAt(modificationTimestamp / 1000);
+        entity.setModifiedAt(modificationTimestamp / AppConstants.MILLIS_PER_SECOND);
 
         offlineOperationDao.insert(entity);
     }
@@ -577,6 +580,10 @@ public class FileDataStorageManager {
             // only refresh folder operation must update eTag otherwise content of the folder may stay as outdated
             cv.remove(ProviderTableMeta.FILE_ETAG);
             cv.remove(ProviderTableMeta.FILE_STORAGE_PATH);
+
+            if (isInternalTwoWaySyncAndNeverSynced(ocFile)) {
+                OCFileExtensionsKt.createStoragePath(ocFile, user.getAccountName());
+            }
         }
 
         boolean sameRemotePath = fileExists(ocFile.getRemotePath());
@@ -620,6 +627,10 @@ public class FileDataStorageManager {
         }
 
         return overridden;
+    }
+
+    private boolean isInternalTwoWaySyncAndNeverSynced(OCFile folder) {
+        return folder.getInternalFolderSyncTimestamp() == INTERNAL_TWO_WAY_SYNC_NEVER_SYNCED;
     }
 
     /**

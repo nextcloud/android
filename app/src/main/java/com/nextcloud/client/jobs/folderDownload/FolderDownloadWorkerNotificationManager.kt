@@ -21,6 +21,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlin.random.Random
+import com.nextcloud.utils.AppConstants.PROGRESS_PERCENTAGE_MAX
 
 class FolderDownloadWorkerNotificationManager(
     private val context: Context,
@@ -36,7 +37,6 @@ class FolderDownloadWorkerNotificationManager(
 
     companion object {
         private const val NOTIFICATION_ID = 391
-        private const val MAX_PROGRESS = 100
     }
 
     private fun getNotification(title: String, description: String = "", progress: Int? = null): Notification =
@@ -47,7 +47,7 @@ class FolderDownloadWorkerNotificationManager(
             setContentText(description)
 
             if (progress != null) {
-                setProgress(MAX_PROGRESS, progress, false)
+                setProgress(PROGRESS_PERCENTAGE_MAX, progress, false)
                 if (showCancel) {
                     addAction(
                         R.drawable.ic_cancel,
@@ -79,7 +79,7 @@ class FolderDownloadWorkerNotificationManager(
             val currentFileIndex = (currentIndex + 1)
             val description =
                 context.getString(R.string.folder_download_counter, currentFileIndex, totalFileSize, filename)
-            val progress = (currentFileIndex * MAX_PROGRESS) / totalFileSize
+            val progress = (currentFileIndex * PROGRESS_PERCENTAGE_MAX) / totalFileSize
             val notification = getNotification(folderName, description, progress)
             showNotification(notification)
         }

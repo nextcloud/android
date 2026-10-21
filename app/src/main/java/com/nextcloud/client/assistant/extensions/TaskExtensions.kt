@@ -17,6 +17,9 @@ import com.owncloud.android.lib.resources.assistant.v2.model.Task
 import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OCCapability
 import java.util.concurrent.TimeUnit
+import com.nextcloud.utils.AppConstants.MILLIS_PER_SECOND
+import com.nextcloud.utils.AppConstants.MINUTES_PER_HOUR
+import com.nextcloud.utils.AppConstants.SECONDS_PER_MINUTE
 
 fun Task.getInputAndOutput(): String {
     val inputText = input?.input ?: ""
@@ -157,17 +160,16 @@ private fun Task.getStatusIconDescriptionV2(): Int = when (status) {
     }
 }
 
-@Suppress("MagicNumber")
 fun Task.getModifiedAtRepresentation(context: Context): String? {
     if (lastUpdated == null) {
         return null
     }
 
     val modifiedAt = lastUpdated!!.toLong()
-    val currentTime = System.currentTimeMillis() / 1000
+    val currentTime = System.currentTimeMillis() / MILLIS_PER_SECOND
     val timeDifference = (currentTime - modifiedAt).toInt()
-    val timeDifferenceInMinutes = (timeDifference / 60)
-    val timeDifferenceInHours = (timeDifference / 3600)
+    val timeDifferenceInMinutes = (timeDifference / SECONDS_PER_MINUTE)
+    val timeDifferenceInHours = (timeDifference / (SECONDS_PER_MINUTE * MINUTES_PER_HOUR))
 
     return when {
         timeDifference < 0 -> {

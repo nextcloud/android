@@ -41,16 +41,16 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
+import com.nextcloud.utils.AppConstants.MILLIS_PER_SECOND
+import com.nextcloud.utils.AppConstants.MINUTES_PER_HOUR
+import com.nextcloud.utils.AppConstants.SECONDS_PER_MINUTE
 
 private const val INDETERMINATE_TIME = "--:--"
 
 private const val PROGRESS_CHANGE_DEBOUNCE_MS = 200L
 private const val DEFAULT_MIN_PROGRESS = 0
 private const val DEFAULT_MAX_PROGRESS = 100
-private const val MILLISECONDS_IN_SECOND = 1000
-private const val MILLISECONDS_IN_HOUR = 3_600_000
-private const val SECONDS_IN_MINUTE = 60
-private const val MINUTES_IN_HOUR = 60
+private const val MILLISECONDS_IN_HOUR = MILLIS_PER_SECOND * SECONDS_PER_MINUTE * MINUTES_PER_HOUR
 
 class PlayerControlView @JvmOverloads constructor(
     context: Context,
@@ -239,13 +239,13 @@ class PlayerControlView @JvmOverloads constructor(
     }
 
     private fun formatTime(current: Int, max: Int): String {
-        val seconds = current / MILLISECONDS_IN_SECOND
-        val minutes = seconds / SECONDS_IN_MINUTE
-        val hours = minutes / MINUTES_IN_HOUR
+        val seconds = current / MILLIS_PER_SECOND
+        val minutes = seconds / SECONDS_PER_MINUTE
+        val hours = minutes / MINUTES_PER_HOUR
         return if (max >= MILLISECONDS_IN_HOUR) {
-            "%02d:%02d:%02d".format(hours, minutes % MINUTES_IN_HOUR, seconds % SECONDS_IN_MINUTE)
+            "%02d:%02d:%02d".format(hours, minutes % MINUTES_PER_HOUR, seconds % SECONDS_PER_MINUTE)
         } else {
-            "%02d:%02d".format(minutes, seconds % SECONDS_IN_MINUTE)
+            "%02d:%02d".format(minutes, seconds % SECONDS_PER_MINUTE)
         }
     }
 }
