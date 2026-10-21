@@ -19,7 +19,6 @@ package com.owncloud.android.ui.fragment;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -50,6 +49,7 @@ import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.client.scan.ScannedPdfUpload;
 import com.nextcloud.client.systembars.SystemBarBackgroundCallbacks;
 import com.nextcloud.client.utils.Throttler;
 import com.nextcloud.common.NextcloudClient;
@@ -687,36 +687,34 @@ public class OCFileListFragment extends ExtendedListFragment implements
         final OCFile currentDir = getCurrentFile();
         final String remotePath = currentDir != null ? currentDir.getRemotePath() : ROOT_PATH;
 
-        if (ContentResolver.SCHEME_FILE.equals(pdfUri.getScheme())) {
-            uploadEmbeddedScannedPdf(user.get(), pdfUri, remotePath);
+        final String fileName = FileOperationsHelper.getTimestampedFileName(".pdf");
+        final ScannedPdfUpload upload = ScannedPdfUpload.Companion.from(pdfUri, remotePath, fileName);
+
+        if (upload instanceof ScannedPdfUpload.Embedded embedded) {
+            uploadEmbeddedScannedPdf(user.get(), embedded);
+        } else if (upload instanceof ScannedPdfUpload.External external) {
+            uploadExternalScannedPdf(fileActivity, user.get(), external);
         } else {
-            uploadExternalScannedPdf(fileActivity, user.get(), pdfUri, remotePath);
+            Log_OC.e(TAG, "Scanned document has no local path, cant upload: " + pdfUri);
         }
     }
 
-    private void uploadEmbeddedScannedPdf(@NonNull User user, @NonNull Uri pdfUri, @NonNull String remotePath) {
-        final String localPath = pdfUri.getPath();
-        if (localPath == null) {
-            Log_OC.e(TAG, "Scanned document has no local path, cant upload: " + pdfUri);
-            return;
-        }
-
-        final String remoteFilePath = remotePath + FileOperationsHelper.getTimestampedFileName(".pdf");
+    private void uploadEmbeddedScannedPdf(@NonNull User user, @NonNull ScannedPdfUpload.Embedded upload) {
         OCUploadLocalPathData data = OCUploadLocalPathData.Companion.forFile(
             user,
-            new String[] { localPath },
-            new String[] { remoteFilePath },
+            new String[] { upload.getLocalPath() },
+            new String[] { upload.getRemoteFilePath() },
             FileUploadWorker.LOCAL_BEHAVIOUR_MOVE
         );
         FileUploadHelper.Companion.instance().uploadNewFiles(data);
     }
 
-    private void uploadExternalScannedPdf(@NonNull FileActivity fileActivity, @NonNull User user, @NonNull Uri pdfUri,
-                                          @NonNull String remotePath) {
+    private void uploadExternalScannedPdf(@NonNull FileActivity fileActivity, @NonNull User user,
+                                          @NonNull ScannedPdfUpload.External external) {
         new UriUploader(
             fileActivity,
-            new ArrayList<Parcelable>(List.of(pdfUri)),
-            remotePath,
+            new ArrayList<Parcelable>(List.of(external.getUri())),
+            external.getRemoteFolderPath(),
             user,
             FileUploadWorker.LOCAL_BEHAVIOUR_DELETE,
             false,
