@@ -38,14 +38,20 @@ class ScannedPdfUploadTest {
     fun contentSchemeUriIsTreatedAsExternalScan() {
         val uri = uri("content", "/scan.pdf")
 
-        assertEquals(ScannedPdfUpload.External(uri, "/Documents/"), ScannedPdfUpload.from(uri, "/Documents/", "scan.pdf"))
+        assertEquals(
+            ScannedPdfUpload.External(uri, "/Documents/"),
+            ScannedPdfUpload.from(uri, "/Documents/", "scan.pdf")
+        )
     }
 
     @Test
     fun uriWithoutSchemeIsTreatedAsExternalScan() {
         val uri = uri(null, null)
 
-        assertEquals(ScannedPdfUpload.External(uri, "/Documents/"), ScannedPdfUpload.from(uri, "/Documents/", "scan.pdf"))
+        assertEquals(
+            ScannedPdfUpload.External(uri, "/Documents/"),
+            ScannedPdfUpload.from(uri, "/Documents/", "scan.pdf")
+        )
     }
 
     @Test

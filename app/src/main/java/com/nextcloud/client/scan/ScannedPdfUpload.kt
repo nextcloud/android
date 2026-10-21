@@ -18,6 +18,7 @@ sealed interface ScannedPdfUpload {
     data object Invalid : ScannedPdfUpload
 
     companion object {
+        @Suppress("ReturnCount")
         fun from(pdfUri: Uri, remoteFolderPath: String, remoteFileName: String): ScannedPdfUpload {
             if (pdfUri.scheme != ContentResolver.SCHEME_FILE) {
                 return External(pdfUri, remoteFolderPath)
