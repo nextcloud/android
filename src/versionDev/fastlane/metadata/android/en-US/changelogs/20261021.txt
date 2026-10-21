@@ -1,0 +1,12 @@
+fix(l10n): Update translations from Transifex
+Update dependency com.google.android.gms:play-services-base to v18.11.1 (#17855)
+Update dependency com.github.spotbugs to v6.5.12 (#17747)
+Update kotlin monorepo to v2.4.21 (#17831)
+Update dependency com.google.firebase:firebase-messaging to v26 (#17833)
+update android lib
+refactor(app): time constants
+update unsupported text
+move view logic to the xmls
+use gallery cell instead of introducing another index
+feat(gallery): indicate unsupported media
+Update Nextcloud Android library
