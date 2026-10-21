@@ -484,9 +484,8 @@ class FileDisplayActivity :
                     R.string.drawer_open
                 ) { dialog: DialogInterface?, which: Int ->
                     // show instant upload
-                    val syncedFoldersIntent = Intent(applicationContext, SyncedFoldersActivity::class.java)
                     dialog?.dismiss()
-                    startActivity(syncedFoldersIntent)
+                    pushFragment(NavigatorScreen.AutoUpload)
                 }.setNegativeButton(
                     R.string.drawer_close
                 ) { dialog: DialogInterface?, which: Int -> dialog?.dismiss() }

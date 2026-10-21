@@ -7,6 +7,7 @@
 package com.owncloud.android
 
 import android.Manifest
+import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
@@ -22,7 +23,8 @@ import androidx.test.rule.GrantPermissionRule
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.activity.SettingsActivity
-import com.owncloud.android.ui.activity.SyncedFoldersActivity
+import com.owncloud.android.ui.navigation.NavigatorActivity
+import com.owncloud.android.ui.navigation.NavigatorScreen
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Assert.assertTrue
 import org.junit.BeforeClass
@@ -103,7 +105,8 @@ class ScreenshotsIT : AbstractIT() {
     @Test
     @ScreenshotTest
     fun autoUploadScreenshot() {
-        launchActivity<SyncedFoldersActivity>().use {
+        val intent = NavigatorActivity.intent(targetContext, NavigatorScreen.AutoUpload)
+        ActivityScenario.launch<NavigatorActivity>(intent).use {
             onView(isRoot()).check(matches(isDisplayed()))
             Screengrab.screenshot("05_autoUpload")
             assertTrue(true)

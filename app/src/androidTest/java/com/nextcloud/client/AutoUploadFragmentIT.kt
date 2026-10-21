@@ -8,37 +8,51 @@
  */
 package com.nextcloud.client
 
-import android.content.Intent
 import android.os.Looper
+import android.view.View
 import androidx.appcompat.app.AlertDialog
-import androidx.test.core.app.launchActivity
+import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import com.nextcloud.client.preferences.SubFolderRule
 import com.owncloud.android.AbstractIT
+import com.owncloud.android.R
 import com.owncloud.android.datamodel.MediaFolderType
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem
-import com.owncloud.android.ui.activity.SyncedFoldersActivity
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment.Companion.newInstance
+import com.owncloud.android.ui.fragment.autoUpload.AutoUploadFragment
+import com.owncloud.android.ui.navigation.NavigatorActivity
+import com.owncloud.android.ui.navigation.NavigatorScreen
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Test
 
-class SyncedFoldersActivityIT : AbstractIT() {
-    private val testClassName = "com.nextcloud.client.SyncedFoldersActivityIT"
+class AutoUploadFragmentIT : AbstractIT() {
+    private val testClassName = "com.nextcloud.client.AutoUploadFragmentIT"
+
+    private fun findFragment(sut: NavigatorActivity): AutoUploadFragment =
+        sut.supportFragmentManager.fragments.filterIsInstance<AutoUploadFragment>().firstOrNull()
+            ?: throw IllegalStateException("AutoUploadFragment not found in NavigatorActivity!")
+
+    private fun launch(block: (ActivityScenario<NavigatorActivity>) -> Unit) {
+        val intent = NavigatorActivity.intent(targetContext, NavigatorScreen.AutoUpload)
+        ActivityScenario.launch<NavigatorActivity>(intent).use(block)
+    }
 
     @Test
     @ScreenshotTest
     fun open() {
-        launchActivity<SyncedFoldersActivity>().use { scenario ->
+        launch { scenario ->
             val screenShotName = createName(testClassName + "_" + "open", "")
             onView(isRoot()).check(matches(isDisplayed()))
 
             scenario.onActivity { sut ->
-                sut.adapter.clear()
-                screenshotViaName(sut.binding.emptyList.emptyListView, screenShotName)
+                val fragment = findFragment(sut)
+                fragment.adapter.clear()
+                val emptyListView = fragment.requireView().findViewById<View>(R.id.empty_list_view)
+                screenshotViaName(emptyListView, screenShotName)
             }
         }
     }
@@ -67,15 +81,15 @@ class SyncedFoldersActivityIT : AbstractIT() {
             SyncedFolder.NOT_SCANNED_YET
         )
 
-        val intent = Intent(targetContext, SyncedFoldersActivity::class.java)
-        launchActivity<SyncedFoldersActivity>(intent).use { scenario ->
+        launch { scenario ->
             val screenShotName = createName(testClassName + "_" + "testSyncedFolderDialog", "")
             onView(isRoot()).check(matches(isDisplayed()))
 
             scenario.onActivity { sut ->
-                val fragment = newInstance(item, 0)
-                fragment!!.show(sut.supportFragmentManager, "")
-                screenshot(fragment.requireDialog().window?.decorView, screenShotName)
+                val dialog = newInstance(item, 0) ?: throw IllegalStateException("Dialog could not be created")
+                dialog.show(findFragment(sut).childFragmentManager, "")
+                findFragment(sut).childFragmentManager.executePendingTransactions()
+                screenshot(dialog.requireDialog().window?.decorView, screenShotName)
             }
         }
     }
@@ -87,18 +101,17 @@ class SyncedFoldersActivityIT : AbstractIT() {
             Looper.prepare()
         }
 
-        val intent = Intent(targetContext, SyncedFoldersActivity::class.java)
-
-        launchActivity<SyncedFoldersActivity>(intent).use { scenario ->
+        launch { scenario ->
             var dialog: AlertDialog? = null
             scenario.onActivity { sut ->
-                dialog = sut.buildPowerCheckDialog()
-                sut.showPowerCheckDialog()
+                val fragment = findFragment(sut)
+                dialog = fragment.buildPowerCheckDialog()
+                fragment.showPowerCheckDialog()
             }
 
             val screenShotName = createName(testClassName + "_" + "showPowerCheckDialog", "")
             onView(isRoot()).check(matches(isDisplayed()))
-            screenshot(dialog!!.window?.decorView, screenShotName)
+            screenshot(dialog?.window?.decorView, screenShotName)
         }
     }
 }

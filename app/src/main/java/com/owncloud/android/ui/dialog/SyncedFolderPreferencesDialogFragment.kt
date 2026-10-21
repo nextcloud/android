@@ -7,10 +7,9 @@
  */
 package com.owncloud.android.ui.dialog
 
-import android.app.Activity
 import android.app.Dialog
+import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.TextUtils
@@ -32,8 +31,6 @@ import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.ui.activity.FolderPickerActivity
-import com.owncloud.android.ui.activity.UploadFilesActivity
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.FileUtil
@@ -66,14 +63,15 @@ class SyncedFolderPreferencesDialogFragment :
     private var binding: SyncedFoldersSettingsLayoutBinding? = null
     private var isNeutralButtonActive = true
 
-    @Deprecated("Deprecated in Java")
-    override fun onAttach(activity: Activity) {
-        super.onAttach(activity)
-        require(activity is OnSyncedFolderPreferenceListener) {
-            (
-                "The host activity must implement " +
-                    OnSyncedFolderPreferenceListener::class.java.canonicalName
-                )
+    private val listener: OnSyncedFolderPreferenceListener?
+        get() = parentFragment as? OnSyncedFolderPreferenceListener
+            ?: activity as? OnSyncedFolderPreferenceListener
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        requireNotNull(listener) {
+            "The parent fragment or host activity must implement " +
+                OnSyncedFolderPreferenceListener::class.java.canonicalName
         }
     }
 
@@ -239,26 +237,12 @@ class SyncedFolderPreferencesDialogFragment :
         setupViews(binding, enabled)
     }
 
-    /**
-     * set (new) remote path on activity result of the folder picker activity. The result gets originally propagated to
-     * the underlying activity since the picker is an activity and the result can't get passed to the dialog fragment
-     * directly.
-     *
-     * @param path the remote path to be set
-     */
     fun setRemoteFolderSummary(path: String?) {
         syncedFolder?.remotePath = path
         binding?.remoteFolderSummary?.text = path
         checkAndUpdateSaveButtonState()
     }
 
-    /**
-     * set (new) local path on activity result of the folder picker activity. The result gets originally propagated to
-     * the underlying activity since the picker is an activity and the result can't get passed to the dialog fragment
-     * directly.
-     *
-     * @param path the local path to be set
-     */
     fun setLocalFolderSummary(path: String?) {
         syncedFolder?.localPath = path
         binding?.localFolderSummary?.text = FileStorageUtils.pathToUserFriendlyDisplay(path, activity, resources)
@@ -400,18 +384,8 @@ class SyncedFolderPreferencesDialogFragment :
             binding.syncEnabled.setOnClickListener { setEnabled(!syncedFolder.isEnabled) }
         }
 
-        binding.remoteFolderContainer.setOnClickListener {
-            val action = Intent(activity, FolderPickerActivity::class.java).apply {
-                putExtra(FolderPickerActivity.EXTRA_ACTION, FolderPickerActivity.CHOOSE_LOCATION)
-            }
-            requireActivity().startActivityForResult(action, REQUEST_CODE__SELECT_REMOTE_FOLDER)
-        }
-        binding.localFolderContainer.setOnClickListener {
-            val action = Intent(activity, UploadFilesActivity::class.java)
-            action.putExtra(UploadFilesActivity.KEY_LOCAL_FOLDER_PICKER_MODE, true)
-            action.putExtra(UploadFilesActivity.REQUEST_CODE_KEY, REQUEST_CODE__SELECT_LOCAL_FOLDER)
-            requireActivity().startActivityForResult(action, REQUEST_CODE__SELECT_LOCAL_FOLDER)
-        }
+        binding.remoteFolderContainer.setOnClickListener { listener?.onRemoteFolderPickerRequested() }
+        binding.localFolderContainer.setOnClickListener { listener?.onLocalFolderPickerRequested() }
 
         binding.settingInstantBehaviourContainer.setOnClickListener { showBehaviourDialog() }
         binding.settingInstantNameCollisionPolicyContainer.setOnClickListener { showNameCollisionPolicyDialog() }
@@ -495,26 +469,28 @@ class SyncedFolderPreferencesDialogFragment :
         fun onSaveSyncedFolderPreference(syncedFolder: SyncedFolderParcelable?)
         fun onCancelSyncedFolderPreference()
         fun onDeleteSyncedFolderPreference(syncedFolder: SyncedFolderParcelable?)
+        fun onRemoteFolderPickerRequested()
+        fun onLocalFolderPickerRequested()
     }
 
     private inner class OnSyncedFolderSaveClickListener : View.OnClickListener {
         override fun onClick(v: View) {
             dismiss()
-            (activity as OnSyncedFolderPreferenceListener?)?.onSaveSyncedFolderPreference(syncedFolder)
+            listener?.onSaveSyncedFolderPreference(syncedFolder)
         }
     }
 
     private inner class OnSyncedFolderCancelClickListener : View.OnClickListener {
         override fun onClick(v: View) {
             dismiss()
-            (activity as OnSyncedFolderPreferenceListener?)?.onCancelSyncedFolderPreference()
+            listener?.onCancelSyncedFolderPreference()
         }
     }
 
     private inner class OnSyncedFolderDeleteClickListener : View.OnClickListener {
         override fun onClick(v: View) {
             dismiss()
-            (activity as OnSyncedFolderPreferenceListener?)?.onDeleteSyncedFolderPreference(syncedFolder)
+            listener?.onDeleteSyncedFolderPreference(syncedFolder)
         }
     }
 
@@ -531,7 +507,6 @@ class SyncedFolderPreferencesDialogFragment :
 
     companion object {
         const val SYNCED_FOLDER_PARCELABLE = "SyncedFolderParcelable"
-        const val REQUEST_CODE__SELECT_REMOTE_FOLDER = 0
         const val REQUEST_CODE__SELECT_LOCAL_FOLDER = 1
         private val TAG = SyncedFolderPreferencesDialogFragment::class.java.simpleName
         private const val BEHAVIOUR_DIALOG_STATE = "BEHAVIOUR_DIALOG_STATE"

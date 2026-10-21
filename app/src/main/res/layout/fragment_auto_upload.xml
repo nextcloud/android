@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+  ~ SPDX-FileCopyrightText: 2017 Andy Scherzinger <info@andy-scherzinger>
+  ~ SPDX-FileCopyrightText: 2017 Nextcloud GmbH
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ListLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/auto_upload_battery_saver_warning_card"
+        layout="@layout/upload_warning_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:layout_marginHorizontal="@dimen/standard_margin" />
+
+    <include
+        android:id="@+id/storage_permission_warning_banner"
+        layout="@layout/storage_permission_warning_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:layout_marginHorizontal="@dimen/standard_margin"
+        tools:visibility="visible" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@android:id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/synced_folders_recycler_view_layout_margin"
+            android:layout_marginLeft="@dimen/synced_folders_recycler_view_layout_margin"
+            android:layout_marginRight="@dimen/synced_folders_recycler_view_layout_margin"
+            android:clipToPadding="false"
+            android:scrollbarStyle="outsideOverlay"
+            android:scrollbars="vertical"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/loading_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <include layout="@layout/synced_folders_list_item_shimmer" />
+            <include layout="@layout/synced_folders_list_item_shimmer" />
+
+        </LinearLayout>
+
+        <include
+            android:id="@+id/emptyList"
+            layout="@layout/empty_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+
+</LinearLayout>

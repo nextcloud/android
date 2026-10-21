@@ -1464,7 +1464,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         switch (deepLinkType) {
             case OPEN_AUTO_UPLOAD:
-                startActivity(new Intent(this, SyncedFoldersActivity.class));
+                pushFragment(NavigatorScreen.AutoUpload.INSTANCE);
                 break;
             case OPEN_EXTERNAL_URL:
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri.getQueryParameter("url")));
@@ -1499,9 +1499,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void checkStoragePermissionWarningBannerVisibility() {
-        if (this instanceof SyncedFoldersActivity syncedFoldersActivity) {
-            syncedFoldersActivity.setupStoragePermissionWarningBanner();
-        } else if (this instanceof UploadFilesActivity uploadFilesActivity) {
+        if (this instanceof UploadFilesActivity uploadFilesActivity) {
             uploadFilesActivity.setupStoragePermissionWarningBanner();
         }
     }
