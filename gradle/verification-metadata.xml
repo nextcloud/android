@@ -226,7 +226,10 @@
             <trusting group="org.jspecify" name="jspecify" version="1.0.0"/>
             <trusting group="org.jspecify" name="jspecify" version="1.0.1"/>
          </trusted-key>
-         <trusted-key id="44C9BD32E7CB72F36F49DD0716968D251E760606" group="org.mnode.ical4j" name="ical4j" version="4.3.0"/>
+         <trusted-key id="44C9BD32E7CB72F36F49DD0716968D251E760606">
+            <trusting group="org.mnode.ical4j" name="ical4j" version="4.3.0"/>
+            <trusting group="org.mnode.ical4j" name="ical4j" version="4.4.0"/>
+         </trusted-key>
          <trusted-key id="44F4797A52C336FA666CD9271DE461528F1F1B2A" group="org.apache.jackrabbit"/>
          <trusted-key id="44FBDBBC1A00FE414F1C1873586654072EAD6677" group="org.sonatype.oss" name="oss-parent" version="9"/>
          <trusted-key id="453EA31328DE7D8AAA55AD4ED56C721C1CFF1424" group="^com[.]twelvemonkeys($|([.].*))" regex="true"/>
