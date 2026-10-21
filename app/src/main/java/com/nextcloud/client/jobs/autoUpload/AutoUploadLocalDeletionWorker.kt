@@ -24,6 +24,7 @@ import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.FileUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
+import kotlin.time.Duration.Companion.milliseconds
 
 class AutoUploadLocalDeletionWorker(
     private val context: Context,
@@ -36,7 +37,6 @@ class AutoUploadLocalDeletionWorker(
     companion object {
         const val SYNCED_FOLDER_IDS = "synced_folder_IDs"
         const val NOTIFICATION_ID = 267
-        const val MS_IN_SECOND = 1000
 
         private const val TAG = "AutoUploadLocalDeletionWorker"
     }
@@ -107,7 +107,7 @@ class AutoUploadLocalDeletionWorker(
         Log_OC.d(
             TAG,
             "Success: users=$users, foldersAnalyzed=$foldersAnalyzed, filesPreserved=$filesPreserved, " +
-                "filesRemoved=$filesRemoved, spaceFreed=$spaceFreed bytes, runTime=${runTimeMs / MS_IN_SECOND} seconds"
+                "filesRemoved=$filesRemoved, spaceFreed=$spaceFreed bytes, runTime=${runTimeMs.milliseconds}"
         )
         return Result.success()
     }

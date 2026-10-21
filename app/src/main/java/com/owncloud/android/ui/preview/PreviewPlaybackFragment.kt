@@ -32,6 +32,7 @@ import com.nextcloud.client.player.model.PlayerThumbnailLoader
 import com.nextcloud.client.player.model.file.PlaybackCollection
 import com.nextcloud.client.player.model.file.PlaybackFile
 import com.nextcloud.client.player.model.state.PlaybackState
+import com.nextcloud.client.player.model.state.PlayerState
 import com.nextcloud.client.player.model.state.VideoSize
 import com.nextcloud.client.player.ui.MediaNavigator
 import com.nextcloud.client.player.util.PlayerUtil.applyVideoSize
@@ -370,6 +371,11 @@ class PreviewPlaybackFragment :
         if (isCurrentItem(state)) {
             wasCurrentItem = true
             showVideo(state?.currentItemState?.videoSize)
+
+            // Keep the screen on while playing. This works because it's called at every playback update and when
+            // the surfaceview is not visible (scrolled away, app in background...)
+            binding.surfaceView.keepScreenOn = state?.currentItemState?.playerState == PlayerState.PLAYING
+
             return
         }
 

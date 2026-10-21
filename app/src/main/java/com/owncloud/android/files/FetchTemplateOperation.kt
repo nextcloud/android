@@ -15,6 +15,8 @@ import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment
 import org.apache.commons.httpclient.HttpStatus
 import org.apache.commons.httpclient.methods.GetMethod
 import org.json.JSONObject
+import com.nextcloud.utils.AppConstants.DEFAULT_CONNECTION_TIMEOUT_MS
+import com.nextcloud.utils.AppConstants.DEFAULT_READ_TIMEOUT_MS
 
 class FetchTemplateOperation(private val type: ChooseRichDocumentsTemplateDialogFragment.Type) :
     RemoteOperation<Any>() {
@@ -28,7 +30,7 @@ class FetchTemplateOperation(private val type: ChooseRichDocumentsTemplateDialog
                 addRequestHeader(OCS_API_HEADER, OCS_API_HEADER_VALUE)
             }
 
-            val status = client.executeMethod(getMethod, SYNC_READ_TIMEOUT, SYNC_CONNECTION_TIMEOUT)
+            val status = client.executeMethod(getMethod, DEFAULT_READ_TIMEOUT_MS, DEFAULT_CONNECTION_TIMEOUT_MS)
             if (status != HttpStatus.SC_OK) {
                 client.exhaustResponse(getMethod.responseBodyAsStream)
                 return RemoteOperationResult(false, getMethod)
@@ -65,8 +67,6 @@ class FetchTemplateOperation(private val type: ChooseRichDocumentsTemplateDialog
 
     companion object {
         private val TAG = FetchTemplateOperation::class.java.simpleName
-        private const val SYNC_READ_TIMEOUT = 40000
-        private const val SYNC_CONNECTION_TIMEOUT = 5000
         private const val TEMPLATE_URL = "/ocs/v2.php/apps/richdocuments/api/v1/templates/"
         private const val JSON_FORMAT = "?format=json"
 

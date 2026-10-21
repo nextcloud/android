@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.assistant.conversation.model.ConversationScreenState
 import com.nextcloud.client.assistant.conversation.repository.ConversationRemoteRepository
-import com.nextcloud.utils.TimeConstants.MILLIS_PER_SECOND
+import com.nextcloud.utils.AppConstants.MILLIS_PER_SECOND
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.assistant.chat.model.Conversation

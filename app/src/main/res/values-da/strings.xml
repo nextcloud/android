@@ -483,7 +483,7 @@
     <string name="fab_label">Tilføj eller send</string>
     <string name="failed_to_create_conflict_dialog">Konfliktdialogen kunne ikke oprettes</string>
     <string name="failed_to_download">Fejl ved overførsel af fil til download manager</string>
-    <string name="failed_to_load_tags">Kunne ikke indlæse tags</string>
+    <string name="failed_to_load_tags">Mærkerne kunne ikke indlæses</string>
     <string name="failed_to_print">Fejl ved udskrivning af fil</string>
     <string name="failed_to_start_action">Handlingen kunne ikke startes!</string>
     <string name="failed_to_start_editor">Kunne ikke starte editor</string>
@@ -922,6 +922,7 @@
     <string name="retrieving_file">Modtager fil …</string>
     <string name="retry">Prøv igen</string>
     <string name="richdocuments_failed_to_load_document">Fejl ved indlæsning af dokument!</string>
+    <string name="run_two_way_sync">Kør synkronisering nu</string>
     <string name="scanQR_description">Login med QR kode</string>
     <string name="scan_page">Scan side</string>
     <string name="screenshot_01_gridView_heading">Beskytter dine data</string>
@@ -937,7 +938,7 @@
     <string name="screenshot_06_davdroid_heading">Kalender og kontakter</string>
     <string name="screenshot_06_davdroid_subline">Synkroniser med DAVx⁵</string>
     <string name="search_error">Fejl ved indhenting af søgeresultater</string>
-    <string name="search_tags">Søg tags</string>
+    <string name="search_tags">Søg i mærker</string>
     <string name="secure_share_not_set_up">Sikker deling er ikke sat op for denne bruger</string>
     <string name="secure_share_search">Sikker deling …</string>
     <string name="select_all">Vælg alle</string>
@@ -1043,7 +1044,7 @@
     <string name="ssl_validator_null_cert">Certifikatet kunne ikke vises.</string>
     <string name="ssl_validator_question">Stoler du på certifikatet alligevel?</string>
     <string name="ssl_validator_reason_cert_expired">- Serverens certifikat er udløbet</string>
-    <string name="ssl_validator_reason_cert_not_trusted">- Serverens certifikat er ikke troværdigt</string>
+    <string name="ssl_validator_reason_cert_not_trusted">- Serverens certifikat er ikke pålideligt</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Serverens certifikat er for ung</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URL adressen stemmer ikke overens med værtsnavnet i certifikatet</string>
     <string name="status_message">Statusbesked</string>
@@ -1111,7 +1112,7 @@
     <string name="synced_folders_preferences_folder_path">For %1$s</string>
     <string name="synced_folders_type">Type</string>
     <string name="synced_icon">Synkroniseret</string>
-    <string name="tags">Tags</string>
+    <string name="tags">Mærker</string>
     <string name="terms_of_service_title">Servicebetingelser</string>
     <string name="terms_of_services_agree">Jeg accepterer ovenstående servicevilkår</string>
     <string name="test_server_button">Test server forbindelsen</string>

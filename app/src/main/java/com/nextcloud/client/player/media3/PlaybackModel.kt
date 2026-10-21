@@ -47,6 +47,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
+import com.nextcloud.utils.AppConstants.ONE_SECOND
 
 @Singleton
 @OptIn(markerClass = [UnstableApi::class])
@@ -57,10 +58,6 @@ class PlaybackModel @Inject constructor(
     private val playbackSettings: PlaybackSettings
 ) {
 
-    companion object {
-        private const val CHECK_PROGRESS_INTERVAL = 1000L
-    }
-
     interface Listener {
         fun onPlaybackUpdate(state: PlaybackState)
         fun onPlaybackError(error: Throwable) = Unit
@@ -68,7 +65,7 @@ class PlaybackModel @Inject constructor(
 
     private val listeners = mutableListOf<Listener>()
 
-    private val checkProgressPeriodicAction = PeriodicAction(CHECK_PROGRESS_INTERVAL) {
+    private val checkProgressPeriodicAction = PeriodicAction(ONE_SECOND.inWholeMilliseconds) {
         notifyPlaybackUpdate()
     }
 

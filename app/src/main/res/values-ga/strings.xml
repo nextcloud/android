@@ -923,6 +923,7 @@
     <string name="retrieving_file">Comhad á aisghabháil…</string>
     <string name="retry">Bain triail eile as</string>
     <string name="richdocuments_failed_to_load_document">Theip ar an doiciméad a lódáil!</string>
+    <string name="run_two_way_sync">Rith an sioncronú anois</string>
     <string name="scanQR_description">Logáil isteach trí chód QR</string>
     <string name="scan_page">Scan leathanach</string>
     <string name="screenshot_01_gridView_heading">Ag cosaint do shonraí</string>

@@ -55,6 +55,7 @@ import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.ui.fileactions.FileAction;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.ui.sort.SortOrderUi;
+import com.nextcloud.utils.AppConstants;
 import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.ShortcutUtil;
 import com.nextcloud.utils.SnackbarUtil;
@@ -97,8 +98,8 @@ import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.activity.TextEditorWebView;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
-import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
-import com.owncloud.android.ui.adapter.OCFileListAdapter;
+import com.owncloud.android.ui.adapter.filelist.CommonOCFileListAdapterInterface;
+import com.owncloud.android.ui.adapter.filelist.OCFileListAdapter;
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
@@ -130,6 +131,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -738,6 +740,27 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             final var childFragmentManager = getChildFragmentManager();
             final var actionBottomSheet = FileActionsBottomSheet.newInstance(filesCount, checkedFiles, isOverflow, actionsToHide, endpoints)
+                .setResultListener(childFragmentManager, this, (id) -> onFileActionChosen(id, checkedFiles));
+
+            if (FragmentExtensionsKt.isDialogFragmentReady(this)) {
+                actionBottomSheet.show(childFragmentManager, "actions");
+            }
+        });
+    }
+
+    public void openCurrentFolderActionsMenu() {
+        final OCFile currentFolder = getCurrentFile();
+        if (currentFolder == null || currentFolder.isRootDirectory()) {
+            return;
+        }
+
+        final Set<OCFile> checkedFiles = new HashSet<>();
+        checkedFiles.add(currentFolder);
+
+        throttler.run("overflowClick", () -> {
+            final var actionsToHide = FileAction.Companion.getCurrentFolderActionsToHide(currentFolder);
+            final var childFragmentManager = getChildFragmentManager();
+            final var actionBottomSheet = FileActionsBottomSheet.newInstance(currentFolder, true, actionsToHide)
                 .setResultListener(childFragmentManager, this, (id) -> onFileActionChosen(id, checkedFiles));
 
             if (FragmentExtensionsKt.isDialogFragmentReady(this)) {
@@ -1759,7 +1782,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(CommentsEvent event) {
-        mAdapter.refreshCommentsCount(event.getRemoteId());
+        mAdapter.markCommentsAsRead(event.getRemoteId());
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
@@ -1778,7 +1801,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 if (this instanceof GalleryFragment galleryFragment) {
                     galleryFragment.markAsFavorite(event.getRemotePath(), event.getShouldFavorite());
                 } else {
-                    mAdapter.setFavoriteAttributeForItemID(event.getRemotePath(), event.getShouldFavorite(), removeFromList);
+                    mAdapter.updateFavoriteState(event.getRemotePath(), event.getShouldFavorite(), removeFromList);
                 }
             }
 
@@ -1882,8 +1905,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             capability
         );
 
-        long nowSeconds = System.currentTimeMillis() / 1000L;
-        long last14DaysTimestamp = nowSeconds - 14L * 24 * 60 * 60;
+        long nowSeconds = System.currentTimeMillis() / AppConstants.MILLIS_PER_SECOND;
+        long last14DaysTimestamp = nowSeconds - TimeUnit.DAYS.toSeconds(14);
 
         remoteOperation.setStartDate(last14DaysTimestamp);
         remoteOperation.setEndDate(nowSeconds);

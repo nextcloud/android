@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.owncloud.android.ui.adapter
+package com.owncloud.android.ui.adapter.filelist.recommended
 
 import android.view.View
 import android.widget.ImageButton
@@ -16,8 +16,9 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.owncloud.android.databinding.RecommendedFileItemBinding
+import com.owncloud.android.ui.adapter.filelist.item.ListGridItemViewHolder
 
-class OCFileListRecommendedItemViewHolder(private val binding: RecommendedFileItemBinding) :
+class RecommendedFilesViewHolder(private val binding: RecommendedFileItemBinding) :
     RecyclerView.ViewHolder(binding.root),
     ListGridItemViewHolder {
 

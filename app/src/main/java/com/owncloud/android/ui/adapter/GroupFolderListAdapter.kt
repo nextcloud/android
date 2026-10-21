@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.android.lib.resources.groupfolders.Groupfolder
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ListItemBinding
+import com.owncloud.android.ui.adapter.filelist.item.OCFileListItemViewHolder
 import com.owncloud.android.ui.interfaces.GroupfolderListInterface
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils

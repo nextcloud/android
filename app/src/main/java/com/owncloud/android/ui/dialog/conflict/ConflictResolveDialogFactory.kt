@@ -22,10 +22,9 @@ import com.owncloud.android.ui.dialog.conflict.model.ConflictDialogData
 import com.owncloud.android.ui.dialog.conflict.model.ConflictDialogType
 import com.owncloud.android.ui.dialog.conflict.model.ConflictFileData
 import java.io.File
+import com.nextcloud.utils.AppConstants.MILLIS_PER_SECOND
 
 object ConflictResolveDialogFactory {
-    private const val SECONDS_TO_MILLIS = 1000L
-
     fun forOffline(
         context: Context,
         leftFile: OfflineOperationEntity,
@@ -60,7 +59,7 @@ object ConflictResolveDialogFactory {
                 titleId = R.string.conflict_local_file,
                 timestamp = (
                     offlineCreatedLocalFile?.lastModified()
-                        ?: leftFile.createdAt?.times(SECONDS_TO_MILLIS) ?: 0L
+                        ?: leftFile.createdAt?.times(MILLIS_PER_SECOND) ?: 0L
                     ),
                 fileLength = (offlineCreatedLocalFile?.length() ?: 0L)
             ),

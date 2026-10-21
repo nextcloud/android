@@ -109,7 +109,7 @@
     <string name="auth_nossl_plain_ok_title">Güvenli bağlantı kullanılamıyor.</string>
     <string name="auth_not_configured_title">Sunucu yapılandırması doğru değil</string>
     <string name="auth_oauth_error">Kimlik doğrulanamadı</string>
-    <string name="auth_oauth_error_access_denied">Kimlik doğrulama sunucusu erişime izin vermedi</string>
+    <string name="auth_oauth_error_access_denied">Kimlik doğrulama sunucusu erişme izni vermedi</string>
     <string name="auth_redirect_non_secure_connection_title">Güvenli bağlantı, güvenli olmayan bir hedefe yönlendiriliyor.</string>
     <string name="auth_secure_connection">Güvenli bağlantı kuruldu</string>
     <string name="auth_ssl_general_error_title">SSL başlatılamadı</string>
@@ -529,7 +529,7 @@
     <string name="file_list_out_of_memory_description">İçerik yüklenemedi</string>
     <string name="file_list_seconds_ago">saniye önce</string>
     <string name="file_management_permission_optional">Depolama izinleri</string>
-    <string name="file_management_permission_optional_text">%1$s depolama alanına erişim izinleriyle en iyi şekilde çalışır. Tüm dosyalara tam erişim ya da fotoğraf ve videolara salt okunur erişim vermeyi seçebilirsiniz.</string>
+    <string name="file_management_permission_optional_text">%1$s depolama alanına erişme izinleriyle en iyi şekilde çalışır. Tüm dosyalara tam erişim ya da fotoğraf ve videolara salt okunur erişim vermeyi seçebilirsiniz.</string>
     <string name="file_migration_allow_media_indexing">Diğer uygulamalardan erişilebilsin</string>
     <string name="file_migration_checking_destination">Hedef denetleniyor …</string>
     <string name="file_migration_cleaning">Temizleniyor …</string>
@@ -922,6 +922,7 @@
     <string name="retrieving_file">Dosya alınıyor …</string>
     <string name="retry">Yeniden dene</string>
     <string name="richdocuments_failed_to_load_document">Belge yüklenemedi!</string>
+    <string name="run_two_way_sync">Şimdi eşitle</string>
     <string name="scanQR_description">Kare kod ile oturum aç</string>
     <string name="scan_page">Sayfayı tara</string>
     <string name="screenshot_01_gridView_heading">Verilerinizi korumak</string>

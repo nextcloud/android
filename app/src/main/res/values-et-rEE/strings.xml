@@ -115,7 +115,7 @@
     <string name="auth_ssl_general_error_title">SSL-i valmendamine ei õnnestunud</string>
     <string name="auth_ssl_unverified_server_title">SSL serveri identiteeti ei suudetud tuvastada</string>
     <string name="auth_testing_connection">Ühenduse testimine</string>
-    <string name="auth_timeout_title">Serveri vastus võttis liiga kaua aega</string>
+    <string name="auth_timeout_title">Serveril kulus vastamiseks liiga kaua aega</string>
     <string name="auth_unauthorized">Vale kasutajanimi või salasõna</string>
     <string name="auth_unknown_error_exception_title">Tundmatu viga: %1$s</string>
     <string name="auth_unknown_error_http_title">Tekkis tundmatu HTTP viga!</string>
@@ -135,7 +135,7 @@
     <string name="auto_upload_battery_saver_reason">Akukasutuse optimeerimine on aktiivne ja see võib üleslaadimisi peatada.</string>
     <string name="auto_upload_delete_dialog_description">Järgnevaga eemaldad kausta ja automaatse üleslaadimise seadistused. Kõik lõpetamata üleslaadimised katkestatakse.</string>
     <string name="auto_upload_delete_dialog_title">Kas kustutad automaatse üleslaadimise kausta?</string>
-    <string name="auto_upload_file_behaviour_kept_in_folder">säilitatud lugemisõigustega algkaustas</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">kuna ta on lugemisõigustega, siis on säilitatud algkaustas</string>
     <string name="auto_upload_low_battery_warning_info">Aku on üsna tühi, üleslaadimine võib kesta kauem</string>
     <string name="auto_upload_on_wifi">Laadi üles ainult mahupiiranguta WiFi võrgus</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -681,7 +681,7 @@
     <string name="logs_status_not_filtered">Logid: %1$d kB, filtrit pole</string>
     <string name="logs_title">Logid</string>
     <string name="maintenance_mode">Server on hooldusrežiimis</string>
-    <string name="manage_space_auto_upload_clear_data">Kustuta automaatselt üleslaaditud failid kohalikust seadmest</string>
+    <string name="manage_space_auto_upload_clear_data">Kustuta automaatselt kohalikust seadmest üleslaaditud failid</string>
     <string name="manage_space_auto_upload_description">Kõik automaatsete üleslaadimiste kaustadest serverisse üleslaaditud failid kustutatakse andmeruumi vabastamise nimel.\n\nSelle toimingu jaoks võib kuluda aega.</string>
     <string name="manage_space_auto_upload_title">Kustuta automaatselt üleslaaditud failid kohalikust seadmest</string>
     <string name="manage_space_clear_data">Kustuta andmed</string>
@@ -691,10 +691,10 @@
     <string name="media_picker_toolbar_title">Vali meediumifailid</string>
     <string name="menu_item_sort_by_date_newest_first">Uuemad esimesena</string>
     <string name="menu_item_sort_by_date_oldest_first">Vanemad esimesena</string>
-    <string name="menu_item_sort_by_name_a_z">A - Z</string>
-    <string name="menu_item_sort_by_name_z_a">Z - A</string>
+    <string name="menu_item_sort_by_name_a_z">A - Y</string>
+    <string name="menu_item_sort_by_name_z_a">Y - A</string>
     <string name="menu_item_sort_by_size_biggest_first">Suuremad esimesena</string>
-    <string name="menu_item_sort_by_size_smallest_first">Väiksemad esimesenaa</string>
+    <string name="menu_item_sort_by_size_smallest_first">Väiksemad esimesena</string>
     <string name="more">Veel</string>
     <string name="more_documents">Veel dokumente</string>
     <string name="move_file_error">Selle faili või kausta teisaldamisel tekkis viga</string>
@@ -731,12 +731,12 @@
     <string name="notification_channel_content_observer_name_short">Sisuvaatleja</string>
     <string name="notification_channel_download_description">Näitab allalaadimise edenemist</string>
     <string name="notification_channel_download_name_short">Allalaadimised</string>
-    <string name="notification_channel_file_sync_description">Näitab failide sünkroniseerimise edenemist ja tulemusi</string>
-    <string name="notification_channel_file_sync_name">Failide sünkroniseerimimine</string>
+    <string name="notification_channel_file_sync_description">Näitab failide sünkroonimise edenemist ja tulemusi</string>
+    <string name="notification_channel_file_sync_name">Failide sünkroonimine</string>
     <string name="notification_channel_general_description">Näita teavitusi meediakaustade ja muu sarnase kohta</string>
     <string name="notification_channel_general_name">Üldised teavitused</string>
-    <string name="notification_channel_media_description">Muusikaesitaja edenemine</string>
-    <string name="notification_channel_media_name">Meediaesitaja</string>
+    <string name="notification_channel_media_description">Pleieri esitusjärg</string>
+    <string name="notification_channel_media_name">Meediumipleier</string>
     <string name="notification_channel_offline_operations_description">Näitab vallasrežiimis tegevuste edenemist</string>
     <string name="notification_channel_offline_operations_name_short">Vallasrežiimis tegevused</string>
     <string name="notification_channel_push_description">Näita serveri saadetud tõuketeavitusi: mainimised kommentaarides, uute kaugkaustade vastuvõtmine, peakasutaja postitused, jmt.</string>
@@ -922,6 +922,7 @@
     <string name="retrieving_file">Laadin faili…</string>
     <string name="retry">Proovi uuesti</string>
     <string name="richdocuments_failed_to_load_document">Dokumendi laadimine ei õnnestunud!</string>
+    <string name="run_two_way_sync">Käivita sünkroonimine kohe nüüd</string>
     <string name="scanQR_description">Logi sisse QR-koodiga</string>
     <string name="scan_page">Skaneeri lehte</string>
     <string name="screenshot_01_gridView_heading">Kaitstes sinu andmeid</string>
@@ -1018,7 +1019,7 @@
     <string name="sign_tos_failed">Palun tutvu kasutustingimustega!</string>
     <string name="signup_with_provider">Või liitu teenusepakkujaga</string>
     <string name="single_sign_on_request_token" formatted="true">Kas lubad „%1$s“ teenusel ligipääsu sinu Nextcloudi kasutajakontole „%2$s“?</string>
-    <string name="sort_by">Sorteeri</string>
+    <string name="sort_by">Järjesta</string>
     <string name="sort_favorites_first">Järjesta lemmikud esimesena</string>
     <string name="sort_folders_before_files">Järjesta kaustad enne faile</string>
     <string name="ssl_validator_btn_details_hide">Peida</string>

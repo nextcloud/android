@@ -20,9 +20,9 @@ import com.owncloud.android.utils.FileStorageUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
+import com.nextcloud.utils.AppConstants.MILLIS_PER_SECOND
 
 object OCShareToOCFileConverter {
-    private const val MILLIS_PER_SECOND = 1000
     private val LINK_SHARE_TYPES = setOf(ShareType.PUBLIC_LINK, ShareType.EMAIL)
 
     /**

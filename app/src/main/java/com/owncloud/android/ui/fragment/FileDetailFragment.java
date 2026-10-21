@@ -241,6 +241,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
         binding = FileDetailsFragmentBinding.inflate(inflater, container, false);
         view = binding.getRoot();
+        binding.detailContainer.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight,
+                                                           oldBottom) -> fitTabContentToViewport());
 
         if (getFile() == null || user == null) {
             showEmptyContent();
@@ -841,6 +843,27 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         binding.tabLayout.setVisibility(isFragmentReplaced ? View.GONE : View.VISIBLE);
         binding.pager.setVisibility(isFragmentReplaced ? View.GONE : View.VISIBLE);
         binding.sharingFrameContainer.setVisibility(isFragmentReplaced ? View.VISIBLE : View.GONE);
+    }
+
+    private void fitTabContentToViewport() {
+        int tabLayoutHeight = binding.tabLayout.getVisibility() == View.VISIBLE ? binding.tabLayout.getHeight() : 0;
+        int tabContentHeight = binding.detailContainer.getHeight() - tabLayoutHeight;
+        if (tabContentHeight <= 0) {
+            return;
+        }
+
+        setHeight(binding.pager, tabContentHeight);
+        setHeight(binding.sharingFrameContainer, tabContentHeight);
+    }
+
+    private void setHeight(View target, int height) {
+        ViewGroup.LayoutParams params = target.getLayoutParams();
+        if (params.height == height) {
+            return;
+        }
+
+        params.height = height;
+        target.post(target::requestLayout);
     }
 
     /**

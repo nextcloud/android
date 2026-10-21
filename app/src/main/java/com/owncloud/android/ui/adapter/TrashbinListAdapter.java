@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.utils.AppConstants;
 import com.nextcloud.utils.HumanReadableFormatter;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
@@ -151,8 +152,9 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             trashbinFileViewHolder.binding.originalLocation.setText(location);
 
             // deletion time
+            long deletionTimestampMillis = file.getDeletionTimestamp() * AppConstants.MILLIS_PER_SECOND;
             trashbinFileViewHolder.binding.deletionTimestamp.setText(
-                DisplayTextFormatter.formatRelativeTimestamp(context, file.getDeletionTimestamp() * 1000));
+                DisplayTextFormatter.formatRelativeTimestamp(context, deletionTimestampMillis));
 
             // checkbox
             if (isCheckedFile(file)) {

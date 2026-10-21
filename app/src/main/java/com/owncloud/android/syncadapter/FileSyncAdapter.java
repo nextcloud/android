@@ -26,6 +26,7 @@ import android.content.SyncResult;
 import android.os.Bundle;
 
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.utils.AppConstants;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -48,6 +49,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.PluralsRes;
 import androidx.core.app.NotificationCompat;
@@ -156,7 +158,9 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         mForgottenLocalFiles = new HashMap<>();
         mSyncResult = syncResult;
         mSyncResult.fullSyncRequested = false;
-        mSyncResult.delayUntil = (System.currentTimeMillis()/1000) + 3*60*60; // avoid too many automatic synchronizations
+        // avoid too many automatic synchronizations
+        mSyncResult.delayUntil = System.currentTimeMillis() / AppConstants.MILLIS_PER_SECOND +
+            TimeUnit.HOURS.toSeconds(3);
 
         this.setAccount(account);
         this.setContentProviderClient(providerClient);
