@@ -8,7 +8,7 @@
  * SPDX-FileCopyrightText: 2013 David A. Velasco <dvelasco@solidgear.es>
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-package com.owncloud.android.ui.preview
+package com.owncloud.android.ui.preview.media
 
 import android.util.SparseArray
 import androidx.fragment.app.Fragment
@@ -73,7 +73,7 @@ class PreviewMediaPagerAdapter(
     }
 
     private fun fragmentFor(file: OCFile?, position: Int, ignoreFirstSavedState: Boolean): Fragment = when {
-        file == null -> PreviewImageErrorFragment.newInstance()
+        file == null -> PreviewMediaErrorFragment.newInstance()
         file.isDown -> fragmentForDownloaded(file, ignoreFirstSavedState)
         else -> fragmentForNotDownloaded(file, position, ignoreFirstSavedState)
     }
@@ -82,7 +82,7 @@ class PreviewMediaPagerAdapter(
         if (file.isAudioOrVideo()) {
             PreviewPlaybackFragment.newInstance(file, playbackCollection, takeAutoplay(file))
         } else {
-            PreviewImageFragment.newInstance(file, ignoreFirstSavedState, false)
+            PreviewMediaFragment.newInstance(file, ignoreFirstSavedState, false)
         }
 
     private fun fragmentForNotDownloaded(file: OCFile, position: Int, ignoreFirstSavedState: Boolean): Fragment {
@@ -90,15 +90,15 @@ class PreviewMediaPagerAdapter(
 
         return when {
             downloadErrors.remove(position) ->
-                FileDownloadFragment.newInstance(file, user, true).apply { setError(true) }
+                PreviewMediaDownloadFragment.newInstance(file, user, true).apply { setError(true) }
 
             // The FileDownloadFragment is used exclusively for encrypted files, as they cannot be previewed
             // without first being downloaded.
-            file.isEncrypted -> FileDownloadFragment.newInstance(file, user, ignoreFirstSavedState)
+            file.isEncrypted -> PreviewMediaDownloadFragment.newInstance(file, user, ignoreFirstSavedState)
 
             file.isAudioOrVideo() -> PreviewPlaybackFragment.newInstance(file, playbackCollection, takeAutoplay(file))
 
-            else -> PreviewImageFragment.newInstance(file, ignoreFirstSavedState, true)
+            else -> PreviewMediaFragment.newInstance(file, ignoreFirstSavedState, true)
         }
     }
 

@@ -5,7 +5,7 @@
  * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.preview
+package com.owncloud.android.ui.preview.media
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -78,7 +78,7 @@ import kotlin.math.min
  * Holds a swiping gallery where image and video files contained in a Nextcloud directory are shown.
  */
 @Suppress("TooManyFunctions")
-class PreviewImageActivity :
+class PreviewMediaActivity :
     FileActivity(),
     FileFragment.ContainerActivity,
     OnRemoteOperationListener,
@@ -304,7 +304,7 @@ class PreviewImageActivity :
             override fun handleOnBackPressed() {
                 sendRefreshSearchEventBroadcast()
                 isEnabled = false
-                NavigationAnimator(this@PreviewImageActivity).finishWithScaleDown()
+                NavigationAnimator(this@PreviewMediaActivity).finishWithScaleDown()
             }
         })
     }
@@ -315,7 +315,7 @@ class PreviewImageActivity :
 
         val isLaunchedWithSharedElement = intent.getBooleanExtra(NavigationAnimator.EXTRA_HAS_SHARED_ELEMENT, false)
         if (savedInstanceState == null && isLaunchedWithSharedElement &&
-            PreviewImageFragment.canBePreviewed(openedFile)
+            PreviewMediaFragment.canBePreviewed(openedFile)
         ) {
             sharedElementTransition.postponeUntilSharedViewReady()
         }
@@ -702,7 +702,7 @@ class PreviewImageActivity :
     override fun onTransferStateChanged(file: OCFile, downloading: Boolean, uploading: Boolean) = Unit
 
     companion object {
-        val TAG: String = PreviewImageActivity::class.java.simpleName
+        val TAG: String = PreviewMediaActivity::class.java.simpleName
         const val EXTRA_VIRTUAL_TYPE: String = "EXTRA_VIRTUAL_TYPE"
         const val EXTRA_MEDIA_STATE: String = "EXTRA_MEDIA_STATE"
         private const val KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER"
@@ -710,7 +710,7 @@ class PreviewImageActivity :
         private const val NO_POSITION = -1
 
         fun previewFileIntent(context: Context?, user: User?, file: OCFile?): Intent =
-            Intent(context, PreviewImageActivity::class.java).apply {
+            Intent(context, PreviewMediaActivity::class.java).apply {
                 putExtra(EXTRA_FILE, file)
                 putExtra(EXTRA_USER, user)
             }

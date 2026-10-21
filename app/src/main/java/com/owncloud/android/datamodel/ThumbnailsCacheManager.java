@@ -50,7 +50,7 @@ import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile;
 import com.owncloud.android.ui.adapter.DiskLruImageCache;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.ui.preview.PreviewImageFragment;
+import com.owncloud.android.ui.preview.media.PreviewMediaFragment;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -390,12 +390,12 @@ public final class ThumbnailsCacheManager {
                 } else {
                     new Thread(() -> {
                         if (connectivityService.isInternetWalled()) {
-                            if (fileFragment instanceof PreviewImageFragment) {
-                                ((PreviewImageFragment) fileFragment).setNoConnectionErrorMessage();
+                            if (fileFragment instanceof PreviewMediaFragment) {
+                                ((PreviewMediaFragment) fileFragment).setNoConnectionErrorMessage();
                             }
                         } else {
-                            if (fileFragment instanceof PreviewImageFragment) {
-                                ((PreviewImageFragment) fileFragment).handleUnsupportedImage();
+                            if (fileFragment instanceof PreviewMediaFragment) {
+                                ((PreviewMediaFragment) fileFragment).handleUnsupportedImage();
                             }
                         }
                     }).start();

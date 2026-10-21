@@ -11,7 +11,7 @@
  * SPDX-FileCopyrightText: 2026 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-package com.owncloud.android.ui.preview
+package com.owncloud.android.ui.preview.media
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -88,11 +88,11 @@ import kotlin.math.max
 import kotlin.math.min
 
 /**
- * This fragment shows a preview of a downloaded image.
+ * This fragment shows a preview of a downloaded media.
  * Trying to get an instance with a NULL [OCFile] will produce an [IllegalStateException].
  * If the [OCFile] passed is not downloaded, an [IllegalStateException] is generated on instantiation too.
  *
- * Creates an empty fragment for image previews.
+ * Creates an empty fragment for media previews.
  *
  * MUST BE KEPT: the system uses it when tries to re-instantiate a fragment automatically (for instance, when the
  * device is turned a aside).
@@ -100,7 +100,7 @@ import kotlin.math.min
  * DO NOT CALL IT: an [OCFile] and [User] must be provided for a successful construction
  */
 @Suppress("TooManyFunctions")
-class PreviewImageFragment :
+class PreviewMediaFragment :
     FileFragment(),
     Injectable {
     private var showResizedImage: Boolean? = null
@@ -161,7 +161,7 @@ class PreviewImageFragment :
     }
 
     private fun hideActionBar() {
-        (requireActivity() as PreviewImageActivity).run {
+        (requireActivity() as PreviewMediaActivity).run {
             toggleActionBarVisibility(false)
         }
     }
@@ -473,7 +473,7 @@ class PreviewImageFragment :
                 backgroundJobManager
             )
         } else if (itemId == R.id.action_edit) {
-            (requireActivity() as PreviewImageActivity).startImageEditor(file)
+            (requireActivity() as PreviewMediaActivity).startImageEditor(file)
         } else if (itemId == R.id.action_add_to_album) {
             containerActivity.fileOperationsHelper.addFileToAlbum(listOf(file))
         }
@@ -648,7 +648,7 @@ class PreviewImageFragment :
                     imageView.setImageBitmap(bitmap)
                 }
 
-                this@PreviewImageFragment.ownedBitmap = bitmap
+                this@PreviewMediaFragment.ownedBitmap = bitmap
             } else {
                 if (drawable != null &&
                     MIME_TYPE_SVG.equals(result.ocFile.mimeType, ignoreCase = true)
@@ -750,7 +750,7 @@ class PreviewImageFragment :
 
     fun handleUnsupportedImage() {
         try {
-            (activity as? PreviewImageActivity)?.requestForDownload(file) ?: context?.let {
+            (activity as? PreviewMediaActivity)?.requestForDownload(file) ?: context?.let {
                 Snackbar.make(
                     binding.emptyListView,
                     resources.getString(R.string.could_not_download_image),
@@ -782,7 +782,7 @@ class PreviewImageFragment :
         val activity: Activity? = activity
 
         if (activity != null) {
-            (activity as PreviewImageActivity).toggleFullScreen()
+            (activity as PreviewMediaActivity).toggleFullScreen()
         }
         toggleImageBackground()
     }
@@ -798,14 +798,14 @@ class PreviewImageFragment :
                     MIME_TYPE_SVG.equals(file.mimeType, ignoreCase = true)
                 ) &&
             activity != null &&
-            activity is PreviewImageActivity
+            activity is PreviewMediaActivity
         ) {
-            val previewImageActivity = activity as PreviewImageActivity?
+            val previewMediaActivity = activity as PreviewMediaActivity?
 
             if (binding.image.drawable is LayerDrawable) {
                 val layerDrawable = binding.image.drawable as LayerDrawable
 
-                val layerOne = if (previewImageActivity?.isActionBarVisible == true) {
+                val layerOne = if (previewMediaActivity?.isActionBarVisible == true) {
                     ResourcesCompat.getDrawable(resources, R.color.bg_default, null)
                 } else {
                     ResourcesCompat.getDrawable(
@@ -838,7 +838,7 @@ class PreviewImageFragment :
         private const val MIME_TYPE_GIF = "image/gif"
         private const val MIME_TYPE_SVG = "image/svg+xml"
 
-        private val TAG: String = PreviewImageFragment::class.java.simpleName
+        private val TAG: String = PreviewMediaFragment::class.java.simpleName
 
         /**
          * Public factory method to create a new fragment that previews an image.
@@ -858,21 +858,21 @@ class PreviewImageFragment :
             imageFile: OCFile,
             ignoreFirstSavedState: Boolean,
             showResizedImage: Boolean
-        ): PreviewImageFragment {
+        ): PreviewMediaFragment {
             val args = Bundle().apply {
                 putParcelable(ARG_FILE, imageFile)
                 putBoolean(ARG_IGNORE_FIRST, ignoreFirstSavedState)
                 putBoolean(ARG_SHOW_RESIZED_IMAGE, showResizedImage)
             }
 
-            return PreviewImageFragment().apply {
+            return PreviewMediaFragment().apply {
                 this.showResizedImage = showResizedImage
                 arguments = args
             }
         }
 
         /**
-         * Helper method to test if an [OCFile] can be passed to a [PreviewImageFragment] to be previewed.
+         * Helper method to test if an [OCFile] can be passed to a [PreviewMediaFragment] to be previewed.
          *
          * @param file File to test if can be previewed.
          * @return 'True' if the file can be handled by the fragment.
