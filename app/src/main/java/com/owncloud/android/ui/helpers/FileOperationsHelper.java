@@ -380,7 +380,7 @@ public class FileOperationsHelper {
 
         // Sleep to show snackbar message
         try {
-            Thread.sleep(1000);
+            Thread.sleep(AppConstants.MILLIS_PER_SECOND);
         } catch (InterruptedException e) {
             Log_OC.e(TAG, "Failed to sleep");
         }
