@@ -1,7 +1,8 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2026 Your Name <your@email.com>
+ * SPDX-FileCopyrightText: 2026 Daniele Verducci <daniele.verducci@nextcloud.com>
+ * SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 package com.nextcloud.extensions
@@ -24,26 +25,35 @@ import kotlin.io.path.exists
 class RemoteFileExtensionsImageTest {
 
     private lateinit var tempDir: Path
+    private val remoteFileWithDimensions = RemoteFile().apply {
+        mimeType = "image/jpeg"
+        imageDimension = ImageDimension(IMAGE_WIDTH.toFloat(), IMAGE_HEIGHT.toFloat())
+    }
+    private val remoteFileWithoutDimensions = RemoteFile().apply {
+        mimeType = "image/jpeg"
+        imageDimension = null
+    }
 
     @Test
-    fun remoteFileAreImageDimensionsSame_checkForAllConditions() {
-        val remoteFile = RemoteFile().apply {
-            mimeType = "image/jpeg"
-            imageDimension = ImageDimension(IMAGE_WIDTH.toFloat(), IMAGE_HEIGHT.toFloat())
-        }
-
+    fun testAreImageDimensionsSameWhenLocalFileIsNotImage_ShouldReturnTrue() {
         // local not an image
         assertTrue(
             "comparing with non-image",
-            remoteFile.areImageDimensionsSame(getPath(TEXT_FILENAME).toString())
+            remoteFileWithDimensions.areImageDimensionsSame(getPath(TEXT_FILENAME).toString())
         )
+    }
 
+    @Test
+    fun testAreImageDimensionsSame_ShouldReturnTrue() {
         // same dimensions
         assertTrue(
             "comparing with same-size image",
-            remoteFile.areImageDimensionsSame(getPath(IMAGE_FILENAME).toString())
+            remoteFileWithDimensions.areImageDimensionsSame(getPath(IMAGE_FILENAME).toString())
         )
+    }
 
+    @Test
+    fun testAreImageDimensionsSame_ShouldReturnFalse() {
         // different dimensions
         val biggerRemoteImage = RemoteFile().apply {
             mimeType = "image/jpeg"
@@ -56,28 +66,25 @@ class RemoteFileExtensionsImageTest {
     }
 
     @Test
-    fun remoteFileAreImageDimensionsSame_checkForEdgeCases() {
-        val remoteFileWithDimensions = RemoteFile().apply {
-            mimeType = "image/jpeg"
-            imageDimension = ImageDimension(IMAGE_WIDTH.toFloat(), IMAGE_HEIGHT.toFloat())
-        }
-        val remoteFileWithoutDimensions = RemoteFile().apply {
-            mimeType = "image/jpeg"
-            imageDimension = null
-        }
-
+    fun testAreImageDimensionsSameWhenLocalFileHasNoDimensions_ShouldReturnTrue() {
         // local file with null dimensions
         assertTrue(
             "comparing null-dimensions local file with valid remote file",
             remoteFileWithoutDimensions.areImageDimensionsSame(getPath(TEXT_FILENAME).toString())
         )
+    }
 
+    @Test
+    fun testAreImageDimensionsSameWhenRemoteFileHasNoDimensions_ShouldReturnTrue() {
         // remote file with null dimensions
         assertTrue(
             "comparing with null-dimensions remote file",
             remoteFileWithoutDimensions.areImageDimensionsSame(getPath(IMAGE_FILENAME).toString())
         )
+    }
 
+    @Test
+    fun testAreImageDimensionsSameWhenBothFilesHaveNoDimensions_ShouldReturnTrue() {
         // both files with null dimensions
         assertTrue(
             "comparing null-dimensions local file with null-dimensions remote file",
