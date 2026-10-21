@@ -19,7 +19,6 @@ package com.owncloud.android.ui.fragment
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -48,6 +47,7 @@ import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
+import com.nextcloud.client.scan.ScannedPdfUpload
 import com.nextcloud.client.utils.Throttler
 import com.nextcloud.model.OCUploadLocalPathData
 import com.nextcloud.repository.ClientRepository
@@ -609,36 +609,30 @@ open class OCFileListFragment :
         }
 
         val remotePath = currentFile?.remotePath ?: OCFile.ROOT_PATH
+        val fileName = FileOperationsHelper.getTimestampedFileName(PDF_EXTENSION)
 
-        if (pdfUri.scheme == ContentResolver.SCHEME_FILE) {
-            uploadEmbeddedScannedPdf(user, pdfUri, remotePath)
-        } else {
-            uploadExternalScannedPdf(fileActivity, user, pdfUri, remotePath)
+        when (val upload = ScannedPdfUpload.from(pdfUri, remotePath, fileName)) {
+            is ScannedPdfUpload.Embedded -> uploadEmbeddedScannedPdf(user, upload)
+            is ScannedPdfUpload.External -> uploadExternalScannedPdf(fileActivity, user, upload)
+            ScannedPdfUpload.Invalid -> Log_OC.e(TAG, "Scanned document has no local path, cant upload: $pdfUri")
         }
     }
 
-    private fun uploadEmbeddedScannedPdf(user: User, pdfUri: Uri, remotePath: String) {
-        val localPath = pdfUri.path
-        if (localPath == null) {
-            Log_OC.e(TAG, "Scanned document has no local path, cant upload: $pdfUri")
-            return
-        }
-
-        val remoteFilePath = remotePath + FileOperationsHelper.getTimestampedFileName(PDF_EXTENSION)
+    private fun uploadEmbeddedScannedPdf(user: User, upload: ScannedPdfUpload.Embedded) {
         val data = OCUploadLocalPathData.forFile(
             user,
-            arrayOf(localPath),
-            arrayOf(remoteFilePath),
+            arrayOf(upload.localPath),
+            arrayOf(upload.remoteFilePath),
             FileUploadWorker.LOCAL_BEHAVIOUR_MOVE
         )
         FileUploadHelper.instance().uploadNewFiles(data)
     }
 
-    private fun uploadExternalScannedPdf(fileActivity: FileActivity, user: User, pdfUri: Uri, remotePath: String) {
+    private fun uploadExternalScannedPdf(fileActivity: FileActivity, user: User, external: ScannedPdfUpload.External) {
         UriUploader(
             fileActivity,
-            listOf(pdfUri),
-            remotePath,
+            listOf(external.uri),
+            external.remoteFolderPath,
             user,
             FileUploadWorker.LOCAL_BEHAVIOUR_DELETE,
             showWaitingDialog = false,
