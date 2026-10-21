@@ -31,7 +31,7 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.users.GetPrivateKeyRemoteOperation
-import com.owncloud.android.lib.resources.users.GetPublicKeyRemoteOperation
+import com.owncloud.android.lib.resources.users.GetCertificateRemoteOperation
 import com.owncloud.android.lib.resources.users.GetServerPublicKeyRemoteOperation
 import com.owncloud.android.ui.dialog.extensions.themeButtons
 import com.owncloud.android.ui.dialog.setupEncryption.model.DownloadKeyResult
@@ -267,8 +267,7 @@ class SetupEncryptionDialogFragment :
             val user = user ?: return@withContext DownloadKeyResult.UnexpectedError()
             val dataProvider = arbitraryDataProvider ?: return@withContext DownloadKeyResult.UnexpectedError()
 
-            // GetPublicKeyRemoteOperation is wrong naming it actually fetches certificate
-            val certificateOperation = GetPublicKeyRemoteOperation()
+            val certificateOperation = GetCertificateRemoteOperation()
             val certificateResult = certificateOperation.executeNextcloudClient(user, weakContext)
             if (!certificateResult.isSuccess) {
                 // The certificate might not be available on the server yet.
