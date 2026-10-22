@@ -105,9 +105,10 @@ import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.WebViewUtil;
+import com.owncloud.android.utils.ProxyUtil;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
+import java.lang.ref.WeakReference;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -949,7 +950,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private void initSimpleSignupLogin() {
         viewThemeUtils.platform.colorCircularProgressBar(accountSetupWebviewBinding.loginWebviewProgressBar, ColorRole.ON_PRIMARY_CONTAINER);
         accountSetupWebviewBinding.loginWebview.setVisibility(View.GONE);
-        new WebViewUtil().setProxyKKPlus(accountSetupWebviewBinding.loginWebview);
 
         accountSetupWebviewBinding.loginWebview.getSettings().setAllowFileAccess(false);
         accountSetupWebviewBinding.loginWebview.getSettings().setJavaScriptEnabled(true);
@@ -962,9 +962,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         Map<String, String> headers = new HashMap<>();
         headers.put(RemoteOperation.OCS_API_HEADER, RemoteOperation.OCS_API_HEADER_VALUE);
 
-        new WebViewUtil().setProxyKKPlus(accountSetupWebviewBinding.loginWebview);
-
-        accountSetupWebviewBinding.loginWebview.loadUrl(getString(R.string.provider_registration_server), headers);
+        new ProxyUtil(new WeakReference<>(this)).applyProxy(() ->
+            accountSetupWebviewBinding.loginWebview.loadUrl(getString(R.string.provider_registration_server), headers));
         accountSetupWebviewBinding.loginFlowV2.loginFlowInfoV2.setVisibility(View.GONE);
 
         setClient();

@@ -19,14 +19,22 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
-import android.view.WindowInsets
-import android.view.WindowManager
+import android.util.Log
 import android.widget.Toast
 import androidx.core.net.toUri
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.webkit.WebViewCompat
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ReceiverFlag
+
+private const val TAG = "ContextExtensions"
+
+@Suppress("TooGenericExceptionCaught")
+fun Context.isWebViewAvailable(): Boolean = try {
+    WebViewCompat.getCurrentWebViewPackage(this) != null
+} catch (e: Exception) {
+    Log.w(TAG, "WebView provider cannot be resolved: ${e.message}")
+    false
+}
 
 fun Context.hourPlural(hour: Int): String = resources.getQuantityString(R.plurals.hours, hour, hour)
 
@@ -39,25 +47,6 @@ fun Context.registerBroadcastReceiver(receiver: BroadcastReceiver?, filter: Inte
     } else {
         registerReceiver(receiver, filter)
     }
-
-fun Context.statusBarHeight(): Int = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-    val windowInsets = (getSystemService(Context.WINDOW_SERVICE) as WindowManager)
-        .currentWindowMetrics
-        .windowInsets
-    val insets = windowInsets.getInsets(WindowInsets.Type.statusBars())
-    insets.top
-} else {
-    @Suppress("DEPRECATION")
-    val decorView = (getSystemService(Context.WINDOW_SERVICE) as WindowManager)
-        .defaultDisplay
-        .let { display ->
-            val decorView = android.view.View(this)
-            display.getRealMetrics(android.util.DisplayMetrics())
-            decorView
-        }
-    val windowInsetsCompat = ViewCompat.getRootWindowInsets(decorView)
-    windowInsetsCompat?.getInsets(WindowInsetsCompat.Type.statusBars())?.top ?: 0
-}
 
 fun Context.showToast(message: String) {
     Handler(Looper.getMainLooper()).post {

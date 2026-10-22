@@ -23,13 +23,15 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.utils.RawResourceReader
 import com.nextcloud.utils.SnackbarUtil
+import com.nextcloud.utils.extensions.isWebViewAvailable
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ExternalsiteWebviewBinding
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.NextcloudWebViewClient
-import com.owncloud.android.utils.WebViewUtil
+import com.owncloud.android.utils.ProxyUtil
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
+import java.lang.ref.WeakReference
 
 /**
  * This activity shows an URL as a web view
@@ -40,6 +42,7 @@ open class ExternalSiteWebView : FileActivity() {
     private var showToolbar = true
     private var showSidebar = false
     protected var url: String? = null
+    protected var proxyUtil: ProxyUtil? = null
 
     private val isDebuggable: Boolean
         get() = applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
@@ -47,12 +50,14 @@ open class ExternalSiteWebView : FileActivity() {
     final override fun onCreate(savedInstanceState: Bundle?) {
         Log_OC.v(TAG, "onCreate() start")
 
-        if (!WebViewUtil.available(this)) {
+        if (!this.isWebViewAvailable()) {
             super.onCreate(savedInstanceState)
             SnackbarUtil.show(this, R.string.webview_not_available)
             finish()
             return
         }
+
+        proxyUtil = ProxyUtil(WeakReference(this))
 
         bindView()
         readIntentExtras()
@@ -87,8 +92,9 @@ open class ExternalSiteWebView : FileActivity() {
         setupWebSettings(webView.settings)
         webView.webViewClient = createWebViewClient()
 
-        WebViewUtil().setProxyKKPlus(webView)
-        url?.let { webView.loadUrl(it) }
+        proxyUtil?.applyProxy {
+            url?.let { webView.loadUrl(it) }
+        }
     }
 
     private fun setupToolbarAndDrawer() {
