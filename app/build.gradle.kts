@@ -408,6 +408,7 @@ dependencies {
 
     // region Lifecycle
     implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.lifecycle.process)
     implementation(libs.lifecycle.service)
     implementation(libs.lifecycle.runtime.ktx)
     // endregion
