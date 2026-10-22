@@ -378,10 +378,15 @@ class FileDetailActivitiesFragment :
             return
         }
         val client = ownCloudClient
+        val storageManager = FileDataStorageManager(user, contentResolver)
 
         lifecycleScope.launch(Dispatchers.IO) {
             val result = MarkCommentsAsReadRemoteOperation(file.localId).execute(client)
             if (result.isSuccess) {
+                storageManager.getFileById(file.fileId)?.let { storedFile ->
+                    storedFile.unreadCommentsCount = 0
+                    storageManager.saveFile(storedFile)
+                }
                 EventBus.getDefault().post(CommentsEvent(file.remoteId))
             }
         }
