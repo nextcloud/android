@@ -610,6 +610,7 @@
     <string name="foreign_files_remote_text">Kaughallatav: %1$s</string>
     <string name="forward">Edasi</string>
     <string name="fourHours">4 tundi</string>
+    <string name="gallery_unsupported_file">Failitüüp pole toetatud</string>
     <string name="governance_file_retention_label">Failide säilitamine</string>
     <string name="governance_legal_hold_label">Säilitamine juriidiliste nõuete alusel</string>
     <string name="governance_no_label">Puudub</string>
