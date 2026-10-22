@@ -12,6 +12,7 @@ import com.nextcloud.client.editimage.EditImageActivity
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.utils.EditorUtils
 import com.nextcloud.utils.ShortcutUtil
+import com.nextcloud.utils.extensions.handle
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
@@ -45,22 +46,6 @@ class FileActionHandler @Inject constructor(
     @Suppress("CyclomaticComplexMethod")
     private fun file(@IdRes itemId: Int, file: OCFile, host: FileActionHost): Boolean {
         when (itemId) {
-            R.id.action_send_file -> host.helper?.sendShareFile(file, true)
-
-            R.id.action_set_as_wallpaper -> host.helper?.setPictureAs(file, host.view)
-
-            R.id.action_encrypted -> host.helper?.toggleEncryption(file, true)
-
-            R.id.action_unset_encrypted -> host.helper?.toggleEncryption(file, false)
-
-            R.id.action_lock_file -> host.helper?.toggleFileLock(file, true)
-
-            R.id.action_unlock_file -> host.helper?.toggleFileLock(file, false)
-
-            R.id.action_open_file_with -> host.helper?.openFile(file)
-
-            R.id.action_stream_media -> host.helper?.streamMediaFile(file)
-
             R.id.action_send_share_file -> host.containerActivity.showDetails(file, SHARING_TAB)
 
             R.id.action_rename_file -> RenameFileDialogFragment.newInstance(file, host.parentFolder)
@@ -79,7 +64,7 @@ class FileActionHandler @Inject constructor(
 
             R.id.action_retry -> backgroundJobManager.startOfflineOperations()
 
-            else -> return files(itemId, listOf(file), host)
+            else -> return host.helper?.handle(itemId, file, host.view) == true || files(itemId, listOf(file), host)
         }
 
         return true
@@ -87,15 +72,6 @@ class FileActionHandler @Inject constructor(
 
     private fun files(@IdRes itemId: Int, files: Collection<OCFile>, host: FileActionHost): Boolean {
         when (itemId) {
-            R.id.action_export_file -> host.helper?.exportFiles(
-                files,
-                host.context,
-                host.view,
-                backgroundJobManager
-            )
-
-            R.id.action_add_to_album -> host.helper?.addFileToAlbum(files)
-
             R.id.action_remove_file -> RemoveFilesDialogFragment.newInstance(ArrayList(files), host.actionMode)
                 .show(host.fragmentManager, ConfirmationDialogFragment.FTAG_CONFIRMATION)
 
@@ -107,7 +83,7 @@ class FileActionHandler @Inject constructor(
 
             R.id.action_unset_favorite -> setFavorite(files, false, host)
 
-            else -> return false
+            else -> return host.helper?.handle(itemId, files, host.view, backgroundJobManager) == true
         }
 
         return true
@@ -144,7 +120,7 @@ class FileActionHandler @Inject constructor(
             return
         }
 
-        val dialog = ConfirmationDialogFragment.newInstance(
+        ConfirmationDialogFragment.newInstance(
             R.string.sync_all_action_dialog_description,
             null,
             R.string.sync_all_action_dialog_title,
@@ -152,16 +128,17 @@ class FileActionHandler @Inject constructor(
             R.string.common_ok,
             R.string.common_cancel,
             NO_NEUTRAL_BUTTON
-        )
-        dialog.isCancelable = false
-        dialog.setOnConfirmationListener(object : ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
-            override fun onConfirmation(callerTag: String?) {
-                host.helper?.syncFolderIncludingNestedFiles(folder)
-            }
-            override fun onNeutral(callerTag: String?) = Unit
-            override fun onCancel(callerTag: String?) = Unit
-        })
-        dialog.show(host.fragmentManager, ConfirmationDialogFragment.FTAG_CONFIRMATION)
+        ).run {
+            isCancelable = false
+            setOnConfirmationListener(object : ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
+                override fun onConfirmation(callerTag: String?) {
+                    host.helper?.syncFolderIncludingNestedFiles(folder)
+                }
+                override fun onNeutral(callerTag: String?) = Unit
+                override fun onCancel(callerTag: String?) = Unit
+            })
+            show(host.fragmentManager, ConfirmationDialogFragment.FTAG_CONFIRMATION)
+        }
     }
 
     companion object {
