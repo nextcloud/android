@@ -18,6 +18,12 @@ val shotTest = System.getenv("SHOT_TEST") == "true"
 val ciBuild = System.getenv("CI") == "true"
 val perfAnalysis = project.hasProperty("perfAnalysis")
 
+val allAbis = listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
+val localDebugAbis = when (System.getProperty("os.arch")) {
+    "aarch64", "arm64" -> listOf("arm64-v8a")
+    else -> listOf("arm64-v8a", "x86_64")
+}
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -110,10 +116,6 @@ android {
         targetSdk = 36
         compileSdk = 37
 
-        ndk {
-            abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
-        }
-
         buildConfigField("boolean", "CI", ciBuild.toString())
         buildConfigField("boolean", "RUNTIME_PERF_ANALYSIS", perfAnalysis.toString())
 
@@ -139,11 +141,17 @@ android {
                     enable = true
                 }
                 buildConfigField("String", "NC_TEST_SERVER_DATA_STRING", "\"\"")
+                ndk {
+                    abiFilters += allAbis
+                }
             }
             debug {
                 enableUnitTestCoverage = project.hasProperty("coverage")
                 enableAndroidTestCoverage = project.hasProperty("coverage")
                 resConfigs("xxxhdpi")
+                ndk {
+                    abiFilters += if (ciBuild) allAbis else localDebugAbis
+                }
             }
         }
 
@@ -194,7 +202,6 @@ android {
 
     buildFeatures {
         buildConfig = true
-        dataBinding = true
         viewBinding = true
         aidl = true
         compose = true
@@ -319,10 +326,7 @@ tasks.withType<SpotBugsTask>().configureEach {
     }
 }
 
-// Run the compiler as a separate process
 tasks.withType<JavaCompile>().configureEach {
-    options.isFork = true
-
     // Enable Incremental Compilation
     options.isIncremental = true
 }
