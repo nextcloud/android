@@ -46,18 +46,18 @@ import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.documentscan.AppScanOptionalFeature;
 import com.nextcloud.client.documentscan.DocumentScanActivity;
-import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.systembars.SystemBarBackgroundCallbacks;
 import com.nextcloud.client.utils.Throttler;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.ui.fileactions.FileAction;
+import com.nextcloud.ui.fileactions.FileActionHandler;
+import com.nextcloud.ui.fileactions.FileActionHost;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.ui.sort.SortOrderUi;
 import com.nextcloud.utils.AppConstants;
 import com.nextcloud.utils.EditorUtils;
-import com.nextcloud.utils.ShortcutUtil;
 import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.avatar.AvatarGenerator;
 import com.nextcloud.utils.e2ee.E2EEActionResolver;
@@ -104,8 +104,6 @@ import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
-import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
-import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.dialog.SyncFileNotEnoughSpaceDialogFragment;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.CommentsEvent;
@@ -190,6 +188,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private static final String DIALOG_BOTTOM_SHEET = "DIALOG_BOTTOM_SHEET";
 
     private static final int SINGLE_SELECTION = 1;
+    private static final Set<Integer> SELECTION_ENDING_ACTIONS = Set.of(R.id.action_export_file,
+                                                                        R.id.action_favorite,
+                                                                        R.id.action_unset_favorite,
+                                                                        R.id.action_add_to_album);
     private static final int NOT_ENOUGH_SPACE_FRAG_REQUEST_CODE = 2;
 
     @Inject ClientFactory clientFactory;
@@ -199,8 +201,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject BackgroundJobManager backgroundJobManager;
     @Inject FastScrollUtils fastScrollUtils;
     @Inject EditorUtils editorUtils;
-    @Inject ShortcutUtil shortcutUtil;
     @Inject SyncedFolderProvider syncedFolderProvider;
+    @Inject FileActionHandler fileActionHandler;
     @Inject AppScanOptionalFeature appScanOptionalFeature;
     @Inject ThumbnailGenerator thumbnailGenerator;
     @Inject AvatarGenerator avatarGenerator;
@@ -1349,96 +1351,34 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return false;
         }
 
-        if (checkedFiles.size() == SINGLE_SELECTION) {
-            /// action only possible on a single file
-            OCFile singleFile = checkedFiles.iterator().next();
-
-            if (itemId == R.id.action_send_share_file) {
-                mContainerActivity.showDetails(singleFile, 1);
-                return true;
-            } else if (itemId == R.id.action_open_file_with) {
-                mContainerActivity.getFileOperationsHelper().openFile(singleFile);
-                return true;
-            } else if (itemId == R.id.action_open_in_web_editor) {
-                TextEditorWebView.Companion.startTextEditor(singleFile, getContext());
-                return true;
-            } else if (itemId == R.id.action_stream_media) {
-                mContainerActivity.getFileOperationsHelper().streamMediaFile(singleFile);
-                return true;
-            } else if (itemId == R.id.action_edit) {
-                // should not be necessary, as menu item is filtered, but better play safe
-                if (editorUtils.isEditorAvailable(accountManager.getUser(), singleFile.getMimeType())) {
-                    TextEditorWebView.Companion.startTextEditor(singleFile,getContext());
-                } else if (EditImageActivity.Companion.canBePreviewed(singleFile)) {
-                    ((FileDisplayActivity) mContainerActivity).startImageEditor(singleFile);
-                } else {
-                    mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(singleFile, getContext());
-                }
-
-                return true;
-            } else if (itemId == R.id.action_rename_file) {
-                RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(singleFile, mFile);
-                dialog.show(requireFragmentManager(), FileDetailFragment.FTAG_RENAME_FILE);
-                return true;
-            } else if (itemId == R.id.action_see_details) {
-                if (mActiveActionMode != null) {
-                    mActiveActionMode.finish();
-                }
-
-                mContainerActivity.showDetails(singleFile);
-                mContainerActivity.showSortListGroup(false);
-                return true;
-            } else if (itemId == R.id.action_set_as_wallpaper) {
-                mContainerActivity.getFileOperationsHelper().setPictureAs(singleFile, getView());
-                return true;
-            } else if (itemId == R.id.action_encrypted) {
-                mContainerActivity.getFileOperationsHelper().toggleEncryption(singleFile, true);
-                return true;
-            } else if (itemId == R.id.action_unset_encrypted) {
-                mContainerActivity.getFileOperationsHelper().toggleEncryption(singleFile, false);
-                return true;
-            } else if (itemId == R.id.action_lock_file) {
-                mContainerActivity.getFileOperationsHelper().toggleFileLock(singleFile, true);
-            } else if (itemId == R.id.action_unlock_file) {
-                mContainerActivity.getFileOperationsHelper().toggleFileLock(singleFile, false);
-            } else if (itemId == R.id.action_pin_to_homescreen) {
-                shortcutUtil.addShortcutToHomescreen(singleFile, viewThemeUtils, accountManager.getUser(), syncedFolderProvider);
-                return true;
-            } else if (itemId == R.id.action_retry) {
-                backgroundJobManager.startOfflineOperations();
-                return true;
-            } else if (itemId == R.id.action_sync_all_files) {
-                syncFolderIncludingAllNestedFiles(singleFile);
-                return true;
-            }
+        if (onListActionChosen(itemId, checkedFiles)) {
+            return true;
         }
 
-        /// actions possible on a batch of files
-        if (itemId == R.id.action_remove_file) {
-            RemoveFilesDialogFragment dialog =
-                RemoveFilesDialogFragment.newInstance(new ArrayList<>(checkedFiles), mActiveActionMode);
-            dialog.show(requireFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
+        final var host = new FileActionHost(mContainerActivity,
+                                            getParentFragmentManager(),
+                                            getView(),
+                                            mFile,
+                                            mActiveActionMode);
+        final boolean isHandled = fileActionHandler.handle(itemId, checkedFiles, host);
+        if (isHandled && SELECTION_ENDING_ACTIONS.contains(itemId)) {
+            exitSelectionMode();
+        }
+
+        return isHandled;
+    }
+
+    private boolean onListActionChosen(@IdRes final int itemId, Set<OCFile> checkedFiles) {
+        if (itemId == R.id.action_see_details && checkedFiles.size() == SINGLE_SELECTION) {
+            if (mActiveActionMode != null) {
+                mActiveActionMode.finish();
+            }
+
+            mContainerActivity.showDetails(checkedFiles.iterator().next());
+            mContainerActivity.showSortListGroup(false);
             return true;
         } else if (itemId == R.id.action_download_file || itemId == R.id.action_sync_file) {
             syncAndCheckFiles(checkedFiles);
-            exitSelectionMode();
-            return true;
-        } else if (itemId == R.id.action_export_file) {
-            mContainerActivity.getFileOperationsHelper().exportFiles(checkedFiles,
-                                                                     getContext(),
-                                                                     getView(),
-                                                                     backgroundJobManager);
-            exitSelectionMode();
-            return true;
-        } else if (itemId == R.id.action_cancel_sync) {
-            ((FileDisplayActivity) mContainerActivity).cancelTransference(checkedFiles);
-            return true;
-        } else if (itemId == R.id.action_favorite) {
-            mContainerActivity.getFileOperationsHelper().toggleFavoriteFiles(checkedFiles, true);
-            exitSelectionMode();
-            return true;
-        } else if (itemId == R.id.action_unset_favorite) {
-            mContainerActivity.getFileOperationsHelper().toggleFavoriteFiles(checkedFiles, false);
             exitSelectionMode();
             return true;
         } else if (itemId == R.id.action_move_or_copy) {
@@ -1446,13 +1386,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             if (invalidFilename != null) {
                 SnackbarUtil.show(requireActivity(), getString(R.string.file_name_validator_rename_before_move_or_copy, invalidFilename));
-                return false;
+                return true;
             }
 
             if (!FileNameValidator.INSTANCE.checkParentRemotePaths(new ArrayList<>(checkedFiles), getCapabilities(), requireContext())) {
                 browseToRoot();
                 SnackbarUtil.show(requireActivity(), R.string.file_name_validator_current_path_is_invalid);
-                return false;
+                return true;
             }
 
             pickFolderForMoveOrCopy(checkedFiles);
@@ -1465,12 +1405,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return true;
         } else if (itemId == R.id.action_send_file) {
             mContainerActivity.getFileOperationsHelper().sendFiles(checkedFiles);
-            return true;
-        } else if (itemId == R.id.action_lock_file) {
-            // TODO call lock API
-        } else if (itemId == R.id.action_add_to_album) {
-            mContainerActivity.getFileOperationsHelper().addFileToAlbum(checkedFiles);
-            exitSelectionMode();
             return true;
         }
 
@@ -2033,46 +1967,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             searchType == SearchRemoteOperation.SearchType.SHARED_FILTER ||
             searchType == SearchRemoteOperation.SearchType.FAVORITE_SEARCH ||
             searchType == SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH;
-    }
-
-    private void syncFolderIncludingAllNestedFiles(OCFile folder) {
-        if (FileStorageUtils.checkIfEnoughSpace(folder)) {
-            informUserForSyncAllAction(folder);
-        } else {
-            SyncFileNotEnoughSpaceDialogFragment
-                .newInstance(folder, FileOperationsHelper.getAvailableSpaceOnDevice())
-                .show(getParentFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
-        }
-    }
-
-    private void informUserForSyncAllAction(OCFile folder) {
-        ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(
-            R.string.sync_all_action_dialog_description,
-            null,
-            R.string.sync_all_action_dialog_title,
-            R.drawable.ic_sync_all,
-            R.string.common_ok,
-            R.string.common_cancel,
-            -1);
-
-        dialog.setCancelable(false);
-
-        dialog.setOnConfirmationListener(new ConfirmationDialogFragment.ConfirmationDialogFragmentListener() {
-            @Override
-            public void onConfirmation(String callerTag) {
-                mContainerActivity.getFileOperationsHelper().syncFolderIncludingNestedFiles(folder);
-            }
-
-            @Override
-            public void onNeutral(String callerTag) {
-            }
-
-            @Override
-            public void onCancel(String callerTag) {
-            }
-        });
-
-        dialog.show(getParentFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
     }
 
     private void syncAndCheckFiles(Collection<OCFile> files) {

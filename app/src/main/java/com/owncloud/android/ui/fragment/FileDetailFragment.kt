@@ -39,7 +39,6 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
-import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.preferences.AppPreferences
@@ -47,6 +46,7 @@ import com.nextcloud.repository.ClientRepository
 import com.nextcloud.ui.fileDetail.FileDetailPreview
 import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionHandler
+import com.nextcloud.ui.fileactions.FileActionHost
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet
 import com.nextcloud.ui.tags.TagManagementBottomSheet
 import com.nextcloud.utils.HumanReadableFormatter
@@ -105,7 +105,7 @@ class FileDetailFragment :
     lateinit var viewThemeUtils: ViewThemeUtils
 
     @Inject
-    lateinit var backgroundJobManager: BackgroundJobManager
+    lateinit var fileActionHandler: FileActionHandler
 
     @Inject
     lateinit var folderThumbnailGenerator: FolderThumbnailGenerator
@@ -459,8 +459,14 @@ class FileDetailFragment :
     private fun onFileActionSelected(@IdRes itemId: Int) {
         val file = file ?: return
         val containerActivity = containerActivity ?: return
-        FileActionHandler(containerActivity, parentFragmentManager, backgroundJobManager, ::setFavoriteIconStatus)
-            .onFileActionChosen(itemId, file, parentFolder, view)
+        val host = FileActionHost(
+            containerActivity,
+            parentFragmentManager,
+            view,
+            parentFolder,
+            onFavoriteChanged = ::setFavoriteIconStatus
+        )
+        fileActionHandler.handle(itemId, listOf(file), host)
     }
 
     private fun toggleDetailedTimestamp(file: OCFile) {
