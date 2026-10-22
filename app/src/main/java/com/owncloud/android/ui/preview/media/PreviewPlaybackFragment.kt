@@ -23,7 +23,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.player.media3.PlaybackModel
 import com.nextcloud.client.player.media3.PlaybackQueueLoader
@@ -224,12 +223,6 @@ class PreviewPlaybackFragment :
 
         when (itemId) {
             R.id.action_download_file -> previewActivity.requestForDownload(file)
-
-            R.id.action_send_share_file -> if (file.isSharedWithMe && !file.canReshare()) {
-                Snackbar.make(requireView(), R.string.resharing_is_not_allowed, Snackbar.LENGTH_LONG).show()
-            } else {
-                previewActivity.fileOperationsHelper.sendShareFile(file)
-            }
 
             else -> {
                 if (itemId == R.id.action_stream_media || itemId == R.id.action_remove_file) {

@@ -422,26 +422,8 @@ class PreviewMediaFragment :
         val file = file ?: return
         val containerActivity = containerActivity ?: return
 
-        when (itemId) {
-            R.id.action_send_share_file -> if (file.isSharedWithMe && !file.canReshare()) {
-                Snackbar.make(requireView(), R.string.resharing_is_not_allowed, Snackbar.LENGTH_LONG).show()
-            } else {
-                containerActivity.fileOperationsHelper.sendShareFile(file)
-            }
-
-            R.id.action_edit -> (requireActivity() as PreviewMediaActivity).startImageEditor(file)
-
-            else -> {
-                val host = FileActionHost(
-                    containerActivity,
-                    parentFragmentManager,
-                    view,
-                    null,
-                    onFileOpened = ::finish
-                )
-                fileActionHandler.handle(itemId, listOf(file), host)
-            }
-        }
+        val host = FileActionHost(containerActivity, parentFragmentManager, view, null, onFileOpened = ::finish)
+        fileActionHandler.handle(itemId, listOf(file), host)
     }
 
     @SuppressFBWarnings("Dm")

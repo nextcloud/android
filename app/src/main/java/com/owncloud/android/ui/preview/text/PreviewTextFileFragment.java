@@ -23,13 +23,11 @@ import com.nextcloud.ui.fileactions.FileAction;
 import com.nextcloud.ui.fileactions.FileActionHandler;
 import com.nextcloud.ui.fileactions.FileActionHost;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
-import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.activity.TextEditorWebView;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import org.mozilla.universalchardet.ReaderFactory;
@@ -46,13 +44,12 @@ import java.util.Scanner;
 
 import javax.inject.Inject;
 
-import kotlin.Unit;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.FragmentManager;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import kotlin.Unit;
 
 public class PreviewTextFileFragment extends PreviewTextFragment {
     private static final String EXTRA_FILE = "FILE";
@@ -298,26 +295,16 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
             return;
         }
 
-        if (itemId == R.id.action_send_share_file) {
-            if (file.isSharedWithMe() && !file.canReshare()) {
-                SnackbarUtil.show(this, R.string.resharing_is_not_allowed);
-            } else {
-                containerActivity.getFileOperationsHelper().sendShareFile(file);
-            }
-        } else if (itemId == R.id.action_edit) {
-            TextEditorWebView.Companion.startTextEditor(file, getContext());
-        } else {
-            final var host = new FileActionHost(containerActivity,
-                                                getParentFragmentManager(),
-                                                getView(),
-                                                null,
-                                                null,
-                                                () -> {
-                                                    finish();
-                                                    return Unit.INSTANCE;
-                                                });
-            fileActionHandler.handle(itemId, List.of(file), host);
-        }
+        final var host = new FileActionHost(containerActivity,
+                                            getParentFragmentManager(),
+                                            getView(),
+                                            null,
+                                            null,
+                                            () -> {
+                                                finish();
+                                                return Unit.INSTANCE;
+                                            });
+        fileActionHandler.handle(itemId, List.of(file), host);
     }
 
     /**
@@ -327,14 +314,6 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
      */
     public void updateFile(OCFile file) {
         setFile(file);
-    }
-
-    /**
-     * Opens the previewed file with an external application.
-     */
-    private void openFile() {
-        containerActivity.getFileOperationsHelper().openFile(getFile());
-        finish();
     }
 
     /**
