@@ -723,6 +723,7 @@
     <string name="picture_set_as_no_app">No se ha encontrado una app para establecer con ella la imagen</string>
     <string name="pin_home">Anclar a la pantalla de inicio</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
+    <string name="player_control_view_next_button_content_description">Botón Siguiente</string>
     <string name="player_media_controls_close_action_title">Cerrar</string>
     <string name="please_select_a_server">Por favor, seleccione un servidor…</string>
     <string name="power_save_check_dialog_message">Desactivar la comprobación de ahorro de energía puede causar que se suban ficheros aun estando en modo de baja batería</string>

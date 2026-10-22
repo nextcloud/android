@@ -610,6 +610,7 @@
     <string name="foreign_files_remote_text">Fjern: %1$s</string>
     <string name="forward">Videresend</string>
     <string name="fourHours">4 timer</string>
+    <string name="gallery_unsupported_file">Filtypen understøttes ikke</string>
     <string name="governance_file_retention_label">Sletteregel</string>
     <string name="governance_legal_hold_label">Juridisk tilbageholdelse</string>
     <string name="governance_no_label">Ingen</string>

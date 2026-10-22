@@ -61,7 +61,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.systembars.SystemBarBackgroundCallbacks;
 import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.common.NextcloudClient;
-import com.nextcloud.ui.ChooseAccountDialogFragment;
+import com.nextcloud.ui.dialog.account.ChooseAccountDialogFragment;
 import com.nextcloud.ui.composeActivity.ComposeActivity;
 import com.nextcloud.ui.composeActivity.ComposeDestination;
 import com.nextcloud.utils.GlideHelper;
@@ -1464,7 +1464,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         switch (deepLinkType) {
             case OPEN_AUTO_UPLOAD:
-                startActivity(new Intent(this, SyncedFoldersActivity.class));
+                pushFragment(NavigatorScreen.AutoUpload.INSTANCE);
                 break;
             case OPEN_EXTERNAL_URL:
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri.getQueryParameter("url")));
@@ -1499,9 +1499,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void checkStoragePermissionWarningBannerVisibility() {
-        if (this instanceof SyncedFoldersActivity syncedFoldersActivity) {
-            syncedFoldersActivity.setupStoragePermissionWarningBanner();
-        } else if (this instanceof UploadFilesActivity uploadFilesActivity) {
+        if (this instanceof UploadFilesActivity uploadFilesActivity) {
             uploadFilesActivity.setupStoragePermissionWarningBanner();
         }
     }

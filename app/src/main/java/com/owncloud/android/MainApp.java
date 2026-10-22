@@ -81,7 +81,8 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.NextcloudVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.ui.activity.SyncedFoldersActivity;
+import com.owncloud.android.ui.navigation.NavigatorActivity;
+import com.owncloud.android.ui.navigation.NavigatorScreen;
 import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PermissionUtil;
@@ -864,7 +865,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
             .setTitle(R.string.drawer_synced_folders)
             .setMessage(R.string.synced_folders_new_info)
             .setPositiveButton(R.string.drawer_open, (dialog, which) -> {
-                Intent folderSyncIntent = new Intent(context, SyncedFoldersActivity.class);
+                Intent folderSyncIntent = NavigatorActivity.Companion.intent(context, NavigatorScreen.AutoUpload.INSTANCE);
                 dialog.dismiss();
                 context.startActivity(folderSyncIntent);
             })

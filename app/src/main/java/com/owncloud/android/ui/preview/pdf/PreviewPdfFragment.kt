@@ -27,7 +27,6 @@ import com.owncloud.android.databinding.PreviewPdfFragmentBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.ui.preview.PreviewBitmapActivity
 import javax.inject.Inject
 
 class PreviewPdfFragment :

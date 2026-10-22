@@ -15,6 +15,7 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import com.owncloud.android.AbstractIT
+import com.owncloud.android.ui.preview.pdf.PreviewBitmapActivity
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Test
 

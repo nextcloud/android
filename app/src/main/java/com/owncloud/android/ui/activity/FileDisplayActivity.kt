@@ -155,11 +155,11 @@ import com.owncloud.android.ui.helpers.UriUploader
 import com.owncloud.android.ui.interfaces.TransactionInterface
 import com.owncloud.android.ui.navigation.NavigatorScreen
 import com.owncloud.android.ui.navigation.animator.NavigationAnimator
-import com.owncloud.android.ui.preview.PreviewImageActivity
-import com.owncloud.android.ui.preview.PreviewImageFragment
-import com.owncloud.android.ui.preview.PreviewTextFileFragment
-import com.owncloud.android.ui.preview.PreviewTextFragment
-import com.owncloud.android.ui.preview.PreviewTextStringFragment
+import com.owncloud.android.ui.preview.media.PreviewMediaActivity
+import com.owncloud.android.ui.preview.media.PreviewMediaFragment
+import com.owncloud.android.ui.preview.text.PreviewTextFileFragment
+import com.owncloud.android.ui.preview.text.PreviewTextFragment
+import com.owncloud.android.ui.preview.text.PreviewTextStringFragment
 import com.owncloud.android.ui.preview.pdf.PreviewPdfFragment.Companion.newInstance
 import com.owncloud.android.utils.DataHolderUtil
 import com.owncloud.android.utils.ErrorMessageAdapter
@@ -484,9 +484,8 @@ class FileDisplayActivity :
                     R.string.drawer_open
                 ) { dialog: DialogInterface?, which: Int ->
                     // show instant upload
-                    val syncedFoldersIntent = Intent(applicationContext, SyncedFoldersActivity::class.java)
                     dialog?.dismiss()
-                    startActivity(syncedFoldersIntent)
+                    pushFragment(NavigatorScreen.AutoUpload)
                 }.setNegativeButton(
                     R.string.drawer_close
                 ) { dialog: DialogInterface?, which: Int -> dialog?.dismiss() }
@@ -1849,7 +1848,7 @@ class FileDisplayActivity :
                 // Force the preview if the file is an image or text file
                 if (uploadWasFine) {
                     file?.let {
-                        if (PreviewImageFragment.canBePreviewed(it)) {
+                        if (PreviewMediaFragment.canBePreviewed(it)) {
                             startImagePreview(it, true)
                         } else if (PreviewTextFileFragment.canBePreviewed(it)) {
                             startTextPreview(it, true)
@@ -1954,7 +1953,7 @@ class FileDisplayActivity :
             }
 
             fileIDForImmediatePreview = -1
-            if (PreviewImageFragment.canBePreviewed(currentFile)) {
+            if (PreviewMediaFragment.canBePreviewed(currentFile)) {
                 startImagePreview(currentFile, currentFile.isDown)
             } else {
                 previewFile(currentFile, null)
@@ -2114,7 +2113,7 @@ class FileDisplayActivity :
     }
 
     fun canPreviewInMediaPager(file: OCFile?): Boolean =
-        PreviewImageFragment.canBePreviewed(file) || (file != null && MimeTypeUtil.isVideo(file))
+        PreviewMediaFragment.canBePreviewed(file) || (file != null && MimeTypeUtil.isVideo(file))
 
     fun previewImageWithSearchContext(
         file: OCFile,
@@ -2409,7 +2408,7 @@ class FileDisplayActivity :
 
             val leftFragment = this.leftFragment
             if (leftFragment is FileDetailFragment) {
-                leftFragment.getFileDetailActivitiesFragment().reload()
+                leftFragment.fileDetailActivitiesFragment?.reload()
             }
         } else {
             SnackbarUtil.show(this, R.string.file_version_restored_error)
@@ -2780,12 +2779,12 @@ class FileDisplayActivity :
             return null
         }
 
-        return Intent(this, PreviewImageActivity::class.java).apply {
+        return Intent(this, PreviewMediaActivity::class.java).apply {
             putExtra(EXTRA_FILE, file)
             putExtra(EXTRA_LIVE_PHOTO_FILE, file.livePhotoVideo)
             putExtra(EXTRA_USER, user.get())
-            type?.let { putExtra(PreviewImageActivity.EXTRA_VIRTUAL_TYPE, it) }
-            mediaState?.let { putExtra(PreviewImageActivity.EXTRA_MEDIA_STATE, it) }
+            type?.let { putExtra(PreviewMediaActivity.EXTRA_VIRTUAL_TYPE, it) }
+            mediaState?.let { putExtra(PreviewMediaActivity.EXTRA_MEDIA_STATE, it) }
         }
     }
 
@@ -3010,13 +3009,13 @@ class FileDisplayActivity :
             startTextPreview(file, true)
         } else if (event.intent.getBooleanExtra(AUDIO_PREVIEW, false)) {
             startAudioPreview(file, true, true)
-        } else if (bundle.containsKey(PreviewImageActivity.EXTRA_VIRTUAL_TYPE)) {
-            val virtualType = bundle.get(PreviewImageActivity.EXTRA_VIRTUAL_TYPE) as VirtualFolderType?
+        } else if (bundle.containsKey(PreviewMediaActivity.EXTRA_VIRTUAL_TYPE)) {
+            val virtualType = bundle.get(PreviewMediaActivity.EXTRA_VIRTUAL_TYPE) as VirtualFolderType?
             startImagePreview(
                 file,
                 true,
                 virtualType,
-                bundle.getSerializableArgument(PreviewImageActivity.EXTRA_MEDIA_STATE, MediaState::class.java),
+                bundle.getSerializableArgument(PreviewMediaActivity.EXTRA_MEDIA_STATE, MediaState::class.java),
                 galleryThumbnailOf(file)
             )
         } else {
@@ -3410,7 +3409,7 @@ class FileDisplayActivity :
 
         @JvmStatic
         fun openFileIntent(context: Context?, user: User?, file: OCFile?): Intent {
-            val intent = Intent(context, PreviewImageActivity::class.java)
+            val intent = Intent(context, PreviewMediaActivity::class.java)
             intent.putExtra(EXTRA_FILE, file)
             intent.putExtra(EXTRA_USER, user)
             return intent

@@ -155,7 +155,7 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
                 val fragment = FileDetailFragment.newInstance(oCFile, user, 0)
                 sut.addFragment(fragment)
                 sut.supportFragmentManager.executePendingTransactions()
-                fragment.fileDetailActivitiesFragment.populateList(activities as List<Any>?, true)
+                fragment.fileDetailActivitiesFragment?.populateList(activities as List<Any>?, true)
             }
 
             val screenShotName = createName(testClassName + "_" + "showDetailsActivities", "")
@@ -174,7 +174,7 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
                 val fragment = FileDetailFragment.newInstance(oCFile, user, 0)
                 sut.addFragment(fragment)
                 activity.supportFragmentManager.executePendingTransactions()
-                fragment.fileDetailActivitiesFragment.populateList(emptyList(), true)
+                fragment.fileDetailActivitiesFragment?.populateList(emptyList(), true)
             }
 
             val screenShotName = createName(testClassName + "_" + "showDetailsActivitiesNone", "")
@@ -193,8 +193,8 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
                 val fragment = FileDetailFragment.newInstance(oCFile, user, 0)
                 sut.addFragment(fragment)
                 sut.supportFragmentManager.executePendingTransactions()
-                fragment.fileDetailActivitiesFragment.disableLoadingActivities()
-                fragment.fileDetailActivitiesFragment.setErrorContent(
+                fragment.fileDetailActivitiesFragment?.disableLoadingActivities()
+                fragment.fileDetailActivitiesFragment?.setErrorContent(
                     targetContext.resources.getString(R.string.file_detail_activity_error)
                 )
             }
