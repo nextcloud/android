@@ -29,13 +29,11 @@ import com.owncloud.android.datamodel.ReceiverFlag
 private const val TAG = "ContextExtensions"
 
 @Suppress("TooGenericExceptionCaught")
-fun Context.isWebViewAvailable(): Boolean {
-    return try {
-        WebViewCompat.getCurrentWebViewPackage(this) != null
-    } catch (e: Exception) {
-        Log.w(TAG, "WebView provider cannot be resolved: ${e.message}")
-        false
-    }
+fun Context.isWebViewAvailable(): Boolean = try {
+    WebViewCompat.getCurrentWebViewPackage(this) != null
+} catch (e: Exception) {
+    Log.w(TAG, "WebView provider cannot be resolved: ${e.message}")
+    false
 }
 
 fun Context.hourPlural(hour: Int): String = resources.getQuantityString(R.plurals.hours, hour, hour)

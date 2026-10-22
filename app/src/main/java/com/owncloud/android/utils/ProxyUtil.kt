@@ -22,7 +22,7 @@ class ProxyUtil(private val context: WeakReference<Context>) {
         private const val TAG = "ProxyUtil"
     }
 
-    @SuppressLint("RequiresFeature")
+    @SuppressLint("RequiresFeature", "ReturnCount")
     fun applyProxy(onApplied: Runnable) {
         val context = context.get() ?: return
         val proxyHost = OwnCloudClientManagerFactory.getProxyHost()
