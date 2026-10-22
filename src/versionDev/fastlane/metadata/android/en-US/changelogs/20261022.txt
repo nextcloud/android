@@ -1,0 +1,20 @@
+fix(l10n): Update translations from Transifex
+Updated android-library
+feat(navigator): synced folder activity
+feat(navigator): synced folder activity
+feat(navigator): synced folder activity
+feat(navigator): synced folder activity
+Update dependency androidx.annotation:annotation to v1.11.0 (#17721)
+refactor: reorganize dialog package structure
+fix verification-metadata.xml
+fix verification-metadata.xml
+refactor(file-detail-fragment): kotlin
+Rename .java to .kt
+refactor(preview): package structure
+refactor(preview): image rename to media
+adds more logs to clearly follow execution flow in the logs
+use kotlinx instead of gson
+handle restore pending login flow and cancel button
+Update androidCommonLibraryVersion to
+Update dependency androidx.webkit:webkit to v1.17.1
+Update Nextcloud Android library
