@@ -42,7 +42,6 @@ import com.owncloud.android.MainApp
 import com.owncloud.android.authentication.AuthenticatorActivity
 import com.owncloud.android.authentication.DeepLinkLoginActivity
 import com.owncloud.android.files.BootupBroadcastReceiver
-import com.owncloud.android.providers.DiskLruImageCacheFileProvider
 import com.owncloud.android.providers.DocumentsStorageProvider
 import com.owncloud.android.providers.FileContentProvider
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider
@@ -334,9 +333,6 @@ internal interface ComponentsModule {
 
     @ContributesAndroidInjector
     fun usersAndGroupsSearchProvider(): UsersAndGroupsSearchProvider
-
-    @ContributesAndroidInjector
-    fun diskLruImageCacheFileProvider(): DiskLruImageCacheFileProvider
 
     @ContributesAndroidInjector
     fun documentsStorageProvider(): DocumentsStorageProvider
