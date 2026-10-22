@@ -26,7 +26,6 @@ import com.nextcloud.ui.fileactions.FileActionHandler
 import com.nextcloud.ui.fileactions.FileActionHost
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet
 import com.nextcloud.utils.extensions.getParcelableArgument
-import com.nextcloud.utils.extensions.logFileSize
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
