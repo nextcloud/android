@@ -48,6 +48,10 @@ class FileActionHandler @Inject constructor(
         when (itemId) {
             R.id.action_send_share_file -> host.containerActivity.showDetails(file, SHARING_TAB)
 
+            R.id.action_see_details -> host.containerActivity.showDetails(file)
+
+            R.id.action_open_file_with -> openFile(file, host)
+
             R.id.action_rename_file -> RenameFileDialogFragment.newInstance(file, host.parentFolder)
                 .show(host.fragmentManager, FileDetailFragment.FTAG_RENAME_FILE)
 
@@ -76,7 +80,7 @@ class FileActionHandler @Inject constructor(
                 .show(host.fragmentManager, ConfirmationDialogFragment.FTAG_CONFIRMATION)
 
             R.id.action_cancel_sync -> files.forEach {
-                host.fda?.cancelTransference(it)
+                host.fda?.cancelTransference(it) ?: host.helper?.cancelTransference(it)
             }
 
             R.id.action_favorite -> setFavorite(files, true, host)
@@ -87,6 +91,11 @@ class FileActionHandler @Inject constructor(
         }
 
         return true
+    }
+
+    private fun openFile(file: OCFile, host: FileActionHost) {
+        host.helper?.openFile(file)
+        host.onFileOpened()
     }
 
     private fun setFavorite(files: Collection<OCFile>, isFavorite: Boolean, host: FileActionHost) {
