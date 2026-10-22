@@ -610,6 +610,7 @@
     <string name="foreign_files_remote_text">Distant : %1$s</string>
     <string name="forward">Suivant</string>
     <string name="fourHours">4 heures</string>
+    <string name="gallery_unsupported_file">Type de fichier non pris en charge</string>
     <string name="governance_file_retention_label">Suppression programmée de fichiers</string>
     <string name="governance_legal_hold_label">Conservation légale</string>
     <string name="governance_no_label">Aucun</string>

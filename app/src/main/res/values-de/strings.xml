@@ -472,7 +472,7 @@
     <string name="etm_transfer">Dateiübertragung</string>
     <string name="etm_transfer_enqueue_test_download">Test-Download in die Warteschlange stellen</string>
     <string name="etm_transfer_enqueue_test_upload">Test-Upload in die Warteschlange stellen </string>
-    <string name="etm_transfer_remote_path">Entfernter Pfad</string>
+    <string name="etm_transfer_remote_path">Externer Pfad</string>
     <string name="etm_transfer_type">Übertragen</string>
     <string name="etm_transfer_type_download">Herunterladen</string>
     <string name="etm_transfer_type_upload">Hochladen</string>
@@ -610,6 +610,7 @@
     <string name="foreign_files_remote_text">Remote: %1$s</string>
     <string name="forward">Weiterleiten</string>
     <string name="fourHours">4 Stunden</string>
+    <string name="gallery_unsupported_file">Nicht unterstütztes Datei-Format</string>
     <string name="governance_file_retention_label">Dateiaufbewahrung</string>
     <string name="governance_legal_hold_label">Aufbewahrungspflicht:</string>
     <string name="governance_no_label">Keine</string>
@@ -887,7 +888,7 @@
     <string name="recommended_files_title">Empfohlene Dateien</string>
     <string name="refresh_content">Inhalt aktualisieren</string>
     <string name="reload">Neu laden</string>
-    <string name="remote">(entfernt)</string>
+    <string name="remote">(extern)</string>
     <string name="remote_file_fetch_failed">Datei nicht gefunden!</string>
     <string name="remove">Entfernen</string>
     <string name="remove_e2e">Sie können die Ende-zu-Ende-Verschlüsselung lokal auf diesem Client entfernen</string>
