@@ -555,6 +555,13 @@ class OCFileListAdapter(
         file?.let { notifyItemChangedIfPresent(it, iconId) }
     }
 
+    fun updateFileIndicator(fileId: Long, iconId: Int) {
+        val index = files.indexOfFirst { it.fileId == fileId }
+        if (index != RecyclerView.NO_POSITION) {
+            notifyItemChanged(index + differ.headerOffset(), iconId)
+        }
+    }
+
     @SuppressLint("NotifyDataSetChanged")
     fun updateRecommendedFiles(value: List<OCFile>) {
         recommendedFiles.clear()

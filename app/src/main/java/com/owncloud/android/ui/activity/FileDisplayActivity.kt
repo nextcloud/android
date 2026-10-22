@@ -51,7 +51,9 @@ import androidx.core.view.MenuItemCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -70,7 +72,6 @@ import com.nextcloud.client.files.DeepLinkHandler
 import com.nextcloud.client.jobs.download.FileDownloadEventBroadcaster
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.download.FileDownloadWorker
-import com.nextcloud.client.jobs.folderDownload.FolderDownloadEventBroadcaster
 import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
@@ -212,9 +213,6 @@ class FileDisplayActivity :
     private val fileDownloadStartedReceiver = FileDownloadStartedReceiver()
     private val fileDownloadCompletedReceiver = FileDownloadCompletedReceiver()
 
-    private val folderDownloadStartedReceiver = FolderDownloadStartedReceiver()
-    private val folderDownloadCompletedReceiver = FolderDownloadCompletedReceiver()
-
     private lateinit var albumOperationListener: AlbumOperationListener
 
     var mLastSslUntrustedServerResult: RemoteOperationResult<*>? = null
@@ -291,6 +289,11 @@ class FileDisplayActivity :
     private var isShowingDetailsFromPreview = false
 
     private lateinit var folderRefreshScheduler: FolderRefreshScheduler
+
+    override fun setFile(file: OCFile?) {
+        super.setFile(file)
+        file?.takeIf { it.isFolder }?.let { viewModel.setCurrentFolder(it.fileId) }
+    }
 
     fun setFileIDForImmediatePreview(fileIDForImmediatePreview: Long) {
         this.fileIDForImmediatePreview = fileIDForImmediatePreview
@@ -1535,14 +1538,6 @@ class FileDisplayActivity :
             val uploadFinishedIntent = IntentFilter(FileUploadEventBroadcaster.ACTION_UPLOAD_COMPLETED)
             registerReceiver(fileUploadCompletedReceiver, uploadFinishedIntent)
 
-            val folderDownloadStartedIntentFilter =
-                IntentFilter(FolderDownloadEventBroadcaster.ACTION_DOWNLOAD_ENQUEUED)
-            registerReceiver(folderDownloadStartedReceiver, folderDownloadStartedIntentFilter)
-
-            val folderDownloadFinishedIntentFilter =
-                IntentFilter(FolderDownloadEventBroadcaster.ACTION_DOWNLOAD_COMPLETED)
-            registerReceiver(folderDownloadCompletedReceiver, folderDownloadFinishedIntentFilter)
-
             val fileDownloadStartedIntentFilter = IntentFilter(FileDownloadEventBroadcaster.ACTION_DOWNLOAD_ENQUEUED)
             registerReceiver(fileDownloadStartedReceiver, fileDownloadStartedIntentFilter)
 
@@ -1567,8 +1562,6 @@ class FileDisplayActivity :
             unregisterReceiver(fileUploadCompletedReceiver)
             unregisterReceiver(fileDownloadStartedReceiver)
             unregisterReceiver(fileDownloadCompletedReceiver)
-            unregisterReceiver(folderDownloadStartedReceiver)
-            unregisterReceiver(folderDownloadCompletedReceiver)
         }
     }
     // endregion
@@ -1875,43 +1868,13 @@ class FileDisplayActivity :
         ocFileListFragment?.adapter?.updateFileIndicator(state.iconId, file)
     }
 
-    // region FolderDownloadWorker receivers
-    @Suppress("ReturnCount")
-    private fun getFolderFromFolderDownloadWorker(intent: Intent): OCFile? {
-        val id = intent.getLongExtra(FolderDownloadEventBroadcaster.EXTRA_FILE_ID, -1L)
-        if (id == -1L) {
-            Log_OC.e(TAG, "invalid id received")
-            return null
-        }
-
-        val folder = storageManager.getFileById(id)
-        if (folder == null) {
-            Log_OC.e(TAG, "folder not exists")
-            return null
-        }
-
-        return folder
+    // region FolderDownloadWorker observers
+    private fun onFolderFileDownloadProgress(fileId: Long, previousFileId: Long?) {
+        val adapter = ocFileListFragment?.adapter ?: return
+        previousFileId?.let { storageManager.getFileById(it) }?.let(adapter::replaceFile)
+        adapter.updateFileIndicator(fileId, FileDownloadIndicator.Downloading.iconId)
     }
 
-    private inner class FolderDownloadStartedReceiver : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            Log_OC.d(TAG, "download worker started")
-            val folder = getFolderFromFolderDownloadWorker(intent) ?: return
-            updateFileDownloadIndicator(FileDownloadIndicator.Downloading, folder)
-        }
-    }
-
-    private inner class FolderDownloadCompletedReceiver : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            Log_OC.d(TAG, "download worker finished")
-            val folder = getFolderFromFolderDownloadWorker(intent) ?: return
-            updateFileDownloadIndicator(FileDownloadIndicator.Downloaded, folder)
-
-            if (folder.fileId == getCurrentDir()?.fileId) {
-                updateListOfFilesFragment()
-            }
-        }
-    }
     // endregion
 
     // region FileDownloadWorker receivers
@@ -2109,6 +2072,15 @@ class FileDisplayActivity :
             viewModel.observeOfflineWorker(onComplete = {
                 refreshCurrentDirectory()
             })
+        }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.observeFolderDownloadWorker(
+                    onFileProgress = ::onFolderFileDownloadProgress,
+                    onCompleted = ::updateListOfFilesFragment
+                )
+            }
         }
     }
 

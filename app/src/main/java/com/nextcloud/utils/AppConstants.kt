@@ -15,6 +15,7 @@ object AppConstants {
     const val SECONDS_PER_MINUTE = 60
     const val MINUTES_PER_HOUR = 60
     val ONE_SECOND = 1.seconds
+    val TWO_SECOND = 2.seconds
 
     const val BYTES_PER_KB = 1024
     const val BYTES_PER_MB = BYTES_PER_KB * BYTES_PER_KB

@@ -338,7 +338,6 @@ class BackgroundJobFactory @Inject constructor(
             accountManager,
             context,
             viewThemeUtils.get(),
-            localBroadcastManager.get(),
             params
         )
 
