@@ -65,7 +65,6 @@ class PreviewTextFileFragment : PreviewTextFragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        file.logFileSize(TAG)
         outState.putParcelable(EXTRA_FILE, file)
         outState.putParcelable(EXTRA_USER, user)
         super.onSaveInstanceState(outState)
