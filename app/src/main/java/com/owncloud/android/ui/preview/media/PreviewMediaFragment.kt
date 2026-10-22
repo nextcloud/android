@@ -46,11 +46,12 @@ import com.github.chrisbanes.photoview.PhotoView
 import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
-import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.player.model.file.PlaybackCollection
 import com.nextcloud.repository.ClientRepository
 import com.nextcloud.ui.fileactions.FileAction
+import com.nextcloud.ui.fileactions.FileActionHandler
+import com.nextcloud.ui.fileactions.FileActionHost
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.clickWithDebounce
@@ -67,8 +68,6 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.FetchRemoteFileOperation
 import com.owncloud.android.ui.activity.FileActivity
-import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
-import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.MimeTypeUtil
@@ -99,6 +98,7 @@ import kotlin.math.min
  *
  * DO NOT CALL IT: an [OCFile] and [User] must be provided for a successful construction
  */
+@Suppress("TooManyFunctions")
 class PreviewMediaFragment :
     FileFragment(),
     Injectable {
@@ -119,10 +119,10 @@ class PreviewMediaFragment :
     lateinit var accountManager: UserAccountManager
 
     @Inject
-    lateinit var backgroundJobManager: BackgroundJobManager
+    lateinit var viewThemeUtils: ViewThemeUtils
 
     @Inject
-    lateinit var viewThemeUtils: ViewThemeUtils
+    lateinit var fileActionHandler: FileActionHandler
 
     private lateinit var binding: PreviewImageFragmentBinding
 
@@ -184,6 +184,7 @@ class PreviewMediaFragment :
      * {@inheritDoc}
      */
     @Deprecated("Deprecated in Java")
+    @Suppress("ReturnCount")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (savedInstanceState == null) {
@@ -362,6 +363,7 @@ class PreviewMediaFragment :
         )
     }
 
+    @Suppress("ReturnCount")
     private fun onOverflowClick(isManualClick: Boolean = false) {
         val file = file ?: return
         val storageManager = containerActivity.storageManager ?: return
@@ -416,54 +418,30 @@ class PreviewMediaFragment :
             .show(fragmentManager, "actions")
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Suppress("CyclomaticComplexMethod")
     private fun onFileActionChosen(itemId: Int) {
-        if (itemId == R.id.action_send_share_file) {
-            if (file.isSharedWithMe && !file.canReshare()) {
+        val file = file ?: return
+        val containerActivity = containerActivity ?: return
+
+        when (itemId) {
+            R.id.action_send_share_file -> if (file.isSharedWithMe && !file.canReshare()) {
                 Snackbar.make(requireView(), R.string.resharing_is_not_allowed, Snackbar.LENGTH_LONG).show()
             } else {
                 containerActivity.fileOperationsHelper.sendShareFile(file)
             }
-        } else if (itemId == R.id.action_send_file) {
-            containerActivity.fileOperationsHelper.sendShareFile(file, true)
-        } else if (itemId == R.id.action_open_file_with) {
-            openFile()
-        } else if (itemId == R.id.action_remove_file) {
-            val dialog = RemoveFilesDialogFragment.newInstance(file)
-            dialog.show(parentFragmentManager, ConfirmationDialogFragment.FTAG_CONFIRMATION)
-        } else if (itemId == R.id.action_see_details) {
-            seeDetails()
-        } else if (itemId == R.id.action_download_file || itemId == R.id.action_sync_file) {
-            if (containerActivity is FileActivity) {
-                val activity = containerActivity as FileActivity
-                activity.showSyncLoadingDialog(file.isFolder)
-            }
-            containerActivity.fileOperationsHelper.syncFileOrFolder(file)
-        } else if (itemId == R.id.action_cancel_sync) {
-            containerActivity.fileOperationsHelper.cancelTransference(file)
-        } else if (itemId == R.id.action_set_as_wallpaper) {
-            containerActivity.fileOperationsHelper.setPictureAs(file, imageView)
-        } else if (itemId == R.id.action_export_file) {
-            val list = ArrayList<OCFile>()
-            list.add(file)
-            containerActivity.fileOperationsHelper.exportFiles(
-                list,
-                context,
-                view,
-                backgroundJobManager
-            )
-        } else if (itemId == R.id.action_edit) {
-            (requireActivity() as PreviewMediaActivity).startImageEditor(file)
-        } else if (itemId == R.id.action_add_to_album) {
-            containerActivity.fileOperationsHelper.addFileToAlbum(listOf(file))
-        }
-    }
 
-    private fun seeDetails() {
-        containerActivity.showDetails(file)
+            R.id.action_edit -> (requireActivity() as PreviewMediaActivity).startImageEditor(file)
+
+            else -> {
+                val host = FileActionHost(
+                    containerActivity,
+                    parentFragmentManager,
+                    view,
+                    null,
+                    onFileOpened = ::finish
+                )
+                fileActionHandler.handle(itemId, listOf(file), host)
+            }
+        }
     }
 
     @SuppressFBWarnings("Dm")
@@ -475,11 +453,6 @@ class PreviewMediaFragment :
     /**
      * Opens the previewed image with an external application.
      */
-    private fun openFile() {
-        containerActivity.fileOperationsHelper.openFile(file)
-        finish()
-    }
-
     @SuppressLint("StaticFieldLeak")
     private inner class LoadBitmapTask(imageView: PhotoView, infoView: LinearLayout, progressView: FrameLayout) :
         AsyncTask<OCFile?, Void?, LoadImage?>() {
@@ -500,7 +473,7 @@ class PreviewMediaFragment :
         private var mErrorMessageId = 0
         private val paramsLength = 1
 
-        @Suppress("MagicNumber", "LongMethod", "NestedBlockDepth", "CyclomaticComplexMethod")
+        @Suppress("TooGenericExceptionCaught", "MagicNumber", "ReturnCount", "LongMethod", "NestedBlockDepth")
         @Deprecated("Deprecated in Java")
         override fun doInBackground(vararg params: OCFile?): LoadImage? {
             Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND + Process.THREAD_PRIORITY_MORE_FAVORABLE)
@@ -652,6 +625,7 @@ class PreviewMediaFragment :
         }
     }
 
+    @Suppress("ReturnCount")
     private fun generateCheckerboardLayeredDrawable(result: LoadImage, bitmap: Bitmap?): LayerDrawable {
         val resources = resources
         val layers = arrayOfNulls<Drawable>(2)

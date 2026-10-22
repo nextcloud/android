@@ -20,6 +20,8 @@ import android.widget.TextView;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.ui.fileactions.FileAction;
+import com.nextcloud.ui.fileactions.FileActionHandler;
+import com.nextcloud.ui.fileactions.FileActionHost;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
@@ -27,10 +29,7 @@ import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.TextEditorWebView;
-import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
-import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import org.mozilla.universalchardet.ReaderFactory;
@@ -45,6 +44,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.inject.Inject;
+
+import kotlin.Unit;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
@@ -58,6 +61,8 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
     private static final String EXTRA_SEARCH_QUERY = "SEARCH_QUERY";
 
     private static final String TAG = PreviewTextFileFragment.class.getSimpleName();
+
+    @Inject FileActionHandler fileActionHandler;
 
     private TextLoadAsyncTask textLoadAsyncTask;
     private User user;
@@ -288,30 +293,30 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
     }
 
     private void onFileActionChosen(final int itemId) {
+        final OCFile file = getFile();
+        if (file == null) {
+            return;
+        }
+
         if (itemId == R.id.action_send_share_file) {
-            if (getFile().isSharedWithMe() && !getFile().canReshare()) {
+            if (file.isSharedWithMe() && !file.canReshare()) {
                 SnackbarUtil.show(this, R.string.resharing_is_not_allowed);
             } else {
-                containerActivity.getFileOperationsHelper().sendShareFile(getFile());
+                containerActivity.getFileOperationsHelper().sendShareFile(file);
             }
-        } else if (itemId == R.id.action_send_file) {
-            containerActivity.getFileOperationsHelper().sendShareFile(getFile(), true);
-        } else if (itemId == R.id.action_open_file_with) {
-            openFile();
-        } else if (itemId == R.id.action_remove_file) {
-            RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(getFile());
-            dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
-        } else if (itemId == R.id.action_see_details) {
-            seeDetails();
-        } else if (itemId == R.id.action_sync_file) {
-            if (containerActivity instanceof FileActivity activity) {
-                activity.showSyncLoadingDialog(getFile().isFolder());
-            }
-            containerActivity.getFileOperationsHelper().syncFileOrFolder(getFile());
-        } else if(itemId == R.id.action_cancel_sync){
-            containerActivity.getFileOperationsHelper().cancelTransference(getFile());
         } else if (itemId == R.id.action_edit) {
-            TextEditorWebView.Companion.startTextEditor(getFile(), getContext());
+            TextEditorWebView.Companion.startTextEditor(file, getContext());
+        } else {
+            final var host = new FileActionHost(containerActivity,
+                                                getParentFragmentManager(),
+                                                getView(),
+                                                null,
+                                                null,
+                                                () -> {
+                                                    finish();
+                                                    return Unit.INSTANCE;
+                                                });
+            fileActionHandler.handle(itemId, List.of(file), host);
         }
     }
 
@@ -322,10 +327,6 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
      */
     public void updateFile(OCFile file) {
         setFile(file);
-    }
-
-    private void seeDetails() {
-        containerActivity.showDetails(getFile());
     }
 
     /**
