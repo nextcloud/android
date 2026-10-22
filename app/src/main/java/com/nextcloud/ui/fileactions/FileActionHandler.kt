@@ -35,14 +35,12 @@ class FileActionHandler @Inject constructor(
     private val syncedFolderProvider: SyncedFolderProvider,
     private val viewThemeUtils: ViewThemeUtils
 ) {
-    fun handle(@IdRes itemId: Int, files: Collection<OCFile?>, host: FileActionHost): Boolean {
-        val validFiles = files.filterNotNull()
-        return validFiles.isNotEmpty() && if (validFiles.size == 1) {
-            file(itemId, validFiles.first(), host)
+    fun handle(@IdRes itemId: Int, files: Collection<OCFile>, host: FileActionHost): Boolean =
+        files.isNotEmpty() && if (files.size == 1) {
+            file(itemId, files.first(), host)
         } else {
-            files(itemId, validFiles, host)
+            files(itemId, files, host)
         }
-    }
 
     @Suppress("CyclomaticComplexMethod")
     private fun file(@IdRes itemId: Int, file: OCFile, host: FileActionHost): Boolean {
@@ -72,9 +70,9 @@ class FileActionHandler @Inject constructor(
 
             R.id.action_edit -> edit(file, host)
 
-            R.id.action_download_file, R.id.action_sync_file -> syncFile(file, host)
+            R.id.action_download_file, R.id.action_sync_file -> sync(file, host)
 
-            R.id.action_sync_all_files -> syncFolderIncludingNestedFiles(file, host)
+            R.id.action_sync_all_files -> syncFolder(file, host)
 
             R.id.action_pin_to_homescreen ->
                 shortcutUtil.addShortcutToHomescreen(file, viewThemeUtils, accountManager.user, syncedFolderProvider)
@@ -87,11 +85,7 @@ class FileActionHandler @Inject constructor(
         return true
     }
 
-    private fun files(
-        @IdRes itemId: Int,
-        files: Collection<OCFile>,
-        host: FileActionHost
-    ): Boolean {
+    private fun files(@IdRes itemId: Int, files: Collection<OCFile>, host: FileActionHost): Boolean {
         when (itemId) {
             R.id.action_export_file -> host.helper?.exportFiles(
                 files,
@@ -137,12 +131,12 @@ class FileActionHandler @Inject constructor(
         }
     }
 
-    private fun syncFile(file: OCFile, host: FileActionHost) {
+    private fun sync(file: OCFile, host: FileActionHost) {
         host.fileActivity?.showSyncLoadingDialog(file.isFolder)
         host.helper?.syncFileOrFolder(file)
     }
 
-    private fun syncFolderIncludingNestedFiles(folder: OCFile, host: FileActionHost) {
+    private fun syncFolder(folder: OCFile, host: FileActionHost) {
         if (!FileStorageUtils.checkIfEnoughSpace(folder)) {
             SyncFileNotEnoughSpaceDialogFragment
                 .newInstance(folder, FileOperationsHelper.getAvailableSpaceOnDevice())
