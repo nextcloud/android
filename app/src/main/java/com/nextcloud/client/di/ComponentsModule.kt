@@ -10,7 +10,6 @@ package com.nextcloud.client.di
 
 import androidx.annotation.OptIn
 import androidx.media3.common.util.UnstableApi
-import com.nextcloud.client.documentscan.DocumentScanActivity
 import com.nextcloud.client.editimage.EditImageActivity
 import com.nextcloud.client.etm.EtmActivity
 import com.nextcloud.client.etm.pages.EtmBackgroundJobsFragment
@@ -469,9 +468,6 @@ internal interface ComponentsModule {
 
     @ContributesAndroidInjector
     fun sendFilesDialog(): SendFilesDialog
-
-    @ContributesAndroidInjector
-    fun documentScanActivity(): DocumentScanActivity
 
     @ContributesAndroidInjector
     fun groupfolderListFragment(): GroupfolderListFragment
