@@ -188,6 +188,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private static final String DIALOG_BOTTOM_SHEET = "DIALOG_BOTTOM_SHEET";
 
     private static final int SINGLE_SELECTION = 1;
+    private static final int SHARING_TAB_POSITION = 1;
     private static final Set<Integer> SELECTION_ENDING_ACTIONS = Set.of(R.id.action_export_file,
                                                                         R.id.action_favorite,
                                                                         R.id.action_unset_favorite,
@@ -1369,7 +1370,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private boolean onListActionChosen(@IdRes final int itemId, Set<OCFile> checkedFiles) {
-        if (itemId == R.id.action_see_details && checkedFiles.size() == SINGLE_SELECTION) {
+        if (itemId == R.id.action_send_share_file && checkedFiles.size() == SINGLE_SELECTION) {
+            mContainerActivity.showDetails(checkedFiles.iterator().next(), SHARING_TAB_POSITION);
+            return true;
+        } else if (itemId == R.id.action_see_details && checkedFiles.size() == SINGLE_SELECTION) {
             if (mActiveActionMode != null) {
                 mActiveActionMode.finish();
             }
