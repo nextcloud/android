@@ -135,7 +135,7 @@
     <string name="auto_upload_battery_saver_reason">Batterisparefunktionen er aktiv og kan sætte uploads på pause.</string>
     <string name="auto_upload_delete_dialog_description">Dette fjerner mappen og konfigurationen af automatisk upload. Uploads, der ikke er færdige, annulleres.</string>
     <string name="auto_upload_delete_dialog_title">Vil du slette mappen til automatisk upload?</string>
-    <string name="auto_upload_file_behaviour_kept_in_folder">Forblevet i oprindelig folder, da den er skrivebeskyttet</string>
+    <string name="auto_upload_file_behaviour_kept_in_folder">beholdt i den oprindelige mappe, da den er skrivebeskyttet</string>
     <string name="auto_upload_low_battery_warning_info">Lav batteri, upload kan tage længere tid</string>
     <string name="auto_upload_on_wifi">Upload kun på ubegrænset wifi</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -415,7 +415,7 @@
     <string name="end_to_end_encryption_decrypting">Dekrypterer …</string>
     <string name="end_to_end_encryption_dialog_close">Luk</string>
     <string name="end_to_end_encryption_enter_passphrase_to_access_files">Angiv din adgangsfrase for at tilgå dine filer</string>
-    <string name="end_to_end_encryption_folder_not_empty">Denne folder er ikke tom.</string>
+    <string name="end_to_end_encryption_folder_not_empty">Denne mappe er ikke tom.</string>
     <string name="end_to_end_encryption_generating_keys">Opretter nye nøgler …</string>
     <string name="end_to_end_encryption_keywords_description">Alle 12 ord udgør tilsammen en meget stærk adgangskode, så kun du kan se og bruge dine krypterede filer. Skriv den ned, og gem den et sikkert sted.</string>
     <string name="end_to_end_encryption_not_enabled">Ende til ende kryptering slået fra på server.</string>
@@ -999,7 +999,7 @@
     <string name="share_room_clarification">%1$s (samtale)</string>
     <string name="share_search">Navn, Federated Cloud ID eller e-mailadresse …</string>
     <string name="share_search_internal">Tilføj brugere og teams</string>
-    <string name="share_send_new_email">Send ny email</string>
+    <string name="share_send_new_email">Send ny e-mail</string>
     <string name="share_send_note">Note til modtager</string>
     <string name="share_settings">Indstillinger</string>
     <string name="share_via_link_hide_download">Skjul download</string>
@@ -1269,7 +1269,7 @@
     <string name="uploads_view_upload_status_waiting_for_wifi">Venter på ubegrænset Wi-Fi</string>
     <string name="user_icon">Bruger</string>
     <string name="user_info_address">Adresse</string>
-    <string name="user_info_email">Email</string>
+    <string name="user_info_email">E-mail</string>
     <string name="user_info_groups">Grupper</string>
     <string name="user_info_phone">Telefonnummer</string>
     <string name="user_info_profile">Profil</string>
@@ -1294,7 +1294,7 @@
     <string name="widgets_not_available">Widgets er kun tilgængelige i %1$s 25 eller senere når kontrolpanel app\'en er aktiveret</string>
     <string name="widgets_not_available_title">Ikke tilgængelig</string>
     <string name="worker_download">Henter filer …</string>
-    <string name="write_email">Send email</string>
+    <string name="write_email">Send e-mail</string>
     <string name="wrong_storage_path">Datalagrings mappe eksisterer ikke</string>
     <string name="wrong_storage_path_desc">Dette kan være på grund af en gendannet sikkerhedskopi på en anden enhed. Ruller tilbage til standard. Undersøg indstillingerne for at tilpasse data lagringsmappen.</string>
     <plurals name="album_items_text">
