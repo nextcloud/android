@@ -90,6 +90,11 @@
         <ignore path="**/appcompat-1.**/**/lint.jar" />
     </issue>
 
+    <!-- Lint reads abiFilters as source text and cannot resolve allAbis; local debug builds skip x86 on purpose. -->
+    <issue id="ChromeOsAbiSupport">
+        <ignore path="build.gradle.kts" />
+    </issue>
+
 	<issue id="Aligned16KB">
         <ignore path="**/arm64-v8a/libmockkjvmtiagent.so" />
     </issue>
