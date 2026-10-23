@@ -99,10 +99,12 @@ suspend fun FileDataStorageManager.getGalleryItemsPageSuspended(
     return result
 }
 
-fun FileDataStorageManager.searchFilesByName(file: OCFile, accountName: String, query: String): List<OCFile> =
-    fileDao.searchFilesInFolder(file.fileId, accountName, query).map {
-        createFileInstance(it)
-    }
+fun FileDataStorageManager.searchFilesByName(file: OCFile, accountName: String, query: String): List<OCFile> {
+    val terms = query.toSearchTerms()
+    return fileDao.searchFilesInFolder(file.fileId, accountName, terms.firstOrNull().orEmpty())
+        .filter { it.name.orEmpty().containsAllTerms(terms) }
+        .map { createFileInstance(it) }
+}
 
 fun FileDataStorageManager.getDecryptedPath(file: OCFile): String {
     val paths = mutableListOf<String>()

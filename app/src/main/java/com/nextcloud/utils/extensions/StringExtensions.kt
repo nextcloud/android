@@ -55,6 +55,12 @@ fun String.extension(): String {
 
 fun String.truncateWithEllipsis(limit: Int) = take(limit) + if (length > limit) StringConstants.THREE_DOT else ""
 
+private val whitespaceRegex = Regex("""\s+""")
+
+fun String.toSearchTerms(): List<String> = split(whitespaceRegex).filter { it.isNotEmpty() }
+
+fun String.containsAllTerms(terms: List<String>): Boolean = terms.all { contains(it, ignoreCase = true) }
+
 object StringConstants {
     const val SLASH = "/"
     const val DOT = "."
