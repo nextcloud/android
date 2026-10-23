@@ -43,6 +43,7 @@ import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.jackrabbit.webdav.DavConstants;
 import org.apache.jackrabbit.webdav.client.methods.MkColMethod;
+import org.apache.jackrabbit.webdav.client.methods.MoveMethod;
 import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
 import org.apache.jackrabbit.webdav.property.DavPropertyNameSet;
 
@@ -278,6 +279,14 @@ public class InputStreamBinder extends IInputStreamService.Stub {
 
             case "DELETE":
                 method = new DeleteMethod(requestUrl);
+                break;
+
+            case "MOVE":
+                String destUrl = request.getAdditionalParameter(NextcloudRequest.ADDITIONAL_PARAMETER_MOVE_DESTINATION);
+                boolean overwrite =
+                    request.getAdditionalParameter(NextcloudRequest.ADDITIONAL_PARAMETER_MOVE_OVERWRITE)
+                        .equalsIgnoreCase("true");
+                method = new MoveMethod(requestUrl, destUrl, overwrite);
                 break;
 
             case "PROPFIND":
