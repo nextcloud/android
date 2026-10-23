@@ -257,6 +257,18 @@ class SynchronizeFileOperation : SyncOperation {
         }
     }
 
+    fun printSuccess() {
+        Log_OC.i(TAG, "content synchronized, remote path: $remotePath")
+    }
+
+    fun printConflict() {
+        Log_OC.w(TAG, "content has conflict, remote path: $remotePath")
+    }
+
+    fun printFailure() {
+        Log_OC.e(TAG, "content not synchronized, remote path: $remotePath")
+    }
+
     companion object {
         private val TAG: String = SynchronizeFileOperation::class.java.simpleName
     }

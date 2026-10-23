@@ -88,6 +88,19 @@ private fun transformToRows(list: List<OCFile>, layout: GalleryRowLayout): List<
         .map { chunk -> GalleryRow(chunk, layout.measure(chunk)) }
 }
 
+fun OCFile?.isDownloadedFileChanged(serverFile: OCFile): Boolean {
+    if (this == null || !isDown || serverFile.isFolder) {
+        return false
+    }
+
+    return etag.eTagChanged(serverFile.etag)
+}
+
+fun OCFile.isLocalETagOutdated(): Boolean {
+    val serverETag = etagInConflict
+    return !serverETag.isNullOrEmpty() && etag.eTagChanged(serverETag)
+}
+
 fun OCFile.toEncryptionEvent(encrypt: Boolean): EncryptionEvent = EncryptionEvent(
     localId,
     remoteId,
