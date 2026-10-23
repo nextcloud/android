@@ -37,7 +37,7 @@ import kotlinx.coroutines.withContext
 import java.util.Collections
 import java.util.WeakHashMap
 
-@Suppress("DEPRECATION", "TooGenericExceptionCaught", "ReturnCount")
+@Suppress("DEPRECATION")
 class GalleryImageGenerationJob(private val user: User, private val storageManager: FileDataStorageManager) {
 
     companion object {

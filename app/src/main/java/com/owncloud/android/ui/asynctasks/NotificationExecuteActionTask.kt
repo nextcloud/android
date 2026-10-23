@@ -28,7 +28,6 @@ import okhttp3.RequestBody
 import org.apache.commons.httpclient.HttpStatus
 import java.io.IOException
 
-@Suppress("ReturnCount")
 class NotificationExecuteActionTask(
     private val client: NextcloudClient,
     private val holder: NotificationListAdapter.NotificationViewHolder,

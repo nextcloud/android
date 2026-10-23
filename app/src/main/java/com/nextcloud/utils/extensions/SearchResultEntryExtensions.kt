@@ -17,6 +17,7 @@ private const val PREVIEW_PATH = "/core/preview"
 private const val PREVIEW_WIDTH_PARAMETER = "x"
 private const val PREVIEW_HEIGHT_PARAMETER = "y"
 
+@Suppress("CyclomaticComplexMethod")
 fun SearchResultEntry.getType(): SearchResultEntryType {
     val value = icon.lowercase()
 

@@ -15,7 +15,6 @@ import com.owncloud.android.ui.model.ExtendedSettingsActivityDialog
 
 class ExtendedSettingsActivity : AppCompatActivity() {
 
-    @Suppress("ReturnCount")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

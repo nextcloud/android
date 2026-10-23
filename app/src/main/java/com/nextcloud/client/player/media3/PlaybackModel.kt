@@ -51,7 +51,6 @@ import com.nextcloud.utils.AppConstants.ONE_SECOND
 
 @Singleton
 @OptIn(markerClass = [UnstableApi::class])
-@Suppress("TooManyFunctions")
 class PlaybackModel @Inject constructor(
     private val context: Context,
     private val mediaSessionFactory: MediaSessionFactory,
@@ -163,7 +162,6 @@ class PlaybackModel @Inject constructor(
         controllerScope = null
     }
 
-    @Suppress("TooGenericExceptionCaught")
     private suspend fun <T> ListenableFuture<T>.await(): T = suspendCancellableCoroutine { cont ->
         addListener(
             {

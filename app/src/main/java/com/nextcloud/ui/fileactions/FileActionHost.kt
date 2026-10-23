@@ -16,7 +16,6 @@ import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 
-@Suppress("LongParameterList")
 class FileActionHost @JvmOverloads constructor(
     val containerActivity: FileFragment.ContainerActivity,
     val fragmentManager: FragmentManager,

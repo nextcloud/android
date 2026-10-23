@@ -131,7 +131,6 @@ open class ConfirmationDialogFragment :
          * @param negativeButtonTextId Resource id for the text of the negative button. -1 for no negative button.
          * @return Dialog ready to show.
          */
-        @Suppress("LongParameterList")
         @JvmStatic
         @JvmOverloads
         fun newInstance(

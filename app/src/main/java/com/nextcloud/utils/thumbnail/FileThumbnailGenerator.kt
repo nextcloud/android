@@ -173,7 +173,7 @@ class FileThumbnailGenerator @Inject constructor(
         )
     }
 
-    @Suppress("TooGenericExceptionCaught", "LongParameterList", "DEPRECATION")
+    @Suppress("DEPRECATION")
     private fun startTask(
         file: OCFile,
         view: ImageView,

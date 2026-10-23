@@ -14,7 +14,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
 
-@Suppress("TooManyFunctions")
 class MoveFileEntitiesUpdateTest : MoveFilesTestBase() {
 
     private val capturedEntities = slot<List<FileEntity>>()

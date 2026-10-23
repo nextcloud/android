@@ -17,7 +17,6 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.MimeTypeUtil
 
-@Suppress("TooGenericExceptionCaught", "ReturnCount")
 object OCFileUtils {
     private const val TAG = "OCFileUtils"
     private const val IMAGE_SIZE_CACHE_ENTRIES = 2048

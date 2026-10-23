@@ -85,7 +85,6 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import javax.inject.Inject
 
-@Suppress("TooManyFunctions")
 class FileDetailFragment :
     FileFragment(),
     View.OnClickListener,

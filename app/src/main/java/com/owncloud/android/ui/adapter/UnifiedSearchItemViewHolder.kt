@@ -37,7 +37,6 @@ import com.owncloud.android.ui.unifiedsearch.UnifiedSearchEntry
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
-@Suppress("LongParameterList")
 class UnifiedSearchItemViewHolder(
     private val supportsOpeningCalendarContactsLocally: Boolean,
     val binding: UnifiedSearchItemBinding,

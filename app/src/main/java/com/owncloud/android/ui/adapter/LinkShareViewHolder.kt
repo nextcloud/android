@@ -57,7 +57,6 @@ internal class LinkShareViewHolder(itemView: View) : RecyclerView.ViewHolder(ite
         configureCopyLink(binding, context, listener, publicShare)
     }
 
-    @Suppress("ReturnCount")
     private fun setName(
         binding: FileDetailsShareLinkShareItemBinding?,
         context: Context?,
@@ -98,7 +97,6 @@ internal class LinkShareViewHolder(itemView: View) : RecyclerView.ViewHolder(ite
         }
     }
 
-    @Suppress("ReturnCount")
     private fun setSubline(binding: FileDetailsShareLinkShareItemBinding?, context: Context?, publicShare: OCShare) {
         if (binding == null || context == null) {
             return

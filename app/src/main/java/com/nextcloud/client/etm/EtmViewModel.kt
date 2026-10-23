@@ -32,7 +32,6 @@ import com.owncloud.android.R
 import com.owncloud.android.lib.common.accounts.AccountUtils
 import javax.inject.Inject
 
-@Suppress("LongParameterList") // Dependencies Injection
 @SuppressLint("StaticFieldLeak")
 class EtmViewModel @Inject constructor(
     private val context: Context,

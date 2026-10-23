@@ -25,7 +25,6 @@ object ContentResolverHelper {
      */
     @JvmStatic
     @JvmOverloads
-    @Suppress("LongParameterList")
     fun queryResolver(
         contentResolver: ContentResolver,
         uri: Uri,

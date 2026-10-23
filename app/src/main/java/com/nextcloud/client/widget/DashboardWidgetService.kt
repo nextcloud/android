@@ -156,7 +156,6 @@ class StackRemoteViewsFactory(
         remoteViews.setRemoteImageView(bitmap)
     }
 
-    @Suppress("TooGenericExceptionCaught")
     private fun RemoteViews.setRemoteImageView(source: Bitmap) {
         try {
             val bitmap: Bitmap = if (widgetConfiguration.roundIcon) {

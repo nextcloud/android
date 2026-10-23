@@ -14,7 +14,6 @@ import com.nextcloud.client.database.entity.FileEntity
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 import com.owncloud.android.utils.MimeType
 
-@Suppress("TooManyFunctions")
 @Dao
 interface FileDao {
     @Update

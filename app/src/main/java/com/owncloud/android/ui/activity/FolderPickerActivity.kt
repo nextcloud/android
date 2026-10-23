@@ -56,7 +56,6 @@ import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
 
-@Suppress("Detekt.TooManyFunctions")
 open class FolderPickerActivity :
     FileActivity(),
     FileFragment.ContainerActivity,
@@ -376,7 +375,6 @@ open class FolderPickerActivity :
         updateNavigationElementsInActionBar()
     }
 
-    @Suppress("ReturnCount")
     private fun toggleChooseEnabled() {
         if (this is FilePickerActivity) {
             return
@@ -549,9 +547,8 @@ open class FolderPickerActivity :
          * [BroadcastReceiver] to enable syncing feedback in UI
          */
         @Suppress(
-            "Detekt.ComplexMethod",
+            "Detekt.CyclomaticComplexMethod",
             "Detekt.NestedBlockDepth",
-            "Detekt.TooGenericExceptionCaught",
             "Detekt.LongMethod"
         ) // legacy code
         override fun onReceive(context: Context, intent: Intent) {

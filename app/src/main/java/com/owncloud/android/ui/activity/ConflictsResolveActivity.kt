@@ -47,7 +47,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-@Suppress("TooManyFunctions", "ReturnCount")
 class ConflictsResolveActivity :
     FileActivity(),
     OnConflictDecisionMadeListener {
@@ -243,7 +242,6 @@ class ConflictsResolveActivity :
         }
     }
 
-    @Suppress("ReturnCount")
     override fun onStart() {
         super.onStart()
 
@@ -286,7 +284,7 @@ class ConflictsResolveActivity :
         ).show(ft, "conflictDialog")
     }
 
-    @Suppress("TooGenericExceptionCaught", "DEPRECATION")
+    @Suppress("DEPRECATION")
     private fun fetchRemoteFileAndShowDialog() {
         val remotePath = fileDataStorageManager.retrieveRemotePathConsideringEncryption(newFile) ?: return
         val operation = ReadFileRemoteOperation(remotePath)

@@ -216,7 +216,6 @@ class SendShareDialog :
         this.fileOperationsHelper = fileOperationsHelper
     }
 
-    @Suppress("ReturnCount")
     override fun onSendButtonClick(sendButtonData: SendButtonData) {
         val packageName = sendButtonData.packageName
         val activityName = sendButtonData.activityName

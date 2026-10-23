@@ -107,7 +107,6 @@ import java.util.Optional
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 
-@Suppress("TooManyFunctions")
 class AlbumItemsFragment :
     Fragment(),
     OCFileListFragmentInterface,

@@ -33,7 +33,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-@Suppress("LongParameterList")
 class UnifiedSearchViewModel(application: Application) :
     AndroidViewModel(application),
     IUnifiedSearchViewModel {

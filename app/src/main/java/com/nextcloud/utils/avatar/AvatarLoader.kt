@@ -27,7 +27,6 @@ import org.apache.commons.httpclient.methods.GetMethod
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.hours
 
-@Suppress("TooGenericExceptionCaught")
 class AvatarLoader @Inject constructor(
     private val context: Context,
     private val arbitraryDataProvider: ArbitraryDataProvider,

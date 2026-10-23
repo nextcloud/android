@@ -14,7 +14,6 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.utils.ErrorMessageAdapter
 
-@Suppress("ReturnCount")
 fun Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>?.getErrorMessage(): String {
     val result = this?.first ?: return MainApp.string(R.string.unexpected_error_occurred)
     val operation = this.second ?: return MainApp.string(R.string.unexpected_error_occurred)

@@ -22,7 +22,6 @@ class ClipboardClearWorker(private val context: Context, params: WorkerParameter
         const val CLIPBOARD_TEXT = "clipboard_text"
     }
 
-    @Suppress("TooGenericExceptionCaught", "ReturnCount")
     override fun doWork(): Result {
         try {
             val clipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager

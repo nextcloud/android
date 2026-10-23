@@ -55,6 +55,7 @@ enum class E2EEKeyCheck {
         else -> null
     }
 
+    @Suppress("CyclomaticComplexMethod")
     fun getMessageId(action: E2EEAction): Int? = when (this) {
         NO_NETWORK -> when (action) {
             E2EEAction.NEW_FOLDER -> {

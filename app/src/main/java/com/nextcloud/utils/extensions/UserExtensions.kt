@@ -15,7 +15,6 @@ import com.owncloud.android.lib.common.utils.Log_OC
 
 private const val TAG = "UserExtensions"
 
-@Suppress("TooGenericExceptionCaught")
 fun User.toServerCredentials(): ServerCredentials? = try {
     OwnCloudClientManagerFactory
         .getDefaultSingleton()
