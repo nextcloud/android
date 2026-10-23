@@ -10,7 +10,7 @@ package com.nextcloud.utils
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 
 object ResultParser {
-    @Suppress("DEPRECATION", "ReturnCount")
+    @Suppress("DEPRECATION")
     @JvmStatic
     fun <T : Any> RemoteOperationResult<*>.list(type: Class<T>): List<T> {
         if (!isSuccess) return emptyList()

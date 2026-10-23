@@ -49,7 +49,6 @@ class EncryptionKeyGenerator(val context: Context, val user: User) {
             .generateKeyPair()
     }
 
-    @Suppress("TooGenericExceptionCaught", "TooGenericExceptionThrown", "ReturnCount")
     suspend fun generatePrivateKey(keyWords: ArrayList<String>): PrivateKeyResult = withContext(Dispatchers.IO) {
         val arbitraryDataProvider = ArbitraryDataProviderImpl(context)
 
@@ -120,7 +119,6 @@ class EncryptionKeyGenerator(val context: Context, val user: User) {
         return@withContext PrivateKeyResult.Failed
     }
 
-    @Suppress("LongParameterList")
     fun uploadEncryptedFolderMetadata(
         folder: OCFile,
         client: OwnCloudClient,

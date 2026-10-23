@@ -16,7 +16,7 @@ import org.junit.Before
 import org.junit.After
 import java.io.File
 
-@Suppress("TooManyFunctions", "MagicNumber")
+@Suppress("MagicNumber")
 class FileSortOrderBySizeTests {
     private lateinit var tempDir: File
 

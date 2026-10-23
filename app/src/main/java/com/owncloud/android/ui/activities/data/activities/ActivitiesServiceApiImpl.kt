@@ -26,7 +26,6 @@ import org.apache.commons.httpclient.HttpStatus
 /**
  * Implementation of the Activities Service API that communicates with the NextCloud remote server
  */
-@Suppress("TooGenericExceptionThrown")
 class ActivitiesServiceApiImpl(private val accountManager: UserAccountManager) : ActivitiesServiceApi {
 
     override fun getAllActivities(

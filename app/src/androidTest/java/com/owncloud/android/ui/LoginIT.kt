@@ -52,7 +52,7 @@ class LoginIT : AbstractIT() {
      */
     @Test
     @Throws(InterruptedException::class)
-    @Suppress("MagicNumber", "SwallowedException")
+    @Suppress("MagicNumber")
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.Q)
     @Flaky("Login no longer uses an in-app WebView, so espresso-web (Espresso.onWebView) cannot drive it. ")
     fun login() {

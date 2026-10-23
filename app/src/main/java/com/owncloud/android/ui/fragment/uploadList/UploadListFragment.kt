@@ -52,7 +52,6 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 import com.nextcloud.utils.AppConstants.ONE_SECOND
 
-@Suppress("TooManyFunctions")
 class UploadListFragment :
     Fragment(),
     UploadListItemOnClick {

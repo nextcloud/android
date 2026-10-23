@@ -27,7 +27,6 @@ class GlideStringStreamFetcher(private val url: String?) : DataFetcher<InputStre
     private var stream: InputStream? = null
     private var get: GetMethod? = null
 
-    @Suppress("TooGenericExceptionCaught")
     override fun loadData(priority: Priority, callback: DataFetcher.DataCallback<in InputStream>) {
         try {
             val ownCloudAccount = UserAccountManagerImpl.fromContext(MainApp.getAppContext()).currentOwnCloudAccount

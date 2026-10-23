@@ -11,7 +11,6 @@ import com.nextcloud.utils.extensions.webDavParentPath
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-@Suppress("TooManyFunctions")
 class WebDavParentPathTests {
 
     @Test

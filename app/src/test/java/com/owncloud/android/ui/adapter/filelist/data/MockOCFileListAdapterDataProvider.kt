@@ -11,7 +11,7 @@ import com.nextcloud.client.database.entity.FileEntity
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.MimeType
 
-@Suppress("LongParameterList", "MagicNumber")
+@Suppress("MagicNumber")
 class MockOCFileListAdapterDataProvider : OCFileListAdapterDataProvider {
 
     private var offlineOCFile: OCFile? = null

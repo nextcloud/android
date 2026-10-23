@@ -38,7 +38,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 /**
  * This Adapter populates a SectionedRecyclerView with search results by unified search
  */
-@Suppress("LongParameterList", "LongMethod")
+@Suppress("LongMethod")
 class UnifiedSearchListAdapter(
     private val supportsOpeningCalendarContactsLocally: Boolean,
     private val storageManager: FileDataStorageManager,

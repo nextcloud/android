@@ -11,7 +11,6 @@ import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 import com.owncloud.android.lib.resources.assistant.v2.model.toTranslationLanguages
 
-@Suppress("LongParameterList")
 sealed class TranslationScreenState(
     open val taskTypeData: TaskTypeData,
     open val source: TranslationSideState,

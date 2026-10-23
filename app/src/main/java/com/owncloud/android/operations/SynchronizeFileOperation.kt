@@ -32,7 +32,6 @@ import com.owncloud.android.ui.events.DialogEventType
 import com.owncloud.android.utils.FileStorageUtils
 import org.greenrobot.eventbus.EventBus
 
-@Suppress("LongParameterList")
 class SynchronizeFileOperation : SyncOperation {
 
     var localFile: OCFile? = null

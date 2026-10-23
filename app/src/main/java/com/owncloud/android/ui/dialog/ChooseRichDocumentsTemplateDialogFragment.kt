@@ -54,7 +54,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-@Suppress("TooManyFunctions")
 class ChooseRichDocumentsTemplateDialogFragment :
     DialogFragment(),
     View.OnClickListener,

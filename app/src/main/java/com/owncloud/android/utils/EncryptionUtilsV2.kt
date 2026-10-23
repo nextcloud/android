@@ -65,7 +65,7 @@ import java.security.cert.X509Certificate
 import java.util.zip.GZIPInputStream
 import java.util.zip.GZIPOutputStream
 
-@Suppress("TooManyFunctions", "LargeClass")
+@Suppress("LargeClass")
 class EncryptionUtilsV2 {
     @VisibleForTesting
     fun encryptMetadata(metadata: DecryptedMetadata, metadataKey: ByteArray): EncryptedMetadata {
@@ -95,7 +95,6 @@ class EncryptionUtilsV2 {
         return decryptedMetadata
     }
 
-    @Suppress("LongParameterList")
     fun encryptFolderMetadataFile(
         metadataFile: DecryptedFolderMetadataFile,
         userId: String,
@@ -143,7 +142,7 @@ class EncryptionUtilsV2 {
     }
 
     @Throws(IllegalStateException::class, UploadException::class, Throwable::class)
-    @Suppress("LongParameterList", "LongMethod", "ThrowsCount")
+    @Suppress("LongMethod", "ThrowsCount")
     fun decryptFolderMetadataFile(
         metadataFile: EncryptedFolderMetadataFile,
         userId: String,
@@ -300,7 +299,7 @@ class EncryptionUtilsV2 {
     }
 
     @Throws(IllegalStateException::class)
-    @Suppress("ThrowsCount", "LongParameterList")
+    @Suppress("ThrowsCount")
     fun retrieveTopMostMetadata(
         folder: OCFile,
         storageManager: FileDataStorageManager,
@@ -350,7 +349,7 @@ class EncryptionUtilsV2 {
     }
 
     @Throws(IllegalStateException::class)
-    @Suppress("ThrowsCount", "LongParameterList")
+    @Suppress("ThrowsCount")
     fun retrieveTopMostMetadataKey(
         folder: OCFile,
         storageManager: FileDataStorageManager,
@@ -467,7 +466,6 @@ class EncryptionUtilsV2 {
         return metadataFile
     }
 
-    @Suppress("LongParameterList")
     fun addFileToMetadata(
         encryptedFileName: String,
         ocFile: OCFile,
@@ -573,7 +571,7 @@ class EncryptionUtilsV2 {
     }
 
     @Throws(IllegalStateException::class)
-    @Suppress("TooGenericExceptionCaught", "LongMethod")
+    @Suppress("LongMethod")
     fun parseAnyMetadata(
         metadataResponse: MetadataResponse,
         user: User,
@@ -658,7 +656,6 @@ class EncryptionUtilsV2 {
     }
 
     @Throws(UploadException::class)
-    @Suppress("LongParameterList")
     fun migrateV1ToV2andUpload(
         v1: DecryptedFolderMetadataFileV1,
         userId: String,
@@ -762,7 +759,6 @@ class EncryptionUtilsV2 {
         )
 
     @Throws(UploadException::class)
-    @Suppress("LongParameterList")
     fun serializeAndUploadMetadata(
         folder: OCFile,
         metadata: DecryptedFolderMetadataFile,
@@ -787,7 +783,6 @@ class EncryptionUtilsV2 {
     }
 
     @Throws(UploadException::class)
-    @Suppress("LongParameterList")
     fun serializeAndUploadMetadata(
         remoteId: String,
         metadata: DecryptedFolderMetadataFile,
@@ -847,7 +842,6 @@ class EncryptionUtilsV2 {
         }
     }
 
-    @Suppress("ReturnCount")
     fun verifyMetadata(
         encryptedFolderMetadataFile: EncryptedFolderMetadataFile,
         decryptedFolderMetadataFile: DecryptedFolderMetadataFile,
@@ -905,7 +899,6 @@ class EncryptionUtilsV2 {
         }
     }
 
-    @Suppress("TooGenericExceptionCaught", "ReturnCount")
     private fun verifySignedDataViaBouncyCastle(data: CMSSignedData, certs: List<X509Certificate>): Boolean {
         val signers = data.signerInfos.signers
         if (signers.isEmpty()) {

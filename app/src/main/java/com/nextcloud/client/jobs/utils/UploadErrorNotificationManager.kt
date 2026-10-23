@@ -46,7 +46,6 @@ object UploadErrorNotificationManager {
      *
      * @param onSameFileConflict Triggered only if result code is CONFLICT or SYNC_CONFLICT and files are identical.
      */
-    @Suppress("ReturnCount")
     suspend fun handleResult(
         context: Context,
         notificationManager: WorkerNotificationManager,

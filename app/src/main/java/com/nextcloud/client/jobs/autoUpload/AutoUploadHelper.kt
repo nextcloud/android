@@ -23,7 +23,7 @@ import java.nio.file.Paths
 import java.nio.file.SimpleFileVisitor
 import java.nio.file.attribute.BasicFileAttributes
 
-@Suppress("TooGenericExceptionCaught", "MagicNumber", "ReturnCount")
+@Suppress("MagicNumber")
 class AutoUploadHelper(private val repository: FileSystemRepository) {
     companion object {
         private const val TAG = "AutoUploadHelper"

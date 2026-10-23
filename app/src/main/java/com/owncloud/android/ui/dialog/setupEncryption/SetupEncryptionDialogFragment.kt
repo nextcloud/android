@@ -141,7 +141,7 @@ class SetupEncryptionDialogFragment :
         }
     }
 
-    @Suppress("TooGenericExceptionCaught", "TooGenericExceptionThrown", "ReturnCount", "LongMethod")
+    @Suppress("LongMethod")
     private fun decryptPrivateKey(dialog: DialogInterface) {
         Log_OC.d(TAG, "Decrypt private key")
         binding.encryptionStatus.setText(R.string.end_to_end_encryption_decrypting)
@@ -353,7 +353,6 @@ class SetupEncryptionDialogFragment :
         }
     }
 
-    @Suppress("ReturnCount")
     private suspend fun generateNewKeys() {
         binding.encryptionStatus.setText(R.string.end_to_end_encryption_generating_keys)
         val context = context ?: return

@@ -43,7 +43,6 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import java.lang.ref.WeakReference
 
-@Suppress("LongParameterList", "ReturnCount", "TooGenericExceptionCaught")
 @SuppressLint("NotifyDataSetChanged")
 class OCFileListSearchTask(
     fragment: OCFileListFragment,
@@ -61,7 +60,7 @@ class OCFileListSearchTask(
     private val fragmentReference: WeakReference<OCFileListFragment> = WeakReference(fragment)
     private var job: Job? = null
 
-    @Suppress("TooGenericExceptionCaught", "DEPRECATION", "ReturnCount")
+    @Suppress("DEPRECATION")
     fun execute() {
         Log_OC.d(TAG, "search task running, query: ${event.searchType}")
         val fragment = fragmentReference.get() ?: return
@@ -195,7 +194,7 @@ class OCFileListSearchTask(
         return sortOrder.sortCloudFiles(list.toMutableList(), foldersBeforeFiles, favoritesFirst)
     }
 
-    @Suppress("DEPRECATION")
+    @Suppress("DEPRECATION", "CyclomaticComplexMethod")
     private suspend fun parseAndSaveVirtuals(data: List<Any>, fragment: OCFileListFragment): List<OCFile> =
         withContext(Dispatchers.IO) {
             val activity = fragment.activity ?: return@withContext emptyList()

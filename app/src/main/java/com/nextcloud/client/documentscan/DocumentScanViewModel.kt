@@ -29,7 +29,6 @@ import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
 
-@Suppress("Detekt.LongParameterList") // satisfied by DI
 class DocumentScanViewModel @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
     app: Application,

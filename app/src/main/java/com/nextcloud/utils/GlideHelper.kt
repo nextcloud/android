@@ -49,11 +49,9 @@ import kotlinx.coroutines.withContext
  * Provides methods for loading images into `ImageView`, `Target<Drawable>`, `Target<Bitmap>` ...
  * from both URLs and URIs.
  */
-@Suppress("TooManyFunctions", "TooGenericExceptionCaught")
 object GlideHelper {
     private const val TAG = "GlideHelper"
 
-    @Suppress("TooGenericExceptionCaught")
     fun getBitmap(context: Context, url: String?): Bitmap? {
         val validatedUrl = validateAndGetURL(url) ?: return null
 
@@ -280,7 +278,7 @@ object GlideHelper {
             .centerCrop()
     }
 
-    @Suppress("UNCHECKED_CAST", "TooGenericExceptionCaught", "ReturnCount")
+    @Suppress("UNCHECKED_CAST")
     private fun <T> createRequestBuilder(context: Context, client: NextcloudClient?, url: String?): RequestBuilder<T>? {
         if (client == null) {
             Log_OC.e(TAG, "Client is null")

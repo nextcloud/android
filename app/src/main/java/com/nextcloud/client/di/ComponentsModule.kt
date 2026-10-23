@@ -144,7 +144,6 @@ import dagger.android.ContributesAndroidInjector
  * Register classes that require dependency injection. This class is used by Dagger compiler only.
  */
 @Module
-@Suppress("TooManyFunctions")
 internal interface ComponentsModule {
     @ContributesAndroidInjector
     fun trashbinFragment(): TrashbinFragment

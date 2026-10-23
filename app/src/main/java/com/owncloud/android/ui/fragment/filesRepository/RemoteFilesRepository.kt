@@ -21,7 +21,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-@Suppress("TooGenericExceptionCaught")
 class RemoteFilesRepository(private val clientRepository: ClientRepository, lifecycleOwner: LifecycleOwner) :
     FilesRepository {
     private val tag = "FilesRepository"

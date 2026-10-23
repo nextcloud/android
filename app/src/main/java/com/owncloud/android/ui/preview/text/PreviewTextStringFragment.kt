@@ -31,7 +31,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-@Suppress("TooGenericExceptionThrown")
 class PreviewTextStringFragment : PreviewTextFragment() {
     private var isEditorWebviewLaunched = false
 

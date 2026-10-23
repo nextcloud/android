@@ -13,7 +13,6 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.FileStorageUtils
 import java.io.File
 
-@Suppress("ReturnCount")
 object WorkerFilesPayload {
     private const val TAG = "WorkerFilesPayload"
     private const val FILE_PREFIX = "worker_files_payload_"

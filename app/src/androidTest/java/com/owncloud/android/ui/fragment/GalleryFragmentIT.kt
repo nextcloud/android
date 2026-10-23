@@ -151,7 +151,6 @@ class GalleryFragmentIT : AbstractIT() {
     }
 
     /** Recursively walk view tree to find the first RecyclerView. Runs on the same thread that calls it. */
-    @Suppress("ReturnCount")
     private fun findRecyclerViewRecursively(root: View?): RecyclerView? {
         if (root == null) return null
         if (root is RecyclerView) return root

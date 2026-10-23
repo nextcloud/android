@@ -51,7 +51,6 @@ import java.util.concurrent.TimeUnit
 /**
  * Adapter to display all auto-synced folders and/or instant upload media folders.
  */
-@Suppress("LongParameterList", "TooManyFunctions")
 class SyncedFolderAdapter(
     private val lifecycleScope: LifecycleCoroutineScope,
     private val context: Context,

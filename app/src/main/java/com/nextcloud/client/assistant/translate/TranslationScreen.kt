@@ -146,7 +146,7 @@ fun TranslationScreen(viewModel: TranslationViewModel, assistantViewModel: Assis
     }
 }
 
-@Suppress("LongMethod", "LongParameterList")
+@Suppress("LongMethod")
 @Composable
 private fun TranslationSection(
     labelId: Int,
