@@ -131,6 +131,7 @@
     <string name="webview_login_url" translatable="false"></string>
 
     <!--    [{\"name\":\"name1\",\"url\":\"url\"},{\"name\":\"name2\",\"url\":\"url1\"}]-->
+    <!--    Must be standard JSON with double quotes and both name and url set. Single quotes and # comments are not supported. -->
     <string name="enforce_servers" translatable="false"></string>
     <string name="suggested_server" translatable="false"></string>
 

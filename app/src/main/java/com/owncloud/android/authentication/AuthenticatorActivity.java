@@ -51,7 +51,6 @@ import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
 import com.nextcloud.android.common.ui.color.ColorUtil;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
@@ -112,6 +111,7 @@ import java.lang.ref.WeakReference;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
@@ -368,12 +368,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         servers.add("");
         adapter.add(getString(R.string.please_select_a_server));
 
-        ArrayList<EnforcedServer> t = new Gson().fromJson(getString(R.string.enforce_servers),
-                                                          new TypeToken<ArrayList<EnforcedServer>>() {
-                                                          }
-                                                              .getType());
+        List<EnforcedServer> enforcedServers = EnforcedServer.fromJson(getString(R.string.enforce_servers));
 
-        for (EnforcedServer e : t) {
+        for (EnforcedServer e : enforcedServers) {
             adapter.add(e.getName());
             servers.add(e.getUrl());
         }
@@ -721,10 +718,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         String enforcedServerList = getString(R.string.enforce_servers);
 
         if (!enforcedServerList.isEmpty()) {
-            ArrayList<EnforcedServer> enforcedServers = new Gson().fromJson(enforcedServerList,
-                                                                            new TypeToken<ArrayList<EnforcedServer>>() {
-                                                                            }
-                                                                                .getType());
+            List<EnforcedServer> enforcedServers = EnforcedServer.fromJson(enforcedServerList);
 
             for (EnforcedServer enforcedServer : enforcedServers) {
                 if (enforcedServer.getUrl().startsWith(server)) {
