@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+    nextcloud:
+        build:
+            context: .
+        restart: always
+        ports:
+            - 8081:80
+        environment:
+            BRANCH: stable18
