@@ -610,6 +610,7 @@
     <string name="foreign_files_remote_text">Remote: %1$s</string>
     <string name="forward">Forward</string>
     <string name="fourHours">4 hours</string>
+    <string name="gallery_unsupported_file">Unsupported filetype</string>
     <string name="governance_file_retention_label">File retention</string>
     <string name="governance_legal_hold_label">Legal hold</string>
     <string name="governance_no_label">None</string>
@@ -922,6 +923,7 @@
     <string name="retrieving_file">Retrieving file…</string>
     <string name="retry">Retry</string>
     <string name="richdocuments_failed_to_load_document">Failed to load document!</string>
+    <string name="run_two_way_sync">Run sync now</string>
     <string name="scanQR_description">Login via QR code</string>
     <string name="scan_page">Scan page</string>
     <string name="screenshot_01_gridView_heading">Protecting your data</string>
