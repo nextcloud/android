@@ -27,7 +27,7 @@ sed -i s"#androidLibraryVersion\ =.*#androidLibraryVersion =\"$latestCommit\"#" 
 
 git add gradle/libs.versions.toml
 git add gradle/verification-metadata.xml
-git commit -s -m "Update library to $(date +%F)" 
+git commit -s -m "Update library to $(date +%F)" --no-verify
 
 git push -u origin HEAD
 gh pr create --fill
