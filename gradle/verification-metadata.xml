@@ -216,6 +216,7 @@
             <trusting group="pl.droidsonroids.gif" name="android-gif-drawable" version="1.2.27"/>
             <trusting group="pl.droidsonroids.gif" name="android-gif-drawable" version="1.2.28"/>
          </trusted-key>
+         <trusted-key id="3EC80CAD1A3D50AFBBEFC136C2B98E64C61147AC" group="org.conscrypt" name="conscrypt-android" version="2.8.0"/>
          <trusted-key id="3F05DDA9F317301E927136D417A27CE7A60FF5F0" group="io.opentelemetry"/>
          <trusted-key id="3F2A008A91D11A7FAC4A0786F13D3E721D56BD54" group="org.reflections" name="reflections" version="0.10.2"/>
          <trusted-key id="4021EEEAFF5DE8404DCD0A270AA3E5C3D232E79B" group="jakarta.inject" name="jakarta.inject-api" version="2.0.1"/>
