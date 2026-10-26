@@ -1,0 +1,46 @@
+Update dependency androidx.webkit:webkit to v1.18.0 (#17879)
+Update dependency org.jetbrains.kotlinx:kotlinx-serialization-json to v1.12.0 (#17872)
+Update library to 2026-10-26
+fix(l10n): Update translations from Transifex
+Update dependency com.google.firebase:firebase-messaging to v26.0.1
+fix(l10n): Update translations from Transifex
+fix(l10n): Update translations from Transifex
+Update Gradle to v9.8.2
+chore(detekt): relax rules and drop obsolete suppressions
+fix lint
+fix(l10n): Update translations from Transifex
+fix error: cannot find symbol     import androidx.lifecycle.ProcessLifecycleOwner;
+abi optimization for build and remove data binding and is fork
+disable data binding
+use in file actions bottom sheet
+introduce reusable filenameview
+fix(file-list): renew after upload
+simplify
+simplify
+migrate oc file list fragment
+migrate file detail actions to file action handler
+use app consts
+fix dir observation
+fix icon changes
+set current folder id
+add file download progress in current folder sync
+use worker instead local broadcast manager
+fix kotlin spotless bug
+fix kotlin spotless bug
+Wait for proxy only if there's a proxy configured
+refactor(web-view-util): use ProxyController
+rebase
+Fix: areImageDimensionsSame remote file check is now symmetric to local one (it doesn't fail when dimensions are unknown)
+replace deprecated api with display metrics
+deduplicate display size logic
+refactor(thumbail-cache-manager): resized image generation
+remove dead code
+fix(ical4j): match nullable getTzId() return type from ical4j 4.4.0
+fix verification-metadata.xml
+fix verification-metadata.xml
+fix verification-metadata.xml
+fix verification-metadata.xml
+Update dependency com.github.albfernandez:juniversalchardet to v2.5.1
+Update dependency org.mnode.ical4j:ical4j to v4.4.0
+fix verification-metadata.xml
+Update dependency com.diffplug.spotless to v8.10.4
