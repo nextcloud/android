@@ -45,7 +45,10 @@ class FolderEncryption(private val fragment: OCFileListFragment) {
             val provider = fragment.arbitraryDataProvider
             val publicKey = provider.getValue(user, EncryptionUtils.PUBLIC_KEY)
             val privateKey = provider.getValue(user, EncryptionUtils.PRIVATE_KEY)
-            val client = fragment.clientFactory.create(user)
+            val client = fragment.clientRepository.getOwncloudClient() ?: run {
+                Log_OC.e(TAG, "client is not available, cannot toggle encryption of $remotePath")
+                return@withContext false
+            }
 
             val result = ToggleEncryptionRemoteOperation(localId, remotePath, shouldBeEncrypted)
                 .execute(client)

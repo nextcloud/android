@@ -54,7 +54,6 @@ import com.owncloud.android.ui.activity.ToolbarActivity
 import com.owncloud.android.ui.adapter.filelist.CommonOCFileListAdapterInterface
 import com.owncloud.android.ui.adapter.GalleryAdapter
 import com.owncloud.android.ui.asynctasks.GallerySearchTask
-import com.owncloud.android.ui.events.ChangeMenuEvent
 import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog.MediaState
 import com.owncloud.android.ui.fragment.helper.ColumnCount
 import com.owncloud.android.ui.fragment.helper.GalleryPinchListener
@@ -272,12 +271,8 @@ class GalleryFragment :
         fda?.setMainFabVisible(false)
     }
 
-    override fun onMessageEvent(changeMenuEvent: ChangeMenuEvent) {
-        super.onMessageEvent(changeMenuEvent)
-    }
-
     private fun handleSearchEvent() {
-        prepareCurrentSearch(searchEvent)
+        applySearchEvent(searchEvent)
 
         if (galleryAdapter?.isEmpty() != false) {
             setEmptyListMessage(EmptyListState.LOADING)

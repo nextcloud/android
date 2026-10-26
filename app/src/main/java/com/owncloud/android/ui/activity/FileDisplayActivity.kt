@@ -735,7 +735,7 @@ class FileDisplayActivity :
         }
 
         listOfFilesFragment?.isSearchFragment = true
-        listOfFilesFragment?.setCurrentSearchType(searchEvent)
+        listOfFilesFragment?.updateSearchType(searchEvent)
     }
     // endregion
 
@@ -1462,7 +1462,7 @@ class FileDisplayActivity :
         folderRefreshScheduler.start()
 
         if (ocFileListFragment?.isSearchFragment == true) {
-            ocFileListFragment?.setSearchArgs(ocFileListFragment?.arguments)
+            ocFileListFragment?.loadSearchState(ocFileListFragment?.arguments)
         }
         if (isAlbumsFragment || isAlbumItemsFragment) {
             highlightNavigationViewItem(R.id.nav_album)
@@ -2469,7 +2469,7 @@ class FileDisplayActivity :
             // OCFileSearchTask may still run during rename, so use a single refresh path to avoid
             // flicker/inconsistent filenames.
             if (fragment?.isSearchFragment == true) {
-                fragment.cancelAndRetriggerSearch()
+                fragment.restartSearch()
             } else {
                 fragment?.adapter?.updateFile(renamedFile)
             }
@@ -2972,7 +2972,7 @@ class FileDisplayActivity :
             this.leftFragment = SharedListFragment()
         }
 
-        listOfFilesFragment?.setCurrentSearchType(event)
+        listOfFilesFragment?.updateSearchType(event)
         updateActionBarTitleAndHomeButton(null)
     }
 

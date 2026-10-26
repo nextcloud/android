@@ -24,19 +24,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.ActionMode
 import android.view.LayoutInflater
 import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AbsListView
 import androidx.annotation.IdRes
 import androidx.annotation.OptIn
 import androidx.annotation.StringRes
-import androidx.core.content.ContextCompat
-import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.util.UnstableApi
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -49,10 +45,8 @@ import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.documentscan.AppScanOptionalFeature
 import com.nextcloud.client.documentscan.DocumentScanActivity
-import com.nextcloud.client.jobs.BackgroundJobManager
-import com.nextcloud.client.network.ClientFactory
-import com.nextcloud.client.systembars.SystemBarBackgroundCallbacks
 import com.nextcloud.client.utils.Throttler
+import com.nextcloud.repository.ClientRepository
 import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionHandler
 import com.nextcloud.ui.fileactions.FileActionHost
@@ -90,7 +84,6 @@ import com.owncloud.android.lib.resources.files.ToggleFavoriteRemoteOperation
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.lib.resources.status.Type
 import com.owncloud.android.ui.CompletionCallback
-import com.owncloud.android.ui.activity.AlbumsPickerActivity
 import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
@@ -119,7 +112,9 @@ import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.theme.ThemeUtils
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -128,10 +123,6 @@ import javax.inject.Inject
 import kotlin.jvm.optionals.getOrNull
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation.SearchType as RemoteSearchType
 
-/**
- * A Fragment that lists all files and folders in a given path.
- * TODO refactor to get rid of direct dependency on FileDisplayActivity
- */
 @Suppress("TooManyFunctions", "LargeClass")
 open class OCFileListFragment :
     ExtendedListFragment(),
@@ -139,8 +130,9 @@ open class OCFileListFragment :
     OCFileListBottomSheetActions,
     Injectable {
 
+    //region Dependencies and state
     @Inject
-    lateinit var clientFactory: ClientFactory
+    lateinit var clientRepository: ClientRepository
 
     @Inject
     lateinit var throttler: Throttler
@@ -150,9 +142,6 @@ open class OCFileListFragment :
 
     @Inject
     lateinit var arbitraryDataProvider: ArbitraryDataProvider
-
-    @Inject
-    lateinit var backgroundJobManager: BackgroundJobManager
 
     @Inject
     lateinit var fastScrollUtils: FastScrollUtils
@@ -193,9 +182,6 @@ open class OCFileListFragment :
     var containerActivity: ContainerActivity? = null
         private set
 
-    /**
-     * Use this to query the [OCFile] that is currently being displayed by this fragment
-     */
     var currentFile: OCFile? = null
         protected set
 
@@ -221,15 +207,16 @@ open class OCFileListFragment :
     private var onlyFoldersClickable = false
     private var fileSelectable = false
     private var limitToMimeType: String? = null
-    private var activeActionMode: ActionMode? = null
-    private var isActionModeNew = false
     private var searchTask: OCFileListSearchTask? = null
     private var fabMain: FloatingActionButton? = null
-    private val multiChoiceModeListener = MultiChoiceModeListener()
+    private val multiChoiceModeListener by lazy { OCFileListMultiChoiceModeListener(this) }
     private val mainHandler = Handler(Looper.getMainLooper())
 
+    private val activeActionMode: ActionMode?
+        get() = multiChoiceModeListener.activeActionMode
+
     private val activeSearchEvent: SearchEvent?
-        get() = searchEvent?.takeIf { it.isSet() }
+        get() = searchEvent?.takeIf { it.hasQueryOrFilter() }
 
     private val capabilities: OCCapability
         get() = requireContainerActivity().storageManager.getCapability(accountManager.user.accountName)
@@ -241,9 +228,13 @@ open class OCFileListFragment :
         ADD_GRID_AND_SORT_WITH_SEARCH
     }
 
+    fun requireContainerActivity(): ContainerActivity =
+        checkNotNull(containerActivity) { "Fragment $this is not attached to a ContainerActivity" }
+    //endregion
+
+    //region Lifecycle
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Log_OC.i(TAG, "onAttach")
         containerActivity = requireNotNull(context as? ContainerActivity) {
             "$context must implement ${ContainerActivity::class.java.simpleName}"
         }
@@ -260,30 +251,34 @@ open class OCFileListFragment :
         fileListLayoutManager = FileListLayoutManager(this, preferences)
 
         val state = savedInstanceState ?: arguments
-        setSearchArgs(state)
+        loadSearchState(state)
         currentFile = state.getParcelableArgument(KEY_FILE, OCFile::class.java)
         isSearchFragment = activeSearchEvent != null
         folderEncryption = FolderEncryption(this)
         encryptedClickHandler = EncryptedFolderClickHandler(this)
         e2eeDialogPresenter = E2EEDialogPresenter(this)
+
+        Log_OC.d(
+            TAG,
+            "Created ${javaClass.simpleName}: folder=${currentFile?.remotePath}, " +
+                "searchType=$currentSearchType, isSearchFragment=$isSearchFragment"
+        )
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        Log_OC.i(TAG, "onCreateView() start")
         val view = super.onCreateView(inflater, container, savedInstanceState)
 
         val state = savedInstanceState ?: arguments
-        setSearchArgs(state)
+        loadSearchState(state)
 
         if (state?.getBoolean(ARG_ALLOW_CONTEXTUAL_ACTIONS, false) == true) {
-            setChoiceModeAsMultipleModal(state)
+            setupSelectionMode(state)
         }
 
         fabMain = requireActivity().findViewById<FloatingActionButton?>(R.id.fab_main)?.also {
             viewThemeUtils.material.themeFAB(it)
         }
 
-        Log_OC.i(TAG, "onCreateView() end")
         return view
     }
 
@@ -296,8 +291,7 @@ open class OCFileListFragment :
     @Suppress("DEPRECATION")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        Log_OC.i(TAG, "onActivityCreated() start")
-        prepareOCFileList(savedInstanceState)
+        setupFileList(savedInstanceState)
         listDirectory(MainApp.isOnlyOnDevice())
     }
 
@@ -314,8 +308,6 @@ open class OCFileListFragment :
     }
 
     override fun onResume() {
-        // Don't handle search events if we're coming back from back stack
-        // The fragment has already been properly restored in onCreate/onActivityCreated
         if (currentFile != null) {
             super.onResume()
             return
@@ -323,7 +315,7 @@ open class OCFileListFragment :
 
         val activity = activity ?: return
         activity.intent.getParcelableArgument(SEARCH_EVENT, SearchEvent::class.java)?.let { searchEvent = it }
-        activeSearchEvent?.let { handleSearchEvent(it) }
+        activeSearchEvent?.let { startSearch(it) }
 
         super.onResume()
     }
@@ -342,7 +334,7 @@ open class OCFileListFragment :
             outState.putParcelable(KEY_CURRENT_SEARCH_TYPE, currentSearchType)
             activeSearchEvent?.let { outState.putParcelable(SEARCH_EVENT, it) }
         }
-        multiChoiceModeListener.storeStateIn(outState)
+        multiChoiceModeListener.saveState(outState)
     }
 
     override fun onStop() {
@@ -361,8 +353,10 @@ open class OCFileListFragment :
         searchTask?.cancel()
         super.onDetach()
     }
+    //endregion
 
-    fun setSearchArgs(state: Bundle?) {
+    //region Setup
+    fun loadSearchState(state: Bundle?) {
         currentSearchType = state?.getParcelableArgument(KEY_CURRENT_SEARCH_TYPE, SearchType::class.java)
             ?: SearchType.NO_SEARCH
         state?.getParcelableArgument(SEARCH_EVENT, SearchEvent::class.java)?.let { searchEvent = it }
@@ -372,7 +366,7 @@ open class OCFileListFragment :
         }
     }
 
-    fun prepareOCFileList(savedInstanceState: Bundle?) {
+    private fun setupFileList(savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
             currentFile = savedInstanceState.getParcelableArgument(KEY_FILE, OCFile::class.java)
         }
@@ -392,12 +386,11 @@ open class OCFileListFragment :
             registerFabListener()
         }
 
-        // do not touch search event if previously searched
         if (!isSearchFragment) {
             searchEvent = arguments.getParcelableArgument(SEARCH_EVENT, SearchEvent::class.java)
         }
-        prepareCurrentSearch(searchEvent)
-        setEmptyView(searchEvent)
+        applySearchEvent(searchEvent)
+        showEmptyStateForSearch(searchEvent)
 
         mSortButton?.setOnClickListener {
             SortOrderUi.showDialog(parentFragmentManager, preferences.getSortOrderByFolder(currentFile))
@@ -436,21 +429,23 @@ open class OCFileListFragment :
         recyclerView?.let { fastScrollUtils.applyFastScroll(it) }
     }
 
-    protected fun setChoiceModeAsMultipleModal(savedInstanceState: Bundle?) {
-        savedInstanceState?.let { multiChoiceModeListener.loadStateFrom(it) }
+    private fun setupSelectionMode(savedState: Bundle?) {
+        savedState?.let { multiChoiceModeListener.restoreState(it) }
         (requireActivity() as? FileActivity)?.addDrawerListener(multiChoiceModeListener)
     }
+    //endregion
 
+    //region FAB and bottom navigation
     fun registerFabListener() {
         val fileActivity = activity as? FileActivity
         if (fileActivity == null) {
-            Log_OC.w(TAG, "activity is null cannot register fab listener")
+            Log_OC.w(TAG, "Cannot register FAB listener: activity is not a FileActivity")
             return
         }
 
         val fab = fabMain
         if (fab == null) {
-            Log_OC.w(TAG, "mFabMain is null cannot register fab listener")
+            Log_OC.w(TAG, "Cannot register FAB listener: FAB is not part of this screen")
             return
         }
 
@@ -461,7 +456,7 @@ open class OCFileListFragment :
     private fun showCreateBottomSheet(fileActivity: FileActivity) {
         val currentDir = currentFile
         if (currentDir == null) {
-            Log_OC.w(TAG, "currentDir is null cannot open bottom sheet dialog")
+            Log_OC.w(TAG, "Cannot open create bottom sheet: current folder is unknown")
             return
         }
 
@@ -483,7 +478,6 @@ open class OCFileListFragment :
     }
 
     fun setFabVisible(visible: Boolean) {
-        // is not available in FolderPickerActivity
         val fab = fabMain ?: return
 
         val fileDisplayActivity = activity as? FileDisplayActivity
@@ -515,7 +509,7 @@ open class OCFileListFragment :
         }
     }
 
-    fun slideHideBottomBehaviourForBottomNavigationView(visible: Boolean) {
+    private fun setBottomNavigationVisible(visible: Boolean) {
         val drawerActivity = activity as? DrawerActivity ?: return
         drawerActivity.bottomNavigationView.slideHideBottomBehavior(visible)
     }
@@ -527,7 +521,9 @@ open class OCFileListFragment :
     }
 
     private fun canCreateInside(folder: OCFile): Boolean = folder.canCreateFileAndFolder() && !isReadOnlyFolder(folder)
+    //endregion
 
+    //region Create and upload actions
     override fun createFolder(encrypted: Boolean) {
         if (encrypted) {
             encryptedClickHandler.onNewEncryptedFolder()
@@ -540,7 +536,7 @@ open class OCFileListFragment :
     fun showCreateFolderDialog(encrypted: Boolean) {
         val activity = activity
         if (activity == null) {
-            Log_OC.e(TAG, "activity is null, cannot create a folder")
+            Log_OC.e(TAG, "Cannot show create folder dialog: fragment is not attached")
             return
         }
 
@@ -564,6 +560,7 @@ open class OCFileListFragment :
     override fun directCameraUpload() {
         val fileDisplayActivity = activity as? FileDisplayActivity
         if (fileDisplayActivity == null) {
+            Log_OC.w(TAG, "Cannot start camera upload: activity is not a FileDisplayActivity")
             SnackbarUtil.show(view, getString(R.string.error_starting_direct_camera_upload))
             return
         }
@@ -573,10 +570,10 @@ open class OCFileListFragment :
             return
         }
 
-        showDirectCameraUploadAlertDialog(fileDisplayActivity)
+        showCameraUploadTypeDialog(fileDisplayActivity)
     }
 
-    private fun showDirectCameraUploadAlertDialog(fileDisplayActivity: FileDisplayActivity) {
+    private fun showCameraUploadTypeDialog(fileDisplayActivity: FileDisplayActivity) {
         val builder = MaterialAlertDialogBuilder(fileDisplayActivity)
             .setTitle(R.string.upload_direct_camera_promt)
             .setIcon(R.mipmap.ic_launcher)
@@ -603,10 +600,10 @@ open class OCFileListFragment :
         val fileDisplayActivity = activity as? FileDisplayActivity
         val currentFile = currentFile
         if (fileDisplayActivity == null || currentFile == null || !currentFile.isFolder) {
-            Log.w(
+            Log_OC.w(
                 TAG,
-                "scanDocUpload: Failed to start doc scanning, fileDisplayActivity=$fileDisplayActivity, " +
-                    "currentFile=$currentFile"
+                "Cannot start document scan: activity=${activity?.javaClass?.simpleName}, " +
+                    "folder=${currentFile?.remotePath}, isFolder=${currentFile?.isFolder}"
             )
             SnackbarUtil.show(this, R.string.error_starting_doc_scan)
             return
@@ -634,19 +631,19 @@ open class OCFileListFragment :
     override fun uploadFiles() {
         val fileActivity = activity as? FileActivity
         if (fileActivity == null) {
-            Log_OC.w(TAG, "Activity is null, cant upload files")
+            Log_OC.w(TAG, "Cannot upload files: activity is not a FileActivity")
             return
         }
 
         val user = fileActivity.user.getOrNull()
         if (user == null) {
-            Log_OC.w(TAG, "User not exist, cant upload files")
+            Log_OC.w(TAG, "Cannot upload files: no user is logged in")
             return
         }
 
-        val file = currentFile
-        if (file == null) {
-            Log_OC.w(TAG, "File is null cannot determine isWithinEncryptedFolder, cant upload files")
+        val folder = currentFile
+        if (folder == null) {
+            Log_OC.w(TAG, "Cannot upload files: current folder is unknown")
             return
         }
 
@@ -654,7 +651,7 @@ open class OCFileListFragment :
             fileActivity,
             user,
             FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM,
-            file.isEncrypted
+            folder.isEncrypted
         )
     }
 
@@ -668,7 +665,10 @@ open class OCFileListFragment :
                 containerActivity?.fileOperationsHelper
                     ?.openRichWorkspaceWithTextEditor(currentFile, url, requireContext())
             },
-            onError = { SnackbarUtil.show(view, R.string.failed_to_start_editor) }
+            onError = {
+                Log_OC.e(TAG, "Cannot create rich workspace for $remotePath")
+                SnackbarUtil.show(view, R.string.failed_to_start_editor)
+            }
         )
     }
 
@@ -690,7 +690,9 @@ open class OCFileListFragment :
         ChooseTemplateDialogFragment.newInstance(currentFile, creator, headline)
             .show(requireActivity().supportFragmentManager, DIALOG_CREATE_DOCUMENT)
     }
+    //endregion
 
+    //region List item interaction
     override fun onShareIconClick(file: OCFile) {
         containerActivity?.showDetails(file, SHARING_TAB)
     }
@@ -708,27 +710,27 @@ open class OCFileListFragment :
     }
 
     override fun onHeaderClicked() {
-        val file = currentFile ?: return
-        if (file.richWorkspace.isNullOrEmpty()) return
+        val folder = currentFile ?: return
+        if (folder.richWorkspace.isNullOrEmpty()) return
 
         val adapter = adapter
         if (adapter == null || adapter.isMultiSelect()) return
 
         val fileDisplayActivity = containerActivity as? FileDisplayActivity ?: return
-        fileDisplayActivity.startRichWorkspacePreview(file)
+        fileDisplayActivity.startRichWorkspacePreview(folder)
     }
 
     override fun onLongItemClicked(file: OCFile): Boolean {
         val activity = activity ?: return true
 
         if (activeActionMode != null) {
-            toggleItemToCheckedList(file)
-        } else {
-            activity.startActionMode(multiChoiceModeListener)
-            commonAdapter?.addCheckedFile(file)
+            toggleFileSelection(file)
+            return true
         }
-        updateActionModeFile(file)
 
+        activity.startActionMode(multiChoiceModeListener)
+        commonAdapter?.addCheckedFile(file)
+        multiChoiceModeListener.onSelectionChanged(file)
         return true
     }
 
@@ -739,16 +741,16 @@ open class OCFileListFragment :
     @OptIn(markerClass = [UnstableApi::class])
     override fun onItemClicked(file: OCFile?, sourceView: View?) {
         if (file == null) {
-            Log_OC.d(TAG, "Null object in ListAdapter!")
+            Log_OC.w(TAG, "Ignoring click on a null list item")
             return
         }
 
         val commonAdapter = commonAdapter
         when {
-            commonAdapter?.isMultiSelect() == true -> toggleItemToCheckedList(file)
-            commonAdapter != null && file.isFolder -> folderOnItemClick(file, commonAdapter.getItemPosition(file))
+            commonAdapter?.isMultiSelect() == true -> toggleFileSelection(file)
+            commonAdapter != null && file.isFolder -> onFolderClicked(file, commonAdapter.getItemPosition(file))
             fileSelectable -> finishWithSelectedFile(file)
-            !onlyFoldersClickable -> fileOnItemClick(file, sourceView)
+            !onlyFoldersClickable -> onFileClicked(file, sourceView)
         }
     }
 
@@ -762,31 +764,31 @@ open class OCFileListFragment :
         }
     }
 
-    private fun folderOnItemClick(file: OCFile, position: Int) {
+    private fun onFolderClicked(folder: OCFile, position: Int) {
         val folderPickerActivity = requireActivity() as? FolderPickerActivity
         if (folderPickerActivity != null) {
-            val filenameErrorMessage = FileNameValidator.checkFileName(file.fileName, capabilities, requireContext())
+            val filenameErrorMessage = FileNameValidator.checkFileName(folder.fileName, capabilities, requireContext())
             if (filenameErrorMessage != null) {
                 SnackbarUtil.show(folderPickerActivity, filenameErrorMessage)
                 return
             }
         }
 
-        if (file.isEncrypted) {
-            encryptedClickHandler.onEncryptedFolderClick(file, position)
+        if (folder.isEncrypted) {
+            encryptedClickHandler.onEncryptedFolderClick(folder, position)
             return
         }
 
         isSearchFragment = false
         setEmptyListMessage(EmptyListState.LOADING)
-        browseToFolder(file, position)
+        browseToFolder(folder, position)
     }
 
-    private fun fileOnItemClick(file: OCFile, sourceView: View?) {
-        val errorMessageId = getOpenRestrictionMessage(file)
+    private fun onFileClicked(file: OCFile, sourceView: View?) {
+        val restrictionMessage = getOpenRestrictionMessage(file)
         val recyclerView = recyclerView
-        if (recyclerView != null && errorMessageId != null) {
-            Snackbar.make(recyclerView, errorMessageId, Snackbar.LENGTH_LONG).show()
+        if (recyclerView != null && restrictionMessage != null) {
+            Snackbar.make(recyclerView, restrictionMessage, Snackbar.LENGTH_LONG).show()
             return
         }
 
@@ -803,7 +805,7 @@ open class OCFileListFragment :
                     }
                 )
 
-            else -> handlePendingDownloadFile(file)
+            else -> openFile(file)
         }
     }
 
@@ -814,15 +816,15 @@ open class OCFileListFragment :
         else -> null
     }
 
-    private fun handlePendingDownloadFile(file: OCFile) {
+    private fun openFile(file: OCFile) {
         if (!isAccountManagerInitialized()) {
-            Log_OC.e(TAG, "AccountManager not yet initialized")
+            Log_OC.e(TAG, "Cannot open ${file.remotePath}: account manager is not initialized")
             return
         }
 
         val context = context
         if (context == null) {
-            Log_OC.e(TAG, "context not available")
+            Log_OC.e(TAG, "Cannot open ${file.remotePath}: fragment is not attached")
             return
         }
 
@@ -838,14 +840,11 @@ open class OCFileListFragment :
             webViewAvailable && hasTextEditor(file) && !file.isEncrypted ->
                 TextEditorWebView.startTextEditor(file, context)
 
-            supportsDirectEditing(file, webViewAvailable) ->
+            canOpenAsRichDocument(file, webViewAvailable) ->
                 containerActivity?.fileOperationsHelper?.openFileAsRichDocument(file, context)
 
             fileDisplayActivity != null -> {
                 fileDisplayActivity.startDownloadForPreview(file, currentFile)
-
-                // Checks if the file is small enough to be previewed immediately without showing progress.
-                // If the file is smaller than or equal to 1MB, it can be displayed directly.
                 if (file.isFileEligibleForImmediatePreview) {
                     fileDisplayActivity.setFileIDForImmediatePreview(file.fileId)
                 }
@@ -855,7 +854,7 @@ open class OCFileListFragment :
 
     private fun hasTextEditor(file: OCFile): Boolean = editorUtils.getEditor(accountManager.user, file.mimeType) != null
 
-    private fun supportsDirectEditing(file: OCFile, webViewAvailable: Boolean): Boolean {
+    private fun canOpenAsRichDocument(file: OCFile, webViewAvailable: Boolean): Boolean {
         if (!webViewAvailable) return false
 
         val user = accountManager.user
@@ -868,19 +867,14 @@ open class OCFileListFragment :
             capability.richDocumentsDirectEditing.isTrue &&
             !file.isEncrypted
     }
+    //endregion
 
-    private fun toggleItemToCheckedList(file: OCFile) {
+    //region Selection
+    private fun toggleFileSelection(file: OCFile) {
         commonAdapter?.run {
             if (isCheckedFile(file)) removeCheckedFile(file) else addCheckedFile(file)
         }
-        updateActionModeFile(file)
-    }
-
-    private fun updateActionModeFile(file: OCFile) {
-        isActionModeNew = false
-        val actionMode = activeActionMode ?: return
-        actionMode.invalidate()
-        commonAdapter?.notifyItemChanged(file)
+        multiChoiceModeListener.onSelectionChanged(file)
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -896,11 +890,9 @@ open class OCFileListFragment :
     fun exitSelectionMode() {
         activeActionMode?.finish()
     }
+    //endregion
 
-    private fun invalidateActionMode() {
-        activeActionMode?.invalidate()
-    }
-
+    //region File actions
     fun openActionsMenu(filesCount: Int, checkedFiles: Set<OCFile>, isOverflow: Boolean) {
         throttler.run(OVERFLOW_CLICK_THROTTLE_KEY) {
             val actionsToHide = FileAction.getFileListActionsToHide(checkedFiles)
@@ -936,15 +928,9 @@ open class OCFileListFragment :
         }
     }
 
-    /**
-     * Start the appropriate action(s) on the currently selected files given menu selected by the user.
-     *
-     * @param checkedFiles List of files selected by the user on which the action should be performed
-     * @return 'true' if the menu selection started any action, 'false' otherwise.
-     */
     open fun onFileActionChosen(@IdRes itemId: Int, checkedFiles: Set<OCFile>): Boolean {
         if (checkedFiles.isEmpty()) return false
-        if (onListActionChosen(itemId, checkedFiles)) return true
+        if (handleListAction(itemId, checkedFiles)) return true
 
         val containerActivity = containerActivity ?: return false
         val host = FileActionHost(containerActivity, parentFragmentManager, view, currentFile, activeActionMode)
@@ -956,17 +942,17 @@ open class OCFileListFragment :
         return isHandled
     }
 
-    private fun onListActionChosen(@IdRes itemId: Int, checkedFiles: Set<OCFile>): Boolean {
+    private fun handleListAction(@IdRes itemId: Int, checkedFiles: Set<OCFile>): Boolean {
         when {
             itemId == R.id.action_see_details && checkedFiles.size == SINGLE_SELECTION ->
                 showDetailsAndHideSortGroup(checkedFiles.first())
 
             itemId == R.id.action_download_file || itemId == R.id.action_sync_file -> {
-                syncAndCheckFiles(checkedFiles)
+                syncFilesIfSpaceAvailable(checkedFiles)
                 exitSelectionMode()
             }
 
-            itemId == R.id.action_move_or_copy -> moveOrCopy(checkedFiles)
+            itemId == R.id.action_move_or_copy -> startMoveOrCopy(checkedFiles)
 
             itemId == R.id.action_select_all_action_menu -> selectAllFiles(true)
 
@@ -988,7 +974,7 @@ open class OCFileListFragment :
         }
     }
 
-    private fun moveOrCopy(checkedFiles: Set<OCFile>) {
+    private fun startMoveOrCopy(checkedFiles: Set<OCFile>) {
         val invalidFilename = findInvalidFilename(checkedFiles)
         if (invalidFilename != null) {
             SnackbarUtil.show(
@@ -999,12 +985,13 @@ open class OCFileListFragment :
         }
 
         if (!FileNameValidator.checkParentRemotePaths(checkedFiles.toList(), capabilities, requireContext())) {
+            Log_OC.w(TAG, "Cannot move or copy: current path contains an invalid folder name, browsing to root")
             browseToRoot()
             SnackbarUtil.show(requireActivity(), R.string.file_name_validator_current_path_is_invalid)
             return
         }
 
-        pickFolderForMoveOrCopy(checkedFiles)
+        openFolderPickerForMoveOrCopy(checkedFiles)
     }
 
     private fun findInvalidFilename(files: Set<OCFile>): String? = files.firstNotNullOfOrNull {
@@ -1012,20 +999,19 @@ open class OCFileListFragment :
     }
 
     @Suppress("DEPRECATION")
-    private fun pickFolderForMoveOrCopy(checkedFiles: Set<OCFile>) {
+    private fun openFolderPickerForMoveOrCopy(checkedFiles: Set<OCFile>) {
         val activity = requireActivity()
         val paths = checkedFiles.mapTo(ArrayList(checkedFiles.size)) { it.remotePath }
         val action = Intent(activity, FolderPickerActivity::class.java).apply {
             putStringArrayListExtra(FolderPickerActivity.EXTRA_FILE_PATHS, paths)
             putExtra(FolderPickerActivity.EXTRA_FOLDER, currentFile)
-            // No animation since we stay in the same folder
             addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             putExtra(FolderPickerActivity.EXTRA_ACTION, FolderPickerActivity.MOVE_OR_COPY)
         }
         activity.startActivityForResult(action, FileDisplayActivity.REQUEST_CODE__MOVE_OR_COPY_FILES)
     }
 
-    private fun syncAndCheckFiles(files: Collection<OCFile>) {
+    private fun syncFilesIfSpaceAvailable(files: Collection<OCFile>) {
         if (files.isEmpty()) return
 
         (containerActivity as? FileActivity)?.showSyncLoadingDialog(files.any { it.isFolder })
@@ -1035,12 +1021,13 @@ open class OCFileListFragment :
             if (FileStorageUtils.checkIfEnoughSpace(file)) {
                 containerActivity?.fileOperationsHelper?.syncFileOrFolder(file, index == lastIndex, false)
             } else {
-                showSpaceErrorDialog(file, FileOperationsHelper.getAvailableSpaceOnDevice())
+                Log_OC.w(TAG, "Not enough space to sync ${file.remotePath}")
+                showNotEnoughSpaceDialog(file, FileOperationsHelper.getAvailableSpaceOnDevice())
             }
         }
     }
 
-    private fun showSpaceErrorDialog(file: OCFile, availableSpaceOnDevice: Long) {
+    private fun showNotEnoughSpaceDialog(file: OCFile, availableSpaceOnDevice: Long) {
         parentFragmentManager.setFragmentResultListener(
             SyncFileNotEnoughSpaceDialogFragment.REQUEST_KEY,
             viewLifecycleOwner
@@ -1058,51 +1045,46 @@ open class OCFileListFragment :
         SyncFileNotEnoughSpaceDialogFragment.newInstance(file, availableSpaceOnDevice)
             .show(parentFragmentManager, ConfirmationDialogFragment.FTAG_CONFIRMATION)
     }
+    //endregion
 
-    /**
-     * Call this, when the user presses the up button.
-     *
-     * Tries to move up the current folder one level. If the parent folder was removed from the database, it continues
-     * browsing up until finding an existing folders.
-     *
-     * @return Count of folder levels browsed up.
-     */
+    //region Navigation
     fun onBrowseUp(): Int {
-        val file = currentFile
-        if (file == null || file.isRootDirectory) return 0
+        val folder = currentFile
+        if (folder == null || folder.isRootDirectory) return 0
 
-        val (levelsUp, target) = parentFolderFinder.getParent(file, containerActivity?.storageManager)
-        if (target == null) {
-            Log_OC.e(TAG, "onBrowseUp: could not resolve parent, staying put")
+        val (levelsUp, parent) = parentFolderFinder.getParent(folder, containerActivity?.storageManager)
+        if (parent == null) {
+            Log_OC.e(TAG, "Cannot browse up from ${folder.remotePath}: no existing parent folder found")
             return 0
         }
 
-        currentFile = target
-        setFileDepth(target)
+        Log_OC.d(TAG, "Browsed up $levelsUp level(s) from ${folder.remotePath} to ${parent.remotePath}")
+        currentFile = parent
+        setFileDepth(parent)
 
-        if (target.isRootDirectory && currentSearchType != SearchType.NO_SEARCH && activeSearchEvent != null) {
+        if (parent.isRootDirectory && currentSearchType != SearchType.NO_SEARCH && activeSearchEvent != null) {
             isSearchFragment = true
         }
 
-        updateFileList()
+        reloadAndRestorePosition()
         return levelsUp
     }
 
-    private fun updateFileList() {
+    private fun reloadAndRestorePosition() {
         listDirectory(currentFile, MainApp.isOnlyOnDevice())
         onRefresh(false)
         restoreIndexAndTopPosition()
     }
 
-    fun browseToFolder(file: OCFile?, position: Int) {
-        setFileDepth(file)
+    fun browseToFolder(folder: OCFile?, position: Int) {
+        setFileDepth(folder)
 
         if (currentSearchType == SearchType.FAVORITE_SEARCH) {
-            resetMenuItems()
+            resetSortAndGridButtons()
         }
 
-        listDirectory(file, MainApp.isOnlyOnDevice())
-        containerActivity?.onBrowsedDownTo(file)
+        listDirectory(folder, MainApp.isOnlyOnDevice())
+        containerActivity?.onBrowsedDownTo(folder)
         saveIndexAndTopPosition(position)
     }
 
@@ -1121,10 +1103,9 @@ open class OCFileListFragment :
 
     val fileDepth: OCFileDepth?
         get() = currentFileDepth
+    //endregion
 
-    /**
-     * Calls [OCFileListFragment.listDirectory] with a null parameter
-     */
+    //region Directory listing
     fun listDirectory(onlyOnDevice: Boolean) {
         listDirectory(null, onlyOnDevice)
     }
@@ -1133,16 +1114,10 @@ open class OCFileListFragment :
         listDirectory(directory, null, onlyOnDevice)
     }
 
-    /**
-     * Lists the given directory on the view. When the input parameter is null, it will either refresh the last known
-     * directory. list the root if there never was a directory.
-     *
-     * @param directory File to be listed
-     */
-    fun listDirectory(directory: OCFile?, file: OCFile?, onlyOnDevice: Boolean) {
+    fun listDirectory(directory: OCFile?, highlightedFile: OCFile?, onlyOnDevice: Boolean) {
         if (isSearchFragment) {
             activeSearchEvent?.let {
-                handleSearchEvent(it)
+                startSearch(it)
                 mRefreshListLayout?.isRefreshing = false
             }
             return
@@ -1150,38 +1125,38 @@ open class OCFileListFragment :
 
         val storageManager = containerActivity?.storageManager
         if (storageManager == null) {
-            Log_OC.d(TAG, "fileDataStorageManager is null")
+            Log_OC.w(TAG, "Cannot list directory: storage manager is not available")
             return
         }
 
         val directoryToList = resolveDirectoryToList(directory, storageManager)
         if (directoryToList == null) {
-            Log_OC.e(TAG, "directory is null, no files, wait for sync")
+            Log_OC.w(TAG, "Cannot list directory: folder is not in the database yet, waiting for sync")
             return
         }
 
         val mimeType = limitToMimeType
         if (mimeType == null) {
-            Log_OC.w(TAG, "mLimitToMimeType is null")
+            Log_OC.w(TAG, "Cannot list directory: list is not set up yet")
             return
         }
 
         val adapter = adapter
         if (adapter == null) {
-            Log_OC.e(TAG, "❗oc file list adapter is null, cannot list directory❗")
+            Log_OC.w(TAG, "Cannot list directory: adapter is not set up yet")
             return
         }
 
-        Log_OC.i(TAG, "listing directory: " + directoryToList.decryptedRemotePath)
+        Log_OC.i(TAG, "Listing directory ${directoryToList.decryptedRemotePath}, onlyOnDevice=$onlyOnDevice")
         adapter.swapDirectory(accountManager.user, directoryToList, storageManager, onlyOnDevice, mimeType)
 
         val previousDirectory = currentFile
         currentFile = directoryToList
-        updateLayout()
-        scrollAfterListing(adapter, file, previousDirectory, directoryToList)
+        updateUiForCurrentFolder()
+        scrollToHighlightedFileOrTop(adapter, highlightedFile, previousDirectory, directoryToList)
     }
 
-    private fun scrollAfterListing(
+    private fun scrollToHighlightedFileOrTop(
         adapter: OCFileListAdapter,
         highlightedFile: OCFile?,
         previousDirectory: OCFile?,
@@ -1207,15 +1182,15 @@ open class OCFileListFragment :
         val candidate = directory ?: currentFile ?: storageManager.getFileByPath(OCFile.ROOT_PATH) ?: return null
         if (candidate.isFolder) return candidate
 
-        Log_OC.w(TAG, "You see, that is not a directory -> $candidate")
+        Log_OC.d(TAG, "${candidate.remotePath} is not a folder, listing its parent instead")
         return storageManager.getFileById(candidate.parentId)
     }
 
     fun refreshDirectory() {
         isSearchFragment = false
-        val currentFile = currentFile ?: return
-        setFabVisible(canCreateInside(currentFile))
-        listDirectory(currentFile, MainApp.isOnlyOnDevice())
+        val folder = currentFile ?: return
+        setFabVisible(canCreateInside(folder))
+        listDirectory(folder, MainApp.isOnlyOnDevice())
     }
 
     val adapterFiles: List<OCFile>
@@ -1228,21 +1203,21 @@ open class OCFileListFragment :
     val isEmpty: Boolean
         get() = adapter?.isEmpty ?: true
 
-    private fun updateLayout() {
+    private fun updateUiForCurrentFolder() {
         fileListLayoutManager?.setLayoutViewMode()
-        updateSortButton()
+        updateSortButtonLabel()
         setLayoutSwitchButton()
 
-        val file = currentFile
-        val readOnly = isReadOnlyFolder(file)
+        val folder = currentFile
+        val readOnly = isReadOnlyFolder(folder)
         setFabVisible(!hideFab && !readOnly)
-        slideHideBottomBehaviourForBottomNavigationView(!hideFab)
-        setFabEnabled(file != null && !readOnly && (file.canCreateFileAndFolder() || file.isOfflineOperation))
+        setBottomNavigationVisible(!hideFab)
+        setFabEnabled(folder != null && !readOnly && (folder.canCreateFileAndFolder() || folder.isOfflineOperation))
 
-        invalidateActionMode()
+        activeActionMode?.invalidate()
     }
 
-    private fun updateSortButton() {
+    private fun updateSortButtonLabel() {
         val sortButton = mSortButton ?: return
         val sortOrder = if (currentSearchType == SearchType.FAVORITE_SEARCH) {
             preferences.getSortOrderByType(FileSortOrder.Type.favoritesListView, FileSortOrder.SORT_A_TO_Z)
@@ -1251,7 +1226,9 @@ open class OCFileListFragment :
         }
         sortButton.setText(SortOrderUi.labelRes(sortOrder))
     }
+    //endregion
 
+    //region Menu
     @Deprecated("Deprecated in Java")
     override fun onPrepareOptionsMenu(menu: Menu) {
         if (menuItemAddRemoveValue == MenuItemAddRemove.REMOVE_GRID_AND_SORT) {
@@ -1259,13 +1236,13 @@ open class OCFileListFragment :
         }
 
         if (currentSearchType == SearchType.FAVORITE_SEARCH) {
-            resetMenuItems()
+            resetSortAndGridButtons()
         } else {
-            updateSortAndGridMenuItems()
+            updateSortAndGridButtons()
         }
     }
 
-    private fun updateSortAndGridMenuItems() {
+    private fun updateSortAndGridButtons() {
         val switchGridViewButton = mSwitchGridViewButton ?: return
         val sortButton = mSortButton ?: return
 
@@ -1282,23 +1259,15 @@ open class OCFileListFragment :
                 switchGridViewButton.visibility = View.GONE
             }
 
-            MenuItemAddRemove.DO_NOTHING -> Log_OC.v(TAG, "Kept the options menu default structure")
+            MenuItemAddRemove.DO_NOTHING -> Unit
         }
     }
 
-    private fun resetMenuItems() {
+    private fun resetSortAndGridButtons() {
         menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH
-        updateSortAndGridMenuItems()
+        updateSortAndGridButtons()
     }
 
-    /**
-     * Returns the navigation drawer menu item corresponding to this fragment.
-     *
-     * OCFileListFragment is the parent for GalleryFragment, SharedListFragment,
-     * and GroupfolderListFragment. It also internally handles listing favorites,
-     * shared files, or recently modified items via search events. This method
-     * checks the current fragment type and search state to give correct drawer menu ID.
-     */
     val menuItemId: Int
         get() = when {
             javaClass == GalleryFragment::class.java -> R.id.nav_gallery
@@ -1316,20 +1285,23 @@ open class OCFileListFragment :
 
             else -> R.id.nav_all_files
         }
+    //endregion
 
-    protected fun prepareCurrentSearch(event: SearchEvent?) {
-        if (event == null || !event.isSet()) return
-        setCurrentSearchType(event)
-        prepareActionBarItems(event)
+    //region Search
+    protected fun applySearchEvent(event: SearchEvent?) {
+        if (event == null || !event.hasQueryOrFilter()) return
+        updateSearchType(event)
+        updateMenuForSearch(event)
     }
 
-    fun setCurrentSearchType(event: SearchEvent) {
+    fun updateSearchType(event: SearchEvent) {
         event.toSearchType()?.let { currentSearchType = it }
     }
 
-    protected fun prepareActionBarItems(event: SearchEvent?) {
-        val searchType = event?.searchType
-        if (searchType == RemoteSearchType.FAVORITE_SEARCH || searchType == RemoteSearchType.RECENTLY_MODIFIED_SEARCH) {
+    private fun updateMenuForSearch(event: SearchEvent) {
+        if (event.searchType == RemoteSearchType.FAVORITE_SEARCH ||
+            event.searchType == RemoteSearchType.RECENTLY_MODIFIED_SEARCH
+        ) {
             menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT
         }
 
@@ -1338,7 +1310,7 @@ open class OCFileListFragment :
         }
     }
 
-    protected fun setEmptyView(event: SearchEvent?) {
+    private fun showEmptyStateForSearch(event: SearchEvent?) {
         val emptyListType = when (event?.searchType) {
             RemoteSearchType.FILE_SEARCH -> SearchType.FILE_SEARCH
             RemoteSearchType.FAVORITE_SEARCH -> SearchType.FAVORITE_SEARCH
@@ -1355,19 +1327,15 @@ open class OCFileListFragment :
         currentSearchType = SearchType.NO_SEARCH
     }
 
-    protected fun handleSearchEvent(event: SearchEvent) {
+    private fun startSearch(event: SearchEvent) {
         if (event.searchType == RemoteSearchType.PHOTO_SEARCH) return
 
         if (searchTask?.isFinished() == false) {
-            searchEvent?.let {
-                Log_OC.d(
-                    TAG,
-                    "OCFileListSearchTask already running skipping new api call for search event: " +
-                        it.searchType
-                )
-            }
+            Log_OC.d(TAG, "Skipping ${event.searchType} search, previous search is still running")
             return
         }
+
+        Log_OC.i(TAG, "Starting ${event.searchType} search")
 
         if (searchTask == null) {
             activity?.runOnUiThread {
@@ -1376,22 +1344,22 @@ open class OCFileListFragment :
             }
         }
 
-        prepareCurrentSearch(event)
+        applySearchEvent(event)
         isSearchFragment = true
         setFabVisible(false)
 
         mainHandler.post {
-            updateSortButton()
+            updateSortButtonLabel()
             fileListLayoutManager?.setLayoutViewMode()
         }
 
-        startSearchTask(event)
+        launchSearchTask(event)
     }
 
-    private fun startSearchTask(event: SearchEvent) {
+    private fun launchSearchTask(event: SearchEvent) {
         val currentUser = accountManager.user
         val remoteOperation = if (currentSearchType == SearchType.RECENT_FILES_SEARCH) {
-            createRecentFilesSearchRemoteOperation()
+            createRecentFilesSearchOperation()
         } else {
             getSearchRemoteOperation(currentUser, event)
         }
@@ -1417,7 +1385,7 @@ open class OCFileListFragment :
         return SearchRemoteOperation(event.searchQuery, event.searchType, searchOnlyFolders, capability)
     }
 
-    private fun createRecentFilesSearchRemoteOperation(): RemoteOperation<*> {
+    private fun createRecentFilesSearchOperation(): RemoteOperation<*> {
         val capability = capabilities
         val nowSeconds = System.currentTimeMillis() / AppConstants.MILLIS_PER_SECOND
 
@@ -1431,7 +1399,7 @@ open class OCFileListFragment :
     override fun onRefresh() {
         val event = activeSearchEvent
         if (isSearchFragment && event != null) {
-            handleSearchEvent(event)
+            startSearch(event)
             mRefreshListLayout?.isRefreshing = false
             return
         }
@@ -1440,10 +1408,10 @@ open class OCFileListFragment :
         super.onRefresh()
     }
 
-    fun cancelAndRetriggerSearch() {
+    fun restartSearch() {
         searchTask?.cancel()
         searchTask = null
-        searchEvent?.let { handleSearchEvent(it) }
+        searchEvent?.let { startSearch(it) }
     }
 
     val isSearchEventFavorite: Boolean
@@ -1455,15 +1423,18 @@ open class OCFileListFragment :
     fun shouldNavigateBackToAllFiles(): Boolean =
         this is GalleryFragment || isSearchEventFavorite || isSearchEventShared
 
-    private fun SearchEvent.isSet(): Boolean = searchQuery.isNotEmpty() || searchType in SEARCH_TYPES_WITHOUT_QUERY
+    private fun SearchEvent.hasQueryOrFilter(): Boolean =
+        searchQuery.isNotEmpty() || searchType in SEARCH_TYPES_WITHOUT_QUERY
+    //endregion
 
+    //region Event bus
     @Subscribe(threadMode = ThreadMode.MAIN)
-    open fun onMessageEvent(changeMenuEvent: ChangeMenuEvent) {
-        Log_OC.d(TAG, "event bus --- change menu event triggered")
+    fun onChangeMenuEvent(event: ChangeMenuEvent) {
+        Log_OC.d(TAG, "Leaving search, resetting search and menu state")
 
         arguments?.clear()
         resetSearchAttributes()
-        resetMenuItems()
+        resetSortAndGridButtons()
 
         (activity as? FileDisplayActivity)?.run {
             invalidateOptionsMenu()
@@ -1473,217 +1444,83 @@ open class OCFileListFragment :
         }
 
         currentFile?.let { setFabVisible(canCreateInside(it)) }
-        slideHideBottomBehaviourForBottomNavigationView(true)
+        setBottomNavigationVisible(true)
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    fun onMessageEvent(event: CommentsEvent) {
+    fun onCommentsEvent(event: CommentsEvent) {
         adapter?.markCommentsAsRead(event.remoteId)
     }
 
-    @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    fun onMessageEvent(event: FavoriteEvent) {
-        try {
-            val client = clientFactory.create(accountManager.user)
-            val result = ToggleFavoriteRemoteOperation(event.shouldFavorite, event.remotePath).execute(client)
-            if (!result.isSuccess) return
-
-            val removeFromList = currentSearchType == SearchType.FAVORITE_SEARCH && !event.shouldFavorite
-            setEmptyListMessage(SearchType.FAVORITE_SEARCH)
-            if (this is GalleryFragment) {
-                markAsFavorite(event.remotePath, event.shouldFavorite)
-            } else {
-                adapter?.updateFavoriteState(event.remotePath, event.shouldFavorite, removeFromList)
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onFavoriteEvent(event: FavoriteEvent) {
+        lifecycleScope.launch {
+            val client = clientRepository.getOwncloudClient()
+            if (client == null) {
+                Log_OC.e(TAG, "Cannot toggle favorite for ${event.remotePath}: client is not available")
+                return@launch
             }
-        } catch (e: ClientFactory.CreationException) {
-            Log_OC.e(TAG, "Error processing event", e)
+
+            val result = withContext(Dispatchers.IO) {
+                ToggleFavoriteRemoteOperation(event.shouldFavorite, event.remotePath).execute(client)
+            }
+            if (!result.isSuccess) {
+                Log_OC.e(TAG, "Cannot toggle favorite for ${event.remotePath}: ${result.code}")
+                return@launch
+            }
+
+            showFavoriteChange(event)
+        }
+    }
+
+    private fun showFavoriteChange(event: FavoriteEvent) {
+        val removeFromList = currentSearchType == SearchType.FAVORITE_SEARCH && !event.shouldFavorite
+        setEmptyListMessage(SearchType.FAVORITE_SEARCH)
+        if (this is GalleryFragment) {
+            markAsFavorite(event.remotePath, event.shouldFavorite)
+        } else {
+            adapter?.updateFavoriteState(event.remotePath, event.shouldFavorite, removeFromList)
         }
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    fun onMessageEvent(event: SearchEvent) {
-        handleSearchEvent(event)
+    fun onSearchEvent(event: SearchEvent) {
+        startSearch(event)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event: EncryptionEvent) {
+    fun onEncryptionEvent(event: EncryptionEvent) {
         event.onResult(this)
     }
 
-    @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    fun onMessageEvent(event: FileLockEvent) {
-        val user = accountManager.user
-
-        try {
-            val client = clientFactory.createNextcloudClient(user)
-            val result = ToggleFileLockRemoteOperation(event.shouldLock, event.filePath).execute(client)
-            if (result.isSuccess) {
-                // TODO only refresh the modified file?
-                mainHandler.post { onRefresh() }
-                return
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onFileLockEvent(event: FileLockEvent) {
+        lifecycleScope.launch {
+            val client = clientRepository.getNextcloudClient()
+            if (client == null) {
+                Log_OC.e(TAG, "Cannot toggle lock for ${event.filePath}: client is not available")
+                showFileLockError()
+                return@launch
             }
-        } catch (e: ClientFactory.CreationException) {
-            Log_OC.e(TAG, "Cannot create client", e)
-        }
 
-        showFileLockError()
+            val result = withContext(Dispatchers.IO) {
+                ToggleFileLockRemoteOperation(event.shouldLock, event.filePath).execute(client)
+            }
+            if (!result.isSuccess) {
+                Log_OC.e(TAG, "Cannot toggle lock for ${event.filePath}: ${result.code}")
+                showFileLockError()
+                return@launch
+            }
+
+            onRefresh()
+        }
     }
 
     private fun showFileLockError() {
         val recyclerView = recyclerView ?: return
         Snackbar.make(recyclerView, R.string.error_file_lock, Snackbar.LENGTH_LONG).show()
     }
-
-    fun requireContainerActivity(): ContainerActivity =
-        checkNotNull(containerActivity) { "Fragment $this is not attached to a ContainerActivity" }
-
-    /**
-     * Handler for multiple selection mode.
-     *
-     * Manages input from the user when one or more files or folders are selected in the list.
-     *
-     * Also listens to changes in navigation drawer to hide and recover multiple selection when it's opened and closed.
-     */
-    private inner class MultiChoiceModeListener :
-        AbsListView.MultiChoiceModeListener,
-        DrawerLayout.DrawerListener {
-
-        private var actionModeClosedByDrawer = false
-        private val selectionWhenActionModeClosedByDrawer = HashSet<OCFile>()
-
-        override fun onDrawerSlide(drawerView: View, slideOffset: Float) = Unit
-
-        override fun onDrawerOpened(drawerView: View) = Unit
-
-        /**
-         * When the navigation drawer is closed, action mode is recovered in the same state as was when the drawer was
-         * (started to be) opened.
-         */
-        override fun onDrawerClosed(drawerView: View) {
-            if (!actionModeClosedByDrawer || selectionWhenActionModeClosedByDrawer.isEmpty()) return
-
-            activity?.startActionMode(this)
-            adapter?.setCheckedItem(selectionWhenActionModeClosedByDrawer)
-            activeActionMode?.invalidate()
-            selectionWhenActionModeClosedByDrawer.clear()
-        }
-
-        /**
-         * If the action mode is active when the navigation drawer starts to move, the action mode is closed and the
-         * selection stored to be recovered when the drawer is closed.
-         */
-        override fun onDrawerStateChanged(newState: Int) {
-            val actionMode = activeActionMode
-            if (newState != DrawerLayout.STATE_DRAGGING || actionMode == null) return
-
-            (recyclerView?.adapter as? OCFileListAdapter)?.let {
-                selectionWhenActionModeClosedByDrawer.addAll(it.getCheckedItems())
-            }
-
-            actionMode.finish()
-            actionModeClosedByDrawer = true
-        }
-
-        override fun onItemCheckedStateChanged(mode: ActionMode?, position: Int, id: Long, checked: Boolean) = Unit
-
-        @SuppressFBWarnings("RV")
-        override fun onCreateActionMode(mode: ActionMode?, menu: Menu): Boolean {
-            activeActionMode = mode
-            isActionModeNew = true
-
-            // fake menu to be able to use bottom sheet instead
-            requireActivity().menuInflater.inflate(R.menu.custom_menu_placeholder, menu)
-            val placeholderItem = menu.findItem(R.id.custom_menu_placeholder_item)
-            placeholderItem.icon?.let {
-                placeholderItem.icon = viewThemeUtils.platform.colorDrawable(
-                    it,
-                    ContextCompat.getColor(requireContext(), R.color.white)
-                )
-            }
-
-            mode?.invalidate()
-            colorStatusBarForActionMode()
-            setFabVisible(false)
-
-            if (this@OCFileListFragment is GalleryFragment && activity is AlbumsPickerActivity) {
-                placeholderItem.isVisible = false
-                menu.findItem(R.id.add_to_album).isVisible = true
-            }
-
-            commonAdapter?.setMultiSelect(true)
-            return true
-        }
-
-        private fun colorStatusBarForActionMode() {
-            val activity = requireActivity()
-            val statusBarColor = ContextCompat.getColor(requireContext(), R.color.action_mode_background)
-            viewThemeUtils.platform.colorStatusBar(activity, statusBarColor)
-            SystemBarBackgroundCallbacks.colorStatusBar(activity, statusBarColor)
-        }
-
-        override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-            val checkedCount = commonAdapter?.getCheckedItems()?.size ?: 0
-
-            activeActionMode?.title = resources.getQuantityString(
-                R.plurals.items_selected_count,
-                checkedCount,
-                checkedCount
-            )
-
-            if (checkedCount == 0 && !isActionModeNew) {
-                exitSelectionMode()
-            }
-
-            isMultipleFileSelectedForCopyOrMove = checkedCount > 0
-            return true
-        }
-
-        override fun onActionItemClicked(mode: ActionMode?, item: MenuItem): Boolean {
-            val commonAdapter = commonAdapter ?: return true
-            val checkedFiles = commonAdapter.getCheckedItems()
-
-            when (item.itemId) {
-                R.id.custom_menu_placeholder_item ->
-                    openActionsMenu(commonAdapter.getFilesCount(), checkedFiles, false)
-
-                R.id.add_to_album ->
-                    (this@OCFileListFragment as? GalleryFragment)?.addImagesToAlbum(checkedFiles)
-            }
-
-            return true
-        }
-
-        override fun onDestroyActionMode(mode: ActionMode?) {
-            activeActionMode = null
-
-            if (!hideFab && !isSearchFragment) {
-                currentFile?.let { setFabVisible(it.canCreateFileAndFolder()) }
-            }
-
-            activity?.let {
-                viewThemeUtils.platform.resetStatusBar(it)
-                SystemBarBackgroundCallbacks.apply(it, viewThemeUtils)
-            }
-
-            commonAdapter?.run {
-                setMultiSelect(false)
-                clearCheckedItems()
-            }
-
-            isMultipleFileSelectedForCopyOrMove = false
-        }
-
-        fun storeStateIn(outState: Bundle) {
-            outState.putBoolean(KEY_ACTION_MODE_CLOSED_BY_DRAWER, actionModeClosedByDrawer)
-        }
-
-        fun loadStateFrom(savedInstanceState: Bundle) {
-            actionModeClosedByDrawer = savedInstanceState.getBoolean(
-                KEY_ACTION_MODE_CLOSED_BY_DRAWER,
-                actionModeClosedByDrawer
-            )
-        }
-    }
+    //endregion
 
     companion object {
         val TAG: String = OCFileListFragment::class.java.simpleName
@@ -1706,7 +1543,6 @@ open class OCFileListFragment :
         const val SEARCH_EVENT = "SEARCH_EVENT"
         const val KEY_CURRENT_SEARCH_TYPE = "CURRENT_SEARCH_TYPE"
         private val KEY_FILE = "$MY_PACKAGE.extra.FILE"
-        private const val KEY_ACTION_MODE_CLOSED_BY_DRAWER = "KILLED_ACTION_MODE"
 
         private const val DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER"
         private const val DIALOG_CREATE_DOCUMENT = "DIALOG_CREATE_DOCUMENT"
