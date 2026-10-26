@@ -1085,6 +1085,17 @@ public class FileDataStorageManager {
         return fileDao.deleteFolderWithDescendants(user.getAccountName(), folder.getFileId()) > 0;
     }
 
+    /**
+     * Removes duplicate database entries, with the entries of their contents for folders. Local files are not
+     * touched: they belong to the entry that is kept for the same remote path.
+     */
+    public void removeDuplicateEntries(Collection<OCFile> duplicates) {
+        for (OCFile duplicate : duplicates) {
+            Log_OC.w(TAG, "Removing duplicate entry " + duplicate.getFileId() + " of " + duplicate.getRemotePath());
+            fileDao.deleteFolderWithDescendants(user.getAccountName(), duplicate.getFileId());
+        }
+    }
+
     private boolean removeLocalFolder(OCFile folder) {
         if (folder == null) {
             Log_OC.d(TAG, "removeLocalFolder: folder is null");

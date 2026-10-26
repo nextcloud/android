@@ -58,6 +58,7 @@ import java.util.Vector;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -557,15 +558,23 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         // get current data about local contents of the folder to synchronize
         Map<String, OCFile> localFilesMap;
+        List<OCFile> duplicateLocalFiles = new ArrayList<>();
         E2EVersion e2EVersion = fileDataStorageManager.getE2EEVersionObject(user);
         if (object instanceof DecryptedFolderMetadataFileV1 metadataFileV1) {
-            localFilesMap = prefillLocalFilesMap(metadataFileV1, fileDataStorageManager.getFolderContent(mLocalFolder, false));
+            localFilesMap = prefillLocalFilesMap(metadataFileV1,
+                                                 fileDataStorageManager.getFolderContent(mLocalFolder, false),
+                                                 duplicateLocalFiles);
         } else {
-            localFilesMap = prefillLocalFilesMap(object, fileDataStorageManager.getFolderContent(mLocalFolder, false));
+            localFilesMap = prefillLocalFilesMap(object,
+                                                 fileDataStorageManager.getFolderContent(mLocalFolder, false),
+                                                 duplicateLocalFiles);
             if (object instanceof DecryptedFolderMetadataFile metadataFile) {
                 mLocalFolder.setE2eCounter(metadataFile.getMetadata().getCounter());
             }
         }
+
+        // duplicate entries are never matched with a remote file, so they would stay forever
+        fileDataStorageManager.removeDuplicateEntries(duplicateLocalFiles);
 
         // loop to update every child
         OCFile remoteFile;
@@ -792,6 +801,19 @@ public class RefreshFolderOperation extends RemoteOperation {
     @NonNull
     @SuppressFBWarnings("OCP")
     public static Map<String, OCFile> prefillLocalFilesMap(Object metadata, List<OCFile> localFiles) {
+        return prefillLocalFilesMap(metadata, localFiles, new ArrayList<>());
+    }
+
+    /**
+     * Maps the remote path of every local file to the file. Local files with the same remote path as another one are
+     * duplicate database entries: only the one chosen by {@link #preferredLocalFile(OCFile, OCFile)} is mapped, the
+     * others are added to {@code duplicates}.
+     */
+    @NonNull
+    @SuppressFBWarnings("OCP")
+    public static Map<String, OCFile> prefillLocalFilesMap(Object metadata,
+                                                           List<OCFile> localFiles,
+                                                           List<OCFile> duplicates) {
         Map<String, OCFile> localFilesMap = Maps.newHashMapWithExpectedSize(localFiles.size());
 
         for (OCFile file : localFiles) {
@@ -803,9 +825,30 @@ public class RefreshFolderOperation extends RemoteOperation {
                     remotePath = remotePath + PATH_SEPARATOR;
                 }
             }
-            localFilesMap.put(remotePath, file);
+
+            OCFile mappedFile = localFilesMap.get(remotePath);
+            if (mappedFile != null && mappedFile.getRemotePath().equals(file.getRemotePath())) {
+                OCFile keptFile = preferredLocalFile(mappedFile, file);
+                localFilesMap.put(remotePath, keptFile);
+                duplicates.add(keptFile == mappedFile ? file : mappedFile);
+            } else {
+                localFilesMap.put(remotePath, file);
+            }
         }
         return localFilesMap;
+    }
+
+    /**
+     * Chooses which of two database entries of the same remote file to keep: the one whose local copy exists on the
+     * device, else the oldest one (lowest id).
+     */
+    @VisibleForTesting
+    static OCFile preferredLocalFile(OCFile first, OCFile second) {
+        boolean firstExistsOnDevice = first.existsOnDevice();
+        if (firstExistsOnDevice != second.existsOnDevice()) {
+            return firstExistsOnDevice ? first : second;
+        }
+        return first.getFileId() <= second.getFileId() ? first : second;
     }
 
     /**
