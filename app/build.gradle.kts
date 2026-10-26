@@ -198,6 +198,9 @@ android {
     packaging.resources {
         excludes.addAll(listOf("META-INF/LICENSE*", "META-INF/versions/9/OSGI-INF/MANIFEST*"))
         pickFirsts.add("MANIFEST.MF") // workaround for duplicated manifest on some dependencies
+        // mockito-android (dexmaker-mockito-inline) and mockk-android (mockk-agent-android)
+        // both bundle their own dispatcher.jar for dynamic dex generation; only one is picked
+        pickFirsts.add("dispatcher.jar")
     }
 
     buildFeatures {
