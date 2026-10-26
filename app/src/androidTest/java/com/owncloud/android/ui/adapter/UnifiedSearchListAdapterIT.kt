@@ -31,7 +31,6 @@ import javax.inject.Provider
 import org.junit.Before
 import org.junit.Test
 
-@Suppress("TooManyFunctions")
 class UnifiedSearchListAdapterIT : AbstractIT() {
 
     private val testClassName = "com.owncloud.android.ui.adapter.UnifiedSearchListAdapterIT"

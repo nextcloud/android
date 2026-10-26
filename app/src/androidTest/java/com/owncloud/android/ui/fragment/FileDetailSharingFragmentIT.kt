@@ -58,7 +58,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-@Suppress("TooManyFunctions")
 class FileDetailSharingFragmentIT : AbstractIT() {
     private val testClassName = "com.owncloud.android.ui.fragment.FileDetailSharingFragmentIT"
 

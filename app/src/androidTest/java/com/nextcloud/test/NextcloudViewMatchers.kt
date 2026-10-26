@@ -18,7 +18,6 @@ fun withSelectedText(expected: String): Matcher<View> = object : TypeSafeMatcher
         description.appendText("with selected text \"$expected\"")
     }
 
-    @Suppress("ReturnCount")
     override fun matchesSafely(view: View): Boolean {
         if (view !is TextView) return false
         val text = view.text?.toString() ?: ""

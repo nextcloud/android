@@ -220,7 +220,7 @@ abstract class PreviewTextFragment :
             return markwon.toMarkdown(markdown)
         }
 
-        @Suppress("LongParameterList", "ComplexCondition")
+        @Suppress("ComplexCondition")
         @JvmStatic
         fun setText(
             textView: TextView,

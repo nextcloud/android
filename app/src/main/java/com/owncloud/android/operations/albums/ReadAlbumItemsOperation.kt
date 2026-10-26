@@ -26,7 +26,6 @@ constructor(
 ) : RemoteOperation<List<RemoteFile>>() {
 
     @Deprecated("Deprecated in Java")
-    @Suppress("TooGenericExceptionCaught")
     override fun run(client: OwnCloudClient): RemoteOperationResult<List<RemoteFile>> = try {
         val result = ReadAlbumItemsRemoteOperation(remotePath, sessionTimeOut).execute(client)
 

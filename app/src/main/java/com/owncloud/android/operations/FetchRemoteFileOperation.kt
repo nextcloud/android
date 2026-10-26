@@ -39,7 +39,6 @@ class FetchRemoteFileOperation(
 ) : SyncOperation(storageManager) {
 
     @Deprecated("Deprecated in Java")
-    @Suppress("ReturnCount")
     override fun run(client: OwnCloudClient?): RemoteOperationResult<*>? {
         val searchRemoteOperation = SearchRemoteOperation(
             ocFile.localId.toString(),

@@ -192,10 +192,8 @@ import javax.inject.Inject
     "ComplexCondition",
     "SpreadOperator",
     "ForbiddenComment",
-    "ReturnCount",
     "LargeClass",
-    "NestedBlockDepth",
-    "TooManyFunctions"
+    "NestedBlockDepth"
 )
 class FileDisplayActivity :
     FileActivity(),
@@ -1051,6 +1049,7 @@ class FileDisplayActivity :
     /**
      * Called, when the user selected something for uploading
      */
+    @Suppress("CyclomaticComplexMethod")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (data != null &&
             (
@@ -1451,6 +1450,7 @@ class FileDisplayActivity :
         }
     }
 
+    @Suppress("CyclomaticComplexMethod")
     override fun onResume() {
         Log_OC.v(TAG, "onResume() start")
 
@@ -1790,6 +1790,7 @@ class FileDisplayActivity :
     private inner class FileUploadCompletedReceiver : BroadcastReceiver() {
         private val tag = "UploadFinishReceiver"
 
+        @Suppress("CyclomaticComplexMethod")
         override fun onReceive(context: Context?, intent: Intent) {
             Log_OC.d(tag, "upload finish received broadcast")
 
@@ -1923,6 +1924,7 @@ class FileDisplayActivity :
             }
         }
 
+        @Suppress("CyclomaticComplexMethod")
         private fun updateUIForFileDownload(intent: Intent) {
             val sameAccount = isSameAccount(intent)
             val downloadedRemotePath = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_REMOTE_PATH)

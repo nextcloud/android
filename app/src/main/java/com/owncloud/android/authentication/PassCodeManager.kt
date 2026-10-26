@@ -24,7 +24,6 @@ import com.owncloud.android.ui.activity.SettingsActivity
 import com.owncloud.android.utils.DeviceCredentialUtils
 import kotlin.math.abs
 
-@Suppress("TooManyFunctions")
 class PassCodeManager(private val preferences: AppPreferences, private val clock: Clock) {
     companion object {
         private val exemptOfPasscodeActivities = setOf(

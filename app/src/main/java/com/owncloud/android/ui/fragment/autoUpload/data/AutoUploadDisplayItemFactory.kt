@@ -128,7 +128,6 @@ class AutoUploadDisplayItemFactory(
         }
     }
 
-    @Suppress("LongParameterList")
     private fun createFromAutoUploadFolder(
         syncedFolder: SyncedFolder,
         filePaths: List<String>?,

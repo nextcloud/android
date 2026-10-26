@@ -22,7 +22,6 @@ class CopyFileToAlbumOperation(private val srcPath: String, albumPath: String, s
     private val targetParentPath = albumPath.removeSuffix(OCFile.PATH_SEPARATOR) + OCFile.PATH_SEPARATOR
 
     @Deprecated("Deprecated in Java")
-    @Suppress("ReturnCount")
     override fun run(client: OwnCloudClient): RemoteOperationResult<Any> {
         if (targetParentPath.startsWith(srcPath)) {
             return RemoteOperationResult(ResultCode.INVALID_COPY_INTO_DESCENDANT)

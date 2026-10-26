@@ -81,7 +81,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-@Suppress("TooManyFunctions", "LargeClass", "TooGenericExceptionCaught", "ReturnCount")
+@Suppress("LargeClass")
 class FileDetailSharingFragment :
     Fragment(),
     ShareeListAdapterListener,

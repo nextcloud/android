@@ -111,7 +111,6 @@ class InternalTwoWaySyncActivity :
         }
     }
 
-    @Suppress("TooGenericExceptionCaught")
     private fun disableTwoWaySyncAndWorkers() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {

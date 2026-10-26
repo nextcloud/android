@@ -28,7 +28,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-@Suppress("LongParameterList", "TooManyFunctions")
 class AutoUploadClickHandler(
     private val fragment: Fragment,
     private val itemFactory: AutoUploadDisplayItemFactory,

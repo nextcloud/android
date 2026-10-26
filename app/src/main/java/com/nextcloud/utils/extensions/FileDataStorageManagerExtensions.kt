@@ -128,7 +128,6 @@ fun FileDataStorageManager.getNonEncryptedSubfolders(id: Long, accountName: Stri
 suspend fun FileDataStorageManager.getCapabilitiesByAccountName(accountName: String): OCCapability =
     capabilityDao.getByAccountName(accountName).toOCCapability()
 
-@Suppress("ReturnCount")
 fun FileDataStorageManager.moveFiles(ocFile: OCFile?, targetPath: String, targetParentPath: String) {
     Log_OC.d(
         FileDataStorageManager.TAG,
@@ -201,7 +200,6 @@ fun FileDataStorageManager.moveFiles(ocFile: OCFile?, targetPath: String, target
  */
 private const val MAX_CONFLICT_RESOLUTION_ATTEMPTS = 10
 
-@Suppress("ReturnCount")
 fun getRemotePathForConflictResolution(client: OwnCloudClient, remotePath: String, fileName: String): String? {
     var name = fileName
     repeat(MAX_CONFLICT_RESOLUTION_ATTEMPTS) {
@@ -258,7 +256,6 @@ fun generateFileNameForConflictResolution(fileName: String): String {
     return "$nameFirstPart$nameLastPart"
 }
 
-@Suppress("ReturnCount")
 private fun moveLocalFiles(accountName: String, ocFile: OCFile, defaultSavePath: String, targetPath: String): Boolean {
     val localFile = File(FileStorageUtils.getDefaultSavePathFor(accountName, ocFile))
     if (!localFile.exists()) {

@@ -104,7 +104,6 @@ object ResizedImageGenerator {
             downloadPreview(file, client, client.getVideoPreviewEndpoint(file.localId, size))
         }
 
-    @Suppress("TooGenericExceptionCaught")
     private fun downloadPreview(file: OCFile, client: OwnCloudClient, uri: String): Bitmap? {
         Log_OC.d(TAG, "downloading preview: ${file.remotePath}, uri: $uri")
 

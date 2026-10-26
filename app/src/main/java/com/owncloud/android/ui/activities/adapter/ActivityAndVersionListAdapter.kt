@@ -24,7 +24,6 @@ import com.owncloud.android.ui.interfaces.VersionListInterface
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.util.Date
 
-@Suppress("LongParameterList")
 class ActivityAndVersionListAdapter(
     context: FragmentActivity,
     currentAccountProvider: CurrentAccountProvider,

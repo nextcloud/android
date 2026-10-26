@@ -18,7 +18,6 @@ class AuthenticatorActivityIT {
     }
 
     @Test
-    @Suppress("TooGenericExceptionCaught")
     fun tryCatch() {
         val color = try {
             Color.parseColor("1")
@@ -30,7 +29,6 @@ class AuthenticatorActivityIT {
     }
 
     @Test
-    @Suppress("TooGenericExceptionCaught")
     fun tryCatch2() {
         val color = try {
             Color.parseColor("")
@@ -42,7 +40,6 @@ class AuthenticatorActivityIT {
     }
 
     @Test
-    @Suppress("TooGenericExceptionCaught")
     fun tryCatch3() {
         val color = try {
             Color.parseColor(null)
@@ -54,7 +51,6 @@ class AuthenticatorActivityIT {
     }
 
     @Test
-    @Suppress("TooGenericExceptionCaught")
     fun tryCatch4() {
         val color = try {
             Color.parseColor("abc")

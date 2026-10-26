@@ -31,7 +31,6 @@ import kotlinx.coroutines.withContext
 import org.apache.commons.httpclient.HttpStatus
 import javax.inject.Inject
 
-@Suppress("TooGenericExceptionCaught", "ReturnCount")
 class E2EEKeyInspector @Inject constructor(
     private val context: Context,
     private val storageManager: FileDataStorageManager,

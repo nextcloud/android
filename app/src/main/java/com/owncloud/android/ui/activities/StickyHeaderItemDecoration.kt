@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.core.graphics.withTranslation
 
-@Suppress("ReturnCount")
 class StickyHeaderItemDecoration(private val adapter: StickyHeaderAdapter) : RecyclerView.ItemDecoration() {
 
     override fun onDrawOver(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {

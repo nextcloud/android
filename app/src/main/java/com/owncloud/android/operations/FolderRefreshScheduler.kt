@@ -49,7 +49,6 @@ class FolderRefreshScheduler(private val activity: FileDisplayActivity) {
         Log_OC.d(TAG, "eTag polling stopped")
     }
 
-    @Suppress("ReturnCount", "TooGenericExceptionCaught")
     private suspend fun checkAndRefreshIfETagChanged() {
         if (activity.isFinishing || activity.isSearchOpen()) {
             Log_OC.w(TAG, "activity is finished or search is opened")

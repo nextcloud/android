@@ -28,7 +28,7 @@ class FileOperationHelper(
         private val TAG = FileOperationHelper::class.java.simpleName
     }
 
-    @Suppress("TooGenericExceptionCaught", "Deprecation")
+    @Suppress("Deprecation")
     suspend fun removeFile(
         file: OCFile,
         onlyLocalCopy: Boolean,

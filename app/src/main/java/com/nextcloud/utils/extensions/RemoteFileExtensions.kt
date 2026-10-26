@@ -53,7 +53,6 @@ fun RemoteFile.toAlbumItem(): OCFile = FileStorageUtils.fillOCFile(this).apply {
     remoteId = this@toAlbumItem.localId.toString()
 }
 
-@Suppress("ReturnCount")
 @VisibleForTesting
 fun RemoteFile.areImageDimensionsSame(path: String): Boolean {
     if (!MimeTypeUtil.isImage(mimeType)) {

@@ -73,7 +73,6 @@ import javax.inject.Singleton
 import com.nextcloud.utils.AppConstants.BYTES_PER_MB
 
 @Module(includes = [ComponentsModule::class, VariantComponentsModule::class, BuildTypeComponentsModule::class])
-@Suppress("TooManyFunctions")
 internal class AppModule {
 
     @Provides

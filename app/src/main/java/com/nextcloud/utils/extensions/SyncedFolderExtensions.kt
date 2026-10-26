@@ -22,7 +22,6 @@ private const val TAG = "SyncedFolderExtensions"
 /**
  * Determines whether a file should be skipped during auto-upload based on folder settings.
  */
-@Suppress("ReturnCount")
 fun SyncedFolder.shouldSkipFile(
     file: File,
     lastModified: Long,
@@ -67,7 +66,6 @@ fun List<SyncedFolderDisplayItem>.filterEnabledOrWithoutEnabledParent(): List<Sy
     it.isEnabled || !hasEnabledParent(it.localPath)
 }
 
-@Suppress("ReturnCount")
 fun List<SyncedFolder>.hasEnabledParent(localPath: String?): Boolean {
     localPath ?: return false
 
@@ -78,7 +76,7 @@ fun List<SyncedFolder>.hasEnabledParent(localPath: String?): Boolean {
         hasEnabledParent(parent.absolutePath)
 }
 
-@Suppress("MagicNumber", "ReturnCount")
+@Suppress("MagicNumber")
 fun SyncedFolder.calculateScanInterval(
     connectivityService: ConnectivityService,
     powerManagementService: PowerManagementService

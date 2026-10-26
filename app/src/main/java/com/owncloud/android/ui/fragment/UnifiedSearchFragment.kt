@@ -76,7 +76,6 @@ import kotlin.time.Duration.Companion.milliseconds
  * Starts query to all capable unified search providers and displays them Opens result in our app, redirect to other
  * apps, if installed, or opens browser
  */
-@Suppress("TooManyFunctions")
 class UnifiedSearchFragment :
     Fragment(),
     Injectable,

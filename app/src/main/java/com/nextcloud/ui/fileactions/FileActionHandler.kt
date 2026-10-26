@@ -27,7 +27,6 @@ import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
-@Suppress("LongParameterList")
 class FileActionHandler @Inject constructor(
     private val backgroundJobManager: BackgroundJobManager,
     private val accountManager: UserAccountManager,

@@ -99,7 +99,6 @@ import kotlin.math.min
  *
  * DO NOT CALL IT: an [OCFile] and [User] must be provided for a successful construction
  */
-@Suppress("TooManyFunctions")
 class PreviewMediaFragment :
     FileFragment(),
     Injectable {
@@ -185,7 +184,6 @@ class PreviewMediaFragment :
      * {@inheritDoc}
      */
     @Deprecated("Deprecated in Java")
-    @Suppress("ReturnCount")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (savedInstanceState == null) {
@@ -364,7 +362,6 @@ class PreviewMediaFragment :
         )
     }
 
-    @Suppress("ReturnCount")
     private fun onOverflowClick(isManualClick: Boolean = false) {
         val file = file ?: return
         val storageManager = containerActivity.storageManager ?: return
@@ -422,6 +419,7 @@ class PreviewMediaFragment :
     /**
      * {@inheritDoc}
      */
+    @Suppress("CyclomaticComplexMethod")
     private fun onFileActionChosen(itemId: Int) {
         if (itemId == R.id.action_send_share_file) {
             if (file.isSharedWithMe && !file.canReshare()) {
@@ -502,7 +500,7 @@ class PreviewMediaFragment :
         private var mErrorMessageId = 0
         private val paramsLength = 1
 
-        @Suppress("TooGenericExceptionCaught", "MagicNumber", "ReturnCount", "LongMethod", "NestedBlockDepth")
+        @Suppress("MagicNumber", "LongMethod", "NestedBlockDepth", "CyclomaticComplexMethod")
         @Deprecated("Deprecated in Java")
         override fun doInBackground(vararg params: OCFile?): LoadImage? {
             Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND + Process.THREAD_PRIORITY_MORE_FAVORABLE)
@@ -654,7 +652,6 @@ class PreviewMediaFragment :
         }
     }
 
-    @Suppress("ReturnCount")
     private fun generateCheckerboardLayeredDrawable(result: LoadImage, bitmap: Bitmap?): LayerDrawable {
         val resources = resources
         val layers = arrayOfNulls<Drawable>(2)

@@ -35,7 +35,6 @@ import javax.inject.Inject
 /**
  * A Fragment that lists folders shared by the user
  */
-@Suppress("TooManyFunctions")
 class SharedListFragment :
     OCFileListFragment(),
     Injectable {

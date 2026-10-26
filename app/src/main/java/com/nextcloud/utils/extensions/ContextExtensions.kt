@@ -28,7 +28,6 @@ import com.owncloud.android.datamodel.ReceiverFlag
 
 private const val TAG = "ContextExtensions"
 
-@Suppress("TooGenericExceptionCaught")
 fun Context.isWebViewAvailable(): Boolean = try {
     WebViewCompat.getCurrentWebViewPackage(this) != null
 } catch (e: Exception) {

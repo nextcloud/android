@@ -32,7 +32,7 @@ import java.util.concurrent.ConcurrentHashMap
 /**
  * Only used for downloading files in first level of the folder, not subfolders.
  */
-@Suppress("LongMethod", "TooGenericExceptionCaught", "MagicNumber")
+@Suppress("LongMethod", "MagicNumber")
 class FolderDownloadWorker(
     private val accountManager: UserAccountManager,
     private val context: Context,
@@ -57,7 +57,7 @@ class FolderDownloadWorker(
     private val notificationManager = FolderDownloadWorkerNotificationManager(context, true, viewThemeUtils)
     private lateinit var storageManager: FileDataStorageManager
 
-    @Suppress("ReturnCount", "DEPRECATION")
+    @Suppress("DEPRECATION")
     override suspend fun doWork(): Result {
         val folderID = inputData.getLong(FOLDER_ID, -1)
         if (folderID == -1L) {
@@ -166,7 +166,6 @@ class FolderDownloadWorker(
         }
     }
 
-    @Suppress("ReturnCount")
     override suspend fun getForegroundInfo(): ForegroundInfo {
         return try {
             val folderID = inputData.getLong(FOLDER_ID, -1)

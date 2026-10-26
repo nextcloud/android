@@ -43,7 +43,6 @@ import com.owncloud.android.ui.fragment.notifications.NotificationsAdapterItemCl
 import com.owncloud.android.ui.fragment.notifications.NotificationsFragment
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
-@Suppress("TooManyFunctions")
 class NotificationListAdapter(
     private val fragment: NotificationsFragment,
     private val viewThemeUtils: ViewThemeUtils,

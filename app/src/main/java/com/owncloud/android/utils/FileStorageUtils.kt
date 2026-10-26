@@ -46,7 +46,6 @@ import java.util.Locale
 import java.util.TimeZone
 import com.nextcloud.utils.AppConstants.ONE_SECOND
 
-@Suppress("TooManyFunctions")
 object FileStorageUtils {
     private val TAG: String = FileStorageUtils::class.java.simpleName
     private const val AUTO_UPLOAD_TAG = "AutoUpload"
@@ -186,7 +185,6 @@ object FileStorageUtils {
         }
     }
 
-    @Suppress("LongParameterList")
     @JvmStatic
     fun getInstantUploadFilePath(
         file: File,
@@ -336,7 +334,6 @@ object FileStorageUtils {
         } ?: false
     }
 
-    @Suppress("TooGenericExceptionCaught")
     @JvmStatic
     fun deleteRecursively(file: File, storageManager: FileDataStorageManager) {
         if (file.isDirectory) {
@@ -501,7 +498,6 @@ object FileStorageUtils {
 
     private fun canListFiles(f: File): Boolean = f.canRead() && f.isDirectory
 
-    @Suppress("TooGenericExceptionThrown")
     @JvmStatic
     fun checkIfEnoughSpace(file: OCFile): Boolean {
         val availableSpaceOnDevice = FileOperationsHelper.getAvailableSpaceOnDevice()

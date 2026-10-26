@@ -16,7 +16,6 @@ import java.util.TreeMap
  *
  * The implementation is not thread-safe.
  */
-@Suppress("TooManyFunctions")
 class MockSharedPreferences : SharedPreferences {
 
     class MockEditor(val store: MutableMap<String?, Any?>) : SharedPreferences.Editor {

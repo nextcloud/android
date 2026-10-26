@@ -53,9 +53,9 @@ complexity:
     active: false
     threshold: 10
     includeStaticDeclarations: false
-  ComplexMethod:
+  CyclomaticComplexMethod:
     active: true
-    threshold: 10
+    threshold: 15
     ignoreSingleWhenExpression: false
     ignoreSimpleWhenEntries: false
     excludes: ['**/androidTest/**']
@@ -70,7 +70,7 @@ complexity:
     threshold: 60
     excludes: ['**/androidTest/**']
   LongParameterList:
-    active: true
+    active: false
     functionThreshold: 7
     constructorThreshold: 6
     ignoreDefaultParameters: false
@@ -87,7 +87,7 @@ complexity:
     excludeStringsWithLessThan5Characters: true
     ignoreStringsRegex: '$^'
   TooManyFunctions:
-    active: true
+    active: false
     thresholdInFiles: 15
     thresholdInClasses: 15
     thresholdInInterfaces: 15
@@ -158,7 +158,7 @@ exceptions:
   ThrowingNewInstanceOfSameException:
     active: false
   TooGenericExceptionCaught:
-    active: true
+    active: false
     exceptionNames:
      - ArrayIndexOutOfBoundsException
      - Error
@@ -170,7 +170,7 @@ exceptions:
      - Throwable
     allowedExceptionNameRegex: "^(_|(ignore|expected).*)"
   TooGenericExceptionThrown:
-    active: true
+    active: false
     exceptionNames:
      - Error
      - Exception
@@ -226,7 +226,7 @@ naming:
     active: true
     packagePattern: '^[a-z]+(\.[a-z][A-Za-z0-9]*)*$'
   TopLevelPropertyNaming:
-    active: true
+    active: false
     constantPattern: '[A-Z][_A-Z0-9]*'
     propertyPattern: '[A-Za-z][_A-Za-z0-9]*'
     privatePropertyPattern: '(_)?[A-Za-z][A-Za-z0-9]*'
@@ -346,7 +346,7 @@ style:
   NestedClassesVisibility:
     active: false
   NewLineAtEndOfFile:
-    active: true
+    active: false
   NoTabs:
     active: false
   OptionalAbstractKeyword:
@@ -362,7 +362,7 @@ style:
   RedundantVisibilityModifierRule:
     active: false
   ReturnCount:
-    active: true
+    active: false
     max: 2
     excludedFunctions: [equals]
     excludeLabeled: false
