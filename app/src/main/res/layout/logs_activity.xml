@@ -5,47 +5,37 @@
   ~ SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <data>
-        <import type="android.view.View" />
-        <variable name="vm" type="com.nextcloud.client.logger.ui.LogsViewModel" />
-    </data>
+    <include layout="@layout/toolbar_standard" />
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <ProgressBar
+        android:id="@+id/logs_loading_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_gravity="center"/>
+
+    <LinearLayout
+        android:id="@+id/logs_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:orientation="vertical">
 
-        <include layout="@layout/toolbar_standard" />
-
-        <ProgressBar
-            android:id="@+id/logs_loading_progress"
-            android:visibility="@{safeUnbox(vm.isLoading) ? View.VISIBLE : View.GONE}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:layout_gravity="center"/>
-
-        <LinearLayout
-            android:visibility="@{safeUnbox(vm.isLoading) ? View.INVISIBLE : View.VISIBLE}"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/logsList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:orientation="vertical">
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/logsList"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
-
-            <TextView
-                android:id="@+id/logs_status"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:text="@{vm.status}"/>
-        </LinearLayout>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</layout>
+        <TextView
+            android:id="@+id/logs_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"/>
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

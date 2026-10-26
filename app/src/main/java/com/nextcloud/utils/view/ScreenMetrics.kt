@@ -7,17 +7,18 @@
 
 package com.nextcloud.utils.view
 
-import android.app.Activity
 import android.content.Context
 import android.graphics.Point
 import android.util.DisplayMetrics
+import com.owncloud.android.MainApp
 
 object ScreenMetrics {
 
     @JvmStatic
-    fun size(activity: Activity?): Point = Point().also { size ->
-        @Suppress("DEPRECATION")
-        activity?.windowManager?.defaultDisplay?.getSize(size)
+    @JvmOverloads
+    fun size(context: Context? = null): Point {
+        val displayMetrics = (context ?: MainApp.getAppContext()).displayMetrics
+        return Point(displayMetrics.widthPixels, displayMetrics.heightPixels)
     }
 
     @JvmStatic
@@ -26,6 +27,9 @@ object ScreenMetrics {
     @JvmStatic
     fun pxToDp(px: Int, context: Context): Float = px * (DisplayMetrics.DENSITY_DEFAULT / context.densityDpi)
 
+    private val Context.displayMetrics: DisplayMetrics
+        get() = resources.displayMetrics
+
     private val Context.densityDpi: Float
-        get() = resources.displayMetrics.densityDpi.toFloat()
+        get() = displayMetrics.densityDpi.toFloat()
 }

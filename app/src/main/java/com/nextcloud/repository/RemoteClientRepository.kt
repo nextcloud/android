@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-@Suppress("TooGenericExceptionCaught", "DEPRECATION")
+@Suppress("DEPRECATION")
 class RemoteClientRepository @Inject constructor(
     private val context: Context,
     private val accountManager: UserAccountManager,

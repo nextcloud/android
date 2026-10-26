@@ -31,7 +31,6 @@ import com.owncloud.android.utils.MimeTypeUtil
  * @param context  Android context.
  * @param storageManager  Storage manager handling local file operations.
  */
-@Suppress("LongParameterList")
 class RemoveFileOperation(
     val file: OCFile,
     val onlyLocalCopy: Boolean,

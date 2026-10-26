@@ -64,7 +64,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import com.nextcloud.utils.AppConstants.MILLIS_PER_SECOND
 
-@Suppress("ForbiddenComment", "ReturnCount", "MagicNumber", "MaxLineLength", "TooManyFunctions")
+@Suppress("ForbiddenComment", "MagicNumber", "MaxLineLength")
 class GalleryFragment :
     OCFileListFragment(),
     GalleryFragmentBottomSheetActions {

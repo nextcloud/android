@@ -179,7 +179,6 @@ object SyncedFolderUtils {
         return false
     }
 
-    @Suppress("ReturnCount")
     fun validateForAutoUpload(path: String?): File? {
         val file = path?.toFile()
         if (file == null) {

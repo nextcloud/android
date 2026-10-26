@@ -70,7 +70,6 @@ import kotlin.time.Duration.Companion.days
  * considered private implementation detail and should not be leaked through the interface, to minimize
  * potential migration cost in the future.
  */
-@Suppress("TooManyFunctions") // we expect this implementation to have rich API
 internal class BackgroundJobManagerImpl(
     private val workManager: WorkManager,
     private val clock: Clock,
@@ -926,6 +925,8 @@ internal class BackgroundJobManagerImpl(
 
         val request = oneTimeRequestBuilder(FolderDownloadWorker::class, JOB_DOWNLOAD_FOLDER)
             .addTag(JOB_DOWNLOAD_FOLDER)
+            .addTag(FolderDownloadWorker.formatTag(folder.fileId))
+            .addTag(FolderDownloadWorker.formatParentTag(folder.parentId))
             .setInputData(data)
             .setConstraints(constraints)
             .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)

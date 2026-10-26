@@ -39,13 +39,14 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
-import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.repository.ClientRepository
 import com.nextcloud.ui.fileDetail.FileDetailPreview
 import com.nextcloud.ui.fileactions.FileAction
+import com.nextcloud.ui.fileactions.FileActionHandler
+import com.nextcloud.ui.fileactions.FileActionHost
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet
 import com.nextcloud.ui.tags.TagManagementBottomSheet
 import com.nextcloud.utils.HumanReadableFormatter
@@ -66,13 +67,10 @@ import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.lib.resources.tags.Tag
 import com.owncloud.android.ui.activity.DrawerActivity
-import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.activity.ToolbarActivity
 import com.owncloud.android.ui.adapter.FileDetailTabAdapter
 import com.owncloud.android.ui.adapter.progressListener.DownloadProgressListener
-import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment
-import com.owncloud.android.ui.dialog.RenameFileDialogFragment
 import com.owncloud.android.ui.events.FavoriteEvent
 import com.owncloud.android.ui.fragment.filedetail.FileDetailFragmentViewModel
 import com.owncloud.android.ui.helpers.FileOperationsHelper
@@ -87,7 +85,6 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import javax.inject.Inject
 
-@Suppress("TooManyFunctions")
 class FileDetailFragment :
     FileFragment(),
     View.OnClickListener,
@@ -107,7 +104,7 @@ class FileDetailFragment :
     lateinit var viewThemeUtils: ViewThemeUtils
 
     @Inject
-    lateinit var backgroundJobManager: BackgroundJobManager
+    lateinit var fileActionHandler: FileActionHandler
 
     @Inject
     lateinit var folderThumbnailGenerator: FolderThumbnailGenerator
@@ -460,41 +457,15 @@ class FileDetailFragment :
 
     private fun onFileActionSelected(@IdRes itemId: Int) {
         val file = file ?: return
-        when (itemId) {
-            R.id.action_send_file -> fileOperationsHelper?.sendShareFile(file, true)
-
-            R.id.action_open_file_with -> fileOperationsHelper?.openFile(file)
-
-            R.id.action_remove_file -> RemoveFilesDialogFragment.newInstance(file)
-                .show(parentFragmentManager, FTAG_CONFIRMATION)
-
-            R.id.action_rename_file -> RenameFileDialogFragment.newInstance(file, parentFolder)
-                .show(parentFragmentManager, FTAG_RENAME_FILE)
-
-            R.id.action_cancel_sync -> (containerActivity as? FileDisplayActivity)?.cancelTransference(file)
-
-            R.id.action_download_file, R.id.action_sync_file -> syncFile(file)
-
-            R.id.action_export_file -> fileOperationsHelper?.exportFiles(
-                arrayListOf(file),
-                context,
-                view,
-                backgroundJobManager
-            )
-
-            R.id.action_set_as_wallpaper -> fileOperationsHelper?.setPictureAs(file, view)
-
-            R.id.action_retry -> backgroundJobManager.startOfflineOperations()
-
-            R.id.action_favorite -> setFavorite(file, true)
-
-            R.id.action_unset_favorite -> setFavorite(file, false)
-        }
-    }
-
-    private fun syncFile(file: OCFile) {
-        (containerActivity as? FileActivity)?.showSyncLoadingDialog(file.isFolder)
-        fileOperationsHelper?.syncFileOrFolder(file)
+        val containerActivity = containerActivity ?: return
+        val host = FileActionHost(
+            containerActivity,
+            parentFragmentManager,
+            view,
+            parentFolder,
+            onFavoriteChanged = ::setFavoriteIconStatus
+        )
+        fileActionHandler.handle(itemId, listOf(file), host)
     }
 
     private fun toggleDetailedTimestamp(file: OCFile) {
@@ -515,11 +486,6 @@ class FileDetailFragment :
     // endregion
 
     // region Favorite
-    private fun setFavorite(file: OCFile, isFavorite: Boolean) {
-        fileOperationsHelper?.toggleFavoriteFile(file, isFavorite)
-        setFavoriteIconStatus(isFavorite)
-    }
-
     private fun setFavoriteIconStatus(isFavorite: Boolean) {
         val binding = binding ?: return
         val (iconRes, descriptionRes) = if (isFavorite) {
@@ -745,7 +711,6 @@ class FileDetailFragment :
 
     companion object {
         private val TAG: String = FileDetailFragment::class.java.simpleName
-        private const val FTAG_CONFIRMATION = "REMOVE_CONFIRMATION_FRAGMENT"
         private const val FTAG_FILE_ACTIONS = "actions"
         private const val FTAG_TAG_MANAGEMENT = "tag_management"
         const val FTAG_RENAME_FILE = "RENAME_FILE_FRAGMENT"

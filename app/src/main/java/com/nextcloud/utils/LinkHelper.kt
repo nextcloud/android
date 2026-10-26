@@ -50,7 +50,6 @@ object LinkHelper {
     /**
      * Validates if a URL string is valid
      */
-    @Suppress("TooGenericExceptionCaught", "ReturnCount")
     fun validateAndGetURL(url: String?): String? {
         if (url.isNullOrBlank()) {
             Log_OC.w(TAG, "Given url is null or blank")

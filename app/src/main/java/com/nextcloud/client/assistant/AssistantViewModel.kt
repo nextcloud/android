@@ -28,7 +28,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
-@Suppress("TooManyFunctions")
 class AssistantViewModel(
     private val accountName: String,
     private val remoteRepository: AssistantRemoteRepository,

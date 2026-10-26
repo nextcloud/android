@@ -39,7 +39,6 @@ object SharePermissionManager {
     fun hasPermission(permission: Int, permissionFlag: Int): Boolean =
         permission != OCShare.NO_PERMISSION && (permission and permissionFlag) == permissionFlag
 
-    @Suppress("ReturnCount")
     private fun isPermissionValid(permission: Int): Boolean {
         // Must have at least READ or CREATE permission.
         if (!hasPermission(permission, OCShare.READ_PERMISSION_FLAG) &&
@@ -83,7 +82,6 @@ object SharePermissionManager {
                 )
     }
 
-    @Suppress("ReturnCount")
     fun isFileRequest(share: OCShare?): Boolean {
         if (share == null) {
             return false
@@ -126,7 +124,6 @@ object SharePermissionManager {
         QuickPermissionType.NONE
     }
 
-    @Suppress("ReturnCount")
     fun isCustomPermission(share: OCShare?): Boolean {
         if (share == null) {
             return false

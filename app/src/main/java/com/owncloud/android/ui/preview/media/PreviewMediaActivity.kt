@@ -77,7 +77,6 @@ import kotlin.math.min
 /**
  * Holds a swiping gallery where image and video files contained in a Nextcloud directory are shown.
  */
-@Suppress("TooManyFunctions")
 class PreviewMediaActivity :
     FileActivity(),
     FileFragment.ContainerActivity,

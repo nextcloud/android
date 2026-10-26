@@ -493,8 +493,7 @@ public class UploadFileOperation extends SyncOperation {
         // check if any parent is encrypted
         encryptedAncestor = FileStorageUtils.checkEncryptionStatus(parent, getStorageManager());
         mFile.setEncrypted(encryptedAncestor);
-        if (encryptedAncestor && parent != null) {
-            // - resume of encrypted upload, then parent file exists already as unlock is only for direct parent
+        if (parent != null) {
             mFile.setParentId(parent.getFileId());
         }
 

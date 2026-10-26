@@ -14,7 +14,7 @@ import org.junit.Before
 import org.junit.Test
 import java.io.File
 
-@Suppress("TooManyFunctions", "MagicNumber")
+@Suppress("MagicNumber")
 class FolderSizeCalculationTests {
 
     private lateinit var testDir: File

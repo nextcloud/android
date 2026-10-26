@@ -48,7 +48,6 @@ import java.util.Optional
 /**
  * Removes account and all local files
  */
-@Suppress("LongParameterList") // legacy code
 class AccountRemovalWork(
     private val context: Context,
     params: WorkerParameters,
@@ -67,7 +66,6 @@ class AccountRemovalWork(
         const val REMOTE_WIPE = "remote_wipe"
     }
 
-    @Suppress("ReturnCount") // legacy code
     override fun doWork(): Result {
         val accountName = inputData.getString(ACCOUNT) ?: ""
         if (TextUtils.isEmpty(accountName)) {
@@ -185,29 +183,23 @@ class AccountRemovalWork(
         }
     }
 
-    private fun createClient(user: User): Optional<OwnCloudClient> {
-        @Suppress("TooGenericExceptionCaught") // needs migration to newer api to get rid of exceptions
-        return try {
-            val context = MainApp.getAppContext()
-            val factory = OwnCloudClientManagerFactory.getDefaultSingleton()
-            val client = factory.getClientFor(user.toOwnCloudAccount(), context)
-            Optional.of(client)
-        } catch (e: Exception) {
-            Log_OC.e(this, "Could not create client", e)
-            Optional.empty()
-        }
+    private fun createClient(user: User): Optional<OwnCloudClient> = try {
+        val context = MainApp.getAppContext()
+        val factory = OwnCloudClientManagerFactory.getDefaultSingleton()
+        val client = factory.getClientFor(user.toOwnCloudAccount(), context)
+        Optional.of(client)
+    } catch (e: Exception) {
+        Log_OC.e(this, "Could not create client", e)
+        Optional.empty()
     }
 
-    private fun createNextcloudClient(user: User): Optional<NextcloudClient> {
-        @Suppress("TooGenericExceptionCaught") // needs migration to newer api to get rid of exceptions
-        return try {
-            val context = MainApp.getAppContext()
-            val factory = OwnCloudClientManagerFactory.getDefaultSingleton()
-            val client = factory.getNextcloudClientFor(user.toOwnCloudAccount(), context)
-            Optional.of(client)
-        } catch (e: Exception) {
-            Log_OC.e(this, "Could not create client", e)
-            Optional.empty()
-        }
+    private fun createNextcloudClient(user: User): Optional<NextcloudClient> = try {
+        val context = MainApp.getAppContext()
+        val factory = OwnCloudClientManagerFactory.getDefaultSingleton()
+        val client = factory.getNextcloudClientFor(user.toOwnCloudAccount(), context)
+        Optional.of(client)
+    } catch (e: Exception) {
+        Log_OC.e(this, "Could not create client", e)
+        Optional.empty()
     }
 }

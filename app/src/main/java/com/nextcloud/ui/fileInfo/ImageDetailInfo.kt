@@ -224,7 +224,6 @@ class ImageDetailInfo(private val fragment: FileInfoFragment, private val viewTh
             SimpleDateFormat("y:M:d H:m:s", Locale.ROOT).parse(it)?.time
         } ?: fallback
 
-    @Suppress("ReturnCount")
     private fun parseExposure(exif: ExifInterface): String? {
         val shutterSpeed = exif.getAttribute(ExifInterface.TAG_SHUTTER_SPEED_VALUE)
         val exposureTime = exif.getAttribute(ExifInterface.TAG_EXPOSURE_TIME)

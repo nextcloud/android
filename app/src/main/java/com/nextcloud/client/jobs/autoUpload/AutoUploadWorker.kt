@@ -57,7 +57,6 @@ import java.io.File
 import kotlin.coroutines.cancellation.CancellationException
 import kotlin.time.Duration.Companion.milliseconds
 
-@Suppress("LongParameterList", "TooManyFunctions", "TooGenericExceptionCaught")
 class AutoUploadWorker(
     private val context: Context,
     params: WorkerParameters,
@@ -90,7 +89,6 @@ class AutoUploadWorker(
     private val overridePowerSaving: Boolean
         get() = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
 
-    @Suppress("ReturnCount")
     override suspend fun doWork(): Result {
         return try {
             trySetForeground()
@@ -178,7 +176,6 @@ class AutoUploadWorker(
         .setSilent(true)
         .build()
 
-    @Suppress("TooGenericExceptionCaught")
     private fun getStartNotificationTitle(): Pair<String, String>? = try {
         val localPath = syncedFolder.localPath
         val remotePath = syncedFolder.remotePath
@@ -195,7 +192,6 @@ class AutoUploadWorker(
         null
     }
 
-    @Suppress("ReturnCount")
     private fun isBlocked(syncedFolderID: Long): Boolean {
         if (powerManagementService.blocksAutoUpload && !overridePowerSaving) {
             Log_OC.w(TAG, "⚡ Skipping: device is in power saving mode")
@@ -268,7 +264,7 @@ class AutoUploadWorker(
         }
     }
 
-    @Suppress("LongMethod", "DEPRECATION", "TooGenericExceptionCaught")
+    @Suppress("LongMethod", "DEPRECATION", "CyclomaticComplexMethod")
     private suspend fun uploadFiles(syncedFolder: SyncedFolder) = withContext(Dispatchers.IO) {
         val user = getUserOrReturn(syncedFolder) ?: return@withContext
         val ocAccount = OwnCloudAccount(user.toPlatformAccount(), context)
@@ -425,7 +421,6 @@ class AutoUploadWorker(
         return lastUploadResult in conflictResults && syncedFolder.nameCollisionPolicy != NameCollisionPolicy.ASK_USER
     }
 
-    @Suppress("ReturnCount")
     private fun getEntityResult(
         user: User,
         localPath: String,

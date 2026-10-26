@@ -44,7 +44,6 @@ constructor(
         }
     }
 
-    @Suppress("TooGenericExceptionCaught")
     fun getScaledBitmap(key: String, width: Int, height: Int): Bitmap? = try {
         decodeScaled(key.toValidKey(), width, height)
     } catch (e: Exception) {

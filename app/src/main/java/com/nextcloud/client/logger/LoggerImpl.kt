@@ -16,7 +16,6 @@ import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicLong
 
-@Suppress("TooManyFunctions")
 internal class LoggerImpl(
     private val clock: Clock,
     private val handler: FileLogHandler,

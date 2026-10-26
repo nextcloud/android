@@ -12,7 +12,6 @@ import java.util.concurrent.atomic.AtomicBoolean
  * This is a wrapper for a task function running in background.
  * It executes task function and handles result or error delivery.
  */
-@Suppress("LongParameterList")
 internal class Task<T, P>(
     private val postResult: (Runnable) -> Boolean,
     private val removeFromQueue: (Runnable) -> Boolean,
@@ -32,7 +31,6 @@ internal class Task<T, P>(
         postResult(Runnable { onProgress?.invoke(p) })
     }
 
-    @Suppress("TooGenericExceptionCaught") // this is exactly what we want here
     override fun run() {
         try {
             val result = taskBody.invoke({ postProgress(it) }, this::isCancelled)

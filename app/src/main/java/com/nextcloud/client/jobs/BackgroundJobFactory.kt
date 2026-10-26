@@ -51,7 +51,6 @@ import javax.inject.Provider
  *
  * This class is doing too many things and should be split up into smaller factories.
  */
-@Suppress("LongParameterList", "TooManyFunctions") // satisfied by DI
 class BackgroundJobFactory @Inject constructor(
     private val logger: Logger,
     private val preferences: AppPreferences,
@@ -76,7 +75,7 @@ class BackgroundJobFactory @Inject constructor(
 ) : WorkerFactory() {
 
     @SuppressLint("NewApi")
-    @Suppress("ComplexMethod") // it's just a trivial dispatch
+    @Suppress("CyclomaticComplexMethod") // it's just a trivial dispatch
     override fun createWorker(
         context: Context,
         workerClassName: String,
@@ -338,7 +337,6 @@ class BackgroundJobFactory @Inject constructor(
             accountManager,
             context,
             viewThemeUtils.get(),
-            localBroadcastManager.get(),
             params
         )
 

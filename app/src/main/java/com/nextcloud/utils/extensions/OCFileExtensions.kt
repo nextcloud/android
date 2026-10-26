@@ -39,7 +39,6 @@ fun OCFile?.isPNG(): Boolean {
     return "image/png".equals(mimeType, ignoreCase = true)
 }
 
-@Suppress("ReturnCount")
 fun OCFile?.getDepth(): OCFileDepth? {
     if (this == null) {
         return null

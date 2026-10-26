@@ -303,7 +303,6 @@ class LoggerTest {
     }
 
     @Test
-    @Suppress("TooGenericExceptionCaught")
     fun `thread interruption is handled while posting log message`() {
         Thread {
             val callerThread = Thread.currentThread()

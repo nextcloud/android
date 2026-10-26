@@ -27,7 +27,6 @@ import java.net.UnknownHostException
 import javax.net.ssl.SSLException
 import kotlin.time.Duration.Companion.seconds
 
-@Suppress("TooGenericExceptionCaught", "ReturnCount")
 class ConnectivityServiceImpl(
     context: Context,
     private val accountManager: UserAccountManager,

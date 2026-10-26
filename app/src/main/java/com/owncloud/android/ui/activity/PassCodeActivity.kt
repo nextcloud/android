@@ -39,7 +39,7 @@ import javax.inject.Inject
 import androidx.activity.OnBackPressedCallback
 import com.nextcloud.utils.AppConstants.ONE_SECOND
 
-@Suppress("TooManyFunctions", "MagicNumber")
+@Suppress("MagicNumber")
 class PassCodeActivity :
     AppCompatActivity(),
     Injectable {

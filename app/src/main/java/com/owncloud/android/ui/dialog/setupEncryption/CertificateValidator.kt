@@ -27,7 +27,6 @@ class CertificateValidator @Inject constructor() {
      * @param serverPublicKeyString Public key with header
      * @param certificate Certificate in PEM format
      */
-    @Suppress("TooGenericExceptionCaught")
     fun validate(serverPublicKeyString: String, certificate: String): Boolean {
         val contentOfServerKey = CryptoStringUtils.rawPublicKey(serverPublicKeyString)
 

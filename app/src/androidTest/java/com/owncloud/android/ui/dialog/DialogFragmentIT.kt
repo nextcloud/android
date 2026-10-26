@@ -78,7 +78,6 @@ import org.junit.Test
 import java.net.URI
 import java.util.function.Supplier
 
-@Suppress("TooManyFunctions")
 class DialogFragmentIT : AbstractIT() {
     private val testClassName = "com.owncloud.android.ui.dialog.DialogFragmentIT"
     private val serverUrl = "https://nextcloud.localhost"

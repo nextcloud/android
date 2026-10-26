@@ -58,7 +58,6 @@ import java.util.concurrent.ConcurrentHashMap
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.milliseconds
 
-@Suppress("LongParameterList", "TooGenericExceptionCaught")
 class FileUploadWorker(
     val uploadsStorageManager: UploadsStorageManager,
     val connectivityService: ConnectivityService,
@@ -242,7 +241,7 @@ class FileUploadWorker(
         }
     }
 
-    @Suppress("ReturnCount", "LongMethod", "DEPRECATION")
+    @Suppress("LongMethod", "DEPRECATION", "CyclomaticComplexMethod")
     private suspend fun uploadFiles(): Result = withContext(Dispatchers.IO) {
         val accountName = inputData.getString(ACCOUNT)
         if (accountName == null) {
@@ -385,7 +384,6 @@ class FileUploadWorker(
         else -> false
     }
 
-    @Suppress("ReturnCount")
     suspend fun isBelongToAnySyncedFolder(
         upload: OCUpload,
         syncFolderHelper: SyncFolderHelper,
@@ -435,7 +433,7 @@ class FileUploadWorker(
         return result
     }
 
-    @Suppress("TooGenericExceptionCaught", "DEPRECATION")
+    @Suppress("DEPRECATION")
     private suspend fun upload(
         operation: UploadFileOperation,
         user: User,

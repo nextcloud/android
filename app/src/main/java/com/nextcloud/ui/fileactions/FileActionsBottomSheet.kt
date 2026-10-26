@@ -36,12 +36,9 @@ import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.avatar.AvatarGenerationListener
 import com.nextcloud.utils.avatar.AvatarGenerator
-import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.text.DisplayTextFormatter
 import com.nextcloud.utils.text.SpanFormatter
 import com.nextcloud.utils.thumbnail.ThumbnailArguments
-import com.nextcloud.utils.view.LocaleDirection
-import com.nextcloud.utils.view.ScreenMetrics
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileActionsBottomSheetBinding
 import com.owncloud.android.databinding.FileActionsBottomSheetItemBinding
@@ -50,7 +47,6 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.resources.files.model.FileLockType
 import com.owncloud.android.ui.activity.ComponentsGetter
-import com.owncloud.android.utils.FileStorageUtils
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
@@ -238,25 +234,12 @@ class FileActionsBottomSheet :
 
     private fun displayTitle(titleFile: OCFile?) {
         val decryptedFileName = titleFile?.decryptedFileName
-        if (decryptedFileName != null) {
-            val isFolder = titleFile.isFolder
-            val isRTL = LocaleDirection.isRtl
-            val (base, ext) = FileStorageUtils.getFilenameAndExtension(decryptedFileName, isFolder, isRTL)
-            val titleMaxWidth = ScreenMetrics.dpToPx(
-                requireContext().resources.configuration.screenWidthDp.times(FILENAME_MAX_WIDTH_PERCENTAGE).toFloat(),
-                requireContext()
-            )
-
-            binding.title.maxWidth = titleMaxWidth
-            binding.title.text = base
-            binding.extension.setVisibleIf(!isFolder)
-            if (!isFolder) {
-                binding.extension.text = ext
-            }
-        } else {
+        if (decryptedFileName == null) {
             binding.title.isVisible = false
-            binding.extension.isVisible = false
+            return
         }
+
+        binding.title.setFilename(decryptedFileName, titleFile.isFolder)
     }
 
     private fun displayLockInfo(lockInfo: FileActionsViewModel.LockInfo) {
@@ -351,7 +334,6 @@ class FileActionsBottomSheet :
     companion object {
         private const val REQUEST_KEY = "REQUEST_KEY_ACTION"
         private const val RESULT_KEY_ACTION_ID = "RESULT_KEY_ACTION_ID"
-        private const val FILENAME_MAX_WIDTH_PERCENTAGE = 0.6
 
         @JvmStatic
         @JvmOverloads

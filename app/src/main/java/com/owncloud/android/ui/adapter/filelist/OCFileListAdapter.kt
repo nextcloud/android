@@ -83,7 +83,6 @@ import java.util.Date
 import java.util.Locale
 import java.util.UUID
 
-@Suppress("LongParameterList", "TooManyFunctions")
 class OCFileListAdapter(
     private val activity: Activity,
     private var user: User,
@@ -553,6 +552,13 @@ class OCFileListAdapter(
 
     fun updateFileIndicator(iconId: Int, file: OCFile?) {
         file?.let { notifyItemChangedIfPresent(it, iconId) }
+    }
+
+    fun updateFileIndicator(fileId: Long, iconId: Int) {
+        val index = files.indexOfFirst { it.fileId == fileId }
+        if (index != RecyclerView.NO_POSITION) {
+            notifyItemChanged(index + differ.headerOffset(), iconId)
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")

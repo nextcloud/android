@@ -16,7 +16,6 @@ import org.apache.commons.httpclient.HttpStatus
 import org.apache.commons.httpclient.methods.Utf8PostMethod
 import org.json.JSONObject
 
-@Suppress("TooGenericExceptionCaught")
 class StreamMediaFileOperation(private val fileID: Long) : RemoteOperation<ArrayList<String>>() {
 
     @Deprecated("Deprecated in Java")

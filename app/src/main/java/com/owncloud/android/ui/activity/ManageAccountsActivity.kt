@@ -132,7 +132,6 @@ class ManageAccountsActivity :
         recyclerView?.setLayoutManager(LinearLayoutManager(this))
     }
 
-    @Suppress("ReturnCount")
     @Deprecated("Use ActivityResultLauncher")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -248,7 +247,6 @@ class ManageAccountsActivity :
         startActivity(intent)
     }
 
-    @Suppress("TooGenericExceptionCaught")
     @SuppressLint("NotifyDataSetChanged")
     override fun startAccountCreation() {
         stopMediaPlayerAndHidePip()

@@ -17,7 +17,6 @@ import com.nextcloud.utils.fileNameValidator.FileNameValidator.isFileHidden
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.status.OCCapability
 
-@Suppress("LongParameterList")
 class FileNameTextWatcher(
     private val previousFileName: String?,
     private val context: Context,

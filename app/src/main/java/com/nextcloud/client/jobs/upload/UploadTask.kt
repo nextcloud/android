@@ -19,7 +19,6 @@ import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.operations.UploadFileOperation
 
-@Suppress("LongParameterList")
 class UploadTask(
     private val applicationContext: Context,
     private val uploadsStorageManager: UploadsStorageManager,
@@ -35,7 +34,6 @@ class UploadTask(
      * This class is a helper factory to to keep static dependencies
      * injection out of the upload task instance.
      */
-    @Suppress("LongParameterList")
     class Factory(
         private val applicationContext: Context,
         private val uploadsStorageManager: UploadsStorageManager,

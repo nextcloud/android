@@ -40,7 +40,7 @@ object CryptoHelper {
     private val charset = StandardCharsets.UTF_8
 
     // region Decrypt
-    @Suppress("TooGenericExceptionCaught", "LongMethod", "ThrowsCount")
+    @Suppress("LongMethod", "ThrowsCount")
     fun decryptPrivateKey(privateKey: String, keyPhrase: String): String {
         if (privateKey.isEmpty()) {
             throw CryptoError.EmptyPrivateKey()

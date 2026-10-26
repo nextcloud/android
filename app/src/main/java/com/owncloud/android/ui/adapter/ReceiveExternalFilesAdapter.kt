@@ -29,7 +29,6 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager.ThumbnailGeneration
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
-@Suppress("LongParameterList")
 class ReceiveExternalFilesAdapter(
     private val files: List<OCFile>,
     private val context: Context,

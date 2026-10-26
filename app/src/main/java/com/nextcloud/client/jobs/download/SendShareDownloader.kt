@@ -88,7 +88,6 @@ class SendShareDownloader(
         fileWaitingToSend = savedInstanceState?.getParcelableArgument(KEY_FILE_WAITING_TO_SEND, OCFile::class.java)
     }
 
-    @Suppress("ReturnCount")
     private fun onDownloadCompleted(intent: Intent) {
         val waitingToSend = fileWaitingToSend ?: return
 

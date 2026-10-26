@@ -22,7 +22,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.apache.commons.httpclient.HttpStatus
 
-@Suppress("TooGenericExceptionCaught")
 class FolderEncryption(private val fragment: OCFileListFragment) {
 
     companion object {
@@ -81,7 +80,6 @@ class FolderEncryption(private val fragment: OCFileListFragment) {
         }
     }
 
-    @Suppress("LongParameterList")
     suspend fun onToggleSuccess(
         remoteId: String,
         shouldBeEncrypted: Boolean,

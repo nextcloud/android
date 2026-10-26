@@ -26,7 +26,7 @@ import java.util.zip.CRC32
 import com.nextcloud.utils.AppConstants.BYTES_PER_KB
 import com.nextcloud.utils.AppConstants.MILLIS_PER_SECOND
 
-@Suppress("TooGenericExceptionCaught", "NestedBlockDepth", "MagicNumber", "ReturnCount")
+@Suppress("NestedBlockDepth", "MagicNumber")
 class FileSystemRepository(
     private val dao: FileSystemDao,
     private val uploadsStorageManager: UploadsStorageManager,

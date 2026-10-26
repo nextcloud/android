@@ -19,7 +19,7 @@ import com.owncloud.android.operations.RefreshFolderOperation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-@Suppress("DEPRECATION", "ReturnCount", "TooGenericExceptionCaught")
+@Suppress("DEPRECATION")
 class MetadataWorker(private val context: Context, params: WorkerParameters, private val user: User) :
     CoroutineWorker(context, params) {
 
