@@ -98,7 +98,6 @@ import kotlin.math.min
  *
  * DO NOT CALL IT: an [OCFile] and [User] must be provided for a successful construction
  */
-@Suppress("TooManyFunctions")
 class PreviewMediaFragment :
     FileFragment(),
     Injectable {
@@ -184,7 +183,6 @@ class PreviewMediaFragment :
      * {@inheritDoc}
      */
     @Deprecated("Deprecated in Java")
-    @Suppress("ReturnCount")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (savedInstanceState == null) {
@@ -363,7 +361,6 @@ class PreviewMediaFragment :
         )
     }
 
-    @Suppress("ReturnCount")
     private fun onOverflowClick(isManualClick: Boolean = false) {
         val file = file ?: return
         val storageManager = containerActivity.storageManager ?: return
@@ -607,7 +604,6 @@ class PreviewMediaFragment :
         }
     }
 
-    @Suppress("ReturnCount")
     private fun generateCheckerboardLayeredDrawable(result: LoadImage, bitmap: Bitmap?): LayerDrawable {
         val resources = resources
         val layers = arrayOfNulls<Drawable>(2)
