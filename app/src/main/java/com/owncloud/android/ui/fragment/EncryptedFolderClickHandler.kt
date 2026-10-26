@@ -117,7 +117,8 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
     fun openAfterKeySetup(file: OCFile) {
         fragment.lifecycleScope.launch {
             if (fragment.e2eeActionResolver.checkFolderMetadataKey(file)) {
-                onEncryptionSetupComplete(file, fragment.adapter.getItemPosition(file))
+                val position = fragment.adapter?.getItemPosition(file) ?: return@launch
+                onEncryptionSetupComplete(file, position)
             } else {
                 SnackbarUtil.show(fragment, R.string.encryption_open_key_mismatch)
             }
@@ -131,7 +132,7 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
 
     private fun onFolderKeyVerified(file: OCFile, position: Int, fileActivity: FileActivity) {
         val user = fileActivity.user.orElseThrow { RuntimeException() }
-        val capability = fragment.containerActivity.getStorageManager().getCapability(user.accountName)
+        val capability = fragment.requireContainerActivity().storageManager.getCapability(user.accountName)
 
         if (capability.endToEndEncryption.isFalse || capability.endToEndEncryption.isUnknown) {
             SnackbarUtil.show(fragment, R.string.end_to_end_encryption_not_enabled)
@@ -146,8 +147,8 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
     }
 
     private fun onEncryptionSetupComplete(file: OCFile?, position: Int) {
-        fragment.searchFragment = false
-        fragment.mHideFab = false
+        fragment.isSearchFragment = false
+        fragment.hideFab = false
 
         val folderPickerActivity = fragment.containerActivity as? FolderPickerActivity
         if (folderPickerActivity?.isDoNotEnterEncryptedFolder == true) {

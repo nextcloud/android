@@ -515,8 +515,6 @@ class AlbumItemsFragment :
     //endregion
 
     //region Item interaction
-    override fun getColumnsCount(): Int = columnSize
-
     override fun isLoading(): Boolean = false
 
     override fun onHeaderClicked() = Unit

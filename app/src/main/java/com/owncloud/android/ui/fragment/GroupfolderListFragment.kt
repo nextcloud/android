@@ -33,14 +33,14 @@ class GroupfolderListFragment :
     Injectable,
     GroupfolderListInterface {
 
-    lateinit var adapter: GroupFolderListAdapter
+    private lateinit var groupFolderAdapter: GroupFolderListAdapter
 
     @Inject
     lateinit var logger: Logger
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        searchFragment = true
+        isSearchFragment = true
     }
 
     @Deprecated("Deprecated in Java")
@@ -55,8 +55,9 @@ class GroupfolderListFragment :
     }
 
     public override fun setAdapter(args: Bundle?) {
-        adapter = GroupFolderListAdapter(requireContext(), viewThemeUtils, this, preferences.isDarkModeEnabled)
-        setRecyclerViewAdapter(adapter)
+        groupFolderAdapter =
+            GroupFolderListAdapter(requireContext(), viewThemeUtils, this, preferences.isDarkModeEnabled)
+        setRecyclerViewAdapter(groupFolderAdapter)
 
         val layoutManager = LinearLayoutManager(context)
         recyclerView?.layoutManager = layoutManager
@@ -67,7 +68,7 @@ class GroupfolderListFragment :
         GroupfoldersSearchTask(
             this,
             accountManager.user,
-            containerActivity.storageManager
+            requireContainerActivity().storageManager
         ).execute()
     }
 
@@ -92,8 +93,8 @@ class GroupfolderListFragment :
 
     @SuppressLint("NotifyDataSetChanged")
     fun setData(result: Map<String, Groupfolder>) {
-        adapter.setData(result)
-        adapter.notifyDataSetChanged()
+        groupFolderAdapter.setData(result)
+        groupFolderAdapter.notifyDataSetChanged()
     }
 
     override fun onFolderClick(path: String) {

@@ -674,7 +674,7 @@ class FileDisplayActivity :
 
             ON_DEVICE == action -> {
                 refreshOrInitOCFileListFragment()
-                listOfFilesFragment?.setCurrentSearchType(SearchType.ON_DEVICE)
+                listOfFilesFragment?.currentSearchType = SearchType.ON_DEVICE
                 updateActionBarTitleAndHomeButton(null)
             }
         }
@@ -833,7 +833,7 @@ class FileDisplayActivity :
         getOCFileListFragmentFromFile(object : TransactionInterface {
             override fun onOCFileListFragmentComplete(fragment: OCFileListFragment) {
                 browseUp(fragment)
-                fragment.onOverflowIconClicked(file, null)
+                file?.let { fragment.onOverflowIconClicked(it, null) }
             }
         })
     }
@@ -2533,7 +2533,9 @@ class FileDisplayActivity :
                 return
             }
 
-            fileListFragment?.onItemClicked(storageManager.getFileByDecryptedRemotePath(operation.getRemotePath()))
+            storageManager.getFileByDecryptedRemotePath(operation.getRemotePath())?.let {
+                fileListFragment?.onItemClicked(it)
+            }
         } else {
             try {
                 if (RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS == result.code) {
