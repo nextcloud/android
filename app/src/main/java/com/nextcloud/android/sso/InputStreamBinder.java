@@ -284,8 +284,9 @@ public class InputStreamBinder extends IInputStreamService.Stub {
             case "MOVE":
                 String destUrl = request.getAdditionalParameter(NextcloudRequest.ADDITIONAL_PARAMETER_MOVE_DESTINATION);
                 boolean overwrite =
-                    request.getAdditionalParameter(NextcloudRequest.ADDITIONAL_PARAMETER_MOVE_OVERWRITE)
-                        .equalsIgnoreCase("true");
+                    "true".equalsIgnoreCase(
+                        request.getAdditionalParameter(NextcloudRequest.ADDITIONAL_PARAMETER_MOVE_OVERWRITE)
+                    );
                 method = new MoveMethod(requestUrl, destUrl, overwrite);
                 break;
 
