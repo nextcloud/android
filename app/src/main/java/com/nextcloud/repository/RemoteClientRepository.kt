@@ -11,6 +11,7 @@ import android.content.Context
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.ApplicationScope
 import com.nextcloud.common.NextcloudClient
+import com.nextcloud.common.PlainClient
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -71,4 +72,6 @@ class RemoteClientRepository @Inject constructor(
             null
         }
     }
+
+    override fun getPlainClient(): PlainClient = PlainClient(context)
 }

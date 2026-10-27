@@ -28,7 +28,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
-import android.preference.PreferenceManager
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -42,13 +41,10 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.TextView.OnEditorActionListener
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.DrawableRes
 import androidx.annotation.VisibleForTesting
 import androidx.browser.auth.AuthTabIntent
 import androidx.core.content.ContextCompat
-import androidx.core.content.edit
 import androidx.core.net.toUri
-import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
@@ -59,18 +55,14 @@ import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.blikoon.qrcodescanner.QrCodeActivity
 import com.google.gson.Gson
-import com.google.gson.JsonParser
-import com.google.gson.reflect.TypeToken
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.di.Injectable
-import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.onboarding.FirstRunActivity
 import com.nextcloud.client.onboarding.OnboardingService
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.model.HTTPStatusCodes
-import com.nextcloud.operations.PostMethod
+import com.nextcloud.repository.ClientRepository
 import com.nextcloud.utils.RawResourceReader
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -78,16 +70,22 @@ import com.nextcloud.utils.mdm.MDMConfig
 import com.nextcloud.utils.text.LinkFormatter
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
-import com.owncloud.android.authentication.AuthenticatorUrlUtils.normalizeScheme
-import com.owncloud.android.authentication.AuthenticatorUrlUtils.normalizeUrlSuffix
-import com.owncloud.android.authentication.AuthenticatorUrlUtils.stripIndexPhpOrAppsFiles
-import com.owncloud.android.authentication.AuthenticatorUrlUtils.trimWebdavSuffix
+import com.owncloud.android.authentication.server.AuthenticatorUrlUtils.normalizeScheme
+import com.owncloud.android.authentication.server.AuthenticatorUrlUtils.normalizeUrlSuffix
+import com.owncloud.android.authentication.server.AuthenticatorUrlUtils.stripIndexPhpOrAppsFiles
+import com.owncloud.android.authentication.server.AuthenticatorUrlUtils.trimWebdavSuffix
+import com.owncloud.android.authentication.server.EnforcedServerPolicy
+import com.owncloud.android.authentication.status.AuthenticatorStatus
+import com.owncloud.android.authentication.status.AuthenticatorStatusMapper
+import com.owncloud.android.authentication.account.AuthenticatorAccountStore
+import com.owncloud.android.authentication.account.CredentialsVerifier
 import com.owncloud.android.authentication.dialog.LoginDialog
+import com.owncloud.android.authentication.loginflow.LoginFlowV2
+import com.owncloud.android.authentication.loginurl.LoginDataUrlParser
+import com.owncloud.android.authentication.loginurl.LoginUrlInfo
 import com.owncloud.android.databinding.AccountSetupBinding
 import com.owncloud.android.databinding.AccountSetupWebviewBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
-import com.owncloud.android.lib.common.OwnCloudAccount
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.OwnCloudCredentials
 import com.owncloud.android.lib.common.OwnCloudCredentialsFactory
 import com.owncloud.android.lib.common.UserInfo
@@ -112,21 +110,15 @@ import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.activity.SettingsActivity
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener
-import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.ProxyUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlinx.coroutines.withTimeoutOrNull
-import okhttp3.FormBody
 import java.lang.ref.WeakReference
-import java.net.URLDecoder
 import javax.inject.Inject
 
 /**
@@ -159,7 +151,7 @@ open class AuthenticatorActivity :
     lateinit var viewThemeUtilsFactory: ViewThemeUtils.Factory
 
     @Inject
-    lateinit var clientFactory: ClientFactory
+    lateinit var clientRepository: ClientRepository
 
     @get:VisibleForTesting
     var accountSetupBinding: AccountSetupBinding? = null
@@ -168,9 +160,11 @@ open class AuthenticatorActivity :
 
     protected val loginDialog = LoginDialog(this)
     private lateinit var viewThemeUtils: ViewThemeUtils
-    private lateinit var platformAccountManager: AccountManager
     private val handler = Handler(Looper.getMainLooper())
     private val gson = Gson()
+    private val statusMapper by lazy { AuthenticatorStatusMapper(resources) }
+    private val accountStore by lazy { AuthenticatorAccountStore(this, AccountManager.get(this), accountManager) }
+    private val loginFlow by lazy { LoginFlowV2(clientRepository, lifecycleScope, ::completeLoginFlow) }
 
     private var authenticatorAction = ACTION_CREATE
     private var account: Account? = null
@@ -183,10 +177,8 @@ open class AuthenticatorActivity :
     private var credentialsCheckJob: Job? = null
 
     private var serverInfo = ServerInfo()
-    private var serverStatusText: String? = EMPTY_STRING
-    private var serverStatusIcon = NO_ICON
-    private var authStatusText: String? = EMPTY_STRING
-    private var authStatusIcon = NO_ICON
+    private var serverStatus = AuthenticatorStatus.NONE
+    private var authStatus = AuthenticatorStatus.NONE
 
     private var showWebViewLoginUrl = false
     private var webViewUser: String? = null
@@ -217,7 +209,6 @@ open class AuthenticatorActivity :
         hideActionBar()
 
         isFirstAuthAttempt = true
-        platformAccountManager = AccountManager.get(this)
         authenticatorAction = intent.getByteExtra(EXTRA_ACTION, ACTION_CREATE)
         account = intent.extras?.getParcelableArgument(EXTRA_ACCOUNT, Account::class.java)
 
@@ -251,11 +242,7 @@ open class AuthenticatorActivity :
         serverInfo.mVersion?.let { outState.putString(KEY_OC_VERSION, it.version) }
         outState.putString(KEY_SERVER_AUTH_METHOD, serverInfo.mAuthMethod.name)
         outState.putBoolean(KEY_AUTH_IS_FIRST_ATTEMPT_TAG, isFirstAuthAttempt)
-
-        val pendingAuthObject = authObject
-        if (pendingAuthObject != null && !isLoginProcessCompleted) {
-            outState.putString(KEY_LOGIN_FLOW_AUTH_OBJECT, AuthObject.toJson(pendingAuthObject))
-        }
+        loginFlow.pendingAuthObjectJson?.let { outState.putString(KEY_LOGIN_FLOW_AUTH_OBJECT, it) }
 
         credentialsCheckJob?.cancel()
         outState.putBoolean(KEY_CREDENTIALS_CHECK_IN_PROGRESS, credentialsCheckJob != null)
@@ -427,8 +414,7 @@ open class AuthenticatorActivity :
 
     private fun initAuthorizationUi(binding: AccountSetupBinding, savedInstanceState: Bundle?) {
         savedInstanceState?.let {
-            authStatusText = it.getString(KEY_AUTH_STATUS_TEXT)
-            authStatusIcon = it.getInt(KEY_AUTH_STATUS_ICON)
+            authStatus = AuthenticatorStatus(it.getInt(KEY_AUTH_STATUS_ICON), it.getString(KEY_AUTH_STATUS_TEXT))
         }
 
         showAuthStatus()
@@ -443,7 +429,7 @@ open class AuthenticatorActivity :
         binding.hostUrlInputHelperText.visibility = View.GONE
         binding.serversSpinner.visibility = View.VISIBLE
 
-        val enforcedServers = parseEnforcedServers(getString(R.string.enforce_servers))
+        val enforcedServers = EnforcedServerPolicy.parse(getString(R.string.enforce_servers))
         val serverUrls = listOf(EMPTY_STRING) + enforcedServers.map { it.url }
 
         binding.serversSpinner.adapter = ArrayAdapter<String>(this, R.layout.enforced_servers_spinner).apply {
@@ -479,15 +465,16 @@ open class AuthenticatorActivity :
             return
         }
 
-        serverInfo.mBaseUrl = platformAccountManager.getUserData(account, AccountUtils.Constants.KEY_OC_BASE_URL)
-            .orEmpty()
+        serverInfo.mBaseUrl = accountStore.baseUrl(account)
         serverInfo.mIsSslConn = serverInfo.mBaseUrl.startsWith(HTTPS_PROTOCOL)
         serverInfo.mVersion = accountManager.getServerVersion(account)
     }
 
     private fun restoreServerInfo(savedInstanceState: Bundle) {
-        serverStatusText = savedInstanceState.getString(KEY_SERVER_STATUS_TEXT)
-        serverStatusIcon = savedInstanceState.getInt(KEY_SERVER_STATUS_ICON)
+        serverStatus = AuthenticatorStatus(
+            savedInstanceState.getInt(KEY_SERVER_STATUS_ICON),
+            savedInstanceState.getString(KEY_SERVER_STATUS_TEXT)
+        )
 
         serverInfo.mIsSslConn = savedInstanceState.getBoolean(KEY_IS_SSL_CONN)
         serverInfo.mBaseUrl = savedInstanceState.getString(KEY_HOST_URL_TEXT)
@@ -513,40 +500,18 @@ open class AuthenticatorActivity :
     // endregion
 
     // region LoginFlow
-    private var authObject: AuthObject? = null
-    private var fallbackToken: String? = null
-    private var loginFlowBaseUrl: String? = null
-    private var isLoginProcessCompleted = false
     private var isRedirectedToTheDefaultBrowser = false
     private var isServerCheckPendingServiceBinding = false
-    private var loginFlowPollingJob: Job? = null
-    private val loginFlowPollRequests = Channel<Unit>(Channel.CONFLATED)
 
     private val lifecycleEventObserver = LifecycleEventObserver { _, event ->
-        if (event == Lifecycle.Event.ON_START && !authObject?.poll?.token.isNullOrEmpty()) {
+        if (event == Lifecycle.Event.ON_START && loginFlow.hasPollToken) {
             Log_OC.d(TAG, "Login flow v2: app is in foreground, polling started")
-            pollLoginFlow()
-        }
-    }
-
-    private fun pollLoginFlow() {
-        loginFlowPollRequests.trySend(Unit)
-        if (loginFlowPollingJob?.isActive == true) {
-            return
-        }
-
-        loginFlowPollingJob = lifecycleScope.launch(Dispatchers.IO) {
-            while (isActive) {
-                withTimeoutOrNull(LOGIN_FLOW_POLL_INTERVAL_MS) { loginFlowPollRequests.receive() }
-                if (!isLoginProcessCompleted && !pollLoginFlowOnce()) {
-                    return@launch
-                }
-            }
+            loginFlow.poll()
         }
     }
 
     private fun stopLoginFlowPolling() {
-        loginFlowPollingJob?.cancel()
+        loginFlow.stopPolling()
         ProcessLifecycleOwner.get().lifecycle.removeObserver(lifecycleEventObserver)
     }
 
@@ -560,63 +525,20 @@ open class AuthenticatorActivity :
             SnackbarUtil.show(this, R.string.authenticator_activity_empty_base_url)
             return
         }
-        loginFlowBaseUrl = url
         Log_OC.d(TAG, "Login flow v2: requesting login URL from $url")
 
         lifecycleScope.launch {
-            val response = withContext(Dispatchers.IO) { requestLoginFlowResponse(url) }
+            val response = loginFlow.requestLoginResponse(url)
             if (response.isEmpty()) {
                 Log_OC.e(TAG, "Login flow v2: login URL request returned an empty response")
                 SnackbarUtil.show(this@AuthenticatorActivity, R.string.authenticator_activity_empty_response_message)
                 return@launch
             }
 
-            val loginUrl = extractLoginUrl(response)
+            val loginUrl = loginFlow.parseLoginUrl(response) ?: defaultLoginUrl()
             initLoginInfoView()
             launchDefaultWebBrowser(loginUrl)
         }
-    }
-
-    private fun requestLoginFlowResponse(url: String): String = try {
-        val post = PostMethod(url, false, FormBody.Builder().build())
-        val status = post.execute(clientFactory.createPlainClient())
-        Log_OC.d(TAG, "Login flow v2: login URL request finished with status $status")
-        post.getResponseBodyAsString()
-    } catch (e: Exception) {
-        Log_OC.e(TAG, "Login flow v2: login URL request failed: ${e.javaClass.simpleName}")
-        EMPTY_STRING
-    }
-
-    private fun extractLoginUrl(response: String): String =
-        loginUrlFromAuthObject(response) ?: loginUrlFromJsonObject(response) ?: defaultLoginUrl()
-
-    private fun loginUrlFromAuthObject(response: String): String? {
-        try {
-            val parsedAuthObject = AuthObject.fromJson(response)
-            authObject = parsedAuthObject
-            if (parsedAuthObject.login.isNotEmpty()) {
-                return parsedAuthObject.login
-            }
-            Log_OC.e(TAG, "Login flow v2: login URL missing in response, trying fallback parser")
-        } catch (e: Exception) {
-            Log_OC.e(TAG, "Login flow v2: response parsing failed, trying fallback parser: ${e.javaClass.simpleName}")
-        }
-        return null
-    }
-
-    private fun loginUrlFromJsonObject(response: String): String? {
-        try {
-            val jsonObject = JsonParser.parseString(response).asJsonObject
-            fallbackToken = jsonObject.getAsJsonObject(JSON_KEY_POLL).get(JSON_KEY_TOKEN).asString
-            val loginUrl: String? = jsonObject.get(JSON_KEY_LOGIN).asString
-            if (!loginUrl.isNullOrEmpty()) {
-                return loginUrl
-            }
-            Log_OC.e(TAG, "Login flow v2: fallback parser found no login URL")
-        } catch (e: Exception) {
-            Log_OC.e(TAG, "Login flow v2: fallback parser failed: ${e.javaClass.simpleName}")
-        }
-        return null
     }
 
     private fun defaultLoginUrl(): String {
@@ -666,47 +588,6 @@ open class AuthenticatorActivity :
         return false
     }
 
-    private fun loginFlowPollEndpointAndToken(): Pair<String, String?> {
-        val poll = authObject?.poll
-        if (poll != null && poll.endpoint.isNotEmpty() && poll.token.isNotEmpty()) {
-            return poll.endpoint to poll.token
-        }
-
-        Log_OC.w(TAG, "Login flow v2: poll endpoint or token missing, using fallback endpoint and token")
-        return "$loginFlowBaseUrl$LOGIN_FLOW_POLL_PATH" to fallbackToken
-    }
-
-    private suspend fun pollLoginFlowOnce(): Boolean {
-        val (status, response) = try {
-            requestLoginFlowCredentials()
-        } catch (e: Exception) {
-            Log_OC.e(TAG, "Login flow v2: poll failed, polling stopped: ${e.javaClass.simpleName}")
-            return false
-        }
-
-        if (status == HTTPStatusCodes.NOT_FOUND.code) {
-            Log_OC.d(TAG, "Login flow v2: access not granted in browser yet, polling continues")
-            return true
-        }
-
-        Log_OC.d(TAG, "Login flow v2: poll finished with status $status")
-        if (status == HTTPStatusCodes.SUCCESS.code && response.isNotEmpty()) {
-            withContext(Dispatchers.Main) { completeLoginFlow(response, status) }
-        }
-        return true
-    }
-
-    private fun requestLoginFlowCredentials(): Pair<Int, String> {
-        val (pollUrl, token) = loginFlowPollEndpointAndToken()
-        val requestBody = FormBody.Builder()
-            .add(JSON_KEY_TOKEN, requireNotNull(token))
-            .build()
-
-        val post = PostMethod(pollUrl, false, requestBody)
-        val status = post.execute(clientFactory.createPlainClient())
-        return status to post.getResponseBodyAsString()
-    }
-
     private fun completeLoginFlow(response: String, status: Int) {
         try {
             val loginUrlInfo: LoginUrlInfo? = gson.fromJson(response, LoginUrlInfo::class.java)
@@ -714,10 +595,10 @@ open class AuthenticatorActivity :
                 Log_OC.e(TAG, "Login flow v2: cannot complete, poll response has no credentials")
                 return
             }
-            isLoginProcessCompleted = loginUrlInfo.isValid(status)
+            loginFlow.isCompleted = loginUrlInfo.isValid(status)
             Log_OC.d(
                 TAG,
-                "Login flow v2: credentials received for ${loginUrlInfo.server}, valid=$isLoginProcessCompleted"
+                "Login flow v2: credentials received for ${loginUrlInfo.server}, valid=${loginFlow.isCompleted}"
             )
 
             accountSetupBinding?.hostUrlInput?.setText(EMPTY_STRING)
@@ -740,7 +621,7 @@ open class AuthenticatorActivity :
     private fun restorePendingLoginFlow(savedInstanceState: Bundle?) {
         val authObjectJson = savedInstanceState?.getString(KEY_LOGIN_FLOW_AUTH_OBJECT) ?: return
 
-        authObject = AuthObject.fromJson(authObjectJson)
+        loginFlow.restore(authObjectJson)
         Log_OC.d(TAG, "Login flow v2: pending flow restored after activity recreation")
         inflateWebViewLayout()
         initLoginInfoView()
@@ -764,7 +645,7 @@ open class AuthenticatorActivity :
     private fun cancelLoginFlow() {
         Log_OC.d(TAG, "Login flow v2: cancelled by user")
         stopLoginFlowPolling()
-        authObject = null
+        loginFlow.clearPendingLogin()
         recreate()
     }
     // endregion
@@ -833,9 +714,14 @@ open class AuthenticatorActivity :
 
     fun parseAndLoginFromWebView(dataString: String) {
         try {
-            val loginUrlInfo = parseLoginDataUrl(loginDataPrefix, dataString)
+            val loginUrlInfo = LoginDataUrlParser.parse(loginDataPrefix, dataString)
 
-            if (!isServerAllowed(loginUrlInfo.server)) {
+            val isServerAllowed = EnforcedServerPolicy.isAllowed(
+                server = loginUrlInfo.server,
+                webViewLoginUrl = getString(R.string.webview_login_url),
+                enforcedServersJson = getString(R.string.enforce_servers)
+            )
+            if (!isServerAllowed) {
                 Log_OC.w(TAG, "Login rejected, server is not allowed: ${loginUrlInfo.server}")
                 showServerStatusAlert(getString(R.string.server_not_allowed))
                 return
@@ -850,23 +736,6 @@ open class AuthenticatorActivity :
         }
         checkOcServer()
     }
-
-    private fun isServerAllowed(server: String): Boolean {
-        val webViewLoginUrl = getString(R.string.webview_login_url)
-        if (webViewLoginUrl.isNotEmpty() && webViewLoginUrl.startsWith(server)) {
-            return true
-        }
-
-        val enforcedServers = getString(R.string.enforce_servers)
-        if (enforcedServers.isEmpty()) {
-            return false
-        }
-
-        return parseEnforcedServers(enforcedServers).any { it.url.startsWith(server) }
-    }
-
-    private fun parseEnforcedServers(json: String): List<EnforcedServer> =
-        gson.fromJson(json, object : TypeToken<List<EnforcedServer>>() {}.type)
     // endregion
 
     // region Server check
@@ -890,8 +759,7 @@ open class AuthenticatorActivity :
         uri = toAsciiDomainOrKeep(normalizeSchemeOrKeep(uri))
 
         if (binding != null) {
-            serverStatusText = getString(R.string.auth_testing_connection)
-            serverStatusIcon = R.drawable.progress_small
+            serverStatus = AuthenticatorStatus(R.drawable.progress_small, getString(R.string.auth_testing_connection))
             showServerStatus()
         }
 
@@ -946,7 +814,7 @@ open class AuthenticatorActivity :
             onServerInfoReceived(result.data[0] as ServerInfo)
         } else {
             Log_OC.e(TAG, "Server check: failed, code=${result.code}, ${result.logMessage}")
-            updateServerStatusIconAndText(result)
+            updateServerStatus(result)
             showServerStatus()
         }
 
@@ -968,7 +836,7 @@ open class AuthenticatorActivity :
 
         inflateWebViewLayout()
 
-        if (isLoginProcessCompleted) {
+        if (loginFlow.isCompleted) {
             return
         }
 
@@ -999,69 +867,6 @@ open class AuthenticatorActivity :
     // endregion
 
     // region Status
-    private fun updateServerStatusIconAndText(result: RemoteOperationResult<*>) {
-        val (icon, text) = when (val code = result.code) {
-            ResultCode.OK_SSL -> R.drawable.ic_lock_white to getString(R.string.auth_secure_connection)
-
-            ResultCode.OK_NO_SSL, ResultCode.OK -> plainConnectionStatus()
-
-            ResultCode.NO_NETWORK_CONNECTION -> R.drawable.no_network to getString(R.string.auth_no_net_conn_title)
-
-            ResultCode.OK_REDIRECT_TO_NON_SECURE_CONNECTION ->
-                R.drawable.ic_lock_open_white to getString(R.string.auth_redirect_non_secure_connection_title)
-
-            ResultCode.UNKNOWN_ERROR -> R.drawable.ic_alert to unknownErrorMessage(result)
-
-            else -> SERVER_ERROR_MESSAGES[code]?.let { R.drawable.ic_alert to getString(it) }
-                ?: (NO_ICON to EMPTY_STRING)
-        }
-        serverStatusIcon = icon
-        serverStatusText = text
-    }
-
-    private fun updateAuthStatusIconAndText(result: RemoteOperationResult<*>) {
-        authStatusIcon = R.drawable.ic_alert
-
-        when (result.code) {
-            ResultCode.OK_SSL -> setAuthStatus(R.drawable.ic_lock_white to getString(R.string.auth_secure_connection))
-
-            ResultCode.OK_NO_SSL, ResultCode.OK -> if (showWebViewLoginUrl) {
-                setAuthStatus(plainConnectionStatus())
-            }
-
-            ResultCode.NO_NETWORK_CONNECTION ->
-                setAuthStatus(R.drawable.no_network to getString(R.string.auth_no_net_conn_title))
-
-            ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED ->
-                authStatusText = getString(R.string.auth_ssl_unverified_server_title)
-
-            ResultCode.TIMEOUT -> authStatusText = getString(R.string.auth_timeout_title)
-
-            ResultCode.HOST_NOT_AVAILABLE -> authStatusText = getString(R.string.auth_unknown_host_title)
-
-            ResultCode.ACCOUNT_NOT_NEW -> {
-                authStatusText = getString(R.string.auth_account_not_new)
-                finishWithAuthErrorIfServerUrlHidden()
-            }
-
-            else -> {
-                authStatusText = ErrorMessageAdapter.getErrorCauseMessage(result, null, resources)
-                finishWithAuthErrorIfServerUrlHidden()
-            }
-        }
-    }
-
-    private fun setAuthStatus(status: Pair<Int, String>) {
-        authStatusIcon = status.first
-        authStatusText = status.second
-    }
-
-    private fun plainConnectionStatus(): Pair<Int, String> = if (isHostUrlPlainHttp) {
-        R.drawable.ic_ok to getString(R.string.auth_connection_established)
-    } else {
-        R.drawable.ic_lock_open_white to getString(R.string.auth_nossl_plain_ok_title)
-    }
-
     private val isHostUrlPlainHttp: Boolean
         get() = accountSetupBinding?.hostUrlInput?.text
             ?.toString()
@@ -1069,52 +874,42 @@ open class AuthenticatorActivity :
             ?.lowercase()
             ?.startsWith(HTTP_PROTOCOL) == true
 
-    private fun unknownErrorMessage(result: RemoteOperationResult<*>): String {
-        val exceptionMessage = result.exception?.message
-        return if (exceptionMessage.isNullOrEmpty()) {
-            getString(R.string.auth_unknown_error_title)
-        } else {
-            getString(R.string.auth_unknown_error_exception_title, exceptionMessage)
-        }
+    private fun updateServerStatus(result: RemoteOperationResult<*>) {
+        serverStatus = statusMapper.forServerCheck(result, isHostUrlPlainHttp)
     }
 
-    private fun finishWithAuthErrorIfServerUrlHidden() {
-        if (showWebViewLoginUrl) {
-            return
-        }
-        SnackbarUtil.show(this, authStatusText)
-        finish()
-    }
+    private fun updateAuthStatus(result: RemoteOperationResult<*>) {
+        authStatus = statusMapper.forAuthentication(result, isHostUrlPlainHttp, showWebViewLoginUrl, authStatus.text)
 
-    private fun updateStatusIconFailUserName(failedStatusText: Int) {
-        authStatusIcon = R.drawable.ic_alert
-        authStatusText = getString(failedStatusText)
+        if (!showWebViewLoginUrl && statusMapper.isFatalAuthenticationError(result)) {
+            SnackbarUtil.show(this, authStatus.text)
+            finish()
+        }
     }
 
     private fun showServerStatusAlert(message: String) {
-        serverStatusIcon = R.drawable.ic_alert
-        serverStatusText = message
+        serverStatus = AuthenticatorStatus(R.drawable.ic_alert, message)
         showServerStatus()
     }
 
     private fun showServerStatus() {
         val binding = accountSetupBinding ?: return
-        showStatus(binding.serverStatusText, serverStatusIcon, serverStatusText)
+        showStatus(binding.serverStatusText, serverStatus)
     }
 
     private fun showAuthStatus() {
         val binding = accountSetupBinding ?: return
-        showStatus(binding.authStatusText, authStatusIcon, authStatusText)
+        showStatus(binding.authStatusText, authStatus)
     }
 
-    private fun showStatus(statusView: TextView, @DrawableRes icon: Int, text: String?) {
-        if (icon == NO_ICON && text == EMPTY_STRING) {
+    private fun showStatus(statusView: TextView, status: AuthenticatorStatus) {
+        if (status.isNone) {
             statusView.visibility = View.INVISIBLE
             return
         }
 
-        statusView.text = text
-        statusView.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0)
+        statusView.text = status.text
+        statusView.setCompoundDrawablesWithIntrinsicBounds(status.icon, 0, 0, 0)
         statusView.visibility = View.VISIBLE
     }
     // endregion
@@ -1149,7 +944,7 @@ open class AuthenticatorActivity :
         } else {
             R.string.auth_fail_get_user_name
         }
-        updateStatusIconFailUserName(statusText)
+        authStatus = AuthenticatorStatus(R.drawable.ic_alert, getString(statusText))
         showAuthStatus()
         Log_OC.e(TAG, "User info: request failed, code=${result.code}, ${result.logMessage}")
     }
@@ -1190,10 +985,9 @@ open class AuthenticatorActivity :
         Log_OC.e(TAG, "Credential check: server error, code=${result.code}, ${result.logMessage}")
         serverInfo = ServerInfo()
 
-        updateServerStatusIconAndText(result)
+        updateServerStatus(result)
         showServerStatus()
-        authStatusIcon = NO_ICON
-        authStatusText = EMPTY_STRING
+        authStatus = AuthenticatorStatus.NONE
 
         if (result.code == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
             showUntrustedCertDialog(result)
@@ -1207,7 +1001,7 @@ open class AuthenticatorActivity :
             anonymouslyPostLoginRequest(serverInfo.mBaseUrl + WEB_LOGIN)
         } else {
             SnackbarUtil.show(this, R.string.auth_access_failed, result.getLogMessage(this))
-            updateAuthStatusIconAndText(result)
+            updateAuthStatus(result)
         }
 
         resetWebViewCredentials()
@@ -1295,21 +1089,11 @@ open class AuthenticatorActivity :
     /**
      * Sets the proper response so that the AccountAuthenticator that started this activity saves a new authorization
      * token for [account].
-     *
-     * Kills the session kept by OwnCloudClientManager so that a new one will created with the new credentials when
-     * needed.
      */
     @Throws(AccountUtils.AccountNotFoundException::class)
     private fun updateAccountAuthentication() {
         val account = checkNotNull(account)
-        val response = bundleOf(
-            AccountManager.KEY_ACCOUNT_NAME to account.name,
-            AccountManager.KEY_ACCOUNT_TYPE to account.type,
-            AccountManager.KEY_AUTHTOKEN to webViewPassword
-        )
-        platformAccountManager.setPassword(account, webViewPassword)
-
-        OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(OwnCloudAccount(account, this))
+        val response = accountStore.updateCredentials(account, webViewPassword)
 
         setAccountAuthenticatorResult(response)
         setResult(RESULT_OK, Intent().putExtras(response))
@@ -1327,7 +1111,7 @@ open class AuthenticatorActivity :
         val accountName = AccountUtils.buildAccountName(serverInfo.mBaseUrl.toUri(), loginName)
         val newAccount = Account(accountName, accountType)
         if (accountManager.exists(newAccount)) {
-            updateAuthStatusIconAndText(RemoteOperationResult<Any?>(ResultCode.ACCOUNT_NOT_NEW))
+            updateAuthStatus(RemoteOperationResult<Any?>(ResultCode.ACCOUNT_NOT_NEW))
             showAuthStatus()
             Log_OC.w(TAG, "Account: $accountName already exists")
             return false
@@ -1340,49 +1124,15 @@ open class AuthenticatorActivity :
         }
 
         account = newAccount
-        platformAccountManager.addAccountExplicitly(newAccount, webViewPassword, null)
-        platformAccountManager.notifyAccountAuthenticated(newAccount)
-        selectAccountIfNoneSelected(accountName)
+        val authenticatorResult = accountStore.addAccount(newAccount, webViewPassword, loginName, serverInfo, userInfo)
 
-        val intent = Intent().apply {
-            putExtra(AccountManager.KEY_ACCOUNT_TYPE, accountType)
-            putExtra(AccountManager.KEY_ACCOUNT_NAME, newAccount.name)
-            putExtra(AccountManager.KEY_USERDATA, loginName)
-        }
-        storeAccountUserData(newAccount, userInfo)
-
-        setAccountAuthenticatorResult(intent.extras)
-        setResult(RESULT_OK, intent)
+        setAccountAuthenticatorResult(authenticatorResult.extras)
+        setResult(RESULT_OK, authenticatorResult)
 
         DocumentsStorageProvider.notifyRootsChanged(this)
 
         Log_OC.d(TAG, "Account: created $accountName")
         return true
-    }
-
-    private fun selectAccountIfNoneSelected(accountName: String) {
-        if (!accountManager.user.isAnonymous) {
-            return
-        }
-
-        @Suppress("DEPRECATION")
-        PreferenceManager.getDefaultSharedPreferences(this).edit {
-            putString(PREF_SELECTED_ACCOUNT_NAME, accountName)
-        }
-    }
-
-    private fun storeAccountUserData(newAccount: Account, userInfo: UserInfo) {
-        platformAccountManager.run {
-            setUserData(newAccount, AccountUtils.Constants.KEY_OC_VERSION, serverInfo.mVersion.version)
-            setUserData(newAccount, AccountUtils.Constants.KEY_OC_BASE_URL, serverInfo.mBaseUrl)
-            setUserData(newAccount, AccountUtils.Constants.KEY_DISPLAY_NAME, userInfo.displayName)
-            setUserData(newAccount, AccountUtils.Constants.KEY_USER_ID, userInfo.id)
-            setUserData(
-                newAccount,
-                AccountUtils.Constants.KEY_OC_ACCOUNT_VERSION,
-                UserAccountManager.ACCOUNT_VERSION_WITH_PROPER_ID.toString()
-            )
-        }
     }
     // endregion
 
@@ -1426,7 +1176,7 @@ open class AuthenticatorActivity :
         }
 
         val oneTimeLoginPrefix = loginDataScheme + PROTOCOL_SUFFIX + ONE_TIME_LOGIN_PATH
-        val loginUrlInfo = parseLoginDataUrl(oneTimeLoginPrefix, scannedData)
+        val loginUrlInfo = LoginDataUrlParser.parse(oneTimeLoginPrefix, scannedData)
         loginDialog.showLoginConfirmationDialog(loginUrlInfo, scannedData)
     }
 
@@ -1479,7 +1229,7 @@ open class AuthenticatorActivity :
 
     private fun loginFromDeepLink(data: String) {
         try {
-            login(parseLoginDataUrl(loginDataPrefix, data))
+            login(LoginDataUrlParser.parse(loginDataPrefix, data))
         } catch (e: Exception) {
             Log_OC.e(TAG, "Login data from deep link could not be parsed: ${e.javaClass.simpleName}")
             showServerStatusAlert(getString(R.string.qr_could_not_be_read))
@@ -1560,96 +1310,18 @@ open class AuthenticatorActivity :
         private const val KEY_CREDENTIALS_CHECK_IN_PROGRESS = "AUTH_IN_PROGRESS"
 
         private const val NO_PENDING_OPERATION = Long.MAX_VALUE
-        private const val LOGIN_FLOW_POLL_INTERVAL_MS = 30_000L
-        private const val LOGIN_FLOW_POLL_PATH = "/poll"
-        private const val JSON_KEY_POLL = "poll"
-        private const val JSON_KEY_TOKEN = "token"
-        private const val JSON_KEY_LOGIN = "login"
         private const val LOGIN_PATH = "login/"
         private const val ONE_TIME_LOGIN_PATH = "onetime-login/"
         private const val QR_SCAN_RESULT_EXTRA = "com.blikoon.qrcodescanner.got_qr_scan_relult"
-        private const val PREF_SELECTED_ACCOUNT_NAME = "select_oc_account"
         private const val HTML_MIME_TYPE = "text/html; charset=UTF-8"
-
-        private const val LOGIN_URL_ELEMENT_SEPARATOR = "&"
-        private const val MAX_LOGIN_URL_ELEMENTS = 3
 
         const val WEB_LOGIN: String = "/index.php/login/v2"
 
         const val PROTOCOL_SUFFIX: String = "://"
-        const val LOGIN_URL_DATA_KEY_VALUE_SEPARATOR: String = ":"
-        private const val LOGIN_URL_USER_KEY = "user$LOGIN_URL_DATA_KEY_VALUE_SEPARATOR"
-        private const val LOGIN_URL_PASSWORD_KEY = "password$LOGIN_URL_DATA_KEY_VALUE_SEPARATOR"
-        private const val LOGIN_URL_SERVER_KEY = "server$LOGIN_URL_DATA_KEY_VALUE_SEPARATOR"
         const val HTTPS_PROTOCOL: String = "https://"
         const val HTTP_PROTOCOL: String = "http://"
 
-        const val NO_ICON: Int = 0
         const val EMPTY_STRING: String = ""
         const val REQUEST_CODE_FIRST_RUN: Int = 102
-
-        private val SERVER_ERROR_MESSAGES = mapOf(
-            ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED to R.string.auth_ssl_unverified_server_title,
-            ResultCode.BAD_OC_VERSION to R.string.auth_bad_oc_version_title,
-            ResultCode.WRONG_CONNECTION to R.string.auth_wrong_connection_title,
-            ResultCode.TIMEOUT to R.string.auth_timeout_title,
-            ResultCode.INCORRECT_ADDRESS to R.string.auth_incorrect_address_title,
-            ResultCode.SSL_ERROR to R.string.auth_ssl_general_error_title,
-            ResultCode.UNAUTHORIZED to R.string.auth_unauthorized,
-            ResultCode.HOST_NOT_AVAILABLE to R.string.auth_unknown_host_title,
-            ResultCode.INSTANCE_NOT_CONFIGURED to R.string.auth_not_configured_title,
-            ResultCode.FILE_NOT_FOUND to R.string.auth_incorrect_path_title,
-            ResultCode.OAUTH2_ERROR to R.string.auth_oauth_error,
-            ResultCode.OAUTH2_ERROR_ACCESS_DENIED to R.string.auth_oauth_error_access_denied,
-            ResultCode.UNHANDLED_HTTP_CODE to R.string.auth_unknown_error_http_title,
-            ResultCode.MAINTENANCE_MODE to R.string.maintenance_mode,
-            ResultCode.UNTRUSTED_DOMAIN to R.string.untrusted_domain
-        )
-
-        /**
-         * Parses a login URI of the format `<prefix>server:xxx&user:xxx&password:xxx`, where every element is
-         * optional.
-         *
-         * @param prefix     URI beginning, e.g. cloud://login/
-         * @param dataString the complete URI
-         * @throws IllegalArgumentException when the URI is shorter than [prefix] or has more than three elements
-         */
-        @JvmStatic
-        @Throws(IllegalArgumentException::class)
-        fun parseLoginDataUrl(prefix: String, dataString: String): LoginUrlInfo {
-            require(dataString.length >= prefix.length) { "Invalid login URL detected" }
-
-            val values = splitLoginUrlElements(dataString.substring(prefix.length))
-            require(values.size in 1..MAX_LOGIN_URL_ELEMENTS) {
-                "Illegal number of login URL elements detected: ${values.size}"
-            }
-
-            val loginUrlInfo = LoginUrlInfo(EMPTY_STRING, EMPTY_STRING, EMPTY_STRING)
-            for (value in values) {
-                when {
-                    value.startsWith(LOGIN_URL_USER_KEY) ->
-                        loginUrlInfo.loginName = decodeLoginUrlValue(value, LOGIN_URL_USER_KEY)
-
-                    value.startsWith(LOGIN_URL_PASSWORD_KEY) ->
-                        loginUrlInfo.appPassword = decodeLoginUrlValue(value, LOGIN_URL_PASSWORD_KEY)
-
-                    value.startsWith(LOGIN_URL_SERVER_KEY) ->
-                        loginUrlInfo.server = decodeLoginUrlValue(value, LOGIN_URL_SERVER_KEY)
-                }
-            }
-            return loginUrlInfo
-        }
-
-        private fun splitLoginUrlElements(data: String): List<String> {
-            val elements = data.split(LOGIN_URL_ELEMENT_SEPARATOR)
-            if (elements.size == 1) {
-                return elements
-            }
-            return elements.dropLastWhile { it.isEmpty() }
-        }
-
-        @Suppress("DEPRECATION")
-        private fun decodeLoginUrlValue(value: String, key: String): String =
-            URLDecoder.decode(value.substring(key.length))
     }
 }

@@ -46,7 +46,7 @@ import com.nextcloud.utils.EditorUtils
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
-import com.owncloud.android.authentication.EnforcedServer
+import com.owncloud.android.authentication.server.EnforcedServer
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FileDataStorageManager

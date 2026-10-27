@@ -5,6 +5,6 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.owncloud.android.authentication
+package com.owncloud.android.authentication.server
 
 data class EnforcedServer(val name: String, val url: String)

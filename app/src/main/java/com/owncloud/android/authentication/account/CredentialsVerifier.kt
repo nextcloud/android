@@ -7,7 +7,7 @@
  * SPDX-FileCopyrightText: 2013-2015 María Asensio Valverde <masensio@solidgear.es>
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-package com.owncloud.android.authentication
+package com.owncloud.android.authentication.account
 
 import android.content.Context
 import android.net.Uri
