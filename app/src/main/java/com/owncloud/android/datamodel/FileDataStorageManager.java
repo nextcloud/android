@@ -112,6 +112,13 @@ public class FileDataStorageManager {
     private static final String JSON_EMPTY_ARRAY = "[]";
     private static final long INTERNAL_TWO_WAY_SYNC_NEVER_SYNCED = 0L;
 
+    /**
+     * Serializes the "update if the row exists, insert otherwise" sequences of {@link #saveFile(OCFile)} and
+     * {@link #saveFolder(OCFile, List, Collection)}. The file table has no unique constraint on the remote path, so
+     * two concurrent writers (e.g. two refreshes of the same folder) would otherwise both insert the same new file.
+     */
+    private static final Object FILE_TABLE_WRITE_LOCK = new Object();
+
     private final ContentResolver contentResolver;
     private final ContentProviderClient contentProviderClient;
     private final User user;
@@ -572,6 +579,12 @@ public class FileDataStorageManager {
     }
 
     public boolean saveFile(OCFile ocFile) {
+        synchronized (FILE_TABLE_WRITE_LOCK) {
+            return saveFileLocked(ocFile);
+        }
+    }
+
+    private boolean saveFileLocked(OCFile ocFile) {
         Log_OC.d(TAG, "saving file " + ocFile.getFileName() + " into " + ocFile.getRemotePath());
 
         boolean overridden = false;
@@ -754,6 +767,12 @@ public class FileDataStorageManager {
      * @param filesToRemove
      */
     public void saveFolder(OCFile folder, List<OCFile> updatedFiles, Collection<OCFile> filesToRemove) {
+        synchronized (FILE_TABLE_WRITE_LOCK) {
+            saveFolderLocked(folder, updatedFiles, filesToRemove);
+        }
+    }
+
+    private void saveFolderLocked(OCFile folder, List<OCFile> updatedFiles, Collection<OCFile> filesToRemove) {
         Log_OC.d(TAG, "Saving folder " + folder.getRemotePath() + " with " + updatedFiles.size()
             + " children and " + filesToRemove.size() + " files to remove");
 
@@ -770,6 +789,7 @@ public class FileDataStorageManager {
                     fileId = ocFile.getFileId();
                 } else {
                     fileId = getFileByPath(ocFile.getRemotePath()).getFileId();
+                    ocFile.setFileId(fileId);
                 }
                 // updating an existing file
                 operations.add(ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI)
@@ -1063,6 +1083,17 @@ public class FileDataStorageManager {
 
     private boolean removeFolderInDb(OCFile folder) {
         return fileDao.deleteFolderWithDescendants(user.getAccountName(), folder.getFileId()) > 0;
+    }
+
+    /**
+     * Removes duplicate database entries, with the entries of their contents for folders. Local files are not
+     * touched: they belong to the entry that is kept for the same remote path.
+     */
+    public void removeDuplicateEntries(Collection<OCFile> duplicates) {
+        for (OCFile duplicate : duplicates) {
+            Log_OC.w(TAG, "Removing duplicate entry " + duplicate.getFileId() + " of " + duplicate.getRemotePath());
+            fileDao.deleteFolderWithDescendants(user.getAccountName(), duplicate.getFileId());
+        }
     }
 
     private boolean removeLocalFolder(OCFile folder) {

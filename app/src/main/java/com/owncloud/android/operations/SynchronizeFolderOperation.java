@@ -310,7 +310,13 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
 
         // get current data about local contents of the folder to synchronize
-        Map<String, OCFile> localFilesMap = RefreshFolderOperation.prefillLocalFilesMap(object,storageManager.getFolderContent(mLocalFolder, false));
+        List<OCFile> duplicateLocalFiles = new ArrayList<>();
+        Map<String, OCFile> localFilesMap = RefreshFolderOperation.prefillLocalFilesMap(object,
+                                                                                        storageManager.getFolderContent(mLocalFolder, false),
+                                                                                        duplicateLocalFiles);
+
+        // duplicate entries are never matched with a remote file, so they would stay forever
+        storageManager.removeDuplicateEntries(duplicateLocalFiles);
 
         // loop to synchronize every child
         List<OCFile> updatedFiles = new ArrayList<>(folderAndFiles.size() - 1);
