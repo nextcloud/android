@@ -19,11 +19,9 @@ import android.accounts.Account
 import android.accounts.AccountManager
 import android.annotation.SuppressLint
 import android.content.ComponentName
-import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
@@ -33,16 +31,12 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.webkit.CookieManager
 import android.webkit.URLUtil
-import android.webkit.WebResourceError
-import android.webkit.WebResourceRequest
-import android.webkit.WebView
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.TextView.OnEditorActionListener
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.VisibleForTesting
-import androidx.browser.auth.AuthTabIntent
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
@@ -63,7 +57,6 @@ import com.nextcloud.client.onboarding.FirstRunActivity
 import com.nextcloud.client.onboarding.OnboardingService
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.repository.ClientRepository
-import com.nextcloud.utils.RawResourceReader
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.mdm.MDMConfig
@@ -80,7 +73,9 @@ import com.owncloud.android.authentication.status.AuthenticatorStatusMapper
 import com.owncloud.android.authentication.account.AuthenticatorAccountStore
 import com.owncloud.android.authentication.account.CredentialsVerifier
 import com.owncloud.android.authentication.dialog.LoginDialog
+import com.owncloud.android.authentication.loginflow.LoginBrowserLauncher
 import com.owncloud.android.authentication.loginflow.LoginFlowV2
+import com.owncloud.android.authentication.signup.SignupWebViewLogin
 import com.owncloud.android.authentication.loginurl.LoginDataUrlParser
 import com.owncloud.android.authentication.loginurl.LoginUrlInfo
 import com.owncloud.android.databinding.AccountSetupBinding
@@ -105,20 +100,17 @@ import com.owncloud.android.operations.GetServerInfoOperation.ServerInfo
 import com.owncloud.android.providers.DocumentsStorageProvider
 import com.owncloud.android.services.OperationsService
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder
-import com.owncloud.android.ui.NextcloudWebViewClient
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.activity.SettingsActivity
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener
 import com.owncloud.android.utils.PermissionUtil
-import com.owncloud.android.utils.ProxyUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.ref.WeakReference
 import javax.inject.Inject
 
 /**
@@ -291,7 +283,7 @@ open class AuthenticatorActivity :
         }
 
         if (intent.getBooleanExtra(EXTRA_USE_PROVIDER_AS_WEBLOGIN, false)) {
-            initSimpleSignupLogin(inflateWebViewLayout())
+            startSignupWebViewLogin()
         }
     }
 
@@ -537,7 +529,7 @@ open class AuthenticatorActivity :
 
             val loginUrl = loginFlow.parseLoginUrl(response) ?: defaultLoginUrl()
             initLoginInfoView()
-            launchDefaultWebBrowser(loginUrl)
+            loginBrowserLauncher.open(loginUrl)
         }
     }
 
@@ -545,47 +537,6 @@ open class AuthenticatorActivity :
         Log_OC.e(TAG, "Login flow v2: no login URL in response, using default login URL")
         SnackbarUtil.show(this, R.string.authenticator_activity_login_error)
         return getString(R.string.webview_login_url)
-    }
-
-    private fun launchDefaultWebBrowser(url: String) {
-        if (url.isBlank()) {
-            Log_OC.e(TAG, "Login flow v2: cannot open browser, login URL is blank")
-            SnackbarUtil.show(this, R.string.invalid_url)
-            return
-        }
-
-        val uri = url.toUri()
-        if (launchAuthTab(uri) || launchExternalBrowser(uri)) {
-            return
-        }
-
-        Log_OC.e(TAG, "Login flow v2: no browser available to open login page")
-        SnackbarUtil.show(this, R.string.authenticator_activity_no_web_browser_found)
-    }
-
-    private fun launchAuthTab(uri: Uri): Boolean = try {
-        val toolbarColor = ContextCompat.getColor(this, R.color.primary)
-        val authTabIntent = AuthTabIntent.Builder().setColorScheme(toolbarColor).build()
-        authTabIntent.launch(authTabResultLauncher, uri, loginDataScheme)
-        Log_OC.d(TAG, "Login flow v2: login page opened in Auth Tab")
-        true
-    } catch (e: Exception) {
-        Log_OC.e(TAG, "Login flow v2: Auth Tab launch failed: ${e.javaClass.simpleName}")
-        false
-    }
-
-    private fun launchExternalBrowser(uri: Uri): Boolean {
-        try {
-            val intent = Intent(Intent.ACTION_VIEW, uri)
-            if (intent.resolveActivity(packageManager) != null) {
-                startActivity(intent)
-                Log_OC.d(TAG, "Login flow v2: login page opened in external browser")
-                return true
-            }
-        } catch (e: Exception) {
-            Log_OC.e(TAG, "Login flow v2: external browser launch failed: ${e.javaClass.simpleName}")
-        }
-        return false
     }
 
     private fun completeLoginFlow(response: String, status: Int) {
@@ -651,65 +602,15 @@ open class AuthenticatorActivity :
     // endregion
 
     // region WebView login
-    @SuppressFBWarnings("ANDROID_WEB_VIEW_JAVASCRIPT")
-    @SuppressLint("SetJavaScriptEnabled")
-    @Suppress("DEPRECATION")
-    private fun initSimpleSignupLogin(binding: AccountSetupWebviewBinding) {
-        viewThemeUtils.platform.colorCircularProgressBar(
-            binding.loginWebviewProgressBar,
-            ColorRole.ON_PRIMARY_CONTAINER
-        )
-        binding.loginWebview.visibility = View.GONE
-        binding.loginWebview.settings.run {
-            allowFileAccess = false
-            javaScriptEnabled = true
-            domStorageEnabled = true
-            userAgentString = MainApp.getUserAgent()
-            saveFormData = false
-            savePassword = false
-        }
-
-        val headers = mapOf(RemoteOperation.OCS_API_HEADER to RemoteOperation.OCS_API_HEADER_VALUE)
-        ProxyUtil(WeakReference<Context>(this)).applyProxy {
-            accountSetupWebviewBinding?.loginWebview?.loadUrl(getString(R.string.provider_registration_server), headers)
-        }
-        binding.loginFlowV2.loginFlowInfoV2.visibility = View.GONE
-
-        setLoginWebViewClient(binding)
-    }
-
-    private fun setLoginWebViewClient(binding: AccountSetupWebviewBinding) {
-        binding.loginWebview.webViewClient = object : NextcloudWebViewClient(supportFragmentManager) {
-            override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest): Boolean {
-                val url = request.url.toString()
-                if (!url.startsWith(loginDataPrefix)) {
-                    return false
-                }
-                parseAndLoginFromWebView(url)
-                return true
-            }
-
-            override fun onPageFinished(view: WebView?, url: String?) {
-                super.onPageFinished(view, url)
-                showLoadedWebView()
-            }
-
-            override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
-                showLoadedWebView()
-
-                val customError = RawResourceReader.readText(resources, R.raw.custom_error)
-                if (customError.isNotEmpty()) {
-                    accountSetupWebviewBinding?.loginWebview?.loadData(customError, HTML_MIME_TYPE, null)
-                }
-            }
-        }
-    }
-
-    private fun showLoadedWebView() {
-        accountSetupWebviewBinding?.run {
-            loginWebviewProgressBar.visibility = View.GONE
-            loginWebview.visibility = View.VISIBLE
-        }
+    private fun startSignupWebViewLogin() {
+        val binding = inflateWebViewLayout()
+        SignupWebViewLogin(
+            activity = this,
+            viewThemeUtils = viewThemeUtils,
+            currentBinding = { accountSetupWebviewBinding },
+            loginDataPrefix = loginDataPrefix,
+            onLoginDataUrl = ::parseAndLoginFromWebView
+        ).start(binding)
     }
 
     fun parseAndLoginFromWebView(dataString: String) {
@@ -1137,9 +1038,7 @@ open class AuthenticatorActivity :
     // endregion
 
     // region QR code and deep link login
-    private val authTabResultLauncher = AuthTabIntent.registerActivityResultLauncher(this) { result ->
-        Log_OC.d(TAG, "Login flow v2: Auth Tab closed with result code ${result.resultCode}")
-    }
+    private val loginBrowserLauncher = LoginBrowserLauncher(this)
 
     private val qrScanResultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -1313,7 +1212,6 @@ open class AuthenticatorActivity :
         private const val LOGIN_PATH = "login/"
         private const val ONE_TIME_LOGIN_PATH = "onetime-login/"
         private const val QR_SCAN_RESULT_EXTRA = "com.blikoon.qrcodescanner.got_qr_scan_relult"
-        private const val HTML_MIME_TYPE = "text/html; charset=UTF-8"
 
         const val WEB_LOGIN: String = "/index.php/login/v2"
 
