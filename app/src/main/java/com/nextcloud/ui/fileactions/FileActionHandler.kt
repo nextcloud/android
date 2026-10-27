@@ -12,6 +12,7 @@ import com.nextcloud.client.editimage.EditImageActivity
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.utils.EditorUtils
 import com.nextcloud.utils.ShortcutUtil
+import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.handle
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
@@ -45,7 +46,11 @@ class FileActionHandler @Inject constructor(
     @Suppress("CyclomaticComplexMethod")
     private fun file(@IdRes itemId: Int, file: OCFile, host: FileActionHost): Boolean {
         when (itemId) {
-            R.id.action_send_share_file -> host.containerActivity.showDetails(file, SHARING_TAB)
+            R.id.action_send_share_file -> sendShareFile(file, host)
+
+            R.id.action_see_details -> host.containerActivity.showDetails(file)
+
+            R.id.action_open_file_with -> openFile(file, host)
 
             R.id.action_rename_file -> RenameFileDialogFragment.newInstance(file, host.parentFolder)
                 .show(host.fragmentManager, FileDetailFragment.FTAG_RENAME_FILE)
@@ -75,7 +80,7 @@ class FileActionHandler @Inject constructor(
                 .show(host.fragmentManager, ConfirmationDialogFragment.FTAG_CONFIRMATION)
 
             R.id.action_cancel_sync -> files.forEach {
-                host.fda?.cancelTransference(it)
+                host.fda?.cancelTransference(it) ?: host.helper?.cancelTransference(it)
             }
 
             R.id.action_favorite -> setFavorite(files, true, host)
@@ -86,6 +91,20 @@ class FileActionHandler @Inject constructor(
         }
 
         return true
+    }
+
+    private fun sendShareFile(file: OCFile, host: FileActionHost) {
+        if (file.isSharedWithMe && !file.canReshare()) {
+            SnackbarUtil.show(host.view, R.string.resharing_is_not_allowed)
+            return
+        }
+
+        host.helper?.sendShareFile(file)
+    }
+
+    private fun openFile(file: OCFile, host: FileActionHost) {
+        host.helper?.openFile(file)
+        host.onFileOpened()
     }
 
     private fun setFavorite(files: Collection<OCFile>, isFavorite: Boolean, host: FileActionHost) {
@@ -100,7 +119,7 @@ class FileActionHandler @Inject constructor(
                 TextEditorWebView.startTextEditor(file, context)
 
             EditImageActivity.canBePreviewed(file) ->
-                host.fda?.startImageEditor(file)
+                host.fda?.startImageEditor(file) ?: host.previewMediaActivity?.startImageEditor(file)
 
             else -> host.helper?.openFileAsRichDocument(file, context)
         }
@@ -141,7 +160,6 @@ class FileActionHandler @Inject constructor(
     }
 
     companion object {
-        private const val SHARING_TAB = 1
         private const val NO_NEUTRAL_BUTTON = -1
     }
 }

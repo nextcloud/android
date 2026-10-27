@@ -944,6 +944,9 @@ open class OCFileListFragment :
 
     private fun handleListAction(@IdRes itemId: Int, checkedFiles: Set<OCFile>): Boolean {
         when {
+            itemId == R.id.action_send_share_file && checkedFiles.size == SINGLE_SELECTION ->
+                containerActivity?.showDetails(checkedFiles.first(), SHARING_TAB)
+
             itemId == R.id.action_see_details && checkedFiles.size == SINGLE_SELECTION ->
                 showDetailsAndHideSortGroup(checkedFiles.first())
 
