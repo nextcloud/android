@@ -27,6 +27,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.nextcloud.client.account.AccountNameUtils;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.R;
@@ -293,10 +294,9 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                                     displayName = name;
                                     subline = getContext().getString(R.string.remote);
                                 } else {
-                                    String[] uriSplitted = shareWith.split("@");
                                     displayName = name;
                                     subline = getContext().getString(R.string.share_known_remote_on_clarification,
-                                                                     uriSplitted[uriSplitted.length - 1]);
+                                                                     AccountNameUtils.getServerPart(shareWith));
                                 }
                             }
                             break;
@@ -311,10 +311,9 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                                     subline = getContext().getString(R.string.remote);
                                     subline = "";
                                 } else {
-                                    String[] uriSplitted = shareWith.split("@");
                                     displayName = name;
                                     subline = getContext().getString(R.string.share_known_remote_on_clarification,
-                                                                     uriSplitted[uriSplitted.length - 1]);
+                                                                     AccountNameUtils.getServerPart(shareWith));
                                 }
                             }
                             break;
@@ -404,9 +403,10 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
         String userId = uri.getQueryParameter("shareWith");
         String displayName = uri.getQueryParameter("displayName");
         String accountName = accountManager.getUser().getAccountName();
-        String serverName = accountName.substring(accountName.lastIndexOf('@') + 1);
+        String serverName = AccountNameUtils.getServerPart(accountName);
 
-        String eTag = arbitraryDataProvider.getValue(userId + "@" + serverName, ThumbnailsCacheManager.AVATAR);
+        String eTag = arbitraryDataProvider.getValue(AccountNameUtils.build(userId, serverName),
+                                                     ThumbnailsCacheManager.AVATAR);
         String avatarKey = "a_" + userId + "_" + serverName + "_" + eTag;
 
         StatusType status = StatusType.valueOf(uri.getQueryParameter("status"));

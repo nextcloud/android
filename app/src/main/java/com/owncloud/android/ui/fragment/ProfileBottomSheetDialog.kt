@@ -28,6 +28,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.nextcloud.android.lib.resources.profile.Action
 import com.nextcloud.android.lib.resources.profile.HoverCard
+import com.nextcloud.client.account.AccountNameUtils
 import com.nextcloud.client.account.User
 import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.utils.avatar.AvatarGenerationListener
@@ -188,7 +189,7 @@ class ProfileBottomSheetDialog(
     override fun shouldCallGeneratedCallback(tag: String?, callContext: Any?): Boolean {
         if (callContext is ImageView) {
             // needs to be changed once federated users have avatars
-            return callContext.tag.toString() == tag!!.split("@").toTypedArray()[0]
+            return callContext.tag.toString() == tag?.let(AccountNameUtils::getUserPart)
         }
         return false
     }

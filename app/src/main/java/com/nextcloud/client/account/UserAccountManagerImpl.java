@@ -130,52 +130,20 @@ public class UserAccountManagerImpl implements UserAccountManager {
                 return false;
             }
 
-            int lastAtPos = account.name.lastIndexOf('@');
-            if (lastAtPos == -1) {
-                Log_OC.d(TAG, "lastAtPos cannot be found");
-                return false;
-            }
-
-            boolean isLastAtPosInBoundsForHostAndPort = lastAtPos + 1 < account.name.length();
-            if (!isLastAtPosInBoundsForHostAndPort) {
-                Log_OC.d(TAG, "lastAtPos not in bounds");
-                return false;
-            }
-
-            String hostAndPort = account.name.substring(lastAtPos + 1);
-
-            String username = account.name.substring(0, lastAtPos);
+            String username = AccountNameUtils.getUserPart(account.name);
+            String hostAndPort = AccountNameUtils.getServerPart(account.name);
             if (hostAndPort.isEmpty() || username.isEmpty()) {
                 Log_OC.d(TAG, "hostAndPort or username is empty");
                 return false;
             }
 
-            String otherHostAndPort;
-            String otherUsername;
-
             for (Account otherAccount : nextcloudAccounts) {
-                // Skip null accounts or accounts with null names
                 if (otherAccount == null || otherAccount.name.isEmpty()) {
                     continue;
                 }
 
-                lastAtPos = otherAccount.name.lastIndexOf('@');
-
-                // Skip invalid account names
-                if (lastAtPos == -1) {
-                    continue;
-                }
-
-                boolean isLastAtPosInBoundsForOtherHostAndPort = lastAtPos + 1 < otherAccount.name.length();
-                if (!isLastAtPosInBoundsForOtherHostAndPort) {
-                    continue;
-                }
-                otherHostAndPort = otherAccount.name.substring(lastAtPos + 1);
-
-                otherUsername = otherAccount.name.substring(0, lastAtPos);
-
-                if (otherHostAndPort.equals(hostAndPort) &&
-                    otherUsername.equalsIgnoreCase(username)) {
+                if (hostAndPort.equals(AccountNameUtils.getServerPart(otherAccount.name)) &&
+                    username.equalsIgnoreCase(AccountNameUtils.getUserPart(otherAccount.name))) {
                     return true;
                 }
             }
@@ -396,7 +364,16 @@ public class UserAccountManagerImpl implements UserAccountManager {
     @Override
     public  boolean accountOwnsFile(OCFile file, Account account) {
         final String ownerId = file.getOwnerId();
-        return TextUtils.isEmpty(ownerId) || account.name.split("@")[0].equalsIgnoreCase(ownerId);
+        if (TextUtils.isEmpty(ownerId)) {
+            return true;
+        }
+
+        String userId = accountManager.getUserData(account, AccountUtils.Constants.KEY_USER_ID);
+        if (TextUtils.isEmpty(userId)) {
+            userId = AccountNameUtils.getUserPart(account.name);
+        }
+
+        return ownerId.equalsIgnoreCase(userId);
     }
 
     @Override
