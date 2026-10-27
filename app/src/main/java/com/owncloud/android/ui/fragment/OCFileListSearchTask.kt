@@ -84,7 +84,7 @@ class OCFileListSearchTask(
                 return@launch
             }
 
-            fragment.adapter.prepareForSearchData(fragment.currentSearchType)
+            fragment.adapter?.prepareForSearchData(fragment.currentSearchType)
             val remoteFiles = fetchAndSortRemoteFiles(searchType, cachedFiles, resultData, fragment)
             updateAdapterData(fragment, remoteFiles)
         }
@@ -158,12 +158,12 @@ class OCFileListSearchTask(
 
     private suspend fun updateAdapterData(fragment: OCFileListFragment, newList: List<OCFile>) =
         withContext(Dispatchers.Main) {
-            if (!fragment.isAdded || !fragment.searchFragment) {
+            if (!fragment.isAdded || !fragment.isSearchFragment) {
                 Log_OC.e(TAG, "cannot update adapter data, fragment is not ready")
                 return@withContext
             }
 
-            fragment.adapter.updateAdapter(newList, null)
+            fragment.adapter?.updateAdapter(newList, null)
         }
 
     private fun sortSearchData(list: List<OCFile>, searchType: SearchType, fragment: OCFileListFragment): List<OCFile> {
@@ -190,7 +190,7 @@ class OCFileListSearchTask(
             }
         }
 
-        fragment.adapter.setDisplayedSortOrder(sortOrder)
+        fragment.adapter?.setDisplayedSortOrder(sortOrder)
         return sortOrder.sortCloudFiles(list.toMutableList(), foldersBeforeFiles, favoritesFirst)
     }
 

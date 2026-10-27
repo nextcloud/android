@@ -674,7 +674,7 @@ class FileDisplayActivity :
 
             ON_DEVICE == action -> {
                 refreshOrInitOCFileListFragment()
-                listOfFilesFragment?.setCurrentSearchType(SearchType.ON_DEVICE)
+                listOfFilesFragment?.currentSearchType = SearchType.ON_DEVICE
                 updateActionBarTitleAndHomeButton(null)
             }
         }
@@ -735,7 +735,7 @@ class FileDisplayActivity :
         }
 
         listOfFilesFragment?.isSearchFragment = true
-        listOfFilesFragment?.setCurrentSearchType(searchEvent)
+        listOfFilesFragment?.updateSearchType(searchEvent)
     }
     // endregion
 
@@ -833,7 +833,7 @@ class FileDisplayActivity :
         getOCFileListFragmentFromFile(object : TransactionInterface {
             override fun onOCFileListFragmentComplete(fragment: OCFileListFragment) {
                 browseUp(fragment)
-                fragment.onOverflowIconClicked(file, null)
+                file?.let { fragment.onOverflowIconClicked(it, null) }
             }
         })
     }
@@ -1462,7 +1462,7 @@ class FileDisplayActivity :
         folderRefreshScheduler.start()
 
         if (ocFileListFragment?.isSearchFragment == true) {
-            ocFileListFragment?.setSearchArgs(ocFileListFragment?.arguments)
+            ocFileListFragment?.loadSearchState(ocFileListFragment?.arguments)
         }
         if (isAlbumsFragment || isAlbumItemsFragment) {
             highlightNavigationViewItem(R.id.nav_album)
@@ -2469,7 +2469,7 @@ class FileDisplayActivity :
             // OCFileSearchTask may still run during rename, so use a single refresh path to avoid
             // flicker/inconsistent filenames.
             if (fragment?.isSearchFragment == true) {
-                fragment.cancelAndRetriggerSearch()
+                fragment.restartSearch()
             } else {
                 fragment?.adapter?.updateFile(renamedFile)
             }
@@ -2533,7 +2533,9 @@ class FileDisplayActivity :
                 return
             }
 
-            fileListFragment?.onItemClicked(storageManager.getFileByDecryptedRemotePath(operation.getRemotePath()))
+            storageManager.getFileByDecryptedRemotePath(operation.getRemotePath())?.let {
+                fileListFragment?.onItemClicked(it)
+            }
         } else {
             try {
                 if (RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS == result.code) {
@@ -2970,7 +2972,7 @@ class FileDisplayActivity :
             this.leftFragment = SharedListFragment()
         }
 
-        listOfFilesFragment?.setCurrentSearchType(event)
+        listOfFilesFragment?.updateSearchType(event)
         updateActionBarTitleAndHomeButton(null)
     }
 
