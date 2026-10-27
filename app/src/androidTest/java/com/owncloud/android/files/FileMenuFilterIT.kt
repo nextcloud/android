@@ -360,6 +360,35 @@ class FileMenuFilterIT : AbstractIT() {
     }
 
     @Test
+    fun filter_setPictureAs_onlyForDownloadedImages() {
+        configureCapability(OCCapability())
+
+        val downloadedImage = OCFile("/downloaded.jpg").apply {
+            mimeType = IMAGE_MIMETYPE
+            storagePath = getDummyFile("downloaded.jpg").absolutePath
+        }
+        val onlineOnlyImage = OCFile("/online.jpg").apply {
+            mimeType = IMAGE_MIMETYPE
+        }
+
+        launchActivity<TestActivity>().use {
+            it.onActivity { activity ->
+                val filterFactory = FileMenuFilter.Factory(mockStorageManager, activity, editorUtils)
+
+                val downloadedToHide = filterFactory
+                    .newInstance(downloadedImage, mockComponentsGetter, true, user)
+                    .getToHide(false)
+                assertFalse(downloadedToHide.contains(R.id.action_set_as_wallpaper))
+
+                val onlineToHide = filterFactory
+                    .newInstance(onlineOnlyImage, mockComponentsGetter, true, user)
+                    .getToHide(false)
+                assertTrue(onlineToHide.contains(R.id.action_set_as_wallpaper))
+            }
+        }
+    }
+
+    @Test
     fun filter_readOnlyFile_hidesModifyingActions() {
         configureCapability(
             OCCapability().apply {
@@ -473,6 +502,8 @@ class FileMenuFilterIT : AbstractIT() {
             R.id.action_lock_file,
             R.id.action_favorite
         )
+
+        private const val IMAGE_MIMETYPE = "image/jpeg"
 
         private const val OFFICE_MIMETYPE =
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
