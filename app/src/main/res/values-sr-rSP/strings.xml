@@ -96,6 +96,7 @@
     <string name="common_error_out_memory">Nema dovoljno memorije</string>
     <string name="common_error_unknown">Nepoznata greška</string>
     <string name="common_loading">Učitavam…</string>
+    <string name="common_next">Sledeće</string>
     <string name="common_no">Ne</string>
     <string name="common_ok">U redu</string>
     <string name="common_pending">Na čekanju</string>
@@ -122,6 +123,7 @@
     <string name="community_testing_bug_text">Našli ste grešku? Nešto čudno?</string>
     <string name="community_testing_headline">Pomozi testirajući</string>
     <string name="community_testing_report_text">Prijavite problem na GitHub-u</string>
+    <string name="compose_activity_label">Nextcloud asistent</string>
     <string name="configure_new_media_folder_detection_notifications">Podesi</string>
     <string name="confirmation_remove_file_alert">Da li stvarno želite da obrišete %1$s?</string>
     <string name="confirmation_remove_files_alert">Da li stvarno želite da obrišete označene stavke?</string>
@@ -267,6 +269,7 @@
     <string name="file_version_restored_error">Greška prilikom vraćanja verzije fajla!</string>
     <string name="filedetails_details">Detalji</string>
     <string name="filedetails_download">Preuzmi</string>
+    <string name="filedetails_export">Izvezi</string>
     <string name="filedetails_renamed_in_upload_msg">Fajl preimenovan u %1$sza vreme otpremanja</string>
     <string name="filedetails_sync_file">Sinhronizuj</string>
     <string name="filedisplay_no_file_selected">Nije izabran nijedan fajl</string>
@@ -430,6 +433,7 @@
     <string name="recommend_urls">%1$s ili %2$s</string>
     <string name="reload">Ponovo učitaj</string>
     <string name="remote_file_fetch_failed">Nije moguće pronaći fajl!</string>
+    <string name="remove">Ukloni</string>
     <string name="remove_fail_msg">Brisanje nije uspelo</string>
     <string name="remove_notification_failed">Greška pri uklanjanju obaveštenja.</string>
     <string name="remove_push_notification">Ukloni</string>
@@ -489,6 +493,7 @@
     <string name="shared_icon_shared_via_link">deljeno putem veze</string>
     <string name="shared_with_you_by">Deli sa vama %1$s</string>
     <string name="sharee_add_failed">Dodavanje osobe za deljenje nije uspelo</string>
+    <string name="show_all">Prikaži sve</string>
     <string name="signup_with_provider">Prijavite se preko provajdera</string>
     <string name="single_sign_on_request_token" formatted="true">Dozvoli da %1$s pristupa Vašem Nekstklaud nalogu %2$s?</string>
     <string name="sort_by">Razvrstaj</string>

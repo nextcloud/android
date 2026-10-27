@@ -146,6 +146,7 @@
     <string name="community_testing_bug_text">Најдовте грешка? </string>
     <string name="community_testing_headline">Помогни со тестирање</string>
     <string name="community_testing_report_text">Пријави проблем на GitHub</string>
+    <string name="compose_activity_label">Nextcloud Assistant</string>
     <string name="configure_new_media_folder_detection_notifications">Конфигурирај</string>
     <string name="confirmation_remove_file_alert">Дали си сигурен дека сакаш да ја избришеш %1$s?</string>
     <string name="confirmation_remove_files_alert">Дали си сигурен дека сакаш да ја избришеш означената ставка?</string>
