@@ -28,7 +28,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.nextcloud.android.lib.resources.profile.Action
 import com.nextcloud.android.lib.resources.profile.HoverCard
-import com.nextcloud.client.account.AccountNameUtils
+import com.nextcloud.android.common.core.utils.AccountNameUtils
 import com.nextcloud.client.account.User
 import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.utils.avatar.AvatarGenerationListener

@@ -17,7 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.updateLayoutParams
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
-import com.nextcloud.client.account.AccountNameUtils
+import com.nextcloud.android.common.core.utils.AccountNameUtils
 import com.nextcloud.client.account.User
 import com.nextcloud.utils.GlideHelper.loadCircularBitmapIntoImageView
 import com.nextcloud.utils.avatar.AvatarGenerationListener

@@ -7,7 +7,7 @@
 package com.nextcloud.client.files
 
 import android.net.Uri
-import com.nextcloud.client.account.AccountNameUtils
+import com.nextcloud.android.common.core.utils.AccountNameUtils
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 

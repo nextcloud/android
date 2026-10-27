@@ -27,7 +27,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.nextcloud.client.account.AccountNameUtils;
+import com.nextcloud.android.common.core.utils.AccountNameUtils;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.R;

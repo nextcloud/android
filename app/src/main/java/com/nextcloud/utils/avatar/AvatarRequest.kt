@@ -7,7 +7,7 @@
 
 package com.nextcloud.utils.avatar
 
-import com.nextcloud.client.account.AccountNameUtils
+import com.nextcloud.android.common.core.utils.AccountNameUtils
 import com.nextcloud.client.account.User
 
 data class AvatarRequest(val user: User, val userId: String, val displayName: String?, val avatarRadius: Float) {
