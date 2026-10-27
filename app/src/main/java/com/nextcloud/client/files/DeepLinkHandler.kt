@@ -7,6 +7,7 @@
 package com.nextcloud.client.files
 
 import android.net.Uri
+import com.nextcloud.client.account.AccountNameUtils
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 
@@ -53,5 +54,5 @@ class DeepLinkHandler(private val userAccountManager: UserAccountManager) {
     }
 
     private fun getMatchingUsers(serverBaseUrl: String): List<User> =
-        userAccountManager.allUsers.filter { it.server.uri.toString() == serverBaseUrl }
+        userAccountManager.allUsers.filter { AccountNameUtils.isSameServer(it.server.uri.toString(), serverBaseUrl) }
 }

@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.updateLayoutParams
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.nextcloud.client.account.AccountNameUtils
 import com.nextcloud.client.account.User
 import com.nextcloud.utils.GlideHelper.loadCircularBitmapIntoImageView
 import com.nextcloud.utils.avatar.AvatarGenerationListener
@@ -81,7 +82,7 @@ class AvatarGroupLayout @JvmOverloads constructor(
 
         val avatarCount = sharees.size.coerceAtMost(MAX_AVATAR_COUNT)
         val hasOverflow = sharees.size > MAX_AVATAR_COUNT
-        val serverName = user.accountName.substringAfterLast('@')
+        val serverName = AccountNameUtils.getServerPart(user.accountName)
 
         repeat(avatarCount) { index ->
             val avatar = addAvatarView(index)
@@ -130,7 +131,7 @@ class AvatarGroupLayout @JvmOverloads constructor(
 
             else -> {
                 val userId = checkNotNull(sharee.userId)
-                avatar.tag = "$userId@$serverName"
+                avatar.tag = AccountNameUtils.build(userId, serverName)
                 avatarGenerator.setUserAvatar(
                     userId,
                     this,
@@ -145,9 +146,8 @@ class AvatarGroupLayout @JvmOverloads constructor(
     }
 
     private fun showFederatedShareAvatar(federatedId: String, avatar: ImageView, viewThemeUtils: ViewThemeUtils) {
-        val parts = federatedId.split("@")
-        val userId = parts.first()
-        val url = parts.getOrNull(1)?.let { server ->
+        val userId = AccountNameUtils.getUserPart(federatedId)
+        val url = AccountNameUtils.getServerPart(federatedId).ifEmpty { null }?.let { server ->
             "https://$server/index.php/avatar/$userId/${resources.getInteger(R.integer.file_avatar_px)}"
         }
         val placeholder = createFederatedPlaceholder(userId, viewThemeUtils)

@@ -142,8 +142,7 @@ public interface UserAccountManager extends CurrentAccountProvider {
      * @return User name (without domain) or null, if name cannot be extracted.
      */
     static String getUsername(User user) {
-        final String name = user.getAccountName();
-        return name.substring(0, name.lastIndexOf('@'));
+        return AccountNameUtils.getUserPart(user.getAccountName());
     }
 
     @Nullable
