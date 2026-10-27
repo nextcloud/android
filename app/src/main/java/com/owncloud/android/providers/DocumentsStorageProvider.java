@@ -89,6 +89,7 @@ import androidx.annotation.VisibleForTesting;
 import dagger.android.AndroidInjection;
 
 import static android.os.ParcelFileDescriptor.MODE_READ_ONLY;
+import static android.os.ParcelFileDescriptor.MODE_TRUNCATE;
 import static android.os.ParcelFileDescriptor.MODE_WRITE_ONLY;
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
@@ -238,7 +239,13 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
             int accessMode = ParcelFileDescriptor.parseMode(mode);
             boolean writeOnly = (accessMode & MODE_WRITE_ONLY) != 0;
-            boolean needsDownload = !ocFile.existsOnDevice() || (!writeOnly && hasServerChange(document));
+            boolean truncate = (accessMode & MODE_TRUNCATE) != 0;
+            if (truncate && !ocFile.existsOnDevice()) {
+                assignDefaultStoragePath(user, ocFile);
+            }
+
+            boolean needsDownload = !truncate &&
+                (!ocFile.existsOnDevice() || (!writeOnly && hasServerChange(document)));
             if (needsDownload) {
                 if (ocFile.getLocalModificationTimestamp() > ocFile.getLastSyncDateForData()) {
                     // TODO show a conflict notification with a pending intent that shows a ConflictResolveDialog
@@ -314,6 +321,15 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         } finally {
             Binder.restoreCallingIdentity(token);
         }
+    }
+
+    private void assignDefaultStoragePath(User user, OCFile ocFile) throws FileNotFoundException {
+        File localFile = new File(FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), ocFile));
+        File parent = localFile.getParentFile();
+        if (parent != null && !parent.exists() && !parent.mkdirs()) {
+            throw new FileNotFoundException("Local folder could not be created: " + parent.getAbsolutePath());
+        }
+        ocFile.setStoragePath(localFile.getAbsolutePath());
     }
 
     private boolean hasServerChange(Document document) throws FileNotFoundException {
