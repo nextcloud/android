@@ -78,7 +78,6 @@ import com.nextcloud.utils.mdm.MDMConfig
 import com.nextcloud.utils.text.LinkFormatter
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
-import com.owncloud.android.authentication.AuthenticatorAsyncTask.OnAuthenticatorTaskListener
 import com.owncloud.android.authentication.AuthenticatorUrlUtils.normalizeScheme
 import com.owncloud.android.authentication.AuthenticatorUrlUtils.normalizeUrlSuffix
 import com.owncloud.android.authentication.AuthenticatorUrlUtils.stripIndexPhpOrAppsFiles
@@ -139,7 +138,6 @@ open class AuthenticatorActivity :
     OnRemoteOperationListener,
     OnEditorActionListener,
     OnSslUntrustedCertListener,
-    OnAuthenticatorTaskListener,
     Injectable {
 
     @Inject
@@ -182,7 +180,7 @@ open class AuthenticatorActivity :
 
     private var operationsServiceConnection: ServiceConnection? = null
     private var operationsServiceBinder: OperationsServiceBinder? = null
-    private var authenticatorTask: AuthenticatorAsyncTask? = null
+    private var credentialsCheckJob: Job? = null
 
     private var serverInfo = ServerInfo()
     private var serverStatusText: String? = EMPTY_STRING
@@ -259,14 +257,14 @@ open class AuthenticatorActivity :
             outState.putString(KEY_LOGIN_FLOW_AUTH_OBJECT, AuthObject.toJson(pendingAuthObject))
         }
 
-        authenticatorTask?.cancel(true)
-        outState.putBoolean(KEY_ASYNC_TASK_IN_PROGRESS, authenticatorTask != null)
-        authenticatorTask = null
+        credentialsCheckJob?.cancel()
+        outState.putBoolean(KEY_CREDENTIALS_CHECK_IN_PROGRESS, credentialsCheckJob != null)
+        credentialsCheckJob = null
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        if (!savedInstanceState.getBoolean(KEY_ASYNC_TASK_IN_PROGRESS)) {
+        if (!savedInstanceState.getBoolean(KEY_CREDENTIALS_CHECK_IN_PROGRESS)) {
             return
         }
 
@@ -1127,10 +1125,13 @@ open class AuthenticatorActivity :
         accessRootFolder(credentials)
     }
 
-    @Suppress("DEPRECATION")
-    private fun accessRootFolder(credentials: OwnCloudCredentials?) {
-        Log_OC.d(TAG, "Credential check: started for ${serverInfo.mBaseUrl}")
-        authenticatorTask = AuthenticatorAsyncTask(this).apply { execute(serverInfo.mBaseUrl, credentials) }
+    private fun accessRootFolder(credentials: OwnCloudCredentials) {
+        val baseUrl = serverInfo.mBaseUrl
+        Log_OC.d(TAG, "Credential check: started for $baseUrl")
+        credentialsCheckJob = lifecycleScope.launch {
+            val result = CredentialsVerifier(applicationContext).verify(baseUrl, credentials)
+            onCredentialsChecked(result)
+        }
     }
 
     private fun onGetUserNameFinish(result: RemoteOperationResult<UserInfo?>) {
@@ -1153,12 +1154,10 @@ open class AuthenticatorActivity :
         Log_OC.e(TAG, "User info: request failed, code=${result.code}, ${result.logMessage}")
     }
 
-    override fun onAuthenticatorTaskCallback(result: RemoteOperationResult<UserInfo?>?) {
-        result ?: return
-
+    private fun onCredentialsChecked(result: RemoteOperationResult<UserInfo?>) {
         waitingForOpId = NO_PENDING_OPERATION
         dismissWaitingDialog()
-        authenticatorTask = null
+        credentialsCheckJob = null
 
         when {
             result.isSuccess -> onCredentialsAccepted(result)
@@ -1558,7 +1557,7 @@ open class AuthenticatorActivity :
 
         private const val KEY_USERNAME = "USERNAME"
         private const val KEY_PASSWORD = "PASSWORD"
-        private const val KEY_ASYNC_TASK_IN_PROGRESS = "AUTH_IN_PROGRESS"
+        private const val KEY_CREDENTIALS_CHECK_IN_PROGRESS = "AUTH_IN_PROGRESS"
 
         private const val NO_PENDING_OPERATION = Long.MAX_VALUE
         private const val LOGIN_FLOW_POLL_INTERVAL_MS = 30_000L
