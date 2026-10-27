@@ -12,1855 +12,1645 @@
  * SPDX-FileCopyrightText: 2011-2012 Bartosz Przybylski <bart.p.pl@gmail.com>
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-package com.owncloud.android.authentication;
+package com.owncloud.android.authentication
 
-import android.Manifest;
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.IBinder;
-import android.preference.PreferenceManager;
-import android.text.TextUtils;
-import android.util.Pair;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.webkit.CookieManager;
-import android.webkit.URLUtil;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebView;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
-
-import com.blikoon.qrcodescanner.QrCodeActivity;
-import com.google.android.material.button.MaterialButton;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
-import com.nextcloud.android.common.ui.color.ColorUtil;
-import com.nextcloud.android.common.ui.theme.utils.ColorRole;
-import com.nextcloud.client.account.User;
-import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.device.DeviceInfo;
-import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.network.ClientFactory;
-import com.nextcloud.client.onboarding.FirstRunActivity;
-import com.nextcloud.client.onboarding.OnboardingService;
-import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.common.PlainClient;
-import com.nextcloud.model.HTTPStatusCodes;
-import com.nextcloud.operations.PostMethod;
-import com.nextcloud.utils.RawResourceReader;
-import com.nextcloud.utils.SnackbarUtil;
-import com.nextcloud.utils.extensions.BundleExtensionsKt;
-import com.nextcloud.utils.mdm.MDMConfig;
-import com.nextcloud.utils.text.LinkFormatter;
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.authentication.dialog.LoginDialog;
-import com.owncloud.android.databinding.AccountSetupBinding;
-import com.owncloud.android.databinding.AccountSetupWebviewBinding;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
-import com.owncloud.android.lib.common.OwnCloudCredentials;
-import com.owncloud.android.lib.common.OwnCloudCredentialsFactory;
-import com.owncloud.android.lib.common.UserInfo;
-import com.owncloud.android.lib.common.accounts.AccountUtils;
-import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
-import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
-import com.owncloud.android.lib.common.network.CertificateCombinedException;
-import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
-import com.owncloud.android.operations.DetectAuthenticationMethodOperation.AuthenticationMethod;
-import com.owncloud.android.operations.GetCapabilitiesOperation;
-import com.owncloud.android.operations.GetServerInfoOperation;
-import com.owncloud.android.providers.DocumentsStorageProvider;
-import com.owncloud.android.services.OperationsService;
-import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
-import com.owncloud.android.ui.NextcloudWebViewClient;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.activity.SettingsActivity;
-import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
-import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
-import com.owncloud.android.utils.ErrorMessageAdapter;
-import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.ProxyUtil;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import java.lang.ref.WeakReference;
-import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
-import javax.inject.Inject;
-
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.VisibleForTesting;
-import androidx.appcompat.app.ActionBar;
-import androidx.browser.auth.AuthTabIntent;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleEventObserver;
-import androidx.lifecycle.ProcessLifecycleOwner;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import okhttp3.FormBody;
-import okhttp3.RequestBody;
-
-import static com.owncloud.android.utils.PermissionUtil.PERMISSIONS_CAMERA;
+import android.Manifest
+import android.accounts.Account
+import android.accounts.AccountManager
+import android.annotation.SuppressLint
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Bundle
+import android.os.Handler
+import android.os.IBinder
+import android.os.Looper
+import android.preference.PreferenceManager
+import android.view.KeyEvent
+import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.webkit.CookieManager
+import android.webkit.URLUtil
+import android.webkit.WebResourceError
+import android.webkit.WebResourceRequest
+import android.webkit.WebView
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.TextView
+import android.widget.TextView.OnEditorActionListener
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.DrawableRes
+import androidx.annotation.VisibleForTesting
+import androidx.browser.auth.AuthTabIntent
+import androidx.core.content.ContextCompat
+import androidx.core.content.edit
+import androidx.core.net.toUri
+import androidx.core.os.bundleOf
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
+import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.ProcessLifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import com.blikoon.qrcodescanner.QrCodeActivity
+import com.google.gson.Gson
+import com.google.gson.JsonParser
+import com.google.gson.reflect.TypeToken
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.device.DeviceInfo
+import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.client.onboarding.FirstRunActivity
+import com.nextcloud.client.onboarding.OnboardingService
+import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.model.HTTPStatusCodes
+import com.nextcloud.operations.PostMethod
+import com.nextcloud.utils.RawResourceReader
+import com.nextcloud.utils.SnackbarUtil
+import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.mdm.MDMConfig
+import com.nextcloud.utils.text.LinkFormatter
+import com.owncloud.android.MainApp
+import com.owncloud.android.R
+import com.owncloud.android.authentication.AuthenticatorAsyncTask.OnAuthenticatorTaskListener
+import com.owncloud.android.authentication.AuthenticatorUrlUtils.normalizeScheme
+import com.owncloud.android.authentication.AuthenticatorUrlUtils.normalizeUrlSuffix
+import com.owncloud.android.authentication.AuthenticatorUrlUtils.stripIndexPhpOrAppsFiles
+import com.owncloud.android.authentication.AuthenticatorUrlUtils.trimWebdavSuffix
+import com.owncloud.android.authentication.dialog.LoginDialog
+import com.owncloud.android.databinding.AccountSetupBinding
+import com.owncloud.android.databinding.AccountSetupWebviewBinding
+import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.lib.common.OwnCloudAccount
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
+import com.owncloud.android.lib.common.OwnCloudCredentials
+import com.owncloud.android.lib.common.OwnCloudCredentialsFactory
+import com.owncloud.android.lib.common.UserInfo
+import com.owncloud.android.lib.common.accounts.AccountUtils
+import com.owncloud.android.lib.common.network.CertificateCombinedException
+import com.owncloud.android.lib.common.operations.OnRemoteOperationListener
+import com.owncloud.android.lib.common.operations.RemoteOperation
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.status.OwnCloudVersion
+import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation
+import com.owncloud.android.operations.DetectAuthenticationMethodOperation.AuthenticationMethod
+import com.owncloud.android.operations.GetCapabilitiesOperation
+import com.owncloud.android.operations.GetServerInfoOperation
+import com.owncloud.android.operations.GetServerInfoOperation.ServerInfo
+import com.owncloud.android.providers.DocumentsStorageProvider
+import com.owncloud.android.services.OperationsService
+import com.owncloud.android.services.OperationsService.OperationsServiceBinder
+import com.owncloud.android.ui.NextcloudWebViewClient
+import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.ui.activity.SettingsActivity
+import com.owncloud.android.ui.dialog.SslUntrustedCertDialog
+import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener
+import com.owncloud.android.utils.ErrorMessageAdapter
+import com.owncloud.android.utils.PermissionUtil
+import com.owncloud.android.utils.ProxyUtil
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
+import okhttp3.FormBody
+import java.lang.ref.WeakReference
+import java.net.URLDecoder
+import javax.inject.Inject
 
 /**
  * This Activity is used to add an ownCloud account to the App
  */
-public class AuthenticatorActivity extends AccountAuthenticatorActivity
-    implements OnRemoteOperationListener, OnEditorActionListener, OnSslUntrustedCertListener,
-    AuthenticatorAsyncTask.OnAuthenticatorTaskListener, Injectable {
+@Suppress("LargeClass")
+open class AuthenticatorActivity :
+    AccountAuthenticatorActivity(),
+    OnRemoteOperationListener,
+    OnEditorActionListener,
+    OnSslUntrustedCertListener,
+    OnAuthenticatorTaskListener,
+    Injectable {
 
-    private static final String TAG = AuthenticatorActivity.class.getSimpleName();
+    @Inject
+    lateinit var accountManager: UserAccountManager
 
-    public static final String EXTRA_ACTION = "ACTION";
-    public static final String EXTRA_ACCOUNT = "ACCOUNT";
-    public static final String EXTRA_USE_PROVIDER_AS_WEBLOGIN = "USE_PROVIDER_AS_WEBLOGIN";
+    @Inject
+    lateinit var preferences: AppPreferences
 
-    private static final String KEY_HOST_URL_TEXT = "HOST_URL_TEXT";
-    private static final String KEY_OC_VERSION = "OC_VERSION";
-    private static final String KEY_SERVER_STATUS_TEXT = "SERVER_STATUS_TEXT";
-    private static final String KEY_SERVER_STATUS_ICON = "SERVER_STATUS_ICON";
-    private static final String KEY_IS_SSL_CONN = "IS_SSL_CONN";
-    private static final String KEY_AUTH_STATUS_TEXT = "AUTH_STATUS_TEXT";
-    private static final String KEY_AUTH_STATUS_ICON = "AUTH_STATUS_ICON";
-    private static final String KEY_SERVER_AUTH_METHOD = "SERVER_AUTH_METHOD";
-    private static final String KEY_WAITING_FOR_OP_ID = "WAITING_FOR_OP_ID";
-    private static final String KEY_ONLY_ADD = "onlyAdd";
-    private static final String KEY_LOGIN_FLOW_AUTH_OBJECT = "LOGIN_FLOW_AUTH_OBJECT";
+    @Inject
+    lateinit var onboarding: OnboardingService
 
-    public static final byte ACTION_CREATE = 0;
-    public static final byte ACTION_UPDATE_EXPIRED_TOKEN = 2;       // detected by the app
+    @Inject
+    lateinit var deviceInfo: DeviceInfo
 
-    public static final String UNTRUSTED_CERT_DIALOG_TAG = "UNTRUSTED_CERT_DIALOG";
-    private static final String WAIT_DIALOG_TAG = "WAIT_DIALOG";
-    private static final String KEY_AUTH_IS_FIRST_ATTEMPT_TAG = "KEY_AUTH_IS_FIRST_ATTEMPT";
+    @Inject
+    lateinit var passCodeManager: PassCodeManager
 
-    private static final String KEY_USERNAME = "USERNAME";
-    private static final String KEY_PASSWORD = "PASSWORD";
-    private static final String KEY_ASYNC_TASK_IN_PROGRESS = "AUTH_IN_PROGRESS";
+    @Inject
+    lateinit var viewThemeUtilsFactory: ViewThemeUtils.Factory
 
-    public static final String WEB_LOGIN = "/index.php/login/v2";
+    @Inject
+    lateinit var clientFactory: ClientFactory
 
-    public static final String PROTOCOL_SUFFIX = "://";
-    public static final String LOGIN_URL_DATA_KEY_VALUE_SEPARATOR = ":";
-    public static final String HTTPS_PROTOCOL = "https://";
-    public static final String HTTP_PROTOCOL = "http://";
+    @get:VisibleForTesting
+    var accountSetupBinding: AccountSetupBinding? = null
+        private set
+    private var accountSetupWebviewBinding: AccountSetupWebviewBinding? = null
 
-    public static final int NO_ICON = 0;
-    public static final String EMPTY_STRING = "";
-    public static final int REQUEST_CODE_FIRST_RUN = 102;
+    protected val loginDialog = LoginDialog(this)
+    private lateinit var viewThemeUtils: ViewThemeUtils
+    private lateinit var platformAccountManager: AccountManager
+    private val handler = Handler(Looper.getMainLooper())
+    private val gson = Gson()
 
-    /// parameters from EXTRAs in starter Intent
-    private byte mAction;
-    private Account mAccount;
+    private var authenticatorAction = ACTION_CREATE
+    private var account: Account? = null
+    private var onlyAdd = false
+    private var isFirstAuthAttempt = false
+    private var waitingForOpId = NO_PENDING_OPERATION
 
-    /// activity-level references / state
-    private final Handler mHandler = new Handler();
-    private ServiceConnection mOperationsServiceConnection;
-    private OperationsServiceBinder mOperationsServiceBinder;
-    private AccountManager mAccountMgr;
+    private var operationsServiceConnection: ServiceConnection? = null
+    private var operationsServiceBinder: OperationsServiceBinder? = null
+    private var authenticatorTask: AuthenticatorAsyncTask? = null
 
-    /// Server PRE-Fragment elements
-    private AccountSetupBinding accountSetupBinding = null;
-    private AccountSetupWebviewBinding accountSetupWebviewBinding;
+    private var serverInfo = ServerInfo()
+    private var serverStatusText: String? = EMPTY_STRING
+    private var serverStatusIcon = NO_ICON
+    private var authStatusText: String? = EMPTY_STRING
+    private var authStatusIcon = NO_ICON
 
-    private String mServerStatusText = EMPTY_STRING;
-    private int mServerStatusIcon;
+    private var showWebViewLoginUrl = false
+    private var webViewUser: String? = null
+    private var webViewPassword: String? = null
 
-    private GetServerInfoOperation.ServerInfo mServerInfo = new GetServerInfoOperation.ServerInfo();
+    private val loginDataScheme: String
+        get() = getString(R.string.login_data_own_scheme)
 
-    /// Authentication PRE-Fragment elements
-    private String mAuthStatusText = EMPTY_STRING;
-    private int mAuthStatusIcon;
+    private val loginDataPrefix: String
+        get() = loginDataScheme + PROTOCOL_SUFFIX + LOGIN_PATH
 
-    private AuthenticatorAsyncTask mAsyncTask;
+    private val isAdditionalAccountForbidden: Boolean
+        get() = !MDMConfig.multiAccountSupport(this) && accountManager.accounts.size == 1
 
-    private boolean mIsFirstAuthAttempt;
+    // region Lifecycle
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewThemeUtils = viewThemeUtilsFactory.withPrimaryAsBackground()
+        viewThemeUtils.platform.colorStatusBar(this, ContextCompat.getColor(this, R.color.primary))
 
-    /// Identifier of operation in progress which result shouldn't be lost
-    private long mWaitingForOpId = Long.MAX_VALUE;
-
-    private boolean showWebViewLoginUrl;
-    private String webViewUser;
-    private String webViewPassword;
-
-    @Inject UserAccountManager accountManager;
-    @Inject AppPreferences preferences;
-    @Inject OnboardingService onboarding;
-    @Inject DeviceInfo deviceInfo;
-    @Inject PassCodeManager passCodeManager;
-    @Inject ViewThemeUtils.Factory viewThemeUtilsFactory;
-    @Inject ColorUtil colorUtil;
-    @Inject ClientFactory clientFactory;
-
-    private AuthObject authObject = null;
-    private String fallbackToken;
-    private boolean onlyAdd = false;
-
-    private final Gson gson = new Gson();
-
-    private ViewThemeUtils viewThemeUtils;
-    private final ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
-    protected LoginDialog loginDialog;
-
-    @VisibleForTesting
-    public AccountSetupBinding getAccountSetupBinding() {
-        return accountSetupBinding;
-    }
-
-    /**
-     * {@inheritDoc}
-     * <p>
-     * IMPORTANT ENTRY POINT 1: activity is shown to the user
-     */
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        loginDialog = new LoginDialog(this);
-        viewThemeUtils = viewThemeUtilsFactory.withPrimaryAsBackground();
-        viewThemeUtils.platform.colorStatusBar(this, getResources().getColor(R.color.primary));
-
-        Uri data = getIntent().getData();
-        boolean directLogin = data != null && data.toString().startsWith(getString(R.string.login_data_own_scheme));
-        if (savedInstanceState == null && !directLogin) {
-            onboarding.launchFirstRunIfNeeded(this);
+        val isDirectLogin = intent.data?.toString()?.let(::isLoginData) == true
+        if (savedInstanceState == null && !isDirectLogin) {
+            onboarding.launchFirstRunIfNeeded(this)
         }
 
-        onlyAdd = getIntent().getBooleanExtra(KEY_ONLY_ADD, false) || checkIfViaSSO(getIntent());
+        onlyAdd = isOnlyAddRequest(intent)
+        deleteCookies()
+        hideActionBar()
 
-        // delete cookies for webView
-        deleteCookies();
+        isFirstAuthAttempt = true
+        platformAccountManager = AccountManager.get(this)
+        authenticatorAction = intent.getByteExtra(EXTRA_ACTION, ACTION_CREATE)
+        account = intent.extras?.getParcelableArgument(EXTRA_ACCOUNT, Account::class.java)
 
-        // Workaround, for fixing a problem with Android Library Support v7 19
-        //getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-            actionBar.setDisplayHomeAsUpEnabled(false);
-            actionBar.setDisplayShowHomeEnabled(false);
-            actionBar.setDisplayShowTitleEnabled(false);
+        savedInstanceState?.let {
+            waitingForOpId = it.getLong(KEY_WAITING_FOR_OP_ID)
+            isFirstAuthAttempt = it.getBoolean(KEY_AUTH_IS_FIRST_ATTEMPT_TAG)
         }
 
-        mIsFirstAuthAttempt = true;
-
-        /// init activity state
-        mAccountMgr = AccountManager.get(this);
-
-        /// get input values
-        mAction = getIntent().getByteExtra(EXTRA_ACTION, ACTION_CREATE);
-
-        Bundle extras = getIntent().getExtras();
-
-        if (extras != null) {
-            mAccount = BundleExtensionsKt.getParcelableArgument(extras, EXTRA_ACCOUNT, Account.class);
-        }
-
-        if (savedInstanceState != null) {
-            mWaitingForOpId = savedInstanceState.getLong(KEY_WAITING_FOR_OP_ID);
-            mIsFirstAuthAttempt = savedInstanceState.getBoolean(KEY_AUTH_IS_FIRST_ATTEMPT_TAG);
-        }
-
-        boolean webViewLoginMethod = false;
-        String webloginUrl = null;
-
-        if (MainApp.isClientBrandedPlus()) {
-            String baseUrl = MDMConfig.INSTANCE.getBaseUrl(this);
-            if (!TextUtils.isEmpty(baseUrl)) {
-                webloginUrl = baseUrl + WEB_LOGIN;
-            }
-        }
-
-        if (!TextUtils.isEmpty(webloginUrl)) {
-            webViewLoginMethod = true;
-        } else if (getIntent().getBooleanExtra(EXTRA_USE_PROVIDER_AS_WEBLOGIN, false)) {
-            webViewLoginMethod = true;
-            webloginUrl = getString(R.string.provider_registration_server);
-        } else if (!TextUtils.isEmpty(getResources().getString(R.string.webview_login_url))) {
-            webViewLoginMethod = true;
-            webloginUrl = getResources().getString(R.string.webview_login_url);
-            showWebViewLoginUrl = getResources().getBoolean(R.bool.show_server_url_input);
-        }
-
-        /// load user interface
-        if (webViewLoginMethod) {
-            accountSetupWebviewBinding = AccountSetupWebviewBinding.inflate(getLayoutInflater());
-            setContentView(accountSetupWebviewBinding.getRoot());
-            anonymouslyPostLoginRequest(webloginUrl);
+        val webLoginUrl = mdmWebLoginUrl() ?: providerWebLoginUrl() ?: brandedWebLoginUrl()
+        if (webLoginUrl != null) {
+            inflateWebViewLayout()
+            anonymouslyPostLoginRequest(webLoginUrl)
         } else {
-            accountSetupBinding = AccountSetupBinding.inflate(getLayoutInflater());
-            setContentView(accountSetupBinding.getRoot());
-
-            /// initialize general UI elements
-            initOverallUi();
-
-            /// initialize block to be moved to single Fragment to check server and get info about it
-
-            /// initialize block to be moved to single Fragment to retrieve and validate credentials
-            if (TextUtils.isEmpty(getString(R.string.enforce_servers))) {
-                initAuthorizationPreFragment(savedInstanceState);
-            } else {
-                showEnforcedServers();
-            }
-            
-            initServerPreFragment(savedInstanceState);
-            restorePendingLoginFlow(savedInstanceState);
+            initServerUrlLogin(savedInstanceState)
         }
 
-        Log_OC.d(TAG, "Started, action=" + (mAction == ACTION_CREATE ? "create account" : "update credentials") +
-            ", recreated=" + (savedInstanceState != null) + ", webViewLogin=" + webViewLoginMethod);
-        ProcessLifecycleOwner.get().getLifecycle().addObserver(lifecycleEventObserver);
+        val actionName = if (authenticatorAction == ACTION_CREATE) "create account" else "update credentials"
+        Log_OC.d(
+            TAG,
+            "Started, action=$actionName, recreated=${savedInstanceState != null}, webViewLogin=${webLoginUrl != null}"
+        )
+        ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleEventObserver)
     }
 
-    private void showEnforcedServers() {
-        showAuthStatus();
-        accountSetupBinding.hostUrlFrame.setVisibility(View.GONE);
-        accountSetupBinding.hostUrlInputHelperText.setVisibility(View.GONE);
-        accountSetupBinding.serversSpinner.setVisibility(View.VISIBLE);
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.enforced_servers_spinner);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        outState.putLong(KEY_WAITING_FOR_OP_ID, waitingForOpId)
+        outState.putBoolean(KEY_IS_SSL_CONN, serverInfo.mIsSslConn)
+        outState.putString(KEY_HOST_URL_TEXT, serverInfo.mBaseUrl)
+        serverInfo.mVersion?.let { outState.putString(KEY_OC_VERSION, it.version) }
+        outState.putString(KEY_SERVER_AUTH_METHOD, serverInfo.mAuthMethod.name)
+        outState.putBoolean(KEY_AUTH_IS_FIRST_ATTEMPT_TAG, isFirstAuthAttempt)
 
-        ArrayList<String> servers = new ArrayList<>();
-        servers.add("");
-        adapter.add(getString(R.string.please_select_a_server));
-
-        ArrayList<EnforcedServer> t = new Gson().fromJson(getString(R.string.enforce_servers),
-                                                          new TypeToken<ArrayList<EnforcedServer>>() {
-                                                          }
-                                                              .getType());
-
-        for (EnforcedServer e : t) {
-            adapter.add(e.getName());
-            servers.add(e.getUrl());
+        val pendingAuthObject = authObject
+        if (pendingAuthObject != null && !isLoginProcessCompleted) {
+            outState.putString(KEY_LOGIN_FLOW_AUTH_OBJECT, AuthObject.toJson(pendingAuthObject))
         }
 
-        accountSetupBinding.serversSpinner.setAdapter(adapter);
-        accountSetupBinding.serversSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String url = servers.get(position);
-
-                if (URLUtil.isValidUrl(url)) {
-                    accountSetupBinding.hostUrlInput.setText(url);
-                    checkOcServer();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // do nothing
-            }
-        });
+        authenticatorTask?.cancel(true)
+        outState.putBoolean(KEY_ASYNC_TASK_IN_PROGRESS, authenticatorTask != null)
+        authenticatorTask = null
     }
 
-    private void deleteCookies() {
-        try {
-            CookieManager.getInstance().removeAllCookies(null);
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Failed to delete web view cookies", e);
-        }
-    }
-
-    // region LoginFlow
-    private final ScheduledExecutorService loginFlowExecutorService = Executors.newSingleThreadScheduledExecutor();
-    private boolean isLoginProcessCompleted = false;
-    private boolean isRedirectedToTheDefaultBrowser = false;
-    private boolean isServerCheckPendingServiceBinding = false;
-    private String baseUrl;
-
-    private void poolLogin() {
-        loginFlowExecutorService.scheduleWithFixedDelay(() -> {
-            if (!isLoginProcessCompleted) {
-                performLoginFlowV2();
-            }
-        }, 0, 30, TimeUnit.SECONDS);
-    }
-
-    /**
-     * This function facilitates the login process by anonymously posting a login request to a specified URL.
-     * After posting the request, it retrieves the login URL for completing the login flow.
-     * The login flow version used is v2.
-     *
-     * @param url The URL where the login request is to be anonymously posted.
-     *            This URL should handle the login request and return the login URL.
-     *            It's typically the entry point for the login process.
-     *            Example: "<a href="https://example.com/index.php/login/v2">...</a>"
-     */
-    private void anonymouslyPostLoginRequest(String url) {
-        if (TextUtils.isEmpty(url)) {
-            Log_OC.e(TAG, "Login flow v2: cannot start, login request URL is empty");
-            SnackbarUtil.show(this, R.string.authenticator_activity_empty_base_url);
-            return;
-        }
-        baseUrl = url;
-        Log_OC.d(TAG, "Login flow v2: requesting login URL from " + url);
-
-        singleThreadExecutor.execute(() -> {
-            String response = getResponseOfAnonymouslyPostLoginRequest();
-            if (TextUtils.isEmpty(response)) {
-                Log_OC.e(TAG, "Login flow v2: login URL request returned an empty response");
-                SnackbarUtil.show(AuthenticatorActivity.this, R.string.authenticator_activity_empty_response_message);
-                return;
-            }
-
-            String loginUrl = extractLoginUrl(response);
-            runOnUiThread(() -> {
-                initLoginInfoView();
-                launchDefaultWebBrowser(loginUrl);
-            });
-        });
-    }
-
-    private String extractLoginUrl(String response) {
-        try {
-            authObject = AuthObject.fromJson(response);
-            if (!TextUtils.isEmpty(authObject.getLogin())) {
-                return authObject.getLogin();
-            } else {
-                Log_OC.e(TAG, "Login flow v2: login URL missing in response, trying fallback parser");
-            }
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Login flow v2: response parsing failed, trying fallback parser: " +
-                e.getClass().getSimpleName());
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        if (!savedInstanceState.getBoolean(KEY_ASYNC_TASK_IN_PROGRESS)) {
+            return
         }
 
-        try {
-            String fallbackUrl = getLoginFromJsonObject(response);
-            if (!TextUtils.isEmpty(fallbackUrl)) {
-                return fallbackUrl;
-            } else {
-                Log_OC.e(TAG, "Login flow v2: fallback parser found no login URL");
-            }
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Login flow v2: fallback parser failed: " + e.getClass().getSimpleName());
-        }
-
-        Log_OC.e(TAG, "Login flow v2: no login URL in response, using default login URL");
-        SnackbarUtil.show(this, R.string.authenticator_activity_login_error);
-        return getResources().getString(R.string.webview_login_url);
-    }
-
-    private String getLoginFromJsonObject(String response) {
-        JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject();
-        fallbackToken = jsonObject.getAsJsonObject("poll").get("token").getAsString();
-        return jsonObject.get("login").getAsString();
-    }
-
-    private String getResponseOfAnonymouslyPostLoginRequest() {
-        PostMethod post = new PostMethod(baseUrl, false, new FormBody.Builder().build());
-        PlainClient client = clientFactory.createPlainClient();
-        int status = post.execute(client);
-        Log_OC.d(TAG, "Login flow v2: login URL request finished with status " + status);
-        return post.getResponseBodyAsString();
-    }
-
-    private void launchDefaultWebBrowser(String url) {
-        if (url == null || url.isBlank()) {
-            Log_OC.e(TAG, "Login flow v2: cannot open browser, login URL is blank");
-            SnackbarUtil.show(this, R.string.invalid_url);
-            return;
-        }
-
-        Uri uri = Uri.parse(url);
-        String loginScheme = getString(R.string.login_data_own_scheme);
-
-        try {
-            int toolbarColor = ContextCompat.getColor(this, R.color.primary);
-            AuthTabIntent authTabIntent = new AuthTabIntent.Builder().setColorScheme(toolbarColor).build();
-            authTabIntent.launch(authTabResultLauncher, uri, loginScheme);
-            Log_OC.d(TAG, "Login flow v2: login page opened in Auth Tab");
-            return;
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Login flow v2: Auth Tab launch failed: " + e.getClass().getSimpleName());
-        }
-
-        try {
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            PackageManager packageManager = getPackageManager();
-            if (intent.resolveActivity(packageManager) != null) {
-                startActivity(intent);
-                Log_OC.d(TAG, "Login flow v2: login page opened in external browser");
-                return;
-            }
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Login flow v2: external browser launch failed: " + e.getClass().getSimpleName());
-        }
-
-        Log_OC.e(TAG, "Login flow v2: no browser available to open login page");
-        SnackbarUtil.show(this, R.string.authenticator_activity_no_web_browser_found);
-    }
-
-    private Pair<String, String> extractPollUrlAndToken() {
-        if (authObject != null) {
-            final var poll = authObject.getPoll();
-            String pollUrl = poll.getEndpoint();
-            String token = poll.getToken();
-
-            if (!TextUtils.isEmpty(pollUrl) && !TextUtils.isEmpty(token)) {
-                return new Pair<>(pollUrl, token);
-            }
-        }
-
-        Log_OC.w(TAG, "Login flow v2: poll endpoint or token missing, using fallback endpoint and token");
-        return new Pair<>(baseUrl + "/poll", fallbackToken);
-    }
-
-    private void performLoginFlowV2() {
-        final var pollUrlAndToken = extractPollUrlAndToken();
-
-        RequestBody requestBody = new FormBody.Builder()
-            .add("token", pollUrlAndToken.second)
-            .build();
-
-        PlainClient client = clientFactory.createPlainClient();
-        PostMethod post = new PostMethod(pollUrlAndToken.first, false, requestBody);
-        int status = post.execute(client);
-        String response = post.getResponseBodyAsString();
-
-        if (status == HTTPStatusCodes.NOT_FOUND.getCode()) {
-            Log_OC.d(TAG, "Login flow v2: access not granted in browser yet, polling continues");
-            return;
-        }
-
-        Log_OC.d(TAG, "Login flow v2: poll finished with status " + status);
-        if (status == HTTPStatusCodes.SUCCESS.getCode() && !response.isEmpty()) {
-            runOnUiThread(() -> completeLoginFlow(response, status));
-        }
-    }
-
-    private void completeLoginFlow(String response, int status) {
-        try {
-            LoginUrlInfo loginUrlInfo = gson.fromJson(response, LoginUrlInfo.class);
-            if (loginUrlInfo == null) {
-                Log_OC.e(TAG, "Login flow v2: cannot complete, poll response has no credentials");
-                return;
-            }
-            isLoginProcessCompleted = loginUrlInfo.isValid(status);
-            Log_OC.d(TAG, "Login flow v2: credentials received for " + loginUrlInfo.getServer() +
-                ", valid=" + isLoginProcessCompleted);
-
-            if (accountSetupBinding != null) {
-                accountSetupBinding.hostUrlInput.setText("");
-            }
-
-            mServerInfo.mBaseUrl = AuthenticatorUrlUtils.INSTANCE.normalizeUrlSuffix(loginUrlInfo.getServer());
-            webViewUser = loginUrlInfo.getLoginName();
-            webViewPassword = loginUrlInfo.getAppPassword();
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Login flow v2: poll response parsing failed: " + e.getClass().getSimpleName());
-            mServerStatusIcon = R.drawable.ic_alert;
-            mServerStatusText = getString(R.string.qr_could_not_be_read);
-            showServerStatus();
-        }
-
-        if (mOperationsServiceBinder == null) {
-            Log_OC.d(TAG, "Login flow v2: operations service not bound yet, server check deferred");
-            isServerCheckPendingServiceBinding = true;
-        } else {
-            checkOcServer();
-        }
-        loginFlowExecutorService.shutdown();
-        ProcessLifecycleOwner.get().getLifecycle().removeObserver(lifecycleEventObserver);
-        Log_OC.d(TAG, "Login flow v2: polling stopped");
-    }
-
-    private void restorePendingLoginFlow(Bundle savedInstanceState) {
-        if (savedInstanceState == null) {
-            return;
-        }
-
-        String authObjectJson = savedInstanceState.getString(KEY_LOGIN_FLOW_AUTH_OBJECT);
-        if (authObjectJson == null) {
-            return;
-        }
-
-        authObject = AuthObject.fromJson(authObjectJson);
-        Log_OC.d(TAG, "Login flow v2: pending flow restored after activity recreation");
-        accountSetupWebviewBinding = AccountSetupWebviewBinding.inflate(getLayoutInflater());
-        setContentView(accountSetupWebviewBinding.getRoot());
-        initLoginInfoView();
-    }
-
-    private final LifecycleEventObserver lifecycleEventObserver = ((lifecycleOwner, event) -> {
-        if (event == Lifecycle.Event.ON_START && authObject != null && !TextUtils.isEmpty(authObject.getPoll().getToken())) {
-            Log_OC.d(TAG, "Login flow v2: app is in foreground, polling started");
-            poolLogin();
-        }
-    });
-    // endregion
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (accountSetupWebviewBinding != null && event.getAction() == KeyEvent.ACTION_DOWN &&
-            keyCode == KeyEvent.KEYCODE_BACK) {
-            if (accountSetupWebviewBinding.loginWebview.canGoBack()) {
-                accountSetupWebviewBinding.loginWebview.goBack();
-            } else {
-                finish();
-            }
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    private void setClient() {
-        accountSetupWebviewBinding.loginWebview.setWebViewClient(new NextcloudWebViewClient(getSupportFragmentManager()) {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                String url = request.getUrl().toString();
-                if (url.startsWith(getString(R.string.login_data_own_scheme) + PROTOCOL_SUFFIX + "login/")) {
-                    parseAndLoginFromWebView(url);
-                    return true;
-                }
-                return false;
-            }
-
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-
-                accountSetupWebviewBinding.loginWebviewProgressBar.setVisibility(View.GONE);
-                accountSetupWebviewBinding.loginWebview.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
-                accountSetupWebviewBinding.loginWebviewProgressBar.setVisibility(View.GONE);
-                accountSetupWebviewBinding.loginWebview.setVisibility(View.VISIBLE);
-
-                String customError = RawResourceReader.readText(getResources(), R.raw.custom_error);
-
-                if (!customError.isEmpty()) {
-                    accountSetupWebviewBinding.loginWebview.loadData(customError, "text/html; charset=UTF-8", null);
-                }
-            }
-        });
-    }
-
-    public void parseAndLoginFromWebView(String dataString) {
-        try {
-            String prefix = getString(R.string.login_data_own_scheme) + PROTOCOL_SUFFIX + "login/";
-            LoginUrlInfo loginUrlInfo = parseLoginDataUrl(prefix, dataString);
-
-            if (!checkAllowedServers(loginUrlInfo.getServer())) {
-                Log_OC.w(TAG, "Login rejected, server is not allowed: " + loginUrlInfo.getServer());
-                mServerStatusIcon = R.drawable.ic_alert;
-                mServerStatusText = getString(R.string.server_not_allowed);
-                showServerStatus();
-                return;
-            }
-
-            if (accountSetupBinding != null) {
-                accountSetupBinding.hostUrlInput.setText("");
-            }
-            mServerInfo.mBaseUrl = AuthenticatorUrlUtils.INSTANCE.normalizeUrlSuffix(loginUrlInfo.getServer());
-            webViewUser = loginUrlInfo.getLoginName();
-            webViewPassword = loginUrlInfo.getAppPassword();
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Login data could not be parsed: " + e.getClass().getSimpleName());
-            mServerStatusIcon = R.drawable.ic_alert;
-            mServerStatusText = getString(R.string.qr_could_not_be_read);
-            showServerStatus();
-            return;
-        }
-        checkOcServer();
-    }
-
-    private boolean checkAllowedServers(@NonNull String server) {
-        String webviewLogin = getString(R.string.webview_login_url);
-
-        if (!webviewLogin.isEmpty() && webviewLogin.startsWith(server)) {
-            return true;
-        }
-
-        String enforcedServerList = getString(R.string.enforce_servers);
-
-        if (!enforcedServerList.isEmpty()) {
-            ArrayList<EnforcedServer> enforcedServers = new Gson().fromJson(enforcedServerList,
-                                                                            new TypeToken<ArrayList<EnforcedServer>>() {
-                                                                            }
-                                                                                .getType());
-
-            for (EnforcedServer enforcedServer : enforcedServers) {
-                if (enforcedServer.getUrl().startsWith(server)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * parses a URI string and returns a login data object with the information from the URI string.
-     *
-     * @param prefix     URI beginning, e.g. cloud://login/
-     * @param dataString the complete URI
-     * @return login data
-     * @throws IllegalArgumentException when
-     */
-    public static LoginUrlInfo parseLoginDataUrl(String prefix, String dataString) throws IllegalArgumentException {
-        if (dataString.length() < prefix.length()) {
-            throw new IllegalArgumentException("Invalid login URL detected");
-        }
-
-        // format is basically xxx://login/server:xxx&user:xxx&password while all variables are optional
-        String data = dataString.substring(prefix.length());
-
-        // parse data
-        String[] values = data.split("&");
-
-        if (values.length < 1 || values.length > 3) {
-            // error illegal number of URL elements detected
-            throw new IllegalArgumentException("Illegal number of login URL elements detected: " + values.length);
-        }
-
-        LoginUrlInfo loginUrlInfo = new LoginUrlInfo("", "", "");
-
-        for (String value : values) {
-            if (value.startsWith("user" + LOGIN_URL_DATA_KEY_VALUE_SEPARATOR)) {
-                loginUrlInfo.setLoginName(URLDecoder.decode(
-                    value.substring(("user" + LOGIN_URL_DATA_KEY_VALUE_SEPARATOR).length())));
-            } else if (value.startsWith("password" + LOGIN_URL_DATA_KEY_VALUE_SEPARATOR)) {
-                loginUrlInfo.setAppPassword(URLDecoder.decode(
-                    value.substring(("password" + LOGIN_URL_DATA_KEY_VALUE_SEPARATOR).length())));
-            } else if (value.startsWith("server" + LOGIN_URL_DATA_KEY_VALUE_SEPARATOR)) {
-                loginUrlInfo.setServer(URLDecoder.decode(
-                    value.substring(("server" + LOGIN_URL_DATA_KEY_VALUE_SEPARATOR).length())));
-            }
-        }
-
-        return loginUrlInfo;
-    }
-
-    /**
-     * Configures elements in the user interface under direct control of the Activity.
-     */
-    private void initOverallUi() {
-        accountSetupBinding.hostUrlContainer.setEndIconOnClickListener(v -> checkOcServer());
-
-        accountSetupBinding.hostUrlInputHelperText.setText(
-            String.format(getString(R.string.login_url_helper_text), getString(R.string.app_name)));
-
-        viewThemeUtils.platform.colorTextView(accountSetupBinding.hostUrlInputHelperText, ColorRole.ON_PRIMARY);
-        viewThemeUtils.platform.colorTextView(accountSetupBinding.serverStatusText, ColorRole.ON_PRIMARY);
-        viewThemeUtils.platform.colorTextView(accountSetupBinding.authStatusText, ColorRole.ON_PRIMARY);
-        viewThemeUtils.material.colorTextInputLayout(accountSetupBinding.hostUrlContainer, ColorRole.ON_PRIMARY);
-        viewThemeUtils.platform.colorEditTextOnPrimary(accountSetupBinding.hostUrlInput);
-
-        if (deviceInfo.hasCamera(this)) {
-            accountSetupBinding.scanQr.setOnClickListener(v -> onScan());
-            viewThemeUtils.platform.tintDrawable(this, accountSetupBinding.scanQr.getDrawable(), ColorRole.ON_PRIMARY);
-        } else {
-            accountSetupBinding.scanQr.setVisibility(View.GONE);
-        }
-    }
-
-    /**
-     * @param savedInstanceState Saved activity state, as in {{@link #onCreate(Bundle)}
-     */
-    private void initServerPreFragment(Bundle savedInstanceState) {
-        // step 1 - load and process relevant inputs (resources, intent, savedInstanceState)
-        if (savedInstanceState == null) {
-            if (mAccount != null) {
-                String baseUrl = mAccountMgr.getUserData(mAccount, Constants.KEY_OC_BASE_URL);
-                if (TextUtils.isEmpty(baseUrl)) {
-                    mServerInfo.mBaseUrl = "";
-                } else {
-                    mServerInfo.mBaseUrl = baseUrl;
-                }
-                // TODO do next in a setter for mBaseUrl
-                mServerInfo.mIsSslConn = mServerInfo.mBaseUrl.startsWith(HTTPS_PROTOCOL);
-                mServerInfo.mVersion = accountManager.getServerVersion(mAccount);
-            } else {
-                mServerInfo.mBaseUrl = getString(R.string.webview_login_url).trim();
-                mServerInfo.mIsSslConn = mServerInfo.mBaseUrl.startsWith(HTTPS_PROTOCOL);
-            }
-        } else {
-            mServerStatusText = savedInstanceState.getString(KEY_SERVER_STATUS_TEXT);
-            mServerStatusIcon = savedInstanceState.getInt(KEY_SERVER_STATUS_ICON);
-
-            // TODO parcelable
-            mServerInfo.mIsSslConn = savedInstanceState.getBoolean(KEY_IS_SSL_CONN);
-            mServerInfo.mBaseUrl = savedInstanceState.getString(KEY_HOST_URL_TEXT);
-            String ocVersion = savedInstanceState.getString(KEY_OC_VERSION);
-            if (ocVersion != null) {
-                mServerInfo.mVersion = new OwnCloudVersion(ocVersion);
-            }
-            mServerInfo.mAuthMethod = AuthenticationMethod.valueOf(
-                savedInstanceState.getString(KEY_SERVER_AUTH_METHOD));
-
-        }
-    }
-
-    /**
-     * @param savedInstanceState Saved activity state, as in {{@link #onCreate(Bundle)}
-     */
-    private void initAuthorizationPreFragment(Bundle savedInstanceState) {
-        /// step 1 - load and process relevant inputs (resources, intent, savedInstanceState)
-        if (savedInstanceState != null) {
-            mAuthStatusText = savedInstanceState.getString(KEY_AUTH_STATUS_TEXT);
-            mAuthStatusIcon = savedInstanceState.getInt(KEY_AUTH_STATUS_ICON);
-        }
-
-        /// step 2 - set properties of UI elements (text, visibility, enabled...)
-        showAuthStatus();
-
-        accountSetupBinding.hostUrlInput.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        accountSetupBinding.hostUrlInput.setOnEditorActionListener(this);
-    }
-
-    /**
-     * Saves relevant state before {@link #onPause()}
-     * <p>
-     * See {@link super#onSaveInstanceState(Bundle)}
-     */
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        /// global state
-        outState.putLong(KEY_WAITING_FOR_OP_ID, mWaitingForOpId);
-
-        outState.putBoolean(KEY_IS_SSL_CONN, mServerInfo.mIsSslConn);
-        outState.putString(KEY_HOST_URL_TEXT, mServerInfo.mBaseUrl);
-        if (mServerInfo.mVersion != null) {
-            outState.putString(KEY_OC_VERSION, mServerInfo.mVersion.getVersion());
-        }
-        outState.putString(KEY_SERVER_AUTH_METHOD, mServerInfo.mAuthMethod.name());
-
-        /// authentication
-        outState.putBoolean(KEY_AUTH_IS_FIRST_ATTEMPT_TAG, mIsFirstAuthAttempt);
-        if (authObject != null && !isLoginProcessCompleted) {
-            outState.putString(KEY_LOGIN_FLOW_AUTH_OBJECT, AuthObject.toJson(authObject));
-        }
-
-        /// AsyncTask (User and password)
-        if (mAsyncTask != null) {
-            mAsyncTask.cancel(true);
-            outState.putBoolean(KEY_ASYNC_TASK_IN_PROGRESS, true);
-        } else {
-            outState.putBoolean(KEY_ASYNC_TASK_IN_PROGRESS, false);
-        }
-        mAsyncTask = null;
-    }
-
-    @Override
-    public void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        // AsyncTask
-        boolean inProgress = savedInstanceState.getBoolean(KEY_ASYNC_TASK_IN_PROGRESS);
-        if (inProgress) {
-            String username = savedInstanceState.getString(KEY_USERNAME);
-            String password = savedInstanceState.getString(KEY_PASSWORD);
-
-            OwnCloudCredentials credentials = OwnCloudCredentialsFactory.newBasicCredentials(username, password);
-            accessRootFolder(credentials);
-        }
+        val credentials = OwnCloudCredentialsFactory.newBasicCredentials(
+            savedInstanceState.getString(KEY_USERNAME),
+            savedInstanceState.getString(KEY_PASSWORD)
+        )
+        accessRootFolder(credentials)
     }
 
     /**
      * The redirection triggered by the OAuth authentication server as response to the GET AUTHORIZATION request is
      * caught here.
-     * <p>
+     *
      * To make this possible, this activity needs to be qualified with android:launchMode = "singleTask" in the
      * AndroidManifest.xml file.
      */
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
         if (intent.getBooleanExtra(FirstRunActivity.EXTRA_EXIT, false)) {
-            super.finish();
+            super.finish()
         }
 
-        onlyAdd = intent.getBooleanExtra(KEY_ONLY_ADD, false) || checkIfViaSSO(intent);
+        onlyAdd = isOnlyAddRequest(intent)
+        passCodeManager.onActivityResumed(this)
 
-        // Passcode
-        passCodeManager.onActivityResumed(this);
-
-        Uri data = intent.getData();
-        if (data != null && data.toString().startsWith(getString(R.string.login_data_own_scheme))) {
-            Log_OC.d(TAG, "Login data received via deep link");
-            if (!MDMConfig.INSTANCE.multiAccountSupport(this) &&
-                accountManager.getAccounts().length == 1) {
-                Log_OC.w(TAG, "Login rejected, multiple accounts are not allowed");
-                SnackbarUtil.show(this, R.string.no_mutliple_accounts_allowed);
-                finish();
-                return;
-            } else {
-                parseAndLoginFromWebView(data.toString());
+        val data = intent.data?.toString()
+        if (data != null && isLoginData(data)) {
+            Log_OC.d(TAG, "Login data received via deep link")
+            if (isAdditionalAccountForbidden) {
+                Log_OC.w(TAG, "Login rejected, multiple accounts are not allowed")
+                SnackbarUtil.show(this, R.string.no_mutliple_accounts_allowed)
+                finish()
+                return
             }
+            parseAndLoginFromWebView(data)
         }
 
         if (intent.getBooleanExtra(EXTRA_USE_PROVIDER_AS_WEBLOGIN, false)) {
-            accountSetupWebviewBinding = AccountSetupWebviewBinding.inflate(getLayoutInflater());
-            setContentView(accountSetupWebviewBinding.getRoot());
-            initSimpleSignupLogin();
+            initSimpleSignupLogin(inflateWebViewLayout())
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        val connection = OperationsServiceConnection()
+        operationsServiceConnection = connection
+        if (!bindService(Intent(this, OperationsService::class.java), connection, BIND_AUTO_CREATE)) {
+            SnackbarUtil.show(accountSetupBinding?.scroll, R.string.error_cant_bind_to_operations_service)
+            finish()
+        }
+
+        if (operationsServiceBinder != null) {
+            doOnResumeAndBound()
+        }
+    }
+
+    override fun onPause() {
+        operationsServiceBinder?.removeOperationListener(this)
+        super.onPause()
+    }
+
+    override fun onDestroy() {
+        operationsServiceConnection?.let {
+            unbindService(it)
+            operationsServiceBinder = null
+        }
+        ProcessLifecycleOwner.get().lifecycle.removeObserver(lifecycleEventObserver)
+        super.onDestroy()
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        val webViewBinding = accountSetupWebviewBinding
+        val isBackPressed = event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK
+        if (webViewBinding == null || !isBackPressed) {
+            return super.onKeyDown(keyCode, event)
+        }
+
+        if (webViewBinding.loginWebview.canGoBack()) {
+            webViewBinding.loginWebview.goBack()
+        } else {
+            finish()
+        }
+        return true
+    }
+    // endregion
+
+    // region Initial UI
+    private fun hideActionBar() {
+        supportActionBar?.run {
+            hide()
+            setDisplayHomeAsUpEnabled(false)
+            setDisplayShowHomeEnabled(false)
+            setDisplayShowTitleEnabled(false)
+        }
+    }
+
+    private fun mdmWebLoginUrl(): String? {
+        if (!MainApp.isClientBrandedPlus()) {
+            return null
+        }
+        return MDMConfig.getBaseUrl(this).takeIf { it.isNotEmpty() }?.plus(WEB_LOGIN)
+    }
+
+    private fun providerWebLoginUrl(): String? = if (intent.getBooleanExtra(EXTRA_USE_PROVIDER_AS_WEBLOGIN, false)) {
+        getString(R.string.provider_registration_server)
+    } else {
+        null
+    }
+
+    private fun brandedWebLoginUrl(): String? = getString(R.string.webview_login_url)
+        .takeIf { it.isNotEmpty() }
+        ?.also { showWebViewLoginUrl = resources.getBoolean(R.bool.show_server_url_input) }
+
+    private fun inflateWebViewLayout(): AccountSetupWebviewBinding =
+        AccountSetupWebviewBinding.inflate(layoutInflater).also {
+            accountSetupWebviewBinding = it
+            setContentView(it.root)
+        }
+
+    private fun inflateAccountSetupLayout(): AccountSetupBinding = AccountSetupBinding.inflate(layoutInflater).also {
+        accountSetupBinding = it
+        setContentView(it.root)
+    }
+
+    private fun initServerUrlLogin(savedInstanceState: Bundle?) {
+        val binding = inflateAccountSetupLayout()
+        initOverallUi(binding)
+
+        if (getString(R.string.enforce_servers).isEmpty()) {
+            initAuthorizationUi(binding, savedInstanceState)
+        } else {
+            showEnforcedServers(binding)
+        }
+
+        initServerInfo(savedInstanceState)
+        restorePendingLoginFlow(savedInstanceState)
+    }
+
+    private fun initOverallUi(binding: AccountSetupBinding) {
+        binding.hostUrlContainer.setEndIconOnClickListener { checkOcServer() }
+        binding.hostUrlInputHelperText.text =
+            getString(R.string.login_url_helper_text, getString(R.string.app_name))
+
+        viewThemeUtils.platform.colorTextView(binding.hostUrlInputHelperText, ColorRole.ON_PRIMARY)
+        viewThemeUtils.platform.colorTextView(binding.serverStatusText, ColorRole.ON_PRIMARY)
+        viewThemeUtils.platform.colorTextView(binding.authStatusText, ColorRole.ON_PRIMARY)
+        viewThemeUtils.material.colorTextInputLayout(binding.hostUrlContainer, ColorRole.ON_PRIMARY)
+        viewThemeUtils.platform.colorEditTextOnPrimary(binding.hostUrlInput)
+
+        if (!deviceInfo.hasCamera(this)) {
+            binding.scanQr.visibility = View.GONE
+            return
+        }
+
+        binding.scanQr.setOnClickListener { onScan() }
+        viewThemeUtils.platform.tintDrawable(this, binding.scanQr.drawable, ColorRole.ON_PRIMARY)
+    }
+
+    private fun initAuthorizationUi(binding: AccountSetupBinding, savedInstanceState: Bundle?) {
+        savedInstanceState?.let {
+            authStatusText = it.getString(KEY_AUTH_STATUS_TEXT)
+            authStatusIcon = it.getInt(KEY_AUTH_STATUS_ICON)
+        }
+
+        showAuthStatus()
+
+        binding.hostUrlInput.imeOptions = EditorInfo.IME_ACTION_NEXT
+        binding.hostUrlInput.setOnEditorActionListener(this)
+    }
+
+    private fun showEnforcedServers(binding: AccountSetupBinding) {
+        showAuthStatus()
+        binding.hostUrlFrame.visibility = View.GONE
+        binding.hostUrlInputHelperText.visibility = View.GONE
+        binding.serversSpinner.visibility = View.VISIBLE
+
+        val enforcedServers = parseEnforcedServers(getString(R.string.enforce_servers))
+        val serverUrls = listOf(EMPTY_STRING) + enforcedServers.map { it.url }
+
+        binding.serversSpinner.adapter = ArrayAdapter<String>(this, R.layout.enforced_servers_spinner).apply {
+            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            add(getString(R.string.please_select_a_server))
+            enforcedServers.forEach { add(it.name) }
+        }
+
+        binding.serversSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val url = serverUrls[position]
+                if (!URLUtil.isValidUrl(url)) {
+                    return
+                }
+                accountSetupBinding?.hostUrlInput?.setText(url)
+                checkOcServer()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) = Unit
+        }
+    }
+
+    private fun initServerInfo(savedInstanceState: Bundle?) {
+        if (savedInstanceState != null) {
+            restoreServerInfo(savedInstanceState)
+            return
+        }
+
+        val account = account
+        if (account == null) {
+            serverInfo.mBaseUrl = getString(R.string.webview_login_url).trim { it <= ' ' }
+            serverInfo.mIsSslConn = serverInfo.mBaseUrl.startsWith(HTTPS_PROTOCOL)
+            return
+        }
+
+        serverInfo.mBaseUrl = platformAccountManager.getUserData(account, AccountUtils.Constants.KEY_OC_BASE_URL)
+            .orEmpty()
+        serverInfo.mIsSslConn = serverInfo.mBaseUrl.startsWith(HTTPS_PROTOCOL)
+        serverInfo.mVersion = accountManager.getServerVersion(account)
+    }
+
+    private fun restoreServerInfo(savedInstanceState: Bundle) {
+        serverStatusText = savedInstanceState.getString(KEY_SERVER_STATUS_TEXT)
+        serverStatusIcon = savedInstanceState.getInt(KEY_SERVER_STATUS_ICON)
+
+        serverInfo.mIsSslConn = savedInstanceState.getBoolean(KEY_IS_SSL_CONN)
+        serverInfo.mBaseUrl = savedInstanceState.getString(KEY_HOST_URL_TEXT)
+        savedInstanceState.getString(KEY_OC_VERSION)?.let { serverInfo.mVersion = OwnCloudVersion(it) }
+        serverInfo.mAuthMethod = AuthenticationMethod.valueOf(savedInstanceState.getString(KEY_SERVER_AUTH_METHOD)!!)
+    }
+
+    private fun isOnlyAddRequest(intent: Intent): Boolean =
+        intent.getBooleanExtra(KEY_ONLY_ADD, false) || isSsoRequest(intent)
+
+    private fun isSsoRequest(intent: Intent): Boolean =
+        intent.extras?.getString(KEY_AUTH_TOKEN_TYPE) == SSO_AUTH_TOKEN_TYPE
+
+    private fun isLoginData(value: String): Boolean = value.startsWith(loginDataScheme)
+
+    private fun deleteCookies() {
+        try {
+            CookieManager.getInstance().removeAllCookies(null)
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Failed to delete web view cookies", e)
+        }
+    }
+    // endregion
+
+    // region LoginFlow
+    private var authObject: AuthObject? = null
+    private var fallbackToken: String? = null
+    private var loginFlowBaseUrl: String? = null
+    private var isLoginProcessCompleted = false
+    private var isRedirectedToTheDefaultBrowser = false
+    private var isServerCheckPendingServiceBinding = false
+    private var loginFlowPollingJob: Job? = null
+    private val loginFlowPollRequests = Channel<Unit>(Channel.CONFLATED)
+
+    private val lifecycleEventObserver = LifecycleEventObserver { _, event ->
+        if (event == Lifecycle.Event.ON_START && !authObject?.poll?.token.isNullOrEmpty()) {
+            Log_OC.d(TAG, "Login flow v2: app is in foreground, polling started")
+            pollLoginFlow()
+        }
+    }
+
+    private fun pollLoginFlow() {
+        loginFlowPollRequests.trySend(Unit)
+        if (loginFlowPollingJob?.isActive == true) {
+            return
+        }
+
+        loginFlowPollingJob = lifecycleScope.launch(Dispatchers.IO) {
+            while (isActive) {
+                withTimeoutOrNull(LOGIN_FLOW_POLL_INTERVAL_MS) { loginFlowPollRequests.receive() }
+                if (!isLoginProcessCompleted && !pollLoginFlowOnce()) {
+                    return@launch
+                }
+            }
+        }
+    }
+
+    private fun stopLoginFlowPolling() {
+        loginFlowPollingJob?.cancel()
+        ProcessLifecycleOwner.get().lifecycle.removeObserver(lifecycleEventObserver)
+    }
+
+    /**
+     * Anonymously posts a login flow v2 request to [url] (e.g. `https://example.com/index.php/login/v2`) and opens
+     * the returned login URL in the browser.
+     */
+    private fun anonymouslyPostLoginRequest(url: String) {
+        if (url.isEmpty()) {
+            Log_OC.e(TAG, "Login flow v2: cannot start, login request URL is empty")
+            SnackbarUtil.show(this, R.string.authenticator_activity_empty_base_url)
+            return
+        }
+        loginFlowBaseUrl = url
+        Log_OC.d(TAG, "Login flow v2: requesting login URL from $url")
+
+        lifecycleScope.launch {
+            val response = withContext(Dispatchers.IO) { requestLoginFlowResponse(url) }
+            if (response.isEmpty()) {
+                Log_OC.e(TAG, "Login flow v2: login URL request returned an empty response")
+                SnackbarUtil.show(this@AuthenticatorActivity, R.string.authenticator_activity_empty_response_message)
+                return@launch
+            }
+
+            val loginUrl = extractLoginUrl(response)
+            initLoginInfoView()
+            launchDefaultWebBrowser(loginUrl)
+        }
+    }
+
+    private fun requestLoginFlowResponse(url: String): String = try {
+        val post = PostMethod(url, false, FormBody.Builder().build())
+        val status = post.execute(clientFactory.createPlainClient())
+        Log_OC.d(TAG, "Login flow v2: login URL request finished with status $status")
+        post.getResponseBodyAsString()
+    } catch (e: Exception) {
+        Log_OC.e(TAG, "Login flow v2: login URL request failed: ${e.javaClass.simpleName}")
+        EMPTY_STRING
+    }
+
+    private fun extractLoginUrl(response: String): String =
+        loginUrlFromAuthObject(response) ?: loginUrlFromJsonObject(response) ?: defaultLoginUrl()
+
+    private fun loginUrlFromAuthObject(response: String): String? {
+        try {
+            val parsedAuthObject = AuthObject.fromJson(response)
+            authObject = parsedAuthObject
+            if (parsedAuthObject.login.isNotEmpty()) {
+                return parsedAuthObject.login
+            }
+            Log_OC.e(TAG, "Login flow v2: login URL missing in response, trying fallback parser")
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Login flow v2: response parsing failed, trying fallback parser: ${e.javaClass.simpleName}")
+        }
+        return null
+    }
+
+    private fun loginUrlFromJsonObject(response: String): String? {
+        try {
+            val jsonObject = JsonParser.parseString(response).asJsonObject
+            fallbackToken = jsonObject.getAsJsonObject(JSON_KEY_POLL).get(JSON_KEY_TOKEN).asString
+            val loginUrl: String? = jsonObject.get(JSON_KEY_LOGIN).asString
+            if (!loginUrl.isNullOrEmpty()) {
+                return loginUrl
+            }
+            Log_OC.e(TAG, "Login flow v2: fallback parser found no login URL")
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Login flow v2: fallback parser failed: ${e.javaClass.simpleName}")
+        }
+        return null
+    }
+
+    private fun defaultLoginUrl(): String {
+        Log_OC.e(TAG, "Login flow v2: no login URL in response, using default login URL")
+        SnackbarUtil.show(this, R.string.authenticator_activity_login_error)
+        return getString(R.string.webview_login_url)
+    }
+
+    private fun launchDefaultWebBrowser(url: String) {
+        if (url.isBlank()) {
+            Log_OC.e(TAG, "Login flow v2: cannot open browser, login URL is blank")
+            SnackbarUtil.show(this, R.string.invalid_url)
+            return
+        }
+
+        val uri = url.toUri()
+        if (launchAuthTab(uri) || launchExternalBrowser(uri)) {
+            return
+        }
+
+        Log_OC.e(TAG, "Login flow v2: no browser available to open login page")
+        SnackbarUtil.show(this, R.string.authenticator_activity_no_web_browser_found)
+    }
+
+    private fun launchAuthTab(uri: Uri): Boolean = try {
+        val toolbarColor = ContextCompat.getColor(this, R.color.primary)
+        val authTabIntent = AuthTabIntent.Builder().setColorScheme(toolbarColor).build()
+        authTabIntent.launch(authTabResultLauncher, uri, loginDataScheme)
+        Log_OC.d(TAG, "Login flow v2: login page opened in Auth Tab")
+        true
+    } catch (e: Exception) {
+        Log_OC.e(TAG, "Login flow v2: Auth Tab launch failed: ${e.javaClass.simpleName}")
+        false
+    }
+
+    private fun launchExternalBrowser(uri: Uri): Boolean {
+        try {
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            if (intent.resolveActivity(packageManager) != null) {
+                startActivity(intent)
+                Log_OC.d(TAG, "Login flow v2: login page opened in external browser")
+                return true
+            }
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Login flow v2: external browser launch failed: ${e.javaClass.simpleName}")
+        }
+        return false
+    }
+
+    private fun loginFlowPollEndpointAndToken(): Pair<String, String?> {
+        val poll = authObject?.poll
+        if (poll != null && poll.endpoint.isNotEmpty() && poll.token.isNotEmpty()) {
+            return poll.endpoint to poll.token
+        }
+
+        Log_OC.w(TAG, "Login flow v2: poll endpoint or token missing, using fallback endpoint and token")
+        return "$loginFlowBaseUrl$LOGIN_FLOW_POLL_PATH" to fallbackToken
+    }
+
+    private suspend fun pollLoginFlowOnce(): Boolean {
+        val (status, response) = try {
+            requestLoginFlowCredentials()
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Login flow v2: poll failed, polling stopped: ${e.javaClass.simpleName}")
+            return false
+        }
+
+        if (status == HTTPStatusCodes.NOT_FOUND.code) {
+            Log_OC.d(TAG, "Login flow v2: access not granted in browser yet, polling continues")
+            return true
+        }
+
+        Log_OC.d(TAG, "Login flow v2: poll finished with status $status")
+        if (status == HTTPStatusCodes.SUCCESS.code && response.isNotEmpty()) {
+            withContext(Dispatchers.Main) { completeLoginFlow(response, status) }
+        }
+        return true
+    }
+
+    private fun requestLoginFlowCredentials(): Pair<Int, String> {
+        val (pollUrl, token) = loginFlowPollEndpointAndToken()
+        val requestBody = FormBody.Builder()
+            .add(JSON_KEY_TOKEN, requireNotNull(token))
+            .build()
+
+        val post = PostMethod(pollUrl, false, requestBody)
+        val status = post.execute(clientFactory.createPlainClient())
+        return status to post.getResponseBodyAsString()
+    }
+
+    private fun completeLoginFlow(response: String, status: Int) {
+        try {
+            val loginUrlInfo: LoginUrlInfo? = gson.fromJson(response, LoginUrlInfo::class.java)
+            if (loginUrlInfo == null) {
+                Log_OC.e(TAG, "Login flow v2: cannot complete, poll response has no credentials")
+                return
+            }
+            isLoginProcessCompleted = loginUrlInfo.isValid(status)
+            Log_OC.d(
+                TAG,
+                "Login flow v2: credentials received for ${loginUrlInfo.server}, valid=$isLoginProcessCompleted"
+            )
+
+            accountSetupBinding?.hostUrlInput?.setText(EMPTY_STRING)
+            applyLoginCredentials(loginUrlInfo)
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Login flow v2: poll response parsing failed: ${e.javaClass.simpleName}")
+            showServerStatusAlert(getString(R.string.qr_could_not_be_read))
+        }
+
+        if (operationsServiceBinder == null) {
+            Log_OC.d(TAG, "Login flow v2: operations service not bound yet, server check deferred")
+            isServerCheckPendingServiceBinding = true
+        } else {
+            checkOcServer()
+        }
+        stopLoginFlowPolling()
+        Log_OC.d(TAG, "Login flow v2: polling stopped")
+    }
+
+    private fun restorePendingLoginFlow(savedInstanceState: Bundle?) {
+        val authObjectJson = savedInstanceState?.getString(KEY_LOGIN_FLOW_AUTH_OBJECT) ?: return
+
+        authObject = AuthObject.fromJson(authObjectJson)
+        Log_OC.d(TAG, "Login flow v2: pending flow restored after activity recreation")
+        inflateWebViewLayout()
+        initLoginInfoView()
+    }
+
+    private fun initLoginInfoView() {
+        val loginFlowBinding = accountSetupWebviewBinding?.loginFlowV2 ?: return
+        val loginFlowLayout = loginFlowBinding.root
+        loginFlowLayout.visibility = View.VISIBLE
+
+        ViewCompat.setOnApplyWindowInsetsListener(loginFlowLayout) { view, insets ->
+            view.updatePadding(bottom = insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom)
+            insets
+        }
+        // the listener is attached after the initial insets dispatch, so request a fresh pass
+        ViewCompat.requestApplyInsets(loginFlowLayout)
+
+        loginFlowBinding.cancelButton.setOnClickListener { cancelLoginFlow() }
+    }
+
+    private fun cancelLoginFlow() {
+        Log_OC.d(TAG, "Login flow v2: cancelled by user")
+        stopLoginFlowPolling()
+        authObject = null
+        recreate()
+    }
+    // endregion
+
+    // region WebView login
     @SuppressFBWarnings("ANDROID_WEB_VIEW_JAVASCRIPT")
     @SuppressLint("SetJavaScriptEnabled")
-    private void initSimpleSignupLogin() {
-        viewThemeUtils.platform.colorCircularProgressBar(accountSetupWebviewBinding.loginWebviewProgressBar, ColorRole.ON_PRIMARY_CONTAINER);
-        accountSetupWebviewBinding.loginWebview.setVisibility(View.GONE);
+    @Suppress("DEPRECATION")
+    private fun initSimpleSignupLogin(binding: AccountSetupWebviewBinding) {
+        viewThemeUtils.platform.colorCircularProgressBar(
+            binding.loginWebviewProgressBar,
+            ColorRole.ON_PRIMARY_CONTAINER
+        )
+        binding.loginWebview.visibility = View.GONE
+        binding.loginWebview.settings.run {
+            allowFileAccess = false
+            javaScriptEnabled = true
+            domStorageEnabled = true
+            userAgentString = MainApp.getUserAgent()
+            saveFormData = false
+            savePassword = false
+        }
 
-        accountSetupWebviewBinding.loginWebview.getSettings().setAllowFileAccess(false);
-        accountSetupWebviewBinding.loginWebview.getSettings().setJavaScriptEnabled(true);
-        accountSetupWebviewBinding.loginWebview.getSettings().setDomStorageEnabled(true);
+        val headers = mapOf(RemoteOperation.OCS_API_HEADER to RemoteOperation.OCS_API_HEADER_VALUE)
+        ProxyUtil(WeakReference<Context>(this)).applyProxy {
+            accountSetupWebviewBinding?.loginWebview?.loadUrl(getString(R.string.provider_registration_server), headers)
+        }
+        binding.loginFlowV2.loginFlowInfoV2.visibility = View.GONE
 
-        accountSetupWebviewBinding.loginWebview.getSettings().setUserAgentString(MainApp.getUserAgent());
-        accountSetupWebviewBinding.loginWebview.getSettings().setSaveFormData(false);
-        accountSetupWebviewBinding.loginWebview.getSettings().setSavePassword(false);
-
-        Map<String, String> headers = new HashMap<>();
-        headers.put(RemoteOperation.OCS_API_HEADER, RemoteOperation.OCS_API_HEADER_VALUE);
-
-        new ProxyUtil(new WeakReference<>(this)).applyProxy(() ->
-            accountSetupWebviewBinding.loginWebview.loadUrl(getString(R.string.provider_registration_server), headers));
-        accountSetupWebviewBinding.loginFlowV2.loginFlowInfoV2.setVisibility(View.GONE);
-
-        setClient();
+        setLoginWebViewClient(binding)
     }
 
-    private boolean checkIfViaSSO(Intent intent) {
-        Bundle extras = intent.getExtras();
-        if (extras == null) {
-            return false;
-        } else {
-            String authTokenType = extras.getString("authTokenType");
-            return "SSO".equals(authTokenType);
+    private fun setLoginWebViewClient(binding: AccountSetupWebviewBinding) {
+        binding.loginWebview.webViewClient = object : NextcloudWebViewClient(supportFragmentManager) {
+            override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest): Boolean {
+                val url = request.url.toString()
+                if (!url.startsWith(loginDataPrefix)) {
+                    return false
+                }
+                parseAndLoginFromWebView(url)
+                return true
+            }
+
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                showLoadedWebView()
+            }
+
+            override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
+                showLoadedWebView()
+
+                val customError = RawResourceReader.readText(resources, R.raw.custom_error)
+                if (customError.isNotEmpty()) {
+                    accountSetupWebviewBinding?.loginWebview?.loadData(customError, HTML_MIME_TYPE, null)
+                }
+            }
         }
     }
 
-
-    /**
-     * The redirection triggered by the OAuth authentication server as response to the GET AUTHORIZATION, and deferred
-     * in {@link #onNewIntent(Intent)}, is processed here.
-     */
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        // bind to Operations Service
-        mOperationsServiceConnection = new OperationsServiceConnection();
-        if (!bindService(new Intent(this, OperationsService.class),
-                         mOperationsServiceConnection,
-                         Context.BIND_AUTO_CREATE)) {
-            SnackbarUtil.show(accountSetupBinding.scroll, R.string.error_cant_bind_to_operations_service);
-            finish();
-        }
-
-        if (mOperationsServiceBinder != null) {
-            doOnResumeAndBound();
+    private fun showLoadedWebView() {
+        accountSetupWebviewBinding?.run {
+            loginWebviewProgressBar.visibility = View.GONE
+            loginWebview.visibility = View.VISIBLE
         }
     }
 
+    fun parseAndLoginFromWebView(dataString: String) {
+        try {
+            val loginUrlInfo = parseLoginDataUrl(loginDataPrefix, dataString)
 
-    @Override
-    protected void onPause() {
-        if (mOperationsServiceBinder != null) {
-            mOperationsServiceBinder.removeOperationListener(this);
+            if (!isServerAllowed(loginUrlInfo.server)) {
+                Log_OC.w(TAG, "Login rejected, server is not allowed: ${loginUrlInfo.server}")
+                showServerStatusAlert(getString(R.string.server_not_allowed))
+                return
+            }
+
+            accountSetupBinding?.hostUrlInput?.setText(EMPTY_STRING)
+            applyLoginCredentials(loginUrlInfo)
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Login data could not be parsed: ${e.javaClass.simpleName}")
+            showServerStatusAlert(getString(R.string.qr_could_not_be_read))
+            return
         }
-
-        super.onPause();
+        checkOcServer()
     }
 
-    @Override
-    protected void onDestroy() {
-        if (mOperationsServiceConnection != null) {
-            unbindService(mOperationsServiceConnection);
-            mOperationsServiceBinder = null;
+    private fun isServerAllowed(server: String): Boolean {
+        val webViewLoginUrl = getString(R.string.webview_login_url)
+        if (webViewLoginUrl.isNotEmpty() && webViewLoginUrl.startsWith(server)) {
+            return true
         }
 
-        singleThreadExecutor.shutdown();
-        super.onDestroy();
+        val enforcedServers = getString(R.string.enforce_servers)
+        if (enforcedServers.isEmpty()) {
+            return false
+        }
+
+        return parseEnforcedServers(enforcedServers).any { it.url.startsWith(server) }
     }
 
+    private fun parseEnforcedServers(json: String): List<EnforcedServer> =
+        gson.fromJson(json, object : TypeToken<List<EnforcedServer>>() {}.type)
+    // endregion
 
+    // region Server check
     @SuppressFBWarnings("NP")
-    private void checkOcServer() {
-        String uri;
+    private fun checkOcServer() {
+        val binding = accountSetupBinding
+        val hostUrl = binding?.hostUrlInput?.text?.toString()
+        var uri: String = if (hostUrl.isNullOrEmpty()) serverInfo.mBaseUrl else hostUrl.trim { it <= ' ' }
 
-        if (accountSetupBinding != null &&
-            accountSetupBinding.hostUrlInput.getText() != null &&
-            !accountSetupBinding.hostUrlInput.getText().toString().isEmpty()) {
-            uri = accountSetupBinding.hostUrlInput.getText().toString().trim();
+        serverInfo = ServerInfo()
+
+        if (uri.isEmpty()) {
+            return
+        }
+
+        if (binding != null) {
+            uri = stripIndexPhpOrAppsFiles(uri)
+            binding.hostUrlInput.setText(uri)
+        }
+
+        uri = toAsciiDomainOrKeep(normalizeSchemeOrKeep(uri))
+
+        if (binding != null) {
+            serverStatusText = getString(R.string.auth_testing_connection)
+            serverStatusIcon = R.drawable.progress_small
+            showServerStatus()
+        }
+
+        queueServerInfoCheck(uri)
+    }
+
+    private fun normalizeSchemeOrKeep(uri: String): String = try {
+        normalizeScheme(uri)
+    } catch (e: IllegalArgumentException) {
+        Log_OC.e(TAG, "Server check: cannot normalize scheme of $uri", e)
+        uri
+    }
+
+    private fun toAsciiDomainOrKeep(uri: String): String = try {
+        LinkFormatter.toAsciiDomain(uri)
+    } catch (e: IllegalArgumentException) {
+        Log_OC.e(TAG, "Server check: cannot convert internationalized domain name $uri", e)
+        uri
+    }
+
+    private fun queueServerInfoCheck(uri: String) {
+        val getServerInfoIntent = Intent(OperationsService.ACTION_GET_SERVER_INFO)
+            .putExtra(OperationsService.EXTRA_SERVER_URL, normalizeUrlSuffix(uri))
+
+        val binder = operationsServiceBinder
+        if (binder == null) {
+            Log_OC.e(TAG, "Server check: skipped, operations service is not bound")
+            return
+        }
+
+        waitingForOpId = binder.queueNewOperation(getServerInfoIntent)
+        Log_OC.d(TAG, "Server check: started for $uri")
+    }
+
+    override fun onRemoteOperationFinish(operation: RemoteOperation<*>?, result: RemoteOperationResult<*>) {
+        when (operation) {
+            is GetServerInfoOperation -> if (operation.hashCode().toLong() == waitingForOpId) {
+                onGetServerInfoFinish(result)
+            }
+
+            is GetUserInfoRemoteOperation -> {
+                @Suppress("UNCHECKED_CAST")
+                onGetUserNameFinish(result as RemoteOperationResult<UserInfo?>)
+            }
+        }
+    }
+
+    private fun onGetServerInfoFinish(result: RemoteOperationResult<*>) {
+        waitingForOpId = NO_PENDING_OPERATION
+
+        if (result.isSuccess) {
+            onServerInfoReceived(result.data[0] as ServerInfo)
         } else {
-            uri = mServerInfo.mBaseUrl;
+            Log_OC.e(TAG, "Server check: failed, code=${result.code}, ${result.logMessage}")
+            updateServerStatusIconAndText(result)
+            showServerStatus()
         }
 
-        mServerInfo = new GetServerInfoOperation.ServerInfo();
-
-        if (!uri.isEmpty()) {
-            if (accountSetupBinding != null) {
-                uri = AuthenticatorUrlUtils.INSTANCE.stripIndexPhpOrAppsFiles(uri);
-                accountSetupBinding.hostUrlInput.setText(uri);
-            }
-
-            try {
-                uri = AuthenticatorUrlUtils.INSTANCE.normalizeScheme(uri);
-            } catch (IllegalArgumentException ex) {
-                // Let the Nextcloud library check the error of the malformed URI
-                Log_OC.e(TAG, "Server check: cannot normalize scheme of " + uri, ex);
-            }
-
-            // Handle internationalized domain names
-            try {
-                uri = LinkFormatter.toAsciiDomain(uri);
-            } catch (IllegalArgumentException ex) {
-                // Let the Nextcloud library check the error of the malformed URI
-                Log_OC.e(TAG, "Server check: cannot convert internationalized domain name " + uri, ex);
-            }
-
-            if (accountSetupBinding != null) {
-                mServerStatusText = getResources().getString(R.string.auth_testing_connection);
-                mServerStatusIcon = R.drawable.progress_small;
-                showServerStatus();
-            }
-
-            // TODO maybe do this via async task
-            Intent getServerInfoIntent = new Intent();
-            getServerInfoIntent.setAction(OperationsService.ACTION_GET_SERVER_INFO);
-            getServerInfoIntent.putExtra(OperationsService.EXTRA_SERVER_URL,
-                                         AuthenticatorUrlUtils.INSTANCE.normalizeUrlSuffix(uri));
-
-            if (mOperationsServiceBinder != null) {
-                mWaitingForOpId = mOperationsServiceBinder.queueNewOperation(getServerInfoIntent);
-                Log_OC.d(TAG, "Server check: started for " + uri);
-            } else {
-                Log_OC.e(TAG, "Server check: skipped, operations service is not bound");
-            }
-
+        if (result.code == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
+            showUntrustedCertDialog(result)
         }
     }
 
-    /**
-     * Tests the credentials entered by the user performing a check of existence on the root folder of the ownCloud
-     * server.
-     */
-    private void checkBasicAuthorization(@Nullable String webViewUsername, @Nullable String webViewPassword) {
-        OwnCloudCredentials credentials = OwnCloudCredentialsFactory.newBasicCredentials(webViewUsername, webViewPassword);
-        accessRootFolder(credentials);
+    private fun onServerInfoReceived(receivedServerInfo: ServerInfo) {
+        serverInfo = receivedServerInfo
+        Log_OC.d(TAG, "Server check: succeeded for ${serverInfo.mBaseUrl}")
+
+        val user = webViewUser
+        val password = webViewPassword
+        if (!user.isNullOrEmpty() && !password.isNullOrEmpty()) {
+            checkBasicAuthorization(user, password)
+            return
+        }
+
+        inflateWebViewLayout()
+
+        if (isLoginProcessCompleted) {
+            return
+        }
+
+        if (isRedirectedToTheDefaultBrowser) {
+            initLoginInfoView()
+            return
+        }
+
+        anonymouslyPostLoginRequest(serverInfo.mBaseUrl + WEB_LOGIN)
+        isRedirectedToTheDefaultBrowser = true
     }
 
-    private void accessRootFolder(OwnCloudCredentials credentials) {
-        Log_OC.d(TAG, "Credential check: started for " + mServerInfo.mBaseUrl);
-        mAsyncTask = new AuthenticatorAsyncTask(this);
-        Object[] params = {mServerInfo.mBaseUrl, credentials};
-        mAsyncTask.execute(params);
+    private fun showUntrustedCertDialog(result: RemoteOperationResult<*>) {
+        val dialog = SslUntrustedCertDialog.newInstanceForFullSslError(
+            result.exception as CertificateCombinedException?
+        )
+        val transaction = supportFragmentManager.beginTransaction().addToBackStack(null)
+        dialog.show(transaction, UNTRUSTED_CERT_DIALOG_TAG)
     }
 
-    /**
-     * Callback method invoked when a RemoteOperation executed by this Activity finishes.
-     * <p>
-     * Dispatches the operation flow to the right method.
-     */
-    @Override
-    public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
-        if (operation instanceof GetServerInfoOperation) {
-            if (operation.hashCode() == mWaitingForOpId) {
-                onGetServerInfoFinish(result);
-            }   // else nothing ; only the last check operation is considered;
-            // multiple can be started if the user amends a URL quickly
+    override fun onSavedCertificate() {
+        checkOcServer()
+    }
 
-        } else if (operation instanceof GetUserInfoRemoteOperation) {
-            onGetUserNameFinish(result);
+    override fun onFailedSavingCertificate() {
+        SnackbarUtil.show(this, R.string.ssl_validator_not_saved)
+    }
+    // endregion
+
+    // region Status
+    private fun updateServerStatusIconAndText(result: RemoteOperationResult<*>) {
+        val (icon, text) = when (val code = result.code) {
+            ResultCode.OK_SSL -> R.drawable.ic_lock_white to getString(R.string.auth_secure_connection)
+
+            ResultCode.OK_NO_SSL, ResultCode.OK -> plainConnectionStatus()
+
+            ResultCode.NO_NETWORK_CONNECTION -> R.drawable.no_network to getString(R.string.auth_no_net_conn_title)
+
+            ResultCode.OK_REDIRECT_TO_NON_SECURE_CONNECTION ->
+                R.drawable.ic_lock_open_white to getString(R.string.auth_redirect_non_secure_connection_title)
+
+            ResultCode.UNKNOWN_ERROR -> R.drawable.ic_alert to unknownErrorMessage(result)
+
+            else -> SERVER_ERROR_MESSAGES[code]?.let { R.drawable.ic_alert to getString(it) }
+                ?: (NO_ICON to EMPTY_STRING)
+        }
+        serverStatusIcon = icon
+        serverStatusText = text
+    }
+
+    private fun updateAuthStatusIconAndText(result: RemoteOperationResult<*>) {
+        authStatusIcon = R.drawable.ic_alert
+
+        when (result.code) {
+            ResultCode.OK_SSL -> setAuthStatus(R.drawable.ic_lock_white to getString(R.string.auth_secure_connection))
+
+            ResultCode.OK_NO_SSL, ResultCode.OK -> if (showWebViewLoginUrl) {
+                setAuthStatus(plainConnectionStatus())
+            }
+
+            ResultCode.NO_NETWORK_CONNECTION ->
+                setAuthStatus(R.drawable.no_network to getString(R.string.auth_no_net_conn_title))
+
+            ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED ->
+                authStatusText = getString(R.string.auth_ssl_unverified_server_title)
+
+            ResultCode.TIMEOUT -> authStatusText = getString(R.string.auth_timeout_title)
+
+            ResultCode.HOST_NOT_AVAILABLE -> authStatusText = getString(R.string.auth_unknown_host_title)
+
+            ResultCode.ACCOUNT_NOT_NEW -> {
+                authStatusText = getString(R.string.auth_account_not_new)
+                finishWithAuthErrorIfServerUrlHidden()
+            }
+
+            else -> {
+                authStatusText = ErrorMessageAdapter.getErrorCauseMessage(result, null, resources)
+                finishWithAuthErrorIfServerUrlHidden()
+            }
         }
     }
 
-    private void onGetUserNameFinish(RemoteOperationResult<UserInfo> result) {
-        mWaitingForOpId = Long.MAX_VALUE;
-        if (result.isSuccess()) {
-            boolean success = false;
+    private fun setAuthStatus(status: Pair<Int, String>) {
+        authStatusIcon = status.first
+        authStatusText = status.second
+    }
 
-            if (mAction == ACTION_CREATE) {
-                success = createAccount(result);
-            } else {
+    private fun plainConnectionStatus(): Pair<Int, String> = if (isHostUrlPlainHttp) {
+        R.drawable.ic_ok to getString(R.string.auth_connection_established)
+    } else {
+        R.drawable.ic_lock_open_white to getString(R.string.auth_nossl_plain_ok_title)
+    }
+
+    private val isHostUrlPlainHttp: Boolean
+        get() = accountSetupBinding?.hostUrlInput?.text
+            ?.toString()
+            ?.trim { it <= ' ' }
+            ?.lowercase()
+            ?.startsWith(HTTP_PROTOCOL) == true
+
+    private fun unknownErrorMessage(result: RemoteOperationResult<*>): String {
+        val exceptionMessage = result.exception?.message
+        return if (exceptionMessage.isNullOrEmpty()) {
+            getString(R.string.auth_unknown_error_title)
+        } else {
+            getString(R.string.auth_unknown_error_exception_title, exceptionMessage)
+        }
+    }
+
+    private fun finishWithAuthErrorIfServerUrlHidden() {
+        if (showWebViewLoginUrl) {
+            return
+        }
+        SnackbarUtil.show(this, authStatusText)
+        finish()
+    }
+
+    private fun updateStatusIconFailUserName(failedStatusText: Int) {
+        authStatusIcon = R.drawable.ic_alert
+        authStatusText = getString(failedStatusText)
+    }
+
+    private fun showServerStatusAlert(message: String) {
+        serverStatusIcon = R.drawable.ic_alert
+        serverStatusText = message
+        showServerStatus()
+    }
+
+    private fun showServerStatus() {
+        val binding = accountSetupBinding ?: return
+        showStatus(binding.serverStatusText, serverStatusIcon, serverStatusText)
+    }
+
+    private fun showAuthStatus() {
+        val binding = accountSetupBinding ?: return
+        showStatus(binding.authStatusText, authStatusIcon, authStatusText)
+    }
+
+    private fun showStatus(statusView: TextView, @DrawableRes icon: Int, text: String?) {
+        if (icon == NO_ICON && text == EMPTY_STRING) {
+            statusView.visibility = View.INVISIBLE
+            return
+        }
+
+        statusView.text = text
+        statusView.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0)
+        statusView.visibility = View.VISIBLE
+    }
+    // endregion
+
+    // region Credentials
+    private fun checkBasicAuthorization(webViewUsername: String?, webViewPassword: String?) {
+        val credentials = OwnCloudCredentialsFactory.newBasicCredentials(webViewUsername, webViewPassword)
+        accessRootFolder(credentials)
+    }
+
+    @Suppress("DEPRECATION")
+    private fun accessRootFolder(credentials: OwnCloudCredentials?) {
+        Log_OC.d(TAG, "Credential check: started for ${serverInfo.mBaseUrl}")
+        authenticatorTask = AuthenticatorAsyncTask(this).apply { execute(serverInfo.mBaseUrl, credentials) }
+    }
+
+    private fun onGetUserNameFinish(result: RemoteOperationResult<UserInfo?>) {
+        waitingForOpId = NO_PENDING_OPERATION
+
+        if (result.isSuccess) {
+            if (saveAccount(result)) {
+                finish()
+            }
+            return
+        }
+
+        val statusText = if (result.code == ResultCode.MAINTENANCE_MODE) {
+            R.string.maintenance_mode
+        } else {
+            R.string.auth_fail_get_user_name
+        }
+        updateStatusIconFailUserName(statusText)
+        showAuthStatus()
+        Log_OC.e(TAG, "User info: request failed, code=${result.code}, ${result.logMessage}")
+    }
+
+    override fun onAuthenticatorTaskCallback(result: RemoteOperationResult<UserInfo?>?) {
+        result ?: return
+
+        waitingForOpId = NO_PENDING_OPERATION
+        dismissWaitingDialog()
+        authenticatorTask = null
+
+        when {
+            result.isSuccess -> onCredentialsAccepted(result)
+            result.isServerFail || result.isException -> onCredentialsServerError(result)
+            else -> onCredentialsRejected(result)
+        }
+    }
+
+    private fun onCredentialsAccepted(result: RemoteOperationResult<UserInfo?>) {
+        Log_OC.d(TAG, "Credential check: succeeded, saving account")
+
+        val isAccountSaved = saveAccount(result)
+        resetWebViewCredentials()
+
+        if (isAccountSaved) {
+            val accountName = requireNotNull(account).name
+            accountManager.setCurrentOwnCloudAccount(accountName)
+            fetchCapabilitiesAndFinish(accountName)
+            return
+        }
+
+        val binding = inflateAccountSetupLayout()
+        initOverallUi(binding)
+        binding.hostUrlInput.setText(serverInfo.mBaseUrl)
+        binding.serverStatusText.visibility = View.GONE
+        showAuthStatus()
+    }
+
+    private fun onCredentialsServerError(result: RemoteOperationResult<UserInfo?>) {
+        Log_OC.e(TAG, "Credential check: server error, code=${result.code}, ${result.logMessage}")
+        serverInfo = ServerInfo()
+
+        updateServerStatusIconAndText(result)
+        showServerStatus()
+        authStatusIcon = NO_ICON
+        authStatusText = EMPTY_STRING
+
+        if (result.code == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
+            showUntrustedCertDialog(result)
+        }
+    }
+
+    private fun onCredentialsRejected(result: RemoteOperationResult<UserInfo?>) {
+        Log_OC.e(TAG, "Credential check: rejected, code=${result.code}, ${result.logMessage}")
+        if (accountSetupWebviewBinding != null) {
+            Log_OC.d(TAG, "Login flow v2: restarting flow after rejected credentials")
+            anonymouslyPostLoginRequest(serverInfo.mBaseUrl + WEB_LOGIN)
+        } else {
+            SnackbarUtil.show(this, R.string.auth_access_failed, result.getLogMessage(this))
+            updateAuthStatusIconAndText(result)
+        }
+
+        resetWebViewCredentials()
+    }
+
+    private fun resetWebViewCredentials() {
+        webViewPassword = null
+        webViewUser = null
+        deleteCookies()
+    }
+
+    private fun applyLoginCredentials(loginUrlInfo: LoginUrlInfo, password: String = loginUrlInfo.appPassword) {
+        serverInfo.mBaseUrl = normalizeUrlSuffix(loginUrlInfo.server)
+        webViewUser = loginUrlInfo.loginName
+        webViewPassword = password
+    }
+
+    private fun dismissWaitingDialog() {
+        val dialog = supportFragmentManager.findFragmentByTag(WAIT_DIALOG_TAG) as? DialogFragment ?: return
+        try {
+            dialog.dismiss()
+        } catch (e: IllegalStateException) {
+            Log_OC.e(TAG, "Waiting dialog dismiss failed, dismissing with state loss", e)
+            dialog.dismissAllowingStateLoss()
+        }
+    }
+    // endregion
+
+    // region Account
+    private fun saveAccount(result: RemoteOperationResult<UserInfo?>): Boolean {
+        if (authenticatorAction == ACTION_CREATE) {
+            return createAccount(result)
+        }
+
+        return try {
+            updateAccountAuthentication()
+            true
+        } catch (e: AccountUtils.AccountNotFoundException) {
+            Log_OC.e(TAG, "Account: ${account?.name} no longer exists", e)
+            SnackbarUtil.show(accountSetupBinding?.scroll, R.string.auth_account_does_not_exist)
+            finish()
+            false
+        }
+    }
+
+    private fun fetchCapabilitiesAndFinish(accountName: String) {
+        val user = accountManager.getUser(accountName)
+        if (!user.isPresent) {
+            Log_OC.w(TAG, "Account: $accountName not found, capabilities not fetched")
+            endSuccess()
+            return
+        }
+
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
                 try {
-                    updateAccountAuthentication();
-                    success = true;
-
-                } catch (AccountNotFoundException e) {
-                    Log_OC.e(TAG, "Account: " + mAccount.name + " no longer exists", e);
-                    SnackbarUtil.show(accountSetupBinding.scroll, R.string.auth_account_does_not_exist);
-                    finish();
+                    val storageManager = FileDataStorageManager(user.get(), contentResolver)
+                    GetCapabilitiesOperation(storageManager).execute(MainApp.getAppContext())
+                } catch (e: Exception) {
+                    Log_OC.e(TAG, "Account: failed to fetch capabilities for $accountName", e)
                 }
             }
+            endSuccess()
+        }
+    }
 
-            if (success) {
-                finish();
-            }
-        } else {
-            // TODO check
-            int statusText = result.getCode() == ResultCode.MAINTENANCE_MODE ? R.string.maintenance_mode : R.string.auth_fail_get_user_name;
-            updateStatusIconFailUserName(statusText);
-            showAuthStatus();
-            Log_OC.e(TAG, "User info: request failed, code=" + result.getCode() + ", " + result.getLogMessage());
+    private fun endSuccess() {
+        if (!onlyAdd) {
+            startActivity(postLoginIntent())
+        }
+        finish()
+    }
+
+    private fun postLoginIntent(): Intent {
+        if (MDMConfig.enforceProtection(this) && preferences.lockPreference == SettingsActivity.LOCK_NONE) {
+            return Intent(this, SettingsActivity::class.java)
+        }
+
+        return Intent(this, FileDisplayActivity::class.java).apply {
+            action = FileDisplayActivity.RESTART
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         }
     }
 
     /**
-     * Processes the result of the server check performed when the user finishes the enter of the server URL.
+     * Sets the proper response so that the AccountAuthenticator that started this activity saves a new authorization
+     * token for [account].
      *
-     * @param result Result of the check.
+     * Kills the session kept by OwnCloudClientManager so that a new one will created with the new credentials when
+     * needed.
      */
-    private void onGetServerInfoFinish(RemoteOperationResult result) {
-        /// update activity state
-        mWaitingForOpId = Long.MAX_VALUE;
+    @Throws(AccountUtils.AccountNotFoundException::class)
+    private fun updateAccountAuthentication() {
+        val account = checkNotNull(account)
+        val response = bundleOf(
+            AccountManager.KEY_ACCOUNT_NAME to account.name,
+            AccountManager.KEY_ACCOUNT_TYPE to account.type,
+            AccountManager.KEY_AUTHTOKEN to webViewPassword
+        )
+        platformAccountManager.setPassword(account, webViewPassword)
 
-        if (result.isSuccess()) {
-            /// SUCCESS means:
-            //      1. connection succeeded, and we know if it's SSL or not
-            //      2. server is installed
-            //      3. we got the server version
-            //      4. we got the authentication method required by the server
-            mServerInfo = (GetServerInfoOperation.ServerInfo) (result.getData().get(0));
-            Log_OC.d(TAG, "Server check: succeeded for " + mServerInfo.mBaseUrl);
+        OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(OwnCloudAccount(account, this))
 
-            if (webViewUser != null && !webViewUser.isEmpty() &&
-                webViewPassword != null && !webViewPassword.isEmpty()) {
-                checkBasicAuthorization(webViewUser, webViewPassword);
-            } else {
-                accountSetupWebviewBinding = AccountSetupWebviewBinding.inflate(getLayoutInflater());
-                setContentView(accountSetupWebviewBinding.getRoot());
+        setAccountAuthenticatorResult(response)
+        setResult(RESULT_OK, Intent().putExtras(response))
+        Log_OC.d(TAG, "Account: credentials updated for ${account.name}")
+    }
 
-                if (!isLoginProcessCompleted) {
-                    if (!isRedirectedToTheDefaultBrowser) {
-                        anonymouslyPostLoginRequest(mServerInfo.mBaseUrl + WEB_LOGIN);
-                        isRedirectedToTheDefaultBrowser = true;
-                    } else {
-                        initLoginInfoView();
-                    }
-                }
-            }
-        } else {
-            Log_OC.e(TAG, "Server check: failed, code=" + result.getCode() + ", " + result.getLogMessage());
-            updateServerStatusIconAndText(result);
-            showServerStatus();
+    @SuppressFBWarnings("DMI")
+    @SuppressLint("TrulyRandom")
+    protected fun createAccount(authResult: RemoteOperationResult<UserInfo?>): Boolean {
+        val accountType = MainApp.getAccountType(this)
+
+        authResult.lastPermanentLocation?.let { serverInfo.mBaseUrl = trimWebdavSuffix(it) }
+
+        val loginName = webViewUser
+        val accountName = AccountUtils.buildAccountName(serverInfo.mBaseUrl.toUri(), loginName)
+        val newAccount = Account(accountName, accountType)
+        if (accountManager.exists(newAccount)) {
+            updateAuthStatusIconAndText(RemoteOperationResult<Any?>(ResultCode.ACCOUNT_NOT_NEW))
+            showAuthStatus()
+            Log_OC.w(TAG, "Account: $accountName already exists")
+            return false
         }
 
-        // very special case (TODO: move to a common place for all the remote operations)
-        if (result.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
-            showUntrustedCertDialog(result);
+        val userInfo = authResult.resultData
+        if (userInfo == null) {
+            Log_OC.e(TAG, "Account: cannot create $accountName, user info is missing")
+            return false
+        }
+
+        account = newAccount
+        platformAccountManager.addAccountExplicitly(newAccount, webViewPassword, null)
+        platformAccountManager.notifyAccountAuthenticated(newAccount)
+        selectAccountIfNoneSelected(accountName)
+
+        val intent = Intent().apply {
+            putExtra(AccountManager.KEY_ACCOUNT_TYPE, accountType)
+            putExtra(AccountManager.KEY_ACCOUNT_NAME, newAccount.name)
+            putExtra(AccountManager.KEY_USERDATA, loginName)
+        }
+        storeAccountUserData(newAccount, userInfo)
+
+        setAccountAuthenticatorResult(intent.extras)
+        setResult(RESULT_OK, intent)
+
+        DocumentsStorageProvider.notifyRootsChanged(this)
+
+        Log_OC.d(TAG, "Account: created $accountName")
+        return true
+    }
+
+    private fun selectAccountIfNoneSelected(accountName: String) {
+        if (!accountManager.user.isAnonymous) {
+            return
+        }
+
+        @Suppress("DEPRECATION")
+        PreferenceManager.getDefaultSharedPreferences(this).edit {
+            putString(PREF_SELECTED_ACCOUNT_NAME, accountName)
         }
     }
 
-    // region LoginInfoView
-    private void initLoginInfoView() {
-        LinearLayout loginFlowLayout = accountSetupWebviewBinding.loginFlowV2.getRoot();
-        MaterialButton cancelButton = accountSetupWebviewBinding.loginFlowV2.cancelButton;
-        loginFlowLayout.setVisibility(View.VISIBLE);
+    private fun storeAccountUserData(newAccount: Account, userInfo: UserInfo) {
+        platformAccountManager.run {
+            setUserData(newAccount, AccountUtils.Constants.KEY_OC_VERSION, serverInfo.mVersion.version)
+            setUserData(newAccount, AccountUtils.Constants.KEY_OC_BASE_URL, serverInfo.mBaseUrl)
+            setUserData(newAccount, AccountUtils.Constants.KEY_DISPLAY_NAME, userInfo.displayName)
+            setUserData(newAccount, AccountUtils.Constants.KEY_USER_ID, userInfo.id)
+            setUserData(
+                newAccount,
+                AccountUtils.Constants.KEY_OC_ACCOUNT_VERSION,
+                UserAccountManager.ACCOUNT_VERSION_WITH_PROPER_ID.toString()
+            )
+        }
+    }
+    // endregion
 
-        // add bottom padding to prevent overlapping with system bars
-        ViewCompat.setOnApplyWindowInsetsListener(loginFlowLayout, (view, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            view.setPadding(
-                view.getPaddingLeft(),
-                view.getPaddingTop(),
-                view.getPaddingRight(),
-                systemBars.bottom);
-            return insets;
-        });
-        // the listener is attached after the initial insets dispatch, so request a fresh pass
-        ViewCompat.requestApplyInsets(loginFlowLayout);
+    // region QR code and deep link login
+    private val authTabResultLauncher = AuthTabIntent.registerActivityResultLauncher(this) { result ->
+        Log_OC.d(TAG, "Login flow v2: Auth Tab closed with result code ${result.resultCode}")
+    }
 
-        cancelButton.setOnClickListener(v -> {
-            Log_OC.d(TAG, "Login flow v2: cancelled by user");
-            loginFlowExecutorService.shutdown();
-            ProcessLifecycleOwner.get().getLifecycle().removeObserver(lifecycleEventObserver);
-            authObject = null;
-            recreate();
-        });
+    private val qrScanResultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode != RESULT_OK) {
+                return@registerForActivityResult
+            }
+            val data = result.data ?: return@registerForActivityResult
+            onQrCodeScanned(data.getStringExtra(QR_SCAN_RESULT_EXTRA))
+        }
+
+    fun onScan() {
+        if (PermissionUtil.checkSelfPermission(this, Manifest.permission.CAMERA)) {
+            startQRScanner()
+        } else {
+            PermissionUtil.requestCameraPermission(this, PermissionUtil.PERMISSIONS_CAMERA)
+        }
+    }
+
+    private fun startQRScanner() {
+        qrScanResultLauncher.launch(Intent(this, QrCodeActivity::class.java))
+    }
+
+    private fun onQrCodeScanned(scannedData: String?) {
+        if (scannedData == null || !isLoginData(scannedData)) {
+            Log_OC.w(TAG, "QR login: scanned code does not contain login data")
+            showServerStatusAlert("QR Code could not be read!")
+            return
+        }
+
+        if (isAdditionalAccountForbidden) {
+            Log_OC.w(TAG, "Login rejected, multiple accounts are not allowed")
+            SnackbarUtil.show(this, R.string.no_mutliple_accounts_allowed)
+            return
+        }
+
+        val oneTimeLoginPrefix = loginDataScheme + PROTOCOL_SUFFIX + ONE_TIME_LOGIN_PATH
+        val loginUrlInfo = parseLoginDataUrl(oneTimeLoginPrefix, scannedData)
+        loginDialog.showLoginConfirmationDialog(loginUrlInfo, scannedData)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        if (requestCode != PermissionUtil.PERMISSIONS_CAMERA) {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+            return
+        }
+
+        if (grantResults.firstOrNull() == PackageManager.PERMISSION_GRANTED) {
+            startQRScanner()
+        }
+    }
+
+    fun onOTPCompleted(loginUrlInfo: LoginUrlInfo, otpResult: String) {
+        applyLoginCredentials(loginUrlInfo, otpResult)
+        checkOcServer()
+    }
+
+    fun onOTPFailed() {
+        showServerStatusAlert(getString(R.string.qr_could_not_be_read))
+    }
+
+    fun login(loginUrlInfo: LoginUrlInfo) {
+        applyLoginCredentials(loginUrlInfo)
+        doOnResumeAndBound()
+        checkOcServer()
     }
     // endregion
 
     /**
-     * Chooses the right icon and text to show to the user for the received operation result.
-     *
-     * @param result Result of a remote operation performed in this activity
-     */
-    private void updateServerStatusIconAndText(RemoteOperationResult result) {
-        mServerStatusIcon = R.drawable.ic_alert;    // the most common case in the switch below
-
-        switch (result.getCode()) {
-            case OK_SSL:
-                mServerStatusIcon = R.drawable.ic_lock_white;
-                mServerStatusText = getResources().getString(R.string.auth_secure_connection);
-                break;
-
-            case OK_NO_SSL:
-            case OK:
-                if (accountSetupBinding.hostUrlInput.getText() != null &&
-                    accountSetupBinding.hostUrlInput
-                        .getText()
-                        .toString()
-                        .trim()
-                        .toLowerCase(Locale.ROOT)
-                        .startsWith(HTTP_PROTOCOL)) {
-                    mServerStatusText = getResources().getString(R.string.auth_connection_established);
-                    mServerStatusIcon = R.drawable.ic_ok;
-                } else {
-                    mServerStatusText = getResources().getString(R.string.auth_nossl_plain_ok_title);
-                    mServerStatusIcon = R.drawable.ic_lock_open_white;
-                }
-                break;
-
-            case NO_NETWORK_CONNECTION:
-                mServerStatusIcon = R.drawable.no_network;
-                mServerStatusText = getResources().getString(R.string.auth_no_net_conn_title);
-                break;
-
-            case SSL_RECOVERABLE_PEER_UNVERIFIED:
-                mServerStatusText = getResources().getString(R.string.auth_ssl_unverified_server_title);
-                break;
-            case BAD_OC_VERSION:
-                mServerStatusText = getResources().getString(R.string.auth_bad_oc_version_title);
-                break;
-            case WRONG_CONNECTION:
-                mServerStatusText = getResources().getString(R.string.auth_wrong_connection_title);
-                break;
-            case TIMEOUT:
-                mServerStatusText = getResources().getString(R.string.auth_timeout_title);
-                break;
-            case INCORRECT_ADDRESS:
-                mServerStatusText = getResources().getString(R.string.auth_incorrect_address_title);
-                break;
-            case SSL_ERROR:
-                mServerStatusText = getResources().getString(R.string.auth_ssl_general_error_title);
-                break;
-            case UNAUTHORIZED:
-                mServerStatusText = getResources().getString(R.string.auth_unauthorized);
-                break;
-            case HOST_NOT_AVAILABLE:
-                mServerStatusText = getResources().getString(R.string.auth_unknown_host_title);
-                break;
-            case INSTANCE_NOT_CONFIGURED:
-                mServerStatusText = getResources().getString(R.string.auth_not_configured_title);
-                break;
-            case FILE_NOT_FOUND:
-                mServerStatusText = getResources().getString(R.string.auth_incorrect_path_title);
-                break;
-            case OAUTH2_ERROR:
-                mServerStatusText = getResources().getString(R.string.auth_oauth_error);
-                break;
-            case OAUTH2_ERROR_ACCESS_DENIED:
-                mServerStatusText = getResources().getString(R.string.auth_oauth_error_access_denied);
-                break;
-            case UNHANDLED_HTTP_CODE:
-                mServerStatusText = getResources().getString(R.string.auth_unknown_error_http_title);
-                break;
-            case UNKNOWN_ERROR:
-                if (result.getException() != null &&
-                    !TextUtils.isEmpty(result.getException().getMessage())) {
-                    mServerStatusText = getResources().getString(
-                        R.string.auth_unknown_error_exception_title,
-                        result.getException().getMessage()
-                                                                );
-                } else {
-                    mServerStatusText = getResources().getString(R.string.auth_unknown_error_title);
-                }
-                break;
-            case OK_REDIRECT_TO_NON_SECURE_CONNECTION:
-                mServerStatusIcon = R.drawable.ic_lock_open_white;
-                mServerStatusText = getResources().getString(R.string.auth_redirect_non_secure_connection_title);
-                break;
-            case MAINTENANCE_MODE:
-                mServerStatusText = getResources().getString(R.string.maintenance_mode);
-                break;
-            case UNTRUSTED_DOMAIN:
-                mServerStatusText = getResources().getString(R.string.untrusted_domain);
-                break;
-            default:
-                mServerStatusText = EMPTY_STRING;
-                mServerStatusIcon = 0;
-                break;
-        }
-    }
-
-    /**
-     * Chooses the right icon and text to show to the user for the received operation result.
-     *
-     * @param result Result of a remote operation performed in this activity
-     */
-    private void updateAuthStatusIconAndText(RemoteOperationResult result) {
-        mAuthStatusIcon = R.drawable.ic_alert;    // the most common case in the switch below
-
-        switch (result.getCode()) {
-            case OK_SSL:
-                mAuthStatusIcon = R.drawable.ic_lock_white;
-                mAuthStatusText = getResources().getString(R.string.auth_secure_connection);
-                break;
-
-            case OK_NO_SSL:
-            case OK:
-                if (showWebViewLoginUrl) {
-                    if (accountSetupBinding.hostUrlInput.getText() != null &&
-                        accountSetupBinding.hostUrlInput
-                            .getText()
-                            .toString()
-                            .trim()
-                            .toLowerCase(Locale.ROOT)
-                            .startsWith(HTTP_PROTOCOL)) {
-                        mAuthStatusText = getResources().getString(R.string.auth_connection_established);
-                        mAuthStatusIcon = R.drawable.ic_ok;
-                    } else {
-                        mAuthStatusText = getResources().getString(R.string.auth_nossl_plain_ok_title);
-                        mAuthStatusIcon = R.drawable.ic_lock_open_white;
-                    }
-                }
-                break;
-
-            case NO_NETWORK_CONNECTION:
-                mAuthStatusIcon = R.drawable.no_network;
-                mAuthStatusText = getResources().getString(R.string.auth_no_net_conn_title);
-                break;
-
-            case SSL_RECOVERABLE_PEER_UNVERIFIED:
-                mAuthStatusText = getResources().getString(R.string.auth_ssl_unverified_server_title);
-                break;
-            case TIMEOUT:
-                mAuthStatusText = getResources().getString(R.string.auth_timeout_title);
-                break;
-            case HOST_NOT_AVAILABLE:
-                mAuthStatusText = getResources().getString(R.string.auth_unknown_host_title);
-                break;
-            case ACCOUNT_NOT_NEW:
-                mAuthStatusText = getString(R.string.auth_account_not_new);
-                if (!showWebViewLoginUrl) {
-                    showErrorAndFinishActivity();
-                }
-                break;
-            case UNHANDLED_HTTP_CODE:
-            default:
-                mAuthStatusText = ErrorMessageAdapter.getErrorCauseMessage(result, null, getResources());
-                if (!showWebViewLoginUrl) {
-                    showErrorAndFinishActivity();
-                }
-        }
-    }
-
-    private void showErrorAndFinishActivity() {
-        SnackbarUtil.show(this, mAuthStatusText);
-        finish();
-    }
-
-    private void updateStatusIconFailUserName(int failedStatusText) {
-        mAuthStatusIcon = R.drawable.ic_alert;
-        mAuthStatusText = getResources().getString(failedStatusText);
-    }
-
-    /**
-     * Processes the result of the access check performed to try the user credentials.
-     * <p>
-     * Creates a new account through the AccountManager.
-     *
-     * @param result Result of the operation.
-     */
-    @Override
-    public void onAuthenticatorTaskCallback(RemoteOperationResult<UserInfo> result) {
-        mWaitingForOpId = Long.MAX_VALUE;
-        dismissWaitingDialog();
-        mAsyncTask = null;
-
-        if (result.isSuccess()) {
-            Log_OC.d(TAG, "Credential check: succeeded, saving account");
-
-            boolean success = false;
-
-            if (mAction == ACTION_CREATE) {
-                success = createAccount(result);
-            } else {
-                try {
-                    updateAccountAuthentication();
-                    success = true;
-
-                } catch (AccountNotFoundException e) {
-                    Log_OC.e(TAG, "Account: " + mAccount.name + " no longer exists", e);
-                    SnackbarUtil.show(accountSetupBinding.scroll, R.string.auth_account_does_not_exist);
-                    finish();
-                }
-            }
-
-            // Reset webView
-            webViewPassword = null;
-            webViewUser = null;
-            deleteCookies();
-
-            if (success) {
-                accountManager.setCurrentOwnCloudAccount(mAccount.name);
-                getUserCapabilitiesAndFinish();
-            } else {
-                accountSetupBinding = AccountSetupBinding.inflate(getLayoutInflater());
-                setContentView(accountSetupBinding.getRoot());
-                initOverallUi();
-
-                accountSetupBinding.hostUrlInput.setText(mServerInfo.mBaseUrl);
-                accountSetupBinding.serverStatusText.setVisibility(View.GONE);
-                showAuthStatus();
-            }
-
-        } else if (result.isServerFail() || result.isException()) {
-            Log_OC.e(TAG, "Credential check: server error, code=" + result.getCode() + ", " +
-                result.getLogMessage());
-            /// server errors or exceptions in authorization take to requiring a new check of the server
-            mServerInfo = new GetServerInfoOperation.ServerInfo();
-
-            // update status icon and text
-            updateServerStatusIconAndText(result);
-            showServerStatus();
-            mAuthStatusIcon = 0;
-            mAuthStatusText = EMPTY_STRING;
-
-            // very special case (TODO: move to a common place for all the remote operations)
-            if (result.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
-                showUntrustedCertDialog(result);
-            }
-
-        } else {    // authorization fail due to client side - probably wrong credentials
-            Log_OC.e(TAG, "Credential check: rejected, code=" + result.getCode() + ", " + result.getLogMessage());
-            if (accountSetupWebviewBinding != null) {
-                Log_OC.d(TAG, "Login flow v2: restarting flow after rejected credentials");
-                anonymouslyPostLoginRequest(mServerInfo.mBaseUrl + WEB_LOGIN);
-            } else {
-                SnackbarUtil.show(this, R.string.auth_access_failed, result.getLogMessage(this));
-
-                // init webView again
-                updateAuthStatusIconAndText(result);
-            }
-
-            // reset webview
-            webViewPassword = null;
-            webViewUser = null;
-            deleteCookies();
-        }
-    }
-
-    private void endSuccess() {
-        if (!onlyAdd) {
-            if (MDMConfig.INSTANCE.enforceProtection(this) && Objects.equals(preferences.getLockPreference(), SettingsActivity.LOCK_NONE)) {
-                Intent i = new Intent(this, SettingsActivity.class);
-                startActivity(i);
-            } else {
-                Intent i = new Intent(this, FileDisplayActivity.class);
-                i.setAction(FileDisplayActivity.RESTART);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-            }
-        }
-
-        finish();
-    }
-
-    private void getUserCapabilitiesAndFinish() {
-        final Handler handler = new Handler();
-        final Optional<User> user = accountManager.getUser(mAccount.name);
-
-        if (user.isPresent()) {
-            Executors.newSingleThreadExecutor().execute(() -> {
-                try {
-                    final FileDataStorageManager storageManager = new FileDataStorageManager(user.get(), getContentResolver());
-                    new GetCapabilitiesOperation(storageManager).execute(MainApp.getAppContext());
-                    handler.post(this::endSuccess);
-                } catch (Exception e) {
-                    Log_OC.e(TAG, "Account: failed to fetch capabilities for " + mAccount.name, e);
-                    handler.post(this::endSuccess);
-                }
-            });
-        } else {
-            Log_OC.w(TAG, "Account: " + mAccount.name + " not found, capabilities not fetched");
-            endSuccess();
-        }
-    }
-
-    /**
-     * Updates the authentication token.
-     * <p>
-     * Sets the proper response so that the AccountAuthenticator that started this activity saves a new authorization
-     * token for mAccount.
-     * <p>
-     * Kills the session kept by OwnCloudClientManager so that a new one will created with the new credentials when
-     * needed.
-     */
-    private void updateAccountAuthentication() throws AccountNotFoundException {
-        Bundle response = new Bundle();
-        response.putString(AccountManager.KEY_ACCOUNT_NAME, mAccount.name);
-        response.putString(AccountManager.KEY_ACCOUNT_TYPE, mAccount.type);
-        response.putString(AccountManager.KEY_AUTHTOKEN, webViewPassword);
-        mAccountMgr.setPassword(mAccount, webViewPassword);
-
-        // remove managed clients for this account to enforce creation with fresh credentials
-        OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount, this);
-        OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(ocAccount);
-
-        setAccountAuthenticatorResult(response);
-        Intent intent = new Intent();
-        intent.putExtras(response);
-        setResult(RESULT_OK, intent);
-        Log_OC.d(TAG, "Account: credentials updated for " + mAccount.name);
-    }
-
-    /**
-     * Creates a new account through the Account Authenticator that started this activity.
-     * <p>
-     * This makes the account permanent.
-     * <p>
-     * TODO Decide how to name the OAuth accounts
-     */
-    @SuppressFBWarnings("DMI")
-    @SuppressLint("TrulyRandom")
-    protected boolean createAccount(RemoteOperationResult<UserInfo> authResult) {
-        String accountType = MainApp.getAccountType(this);
-
-        // create and save new ownCloud account
-        String lastPermanentLocation = authResult.getLastPermanentLocation();
-        if (lastPermanentLocation != null) {
-            mServerInfo.mBaseUrl = AuthenticatorUrlUtils.INSTANCE.trimWebdavSuffix(lastPermanentLocation);
-        }
-
-        Uri uri = Uri.parse(mServerInfo.mBaseUrl);
-        // used for authenticate on every login/network connection, determined by first login (weblogin/old login)
-        // can be anything: email, name, name with whitespaces
-        String loginName = webViewUser;
-
-        String accountName = AccountUtils.buildAccountName(uri, loginName);
-        Account newAccount = new Account(accountName, accountType);
-        if (accountManager.exists(newAccount)) {
-            // fail - not a new account, but an existing one; disallow
-            RemoteOperationResult result = new RemoteOperationResult(ResultCode.ACCOUNT_NOT_NEW);
-
-            updateAuthStatusIconAndText(result);
-            showAuthStatus();
-
-            Log_OC.w(TAG, "Account: " + accountName + " already exists");
-            return false;
-
-        } else {
-            UserInfo userInfo = authResult.getResultData();
-            if (userInfo == null) {
-                Log_OC.e(TAG, "Account: cannot create " + accountName + ", user info is missing");
-                return false;
-            }
-
-            mAccount = newAccount;
-            mAccountMgr.addAccountExplicitly(mAccount, webViewPassword, null);
-            mAccountMgr.notifyAccountAuthenticated(mAccount);
-
-            // add the new account as default in preferences, if there is none already
-            User defaultAccount = accountManager.getUser();
-            if (defaultAccount.isAnonymous()) {
-                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
-                editor.putString("select_oc_account", accountName);
-                editor.apply();
-            }
-
-            /// prepare result to return to the Authenticator
-            //  TODO check again what the Authenticator makes with it; probably has the same
-            //  effect as addAccountExplicitly, but it's not well done
-            final Intent intent = new Intent();
-            intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE, accountType);
-            intent.putExtra(AccountManager.KEY_ACCOUNT_NAME, mAccount.name);
-            intent.putExtra(AccountManager.KEY_USERDATA, loginName);
-
-            /// add user data to the new account; TODO probably can be done in the last parameter
-            //      addAccountExplicitly, or in KEY_USERDATA
-            mAccountMgr.setUserData(mAccount, Constants.KEY_OC_VERSION, mServerInfo.mVersion.getVersion());
-            mAccountMgr.setUserData(mAccount, Constants.KEY_OC_BASE_URL, mServerInfo.mBaseUrl);
-            mAccountMgr.setUserData(mAccount, Constants.KEY_DISPLAY_NAME, userInfo.getDisplayName());
-            mAccountMgr.setUserData(mAccount, Constants.KEY_USER_ID, userInfo.getId());
-            mAccountMgr.setUserData(mAccount,
-                                    Constants.KEY_OC_ACCOUNT_VERSION,
-                                    Integer.toString(UserAccountManager.ACCOUNT_VERSION_WITH_PROPER_ID));
-
-
-            setAccountAuthenticatorResult(intent.getExtras());
-            setResult(RESULT_OK, intent);
-
-            // notify Document Provider
-            DocumentsStorageProvider.notifyRootsChanged(this);
-
-            Log_OC.d(TAG, "Account: created " + accountName);
-            return true;
-        }
-    }
-
-    public void onScan() {
-        if (PermissionUtil.checkSelfPermission(this, Manifest.permission.CAMERA)) {
-            startQRScanner();
-        } else {
-            PermissionUtil.requestCameraPermission(this, PERMISSIONS_CAMERA);
-        }
-    }
-
-    private void startQRScanner() {
-        Intent intent = new Intent(this, QrCodeActivity.class);
-        qrScanResultLauncher.launch(intent);
-    }
-
-    private final ActivityResultLauncher<Intent> authTabResultLauncher = AuthTabIntent.registerActivityResultLauncher(
-        this,
-        result -> Log_OC.d(TAG, "Login flow v2: Auth Tab closed with result code " + result.resultCode)
-    );
-
-    private final ActivityResultLauncher<Intent> qrScanResultLauncher = registerForActivityResult(
-        new ActivityResultContracts.StartActivityForResult(),
-        result -> {
-            if (result.getResultCode() == Activity.RESULT_OK) {
-                Intent data = result.getData();
-
-                if (data == null) {
-                    return;
-                }
-
-                String resultData = data.getStringExtra("com.blikoon.qrcodescanner.got_qr_scan_relult");
-
-                if (resultData == null || !resultData.startsWith(getString(R.string.login_data_own_scheme))) {
-                    Log_OC.w(TAG, "QR login: scanned code does not contain login data");
-                    mServerStatusIcon = R.drawable.ic_alert;
-                    mServerStatusText = "QR Code could not be read!";
-                    showServerStatus();
-                    return;
-                }
-
-                if (!MDMConfig.INSTANCE.multiAccountSupport(this) &&
-                    accountManager.getAccounts().length == 1) {
-                    Log_OC.w(TAG, "Login rejected, multiple accounts are not allowed");
-                    SnackbarUtil.show(this, R.string.no_mutliple_accounts_allowed);
-
-                    return;
-                }
-
-                String onetimePrefix = getString(R.string.login_data_own_scheme) + PROTOCOL_SUFFIX + "onetime-login/";
-                LoginUrlInfo loginUrlInfo = parseLoginDataUrl(onetimePrefix, resultData);
-                loginDialog.showLoginConfirmationDialog(loginUrlInfo, resultData);
-            }
-        });
-
-    public void onOTPCompleted(@NonNull LoginUrlInfo loginUrlInfo, @NonNull String otpResult) {
-        mServerInfo.mBaseUrl = AuthenticatorUrlUtils.INSTANCE.normalizeUrlSuffix(loginUrlInfo.getServer());
-        webViewUser = loginUrlInfo.getLoginName();
-        webViewPassword = otpResult;
-        checkOcServer();
-    }
-
-    public void onOTPFailed() {
-        mServerStatusIcon = R.drawable.ic_alert;
-        mServerStatusText = getString(R.string.qr_could_not_be_read);
-        showServerStatus();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        if (requestCode == PERMISSIONS_CAMERA) {// If request is cancelled, result arrays are empty.
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // permission was granted
-                startQRScanner();
-            }
-        } else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-    }
-
-    /**
-     * /** Updates the content and visibility state of the icon and text associated to the last check on the ownCloud
-     * server.
-     */
-    private void showServerStatus() {
-        if (accountSetupBinding == null) {
-            return;
-        }
-
-        if (mServerStatusIcon == NO_ICON && EMPTY_STRING.equals(mServerStatusText)) {
-            accountSetupBinding.serverStatusText.setVisibility(View.INVISIBLE);
-        } else {
-            accountSetupBinding.serverStatusText.setText(mServerStatusText);
-            accountSetupBinding.serverStatusText.setCompoundDrawablesWithIntrinsicBounds(mServerStatusIcon, 0, 0, 0);
-            accountSetupBinding.serverStatusText.setVisibility(View.VISIBLE);
-        }
-    }
-
-    /**
-     * Updates the content and visibility state of the icon and text associated to the interactions with the OAuth
-     * authorization server.
-     */
-    private void showAuthStatus() {
-        if (accountSetupBinding != null) {
-            if (mAuthStatusIcon == NO_ICON && EMPTY_STRING.equals(mAuthStatusText)) {
-                accountSetupBinding.authStatusText.setVisibility(View.INVISIBLE);
-            } else {
-                accountSetupBinding.authStatusText.setText(mAuthStatusText);
-                accountSetupBinding.authStatusText.setCompoundDrawablesWithIntrinsicBounds(mAuthStatusIcon, 0, 0, 0);
-                accountSetupBinding.authStatusText.setVisibility(View.VISIBLE);
-            }
-        }
-    }
-
-    /**
      * Called when the 'action' button in an IME is pressed ('enter' in software keyboard).
-     * <p>
-     * Used to trigger the authentication check when the user presses 'enter' after writing the password, or to throw
-     * the server test when the only field on screen is the URL input field.
      */
-    @Override
-    public boolean onEditorAction(TextView inputField, int actionId, KeyEvent event) {
-        if ((actionId == EditorInfo.IME_ACTION_NEXT || actionId == EditorInfo.IME_NULL)
-            && inputField != null && inputField.equals(accountSetupBinding.hostUrlInput)) {
-            checkOcServer();
+    override fun onEditorAction(inputField: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+        val isConfirmAction = actionId == EditorInfo.IME_ACTION_NEXT || actionId == EditorInfo.IME_NULL
+        if (isConfirmAction && inputField != null && inputField == accountSetupBinding?.hostUrlInput) {
+            checkOcServer()
         }
-        return false;   // always return false to grant that the software keyboard is hidden anyway
+        return false // always return false to grant that the software keyboard is hidden anyway
     }
 
-
-    /**
-     * Show untrusted cert dialog
-     */
-    private void showUntrustedCertDialog(RemoteOperationResult result) {
-        // Show a dialog with the certificate info
-        SslUntrustedCertDialog dialog = SslUntrustedCertDialog.
-            newInstanceForFullSslError((CertificateCombinedException) result.getException());
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.addToBackStack(null);
-        dialog.show(ft, UNTRUSTED_CERT_DIALOG_TAG);
-
-    }
-
-    private void doOnResumeAndBound() {
-        mOperationsServiceBinder.addOperationListener(this, mHandler);
-        if (mWaitingForOpId <= Integer.MAX_VALUE) {
-            mOperationsServiceBinder.dispatchResultIfFinished((int) mWaitingForOpId, this);
+    // region Operations service
+    private fun doOnResumeAndBound() {
+        val binder = operationsServiceBinder ?: return
+        binder.addOperationListener(this, handler)
+        if (waitingForOpId <= Int.MAX_VALUE) {
+            binder.dispatchResultIfFinished(waitingForOpId.toInt(), this)
         }
     }
 
-    private void dismissWaitingDialog() {
-        Fragment frag = getSupportFragmentManager().findFragmentByTag(WAIT_DIALOG_TAG);
-        if (frag instanceof DialogFragment dialog) {
-            try {
-                dialog.dismiss();
-            } catch (IllegalStateException e) {
-                Log_OC.e(TAG, "Waiting dialog dismiss failed, dismissing with state loss", e);
-                dialog.dismissAllowingStateLoss();
+    private fun loginFromDeepLink(data: String) {
+        try {
+            login(parseLoginDataUrl(loginDataPrefix, data))
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Login data from deep link could not be parsed: ${e.javaClass.simpleName}")
+            showServerStatusAlert(getString(R.string.qr_could_not_be_read))
+        }
+    }
+
+    private fun onOperationsServiceBound() {
+        doOnResumeAndBound()
+        if (!isServerCheckPendingServiceBinding) {
+            return
+        }
+
+        Log_OC.d(TAG, "Login flow v2: operations service bound, running deferred server check")
+        isServerCheckPendingServiceBinding = false
+        checkOcServer()
+    }
+
+    private inner class OperationsServiceConnection : ServiceConnection {
+        private val operationsServiceComponent: ComponentName
+            get() = ComponentName(this@AuthenticatorActivity, OperationsService::class.java)
+
+        override fun onServiceConnected(component: ComponentName, service: IBinder?) {
+            if (component != operationsServiceComponent) {
+                return
+            }
+
+            operationsServiceBinder = service as OperationsServiceBinder?
+
+            val data = intent?.data?.toString()
+            if (data != null && isLoginData(data)) {
+                loginFromDeepLink(data)
+            } else {
+                onOperationsServiceBound()
             }
         }
+
+        override fun onServiceDisconnected(component: ComponentName) {
+            if (component != operationsServiceComponent) {
+                return
+            }
+
+            Log_OC.e(TAG, "Operations service disconnected unexpectedly")
+            operationsServiceBinder = null
+        }
     }
-    
-    public void login(LoginUrlInfo loginUrlInfo) {
-        mServerInfo.mBaseUrl = AuthenticatorUrlUtils.INSTANCE.normalizeUrlSuffix(loginUrlInfo.getServer());
-        webViewUser = loginUrlInfo.getLoginName();
-        webViewPassword = loginUrlInfo.getAppPassword();
-        doOnResumeAndBound();
-        checkOcServer();
-    }
+    // endregion
 
-    /**
-     * Implements callback methods for service binding.
-     */
-    private class OperationsServiceConnection implements ServiceConnection {
+    companion object {
+        private const val TAG = "AuthenticatorActivity"
 
-        @Override
-        public void onServiceConnected(ComponentName component, IBinder service) {
-            if (component.equals(
-                new ComponentName(AuthenticatorActivity.this, OperationsService.class)
-                                )) {
-                mOperationsServiceBinder = (OperationsServiceBinder) service;
+        const val EXTRA_ACTION: String = "ACTION"
+        const val EXTRA_ACCOUNT: String = "ACCOUNT"
+        const val EXTRA_USE_PROVIDER_AS_WEBLOGIN: String = "USE_PROVIDER_AS_WEBLOGIN"
 
-                Uri data = getIntent().getData();
-                if (data != null && data.toString().startsWith(getString(R.string.login_data_own_scheme))) {
-                    try {
-                        String prefix = getString(R.string.login_data_own_scheme) + PROTOCOL_SUFFIX + "login/";
-                        LoginUrlInfo loginUrlInfo = parseLoginDataUrl(prefix, data.toString());
+        private const val KEY_HOST_URL_TEXT = "HOST_URL_TEXT"
+        private const val KEY_OC_VERSION = "OC_VERSION"
+        private const val KEY_SERVER_STATUS_TEXT = "SERVER_STATUS_TEXT"
+        private const val KEY_SERVER_STATUS_ICON = "SERVER_STATUS_ICON"
+        private const val KEY_IS_SSL_CONN = "IS_SSL_CONN"
+        private const val KEY_AUTH_STATUS_TEXT = "AUTH_STATUS_TEXT"
+        private const val KEY_AUTH_STATUS_ICON = "AUTH_STATUS_ICON"
+        private const val KEY_SERVER_AUTH_METHOD = "SERVER_AUTH_METHOD"
+        private const val KEY_WAITING_FOR_OP_ID = "WAITING_FOR_OP_ID"
+        private const val KEY_ONLY_ADD = "onlyAdd"
+        private const val KEY_LOGIN_FLOW_AUTH_OBJECT = "LOGIN_FLOW_AUTH_OBJECT"
+        private const val KEY_AUTH_TOKEN_TYPE = "authTokenType"
+        private const val SSO_AUTH_TOKEN_TYPE = "SSO"
 
-                       login(loginUrlInfo);
-                    } catch (Exception e) {
-                        Log_OC.e(TAG, "Login data from deep link could not be parsed: " +
-                            e.getClass().getSimpleName());
-                        mServerStatusIcon = R.drawable.ic_alert;
-                        mServerStatusText = getString(R.string.qr_could_not_be_read);
-                        showServerStatus();
-                    }
-                } else {
-                    doOnResumeAndBound();
-                    if (isServerCheckPendingServiceBinding) {
-                        Log_OC.d(TAG, "Login flow v2: operations service bound, running deferred server check");
-                        isServerCheckPendingServiceBinding = false;
-                        checkOcServer();
-                    }
+        const val ACTION_CREATE: Byte = 0
+        const val ACTION_UPDATE_EXPIRED_TOKEN: Byte = 2
+
+        const val UNTRUSTED_CERT_DIALOG_TAG: String = "UNTRUSTED_CERT_DIALOG"
+        private const val WAIT_DIALOG_TAG = "WAIT_DIALOG"
+        private const val KEY_AUTH_IS_FIRST_ATTEMPT_TAG = "KEY_AUTH_IS_FIRST_ATTEMPT"
+
+        private const val KEY_USERNAME = "USERNAME"
+        private const val KEY_PASSWORD = "PASSWORD"
+        private const val KEY_ASYNC_TASK_IN_PROGRESS = "AUTH_IN_PROGRESS"
+
+        private const val NO_PENDING_OPERATION = Long.MAX_VALUE
+        private const val LOGIN_FLOW_POLL_INTERVAL_MS = 30_000L
+        private const val LOGIN_FLOW_POLL_PATH = "/poll"
+        private const val JSON_KEY_POLL = "poll"
+        private const val JSON_KEY_TOKEN = "token"
+        private const val JSON_KEY_LOGIN = "login"
+        private const val LOGIN_PATH = "login/"
+        private const val ONE_TIME_LOGIN_PATH = "onetime-login/"
+        private const val QR_SCAN_RESULT_EXTRA = "com.blikoon.qrcodescanner.got_qr_scan_relult"
+        private const val PREF_SELECTED_ACCOUNT_NAME = "select_oc_account"
+        private const val HTML_MIME_TYPE = "text/html; charset=UTF-8"
+
+        private const val LOGIN_URL_ELEMENT_SEPARATOR = "&"
+        private const val MAX_LOGIN_URL_ELEMENTS = 3
+
+        const val WEB_LOGIN: String = "/index.php/login/v2"
+
+        const val PROTOCOL_SUFFIX: String = "://"
+        const val LOGIN_URL_DATA_KEY_VALUE_SEPARATOR: String = ":"
+        private const val LOGIN_URL_USER_KEY = "user$LOGIN_URL_DATA_KEY_VALUE_SEPARATOR"
+        private const val LOGIN_URL_PASSWORD_KEY = "password$LOGIN_URL_DATA_KEY_VALUE_SEPARATOR"
+        private const val LOGIN_URL_SERVER_KEY = "server$LOGIN_URL_DATA_KEY_VALUE_SEPARATOR"
+        const val HTTPS_PROTOCOL: String = "https://"
+        const val HTTP_PROTOCOL: String = "http://"
+
+        const val NO_ICON: Int = 0
+        const val EMPTY_STRING: String = ""
+        const val REQUEST_CODE_FIRST_RUN: Int = 102
+
+        private val SERVER_ERROR_MESSAGES = mapOf(
+            ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED to R.string.auth_ssl_unverified_server_title,
+            ResultCode.BAD_OC_VERSION to R.string.auth_bad_oc_version_title,
+            ResultCode.WRONG_CONNECTION to R.string.auth_wrong_connection_title,
+            ResultCode.TIMEOUT to R.string.auth_timeout_title,
+            ResultCode.INCORRECT_ADDRESS to R.string.auth_incorrect_address_title,
+            ResultCode.SSL_ERROR to R.string.auth_ssl_general_error_title,
+            ResultCode.UNAUTHORIZED to R.string.auth_unauthorized,
+            ResultCode.HOST_NOT_AVAILABLE to R.string.auth_unknown_host_title,
+            ResultCode.INSTANCE_NOT_CONFIGURED to R.string.auth_not_configured_title,
+            ResultCode.FILE_NOT_FOUND to R.string.auth_incorrect_path_title,
+            ResultCode.OAUTH2_ERROR to R.string.auth_oauth_error,
+            ResultCode.OAUTH2_ERROR_ACCESS_DENIED to R.string.auth_oauth_error_access_denied,
+            ResultCode.UNHANDLED_HTTP_CODE to R.string.auth_unknown_error_http_title,
+            ResultCode.MAINTENANCE_MODE to R.string.maintenance_mode,
+            ResultCode.UNTRUSTED_DOMAIN to R.string.untrusted_domain
+        )
+
+        /**
+         * Parses a login URI of the format `<prefix>server:xxx&user:xxx&password:xxx`, where every element is
+         * optional.
+         *
+         * @param prefix     URI beginning, e.g. cloud://login/
+         * @param dataString the complete URI
+         * @throws IllegalArgumentException when the URI is shorter than [prefix] or has more than three elements
+         */
+        @JvmStatic
+        @Throws(IllegalArgumentException::class)
+        fun parseLoginDataUrl(prefix: String, dataString: String): LoginUrlInfo {
+            require(dataString.length >= prefix.length) { "Invalid login URL detected" }
+
+            val values = splitLoginUrlElements(dataString.substring(prefix.length))
+            require(values.size in 1..MAX_LOGIN_URL_ELEMENTS) {
+                "Illegal number of login URL elements detected: ${values.size}"
+            }
+
+            val loginUrlInfo = LoginUrlInfo(EMPTY_STRING, EMPTY_STRING, EMPTY_STRING)
+            for (value in values) {
+                when {
+                    value.startsWith(LOGIN_URL_USER_KEY) ->
+                        loginUrlInfo.loginName = decodeLoginUrlValue(value, LOGIN_URL_USER_KEY)
+
+                    value.startsWith(LOGIN_URL_PASSWORD_KEY) ->
+                        loginUrlInfo.appPassword = decodeLoginUrlValue(value, LOGIN_URL_PASSWORD_KEY)
+
+                    value.startsWith(LOGIN_URL_SERVER_KEY) ->
+                        loginUrlInfo.server = decodeLoginUrlValue(value, LOGIN_URL_SERVER_KEY)
                 }
             }
+            return loginUrlInfo
         }
 
-        @Override
-        public void onServiceDisconnected(ComponentName component) {
-            if (component.equals(
-                new ComponentName(AuthenticatorActivity.this, OperationsService.class)
-                                )) {
-                Log_OC.e(TAG, "Operations service disconnected unexpectedly");
-                mOperationsServiceBinder = null;
+        private fun splitLoginUrlElements(data: String): List<String> {
+            val elements = data.split(LOGIN_URL_ELEMENT_SEPARATOR)
+            if (elements.size == 1) {
+                return elements
             }
+            return elements.dropLastWhile { it.isEmpty() }
         }
-    }
 
-
-    /**
-     * Called from SslValidatorDialog when a new server certificate was correctly saved.
-     */
-    public void onSavedCertificate() {
-        checkOcServer();
-    }
-
-    /**
-     * Called from SslValidatorDialog when a new server certificate could not be saved when the user requested it.
-     */
-    @Override
-    public void onFailedSavingCertificate() {
-        SnackbarUtil.show(this, R.string.ssl_validator_not_saved);
+        @Suppress("DEPRECATION")
+        private fun decodeLoginUrlValue(value: String, key: String): String =
+            URLDecoder.decode(value.substring(key.length))
     }
 }

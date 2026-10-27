@@ -33,7 +33,7 @@ class DeepLinkLoginActivity :
 
                 intent.data = null
 
-                loginDialog?.showDeepLinkDialog(loginUrlInfo)
+                loginDialog.showDeepLinkDialog(loginUrlInfo)
             } catch (_: IllegalArgumentException) {
                 SnackbarUtil.show(this, R.string.direct_login_failed)
             }
