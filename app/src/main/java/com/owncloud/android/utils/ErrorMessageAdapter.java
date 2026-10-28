@@ -35,6 +35,7 @@ import com.owncloud.android.operations.albums.CopyFileToAlbumOperation;
 import com.owncloud.android.lib.resources.albums.RenameAlbumRemoteOperation;
 
 import org.apache.commons.httpclient.ConnectTimeoutException;
+import org.apache.commons.httpclient.HttpStatus;
 
 import java.io.File;
 import java.net.SocketTimeoutException;
@@ -131,7 +132,7 @@ public final class ErrorMessageAdapter {
         } else if (operation instanceof CreateShareViaLinkOperation ||
                 operation instanceof CreateShareWithShareeOperation) {
 
-            message = getMessageForCreateShareOperations(result, res);
+            message = getMessageForCreateShareOperations(result, operation, res);
 
         } else if (operation instanceof UnshareOperation) {
 
@@ -247,9 +248,11 @@ public final class ErrorMessageAdapter {
     }
 
     private static @Nullable
-    String getMessageForCreateShareOperations(RemoteOperationResult result, Resources res) {
+    String getMessageForCreateShareOperations(RemoteOperationResult result, RemoteOperation operation, Resources res) {
         if (!TextUtils.isEmpty(result.getMessage())) {
             return result.getMessage();     // share API sends its own error messages
+        } else if (isLinkSharePasswordRejected(result, operation)) {
+            return res.getString(R.string.share_link_password_rejected);
         } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
             return res.getString(R.string.share_link_file_no_exist);
         } else if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
@@ -258,6 +261,12 @@ public final class ErrorMessageAdapter {
                                  res.getString(R.string.share_link_forbidden_permissions));
         }
         return null;
+    }
+
+    private static boolean isLinkSharePasswordRejected(RemoteOperationResult result, RemoteOperation operation) {
+        return operation instanceof CreateShareViaLinkOperation createShareViaLinkOperation &&
+            !TextUtils.isEmpty(createShareViaLinkOperation.getPassword()) &&
+            result.getHttpCode() == HttpStatus.SC_BAD_REQUEST;
     }
 
     private static @Nullable
