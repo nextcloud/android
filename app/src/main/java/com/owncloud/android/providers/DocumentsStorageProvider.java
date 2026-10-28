@@ -217,7 +217,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     @Override
     public ParcelFileDescriptor openDocument(String documentId, String mode, CancellationSignal cancellationSignal)
         throws FileNotFoundException {
-        Log_OC.d(TAG, "openDocument(), id=" + documentId);
+        Log_OC.d(TAG, "openDocument(), id=" + documentId + ", mode=" + mode + ", callerUid=" + Binder.getCallingUid());
 
         if (!isFolderPathValid) {
             Log_OC.d(TAG, "Folder path is not valid, operation is cancelled");
@@ -230,6 +230,10 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             Context context = getNonNullContext();
 
             OCFile ocFile = document.getFile();
+            if (ocFile == null) {
+                throw new FileNotFoundException("No file in database for documentId " + documentId);
+            }
+
             if (ocFile.isFolder()) {
                 Log_OC.w(TAG, "openDocument called on a folder, which is not openable: " + documentId);
                 return null;
@@ -246,6 +250,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
             boolean needsDownload = !truncate &&
                 (!ocFile.existsOnDevice() || (!writeOnly && hasServerChange(document)));
+            Log_OC.d(TAG, "openDocument(), remotePath=" + ocFile.getRemotePath() + ", storagePath=" +
+                ocFile.getStoragePath() + ", existsOnDevice=" + ocFile.existsOnDevice() + ", truncate=" + truncate +
+                ", needsDownload=" + needsDownload);
             if (needsDownload) {
                 if (ocFile.getLocalModificationTimestamp() > ocFile.getLastSyncDateForData()) {
                     // TODO show a conflict notification with a pending intent that shows a ConflictResolveDialog
@@ -294,6 +301,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                 try {
                     return ParcelFileDescriptor.open(file, accessMode, handler, error -> {
                         if (error == null) {
+                            Log_OC.d(TAG, "openDocument(), closed " + ocFile.getRemotePath() + ", length=" +
+                                file.length() + ", starting upload");
                             // no error
                             // As we can't upload the file synchronously, let's at least update its metadata already.
                             ocFile.setFileLength(file.length());
@@ -313,11 +322,15 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                         }
                     });
                 } catch (IOException e) {
-                    throw new FileNotFoundException("Failed to open document for writing " + ocFile.getFileName());
+                    throw getFileNotFoundExceptionWithCause("Failed to open document for writing " +
+                                                                file.getAbsolutePath(), e);
                 }
             } else {
                 return ParcelFileDescriptor.open(file, accessMode);
             }
+        } catch (FileNotFoundException | RuntimeException e) {
+            Log_OC.e(TAG, "openDocument() failed, id=" + documentId + ", mode=" + mode, e);
+            throw e;
         } finally {
             Binder.restoreCallingIdentity(token);
         }
@@ -596,7 +609,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     @Override
     public String createDocument(String documentId, String mimeType, String displayName) throws FileNotFoundException {
-        Log_OC.d(TAG, "createDocument(), id=" + documentId);
+        Log_OC.d(TAG, "createDocument(), id=" + documentId + ", name=" + displayName + ", mimeType=" + mimeType);
 
         final long token = Binder.clearCallingIdentity();
         try {
