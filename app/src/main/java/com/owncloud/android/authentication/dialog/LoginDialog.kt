@@ -16,7 +16,8 @@ import com.nextcloud.android.lib.resources.users.GenerateOneTimeAppPasswordRemot
 import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.R
 import com.owncloud.android.authentication.AuthenticatorActivity
-import com.owncloud.android.authentication.LoginUrlInfo
+import com.owncloud.android.authentication.loginurl.LoginDataUrlParser
+import com.owncloud.android.authentication.loginurl.LoginUrlInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -62,7 +63,7 @@ class LoginDialog(private val activity: AuthenticatorActivity) {
     // region private methods
     private fun parseAndLoginFromOneTimeCode(onetimePrefix: String, resultData: String) {
         activity.lifecycleScope.launch(Dispatchers.IO) {
-            val data = AuthenticatorActivity.parseLoginDataUrl(onetimePrefix, resultData)
+            val data = LoginDataUrlParser.parse(onetimePrefix, resultData)
             val operation = GenerateOneTimeAppPasswordRemoteOperation()
             val credentials = basic(data.loginName, data.appPassword)
             val client =
