@@ -371,7 +371,7 @@ public class UserAccountManagerImpl implements UserAccountManager {
 
         String userId = accountManager.getUserData(account, AccountUtils.Constants.KEY_USER_ID);
         if (TextUtils.isEmpty(userId)) {
-            userId = AccountNameUtils.getUserPart(account.name);
+            return !file.isSharedWithMe();
         }
 
         return ownerId.equalsIgnoreCase(userId);
