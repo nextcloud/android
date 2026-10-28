@@ -112,3 +112,8 @@ fun OCFile.createStoragePath(accountName: String) {
 
     storagePath = savePath
 }
+
+fun OCFile.isLocalETagOutdated(): Boolean {
+    val serverETag = etagInConflict
+    return !serverETag.isNullOrEmpty() && etag.eTagChanged(serverETag)
+}
