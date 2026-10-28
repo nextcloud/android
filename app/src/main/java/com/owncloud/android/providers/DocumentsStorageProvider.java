@@ -24,6 +24,7 @@ import android.os.CancellationSignal;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.ParcelFileDescriptor;
+import android.os.Process;
 import android.provider.DocumentsContract;
 import android.provider.DocumentsProvider;
 
@@ -72,6 +73,8 @@ import org.nextcloud.providers.cursors.RootCursor;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -217,7 +220,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     @Override
     public ParcelFileDescriptor openDocument(String documentId, String mode, CancellationSignal cancellationSignal)
         throws FileNotFoundException {
-        Log_OC.d(TAG, "openDocument(), id=" + documentId + ", mode=" + mode + ", callerUid=" + Binder.getCallingUid());
+        final int callerUid = Binder.getCallingUid();
+        final boolean isSystemServerCaller = callerUid == Process.SYSTEM_UID;
+        Log_OC.d(TAG, "openDocument(), id=" + documentId + ", mode=" + mode + ", callerUid=" + callerUid);
 
         if (!isFolderPathValid) {
             Log_OC.d(TAG, "Folder path is not valid, operation is cancelled");
@@ -292,6 +297,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             }
 
             File file = new File(ocFile.getStoragePath());
+            File openedFile = isSystemServerCaller ? createSystemServerAccessibleCopy(context, file, truncate) : file;
 
             if (accessMode != MODE_READ_ONLY) {
                 // The calling thread is not guaranteed to have a Looper, so we can't block it with the
@@ -299,34 +305,24 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                 // asynchronous one.
                 Handler handler = new Handler(context.getMainLooper());
                 try {
-                    return ParcelFileDescriptor.open(file, accessMode, handler, error -> {
-                        if (error == null) {
-                            Log_OC.d(TAG, "openDocument(), closed " + ocFile.getRemotePath() + ", length=" +
-                                file.length() + ", starting upload");
-                            // no error
-                            // As we can't upload the file synchronously, let's at least update its metadata already.
-                            ocFile.setFileLength(file.length());
-                            ocFile.setModificationTimestamp(System.currentTimeMillis());
-                            document.getStorageManager().saveFile(ocFile);
-
-                            // TODO disable upload notifications as DocumentsProvider users already show them
-                            // upload file with FileUploader service (off main thread)
-                            FileUploadHelper.Companion.instance().uploadUpdatedFile(
-                                user,
-                                new OCFile[]{ ocFile },
-                                FileUploadWorker.LOCAL_BEHAVIOUR_DELETE,
-                                NameCollisionPolicy.OVERWRITE);
-                        } else {
+                    return ParcelFileDescriptor.open(openedFile, accessMode, handler, error -> {
+                        if (error != null) {
                             // error, no upload needed
                             Log_OC.e(TAG, "File was closed with an error: " + ocFile.getFileName(), error);
+                            deleteSystemServerAccessibleCopy(openedFile, file);
+                            return;
                         }
+
+                        executor.execute(() -> uploadWrittenDocument(document, user, ocFile, openedFile, file));
                     });
                 } catch (IOException e) {
                     throw getFileNotFoundExceptionWithCause("Failed to open document for writing " +
-                                                                file.getAbsolutePath(), e);
+                                                                openedFile.getAbsolutePath(), e);
                 }
             } else {
-                return ParcelFileDescriptor.open(file, accessMode);
+                ParcelFileDescriptor descriptor = ParcelFileDescriptor.open(openedFile, accessMode);
+                deleteSystemServerAccessibleCopy(openedFile, file);
+                return descriptor;
             }
         } catch (FileNotFoundException | RuntimeException e) {
             Log_OC.e(TAG, "openDocument() failed, id=" + documentId + ", mode=" + mode, e);
@@ -334,6 +330,51 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         } finally {
             Binder.restoreCallingIdentity(token);
         }
+    }
+
+    private File createSystemServerAccessibleCopy(Context context, File file, boolean truncate)
+        throws FileNotFoundException {
+        try {
+            File copy = File.createTempFile("document", null, context.getCacheDir());
+            if (!truncate && file.exists()) {
+                Files.copy(file.toPath(), copy.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            }
+            return copy;
+        } catch (IOException e) {
+            throw getFileNotFoundExceptionWithCause("Failed to create copy of " + file.getAbsolutePath(), e);
+        }
+    }
+
+    private void deleteSystemServerAccessibleCopy(File openedFile, File file) {
+        if (!openedFile.equals(file) && !openedFile.delete()) {
+            Log_OC.w(TAG, "Copy could not be deleted: " + openedFile.getAbsolutePath());
+        }
+    }
+
+    private void uploadWrittenDocument(Document document, User user, OCFile ocFile, File openedFile, File file) {
+        if (!openedFile.equals(file)) {
+            try {
+                Files.move(openedFile.toPath(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                Log_OC.e(TAG, "Failed to move written copy to " + file.getAbsolutePath(), e);
+                deleteSystemServerAccessibleCopy(openedFile, file);
+                return;
+            }
+        }
+
+        Log_OC.d(TAG, "openDocument(), closed " + ocFile.getRemotePath() + ", length=" + file.length() +
+            ", starting upload");
+        // As we can't upload the file synchronously, let's at least update its metadata already.
+        ocFile.setFileLength(file.length());
+        ocFile.setModificationTimestamp(System.currentTimeMillis());
+        document.getStorageManager().saveFile(ocFile);
+
+        // TODO disable upload notifications as DocumentsProvider users already show them
+        FileUploadHelper.Companion.instance().uploadUpdatedFile(
+            user,
+            new OCFile[]{ ocFile },
+            FileUploadWorker.LOCAL_BEHAVIOUR_DELETE,
+            NameCollisionPolicy.OVERWRITE);
     }
 
     private void assignDefaultStoragePath(User user, OCFile ocFile) throws FileNotFoundException {
