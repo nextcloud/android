@@ -2785,7 +2785,10 @@ class FileDisplayActivity :
     }
 
     private fun startAudioPlayer(file: OCFile) {
-        val collection = listOfFilesFragment?.currentSearchType.toPlaybackCollection()
+        val collection = listOfFilesFragment
+            ?.takeIf { it.isSearchFragment }
+            ?.currentSearchType
+            .toPlaybackCollection()
         audioPlayerLauncher.launch(this, file, collection)
     }
 
