@@ -10,13 +10,14 @@
 package org.nextcloud.providers.cursors;
 
 import android.database.MatrixCursor;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.DocumentsContract.Document;
 
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.providers.DocumentsStorageProvider;
 import com.owncloud.android.utils.MimeTypeUtil;
+
+import java.util.concurrent.Future;
 
 public class FileCursor extends MatrixCursor {
 
@@ -27,13 +28,13 @@ public class FileCursor extends MatrixCursor {
     };
 
     private Bundle extra;
-    private AsyncTask<?, ?, ?> loadingTask;
+    private Future<?> loadingTask;
 
     public FileCursor(String... projection) {
         super(projection != null ? projection : DEFAULT_DOCUMENT_PROJECTION);
     }
 
-    public void setLoadingTask(AsyncTask<?, ?, ?> task) {
+    public void setLoadingTask(Future<?> task) {
         this.loadingTask = task;
     }
 
@@ -50,7 +51,7 @@ public class FileCursor extends MatrixCursor {
     @Override
     public void close() {
         super.close();
-        if (loadingTask != null && loadingTask.getStatus() != AsyncTask.Status.FINISHED) {
+        if (loadingTask != null && !loadingTask.isDone()) {
             loadingTask.cancel(false);
         }
     }
