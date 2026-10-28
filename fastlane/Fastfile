@@ -30,6 +30,12 @@ import("./common.Fastfile")
 
 platform :android do
 
+    before_all do
+        gradleFile = "../app/build.gradle.kts"
+        content = File.read(gradleFile)
+        File.write(gradleFile, content.sub(/(optimization\s*\{\s*enable\s*=\s*)true/, '\\1false'))
+    end
+
     desc "Release phase 2 for RC: checks, tag, upload gplay to playstore with values from build.gradle.kts"
     lane :RC_releasePhase2 do |options|
         checkReleaseRequirements_RC()
