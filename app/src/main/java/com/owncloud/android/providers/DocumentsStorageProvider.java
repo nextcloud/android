@@ -79,7 +79,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -110,7 +109,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     @VisibleForTesting
     static final String DOCUMENTID_SEPARATOR = "/";
     private static final int DOCUMENTID_PARTS = 2;
-    private final Map<String, FileDataStorageManager> rootIdToStorageManager = new HashMap<>();
+    private volatile Map<String, FileDataStorageManager> rootIdToStorageManager = new HashMap<>();
 
     private final Executor executor = Executors.newCachedThreadPool();
 
@@ -434,12 +433,23 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     @Override
     public boolean onCreate() {
         AndroidInjection.inject(this);
+        initStoragePathIfMissing();
 
         // initiate storage manager collection, because we need to serve document(tree)s
         // with persist permissions
         initiateStorageMap();
 
         return true;
+    }
+
+    private void initStoragePathIfMissing() {
+        if (MainApp.getStoragePath() != null) {
+            return;
+        }
+
+        Context context = getNonNullContext();
+        String defaultStoragePath = context.getFilesDir().getAbsolutePath();
+        MainApp.setStoragePath(AppPreferencesImpl.fromContext(context).getStoragePath(defaultStoragePath));
     }
 
     @Override
@@ -917,15 +927,15 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     }
 
     private void initiateStorageMap() {
-
-        rootIdToStorageManager.clear();
-
         ContentResolver contentResolver = getContext().getContentResolver();
+        Map<String, FileDataStorageManager> storageManagers = new HashMap<>();
 
         for (User user : accountManager.getAllUsers()) {
             final FileDataStorageManager storageManager = new FileDataStorageManager(user, contentResolver);
-            rootIdToStorageManager.put(rootIdForUser(user), storageManager);
+            storageManagers.put(rootIdForUser(user), storageManager);
         }
+
+        rootIdToStorageManager = storageManagers;
     }
 
     private List<Document> findFiles(Document root, String query) {
@@ -1031,12 +1041,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
 
         public String getDocumentId() {
-            for(String key: rootIdToStorageManager.keySet()) {
-                if (Objects.equals(storageManager, rootIdToStorageManager.get(key))) {
-                    return key + DOCUMENTID_SEPARATOR + fileId;
-                }
-            }
-            return null;
+            return rootIdForUser(getUser()) + DOCUMENTID_SEPARATOR + fileId;
         }
 
         FileDataStorageManager getStorageManager() {
