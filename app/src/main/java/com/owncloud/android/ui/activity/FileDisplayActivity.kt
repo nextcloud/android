@@ -3114,7 +3114,7 @@ class FileDisplayActivity :
         const val KEY_IS_SEARCH_OPEN = "IS_SEARCH_OPEN"
         const val KEY_SEARCH_QUERY = "SEARCH_QUERY"
 
-        fun openFileIntent(context: Context?, user: User?, file: OCFile?): Intent =
+        fun openFileIntent(context: Context, user: User, file: OCFile): Intent =
             Intent(context, PreviewMediaActivity::class.java).apply {
                 putExtra(EXTRA_FILE, file)
                 putExtra(EXTRA_USER, user)
