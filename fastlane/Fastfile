@@ -29,7 +29,13 @@ GRADLE_SIGNING_PROPERTIES = {
 import("./common.Fastfile")
 
 platform :android do
-    
+
+    before_all do
+        gradleFile = "../app/build.gradle.kts"
+        content = File.read(gradleFile)
+        File.write(gradleFile, content.sub(/(optimization\s*\{\s*enable\s*=\s*)true/, '\\1false'))
+    end
+
     desc "Release phase 2 for RC: checks, tag, upload gplay to playstore with values from build.gradle.kts"
     lane :RC_releasePhase2 do |options|
         checkReleaseRequirements_RC()
@@ -45,7 +51,7 @@ platform :android do
         fdroidMergeRequest_RC(info)
         createChangelogPullRequest_RC(info)
     end
-    
+
     desc "Release phase 2 for FINAL: checks, tag, upload gplay to playstore with values from build.gradle.kts"
     lane :Final_releasePhase2 do |options|
         checkReleaseRequirements_Final()
@@ -76,67 +82,67 @@ platform :android do
             delay_before_submit_for_review: 30,
         )
     end
-    
-    ## private lanes  
+
+    ## private lanes
     private_lane :checkReleaseRequirements_common do
         sh("if ! command -v fdroid &>/dev/null; then echo 'fdroid command not found' && exit 1; fi")
         sh("if ! command -v bundletool &>/dev/null; then echo 'bundletool command not found' && exit 1; fi")
     end
-    
+
     private_lane :checkReleaseRequirements_RC do
         checkReleaseRequirements_common()
         sh("if ! command -v fdroidMergeRequestRC &>/dev/null; then echo 'fdroidMergeRequestRC command not found'; exit 1; fi")
         sh("if ! command -v createChangelogPullRequestRC &>/dev/null; then echo 'createChangelogPullRequestRC command not found'; exit 1; fi")
     end
-    
+
     private_lane :checkReleaseRequirements_Final do
         checkReleaseRequirements_common()
         sh("if ! command -v fdroidMergeRequestFinal &>/dev/null; then echo 'fdroidMergeRequestFinal command not found'; exit 1; fi")
         sh("if ! command -v createChangelogPullRequestFinal &>/dev/null; then echo 'createChangelogPullRequestFinal command not found'; exit 1; fi")
     end
-    
+
     private_lane :createChangelogPullRequest_RC do |options|
         sh("createChangelogPullRequestRC " +  options["tag"] + " \"" + options["versionName"] + "\" " + options["versionCode"] + " \"" + options["branch"] + "\" ")
     end
-    
+
     private_lane :createChangelogPullRequest_Final do |options|
         sh("createChangelogPullRequestFinal " +  options["tag"] + " \"" + options["versionName"] + "\" " + options["versionCode"] + " \"" + options["branch"] + "\" ")
     end
-    
+
     private_lane :checkIfAPKexists do |options|
         sh("if [ $(/bin/ls -1 ../release | wc -l) -ne 4 ]; then echo 'Release artifacts not present or wrong number present; aborting!' ; exit 1 ;
          fi")
     end
-    
+
     desc "Show versions and prompt for confirmation"
     private_lane :promptVersion do |options|
         print "VersionCode: " + options["versionCode"].to_s + "\n"
         print "Name: " + options["versionName"] + "\n"
         print "Tag: " + options["tag"] + "\n"
         print "Branch: " + options["branch"] + "\n"
-    
+
         answer = prompt(text: "is this okay?", boolean: true)
-    
+
         if !answer
             exit
         end
     end
-    
+
     desc "check if library is set correctly"
     private_lane :checkLibrary_RC do
         sh(" if [ $(egrep 'androidLibraryVersion.*master.*' ../build.gradle.kts -c) -eq 1 ] ; then echo 'Library is set to master tag; aborting!' ; exit 1 ; fi")
     end
-    
+
     desc "check if library is set correctly: must NOT contain master nor rc"
     private_lane :checkLibrary_Final do
         sh(" if [ $(grep 'androidLibraryVersion' ../build.gradle.kts | egrep 'master|rc' -c) -eq 1 ] ; then echo 'Library is still set to rc tag; aborting!' ; exit 1 ; fi")
     end
-    
+
     desc "check if screenshots exists and exit"
     private_lane :checkIfScreenshotsExist do
         sh(" if [ $(find metadata/android/*/images -type f -not -name icon.png  | grep -c . ) -gt 0 ] ; then echo 'Screenshots in fastlane folder exist; aborting!' ; exit 1 ; fi")
     end
-        
+
     private_lane :createGithubRelease_RC do |options|
         set_github_release(
             repository_name: REPO,
@@ -149,7 +155,7 @@ platform :android do
             options["versionCode"] + ".apk" ]
         )
     end
-    
+
     private_lane :createGithubRelease_Final do |options|
         set_github_release(
             repository_name: REPO,
@@ -160,15 +166,15 @@ platform :android do
             upload_assets: Dir.glob("release/*.apk")
         )
     end
-    
+
     private_lane :fdroidMergeRequest_RC do |options|
        sh("fdroidMergeRequestRC " +  options["tag"] + " \"" + options["versionName"] + "\" " + options["versionCode"])
     end
-    
+
     private_lane :fdroidMergeRequest_Final do |options|
        sh("fdroidMergeRequestFinal " +  options["tag"] + " \"" + options["versionName"] + "\" " + options["versionCode"])
     end
-    
+
     private_lane :checkChangelog do |options|
         sh(" if [ ! -e  metadata/android/en-US/changelogs/" + options["versionCode"] + ".txt ] ; then echo 'Changelog fastlane/metadata/android/en-US/changelogs/" + options["versionCode"] + ".txt does not exist' ; exit 1 ; fi")
         sh(" if [ $(wc -m metadata/android/en-US/changelogs/" + options["versionCode"] + ".txt | cut -d' ' -f1) -ge 500 ] ; then echo 'Changlog more than 500 chars' ; exit 1 ; fi")
@@ -181,18 +187,18 @@ platform :android do
     lane :screenshotsPhone do
         beautifyPhone()
         build_for_screengrab()
-    
+
         screengrab(
             device_type: "phone",
             app_apk_path: APK_LOCATION,
             tests_apk_path: TEST_APK_LOCATION
         )
     end
-    
+
     lane :screenshotsTablet do
         beautifyPhone()
         build_for_screengrab()
-    
+
         screengrab(
             device_type: "sevenInch",
             app_apk_path: APK_LOCATION,
@@ -217,7 +223,7 @@ platform :android do
           build_type: 'Debug'
         )
         APK_LOCATION = lane_context[SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS].select{ |i| i[/00/] }[0]
-    
+
         build_android_app(
           task: 'assemble',
           flavor: 'Generic',
