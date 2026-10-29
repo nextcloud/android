@@ -653,14 +653,9 @@ class FileUploadHelper {
      * created them, causing FileUploadWorker to keep retrying uploads for a folder that no longer
      * exists or is intentionally turned off, and AutoUploadWorker to re-queue already handled files
      * on its next scan via FileSystemRepository.getFilePathsWithIds.
-     *
-     * The folder's filesystem entities are removed as well. They are marked as sent for upload, and once their
-     * upload entries are gone FileSystemRepository treats them as finished, so every file the folder had seen
-     * would be skipped forever after re-enabling it, even with "also upload existing files".
      */
     suspend fun removeEntityFromUploadEntities(id: Long) {
-        val fileSystemDao = uploadsStorageManager.fileSystemDao
-        fileSystemDao.getBySyncedFolderId(id.toString())
+        uploadsStorageManager.fileSystemDao.getBySyncedFolderId(id.toString())
             .filter { it.localPath != null && it.remotePath != null }
             .forEach {
                 Log_OC.d(
@@ -672,7 +667,17 @@ class FileUploadHelper {
                     remotePath = it.remotePath!!
                 )
             }
-        fileSystemDao.deleteBySyncedFolderId(id.toString())
+    }
+
+    /**
+     * Forgets which files of a synced folder were already seen, so its next scan starts from scratch.
+     *
+     * Must run before a folder is enabled again: its filesystem entities stay marked as sent for upload, and once
+     * [removeEntityFromUploadEntities] removed their upload entities, FileSystemRepository.wasUploadFinished treats
+     * them as finished, so these files would be skipped forever, even with "also upload existing files".
+     */
+    suspend fun clearAutoUploadScanCache(id: Long) {
+        uploadsStorageManager.fileSystemDao.deleteBySyncedFolderId(id.toString())
     }
 
     /**

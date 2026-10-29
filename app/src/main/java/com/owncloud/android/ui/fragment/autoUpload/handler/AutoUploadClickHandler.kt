@@ -40,6 +40,10 @@ class AutoUploadClickHandler(
 
     private val fileUploadHelper = FileUploadHelper.instance()
 
+    // runs cleanup and re-enabling of folders in the order they were requested, so a folder switched off and on
+    // quickly cannot be scanned before its cleanup finished or have its fresh scan removed by that cleanup
+    private val folderStateDispatcher = Dispatchers.IO.limitedParallelism(1)
+
     fun onCreateCustomFolderClick(activity: AppCompatActivity, accountName: String) {
         Log_OC.d(TAG, "Show custom folder dialog")
         if (!PermissionUtil.checkStoragePermission(activity)) {
@@ -60,14 +64,21 @@ class AutoUploadClickHandler(
 
         if (item.isEnabled) {
             Log_OC.d(TAG, "auto-upload configuration sync status is enabled: " + item.remotePath)
-            backgroundJobManager.startAutoUpload(item, overridePowerSaving = false)
+            fragment.lifecycleScope.launch(folderStateDispatcher) {
+                fileUploadHelper.clearAutoUploadScanCache(item.id)
+                backgroundJobManager.startAutoUpload(item, overridePowerSaving = false)
+            }
             dialogs.showBatteryOptimizationDialogIfNeeded()
             return
         }
 
         Log_OC.d(TAG, "auto-upload configuration sync status is disabled: " + item.remotePath)
-        fragment.lifecycleScope.launch(Dispatchers.IO) {
-            fileUploadHelper.removeEntityFromUploadEntities(item.id)
+        removeUploadEntities(item.id)
+    }
+
+    private fun removeUploadEntities(syncedFolderId: Long) {
+        fragment.lifecycleScope.launch(folderStateDispatcher) {
+            fileUploadHelper.removeEntityFromUploadEntities(syncedFolderId)
         }
     }
 
@@ -135,8 +146,23 @@ class AutoUploadClickHandler(
     private fun updateExistingFolder(syncedFolder: SyncedFolderParcelable): Boolean {
         val adapter = getAdapter()
         val item = adapter.get(syncedFolder.section) ?: return false
+        val wasEnabled = item.isEnabled
         itemFactory.updateAutoUploadFolderItem(item, syncedFolder)
-        persistence.saveOrUpdateAutoUploadFolder(item)
+
+        when {
+            !wasEnabled && item.isEnabled -> fragment.lifecycleScope.launch(folderStateDispatcher) {
+                fileUploadHelper.clearAutoUploadScanCache(item.id)
+                persistence.saveOrUpdateAutoUploadFolder(item)
+            }
+
+            wasEnabled && !item.isEnabled -> {
+                persistence.saveOrUpdateAutoUploadFolder(item)
+                removeUploadEntities(item.id)
+            }
+
+            else -> persistence.saveOrUpdateAutoUploadFolder(item)
+        }
+
         adapter.notifyItemChanged(adapter.getSectionHeaderIndex(syncedFolder.section))
         return true
     }
