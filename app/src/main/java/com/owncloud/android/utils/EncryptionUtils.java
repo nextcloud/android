@@ -115,7 +115,6 @@ public final class EncryptionUtils {
     private static final String TAG = EncryptionUtils.class.getSimpleName();
 
     // PUBLIC_KEY actually represents certificate this confusion caused by
-    // backend APIs: GetPublicKeyRemoteOperation() -> returns certificate not public key
     // later PUBLIC_KEY must rename to CERTIFICATE
     public static final String PUBLIC_KEY = "PUBLIC_KEY";
 
