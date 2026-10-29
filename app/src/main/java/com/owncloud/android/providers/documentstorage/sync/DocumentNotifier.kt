@@ -6,11 +6,11 @@
  */
 package com.owncloud.android.providers.documentstorage.sync
 
-import com.owncloud.android.providers.documentstorage.model.Document
 import android.content.Context
 import android.net.Uri
 import android.provider.DocumentsContract
 import com.owncloud.android.R
+import com.owncloud.android.providers.documentstorage.model.Document
 
 internal class DocumentNotifier(private val context: Context) {
 

@@ -6,7 +6,6 @@
  */
 package com.owncloud.android.providers.documentstorage.sync
 
-import com.owncloud.android.providers.documentstorage.model.Document
 import android.content.Context
 import com.nextcloud.client.account.User
 import com.owncloud.android.MainApp
@@ -15,6 +14,7 @@ import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.RefreshFolderOperation
+import com.owncloud.android.providers.documentstorage.model.Document
 import java.io.FileNotFoundException
 
 internal class FolderRefresher(private val context: Context) {

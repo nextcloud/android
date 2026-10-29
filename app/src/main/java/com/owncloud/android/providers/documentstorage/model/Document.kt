@@ -6,8 +6,6 @@
  */
 package com.owncloud.android.providers.documentstorage.model
 
-import com.owncloud.android.providers.documentstorage.DocumentsStorageProvider
-import com.owncloud.android.providers.documentstorage.util.fileNotFoundException
 import android.accounts.AuthenticatorException
 import android.accounts.OperationCanceledException
 import android.content.Context
@@ -17,6 +15,8 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.providers.documentstorage.DocumentsStorageProvider
+import com.owncloud.android.providers.documentstorage.util.fileNotFoundException
 import java.io.FileNotFoundException
 import java.io.IOException
 

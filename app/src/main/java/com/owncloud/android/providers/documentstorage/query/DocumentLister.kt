@@ -6,9 +6,6 @@
  */
 package com.owncloud.android.providers.documentstorage.query
 
-import com.owncloud.android.providers.documentstorage.model.Document
-import com.owncloud.android.providers.documentstorage.sync.DocumentNotifier
-import com.owncloud.android.providers.documentstorage.sync.FolderRefresher
 import android.content.Context
 import android.provider.DocumentsContract
 import androidx.core.os.bundleOf
@@ -17,6 +14,9 @@ import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.providers.documentstorage.model.Document
+import com.owncloud.android.providers.documentstorage.sync.DocumentNotifier
+import com.owncloud.android.providers.documentstorage.sync.FolderRefresher
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.isActive

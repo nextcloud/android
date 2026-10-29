@@ -6,12 +6,6 @@
  */
 package com.owncloud.android.providers.documentstorage.modify
 
-import com.owncloud.android.providers.documentstorage.model.Document
-import com.owncloud.android.providers.documentstorage.model.DocumentResolver
-import com.owncloud.android.providers.documentstorage.sync.DocumentNotifier
-import com.owncloud.android.providers.documentstorage.sync.FolderRefresher
-import com.owncloud.android.providers.documentstorage.util.fileNotFoundException
-import com.owncloud.android.providers.documentstorage.util.requireSuccess
 import android.content.Context
 import android.provider.DocumentsContract
 import com.nextcloud.client.account.User
@@ -25,6 +19,12 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation
 import com.owncloud.android.operations.CreateFolderOperation
+import com.owncloud.android.providers.documentstorage.model.Document
+import com.owncloud.android.providers.documentstorage.model.DocumentResolver
+import com.owncloud.android.providers.documentstorage.sync.DocumentNotifier
+import com.owncloud.android.providers.documentstorage.sync.FolderRefresher
+import com.owncloud.android.providers.documentstorage.util.fileNotFoundException
+import com.owncloud.android.providers.documentstorage.util.requireSuccess
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.FileUtil
 import java.io.File

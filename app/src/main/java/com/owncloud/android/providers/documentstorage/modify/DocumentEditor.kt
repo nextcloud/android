@@ -6,11 +6,6 @@
  */
 package com.owncloud.android.providers.documentstorage.modify
 
-import com.owncloud.android.providers.documentstorage.model.Document
-import com.owncloud.android.providers.documentstorage.model.DocumentResolver
-import com.owncloud.android.providers.documentstorage.sync.DocumentNotifier
-import com.owncloud.android.providers.documentstorage.sync.FolderRefresher
-import com.owncloud.android.providers.documentstorage.util.requireSuccess
 import android.content.Context
 import com.nextcloud.utils.extensions.showToast
 import com.owncloud.android.R
@@ -18,6 +13,11 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.operations.CopyFileOperation
 import com.owncloud.android.operations.MoveFileOperation
 import com.owncloud.android.operations.RenameFileOperation
+import com.owncloud.android.providers.documentstorage.model.Document
+import com.owncloud.android.providers.documentstorage.model.DocumentResolver
+import com.owncloud.android.providers.documentstorage.sync.DocumentNotifier
+import com.owncloud.android.providers.documentstorage.sync.FolderRefresher
+import com.owncloud.android.providers.documentstorage.util.requireSuccess
 import java.io.FileNotFoundException
 
 internal class DocumentEditor(

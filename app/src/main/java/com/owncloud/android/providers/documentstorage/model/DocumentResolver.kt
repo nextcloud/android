@@ -6,10 +6,10 @@
  */
 package com.owncloud.android.providers.documentstorage.model
 
-import com.owncloud.android.providers.documentstorage.DocumentsStorageProvider
 import android.content.ContentResolver
 import com.nextcloud.client.account.User
 import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.providers.documentstorage.DocumentsStorageProvider
 import java.io.FileNotFoundException
 
 internal class DocumentResolver {

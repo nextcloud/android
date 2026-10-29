@@ -6,16 +6,6 @@
  */
 package com.owncloud.android.providers.documentstorage
 
-import com.owncloud.android.providers.DiskLruImageCacheFileProvider
-import com.owncloud.android.providers.documentstorage.model.Document
-import com.owncloud.android.providers.documentstorage.model.DocumentResolver
-import com.owncloud.android.providers.documentstorage.modify.DocumentCreator
-import com.owncloud.android.providers.documentstorage.modify.DocumentEditor
-import com.owncloud.android.providers.documentstorage.modify.DocumentNameValidator
-import com.owncloud.android.providers.documentstorage.open.DocumentOpener
-import com.owncloud.android.providers.documentstorage.query.DocumentLister
-import com.owncloud.android.providers.documentstorage.sync.DocumentNotifier
-import com.owncloud.android.providers.documentstorage.sync.FolderRefresher
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.AssetFileDescriptor
@@ -27,7 +17,6 @@ import android.os.ParcelFileDescriptor
 import android.os.Process
 import android.provider.DocumentsContract
 import android.provider.DocumentsProvider
-import androidx.annotation.VisibleForTesting
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.preferences.AppPreferencesImpl
@@ -40,6 +29,16 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.RemoveFileOperation
+import com.owncloud.android.providers.DiskLruImageCacheFileProvider
+import com.owncloud.android.providers.documentstorage.model.Document
+import com.owncloud.android.providers.documentstorage.model.DocumentResolver
+import com.owncloud.android.providers.documentstorage.modify.DocumentCreator
+import com.owncloud.android.providers.documentstorage.modify.DocumentEditor
+import com.owncloud.android.providers.documentstorage.modify.DocumentNameValidator
+import com.owncloud.android.providers.documentstorage.open.DocumentOpener
+import com.owncloud.android.providers.documentstorage.query.DocumentLister
+import com.owncloud.android.providers.documentstorage.sync.DocumentNotifier
+import com.owncloud.android.providers.documentstorage.sync.FolderRefresher
 import com.owncloud.android.ui.activity.SettingsActivity
 import dagger.android.AndroidInjection
 import kotlinx.coroutines.CoroutineScope
@@ -275,7 +274,6 @@ class DocumentsStorageProvider : DocumentsProvider() {
     companion object {
         private val TAG = DocumentsStorageProvider::class.java.simpleName
 
-        @VisibleForTesting
         const val DOCUMENTID_SEPARATOR = "/"
 
         @JvmStatic
@@ -285,7 +283,6 @@ class DocumentsStorageProvider : DocumentsProvider() {
             context.contentResolver.notifyChange(rootsUri, null)
         }
 
-        @VisibleForTesting
         fun rootIdForUser(user: User): String = HashUtil.md5Hash(user.accountName)
     }
 }

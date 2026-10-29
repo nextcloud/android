@@ -6,8 +6,6 @@
  */
 package com.owncloud.android.providers.documentstorage.open
 
-import com.owncloud.android.providers.documentstorage.model.Document
-import com.owncloud.android.providers.documentstorage.util.fileNotFoundException
 import android.content.Context
 import android.os.Handler
 import android.os.ParcelFileDescriptor
@@ -23,6 +21,8 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.CheckEtagRemoteOperation
 import com.owncloud.android.operations.DownloadFileOperation
+import com.owncloud.android.providers.documentstorage.model.Document
+import com.owncloud.android.providers.documentstorage.util.fileNotFoundException
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import kotlinx.coroutines.CoroutineScope
