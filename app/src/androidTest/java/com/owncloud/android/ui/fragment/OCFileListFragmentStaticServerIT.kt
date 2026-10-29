@@ -246,7 +246,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
                 sut.supportFragmentManager.executePendingTransactions()
                 val root = sut.storageManager.getFileByEncryptedRemotePath("/")
                 fragment.listDirectory(root, false)
-                fragment.adapter.setShowShareAvatar(true)
+                requireNotNull(fragment.adapter).setShowShareAvatar(true)
             }
 
             val screenShotName = createName(testClassName + "_" + "showSharedFiles", "")
@@ -334,7 +334,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
                 sut.supportFragmentManager.executePendingTransactions()
                 val root = sut.storageManager.getFileByEncryptedRemotePath("/")
                 fragment.listDirectory(root, false)
-                fragment.adapter.setShowShareAvatar(true)
+                requireNotNull(fragment.adapter).setShowShareAvatar(true)
             }
 
             val screenShotName = createName(testClassName + "_" + "showFolderTypes", "")
@@ -399,27 +399,28 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
             }
 
             val testFolder: OCFile = activity!!.storageManager.getFileByEncryptedRemotePath("/test/")
+            val adapter = requireNotNull(sut.adapter)
 
             // richWorkspace is not set
-            Assert.assertFalse(sut.adapter.shouldShowHeader())
+            Assert.assertFalse(adapter.shouldShowHeader())
 
             testFolder.richWorkspace = " "
             activity.storageManager.saveFile(testFolder)
-            sut.adapter.swapDirectory(user, testFolder, activity.storageManager, false, "")
+            adapter.swapDirectory(user, testFolder, activity.storageManager, false, "")
 
-            Assert.assertFalse(sut.adapter.shouldShowHeader())
+            Assert.assertFalse(adapter.shouldShowHeader())
 
             testFolder.richWorkspace = null
             activity.storageManager.saveFile(testFolder)
-            sut.adapter.swapDirectory(user, testFolder, activity.storageManager, false, "")
-            Assert.assertFalse(sut.adapter.shouldShowHeader())
+            adapter.swapDirectory(user, testFolder, activity.storageManager, false, "")
+            Assert.assertFalse(adapter.shouldShowHeader())
 
             EspressoIdlingResource.increment()
             testFolder.richWorkspace = "1"
             activity.storageManager.saveFile(testFolder)
-            sut.adapter.setCurrentDirectory(testFolder)
+            adapter.setCurrentDirectory(testFolder)
 
-            Assert.assertTrue(sut.adapter.shouldShowHeader())
+            Assert.assertTrue(adapter.shouldShowHeader())
         }
     }
 

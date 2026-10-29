@@ -47,6 +47,8 @@ import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.client.utils.Throttler
 import com.nextcloud.repository.ClientRepository
 import com.nextcloud.ui.albumItemActions.AlbumItemActionsBottomSheet
+import com.nextcloud.ui.fileactions.FileActionHandler
+import com.nextcloud.ui.fileactions.FileActionHost
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getTypedActivity
@@ -115,6 +117,9 @@ class AlbumItemsFragment :
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
+
+    @Inject
+    lateinit var fileActionHandler: FileActionHandler
 
     @Inject
     lateinit var accountManager: UserAccountManager
@@ -515,8 +520,6 @@ class AlbumItemsFragment :
     //endregion
 
     //region Item interaction
-    override fun getColumnsCount(): Int = columnSize
-
     override fun isLoading(): Boolean = false
 
     override fun onHeaderClicked() = Unit
@@ -624,24 +627,21 @@ class AlbumItemsFragment :
         ?.getClientIntegrationEndpoints(Type.CONTEXT_MENU, checkedFiles.first().mimeType)
         .orEmpty()
 
-    private fun onFileActionChosen(@IdRes itemId: Int, checkedFiles: Set<OCFile>): Boolean {
-        if (checkedFiles.isEmpty()) {
-            return false
-        }
-
-        val fileOperationsHelper = containerActivity?.fileOperationsHelper
+    private fun onFileActionChosen(@IdRes itemId: Int, checkedFiles: Set<OCFile>) {
+        if (checkedFiles.isEmpty()) return
 
         when (itemId) {
             R.id.action_remove_file -> confirmFilesRemoval(checkedFiles)
-            R.id.action_favorite -> fileOperationsHelper?.toggleFavoriteFiles(checkedFiles, true)
-            R.id.action_unset_favorite -> fileOperationsHelper?.toggleFavoriteFiles(checkedFiles, false)
-            R.id.action_open_file_with -> fileOperationsHelper?.openFile(checkedFiles.first())
-            R.id.action_stream_media -> fileOperationsHelper?.streamMediaFile(checkedFiles.first())
-            R.id.action_select_all_action_menu -> selectAllFiles(true)
-            R.id.action_deselect_all_action_menu -> selectAllFiles(false)
-        }
 
-        return true
+            R.id.action_select_all_action_menu -> selectAllFiles(true)
+
+            R.id.action_deselect_all_action_menu -> selectAllFiles(false)
+
+            else -> containerActivity?.let {
+                val host = FileActionHost(it, parentFragmentManager, view, null)
+                fileActionHandler.handle(itemId, checkedFiles, host)
+            }
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)

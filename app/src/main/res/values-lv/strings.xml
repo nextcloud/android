@@ -133,6 +133,7 @@
     <string name="community_testing_bug_text">Atradi kļūdu vai nepilnību?</string>
     <string name="community_testing_headline">Palīdzi testējot</string>
     <string name="community_testing_report_text">Ziņot par nepilnību Github</string>
+    <string name="compose_activity_label">Nextcloud palīgs</string>
     <string name="configure_new_media_folder_detection_notifications">Konfigurēt</string>
     <string name="confirmation_remove_file_alert">Vai tiešām izdzēst %1$s?</string>
     <string name="confirmation_remove_files_alert">Vai tiešām izdzēst atlasītos vienumus?</string>
@@ -518,6 +519,7 @@
     <string name="share_via_link_unset_password">Neuzstādīts</string>
     <string name="shared_icon_shared">koplietots</string>
     <string name="sharee_add_failed">Dalībnieka pievienošana neizdevās</string>
+    <string name="show_all">Rādīt visu</string>
     <string name="signup_with_provider">Reģistrēties ar pakalpojumu sniedzēju</string>
     <string name="single_sign_on_request_token" formatted="true">Ļaut %1$s piekļūt Tavam Nextcloud kontam %2$s?</string>
     <string name="sort_by">Kārtot pēc</string>

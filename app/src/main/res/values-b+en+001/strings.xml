@@ -610,7 +610,6 @@
     <string name="foreign_files_remote_text">Remote: %1$s</string>
     <string name="forward">Forward</string>
     <string name="fourHours">4 hours</string>
-    <string name="gallery_unsupported_file">Unsupported filetype</string>
     <string name="governance_file_retention_label">File retention</string>
     <string name="governance_legal_hold_label">Legal hold</string>
     <string name="governance_no_label">None</string>

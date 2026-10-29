@@ -155,6 +155,7 @@
     <string name="community_testing_bug_text">Ali ste našli hrošča, neustrezno delovanje?</string>
     <string name="community_testing_headline">Pomoč s preizkušanjem</string>
     <string name="community_testing_report_text">Prijava težave na GitHub</string>
+    <string name="compose_activity_label">Pomočnik Nextcloud</string>
     <string name="configure_new_media_folder_detection_notifications">Nastavi</string>
     <string name="confirm_removal">Odstrani krajevno šifriranje</string>
     <string name="confirmation_remove_file_alert">Ali res želite izbrisati %1$s?</string>

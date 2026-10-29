@@ -15,6 +15,7 @@ import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.helpers.FileOperationsHelper
+import com.owncloud.android.ui.preview.media.PreviewMediaActivity
 
 class FileActionHost @JvmOverloads constructor(
     val containerActivity: FileFragment.ContainerActivity,
@@ -22,6 +23,7 @@ class FileActionHost @JvmOverloads constructor(
     val view: View?,
     val parentFolder: OCFile?,
     val actionMode: ActionMode? = null,
+    val onFileOpened: () -> Unit = {},
     val onFavoriteChanged: (isFavorite: Boolean) -> Unit = {}
 ) {
     val helper: FileOperationsHelper?
@@ -32,6 +34,9 @@ class FileActionHost @JvmOverloads constructor(
 
     val fda: FileDisplayActivity?
         get() = containerActivity as? FileDisplayActivity
+
+    val previewMediaActivity: PreviewMediaActivity?
+        get() = containerActivity as? PreviewMediaActivity
 
     val context: Context?
         get() = view?.context

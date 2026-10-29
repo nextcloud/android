@@ -534,7 +534,7 @@ open class FolderPickerActivity :
             return
         }
 
-        listOfFilesFragment?.onMessageEvent(
+        listOfFilesFragment?.onSearchEvent(
             SearchEvent(
                 query,
                 SearchRemoteOperation.SearchType.FILE_SEARCH
