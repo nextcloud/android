@@ -110,8 +110,8 @@ class AlbumOperationListener(private val activity: FileDisplayActivity) {
 
     private fun showUntrustedCertDialog(result: RemoteOperationResult<*>) {
         if (result.isSslRecoverableException) {
-            activity.mLastSslUntrustedServerResult = result
-            activity.showUntrustedCertDialog(activity.mLastSslUntrustedServerResult)
+            activity.lastSslUntrustedServerResult = result
+            activity.showUntrustedCertDialog(activity.lastSslUntrustedServerResult)
         }
     }
 
