@@ -4,7 +4,7 @@
  * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.providers.documentstorage
+package com.owncloud.android.providers.documentstorage.util
 
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC

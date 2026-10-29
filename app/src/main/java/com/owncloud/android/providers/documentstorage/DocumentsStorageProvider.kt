@@ -4,8 +4,18 @@
  * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.providers
+package com.owncloud.android.providers.documentstorage
 
+import com.owncloud.android.providers.DiskLruImageCacheFileProvider
+import com.owncloud.android.providers.documentstorage.model.Document
+import com.owncloud.android.providers.documentstorage.model.DocumentResolver
+import com.owncloud.android.providers.documentstorage.modify.DocumentCreator
+import com.owncloud.android.providers.documentstorage.modify.DocumentEditor
+import com.owncloud.android.providers.documentstorage.modify.DocumentNameValidator
+import com.owncloud.android.providers.documentstorage.open.DocumentOpener
+import com.owncloud.android.providers.documentstorage.query.DocumentLister
+import com.owncloud.android.providers.documentstorage.sync.DocumentNotifier
+import com.owncloud.android.providers.documentstorage.sync.FolderRefresher
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.AssetFileDescriptor
@@ -30,15 +40,6 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.RemoveFileOperation
-import com.owncloud.android.providers.documentstorage.Document
-import com.owncloud.android.providers.documentstorage.DocumentCreator
-import com.owncloud.android.providers.documentstorage.DocumentEditor
-import com.owncloud.android.providers.documentstorage.DocumentLister
-import com.owncloud.android.providers.documentstorage.DocumentNameValidator
-import com.owncloud.android.providers.documentstorage.DocumentNotifier
-import com.owncloud.android.providers.documentstorage.DocumentOpener
-import com.owncloud.android.providers.documentstorage.DocumentResolver
-import com.owncloud.android.providers.documentstorage.FolderRefresher
 import com.owncloud.android.ui.activity.SettingsActivity
 import dagger.android.AndroidInjection
 import kotlinx.coroutines.CoroutineScope

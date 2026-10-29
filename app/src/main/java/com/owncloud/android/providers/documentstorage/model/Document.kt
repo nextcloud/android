@@ -4,8 +4,10 @@
  * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.providers.documentstorage
+package com.owncloud.android.providers.documentstorage.model
 
+import com.owncloud.android.providers.documentstorage.DocumentsStorageProvider
+import com.owncloud.android.providers.documentstorage.util.fileNotFoundException
 import android.accounts.AuthenticatorException
 import android.accounts.OperationCanceledException
 import android.content.Context
@@ -15,7 +17,6 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.providers.DocumentsStorageProvider
 import java.io.FileNotFoundException
 import java.io.IOException
 

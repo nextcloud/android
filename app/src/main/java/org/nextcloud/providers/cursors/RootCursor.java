@@ -14,7 +14,7 @@ import android.provider.DocumentsContract.Root;
 
 import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
-import com.owncloud.android.providers.documentstorage.Document;
+import com.owncloud.android.providers.documentstorage.model.Document;
 
 public class RootCursor extends MatrixCursor {
 

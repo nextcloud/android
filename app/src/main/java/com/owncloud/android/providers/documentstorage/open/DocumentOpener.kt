@@ -4,8 +4,10 @@
  * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.providers.documentstorage
+package com.owncloud.android.providers.documentstorage.open
 
+import com.owncloud.android.providers.documentstorage.model.Document
+import com.owncloud.android.providers.documentstorage.util.fileNotFoundException
 import android.content.Context
 import android.os.Handler
 import android.os.ParcelFileDescriptor

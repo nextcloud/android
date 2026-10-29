@@ -81,6 +81,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.NextcloudVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+import com.owncloud.android.providers.documentstorage.DocumentsStorageProvider;
 import com.owncloud.android.ui.navigation.NavigatorActivity;
 import com.owncloud.android.ui.navigation.NavigatorScreen;
 import com.owncloud.android.ui.notifications.NotificationUtils;
@@ -373,7 +374,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
 
     public void disableDocumentsStorageProvider() {
         String packageName = getPackageName();
-        String providerClassName = "com.owncloud.android.providers.DocumentsStorageProvider";
+        String providerClassName = DocumentsStorageProvider.class.getName();
         ComponentName componentName = new ComponentName(packageName, providerClassName);
         PackageManager packageManager = getPackageManager();
         packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);

@@ -55,7 +55,7 @@ public class FileCursor extends MatrixCursor {
         }
     }
 
-    public void addFile(com.owncloud.android.providers.documentstorage.Document document) {
+    public void addFile(com.owncloud.android.providers.documentstorage.model.Document document) {
         if (document == null) {
             return;
         }
