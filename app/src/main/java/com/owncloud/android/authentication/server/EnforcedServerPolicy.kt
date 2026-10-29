@@ -21,7 +21,7 @@ object EnforcedServerPolicy {
         }
 
         if (enforcedServersJson.isEmpty()) {
-            return false
+            return true
         }
 
         return parse(enforcedServersJson).any { it.url.startsWith(server) }
