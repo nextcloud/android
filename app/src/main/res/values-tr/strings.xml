@@ -610,7 +610,6 @@
     <string name="foreign_files_remote_text">Uzak: %1$s</string>
     <string name="forward">İlet</string>
     <string name="fourHours">4 saat</string>
-    <string name="gallery_unsupported_file">Dosya türü desteklenmiyor</string>
     <string name="governance_file_retention_label">Dosya saklama</string>
     <string name="governance_legal_hold_label">Yasal saklama</string>
     <string name="governance_no_label">Yok</string>

@@ -610,7 +610,6 @@
     <string name="foreign_files_remote_text">Vzdialené: %1$s</string>
     <string name="forward">Preposlať</string>
     <string name="fourHours">4 hodiny</string>
-    <string name="gallery_unsupported_file">Nepodporovaný typ súboru</string>
     <string name="governance_file_retention_label">Uchovávanie súborov</string>
     <string name="governance_legal_hold_label">Právne uchovanie</string>
     <string name="governance_no_label">Žiadne</string>
