@@ -33,7 +33,7 @@ data class SyncedFolderEntity(
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_ENABLED)
     val enabled: Int?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_ENABLED_TIMESTAMP_MS)
-    val enabledTimestampMs: Int?,
+    val enabledTimestampMs: Long?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE)
     val subfolderByDate: Int?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_ACCOUNT)
@@ -78,7 +78,7 @@ fun SyncedFolderEntity.toSyncedFolder(): SyncedFolder = SyncedFolder(
     // enabled
     this.enabled == 1,
     // timestampMs
-    (this.enabledTimestampMs ?: SyncedFolder.EMPTY_ENABLED_TIMESTAMP_MS).toLong(),
+    this.enabledTimestampMs ?: SyncedFolder.EMPTY_ENABLED_TIMESTAMP_MS,
     // type
     MediaFolderType.getById(this.type ?: MediaFolderType.CUSTOM.id),
     // hidden
