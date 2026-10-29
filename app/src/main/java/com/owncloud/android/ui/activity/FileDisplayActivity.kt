@@ -20,7 +20,6 @@ import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.ComponentName
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.ServiceConnection
@@ -35,7 +34,6 @@ import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
 import android.os.Parcelable
-import android.text.TextUtils
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -47,9 +45,9 @@ import androidx.activity.viewModels
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.SearchView
 import androidx.core.util.Function
-import androidx.core.view.MenuItemCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -100,7 +98,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.VirtualFolderType
-import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -153,7 +150,6 @@ import com.owncloud.android.ui.fragment.albums.AlbumOperationListener
 import com.owncloud.android.ui.fragment.albums.AlbumsFragment
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.ui.helpers.UriUploader
-import com.owncloud.android.ui.interfaces.TransactionInterface
 import com.owncloud.android.ui.navigation.NavigatorScreen
 import com.owncloud.android.ui.navigation.animator.NavigationAnimator
 import com.owncloud.android.ui.preview.media.PreviewMediaActivity
@@ -161,7 +157,7 @@ import com.owncloud.android.ui.preview.media.PreviewMediaFragment
 import com.owncloud.android.ui.preview.text.PreviewTextFileFragment
 import com.owncloud.android.ui.preview.text.PreviewTextFragment
 import com.owncloud.android.ui.preview.text.PreviewTextStringFragment
-import com.owncloud.android.ui.preview.pdf.PreviewPdfFragment.Companion.newInstance
+import com.owncloud.android.ui.preview.pdf.PreviewPdfFragment
 import com.owncloud.android.utils.DataHolderUtil
 import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.FileSortOrder
@@ -182,19 +178,12 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.io.File
 import java.lang.ref.WeakReference
-import java.util.function.Supplier
 import javax.inject.Inject
 
 /**
  * Displays, what files the user has available in his Nextcloud. This is the main view.
  */
-@Suppress(
-    "ComplexCondition",
-    "SpreadOperator",
-    "ForbiddenComment",
-    "LargeClass",
-    "NestedBlockDepth"
-)
+@Suppress("ComplexCondition", "ForbiddenComment", "LargeClass")
 class FileDisplayActivity :
     FileActivity(),
     FileFragment.ContainerActivity,
@@ -215,7 +204,7 @@ class FileDisplayActivity :
 
     var mLastSslUntrustedServerResult: RemoteOperationResult<*>? = null
 
-    private var mWaitingToPreview: OCFile? = null
+    private var waitingToPreview: OCFile? = null
 
     private var syncState: Parcelable = EmptyListState.LOADING
         set(value) {
@@ -225,9 +214,9 @@ class FileDisplayActivity :
 
     private var pendingSyncFolderOperation: Runnable? = null
 
-    private var mWaitingToSend: OCFile? = null
+    private var waitingToSend: OCFile? = null
 
-    private var mDrawerMenuItemstoShowHideList: MutableCollection<MenuItem>? = null
+    private var drawerMenuItemsToShowHide: List<MenuItem> = emptyList()
 
     private var searchQuery: String? = ""
     private var searchOpen = false
@@ -282,7 +271,7 @@ class FileDisplayActivity :
      * Indicates whether the downloaded file should be previewed immediately. Since `FileDownloadWorker` can be
      * triggered from multiple sources, this helps determine if an automatic preview is needed after download.
      */
-    private var fileIDForImmediatePreview: Long = -1
+    private var fileIDForImmediatePreview: Long = NO_IMMEDIATE_PREVIEW_FILE_ID
 
     private var isShowingDetailsFromPreview = false
 
@@ -325,9 +314,7 @@ class FileDisplayActivity :
         }
 
         // Restoring after UI has been inflated.
-        if (savedInstanceState != null) {
-            showSortListGroup(savedInstanceState.getBoolean(KEY_IS_SORT_GROUP_VISIBLE))
-        }
+        savedInstanceState?.let { showSortListGroup(it.getBoolean(KEY_IS_SORT_GROUP_VISIBLE)) }
 
         checkStoragePath()
         observeWorkerState()
@@ -346,35 +333,33 @@ class FileDisplayActivity :
     override fun getMenuItemId(): Int = MainApp.getMenuItemId() ?: listOfFilesFragment?.menuItemId ?: R.id.nav_all_files
 
     private fun loadSavedInstanceState(savedInstanceState: Bundle?) {
-        if (savedInstanceState != null) {
-            mWaitingToPreview =
-                savedInstanceState.getParcelableArgument(KEY_WAITING_TO_PREVIEW, OCFile::class.java)
-            syncState = savedInstanceState.getParcelableArgument(KEY_SYNC_STATE, Parcelable::class.java)
-                ?: EmptyListState.LOADING
-            mWaitingToSend = savedInstanceState.getParcelableArgument(KEY_WAITING_TO_SEND, OCFile::class.java)
-            searchQuery = savedInstanceState.getString(KEY_SEARCH_QUERY)
-            searchOpen = savedInstanceState.getBoolean(KEY_IS_SEARCH_OPEN, false)
-        } else {
-            mWaitingToPreview = null
+        if (savedInstanceState == null) {
+            waitingToPreview = null
             syncState = EmptyListState.LOADING
-            mWaitingToSend = null
+            waitingToSend = null
+            return
+        }
+
+        savedInstanceState.run {
+            waitingToPreview = getParcelableArgument(KEY_WAITING_TO_PREVIEW, OCFile::class.java)
+            syncState = getParcelableArgument(KEY_SYNC_STATE, Parcelable::class.java) ?: EmptyListState.LOADING
+            waitingToSend = getParcelableArgument(KEY_WAITING_TO_SEND, OCFile::class.java)
+            searchQuery = getString(KEY_SEARCH_QUERY)
+            searchOpen = getBoolean(KEY_IS_SEARCH_OPEN, false)
         }
     }
 
     private fun initLayout() {
-        // Inflate and set the layout view
         binding = FilesBinding.inflate(layoutInflater)
-        setContentView(binding.getRoot())
+        setContentView(binding.root)
     }
 
     private fun initUI() {
         setupHomeSearchToolbarWithSortAndListButtons()
-        mMenuButton.setOnClickListener { v: View? -> openDrawer() }
+        mMenuButton.setOnClickListener { openDrawer() }
         findViewById<View>(R.id.toolbar).setOnClickListener { openCurrentFolderActions() }
-        mSwitchAccountButton.setOnClickListener { v: View? -> showManageAccountsDialog() }
-        mNotificationButton.setOnClickListener {
-            pushFragment(NavigatorScreen.Notifications)
-        }
+        mSwitchAccountButton.setOnClickListener { showManageAccountsDialog() }
+        mNotificationButton.setOnClickListener { pushFragment(NavigatorScreen.Notifications) }
         fastScrollUtils.fixAppBarForFastScroll(binding.appbar.appbar, binding.rootLayout)
 
         // reset ui states when file display activity created/recrated
@@ -383,60 +368,54 @@ class FileDisplayActivity :
 
     private fun initTaskRetainerFragment() {
         // Init Fragment without UI to retain AsyncTask across configuration changes
-        val fm = supportFragmentManager
-        var taskRetainerFragment =
-            fm.findFragmentByTag(TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT) as TaskRetainerFragment?
-        if (taskRetainerFragment == null) {
-            taskRetainerFragment = TaskRetainerFragment()
-            fm.beginTransaction().add(taskRetainerFragment, TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT).commit()
-        } // else, Fragment already created and retained across configuration change
+        val tag = TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT
+        if (supportFragmentManager.findFragmentByTag(tag) is TaskRetainerFragment) return
+
+        supportFragmentManager.beginTransaction().add(TaskRetainerFragment(), tag).commit()
     }
 
     private fun checkStoragePath() {
         val newStorage = Environment.getExternalStorageDirectory().absolutePath
         val storagePath = preferences.getStoragePath(newStorage)
-        if (!preferences.isStoragePathValid() && !File(storagePath).exists()) {
-            // falling back to default
-            preferences.setStoragePath(newStorage)
-            preferences.setStoragePathValid()
-            MainApp.setStoragePath(newStorage)
+        if (preferences.isStoragePathValid() || File(storagePath).exists()) return
 
-            try {
-                val builder = MaterialAlertDialogBuilder(this, R.style.Theme_ownCloud_Dialog)
-                    .setTitle(R.string.wrong_storage_path)
-                    .setMessage(R.string.wrong_storage_path_desc)
-                    .setPositiveButton(
-                        R.string.dialog_close
-                    ) { dialog: DialogInterface?, which: Int -> dialog?.dismiss() }
-                    .setIcon(R.drawable.ic_settings)
+        // falling back to default
+        preferences.setStoragePath(newStorage)
+        preferences.setStoragePathValid()
+        MainApp.setStoragePath(newStorage)
+        showWrongStoragePathDialog()
+    }
 
-                viewThemeUtils.dialog.colorMaterialAlertDialogBackground(applicationContext, builder)
+    private fun showWrongStoragePathDialog() {
+        try {
+            val builder = MaterialAlertDialogBuilder(this, R.style.Theme_ownCloud_Dialog)
+                .setTitle(R.string.wrong_storage_path)
+                .setMessage(R.string.wrong_storage_path_desc)
+                .setPositiveButton(R.string.dialog_close) { dialog, _ -> dialog?.dismiss() }
+                .setIcon(R.drawable.ic_settings)
 
-                builder.create().show()
-            } catch (e: BadTokenException) {
-                Log_OC.e(TAG, "Error showing wrong storage info, so skipping it: " + e.message)
-            }
+            viewThemeUtils.dialog.colorMaterialAlertDialogBackground(applicationContext, builder)
+
+            builder.create().show()
+        } catch (e: BadTokenException) {
+            Log_OC.e(TAG, "Error showing wrong storage info, so skipping it: ${e.message}")
         }
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val fragment =
-                supportFragmentManager.findFragmentByTag(
-                    PermissionUtil.PERMISSION_CHOICE_DIALOG_TAG
-                ) as StoragePermissionDialogFragment?
-            if (fragment != null) {
-                val dialog = fragment.dialog
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) return
 
-                if (dialog != null && dialog.isShowing) {
-                    dialog.dismiss()
-                    supportFragmentManager.beginTransaction().remove(fragment).commitNowAllowingStateLoss()
-                    requestStoragePermissionIfNeeded(this)
-                }
-            }
-        }
+        val fragment = supportFragmentManager
+            .findFragmentByTag(PermissionUtil.PERMISSION_CHOICE_DIALOG_TAG) as? StoragePermissionDialogFragment
+            ?: return
+        val dialog = fragment.dialog ?: return
+        if (!dialog.isShowing) return
+
+        dialog.dismiss()
+        supportFragmentManager.beginTransaction().remove(fragment).commitNowAllowingStateLoss()
+        requestStoragePermissionIfNeeded(this)
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -451,14 +430,8 @@ class FileDisplayActivity :
             requestStoragePermissionIfNeeded(this)
         }
 
-        if (intent.getParcelableArgument(
-                OCFileListFragment.SEARCH_EVENT,
-                SearchEvent::class.java
-            ) != null
-        ) {
-            switchToSearchFragment(savedInstanceState)
-        } else {
-            createMinFragments(savedInstanceState)
+        if (savedInstanceState == null) {
+            addInitialListOfFilesFragment()
         }
 
         if (savedInstanceState == null && intent.getBooleanExtra(EXTRA_RETURN_TO_PREVIEW, false)) {
@@ -475,133 +448,91 @@ class FileDisplayActivity :
      */
     private fun upgradeNotificationForInstantUpload() {
         // check for Android 6+ if legacy instant upload is activated --> disable + show info
-        if (preferences.instantPictureUploadEnabled() || preferences.instantVideoUploadEnabled()) {
-            preferences.removeLegacyPreferences()
-            // show info pop-up
-            MaterialAlertDialogBuilder(this, R.style.Theme_ownCloud_Dialog).setTitle(R.string.drawer_synced_folders)
-                .setMessage(
-                    R.string.synced_folders_new_info
-                ).setPositiveButton(
-                    R.string.drawer_open
-                ) { dialog: DialogInterface?, which: Int ->
-                    // show instant upload
-                    dialog?.dismiss()
-                    pushFragment(NavigatorScreen.AutoUpload)
-                }.setNegativeButton(
-                    R.string.drawer_close
-                ) { dialog: DialogInterface?, which: Int -> dialog?.dismiss() }
-                .setIcon(
-                    R.drawable.nav_synced_folders
-                ).show()
-        }
+        if (!preferences.instantPictureUploadEnabled() && !preferences.instantVideoUploadEnabled()) return
+
+        preferences.removeLegacyPreferences()
+        MaterialAlertDialogBuilder(this, R.style.Theme_ownCloud_Dialog)
+            .setTitle(R.string.drawer_synced_folders)
+            .setMessage(R.string.synced_folders_new_info)
+            .setPositiveButton(R.string.drawer_open) { dialog, _ ->
+                dialog?.dismiss()
+                pushFragment(NavigatorScreen.AutoUpload)
+            }
+            .setNegativeButton(R.string.drawer_close) { dialog, _ -> dialog?.dismiss() }
+            .setIcon(R.drawable.nav_synced_folders)
+            .show()
     }
 
     private fun checkOutdatedServer() {
-        val user = getUser()
-        val optionalCapability = capabilities
+        val currentUser = user.orElse(null) ?: return
+        val capability = capabilities.orElse(null) ?: return
 
-        // show outdated warning
-        if (user.isPresent &&
-            optionalCapability.isPresent &&
-            CapabilityUtils.checkOutdatedWarning(
-                getResources(),
-                user.get().server.version,
-                optionalCapability.get().extendedSupport.isTrue,
-                optionalCapability.get().hasValidSubscription.isTrue
-            )
-        ) {
+        val isOutdated = CapabilityUtils.checkOutdatedWarning(
+            resources,
+            currentUser.server.version,
+            capability.extendedSupport.isTrue,
+            capability.hasValidSubscription.isTrue
+        )
+        if (isOutdated) {
             SnackbarUtil.showServerOutdated(this, Snackbar.LENGTH_LONG)
         }
     }
 
     private fun checkNotifications() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                val result = GetNotificationsRemoteOperation()
-                    .execute(clientFactory.createNextcloudClient(accountManager.user))
-
-                val isVisible = (result.isSuccess && result.getResultData()?.isEmpty() == false)
-                withContext(Dispatchers.Main) {
-                    mNotificationButton.setVisibleIf(isVisible)
-                }
-            } catch (_: CreationException) {
+        lifecycleScope.launch {
+            val client = clientRepository.getNextcloudClient() ?: run {
                 Log_OC.e(TAG, "Could not fetch notifications!")
+                return@launch
             }
+
+            val hasNotifications = withContext(Dispatchers.IO) {
+                val result = GetNotificationsRemoteOperation().execute(client)
+                result.isSuccess && result.resultData?.isEmpty() == false
+            }
+            mNotificationButton.setVisibleIf(hasNotifications)
         }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
-            // handle notification permission on API level >= 33
-            PermissionUtil.PERMISSIONS_POST_NOTIFICATIONS ->
-                // dialogue was dismissed -> prompt for storage permissions
-                requestStoragePermissionIfNeeded(this)
+            // dialogue was dismissed -> prompt for storage permissions
+            PermissionUtil.PERMISSIONS_POST_NOTIFICATIONS -> requestStoragePermissionIfNeeded(this)
 
-            // If request is cancelled, result arrays are empty.
-            PermissionUtil.PERMISSIONS_EXTERNAL_STORAGE ->
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted
-                    EventBus.getDefault().post(TokenPushEvent())
-                    // toggle on is save since this is the only scenario this code gets accessed
-                }
+            PermissionUtil.PERMISSIONS_EXTERNAL_STORAGE -> if (grantResults.isPermissionGranted()) {
+                EventBus.getDefault().post(TokenPushEvent())
+            }
 
-            // If request is cancelled, result arrays are empty.
-            PermissionUtil.PERMISSIONS_CAMERA ->
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted
-                    getOCFileListFragmentFromFile(object : TransactionInterface {
-                        override fun onOCFileListFragmentComplete(fragment: OCFileListFragment) {
-                            fragment.directCameraUpload()
-                        }
-                    })
-                }
+            PermissionUtil.PERMISSIONS_CAMERA -> if (grantResults.isPermissionGranted()) {
+                getOCFileListFragmentFromFile { it.directCameraUpload() }
+            }
 
             else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
     }
 
-    private fun switchToSearchFragment(savedInstanceState: Bundle?) {
-        if (savedInstanceState == null) {
-            val listOfFiles = OCFileListFragment()
-            val args = Bundle()
+    // If request is cancelled, result arrays are empty.
+    private fun IntArray.isPermissionGranted(): Boolean = firstOrNull() == PackageManager.PERMISSION_GRANTED
 
-            args.putParcelable(
-                OCFileListFragment.SEARCH_EVENT,
-                intent
-                    .getParcelableArgument(
-                        OCFileListFragment.SEARCH_EVENT,
-                        SearchEvent::class.java
-                    )
-            )
-            args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true)
-
-            listOfFiles.setArguments(args)
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.add(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES)
-            transaction.commit()
-        } else {
-            supportFragmentManager.findFragmentByTag(TAG_LIST_OF_FILES)
+    private fun addInitialListOfFilesFragment() {
+        val searchEvent = intent.getParcelableArgument(OCFileListFragment.SEARCH_EVENT, SearchEvent::class.java)
+        val listOfFiles = OCFileListFragment().apply {
+            arguments = Bundle().apply {
+                searchEvent?.let { putParcelable(OCFileListFragment.SEARCH_EVENT, it) }
+                putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true)
+            }
         }
-    }
 
-    private fun createMinFragments(savedInstanceState: Bundle?) {
-        if (savedInstanceState == null) {
-            val listOfFiles = OCFileListFragment()
-            val args = Bundle()
-            args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true)
-            listOfFiles.setArguments(args)
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.add(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES)
-            transaction.commit()
+        supportFragmentManager.beginTransaction()
+            .add(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES)
+            .commit()
+
+        if (searchEvent == null) {
             listFragmentJustCreated = true
-        } else {
-            supportFragmentManager.findFragmentByTag(TAG_LIST_OF_FILES)
         }
     }
 
     private fun initFragments() {
-        // First fragment
-        val listOfFiles = this.listOfFilesFragment
+        val listOfFiles = listOfFilesFragment
         if (listOfFiles != null && searchQuery.isNullOrEmpty()) {
             if (!listFragmentJustCreated) {
                 listOfFiles.listDirectory(getCurrentDir(), file, MainApp.isOnlyOnDevice())
@@ -611,7 +542,6 @@ class FileDisplayActivity :
             Log_OC.e(TAG, "Still have a chance to lose the initialization of list fragment >(")
         }
 
-        // reset views
         resetScrollingAndUpdateActionBar()
     }
 
@@ -639,26 +569,7 @@ class FileDisplayActivity :
 
             Intent.ACTION_SEARCH == action -> handleSearchIntent(intent)
 
-            ALL_FILES == action -> {
-                Log_OC.d(this, "Switch to oc file fragment")
-
-                // Replace only if the fragment is NOT exactly OCFileListFragment
-                // Using `is OCFileListFragment` would also match subclasses,
-                // its needed because reinitializing OCFileListFragment itself causes an empty screen
-                leftFragment?.let {
-                    // Album screens are committed under their own tags, so leftFragment can still
-                    // point at the detached OCFileListFragment while an album screen is on top
-                    if (it::class != OCFileListFragment::class || isAlbumsFragment || isAlbumItemsFragment) {
-                        leftFragment = OCFileListFragment()
-                        supportFragmentManager.executePendingTransactions()
-                        listFragmentJustCreated = true
-                    }
-                }
-
-                // The onResume() that always follows this same-activity intent redelivery already
-                // lists and re-syncs the current directory, so doing it again here is redundant.
-                browseToRoot(performRefresh = false)
-            }
+            ALL_FILES == action -> switchToAllFiles()
 
             LIST_GROUPFOLDERS == action -> {
                 Log_OC.d(this, "Switch to list groupfolders fragment")
@@ -680,26 +591,41 @@ class FileDisplayActivity :
         }
     }
 
+    private fun switchToAllFiles() {
+        Log_OC.d(this, "Switch to oc file fragment")
+
+        // Replace only if the fragment is NOT exactly OCFileListFragment
+        // Using `is OCFileListFragment` would also match subclasses,
+        // its needed because reinitializing OCFileListFragment itself causes an empty screen
+        val currentLeftFragment = leftFragment
+        // Album screens are committed under their own tags, so leftFragment can still
+        // point at the detached OCFileListFragment while an album screen is on top
+        if (currentLeftFragment != null &&
+            (currentLeftFragment::class != OCFileListFragment::class || isAlbumsFragment || isAlbumItemsFragment)
+        ) {
+            leftFragment = OCFileListFragment()
+            supportFragmentManager.executePendingTransactions()
+            listFragmentJustCreated = true
+        }
+
+        // The onResume() that always follows this same-activity intent redelivery already
+        // lists and re-syncs the current directory, so doing it again here is redundant.
+        browseToRoot(performRefresh = false)
+    }
+
     @SuppressLint("UnsafeIntentLaunch")
     private fun handleCommonIntents(intent: Intent) {
-        if (passCodeManager.isPassCodeEnabled() && passCodeManager.isLocked(this)) {
-            return
-        }
+        if (passCodeManager.isPassCodeEnabled() && passCodeManager.isLocked(this)) return
 
         when (intent.action) {
             Intent.ACTION_VIEW -> handleOpenFileViaIntent(intent)
-
-            OPEN_FILE -> {
-                onOpenFileIntent(intent)
-            }
+            OPEN_FILE -> onOpenFileIntent(intent)
         }
     }
 
     @SuppressLint("UnsafeIntentLaunch")
     private fun handleRestartIntent(intent: Intent) {
-        if (intent.action != RESTART) {
-            return
-        }
+        if (intent.action != RESTART) return
 
         finish()
         startActivity(intent)
@@ -711,31 +637,28 @@ class FileDisplayActivity :
             SearchEvent::class.java
         ) ?: return
 
-        when (searchEvent.searchType) {
+        val searchFragment = when (searchEvent.searchType) {
             SearchRemoteOperation.SearchType.PHOTO_SEARCH -> {
                 Log_OC.d(this, "Switch to photo search fragment")
-                leftFragment = GalleryFragment().apply {
-                    arguments = searchEvent.getBundle()
-                }
+                GalleryFragment()
             }
 
             SearchRemoteOperation.SearchType.SHARED_FILTER -> {
                 Log_OC.d(this, "Switch to shared fragment")
-                leftFragment = SharedListFragment().apply {
-                    arguments = searchEvent.getBundle()
-                }
+                SharedListFragment()
             }
 
             else -> {
                 Log_OC.d(this, "Switch to oc file search fragment")
-                leftFragment = OCFileListFragment().apply {
-                    arguments = searchEvent.getBundle()
-                }
+                OCFileListFragment()
             }
         }
+        leftFragment = searchFragment.apply { arguments = searchEvent.getBundle() }
 
-        listOfFilesFragment?.isSearchFragment = true
-        listOfFilesFragment?.updateSearchType(searchEvent)
+        listOfFilesFragment?.run {
+            isSearchFragment = true
+            updateSearchType(searchEvent)
+        }
     }
     // endregion
 
@@ -767,9 +690,7 @@ class FileDisplayActivity :
     }
 
     private fun setLeftFragment(fragment: Fragment?, showSortListGroup: Boolean) {
-        if (fragment == null) {
-            return
-        }
+        fragment ?: return
 
         isShowingDetailsFromPreview = false
         prepareFragmentBeforeCommit(showSortListGroup)
@@ -803,39 +724,35 @@ class FileDisplayActivity :
         return true
     }
 
-    private fun getOCFileListFragmentFromFile(transaction: TransactionInterface) {
-        val leftFragment = this.leftFragment
-
-        if (leftFragment is OCFileListFragment) {
-            transaction.onOCFileListFragmentComplete(leftFragment)
+    private fun getOCFileListFragmentFromFile(onFragmentReady: (OCFileListFragment) -> Unit) {
+        val currentLeftFragment = leftFragment
+        if (currentLeftFragment is OCFileListFragment) {
+            onFragmentReady(currentLeftFragment)
             return
         }
 
-        val listOfFiles = OCFileListFragment()
-        val args = Bundle()
-        args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true)
-        listOfFiles.setArguments(args)
+        val listOfFiles = OCFileListFragment().apply {
+            arguments = Bundle().apply { putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true) }
+        }
 
         runOnUiThread {
-            val fm = supportFragmentManager
-            if (!fm.isStateSaved && !fm.isDestroyed) {
-                prepareFragmentBeforeCommit(true)
-                if (commitFragment(listOfFiles)) {
-                    fm.executePendingTransactions()
-                    transaction.onOCFileListFragmentComplete(listOfFiles)
-                }
+            val fragmentManager = supportFragmentManager
+            if (fragmentManager.isStateSaved || fragmentManager.isDestroyed) return@runOnUiThread
+
+            prepareFragmentBeforeCommit(true)
+            if (commitFragment(listOfFiles)) {
+                fragmentManager.executePendingTransactions()
+                onFragmentReady(listOfFiles)
             }
         }
     }
 
     fun showFileActions(file: OCFile?) {
         dismissLoadingDialog()
-        getOCFileListFragmentFromFile(object : TransactionInterface {
-            override fun onOCFileListFragmentComplete(fragment: OCFileListFragment) {
-                browseUp(fragment)
-                file?.let { fragment.onOverflowIconClicked(it, null) }
-            }
-        })
+        getOCFileListFragmentFromFile { fragment ->
+            browseUp(fragment)
+            file?.let { fragment.onOverflowIconClicked(it, null) }
+        }
     }
 
     var leftFragment: Fragment?
@@ -847,14 +764,9 @@ class FileDisplayActivity :
         }
 
     val listOfFilesFragment: OCFileListFragment?
-        get() {
-            val listOfFiles =
-                supportFragmentManager.findFragmentByTag(TAG_LIST_OF_FILES)
-            if (listOfFiles is OCFileListFragment) {
-                return listOfFiles
-            }
+        get() = supportFragmentManager.findFragmentByTag(TAG_LIST_OF_FILES) as? OCFileListFragment ?: run {
             Log_OC.e(TAG, "Access to unexisting list of files fragment")
-            return null
+            null
         }
 
     protected fun resetScrollingAndUpdateActionBar() {
@@ -863,13 +775,11 @@ class FileDisplayActivity :
     }
 
     fun updateListOfFilesFragment() {
-        val fileListFragment = this.listOfFilesFragment
-        fileListFragment?.listDirectory(MainApp.isOnlyOnDevice())
+        listOfFilesFragment?.listDirectory(MainApp.isOnlyOnDevice())
     }
 
     fun resetSearchView() {
-        val fileListFragment = this.listOfFilesFragment
-        fileListFragment?.isSearchFragment = false
+        listOfFilesFragment?.isSearchFragment = false
     }
 
     protected fun refreshDetailsFragmentIfVisible(
@@ -877,26 +787,26 @@ class FileDisplayActivity :
         downloadedRemotePath: String,
         success: Boolean
     ) {
-        val leftFragment = this.leftFragment as? FileDetailFragment ?: return
-        val fileInFragment = leftFragment.file
+        val detailFragment = leftFragment as? FileDetailFragment ?: return
+        val fileInFragment = detailFragment.file
 
         if (fileInFragment != null && downloadedRemotePath != fileInFragment.remotePath) {
-            mWaitingToPreview = null
+            waitingToPreview = null
             return
         }
 
         when (downloadEvent) {
             FileDownloadEventBroadcaster.ACTION_DOWNLOAD_ENQUEUED -> {
-                leftFragment.listenForTransferProgress()
-                leftFragment.updateFileDetails(true, false)
+                detailFragment.listenForTransferProgress()
+                detailFragment.updateFileDetails(true, false)
             }
 
             FileDownloadEventBroadcaster.ACTION_DOWNLOAD_COMPLETED -> {
-                val waitedPreview = mWaitingToPreview?.remotePath == downloadedRemotePath
+                val waitedPreview = waitingToPreview?.remotePath == downloadedRemotePath
                 val previewStarted = waitedPreview && tryStartWaitingPreview(success)
-                mWaitingToPreview = null
+                waitingToPreview = null
                 if (!previewStarted) {
-                    leftFragment.updateFileDetails(false, success)
+                    detailFragment.updateFileDetails(false, success)
                 }
             }
         }
@@ -907,8 +817,8 @@ class FileDisplayActivity :
     private fun tryStartWaitingPreview(success: Boolean): Boolean {
         if (!success) return false
 
-        mWaitingToPreview = mWaitingToPreview?.fileId?.let { storageManager.getFileById(it) }
-        val file = mWaitingToPreview ?: return false
+        waitingToPreview = waitingToPreview?.let { storageManager.getFileById(it.fileId) }
+        val file = waitingToPreview ?: return false
 
         return when {
             MimeTypeUtil.isVideo(file) -> {
@@ -944,12 +854,8 @@ class FileDisplayActivity :
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        if (mDrawerMenuItemstoShowHideList != null) {
-            val drawerOpen = isDrawerOpen
-            for (menuItem in mDrawerMenuItemstoShowHideList) {
-                menuItem.isVisible = !drawerOpen
-            }
-        }
+        val drawerOpen = isDrawerOpen
+        drawerMenuItemsToShowHide.forEach { it.isVisible = !drawerOpen }
 
         menu?.findItem(R.id.action_current_folder_actions)?.isVisible = canShowCurrentFolderActions()
 
@@ -970,12 +876,11 @@ class FileDisplayActivity :
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.activity_file_display, menu)
+        menuInflater.inflate(R.menu.activity_file_display, menu)
 
         menu.findItem(R.id.action_select_all).isVisible = false
         val searchMenuItem = menu.findItem(R.id.action_search)
-        searchView = MenuItemCompat.getActionView(searchMenuItem) as SearchView?
+        searchView = searchMenuItem.actionView as? SearchView
         searchMenuItem.isVisible = false
         mSearchText.setOnClickListener {
             showSearchView()
@@ -985,149 +890,143 @@ class FileDisplayActivity :
             }, SEARCH_VIEW_FOCUS_DELAY)
         }
 
-        searchView?.let { viewThemeUtils.androidx.themeToolbarSearchView(it) }
-
         // populate list of menu items to show/hide when drawer is opened/closed
-        mDrawerMenuItemstoShowHideList = ArrayList<MenuItem>(1)
-        mDrawerMenuItemstoShowHideList?.add(searchMenuItem)
+        drawerMenuItemsToShowHide = listOf(searchMenuItem)
 
-        // focus the SearchView
-        if (!TextUtils.isEmpty(searchQuery)) {
-            searchView?.post {
-                searchView?.isIconified = false
-                searchView?.setQuery(searchQuery, true)
-                searchView?.clearFocus()
-            }
+        searchView?.let { setupSearchView(it) }
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    private fun setupSearchView(view: SearchView) {
+        viewThemeUtils.androidx.themeToolbarSearchView(view)
+
+        if (!searchQuery.isNullOrEmpty()) {
+            view.post { restoreSearchQuery() }
         }
 
-        val mSearchEditFrame = searchView?.findViewById<View>(androidx.appcompat.R.id.search_edit_frame)
-
-        searchView?.setOnCloseListener {
-            if (TextUtils.isEmpty(searchView?.query.toString())) {
-                searchView?.onActionViewCollapsed()
-                setDrawerIndicatorEnabled(isDrawerIndicatorAvailable) // order matters
-                supportActionBar?.setDisplayHomeAsUpEnabled(true)
-                mDrawerToggle.syncState()
-
-                val ocFileListFragment = this.listOfFilesFragment
-                if (ocFileListFragment != null) {
-                    ocFileListFragment.isSearchFragment = false
-                    ocFileListFragment.refreshDirectory()
-                }
-            } else {
-                searchView?.post { searchView?.setQuery("", true) }
-            }
+        view.setOnCloseListener {
+            onSearchViewClosed(view)
             true
         }
 
-        val vto = mSearchEditFrame?.viewTreeObserver
-        vto?.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
-            var oldVisibility: Int = -1
+        view.findViewById<View>(androidx.appcompat.R.id.search_edit_frame)?.let {
+            disableDrawerIndicatorWhenVisible(it)
+        }
+    }
+
+    private fun restoreSearchQuery() {
+        searchView?.run {
+            isIconified = false
+            setQuery(searchQuery, true)
+            clearFocus()
+        }
+    }
+
+    private fun onSearchViewClosed(view: SearchView) {
+        if (!view.query.isNullOrEmpty()) {
+            view.post { searchView?.setQuery("", true) }
+            return
+        }
+
+        view.onActionViewCollapsed()
+        setDrawerIndicatorEnabled(isDrawerIndicatorAvailable) // order matters
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        mDrawerToggle.syncState()
+
+        listOfFilesFragment?.run {
+            isSearchFragment = false
+            refreshDirectory()
+        }
+    }
+
+    private fun disableDrawerIndicatorWhenVisible(searchEditFrame: View) {
+        searchEditFrame.viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
+            var oldVisibility: Int = UNKNOWN_VISIBILITY
 
             override fun onGlobalLayout() {
-                val currentVisibility = mSearchEditFrame.visibility
+                val currentVisibility = searchEditFrame.visibility
+                if (currentVisibility == oldVisibility) return
 
-                if (currentVisibility != oldVisibility) {
-                    if (currentVisibility == View.VISIBLE) {
-                        setDrawerIndicatorEnabled(false)
-                    }
-
-                    oldVisibility = currentVisibility
+                if (currentVisibility == View.VISIBLE) {
+                    setDrawerIndicatorEnabled(false)
                 }
+                oldVisibility = currentVisibility
             }
         })
-
-        return super.onCreateOptionsMenu(menu)
     }
 
     private fun shouldOpenDrawer(): Boolean = !isDrawerOpen &&
         !isSearchOpen() &&
         isRoot(getCurrentDir()) &&
-        this.leftFragment is OCFileListFragment &&
+        leftFragment is OCFileListFragment &&
         !isAlbumItemsFragment
 
     /**
      * Called, when the user selected something for uploading
      */
-    @Suppress("CyclomaticComplexMethod")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (data != null &&
-            (
-                requestCode == REQUEST_CODE__SELECT_CONTENT_FROM_APPS ||
-                    requestCode == REQUEST_CODE__SELECT_CONTENT_FROM_APPS_AUTO_RENAME
-                ) &&
-            (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)
-        ) {
-            requestUploadOfContentFromApps(requestCode, resultCode, data)
-        } else if (data != null &&
-            requestCode == REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM &&
-            (
-                resultCode == RESULT_OK ||
-                    resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE ||
-                    resultCode == UploadFilesActivity.RESULT_OK_AND_DO_NOTHING ||
-                    resultCode == UploadFilesActivity.RESULT_OK_AND_DELETE
-                )
-        ) {
-            requestUploadOfFilesFromFileSystem(data, resultCode)
-        } else if ((
-                requestCode == REQUEST_CODE__UPLOAD_FROM_CAMERA ||
-                    requestCode == REQUEST_CODE__UPLOAD_FROM_VIDEO_CAMERA
-                ) &&
-            (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_DELETE)
-        ) {
-            CheckAvailableSpaceTask(
-                object : CheckAvailableSpaceListener {
-                    override fun onCheckAvailableSpaceStart() {
-                        Log_OC.d(this, "onCheckAvailableSpaceStart")
-                    }
+        when {
+            data != null && requestCode in selectContentFromAppsRequestCodes &&
+                resultCode in selectContentFromAppsResultCodes ->
+                requestUploadOfContentFromApps(requestCode, resultCode, data)
 
-                    override fun onCheckAvailableSpaceFinish(
-                        hasEnoughSpaceAvailable: Boolean,
-                        vararg filesToUpload: String?
-                    ) {
-                        Log_OC.d(this, "onCheckAvailableSpaceFinish")
+            data != null && requestCode == REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM &&
+                resultCode in selectFilesFromFileSystemResultCodes ->
+                requestUploadOfFilesFromFileSystem(data, resultCode)
 
-                        if (hasEnoughSpaceAvailable) {
-                            val file = File(filesToUpload[0])
-                            val renamedFile = if (requestCode == REQUEST_CODE__UPLOAD_FROM_CAMERA) {
-                                File(file.parent + OCFile.PATH_SEPARATOR + FileOperationsHelper.getCapturedImageName())
-                            } else {
-                                File(file.parent + OCFile.PATH_SEPARATOR + FileOperationsHelper.getCapturedVideoName())
-                            }
+            requestCode in uploadFromCameraRequestCodes && resultCode in uploadFromCameraResultCodes ->
+                uploadFromCamera(requestCode)
 
-                            if (!file.renameTo(renamedFile)) {
-                                SnackbarUtil.show(
-                                    this@FileDisplayActivity,
-                                    R.string.error_uploading_direct_camera_upload
-                                )
-                                return
-                            }
+            requestCode == REQUEST_CODE__MOVE_OR_COPY_FILES && resultCode == RESULT_OK -> exitSelectionMode()
 
-                            requestUploadOfFilesFromFileSystem(
-                                renamedFile.parentFile?.absolutePath,
-                                arrayOf(renamedFile.absolutePath),
-                                FileUploadWorker.LOCAL_BEHAVIOUR_DELETE
-                            )
-                        }
-                    }
-                },
-                *arrayOf<String>(
-                    FileOperationsHelper.createCameraFile(
-                        this@FileDisplayActivity,
-                        requestCode == REQUEST_CODE__UPLOAD_FROM_VIDEO_CAMERA
-                    ).absolutePath
-                )
-            ).execute()
-        } else if (requestCode == REQUEST_CODE__MOVE_OR_COPY_FILES && resultCode == RESULT_OK) {
-            exitSelectionMode()
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
+            else -> super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
+    private fun uploadFromCamera(requestCode: Int) {
+        val isVideo = requestCode == REQUEST_CODE__UPLOAD_FROM_VIDEO_CAMERA
+        val cameraFilePath = FileOperationsHelper.createCameraFile(this, isVideo).absolutePath
+
+        val listener = object : CheckAvailableSpaceListener {
+            override fun onCheckAvailableSpaceStart() {
+                Log_OC.d(this, "onCheckAvailableSpaceStart")
+            }
+
+            override fun onCheckAvailableSpaceFinish(hasEnoughSpaceAvailable: Boolean, vararg filesToUpload: String?) {
+                Log_OC.d(this, "onCheckAvailableSpaceFinish")
+                if (!hasEnoughSpaceAvailable) return
+
+                val capturedFilePath = filesToUpload.firstOrNull() ?: return
+                renameAndUploadCapturedFile(File(capturedFilePath), requestCode)
+            }
+        }
+
+        CheckAvailableSpaceTask(listener, cameraFilePath).execute()
+    }
+
+    private fun renameAndUploadCapturedFile(capturedFile: File, requestCode: Int) {
+        val capturedFileName = if (requestCode == REQUEST_CODE__UPLOAD_FROM_CAMERA) {
+            FileOperationsHelper.getCapturedImageName()
+        } else {
+            FileOperationsHelper.getCapturedVideoName()
+        }
+        val renamedFile = File(capturedFile.parent + OCFile.PATH_SEPARATOR + capturedFileName)
+
+        if (!capturedFile.renameTo(renamedFile)) {
+            SnackbarUtil.show(this, R.string.error_uploading_direct_camera_upload)
+            return
+        }
+
+        requestUploadOfFilesFromFileSystem(
+            renamedFile.parentFile?.absolutePath,
+            arrayOf(renamedFile.absolutePath),
+            FileUploadWorker.LOCAL_BEHAVIOUR_DELETE
+        )
+    }
+
     private fun exitSelectionMode() {
-        val ocFileListFragment = this.listOfFilesFragment
-        ocFileListFragment?.exitSelectionMode()
+        listOfFilesFragment?.exitSelectionMode()
     }
 
     private fun requestUploadOfFilesFromFileSystem(data: Intent, resultCode: Int) {
@@ -1137,131 +1036,113 @@ class FileDisplayActivity :
     }
 
     private fun getRemotePaths(directory: String?, filePaths: Array<String>, localBasePath: String): Array<String> =
-        Array(filePaths.size) { j ->
-            val relativePath = StringUtils.removePrefix(filePaths[j], localBasePath)
-            (directory ?: "") + relativePath
-        }
+        filePaths.map { (directory ?: "") + StringUtils.removePrefix(it, localBasePath) }.toTypedArray()
 
     private fun requestUploadOfFilesFromFileSystem(localBasePath: String?, filePaths: Array<String>, resultCode: Int) {
-        var localBasePath = localBasePath
-        if (localBasePath != null) {
-            if (!localBasePath.endsWith("/")) {
-                localBasePath = "$localBasePath/"
-            }
-
-            val remotePathBase = getCurrentDir()?.remotePath
-            val decryptedRemotePaths = getRemotePaths(remotePathBase, filePaths, localBasePath)
-
-            val behaviour = when (resultCode) {
-                UploadFilesActivity.RESULT_OK_AND_MOVE -> FileUploadWorker.LOCAL_BEHAVIOUR_MOVE
-                UploadFilesActivity.RESULT_OK_AND_DELETE -> FileUploadWorker.LOCAL_BEHAVIOUR_DELETE
-                else -> FileUploadWorker.LOCAL_BEHAVIOUR_FORGET
-            }
-
-            connectivityService.isNetworkAndServerAvailable { result: Boolean? ->
-                if (result == true) {
-                    val optionalCapabilities = capabilities
-                    if (optionalCapabilities.isPresent) {
-                        val isValidFolderPath =
-                            remotePathBase?.let {
-                                checkFolderPath(
-                                    it,
-                                    optionalCapabilities.get(),
-                                    this
-                                )
-                            }
-                        if (isValidFolderPath == false) {
-                            SnackbarUtil.show(
-                                this,
-                                R.string.file_name_validator_error_contains_reserved_names_or_invalid_characters
-                            )
-                            return@isNetworkAndServerAvailable
-                        }
-
-                        val data = OCUploadLocalPathData.forFile(
-                            user.orElseThrow(Supplier { RuntimeException() }),
-                            filePaths,
-                            decryptedRemotePaths,
-                            behaviour,
-                            createRemoteFolder = true
-                        )
-
-                        FileUploadHelper.instance().uploadNewFiles(data)
-                    }
-                } else {
-                    lifecycleScope.launch(Dispatchers.IO) {
-                        fileDataStorageManager.addCreateFileOfflineOperation(filePaths, decryptedRemotePaths)
-
-                        withContext(Dispatchers.Main) {
-                            refreshCurrentDirectory()
-                        }
-                    }
-                }
-            }
-        } else {
+        if (localBasePath == null) {
             Log_OC.d(TAG, "User clicked on 'Update' with no selection")
             SnackbarUtil.show(this, R.string.filedisplay_no_file_selected)
+            return
+        }
+
+        val normalizedLocalBasePath = if (localBasePath.endsWith("/")) localBasePath else "$localBasePath/"
+        val remotePathBase = getCurrentDir()?.remotePath
+        val decryptedRemotePaths = getRemotePaths(remotePathBase, filePaths, normalizedLocalBasePath)
+
+        val behaviour = when (resultCode) {
+            UploadFilesActivity.RESULT_OK_AND_MOVE -> FileUploadWorker.LOCAL_BEHAVIOUR_MOVE
+            UploadFilesActivity.RESULT_OK_AND_DELETE -> FileUploadWorker.LOCAL_BEHAVIOUR_DELETE
+            else -> FileUploadWorker.LOCAL_BEHAVIOUR_FORGET
+        }
+
+        connectivityService.isNetworkAndServerAvailable { isAvailable: Boolean? ->
+            if (isAvailable == true) {
+                uploadNewFiles(remotePathBase, filePaths, decryptedRemotePaths, behaviour)
+            } else {
+                addCreateFileOfflineOperation(filePaths, decryptedRemotePaths)
+            }
+        }
+    }
+
+    private fun uploadNewFiles(
+        remotePathBase: String?,
+        filePaths: Array<String>,
+        decryptedRemotePaths: Array<String>,
+        behaviour: Int
+    ) {
+        val capability = capabilities.orElse(null) ?: return
+
+        val isValidFolderPath = remotePathBase?.let { checkFolderPath(it, capability, this) }
+        if (isValidFolderPath == false) {
+            SnackbarUtil.show(this, R.string.file_name_validator_error_contains_reserved_names_or_invalid_characters)
+            return
+        }
+
+        val currentUser = user.orElse(null) ?: return
+        val data = OCUploadLocalPathData.forFile(
+            currentUser,
+            filePaths,
+            decryptedRemotePaths,
+            behaviour,
+            createRemoteFolder = true
+        )
+
+        FileUploadHelper.instance().uploadNewFiles(data)
+    }
+
+    private fun addCreateFileOfflineOperation(filePaths: Array<String>, decryptedRemotePaths: Array<String>) {
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                fileDataStorageManager.addCreateFileOfflineOperation(filePaths, decryptedRemotePaths)
+            }
+            refreshCurrentDirectory()
         }
     }
 
     private fun requestUploadOfContentFromApps(requestCode: Int, resultCode: Int, contentIntent: Intent) {
-        val streamsToUpload = ArrayList<Parcelable?>()
+        val currentUser = user.orElse(null) ?: return
 
-        if (contentIntent.clipData != null && (contentIntent.clipData?.itemCount ?: 0) > 0) {
-            for (i in 0..<(contentIntent.clipData?.itemCount ?: 0)) {
-                streamsToUpload.add(contentIntent.clipData?.getItemAt(i)?.uri)
-            }
+        val clipData = contentIntent.clipData
+        val streamsToUpload: List<Parcelable?> = if (clipData != null && clipData.itemCount > 0) {
+            List(clipData.itemCount) { clipData.getItemAt(it)?.uri }
         } else {
-            streamsToUpload.add(contentIntent.data)
+            listOf(contentIntent.data)
         }
 
-        val behaviour =
-            if (resultCode ==
-                UploadFilesActivity.RESULT_OK_AND_MOVE
-            ) {
-                FileUploadWorker.LOCAL_BEHAVIOUR_MOVE
-            } else {
-                FileUploadWorker.LOCAL_BEHAVIOUR_COPY
-            }
-
-        val currentDir = getCurrentDir()
-        val remotePath = if (currentDir != null) currentDir.remotePath else OCFile.ROOT_PATH
-        var fileDisplayNameTransformer: Function<Uri, String?>? = null
-        if (requestCode == REQUEST_CODE__SELECT_CONTENT_FROM_APPS_AUTO_RENAME) {
-            fileDisplayNameTransformer = { uri: Uri ->
-                val displayName = UriUtils.getDisplayNameForUri(uri, applicationContext)
-                if (displayName != null && displayName.isNotEmpty()) {
-                    FileOperationsHelper.getTimestampedFileName("." + FilenameUtils.getExtension(displayName))
-                } else {
-                    null
-                }
-            }
+        val behaviour = if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE) {
+            FileUploadWorker.LOCAL_BEHAVIOUR_MOVE
+        } else {
+            FileUploadWorker.LOCAL_BEHAVIOUR_COPY
         }
 
-        val uploader = UriUploader(
+        val remotePath = getCurrentDir()?.remotePath ?: OCFile.ROOT_PATH
+        val fileDisplayNameTransformer = if (requestCode == REQUEST_CODE__SELECT_CONTENT_FROM_APPS_AUTO_RENAME) {
+            Function<Uri, String?> { timestampedFileNameFor(it) }
+        } else {
+            null
+        }
+
+        UriUploader(
             this,
             streamsToUpload,
             remotePath,
-            user.orElseThrow(
-                Supplier { RuntimeException() }
-            ),
+            currentUser,
             behaviour,
             false, // Not show waiting dialog while file is being copied from private storage
             null, // Not needed copy temp task listener
             fileDisplayNameTransformer
-        )
-
-        uploader.uploadUris()
+        ).uploadUris()
     }
 
-    fun isSearchOpen(): Boolean {
-        if (searchView == null) {
-            return false
-        } else {
-            val mSearchEditFrame = searchView?.findViewById<View?>(androidx.appcompat.R.id.search_edit_frame)
-            return mSearchEditFrame != null && mSearchEditFrame.isVisible
-        }
+    private fun timestampedFileNameFor(uri: Uri): String? {
+        val displayName = UriUtils.getDisplayNameForUri(uri, applicationContext)
+        if (displayName.isNullOrEmpty()) return null
+
+        return FileOperationsHelper.getTimestampedFileName("." + FilenameUtils.getExtension(displayName))
     }
+
+    fun isSearchOpen(): Boolean =
+        searchView?.findViewById<View?>(androidx.appcompat.R.id.search_edit_frame)?.isVisible == true
 
     /**
      * Sets up a custom back-press handler for this activity.
@@ -1295,75 +1176,40 @@ class FileDisplayActivity :
     }
 
     private fun handleBackPressImpl(before: () -> Unit = {}, after: () -> Unit = {}) {
+        val currentLeftFragment = leftFragment
+
+        before()
         when {
-            isSearchOpen() -> {
-                before()
-                resetSearchAction()
-                after()
-            }
+            isSearchOpen() -> resetSearchAction()
 
-            isDrawerOpen -> {
-                before()
-                closeDrawer()
-                after()
-            }
+            isDrawerOpen -> closeDrawer()
 
-            isShowingDetailsFromPreview && leftFragment is FileDetailFragment -> {
-                before()
+            isShowingDetailsFromPreview && currentLeftFragment is FileDetailFragment ->
                 NavigationAnimator(this).finishWithSlideDown()
-                after()
-            }
 
             // pop back if current fragment is AlbumItemsFragment
-            isAlbumItemsFragment -> {
-                before()
-                popBack()
-                after()
-            }
+            isAlbumItemsFragment -> popBack()
 
-            leftFragment is OCFileListFragment -> {
-                before()
-                handleOCFileListFragmentBackPress()
-                after()
-            }
+            currentLeftFragment is OCFileListFragment -> handleOCFileListFragmentBackPress(currentLeftFragment)
 
-            else -> {
-                before()
-                popBack()
-                after()
-            }
+            else -> popBack()
         }
+        after()
     }
 
-    private fun handleOCFileListFragmentBackPress() {
-        val fragment = leftFragment as OCFileListFragment
-
-        when {
-            // root
-            isRoot(getCurrentDir()) -> {
-                if (fragment.shouldNavigateBackToAllFiles()) {
-                    navigateToAllFiles()
-                } else {
-                    finish()
-                }
-            }
-
-            // Normal folder navigation (go up) also works for shared tab
-            else -> {
-                browseUp(fragment)
-            }
+    private fun handleOCFileListFragmentBackPress(fragment: OCFileListFragment) {
+        // Normal folder navigation (go up) also works for shared tab
+        if (!isRoot(getCurrentDir())) {
+            browseUp(fragment)
+            return
         }
+
+        if (fragment.shouldNavigateBackToAllFiles()) navigateToAllFiles() else finish()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         android.R.id.home -> {
-            when {
-                shouldOpenDrawer() -> openDrawer()
-
-                else -> {
-                    handleBackPressImpl()
-                }
-            }
+            if (shouldOpenDrawer()) openDrawer() else handleBackPressImpl()
             true
         }
 
@@ -1387,7 +1233,7 @@ class FileDisplayActivity :
         file = currentFile
 
         currentFile?.let {
-            listOfFiles.setFabVisible(currentFile.canCreateFileAndFolder())
+            listOfFiles.setFabVisible(it.canCreateFileAndFolder())
             listOfFiles.registerFabListener()
         }
 
@@ -1396,28 +1242,28 @@ class FileDisplayActivity :
     }
 
     private fun resetSearchAction() {
-        val leftFragment = this.leftFragment
-        if (!isSearchOpen() || searchView == null) {
-            return
+        val currentLeftFragment = leftFragment
+        val currentSearchView = searchView ?: return
+        if (!isSearchOpen()) return
+
+        currentSearchView.run {
+            clearFocus()
+            val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
+            inputMethodManager?.hideSoftInputFromWindow(windowToken, 0)
+            setQuery("", false)
+            onActionViewCollapsed()
         }
 
-        searchView?.clearFocus()
-        val imm = getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
-        imm?.hideSoftInputFromWindow(searchView?.windowToken, 0)
-        searchView?.setQuery("", false)
-        searchView?.onActionViewCollapsed()
-
-        if (isRoot(getCurrentDir()) && leftFragment is OCFileListFragment) {
+        if (isRoot(getCurrentDir()) && currentLeftFragment is OCFileListFragment) {
             // Remove the list to the original state
-            leftFragment.adapter?.let { adapter ->
-                val listOfHiddenFiles = adapter.listOfHiddenFiles
-                leftFragment.performSearch("", listOfHiddenFiles, true)
+            currentLeftFragment.adapter?.let { adapter ->
+                currentLeftFragment.performSearch("", adapter.listOfHiddenFiles, true)
             }
             hideSearchView(getCurrentDir())
             setDrawerIndicatorEnabled(isDrawerIndicatorAvailable)
         }
 
-        if (leftFragment is UnifiedSearchFragment) {
+        if (currentLeftFragment is UnifiedSearchFragment) {
             showSortListGroup(false)
             supportFragmentManager.popBackStack()
         }
@@ -1439,18 +1285,15 @@ class FileDisplayActivity :
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.run {
-            putParcelable(KEY_WAITING_TO_PREVIEW, mWaitingToPreview)
+            putParcelable(KEY_WAITING_TO_PREVIEW, waitingToPreview)
             putParcelable(KEY_SYNC_STATE, syncState)
-            putParcelable(KEY_WAITING_TO_SEND, mWaitingToSend)
-            if (searchView != null) {
-                putBoolean(KEY_IS_SEARCH_OPEN, searchView?.isIconified == false)
-            }
+            putParcelable(KEY_WAITING_TO_SEND, waitingToSend)
+            searchView?.let { putBoolean(KEY_IS_SEARCH_OPEN, !it.isIconified) }
             putString(KEY_SEARCH_QUERY, searchQuery)
             putBoolean(KEY_IS_SORT_GROUP_VISIBLE, sortListGroupVisibility())
         }
     }
 
-    @Suppress("CyclomaticComplexMethod")
     override fun onResume() {
         Log_OC.v(TAG, "onResume() start")
 
@@ -1461,14 +1304,8 @@ class FileDisplayActivity :
 
         folderRefreshScheduler.start()
 
-        if (ocFileListFragment?.isSearchFragment == true) {
-            ocFileListFragment?.loadSearchState(ocFileListFragment?.arguments)
-        }
-        if (isAlbumsFragment || isAlbumItemsFragment) {
-            highlightNavigationViewItem(R.id.nav_album)
-        } else {
-            highlightNavigationViewItem(menuItemId)
-        }
+        restoreSearchStateIfNeeded()
+        highlightCurrentNavigationItem()
 
         if (SettingsActivity.isBackPressed) {
             Log_OC.d(TAG, "User returned from settings activity, skipping reset content logic")
@@ -1478,10 +1315,10 @@ class FileDisplayActivity :
         isFileDisplayActivityResumed = true
 
         // Instead of onPostCreate, starting the loading in onResume for children fragments
-        val leftFragment = this.leftFragment
-        if (leftFragment !is OCFileListFragment) {
-            if (leftFragment is FileFragment) {
-                super.updateActionBarTitleAndHomeButton(leftFragment.file)
+        val currentLeftFragment = leftFragment
+        if (currentLeftFragment !is OCFileListFragment) {
+            if (currentLeftFragment is FileFragment) {
+                super.updateActionBarTitleAndHomeButton(currentLeftFragment.file)
             }
             return
         }
@@ -1489,33 +1326,10 @@ class FileDisplayActivity :
         if (isToolbarStyleSearch) {
             setupHomeSearchToolbarWithSortAndListButtons()
         }
-        val ocFileListFragment = leftFragment
         syncAndUpdateFolder(ignoreETag = true, ignoreFocus = true)
+        refreshListOfFiles(currentLeftFragment, listFragmentJustCreated)
 
-        // Try to get the OCFile from the intent, if one was provided when launching this activity.
-        // 'file' comes from the FileActivity base class and represents the currently opened file or folder.
-        // We update it only when a valid file is found in the intent.
-        val startFile = intent?.let { getFileFromIntent(it) }?.also {
-            file = it
-        }
-
-        // refresh list of files
-        if (searchView != null && !TextUtils.isEmpty(searchQuery)) {
-            searchView?.setQuery(searchQuery, false)
-        } else if (!ocFileListFragment.isSearchFragment && startFile == null) {
-            if (!listFragmentJustCreated) {
-                ocFileListFragment.listDirectory(MainApp.isOnlyOnDevice())
-            }
-            ocFileListFragment.registerFabListener()
-            updateActionBarTitleAndHomeButton(currentDir)
-        } else {
-            ocFileListFragment.listDirectory(startFile, false)
-            updateActionBarTitleAndHomeButton(startFile)
-        }
-
-        // show in-app review dialog to user
         inAppReviewHelper.showInAppReview(this)
-
         checkNotifications()
 
         Log_OC.v(TAG, "onResume() end")
@@ -1523,6 +1337,43 @@ class FileDisplayActivity :
         Handler(Looper.getMainLooper()).postDelayed({
             isFileDisplayActivityResumed = false
         }, ON_RESUMED_RESET_DELAY)
+    }
+
+    private fun restoreSearchStateIfNeeded() {
+        val fragment = ocFileListFragment ?: return
+        if (fragment.isSearchFragment) {
+            fragment.loadSearchState(fragment.arguments)
+        }
+    }
+
+    private fun highlightCurrentNavigationItem() {
+        val itemId = if (isAlbumsFragment || isAlbumItemsFragment) R.id.nav_album else menuItemId
+        highlightNavigationViewItem(itemId)
+    }
+
+    private fun refreshListOfFiles(fragment: OCFileListFragment, listFragmentJustCreated: Boolean) {
+        // Try to get the OCFile from the intent, if one was provided when launching this activity.
+        // 'file' comes from the FileActivity base class and represents the currently opened file or folder.
+        // We update it only when a valid file is found in the intent.
+        val startFile = getFileFromIntent(intent)?.also { file = it }
+
+        val currentSearchView = searchView
+        when {
+            currentSearchView != null && !searchQuery.isNullOrEmpty() -> currentSearchView.setQuery(searchQuery, false)
+
+            !fragment.isSearchFragment && startFile == null -> {
+                if (!listFragmentJustCreated) {
+                    fragment.listDirectory(MainApp.isOnlyOnDevice())
+                }
+                fragment.registerFabListener()
+                updateActionBarTitleAndHomeButton(currentDir)
+            }
+
+            else -> {
+                fragment.listDirectory(startFile, false)
+                updateActionBarTitleAndHomeButton(startFile)
+            }
+        }
     }
 
     private fun getFileFromIntent(intent: Intent?): OCFile? =
@@ -1574,8 +1425,7 @@ class FileDisplayActivity :
     }
 
     override fun onSortingOrderChosen(selection: FileSortOrder?) {
-        val ocFileListFragment = this.listOfFilesFragment
-        ocFileListFragment?.fileListLayoutManager?.sortFiles(selection)
+        listOfFilesFragment?.fileListLayoutManager?.sortFiles(selection)
     }
 
     override fun downloadFile(file: OCFile, packageName: String, activityName: String) {
@@ -1595,9 +1445,8 @@ class FileDisplayActivity :
                 val syncFolderRemotePath = intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH)
                 val id = intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT)
                 val syncResult = DataHolderUtil.getInstance().retrieve(id)
-                val sameAccount =
-                    account != null && accountName != null && accountName == account.name && storageManager != null
-                val fileListFragment: OCFileListFragment? = this@FileDisplayActivity.listOfFilesFragment
+                val sameAccount = accountName != null && accountName == account?.name && storageManager != null
+                val fileListFragment = this@FileDisplayActivity.listOfFilesFragment
 
                 // endregion
                 if (sameAccount) {
@@ -1687,25 +1536,14 @@ class FileDisplayActivity :
         currentDir: OCFile,
         syncFolderRemotePath: String?
     ) {
-        if (currentDir.remotePath != syncFolderRemotePath) {
-            return
-        }
+        if (currentDir.remotePath != syncFolderRemotePath) return
 
-        if (ocFileListFragment == null) {
-            return
-        }
-
-        ocFileListFragment.listDirectory(currentDir, MainApp.isOnlyOnDevice())
+        ocFileListFragment?.listDirectory(currentDir, MainApp.isOnlyOnDevice())
     }
 
     private fun handleScrollBehaviour(ocFileListFragment: OCFileListFragment?) {
-        if (ocFileListFragment == null) {
-            return
-        }
-
-        if (syncState == EmptyListState.LOADING || ocFileListFragment.isLoading) {
-            return
-        }
+        ocFileListFragment ?: return
+        if (syncState == EmptyListState.LOADING || ocFileListFragment.isLoading) return
 
         if (ocFileListFragment.isEmpty) {
             lockScrolling()
@@ -1737,9 +1575,7 @@ class FileDisplayActivity :
     }
 
     private fun handleNonCredentialSyncErrors(syncResult: Any?) {
-        if (syncResult !is RemoteOperationResult<*>) {
-            return
-        }
+        if (syncResult !is RemoteOperationResult<*>) return
 
         when (syncResult.code) {
             RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED -> showUntrustedCertDialog(syncResult)
@@ -1758,19 +1594,14 @@ class FileDisplayActivity :
         }
     }
 
-    private fun checkForRemoteOperationError(syncResult: Any?): Boolean {
-        if (syncResult !is RemoteOperationResult<*>) {
-            return false
-        }
-
-        return RemoteOperationResult.ResultCode.UNAUTHORIZED == syncResult.code ||
-            (syncResult.isException && syncResult.exception is AuthenticatorException)
-    }
+    private fun checkForRemoteOperationError(syncResult: Any?): Boolean = syncResult is RemoteOperationResult<*> &&
+        (
+            RemoteOperationResult.ResultCode.UNAUTHORIZED == syncResult.code ||
+                (syncResult.isException && syncResult.exception is AuthenticatorException)
+            )
 
     private fun onSyncFinished() {
-        if (syncState != EmptyListState.LOADING) {
-            return
-        }
+        if (syncState != EmptyListState.LOADING) return
 
         syncState = when {
             MainApp.isOnlyOnDevice() -> EmptyListState.ONLY_ON_DEVICE
@@ -1790,72 +1621,78 @@ class FileDisplayActivity :
     private inner class FileUploadCompletedReceiver : BroadcastReceiver() {
         private val tag = "UploadFinishReceiver"
 
-        @Suppress("CyclomaticComplexMethod")
         override fun onReceive(context: Context?, intent: Intent) {
             Log_OC.d(tag, "upload finish received broadcast")
 
             val uploadedRemotePath = intent.getStringExtra(FileUploadEventBroadcaster.EXTRA_REMOTE_PATH)
             val accountName = intent.getStringExtra(FileUploadEventBroadcaster.EXTRA_ACCOUNT_NAME)
-            val account = getAccount()
-            val sameAccount = accountName != null && account != null && accountName == account.name
-            val currentDir = getCurrentDir()
+            val sameAccount = accountName != null && accountName == getAccount()?.name
+            val currentDirRemotePath = getCurrentDir()?.remotePath
             val isDescendant =
-                currentDir != null && uploadedRemotePath != null && uploadedRemotePath.startsWith(currentDir.remotePath)
+                currentDirRemotePath != null && uploadedRemotePath?.startsWith(currentDirRemotePath) == true
 
             if (sameAccount && isDescendant) {
                 updateListOfFilesFragment()
             }
 
             val uploadWasFine = intent.getBooleanExtra(FileUploadEventBroadcaster.EXTRA_UPLOAD_RESULT, false)
+            val currentFile = file
+            val oldRemotePath = intent.getStringExtra(FileUploadEventBroadcaster.EXTRA_OLD_REMOTE_PATH)
+            val renamedInUpload = currentFile != null && currentFile.remotePath == oldRemotePath
+            val sameFile = currentFile != null && (currentFile.remotePath == uploadedRemotePath || renamedInUpload)
 
-            var renamedInUpload = false
-            var sameFile = false
-            if (file != null) {
-                renamedInUpload =
-                    file?.remotePath == intent.getStringExtra(FileUploadEventBroadcaster.EXTRA_OLD_REMOTE_PATH)
-                sameFile = file?.remotePath == uploadedRemotePath || renamedInUpload
+            val fileDetailFragment = leftFragment as? FileDetailFragment
+            if (sameAccount && sameFile && fileDetailFragment != null) {
+                updateFileDetailsAfterUpload(fileDetailFragment, uploadedRemotePath, uploadWasFine, renamedInUpload)
             }
 
-            if (sameAccount && sameFile && this@FileDisplayActivity.leftFragment is FileDetailFragment) {
-                val fileDetailFragment = leftFragment as FileDetailFragment
-                if (uploadWasFine) {
-                    file = storageManager.getFileByPath(uploadedRemotePath)
-                } else {
-                    // TODO remove upload progress bar after upload failed.
-                    Log_OC.d(TAG, "Remove upload progress bar after upload failed")
-                }
-                if (renamedInUpload && !uploadedRemotePath.isNullOrBlank()) {
-                    val newName = File(uploadedRemotePath).name
-                    SnackbarUtil.show(
-                        this@FileDisplayActivity,
-                        R.string.filedetails_renamed_in_upload_msg,
-                        newName
-                    )
-                }
+            refreshAlbumScreensAfterUpload()
+        }
 
-                if (uploadWasFine || file?.fileExists() == true) {
-                    fileDetailFragment.updateFileDetails(false, true)
-                } else {
-                    onBackPressedDispatcher.onBackPressed()
-                }
-
-                // Force the preview if the file is an image or text file
-                if (uploadWasFine) {
-                    file?.let {
-                        if (PreviewMediaFragment.canBePreviewed(it)) {
-                            startImagePreview(it, true)
-                        } else if (PreviewTextFileFragment.canBePreviewed(it)) {
-                            startTextPreview(it, true)
-                        }
-                    }
-                }
+        private fun updateFileDetailsAfterUpload(
+            fileDetailFragment: FileDetailFragment,
+            uploadedRemotePath: String?,
+            uploadWasFine: Boolean,
+            renamedInUpload: Boolean
+        ) {
+            if (uploadWasFine) {
+                file = storageManager.getFileByPath(uploadedRemotePath)
+            } else {
+                // TODO remove upload progress bar after upload failed.
+                Log_OC.d(TAG, "Remove upload progress bar after upload failed")
             }
 
-            // notify when upload is finished and user is on albums screen
-            if (isAlbumsFragment) {
-                (supportFragmentManager.findFragmentByTag(AlbumsFragment.TAG) as AlbumsFragment).refreshAlbums()
-            } else if (isAlbumItemsFragment) {
-                (supportFragmentManager.findFragmentByTag(AlbumItemsFragment.TAG) as AlbumItemsFragment).refreshData()
+            if (renamedInUpload && !uploadedRemotePath.isNullOrBlank()) {
+                val newName = File(uploadedRemotePath).name
+                SnackbarUtil.show(this@FileDisplayActivity, R.string.filedetails_renamed_in_upload_msg, newName)
+            }
+
+            if (uploadWasFine || file?.fileExists() == true) {
+                fileDetailFragment.updateFileDetails(false, true)
+            } else {
+                onBackPressedDispatcher.onBackPressed()
+            }
+
+            if (uploadWasFine) {
+                file?.let { forcePreviewIfImageOrText(it) }
+            }
+        }
+
+        private fun forcePreviewIfImageOrText(uploadedFile: OCFile) {
+            when {
+                PreviewMediaFragment.canBePreviewed(uploadedFile) -> startImagePreview(uploadedFile, true)
+                PreviewTextFileFragment.canBePreviewed(uploadedFile) -> startTextPreview(uploadedFile, true)
+            }
+        }
+
+        private fun refreshAlbumScreensAfterUpload() {
+            when {
+                isAlbumsFragment ->
+                    (supportFragmentManager.findFragmentByTag(AlbumsFragment.TAG) as? AlbumsFragment)?.refreshAlbums()
+
+                isAlbumItemsFragment ->
+                    (supportFragmentManager.findFragmentByTag(AlbumItemsFragment.TAG) as? AlbumItemsFragment)
+                        ?.refreshData()
             }
         }
     }
@@ -1881,8 +1718,7 @@ class FileDisplayActivity :
     // region FileDownloadWorker receivers
     private fun getFileFromFileDownloadWorker(intent: Intent): OCFile? {
         val remotePath = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_REMOTE_PATH)
-        val file = fileDataStorageManager.getFileByDecryptedRemotePath(remotePath) ?: return null
-        return file
+        return fileDataStorageManager.getFileByDecryptedRemotePath(remotePath)
     }
 
     private inner class FileDownloadStartedReceiver : BroadcastReceiver() {
@@ -1902,7 +1738,7 @@ class FileDisplayActivity :
                 updateFileDownloadIndicator(FileDownloadIndicator.Downloaded, it)
             }
 
-            if (fileIDForImmediatePreview == -1L) {
+            if (fileIDForImmediatePreview == NO_IMMEDIATE_PREVIEW_FILE_ID) {
                 Log_OC.d(TAG, "updating ui for file download")
                 updateUIForFileDownload(intent)
                 return
@@ -1912,11 +1748,9 @@ class FileDisplayActivity :
 
             val downloadedRemotePath = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_REMOTE_PATH)
             val currentFile = storageManager.getFileByDecryptedRemotePath(downloadedRemotePath) ?: return
-            if (fileIDForImmediatePreview != currentFile.fileId || !currentFile.isDown) {
-                return
-            }
+            if (fileIDForImmediatePreview != currentFile.fileId || !currentFile.isDown) return
 
-            fileIDForImmediatePreview = -1
+            fileIDForImmediatePreview = NO_IMMEDIATE_PREVIEW_FILE_ID
             if (PreviewMediaFragment.canBePreviewed(currentFile)) {
                 startImagePreview(currentFile, currentFile.isDown)
             } else {
@@ -1924,14 +1758,11 @@ class FileDisplayActivity :
             }
         }
 
-        @Suppress("CyclomaticComplexMethod")
         private fun updateUIForFileDownload(intent: Intent) {
-            val sameAccount = isSameAccount(intent)
             val downloadedRemotePath = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_REMOTE_PATH)
             val downloadBehaviour = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_DOWNLOAD_BEHAVIOUR)
-            val isDescendant = isDescendant(downloadedRemotePath)
 
-            if (sameAccount && isDescendant) {
+            if (isSameAccount(intent) && isDescendant(downloadedRemotePath)) {
                 updateListOfFilesFragment()
                 val intentAction = intent.action
                 if (intentAction != null && downloadedRemotePath != null) {
@@ -1943,42 +1774,36 @@ class FileDisplayActivity :
                 }
             }
 
-            if (mWaitingToSend != null) {
+            waitingToSend?.let { previousWaitingToSend ->
                 // update file after downloading
-                mWaitingToSend = storageManager.getFileByRemoteId(mWaitingToSend?.remoteId)
-                if (mWaitingToSend != null &&
-                    mWaitingToSend?.isDown == true &&
-                    OCFileListFragment.DOWNLOAD_SEND == downloadBehaviour
-                ) {
+                val updatedWaitingToSend = storageManager.getFileByRemoteId(previousWaitingToSend.remoteId)
+                waitingToSend = updatedWaitingToSend
+                if (updatedWaitingToSend?.isDown == true && OCFileListFragment.DOWNLOAD_SEND == downloadBehaviour) {
                     val packageName = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_PACKAGE_NAME) ?: return
                     val activityName = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_ACTIVITY_NAME) ?: return
                     sendDownloadedFile(packageName, activityName)
                 }
             }
 
-            if (mWaitingToPreview != null) {
-                mWaitingToPreview = storageManager.getFileByRemoteId(mWaitingToPreview?.remoteId)
-                if (mWaitingToPreview != null &&
-                    mWaitingToPreview?.isDown == true &&
+            waitingToPreview?.let { previousWaitingToPreview ->
+                val updatedWaitingToPreview = storageManager.getFileByRemoteId(previousWaitingToPreview.remoteId)
+                waitingToPreview = updatedWaitingToPreview
+                if (updatedWaitingToPreview?.isDown == true &&
                     EditImageActivity.OPEN_IMAGE_EDITOR == downloadBehaviour
                 ) {
-                    mWaitingToPreview?.let {
-                        startImageEditor(it)
-                    }
+                    startImageEditor(updatedWaitingToPreview)
                 }
             }
         }
 
         fun isDescendant(downloadedRemotePath: String?): Boolean {
-            val currentDir = getCurrentDir()
-            return currentDir != null &&
-                downloadedRemotePath != null &&
-                downloadedRemotePath.startsWith(currentDir.remotePath)
+            val currentDirRemotePath = getCurrentDir()?.remotePath ?: return false
+            return downloadedRemotePath?.startsWith(currentDirRemotePath) == true
         }
 
         fun isSameAccount(intent: Intent): Boolean {
             val accountName = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_ACCOUNT_NAME)
-            return accountName != null && account != null && accountName == account.name
+            return accountName != null && accountName == account?.name
         }
     }
     // endregion
@@ -2021,11 +1846,11 @@ class FileDisplayActivity :
      * @param activeTab the active tab in the details view
      */
     override fun showDetails(file: OCFile?, activeTab: Int) {
-        val currentUser = user.orElseThrow(Supplier { RuntimeException() })
+        val currentUser = user.orElse(null) ?: return
 
         resetScrolling(true)
 
-        val detailFragment: Fragment = FileDetailFragment.newInstance(file, currentUser, activeTab)
+        val detailFragment = FileDetailFragment.newInstance(file, currentUser, activeTab)
         setLeftFragment(detailFragment, false)
         // swap now, so no frame shows the list without its sort row
         supportFragmentManager.executePendingTransactions()
@@ -2038,9 +1863,9 @@ class FileDisplayActivity :
     @VisibleForTesting
     fun lockScrolling() {
         binding.appbar.appbar.setExpanded(true, false)
-        val appbarParams = binding.appbar.toolbarFrame.layoutParams as AppBarLayout.LayoutParams
-        appbarParams.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL)
-        binding.appbar.toolbarFrame.layoutParams = appbarParams
+        binding.appbar.toolbarFrame.updateLayoutParams<AppBarLayout.LayoutParams> {
+            scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL
+        }
     }
 
     /**
@@ -2048,22 +1873,18 @@ class FileDisplayActivity :
      */
     @VisibleForTesting
     fun resetScrolling(expandAppBar: Boolean) {
-        val appbarParams = binding.appbar.toolbarFrame.layoutParams as AppBarLayout.LayoutParams
-        appbarParams.setScrollFlags(
-            AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
-        )
-        binding.appbar.toolbarFrame.layoutParams = appbarParams
+        binding.appbar.toolbarFrame.updateLayoutParams<AppBarLayout.LayoutParams> {
+            scrollFlags =
+                AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
+        }
         if (expandAppBar) {
             binding.appbar.appbar.setExpanded(true, false)
         }
     }
 
     public override fun updateActionBarTitleAndHomeButton(chosenFile: OCFile?) {
-        var chosenFile = chosenFile
-        if (chosenFile == null) {
-            chosenFile = file // if no file is passed, current file decides
-        }
-        super.updateActionBarTitleAndHomeButton(chosenFile)
+        // if no file is passed, current file decides
+        super.updateActionBarTitleAndHomeButton(chosenFile ?: file)
         supportInvalidateOptionsMenu()
     }
 
@@ -2121,33 +1942,38 @@ class FileDisplayActivity :
             return
         }
 
-        if (MimeTypeUtil.isVCard(file)) {
-            startContactListFragment(file)
-        } else if (MimeTypeUtil.isPDF(file)) {
-            startPdfPreview(file)
-        } else if (PreviewTextFileFragment.canBePreviewed(file)) {
-            setFabVisible?.onComplete(false)
-            startTextPreview(file, false)
-        } else if (canPreviewInAudioPlayer(file)) {
-            setFabVisible?.onComplete(false)
-            startAudioPreview(file, true, false)
-        } else {
-            fileOperationsHelper.openFile(file)
+        when {
+            MimeTypeUtil.isVCard(file) -> startContactListFragment(file)
+
+            MimeTypeUtil.isPDF(file) -> startPdfPreview(file)
+
+            PreviewTextFileFragment.canBePreviewed(file) -> {
+                setFabVisible?.onComplete(false)
+                startTextPreview(file, false)
+            }
+
+            canPreviewInAudioPlayer(file) -> {
+                setFabVisible?.onComplete(false)
+                startAudioPreview(file, true, false)
+            }
+
+            else -> fileOperationsHelper.openFile(file)
         }
     }
 
     fun refreshCurrentDirectory() {
         val currentDir = getCurrentDir()?.let { storageManager.getFileByDecryptedRemotePath(it.remotePath) }
-        val fileListFragment = lastFragment() as? OCFileListFragment ?: listOfFilesFragment
         fileListFragment?.listDirectory(currentDir, MainApp.isOnlyOnDevice())
     }
 
     private fun handleDownloadWorkerState() {
-        if (mWaitingToPreview != null && storageManager != null) {
-            mWaitingToPreview = mWaitingToPreview?.fileId?.let { storageManager.getFileById(it) }
-            if (mWaitingToPreview != null && mWaitingToPreview?.isDown == false) {
-                requestForDownload()
-            }
+        val previousWaitingToPreview = waitingToPreview ?: return
+        if (storageManager == null) return
+
+        val updatedWaitingToPreview = storageManager.getFileById(previousWaitingToPreview.fileId)
+        waitingToPreview = updatedWaitingToPreview
+        if (updatedWaitingToPreview?.isDown == false) {
+            requestForDownload()
         }
     }
 
@@ -2178,88 +2004,59 @@ class FileDisplayActivity :
         super.onRemoteOperationFinish(operation, result)
 
         when (operation) {
-            is RemoveFileOperation -> {
-                onRemoveFileOperationFinish(operation, result)
-            }
+            is RemoveFileOperation -> onRemoveFileOperationFinish(operation, result)
 
-            is RenameFileOperation -> {
-                onRenameFileOperationFinish(operation, result)
-            }
+            is RenameFileOperation -> onRenameFileOperationFinish(operation, result)
 
-            is SynchronizeFileOperation -> {
-                onSynchronizeFileOperationFinish(operation, result)
-            }
+            is SynchronizeFileOperation -> onSynchronizeFileOperationFinish(operation, result)
 
-            is CreateFolderOperation -> {
-                onCreateFolderOperationFinish(operation, result)
-            }
+            is CreateFolderOperation -> onCreateFolderOperationFinish(operation, result)
 
-            is MoveFileOperation -> {
-                onMoveFileOperationFinish(operation, result)
-            }
+            is MoveFileOperation -> onMoveFileOperationFinish(operation, result)
 
-            is CopyFileOperation -> {
-                onCopyFileOperationFinish(operation, result)
-            }
+            is CopyFileOperation -> onCopyFileOperationFinish(operation, result)
 
-            is RestoreFileVersionRemoteOperation -> {
-                onRestoreFileVersionOperationFinish(result)
-            }
+            is RestoreFileVersionRemoteOperation -> onRestoreFileVersionOperationFinish(result)
 
-            is CreateNewAlbumRemoteOperation -> {
-                albumOperationListener.onCreateAlbumOperationFinish(operation, result)
-            }
+            is CreateNewAlbumRemoteOperation -> albumOperationListener.onCreateAlbumOperationFinish(operation, result)
 
-            is CopyFileToAlbumOperation -> {
-                albumOperationListener.onCopyAlbumFileOperationFinish(operation, result)
-            }
+            is CopyFileToAlbumOperation -> albumOperationListener.onCopyAlbumFileOperationFinish(operation, result)
 
-            is RenameAlbumRemoteOperation -> {
-                albumOperationListener.onRenameAlbumOperationFinish(operation, result)
-            }
+            is RenameAlbumRemoteOperation -> albumOperationListener.onRenameAlbumOperationFinish(operation, result)
 
-            is RemoveAlbumRemoteOperation -> {
-                albumOperationListener.onRemoveAlbumOperationFinish(operation, result)
-            }
+            is RemoveAlbumRemoteOperation -> albumOperationListener.onRemoveAlbumOperationFinish(operation, result)
 
-            is PublicShareLinkAlbumRemoteOperation -> {
+            is PublicShareLinkAlbumRemoteOperation ->
                 albumOperationListener.onAlbumPublicLinkOperationFinish(operation, result)
-            }
         }
     }
 
     private val fileListFragment: OCFileListFragment?
-        get() = if (lastFragment() is OCFileListFragment) lastFragment() as OCFileListFragment else listOfFilesFragment
+        get() = lastFragment() as? OCFileListFragment ?: listOfFilesFragment
 
     private fun refreshGalleryFragmentIfNeeded() {
-        val fileListFragment = this.fileListFragment
         if (fileListFragment is GalleryFragment) {
             startPhotoSearch(R.id.nav_gallery)
         }
     }
 
     private fun refreshShowDetails() {
-        val details = this.leftFragment
-        if (details is FileFragment) {
-            var file = details.file
-            if (file != null) {
-                file = storageManager.getFileByPath(file.remotePath)
-                if (details is PreviewTextFragment) {
-                    // Refresh  OCFile of the fragment
-                    (details as PreviewTextFileFragment).updateFile(file)
-                } else {
-                    showDetails(file)
-                }
+        val details = leftFragment as? FileFragment ?: return
+
+        details.file?.let {
+            val refreshedFile = storageManager.getFileByPath(it.remotePath)
+            if (details is PreviewTextFragment) {
+                // Refresh  OCFile of the fragment
+                (details as? PreviewTextFileFragment)?.updateFile(refreshedFile)
+            } else {
+                showDetails(refreshedFile)
             }
-            supportInvalidateOptionsMenu()
         }
+        supportInvalidateOptionsMenu()
     }
 
     val deleteBatchTracker = DeleteBatchTracker(onAllDeletesFinished = {
-        if (leftFragment is GalleryFragment) {
-            val galleryFragment = leftFragment as GalleryFragment
-            galleryFragment.onRefresh()
-        }
+        (leftFragment as? GalleryFragment)?.onRefresh()
     })
 
     /**
@@ -2271,8 +2068,7 @@ class FileDisplayActivity :
     private fun onRemoveFileOperationFinish(operation: RemoveFileOperation, result: RemoteOperationResult<*>) {
         deleteBatchTracker.onSingleDeleteFinished()
         if (!result.isSuccess && result.isSslRecoverableException) {
-            mLastSslUntrustedServerResult = result
-            showUntrustedCertDialog(mLastSslUntrustedServerResult)
+            showUntrustedCertDialogFor(result)
             return
         }
 
@@ -2283,28 +2079,40 @@ class FileDisplayActivity :
 
         val removedFile = operation.file
         file?.let { playbackModel.stopPlaying(it) }
-        val leftFragment = this.leftFragment
+        val currentLeftFragment = leftFragment
 
         // check if file is still available, if so do nothing
         val fileAvailable = storageManager.fileExists(removedFile.fileId)
-        if (leftFragment is FileFragment && !fileAvailable && removedFile == leftFragment.file) {
+        if (currentLeftFragment is FileFragment && !fileAvailable && removedFile == currentLeftFragment.file) {
             file = storageManager.getFileById(removedFile.parentId)
             resetScrollingAndUpdateActionBar()
         }
 
-        if (leftFragment is OCFileListFragment && operation.onlyLocalCopy) {
-            leftFragment.adapter?.notifyItemChanged(removedFile)
-        } else if (leftFragment is OCFileListFragment) {
-            leftFragment.adapter?.removeFile(removedFile)
-
-            if (leftFragment.adapter?.isEmpty == true) {
-                val emptyState = leftFragment.searchEvent?.toSearchType() ?: SearchType.NO_SEARCH
-                leftFragment.setEmptyListMessage(emptyState)
-            }
+        if (currentLeftFragment is OCFileListFragment) {
+            updateFileListAfterRemoval(currentLeftFragment, removedFile, operation.onlyLocalCopy)
         }
 
         supportInvalidateOptionsMenu()
         fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
+    }
+
+    private fun updateFileListAfterRemoval(fragment: OCFileListFragment, removedFile: OCFile, onlyLocalCopy: Boolean) {
+        val adapter = fragment.adapter ?: return
+        if (onlyLocalCopy) {
+            adapter.notifyItemChanged(removedFile)
+            return
+        }
+
+        adapter.removeFile(removedFile)
+        if (adapter.isEmpty) {
+            val emptyState = fragment.searchEvent?.toSearchType() ?: SearchType.NO_SEARCH
+            fragment.setEmptyListMessage(emptyState)
+        }
+    }
+
+    private fun showUntrustedCertDialogFor(result: RemoteOperationResult<*>) {
+        mLastSslUntrustedServerResult = result
+        showUntrustedCertDialog(result)
     }
 
     override fun onAutoUploadFolderRemoved(
@@ -2319,38 +2127,12 @@ class FileDisplayActivity :
             titleIconId = R.drawable.ic_info,
             positiveButtonTextId = R.string.common_delete,
             negativeButtonTextId = R.string.common_cancel,
-            neutralButtonTextId = -1
+            neutralButtonTextId = NO_NEUTRAL_BUTTON
         )
 
         dialog.setOnConfirmationListener(object : ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
             override fun onConfirmation(callerTag: String?) {
-                lifecycleScope.launch(Dispatchers.IO) {
-                    entities.forEach { entity ->
-                        entity.id?.toLong()?.let {
-                            fileUploadHelper.removeEntityFromUploadEntities(it)
-                            syncedFolderProvider.deleteSyncedFolder(it)
-                        }
-                    }
-
-                    connectivityService.isNetworkAndServerAvailable { isAvailable ->
-                        if (isAvailable) {
-                            fileOperationsHelper?.removeFiles(
-                                filesToRemove,
-                                onlyLocalCopy,
-                                true
-                            )
-                        } else {
-                            if (onlyLocalCopy) {
-                                fileOperationsHelper?.removeFiles(filesToRemove, true, true)
-                            } else {
-                                filesToRemove.forEach { file ->
-                                    fileDataStorageManager.addRemoveFileOfflineOperation(file)
-                                }
-                            }
-                        }
-                        onFilesRemoved()
-                    }
-                }
+                removeAutoUploadFolders(entities, filesToRemove, onlyLocalCopy)
             }
 
             override fun onNeutral(callerTag: String?) = Unit
@@ -2362,30 +2144,56 @@ class FileDisplayActivity :
         }
     }
 
+    private fun removeAutoUploadFolders(
+        entities: List<SyncedFolderEntity>,
+        filesToRemove: List<OCFile>,
+        onlyLocalCopy: Boolean
+    ) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            entities.mapNotNull { it.id?.toLong() }.forEach {
+                fileUploadHelper.removeEntityFromUploadEntities(it)
+                syncedFolderProvider.deleteSyncedFolder(it)
+            }
+
+            connectivityService.isNetworkAndServerAvailable { isAvailable ->
+                when {
+                    isAvailable -> fileOperationsHelper?.removeFiles(filesToRemove, onlyLocalCopy, true)
+                    onlyLocalCopy -> fileOperationsHelper?.removeFiles(filesToRemove, true, true)
+                    else -> filesToRemove.forEach { fileDataStorageManager.addRemoveFileOfflineOperation(it) }
+                }
+                onFilesRemoved()
+            }
+        }
+    }
+
     private fun onRestoreFileVersionOperationFinish(result: RemoteOperationResult<*>) {
-        if (result.isSuccess) {
-            val file = getFile()
-
-            // delete old local copy
-            if (file?.isDown == true) {
-                val list: MutableList<OCFile?> = ArrayList()
-                list.add(file)
-                fileOperationsHelper.removeFiles(list, true, true)
-
-                // download new version, only if file was previously download
-                showSyncLoadingDialog(file.isFolder)
-                fileOperationsHelper.syncFileOrFolder(file)
-            }
-
-            val parent = file?.let { storageManager.getFileById(it.parentId) }
-            startSyncFolderOperation(parent, ignoreETag = true, ignoreFocus = true)
-
-            val leftFragment = this.leftFragment
-            if (leftFragment is FileDetailFragment) {
-                leftFragment.fileDetailActivitiesFragment?.reload()
-            }
-        } else {
+        if (!result.isSuccess) {
             SnackbarUtil.show(this, R.string.file_version_restored_error)
+            return
+        }
+
+        val restoredFile = getFile()
+
+        // delete old local copy
+        if (restoredFile?.isDown == true) {
+            fileOperationsHelper.removeFiles(listOf(restoredFile), true, true)
+
+            // download new version, only if file was previously download
+            showSyncLoadingDialog(restoredFile.isFolder)
+            fileOperationsHelper.syncFileOrFolder(restoredFile)
+        }
+
+        val parent = restoredFile?.let { storageManager.getFileById(it.parentId) }
+        startSyncFolderOperation(parent, ignoreETag = true, ignoreFocus = true)
+
+        (leftFragment as? FileDetailFragment)?.fileDetailActivitiesFragment?.reload()
+    }
+
+    private fun showErrorCauseMessage(result: RemoteOperationResult<*>, operation: RemoteOperation<*>?) {
+        try {
+            SnackbarUtil.show(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, resources))
+        } catch (e: Resources.NotFoundException) {
+            Log_OC.e(TAG, "Error while trying to show fail message ", e)
         }
     }
 
@@ -2397,14 +2205,7 @@ class FileDisplayActivity :
      */
     private fun onMoveFileOperationFinish(operation: MoveFileOperation?, result: RemoteOperationResult<*>) {
         if (!result.isSuccess) {
-            try {
-                SnackbarUtil.show(
-                    this,
-                    ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
-                )
-            } catch (e: Resources.NotFoundException) {
-                Log_OC.e(TAG, "Error while trying to show fail message ", e)
-            }
+            showErrorCauseMessage(result, operation)
         }
     }
 
@@ -2415,19 +2216,13 @@ class FileDisplayActivity :
      * @param result    Result of the copy operation.
      */
     private fun onCopyFileOperationFinish(operation: CopyFileOperation?, result: RemoteOperationResult<*>) {
-        if (result.isSuccess) {
-            updateListOfFilesFragment()
-            refreshGalleryFragmentIfNeeded()
-        } else {
-            try {
-                SnackbarUtil.show(
-                    this,
-                    ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
-                )
-            } catch (e: Resources.NotFoundException) {
-                Log_OC.e(TAG, "Error while trying to show fail message ", e)
-            }
+        if (!result.isSuccess) {
+            showErrorCauseMessage(result, operation)
+            return
         }
+
+        updateListOfFilesFragment()
+        refreshGalleryFragmentIfNeeded()
     }
 
     /**
@@ -2437,29 +2232,23 @@ class FileDisplayActivity :
      * @param result    Result of the renaming.
      */
     private fun onRenameFileOperationFinish(operation: RenameFileOperation, result: RemoteOperationResult<*>) {
-        val optionalUser = user
+        val currentUser = user.orElse(null)
         val renamedFile = operation.file
-        if (!result.isSuccess || optionalUser.isEmpty) {
-            SnackbarUtil.show(
-                this,
-                ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
-            )
+        if (!result.isSuccess || currentUser == null) {
+            SnackbarUtil.show(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, resources))
 
             if (result.isSslRecoverableException) {
-                mLastSslUntrustedServerResult = result
-                showUntrustedCertDialog(mLastSslUntrustedServerResult)
+                showUntrustedCertDialogFor(result)
             }
             return
         }
 
-        val currentUser = optionalUser.get()
-        val leftFragment = this.leftFragment
-        if (leftFragment is FileFragment) {
-            onRenameFileOperationFinishForFileFragment(leftFragment, renamedFile, currentUser)
+        (leftFragment as? FileFragment)?.let {
+            onRenameFileOperationFinishForFileFragment(it, renamedFile, currentUser)
         }
 
-        val file = storageManager.getFileById(renamedFile.parentId)
-        val isCurrentDirParentDirOfGivenFile = (file != null && file == currentDir)
+        val parentDir = storageManager.getFileById(renamedFile.parentId)
+        val isCurrentDirParentDirOfGivenFile = parentDir != null && parentDir == currentDir
 
         // checking current dir against renamed file's parent will always fail when user is in Shared/Favorites root.
         // thus check is current dir is root or not as well
@@ -2503,12 +2292,12 @@ class FileDisplayActivity :
         operation: SynchronizeFileOperation,
         result: RemoteOperationResult<*>
     ) {
-        if (result.isSuccess && operation.transferWasRequested) {
-            val syncedFile = operation.localFile ?: return
-            onTransferStateChanged(syncedFile, true, true)
-            supportInvalidateOptionsMenu()
-            refreshShowDetails()
-        }
+        if (!result.isSuccess || !operation.transferWasRequested) return
+
+        val syncedFile = operation.localFile ?: return
+        onTransferStateChanged(syncedFile, true, true)
+        supportInvalidateOptionsMenu()
+        refreshShowDetails()
     }
 
     /**
@@ -2518,38 +2307,30 @@ class FileDisplayActivity :
      * @param result    Result of the creation.
      */
     private fun onCreateFolderOperationFinish(operation: CreateFolderOperation, result: RemoteOperationResult<*>) {
-        if (result.isSuccess) {
-            val fileListFragment = this.listOfFilesFragment
-            if (operation.shouldEncrypt()) {
-                val file = storageManager.getFileByDecryptedRemotePath(operation.remotePath)
-                if (file == null) {
-                    Log_OC.e(
-                        TAG,
-                        "onCreateFolderOperationFinish(): file not saved after create folder operation, cannot encrypt"
-                    )
-                    return
-                }
-                fileOperationsHelper.toggleEncryption(file, true)
-                return
+        if (!result.isSuccess) {
+            if (RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS == result.code) {
+                SnackbarUtil.show(this, R.string.folder_already_exists)
+            } else {
+                showErrorCauseMessage(result, operation)
             }
-
-            storageManager.getFileByDecryptedRemotePath(operation.getRemotePath())?.let {
-                fileListFragment?.onItemClicked(it)
-            }
-        } else {
-            try {
-                if (RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS == result.code) {
-                    SnackbarUtil.show(this, R.string.folder_already_exists)
-                } else {
-                    SnackbarUtil.show(
-                        this,
-                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
-                    )
-                }
-            } catch (e: Resources.NotFoundException) {
-                Log_OC.e(TAG, "Error while trying to show fail message ", e)
-            }
+            return
         }
+
+        val fileListFragment = listOfFilesFragment
+        val createdFolder = storageManager.getFileByDecryptedRemotePath(operation.remotePath)
+        if (!operation.shouldEncrypt()) {
+            createdFolder?.let { fileListFragment?.onItemClicked(it) }
+            return
+        }
+
+        if (createdFolder == null) {
+            Log_OC.e(
+                TAG,
+                "onCreateFolderOperationFinish(): file not saved after create folder operation, cannot encrypt"
+            )
+            return
+        }
+        fileOperationsHelper.toggleEncryption(createdFolder, true)
     }
 
     /**
@@ -2557,26 +2338,21 @@ class FileDisplayActivity :
      */
     override fun onTransferStateChanged(file: OCFile, downloading: Boolean, uploading: Boolean) {
         updateListOfFilesFragment()
-        val leftFragment = this.leftFragment
-        val optionalUser = user
-        if (leftFragment is FileDetailFragment && file == leftFragment.file && optionalUser.isPresent) {
-            val currentUser = optionalUser.get()
-            if (downloading || uploading) {
-                leftFragment.updateFileDetails(file, currentUser)
-            } else {
-                if (!file.fileExists()) {
-                    resetScrollingAndUpdateActionBar()
-                } else {
-                    leftFragment.updateFileDetails(false, true)
-                }
-            }
+        val fileDetailFragment = leftFragment as? FileDetailFragment ?: return
+        if (file != fileDetailFragment.file) return
+        val currentUser = user.orElse(null) ?: return
+
+        when {
+            downloading || uploading -> fileDetailFragment.updateFileDetails(file, currentUser)
+            !file.fileExists() -> resetScrollingAndUpdateActionBar()
+            else -> fileDetailFragment.updateFileDetails(false, true)
         }
     }
 
     private fun requestForDownload() {
-        val user = user.orElseThrow(Supplier { RuntimeException() })
-        mWaitingToPreview?.let {
-            FileDownloadHelper.instance().downloadFileIfNotStartedBefore(user, it)
+        val currentUser = user.orElse(null) ?: return
+        waitingToPreview?.let {
+            FileDownloadHelper.instance().downloadFileIfNotStartedBefore(currentUser, it)
         }
     }
 
@@ -2603,7 +2379,7 @@ class FileDisplayActivity :
     fun startSyncFolderOperation(folder: OCFile?, ignoreETag: Boolean, ignoreFocus: Boolean = false) {
         Log_OC.d(TAG, "startSyncFolderOperation called, ignoreEtag: $ignoreETag, ignoreFocus: $ignoreFocus")
 
-        if (!searchQuery.isNullOrEmpty() || !user.isPresent) {
+        if (!searchQuery.isNullOrEmpty() || user.isEmpty) {
             return
         }
 
@@ -2634,82 +2410,73 @@ class FileDisplayActivity :
     }
 
     private fun executeSyncFolderOperation(folder: OCFile?, ignoreETag: Boolean) {
-        val folder = folder ?: return
+        folder ?: return
+        val currentUser = user.orElse(null) ?: return
 
-        user.ifPresent { user ->
-            syncState = EmptyListState.LOADING
+        syncState = EmptyListState.LOADING
 
-            RefreshFolderOperation(
-                folder,
-                System.currentTimeMillis(),
-                false,
-                ignoreETag,
-                storageManager,
-                user,
-                applicationContext
-            ).execute(
-                account,
-                this,
-                { _, _ -> onSyncFinished() },
-                handler,
-                null
-            )
+        RefreshFolderOperation(
+            folder,
+            System.currentTimeMillis(),
+            false,
+            ignoreETag,
+            storageManager,
+            currentUser,
+            applicationContext
+        ).execute(
+            account,
+            this,
+            { _, _ -> onSyncFinished() },
+            handler,
+            null
+        )
 
-            fetchRecommendedFilesIfNeeded(ignoreETag, folder)
-        }
+        fetchRecommendedFilesIfNeeded(ignoreETag, folder)
     }
 
     private fun fetchRecommendedFilesIfNeeded(ignoreETag: Boolean, folder: OCFile?) {
-        val optionalCapabilities = capabilities
-        if (optionalCapabilities.isEmpty) {
-            return
-        }
+        val capability = capabilities.orElse(null) ?: return
+        if (folder?.isRootDirectory == false || capability.recommendations.isFalse) return
 
-        if (folder?.isRootDirectory == false || optionalCapabilities.get().recommendations.isFalse) {
-            return
-        }
-
-        user.ifPresent { user ->
-            val accountName = user.accountName
-            val fragment = this.listOfFilesFragment
-            lifecycleScope.launch(Dispatchers.IO) {
-                val recommendedFiles = filesRepository.fetchRecommendedFiles(accountName, ignoreETag, storageManager)
-                withContext(Dispatchers.Main) {
-                    fragment?.adapter?.updateRecommendedFiles(recommendedFiles)
-                }
+        val accountName = user.orElse(null)?.accountName ?: return
+        val fragment = listOfFilesFragment
+        lifecycleScope.launch {
+            val recommendedFiles = withContext(Dispatchers.IO) {
+                filesRepository.fetchRecommendedFiles(accountName, ignoreETag, storageManager)
             }
+            fragment?.adapter?.updateRecommendedFiles(recommendedFiles)
         }
     }
 
     private fun requestForDownload(file: OCFile, downloadBehaviour: String, packageName: String, activityName: String) {
-        val currentUser = user.orElseThrow(Supplier { RuntimeException() })
-        if (!FileDownloadHelper.instance().isDownloading(currentUser, file)) {
-            FileDownloadHelper.instance().downloadFile(
-                currentUser,
-                file,
-                downloadBehaviour,
-                DownloadType.DOWNLOAD,
-                activityName,
-                packageName,
-                null
-            )
-        }
+        val currentUser = user.orElse(null) ?: return
+        val downloadHelper = FileDownloadHelper.instance()
+        if (downloadHelper.isDownloading(currentUser, file)) return
+
+        downloadHelper.downloadFile(
+            currentUser,
+            file,
+            downloadBehaviour,
+            DownloadType.DOWNLOAD,
+            activityName,
+            packageName,
+            null
+        )
     }
 
     private fun sendDownloadedFile(packageName: String, activityName: String) {
-        val waitingToSend = mWaitingToSend
-        if (waitingToSend != null) {
-            val sendIntent = IntentUtil.createSendIntent(this, waitingToSend)
-            sendIntent.component = ComponentName(packageName, activityName)
-
-            // Show dialog
-            val sendTitle = getString(R.string.activity_chooser_send_file_title)
-            startActivity(Intent.createChooser(sendIntent, sendTitle))
-        } else {
+        val fileToSend = waitingToSend ?: run {
             Log_OC.e(TAG, "Trying to send a NULL OCFile")
+            return
         }
 
-        mWaitingToSend = null
+        val sendIntent = IntentUtil.createSendIntent(this, fileToSend).apply {
+            component = ComponentName(packageName, activityName)
+        }
+        val sendTitle = getString(R.string.activity_chooser_send_file_title)
+        startActivity(Intent.createChooser(sendIntent, sendTitle))
+
+        waitingToSend = null
     }
 
     /**
@@ -2721,10 +2488,8 @@ class FileDisplayActivity :
      * @param activityName
      */
     fun startDownloadForSending(file: OCFile?, downloadBehaviour: String, packageName: String, activityName: String) {
-        mWaitingToSend = file
-        mWaitingToSend?.let {
-            requestForDownload(it, downloadBehaviour, packageName, activityName)
-        }
+        waitingToSend = file
+        file?.let { requestForDownload(it, downloadBehaviour, packageName, activityName) }
     }
 
     fun startImagePreview(
@@ -2739,18 +2504,22 @@ class FileDisplayActivity :
         if (showPreview) {
             NavigationAnimator(this).scaleUp(intent, sourceView)
         } else {
-            val helper = FileOperationsHelper(
-                this,
-                userAccountManager,
-                connectivityService,
-                editorUtils
-            )
-            helper.startSyncForFileAndIntent(file, intent)
+            startSyncForFileAndIntent(file, intent)
         }
     }
 
+    private fun startSyncForFileAndIntent(file: OCFile?, intent: Intent) {
+        FileOperationsHelper(this, userAccountManager, connectivityService, editorUtils)
+            .startSyncForFileAndIntent(file, intent)
+    }
+
+    private fun previewIntentFor(file: OCFile?, previewKey: String): Intent = Intent().apply {
+        putExtra(EXTRA_FILE, file)
+        putExtra(previewKey, true)
+    }
+
     private fun imagePreviewIntent(file: OCFile, type: VirtualFolderType?, mediaState: MediaState?): Intent? {
-        if (user.isEmpty) {
+        val currentUser = user.orElse(null) ?: run {
             Log_OC.e(TAG, "cannot start image preview")
             return null
         }
@@ -2758,7 +2527,7 @@ class FileDisplayActivity :
         return Intent(this, PreviewMediaActivity::class.java).apply {
             putExtra(EXTRA_FILE, file)
             putExtra(EXTRA_LIVE_PHOTO_FILE, file.livePhotoVideo)
-            putExtra(EXTRA_USER, user.get())
+            putExtra(EXTRA_USER, currentUser)
             type?.let { putExtra(PreviewMediaActivity.EXTRA_VIRTUAL_TYPE, it) }
             mediaState?.let { putExtra(PreviewMediaActivity.EXTRA_MEDIA_STATE, it) }
         }
@@ -2768,19 +2537,13 @@ class FileDisplayActivity :
      * Starts the preview of an audio [OCFile], synchronizing it first when it is not available yet.
      */
     fun startAudioPreview(file: OCFile, showPreview: Boolean, streamMedia: Boolean) {
-        val user = getUser()
-        if (!user.isPresent) {
-            return // not reachable under normal conditions
-        }
+        // not reachable under normal conditions
+        if (user.isEmpty) return
+
         if ((showPreview && file.isDown && !file.isDownloading) || streamMedia) {
             startAudioPlayer(file)
         } else {
-            val previewIntent = Intent()
-            previewIntent.putExtra(EXTRA_FILE, file)
-            previewIntent.putExtra(AUDIO_PREVIEW, true)
-            val fileOperationsHelper =
-                FileOperationsHelper(this, userAccountManager, connectivityService, editorUtils)
-            fileOperationsHelper.startSyncForFileAndIntent(file, previewIntent)
+            startSyncForFileAndIntent(file, previewIntentFor(file, AUDIO_PREVIEW))
         }
     }
 
@@ -2803,24 +2566,16 @@ class FileDisplayActivity :
      * @param file Text [OCFile] to preview.
      */
     fun startTextPreview(file: OCFile?, showPreview: Boolean) {
-        val optUser = user
-        if (!optUser.isPresent) {
-            // remnants of old unsafe system; do not crash, silently stop
-            return
-        }
-        val user = optUser.get()
+        // remnants of old unsafe system; do not crash, silently stop
+        val currentUser = user.orElse(null) ?: return
+
         if (showPreview) {
-            val fragment = PreviewTextFileFragment.create(user, file, searchOpen, searchQuery)
+            val fragment = PreviewTextFileFragment.create(currentUser, file, searchOpen, searchQuery)
             setLeftFragment(fragment, false)
             configureToolbarForPreview(file)
             showBottomNavigationBar(false)
         } else {
-            val previewIntent = Intent()
-            previewIntent.putExtra(EXTRA_FILE, file)
-            previewIntent.putExtra(TEXT_PREVIEW, true)
-            val fileOperationsHelper =
-                FileOperationsHelper(this, userAccountManager, connectivityService, editorUtils)
-            fileOperationsHelper.startSyncForFileAndIntent(file, previewIntent)
+            startSyncForFileAndIntent(file, previewIntentFor(file, TEXT_PREVIEW))
         }
     }
 
@@ -2830,30 +2585,28 @@ class FileDisplayActivity :
      * @param folder [OCFile] to preview its rich workspace.
      */
     fun startRichWorkspacePreview(folder: OCFile?) {
-        val args = Bundle()
-        args.putParcelable(EXTRA_FILE, folder)
         configureToolbarForPreview(folder)
-        val textPreviewFragment =
-            Fragment.instantiate(applicationContext, PreviewTextStringFragment::class.java.name, args)
+        val textPreviewFragment = PreviewTextStringFragment().apply {
+            arguments = Bundle().apply { putParcelable(EXTRA_FILE, folder) }
+        }
         setLeftFragment(textPreviewFragment, false)
     }
 
     fun startContactListFragment(file: OCFile?) {
-        val user = user.orElseThrow(Supplier { RuntimeException() })
-        ContactsPreferenceActivity.startActivityWithContactsFile(this, user, file)
+        val currentUser = user.orElse(null) ?: return
+        ContactsPreferenceActivity.startActivityWithContactsFile(this, currentUser, file)
     }
 
     fun startPdfPreview(file: OCFile) {
+        // prefer third party PDF apps
         if (fileOperationsHelper.canOpenFile(file)) {
-            // prefer third party PDF apps
             fileOperationsHelper.openFile(file)
-        } else {
-            val pdfFragment: Fragment = newInstance(file)
-
-            setLeftFragment(pdfFragment, false)
-            configureToolbarForPreview(file)
-            setMainFabVisible(false)
+            return
         }
+
+        setLeftFragment(PreviewPdfFragment.newInstance(file), false)
+        configureToolbarForPreview(file)
+        setMainFabVisible(false)
     }
 
     /**
@@ -2865,15 +2618,13 @@ class FileDisplayActivity :
      */
     fun startDownloadForPreview(file: OCFile, parentFolder: OCFile?) {
         if (!file.isFileEligibleForImmediatePreview) {
-            val currentUser = user
-            if (currentUser.isPresent) {
-                val detailFragment: Fragment = FileDetailFragment.newInstance(file, parentFolder, currentUser.get())
-                setLeftFragment(detailFragment, false)
+            user.orElse(null)?.let {
+                setLeftFragment(FileDetailFragment.newInstance(file, parentFolder, it), false)
             }
         }
 
         configureToolbarForPreview(file)
-        mWaitingToPreview = file
+        waitingToPreview = file
         requestForDownload()
         setFile(file)
     }
@@ -2885,19 +2636,16 @@ class FileDisplayActivity :
      * @param file [OCFile] (image) to be loaded into image editor
      */
     fun startImageEditor(file: OCFile) {
-        if (file.isDown) {
-            val editImageIntent = Intent(this, EditImageActivity::class.java)
-            editImageIntent.putExtra(EditImageActivity.EXTRA_FILE, file)
-            startActivity(editImageIntent)
-        } else {
-            mWaitingToPreview = file
-            requestForDownload(
-                file,
-                EditImageActivity.OPEN_IMAGE_EDITOR,
-                packageName,
-                this.javaClass.simpleName
-            )
+        if (!file.isDown) {
+            waitingToPreview = file
+            requestForDownload(file, EditImageActivity.OPEN_IMAGE_EDITOR, packageName, javaClass.simpleName)
+            return
         }
+
+        val editImageIntent = Intent(this, EditImageActivity::class.java).apply {
+            putExtra(EditImageActivity.EXTRA_FILE, file)
+        }
+        startActivity(editImageIntent)
     }
 
     /**
@@ -2907,11 +2655,11 @@ class FileDisplayActivity :
      */
     fun cancelTransference(file: OCFile) {
         fileOperationsHelper.cancelTransference(file)
-        if (mWaitingToPreview != null && mWaitingToPreview?.remotePath == file.remotePath) {
-            mWaitingToPreview = null
+        if (waitingToPreview?.remotePath == file.remotePath) {
+            waitingToPreview = null
         }
-        if (mWaitingToSend != null && mWaitingToSend?.remotePath == file.remotePath) {
-            mWaitingToSend = null
+        if (waitingToSend?.remotePath == file.remotePath) {
+            waitingToSend = null
         }
         onTransferStateChanged(file, false, false)
     }
@@ -2922,9 +2670,7 @@ class FileDisplayActivity :
      * @param files collection of [OCFile] files which operations are wanted to be cancel
      */
     fun cancelTransference(files: MutableCollection<OCFile>) {
-        for (file in files) {
-            cancelTransference(file)
-        }
+        files.forEach { cancelTransference(it) }
     }
 
     override fun onRefresh(ignoreETag: Boolean) {
@@ -2936,10 +2682,8 @@ class FileDisplayActivity :
     }
 
     private fun syncAndUpdateFolder(ignoreETag: Boolean, ignoreFocus: Boolean) {
-        val listOfFiles = this.listOfFilesFragment
-        if (listOfFiles == null || listOfFiles.isSearchFragment) {
-            return
-        }
+        val listOfFiles = listOfFilesFragment ?: return
+        if (listOfFiles.isSearchFragment) return
 
         val folder = listOfFiles.currentFile ?: return
         startSyncFolderOperation(folder, ignoreETag, ignoreFocus)
@@ -2951,28 +2695,35 @@ class FileDisplayActivity :
     }
 
     private fun refreshOrInitOCFileListFragment() {
-        val ocFileListFragment = this.listOfFilesFragment
+        val ocFileListFragment = listOfFilesFragment
         if (ocFileListFragment != null &&
-            (ocFileListFragment !is GalleryFragment) &&
-            (ocFileListFragment !is SharedListFragment) &&
+            ocFileListFragment !is GalleryFragment &&
+            ocFileListFragment !is SharedListFragment &&
             // album fragment check will help in showing offline files screen
             // when navigating from Albums to Offline Files
-            !isAlbumsFragment && !isAlbumItemsFragment
+            !isAlbumsFragment &&
+            !isAlbumItemsFragment
         ) {
             ocFileListFragment.refreshDirectory()
         } else {
-            this.leftFragment = OCFileListFragment()
+            leftFragment = OCFileListFragment()
         }
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     fun onMessageEvent(event: SearchEvent) {
-        if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.searchType) {
-            Log_OC.d(this, "Switch to photo search fragment")
-            this.leftFragment = GalleryFragment()
-        } else if (event.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER) {
-            Log_OC.d(this, "Switch to Shared fragment")
-            this.leftFragment = SharedListFragment()
+        when (event.searchType) {
+            SearchRemoteOperation.SearchType.PHOTO_SEARCH -> {
+                Log_OC.d(this, "Switch to photo search fragment")
+                leftFragment = GalleryFragment()
+            }
+
+            SearchRemoteOperation.SearchType.SHARED_FILTER -> {
+                Log_OC.d(this, "Switch to Shared fragment")
+                leftFragment = SharedListFragment()
+            }
+
+            else -> Unit
         }
 
         listOfFilesFragment?.updateSearchType(event)
@@ -2981,24 +2732,24 @@ class FileDisplayActivity :
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: SyncEventFinished) {
-        val bundle = event.intent.extras
-        val file = bundle?.get(EXTRA_FILE) as OCFile? ?: return
+        val intent = event.intent
+        val bundle = intent.extras ?: return
+        val file = bundle.getParcelableArgument(EXTRA_FILE, OCFile::class.java) ?: return
 
-        if (event.intent.getBooleanExtra(TEXT_PREVIEW, false)) {
-            startTextPreview(file, true)
-        } else if (event.intent.getBooleanExtra(AUDIO_PREVIEW, false)) {
-            startAudioPreview(file, true, true)
-        } else if (bundle.containsKey(PreviewMediaActivity.EXTRA_VIRTUAL_TYPE)) {
-            val virtualType = bundle.get(PreviewMediaActivity.EXTRA_VIRTUAL_TYPE) as VirtualFolderType?
-            startImagePreview(
+        when {
+            intent.getBooleanExtra(TEXT_PREVIEW, false) -> startTextPreview(file, true)
+
+            intent.getBooleanExtra(AUDIO_PREVIEW, false) -> startAudioPreview(file, true, true)
+
+            bundle.containsKey(PreviewMediaActivity.EXTRA_VIRTUAL_TYPE) -> startImagePreview(
                 file,
                 true,
-                virtualType,
+                bundle.getSerializableArgument(PreviewMediaActivity.EXTRA_VIRTUAL_TYPE, VirtualFolderType::class.java),
                 bundle.getSerializableArgument(PreviewMediaActivity.EXTRA_MEDIA_STATE, MediaState::class.java),
                 galleryThumbnailOf(file)
             )
-        } else {
-            startImagePreview(file, true, sourceView = galleryThumbnailOf(file))
+
+            else -> startImagePreview(file, true, sourceView = galleryThumbnailOf(file))
         }
     }
 
@@ -3011,10 +2762,10 @@ class FileDisplayActivity :
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     fun onMessageEvent(event: TokenPushEvent?) {
-        if (!preferences.isKeysReInitEnabled()) {
-            PushUtils.reinitKeys(userAccountManager)
-        } else {
+        if (preferences.isKeysReInitEnabled()) {
             PushUtils.pushRegistrationToServer(userAccountManager, preferences.getPushToken())
+        } else {
+            PushUtils.reinitKeys(userAccountManager)
         }
     }
 
@@ -3031,47 +2782,18 @@ class FileDisplayActivity :
         initFile()
     }
 
-    @Suppress("LongMethod")
     private fun initFile() {
-        val userOpt = user
-        if (userOpt.isEmpty) {
+        val existingUser = user.orElse(null) ?: run {
             Log_OC.w(TAG, "user is not available, cannot init file")
             return
         }
-        val existingUser = userOpt.get()
 
-        val storageManager = storageManager
-        if (storageManager == null) {
+        val currentStorageManager: FileDataStorageManager = storageManager ?: run {
             Log_OC.w(TAG, "storage manager is null, cannot init file")
             return
         }
 
-        var file = getFile()
-        if (file != null) {
-            if (file.isDown && file.lastSyncDateForProperties == 0L) {
-                val remote = file.remotePath
-                val name = file.fileName
-
-                val idx = remote.lastIndexOf(name)
-                if (idx > 0) {
-                    val parentPath = remote.take(idx)
-                    if (storageManager.getFileByPath(parentPath) == null) {
-                        file = null
-                    }
-                } else {
-                    file = null
-                }
-            } else {
-                file = storageManager.getFileByPath(file.remotePath)
-            }
-        }
-
-        // fall back to root folder
-        if (file == null) {
-            file = storageManager.getFileByPath(OCFile.ROOT_PATH)
-        }
-
-        if (file == null) {
+        val file = resolveInitialFile(currentStorageManager) ?: run {
             Log_OC.e(TAG, "Could not retrieve root folder – cannot continue")
             return
         }
@@ -3084,15 +2806,15 @@ class FileDisplayActivity :
         avatarGenerator.setAccountAvatar(
             existingUser,
             this,
-            getResources().getDimension(R.dimen.nav_drawer_menu_avatar_radius),
+            resources.getDimension(R.dimen.nav_drawer_menu_avatar_radius),
             mSwitchAccountButton
         )
-        val userChanged = (existingAccountName != lastDisplayedAccountName)
+        val userChanged = existingAccountName != lastDisplayedAccountName
         if (userChanged) {
             composeProcessTextAlias.configure()
             Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..")
             initFragments()
-            if (file.isFolder && TextUtils.isEmpty(searchQuery)) {
+            if (file.isFolder && searchQuery.isNullOrEmpty()) {
                 startSyncFolderOperation(file, false)
             }
         } else {
@@ -3102,6 +2824,21 @@ class FileDisplayActivity :
         setNewLastDisplayedAccountName(existingAccountName)
         EventBus.getDefault().post(TokenPushEvent())
         checkForNewDevVersionNecessary(applicationContext)
+    }
+
+    private fun resolveInitialFile(storageManager: FileDataStorageManager): OCFile? =
+        getFile()?.let { resolveCurrentFile(it, storageManager) } ?: storageManager.getFileByPath(OCFile.ROOT_PATH)
+
+    private fun resolveCurrentFile(file: OCFile, storageManager: FileDataStorageManager): OCFile? {
+        if (!file.isDown || file.lastSyncDateForProperties != 0L) {
+            return storageManager.getFileByPath(file.remotePath)
+        }
+
+        val parentPathLength = file.remotePath.lastIndexOf(file.fileName)
+        if (parentPathLength <= 0) return null
+
+        val parentPath = file.remotePath.take(parentPathLength)
+        return file.takeIf { storageManager.getFileByPath(parentPath) != null }
     }
 
     private fun setNewLastDisplayedAccountName(accountName: String) {
@@ -3128,47 +2865,39 @@ class FileDisplayActivity :
         val intentData = intent.data
         if (userName == null && fileId == null && intentData != null) {
             openDeepLink(intentData)
-        } else {
-            val optionalUser = if (userName == null) user else userAccountManager.getUser(userName)
-            if (optionalUser.isPresent) {
-                if (!TextUtils.isEmpty(fileId)) {
-                    openFile(optionalUser.get(), fileId)
-                } else if (!TextUtils.isEmpty(filePath)) {
-                    openFileByPath(optionalUser.get(), filePath)
-                } else {
-                    accountClicked(optionalUser.get())
-                }
-            } else {
-                SnackbarUtil.show(this, getString(R.string.associated_account_not_found))
-            }
+            return
+        }
+
+        val optionalUser = if (userName == null) user else userAccountManager.getUser(userName)
+        val targetUser = optionalUser.orElse(null) ?: run {
+            SnackbarUtil.show(this, getString(R.string.associated_account_not_found))
+            return
+        }
+
+        when {
+            !fileId.isNullOrEmpty() -> openFile(targetUser, fileId)
+            !filePath.isNullOrEmpty() -> openFileByPath(targetUser, filePath)
+            else -> accountClicked(targetUser)
         }
     }
 
     private fun openDeepLink(uri: Uri) {
-        val linkHandler = DeepLinkHandler(userAccountManager)
-        val match = linkHandler.parseDeepLink(uri)
+        val match = DeepLinkHandler(userAccountManager).parseDeepLink(uri)
 
-        if (match == null) {
-            handleDeepLink(uri)
-        } else if (match.users.isEmpty()) {
-            SnackbarUtil.show(this, getString(R.string.associated_account_not_found))
-        } else if (match.users.size == SINGLE_USER_SIZE) {
-            openFile(match.users[0], match.fileId)
-        } else {
-            selectUserAndOpenFile(match.users.toMutableList(), match.fileId)
+        when {
+            match == null -> handleDeepLink(uri)
+            match.users.isEmpty() -> SnackbarUtil.show(this, getString(R.string.associated_account_not_found))
+            match.users.size == SINGLE_USER_SIZE -> openFile(match.users.first(), match.fileId)
+            else -> selectUserAndOpenFile(match.users, match.fileId)
         }
     }
 
-    private fun selectUserAndOpenFile(users: MutableList<User?>, fileId: String?) {
-        val userNames = arrayOfNulls<CharSequence>(users.size)
-        for (i in userNames.indices) {
-            userNames[i] = users[i]?.accountName
-        }
+    private fun selectUserAndOpenFile(users: List<User>, fileId: String?) {
+        val userNames = users.map { it.accountName }.toTypedArray()
         val builder = MaterialAlertDialogBuilder(this)
-        builder.setTitle(R.string.common_choose_account)
-            .setItems(userNames) { dialog: DialogInterface?, which: Int ->
-                val user = users[which]
-                openFile(user, fileId)
+            .setTitle(R.string.common_choose_account)
+            .setItems(userNames) { _, which ->
+                openFile(users[which], fileId)
                 showLoadingDialog(getString(R.string.retrieving_file))
             }
 
@@ -3187,24 +2916,19 @@ class FileDisplayActivity :
             return
         }
 
-        var storageManager = getStorageManager()
-
-        if (storageManager == null) {
-            storageManager = FileDataStorageManager(user, contentResolver)
-        }
-
         if (user == null) {
             Log_OC.e(TAG, "cannot fetch remote file, user is null")
             return
         }
 
-        if (capabilities.isEmpty) {
+        val capability = capabilities.orElse(null) ?: run {
             Log_OC.e(TAG, "cannot fetch remote file, capabilities is empty")
             return
         }
 
-        val weakContext: WeakReference<Context> = WeakReference(this)
-        val task = FetchRemoteFileTask(user, fileId, storageManager, lifecycleScope, capabilities.get(), weakContext)
+        val fileStorageManager = storageManager ?: FileDataStorageManager(user, contentResolver)
+        val weakContext = WeakReference<Context>(this)
+        val task = FetchRemoteFileTask(user, fileId, fileStorageManager, lifecycleScope, capability, weakContext)
         task.run(showFile = { (ocFile, message) ->
             ocFile?.let { file = it }
             showFile(ocFile, message)
@@ -3219,25 +2943,19 @@ class FileDisplayActivity :
             return
         }
 
-        var storageManager = getStorageManager()
-
-        if (storageManager == null) {
-            storageManager = FileDataStorageManager(user, contentResolver)
-        }
-
-        val client: OwnCloudClient
-        try {
-            client = clientFactory.create(user)
+        val fileStorageManager = storageManager ?: FileDataStorageManager(user, contentResolver)
+        val client = try {
+            clientFactory.create(user)
         } catch (_: CreationException) {
             onFileRequestError(null)
             return
         }
 
-        val getRemoteFileTask = GetRemoteFileTask(this, filepath, client, storageManager, user)
+        val getRemoteFileTask = GetRemoteFileTask(this, filepath, client, fileStorageManager, user)
         asyncRunner.postQuickTask(
             getRemoteFileTask,
-            { result: GetRemoteFileTask.Result -> this.onFileRequestResult(result) },
-            { throwable: Throwable? -> this.onFileRequestError(throwable) }
+            { result: GetRemoteFileTask.Result -> onFileRequestResult(result) },
+            { throwable: Throwable? -> onFileRequestError(throwable) }
         )
     }
 
@@ -3253,7 +2971,7 @@ class FileDisplayActivity :
         file = result.file
 
         val fileFragment = OCFileListFragment()
-        this.leftFragment = fileFragment
+        leftFragment = fileFragment
 
         supportFragmentManager.executePendingTransactions()
 
@@ -3271,27 +2989,24 @@ class FileDisplayActivity :
     }
 
     fun setMainFabVisible(visible: Boolean) {
-        val visibility = if (visible) View.VISIBLE else View.GONE
-        binding.fabMain.visibility = visibility
+        binding.fabMain.isVisible = visible
     }
 
     fun showFile(selectedFile: OCFile?, message: String?) {
-        getOCFileListFragmentFromFile(object : TransactionInterface {
-            override fun onOCFileListFragmentComplete(fragment: OCFileListFragment) {
-                dismissLoadingDialog()
+        getOCFileListFragmentFromFile { fragment ->
+            dismissLoadingDialog()
 
-                if (message.isNullOrEmpty()) {
-                    val current = getCurrentDir()
-                    fragment.listDirectory(current, file, MainApp.isOnlyOnDevice())
-                    file = current
-                    updateActionBarTitleAndHomeButton(null)
-                } else {
-                    fragment.view?.let { SnackbarUtil.show(it, message) }
-                }
-
-                selectedFile?.let(fragment::onItemClicked)
+            if (message.isNullOrEmpty()) {
+                val current = getCurrentDir()
+                fragment.listDirectory(current, file, MainApp.isOnlyOnDevice())
+                file = current
+                updateActionBarTitleAndHomeButton(null)
+            } else {
+                fragment.view?.let { SnackbarUtil.show(it, message) }
             }
-        })
+
+            selectedFile?.let(fragment::onItemClicked)
+        }
     }
 
     override fun onFilesRemoved() {
@@ -3303,14 +3018,13 @@ class FileDisplayActivity :
             intent,
             object : AccountReceiverCallback {
                 override fun onAccountReceived(accountName: String) {
-                    val account = accountManager.getUser(accountName).orElse(null)
-                        ?: run {
-                            Log_OC.w(TAG, "user is not present")
-                            SnackbarUtil.show(this@FileDisplayActivity, R.string.account_not_found)
-                            return
-                        }
+                    val receivedUser = accountManager.getUser(accountName).orElse(null) ?: run {
+                        Log_OC.w(TAG, "user is not present")
+                        SnackbarUtil.show(this@FileDisplayActivity, R.string.account_not_found)
+                        return
+                    }
 
-                    accountClicked(account)
+                    accountClicked(receivedUser)
                 }
 
                 override fun onAccountError(reason: String) {
@@ -3332,20 +3046,20 @@ class FileDisplayActivity :
     // endregion
 
     companion object {
-        const val RESTART: String = "RESTART"
-        const val ALL_FILES: String = "ALL_FILES"
-        const val LIST_GROUPFOLDERS: String = "LIST_GROUPFOLDERS"
-        const val ALBUMS: String = "ALBUMS"
-        const val SINGLE_USER_SIZE: Int = 1
-        const val OPEN_FILE: String = "NC_OPEN_FILE"
+        const val RESTART = "RESTART"
+        const val ALL_FILES = "ALL_FILES"
+        const val LIST_GROUPFOLDERS = "LIST_GROUPFOLDERS"
+        const val ALBUMS = "ALBUMS"
+        const val SINGLE_USER_SIZE = 1
+        const val OPEN_FILE = "NC_OPEN_FILE"
         const val ON_DEVICE = "ON_DEVICE"
 
-        const val TAG_PUBLIC_LINK: String = "PUBLIC_LINK"
-        const val FTAG_CHOOSER_DIALOG: String = "CHOOSER_DIALOG"
-        const val KEY_FILE_ID: String = "KEY_FILE_ID"
-        const val KEY_FILE_PATH: String = "KEY_FILE_PATH"
-        const val KEY_ACCOUNT: String = "KEY_ACCOUNT"
-        const val KEY_IS_SORT_GROUP_VISIBLE: String = "KEY_IS_SORT_GROUP_VISIBLE"
+        const val TAG_PUBLIC_LINK = "PUBLIC_LINK"
+        const val FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG"
+        const val KEY_FILE_ID = "KEY_FILE_ID"
+        const val KEY_FILE_PATH = "KEY_FILE_PATH"
+        const val KEY_ACCOUNT = "KEY_ACCOUNT"
+        const val KEY_IS_SORT_GROUP_VISIBLE = "KEY_IS_SORT_GROUP_VISIBLE"
 
         private const val KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW"
         private const val KEY_SYNC_STATE = "SYNC_STATE"
@@ -3354,44 +3068,56 @@ class FileDisplayActivity :
 
         private const val ON_RESUMED_RESET_DELAY = 10000L
         private const val SEARCH_VIEW_FOCUS_DELAY = 100L
+        private const val NO_IMMEDIATE_PREVIEW_FILE_ID = -1L
+        private const val UNKNOWN_VISIBILITY = -1
+        private const val NO_NEUTRAL_BUTTON = -1
 
-        const val ACTION_DETAILS: String = "com.owncloud.android.ui.activity.action.DETAILS"
-        const val EXTRA_RETURN_TO_PREVIEW: String = "RETURN_TO_PREVIEW"
+        const val ACTION_DETAILS = "com.owncloud.android.ui.activity.action.DETAILS"
+        const val EXTRA_RETURN_TO_PREVIEW = "RETURN_TO_PREVIEW"
 
-        @JvmField
-        val REQUEST_CODE__SELECT_CONTENT_FROM_APPS: Int = REQUEST_CODE__LAST_SHARED + 1
+        val REQUEST_CODE__SELECT_CONTENT_FROM_APPS = REQUEST_CODE__LAST_SHARED + 1
 
-        @JvmField
-        val REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM: Int = REQUEST_CODE__LAST_SHARED + 2
+        val REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM = REQUEST_CODE__LAST_SHARED + 2
 
-        @JvmField
-        val REQUEST_CODE__MOVE_OR_COPY_FILES: Int = REQUEST_CODE__LAST_SHARED + 3
+        val REQUEST_CODE__MOVE_OR_COPY_FILES = REQUEST_CODE__LAST_SHARED + 3
 
-        @JvmField
-        val REQUEST_CODE__UPLOAD_FROM_CAMERA: Int = REQUEST_CODE__LAST_SHARED + 5
+        val REQUEST_CODE__UPLOAD_FROM_CAMERA = REQUEST_CODE__LAST_SHARED + 5
 
-        @JvmField
-        val REQUEST_CODE__UPLOAD_FROM_VIDEO_CAMERA: Int = REQUEST_CODE__LAST_SHARED + 6
+        val REQUEST_CODE__UPLOAD_FROM_VIDEO_CAMERA = REQUEST_CODE__LAST_SHARED + 6
 
-        @JvmField
-        val REQUEST_CODE__SELECT_CONTENT_FROM_APPS_AUTO_RENAME: Int = REQUEST_CODE__LAST_SHARED + 7
+        val REQUEST_CODE__SELECT_CONTENT_FROM_APPS_AUTO_RENAME = REQUEST_CODE__LAST_SHARED + 7
 
-        private val TAG: String = FileDisplayActivity::class.java.getSimpleName()
+        private val selectContentFromAppsRequestCodes = setOf(
+            REQUEST_CODE__SELECT_CONTENT_FROM_APPS,
+            REQUEST_CODE__SELECT_CONTENT_FROM_APPS_AUTO_RENAME
+        )
+        private val selectContentFromAppsResultCodes = setOf(RESULT_OK, UploadFilesActivity.RESULT_OK_AND_MOVE)
+        private val selectFilesFromFileSystemResultCodes = setOf(
+            RESULT_OK,
+            UploadFilesActivity.RESULT_OK_AND_MOVE,
+            UploadFilesActivity.RESULT_OK_AND_DO_NOTHING,
+            UploadFilesActivity.RESULT_OK_AND_DELETE
+        )
+        private val uploadFromCameraRequestCodes = setOf(
+            REQUEST_CODE__UPLOAD_FROM_CAMERA,
+            REQUEST_CODE__UPLOAD_FROM_VIDEO_CAMERA
+        )
+        private val uploadFromCameraResultCodes = setOf(RESULT_OK, UploadFilesActivity.RESULT_OK_AND_DELETE)
 
-        const val TAG_LIST_OF_FILES: String = "LIST_OF_FILES"
+        private val TAG: String = FileDisplayActivity::class.java.simpleName
 
-        const val TEXT_PREVIEW: String = "TEXT_PREVIEW"
-        const val AUDIO_PREVIEW: String = "AUDIO_PREVIEW"
+        const val TAG_LIST_OF_FILES = "LIST_OF_FILES"
 
-        const val KEY_IS_SEARCH_OPEN: String = "IS_SEARCH_OPEN"
-        const val KEY_SEARCH_QUERY: String = "SEARCH_QUERY"
+        const val TEXT_PREVIEW = "TEXT_PREVIEW"
+        const val AUDIO_PREVIEW = "AUDIO_PREVIEW"
 
-        @JvmStatic
-        fun openFileIntent(context: Context?, user: User?, file: OCFile?): Intent {
-            val intent = Intent(context, PreviewMediaActivity::class.java)
-            intent.putExtra(EXTRA_FILE, file)
-            intent.putExtra(EXTRA_USER, user)
-            return intent
-        }
+        const val KEY_IS_SEARCH_OPEN = "IS_SEARCH_OPEN"
+        const val KEY_SEARCH_QUERY = "SEARCH_QUERY"
+
+        fun openFileIntent(context: Context?, user: User?, file: OCFile?): Intent =
+            Intent(context, PreviewMediaActivity::class.java).apply {
+                putExtra(EXTRA_FILE, file)
+                putExtra(EXTRA_USER, user)
+            }
     }
 }
