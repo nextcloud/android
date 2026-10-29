@@ -14,10 +14,9 @@ import android.os.Bundle;
 import android.provider.DocumentsContract.Document;
 
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.providers.DocumentsStorageProvider;
 import com.owncloud.android.utils.MimeTypeUtil;
 
-import java.util.concurrent.Future;
+import kotlinx.coroutines.Job;
 
 public class FileCursor extends MatrixCursor {
 
@@ -28,13 +27,13 @@ public class FileCursor extends MatrixCursor {
     };
 
     private Bundle extra;
-    private Future<?> loadingTask;
+    private Job loadingTask;
 
-    public FileCursor(String... projection) {
+    public FileCursor(String[] projection) {
         super(projection != null ? projection : DEFAULT_DOCUMENT_PROJECTION);
     }
 
-    public void setLoadingTask(Future<?> task) {
+    public void setLoadingTask(Job task) {
         this.loadingTask = task;
     }
 
@@ -51,12 +50,12 @@ public class FileCursor extends MatrixCursor {
     @Override
     public void close() {
         super.close();
-        if (loadingTask != null && !loadingTask.isDone()) {
-            loadingTask.cancel(false);
+        if (loadingTask != null && !loadingTask.isCompleted()) {
+            loadingTask.cancel(null);
         }
     }
 
-    public void addFile(DocumentsStorageProvider.Document document) {
+    public void addFile(com.owncloud.android.providers.documentstorage.Document document) {
         if (document == null) {
             return;
         }

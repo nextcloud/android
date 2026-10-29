@@ -29,7 +29,7 @@ import com.owncloud.android.providers.DocumentsProviderUtils.assertRegularFolder
 import com.owncloud.android.providers.DocumentsProviderUtils.findFileBlocking
 import com.owncloud.android.providers.DocumentsProviderUtils.getOCFile
 import com.owncloud.android.providers.DocumentsProviderUtils.listFilesBlocking
-import com.owncloud.android.providers.DocumentsStorageProvider.DOCUMENTID_SEPARATOR
+import com.owncloud.android.providers.DocumentsStorageProvider.Companion.DOCUMENTID_SEPARATOR
 import kotlinx.coroutines.runBlocking
 import org.apache.commons.httpclient.HttpStatus
 import org.apache.commons.httpclient.methods.ByteArrayRequestEntity

@@ -25,7 +25,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation
-import com.owncloud.android.providers.DocumentsStorageProvider.DOCUMENTID_SEPARATOR
+import com.owncloud.android.providers.DocumentsStorageProvider.Companion.DOCUMENTID_SEPARATOR
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.suspendCancellableCoroutine

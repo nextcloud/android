@@ -14,7 +14,7 @@ import android.provider.DocumentsContract.Root;
 
 import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
-import com.owncloud.android.providers.DocumentsStorageProvider;
+import com.owncloud.android.providers.documentstorage.Document;
 
 public class RootCursor extends MatrixCursor {
 
@@ -29,11 +29,11 @@ public class RootCursor extends MatrixCursor {
             Root.COLUMN_FLAGS
     };
 
-    public RootCursor(String... projection) {
+    public RootCursor(String[] projection) {
         super(projection != null ? projection : DEFAULT_ROOT_PROJECTION);
     }
 
-    public void addRoot(DocumentsStorageProvider.Document document, Context context) {
+    public void addRoot(Document document, Context context) {
         User user = document.getUser();
 
         int rootFlags = Root.FLAG_SUPPORTS_CREATE
