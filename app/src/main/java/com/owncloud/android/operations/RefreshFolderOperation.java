@@ -55,6 +55,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
+import java.util.concurrent.ConcurrentHashMap;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -72,6 +73,8 @@ import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 public class RefreshFolderOperation extends RemoteOperation {
 
     private static final String TAG = RefreshFolderOperation.class.getSimpleName();
+
+    private static final Map<String, Object> FOLDER_LOCKS = new ConcurrentHashMap<>();
 
     public static final String EVENT_SINGLE_FOLDER_CONTENTS_SYNCED =
         RefreshFolderOperation.class.getName() + ".EVENT_SINGLE_FOLDER_CONTENTS_SYNCED";
@@ -260,15 +263,24 @@ public class RefreshFolderOperation extends RemoteOperation {
      */
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        RemoteOperationResult result;
-        mFailsInKeptInSyncFound = 0;
-        mConflictsFound = 0;
-        mForgottenLocalFiles.clear();
-
         if (mLocalFolder == null) {
             Log_OC.e(TAG, "Local folder is null, cannot run refresh folder operation");
             return new RemoteOperationResult<>(ResultCode.FILE_NOT_FOUND);
         }
+        // filelist doesn't have a constraint on the file, so duplicates are possible if two folder sync are launched
+        // at the same time (may happen on app start, as startMetadataSyncForRoot is called by onCreate and
+        // syncAndUpdateFolder is called by onResume at short distance)
+        final String lockKey = user.getAccountName() + mLocalFolder.getRemotePath();
+        synchronized (FOLDER_LOCKS.computeIfAbsent(lockKey, key -> new Object())) {
+            return runLocked(client);
+        }
+    }
+
+    private RemoteOperationResult runLocked(OwnCloudClient client) {
+        RemoteOperationResult result;
+        mFailsInKeptInSyncFound = 0;
+        mConflictsFound = 0;
+        mForgottenLocalFiles.clear();
 
         // Account metadata is refreshed after the folder listing so that it never delays the file list. It is not
         // needed to render the folder, and blocking on it adds several sequential requests before the first PROPFIND.
