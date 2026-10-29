@@ -610,7 +610,6 @@
     <string name="foreign_files_remote_text">遠端： %1$s</string>
     <string name="forward">向前</string>
     <string name="fourHours">4 小時</string>
-    <string name="gallery_unsupported_file">不支援的檔案類型</string>
     <string name="governance_file_retention_label">保留檔案</string>
     <string name="governance_legal_hold_label">法律保留</string>
     <string name="governance_no_label">無</string>

@@ -610,7 +610,6 @@
     <string name="foreign_files_remote_text">На сервере: %1$s</string>
     <string name="forward">Вперёд</string>
     <string name="fourHours">4 часа</string>
-    <string name="gallery_unsupported_file">Неподдерживаемый тип файла</string>
     <string name="governance_file_retention_label">Хранение файлов</string>
     <string name="governance_legal_hold_label">Юридическое обязательство по сохранению данных</string>
     <string name="governance_no_label">Нет</string>
