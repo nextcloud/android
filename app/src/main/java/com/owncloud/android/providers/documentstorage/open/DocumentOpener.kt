@@ -25,6 +25,7 @@ import com.owncloud.android.providers.documentstorage.model.Document
 import com.owncloud.android.providers.documentstorage.util.fileNotFoundException
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.MimeTypeUtil
+import dagger.Lazy
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -35,7 +36,11 @@ import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 
-internal class DocumentOpener(private val context: Context, private val scope: CoroutineScope) {
+internal class DocumentOpener(
+    private val context: Context,
+    private val scope: CoroutineScope,
+    private val fileUploadHelper: Lazy<FileUploadHelper>
+) {
 
     @Throws(FileNotFoundException::class)
     fun open(document: Document, mode: String?, isSystemServerCaller: Boolean): ParcelFileDescriptor? {
@@ -244,7 +249,7 @@ internal class DocumentOpener(private val context: Context, private val scope: C
         ocFile.modificationTimestamp = System.currentTimeMillis()
         document.storageManager.saveFile(ocFile)
 
-        FileUploadHelper.instance().uploadUpdatedFile(
+        fileUploadHelper.get().uploadUpdatedFile(
             document.user,
             arrayOf<OCFile?>(ocFile),
             FileUploadWorker.LOCAL_BEHAVIOUR_DELETE,

@@ -8,7 +8,6 @@ package com.owncloud.android.providers.documentstorage.sync
 
 import android.content.Context
 import com.nextcloud.client.account.User
-import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
@@ -47,7 +46,7 @@ internal class FolderRefresher(private val context: Context) {
                 true,
                 folder.storageManager,
                 folder.user,
-                MainApp.getAppContext()
+                context
             ).execute(folder.requireClient(context))
         } catch (e: FileNotFoundException) {
             Log_OC.e(TAG, "reloadFolder() failed, id=${folder.documentId}", e)

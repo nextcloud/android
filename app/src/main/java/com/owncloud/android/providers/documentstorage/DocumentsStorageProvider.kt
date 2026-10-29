@@ -19,7 +19,8 @@ import android.provider.DocumentsContract
 import android.provider.DocumentsProvider
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.client.preferences.AppPreferencesImpl
+import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.HashUtil
 import com.nextcloud.utils.extensions.getSmallThumbnailKey
 import com.nextcloud.utils.extensions.showToast
@@ -40,6 +41,7 @@ import com.owncloud.android.providers.documentstorage.query.DocumentLister
 import com.owncloud.android.providers.documentstorage.sync.DocumentNotifier
 import com.owncloud.android.providers.documentstorage.sync.FolderRefresher
 import com.owncloud.android.ui.activity.SettingsActivity
+import dagger.Lazy
 import dagger.android.AndroidInjection
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -54,23 +56,29 @@ class DocumentsStorageProvider : DocumentsProvider() {
     @Inject
     lateinit var accountManager: UserAccountManager
 
+    @Inject
+    lateinit var preferences: AppPreferences
+
+    @Inject
+    lateinit var appContext: Context
+
+    @Inject
+    lateinit var fileUploadHelper: Lazy<FileUploadHelper>
+
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private val resolver = DocumentResolver()
-    private val notifier by lazy { DocumentNotifier(nonNullContext) }
-    private val folderRefresher by lazy { FolderRefresher(nonNullContext) }
-    private val nameValidator by lazy { DocumentNameValidator(nonNullContext, accountManager) }
-    private val lister by lazy { DocumentLister(nonNullContext, scope, notifier, folderRefresher) }
-    private val opener by lazy { DocumentOpener(nonNullContext, scope) }
+    private val notifier by lazy { DocumentNotifier(appContext) }
+    private val folderRefresher by lazy { FolderRefresher(appContext) }
+    private val nameValidator by lazy { DocumentNameValidator(appContext, accountManager) }
+    private val lister by lazy { DocumentLister(appContext, scope, notifier, folderRefresher) }
+    private val opener by lazy { DocumentOpener(appContext, scope, fileUploadHelper) }
     private val creator by lazy {
-        DocumentCreator(nonNullContext, accountManager, resolver, nameValidator, folderRefresher, notifier)
+        DocumentCreator(appContext, accountManager, resolver, nameValidator, folderRefresher, notifier)
     }
-    private val editor by lazy { DocumentEditor(nonNullContext, resolver, notifier, folderRefresher, nameValidator) }
-
-    private val nonNullContext: Context
-        get() = checkNotNull(context)
+    private val editor by lazy { DocumentEditor(appContext, resolver, notifier, folderRefresher, nameValidator) }
 
     private val isAppLocked: Boolean
-        get() = AppPreferencesImpl.fromContext(MainApp.getAppContext()).lockPreference in
+        get() = preferences.lockPreference in
             listOf(SettingsActivity.LOCK_PASSCODE, SettingsActivity.LOCK_DEVICE_CREDENTIALS)
 
     override fun onCreate(): Boolean {
@@ -85,12 +93,12 @@ class DocumentsStorageProvider : DocumentsProvider() {
             return
         }
 
-        val defaultStoragePath = nonNullContext.filesDir.absolutePath
-        MainApp.setStoragePath(AppPreferencesImpl.fromContext(nonNullContext).getStoragePath(defaultStoragePath))
+        val defaultStoragePath = appContext.filesDir.absolutePath
+        MainApp.setStoragePath(preferences.getStoragePath(defaultStoragePath))
     }
 
     private fun refreshStorageManagers() {
-        resolver.refresh(accountManager.allUsers, nonNullContext.contentResolver)
+        resolver.refresh(accountManager.allUsers, appContext.contentResolver)
     }
 
     override fun queryRoots(projection: Array<String>?): Cursor = withClearedCallingIdentity {
@@ -101,7 +109,7 @@ class DocumentsStorageProvider : DocumentsProvider() {
         } else {
             RootCursor(projection).apply {
                 resolver.storageManagers.forEach { manager ->
-                    addRoot(Document.fromPath(manager, OCFile.ROOT_PATH), nonNullContext)
+                    addRoot(Document.fromPath(manager, OCFile.ROOT_PATH), appContext)
                 }
             }
         }
@@ -170,7 +178,7 @@ class DocumentsStorageProvider : DocumentsProvider() {
             val file = document.requireFile()
 
             if (!ThumbnailsCacheManager.containsBitmap(file.getSmallThumbnailKey())) {
-                ThumbnailsCacheManager.generateThumbnailFromOCFile(file, document.user, context)
+                ThumbnailsCacheManager.generateThumbnailFromOCFile(file, document.user, appContext)
             }
 
             val descriptor = DiskLruImageCacheFileProvider.getParcelFileDescriptorForOCFile(file)
@@ -219,7 +227,7 @@ class DocumentsStorageProvider : DocumentsProvider() {
         val document = resolver.toDocument(documentId)
         val file = document.requireFile()
         if (!file.canDeleteOrLeaveShare()) {
-            nonNullContext.showToast(R.string.document_storage_provider_cannot_delete)
+            appContext.showToast(R.string.document_storage_provider_cannot_delete)
             return
         }
 
@@ -227,8 +235,8 @@ class DocumentsStorageProvider : DocumentsProvider() {
         recursiveRevokePermission(document)
 
         withClearedCallingIdentity {
-            val result = RemoveFileOperation(file, false, document.user, true, nonNullContext, document.storageManager)
-                .execute(document.requireClient(nonNullContext))
+            val result = RemoveFileOperation(file, false, document.user, true, appContext, document.storageManager)
+                .execute(document.requireClient(appContext))
 
             if (!result.isSuccess) {
                 throw FileNotFoundException("Failed to delete document with documentId $documentId")
