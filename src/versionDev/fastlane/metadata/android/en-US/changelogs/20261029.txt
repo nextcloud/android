@@ -1,0 +1,31 @@
+fix(l10n): Update translations from Transifex
+fix(player): in favorite
+Fix QR login when enforced servers are not defined
+split into child classes to simplify logic
+split into child classes to simplify logic
+convert tests to kotlin
+convert async task to coroutines
+refactor(authenticator-activity): kotlin
+Rename .java to .kt
+wip
+refactor PreviewTextFileFragment convert to kotlin
+refactor PreviewTextFileFragment convert to kotlin
+refactor PreviewTextFileFragment convert to kotlin
+Rename .java to .kt
+refactor(file-actions): unify preview fragments
+refactor(file-actions): unify preview fragments
+fix(l10n): Update translations from Transifex
+simplify
+simplify
+refactor(oc-file-list-fragment): kotlin
+Rename .java to .kt
+Update dependency org.conscrypt:conscrypt-android to v2.8.0 (#17875)
+clarify semVer
+extract Fastlane
+Fix SpotBugs LITERAL_STRING_COMPARISON
+Implemented MOVE WebDAV method in InputStreamBinder to make it available trough Android-SingleSignOn lib
+fix(i18n): Fix typo in gallery unsupported file message
+fix double duplicate snackbar
+add better error message for weak password
+fix enforce password check
+Update Nextcloud Android library
