@@ -38,6 +38,14 @@ interface FileSystemDao {
 
     @Query(
         """
+    DELETE FROM ${ProviderMeta.ProviderTableMeta.FILESYSTEM_TABLE_NAME}
+    WHERE ${ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID} = :syncedFolderId
+    """
+    )
+    suspend fun deleteBySyncedFolderId(syncedFolderId: String)
+
+    @Query(
+        """
     SELECT COUNT(*) > 0 FROM ${ProviderMeta.ProviderTableMeta.FILESYSTEM_TABLE_NAME}
     WHERE ${ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH} = :localPath
       AND ${ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID} IS NOT NULL

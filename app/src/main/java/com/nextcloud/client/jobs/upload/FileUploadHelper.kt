@@ -669,6 +669,10 @@ class FileUploadHelper {
             }
     }
 
+    suspend fun clearAutoUploadScanCache(id: Long) {
+        uploadsStorageManager.fileSystemDao.deleteBySyncedFolderId(id.toString())
+    }
+
     /**
      * Splits a list of files into:
      * 1. Files that have an auto-upload folder configured.
