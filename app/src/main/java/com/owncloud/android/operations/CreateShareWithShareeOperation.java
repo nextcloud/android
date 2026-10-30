@@ -18,6 +18,7 @@ import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.network.ClientFactoryImpl;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.extensions.DecryptedUserExtensionsKt;
+import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -263,6 +264,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
         OCFile file = getStorageManager().getFileByPath(path);
         if (file != null) {
             file.setSharedWithSharee(true);    // TODO - this should be done by the FileContentProvider, as part of getStorageManager().saveShare(share)
+            OCFileExtensionsKt.addShare(file, share);
             getStorageManager().saveFile(file);
         }
     }

@@ -17,6 +17,8 @@ import com.owncloud.android.datamodel.OCFileDepth.DeepLevel
 import com.owncloud.android.datamodel.OCFileDepth.FirstLevel
 import com.owncloud.android.datamodel.OCFileDepth.Root
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.shares.OCShare
+import com.owncloud.android.lib.resources.shares.ShareeUser
 import com.owncloud.android.ui.events.EncryptionEvent
 import com.owncloud.android.utils.FileStorageUtils
 import java.io.File
@@ -116,4 +118,13 @@ fun OCFile.createStoragePath(accountName: String) {
 fun OCFile.isLocalETagOutdated(): Boolean {
     val serverETag = etagInConflict
     return !serverETag.isNullOrEmpty() && etag.eTagChanged(serverETag)
+}
+
+fun OCFile.addShare(share: OCShare) {
+    val sharee = ShareeUser(
+        share.shareWith,
+        share.sharedWithDisplayName,
+        share.shareType
+    )
+    sharees.add(sharee)
 }
