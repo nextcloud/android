@@ -78,7 +78,7 @@ internal class DocumentLister(
                 return@forEach
             }
 
-            cursor.addFile(Document(storageManager, file))
+            cursor.addFile(Document(storageManager, file), file)
         }
     }
 
@@ -93,7 +93,7 @@ internal class DocumentLister(
                 notifier.notifyChanged(folder)
             }
         }
-        cursor.setLoadingTask(reloadJob)
+        cursor.loadingTask = reloadJob
         return true
     }
 
@@ -106,7 +106,7 @@ internal class DocumentLister(
         storageManager.getFolderContent(folder, false).forEach { file ->
             when {
                 file.isFolder -> addMatchingFiles(cursor, storageManager, file, query)
-                file.fileName.contains(query) -> cursor.addFile(Document(storageManager, file))
+                file.fileName.contains(query) -> cursor.addFile(Document(storageManager, file), file)
             }
         }
     }

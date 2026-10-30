@@ -1,51 +1,59 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2021 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2019 Jens Mueller <tschenser@gmx.de>
  * SPDX-FileCopyrightText: 2016 Bartosz Przybylski <bart.p.pl@gmail.com>
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-package org.nextcloud.providers.cursors;
+package org.nextcloud.providers.cursors
 
-import android.content.Context;
-import android.database.MatrixCursor;
-import android.provider.DocumentsContract.Root;
+import android.content.Context
+import android.database.MatrixCursor
+import android.provider.DocumentsContract.Root.COLUMN_AVAILABLE_BYTES
+import android.provider.DocumentsContract.Root.COLUMN_DOCUMENT_ID
+import android.provider.DocumentsContract.Root.COLUMN_FLAGS
+import android.provider.DocumentsContract.Root.COLUMN_ICON
+import android.provider.DocumentsContract.Root.COLUMN_ROOT_ID
+import android.provider.DocumentsContract.Root.COLUMN_SUMMARY
+import android.provider.DocumentsContract.Root.COLUMN_TITLE
+import android.provider.DocumentsContract.Root.FLAG_SUPPORTS_CREATE
+import android.provider.DocumentsContract.Root.FLAG_SUPPORTS_IS_CHILD
+import android.provider.DocumentsContract.Root.FLAG_SUPPORTS_RECENTS
+import android.provider.DocumentsContract.Root.FLAG_SUPPORTS_SEARCH
+import com.owncloud.android.R
+import com.owncloud.android.providers.documentstorage.model.Document
 
-import com.nextcloud.client.account.User;
-import com.owncloud.android.R;
-import com.owncloud.android.providers.documentstorage.model.Document;
+class RootCursor(projection: Array<String>?) : MatrixCursor(projection ?: DEFAULT_ROOT_PROJECTION) {
 
-public class RootCursor extends MatrixCursor {
+    fun addRoot(document: Document, context: Context) {
+        val accountName = document.user.accountName
 
-    private static final String[] DEFAULT_ROOT_PROJECTION = new String[] {
-            Root.COLUMN_ROOT_ID,
-            Root.COLUMN_FLAGS,
-            Root.COLUMN_ICON,
-            Root.COLUMN_TITLE,
-            Root.COLUMN_DOCUMENT_ID,
-            Root.COLUMN_AVAILABLE_BYTES,
-            Root.COLUMN_SUMMARY,
-            Root.COLUMN_FLAGS
-    };
-
-    public RootCursor(String[] projection) {
-        super(projection != null ? projection : DEFAULT_ROOT_PROJECTION);
+        newRow()
+            .add(COLUMN_ROOT_ID, accountName)
+            .add(COLUMN_DOCUMENT_ID, document.documentId)
+            .add(COLUMN_SUMMARY, accountName)
+            .add(COLUMN_TITLE, context.getString(R.string.app_name))
+            .add(COLUMN_ICON, R.mipmap.ic_launcher)
+            .add(COLUMN_FLAGS, ROOT_FLAGS)
     }
 
-    public void addRoot(Document document, Context context) {
-        User user = document.getUser();
+    companion object {
+        private const val ROOT_FLAGS = FLAG_SUPPORTS_CREATE or
+            FLAG_SUPPORTS_RECENTS or
+            FLAG_SUPPORTS_SEARCH or
+            FLAG_SUPPORTS_IS_CHILD
 
-        int rootFlags = Root.FLAG_SUPPORTS_CREATE
-                      | Root.FLAG_SUPPORTS_RECENTS
-                      | Root.FLAG_SUPPORTS_SEARCH
-                      | Root.FLAG_SUPPORTS_IS_CHILD;
-
-        newRow().add(Root.COLUMN_ROOT_ID, user.getAccountName())
-            .add(Root.COLUMN_DOCUMENT_ID, document.getDocumentId())
-            .add(Root.COLUMN_SUMMARY, user.getAccountName())
-            .add(Root.COLUMN_TITLE, context.getString(R.string.app_name))
-            .add(Root.COLUMN_ICON, R.mipmap.ic_launcher)
-            .add(Root.COLUMN_FLAGS, rootFlags);
+        private val DEFAULT_ROOT_PROJECTION = arrayOf(
+            COLUMN_ROOT_ID,
+            COLUMN_FLAGS,
+            COLUMN_ICON,
+            COLUMN_TITLE,
+            COLUMN_DOCUMENT_ID,
+            COLUMN_AVAILABLE_BYTES,
+            COLUMN_SUMMARY,
+            COLUMN_FLAGS
+        )
     }
 }

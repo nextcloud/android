@@ -1,86 +1,78 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2019 Jens Mueller <tschenser@gmx.de>
  * SPDX-FileCopyrightText: 2016 Iskra Delta <iskradelta@no-reply.github.com>
  * SPDX-FileCopyrightText: 2015 Bartosz Przybylski <bart.p.pl@gmail.com>
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-package org.nextcloud.providers.cursors;
+package org.nextcloud.providers.cursors
 
-import android.database.MatrixCursor;
-import android.os.Bundle;
-import android.provider.DocumentsContract.Document;
+import android.database.MatrixCursor
+import android.provider.DocumentsContract.Document.COLUMN_DISPLAY_NAME
+import android.provider.DocumentsContract.Document.COLUMN_DOCUMENT_ID
+import android.provider.DocumentsContract.Document.COLUMN_FLAGS
+import android.provider.DocumentsContract.Document.COLUMN_ICON
+import android.provider.DocumentsContract.Document.COLUMN_LAST_MODIFIED
+import android.provider.DocumentsContract.Document.COLUMN_MIME_TYPE
+import android.provider.DocumentsContract.Document.COLUMN_SIZE
+import android.provider.DocumentsContract.Document.FLAG_DIR_SUPPORTS_CREATE
+import android.provider.DocumentsContract.Document.FLAG_SUPPORTS_COPY
+import android.provider.DocumentsContract.Document.FLAG_SUPPORTS_DELETE
+import android.provider.DocumentsContract.Document.FLAG_SUPPORTS_MOVE
+import android.provider.DocumentsContract.Document.FLAG_SUPPORTS_REMOVE
+import android.provider.DocumentsContract.Document.FLAG_SUPPORTS_RENAME
+import android.provider.DocumentsContract.Document.FLAG_SUPPORTS_THUMBNAIL
+import android.provider.DocumentsContract.Document.FLAG_SUPPORTS_WRITE
+import android.provider.DocumentsContract.Document.MIME_TYPE_DIR
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.providers.documentstorage.model.Document
+import com.owncloud.android.utils.MimeTypeUtil
+import kotlinx.coroutines.Job
 
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.utils.MimeTypeUtil;
+class FileCursor(projection: Array<String>?) : MatrixCursor(projection ?: DEFAULT_DOCUMENT_PROJECTION) {
 
-import kotlinx.coroutines.Job;
+    var loadingTask: Job? = null
 
-public class FileCursor extends MatrixCursor {
-
-    static final String[] DEFAULT_DOCUMENT_PROJECTION = new String[]{
-        Document.COLUMN_DOCUMENT_ID, Document.COLUMN_DISPLAY_NAME,
-        Document.COLUMN_MIME_TYPE, Document.COLUMN_SIZE,
-        Document.COLUMN_FLAGS, Document.COLUMN_LAST_MODIFIED
-    };
-
-    private Bundle extra;
-    private Job loadingTask;
-
-    public FileCursor(String[] projection) {
-        super(projection != null ? projection : DEFAULT_DOCUMENT_PROJECTION);
+    override fun close() {
+        super.close()
+        loadingTask?.cancel()
     }
 
-    public void setLoadingTask(Job task) {
-        this.loadingTask = task;
+    fun addFile(document: Document, file: OCFile) {
+        newRow()
+            .add(COLUMN_DOCUMENT_ID, document.documentId)
+            .add(COLUMN_DISPLAY_NAME, file.fileName)
+            .add(COLUMN_LAST_MODIFIED, file.modificationTimestamp)
+            .add(COLUMN_SIZE, file.fileLength)
+            .add(COLUMN_FLAGS, documentFlags(file))
+            .add(COLUMN_ICON, MimeTypeUtil.getFileTypeIconId(file.mimeType, file.fileName))
+            .add(COLUMN_MIME_TYPE, if (file.isFolder) MIME_TYPE_DIR else file.mimeType)
     }
 
-    @Override
-    public void setExtras(Bundle extras) {
-        this.extra = extras;
+    private fun documentFlags(file: OCFile): Int {
+        val thumbnailFlag = if (MimeTypeUtil.isImage(file)) FLAG_SUPPORTS_THUMBNAIL else 0
+        val createFlag = if (file.isFolder) FLAG_DIR_SUPPORTS_CREATE else 0
+        return BASE_DOCUMENT_FLAGS or thumbnailFlag or createFlag
     }
 
-    @Override
-    public Bundle getExtras() {
-        return extra;
-    }
+    companion object {
+        private const val BASE_DOCUMENT_FLAGS = FLAG_SUPPORTS_RENAME or
+            FLAG_SUPPORTS_DELETE or
+            FLAG_SUPPORTS_WRITE or
+            FLAG_SUPPORTS_COPY or
+            FLAG_SUPPORTS_MOVE or
+            FLAG_SUPPORTS_REMOVE
 
-    @Override
-    public void close() {
-        super.close();
-        if (loadingTask != null && !loadingTask.isCompleted()) {
-            loadingTask.cancel(null);
-        }
-    }
-
-    public void addFile(com.owncloud.android.providers.documentstorage.model.Document document) {
-        if (document == null) {
-            return;
-        }
-
-        OCFile file = document.getFile();
-
-        final int iconRes = MimeTypeUtil.getFileTypeIconId(file.getMimeType(), file.getFileName());
-        final String mimeType = file.isFolder() ? Document.MIME_TYPE_DIR : file.getMimeType();
-        int flags = Document.FLAG_SUPPORTS_DELETE |
-            Document.FLAG_SUPPORTS_WRITE |
-            (MimeTypeUtil.isImage(file) ? Document.FLAG_SUPPORTS_THUMBNAIL : 0) |
-            Document.FLAG_SUPPORTS_COPY | Document.FLAG_SUPPORTS_MOVE | Document.FLAG_SUPPORTS_REMOVE;
-
-        if (file.isFolder()) {
-            flags = flags | Document.FLAG_DIR_SUPPORTS_CREATE;
-        }
-
-        flags = Document.FLAG_SUPPORTS_RENAME | flags;
-
-        newRow().add(Document.COLUMN_DOCUMENT_ID, document.getDocumentId())
-                .add(Document.COLUMN_DISPLAY_NAME, file.getFileName())
-                .add(Document.COLUMN_LAST_MODIFIED, file.getModificationTimestamp())
-                .add(Document.COLUMN_SIZE, file.getFileLength())
-                .add(Document.COLUMN_FLAGS, flags)
-                .add(Document.COLUMN_ICON, iconRes)
-                .add(Document.COLUMN_MIME_TYPE, mimeType);
+        private val DEFAULT_DOCUMENT_PROJECTION = arrayOf(
+            COLUMN_DOCUMENT_ID,
+            COLUMN_DISPLAY_NAME,
+            COLUMN_MIME_TYPE,
+            COLUMN_SIZE,
+            COLUMN_FLAGS,
+            COLUMN_LAST_MODIFIED
+        )
     }
 }

@@ -120,8 +120,8 @@ class DocumentsStorageProvider : DocumentsProvider() {
 
         return withClearedCallingIdentity {
             val document = resolver.toDocument(documentId)
-            document.requireFile()
-            FileCursor(projection).apply { addFile(document) }
+            val file = document.requireFile()
+            FileCursor(projection).apply { addFile(document, file) }
         }
     }
 
