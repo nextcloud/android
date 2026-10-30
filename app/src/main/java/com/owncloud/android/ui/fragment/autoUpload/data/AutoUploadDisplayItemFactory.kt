@@ -122,8 +122,6 @@ class AutoUploadDisplayItemFactory(
             isSubfolderByDate = syncedFolder.isSubfolderByDate
             uploadAction = syncedFolder.uploadAction
             setNameCollisionPolicy(syncedFolder.nameCollisionPolicy.serialize())
-            // only a folder being switched on starts a new "enabled since" period, files from before it count as
-            // existing files and are skipped unless "also upload existing files" is set
             if (syncedFolder.isEnabled != isEnabled) {
                 setEnabled(syncedFolder.isEnabled, clock.currentTime)
             }

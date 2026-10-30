@@ -40,8 +40,6 @@ class AutoUploadClickHandler(
 
     private val fileUploadHelper = FileUploadHelper.instance()
 
-    // runs cleanup and re-enabling of folders in the order they were requested, so a folder switched off and on
-    // quickly cannot be scanned before its cleanup finished or have its fresh scan removed by that cleanup
     private val folderStateDispatcher = Dispatchers.IO.limitedParallelism(1)
 
     fun onCreateCustomFolderClick(activity: AppCompatActivity, accountName: String) {

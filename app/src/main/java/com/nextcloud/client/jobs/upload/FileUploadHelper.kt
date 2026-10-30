@@ -669,13 +669,6 @@ class FileUploadHelper {
             }
     }
 
-    /**
-     * Forgets which files of a synced folder were already seen, so its next scan starts from scratch.
-     *
-     * Must run before a folder is enabled again: its filesystem entities stay marked as sent for upload, and once
-     * [removeEntityFromUploadEntities] removed their upload entities, FileSystemRepository.wasUploadFinished treats
-     * them as finished, so these files would be skipped forever, even with "also upload existing files".
-     */
     suspend fun clearAutoUploadScanCache(id: Long) {
         uploadsStorageManager.fileSystemDao.deleteBySyncedFolderId(id.toString())
     }
