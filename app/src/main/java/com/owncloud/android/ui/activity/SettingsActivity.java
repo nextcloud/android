@@ -70,7 +70,7 @@ import com.owncloud.android.operations.e2e.E2ECertificateRenewalResult;
 import com.owncloud.android.operations.e2e.E2ECertificateRenewalService;
 import com.owncloud.android.operations.e2e.E2ECertificateValidity;
 import com.owncloud.android.operations.e2e.E2EDeletionService;
-import com.owncloud.android.providers.DocumentsStorageProvider;
+import com.owncloud.android.providers.documentstorage.DocumentsStorageProvider;
 import com.owncloud.android.ui.ThemeableSwitchPreference;
 import com.owncloud.android.ui.asynctasks.LoadingVersionNumberTask;
 import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment;
