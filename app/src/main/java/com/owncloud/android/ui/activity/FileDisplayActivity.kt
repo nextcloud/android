@@ -746,8 +746,7 @@ class FileDisplayActivity :
             listFragmentJustCreated = true
         }
 
-        // the onResume() following this intent already lists and re-syncs the current directory
-        browseToRoot(performRefresh = false)
+        browseToRoot()
     }
 
     @SuppressLint("UnsafeIntentLaunch")
@@ -1068,15 +1067,12 @@ class FileDisplayActivity :
         }
     }
 
-    fun browseToRoot(performRefresh: Boolean = true) {
+    private fun browseToRoot() {
         listOfFilesFragment?.let {
             val root = storageManager.getFileByPath(OCFile.ROOT_PATH)
             it.resetSearchAttributes()
             file = root
             it.listDirectory(root, MainApp.isOnlyOnDevice())
-            if (performRefresh) {
-                startSyncFolderOperation(root, false)
-            }
         }
 
         binding.fabMain.setImageResource(R.drawable.ic_plus)
