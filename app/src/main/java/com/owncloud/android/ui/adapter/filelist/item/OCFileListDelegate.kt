@@ -63,7 +63,7 @@ class OCFileListDelegate(
     private val user: User,
     private val storageManager: FileDataStorageManager,
     private val hideItemOptions: Boolean,
-    private val gridView: Boolean,
+    var gridView: Boolean,
     private val transferServiceGetter: ComponentsGetter,
     private val showMetadata: Boolean,
     private var showShareAvatar: Boolean,
