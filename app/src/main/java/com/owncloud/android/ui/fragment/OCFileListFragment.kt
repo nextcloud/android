@@ -1151,12 +1151,15 @@ open class OCFileListFragment :
         }
 
         Log_OC.i(TAG, "Listing directory ${directoryToList.decryptedRemotePath}, onlyOnDevice=$onlyOnDevice")
-        adapter.swapDirectory(accountManager.user, directoryToList, storageManager, onlyOnDevice, mimeType)
-
         val previousDirectory = currentFile
+        adapter.swapDirectory(accountManager.user, directoryToList, storageManager, onlyOnDevice, mimeType) {
+            if (view == null) return@swapDirectory
+            fileListLayoutManager?.setLayoutViewMode()
+            scrollToHighlightedFileOrTop(adapter, highlightedFile, previousDirectory, directoryToList)
+        }
+
         currentFile = directoryToList
         updateUiForCurrentFolder()
-        scrollToHighlightedFileOrTop(adapter, highlightedFile, previousDirectory, directoryToList)
     }
 
     private fun scrollToHighlightedFileOrTop(
@@ -1207,7 +1210,6 @@ open class OCFileListFragment :
         get() = adapter?.isEmpty ?: true
 
     private fun updateUiForCurrentFolder() {
-        fileListLayoutManager?.setLayoutViewMode()
         updateSortButtonLabel()
         setLayoutSwitchButton()
 
