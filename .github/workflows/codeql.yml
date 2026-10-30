@@ -1,6 +1,7 @@
 # synced from @nextcloud/android-config
 
 # SPDX-FileCopyrightText: 2022-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
 # SPDX-FileCopyrightText: 2023-2024 Andy Scherzinger <info@andy-scherzinger.de>
 # SPDX-FileCopyrightText: 2022 Tobias Kaminsky <tobias@kaminsky.me>
 # SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
@@ -20,10 +21,15 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: codeql-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest-max
+    timeout-minutes: 90
     permissions:
       actions: read
       contents: read

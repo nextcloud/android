@@ -164,6 +164,7 @@
     <string name="contacts_preferences_import_scheduled">Увозот е закажан и ќе започне наскоро</string>
     <string name="contacts_preferences_no_file_found">Не е пронајдена датотека</string>
     <string name="contacts_preferences_something_strange_happened">Неможам да ја пронајдам последната резервна копија!</string>
+    <string name="conversation_screen_delete_button_title">Избриши разговор</string>
     <string name="conversation_screen_empty_content_title">Нема пронајдено разговори</string>
     <string name="conversation_screen_title">Разговори</string>
     <string name="copied">Копирано</string>

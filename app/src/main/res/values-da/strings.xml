@@ -610,6 +610,7 @@
     <string name="foreign_files_remote_text">Ekstern: %1$s</string>
     <string name="forward">Videresend</string>
     <string name="fourHours">4 timer</string>
+    <string name="gallery_unsupported_file">Filtypen understøttes ikke</string>
     <string name="governance_file_retention_label">Sletteregel</string>
     <string name="governance_legal_hold_label">Juridisk tilbageholdelse</string>
     <string name="governance_no_label">Ingen</string>
@@ -982,6 +983,7 @@
     <string name="share_link_file_no_exist">Kan ikke dele. Kontrollér, om filen findes.</string>
     <string name="share_link_forbidden_permissions">til at dele denne fil</string>
     <string name="share_link_optional_password_title">Angiv en valgfri adgangskode</string>
+    <string name="share_link_password_rejected">Adgangskoden opfylder ikke kravene til adgangskoder. Prøv en længere eller mere kompleks adgangskode.</string>
     <string name="share_link_password_title">Angiv en adgangskode</string>
     <string name="share_link_with_label">Del link (%1$s)</string>
     <string name="share_no_expiration_date_label">Angiv udløbsdato</string>
