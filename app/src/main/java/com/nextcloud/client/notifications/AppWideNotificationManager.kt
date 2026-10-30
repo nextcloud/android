@@ -33,7 +33,7 @@ object AppWideNotificationManager {
 
     private const val TAG = "AppWideNotificationManager"
 
-    private const val SYNC_CONFLICT_NOTIFICATION_INTENT_REQ_CODE = 16
+    private const val UPLOAD_LIST_REQUEST_CODE = 16
     private const val SYNC_CONFLICT_NOTIFICATION_INTENT_ACTION_REQ_CODE = 17
 
     private const val SYNC_CONFLICT_NOTIFICATION_ID = 112
@@ -45,7 +45,7 @@ object AppWideNotificationManager {
 
         return PendingIntent.getActivity(
             context,
-            SYNC_CONFLICT_NOTIFICATION_INTENT_REQ_CODE,
+            UPLOAD_LIST_REQUEST_CODE,
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
