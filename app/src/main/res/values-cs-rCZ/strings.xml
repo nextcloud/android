@@ -125,6 +125,7 @@
     <string name="autoupload_configure">Nastavit</string>
     <string name="autoupload_create_new_custom_folder">Vytvořit nové uživatelsky určené nastavení složky</string>
     <string name="autoupload_custom_folder">Nastavit uživatelsky určenou složku</string>
+    <string name="autoupload_delete_uploaded_notif_ended_title">Smazat lokální soubory už nahraných souborů</string>
     <string name="autoupload_disable_power_save_check">Nekontrolovat zda je zapnutý režim úspory energie</string>
     <string name="autoupload_hide_folder">Skrýt složku</string>
     <string name="avatar">Avatar</string>

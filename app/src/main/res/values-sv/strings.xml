@@ -610,6 +610,7 @@
     <string name="foreign_files_remote_text">Fjärr: %1$s</string>
     <string name="forward">Vidarebefordra</string>
     <string name="fourHours">4 timmar</string>
+    <string name="gallery_unsupported_file">Filtypen stöds inte</string>
     <string name="governance_file_retention_label">Fillagring</string>
     <string name="governance_legal_hold_label">Rättsligt bevarande</string>
     <string name="governance_no_label">Ingen</string>
@@ -983,6 +984,7 @@
     <string name="share_link_file_no_exist">Det går inte att dela. Kontrollera att filen finns.</string>
     <string name="share_link_forbidden_permissions">att dela denna fil</string>
     <string name="share_link_optional_password_title">Ange ett valfritt lösenord</string>
+    <string name="share_link_password_rejected">Lösenordet uppfyller inte lösenordskraven. Försök med ett längre eller mer komplext lösenord.</string>
     <string name="share_link_password_title">Ange ett lösenord</string>
     <string name="share_link_with_label">Dela länk (%1$s)</string>
     <string name="share_no_expiration_date_label">Välj utgångsdatum</string>

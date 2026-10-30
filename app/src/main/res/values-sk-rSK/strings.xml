@@ -610,6 +610,7 @@
     <string name="foreign_files_remote_text">Vzdialené: %1$s</string>
     <string name="forward">Preposlať</string>
     <string name="fourHours">4 hodiny</string>
+    <string name="gallery_unsupported_file">Nepodporovaný typ súboru</string>
     <string name="governance_file_retention_label">Uchovávanie súborov</string>
     <string name="governance_legal_hold_label">Právne uchovanie</string>
     <string name="governance_no_label">Žiadne</string>
@@ -982,6 +983,7 @@
     <string name="share_link_file_no_exist">Zdieľanie nie je možné. Skontrolujte, či súbor existuje.</string>
     <string name="share_link_forbidden_permissions">sprístupniť tento súbor</string>
     <string name="share_link_optional_password_title">Zadajte voliteľné heslo </string>
+    <string name="share_link_password_rejected">Heslo nespĺňa požiadavky na heslá. Skúste dlhšie alebo zložitejšie heslo.</string>
     <string name="share_link_password_title">Vložte heslo</string>
     <string name="share_link_with_label">Zdieľať odkaz (%1$s)</string>
     <string name="share_no_expiration_date_label">Nastaviť dátum expirácie</string>
