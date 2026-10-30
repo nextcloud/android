@@ -15,15 +15,11 @@ import com.owncloud.android.providers.documentstorage.model.Document
 internal class DocumentNotifier(private val context: Context) {
 
     fun notifyChanged(document: Document) {
-        context.contentResolver.notifyChange(notifyUri(document), null, NO_NOTIFY_FLAGS)
+        context.contentResolver.notifyChange(notifyUri(document), null, 0)
     }
 
     fun notifyUri(document: Document): Uri = DocumentsContract.buildDocumentUri(
         context.getString(R.string.document_provider_authority),
         document.documentId
     )
-
-    companion object {
-        private const val NO_NOTIFY_FLAGS = 0
-    }
 }
