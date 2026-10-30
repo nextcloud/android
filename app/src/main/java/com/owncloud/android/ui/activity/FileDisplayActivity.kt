@@ -1073,8 +1073,8 @@ class FileDisplayActivity :
             val root = storageManager.getFileByPath(OCFile.ROOT_PATH)
             it.resetSearchAttributes()
             file = root
+            it.listDirectory(root, MainApp.isOnlyOnDevice())
             if (performRefresh) {
-                it.listDirectory(root, MainApp.isOnlyOnDevice())
                 startSyncFolderOperation(root, false)
             }
         }
