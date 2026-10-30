@@ -2465,7 +2465,7 @@ class FileDisplayActivity :
         if ((showPreview && file.isDown && !file.isDownloading) || streamMedia) {
             startAudioPlayer(file)
         } else {
-            syncFileThenStart(file,audioPreviewIntent(file))
+            syncFileThenStart(file, audioPreviewIntent(file))
         }
     }
 
