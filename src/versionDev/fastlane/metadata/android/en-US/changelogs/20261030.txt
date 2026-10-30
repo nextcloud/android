@@ -1,0 +1,19 @@
+fix(l10n): Update translations from Transifex
+update lib
+wip
+refactor(get-public-key): rename to get certificate
+🔄 synced local '.' with remote 'config/root/'
+🔄 synced local 'fastlane/' with remote 'config/fastlane/'
+Update library to 2026-10-29
+increase long method to 120
+improve ContentUriLastModifiedResolver
+add fallback to OS.fstat via ContentUriLastModifiedResolver
+fix(copy-upload): modification date
+refactor document storage provider
+fix null path and concurrent modification issue
+fix wrote
+add more logs
+check parent folder existance
+adopt latest changes from master
+build(fastlane): disable R8 optimization for release builds
+remove codacy
