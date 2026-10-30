@@ -586,7 +586,7 @@ class FileDisplayActivity :
     }
 
     private fun resolveInitialFile(storageManager: FileDataStorageManager): OCFile? =
-        getFile()?.let { findStoredFile(it, storageManager) } ?: storageManager.getFileByPath(OCFile.ROOT_PATH)
+        file?.let { findStoredFile(it, storageManager) } ?: storageManager.getFileByPath(OCFile.ROOT_PATH)
 
     private fun findStoredFile(file: OCFile, storageManager: FileDataStorageManager): OCFile? {
         if (!file.isDown || file.lastSyncDateForProperties != 0L) {
@@ -1086,7 +1086,7 @@ class FileDisplayActivity :
     override fun onBrowsedDownTo(directory: OCFile?) {
         file = directory
         resetScrollingAndUpdateActionBar()
-        startSyncFolderOperation(directory, false)
+        startSyncFolderOperation(directory, ignoreETag = false, syncChangedDownloadedFiles = true)
         startMetadataSyncForCurrentDir()
     }
 
@@ -1494,12 +1494,17 @@ class FileDisplayActivity :
      * @param ignoreFocus reloads the file list even without window focus, e.g. while a detail view has the focus
      */
     @JvmOverloads
-    fun startSyncFolderOperation(folder: OCFile?, ignoreETag: Boolean, ignoreFocus: Boolean = false) {
+    fun startSyncFolderOperation(
+        folder: OCFile?,
+        ignoreETag: Boolean,
+        ignoreFocus: Boolean = false,
+        syncChangedDownloadedFiles: Boolean = false
+    ) {
         Log_OC.d(TAG, "startSyncFolderOperation called, ignoreEtag: $ignoreETag, ignoreFocus: $ignoreFocus")
 
         if (searchQuery.isNotEmpty() || user.isEmpty) return
 
-        val syncFolder = Runnable { folder?.let { refreshFolder(it, ignoreETag) } }
+        val syncFolder = Runnable { executeSyncFolderOperation(folder, ignoreETag, syncChangedDownloadedFiles) }
 
         // The refresh must not run while another window floats over the activity, e.g. a dialog that is being
         // dismissed or a rotation. Rather than waiting a fixed delay run right away when it already has focus
@@ -1512,7 +1517,8 @@ class FileDisplayActivity :
         }
     }
 
-    private fun refreshFolder(folder: OCFile, ignoreETag: Boolean) {
+    private fun executeSyncFolderOperation(folder: OCFile?, ignoreETag: Boolean, syncChangedDownloadedFiles: Boolean) {
+        val folder = folder ?: return
         val currentUser = user.orElse(null) ?: return
 
         syncState = EmptyListState.LOADING
@@ -1524,7 +1530,8 @@ class FileDisplayActivity :
             ignoreETag,
             storageManager,
             currentUser,
-            applicationContext
+            applicationContext,
+            syncChangedDownloadedFiles
         ).execute(
             account,
             this,
@@ -2350,6 +2357,10 @@ class FileDisplayActivity :
     fun canPreviewInMediaPager(file: OCFile): Boolean =
         PreviewMediaFragment.canBePreviewed(file) || MimeTypeUtil.isVideo(file)
 
+    /**
+     * Downloaded and non-downloaded images are handled later in
+     * [com.owncloud.android.ui.preview.media.PreviewMediaPagerAdapter.fragmentFor]
+     */
     fun previewImageWithSearchContext(
         file: OCFile,
         searchFragment: Boolean,
@@ -2372,8 +2383,7 @@ class FileDisplayActivity :
             null
         }
 
-        val showPreview = file.isDown || MimeTypeUtil.isVideo(file)
-        startImagePreview(file, showPreview, type, mediaState, sourceView)
+        startImagePreview(file, true, type, mediaState, sourceView)
     }
 
     fun previewFile(file: OCFile, setFabVisible: CompletionCallback?) {
@@ -2389,16 +2399,25 @@ class FileDisplayActivity :
 
             PreviewTextFileFragment.canBePreviewed(file) -> {
                 setFabVisible?.onComplete(false)
-                startTextPreview(file, false)
+                fileOperationsHelper.startSyncForOutdatedFileAndIntent(file, textPreviewIntent(file))
             }
 
             canPreviewInAudioPlayer(file) -> {
                 setFabVisible?.onComplete(false)
-                startAudioPreview(file, true, false)
+                if (file.isDownloading) {
+                    fileOperationsHelper.startSyncForOutdatedFileAndIntent(file, audioPreviewIntent(file))
+                } else {
+                    startAudioPlayer(file)
+                }
             }
 
             else -> fileOperationsHelper.openFile(file)
         }
+    }
+
+    private fun textPreviewIntent(file: OCFile?): Intent = Intent().apply {
+        putExtra(EXTRA_FILE, file)
+        putExtra(TEXT_PREVIEW, true)
     }
 
     fun startImagePreview(
@@ -2437,11 +2456,6 @@ class FileDisplayActivity :
             .startSyncForFileAndIntent(file, intent)
     }
 
-    private fun syncedPreviewIntent(file: OCFile, previewKey: String): Intent = Intent().apply {
-        putExtra(EXTRA_FILE, file)
-        putExtra(previewKey, true)
-    }
-
     /**
      * Plays the audio file, synchronizing it first when it is not available yet.
      */
@@ -2451,7 +2465,7 @@ class FileDisplayActivity :
         if ((showPreview && file.isDown && !file.isDownloading) || streamMedia) {
             startAudioPlayer(file)
         } else {
-            syncFileThenStart(file, syncedPreviewIntent(file, AUDIO_PREVIEW))
+            syncFileThenStart(file, audioPreviewIntent(file))
         }
     }
 
@@ -2463,6 +2477,11 @@ class FileDisplayActivity :
         audioPlayerLauncher.launch(this, file, collection)
     }
 
+    private fun audioPreviewIntent(file: OCFile): Intent = Intent().apply {
+        putExtra(EXTRA_FILE, file)
+        putExtra(AUDIO_PREVIEW, true)
+    }
+
     fun startTextPreview(file: OCFile, showPreview: Boolean) {
         val currentUser = user.orElse(null) ?: return
 
@@ -2472,7 +2491,7 @@ class FileDisplayActivity :
             configureToolbarForPreview(file)
             showBottomNavigationBar(false)
         } else {
-            syncFileThenStart(file, syncedPreviewIntent(file, TEXT_PREVIEW))
+            syncFileThenStart(file, textPreviewIntent(file))
         }
     }
 
