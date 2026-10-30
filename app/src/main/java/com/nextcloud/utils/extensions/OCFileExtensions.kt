@@ -128,3 +128,11 @@ fun OCFile.addShare(share: OCShare) {
     )
     sharees.add(sharee)
 }
+
+fun OCFile.removeShare(share: OCShare) {
+    sharees.removeAll { s ->
+        s.userId == share.shareWith &&
+        s.displayName == share.sharedWithDisplayName &&
+        s.shareType == share.shareType
+    }
+}
