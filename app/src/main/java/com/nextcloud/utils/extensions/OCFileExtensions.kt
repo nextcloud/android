@@ -121,6 +121,14 @@ fun OCFile.isLocalETagOutdated(): Boolean {
 }
 
 fun OCFile.addShare(share: OCShare) {
+    if (
+        sharees.any { s ->
+            s.userId == share.shareWith &&
+            s.displayName == share.sharedWithDisplayName &&
+            s.shareType == share.shareType
+        }
+    ) return
+
     val sharee = ShareeUser(
         share.shareWith,
         share.sharedWithDisplayName,
