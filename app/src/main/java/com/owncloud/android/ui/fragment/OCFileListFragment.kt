@@ -476,41 +476,21 @@ open class OCFileListFragment :
     }
 
     fun updateFabState() {
-        setFabState(resolveFabState(currentFile))
+        val fileDisplayActivity = activity as? FileDisplayActivity
+        val isAlbumScreen = fileDisplayActivity?.isAlbumsFragment == true ||
+            fileDisplayActivity?.isAlbumItemsFragment == true
+        val hiddenByScreen = hideFab || isSearchFragment || isAlbumScreen
+        setFabState(FabState.from(currentFile, containerActivity?.storageManager, hiddenByScreen))
     }
 
     fun setFabState(state: FabState) {
         val fab = fabMain ?: return
-        val activity = activity ?: return
-        activity.runOnUiThread {
-            val visible = state != FabState.HIDDEN
-            if (visible) fab.show() else fab.hide()
-            fab.isEnabled = state == FabState.ENABLED
-            viewThemeUtils.material.themeFAB(fab)
-            fab.slideHideBottomBehavior(visible)
-        }
-    }
-
-    private fun resolveFabState(folder: OCFile?): FabState = when {
-        hideFab || isSearchFragment || isAlbumScreen() || isReadOnlyFolder(folder) -> FabState.HIDDEN
-        folder != null && (folder.canCreateFileAndFolder() || folder.isOfflineOperation) -> FabState.ENABLED
-        else -> FabState.DISABLED
-    }
-
-    private fun isAlbumScreen(): Boolean {
-        val fileDisplayActivity = activity as? FileDisplayActivity ?: return false
-        return fileDisplayActivity.isAlbumsFragment || fileDisplayActivity.isAlbumItemsFragment
+        activity?.runOnUiThread { state.applyTo(fab, viewThemeUtils) }
     }
 
     private fun setBottomNavigationVisible(visible: Boolean) {
         val drawerActivity = activity as? DrawerActivity ?: return
         drawerActivity.bottomNavigationView.slideHideBottomBehavior(visible)
-    }
-
-    private fun isReadOnlyFolder(folder: OCFile?): Boolean {
-        folder ?: return false
-        val storageManager = containerActivity?.storageManager ?: return false
-        return storageManager.isReadOnly(folder)
     }
     //endregion
 
