@@ -7,6 +7,7 @@
  */
 @file:Suppress("UnstableApiUsage", "DEPRECATION")
 
+import com.android.build.api.variant.FilterConfiguration
 import com.github.spotbugs.snom.Confidence
 import com.github.spotbugs.snom.Effort
 import com.github.spotbugs.snom.SpotBugsTask
@@ -17,12 +18,21 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 val shotTest = System.getenv("SHOT_TEST") == "true"
 val ciBuild = System.getenv("CI") == "true"
 val perfAnalysis = project.hasProperty("perfAnalysis")
+val abiSplit = project.hasProperty("abiSplit")
 
 val allAbis = listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
 val localDebugAbis = when (System.getProperty("os.arch")) {
     "aarch64", "arm64" -> listOf("arm64-v8a")
     else -> listOf("arm64-v8a", "x86_64")
 }
+
+val abiVersionCodes = mapOf("armeabi-v7a" to 1, "arm64-v8a" to 2, "x86" to 3, "x86_64" to 4)
+val majorVersionCodeMultiplier = 10_000_000
+val abiVersionCodeMultiplier = 10
+
+fun abiVersionCode(versionCode: Int, abiCode: Int): Int =
+    versionCode / majorVersionCodeMultiplier * majorVersionCodeMultiplier +
+        versionCode % majorVersionCodeMultiplier * abiVersionCodeMultiplier + abiCode
 
 plugins {
     alias(libs.plugins.android.application)
@@ -132,16 +142,20 @@ android {
                     enable = true
                 }
                 buildConfigField("String", "NC_TEST_SERVER_DATA_STRING", "\"\"")
-                ndk {
-                    abiFilters += allAbis
+                if (!abiSplit) {
+                    ndk {
+                        abiFilters += allAbis
+                    }
                 }
             }
             debug {
                 enableUnitTestCoverage = project.hasProperty("coverage")
                 enableAndroidTestCoverage = project.hasProperty("coverage")
                 resConfigs("xxxhdpi")
-                ndk {
-                    abiFilters += if (ciBuild) allAbis else localDebugAbis
+                if (!abiSplit) {
+                    ndk {
+                        abiFilters += if (ciBuild) allAbis else localDebugAbis
+                    }
                 }
             }
         }
@@ -191,6 +205,15 @@ android {
         pickFirsts.add("MANIFEST.MF") // workaround for duplicated manifest on some dependencies
     }
 
+    if (abiSplit) {
+        splits.abi {
+            isEnable = true
+            reset()
+            include(*allAbis.toTypedArray())
+            isUniversalApk = false
+        }
+    }
+
     buildFeatures {
         buildConfig = true
         viewBinding = true
@@ -238,6 +261,15 @@ android {
         }
     }
 
+}
+
+androidComponents.onVariants { variant ->
+    variant.outputs.forEach { output ->
+        val abi = output.filters.find { it.filterType == FilterConfiguration.FilterType.ABI }?.identifier
+            ?: return@forEach
+        val abiCode = abiVersionCodes.getValue(abi)
+        output.versionCode.set(abiVersionCode(output.versionCode.get(), abiCode))
+    }
 }
 
 ksp.arg("room.schemaLocation", "$projectDir/schemas")
