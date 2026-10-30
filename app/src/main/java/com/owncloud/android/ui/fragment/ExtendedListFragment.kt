@@ -199,7 +199,7 @@ open class ExtendedListFragment :
                 if (activity is FileDisplayActivity) {
                     val fragment = activity.leftFragment
                     if (fragment is OCFileListFragment) {
-                        fragment.setFabVisible(!hasFocus)
+                        if (hasFocus) fragment.setFabState(FabState.HIDDEN) else fragment.updateFabState()
                     }
                 }
 

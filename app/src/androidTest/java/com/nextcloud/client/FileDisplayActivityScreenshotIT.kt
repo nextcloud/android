@@ -23,6 +23,7 @@ import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.fragment.EmptyListState
+import com.owncloud.android.ui.fragment.FabState
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Assert
 import org.junit.Rule
@@ -48,7 +49,7 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
                 scenario.onActivity { sut ->
                     sut.run {
                         listOfFilesFragment?.let {
-                            it.setFabEnabled(false)
+                            it.setFabState(FabState.DISABLED)
                             resetScrolling(true)
                             it.setEmptyListMessage(EmptyListState.LOADING)
                             it.isLoading = false
@@ -78,7 +79,7 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
                     activity = sut
                     val fragment = sut.listOfFilesFragment
                     Assert.assertNotNull(fragment)
-                    fragment!!.setFabEnabled(false)
+                    fragment!!.setFabState(FabState.DISABLED)
                     fragment.setEmptyListMessage(EmptyListState.LOADING)
                     fragment.isLoading = false
                 }
@@ -91,7 +92,7 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
                     .perform(NavigationViewActions.navigateTo(R.id.nav_all_files))
 
                 val fragment = activity!!.listOfFilesFragment
-                fragment!!.setFabEnabled(false)
+                fragment!!.setFabState(FabState.DISABLED)
                 fragment.setEmptyListMessage(EmptyListState.LOADING)
                 fragment.isLoading = false
 
@@ -117,7 +118,7 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
                         resetScrolling(true)
 
                         listOfFilesFragment?.let {
-                            it.setFabEnabled(false)
+                            it.setFabState(FabState.DISABLED)
                             it.setEmptyListMessage(EmptyListState.LOADING)
                             it.isLoading = false
                         }
