@@ -610,6 +610,7 @@
     <string name="foreign_files_remote_text">遠端：%1$s</string>
     <string name="forward">往前</string>
     <string name="fourHours">4 小時</string>
+    <string name="gallery_unsupported_file">不支援的檔案類型</string>
     <string name="governance_file_retention_label">保留檔案</string>
     <string name="governance_legal_hold_label">法律保留</string>
     <string name="governance_no_label">無</string>
@@ -982,6 +983,7 @@
     <string name="share_link_file_no_exist">無法分享。請確認檔案是否存在。</string>
     <string name="share_link_forbidden_permissions">分享此檔案</string>
     <string name="share_link_optional_password_title">請輸入密碼（選擇性）</string>
+    <string name="share_link_password_rejected">此密碼不符合密碼要求。請嘗試設定較長或更複雜的密碼。</string>
     <string name="share_link_password_title">請輸入密碼</string>
     <string name="share_link_with_label">分享連結 (%1$s)</string>
     <string name="share_no_expiration_date_label">設定到期日</string>

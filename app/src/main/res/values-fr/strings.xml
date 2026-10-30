@@ -610,6 +610,7 @@
     <string name="foreign_files_remote_text">Distant : %1$s</string>
     <string name="forward">Suivant</string>
     <string name="fourHours">4 heures</string>
+    <string name="gallery_unsupported_file">Type de fichier non pris en charge</string>
     <string name="governance_file_retention_label">Suppression programmée de fichiers</string>
     <string name="governance_legal_hold_label">Conservation légale</string>
     <string name="governance_no_label">Aucun</string>
@@ -982,6 +983,7 @@
     <string name="share_link_file_no_exist">Impossible de partager. Veuillez vérifier si le fichier existe.</string>
     <string name="share_link_forbidden_permissions">de partager ce fichier</string>
     <string name="share_link_optional_password_title">Saisissez un mot de passe facultatif</string>
+    <string name="share_link_password_rejected">Le mot de passe ne répond pas aux exigences des mots de passe. Essayez un mot de passe plus long ou plus complexe.</string>
     <string name="share_link_password_title">Saisissez un mot de passe</string>
     <string name="share_link_with_label">Partager le lien (%1$s)</string>
     <string name="share_no_expiration_date_label">Définir une date d\'expiration</string>
