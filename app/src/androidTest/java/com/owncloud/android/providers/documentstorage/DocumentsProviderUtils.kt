@@ -4,7 +4,7 @@
  * SPDX-FileCopyrightText: 2020 Torsten Grote <t@grobox.de>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.owncloud.android.providers
+package com.owncloud.android.providers.documentstorage
 
 import android.content.Context
 import android.database.ContentObserver
@@ -25,7 +25,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation
-import com.owncloud.android.providers.DocumentsStorageProvider.DOCUMENTID_SEPARATOR
+import com.owncloud.android.providers.documentstorage.DocumentsStorageProvider.Companion.DOCUMENTID_SEPARATOR
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.suspendCancellableCoroutine

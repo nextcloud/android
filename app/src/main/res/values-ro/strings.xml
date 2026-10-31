@@ -610,6 +610,7 @@
     <string name="foreign_files_remote_text">La distanță: %1$s</string>
     <string name="forward">Redirecționează</string>
     <string name="fourHours">4 ore</string>
+    <string name="gallery_unsupported_file">Tip de fișier neacceptat</string>
     <string name="governance_file_retention_label">Păstrarea fișierelor</string>
     <string name="governance_legal_hold_label">Reținere legală</string>
     <string name="governance_no_label">Niciuna</string>
@@ -982,6 +983,7 @@
     <string name="share_link_file_no_exist">Partajarea nu este posibilă. Verifică dacă fișierul există.</string>
     <string name="share_link_forbidden_permissions">să partajezi acest fișier</string>
     <string name="share_link_optional_password_title">Introdu o parolă opțională</string>
+    <string name="share_link_password_rejected">Parola nu îndeplinește cerințele. Încearcă o parolă mai lungă sau mai complexă.</string>
     <string name="share_link_password_title">Introdu o parolă</string>
     <string name="share_link_with_label">Link de partajare (%1$s)</string>
     <string name="share_no_expiration_date_label">Setează data expirării</string>

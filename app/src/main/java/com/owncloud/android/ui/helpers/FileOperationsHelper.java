@@ -68,7 +68,6 @@ import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.activity.TextEditorWebView;
 import com.owncloud.android.ui.dialog.SendFilesDialog;
 import com.owncloud.android.ui.dialog.SendShareDialog;
-import com.owncloud.android.ui.events.EncryptionEvent;
 import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.events.FileLockEvent;
 import com.owncloud.android.ui.events.SyncEventFinished;
@@ -94,7 +93,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -196,7 +194,7 @@ public class FileOperationsHelper {
             // check if latest sync is >30s ago
             OCFile parent = storageManager.getFileById(file.getParentId());
             if (parent != null &&
-                parent.getLastSyncDateForData() + TimeUnit.SECONDS.toMillis(30) > System.currentTimeMillis()) {
+                parent.getLastSyncDateForData() + AppConstants.THIRTY_SECONDS_IN_MILLIS > System.currentTimeMillis()) {
                 EventBus.getDefault().post(new SyncEventFinished(intent));
 
                 return;
@@ -298,68 +296,107 @@ public class FileOperationsHelper {
 
         // first always try to use available apps
         if (availableApps.isEmpty()) {
-            Optional<User> optionalUser = fileActivity.getUser();
-
-            if (optionalUser.isPresent() && editorUtils.isEditorAvailable(optionalUser.get(), file.getMimeType())) {
-                TextEditorWebView.Companion.startTextEditor(file, fileActivity);
-                return;
-            }
-
-            openRichDocumentFileWithoutAvailableApps(file);
-
+            openFileWithoutAvailableApps(file);
             return;
         }
 
-        fileActivity.showLoadingDialog(fileActivity.getResources().getString(R.string.sync_in_progress));
+        new Thread(() -> syncAndOpenFile(file, openFileWithIntent)).start();
+    }
 
+    private void openFileWithoutAvailableApps(OCFile file) {
+        Optional<User> optionalUser = fileActivity.getUser();
+
+        if (optionalUser.isPresent() && editorUtils.isEditorAvailable(optionalUser.get(), file.getMimeType())) {
+            TextEditorWebView.Companion.startTextEditor(file, fileActivity);
+            return;
+        }
+
+        openRichDocumentFileWithoutAvailableApps(file);
+    }
+
+    private void syncAndOpenFile(OCFile file, Intent openFileWithIntent) {
+        User user = currentAccount.getUser();
+        final var storageManager = new FileDataStorageManager(user, fileActivity.getContentResolver());
+        if (isDownloadedAndUpToDate(storageManager.getFileById(file.getFileId()))) {
+            startOpenFileIntent(openFileWithIntent);
+            return;
+        }
+
+        synchronizeFile(file, user, storageManager, () -> startOpenFileIntent(openFileWithIntent));
+    }
+
+    public void startSyncForOutdatedFileAndIntent(OCFile file, Intent intent) {
         new Thread(() -> {
             User user = currentAccount.getUser();
             final var storageManager = new FileDataStorageManager(user, fileActivity.getContentResolver());
-            // a fresh object is needed; many things could have occurred to the file
-            // since it was registered to observe again, assuming that local files
-            // are linked to a remote file AT MOST, SOMETHING TO BE DONE;
-            final var sfo = new SynchronizeFileOperation(file,null, user, true, fileActivity, storageManager, false);
-            final var result = sfo.execute(fileActivity);
-
-            fileActivity.dismissLoadingDialog();
-            if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
-                // ISSUE 5: if the user is not running the app (this is a service!),
-                // this can be very intrusive; a notification should be preferred
-                Intent intent = ConflictsResolveActivity.createIntent(file,
-                                                                      user,
-                                                                      -1,
-                                                                      Intent.FLAG_ACTIVITY_NEW_TASK,
-                                                                      fileActivity);
-                fileActivity.startActivity(intent);
+            final Runnable postSyncEventFinished = () -> EventBus.getDefault().post(new SyncEventFinished(intent));
+            if (!isDownloadedAndOutdated(storageManager.getFileById(file.getFileId()))) {
+                postSyncEventFinished.run();
                 return;
             }
 
-            if (availableApps.isEmpty()) {
-                fileActivity.runOnUiThread(() -> SnackbarUtil.show(fileActivity, R.string.file_list_no_app_for_file_type));
-
-                return;
-            }
-
-            if (!result.isSuccess()) {
-                fileActivity.runOnUiThread(() -> SnackbarUtil.show(fileActivity, R.string.file_not_synced));
-
-                // Sleep to show snackbar message
-                try {
-                    Thread.sleep(AppConstants.MILLIS_PER_SECOND);
-                } catch (InterruptedException e) {
-                    Log_OC.e(TAG, "Failed to sleep");
-                }
-            }
-
-            fileActivity.runOnUiThread(() -> {
-                try {
-                    openFileWithIntent.setFlags(openFileWithIntent.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    fileActivity.startActivity(openFileWithIntent);
-                } catch (ActivityNotFoundException exception) {
-                    SnackbarUtil.show(fileActivity, R.string.file_list_no_app_for_file_type);
-                }
-            });
+            synchronizeFile(file, user, storageManager, postSyncEventFinished);
         }).start();
+    }
+
+    private void synchronizeFile(OCFile file, User user, FileDataStorageManager storageManager, Runnable onSynced) {
+        // a fresh object is needed; many things could have occurred to the file
+        // since it was registered to observe again, assuming that local files
+        // are linked to a remote file AT MOST, SOMETHING TO BE DONE;
+        final var sfo = new SynchronizeFileOperation(file,null, user, true, fileActivity, storageManager, false);
+        final var result = sfo.execute(fileActivity);
+
+        if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
+            startConflictsResolveActivity(file, user);
+            return;
+        }
+
+        if (!result.isSuccess()) {
+            showFileNotSyncedMessage();
+        }
+
+        onSynced.run();
+    }
+
+    private boolean isDownloadedAndUpToDate(@Nullable OCFile storedFile) {
+        return storedFile != null && storedFile.isDown() && !OCFileExtensionsKt.isLocalETagOutdated(storedFile);
+    }
+
+    private boolean isDownloadedAndOutdated(@Nullable OCFile storedFile) {
+        return storedFile != null && storedFile.isDown() && OCFileExtensionsKt.isLocalETagOutdated(storedFile);
+    }
+
+    private void startConflictsResolveActivity(OCFile file, User user) {
+        // ISSUE 5: if the user is not running the app (this is a service!),
+        // this can be very intrusive; a notification should be preferred
+        Intent intent = ConflictsResolveActivity.createIntent(file,
+                                                              user,
+                                                              -1,
+                                                              Intent.FLAG_ACTIVITY_NEW_TASK,
+                                                              fileActivity);
+        fileActivity.startActivity(intent);
+    }
+
+    private void showFileNotSyncedMessage() {
+        fileActivity.runOnUiThread(() -> SnackbarUtil.show(fileActivity, R.string.file_not_synced));
+
+        // Sleep to show snackbar message
+        try {
+            Thread.sleep(AppConstants.MILLIS_PER_SECOND);
+        } catch (InterruptedException e) {
+            Log_OC.e(TAG, "Failed to sleep");
+        }
+    }
+
+    private void startOpenFileIntent(Intent openFileWithIntent) {
+        fileActivity.runOnUiThread(() -> {
+            try {
+                openFileWithIntent.setFlags(openFileWithIntent.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
+                fileActivity.startActivity(openFileWithIntent);
+            } catch (ActivityNotFoundException exception) {
+                SnackbarUtil.show(fileActivity, R.string.file_list_no_app_for_file_type);
+            }
+        });
     }
 
     public void openFileAsRichDocument(OCFile file, Context context) {

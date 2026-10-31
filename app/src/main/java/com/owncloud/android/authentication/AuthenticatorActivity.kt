@@ -97,7 +97,7 @@ import com.owncloud.android.operations.DetectAuthenticationMethodOperation.Authe
 import com.owncloud.android.operations.GetCapabilitiesOperation
 import com.owncloud.android.operations.GetServerInfoOperation
 import com.owncloud.android.operations.GetServerInfoOperation.ServerInfo
-import com.owncloud.android.providers.DocumentsStorageProvider
+import com.owncloud.android.providers.documentstorage.DocumentsStorageProvider
 import com.owncloud.android.services.OperationsService
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder
 import com.owncloud.android.ui.activity.FileDisplayActivity

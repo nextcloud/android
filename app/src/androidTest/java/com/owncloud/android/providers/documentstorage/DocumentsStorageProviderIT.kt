@@ -4,7 +4,7 @@
  * SPDX-FileCopyrightText: 2020 Torsten Grote <t@grobox.de>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.owncloud.android.providers
+package com.owncloud.android.providers.documentstorage
 
 import android.provider.DocumentsContract
 import androidx.documentfile.provider.DocumentFile
@@ -20,16 +20,16 @@ import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.db.UploadResult
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.providers.DocumentsProviderUtils.assertExistsOnServer
-import com.owncloud.android.providers.DocumentsProviderUtils.assertListFilesEquals
-import com.owncloud.android.providers.DocumentsProviderUtils.assertReadEquals
-import com.owncloud.android.providers.DocumentsProviderUtils.assertRecentlyModified
-import com.owncloud.android.providers.DocumentsProviderUtils.assertRegularFile
-import com.owncloud.android.providers.DocumentsProviderUtils.assertRegularFolder
-import com.owncloud.android.providers.DocumentsProviderUtils.findFileBlocking
-import com.owncloud.android.providers.DocumentsProviderUtils.getOCFile
-import com.owncloud.android.providers.DocumentsProviderUtils.listFilesBlocking
-import com.owncloud.android.providers.DocumentsStorageProvider.DOCUMENTID_SEPARATOR
+import com.owncloud.android.providers.documentstorage.DocumentsProviderUtils.assertExistsOnServer
+import com.owncloud.android.providers.documentstorage.DocumentsProviderUtils.assertListFilesEquals
+import com.owncloud.android.providers.documentstorage.DocumentsProviderUtils.assertReadEquals
+import com.owncloud.android.providers.documentstorage.DocumentsProviderUtils.assertRecentlyModified
+import com.owncloud.android.providers.documentstorage.DocumentsProviderUtils.assertRegularFile
+import com.owncloud.android.providers.documentstorage.DocumentsProviderUtils.assertRegularFolder
+import com.owncloud.android.providers.documentstorage.DocumentsProviderUtils.findFileBlocking
+import com.owncloud.android.providers.documentstorage.DocumentsProviderUtils.getOCFile
+import com.owncloud.android.providers.documentstorage.DocumentsProviderUtils.listFilesBlocking
+import com.owncloud.android.providers.documentstorage.DocumentsStorageProvider.Companion.DOCUMENTID_SEPARATOR
 import kotlinx.coroutines.runBlocking
 import org.apache.commons.httpclient.HttpStatus
 import org.apache.commons.httpclient.methods.ByteArrayRequestEntity
