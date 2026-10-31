@@ -610,6 +610,7 @@
     <string name="foreign_files_remote_text">Remote: %1$s</string>
     <string name="forward">Forward</string>
     <string name="fourHours">4 hours</string>
+    <string name="gallery_unsupported_file">Unsupported file type</string>
     <string name="governance_file_retention_label">File retention</string>
     <string name="governance_legal_hold_label">Legal hold</string>
     <string name="governance_no_label">None</string>
@@ -982,6 +983,7 @@
     <string name="share_link_file_no_exist">Unable to share. Please check whether the file exists.</string>
     <string name="share_link_forbidden_permissions">to share this file</string>
     <string name="share_link_optional_password_title">Enter an optional password</string>
+    <string name="share_link_password_rejected">The password does not meet the password requirements. Try a longer or more complex password.</string>
     <string name="share_link_password_title">Enter a password</string>
     <string name="share_link_with_label">Share link (%1$s)</string>
     <string name="share_no_expiration_date_label">Set expiration date</string>
