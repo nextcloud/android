@@ -39,6 +39,7 @@ class JobsModule {
     fun backgroundJobManager(
         workManager: WorkManager,
         clock: Clock,
-        preferences: AppPreferences
-    ): BackgroundJobManager = BackgroundJobManagerImpl(workManager, clock, preferences)
+        preferences: AppPreferences,
+        context: Context
+    ): BackgroundJobManager = BackgroundJobManagerImpl(workManager, clock, preferences, context)
 }
