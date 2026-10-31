@@ -32,6 +32,7 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.ui.dialog.account.CustomHeadersDialogFragment;
 import com.nextcloud.utils.GlideHelper;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.text.LinkFormatter;
@@ -161,6 +162,9 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
             getOnBackPressedDispatcher().onBackPressed();
         } else if (itemId == R.id.action_open_account) {
             accountClicked(user);
+        } else if (itemId == R.id.action_custom_headers) {
+            CustomHeadersDialogFragment.newInstance(user)
+                .show(getSupportFragmentManager(), CustomHeadersDialogFragment.TAG);
         } else if (itemId == R.id.action_delete_account) {
             openAccountRemovalDialog(user, getSupportFragmentManager());
         } else {

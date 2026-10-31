@@ -1330,6 +1330,15 @@
     <string name="e2e_hash_not_found">Hash not found</string>
     <string name="e2e_signature_does_not_match">Signature does not match</string>
 
+    <string name="custom_headers_advanced_options">Advanced options</string>
+    <string name="custom_headers_hide_advanced_options">Hide advanced options</string>
+    <string name="custom_headers_hint">Custom request headers (optional)</string>
+    <string name="custom_headers_helper_text">One per line as \"Name: value\". Only sent to this server, for example for a pre-authentication proxy.</string>
+    <string name="custom_headers_https_only">Custom headers are only sent to https servers</string>
+    <string name="custom_headers_invalid">Invalid header in line %1$d</string>
+    <string name="custom_headers_edit">Custom headers</string>
+    <string name="custom_headers_edit_message">Sent with every request to this server, for example for a pre-authentication proxy. Leave empty to remove them.</string>
+    <string name="custom_headers_edit_helper_text">One per line as \"Name: value\"</string>
     <string name="login_url_helper_text">The link to your %1$s web interface when you open it in the browser.</string>
 
     <plurals name="passcode_delay_seconds">

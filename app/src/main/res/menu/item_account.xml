@@ -19,6 +19,12 @@
         android:showAsAction="never" />
 
     <item
+        android:id="@+id/action_custom_headers"
+        android:title="@string/custom_headers_edit"
+        app:showAsAction="never"
+        android:showAsAction="never" />
+
+    <item
         android:id="@+id/action_delete_account"
         android:title="@string/delete_account"
         app:showAsAction="never"

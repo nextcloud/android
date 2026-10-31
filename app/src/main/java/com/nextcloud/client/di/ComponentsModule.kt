@@ -30,6 +30,7 @@ import com.nextcloud.client.widget.DashboardWidgetService
 import com.nextcloud.ui.albumItemActions.AlbumItemActionsBottomSheet
 import com.nextcloud.ui.composeActivity.ComposeActivity
 import com.nextcloud.ui.dialog.account.ChooseAccountDialogFragment
+import com.nextcloud.ui.dialog.account.CustomHeadersDialogFragment
 import com.nextcloud.ui.dialog.account.onlineStatus.SetOnlineStatusBottomSheet
 import com.nextcloud.ui.dialog.account.statusMessage.SetStatusMessageBottomSheet
 import com.nextcloud.ui.dialog.chooseStorage.ChooseStorageLocationDialogFragment
@@ -529,4 +530,7 @@ internal interface ComponentsModule {
 
     @ContributesAndroidInjector
     fun albumSharingBottomSheet(): AlbumSharingBottomSheet
+
+    @ContributesAndroidInjector
+    fun customHeadersDialogFragment(): CustomHeadersDialogFragment
 }

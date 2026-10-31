@@ -61,6 +61,7 @@ import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.client.systembars.SystemBarBackgroundCallbacks;
 import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias;
 import com.nextcloud.utils.extensions.ContextExtensionsKt;
+import com.nextcloud.utils.headers.AccountCustomHeaders;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.nmc.android.ui.LauncherActivity;
 import com.owncloud.android.authentication.PassCodeManager;
@@ -311,6 +312,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         MainApp.storagePath = preferences.getStoragePath(getApplicationContext().getFilesDir().getAbsolutePath());
 
         OwnCloudClientManagerFactory.setUserAgent(getUserAgent());
+        AccountCustomHeaders.registerAll(this);
 
         if (isClientBrandedPlus()) {
             setProxyConfig();

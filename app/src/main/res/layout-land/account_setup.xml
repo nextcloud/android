@@ -79,6 +79,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
             </FrameLayout>
 
+
             <Spinner
                 android:id="@+id/servers_spinner"
                 android:layout_width="wrap_content"
@@ -140,6 +141,44 @@
                 android:background="@color/transparent"
                 android:contentDescription="@string/scanQR_description"
                 android:src="@drawable/qrcode_scan" />
+
+            <TextView
+                android:id="@+id/custom_headers_toggle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:minHeight="@dimen/minimum_size_for_touchable_area"
+                android:gravity="center"
+                android:paddingStart="@dimen/standard_half_padding"
+                android:paddingEnd="@dimen/standard_half_padding"
+                android:text="@string/custom_headers_advanced_options"
+                android:textColor="@color/white_helper_text" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/custom_headers_container"
+                style="@style/Widget.App.Login.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/standard_half_margin"
+                android:hint="@string/custom_headers_hint"
+                android:theme="@style/TextInputLayoutLogin"
+                app:helperText="@string/custom_headers_helper_text"
+                app:helperTextTextColor="@color/white_helper_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/custom_headers_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:inputType="textMultiLine|textNoSuggestions"
+                    android:minLines="1"
+                    android:maxLines="4"
+                    android:paddingStart="@dimen/standard_padding"
+                    android:paddingEnd="@dimen/standard_padding"
+                    android:textColor="@color/login_text_color" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
