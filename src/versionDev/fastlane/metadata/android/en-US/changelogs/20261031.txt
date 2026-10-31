@@ -1,0 +1,31 @@
+fix(l10n): Update translations from Transifex
+fix ci
+get rid of magic number
+resolve conflict
+wip
+wip
+handle Image that isn't downloaded via -> fileOnItemClick -> previewImageWithSearchContext        Downloaded text file via -> fileOnItemClick -> previewFile -> startTextPreview        Downloaded audio file via > fileOnItemClick -> previewFile -> startAudioPreview
+only sync when user get in directory
+print results
+simplify startContentSynchronizations
+fix spotbugs: (This write of this shared primitive variable may not be visible to other threads)
+simplify openFile function
+Check local eTag if it's outdated then run SynchronizeFileOperation else skip.
+Only add when user open the folder first time not every 10 seconds.
+reduce auto folder refresh to 10 seconds
+use kotlin durations
+remove sync in progress dialog
+add missing items for mFilesToSyncContents
+wip
+fix spotbugs and convert cursor implm to kotlin
+Rename .java to .kt
+use injections
+optimize imports
+restructure package
+refactor(document-storage-provider): kotlin
+Rename .java to .kt
+Update dependency com.google.code.gson:gson to v2.15.0 (#17894)
+Update dependency fastlane to v2.241.1
+simplify
+refactor
+refactor
