@@ -648,7 +648,7 @@
     <string name="internal_shares">Interne delinger</string>
     <string name="internal_two_way_sync">Intern tovejssynkronisering</string>
     <string name="internal_two_way_sync_not_yet">Ikke endnu, synkroniseres snart</string>
-    <string name="internet_connection_required_for_encrypted_folder_setup">En internetforbindelse er påkrævet for at konfigurere den krypterede mappe</string>
+    <string name="internet_connection_required_for_encrypted_folder_setup">Der kræves en internetforbindelse for at konfigurere den krypterede mappe</string>
     <string name="invalid_url">Ugyldig URL</string>
     <string name="invisible">Usynlig</string>
     <string name="label_empty">Etiketten må ikke være tom</string>
@@ -1200,7 +1200,7 @@
     <string name="upload_missing_storage_permission_allow_file_access">Tillad adgang til alle filer</string>
     <string name="upload_missing_storage_permission_app_permissions">Apptilladelser</string>
     <string name="upload_missing_storage_permission_description">Dine filer kan ikke uploades uden adgang til det lokale lager. Tryk for at give tilladelse.</string>
-    <string name="upload_missing_storage_permission_title">Upload stoppet – lagringstilladelse påkrævet</string>
+    <string name="upload_missing_storage_permission_title">Upload stoppet – lagringstilladelse kræves</string>
     <string name="upload_notification_manager_content_intent_description">Du kan fjerne eller genoptage den fra listen over uploads</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Kryptering kun mulig med &gt;= Android 5.0</string>

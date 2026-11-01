@@ -29,6 +29,7 @@
     <string name="activity_chooser_send_file_title">Odeslat</string>
     <string name="activity_chooser_title">Poslat odkaz na …</string>
     <string name="activity_icon">Aktivita</string>
+    <string name="add_media">Přidat média</string>
     <string name="add_new_public_share">Přidat nový veřejný odkaz na sdílení</string>
     <string name="add_new_secure_file_drop">Přidat nové bezpečné předání souborů</string>
     <string name="add_to_album">Přidat do alba</string>
@@ -435,6 +436,7 @@
     <string name="file_details_no_content">Nepodařilo se načíst podrobnosti.</string>
     <string name="file_icon">Soubor</string>
     <string name="file_info_governance_section_title">Spravování</string>
+    <string name="file_info_image_details_section_title">Podrobnosti obrázku</string>
     <string name="file_keep">Ponechat</string>
     <string name="file_list_empty">Nahrajte nějaký obsah, nebo synchronizujte s vašimi zařízeními.</string>
     <string name="file_list_empty_favorite_headline">Zatím žádné oblíbené položky</string>
@@ -544,7 +546,9 @@
     <string name="forward">Vpřed</string>
     <string name="fourHours">4 hodiny</string>
     <string name="governance_file_retention_label">Uchovávání souborů</string>
+    <string name="governance_legal_hold_label">Právní blokace</string>
     <string name="governance_no_label">Žádná</string>
+    <string name="governance_sensitivity_label">Štítek citlivosti</string>
     <string name="gplay_restriction">Google omezil stahování APK/AAB souborů!</string>
     <string name="grid_file_features_live_photo_content_description">Tato ikona značí dostupnost živé fotky</string>
     <string name="hidden_file_name_warning">Tímto názvem vznikne skrytý soubor</string>
