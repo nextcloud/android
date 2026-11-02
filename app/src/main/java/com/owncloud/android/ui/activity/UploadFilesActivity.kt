@@ -110,7 +110,11 @@ class UploadFilesActivity :
 
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-            if (isSearchOpen) closeSearch() else navigateToParentDirectory()
+            when {
+                isSearchOpen -> closeSearch()
+                navigateToParentDirectory() -> Log_OC.i(TAG, "Moved to parent directory")
+                else -> finish()
+            }
         }
     }
 
@@ -288,14 +292,19 @@ class UploadFilesActivity :
         setDrawerIndicatorEnabled(isDrawerIndicatorAvailable)
     }
 
-    private fun navigateToParentDirectory() {
+    /**
+     * Navigates to parent directory
+     *
+     * @return true if navigation is possible, false otherwise
+     */
+    private fun navigateToParentDirectory(): Boolean {
         if (directories.count <= SINGLE_DIR) {
             finish()
-            return
+            return false
         }
 
         val isParentUnreadable = currentDir?.parentFile?.canRead() == false
-        if (currentDir == null || isParentUnreadable) return
+        if (currentDir == null || isParentUnreadable) return false
 
         directories.remove(directories.getItem(0))
         fileListFragment.onNavigateUp()
@@ -309,6 +318,7 @@ class UploadFilesActivity :
         if (!isFolderPickerMode) {
             setSelectAllMenuItem(selectAllMenuItem, false)
         }
+        return true
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
