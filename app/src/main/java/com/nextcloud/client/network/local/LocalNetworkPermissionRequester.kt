@@ -30,9 +30,6 @@ class LocalNetworkPermissionRequester(
     private val permissionLauncher =
         activity.registerForActivityResult(ActivityResultContracts.RequestPermission(), ::deliverResult)
 
-    private val appName: String
-        get() = activity.getString(R.string.app_name)
-
     fun requestIfNeeded(serverUrls: List<String>, onGranted: () -> Unit = {}, onDenied: () -> Unit = {}) {
         if (!PermissionUtil.isLocalNetworkPermissionRequired(activity)) {
             onGranted()
@@ -85,12 +82,16 @@ class LocalNetworkPermissionRequester(
 
     @RequiresApi(Build.VERSION_CODES.CINNAMON_BUN)
     private fun showDeniedSnackbar(onGranted: () -> Unit, onDenied: () -> Unit) {
-        val message = activity.getString(R.string.local_network_permission_denied, appName)
+        val canShowSystemDialog =
+            activity.shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_LOCAL_NETWORK)
+        val message = if (canShowSystemDialog) {
+            R.string.local_network_permission_denied
+        } else {
+            R.string.local_network_permission_settings_path
+        }
         val snackbar = SnackbarUtil.create(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
             ?: return
 
-        val canShowSystemDialog =
-            activity.shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_LOCAL_NETWORK)
         if (canShowSystemDialog) {
             snackbar.setAction(R.string.permission_allow) { launchRequest(onGranted, onDenied) }
         } else {
