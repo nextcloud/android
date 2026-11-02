@@ -63,6 +63,7 @@ import com.nextcloud.client.files.DeepLinkHandler
 import com.nextcloud.client.jobs.download.FileDownloadEventBroadcaster
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
+import com.nextcloud.client.network.LocalNetworkPermissionRequester
 import com.nextcloud.client.player.model.file.toPlaybackCollection
 import com.nextcloud.client.player.ui.audio.AudioPlayerLauncher
 import com.nextcloud.client.preferences.AppPreferences
@@ -215,6 +216,7 @@ class FileDisplayActivity :
     private lateinit var folderRefreshScheduler: FolderRefreshScheduler
 
     private val dialogs by lazy { FileDisplayDialogs(this, viewThemeUtils) }
+    private val localNetworkPermission = LocalNetworkPermissionRequester(this) { viewThemeUtils }
     private val uploadHandler by lazy { FileDisplayUploadHandler(this, connectivityService, fileDataStorageManager) }
 
     private val syncReceiver = LocalIntentReceiver(::onSyncBroadcastReceived)
@@ -302,6 +304,7 @@ class FileDisplayActivity :
 
         if (savedInstanceState == null) {
             addInitialListOfFilesFragment()
+            localNetworkPermission.requestIfNeeded(userAccountManager.allUsers.map { it.server.uri.toString() })
 
             if (intent.getBooleanExtra(EXTRA_RETURN_TO_PREVIEW, false)) {
                 handleNavigationIntent(intent)

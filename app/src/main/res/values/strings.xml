@@ -1116,6 +1116,9 @@
     <string name="single_sign_on_request_token" formatted="true">Allow %1$s to access your Nextcloud account %2$s?</string>
     <string name="permission_deny">Deny</string>
     <string name="permission_allow">Allow</string>
+    <string name="local_network_permission_title">Access to local network</string>
+    <string name="local_network_permission_rationale">%1$s needs the Nearby devices permission to connect to your server on the local network.</string>
+    <string name="local_network_permission_denied">%1$s can\'t connect to your server on the local network without the Nearby devices permission.</string>
     <string name="share_send_note">Note to recipient</string>
     <string name="note_could_not_sent">Could not send note</string>
     <string name="hint_note">Note</string>
