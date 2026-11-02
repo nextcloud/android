@@ -124,7 +124,7 @@ public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHo
             new Thread(() -> {{
                 try {
                     final var client = OwnCloudClientManagerFactory.getDefaultSingleton().getNextcloudClientFor(Optional.of(currentAccountProvider.getUser().toOwnCloudAccount()).get(), context);
-                    GlideHelper.INSTANCE.loadIntoImageView(context, client, template.getPreview(), binding.template, placeholder, false);
+                    binding.template.post(() -> GlideHelper.INSTANCE.loadIntoImageView(context, client, template.getPreview(), binding.template, placeholder, false));
                 } catch (Exception e) {
                     Log_OC.e("TemplateAdapter", "Exception setData: " + e);
                 }
