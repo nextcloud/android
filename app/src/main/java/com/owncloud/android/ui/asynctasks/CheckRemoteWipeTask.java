@@ -48,7 +48,7 @@ public class CheckRemoteWipeTask extends AsyncTask<Void, Void, Boolean> {
             backgroundJobManager.startAccountRemovalJob(account.name, true);
         } else {
             Log_OC.e(this, "Check for remote wipe not needed -> update credentials");
-            fileActivity.performCredentialsUpdate(account);
+            fileActivity.runOnUiThread(() -> fileActivity.performCredentialsUpdate(account));
         }
 
         return Boolean.TRUE;

@@ -202,7 +202,7 @@ public class FileOperationsHelper {
 
             // if offline or walled garden, show old version with warning
             if (!connectivityService.getConnectivity().isConnected() || connectivityService.isInternetWalled()) {
-                SnackbarUtil.show(fileActivity, R.string.file_not_synced);
+                fileActivity.runOnUiThread(() -> SnackbarUtil.show(fileActivity, R.string.file_not_synced));
                 EventBus.getDefault().post(new SyncEventFinished(intent));
 
                 return;
@@ -249,7 +249,7 @@ public class FileOperationsHelper {
             if (file.isDown()) {
                 FileStorageUtils.checkIfFileFinishedSaving(file);
                 if (!result.isSuccess()) {
-                    SnackbarUtil.show(fileActivity, R.string.file_not_synced);
+                    fileActivity.runOnUiThread(() -> SnackbarUtil.show(fileActivity, R.string.file_not_synced));
                     try {
                         Thread.sleep(3000);
                     } catch (InterruptedException e) {
@@ -456,7 +456,7 @@ public class FileOperationsHelper {
             fileActivity.dismissLoadingDialog();
 
             if (!result.isSuccess()) {
-                SnackbarUtil.show(fileActivity, R.string.stream_not_possible_headline);
+                fileActivity.runOnUiThread(() -> SnackbarUtil.show(fileActivity, R.string.stream_not_possible_headline));
                 return;
             }
 
@@ -1207,6 +1207,7 @@ public class FileOperationsHelper {
         Uri cameraUri = FileProvider.getUriForFile(activity.getApplicationContext(),
                                                    activity.getResources().getString(R.string.file_provider_authority), cameraFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, cameraUri);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
 
         if (intent.resolveActivity(activity.getPackageManager()) != null) {
             activity.startActivityForResult(intent, requestCode);
