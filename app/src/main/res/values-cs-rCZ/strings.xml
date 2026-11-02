@@ -277,6 +277,7 @@
     <string name="dialog_close">Zavřít</string>
     <string name="did_not_check_for_dupes">Nezkontrolováno na duplicity.</string>
     <string name="digest_algorithm_not_available">Tento algoritmus vytváření otisku (digest) není na vašem telefonu dostupný.</string>
+    <string name="direct_login_confirm_title">Potvrdit přihlášení</string>
     <string name="direct_login_failed">Přihlášení se prostřednictvím přímého odkazu se nezdařilo!</string>
     <string name="direct_login_text">Přihlásit se s %1$s k %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">Vypnout</string>
