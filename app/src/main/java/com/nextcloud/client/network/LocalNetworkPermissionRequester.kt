@@ -25,7 +25,8 @@ import kotlinx.coroutines.launch
 
 class LocalNetworkPermissionRequester(
     private val activity: AppCompatActivity,
-    private val viewThemeUtils: () -> ViewThemeUtils
+    private val viewThemeUtils: () -> ViewThemeUtils,
+    private val onPermissionGranted: () -> Unit
 ) {
     private var pendingResult: ((Boolean) -> Unit)? = null
 
@@ -59,6 +60,7 @@ class LocalNetworkPermissionRequester(
 
             pendingResult = { isGranted ->
                 if (isGranted) {
+                    onPermissionGranted()
                     onGranted()
                 } else {
                     showDeniedSnackbar()

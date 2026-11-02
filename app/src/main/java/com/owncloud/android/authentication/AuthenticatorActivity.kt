@@ -53,6 +53,7 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.network.LocalNetworkPermissionHandler
 import com.nextcloud.client.network.LocalNetworkPermissionRequester
 import com.nextcloud.client.onboarding.FirstRunActivity
 import com.nextcloud.client.onboarding.OnboardingService
@@ -146,6 +147,9 @@ open class AuthenticatorActivity :
     @Inject
     lateinit var clientRepository: ClientRepository
 
+    @Inject
+    lateinit var localNetworkPermissionHandler: LocalNetworkPermissionHandler
+
     @get:VisibleForTesting
     var accountSetupBinding: AccountSetupBinding? = null
         private set
@@ -158,9 +162,11 @@ open class AuthenticatorActivity :
     private val statusMapper by lazy { AuthenticatorStatusMapper(resources) }
     private val accountStore by lazy { AuthenticatorAccountStore(this, AccountManager.get(this), accountManager) }
     private val loginFlow by lazy { LoginFlowV2(clientRepository, lifecycleScope, ::completeLoginFlow) }
-    private val localNetworkPermission = LocalNetworkPermissionRequester(this) {
-        viewThemeUtilsFactory.withDefaultSchemes()
-    }
+    private val localNetworkPermission = LocalNetworkPermissionRequester(
+        activity = this,
+        viewThemeUtils = { viewThemeUtilsFactory.withDefaultSchemes() },
+        onPermissionGranted = { localNetworkPermissionHandler.onPermissionGranted() }
+    )
 
     private var authenticatorAction = ACTION_CREATE
     private var account: Account? = null

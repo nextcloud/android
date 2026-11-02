@@ -63,6 +63,7 @@ import com.nextcloud.client.files.DeepLinkHandler
 import com.nextcloud.client.jobs.download.FileDownloadEventBroadcaster
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
+import com.nextcloud.client.network.LocalNetworkPermissionHandler
 import com.nextcloud.client.network.LocalNetworkPermissionRequester
 import com.nextcloud.client.player.model.file.toPlaybackCollection
 import com.nextcloud.client.player.ui.audio.AudioPlayerLauncher
@@ -209,6 +210,9 @@ class FileDisplayActivity :
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
+    @Inject
+    lateinit var localNetworkPermissionHandler: LocalNetworkPermissionHandler
+
     private val viewModel by viewModels<FileDisplayActivityViewModel> { viewModelFactory }
 
     private lateinit var binding: FilesBinding
@@ -216,7 +220,11 @@ class FileDisplayActivity :
     private lateinit var folderRefreshScheduler: FolderRefreshScheduler
 
     private val dialogs by lazy { FileDisplayDialogs(this, viewThemeUtils) }
-    private val localNetworkPermission = LocalNetworkPermissionRequester(this) { viewThemeUtils }
+    private val localNetworkPermission = LocalNetworkPermissionRequester(
+        activity = this,
+        viewThemeUtils = { viewThemeUtils },
+        onPermissionGranted = { localNetworkPermissionHandler.onPermissionGranted() }
+    )
     private val uploadHandler by lazy { FileDisplayUploadHandler(this, connectivityService, fileDataStorageManager) }
 
     private val syncReceiver = LocalIntentReceiver(::onSyncBroadcastReceived)
@@ -304,7 +312,7 @@ class FileDisplayActivity :
 
         if (savedInstanceState == null) {
             addInitialListOfFilesFragment()
-            localNetworkPermission.requestIfNeeded(userAccountManager.allUsers.map { it.server.uri.toString() })
+            requestLocalNetworkPermissionIfNeeded()
 
             if (intent.getBooleanExtra(EXTRA_RETURN_TO_PREVIEW, false)) {
                 handleNavigationIntent(intent)
@@ -688,6 +696,14 @@ class FileDisplayActivity :
         handleNavigationIntent(intent)
         restartIfRequested(intent)
         handleEcosystemAccountIntent(intent)
+
+        if (intent.action == LocalNetworkPermissionHandler.ACTION_REQUEST_PERMISSION) {
+            requestLocalNetworkPermissionIfNeeded()
+        }
+    }
+
+    private fun requestLocalNetworkPermissionIfNeeded() {
+        localNetworkPermission.requestIfNeeded(localNetworkPermissionHandler.serverUrls)
     }
 
     @SuppressLint("UnsafeIntentLaunch")
