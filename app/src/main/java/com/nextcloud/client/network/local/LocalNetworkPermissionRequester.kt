@@ -58,34 +58,42 @@ class LocalNetworkPermissionRequester(
                 return@launch
             }
 
-            pendingResult = { isGranted ->
-                if (isGranted) {
-                    onPermissionGranted()
-                    onGranted()
-                } else {
-                    showDeniedSnackbar()
-                    onDenied()
-                }
-            }
-
             if (activity.shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_LOCAL_NETWORK)) {
-                showRationale()
+                showRationale(onGranted, onDenied)
             } else {
-                permissionLauncher.launch(Manifest.permission.ACCESS_LOCAL_NETWORK)
+                launchRequest(onGranted, onDenied)
             }
         }
     }
 
     @RequiresApi(Build.VERSION_CODES.CINNAMON_BUN)
-    private fun showRationale() {
+    private fun launchRequest(onGranted: () -> Unit, onDenied: () -> Unit) {
+        pendingResult = { isGranted -> handleResult(isGranted, onGranted, onDenied) }
+        permissionLauncher.launch(Manifest.permission.ACCESS_LOCAL_NETWORK)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.CINNAMON_BUN)
+    private fun handleResult(isGranted: Boolean, onGranted: () -> Unit, onDenied: () -> Unit) {
+        if (isGranted) {
+            onPermissionGranted()
+            onGranted()
+            return
+        }
+
+        showDeniedSnackbar(onGranted, onDenied)
+        onDenied()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.CINNAMON_BUN)
+    private fun showRationale(onGranted: () -> Unit, onDenied: () -> Unit) {
         val builder = MaterialAlertDialogBuilder(activity)
             .setTitle(R.string.local_network_permission_title)
             .setMessage(activity.getString(R.string.local_network_permission_rationale, appName))
-            .setPositiveButton(R.string.common_ok) { _, _ ->
-                permissionLauncher.launch(Manifest.permission.ACCESS_LOCAL_NETWORK)
+            .setPositiveButton(R.string.common_ok) { _, _ -> launchRequest(onGranted, onDenied) }
+            .setNegativeButton(R.string.common_cancel) { _, _ ->
+                handleResult(isGranted = false, onGranted, onDenied)
             }
-            .setNegativeButton(R.string.common_cancel) { _, _ -> deliverResult(isGranted = false) }
-            .setOnCancelListener { deliverResult(isGranted = false) }
+            .setOnCancelListener { handleResult(isGranted = false, onGranted, onDenied) }
 
         viewThemeUtils().dialog.colorMaterialAlertDialogBackground(activity, builder)
         builder.show()
@@ -97,11 +105,21 @@ class LocalNetworkPermissionRequester(
         callback(isGranted)
     }
 
-    private fun showDeniedSnackbar() {
+    @RequiresApi(Build.VERSION_CODES.CINNAMON_BUN)
+    private fun showDeniedSnackbar(onGranted: () -> Unit, onDenied: () -> Unit) {
         val message = activity.getString(R.string.local_network_permission_denied, appName)
-        SnackbarUtil.create(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
-            ?.setAction(R.string.actionbar_settings) { openAppSettings() }
-            ?.show()
+        val snackbar = SnackbarUtil.create(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
+            ?: return
+
+        val canShowSystemDialog =
+            activity.shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_LOCAL_NETWORK)
+        if (canShowSystemDialog) {
+            snackbar.setAction(R.string.permission_allow) { launchRequest(onGranted, onDenied) }
+        } else {
+            snackbar.setAction(R.string.actionbar_settings) { openAppSettings() }
+        }
+
+        snackbar.show()
     }
 
     private fun openAppSettings() {
