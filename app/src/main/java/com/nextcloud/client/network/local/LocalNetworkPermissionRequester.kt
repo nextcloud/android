@@ -15,17 +15,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.utils.SnackbarUtil
 import com.owncloud.android.R
 import com.owncloud.android.utils.PermissionUtil
-import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.launch
 
 class LocalNetworkPermissionRequester(
     private val activity: AppCompatActivity,
-    private val viewThemeUtils: () -> ViewThemeUtils,
     private val onPermissionGranted: () -> Unit
 ) {
     private var pendingResult: ((Boolean) -> Unit)? = null
@@ -58,11 +55,7 @@ class LocalNetworkPermissionRequester(
                 return@launch
             }
 
-            if (activity.shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_LOCAL_NETWORK)) {
-                showRationale(onGranted, onDenied)
-            } else {
-                launchRequest(onGranted, onDenied)
-            }
+            launchRequest(onGranted, onDenied)
         }
     }
 
@@ -82,21 +75,6 @@ class LocalNetworkPermissionRequester(
 
         showDeniedSnackbar(onGranted, onDenied)
         onDenied()
-    }
-
-    @RequiresApi(Build.VERSION_CODES.CINNAMON_BUN)
-    private fun showRationale(onGranted: () -> Unit, onDenied: () -> Unit) {
-        val builder = MaterialAlertDialogBuilder(activity)
-            .setTitle(R.string.local_network_permission_title)
-            .setMessage(activity.getString(R.string.local_network_permission_rationale, appName))
-            .setPositiveButton(R.string.common_ok) { _, _ -> launchRequest(onGranted, onDenied) }
-            .setNegativeButton(R.string.common_cancel) { _, _ ->
-                handleResult(isGranted = false, onGranted, onDenied)
-            }
-            .setOnCancelListener { handleResult(isGranted = false, onGranted, onDenied) }
-
-        viewThemeUtils().dialog.colorMaterialAlertDialogBackground(activity, builder)
-        builder.show()
     }
 
     private fun deliverResult(isGranted: Boolean) {

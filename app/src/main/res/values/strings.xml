@@ -1117,7 +1117,6 @@
     <string name="permission_deny">Deny</string>
     <string name="permission_allow">Allow</string>
     <string name="local_network_permission_title">Access to local network</string>
-    <string name="local_network_permission_rationale">%1$s needs the Nearby devices permission to connect to your server on the local network.</string>
     <string name="local_network_permission_denied">%1$s can\'t connect to your server on the local network without the Nearby devices permission.</string>
     <string name="local_network_permission_notification">Uploads, downloads and backups can\'t reach your server on the local network. Tap to allow %1$s to access nearby devices.</string>
     <string name="share_send_note">Note to recipient</string>

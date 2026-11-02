@@ -164,7 +164,6 @@ open class AuthenticatorActivity :
     private val loginFlow by lazy { LoginFlowV2(clientRepository, lifecycleScope, ::completeLoginFlow) }
     private val localNetworkPermission = LocalNetworkPermissionRequester(
         activity = this,
-        viewThemeUtils = { viewThemeUtilsFactory.withDefaultSchemes() },
         onPermissionGranted = { localNetworkPermissionHandler.onPermissionGranted() }
     )
 
