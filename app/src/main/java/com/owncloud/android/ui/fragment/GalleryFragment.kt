@@ -213,10 +213,7 @@ class GalleryFragment :
     }
 
     override fun setAdapter(args: Bundle?) {
-        // update the footer as there is no footer shown in media view
-        if (recyclerView is EmptyRecyclerView) {
-            (recyclerView as EmptyRecyclerView).setHasFooter(false)
-        }
+(recyclerView as? EmptyRecyclerView)?.setHasFooter(false)
 
         galleryAdapter = GalleryAdapter(
             requireContext(),
