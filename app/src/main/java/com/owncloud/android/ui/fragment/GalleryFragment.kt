@@ -213,7 +213,7 @@ class GalleryFragment :
     }
 
     override fun setAdapter(args: Bundle?) {
-(recyclerView as? EmptyRecyclerView)?.setHasFooter(false)
+        (recyclerView as? EmptyRecyclerView)?.setHasFooter(false)
 
         galleryAdapter = GalleryAdapter(
             requireContext(),
