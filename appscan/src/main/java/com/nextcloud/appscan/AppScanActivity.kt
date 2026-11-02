@@ -8,7 +8,6 @@
  */
 package com.nextcloud.appscan
 
-import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -22,15 +21,12 @@ import com.zynksoftware.documentscanner.ui.DocumentScanner
 class AppScanActivity : ScanActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         applyEdgeToEdgeWithSystemBarPadding()
-        super.onCreate(savedInstanceState)
+        super.onCreate(null)
         DocumentScanner.init(this)
         addFragmentContentLayout()
     }
 
-    override fun onError(error: DocumentScannerErrorModel) {
-        // TODO pass this from app somehow?
-        println(error)
-    }
+    override fun onError(error: DocumentScannerErrorModel) = Unit
 
     override fun onSuccess(scannerResults: ScannerResults) {
         val intent = Intent()
@@ -40,12 +36,16 @@ class AppScanActivity : ScanActivity() {
             scannerResults.transformedImageFile?.absolutePath ?: scannerResults.croppedImageFile?.absolutePath
         )
 
-        setResult(Activity.RESULT_OK, intent)
+        setResult(RESULT_OK, intent)
         finish()
     }
 
     override fun onClose() {
-        setResult(Activity.RESULT_CANCELED)
+        if (isChangingConfigurations) {
+            return
+        }
+
+        setResult(RESULT_CANCELED)
         finish()
     }
 
