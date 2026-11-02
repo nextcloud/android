@@ -63,8 +63,8 @@ import com.nextcloud.client.files.DeepLinkHandler
 import com.nextcloud.client.jobs.download.FileDownloadEventBroadcaster
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
-import com.nextcloud.client.network.LocalNetworkPermissionHandler
-import com.nextcloud.client.network.LocalNetworkPermissionRequester
+import com.nextcloud.client.network.local.LocalNetworkPermissionHandler
+import com.nextcloud.client.network.local.LocalNetworkPermissionRequester
 import com.nextcloud.client.player.model.file.toPlaybackCollection
 import com.nextcloud.client.player.ui.audio.AudioPlayerLauncher
 import com.nextcloud.client.preferences.AppPreferences

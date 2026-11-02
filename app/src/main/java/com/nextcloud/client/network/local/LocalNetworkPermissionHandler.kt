@@ -4,7 +4,7 @@
  * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.nextcloud.client.network
+package com.nextcloud.client.network.local
 
 import android.app.Notification
 import android.app.NotificationManager
@@ -17,6 +17,7 @@ import androidx.core.app.NotificationCompat
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.di.ApplicationScope
+import com.nextcloud.client.network.ConnectivityService
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.lib.common.utils.Log_OC

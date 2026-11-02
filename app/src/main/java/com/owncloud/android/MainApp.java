@@ -52,7 +52,7 @@ import com.nextcloud.client.logger.LegacyLoggerAdapter;
 import com.nextcloud.client.logger.Logger;
 import com.nextcloud.client.migrations.MigrationsManager;
 import com.nextcloud.client.network.ConnectivityService;
-import com.nextcloud.client.network.LocalNetworkPermissionHandler;
+import com.nextcloud.client.network.local.LocalNetworkPermissionHandler;
 import com.nextcloud.client.network.NetworkChangeListener;
 import com.nextcloud.client.network.WalledCheckCache;
 import com.nextcloud.client.onboarding.OnboardingService;

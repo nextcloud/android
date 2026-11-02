@@ -53,8 +53,8 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.di.Injectable
-import com.nextcloud.client.network.LocalNetworkPermissionHandler
-import com.nextcloud.client.network.LocalNetworkPermissionRequester
+import com.nextcloud.client.network.local.LocalNetworkPermissionHandler
+import com.nextcloud.client.network.local.LocalNetworkPermissionRequester
 import com.nextcloud.client.onboarding.FirstRunActivity
 import com.nextcloud.client.onboarding.OnboardingService
 import com.nextcloud.client.preferences.AppPreferences
