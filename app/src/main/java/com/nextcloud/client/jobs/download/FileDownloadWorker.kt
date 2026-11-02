@@ -350,7 +350,7 @@ class FileDownloadWorker(
     private fun showDownloadErrorNotification(downloadError: FileDownloadError) {
         val text = when (downloadError) {
             FileDownloadError.Cancelled -> {
-                context.getString(R.string.downloader_file_download_cancelled)
+                context.getString(R.string.downloader_download_canceled)
             }
 
             FileDownloadError.Failed -> {
