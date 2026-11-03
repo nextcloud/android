@@ -2,7 +2,7 @@
  * Nextcloud - Android Client
  *
  * SPDX-FileCopyrightText: 2026 <Ruba Mogalli> <rubamogalli@gmail.com>
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-License-Identifier: AGPL-3.0-or-later 
  */
 package com.nextcloud.utils.date
 
@@ -21,37 +21,37 @@ class DateFormatPatternTest {
         DateTimeFormatter.ofPattern(pattern.pattern, Locale.ENGLISH).format(date)
 
     @Test
-    fun fullDateWithHours_formatsDateAndTime() {
+    fun `full date with hours formats date and time`() {
         assertEquals("03.08.2024 - 14:38", format(DateFormatPattern.FullDateWithHours))
     }
 
     @Test
-    fun monthWithDate_formatsShortMonthAndDay() {
+    fun `month with date formats short month and day`() {
         assertEquals("Aug 3", format(DateFormatPattern.MonthWithDate))
     }
 
     @Test
-    fun fullMonthWithYear_formatsFullMonthAndYearAndTime() {
+    fun `full month with year formats full month and year and time() {
         assertEquals("August 03, 2024 14:38", format(DateFormatPattern.MonthDayYearTime))
     }
 
     @Test
-    fun monthWithYear_formatsShortMonthAndYear() {
+    fun `month with year formats short month and year`() {
         assertEquals("Aug 2024", format(DateFormatPattern.MonthWithYear))
     }
 
     @Test
-    fun fullMonthWithYear_formatsFullMonthAndYear() {
+    fun `full month with year formats full month and year`() {
         assertEquals("August 2024", format(DateFormatPattern.FullMonthWithYear))
     }
 
     @Test
-    fun fullMonth_formatsFullMonthName() {
+    fun `full month formats full month name`() {
         assertEquals("August", format(DateFormatPattern.FullMonth))
     }
 
     @Test
-    fun year_formatsFourDigitYear() {
+    fun `year formats four digit year`() {
         assertEquals("2024", format(DateFormatPattern.Year))
     }
 }
