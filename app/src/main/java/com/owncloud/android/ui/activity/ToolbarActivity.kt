@@ -56,11 +56,11 @@ abstract class ToolbarActivity :
     protected lateinit var toolbarSpinner: AppCompatSpinner
 
     private lateinit var toolbar: MaterialToolbar
-    private lateinit var appBar: AppBarLayout
     private lateinit var defaultToolbar: RelativeLayout
     private lateinit var homeSearchToolbar: LinearLayout
     private lateinit var homeSearchContainer: MaterialCardView
 
+    private var appBar: AppBarLayout? = null
     var previewImageView: ImageView? = null
         private set
     private var previewImageContainer: FrameLayout? = null
@@ -70,7 +70,7 @@ abstract class ToolbarActivity :
     private var actionBarType = ActionBarType.PLAIN
 
     private val isToolbarBound: Boolean
-        get() = ::appBar.isInitialized
+        get() = ::homeSearchToolbar.isInitialized
 
     // region Action bar setup
     fun showActionBar(type: ActionBarType) {
@@ -227,14 +227,14 @@ abstract class ToolbarActivity :
 
     @SuppressLint("PrivateResource")
     private fun switchActionBar(type: ActionBarType) {
-        if (!isToolbarBound) return
+        val appBar = appBar ?: return
 
         viewThemeUtils.material.themeToolbar(toolbar)
 
         when (type) {
             ActionBarType.SEARCH -> {
                 viewThemeUtils.platform.resetStatusBar(this)
-                setAppBarStateListAnimator(R.animator.appbar_elevation_off)
+                setAppBarStateListAnimator(appBar, R.animator.appbar_elevation_off)
                 defaultToolbar.isVisible = false
                 homeSearchToolbar.isVisible = true
                 viewThemeUtils.material.themeSearchCardView(homeSearchContainer)
@@ -242,7 +242,7 @@ abstract class ToolbarActivity :
             }
 
             ActionBarType.PLAIN -> {
-                setAppBarStateListAnimator(R.animator.appbar_elevation_on)
+                setAppBarStateListAnimator(appBar, R.animator.appbar_elevation_on)
                 viewThemeUtils.platform.themeStatusBar(this)
                 defaultToolbar.isVisible = true
                 homeSearchToolbar.isVisible = false
@@ -252,7 +252,7 @@ abstract class ToolbarActivity :
         SystemBarBackgroundCallbacks.apply(this, viewThemeUtils)
     }
 
-    private fun setAppBarStateListAnimator(@AnimatorRes animatorId: Int) {
+    private fun setAppBarStateListAnimator(appBar: AppBarLayout, @AnimatorRes animatorId: Int) {
         appBar.stateListAnimator = AnimatorInflater.loadStateListAnimator(appBar.context, animatorId)
     }
     // endregion
