@@ -29,7 +29,7 @@ import io.mockk.unmockkAll
 import org.junit.After
 import org.junit.Before
 
-@Suppress("LongParameterList", "TooManyFunctions", "DEPRECATION")
+@Suppress("DEPRECATION")
 abstract class MoveFilesTestBase {
 
     companion object {

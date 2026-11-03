@@ -43,7 +43,7 @@ import com.owncloud.android.authentication.AuthenticatorActivity
 import com.owncloud.android.authentication.DeepLinkLoginActivity
 import com.owncloud.android.files.BootupBroadcastReceiver
 import com.owncloud.android.providers.DiskLruImageCacheFileProvider
-import com.owncloud.android.providers.DocumentsStorageProvider
+import com.owncloud.android.providers.documentstorage.DocumentsStorageProvider
 import com.owncloud.android.providers.FileContentProvider
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider
 import com.owncloud.android.services.AccountManagerService
@@ -144,7 +144,6 @@ import dagger.android.ContributesAndroidInjector
  * Register classes that require dependency injection. This class is used by Dagger compiler only.
  */
 @Module
-@Suppress("TooManyFunctions")
 internal interface ComponentsModule {
     @ContributesAndroidInjector
     fun trashbinFragment(): TrashbinFragment

@@ -57,7 +57,6 @@ import java.util.Calendar
 import java.util.GregorianCalendar
 import javax.inject.Inject
 
-@Suppress("TooManyFunctions")
 class BackupFragment :
     FileFragment(),
     OnDateSetListener,
@@ -336,7 +335,6 @@ class BackupFragment :
         }
     }
 
-    @Suppress("TooGenericExceptionCaught")
     private suspend fun fetchBackupFiles(folder: OCFile, storageManager: FileDataStorageManager): List<OCFile> =
         withContext(Dispatchers.IO) {
             try {
@@ -409,7 +407,7 @@ class BackupFragment :
         }
     }
 
-    @Suppress("ComplexMethod", "MagicNumber", "ReturnCount")
+    @Suppress("CyclomaticComplexMethod", "MagicNumber")
     override fun onDateSet(view: DatePicker, year: Int, month: Int, dayOfMonth: Int) {
         val contactsPreferenceActivity = activity as? ContactsPreferenceActivity ?: run {
             activity?.let { SnackbarUtil.show(it, R.string.error_choosing_date) }

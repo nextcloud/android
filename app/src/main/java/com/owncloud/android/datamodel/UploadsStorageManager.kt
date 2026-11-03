@@ -46,7 +46,7 @@ import java.util.Calendar
 import java.util.Locale
 import java.util.Observable
 
-@Suppress("TooManyFunctions", "TooGenericExceptionCaught", "MagicNumber", "ReturnCount")
+@Suppress("MagicNumber")
 class UploadsStorageManager(
     private val currentAccountProvider: CurrentAccountProvider,
     private val contentResolver: ContentResolver

@@ -21,7 +21,6 @@ import com.nextcloud.utils.AppConstants.DEFAULT_READ_TIMEOUT_MS
 class FetchTemplateOperation(private val type: ChooseRichDocumentsTemplateDialogFragment.Type) :
     RemoteOperation<Any>() {
 
-    @Suppress("TooGenericExceptionCaught")
     override fun run(client: OwnCloudClient): RemoteOperationResult<Any> {
         var getMethod: GetMethod? = null
 

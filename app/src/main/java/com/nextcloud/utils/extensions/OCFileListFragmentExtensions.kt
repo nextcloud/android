@@ -84,7 +84,7 @@ private fun OCFileListFragment.folderFromResult(bundle: Bundle): OCFile? {
         return null
     }
 
-    val file = containerActivity.storageManager.getFileByEncryptedRemotePath(remotePath)
+    val file = requireContainerActivity().storageManager.getFileByEncryptedRemotePath(remotePath)
     if (file == null) {
         Log_OC.e(TAG, "file is null, cannot continue encryption action")
     }

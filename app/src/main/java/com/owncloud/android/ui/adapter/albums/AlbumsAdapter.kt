@@ -24,7 +24,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.albums.PhotoAlbumEntry
 
-@Suppress("LongParameterList")
 class AlbumsAdapter(
     private val context: Context,
     private val storageManager: FileDataStorageManager?,

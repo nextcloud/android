@@ -12,13 +12,14 @@ import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.ui.navigation.model.ActionBarStyle
 
 @JvmOverloads
 fun DrawerActivity.navigateToAllFiles(onlyPersonal: Boolean = false) {
     MainApp.showOnlyFilesOnDevice(false)
     MainApp.showOnlyPersonalFiles(onlyPersonal)
     highlightNavigationViewItem(R.id.nav_all_files)
-    setupHomeSearchToolbarWithSortAndListButtons()
+    showActionBar(ActionBarStyle.Search)
 
     Intent(applicationContext, FileDisplayActivity::class.java).apply {
         addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)

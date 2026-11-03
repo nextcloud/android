@@ -63,7 +63,6 @@ import org.apache.commons.httpclient.HttpStatus
 import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 
-@Suppress("TooManyFunctions", "ReturnCount")
 class FileDetailActivitiesFragment :
     Fragment(),
     ActivityListInterface,

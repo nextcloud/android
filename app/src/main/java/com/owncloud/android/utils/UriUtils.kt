@@ -42,7 +42,6 @@ object UriUtils {
         return displayName?.replace("/".toRegex(), "-")
     }
 
-    @Suppress("TooGenericExceptionCaught")
     private fun getDisplayNameFromContentResolver(uri: Uri, context: Context): String? {
         val mimeType = context.contentResolver.getType(uri) ?: return null
         val displayNameColumn: String = getDisplayNameColumnForMimeType(mimeType)

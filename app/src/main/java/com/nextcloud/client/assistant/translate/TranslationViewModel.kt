@@ -84,7 +84,6 @@ class TranslationViewModel(private val remoteRepository: AssistantRemoteReposito
         }
     }
 
-    @Suppress("ReturnCount")
     private suspend fun pollTranslationResult() {
         val screenStateValue = _screenState.value
         if (screenStateValue is Uninitialized) {

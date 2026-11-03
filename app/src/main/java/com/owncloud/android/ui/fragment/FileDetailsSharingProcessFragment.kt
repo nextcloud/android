@@ -55,7 +55,7 @@ import javax.inject.Inject
  * configuration at one time.
  * 2. This will handle both Advanced Permissions and Send New Email functionality for existing shares to modify them.
  */
-@Suppress("TooManyFunctions", "LargeClass")
+@Suppress("LargeClass")
 class FileDetailsSharingProcessFragment :
     Fragment(),
     Injectable,
@@ -753,7 +753,6 @@ class FileDetailsSharingProcessFragment :
     /**
      * method to validate the step 1 screen information
      */
-    @Suppress("ReturnCount")
     private fun validateShareProcessFirst() {
         if (permission == OCShare.NO_PERMISSION) {
             SnackbarUtil.show(this, R.string.no_share_permission_selected)
@@ -795,7 +794,6 @@ class FileDetailsSharingProcessFragment :
         }
     }
 
-    @Suppress("ReturnCount")
     private fun createShareOrUpdateNoteShare() {
         if (!isAnySharePermissionChecked()) {
             SnackbarUtil.show(this, R.string.share_option_required)

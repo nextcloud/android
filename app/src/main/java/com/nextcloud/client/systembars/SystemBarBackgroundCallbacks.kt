@@ -39,7 +39,6 @@ class SystemBarBackgroundCallbacks(private val viewThemeUtilsProvider: Provider<
         private fun isExcluded(activity: Activity): Boolean = excludedActivities.any { it.isInstance(activity) }
 
         @JvmStatic
-        @Suppress("ReturnCount")
         fun apply(activity: Activity, viewThemeUtils: ViewThemeUtils) {
             if (isExcluded(activity)) return
 
@@ -63,7 +62,7 @@ class SystemBarBackgroundCallbacks(private val viewThemeUtilsProvider: Provider<
 
         @ColorInt
         private fun statusBarColor(activity: Activity, @ColorInt actionBarColor: Int): Int {
-            if (activity is ToolbarActivity && activity.isHomeSearchToolbarVisible) {
+            if (activity is ToolbarActivity && activity.isSearchActionBarVisible) {
                 return ContextCompat.getColor(activity, R.color.bg_default)
             }
 

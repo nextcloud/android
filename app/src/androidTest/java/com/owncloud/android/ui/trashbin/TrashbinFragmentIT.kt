@@ -32,7 +32,6 @@ class TrashbinFragmentIT : AbstractIT() {
         FILES
     }
 
-    @Suppress("ReturnCount")
     private fun findFragment(sut: NavigatorActivity): TrashbinFragment? {
         val allFragments = sut.supportFragmentManager.fragments
         for (f in allFragments) {

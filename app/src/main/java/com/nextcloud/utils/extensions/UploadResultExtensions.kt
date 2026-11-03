@@ -31,6 +31,7 @@ fun UploadResult.isNonRetryable(): Boolean = when (this) {
     else -> false
 }
 
+@Suppress("CyclomaticComplexMethod")
 fun UploadResult.getFailedStatusText(context: Context): String = when (this) {
     UploadResult.CREDENTIAL_ERROR ->
         context.getString(R.string.uploads_view_upload_status_failed_credentials_error)

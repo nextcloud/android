@@ -58,12 +58,9 @@ import java.util.function.Consumer
 
 @Suppress(
     "LongMethod",
-    "TooManyFunctions",
     "LargeClass",
-    "LongParameterList",
     "NestedBlockDepth",
-    "MaxLineLength",
-    "ReturnCount"
+    "MaxLineLength"
 )
 class UploadListAdapter(
     private val activity: DrawerActivity,

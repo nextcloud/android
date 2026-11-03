@@ -29,6 +29,7 @@ import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.fragment.GalleryFragment
 import com.owncloud.android.ui.fragment.OCFileListFragment
 import com.owncloud.android.ui.fragment.albums.AlbumsFragment
+import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import com.owncloud.android.utils.ErrorMessageAdapter
 
 class AlbumsPickerActivity :
@@ -57,7 +58,7 @@ class AlbumsPickerActivity :
         super.onCreate(savedInstanceState)
 
         initBinding()
-        setupToolbar()
+        showActionBar(ActionBarStyle.Plain)
         setupAction()
         setupActionBar()
         initExtras()
@@ -66,7 +67,7 @@ class AlbumsPickerActivity :
             createFragments()
         }
 
-        updateActionBarTitleAndHomeButtonByString(captionText)
+        setActionBarTitle(captionText)
     }
 
     private fun setupActionBar() {

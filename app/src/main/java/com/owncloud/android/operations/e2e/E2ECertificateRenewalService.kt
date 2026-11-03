@@ -75,7 +75,6 @@ class E2ECertificateRenewalService(
         }.start()
     }
 
-    @Suppress("ReturnCount")
     private fun renew(context: Context, user: User): E2ECertificateRenewalResult {
         val keyPair = reconstructKeyPair(user)
             ?: return E2ECertificateRenewalResult.Failure(R.string.renew_e2e_certificate_private_key_missing)

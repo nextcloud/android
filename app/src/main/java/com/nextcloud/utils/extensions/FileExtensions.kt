@@ -5,8 +5,6 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-@file:Suppress("TooManyFunctions")
-
 package com.nextcloud.utils.extensions
 
 import android.graphics.Bitmap
@@ -69,7 +67,6 @@ fun Path.toLocalPath(): String = toAbsolutePath().toString()
  * @receiver String path to a file.
  * @return [File] instance if the file exists, or `null` if the path is null, empty, or non-existent.
  */
-@Suppress("ReturnCount")
 fun String?.toFile(): File? {
     if (isNullOrEmpty()) {
         Log_OC.w(TAG, "given path is null or empty: $this")

@@ -109,7 +109,6 @@ import com.owncloud.android.db.ProviderMeta
     ],
     exportSchema = true
 )
-@Suppress("Detekt.UnnecessaryAbstractClass") // needed by Room
 @TypeConverters(OfflineOperationTypeConverter::class)
 abstract class NextcloudDatabase : RoomDatabase() {
 

@@ -7,6 +7,7 @@
  */
 package com.owncloud.android.datamodel
 
+import com.nextcloud.utils.extensions.saveFolder
 import org.junit.Assert
 import org.junit.Test
 
@@ -41,7 +42,7 @@ class FileDataStorageManagerContentResolverIT : FileDataStorageManagerIT() {
 
             val storedFile = sut.getFileByDecryptedRemotePath("/folderA/file$it")
             Assert.assertNotNull(storedFile)
-            storedFile
+            requireNotNull(storedFile)
         }
 
         // save files in folder

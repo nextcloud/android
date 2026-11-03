@@ -44,7 +44,6 @@ import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import me.zhanghai.android.fastscroll.PopupTextProvider
 
-@Suppress("LongParameterList", "TooManyFunctions")
 class GalleryAdapter(
     val context: Context,
     user: User,

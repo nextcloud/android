@@ -55,7 +55,6 @@ class PreviewMediaPagerAdapter(
         notifyItemRemoved(position)
     }
 
-    @Suppress("TooGenericExceptionCaught")
     fun getFileAt(position: Int): OCFile? = try {
         mediaFiles[position]
     } catch (_: IndexOutOfBoundsException) {

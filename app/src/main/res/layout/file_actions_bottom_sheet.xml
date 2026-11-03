@@ -47,28 +47,17 @@
             <include
                 android:id="@+id/thumbnail_layout"
                 layout="@layout/file_thumbnail"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/standard_half_margin"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp" />
+                android:layout_height="wrap_content" />
 
-            <TextView
+            <com.nextcloud.ui.component.FilenameView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:ellipsize="end"
-                android:lines="1"
-                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
-                tools:text="@string/placeholder_filename" />
-
-            <TextView
-                android:id="@+id/extension"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="start"
-                android:lines="1"
-                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
-                tools:text="@string/placeholder_extension" />
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/standard_margin" />
 
         </LinearLayout>
 

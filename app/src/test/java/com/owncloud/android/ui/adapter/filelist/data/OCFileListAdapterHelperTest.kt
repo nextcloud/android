@@ -22,7 +22,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
-@Suppress("LongMethod", "LongParameterList")
+@Suppress("LongMethod")
 class OCFileListAdapterHelperTest {
 
     private val context = mockk<Context>(relaxed = true)

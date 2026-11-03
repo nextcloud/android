@@ -45,7 +45,6 @@ data class LogEntry(val timestamp: Date, val level: Level, val tag: String, val 
             }
         }
 
-        @Suppress("ReturnCount")
         @JvmStatic
         fun parse(s: String): LogEntry? {
             val result = ENTRY_PARSE_REGEXP.matchEntire(s) ?: return null

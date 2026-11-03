@@ -115,7 +115,6 @@ class NotificationsFragmentIT : AbstractIT() {
         add(buildNotificationManyActions())
     }
 
-    @Suppress("ReturnCount")
     private fun findFragment(sut: NavigatorActivity): NotificationsFragment? {
         val allFragments = sut.supportFragmentManager.fragments
         for (f in allFragments) {

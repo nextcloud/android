@@ -113,7 +113,6 @@ class AvatarGroupLayout @JvmOverloads constructor(
         return avatar
     }
 
-    @Suppress("LongParameterList")
     private fun bindSharee(
         avatar: ImageView,
         sharee: ShareeUser,
@@ -161,7 +160,6 @@ class AvatarGroupLayout @JvmOverloads constructor(
         }
     }
 
-    @Suppress("TooGenericExceptionCaught")
     private fun createFederatedPlaceholder(userId: String, viewThemeUtils: ViewThemeUtils): Drawable = try {
         TextDrawable.createAvatarByUserId(userId, avatarRadius)
     } catch (e: Exception) {

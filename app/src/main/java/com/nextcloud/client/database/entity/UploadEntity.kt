@@ -71,6 +71,7 @@ data class UploadEntity(
     val folderUnlockToken: String?
 )
 
+@Suppress("CyclomaticComplexMethod")
 fun UploadEntity.toOCUpload(capability: OCCapability? = null): OCUpload? {
     val localPath = localPath
     var remotePath = remotePath

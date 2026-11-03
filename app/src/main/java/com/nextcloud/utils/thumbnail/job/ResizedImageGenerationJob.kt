@@ -72,7 +72,6 @@ class ResizedImageGenerationJob(
         return withContext(ioDispatcher) { getOrCreateWithVideoOverlay(file, client) }
     }
 
-    @Suppress("TooGenericExceptionCaught")
     private fun getOrCreateWithVideoOverlay(file: OCFile, client: OwnCloudClient): Bitmap? = try {
         val resizedImage = ResizedImageGenerator.getOrCreate(file, client, storageManager)
         if (resizedImage != null && MimeTypeUtil.isVideo(file)) {

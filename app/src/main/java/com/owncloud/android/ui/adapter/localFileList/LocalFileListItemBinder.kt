@@ -17,7 +17,6 @@ import com.owncloud.android.ui.interfaces.LocalFileListFragmentInterface
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 
-@Suppress("LongParameterList")
 internal class LocalFileListItemBinder(
     private val activity: Activity,
     private val viewThemeUtils: ViewThemeUtils,

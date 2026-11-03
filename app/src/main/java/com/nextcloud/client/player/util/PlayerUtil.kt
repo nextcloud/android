@@ -45,7 +45,6 @@ import java.io.File
 import java.util.Collections
 import com.nextcloud.utils.AppConstants.MILLIS_PER_SECOND
 
-@Suppress("TooManyFunctions")
 object PlayerUtil {
 
     const val REMOTE_FILE_SCHEME = "remoteFile"

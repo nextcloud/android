@@ -28,6 +28,7 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.InternalTwoWaySyncLayoutBinding
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.adapter.InternalTwoWaySyncAdapter
+import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -58,7 +59,7 @@ class InternalTwoWaySyncActivity :
         binding = InternalTwoWaySyncLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupToolbar()
+        showActionBar(ActionBarStyle.Plain)
         setupActionBar()
         setupTwoWaySyncAdapter()
         setupEmptyList()
@@ -68,7 +69,7 @@ class InternalTwoWaySyncActivity :
     }
 
     private fun setupActionBar() {
-        updateActionBarTitleAndHomeButtonByString(getString(R.string.two_way_sync_activity_title))
+        setActionBarTitle(getString(R.string.two_way_sync_activity_title))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
@@ -111,7 +112,6 @@ class InternalTwoWaySyncActivity :
         }
     }
 
-    @Suppress("TooGenericExceptionCaught")
     private fun disableTwoWaySyncAndWorkers() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {

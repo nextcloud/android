@@ -27,7 +27,6 @@ import com.owncloud.android.operations.SynchronizeFileOperation
 import com.owncloud.android.utils.FileStorageUtils
 import java.io.File
 
-@Suppress("LongParameterList") // Legacy code
 class OfflineSyncWork(
     private val context: Context,
     params: WorkerParameters,
@@ -98,7 +97,6 @@ class OfflineSyncWork(
             }
         }
         // update eTag
-        @Suppress("TooGenericExceptionCaught") // legacy code
         try {
             val ocFolder = storageManager.getFileByPath(folderName)
             ocFolder.etagOnServer = updatedEtag

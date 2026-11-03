@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.ref.WeakReference
 
-@Suppress("DEPRECATION", "TooGenericExceptionCaught", "TooGenericExceptionThrown", "LongParameterList")
+@Suppress("DEPRECATION")
 class FetchRemoteFileTask(
     private val user: User,
     private val fileId: String,

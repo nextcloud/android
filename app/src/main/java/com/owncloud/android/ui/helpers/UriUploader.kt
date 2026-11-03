@@ -38,11 +38,7 @@ import com.owncloud.android.utils.UriUtils.getDisplayNameForUri
  * persistence permission is not granted. Due to this, contents of the file are temporary copied by the OC app, and then
  * passed [FileUploadHelper].
  */
-@Suppress(
-    "Detekt.LongParameterList",
-    "Detekt.SpreadOperator",
-    "Detekt.TooGenericExceptionCaught"
-)
+@Suppress("Detekt.SpreadOperator")
 class UriUploader @JvmOverloads constructor(
     private val activity: FileActivity,
     private val urisToUpload: List<Parcelable?>,

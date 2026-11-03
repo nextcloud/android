@@ -32,7 +32,6 @@ class CalendarImportWork(
         const val TAG = "CalendarImportWork"
     }
 
-    @Suppress("TooGenericExceptionCaught")
     override fun doWork(): Result {
         val calendars = inputData.keyValueMap as? Map<*, *>
         if (calendars == null) {

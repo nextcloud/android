@@ -18,7 +18,6 @@ import com.owncloud.android.operations.DownloadType
  * This interface allows to control, schedule and monitor all application
  * long-running background tasks, such as periodic checks or synchronization.
  */
-@Suppress("TooManyFunctions") // we expect this implementation to have rich API
 interface BackgroundJobManager {
 
     /**
@@ -152,7 +151,6 @@ interface BackgroundJobManager {
     fun cancelEnqueuedAutoUploads()
     fun cancelFilesDownloadJob(accountName: String, fileId: Long)
 
-    @Suppress("LongParameterList")
     fun startFileDownloadJob(
         user: User,
         file: OCFile,

@@ -31,7 +31,6 @@ object ClipboardUtil {
 
     @JvmStatic
     @JvmOverloads
-    @Suppress("TooGenericExceptionCaught")
     fun copyToClipboard(activity: Activity, text: String?, showToast: Boolean = true) {
         if (!MDMConfig.clipBoardSupport(activity)) {
             return

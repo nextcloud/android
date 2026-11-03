@@ -52,7 +52,7 @@
     <string name="add_to_album">Add to album</string>
     <string name="album_file_added_message">File added successfully</string>
     <string name="album_unsupported_file">Unsupported media</string>
-    <string name="gallery_unsupported_file">Unsupported filetype</string>
+    <string name="gallery_unsupported_file">Unsupported file type</string>
     <string name="album_upload_from_account">Select images from account</string>
     <string name="album_rename_conflict">This name is already in use.</string>
     <string name="album_copy_file_conflict">Already exists.</string>
@@ -623,6 +623,7 @@
     <string name="share_link_password_title">Enter a password</string>
     <string name="share_link_optional_password_title">Enter an optional password</string>
     <string name="share_link_empty_password">You must enter a password</string>
+    <string name="share_link_password_rejected">The password does not meet the password requirements. Try a longer or more complex password.</string>
 
     <string name="activity_chooser_send_file_title">Send</string>
 

@@ -1,0 +1,25 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+package com.owncloud.android.providers.documentstorage.sync
+
+import android.content.Context
+import android.net.Uri
+import android.provider.DocumentsContract
+import com.owncloud.android.R
+import com.owncloud.android.providers.documentstorage.model.Document
+
+internal class DocumentNotifier(private val context: Context) {
+
+    fun notifyChanged(document: Document) {
+        context.contentResolver.notifyChange(notifyUri(document), null, 0)
+    }
+
+    fun notifyUri(document: Document): Uri = DocumentsContract.buildDocumentUri(
+        context.getString(R.string.document_provider_authority),
+        document.documentId
+    )
+}

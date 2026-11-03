@@ -47,7 +47,6 @@ import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import me.zhanghai.android.fastscroll.PopupStyles
 import javax.inject.Inject
 
-@Suppress("TooManyFunctions")
 class FilesSpecificViewThemeUtils @Inject constructor(
     schemes: MaterialSchemes,
     private val colorUtil: ColorUtil,

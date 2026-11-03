@@ -19,7 +19,7 @@ import com.owncloud.android.lib.common.OwnCloudClientFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.e2ee.GetMetadataRemoteOperation
 import com.owncloud.android.lib.resources.status.OCCapability
-import com.owncloud.android.lib.resources.users.GetPublicKeyRemoteOperation
+import com.owncloud.android.lib.resources.users.GetCertificateRemoteOperation
 import com.owncloud.android.lib.resources.users.GetServerPublicKeyRemoteOperation
 import com.owncloud.android.operations.GetCapabilitiesOperation
 import com.owncloud.android.ui.dialog.setupEncryption.CertificateValidator
@@ -31,7 +31,6 @@ import kotlinx.coroutines.withContext
 import org.apache.commons.httpclient.HttpStatus
 import javax.inject.Inject
 
-@Suppress("TooGenericExceptionCaught", "ReturnCount")
 class E2EEKeyInspector @Inject constructor(
     private val context: Context,
     private val storageManager: FileDataStorageManager,
@@ -62,7 +61,7 @@ class E2EEKeyInspector @Inject constructor(
 
         val user = accountManager.user
 
-        val certificateResult = GetPublicKeyRemoteOperation().executeNextcloudClient(user, context)
+        val certificateResult = GetCertificateRemoteOperation().executeNextcloudClient(user, context)
         if (!certificateResult.isSuccess) {
             return@withContext if (certificateResult.httpCode == HttpStatus.SC_NOT_FOUND) {
                 DownloadKeyResult.NoServerKey

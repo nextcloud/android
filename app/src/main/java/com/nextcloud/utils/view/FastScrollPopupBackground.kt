@@ -121,7 +121,6 @@ class FastScrollPopupBackground(context: Context, @ColorInt color: Int) : Drawab
     }
 
     companion object {
-        @Suppress("LongParameterList")
         private fun pathArcTo(
             path: Path,
             centerX: Float,

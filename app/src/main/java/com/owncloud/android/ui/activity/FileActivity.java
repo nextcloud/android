@@ -92,6 +92,7 @@ import com.owncloud.android.ui.fragment.filesRepository.FilesRepository;
 import com.owncloud.android.ui.fragment.filesRepository.RemoteFilesRepository;
 import com.owncloud.android.ui.helpers.CredentialsUpdateHelper;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
+import com.owncloud.android.ui.navigation.model.ActionBarStyle;
 import com.owncloud.android.ui.preview.media.PreviewMediaActivity;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.ErrorMessageAdapter;
@@ -192,9 +193,9 @@ public abstract class FileActivity extends DrawerActivity
         MainApp.showOnlyFilesOnDevice(onDeviceOnly);
         MainApp.showOnlyPersonalFiles(personalFiles);
         if (onDeviceOnly) {
-            setupToolbar();
+            showActionBar(ActionBarStyle.Plain);
         } else {
-            setupHomeSearchToolbarWithSortAndListButtons();
+            showActionBar(ActionBarStyle.Search);
         }
     }
 
@@ -395,13 +396,7 @@ public abstract class FileActivity extends DrawerActivity
 
             showUntrustedCertDialog(result);
 
-        } else if (operation == null ||
-            operation instanceof CreateShareWithShareeOperation ||
-            operation instanceof UnshareOperation ||
-            operation instanceof SynchronizeFolderOperation ||
-            operation instanceof UpdateShareViaLinkOperation ||
-            operation instanceof UpdateSharePermissionsOperation
-        ) {
+        } else if (operation == null || operation instanceof SynchronizeFolderOperation) {
             if (result.isSuccess()) {
                 updateFileFromDB();
 
@@ -780,7 +775,6 @@ public abstract class FileActivity extends DrawerActivity
     }
 
     private void onUpdateShareInformation(RemoteOperationResult result, @StringRes int defaultError) {
-        Snackbar snackbar;
         FileDetailSharingFragment sharingFragment = getShareFileFragment();
 
         if (result.isSuccess()) {
@@ -788,16 +782,19 @@ public abstract class FileActivity extends DrawerActivity
             if (sharingFragment != null) {
                 sharingFragment.onUpdateShareInformation(result);
             }
-        } else if (sharingFragment != null && sharingFragment.getView() != null) {
-            if (TextUtils.isEmpty(result.getMessage())) {
-                snackbar = Snackbar.make(sharingFragment.getView(), defaultError, Snackbar.LENGTH_LONG);
-            } else {
-                snackbar = Snackbar.make(sharingFragment.getView(), result.getMessage(), Snackbar.LENGTH_LONG);
-            }
-
-            viewThemeUtils.material.themeSnackbar(snackbar);
-            snackbar.show();
+            return;
         }
+
+        final String message = TextUtils.isEmpty(result.getMessage()) ? getString(defaultError) : result.getMessage();
+
+        if (sharingFragment == null || sharingFragment.getView() == null) {
+            SnackbarUtil.show(this, message);
+            return;
+        }
+
+        Snackbar snackbar = Snackbar.make(sharingFragment.getView(), message, Snackbar.LENGTH_LONG);
+        viewThemeUtils.material.themeSnackbar(snackbar);
+        snackbar.show();
     }
 
     public void refreshList() {

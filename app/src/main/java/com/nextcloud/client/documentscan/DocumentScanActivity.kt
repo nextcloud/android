@@ -24,7 +24,7 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityDocumentScanBinding
 import com.owncloud.android.databinding.DialogScanExportTypeBinding
 import com.owncloud.android.ui.activity.ToolbarActivity
-import com.owncloud.android.utils.theme.ViewThemeUtils
+import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import javax.inject.Inject
 
 class DocumentScanActivity :
@@ -36,9 +36,6 @@ class DocumentScanActivity :
 
     @Inject
     lateinit var logger: Logger
-
-    @Inject
-    lateinit var viewThemeUtils: ViewThemeUtils
 
     @Inject
     lateinit var appScanOptionalFeature: AppScanOptionalFeature
@@ -71,7 +68,7 @@ class DocumentScanActivity :
         binding = ActivityDocumentScanBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupToolbar()
+        showActionBar(ActionBarStyle.Plain)
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
             it.setDisplayShowHomeEnabled(true)

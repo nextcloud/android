@@ -19,7 +19,6 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.interfaces.UnifiedSearchCurrentDirItemAction
 import com.owncloud.android.utils.FileStorageUtils
 
-@Suppress("LongParameterList")
 class UnifiedSearchCurrentDirItemViewHolder(
     val binding: UnifiedSearchCurrentDirectoryItemBinding,
     val context: Context,

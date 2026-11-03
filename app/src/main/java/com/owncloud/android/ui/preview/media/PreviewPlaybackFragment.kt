@@ -23,9 +23,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.player.media3.PlaybackModel
 import com.nextcloud.client.player.media3.PlaybackQueueLoader
 import com.nextcloud.client.player.model.PlayerThumbnailLoader
@@ -40,6 +38,8 @@ import com.nextcloud.client.player.util.PlayerUtil.isPictureInPictureAllowed
 import com.nextcloud.client.player.util.PlayerUtil.ownsPlayback
 import com.nextcloud.client.player.util.PlayerUtil.toPlaybackFile
 import com.nextcloud.ui.fileactions.FileAction
+import com.nextcloud.ui.fileactions.FileActionHandler
+import com.nextcloud.ui.fileactions.FileActionHost
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.addPaddingForNavBar
@@ -51,8 +51,6 @@ import com.owncloud.android.databinding.PreviewPlaybackFragmentBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.FetchRemoteFileOperation
-import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
-import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import dagger.android.support.AndroidSupportInjection
@@ -96,10 +94,10 @@ class PreviewPlaybackFragment :
     lateinit var accountManager: UserAccountManager
 
     @Inject
-    lateinit var backgroundJobManager: BackgroundJobManager
+    lateinit var viewThemeUtils: ViewThemeUtils
 
     @Inject
-    lateinit var viewThemeUtils: ViewThemeUtils
+    lateinit var fileActionHandler: FileActionHandler
 
     private lateinit var binding: PreviewPlaybackFragmentBinding
     private lateinit var file: OCFile
@@ -220,50 +218,20 @@ class PreviewPlaybackFragment :
         }
     }
 
-    @Suppress("CyclomaticComplexMethod")
     private fun onFileActionChosen(itemId: Int) {
         val previewActivity = previewActivity ?: return
-        val fileOperationsHelper = previewActivity.fileOperationsHelper
 
         when (itemId) {
-            R.id.action_see_details -> previewActivity.showDetails(file)
-
             R.id.action_download_file -> previewActivity.requestForDownload(file)
 
-            R.id.action_export_file -> fileOperationsHelper.exportFiles(
-                arrayListOf(file),
-                context,
-                view,
-                backgroundJobManager
-            )
+            else -> {
+                if (itemId == R.id.action_stream_media || itemId == R.id.action_remove_file) {
+                    playbackModel.pause()
+                }
 
-            R.id.action_send_share_file -> if (file.isSharedWithMe && !file.canReshare()) {
-                Snackbar.make(requireView(), R.string.resharing_is_not_allowed, Snackbar.LENGTH_LONG).show()
-            } else {
-                fileOperationsHelper.sendShareFile(file)
+                val host = FileActionHost(previewActivity, parentFragmentManager, view, null)
+                fileActionHandler.handle(itemId, listOf(file), host)
             }
-
-            R.id.action_send_file -> fileOperationsHelper.sendShareFile(file, true)
-
-            R.id.action_open_file_with -> fileOperationsHelper.openFile(file)
-
-            R.id.action_stream_media -> {
-                playbackModel.pause()
-                fileOperationsHelper.streamMediaFile(file)
-            }
-
-            R.id.action_remove_file -> {
-                playbackModel.pause()
-                RemoveFilesDialogFragment.newInstance(
-                    file
-                ).show(parentFragmentManager, ConfirmationDialogFragment.FTAG_CONFIRMATION)
-            }
-
-            R.id.action_add_to_album -> fileOperationsHelper.addFileToAlbum(listOf(file))
-
-            R.id.action_lock_file -> fileOperationsHelper.toggleFileLock(file, true)
-
-            R.id.action_unlock_file -> fileOperationsHelper.toggleFileLock(file, false)
         }
     }
 

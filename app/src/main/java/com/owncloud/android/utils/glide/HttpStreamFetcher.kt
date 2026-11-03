@@ -20,7 +20,6 @@ import org.apache.commons.httpclient.methods.GetMethod
 import java.io.IOException
 import java.io.InputStream
 
-@Suppress("TooGenericExceptionCaught")
 class HttpStreamFetcher internal constructor(private val url: String) : DataFetcher<InputStream> {
 
     private var stream: InputStream? = null

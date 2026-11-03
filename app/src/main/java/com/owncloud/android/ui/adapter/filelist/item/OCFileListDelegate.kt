@@ -56,7 +56,6 @@ import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 
-@Suppress("LongParameterList", "TooManyFunctions")
 class OCFileListDelegate(
     private val fileUploadHelper: FileUploadHelper,
     private val context: Context,
@@ -204,7 +203,7 @@ class OCFileListDelegate(
         }
     }
 
-    @Suppress("MagicNumber")
+    @Suppress("MagicNumber", "CyclomaticComplexMethod")
     fun bindViewHolder(
         viewHolder: ListViewHolder,
         file: OCFile,
@@ -416,7 +415,6 @@ class OCFileListDelegate(
         }
     }
 
-    @Suppress("ReturnCount")
     private fun getShareIconIdAndContentDescriptionId(holder: ListViewHolder, file: OCFile): Pair<Int, Int>? {
         if (!MDMConfig.sharingSupport(context)) {
             return null
@@ -441,7 +439,6 @@ class OCFileListDelegate(
         showShareAvatar = bool
     }
 
-    @Suppress("TooGenericExceptionCaught")
     fun cleanup() {
         ioScope.coroutineContext.cancelChildren()
 

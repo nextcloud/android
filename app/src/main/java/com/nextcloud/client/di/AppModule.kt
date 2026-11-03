@@ -28,6 +28,7 @@ import com.nextcloud.client.core.ThreadPoolAsyncRunner
 import com.nextcloud.client.database.dao.ArbitraryDataDao
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.jobs.operation.FileOperationHelper
+import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.logger.FileLogHandler
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.logger.LoggerImpl
@@ -73,7 +74,6 @@ import javax.inject.Singleton
 import com.nextcloud.utils.AppConstants.BYTES_PER_MB
 
 @Module(includes = [ComponentsModule::class, VariantComponentsModule::class, BuildTypeComponentsModule::class])
-@Suppress("TooManyFunctions")
 internal class AppModule {
 
     @Provides
@@ -119,6 +119,9 @@ internal class AppModule {
 
     @Provides
     fun clientRepository(repository: RemoteClientRepository): ClientRepository = repository
+
+    @Provides
+    fun fileUploadHelper(): FileUploadHelper = FileUploadHelper.instance()
 
     @Provides
     fun uploadsStorageManager(currentAccountProvider: CurrentAccountProvider, context: Context): UploadsStorageManager =

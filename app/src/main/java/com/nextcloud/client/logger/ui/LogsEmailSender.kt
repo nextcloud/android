@@ -13,6 +13,7 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+import android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION
 import android.net.Uri
 import android.os.Build
 import android.widget.Toast
@@ -152,7 +153,7 @@ class LogsEmailSender(private val context: Context, private val clock: Clock, pr
 
         intent.putExtra(Intent.EXTRA_TEXT, getPhoneInfo())
 
-        intent.flags = FLAG_ACTIVITY_NEW_TASK
+        intent.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_GRANT_READ_URI_PERMISSION
         intent.type = LOGS_MIME_TYPE
         intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, arrayListOf(uri))
         try {

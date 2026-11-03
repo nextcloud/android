@@ -49,7 +49,6 @@ import kotlin.math.min
 import kotlin.math.roundToInt
 import com.nextcloud.utils.decodeSampledBitmapFromFile as decodeSampledBitmap
 
-@Suppress("TooManyFunctions")
 object BitmapUtils {
     private const val TAG = "BitmapUtil"
     private const val MD5_ALGORITHM = "MD5"
@@ -162,7 +161,6 @@ object BitmapUtils {
         }
     }
 
-    @Suppress("TooGenericExceptionCaught")
     private fun readExifOrientation(storagePath: String): Int = try {
         ExifInterface(storagePath).getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
     } catch (e: Exception) {

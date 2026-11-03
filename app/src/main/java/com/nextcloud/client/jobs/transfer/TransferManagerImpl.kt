@@ -33,7 +33,6 @@ import com.nextcloud.utils.AppConstants.PROGRESS_PERCENTAGE_MIN
  * @param downloadTaskFactory Download task factory
  * @param threads maximum number of concurrent transfer processes
  */
-@Suppress("LongParameterList") // transfer operations requires those resources
 class TransferManagerImpl(
     private val runner: AsyncRunner,
     private val downloadTaskFactory: DownloadTask.Factory,

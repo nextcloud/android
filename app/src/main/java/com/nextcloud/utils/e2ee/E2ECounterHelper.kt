@@ -16,7 +16,6 @@ object E2ECounterHelper {
     private const val NO_METADATA_COUNTER = -1L
     private const val INCREMENTER = 1L
 
-    @Suppress("ReturnCount")
     fun getCounter(context: Context, parentFile: OCFile, metadata: Any?): Long {
         if (!E2EVersionHelper.isV2Plus(context)) {
             return NO_METADATA_COUNTER

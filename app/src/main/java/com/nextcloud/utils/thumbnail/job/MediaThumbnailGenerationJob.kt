@@ -48,7 +48,6 @@ class MediaThumbnailGenerationJob(
 
     private fun File.cacheKey(): String = hashCode().toString()
 
-    @Suppress("TooGenericExceptionCaught")
     private fun generateThumbnail(file: File, key: String): Bitmap? = try {
         when {
             MimeTypeUtil.isImage(file) -> ThumbnailsCacheManager.getBitmapFromDiskCache(key)
@@ -70,7 +69,6 @@ class MediaThumbnailGenerationJob(
         return ThumbnailsCacheManager.addThumbnailToCache(key, bitmap, file.path, px, px)
     }
 
-    @Suppress("TooGenericExceptionCaught")
     private fun generateVideoThumbnail(file: File, key: String): Bitmap? {
         if (!file.exists()) {
             Log_OC.w(TAG, "Cannot extract thumbnail: file does not exist")
@@ -101,7 +99,6 @@ class MediaThumbnailGenerationJob(
         }
     }
 
-    @Suppress("TooGenericExceptionCaught")
     private fun MediaMetadataRetriever.releaseSafely() {
         try {
             release()

@@ -85,7 +85,6 @@ class FileInfoRepository @Inject constructor(private val clientFactory: ClientFa
         else -> LabelOperationResult.Failure
     }
 
-    @Suppress("TooGenericExceptionCaught")
     private suspend fun <T> execute(user: User, default: T, errorMessage: String, block: (NextcloudClient) -> T): T =
         withContext(Dispatchers.IO) {
             val client = client(user) ?: return@withContext default

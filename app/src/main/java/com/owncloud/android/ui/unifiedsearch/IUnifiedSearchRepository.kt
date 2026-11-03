@@ -12,7 +12,6 @@ import com.owncloud.android.lib.common.SearchResult
 
 data class UnifiedSearchResult(val provider: ProviderID, val success: Boolean, val result: SearchResult)
 
-@Suppress("LongParameterList")
 interface IUnifiedSearchRepository {
     fun queryAll(
         query: String,

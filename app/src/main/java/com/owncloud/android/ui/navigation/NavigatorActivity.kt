@@ -19,7 +19,6 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityNavigatorBinding
 import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.ui.navigation.listener.NavigatorOnBackPressListener
-import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import dagger.android.support.AndroidSupportInjection
 
 class NavigatorActivity : DrawerActivity() {
@@ -121,12 +120,8 @@ class NavigatorActivity : DrawerActivity() {
 
     private fun setupActionBar(screen: NavigatorScreen) {
         val (style, titleId) = screen.actionBarStyle()
-        if (style == ActionBarStyle.Plain) {
-            setupToolbar()
-        } else {
-            setupHomeSearchToolbarWithSortAndListButtons()
-        }
-        updateActionBarTitleAndHomeButtonByString(getString(titleId))
+        showActionBar(style)
+        setActionBarTitle(getString(titleId))
 
         if (screen.hasDrawer) {
             setupDrawer(menuItemId)

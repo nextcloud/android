@@ -18,7 +18,7 @@ private const val TAG = "UserAccountManagerExtensions"
 
 fun UserAccountManager.createOwncloudClient(): OwnCloudClient? = createOwncloudClient(currentAccount.name)
 
-@Suppress("TooGenericExceptionCaught", "ReturnCount", "DEPRECATION")
+@Suppress("DEPRECATION")
 fun UserAccountManager.createOwncloudClient(accountName: String): OwnCloudClient? {
     val context = context ?: MainApp.getAppContext()
     if (context == null) {

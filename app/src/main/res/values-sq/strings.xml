@@ -122,6 +122,7 @@
     <string name="community_testing_bug_text">Gjetet një defekt? Diçka është e çuditshme?</string>
     <string name="community_testing_headline">Ndihmo duke testuar</string>
     <string name="community_testing_report_text">Raporto një problem në GitHub</string>
+    <string name="compose_activity_label">Asistenti Nextcloud</string>
     <string name="configure_new_media_folder_detection_notifications">Konfiguro</string>
     <string name="confirmation_remove_file_alert">Doni vërtet të hiqni %1$s?</string>
     <string name="confirmation_remove_files_alert">Doni vërtetë të hiqni artikujt e zgjedhur?</string>
@@ -513,6 +514,7 @@
     <string name="shared_icon_shared_via_link">shpërndarë me anë të lidhjes</string>
     <string name="shared_with_you_by">Ndahet me ju nga %1$s</string>
     <string name="sharee_add_failed">Duke shtuar përdëruesit e dështuar</string>
+    <string name="show_all">Shfaqi të gjitha</string>
     <string name="signup_with_provider">Regjistrohu me ofruesin</string>
     <string name="single_sign_on_request_token" formatted="true">Lejo %1$s të hyjë në llogarinë tënde Nextcloud %2$s?</string>
     <string name="sort_by">Rendit sipas</string>

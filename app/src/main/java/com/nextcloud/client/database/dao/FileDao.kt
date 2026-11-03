@@ -10,15 +10,40 @@ package com.nextcloud.client.database.dao
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Update
+import androidx.room.Upsert
 import com.nextcloud.client.database.entity.FileEntity
+import com.nextcloud.client.database.entity.model.FolderMetadataUpdate
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 import com.owncloud.android.utils.MimeType
 
-@Suppress("TooManyFunctions")
 @Dao
 interface FileDao {
     @Update
     fun update(entity: FileEntity)
+
+    @Upsert
+    fun upsert(entity: FileEntity): Long
+
+    @Update(entity = FileEntity::class)
+    fun updateFolderMetadata(metadata: FolderMetadataUpdate)
+
+    @Query("DELETE FROM filelist WHERE _id = :id AND file_owner = :fileOwner AND path = :path")
+    fun deleteFile(id: Long, fileOwner: String, path: String): Int
+
+    @Query(
+        """
+    WITH RECURSIVE descendants(_id) AS (
+        SELECT _id FROM filelist WHERE parent = :folderId
+        UNION
+        SELECT f._id FROM filelist f
+        INNER JOIN descendants d ON f.parent = d._id
+    )
+    DELETE FROM filelist
+    WHERE _id IN (SELECT _id FROM descendants)
+        OR (_id = :folderId AND file_owner = :fileOwner AND path = :path)
+"""
+    )
+    fun deleteFolder(folderId: Long, fileOwner: String, path: String): Int
 
     @Query("SELECT * FROM filelist WHERE _id = :id LIMIT 1")
     fun getFileById(id: Long): FileEntity?
@@ -199,6 +224,9 @@ interface FileDao {
 
     @Query("DELETE FROM filelist WHERE file_owner = :fileOwner AND path = :remotePath")
     fun deleteFileByRemotePath(fileOwner: String, remotePath: String): Int
+
+    @Query("DELETE FROM filelist WHERE file_owner = :fileOwner")
+    fun deleteAllFiles(fileOwner: String): Int
 
     @Query("UPDATE filelist SET is_read_only = :readOnly WHERE file_owner = :fileOwner AND path = :path")
     fun setReadOnly(fileOwner: String, path: String, readOnly: Int): Int

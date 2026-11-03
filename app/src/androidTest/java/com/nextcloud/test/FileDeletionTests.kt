@@ -22,7 +22,7 @@ import org.junit.Test
 import java.io.File
 import kotlin.random.Random
 
-@Suppress("TooManyFunctions", "MagicNumber")
+@Suppress("MagicNumber")
 class FileDeletionTests : AbstractIT() {
 
     private val createdFilePaths = mutableListOf<String>()

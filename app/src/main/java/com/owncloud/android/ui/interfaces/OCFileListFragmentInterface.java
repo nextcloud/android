@@ -18,8 +18,6 @@ import com.owncloud.android.ui.adapter.filelist.OCFileListAdapter;
  */
 
 public interface OCFileListFragmentInterface {
-    int getColumnsCount();
-
     void onShareIconClick(OCFile file);
 
     void showShareDetailView(OCFile file);

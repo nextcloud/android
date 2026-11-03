@@ -44,8 +44,8 @@ else
     echo "New spotbugs results at https://www.kaminsky.me/nc-dev/$repository-findbugs/${BUILD_NUMBER}.html"
     curl 2>/dev/null -u "${LOG_USERNAME}:${LOG_PASSWORD}" -X PUT "https://nextcloud.kaminsky.me/remote.php/dav/files/${LOG_USERNAME}/$repository-findbugs/${BUILD_NUMBER}.html" --upload-file app/build/reports/spotbugs/spotbugs.html
 
-    # delete all old comments, starting with Codacy
-    oldComments=$(curl_gh -X GET "https://api.github.com/repos/nextcloud/$repository/issues/${PR_NUMBER}/comments" | jq '.[] | select((.user.login | contains("github-actions")) and  (.body | test("<h1>Codacy.*"))) | .id')
+    # delete all old comments, starting with SpotBugs
+    oldComments=$(curl_gh -X GET "https://api.github.com/repos/nextcloud/$repository/issues/${PR_NUMBER}/comments" | jq '.[] | select((.user.login | contains("github-actions")) and  (.body | test("<h1>SpotBugs.*"))) | .id')
 
     echo "$oldComments" | while read -r comment ; do
         curl_gh -X DELETE "https://api.github.com/repos/nextcloud/$repository/issues/comments/$comment"
@@ -58,13 +58,6 @@ else
     fi
 
     # add comment with results
-    if [ $stableBranch = "master" ] ; then
-        codacyValue=$(curl 2>/dev/null https://app.codacy.com/dashboards/breakdown\?projectId\=44248 | grep "total issues" | cut -d">" -f3 | cut -d"<" -f1)
-        codacyResult="<h1>Codacy</h1>$codacyValue"
-    else
-        codacyResult=""
-    fi
-
     spotbugsResult="<h1>SpotBugs</h1>$(scripts/analysis/spotbugsComparison.py "/tmp/$stableBranch.xml" app/build/reports/spotbugs/gplayDebug.xml --link-new "https://www.kaminsky.me/nc-dev/$repository-findbugs/${BUILD_NUMBER}.html" --link-base "https://www.kaminsky.me/nc-dev/$repository-findbugs/$stableBranch.html")"
 
     if ( [ $spotbugsValue -eq 1 ] ) ; then
@@ -83,7 +76,7 @@ else
         notNull="org.jetbrains.annotations.* is used. Please use androidx.annotation.* instead.<br><br>"
     fi
 
-    bodyContent="$codacyResult $spotbugsResult $spotbugsMessage $gplayLimitation $notNull"
+    bodyContent="$spotbugsResult $spotbugsMessage $gplayLimitation $notNull"
     echo "$bodyContent" >> "$GITHUB_STEP_SUMMARY"
     payload="{ \"body\" : \"$bodyContent\" }"
     curl_gh -X POST "https://api.github.com/repos/nextcloud/$repository/issues/${PR_NUMBER}/comments" -d "$payload"

@@ -43,7 +43,6 @@ import ezvcard.VCard
 import ezvcard.property.Photo
 import thirdparties.sufficientlysecure.AndroidCalendar
 
-@Suppress("LongParameterList", "TooManyFunctions")
 class BackupListAdapter(
     val accountManager: UserAccountManager,
     val clientFactory: ClientFactory,
@@ -325,7 +324,7 @@ class BackupListAdapter(
         backupListFragment.showRestoreButton(hasSelection && hasAvailableCalendar)
     }
 
-    @Suppress("NestedBlockDepth", "TooGenericExceptionCaught")
+    @Suppress("NestedBlockDepth")
     private fun getAccountsForImport(): List<ContactsAccount> {
         val accounts =
             mutableListOf(ContactsAccount(context.getString(R.string.backup_list_adapter_local_contacts), null, null))

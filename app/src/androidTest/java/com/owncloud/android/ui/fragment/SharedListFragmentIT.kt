@@ -170,7 +170,7 @@ internal class SharedListFragmentIT : AbstractIT() {
                         OCShareToOCFileConverter
                             .parseAndSaveShares(listOf(), shares, storageManager, user)
                     }
-                    fragment.adapter.run {
+                    requireNotNull(fragment.adapter).run {
                         prepareForSearchData(SearchType.SHARED_FILTER)
                         updateAdapter(newList, null)
                     }

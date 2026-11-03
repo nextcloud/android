@@ -21,7 +21,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
-@Suppress("TooManyFunctions")
 class FileNameValidatorTests : AbstractOnServerIT() {
     companion object {
         private const val MAX_FILENAME_SIZE = 250

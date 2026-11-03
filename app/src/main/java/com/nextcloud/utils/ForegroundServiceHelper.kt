@@ -20,7 +20,6 @@ object ForegroundServiceHelper {
     private const val TAG = "ForegroundServiceHelper"
     private val isAboveOrEqualAndroid10 = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
 
-    @Suppress("TooGenericExceptionCaught")
     fun startService(
         service: Service,
         id: Int,

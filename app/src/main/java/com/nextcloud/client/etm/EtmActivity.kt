@@ -17,6 +17,7 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
 import com.owncloud.android.R
 import com.owncloud.android.ui.activity.ToolbarActivity
+import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import javax.inject.Inject
 
 class EtmActivity :
@@ -38,8 +39,8 @@ class EtmActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_etm)
-        setupToolbar()
-        updateActionBarTitleAndHomeButtonByString(getString(R.string.etm_title))
+        showActionBar(ActionBarStyle.Plain)
+        setActionBarTitle(getString(R.string.etm_title))
         vm = ViewModelProvider(this, viewModelFactory).get(EtmViewModel::class.java)
         vm.currentPage.observe(
             this,
@@ -80,12 +81,12 @@ class EtmActivity :
             supportFragmentManager.beginTransaction()
                 .replace(R.id.etm_page_container, fragment)
                 .commit()
-            updateActionBarTitleAndHomeButtonByString("ETM - ${getString(page.titleRes)}")
+            setActionBarTitle("ETM - ${getString(page.titleRes)}")
         } else {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.etm_page_container, EtmMenuFragment())
                 .commitNow()
-            updateActionBarTitleAndHomeButtonByString(getString(R.string.etm_title))
+            setActionBarTitle(getString(R.string.etm_title))
         }
     }
 }

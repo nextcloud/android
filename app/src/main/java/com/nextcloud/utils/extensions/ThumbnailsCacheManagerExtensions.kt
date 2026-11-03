@@ -31,7 +31,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
  * @see ExifInterface
  * @see MediaStore.Images.Media.ORIENTATION
  */
-@Suppress("TooGenericExceptionCaught", "NestedBlockDepth", "MagicNumber")
+@Suppress("NestedBlockDepth", "MagicNumber")
 fun getExifOrientation(path: String): Int {
     val context = MainApp.getAppContext()
     if (context == null || path.isBlank()) {

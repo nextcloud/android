@@ -15,7 +15,6 @@ import org.junit.Test
 import java.io.File
 import java.nio.file.Files
 
-@Suppress("TooManyFunctions")
 class FileHelperTest {
 
     private lateinit var testDirectory: File

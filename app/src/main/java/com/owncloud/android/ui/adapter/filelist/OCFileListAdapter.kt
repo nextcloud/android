@@ -83,7 +83,6 @@ import java.util.Date
 import java.util.Locale
 import java.util.UUID
 
-@Suppress("LongParameterList", "TooManyFunctions")
 class OCFileListAdapter(
     private val activity: Activity,
     private var user: User,

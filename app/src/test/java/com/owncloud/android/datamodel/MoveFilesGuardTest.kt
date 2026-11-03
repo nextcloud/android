@@ -11,7 +11,6 @@ import io.mockk.every
 import io.mockk.verify
 import org.junit.Test
 
-@Suppress("TooManyFunctions")
 class MoveFilesGuardTest : MoveFilesTestBase() {
 
     @Test
