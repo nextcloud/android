@@ -7,7 +7,6 @@
 package com.owncloud.android.ui.activity
 
 import android.animation.AnimatorInflater
-import android.annotation.SuppressLint
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -111,7 +110,7 @@ abstract class ToolbarActivity :
         setSupportActionBar(toolbar)
         bindToolbarViews()
 
-        if (type == ActionBarType.SEARCH) findViewById<View>(R.id.sort_list_button_group).isVisible = true
+        if (type == ActionBarType.SEARCH) sortListButtonGroup?.isVisible = true
 
         actionBarType = type
         updateActionBarTitleAndHomeButton(null)
@@ -120,7 +119,6 @@ abstract class ToolbarActivity :
         infoBoxMessage = findViewById(R.id.info_box_message)
         previewImageView = findViewById(R.id.preview_image)
         previewImageContainer = findViewById(R.id.preview_image_frame)
-        toolbarSpinner = findViewById(R.id.toolbar_spinner)
 
         themeToolbarViews()
     }
@@ -134,6 +132,7 @@ abstract class ToolbarActivity :
         searchText = findViewById(R.id.search_text)
         switchAccountButton = findViewById(R.id.switch_account_button)
         notificationButton = findViewById(R.id.notification_button)
+        toolbarSpinner = findViewById(R.id.toolbar_spinner)
     }
 
     private fun themeToolbarViews() {
@@ -171,7 +170,7 @@ abstract class ToolbarActivity :
 
     protected open fun updateActionBarTitleAndHomeButton(chosenFile: OCFile?) {
         val isRoot = isRoot(chosenFile) || isCurrentDirRoot
-        val title = if (chosenFile == null || isRoot) actionBarRootTitle else getActionBarTitleFromFile(chosenFile)
+        val title = chosenFile?.let { getActionBarTitle(it, isRoot) } ?: actionBarRootTitle
         setActionBarTitle(title)
 
         val isToolbarStyleSearch = (this as? DrawerActivity)?.isToolbarStyleSearch == true
@@ -225,7 +224,6 @@ abstract class ToolbarActivity :
         switchActionBar(if (isRoot(chosenFile)) ActionBarType.SEARCH else ActionBarType.PLAIN)
     }
 
-    @SuppressLint("PrivateResource")
     private fun switchActionBar(type: ActionBarType) {
         val appBar = appBar ?: return
 
