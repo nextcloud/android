@@ -43,7 +43,7 @@ import java.nio.file.Files
 import java.util.concurrent.Callable
 
 @Suppress("TooManyFunctions")
-class FileUpsertTest {
+class FileStorageManagerTests {
 
     companion object {
         private const val ACCOUNT_NAME = "user@nextcloud.example.com"
@@ -280,6 +280,14 @@ class FileUpsertTest {
                 match { it.contentEquals(arrayOf(FOLDER_ID.toString())) }
             )
         }
+    }
+
+    @Test
+    fun `deleteAllFiles deletes only rows of the current account`() {
+        storageManager.deleteAllFiles()
+
+        verify(exactly = 1) { fileDao.deleteAllFiles(ACCOUNT_NAME) }
+        verify(exactly = 0) { contentResolver.delete(any(), any(), any()) }
     }
 
     @Test

@@ -7,30 +7,52 @@
 
 package com.owncloud.android.providers
 
-import android.content.ContentValues
 import android.content.ContentUris
+import android.content.ContentValues
+import android.content.pm.ProviderInfo
 import android.net.Uri
+import androidx.room.Room
 import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteDatabase
+import androidx.test.platform.app.InstrumentationRegistry
+import com.nextcloud.client.database.NextcloudDatabase
+import com.nextcloud.client.database.typeConverter.OfflineOperationTypeConverter
+import com.owncloud.android.R
 import com.owncloud.android.db.ProviderMeta
+import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
+import com.owncloud.android.utils.MimeType
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
+import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
-@Suppress("MagicNumber")
+@Suppress("MagicNumber", "TooManyFunctions")
 class FileContentProviderTests {
+
+    companion object {
+        private const val OWNER = "owner@example.com"
+        private const val OTHER_OWNER = "other@example.com"
+        private const val NO_PARENT = 0L
+    }
 
     private lateinit var provider: FileContentProvider
     private lateinit var db: SupportSQLiteDatabase
+    private var inMemoryDatabase: NextcloudDatabase? = null
 
     @Before
     fun setup() {
         provider = FileContentProvider()
         db = mockk()
+    }
+
+    @After
+    fun tearDown() {
+        inMemoryDatabase?.close()
     }
 
     @Test
@@ -95,5 +117,114 @@ class FileContentProviderTests {
         assertEquals(ContentUris.withAppendedId(ProviderMeta.ProviderTableMeta.CONTENT_URI_FILE, 99), result)
 
         cursor.close()
+    }
+
+    private fun createProviderWithInMemoryDatabase(): FileContentProvider {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val database = Room.inMemoryDatabaseBuilder(context, NextcloudDatabase::class.java)
+            .addTypeConverter(OfflineOperationTypeConverter())
+            .allowMainThreadQueries()
+            .build()
+        inMemoryDatabase = database
+
+        val provider = FileContentProvider()
+        provider.attachInfo(context, ProviderInfo().apply { authority = context.getString(R.string.authority) })
+        FileContentProvider::class.java.getDeclaredField("mDbHelper")
+            .apply { isAccessible = true }
+            .set(provider, database.openHelper)
+        return provider
+    }
+
+    private fun FileContentProvider.insertFile(
+        path: String,
+        parentId: Long,
+        owner: String = OWNER,
+        isFolder: Boolean = false
+    ): Long {
+        val values = ContentValues().apply {
+            put(ProviderTableMeta.FILE_PATH, path)
+            put(ProviderTableMeta.FILE_ACCOUNT_OWNER, owner)
+            put(ProviderTableMeta.FILE_PARENT, parentId)
+            put(ProviderTableMeta.FILE_CONTENT_TYPE, if (isFolder) MimeType.DIRECTORY else "text/plain")
+        }
+        val uri = insert(ProviderTableMeta.CONTENT_URI_FILE, values)
+        return ContentUris.parseId(requireNotNull(uri))
+    }
+
+    private fun storedPaths(owner: String = OWNER): List<String?> =
+        requireNotNull(inMemoryDatabase).fileDao().getAllFiles(owner).map { it.path }
+
+    @Test
+    fun queryReturnsChildrenOfDirectoryWhenNoSelectionIsGiven() {
+        val provider = createProviderWithInMemoryDatabase()
+        val rootId = provider.insertFile("/", NO_PARENT, isFolder = true)
+        provider.insertFile("/a.txt", rootId)
+        provider.insertFile("/b.txt", rootId)
+
+        val cursor = provider.query(
+            ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_DIR, rootId),
+            null,
+            null,
+            null,
+            null
+        )
+
+        assertEquals(2, requireNotNull(cursor).use { it.count })
+    }
+
+    @Test
+    fun deletingDirectoryRemovesAllOfItsDescendants() {
+        val provider = createProviderWithInMemoryDatabase()
+        val rootId = provider.insertFile("/", NO_PARENT, isFolder = true)
+        val folderId = provider.insertFile("/folder/", rootId, isFolder = true)
+        val subFolderId = provider.insertFile("/folder/sub/", folderId, isFolder = true)
+        provider.insertFile("/folder/a.txt", folderId)
+        provider.insertFile("/folder/sub/b.txt", subFolderId)
+
+        provider.delete(ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_DIR, folderId), null, null)
+
+        assertEquals(listOf("/"), storedPaths())
+    }
+
+    @Test
+    fun deletingDirectoriesWithoutIdRemovesOnlyMatchingDirectoriesAndTheirDescendants() {
+        val provider = createProviderWithInMemoryDatabase()
+        val ownerRootId = provider.insertFile("/", NO_PARENT, isFolder = true)
+        provider.insertFile("/a.txt", ownerRootId)
+        val otherRootId = provider.insertFile("/", NO_PARENT, owner = OTHER_OWNER, isFolder = true)
+        provider.insertFile("/b.txt", otherRootId, owner = OTHER_OWNER)
+
+        provider.delete(
+            ProviderTableMeta.CONTENT_URI_DIR,
+            "${ProviderTableMeta.FILE_ACCOUNT_OWNER} = ? AND ${ProviderTableMeta.FILE_PATH} = ?",
+            arrayOf(OWNER, "/")
+        )
+
+        assertTrue(storedPaths().isEmpty())
+        assertEquals(listOf("/", "/b.txt"), storedPaths(OTHER_OWNER).sortedBy { it })
+    }
+
+    @Test
+    fun insertingExistingPathUpdatesRowInsteadOfAddingDuplicate() {
+        val provider = createProviderWithInMemoryDatabase()
+        val rootId = provider.insertFile("/", NO_PARENT, isFolder = true)
+        val firstId = provider.insertFile("/a.txt", rootId)
+
+        val secondId = provider.insertFile("/a.txt", rootId)
+
+        assertEquals(firstId, secondId)
+        assertEquals(listOf("/", "/a.txt"), storedPaths().sortedBy { it })
+    }
+
+    @Test
+    fun fileDaoDeleteAllFilesRemovesOnlyRowsOfGivenOwner() {
+        val provider = createProviderWithInMemoryDatabase()
+        provider.insertFile("/", NO_PARENT, isFolder = true)
+        provider.insertFile("/", NO_PARENT, owner = OTHER_OWNER, isFolder = true)
+
+        requireNotNull(inMemoryDatabase).fileDao().deleteAllFiles(OWNER)
+
+        assertTrue(storedPaths().isEmpty())
+        assertEquals(listOf("/"), storedPaths(OTHER_OWNER))
     }
 }

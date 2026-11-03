@@ -42,7 +42,7 @@ class FileDataStorageManagerContentResolverIT : FileDataStorageManagerIT() {
 
             val storedFile = sut.getFileByDecryptedRemotePath("/folderA/file$it")
             Assert.assertNotNull(storedFile)
-            storedFile
+            requireNotNull(storedFile)
         }
 
         // save files in folder

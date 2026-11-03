@@ -2609,19 +2609,7 @@ public class FileDataStorageManager {
     }
 
     public void deleteAllFiles() {
-        String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + "= ? AND " +
-            ProviderTableMeta.FILE_PATH + "= ?";
-        String[] whereArgs = new String[]{user.getAccountName(), OCFile.ROOT_PATH};
-
-        if (getContentResolver() != null) {
-            getContentResolver().delete(ProviderTableMeta.CONTENT_URI_DIR, where, whereArgs);
-        } else {
-            try {
-                getContentProviderClient().delete(ProviderTableMeta.CONTENT_URI_DIR, where, whereArgs);
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, "Exception in deleteAllFiles for account " + user.getAccountName() + ": " + e.getMessage(), e);
-            }
-        }
+        fileDao.deleteAllFiles(user.getAccountName());
     }
 
     public String getFolderName(String path) {

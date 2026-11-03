@@ -150,30 +150,31 @@ public class FileContentProvider extends ContentProvider {
     private int deleteDirectory(SupportSQLiteDatabase db, Uri uri, String where, String... whereArgs) {
         int count = 0;
 
-        Cursor children = query(uri, PROJECTION_CONTENT_TYPE, null, null, null);
-        if (children != null) {
-            if (children.moveToFirst()) {
-                long childId;
-                boolean isDir;
-                while (!children.isAfterLast()) {
-                    childId = children.getLong(children.getColumnIndexOrThrow(ProviderTableMeta._ID));
-                    isDir = MimeType.DIRECTORY.equals(children.getString(
-                        children.getColumnIndexOrThrow(ProviderTableMeta.FILE_CONTENT_TYPE)
-                    ));
-                    if (isDir) {
-                        count += delete(db, ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_DIR, childId),
-                                        null, (String[]) null);
-                    } else {
-                        count += delete(db, ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, childId),
-                                        null, (String[]) null);
-                    }
-                    children.moveToNext();
+        boolean isSingleDirectory = uri.getPathSegments().size() > MINIMUM_PATH_SEGMENTS_SIZE;
+        Cursor children = isSingleDirectory
+            ? query(db, uri, PROJECTION_CONTENT_TYPE, null, null, null)
+            : query(db, uri, PROJECTION_CONTENT_TYPE, where, whereArgs, null);
+        if (children.moveToFirst()) {
+            long childId;
+            boolean isDir;
+            while (!children.isAfterLast()) {
+                childId = children.getLong(children.getColumnIndexOrThrow(ProviderTableMeta._ID));
+                isDir = MimeType.DIRECTORY.equals(children.getString(
+                    children.getColumnIndexOrThrow(ProviderTableMeta.FILE_CONTENT_TYPE)
+                                                                    ));
+                if (isDir) {
+                    count += delete(db, ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_DIR, childId),
+                                    null, (String[]) null);
+                } else {
+                    count += delete(db, ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, childId),
+                                    null, (String[]) null);
                 }
+                children.moveToNext();
             }
-            children.close();
         }
+        children.close();
 
-        if (uri.getPathSegments().size() > MINIMUM_PATH_SEGMENTS_SIZE) {
+        if (isSingleDirectory) {
             count += deleteWithUri(db, uri, where, whereArgs);
         }
 
@@ -489,7 +490,8 @@ public class FileContentProvider extends ContentProvider {
         // add ID to arguments if Uri has more than one segment
         if (uriMatch != ROOT_DIRECTORY && uri.getPathSegments().size() > SINGLE_PATH_SEGMENT) {
             String idColumn = uriMatch == DIRECTORY ? ProviderTableMeta.FILE_PARENT : ProviderTableMeta._ID;
-            selection = idColumn + "=? AND " + selection;
+            String idSelection = idColumn + "=?";
+            selection = TextUtils.isEmpty(selection) ? idSelection : idSelection + " AND " + selection;
             selectionArgs = VerificationUtils.prependUriFirstSegmentToSelectionArgs(selectionArgs, uri);
         }
 
