@@ -109,6 +109,7 @@ import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment;
 import com.owncloud.android.ui.fragment.albums.AlbumsFragment;
 import com.owncloud.android.ui.navigation.NavigatorActivity;
 import com.owncloud.android.ui.navigation.NavigatorScreen;
+import com.owncloud.android.ui.navigation.model.ActionBarStyle;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DrawableUtil;
 import com.owncloud.android.utils.DrawerMenuUtil;
@@ -346,7 +347,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     private void openFavoritesTab() {
         resetOnlyPersonalAndOnDevice();
-        showActionBar(ActionBarType.PLAIN);
+        showActionBar(ActionBarStyle.Plain);
         SearchEvent searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH);
         launchActivityForSearch(searchEvent, R.id.nav_favorites);
     }
@@ -354,7 +355,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     private void openMediaTab(int menuItemId) {
         GalleryFragment.Companion.clearSavedViewState();
         resetOnlyPersonalAndOnDevice();
-        showActionBar(ActionBarType.PLAIN);
+        showActionBar(ActionBarStyle.Plain);
         startPhotoSearch(menuItemId);
     }
 

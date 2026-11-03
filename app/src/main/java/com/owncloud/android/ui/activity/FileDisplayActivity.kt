@@ -138,6 +138,7 @@ import com.owncloud.android.ui.fragment.albums.AlbumsFragment
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.ui.navigation.NavigatorScreen
 import com.owncloud.android.ui.navigation.animator.NavigationAnimator
+import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import com.owncloud.android.ui.preview.media.PreviewMediaActivity
 import com.owncloud.android.ui.preview.media.PreviewMediaFragment
 import com.owncloud.android.ui.preview.pdf.PreviewPdfFragment
@@ -354,7 +355,7 @@ class FileDisplayActivity :
         }
 
         if (isToolbarStyleSearch) {
-            showActionBar(ActionBarType.SEARCH)
+            showActionBar(ActionBarStyle.Search)
         }
         syncCurrentFolder(ignoreETag = true, ignoreFocus = true)
         refreshFileListOnResume(currentLeftFragment, listFragmentJustCreated)
@@ -444,7 +445,7 @@ class FileDisplayActivity :
     }
 
     private fun setupViews() {
-        showActionBar(ActionBarType.SEARCH)
+        showActionBar(ActionBarStyle.Search)
         menuButton.setOnClickListener { openDrawer() }
         findViewById<View>(R.id.toolbar).setOnClickListener { openCurrentFolderActions() }
         switchAccountButton.setOnClickListener { showManageAccountsDialog() }

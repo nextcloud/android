@@ -17,10 +17,8 @@ import androidx.fragment.app.Fragment
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityNavigatorBinding
-import com.owncloud.android.ui.activity.ActionBarType
 import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.ui.navigation.listener.NavigatorOnBackPressListener
-import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import dagger.android.support.AndroidSupportInjection
 
 class NavigatorActivity : DrawerActivity() {
@@ -122,11 +120,7 @@ class NavigatorActivity : DrawerActivity() {
 
     private fun setupActionBar(screen: NavigatorScreen) {
         val (style, titleId) = screen.actionBarStyle()
-        if (style == ActionBarStyle.Plain) {
-            showActionBar(ActionBarType.PLAIN)
-        } else {
-            showActionBar(ActionBarType.SEARCH)
-        }
+        showActionBar(style)
         setActionBarTitle(getString(titleId))
 
         if (screen.hasDrawer) {

@@ -34,6 +34,7 @@ import com.owncloud.android.datamodel.OCFileDepth
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.fragment.OCFileListFragment
 import com.owncloud.android.ui.fragment.SearchType
+import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import com.owncloud.android.utils.theme.ThemeUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
@@ -66,23 +67,23 @@ abstract class ToolbarActivity :
     private var infoBox: LinearLayout? = null
     private var infoBoxMessage: TextView? = null
 
-    private var actionBarType = ActionBarType.PLAIN
+    private var actionBarStyle = ActionBarStyle.Plain
 
     private val isToolbarBound: Boolean
         get() = ::homeSearchToolbar.isInitialized
 
     // region Action bar setup
-    fun showActionBar(type: ActionBarType) {
-        if (isActionBarDisplayed(type)) {
-            Log_OC.d(TAG, "$type action bar is already displayed, skipping update.")
+    fun showActionBar(style: ActionBarStyle) {
+        if (isActionBarDisplayed(style)) {
+            Log_OC.d(TAG, "$style action bar is already displayed, skipping update.")
             return
         }
 
-        configureActionBar(type)
+        configureActionBar(style)
     }
 
     fun showMenuAndTitleActionBar(title: String, onMenuClick: View.OnClickListener) {
-        configureActionBar(ActionBarType.PLAIN)
+        configureActionBar(ActionBarStyle.Plain)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         val toolbarLayout = findViewById<LinearLayout>(R.id.toolbar_linear_layout)
@@ -96,23 +97,23 @@ abstract class ToolbarActivity :
         toolbarMenuButton.setOnClickListener(onMenuClick)
     }
 
-    private fun isActionBarDisplayed(type: ActionBarType): Boolean {
+    private fun isActionBarDisplayed(style: ActionBarStyle): Boolean {
         if (!isToolbarBound) return false
-        val (displayed, hidden) = when (type) {
-            ActionBarType.PLAIN -> defaultToolbar to homeSearchToolbar
-            ActionBarType.SEARCH -> homeSearchToolbar to defaultToolbar
+        val (displayed, hidden) = when (style) {
+            ActionBarStyle.Plain -> defaultToolbar to homeSearchToolbar
+            ActionBarStyle.Search -> homeSearchToolbar to defaultToolbar
         }
         return displayed.isVisible && hidden.isGone
     }
 
-    private fun configureActionBar(type: ActionBarType) {
+    private fun configureActionBar(style: ActionBarStyle) {
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         bindToolbarViews()
 
-        if (type == ActionBarType.SEARCH) sortListButtonGroup?.isVisible = true
+        if (style == ActionBarStyle.Search) sortListButtonGroup?.isVisible = true
 
-        actionBarType = type
+        actionBarStyle = style
         updateActionBarTitleAndHomeButton(null)
 
         infoBox = findViewById(R.id.info_box)
@@ -174,8 +175,8 @@ abstract class ToolbarActivity :
         setActionBarTitle(title)
 
         val isToolbarStyleSearch = (this as? DrawerActivity)?.isToolbarStyleSearch == true
-        val canShowSearchBar = actionBarType == ActionBarType.SEARCH && isRoot && isToolbarStyleSearch
-        switchActionBar(if (canShowSearchBar) ActionBarType.SEARCH else ActionBarType.PLAIN)
+        val canShowSearchBar = actionBarStyle == ActionBarStyle.Search && isRoot && isToolbarStyleSearch
+        switchActionBar(if (canShowSearchBar) ActionBarStyle.Search else ActionBarStyle.Plain)
 
         if (isToolbarBound) searchText.text = getString(R.string.appbar_search_in, title)
 
@@ -186,7 +187,7 @@ abstract class ToolbarActivity :
         if (file == null) return
         val title = getActionBarTitleFromFile(file)
         setActionBarTitle(title)
-        switchActionBar(ActionBarType.PLAIN)
+        switchActionBar(ActionBarStyle.Plain)
         supportActionBar?.let { viewThemeUtils.files.themeActionBar(this, it, title, false) }
     }
 
@@ -215,22 +216,22 @@ abstract class ToolbarActivity :
         get() = isToolbarBound && homeSearchToolbar.isVisible
 
     fun showSearchView() {
-        if (actionBarType != ActionBarType.SEARCH) return
-        switchActionBar(ActionBarType.PLAIN)
+        if (actionBarStyle != ActionBarStyle.Search) return
+        switchActionBar(ActionBarStyle.Plain)
     }
 
     fun hideSearchView(chosenFile: OCFile?) {
-        if (actionBarType != ActionBarType.SEARCH) return
-        switchActionBar(if (isRoot(chosenFile)) ActionBarType.SEARCH else ActionBarType.PLAIN)
+        if (actionBarStyle != ActionBarStyle.Search) return
+        switchActionBar(if (isRoot(chosenFile)) ActionBarStyle.Search else ActionBarStyle.Plain)
     }
 
-    private fun switchActionBar(type: ActionBarType) {
+    private fun switchActionBar(style: ActionBarStyle) {
         val appBar = appBar ?: return
 
         viewThemeUtils.material.themeToolbar(toolbar)
 
-        when (type) {
-            ActionBarType.SEARCH -> {
+        when (style) {
+            ActionBarStyle.Search -> {
                 viewThemeUtils.platform.resetStatusBar(this)
                 setAppBarStateListAnimator(appBar, R.animator.appbar_elevation_off)
                 defaultToolbar.isVisible = false
@@ -239,7 +240,7 @@ abstract class ToolbarActivity :
                 viewThemeUtils.material.themeSearchBarText(searchText)
             }
 
-            ActionBarType.PLAIN -> {
+            ActionBarStyle.Plain -> {
                 setAppBarStateListAnimator(appBar, R.animator.appbar_elevation_on)
                 viewThemeUtils.platform.themeStatusBar(this)
                 defaultToolbar.isVisible = true

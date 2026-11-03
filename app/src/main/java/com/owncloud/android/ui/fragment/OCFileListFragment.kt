@@ -84,7 +84,6 @@ import com.owncloud.android.lib.resources.files.ToggleFavoriteRemoteOperation
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.lib.resources.status.Type
 import com.owncloud.android.ui.CompletionCallback
-import com.owncloud.android.ui.activity.ActionBarType
 import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
@@ -109,6 +108,7 @@ import com.owncloud.android.ui.fragment.FileFragment.ContainerActivity
 import com.owncloud.android.ui.fragment.helper.ParentFolderFinder
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
+import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.PermissionUtil
@@ -1443,7 +1443,7 @@ open class OCFileListFragment :
         (activity as? FileDisplayActivity)?.run {
             invalidateOptionsMenu()
             intent.removeExtra(SEARCH_EVENT)
-            showActionBar(ActionBarType.SEARCH)
+            showActionBar(ActionBarStyle.Search)
             updateActionBarTitleAndHomeButton(null)
         }
 

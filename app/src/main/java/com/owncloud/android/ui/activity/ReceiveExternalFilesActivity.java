@@ -87,6 +87,7 @@ import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.fragment.TaskRetainerFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.helpers.UriUploader;
+import com.owncloud.android.ui.navigation.model.ActionBarStyle;
 import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileSortOrder;
@@ -751,7 +752,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private void populateDirectoryList(OCFile file) {
         setupEmptyList();
-        showActionBar(ActionBarType.PLAIN);
+        showActionBar(ActionBarStyle.Plain);
         ActionBar actionBar = getSupportActionBar();
         setupActionBarSubtitle();
 

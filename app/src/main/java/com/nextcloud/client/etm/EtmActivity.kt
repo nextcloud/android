@@ -16,8 +16,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
 import com.owncloud.android.R
-import com.owncloud.android.ui.activity.ActionBarType
 import com.owncloud.android.ui.activity.ToolbarActivity
+import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import javax.inject.Inject
 
 class EtmActivity :
@@ -39,7 +39,7 @@ class EtmActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_etm)
-        showActionBar(ActionBarType.PLAIN)
+        showActionBar(ActionBarStyle.Plain)
         setActionBarTitle(getString(R.string.etm_title))
         vm = ViewModelProvider(this, viewModelFactory).get(EtmViewModel::class.java)
         vm.currentPage.observe(

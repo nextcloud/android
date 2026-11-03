@@ -53,6 +53,7 @@ import com.owncloud.android.ui.adapter.UserListItem
 import com.owncloud.android.ui.dialog.AccountRemovalDialog.Companion.newInstance
 import com.owncloud.android.ui.events.AccountRemovedEvent
 import com.owncloud.android.ui.helpers.FileOperationsHelper
+import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import javax.inject.Inject
@@ -85,7 +86,7 @@ class ManageAccountsActivity :
 
         setContentView(R.layout.accounts_layout)
 
-        showActionBar(ActionBarType.PLAIN)
+        showActionBar(ActionBarStyle.Plain)
         setupActionBar()
         setupUsers()
 

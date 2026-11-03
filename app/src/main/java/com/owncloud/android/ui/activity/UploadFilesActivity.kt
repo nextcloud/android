@@ -50,6 +50,7 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDia
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment.OnSortingOrderListener
 import com.owncloud.android.ui.fragment.localfilelist.LocalFileListFragment
 import com.owncloud.android.ui.fragment.localfilelist.LocalFileListListener
+import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.PermissionUtil.checkStoragePermission
 import java.io.File
@@ -187,7 +188,7 @@ class UploadFilesActivity :
         uploadBehaviour = UploadBehaviourSelector(this, binding, preferences).apply {
             setup(themeUtils.getDefaultDisplayNameForRootFolder(this@UploadFilesActivity))
         }
-        showActionBar(ActionBarType.PLAIN)
+        showActionBar(ActionBarStyle.Plain)
         setupActionBar()
         setupToolbarSpinner()
         uploadBehaviour.checkWritableFolder(currentDir)

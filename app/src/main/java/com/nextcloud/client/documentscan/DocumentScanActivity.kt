@@ -23,8 +23,8 @@ import com.nextcloud.client.logger.Logger
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityDocumentScanBinding
 import com.owncloud.android.databinding.DialogScanExportTypeBinding
-import com.owncloud.android.ui.activity.ActionBarType
 import com.owncloud.android.ui.activity.ToolbarActivity
+import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import javax.inject.Inject
 
 class DocumentScanActivity :
@@ -68,7 +68,7 @@ class DocumentScanActivity :
         binding = ActivityDocumentScanBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        showActionBar(ActionBarType.PLAIN)
+        showActionBar(ActionBarStyle.Plain)
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
             it.setDisplayShowHomeEnabled(true)
