@@ -13,7 +13,6 @@
  */
 package com.owncloud.android.datamodel;
 
-import android.annotation.SuppressLint;
 import android.content.ContentProviderClient;
 import android.content.ContentProviderOperation;
 import android.content.ContentResolver;
@@ -45,9 +44,7 @@ import com.nextcloud.model.OfflineOperationRawType;
 import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.model.ShareeEntry;
 import com.nextcloud.utils.AppConstants;
-import com.nextcloud.utils.date.DateFormatPattern;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
-import com.nextcloud.utils.extensions.DateExtensionsKt;
 import com.nextcloud.utils.extensions.FileDataStorageManagerExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.OCFileExtensionsKt;
@@ -71,7 +68,6 @@ import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.tags.Tag;
 import com.owncloud.android.operations.RemoteOperationFailedException;
-import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -83,7 +79,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
