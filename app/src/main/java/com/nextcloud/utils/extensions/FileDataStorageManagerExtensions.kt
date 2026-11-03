@@ -7,12 +7,8 @@
 
 package com.nextcloud.utils.extensions
 
-import android.content.ContentProviderOperation
-import android.content.ContentUris
-import android.content.OperationApplicationException
-import android.database.sqlite.SQLiteDatabase
-import android.os.RemoteException
 import com.nextcloud.client.database.dao.FileDao
+import com.nextcloud.client.database.entity.FileEntity
 import com.nextcloud.client.database.entity.model.ShareeKey
 import com.nextcloud.model.HTTPStatusCodes
 import com.owncloud.android.MainApp
@@ -373,51 +369,41 @@ fun FileDataStorageManager.saveFolder(folder: OCFile, updatedFiles: List<OCFile>
             "${filesToRemove.size} files to remove"
     )
 
-    upsertFolderContent(folder, updatedFiles)
-
     val removedChildren = filesToRemove.filter { it.parentId == folder.fileId }
     removedChildren.forEach { deleteLocalCopy(it) }
 
-    val operations = removedChildren.map { deleteOperation(it) } + updateFolderOperation(folder)
-    applyFileOperations(ArrayList(operations))
+    db.runInTransaction {
+        upsertFolderContent(folder, updatedFiles)
+        removedChildren.forEach { deleteFromDatabase(it) }
+        fileDao.updateFolderMetadata(folder.toFolderMetadataUpdate(user.accountName))
+    }
+
+    MainApp.getAppContext().contentResolver.notifyChange(ProviderTableMeta.CONTENT_URI, null)
 }
 
 private fun FileDataStorageManager.upsertFolderContent(folder: OCFile, files: List<OCFile>) {
-    db.runInTransaction {
-        val writableDatabase = db.openHelper.writableDatabase
-        files.forEach { file ->
-            val contentValues = createContentValuesForFile(file).apply {
-                put(ProviderTableMeta.FILE_PARENT, folder.fileId)
-            }
+    files.forEach { file ->
+        val existingFile = findExistingFile(file)
+        val entity = file.toFileEntity(user.accountName).copy(
+            id = existingFile?.id,
+            parent = folder.fileId,
+            mountType = existingFile?.mountType
+        )
 
-            val existingFileId = findExistingFileId(file)
-            if (existingFileId == null) {
-                file.fileId = writableDatabase.insert(
-                    ProviderTableMeta.FILE_TABLE_NAME,
-                    SQLiteDatabase.CONFLICT_NONE,
-                    contentValues
-                )
-                return@forEach
-            }
-
-            writableDatabase.update(
-                ProviderTableMeta.FILE_TABLE_NAME,
-                SQLiteDatabase.CONFLICT_NONE,
-                contentValues,
-                "${ProviderTableMeta._ID} = ?",
-                arrayOf(existingFileId)
-            )
+        val insertedRowId = fileDao.upsert(entity)
+        if (existingFile == null) {
+            file.fileId = insertedRowId
         }
     }
 }
 
-private fun FileDataStorageManager.findExistingFileId(file: OCFile): Long? {
+private fun FileDataStorageManager.findExistingFile(file: OCFile): FileEntity? {
     val fileById = fileDao.getFileById(file.fileId)
     if (fileById != null) {
-        return fileById.id
+        return fileById
     }
 
-    return fileDao.getFileByEncryptedRemotePath(file.remotePath, user.accountName)?.id
+    return fileDao.getFileByEncryptedRemotePath(file.remotePath, user.accountName)
 }
 
 private fun FileDataStorageManager.deleteLocalCopy(file: OCFile) {
@@ -439,39 +425,11 @@ private fun FileDataStorageManager.deleteLocalCopy(file: OCFile) {
     }
 }
 
-private fun FileDataStorageManager.deleteOperation(file: OCFile): ContentProviderOperation {
-    val contentUri = if (file.isFolder) ProviderTableMeta.CONTENT_URI_DIR else ProviderTableMeta.CONTENT_URI_FILE
-    return ContentProviderOperation.newDelete(ContentUris.withAppendedId(contentUri, file.fileId))
-        .withSelection(
-            "${ProviderTableMeta.FILE_ACCOUNT_OWNER} = ? AND ${ProviderTableMeta.FILE_PATH} = ?",
-            arrayOf(user.accountName, file.remotePath)
-        )
-        .build()
-}
-
-private fun FileDataStorageManager.updateFolderOperation(folder: OCFile): ContentProviderOperation =
-    ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI)
-        .withValues(createContentValuesForFolder(folder))
-        .withSelection("${ProviderTableMeta._ID} = ?", arrayOf(folder.fileId.toString()))
-        .build()
-
-private fun FileDataStorageManager.applyFileOperations(operations: ArrayList<ContentProviderOperation>) {
-    Log_OC.d(FileDataStorageManager.TAG, "Sending ${operations.size} operations to FileContentProvider")
-
-    try {
-        val resolver = contentResolver
-        if (resolver != null) {
-            resolver.applyBatch(MainApp.getAuthority(), operations)
-        } else {
-            contentProviderClient.applyBatch(operations)
-        }
-    } catch (e: OperationApplicationException) {
-        logFileOperationsFailure(e)
-    } catch (e: RemoteException) {
-        logFileOperationsFailure(e)
+private fun FileDataStorageManager.deleteFromDatabase(file: OCFile) {
+    if (file.isFolder) {
+        fileDao.deleteFolder(file.fileId, user.accountName, file.remotePath)
+        return
     }
-}
 
-private fun logFileOperationsFailure(e: Exception) {
-    Log_OC.e(FileDataStorageManager.TAG, "Exception in batch of operations ${e.message}", e)
+    fileDao.deleteFile(file.fileId, user.accountName, file.remotePath)
 }

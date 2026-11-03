@@ -17,7 +17,10 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.test.platform.app.InstrumentationRegistry
 import com.nextcloud.client.database.NextcloudDatabase
 import com.nextcloud.client.database.typeConverter.OfflineOperationTypeConverter
+import com.nextcloud.utils.extensions.toFileEntity
+import com.nextcloud.utils.extensions.toFolderMetadataUpdate
 import com.owncloud.android.R
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.db.ProviderMeta
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 import com.owncloud.android.utils.MimeType
@@ -226,5 +229,89 @@ class FileContentProviderTests {
 
         assertTrue(storedPaths().isEmpty())
         assertEquals(listOf("/"), storedPaths(OTHER_OWNER))
+    }
+
+    @Test
+    fun fileDaoUpsertInsertsNewRowAndUpdatesExistingRowInPlace() {
+        createProviderWithInMemoryDatabase()
+        val fileDao = requireNotNull(inMemoryDatabase).fileDao()
+        val file = OCFile("/a.txt").apply { etag = "first" }
+
+        val insertedId = fileDao.upsert(file.toFileEntity(OWNER))
+        val updateResult = fileDao.upsert(file.apply { etag = "second" }.toFileEntity(OWNER).copy(id = insertedId))
+
+        assertEquals(-1L, updateResult)
+        assertEquals(listOf("/a.txt"), storedPaths())
+        assertEquals("second", fileDao.getFileById(insertedId)?.etag)
+    }
+
+    @Test
+    fun fileDaoDeleteFolderRemovesFolderAndAllDescendants() {
+        val provider = createProviderWithInMemoryDatabase()
+        val rootId = provider.insertFile("/", NO_PARENT, isFolder = true)
+        val folderId = provider.insertFile("/folder/", rootId, isFolder = true)
+        val subFolderId = provider.insertFile("/folder/sub/", folderId, isFolder = true)
+        provider.insertFile("/folder/a.txt", folderId)
+        provider.insertFile("/folder/sub/b.txt", subFolderId)
+
+        requireNotNull(inMemoryDatabase).fileDao().deleteFolder(folderId, OWNER, "/folder/")
+
+        assertEquals(listOf("/"), storedPaths())
+    }
+
+    @Test
+    fun fileDaoDeleteFolderKeepsFolderRowWhenPathDoesNotMatch() {
+        val provider = createProviderWithInMemoryDatabase()
+        val rootId = provider.insertFile("/", NO_PARENT, isFolder = true)
+        val folderId = provider.insertFile("/folder/", rootId, isFolder = true)
+        provider.insertFile("/folder/a.txt", folderId)
+
+        requireNotNull(inMemoryDatabase).fileDao().deleteFolder(folderId, OWNER, "/other/")
+
+        assertEquals(listOf("/", "/folder/"), storedPaths().sortedBy { it })
+    }
+
+    @Test
+    fun fileDaoDeleteFileRemovesOnlyRowMatchingIdOwnerAndPath() {
+        val provider = createProviderWithInMemoryDatabase()
+        val rootId = provider.insertFile("/", NO_PARENT, isFolder = true)
+        val fileId = provider.insertFile("/a.txt", rootId)
+        provider.insertFile("/b.txt", rootId)
+        val fileDao = requireNotNull(inMemoryDatabase).fileDao()
+
+        fileDao.deleteFile(fileId, OTHER_OWNER, "/a.txt")
+        fileDao.deleteFile(fileId, OWNER, "/b.txt")
+        assertEquals(listOf("/", "/a.txt", "/b.txt"), storedPaths().sortedBy { it })
+
+        fileDao.deleteFile(fileId, OWNER, "/a.txt")
+        assertEquals(listOf("/", "/b.txt"), storedPaths().sortedBy { it })
+    }
+
+    @Test
+    fun fileDaoUpdateFolderMetadataKeepsFileOnlyColumns() {
+        createProviderWithInMemoryDatabase()
+        val fileDao = requireNotNull(inMemoryDatabase).fileDao()
+        val storedFolder = OCFile("/folder/").apply {
+            setFolder()
+            etag = "old"
+            storagePath = "/storage/folder"
+            setE2eCounter(5L)
+            etagInConflict = "conflict"
+        }
+        val folderId = fileDao.upsert(storedFolder.toFileEntity(OWNER))
+        val serverFolder = OCFile("/folder/").apply {
+            setFolder()
+            fileId = folderId
+            etag = "new"
+        }
+
+        fileDao.updateFolderMetadata(serverFolder.toFolderMetadataUpdate(OWNER))
+
+        val updatedFolder = requireNotNull(fileDao.getFileById(folderId))
+        assertEquals("new", updatedFolder.etag)
+        assertEquals(0L, updatedFolder.contentLength)
+        assertEquals(storedFolder.storagePath, updatedFolder.storagePath)
+        assertEquals(5L, updatedFolder.e2eCounter)
+        assertEquals("conflict", updatedFolder.etagInConflict)
     }
 }

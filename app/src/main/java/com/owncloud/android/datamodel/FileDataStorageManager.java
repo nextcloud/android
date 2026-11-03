@@ -739,7 +739,6 @@ public class FileDataStorageManager {
      * Returns a {@link ContentValues} filled with values that are common to both files and folders
      *
      * @see #createContentValuesForFile(OCFile)
-     * @see #createContentValuesForFolder(OCFile)
      */
     @SuppressFBWarnings("CE")
     private ContentValues createContentValuesBase(OCFile fileOrFolder) {
@@ -780,25 +779,12 @@ public class FileDataStorageManager {
     }
 
     /**
-     * Returns a {@link ContentValues} filled with values for a folder
-     *
-     * @see #createContentValuesForFile(OCFile)
-     * @see #createContentValuesBase(OCFile)
-     */
-    public ContentValues createContentValuesForFolder(OCFile folder) {
-        final ContentValues cv = createContentValuesBase(folder);
-        cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, 0);
-        return cv;
-    }
-
-    /**
      * Returns a {@link ContentValues} filled with values for a file
      *
-     * @see #createContentValuesForFolder(OCFile)
      * @see #createContentValuesBase(OCFile)
      */
     @SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
-    public ContentValues createContentValuesForFile(OCFile file) {
+    private ContentValues createContentValuesForFile(OCFile file) {
         final ContentValues cv = createContentValuesBase(file);
         cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, file.getFileLength());
         cv.put(ProviderTableMeta.FILE_ENCRYPTED_NAME, file.getEncryptedFileName());

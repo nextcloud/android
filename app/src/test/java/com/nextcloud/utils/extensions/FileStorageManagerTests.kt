@@ -6,8 +6,8 @@
  */
 package com.nextcloud.utils.extensions
 
-import android.content.ContentProviderOperation
 import android.content.ContentResolver
+import android.content.Context
 import android.content.ContentUris
 import android.content.ContentValues
 import android.database.Cursor
@@ -47,18 +47,22 @@ class FileStorageManagerTests {
 
     companion object {
         private const val ACCOUNT_NAME = "user@nextcloud.example.com"
-        private const val AUTHORITY = "org.nextcloud"
         private const val FOLDER_ID = 3L
         private const val OTHER_FOLDER_ID = 4L
         private const val FOLDER_PATH = "/folder/"
         private const val FILE_PATH = "/folder/file.txt"
         private const val REMOVED_FILE_PATH = "/folder/removed.txt"
+        private const val REMOVED_FOLDER_PATH = "/folder/removed/"
         private const val UNKNOWN_FILE_ID = -1L
         private const val EXISTING_ROW_ID = 7L
         private const val REMOVED_ROW_ID = 8L
+        private const val FOLDER_CONTENT_LENGTH = 0L
         private const val NEW_ROW_ID = 42L
+        private const val UPDATED_ROW_ID = -1L
+        private const val MOUNT_TYPE = 2
+        private const val NO_LOCK_TYPE = -1
         private const val TRANSACTION = "transaction"
-        private const val BATCH = "batch"
+        private const val NOTIFY = "notify"
     }
 
     private lateinit var fileDao: FileDao
@@ -67,8 +71,6 @@ class FileStorageManagerTests {
     private lateinit var contentResolver: ContentResolver
     private lateinit var storageManager: FileDataStorageManager
     private val events = mutableListOf<String>()
-    private val deleteBuilder = operationBuilder()
-    private val updateBuilder = operationBuilder()
     private val folder = OCFile(FOLDER_PATH).apply { fileId = FOLDER_ID }
 
     @Before
@@ -76,6 +78,9 @@ class FileStorageManagerTests {
         fileDao = mockk(relaxed = true)
         every { fileDao.getFileById(any()) } returns null
         every { fileDao.getFileByEncryptedRemotePath(any(), any()) } returns null
+        every { fileDao.upsert(any()) } answers {
+            if (firstArg<FileEntity>().id == null) NEW_ROW_ID else UPDATED_ROW_ID
+        }
 
         writableDatabase = mockk(relaxed = true)
         database = mockk(relaxed = true)
@@ -84,26 +89,20 @@ class FileStorageManagerTests {
         runTransactionsImmediately()
 
         contentResolver = mockk(relaxed = true)
-        every { contentResolver.applyBatch(any(), any()) } answers {
-            events.add(BATCH)
-            emptyArray()
-        }
+        every { contentResolver.notifyChange(any(), any()) } answers { events.add(NOTIFY) }
+        val context = mockk<Context>(relaxed = true)
+        every { context.contentResolver } returns contentResolver
 
         mockkStatic(MainApp::class)
-        every { MainApp.getAppContext() } returns mockk(relaxed = true)
-        every { MainApp.getAuthority() } returns AUTHORITY
+        every { MainApp.getAppContext() } returns context
         mockkObject(NextcloudDatabase.Companion)
         every { NextcloudDatabase.getInstance(any()) } returns database
         every { NextcloudDatabase.instance() } returns database
         mockkConstructor(OfflineOperationsRepository::class)
-        mockkConstructor(ContentValues::class)
         mockkStatic(TextUtils::class)
         every { TextUtils.isEmpty(any()) } answers { arg<CharSequence?>(0).isNullOrEmpty() }
         mockkStatic(ContentUris::class)
         every { ContentUris.withAppendedId(any(), any()) } returns mockk()
-        mockkStatic(ContentProviderOperation::class)
-        every { ContentProviderOperation.newDelete(any()) } returns deleteBuilder
-        every { ContentProviderOperation.newUpdate(any()) } returns updateBuilder
 
         val user = mockk<User>(relaxed = true)
         every { user.accountName } returns ACCOUNT_NAME
@@ -113,12 +112,6 @@ class FileStorageManagerTests {
     @After
     fun tearDown() {
         unmockkAll()
-    }
-
-    private fun operationBuilder(): ContentProviderOperation.Builder = mockk {
-        every { withSelection(any(), any()) } returns this
-        every { withValues(any()) } returns this
-        every { build() } returns mockk()
     }
 
     private fun runTransactionsImmediately() {
@@ -137,9 +130,12 @@ class FileStorageManagerTests {
         every { database.runInTransaction(any<Callable<Any?>>()) } returns null
     }
 
-    private fun existingRow(): FileEntity = mockk { every { id } returns EXISTING_ROW_ID }
+    private fun existingRow(): FileEntity = mockk {
+        every { id } returns EXISTING_ROW_ID
+        every { mountType } returns MOUNT_TYPE
+    }
 
-    private fun stubInsert() {
+    private fun stubProviderInsert() {
         every {
             writableDatabase.insert(ProviderTableMeta.FILE_TABLE_NAME, SQLiteDatabase.CONFLICT_NONE, any())
         } returns NEW_ROW_ID
@@ -150,26 +146,26 @@ class FileStorageManagerTests {
     }
 
     private fun verifyUpdatedRow(rowId: Long) {
-        verify(exactly = 1) {
-            writableDatabase.update(
-                ProviderTableMeta.FILE_TABLE_NAME,
-                SQLiteDatabase.CONFLICT_NONE,
-                any(),
-                "${ProviderTableMeta._ID} = ?",
-                match { it.contentEquals(arrayOf<Any?>(rowId)) }
-            )
-        }
+        verify(exactly = 1) { fileDao.upsert(match { it.id == rowId && it.mountType == MOUNT_TYPE }) }
+    }
+
+    private fun removedFile(): OCFile = OCFile(REMOVED_FILE_PATH).apply {
+        fileId = REMOVED_ROW_ID
+        parentId = FOLDER_ID
+    }
+
+    private fun verifyNoInsert() {
+        verify(exactly = 0) { fileDao.upsert(match { it.id == null }) }
     }
 
     @Test
     fun `saveFolder inserts file and assigns generated id when no row matches id or path`() {
-        stubInsert()
         val file = OCFile(FILE_PATH)
 
         saveFolder(updatedFiles = listOf(file))
 
         assertEquals(NEW_ROW_ID, file.fileId)
-        verify(exactly = 0) { writableDatabase.update(any(), any(), any(), any(), any()) }
+        verify(exactly = 1) { fileDao.upsert(match { it.id == null && it.mountType == null }) }
     }
 
     @Test
@@ -179,7 +175,7 @@ class FileStorageManagerTests {
         saveFolder(updatedFiles = listOf(OCFile(FILE_PATH).apply { fileId = EXISTING_ROW_ID }))
 
         verifyUpdatedRow(EXISTING_ROW_ID)
-        verify(exactly = 0) { writableDatabase.insert(any(), any(), any()) }
+        verifyNoInsert()
     }
 
     @Test
@@ -189,70 +185,73 @@ class FileStorageManagerTests {
         saveFolder(updatedFiles = listOf(OCFile(FILE_PATH).apply { fileId = UNKNOWN_FILE_ID }))
 
         verifyUpdatedRow(EXISTING_ROW_ID)
-        verify(exactly = 0) { writableDatabase.insert(any(), any(), any()) }
+        verifyNoInsert()
     }
 
     @Test
     fun `saveFolder updates instead of inserting when the same folder is saved twice`() {
-        stubInsert()
         saveFolder(updatedFiles = listOf(OCFile(FILE_PATH)))
         every { fileDao.getFileByEncryptedRemotePath(FILE_PATH, ACCOUNT_NAME) } returns existingRow()
 
         saveFolder(updatedFiles = listOf(OCFile(FILE_PATH)))
 
-        verify(exactly = 1) { writableDatabase.insert(any(), any(), any()) }
+        verify(exactly = 1) { fileDao.upsert(match { it.id == null }) }
         verifyUpdatedRow(EXISTING_ROW_ID)
     }
 
     @Test
-    fun `saveFolder stores children under the saved folder`() {
-        stubInsert()
+    fun `saveFolder stores children under the saved folder for the current account`() {
+        saveFolder(updatedFiles = listOf(OCFile(FILE_PATH).apply { parentId = OTHER_FOLDER_ID }))
 
-        saveFolder(updatedFiles = listOf(OCFile(FILE_PATH)))
-
-        verify { anyConstructed<ContentValues>().put(ProviderTableMeta.FILE_PARENT, FOLDER_ID) }
+        verify(exactly = 1) {
+            fileDao.upsert(match { it.parent == FOLDER_ID && it.accountOwner == ACCOUNT_NAME })
+        }
     }
 
     @Test
-    fun `saveFolder reads and writes children only inside a transaction`() {
+    fun `saveFolder reads and writes the database only inside a transaction`() {
         skipTransactions()
 
-        saveFolder(updatedFiles = listOf(OCFile(FILE_PATH)))
+        saveFolder(updatedFiles = listOf(OCFile(FILE_PATH)), filesToRemove = listOf(removedFile()))
 
         verify(exactly = 0) { fileDao.getFileById(any()) }
         verify(exactly = 0) { fileDao.getFileByEncryptedRemotePath(any(), any()) }
-        verify(exactly = 0) { writableDatabase.insert(any(), any(), any()) }
-        verify(exactly = 0) { writableDatabase.update(any(), any(), any(), any(), any()) }
+        verify(exactly = 0) { fileDao.upsert(any()) }
+        verify(exactly = 0) { fileDao.deleteFile(any(), any(), any()) }
+        verify(exactly = 0) { fileDao.updateFolderMetadata(any()) }
     }
 
     @Test
-    fun `saveFolder commits children before applying removals and folder update`() {
-        stubInsert()
-
+    fun `saveFolder notifies file observers after the transaction`() {
         saveFolder(updatedFiles = listOf(OCFile(FILE_PATH)))
 
-        assertEquals(listOf(TRANSACTION, BATCH), events)
+        assertEquals(listOf(TRANSACTION, NOTIFY), events)
+        verify(exactly = 1) { contentResolver.notifyChange(ProviderTableMeta.CONTENT_URI, null) }
     }
 
     @Test
     fun `saveFolder deletes only removed files whose parent is the saved folder`() {
-        val removedChild = OCFile(REMOVED_FILE_PATH).apply {
-            fileId = REMOVED_ROW_ID
-            parentId = FOLDER_ID
-        }
         val fileOfOtherFolder = OCFile("/other/removed.txt").apply { parentId = OTHER_FOLDER_ID }
 
-        saveFolder(filesToRemove = listOf(removedChild, fileOfOtherFolder))
+        saveFolder(filesToRemove = listOf(removedFile(), fileOfOtherFolder))
 
-        verify(exactly = 1) { ContentProviderOperation.newDelete(any()) }
-        verify(exactly = 1) { ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, REMOVED_ROW_ID) }
-        verify(exactly = 1) {
-            deleteBuilder.withSelection(
-                "${ProviderTableMeta.FILE_ACCOUNT_OWNER} = ? AND ${ProviderTableMeta.FILE_PATH} = ?",
-                match { it.contentEquals(arrayOf(ACCOUNT_NAME, REMOVED_FILE_PATH)) }
-            )
+        verify(exactly = 1) { fileDao.deleteFile(REMOVED_ROW_ID, ACCOUNT_NAME, REMOVED_FILE_PATH) }
+        verify(exactly = 1) { fileDao.deleteFile(any(), any(), any()) }
+        verify(exactly = 0) { fileDao.deleteFolder(any(), any(), any()) }
+    }
+
+    @Test
+    fun `saveFolder deletes a removed folder together with its descendants`() {
+        val removedFolder = OCFile(REMOVED_FOLDER_PATH).apply {
+            fileId = REMOVED_ROW_ID
+            parentId = FOLDER_ID
+            setFolder()
         }
-        verify(exactly = 1) { contentResolver.applyBatch(AUTHORITY, match { it.size == 2 }) }
+
+        saveFolder(filesToRemove = listOf(removedFolder))
+
+        verify(exactly = 1) { fileDao.deleteFolder(REMOVED_ROW_ID, ACCOUNT_NAME, REMOVED_FOLDER_PATH) }
+        verify(exactly = 0) { fileDao.deleteFile(any(), any(), any()) }
     }
 
     @Test
@@ -270,14 +269,17 @@ class FileStorageManagerTests {
     }
 
     @Test
-    fun `saveFolder updates folder row by its id`() {
+    fun `saveFolder updates folder metadata by its id with empty content length`() {
         saveFolder()
 
-        verify(exactly = 1) { ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI) }
         verify(exactly = 1) {
-            updateBuilder.withSelection(
-                "${ProviderTableMeta._ID} = ?",
-                match { it.contentEquals(arrayOf(FOLDER_ID.toString())) }
+            fileDao.updateFolderMetadata(
+                match {
+                    it.id == FOLDER_ID &&
+                        it.path == FOLDER_PATH &&
+                        it.accountOwner == ACCOUNT_NAME &&
+                        it.contentLength == FOLDER_CONTENT_LENGTH
+                }
             )
         }
     }
@@ -287,7 +289,40 @@ class FileStorageManagerTests {
         storageManager.deleteAllFiles()
 
         verify(exactly = 1) { fileDao.deleteAllFiles(ACCOUNT_NAME) }
-        verify(exactly = 0) { contentResolver.delete(any(), any(), any()) }
+    }
+
+    @Test
+    fun `toFileEntity converts flags to integers and keeps missing lock type as -1`() {
+        val file = OCFile(FILE_PATH).apply {
+            fileId = EXISTING_ROW_ID
+            isFavorite = true
+            isEncrypted = false
+        }
+
+        val entity = file.toFileEntity(ACCOUNT_NAME)
+
+        assertEquals(EXISTING_ROW_ID, entity.id)
+        assertEquals(FILE_PATH, entity.path)
+        assertEquals(ACCOUNT_NAME, entity.accountOwner)
+        assertEquals(1, entity.favorite)
+        assertEquals(0, entity.isEncrypted)
+        assertEquals(NO_LOCK_TYPE, entity.lockType)
+        assertEquals(null, entity.mountType)
+    }
+
+    @Test
+    fun `toFileEntity leaves id empty for files that are not stored yet`() {
+        val entity = OCFile(FILE_PATH).apply { fileId = UNKNOWN_FILE_ID }.toFileEntity(ACCOUNT_NAME)
+
+        assertEquals(null, entity.id)
+    }
+
+    @Test
+    fun `toFileEntity serializes metadata with gson`() {
+        val entity = OCFile(FILE_PATH).toFileEntity(ACCOUNT_NAME)
+
+        assertEquals("null", entity.metadataSize)
+        assertEquals("null", entity.metadataGPS)
     }
 
     @Test
@@ -311,7 +346,7 @@ class FileStorageManagerTests {
         val cursor = mockk<Cursor>(relaxed = true)
         every { cursor.moveToFirst() } returns false
         every { writableDatabase.query(any<SimpleSQLiteQuery>()) } returns cursor
-        stubInsert()
+        stubProviderInsert()
         val rowIds = captureAppendedRowIds()
 
         FileContentProvider().upsertSingleFile(
