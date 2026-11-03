@@ -76,6 +76,7 @@ class DashboardWidgetConfigurationActivity :
         setContentView(binding.root)
 
         viewThemeUtils.platform.colorViewBackground(binding.root, ColorRole.SURFACE)
+        viewThemeUtils.platform.themeStatusBar(this, ColorRole.SURFACE)
         viewThemeUtils.platform.colorDrawable(binding.icon.drawable, getColor(R.color.dark))
 
         val layoutManager = LinearLayoutManager(this)
