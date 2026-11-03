@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityNavigatorBinding
-import com.owncloud.android.ui.activity.DrawerActivity
+import com.owncloud.android.ui.activity.drawer.DrawerActivity
 import com.owncloud.android.ui.navigation.listener.NavigatorOnBackPressListener
 import dagger.android.support.AndroidSupportInjection
 

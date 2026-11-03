@@ -100,7 +100,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import kotlin.Unit;
 
-import static com.owncloud.android.ui.activity.DrawerActivity.REQ_ALL_FILES_ACCESS;
+import static com.owncloud.android.ui.activity.drawer.DrawerActivity.REQ_ALL_FILES_ACCESS;
 
 /**
  * An Activity that allows the user to change the application's settings.

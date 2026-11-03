@@ -32,6 +32,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.OCFileDepth
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.ui.activity.drawer.DrawerActivity
 import com.owncloud.android.ui.fragment.OCFileListFragment
 import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.navigation.model.ActionBarStyle

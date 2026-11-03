@@ -33,7 +33,7 @@ import com.nextcloud.ui.ClientIntegrationScreen
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityComposeBinding
-import com.owncloud.android.ui.activity.DrawerActivity
+import com.owncloud.android.ui.activity.drawer.DrawerActivity
 
 class ComposeActivity : DrawerActivity() {
 
