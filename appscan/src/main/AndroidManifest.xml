@@ -12,6 +12,7 @@
     <application>
         <activity
             android:name=".AppScanActivity"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|uiMode|density|fontScale|keyboard|keyboardHidden"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
     </application>
 
