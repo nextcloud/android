@@ -77,7 +77,7 @@ class GroupfolderListFragment :
         Handler().post {
             if (activity is FileDisplayActivity) {
                 val fileDisplayActivity = activity as FileDisplayActivity
-                fileDisplayActivity.updateActionBarTitleAndHomeButtonByString(
+                fileDisplayActivity.setActionBarTitle(
                     getString(R.string.drawer_item_groupfolders)
                 )
                 fileDisplayActivity.setMainFabVisible(false)

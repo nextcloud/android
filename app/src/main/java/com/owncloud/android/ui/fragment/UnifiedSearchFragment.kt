@@ -50,6 +50,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.status.NextcloudVersion
+import com.owncloud.android.ui.activity.ActionBarType
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.adapter.UnifiedSearchItemViewHolder
@@ -182,9 +183,9 @@ class UnifiedSearchFragment :
     override fun onResume() {
         super.onResume()
         typedActivity<FileDisplayActivity>()?.run {
-            setupToolbar()
+            showActionBar(ActionBarType.PLAIN)
             setMainFabVisible(false)
-            updateActionBarTitleAndHomeButtonByString(null)
+            setActionBarTitle(null)
             setDrawerIndicatorEnabled(false)
         }
     }

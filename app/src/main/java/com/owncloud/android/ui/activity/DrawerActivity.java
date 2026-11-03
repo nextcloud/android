@@ -12,6 +12,7 @@
  */
 package com.owncloud.android.ui.activity;
 
+import android.accounts.Account;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.Context;
@@ -50,7 +51,9 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.nextcloud.android.common.core.utils.ecosystem.EcosystemApp;
 import com.nextcloud.android.common.core.utils.ecosystem.EcosystemManager;
+import com.nextcloud.android.common.ui.color.ColorUtil;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
+import com.nextcloud.android.common.ui.util.PlatformThemeUtil;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.files.DeepLinkConstants;
@@ -244,6 +247,9 @@ public abstract class DrawerActivity extends ToolbarActivity
     @Inject
     public AvatarGenerator avatarGenerator;
 
+    @Inject
+    ColorUtil colorUtil;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
@@ -340,7 +346,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     private void openFavoritesTab() {
         resetOnlyPersonalAndOnDevice();
-        setupToolbar();
+        showActionBar(ActionBarType.PLAIN);
         SearchEvent searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH);
         launchActivityForSearch(searchEvent, R.id.nav_favorites);
     }
@@ -348,7 +354,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     private void openMediaTab(int menuItemId) {
         GalleryFragment.Companion.clearSavedViewState();
         resetOnlyPersonalAndOnDevice();
-        setupToolbar();
+        showActionBar(ActionBarType.PLAIN);
         startPhotoSearch(menuItemId);
     }
 
@@ -417,7 +423,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         if (optionalCapability.isPresent()) {
             final var capability = optionalCapability.get();
             if (account != null && capability.getServerBackground() != null && !isClientBranded) {
-                int primaryColor = themeColorUtils.unchangedPrimaryColor(account, this);
+                int primaryColor = getServerPrimaryColor(account);
                 String serverLogoURL = capability.getServerLogo();
 
                 // set background to primary color
@@ -528,7 +534,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         int iconColor;
         final var account = getAccount();
         if (account != null) {
-            int primaryColor = themeColorUtils.unchangedPrimaryColor(account, this);
+            int primaryColor = getServerPrimaryColor(account);
             if (Hct.fromInt(primaryColor).getTone() < 80.0) {
                 iconColor = Color.WHITE;
             } else {
@@ -559,9 +565,20 @@ public abstract class DrawerActivity extends ToolbarActivity
             TextView serverNameView = mNavigationViewHeader.findViewById(R.id.drawer_header_server_name);
             serverNameView.setVisibility(View.VISIBLE);
             serverNameView.setText(serverName);
-            serverNameView.setTextColor(themeColorUtils.unchangedFontColor(this));
+            serverNameView.setTextColor(getServerTextColor());
         }
 
+    }
+
+    private int getServerPrimaryColor(Account account) {
+        final var serverColor = CapabilityUtils.getCapability(account, this).getServerColor();
+        return colorUtil.getNullSafeColor(serverColor, getColor(R.color.primary));
+    }
+
+    private int getServerTextColor() {
+        final var serverTextColor = CapabilityUtils.getCapability(this).getServerTextColor();
+        final int fallbackColor = PlatformThemeUtil.isDarkMode(this) ? Color.WHITE : Color.BLACK;
+        return colorUtil.getNullSafeColor(serverTextColor, fallbackColor);
     }
 
     /**

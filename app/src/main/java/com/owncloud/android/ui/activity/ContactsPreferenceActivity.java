@@ -69,7 +69,7 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
         setContentView(R.layout.contacts_preference);
 
         // setup toolbar
-        setupToolbar();
+        showActionBar(ActionBarType.PLAIN);
 
         // setup drawer
         //setupDrawer(R.id.nav_contacts); // TODO needed?

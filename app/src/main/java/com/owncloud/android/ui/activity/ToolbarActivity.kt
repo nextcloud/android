@@ -35,7 +35,6 @@ import com.owncloud.android.datamodel.OCFileDepth
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.fragment.OCFileListFragment
 import com.owncloud.android.ui.fragment.SearchType
-import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.ThemeUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
@@ -45,19 +44,16 @@ abstract class ToolbarActivity :
     Injectable {
 
     @Inject
-    lateinit var themeColorUtils: ThemeColorUtils
-
-    @Inject
     lateinit var themeUtils: ThemeUtils
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
 
-    protected lateinit var mMenuButton: MaterialButton
-    protected lateinit var mSearchText: MaterialTextView
-    protected lateinit var mSwitchAccountButton: MaterialButton
-    protected lateinit var mNotificationButton: MaterialButton
-    protected lateinit var mToolbarSpinner: AppCompatSpinner
+    protected lateinit var menuButton: MaterialButton
+    protected lateinit var searchText: MaterialTextView
+    protected lateinit var switchAccountButton: MaterialButton
+    protected lateinit var notificationButton: MaterialButton
+    protected lateinit var toolbarSpinner: AppCompatSpinner
 
     private lateinit var toolbar: MaterialToolbar
     private lateinit var appBar: AppBarLayout
@@ -71,30 +67,60 @@ abstract class ToolbarActivity :
     private var infoBox: LinearLayout? = null
     private var infoBoxMessage: TextView? = null
 
-    private var isHomeSearchToolbarShow = false
+    private var actionBarType = ActionBarType.PLAIN
 
     private val isToolbarBound: Boolean
         get() = ::appBar.isInitialized
 
-    private val sortListButtonGroup: View?
-        get() = findViewById(R.id.sort_list_button_group)
+    // region Action bar setup
+    fun showActionBar(type: ActionBarType) {
+        if (isActionBarDisplayed(type)) {
+            Log_OC.d(TAG, "$type action bar is already displayed, skipping update.")
+            return
+        }
 
-    private fun setupToolbar(isHomeSearchToolbarShow: Boolean, showSortListButtonGroup: Boolean) {
+        configureActionBar(type)
+    }
+
+    fun showMenuAndTitleActionBar(title: String, onMenuClick: View.OnClickListener) {
+        configureActionBar(ActionBarType.PLAIN)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        val toolbarLayout = findViewById<LinearLayout>(R.id.toolbar_linear_layout)
+        val toolbarMenuButton = findViewById<MaterialButton>(R.id.toolbar_menu_button)
+        findViewById<MaterialTextView>(R.id.toolbar_title).run {
+            text = title
+            setTextColor(ContextCompat.getColor(this@ToolbarActivity, R.color.foreground_highlight))
+        }
+        toolbarMenuButton.iconTint = ContextCompat.getColorStateList(this, R.color.foreground_highlight)
+        toolbarLayout.isVisible = true
+        toolbarMenuButton.setOnClickListener(onMenuClick)
+    }
+
+    private fun isActionBarDisplayed(type: ActionBarType): Boolean {
+        if (!isToolbarBound) return false
+        val (displayed, hidden) = when (type) {
+            ActionBarType.PLAIN -> defaultToolbar to homeSearchToolbar
+            ActionBarType.SEARCH -> homeSearchToolbar to defaultToolbar
+        }
+        return displayed.isVisible && hidden.isGone
+    }
+
+    private fun configureActionBar(type: ActionBarType) {
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-
         bindToolbarViews()
 
-        if (showSortListButtonGroup) findViewById<View>(R.id.sort_list_button_group).isVisible = true
+        if (type == ActionBarType.SEARCH) findViewById<View>(R.id.sort_list_button_group).isVisible = true
 
-        this.isHomeSearchToolbarShow = isHomeSearchToolbarShow
+        actionBarType = type
         updateActionBarTitleAndHomeButton(null)
 
         infoBox = findViewById(R.id.info_box)
         infoBoxMessage = findViewById(R.id.info_box_message)
         previewImageView = findViewById(R.id.preview_image)
         previewImageContainer = findViewById(R.id.preview_image_frame)
-        mToolbarSpinner = findViewById(R.id.toolbar_spinner)
+        toolbarSpinner = findViewById(R.id.toolbar_spinner)
 
         themeToolbarViews()
     }
@@ -104,10 +130,10 @@ abstract class ToolbarActivity :
         defaultToolbar = findViewById(R.id.default_toolbar)
         homeSearchToolbar = findViewById(R.id.home_toolbar)
         homeSearchContainer = findViewById(R.id.home_search_container)
-        mMenuButton = findViewById(R.id.menu_button)
-        mSearchText = findViewById(R.id.search_text)
-        mSwitchAccountButton = findViewById(R.id.switch_account_button)
-        mNotificationButton = findViewById(R.id.notification_button)
+        menuButton = findViewById(R.id.menu_button)
+        searchText = findViewById(R.id.search_text)
+        switchAccountButton = findViewById(R.id.switch_account_button)
+        notificationButton = findViewById(R.id.notification_button)
     }
 
     private fun themeToolbarViews() {
@@ -115,48 +141,16 @@ abstract class ToolbarActivity :
             material.themeToolbar(toolbar)
             material.colorToolbarOverflowIcon(toolbar)
             platform.themeStatusBar(this@ToolbarActivity)
-            material.colorMaterialTextButton(mSwitchAccountButton)
+            material.colorMaterialTextButton(switchAccountButton)
             material.themeSearchCardView(homeSearchContainer)
-            material.colorMaterialButtonContent(mMenuButton, ColorRole.ON_SURFACE)
-            material.colorMaterialButtonContent(mNotificationButton, ColorRole.ON_SURFACE)
-            platform.colorTextView(mSearchText, ColorRole.ON_SURFACE_VARIANT)
+            material.colorMaterialButtonContent(menuButton, ColorRole.ON_SURFACE)
+            material.colorMaterialButtonContent(notificationButton, ColorRole.ON_SURFACE)
+            platform.colorTextView(searchText, ColorRole.ON_SURFACE_VARIANT)
         }
     }
+    // endregion
 
-    fun setupToolbarShowOnlyMenuButtonAndTitle(title: String, toggleDrawer: View.OnClickListener) {
-        setupToolbar(isHomeSearchToolbarShow = false, showSortListButtonGroup = false)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-
-        val toolbarLayout = findViewById<LinearLayout>(R.id.toolbar_linear_layout)
-        val menuButton = findViewById<MaterialButton>(R.id.toolbar_menu_button)
-        findViewById<MaterialTextView>(R.id.toolbar_title).run {
-            text = title
-            setTextColor(ContextCompat.getColor(this@ToolbarActivity, R.color.foreground_highlight))
-        }
-        menuButton.iconTint = ContextCompat.getColorStateList(this, R.color.foreground_highlight)
-
-        toolbarLayout.isVisible = true
-        menuButton.setOnClickListener(toggleDrawer)
-    }
-
-    fun setupToolbar() {
-        if (isToolbarBound && homeSearchToolbar.isGone && defaultToolbar.isVisible) {
-            Log_OC.d(TAG, "Search toolbar is already hidden, skipping update.")
-            return
-        }
-
-        setupToolbar(isHomeSearchToolbarShow = false, showSortListButtonGroup = false)
-    }
-
-    fun setupHomeSearchToolbarWithSortAndListButtons() {
-        if (isToolbarBound && homeSearchToolbar.isVisible && defaultToolbar.isGone) {
-            Log_OC.d(TAG, "Search toolbar is already visible, skipping update.")
-            return
-        }
-
-        setupToolbar(isHomeSearchToolbarShow = true, showSortListButtonGroup = true)
-    }
-
+    // region Title and subtitle
     private val ocFileListFragment: OCFileListFragment?
         get() = (this as? FileDisplayActivity)?.listOfFilesFragment
 
@@ -178,102 +172,33 @@ abstract class ToolbarActivity :
     protected open fun updateActionBarTitleAndHomeButton(chosenFile: OCFile?) {
         val isRoot = isRoot(chosenFile) || isCurrentDirRoot
         val title = if (chosenFile == null || isRoot) actionBarRootTitle else getActionBarTitleFromFile(chosenFile)
-        updateActionBarTitleAndHomeButtonByString(title)
+        setActionBarTitle(title)
 
         val isToolbarStyleSearch = (this as? DrawerActivity)?.isToolbarStyleSearch == true
-        showHomeSearchToolbar(isHomeSearchToolbarShow && isRoot && isToolbarStyleSearch)
+        val canShowSearchBar = actionBarType == ActionBarType.SEARCH && isRoot && isToolbarStyleSearch
+        switchActionBar(if (canShowSearchBar) ActionBarType.SEARCH else ActionBarType.PLAIN)
 
-        if (isToolbarBound) {
-            mSearchText.text = getString(R.string.appbar_search_in, title)
-        }
+        if (isToolbarBound) searchText.text = getString(R.string.appbar_search_in, title)
 
         supportActionBar?.let { viewThemeUtils.files.themeActionBar(this, it, title, isRoot) }
     }
 
     protected fun updateActionBarForFile(file: OCFile?) {
         if (file == null) return
-
         val title = getActionBarTitleFromFile(file)
-        updateActionBarTitleAndHomeButtonByString(title)
-        showHomeSearchToolbar(false)
+        setActionBarTitle(title)
+        switchActionBar(ActionBarType.PLAIN)
         supportActionBar?.let { viewThemeUtils.files.themeActionBar(this, it, title, false) }
     }
 
-    fun showSearchView() {
-        if (!isHomeSearchToolbarShow) return
-        showHomeSearchToolbar(false)
-    }
-
-    fun hideSearchView(chosenFile: OCFile?) {
-        if (!isHomeSearchToolbarShow) return
-        showHomeSearchToolbar(isRoot(chosenFile))
-    }
-
-    @SuppressLint("PrivateResource")
-    private fun showHomeSearchToolbar(isShow: Boolean) {
-        if (!isToolbarBound) return
-
-        viewThemeUtils.material.themeToolbar(toolbar)
-
-        if (isShow) {
-            viewThemeUtils.platform.resetStatusBar(this)
-            setAppBarStateListAnimator(R.animator.appbar_elevation_off)
-            defaultToolbar.isVisible = false
-            homeSearchToolbar.isVisible = true
-            viewThemeUtils.material.themeSearchCardView(homeSearchContainer)
-            viewThemeUtils.material.themeSearchBarText(mSearchText)
-        } else {
-            setAppBarStateListAnimator(R.animator.appbar_elevation_on)
-            viewThemeUtils.platform.themeStatusBar(this)
-            defaultToolbar.isVisible = true
-            homeSearchToolbar.isVisible = false
-        }
-
-        SystemBarBackgroundCallbacks.apply(this, viewThemeUtils)
-    }
-
-    private fun setAppBarStateListAnimator(@AnimatorRes animatorId: Int) {
-        appBar.stateListAnimator = AnimatorInflater.loadStateListAnimator(appBar.context, animatorId)
-    }
-
-    val isHomeSearchToolbarVisible: Boolean
-        get() = isToolbarBound && homeSearchToolbar.isVisible
-
-    fun updateActionBarTitleAndHomeButtonByString(title: String?) {
+    fun setActionBarTitle(title: String?) {
         val actionBar = supportActionBar ?: return
-
-        if (title != null) {
-            actionBar.title = title
-        }
+        title?.let { actionBar.title = it }
         actionBar.setDisplayShowTitleEnabled(title != null)
     }
 
     fun isRoot(file: OCFile?): Boolean =
         file == null || (file.isFolder && file.parentId == FileDataStorageManager.ROOT_PARENT_ID.toLong())
-
-    protected fun showInfoBox(@StringRes text: Int) {
-        val infoBox = infoBox ?: return
-        val infoBoxMessage = infoBoxMessage ?: return
-
-        infoBox.isVisible = true
-        infoBoxMessage.setText(text)
-    }
-
-    fun hideInfoBox() {
-        infoBox?.isVisible = false
-    }
-
-    fun setPreviewImageVisibility(isVisible: Boolean) {
-        previewImageContainer?.isVisible = isVisible
-    }
-
-    fun hidePreviewImage() = setPreviewImageVisibility(false)
-
-    open fun showSortListGroup(show: Boolean) {
-        sortListButtonGroup?.isVisible = show
-    }
-
-    fun sortListGroupVisibility(): Boolean = sortListButtonGroup?.isVisible == true
 
     fun updateToolbarSubtitle(subtitle: String) {
         val actionBar = supportActionBar ?: return
@@ -284,6 +209,86 @@ abstract class ToolbarActivity :
     fun clearToolbarSubtitle() {
         supportActionBar?.subtitle = null
     }
+    // endregion
+
+    // region Search action bar
+    val isSearchActionBarVisible: Boolean
+        get() = isToolbarBound && homeSearchToolbar.isVisible
+
+    fun showSearchView() {
+        if (actionBarType != ActionBarType.SEARCH) return
+        switchActionBar(ActionBarType.PLAIN)
+    }
+
+    fun hideSearchView(chosenFile: OCFile?) {
+        if (actionBarType != ActionBarType.SEARCH) return
+        switchActionBar(if (isRoot(chosenFile)) ActionBarType.SEARCH else ActionBarType.PLAIN)
+    }
+
+    @SuppressLint("PrivateResource")
+    private fun switchActionBar(type: ActionBarType) {
+        if (!isToolbarBound) return
+
+        viewThemeUtils.material.themeToolbar(toolbar)
+
+        when (type) {
+            ActionBarType.SEARCH -> {
+                viewThemeUtils.platform.resetStatusBar(this)
+                setAppBarStateListAnimator(R.animator.appbar_elevation_off)
+                defaultToolbar.isVisible = false
+                homeSearchToolbar.isVisible = true
+                viewThemeUtils.material.themeSearchCardView(homeSearchContainer)
+                viewThemeUtils.material.themeSearchBarText(searchText)
+            }
+
+            ActionBarType.PLAIN -> {
+                setAppBarStateListAnimator(R.animator.appbar_elevation_on)
+                viewThemeUtils.platform.themeStatusBar(this)
+                defaultToolbar.isVisible = true
+                homeSearchToolbar.isVisible = false
+            }
+        }
+
+        SystemBarBackgroundCallbacks.apply(this, viewThemeUtils)
+    }
+
+    private fun setAppBarStateListAnimator(@AnimatorRes animatorId: Int) {
+        appBar.stateListAnimator = AnimatorInflater.loadStateListAnimator(appBar.context, animatorId)
+    }
+    // endregion
+
+    // region Info box
+    protected fun showInfoBox(@StringRes text: Int) {
+        val infoBox = infoBox ?: return
+        val infoBoxMessage = infoBoxMessage ?: return
+        infoBox.isVisible = true
+        infoBoxMessage.setText(text)
+    }
+
+    fun hideInfoBox() {
+        infoBox?.isVisible = false
+    }
+    // endregion
+
+    // region Preview image
+    fun setPreviewImageVisibility(isVisible: Boolean) {
+        previewImageContainer?.isVisible = isVisible
+    }
+
+    fun hidePreviewImage() = setPreviewImageVisibility(false)
+    // endregion
+
+    // region Sort list group
+    private val sortListButtonGroup: View?
+        get() = findViewById(R.id.sort_list_button_group)
+
+    val isSortListGroupVisible: Boolean
+        get() = sortListButtonGroup?.isVisible == true
+
+    open fun showSortListGroup(show: Boolean) {
+        sortListButtonGroup?.isVisible = show
+    }
+    // endregion
 
     companion object {
         private const val TAG = "ToolbarActivity"

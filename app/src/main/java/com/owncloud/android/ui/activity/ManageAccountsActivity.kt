@@ -85,7 +85,7 @@ class ManageAccountsActivity :
 
         setContentView(R.layout.accounts_layout)
 
-        setupToolbar()
+        showActionBar(ActionBarType.PLAIN)
         setupActionBar()
         setupUsers()
 

@@ -99,7 +99,7 @@ open class ExternalSiteWebView : FileActivity() {
 
     private fun setupToolbarAndDrawer() {
         if (showToolbar) {
-            setupToolbar()
+            showActionBar(ActionBarType.PLAIN)
         } else {
             findViewById<View?>(R.id.appbar)?.isVisible = false
         }

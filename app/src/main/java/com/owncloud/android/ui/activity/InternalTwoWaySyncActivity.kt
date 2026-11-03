@@ -58,7 +58,7 @@ class InternalTwoWaySyncActivity :
         binding = InternalTwoWaySyncLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupToolbar()
+        showActionBar(ActionBarType.PLAIN)
         setupActionBar()
         setupTwoWaySyncAdapter()
         setupEmptyList()
@@ -68,7 +68,7 @@ class InternalTwoWaySyncActivity :
     }
 
     private fun setupActionBar() {
-        updateActionBarTitleAndHomeButtonByString(getString(R.string.two_way_sync_activity_title))
+        setActionBarTitle(getString(R.string.two_way_sync_activity_title))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 

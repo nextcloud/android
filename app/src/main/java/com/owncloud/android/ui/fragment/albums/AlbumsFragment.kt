@@ -40,6 +40,7 @@ import com.owncloud.android.databinding.AlbumsFragmentBinding
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.albums.PhotoAlbumEntry
 import com.owncloud.android.lib.resources.albums.ReadAlbumsRemoteOperation
+import com.owncloud.android.ui.activity.ActionBarType
 import com.owncloud.android.ui.activity.AlbumsPickerActivity
 import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
@@ -276,7 +277,7 @@ class AlbumsFragment :
         }
 
         (activity as? FileDisplayActivity)?.run {
-            setupToolbar()
+            showActionBar(ActionBarType.PLAIN)
             supportActionBar?.let { actionBar ->
                 viewThemeUtils.files.themeActionBar(
                     requireContext(),

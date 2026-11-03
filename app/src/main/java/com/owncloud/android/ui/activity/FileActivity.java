@@ -192,9 +192,9 @@ public abstract class FileActivity extends DrawerActivity
         MainApp.showOnlyFilesOnDevice(onDeviceOnly);
         MainApp.showOnlyPersonalFiles(personalFiles);
         if (onDeviceOnly) {
-            setupToolbar();
+            showActionBar(ActionBarType.PLAIN);
         } else {
-            setupHomeSearchToolbarWithSortAndListButtons();
+            showActionBar(ActionBarType.SEARCH);
         }
     }
 

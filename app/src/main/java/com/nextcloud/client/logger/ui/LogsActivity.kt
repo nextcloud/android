@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.nextcloud.client.di.ViewModelFactory
 import com.owncloud.android.R
 import com.owncloud.android.databinding.LogsActivityBinding
+import com.owncloud.android.ui.activity.ActionBarType
 import com.owncloud.android.ui.activity.ToolbarActivity
 import javax.inject.Inject
 
@@ -60,7 +61,7 @@ class LogsActivity : ToolbarActivity() {
         vm.status.observe(this) { binding.logsStatus.text = it }
         vm.load()
 
-        setupToolbar()
+        showActionBar(ActionBarType.PLAIN)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         supportActionBar?.let {

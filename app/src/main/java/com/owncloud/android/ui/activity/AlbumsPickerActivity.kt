@@ -57,7 +57,7 @@ class AlbumsPickerActivity :
         super.onCreate(savedInstanceState)
 
         initBinding()
-        setupToolbar()
+        showActionBar(ActionBarType.PLAIN)
         setupAction()
         setupActionBar()
         initExtras()
@@ -66,7 +66,7 @@ class AlbumsPickerActivity :
             createFragments()
         }
 
-        updateActionBarTitleAndHomeButtonByString(captionText)
+        setActionBarTitle(captionText)
     }
 
     private fun setupActionBar() {

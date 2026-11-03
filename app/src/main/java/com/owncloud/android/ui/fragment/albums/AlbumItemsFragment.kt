@@ -73,6 +73,7 @@ import com.owncloud.android.lib.resources.albums.ToggleAlbumFavoriteRemoteOperat
 import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.lib.resources.status.Type
 import com.owncloud.android.operations.albums.ReadAlbumItemsOperation
+import com.owncloud.android.ui.activity.ActionBarType
 import com.owncloud.android.ui.activity.AlbumsPickerActivity
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
@@ -212,7 +213,7 @@ class AlbumItemsFragment :
     override fun onResume() {
         super.onResume()
         getTypedActivity(FileDisplayActivity::class.java)?.run {
-            setupToolbar()
+            showActionBar(ActionBarType.PLAIN)
             supportActionBar?.let { viewThemeUtils.files.themeActionBar(requireContext(), it, albumName) }
             showSortListGroup(false)
             setMainFabVisible(false)
@@ -511,7 +512,7 @@ class AlbumItemsFragment :
 
     fun onAlbumRenamed(newAlbumName: String) {
         albumName = newAlbumName
-        getTypedActivity(FileDisplayActivity::class.java)?.updateActionBarTitleAndHomeButtonByString(albumName)
+        getTypedActivity(FileDisplayActivity::class.java)?.setActionBarTitle(albumName)
     }
 
     fun onAlbumDeleted() {

@@ -115,7 +115,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         binding = UserInfoLayoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setupToolbar();
+        showActionBar(ActionBarType.PLAIN);
 
         // set the back button from action bar
         ActionBar actionBar = getSupportActionBar();

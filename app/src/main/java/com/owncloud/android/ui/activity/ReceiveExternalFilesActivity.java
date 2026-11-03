@@ -751,7 +751,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private void populateDirectoryList(OCFile file) {
         setupEmptyList();
-        setupToolbar();
+        showActionBar(ActionBarType.PLAIN);
         ActionBar actionBar = getSupportActionBar();
         setupActionBarSubtitle();
 

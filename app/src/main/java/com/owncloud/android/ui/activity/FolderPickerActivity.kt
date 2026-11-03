@@ -98,7 +98,7 @@ open class FolderPickerActivity :
 
         initBinding()
         initControls()
-        setupToolbar()
+        showActionBar(ActionBarType.PLAIN)
         setupActionBar()
         setupAction()
         initTargetFilesPath()
@@ -107,7 +107,7 @@ open class FolderPickerActivity :
             createFragments()
         }
 
-        updateActionBarTitleAndHomeButtonByString(captionText)
+        setActionBarTitle(captionText)
         handleBackPress()
     }
 

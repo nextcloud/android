@@ -264,7 +264,7 @@ class GalleryFragment :
         super.onResume()
 
         val fda = getTypedActivity(FileDisplayActivity::class.java)
-        fda?.updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_gallery))
+        fda?.setActionBarTitle(getString(R.string.drawer_item_gallery))
         fda?.setMainFabVisible(false)
     }
 

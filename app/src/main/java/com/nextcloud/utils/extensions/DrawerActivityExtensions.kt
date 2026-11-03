@@ -10,6 +10,7 @@ package com.nextcloud.utils.extensions
 import android.content.Intent
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
+import com.owncloud.android.ui.activity.ActionBarType
 import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 
@@ -18,7 +19,7 @@ fun DrawerActivity.navigateToAllFiles(onlyPersonal: Boolean = false) {
     MainApp.showOnlyFilesOnDevice(false)
     MainApp.showOnlyPersonalFiles(onlyPersonal)
     highlightNavigationViewItem(R.id.nav_all_files)
-    setupHomeSearchToolbarWithSortAndListButtons()
+    showActionBar(ActionBarType.SEARCH)
 
     Intent(applicationContext, FileDisplayActivity::class.java).apply {
         addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
