@@ -108,6 +108,7 @@ import com.owncloud.android.ui.fragment.FileFragment.ContainerActivity
 import com.owncloud.android.ui.fragment.helper.ParentFolderFinder
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
+import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.PermissionUtil
@@ -1442,7 +1443,7 @@ open class OCFileListFragment :
         (activity as? FileDisplayActivity)?.run {
             invalidateOptionsMenu()
             intent.removeExtra(SEARCH_EVENT)
-            setupHomeSearchToolbarWithSortAndListButtons()
+            showActionBar(ActionBarStyle.Search)
             updateActionBarTitleAndHomeButton(null)
         }
 

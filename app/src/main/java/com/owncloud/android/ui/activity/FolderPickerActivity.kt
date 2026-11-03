@@ -47,6 +47,7 @@ import com.owncloud.android.ui.events.SearchEvent
 import com.owncloud.android.ui.fragment.EmptyListState
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.fragment.OCFileListFragment
+import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import com.owncloud.android.utils.DataHolderUtil
 import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.FileSortOrder
@@ -98,7 +99,7 @@ open class FolderPickerActivity :
 
         initBinding()
         initControls()
-        setupToolbar()
+        showActionBar(ActionBarStyle.Plain)
         setupActionBar()
         setupAction()
         initTargetFilesPath()
@@ -107,7 +108,7 @@ open class FolderPickerActivity :
             createFragments()
         }
 
-        updateActionBarTitleAndHomeButtonByString(captionText)
+        setActionBarTitle(captionText)
         handleBackPress()
     }
 

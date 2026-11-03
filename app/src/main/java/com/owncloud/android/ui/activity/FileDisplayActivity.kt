@@ -138,6 +138,7 @@ import com.owncloud.android.ui.fragment.albums.AlbumsFragment
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.ui.navigation.NavigatorScreen
 import com.owncloud.android.ui.navigation.animator.NavigationAnimator
+import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import com.owncloud.android.ui.preview.media.PreviewMediaActivity
 import com.owncloud.android.ui.preview.media.PreviewMediaFragment
 import com.owncloud.android.ui.preview.pdf.PreviewPdfFragment
@@ -354,7 +355,7 @@ class FileDisplayActivity :
         }
 
         if (isToolbarStyleSearch) {
-            setupHomeSearchToolbarWithSortAndListButtons()
+            showActionBar(ActionBarStyle.Search)
         }
         syncCurrentFolder(ignoreETag = true, ignoreFocus = true)
         refreshFileListOnResume(currentLeftFragment, listFragmentJustCreated)
@@ -389,7 +390,7 @@ class FileDisplayActivity :
             putParcelable(KEY_WAITING_TO_SEND, waitingToSend)
             searchView?.let { putBoolean(KEY_IS_SEARCH_OPEN, !it.isIconified) }
             putString(KEY_SEARCH_QUERY, searchQuery)
-            putBoolean(KEY_IS_SORT_GROUP_VISIBLE, sortListGroupVisibility())
+            putBoolean(KEY_IS_SORT_GROUP_VISIBLE, isSortListGroupVisible)
         }
     }
 
@@ -444,11 +445,11 @@ class FileDisplayActivity :
     }
 
     private fun setupViews() {
-        setupHomeSearchToolbarWithSortAndListButtons()
-        mMenuButton.setOnClickListener { openDrawer() }
+        showActionBar(ActionBarStyle.Search)
+        menuButton.setOnClickListener { openDrawer() }
         findViewById<View>(R.id.toolbar).setOnClickListener { openCurrentFolderActions() }
-        mSwitchAccountButton.setOnClickListener { showManageAccountsDialog() }
-        mNotificationButton.setOnClickListener { pushFragment(NavigatorScreen.Notifications) }
+        switchAccountButton.setOnClickListener { showManageAccountsDialog() }
+        notificationButton.setOnClickListener { pushFragment(NavigatorScreen.Notifications) }
         fastScrollUtils.fixAppBarForFastScroll(binding.appbar.appbar, binding.rootLayout)
         listOfFilesFragment?.resetSearchAttributes()
     }
@@ -504,7 +505,7 @@ class FileDisplayActivity :
                 val result = GetNotificationsRemoteOperation().execute(client)
                 result.isSuccess && result.resultData?.isEmpty() == false
             }
-            mNotificationButton.setVisibleIf(hasNotifications)
+            notificationButton.setVisibleIf(hasNotifications)
         }
     }
 
@@ -560,13 +561,13 @@ class FileDisplayActivity :
         setFile(initialFile)
 
         val accountName = currentUser.accountName
-        mSwitchAccountButton.tag = accountName
+        switchAccountButton.tag = accountName
 
         avatarGenerator.setAccountAvatar(
             currentUser,
             this,
             resources.getDimension(R.dimen.nav_drawer_menu_avatar_radius),
-            mSwitchAccountButton
+            switchAccountButton
         )
 
         if (accountName != lastDisplayedAccountName) {
@@ -1204,7 +1205,7 @@ class FileDisplayActivity :
         val searchMenuItem = menu.findItem(R.id.action_search)
         searchView = searchMenuItem.actionView as? SearchView
         searchMenuItem.isVisible = false
-        mSearchText.setOnClickListener {
+        searchText.setOnClickListener {
             showSearchView()
             searchView?.postDelayed({
                 searchView?.isIconified = false

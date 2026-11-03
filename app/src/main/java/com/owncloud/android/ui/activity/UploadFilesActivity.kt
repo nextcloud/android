@@ -50,6 +50,7 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDia
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment.OnSortingOrderListener
 import com.owncloud.android.ui.fragment.localfilelist.LocalFileListFragment
 import com.owncloud.android.ui.fragment.localfilelist.LocalFileListListener
+import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.PermissionUtil.checkStoragePermission
 import java.io.File
@@ -129,7 +130,7 @@ class UploadFilesActivity :
 
             searchView = (menu.findItem(R.id.action_search).actionView as SearchView).also {
                 viewThemeUtils.androidx.themeToolbarSearchView(it)
-                it.setOnSearchClickListener { mToolbarSpinner.visibility = View.GONE }
+                it.setOnSearchClickListener { toolbarSpinner.visibility = View.GONE }
             }
 
             menu.findItem(R.id.action_choose_storage_path)?.let { item ->
@@ -187,7 +188,7 @@ class UploadFilesActivity :
         uploadBehaviour = UploadBehaviourSelector(this, binding, preferences).apply {
             setup(themeUtils.getDefaultDisplayNameForRootFolder(this@UploadFilesActivity))
         }
-        setupToolbar()
+        showActionBar(ActionBarStyle.Plain)
         setupActionBar()
         setupToolbarSpinner()
         uploadBehaviour.checkWritableFolder(currentDir)
@@ -247,15 +248,15 @@ class UploadFilesActivity :
     }
 
     private fun setupToolbarSpinner() {
-        mToolbarSpinner.visibility = View.VISIBLE
-        mToolbarSpinner.adapter = directories
-        mToolbarSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        toolbarSpinner.visibility = View.VISIBLE
+        toolbarSpinner.adapter = directories
+        toolbarSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 // Dirs are ordered deepest first, so 0 is current, 1 is parent ... until "/" .
                 // So we must go up by "position" and then set selection to the folder we reached, that is the new 0.
                 repeat(position) { navigateToParentDirectory() }
                 if (position != 0) {
-                    mToolbarSpinner.setSelection(0)
+                    toolbarSpinner.setSelection(0)
                 }
             }
 
