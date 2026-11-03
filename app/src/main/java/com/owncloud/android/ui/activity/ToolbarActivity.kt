@@ -2,15 +2,7 @@
  * Nextcloud - Android Client
  *
  * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
- * SPDX-FileCopyrightText: 2023 ZetaTom
- * SPDX-FileCopyrightText: 2023 Parneet Singh <gurayaparneet@gmail.com>
- * SPDX-FileCopyrightText: 2022 Brey Álvaro Brey <alvaro@alvarobrey.com>
- * SPDX-FileCopyrightText: 2022 TSI-mc
- * SPDX-FileCopyrightText: 2020 Joris Bodin <joris.bodin@infomaniak.com>
- * SPDX-FileCopyrightText: 2016-2022 Andy Scherzinger
- * SPDX-FileCopyrightText: 2018-2022 Tobias Kaminsky <tobias@kaminsky.me>
- * SPDX-FileCopyrightText: 2016 Nextcloud
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 package com.owncloud.android.ui.activity
 
