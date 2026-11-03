@@ -7,6 +7,7 @@
  */
 package com.owncloud.android.datamodel
 
+import com.nextcloud.utils.extensions.saveFolder
 import org.junit.Assert
 import org.junit.Test
 

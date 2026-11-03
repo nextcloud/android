@@ -340,40 +340,21 @@ public class FileContentProvider extends ContentProvider {
         String where = ProviderTableMeta.FILE_PATH + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?";
         String[] whereArgs = {filePath, accountOwner};
 
-        // Try insert first, ignore conflict
-        long rowId = db.insert(
-            ProviderTableMeta.FILE_TABLE_NAME,
-            SQLiteDatabase.CONFLICT_IGNORE,
-            values);
-
-        if (rowId <= 0) {
-            // Already exists: update
-            int count = db.update(
-                ProviderTableMeta.FILE_TABLE_NAME,
-                SQLiteDatabase.CONFLICT_NONE,
-                values,
-                where,
-                whereArgs);
-
-            if (count == 0) {
-                throw new SQLException("Failed to update existing file: " + uri);
-            }
-
-            try (Cursor cursor = db.query(
-                new SimpleSQLiteQuery(
-                    "SELECT " + ProviderTableMeta._ID +
-                        " FROM " + ProviderTableMeta.FILE_TABLE_NAME +
-                        " WHERE " + where,
-                    whereArgs
-                ))) {
-                if (cursor.moveToFirst()) {
-                    rowId = cursor.getLong(0);
-                } else {
-                    throw new SQLException("Failed to fetch ID after update: " + uri);
-                }
+        try (Cursor cursor = db.query(
+            new SimpleSQLiteQuery(
+                "SELECT " + ProviderTableMeta._ID +
+                    " FROM " + ProviderTableMeta.FILE_TABLE_NAME +
+                    " WHERE " + where,
+                whereArgs
+            ))) {
+            if (cursor.moveToFirst()) {
+                long existingRowId = cursor.getLong(0);
+                db.update(ProviderTableMeta.FILE_TABLE_NAME, SQLiteDatabase.CONFLICT_NONE, values, where, whereArgs);
+                return ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, existingRowId);
             }
         }
 
+        long rowId = db.insert(ProviderTableMeta.FILE_TABLE_NAME, SQLiteDatabase.CONFLICT_NONE, values);
         return ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, rowId);
     }
 

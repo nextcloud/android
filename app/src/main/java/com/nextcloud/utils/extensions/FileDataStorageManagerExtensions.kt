@@ -7,18 +7,23 @@
 
 package com.nextcloud.utils.extensions
 
+import android.content.ContentProviderOperation
+import android.content.ContentUris
+import android.content.OperationApplicationException
+import android.database.sqlite.SQLiteDatabase
+import android.os.RemoteException
 import com.nextcloud.client.database.dao.FileDao
 import com.nextcloud.client.database.entity.model.ShareeKey
-import com.nextcloud.client.database.entity.toOCCapability
 import com.nextcloud.model.HTTPStatusCodes
+import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.lib.resources.shares.OCShare
-import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.operations.upload.RemoteFileExistence
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.MimeType
@@ -124,9 +129,6 @@ fun FileDataStorageManager.getNonEncryptedSubfolders(id: Long, accountName: Stri
     fileDao.getNonEncryptedSubfolders(id, accountName).map {
         createFileInstance(it)
     }
-
-suspend fun FileDataStorageManager.getCapabilitiesByAccountName(accountName: String): OCCapability =
-    capabilityDao.getByAccountName(accountName).toOCCapability()
 
 fun FileDataStorageManager.moveFiles(ocFile: OCFile?, targetPath: String, targetParentPath: String) {
     Log_OC.d(
@@ -357,3 +359,119 @@ private fun FileDataStorageManager.saveFolder(remotePath: String, parent: OCFile
         saveFile(this)
         Log_OC.d(FileDataStorageManager.TAG, "createDirectoryTree: created $remotePath in Database")
     }
+
+/**
+ * Inserts or updates the content of [folder] and removes [filesToRemove] that are its direct children.
+ *
+ * Caller is responsible for granting the right to update the information; this function only keeps the data
+ * consistent.
+ */
+fun FileDataStorageManager.saveFolder(folder: OCFile, updatedFiles: List<OCFile>, filesToRemove: Collection<OCFile>) {
+    Log_OC.d(
+        FileDataStorageManager.TAG,
+        "Saving folder ${folder.remotePath} with ${updatedFiles.size} children and " +
+            "${filesToRemove.size} files to remove"
+    )
+
+    upsertFolderContent(folder, updatedFiles)
+
+    val removedChildren = filesToRemove.filter { it.parentId == folder.fileId }
+    removedChildren.forEach { deleteLocalCopy(it) }
+
+    val operations = removedChildren.map { deleteOperation(it) } + updateFolderOperation(folder)
+    applyFileOperations(ArrayList(operations))
+}
+
+private fun FileDataStorageManager.upsertFolderContent(folder: OCFile, files: List<OCFile>) {
+    db.runInTransaction {
+        val writableDatabase = db.openHelper.writableDatabase
+        files.forEach { file ->
+            val contentValues = createContentValuesForFile(file).apply {
+                put(ProviderTableMeta.FILE_PARENT, folder.fileId)
+            }
+
+            val existingFileId = findExistingFileId(file)
+            if (existingFileId == null) {
+                file.fileId = writableDatabase.insert(
+                    ProviderTableMeta.FILE_TABLE_NAME,
+                    SQLiteDatabase.CONFLICT_NONE,
+                    contentValues
+                )
+                return@forEach
+            }
+
+            writableDatabase.update(
+                ProviderTableMeta.FILE_TABLE_NAME,
+                SQLiteDatabase.CONFLICT_NONE,
+                contentValues,
+                "${ProviderTableMeta._ID} = ?",
+                arrayOf(existingFileId)
+            )
+        }
+    }
+}
+
+private fun FileDataStorageManager.findExistingFileId(file: OCFile): Long? {
+    val fileById = fileDao.getFileById(file.fileId)
+    if (fileById != null) {
+        return fileById.id
+    }
+
+    return fileDao.getFileByEncryptedRemotePath(file.remotePath, user.accountName)?.id
+}
+
+private fun FileDataStorageManager.deleteLocalCopy(file: OCFile) {
+    if (file.isFolder) {
+        val localFolder = File(FileStorageUtils.getDefaultSavePathFor(user.accountName, file))
+        if (localFolder.exists()) {
+            removeLocalFolder(localFolder)
+        }
+        return
+    }
+
+    if (!file.isDown) {
+        return
+    }
+
+    val storagePath = file.storagePath
+    if (File(storagePath).delete() && MimeTypeUtil.isMedia(file.mimeType)) {
+        FileDataStorageManager.triggerMediaScan(storagePath, file)
+    }
+}
+
+private fun FileDataStorageManager.deleteOperation(file: OCFile): ContentProviderOperation {
+    val contentUri = if (file.isFolder) ProviderTableMeta.CONTENT_URI_DIR else ProviderTableMeta.CONTENT_URI_FILE
+    return ContentProviderOperation.newDelete(ContentUris.withAppendedId(contentUri, file.fileId))
+        .withSelection(
+            "${ProviderTableMeta.FILE_ACCOUNT_OWNER} = ? AND ${ProviderTableMeta.FILE_PATH} = ?",
+            arrayOf(user.accountName, file.remotePath)
+        )
+        .build()
+}
+
+private fun FileDataStorageManager.updateFolderOperation(folder: OCFile): ContentProviderOperation =
+    ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI)
+        .withValues(createContentValuesForFolder(folder))
+        .withSelection("${ProviderTableMeta._ID} = ?", arrayOf(folder.fileId.toString()))
+        .build()
+
+private fun FileDataStorageManager.applyFileOperations(operations: ArrayList<ContentProviderOperation>) {
+    Log_OC.d(FileDataStorageManager.TAG, "Sending ${operations.size} operations to FileContentProvider")
+
+    try {
+        val resolver = contentResolver
+        if (resolver != null) {
+            resolver.applyBatch(MainApp.getAuthority(), operations)
+        } else {
+            contentProviderClient.applyBatch(operations)
+        }
+    } catch (e: OperationApplicationException) {
+        logFileOperationsFailure(e)
+    } catch (e: RemoteException) {
+        logFileOperationsFailure(e)
+    }
+}
+
+private fun logFileOperationsFailure(e: Exception) {
+    Log_OC.e(FileDataStorageManager.TAG, "Exception in batch of operations ${e.message}", e)
+}

@@ -19,6 +19,7 @@ import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.ResultParser;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.nextcloud.utils.share.UnifiedShareSharees;
+import com.nextcloud.utils.extensions.FileDataStorageManagerExtensionsKt;
 import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.nextcloud.utils.extensions.StringExtensionsKt;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -657,7 +658,10 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         UnifiedShareSharees.fillBlocking(user, updatedFiles);
 
-        fileDataStorageManager.saveFolder(remoteFolder, updatedFiles, localFilesMap.values());
+        FileDataStorageManagerExtensionsKt.saveFolder(fileDataStorageManager,
+                                                      remoteFolder,
+                                                      updatedFiles,
+                                                      localFilesMap.values());
 
         mChildren = updatedFiles;
     }
