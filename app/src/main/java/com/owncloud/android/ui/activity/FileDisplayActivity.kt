@@ -978,7 +978,8 @@ class FileDisplayActivity :
      * 2) Currently visible fragment (and its active child)
      * 3) Fallback to All Files
      */
-    override fun getMenuItemId(): Int = MainApp.getMenuItemId() ?: listOfFilesFragment?.menuItemId ?: R.id.nav_all_files
+    override val menuItemId: Int
+        get() = MainApp.getMenuItemId() ?: listOfFilesFragment?.menuItemId ?: R.id.nav_all_files
 
     override fun setFile(file: OCFile?) {
         super.setFile(file)
@@ -1185,7 +1186,8 @@ class FileDisplayActivity :
         supportInvalidateOptionsMenu()
     }
 
-    override fun isDrawerIndicatorAvailable(): Boolean = isRoot(getCurrentDir())
+    override val isDrawerIndicatorAvailable: Boolean
+        get() = isRoot(getCurrentDir())
 
     fun configureToolbarForPreview(file: OCFile) {
         lockScrolling()
@@ -1301,7 +1303,7 @@ class FileDisplayActivity :
         view.onActionViewCollapsed()
         setDrawerIndicatorEnabled(isDrawerIndicatorAvailable) // order matters
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        mDrawerToggle.syncState()
+        mDrawerToggle?.syncState()
 
         listOfFilesFragment?.run {
             isSearchFragment = false
@@ -2334,7 +2336,7 @@ class FileDisplayActivity :
 
     private fun refreshGalleryFragmentIfNeeded() {
         if (topFileListFragment is GalleryFragment) {
-            startPhotoSearch(R.id.nav_gallery)
+            startPhotoSearch()
         }
     }
 

@@ -1,1568 +1,1177 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2021-2024 TSI-mc <surinder.kumar@t-systems.com>
- * SPDX-FileCopyrightText: 2020 Infomaniak Network SA
- * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
- * SPDX-FileCopyrightText: 2017 Tobias Kaminsky <tobias@kaminsky.me>
- * SPDX-FileCopyrightText: 2016 Andy Scherzinger <info@andy-scherzinger.de>
- * SPDX-FileCopyrightText: 2016 Nextcloud
- * SPDX-FileCopyrightText: 2016 ownCloud Inc.
- * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.activity;
+package com.owncloud.android.ui.activity
 
-import android.accounts.Account;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.LayerDrawable;
-import android.graphics.drawable.PictureDrawable;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.PersistableBundle;
-import android.os.SystemClock;
-import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.webkit.URLUtil;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.accounts.Account
+import android.content.Intent
+import android.content.res.ColorStateList
+import android.content.res.Configuration
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.LayerDrawable
+import android.graphics.drawable.PictureDrawable
+import android.net.Uri
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.os.PersistableBundle
+import android.os.SystemClock
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.webkit.URLUtil
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.IdRes
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.createBitmap
+import androidx.core.graphics.drawable.toDrawable
+import androidx.core.net.toUri
+import androidx.core.view.GravityCompat
+import androidx.core.view.isVisible
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
+import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.request.transition.Transition
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.progressindicator.LinearProgressIndicator
+import com.nextcloud.android.common.core.utils.ecosystem.EcosystemApp
+import com.nextcloud.android.common.core.utils.ecosystem.EcosystemManager
+import com.nextcloud.android.common.ui.color.ColorUtil
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.nextcloud.android.common.ui.util.PlatformThemeUtil
+import com.nextcloud.client.account.User
+import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.files.DeepLinkConstants
+import com.nextcloud.client.onboarding.FirstRunActivity
+import com.nextcloud.client.player.media3.PlaybackModel
+import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.client.systembars.SystemBarBackgroundCallbacks
+import com.nextcloud.client.utils.IntentUtil
+import com.nextcloud.ui.composeActivity.ComposeActivity
+import com.nextcloud.ui.composeActivity.ComposeDestination
+import com.nextcloud.ui.dialog.account.ChooseAccountDialogFragment
+import com.nextcloud.utils.GlideHelper
+import com.nextcloud.utils.HumanReadableFormatter
+import com.nextcloud.utils.LinkHelper
+import com.nextcloud.utils.SnackbarUtil
+import com.nextcloud.utils.avatar.AvatarGenerationListener
+import com.nextcloud.utils.avatar.AvatarGenerator
+import com.nextcloud.utils.extensions.getSelectedMenuItemId
+import com.nextcloud.utils.extensions.highlightNavigationView
+import com.nextcloud.utils.extensions.lastFragment
+import com.nextcloud.utils.extensions.navigateToAllFiles
+import com.nextcloud.utils.extensions.setVisibleIf
+import com.nextcloud.utils.mdm.MDMConfig
+import com.nextcloud.utils.view.ScreenMetrics
+import com.owncloud.android.MainApp
+import com.owncloud.android.R
+import com.owncloud.android.authentication.PassCodeManager
+import com.owncloud.android.datamodel.ArbitraryDataProvider
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
+import com.owncloud.android.datamodel.ExternalLinksProvider
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.ExternalLink
+import com.owncloud.android.lib.common.ExternalLinkType
+import com.owncloud.android.lib.common.Quota
+import com.owncloud.android.lib.common.accounts.ExternalLinksOperation
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.files.SearchRemoteOperation
+import com.owncloud.android.lib.resources.status.OCCapability
+import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation
+import com.owncloud.android.operations.GetCapabilitiesOperation
+import com.owncloud.android.ui.events.AccountRemovedEvent
+import com.owncloud.android.ui.events.ChangeMenuEvent
+import com.owncloud.android.ui.events.SearchEvent
+import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment
+import com.owncloud.android.ui.fragment.GalleryFragment
+import com.owncloud.android.ui.fragment.OCFileListFragment
+import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment
+import com.owncloud.android.ui.fragment.albums.AlbumsFragment
+import com.owncloud.android.ui.navigation.NavigatorActivity
+import com.owncloud.android.ui.navigation.NavigatorScreen
+import com.owncloud.android.ui.navigation.model.ActionBarStyle
+import com.owncloud.android.utils.BitmapUtils
+import com.owncloud.android.utils.DrawableUtil
+import com.owncloud.android.utils.DrawerMenuUtil
+import com.owncloud.android.utils.FilesSyncHelper
+import com.owncloud.android.utils.theme.CapabilityUtils
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
+import hct.Hct
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+import java.util.Optional
+import javax.inject.Inject
+import kotlin.jvm.optionals.getOrNull
+import kotlin.math.ceil
+import kotlin.math.max
+import kotlin.math.roundToInt
 
-import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.target.Target;
-import com.bumptech.glide.request.transition.Transition;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.progressindicator.LinearProgressIndicator;
-import com.nextcloud.android.common.core.utils.ecosystem.EcosystemApp;
-import com.nextcloud.android.common.core.utils.ecosystem.EcosystemManager;
-import com.nextcloud.android.common.ui.color.ColorUtil;
-import com.nextcloud.android.common.ui.theme.utils.ColorRole;
-import com.nextcloud.android.common.ui.util.PlatformThemeUtil;
-import com.nextcloud.client.account.User;
-import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.files.DeepLinkConstants;
-import com.nextcloud.client.network.ClientFactory;
-import com.nextcloud.client.onboarding.FirstRunActivity;
-import com.nextcloud.client.player.media3.PlaybackModel;
-import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.client.systembars.SystemBarBackgroundCallbacks;
-import com.nextcloud.client.utils.IntentUtil;
-import com.nextcloud.common.NextcloudClient;
-import com.nextcloud.ui.dialog.account.ChooseAccountDialogFragment;
-import com.nextcloud.ui.composeActivity.ComposeActivity;
-import com.nextcloud.ui.composeActivity.ComposeDestination;
-import com.nextcloud.utils.GlideHelper;
-import com.nextcloud.utils.HumanReadableFormatter;
-import com.nextcloud.utils.LinkHelper;
-import com.nextcloud.utils.SnackbarUtil;
-import com.nextcloud.utils.avatar.AvatarGenerationListener;
-import com.nextcloud.utils.avatar.AvatarGenerator;
-import com.nextcloud.utils.extensions.ActivityExtensionsKt;
-import com.nextcloud.utils.extensions.DrawerActivityExtensionsKt;
-import com.nextcloud.utils.extensions.NavigationViewExtensionsKt;
-import com.nextcloud.utils.extensions.ViewExtensionsKt;
-import com.nextcloud.utils.mdm.MDMConfig;
-import com.nextcloud.utils.view.ScreenMetrics;
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.authentication.PassCodeManager;
-import com.owncloud.android.datamodel.ArbitraryDataProvider;
-import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
-import com.owncloud.android.datamodel.ExternalLinksProvider;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.ExternalLink;
-import com.owncloud.android.lib.common.ExternalLinkType;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
-import com.owncloud.android.lib.common.Quota;
-import com.owncloud.android.lib.common.UserInfo;
-import com.owncloud.android.lib.common.accounts.ExternalLinksOperation;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
-import com.owncloud.android.lib.resources.status.OCCapability;
-import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
-import com.owncloud.android.operations.GetCapabilitiesOperation;
-import com.owncloud.android.ui.events.AccountRemovedEvent;
-import com.owncloud.android.ui.events.ChangeMenuEvent;
-import com.owncloud.android.ui.events.SearchEvent;
-import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
-import com.owncloud.android.ui.fragment.GalleryFragment;
-import com.owncloud.android.ui.fragment.OCFileListFragment;
-import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment;
-import com.owncloud.android.ui.fragment.albums.AlbumsFragment;
-import com.owncloud.android.ui.navigation.NavigatorActivity;
-import com.owncloud.android.ui.navigation.NavigatorScreen;
-import com.owncloud.android.ui.navigation.model.ActionBarStyle;
-import com.owncloud.android.utils.BitmapUtils;
-import com.owncloud.android.utils.DrawableUtil;
-import com.owncloud.android.utils.DrawerMenuUtil;
-import com.owncloud.android.utils.FilesSyncHelper;
-import com.owncloud.android.utils.theme.CapabilityUtils;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-
-import javax.inject.Inject;
-
-import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.IdRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import hct.Hct;
-import kotlin.Unit;
-
-/**
- * Base class to handle setup of the drawer implementation including user switching and avatar fetching and fallback
- * generation.
- */
-public abstract class DrawerActivity extends ToolbarActivity
-    implements AvatarGenerationListener, Injectable {
-
-    private static final String TAG = DrawerActivity.class.getSimpleName();
-    private static final String KEY_IS_ACCOUNT_CHOOSER_ACTIVE = "IS_ACCOUNT_CHOOSER_ACTIVE";
-    private static final int ACTION_MANAGE_ACCOUNTS = 101;
-    private static final int MENU_ORDER_EXTERNAL_LINKS = 3;
-    private static final int MENU_ITEM_EXTERNAL_LINK = 111;
-    private static final int MAX_LOGO_SIZE_PX = 1000;
-    private static final int RELATIVE_THRESHOLD_WARNING = 80;
-    public static final int REQ_ALL_FILES_ACCESS = 3001;
-    public static final int REQ_MEDIA_ACCESS = 3000;
+@Suppress("LargeClass")
+abstract class DrawerActivity :
+    ToolbarActivity(),
+    AvatarGenerationListener,
+    Injectable {
 
     @Inject
-    protected PlaybackModel playbackModel;
-
-    /**
-     * Reference to the drawer layout.
-     */
-    private DrawerLayout mDrawerLayout;
-
-    /**
-     * Reference to the drawer toggle.
-     */
-    protected ActionBarDrawerToggle mDrawerToggle;
-
-    /**
-     * Reference to the navigation view header.
-     */
-    private View mNavigationViewHeader;
-
-    /**
-     * Flag to signal if the account chooser is active.
-     */
-    private boolean mIsAccountChooserActive;
-
-    /**
-     * container layout of the quota view.
-     */
-    private LinearLayout mQuotaView;
-
-    /**
-     * progress bar of the quota view.
-     */
-    private LinearProgressIndicator mQuotaProgressBar;
-
-    /**
-     * text view of the quota view.
-     */
-    private TextView mQuotaTextPercentage;
-    private TextView mQuotaTextLink;
-
-    /**
-     * runnable that will be executed after the drawer has been closed.
-     */
-    private Runnable pendingRunnable;
-
-    private ExternalLinksProvider externalLinksProvider;
-    private ArbitraryDataProvider arbitraryDataProvider;
-
-    private BottomNavigationView bottomNavigationView;
-    private NavigationView drawerNavigationView;
-
-    /**
-     * Returns the navigation drawer menu item ID that represents
-     * the current activity.
-     *
-     * <p>
-     * This method is used by the DrawerActivity to determine
-     * which drawer item should be highlighted (checked) when the
-     * activity is visible.
-     * </p>
-     *
-     * <p>
-     * Subclasses that are displayed within the drawer must override
-     * this method and return their corresponding menu item ID
-     * (e.g. R.id.nav_gallery, R.id.nav_settings).
-     * </p>
-     *
-     * <p>
-     * The default implementation returns {@link R.id#nav_all_files}.
-     * </p>
-     *
-     * @return the menu item ID to be marked as selected in the drawer
-     */
-    protected int getMenuItemId() {
-        return R.id.nav_all_files;
-    }
-
-    private EcosystemManager ecosystemManager;
+    lateinit var playbackModel: PlaybackModel
 
     @Inject
-    AppPreferences preferences;
+    lateinit var avatarGenerator: AvatarGenerator
 
     @Inject
-    protected ClientFactory clientFactory;
+    lateinit var colorUtil: ColorUtil
 
-    @Inject
-    public AvatarGenerator avatarGenerator;
+    @JvmField
+    protected var mDrawerToggle: ActionBarDrawerToggle? = null
 
-    @Inject
-    ColorUtil colorUtil;
+    var bottomNavigationView: BottomNavigationView? = null
+        private set
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-        addOnBackPressedCallback();
-    }
+    lateinit var ecosystemManager: EcosystemManager
+        private set
 
-    /**
-     * Initializes the drawer and its content. This method needs to be called after the content view has been set.
-     */
-    protected void setupDrawer(int id) {
-        if (mDrawerLayout == null) {
-            mDrawerLayout = findViewById(R.id.drawer_layout);
+    private var drawerLayout: DrawerLayout? = null
+    private var drawerNavigationView: NavigationView? = null
+    private var navigationViewHeader: View? = null
+
+    private var quotaView: LinearLayout? = null
+    private var quotaProgressBar: LinearProgressIndicator? = null
+    private var quotaTextPercentage: TextView? = null
+    private var quotaTextLink: TextView? = null
+
+    private var pendingRunnable: Runnable? = null
+
+    private lateinit var externalLinksProvider: ExternalLinksProvider
+    private lateinit var appOpenedCountProvider: ArbitraryDataProvider
+
+    private val manageAccountsLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult(), ::onManageAccountsResult)
+
+    protected open val menuItemId: Int
+        get() = R.id.nav_all_files
+
+    open val isDrawerIndicatorAvailable: Boolean
+        get() = true
+
+    val appPreferences: AppPreferences
+        get() = preferences
+
+    val isDrawerOpen: Boolean
+        get() = drawerLayout?.isDrawerOpen(GravityCompat.START) == true
+
+    val ocFileListFragment: OCFileListFragment?
+        get() = lastFragment() as? OCFileListFragment
+            ?: supportFragmentManager.findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES) as? OCFileListFragment
+
+    val isToolbarStyleSearch: Boolean
+        get() = when (selectedMenuItemId) {
+            Menu.NONE, R.id.nav_all_files, R.id.nav_personal_files -> true
+            else -> false
         }
 
-        if (drawerNavigationView == null) {
-            drawerNavigationView = findViewById(R.id.nav_view);
+    val isAlbumItemsFragment: Boolean
+        get() = isFragmentVisible<AlbumItemsFragment>(AlbumItemsFragment.TAG)
+
+    val isAlbumsFragment: Boolean
+        get() = isFragmentVisible<AlbumsFragment>(AlbumsFragment.TAG)
+
+    private val selectedMenuItemId: Int
+        get() = drawerNavigationView?.getSelectedMenuItemId() ?: R.id.nav_all_files
+
+    private val isAssistantAvailable: Boolean
+        get() = capabilities.getOrNull()?.assistant?.isTrue == true
+
+    private val serverTextColor: Int
+        get() {
+            val serverTextColor = CapabilityUtils.getCapability(this).serverTextColor
+            val fallbackColor = if (PlatformThemeUtil.isDarkMode(this)) Color.WHITE else Color.BLACK
+            return colorUtil.getNullSafeColor(serverTextColor, fallbackColor)
         }
 
-        if (drawerNavigationView != null) {
-            viewThemeUtils.files.colorNavigationView(drawerNavigationView);
-
-            // Setting up drawer header
-            mNavigationViewHeader = drawerNavigationView.getHeaderView(0);
-            updateHeader();
-
-            setupDrawerMenu(drawerNavigationView);
-            getAndDisplayUserQuota();
-            setupQuotaElement();
-            highlightNavigationViewItem(id);
+    private val ecosystemIconColor: Int
+        get() {
+            val account = account ?: return getColor(R.color.grey_800_transparent)
+            val isServerPrimaryColorDark =
+                Hct.fromInt(getServerPrimaryColor(account)).tone < ECOSYSTEM_ICON_LIGHT_TONE_THRESHOLD
+            return if (isServerPrimaryColorDark) Color.WHITE else getColor(R.color.grey_800_transparent)
         }
 
-        setupDrawerToggle();
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-
-        if (bottomNavigationView == null) {
-            bottomNavigationView = findViewById(R.id.bottom_navigation);
-        }
-
-        if (bottomNavigationView != null) {
-            themeBottomNavigationMenu();
-            checkAssistantBottomNavigationMenu();
-            handleBottomNavigationViewClicks();
-            highlightNavigationViewItem(id);
-        }
+    // region Lifecycle
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
+        addOnBackPressedCallback()
     }
 
-    /**
-     * Highlights (checks) the given menu item ID in the app's navigation bars.
-     *
-     * <p>
-     * This method updates both the navigation drawer (`drawerNavigationView`) and
-     * the bottom navigation bar (`bottomNavigationView`).
-     * </p>
-     *
-     * <p>
-     * This method is needs to be called from <code>onResume()</code> of child activities with all possible menu item ids.
-     * This fixes:
-     * <ul>
-     *   <li>When navigating back from another activity (e.g., Activity B → Activity A),
-     *       the previously selected menu item remains highlighted.</li>
-     * </ul>
-     * </p>
-     *
-     * @param menuItemId the ID of the menu item to mark as selected/highlighted
-     */
-    public void highlightNavigationViewItem(int menuItemId) {
-        NavigationViewExtensionsKt.highlightNavigationView(drawerNavigationView,
-                                                           bottomNavigationView,
-                                                           menuItemId);
-        SystemBarBackgroundCallbacks.apply(this, viewThemeUtils);
-        Log_OC.d(TAG, "New menu item is: " + menuItemId);
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        externalLinksProvider = ExternalLinksProvider(contentResolver)
+        appOpenedCountProvider = ArbitraryDataProviderImpl(this)
+        ecosystemManager = EcosystemManager(this)
     }
 
-    private void themeBottomNavigationMenu() {
-        viewThemeUtils.platform.colorBottomNavigationView(bottomNavigationView);
+    public override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        highlightNavigationViewItem(selectedMenuItemId)
     }
 
-    @SuppressFBWarnings("RV")
-    private void checkAssistantBottomNavigationMenu() {
-        final var optionalCapabilities = getCapabilities();
-        boolean isAssistantAvailable = false;
-        if (optionalCapabilities.isPresent()) {
-            isAssistantAvailable = optionalCapabilities.get().getAssistant().isTrue();
-        }
-
-        bottomNavigationView
-            .getMenu()
-            .findItem(R.id.nav_assistant)
-            .setVisible(isAssistantAvailable);
-    }
-
-    private void openFavoritesTab() {
-        resetOnlyPersonalAndOnDevice();
-        showActionBar(ActionBarStyle.Plain);
-        SearchEvent searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH);
-        launchActivityForSearch(searchEvent, R.id.nav_favorites);
-    }
-
-    private void openMediaTab(int menuItemId) {
-        GalleryFragment.Companion.clearSavedViewState();
-        resetOnlyPersonalAndOnDevice();
-        showActionBar(ActionBarStyle.Plain);
-        startPhotoSearch(menuItemId);
-    }
-
-    @Nullable
-    public OCFileListFragment getOCFileListFragment() {
-        Fragment fragment = ActivityExtensionsKt.lastFragment(this);
-        if (fragment instanceof OCFileListFragment fileListFragment) {
-            return fileListFragment;
-        }
-
-        fragment = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
-        if (fragment instanceof OCFileListFragment fileListFragment) {
-            return fileListFragment;
-        }
-
-        return null;
-    }
-
-    private void exitSelectionMode() {
-        Fragment fragment = getOCFileListFragment();
-        if (fragment instanceof OCFileListFragment fileListFragment) {
-            fileListFragment.exitSelectionMode();
-        }
-    }
-
-    private void setupDrawerToggle() {
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-
-                if (pendingRunnable != null) {
-                    new Handler().post(pendingRunnable);
-                    pendingRunnable = null;
-                }
-
-                closeDrawer();
-            }
-        };
-
-        mDrawerLayout.addDrawerListener(mDrawerToggle);
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
-        mDrawerToggle.setDrawerSlideAnimationEnabled(true);
-        final Drawable backArrow = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_arrow_back, null);
-        if (backArrow != null) {
-            viewThemeUtils.platform.tintToolbarArrowDrawable(this, mDrawerToggle, backArrow);
-        }
-    }
-
-    /**
-     * setup quota elements of the drawer.
-     */
-    private void setupQuotaElement() {
-        mQuotaView = (LinearLayout) findQuotaViewById(R.id.drawer_quota);
-        mQuotaProgressBar = (LinearProgressIndicator) findQuotaViewById(R.id.drawer_quota_ProgressBar);
-        mQuotaTextPercentage = (TextView) findQuotaViewById(R.id.drawer_quota_percentage);
-        mQuotaTextLink = (TextView) findQuotaViewById(R.id.drawer_quota_link);
-        viewThemeUtils.material.colorProgressBar(mQuotaProgressBar, ColorRole.PRIMARY);
-        mQuotaProgressBar.setTrackStopIndicatorSize(0);
-        viewThemeUtils.platform.colorViewBackground(mQuotaView);
-    }
-
-    public void updateHeader() {
-        final var account = getAccount();
-        boolean isClientBranded = getResources().getBoolean(R.bool.is_branded_client);
-        final var optionalCapability = getCapabilities();
-        if (optionalCapability.isPresent()) {
-            final var capability = optionalCapability.get();
-            if (account != null && capability.getServerBackground() != null && !isClientBranded) {
-                int primaryColor = getServerPrimaryColor(account);
-                String serverLogoURL = capability.getServerLogo();
-
-                // set background to primary color
-                LinearLayout drawerHeader = mNavigationViewHeader.findViewById(R.id.drawer_header_view);
-                drawerHeader.setBackgroundColor(primaryColor);
-
-                if (!TextUtils.isEmpty(serverLogoURL) && URLUtil.isValidUrl(serverLogoURL)) {
-                    Target<Drawable> target = createSVGLogoTarget(primaryColor, capability);
-                    GlideHelper.INSTANCE.loadIntoTarget(this,
-                                                        accountManager.getCurrentOwnCloudAccount(),
-                                                        serverLogoURL,
-                                                        target,
-                                                        R.drawable.background);
-                }
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        mDrawerToggle?.let { toggle ->
+            toggle.syncState()
+            if (isDrawerOpen) {
+                toggle.isDrawerIndicatorEnabled = true
             }
         }
+        updateExternalLinksInDrawer()
+        updateQuotaLink()
+    }
 
-        // hide ecosystem apps according to user preference or in branded client
-        ConstraintLayout banner = mNavigationViewHeader.findViewById(R.id.drawer_ecosystem_apps);
-        boolean shouldHideTopBanner = isClientBranded || !preferences.isShowEcosystemApps();
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
 
-        if (shouldHideTopBanner) {
-            hideTopBanner(banner);
-        } else {
-            showTopBanner(banner);
+    override fun onStop() {
+        if (preferences.lockTimestamp != 0L) {
+            preferences.lockTimestamp = SystemClock.elapsedRealtime()
         }
+        EventBus.getDefault().unregister(this)
+        super.onStop()
     }
 
-    private Target<Drawable> createSVGLogoTarget(int primaryColor, OCCapability capability) {
-        return new CustomTarget<>() {
-            @Override
-            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                Bitmap bitmap;
-
-                if (resource instanceof PictureDrawable pictureDrawable) {
-                    bitmap = Bitmap.createBitmap(
-                        pictureDrawable.getIntrinsicWidth(),
-                        pictureDrawable.getIntrinsicHeight(),
-                        Bitmap.Config.ARGB_8888);
-
-                    Canvas canvas = new Canvas(bitmap);
-                    canvas.drawPicture(pictureDrawable.getPicture());
-
-                } else if (resource instanceof BitmapDrawable bitmapDrawable) {
-                    bitmap = bitmapDrawable.getBitmap();
-                } else {
-                    Log_OC.e(TAG, "Unsupported drawable type: " + resource.getClass().getName());
-                    return;
-                }
-
-                // Scale down if necessary
-                Bitmap logo = bitmap;
-                int width = bitmap.getWidth();
-                int height = bitmap.getHeight();
-                int max = Math.max(width, height);
-                if (max > MAX_LOGO_SIZE_PX) {
-                    logo = BitmapUtils.scaleBitmap(bitmap, MAX_LOGO_SIZE_PX, width, height, max);
-                }
-
-                Drawable[] drawables = {
-                    new ColorDrawable(primaryColor),
-                    new BitmapDrawable(getResources(), logo)
-                };
-                LayerDrawable layerDrawable = new LayerDrawable(drawables);
-
-                String name = capability.getServerName();
-                setDrawerHeaderLogo(layerDrawable, name);
-            }
-
-            @Override
-            public void onLoadCleared(@Nullable Drawable placeholder) {}
-        };
+    override fun onDestroy() {
+        externalLinksProvider.cleanup()
+        super.onDestroy()
     }
 
-    private void hideTopBanner(ConstraintLayout banner) {
-        banner.setVisibility(View.GONE);
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        mDrawerToggle?.onConfigurationChanged(newConfig)
     }
 
-    private void showTopBanner(ConstraintLayout banner) {
-        LinearLayout notesView = banner.findViewById(R.id.drawer_ecosystem_notes);
-        LinearLayout talkView = banner.findViewById(R.id.drawer_ecosystem_talk);
-        LinearLayout moreView = banner.findViewById(R.id.drawer_ecosystem_more);
-        LinearLayout assistantView = banner.findViewById(R.id.drawer_ecosystem_assistant);
-
-        final var optionalUser = getUser();
-        if (optionalUser.isPresent()) {
-            final var accountName = optionalUser.get().getAccountName();
-            notesView.setOnClickListener(v -> ecosystemManager.openApp(EcosystemApp.NOTES, accountName));
-            talkView.setOnClickListener(v -> ecosystemManager.openApp(EcosystemApp.TALK, accountName));
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            PassCodeManager.PASSCODE_ACTIVITY -> data?.let(::onPassCodeResult)
+            REQ_ALL_FILES_ACCESS, REQ_MEDIA_ACCESS -> checkStoragePermissionWarningBannerVisibility()
         }
-
-        moreView.setOnClickListener(v -> LinkHelper.INSTANCE.openAppStore("Nextcloud", true, this));
-        assistantView.setOnClickListener(v -> startAssistantScreen());
-        final var optionalCapabilities = getCapabilities();
-        if (optionalCapabilities.isPresent()) {
-            final var capabilities = optionalCapabilities.get();
-            if (capabilities.getAssistant().isTrue()) {
-                assistantView.setVisibility(View.VISIBLE);
-            } else {
-                assistantView.setVisibility(View.GONE);
-            }
-        } else {
-            assistantView.setVisibility(View.GONE);
-        }
-
-        List<LinearLayout> views = Arrays.asList(notesView, talkView, moreView, assistantView);
-
-        int iconColor;
-        final var account = getAccount();
-        if (account != null) {
-            int primaryColor = getServerPrimaryColor(account);
-            if (Hct.fromInt(primaryColor).getTone() < 80.0) {
-                iconColor = Color.WHITE;
-            } else {
-                iconColor = getColor(R.color.grey_800_transparent);
-            }
-        } else {
-            iconColor = getColor(R.color.grey_800_transparent);
-        }
-
-        for (LinearLayout view : views) {
-            ImageView imageView = (ImageView) view.getChildAt(0);
-            imageView.setImageTintList(ColorStateList.valueOf(iconColor));
-            GradientDrawable background = (GradientDrawable) imageView.getBackground();
-            background.setStroke(ScreenMetrics.dpToPx(1, this), iconColor);
-            TextView textView = (TextView) view.getChildAt(1);
-            textView.setTextColor(iconColor);
-        }
-
-        banner.setVisibility(View.VISIBLE);
-    }
-
-    private void setDrawerHeaderLogo(Drawable drawable, String serverName) {
-        ImageView imageHeader = mNavigationViewHeader.findViewById(R.id.drawer_header_logo);
-        imageHeader.setImageDrawable(drawable);
-        imageHeader.setAdjustViewBounds(true);
-
-        if (!TextUtils.isEmpty(serverName)) {
-            TextView serverNameView = mNavigationViewHeader.findViewById(R.id.drawer_header_server_name);
-            serverNameView.setVisibility(View.VISIBLE);
-            serverNameView.setText(serverName);
-            serverNameView.setTextColor(getServerTextColor());
-        }
-
-    }
-
-    private int getServerPrimaryColor(Account account) {
-        final var serverColor = CapabilityUtils.getCapability(account, this).getServerColor();
-        return colorUtil.getNullSafeColor(serverColor, getColor(R.color.primary));
-    }
-
-    private int getServerTextColor() {
-        final var serverTextColor = CapabilityUtils.getCapability(this).getServerTextColor();
-        final int fallbackColor = PlatformThemeUtil.isDarkMode(this) ? Color.WHITE : Color.BLACK;
-        return colorUtil.getNullSafeColor(serverTextColor, fallbackColor);
-    }
-
-    /**
-     * setup drawer content, basically setting the item selected listener.
-     *
-     * @param navigationView the drawers navigation view
-     */
-    private void setupDrawerMenu(NavigationView navigationView) {
-
-        // setup actions for drawer menu items
-        navigationView.setNavigationItemSelectedListener(
-            menuItem -> {
-                mDrawerLayout.closeDrawers();
-                // pending runnable will be executed after the drawer has been closed
-                pendingRunnable = () -> onNavigationItemClicked(menuItem);
-                return true;
-            });
-
-        User account = accountManager.getUser();
-        filterDrawerMenu(navigationView.getMenu(), account);
-    }
-
-    private void filterDrawerMenu(final Menu menu, @NonNull final User user) {
-        final var optionalCapability = getCapabilities();
-        if (optionalCapability.isPresent()) {
-            final var capability = optionalCapability.get();
-            DrawerMenuUtil.filterTrashbinMenuItem(menu, capability);
-            DrawerMenuUtil.filterActivityMenuItem(menu, capability);
-            DrawerMenuUtil.filterGroupfoldersMenuItem(menu, capability);
-            DrawerMenuUtil.filterAssistantMenuItem(menu, capability, getResources());
-        }
-
-        DrawerMenuUtil.filterSearchMenuItems(menu, user);
-        DrawerMenuUtil.setupHomeMenuItem(menu, getResources());
-        DrawerMenuUtil.removeMenuItem(menu, R.id.nav_community, !getResources().getBoolean(R.bool.participate_enabled));
-        DrawerMenuUtil.removeMenuItem(menu, R.id.nav_shared, !getResources().getBoolean(R.bool.shared_enabled));
-        DrawerMenuUtil.removeMenuItem(menu, R.id.nav_logout, !getResources().getBoolean(R.bool.show_drawer_logout));
-    }
-
-    // region navigation item click
-    private void onNavigationItemClicked(final MenuItem menuItem) {
-        int itemId = menuItem.getItemId();
-
-        if (itemId == R.id.nav_all_files || itemId == R.id.nav_personal_files) {
-            closeDrawer();
-            DrawerActivityExtensionsKt.navigateToAllFiles(this,itemId == R.id.nav_personal_files);
-            EventBus.getDefault().post(new ChangeMenuEvent());
-        } else if (itemId == R.id.nav_favorites) {
-            openFavoritesTab();
-        } else if (itemId == R.id.nav_gallery) {
-            openMediaTab(menuItem.getItemId());
-        } else if (itemId == R.id.nav_album) {
-            if (this instanceof FileDisplayActivity) {
-                replaceAlbumFragment();
-            } else {
-                // when user is not on FileDisplayActivity
-                // if user is on TrashbinActivity then we have to start activity again
-                Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.setAction(FileDisplayActivity.ALBUMS);
-                startActivity(intent);
-            }
-        } else if (itemId == R.id.nav_on_device) {
-            showOnDeviceFiles();
-        } else if (itemId == R.id.nav_uploads) {
-            resetOnlyPersonalAndOnDevice();
-            pushFragment(NavigatorScreen.UploadList.INSTANCE);
-        } else if (itemId == R.id.nav_trashbin) {
-            resetOnlyPersonalAndOnDevice();
-            pushFragment(NavigatorScreen.Trashbin.INSTANCE);
-        } else if (itemId == R.id.nav_activity) {
-            resetOnlyPersonalAndOnDevice();
-            pushFragment(NavigatorScreen.Activities.INSTANCE);
-        } else if (itemId == R.id.nav_settings) {
-            resetOnlyPersonalAndOnDevice();
-            final Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-        } else if (itemId == R.id.nav_community) {
-            resetOnlyPersonalAndOnDevice();
-            pushFragment(NavigatorScreen.Community.INSTANCE);
-        } else if (itemId == R.id.nav_logout) {
-            resetOnlyPersonalAndOnDevice();
-            MenuItem isNewMenuItemChecked = menuItem.setChecked(false);
-            Log_OC.d(TAG,"onNavigationItemClicked nav_logout setChecked " + isNewMenuItemChecked);
-            final Optional<User> optionalUser = getUser();
-            if (optionalUser.isPresent()) {
-                UserInfoActivity.openAccountRemovalDialog(optionalUser.get(), getSupportFragmentManager());
-            }
-        } else if (itemId == R.id.nav_shared) {
-            openSharedTab();
-        } else if (itemId == R.id.nav_recent_files) {
-            resetOnlyPersonalAndOnDevice();
-            startRecentlyModifiedSearch(menuItem);
-        } else if (itemId == R.id.nav_assistant) {
-            resetOnlyPersonalAndOnDevice();
-            startAssistantScreen();
-        } else if (itemId == R.id.nav_groupfolders) {
-            resetOnlyPersonalAndOnDevice();
-            Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.setAction(FileDisplayActivity.LIST_GROUPFOLDERS);
-            startActivity(intent);
-        } else {
-            if (menuItem.getGroupId() == R.id.drawer_menu_external_links) {
-                externalLinkClicked(menuItem);
-            } else {
-                Log_OC.w(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
-            }
-        }
-
-        // from navigation user always sees root level
-        resetFileDepth();
-
-        highlightNavigationViewItem(itemId);
-    }
-
-    /**
-     * If navigator activity already exists just push else start navigator activity.
-     */
-    public void pushFragment(NavigatorScreen screen) {
-        if (this instanceof NavigatorActivity navigatorActivity) {
-            navigatorActivity.push(screen);
-        } else {
-            final var intent = NavigatorActivity.Companion.intent(this, screen);
-            startActivity(intent);
-        }
-    }
-
-    @SuppressFBWarnings("RV")
-    private void handleBottomNavigationViewClicks() {
-        bottomNavigationView.setOnItemSelectedListener(menuItem -> {
-            int menuItemId = menuItem.getItemId();
-            exitSelectionMode();
-            resetOnlyPersonalAndOnDevice();
-
-            if (menuItemId == R.id.nav_all_files) {
-                DrawerActivityExtensionsKt.navigateToAllFiles(this);
-                EventBus.getDefault().post(new ChangeMenuEvent());
-            } else if (menuItemId == R.id.nav_favorites) {
-                openFavoritesTab();
-            } else if (menuItemId == R.id.nav_assistant && !(this instanceof ComposeActivity)) {
-                startAssistantScreen();
-            } else if (menuItemId == R.id.nav_gallery) {
-                openMediaTab(menuItem.getItemId());
-            } else if (menuItemId == R.id.nav_album) {
-                replaceAlbumFragment();
-            }
-
-            // Remove extra icon from the action bar
-            if (getSupportActionBar() != null) {
-                getSupportActionBar().setIcon(null);
-            }
-
-            // from navigation user always sees root level
-            resetFileDepth();
-
-            highlightNavigationViewItem(menuItemId);
-            return false;
-        });
-    }
-    // endregion
-
-    private void startAssistantScreen() {
-        final var destination = ComposeDestination.Companion.getAssistantScreen(this);
-        Intent composeActivity = new Intent(getApplicationContext(), ComposeActivity.class);
-        final Bundle bundle = new Bundle();
-        bundle.putParcelable(ComposeActivity.DESTINATION, destination);
-        composeActivity.putExtras(bundle);
-        startActivity(composeActivity);
-    }
-
-    public void showManageAccountsDialog() {
-        ChooseAccountDialogFragment choseAccountDialog = ChooseAccountDialogFragment.newInstance(accountManager.getUser());
-        choseAccountDialog.show(getSupportFragmentManager(), "fragment_chose_account");
-    }
-
-    public void openManageAccounts() {
-        Intent manageAccountsIntent = new Intent(getApplicationContext(), ManageAccountsActivity.class);
-        startActivityForResult(manageAccountsIntent, ACTION_MANAGE_ACCOUNTS);
-    }
-
-    public void openAddAccount() {
-        stopMediaPlayerAndHidePip();
-        if (MDMConfig.INSTANCE.showIntro(this)) {
-            Intent firstRunIntent = new Intent(getApplicationContext(), FirstRunActivity.class);
-            firstRunIntent.putExtra(FirstRunActivity.EXTRA_ALLOW_CLOSE, true);
-            startActivity(firstRunIntent);
-        } else {
-            startAccountCreation();
-        }
-    }
-
-    protected void stopMediaPlayerAndHidePip() {
-        playbackModel.release();
-    }
-
-    private void resetFileDepth() {
-        final var ocFileListFragment = getOCFileListFragment();
-        if (ocFileListFragment != null) {
-            ocFileListFragment.resetFileDepth();
-        }
-    }
-
-    private void openSharedTab() {
-        resetOnlyPersonalAndOnDevice();
-        SearchEvent searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER);
-        launchActivityForSearch(searchEvent, R.id.nav_shared);
-    }
-
-    private void startRecentlyModifiedSearch(MenuItem menuItem) {
-        SearchEvent searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH);
-        MainApp.showOnlyFilesOnDevice(false);
-
-        launchActivityForSearch(searchEvent, menuItem.getItemId());
-    }
-
-    public void startPhotoSearch(int id) {
-        SearchEvent searchEvent = new SearchEvent("image/%", SearchRemoteOperation.SearchType.PHOTO_SEARCH);
-        MainApp.showOnlyFilesOnDevice(false);
-
-        launchActivityForSearch(searchEvent, id);
-    }
-
-    private void launchActivityForSearch(SearchEvent searchEvent, int menuItemId) {
-        Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setAction(Intent.ACTION_SEARCH);
-        intent.putExtra(OCFileListFragment.SEARCH_EVENT, searchEvent);
-        startActivity(intent);
-    }
-
-    public EcosystemManager getEcosystemManager() {
-        return ecosystemManager;
-    }
-
-    /**
-     * sets the new/current account and restarts. In case the given account equals the actual/current account the call
-     * will be ignored.
-     *
-     * @param user to be set
-     */
-    public void accountClicked(User user) {
-        final User currentUser = accountManager.getUser();
-        if (!currentUser.nameEquals(user) && accountManager.setCurrentOwnCloudAccount(user)) {
-            fetchExternalLinks(true);
-            restart();
-        }
-    }
-
-    private void externalLinkClicked(MenuItem menuItem) {
-        int linkId = menuItem.getItemId() - MENU_ITEM_EXTERNAL_LINK;
-
-        externalLinksProvider.getExternalLink(ExternalLinkType.LINK, externalLinks -> {
-            ExternalLink link = externalLinks.stream()
-                .filter(candidate -> candidate.getId() == linkId)
-                .findFirst()
-                .orElse(null);
-
-            if (link == null) {
-                Log_OC.w(TAG, "No external link found for menu item: " + menuItem.getTitle());
-            } else {
-                openExternalLink(link);
-            }
-            return Unit.INSTANCE;
-        });
-    }
-
-    private void openExternalLink(ExternalLink link) {
-        if (link.getRedirect()) {
-            IntentUtil.startLinkIntent(this, link.getUrl());
-            return;
-        }
-
-        Intent intent = new Intent(getApplicationContext(), ExternalSiteWebView.class)
-            .putExtra(ExternalSiteWebView.EXTRA_TITLE, link.getName())
-            .putExtra(ExternalSiteWebView.EXTRA_URL, link.getUrl())
-            .putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
-        startActivity(intent);
-    }
-
-    /**
-     * checks if the drawer exists and is opened.
-     *
-     * @return <code>true</code> if the drawer is open, else <code>false</code>
-     */
-    public boolean isDrawerOpen() {
-        return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(GravityCompat.START);
-    }
-
-    public void toggleDrawer() {
-        if (isDrawerOpen()) {
-            closeDrawer();
-        } else {
-            openDrawer();
-        }
-    }
-
-    /**
-     * closes the drawer.
-     */
-    public void closeDrawer() {
-        if (mDrawerLayout != null) {
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-        }
-    }
-
-    /**
-     * opens the drawer.
-     */
-    public void openDrawer() {
-        if (mDrawerLayout != null) {
-            mDrawerLayout.openDrawer(GravityCompat.START);
-            updateExternalLinksInDrawer();
-            updateQuotaLink();
-        }
-    }
-
-    /**
-     * Enable or disable interaction with all drawers.
-     *
-     * @param lockMode The new lock mode for the given drawer. One of {@link DrawerLayout#LOCK_MODE_UNLOCKED},
-     *                 {@link DrawerLayout#LOCK_MODE_LOCKED_CLOSED} or {@link DrawerLayout#LOCK_MODE_LOCKED_OPEN}.
-     */
-    public void setDrawerLockMode(int lockMode) {
-        if (mDrawerLayout != null) {
-            mDrawerLayout.setDrawerLockMode(lockMode);
-        }
-    }
-
-    /**
-     * Enable or disable the drawer indicator.
-     *
-     * @param enable true to enable, false to disable
-     */
-    public void setDrawerIndicatorEnabled(boolean enable) {
-        if (mDrawerToggle != null) {
-            mDrawerToggle.setDrawerIndicatorEnabled(enable);
-        }
-    }
-
-    /**
-     * Updates title bar and home buttons (state and icon). Assumes that navigation drawer is NOT visible.
-     */
-    protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
-        super.updateActionBarTitleAndHomeButton(chosenFile);
-
-        // set home button properties
-        if (mDrawerToggle != null) {
-            mDrawerToggle.setDrawerIndicatorEnabled(chosenFile != null && isRoot(chosenFile));
-        }
-    }
-
-    /**
-     * shows or hides the quota UI elements.
-     *
-     * @param showQuota show/hide quota information
-     */
-    private void showQuota(boolean showQuota) {
-        if (showQuota) {
-            mQuotaView.setVisibility(View.VISIBLE);
-        } else {
-            mQuotaView.setVisibility(View.GONE);
-        }
-    }
-
-    /**
-     * configured the quota to be displayed.
-     *
-     * @param usedSpace  the used space
-     * @param totalSpace the total space
-     * @param relative   the percentage of space already used
-     * @param quotaValue {@link GetUserInfoRemoteOperation#SPACE_UNLIMITED} or other to determinate state
-     */
-    private void setQuotaInformation(long usedSpace, long totalSpace, int relative, long quotaValue) {
-        if (GetUserInfoRemoteOperation.SPACE_UNLIMITED == quotaValue) {
-            mQuotaTextPercentage.setText(String.format(
-                getString(R.string.drawer_quota_unlimited),
-                HumanReadableFormatter.formatBytes(usedSpace)));
-        } else {
-            mQuotaTextPercentage.setText(String.format(
-                getString(R.string.drawer_quota),
-                HumanReadableFormatter.formatBytes(usedSpace),
-                HumanReadableFormatter.formatBytes(totalSpace)));
-        }
-
-        mQuotaProgressBar.setProgress(relative);
-
-        if (relative < RELATIVE_THRESHOLD_WARNING) {
-            viewThemeUtils.material.colorProgressBar(mQuotaProgressBar, ColorRole.PRIMARY);
-        } else {
-            viewThemeUtils.material.colorProgressBar(
-                mQuotaProgressBar,
-                getResources().getColor(R.color.infolevel_warning, null)
-                                                    );
-        }
-
-        updateQuotaLink();
-        showQuota(true);
-    }
-
-    private void updateQuotaLink() {
-        if (mQuotaTextLink == null) {
-            return;
-        }
-
-        if (!MDMConfig.INSTANCE.externalSiteSupport(this)) {
-            mQuotaTextLink.setVisibility(View.GONE);
-            return;
-        }
-
-        externalLinksProvider.getExternalLink(ExternalLinkType.QUOTA, quotas -> {
-            float density = getResources().getDisplayMetrics().density;
-            final int size = Math.round(24 * density);
-            if (quotas.isEmpty()) {
-                mQuotaTextLink.setVisibility(View.GONE);
-                return Unit.INSTANCE;
-            }
-
-            final ExternalLink firstQuota = quotas.get(0);
-            mQuotaTextLink.setText(firstQuota.getName());
-            mQuotaTextLink.setClickable(true);
-            mQuotaTextLink.setVisibility(View.VISIBLE);
-            mQuotaTextLink.setOnClickListener(v -> {
-                Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
-                externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, firstQuota.getName());
-                externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, firstQuota.getUrl());
-                externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
-                startActivity(externalWebViewIntent);
-            });
-
-            Target<Drawable> quotaTarget = createQuotaDrawableTarget(size, mQuotaTextLink);
-            GlideHelper.INSTANCE.loadIntoTarget(DrawerActivity.this,
-                                                accountManager.getCurrentOwnCloudAccount(),
-                                                firstQuota.getIconUrl(),
-                                                quotaTarget,
-                                                R.drawable.ic_link);
-            return Unit.INSTANCE;
-        });
-    }
-
-    private Target<Drawable> createQuotaDrawableTarget(int size, TextView quotaTextLink) {
-        return new CustomTarget<>() {
-            @Override
-            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                Drawable drawable = resource.getCurrent();
-                drawable.setBounds(0, 0, size, size);
-                quotaTextLink.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
-            }
-
-            @Override
-            public void onLoadCleared(@Nullable Drawable placeholder) {
-
-            }
-
-            @Override
-            public void onLoadFailed(@Nullable Drawable errorDrawable) {
-                super.onLoadFailed(errorDrawable);
-
-                Drawable drawable = errorDrawable != null ? errorDrawable.getCurrent() : null;
-                if (drawable != null) {
-                    drawable.setBounds(0, 0, size, size);
-                    quotaTextLink.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
-                }
-            }
-        };
-    }
-
-
-    /**
-     * Retrieves and shows the user quota if available
-     */
-    private void getAndDisplayUserQuota() {
-        // set user space information
-        Thread t = new Thread(() -> {
-            final User user = accountManager.getUser();
-
-            if (user.isAnonymous()) {
-                return;
-            }
-
-            final Context context = MainApp.getAppContext();
-            NextcloudClient nextcloudClient = null;
-            try {
-                nextcloudClient = OwnCloudClientManagerFactory
-                    .getDefaultSingleton()
-                    .getNextcloudClientFor(user.toOwnCloudAccount(),
-                                           context);
-            } catch (OperationCanceledException | AuthenticatorException | IOException e) {
-                Log_OC.e(this, "Error retrieving user quota", e);
-            }
-
-            if (nextcloudClient == null) {
-                return;
-            }
-
-            RemoteOperationResult<UserInfo> result = new GetUserInfoRemoteOperation().execute(nextcloudClient);
-
-            if (result.isSuccess() && result.getResultData() != null) {
-                final UserInfo userInfo = result.getResultData();
-                final Quota quota = userInfo.getQuota();
-
-                if (quota != null) {
-                    final long used = quota.getUsed();
-                    final long total = quota.getTotal();
-                    final int relative = (int) Math.ceil(quota.getRelative());
-                    final long quotaValue = quota.getQuota();
-
-                    runOnUiThread(() -> {
-                        if (quotaValue > 0 || quotaValue == GetUserInfoRemoteOperation.SPACE_UNLIMITED
-                            || quotaValue == GetUserInfoRemoteOperation.QUOTA_LIMIT_INFO_NOT_AVAILABLE) {
-                            /*
-                             * show quota in case
-                             * it is available and calculated (> 0) or
-                             * in case of legacy servers (==QUOTA_LIMIT_INFO_NOT_AVAILABLE)
-                             */
-                            setQuotaInformation(used, total, relative, quotaValue);
-                        } else {
-                            /*
-                             * quotaValue < 0 means special cases like
-                             * {@link RemoteGetUserQuotaOperation.SPACE_NOT_COMPUTED},
-                             * {@link RemoteGetUserQuotaOperation.SPACE_UNKNOWN} or
-                             * {@link RemoteGetUserQuotaOperation.SPACE_UNLIMITED}
-                             * thus don't display any quota information.
-                             */
-                            showQuota(false);
-                        }
-                    });
-                }
-            }
-        });
-
-        t.start();
-    }
-
-    private void updateExternalLinksInDrawer() {
-        if (drawerNavigationView == null || !MDMConfig.INSTANCE.externalSiteSupport(this)) {
-            return;
-        }
-
-        drawerNavigationView.getMenu().removeGroup(R.id.drawer_menu_external_links);
-
-        int greyColor = ContextCompat.getColor(this, R.color.drawer_menu_icon);
-        externalLinksProvider.getExternalLink(ExternalLinkType.LINK, externalLinks -> {
-            for (final ExternalLink link : externalLinks) {
-                int id = drawerNavigationView
-                    .getMenu()
-                    .add(R.id.drawer_menu_external_links,
-                         MENU_ITEM_EXTERNAL_LINK +
-                             link.getId(),
-                         MENU_ORDER_EXTERNAL_LINKS,
-                         link.getName()
-                        )
-                    .setCheckable(true)
-                    .getItemId();
-
-                Target<Drawable> iconTarget = createMenuItemTarget(id, greyColor);
-                GlideHelper.INSTANCE.loadIntoTarget(DrawerActivity.this,
-                                                    accountManager.getCurrentOwnCloudAccount(),
-                                                    link.getIconUrl(),
-                                                    iconTarget,
-                                                    R.drawable.ic_link);
-            }
-            return Unit.INSTANCE;
-        });
-    }
-
-    private Target<Drawable> createMenuItemTarget(int menuItemId, int tintColor) {
-        return new CustomTarget<>() {
-            @Override
-            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                setExternalLinkIcon(menuItemId, resource, tintColor);
-            }
-
-            @Override
-            public void onLoadFailed(@Nullable Drawable errorDrawable) {
-                setExternalLinkIcon(menuItemId, errorDrawable, tintColor);
-            }
-
-            @Override
-            public void onLoadCleared(@Nullable Drawable placeholder) {
-
-            }
-        };
-    }
-
-    private void setExternalLinkIcon(int id, Drawable drawable, int greyColor) {
-        MenuItem menuItem = drawerNavigationView.getMenu().findItem(id);
-        if (menuItem == null) {
-            return;
-        }
-
-        if (drawable == null) {
-            menuItem.setIcon(R.drawable.ic_link);
-            return;
-        }
-
-        final var resizedDrawable = DrawableUtil.INSTANCE.getResizedDrawable(this, drawable,32);
-        menuItem.setIcon(viewThemeUtils.platform.colorDrawable(resizedDrawable, greyColor));
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (savedInstanceState != null) {
-            mIsAccountChooserActive = savedInstanceState.getBoolean(KEY_IS_ACCOUNT_CHOOSER_ACTIVE, false);
-        }
-
-        externalLinksProvider = new ExternalLinksProvider(getContentResolver());
-        arbitraryDataProvider = new ArbitraryDataProviderImpl(this);
-        ecosystemManager = new EcosystemManager(this);
-    }
-
-    @Override
-    protected void onDestroy() {
-        externalLinksProvider.cleanup();
-        super.onDestroy();
-    }
-
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putBoolean(KEY_IS_ACCOUNT_CHOOSER_ACTIVE, mIsAccountChooserActive);
-    }
-
-    @Override
-    public void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        mIsAccountChooserActive = savedInstanceState.getBoolean(KEY_IS_ACCOUNT_CHOOSER_ACTIVE, false);
-        highlightNavigationViewItem(getSelectedMenuItemId());
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
-        if (mDrawerToggle != null) {
-            mDrawerToggle.syncState();
-            if (isDrawerOpen()) {
-                mDrawerToggle.setDrawerIndicatorEnabled(true);
-            }
-        }
-        updateExternalLinksInDrawer();
-        updateQuotaLink();
-    }
-
-    @Override
-    public void onConfigurationChanged(@NonNull Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        if (mDrawerToggle != null) {
-            mDrawerToggle.onConfigurationChanged(newConfig);
-        }
-    }
-
-    public void addOnBackPressedCallback() {
-        getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                if (isDrawerOpen()) {
-                    closeDrawer();
-                    return;
-                }
-
-                final var fragment = getSupportFragmentManager().findFragmentByTag(FileDetailsSharingProcessFragment.TAG);
-                if (fragment instanceof FileDetailsSharingProcessFragment fileDetailsSharingProcessFragment) {
-                    fileDetailsSharingProcessFragment.onBackPressed();
-                } else {
-                    setEnabled(false);
-                    getOnBackPressedDispatcher().onBackPressed();
-                }
-            }
-        });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // update Account list and active account if Manage Account activity replies with
-        // - ACCOUNT_LIST_CHANGED = true
-        // - RESULT_OK
-        if (requestCode == ACTION_MANAGE_ACCOUNTS && resultCode == RESULT_OK
-            && data.getBooleanExtra(ManageAccountsActivity.KEY_ACCOUNT_LIST_CHANGED, false)) {
-
-            // current account has changed
-            if (data.getBooleanExtra(ManageAccountsActivity.KEY_CURRENT_ACCOUNT_CHANGED, false)) {
-                setAccount(accountManager.getCurrentAccount(), false);
-                restart();
-            }
-        } else if (requestCode == PassCodeManager.PASSCODE_ACTIVITY && data != null) {
-            int result = data.getIntExtra(RequestCredentialsActivity.KEY_CHECK_RESULT,
-                                          RequestCredentialsActivity.KEY_CHECK_RESULT_FALSE);
-
-            if (result == RequestCredentialsActivity.KEY_CHECK_RESULT_CANCEL) {
-                Log_OC.d(TAG, "PassCodeManager cancelled");
-                preferences.setLockTimestamp(0);
-                finish();
-            }
-        } else if (requestCode == REQ_ALL_FILES_ACCESS || requestCode == REQ_MEDIA_ACCESS) {
-            checkStoragePermissionWarningBannerVisibility();
-        }
-    }
-
-    /**
-     * Quota view can be either at navigation bottom or header
-     *
-     * @param id the view's id
-     * @return The view if found or <code>null</code> otherwise.
-     */
-    private View findQuotaViewById(int id) {
-        View v = ((NavigationView) findViewById(R.id.nav_view)).getHeaderView(0).findViewById(id);
-
-        if (v != null) {
-            return v;
-        } else {
-            return findViewById(id);
-        }
-    }
-
-    /**
-     * restart helper method which is called after a changing the current account.
-     */
-    private void restart() {
-        Intent i = new Intent(this, FileDisplayActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        i.setAction(FileDisplayActivity.RESTART);
-        startActivity(i);
-
-        fetchExternalLinks(false);
-    }
-
-    private void resetOnlyPersonalAndOnDevice() {
-        MainApp.showOnlyFilesOnDevice(false);
-        MainApp.showOnlyPersonalFiles(false);
-    }
-
-    /**
-     * show the file list to the user.
-     *
-     * @param onDeviceOnly flag to decide if all files or only the ones on the device should be shown
-     */
-    public void showFiles(boolean onDeviceOnly, boolean onlyPersonalFiles) {
-        MainApp.showOnlyFilesOnDevice(onDeviceOnly);
-        MainApp.showOnlyPersonalFiles(onlyPersonalFiles);
-
-        Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setAction(FileDisplayActivity.ALL_FILES);
-        startActivity(intent);
-    }
-
-    private void showOnDeviceFiles() {
-        MainApp.showOnlyFilesOnDevice(true);
-        MainApp.showOnlyPersonalFiles(false);
-
-        Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setAction(FileDisplayActivity.ON_DEVICE);
-        startActivity(intent);
-    }
-
-    @Override
-    public void avatarGenerated(Drawable avatarDrawable, Object callContext) {
-        if (callContext instanceof MenuItem menuItem) {
-            MenuItem newIcon = menuItem.setIcon(avatarDrawable);
-            Log_OC.d(TAG,"avatarGenerated new icon: " + newIcon);
-        } else if (callContext instanceof ImageView imageView) {
-            imageView.setImageDrawable(avatarDrawable);
-        } else if (callContext instanceof MaterialButton materialButton) {
-            materialButton.setIcon(avatarDrawable);
-        }
-    }
-
-    @Override
-    public boolean shouldCallGeneratedCallback(String tag, Object callContext) {
-        if (callContext instanceof MenuItem menuItem) {
-            return String.valueOf(menuItem.getTitle()).equals(tag);
-        } else if (callContext instanceof ImageView imageView) {
-            return String.valueOf(imageView.getTag()).equals(tag);
-        } else if (callContext instanceof MaterialButton materialButton) {
-            return String.valueOf(materialButton.getTag()).equals(tag);
-        }
-        return false;
-    }
-
-    /**
-     * Adds other listeners to react on changes of the drawer layout.
-     *
-     * @param listener Object interested in changes of the drawer layout.
-     */
-    public void addDrawerListener(DrawerLayout.DrawerListener listener) {
-        if (mDrawerLayout != null) {
-            mDrawerLayout.addDrawerListener(listener);
-        } else {
-            Log_OC.e(TAG, "Drawer layout not ready to add drawer listener");
-        }
-    }
-
-    public boolean isDrawerIndicatorAvailable() {
-        return true;
-    }
-
-    public AppPreferences getAppPreferences() {
-        return preferences;
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    protected void onStop() {
-        if (preferences.getLockTimestamp() != 0) {
-            preferences.setLockTimestamp(SystemClock.elapsedRealtime());
-        }
-        EventBus.getDefault().unregister(this);
-        super.onStop();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onAccountRemovedEvent(AccountRemovedEvent event) {
-        restart();
+    open fun onAccountRemovedEvent(event: AccountRemovedEvent) {
+        restart()
+    }
+    // endregion
+
+    // region Drawer setup
+    protected fun setupDrawer(id: Int) {
+        drawerLayout = drawerLayout ?: findViewById(R.id.drawer_layout)
+        drawerNavigationView = drawerNavigationView ?: findViewById(R.id.nav_view)
+        drawerNavigationView?.let { setupDrawerNavigationView(it, id) }
+
+        setupDrawerToggle()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        bottomNavigationView = bottomNavigationView ?: findViewById(R.id.bottom_navigation)
+        bottomNavigationView?.let { setupBottomNavigationView(it, id) }
     }
 
-    /**
-     * Retrieves external links via api from 'external' app
-     */
-    public void fetchExternalLinks(final boolean force) {
-        if (!MDMConfig.INSTANCE.externalSiteSupport(this)) {
-            return;
+    private fun setupDrawerNavigationView(navigationView: NavigationView, id: Int) {
+        viewThemeUtils.files.colorNavigationView(navigationView)
+        navigationViewHeader = navigationView.getHeaderView(0)
+        updateHeader()
+        setupDrawerMenu(navigationView)
+        fetchAndDisplayUserQuota()
+        setupQuotaElement(navigationView)
+        highlightNavigationViewItem(id)
+    }
+
+    private fun setupBottomNavigationView(bottomNavigation: BottomNavigationView, id: Int) {
+        viewThemeUtils.platform.colorBottomNavigationView(bottomNavigation)
+        showAssistantInBottomNavigation(bottomNavigation)
+        bottomNavigation.setOnItemSelectedListener(::onBottomNavigationItemSelected)
+        highlightNavigationViewItem(id)
+    }
+
+    @SuppressFBWarnings("RV")
+    private fun showAssistantInBottomNavigation(bottomNavigation: BottomNavigationView) {
+        bottomNavigation.menu.findItem(R.id.nav_assistant)?.isVisible = isAssistantAvailable
+    }
+
+    private fun setupDrawerToggle() {
+        val drawerLayout = drawerLayout ?: return
+        val toggle = object : ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close) {
+            override fun onDrawerClosed(drawerView: View) {
+                super.onDrawerClosed(drawerView)
+                runPendingNavigation()
+                closeDrawer()
+            }
+        }
+        mDrawerToggle = toggle
+
+        drawerLayout.addDrawerListener(toggle)
+        toggle.isDrawerIndicatorEnabled = true
+        toggle.isDrawerSlideAnimationEnabled = true
+        ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_back, null)?.let { backArrow ->
+            viewThemeUtils.platform.tintToolbarArrowDrawable(this, toggle, backArrow)
+        }
+    }
+
+    private fun runPendingNavigation() {
+        val runnable = pendingRunnable ?: return
+        Handler(Looper.getMainLooper()).post(runnable)
+        pendingRunnable = null
+    }
+
+    private fun setupDrawerMenu(navigationView: NavigationView) {
+        navigationView.setNavigationItemSelectedListener { menuItem ->
+            drawerLayout?.closeDrawers()
+            pendingRunnable = Runnable { onNavigationItemClicked(menuItem) }
+            true
+        }
+        filterDrawerMenu(navigationView.menu, accountManager.user)
+    }
+
+    private fun filterDrawerMenu(menu: Menu, user: User) {
+        capabilities.getOrNull()?.let { capability ->
+            DrawerMenuUtil.filterTrashbinMenuItem(menu, capability)
+            DrawerMenuUtil.filterActivityMenuItem(menu, capability)
+            DrawerMenuUtil.filterGroupfoldersMenuItem(menu, capability)
+            DrawerMenuUtil.filterAssistantMenuItem(menu, capability, resources)
         }
 
-        User user = accountManager.getUser();
-        if (user.isAnonymous()) {
-            Log_OC.d(TAG, "Trying to execute a sync operation with a storage manager for an anonymous account");
-            return;
+        DrawerMenuUtil.filterSearchMenuItems(menu, user)
+        DrawerMenuUtil.setupHomeMenuItem(menu, resources)
+        DrawerMenuUtil.removeMenuItem(menu, R.id.nav_community, !resources.getBoolean(R.bool.participate_enabled))
+        DrawerMenuUtil.removeMenuItem(menu, R.id.nav_shared, !resources.getBoolean(R.bool.shared_enabled))
+        DrawerMenuUtil.removeMenuItem(menu, R.id.nav_logout, !resources.getBoolean(R.bool.show_drawer_logout))
+    }
+    // endregion
+
+    // region Drawer header
+    fun updateHeader() {
+        val header = navigationViewHeader ?: return
+        val isClientBranded = resources.getBoolean(R.bool.is_branded_client)
+        if (!isClientBranded) {
+            showServerBranding(header)
         }
 
-        Thread t = new Thread(() -> {
-            // fetch capabilities as early as possible
-            final var optionalCapability = getCapabilities();
-            if (optionalCapability.isPresent()) {
-                final var capability = optionalCapability.get();
-                if ((capability.getAccountName() == null || !capability.getAccountName().isEmpty()) && getStorageManager() != null) {
-                    GetCapabilitiesOperation getCapabilities = new GetCapabilitiesOperation(getStorageManager());
-                    getCapabilities.execute(getBaseContext());
-                }
+        val banner = header.findViewById<ConstraintLayout>(R.id.drawer_ecosystem_apps)
+        if (isClientBranded || !preferences.isShowEcosystemApps) {
+            banner.visibility = View.GONE
+        } else {
+            showTopBanner(banner)
+        }
+    }
+
+    private fun showServerBranding(header: View) {
+        val account = account ?: return
+        val capability = capabilities.getOrNull() ?: return
+        if (capability.serverBackground == null) return
+
+        val primaryColor = getServerPrimaryColor(account)
+        header.findViewById<LinearLayout>(R.id.drawer_header_view).setBackgroundColor(primaryColor)
+
+        val serverLogoURL = capability.serverLogo
+        if (serverLogoURL.isNullOrEmpty() || !URLUtil.isValidUrl(serverLogoURL)) return
+
+        GlideHelper.loadIntoTarget(
+            this,
+            accountManager.currentOwnCloudAccount,
+            serverLogoURL,
+            createServerLogoTarget(primaryColor, capability),
+            R.drawable.background
+        )
+    }
+
+    private fun createServerLogoTarget(primaryColor: Int, capability: OCCapability): Target<Drawable> =
+        object : CustomTarget<Drawable>() {
+            override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                val bitmap = resource.toServerLogoBitmap() ?: return
+                val layers = arrayOf(primaryColor.toDrawable(), bitmap.scaledToLogoSize().toDrawable(resources))
+                setDrawerHeaderLogo(LayerDrawable(layers), capability.serverName)
             }
 
-            if (getStorageManager() != null && CapabilityUtils.getCapability(user, this)
-                .getExternalLinks().isTrue()) {
+            override fun onLoadCleared(placeholder: Drawable?) = Unit
+        }
 
-                int count = arbitraryDataProvider.getIntegerValue(FilesSyncHelper.GLOBAL,
-                                                                  FileActivity.APP_OPENED_COUNT);
+    private fun Drawable.toServerLogoBitmap(): Bitmap? = when (this) {
+        is PictureDrawable -> createBitmap(intrinsicWidth, intrinsicHeight).also { Canvas(it).drawPicture(picture) }
 
-                if (count > 10 || count == -1 || force) {
-                    if (force) {
-                        Log_OC.d("ExternalLinks", "force update");
-                    }
+        is BitmapDrawable -> bitmap
 
-                    arbitraryDataProvider.storeOrUpdateKeyValue(FilesSyncHelper.GLOBAL,
-                                                                FileActivity.APP_OPENED_COUNT, "0");
+        else -> {
+            Log_OC.e(TAG, "Unsupported drawable type: " + javaClass.name)
+            null
+        }
+    }
 
-                    Log_OC.d("ExternalLinks", "update via api");
-                    RemoteOperation getExternalLinksOperation = new ExternalLinksOperation();
-                    RemoteOperationResult result = getExternalLinksOperation.execute(user, this);
+    private fun Bitmap.scaledToLogoSize(): Bitmap {
+        val maxDimension = max(width, height)
+        if (maxDimension <= MAX_LOGO_SIZE_PX) return this
+        return BitmapUtils.scaleBitmap(this, MAX_LOGO_SIZE_PX.toFloat(), width, height, maxDimension)
+    }
 
-                    if (result.isSuccess() && result.getData() != null) {
-                        externalLinksProvider.deleteAllExternalLinks();
+    private fun setDrawerHeaderLogo(drawable: Drawable, serverName: String?) {
+        val header = navigationViewHeader ?: return
+        header.findViewById<ImageView>(R.id.drawer_header_logo).run {
+            setImageDrawable(drawable)
+            adjustViewBounds = true
+        }
 
-                        ArrayList<ExternalLink> externalLinks = (ArrayList<ExternalLink>) (Object) result.getData();
+        if (serverName.isNullOrEmpty()) return
+        header.findViewById<TextView>(R.id.drawer_header_server_name).run {
+            visibility = View.VISIBLE
+            text = serverName
+            setTextColor(serverTextColor)
+        }
+    }
 
-                        for (ExternalLink link : externalLinks) {
-                            externalLinksProvider.storeExternalLink(link);
-                        }
-                    }
-                } else {
-                    arbitraryDataProvider.storeOrUpdateKeyValue(FilesSyncHelper.GLOBAL,
-                                                                FileActivity.APP_OPENED_COUNT, String.valueOf(count + 1));
-                }
-            } else {
-                externalLinksProvider.deleteAllExternalLinks();
-                Log_OC.d("ExternalLinks", "links disabled");
+    private fun showTopBanner(banner: ConstraintLayout) {
+        val notesView = banner.findViewById<LinearLayout>(R.id.drawer_ecosystem_notes)
+        val talkView = banner.findViewById<LinearLayout>(R.id.drawer_ecosystem_talk)
+        val moreView = banner.findViewById<LinearLayout>(R.id.drawer_ecosystem_more)
+        val assistantView = banner.findViewById<LinearLayout>(R.id.drawer_ecosystem_assistant)
+
+        user.getOrNull()?.accountName?.let { accountName ->
+            notesView.setOnClickListener { ecosystemManager.openApp(EcosystemApp.NOTES, accountName) }
+            talkView.setOnClickListener { ecosystemManager.openApp(EcosystemApp.TALK, accountName) }
+        }
+        moreView.setOnClickListener { LinkHelper.openAppStore(ECOSYSTEM_APP_STORE_QUERY, true, this) }
+        assistantView.setOnClickListener { startAssistantScreen() }
+        assistantView.isVisible = isAssistantAvailable
+
+        val iconColor = ecosystemIconColor
+        listOf(notesView, talkView, moreView, assistantView).forEach { tintEcosystemAppView(it, iconColor) }
+
+        banner.visibility = View.VISIBLE
+    }
+
+    private fun tintEcosystemAppView(appView: LinearLayout, color: Int) {
+        val imageView = appView.getChildAt(0) as ImageView
+        imageView.imageTintList = ColorStateList.valueOf(color)
+        (imageView.background as GradientDrawable).setStroke(ScreenMetrics.dpToPx(1f, this), color)
+        (appView.getChildAt(1) as TextView).setTextColor(color)
+    }
+
+    private fun getServerPrimaryColor(account: Account): Int {
+        val serverColor = CapabilityUtils.getCapability(account, this).serverColor
+        return colorUtil.getNullSafeColor(serverColor, getColor(R.color.primary))
+    }
+    // endregion
+
+    // region Navigation item click
+    private fun onNavigationItemClicked(menuItem: MenuItem) {
+        val itemId = menuItem.itemId
+        when (itemId) {
+            R.id.nav_all_files, R.id.nav_personal_files -> openAllFiles(itemId == R.id.nav_personal_files)
+            R.id.nav_favorites -> openFavoritesTab()
+            R.id.nav_gallery -> openMediaTab()
+            R.id.nav_album -> openAlbums()
+            R.id.nav_on_device -> showOnDeviceFiles()
+            in navigatorScreensByMenuItemId -> openNavigatorScreen(itemId)
+            R.id.nav_settings -> openSettings()
+            R.id.nav_logout -> openAccountRemovalDialog(menuItem)
+            R.id.nav_shared -> openSharedTab()
+            R.id.nav_recent_files -> openRecentFiles()
+            R.id.nav_assistant -> openAssistant()
+            R.id.nav_groupfolders -> openGroupfolders()
+            else -> onOtherNavigationItemClicked(menuItem)
+        }
+
+        resetFileDepth()
+        highlightNavigationViewItem(itemId)
+    }
+
+    @SuppressFBWarnings("RV")
+    private fun onBottomNavigationItemSelected(menuItem: MenuItem): Boolean {
+        val itemId = menuItem.itemId
+        exitSelectionMode()
+        resetOnlyPersonalAndOnDevice()
+
+        when (itemId) {
+            R.id.nav_all_files -> {
+                navigateToAllFiles()
+                EventBus.getDefault().post(ChangeMenuEvent())
             }
-            runOnUiThread(this::updateExternalLinksInDrawer);
-        });
-        t.start();
-    }
 
-    protected void handleDeepLink(@NonNull Uri uri) {
-        String path = uri.getLastPathSegment();
-        if (path == null) return;
+            R.id.nav_favorites -> openFavoritesTab()
 
-        DeepLinkConstants deepLinkType = DeepLinkConstants.Companion.fromPath(path);
-        if (deepLinkType == null) {
-            SnackbarUtil.show(this, getString(R.string.invalid_url));
-            return;
+            R.id.nav_assistant -> if (this !is ComposeActivity) startAssistantScreen()
+
+            R.id.nav_gallery -> openMediaTab()
+
+            R.id.nav_album -> replaceAlbumFragment()
         }
 
-        switch (deepLinkType) {
-            case OPEN_AUTO_UPLOAD:
-                pushFragment(NavigatorScreen.AutoUpload.INSTANCE);
-                break;
-            case OPEN_EXTERNAL_URL:
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri.getQueryParameter("url")));
-                startActivity(intent);
-                break;
-            case ACTION_CREATE_NEW:
-                findViewById(R.id.fab_main).callOnClick();
-                break;
-            case ACTION_APP_UPDATE:
-                LinkHelper.INSTANCE.openAppStore(getPackageName(), false, this);
-                break;
-            case OPEN_NOTIFICATIONS:
-                pushFragment(NavigatorScreen.Notifications.INSTANCE);
-                break;
-            default:
-                handleNavItemClickEvent(deepLinkType.getNavId());
-                break;
-        }
+        supportActionBar?.setIcon(null)
+        resetFileDepth()
+        highlightNavigationViewItem(itemId)
+        return false
     }
 
-    private void handleNavItemClickEvent(@IdRes int menuItemId) {
-        Menu navMenu = drawerNavigationView.getMenu();
-        onNavigationItemClicked(navMenu.findItem(menuItemId));
+    private fun openAllFiles(onlyPersonal: Boolean) {
+        closeDrawer()
+        navigateToAllFiles(onlyPersonal)
+        EventBus.getDefault().post(ChangeMenuEvent())
     }
 
-    public void showBottomNavigationBar(boolean show) {
-        ViewExtensionsKt.setVisibleIf(bottomNavigationView, show);
+    private fun openFavoritesTab() {
+        resetOnlyPersonalAndOnDevice()
+        showActionBar(ActionBarStyle.Plain)
+        launchActivityForSearch(SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH))
     }
 
-    public BottomNavigationView getBottomNavigationView() {
-       return bottomNavigationView;
+    private fun openMediaTab() {
+        GalleryFragment.clearSavedViewState()
+        resetOnlyPersonalAndOnDevice()
+        showActionBar(ActionBarStyle.Plain)
+        startPhotoSearch()
     }
 
-    private void checkStoragePermissionWarningBannerVisibility() {
-        if (this instanceof UploadFilesActivity uploadFilesActivity) {
-            uploadFilesActivity.setupStoragePermissionWarningBanner();
+    private fun openAlbums() {
+        if (this is FileDisplayActivity) {
+            replaceAlbumFragment()
+        } else {
+            startActivity(fileDisplayActivityIntent(FileDisplayActivity.ALBUMS))
         }
     }
 
-    private int getSelectedMenuItemId() {
-        if (drawerNavigationView == null) {
-            return R.id.nav_all_files;
+    private fun openNavigatorScreen(itemId: Int) {
+        val screen = navigatorScreensByMenuItemId[itemId] ?: return
+        resetOnlyPersonalAndOnDevice()
+        pushFragment(screen)
+    }
+
+    private fun openSettings() {
+        resetOnlyPersonalAndOnDevice()
+        startActivity(Intent(this, SettingsActivity::class.java))
+    }
+
+    private fun openAccountRemovalDialog(menuItem: MenuItem) {
+        resetOnlyPersonalAndOnDevice()
+        val uncheckedMenuItem = menuItem.setChecked(false)
+        Log_OC.d(TAG, "onNavigationItemClicked nav_logout setChecked $uncheckedMenuItem")
+        user.getOrNull()?.let { UserInfoActivity.openAccountRemovalDialog(it, supportFragmentManager) }
+    }
+
+    private fun openSharedTab() {
+        resetOnlyPersonalAndOnDevice()
+        launchActivityForSearch(SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER))
+    }
+
+    private fun openRecentFiles() {
+        resetOnlyPersonalAndOnDevice()
+        launchActivityForSearch(SearchEvent("", SearchRemoteOperation.SearchType.RECENTLY_MODIFIED_SEARCH))
+    }
+
+    private fun openAssistant() {
+        resetOnlyPersonalAndOnDevice()
+        startAssistantScreen()
+    }
+
+    private fun openGroupfolders() {
+        resetOnlyPersonalAndOnDevice()
+        startActivity(fileDisplayActivityIntent(FileDisplayActivity.LIST_GROUPFOLDERS))
+    }
+
+    private fun onOtherNavigationItemClicked(menuItem: MenuItem) {
+        if (menuItem.groupId == R.id.drawer_menu_external_links) {
+            externalLinkClicked(menuItem)
+            return
         }
+        Log_OC.w(TAG, "Unknown drawer menu item clicked: " + menuItem.title)
+    }
+    // endregion
 
-        return NavigationViewExtensionsKt.getSelectedMenuItemId(drawerNavigationView);
+    // region Navigation
+    fun highlightNavigationViewItem(menuItemId: Int) {
+        highlightNavigationView(drawerNavigationView, bottomNavigationView, menuItemId)
+        SystemBarBackgroundCallbacks.apply(this, viewThemeUtils)
+        Log_OC.d(TAG, "New menu item is: $menuItemId")
     }
 
-    public boolean isToolbarStyleSearch() {
-        int menuItemId = getSelectedMenuItemId();
-
-        return menuItemId == Menu.NONE ||
-            menuItemId == R.id.nav_all_files ||
-            menuItemId == R.id.nav_personal_files;
-    }
-
-    public void replaceAlbumFragment() {
-        if (isAlbumsFragment()) {
-            return;
+    fun pushFragment(screen: NavigatorScreen) {
+        if (this is NavigatorActivity) {
+            push(screen)
+            return
         }
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.addToBackStack(null);
-        transaction.replace(R.id.left_fragment_container, AlbumsFragment.Companion.newInstance(false), AlbumsFragment.Companion.getTAG());
-        transaction.commit();
+        startActivity(NavigatorActivity.intent(this, screen))
     }
 
-    public <T extends Fragment> Optional<T> getFragment(String tag, Class<T> clazz) {
-        return Optional.ofNullable(getSupportFragmentManager().findFragmentByTag(tag))
+    fun startPhotoSearch() {
+        MainApp.showOnlyFilesOnDevice(false)
+        launchActivityForSearch(SearchEvent(PHOTO_SEARCH_MIME_TYPE, SearchRemoteOperation.SearchType.PHOTO_SEARCH))
+    }
+
+    open fun showFiles(onDeviceOnly: Boolean, onlyPersonalFiles: Boolean) {
+        MainApp.showOnlyFilesOnDevice(onDeviceOnly)
+        MainApp.showOnlyPersonalFiles(onlyPersonalFiles)
+        startActivity(fileDisplayActivityIntent(FileDisplayActivity.ALL_FILES))
+    }
+
+    fun replaceAlbumFragment() {
+        if (isAlbumsFragment) return
+        supportFragmentManager.commit {
+            addToBackStack(null)
+            replace(R.id.left_fragment_container, AlbumsFragment.newInstance(false), AlbumsFragment.TAG)
+        }
+    }
+
+    fun <T : Fragment> getFragment(tag: String?, clazz: Class<T>): Optional<T> =
+        Optional.ofNullable(supportFragmentManager.findFragmentByTag(tag))
             .filter(clazz::isInstance)
-            .map(clazz::cast);
+            .map(clazz::cast)
+
+    fun showBottomNavigationBar(show: Boolean) {
+        bottomNavigationView.setVisibleIf(show)
     }
 
-    public boolean isAlbumItemsFragment() {
-        return getFragment(AlbumItemsFragment.Companion.getTAG(), AlbumItemsFragment.class)
-            .filter(Fragment::isVisible)
-            .isPresent();
+    protected fun handleDeepLink(uri: Uri) {
+        val path = uri.lastPathSegment ?: return
+        val deepLinkType = DeepLinkConstants.fromPath(path)
+        if (deepLinkType == null) {
+            SnackbarUtil.show(this, getString(R.string.invalid_url))
+            return
+        }
+
+        when (deepLinkType) {
+            DeepLinkConstants.OPEN_AUTO_UPLOAD -> pushFragment(NavigatorScreen.AutoUpload)
+            DeepLinkConstants.OPEN_EXTERNAL_URL -> openDeepLinkExternalUrl(uri)
+            DeepLinkConstants.ACTION_CREATE_NEW -> findViewById<View>(R.id.fab_main)?.callOnClick()
+            DeepLinkConstants.ACTION_APP_UPDATE -> LinkHelper.openAppStore(packageName, false, this)
+            DeepLinkConstants.OPEN_NOTIFICATIONS -> pushFragment(NavigatorScreen.Notifications)
+            else -> handleNavItemClickEvent(deepLinkType.navId)
+        }
     }
 
-    public boolean isAlbumsFragment() {
-        return getFragment(AlbumsFragment.Companion.getTAG(), AlbumsFragment.class)
-            .filter(Fragment::isVisible)
-            .isPresent();
+    private fun openDeepLinkExternalUrl(uri: Uri) {
+        val url = uri.getQueryParameter(DEEP_LINK_URL_QUERY_PARAMETER) ?: return
+        startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
+    }
+
+    private fun handleNavItemClickEvent(@IdRes menuItemId: Int) {
+        val menuItem = drawerNavigationView?.menu?.findItem(menuItemId) ?: return
+        onNavigationItemClicked(menuItem)
+    }
+
+    private fun launchActivityForSearch(searchEvent: SearchEvent) {
+        val intent = fileDisplayActivityIntent(Intent.ACTION_SEARCH)
+            .putExtra(OCFileListFragment.SEARCH_EVENT, searchEvent)
+        startActivity(intent)
+    }
+
+    private fun startAssistantScreen() {
+        val intent = Intent(applicationContext, ComposeActivity::class.java)
+            .putExtra(ComposeActivity.DESTINATION, ComposeDestination.getAssistantScreen(this))
+        startActivity(intent)
+    }
+
+    private fun showOnDeviceFiles() {
+        MainApp.showOnlyFilesOnDevice(true)
+        MainApp.showOnlyPersonalFiles(false)
+        startActivity(fileDisplayActivityIntent(FileDisplayActivity.ON_DEVICE))
+    }
+
+    private fun restart() {
+        startActivity(fileDisplayActivityIntent(FileDisplayActivity.RESTART))
+        fetchExternalLinks(false)
+    }
+
+    private fun fileDisplayActivityIntent(action: String): Intent =
+        Intent(applicationContext, FileDisplayActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            this.action = action
+        }
+
+    private fun resetOnlyPersonalAndOnDevice() {
+        MainApp.showOnlyFilesOnDevice(false)
+        MainApp.showOnlyPersonalFiles(false)
+    }
+
+    private fun resetFileDepth() {
+        ocFileListFragment?.resetFileDepth()
+    }
+
+    private fun exitSelectionMode() {
+        ocFileListFragment?.exitSelectionMode()
+    }
+
+    private inline fun <reified T : Fragment> isFragmentVisible(tag: String): Boolean =
+        (supportFragmentManager.findFragmentByTag(tag) as? T)?.isVisible == true
+    // endregion
+
+    // region Drawer state
+    fun toggleDrawer() {
+        if (isDrawerOpen) {
+            closeDrawer()
+        } else {
+            openDrawer()
+        }
+    }
+
+    fun closeDrawer() {
+        drawerLayout?.closeDrawer(GravityCompat.START)
+    }
+
+    fun openDrawer() {
+        val drawerLayout = drawerLayout ?: return
+        drawerLayout.openDrawer(GravityCompat.START)
+        updateExternalLinksInDrawer()
+        updateQuotaLink()
+    }
+
+    fun setDrawerLockMode(lockMode: Int) {
+        drawerLayout?.setDrawerLockMode(lockMode)
+    }
+
+    fun setDrawerIndicatorEnabled(enable: Boolean) {
+        mDrawerToggle?.isDrawerIndicatorEnabled = enable
+    }
+
+    fun addDrawerListener(listener: DrawerLayout.DrawerListener?) {
+        val drawerLayout = drawerLayout
+        if (drawerLayout == null) {
+            Log_OC.e(TAG, "Drawer layout not ready to add drawer listener")
+            return
+        }
+        listener?.let(drawerLayout::addDrawerListener)
+    }
+
+    override fun updateActionBarTitleAndHomeButton(chosenFile: OCFile?) {
+        super.updateActionBarTitleAndHomeButton(chosenFile)
+        mDrawerToggle?.isDrawerIndicatorEnabled = chosenFile != null && isRoot(chosenFile)
+    }
+
+    private fun addOnBackPressedCallback() {
+        onBackPressedDispatcher.addCallback(
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (isDrawerOpen) {
+                        closeDrawer()
+                        return
+                    }
+
+                    val fragment = supportFragmentManager.findFragmentByTag(FileDetailsSharingProcessFragment.TAG)
+                    if (fragment is FileDetailsSharingProcessFragment) {
+                        fragment.onBackPressed()
+                        return
+                    }
+
+                    isEnabled = false
+                    onBackPressedDispatcher.onBackPressed()
+                }
+            }
+        )
+    }
+    // endregion
+
+    // region Accounts
+    fun showManageAccountsDialog() {
+        ChooseAccountDialogFragment.newInstance(accountManager.user)
+            .show(supportFragmentManager, CHOOSE_ACCOUNT_DIALOG_TAG)
+    }
+
+    fun openManageAccounts() {
+        manageAccountsLauncher.launch(Intent(applicationContext, ManageAccountsActivity::class.java))
+    }
+
+    fun openAddAccount() {
+        stopMediaPlayerAndHidePip()
+        if (!MDMConfig.showIntro(this)) {
+            startAccountCreation()
+            return
+        }
+
+        val intent = Intent(applicationContext, FirstRunActivity::class.java)
+            .putExtra(FirstRunActivity.EXTRA_ALLOW_CLOSE, true)
+        startActivity(intent)
+    }
+
+    protected fun stopMediaPlayerAndHidePip() {
+        playbackModel.release()
+    }
+
+    fun accountClicked(user: User?) {
+        val currentUser = accountManager.user
+        if (currentUser.nameEquals(user) || !accountManager.setCurrentOwnCloudAccount(user)) return
+        fetchExternalLinks(true)
+        restart()
+    }
+
+    private fun onManageAccountsResult(result: ActivityResult) {
+        if (result.resultCode != RESULT_OK) return
+        val data = result.data ?: return
+        if (!data.getBooleanExtra(ManageAccountsActivity.KEY_ACCOUNT_LIST_CHANGED, false)) return
+        if (!data.getBooleanExtra(ManageAccountsActivity.KEY_CURRENT_ACCOUNT_CHANGED, false)) return
+
+        setAccount(accountManager.currentAccount, false)
+        restart()
+    }
+
+    private fun onPassCodeResult(data: Intent) {
+        val result = data.getIntExtra(
+            RequestCredentialsActivity.KEY_CHECK_RESULT,
+            RequestCredentialsActivity.KEY_CHECK_RESULT_FALSE
+        )
+        if (result != RequestCredentialsActivity.KEY_CHECK_RESULT_CANCEL) return
+
+        Log_OC.d(TAG, "PassCodeManager cancelled")
+        preferences.lockTimestamp = 0
+        finish()
+    }
+
+    private fun checkStoragePermissionWarningBannerVisibility() {
+        (this as? UploadFilesActivity)?.setupStoragePermissionWarningBanner()
+    }
+    // endregion
+
+    // region Quota
+    private fun setupQuotaElement(navigationView: NavigationView) {
+        quotaView = findQuotaViewById(navigationView, R.id.drawer_quota)
+        quotaProgressBar = findQuotaViewById(navigationView, R.id.drawer_quota_ProgressBar)
+        quotaTextPercentage = findQuotaViewById(navigationView, R.id.drawer_quota_percentage)
+        quotaTextLink = findQuotaViewById(navigationView, R.id.drawer_quota_link)
+
+        quotaProgressBar?.let {
+            viewThemeUtils.material.colorProgressBar(it, ColorRole.PRIMARY)
+            it.trackStopIndicatorSize = 0
+        }
+        quotaView?.let { viewThemeUtils.platform.colorViewBackground(it) }
+    }
+
+    private fun <T : View> findQuotaViewById(navigationView: NavigationView, @IdRes id: Int): T? =
+        navigationView.getHeaderView(0)?.findViewById(id) ?: findViewById(id)
+
+    private fun fetchAndDisplayUserQuota() {
+        lifecycleScope.launch {
+            val quota = fetchUserQuota() ?: return@launch
+            if (quota.isDisplayable) {
+                showQuotaInformation(quota)
+            } else {
+                quotaView?.isVisible = false
+            }
+        }
+    }
+
+    private suspend fun fetchUserQuota(): Quota? = withContext(Dispatchers.IO) {
+        if (accountManager.user.isAnonymous) return@withContext null
+        val client = clientRepository.getNextcloudClient() ?: return@withContext null
+        val result = GetUserInfoRemoteOperation().execute(client)
+        if (result.isSuccess) result.resultData?.quota else null
+    }
+
+    private val Quota.isDisplayable: Boolean
+        get() = quota > 0 ||
+            quota == GetUserInfoRemoteOperation.SPACE_UNLIMITED ||
+            quota == GetUserInfoRemoteOperation.QUOTA_LIMIT_INFO_NOT_AVAILABLE
+
+    private fun showQuotaInformation(quota: Quota) {
+        quotaTextPercentage?.text = if (quota.quota == GetUserInfoRemoteOperation.SPACE_UNLIMITED) {
+            getString(R.string.drawer_quota_unlimited, HumanReadableFormatter.formatBytes(quota.used))
+        } else {
+            getString(
+                R.string.drawer_quota,
+                HumanReadableFormatter.formatBytes(quota.used),
+                HumanReadableFormatter.formatBytes(quota.total)
+            )
+        }
+
+        val relative = ceil(quota.relative).toInt()
+        quotaProgressBar?.let { progressBar ->
+            progressBar.progress = relative
+            if (relative < RELATIVE_THRESHOLD_WARNING) {
+                viewThemeUtils.material.colorProgressBar(progressBar, ColorRole.PRIMARY)
+            } else {
+                viewThemeUtils.material.colorProgressBar(
+                    progressBar,
+                    resources.getColor(R.color.infolevel_warning, null)
+                )
+            }
+        }
+
+        updateQuotaLink()
+        quotaView?.isVisible = true
+    }
+
+    private fun updateQuotaLink() {
+        val quotaTextLink = quotaTextLink ?: return
+        if (!MDMConfig.externalSiteSupport(this)) {
+            quotaTextLink.visibility = View.GONE
+            return
+        }
+
+        externalLinksProvider.getExternalLink(ExternalLinkType.QUOTA) { quotas ->
+            val firstQuota = quotas.firstOrNull()
+            if (firstQuota == null) {
+                quotaTextLink.visibility = View.GONE
+            } else {
+                showQuotaLink(quotaTextLink, firstQuota)
+            }
+        }
+    }
+
+    private fun showQuotaLink(quotaTextLink: TextView, quota: ExternalLink) {
+        quotaTextLink.text = quota.name
+        quotaTextLink.isClickable = true
+        quotaTextLink.visibility = View.VISIBLE
+        quotaTextLink.setOnClickListener { openExternalSiteWebView(quota) }
+
+        val iconSize = (QUOTA_LINK_ICON_SIZE_DP * resources.displayMetrics.density).roundToInt()
+        GlideHelper.loadIntoTarget(
+            this,
+            accountManager.currentOwnCloudAccount,
+            quota.iconUrl,
+            createQuotaDrawableTarget(iconSize, quotaTextLink),
+            R.drawable.ic_link
+        )
+    }
+
+    private fun createQuotaDrawableTarget(size: Int, quotaTextLink: TextView): Target<Drawable> =
+        object : CustomTarget<Drawable>() {
+            override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                setQuotaLinkIcon(quotaTextLink, resource, size)
+            }
+
+            override fun onLoadCleared(placeholder: Drawable?) = Unit
+
+            override fun onLoadFailed(errorDrawable: Drawable?) {
+                super.onLoadFailed(errorDrawable)
+                errorDrawable?.let { setQuotaLinkIcon(quotaTextLink, it, size) }
+            }
+        }
+
+    private fun setQuotaLinkIcon(quotaTextLink: TextView, drawable: Drawable, size: Int) {
+        val icon = drawable.current.apply { setBounds(0, 0, size, size) }
+        quotaTextLink.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
+    }
+    // endregion
+
+    // region External links
+    fun fetchExternalLinks(force: Boolean) {
+        if (!MDMConfig.externalSiteSupport(this)) return
+
+        val user = accountManager.user
+        if (user.isAnonymous) {
+            Log_OC.d(TAG, "Trying to execute a sync operation with a storage manager for an anonymous account")
+            return
+        }
+
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                refreshCapabilities()
+                syncExternalLinks(user, force)
+            }
+            updateExternalLinksInDrawer()
+        }
+    }
+
+    private fun refreshCapabilities() {
+        val capability = capabilities.getOrNull() ?: return
+        if (capability.accountName?.isEmpty() == true) return
+        val storageManager = storageManager ?: return
+        GetCapabilitiesOperation(storageManager).execute(baseContext)
+    }
+
+    private fun syncExternalLinks(user: User, force: Boolean) {
+        val isExternalLinksEnabled =
+            storageManager != null && CapabilityUtils.getCapability(user, this).externalLinks.isTrue
+        if (!isExternalLinksEnabled) {
+            externalLinksProvider.deleteAllExternalLinks()
+            Log_OC.d(EXTERNAL_LINKS_TAG, "links disabled")
+            return
+        }
+
+        val appOpenedCount =
+            appOpenedCountProvider.getIntegerValue(FilesSyncHelper.GLOBAL, FileActivity.APP_OPENED_COUNT)
+        val shouldUpdate = force ||
+            appOpenedCount == APP_OPENED_COUNT_NOT_SET ||
+            appOpenedCount > APP_OPENED_COUNT_UPDATE_THRESHOLD
+        if (!shouldUpdate) {
+            storeAppOpenedCount(appOpenedCount + 1)
+            return
+        }
+
+        if (force) {
+            Log_OC.d(EXTERNAL_LINKS_TAG, "force update")
+        }
+        storeAppOpenedCount(0)
+
+        Log_OC.d(EXTERNAL_LINKS_TAG, "update via api")
+        val result = ExternalLinksOperation().execute(user, this)
+        if (!result.isSuccess) return
+        val externalLinks = result.data ?: return
+
+        externalLinksProvider.deleteAllExternalLinks()
+        externalLinks.filterIsInstance<ExternalLink>().forEach(externalLinksProvider::storeExternalLink)
+    }
+
+    private fun storeAppOpenedCount(count: Int) {
+        appOpenedCountProvider.storeOrUpdateKeyValue(FilesSyncHelper.GLOBAL, FileActivity.APP_OPENED_COUNT, "$count")
+    }
+
+    private fun updateExternalLinksInDrawer() {
+        val navigationView = drawerNavigationView ?: return
+        if (!MDMConfig.externalSiteSupport(this)) return
+
+        navigationView.menu.removeGroup(R.id.drawer_menu_external_links)
+
+        val greyColor = ContextCompat.getColor(this, R.color.drawer_menu_icon)
+        externalLinksProvider.getExternalLink(ExternalLinkType.LINK) { externalLinks ->
+            externalLinks.forEach { addExternalLinkMenuItem(navigationView, it, greyColor) }
+        }
+    }
+
+    private fun addExternalLinkMenuItem(navigationView: NavigationView, link: ExternalLink, tintColor: Int) {
+        val menuItemId = navigationView.menu
+            .add(
+                R.id.drawer_menu_external_links,
+                MENU_ITEM_EXTERNAL_LINK + link.id,
+                MENU_ORDER_EXTERNAL_LINKS,
+                link.name
+            )
+            .setCheckable(true)
+            .itemId
+
+        GlideHelper.loadIntoTarget(
+            this,
+            accountManager.currentOwnCloudAccount,
+            link.iconUrl,
+            createMenuItemTarget(menuItemId, tintColor),
+            R.drawable.ic_link
+        )
+    }
+
+    private fun createMenuItemTarget(menuItemId: Int, tintColor: Int): Target<Drawable> =
+        object : CustomTarget<Drawable>() {
+            override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                setExternalLinkIcon(menuItemId, resource, tintColor)
+            }
+
+            override fun onLoadFailed(errorDrawable: Drawable?) {
+                setExternalLinkIcon(menuItemId, errorDrawable, tintColor)
+            }
+
+            override fun onLoadCleared(placeholder: Drawable?) = Unit
+        }
+
+    private fun setExternalLinkIcon(menuItemId: Int, drawable: Drawable?, tintColor: Int) {
+        val menuItem = drawerNavigationView?.menu?.findItem(menuItemId) ?: return
+        if (drawable == null) {
+            menuItem.setIcon(R.drawable.ic_link)
+            return
+        }
+
+        val resizedDrawable = DrawableUtil.getResizedDrawable(this, drawable, EXTERNAL_LINK_ICON_SIZE_PX)
+        menuItem.icon = viewThemeUtils.platform.colorDrawable(resizedDrawable, tintColor)
+    }
+
+    private fun externalLinkClicked(menuItem: MenuItem) {
+        val linkId = menuItem.itemId - MENU_ITEM_EXTERNAL_LINK
+        externalLinksProvider.getExternalLink(ExternalLinkType.LINK) { externalLinks ->
+            val link = externalLinks.firstOrNull { it.id == linkId }
+            if (link == null) {
+                Log_OC.w(TAG, "No external link found for menu item: " + menuItem.title)
+            } else {
+                openExternalLink(link)
+            }
+        }
+    }
+
+    private fun openExternalLink(link: ExternalLink) {
+        if (link.redirect) {
+            IntentUtil.startLinkIntent(this, link.url)
+            return
+        }
+        openExternalSiteWebView(link)
+    }
+
+    private fun openExternalSiteWebView(link: ExternalLink) {
+        val intent = Intent(applicationContext, ExternalSiteWebView::class.java)
+            .putExtra(ExternalSiteWebView.EXTRA_TITLE, link.name)
+            .putExtra(ExternalSiteWebView.EXTRA_URL, link.url)
+            .putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true)
+        startActivity(intent)
+    }
+    // endregion
+
+    // region Avatar
+    override fun avatarGenerated(avatarDrawable: Drawable?, callContext: Any?) {
+        when (callContext) {
+            is MenuItem -> {
+                val newIcon = callContext.setIcon(avatarDrawable)
+                Log_OC.d(TAG, "avatarGenerated new icon: $newIcon")
+            }
+
+            is ImageView -> callContext.setImageDrawable(avatarDrawable)
+
+            is MaterialButton -> callContext.icon = avatarDrawable
+        }
+    }
+
+    override fun shouldCallGeneratedCallback(tag: String?, callContext: Any?): Boolean {
+        val contextTag: Any? = when (callContext) {
+            is MenuItem -> callContext.title
+            is ImageView -> callContext.tag
+            is MaterialButton -> callContext.tag
+            else -> return false
+        }
+        return contextTag.toString() == tag
+    }
+    // endregion
+
+    companion object {
+        private const val TAG = "DrawerActivity"
+        private const val EXTERNAL_LINKS_TAG = "ExternalLinks"
+        private const val CHOOSE_ACCOUNT_DIALOG_TAG = "fragment_chose_account"
+        private const val ECOSYSTEM_APP_STORE_QUERY = "Nextcloud"
+        private const val PHOTO_SEARCH_MIME_TYPE = "image/%"
+        private const val DEEP_LINK_URL_QUERY_PARAMETER = "url"
+        private const val MENU_ORDER_EXTERNAL_LINKS = 3
+        private const val MENU_ITEM_EXTERNAL_LINK = 111
+        private const val MAX_LOGO_SIZE_PX = 1000
+        private const val RELATIVE_THRESHOLD_WARNING = 80
+        private const val ECOSYSTEM_ICON_LIGHT_TONE_THRESHOLD = 80.0
+        private const val QUOTA_LINK_ICON_SIZE_DP = 24
+        private const val EXTERNAL_LINK_ICON_SIZE_PX = 32
+        private const val APP_OPENED_COUNT_NOT_SET = -1
+        private const val APP_OPENED_COUNT_UPDATE_THRESHOLD = 10
+
+        const val REQ_ALL_FILES_ACCESS = 3001
+        const val REQ_MEDIA_ACCESS = 3000
+
+        private val navigatorScreensByMenuItemId: Map<Int, NavigatorScreen> by lazy {
+            mapOf(
+                R.id.nav_uploads to NavigatorScreen.UploadList,
+                R.id.nav_trashbin to NavigatorScreen.Trashbin,
+                R.id.nav_activity to NavigatorScreen.Activities,
+                R.id.nav_community to NavigatorScreen.Community
+            )
+        }
     }
 }
