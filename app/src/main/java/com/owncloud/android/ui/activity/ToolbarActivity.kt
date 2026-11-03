@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2023 ZetaTom
  * SPDX-FileCopyrightText: 2023 Parneet Singh <gurayaparneet@gmail.com>
  * SPDX-FileCopyrightText: 2022 Brey Álvaro Brey <alvaro@alvarobrey.com>
@@ -11,386 +12,288 @@
  * SPDX-FileCopyrightText: 2016 Nextcloud
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.owncloud.android.ui.activity;
+package com.owncloud.android.ui.activity
 
-import android.animation.AnimatorInflater;
-import android.annotation.SuppressLint;
-import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.animation.AnimatorInflater
+import android.annotation.SuppressLint
+import android.view.View
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.TextView
+import androidx.annotation.AnimatorRes
+import androidx.annotation.StringRes
+import androidx.appcompat.widget.AppCompatSpinner
+import androidx.core.content.ContextCompat
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
+import com.google.android.material.textview.MaterialTextView
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.systembars.SystemBarBackgroundCallbacks
+import com.owncloud.android.R
+import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.OCFileDepth
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.ui.fragment.OCFileListFragment
+import com.owncloud.android.ui.fragment.SearchType
+import com.owncloud.android.utils.theme.ThemeColorUtils
+import com.owncloud.android.utils.theme.ThemeUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import javax.inject.Inject
 
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.textview.MaterialTextView;
-import com.nextcloud.android.common.ui.theme.utils.ColorRole;
-import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.systembars.SystemBarBackgroundCallbacks;
-import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.OCFileDepth;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.fragment.OCFileListFragment;
-import com.owncloud.android.ui.fragment.SearchType;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeUtils;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
+abstract class ToolbarActivity :
+    BaseActivity(),
+    Injectable {
 
-import javax.inject.Inject;
+    @Inject
+    lateinit var themeColorUtils: ThemeColorUtils
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.AppCompatSpinner;
-import androidx.core.content.ContextCompat;
+    @Inject
+    lateinit var themeUtils: ThemeUtils
 
-/**
- * Base class providing toolbar registration functionality, see {@link #setupToolbar(boolean, boolean)}.
- */
-public abstract class ToolbarActivity extends BaseActivity implements Injectable {
-    protected MaterialButton mMenuButton;
-    protected MaterialTextView mSearchText;
-    protected MaterialButton mSwitchAccountButton;
-    protected MaterialButton mNotificationButton;
+    @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
 
-    private AppBarLayout mAppBar;
-    private RelativeLayout mDefaultToolbar;
-    private MaterialToolbar mToolbar;
-    private MaterialCardView mHomeSearchContainer;
-    private LinearLayout mHomeSearchToolbar;
-    private ImageView mPreviewImage;
-    private FrameLayout mPreviewImageContainer;
-    private LinearLayout mInfoBox;
-    private TextView mInfoBoxMessage;
-    protected AppCompatSpinner mToolbarSpinner;
-    private boolean isHomeSearchToolbarShow = false;
-    private static final String TAG = "ToolbarActivity";
+    protected lateinit var mMenuButton: MaterialButton
+    protected lateinit var mSearchText: MaterialTextView
+    protected lateinit var mSwitchAccountButton: MaterialButton
+    protected lateinit var mNotificationButton: MaterialButton
+    protected lateinit var mToolbarSpinner: AppCompatSpinner
 
-    @Inject public ThemeColorUtils themeColorUtils;
-    @Inject public ThemeUtils themeUtils;
-    @Inject public ViewThemeUtils viewThemeUtils;
+    private lateinit var toolbar: MaterialToolbar
+    private lateinit var appBar: AppBarLayout
+    private lateinit var defaultToolbar: RelativeLayout
+    private lateinit var homeSearchToolbar: LinearLayout
+    private lateinit var homeSearchContainer: MaterialCardView
 
-    /**
-     * Toolbar setup that must be called in implementer's {@link #onCreate} after {@link #setContentView} if they want
-     * to use the toolbar.
-     */
-    private void setupToolbar(boolean isHomeSearchToolbarShow, boolean showSortListButtonGroup) {
-        mToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
+    var previewImageView: ImageView? = null
+        private set
+    private var previewImageContainer: FrameLayout? = null
+    private var infoBox: LinearLayout? = null
+    private var infoBoxMessage: TextView? = null
 
-        mAppBar = findViewById(R.id.appbar);
-        mDefaultToolbar = findViewById(R.id.default_toolbar);
-        mHomeSearchToolbar = findViewById(R.id.home_toolbar);
-        mHomeSearchContainer = findViewById(R.id.home_search_container);
-        mMenuButton = findViewById(R.id.menu_button);
-        mSearchText = findViewById(R.id.search_text);
-        mSwitchAccountButton = findViewById(R.id.switch_account_button);
-        mNotificationButton = findViewById(R.id.notification_button);
+    private var isHomeSearchToolbarShow = false
 
-        if (showSortListButtonGroup) {
-            findViewById(R.id.sort_list_button_group).setVisibility(View.VISIBLE);
-        }
+    private val isToolbarBound: Boolean
+        get() = ::appBar.isInitialized
 
-        this.isHomeSearchToolbarShow = isHomeSearchToolbarShow;
-        updateActionBarTitleAndHomeButton(null);
+    private val sortListButtonGroup: View?
+        get() = findViewById(R.id.sort_list_button_group)
 
-        mInfoBox = findViewById(R.id.info_box);
-        mInfoBoxMessage = findViewById(R.id.info_box_message);
+    private fun setupToolbar(isHomeSearchToolbarShow: Boolean, showSortListButtonGroup: Boolean) {
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
 
-        mPreviewImage = findViewById(R.id.preview_image);
-        mPreviewImageContainer = findViewById(R.id.preview_image_frame);
+        bindToolbarViews()
 
-        mToolbarSpinner = findViewById(R.id.toolbar_spinner);
+        if (showSortListButtonGroup) findViewById<View>(R.id.sort_list_button_group).isVisible = true
 
-        viewThemeUtils.material.themeToolbar(mToolbar);
-        viewThemeUtils.material.colorToolbarOverflowIcon(mToolbar);
-        viewThemeUtils.platform.themeStatusBar(this);
-        viewThemeUtils.material.colorMaterialTextButton(mSwitchAccountButton);
+        this.isHomeSearchToolbarShow = isHomeSearchToolbarShow
+        updateActionBarTitleAndHomeButton(null)
 
-        viewThemeUtils.material.themeSearchCardView(mHomeSearchContainer);
-        viewThemeUtils.material.colorMaterialButtonContent(mMenuButton, ColorRole.ON_SURFACE);
-        viewThemeUtils.material.colorMaterialButtonContent(mNotificationButton, ColorRole.ON_SURFACE);
-        viewThemeUtils.platform.colorTextView(mSearchText, ColorRole.ON_SURFACE_VARIANT);
+        infoBox = findViewById(R.id.info_box)
+        infoBoxMessage = findViewById(R.id.info_box_message)
+        previewImageView = findViewById(R.id.preview_image)
+        previewImageContainer = findViewById(R.id.preview_image_frame)
+        mToolbarSpinner = findViewById(R.id.toolbar_spinner)
+
+        themeToolbarViews()
     }
 
-    public void setupToolbarShowOnlyMenuButtonAndTitle(String title, View.OnClickListener toggleDrawer) {
-        setupToolbar(false, false);
-
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(false);
-        }
-
-        LinearLayout toolbar = findViewById(R.id.toolbar_linear_layout);
-        MaterialButton menuButton = findViewById(R.id.toolbar_menu_button);
-        MaterialTextView titleTextView = findViewById(R.id.toolbar_title);
-        titleTextView.setText(title);
-
-        titleTextView.setTextColor(ContextCompat.getColor(this, R.color.foreground_highlight));
-        menuButton.setIconTint(ContextCompat.getColorStateList(this, R.color.foreground_highlight));
-
-        toolbar.setVisibility(View.VISIBLE);
-        menuButton.setOnClickListener(toggleDrawer);
+    private fun bindToolbarViews() {
+        appBar = findViewById(R.id.appbar)
+        defaultToolbar = findViewById(R.id.default_toolbar)
+        homeSearchToolbar = findViewById(R.id.home_toolbar)
+        homeSearchContainer = findViewById(R.id.home_search_container)
+        mMenuButton = findViewById(R.id.menu_button)
+        mSearchText = findViewById(R.id.search_text)
+        mSwitchAccountButton = findViewById(R.id.switch_account_button)
+        mNotificationButton = findViewById(R.id.notification_button)
     }
 
-    /**
-     * Shows plain action bar
-     */
-    public void setupToolbar() {
-        if (mHomeSearchToolbar != null && mDefaultToolbar != null && mHomeSearchToolbar.getVisibility() == View.GONE && mDefaultToolbar.getVisibility() == View.VISIBLE) {
-            Log_OC.d(TAG, "Search toolbar is already hidden, skipping update.");
-            return;
-        }
-
-        setupToolbar(false, false);
-    }
-
-    /**
-     * Shows action bar with search
-     */
-    public void setupHomeSearchToolbarWithSortAndListButtons() {
-        if (mHomeSearchToolbar != null && mDefaultToolbar != null && mHomeSearchToolbar.getVisibility() == View.VISIBLE && mDefaultToolbar.getVisibility() == View.GONE) {
-            Log_OC.d(TAG, "Search toolbar is already visible, skipping update.");
-            return;
-        }
-
-        setupToolbar(true, true);
-    }
-
-    private OCFileListFragment getOCFileListFragment() {
-        if (this instanceof FileDisplayActivity fda) {
-            return fda.getListOfFilesFragment();
-        }
-
-        return null;
-    }
-
-    private OCFileDepth getCurrentDirDepth() {
-        OCFileListFragment fragment = getOCFileListFragment();
-        if (fragment != null) {
-            return fragment.getFileDepth();
-        }
-
-        return null;
-    }
-
-    private SearchType getSearchType() {
-        final OCFileListFragment fragment = getOCFileListFragment();
-        if (fragment != null) {
-            return fragment.getCurrentSearchType();
-        }
-        return SearchType.NO_SEARCH;
-    }
-
-    public String getActionBarRootTitle() {
-        final SearchType searchType = getSearchType();
-        Integer rootTitleId = searchType.titleId();
-        String result = themeUtils.getDefaultDisplayNameForRootFolder(this);
-
-        if (rootTitleId != null) {
-            result = getString(rootTitleId);
-        }
-
-        return result;
-    }
-
-    public String getActionBarTitle(OCFile chosenFile, boolean isRoot) {
-        if (isRoot) {
-            return getActionBarRootTitle();
-        }
-
-        return getActionBarTitleFromFile(chosenFile);
-    }
-
-    private String getActionBarTitleFromFile(OCFile file) {
-        // if offline rename operation already pointing same file, offline operation name will be used
-        return fileDataStorageManager.getFilenameConsideringOfflineOperation(file);
-    }
-
-    protected void updateActionBarTitleAndHomeButton(OCFile file) {
-        final OCFileDepth currentDirDepth = getCurrentDirDepth();
-        final boolean isRoot = isRoot(file) || currentDirDepth == OCFileDepth.Root;
-        final String title = getActionBarTitle(file, isRoot);
-        updateActionBarTitleAndHomeButtonByString(title);
-
-        boolean isToolbarStyleSearch = false;
-        if (this instanceof DrawerActivity drawerActivity) {
-            isToolbarStyleSearch = drawerActivity.isToolbarStyleSearch();
-        }
-        final boolean canShowSearchBar = (isHomeSearchToolbarShow && isRoot && isToolbarStyleSearch);
-
-        showHomeSearchToolbar(canShowSearchBar);
-
-        if (mSearchText != null) {
-            mSearchText.setText(getString(R.string.appbar_search_in, title));
-        }
-
-        final var actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            viewThemeUtils.files.themeActionBar(this, actionBar, title, isRoot);
+    private fun themeToolbarViews() {
+        viewThemeUtils.run {
+            material.themeToolbar(toolbar)
+            material.colorToolbarOverflowIcon(toolbar)
+            platform.themeStatusBar(this@ToolbarActivity)
+            material.colorMaterialTextButton(mSwitchAccountButton)
+            material.themeSearchCardView(homeSearchContainer)
+            material.colorMaterialButtonContent(mMenuButton, ColorRole.ON_SURFACE)
+            material.colorMaterialButtonContent(mNotificationButton, ColorRole.ON_SURFACE)
+            platform.colorTextView(mSearchText, ColorRole.ON_SURFACE_VARIANT)
         }
     }
 
-    protected void updateActionBarForFile(@Nullable OCFile file) {
-        if (file == null) {
-            return;
-        }
+    fun setupToolbarShowOnlyMenuButtonAndTitle(title: String, toggleDrawer: View.OnClickListener) {
+        setupToolbar(isHomeSearchToolbarShow = false, showSortListButtonGroup = false)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        final String title = getActionBarTitleFromFile(file);
-        updateActionBarTitleAndHomeButtonByString(title);
-
-        showHomeSearchToolbar(false);
-        final var actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            viewThemeUtils.files.themeActionBar(this, actionBar, title, false);
+        val toolbarLayout = findViewById<LinearLayout>(R.id.toolbar_linear_layout)
+        val menuButton = findViewById<MaterialButton>(R.id.toolbar_menu_button)
+        findViewById<MaterialTextView>(R.id.toolbar_title).run {
+            text = title
+            setTextColor(ContextCompat.getColor(this@ToolbarActivity, R.color.foreground_highlight))
         }
+        menuButton.iconTint = ContextCompat.getColorStateList(this, R.color.foreground_highlight)
+
+        toolbarLayout.isVisible = true
+        menuButton.setOnClickListener(toggleDrawer)
     }
 
-    public void showSearchView() {
-        if (isHomeSearchToolbarShow) {
-            showHomeSearchToolbar(false);
+    fun setupToolbar() {
+        if (isToolbarBound && homeSearchToolbar.isGone && defaultToolbar.isVisible) {
+            Log_OC.d(TAG, "Search toolbar is already hidden, skipping update.")
+            return
         }
+
+        setupToolbar(isHomeSearchToolbarShow = false, showSortListButtonGroup = false)
     }
 
-    public void hideSearchView(OCFile chosenFile) {
-        if (isHomeSearchToolbarShow) {
-            showHomeSearchToolbar(isRoot(chosenFile));
+    fun setupHomeSearchToolbarWithSortAndListButtons() {
+        if (isToolbarBound && homeSearchToolbar.isVisible && defaultToolbar.isGone) {
+            Log_OC.d(TAG, "Search toolbar is already visible, skipping update.")
+            return
         }
+
+        setupToolbar(isHomeSearchToolbarShow = true, showSortListButtonGroup = true)
+    }
+
+    private val ocFileListFragment: OCFileListFragment?
+        get() = (this as? FileDisplayActivity)?.listOfFilesFragment
+
+    private val isCurrentDirRoot: Boolean
+        get() = ocFileListFragment?.fileDepth == OCFileDepth.Root
+
+    private val searchType: SearchType
+        get() = ocFileListFragment?.currentSearchType ?: SearchType.NO_SEARCH
+
+    val actionBarRootTitle: String
+        get() = searchType.titleId()?.let { getString(it) } ?: themeUtils.getDefaultDisplayNameForRootFolder(this)
+
+    fun getActionBarTitle(chosenFile: OCFile, isRoot: Boolean): String =
+        if (isRoot) actionBarRootTitle else getActionBarTitleFromFile(chosenFile)
+
+    private fun getActionBarTitleFromFile(file: OCFile): String =
+        fileDataStorageManager.getFilenameConsideringOfflineOperation(file)
+
+    protected open fun updateActionBarTitleAndHomeButton(chosenFile: OCFile?) {
+        val isRoot = isRoot(chosenFile) || isCurrentDirRoot
+        val title = if (chosenFile == null || isRoot) actionBarRootTitle else getActionBarTitleFromFile(chosenFile)
+        updateActionBarTitleAndHomeButtonByString(title)
+
+        val isToolbarStyleSearch = (this as? DrawerActivity)?.isToolbarStyleSearch == true
+        showHomeSearchToolbar(isHomeSearchToolbarShow && isRoot && isToolbarStyleSearch)
+
+        if (isToolbarBound) {
+            mSearchText.text = getString(R.string.appbar_search_in, title)
+        }
+
+        supportActionBar?.let { viewThemeUtils.files.themeActionBar(this, it, title, isRoot) }
+    }
+
+    protected fun updateActionBarForFile(file: OCFile?) {
+        if (file == null) return
+
+        val title = getActionBarTitleFromFile(file)
+        updateActionBarTitleAndHomeButtonByString(title)
+        showHomeSearchToolbar(false)
+        supportActionBar?.let { viewThemeUtils.files.themeActionBar(this, it, title, false) }
+    }
+
+    fun showSearchView() {
+        if (!isHomeSearchToolbarShow) return
+        showHomeSearchToolbar(false)
+    }
+
+    fun hideSearchView(chosenFile: OCFile?) {
+        if (!isHomeSearchToolbarShow) return
+        showHomeSearchToolbar(isRoot(chosenFile))
     }
 
     @SuppressLint("PrivateResource")
-    private void showHomeSearchToolbar(boolean isShow) {
-        if (mAppBar == null) {
-            return;
-        }
+    private fun showHomeSearchToolbar(isShow: Boolean) {
+        if (!isToolbarBound) return
 
-        viewThemeUtils.material.themeToolbar(mToolbar);
+        viewThemeUtils.material.themeToolbar(toolbar)
 
         if (isShow) {
-            viewThemeUtils.platform.resetStatusBar(this);
-            mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
-                                                                                R.animator.appbar_elevation_off));
-            mDefaultToolbar.setVisibility(View.GONE);
-            mHomeSearchToolbar.setVisibility(View.VISIBLE);
-            viewThemeUtils.material.themeSearchCardView(mHomeSearchContainer);
-            viewThemeUtils.material.themeSearchBarText(mSearchText);
+            viewThemeUtils.platform.resetStatusBar(this)
+            setAppBarStateListAnimator(R.animator.appbar_elevation_off)
+            defaultToolbar.isVisible = false
+            homeSearchToolbar.isVisible = true
+            viewThemeUtils.material.themeSearchCardView(homeSearchContainer)
+            viewThemeUtils.material.themeSearchBarText(mSearchText)
         } else {
-            mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
-                                                                                R.animator.appbar_elevation_on));
-            viewThemeUtils.platform.themeStatusBar(this);
-            mDefaultToolbar.setVisibility(View.VISIBLE);
-            mHomeSearchToolbar.setVisibility(View.GONE);
+            setAppBarStateListAnimator(R.animator.appbar_elevation_on)
+            viewThemeUtils.platform.themeStatusBar(this)
+            defaultToolbar.isVisible = true
+            homeSearchToolbar.isVisible = false
         }
 
-        SystemBarBackgroundCallbacks.apply(this, viewThemeUtils);
+        SystemBarBackgroundCallbacks.apply(this, viewThemeUtils)
     }
 
-    public boolean isHomeSearchToolbarVisible() {
-        return mHomeSearchToolbar != null && mHomeSearchToolbar.getVisibility() == View.VISIBLE;
+    private fun setAppBarStateListAnimator(@AnimatorRes animatorId: Int) {
+        appBar.stateListAnimator = AnimatorInflater.loadStateListAnimator(appBar.context, animatorId)
     }
 
-    /**
-     * Updates title bar and home buttons (state and icon).
-     */
-    public void updateActionBarTitleAndHomeButtonByString(String title) {
-        // set & color the chosen title
-        ActionBar actionBar = getSupportActionBar();
+    val isHomeSearchToolbarVisible: Boolean
+        get() = isToolbarBound && homeSearchToolbar.isVisible
 
-        // set home button properties
-        if (actionBar != null) {
-            if (title != null) {
-                actionBar.setTitle(title);
-                actionBar.setDisplayShowTitleEnabled(true);
-            } else {
-                actionBar.setDisplayShowTitleEnabled(false);
-            }
+    fun updateActionBarTitleAndHomeButtonByString(title: String?) {
+        val actionBar = supportActionBar ?: return
+
+        if (title != null) {
+            actionBar.title = title
         }
+        actionBar.setDisplayShowTitleEnabled(title != null)
     }
 
-    /**
-     * checks if the given file is the root folder.
-     *
-     * @param file file to be checked if it is the root folder
-     * @return <code>true</code> if it is <code>null</code> or the root folder, else returns <code>false</code>
-     */
-    public boolean isRoot(OCFile file) {
+    fun isRoot(file: OCFile?): Boolean =
+        file == null || (file.isFolder && file.parentId == FileDataStorageManager.ROOT_PARENT_ID.toLong())
 
-        return file == null || (file.isFolder() && file.getParentId() == FileDataStorageManager.ROOT_PARENT_ID);
+    protected fun showInfoBox(@StringRes text: Int) {
+        val infoBox = infoBox ?: return
+        val infoBoxMessage = infoBoxMessage ?: return
+
+        infoBox.isVisible = true
+        infoBoxMessage.setText(text)
     }
 
-    /**
-     * shows the toolbar's info box with the given text.
-     *
-     * @param text the text to be displayed
-     */
-    protected final void showInfoBox(@StringRes int text) {
-        if (mInfoBox != null && mInfoBoxMessage != null) {
-            mInfoBox.setVisibility(View.VISIBLE);
-            mInfoBoxMessage.setText(text);
-        }
+    fun hideInfoBox() {
+        infoBox?.isVisible = false
     }
 
-    /**
-     * Hides the toolbar's info box.
-     */
-    public final void hideInfoBox() {
-        if (mInfoBox != null) {
-            mInfoBox.setVisibility(View.GONE);
-        }
+    fun setPreviewImageVisibility(isVisible: Boolean) {
+        previewImageContainer?.isVisible = isVisible
     }
 
-    public void setPreviewImageVisibility(boolean isVisibility) {
-        if (mPreviewImageContainer != null) {
-            mPreviewImageContainer.setVisibility(isVisibility ? View.VISIBLE : View.GONE);
-        }
+    fun hidePreviewImage() = setPreviewImageVisibility(false)
+
+    open fun showSortListGroup(show: Boolean) {
+        sortListButtonGroup?.isVisible = show
     }
 
-    public void hidePreviewImage() {
-        setPreviewImageVisibility(false);
+    fun sortListGroupVisibility(): Boolean = sortListButtonGroup?.isVisible == true
+
+    fun updateToolbarSubtitle(subtitle: String) {
+        val actionBar = supportActionBar ?: return
+        actionBar.subtitle = subtitle
+        viewThemeUtils.androidx.themeActionBarSubtitle(this, actionBar)
     }
 
-    public void showSortListGroup(boolean show) {
-        final var view = findViewById(R.id.sort_list_button_group);
-        if (view == null) {
-            return;
-        }
-
-        view.setVisibility(show ? View.VISIBLE : View.GONE);
+    fun clearToolbarSubtitle() {
+        supportActionBar?.subtitle = null
     }
 
-    public boolean sortListGroupVisibility(){
-        final var view = findViewById(R.id.sort_list_button_group);
-        if (view == null) {
-            return false;
-        }
-
-        return view.getVisibility() == View.VISIBLE;
-    }
-    /**
-     * get the toolbar's preview image view.
-     */
-    public ImageView getPreviewImageView() {
-        return mPreviewImage;
-    }
-
-    public void updateToolbarSubtitle(@NonNull String subtitle) {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setSubtitle(subtitle);
-            viewThemeUtils.androidx.themeActionBarSubtitle(this, actionBar);
-        }
-    }
-
-    public void clearToolbarSubtitle() {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setSubtitle(null);
-        }
+    companion object {
+        private const val TAG = "ToolbarActivity"
     }
 }
