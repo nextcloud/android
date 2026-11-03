@@ -10,8 +10,17 @@ package com.nextcloud.appscan
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
+import android.graphics.Bitmap
+import android.graphics.PointF
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.core.view.children
 import com.nextcloud.android.common.ui.util.extensions.applyEdgeToEdgeWithSystemBarPadding
+import com.zynksoftware.documentscanner.R
 import com.zynksoftware.documentscanner.ScanActivity
 import com.zynksoftware.documentscanner.model.DocumentScannerErrorModel
 import com.zynksoftware.documentscanner.model.ScannerResults
@@ -25,6 +34,50 @@ class AppScanActivity : ScanActivity() {
         DocumentScanner.init(this)
         addFragmentContentLayout()
     }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        recreateCropFragmentView()
+    }
+
+    private fun recreateCropFragmentView() {
+        val cropFragment = supportFragmentManager.findFragmentByTag(IMAGE_CROP_FRAGMENT_TAG) ?: return
+        if (!cropFragment.isVisible) {
+            return
+        }
+
+        val cornerFractions = cropFragment.view?.let(::cropCornerFractions)
+
+        supportFragmentManager.beginTransaction().detach(cropFragment).commitNow()
+        supportFragmentManager.beginTransaction().attach(cropFragment).commitNow()
+
+        val cropView = cropFragment.view ?: return
+        if (cornerFractions == null) {
+            return
+        }
+
+        cropView.post { restoreCropCorners(cropView, cornerFractions) }
+    }
+
+    private fun cropCornerFractions(cropView: View): List<PointF>? {
+        val preview = cropPreviewBitmap(cropView) ?: return null
+        return cropCornerHandles(cropView).map { PointF(it.x / preview.width, it.y / preview.height) }
+    }
+
+    private fun restoreCropCorners(cropView: View, cornerFractions: List<PointF>) {
+        val preview = cropPreviewBitmap(cropView) ?: return
+        cropCornerHandles(cropView).zip(cornerFractions) { handle, fraction ->
+            handle.x = fraction.x * preview.width
+            handle.y = fraction.y * preview.height
+        }
+        cropView.findViewById<View>(R.id.polygonView).invalidate()
+    }
+
+    private fun cropPreviewBitmap(cropView: View): Bitmap? =
+        (cropView.findViewById<ImageView>(R.id.imagePreview).drawable as? BitmapDrawable)?.bitmap
+
+    private fun cropCornerHandles(cropView: View): List<View> =
+        cropView.findViewById<ViewGroup>(R.id.polygonView).children.toList()
 
     override fun onError(error: DocumentScannerErrorModel) = Unit
 
@@ -63,5 +116,7 @@ class AppScanActivity : ScanActivity() {
         val enabled: Boolean = true
 
         const val EXTRA_FILE = "file"
+
+        private const val IMAGE_CROP_FRAGMENT_TAG = "ImageCropFragmentTag"
     }
 }
