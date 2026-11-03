@@ -251,7 +251,9 @@ class UploadFilesActivity :
         mToolbarSpinner.adapter = directories
         mToolbarSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                repeat(position) { onBackPressedDispatcher.onBackPressed() }
+                // Dirs are ordered deepest first, so 0 is current, 1 is parent ... until "/" .
+                // So we must go up by "position" and then set selection to the folder we reached, that is the new 0.
+                repeat(position) { navigateToParentDirectory() }
                 if (position != 0) {
                     mToolbarSpinner.setSelection(0)
                 }
