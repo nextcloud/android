@@ -26,7 +26,7 @@ class FileNameValidatorTests : AbstractOnServerIT() {
         private const val MAX_FILENAME_SIZE = 250
     }
 
-    private var capability: OCCapability = fileDataStorageManager.getCapability(account.name)
+    private var capability: OCCapability = storageManager.getCapability(account.name)
 
     @Before
     fun setup() {

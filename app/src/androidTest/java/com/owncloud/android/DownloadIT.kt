@@ -70,8 +70,8 @@ class DownloadIT : AbstractOnServerIT() {
 
         refreshFolder(FOLDER)
 
-        var file1 = fileDataStorageManager.getFileByDecryptedRemotePath(FOLDER + "nonEmpty.txt")
-        var file2 = fileDataStorageManager.getFileByDecryptedRemotePath(FOLDER + "nonEmpty2.txt")
+        var file1 = storageManager.getFileByDecryptedRemotePath(FOLDER + "nonEmpty.txt")
+        var file2 = storageManager.getFileByDecryptedRemotePath(FOLDER + "nonEmpty2.txt")
 
         if (file1 == null) {
             fail("file 1 cannot be null")
@@ -88,8 +88,8 @@ class DownloadIT : AbstractOnServerIT() {
         Assert.assertTrue(operation2Result.isSuccess)
 
         refreshFolder(FOLDER)
-        file1 = fileDataStorageManager.getFileByDecryptedRemotePath(FOLDER + "nonEmpty.txt")
-        file2 = fileDataStorageManager.getFileByDecryptedRemotePath(FOLDER + "nonEmpty2.txt")
+        file1 = storageManager.getFileByDecryptedRemotePath(FOLDER + "nonEmpty.txt")
+        file2 = storageManager.getFileByDecryptedRemotePath(FOLDER + "nonEmpty2.txt")
 
         verifyDownload(file1, file2)
     }

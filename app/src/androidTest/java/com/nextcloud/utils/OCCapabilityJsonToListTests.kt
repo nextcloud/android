@@ -19,7 +19,7 @@ import org.junit.Test
 
 @Suppress("MagicNumber")
 class OCCapabilityJsonToListTests : AbstractIT() {
-    private var capability: OCCapability = fileDataStorageManager.getCapability(account.name)
+    private var capability: OCCapability = storageManager.getCapability(account.name)
 
     // region Valid Input
     @Test

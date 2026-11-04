@@ -23,7 +23,6 @@ import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.nextcloud.test.Flaky
-import com.nextcloud.test.GrantStoragePermissionRule.Companion.grant
 import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
@@ -40,15 +39,10 @@ import org.hamcrest.Matchers.not
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.TestRule
 
 class OCFileListFragmentStaticServerIT : AbstractIT() {
     private val testClassName = "com.owncloud.android.ui.fragment.OCFileListFragmentStaticServerIT"
-
-    @get:Rule
-    var storagePermissionRule: TestRule = grant()
 
     @Before
     fun initIntentRecording() {
