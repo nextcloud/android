@@ -20,6 +20,8 @@ import com.owncloud.android.datamodel.OCFileDepth.DeepLevel
 import com.owncloud.android.datamodel.OCFileDepth.FirstLevel
 import com.owncloud.android.datamodel.OCFileDepth.Root
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.shares.OCShare
+import com.owncloud.android.lib.resources.shares.ShareeUser
 import com.owncloud.android.ui.events.EncryptionEvent
 import com.owncloud.android.utils.FileStorageUtils
 import java.io.File
@@ -31,6 +33,18 @@ private const val FOLDER_CONTENT_LENGTH = 0L
 
 private val gson = Gson()
 
+private fun OCShare.toShareeUser() = ShareeUser(shareWith, sharedWithDisplayName, shareType)
+
+fun OCFile.addShare(share: OCShare) {
+    val sharee = share.toShareeUser()
+    if (sharee !in sharees) sharees.add(sharee)
+}
+
+fun OCFile.removeShare(share: OCShare) {
+    val sharee = share.toShareeUser()
+    sharees.removeAll { it == sharee }
+}
+
 fun List<OCFile>.filterFilenames(): List<OCFile> = distinctBy { it.fileName }
 
 fun OCFile.isTempFile(): Boolean {
@@ -40,10 +54,7 @@ fun OCFile.isTempFile(): Boolean {
 }
 
 fun OCFile?.isPNG(): Boolean {
-    if (this == null) {
-        return false
-    }
-    return "image/png".equals(mimeType, ignoreCase = true)
+    return this != null && "image/png".equals(mimeType, ignoreCase = true)
 }
 
 fun OCFile?.getDepth(): OCFileDepth? {
