@@ -33,7 +33,7 @@ import com.owncloud.android.operations.factory.UploadFileOperationFactory
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.mockkStatic
+import io.mockk.mockkObject
 import org.greenrobot.eventbus.EventBus
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -119,7 +119,7 @@ class BackgroundJobFactoryTest {
 
     @Before
     fun setUp() {
-        mockkStatic(MainApp::class)
+        mockkObject(MainApp)
         every { MainApp.getAppContext() } returns context
 
         MockitoAnnotations.openMocks(this)

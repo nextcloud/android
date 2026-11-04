@@ -47,6 +47,6 @@ class PlaybackDataSourceFactory @Inject constructor(
     private fun createHttpDataSourceFactory(): HttpDataSource.Factory {
         val client = clientFactory.createNextcloudClient(accountManager.user).client
         return OkHttpDataSource.Factory(client)
-            .setUserAgent(MainApp.getUserAgent())
+            .setUserAgent(MainApp.userAgent)
     }
 }

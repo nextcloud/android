@@ -1,1033 +1,627 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2023 Alper Ozturk <alper.ozturk@nextcloud.com>
- * SPDX-FileCopyrightText: 2023 TSI-mc
- * SPDX-FileCopyrightText: 2022-2023 Álvaro Brey <alvaro@alvarobrey.com>
- * SPDX-FileCopyrightText: 2016-2020 Tobias Kaminsky <tobias@kaminsky.me>
- * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
- * SPDX-FileCopyrightText: 2019 Alice Gaudon <alice@gaudon.pro>
- * SPDX-FileCopyrightText: 2016 Andy Scherzinger <info@andy-scherzinger.de>
- * SPDX-FileCopyrightText: 2015 ownCloud Inc.
- * SPDX-FileCopyrightText: 2014 David A. Velasco <dvelasco@solidgear.es>
- * SPDX-FileCopyrightText: 2013 María Asensio Valverde <masensio@solidgear.es>
- * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android;
+package com.owncloud.android
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.Application;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.content.BroadcastReceiver;
-import android.content.ComponentName;
-import android.content.ContentResolver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.res.Resources;
-import android.net.ConnectivityManager;
-import android.os.Bundle;
-import android.os.Environment;
-import android.os.StrictMode;
-import android.text.TextUtils;
-import android.view.WindowManager;
+import android.app.Application
+import android.content.BroadcastReceiver
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
+import android.content.res.Resources
+import android.os.StrictMode
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.ProcessLifecycleOwner
+import com.nextcloud.appReview.InAppReviewHelper
+import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.appinfo.AppInfo
+import com.nextcloud.client.core.Clock
+import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.client.di.ActivityInjector
+import com.nextcloud.client.di.AppComponent
+import com.nextcloud.client.di.DaggerAppComponent
+import com.nextcloud.client.errorhandling.ExceptionHandler
+import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.logger.LegacyLoggerAdapter
+import com.nextcloud.client.logger.Logger
+import com.nextcloud.client.migrations.AutoUploadEntriesMigration
+import com.nextcloud.client.migrations.MigrationsManager
+import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.client.network.NetworkChangeListener
+import com.nextcloud.client.network.WalledCheckCache
+import com.nextcloud.client.notifications.AppNotificationChannels
+import com.nextcloud.client.onboarding.OnboardingService
+import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.client.preferences.DarkMode
+import com.nextcloud.client.systembars.SystemBarBackgroundCallbacks
+import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias
+import com.nextcloud.utils.extensions.registerBroadcastReceiver
+import com.nextcloud.utils.extensions.showToast
+import com.nextcloud.utils.mdm.MDMConfig
+import com.owncloud.android.authentication.GlobalPassCodeProtectionCallbacks
+import com.owncloud.android.authentication.PassCodeManager
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
+import com.owncloud.android.datamodel.ReceiverFlag
+import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.ThumbnailsCacheManager
+import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.datastorage.StoragePathFixer
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.status.NextcloudVersion
+import com.owncloud.android.lib.resources.status.OwnCloudVersion
+import com.owncloud.android.providers.documentstorage.DocumentsStorageProvider
+import com.owncloud.android.ui.activity.ContactsPreferenceActivity
+import com.owncloud.android.utils.FilesSyncHelper
+import com.owncloud.android.utils.PermissionUtil
+import com.owncloud.android.utils.ReceiversHelper
+import com.owncloud.android.utils.SecurityUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
+import org.conscrypt.Conscrypt
+import org.greenrobot.eventbus.EventBus
+import java.lang.ref.WeakReference
+import java.security.NoSuchAlgorithmException
+import java.security.Security
+import javax.inject.Inject
+import javax.inject.Provider
+import javax.net.ssl.SSLContext
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.nextcloud.appReview.InAppReviewHelper;
-import com.nextcloud.client.account.User;
-import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.appinfo.AppInfo;
-import com.nextcloud.client.core.Clock;
-import com.nextcloud.client.device.PowerManagementService;
-import com.nextcloud.client.di.ActivityInjector;
-import com.nextcloud.client.di.AppComponent;
-import com.nextcloud.client.di.DaggerAppComponent;
-import com.nextcloud.client.errorhandling.ExceptionHandler;
-import com.nextcloud.client.jobs.BackgroundJobManager;
-import com.nextcloud.client.logger.LegacyLoggerAdapter;
-import com.nextcloud.client.logger.Logger;
-import com.nextcloud.client.migrations.MigrationsManager;
-import com.nextcloud.client.network.ConnectivityService;
-import com.nextcloud.client.network.NetworkChangeListener;
-import com.nextcloud.client.network.WalledCheckCache;
-import com.nextcloud.client.onboarding.OnboardingService;
-import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.client.preferences.AppPreferencesImpl;
-import com.nextcloud.client.preferences.DarkMode;
-import com.nextcloud.client.systembars.SystemBarBackgroundCallbacks;
-import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias;
-import com.nextcloud.utils.extensions.ContextExtensionsKt;
-import com.nextcloud.utils.mdm.MDMConfig;
-import com.nmc.android.ui.LauncherActivity;
-import com.owncloud.android.authentication.PassCodeManager;
-import com.owncloud.android.datamodel.ArbitraryDataProvider;
-import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
-import com.owncloud.android.datamodel.MediaFolder;
-import com.owncloud.android.datamodel.MediaFolderType;
-import com.owncloud.android.datamodel.MediaProvider;
-import com.owncloud.android.datamodel.ReceiverFlag;
-import com.owncloud.android.datamodel.SyncedFolder;
-import com.owncloud.android.datamodel.SyncedFolderProvider;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.datamodel.UploadsStorageManager;
-import com.owncloud.android.datastorage.DataStorageProvider;
-import com.owncloud.android.datastorage.StoragePoint;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.status.NextcloudVersion;
-import com.owncloud.android.lib.resources.status.OCCapability;
-import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.providers.documentstorage.DocumentsStorageProvider;
-import com.owncloud.android.ui.navigation.NavigatorActivity;
-import com.owncloud.android.ui.navigation.NavigatorScreen;
-import com.owncloud.android.ui.notifications.NotificationUtils;
-import com.owncloud.android.utils.FilesSyncHelper;
-import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.ReceiversHelper;
-import com.owncloud.android.utils.SecurityUtils;
-import com.owncloud.android.utils.theme.CapabilityUtils;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import org.conscrypt.Conscrypt;
-import org.greenrobot.eventbus.EventBus;
-
-import java.lang.ref.WeakReference;
-import java.lang.reflect.Method;
-import java.security.NoSuchAlgorithmException;
-import java.security.Security;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLEngine;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.util.Pair;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleEventObserver;
-import androidx.lifecycle.ProcessLifecycleOwner;
-import dagger.android.AndroidInjector;
-import dagger.android.DispatchingAndroidInjector;
-import dagger.android.HasAndroidInjector;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
-import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP;
-
-
-/**
- * Main Application of the project. Contains methods to build the "static" strings. These strings were before constants
- * in different classes.
- */
-public class MainApp extends Application implements HasAndroidInjector, NetworkChangeListener {
-    public static final OwnCloudVersion OUTDATED_SERVER_VERSION = NextcloudVersion.nextcloud_30;
-    public static final OwnCloudVersion MINIMUM_SUPPORTED_SERVER_VERSION = NextcloudVersion.nextcloud_23;
-
-    private static final String TAG = MainApp.class.getSimpleName();
-    public static final String DOT = ".";
-
-    private static WeakReference<Context> appContext;
-
-    private static String storagePath;
-
-    private static boolean mOnlyOnDevice;
-    private static boolean mOnlyPersonalFiles;
-
+open class MainApp :
+    Application(),
+    HasAndroidInjector,
+    NetworkChangeListener {
 
     @Inject
-    protected AppPreferences preferences;
+    lateinit var preferences: AppPreferences
 
     @Inject
-    protected DispatchingAndroidInjector<Object> dispatchingAndroidInjector;
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
     @Inject
-    protected UserAccountManager accountManager;
+    lateinit var accountManager: UserAccountManager
 
     @Inject
-    protected UploadsStorageManager uploadsStorageManager;
+    lateinit var uploadsStorageManager: UploadsStorageManager
 
     @Inject
-    protected OnboardingService onboarding;
+    lateinit var onboarding: OnboardingService
 
     @Inject
-    ConnectivityService connectivityService;
+    lateinit var connectivityService: ConnectivityService
 
     @Inject
-    SyncedFolderProvider syncedFolderProvider;
-
-    @Inject PowerManagementService powerManagementService;
+    lateinit var syncedFolderProvider: SyncedFolderProvider
 
     @Inject
-    Logger logger;
+    lateinit var powerManagementService: PowerManagementService
 
     @Inject
-    AppInfo appInfo;
+    lateinit var logger: Logger
 
     @Inject
-    BackgroundJobManager backgroundJobManager;
+    lateinit var appInfo: AppInfo
 
     @Inject
-    Clock clock;
+    lateinit var backgroundJobManager: BackgroundJobManager
 
     @Inject
-    EventBus eventBus;
+    lateinit var clock: Clock
 
     @Inject
-    MigrationsManager migrationsManager;
+    lateinit var eventBus: EventBus
 
     @Inject
-    InAppReviewHelper inAppReviewHelper;
+    lateinit var migrationsManager: MigrationsManager
 
     @Inject
-    PassCodeManager passCodeManager;
+    lateinit var inAppReviewHelper: InAppReviewHelper
 
-    @Inject WalledCheckCache walledCheckCache;
+    @Inject
+    lateinit var passCodeManager: PassCodeManager
 
-    @Inject ComposeProcessTextAlias composeProcessTextAlias;
+    @Inject
+    lateinit var walledCheckCache: WalledCheckCache
 
-    // workaround because injection is initialized on onAttachBaseContext
-    // and getApplicationContext is null at that point, which crashes when getting current user
-    @Inject Provider<ViewThemeUtils> viewThemeUtilsProvider;
-    private ViewThemeUtils viewThemeUtils;
+    @Inject
+    lateinit var composeProcessTextAlias: ComposeProcessTextAlias
 
-    @SuppressWarnings("unused")
-    private boolean mBound;
+    @Inject
+    lateinit var viewThemeUtilsProvider: Provider<ViewThemeUtils>
 
-    private static AppComponent appComponent;
+    private val restrictionsFilter = IntentFilter(Intent.ACTION_APPLICATION_RESTRICTIONS_CHANGED)
 
-    /**
-     * Temporary hack
-     */
-    private static void initGlobalContext(Context context) {
-        appContext = new WeakReference<>(context);
-    }
-
-    /**
-     * Temporary getter replacing Dagger DI
-     * TODO: remove when cleaning DI in NContentObserverJob
-     */
-    public AppPreferences getPreferences() {
-        return preferences;
-    }
-
-    /**
-     * Temporary getter replacing Dagger DI
-     * TODO: remove when cleaning DI in NContentObserverJob
-     */
-    public PowerManagementService getPowerManagementService() {
-        return powerManagementService;
-    }
-
-    private String getAppProcessName() {
-        return Application.getProcessName();
-    }
-
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-
-        initGlobalContext(this);
-        initDagger();
-
-        // we don't want to handle crashes occurring inside crash reporter activity/process;
-        // let the platform deal with those
-        final boolean isCrashReportingProcess = getAppProcessName().endsWith(":crash");
-
-        if (!isCrashReportingProcess && !appInfo.isDebugBuild()) {
-            Thread.UncaughtExceptionHandler defaultPlatformHandler = Thread.getDefaultUncaughtExceptionHandler();
-
-            if (defaultPlatformHandler != null) {
-                final ExceptionHandler crashReporter = new ExceptionHandler(this,
-                                                                            defaultPlatformHandler);
-                Thread.setDefaultUncaughtExceptionHandler(crashReporter);
-            }
+    private val restrictionsReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            setProxyConfig()
         }
     }
 
-    private void initDagger() {
-        appComponent = DaggerAppComponent.builder()
+    private val lifecycleEventObserver = LifecycleEventObserver { _, event ->
+        when (event) {
+            Lifecycle.Event.ON_START -> onAppForeground()
+            Lifecycle.Event.ON_STOP -> onAppBackground()
+            Lifecycle.Event.ON_RESUME -> onAppResume()
+            else -> Unit
+        }
+    }
+
+    private val isCrashReportingProcess: Boolean
+        get() = getProcessName().endsWith(CRASH_REPORTING_PROCESS_SUFFIX)
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        initGlobalContext(this)
+        initDagger()
+        installCrashReporter()
+    }
+
+    private fun initDagger() {
+        val component = DaggerAppComponent.builder()
             .application(this)
-            .build();
-
-        appComponent.inject(this);
+            .build()
+        appComponent = component
+        component.inject(this)
     }
 
-    /**
-     * <b>USE SPARINGLY!</b> This should only be used for injection of Theme classes in custom Views, and they need to
-     * be added as methods in the {@link AppComponent} itself.
-     * <p>
-     * Once we adopt Hilt this won't be necessary either, as View is a supported target in Hilt.
-     *
-     * @return the {@link AppComponent} for this app
-     */
-    public static AppComponent getAppComponent() {
-        if (appComponent == null) {
-            throw new IllegalStateException("Dagger not initialized!");
+    private fun installCrashReporter() {
+        if (isCrashReportingProcess || appInfo.isDebugBuild) {
+            return
         }
-        return appComponent;
-    }
 
+        val defaultPlatformHandler = Thread.getDefaultUncaughtExceptionHandler() ?: return
+        Thread.setDefaultUncaughtExceptionHandler(ExceptionHandler(this, defaultPlatformHandler))
+    }
 
     @SuppressFBWarnings("ST")
-    @Override
-    public void onCreate() {
-        enableStrictMode();
+    override fun onCreate() {
+        enableStrictMode()
+        val viewThemeUtils = viewThemeUtilsProvider.get()
+        setAppTheme(preferences.getDarkThemeMode())
+        super.onCreate()
 
-        viewThemeUtils = viewThemeUtilsProvider.get();
+        ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleEventObserver)
+        insertConscrypt()
+        registerActivityLifecycleCallbacks(ActivityInjector())
+        registerActivityLifecycleCallbacks(SystemBarBackgroundCallbacks(viewThemeUtilsProvider))
+        inAppReviewHelper.resetAndIncrementAppRestartCounter()
+        startMigrations()
+        SecurityUtils()
+        StoragePathFixer(preferences).fixIfNeeded()
+        cancelDownloadJobsIfRequested()
+        storagePath = preferences.getStoragePath(applicationContext.filesDir.absolutePath)
+        OwnCloudClientManagerFactory.setUserAgent(userAgent)
+        initProxy()
+        ThumbnailsCacheManager.initDiskCacheAsync()
+        enableFileLoggingIfAllowed()
+        disableDeathOnFileUriExposure()
 
-        setAppTheme(preferences.getDarkThemeMode());
-        super.onCreate();
+        Log_OC.d(TAG, "scheduleContentObserverJob, called")
+        backgroundJobManager.scheduleContentObserverJob()
 
-        ProcessLifecycleOwner.get().getLifecycle().addObserver(lifecycleEventObserver);
-
-        insertConscrypt();
-
-        registerActivityLifecycleCallbacks(new ActivityInjector());
-        registerActivityLifecycleCallbacks(new SystemBarBackgroundCallbacks(viewThemeUtilsProvider));
-
-        //update the app restart count when app is launched by the user
-        inAppReviewHelper.resetAndIncrementAppRestartCounter();
-
-        int startedMigrationsCount = migrationsManager.startMigration();
-        logger.i(TAG, String.format(Locale.US, "Started %d migrations", startedMigrationsCount));
-
-        new SecurityUtils();
-
-        fixStoragePath();
-
-        checkCancelDownloadJobs();
-
-        MainApp.storagePath = preferences.getStoragePath(getApplicationContext().getFilesDir().getAbsolutePath());
-
-        OwnCloudClientManagerFactory.setUserAgent(getUserAgent());
-
-        if (isClientBrandedPlus()) {
-            setProxyConfig();
-            ContextExtensionsKt.registerBroadcastReceiver(this, restrictionsReceiver, restrictionsFilter, ReceiverFlag.NotExported);
-        } else {
-            setProxyForNonBrandedPlusClients();
-        }
-
-        // initialise thumbnails cache on background thread
-        ThumbnailsCacheManager.initDiskCacheAsync();
-
-
-        if (MDMConfig.INSTANCE.isLogEnabled(this)) {
-            // use app writable dir, no permissions needed
-            Log_OC.setLoggerImplementation(new LegacyLoggerAdapter(logger));
-            Log_OC.d("Debug", "start logging");
-        }
-
-        try {
-            Method m = StrictMode.class.getMethod("disableDeathOnFileUriExposure");
-            m.invoke(null);
-        } catch (Exception e) {
-            Log_OC.d("Debug", "Failed to disable uri exposure");
-        }
-
-        Log_OC.d(TAG, "scheduleContentObserverJob, called");
-        backgroundJobManager.scheduleContentObserverJob();
-
-        initSyncOperations(this,
-                           preferences,
-                           uploadsStorageManager,
-                           accountManager,
-                           connectivityService,
-                           powerManagementService,
-                           backgroundJobManager,
-                           clock,
-                           viewThemeUtils,
-                           walledCheckCache);
-        initContactsBackup(accountManager, backgroundJobManager);
-        notificationChannels();
-
-        if (backgroundJobManager != null) {
-            backgroundJobManager.scheduleMediaFoldersDetectionJob();
-            backgroundJobManager.startMediaFoldersDetectionJob();
-            backgroundJobManager.schedulePeriodicAutoUpload();
-            backgroundJobManager.schedulePeriodicHealthStatus();
-
-            if (preferences.isTwoWaySyncEnabled()) {
-                backgroundJobManager.scheduleInternal2WaySync(preferences.getTwoWaySyncInterval());
-            }
-
-            backgroundJobManager.startPeriodicallyOfflineOperation();
-        }
-
-        registerGlobalPassCodeProtection();
-        if (!MDMConfig.INSTANCE.sendFilesSupport(this)) {
-            disableDocumentsStorageProvider();
-        }
-        connectivityService.addListener(this);
-    }
-
-    public void disableDocumentsStorageProvider() {
-        String packageName = getPackageName();
-        String providerClassName = DocumentsStorageProvider.class.getName();
-        ComponentName componentName = new ComponentName(packageName, providerClassName);
-        PackageManager packageManager = getPackageManager();
-        packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
-    }
-
-    private final LifecycleEventObserver lifecycleEventObserver = ((lifecycleOwner, event) -> {
-        if (event == Lifecycle.Event.ON_START) {
-            Log_OC.d(TAG, "APP IN FOREGROUND");
-            composeProcessTextAlias.configure();
-
-            if (preferences.startAutoUploadOnStart()) {
-                FilesSyncHelper.startAutoUploadForEnabledSyncedFolders(syncedFolderProvider,
-                                                                       backgroundJobManager,
-                                                                       false);
-                preferences.setLastAutoUploadOnStartTime(System.currentTimeMillis());
-            }
-        } else if (event == Lifecycle.Event.ON_STOP) {
-            passCodeManager.setCanAskPin(true);
-            Log_OC.d(TAG, "APP IN BACKGROUND");
-        } else if (event == Lifecycle.Event.ON_RESUME) {
-            setProxyConfig();
-            Log_OC.d(TAG, "APP ON RESUME");
-        }
-    });
-
-    private void setProxyForNonBrandedPlusClients() {
-        try {
-            OwnCloudClientManagerFactory.setProxyHost(getResources().getString(R.string.proxy_host));
-            OwnCloudClientManagerFactory.setProxyPort(getResources().getInteger(R.integer.proxy_port));
-        } catch (Resources.NotFoundException e) {
-            Log_OC.d(TAG, "Error caught at setProxyForNonBrandedPlusClients: " + e);
-        }
-    }
-
-    public static boolean isClientBranded() {
-        return getAppContext().getResources().getBoolean(R.bool.is_branded_client);
-    }
-
-    public static boolean isClientBrandedPlus() {
-        return getAppContext().getResources().getBoolean(R.bool.is_branded_plus_client);
-    }
-
-    private final IntentFilter restrictionsFilter = new IntentFilter(Intent.ACTION_APPLICATION_RESTRICTIONS_CHANGED);
-
-    private final BroadcastReceiver restrictionsReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            setProxyConfig();
-        }
-    };
-
-    private void setProxyConfig() {
-        if (!isClientBrandedPlus()) {
-            Log_OC.d(TAG, "Proxy configuration cannot be set. Client is not branded plus.");
-            return;
-        }
-
-        String host = MDMConfig.INSTANCE.getHost(this);
-        int port = MDMConfig.INSTANCE.getPort(this);
-
-        if (TextUtils.isEmpty(host) || port == -1) {
-            Log_OC.d(TAG, "Proxy configuration cannot be found");
-            return;
-        }
-
-        try {
-            OwnCloudClientManagerFactory.setProxyHost(host);
-            OwnCloudClientManagerFactory.setProxyPort(port);
-
-            Log_OC.d(TAG, "Proxy configuration successfully set");
-        } catch (Resources.NotFoundException e) {
-            Log_OC.e(TAG, "Proxy config cannot able to set due to: $e");
-        }
-    }
-
-    private void registerGlobalPassCodeProtection() {
-        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
-
-            @Override
-            public void onActivityCreated(@NonNull Activity activity, Bundle savedInstanceState) {
-                Log_OC.d(activity.getClass().getSimpleName(), "onCreate(Bundle) starting");
-                onboarding.launchActivityIfNeeded(activity);
-            }
-
-            @Override
-            public void onActivityStarted(@NonNull Activity activity) {
-                Log_OC.d(activity.getClass().getSimpleName(), "onStart() starting");
-            }
-
-            @Override
-            public void onActivityResumed(@NonNull Activity activity) {
-                Log_OC.d(activity.getClass().getSimpleName(), "onResume() starting");
-                // we are checking activity is not launcher activity because there is timer in launcher
-                // which will reopen the passcode screen
-                if (!(activity instanceof LauncherActivity)) {
-                    passCodeManager.onActivityResumed(activity);
-                }
-            }
-
-            @Override
-            public void onActivityPaused(@NonNull Activity activity) {
-                Log_OC.d(activity.getClass().getSimpleName(), "onPause() ending");
-            }
-
-            @Override
-            public void onActivityStopped(@NonNull Activity activity) {
-                Log_OC.d(activity.getClass().getSimpleName(), "onStop() ending");
-                // since we are not showing passcode on launch activity
-                // so we don't need to call the stopped method as well
-                if (!(activity instanceof LauncherActivity)) {
-                    passCodeManager.onActivityStopped(activity);
-                }
-            }
-
-            @Override
-            public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {
-                Log_OC.d(activity.getClass().getSimpleName(), "onSaveInstanceState(Bundle) starting");
-            }
-
-            @Override
-            public void onActivityDestroyed(@NonNull Activity activity) {
-                Log_OC.d(activity.getClass().getSimpleName(), "onDestroy() ending");
-            }
-        });
-    }
-
-    public static void initContactsBackup(UserAccountManager accountManager, BackgroundJobManager backgroundJobManager) {
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(appContext.get());
-        if (accountManager == null) {
-            return;
-        }
-
-        List<User> users = accountManager.getAllUsers();
-        for (User user : users) {
-            if (backgroundJobManager != null && arbitraryDataProvider.getBooleanValue(user, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP)) {
-                backgroundJobManager.schedulePeriodicContactsBackup(user);
-            }
-        }
-    }
-
-    private void insertConscrypt() {
-        Security.insertProviderAt(Conscrypt.newProvider(), 1);
-
-        try {
-            Conscrypt.Version version = Conscrypt.version();
-            Log_OC.i(TAG, "Using Conscrypt/"
-                + version.major()
-                + DOT
-                + version.minor()
-                + DOT + version.patch()
-                + " for TLS");
-            SSLEngine engine = SSLContext.getDefault().createSSLEngine();
-            Log_OC.i(TAG, "Enabled protocols: " + Arrays.toString(engine.getEnabledProtocols()) + " }");
-            Log_OC.i(TAG, "Enabled ciphers: " + Arrays.toString(engine.getEnabledCipherSuites()) + " }");
-        } catch (NoSuchAlgorithmException e) {
-            Log_OC.e(TAG, e.getMessage());
-        }
-    }
-
-    @SuppressLint("ApplySharedPref") // commit is done on purpose to write immediately
-    private void fixStoragePath() {
-        if (!preferences.isStoragePathFixEnabled()) {
-            StoragePoint[] storagePoints = DataStorageProvider.getInstance().getAvailableStoragePoints();
-            String storagePath = preferences.getStoragePath("");
-
-            if (TextUtils.isEmpty(storagePath)) {
-                if (preferences.getLastSeenVersionCode() != 0) {
-                    // We already used the app, but no storage is set - fix that!
-                    preferences.setStoragePath(Environment.getExternalStorageDirectory().getAbsolutePath());
-                    preferences.removeKeysMigrationPreference();
-                } else {
-                    // find internal storage path that's indexable
-                    boolean set = false;
-                    for (StoragePoint storagePoint : storagePoints) {
-                        if (storagePoint.getStorageType() == StoragePoint.StorageType.INTERNAL &&
-                            storagePoint.getPrivacyType() == StoragePoint.PrivacyType.PUBLIC) {
-                            preferences.setStoragePath(storagePoint.getPath());
-                            preferences.removeKeysMigrationPreference();
-                            set = true;
-                            break;
-                        }
-                    }
-
-                    if (!set) {
-                        for (StoragePoint storagePoint : storagePoints) {
-                            if (storagePoint.getPrivacyType() == StoragePoint.PrivacyType.PUBLIC) {
-                                preferences.setStoragePath(storagePoint.getPath());
-                                preferences.removeKeysMigrationPreference();
-                                break;
-                            }
-                        }
-
-                    }
-                }
-                preferences.setStoragePathFixEnabled(true);
-            } else {
-                preferences.removeKeysMigrationPreference();
-                preferences.setStoragePathFixEnabled(true);
-            }
-        }
-    }
-
-    private void enableStrictMode() {
-        if (BuildConfig.DEBUG && BuildConfig.RUNTIME_PERF_ANALYSIS) {
-            Log_OC.d(TAG, "Enabling StrictMode");
-            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                                           .detectDiskReads()
-                                           .detectDiskWrites()
-                                           .detectAll()
-                                           .penaltyLog()
-                                           .build());
-            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                                       .detectLeakedSqlLiteObjects()
-                                       .detectLeakedClosableObjects()
-                                       .penaltyLog()
-                                       .build());
-        }
-    }
-
-    private void checkCancelDownloadJobs() {
-        if (backgroundJobManager != null && preferences.shouldStopDownloadJobsOnStart()) {
-            backgroundJobManager.cancelAllFilesDownloadJobs();
-            preferences.setStopDownloadJobsOnStart(false);
-        }
-    }
-
-    public static void initSyncOperations(
-        final Context context,
-        final AppPreferences preferences,
-        final UploadsStorageManager uploadsStorageManager,
-        final UserAccountManager accountManager,
-        final ConnectivityService connectivityService,
-        final PowerManagementService powerManagementService,
-        final BackgroundJobManager backgroundJobManager,
-        final Clock clock,
-        final ViewThemeUtils viewThemeUtils,
-        final WalledCheckCache walledCheckCache) {
-        updateToAutoUpload(context);
-        cleanOldEntries(clock);
-        updateAutoUploadEntries(clock);
-
-        if (getAppContext() != null) {
-            if (PermissionUtil.checkStoragePermission(getAppContext())) {
-                splitOutAutoUploadEntries(clock, viewThemeUtils);
-            } else {
-                preferences.setAutoUploadSplitEntriesEnabled(true);
-            }
-        }
-
-        if (!preferences.isAutoUploadInitialized()) {
-            preferences.setAutoUploadInit(true);
-        }
-
-        FilesSyncHelper.restartUploadsIfNeeded(
+        initSyncOperations(
+            this,
+            preferences,
             uploadsStorageManager,
             accountManager,
             connectivityService,
-            powerManagementService);
+            powerManagementService,
+            backgroundJobManager,
+            clock,
+            viewThemeUtils,
+            walledCheckCache
+        )
+        initContactsBackup(accountManager, backgroundJobManager)
+        AppNotificationChannels.create(getAppContext())
+        scheduleBackgroundJobs()
+        registerActivityLifecycleCallbacks(GlobalPassCodeProtectionCallbacks(onboarding, passCodeManager))
 
-        backgroundJobManager.scheduleOfflineSync();
+        if (!MDMConfig.sendFilesSupport(this)) {
+            disableDocumentsStorageProvider()
+        }
 
-        ReceiversHelper.registerNetworkChangeReceiver(uploadsStorageManager,
-                                                      accountManager,
-                                                      connectivityService,
-                                                      powerManagementService,
-                                                      walledCheckCache);
-
-        ReceiversHelper.registerPowerChangeReceiver(uploadsStorageManager,
-                                                    accountManager,
-                                                    connectivityService,
-                                                    powerManagementService);
-
-        ReceiversHelper.registerPowerSaveReceiver(uploadsStorageManager,
-                                                  accountManager,
-                                                  connectivityService,
-                                                  powerManagementService);
+        connectivityService.addListener(this)
     }
 
-    public static void notificationChannels() {
-        if (getAppContext() != null) {
-            Context context = getAppContext();
-            NotificationManager notificationManager = (NotificationManager)
-                context.getSystemService(Context.NOTIFICATION_SERVICE);
+    fun disableDocumentsStorageProvider() {
+        packageManager.setComponentEnabledSetting(
+            ComponentName(this, DocumentsStorageProvider::class.java),
+            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+            PackageManager.DONT_KILL_APP
+        )
+    }
 
-            if (notificationManager != null) {
-                createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD,
-                              R.string.notification_channel_download_name_short,
-                              R.string.notification_channel_download_description, context);
+    private fun onAppForeground() {
+        Log_OC.d(TAG, "APP IN FOREGROUND")
+        composeProcessTextAlias.configure()
 
-                createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD,
-                              R.string.notification_channel_upload_name_short,
-                              R.string.notification_channel_upload_description, context, NotificationManager.IMPORTANCE_LOW);
+        if (!preferences.startAutoUploadOnStart()) {
+            return
+        }
 
-                createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_MEDIA,
-                              R.string.notification_channel_media_name,
-                              R.string.notification_channel_media_description, context);
+        FilesSyncHelper.startAutoUploadForEnabledSyncedFolders(
+            syncedFolderProvider,
+            backgroundJobManager,
+            overridePowerSaving = false
+        )
+        preferences.setLastAutoUploadOnStartTime(System.currentTimeMillis())
+    }
 
-                createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_FILE_SYNC,
-                              R.string.notification_channel_file_sync_name,
-                              R.string.notification_channel_file_sync_description, context);
+    private fun onAppBackground() {
+        passCodeManager.canAskPin = true
+        Log_OC.d(TAG, "APP IN BACKGROUND")
+    }
 
-                notificationManager.deleteNotificationChannel(NotificationUtils.NOTIFICATION_CHANNEL_FILE_OBSERVER);
+    private fun onAppResume() {
+        setProxyConfig()
+        Log_OC.d(TAG, "APP ON RESUME")
+    }
 
-                createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_PUSH,
-                              R.string.notification_channel_push_name, R.string
-                                  .notification_channel_push_description, context, NotificationManager.IMPORTANCE_DEFAULT);
+    private fun startMigrations() {
+        val startedMigrationsCount = migrationsManager.startMigration()
+        logger.i(TAG, "Started $startedMigrationsCount migrations")
+    }
 
-                createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_BACKGROUND_OPERATIONS,
-                              R.string.notification_channel_background_operations_name, R.string
-                                  .notification_channel_background_operations_description, context, NotificationManager.IMPORTANCE_LOW);
+    private fun initProxy() {
+        if (!isClientBrandedPlus) {
+            setProxyForNonBrandedPlusClients()
+            return
+        }
 
-                createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_GENERAL, R.string
-                                  .notification_channel_general_name, R.string.notification_channel_general_description,
-                              context, NotificationManager.IMPORTANCE_DEFAULT);
+        setProxyConfig()
+        registerBroadcastReceiver(restrictionsReceiver, restrictionsFilter, ReceiverFlag.NotExported)
+    }
 
-                createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_OFFLINE_OPERATIONS,
-                              R.string.notification_channel_offline_operations_name_short,
-                              R.string.notification_channel_offline_operations_description, context);
-
-                createChannel(notificationManager,
-                              NotificationUtils.NOTIFICATION_CHANNEL_CONTENT_OBSERVER,
-                              R.string.notification_channel_content_observer_name_short,
-                              R.string.notification_channel_content_observer_description,
-                              context,
-                              NotificationManager.IMPORTANCE_LOW);
-            } else {
-                Log_OC.e(TAG, "Notification manager is null");
-            }
+    private fun setProxyForNonBrandedPlusClients() {
+        try {
+            OwnCloudClientManagerFactory.setProxyHost(resources.getString(R.string.proxy_host))
+            OwnCloudClientManagerFactory.setProxyPort(resources.getInteger(R.integer.proxy_port))
+        } catch (e: Resources.NotFoundException) {
+            Log_OC.d(TAG, "Error caught at setProxyForNonBrandedPlusClients: $e")
         }
     }
 
-    private static void createChannel(NotificationManager notificationManager,
-                                      String channelId, int channelName,
-                                      int channelDescription, Context context) {
-        createChannel(notificationManager, channelId, channelName, channelDescription, context,
-                      NotificationManager.IMPORTANCE_LOW);
-    }
-
-    private static void createChannel(NotificationManager notificationManager,
-                                      String channelId, int channelName,
-                                      int channelDescription, Context context, int importance) {
-        if (getAppContext() != null) {
-            CharSequence name = context.getString(channelName);
-            String description = context.getString(channelDescription);
-            NotificationChannel channel = new NotificationChannel(channelId, name, importance);
-
-            channel.setDescription(description);
-            channel.enableLights(false);
-            channel.enableVibration(false);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
-
-    public static String string(int id) {
-        return getAppContext().getString(id);
-    }
-
-    public static String string(int id, Object args) {
-        return getAppContext().getString(id, args);
-    }
-
-    public static Context getAppContext() {
-        return MainApp.appContext.get();
-    }
-
-    public static void setAppContext(Context context) {
-        MainApp.appContext = new WeakReference<>(context);
-    }
-
-    public static String getStoragePath() {
-        return MainApp.storagePath;
-    }
-
-    public static void setStoragePath(String path) {
-        MainApp.storagePath = path;
-    }
-
-    // Methods to obtain Strings referring app_name
-    //   From AccountAuthenticator
-    //   public static final String ACCOUNT_TYPE = "owncloud";
-    public static String getAccountType(Context context) {
-        return context.getResources().getString(R.string.account_type);
-    }
-
-    //  From AccountAuthenticator
-    //  public static final String AUTHORITY = "org.owncloud";
-    public static String getAuthority() {
-        return string(R.string.authority);
-    }
-
-    //  From AccountAuthenticator
-    //  public static final String AUTH_TOKEN_TYPE = "org.owncloud";
-    public static String getAuthTokenType() {
-        return string(R.string.authority);
-    }
-
-    //  From ProviderMeta
-    //  public static final String DB_FILE = "owncloud.db";
-    public static String getDBFile() {
-        return string(R.string.db_file);
-    }
-
-    //  From ProviderMeta
-    //  private final String mDatabaseName = "ownCloud";
-    public static String getDBName() {
-        return string(R.string.db_name);
-    }
-
-    /**
-     * name of data_folder, e.g., "owncloud"
-     */
-    public static String getDataFolder() {
-        return string(R.string.data_folder);
-    }
-
-    public static void showOnlyFilesOnDevice(boolean state) {
-        mOnlyOnDevice = state;
-    }
-
-    public static void showOnlyPersonalFiles(boolean state) {
-        mOnlyPersonalFiles = state;
-    }
-
-    public static boolean isOnlyOnDevice() {
-        return mOnlyOnDevice;
-    }
-
-    public static boolean isOnlyPersonFiles() {
-        return mOnlyPersonalFiles;
-    }
-
-    public static Integer getMenuItemId() {
-        if (MainApp.isOnlyPersonFiles()) {
-            return R.id.nav_personal_files;
+    private fun setProxyConfig() {
+        if (!isClientBrandedPlus) {
+            Log_OC.d(TAG, "Proxy configuration cannot be set. Client is not branded plus.")
+            return
         }
 
-        if (MainApp.isOnlyOnDevice()) {
-            return R.id.nav_on_device;
+        val host = MDMConfig.getHost(this)
+        val port = MDMConfig.getPort(this)
+        if (host.isEmpty() || port == UNDEFINED_PROXY_PORT) {
+            Log_OC.d(TAG, "Proxy configuration cannot be found")
+            return
         }
-
-        return null;
-    }
-
-    public static String getUserAgent() {
-        // Mozilla/5.0 (Android) Nextcloud-android/2.1.0
-        return getUserAgent(R.string.nextcloud_user_agent);
-    }
-
-    public static void showMessage(int messageId) {
-        ContextExtensionsKt.showToast(getAppContext(), messageId);
-    }
-
-    // user agent
-    private static String getUserAgent(@StringRes int agent) {
-        String appString = string(agent);
-        String brandedName = string(R.string.name_for_branded_user_agent);
-        String packageName = getAppContext().getPackageName();
-        String version = "";
 
         try {
-            PackageInfo pInfo = getAppContext().getPackageManager().getPackageInfo(packageName, 0);
-            if (pInfo != null) {
-                version = pInfo.versionName;
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            Log_OC.e(TAG, "Trying to get packageName", e.getCause());
-        }
-
-        return String.format(appString, version, brandedName);
-    }
-
-    private static void updateToAutoUpload(Context context) {
-        AppPreferences preferences = AppPreferencesImpl.fromContext(context);
-        if (preferences.instantPictureUploadEnabled() || preferences.instantVideoUploadEnabled()) {
-            preferences.removeLegacyPreferences();
-
-            // show info pop-up
-            try {
-                showAutoUploadAlertDialog(context);
-            } catch (WindowManager.BadTokenException e) {
-                Log_OC.i(TAG, "Error showing Auto Upload Update dialog, so skipping it: " + e.getMessage());
-            }
+            OwnCloudClientManagerFactory.setProxyHost(host)
+            OwnCloudClientManagerFactory.setProxyPort(port)
+            Log_OC.d(TAG, "Proxy configuration successfully set")
+        } catch (e: Resources.NotFoundException) {
+            Log_OC.e(TAG, "Proxy config cannot able to set due to: \$e")
         }
     }
 
+    private fun insertConscrypt() {
+        Security.insertProviderAt(Conscrypt.newProvider(), HIGHEST_SECURITY_PROVIDER_POSITION)
 
-    private static void showAutoUploadAlertDialog(Context context) {
-        new MaterialAlertDialogBuilder(context, R.style.Theme_ownCloud_Dialog)
-            .setTitle(R.string.drawer_synced_folders)
-            .setMessage(R.string.synced_folders_new_info)
-            .setPositiveButton(R.string.drawer_open, (dialog, which) -> {
-                Intent folderSyncIntent = NavigatorActivity.Companion.intent(context, NavigatorScreen.AutoUpload.INSTANCE);
-                dialog.dismiss();
-                context.startActivity(folderSyncIntent);
-            })
-            .setNegativeButton(R.string.drawer_close, (dialog, which) -> dialog.dismiss())
-            .setIcon(R.drawable.nav_synced_folders)
-            .create()
-            .show();
-    }
-
-    private static void updateAutoUploadEntries(Clock clock) {
-        // updates entries to reflect their true paths
-        Context context = getAppContext();
-        AppPreferences preferences = AppPreferencesImpl.fromContext(context);
-        if (!preferences.isAutoUploadPathsUpdateEnabled()) {
-            SyncedFolderProvider syncedFolderProvider =
-                new SyncedFolderProvider(MainApp.getAppContext().getContentResolver(), preferences, clock);
-            syncedFolderProvider.updateAutoUploadPaths(appContext.get());
+        try {
+            val version = Conscrypt.version()
+            Log_OC.i(TAG, "Using Conscrypt/${version.major()}$DOT${version.minor()}$DOT${version.patch()} for TLS")
+            val engine = SSLContext.getDefault().createSSLEngine()
+            Log_OC.i(TAG, "Enabled protocols: ${engine.enabledProtocols.contentToString()} }")
+            Log_OC.i(TAG, "Enabled ciphers: ${engine.enabledCipherSuites.contentToString()} }")
+        } catch (e: NoSuchAlgorithmException) {
+            Log_OC.e(TAG, e.message)
         }
     }
 
-    private static void splitOutAutoUploadEntries(Clock clock,
-                                                  final ViewThemeUtils viewThemeUtils) {
-        Context context = getAppContext();
-        AppPreferences preferences = AppPreferencesImpl.fromContext(context);
-        if (!preferences.isAutoUploadSplitEntriesEnabled()) {
-            // magic to split out existing synced folders in two when needed
-            // otherwise, we migrate them to their proper type (image or video)
-            Log_OC.i(TAG, "Migrate synced_folders records for image/video split");
-            ContentResolver contentResolver = context.getContentResolver();
+    private fun enableStrictMode() {
+        if (!BuildConfig.DEBUG || !BuildConfig.RUNTIME_PERF_ANALYSIS) {
+            return
+        }
 
-            SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver, preferences, clock);
+        Log_OC.d(TAG, "Enabling StrictMode")
+        StrictMode.setThreadPolicy(
+            StrictMode.ThreadPolicy.Builder()
+                .detectDiskReads()
+                .detectDiskWrites()
+                .detectAll()
+                .penaltyLog()
+                .build()
+        )
+        StrictMode.setVmPolicy(
+            StrictMode.VmPolicy.Builder()
+                .detectLeakedSqlLiteObjects()
+                .detectLeakedClosableObjects()
+                .penaltyLog()
+                .build()
+        )
+    }
 
-            final List<MediaFolder> imageMediaFolders = MediaProvider.getImageFolders(contentResolver,
-                                                                                      1,
-                                                                                      null,
-                                                                                      true);
-            final List<MediaFolder> videoMediaFolders = MediaProvider.getVideoFolders(contentResolver,
-                                                                                      1,
-                                                                                      null,
-                                                                                      true);
+    private fun enableFileLoggingIfAllowed() {
+        if (!MDMConfig.isLogEnabled(this)) {
+            return
+        }
 
-            ArrayList<Long> idsToDelete = new ArrayList<>();
-            List<SyncedFolder> syncedFolders = syncedFolderProvider.getSyncedFolders();
-            long primaryKey;
-            SyncedFolder newSyncedFolder;
-            for (SyncedFolder syncedFolder : syncedFolders) {
-                idsToDelete.add(syncedFolder.getId());
-                Log_OC.i(TAG, "Migration check for synced_folders record: "
-                    + syncedFolder.getId() + " - " + syncedFolder.getLocalPath());
+        Log_OC.setLoggerImplementation(LegacyLoggerAdapter(logger))
+        Log_OC.d(DEBUG_TAG, "start logging")
+    }
 
-                for (MediaFolder imageMediaFolder : imageMediaFolders) {
-                    String absolutePathOfImageFolder = imageMediaFolder.absolutePath;
-
-                    if (absolutePathOfImageFolder != null) {
-                        if (absolutePathOfImageFolder.equals(syncedFolder.getLocalPath())) {
-                            newSyncedFolder = (SyncedFolder) syncedFolder.clone();
-                            newSyncedFolder.setType(MediaFolderType.IMAGE);
-                            primaryKey = syncedFolderProvider.storeSyncedFolder(newSyncedFolder);
-                            Log_OC.i(TAG, "Migrated image synced_folders record: "
-                                + primaryKey + " - " + newSyncedFolder.getLocalPath());
-                            break;
-                        }
-                    }
-                }
-
-                for (MediaFolder videoMediaFolder : videoMediaFolders) {
-                    String absolutePathOfVideoFolder = videoMediaFolder.absolutePath;
-
-                    if (absolutePathOfVideoFolder != null) {
-                        if (absolutePathOfVideoFolder.equals(syncedFolder.getLocalPath())) {
-                            newSyncedFolder = (SyncedFolder) syncedFolder.clone();
-                            newSyncedFolder.setType(MediaFolderType.VIDEO);
-                            primaryKey = syncedFolderProvider.storeSyncedFolder(newSyncedFolder);
-                            Log_OC.i(TAG, "Migrated video synced_folders record: "
-                                + primaryKey + " - " + newSyncedFolder.getLocalPath());
-                            break;
-                        }
-                    }
-
-                }
-            }
-
-            for (long id : idsToDelete) {
-                Log_OC.i(TAG, "Removing legacy synced_folders record: " + id);
-                syncedFolderProvider.deleteSyncedFolder(id);
-            }
-
-            preferences.setAutoUploadSplitEntriesEnabled(true);
+    @Suppress("TooGenericExceptionCaught")
+    private fun disableDeathOnFileUriExposure() {
+        try {
+            StrictMode::class.java.getMethod("disableDeathOnFileUriExposure").invoke(null)
+        } catch (e: Exception) {
+            Log_OC.d(DEBUG_TAG, "Failed to disable uri exposure")
         }
     }
 
-    private static void cleanOldEntries(Clock clock) {
-        // previous versions of application created broken entries in the SyncedFolderProvider
-        // database, and this cleans all that and leaves 1 (newest) entry per synced folder
-
-        Context context = getAppContext();
-        AppPreferences preferences = AppPreferencesImpl.fromContext(context);
-
-        if (!preferences.isLegacyClean()) {
-            SyncedFolderProvider syncedFolderProvider =
-                new SyncedFolderProvider(context.getContentResolver(), preferences, clock);
-
-            List<SyncedFolder> syncedFolderList = syncedFolderProvider.getSyncedFolders();
-            Map<Pair<String, String>, Long> syncedFolders = new HashMap<>();
-            for (SyncedFolder syncedFolder : syncedFolderList) {
-                Pair<String, String> checkPair = new Pair<>(syncedFolder.getAccount(), syncedFolder.getLocalPath());
-                if (syncedFolders.containsKey(checkPair)) {
-                    Long folderId = syncedFolders.get(checkPair);
-
-                    if (folderId != null) {
-                        if (syncedFolder.getId() > folderId) {
-                            syncedFolders.put(checkPair, syncedFolder.getId());
-                        }
-                    }
-                } else {
-                    syncedFolders.put(checkPair, syncedFolder.getId());
-                }
-            }
-
-            ArrayList<Long> ids = new ArrayList<>(syncedFolders.values());
-
-            if (ids.size() > 0) {
-                int deletedCount = syncedFolderProvider.deleteSyncedFoldersNotInList(ids);
-                if (deletedCount > 0) {
-                    preferences.setLegacyClean(true);
-                }
-            } else {
-                preferences.setLegacyClean(true);
-            }
-        }
-    }
-
-    @Override
-    public AndroidInjector<Object> androidInjector() {
-        return dispatchingAndroidInjector;
-    }
-
-    public static void setAppTheme(DarkMode mode) {
-        switch (mode) {
-            case LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            case DARK -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            case SYSTEM -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        }
-    }
-
-    @Override
-    public void networkAndServerConnectionListener(boolean isNetworkAndServerAvailable) {
-        if (backgroundJobManager == null) {
-            Log_OC.d(TAG, "Offline operations terminated, backgroundJobManager cannot be null");
-            return;
+    private fun cancelDownloadJobsIfRequested() {
+        if (!preferences.shouldStopDownloadJobsOnStart()) {
+            return
         }
 
+        backgroundJobManager.cancelAllFilesDownloadJobs()
+        preferences.setStopDownloadJobsOnStart(false)
+    }
+
+    private fun scheduleBackgroundJobs() {
+        backgroundJobManager.scheduleMediaFoldersDetectionJob()
+        backgroundJobManager.startMediaFoldersDetectionJob()
+        backgroundJobManager.schedulePeriodicAutoUpload()
+        backgroundJobManager.schedulePeriodicHealthStatus()
+
+        if (preferences.isTwoWaySyncEnabled()) {
+            backgroundJobManager.scheduleInternal2WaySync(preferences.getTwoWaySyncInterval())
+        }
+
+        backgroundJobManager.startPeriodicallyOfflineOperation()
+    }
+
+    override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
+
+    override fun networkAndServerConnectionListener(isNetworkAndServerAvailable: Boolean) {
         if (isNetworkAndServerAvailable) {
-            backgroundJobManager.startOfflineOperations();
+            backgroundJobManager.startOfflineOperations()
         }
     }
 
-    @Override
-    public void onTerminate() {
-        super.onTerminate();
-        connectivityService.removeListener(this);
-        ReceiversHelper.shutdown();
+    override fun onTerminate() {
+        super.onTerminate()
+        connectivityService.removeListener(this)
+        ReceiversHelper.shutdown()
+    }
+
+    companion object {
+        @JvmField
+        val OUTDATED_SERVER_VERSION: OwnCloudVersion = NextcloudVersion.nextcloud_30
+
+        @JvmField
+        val MINIMUM_SUPPORTED_SERVER_VERSION: OwnCloudVersion = OwnCloudVersion.nextcloud_20
+
+        const val DOT: String = "."
+
+        private val TAG: String = MainApp::class.java.simpleName
+        private const val DEBUG_TAG = "Debug"
+        private const val CRASH_REPORTING_PROCESS_SUFFIX = ":crash"
+        private const val UNDEFINED_PROXY_PORT = -1
+        private const val HIGHEST_SECURITY_PROVIDER_POSITION = 1
+        private const val NO_PACKAGE_INFO_FLAGS = 0
+
+        private var appContext: WeakReference<Context>? = null
+        private var storagePath: String? = null
+        private var appComponent: AppComponent? = null
+
+        @JvmStatic
+        var isOnlyOnDevice: Boolean = false
+            private set
+
+        @JvmStatic
+        var isOnlyPersonFiles: Boolean = false
+            private set
+
+        private fun initGlobalContext(context: Context) {
+            appContext = WeakReference(context)
+        }
+
+        @JvmStatic
+        fun getAppComponent(): AppComponent = checkNotNull(appComponent) { "Dagger not initialized!" }
+
+        @JvmStatic
+        val isClientBranded: Boolean
+            get() = getAppContext().resources.getBoolean(R.bool.is_branded_client)
+
+        @JvmStatic
+        val isClientBrandedPlus: Boolean
+            get() = getAppContext().resources.getBoolean(R.bool.is_branded_plus_client)
+
+        @JvmStatic
+        fun initContactsBackup(accountManager: UserAccountManager?, backgroundJobManager: BackgroundJobManager?) {
+            if (accountManager == null || backgroundJobManager == null) {
+                return
+            }
+
+            val arbitraryDataProvider = ArbitraryDataProviderImpl(getAppContext())
+            accountManager.allUsers
+                .filter {
+                    arbitraryDataProvider.getBooleanValue(
+                        it,
+                        ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP
+                    )
+                }
+                .forEach { backgroundJobManager.schedulePeriodicContactsBackup(it) }
+        }
+
+        @JvmStatic
+        fun initSyncOperations(
+            context: Context,
+            preferences: AppPreferences,
+            uploadsStorageManager: UploadsStorageManager,
+            accountManager: UserAccountManager,
+            connectivityService: ConnectivityService,
+            powerManagementService: PowerManagementService,
+            backgroundJobManager: BackgroundJobManager,
+            clock: Clock,
+            viewThemeUtils: ViewThemeUtils?,
+            walledCheckCache: WalledCheckCache?
+        ) {
+            val appContext = getAppContext()
+            AutoUploadEntriesMigration.updateToAutoUpload(context)
+            AutoUploadEntriesMigration.cleanOldEntries(appContext, clock)
+            AutoUploadEntriesMigration.updateAutoUploadEntries(appContext, clock)
+
+            if (PermissionUtil.checkStoragePermission(appContext)) {
+                AutoUploadEntriesMigration.splitOutAutoUploadEntries(appContext, clock)
+            } else {
+                preferences.setAutoUploadSplitEntriesEnabled(true)
+            }
+
+            if (!preferences.isAutoUploadInitialized()) {
+                preferences.setAutoUploadInit(true)
+            }
+
+            FilesSyncHelper.restartUploadsIfNeeded(
+                uploadsStorageManager,
+                accountManager,
+                connectivityService,
+                powerManagementService
+            )
+
+            backgroundJobManager.scheduleOfflineSync()
+
+            ReceiversHelper.registerNetworkChangeReceiver(
+                uploadsStorageManager,
+                accountManager,
+                connectivityService,
+                powerManagementService,
+                walledCheckCache
+            )
+            ReceiversHelper.registerPowerChangeReceiver(
+                uploadsStorageManager,
+                accountManager,
+                connectivityService,
+                powerManagementService
+            )
+            ReceiversHelper.registerPowerSaveReceiver(
+                uploadsStorageManager,
+                accountManager,
+                connectivityService,
+                powerManagementService
+            )
+        }
+
+        @JvmStatic
+        fun string(@StringRes id: Int): String = getAppContext().getString(id)
+
+        @JvmStatic
+        fun string(@StringRes id: Int, args: Any?): String = getAppContext().getString(id, args)
+
+        @JvmStatic
+        fun getAppContext(): Context = appContext!!.get()!!
+
+        @JvmStatic
+        fun setAppContext(context: Context?) {
+            appContext = WeakReference(context)
+        }
+
+        @JvmStatic
+        fun getStoragePath(): String? = storagePath
+
+        @JvmStatic
+        fun setStoragePath(path: String?) {
+            storagePath = path
+        }
+
+        @JvmStatic
+        fun getAccountType(context: Context): String = context.getString(R.string.account_type)
+
+        @JvmStatic
+        val authority: String
+            get() = string(R.string.authority)
+
+        @JvmStatic
+        val authTokenType: String
+            get() = string(R.string.authority)
+
+        @JvmStatic
+        val dbFile: String
+            get() = string(R.string.db_file)
+
+        @JvmStatic
+        val dbName: String
+            get() = string(R.string.db_name)
+
+        @JvmStatic
+        val dataFolder: String
+            get() = string(R.string.data_folder)
+
+        @JvmStatic
+        fun showOnlyFilesOnDevice(state: Boolean) {
+            isOnlyOnDevice = state
+        }
+
+        @JvmStatic
+        fun showOnlyPersonalFiles(state: Boolean) {
+            isOnlyPersonFiles = state
+        }
+
+        @JvmStatic
+        val menuItemId: Int?
+            get() = when {
+                isOnlyPersonFiles -> R.id.nav_personal_files
+                isOnlyOnDevice -> R.id.nav_on_device
+                else -> null
+            }
+
+        @JvmStatic
+        val userAgent: String
+            get() = buildUserAgent(R.string.nextcloud_user_agent)
+
+        @JvmStatic
+        fun showMessage(@StringRes messageId: Int) {
+            getAppContext().showToast(messageId)
+        }
+
+        private fun buildUserAgent(@StringRes agentFormat: Int): String {
+            val appString = string(agentFormat)
+            val brandedName = string(R.string.name_for_branded_user_agent)
+            return appString.format(appVersionName(), brandedName)
+        }
+
+        private fun appVersionName(): String? {
+            val context = getAppContext()
+            return try {
+                val packageInfo: PackageInfo? =
+                    context.packageManager.getPackageInfo(context.packageName, NO_PACKAGE_INFO_FLAGS)
+                if (packageInfo != null) packageInfo.versionName else ""
+            } catch (e: PackageManager.NameNotFoundException) {
+                Log_OC.e(TAG, "Trying to get packageName", e.cause)
+                ""
+            }
+        }
+
+        @JvmStatic
+        fun setAppTheme(mode: DarkMode) {
+            val nightMode = when (mode) {
+                DarkMode.LIGHT -> AppCompatDelegate.MODE_NIGHT_NO
+                DarkMode.DARK -> AppCompatDelegate.MODE_NIGHT_YES
+                DarkMode.SYSTEM -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+            }
+            AppCompatDelegate.setDefaultNightMode(nightMode)
+        }
     }
 }
