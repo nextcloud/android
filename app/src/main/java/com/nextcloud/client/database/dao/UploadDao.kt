@@ -92,6 +92,22 @@ interface UploadDao {
 
     @Query(
         """
+    UPDATE ${ProviderTableMeta.UPLOADS_TABLE_NAME}
+    SET ${ProviderTableMeta.UPLOADS_STATUS} = :newStatus,
+        ${ProviderTableMeta.UPLOADS_LAST_RESULT} = :lastResult
+    WHERE ${ProviderTableMeta.UPLOADS_ACCOUNT_NAME} = :accountName
+      AND ${ProviderTableMeta.UPLOADS_STATUS} = :currentStatus
+"""
+    )
+    suspend fun updateStatusAndResultByAccount(
+        accountName: String,
+        currentStatus: Int,
+        newStatus: Int,
+        lastResult: Int
+    ): Int
+
+    @Query(
+        """
     SELECT * FROM ${ProviderTableMeta.UPLOADS_TABLE_NAME}
     WHERE ${ProviderTableMeta.UPLOADS_STATUS} = :status
       AND (:nameCollisionPolicy IS NULL OR ${ProviderTableMeta.UPLOADS_NAME_COLLISION_POLICY} = :nameCollisionPolicy)

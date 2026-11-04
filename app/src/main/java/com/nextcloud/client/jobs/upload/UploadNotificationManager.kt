@@ -91,17 +91,6 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         )
     }
 
-    fun showQuotaExceedNotification(operation: UploadFileOperation) {
-        val notification = notificationBuilder.run {
-            setContentTitle(context.getString(R.string.upload_quota_exceeded))
-            setContentText("")
-            clearActions()
-            setProgress(0, 0, false)
-        }.build()
-
-        showNotification(operation.file.fileId.toInt(), notification)
-    }
-
     fun showConnectionErrorNotification() {
         notificationManager.cancel(getId())
 

@@ -1161,6 +1161,7 @@
     <string name="upload_local_storage_not_copied">File could not be copied to local storage</string>
     <string name="upload_global_pause_title">All uploads are paused</string>
     <string name="upload_quota_exceeded">Storage quota exceeded</string>
+    <string name="upload_quota_exceeded_notification_description">Your storage quota is full, so uploads were stopped. Free up space or ask your administrator for more quota, then retry the failed uploads from Uploads.</string>
     <string name="host_not_available">Server not available</string>
     <string name="delete_entries">Delete entries</string>
     <string name="upload_list_expand_header">Toggle expansion of header</string>
