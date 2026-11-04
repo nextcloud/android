@@ -29,7 +29,6 @@ class UploadListMenuProvider(
     private val uploadsStorageManager: UploadsStorageManager,
     private val syncedFolderProvider: SyncedFolderProvider,
     private val backgroundJobManager: BackgroundJobManager,
-    private val uploadHelper: () -> FileUploadHelper = { FileUploadHelper.instance() },
     private val onGlobalPauseToggled: () -> Unit
 ) : MenuProvider {
 
@@ -75,10 +74,10 @@ class UploadListMenuProvider(
             )
         }
 
-        val helper = uploadHelper()
+        val uploadHelper = FileUploadHelper.instance()
         userAccountManager.allUsers.filterNotNull().forEach { user ->
             val ids = uploadsStorageManager.getCurrentUploadIds(user.accountName)
-            helper.cancelAndRestartUploadJob(user, ids)
+            uploadHelper.cancelAndRestartUploadJob(user, ids)
         }
         onGlobalPauseToggled()
     }
