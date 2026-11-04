@@ -76,6 +76,11 @@ object UploadErrorNotificationManager {
             return
         }
 
+        if (result.code == ResultCode.QUOTA_EXCEEDED) {
+            AppWideNotificationManager.showQuotaExceededNotification(context)
+            return
+        }
+
         // do not show an error notification when uploading the same file again
         if (result.code.isConflict()) {
             val isSameFile = withContext(Dispatchers.IO) {
