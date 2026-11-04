@@ -38,10 +38,13 @@ object LocalNetworkAddress {
     private fun InetAddress.isLocalNetworkAddress(): Boolean = when {
         // Loopback (127.0.0.1, ::1) is the device itself, not the local network
         isLoopbackAddress -> false
+
         // Private LAN addresses (192.168.x.x, 10.x.x.x, 172.16.x.x, 169.254.x.x)
         isSiteLocalAddress || isLinkLocalAddress -> true
+
         // Private IPv6 addresses (fc00:: to fdff::), not covered by isSiteLocalAddress
         this is Inet6Address -> address.first().toInt() and UNIQUE_LOCAL_MASK == UNIQUE_LOCAL_PREFIX
+
         // Public internet address
         else -> false
     }
