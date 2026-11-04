@@ -24,6 +24,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
 import androidx.test.runner.lifecycle.Stage
+import com.facebook.testing.screenshot.RecordBuilder
 import com.facebook.testing.screenshot.Screenshot
 import com.facebook.testing.screenshot.internal.TestNameDetector
 import com.nextcloud.android.common.ui.theme.MaterialSchemes
@@ -41,6 +42,7 @@ import com.nextcloud.utils.PowerManagementFactory
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.files.services.NameCollisionPolicy
@@ -66,7 +68,6 @@ import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.rules.TestRule
 import java.io.File
-import java.io.FileWriter
 import java.io.IOException
 import java.util.Locale
 
@@ -145,13 +146,9 @@ abstract class AbstractIT {
         return currentActivity
     }
 
-    protected fun longSleep() {
-        sleepIgnoringInterrupt(LONG_SLEEP_MILLIS)
-    }
+    protected fun longSleep() = sleepIgnoringInterrupt(LONG_SLEEP_MILLIS)
 
-    protected fun sleep(second: Int) {
-        sleepIgnoringInterrupt(MILLIS_PER_SECOND * second)
-    }
+    protected fun sleep(second: Int) = sleepIgnoringInterrupt(MILLIS_PER_SECOND * second)
 
     fun createFolder(remotePath: String) {
         if (ExistenceCheckRemoteOperation(remotePath, false).execute(client).isSuccess) return
@@ -174,18 +171,22 @@ abstract class AbstractIT {
             targetContext.contentResolver
         )
 
+        val existingFile: OCFile? = null
+        val onWifiOnly = false
+        val whileChargingOnly = false
+
         val operation = UploadFileOperation(
             uploadsStorageManager,
             connectivityServiceMock,
             PowerManagementFactory.mock,
             user,
-            null,
+            existingFile,
             ocUpload,
             nameCollisionPolicy,
             localBehaviour,
             targetContext,
-            false,
-            false,
+            onWifiOnly,
+            whileChargingOnly,
             storageManager
         ).apply {
             addRenameUploadListener { }
@@ -196,13 +197,9 @@ abstract class AbstractIT {
         assertTrue(result.logMessage, result.isSuccess)
     }
 
-    protected fun enableRTL() {
-        applyLocale(Locale("ar"))
-    }
+    protected fun enableRTL() = applyLocale(Locale.forLanguageTag("ar"))
 
-    protected fun resetLocale() {
-        applyLocale(Locale("en"))
-    }
+    protected fun resetLocale() = applyLocale(Locale.forLanguageTag("en"))
 
     @Suppress("DEPRECATION")
     private fun applyLocale(locale: Locale) {
@@ -211,39 +208,33 @@ abstract class AbstractIT {
         resources.updateConfiguration(config, null)
     }
 
-    fun screenshotViaName(activity: Activity?, name: String?) {
-        if (!isScreenshotSupported) return
-        Screenshot.snapActivity(activity).setName(name).record()
-    }
+    fun screenshotViaName(activity: Activity?, name: String) =
+        recordScreenshot { Screenshot.snapActivity(activity).setName(name) }
 
-    protected fun screenshotViaName(view: View?, name: String?) {
-        if (!isScreenshotSupported) return
-        Screenshot.snap(view).setName(name).record()
+    protected fun screenshotViaName(view: View?, name: String) = recordScreenshot {
+        Screenshot.snap(view).setName(name)
     }
 
     @JvmOverloads
-    protected fun screenshot(view: View?, prefix: String? = "") {
-        if (!isScreenshotSupported) return
-        Screenshot.snap(view).setName(createName(prefix)).record()
-    }
+    protected fun screenshot(view: View?, prefix: String = "") =
+        recordScreenshot { Screenshot.snap(view).setName(createName(prefix)) }
 
-    protected fun screenshot(sut: Activity?) {
-        if (!isScreenshotSupported) return
-        Screenshot.snapActivity(sut).setName(createName()).record()
-    }
+    protected fun screenshot(sut: Activity?) = recordScreenshot { Screenshot.snapActivity(sut).setName(createName()) }
 
-    protected fun screenshot(dialogFragment: DialogFragment, prefix: String?) {
+    protected fun screenshot(dialogFragment: DialogFragment, prefix: String) =
         screenshot(requireNotNull(dialogFragment.requireDialog().window).decorView, prefix)
+
+    private inline fun recordScreenshot(snap: () -> RecordBuilder) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) return
+        snap().record()
     }
 
-    fun createName(name: String, prefix: String?): String = buildString {
-        append(name)
-        if (!prefix.isNullOrEmpty()) append("_").append(prefix)
-        if (darkMode.isNotEmpty()) append("_").append(darkMode)
-        if (color.isNotEmpty()) append("_").append(color)
+    fun createName(name: String, prefix: String): String {
+        val suffixes = listOf(prefix, darkMode, color).filter { it.isNotEmpty() }
+        return (listOf(name) + suffixes).joinToString("_")
     }
 
-    private fun createName(prefix: String? = ""): String =
+    private fun createName(prefix: String = ""): String =
         createName("${TestNameDetector.getTestClass()}_${TestNameDetector.getTestName()}", prefix)
 
     fun getRandomName(length: Int): String = RandomStringGenerator.make(length)
@@ -274,11 +265,15 @@ abstract class AbstractIT {
             "lightgreen" to "#aaff00"
         )
 
+        private val CLIENT_SETUP_FAILURES = listOf(
+            OperationCanceledException::class.java,
+            IOException::class.java,
+            AccountUtils.AccountNotFoundException::class.java,
+            AuthenticatorException::class.java
+        )
+
         private val instrumentation: Instrumentation
             get() = InstrumentationRegistry.getInstrumentation()
-
-        private val isScreenshotSupported: Boolean
-            get() = Build.VERSION.SDK_INT < Build.VERSION_CODES.R
 
         @JvmStatic
         protected lateinit var client: OwnCloudClient
@@ -312,8 +307,8 @@ abstract class AbstractIT {
             }
 
             val arguments = InstrumentationRegistry.getArguments()
-            applyServerColorArgument(arguments.getString("COLOR"))
-            applyDarkModeArgument(arguments.getString("DARKMODE"))
+            arguments.getString("COLOR")?.takeIf { it.isNotEmpty() }?.let(::applyServerColor)
+            arguments.getString("DARKMODE")?.let(::applyDarkMode)
 
             if (LIGHT.equals(darkMode, ignoreCase = true) && DEFAULT_COLOR.equals(color, ignoreCase = true)) {
                 darkMode = ""
@@ -321,9 +316,7 @@ abstract class AbstractIT {
             }
         }
 
-        private fun applyServerColorArgument(colorArgument: String?) {
-            if (colorArgument.isNullOrEmpty()) return
-
+        private fun applyServerColor(colorArgument: String) {
             color = colorArgument
             val fileDataStorageManager = FileDataStorageManager(user, targetContext.contentResolver)
             val capability = fileDataStorageManager.getCapability(account.name).apply {
@@ -333,9 +326,7 @@ abstract class AbstractIT {
             fileDataStorageManager.saveCapabilities(capability)
         }
 
-        private fun applyDarkModeArgument(darkModeArgument: String?) {
-            if (darkModeArgument == null) return
-
+        private fun applyDarkMode(darkModeArgument: String) {
             if (!DARK.equals(darkModeArgument, ignoreCase = true)) {
                 darkMode = LIGHT
                 return
@@ -349,31 +340,23 @@ abstract class AbstractIT {
         @JvmStatic
         protected fun <T> rethrowClientSetupFailure(setup: () -> T): T = try {
             setup()
-        } catch (e: OperationCanceledException) {
-            throw RuntimeException("Error setting up clients", e)
-        } catch (e: IOException) {
-            throw RuntimeException("Error setting up clients", e)
-        } catch (e: AccountUtils.AccountNotFoundException) {
-            throw RuntimeException("Error setting up clients", e)
-        } catch (e: AuthenticatorException) {
+        } catch (e: Exception) {
+            if (CLIENT_SETUP_FAILURES.none { it.isInstance(e) }) throw e
             throw RuntimeException("Error setting up clients", e)
         }
 
         @JvmStatic
-        protected fun removeAccountsOfType(accountType: String) {
-            val platformAccountManager = AccountManager.get(targetContext)
-            platformAccountManager.accounts
+        protected fun removeAccountsOfType(accountType: String) = with(AccountManager.get(targetContext)) {
+            accounts
                 .filter { it.type.equals(accountType, ignoreCase = true) }
-                .forEach { platformAccountManager.removeAccountExplicitly(it) }
+                .forEach(this::removeAccountExplicitly)
         }
 
         @JvmStatic
         @Throws(IOException::class)
         protected fun createDummyFiles(): List<File> {
             val tempPath = File(FileStorageUtils.getTemporalPath(account.name))
-            if (!tempPath.exists()) {
-                assertTrue(tempPath.mkdirs())
-            }
+            if (!tempPath.exists()) assertTrue(tempPath.mkdirs())
             assertTrue(tempPath.exists())
 
             return DUMMY_FILE_LINE_COUNTS.map { (name, lineCount) -> createFile(name, lineCount) }
@@ -382,40 +365,30 @@ abstract class AbstractIT {
         @JvmStatic
         @Throws(IOException::class)
         protected fun getDummyFile(name: String): File {
-            val internalTempPath = FileStorageUtils.getInternalTemporalPath(account.name, targetContext)
-            val file = File(internalTempPath + File.separator + name)
-
-            if (file.exists()) return file
-
-            if (name.endsWith("/")) {
-                file.mkdirs()
-                return file
+            val file = File(FileStorageUtils.getInternalTemporalPath(account.name, targetContext), name)
+            return when {
+                file.exists() -> file
+                name.endsWith("/") -> file.apply { mkdirs() }
+                else -> createFile(name, DUMMY_FILE_LINE_COUNTS.getOrElse(name) { 0 })
             }
-
-            return createFile(name, DUMMY_FILE_LINE_COUNTS[name] ?: 0)
         }
 
         @JvmStatic
         @Throws(IOException::class)
         fun createFile(name: String, iteration: Int): File {
-            val file = File(FileStorageUtils.getTemporalPath(account.name) + File.separator + name)
+            val file = File(FileStorageUtils.getTemporalPath(account.name), name)
             val parent = requireNotNull(file.parentFile)
-            if (!parent.exists()) {
-                assertTrue(parent.mkdirs())
-            }
+            if (!parent.exists()) assertTrue(parent.mkdirs())
 
-            file.createNewFile()
-            FileWriter(file).use { writer -> repeat(iteration) { writer.write(DUMMY_FILE_LINE) } }
-
+            file.bufferedWriter().use { writer -> repeat(iteration) { writer.write(DUMMY_FILE_LINE) } }
             return file
         }
 
         @JvmStatic
-        protected fun shortSleep() {
-            sleepIgnoringInterrupt(SHORT_SLEEP_MILLIS)
-        }
+        protected fun shortSleep() = sleepIgnoringInterrupt(SHORT_SLEEP_MILLIS)
 
-        private fun sleepIgnoringInterrupt(millis: Long) {
+        @JvmStatic
+        protected fun sleepIgnoringInterrupt(millis: Long) {
             try {
                 Thread.sleep(millis)
             } catch (e: InterruptedException) {
@@ -424,8 +397,9 @@ abstract class AbstractIT {
         }
 
         @JvmStatic
-        fun getUserId(user: User): String? =
+        fun getUserId(user: User): String = requireNotNull(
             AccountManager.get(targetContext).getUserData(user.toPlatformAccount(), KEY_USER_ID)
+        ) { "No user id stored for ${user.accountName}" }
 
         @JvmStatic
         protected fun getUser(account: Account): User =
@@ -433,13 +407,12 @@ abstract class AbstractIT {
 
         @JvmStatic
         protected fun createAccount(name: String): Account {
-            val atPos = name.lastIndexOf('@')
             val platformAccount = Account(name, MainApp.getAccountType(targetContext))
 
             AccountManager.get(targetContext).run {
                 addAccountExplicitly(platformAccount, TEST_ACCOUNT_PASSWORD, null)
-                setUserData(platformAccount, KEY_OC_BASE_URL, name.substring(atPos + 1))
-                setUserData(platformAccount, KEY_USER_ID, name.substring(0, atPos))
+                setUserData(platformAccount, KEY_OC_BASE_URL, name.substringAfterLast('@'))
+                setUserData(platformAccount, KEY_USER_ID, name.substringBeforeLast('@'))
             }
 
             return getRegisteredAccount(name)

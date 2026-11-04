@@ -9,6 +9,7 @@ package com.owncloud.android
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.net.Uri
+import android.os.Bundle
 import androidx.test.platform.app.InstrumentationRegistry
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.account.UserAccountManagerImpl
@@ -55,15 +56,12 @@ abstract class AbstractOnServerIT : AbstractIT() {
         val parentFolder = storageManager.getFileByEncryptedRemotePath(remoteFile.parent + "/")
         val uploadedFile = storageManager.getFileByDecryptedRemotePath(
             parentFolder.decryptedRemotePath + remoteFile.name
-        )
+        ) ?: throw AssertionError("Uploaded file ${ocUpload.remotePath} not found")
 
-        assertNotNull(uploadedFile)
-        assertNotNull(uploadedFile!!.remoteId)
+        assertNotNull(uploadedFile.remoteId)
         assertNotNull(uploadedFile.permissions)
 
-        if (localBehaviour == FileUploadWorker.LOCAL_BEHAVIOUR_COPY ||
-            localBehaviour == FileUploadWorker.LOCAL_BEHAVIOUR_MOVE
-        ) {
+        if (localBehaviour in LOCAL_COPY_BEHAVIOURS) {
             assertTrue(File(uploadedFile.storagePath).exists())
         }
     }
@@ -87,8 +85,14 @@ abstract class AbstractOnServerIT : AbstractIT() {
         private const val ROOT_PATH = "/"
         private const val TEAM_FOLDER_PERMISSION = "M"
         private const val REMOVE_ATTEMPTS = 5
-        private const val SERVER_READY_ATTEMPTS = 3
+        private const val SERVER_READY_RETRIES = 3
         private const val SERVER_READY_RETRY_DELAY_MILLIS = 60_000L
+
+        private val FOLDER_MIME_TYPES = setOf(MimeType.DIRECTORY, MimeType.WEBDAV_FOLDER)
+        private val LOCAL_COPY_BEHAVIOURS = setOf(
+            FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
+            FileUploadWorker.LOCAL_BEHAVIOUR_MOVE
+        )
 
         @BeforeClass
         @JvmStatic
@@ -98,9 +102,9 @@ abstract class AbstractOnServerIT : AbstractIT() {
                 removeAccountsOfType(SERVER_ACCOUNT_TYPE)
 
                 val arguments = InstrumentationRegistry.getArguments()
-                val baseUrl = Uri.parse(arguments.getString("TEST_SERVER_URL"))
-                val loginName = arguments.getString("TEST_SERVER_USERNAME")
-                val password = arguments.getString("TEST_SERVER_PASSWORD")
+                val baseUrl = Uri.parse(arguments.requireString("TEST_SERVER_URL"))
+                val loginName = arguments.requireString("TEST_SERVER_USERNAME")
+                val password = arguments.requireString("TEST_SERVER_PASSWORD")
                 val accountName = "$loginName@$baseUrl"
 
                 addServerAccountIfMissing(accountName, loginName, password, baseUrl)
@@ -116,12 +120,7 @@ abstract class AbstractOnServerIT : AbstractIT() {
             }
         }
 
-        private fun addServerAccountIfMissing(
-            accountName: String,
-            loginName: String?,
-            password: String?,
-            baseUrl: Uri
-        ) {
+        private fun addServerAccountIfMissing(accountName: String, loginName: String, password: String, baseUrl: Uri) {
             val platformAccount = Account(accountName, MainApp.getAccountType(targetContext))
             if (UserAccountManagerImpl.fromContext(targetContext).exists(platformAccount)) return
 
@@ -134,22 +133,19 @@ abstract class AbstractOnServerIT : AbstractIT() {
             }
         }
 
-        private fun isFolder(file: RemoteFile): Boolean =
-            MimeType.DIRECTORY == file.mimeType || MimeType.WEBDAV_FOLDER == file.mimeType
+        private fun isFolder(file: RemoteFile): Boolean = file.mimeType in FOLDER_MIME_TYPES
 
-        private fun isTeamFolder(file: RemoteFile): Boolean = file.permissions!!.contains(TEAM_FOLDER_PERMISSION)
+        private fun isTeamFolder(file: RemoteFile): Boolean = file.permissions?.contains(TEAM_FOLDER_PERMISSION) == true
 
         @JvmStatic
         fun deleteAllFilesOnServer() {
             val result = ReadFolderRemoteOperation(ROOT_PATH).execute(client)
             assertTrue(result.getLogMessage(targetContext), result.isSuccess)
 
-            for (data in result.data) {
-                val remoteFile = data as RemoteFile
-                if (remoteFile.remotePath != ROOT_PATH) {
-                    deleteRemoteFile(remoteFile)
-                }
-            }
+            result.data
+                .filterIsInstance<RemoteFile>()
+                .filterNot { it.remotePath == ROOT_PATH }
+                .forEach(::deleteRemoteFile)
         }
 
         private fun deleteRemoteFile(remoteFile: RemoteFile) {
@@ -180,24 +176,25 @@ abstract class AbstractOnServerIT : AbstractIT() {
         }
 
         private fun waitForServer(client: OwnCloudClient, baseUrl: Uri) {
-            val get = GetMethod("$baseUrl/status.php")
+            val statusRequest = GetMethod("$baseUrl/status.php")
 
-            try {
-                var attempts = 0
-                while (client.executeMethod(get) != HttpStatus.SC_OK && attempts < SERVER_READY_ATTEMPTS) {
-                    println("wait…")
-                    Thread.sleep(SERVER_READY_RETRY_DELAY_MILLIS)
-                    attempts++
-                }
-
-                if (attempts == SERVER_READY_ATTEMPTS) {
-                    fail("Server not ready!")
-                }
-            } catch (e: IOException) {
-                e.printStackTrace()
-            } catch (e: InterruptedException) {
-                e.printStackTrace()
+            repeat(SERVER_READY_RETRIES) {
+                if (isServerReady(client, statusRequest)) return
+                println("wait…")
+                sleepIgnoringInterrupt(SERVER_READY_RETRY_DELAY_MILLIS)
             }
+
+            assertTrue("Server not ready!", isServerReady(client, statusRequest))
         }
+
+        private fun isServerReady(client: OwnCloudClient, statusRequest: GetMethod): Boolean = try {
+            client.executeMethod(statusRequest) == HttpStatus.SC_OK
+        } catch (e: IOException) {
+            e.printStackTrace()
+            false
+        }
+
+        private fun Bundle.requireString(key: String): String =
+            requireNotNull(getString(key)) { "Missing instrumentation argument $key" }
     }
 }
