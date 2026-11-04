@@ -58,6 +58,8 @@ class LocalNetworkPermissionHandler @Inject constructor(
     fun onPermissionGranted() {
         Log_OC.d(TAG, "local network permission granted, restarting failed uploads")
         notificationManager.cancel(NOTIFICATION_ID)
+
+        // only this can be retried right away
         FilesSyncHelper.restartUploadsIfNeeded(
             uploadsStorageManager,
             accountManager,
