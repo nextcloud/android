@@ -380,10 +380,8 @@ open class OCFileListFragment :
         setAdapter(args)
 
         hideFab = args?.getBoolean(ARG_HIDE_FAB, false) == true
-        if (hideFab) {
-            setFabVisible(false)
-        } else {
-            setFabVisible(currentFile?.let { canCreateInside(it) } ?: true)
+        updateFabState()
+        if (!hideFab) {
             registerFabListener()
         }
 
@@ -478,50 +476,23 @@ open class OCFileListFragment :
         }
     }
 
-    fun setFabVisible(visible: Boolean) {
-        val fab = fabMain ?: return
-
+    fun updateFabState() {
         val fileDisplayActivity = activity as? FileDisplayActivity
-        if (fileDisplayActivity != null &&
-            (fileDisplayActivity.isAlbumsFragment || fileDisplayActivity.isAlbumItemsFragment)
-        ) {
-            fab.hide()
-            return
-        }
-
-        val activity = activity ?: return
-        activity.runOnUiThread {
-            if (visible) {
-                fab.show()
-                viewThemeUtils.material.themeFAB(fab)
-            } else {
-                fab.hide()
-            }
-            fab.slideHideBottomBehavior(visible)
-        }
+        val isAlbumScreen = fileDisplayActivity?.isAlbumsFragment == true ||
+            fileDisplayActivity?.isAlbumItemsFragment == true
+        val hiddenByScreen = hideFab || isSearchFragment || isAlbumScreen
+        setFabState(FabState.from(currentFile, containerActivity?.storageManager, hiddenByScreen))
     }
 
-    fun setFabEnabled(enabled: Boolean) {
+    fun setFabState(state: FabState) {
         val fab = fabMain ?: return
-        val activity = activity ?: return
-        activity.runOnUiThread {
-            fab.isEnabled = enabled
-            viewThemeUtils.material.themeFAB(fab)
-        }
+        activity?.runOnUiThread { state.applyTo(fab, viewThemeUtils) }
     }
 
     private fun setBottomNavigationVisible(visible: Boolean) {
         val drawerActivity = activity as? DrawerActivity ?: return
         drawerActivity.bottomNavigationView.slideHideBottomBehavior(visible)
     }
-
-    private fun isReadOnlyFolder(folder: OCFile?): Boolean {
-        folder ?: return false
-        val storageManager = containerActivity?.storageManager ?: return false
-        return storageManager.isReadOnly(folder)
-    }
-
-    private fun canCreateInside(folder: OCFile): Boolean = folder.canCreateFileAndFolder() && !isReadOnlyFolder(folder)
     //endregion
 
     //region Create and upload actions
@@ -802,7 +773,9 @@ open class OCFileListFragment :
                 fileDisplayActivity.previewFile(
                     file,
                     object : CompletionCallback {
-                        override fun onComplete(value: Boolean) = setFabVisible(value)
+                        override fun onComplete(value: Boolean) {
+                            if (value) updateFabState() else setFabState(FabState.HIDDEN)
+                        }
                     }
                 )
 
@@ -834,7 +807,7 @@ open class OCFileListFragment :
 
         when {
             !file.isEncrypted && fileDisplayActivity != null && fileDisplayActivity.canPreviewInAudioPlayer(file) -> {
-                setFabVisible(false)
+                setFabState(FabState.HIDDEN)
                 fileDisplayActivity.startAudioPreview(file, true, true)
             }
 
@@ -1193,7 +1166,7 @@ open class OCFileListFragment :
     fun refreshDirectory() {
         isSearchFragment = false
         val folder = currentFile ?: return
-        setFabVisible(canCreateInside(folder))
+        updateFabState()
         listDirectory(folder, MainApp.isOnlyOnDevice())
     }
 
@@ -1211,12 +1184,8 @@ open class OCFileListFragment :
         fileListLayoutManager?.setLayoutViewMode()
         updateSortButtonLabel()
         setLayoutSwitchButton()
-
-        val folder = currentFile
-        val readOnly = isReadOnlyFolder(folder)
-        setFabVisible(!hideFab && !readOnly)
+        updateFabState()
         setBottomNavigationVisible(!hideFab)
-        setFabEnabled(folder != null && !readOnly && (folder.canCreateFileAndFolder() || folder.isOfflineOperation))
 
         activeActionMode?.invalidate()
     }
@@ -1350,7 +1319,7 @@ open class OCFileListFragment :
 
         applySearchEvent(event)
         isSearchFragment = true
-        setFabVisible(false)
+        setFabState(FabState.HIDDEN)
 
         mainHandler.post {
             updateSortButtonLabel()
@@ -1447,7 +1416,7 @@ open class OCFileListFragment :
             updateActionBarTitleAndHomeButton(null)
         }
 
-        currentFile?.let { setFabVisible(canCreateInside(it)) }
+        updateFabState()
         setBottomNavigationVisible(true)
     }
 

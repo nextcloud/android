@@ -93,7 +93,7 @@ internal class OCFileListMultiChoiceModeListener(private val fragment: OCFileLis
 
         mode?.invalidate()
         colorStatusBar(activity)
-        fragment.setFabVisible(false)
+        fragment.setFabState(FabState.HIDDEN)
 
         if (fragment is GalleryFragment && activity is AlbumsPickerActivity) {
             placeholderItem.isVisible = false
@@ -139,9 +139,7 @@ internal class OCFileListMultiChoiceModeListener(private val fragment: OCFileLis
         Log_OC.d(TAG, "Selection mode finished")
         activeActionMode = null
 
-        if (!fragment.hideFab && !fragment.isSearchFragment) {
-            fragment.currentFile?.let { fragment.setFabVisible(it.canCreateFileAndFolder()) }
-        }
+        fragment.updateFabState()
 
         fragment.activity?.let {
             fragment.viewThemeUtils.platform.resetStatusBar(it)

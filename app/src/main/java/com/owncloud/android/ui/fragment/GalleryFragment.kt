@@ -278,7 +278,7 @@ class GalleryFragment :
         // always show first stored items
         showAllGalleryItems()
 
-        setFabVisible(false)
+        setFabState(FabState.HIDDEN)
 
         searchAndDisplay()
     }

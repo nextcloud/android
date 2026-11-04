@@ -1094,7 +1094,7 @@ class FileDisplayActivity :
         file = currentFile
 
         currentFile?.let {
-            listOfFiles.setFabVisible(it.canCreateFileAndFolder())
+            listOfFiles.updateFabState()
             listOfFiles.registerFabListener()
         }
 
