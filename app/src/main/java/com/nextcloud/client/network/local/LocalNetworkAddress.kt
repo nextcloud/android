@@ -16,6 +16,8 @@ import java.util.Locale
 object LocalNetworkAddress {
     private const val MDNS_SUFFIX = ".local"
     private const val HOST_LABEL_SEPARATOR = '.'
+    private const val SCHEME_SEPARATOR = "://"
+    private const val DEFAULT_SCHEME = "https"
 
     // Mask for the first byte of a private IPv6 address
     private const val UNIQUE_LOCAL_MASK = 0xFE
@@ -24,7 +26,7 @@ object LocalNetworkAddress {
     private const val UNIQUE_LOCAL_PREFIX = 0xFC
 
     suspend fun isLocalServer(serverUrl: String, routes: LocalNetworkRoutes? = null): Boolean {
-        val host = runCatching { URI(serverUrl).host }.getOrNull() ?: return false
+        val host = parseHost(serverUrl) ?: return false
         val caseInsensitiveHost = host.lowercase(Locale.ROOT).trimEnd(HOST_LABEL_SEPARATOR)
         return caseInsensitiveHost.endsWith(MDNS_SUFFIX) || withContext(Dispatchers.IO) {
             val directlyConnectedRoutes = routes?.directlyConnectedRoutes().orEmpty()
@@ -32,6 +34,12 @@ object LocalNetworkAddress {
                 address.isLocalNetworkAddress() || directlyConnectedRoutes.any { it.matches(address) }
             }
         }
+    }
+
+    // Users can type the server address without http:// or https://, e.g. 192.168.1.10:8080
+    private fun parseHost(serverUrl: String): String? {
+        val url = if (serverUrl.contains(SCHEME_SEPARATOR)) serverUrl else "$DEFAULT_SCHEME$SCHEME_SEPARATOR$serverUrl"
+        return runCatching { URI(url).host }.getOrNull()
     }
 
     // Looks up all IP addresses of the host name

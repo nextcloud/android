@@ -61,6 +61,31 @@ class LocalNetworkAddressTest {
     }
 
     @Test
+    fun `private IPv4 address without scheme is local`() {
+        assertTrue(isLocal("192.168.1.10"))
+    }
+
+    @Test
+    fun `private IPv4 address with port and without scheme is local`() {
+        assertTrue(isLocal("10.0.2.2:55000"))
+    }
+
+    @Test
+    fun `unique local IPv6 address without scheme is local`() {
+        assertTrue(isLocal("[fd12:3456:789a::1]:443"))
+    }
+
+    @Test
+    fun `mdns host name without scheme is local`() {
+        assertTrue(isLocal("nextcloud.local:8080/nextcloud"))
+    }
+
+    @Test
+    fun `public IPv4 address without scheme is not local`() {
+        assertFalse(isLocal("8.8.8.8:443"))
+    }
+
+    @Test
     fun `IPv4 loopback address is not local`() {
         assertFalse(isLocal("http://127.0.0.1"))
     }
