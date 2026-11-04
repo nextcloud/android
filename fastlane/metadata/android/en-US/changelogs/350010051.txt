@@ -1,0 +1,10 @@
+## 35.1.0 RC1 (November 4, 2026)
+
+- Improved unsynced file opening
+- Faster file listing
+- Memory usage optimizations
+- Bugfixes and performance improvements
+
+Minimum: NC 22 Server, Android 9 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/133
