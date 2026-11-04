@@ -18,9 +18,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
+import com.nextcloud.android.common.core.network.LocalNetworkPermission
 import com.nextcloud.utils.SnackbarUtil
 import com.owncloud.android.R
-import com.owncloud.android.utils.PermissionUtil
 import kotlinx.coroutines.launch
 
 class LocalNetworkPermissionRequester(
@@ -45,7 +45,7 @@ class LocalNetworkPermissionRequester(
     }
 
     fun requestIfNeeded(serverUrls: List<String>, onGranted: () -> Unit = {}, onDenied: () -> Unit = {}) {
-        if (!PermissionUtil.isLocalNetworkPermissionRequired(activity)) {
+        if (!LocalNetworkPermission.isRequired(activity)) {
             onGranted()
             return
         }
@@ -55,7 +55,7 @@ class LocalNetworkPermissionRequester(
 
     @RequiresApi(Build.VERSION_CODES.CINNAMON_BUN)
     private fun requestForLocalServers(serverUrls: List<String>, onGranted: () -> Unit, onDenied: () -> Unit) {
-        if (PermissionUtil.hasLocalNetworkPermission(activity)) {
+        if (LocalNetworkPermission.isGranted(activity)) {
             onGranted()
             return
         }
@@ -98,8 +98,8 @@ class LocalNetworkPermissionRequester(
         val onGranted = pendingSettingsGrant ?: return
         pendingSettingsGrant = null
 
-        if (!PermissionUtil.isLocalNetworkPermissionRequired(activity) ||
-            !PermissionUtil.hasLocalNetworkPermission(activity)
+        if (!LocalNetworkPermission.isRequired(activity) ||
+            !LocalNetworkPermission.isGranted(activity)
         ) {
             return
         }

@@ -14,6 +14,9 @@ import android.content.Intent
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import com.nextcloud.android.common.core.network.LocalNetworkAddress
+import com.nextcloud.android.common.core.network.LocalNetworkPermission
+import com.nextcloud.android.common.core.network.LocalNetworkRoutes
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.di.ApplicationScope
@@ -24,9 +27,10 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.FilesSyncHelper
-import com.owncloud.android.utils.PermissionUtil
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class LocalNetworkPermissionHandler @Inject constructor(
@@ -48,11 +52,12 @@ class LocalNetworkPermissionHandler @Inject constructor(
     val serverUrls: List<String>
         get() = accountManager.allUsers.map { it.server.uri.toString() }
 
-    suspend fun hasLocalServer(serverUrls: List<String>): Boolean =
+    suspend fun hasLocalServer(serverUrls: List<String>): Boolean = withContext(Dispatchers.IO) {
         serverUrls.any { LocalNetworkAddress.isLocalServer(it, routes) }
+    }
 
     fun notifyIfPermissionMissing() {
-        if (!PermissionUtil.isLocalNetworkPermissionRequired(context)) {
+        if (!LocalNetworkPermission.isRequired(context)) {
             return
         }
 
@@ -74,7 +79,7 @@ class LocalNetworkPermissionHandler @Inject constructor(
 
     @RequiresApi(Build.VERSION_CODES.CINNAMON_BUN)
     private fun notifyIfLocalServerUnreachable() {
-        if (PermissionUtil.hasLocalNetworkPermission(context)) {
+        if (LocalNetworkPermission.isGranted(context)) {
             notificationManager.cancel(NOTIFICATION_ID)
             return
         }

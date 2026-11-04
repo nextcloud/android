@@ -18,7 +18,6 @@ import android.content.pm.ResolveInfo
 import android.os.Build
 import android.os.Environment
 import android.provider.Settings
-import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -48,15 +47,6 @@ object PermissionUtil {
 
     fun checkPermissions(context: Context, permissions: Array<String>): Boolean =
         permissions.all { checkSelfPermission(context, it) }
-
-    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.CINNAMON_BUN)
-    fun isLocalNetworkPermissionRequired(context: Context): Boolean =
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.CINNAMON_BUN &&
-            context.applicationInfo.targetSdkVersion >= Build.VERSION_CODES.CINNAMON_BUN
-
-    @RequiresApi(Build.VERSION_CODES.CINNAMON_BUN)
-    fun hasLocalNetworkPermission(context: Context): Boolean =
-        checkSelfPermission(context, Manifest.permission.ACCESS_LOCAL_NETWORK)
     // endregion
 
     /**
