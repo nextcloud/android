@@ -53,9 +53,7 @@ fun OCFile.isTempFile(): Boolean {
     return storagePath?.startsWith(appTempPath) == true
 }
 
-fun OCFile?.isPNG(): Boolean {
-    return this != null && "image/png".equals(mimeType, ignoreCase = true)
-}
+fun OCFile?.isPNG(): Boolean = this != null && "image/png".equals(mimeType, ignoreCase = true)
 
 fun OCFile?.getDepth(): OCFileDepth? {
     if (this == null) {
