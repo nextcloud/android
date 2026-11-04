@@ -30,7 +30,6 @@ internal class MigrationsManagerImpl(
     }
 
     @Throws(MigrationError::class)
-    @Suppress("ReturnCount")
     override fun startMigration(): Int {
         if (migrationsDb.isFailed) {
             (status as MutableLiveData<Status>).value = Status.FAILED
@@ -61,7 +60,6 @@ internal class MigrationsManagerImpl(
      */
     private fun asyncApplyMigrations(migrations: Collection<Migrations.Step>) {
         migrations.forEach {
-            @Suppress("TooGenericExceptionCaught") // migration code is free to throw anything
             try {
                 it.run.invoke(it)
                 migrationsDb.addAppliedMigration(it.id)

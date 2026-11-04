@@ -46,7 +46,7 @@ class ContactsImportWork(
         const val SELECTED_CONTACTS_FILE_PATH = "selected_contacts_file_path"
     }
 
-    @Suppress("ComplexMethod", "NestedBlockDepth", "LongMethod", "ReturnCount") // legacy code
+    @Suppress("CyclomaticComplexMethod", "NestedBlockDepth", "LongMethod") // legacy code
     override fun doWork(): Result {
         val vCardFilePath = inputData.getString(VCARD_FILE_PATH) ?: ""
         val contactsAccountName = inputData.getString(ACCOUNT_NAME)
@@ -69,7 +69,6 @@ class ContactsImportWork(
         val vCards = ArrayList<VCard>()
 
         var cursor: Cursor? = null
-        @Suppress("TooGenericExceptionCaught") // legacy code
         try {
             val operations = ContactOperations(applicationContext, contactsAccountName, contactsAccountType)
             vCards.addAll(Ezvcard.parse(inputStream).all())
@@ -129,7 +128,6 @@ class ContactsImportWork(
         return Result.success()
     }
 
-    @Suppress("TooGenericExceptionCaught")
     fun readCheckedContractsFromFile(file: File): IntArray = try {
         val fileData = FileUtils.readFileToByteArray(file)
         fileData.toIntArray()

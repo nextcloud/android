@@ -12,6 +12,7 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.mdm.MDMConfig
 import com.owncloud.android.R
+import com.owncloud.android.authentication.loginurl.LoginDataUrlParser
 
 class DeepLinkLoginActivity :
     AuthenticatorActivity(),
@@ -29,11 +30,11 @@ class DeepLinkLoginActivity :
         intent.data?.let {
             try {
                 val prefix = getString(R.string.login_data_own_scheme) + PROTOCOL_SUFFIX + "login/"
-                val loginUrlInfo = parseLoginDataUrl(prefix, it.toString())
+                val loginUrlInfo = LoginDataUrlParser.parse(prefix, it.toString())
 
                 intent.data = null
 
-                loginDialog?.showDeepLinkDialog(loginUrlInfo)
+                loginDialog.showDeepLinkDialog(loginUrlInfo)
             } catch (_: IllegalArgumentException) {
                 SnackbarUtil.show(this, R.string.direct_login_failed)
             }

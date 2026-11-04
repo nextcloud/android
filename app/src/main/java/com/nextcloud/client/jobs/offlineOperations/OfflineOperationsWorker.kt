@@ -57,7 +57,6 @@ class OfflineOperationsWorker(
     private val notificationManager = OfflineOperationsNotificationManager(context, viewThemeUtils)
     private var repository = OfflineOperationsRepository(fileDataStorageManager)
 
-    @Suppress("TooGenericExceptionCaught")
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         try {
             val jobName = inputData.getString(JOB_NAME)
@@ -92,7 +91,6 @@ class OfflineOperationsWorker(
     }
 
     // region Handle offline operations
-    @Suppress("TooGenericExceptionCaught")
     private suspend fun processOperations(operations: List<OfflineOperationEntity>, client: OwnCloudClient) {
         val totalOperationSize = operations.size
         operations.forEachIndexed { index, operation ->
@@ -183,7 +181,7 @@ class OfflineOperationsWorker(
     }
 
     // region Operation Execution
-    @Suppress("ComplexCondition", "LongMethod")
+    @Suppress("ComplexCondition", "LongMethod", "CyclomaticComplexMethod")
     private suspend fun executeOperation(
         operation: OfflineOperationEntity,
         client: OwnCloudClient

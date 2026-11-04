@@ -1,1 +1,1 @@
-Vært i eget hus produktivitets platform, hvor du bevarer kontrollen.
+Den selvhostede produktivitetsplatform, der giver dig kontrollen

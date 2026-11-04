@@ -22,7 +22,7 @@ object AutoRename {
     private const val TAG = "AutoRename"
     private const val REPLACEMENT = "_"
 
-    @Suppress("NestedBlockDepth")
+    @Suppress("NestedBlockDepth", "CyclomaticComplexMethod")
     @JvmOverloads
     fun rename(filename: String, capability: OCCapability, isFolderPath: Boolean? = null): String {
         if (!capability.checkWCFRestrictions()) {

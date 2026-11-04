@@ -179,7 +179,6 @@ class ChooseTemplateDialogFragment :
         return builder.create()
     }
 
-    @Suppress("TooGenericExceptionCaught")
     private fun fetchTemplate() {
         try {
             val user = currentAccount.user

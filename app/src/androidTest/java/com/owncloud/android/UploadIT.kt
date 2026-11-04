@@ -40,7 +40,7 @@ import java.nio.file.attribute.BasicFileAttributes
 import java.util.concurrent.TimeUnit
 import kotlin.math.abs
 
-@Suppress("TooManyFunctions", "DEPRECATION")
+@Suppress("DEPRECATION")
 class UploadIT : AbstractOnServerIT() {
     private val uploadsStorageManager = UploadsStorageManager(
         UserAccountManagerImpl.fromContext(targetContext),

@@ -21,7 +21,6 @@ import kotlin.random.Random
  * Adapted from https://github.com/nextcloud/server/blob/master/tests/lib/NaturalSortTest.php
  *
  */
-@Suppress("TooManyFunctions")
 class NaturalSortTest {
 
     private lateinit var defaultLocale: Locale

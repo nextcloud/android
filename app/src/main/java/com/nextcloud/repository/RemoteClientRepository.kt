@@ -11,6 +11,7 @@ import android.content.Context
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.ApplicationScope
 import com.nextcloud.common.NextcloudClient
+import com.nextcloud.common.PlainClient
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -20,7 +21,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-@Suppress("TooGenericExceptionCaught", "DEPRECATION")
+@Suppress("DEPRECATION")
 class RemoteClientRepository @Inject constructor(
     private val context: Context,
     private val accountManager: UserAccountManager,
@@ -71,4 +72,6 @@ class RemoteClientRepository @Inject constructor(
             null
         }
     }
+
+    override fun getPlainClient(): PlainClient = PlainClient(context)
 }

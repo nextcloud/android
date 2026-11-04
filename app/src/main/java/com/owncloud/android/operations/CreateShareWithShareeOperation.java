@@ -31,7 +31,7 @@ import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.shares.CreateShareRemoteOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
-import com.owncloud.android.lib.resources.users.GetPublicKeyRemoteOperation;
+import com.owncloud.android.lib.resources.users.GetCertificateRemoteOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.EncryptionUtilsV2;
@@ -130,7 +130,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
 
                 if (publicKey.isEmpty()) {
                     NextcloudClient nextcloudClient = new ClientFactoryImpl(context).createNextcloudClient(user);
-                    RemoteOperationResult<String> result = new GetPublicKeyRemoteOperation(shareeName).execute(nextcloudClient);
+                    RemoteOperationResult<String> result = new GetCertificateRemoteOperation(shareeName).execute(nextcloudClient);
                     if (result.isSuccess()) {
                         // store it
                         EncryptionUtils.savePublicKey(

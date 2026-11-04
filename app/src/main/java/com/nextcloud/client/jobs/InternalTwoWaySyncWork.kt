@@ -22,7 +22,7 @@ import com.owncloud.android.operations.SynchronizeFolderOperation
 import com.owncloud.android.utils.FileStorageUtils
 import java.io.File
 
-@Suppress("Detekt.NestedBlockDepth", "ReturnCount", "LongParameterList")
+@Suppress("Detekt.NestedBlockDepth")
 class InternalTwoWaySyncWork(
     private val context: Context,
     params: WorkerParameters,
@@ -113,7 +113,6 @@ class InternalTwoWaySyncWork(
         super.onStopped()
     }
 
-    @Suppress("TooGenericExceptionCaught")
     private fun checkFreeSpace(folder: OCFile): Result? {
         val storagePath = folder.storagePath ?: MainApp.getStoragePath()
         val file = File(storagePath)

@@ -30,7 +30,6 @@ import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 
-@Suppress("TooManyFunctions")
 class FileUploadHelperTest {
 
     private lateinit var uploadDao: UploadDao
@@ -49,7 +48,6 @@ class FileUploadHelperTest {
         fileUploadHelper.fileStorageManager = mockFileStorageManager
     }
 
-    @Suppress("LongParameterList")
     private fun buildEntity(
         id: Int = 1,
         localPath: String = this.localPath,

@@ -29,7 +29,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-@Suppress("LongParameterList")
 class UploadWarningCard(
     private val context: Context,
     private val powerManagementService: PowerManagementService,

@@ -32,7 +32,7 @@ class DeleteUploadedFileOperation(
     }
     private val syncFolderHelper = SyncFolderHelper(context)
 
-    @Suppress("NestedBlockDepth", "ReturnCount")
+    @Suppress("NestedBlockDepth")
     suspend fun run(): RemoteOperationResult<Stats> {
         Log_OC.d(TAG, "Analyzing folder ${syncedFolder.remotePath} from user ${syncedFolder.account}")
 
@@ -92,7 +92,6 @@ class DeleteUploadedFileOperation(
         return result
     }
 
-    @Suppress("ReturnCount")
     private suspend fun fileCanBeDeleted(localFile: File, folder: OCFile): Boolean {
         val remotePath = syncFolderHelper.getAutoUploadRemotePath(syncedFolder, localFile)
         val ocFile =

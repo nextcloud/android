@@ -37,7 +37,6 @@ import kotlin.math.min
 /**
  * Adapter to show a user/group/email/remote in Sharing list in file details view.
  */
-@Suppress("LongParameterList")
 class ShareeListAdapter(
     private val fileActivity: FileActivity,
     @JvmField var shares: ArrayList<OCShare>,

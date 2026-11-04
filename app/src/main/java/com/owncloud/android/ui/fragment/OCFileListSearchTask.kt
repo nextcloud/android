@@ -43,7 +43,6 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import java.lang.ref.WeakReference
 
-@Suppress("LongParameterList", "ReturnCount", "TooGenericExceptionCaught")
 @SuppressLint("NotifyDataSetChanged")
 class OCFileListSearchTask(
     fragment: OCFileListFragment,
@@ -61,7 +60,7 @@ class OCFileListSearchTask(
     private val fragmentReference: WeakReference<OCFileListFragment> = WeakReference(fragment)
     private var job: Job? = null
 
-    @Suppress("TooGenericExceptionCaught", "DEPRECATION", "ReturnCount")
+    @Suppress("DEPRECATION")
     fun execute() {
         Log_OC.d(TAG, "search task running, query: ${event.searchType}")
         val fragment = fragmentReference.get() ?: return
@@ -85,7 +84,7 @@ class OCFileListSearchTask(
                 return@launch
             }
 
-            fragment.adapter.prepareForSearchData(fragment.currentSearchType)
+            fragment.adapter?.prepareForSearchData(fragment.currentSearchType)
             val remoteFiles = fetchAndSortRemoteFiles(searchType, cachedFiles, resultData, fragment)
             updateAdapterData(fragment, remoteFiles)
         }
@@ -159,12 +158,12 @@ class OCFileListSearchTask(
 
     private suspend fun updateAdapterData(fragment: OCFileListFragment, newList: List<OCFile>) =
         withContext(Dispatchers.Main) {
-            if (!fragment.isAdded || !fragment.searchFragment) {
+            if (!fragment.isAdded || !fragment.isSearchFragment) {
                 Log_OC.e(TAG, "cannot update adapter data, fragment is not ready")
                 return@withContext
             }
 
-            fragment.adapter.updateAdapter(newList, null)
+            fragment.adapter?.updateAdapter(newList, null)
         }
 
     private fun sortSearchData(list: List<OCFile>, searchType: SearchType, fragment: OCFileListFragment): List<OCFile> {
@@ -191,11 +190,11 @@ class OCFileListSearchTask(
             }
         }
 
-        fragment.adapter.setDisplayedSortOrder(sortOrder)
+        fragment.adapter?.setDisplayedSortOrder(sortOrder)
         return sortOrder.sortCloudFiles(list.toMutableList(), foldersBeforeFiles, favoritesFirst)
     }
 
-    @Suppress("DEPRECATION")
+    @Suppress("DEPRECATION", "CyclomaticComplexMethod")
     private suspend fun parseAndSaveVirtuals(data: List<Any>, fragment: OCFileListFragment): List<OCFile> =
         withContext(Dispatchers.IO) {
             val activity = fragment.activity ?: return@withContext emptyList()

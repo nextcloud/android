@@ -20,6 +20,7 @@ import com.nextcloud.utils.share.UnifiedShareSharees;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorkerNotificationManager;
 import com.nextcloud.utils.extensions.ExtensionsKt;
+import com.nextcloud.utils.extensions.FileDataStorageManagerExtensionsKt;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1;
@@ -368,7 +369,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         // save updated contents in local database
         UnifiedShareSharees.fillBlocking(user, updatedFiles);
 
-        storageManager.saveFolder(remoteFolder, updatedFiles, localFilesMap.values());
+        FileDataStorageManagerExtensionsKt.saveFolder(storageManager, remoteFolder, updatedFiles, localFilesMap.values());
         mLocalFolder.setLastSyncDateForData(System.currentTimeMillis());
         storageManager.saveFile(mLocalFolder);
 

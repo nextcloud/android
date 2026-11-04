@@ -32,6 +32,7 @@ enum class SearchResultEntryType {
     Avatar,
     Unknown;
 
+    @Suppress("CyclomaticComplexMethod")
     fun iconId(): Int = when (this) {
         Avatar -> R.drawable.ic_user
         CalendarEvent -> R.drawable.file_calendar

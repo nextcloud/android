@@ -48,7 +48,6 @@ import com.owncloud.android.utils.SyncedFolderUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.util.Random
 
-@Suppress("LongParameterList") // dependencies injection
 class MediaFoldersDetectionWork(
     private val context: Context,
     params: WorkerParameters,
@@ -73,7 +72,7 @@ class MediaFoldersDetectionWork(
 
     private val randomIdGenerator = Random(clock.currentTime)
 
-    @Suppress("LongMethod", "ComplexMethod", "NestedBlockDepth", "ReturnCount") // legacy code
+    @Suppress("LongMethod", "CyclomaticComplexMethod", "NestedBlockDepth") // legacy code
     override fun doWork(): Result {
         val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(context)
         val gson = Gson()

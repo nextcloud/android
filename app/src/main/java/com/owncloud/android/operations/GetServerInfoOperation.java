@@ -12,7 +12,7 @@ package com.owncloud.android.operations;
 
 import android.content.Context;
 
-import com.owncloud.android.authentication.AuthenticatorUrlUtils;
+import com.owncloud.android.authentication.server.AuthenticatorUrlUtils;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;

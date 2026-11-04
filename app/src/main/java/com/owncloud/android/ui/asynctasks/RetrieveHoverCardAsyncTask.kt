@@ -21,7 +21,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-@Suppress("LongParameterList")
 class RetrieveHoverCardAsyncTask(
     private val user: User,
     private val userId: String,
@@ -34,7 +33,6 @@ class RetrieveHoverCardAsyncTask(
         private const val TAG = "RetrieveHoverCardAsyncTask"
     }
 
-    @Suppress("TooGenericExceptionCaught")
     fun execute() {
         activity.lifecycleScope.launch {
             val result = withContext(Dispatchers.IO) {

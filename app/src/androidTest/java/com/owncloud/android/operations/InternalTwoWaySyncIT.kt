@@ -18,7 +18,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.io.File
 
-@Suppress("TooManyFunctions", "DEPRECATION")
+@Suppress("DEPRECATION")
 class InternalTwoWaySyncIT : AbstractInternalTwoWaySyncIT() {
 
     companion object {

@@ -24,7 +24,6 @@ object BatteryOptimizationHelper {
         return !pm.isIgnoringBatteryOptimizations(context.packageName)
     }
 
-    @Suppress("TooGenericExceptionCaught")
     @SuppressLint("BatteryLife")
     fun openBatteryOptimizationSettings(context: Context) {
         try {

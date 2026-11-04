@@ -17,7 +17,6 @@ import com.owncloud.android.ui.helpers.FileOperationsHelper
 fun FileOperationsHelper.handle(@IdRes itemId: Int, file: OCFile, view: View?): Boolean {
     when (itemId) {
         R.id.action_send_file -> sendShareFile(file, true)
-        R.id.action_open_file_with -> openFile(file)
         R.id.action_stream_media -> streamMediaFile(file)
         R.id.action_set_as_wallpaper -> setPictureAs(file, view)
         R.id.action_encrypted -> toggleEncryption(file, true)

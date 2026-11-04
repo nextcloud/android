@@ -24,11 +24,11 @@ class FileListLayoutManager(private val fragment: OCFileListFragment, private va
     fun sortFiles(sortOrder: FileSortOrder?) {
         sortOrder ?: return
         fragment.mSortButton?.setText(SortOrderUi.labelRes(sortOrder))
-        fragment.mAdapter.setSortOrder(fragment.mFile, sortOrder)
+        fragment.adapter?.setSortOrder(fragment.currentFile, sortOrder)
     }
 
     fun isGridViewPreferred(): Boolean {
-        val layout = FolderLayout.get(fragment.mFile, fragment.currentSearchType)
+        val layout = FolderLayout.get(fragment.currentFile, fragment.currentSearchType)
         return preferences.getFolderLayout(layout) == OCFileListFragment.FOLDER_LAYOUT_GRID
     }
 
@@ -45,7 +45,7 @@ class FileListLayoutManager(private val fragment: OCFileListFragment, private va
     }
 
     fun setListAsPreferred() {
-        val layout = FolderLayout.get(fragment.mFile, fragment.currentSearchType)
+        val layout = FolderLayout.get(fragment.currentFile, fragment.currentSearchType)
         preferences.setFolderLayout(layout, OCFileListFragment.FOLDER_LAYOUT_LIST)
         switchToListView()
     }
@@ -57,7 +57,7 @@ class FileListLayoutManager(private val fragment: OCFileListFragment, private va
     }
 
     fun setGridAsPreferred() {
-        val layout = FolderLayout.get(fragment.mFile, fragment.currentSearchType)
+        val layout = FolderLayout.get(fragment.currentFile, fragment.currentSearchType)
         preferences.setFolderLayout(layout, OCFileListFragment.FOLDER_LAYOUT_GRID)
         switchToGridView()
     }
@@ -90,8 +90,8 @@ class FileListLayoutManager(private val fragment: OCFileListFragment, private va
         if (grid) {
             layoutManager = GridLayoutManager(context, fragment.columnsCount)
             layoutManager.spanSizeLookup = object : SpanSizeLookup() {
-                override fun getSpanSize(position: Int): Int = if (position == fragment.adapter.itemCount - 1 ||
-                    (position == 0 && fragment.adapter.isHeaderDisplayed)
+                override fun getSpanSize(position: Int): Int = if (position == adapter.itemCount - 1 ||
+                    (position == 0 && adapter.isHeaderDisplayed)
                 ) {
                     layoutManager.spanCount
                 } else {

@@ -38,7 +38,6 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.crypto.Cipher
 
-@Suppress("LongParameterList", "ReturnCount")
 class DownloadFileOperation(
     val user: User,
     val file: OCFile,

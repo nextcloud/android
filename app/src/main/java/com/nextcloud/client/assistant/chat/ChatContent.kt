@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-@file:Suppress("TopLevelPropertyNaming", "MagicNumber")
+@file:Suppress("MagicNumber")
 
 package com.nextcloud.client.assistant.chat
 

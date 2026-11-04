@@ -78,7 +78,6 @@ class DownloadRequest internal constructor(
     }
 }
 
-@Suppress("LongParameterList")
 class UploadRequest internal constructor(
     user: User,
     file: OCFile,

@@ -61,7 +61,6 @@ import javax.crypto.BadPaddingException
 import javax.crypto.Cipher
 import javax.inject.Inject
 
-@Suppress("LongParameterList")
 class NotificationWork constructor(
     private val context: Context,
     params: WorkerParameters,
@@ -82,7 +81,7 @@ class NotificationWork constructor(
         private const val NUMERIC_NOTIFICATION_ID = "NUMERIC_NOTIFICATION_ID"
     }
 
-    @Suppress("TooGenericExceptionCaught", "NestedBlockDepth", "ComplexMethod", "LongMethod") // legacy code
+    @Suppress("NestedBlockDepth", "CyclomaticComplexMethod", "LongMethod") // legacy code
     override fun doWork(): Result {
         val subject = inputData.getString(KEY_NOTIFICATION_SUBJECT) ?: ""
         val signature = inputData.getString(KEY_NOTIFICATION_SIGNATURE) ?: ""
@@ -252,7 +251,6 @@ class NotificationWork constructor(
         }
     }
 
-    @Suppress("TooGenericExceptionCaught") // legacy code
     private fun fetchCompleteNotification(account: User, decryptedPushMessage: DecryptedPushMessage) {
         val optionalUser = accountManager.getUser(account.accountName)
         if (!optionalUser.isPresent) {
@@ -286,7 +284,7 @@ class NotificationWork constructor(
             this.accountManager = accountManager
         }
 
-        @Suppress("ComplexMethod") // legacy code
+        @Suppress("CyclomaticComplexMethod") // legacy code
         override fun onReceive(context: Context, intent: Intent) {
             AndroidInjection.inject(this, context)
             val numericNotificationId = intent.getIntExtra(NUMERIC_NOTIFICATION_ID, 0)
@@ -341,7 +339,6 @@ class NotificationWork constructor(
             }
         }
 
-        @Suppress("ReturnCount") // legacy code
         private fun executeAction(
             actionType: String,
             actionLink: String,

@@ -9,7 +9,6 @@ package com.owncloud.android.datamodel
 
 import com.nextcloud.client.account.User
 
-@Suppress("Detekt.TooManyFunctions") // legacy interface, will get rid of `accountName` methods in the future
 interface ArbitraryDataProvider {
     fun deleteKeyForAccount(account: String, key: String)
 

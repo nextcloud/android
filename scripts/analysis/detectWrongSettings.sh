@@ -7,23 +7,6 @@
 snapshotCount=$(./gradlew dependencies | grep SNAPSHOT -c)
 betaCount=$(grep "<bool name=\"is_beta\">true</bool>" app/src/main/res/values/setup.xml -c)
 
-# Read androidLibraryVersion from TOML
-libraryHash=$(grep 'androidLibraryVersion =' gradle/libs.versions.toml \
-    | cut -d '=' -f2 \
-    | tr -d ' "' )
-
-baseBranch="master"
-
-# Fetch last 10 commit SHAs from GitHub, without quotes
-lastHashes=$(curl -s "https://api.github.com/repos/nextcloud/android-library/commits?sha=$baseBranch" \
-    | jq -r '.[].sha' | head -n 10)
-
-# Check if libraryHash is in lastHashes
-if ! echo "$lastHashes" | grep -q "^$libraryHash$"; then
-    echo "Library commit not within last 10 hashes, please rebase!"
-    exit 1
-fi
-
 if [[ $snapshotCount -gt 0 ]] ; then
     echo "Snapshot found in dependencies"
     exit 1

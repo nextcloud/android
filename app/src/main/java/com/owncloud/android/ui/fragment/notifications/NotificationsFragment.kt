@@ -58,7 +58,6 @@ import kotlinx.coroutines.withContext
 import java.util.Optional
 import javax.inject.Inject
 
-@Suppress("TooManyFunctions", "ReturnCount")
 class NotificationsFragment :
     Fragment(),
     NotificationsContract.View,

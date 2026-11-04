@@ -88,7 +88,7 @@ import kotlinx.coroutines.withContext
 private const val CHAT_INPUT_DELAY = 100L
 private const val PULL_TO_REFRESH_DELAY = 1500L
 
-@Suppress("LongMethod")
+@Suppress("LongMethod", "CyclomaticComplexMethod")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AssistantScreen(

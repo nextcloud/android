@@ -22,7 +22,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-@Suppress("LongParameterList")
 class E2EEActionResolver @Inject constructor(
     private val storageManager: FileDataStorageManager,
     private val arbitraryDataProvider: ArbitraryDataProvider,

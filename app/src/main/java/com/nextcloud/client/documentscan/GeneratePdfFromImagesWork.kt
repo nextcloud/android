@@ -30,7 +30,6 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import java.security.SecureRandom
 
-@Suppress("Detekt.LongParameterList") // constructed only from factory method and tests
 class GeneratePdfFromImagesWork(
     private val appContext: Context,
     private val generatePdfUseCase: GeneratePDFUseCase,

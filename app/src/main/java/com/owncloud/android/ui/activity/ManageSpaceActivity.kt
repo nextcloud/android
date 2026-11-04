@@ -150,7 +150,6 @@ class ManageSpaceActivity :
         return clearResult
     }
 
-    @Suppress("ReturnCount")
     private fun deleteDir(dir: File?): Boolean {
         if (dir != null && dir.isDirectory) {
             dir.list()?.forEach { child ->

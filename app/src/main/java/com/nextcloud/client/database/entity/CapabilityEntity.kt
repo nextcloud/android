@@ -162,7 +162,7 @@ data class CapabilityEntity(
     val sharingJson: String?
 )
 
-@Suppress("LongMethod", "ReturnCount")
+@Suppress("LongMethod", "CyclomaticComplexMethod")
 fun CapabilityEntity?.toOCCapability(): OCCapability {
     val capability = OCCapability()
     if (this == null) return capability

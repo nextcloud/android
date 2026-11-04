@@ -30,7 +30,6 @@ import java.lang.ref.WeakReference
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Suppress("LongParameterList")
 @Singleton
 class AvatarGenerator @Inject constructor(
     private val context: Context,
@@ -106,7 +105,6 @@ class AvatarGenerator @Inject constructor(
         }
     }
 
-    @Suppress("TooGenericExceptionCaught")
     private fun createInitialAvatar(displayName: String?, radius: Float): Drawable? = try {
         TextDrawable.createAvatarByUserId(displayName, radius)
     } catch (e: Exception) {

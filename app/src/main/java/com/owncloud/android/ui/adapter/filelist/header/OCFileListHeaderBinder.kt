@@ -23,7 +23,6 @@ import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.ui.preview.text.PreviewTextFragment
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
-@Suppress("LongParameterList")
 internal class OCFileListHeaderBinder(
     private val activity: Activity,
     private val viewThemeUtils: ViewThemeUtils,

@@ -112,7 +112,6 @@ class FileDownloadHelper {
         downloadFile(user, file, downloadType = DownloadType.DOWNLOAD)
     }
 
-    @Suppress("LongParameterList")
     fun downloadFile(
         user: User,
         ocFile: OCFile,

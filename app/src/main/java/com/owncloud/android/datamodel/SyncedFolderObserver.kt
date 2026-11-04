@@ -42,7 +42,6 @@ object SyncedFolderObserver {
         }
     }
 
-    @Suppress("ReturnCount")
     fun isAutoUploadFolder(file: ServerFileInterface, user: User): Boolean {
         val accountFolders = syncedFoldersMap[user.accountName] ?: return false
         val normalizedRemotePath = file.remotePath.trimEnd('/')

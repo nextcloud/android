@@ -57,6 +57,7 @@ import com.owncloud.android.ui.adapter.UnifiedSearchListAdapter
 import com.owncloud.android.ui.fragment.util.PairMediatorLiveData
 import com.owncloud.android.ui.interfaces.UnifiedSearchCurrentDirItemAction
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
+import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import com.owncloud.android.ui.unifiedsearch.IUnifiedSearchViewModel
 import com.owncloud.android.ui.unifiedsearch.ProviderID
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
@@ -76,7 +77,6 @@ import kotlin.time.Duration.Companion.milliseconds
  * Starts query to all capable unified search providers and displays them Opens result in our app, redirect to other
  * apps, if installed, or opens browser
  */
-@Suppress("TooManyFunctions")
 class UnifiedSearchFragment :
     Fragment(),
     Injectable,
@@ -183,9 +183,9 @@ class UnifiedSearchFragment :
     override fun onResume() {
         super.onResume()
         typedActivity<FileDisplayActivity>()?.run {
-            setupToolbar()
+            showActionBar(ActionBarStyle.Plain)
             setMainFabVisible(false)
-            updateActionBarTitleAndHomeButtonByString(null)
+            setActionBarTitle(null)
             setDrawerIndicatorEnabled(false)
         }
     }

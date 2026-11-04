@@ -30,7 +30,6 @@ import org.apache.commons.httpclient.NameValuePair
 import org.apache.jackrabbit.webdav.client.methods.DeleteMethod
 import com.nextcloud.utils.AppConstants.DEFAULT_CONNECTION_TIMEOUT_MS
 
-@Suppress("LongParameterList")
 class RemoveRemoteEncryptedFileOperation internal constructor(
     private val remotePath: String,
     private val user: User,
@@ -41,7 +40,6 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
 ) : RemoteOperation<Void>() {
 
     @Deprecated("Deprecated in Java")
-    @Suppress("TooGenericExceptionCaught")
     override fun run(client: OwnCloudClient): RemoteOperationResult<Void> {
         var result: RemoteOperationResult<Void>
         var delete: DeleteMethod? = null

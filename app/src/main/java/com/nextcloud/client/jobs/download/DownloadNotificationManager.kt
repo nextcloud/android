@@ -18,7 +18,7 @@ import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.security.SecureRandom
 
-@Suppress("TooManyFunctions", "MagicNumber")
+@Suppress("MagicNumber")
 class DownloadNotificationManager(id: Int, private val context: Context, viewThemeUtils: ViewThemeUtils) :
     WorkerNotificationManager(
         id,

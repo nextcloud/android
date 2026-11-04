@@ -85,7 +85,6 @@ class SyncFolderHelper(private val context: Context) {
         if (MediaFolderType.IMAGE == syncedFolder.type && hasExif(file)) {
             Log_OC.d(TAG, "calculateLastModificationTime exif found")
 
-            @Suppress("TooGenericExceptionCaught")
             try {
                 val exifInterface = ExifInterface(file.absolutePath)
                 val exifDate = exifInterface.getAttribute(ExifInterface.TAG_DATETIME)

@@ -79,7 +79,7 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
 
-@Suppress("MagicNumber", "TooManyFunctions")
+@Suppress("MagicNumber")
 open class ExtendedListFragment :
     Fragment(),
     AdapterView.OnItemClickListener,
@@ -234,7 +234,6 @@ open class ExtendedListFragment :
         return false
     }
 
-    @Suppress("ReturnCount")
     override fun onQueryTextSubmit(query: String): Boolean {
         val adapter = recyclerView?.adapter
         if (adapter is OCFileListAdapter) {
@@ -615,7 +614,7 @@ open class ExtendedListFragment :
         }
     }
 
-    @Suppress("LongMethod")
+    @Suppress("LongMethod", "CyclomaticComplexMethod")
     fun setEmptyListMessage(state: Parcelable?) {
         when (state) {
             SearchType.NO_SEARCH -> {

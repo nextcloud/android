@@ -15,7 +15,6 @@ import java.io.File
 import java.nio.charset.Charset
 import java.nio.file.Files
 
-@Suppress("TooManyFunctions")
 class FileLogHandlerTest {
 
     private companion object {

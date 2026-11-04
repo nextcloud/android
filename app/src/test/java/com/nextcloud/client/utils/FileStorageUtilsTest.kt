@@ -30,7 +30,7 @@ import java.io.File
 import java.util.Locale
 import java.util.TimeZone
 
-@Suppress("TooManyFunctions", "LargeClass")
+@Suppress("LargeClass")
 class FileStorageUtilsTest {
 
     @get:Rule
@@ -742,7 +742,6 @@ class FileStorageUtilsTest {
         assertEquals("/storage/x", FileStorageUtils.pathToUserFriendlyDisplay("/storage/x", null, mock()))
     }
 
-    @Suppress("LongParameterList")
     private fun instantUploadPath(
         remotePath: String = "/Camera",
         syncedFolderLocalPath: String? = "/sdcard/DCIM",

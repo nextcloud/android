@@ -51,7 +51,7 @@ import kotlin.math.floor
 import kotlin.math.log
 import kotlin.math.pow
 
-@Suppress("MagicNumber", "TooManyFunctions", "LongParameterList")
+@Suppress("MagicNumber")
 open class ActivityListAdapter(
     protected val context: FragmentActivity,
     private val currentAccountProvider: CurrentAccountProvider,

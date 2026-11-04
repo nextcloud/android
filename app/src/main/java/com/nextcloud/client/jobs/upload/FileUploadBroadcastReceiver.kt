@@ -32,7 +32,6 @@ class FileUploadBroadcastReceiver : BroadcastReceiver() {
         const val REMOVE = "REMOVE"
     }
 
-    @Suppress("ReturnCount")
     override fun onReceive(context: Context, intent: Intent) {
         MainApp.getAppComponent().inject(this)
 
@@ -41,7 +40,6 @@ class FileUploadBroadcastReceiver : BroadcastReceiver() {
         }
     }
 
-    @Suppress("ReturnCount")
     private fun pauseAndCancel(context: Context, intent: Intent) {
         val uploadId = intent.getLongExtra(UPLOAD_ID, -1L)
         if (uploadId == -1L) {

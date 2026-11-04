@@ -32,7 +32,6 @@ import com.owncloud.android.ui.events.DialogEventType
 import com.owncloud.android.utils.FileStorageUtils
 import org.greenrobot.eventbus.EventBus
 
-@Suppress("LongParameterList")
 class SynchronizeFileOperation : SyncOperation {
 
     var localFile: OCFile? = null
@@ -255,6 +254,18 @@ class SynchronizeFileOperation : SyncOperation {
                 Log_OC.d(TAG, "Exception caught at requestForDownload: $e")
             }
         }
+    }
+
+    fun printSuccess() {
+        Log_OC.i(TAG, "content synchronized, remote path: $remotePath")
+    }
+
+    fun printConflict() {
+        Log_OC.w(TAG, "content has conflict, remote path: $remotePath")
+    }
+
+    fun printFailure() {
+        Log_OC.e(TAG, "content not synchronized, remote path: $remotePath")
     }
 
     companion object {

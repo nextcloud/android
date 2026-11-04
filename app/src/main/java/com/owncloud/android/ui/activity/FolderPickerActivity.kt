@@ -47,6 +47,7 @@ import com.owncloud.android.ui.events.SearchEvent
 import com.owncloud.android.ui.fragment.EmptyListState
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.fragment.OCFileListFragment
+import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import com.owncloud.android.utils.DataHolderUtil
 import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.FileSortOrder
@@ -56,7 +57,6 @@ import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
 
-@Suppress("Detekt.TooManyFunctions")
 open class FolderPickerActivity :
     FileActivity(),
     FileFragment.ContainerActivity,
@@ -99,7 +99,7 @@ open class FolderPickerActivity :
 
         initBinding()
         initControls()
-        setupToolbar()
+        showActionBar(ActionBarStyle.Plain)
         setupActionBar()
         setupAction()
         initTargetFilesPath()
@@ -108,7 +108,7 @@ open class FolderPickerActivity :
             createFragments()
         }
 
-        updateActionBarTitleAndHomeButtonByString(captionText)
+        setActionBarTitle(captionText)
         handleBackPress()
     }
 
@@ -376,7 +376,6 @@ open class FolderPickerActivity :
         updateNavigationElementsInActionBar()
     }
 
-    @Suppress("ReturnCount")
     private fun toggleChooseEnabled() {
         if (this is FilePickerActivity) {
             return
@@ -536,7 +535,7 @@ open class FolderPickerActivity :
             return
         }
 
-        listOfFilesFragment?.onMessageEvent(
+        listOfFilesFragment?.onSearchEvent(
             SearchEvent(
                 query,
                 SearchRemoteOperation.SearchType.FILE_SEARCH
@@ -549,9 +548,8 @@ open class FolderPickerActivity :
          * [BroadcastReceiver] to enable syncing feedback in UI
          */
         @Suppress(
-            "Detekt.ComplexMethod",
+            "Detekt.CyclomaticComplexMethod",
             "Detekt.NestedBlockDepth",
-            "Detekt.TooGenericExceptionCaught",
             "Detekt.LongMethod"
         ) // legacy code
         override fun onReceive(context: Context, intent: Intent) {

@@ -35,7 +35,6 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.Locale
 
-@Suppress("LongParameterList", "TooManyFunctions")
 class LocalFileListAdapter(
     localFolderPickerMode: Boolean,
     private val fragmentInterface: LocalFileListFragmentInterface,

@@ -20,7 +20,6 @@ import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
 import com.owncloud.android.operations.UploadFileOperation
 import javax.inject.Inject
 
-@Suppress("LongParameterList")
 class UploadFileOperationFactory @Inject constructor(
     private val uploadsStorageManager: UploadsStorageManager,
     private val connectivityService: ConnectivityService,

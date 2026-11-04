@@ -27,7 +27,6 @@ class RetryTestRule(val retryCount: Int = defaultRetryValue) : TestRule {
 
     override fun apply(base: Statement, description: Description): Statement = statement(base, description)
 
-    @Suppress("TooGenericExceptionCaught") // and this exactly what we want here
     private fun statement(base: Statement, description: Description): Statement {
         return object : Statement() {
 

@@ -51,7 +51,6 @@ class SvgBitmapDecoder(private val bitmapPool: BitmapPool) : ResourceDecoder<Inp
         return BitmapResource.obtain(bitmap, bitmapPool)
     }
 
-    @Suppress("ReturnCount")
     private fun outputSize(width: Int, height: Int, intrinsicWidth: Float?, intrinsicHeight: Float?): Pair<Int, Int> {
         val isOriginalSize = width == Target.SIZE_ORIGINAL || height == Target.SIZE_ORIGINAL
 

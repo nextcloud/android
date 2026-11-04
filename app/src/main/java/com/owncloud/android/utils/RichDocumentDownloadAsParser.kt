@@ -26,7 +26,6 @@ object RichDocumentDownloadAsParser {
     private const val TYPE = "Type"
     private const val FILENAME = "filename"
 
-    @Suppress("TooGenericExceptionCaught")
     fun parse(jsonString: String?): DownloadAs? {
         if (jsonString.isNullOrBlank()) return null
 

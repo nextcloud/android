@@ -45,7 +45,6 @@ import java.io.InputStreamReader
 import java.util.Calendar
 import kotlin.time.Duration.Companion.days
 
-@Suppress("LongParameterList") // legacy code
 class ContactsBackupWork(
     appContext: Context,
     params: WorkerParameters,
@@ -66,7 +65,6 @@ class ContactsBackupWork(
     private var operationsServiceConnection: OperationsServiceConnection? = null
     private var operationsServiceBinder: OperationsServiceBinder? = null
 
-    @Suppress("ReturnCount") // pre-existing issue
     override fun doWork(): Result {
         val accountName = inputData.getString(KEY_ACCOUNT) ?: ""
         if (TextUtils.isEmpty(accountName)) {

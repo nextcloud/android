@@ -18,7 +18,7 @@ import junit.framework.TestCase.assertNull
 import org.junit.Before
 import org.junit.Test
 
-@Suppress("TooManyFunctions", "MagicNumber")
+@Suppress("MagicNumber")
 class ParentFolderFinderTest {
 
     private lateinit var storageManager: FileDataStorageManager

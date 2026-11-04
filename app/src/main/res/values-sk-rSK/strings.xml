@@ -983,6 +983,7 @@
     <string name="share_link_file_no_exist">Zdieľanie nie je možné. Skontrolujte, či súbor existuje.</string>
     <string name="share_link_forbidden_permissions">sprístupniť tento súbor</string>
     <string name="share_link_optional_password_title">Zadajte voliteľné heslo </string>
+    <string name="share_link_password_rejected">Heslo nespĺňa požiadavky na heslá. Skúste dlhšie alebo zložitejšie heslo.</string>
     <string name="share_link_password_title">Vložte heslo</string>
     <string name="share_link_with_label">Zdieľať odkaz (%1$s)</string>
     <string name="share_no_expiration_date_label">Nastaviť dátum expirácie</string>

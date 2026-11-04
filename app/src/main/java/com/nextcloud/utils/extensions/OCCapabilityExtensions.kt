@@ -52,7 +52,6 @@ fun OCCapability.shouldRemoveNonPrintableUnicodeCharactersAndConvertToUTF8(): Bo
         forbiddenFilenameExtensions().isNotEmpty() ||
         forbiddenFilenameBaseNames().isNotEmpty()
 
-@Suppress("ReturnCount", "TooGenericExceptionCaught")
 fun jsonToList(json: String?): List<String> {
     if (json.isNullOrBlank()) return emptyList()
 

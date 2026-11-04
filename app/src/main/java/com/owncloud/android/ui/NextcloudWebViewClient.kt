@@ -31,7 +31,6 @@ open class NextcloudWebViewClient(val supportFragmentManager: FragmentManager) :
 
     private val tag: String? = NextcloudWebViewClient::class.simpleName
 
-    @Suppress("TooGenericExceptionCaught")
     @SuppressLint("WebViewClientOnReceivedSslError")
     override fun onReceivedSslError(view: WebView?, handler: SslErrorHandler, error: SslError?) {
         val cert = error?.let { getX509CertificateFromError(it) }

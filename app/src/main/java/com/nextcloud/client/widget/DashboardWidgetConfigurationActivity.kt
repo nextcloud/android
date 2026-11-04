@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.android.lib.resources.dashboard.DashBoardButtonType
 import com.nextcloud.android.lib.resources.dashboard.DashboardListWidgetsRemoteOperation
 import com.nextcloud.android.lib.resources.dashboard.DashboardWidget
@@ -74,6 +75,8 @@ class DashboardWidgetConfigurationActivity :
         binding = DashboardWidgetConfigurationLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        viewThemeUtils.platform.colorViewBackground(binding.root, ColorRole.SURFACE)
+        viewThemeUtils.platform.themeStatusBar(this, ColorRole.SURFACE)
         viewThemeUtils.platform.colorDrawable(binding.icon.drawable, getColor(R.color.dark))
 
         val layoutManager = LinearLayoutManager(this)

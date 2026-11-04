@@ -47,6 +47,8 @@ import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.client.utils.Throttler
 import com.nextcloud.repository.ClientRepository
 import com.nextcloud.ui.albumItemActions.AlbumItemActionsBottomSheet
+import com.nextcloud.ui.fileactions.FileActionHandler
+import com.nextcloud.ui.fileactions.FileActionHost
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getTypedActivity
@@ -87,6 +89,7 @@ import com.owncloud.android.ui.fragment.albums.util.AlbumCollageLayout
 import com.owncloud.android.ui.fragment.helper.ColumnCount
 import com.owncloud.android.ui.helpers.UriUploader
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
+import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import com.owncloud.android.ui.preview.media.PreviewMediaFragment
 import com.owncloud.android.utils.ClipboardUtil
 import com.owncloud.android.utils.ErrorMessageAdapter
@@ -107,7 +110,6 @@ import java.util.Optional
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 
-@Suppress("TooManyFunctions")
 class AlbumItemsFragment :
     Fragment(),
     OCFileListFragmentInterface,
@@ -116,6 +118,9 @@ class AlbumItemsFragment :
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
+
+    @Inject
+    lateinit var fileActionHandler: FileActionHandler
 
     @Inject
     lateinit var accountManager: UserAccountManager
@@ -208,7 +213,7 @@ class AlbumItemsFragment :
     override fun onResume() {
         super.onResume()
         getTypedActivity(FileDisplayActivity::class.java)?.run {
-            setupToolbar()
+            showActionBar(ActionBarStyle.Plain)
             supportActionBar?.let { viewThemeUtils.files.themeActionBar(requireContext(), it, albumName) }
             showSortListGroup(false)
             setMainFabVisible(false)
@@ -507,7 +512,7 @@ class AlbumItemsFragment :
 
     fun onAlbumRenamed(newAlbumName: String) {
         albumName = newAlbumName
-        getTypedActivity(FileDisplayActivity::class.java)?.updateActionBarTitleAndHomeButtonByString(albumName)
+        getTypedActivity(FileDisplayActivity::class.java)?.setActionBarTitle(albumName)
     }
 
     fun onAlbumDeleted() {
@@ -516,8 +521,6 @@ class AlbumItemsFragment :
     //endregion
 
     //region Item interaction
-    override fun getColumnsCount(): Int = columnSize
-
     override fun isLoading(): Boolean = false
 
     override fun onHeaderClicked() = Unit
@@ -625,24 +628,21 @@ class AlbumItemsFragment :
         ?.getClientIntegrationEndpoints(Type.CONTEXT_MENU, checkedFiles.first().mimeType)
         .orEmpty()
 
-    private fun onFileActionChosen(@IdRes itemId: Int, checkedFiles: Set<OCFile>): Boolean {
-        if (checkedFiles.isEmpty()) {
-            return false
-        }
-
-        val fileOperationsHelper = containerActivity?.fileOperationsHelper
+    private fun onFileActionChosen(@IdRes itemId: Int, checkedFiles: Set<OCFile>) {
+        if (checkedFiles.isEmpty()) return
 
         when (itemId) {
             R.id.action_remove_file -> confirmFilesRemoval(checkedFiles)
-            R.id.action_favorite -> fileOperationsHelper?.toggleFavoriteFiles(checkedFiles, true)
-            R.id.action_unset_favorite -> fileOperationsHelper?.toggleFavoriteFiles(checkedFiles, false)
-            R.id.action_open_file_with -> fileOperationsHelper?.openFile(checkedFiles.first())
-            R.id.action_stream_media -> fileOperationsHelper?.streamMediaFile(checkedFiles.first())
-            R.id.action_select_all_action_menu -> selectAllFiles(true)
-            R.id.action_deselect_all_action_menu -> selectAllFiles(false)
-        }
 
-        return true
+            R.id.action_select_all_action_menu -> selectAllFiles(true)
+
+            R.id.action_deselect_all_action_menu -> selectAllFiles(false)
+
+            else -> containerActivity?.let {
+                val host = FileActionHost(it, parentFragmentManager, view, null)
+                fileActionHandler.handle(itemId, checkedFiles, host)
+            }
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)

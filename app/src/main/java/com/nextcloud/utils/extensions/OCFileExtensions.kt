@@ -7,6 +7,9 @@
 
 package com.nextcloud.utils.extensions
 
+import com.google.gson.Gson
+import com.nextcloud.client.database.entity.FileEntity
+import com.nextcloud.client.database.entity.model.FolderMetadataUpdate
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.GalleryItems
 import com.owncloud.android.datamodel.GalleryRow
@@ -23,6 +26,10 @@ import java.io.File
 import java.util.Calendar
 
 private const val TAG = "OCFileExtensions"
+private const val NO_LOCK_TYPE = -1
+private const val FOLDER_CONTENT_LENGTH = 0L
+
+private val gson = Gson()
 
 fun List<OCFile>.filterFilenames(): List<OCFile> = distinctBy { it.fileName }
 
@@ -39,7 +46,6 @@ fun OCFile?.isPNG(): Boolean {
     return "image/png".equals(mimeType, ignoreCase = true)
 }
 
-@Suppress("ReturnCount")
 fun OCFile?.getDepth(): OCFileDepth? {
     if (this == null) {
         return null
@@ -88,6 +94,14 @@ private fun transformToRows(list: List<OCFile>, layout: GalleryRowLayout): List<
         .map { chunk -> GalleryRow(chunk, layout.measure(chunk)) }
 }
 
+fun OCFile?.isDownloadedFileChanged(serverFile: OCFile): Boolean {
+    if (this == null || !isDown || serverFile.isFolder) {
+        return false
+    }
+
+    return etag.eTagChanged(serverFile.etag)
+}
+
 fun OCFile.toEncryptionEvent(encrypt: Boolean): EncryptionEvent = EncryptionEvent(
     localId,
     remoteId,
@@ -105,3 +119,106 @@ fun OCFile.createStoragePath(accountName: String) {
 
     storagePath = savePath
 }
+
+fun OCFile.isLocalETagOutdated(): Boolean {
+    val serverETag = etagInConflict
+    return !serverETag.isNullOrEmpty() && etag.eTagChanged(serverETag)
+}
+
+fun OCFile.toFileEntity(accountName: String): FileEntity = FileEntity(
+    id = fileId.takeIf { it > 0 },
+    name = fileName,
+    encryptedName = encryptedFileName,
+    path = remotePath,
+    pathDecrypted = decryptedRemotePath,
+    parent = parentId,
+    creation = creationTimestamp,
+    modified = modificationTimestamp,
+    contentType = mimeType,
+    contentLength = fileLength,
+    storagePath = storagePath,
+    accountOwner = accountName,
+    lastSyncDate = lastSyncDateForProperties,
+    lastSyncDateForData = lastSyncDateForData,
+    modifiedAtLastSyncForData = modificationTimestampAtLastSyncForData,
+    etag = etag,
+    etagOnServer = etagOnServer,
+    sharedViaLink = isSharedViaLink.toInt(),
+    permissions = permissions,
+    remoteId = remoteId,
+    localId = localId,
+    updateThumbnail = isUpdateThumbnailNeeded.toInt(),
+    isDownloading = isDownloading.toInt(),
+    favorite = isFavorite.toInt(),
+    hidden = shouldHide().toInt(),
+    isEncrypted = isEncrypted.toInt(),
+    etagInConflict = etagInConflict,
+    sharedWithSharee = isSharedWithSharee.toInt(),
+    mountType = null,
+    hasPreview = isPreviewAvailable.toInt(),
+    unreadCommentsCount = unreadCommentsCount,
+    ownerId = ownerId,
+    ownerDisplayName = ownerDisplayName,
+    note = note,
+    sharees = gson.toJson(sharees),
+    richWorkspace = richWorkspace,
+    metadataSize = gson.toJson(imageDimension),
+    metadataLivePhoto = linkedFileIdForLivePhoto,
+    locked = isLocked.toInt(),
+    lockType = lockType?.value ?: NO_LOCK_TYPE,
+    lockOwner = lockOwnerId,
+    lockOwnerDisplayName = lockOwnerDisplayName,
+    lockOwnerEditor = lockOwnerEditor,
+    lockTimestamp = lockTimestamp,
+    lockTimeout = lockTimeout.toInt(),
+    lockToken = lockToken,
+    tags = gson.toJson(tags),
+    metadataGPS = gson.toJson(geoLocation),
+    e2eCounter = e2eCounter,
+    internalTwoWaySync = internalFolderSyncTimestamp,
+    internalTwoWaySyncResult = internalFolderSyncResult,
+    uploaded = uploadTimestamp,
+    isReadOnly = isReadOnly.toInt()
+)
+
+fun OCFile.toFolderMetadataUpdate(accountName: String): FolderMetadataUpdate {
+    val entity = toFileEntity(accountName)
+    return FolderMetadataUpdate(
+        id = fileId,
+        modified = entity.modified,
+        modifiedAtLastSyncForData = entity.modifiedAtLastSyncForData,
+        parent = entity.parent,
+        uploaded = entity.uploaded,
+        creation = entity.creation,
+        contentType = entity.contentType,
+        contentLength = FOLDER_CONTENT_LENGTH,
+        name = entity.name,
+        path = entity.path,
+        pathDecrypted = entity.pathDecrypted,
+        accountOwner = entity.accountOwner,
+        isEncrypted = entity.isEncrypted,
+        isReadOnly = entity.isReadOnly,
+        lastSyncDate = entity.lastSyncDate,
+        lastSyncDateForData = entity.lastSyncDateForData,
+        etag = entity.etag,
+        etagOnServer = entity.etagOnServer,
+        sharedViaLink = entity.sharedViaLink,
+        sharedWithSharee = entity.sharedWithSharee,
+        permissions = entity.permissions,
+        remoteId = entity.remoteId,
+        localId = entity.localId,
+        favorite = entity.favorite,
+        hidden = entity.hidden,
+        unreadCommentsCount = entity.unreadCommentsCount,
+        ownerId = entity.ownerId,
+        ownerDisplayName = entity.ownerDisplayName,
+        note = entity.note,
+        sharees = entity.sharees,
+        tags = entity.tags,
+        richWorkspace = entity.richWorkspace,
+        internalTwoWaySync = entity.internalTwoWaySync,
+        internalTwoWaySyncResult = entity.internalTwoWaySyncResult
+    )
+}
+
+private fun Boolean.toInt(): Int = if (this) 1 else 0
