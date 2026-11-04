@@ -35,13 +35,35 @@ class DownloadNotificationManager(id: Int, private val context: Context, viewThe
             setContentTitle(currentOperationTitle)
             setOngoing(false)
             setProgress(100, 0, operation.size < 0)
+            clearActions()
+            addAction(
+                R.drawable.ic_cancel,
+                context.getString(R.string.common_cancel),
+                getCancelPendingIntent(operation)
+            )
         }
 
         showNotification()
     }
 
+    private fun getCancelPendingIntent(operation: DownloadFileOperation): PendingIntent {
+        val intent = Intent(context, FileDownloadCancelReceiver::class.java).apply {
+            putExtra(FileDownloadCancelReceiver.ACCOUNT_NAME, operation.user.accountName)
+            putExtra(FileDownloadCancelReceiver.FILE_ID, operation.file.fileId)
+            setPackage(context.packageName)
+        }
+
+        return PendingIntent.getBroadcast(
+            context,
+            getId(),
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+    }
+
     fun prepareForResult() {
         notificationBuilder
+            .clearActions()
             .setAutoCancel(true)
             .setOngoing(false)
             .setProgress(0, 0, false)
@@ -61,6 +83,7 @@ class DownloadNotificationManager(id: Int, private val context: Context, viewThe
         val notifyId = SecureRandom().nextInt()
 
         notificationBuilder.run {
+            clearActions()
             setProgress(0, 0, false)
             setContentTitle(text)
             setOngoing(false)
