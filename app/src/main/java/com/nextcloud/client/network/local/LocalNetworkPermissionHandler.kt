@@ -44,6 +44,8 @@ class LocalNetworkPermissionHandler @Inject constructor(
         const val ACTION_REQUEST_PERMISSION = "com.nextcloud.client.network.REQUEST_LOCAL_NETWORK_PERMISSION"
     }
 
+    private val routes = LocalNetworkRoutes(context)
+
     val serverUrls: List<String>
         get() = accountManager.allUsers.map { it.server.uri.toString() }
 
@@ -76,7 +78,7 @@ class LocalNetworkPermissionHandler @Inject constructor(
         }
 
         scope.launch {
-            if (serverUrls.none { LocalNetworkAddress.isLocalServer(it) }) {
+            if (serverUrls.none { LocalNetworkAddress.isLocalServer(it, routes) }) {
                 return@launch
             }
 

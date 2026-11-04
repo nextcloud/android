@@ -23,11 +23,14 @@ object LocalNetworkAddress {
     // Private IPv6 addresses start with fc or fd
     private const val UNIQUE_LOCAL_PREFIX = 0xFC
 
-    suspend fun isLocalServer(serverUrl: String): Boolean {
+    suspend fun isLocalServer(serverUrl: String, routes: LocalNetworkRoutes? = null): Boolean {
         val host = runCatching { URI(serverUrl).host }.getOrNull() ?: return false
         val caseInsensitiveHost = host.lowercase(Locale.ROOT).trimEnd(HOST_LABEL_SEPARATOR)
         return caseInsensitiveHost.endsWith(MDNS_SUFFIX) || withContext(Dispatchers.IO) {
-            resolve(host).any { it.isLocalNetworkAddress() }
+            val directlyConnectedRoutes = routes?.directlyConnectedRoutes().orEmpty()
+            resolve(host).any { address ->
+                address.isLocalNetworkAddress() || directlyConnectedRoutes.any { it.matches(address) }
+            }
         }
     }
 

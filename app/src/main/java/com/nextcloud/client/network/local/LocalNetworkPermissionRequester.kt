@@ -26,6 +26,7 @@ class LocalNetworkPermissionRequester(
     private val onPermissionGranted: () -> Unit
 ) {
     private var pendingResult: ((Boolean) -> Unit)? = null
+    private val routes by lazy { LocalNetworkRoutes(activity) }
 
     private val permissionLauncher =
         activity.registerForActivityResult(ActivityResultContracts.RequestPermission(), ::deliverResult)
@@ -47,7 +48,7 @@ class LocalNetworkPermissionRequester(
         }
 
         activity.lifecycleScope.launch {
-            if (serverUrls.none { LocalNetworkAddress.isLocalServer(it) }) {
+            if (serverUrls.none { LocalNetworkAddress.isLocalServer(it, routes) }) {
                 onGranted()
                 return@launch
             }
