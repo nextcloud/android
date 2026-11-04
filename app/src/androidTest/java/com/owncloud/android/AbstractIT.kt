@@ -37,7 +37,6 @@ import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.client.preferences.DarkMode
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.test.GrantStoragePermissionRule
-import com.nextcloud.test.RandomStringGenerator
 import com.nextcloud.utils.PowerManagementFactory
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
@@ -71,24 +70,18 @@ import java.io.File
 import java.io.IOException
 import java.util.Locale
 
+@Suppress("DEPRECATION")
 abstract class AbstractIT {
     @get:Rule
     val storagePermissionRule: TestRule = GrantStoragePermissionRule.grant()
 
     protected val connectivityServiceMock: ConnectivityService = ConnectivityManagerFactory.mock
 
-    @JvmField
-    protected var currentActivity: Activity? = null
+    private var currentActivity: Activity? = null
 
     protected val storageManager = FileDataStorageManager(user, targetContext.contentResolver)
 
     protected val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(targetContext)
-
-    protected val allAccounts: Array<Account>
-        get() = AccountManager.get(targetContext).accounts
-
-    val randomName: String
-        get() = getRandomName(RANDOM_NAME_LENGTH)
 
     protected val materialSchemesForCurrentUser: MaterialSchemes
         get() = MaterialSchemes.fromColor(R.color.primary)
@@ -147,8 +140,6 @@ abstract class AbstractIT {
     }
 
     protected fun longSleep() = sleepIgnoringInterrupt(LONG_SLEEP_MILLIS)
-
-    protected fun sleep(second: Int) = sleepIgnoringInterrupt(MILLIS_PER_SECOND * second)
 
     fun createFolder(remotePath: String) {
         if (ExistenceCheckRemoteOperation(remotePath, false).execute(client).isSuccess) return
@@ -237,14 +228,10 @@ abstract class AbstractIT {
     private fun createName(prefix: String = ""): String =
         createName("${TestNameDetector.getTestClass()}_${TestNameDetector.getTestName()}", prefix)
 
-    fun getRandomName(length: Int): String = RandomStringGenerator.make(length)
-
     companion object {
         private const val TEST_ACCOUNT_NAME = "test@https://nextcloud.localhost"
         private const val TEST_ACCOUNT_PASSWORD = "password"
         private const val DUMMY_FILE_LINE = "123123123123123123123123123\n"
-        private const val RANDOM_NAME_LENGTH = 5
-        private const val MILLIS_PER_SECOND = 1000L
         private const val SHORT_SLEEP_MILLIS = 2_000L
         private const val LONG_SLEEP_MILLIS = 20_000L
         private const val DARK = "dark"

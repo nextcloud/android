@@ -27,17 +27,18 @@ import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation
 import com.owncloud.android.lib.resources.files.RemoveFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.operations.RefreshFolderOperation
+import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.MimeType
 import org.apache.commons.httpclient.HttpStatus
 import org.apache.commons.httpclient.methods.GetMethod
 import org.junit.After
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
-import org.junit.Assert.fail
 import org.junit.BeforeClass
 import java.io.File
 import java.io.IOException
 
+@Suppress("DEPRECATION")
 abstract class AbstractOnServerIT : AbstractIT() {
     @After
     override fun after() {
@@ -52,11 +53,14 @@ abstract class AbstractOnServerIT : AbstractIT() {
     fun uploadOCUpload(ocUpload: OCUpload, localBehaviour: Int) {
         executeUpload(ocUpload, NameCollisionPolicy.OVERWRITE, localBehaviour)
 
-        val remoteFile = File(ocUpload.remotePath)
-        val parentFolder = storageManager.getFileByEncryptedRemotePath(remoteFile.parent + "/")
+        val remotePath = ocUpload.remotePath
+        val parentPath = FileStorageUtils.getParentPath(remotePath)
+            ?: throw AssertionError("$remotePath has no parent folder")
+        val parentFolder = storageManager.getFileByEncryptedRemotePath(parentPath)
+            ?: throw AssertionError("Parent folder $parentPath not found")
         val uploadedFile = storageManager.getFileByDecryptedRemotePath(
-            parentFolder.decryptedRemotePath + remoteFile.name
-        ) ?: throw AssertionError("Uploaded file ${ocUpload.remotePath} not found")
+            parentFolder.decryptedRemotePath + File(remotePath).name
+        ) ?: throw AssertionError("Uploaded file $remotePath not found")
 
         assertNotNull(uploadedFile.remoteId)
         assertNotNull(uploadedFile.permissions)
@@ -137,8 +141,7 @@ abstract class AbstractOnServerIT : AbstractIT() {
 
         private fun isTeamFolder(file: RemoteFile): Boolean = file.permissions?.contains(TEAM_FOLDER_PERMISSION) == true
 
-        @JvmStatic
-        fun deleteAllFilesOnServer() {
+        private fun deleteAllFilesOnServer() {
             val result = ReadFolderRemoteOperation(ROOT_PATH).execute(client)
             assertTrue(result.getLogMessage(targetContext), result.isSuccess)
 
