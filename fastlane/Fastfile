@@ -36,106 +36,14 @@ platform :android do
         File.write(gradleFile, content.sub(/(optimization\s*\{\s*enable\s*=\s*)true/, '\\1false'))
     end
 
-    desc "Release phase 2 for RC: checks, tag, upload gplay to playstore with values from build.gradle.kts"
-    lane :RC_releasePhase2 do |options|
-        checkReleaseRequirements_RC()
-        info = androidVersion
-        promptVersion(info)
-        checkChangelog(info)
-        checkLibrary_RC()
-        checkIfScreenshotsExist()
-        checkIfAPKexists()
-        tag(info)
-        uploadToPlaystore_RC(info)
-        createGithubRelease_RC(info)
-        fdroidMergeRequest_RC(info)
-        createChangelogPullRequest_RC(info)
-    end
-
-    desc "Release phase 2 for FINAL: checks, tag, upload gplay to playstore with values from build.gradle.kts"
-    lane :Final_releasePhase2 do |options|
-        checkReleaseRequirements_Final()
-        info = androidVersion
-        promptVersion(info)
-        checkChangelog(info)
-        checkLibrary_Final()
-        checkIfScreenshotsExist()
-        checkIfAPKexists()
-        tag(info)
-        uploadToPlaystore_Final(info)
-        createGithubRelease_Final(info)
-        fdroidMergeRequest_Final(info)
-        createChangelogPullRequest_Final(info)
-        uploadToHuawei_Final(info)
-    end
-
-    # to install
-    # bundle exec fastlane add_plugin huawei_appgallery_connect
-    # bundle install --path build/vendor/bundle
-    private_lane :uploadToHuawei_Final do |options|
-        huawei_appgallery_connect(
-            client_id: ENV["FASTLANE_NEXTCLOUD_HUAWEI_CLIENT_ID"],
-            client_secret: ENV["FASTLANE_NEXTCLOUD_HUAWEI_CLIENT_SECRET"],
-            app_id: ENV["FASTLANE_NEXTCLOUD_HUAWEI_APP_ID"],
-            apk_path: "release/huawei-release-" + options["versionCode"] + ".apk",
-            submit_for_review: true,
-            delay_before_submit_for_review: 30,
-        )
-    end
-
     ## private lanes
-    private_lane :checkReleaseRequirements_common do
-        sh("if ! command -v fdroid &>/dev/null; then echo 'fdroid command not found' && exit 1; fi")
-        sh("if ! command -v bundletool &>/dev/null; then echo 'bundletool command not found' && exit 1; fi")
-    end
-
-    private_lane :checkReleaseRequirements_RC do
-        checkReleaseRequirements_common()
-        sh("if ! command -v fdroidMergeRequestRC &>/dev/null; then echo 'fdroidMergeRequestRC command not found'; exit 1; fi")
-        sh("if ! command -v createChangelogPullRequestRC &>/dev/null; then echo 'createChangelogPullRequestRC command not found'; exit 1; fi")
-    end
-
-    private_lane :checkReleaseRequirements_Final do
-        checkReleaseRequirements_common()
-        sh("if ! command -v fdroidMergeRequestFinal &>/dev/null; then echo 'fdroidMergeRequestFinal command not found'; exit 1; fi")
-        sh("if ! command -v createChangelogPullRequestFinal &>/dev/null; then echo 'createChangelogPullRequestFinal command not found'; exit 1; fi")
-    end
-
-    private_lane :createChangelogPullRequest_RC do |options|
-        sh("createChangelogPullRequestRC " +  options["tag"] + " \"" + options["versionName"] + "\" " + options["versionCode"] + " \"" + options["branch"] + "\" ")
-    end
-
-    private_lane :createChangelogPullRequest_Final do |options|
-        sh("createChangelogPullRequestFinal " +  options["tag"] + " \"" + options["versionName"] + "\" " + options["versionCode"] + " \"" + options["branch"] + "\" ")
-    end
-
-    private_lane :checkIfAPKexists do |options|
-        sh("if [ $(/bin/ls -1 ../release | wc -l) -ne 4 ]; then echo 'Release artifacts not present or wrong number present; aborting!' ; exit 1 ;
-         fi")
-    end
-
-    desc "Show versions and prompt for confirmation"
-    private_lane :promptVersion do |options|
-        print "VersionCode: " + options["versionCode"].to_s + "\n"
-        print "Name: " + options["versionName"] + "\n"
-        print "Tag: " + options["tag"] + "\n"
-        print "Branch: " + options["branch"] + "\n"
-
-        answer = prompt(text: "is this okay?", boolean: true)
-
-        if !answer
-            exit
-        end
-    end
-
     desc "check if library is set correctly"
-    private_lane :checkLibrary_RC do
-        sh(" if [ $(egrep 'androidLibraryVersion.*master.*' ../build.gradle.kts -c) -eq 1 ] ; then echo 'Library is set to master tag; aborting!' ; exit 1 ; fi")
-    end
-
-    desc "check if library is set correctly: must NOT contain master nor rc"
-    private_lane :checkLibrary_Final do
-        sh(" if [ $(grep 'androidLibraryVersion' ../build.gradle.kts | egrep 'master|rc' -c) -eq 1 ] ; then echo 'Library is still set to rc tag; aborting!' ; exit 1 ; fi")
+    private_lane :checkLibrary do |options|
+        if options[:isPrerelease]
+            sh(" if [ $(egrep 'androidLibraryVersion.*master.*' ../build.gradle.kts -c) -eq 1 ] ; then echo 'Library is set to master tag; aborting!' ; exit 1 ; fi")
+        else
+            sh(" if [ $(grep 'androidLibraryVersion' ../build.gradle.kts | egrep 'master|rc' -c) -eq 1 ] ; then echo 'Library is still set to rc tag; aborting!' ; exit 1 ; fi")
+        end
     end
 
     desc "check if screenshots exists and exit"
@@ -167,21 +75,21 @@ platform :android do
         )
     end
 
-    private_lane :fdroidMergeRequest_RC do |options|
-       sh("fdroidMergeRequestRC " +  options["tag"] + " \"" + options["versionName"] + "\" " + options["versionCode"])
-    end
-
-    private_lane :fdroidMergeRequest_Final do |options|
-       sh("fdroidMergeRequestFinal " +  options["tag"] + " \"" + options["versionName"] + "\" " + options["versionCode"])
-    end
-
     private_lane :checkChangelog do |options|
-        sh(" if [ ! -e  metadata/android/en-US/changelogs/" + options["versionCode"] + ".txt ] ; then echo 'Changelog fastlane/metadata/android/en-US/changelogs/" + options["versionCode"] + ".txt does not exist' ; exit 1 ; fi")
-        sh(" if [ $(wc -m metadata/android/en-US/changelogs/" + options["versionCode"] + ".txt | cut -d' ' -f1) -ge 500 ] ; then echo 'Changlog more than 500 chars' ; exit 1 ; fi")
+        sh(" if [ ! -e  metadata/android/en-US/changelogs/" + options["versionCode"].to_s + ".txt ] ; then echo 'Changelog fastlane/metadata/android/en-US/changelogs/" + options["versionCode"].to_s + ".txt does not exist' ; exit 1 ; fi")
+        sh(" if [ $(wc -m metadata/android/en-US/changelogs/" + options["versionCode"].to_s + ".txt | cut -d' ' -f1) -ge 500 ] ; then echo 'Changlog more than 500 chars' ; exit 1 ; fi")
     end
 
+    private_lane :repoSpecificChecks do |options|
+        checkChangelog(getVersionInfo())
+        checkLibrary(isPrerelease: options[:isPrerelease])
+        checkIfScreenshotsExist()
+    end
 
-
+  desc "Run tests"
+  private_lane :test do
+       gradle(task: "clean testGplayDebugUnitTest testFdroidDebugUnitTest testDevDebugUnitTest testQaDebugUnitTest")
+  end
 
     ## to discuss if still needed
     lane :screenshotsPhone do
