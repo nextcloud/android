@@ -42,7 +42,7 @@ import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.db.UploadResult
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.ui.activity.DrawerActivity
+import com.owncloud.android.ui.activity.drawer.DrawerActivity
 import com.owncloud.android.ui.adapter.progressListener.UploadProgressListener
 import com.owncloud.android.ui.adapter.uploadList.helper.UploadListAdapterHelper
 import com.owncloud.android.ui.adapter.uploadList.helper.UploadListItemOnClick

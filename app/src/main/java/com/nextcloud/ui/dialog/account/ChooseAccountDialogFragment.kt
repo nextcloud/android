@@ -37,7 +37,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.resources.users.Status
 import com.owncloud.android.ui.StatusDrawable
 import com.owncloud.android.ui.activity.BaseActivity
-import com.owncloud.android.ui.activity.DrawerActivity
+import com.owncloud.android.ui.activity.drawer.DrawerActivity
 import com.owncloud.android.ui.adapter.UserListAdapter
 import com.owncloud.android.ui.adapter.UserListItem
 import com.owncloud.android.utils.theme.ViewThemeUtils

@@ -27,6 +27,7 @@ import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
 import com.owncloud.android.databinding.InternalTwoWaySyncLayoutBinding
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.ui.activity.drawer.DrawerActivity
 import com.owncloud.android.ui.adapter.InternalTwoWaySyncAdapter
 import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import kotlinx.coroutines.Dispatchers

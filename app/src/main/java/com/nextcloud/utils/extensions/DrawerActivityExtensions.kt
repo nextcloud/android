@@ -10,7 +10,7 @@ package com.nextcloud.utils.extensions
 import android.content.Intent
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
-import com.owncloud.android.ui.activity.DrawerActivity
+import com.owncloud.android.ui.activity.drawer.DrawerActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.navigation.model.ActionBarStyle
 

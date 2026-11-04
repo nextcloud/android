@@ -44,6 +44,7 @@ import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
+import com.owncloud.android.ui.activity.drawer.DrawerActivity;
 import com.owncloud.android.ui.adapter.UserInfoAdapter;
 import com.owncloud.android.ui.dialog.AccountRemovalDialog;
 import com.owncloud.android.ui.events.TokenPushEvent;

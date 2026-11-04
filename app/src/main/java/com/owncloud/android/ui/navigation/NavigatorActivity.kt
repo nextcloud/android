@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityNavigatorBinding
-import com.owncloud.android.ui.activity.DrawerActivity
+import com.owncloud.android.ui.activity.drawer.DrawerActivity
 import com.owncloud.android.ui.navigation.listener.NavigatorOnBackPressListener
 import dagger.android.support.AndroidSupportInjection
 
@@ -84,10 +84,11 @@ class NavigatorActivity : DrawerActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun getMenuItemId(): Int {
-        val screen = intent.getParcelableArgument(EXTRA_SCREEN, NavigatorScreen::class.java)
-        return screen?.menuItemId() ?: super.getMenuItemId()
-    }
+    override val menuItemId: Int
+        get() {
+            val screen = intent.getParcelableArgument(EXTRA_SCREEN, NavigatorScreen::class.java)
+            return screen?.menuItemId() ?: super.menuItemId
+        }
 
     override fun onResume() {
         super.onResume()

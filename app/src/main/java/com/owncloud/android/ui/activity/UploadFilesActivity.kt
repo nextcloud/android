@@ -40,6 +40,7 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.UploadFilesLayoutBinding
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.ui.activity.drawer.DrawerActivity
 import com.owncloud.android.ui.activity.uploadfiles.UploadBehaviourSelector
 import com.owncloud.android.ui.activity.uploadfiles.UploadFilesDialogs
 import com.owncloud.android.ui.activity.uploadfiles.UploadFilesDialogs.Companion.QUERY_TO_MOVE_DIALOG_TAG

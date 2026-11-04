@@ -49,10 +49,10 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     private final MixinRegistry mixinRegistry = new MixinRegistry();
     private SessionMixin sessionMixin;
 
-    @Inject UserAccountManager accountManager;
-    @Inject AppPreferences preferences;
-    @Inject FileDataStorageManager fileDataStorageManager;
-    @Inject ClientRepository clientRepository;
+    @Inject protected UserAccountManager accountManager;
+    @Inject protected AppPreferences preferences;
+    @Inject protected FileDataStorageManager fileDataStorageManager;
+    @Inject protected ClientRepository clientRepository;
 
     private final AppPreferences.Listener onPreferencesChanged = new AppPreferences.Listener() {
         @Override
