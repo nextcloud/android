@@ -1070,15 +1070,15 @@ open class OCFileListFragment :
         browseToFolder(root, FIRST_POSITION)
     }
 
-    fun setFileDepth(file: OCFile?) {
+    open fun setFileDepth(file: OCFile?) {
         currentFileDepth = file.getDepth()
     }
 
-    fun resetFileDepth() {
+    open fun resetFileDepth() {
         currentFileDepth = OCFileDepth.Root
     }
 
-    val fileDepth: OCFileDepth?
+    open val fileDepth: OCFileDepth?
         get() = currentFileDepth
     //endregion
 
