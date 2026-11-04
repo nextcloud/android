@@ -14,6 +14,8 @@ import android.provider.Settings
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.utils.SnackbarUtil
@@ -23,13 +25,24 @@ import kotlinx.coroutines.launch
 
 class LocalNetworkPermissionRequester(
     private val activity: AppCompatActivity,
+    private val hasLocalServer: suspend (List<String>) -> Boolean,
     private val onPermissionGranted: () -> Unit
 ) {
     private var pendingResult: ((Boolean) -> Unit)? = null
-    private val routes by lazy { LocalNetworkRoutes(activity) }
+    private var pendingSettingsGrant: (() -> Unit)? = null
 
     private val permissionLauncher =
         activity.registerForActivityResult(ActivityResultContracts.RequestPermission(), ::deliverResult)
+
+    init {
+        activity.lifecycle.addObserver(
+            LifecycleEventObserver { _, event ->
+                if (event == Lifecycle.Event.ON_RESUME) {
+                    deliverSettingsResult()
+                }
+            }
+        )
+    }
 
     fun requestIfNeeded(serverUrls: List<String>, onGranted: () -> Unit = {}, onDenied: () -> Unit = {}) {
         if (!PermissionUtil.isLocalNetworkPermissionRequired(activity)) {
@@ -48,7 +61,7 @@ class LocalNetworkPermissionRequester(
         }
 
         activity.lifecycleScope.launch {
-            if (serverUrls.none { LocalNetworkAddress.isLocalServer(it, routes) }) {
+            if (!hasLocalServer(serverUrls)) {
                 onGranted()
                 return@launch
             }
@@ -81,6 +94,20 @@ class LocalNetworkPermissionRequester(
         callback(isGranted)
     }
 
+    private fun deliverSettingsResult() {
+        val onGranted = pendingSettingsGrant ?: return
+        pendingSettingsGrant = null
+
+        if (!PermissionUtil.isLocalNetworkPermissionRequired(activity) ||
+            !PermissionUtil.hasLocalNetworkPermission(activity)
+        ) {
+            return
+        }
+
+        onPermissionGranted()
+        onGranted()
+    }
+
     @RequiresApi(Build.VERSION_CODES.CINNAMON_BUN)
     private fun showDeniedSnackbar(onGranted: () -> Unit, onDenied: () -> Unit) {
         val canShowSystemDialog =
@@ -90,19 +117,21 @@ class LocalNetworkPermissionRequester(
         } else {
             R.string.local_network_permission_settings_path
         }
-        val snackbar = SnackbarUtil.create(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
+        val duration = if (canShowSystemDialog) Snackbar.LENGTH_LONG else Snackbar.LENGTH_INDEFINITE
+        val snackbar = SnackbarUtil.create(activity.findViewById(android.R.id.content), message, duration)
             ?: return
 
         if (canShowSystemDialog) {
             snackbar.setAction(R.string.permission_allow) { launchRequest(onGranted, onDenied) }
         } else {
-            snackbar.setAction(R.string.actionbar_settings) { openAppSettings() }
+            snackbar.setAction(R.string.actionbar_settings) { openAppSettings(onGranted) }
         }
 
         snackbar.show()
     }
 
-    private fun openAppSettings() {
+    private fun openAppSettings(onGranted: () -> Unit) {
+        pendingSettingsGrant = onGranted
         val intent = Intent(
             Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
             Uri.fromParts(PACKAGE_SCHEME, activity.packageName, null)

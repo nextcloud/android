@@ -36,6 +36,7 @@ class LocalNetworkPermissionHandler @Inject constructor(
     private val connectivityService: ConnectivityService,
     private val powerManagementService: PowerManagementService,
     private val notificationManager: NotificationManager,
+    private val routes: LocalNetworkRoutes,
     @param:ApplicationScope private val scope: CoroutineScope
 ) {
     companion object {
@@ -44,10 +45,11 @@ class LocalNetworkPermissionHandler @Inject constructor(
         const val ACTION_REQUEST_PERMISSION = "com.nextcloud.client.network.REQUEST_LOCAL_NETWORK_PERMISSION"
     }
 
-    private val routes = LocalNetworkRoutes(context)
-
     val serverUrls: List<String>
         get() = accountManager.allUsers.map { it.server.uri.toString() }
+
+    suspend fun hasLocalServer(serverUrls: List<String>): Boolean =
+        serverUrls.any { LocalNetworkAddress.isLocalServer(it, routes) }
 
     fun notifyIfPermissionMissing() {
         if (!PermissionUtil.isLocalNetworkPermissionRequired(context)) {
@@ -78,7 +80,7 @@ class LocalNetworkPermissionHandler @Inject constructor(
         }
 
         scope.launch {
-            if (serverUrls.none { LocalNetworkAddress.isLocalServer(it, routes) }) {
+            if (!hasLocalServer(serverUrls)) {
                 return@launch
             }
 

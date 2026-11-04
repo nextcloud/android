@@ -222,6 +222,7 @@ class FileDisplayActivity :
     private val dialogs by lazy { FileDisplayDialogs(this, viewThemeUtils) }
     private val localNetworkPermission = LocalNetworkPermissionRequester(
         activity = this,
+        hasLocalServer = { localNetworkPermissionHandler.hasLocalServer(it) },
         onPermissionGranted = { localNetworkPermissionHandler.onPermissionGranted() }
     )
     private val uploadHandler by lazy { FileDisplayUploadHandler(this, connectivityService, fileDataStorageManager) }
