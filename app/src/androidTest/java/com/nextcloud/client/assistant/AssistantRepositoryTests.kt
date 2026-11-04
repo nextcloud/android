@@ -25,14 +25,14 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
 
     @Before
     fun setup() {
-        sut = AssistantRemoteRepositoryImpl(nextcloudClient, capability)
+        sut = AssistantRemoteRepositoryImpl(nextcloudClient, getCapability())
     }
 
     @Test
     fun testGetTaskTypes() {
         testOnlyOnServer(NextcloudVersion.nextcloud_28)
 
-        if (capability.assistant.isFalse) {
+        if (getCapability().assistant.isFalse) {
             return
         }
 
@@ -46,7 +46,7 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
     fun testGetTaskList() {
         testOnlyOnServer(NextcloudVersion.nextcloud_28)
 
-        if (capability.assistant.isFalse) {
+        if (getCapability().assistant.isFalse) {
             return
         }
 
@@ -60,7 +60,7 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
     fun testCreateTask() {
         testOnlyOnServer(NextcloudVersion.nextcloud_28)
 
-        if (capability.assistant.isFalse) {
+        if (getCapability().assistant.isFalse) {
             return
         }
 
@@ -83,7 +83,7 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
     fun testDeleteTask() {
         testOnlyOnServer(NextcloudVersion.nextcloud_28)
 
-        if (capability.assistant.isFalse) {
+        if (getCapability().assistant.isFalse) {
             return
         }
 

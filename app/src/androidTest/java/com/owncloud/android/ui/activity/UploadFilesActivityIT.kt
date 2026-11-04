@@ -14,22 +14,16 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
-import com.nextcloud.test.GrantStoragePermissionRule.Companion.grant
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.TestRule
 import java.io.File
 
 class UploadFilesActivityIT : AbstractIT() {
     private val testClassName = "com.owncloud.android.ui.activity.UploadFilesActivityIT"
-
-    @get:Rule
-    var storagePermissionRule: TestRule = grant()
 
     private val directories = listOf("A", "B", "C", "D")
         .map { File("${FileStorageUtils.getTemporalPath(account.name)}${File.separator}$it") }

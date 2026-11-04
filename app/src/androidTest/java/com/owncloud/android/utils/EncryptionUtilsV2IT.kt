@@ -962,10 +962,10 @@ class EncryptionUtilsV2IT : EncryptionIT() {
         // decrypt
         val decryptedFolderMetadata2 = encryptionUtilsV2.decryptFolderMetadataFile(
             encryptedFolderMetadata2!!,
-            getUserId(user),
+            getUserId(user)!!,
             EncryptionTestIT.privateKey,
             folder,
-            fileDataStorageManager,
+            storageManager,
             client,
             decryptedFolderMetadata1.metadata.counter,
             signature,

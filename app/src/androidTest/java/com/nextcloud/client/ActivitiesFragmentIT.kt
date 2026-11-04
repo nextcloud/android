@@ -99,7 +99,7 @@ class ActivitiesFragmentIT : AbstractIT() {
     fun showActivities() {
         val capability = OCCapability()
         capability.versionMayor = 20
-        fileDataStorageManager.saveCapabilities(capability)
+        storageManager.saveCapabilities(capability)
 
         val date = GregorianCalendar()
         date.set(2005, 4, 17, 10, 35, 30)

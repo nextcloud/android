@@ -1,260 +1,203 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android;
+package com.owncloud.android
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
-import android.net.Uri;
-import android.os.Bundle;
+import android.accounts.Account
+import android.accounts.AccountManager
+import android.net.Uri
+import androidx.test.platform.app.InstrumentationRegistry
+import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.account.UserAccountManagerImpl
+import com.nextcloud.client.jobs.upload.FileUploadWorker
+import com.owncloud.android.db.OCUpload
+import com.owncloud.android.files.services.NameCollisionPolicy
+import com.owncloud.android.lib.common.OwnCloudClient
+import com.owncloud.android.lib.common.OwnCloudClientFactory
+import com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_OC_ACCOUNT_VERSION
+import com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_OC_BASE_URL
+import com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_OC_VERSION
+import com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID
+import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation
+import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation
+import com.owncloud.android.lib.resources.files.RemoveFileRemoteOperation
+import com.owncloud.android.lib.resources.files.model.RemoteFile
+import com.owncloud.android.operations.RefreshFolderOperation
+import com.owncloud.android.utils.MimeType
+import org.apache.commons.httpclient.HttpStatus
+import org.apache.commons.httpclient.methods.GetMethod
+import org.junit.After
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
+import org.junit.Assert.fail
+import org.junit.BeforeClass
+import java.io.File
+import java.io.IOException
 
-import com.nextcloud.client.account.User;
-import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.account.UserAccountManagerImpl;
-import com.nextcloud.utils.PowerManagementFactory;
-import com.nextcloud.client.jobs.upload.FileUploadWorker;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.UploadsStorageManager;
-import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.files.services.NameCollisionPolicy;
-import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientFactory;
-import com.owncloud.android.lib.common.accounts.AccountUtils;
-import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation;
-import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
-import com.owncloud.android.lib.resources.files.RemoveFileRemoteOperation;
-import com.owncloud.android.lib.resources.files.model.RemoteFile;
-import com.owncloud.android.operations.RefreshFolderOperation;
-import com.owncloud.android.operations.UploadFileOperation;
-import com.owncloud.android.utils.MimeType;
-
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Objects;
-import java.util.Optional;
-
-import androidx.test.platform.app.InstrumentationRegistry;
-
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-/// Common base for all integration tests requiring a server connection.
-/// ATTENTION: Deletes ALL files of the test user on the server after each test run.
-/// So you MUST use a dedicated test user.
-/// Uses server, user and password given as `testInstrumentationRunnerArgument`
-/// - TEST_SERVER_URL
-/// - TEST_SERVER_USERNAME
-/// - TEST_SERVER_PASSWORD
-/// These are supplied via build.gradle, which takes them from gradle.properties.
-/// So look in the latter file to set to your own server & test user.
-public abstract class AbstractOnServerIT extends AbstractIT {
-    @BeforeClass
-    public static void beforeAll() {
-        try {
-            // clean up
-            targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-            AccountManager platformAccountManager = AccountManager.get(targetContext);
-
-            for (Account account : platformAccountManager.getAccounts()) {
-                if (account.type.equalsIgnoreCase("nextcloud")) {
-                    platformAccountManager.removeAccountExplicitly(account);
-                }
-            }
-
-            Bundle arguments = androidx.test.platform.app.InstrumentationRegistry.getArguments();
-
-            Uri baseUrl = Uri.parse(arguments.getString("TEST_SERVER_URL"));
-            String loginName = arguments.getString("TEST_SERVER_USERNAME");
-            String password = arguments.getString("TEST_SERVER_PASSWORD");
-
-            Account temp = new Account(loginName + "@" + baseUrl, MainApp.getAccountType(targetContext));
-            UserAccountManager accountManager = UserAccountManagerImpl.fromContext(targetContext);
-            if (!accountManager.exists(temp)) {
-                platformAccountManager.addAccountExplicitly(temp, password, null);
-                platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_ACCOUNT_VERSION,
-                                                   Integer.toString(UserAccountManager.ACCOUNT_VERSION));
-                platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_VERSION, "14.0.0.0");
-                platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl.toString());
-                platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, loginName); // same as userId
-            }
-
-            final UserAccountManager userAccountManager = UserAccountManagerImpl.fromContext(targetContext);
-            account = userAccountManager.getAccountByName(loginName + "@" + baseUrl);
-
-            if (Objects.equals(account.type, targetContext.getString(R.string.anonymous_account_type))) {
-                throw new RuntimeException("Could not get account with name " + loginName + "@" + baseUrl);
-            }
-
-            Optional<User> optionalUser = userAccountManager.getUser(account.name);
-            user = optionalUser.orElseThrow(IllegalAccessError::new);
-
-            client = OwnCloudClientFactory.createOwnCloudClient(account, targetContext);
-            nextcloudClient = OwnCloudClientFactory.createNextcloudClient(user, targetContext);
-
-            createDummyFiles();
-
-            waitForServer(client, baseUrl);
-
-            // deleteAllFilesOnServer(); // makes sure that no file/folder is in root
-
-        } catch (OperationCanceledException |
-                 IOException |
-                 AccountUtils.AccountNotFoundException |
-                 AuthenticatorException e) {
-            throw new RuntimeException("Error setting up clients", e);
-        }
-    }
-
+abstract class AbstractOnServerIT : AbstractIT() {
     @After
-    public void after() {
-        deleteAllFilesOnServer();
-
-        super.after();
+    override fun after() {
+        deleteAllFilesOnServer()
+        super.after()
     }
 
-    private static boolean isFolder(RemoteFile file) {
-        // TODO: should probably move to RemoteFile class
-        return MimeType.DIRECTORY.equals(file.getMimeType()) || MimeType.WEBDAV_FOLDER.equals(file.getMimeType());
+    override fun uploadOCUpload(ocUpload: OCUpload) {
+        uploadOCUpload(ocUpload, FileUploadWorker.LOCAL_BEHAVIOUR_COPY)
     }
 
-    public static void deleteAllFilesOnServer() {
-        var result = new ReadFolderRemoteOperation("/").execute(client);
-        assertTrue(result.getLogMessage(targetContext), result.isSuccess());
+    fun uploadOCUpload(ocUpload: OCUpload, localBehaviour: Int) {
+        executeUpload(ocUpload, NameCollisionPolicy.OVERWRITE, localBehaviour)
 
-        for (Object object : result.getData()) {
-            RemoteFile remoteFile = (RemoteFile) object;
+        val remoteFile = File(ocUpload.remotePath)
+        val parentFolder = storageManager.getFileByEncryptedRemotePath(remoteFile.parent + "/")
+        val uploadedFile = storageManager.getFileByDecryptedRemotePath(
+            parentFolder.decryptedRemotePath + remoteFile.name
+        )
 
-            if (!Objects.equals(remoteFile.getRemotePath(), "/")) {
-                if (remoteFile.isEncrypted()) {
-                    ToggleEncryptionRemoteOperation operation = new ToggleEncryptionRemoteOperation(remoteFile.getLocalId(),
-                                                                                                    remoteFile.getRemotePath(),
-                                                                                                    false);
-
-                    boolean operationResult = operation
-                        .execute(client)
-                        .isSuccess();
-
-                    if (!operationResult && isFolder(remoteFile)) {
-                        // Deleting encrypted folder is not possible due to bug
-                        // https://github.com/nextcloud/end_to_end_encryption/issues/421
-                        // Toggling encryption also fails, when the folder is not empty. So we ignore this folder
-                        continue;
-                    }
-
-                    assertTrue(operationResult);
-                }
-                
-                if (remoteFile.getPermissions().contains("M")) {
-                    // skip Teamfolders
-                    continue;
-                }
-
-                boolean removeResult = false;
-                for (int i = 0; i < 5; i++) {
-                    removeResult = new RemoveFileRemoteOperation(remoteFile.getRemotePath())
-                        .execute(client)
-                        .isSuccess();
-
-                    if (removeResult) {
-                        break;
-                    }
-
-                    shortSleep();
-                }
-
-                assertTrue("Remove of " + remoteFile.getRemotePath() + " failed", removeResult);
-            }
-        }
-    }
-
-    private static void waitForServer(OwnCloudClient client, Uri baseUrl) {
-        GetMethod get = new GetMethod(baseUrl + "/status.php");
-
-        try {
-            int i = 0;
-            while (client.executeMethod(get) != HttpStatus.SC_OK && i < 3) {
-                System.out.println("wait…");
-                Thread.sleep(60 * 1000);
-                i++;
-            }
-
-            if (i == 3) {
-                Assert.fail("Server not ready!");
-            }
-
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void uploadOCUpload(OCUpload ocUpload) {
-        uploadOCUpload(ocUpload, FileUploadWorker.LOCAL_BEHAVIOUR_COPY);
-    }
-
-    public void uploadOCUpload(OCUpload ocUpload, int localBehaviour) {
-        final var powerManagementServiceMock = PowerManagementFactory.getMock();
-        UserAccountManager accountManager = UserAccountManagerImpl.fromContext(targetContext);
-        UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(accountManager,
-                                                                                targetContext.getContentResolver());
-
-        UploadFileOperation newUpload = new UploadFileOperation(
-            uploadsStorageManager,
-            connectivityServiceMock,
-            powerManagementServiceMock,
-            user,
-            null,
-            ocUpload,
-            NameCollisionPolicy.OVERWRITE,
-            localBehaviour,
-            targetContext,
-            false,
-            false,
-            getStorageManager()
-        );
-        newUpload.addRenameUploadListener(() -> {
-            // dummy
-        });
-
-        newUpload.setRemoteFolderToBeCreated();
-
-        var result = newUpload.execute(client);
-        assertTrue(result.getLogMessage(), result.isSuccess());
-
-        OCFile parentFolder = getStorageManager()
-            .getFileByEncryptedRemotePath(new File(ocUpload.getRemotePath()).getParent() + "/");
-        String uploadedFileName = new File(ocUpload.getRemotePath()).getName();
-        OCFile uploadedFile = getStorageManager().
-            getFileByDecryptedRemotePath(parentFolder.getDecryptedRemotePath() + uploadedFileName);
-
-        assertNotNull(uploadedFile);
-        assertNotNull(uploadedFile.getRemoteId());
-        assertNotNull(uploadedFile.getPermissions());
+        assertNotNull(uploadedFile)
+        assertNotNull(uploadedFile!!.remoteId)
+        assertNotNull(uploadedFile.permissions)
 
         if (localBehaviour == FileUploadWorker.LOCAL_BEHAVIOUR_COPY ||
-            localBehaviour == FileUploadWorker.LOCAL_BEHAVIOUR_MOVE) {
-            assertTrue(new File(uploadedFile.getStoragePath()).exists());
+            localBehaviour == FileUploadWorker.LOCAL_BEHAVIOUR_MOVE
+        ) {
+            assertTrue(File(uploadedFile.storagePath).exists())
         }
     }
 
-    protected void refreshFolder(String path) {
-        assertTrue(new RefreshFolderOperation(getStorageManager().getFileByEncryptedRemotePath(path),
-                                              System.currentTimeMillis(),
-                                              false,
-                                              false,
-                                              getStorageManager(),
-                                              user,
-                                              targetContext
-        ).execute(client).isSuccess());
+    protected fun refreshFolder(path: String) {
+        val operation = RefreshFolderOperation(
+            storageManager.getFileByEncryptedRemotePath(path),
+            System.currentTimeMillis(),
+            false,
+            false,
+            storageManager,
+            user,
+            targetContext
+        )
+        assertTrue(operation.execute(client).isSuccess)
+    }
+
+    companion object {
+        private const val SERVER_ACCOUNT_TYPE = "nextcloud"
+        private const val SERVER_VERSION = "14.0.0.0"
+        private const val ROOT_PATH = "/"
+        private const val TEAM_FOLDER_PERMISSION = "M"
+        private const val REMOVE_ATTEMPTS = 5
+        private const val SERVER_READY_ATTEMPTS = 3
+        private const val SERVER_READY_RETRY_DELAY_MILLIS = 60_000L
+
+        @BeforeClass
+        @JvmStatic
+        fun beforeAll() {
+            rethrowClientSetupFailure {
+                targetContext = InstrumentationRegistry.getInstrumentation().targetContext
+                removeAccountsOfType(SERVER_ACCOUNT_TYPE)
+
+                val arguments = InstrumentationRegistry.getArguments()
+                val baseUrl = Uri.parse(arguments.getString("TEST_SERVER_URL"))
+                val loginName = arguments.getString("TEST_SERVER_USERNAME")
+                val password = arguments.getString("TEST_SERVER_PASSWORD")
+                val accountName = "$loginName@$baseUrl"
+
+                addServerAccountIfMissing(accountName, loginName, password, baseUrl)
+
+                account = getRegisteredAccount(accountName)
+                user = getUser(account)
+                client = OwnCloudClientFactory.createOwnCloudClient(account, targetContext)
+                nextcloudClient = OwnCloudClientFactory.createNextcloudClient(user, targetContext)
+
+                createDummyFiles()
+
+                waitForServer(client, baseUrl)
+            }
+        }
+
+        private fun addServerAccountIfMissing(
+            accountName: String,
+            loginName: String?,
+            password: String?,
+            baseUrl: Uri
+        ) {
+            val platformAccount = Account(accountName, MainApp.getAccountType(targetContext))
+            if (UserAccountManagerImpl.fromContext(targetContext).exists(platformAccount)) return
+
+            AccountManager.get(targetContext).run {
+                addAccountExplicitly(platformAccount, password, null)
+                setUserData(platformAccount, KEY_OC_ACCOUNT_VERSION, UserAccountManager.ACCOUNT_VERSION.toString())
+                setUserData(platformAccount, KEY_OC_VERSION, SERVER_VERSION)
+                setUserData(platformAccount, KEY_OC_BASE_URL, baseUrl.toString())
+                setUserData(platformAccount, KEY_USER_ID, loginName)
+            }
+        }
+
+        private fun isFolder(file: RemoteFile): Boolean =
+            MimeType.DIRECTORY == file.mimeType || MimeType.WEBDAV_FOLDER == file.mimeType
+
+        private fun isTeamFolder(file: RemoteFile): Boolean = file.permissions!!.contains(TEAM_FOLDER_PERMISSION)
+
+        @JvmStatic
+        fun deleteAllFilesOnServer() {
+            val result = ReadFolderRemoteOperation(ROOT_PATH).execute(client)
+            assertTrue(result.getLogMessage(targetContext), result.isSuccess)
+
+            for (data in result.data) {
+                val remoteFile = data as RemoteFile
+                if (remoteFile.remotePath != ROOT_PATH) {
+                    deleteRemoteFile(remoteFile)
+                }
+            }
+        }
+
+        private fun deleteRemoteFile(remoteFile: RemoteFile) {
+            if (remoteFile.isEncrypted) {
+                val isEncryptionDisabled = disableEncryption(remoteFile)
+
+                if (!isEncryptionDisabled && isFolder(remoteFile)) return
+
+                assertTrue(isEncryptionDisabled)
+            }
+
+            if (isTeamFolder(remoteFile)) return
+
+            assertTrue("Remove of ${remoteFile.remotePath} failed", removeWithRetry(remoteFile))
+        }
+
+        private fun disableEncryption(remoteFile: RemoteFile): Boolean =
+            ToggleEncryptionRemoteOperation(remoteFile.localId, remoteFile.remotePath, false)
+                .execute(client)
+                .isSuccess
+
+        private fun removeWithRetry(remoteFile: RemoteFile): Boolean {
+            repeat(REMOVE_ATTEMPTS) {
+                if (RemoveFileRemoteOperation(remoteFile.remotePath).execute(client).isSuccess) return true
+                shortSleep()
+            }
+            return false
+        }
+
+        private fun waitForServer(client: OwnCloudClient, baseUrl: Uri) {
+            val get = GetMethod("$baseUrl/status.php")
+
+            try {
+                var attempts = 0
+                while (client.executeMethod(get) != HttpStatus.SC_OK && attempts < SERVER_READY_ATTEMPTS) {
+                    println("wait…")
+                    Thread.sleep(SERVER_READY_RETRY_DELAY_MILLIS)
+                    attempts++
+                }
+
+                if (attempts == SERVER_READY_ATTEMPTS) {
+                    fail("Server not ready!")
+                }
+            } catch (e: IOException) {
+                e.printStackTrace()
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+        }
     }
 }
