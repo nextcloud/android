@@ -7,6 +7,7 @@
 package com.owncloud.android.ui.adapter.filelist.data
 
 import android.annotation.SuppressLint
+import androidx.core.view.doOnNextLayout
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.ListUpdateCallback
@@ -94,6 +95,11 @@ class OCFileListDiffer(
         adapter.notifyDataSetChanged()
     }
 
+    fun replaceWithoutAnimation(newFiles: List<OCFile>) {
+        suppressItemAnimationsUntilNextLayout()
+        replace(newFiles)
+    }
+
     fun sortForCurrentView(
         files: MutableList<OCFile>,
         searchType: SearchType?,
@@ -139,6 +145,13 @@ class OCFileListDiffer(
 
     fun detach() {
         recyclerView = null
+    }
+
+    private fun suppressItemAnimationsUntilNextLayout() {
+        val recyclerView = recyclerView ?: return
+        val itemAnimator = recyclerView.itemAnimator ?: return
+        recyclerView.itemAnimator = null
+        recyclerView.doOnNextLayout { recyclerView.itemAnimator = itemAnimator }
     }
 
     private fun keepTopVisibleWhile(adapterPosition: Int, notify: () -> Unit) {
