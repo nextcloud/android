@@ -349,6 +349,7 @@ class FileUploadWorker(
             if (result.code == ResultCode.QUOTA_EXCEEDED) {
                 Log_OC.w(TAG, "Quota exceeded, stopping uploads")
                 uploadsStorageManager.markInProgressUploadsAsQuotaExceeded(accountName)
+                fileUploadEventBroadcaster.sendUploadCompleted(operation, result, context)
                 return@withContext Result.failure()
             }
 

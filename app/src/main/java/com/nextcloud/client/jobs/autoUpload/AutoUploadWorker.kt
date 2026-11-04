@@ -367,6 +367,7 @@ class AutoUploadWorker(
 
                             if (result.code == ResultCode.QUOTA_EXCEEDED) {
                                 Log_OC.w(TAG, "quota exceeded, stopping auto upload")
+                                sendUploadFinishEvent(operation, result)
                                 return@withContext
                             }
 
