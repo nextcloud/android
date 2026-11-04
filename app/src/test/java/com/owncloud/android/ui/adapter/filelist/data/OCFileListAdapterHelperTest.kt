@@ -15,7 +15,7 @@ import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.MimeType
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.mockkStatic
+import io.mockk.mockkObject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -36,9 +36,9 @@ class OCFileListAdapterHelperTest {
     @OptIn(ExperimentalCoroutinesApi::class)
     @Before
     fun setUp() {
-        mockkStatic(MainApp::class)
+        mockkObject(MainApp)
         every { MainApp.getAppContext() } returns context
-        every { MainApp.isOnlyPersonFiles() } returns false
+        every { MainApp.isOnlyPersonFiles } returns false
     }
 
     private inner class Sut {

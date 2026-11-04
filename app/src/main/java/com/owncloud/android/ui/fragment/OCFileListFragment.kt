@@ -293,7 +293,7 @@ open class OCFileListFragment :
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setupFileList(savedInstanceState)
-        listDirectory(MainApp.isOnlyOnDevice())
+        listDirectory(MainApp.isOnlyOnDevice)
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -1048,7 +1048,7 @@ open class OCFileListFragment :
     }
 
     private fun reloadAndRestorePosition() {
-        listDirectory(currentFile, MainApp.isOnlyOnDevice())
+        listDirectory(currentFile, MainApp.isOnlyOnDevice)
         onRefresh(false)
         restoreIndexAndTopPosition()
     }
@@ -1060,7 +1060,7 @@ open class OCFileListFragment :
             resetSortAndGridButtons()
         }
 
-        listDirectory(folder, MainApp.isOnlyOnDevice())
+        listDirectory(folder, MainApp.isOnlyOnDevice)
         containerActivity?.onBrowsedDownTo(folder)
         saveIndexAndTopPosition(position)
     }
@@ -1170,7 +1170,7 @@ open class OCFileListFragment :
         isSearchFragment = false
         val folder = currentFile ?: return
         updateFabState()
-        listDirectory(folder, MainApp.isOnlyOnDevice())
+        listDirectory(folder, MainApp.isOnlyOnDevice)
     }
 
     val adapterFiles: List<OCFile>

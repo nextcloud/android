@@ -610,7 +610,7 @@ class FileDisplayActivity :
         val listOfFiles = listOfFilesFragment
         if (listOfFiles != null && searchQuery.isEmpty()) {
             if (!listFragmentJustCreated) {
-                listOfFiles.listDirectory(getCurrentDir(), file, MainApp.isOnlyOnDevice())
+                listOfFiles.listDirectory(getCurrentDir(), file, MainApp.isOnlyOnDevice)
             }
             listFragmentJustCreated = true
         } else {
@@ -641,7 +641,7 @@ class FileDisplayActivity :
 
             !fragment.isSearchFragment && startFile == null -> {
                 if (!listFragmentJustCreated) {
-                    fragment.listDirectory(MainApp.isOnlyOnDevice())
+                    fragment.listDirectory(MainApp.isOnlyOnDevice)
                 }
                 fragment.registerFabListener()
                 updateActionBarTitleAndHomeButton(currentDir)
@@ -944,7 +944,7 @@ class FileDisplayActivity :
 
             if (message.isNullOrEmpty()) {
                 val current = getCurrentDir()
-                fragment.listDirectory(current, file, MainApp.isOnlyOnDevice())
+                fragment.listDirectory(current, file, MainApp.isOnlyOnDevice)
                 file = current
                 updateActionBarTitleAndHomeButton(null)
             } else {
@@ -978,7 +978,7 @@ class FileDisplayActivity :
      * 3) Fallback to All Files
      */
     override val menuItemId: Int
-        get() = MainApp.getMenuItemId() ?: listOfFilesFragment?.menuItemId ?: R.id.nav_all_files
+        get() = MainApp.menuItemId ?: listOfFilesFragment?.menuItemId ?: R.id.nav_all_files
 
     override fun setFile(file: OCFile?) {
         super.setFile(file)
@@ -1074,7 +1074,7 @@ class FileDisplayActivity :
             val root = storageManager.getFileByPath(OCFile.ROOT_PATH)
             it.resetSearchAttributes()
             file = root
-            it.listDirectory(root, MainApp.isOnlyOnDevice())
+            it.listDirectory(root, MainApp.isOnlyOnDevice)
         }
 
         binding.fabMain.setImageResource(R.drawable.ic_plus)
@@ -1126,11 +1126,11 @@ class FileDisplayActivity :
 
     fun refreshCurrentDirectory() {
         val currentDir = getCurrentDir()?.let { storageManager.getFileByDecryptedRemotePath(it.remotePath) }
-        topFileListFragment?.listDirectory(currentDir, MainApp.isOnlyOnDevice())
+        topFileListFragment?.listDirectory(currentDir, MainApp.isOnlyOnDevice)
     }
 
     fun updateListOfFilesFragment() {
-        listOfFilesFragment?.listDirectory(MainApp.isOnlyOnDevice())
+        listOfFilesFragment?.listDirectory(MainApp.isOnlyOnDevice)
     }
 
     fun resetSearchView() {
@@ -1647,7 +1647,7 @@ class FileDisplayActivity :
         val parent = fileList.parentFolderFinder
             .getParentOnFirstParentRemoved(removedFolderRemotePath, storageManager) ?: return
 
-        fileList.listDirectory(parent, MainApp.isOnlyOnDevice())
+        fileList.listDirectory(parent, MainApp.isOnlyOnDevice)
         updateActionBarTitleAndHomeButton(parent)
         file = parent
     }
@@ -1655,7 +1655,7 @@ class FileDisplayActivity :
     private fun listDirectoryIfSynced(fileList: OCFileListFragment, currentDir: OCFile, syncedRemotePath: String?) {
         if (currentDir.remotePath != syncedRemotePath) return
 
-        fileList.listDirectory(currentDir, MainApp.isOnlyOnDevice())
+        fileList.listDirectory(currentDir, MainApp.isOnlyOnDevice)
     }
 
     private fun updateScrollingAfterSync(fileList: OCFileListFragment) {
@@ -1699,7 +1699,7 @@ class FileDisplayActivity :
         if (syncState != EmptyListState.LOADING) return
 
         syncState = when {
-            MainApp.isOnlyOnDevice() -> EmptyListState.ONLY_ON_DEVICE
+            MainApp.isOnlyOnDevice -> EmptyListState.ONLY_ON_DEVICE
 
             listOfFilesFragment?.searchEvent?.searchType == SearchRemoteOperation.SearchType.FAVORITE_SEARCH ->
                 SearchType.FAVORITE_SEARCH
