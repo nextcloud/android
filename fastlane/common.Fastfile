@@ -2,6 +2,7 @@
 # cd fastlane
 # bundle config set path fastlane
 # bundle install 
+# bundle exec fastlane add_plugin huawei_appgallery_connect
 
 # run fastlane
 # bundle exec fastlane 
@@ -41,6 +42,23 @@ platform :android do
         buildBundle()
         buildAPKs(code: versionInfo["versionCode"])
     end
+    
+    desc "Release phase 2: checks, tag, create GH release, upload to appstores"
+	lane :releasePhase2 do
+		versionInfo = getVersionInfo()
+		versionComponents = parseVersionCode(versionInfo)
+		checkReleasable(versionComponents)
+		storeTrack = getPlayStoreTrack(versionComponents)
+		isPrerelease = isPrerelease(versionComponents)
+		tagName = getTagName(versionComponents)
+		preReleaseChecks(versionInfo: versionInfo, tagName: tagName, type: versionComponents["type"], track: storeTrack, isPrerelease: isPrerelease)
+		checkArtifactsExist()
+		repoSpecificChecks(isPrerelease: isPrerelease)  # needs to be overwritten in apps
+		tag(name: tagName)
+		createGithubRelease(name: versionInfo["versionName"], tag: tagName, versionCode: versionInfo["versionCode"], isPrerelease: isPrerelease)
+		uploadToPlayStore(track: storeTrack)
+		uploadToHuawei(versionCode: versionInfo["versionCode"], isPrerelease: isPrerelease)
+	end
 
     desc "Print version info"
     lane :printVersionInfo do
@@ -112,8 +130,6 @@ platform :android do
         type
     end
 
-
-
     desc "Generate versionCode from version components"
     private_lane :generateVersionCode do |versionComponents|
         puts "Generating version code from #{versionComponents}"
@@ -153,10 +169,10 @@ platform :android do
 
     desc "Write versions to gradle file"
     private_lane :writeVersions do |options|
-        File.open("../app/build.gradle","r+") do |file|
+        File.open("../app/build.gradle.kts","r+") do |file|
             text = file.read
-            text.gsub!(/versionName "(.*)"$/, "versionName \"#{options[:versionName]}\"")
-            text.gsub!(/versionCode ([0-9]*)$/, "versionCode #{options[:versionCode]}")
+            text.gsub!(/versionName = "(.*)"$/, "versionName = \"#{options[:versionName]}\"")
+            text.gsub!(/versionCode = ([0-9]*)$/, "versionCode = #{options[:versionCode]}")
             file.rewind
             file.write(text)
             file.truncate(file.pos)
@@ -229,9 +245,16 @@ platform :android do
         end
     end
     
-    desc "Run tests"
-	private_lane :test do
-		 gradle(task: "clean testGplayDebugUnitTest testGenericDebugUnitTest testQaDebugUnitTest")
+    desc "check if release is a prerelease"
+	private_lane :isPrerelease do |versionComponents|
+		case versionComponents["type"]
+		when TYPE_RC
+			isPrerelease = true
+		when TYPE_FINAL
+			isPrerelease = false
+		else
+			UI.user_error!("Version is not releasable: #{versionComponents["type"]}")
+		end
 	end
 	
 	desc "Build app bundle"
@@ -242,7 +265,7 @@ platform :android do
 			build_type: 'Release',
 			print_command: false,
 			properties: GRADLE_SIGNING_PROPERTIES
-			)
+		)
 	end
 	
 	desc "Build signed APK"
@@ -269,32 +292,71 @@ platform :android do
 	end
 	
 	desc "Create release tag"
-        private_lane :tag do |options|
-            tagName = options[:name]
-            add_git_tag(
-              tag: tagName,
-              sign: true
-            )
-            push_git_tags(tag: tagName)
-        end
+	private_lane :tag do |options|
+		tagName = options[:name]
+		add_git_tag(
+		  tag: tagName,
+		  sign: true
+		)
+		push_git_tags(tag: tagName)
+	end
 
-	 desc "Upload release artifacts to Google Play"
-		private_lane :uploadToPlayStore do |options|
-			upload_to_play_store(
-				skip_upload_images: true,
-				skip_upload_apk: true,
-				track: options[:track],
-				aab: BUNDLE_PATH
+	desc "Upload release artifacts to Google Play"
+	private_lane :uploadToPlayStore do |options|
+		upload_to_play_store(
+			skip_upload_images: true,
+			skip_upload_apk: true,
+			track: options[:track],
+			aab: BUNDLE_PATH
+		)
+	end
+		
+	desc "Check if release artifacts exist"
+	private_lane :checkArtifactsExist do
+		if !File.exist?("../#{BUNDLE_PATH}")
+			UI.user_error!("Bundle not found at #{BUNDLE_PATH}")
+		end
+	end
+	
+	desc "Show versions and prompt for confirmation"
+	private_lane :preReleaseChecks do |options|
+		versionInfo = options[:versionInfo]
+		tagName = options[:tagName]
+		currentBranch = git_branch()
+		text = "Version code: #{versionInfo["versionCode"]}\n" +
+				"Version name: #{versionInfo["versionName"]}\n" +
+				"Current branch: #{currentBranch}\n" +
+				"Version type: #{options[:type]}\n" +
+				"Tag: #{tagName}\n" +
+				"Track: #{options[:track]}\n" +
+				"Prerelease: #{options[:isPrerelease]}"
+		promptYesNo(text: text)
+	end
+
+	private_lane :createGithubRelease do |options|
+		set_github_release(
+			repository_name: REPO,
+			api_token: ENV["FASTLANE_NEXTCLOUD_GITHUB_API_TOKEN"],
+			name: options[:name],
+			is_prerelease: options[:isPrerelease],
+			tag_name: options[:tag],
+			description: (File.read("metadata/android/en-US/changelogs/" + options[:versionCode] + ".txt") rescue "No changelog provided"),
+			upload_assets: Dir.glob("release/*.apk")
+		)
+	end
+	
+	private_lane :uploadToHuawei do |options|
+		if APP == "files" && options[:isPrerelease] == false
+			huawei_appgallery_connect(
+				client_id: ENV["FASTLANE_NEXTCLOUD_HUAWEI_CLIENT_ID"],
+				client_secret: ENV["FASTLANE_NEXTCLOUD_HUAWEI_CLIENT_SECRET"],
+				app_id: ENV["FASTLANE_NEXTCLOUD_HUAWEI_APP_ID"],
+				apk_path: "release/nextcloud-#{APP}-huawei-#{options[:versionCode]}.apk",
+				submit_for_review: true,
+				delay_before_submit_for_review: 30,
 			)
 		end
-		
-	 desc "Check if release artifacts exist"
-		private_lane :checkArtifactsExist do
-			if !File.exist?("../#{BUNDLE_PATH}")
-				UI.user_error!("Bundle not found at #{BUNDLE_PATH}")
-			end
-		end
-
+	end
 end
 
 private_lane :promptYesNo do |options|
