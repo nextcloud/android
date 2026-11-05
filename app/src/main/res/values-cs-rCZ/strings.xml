@@ -311,7 +311,6 @@
     <string name="downloader_download_in_progress_ticker">Stahování …</string>
     <string name="downloader_download_succeeded_content">%1$s staženo</string>
     <string name="downloader_download_succeeded_ticker">Staženo</string>
-    <string name="downloader_file_download_cancelled">Některé soubory byly v průběhu nahrávání zrušeny uživatelem</string>
     <string name="downloader_file_download_failed">Při stahování souborů došlo k chybě</string>
     <string name="downloader_not_downloaded_yet">Ještě nestaženo</string>
     <string name="downloader_unexpected_error">Při stahování souborů došlo k nečekané chybě</string>

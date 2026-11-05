@@ -351,7 +351,6 @@
     <string name="downloader_download_in_progress_ticker">Lade herunter …</string>
     <string name="downloader_download_succeeded_content">%1$s heruntergeladen</string>
     <string name="downloader_download_succeeded_ticker">Heruntergeladen</string>
-    <string name="downloader_file_download_cancelled">Bestimmte Dateien wurden während des Downloads durch den Benutzer abgebrochen</string>
     <string name="downloader_file_download_failed">Es ist ein Fehler beim Herunterladen der Dateien aufgetreten.</string>
     <string name="downloader_not_downloaded_yet">Noch nicht Heruntergeladen</string>
     <string name="downloader_unexpected_error">Es ist ein unerwarteter Fehler beim Herunterladen der Dateien aufgetreten</string>

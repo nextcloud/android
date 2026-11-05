@@ -302,7 +302,6 @@
     <string name="downloader_download_in_progress_ticker">Inapakua...</string>
     <string name="downloader_download_succeeded_content">%1$s imepakuliwa</string>
     <string name="downloader_download_succeeded_ticker">Imepakuliwa</string>
-    <string name="downloader_file_download_cancelled">Baadhi ya faili zilighairiwa wakati wa upakuaji na mtumiaji</string>
     <string name="downloader_file_download_failed">Hitilafu ilitokea wakati wa kupakua faili</string>
     <string name="downloader_not_downloaded_yet">Bado haijapakuliwa</string>
     <string name="downloader_unexpected_error">Hitilafu isiyotarajiwa imetokea wakati wa kupakua faili</string>

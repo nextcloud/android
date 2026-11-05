@@ -271,7 +271,6 @@
     <string name="downloader_download_in_progress_ticker">다운로드 중…</string>
     <string name="downloader_download_succeeded_content">%1$s 다운로드됨</string>
     <string name="downloader_download_succeeded_ticker">다운로드됨</string>
-    <string name="downloader_file_download_cancelled">일부 파일의 다운로드가 사용자에 의해 취소되었습니다</string>
     <string name="downloader_file_download_failed">파일을 다운로드하는 중 오류 발생</string>
     <string name="downloader_not_downloaded_yet">아직 다운로드되지 않았음</string>
     <string name="downloader_unexpected_error">파일을 다운로드하는 중 예기치 못한 오류 발생</string>

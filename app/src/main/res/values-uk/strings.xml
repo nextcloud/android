@@ -319,7 +319,6 @@
     <string name="downloader_download_in_progress_ticker">Звантаження…</string>
     <string name="downloader_download_succeeded_content">%1$s звантажено</string>
     <string name="downloader_download_succeeded_ticker">Звантажено</string>
-    <string name="downloader_file_download_cancelled">Окремі файли було скасовано під час звантаження користувачем</string>
     <string name="downloader_file_download_failed">Помилка під час звантаження файлів</string>
     <string name="downloader_not_downloaded_yet">Ще не звантажено</string>
     <string name="downloader_unexpected_error">Неочікувана помилка під час звантаження файлів</string>

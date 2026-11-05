@@ -275,7 +275,6 @@
     <string name="downloader_download_in_progress_ticker">التنزيل جارِ …</string>
     <string name="downloader_download_succeeded_content">%1$s مُنزَّلَة</string>
     <string name="downloader_download_succeeded_ticker">تم التنزيل</string>
-    <string name="downloader_file_download_cancelled">بعض الملفات قام المستخدِم بإلغائها أثناء التنزيل</string>
     <string name="downloader_file_download_failed">حدث خطأ أثناء تنزيل الملفات</string>
     <string name="downloader_not_downloaded_yet">لم يتم تحميلها بعد</string>
     <string name="downloader_unexpected_error">حدث خطأ غير متوقع أثناء تنزيل الملفات</string>

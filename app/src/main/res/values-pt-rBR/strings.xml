@@ -351,7 +351,6 @@
     <string name="downloader_download_in_progress_ticker">Baixando…</string>
     <string name="downloader_download_succeeded_content">%1$s baixado</string>
     <string name="downloader_download_succeeded_ticker">Baixado</string>
-    <string name="downloader_file_download_cancelled">Certos arquivos foram cancelados durante o download pelo usuário</string>
     <string name="downloader_file_download_failed">Ocorreu um erro ao baixar arquivos</string>
     <string name="downloader_not_downloaded_yet">Ainda não baixado</string>
     <string name="downloader_unexpected_error">Ocorreu um erro inesperado ao baixar arquivos</string>

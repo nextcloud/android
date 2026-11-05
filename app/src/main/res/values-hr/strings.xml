@@ -303,7 +303,6 @@
     <string name="downloader_download_in_progress_ticker">Preuzimanje...</string>
     <string name="downloader_download_succeeded_content">%1$s je preuzeto</string>
     <string name="downloader_download_succeeded_ticker">Preuzeto</string>
-    <string name="downloader_file_download_cancelled">Korisnik je otkazao preuzimanje nekih datoteka</string>
     <string name="downloader_file_download_failed">Došlo je do pogreške pri preuzimanju datoteka</string>
     <string name="downloader_not_downloaded_yet">Nema preuzimanja</string>
     <string name="downloader_unexpected_error">Došlo je do neočekivane pogreške pri preuzimanju datoteka</string>

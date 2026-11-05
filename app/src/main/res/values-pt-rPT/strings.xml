@@ -296,7 +296,6 @@
     <string name="downloader_download_in_progress_ticker">A transferir…</string>
     <string name="downloader_download_succeeded_content">%1$s transferido</string>
     <string name="downloader_download_succeeded_ticker">Transferido</string>
-    <string name="downloader_file_download_cancelled">Certos ficheiros foram cancelados pelo utilizador durante a transferência</string>
     <string name="downloader_file_download_failed">Ocorreu um erro ao transferir os ficheiros</string>
     <string name="downloader_not_downloaded_yet">Ainda não transferido</string>
     <string name="downloader_unexpected_error">Ocorreu um erro inesperado enquanto transferia os ficheiros</string>

@@ -351,7 +351,6 @@
     <string name="downloader_download_in_progress_ticker">Henter …</string>
     <string name="downloader_download_succeeded_content">%1$s er downloadet</string>
     <string name="downloader_download_succeeded_ticker">Downloadet</string>
-    <string name="downloader_file_download_cancelled">Visse filer blev annulleret af brugeren under download</string>
     <string name="downloader_file_download_failed">Der opstod en fejl under download af filerne</string>
     <string name="downloader_not_downloaded_yet">Endnu ikke downloadet</string>
     <string name="downloader_unexpected_error">Der opstod en uventet fejl under download af filer</string>

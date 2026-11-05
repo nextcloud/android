@@ -304,7 +304,6 @@
     <string name="downloader_download_in_progress_ticker">Laster ned…</string>
     <string name="downloader_download_succeeded_content">%1$s lastet ned</string>
     <string name="downloader_download_succeeded_ticker">Nedlastet</string>
-    <string name="downloader_file_download_cancelled">Enkelte filer ble kansellert under nedlastingen av brukeren</string>
     <string name="downloader_file_download_failed">Det oppstod en feil under nedlasting av filer</string>
     <string name="downloader_not_downloaded_yet">Ikke lastet ned enda</string>
     <string name="downloader_unexpected_error">Det oppstod en uventet feil under nedlasting av filer</string>

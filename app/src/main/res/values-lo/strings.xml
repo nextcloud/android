@@ -286,7 +286,6 @@
     <string name="downloader_download_in_progress_ticker">ກຳລັງດາວໂຫຼດ</string>
     <string name="downloader_download_succeeded_content">%1$sດາວໂຫຼດສຳເລັດ</string>
     <string name="downloader_download_succeeded_ticker">ດາວໂຫຼດສຳເລັດ</string>
-    <string name="downloader_file_download_cancelled">Certain files were canceled during the download by user</string>
     <string name="downloader_file_download_failed">Error occurred while downloading files</string>
     <string name="downloader_not_downloaded_yet">ຍັງບໍ່ທັນດາວໂຫຼດເທື່ອ</string>
     <string name="downloader_unexpected_error">Unexpected error occurred while downloading files</string>

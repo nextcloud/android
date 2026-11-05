@@ -273,7 +273,6 @@
     <string name="downloader_download_in_progress_ticker">Deskargatzen…</string>
     <string name="downloader_download_succeeded_content">%1$s deskargatuta</string>
     <string name="downloader_download_succeeded_ticker">Deskargatuta</string>
-    <string name="downloader_file_download_cancelled">Erabiltzaileak fitxategi batzuen deskarga bertan behera utzi ditu</string>
     <string name="downloader_file_download_failed">Errore bat gertatu da fitxategiak deskargatzean</string>
     <string name="downloader_not_downloaded_yet">Oraindik deskargatu gabe</string>
     <string name="downloader_unexpected_error">Ustekabeko errorea gertatu da fitxategiak deskargatzean</string>

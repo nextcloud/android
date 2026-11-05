@@ -351,7 +351,6 @@
     <string name="downloader_download_in_progress_ticker">İndiriliyor …</string>
     <string name="downloader_download_succeeded_content">%1$s indirildi</string>
     <string name="downloader_download_succeeded_ticker">İndirildi</string>
-    <string name="downloader_file_download_cancelled">Bazı dosyalar indirme sırasında kullanıcı tarafından iptal edildi</string>
     <string name="downloader_file_download_failed">Dosyalar indirilirken sorun çıktı</string>
     <string name="downloader_not_downloaded_yet">Henüz indirilmemiş</string>
     <string name="downloader_unexpected_error">Dosyalar indirilirken beklenmeyen bir sorun çıktı</string>
