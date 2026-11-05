@@ -69,8 +69,6 @@ public class ProviderMeta {
                                                                 + MainApp.getAuthority() + "/dir");
         public static final Uri CONTENT_URI_SHARE = Uri.parse(CONTENT_PREFIX
                                                                   + MainApp.getAuthority() + "/shares");
-        public static final Uri CONTENT_URI_CAPABILITIES = Uri.parse(CONTENT_PREFIX
-                                                                         + MainApp.getAuthority() + "/capabilities");
         public static final Uri CONTENT_URI_UPLOADS = Uri.parse(CONTENT_PREFIX
                                                                     + MainApp.getAuthority() + "/uploads");
         public static final Uri CONTENT_URI_SYNCED_FOLDERS = Uri.parse(CONTENT_PREFIX
@@ -274,8 +272,6 @@ public class ProviderMeta {
         public static final String CAPABILITIES_RICHDOCUMENT_DIRECT_EDITING = "richdocument_direct_editing";
         public static final String CAPABILITIES_RICHDOCUMENT_TEMPLATES = "richdocument_direct_templates";
         public static final String CAPABILITIES_RICHDOCUMENT_PRODUCT_NAME = "richdocument_product_name";
-        public static final String CAPABILITIES_DEFAULT_SORT_ORDER = CAPABILITIES_ACCOUNT_NAME
-            + " collate nocase asc";
         public static final String CAPABILITIES_DIRECT_EDITING_ETAG = "direct_editing_etag";
         public static final String CAPABILITIES_ETAG = "etag";
         public static final String CAPABILITIES_USER_STATUS = "user_status";

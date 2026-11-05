@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -169,80 +170,159 @@ fun CapabilityEntity?.toOCCapability(): OCCapability {
     val id = this.id ?: return capability
 
     fun intToBoolean(value: Int?): CapabilityBooleanType =
-        value?.let { CapabilityBooleanType.fromValue(it) } ?: CapabilityBooleanType.UNKNOWN
+        value?.let { CapabilityBooleanType.fromValue(it) } ?: CapabilityBooleanType.FALSE
 
     capability.id = id.toLong()
-    capability.accountName = this.accountName
-    capability.versionMayor = this.versionMajor ?: 0
-    capability.versionMinor = this.versionMinor ?: 0
-    capability.versionMicro = this.versionMicro ?: 0
-    capability.versionString = this.versionString
-    capability.versionEdition = this.versionEditor
-    capability.extendedSupport = intToBoolean(this.extendedSupport)
-    capability.corePollInterval = this.corePollinterval ?: 0
-    capability.filesSharingApiEnabled = intToBoolean(this.sharingApiEnabled)
-    capability.filesSharingPublicEnabled = intToBoolean(this.sharingPublicEnabled)
-    capability.filesSharingPublicPasswordEnforced = intToBoolean(this.sharingPublicPasswordEnforced)
-    capability.filesSharingPublicAskForOptionalPassword = intToBoolean(this.sharingPublicAskForOptionalPassword)
-    capability.filesSharingPublicExpireDateEnabled = intToBoolean(this.sharingPublicExpireDateEnabled)
-    capability.filesSharingPublicExpireDateDays = this.sharingPublicExpireDateDays ?: 0
-    capability.filesSharingPublicExpireDateEnforced = intToBoolean(this.sharingPublicExpireDateEnforced)
-    capability.filesSharingPublicSendMail = intToBoolean(this.sharingPublicSendMail)
-    capability.filesSharingPublicUpload = intToBoolean(this.sharingPublicUpload)
-    capability.filesSharingUserSendMail = intToBoolean(this.sharingUserSendMail)
-    capability.filesSharingResharing = intToBoolean(this.sharingResharing)
-    capability.filesSharingFederationOutgoing = intToBoolean(this.sharingFederationOutgoing)
-    capability.filesSharingFederationIncoming = intToBoolean(this.sharingFederationIncoming)
-    capability.filesBigFileChunking = intToBoolean(this.filesBigfilechunking)
-    capability.filesUndelete = intToBoolean(this.filesUndelete)
-    capability.filesVersioning = intToBoolean(this.filesVersioning)
-    capability.externalLinks = intToBoolean(this.externalLinks)
-    capability.serverName = this.serverName
-    capability.serverColor = this.serverColor
-    capability.serverTextColor = this.serverTextColor
-    capability.serverElementColor = this.serverElementColor
-    capability.serverSlogan = this.serverSlogan
-    capability.serverLogo = this.serverLogo
-    capability.serverBackground = this.serverBackgroundUrl
-    capability.endToEndEncryption = intToBoolean(this.endToEndEncryption)
-    capability.endToEndEncryptionKeysExist = intToBoolean(this.endToEndEncryptionKeysExist)
-    capability.endToEndEncryptionApiVersion = this.endToEndEncryptionApiVersion?.let {
+    capability.accountName = accountName
+    capability.versionMayor = versionMajor ?: 0
+    capability.versionMinor = versionMinor ?: 0
+    capability.versionMicro = versionMicro ?: 0
+    capability.versionString = versionString
+    capability.versionEdition = versionEditor
+    capability.extendedSupport = intToBoolean(extendedSupport)
+    capability.corePollInterval = corePollinterval ?: 0
+    capability.filesSharingApiEnabled = intToBoolean(sharingApiEnabled)
+    capability.filesSharingPublicEnabled = intToBoolean(sharingPublicEnabled)
+    capability.filesSharingPublicPasswordEnforced = intToBoolean(sharingPublicPasswordEnforced)
+    capability.filesSharingPublicAskForOptionalPassword = intToBoolean(sharingPublicAskForOptionalPassword)
+    capability.filesSharingPublicExpireDateEnabled = intToBoolean(sharingPublicExpireDateEnabled)
+    capability.filesSharingPublicExpireDateDays = sharingPublicExpireDateDays ?: 0
+    capability.filesSharingPublicExpireDateEnforced = intToBoolean(sharingPublicExpireDateEnforced)
+    capability.filesSharingPublicSendMail = intToBoolean(sharingPublicSendMail)
+    capability.filesSharingPublicUpload = intToBoolean(sharingPublicUpload)
+    capability.filesSharingUserSendMail = intToBoolean(sharingUserSendMail)
+    capability.filesSharingResharing = intToBoolean(sharingResharing)
+    capability.filesSharingFederationOutgoing = intToBoolean(sharingFederationOutgoing)
+    capability.filesSharingFederationIncoming = intToBoolean(sharingFederationIncoming)
+    capability.filesBigFileChunking = intToBoolean(filesBigfilechunking)
+    capability.filesUndelete = intToBoolean(filesUndelete)
+    capability.filesVersioning = intToBoolean(filesVersioning)
+    capability.externalLinks = intToBoolean(externalLinks)
+    capability.serverName = serverName
+    capability.serverColor = serverColor
+    capability.serverTextColor = serverTextColor
+    capability.serverElementColor = serverElementColor
+    capability.serverSlogan = serverSlogan
+    capability.serverLogo = serverLogo
+    capability.serverBackground = serverBackgroundUrl
+    capability.endToEndEncryption = intToBoolean(endToEndEncryption)
+    capability.endToEndEncryptionKeysExist = intToBoolean(endToEndEncryptionKeysExist)
+    capability.endToEndEncryptionApiVersion = endToEndEncryptionApiVersion?.let {
         E2EVersion.fromValue(it)
     } ?: E2EVersion.UNKNOWN
-    capability.serverBackgroundDefault = intToBoolean(this.serverBackgroundDefault)
-    capability.serverBackgroundPlain = intToBoolean(this.serverBackgroundPlain)
-    capability.activity = intToBoolean(this.activity)
-    capability.richDocuments = intToBoolean(this.richdocument)
-    capability.richDocumentsDirectEditing = intToBoolean(this.richdocumentDirectEditing)
-    capability.richDocumentsTemplatesAvailable = intToBoolean(this.richdocumentTemplates)
-    capability.richDocumentsMimeTypeList = this.richdocumentMimetypeList?.split(",") ?: emptyList()
-    capability.richDocumentsOptionalMimeTypeList = this.richdocumentOptionalMimetypeList?.split(",") ?: emptyList()
-    capability.richDocumentsProductName = this.richdocumentProductName
-    capability.directEditingEtag = this.directEditingEtag
-    capability.etag = this.etag
-    capability.userStatus = intToBoolean(this.userStatus)
-    capability.userStatusSupportsEmoji = intToBoolean(this.userStatusSupportsEmoji)
-    capability.userStatusSupportsBusy = intToBoolean(this.userStatusSupportsBusy)
-    capability.filesLockingVersion = this.filesLockingVersion
-    capability.assistant = intToBoolean(this.assistant)
-    capability.groupfolders = intToBoolean(this.groupfolders)
-    capability.dropAccount = intToBoolean(this.dropAccount)
-    capability.securityGuard = intToBoolean(this.securityGuard)
-    capability.governance = intToBoolean(this.governance)
-    capability.forbiddenFilenameCharactersJson = this.forbiddenFileNameCharacters
-    capability.forbiddenFilenamesJson = this.forbiddenFileNames
-    capability.forbiddenFilenameExtensionJson = this.forbiddenFileNameExtensions
-    capability.forbiddenFilenameBaseNamesJson = this.forbiddenFilenameBaseNames
-    capability.isWCFEnabled = intToBoolean(this.isWCFEnabled)
-    capability.filesDownloadLimit = intToBoolean(this.filesDownloadLimit)
-    capability.filesDownloadLimitDefault = this.filesDownloadLimitDefault ?: 0
-    capability.recommendations = intToBoolean(this.recommendation)
-    capability.notesFolderPath = this.notesFolderPath
-    capability.defaultPermissions = this.defaultPermissions ?: 0
-    capability.hasValidSubscription = intToBoolean(this.hasValidSubscription)
-    capability.clientIntegrationJson = this.clientIntegrationJson
-    capability.modRewriteWorking = intToBoolean(this.modRewriteWorking)
-    capability.chunkedUploadMaxSize = this.chunkedUploadMaxSize ?: OCCapability.CHUNKED_UPLOAD_MAX_SIZE_UNKNOWN
+    capability.serverBackgroundDefault = intToBoolean(serverBackgroundDefault)
+    capability.serverBackgroundPlain = intToBoolean(serverBackgroundPlain)
+    capability.activity = intToBoolean(activity)
+    capability.richDocuments = intToBoolean(richdocument)
+    capability.richDocumentsDirectEditing = intToBoolean(richdocumentDirectEditing)
+    capability.richDocumentsTemplatesAvailable = intToBoolean(richdocumentTemplates)
+    capability.richDocumentsMimeTypeList = richdocumentMimetypeList.orEmpty().split(MIME_TYPE_SEPARATOR)
+    capability.richDocumentsOptionalMimeTypeList =
+        richdocumentOptionalMimetypeList.orEmpty().split(MIME_TYPE_SEPARATOR)
+    capability.richDocumentsProductName = richdocumentProductName
+    capability.directEditingEtag = directEditingEtag
+    capability.etag = etag
+    capability.userStatus = intToBoolean(userStatus)
+    capability.userStatusSupportsEmoji = intToBoolean(userStatusSupportsEmoji)
+    capability.userStatusSupportsBusy = intToBoolean(userStatusSupportsBusy)
+    capability.filesLockingVersion = filesLockingVersion
+    capability.assistant = intToBoolean(assistant)
+    capability.groupfolders = intToBoolean(groupfolders)
+    capability.dropAccount = intToBoolean(dropAccount)
+    capability.securityGuard = intToBoolean(securityGuard)
+    capability.governance = intToBoolean(governance)
+    capability.forbiddenFilenameCharactersJson = forbiddenFileNameCharacters
+    capability.forbiddenFilenamesJson = forbiddenFileNames
+    capability.forbiddenFilenameExtensionJson = forbiddenFileNameExtensions
+    capability.forbiddenFilenameBaseNamesJson = forbiddenFilenameBaseNames
+    capability.isWCFEnabled = intToBoolean(isWCFEnabled)
+    capability.filesDownloadLimit = intToBoolean(filesDownloadLimit)
+    capability.filesDownloadLimitDefault = filesDownloadLimitDefault ?: 0
+    capability.recommendations = intToBoolean(recommendation)
+    capability.notesFolderPath = notesFolderPath
+    capability.defaultPermissions = defaultPermissions ?: 0
+    capability.hasValidSubscription = intToBoolean(hasValidSubscription)
+    capability.clientIntegrationJson = clientIntegrationJson
+    capability.modRewriteWorking = intToBoolean(modRewriteWorking)
+    capability.chunkedUploadMaxSize = chunkedUploadMaxSize ?: 0L
+    capability.sharingJson = sharingJson
 
     return capability
 }
+
+@Suppress("LongMethod")
+fun OCCapability.toEntity(accountName: String, id: Int?): CapabilityEntity = CapabilityEntity(
+    id = id,
+    assistant = assistant.value,
+    accountName = accountName,
+    versionMajor = versionMayor,
+    versionMinor = versionMinor,
+    versionMicro = versionMicro,
+    versionString = versionString,
+    versionEditor = versionEdition,
+    extendedSupport = extendedSupport.value,
+    corePollinterval = corePollInterval,
+    sharingApiEnabled = filesSharingApiEnabled.value,
+    sharingPublicEnabled = filesSharingPublicEnabled.value,
+    sharingPublicPasswordEnforced = filesSharingPublicPasswordEnforced.value,
+    sharingPublicExpireDateEnabled = filesSharingPublicExpireDateEnabled.value,
+    sharingPublicExpireDateDays = filesSharingPublicExpireDateDays,
+    sharingPublicExpireDateEnforced = filesSharingPublicExpireDateEnforced.value,
+    sharingPublicSendMail = filesSharingPublicSendMail.value,
+    sharingPublicUpload = filesSharingPublicUpload.value,
+    sharingUserSendMail = filesSharingUserSendMail.value,
+    sharingResharing = filesSharingResharing.value,
+    sharingFederationOutgoing = filesSharingFederationOutgoing.value,
+    sharingFederationIncoming = filesSharingFederationIncoming.value,
+    filesBigfilechunking = filesBigFileChunking.value,
+    filesUndelete = filesUndelete.value,
+    filesVersioning = filesVersioning.value,
+    externalLinks = externalLinks.value,
+    serverName = serverName,
+    serverColor = serverColor,
+    serverTextColor = serverTextColor,
+    serverElementColor = serverElementColor,
+    serverSlogan = serverSlogan,
+    serverLogo = serverLogo,
+    serverBackgroundUrl = serverBackground,
+    endToEndEncryption = endToEndEncryption.value,
+    endToEndEncryptionKeysExist = endToEndEncryptionKeysExist.value,
+    endToEndEncryptionApiVersion = endToEndEncryptionApiVersion.value,
+    activity = activity.value,
+    serverBackgroundDefault = serverBackgroundDefault.value,
+    serverBackgroundPlain = serverBackgroundPlain.value,
+    richdocument = richDocuments.value,
+    richdocumentMimetypeList = richDocumentsMimeTypeList?.joinToString(MIME_TYPE_SEPARATOR),
+    richdocumentDirectEditing = richDocumentsDirectEditing.value,
+    richdocumentTemplates = richDocumentsTemplatesAvailable.value,
+    richdocumentOptionalMimetypeList = richDocumentsOptionalMimeTypeList?.joinToString(MIME_TYPE_SEPARATOR),
+    sharingPublicAskForOptionalPassword = filesSharingPublicAskForOptionalPassword.value,
+    richdocumentProductName = richDocumentsProductName,
+    directEditingEtag = directEditingEtag,
+    userStatus = userStatus.value,
+    userStatusSupportsEmoji = userStatusSupportsEmoji.value,
+    etag = etag,
+    filesLockingVersion = filesLockingVersion,
+    groupfolders = groupfolders.value,
+    dropAccount = dropAccount.value,
+    securityGuard = securityGuard.value,
+    governance = governance.value,
+    forbiddenFileNameCharacters = forbiddenFilenameCharactersJson,
+    forbiddenFileNames = forbiddenFilenamesJson,
+    forbiddenFileNameExtensions = forbiddenFilenameExtensionJson,
+    forbiddenFilenameBaseNames = forbiddenFilenameBaseNamesJson,
+    filesDownloadLimit = filesDownloadLimit.value,
+    filesDownloadLimitDefault = filesDownloadLimitDefault,
+    recommendation = recommendations.value,
+    notesFolderPath = notesFolderPath,
+    defaultPermissions = defaultPermissions,
+    userStatusSupportsBusy = userStatusSupportsBusy.value,
+    isWCFEnabled = isWCFEnabled.value,
+    hasValidSubscription = hasValidSubscription.value,
+    clientIntegrationJson = clientIntegrationJson,
+    modRewriteWorking = modRewriteWorking.value,
+    chunkedUploadMaxSize = chunkedUploadMaxSize,
+    sharingJson = sharingJson
+)
+
+private const val MIME_TYPE_SEPARATOR = ","
