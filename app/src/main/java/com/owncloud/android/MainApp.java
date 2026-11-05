@@ -1029,5 +1029,6 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         super.onTerminate();
         connectivityService.removeListener(this);
         ReceiversHelper.shutdown();
+        AppPreferencesImpl.shutdown();
     }
 }
