@@ -60,6 +60,7 @@ import com.nextcloud.utils.e2ee.E2EEActionResolver
 import com.nextcloud.utils.e2ee.E2EEDialogPresenter
 import com.nextcloud.utils.extensions.getDepth
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.getSerializableArgument
 import com.nextcloud.utils.extensions.isDialogFragmentReady
 import com.nextcloud.utils.extensions.isWebViewAvailable
 import com.nextcloud.utils.extensions.listenEncryptionDialogResult
@@ -186,6 +187,9 @@ open class OCFileListFragment :
     var currentFile: OCFile? = null
         protected set
 
+    var fileDepth: OCFileDepth? = OCFileDepth.Root
+        private set
+
     var adapter: OCFileListAdapter? = null
         protected set
 
@@ -254,6 +258,7 @@ open class OCFileListFragment :
         val state = savedInstanceState ?: arguments
         loadSearchState(state)
         currentFile = state.getParcelableArgument(KEY_FILE, OCFile::class.java)
+        savedInstanceState?.let { fileDepth = it.getSerializableArgument(KEY_FILE_DEPTH, OCFileDepth::class.java) }
         isSearchFragment = activeSearchEvent != null
         folderEncryption = FolderEncryption(this)
         encryptedClickHandler = EncryptedFolderClickHandler(this)
@@ -331,6 +336,7 @@ open class OCFileListFragment :
         super.onSaveInstanceState(outState)
         currentFile.logFileSize(TAG)
         outState.putParcelable(KEY_FILE, currentFile)
+        outState.putSerializable(KEY_FILE_DEPTH, fileDepth)
         if (isSearchFragment) {
             outState.putParcelable(KEY_CURRENT_SEARCH_TYPE, currentSearchType)
             activeSearchEvent?.let { outState.putParcelable(SEARCH_EVENT, it) }
@@ -1071,15 +1077,12 @@ open class OCFileListFragment :
     }
 
     fun setFileDepth(file: OCFile?) {
-        currentFileDepth = file.getDepth()
+        fileDepth = file.getDepth()
     }
 
     fun resetFileDepth() {
-        currentFileDepth = OCFileDepth.Root
+        fileDepth = OCFileDepth.Root
     }
-
-    val fileDepth: OCFileDepth?
-        get() = currentFileDepth
     //endregion
 
     //region Directory listing
@@ -1133,6 +1136,7 @@ open class OCFileListFragment :
         }
 
         currentFile = directoryToList
+        setFileDepth(directoryToList)
         updateUiForCurrentFolder()
     }
 
@@ -1518,6 +1522,7 @@ open class OCFileListFragment :
         const val SEARCH_EVENT = "SEARCH_EVENT"
         const val KEY_CURRENT_SEARCH_TYPE = "CURRENT_SEARCH_TYPE"
         private val KEY_FILE = "$MY_PACKAGE.extra.FILE"
+        private val KEY_FILE_DEPTH = "$MY_PACKAGE.extra.FILE_DEPTH"
 
         private const val DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER"
         private const val DIALOG_CREATE_DOCUMENT = "DIALOG_CREATE_DOCUMENT"
@@ -1549,8 +1554,6 @@ open class OCFileListFragment :
         )
 
         private val scanIntentExternalApp = Intent(SCAN_TO_PDF_ACTION)
-
-        private var currentFileDepth: OCFileDepth? = OCFileDepth.Root
 
         var isMultipleFileSelectedForCopyOrMove = false
     }
