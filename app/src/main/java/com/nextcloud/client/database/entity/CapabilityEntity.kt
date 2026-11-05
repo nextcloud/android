@@ -15,6 +15,7 @@ import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 import com.owncloud.android.lib.resources.status.CapabilityBooleanType
 import com.owncloud.android.lib.resources.status.E2EVersion
 import com.owncloud.android.lib.resources.status.OCCapability
+import java.util.regex.Pattern
 
 @Entity(tableName = ProviderTableMeta.CAPABILITIES_TABLE_NAME)
 data class CapabilityEntity(
@@ -216,9 +217,10 @@ fun CapabilityEntity?.toOCCapability(): OCCapability {
     capability.richDocuments = intToBoolean(richdocument)
     capability.richDocumentsDirectEditing = intToBoolean(richdocumentDirectEditing)
     capability.richDocumentsTemplatesAvailable = intToBoolean(richdocumentTemplates)
-    capability.richDocumentsMimeTypeList = richdocumentMimetypeList.orEmpty().split(MIME_TYPE_SEPARATOR)
+    capability.richDocumentsMimeTypeList =
+        MIME_TYPE_SEPARATOR_PATTERN.split(richdocumentMimetypeList.orEmpty()).toList()
     capability.richDocumentsOptionalMimeTypeList =
-        richdocumentOptionalMimetypeList.orEmpty().split(MIME_TYPE_SEPARATOR)
+        MIME_TYPE_SEPARATOR_PATTERN.split(richdocumentOptionalMimetypeList.orEmpty()).toList()
     capability.richDocumentsProductName = richdocumentProductName
     capability.directEditingEtag = directEditingEtag
     capability.etag = etag
@@ -326,3 +328,4 @@ fun OCCapability.toEntity(accountName: String, id: Int?): CapabilityEntity = Cap
 )
 
 private const val MIME_TYPE_SEPARATOR = ","
+private val MIME_TYPE_SEPARATOR_PATTERN: Pattern = Pattern.compile(MIME_TYPE_SEPARATOR)
