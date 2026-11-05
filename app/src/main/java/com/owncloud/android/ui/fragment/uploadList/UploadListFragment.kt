@@ -30,8 +30,9 @@ import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.client.utils.Throttler
+import com.nextcloud.client.utils.TrailingThrottle
 import com.nextcloud.ui.component.UploadWarningCard
+import com.nextcloud.utils.extensions.collectWhenStarted
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
@@ -64,7 +65,7 @@ class UploadListFragment :
 
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
-    @Inject lateinit var throttler: Throttler
+    private val uploadListRefresh = TrailingThrottle(ONE_SECOND)
 
     @Inject lateinit var uploadFileOperationFactory: UploadFileOperationFactory
 
@@ -98,19 +99,16 @@ class UploadListFragment :
 
     private val uploadFinishReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            if (intent?.action == FileUploadEventBroadcaster.ACTION_UPLOAD_COMPLETED) {
-                uploadListAdapter.loadUploadItemsFromDb()
-                return
+            when (intent?.action) {
+                FileUploadEventBroadcaster.ACTION_UPLOAD_COMPLETED -> uploadListAdapter.loadUploadItemsFromDb()
+                else -> uploadListRefresh.request()
             }
-
-            throttler.run(UPDATE_UPLOAD_LIST_KEY) { uploadListAdapter.loadUploadItemsFromDb() }
         }
     }
 
     // region Lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        throttler.intervalMillis = ONE_SECOND.inWholeMilliseconds
         if (savedInstanceState == null) {
             setUserFromIntent()
         }
@@ -130,6 +128,7 @@ class UploadListFragment :
         setupWarningCard(activity, binding)
         setupEmptyList(binding)
         setupList(activity, binding)
+        viewLifecycleOwner.collectWhenStarted(uploadListRefresh.events) { uploadListAdapter.loadUploadItemsFromDb() }
         addMenuProvider()
     }
 
@@ -296,6 +295,5 @@ class UploadListFragment :
     companion object {
         private const val SPAN_COUNT = 1
         private const val EMPTY_LIST_ICON_ALPHA = 0.5f
-        private const val UPDATE_UPLOAD_LIST_KEY = "update_upload_list"
     }
 }
