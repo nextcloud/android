@@ -132,10 +132,10 @@ class FileUploadHelper {
             return
         }
 
-        val capability = fileStorageManager.getCapability(accountManager.user)
-
         appScope.launch {
             try {
+                val capability = fileStorageManager.getCapability(accountManager.user)
+
                 /**
                  * Rows are marked `UPLOAD_IN_PROGRESS` before upload starts.
                  * Only `updateDatabaseUploadResult()` writes status.
