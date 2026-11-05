@@ -132,7 +132,7 @@ import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFER
  */
 public class MainApp extends Application implements HasAndroidInjector, NetworkChangeListener {
     public static final OwnCloudVersion OUTDATED_SERVER_VERSION = NextcloudVersion.nextcloud_30;
-    public static final OwnCloudVersion MINIMUM_SUPPORTED_SERVER_VERSION = OwnCloudVersion.nextcloud_20;
+    public static final OwnCloudVersion MINIMUM_SUPPORTED_SERVER_VERSION = NextcloudVersion.nextcloud_23;
 
     private static final String TAG = MainApp.class.getSimpleName();
     public static final String DOT = ".";

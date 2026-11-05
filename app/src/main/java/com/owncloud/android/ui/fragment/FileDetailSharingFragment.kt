@@ -59,7 +59,6 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.ShareType
-import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.providers.UsersAndGroupsSearchConfig
@@ -805,10 +804,6 @@ class FileDetailSharingFragment :
     }
 
     override fun showProfileBottomSheet(user: User, shareWith: String?) {
-        if (!user.server.version.isNewerOrEqual(NextcloudVersion.nextcloud_23)) {
-            return
-        }
-
         val userId = shareWith ?: return
         val activity = fileActivity ?: return
 
