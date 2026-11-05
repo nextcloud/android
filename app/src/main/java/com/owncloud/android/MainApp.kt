@@ -411,7 +411,7 @@ open class MainApp :
         val OUTDATED_SERVER_VERSION: OwnCloudVersion = NextcloudVersion.nextcloud_30
 
         @JvmField
-        val MINIMUM_SUPPORTED_SERVER_VERSION: OwnCloudVersion = OwnCloudVersion.nextcloud_20
+        val MINIMUM_SUPPORTED_SERVER_VERSION: OwnCloudVersion = NextcloudVersion.nextcloud_23
 
         const val DOT: String = "."
 
