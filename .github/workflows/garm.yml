@@ -80,6 +80,8 @@ jobs:
                     force-avd-creation: false
                     arch: x86_64
                     sdcard-path-or-size: 100M
+                    ram-size: 4096M
+                    heap-size: 512M
                     target: google_apis
                     emulator-options: -no-metrics -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -skin 500x833
                     script: scripts/runCombinedTest.sh ${{github.event.number}} ${{ secrets.LOG_USERNAME }} ${{ secrets.LOG_PASSWORD }} ${{github.event.number}} ${{ matrix.server }}
