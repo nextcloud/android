@@ -19,6 +19,7 @@ import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Synced folder entity containing all information per synced folder.
@@ -27,6 +28,8 @@ public class SyncedFolder implements Serializable, Cloneable {
     public static final long UNPERSISTED_ID = Long.MIN_VALUE;
     public static final long EMPTY_ENABLED_TIMESTAMP_MS = -1;
     public static final long NOT_SCANNED_YET = -1;
+    public static final long AUTO_DELETE_LOCAL_DISABLED = 0;
+    public static final long DEFAULT_AUTO_DELETE_LOCAL_AFTER_MS = TimeUnit.DAYS.toMillis(60);
     private static final long serialVersionUID = -793476118299906429L;
 
 
@@ -48,6 +51,7 @@ public class SyncedFolder implements Serializable, Cloneable {
     private SubFolderRule subfolderRule;
     private boolean excludeHidden;
     private long lastScanTimestampMs;
+    private long autoDeleteLocalAfterMs;
 
     /**
      * constructor for new, to be persisted entity.
@@ -67,6 +71,7 @@ public class SyncedFolder implements Serializable, Cloneable {
      * @param hidden              hide item flag
      * @param subFolderRule   whether to filter subFolder by year/month/day
      * @param excludeHidden   exclude hidden file or folder, for {@link MediaFolderType#CUSTOM} only
+     * @param autoDeleteLocalAfterMs age in milliseconds after which uploaded local files are deleted, {@link #AUTO_DELETE_LOCAL_DISABLED} to keep them
      */
     public SyncedFolder(String localPath,
                         String remotePath,
@@ -83,7 +88,8 @@ public class SyncedFolder implements Serializable, Cloneable {
                         boolean hidden,
                         SubFolderRule subFolderRule,
                         boolean excludeHidden,
-                        long lastScanTimestampMs) {
+                        long lastScanTimestampMs,
+                        long autoDeleteLocalAfterMs) {
         this(UNPERSISTED_ID,
              localPath,
              remotePath,
@@ -100,7 +106,8 @@ public class SyncedFolder implements Serializable, Cloneable {
              hidden,
              subFolderRule,
              excludeHidden,
-             lastScanTimestampMs);
+             lastScanTimestampMs,
+             autoDeleteLocalAfterMs);
     }
 
     /**
@@ -124,7 +131,8 @@ public class SyncedFolder implements Serializable, Cloneable {
                            boolean hidden,
                            SubFolderRule subFolderRule,
                            boolean excludeHidden,
-                           long lastScanTimestampMs) {
+                           long lastScanTimestampMs,
+                           long autoDeleteLocalAfterMs) {
         this.id = id;
         this.localPath = localPath;
         this.remotePath = remotePath;
@@ -141,6 +149,7 @@ public class SyncedFolder implements Serializable, Cloneable {
         this.subfolderRule = subFolderRule;
         this.excludeHidden = excludeHidden;
         this.lastScanTimestampMs = lastScanTimestampMs;
+        this.autoDeleteLocalAfterMs = autoDeleteLocalAfterMs;
     }
 
     /**
@@ -330,6 +339,18 @@ public class SyncedFolder implements Serializable, Cloneable {
                 getType() == MediaFolderType.CUSTOM;
 
         return isInLocalDirectory && isCorrectMediaType;
+    }
+
+    public long getAutoDeleteLocalAfterMs() {
+        return autoDeleteLocalAfterMs;
+    }
+
+    public void setAutoDeleteLocalAfterMs(long autoDeleteLocalAfterMs) {
+        this.autoDeleteLocalAfterMs = autoDeleteLocalAfterMs;
+    }
+
+    public boolean isAutoDeleteLocal() {
+        return autoDeleteLocalAfterMs > AUTO_DELETE_LOCAL_DISABLED;
     }
 
     public long getLastScanTimestampMs() { return lastScanTimestampMs; }

@@ -747,6 +747,10 @@
     <string name="pref_behaviour_entries_keep_file">kept in original folder</string>
     <string name="pref_behaviour_entries_move">moved to app folder</string>
     <string name="pref_behaviour_entries_delete_file">deleted</string>
+    <plurals name="pref_behaviour_entries_delete_file_after_days">
+        <item quantity="one">deleted after %d day</item>
+        <item quantity="other">deleted after %d days</item>
+    </plurals>
     <string name="prefs_data_storage_location">Data storage location</string>
     <string name="prefs_data_storage_location_summary">Manage data storage location</string>
 

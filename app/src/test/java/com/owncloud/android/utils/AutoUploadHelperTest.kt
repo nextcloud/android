@@ -77,7 +77,8 @@ class AutoUploadHelperTest {
         false,
         SubFolderRule.YEAR_MONTH,
         excludeHidden,
-        lastScan
+        lastScan,
+        SyncedFolder.AUTO_DELETE_LOCAL_DISABLED
     )
 
     @Test

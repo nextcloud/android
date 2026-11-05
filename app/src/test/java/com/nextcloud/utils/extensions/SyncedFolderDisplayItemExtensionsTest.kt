@@ -111,6 +111,7 @@ class SyncedFolderDisplayItemExtensionsTest {
         false,
         SubFolderRule.YEAR_MONTH,
         true,
-        SyncedFolder.NOT_SCANNED_YET
+        SyncedFolder.NOT_SCANNED_YET,
+        SyncedFolder.AUTO_DELETE_LOCAL_DISABLED
     )
 }

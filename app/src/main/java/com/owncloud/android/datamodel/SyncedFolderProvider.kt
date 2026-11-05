@@ -199,7 +199,8 @@ class SyncedFolderProvider(
             bool(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_HIDDEN),
             SubFolderRule.entries[int(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_RULE)],
             bool(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_EXCLUDE_HIDDEN),
-            long(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_LAST_SCAN_TIMESTAMP_MS)
+            long(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_LAST_SCAN_TIMESTAMP_MS),
+            long(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_AUTO_DELETE_LOCAL_AFTER_MS)
         )
     }
 
@@ -225,6 +226,10 @@ class SyncedFolderProvider(
         put(
             ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_LAST_SCAN_TIMESTAMP_MS,
             syncedFolder.lastScanTimestampMs
+        )
+        put(
+            ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_AUTO_DELETE_LOCAL_AFTER_MS,
+            syncedFolder.autoDeleteLocalAfterMs
         )
     }
 }
