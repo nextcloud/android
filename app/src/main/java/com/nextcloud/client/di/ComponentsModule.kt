@@ -114,7 +114,6 @@ import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog
 import com.owncloud.android.ui.fragment.GroupfolderListFragment
 import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog
 import com.owncloud.android.ui.fragment.OCFileListFragment
-import com.owncloud.android.ui.fragment.PickerFileListFragment
 import com.owncloud.android.ui.fragment.SharedListFragment
 import com.owncloud.android.ui.fragment.UnifiedSearchFragment
 import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment
@@ -475,9 +474,6 @@ internal interface ComponentsModule {
 
     @ContributesAndroidInjector
     fun groupfolderListFragment(): GroupfolderListFragment
-
-    @ContributesAndroidInjector
-    fun pickerFileListFragment(): PickerFileListFragment
 
     @ContributesAndroidInjector
     fun launcherActivity(): LauncherActivity
