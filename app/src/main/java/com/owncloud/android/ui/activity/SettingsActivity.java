@@ -785,8 +785,18 @@ public class SettingsActivity extends PreferenceActivity
         boolean fShowHiddenFilesEnabled = getResources().getBoolean(R.bool.show_hidden_files_enabled);
 
         setupHiddenFilesPreference(preferenceCategoryDetails, fShowHiddenFilesEnabled);
+        setupShowRecommendationsPreference();
         setupFoldersBeforeFilesPreference();
         setupSortFavoritesFirstPreference();
+    }
+
+    private void setupShowRecommendationsPreference() {
+        ThemeableSwitchPreference showRecommendations =
+            (ThemeableSwitchPreference) findPreference("show_recommendations_pref");
+        showRecommendations.setOnPreferenceClickListener(preference -> {
+            preferences.setShowRecommendationsEnabled(showRecommendations.isChecked());
+            return true;
+        });
     }
 
     private void setupShowMediaScanNotifications(PreferenceCategory preferenceCategoryDetails,
