@@ -41,7 +41,6 @@ import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.activity.FolderPickerActivity
 import com.owncloud.android.ui.adapter.GalleryRowHolder
 import com.owncloud.android.ui.adapter.filelist.recommended.RecommendedFilesViewHolder
-import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.ui.navigation.animator.NavigationAnimator
@@ -208,7 +207,6 @@ class OCFileListDelegate(
         viewHolder: ListViewHolder,
         file: OCFile,
         currentDirectory: OCFile?,
-        searchType: SearchType?,
         thumbnailGenerator: ThumbnailGenerator
     ) {
         // thumbnail
@@ -259,7 +257,6 @@ class OCFileListDelegate(
                         file.isEncrypted &&
                             !EncryptionUtils.supportsSecureFiledrop(file, user)
                         ) ||
-                    (searchType == SearchType.FAVORITE_SEARCH) ||
                     (
                         file.isFolder &&
                             (currentDirectory?.isEncrypted ?: false)

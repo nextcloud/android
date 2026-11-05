@@ -623,7 +623,7 @@ class OCFileListAdapter(
     }
 
     private fun bindFile(holder: ListViewHolder, file: OCFile) {
-        ocFileListDelegate.bindViewHolder(holder, file, currentDirectory, searchType, thumbnailGenerator)
+        ocFileListDelegate.bindViewHolder(holder, file, currentDirectory, thumbnailGenerator)
 
         if (holder is ListItemViewHolder) {
             itemBinder.bindDetails(holder, file, user, storageManager, shouldShowItemOptions(), onlyOnDevice)
