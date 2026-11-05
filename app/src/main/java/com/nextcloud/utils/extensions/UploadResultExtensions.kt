@@ -20,7 +20,6 @@ fun UploadResult.isNonRetryable(): Boolean = when (this) {
     UploadResult.SAME_FILE_CONFLICT,
     UploadResult.LOCAL_STORAGE_NOT_COPIED,
     UploadResult.VIRUS_DETECTED,
-    UploadResult.QUOTA_EXCEEDED,
     UploadResult.PRIVILEGES_ERROR,
 
     // user's choice

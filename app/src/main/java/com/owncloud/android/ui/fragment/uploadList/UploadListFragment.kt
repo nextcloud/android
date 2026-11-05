@@ -98,6 +98,11 @@ class UploadListFragment :
 
     private val uploadFinishReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent?.action == FileUploadEventBroadcaster.ACTION_UPLOAD_COMPLETED) {
+                uploadListAdapter.loadUploadItemsFromDb()
+                return
+            }
+
             throttler.run(UPDATE_UPLOAD_LIST_KEY) { uploadListAdapter.loadUploadItemsFromDb() }
         }
     }

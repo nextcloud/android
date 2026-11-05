@@ -76,6 +76,7 @@ class UploadListAdapter(
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
 
     private val uploadListSections = UploadListSection.sections()
+    private var latestLoadId = 0
     private val showUser: Boolean = accountManager.getAccounts().size > 1
     private val uploadHelper = FileUploadHelper.instance()
     private var uploadProgressListener: UploadProgressListener? = null
@@ -559,6 +560,7 @@ class UploadListAdapter(
 
         val accountName = optionalUser.get().accountName
         val capabilities = optionalCapabilities.get()
+        val loadId = ++latestLoadId
 
         activity.lifecycleScope.launch(Dispatchers.IO) {
             val succeededUploads = uploadHelper.getUploadsByStatus(
@@ -578,6 +580,11 @@ class UploadListAdapter(
             }
 
             withContext(Dispatchers.Main) {
+                if (loadId != latestLoadId) {
+                    onCompleted.run()
+                    return@withContext
+                }
+
                 for (i in uploadListSections.indices) {
                     uploadListSections[i] = updatedSections[i]
                 }
