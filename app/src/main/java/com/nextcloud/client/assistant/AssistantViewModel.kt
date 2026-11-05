@@ -199,23 +199,21 @@ class AssistantViewModel(
     }
 
     fun fetchTaskList() = viewModelScope.launch(Dispatchers.IO) {
-        val taskType = _selectedTaskType.value ?: return@launch
+        val taskTypeId = _selectedTaskType.value?.id ?: return@launch
 
-        val cached = localRepository.getCachedTasks(accountName, taskType.name)
+        val cached = localRepository.getCachedTasks(accountName, taskTypeId)
         if (cached.isNotEmpty()) {
             _filteredTaskList.update {
                 cached.sortedByDescending { it.id }
             }
         }
 
-        taskType.id?.let { typeId ->
-            remoteRepository.getTaskList(typeId)?.let { result ->
-                taskList = result
-                _filteredTaskList.value = result.sortedByDescending { it.id }
-                localRepository.cacheTasks(result, accountName)
-                updateSnackbarMessage(null)
-            } ?: updateSnackbarMessage(R.string.assistant_screen_task_list_error_state_message)
-        }
+        remoteRepository.getTaskList(taskTypeId)?.let { result ->
+            taskList = result
+            _filteredTaskList.value = result.sortedByDescending { it.id }
+            localRepository.cacheTasks(result, accountName)
+            updateSnackbarMessage(null)
+        } ?: updateSnackbarMessage(R.string.assistant_screen_task_list_error_state_message)
     }
 
     fun deleteTask(id: Long) = viewModelScope.launch(Dispatchers.IO) {
@@ -228,10 +226,10 @@ class AssistantViewModel(
 
         updateSnackbarMessage(message)
 
-        val taskType = _selectedTaskType.value ?: return@launch
+        val taskTypeId = _selectedTaskType.value?.id ?: return@launch
         if (result.isSuccess) {
             removeTaskFromList(id)
-            localRepository.deleteTask(id, accountName, taskType.name)
+            localRepository.deleteTask(id, accountName, taskTypeId)
         }
     }
     // endregion
