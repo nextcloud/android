@@ -7,7 +7,9 @@
 
 package com.nextcloud.utils.extensions
 
+import android.content.Context
 import android.graphics.Bitmap
+import android.os.storage.StorageManager
 import android.util.Log
 import androidx.exifinterface.media.ExifInterface
 import com.nextcloud.utils.HumanReadableFormatter
@@ -57,6 +59,16 @@ fun File?.logFileSize(tag: String) {
     val size = HumanReadableFormatter.formatBytes(this?.length() ?: -1)
     val rawByte = this?.length() ?: -1
     Log_OC.d(tag, "onSaveInstanceState: $size, raw byte $rawByte")
+}
+
+/**
+ * Returns a user-readable name for the storage containing this file
+ */
+fun File.getStorageMeaningfulName(context: Context): String? {
+    val storageManager = context.getSystemService(Context.STORAGE_SERVICE) as StorageManager
+    val cFile = canonicalFile // resolves symlinks, i.e. /sdcard is a symlink to /storage/emulated/0
+    val volume = storageManager.getStorageVolume(cFile)
+    return volume?.getDescription(context)
 }
 
 fun Path.toLocalPath(): String = toAbsolutePath().toString()

@@ -35,6 +35,7 @@ import com.nextcloud.client.core.Clock
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
+import com.nextcloud.utils.extensions.getStorageMeaningfulName
 import com.nextcloud.utils.extensions.hasEnabledParent
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UploadFilesLayoutBinding
@@ -485,10 +486,16 @@ class UploadFilesActivity :
     }
 
     private fun ArrayAdapter<String>.addDirectoryHierarchy(directory: File?) {
+        // Add subfolder
         generateSequence(directory) { it.parentFile }
-            .takeWhile { it.parentFile != null }
+            .takeWhile { it.parentFile?.canRead() == true }
             .forEach { add(it.name) }
-        add(File.separator)
+
+        // Add current storage root folder
+        directory ?: return
+        directory.getStorageMeaningfulName(this@UploadFilesActivity)?.apply {
+            add(this)
+        }
     }
 
     companion object {
