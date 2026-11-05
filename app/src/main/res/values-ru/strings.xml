@@ -351,7 +351,6 @@
     <string name="downloader_download_in_progress_ticker">Скачивается…</string>
     <string name="downloader_download_succeeded_content">%1$s скачано</string>
     <string name="downloader_download_succeeded_ticker">Скачивание завершено</string>
-    <string name="downloader_file_download_cancelled">Скачивание некоторых файлов было отменено пользователем</string>
     <string name="downloader_file_download_failed">Произошла ошибка во время скачивания файлов</string>
     <string name="downloader_not_downloaded_yet">Ещё не скачано</string>
     <string name="downloader_unexpected_error">Произошла непредвиденная ошибка во время скачивания файлов</string>

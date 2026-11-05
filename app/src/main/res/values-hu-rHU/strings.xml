@@ -314,7 +314,6 @@
     <string name="downloader_download_in_progress_ticker">Letöltés…</string>
     <string name="downloader_download_succeeded_content">%1$s letöltve</string>
     <string name="downloader_download_succeeded_ticker">Letöltve</string>
-    <string name="downloader_file_download_cancelled">Egyes fájlok letöltését megszakította a felhasználó</string>
     <string name="downloader_file_download_failed">Hiba történt a fájlok letöltése során</string>
     <string name="downloader_not_downloaded_yet">Még nincs letöltve</string>
     <string name="downloader_unexpected_error">Váratlan hiba történt a fájlok letöltése során</string>

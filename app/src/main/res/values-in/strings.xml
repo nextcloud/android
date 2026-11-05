@@ -289,7 +289,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="downloader_download_in_progress_ticker">Mengunduh…</string>
     <string name="downloader_download_succeeded_content">%1$s terunduh</string>
     <string name="downloader_download_succeeded_ticker">Unggahan</string>
-    <string name="downloader_file_download_cancelled">Berkas tertentu dibatalkan saat pengunduhan oleh pengguna</string>
     <string name="downloader_file_download_failed">Terjadi kesalahan saat mengunduh berkas</string>
     <string name="downloader_not_downloaded_yet">Belum diunduh</string>
     <string name="downloader_unexpected_error">Terjadi kesalahan tidak terduga saat mengunduh berkas</string>

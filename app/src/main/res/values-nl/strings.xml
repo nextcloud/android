@@ -351,7 +351,6 @@
     <string name="downloader_download_in_progress_ticker">Downloaden…</string>
     <string name="downloader_download_succeeded_content">%1$s gedownload.</string>
     <string name="downloader_download_succeeded_ticker">Gedownload</string>
-    <string name="downloader_file_download_cancelled">Bepaalde bestanden zijn door de gebruiker tijdens de download geannuleerd</string>
     <string name="downloader_file_download_failed">Fout opgetreden bij het downloaden van bestanden</string>
     <string name="downloader_not_downloaded_yet">Nog niet gedownload</string>
     <string name="downloader_unexpected_error">Onverwachte fout opgetreden bij het downloaden van bestanden</string>

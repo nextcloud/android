@@ -351,7 +351,6 @@
     <string name="downloader_download_in_progress_ticker">Allalaadimine…</string>
     <string name="downloader_download_succeeded_content">%1$s alla laaditud</string>
     <string name="downloader_download_succeeded_ticker">Alla laaditud</string>
-    <string name="downloader_file_download_cancelled">Kasutaja katkestas mõnede failide allalaadimise</string>
     <string name="downloader_file_download_failed">Failide allalaadimisel tekkis viga</string>
     <string name="downloader_not_downloaded_yet">Allalaadimata</string>
     <string name="downloader_unexpected_error">Failide allalaadimisel tekkis ootamatu viga</string>

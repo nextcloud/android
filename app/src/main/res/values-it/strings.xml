@@ -284,7 +284,6 @@
     <string name="downloader_download_in_progress_ticker">Scaricamento in corso…</string>
     <string name="downloader_download_succeeded_content">%1$s scaricato</string>
     <string name="downloader_download_succeeded_ticker">Scaricati</string>
-    <string name="downloader_file_download_cancelled">Lo scaricamento di alcuni file è stato annullato dall\'utente</string>
     <string name="downloader_file_download_failed">Errore durante lo scaricamento dei file</string>
     <string name="downloader_not_downloaded_yet">Non ancora scaricato</string>
     <string name="downloader_unexpected_error">Errore inaspettato durante il download dei file</string>

@@ -313,7 +313,6 @@
     <string name="downloader_download_in_progress_ticker">Pobieranie…</string>
     <string name="downloader_download_succeeded_content">%1$s pobrano</string>
     <string name="downloader_download_succeeded_ticker">Pobrano</string>
-    <string name="downloader_file_download_cancelled">Niektóre pliki zostały anulowane podczas pobierania przez użytkownika</string>
     <string name="downloader_file_download_failed">Wystąpił błąd podczas pobierania plików</string>
     <string name="downloader_not_downloaded_yet">Jeszcze nie pobrane</string>
     <string name="downloader_unexpected_error">Wystąpił nieoczekiwany błąd podczas pobierania plików</string>

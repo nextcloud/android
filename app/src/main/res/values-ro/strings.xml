@@ -351,7 +351,6 @@
     <string name="downloader_download_in_progress_ticker">Se descarcă…</string>
     <string name="downloader_download_succeeded_content">%1$s a fost descărcat</string>
     <string name="downloader_download_succeeded_ticker">Descărcat</string>
-    <string name="downloader_file_download_cancelled">Unele fișiere au fost anulate de utilizator în timpul descărcării</string>
     <string name="downloader_file_download_failed">A apărut o eroare la descărcarea fișierelor</string>
     <string name="downloader_not_downloaded_yet">Nu a fost descărcat încă</string>
     <string name="downloader_unexpected_error">A apărut o eroare neașteptată la descărcarea fișierelor</string>
