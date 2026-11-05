@@ -47,7 +47,6 @@ import com.owncloud.android.ui.events.SearchEvent
 import com.owncloud.android.ui.fragment.EmptyListState
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.fragment.OCFileListFragment
-import com.owncloud.android.ui.fragment.PickerFileListFragment
 import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import com.owncloud.android.utils.DataHolderUtil
 import com.owncloud.android.utils.ErrorMessageAdapter
@@ -199,7 +198,7 @@ open class FolderPickerActivity :
         get() = this
 
     protected open fun createFragments() {
-        val listOfFiles = PickerFileListFragment()
+        val listOfFiles = OCFileListFragment()
 
         val bundle = Bundle().apply {
             putBoolean(OCFileListFragment.ARG_ONLY_FOLDERS_CLICKABLE, true)

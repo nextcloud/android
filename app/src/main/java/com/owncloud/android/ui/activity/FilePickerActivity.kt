@@ -10,7 +10,6 @@ package com.owncloud.android.ui.activity
 import android.os.Bundle
 import com.owncloud.android.R
 import com.owncloud.android.ui.fragment.OCFileListFragment
-import com.owncloud.android.ui.fragment.PickerFileListFragment
 
 /**
  * File picker of remote files
@@ -18,7 +17,7 @@ import com.owncloud.android.ui.fragment.PickerFileListFragment
 class FilePickerActivity : FolderPickerActivity() {
 
     override fun createFragments() {
-        val listOfFiles = PickerFileListFragment()
+        val listOfFiles = OCFileListFragment()
         val args = Bundle()
         args.putBoolean(OCFileListFragment.ARG_ONLY_FOLDERS_CLICKABLE, true)
         args.putBoolean(OCFileListFragment.ARG_HIDE_FAB, true)
