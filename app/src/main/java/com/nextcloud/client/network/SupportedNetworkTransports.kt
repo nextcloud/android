@@ -27,7 +27,7 @@ object SupportedNetworkTransports {
             }
         }
 
-    fun getConstraints(requiresCharging: Boolean = false): Constraints {
+    fun getConstraints(): Constraints {
         val networkRequest = NetworkRequest.Builder()
             .removeCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
             .removeCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)
@@ -38,7 +38,6 @@ object SupportedNetworkTransports {
 
         return Constraints.Builder()
             .setRequiredNetworkRequest(networkRequest, NetworkType.CONNECTED)
-            .setRequiresCharging(requiresCharging)
             .build()
     }
 

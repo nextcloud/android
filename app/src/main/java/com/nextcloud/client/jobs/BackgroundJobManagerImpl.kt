@@ -537,7 +537,7 @@ internal class BackgroundJobManagerImpl(
             .putLong(AutoUploadWorker.SYNCED_FOLDER_ID, syncedFolderID)
             .build()
 
-        val constraints = SupportedNetworkTransports.getConstraints(requiresCharging = syncedFolder.isChargingOnly)
+        val constraints = SupportedNetworkTransports.getConstraints()
 
         val requestBuilder = oneTimeRequestBuilder(
             jobClass = AutoUploadWorker::class,

@@ -54,6 +54,7 @@ import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withContext
 import java.io.File
+import java.util.concurrent.ConcurrentHashMap
 import kotlin.coroutines.cancellation.CancellationException
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -77,6 +78,8 @@ class AutoUploadWorker(
         const val OVERRIDE_POWER_SAVING = "overridePowerSaving"
         const val SYNCED_FOLDER_ID = "syncedFolderId"
         const val NOTIFICATION_ID = 266
+        private const val MIN_EXECUTION_INTERVAL_MS = 10_000L
+        private val lastExecutionTimestampByFolder = ConcurrentHashMap<Long, Long>()
     }
 
     private val syncFolderHelper = SyncFolderHelper(context)
@@ -90,10 +93,21 @@ class AutoUploadWorker(
         get() = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
 
     override suspend fun doWork(): Result {
-        return try {
-            trySetForeground()
+        val syncFolderId = inputData.getLong(SYNCED_FOLDER_ID, -1)
+        val now = System.currentTimeMillis()
+        val lastExecution = lastExecutionTimestampByFolder[syncFolderId] ?: 0L
 
-            val syncFolderId = inputData.getLong(SYNCED_FOLDER_ID, -1)
+        if (now - lastExecution < MIN_EXECUTION_INTERVAL_MS && !overridePowerSaving) {
+            Log_OC.w(
+                TAG,
+                "Throttling: AutoUploadWorker executed ${now - lastExecution}ms ago for folder $syncFolderId. Postponing."
+            )
+            return Result.success()
+        }
+        lastExecutionTimestampByFolder[syncFolderId] = now
+
+        return try {
+
             syncedFolder = syncedFolderProvider.getSyncedFolderByID(syncFolderId)
                 ?.takeIf { it.isEnabled } ?: return Result.failure()
 
@@ -115,6 +129,7 @@ class AutoUploadWorker(
                 return Result.success()
             }
 
+            trySetForeground()
             uploadFiles(syncedFolder)
 
             // only update last scan time after uploading files
@@ -205,6 +220,11 @@ class AutoUploadWorker(
 
         if (syncedFolderID < 0) {
             Log_OC.e(TAG, "invalid sync folder id")
+            return true
+        }
+
+        if (syncedFolder.isChargingOnly && !overridePowerSaving && !powerManagementService.battery.isCharging) {
+            Log_OC.d(TAG, "⚠️ Skipping: charging required, but device is not connected to power")
             return true
         }
 
