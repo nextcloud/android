@@ -197,6 +197,17 @@ class UploadsStorageManager(
         }
     }
 
+    suspend fun markInProgressUploadsAsQuotaExceeded(accountName: String) {
+        val count = uploadDao.updateStatusAndResultByAccount(
+            accountName = accountName,
+            currentStatus = UploadStatus.UPLOAD_IN_PROGRESS.value,
+            newStatus = UploadStatus.UPLOAD_FAILED.value,
+            lastResult = UploadResult.QUOTA_EXCEEDED.value
+        )
+        Log_OC.d(TAG, "marked $count in progress uploads as quota exceeded")
+        notifyObserversNow()
+    }
+
     fun removeUpload(upload: OCUpload?): Int = if (upload == null) 0 else removeUpload(upload.uploadId)
 
     fun removeUpload(id: Long): Int {
