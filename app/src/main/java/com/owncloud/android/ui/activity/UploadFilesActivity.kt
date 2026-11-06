@@ -20,6 +20,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Environment
+import android.os.storage.StorageManager
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -35,7 +36,6 @@ import com.nextcloud.client.core.Clock
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
-import com.nextcloud.utils.extensions.getStorageMeaningfulName
 import com.nextcloud.utils.extensions.hasEnabledParent
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UploadFilesLayoutBinding
@@ -95,6 +95,7 @@ class UploadFilesActivity :
     private var optionsMenu: Menu? = null
     private var searchView: SearchView? = null
     private var chosenFilePaths: Array<String>? = null
+    private val androidStorageManager by lazy { getSystemService(StorageManager::class.java) }
 
     private val isRoot: Boolean
         get() = currentDir?.absolutePath == ROOT_DIR
@@ -486,16 +487,25 @@ class UploadFilesActivity :
     }
 
     private fun ArrayAdapter<String>.addDirectoryHierarchy(directory: File?) {
-        // Add subfolder
+        val volume = directory?.let { androidStorageManager.getStorageVolume(it) }
+
+        // Fallback to full path
+        if (volume == null) {
+            generateSequence(directory) { it.parentFile }
+                .takeWhile { it.parentFile != null }
+                .forEach { add(it.name) }
+            add(File.separator)
+            return
+        }
+
+        // Show user-readable path
         generateSequence(directory) { it.parentFile }
-            .takeWhile { it.parentFile?.canRead() == true }
+            .takeWhile { dir ->
+                dir.parentFile?.let { androidStorageManager.getStorageVolume(it) } == volume
+            }
             .forEach { add(it.name) }
 
-        // Add current storage root folder
-        directory ?: return
-        directory.getStorageMeaningfulName(this@UploadFilesActivity)?.apply {
-            add(this)
-        }
+        add(volume.getDescription(this@UploadFilesActivity))
     }
 
     companion object {
