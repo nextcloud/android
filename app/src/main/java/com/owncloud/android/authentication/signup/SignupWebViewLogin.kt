@@ -46,7 +46,7 @@ class SignupWebViewLogin(
             allowFileAccess = false
             javaScriptEnabled = true
             domStorageEnabled = true
-            userAgentString = MainApp.getUserAgent()
+            userAgentString = MainApp.userAgent
             saveFormData = false
             savePassword = false
         }

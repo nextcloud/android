@@ -64,7 +64,7 @@ class OCFileListAdapterHelper {
     ): Pair<List<OCFile>, FileSortOrder> {
         val showHiddenFiles = preferences.isShowHiddenFilesEnabled()
         val hasMimeTypeFilter = limitToMimeType.isNotEmpty()
-        val isRootAndPersonalOnly = (OCFile.ROOT_PATH == directory.remotePath && MainApp.isOnlyPersonFiles())
+        val isRootAndPersonalOnly = (OCFile.ROOT_PATH == directory.remotePath && MainApp.isOnlyPersonFiles)
 
         val rawResult = getFolderContent(directory, dataProvider, onlyOnDevice)
         val filtered = ArrayList<OCFile>(rawResult.size)
