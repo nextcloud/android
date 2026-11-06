@@ -126,7 +126,7 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
     }
 
     private fun getResolveConflictAction(file: OCFile, id: Int, path: String): NotificationCompat.Action {
-        val intent = ConflictsResolveActivity.createIntent(file, path, context)
+        val intent = ConflictsResolveActivity.createIntent(file, id, path, context)
         val pendingIntent = PendingIntent.getActivity(
             context,
             id,
