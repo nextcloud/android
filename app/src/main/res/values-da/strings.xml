@@ -343,6 +343,7 @@
     <string name="download_download_invalid_local_file_name">Ugyldigt filnavn på lokal fil</string>
     <string name="download_latest_dev_version">Hent seneste udviklingsversion</string>
     <string name="download_limit">Downloadgrænse</string>
+    <string name="downloader_download_canceled">Hentning annulleret</string>
     <string name="downloader_download_failed_content">Kunne ikke hente %1$s</string>
     <string name="downloader_download_failed_credentials_error">Download mislykkedes, log ind igen</string>
     <string name="downloader_download_failed_ticker">Download mislykkedes</string>

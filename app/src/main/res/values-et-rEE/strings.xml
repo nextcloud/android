@@ -343,6 +343,7 @@
     <string name="download_download_invalid_local_file_name">Vigane failinimi kohaliku faili jaoks</string>
     <string name="download_latest_dev_version">Laadi alla viimane arendusversioon</string>
     <string name="download_limit">Allalaadimiste piirang</string>
+    <string name="downloader_download_canceled">Allalaadimine on katkestatud</string>
     <string name="downloader_download_failed_content">Ei saanud alla laadida: %1$s</string>
     <string name="downloader_download_failed_credentials_error">Allalaadimine ei õnnestunud, palun logi uuesti sisse</string>
     <string name="downloader_download_failed_ticker">Allalaadimine ei õnnestunud</string>
