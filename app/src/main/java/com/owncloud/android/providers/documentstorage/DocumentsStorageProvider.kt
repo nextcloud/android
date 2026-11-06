@@ -37,6 +37,7 @@ import com.owncloud.android.providers.documentstorage.modify.DocumentCreator
 import com.owncloud.android.providers.documentstorage.modify.DocumentEditor
 import com.owncloud.android.providers.documentstorage.modify.DocumentNameValidator
 import com.owncloud.android.providers.documentstorage.open.DocumentOpener
+import com.owncloud.android.providers.documentstorage.open.PendingDocumentWrites
 import com.owncloud.android.providers.documentstorage.query.DocumentLister
 import com.owncloud.android.providers.documentstorage.sync.DocumentNotifier
 import com.owncloud.android.providers.documentstorage.sync.FolderRefresher
@@ -71,11 +72,14 @@ class DocumentsStorageProvider : DocumentsProvider() {
     private val folderRefresher by lazy { FolderRefresher(appContext) }
     private val nameValidator by lazy { DocumentNameValidator(appContext, accountManager) }
     private val lister by lazy { DocumentLister(appContext, scope, notifier, folderRefresher) }
-    private val opener by lazy { DocumentOpener(appContext, scope, fileUploadHelper) }
+    private val pendingWrites = PendingDocumentWrites()
+    private val opener by lazy { DocumentOpener(appContext, scope, fileUploadHelper, pendingWrites) }
     private val creator by lazy {
         DocumentCreator(appContext, accountManager, resolver, nameValidator, folderRefresher, notifier)
     }
-    private val editor by lazy { DocumentEditor(appContext, resolver, notifier, folderRefresher, nameValidator) }
+    private val editor by lazy {
+        DocumentEditor(appContext, resolver, notifier, folderRefresher, nameValidator, fileUploadHelper, pendingWrites)
+    }
 
     private val isAppLocked: Boolean
         get() = preferences.lockPreference in

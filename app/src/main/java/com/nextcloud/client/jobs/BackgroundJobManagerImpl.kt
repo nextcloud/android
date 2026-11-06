@@ -23,6 +23,7 @@ import androidx.work.OutOfQuotaPolicy
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
+import androidx.work.await
 import androidx.work.workDataOf
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
@@ -46,8 +47,10 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadType
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.time.Duration
 import java.util.Date
@@ -679,8 +682,8 @@ internal class BackgroundJobManagerImpl(
         uploadIds: LongArray,
         showSameFileAlreadyExistsNotification: Boolean,
         skipAutoUploadCheck: Boolean
-    ) {
-        defaultDispatcherScope.launch {
+    ): Job {
+        val enqueueJob = defaultDispatcherScope.launch {
             val batchSize = FileUploadHelper.MAX_FILE_COUNT
             val batches = uploadIds.toList().chunked(batchSize)
             val tag = startFileUploadJobTag(user.accountName)
@@ -721,9 +724,16 @@ internal class BackgroundJobManagerImpl(
                     workChain = workChain.then(request)
                 }
 
-                workChain.enqueue()
+                try {
+                    workChain.enqueue().await()
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (e: Exception) {
+                    Log_OC.e(TAG, "Failed to enqueue upload job", e)
+                }
             }
         }
+        return enqueueJob
     }
 
     private fun startAlbumsFileUploadJobTag(accountName: String): String = ALBUM_JOB_FILES_UPLOAD + accountName
