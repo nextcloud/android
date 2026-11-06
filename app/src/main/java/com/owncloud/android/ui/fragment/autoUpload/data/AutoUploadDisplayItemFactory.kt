@@ -122,7 +122,9 @@ class AutoUploadDisplayItemFactory(
             isSubfolderByDate = syncedFolder.isSubfolderByDate
             uploadAction = syncedFolder.uploadAction
             setNameCollisionPolicy(syncedFolder.nameCollisionPolicy.serialize())
-            setEnabled(syncedFolder.isEnabled, clock.currentTime)
+            if (syncedFolder.isEnabled != isEnabled) {
+                setEnabled(syncedFolder.isEnabled, clock.currentTime)
+            }
             setSubFolderRule(syncedFolder.subFolderRule)
             setExcludeHidden(syncedFolder.isExcludeHidden)
         }
@@ -146,7 +148,7 @@ class AutoUploadDisplayItemFactory(
         syncedFolder.uploadAction,
         syncedFolder.nameCollisionPolicyInt,
         syncedFolder.isEnabled,
-        clock.currentTime,
+        syncedFolder.enabledTimestampMs,
         filePaths,
         folderName,
         numberOfFiles,
