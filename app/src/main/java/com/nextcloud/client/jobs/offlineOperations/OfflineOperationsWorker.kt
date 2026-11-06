@@ -126,17 +126,34 @@ class OfflineOperationsWorker(
         totalOperations: Int,
         currentSuccessfulOperationIndex: Int
     ) {
-        if (operation.type is OfflineOperationType.RemoveFile) {
-            val operationType = operation.type as OfflineOperationType.RemoveFile
+        val operationType = operation.type
+        if (operationType is OfflineOperationType.RemoveFile) {
             fileDataStorageManager.getFileByDecryptedRemotePath(operationType.path)?.let { ocFile ->
                 repository.deleteOperation(ocFile)
             }
         } else {
+            if (operationType is OfflineOperationType.CreateFile) {
+                saveCreatedFile(operationType.remotePath)
+            }
             repository.updateNextOperations(operation)
         }
 
         fileDataStorageManager.offlineOperationDao.delete(operation)
         notificationManager.update(totalOperations, currentSuccessfulOperationIndex + 1, operation.filename ?: "")
+    }
+
+    private fun saveCreatedFile(remotePath: String) {
+        val remoteFile = getRemoteFile(remotePath) ?: return
+        val parentPath = FileStorageUtils.getParentPath(remotePath) ?: return
+        val parent = fileDataStorageManager.getFileByDecryptedRemotePath(parentPath) ?: return
+        val existingFile = fileDataStorageManager.getFileByDecryptedRemotePath(remotePath)
+
+        val createdFile = FileStorageUtils.fillOCFile(remoteFile).apply {
+            existingFile?.let { fileId = it.fileId }
+            parentId = parent.fileId
+        }
+
+        fileDataStorageManager.saveFile(createdFile)
     }
 
     private fun handleErrorResult(id: Int?, result: OfflineOperationResult) {
