@@ -29,6 +29,11 @@
             "groupName": "com.google.code.findbugs",
             "matchCurrentVersion": "= 3.0.1u2",
             "enabled": false
+        },
+        {
+            "matchDatasources": ["github-runners"],
+            "matchFileNames": [".github/workflows/garm.yml"],
+            "enabled": false
         }
     ]
 }
