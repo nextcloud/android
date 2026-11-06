@@ -8,6 +8,10 @@
 # export FASTLANE_NEXTCLOUD_UPLOAD_STORE_PASSWORD=""
 # export FASTLANE_NEXTCLOUD_UPLOAD_KEY_ALIAS=""
 # export FASTLANE_NEXTCLOUD_UPLOAD_KEY_PASSWORD=""
+# export FASTLANE_NEXTCLOUD_STORE_FILE=""
+# export FASTLANE_NEXTCLOUD_STORE_PASSWORD=""
+# export FASTLANE_NEXTCLOUD_KEY_ALIAS=""
+# export FASTLANE_NEXTCLOUD_KEY_PASSWORD=""
 # export FASTLANE_NEXTCLOUD_GITHUB_API_TOKEN=""
 # export FASTLANE_NEXTCLOUD_HUAWEI_CLIENT_ID=""
 # export FASTLANE_NEXTCLOUD_HUAWEI_CLIENT_SECRET=""
@@ -26,6 +30,13 @@ GRADLE_SIGNING_PROPERTIES = {
   "android.injected.signing.key.password" => ENV["FASTLANE_NEXTCLOUD_UPLOAD_KEY_PASSWORD"],
 }.freeze
 
+APK_SIGNING_PROPERTIES = {
+  "android.injected.signing.store.file" => ENV["FASTLANE_NEXTCLOUD_STORE_FILE"],
+  "android.injected.signing.store.password" => ENV["FASTLANE_NEXTCLOUD_STORE_PASSWORD"],
+  "android.injected.signing.key.alias" => ENV["FASTLANE_NEXTCLOUD_KEY_ALIAS"],
+  "android.injected.signing.key.password" => ENV["FASTLANE_NEXTCLOUD_KEY_PASSWORD"],
+}.freeze
+
 import("./common.Fastfile")
 
 platform :android do
@@ -40,9 +51,9 @@ platform :android do
     desc "check if library is set correctly"
     private_lane :checkLibrary do |options|
         if options[:isPrerelease]
-            sh(" if [ $(egrep 'androidLibraryVersion.*master.*' ../build.gradle.kts -c) -eq 1 ] ; then echo 'Library is set to master tag; aborting!' ; exit 1 ; fi")
+            sh(" if [ $(egrep '^androidLibraryVersion.*master.*' ../gradle/libs.versions.toml -c) -eq 1 ] ; then echo 'Library is set to master tag; aborting!' ; exit 1 ; fi")
         else
-            sh(" if [ $(grep 'androidLibraryVersion' ../build.gradle.kts | egrep 'master|rc' -c) -eq 1 ] ; then echo 'Library is still set to rc tag; aborting!' ; exit 1 ; fi")
+            sh(" if [ $(grep '^androidLibraryVersion' ../gradle/libs.versions.toml | egrep 'master|rc' -c) -eq 1 ] ; then echo 'Library is still set to rc tag; aborting!' ; exit 1 ; fi")
         end
     end
 
@@ -88,7 +99,7 @@ platform :android do
 
   desc "Run tests"
   private_lane :test do
-       gradle(task: "clean testGplayDebugUnitTest testFdroidDebugUnitTest testDevDebugUnitTest testQaDebugUnitTest")
+       gradle(task: "clean testGplayDebugUnitTest testGenericDebugUnitTest testVersionDevDebugUnitTest testQaDebugUnitTest")
   end
 
     ## to discuss if still needed
