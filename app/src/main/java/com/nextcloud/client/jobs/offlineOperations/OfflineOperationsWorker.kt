@@ -32,6 +32,7 @@ import com.owncloud.android.operations.CreateFolderOperation
 import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.RenameFileOperation
 import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.FileUtil
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
@@ -95,7 +96,13 @@ class OfflineOperationsWorker(
     // region Handle offline operations
     private suspend fun processOperations(operations: List<OfflineOperationEntity>, client: OwnCloudClient) {
         val totalOperationSize = operations.size
-        operations.forEachIndexed { index, operation ->
+        operations.forEachIndexed { index, snapshot ->
+            val operation = snapshot.id?.let { fileDataStorageManager.offlineOperationDao.getById(it) }
+            if (operation == null) {
+                Log_OC.d(TAG, "Skipping, operation was removed during this run, id=${snapshot.id}")
+                return@forEachIndexed
+            }
+
             try {
                 Log_OC.d(TAG, "Processing operation, path: ${operation.path}")
                 val result = executeOperation(operation, client)
@@ -130,12 +137,13 @@ class OfflineOperationsWorker(
     ) {
         val operationType = operation.type
         if (operationType is OfflineOperationType.RemoveFile) {
-            fileDataStorageManager.getFileByDecryptedRemotePath(operationType.path)?.let { ocFile ->
-                repository.deleteOperation(ocFile)
+            if (operationType.path.endsWith(OCFile.PATH_SEPARATOR)) {
+                repository.deleteOperationsInsideFolder(operationType.path)
+                    .forEach { notificationManager.dismissNotification(it) }
             }
         } else {
-            if (operationType is OfflineOperationType.CreateFile) {
-                getRemoteFile(operationType.remotePath)?.let { saveRemoteFile(it) }
+            if (operation.isCreate()) {
+                getExecutionPath(operation)?.let { getRemoteFile(it) }?.let { saveRemoteFile(it) }
             }
             repository.updateNextOperations(operation)
         }
@@ -164,7 +172,11 @@ class OfflineOperationsWorker(
         }
 
         Log_OC.w(TAG, "⚠️ Conflict detected: different file already exists on server, operation id=${operation.id}")
-        notificationManager.showConflictResolveNotification(ocFile ?: serverFile, operation)
+        ocFile?.let {
+            serverFile.fileId = it.fileId
+            serverFile.parentId = it.parentId
+        }
+        notificationManager.showConflictResolveNotification(serverFile, operation)
     }
 
     private fun saveRemoteFile(remoteFile: RemoteFile) {
@@ -307,14 +319,14 @@ class OfflineOperationsWorker(
     @Suppress("DEPRECATION")
     private fun createFile(operation: OfflineOperationEntity, client: OwnCloudClient): OfflineOperationResult {
         val operationType = (operation.type as OfflineOperationType.CreateFile)
-        val lastModificationDate = System.currentTimeMillis() / MILLIS_PER_SECOND
+        val localFile = File(operationType.localPath)
         val createFileOperation = UploadFileRemoteOperation(
             operationType.localPath,
             operationType.remotePath,
             operationType.mimeType,
             "",
-            operation.modifiedAt ?: lastModificationDate,
-            operation.createdAt ?: System.currentTimeMillis(),
+            localFile.lastModified() / MILLIS_PER_SECOND,
+            FileUtil.getCreationTimestamp(localFile),
             true
         )
         return createFileOperation.execute(client) to createFileOperation

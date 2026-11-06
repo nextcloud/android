@@ -63,7 +63,10 @@ object ConflictResolveDialogFactory {
                     ),
                 fileLength = (offlineCreatedLocalFile?.length() ?: 0L)
             ),
-            serverFile = context.conflictFileData(R.string.prefs_synced_folders_remote_path_title, rightFile)
+            serverFile = context.conflictFileData(
+                if (isFolderConflict) R.string.prefs_synced_folders_remote_path_title else R.string.conflict_server_file,
+                rightFile
+            )
         )
 
         return createDialog(ConflictDialogType.Offline(data)) {
