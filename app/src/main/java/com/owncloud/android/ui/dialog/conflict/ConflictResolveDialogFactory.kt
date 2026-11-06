@@ -39,6 +39,11 @@ object ConflictResolveDialogFactory {
             }
 
         val isFolderConflict = leftFile.type is OfflineOperationType.CreateFolder
+        val serverFileTitleId = if (isFolderConflict) {
+            R.string.prefs_synced_folders_remote_path_title
+        } else {
+            R.string.conflict_server_file
+        }
 
         val data = ConflictDialogData(
             headline = context.getString(
@@ -63,10 +68,7 @@ object ConflictResolveDialogFactory {
                     ),
                 fileLength = (offlineCreatedLocalFile?.length() ?: 0L)
             ),
-            serverFile = context.conflictFileData(
-                if (isFolderConflict) R.string.prefs_synced_folders_remote_path_title else R.string.conflict_server_file,
-                rightFile
-            )
+            serverFile = context.conflictFileData(serverFileTitleId, rightFile)
         )
 
         return createDialog(ConflictDialogType.Offline(data)) {
