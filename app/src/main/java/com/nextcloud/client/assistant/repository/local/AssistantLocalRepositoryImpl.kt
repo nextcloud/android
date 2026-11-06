@@ -9,9 +9,11 @@ package com.nextcloud.client.assistant.repository.local
 
 import com.nextcloud.client.database.dao.AssistantDao
 import com.nextcloud.client.database.entity.AssistantEntity
+import com.nextcloud.utils.AppConstants.PROGRESS_PERCENTAGE_MAX
 import com.owncloud.android.lib.resources.assistant.v2.model.Task
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskInput
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskOutput
+import kotlin.math.roundToInt
 
 class AssistantLocalRepositoryImpl(private val assistantDao: AssistantDao) : AssistantLocalRepository {
 
@@ -45,7 +47,7 @@ class AssistantLocalRepositoryImpl(private val assistantDao: AssistantDao) : Ass
         input = this.input?.input,
         output = this.output?.output,
         completionExpectedAt = this.completionExpectedAt,
-        progress = this.progress,
+        progress = this.progress?.times(PROGRESS_PERCENTAGE_MAX)?.roundToInt(),
         lastUpdated = this.lastUpdated,
         scheduledAt = this.scheduledAt,
         endedAt = this.endedAt
@@ -60,7 +62,7 @@ class AssistantLocalRepositoryImpl(private val assistantDao: AssistantDao) : Ass
         input = TaskInput(input = this.input),
         output = TaskOutput(output = this.output),
         completionExpectedAt = this.completionExpectedAt,
-        progress = this.progress,
+        progress = this.progress?.div(PROGRESS_PERCENTAGE_MAX.toDouble()),
         lastUpdated = this.lastUpdated,
         scheduledAt = this.scheduledAt,
         endedAt = this.endedAt
