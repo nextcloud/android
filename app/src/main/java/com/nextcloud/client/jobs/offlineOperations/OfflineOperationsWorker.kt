@@ -17,6 +17,7 @@ import com.nextcloud.client.network.ClientFactoryImpl
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.model.OfflineOperationType
 import com.nextcloud.utils.extensions.isNetworkAndServerAvailableSuspended
+import com.nextcloud.utils.extensions.isTheSameAs
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClient
@@ -36,6 +37,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import com.nextcloud.utils.AppConstants.MILLIS_PER_SECOND
+import java.io.File
 
 private typealias OfflineOperationResult = Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>?
 
@@ -133,17 +135,40 @@ class OfflineOperationsWorker(
             }
         } else {
             if (operationType is OfflineOperationType.CreateFile) {
-                saveCreatedFile(operationType.remotePath)
+                getRemoteFile(operationType.remotePath)?.let { saveRemoteFile(it) }
             }
             repository.updateNextOperations(operation)
         }
 
-        fileDataStorageManager.offlineOperationDao.delete(operation)
+        deleteOperation(operation)
         notificationManager.update(totalOperations, currentSuccessfulOperationIndex + 1, operation.filename ?: "")
     }
 
-    private fun saveCreatedFile(remotePath: String) {
-        val remoteFile = getRemoteFile(remotePath) ?: return
+    private fun deleteOperation(operation: OfflineOperationEntity) {
+        fileDataStorageManager.offlineOperationDao.delete(operation)
+        notificationManager.dismissNotification(operation.id)
+    }
+
+    private fun handleExistingRemoteFile(
+        operation: OfflineOperationEntity,
+        localPath: String,
+        remoteFile: RemoteFile,
+        ocFile: OCFile?
+    ) {
+        val serverFile = FileStorageUtils.fillOCFile(remoteFile)
+        if (serverFile.isTheSameAs(File(localPath))) {
+            Log_OC.d(TAG, "Skipping, same file already exists on server: ${operation.path}")
+            saveRemoteFile(remoteFile)
+            deleteOperation(operation)
+            return
+        }
+
+        Log_OC.w(TAG, "⚠️ Conflict detected: different file already exists on server, operation id=${operation.id}")
+        notificationManager.showConflictResolveNotification(ocFile ?: serverFile, operation)
+    }
+
+    private fun saveRemoteFile(remoteFile: RemoteFile) {
+        val remotePath = remoteFile.remotePath ?: return
         val parentPath = FileStorageUtils.getParentPath(remotePath) ?: return
         val parent = fileDataStorageManager.getFileByDecryptedRemotePath(parentPath) ?: return
         val existingFile = fileDataStorageManager.getFileByDecryptedRemotePath(remotePath)
@@ -193,8 +218,7 @@ class OfflineOperationsWorker(
         }
 
         repository.updateNextOperations(operation)
-        fileDataStorageManager.offlineOperationDao.delete(operation)
-        notificationManager.dismissNotification(operation.id)
+        deleteOperation(operation)
     }
 
     // region Operation Execution
@@ -218,6 +242,12 @@ class OfflineOperationsWorker(
             return@withContext null
         }
 
+        val operationType = operation.type
+        if (operationType is OfflineOperationType.CreateFile && remoteFile != null) {
+            handleExistingRemoteFile(operation, operationType.localPath, remoteFile, ocFile)
+            return@withContext null
+        }
+
         if (remoteFile != null && ocFile != null && isFileChanged(remoteFile, ocFile)) {
             Log_OC.w(TAG, "⚠️ Conflict detected: File already exists on server. Skipping operation id=${operation.id}")
 
@@ -235,13 +265,7 @@ class OfflineOperationsWorker(
 
         if (operation.isRenameOrRemove() && ocFile == null) {
             Log_OC.d(TAG, "Skipping, attempting to delete or rename non-existing file")
-            fileDataStorageManager.offlineOperationDao.delete(operation)
-            return@withContext null
-        }
-
-        if (operation.isCreate() && remoteFile != null && ocFile != null && !isFileChanged(remoteFile, ocFile)) {
-            Log_OC.d(TAG, "Skipping, attempting to create same file creation")
-            fileDataStorageManager.offlineOperationDao.delete(operation)
+            deleteOperation(operation)
             return@withContext null
         }
 
