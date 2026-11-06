@@ -19,7 +19,6 @@ val ciBuild = System.getenv("CI") == "true"
 val perfAnalysis = project.hasProperty("perfAnalysis")
 
 val allAbis = listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
-var enableR8 = false
 val localDebugAbis = when (System.getProperty("os.arch")) {
     "aarch64", "arm64" -> listOf("arm64-v8a")
     else -> listOf("arm64-v8a", "x86_64")
@@ -130,9 +129,6 @@ android {
         buildTypes {
             release {
                 buildConfigField("String", "NC_TEST_SERVER_DATA_STRING", "\"\"")
-                optimization {
-                    enable = enableR8
-                }
                 ndk {
                     abiFilters += allAbis
                 }
@@ -142,7 +138,7 @@ android {
                 enableAndroidTestCoverage = project.hasProperty("coverage")
                 resConfigs("xxxhdpi")
                 optimization {
-                    enable = enableR8
+                    enable = true
                 }
                 ndk {
                     abiFilters += if (ciBuild) allAbis else localDebugAbis
@@ -172,7 +168,9 @@ android {
                 dimension = "default"
                 versionCode = 20220322
                 versionName = "20220322"
-                enableR8 = true
+                optimization {
+                    enable = true
+                }
             }
 
             register("qa") {
