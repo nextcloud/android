@@ -649,7 +649,7 @@ class FileDisplayActivity :
 
             else -> {
                 fragment.listDirectory(startFile, false)
-                updateActionBarTitleAndHomeButton(fragment.currentFile)
+                updateActionBarTitleAndHomeButton(currentDir ?: startFile)
             }
         }
     }
