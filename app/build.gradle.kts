@@ -128,9 +128,6 @@ android {
 
         buildTypes {
             release {
-                optimization {
-                    enable = true
-                }
                 buildConfigField("String", "NC_TEST_SERVER_DATA_STRING", "\"\"")
                 ndk {
                     abiFilters += allAbis
@@ -140,6 +137,9 @@ android {
                 enableUnitTestCoverage = project.hasProperty("coverage")
                 enableAndroidTestCoverage = project.hasProperty("coverage")
                 resConfigs("xxxhdpi")
+                optimization {
+                    enable = true
+                }
                 ndk {
                     abiFilters += if (ciBuild) allAbis else localDebugAbis
                 }
