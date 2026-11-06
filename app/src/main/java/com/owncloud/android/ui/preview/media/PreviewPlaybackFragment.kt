@@ -16,6 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
+import androidx.activity.trackPipAnimationHintView
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.MenuProvider
@@ -23,6 +24,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.player.media3.PlaybackModel
 import com.nextcloud.client.player.media3.PlaybackQueueLoader
@@ -127,6 +129,7 @@ class PreviewPlaybackFragment :
         binding = PreviewPlaybackFragmentBinding.inflate(inflater, container, false)
         loadThumbnail()
         registerPictureInPictureOnBack()
+        trackPictureInPictureSourceRect()
         binding.playerControlView.navigator = activity as? MediaNavigator
         binding.playerControlView.addPaddingForNavBar()
         binding.playerControlView.isVisible = previewActivity?.isActionBarVisible != false
@@ -257,6 +260,16 @@ class PreviewPlaybackFragment :
         }
     }
 
+    private fun trackPictureInPictureSourceRect() {
+        if (!MimeTypeUtil.isVideo(file)) return
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                requireActivity().trackPipAnimationHintView(binding.surfaceView)
+            }
+        }
+    }
+
     override fun onStart() {
         super.onStart()
         playbackModel.addListener(this)
@@ -274,6 +287,9 @@ class PreviewPlaybackFragment :
     override fun onPause() {
         pictureInPictureCallback?.isEnabled = false
         binding.playerControlView.onStop()
+        if (!isInPictureInPictureMode()) {
+            previewActivity?.pictureInPicture?.disableAutoEnter()
+        }
         if (!isInPictureInPictureMode() && isCurrentItem(playbackModel.state)) {
             playbackModel.pause()
             playbackModel.setVideoSurfaceView(null)
@@ -339,6 +355,7 @@ class PreviewPlaybackFragment :
         if (isCurrentItem(state)) {
             wasCurrentItem = true
             showVideo(state?.currentItemState?.videoSize)
+            updatePictureInPicture(state)
 
             // Keep the screen on while playing. This works because it's called at every playback update and when
             // the surfaceview is not visible (scrolled away, app in background...)
@@ -367,6 +384,14 @@ class PreviewPlaybackFragment :
     }
 
     private fun isInPictureInPictureMode(): Boolean = activity?.isInPictureInPictureMode == true
+
+    private fun updatePictureInPicture(state: PlaybackState?) {
+        if (!MimeTypeUtil.isVideo(file)) return
+        if (!isResumed && !isInPictureInPictureMode()) return
+
+        val itemState = state?.currentItemState
+        previewActivity?.pictureInPicture?.update(itemState?.videoSize, itemState?.playerState == PlayerState.PLAYING)
+    }
 
     private fun toggleFullScreen() {
         val previewActivity = previewActivity ?: return
