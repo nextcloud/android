@@ -7,6 +7,7 @@
 package com.nextcloud.client.network
 
 import android.content.Context
+import com.nextcloud.android.common.core.network.LocalNetworkRoutes
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.operations.GetMethod
 import dagger.Module
@@ -34,4 +35,8 @@ class NetworkModule {
     @Provides
     @Singleton
     fun clientFactory(context: Context): ClientFactory = ClientFactoryImpl(context)
+
+    @Provides
+    @Singleton
+    fun localNetworkRoutes(context: Context): LocalNetworkRoutes = LocalNetworkRoutes(context)
 }

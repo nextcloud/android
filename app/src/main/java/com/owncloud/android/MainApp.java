@@ -52,6 +52,7 @@ import com.nextcloud.client.logger.LegacyLoggerAdapter;
 import com.nextcloud.client.logger.Logger;
 import com.nextcloud.client.migrations.MigrationsManager;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.client.network.local.LocalNetworkPermissionHandler;
 import com.nextcloud.client.network.NetworkChangeListener;
 import com.nextcloud.client.network.WalledCheckCache;
 import com.nextcloud.client.onboarding.OnboardingService;
@@ -193,6 +194,8 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
     PassCodeManager passCodeManager;
 
     @Inject WalledCheckCache walledCheckCache;
+
+    @Inject LocalNetworkPermissionHandler localNetworkPermissionHandler;
 
     @Inject ComposeProcessTextAlias composeProcessTextAlias;
 
@@ -351,6 +354,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
                            walledCheckCache);
         initContactsBackup(accountManager, backgroundJobManager);
         notificationChannels();
+        localNetworkPermissionHandler.notifyIfPermissionMissing();
 
         if (backgroundJobManager != null) {
             backgroundJobManager.scheduleMediaFoldersDetectionJob();
