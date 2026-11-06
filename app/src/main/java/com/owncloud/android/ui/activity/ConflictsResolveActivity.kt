@@ -59,6 +59,7 @@ class ConflictsResolveActivity :
 
     private var conflictUploadId: Long = 0
     private var offlineOperationPath: String? = null
+    private var offlineOperationId: Int? = null
     private var existingFile: OCFile? = null
     private var newFile: OCFile? = null
     private var localBehaviour = FileUploadWorker.LOCAL_BEHAVIOUR_FORGET
@@ -105,11 +106,13 @@ class ConflictsResolveActivity :
             existingFile = savedInstanceState.getParcelableArgument(EXTRA_EXISTING_FILE, OCFile::class.java)
             localBehaviour = savedInstanceState.getInt(EXTRA_LOCAL_BEHAVIOUR)
             offlineOperationPath = savedInstanceState.getString(EXTRA_OFFLINE_OPERATION_PATH)
+            offlineOperationId = savedInstanceState.getOfflineOperationId()
         } else {
             conflictUploadId = intent.getLongExtra(EXTRA_CONFLICT_UPLOAD_ID, -1)
             existingFile = intent.getParcelableArgument(EXTRA_EXISTING_FILE, OCFile::class.java)
             localBehaviour = intent.getIntExtra(EXTRA_LOCAL_BEHAVIOUR, localBehaviour)
             offlineOperationPath = intent.getStringExtra(EXTRA_OFFLINE_OPERATION_PATH)
+            offlineOperationId = intent.extras?.getOfflineOperationId()
         }
     }
 
@@ -123,7 +126,11 @@ class ConflictsResolveActivity :
             EXTRA_OFFLINE_OPERATION_PATH,
             offlineOperationPath
         )
+        offlineOperationId?.let { outState.putInt(EXTRA_OFFLINE_OPERATION_ID, it) }
     }
+
+    private fun Bundle.getOfflineOperationId(): Int? =
+        if (containsKey(EXTRA_OFFLINE_OPERATION_ID)) getInt(EXTRA_OFFLINE_OPERATION_ID) else null
 
     private fun setupDecisionListener(upload: OCUpload?) {
         listener = OnConflictDecisionMadeListener { decision ->
@@ -271,6 +278,7 @@ class ConflictsResolveActivity :
     private fun showOfflineOperationConflictDialog(path: String) {
         val offlineOperation = fileDataStorageManager.offlineOperationDao.getByPath(path)
         if (offlineOperation == null) {
+            offlineOperationNotificationManager.dismissNotification(offlineOperationId)
             showErrorAndFinish()
             return
         }
@@ -375,6 +383,7 @@ class ConflictsResolveActivity :
         const val EXTRA_LOCAL_BEHAVIOUR = "LOCAL_BEHAVIOUR"
         const val EXTRA_EXISTING_FILE = "EXISTING_FILE"
         private const val EXTRA_OFFLINE_OPERATION_PATH = "EXTRA_OFFLINE_OPERATION_PATH"
+        private const val EXTRA_OFFLINE_OPERATION_ID = "EXTRA_OFFLINE_OPERATION_ID"
         private val TAG = ConflictsResolveActivity::class.java.simpleName
 
         @JvmStatic
@@ -387,10 +396,15 @@ class ConflictsResolveActivity :
             }
 
         @JvmStatic
-        fun createIntent(file: OCFile, offlineOperationPath: String, context: Context): Intent =
-            Intent(context, ConflictsResolveActivity::class.java).apply {
-                putExtra(EXTRA_FILE, file)
-                putExtra(EXTRA_OFFLINE_OPERATION_PATH, offlineOperationPath)
-            }
+        fun createIntent(
+            file: OCFile,
+            offlineOperationId: Int,
+            offlineOperationPath: String,
+            context: Context
+        ): Intent = Intent(context, ConflictsResolveActivity::class.java).apply {
+            putExtra(EXTRA_FILE, file)
+            putExtra(EXTRA_OFFLINE_OPERATION_ID, offlineOperationId)
+            putExtra(EXTRA_OFFLINE_OPERATION_PATH, offlineOperationPath)
+        }
     }
 }
