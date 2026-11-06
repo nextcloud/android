@@ -40,6 +40,13 @@ class AutoUploadRescanWorker(
 
         Log_OC.d(TAG, "requested auto upload for $requestedFolders folder(s)")
 
+        syncedFolderProvider.syncedFolders
+            .filter { it.isAutoDeleteLocal }
+            .groupBy { it.autoDeleteLocalAfterMs }
+            .forEach { (retentionMs, folders) ->
+                backgroundJobManager.locallyDeleteAutoUploadedFiles(folders, retentionMs)
+            }
+
         Result.success()
     }
 }

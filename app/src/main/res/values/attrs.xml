@@ -17,6 +17,7 @@
         <item>LOCAL_BEHAVIOUR_FORGET</item>
         <item>LOCAL_BEHAVIOUR_MOVE</item>
         <item>LOCAL_BEHAVIOUR_DELETE</item>
+        <item>LOCAL_BEHAVIOUR_DELETE_AFTER_DELAY</item>
     </string-array>
 
     <string-array name="pref_name_collision_policy_entries" translatable="false">
