@@ -16,6 +16,7 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import androidx.fragment.app.FragmentManager
+import com.nextcloud.utils.headers.WebViewCustomHeaders
 import com.owncloud.android.authentication.AuthenticatorActivity
 import com.owncloud.android.lib.common.network.AdvancedX509KeyManager
 import com.owncloud.android.lib.common.network.NetworkUtils
@@ -30,6 +31,11 @@ import java.security.cert.X509Certificate
 open class NextcloudWebViewClient(val supportFragmentManager: FragmentManager) : SafeWebViewClient() {
 
     private val tag: String? = NextcloudWebViewClient::class.simpleName
+
+    override fun shouldInterceptRequest(view: WebView?, request: WebResourceRequest): WebResourceResponse? {
+        val intercepted = view?.context?.let { WebViewCustomHeaders.intercept(it, request) }
+        return intercepted ?: super.shouldInterceptRequest(view, request)
+    }
 
     @SuppressLint("WebViewClientOnReceivedSslError")
     override fun onReceivedSslError(view: WebView?, handler: SslErrorHandler, error: SslError?) {

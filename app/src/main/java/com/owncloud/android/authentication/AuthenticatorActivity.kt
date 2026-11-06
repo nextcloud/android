@@ -42,6 +42,7 @@ import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -59,6 +60,9 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.repository.ClientRepository
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.headers.AccountCustomHeaders
+import com.nextcloud.utils.headers.CustomHeadersParseResult
+import com.nextcloud.utils.headers.CustomHeadersParser
 import com.nextcloud.utils.mdm.MDMConfig
 import com.nextcloud.utils.text.LinkFormatter
 import com.owncloud.android.MainApp
@@ -71,6 +75,7 @@ import com.owncloud.android.authentication.server.EnforcedServerPolicy
 import com.owncloud.android.authentication.status.AuthenticatorStatus
 import com.owncloud.android.authentication.status.AuthenticatorStatusMapper
 import com.owncloud.android.authentication.account.AuthenticatorAccountStore
+import com.owncloud.android.authentication.loginflow.LoginCustomHeaders
 import com.owncloud.android.authentication.account.CredentialsVerifier
 import com.owncloud.android.authentication.dialog.LoginDialog
 import com.owncloud.android.authentication.loginflow.LoginBrowserLauncher
@@ -157,6 +162,7 @@ open class AuthenticatorActivity :
     private val statusMapper by lazy { AuthenticatorStatusMapper(resources) }
     private val accountStore by lazy { AuthenticatorAccountStore(this, AccountManager.get(this), accountManager) }
     private val loginFlow by lazy { LoginFlowV2(clientRepository, lifecycleScope, ::completeLoginFlow) }
+    private val loginHeaders = LoginCustomHeaders { AccountCustomHeaders.registerAll(this) }
 
     private var authenticatorAction = ACTION_CREATE
     private var account: Account? = null
@@ -207,6 +213,7 @@ open class AuthenticatorActivity :
         savedInstanceState?.let {
             waitingForOpId = it.getLong(KEY_WAITING_FOR_OP_ID)
             isFirstAuthAttempt = it.getBoolean(KEY_AUTH_IS_FIRST_ATTEMPT_TAG)
+            loginHeaders.restore(it)
         }
 
         val webLoginUrl = mdmWebLoginUrl() ?: providerWebLoginUrl() ?: brandedWebLoginUrl()
@@ -234,6 +241,7 @@ open class AuthenticatorActivity :
         serverInfo.mVersion?.let { outState.putString(KEY_OC_VERSION, it.version) }
         outState.putString(KEY_SERVER_AUTH_METHOD, serverInfo.mAuthMethod.name)
         outState.putBoolean(KEY_AUTH_IS_FIRST_ATTEMPT_TAG, isFirstAuthAttempt)
+        loginHeaders.save(outState)
         loginFlow.pendingAuthObjectJson?.let { outState.putString(KEY_LOGIN_FLOW_AUTH_OBJECT, it) }
 
         credentialsCheckJob?.cancel()
@@ -313,6 +321,9 @@ open class AuthenticatorActivity :
             operationsServiceBinder = null
         }
         ProcessLifecycleOwner.get().lifecycle.removeObserver(lifecycleEventObserver)
+        if (isFinishing) {
+            loginHeaders.discard()
+        }
         super.onDestroy()
     }
 
@@ -385,7 +396,7 @@ open class AuthenticatorActivity :
     }
 
     private fun initOverallUi(binding: AccountSetupBinding) {
-        binding.hostUrlContainer.setEndIconOnClickListener { checkOcServer() }
+        binding.hostUrlContainer.setEndIconOnClickListener { checkOcServer(captureHeaders = true) }
         binding.hostUrlInputHelperText.text =
             getString(R.string.login_url_helper_text, getString(R.string.app_name))
 
@@ -394,6 +405,13 @@ open class AuthenticatorActivity :
         viewThemeUtils.platform.colorTextView(binding.authStatusText, ColorRole.ON_PRIMARY)
         viewThemeUtils.material.colorTextInputLayout(binding.hostUrlContainer, ColorRole.ON_PRIMARY)
         viewThemeUtils.platform.colorEditTextOnPrimary(binding.hostUrlInput)
+        viewThemeUtils.material.colorTextInputLayout(binding.customHeadersContainer, ColorRole.ON_PRIMARY)
+        viewThemeUtils.platform.colorEditTextOnPrimary(binding.customHeadersInput)
+        viewThemeUtils.platform.colorTextView(binding.customHeadersToggle, ColorRole.ON_PRIMARY)
+        binding.customHeadersToggle.setOnClickListener {
+            setCustomHeadersVisible(binding, binding.customHeadersContainer.visibility != View.VISIBLE)
+        }
+        binding.customHeadersInput.doAfterTextChanged { setCustomHeadersVisible(binding, true) }
 
         if (!deviceInfo.hasCamera(this)) {
             binding.scanQr.visibility = View.GONE
@@ -437,7 +455,7 @@ open class AuthenticatorActivity :
                     return
                 }
                 accountSetupBinding?.hostUrlInput?.setText(url)
-                checkOcServer()
+                checkOcServer(captureHeaders = true)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
@@ -640,8 +658,12 @@ open class AuthenticatorActivity :
     // endregion
 
     // region Server check
+    /**
+     * @param captureHeaders only for checks the user started: other checks may run with a URL returned by a server,
+     * which must never receive the entered headers
+     */
     @SuppressFBWarnings("NP")
-    private fun checkOcServer() {
+    private fun checkOcServer(captureHeaders: Boolean = false) {
         val binding = accountSetupBinding
         val hostUrl = binding?.hostUrlInput?.text?.toString()
         var uri: String = if (hostUrl.isNullOrEmpty()) serverInfo.mBaseUrl else hostUrl.trim { it <= ' ' }
@@ -659,12 +681,37 @@ open class AuthenticatorActivity :
 
         uri = toAsciiDomainOrKeep(normalizeSchemeOrKeep(uri))
 
+        if (captureHeaders && !hostUrl.isNullOrEmpty() && !captureCustomHeaders(binding, uri)) {
+            return
+        }
+
         if (binding != null) {
             serverStatus = AuthenticatorStatus(R.drawable.progress_small, getString(R.string.auth_testing_connection))
             showServerStatus()
         }
 
         queueServerInfoCheck(uri)
+    }
+
+    private fun setCustomHeadersVisible(binding: AccountSetupBinding, visible: Boolean) {
+        binding.customHeadersContainer.visibility = if (visible) View.VISIBLE else View.GONE
+        binding.customHeadersToggle.setText(
+            if (visible) R.string.custom_headers_hide_advanced_options else R.string.custom_headers_advanced_options
+        )
+    }
+
+    private fun captureCustomHeaders(binding: AccountSetupBinding?, typedUrl: String): Boolean {
+        val input = binding?.customHeadersInput?.text?.toString().orEmpty()
+        val error = when (val parsed = CustomHeadersParser.parse(input)) {
+            is CustomHeadersParseResult.Invalid -> getString(R.string.custom_headers_invalid, parsed.lineNumber)
+            is CustomHeadersParseResult.Valid -> getString(R.string.custom_headers_https_only)
+                .takeUnless { loginHeaders.capture(typedUrl, parsed.headers) }
+        }
+        binding?.customHeadersContainer?.error = error
+        if (error != null) {
+            binding?.let { setCustomHeadersVisible(it, true) }
+        }
+        return error == null
     }
 
     private fun normalizeSchemeOrKeep(uri: String): String = try {
@@ -994,6 +1041,7 @@ open class AuthenticatorActivity :
     @Throws(AccountUtils.AccountNotFoundException::class)
     private fun updateAccountAuthentication() {
         val account = checkNotNull(account)
+        loginHeaders.jsonFor(accountStore.baseUrl(account))?.let { AccountCustomHeaders.store(this, account, it) }
         val response = accountStore.updateCredentials(account, webViewPassword)
 
         setAccountAuthenticatorResult(response)
@@ -1026,6 +1074,7 @@ open class AuthenticatorActivity :
 
         account = newAccount
         val authenticatorResult = accountStore.addAccount(newAccount, webViewPassword, loginName, serverInfo, userInfo)
+        loginHeaders.jsonFor(serverInfo.mBaseUrl)?.let { AccountCustomHeaders.store(this, newAccount, it) }
 
         setAccountAuthenticatorResult(authenticatorResult.extras)
         setResult(RESULT_OK, authenticatorResult)
@@ -1112,7 +1161,7 @@ open class AuthenticatorActivity :
     override fun onEditorAction(inputField: TextView?, actionId: Int, event: KeyEvent?): Boolean {
         val isConfirmAction = actionId == EditorInfo.IME_ACTION_NEXT || actionId == EditorInfo.IME_NULL
         if (isConfirmAction && inputField != null && inputField == accountSetupBinding?.hostUrlInput) {
-            checkOcServer()
+            checkOcServer(captureHeaders = true)
         }
         return false // always return false to grant that the software keyboard is hidden anyway
     }

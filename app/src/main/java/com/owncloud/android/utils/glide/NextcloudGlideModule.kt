@@ -14,6 +14,7 @@ import android.net.Uri
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Registry
 import com.bumptech.glide.annotation.GlideModule
+import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.module.AppGlideModule
 import com.caverock.androidsvg.SVG
 import com.owncloud.android.utils.svg.SVGorImage
@@ -27,6 +28,7 @@ import java.io.InputStream
 class NextcloudGlideModule : AppGlideModule() {
     override fun registerComponents(context: Context, glide: Glide, registry: Registry) {
         registry
+            .prepend(GlideUrl::class.java, InputStream::class.java, CustomHeadersGlideUrlLoaderFactory(context))
             .prepend(Uri::class.java, InputStream::class.java, UriModelLoaderFactory())
             .prepend(String::class.java, InputStream::class.java, StringModelLoaderFactory())
             .register(SVGorImage::class.java, Bitmap::class.java, SvgOrImageBitmapTranscoder(SVG_SIZE, SVG_SIZE))
