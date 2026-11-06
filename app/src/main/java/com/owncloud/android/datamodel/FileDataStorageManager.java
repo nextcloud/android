@@ -275,6 +275,8 @@ public class FileDataStorageManager {
     }
 
     public void addRenameFileOfflineOperation(OCFile file, String newName) {
+        deletePendingRenameOperations(file.getDecryptedRemotePath());
+
         OfflineOperationEntity entity = new OfflineOperationEntity();
 
         entity.setFilename(newName);
@@ -316,10 +318,18 @@ public class FileDataStorageManager {
         return filename;
     }
 
+    private void deletePendingRenameOperations(String path) {
+        offlineOperationDao.getAllByPath(path)
+            .stream()
+            .filter(operation -> operation.getType() instanceof OfflineOperationType.RenameFile)
+            .forEach(offlineOperationDao::delete);
+    }
+
     public void addRemoveFileOfflineOperation(@NonNull OCFile file) {
         OfflineOperationEntity entity = new OfflineOperationEntity();
 
         String path = file.getDecryptedRemotePath();
+        deletePendingRenameOperations(path);
         entity.setFilename(file.getFileName());
         entity.setParentOCFileId(file.getParentId());
 
@@ -347,7 +357,10 @@ public class FileDataStorageManager {
             return;
         }
 
-        String newPath = parentFolder.getDecryptedRemotePath() + newFolderName + OCFile.PATH_SEPARATOR;
+        String newPath = parentFolder.getDecryptedRemotePath() + newFolderName;
+        if (file.isFolder()) {
+            newPath += OCFile.PATH_SEPARATOR;
+        }
 
         if (entity.getType() instanceof OfflineOperationType.CreateFolder createFolderType) {
             createFolderType.setPath(newPath);
@@ -362,6 +375,7 @@ public class FileDataStorageManager {
         offlineOperationDao.update(entity);
 
         moveLocalFile(file, newPath, parentFolder.getDecryptedRemotePath());
+        offlineOperationsRepository.updateNextOperations(entity);
     }
 
     public void keepOfflineOperationAndServerFile(OfflineOperationEntity entity, OCFile file, OwnCloudClient client) {
