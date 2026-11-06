@@ -283,7 +283,6 @@ class OCFileListAdapter(
         onSwapped: () -> Unit
     ) {
         this.onlyOnDevice = onlyOnDevice
-        searchType = null
 
         if (storageManager != this.storageManager) {
             this.storageManager = storageManager
