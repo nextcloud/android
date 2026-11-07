@@ -1173,6 +1173,7 @@
     <string name="upload_cannot_create_file">Datei kann lokal nicht erstellt werden</string>
     <string name="upload_chooser_title">Dateien hochladen von …</string>
     <string name="upload_content_from_other_apps">Inhalt anderer Apps hochladen</string>
+    <string name="upload_direct_camera_not_found">Keine Kamera gefunden</string>
     <string name="upload_direct_camera_photo">Foto</string>
     <string name="upload_direct_camera_promt">Möchten Sie ein Foto oder ein Video aufnehmen?</string>
     <string name="upload_direct_camera_upload">Von Kamera hochladen</string>
@@ -1206,6 +1207,7 @@
     <string name="upload_old_android">Verschlüsselung ist nur möglich mit &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Es steht nicht genügend Speicherplatz zur Verfügung, um die ausgewählten Dateien in das Verzeichnis %1$s zu kopieren. Sollen diese stattdessen verschoben werden?</string>
     <string name="upload_quota_exceeded">Speicherkontingent überschritten</string>
+    <string name="upload_quota_exceeded_notification_description">Ihr Speicherplatz ist voll, daher wurden die Uploads gestoppt. Speicherplatz freischaffen oder die Administration um mehr Speicherplatz fragen. Anschließend versuchen, die fehlgeschlagenen Uploads über „Uploads“ erneut durchzuführen.</string>
     <string name="upload_scan_doc_upload">Dokument von der Kamera scannen</string>
     <string name="upload_sync_conflict_check">Möglicherweise liegt ein Konflikt bezüglich des letzten Uploads vor. Bitte Tippen, um zu überprüfen.</string>
     <string name="upload_sync_conflict_check_error">Es konnte nicht auf Hochlade-Konflikte überprüft werden. Bitte erneut versuchen.</string>

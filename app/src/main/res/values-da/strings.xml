@@ -1173,6 +1173,7 @@
     <string name="upload_cannot_create_file">Kan ikke oprette filen lokalt</string>
     <string name="upload_chooser_title">Upload fra …</string>
     <string name="upload_content_from_other_apps">Upload indhold fra andre apps</string>
+    <string name="upload_direct_camera_not_found">Der blev ikke fundet noget kamera</string>
     <string name="upload_direct_camera_photo">Foto</string>
     <string name="upload_direct_camera_promt">Ønsker du at tage et foto eller en video?</string>
     <string name="upload_direct_camera_upload">Upload fra kamera</string>
@@ -1206,6 +1207,7 @@
     <string name="upload_old_android">Kryptering kun mulig med &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Der er ikke plads nok til at kopiere de valgte filer til mappen %1$s. Vil du flytte dem i stedet?</string>
     <string name="upload_quota_exceeded">Lagringskvote overskredet</string>
+    <string name="upload_quota_exceeded_notification_description">Din lagringskvote er fuld, så uploads er stoppet. Frigør plads, eller bed din administrator om mere kvote, og prøv derefter de mislykkede uploads igen fra Uploadede filer.</string>
     <string name="upload_scan_doc_upload">Scan dokument fra kamera</string>
     <string name="upload_sync_conflict_check">Der er muligvis en konflikt fra din seneste upload. Tryk for at tjekke.</string>
     <string name="upload_sync_conflict_check_error">Uploadkonflikterne kunne ikke tjekkes. Prøv igen.</string>
