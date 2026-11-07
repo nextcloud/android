@@ -1,0 +1,74 @@
+Revert "fix garm runner label"
+fix garm runner label
+Better way to retrieve folder name
+Actionbar should alway show current folder name
+fix(l10n): Update translations from Transifex
+Better fix for picker navigation affecting all file list fragments
+Avoid picker navigation to affect main file list's one
+fix fastlane
+min supported version is nc 23
+refactor(file-operation-helper): kotlin
+Rename .java to .kt
+fix(l10n): Update translations from Transifex
+notify upload list
+recover from exceed state
+use lib
+add quota check for auto upload
+add quota check for all uploads
+🔄 synced local '.' with remote 'config/root/'
+🔄 synced local 'fastlane/' with remote 'config/fastlane/'
+wip
+wip
+wip
+fix(metadata): cancellation
+wip
+wip
+Symmetrix fix for unshare
+Add sharee to file immediately to avoid the list being shown without the sharee icon until next folder sync
+further fastlane
+adjust naming
+update test according to feedback
+preserve corner after rotating and make it accessible
+dont recreate activity on config changes
+adopt changes for app scan activity
+split into smaller classes
+convert to kotlin
+Rename .java to .kt
+use dao functions
+Fix unreadable text on system bar
+Theme activity to have matching color between system bars and layout
+Clear system insets in widget config view
+fix deletion
+optimize imports
+fix upsert
+simplify
+simplify
+simplify
+simplify
+remove theme color utils
+convert to kotlin
+convert to kotlin
+Rename .java to .kt
+Fix back navigation to forbidden folder in file picker
+Spotless
+Oneliner with null casting for setHasFooter
+Fixed empty view not triggered in Media due to EmptyRecyclerView still expecting a footer
+better translation
+add cancel button
+fix download cancel
+fix lint
+Update androidPluginVersion to v9.5.0 (#17928)
+fix(l10n): Update translations from Transifex
+fix(l10n): Update translations from Transifex
+Fixed back navigation in upload screen
+fix(file-list): flicker
+remove dead code
+fix(navigation): all files
+use correct variable name for request code
+wip
+move logic inside enum
+unify fab state logic
+refactor(error-message-adapter): kotlin
+Rename .java to .kt
+Add unit tests for DateFormatPattern
+Update Nextcloud Android library
