@@ -343,6 +343,7 @@
     <string name="download_download_invalid_local_file_name">Nom de fichier local invalide</string>
     <string name="download_latest_dev_version">Télécharger la dernière version de développement</string>
     <string name="download_limit">Limite de téléchargements</string>
+    <string name="downloader_download_canceled">Téléchargement annulé</string>
     <string name="downloader_download_failed_content">Impossible de télécharger %1$s</string>
     <string name="downloader_download_failed_credentials_error">Échec du téléchargement, reconnectez-vous</string>
     <string name="downloader_download_failed_ticker">Le téléchargement a échoué</string>
@@ -1172,6 +1173,7 @@
     <string name="upload_cannot_create_file">Impossible de créer le fichier local</string>
     <string name="upload_chooser_title">Téléverser depuis…</string>
     <string name="upload_content_from_other_apps">Téléverser du contenu à partir d\'autres applications</string>
+    <string name="upload_direct_camera_not_found">Aucune caméra trouvée</string>
     <string name="upload_direct_camera_photo">Photo</string>
     <string name="upload_direct_camera_promt">Voulez-vous prendre une photo ou une vidéo ?</string>
     <string name="upload_direct_camera_upload">Téléverser depuis l\'appareil photo</string>
@@ -1205,6 +1207,7 @@
     <string name="upload_old_android">Le chiffrement n’est disponible qu’à partir d’Android 5.0</string>
     <string name="upload_query_move_foreign_files">Il n’y a pas assez d’espace pour copier les fichiers sélectionnés dans le dossier %1$s. Souhaitez-vous plutôt les déplacer ?</string>
     <string name="upload_quota_exceeded">Quota de stockage dépassé</string>
+    <string name="upload_quota_exceeded_notification_description">Votre quota de stockage est plein, les téléversements ont donc été arrêtés. Libérez de l\'espace ou demandez à votre administrateur d\'augmenter votre quota puis réessayez les téléversements en échec depuis Téléversements.</string>
     <string name="upload_scan_doc_upload">Scanner un document depuis l\'appareil photo</string>
     <string name="upload_sync_conflict_check">Un conflit a peut-être eu lieu lors de votre dernier téléversement. Appuyez pour vérifier.</string>
     <string name="upload_sync_conflict_check_error">Impossible de vérifier les conflits de téléversement. Veuillez réessayer.</string>
