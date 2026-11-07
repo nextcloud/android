@@ -171,8 +171,8 @@ platform :android do
     private_lane :writeVersions do |options|
         File.open("../app/build.gradle.kts","r+") do |file|
             text = file.read
-            text.gsub!(/versionName = "(.*)"$/, "versionName = \"#{options[:versionName]}\"")
-            text.gsub!(/versionCode = ([0-9]*)$/, "versionCode = #{options[:versionCode]}")
+            text.sub!(/versionName = "(.*)"$/, "versionName = \"#{options[:versionName]}\"")
+            text.sub!(/versionCode = ([0-9]*)$/, "versionCode = #{options[:versionCode]}")
             file.rewind
             file.write(text)
             file.truncate(file.pos)
@@ -275,7 +275,7 @@ platform :android do
 			flavor: options[:flavor],
 			build_type: 'Release',
 			print_command: false,
-			properties: GRADLE_SIGNING_PROPERTIES
+			properties: defined?(APK_SIGNING_PROPERTIES) ? APK_SIGNING_PROPERTIES : GRADLE_SIGNING_PROPERTIES
 			)
 			
 		sh("mv ../app/build/outputs/apk/#{options[:flavor]}/release/*.apk ../release/nextcloud-#{APP}-#{options[:flavor]}-#{options[:versionCode]}.apk")
@@ -340,8 +340,8 @@ platform :android do
 			name: options[:name],
 			is_prerelease: options[:isPrerelease],
 			tag_name: options[:tag],
-			description: (File.read("metadata/android/en-US/changelogs/" + options[:versionCode] + ".txt") rescue "No changelog provided"),
-			upload_assets: Dir.glob("release/*.apk")
+			description: (File.read("metadata/android/en-US/changelogs/#{options[:versionCode]}.txt") rescue "No changelog provided"),
+			upload_assets: Dir.glob(File.expand_path("../release/*.apk"))
 		)
 	end
 	
