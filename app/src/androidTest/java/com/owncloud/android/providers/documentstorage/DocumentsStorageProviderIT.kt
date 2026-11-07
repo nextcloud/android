@@ -301,6 +301,23 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
         assertEquals(data.size.toLong(), (result.data[0] as RemoteFile).length)
     }
 
+    @Test
+    fun testRenameFolderRightAfterWriteKeepsContent() {
+        val folder = rootDir.createDirectory(RandomStringGenerator.make())!!
+        val file1 = folder.createFile("application/octet-stream", RandomStringGenerator.make())!!
+        val data = Random.nextBytes(RENAME_AFTER_WRITE_DATA_SIZE)
+        contentResolver.openOutputStream(file1.uri, "wt").use {
+            it!!.write(data)
+        }
+
+        DocumentsContract.renameDocument(contentResolver, folder.uri, RandomStringGenerator.make())
+
+        val remotePath = file1.getOCFile(storageManager)!!.remotePath
+        val result = ReadFileRemoteOperation(remotePath).execute(client)
+        assertTrue(result.isSuccess)
+        assertEquals(data.size.toLong(), (result.data[0] as RemoteFile).length)
+    }
+
     private fun awaitUploadedToServer(file: DocumentFile) {
         val remotePath = file.getOCFile(storageManager)!!.remotePath
 

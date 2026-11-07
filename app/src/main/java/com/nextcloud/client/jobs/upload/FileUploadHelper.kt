@@ -437,8 +437,14 @@ class FileUploadHelper {
      * Mirrors the rows [FileUploadWorker] still processes; rows left behind without a scheduled upload job never
      * finish. Rows are matched by path, so a retryable failed row also counts while another batch of the account runs.
      */
-    fun isUploadPending(file: OCFile, accountName: String): Boolean =
-        uploadsStorageManager.uploadDao.existsUnfinishedByAccountAndRemotePath(
+    fun isUploadPending(file: OCFile, accountName: String): Boolean {
+        val uploadDao = uploadsStorageManager.uploadDao
+        val existsUnfinished = if (file.isFolder) {
+            uploadDao::existsUnfinishedByAccountInFolder
+        } else {
+            uploadDao::existsUnfinishedByAccountAndRemotePath
+        }
+        return existsUnfinished(
             accountName,
             file.remotePath,
             UploadStatus.UPLOAD_IN_PROGRESS.value,
@@ -446,6 +452,7 @@ class FileUploadHelper {
             nonRetryableResults
         ) &&
             backgroundJobManager.isStartFileUploadJobScheduled(accountName)
+    }
 
     fun getLastUploadProgress(accountName: String): Long = FileUploadWorker.getLastTransferProgress(accountName)
 

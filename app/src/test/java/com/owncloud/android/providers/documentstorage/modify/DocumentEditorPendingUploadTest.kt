@@ -131,7 +131,7 @@ class DocumentEditorPendingUploadTest {
 
     @Test
     fun `rename waits for close that is not reported yet and then for the upload`() {
-        val write = pendingWrites.begin(FILE_ID)
+        val write = pendingWrites.begin(FILE_ID, ACCOUNT_NAME)
         onPoll = {
             when (polls) {
                 1 -> pendingWrites.closed(write)
@@ -147,7 +147,7 @@ class DocumentEditorPendingUploadTest {
 
     @Test
     fun `rename of document that stays open proceeds after close grace period`() {
-        pendingWrites.begin(FILE_ID)
+        pendingWrites.begin(FILE_ID, ACCOUNT_NAME)
 
         editor.rename(SOURCE_ID, NEW_NAME)
 
@@ -157,8 +157,8 @@ class DocumentEditorPendingUploadTest {
 
     @Test
     fun `rename waits for every concurrent write of the document`() {
-        val first = pendingWrites.begin(FILE_ID)
-        val second = pendingWrites.begin(FILE_ID)
+        val first = pendingWrites.begin(FILE_ID, ACCOUNT_NAME)
+        val second = pendingWrites.begin(FILE_ID, ACCOUNT_NAME)
         pendingWrites.closed(first)
         pendingWrites.closed(second)
         onPoll = {
@@ -196,6 +196,45 @@ class DocumentEditorPendingUploadTest {
         assertEquals(emptyList<Boolean>(), operationsRunWhilePending)
     }
 
+    @Test
+    fun `folder rename waits for queued upload inside the folder`() {
+        givenDocument(SOURCE_ID, FILE_ID, FOLDER_PATH, isFolder = true)
+        uploadPending = true
+        onPoll = { uploadPending = false }
+
+        editor.rename(SOURCE_ID, NEW_NAME)
+
+        assertEquals(1, polls)
+        assertEquals(listOf(false), operationsRunWhilePending)
+    }
+
+    @Test
+    fun `folder rename waits for closed child whose upload is not queued yet`() {
+        givenDocument(SOURCE_ID, FILE_ID, FOLDER_PATH, isFolder = true)
+        givenFile(CHILD_FILE_ID, "${FOLDER_PATH}child.bin", isFolder = false)
+        val write = pendingWrites.begin(CHILD_FILE_ID, ACCOUNT_NAME)
+        pendingWrites.closed(write)
+        onPoll = { pendingWrites.end(write) }
+
+        editor.rename(SOURCE_ID, NEW_NAME)
+
+        assertEquals(1, polls)
+        assertEquals(listOf(false), operationsRunWhilePending)
+    }
+
+    @Test
+    fun `folder rename ignores writes outside the folder or of another account`() {
+        givenDocument(SOURCE_ID, FILE_ID, FOLDER_PATH, isFolder = true)
+        givenFile(CHILD_FILE_ID, "/elsewhere/child.bin", isFolder = false)
+        givenFile(OTHER_ACCOUNT_CHILD_FILE_ID, "${FOLDER_PATH}child.bin", isFolder = false)
+        pendingWrites.closed(pendingWrites.begin(CHILD_FILE_ID, ACCOUNT_NAME))
+        pendingWrites.closed(pendingWrites.begin(OTHER_ACCOUNT_CHILD_FILE_ID, "other@server"))
+
+        editor.rename(SOURCE_ID, NEW_NAME)
+
+        assertEquals(0, polls)
+    }
+
     private fun givenDocument(documentId: String, fileId: Long, remotePath: String, isFolder: Boolean) {
         val file = givenFile(fileId, remotePath, isFolder)
         val document = mock<Document> {
@@ -207,13 +246,17 @@ class DocumentEditorPendingUploadTest {
         whenever(resolver.toDocument(documentId)).thenReturn(document)
     }
 
-    private fun givenFile(fileId: Long, remotePath: String, isFolder: Boolean): OCFile = mock {
-        on { this.fileId } doReturn fileId
-        on { this.remotePath } doReturn remotePath
-        on { this.isFolder } doReturn isFolder
-        on { fileName } doReturn remotePath.trimEnd('/').substringAfterLast('/')
-        on { canRename() } doReturn true
-        on { canMove() } doReturn true
+    private fun givenFile(fileId: Long, remotePath: String, isFolder: Boolean): OCFile {
+        val file = mock<OCFile> {
+            on { this.fileId } doReturn fileId
+            on { this.remotePath } doReturn remotePath
+            on { this.isFolder } doReturn isFolder
+            on { fileName } doReturn remotePath.trimEnd('/').substringAfterLast('/')
+            on { canRename() } doReturn true
+            on { canMove() } doReturn true
+        }
+        whenever(storageManager.getFileById(fileId)).thenReturn(file)
+        return file
     }
 
     private fun <T : RemoteOperation<*>> recordExecution(type: Class<T>): MockedConstruction<T> =
@@ -234,7 +277,10 @@ class DocumentEditorPendingUploadTest {
         private const val FILE_ID = 1L
         private const val TARGET_FOLDER_FILE_ID = 2L
         private const val SOURCE_PARENT_FILE_ID = 3L
+        private const val CHILD_FILE_ID = 4L
+        private const val OTHER_ACCOUNT_CHILD_FILE_ID = 5L
         private const val FILE_PATH = "/folder/.document.tmp"
+        private const val FOLDER_PATH = "/folder/snapshot-tmp/"
         private const val TARGET_FOLDER_PATH = "/target/"
         private const val SOURCE_PARENT_PATH = "/folder/"
         private val IDLE_TIMEOUT = 10.minutes.inWholeMilliseconds

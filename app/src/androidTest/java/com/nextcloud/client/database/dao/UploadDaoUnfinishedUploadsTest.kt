@@ -18,6 +18,7 @@ import com.owncloud.android.db.UploadResult
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class UploadDaoUnfinishedUploadsTest {
@@ -63,6 +64,21 @@ class UploadDaoUnfinishedUploadsTest {
         assertFalse(isFileUnfinished())
     }
 
+    @Test
+    fun unfinishedUploadInsideFolderIsUnfinished() {
+        insert("${FOLDER_PATH}sub/document.bin", UploadStatus.UPLOAD_FAILED, UploadResult.NETWORK_CONNECTION)
+
+        assertTrue(isFolderUnfinished())
+    }
+
+    @Test
+    fun folderIgnoresFinishedChildrenAndSiblingWithSamePrefix() {
+        insert("${FOLDER_PATH}document.bin", UploadStatus.UPLOAD_FAILED, UploadResult.FILE_NOT_FOUND)
+        insert("${FOLDER_PATH.trimEnd('/')}-other/document.bin", UploadStatus.UPLOAD_IN_PROGRESS)
+
+        assertFalse(isFolderUnfinished())
+    }
+
     private fun insert(
         remotePath: String,
         status: UploadStatus,
@@ -82,10 +98,19 @@ class UploadDaoUnfinishedUploadsTest {
             nonRetryableResults
         )
 
+    private fun isFolderUnfinished(): Boolean = uploadDao.existsUnfinishedByAccountInFolder(
+        ACCOUNT_NAME,
+        FOLDER_PATH,
+        UploadStatus.UPLOAD_IN_PROGRESS.value,
+        UploadStatus.UPLOAD_FAILED.value,
+        nonRetryableResults
+    )
+
     companion object {
         private const val ACCOUNT_NAME = "user@server"
         private const val OTHER_ACCOUNT_NAME = "other@server"
         private const val LOCAL_PATH = "/local/document.bin"
         private const val FILE_PATH = "/folder/document.bin"
+        private const val FOLDER_PATH = "/snapshot/"
     }
 }

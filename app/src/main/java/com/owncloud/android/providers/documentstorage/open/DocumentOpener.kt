@@ -216,7 +216,7 @@ internal class DocumentOpener(
         accessMode: AccessMode
     ): ParcelFileDescriptor {
         // before handing out the descriptor: close() reaches the provider asynchronously, possibly after a rename
-        val write = pendingWrites.begin(ocFile.fileId)
+        val write = pendingWrites.begin(ocFile.fileId, document.user.accountName)
         val onClose = ParcelFileDescriptor.OnCloseListener { error ->
             if (error != null) {
                 Log_OC.e(TAG, "File was closed with an error: ${ocFile.fileName}", error)

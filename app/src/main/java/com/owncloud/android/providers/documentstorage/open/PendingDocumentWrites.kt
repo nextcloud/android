@@ -15,7 +15,8 @@ internal class PendingDocumentWrites {
 
     private val writes: MutableSet<PendingDocumentWrite> = ConcurrentHashMap.newKeySet()
 
-    fun begin(fileId: Long): PendingDocumentWrite = PendingDocumentWrite(fileId).also(writes::add)
+    fun begin(fileId: Long, accountName: String): PendingDocumentWrite =
+        PendingDocumentWrite(fileId, accountName).also(writes::add)
 
     fun closed(write: PendingDocumentWrite) {
         write.state = PendingWriteState.CLOSED_UPLOAD_NOT_QUEUED
@@ -25,6 +26,6 @@ internal class PendingDocumentWrites {
         writes.remove(write)
     }
 
-    fun states(isAffected: (fileId: Long) -> Boolean): Set<PendingWriteState> =
-        writes.filter { isAffected(it.fileId) }.mapTo(mutableSetOf()) { it.state }
+    fun states(isAffected: (PendingDocumentWrite) -> Boolean): Set<PendingWriteState> =
+        writes.filter(isAffected).mapTo(mutableSetOf()) { it.state }
 }

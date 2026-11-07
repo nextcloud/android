@@ -6,7 +6,7 @@
  */
 package com.owncloud.android.providers.documentstorage.open
 
-internal class PendingDocumentWrite(val fileId: Long) {
+internal class PendingDocumentWrite(val fileId: Long, val accountName: String) {
     @Volatile
     var state = PendingWriteState.OPEN
 }

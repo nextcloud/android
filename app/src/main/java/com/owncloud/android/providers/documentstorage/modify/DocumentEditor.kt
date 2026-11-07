@@ -17,6 +17,7 @@ import com.owncloud.android.operations.MoveFileOperation
 import com.owncloud.android.operations.RenameFileOperation
 import com.owncloud.android.providers.documentstorage.model.Document
 import com.owncloud.android.providers.documentstorage.model.DocumentResolver
+import com.owncloud.android.providers.documentstorage.open.PendingDocumentWrite
 import com.owncloud.android.providers.documentstorage.open.PendingDocumentWrites
 import com.owncloud.android.providers.documentstorage.open.PendingWriteState
 import com.owncloud.android.providers.documentstorage.sync.DocumentNotifier
@@ -150,11 +151,19 @@ internal class DocumentEditor(
         uploadHelper: FileUploadHelper,
         waitedMillis: Long
     ): Boolean {
-        val writeStates = pendingWrites.states { it == file.fileId }
+        val writeStates = pendingWrites.states { isAffected(document, file, it) }
         return PendingWriteState.CLOSED_UPLOAD_NOT_QUEUED in writeStates ||
             (PendingWriteState.OPEN in writeStates && waitedMillis < CLOSE_GRACE_PERIOD.inWholeMilliseconds) ||
             uploadHelper.isUploadPending(file, document.user.accountName)
     }
+
+    private fun isAffected(document: Document, file: OCFile, write: PendingDocumentWrite): Boolean =
+        if (file.isFolder) {
+            write.accountName == document.user.accountName &&
+                document.storageManager.getFileById(write.fileId)?.remotePath?.startsWith(file.remotePath) == true
+        } else {
+            write.fileId == file.fileId
+        }
 
     private fun isValidTargetFolder(targetFolder: OCFile): Boolean {
         isFolderPathValid = nameValidator.isValidFolderPath(targetFolder.fileName)
