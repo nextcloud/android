@@ -66,7 +66,7 @@ import com.owncloud.android.lib.resources.files.ToggleFavoriteRemoteOperation
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.lib.resources.tags.Tag
-import com.owncloud.android.ui.activity.DrawerActivity
+import com.owncloud.android.ui.activity.drawer.DrawerActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.activity.ToolbarActivity
 import com.owncloud.android.ui.adapter.FileDetailTabAdapter

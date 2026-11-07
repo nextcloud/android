@@ -29,6 +29,7 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.ExternalsiteWebviewBinding
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.NextcloudWebViewClient
+import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import com.owncloud.android.utils.ProxyUtil
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 import java.lang.ref.WeakReference
@@ -99,7 +100,7 @@ open class ExternalSiteWebView : FileActivity() {
 
     private fun setupToolbarAndDrawer() {
         if (showToolbar) {
-            setupToolbar()
+            showActionBar(ActionBarStyle.Plain)
         } else {
             findViewById<View?>(R.id.appbar)?.isVisible = false
         }

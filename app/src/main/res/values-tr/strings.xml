@@ -343,6 +343,7 @@
     <string name="download_download_invalid_local_file_name">Yerel dosya adı geçersiz</string>
     <string name="download_latest_dev_version">Son geliştirici sürümünü indirin</string>
     <string name="download_limit">İndirme sınırı</string>
+    <string name="downloader_download_canceled">İndirme iptal edildi</string>
     <string name="downloader_download_failed_content">%1$s indirmesi tamamlanamadı</string>
     <string name="downloader_download_failed_credentials_error">İndirilemedi, yeniden oturum açmalısınız</string>
     <string name="downloader_download_failed_ticker">İndirilemedi</string>
@@ -351,7 +352,6 @@
     <string name="downloader_download_in_progress_ticker">İndiriliyor …</string>
     <string name="downloader_download_succeeded_content">%1$s indirildi</string>
     <string name="downloader_download_succeeded_ticker">İndirildi</string>
-    <string name="downloader_file_download_cancelled">Bazı dosyalar indirme sırasında kullanıcı tarafından iptal edildi</string>
     <string name="downloader_file_download_failed">Dosyalar indirilirken sorun çıktı</string>
     <string name="downloader_not_downloaded_yet">Henüz indirilmemiş</string>
     <string name="downloader_unexpected_error">Dosyalar indirilirken beklenmeyen bir sorun çıktı</string>

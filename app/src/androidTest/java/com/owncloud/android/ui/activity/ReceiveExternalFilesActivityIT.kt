@@ -26,7 +26,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.facebook.testing.screenshot.internal.TestNameDetector
 import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.test.Flaky
-import com.nextcloud.test.GrantStoragePermissionRule
 import com.nextcloud.test.withSelectedText
 import com.nextcloud.utils.extensions.removeFileExtension
 import com.owncloud.android.AbstractIT
@@ -37,15 +36,10 @@ import org.hamcrest.Matchers.not
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.TestRule
 import java.io.File
 
 class ReceiveExternalFilesActivityIT : AbstractIT() {
-
-    @get:Rule
-    var storagePermissionRule: TestRule = GrantStoragePermissionRule.grant()
 
     lateinit var mainFolder: OCFile
     lateinit var subFolder: OCFile
@@ -57,15 +51,15 @@ class ReceiveExternalFilesActivityIT : AbstractIT() {
         mainFolder = OCFile("/folder/").apply {
             permissions = OCFile.PERMISSION_CAN_CREATE_FILE_AND_FOLDER
             setFolder()
-            fileDataStorageManager.saveNewFile(this)
+            storageManager.saveNewFile(this)
         }
         subFolder = OCFile("${mainFolder.remotePath}sub folder/").apply {
             permissions = OCFile.PERMISSION_CAN_CREATE_FILE_AND_FOLDER
             setFolder()
-            fileDataStorageManager.saveNewFile(this)
+            storageManager.saveNewFile(this)
         }
         existingImageFile = OCFile("${mainFolder.remotePath}Existing Image File.jpg").apply {
-            fileDataStorageManager.saveNewFile(this)
+            storageManager.saveNewFile(this)
         }
     }
 

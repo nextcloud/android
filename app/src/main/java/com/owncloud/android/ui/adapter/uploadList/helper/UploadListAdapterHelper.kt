@@ -17,7 +17,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.ConflictsResolveActivity
-import com.owncloud.android.ui.activity.DrawerActivity
+import com.owncloud.android.ui.activity.drawer.DrawerActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.preview.media.PreviewMediaFragment
 import com.owncloud.android.utils.MimeType

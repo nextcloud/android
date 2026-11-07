@@ -343,6 +343,7 @@
     <string name="download_download_invalid_local_file_name">Ugyldigt filnavn på lokal fil</string>
     <string name="download_latest_dev_version">Hent seneste udviklingsversion</string>
     <string name="download_limit">Downloadgrænse</string>
+    <string name="downloader_download_canceled">Hentning annulleret</string>
     <string name="downloader_download_failed_content">Kunne ikke hente %1$s</string>
     <string name="downloader_download_failed_credentials_error">Download mislykkedes, log ind igen</string>
     <string name="downloader_download_failed_ticker">Download mislykkedes</string>
@@ -351,7 +352,6 @@
     <string name="downloader_download_in_progress_ticker">Henter …</string>
     <string name="downloader_download_succeeded_content">%1$s er downloadet</string>
     <string name="downloader_download_succeeded_ticker">Downloadet</string>
-    <string name="downloader_file_download_cancelled">Visse filer blev annulleret af brugeren under download</string>
     <string name="downloader_file_download_failed">Der opstod en fejl under download af filerne</string>
     <string name="downloader_not_downloaded_yet">Endnu ikke downloadet</string>
     <string name="downloader_unexpected_error">Der opstod en uventet fejl under download af filer</string>
@@ -648,7 +648,7 @@
     <string name="internal_shares">Interne delinger</string>
     <string name="internal_two_way_sync">Intern tovejssynkronisering</string>
     <string name="internal_two_way_sync_not_yet">Ikke endnu, synkroniseres snart</string>
-    <string name="internet_connection_required_for_encrypted_folder_setup">En internetforbindelse er påkrævet for at konfigurere den krypterede mappe</string>
+    <string name="internet_connection_required_for_encrypted_folder_setup">Der kræves en internetforbindelse for at konfigurere den krypterede mappe</string>
     <string name="invalid_url">Ugyldig URL</string>
     <string name="invisible">Usynlig</string>
     <string name="label_empty">Etiketten må ikke være tom</string>
@@ -1200,7 +1200,7 @@
     <string name="upload_missing_storage_permission_allow_file_access">Tillad adgang til alle filer</string>
     <string name="upload_missing_storage_permission_app_permissions">Apptilladelser</string>
     <string name="upload_missing_storage_permission_description">Dine filer kan ikke uploades uden adgang til det lokale lager. Tryk for at give tilladelse.</string>
-    <string name="upload_missing_storage_permission_title">Upload stoppet – lagringstilladelse påkrævet</string>
+    <string name="upload_missing_storage_permission_title">Upload stoppet – lagringstilladelse kræves</string>
     <string name="upload_notification_manager_content_intent_description">Du kan fjerne eller genoptage den fra listen over uploads</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Kryptering kun mulig med &gt;= Android 5.0</string>

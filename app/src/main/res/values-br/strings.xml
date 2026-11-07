@@ -233,7 +233,6 @@
     <string name="downloader_download_in_progress_ticker">O pellgargañ...</string>
     <string name="downloader_download_succeeded_content">%1$s pellgarget</string>
     <string name="downloader_download_succeeded_ticker">Pellgarget</string>
-    <string name="downloader_file_download_cancelled">Nullet e oa bet restroù zo e-pad ar pellgargañ gant an implijer</string>
     <string name="downloader_file_download_failed">C\'hoarvezet ez eus ur fazi en ur bellgargañ ar restroù</string>
     <string name="downloader_not_downloaded_yet">N\'eo ket bet pellgarget c\'hoazh</string>
     <string name="downloader_unexpected_error">C\'hoarvezet ez eus ur fazi dic\'hortoz en ur bellgargañ ar restroù</string>

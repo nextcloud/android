@@ -612,6 +612,10 @@
             android:name="com.nextcloud.client.jobs.folderDownload.FolderDownloadWorkerReceiver"
             android:exported="false" />
 
+        <receiver
+            android:name="com.nextcloud.client.jobs.download.FileDownloadCancelReceiver"
+            android:exported="false" />
+
         <activity
             android:name=".ui.activity.CopyToClipboardActivity"
             android:exported="false"

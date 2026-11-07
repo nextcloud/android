@@ -57,6 +57,7 @@ import com.owncloud.android.ui.adapter.UnifiedSearchListAdapter
 import com.owncloud.android.ui.fragment.util.PairMediatorLiveData
 import com.owncloud.android.ui.interfaces.UnifiedSearchCurrentDirItemAction
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
+import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import com.owncloud.android.ui.unifiedsearch.IUnifiedSearchViewModel
 import com.owncloud.android.ui.unifiedsearch.ProviderID
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
@@ -182,9 +183,9 @@ class UnifiedSearchFragment :
     override fun onResume() {
         super.onResume()
         typedActivity<FileDisplayActivity>()?.run {
-            setupToolbar()
+            showActionBar(ActionBarStyle.Plain)
             setMainFabVisible(false)
-            updateActionBarTitleAndHomeButtonByString(null)
+            setActionBarTitle(null)
             setDrawerIndicatorEnabled(false)
         }
     }

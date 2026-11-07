@@ -49,6 +49,7 @@ import com.owncloud.android.ui.dialog.CreateAlbumDialogFragment
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.fragment.albums.model.AlbumsEmptyState
 import com.owncloud.android.ui.fragment.helper.ColumnCount
+import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -276,7 +277,7 @@ class AlbumsFragment :
         }
 
         (activity as? FileDisplayActivity)?.run {
-            setupToolbar()
+            showActionBar(ActionBarStyle.Plain)
             supportActionBar?.let { actionBar ->
                 viewThemeUtils.files.themeActionBar(
                     requireContext(),

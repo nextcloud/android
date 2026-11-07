@@ -351,7 +351,6 @@
     <string name="downloader_download_in_progress_ticker">Ag íosluchtú…</string>
     <string name="downloader_download_succeeded_content">%1$s íoslódáilte</string>
     <string name="downloader_download_succeeded_ticker">Íosluchtaithe</string>
-    <string name="downloader_file_download_cancelled">Cealaíodh comhaid áirithe le linn an íoslódála ag an úsáideoir</string>
     <string name="downloader_file_download_failed">Tharla earráid agus comhaid á n-íoslódáil</string>
     <string name="downloader_not_downloaded_yet">Gan íoslódáil fós</string>
     <string name="downloader_unexpected_error">Tharla earráid gan choinne agus comhaid á n-íoslódáil</string>
@@ -611,6 +610,7 @@
     <string name="foreign_files_remote_text">Cianda: %1$s</string>
     <string name="forward">Ar aghaidh</string>
     <string name="fourHours">4 uair an chloig</string>
+    <string name="gallery_unsupported_file">Cineál comhaid nach dtacaítear leis</string>
     <string name="governance_file_retention_label">Coinneáil comhad</string>
     <string name="governance_legal_hold_label">Sealbh dlíthiúil</string>
     <string name="governance_no_label">aon cheann</string>
@@ -983,6 +983,7 @@
     <string name="share_link_file_no_exist">Ní féidir a roinnt. Seiceáil an bhfuil an comhad ann le do thoil.</string>
     <string name="share_link_forbidden_permissions">chun an comhad seo a roinnt</string>
     <string name="share_link_optional_password_title">Cuir isteach pasfhocal roghnach</string>
+    <string name="share_link_password_rejected">Ní chomhlíonann an focal faire na riachtanais. Bain triail as focal faire atá níos faide nó níos casta.</string>
     <string name="share_link_password_title">Cuir isteach pasfhocal</string>
     <string name="share_link_with_label">Comhroinn nasc (%1$s)</string>
     <string name="share_no_expiration_date_label">Socraigh dáta éaga</string>

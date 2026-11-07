@@ -17,9 +17,8 @@ import androidx.fragment.app.Fragment
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityNavigatorBinding
-import com.owncloud.android.ui.activity.DrawerActivity
+import com.owncloud.android.ui.activity.drawer.DrawerActivity
 import com.owncloud.android.ui.navigation.listener.NavigatorOnBackPressListener
-import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import dagger.android.support.AndroidSupportInjection
 
 class NavigatorActivity : DrawerActivity() {
@@ -85,10 +84,11 @@ class NavigatorActivity : DrawerActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun getMenuItemId(): Int {
-        val screen = intent.getParcelableArgument(EXTRA_SCREEN, NavigatorScreen::class.java)
-        return screen?.menuItemId() ?: super.getMenuItemId()
-    }
+    override val menuItemId: Int
+        get() {
+            val screen = intent.getParcelableArgument(EXTRA_SCREEN, NavigatorScreen::class.java)
+            return screen?.menuItemId() ?: super.menuItemId
+        }
 
     override fun onResume() {
         super.onResume()
@@ -121,12 +121,8 @@ class NavigatorActivity : DrawerActivity() {
 
     private fun setupActionBar(screen: NavigatorScreen) {
         val (style, titleId) = screen.actionBarStyle()
-        if (style == ActionBarStyle.Plain) {
-            setupToolbar()
-        } else {
-            setupHomeSearchToolbarWithSortAndListButtons()
-        }
-        updateActionBarTitleAndHomeButtonByString(getString(titleId))
+        showActionBar(style)
+        setActionBarTitle(getString(titleId))
 
         if (screen.hasDrawer) {
             setupDrawer(menuItemId)

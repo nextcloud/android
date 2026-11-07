@@ -80,7 +80,7 @@ class PreviewMediaActivityIT : AbstractOnServerIT() {
             }
             uploadOCUpload(ocUpload)
 
-            fileDataStorageManager.getFileByDecryptedRemotePath(folder + pngFile.name)!!
+            storageManager.getFileByDecryptedRemotePath(folder + pngFile.name)!!
         }
     }
 

@@ -21,7 +21,7 @@ import org.junit.Test
 @SinceServer(majorVersion = 30)
 class AutoRenameTests : AbstractOnServerIT() {
 
-    private var capability: OCCapability = fileDataStorageManager.getCapability(account.name)
+    private var capability: OCCapability = storageManager.getCapability(account.name)
     private val forbiddenFilenameExtension = "."
     private val forbiddenFilenameCharacter = ">"
 

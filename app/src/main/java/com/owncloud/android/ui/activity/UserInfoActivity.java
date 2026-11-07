@@ -44,9 +44,11 @@ import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
+import com.owncloud.android.ui.activity.drawer.DrawerActivity;
 import com.owncloud.android.ui.adapter.UserInfoAdapter;
 import com.owncloud.android.ui.dialog.AccountRemovalDialog;
 import com.owncloud.android.ui.events.TokenPushEvent;
+import com.owncloud.android.ui.navigation.model.ActionBarStyle;
 import com.owncloud.android.utils.PushUtils;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -115,7 +117,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         binding = UserInfoLayoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setupToolbar();
+        showActionBar(ActionBarStyle.Plain);
 
         // set the back button from action bar
         ActionBar actionBar = getSupportActionBar();

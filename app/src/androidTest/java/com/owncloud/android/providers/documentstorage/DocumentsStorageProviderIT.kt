@@ -274,6 +274,8 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
             it!!.write(content2)
         }
 
+        awaitWriteSaved(file1, content2.size.toLong())
+
         // read back content bytes
         val bytes = contentResolver.openInputStream(file1.uri)?.readBytes() ?: ByteArray(0)
         assertEquals(String(content2), String(bytes))
@@ -302,6 +304,18 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
         }
 
         fail("upload of $remotePath did not finish, stored uploads: ${describeUploads()}")
+    }
+
+    private fun awaitWriteSaved(file: DocumentFile, expectedLength: Long) {
+        repeat(UPLOAD_POLL_ATTEMPTS) {
+            if (file.getOCFile(storageManager)?.fileLength == expectedLength) {
+                return
+            }
+
+            shortSleep()
+        }
+
+        fail("write of ${file.uri} was not saved with length $expectedLength")
     }
 
     private fun upload(remotePath: String): OCUpload? = uploadsStorageManager

@@ -321,7 +321,6 @@
     <string name="downloader_download_in_progress_ticker">Atsisiunčiama…</string>
     <string name="downloader_download_succeeded_content">%1$s atsisiųsta</string>
     <string name="downloader_download_succeeded_ticker">Atsisiųsti</string>
-    <string name="downloader_file_download_cancelled">Kai kurių failų atsisiuntimas buvo vartotojo atšauktas.</string>
     <string name="downloader_file_download_failed">Atsiunčiant failus, įvyko klaida</string>
     <string name="downloader_not_downloaded_yet">Kol kas neatsisiųsta</string>
     <string name="downloader_unexpected_error">Atsiunčiant failus, įvyko netikėta klaida</string>

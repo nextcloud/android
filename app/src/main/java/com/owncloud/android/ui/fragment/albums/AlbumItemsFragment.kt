@@ -89,6 +89,7 @@ import com.owncloud.android.ui.fragment.albums.util.AlbumCollageLayout
 import com.owncloud.android.ui.fragment.helper.ColumnCount
 import com.owncloud.android.ui.helpers.UriUploader
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
+import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import com.owncloud.android.ui.preview.media.PreviewMediaFragment
 import com.owncloud.android.utils.ClipboardUtil
 import com.owncloud.android.utils.ErrorMessageAdapter
@@ -212,7 +213,7 @@ class AlbumItemsFragment :
     override fun onResume() {
         super.onResume()
         getTypedActivity(FileDisplayActivity::class.java)?.run {
-            setupToolbar()
+            showActionBar(ActionBarStyle.Plain)
             supportActionBar?.let { viewThemeUtils.files.themeActionBar(requireContext(), it, albumName) }
             showSortListGroup(false)
             setMainFabVisible(false)
@@ -511,7 +512,7 @@ class AlbumItemsFragment :
 
     fun onAlbumRenamed(newAlbumName: String) {
         albumName = newAlbumName
-        getTypedActivity(FileDisplayActivity::class.java)?.updateActionBarTitleAndHomeButtonByString(albumName)
+        getTypedActivity(FileDisplayActivity::class.java)?.setActionBarTitle(albumName)
     }
 
     fun onAlbumDeleted() {

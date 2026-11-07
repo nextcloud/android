@@ -60,6 +60,7 @@ import com.nextcloud.utils.e2ee.E2EEActionResolver
 import com.nextcloud.utils.e2ee.E2EEDialogPresenter
 import com.nextcloud.utils.extensions.getDepth
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.getSerializableArgument
 import com.nextcloud.utils.extensions.isDialogFragmentReady
 import com.nextcloud.utils.extensions.isWebViewAvailable
 import com.nextcloud.utils.extensions.listenEncryptionDialogResult
@@ -84,7 +85,7 @@ import com.owncloud.android.lib.resources.files.ToggleFavoriteRemoteOperation
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.lib.resources.status.Type
 import com.owncloud.android.ui.CompletionCallback
-import com.owncloud.android.ui.activity.DrawerActivity
+import com.owncloud.android.ui.activity.drawer.DrawerActivity
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.activity.FolderPickerActivity
@@ -108,6 +109,7 @@ import com.owncloud.android.ui.fragment.FileFragment.ContainerActivity
 import com.owncloud.android.ui.fragment.helper.ParentFolderFinder
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
+import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.PermissionUtil
@@ -185,6 +187,9 @@ open class OCFileListFragment :
     var currentFile: OCFile? = null
         protected set
 
+    var fileDepth: OCFileDepth? = OCFileDepth.Root
+        private set
+
     var adapter: OCFileListAdapter? = null
         protected set
 
@@ -253,6 +258,7 @@ open class OCFileListFragment :
         val state = savedInstanceState ?: arguments
         loadSearchState(state)
         currentFile = state.getParcelableArgument(KEY_FILE, OCFile::class.java)
+        savedInstanceState?.let { fileDepth = it.getSerializableArgument(KEY_FILE_DEPTH, OCFileDepth::class.java) }
         isSearchFragment = activeSearchEvent != null
         folderEncryption = FolderEncryption(this)
         encryptedClickHandler = EncryptedFolderClickHandler(this)
@@ -330,6 +336,7 @@ open class OCFileListFragment :
         super.onSaveInstanceState(outState)
         currentFile.logFileSize(TAG)
         outState.putParcelable(KEY_FILE, currentFile)
+        outState.putSerializable(KEY_FILE_DEPTH, fileDepth)
         if (isSearchFragment) {
             outState.putParcelable(KEY_CURRENT_SEARCH_TYPE, currentSearchType)
             activeSearchEvent?.let { outState.putParcelable(SEARCH_EVENT, it) }
@@ -379,10 +386,8 @@ open class OCFileListFragment :
         setAdapter(args)
 
         hideFab = args?.getBoolean(ARG_HIDE_FAB, false) == true
-        if (hideFab) {
-            setFabVisible(false)
-        } else {
-            setFabVisible(currentFile?.let { canCreateInside(it) } ?: true)
+        updateFabState()
+        if (!hideFab) {
             registerFabListener()
         }
 
@@ -477,50 +482,23 @@ open class OCFileListFragment :
         }
     }
 
-    fun setFabVisible(visible: Boolean) {
-        val fab = fabMain ?: return
-
+    fun updateFabState() {
         val fileDisplayActivity = activity as? FileDisplayActivity
-        if (fileDisplayActivity != null &&
-            (fileDisplayActivity.isAlbumsFragment || fileDisplayActivity.isAlbumItemsFragment)
-        ) {
-            fab.hide()
-            return
-        }
-
-        val activity = activity ?: return
-        activity.runOnUiThread {
-            if (visible) {
-                fab.show()
-                viewThemeUtils.material.themeFAB(fab)
-            } else {
-                fab.hide()
-            }
-            fab.slideHideBottomBehavior(visible)
-        }
+        val isAlbumScreen = fileDisplayActivity?.isAlbumsFragment == true ||
+            fileDisplayActivity?.isAlbumItemsFragment == true
+        val hiddenByScreen = hideFab || isSearchFragment || isAlbumScreen
+        setFabState(FabState.from(currentFile, containerActivity?.storageManager, hiddenByScreen))
     }
 
-    fun setFabEnabled(enabled: Boolean) {
+    fun setFabState(state: FabState) {
         val fab = fabMain ?: return
-        val activity = activity ?: return
-        activity.runOnUiThread {
-            fab.isEnabled = enabled
-            viewThemeUtils.material.themeFAB(fab)
-        }
+        activity?.runOnUiThread { state.applyTo(fab, viewThemeUtils) }
     }
 
     private fun setBottomNavigationVisible(visible: Boolean) {
         val drawerActivity = activity as? DrawerActivity ?: return
         drawerActivity.bottomNavigationView.slideHideBottomBehavior(visible)
     }
-
-    private fun isReadOnlyFolder(folder: OCFile?): Boolean {
-        folder ?: return false
-        val storageManager = containerActivity?.storageManager ?: return false
-        return storageManager.isReadOnly(folder)
-    }
-
-    private fun canCreateInside(folder: OCFile): Boolean = folder.canCreateFileAndFolder() && !isReadOnlyFolder(folder)
     //endregion
 
     //region Create and upload actions
@@ -801,7 +779,9 @@ open class OCFileListFragment :
                 fileDisplayActivity.previewFile(
                     file,
                     object : CompletionCallback {
-                        override fun onComplete(value: Boolean) = setFabVisible(value)
+                        override fun onComplete(value: Boolean) {
+                            if (value) updateFabState() else setFabState(FabState.HIDDEN)
+                        }
                     }
                 )
 
@@ -833,7 +813,7 @@ open class OCFileListFragment :
 
         when {
             !file.isEncrypted && fileDisplayActivity != null && fileDisplayActivity.canPreviewInAudioPlayer(file) -> {
-                setFabVisible(false)
+                setFabState(FabState.HIDDEN)
                 fileDisplayActivity.startAudioPreview(file, true, true)
             }
 
@@ -1097,15 +1077,12 @@ open class OCFileListFragment :
     }
 
     fun setFileDepth(file: OCFile?) {
-        currentFileDepth = file.getDepth()
+        fileDepth = file.getDepth()
     }
 
     fun resetFileDepth() {
-        currentFileDepth = OCFileDepth.Root
+        fileDepth = OCFileDepth.Root
     }
-
-    val fileDepth: OCFileDepth?
-        get() = currentFileDepth
     //endregion
 
     //region Directory listing
@@ -1151,12 +1128,16 @@ open class OCFileListFragment :
         }
 
         Log_OC.i(TAG, "Listing directory ${directoryToList.decryptedRemotePath}, onlyOnDevice=$onlyOnDevice")
-        adapter.swapDirectory(accountManager.user, directoryToList, storageManager, onlyOnDevice, mimeType)
-
         val previousDirectory = currentFile
+        adapter.swapDirectory(accountManager.user, directoryToList, storageManager, onlyOnDevice, mimeType) {
+            if (view == null) return@swapDirectory
+            fileListLayoutManager?.setLayoutViewMode()
+            scrollToHighlightedFileOrTop(adapter, highlightedFile, previousDirectory, directoryToList)
+        }
+
         currentFile = directoryToList
+        setFileDepth(directoryToList)
         updateUiForCurrentFolder()
-        scrollToHighlightedFileOrTop(adapter, highlightedFile, previousDirectory, directoryToList)
     }
 
     private fun scrollToHighlightedFileOrTop(
@@ -1192,7 +1173,7 @@ open class OCFileListFragment :
     fun refreshDirectory() {
         isSearchFragment = false
         val folder = currentFile ?: return
-        setFabVisible(canCreateInside(folder))
+        updateFabState()
         listDirectory(folder, MainApp.isOnlyOnDevice())
     }
 
@@ -1207,15 +1188,10 @@ open class OCFileListFragment :
         get() = adapter?.isEmpty ?: true
 
     private fun updateUiForCurrentFolder() {
-        fileListLayoutManager?.setLayoutViewMode()
         updateSortButtonLabel()
         setLayoutSwitchButton()
-
-        val folder = currentFile
-        val readOnly = isReadOnlyFolder(folder)
-        setFabVisible(!hideFab && !readOnly)
+        updateFabState()
         setBottomNavigationVisible(!hideFab)
-        setFabEnabled(folder != null && !readOnly && (folder.canCreateFileAndFolder() || folder.isOfflineOperation))
 
         activeActionMode?.invalidate()
     }
@@ -1349,7 +1325,7 @@ open class OCFileListFragment :
 
         applySearchEvent(event)
         isSearchFragment = true
-        setFabVisible(false)
+        setFabState(FabState.HIDDEN)
 
         mainHandler.post {
             updateSortButtonLabel()
@@ -1442,11 +1418,11 @@ open class OCFileListFragment :
         (activity as? FileDisplayActivity)?.run {
             invalidateOptionsMenu()
             intent.removeExtra(SEARCH_EVENT)
-            setupHomeSearchToolbarWithSortAndListButtons()
+            showActionBar(ActionBarStyle.Search)
             updateActionBarTitleAndHomeButton(null)
         }
 
-        currentFile?.let { setFabVisible(canCreateInside(it)) }
+        updateFabState()
         setBottomNavigationVisible(true)
     }
 
@@ -1546,6 +1522,7 @@ open class OCFileListFragment :
         const val SEARCH_EVENT = "SEARCH_EVENT"
         const val KEY_CURRENT_SEARCH_TYPE = "CURRENT_SEARCH_TYPE"
         private val KEY_FILE = "$MY_PACKAGE.extra.FILE"
+        private val KEY_FILE_DEPTH = "$MY_PACKAGE.extra.FILE_DEPTH"
 
         private const val DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER"
         private const val DIALOG_CREATE_DOCUMENT = "DIALOG_CREATE_DOCUMENT"
@@ -1577,8 +1554,6 @@ open class OCFileListFragment :
         )
 
         private val scanIntentExternalApp = Intent(SCAN_TO_PDF_ACTION)
-
-        private var currentFileDepth: OCFileDepth? = OCFileDepth.Root
 
         var isMultipleFileSelectedForCopyOrMove = false
     }

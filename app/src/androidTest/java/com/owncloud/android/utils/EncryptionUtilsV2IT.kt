@@ -965,7 +965,7 @@ class EncryptionUtilsV2IT : EncryptionIT() {
             getUserId(user),
             EncryptionTestIT.privateKey,
             folder,
-            fileDataStorageManager,
+            storageManager,
             client,
             decryptedFolderMetadata1.metadata.counter,
             signature,

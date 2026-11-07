@@ -21,6 +21,7 @@ import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.BackupFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment;
 
+import com.owncloud.android.ui.navigation.model.ActionBarStyle;
 import javax.inject.Inject;
 
 import androidx.activity.OnBackPressedCallback;
@@ -69,7 +70,7 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
         setContentView(R.layout.contacts_preference);
 
         // setup toolbar
-        setupToolbar();
+        showActionBar(ActionBarStyle.Plain);
 
         // setup drawer
         //setupDrawer(R.id.nav_contacts); // TODO needed?

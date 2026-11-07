@@ -12,6 +12,7 @@ package com.owncloud.android.operations;
 import android.content.Context;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1;
@@ -138,6 +139,7 @@ public class UnshareOperation extends SyncOperation {
                     if (sharesWith.size() == SINGLY_SHARED) {
                         file.setSharedWithSharee(false);
                     }
+                    OCFileExtensionsKt.removeShare(file, share);
                 }
 
                 getStorageManager().saveFile(file);

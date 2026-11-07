@@ -352,7 +352,6 @@
     <string name="downloader_download_in_progress_ticker">Sæki…</string>
     <string name="downloader_download_succeeded_content">%1$s niðurhalað</string>
     <string name="downloader_download_succeeded_ticker">Sótt</string>
-    <string name="downloader_file_download_cancelled">Hætt var við tilteknar skrár af notanda á meðan þær voru sóttar</string>
     <string name="downloader_file_download_failed">Villa kom upp við að sækja skrár</string>
     <string name="downloader_not_downloaded_yet">Ekki ennþá búið að sækja</string>
     <string name="downloader_unexpected_error">Óvænt villa kom upp við að sækja skrár</string>

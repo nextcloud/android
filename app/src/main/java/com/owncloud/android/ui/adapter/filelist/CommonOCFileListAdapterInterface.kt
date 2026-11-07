@@ -21,7 +21,8 @@ interface CommonOCFileListAdapterInterface {
         directory: OCFile,
         storageManager: FileDataStorageManager,
         onlyOnDevice: Boolean,
-        mLimitToMimeType: String
+        mLimitToMimeType: String,
+        onSwapped: () -> Unit = {}
     )
 
     fun setHighlightedItem(file: OCFile)

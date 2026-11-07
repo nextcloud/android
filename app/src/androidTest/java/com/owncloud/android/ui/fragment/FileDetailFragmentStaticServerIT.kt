@@ -35,7 +35,7 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
     private val oCFile: OCFile = OCFile("/").apply {
         storagePath = file.absolutePath
         fileId = 12
-        fileDataStorageManager.saveFile(this)
+        storageManager.saveFile(this)
     }
 
     @Test

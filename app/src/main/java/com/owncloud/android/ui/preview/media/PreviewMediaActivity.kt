@@ -185,7 +185,8 @@ class PreviewMediaActivity :
         sendShareDownloader.downloadFile(file, packageName, activityName)
     }
 
-    override fun getMenuItemId(): Int = R.id.nav_gallery
+    override val menuItemId: Int
+        get() = R.id.nav_gallery
 
     private fun applyDisplayCutOutTopPadding() {
         window.decorView.setOnApplyWindowInsetsListener { view, insets ->

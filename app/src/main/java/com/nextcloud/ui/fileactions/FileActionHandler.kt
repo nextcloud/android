@@ -87,7 +87,7 @@ class FileActionHandler @Inject constructor(
 
             R.id.action_unset_favorite -> setFavorite(files, false, host)
 
-            else -> return host.helper?.handle(itemId, files, host.view, backgroundJobManager) == true
+            else -> return host.helper?.handle(itemId, files, backgroundJobManager) == true
         }
 
         return true

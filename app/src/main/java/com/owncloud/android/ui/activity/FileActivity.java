@@ -75,6 +75,7 @@ import com.owncloud.android.providers.UsersAndGroupsSearchConfig;
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
+import com.owncloud.android.ui.activity.drawer.DrawerActivity;
 import com.owncloud.android.ui.asynctasks.CheckRemoteWipeTask;
 import com.owncloud.android.ui.asynctasks.LoadingVersionNumberTask;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
@@ -92,6 +93,7 @@ import com.owncloud.android.ui.fragment.filesRepository.FilesRepository;
 import com.owncloud.android.ui.fragment.filesRepository.RemoteFilesRepository;
 import com.owncloud.android.ui.helpers.CredentialsUpdateHelper;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
+import com.owncloud.android.ui.navigation.model.ActionBarStyle;
 import com.owncloud.android.ui.preview.media.PreviewMediaActivity;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.ErrorMessageAdapter;
@@ -192,9 +194,9 @@ public abstract class FileActivity extends DrawerActivity
         MainApp.showOnlyFilesOnDevice(onDeviceOnly);
         MainApp.showOnlyPersonalFiles(personalFiles);
         if (onDeviceOnly) {
-            setupToolbar();
+            showActionBar(ActionBarStyle.Plain);
         } else {
-            setupHomeSearchToolbarWithSortAndListButtons();
+            showActionBar(ActionBarStyle.Search);
         }
     }
 
