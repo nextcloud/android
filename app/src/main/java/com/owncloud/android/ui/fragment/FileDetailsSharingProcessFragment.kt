@@ -247,18 +247,13 @@ class FileDetailsSharingProcessFragment :
             }
         }
 
-        viewThemeUtils.androidx.run {
-            binding.run {
-                colorSwitchCompat(shareProcessSetPasswordSwitch)
-                colorSwitchCompat(shareProcessSetExpDateSwitch)
-                colorSwitchCompat(shareProcessSetDownloadLimitSwitch)
-                colorSwitchCompat(shareProcessHideDownloadCheckbox)
-                colorSwitchCompat(shareProcessChangeNameSwitch)
-            }
-        }
-
         viewThemeUtils.material.run {
             binding.run {
+                colorMaterialSwitch(shareProcessSetPasswordSwitch)
+                colorMaterialSwitch(shareProcessSetExpDateSwitch)
+                colorMaterialSwitch(shareProcessSetDownloadLimitSwitch)
+                colorMaterialSwitch(shareProcessHideDownloadCheckbox)
+                colorMaterialSwitch(shareProcessChangeNameSwitch)
                 colorTextInputLayout(shareProcessEnterPasswordContainer)
                 colorTextInputLayout(shareProcessSetDownloadLimitInputContainer)
                 colorTextInputLayout(shareProcessChangeNameContainer)
