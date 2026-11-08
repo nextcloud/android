@@ -343,6 +343,7 @@
     <string name="download_download_invalid_local_file_name">Ogiltigt filnamn för lokal fil</string>
     <string name="download_latest_dev_version">Hämta senaste utvecklingsversionen</string>
     <string name="download_limit">Hämtningsbegränsning</string>
+    <string name="downloader_download_canceled">Nedladdning avbruten</string>
     <string name="downloader_download_failed_content">Kunde inte hämta %1$s</string>
     <string name="downloader_download_failed_credentials_error">Hämtningen misslyckades, logga in igen</string>
     <string name="downloader_download_failed_ticker">Hämtning misslyckades</string>
@@ -1173,6 +1174,7 @@
     <string name="upload_cannot_create_file">Kan inte skapa lokal fil</string>
     <string name="upload_chooser_title">Ladda upp från…</string>
     <string name="upload_content_from_other_apps">Ladda upp innehåll från andra appar</string>
+    <string name="upload_direct_camera_not_found">Ingen kamera hittades</string>
     <string name="upload_direct_camera_photo">Bild</string>
     <string name="upload_direct_camera_promt">Vill du ta ett foto eller spela in en video?</string>
     <string name="upload_direct_camera_upload">Ladda upp från kamera</string>
@@ -1206,6 +1208,7 @@
     <string name="upload_old_android">Kryptering kräver Android 5.0 eller senare</string>
     <string name="upload_query_move_foreign_files">Otillräckligt utrymme förhindrar kopiering av de valda filerna till %1$s-mappen. Vill du flytta dem dit i stället?</string>
     <string name="upload_quota_exceeded">Lagringskvot överskriden</string>
+    <string name="upload_quota_exceeded_notification_description">Din lagringskvot är full, så uppladdningarna stoppades. Frigör utrymme eller be din administratör om mer kvot och försök sedan igen med de misslyckade uppladdningarna från Uppladdningar.</string>
     <string name="upload_scan_doc_upload">Skanna dokument med kameran</string>
     <string name="upload_sync_conflict_check">Det kan finnas en konflikt från din senaste uppladdning. Tryck för att kontrollera.</string>
     <string name="upload_sync_conflict_check_error">Kunde inte kontrollera uppladdningskonflikter. Försök igen.</string>
