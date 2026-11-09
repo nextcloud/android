@@ -19,11 +19,8 @@ puts "=================== starting Android Lint Entropy Reducer ================
 # User name for git commits made by this script.
 TRAVIS_GIT_USERNAME = String.new("Drone CI server")
 
-# File name and relative path of generated Lint report. Must match build.gradle file:
-#   lintOptions {
-#       htmlOutput file("[FILE_NAME].html")
-#   }
-LINT_REPORT_FILE = String.new("app/build/reports/lint/lint.html")
+# File name and relative path of the HTML report that AGP generates for lintGplayDebug.
+LINT_REPORT_FILE = String.new("app/build/reports/lint-results-gplayDebug.html")
 
 # File name and relative path of previous results of this script.
 PREVIOUS_LINT_RESULTS_FILE=String.new("scripts/analysis/lint-results.txt")
