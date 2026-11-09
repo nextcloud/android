@@ -6,7 +6,8 @@
  */
 package com.nextcloud.utils.extensions
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertArrayEquals
 import org.junit.Test
 
 class IntArrayExtensionsTest {
