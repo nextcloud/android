@@ -192,7 +192,7 @@ public class FileDataStorageManager {
 
             addCreateFolderOfflineOperationsForMissingParents(remotePath);
 
-            String parentPath = new File(remotePath).getParent() + OCFile.PATH_SEPARATOR;
+            String parentPath = FileStorageUtils.getParentPath(remotePath);
             OCFile parentFile = getFileByDecryptedRemotePath(parentPath);
 
             if (parentFile != null) {
