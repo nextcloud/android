@@ -11,11 +11,16 @@ import android.content.Context
 import android.text.TextUtils
 import com.nextcloud.client.account.User
 import com.nextcloud.client.database.NextcloudDatabase
+import com.nextcloud.client.database.dao.OfflineOperationDao
+import com.nextcloud.client.database.entity.OfflineOperationEntity
+import com.nextcloud.model.OfflineOperationType
+import com.owncloud.android.MainApp
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.operations.RemoteOperationFailedException
 import com.owncloud.android.utils.MimeType
+import com.owncloud.android.utils.MimeTypeUtil
 import io.mockk.EqMatcher
 import io.mockk.every
 import io.mockk.mockk
@@ -42,11 +47,14 @@ class FileDataStorageManagerSaveFileWithParentTest {
         private const val LOCAL_PARENT_ID = 42L
         private const val FIRST_GENERATED_ID = 100L
         private const val LOG_MESSAGE = "server unreachable"
+        private const val LOCAL_UPLOAD_PATH = "/storage/emulated/0/upload"
     }
 
     private lateinit var manager: FileDataStorageManager
     private lateinit var context: Context
+    private val localFiles = mutableMapOf<String, OCFile>()
     private val savedFiles = mutableListOf<OCFile>()
+    private val queuedOperations = mutableListOf<OfflineOperationEntity>()
     private var nextFileId = FIRST_GENERATED_ID
 
     @Before
@@ -54,22 +62,37 @@ class FileDataStorageManagerSaveFileWithParentTest {
         mockkStatic(TextUtils::class)
         every { TextUtils.isEmpty(any()) } answers { arg<CharSequence?>(0).isNullOrEmpty() }
 
+        context = mockk(relaxed = true)
+        mockkStatic(MainApp::class)
+        every { MainApp.getAppContext() } returns context
+
+        mockkStatic(MimeTypeUtil::class)
+        every { MimeTypeUtil.getMimeTypeFromPath(any()) } returns "text/plain"
+
+        val offlineOperationDao = mockk<OfflineOperationDao>(relaxed = true)
+        every { offlineOperationDao.insert(*anyVararg()) } answers {
+            queuedOperations.addAll(args.flatMap { if (it is Array<*>) it.toList() else listOf(it) }
+                .filterIsInstance<OfflineOperationEntity>())
+        }
+
         val db = mockk<NextcloudDatabase>(relaxed = true)
+        every { db.offlineOperationDao() } returns offlineOperationDao
         mockkObject(NextcloudDatabase.Companion)
         every { NextcloudDatabase.getInstance(any()) } returns db
         every { NextcloudDatabase.instance() } returns db
 
         mockkConstructor(ReadFileRemoteOperation::class)
 
-        context = mockk(relaxed = true)
         manager = spyk(FileDataStorageManager(mockk<User>(relaxed = true), null as ContentResolver?))
-        every { manager.getFileByEncryptedRemotePath(any()) } returns null
+        every { manager.getFileByEncryptedRemotePath(any()) } answers { localFiles[firstArg()] }
+        every { manager.getFileByDecryptedRemotePath(any()) } answers { localFiles[firstArg()] }
         every { manager.saveFile(any()) } answers {
             val file = firstArg<OCFile>()
             if (file.fileId == -1L) {
                 file.fileId = nextFileId++
             }
             savedFiles.add(file)
+            localFiles[file.remotePath] = file
             false
         }
     }
@@ -251,13 +274,108 @@ class FileDataStorageManagerSaveFileWithParentTest {
         assertTrue(savedFiles.isEmpty())
     }
 
+    @Test
+    fun `offline file in root queues no create folder operation`() {
+        givenLocalFolder(OCFile.ROOT_PATH, ROOT_ID)
+
+        queueOfflineUpload("/report.pdf")
+
+        assertEquals(listOf("/report.pdf"), queuedOperations.map { it.path })
+        assertEquals(ROOT_ID, queuedOperations.single().parentOCFileId)
+        verifyNoServerFetch()
+    }
+
+    @Test
+    fun `offline file in a locally stored folder queues no create folder operation`() {
+        givenLocalFolder(OCFile.ROOT_PATH, ROOT_ID)
+        givenLocalFolder("/documents/", LOCAL_PARENT_ID)
+
+        queueOfflineUpload("/documents/report.pdf")
+
+        assertEquals(listOf("/documents/report.pdf"), queuedOperations.map { it.path })
+        assertEquals(LOCAL_PARENT_ID, queuedOperations.single().parentOCFileId)
+        verifyNoServerFetch()
+    }
+
+    @Test
+    fun `missing parent of an offline file is queued as a create folder operation before the file`() {
+        givenLocalFolder(OCFile.ROOT_PATH, ROOT_ID)
+
+        queueOfflineUpload("/documents/report.pdf")
+
+        val (folderOperation, fileOperation) = queuedOperations
+        assertEquals("/documents/", folderOperation.path)
+        assertEquals("documents", folderOperation.filename)
+        assertEquals(ROOT_ID, folderOperation.parentOCFileId)
+        assertTrue(folderOperation.type is OfflineOperationType.CreateFolder)
+        assertTrue(fileOperation.type is OfflineOperationType.CreateFile)
+        assertEquals(localFiles.getValue("/documents/").fileId, fileOperation.parentOCFileId)
+        verifyNoServerFetch()
+    }
+
+    @Test
+    fun `all missing ancestors of an offline file are queued from the top down`() {
+        givenLocalFolder(OCFile.ROOT_PATH, ROOT_ID)
+
+        queueOfflineUpload("/a/b/c.txt")
+
+        assertEquals(listOf("/a/", "/a/b/", "/a/b/c.txt"), queuedOperations.map { it.path })
+        val (folderA, folderB, file) = queuedOperations
+        assertEquals(ROOT_ID, folderA.parentOCFileId)
+        assertEquals(localFiles.getValue("/a/").fileId, folderB.parentOCFileId)
+        assertEquals(localFiles.getValue("/a/b/").fileId, file.parentOCFileId)
+        verifyNoServerFetch()
+    }
+
+    @Test
+    fun `missing ancestors are stored as pending local folders`() {
+        givenLocalFolder(OCFile.ROOT_PATH, ROOT_ID)
+
+        queueOfflineUpload("/a/b/c.txt")
+
+        val folderA = localFiles.getValue("/a/")
+        val folderB = localFiles.getValue("/a/b/")
+        assertTrue(folderA.isFolder && folderB.isFolder)
+        assertEquals(ROOT_ID, folderA.parentId)
+        assertEquals(folderA.fileId, folderB.parentId)
+        assertEquals(folderB.fileId, localFiles.getValue("/a/b/c.txt").parentId)
+    }
+
+    @Test
+    fun `only folders below the deepest locally stored folder are queued`() {
+        givenLocalFolder(OCFile.ROOT_PATH, ROOT_ID)
+        givenLocalFolder("/documents/", LOCAL_PARENT_ID)
+
+        queueOfflineUpload("/documents/x/y/z.txt")
+
+        assertEquals(listOf("/documents/x/", "/documents/x/y/", "/documents/x/y/z.txt"), queuedOperations.map { it.path })
+        assertEquals(LOCAL_PARENT_ID, queuedOperations.first().parentOCFileId)
+    }
+
+    @Test
+    fun `offline files sharing a missing parent queue that folder only once`() {
+        givenLocalFolder(OCFile.ROOT_PATH, ROOT_ID)
+
+        queueOfflineUpload("/documents/first.pdf", "/documents/second.pdf")
+
+        assertEquals(
+            listOf("/documents/", "/documents/first.pdf", "/documents/second.pdf"),
+            queuedOperations.map { it.path }
+        )
+        verifyNoServerFetch()
+    }
+
+    private fun queueOfflineUpload(vararg remotePaths: String) {
+        val localPaths = remotePaths.map { LOCAL_UPLOAD_PATH + it }.toTypedArray()
+        manager.addCreateFileOfflineOperation(localPaths, arrayOf(*remotePaths))
+    }
+
     private fun givenLocalFolder(path: String, id: Long) {
-        val folder = OCFile(path).apply {
+        localFiles[path] = OCFile(path).apply {
             fileId = id
             parentId = if (path == OCFile.ROOT_PATH) 0L else ROOT_ID
             mimeType = MimeType.DIRECTORY
         }
-        every { manager.getFileByEncryptedRemotePath(path) } returns folder
     }
 
     private fun givenServerFolder(path: String) {
