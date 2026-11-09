@@ -111,7 +111,7 @@ class PreviewMediaActivity :
     private var isDownloadWorkStarted = false
     private var screenState = PreviewImageActivityState.Idle
 
-    private val pictureInPicture by lazy { VideoPictureInPicture(this, playbackModel) }
+    val pictureInPicture by lazy { VideoPictureInPicture(this) }
     private var wasActionBarVisibleBeforePictureInPicture = true
     private var keepPlaybackOnFinish = false
 
@@ -563,7 +563,12 @@ class PreviewMediaActivity :
         viewPager?.setCurrentItem(position, true)
     }
 
-    fun enterPictureInPicture(): Boolean = viewPager?.let { pictureInPicture.enter(it) } == true
+    fun enterPictureInPicture(): Boolean = pictureInPicture.enter()
+
+    override fun onUserLeaveHint() {
+        super.onUserLeaveHint()
+        pictureInPicture.enterOnUserLeave()
+    }
 
     override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean, newConfig: Configuration) {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
