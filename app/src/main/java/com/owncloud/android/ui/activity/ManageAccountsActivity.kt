@@ -37,6 +37,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.jobs.download.FileDownloadEventBroadcaster
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.onboarding.FirstRunActivity
+import com.nextcloud.ui.dialog.account.CustomHeadersDialogFragment
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.mdm.MDMConfig.multiAccountSupport
 import com.owncloud.android.MainApp
@@ -456,6 +457,11 @@ class ManageAccountsActivity :
                 when (itemId) {
                     R.id.action_open_account -> {
                         accountClicked(user)
+                    }
+
+                    R.id.action_custom_headers -> {
+                        CustomHeadersDialogFragment.newInstance(user)
+                            .show(supportFragmentManager, CustomHeadersDialogFragment.TAG)
                     }
 
                     R.id.action_delete_account -> {

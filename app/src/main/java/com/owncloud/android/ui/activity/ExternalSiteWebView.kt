@@ -24,6 +24,7 @@ import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.utils.RawResourceReader
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.isWebViewAvailable
+import com.nextcloud.utils.headers.WebViewCustomHeaders
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ExternalsiteWebviewBinding
@@ -92,6 +93,7 @@ open class ExternalSiteWebView : FileActivity() {
         setupToolbarAndDrawer()
         setupWebSettings(webView.settings)
         webView.webViewClient = createWebViewClient()
+        WebViewCustomHeaders.installPageScripts(webView)
 
         proxyUtil?.applyProxy {
             url?.let { webView.loadUrl(it) }
@@ -126,7 +128,7 @@ open class ExternalSiteWebView : FileActivity() {
         }
 
         override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest): Boolean {
-            if (request.isRedirect) {
+            if (request.isRedirect || WebViewCustomHeaders.isRedirectNavigation(request.url)) {
                 return false
             }
 

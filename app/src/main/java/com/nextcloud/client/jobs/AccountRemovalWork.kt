@@ -22,6 +22,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.common.NextcloudClient
+import com.nextcloud.utils.headers.AccountCustomHeaders
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProvider
@@ -137,6 +138,7 @@ class AccountRemovalWork(
 
         // delete cached OwncloudClient
         OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(user.toOwnCloudAccount())
+        AccountCustomHeaders.reconcile(context)
 
         if (userRemoved) {
             eventBus.post(AccountRemovedEvent())
