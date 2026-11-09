@@ -67,6 +67,8 @@ import com.nextcloud.client.player.model.file.toPlaybackCollection
 import com.nextcloud.client.player.ui.audio.AudioPlayerLauncher
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.IntentUtil
+import com.nextcloud.repository.ExternalStorageMountsResult
+import com.nextcloud.repository.ExternalStorageRepository
 import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -84,6 +86,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.VirtualFolderType
+import com.owncloud.android.lib.common.network.WebdavEntry
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -207,6 +210,9 @@ class FileDisplayActivity :
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
+    @Inject
+    lateinit var externalStorageRepository: ExternalStorageRepository
 
     private val viewModel by viewModels<FileDisplayActivityViewModel> { viewModelFactory }
 
@@ -1088,6 +1094,20 @@ class FileDisplayActivity :
         resetScrollingAndUpdateActionBar()
         startSyncFolderOperation(directory, ignoreETag = false, syncChangedDownloadedFiles = true)
         startMetadataSyncForCurrentDir()
+        fetchExternalStorageMountsIfNeeded(directory)
+    }
+
+    private fun fetchExternalStorageMountsIfNeeded(directory: OCFile?) {
+        if (WebdavEntry.MountType.EXTERNAL != directory?.mountType) return
+
+        lifecycleScope.launch {
+            when (val result = externalStorageRepository.fetchMounts()) {
+                is ExternalStorageMountsResult.Success ->
+                    Log_OC.d(TAG, "Fetched ${result.mounts.size} external storage mounts: ${result.mounts}")
+
+                ExternalStorageMountsResult.Failure -> Log_OC.w(TAG, "Could not fetch external storage mounts")
+            }
+        }
     }
 
     private fun browseUp(listOfFiles: OCFileListFragment) {
