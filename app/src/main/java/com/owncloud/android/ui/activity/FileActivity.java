@@ -103,7 +103,6 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
@@ -462,7 +461,7 @@ public abstract class FileActivity extends DrawerActivity
             account = getAccount();
         }
 
-        new CheckRemoteWipeTask(backgroundJobManager, account, new WeakReference<>(this)).execute();
+        new CheckRemoteWipeTask(backgroundJobManager, account, this).execute();
     }
 
     public void performCredentialsUpdate(Account account) {
