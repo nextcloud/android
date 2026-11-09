@@ -189,6 +189,8 @@ public class FileDataStorageManager {
             entity.setModifiedAt(modificationTimestamp / AppConstants.MILLIS_PER_SECOND);
             entity.setFilename(new File(remotePath).getName());
 
+            addCreateFolderOfflineOperationsForMissingParents(remotePath);
+
             String parentPath = new File(remotePath).getParent() + OCFile.PATH_SEPARATOR;
             OCFile parentFile = getFileByDecryptedRemotePath(parentPath);
 
@@ -199,6 +201,24 @@ public class FileDataStorageManager {
             offlineOperationDao.insert(entity);
             createPendingFile(remotePath, mimeType, createdAt, modificationTimestamp, localPath);
         }
+    }
+
+    private void addCreateFolderOfflineOperationsForMissingParents(String remotePath) {
+        String parentPath = FileStorageUtils.getParentPath(remotePath);
+        if (parentPath == null || OCFile.ROOT_PATH.equals(parentPath)) {
+            return;
+        }
+
+        if (getFileByEncryptedRemotePath(parentPath) != null) {
+            return;
+        }
+
+        addCreateFolderOfflineOperationsForMissingParents(parentPath);
+
+        String grandParentPath = FileStorageUtils.getParentPath(parentPath);
+        OCFile grandParent = grandParentPath == null ? null : getFileByEncryptedRemotePath(grandParentPath);
+        Long grandParentId = grandParent == null ? null : grandParent.getFileId();
+        addCreateFolderOfflineOperation(parentPath, new File(parentPath).getName(), grandParentId);
     }
 
     public OfflineOperationEntity getOfflineEntityFromOCFile(OCFile file) {
