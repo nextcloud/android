@@ -392,8 +392,7 @@ private fun FileDataStorageManager.upsertFolderContent(folder: OCFile, files: Li
         val existingFile = findExistingFile(file)
         val entity = file.toFileEntity(user.accountName).copy(
             id = existingFile?.id,
-            parent = folder.fileId,
-            mountType = existingFile?.mountType
+            parent = folder.fileId
         )
 
         val insertedRowId = fileDao.upsert(entity)

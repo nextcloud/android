@@ -705,7 +705,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     }
 
     public Integer getFileOverlayIconId(boolean isAutoUploadFolder) {
-        if (WebdavEntry.MountType.GROUP == mountType || mounted()) {
+        if (WebdavEntry.MountType.GROUP == mountType) {
             return R.drawable.ic_folder_overlay_account_group;
         } else if (sharedViaLink && !encrypted) {
             return R.drawable.ic_folder_overlay_link;
