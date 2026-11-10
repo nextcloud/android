@@ -71,7 +71,7 @@ class PlayerThumbnailLoader @Inject constructor(
         "${client.baseUri}/index.php/core/preview?fileId=${file.id}&x=$width&y=$height&a=1&mode=cover&forceIcon=0",
         LazyHeaders.Builder()
             .addHeader("Authorization", client.credentials)
-            .addHeader("User-Agent", MainApp.getUserAgent())
+            .addHeader("User-Agent", MainApp.userAgent)
             .build()
     )
 }

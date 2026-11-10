@@ -93,7 +93,7 @@ class FileStorageManagerTests {
         val context = mockk<Context>(relaxed = true)
         every { context.contentResolver } returns contentResolver
 
-        mockkStatic(MainApp::class)
+        mockkObject(MainApp)
         every { MainApp.getAppContext() } returns context
         mockkObject(NextcloudDatabase.Companion)
         every { NextcloudDatabase.getInstance(any()) } returns database

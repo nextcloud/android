@@ -67,7 +67,7 @@ class MediaFoldersDetectionWork(
         private const val ACCOUNT_NAME_GLOBAL = "global"
         private const val KEY_MEDIA_FOLDERS = "media_folders"
         const val NOTIFICATION_ID = "NOTIFICATION_ID"
-        private val DISABLE_DETECTION_CLICK = MainApp.getAuthority() + "_DISABLE_DETECTION_CLICK"
+        private val DISABLE_DETECTION_CLICK = MainApp.authority + "_DISABLE_DETECTION_CLICK"
     }
 
     private val randomIdGenerator = Random(clock.currentTime)

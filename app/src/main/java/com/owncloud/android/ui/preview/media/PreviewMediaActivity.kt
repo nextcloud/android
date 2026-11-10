@@ -229,7 +229,7 @@ class PreviewMediaActivity :
             return loader.forVirtualFolder(virtualFolderType, mediaState)
         }
 
-        return loader.forFolder(file?.parentId, MainApp.isOnlyOnDevice())
+        return loader.forFolder(file?.parentId, MainApp.isOnlyOnDevice)
     }
 
     private fun showViewPager(user: User, mediaFiles: List<OCFile>) {
