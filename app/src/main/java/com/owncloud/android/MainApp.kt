@@ -226,7 +226,7 @@ open class MainApp :
             walledCheckCache,
             appScope
         )
-        initContactsBackup(arbitraryDataProvider,accountManager, backgroundJobManager)
+        initContactsBackup(arbitraryDataProvider, accountManager, backgroundJobManager)
         AppNotificationChannels.create(getAppContext())
         scheduleBackgroundJobs()
         registerActivityLifecycleCallbacks(GlobalPassCodeProtectionCallbacks(onboarding, passCodeManager))
