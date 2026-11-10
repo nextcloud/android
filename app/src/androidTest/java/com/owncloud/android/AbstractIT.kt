@@ -15,7 +15,6 @@ import android.app.Instrumentation
 import android.content.Context
 import android.os.Build
 import android.view.View
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.DialogFragment
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.accessibility.AccessibilityChecks
@@ -322,7 +321,7 @@ abstract class AbstractIT {
 
             darkMode = DARK
             AppPreferencesImpl.fromContext(targetContext).setDarkThemeMode(DarkMode.DARK)
-            AppCompatDelegate.setDefaultNightMode(DarkMode.DARK.toMode())
+            DarkMode.DARK.setTheme()
         }
 
         @JvmStatic

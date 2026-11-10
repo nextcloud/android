@@ -11,7 +11,11 @@ import androidx.appcompat.app.AppCompatDelegate
 enum class DarkMode {
     DARK, LIGHT, SYSTEM;
 
-    fun toMode(): Int {
+    fun setTheme() {
+        AppCompatDelegate.setDefaultNightMode(this.toMode())
+    }
+
+    private fun toMode(): Int {
         return when (this) {
             LIGHT -> AppCompatDelegate.MODE_NIGHT_NO
             DARK -> AppCompatDelegate.MODE_NIGHT_YES

@@ -17,7 +17,6 @@ import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.os.StrictMode
 import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.ProcessLifecycleOwner
@@ -182,7 +181,7 @@ open class MainApp :
     @SuppressFBWarnings("ST")
     override fun onCreate() {
         enableStrictMode()
-        AppCompatDelegate.setDefaultNightMode(preferences.getDarkThemeMode().toMode())
+        preferences.darkThemeMode.setTheme()
         super.onCreate()
 
         ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleEventObserver)
