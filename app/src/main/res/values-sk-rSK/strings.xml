@@ -1173,6 +1173,7 @@
     <string name="upload_cannot_create_file">Nieje možné vytvoriť lokálny súbor</string>
     <string name="upload_chooser_title">Nahrať z…</string>
     <string name="upload_content_from_other_apps">Nahrať obsah z iných aplikácií</string>
+    <string name="upload_direct_camera_not_found">Nenašiel sa žiadny fotoaparát</string>
     <string name="upload_direct_camera_photo">Fotka</string>
     <string name="upload_direct_camera_promt">Chcete urobiť fotografiu alebo video?</string>
     <string name="upload_direct_camera_upload">Nahrať z fotoaparátu</string>
@@ -1206,6 +1207,7 @@
     <string name="upload_old_android">Šifrovanie je možné iba pri &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Pre skopírovanie vybratých súborov do adresára %1$s nie je dostatok voľného miesta. Chcete ich namiesto toho presunúť?</string>
     <string name="upload_quota_exceeded">Kapacita úložiska prekročená</string>
+    <string name="upload_quota_exceeded_notification_description">Kvóta vášho úložiska je vyčerpaná, preto sa nahrávanie zastavilo. Uvoľnite miesto alebo požiadajte správcu o zvýšenie kvóty a potom skúste neúspešné nahrávania zopakovať v časti Nahrávania.</string>
     <string name="upload_scan_doc_upload">Naskenujte dokument z fotoaparátu</string>
     <string name="upload_sync_conflict_check">Pri poslednom nahrávaní mohol vzniknúť konflikt. Klepnutím ho skontrolujete.</string>
     <string name="upload_sync_conflict_check_error">Nepodarilo sa skontrolovať konflikty pri nahrávaní. Skúste to znova.</string>

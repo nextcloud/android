@@ -343,6 +343,7 @@
     <string name="download_download_invalid_local_file_name">Ainm comhaid neamhbhailí don chomhad áitiúil</string>
     <string name="download_latest_dev_version">Íoslódáil an leagan is déanaí de dev</string>
     <string name="download_limit">Teorainn a íoslódáil</string>
+    <string name="downloader_download_canceled">Cealaíodh an íoslódáil</string>
     <string name="downloader_download_failed_content">Níorbh fhéidir %1$s a íoslódáil</string>
     <string name="downloader_download_failed_credentials_error">Theip ar an íoslódáil, logáil isteach arís</string>
     <string name="downloader_download_failed_ticker">Theip ar an íoslódáil</string>
@@ -1173,6 +1174,7 @@
     <string name="upload_cannot_create_file">Ní féidir comhad áitiúil a chruthú</string>
     <string name="upload_chooser_title">Uaslódáil ó…</string>
     <string name="upload_content_from_other_apps">Uaslódáil ábhar ó apps eile</string>
+    <string name="upload_direct_camera_not_found">Níor aimsíodh aon cheamara</string>
     <string name="upload_direct_camera_photo">Grianghraf</string>
     <string name="upload_direct_camera_promt">Ar mhaith leat grianghraf nó físeán a ghlacadh?</string>
     <string name="upload_direct_camera_upload">Íosluchtaigh ó ceamara</string>
@@ -1206,6 +1208,7 @@
     <string name="upload_old_android">Ní féidir criptiúchán ach amháin le 1&gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Ní bheidh dóthain spáis ann na comhaid roghnaithe a chóipeáil isteach san fhillteán %1$s. Ar mhaith leat iad a bhogadh ansin ina n-ionad?</string>
     <string name="upload_quota_exceeded">Sáraíodh an cuóta stórála</string>
+    <string name="upload_quota_exceeded_notification_description">Tá do chuóta stórála lán, mar sin cuireadh stop le h-uaslódálacha. Saor spás nó iarr tuilleadh cuóta ar do riarthóir, agus ansin déan iarracht arís ar na huaslódálacha nár éirigh leo ón rannán Uaslódálacha.</string>
     <string name="upload_scan_doc_upload">Doiciméad a scanadh ó ceamara</string>
     <string name="upload_sync_conflict_check">B’fhéidir go bhfuil coimhlint ann idir é agus an uaslódáil dheireanach a rinne tú. Tapáil le seiceáil.</string>
     <string name="upload_sync_conflict_check_error">Níorbh fhéidir seiceáil le haghaidh coinbhleachtaí uaslódála. Déan iarracht arís.</string>

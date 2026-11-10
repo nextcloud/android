@@ -1173,6 +1173,7 @@
     <string name="upload_cannot_create_file">Yerel dosya oluşturulamadı</string>
     <string name="upload_chooser_title">Şuradan yükle …</string>
     <string name="upload_content_from_other_apps">Diğer uygulamalardan içerik yükle</string>
+    <string name="upload_direct_camera_not_found">Herhangi bir kamera bulunamadı</string>
     <string name="upload_direct_camera_photo">Fotoğraf</string>
     <string name="upload_direct_camera_promt">Fotoğraf mı çekmek istiyorsunuz, yoksa video mu?</string>
     <string name="upload_direct_camera_upload">Kameradan yükle</string>
@@ -1206,6 +1207,7 @@
     <string name="upload_old_android">Şifreleme yalnızca >=Android 5.0 üzerinde kullanılabilir </string>
     <string name="upload_query_move_foreign_files">Seçilmiş dosyaları %1$s klasörüne kopyalamak için yeterli boş alan yok. Bu dosyaları kopyalamak yerine taşımak ister misiniz?</string>
     <string name="upload_quota_exceeded">Depolama alanı sınırına ulaşıldı</string>
+    <string name="upload_quota_exceeded_notification_description">Depolama alanı kotanız dolu, bu nedenle yüklemeler durduruldu. Yer açın veya yöneticinizden daha fazla kota vermesini isteyin. Ardından Yüklemeler bölümünden yapılamayan yüklemeleri yeniden deneyin.</string>
     <string name="upload_scan_doc_upload">Kamera ile belge tarama</string>
     <string name="upload_sync_conflict_check">Son yüklemenizden kaynaklanan bir çakışma olabilir. Kontrol etmek için dokunun.</string>
     <string name="upload_sync_conflict_check_error">Yükleme çakışmaları kontrol edilemedi. Lütfen yeniden deneyin.</string>
