@@ -24,11 +24,9 @@ import androidx.lifecycle.ProcessLifecycleOwner
 import com.nextcloud.appReview.InAppReviewHelper
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.appinfo.AppInfo
-import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.di.ActivityInjector
 import com.nextcloud.client.di.AppComponent
-import com.nextcloud.client.di.ApplicationScope
 import com.nextcloud.client.di.DaggerAppComponent
 import com.nextcloud.client.errorhandling.ExceptionHandler
 import com.nextcloud.client.jobs.BackgroundJobManager
@@ -38,7 +36,6 @@ import com.nextcloud.client.migrations.AutoUploadEntriesMigration
 import com.nextcloud.client.migrations.MigrationsManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.network.NetworkChangeListener
-import com.nextcloud.client.network.WalledCheckCache
 import com.nextcloud.client.notifications.AppNotificationChannels
 import com.nextcloud.client.onboarding.OnboardingService
 import com.nextcloud.client.preferences.AppPreferences
@@ -63,7 +60,6 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion
 import com.owncloud.android.providers.documentstorage.DocumentsStorageProvider
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity
 import com.owncloud.android.utils.FilesSyncHelper
-import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.ReceiversHelper
 import com.owncloud.android.utils.SecurityUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -71,7 +67,6 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
-import kotlinx.coroutines.CoroutineScope
 import org.conscrypt.Conscrypt
 import java.security.NoSuchAlgorithmException
 import java.security.Security
@@ -118,9 +113,6 @@ open class MainApp :
     lateinit var backgroundJobManager: BackgroundJobManager
 
     @Inject
-    lateinit var clock: Clock
-
-    @Inject
     lateinit var migrationsManager: MigrationsManager
 
     @Inject
@@ -128,9 +120,6 @@ open class MainApp :
 
     @Inject
     lateinit var passCodeManager: PassCodeManager
-
-    @Inject
-    lateinit var walledCheckCache: WalledCheckCache
 
     @Inject
     lateinit var composeProcessTextAlias: ComposeProcessTextAlias
@@ -142,8 +131,10 @@ open class MainApp :
     lateinit var arbitraryDataProvider: ArbitraryDataProvider
 
     @Inject
-    @ApplicationScope
-    lateinit var appScope: CoroutineScope
+    lateinit var receiversHelper: ReceiversHelper
+
+    @Inject
+    lateinit var autoUploadEntriesMigration: AutoUploadEntriesMigration
 
     private val restrictionsFilter = IntentFilter(Intent.ACTION_APPLICATION_RESTRICTIONS_CHANGED)
 
@@ -228,15 +219,7 @@ open class MainApp :
     }
 
     private fun initSyncOperations() {
-        AutoUploadEntriesMigration.updateToAutoUpload(this)
-        AutoUploadEntriesMigration.cleanOldEntries(this, clock)
-        AutoUploadEntriesMigration.updateAutoUploadEntries(this, clock)
-
-        if (PermissionUtil.checkStoragePermission(this)) {
-            AutoUploadEntriesMigration.splitOutAutoUploadEntries(this, clock)
-        } else {
-            preferences.setAutoUploadSplitEntriesEnabled(true)
-        }
+        autoUploadEntriesMigration.migrate()
 
         if (!preferences.isAutoUploadInitialized()) {
             preferences.setAutoUploadInit(true)
@@ -250,27 +233,7 @@ open class MainApp :
         )
 
         backgroundJobManager.scheduleOfflineSync()
-
-        ReceiversHelper.registerNetworkChangeReceiver(
-            uploadsStorageManager,
-            accountManager,
-            connectivityService,
-            powerManagementService,
-            walledCheckCache,
-            appScope
-        )
-        ReceiversHelper.registerPowerChangeReceiver(
-            uploadsStorageManager,
-            accountManager,
-            connectivityService,
-            powerManagementService
-        )
-        ReceiversHelper.registerPowerSaveReceiver(
-            uploadsStorageManager,
-            accountManager,
-            connectivityService,
-            powerManagementService
-        )
+        receiversHelper.registerReceivers()
     }
 
     fun disableDocumentsStorageProvider() {
