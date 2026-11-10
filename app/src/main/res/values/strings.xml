@@ -686,11 +686,6 @@
     <string name="auth_redirect_non_secure_connection_title">Secure connection redirected through an unsecured route.</string>
 
     <string name="logs_title">Logs</string>
-    <string name="logs_export_to_downloads_summary">Save app logs to Download/Nextcloud</string>
-    <string name="logs_export_to_downloads_success">Logs saved to Download/Nextcloud</string>
-    <string name="logs_export_to_downloads_empty">No logs to export. Reproduce the issue and try again.</string>
-    <string name="logs_export_to_downloads_failed">Could not save logs. Check available storage and try again.</string>
-    <string name="logs_export_storage_permission_required">Storage permission is needed to save logs to Download/Nextcloud.</string>
     <string name="logs_menu_refresh">Refresh</string>
     <string name="logs_menu_send">Send logs by email</string>
     <string name="logs_menu_export">Export logs</string>

@@ -24,13 +24,11 @@ import com.nextcloud.client.core.Cancellable
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.logger.LogEntry
 import com.owncloud.android.R
-import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.FileExportUtils
 import java.io.File
 import java.security.SecureRandom
 import java.util.TimeZone
-import java.util.function.IntConsumer
 import javax.inject.Inject
 
 class LogsEmailSender @Inject constructor(
@@ -43,10 +41,14 @@ class LogsEmailSender @Inject constructor(
         const val LOGS_MIME_TYPE = "text/plain"
     }
 
-    private class Task(private val logs: List<LogEntry>, private val file: File, private val tz: TimeZone) :
-        Function0<File> {
+    private class Task(
+        private val context: Context,
+        private val logs: List<LogEntry>,
+        private val file: File,
+        private val tz: TimeZone
+    ) : Function0<Uri?> {
 
-        override fun invoke(): File {
+        override fun invoke(): Uri? {
             file.parentFile?.mkdirs()
 
             file.outputStream().use { outputStream ->
@@ -58,7 +60,7 @@ class LogsEmailSender @Inject constructor(
                 }
             }
 
-            return file
+            return FileProvider.getUriForFile(context, context.getString(R.string.file_provider_authority), file)
         }
     }
 
@@ -67,58 +69,21 @@ class LogsEmailSender @Inject constructor(
     fun send(logs: List<LogEntry>) {
         if (task == null) {
             val outFile = File(context.cacheDir, "attachments/logs.txt")
-            task = runner.postQuickTask(Task(logs, outFile, clock.tz), onResult = {
+            task = runner.postQuickTask(Task(context, logs, outFile, clock.tz), onResult = {
                 task = null
-                send(FileProvider.getUriForFile(context, context.getString(R.string.file_provider_authority), it))
+                send(it)
             })
         }
     }
 
-    @JvmOverloads
-    fun export(
-        logs: List<LogEntry>,
-        onComplete: IntConsumer = IntConsumer { message ->
-            if (message == R.string.logs_export_to_downloads_success) {
-                showSuccessNotification(1)
-            } else {
-                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-            }
-        }
-    ) {
-        if (task != null) return
-        if (logs.isEmpty()) {
-            onComplete.accept(R.string.logs_export_to_downloads_empty)
-            return
-        }
-        task = runner.postQuickTask(
-            task = {
-                val outFile = File.createTempFile("logs-", ".txt", context.cacheDir)
-                try {
-                    Task(logs, outFile, clock.tz).invoke()
-                    FileExportUtils().exportFile(
-                        "Nextcloud Android Files Logs.txt",
-                        LOGS_MIME_TYPE,
-                        context.contentResolver,
-                        null,
-                        outFile,
-                        "Nextcloud"
-                    )
-                } finally {
-                    outFile.delete()
-                }
-            },
-            onResult = { success ->
+    fun export(logs: List<LogEntry>) {
+        if (task == null) {
+            val outFile = File(context.cacheDir, "attachments/logs.txt")
+            task = runner.postQuickTask(Task(context, logs, outFile, clock.tz), onResult = {
                 task = null
-                onComplete.accept(
-                    if (success) R.string.logs_export_to_downloads_success else R.string.logs_export_to_downloads_failed
-                )
-            },
-            onError = {
-                task = null
-                Log_OC.e(this, "Could not export logs", it)
-                onComplete.accept(R.string.logs_export_to_downloads_failed)
-            }
-        )
+                export(outFile)
+            })
+        }
     }
 
     fun stop() {
@@ -126,6 +91,17 @@ class LogsEmailSender @Inject constructor(
             task?.cancel()
             task = null
         }
+    }
+
+    private fun export(file: File) {
+        FileExportUtils("Nextcloud").exportFile(
+            "Nextcloud Android Files Logs",
+            "text/plain",
+            context.contentResolver,
+            null,
+            file
+        )
+        showSuccessNotification(1)
     }
 
     fun showSuccessNotification(successfulExports: Int) {

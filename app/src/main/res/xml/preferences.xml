@@ -131,7 +131,6 @@
             android:key="logger" />
         <Preference
             android:title="@string/logs_menu_export"
-            android:summary="@string/logs_export_to_downloads_summary"
             android:key="export_logs" />
         <Preference
             android:title="@string/prefs_imprint"

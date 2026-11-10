@@ -43,7 +43,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.URLUtil;
-import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.account.User;
@@ -425,54 +424,39 @@ public class SettingsActivity extends PreferenceActivity
     }
 
     private void setupLoggingPreference(PreferenceCategory preferenceCategoryMore) {
-        Preference pLogger = findPreference("logger");
         Preference pExport = findPreference("export_logs");
-        if (!MDMConfig.INSTANCE.isLogEnabled(this)) {
-            if (pLogger != null) {
-                preferenceCategoryMore.removePreference(pLogger);
-            }
-            if (pExport != null) {
-                preferenceCategoryMore.removePreference(pExport);
-            }
-            return;
-        }
-
-        if (pLogger != null) {
-            pLogger.setOnPreferenceClickListener(preference -> {
-                Intent loggerIntent = new Intent(getApplicationContext(), LogsActivity.class);
-                startActivity(loggerIntent);
-
-                return true;
-            });
-        }
-        if (pExport != null) {
+        if (MDMConfig.INSTANCE.isLogEnabled(this)) {
             pExport.setOnPreferenceClickListener(preference -> {
                 exportLogs();
                 return true;
             });
+        } else {
+            preferenceCategoryMore.removePreference(pExport);
+        }
+        Preference pLogger = findPreference("logger");
+        if (pLogger != null) {
+            if (MDMConfig.INSTANCE.isLogEnabled(this)) {
+                pLogger.setOnPreferenceClickListener(preference -> {
+                    Intent loggerIntent = new Intent(getApplicationContext(), LogsActivity.class);
+                    startActivity(loggerIntent);
+
+                    return true;
+                });
+            } else {
+                preferenceCategoryMore.removePreference(pLogger);
+            }
         }
     }
 
     private void exportLogs() {
-        Preference preference = findPreference("export_logs");
-        if (preference == null || !preference.isEnabled() || !MDMConfig.INSTANCE.isLogEnabled(this)) {
-            return;
-        }
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q
-            && ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            != PackageManager.PERMISSION_GRANTED) {
+            && !PermissionUtil.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_EXPORT_LOGS_PERMISSION);
             return;
         }
-        preference.setEnabled(false);
         logsRepository.load((entries, size) -> {
             if (!isDestroyed()) {
-                logsEmailSender.export(entries, message -> {
-                    if (!isDestroyed()) {
-                        preference.setEnabled(true);
-                        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-                    }
-                });
+                logsEmailSender.export(entries);
             }
             return Unit.INSTANCE;
         });
@@ -1285,22 +1269,19 @@ public class SettingsActivity extends PreferenceActivity
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_EXPORT_LOGS_PERMISSION) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                exportLogs();
-            } else {
-                Toast.makeText(this, R.string.logs_export_storage_permission_required, Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
-    @Override
     protected void onDestroy() {
         logsEmailSender.stop();
         super.onDestroy();
         getDelegate().onDestroy();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_EXPORT_LOGS_PERMISSION
+            && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            exportLogs();
+        }
     }
 
     @Override
