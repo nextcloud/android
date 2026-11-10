@@ -7,9 +7,9 @@
  */
 package com.owncloud.android.utils
 
-import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.ContentValues
+import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
@@ -18,130 +18,123 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import java.io.File
 import java.io.FileInputStream
-import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
-import java.io.InputStream
+import java.io.OutputStream
 
 class FileExportUtils {
     @Throws(IllegalStateException::class)
-    fun exportFile(fileName: String, mimeType: String, contentResolver: ContentResolver, ocFile: OCFile?, file: File?) {
+    fun exportFile(
+        fileName: String,
+        mimeType: String,
+        contentResolver: ContentResolver,
+        ocFile: OCFile?,
+        file: File?,
+        subdirectory: String = ""
+    ): Boolean = try {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             exportFileAndroid10AndAbove(
                 fileName,
                 mimeType,
                 contentResolver,
                 ocFile,
-                file
+                file,
+                subdirectory
             )
         } else {
             exportFilesBelowAndroid10(
                 fileName,
                 contentResolver,
                 ocFile,
-                file
+                file,
+                subdirectory
             )
         }
+        true
+    } catch (e: IOException) {
+        Log_OC.e(this, "Cannot export file", e)
+        false
+    } catch (e: SecurityException) {
+        Log_OC.e(this, "Cannot access export destination", e)
+        false
     }
 
-    @SuppressLint("Recycle") // handled inside copy method
     @RequiresApi(Build.VERSION_CODES.Q)
-    private fun exportFileAndroid10AndAbove(
+    internal fun exportFileAndroid10AndAbove(
         fileName: String,
         mimeType: String,
         contentResolver: ContentResolver,
         ocFile: OCFile?,
-        file: File?
+        file: File?,
+        subdirectory: String
     ) {
         val cv = ContentValues().apply {
             put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
             put(MediaStore.MediaColumns.MIME_TYPE, mimeType)
-            put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
+            put(MediaStore.MediaColumns.RELATIVE_PATH, "${Environment.DIRECTORY_DOWNLOADS}/$subdirectory")
+            put(MediaStore.MediaColumns.IS_PENDING, 1)
         }
 
-        var uri = contentResolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, cv)
-
-        if (uri == null) {
-            var count = INITIAL_RENAME_COUNT
-            do {
-                val name = generateNewName(fileName, count)
-                cv.put(MediaStore.MediaColumns.DISPLAY_NAME, name)
-                uri = contentResolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, cv)
-
-                count++
-            } while (uri == null)
+        val uri = contentResolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, cv)
+            ?: throw IOException("Could not create export")
+        try {
+            writeMediaStoreExport(ocFile, file, contentResolver, uri)
+        } catch (e: Exception) {
+            runCatching { contentResolver.delete(uri, null, null) }.onFailure {
+                Log_OC.e(this, "Could not remove incomplete export", it)
+            }
+            throw e
         }
-
-        copy(
-            ocFile,
-            file,
-            contentResolver,
-            FileOutputStream(contentResolver.openFileDescriptor(uri, "w")?.fileDescriptor)
-        )
     }
 
-    private fun exportFilesBelowAndroid10(
+    @RequiresApi(Build.VERSION_CODES.Q)
+    private fun writeMediaStoreExport(ocFile: OCFile?, file: File?, contentResolver: ContentResolver, uri: Uri) {
+        val stream = contentResolver.openOutputStream(uri, "w") ?: throw IOException("Could not open export")
+        copy(ocFile, file, contentResolver, stream)
+        val published = ContentValues().apply { put(MediaStore.MediaColumns.IS_PENDING, 0) }
+        if (contentResolver.update(uri, published, null, null) != 1) {
+            throw IOException("Could not publish export")
+        }
+    }
+
+    internal fun exportFilesBelowAndroid10(
         fileName: String,
         contentResolver: ContentResolver,
         ocFile: OCFile?,
-        file: File?
+        file: File?,
+        subdirectory: String
     ) {
+        val directory = File(
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+            subdirectory
+        )
+        if (!directory.isDirectory && !directory.mkdirs()) {
+            throw IOException("Could not create export directory")
+        }
+        var target = File(directory, fileName)
+        var count = INITIAL_RENAME_COUNT
+        while (!target.createNewFile()) {
+            target = File(directory, generateNewName(fileName, count++))
+        }
         try {
-            var target = File(
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-                fileName
-            )
-
-            if (target.exists()) {
-                var count = INITIAL_RENAME_COUNT
-                do {
-                    val name = generateNewName(fileName, count)
-                    target = File(
-                        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-                        name
-                    )
-
-                    count++
-                } while (target.exists())
-            }
-
-            copy(
-                ocFile,
-                file,
-                contentResolver,
-                FileOutputStream(target)
-            )
-        } catch (e: FileNotFoundException) {
-            Log_OC.e(this, "File not found", e)
-        } catch (e: IOException) {
-            Log_OC.e(this, "Cannot write file", e)
+            copy(ocFile, file, contentResolver, FileOutputStream(target))
+        } catch (e: Exception) {
+            target.delete()
+            throw e
         }
     }
 
     @Throws(IllegalStateException::class)
-    private fun copy(ocFile: OCFile?, file: File?, contentResolver: ContentResolver, outputStream: FileOutputStream) {
+    private fun copy(ocFile: OCFile?, file: File?, contentResolver: ContentResolver, outputStream: OutputStream) {
         outputStream.use { fos ->
-            try {
-                val inputStream = when {
-                    ocFile != null -> contentResolver.openInputStream(ocFile.storageUri)
-                    file != null -> FileInputStream(file)
-                    else -> error("ocFile and file both may not be null")
-                }!!
-
-                inputStream.use { fis ->
-                    copyStream(fis, fos)
-                }
-            } catch (e: IOException) {
-                Log_OC.e(this, "Cannot write file", e)
+            val inputStream = when {
+                ocFile != null -> contentResolver.openInputStream(ocFile.storageUri)
+                file != null -> FileInputStream(file)
+                else -> error("ocFile and file both may not be null")
+            } ?: throw IOException("Could not open export source")
+            inputStream.use { fis ->
+                fis.copyTo(fos)
             }
-        }
-    }
-
-    private fun copyStream(inputStream: InputStream, outputStream: FileOutputStream) {
-        val buffer = ByteArray(COPY_BUFFER_SIZE)
-        var len: Int
-        while (inputStream.read(buffer).also { len = it } != -1) {
-            outputStream.write(buffer, 0, len)
         }
     }
 
@@ -161,6 +154,5 @@ class FileExportUtils {
 
     companion object {
         private const val INITIAL_RENAME_COUNT = 2
-        private const val COPY_BUFFER_SIZE = 1024
     }
 }

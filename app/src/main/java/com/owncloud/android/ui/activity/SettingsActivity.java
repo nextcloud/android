@@ -15,15 +15,18 @@
  */
 package com.owncloud.android.ui.activity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -40,15 +43,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.URLUtil;
+import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.etm.EtmActivity;
-import com.nextcloud.client.logger.LogsExporter;
+import com.nextcloud.client.logger.LogsRepository;
 import com.nextcloud.client.logger.ui.LogsActivity;
-import com.nextcloud.client.logger.ui.LogsExportController;
+import com.nextcloud.client.logger.ui.LogsEmailSender;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -130,6 +134,7 @@ public class SettingsActivity extends PreferenceActivity
     private static final int ACTION_REQUEST_CODE_DAVDROID_SETUP = 10;
     private static final int ACTION_SHOW_MNEMONIC = 11;
     private static final int ACTION_E2E = 12;
+    private static final int REQUEST_EXPORT_LOGS_PERMISSION = 101;
     private static final int TRUE_VALUE = 1;
 
     private static final String DAV_PATH = "/remote.php/dav";
@@ -149,7 +154,6 @@ public class SettingsActivity extends PreferenceActivity
 
     private E2EDeletionService e2EDeletionService;
     private E2ECertificateRenewalService e2eCertificateRenewalService;
-    private LogsExportController logsExportController;
 
     private User user;
     @Inject ArbitraryDataProvider arbitraryDataProvider;
@@ -158,7 +162,8 @@ public class SettingsActivity extends PreferenceActivity
     @Inject ClientFactory clientFactory;
     @Inject ViewThemeUtils viewThemeUtils;
     @Inject ConnectivityService connectivityService;
-    @Inject LogsExporter logsExporter;
+    @Inject LogsRepository logsRepository;
+    @Inject LogsEmailSender logsEmailSender;
 
     @SuppressWarnings("deprecation")
     @Override
@@ -452,12 +457,36 @@ public class SettingsActivity extends PreferenceActivity
             });
         }
         if (pExport != null) {
-            logsExportController = new LogsExportController(this, logsExporter, pExport);
             pExport.setOnPreferenceClickListener(preference -> {
-                logsExportController.export();
+                exportLogs();
                 return true;
             });
         }
+    }
+
+    private void exportLogs() {
+        Preference preference = findPreference("export_logs");
+        if (preference == null || !preference.isEnabled() || !MDMConfig.INSTANCE.isLogEnabled(this)) {
+            return;
+        }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q
+            && ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_EXPORT_LOGS_PERMISSION);
+            return;
+        }
+        preference.setEnabled(false);
+        logsRepository.load((entries, size) -> {
+            if (!isDestroyed()) {
+                logsEmailSender.export(entries, message -> {
+                    if (!isDestroyed()) {
+                        preference.setEnabled(true);
+                        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+            return Unit.INSTANCE;
+        });
     }
 
 
@@ -1269,16 +1298,18 @@ public class SettingsActivity extends PreferenceActivity
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (logsExportController != null) {
-            logsExportController.onRequestPermissionsResult(requestCode, grantResults);
+        if (requestCode == REQUEST_EXPORT_LOGS_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                exportLogs();
+            } else {
+                Toast.makeText(this, R.string.logs_export_storage_permission_required, Toast.LENGTH_LONG).show();
+            }
         }
     }
 
     @Override
     protected void onDestroy() {
-        if (logsExportController != null) {
-            logsExportController.close();
-        }
+        logsEmailSender.stop();
         super.onDestroy();
         getDelegate().onDestroy();
     }
