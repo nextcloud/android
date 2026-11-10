@@ -521,7 +521,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         hidden = false;
         encrypted = false;
         readOnly = false;
-        mountType = WebdavEntry.MountType.INTERNAL;
+        mountType = null;
         richWorkspace = "";
         firstShareTimestamp = 0;
         locked = false;
