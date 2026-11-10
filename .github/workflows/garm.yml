@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
     test:
-        runs-on: ubuntu-24.04
+        runs-on: ubuntu-26.04
         services:
             server:
                 image: ${{ matrix.server == 'stable22' && 'ghcr.io/nextcloud/continuous-integration-shallow-server-php8.0:1' || 'ghcr.io/nextcloud/continuous-integration-shallow-server-php8.3:latest' }}
@@ -62,6 +62,15 @@ jobs:
                 run: |
                     sed -i s#http://server#http://10.0.2.2# gradle.properties
                     sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g app/src/main/res/values/setup.xml
+
+            -   name: Build APKs
+                run: |
+                    scripts/logMemoryUsage.sh &
+                    MEMORY_LOGGER_PID=$!
+                    trap 'kill $MEMORY_LOGGER_PID' EXIT
+                    ./gradlew assembleGplayDebug assembleGplayDebugAndroidTest -Pcoverage
+                    ./gradlew --stop
+                    pkill -f KotlinCompileDaemon || true
 
             -   name: wait and ping server
                 run: |

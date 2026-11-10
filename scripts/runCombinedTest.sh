@@ -20,11 +20,15 @@ function upload_logcat() {
     echo >&2 "Uploaded logcat to https://www.kaminsky.me/nc-dev/android-logcat/$log_filename"
 }
 
+scripts/logMemoryUsage.sh &
+MEMORY_LOGGER_PID=$!
+trap 'kill $MEMORY_LOGGER_PID' EXIT
+
 scripts/deleteOldComments.sh "$BRANCH" "IT" "$DRONE_PULL_REQUEST"
 
 scripts/wait_for_emulator.sh || exit 1
 
-./gradlew installGplayDebugAndroidTest
+./gradlew installGplayDebugAndroidTest -Pcoverage
 
 gradle_arguments=(
     -Pcoverage
