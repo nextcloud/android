@@ -46,7 +46,9 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.etm.EtmActivity;
+import com.nextcloud.client.logger.LogsExporter;
 import com.nextcloud.client.logger.ui.LogsActivity;
+import com.nextcloud.client.logger.ui.LogsExportController;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -147,6 +149,7 @@ public class SettingsActivity extends PreferenceActivity
 
     private E2EDeletionService e2EDeletionService;
     private E2ECertificateRenewalService e2eCertificateRenewalService;
+    private LogsExportController logsExportController;
 
     private User user;
     @Inject ArbitraryDataProvider arbitraryDataProvider;
@@ -155,6 +158,7 @@ public class SettingsActivity extends PreferenceActivity
     @Inject ClientFactory clientFactory;
     @Inject ViewThemeUtils viewThemeUtils;
     @Inject ConnectivityService connectivityService;
+    @Inject LogsExporter logsExporter;
 
     @SuppressWarnings("deprecation")
     @Override
@@ -417,17 +421,42 @@ public class SettingsActivity extends PreferenceActivity
 
     private void setupLoggingPreference(PreferenceCategory preferenceCategoryMore) {
         Preference pLogger = findPreference("logger");
-        if (pLogger != null) {
-            if (MDMConfig.INSTANCE.isLogEnabled(this)) {
-                pLogger.setOnPreferenceClickListener(preference -> {
-                    Intent loggerIntent = new Intent(getApplicationContext(), LogsActivity.class);
-                    startActivity(loggerIntent);
-
-                    return true;
-                });
-            } else {
+        Preference pExport = findPreference("export_logs");
+        ThemeableSwitchPreference pDebug = (ThemeableSwitchPreference) findPreference("record_debug_logs");
+        if (!MDMConfig.INSTANCE.isLogEnabled(this)) {
+            if (pLogger != null) {
                 preferenceCategoryMore.removePreference(pLogger);
             }
+            if (pExport != null) {
+                preferenceCategoryMore.removePreference(pExport);
+            }
+            if (pDebug != null) {
+                preferenceCategoryMore.removePreference(pDebug);
+            }
+            return;
+        }
+
+        if (pLogger != null) {
+            pLogger.setOnPreferenceClickListener(preference -> {
+                Intent loggerIntent = new Intent(getApplicationContext(), LogsActivity.class);
+                startActivity(loggerIntent);
+
+                return true;
+            });
+        }
+        if (pDebug != null) {
+            pDebug.setChecked(preferences.isDebugLoggingEnabled());
+            pDebug.setOnPreferenceChangeListener((preference, enabled) -> {
+                preferences.setDebugLoggingEnabled((Boolean) enabled);
+                return true;
+            });
+        }
+        if (pExport != null) {
+            logsExportController = new LogsExportController(this, logsExporter, pExport);
+            pExport.setOnPreferenceClickListener(preference -> {
+                logsExportController.export();
+                return true;
+            });
         }
     }
 
@@ -1238,7 +1267,18 @@ public class SettingsActivity extends PreferenceActivity
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (logsExportController != null) {
+            logsExportController.onRequestPermissionsResult(requestCode, grantResults);
+        }
+    }
+
+    @Override
     protected void onDestroy() {
+        if (logsExportController != null) {
+            logsExportController.close();
+        }
         super.onDestroy();
         getDelegate().onDestroy();
     }

@@ -145,10 +145,11 @@ internal class AppModule {
 
     @Provides
     @Singleton
-    fun logger(context: Context, clock: Clock): Logger {
+    fun logger(context: Context, clock: Clock, preferences: AppPreferences): Logger {
         val logDir = File(context.filesDir, LOG_DIR_NAME)
         val handler = FileLogHandler(logDir, LOG_FILE_NAME, LOG_FILE_MAX_SIZE_BYTES)
-        return LoggerImpl(clock, handler, Handler(), LOGGER_QUEUE_CAPACITY).apply { start() }
+        return LoggerImpl(clock, handler, Handler(), LOGGER_QUEUE_CAPACITY, preferences::isDebugLoggingEnabled)
+            .apply { start() }
     }
 
     @Provides

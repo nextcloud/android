@@ -62,6 +62,9 @@ public interface AppPreferences {
     boolean instantVideoUploadEnabled();
     boolean isDarkModeEnabled();
 
+    boolean isDebugLoggingEnabled();
+    void setDebugLoggingEnabled(boolean enabled);
+
     boolean isShowHiddenFilesEnabled();
     void setShowHiddenFilesEnabled(boolean enabled);
     
