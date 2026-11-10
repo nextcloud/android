@@ -28,6 +28,7 @@ import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.di.ActivityInjector
 import com.nextcloud.client.di.AppComponent
+import com.nextcloud.client.di.ApplicationScope
 import com.nextcloud.client.di.DaggerAppComponent
 import com.nextcloud.client.errorhandling.ExceptionHandler
 import com.nextcloud.client.jobs.BackgroundJobManager
@@ -41,7 +42,6 @@ import com.nextcloud.client.network.WalledCheckCache
 import com.nextcloud.client.notifications.AppNotificationChannels
 import com.nextcloud.client.onboarding.OnboardingService
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.client.preferences.DarkMode
 import com.nextcloud.client.systembars.SystemBarBackgroundCallbacks
 import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias
@@ -71,6 +71,7 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
+import kotlinx.coroutines.CoroutineScope
 import org.conscrypt.Conscrypt
 import java.security.NoSuchAlgorithmException
 import java.security.Security
@@ -139,6 +140,10 @@ open class MainApp :
 
     @Inject
     lateinit var arbitraryDataProvider: ArbitraryDataProvider
+
+    @Inject
+    @ApplicationScope
+    lateinit var appScope: CoroutineScope
 
     private val restrictionsFilter = IntentFilter(Intent.ACTION_APPLICATION_RESTRICTIONS_CHANGED)
 
@@ -218,7 +223,8 @@ open class MainApp :
             powerManagementService,
             backgroundJobManager,
             clock,
-            walledCheckCache
+            walledCheckCache,
+            appScope
         )
         initContactsBackup(arbitraryDataProvider,accountManager, backgroundJobManager)
         AppNotificationChannels.create(getAppContext())
@@ -400,8 +406,6 @@ open class MainApp :
     override fun onTerminate() {
         super.onTerminate()
         connectivityService.removeListener(this)
-        ReceiversHelper.shutdown()
-        AppPreferencesImpl.shutdown()
     }
 
     companion object {
@@ -473,7 +477,8 @@ open class MainApp :
             powerManagementService: PowerManagementService,
             backgroundJobManager: BackgroundJobManager,
             clock: Clock,
-            walledCheckCache: WalledCheckCache?
+            walledCheckCache: WalledCheckCache,
+            appScope: CoroutineScope
         ) {
             val appContext = getAppContext()
             AutoUploadEntriesMigration.updateToAutoUpload(context)
@@ -504,7 +509,8 @@ open class MainApp :
                 accountManager,
                 connectivityService,
                 powerManagementService,
-                walledCheckCache
+                walledCheckCache,
+                appScope
             )
             ReceiversHelper.registerPowerChangeReceiver(
                 uploadsStorageManager,
