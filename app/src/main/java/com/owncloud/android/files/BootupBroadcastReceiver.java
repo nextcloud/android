@@ -23,9 +23,9 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.network.WalledCheckCache;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import javax.inject.Inject;
 
@@ -39,6 +39,7 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
 
     private static final String TAG = BootupBroadcastReceiver.class.getSimpleName();
 
+    @Inject ArbitraryDataProvider arbitraryDataProvider;
     @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;
     @Inject UploadsStorageManager uploadsStorageManager;
@@ -46,7 +47,6 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
     @Inject PowerManagementService powerManagementService;
     @Inject BackgroundJobManager backgroundJobManager;
     @Inject Clock clock;
-    @Inject ViewThemeUtils viewThemeUtils;
     @Inject WalledCheckCache walledCheckCache;
 
     /**
@@ -68,12 +68,11 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
                                        powerManagementService,
                                        backgroundJobManager,
                                        clock,
-                                       viewThemeUtils,
                                        walledCheckCache);
             Log_OC.d(TAG, "scheduleContentObserverJob, called");
             backgroundJobManager.scheduleContentObserverJob();
             backgroundJobManager.schedulePeriodicAutoUpload();
-            MainApp.initContactsBackup(accountManager, backgroundJobManager);
+            MainApp.initContactsBackup(arbitraryDataProvider, accountManager, backgroundJobManager);
         } else {
             Log_OC.d(TAG, "Getting wrong intent: " + intent.getAction());
         }
