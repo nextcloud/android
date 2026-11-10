@@ -343,6 +343,7 @@
     <string name="download_download_invalid_local_file_name">Invalid filename for local file</string>
     <string name="download_latest_dev_version">Download latest dev version</string>
     <string name="download_limit">Download limit</string>
+    <string name="downloader_download_canceled">Download canceled</string>
     <string name="downloader_download_failed_content">Could not download %1$s</string>
     <string name="downloader_download_failed_credentials_error">Download failed, log in again</string>
     <string name="downloader_download_failed_ticker">Download failed</string>
@@ -1172,6 +1173,7 @@
     <string name="upload_cannot_create_file">Cannot create local file</string>
     <string name="upload_chooser_title">Upload from…</string>
     <string name="upload_content_from_other_apps">Upload content from other apps</string>
+    <string name="upload_direct_camera_not_found">No camera found</string>
     <string name="upload_direct_camera_photo">Photo</string>
     <string name="upload_direct_camera_promt">Do you want to take a photo or video?</string>
     <string name="upload_direct_camera_upload">Upload from camera</string>
@@ -1205,6 +1207,7 @@
     <string name="upload_old_android">Encryption is only possible with &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Insufficient space prevents copying the selected files into the %1$s folder. Would you like to move them there instead?</string>
     <string name="upload_quota_exceeded">Storage quota exceeded</string>
+    <string name="upload_quota_exceeded_notification_description">Your storage quota is full, so uploads were stopped. Free up space or ask your administrator for more quota, then retry the failed uploads from Uploads.</string>
     <string name="upload_scan_doc_upload">Scan document from camera</string>
     <string name="upload_sync_conflict_check">There might be a conflict from your last upload. Tap to check.</string>
     <string name="upload_sync_conflict_check_error">Could not check for upload conflicts. Please try again.</string>

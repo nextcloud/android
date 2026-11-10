@@ -343,6 +343,7 @@
     <string name="download_download_invalid_local_file_name">Vigane failinimi kohaliku faili jaoks</string>
     <string name="download_latest_dev_version">Laadi alla viimane arendusversioon</string>
     <string name="download_limit">Allalaadimiste piirang</string>
+    <string name="downloader_download_canceled">Allalaadimine on katkestatud</string>
     <string name="downloader_download_failed_content">Ei saanud alla laadida: %1$s</string>
     <string name="downloader_download_failed_credentials_error">Allalaadimine ei õnnestunud, palun logi uuesti sisse</string>
     <string name="downloader_download_failed_ticker">Allalaadimine ei õnnestunud</string>
@@ -1172,6 +1173,7 @@
     <string name="upload_cannot_create_file">Kohalikku faili ei õnnestunud luua</string>
     <string name="upload_chooser_title">Laadi üles…</string>
     <string name="upload_content_from_other_apps">Laadi üles sisu teistest rakendustest</string>
+    <string name="upload_direct_camera_not_found">Ühtegi kaamerat ei leidu</string>
     <string name="upload_direct_camera_photo">Foto</string>
     <string name="upload_direct_camera_promt">Kas sa soovid pildistada või filmida?</string>
     <string name="upload_direct_camera_upload">Laadi üles kaamerast</string>
@@ -1205,6 +1207,7 @@
     <string name="upload_old_android">Krüptimine on võimalik vaid &gt;= Android 5.0 puhul</string>
     <string name="upload_query_move_foreign_files">Piisava ruumi puudumisel pole võimalik kopeerida valitud faile „%1$s“ kausta. Kas pigem tahaksid nad sinna teisaldada?</string>
     <string name="upload_quota_exceeded">Andmeruumi kvoot on ületatud</string>
+    <string name="upload_quota_exceeded_notification_description">Sinu andmeruumi kvoot on täis ja seega üleslaadimine lõppes. Vabasta andmeruumi või küsi peakasutajalt suuremat kvooti ja siis käivita Üleslaadimiste kaustas leiduvad peatunud üleslaadimised.</string>
     <string name="upload_scan_doc_upload">Skaneeri dokumenti kaameraga</string>
     <string name="upload_sync_conflict_check">Viimasest üleslaadimisest võib olla failikonflikte. Kontrollimiseks klõpsa.</string>
     <string name="upload_sync_conflict_check_error">Failide üleslaadimiskonfliktide kontrollimine ei õnnestunud. Palun proovi uuesti.</string>

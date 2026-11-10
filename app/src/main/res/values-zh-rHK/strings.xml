@@ -343,6 +343,7 @@
     <string name="download_download_invalid_local_file_name">近端檔案有無效的檔案名</string>
     <string name="download_latest_dev_version">下載最新開發的版本</string>
     <string name="download_limit">下載限制</string>
+    <string name="downloader_download_canceled">下載已取消</string>
     <string name="downloader_download_failed_content">下載 %1$s 無法完成 </string>
     <string name="downloader_download_failed_credentials_error">下載失敗，再重新登入</string>
     <string name="downloader_download_failed_ticker">下載失敗</string>
@@ -1172,6 +1173,7 @@
     <string name="upload_cannot_create_file">無法建立近端檔案</string>
     <string name="upload_chooser_title">上傳自…</string>
     <string name="upload_content_from_other_apps">從其它應用程式上傳</string>
+    <string name="upload_direct_camera_not_found">找不到相機</string>
     <string name="upload_direct_camera_photo">照片</string>
     <string name="upload_direct_camera_promt">你想拍照還是錄影？</string>
     <string name="upload_direct_camera_upload">從相機上傳</string>
@@ -1205,6 +1207,7 @@
     <string name="upload_old_android">加密功能只適用於 Android 5.0 及以上版本</string>
     <string name="upload_query_move_foreign_files">空間不足導致無法將所選檔案複製到 %1$s 資料夾中。您想改為將檔案移到那裡嗎？</string>
     <string name="upload_quota_exceeded">超過儲存空間配額</string>
+    <string name="upload_quota_exceeded_notification_description">你的儲存空間配額已用盡，因此上載已停止。請釋放儲存空間，或要求管理員增加配額，然後前往「上載」重新嘗試上載失敗的檔案。</string>
     <string name="upload_scan_doc_upload">使用相機掃描文件</string>
     <string name="upload_sync_conflict_check">您的上次上傳可能存在衝突。點擊檢查。</string>
     <string name="upload_sync_conflict_check_error">無法檢查上傳衝突。請重試。</string>
