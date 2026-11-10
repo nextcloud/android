@@ -53,6 +53,8 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.network.local.LocalNetworkPermissionHandler
+import com.nextcloud.client.network.local.LocalNetworkPermissionRequester
 import com.nextcloud.client.onboarding.FirstRunActivity
 import com.nextcloud.client.onboarding.OnboardingService
 import com.nextcloud.client.preferences.AppPreferences
@@ -145,6 +147,9 @@ open class AuthenticatorActivity :
     @Inject
     lateinit var clientRepository: ClientRepository
 
+    @Inject
+    lateinit var localNetworkPermissionHandler: LocalNetworkPermissionHandler
+
     @get:VisibleForTesting
     var accountSetupBinding: AccountSetupBinding? = null
         private set
@@ -157,6 +162,11 @@ open class AuthenticatorActivity :
     private val statusMapper by lazy { AuthenticatorStatusMapper(resources) }
     private val accountStore by lazy { AuthenticatorAccountStore(this, AccountManager.get(this), accountManager) }
     private val loginFlow by lazy { LoginFlowV2(clientRepository, lifecycleScope, ::completeLoginFlow) }
+    private val localNetworkPermission = LocalNetworkPermissionRequester(
+        activity = this,
+        hasLocalServer = { localNetworkPermissionHandler.hasLocalServer(it) },
+        onPermissionGranted = { localNetworkPermissionHandler.onPermissionGranted() }
+    )
 
     private var authenticatorAction = ACTION_CREATE
     private var account: Account? = null
@@ -519,6 +529,10 @@ open class AuthenticatorActivity :
         }
         Log_OC.d(TAG, "Login flow v2: requesting login URL from $url")
 
+        localNetworkPermission.requestIfNeeded(listOf(url), onGranted = { requestLoginUrl(url) })
+    }
+
+    private fun requestLoginUrl(url: String) {
         lifecycleScope.launch {
             val response = loginFlow.requestLoginResponse(url)
             if (response.isEmpty()) {
@@ -659,7 +673,12 @@ open class AuthenticatorActivity :
 
         uri = toAsciiDomainOrKeep(normalizeSchemeOrKeep(uri))
 
-        if (binding != null) {
+        val serverUri = uri
+        localNetworkPermission.requestIfNeeded(listOf(serverUri), onGranted = { startServerCheck(serverUri) })
+    }
+
+    private fun startServerCheck(uri: String) {
+        if (accountSetupBinding != null) {
             serverStatus = AuthenticatorStatus(R.drawable.progress_small, getString(R.string.auth_testing_connection))
             showServerStatus()
         }
