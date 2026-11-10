@@ -47,5 +47,5 @@ class PlaybackDataSourceFactory @Inject constructor(
 
     private fun createHttpDataSourceFactory(nextcloudClient: NextcloudClient): HttpDataSource.Factory =
         OkHttpDataSource.Factory(nextcloudClient.client)
-            .setUserAgent(MainApp.getUserAgent())
+            .setUserAgent(MainApp.userAgent)
 }
