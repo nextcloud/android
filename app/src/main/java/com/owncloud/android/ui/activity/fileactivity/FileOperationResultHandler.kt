@@ -23,11 +23,15 @@ class FileOperationResultHandler(private val activity: FileActivity) {
     fun onOperationFinish(operation: RemoteOperation<*>?, result: RemoteOperationResult<*>) {
         when {
             result.isAuthenticationFailure() -> onAuthenticationFailure(operation, result)
+
             !result.isSuccess && result.code == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED ->
                 activity.showUntrustedCertDialog(result)
+
             operation == null || operation is SynchronizeFolderOperation ->
                 onSynchronizeFolderOperationFinish(operation, result)
+
             operation is SynchronizeFileOperation -> onSynchronizeFileOperationFinish(operation, result)
+
             operation is GetSharesForFileOperation -> onGetSharesForFileOperationFinish(operation, result)
         }
     }

@@ -50,12 +50,17 @@ class ShareOperationResultHandler(private val activity: FileActivity) {
     fun onOperationFinish(operation: RemoteOperation<*>?, result: RemoteOperationResult<*>) {
         when (operation) {
             is CreateShareViaLinkOperation -> onCreateShareViaLinkOperationFinish(operation, result)
+
             is CreateShareWithShareeOperation -> onUpdateShareInformation(result, R.string.sharee_add_failed)
+
             is UpdateShareViaLinkOperation,
             is UpdateShareInfoOperation,
             is UpdateSharePermissionsOperation -> onUpdateShareInformation(result, R.string.updating_share_failed)
+
             is SetFilesDownloadLimitOperation -> onUpdateShareInformation(result, R.string.set_download_limit_failed)
+
             is UnshareOperation -> onUpdateShareInformation(result, R.string.unsharing_failed)
+
             is UpdateNoteForShareOperation -> onUpdateNoteForShareOperationFinish(result)
         }
     }
