@@ -32,6 +32,7 @@ class PlaybackDataSource(
 
     private val transferListeners = mutableListOf<TransferListener>()
     private var delegate: DataSource? = null
+    private var ownCloudClient: OwnCloudClient? = null
 
     override fun addTransferListener(transferListener: TransferListener) {
         transferListeners.add(transferListener)
@@ -77,11 +78,17 @@ class PlaybackDataSource(
         return delegate.open(dataSpec.buildUpon(uri))
     }
 
-    private fun getOwnCloudClient(): OwnCloudClient = runBlocking { clientRepository.getOwncloudClient() }
-        ?: throw IOException("OwnCloud client is not available, cannot stream")
+    private fun getOrCreateOwnCloudClient(): OwnCloudClient {
+        ownCloudClient?.let { return it }
+
+        val client = runBlocking { clientRepository.getOwncloudClient() }
+            ?: throw IOException("OwnCloud client is not available, cannot stream")
+
+        return client.also { ownCloudClient = it }
+    }
 
     private fun openRemoteFile(delegate: DataSource, dataSpec: DataSpec, fileId: Long): Long {
-        val result = StreamMediaFileOperation(fileId).execute(getOwnCloudClient())
+        val result = StreamMediaFileOperation(fileId).execute(getOrCreateOwnCloudClient())
         if (!result.isSuccess) {
             throw IOException("Failed to retrieve streaming uri", result.exception)
         }
