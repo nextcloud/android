@@ -214,18 +214,7 @@ open class MainApp :
         Log_OC.d(TAG, "scheduleContentObserverJob, called")
         backgroundJobManager.scheduleContentObserverJob()
 
-        initSyncOperations(
-            this,
-            preferences,
-            uploadsStorageManager,
-            accountManager,
-            connectivityService,
-            powerManagementService,
-            backgroundJobManager,
-            clock,
-            walledCheckCache,
-            appScope
-        )
+        initSyncOperations()
         initContactsBackup(arbitraryDataProvider, accountManager, backgroundJobManager)
         AppNotificationChannels.create(getAppContext())
         scheduleBackgroundJobs()
@@ -236,6 +225,52 @@ open class MainApp :
         }
 
         connectivityService.addListener(this)
+    }
+
+    private fun initSyncOperations() {
+        AutoUploadEntriesMigration.updateToAutoUpload(this)
+        AutoUploadEntriesMigration.cleanOldEntries(this, clock)
+        AutoUploadEntriesMigration.updateAutoUploadEntries(this, clock)
+
+        if (PermissionUtil.checkStoragePermission(this)) {
+            AutoUploadEntriesMigration.splitOutAutoUploadEntries(this, clock)
+        } else {
+            preferences.setAutoUploadSplitEntriesEnabled(true)
+        }
+
+        if (!preferences.isAutoUploadInitialized()) {
+            preferences.setAutoUploadInit(true)
+        }
+
+        FilesSyncHelper.restartUploadsIfNeeded(
+            uploadsStorageManager,
+            accountManager,
+            connectivityService,
+            powerManagementService
+        )
+
+        backgroundJobManager.scheduleOfflineSync()
+
+        ReceiversHelper.registerNetworkChangeReceiver(
+            uploadsStorageManager,
+            accountManager,
+            connectivityService,
+            powerManagementService,
+            walledCheckCache,
+            appScope
+        )
+        ReceiversHelper.registerPowerChangeReceiver(
+            uploadsStorageManager,
+            accountManager,
+            connectivityService,
+            powerManagementService
+        )
+        ReceiversHelper.registerPowerSaveReceiver(
+            uploadsStorageManager,
+            accountManager,
+            connectivityService,
+            powerManagementService
+        )
     }
 
     fun disableDocumentsStorageProvider() {
@@ -465,65 +500,6 @@ open class MainApp :
                     )
                 }
                 .forEach { backgroundJobManager.schedulePeriodicContactsBackup(it) }
-        }
-
-        @JvmStatic
-        fun initSyncOperations(
-            context: Context,
-            preferences: AppPreferences,
-            uploadsStorageManager: UploadsStorageManager,
-            accountManager: UserAccountManager,
-            connectivityService: ConnectivityService,
-            powerManagementService: PowerManagementService,
-            backgroundJobManager: BackgroundJobManager,
-            clock: Clock,
-            walledCheckCache: WalledCheckCache,
-            appScope: CoroutineScope
-        ) {
-            val appContext = getAppContext()
-            AutoUploadEntriesMigration.updateToAutoUpload(context)
-            AutoUploadEntriesMigration.cleanOldEntries(appContext, clock)
-            AutoUploadEntriesMigration.updateAutoUploadEntries(appContext, clock)
-
-            if (PermissionUtil.checkStoragePermission(appContext)) {
-                AutoUploadEntriesMigration.splitOutAutoUploadEntries(appContext, clock)
-            } else {
-                preferences.setAutoUploadSplitEntriesEnabled(true)
-            }
-
-            if (!preferences.isAutoUploadInitialized()) {
-                preferences.setAutoUploadInit(true)
-            }
-
-            FilesSyncHelper.restartUploadsIfNeeded(
-                uploadsStorageManager,
-                accountManager,
-                connectivityService,
-                powerManagementService
-            )
-
-            backgroundJobManager.scheduleOfflineSync()
-
-            ReceiversHelper.registerNetworkChangeReceiver(
-                uploadsStorageManager,
-                accountManager,
-                connectivityService,
-                powerManagementService,
-                walledCheckCache,
-                appScope
-            )
-            ReceiversHelper.registerPowerChangeReceiver(
-                uploadsStorageManager,
-                accountManager,
-                connectivityService,
-                powerManagementService
-            )
-            ReceiversHelper.registerPowerSaveReceiver(
-                uploadsStorageManager,
-                accountManager,
-                connectivityService,
-                powerManagementService
-            )
         }
 
         @JvmStatic
