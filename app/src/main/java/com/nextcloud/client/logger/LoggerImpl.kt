@@ -20,8 +20,7 @@ internal class LoggerImpl(
     private val clock: Clock,
     private val handler: FileLogHandler,
     private val mainThreadHandler: Handler,
-    queueCapacity: Int,
-    private val isDebugLoggingEnabled: () -> Boolean
+    queueCapacity: Int
 ) : Logger,
     LogsRepository {
 
@@ -46,19 +45,16 @@ internal class LoggerImpl(
     }
 
     override fun v(tag: String, message: String) {
-        if (!isDebugLoggingEnabled()) return
         Log.v(tag, message)
         enqueue(Level.VERBOSE, tag, message)
     }
 
     override fun d(tag: String, message: String) {
-        if (!isDebugLoggingEnabled()) return
         Log.d(tag, message)
         enqueue(Level.DEBUG, tag, message)
     }
 
     override fun d(tag: String, message: String, t: Throwable) {
-        if (!isDebugLoggingEnabled()) return
         Log.d(tag, message, t)
         enqueue(Level.DEBUG, tag, message)
     }

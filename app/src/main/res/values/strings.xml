@@ -686,9 +686,6 @@
     <string name="auth_redirect_non_secure_connection_title">Secure connection redirected through an unsecured route.</string>
 
     <string name="logs_title">Logs</string>
-    <string name="logs_record_debug">Record debug logs</string>
-    <string name="logs_record_debug_summary">Include debug and verbose messages in future logs</string>
-    <string name="logs_export_to_downloads">Export logs</string>
     <string name="logs_export_to_downloads_summary">Save app logs to Download/Nextcloud</string>
     <string name="logs_export_to_downloads_success">Logs saved to Download/Nextcloud</string>
     <string name="logs_export_to_downloads_empty">No logs to export. Reproduce the issue and try again.</string>

@@ -116,7 +116,6 @@ public final class AppPreferencesImpl implements AppPreferences {
 
 
     private static final String LOG_ENTRY = "log_entry";
-    private static final String PREF__DEBUG_LOGGING = "record_debug_logs";
 
     private final Context context;
     private final SharedPreferences preferences;
@@ -225,16 +224,6 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public boolean instantVideoUploadEnabled() {
         return preferences.getBoolean(PREF__INSTANT_VIDEO_UPLOADING, false);
-    }
-
-    @Override
-    public boolean isDebugLoggingEnabled() {
-        return preferences.getBoolean(PREF__DEBUG_LOGGING, false);
-    }
-
-    @Override
-    public void setDebugLoggingEnabled(boolean enabled) {
-        preferences.edit().putBoolean(PREF__DEBUG_LOGGING, enabled).apply();
     }
 
     @Override

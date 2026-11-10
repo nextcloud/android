@@ -58,7 +58,7 @@ class LoggerTest {
         clock = ClockImpl()
         logHandler = spy(FileLogHandler(tempDir, "log.txt", FILE_SIZE))
         osHandler = mock()
-        logger = LoggerImpl(clock, logHandler, osHandler, QUEUE_CAPACITY) { true }
+        logger = LoggerImpl(clock, logHandler, osHandler, QUEUE_CAPACITY)
     }
 
     @Test

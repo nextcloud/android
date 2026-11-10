@@ -427,16 +427,12 @@ public class SettingsActivity extends PreferenceActivity
     private void setupLoggingPreference(PreferenceCategory preferenceCategoryMore) {
         Preference pLogger = findPreference("logger");
         Preference pExport = findPreference("export_logs");
-        ThemeableSwitchPreference pDebug = (ThemeableSwitchPreference) findPreference("record_debug_logs");
         if (!MDMConfig.INSTANCE.isLogEnabled(this)) {
             if (pLogger != null) {
                 preferenceCategoryMore.removePreference(pLogger);
             }
             if (pExport != null) {
                 preferenceCategoryMore.removePreference(pExport);
-            }
-            if (pDebug != null) {
-                preferenceCategoryMore.removePreference(pDebug);
             }
             return;
         }
@@ -446,13 +442,6 @@ public class SettingsActivity extends PreferenceActivity
                 Intent loggerIntent = new Intent(getApplicationContext(), LogsActivity.class);
                 startActivity(loggerIntent);
 
-                return true;
-            });
-        }
-        if (pDebug != null) {
-            pDebug.setChecked(preferences.isDebugLoggingEnabled());
-            pDebug.setOnPreferenceChangeListener((preference, enabled) -> {
-                preferences.setDebugLoggingEnabled((Boolean) enabled);
                 return true;
             });
         }

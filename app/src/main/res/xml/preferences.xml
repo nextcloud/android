@@ -129,13 +129,8 @@
         <Preference
             android:title="@string/logs_title"
             android:key="logger" />
-        <com.owncloud.android.ui.ThemeableSwitchPreference
-            android:title="@string/logs_record_debug"
-            android:summary="@string/logs_record_debug_summary"
-            android:key="record_debug_logs"
-            android:defaultValue="false" />
         <Preference
-            android:title="@string/logs_export_to_downloads"
+            android:title="@string/logs_menu_export"
             android:summary="@string/logs_export_to_downloads_summary"
             android:key="export_logs" />
         <Preference
