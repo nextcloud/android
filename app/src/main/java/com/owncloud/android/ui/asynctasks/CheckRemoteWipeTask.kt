@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.utils.extensions.isActive
 import com.nextcloud.utils.SnackbarUtil
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.accounts.AccountUtils
@@ -39,7 +40,7 @@ class CheckRemoteWipeTask(private val fileActivity: FileActivity) {
                 startAccountRemovalIfWipeRequested(account, backgroundJobManager)
             }
 
-            if (isWipeRequested || fileActivity.isFinishing || fileActivity.isDestroyed) {
+            if (isWipeRequested || !fileActivity.isActive()) {
                 return@launch
             }
 
