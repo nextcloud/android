@@ -7,7 +7,7 @@
 package com.owncloud.android.ui.asynctasks
 
 import android.accounts.Account
-import androidx.activity.compose.ManagedActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.jobs.BackgroundJobManager
@@ -23,43 +23,43 @@ import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class CheckRemoteWipeTask(
-    private val backgroundJobManager: BackgroundJobManager,
-    private val account: Account,
-    private val fileActivity: FileActivity
-) {
+class CheckRemoteWipeTask(private val fileActivity: FileActivity) {
     companion object {
         private const val TAG = "CheckRemoteWipeTask"
     }
 
     private val credentialsUpdateHelper = CredentialsUpdateHelper(fileActivity)
 
-    fun execute(): Job = fileActivity.lifecycleScope.launch {
-        val isWipeRequested = withContext(Dispatchers.IO + NonCancellable) {
-            startAccountRemovalIfWipeRequested()
-        }
+    private val credentialsUpdateLauncher =
+        fileActivity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { }
 
-        if (isWipeRequested || fileActivity.isFinishing || fileActivity.isDestroyed) {
-            return@launch
-        }
+    fun execute(account: Account, backgroundJobManager: BackgroundJobManager): Job =
+        fileActivity.lifecycleScope.launch {
+            val isWipeRequested = withContext(Dispatchers.IO + NonCancellable) {
+                startAccountRemovalIfWipeRequested(account, backgroundJobManager)
+            }
 
-        performCredentialsUpdate(account)
-    }
+            if (isWipeRequested || fileActivity.isFinishing || fileActivity.isDestroyed) {
+                return@launch
+            }
+
+            performCredentialsUpdate(account)
+        }
 
     private fun performCredentialsUpdate(account: Account) {
         try {
             credentialsUpdateHelper.invalidateCredentials(account)
-            fileActivity.startActivityForResult(
-                credentialsUpdateHelper.createUpdateCredentialsIntent(account),
-                FileActivity.REQUEST_CODE__UPDATE_CREDENTIALS
-            )
+            credentialsUpdateLauncher.launch(credentialsUpdateHelper.createUpdateCredentialsIntent(account))
         } catch (_: AccountUtils.AccountNotFoundException) {
             SnackbarUtil.show(fileActivity, R.string.auth_account_does_not_exist)
         }
     }
 
     @WorkerThread
-    private fun startAccountRemovalIfWipeRequested(): Boolean {
+    private fun startAccountRemovalIfWipeRequested(
+        account: Account,
+        backgroundJobManager: BackgroundJobManager
+    ): Boolean {
         if (!credentialsUpdateHelper.isRemoteWipeRequested(account)) {
             Log_OC.e(TAG, "Check for remote wipe not needed -> update credentials")
             return false
