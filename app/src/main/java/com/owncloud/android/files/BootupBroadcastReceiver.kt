@@ -1,80 +1,91 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2022 Tobias Kaminsky <tobias@kaminsky.me>
- * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
- * SPDX-FileCopyrightText: 2017 Mario Danic <mario@lovelyhq.com>
- * SPDX-FileCopyrightText: 2015 ownCloud Inc.
- * SPDX-FileCopyrightText: 2014 David A. Velasco <dvelasco@solidgear.es>
- * SPDX-FileCopyrightText: 2012 Bartosz Przybylski <bart.p.pl@gmail.com>
- * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.files;
+package com.owncloud.android.files
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.core.Clock
+import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.client.network.WalledCheckCache
+import com.nextcloud.client.preferences.AppPreferences
+import com.owncloud.android.MainApp
+import com.owncloud.android.datamodel.ArbitraryDataProvider
+import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.lib.common.utils.Log_OC
+import dagger.android.AndroidInjection
+import javax.inject.Inject
 
-import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.core.Clock;
-import com.nextcloud.client.device.PowerManagementService;
-import com.nextcloud.client.jobs.BackgroundJobManager;
-import com.nextcloud.client.network.ConnectivityService;
-import com.nextcloud.client.network.WalledCheckCache;
-import com.nextcloud.client.preferences.AppPreferences;
-import com.owncloud.android.MainApp;
-import com.owncloud.android.datamodel.ArbitraryDataProvider;
-import com.owncloud.android.datamodel.UploadsStorageManager;
-import com.owncloud.android.lib.common.utils.Log_OC;
+class BootupBroadcastReceiver : BroadcastReceiver() {
 
-import javax.inject.Inject;
+    @Inject
+    lateinit var arbitraryDataProvider: ArbitraryDataProvider
 
-import dagger.android.AndroidInjection;
+    @Inject
+    lateinit var preferences: AppPreferences
 
-/**
- * App-registered receiver catching the broadcast intent reporting that the system was
- * just boot up.
- */
-public class BootupBroadcastReceiver extends BroadcastReceiver {
+    @Inject
+    lateinit var accountManager: UserAccountManager
 
-    private static final String TAG = BootupBroadcastReceiver.class.getSimpleName();
+    @Inject
+    lateinit var uploadsStorageManager: UploadsStorageManager
 
-    @Inject ArbitraryDataProvider arbitraryDataProvider;
-    @Inject AppPreferences preferences;
-    @Inject UserAccountManager accountManager;
-    @Inject UploadsStorageManager uploadsStorageManager;
-    @Inject ConnectivityService connectivityService;
-    @Inject PowerManagementService powerManagementService;
-    @Inject BackgroundJobManager backgroundJobManager;
-    @Inject Clock clock;
-    @Inject WalledCheckCache walledCheckCache;
+    @Inject
+    lateinit var connectivityService: ConnectivityService
 
-    /**
-     * Receives broadcast intent reporting that the system was just boot up. *
-     *
-     * @param context The context where the receiver is running.
-     * @param intent  The intent received.
-     */
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        AndroidInjection.inject(this, context);
+    @Inject
+    lateinit var powerManagementService: PowerManagementService
 
-        if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-            MainApp.initSyncOperations(context,
-                                       preferences,
-                                       uploadsStorageManager,
-                                       accountManager,
-                                       connectivityService,
-                                       powerManagementService,
-                                       backgroundJobManager,
-                                       clock,
-                                       walledCheckCache);
-            Log_OC.d(TAG, "scheduleContentObserverJob, called");
-            backgroundJobManager.scheduleContentObserverJob();
-            backgroundJobManager.schedulePeriodicAutoUpload();
-            MainApp.initContactsBackup(arbitraryDataProvider, accountManager, backgroundJobManager);
-        } else {
-            Log_OC.d(TAG, "Getting wrong intent: " + intent.getAction());
+    @Inject
+    lateinit var backgroundJobManager: BackgroundJobManager
+
+    @Inject
+    lateinit var clock: Clock
+
+    @Inject
+    lateinit var walledCheckCache: WalledCheckCache
+
+    override fun onReceive(context: Context, intent: Intent) {
+        AndroidInjection.inject(this, context)
+
+        if (intent.action != Intent.ACTION_BOOT_COMPLETED) {
+            Log_OC.d(TAG, "Getting wrong intent: ${intent.action}")
+            return
         }
+
+        initSyncOperations(context)
+        scheduleAutoUploadJobs()
+        MainApp.initContactsBackup(arbitraryDataProvider, accountManager, backgroundJobManager)
+    }
+
+    private fun initSyncOperations(context: Context) {
+        MainApp.initSyncOperations(
+            context,
+            preferences,
+            uploadsStorageManager,
+            accountManager,
+            connectivityService,
+            powerManagementService,
+            backgroundJobManager,
+            clock,
+            walledCheckCache
+        )
+    }
+
+    private fun scheduleAutoUploadJobs() {
+        Log_OC.d(TAG, "scheduleContentObserverJob, called")
+        backgroundJobManager.scheduleContentObserverJob()
+        backgroundJobManager.schedulePeriodicAutoUpload()
+    }
+
+    companion object {
+        private val TAG: String = BootupBroadcastReceiver::class.java.simpleName
     }
 }
