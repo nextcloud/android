@@ -1,12 +1,21 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2019 Tobias Kaminsky
- * SPDX-FileCopyrightText: 2019 Nextcloud GmbH
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.nextcloud.client.preferences;
+package com.nextcloud.client.preferences
 
-public enum DarkMode {
-    DARK, LIGHT, SYSTEM
+import androidx.appcompat.app.AppCompatDelegate
+
+enum class DarkMode {
+    DARK, LIGHT, SYSTEM;
+
+    fun toMode(): Int {
+        return when (this) {
+            LIGHT -> AppCompatDelegate.MODE_NIGHT_NO
+            DARK -> AppCompatDelegate.MODE_NIGHT_YES
+            SYSTEM -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+        }
+    }
 }

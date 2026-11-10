@@ -183,7 +183,7 @@ open class MainApp :
     @SuppressFBWarnings("ST")
     override fun onCreate() {
         enableStrictMode()
-        setAppTheme(preferences.getDarkThemeMode())
+        AppCompatDelegate.setDefaultNightMode(preferences.getDarkThemeMode().toMode())
         super.onCreate()
 
         ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleEventObserver)
@@ -540,16 +540,6 @@ open class MainApp :
                 Log_OC.e(TAG, "Trying to get packageName", e.cause)
                 ""
             }
-        }
-
-        @JvmStatic
-        fun setAppTheme(mode: DarkMode) {
-            val nightMode = when (mode) {
-                DarkMode.LIGHT -> AppCompatDelegate.MODE_NIGHT_NO
-                DarkMode.DARK -> AppCompatDelegate.MODE_NIGHT_YES
-                DarkMode.SYSTEM -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-            }
-            AppCompatDelegate.setDefaultNightMode(nightMode)
         }
     }
 }
