@@ -72,7 +72,6 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 import org.conscrypt.Conscrypt
-import org.greenrobot.eventbus.EventBus
 import java.lang.ref.WeakReference
 import java.security.NoSuchAlgorithmException
 import java.security.Security
@@ -120,9 +119,6 @@ open class MainApp :
 
     @Inject
     lateinit var clock: Clock
-
-    @Inject
-    lateinit var eventBus: EventBus
 
     @Inject
     lateinit var migrationsManager: MigrationsManager
@@ -536,11 +532,6 @@ open class MainApp :
         fun getAppContext(): Context = appContext!!.get()!!
 
         @JvmStatic
-        fun setAppContext(context: Context?) {
-            appContext = WeakReference(context)
-        }
-
-        @JvmStatic
         fun getStoragePath(): String? = storagePath
 
         @JvmStatic
@@ -558,14 +549,6 @@ open class MainApp :
         @JvmStatic
         val authTokenType: String
             get() = string(R.string.authority)
-
-        @JvmStatic
-        val dbFile: String
-            get() = string(R.string.db_file)
-
-        @JvmStatic
-        val dbName: String
-            get() = string(R.string.db_name)
 
         @JvmStatic
         val dataFolder: String
