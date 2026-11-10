@@ -11,6 +11,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.utils.e2ee.model.E2EEKeyCheck
+import com.nextcloud.utils.e2ee.model.E2EEKeyCheckResult
 import com.nextcloud.utils.extensions.isNetworkAndServerAvailableSuspended
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -45,45 +46,47 @@ class E2EEActionResolver @Inject constructor(
         return@withContext canDecrypt
     }
 
-    suspend fun checkKeys(): E2EEKeyCheck = withContext(Dispatchers.IO) { resolveKeyCheck() }
+    suspend fun checkKeys(): E2EEKeyCheckResult = withContext(Dispatchers.IO) {
+        resolveKeyCheck().also { Log_OC.d(TAG, "e2ee key check result: ${it.state}") }
+    }
 
-    private suspend fun resolveKeyCheck(): E2EEKeyCheck {
+    private suspend fun resolveKeyCheck(): E2EEKeyCheckResult {
         val keysAbsentLocally = inspector.isLocalKeysAbsent()
 
         if (!inspector.fetchCapabilities()) {
-            return if (connectivityService.isNetworkAndServerAvailableSuspended()) {
+            val state = if (connectivityService.isNetworkAndServerAvailableSuspended()) {
                 E2EEKeyCheck.CHECK_FAILED
             } else {
                 E2EEKeyCheck.NO_NETWORK
             }
+            return E2EEKeyCheckResult(state)
         }
 
         val capability = storageManager.getCapability(accountManager.user)
         val keysExistOnServer = capability.endToEndEncryptionKeysExist
 
-        val result = when {
+        val state = when {
             keysExistOnServer.isUnknown || capability.endToEndEncryption.isUnknown -> E2EEKeyCheck.E2EE_UNAVAILABLE
             keysAbsentLocally && keysExistOnServer.isTrue -> E2EEKeyCheck.ONLY_ON_SERVER
             keysAbsentLocally -> E2EEKeyCheck.MISSING_EVERYWHERE
             !keysExistOnServer.isTrue -> E2EEKeyCheck.ONLY_ON_DEVICE
-            else -> compareKeys()
+            else -> return compareKeys()
         }
 
-        Log_OC.d(TAG, "e2ee key check result: $result")
-
-        return result
+        return E2EEKeyCheckResult(state)
     }
 
-    private suspend fun compareKeys(): E2EEKeyCheck {
+    private suspend fun compareKeys(): E2EEKeyCheckResult {
         val storedPublicKey = arbitraryDataProvider.getValue(accountManager.user, EncryptionUtils.PUBLIC_KEY)
 
         return when (val result = inspector.compareWithServerKey(storedPublicKey)) {
-            is DownloadKeyResult.CompareKeys ->
+            is DownloadKeyResult.CompareKeys -> E2EEKeyCheckResult(
                 if (result.same) E2EEKeyCheck.SAME_AS_SERVER else E2EEKeyCheck.DIFFERS_FROM_SERVER
+            )
 
-            is DownloadKeyResult.NoServerKey -> E2EEKeyCheck.ONLY_ON_DEVICE
+            is DownloadKeyResult.NoServerKey -> E2EEKeyCheckResult(E2EEKeyCheck.ONLY_ON_DEVICE)
 
-            else -> E2EEKeyCheck.CHECK_FAILED
+            else -> E2EEKeyCheckResult(E2EEKeyCheck.CHECK_FAILED, result.descriptionId)
         }
     }
 }

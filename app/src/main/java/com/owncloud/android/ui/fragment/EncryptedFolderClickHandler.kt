@@ -39,11 +39,11 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
         )
 
         fragment.lifecycleScope.launch {
-            val state = fragment.e2eeActionResolver.checkKeys()
+            val result = fragment.e2eeActionResolver.checkKeys()
             dismissCheckingSnackbar()
-            when (state) {
+            when (val state = result.state) {
                 E2EEKeyCheck.NO_NETWORK, E2EEKeyCheck.CHECK_FAILED, E2EEKeyCheck.E2EE_UNAVAILABLE -> {
-                    state.getMessageId(E2EEAction.NEW_FOLDER)?.let { SnackbarUtil.show(fragment, it) }
+                    fragment.e2eeDialogPresenter.showKeyCheckError(result, E2EEAction.NEW_FOLDER)
                 }
 
                 E2EEKeyCheck.ONLY_ON_SERVER, E2EEKeyCheck.MISSING_EVERYWHERE -> {
@@ -76,13 +76,13 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
 
         fragment.run {
             lifecycleScope.launch {
-                val state = e2eeActionResolver.checkKeys()
+                val result = e2eeActionResolver.checkKeys()
 
                 dismissCheckingSnackbar()
 
-                when (state) {
+                when (val state = result.state) {
                     E2EEKeyCheck.NO_NETWORK, E2EEKeyCheck.CHECK_FAILED, E2EEKeyCheck.E2EE_UNAVAILABLE -> {
-                        state.getMessageId(E2EEAction.OPEN)?.let { SnackbarUtil.show(fragment, it) }
+                        e2eeDialogPresenter.showKeyCheckError(result, E2EEAction.OPEN)
                     }
 
                     E2EEKeyCheck.ONLY_ON_SERVER -> {

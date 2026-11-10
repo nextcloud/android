@@ -7,7 +7,6 @@
 package com.owncloud.android.ui.events
 
 import androidx.lifecycle.lifecycleScope
-import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.e2ee.model.E2EEAction
 import com.nextcloud.utils.e2ee.model.E2EEKeyCheck
 import com.nextcloud.utils.extensions.showEncryptionDialog
@@ -20,9 +19,10 @@ import kotlinx.coroutines.launch
 class EncryptionEvent(val localId: Long, val remoteId: String, val remotePath: String, val shouldBeEncrypted: Boolean) {
     fun onResult(fragment: OCFileListFragment) {
         fragment.lifecycleScope.launch {
-            when (val state = fragment.e2eeActionResolver.checkKeys()) {
+            val result = fragment.e2eeActionResolver.checkKeys()
+            when (val state = result.state) {
                 E2EEKeyCheck.NO_NETWORK, E2EEKeyCheck.E2EE_UNAVAILABLE, E2EEKeyCheck.CHECK_FAILED -> {
-                    state.getMessageId(E2EEAction.ENCRYPT)?.let { SnackbarUtil.show(fragment, it) }
+                    fragment.e2eeDialogPresenter.showKeyCheckError(result, E2EEAction.ENCRYPT)
                 }
 
                 E2EEKeyCheck.ONLY_ON_SERVER, E2EEKeyCheck.MISSING_EVERYWHERE -> {

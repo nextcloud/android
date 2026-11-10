@@ -1019,7 +1019,14 @@
     <string name="file_detail_sharing_fragment_no_contact_app_message">No app available to select contacts</string>
     <string name="file_detail_share_already_active">You cannot create a share, sharing is already active from this user.</string>
 
-    <string name="end_to_end_encryption_certificate_verification_failed">Failed to verify public key</string>
+    <string name="e2ee_certificate_invalid_server_key">Could not verify your encryption certificate: the server signing key is invalid or incompatible. Ask your administrator to check the encryption configuration.</string>
+    <string name="e2ee_certificate_invalid_format">Could not verify your encryption certificate: the certificate received from the server is malformed. Try again. If this continues, contact your administrator.</string>
+    <string name="e2ee_certificate_expired">Your encryption certificate has expired. Check your device date and time. If they are correct, ask your administrator about renewing the certificate while keeping your encryption keys.</string>
+    <string name="e2ee_certificate_not_yet_valid">Your encryption certificate is not valid yet. Check your device date and time. If they are correct, ask your administrator to check the certificate dates.</string>
+    <string name="e2ee_certificate_invalid_signature">Your encryption certificate does not match the server signing key. Try again. If this continues, ask your administrator to check the certificate and server signing key.</string>
+    <string name="e2ee_certificate_unsupported_algorithm">Your device cannot verify the encryption certificate because its signing algorithm is not supported. Update the app and Android, or contact your administrator.</string>
+    <string name="e2ee_certificate_verification_failed">Could not verify your encryption certificate because of a cryptographic error. Try again. If this continues, contact your administrator.</string>
+    <string name="e2ee_local_keys_invalid">The encryption keys stored on this device could not be verified. Make sure you have your 12 word passphrase before removing local encryption settings and setting them up again.</string>
     <string name="end_to_end_encryption_server_public_key_unavailable">Unable to retrieve public key</string>
     <string name="end_to_end_encryption_server_private_key_unavailable">Unable to retrieve private key</string>
     <string name="end_to_end_encryption_certificate_unavailable">Unable to retrieve server certificate</string>

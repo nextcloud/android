@@ -19,7 +19,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
-import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.repository.ClientRepository
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.e2ee.model.E2EEAction
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -34,6 +34,7 @@ import com.owncloud.android.lib.resources.users.GetPrivateKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.GetCertificateRemoteOperation
 import com.owncloud.android.lib.resources.users.GetServerPublicKeyRemoteOperation
 import com.owncloud.android.ui.dialog.extensions.themeButtons
+import com.owncloud.android.ui.dialog.setupEncryption.model.CertificateValidationResult
 import com.owncloud.android.ui.dialog.setupEncryption.model.DownloadKeyResult
 import com.owncloud.android.utils.ClipboardUtil
 import com.owncloud.android.utils.EncryptionUtils
@@ -44,7 +45,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.apache.commons.httpclient.HttpStatus
 import java.io.IOException
-import java.lang.ref.WeakReference
 import javax.inject.Inject
 
 class SetupEncryptionDialogFragment :
@@ -54,9 +54,8 @@ class SetupEncryptionDialogFragment :
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
 
-    @JvmField
     @Inject
-    var clientFactory: ClientFactory? = null
+    lateinit var clientRepository: ClientRepository
 
     @JvmField
     @Inject
@@ -263,12 +262,13 @@ class SetupEncryptionDialogFragment :
         positiveButton?.visibility = View.INVISIBLE
 
         downloadKeyResult = withContext(Dispatchers.IO) {
-            val weakContext = WeakReference(context).get() ?: return@withContext DownloadKeyResult.UnexpectedError()
             val user = user ?: return@withContext DownloadKeyResult.UnexpectedError()
             val dataProvider = arbitraryDataProvider ?: return@withContext DownloadKeyResult.UnexpectedError()
+            val client = clientRepository.getNextcloudClient()
+                ?: return@withContext DownloadKeyResult.UnexpectedError()
 
             val certificateOperation = GetCertificateRemoteOperation()
-            val certificateResult = certificateOperation.executeNextcloudClient(user, weakContext)
+            val certificateResult = certificateOperation.execute(client)
             if (!certificateResult.isSuccess) {
                 // The certificate might not be available on the server yet.
                 // Therefore, the user needs to generate a new passphrase first, send csr.
@@ -280,17 +280,18 @@ class SetupEncryptionDialogFragment :
             }
 
             val serverPublicKeyOperation = GetServerPublicKeyRemoteOperation()
-            val serverPublicKeyResult = serverPublicKeyOperation.executeNextcloudClient(user, weakContext)
+            val serverPublicKeyResult = serverPublicKeyOperation.execute(client)
             if (!serverPublicKeyResult.isSuccess) {
                 return@withContext DownloadKeyResult.ServerPublicKeyUnavailable()
             }
 
             val serverKey = serverPublicKeyResult.resultData
             val certificateAsString = certificateResult.resultData
-            val isCertificateValid = certificateValidator?.validate(serverKey, certificateAsString)
+            val validation = certificateValidator?.validate(serverKey, certificateAsString)
+                ?: return@withContext DownloadKeyResult.UnexpectedError()
 
-            if (isCertificateValid == false) {
-                return@withContext DownloadKeyResult.CertificateVerificationFailed()
+            if (validation != CertificateValidationResult.VALID) {
+                return@withContext DownloadKeyResult.CertificateVerificationFailed(validation)
             }
 
             dataProvider.storeOrUpdateKeyValue(
@@ -300,7 +301,7 @@ class SetupEncryptionDialogFragment :
             )
 
             val privateKeyOperation = GetPrivateKeyRemoteOperation()
-            val privateKeyResult = privateKeyOperation.executeNextcloudClient(user, weakContext)
+            val privateKeyResult = privateKeyOperation.execute(client)
             return@withContext if (privateKeyResult.isSuccess) {
                 Log_OC.d(TAG, "private key successful downloaded for " + user.accountName)
                 keyResult = KEY_EXISTING_USED
@@ -315,15 +316,25 @@ class SetupEncryptionDialogFragment :
             }
         }
 
-        downloadKeyResult?.let { result ->
-            if (result is DownloadKeyResult.Success || result is DownloadKeyResult.GeneratePassphraseSendCSR) {
-                handlePrivateKey(result)
-            } else {
-                val descriptionId = result.descriptionId ?: return
-                val description = getString(descriptionId)
-                dismiss()
-                SnackbarUtil.show(requireActivity(), description)
+        downloadKeyResult?.let { showDownloadKeyResult(it) }
+    }
+
+    private fun showDownloadKeyResult(result: DownloadKeyResult) {
+        if (result is DownloadKeyResult.Success || result is DownloadKeyResult.GeneratePassphraseSendCSR) {
+            handlePrivateKey(result)
+        } else if (result is DownloadKeyResult.CertificateVerificationFailed) {
+            keyResult = KEY_FAILED
+            requireDialog().setTitle(R.string.common_error)
+            binding.encryptionStatus.setText(result.descriptionId)
+            (dialog as? AlertDialog)?.getButton(AlertDialog.BUTTON_POSITIVE)?.apply {
+                setText(R.string.end_to_end_encryption_dialog_close)
+                visibility = View.VISIBLE
             }
+        } else {
+            val descriptionId = result.descriptionId ?: return
+            val description = getString(descriptionId)
+            dismiss()
+            SnackbarUtil.show(requireActivity(), description)
         }
     }
 
