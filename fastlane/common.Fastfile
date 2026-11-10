@@ -252,7 +252,7 @@ platform :android do
 			flavor: options[:flavor],
 			build_type: 'Release',
 			print_command: false,
-			properties: GRADLE_SIGNING_PROPERTIES
+			properties: defined?(APK_SIGNING_PROPERTIES) ? APK_SIGNING_PROPERTIES : GRADLE_SIGNING_PROPERTIES
 			)
 			
 		sh("mv ../app/build/outputs/apk/#{options[:flavor]}/release/*.apk ../release/nextcloud-#{APP}-#{options[:flavor]}-#{options[:versionCode]}.apk")
