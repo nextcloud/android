@@ -1,0 +1,9 @@
+fix(l10n): Update translations from Transifex
+Update dependency org.conscrypt:conscrypt-android to v2.9.0 (#17991)
+fix(l10n): Update translations from Transifex
+fix(l10n): Update translations from Transifex
+Update dependency com.diffplug.spotless to v8.11.0 (#17985)
+Fix null volume edge case causing activity finish()
+Meaningful storage name in picker
+Fix empty folder not updated in folder picker due to callback handler never passed to RemoteOperation
+Update Nextcloud Android library
