@@ -550,11 +550,12 @@ class FileDetailSharingFragment :
         }
 
         if (publicShare.shareLink.isNullOrEmpty()) {
-            fileOperationsHelper?.getFileWithLink(file, viewThemeUtils)
+            fileOperationsHelper?.getFileWithLink(file)
             return
         }
 
-        FileActivity.showShareLinkDialog(fileActivity, file, publicShare.shareLink)
+        val activity = fileActivity ?: return
+        FileActivity.showShareLinkDialog(activity, file, publicShare.shareLink)
     }
 
     private fun refreshLegacyShareUiFromDb() {
@@ -717,8 +718,10 @@ class FileDetailSharingFragment :
     }
 
     override fun sendLink(share: OCShare) {
-        if (file?.isSharedViaLink == true && !share.shareLink.isNullOrEmpty()) {
-            FileActivity.showShareLinkDialog(fileActivity, file, share.shareLink)
+        val currentFile = file
+        val activity = fileActivity
+        if (currentFile?.isSharedViaLink == true && !share.shareLink.isNullOrEmpty() && activity != null) {
+            FileActivity.showShareLinkDialog(activity, currentFile, share.shareLink)
         } else {
             showSendLinkTo(share)
         }
@@ -736,7 +739,9 @@ class FileDetailSharingFragment :
             return
         }
 
-        file?.let { FileActivity.showShareLinkDialog(fileActivity, file, createInternalLink(user, it, capabilities)) }
+        val currentFile = file ?: return
+        val activity = fileActivity ?: return
+        FileActivity.showShareLinkDialog(activity, currentFile, createInternalLink(user, currentFile, capabilities))
     }
 
     private fun OCCapability?.shouldAskForPublicLinkPassword(): Boolean =
@@ -767,7 +772,7 @@ class FileDetailSharingFragment :
         }
 
         if (share.shareLink.isNullOrEmpty()) {
-            fileOperationsHelper?.getFileWithLink(file, viewThemeUtils)
+            fileOperationsHelper?.getFileWithLink(file)
             return
         }
 
@@ -925,7 +930,7 @@ class FileDetailSharingFragment :
     // endregion
 
     interface OnEditShareListener {
-        fun editExistingShare(share: OCShare?, screenTypePermission: Int, isReshareShown: Boolean)
+        fun editExistingShare(share: OCShare, screenTypePermission: Int, isReshareShown: Boolean)
 
         fun onShareProcessClosed()
     }

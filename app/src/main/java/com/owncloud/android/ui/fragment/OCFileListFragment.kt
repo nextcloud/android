@@ -402,7 +402,7 @@ open class OCFileListFragment :
         }
         mSwitchGridViewButton?.setOnClickListener { toggleGridAndListLayout() }
 
-        (activity as? FileDisplayActivity)?.let { it.updateActionBarTitleAndHomeButton(it.currentDir) }
+        (activity as? FileDisplayActivity)?.let { it.updateActionBarTitleAndHomeButton(it.getCurrentDir()) }
     }
 
     private fun toggleGridAndListLayout() {

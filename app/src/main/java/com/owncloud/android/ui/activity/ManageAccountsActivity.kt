@@ -52,7 +52,6 @@ import com.owncloud.android.ui.adapter.UserListAdapter
 import com.owncloud.android.ui.adapter.UserListItem
 import com.owncloud.android.ui.dialog.AccountRemovalDialog.Companion.newInstance
 import com.owncloud.android.ui.events.AccountRemovedEvent
-import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -69,7 +68,7 @@ class ManageAccountsActivity :
     UserListAdapter.ClickListener {
 
     private var recyclerView: RecyclerView? = null
-    private val handler = Handler()
+    override val handler = Handler()
     private var accountName: String? = null
     private var userListAdapter: UserListAdapter? = null
     private var originalUsers: Set<String>? = null
@@ -341,13 +340,9 @@ class ManageAccountsActivity :
         }
     }
 
-    override fun getHandler(): Handler = handler
-
     override fun getOperationsServiceBinder(): OperationsServiceBinder? = null
 
     override fun getStorageManager(): FileDataStorageManager = super.getStorageManager()
-
-    override fun getFileOperationsHelper(): FileOperationsHelper? = null
 
     @Suppress("DEPRECATION")
     @SuppressLint("NotifyDataSetChanged")
