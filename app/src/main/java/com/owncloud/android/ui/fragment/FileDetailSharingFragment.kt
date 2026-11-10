@@ -63,6 +63,7 @@ import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.providers.UsersAndGroupsSearchConfig
 import com.owncloud.android.ui.activity.FileActivity
+import com.owncloud.android.ui.activity.fileactivity.ShareLinkHelper
 import com.owncloud.android.ui.adapter.ShareeListAdapter
 import com.owncloud.android.ui.adapter.ShareeListAdapterListener
 import com.owncloud.android.ui.asynctasks.RetrieveHoverCardAsyncTask
@@ -555,7 +556,7 @@ class FileDetailSharingFragment :
         }
 
         val activity = fileActivity ?: return
-        FileActivity.showShareLinkDialog(activity, file, publicShare.shareLink)
+        ShareLinkHelper.showShareLinkDialog(activity, file, publicShare.shareLink)
     }
 
     private fun refreshLegacyShareUiFromDb() {
@@ -721,7 +722,7 @@ class FileDetailSharingFragment :
         val currentFile = file
         val activity = fileActivity
         if (currentFile?.isSharedViaLink == true && !share.shareLink.isNullOrEmpty() && activity != null) {
-            FileActivity.showShareLinkDialog(activity, currentFile, share.shareLink)
+            ShareLinkHelper.showShareLinkDialog(activity, currentFile, share.shareLink)
         } else {
             showSendLinkTo(share)
         }
@@ -741,7 +742,7 @@ class FileDetailSharingFragment :
 
         val currentFile = file ?: return
         val activity = fileActivity ?: return
-        FileActivity.showShareLinkDialog(activity, currentFile, createInternalLink(user, currentFile, capabilities))
+        ShareLinkHelper.showShareLinkDialog(activity, currentFile, createInternalLink(user, currentFile, capabilities))
     }
 
     private fun OCCapability?.shouldAskForPublicLinkPassword(): Boolean =

@@ -65,6 +65,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.activity.RichDocumentsEditorWebView
 import com.owncloud.android.ui.activity.ShareActivity
 import com.owncloud.android.ui.activity.TextEditorWebView
+import com.owncloud.android.ui.activity.fileactivity.ShareLinkHelper
 import com.owncloud.android.ui.dialog.SendFilesDialog
 import com.owncloud.android.ui.dialog.SendShareDialog
 import com.owncloud.android.ui.events.FavoriteEvent
@@ -391,7 +392,7 @@ class FileOperationsHelper(
 
         when {
             shares.size == SINGLE_LINK_SIZE ->
-                FileActivity.copyAndShareFileLink(fileActivity, file, shares[0].shareLink)
+                ShareLinkHelper.copyAndShareFileLink(fileActivity, file, shares[0].shareLink)
 
             fileActivity is FileDisplayActivity -> fileActivity.showDetails(file, SHARING_TAB)
 
