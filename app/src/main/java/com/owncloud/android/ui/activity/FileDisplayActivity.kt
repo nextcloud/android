@@ -52,6 +52,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.android.common.core.utils.ecosystem.AccountReceiverCallback
+import com.nextcloud.android.lib.resources.externalstorage.model.AuthMechanism
 import com.nextcloud.appReview.InAppReviewHelper
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.AsyncRunner
@@ -76,6 +77,7 @@ import com.nextcloud.utils.extensions.getSerializableArgument
 import com.nextcloud.utils.extensions.isActive
 import com.nextcloud.utils.extensions.lastFragment
 import com.nextcloud.utils.extensions.navigateToAllFiles
+import com.nextcloud.utils.extensions.remotePath
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.view.FastScrollUtils
 import com.owncloud.android.MainApp
@@ -1090,23 +1092,38 @@ class FileDisplayActivity :
     }
 
     override fun onBrowsedDownTo(directory: OCFile?) {
+        if (WebdavEntry.MountType.EXTERNAL != directory?.mountType) {
+            browseDownTo(directory)
+            return
+        }
+
+        lifecycleScope.launch {
+            val showCredentialsDialog = directory.requiresUserProvidedCredentials()
+            if (showCredentialsDialog ?: false) {
+                TODO("Show credentials dialog")
+                return@launch
+            }
+            browseDownTo(directory)
+        }
+    }
+
+    private fun browseDownTo(directory: OCFile?) {
         file = directory
         resetScrollingAndUpdateActionBar()
         startSyncFolderOperation(directory, ignoreETag = false, syncChangedDownloadedFiles = true)
         startMetadataSyncForCurrentDir()
-        fetchExternalStorageMountsIfNeeded(directory)
     }
 
-    private fun fetchExternalStorageMountsIfNeeded(directory: OCFile?) {
-        if (WebdavEntry.MountType.EXTERNAL != directory?.mountType) return
-
-        lifecycleScope.launch {
-            when (val result = externalStorageRepository.fetchMounts()) {
-                is ExternalStorageMountsResult.Success ->
-                    Log_OC.d(TAG, "Fetched ${result.mounts.size} external storage mounts: ${result.mounts}")
-
-                ExternalStorageMountsResult.Failure -> Log_OC.w(TAG, "Could not fetch external storage mounts")
-            }
+    private suspend fun OCFile.requiresUserProvidedCredentials(): Boolean? {
+        val result = externalStorageRepository.fetchMounts()
+        if (result !is ExternalStorageMountsResult.Success) {
+            Log_OC.w(TAG, "Could not fetch external storage mounts to determine if ${this.fileName} requires" +
+                " user provided credentials.")
+            return null
+        }
+        return result.mounts.any {
+            it.remotePath() == remotePath &&
+                it.config?.authMechanism == AuthMechanism.PasswordUserProvided
         }
     }
 
