@@ -937,6 +937,17 @@ open class AuthenticatorActivity :
             return createAccount(result)
         }
 
+        val existingLoginName = account?.let { AccountUtils.getUsernameForAccount(it) }
+        if (existingLoginName != null && !existingLoginName.equals(webViewUser, ignoreCase = true)) {
+            Log_OC.w(TAG, "Account: login name does not match ${account?.name}, credentials not updated")
+            authStatus = AuthenticatorStatus(
+                R.drawable.ic_alert,
+                getString(R.string.auth_login_name_mismatch, existingLoginName)
+            )
+            showAuthStatus()
+            return false
+        }
+
         return try {
             updateAccountAuthentication()
             true
