@@ -6,7 +6,6 @@
  */
 package com.owncloud.android.utils
 
-import android.os.Build
 import android.os.Environment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
@@ -16,7 +15,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.IOException
-import java.nio.file.FileSystemException
 import java.nio.file.Files
 import java.nio.file.InvalidPathException
 import java.nio.file.Path
@@ -62,7 +60,7 @@ object FileUtil {
         val directory = try {
             folder.toPath()
         } catch (e: InvalidPathException) {
-            Log_OC.w(TAG, "isFolderWritable: invalid path: ${folder.path}: ${e.describe()}")
+            Log_OC.w(TAG, "isFolderWritable: invalid path: ${folder.path}: $e")
             return@withContext false
         }
 
@@ -76,7 +74,7 @@ object FileUtil {
 
     private fun isUsableDirectory(directory: Path): Boolean {
         if (!Files.exists(directory)) {
-            Log_OC.w(TAG, "isFolderWritable: existence cannot be verified: $directory [${describeStorage(directory)}]")
+            Log_OC.w(TAG, "isFolderWritable: existence cannot be verified: $directory")
             return false
         }
 
@@ -87,12 +85,12 @@ object FileUtil {
 
         val storageState = Environment.getExternalStorageState(directory.toFile())
         if (storageState != Environment.MEDIA_MOUNTED && storageState != Environment.MEDIA_UNKNOWN) {
-            Log_OC.w(TAG, "isFolderWritable: storage is $storageState: $directory [${describeStorage(directory)}]")
+            Log_OC.w(TAG, "isFolderWritable: storage is $storageState: $directory")
             return false
         }
 
         if (!Files.isWritable(directory)) {
-            Log_OC.w(TAG, "isFolderWritable: no write access: $directory [${describeStorage(directory)}]")
+            Log_OC.w(TAG, "isFolderWritable: no write access: $directory")
             return false
         }
 
@@ -105,10 +103,11 @@ object FileUtil {
         val probeDirectory = directory.resolve("$WRITE_PROBE_PREFIX${UUID.randomUUID()}")
         val probeFile = probeDirectory.resolve(WRITE_PROBE_FILE_NAME)
 
-        val writable = runProbeStep("create directory", probeDirectory) { Files.createDirectory(probeDirectory) } &&
-            runProbeStep("create file", probeFile) { Files.createFile(probeFile) } &&
-            runProbeStep("delete file", probeFile) { Files.delete(probeFile) } &&
-            runProbeStep("delete directory", probeDirectory) { Files.delete(probeDirectory) }
+        val writable =
+            runCatchingLogged("create directory", probeDirectory) { Files.createDirectory(probeDirectory) } &&
+                runCatchingLogged("create file", probeFile) { Files.createFile(probeFile) } &&
+                runCatchingLogged("delete file", probeFile) { Files.delete(probeFile) } &&
+                runCatchingLogged("delete directory", probeDirectory) { Files.delete(probeDirectory) }
 
         if (writable) {
             Log_OC.d(TAG, "isFolderWritable: writable: $directory")
@@ -121,53 +120,19 @@ object FileUtil {
         return writable
     }
 
-    private inline fun runProbeStep(step: String, target: Path, action: () -> Unit): Boolean = try {
-        action()
-        true
-    } catch (e: IOException) {
-        Log_OC.w(TAG, "isFolderWritable: cannot $step $target: ${e.describe()} [${describeStorage(target)}]")
-        false
-    } catch (e: SecurityException) {
-        Log_OC.w(TAG, "isFolderWritable: cannot $step $target: ${e.describe()} [${describeStorage(target)}]")
-        false
-    }
-
     private fun removeLeftovers(vararg paths: Path) {
         paths.forEach { path ->
-            try {
+            runCatchingLogged("delete if exists", path) {
                 Files.deleteIfExists(path)
-            } catch (e: IOException) {
-                Log_OC.e(TAG, "isFolderWritable: leftover write probe could not be removed: $path: ${e.describe()}")
-            } catch (e: SecurityException) {
-                Log_OC.e(TAG, "isFolderWritable: leftover write probe could not be removed: $path: ${e.describe()}")
             }
         }
     }
 
-    private fun Exception.describe(): String {
-        val reason = (this as? FileSystemException)?.reason
-        return listOfNotNull(javaClass.simpleName, reason ?: message).joinToString(": ")
-    }
-
-    private fun describeStorage(path: Path): String {
-        val file = path.toFile()
-        val removable = try {
-            Environment.isExternalStorageRemovable(file).toString()
-        } catch (_: IllegalArgumentException) {
-            "not shared storage"
-        }
-        val allFilesAccess = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            Environment.isExternalStorageManager().toString()
-        } else {
-            "not applicable"
-        }
-        val legacyStorage = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            Environment.isExternalStorageLegacy().toString()
-        } else {
-            "not applicable"
-        }
-
-        return "api=${Build.VERSION.SDK_INT}, state=${Environment.getExternalStorageState(file)}, " +
-            "removable=$removable, allFilesAccess=$allFilesAccess, legacyStorage=$legacyStorage"
+    private inline fun runCatchingLogged(step: String, target: Path, action: () -> Unit): Boolean = try {
+        action()
+        true
+    } catch (e: Exception) {
+        Log_OC.e(TAG, "isFolderWritable: cannot $step $target: $e")
+        false
     }
 }
