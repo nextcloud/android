@@ -1,0 +1,5 @@
+fix(l10n): Update translations from Transifex
+wip
+refactor(main-app): kotlin
+Rename .java to .kt
+fix(ci): run Garm workflow on ubuntu-24.04 runners
