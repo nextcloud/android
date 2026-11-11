@@ -60,9 +60,9 @@ jobs:
             -   name: Configure gradle daemon
                 run: |
                     mkdir -p $HOME/.gradle
-                    echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=768m -XX:+UseSerialGC -Dfile.encoding=UTF-8 --add-opens java.base/java.nio=ALL-UNNAMED --add-opens java.base/java.nio.channels=ALL-UNNAMED --add-exports java.base/sun.nio.ch=ALL-UNNAMED" >> $HOME/.gradle/gradle.properties
+                    echo "org.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=768m -XX:+UseSerialGC -Dfile.encoding=UTF-8 --add-opens java.base/java.nio=ALL-UNNAMED --add-opens java.base/java.nio.channels=ALL-UNNAMED --add-exports java.base/sun.nio.ch=ALL-UNNAMED" >> $HOME/.gradle/gradle.properties
                     echo "kotlin.compiler.execution.strategy=in-process" >> $HOME/.gradle/gradle.properties
-                    echo "org.gradle.workers.max=1" >> $HOME/.gradle/gradle.properties
+                    echo "org.gradle.workers.max=4" >> $HOME/.gradle/gradle.properties
                     echo "org.gradle.caching=false" >> $HOME/.gradle/gradle.properties
                     echo "org.gradle.parallel=false" >> $HOME/.gradle/gradle.properties
                     echo "org.gradle.configureondemand=true" >> $HOME/.gradle/gradle.properties
@@ -94,7 +94,7 @@ jobs:
                     force-avd-creation: false
                     arch: x86_64
                     sdcard-path-or-size: 100M
-                    ram-size: 2048M
+                    ram-size: 4096M
                     heap-size: 512M
                     target: google_apis
                     emulator-options: -no-metrics -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -skin 500x833
