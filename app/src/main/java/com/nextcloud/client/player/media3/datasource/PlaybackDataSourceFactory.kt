@@ -4,7 +4,6 @@
  * SPDX-FileCopyrightText: 2025 STRATO GmbH.
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-
 package com.nextcloud.client.player.media3.datasource
 
 import android.content.Context
@@ -45,9 +44,7 @@ class PlaybackDataSourceFactory @Inject constructor(
         )
     }
 
-    private fun createHttpDataSourceFactory(): HttpDataSource.Factory {
-        val client = clientFactory.createNextcloudClient(accountManager.user).client
-        return OkHttpDataSource.Factory(client)
+    private fun createHttpDataSourceFactory(nextcloudClient: NextcloudClient): HttpDataSource.Factory =
+        OkHttpDataSource.Factory(nextcloudClient.client)
             .setUserAgent(MainApp.getUserAgent())
-    }
 }
