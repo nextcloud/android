@@ -21,7 +21,7 @@ import com.owncloud.android.utils.PermissionUtil
 fun StoragePermissionWarningBannerBinding.setup(activity: Activity, descriptionId: Int) {
     description.text = activity.getString(descriptionId)
 
-    val isBrandedAndFlavourGplay = (MainApp.isClientBranded() && isFlavourGPlay())
+    val isBrandedAndFlavourGplay = (MainApp.isClientBranded && isFlavourGPlay())
     allFilesAccess.setVisibleIf(!PermissionUtil.checkAllFilesAccess() && !isBrandedAndFlavourGplay)
     allFilesAccess.setOnClickListener { activity.openAllFilesAccessSettings(REQ_ALL_FILES_ACCESS) }
 
