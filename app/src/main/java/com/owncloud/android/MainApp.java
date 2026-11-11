@@ -29,7 +29,6 @@ import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
@@ -79,7 +78,6 @@ import com.owncloud.android.datastorage.StoragePoint;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.NextcloudVersion;
-import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.providers.documentstorage.DocumentsStorageProvider;
 import com.owncloud.android.ui.navigation.NavigatorActivity;
@@ -89,7 +87,6 @@ import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ReceiversHelper;
 import com.owncloud.android.utils.SecurityUtils;
-import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.conscrypt.Conscrypt;
@@ -1029,5 +1026,6 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         super.onTerminate();
         connectivityService.removeListener(this);
         ReceiversHelper.shutdown();
+        AppPreferencesImpl.shutdown();
     }
 }
