@@ -41,6 +41,7 @@ import com.nextcloud.client.network.WalledCheckCache
 import com.nextcloud.client.notifications.AppNotificationChannels
 import com.nextcloud.client.onboarding.OnboardingService
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.client.preferences.DarkMode
 import com.nextcloud.client.systembars.SystemBarBackgroundCallbacks
 import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias
@@ -404,6 +405,7 @@ open class MainApp :
         super.onTerminate()
         connectivityService.removeListener(this)
         ReceiversHelper.shutdown()
+        AppPreferencesImpl.shutdown()
     }
 
     companion object {
