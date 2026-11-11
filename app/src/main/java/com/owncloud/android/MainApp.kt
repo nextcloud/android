@@ -17,14 +17,12 @@ import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.os.StrictMode
 import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.nextcloud.appReview.InAppReviewHelper
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.appinfo.AppInfo
-import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.di.ActivityInjector
 import com.nextcloud.client.di.AppComponent
@@ -37,12 +35,10 @@ import com.nextcloud.client.migrations.AutoUploadEntriesMigration
 import com.nextcloud.client.migrations.MigrationsManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.network.NetworkChangeListener
-import com.nextcloud.client.network.WalledCheckCache
 import com.nextcloud.client.notifications.AppNotificationChannels
 import com.nextcloud.client.onboarding.OnboardingService
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
-import com.nextcloud.client.preferences.DarkMode
 import com.nextcloud.client.systembars.SystemBarBackgroundCallbacks
 import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias
 import com.nextcloud.utils.extensions.registerBroadcastReceiver
@@ -50,7 +46,7 @@ import com.nextcloud.utils.extensions.showToast
 import com.nextcloud.utils.mdm.MDMConfig
 import com.owncloud.android.authentication.GlobalPassCodeProtectionCallbacks
 import com.owncloud.android.authentication.PassCodeManager
-import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
+import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.ReceiverFlag
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
@@ -63,7 +59,6 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion
 import com.owncloud.android.providers.documentstorage.DocumentsStorageProvider
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity
 import com.owncloud.android.utils.FilesSyncHelper
-import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.ReceiversHelper
 import com.owncloud.android.utils.SecurityUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -72,8 +67,6 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 import org.conscrypt.Conscrypt
-import org.greenrobot.eventbus.EventBus
-import java.lang.ref.WeakReference
 import java.security.NoSuchAlgorithmException
 import java.security.Security
 import javax.inject.Inject
@@ -119,12 +112,6 @@ open class MainApp :
     lateinit var backgroundJobManager: BackgroundJobManager
 
     @Inject
-    lateinit var clock: Clock
-
-    @Inject
-    lateinit var eventBus: EventBus
-
-    @Inject
     lateinit var migrationsManager: MigrationsManager
 
     @Inject
@@ -134,13 +121,19 @@ open class MainApp :
     lateinit var passCodeManager: PassCodeManager
 
     @Inject
-    lateinit var walledCheckCache: WalledCheckCache
-
-    @Inject
     lateinit var composeProcessTextAlias: ComposeProcessTextAlias
 
     @Inject
     lateinit var viewThemeUtilsProvider: Provider<ViewThemeUtils>
+
+    @Inject
+    lateinit var arbitraryDataProvider: ArbitraryDataProvider
+
+    @Inject
+    lateinit var receiversHelper: ReceiversHelper
+
+    @Inject
+    lateinit var autoUploadEntriesMigration: AutoUploadEntriesMigration
 
     private val restrictionsFilter = IntentFilter(Intent.ACTION_APPLICATION_RESTRICTIONS_CHANGED)
 
@@ -189,8 +182,7 @@ open class MainApp :
     @SuppressFBWarnings("ST")
     override fun onCreate() {
         enableStrictMode()
-        val viewThemeUtils = viewThemeUtilsProvider.get()
-        setAppTheme(preferences.getDarkThemeMode())
+        preferences.darkThemeMode.setTheme()
         super.onCreate()
 
         ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleEventObserver)
@@ -212,19 +204,8 @@ open class MainApp :
         Log_OC.d(TAG, "scheduleContentObserverJob, called")
         backgroundJobManager.scheduleContentObserverJob()
 
-        initSyncOperations(
-            this,
-            preferences,
-            uploadsStorageManager,
-            accountManager,
-            connectivityService,
-            powerManagementService,
-            backgroundJobManager,
-            clock,
-            viewThemeUtils,
-            walledCheckCache
-        )
-        initContactsBackup(accountManager, backgroundJobManager)
+        initSyncOperations()
+        initContactsBackup(arbitraryDataProvider, accountManager, backgroundJobManager)
         AppNotificationChannels.create(getAppContext())
         scheduleBackgroundJobs()
         registerActivityLifecycleCallbacks(GlobalPassCodeProtectionCallbacks(onboarding, passCodeManager))
@@ -234,6 +215,24 @@ open class MainApp :
         }
 
         connectivityService.addListener(this)
+    }
+
+    private fun initSyncOperations() {
+        autoUploadEntriesMigration.migrate()
+
+        if (!preferences.isAutoUploadInitialized()) {
+            preferences.setAutoUploadInit(true)
+        }
+
+        FilesSyncHelper.restartUploadsIfNeeded(
+            uploadsStorageManager,
+            accountManager,
+            connectivityService,
+            powerManagementService
+        )
+
+        backgroundJobManager.scheduleOfflineSync()
+        receiversHelper.registerReceivers()
     }
 
     fun disableDocumentsStorageProvider() {
@@ -312,7 +311,7 @@ open class MainApp :
             OwnCloudClientManagerFactory.setProxyPort(port)
             Log_OC.d(TAG, "Proxy configuration successfully set")
         } catch (e: Resources.NotFoundException) {
-            Log_OC.e(TAG, "Proxy config cannot able to set due to: \$e")
+            Log_OC.e(TAG, "Proxy config cannot able to set due to: $e")
         }
     }
 
@@ -366,7 +365,7 @@ open class MainApp :
     private fun disableDeathOnFileUriExposure() {
         try {
             StrictMode::class.java.getMethod("disableDeathOnFileUriExposure").invoke(null)
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             Log_OC.d(DEBUG_TAG, "Failed to disable uri exposure")
         }
     }
@@ -404,7 +403,6 @@ open class MainApp :
     override fun onTerminate() {
         super.onTerminate()
         connectivityService.removeListener(this)
-        ReceiversHelper.shutdown()
         AppPreferencesImpl.shutdown()
     }
 
@@ -424,7 +422,7 @@ open class MainApp :
         private const val HIGHEST_SECURITY_PROVIDER_POSITION = 1
         private const val NO_PACKAGE_INFO_FLAGS = 0
 
-        private var appContext: WeakReference<Context>? = null
+        private lateinit var appContext: Context
         private var storagePath: String? = null
         private var appComponent: AppComponent? = null
 
@@ -437,7 +435,7 @@ open class MainApp :
             private set
 
         private fun initGlobalContext(context: Context) {
-            appContext = WeakReference(context)
+            appContext = context
         }
 
         @JvmStatic
@@ -452,12 +450,11 @@ open class MainApp :
             get() = getAppContext().resources.getBoolean(R.bool.is_branded_plus_client)
 
         @JvmStatic
-        fun initContactsBackup(accountManager: UserAccountManager?, backgroundJobManager: BackgroundJobManager?) {
-            if (accountManager == null || backgroundJobManager == null) {
-                return
-            }
-
-            val arbitraryDataProvider = ArbitraryDataProviderImpl(getAppContext())
+        fun initContactsBackup(
+            arbitraryDataProvider: ArbitraryDataProvider,
+            accountManager: UserAccountManager,
+            backgroundJobManager: BackgroundJobManager
+        ) {
             accountManager.allUsers
                 .filter {
                     arbitraryDataProvider.getBooleanValue(
@@ -469,76 +466,13 @@ open class MainApp :
         }
 
         @JvmStatic
-        fun initSyncOperations(
-            context: Context,
-            preferences: AppPreferences,
-            uploadsStorageManager: UploadsStorageManager,
-            accountManager: UserAccountManager,
-            connectivityService: ConnectivityService,
-            powerManagementService: PowerManagementService,
-            backgroundJobManager: BackgroundJobManager,
-            clock: Clock,
-            viewThemeUtils: ViewThemeUtils?,
-            walledCheckCache: WalledCheckCache?
-        ) {
-            val appContext = getAppContext()
-            AutoUploadEntriesMigration.updateToAutoUpload(context)
-            AutoUploadEntriesMigration.cleanOldEntries(appContext, clock)
-            AutoUploadEntriesMigration.updateAutoUploadEntries(appContext, clock)
-
-            if (PermissionUtil.checkStoragePermission(appContext)) {
-                AutoUploadEntriesMigration.splitOutAutoUploadEntries(appContext, clock)
-            } else {
-                preferences.setAutoUploadSplitEntriesEnabled(true)
-            }
-
-            if (!preferences.isAutoUploadInitialized()) {
-                preferences.setAutoUploadInit(true)
-            }
-
-            FilesSyncHelper.restartUploadsIfNeeded(
-                uploadsStorageManager,
-                accountManager,
-                connectivityService,
-                powerManagementService
-            )
-
-            backgroundJobManager.scheduleOfflineSync()
-
-            ReceiversHelper.registerNetworkChangeReceiver(
-                uploadsStorageManager,
-                accountManager,
-                connectivityService,
-                powerManagementService,
-                walledCheckCache
-            )
-            ReceiversHelper.registerPowerChangeReceiver(
-                uploadsStorageManager,
-                accountManager,
-                connectivityService,
-                powerManagementService
-            )
-            ReceiversHelper.registerPowerSaveReceiver(
-                uploadsStorageManager,
-                accountManager,
-                connectivityService,
-                powerManagementService
-            )
-        }
-
-        @JvmStatic
         fun string(@StringRes id: Int): String = getAppContext().getString(id)
 
         @JvmStatic
         fun string(@StringRes id: Int, args: Any?): String = getAppContext().getString(id, args)
 
         @JvmStatic
-        fun getAppContext(): Context = appContext!!.get()!!
-
-        @JvmStatic
-        fun setAppContext(context: Context?) {
-            appContext = WeakReference(context)
-        }
+        fun getAppContext(): Context = appContext
 
         @JvmStatic
         fun getStoragePath(): String? = storagePath
@@ -558,14 +492,6 @@ open class MainApp :
         @JvmStatic
         val authTokenType: String
             get() = string(R.string.authority)
-
-        @JvmStatic
-        val dbFile: String
-            get() = string(R.string.db_file)
-
-        @JvmStatic
-        val dbName: String
-            get() = string(R.string.db_name)
 
         @JvmStatic
         val dataFolder: String
@@ -614,16 +540,6 @@ open class MainApp :
                 Log_OC.e(TAG, "Trying to get packageName", e.cause)
                 ""
             }
-        }
-
-        @JvmStatic
-        fun setAppTheme(mode: DarkMode) {
-            val nightMode = when (mode) {
-                DarkMode.LIGHT -> AppCompatDelegate.MODE_NIGHT_NO
-                DarkMode.DARK -> AppCompatDelegate.MODE_NIGHT_YES
-                DarkMode.SYSTEM -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-            }
-            AppCompatDelegate.setDefaultNightMode(nightMode)
         }
     }
 }

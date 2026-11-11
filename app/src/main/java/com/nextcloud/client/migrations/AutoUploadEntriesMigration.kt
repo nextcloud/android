@@ -9,8 +9,7 @@ package com.nextcloud.client.migrations
 import android.content.Context
 import android.view.WindowManager.BadTokenException
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.nextcloud.client.core.Clock
-import com.nextcloud.client.preferences.AppPreferencesImpl
+import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.MediaFolder
 import com.owncloud.android.datamodel.MediaFolderType
@@ -20,14 +19,28 @@ import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.navigation.NavigatorActivity
 import com.owncloud.android.ui.navigation.NavigatorScreen
+import com.owncloud.android.utils.PermissionUtil
+import javax.inject.Inject
 
-object AutoUploadEntriesMigration {
+class AutoUploadEntriesMigration @Inject constructor(
+    private val context: Context,
+    private val preferences: AppPreferences,
+    private val syncedFolderProvider: SyncedFolderProvider
+) {
 
-    private val TAG: String = AutoUploadEntriesMigration::class.java.simpleName
-    private const val MEDIA_FOLDER_ITEM_LIMIT = 1
+    fun migrate() {
+        updateToAutoUpload()
+        cleanOldEntries()
+        updateAutoUploadEntries()
 
-    fun updateToAutoUpload(context: Context) {
-        val preferences = AppPreferencesImpl.fromContext(context)
+        if (PermissionUtil.checkStoragePermission(context)) {
+            splitOutAutoUploadEntries()
+        } else {
+            preferences.isAutoUploadSplitEntriesEnabled = true
+        }
+    }
+
+    private fun updateToAutoUpload() {
         if (!preferences.instantPictureUploadEnabled() && !preferences.instantVideoUploadEnabled()) {
             return
         }
@@ -35,13 +48,13 @@ object AutoUploadEntriesMigration {
         preferences.removeLegacyPreferences()
 
         try {
-            showAutoUploadAlertDialog(context)
+            showAutoUploadAlertDialog()
         } catch (e: BadTokenException) {
             Log_OC.i(TAG, "Error showing Auto Upload Update dialog, so skipping it: " + e.message)
         }
     }
 
-    private fun showAutoUploadAlertDialog(context: Context) {
+    private fun showAutoUploadAlertDialog() {
         MaterialAlertDialogBuilder(context, R.style.Theme_ownCloud_Dialog)
             .setTitle(R.string.drawer_synced_folders)
             .setMessage(R.string.synced_folders_new_info)
@@ -56,13 +69,11 @@ object AutoUploadEntriesMigration {
             .show()
     }
 
-    fun cleanOldEntries(context: Context, clock: Clock) {
-        val preferences = AppPreferencesImpl.fromContext(context)
+    private fun cleanOldEntries() {
         if (preferences.isLegacyClean) {
             return
         }
 
-        val syncedFolderProvider = SyncedFolderProvider(context.contentResolver, preferences, clock)
         val newestIds = syncedFolderProvider.syncedFolders
             .groupBy { it.account to it.localPath }
             .values
@@ -79,24 +90,21 @@ object AutoUploadEntriesMigration {
         }
     }
 
-    fun updateAutoUploadEntries(context: Context, clock: Clock) {
-        val preferences = AppPreferencesImpl.fromContext(context)
+    private fun updateAutoUploadEntries() {
         if (preferences.isAutoUploadPathsUpdateEnabled) {
             return
         }
 
-        SyncedFolderProvider(context.contentResolver, preferences, clock).updateAutoUploadPaths(context)
+        syncedFolderProvider.updateAutoUploadPaths(context)
     }
 
-    fun splitOutAutoUploadEntries(context: Context, clock: Clock) {
-        val preferences = AppPreferencesImpl.fromContext(context)
+    private fun splitOutAutoUploadEntries() {
         if (preferences.isAutoUploadSplitEntriesEnabled) {
             return
         }
 
         Log_OC.i(TAG, "Migrate synced_folders records for image/video split")
         val contentResolver = context.contentResolver
-        val syncedFolderProvider = SyncedFolderProvider(contentResolver, preferences, clock)
         val imageMediaFolders = MediaProvider.getImageFolders(contentResolver, MEDIA_FOLDER_ITEM_LIMIT, null, true)
         val videoMediaFolders = MediaProvider.getVideoFolders(contentResolver, MEDIA_FOLDER_ITEM_LIMIT, null, true)
         val syncedFolders = syncedFolderProvider.syncedFolders
@@ -129,5 +137,10 @@ object AutoUploadEntriesMigration {
         val newSyncedFolder = (syncedFolder.clone() as SyncedFolder).apply { setType(mediaType) }
         val primaryKey = storeSyncedFolder(newSyncedFolder)
         Log_OC.i(TAG, "Migrated $mediaTypeLabel synced_folders record: $primaryKey - ${newSyncedFolder.localPath}")
+    }
+
+    companion object {
+        private val TAG: String = AutoUploadEntriesMigration::class.java.simpleName
+        private const val MEDIA_FOLDER_ITEM_LIMIT = 1
     }
 }
