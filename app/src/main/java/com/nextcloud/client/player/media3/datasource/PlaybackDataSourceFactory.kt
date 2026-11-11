@@ -15,8 +15,8 @@ import androidx.media3.datasource.HttpDataSource
 import androidx.media3.datasource.cache.Cache
 import androidx.media3.datasource.cache.CacheDataSource
 import androidx.media3.datasource.okhttp.OkHttpDataSource
-import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.common.NextcloudClient
+import com.nextcloud.repository.ClientRepository
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
 import dagger.Lazy
@@ -27,8 +27,7 @@ class PlaybackDataSourceFactory @Inject constructor(
     private val context: Context,
     private val cache: Lazy<Cache>,
     private val fileDataStorageManager: FileDataStorageManager,
-    private val clientFactory: ClientFactory,
-    private val accountManager: UserAccountManager
+    private val clientRepository: ClientRepository
 ) : DataSource.Factory {
 
     override fun createDataSource(): DataSource = CacheDataSource.Factory()
@@ -38,15 +37,15 @@ class PlaybackDataSourceFactory @Inject constructor(
 
     private fun createUpstreamDataSourceFactory() = DataSource.Factory {
         PlaybackDataSource(
-            delegate = DefaultDataSource.Factory(context, createHttpDataSourceFactory()).createDataSource(),
+            createDelegate = { nextcloudClient ->
+                DefaultDataSource.Factory(context, createHttpDataSourceFactory(nextcloudClient)).createDataSource()
+            },
             fileDataStorageManager = fileDataStorageManager,
-            ownCloudClient = clientFactory.create(accountManager.user)
+            clientRepository = clientRepository
         )
     }
 
-    private fun createHttpDataSourceFactory(): HttpDataSource.Factory {
-        val client = clientFactory.createNextcloudClient(accountManager.user).client
-        return OkHttpDataSource.Factory(client)
+    private fun createHttpDataSourceFactory(nextcloudClient: NextcloudClient): HttpDataSource.Factory =
+        OkHttpDataSource.Factory(nextcloudClient.client)
             .setUserAgent(MainApp.userAgent)
-    }
 }
