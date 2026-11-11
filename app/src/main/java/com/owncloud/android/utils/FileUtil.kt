@@ -66,15 +66,15 @@ object FileUtil {
             return@withContext false
         }
 
-        isUsableDirectory(directory) && canCreateAndDeleteIn(directory)
+        return@withContext try {
+            isUsableDirectory(directory) && canCreateAndDeleteIn(directory)
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "isFolderWritable: $e")
+            false
+        }
     }
 
     private fun isUsableDirectory(directory: Path): Boolean {
-        if (Files.notExists(directory)) {
-            Log_OC.w(TAG, "isFolderWritable: does not exist: $directory [${describeStorage(directory)}]")
-            return false
-        }
-
         if (!Files.exists(directory)) {
             Log_OC.w(TAG, "isFolderWritable: existence cannot be verified: $directory [${describeStorage(directory)}]")
             return false
