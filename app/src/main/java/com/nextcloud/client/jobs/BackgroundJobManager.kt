@@ -13,6 +13,7 @@ import com.nextcloud.client.account.User
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.operations.DownloadType
+import kotlinx.coroutines.Job
 
 /**
  * This interface allows to control, schedule and monitor all application
@@ -135,12 +136,16 @@ interface BackgroundJobManager {
 
     fun startNotificationJob(subject: String, signature: String)
     fun startAccountRemovalJob(accountName: String, remoteWipe: Boolean)
+
+    /**
+     * @return completes once enqueueing the upload job finished or failed
+     */
     fun startFilesUploadJob(
         user: User,
         uploadIds: LongArray,
         showSameFileAlreadyExistsNotification: Boolean,
         skipAutoUploadCheck: Boolean = false
-    )
+    ): Job
     fun startAlbumFilesUploadJob(user: User, uploadIds: LongArray, albumName: String)
     fun getFileUploads(user: User): LiveData<List<JobInfo>>
     fun cancelFilesUploadJob(user: User)

@@ -30,6 +30,7 @@ import com.nextcloud.utils.extensions.checkWCFRestrictions
 import com.nextcloud.utils.extensions.createOwncloudClient
 import com.nextcloud.utils.extensions.getUploadIds
 import com.nextcloud.utils.extensions.isLastResultConflictError
+import com.nextcloud.utils.extensions.isNonRetryable
 import com.nextcloud.utils.extensions.isSame
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
@@ -54,6 +55,7 @@ import com.owncloud.android.ui.adapter.uploadList.helper.ConflictHandlingResult
 import com.owncloud.android.ui.adapter.uploadList.helper.UploadListAdapterActionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -90,6 +92,8 @@ class FileUploadHelper {
         const val MAX_FILE_COUNT = 500
 
         const val MAX_UPLOADS_PER_QUERY = 500
+
+        private val nonRetryableResults = UploadResult.entries.filter { it.isNonRetryable() }.map { it.value }
 
         val mBoundListeners = HashMap<String, OnDatatransferProgressListener>()
 
@@ -429,6 +433,29 @@ class FileUploadHelper {
             FileUploadWorker.isUploading(remotePath, accountName)
     }
 
+    /**
+     * Mirrors the rows [FileUploadWorker] still processes; rows left behind without a scheduled upload job never
+     * finish. Rows are matched by path, so a retryable failed row also counts while another batch of the account runs.
+     */
+    fun isUploadPending(file: OCFile, accountName: String): Boolean {
+        val uploadDao = uploadsStorageManager.uploadDao
+        val existsUnfinished = if (file.isFolder) {
+            uploadDao::existsUnfinishedByAccountInFolder
+        } else {
+            uploadDao::existsUnfinishedByAccountAndRemotePath
+        }
+        return existsUnfinished(
+            accountName,
+            file.remotePath,
+            UploadStatus.UPLOAD_IN_PROGRESS.value,
+            UploadStatus.UPLOAD_FAILED.value,
+            nonRetryableResults
+        ) &&
+            backgroundJobManager.isStartFileUploadJobScheduled(accountName)
+    }
+
+    fun getLastUploadProgress(accountName: String): Long = FileUploadWorker.getLastTransferProgress(accountName)
+
     private fun checkConnectivity(connectivityService: ConnectivityService): Boolean {
         // check that connection isn't walled off and that the server is reachable
         return connectivityService.connectivity.isConnected && !connectivityService.isInternetWalled()
@@ -497,7 +524,7 @@ class FileUploadHelper {
         behaviour: Int,
         nameCollisionPolicy: NameCollisionPolicy,
         skipAutoUploadCheck: Boolean = false
-    ) {
+    ): Job {
         Log_OC.d(this, "upload updated file")
 
         val uploads = existingFiles.map { file ->
@@ -534,7 +561,7 @@ class FileUploadHelper {
             }
         }
         val uploadIds: LongArray = uploads.filterNotNull().map { it.uploadId }.toLongArray()
-        backgroundJobManager.startFilesUploadJob(
+        return backgroundJobManager.startFilesUploadJob(
             user,
             uploadIds,
             true,

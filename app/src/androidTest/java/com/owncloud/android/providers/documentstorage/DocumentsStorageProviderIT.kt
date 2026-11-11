@@ -20,6 +20,8 @@ import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.db.UploadResult
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
+import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.providers.documentstorage.DocumentsProviderUtils.assertExistsOnServer
 import com.owncloud.android.providers.documentstorage.DocumentsProviderUtils.assertListFilesEquals
 import com.owncloud.android.providers.documentstorage.DocumentsProviderUtils.assertReadEquals
@@ -47,6 +49,8 @@ private const val MAX_FILE_NAME_LENGTH = 225
 
 // the provider can only enqueue the upload worker, so give it a generous budget before giving up
 private const val UPLOAD_POLL_ATTEMPTS = 45
+
+private const val RENAME_AFTER_WRITE_DATA_SIZE = 64 * 1024
 
 class DocumentsStorageProviderIT : AbstractOnServerIT() {
 
@@ -279,6 +283,39 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
         // read back content bytes
         val bytes = contentResolver.openInputStream(file1.uri)?.readBytes() ?: ByteArray(0)
         assertEquals(String(content2), String(bytes))
+    }
+
+    @Test
+    fun testRenameRightAfterWriteKeepsContent() {
+        val file1 = rootDir.createFile("application/octet-stream", RandomStringGenerator.make())!!
+        val data = Random.nextBytes(RENAME_AFTER_WRITE_DATA_SIZE)
+        contentResolver.openOutputStream(file1.uri, "wt").use {
+            it!!.write(data)
+        }
+
+        DocumentsContract.renameDocument(contentResolver, file1.uri, RandomStringGenerator.make())
+
+        val remotePath = file1.getOCFile(storageManager)!!.remotePath
+        val result = ReadFileRemoteOperation(remotePath).execute(client)
+        assertTrue(result.isSuccess)
+        assertEquals(data.size.toLong(), (result.data[0] as RemoteFile).length)
+    }
+
+    @Test
+    fun testRenameFolderRightAfterWriteKeepsContent() {
+        val folder = rootDir.createDirectory(RandomStringGenerator.make())!!
+        val file1 = folder.createFile("application/octet-stream", RandomStringGenerator.make())!!
+        val data = Random.nextBytes(RENAME_AFTER_WRITE_DATA_SIZE)
+        contentResolver.openOutputStream(file1.uri, "wt").use {
+            it!!.write(data)
+        }
+
+        DocumentsContract.renameDocument(contentResolver, folder.uri, RandomStringGenerator.make())
+
+        val remotePath = file1.getOCFile(storageManager)!!.remotePath
+        val result = ReadFileRemoteOperation(remotePath).execute(client)
+        assertTrue(result.isSuccess)
+        assertEquals(data.size.toLong(), (result.data[0] as RemoteFile).length)
     }
 
     private fun awaitUploadedToServer(file: DocumentFile) {

@@ -14,6 +14,12 @@ import androidx.room.Query
 import com.nextcloud.client.database.entity.UploadEntity
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 
+private const val UNFINISHED_UPLOAD_CONDITION =
+    "(${ProviderTableMeta.UPLOADS_STATUS} = :inProgressStatus " +
+        "OR (${ProviderTableMeta.UPLOADS_STATUS} = :failedStatus " +
+        "AND (${ProviderTableMeta.UPLOADS_LAST_RESULT} IS NULL " +
+        "OR ${ProviderTableMeta.UPLOADS_LAST_RESULT} NOT IN (:nonRetryableResults))))"
+
 @Dao
 interface UploadDao {
     @Query(
@@ -35,6 +41,34 @@ interface UploadDao {
             "WHERE ${ProviderTableMeta.UPLOADS_REMOTE_PATH} = :remotePath LIMIT 1"
     )
     fun getByRemotePath(remotePath: String): UploadEntity?
+
+    @Query(
+        "SELECT EXISTS(SELECT 1 FROM ${ProviderTableMeta.UPLOADS_TABLE_NAME} " +
+            "WHERE ${ProviderTableMeta.UPLOADS_ACCOUNT_NAME} = :accountName " +
+            "AND ${ProviderTableMeta.UPLOADS_REMOTE_PATH} = :remotePath " +
+            "AND $UNFINISHED_UPLOAD_CONDITION)"
+    )
+    fun existsUnfinishedByAccountAndRemotePath(
+        accountName: String,
+        remotePath: String,
+        inProgressStatus: Int,
+        failedStatus: Int,
+        nonRetryableResults: List<Int>
+    ): Boolean
+
+    @Query(
+        "SELECT EXISTS(SELECT 1 FROM ${ProviderTableMeta.UPLOADS_TABLE_NAME} " +
+            "WHERE ${ProviderTableMeta.UPLOADS_ACCOUNT_NAME} = :accountName " +
+            "AND substr(${ProviderTableMeta.UPLOADS_REMOTE_PATH}, 1, length(:folderPath)) = :folderPath " +
+            "AND $UNFINISHED_UPLOAD_CONDITION)"
+    )
+    fun existsUnfinishedByAccountInFolder(
+        accountName: String,
+        folderPath: String,
+        inProgressStatus: Int,
+        failedStatus: Int,
+        nonRetryableResults: List<Int>
+    ): Boolean
 
     @Query(
         "DELETE FROM ${ProviderTableMeta.UPLOADS_TABLE_NAME} " +

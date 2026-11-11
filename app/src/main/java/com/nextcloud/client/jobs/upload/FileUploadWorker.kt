@@ -9,6 +9,7 @@ package com.nextcloud.client.jobs.upload
 
 import android.app.Notification
 import android.content.Context
+import android.os.SystemClock
 import androidx.core.app.NotificationCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.CoroutineWorker
@@ -132,6 +133,10 @@ class FileUploadWorker(
         fun isUploading(remotePath: String?, accountName: String?): Boolean = activeOperations.values.any {
             it.remotePath == remotePath && it.user.accountName == accountName
         }
+
+        private val lastTransferProgress = ConcurrentHashMap<String, Long>()
+
+        fun getLastTransferProgress(accountName: String): Long = lastTransferProgress[accountName] ?: 0L
 
         /**
          * [activeOperations] tracks every upload running in this process, not only the ones this worker started.
@@ -497,6 +502,7 @@ class FileUploadWorker(
         totalToTransfer: Long,
         fileAbsoluteName: String
     ) {
+        inputData.getString(ACCOUNT)?.let { lastTransferProgress[it] = SystemClock.elapsedRealtime() }
         val percent = getPercent(totalTransferredSoFar, totalToTransfer)
         val currentTime = System.currentTimeMillis()
 

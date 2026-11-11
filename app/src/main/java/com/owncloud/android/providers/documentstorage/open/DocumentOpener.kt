@@ -39,7 +39,8 @@ import java.nio.file.StandardCopyOption
 internal class DocumentOpener(
     private val context: Context,
     private val scope: CoroutineScope,
-    private val fileUploadHelper: Lazy<FileUploadHelper>
+    private val fileUploadHelper: Lazy<FileUploadHelper>,
+    private val pendingWrites: PendingDocumentWrites
 ) {
 
     @Throws(FileNotFoundException::class)
@@ -214,19 +215,30 @@ internal class DocumentOpener(
         openedFile: OpenedDocumentFile,
         accessMode: AccessMode
     ): ParcelFileDescriptor {
+        // before handing out the descriptor: close() reaches the provider asynchronously, possibly after a rename
+        val write = pendingWrites.begin(ocFile.fileId, document.user.accountName)
         val onClose = ParcelFileDescriptor.OnCloseListener { error ->
             if (error != null) {
                 Log_OC.e(TAG, "File was closed with an error: ${ocFile.fileName}", error)
                 openedFile.deleteCopy()
+                pendingWrites.end(write)
                 return@OnCloseListener
             }
 
-            scope.launch { uploadWrittenDocument(document, ocFile, openedFile) }
+            pendingWrites.closed(write)
+            scope.launch {
+                try {
+                    uploadWrittenDocument(document, ocFile, openedFile)
+                } finally {
+                    pendingWrites.end(write)
+                }
+            }
         }
 
         return try {
             ParcelFileDescriptor.open(openedFile.descriptorFile, accessMode.bits, Handler(context.mainLooper), onClose)
         } catch (e: IOException) {
+            pendingWrites.end(write)
             throw fileNotFoundException(
                 "Failed to open document for writing ${openedFile.descriptorFile.absolutePath}",
                 e
@@ -234,7 +246,7 @@ internal class DocumentOpener(
         }
     }
 
-    private fun uploadWrittenDocument(document: Document, ocFile: OCFile, openedFile: OpenedDocumentFile) {
+    private suspend fun uploadWrittenDocument(document: Document, ocFile: OCFile, openedFile: OpenedDocumentFile) {
         val file = openedFile.localFile
         try {
             openedFile.moveCopyToLocalFile()
@@ -249,12 +261,13 @@ internal class DocumentOpener(
         ocFile.modificationTimestamp = System.currentTimeMillis()
         document.storageManager.saveFile(ocFile)
 
+        // joined so the write stays pending until isUploadPending can see the upload
         fileUploadHelper.get().uploadUpdatedFile(
             document.user,
             arrayOf<OCFile?>(ocFile),
             FileUploadWorker.LOCAL_BEHAVIOUR_DELETE,
             NameCollisionPolicy.OVERWRITE
-        )
+        ).join()
     }
 
     companion object {
