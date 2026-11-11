@@ -44,6 +44,7 @@ import com.nextcloud.model.OfflineOperationRawType;
 import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.model.ShareeEntry;
 import com.nextcloud.utils.AppConstants;
+import com.nextcloud.utils.ResultParser;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.nextcloud.utils.extensions.FileDataStorageManagerExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
@@ -189,7 +190,9 @@ public class FileDataStorageManager {
             entity.setModifiedAt(modificationTimestamp / AppConstants.MILLIS_PER_SECOND);
             entity.setFilename(new File(remotePath).getName());
 
-            String parentPath = new File(remotePath).getParent() + OCFile.PATH_SEPARATOR;
+            addCreateFolderOfflineOperationsForMissingParents(remotePath);
+
+            String parentPath = FileStorageUtils.getParentPath(remotePath);
             OCFile parentFile = getFileByDecryptedRemotePath(parentPath);
 
             if (parentFile != null) {
@@ -199,6 +202,24 @@ public class FileDataStorageManager {
             offlineOperationDao.insert(entity);
             createPendingFile(remotePath, mimeType, createdAt, modificationTimestamp, localPath);
         }
+    }
+
+    private void addCreateFolderOfflineOperationsForMissingParents(String remotePath) {
+        String parentPath = FileStorageUtils.getParentPath(remotePath);
+        if (parentPath == null || OCFile.ROOT_PATH.equals(parentPath)) {
+            return;
+        }
+
+        if (getFileByEncryptedRemotePath(parentPath) != null) {
+            return;
+        }
+
+        addCreateFolderOfflineOperationsForMissingParents(parentPath);
+
+        String grandParentPath = FileStorageUtils.getParentPath(parentPath);
+        OCFile grandParent = grandParentPath == null ? null : getFileByEncryptedRemotePath(grandParentPath);
+        Long grandParentId = grandParent == null ? null : grandParent.getFileId();
+        addCreateFolderOfflineOperation(parentPath, new File(parentPath).getName(), grandParentId);
     }
 
     public OfflineOperationEntity getOfflineEntityFromOCFile(OCFile file) {
@@ -640,17 +661,11 @@ public class FileDataStorageManager {
     }
 
     /**
-     * Ensures that an {@link OCFile} and all of its parent folders are stored locally.
+     * Saves an {@link OCFile} and ensures that all of its parent folders are stored locally.
      * <p>
-     * If the file has no parent ID and is not the root folder, this method recursively:
-     * <ul>
-     *     <li>Resolves the parent path</li>
-     *     <li>Loads the parent from local storage or fetches it from the server</li>
-     *     <li>Saves all missing parent folders</li>
-     *     <li>Assigns the resolved parent ID to the file</li>
-     * </ul>
+     * Parent folders missing from local storage are fetched from the server and saved recursively.
      *
-     * @param ocFile    the file to be saved together with its parent hierarchy
+     * @param ocFile  the file to be saved together with its parent hierarchy
      * @param context Android context used for remote operations
      *
      * @return the same {@link OCFile} instance with a valid parent ID
@@ -658,51 +673,45 @@ public class FileDataStorageManager {
      * @throws RemoteOperationFailedException if a parent folder cannot be retrieved
      *                                       from the server
      */
-    public OCFile saveFileWithParent(OCFile ocFile, Context context) {
-        if (ocFile.getParentId() == 0 && !OCFile.ROOT_PATH.equals(ocFile.getRemotePath())) {
-            Log_OC.d(TAG, "saving file with parents: " + ocFile.getRemotePath());
-
-            String remotePath = ocFile.getRemotePath();
-            String parentPath = remotePath.substring(0, remotePath.lastIndexOf(ocFile.getFileName()));
-
-            OCFile parentFile = getFileByPath(parentPath);
-            OCFile returnFile;
-
-            if (parentFile == null) {
-                Log_OC.d(TAG, "Parent not found locally, fetching: " + parentPath);
-
-                final var operation = new ReadFileRemoteOperation(parentPath);
-                final var result = operation.execute(getUser(), context);
-
-                if (result.isSuccess() && result.getData().get(0) instanceof RemoteFile remoteFile) {
-                    OCFile folder = FileStorageUtils.fillOCFile(remoteFile);
-                    Log_OC.d(TAG, "Fetched parent folder: " + folder);
-                    returnFile = saveFileWithParent(folder, context);
-                } else {
-                    Exception exception = result.getException();
-                    String message = "Error during saving file with parents: " + ocFile.getRemotePath() + " / "
-                        + result.getLogMessage(context);
-
-                    Log_OC.e(TAG, message);
-
-                    if (exception != null) {
-                        throw new RemoteOperationFailedException(message, exception);
-                    } else {
-                        throw new RemoteOperationFailedException(message);
-                    }
-                }
-            } else {
-                Log_OC.d(TAG, "parent file exists, calling saveFileWithParent: " + ocFile.getRemotePath());
-                returnFile = saveFileWithParent(parentFile, context);
-            }
-
-            long parentId = returnFile.getFileId();
-            Log_OC.d(TAG, "saving parent id of: " + ocFile.getRemotePath() + " with: " + parentId);
-            ocFile.setParentId(parentId);
-            saveFile(ocFile);
+    public OCFile saveFileWithParent(OCFile ocFile, Context context) throws RemoteOperationFailedException {
+        boolean isParentMissing = ocFile.getParentId() == 0 && !OCFile.ROOT_PATH.equals(ocFile.getRemotePath());
+        if (isParentMissing) {
+            OCFile parent = getOrFetchParentFolder(ocFile.getRemotePath(), context);
+            ocFile.setParentId(parent.getFileId());
         }
 
+        saveFile(ocFile);
         return ocFile;
+    }
+
+    private OCFile getOrFetchParentFolder(String remotePath, Context context) {
+        String parentPath = FileStorageUtils.getParentPath(remotePath);
+        OCFile localParent = getFileByEncryptedRemotePath(parentPath);
+        if (localParent != null) {
+            return localParent;
+        }
+
+        Log_OC.d(TAG, "Parent not found locally, fetching: " + parentPath);
+        OCFile remoteParent = FileStorageUtils.fillOCFile(fetchRemoteFolder(parentPath, context));
+        return saveFileWithParent(remoteParent, context);
+    }
+
+    @SuppressWarnings("deprecation")
+    private RemoteFile fetchRemoteFolder(String remotePath, Context context) {
+        final var result = new ReadFileRemoteOperation(remotePath).execute(getUser(), context);
+        final var remoteFile = ResultParser.data(result, RemoteFile.class);
+        if (remoteFile != null) {
+            return remoteFile;
+        }
+
+        String message = "Cannot fetch folder: " + remotePath + " / " + result.getLogMessage(context);
+        Log_OC.e(TAG, message);
+
+        Exception exception = result.getException();
+        if (exception == null) {
+            throw new RemoteOperationFailedException(message);
+        }
+        throw new RemoteOperationFailedException(message, exception);
     }
 
     public static void clearTempEncryptedFolder(String accountName) {
