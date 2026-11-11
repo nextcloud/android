@@ -42,7 +42,6 @@ import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.notifications.AppNotificationManager
 import com.nextcloud.client.notifications.AppNotificationManagerImpl
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.client.utils.Throttler
 import com.nextcloud.repository.ClientRepository
 import com.nextcloud.repository.RemoteClientRepository
 import com.nextcloud.utils.e2ee.E2EEActionResolver
@@ -204,9 +203,6 @@ internal class AppModule {
 
     @Provides
     fun localBroadcastManager(context: Context): LocalBroadcastManager = LocalBroadcastManager.getInstance(context)
-
-    @Provides
-    fun throttler(clock: Clock): Throttler = Throttler(clock)
 
     @Provides
     @Singleton
