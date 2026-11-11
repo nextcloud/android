@@ -37,6 +37,7 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.repository.ClientRepository
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -71,7 +72,8 @@ class BackgroundJobFactory @Inject constructor(
     private val generatePdfUseCase: GeneratePDFUseCase,
     private val syncedFolderProvider: SyncedFolderProvider,
     private val database: NextcloudDatabase,
-    private val uploadFileOperationFactory: UploadFileOperationFactory
+    private val uploadFileOperationFactory: UploadFileOperationFactory,
+    private val clientRepository: ClientRepository
 ) : WorkerFactory() {
 
     @SuppressLint("NewApi")
@@ -123,6 +125,7 @@ class BackgroundJobFactory @Inject constructor(
             accountManager.user,
             context,
             connectivityService,
+            clientRepository,
             viewThemeUtils.get(),
             params
         )

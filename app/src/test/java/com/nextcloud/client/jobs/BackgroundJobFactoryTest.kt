@@ -25,6 +25,7 @@ import com.nextcloud.client.integrations.deck.DeckApi
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.repository.ClientRepository
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.SyncedFolderProvider
@@ -115,6 +116,8 @@ class BackgroundJobFactoryTest {
 
     @Mock private lateinit var uploadFileOperationFactory: UploadFileOperationFactory
 
+    @Mock private lateinit var clientRepository: ClientRepository
+
     private lateinit var factory: BackgroundJobFactory
 
     @Before
@@ -147,7 +150,8 @@ class BackgroundJobFactoryTest {
             generatePDFUseCase,
             syncedFolderProvider,
             db,
-            uploadFileOperationFactory
+            uploadFileOperationFactory,
+            clientRepository
         )
     }
 
