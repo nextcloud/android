@@ -58,7 +58,8 @@ function report_low_memory() {
 while true; do
     read -r total_mb used_mb available_mb < <(free -m | awk '/^Mem:/ {print $2, $3, $7}')
     swap=$(free -m | awk '/^Swap:/ {print $3 "/" $2}')
-    summary="used=${used_mb}M available=${available_mb}M/${total_mb}M swap=${swap}M top: $(top_processes)"
+    disk_free_mb=$(df -m --output=avail "$HOME" | tail -n 1 | tr -d ' ')
+    summary="used=${used_mb}M available=${available_mb}M/${total_mb}M swap=${swap}M disk_free=${disk_free_mb}M top: $(top_processes)"
     echo "[memory] $summary"
     report_low_memory "$available_mb" "$summary"
     report_oom_kills
