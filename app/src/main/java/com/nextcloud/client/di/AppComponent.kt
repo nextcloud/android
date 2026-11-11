@@ -47,7 +47,6 @@ import javax.inject.Singleton
         ThemeModule::class,
         DatabaseModule::class,
         DispatcherModule::class,
-        VariantModule::class,
         PlayerModule::class
     ]
 )

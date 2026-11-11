@@ -20,7 +20,6 @@ import com.nextcloud.client.database.dao.FileDao
 import com.nextcloud.client.database.dao.FileSystemDao
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.device.PowerManagementService
-import com.nextcloud.client.documentscan.GeneratePDFUseCase
 import com.nextcloud.client.integrations.deck.DeckApi
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.network.ConnectivityService
@@ -101,9 +100,6 @@ class BackgroundJobFactoryTest {
     private lateinit var localBroadcastManager: LocalBroadcastManager
 
     @Mock
-    private lateinit var generatePDFUseCase: GeneratePDFUseCase
-
-    @Mock
     private lateinit var syncedFolderProvider: SyncedFolderProvider
 
     @Mock
@@ -144,7 +140,6 @@ class BackgroundJobFactoryTest {
             deckApi,
             { viewThemeUtils },
             { localBroadcastManager },
-            generatePDFUseCase,
             syncedFolderProvider,
             db,
             uploadFileOperationFactory

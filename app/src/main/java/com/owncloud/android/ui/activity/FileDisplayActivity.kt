@@ -1413,13 +1413,9 @@ class FileDisplayActivity :
     // region Activity results
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when {
-            data != null && requestCode in selectContentFromAppsRequestCodes &&
+            data != null && requestCode == REQUEST_CODE__SELECT_CONTENT_FROM_APPS &&
                 resultCode in selectContentFromAppsResultCodes ->
-                uploadHandler.uploadContentFromApps(
-                    data,
-                    resultCode,
-                    autoRename = requestCode == REQUEST_CODE__SELECT_CONTENT_FROM_APPS_AUTO_RENAME
-                )
+                uploadHandler.uploadContentFromApps(data, resultCode)
 
             data != null && requestCode == REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM &&
                 resultCode in selectFilesFromFileSystemResultCodes ->
@@ -2635,12 +2631,6 @@ class FileDisplayActivity :
 
         val REQUEST_CODE__UPLOAD_FROM_VIDEO_CAMERA = REQUEST_CODE__LAST_SHARED + 6
 
-        val REQUEST_CODE__SELECT_CONTENT_FROM_APPS_AUTO_RENAME = REQUEST_CODE__LAST_SHARED + 7
-
-        private val selectContentFromAppsRequestCodes = setOf(
-            REQUEST_CODE__SELECT_CONTENT_FROM_APPS,
-            REQUEST_CODE__SELECT_CONTENT_FROM_APPS_AUTO_RENAME
-        )
         private val selectContentFromAppsResultCodes = setOf(RESULT_OK, UploadFilesActivity.RESULT_OK_AND_MOVE)
         private val selectFilesFromFileSystemResultCodes = setOf(
             RESULT_OK,
