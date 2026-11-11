@@ -46,7 +46,8 @@ class FileUploaderIT : AbstractOnServerIT() {
         uploadOriginalFile(originalFile)
 
         val replacement = getDummyFile(EMPTY_FILE)
-        assertTrue(uploadOperation(replacement, NameCollisionPolicy.OVERWRITE).execute(client).isSuccess)
+        val result = uploadOperation(replacement, NameCollisionPolicy.OVERWRITE).execute(client)
+        assertTrue(result.toString(), result.isSuccess)
 
         assertRemoteFileLength(REMOTE_PATH, EMPTY_LENGTH)
     }

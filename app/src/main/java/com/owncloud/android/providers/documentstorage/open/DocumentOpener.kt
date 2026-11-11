@@ -65,6 +65,7 @@ internal class DocumentOpener(
     private fun prepareLocalFile(document: Document, ocFile: OCFile, accessMode: AccessMode) {
         if (accessMode.isTruncate && !ocFile.existsOnDevice()) {
             assignDefaultStoragePath(document.user, ocFile)
+            document.storageManager.saveFile(ocFile)
         }
 
         val needsDownload = !accessMode.isTruncate &&
