@@ -111,8 +111,8 @@ android {
         targetSdk = 36
         // mayor.minor.hotfix.increment (for increment: 01-50=Alpha / 51-89=RC / 90-99=stable)
         // xx   .xxx  .xx    .xx
-        versionCode = 350010050
-        versionName = "35.1.0 Alpha 51"
+        versionCode = 350020000
+        versionName = "35.2.0 Alpha 51"
 
         buildConfigField("boolean", "CI", ciBuild.toString())
         buildConfigField("boolean", "RUNTIME_PERF_ANALYSIS", perfAnalysis.toString())
