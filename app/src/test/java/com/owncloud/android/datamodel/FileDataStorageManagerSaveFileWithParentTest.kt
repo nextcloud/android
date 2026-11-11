@@ -70,9 +70,11 @@ class FileDataStorageManagerSaveFileWithParentTest {
         every { MimeTypeUtil.getMimeTypeFromPath(any()) } returns "text/plain"
 
         val offlineOperationDao = mockk<OfflineOperationDao>(relaxed = true)
-        every { offlineOperationDao.insert(*anyVararg()) } answers {
-            queuedOperations.addAll(args.flatMap { if (it is Array<*>) it.toList() else listOf(it) }
-                .filterIsInstance<OfflineOperationEntity>())
+        every { offlineOperationDao.insert(any()) } answers {
+            queuedOperations.addAll(
+                args.flatMap { if (it is Array<*>) it.toList() else listOf(it) }
+                    .filterIsInstance<OfflineOperationEntity>()
+            )
         }
 
         val db = mockk<NextcloudDatabase>(relaxed = true)
@@ -348,7 +350,10 @@ class FileDataStorageManagerSaveFileWithParentTest {
 
         queueOfflineUpload("/documents/x/y/z.txt")
 
-        assertEquals(listOf("/documents/x/", "/documents/x/y/", "/documents/x/y/z.txt"), queuedOperations.map { it.path })
+        assertEquals(
+            listOf("/documents/x/", "/documents/x/y/", "/documents/x/y/z.txt"),
+            queuedOperations.map { it.path }
+        )
         assertEquals(LOCAL_PARENT_ID, queuedOperations.first().parentOCFileId)
     }
 
