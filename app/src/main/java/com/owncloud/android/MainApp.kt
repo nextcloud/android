@@ -38,6 +38,7 @@ import com.nextcloud.client.network.NetworkChangeListener
 import com.nextcloud.client.notifications.AppNotificationChannels
 import com.nextcloud.client.onboarding.OnboardingService
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.client.systembars.SystemBarBackgroundCallbacks
 import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias
 import com.nextcloud.utils.extensions.registerBroadcastReceiver
@@ -402,6 +403,7 @@ open class MainApp :
     override fun onTerminate() {
         super.onTerminate()
         connectivityService.removeListener(this)
+        AppPreferencesImpl.shutdown()
     }
 
     companion object {
