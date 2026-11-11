@@ -29,8 +29,7 @@ This conversion was the hardest one so far, because the Activity extended `FileA
 - Host stays a `DrawerActivity`. The credential flow moves into the
   fragment.
 - To avoid copying `FileActivity` logic, `ui/helpers/CredentialsUpdateHelper.kt` was
-  extracted. `FileActivity.performCredentialsUpdate`, `CheckRemoteWipeTask` and the fragment
-  all use it.
+  extracted. `CheckRemoteWipeTask` (used by `FileActivity`) and the fragment both use it.
 
 ## Resulting files
 

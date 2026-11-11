@@ -91,7 +91,6 @@ import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment;
 import com.owncloud.android.ui.fragment.albums.AlbumsFragment;
 import com.owncloud.android.ui.fragment.filesRepository.FilesRepository;
 import com.owncloud.android.ui.fragment.filesRepository.RemoteFilesRepository;
-import com.owncloud.android.ui.helpers.CredentialsUpdateHelper;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.navigation.model.ActionBarStyle;
 import com.owncloud.android.ui.preview.media.PreviewMediaActivity;
@@ -103,7 +102,6 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
@@ -142,8 +140,7 @@ public abstract class FileActivity extends DrawerActivity
     private static final String KEY_WAITING_FOR_OP_ID = "WAITING_FOR_OP_ID";
     private static final String KEY_ACTION_BAR_TITLE = "ACTION_BAR_TITLE";
 
-    public static final int REQUEST_CODE__UPDATE_CREDENTIALS = 0;
-    public static final int REQUEST_CODE__LAST_SHARED = REQUEST_CODE__UPDATE_CREDENTIALS;
+    public static final int REQUEST_CODE__LAST_SHARED = 0;
 
     /* Dialog tags */
     private static final String DIALOG_UNTRUSTED_CERT = "DIALOG_UNTRUSTED_CERT";
@@ -185,6 +182,8 @@ public abstract class FileActivity extends DrawerActivity
 
     @Inject
     ArbitraryDataProvider arbitraryDataProvider;
+
+    private final CheckRemoteWipeTask checkRemoteWipeTask = new CheckRemoteWipeTask(this);
 
     private FilesRepository filesRepository;
 
@@ -462,18 +461,7 @@ public abstract class FileActivity extends DrawerActivity
             account = getAccount();
         }
 
-        new CheckRemoteWipeTask(backgroundJobManager, account, new WeakReference<>(this)).execute();
-    }
-
-    public void performCredentialsUpdate(Account account) {
-        final var credentialsUpdateHelper = new CredentialsUpdateHelper(this);
-        try {
-            credentialsUpdateHelper.invalidateCredentials(account);
-            startActivityForResult(credentialsUpdateHelper.createUpdateCredentialsIntent(account),
-                                   REQUEST_CODE__UPDATE_CREDENTIALS);
-        } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-            SnackbarUtil.show(this, R.string.auth_account_does_not_exist);
-        }
+        checkRemoteWipeTask.execute(account, backgroundJobManager);
     }
 
     /**
