@@ -40,9 +40,19 @@ class MediaSessionFactory @Inject constructor(
         }
     }
 
+    private val pauseAtEndOfMediaItemsListener = object : Player.Listener {
+        override fun onEvents(player: Player, events: Player.Events) {
+            if (events.containsAny(Player.EVENT_REPEAT_MODE_CHANGED, Player.EVENT_SHUFFLE_MODE_ENABLED_CHANGED)) {
+                (player as? ExoPlayer)?.updatePauseAtEndOfMediaItems()
+            }
+        }
+    }
+
     fun create(): MediaSession {
         val player = createPlayer()
+        player.updatePauseAtEndOfMediaItems()
         player.addListener(resumptionPlayerListener)
+        player.addListener(pauseAtEndOfMediaItemsListener)
         return MediaSession
             .Builder(context, player)
             .setBitmapLoader(bitmapLoader)
@@ -51,12 +61,16 @@ class MediaSessionFactory @Inject constructor(
             .build()
     }
 
-    private fun createPlayer(): Player = ExoPlayer.Builder(context)
+    private fun createPlayer(): ExoPlayer = ExoPlayer.Builder(context)
         .setMediaSourceFactory(DefaultMediaSourceFactory(dataSourceFactory))
         .setAudioAttributes(AudioAttributes.DEFAULT, true)
         .setHandleAudioBecomingNoisy(true)
         .setSeekForwardIncrementMs(SEEK_FORWARD_INCREMENT_IN_MILLISECONDS)
         .build()
+
+    private fun ExoPlayer.updatePauseAtEndOfMediaItems() {
+        pauseAtEndOfMediaItems = repeatMode == Player.REPEAT_MODE_OFF && !shuffleModeEnabled
+    }
 
     private fun createCustomLayout(): List<CommandButton> = listOf(
         CommandButton
