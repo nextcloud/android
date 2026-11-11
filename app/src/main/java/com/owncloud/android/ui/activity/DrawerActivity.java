@@ -725,7 +725,16 @@ public abstract class DrawerActivity extends ToolbarActivity
             } else if (menuItemId == R.id.nav_gallery) {
                 openMediaTab(menuItem.getItemId());
             } else if (menuItemId == R.id.nav_album) {
-                replaceAlbumFragment();
+                if (this instanceof FileDisplayActivity) {
+                    replaceAlbumFragment();
+                } else {
+                    // when user is not on FileDisplayActivity
+                    // if user is on TrashbinActivity then we have to start activity again
+                    Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.setAction(FileDisplayActivity.ALBUMS);
+                    startActivity(intent);
+                }
             }
 
             // Remove extra icon from the action bar
