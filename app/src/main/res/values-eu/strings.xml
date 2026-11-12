@@ -78,6 +78,7 @@
     <string name="assistant_screen_task_create_fail_message">Errore bat gertatu da zeregina sortzean</string>
     <string name="assistant_screen_task_create_success_message">Eginkizuna sortuta</string>
     <string name="assistant_screen_task_delete_fail_message">Errore bat gertatu da zeregina ezabatzean</string>
+    <string name="assistant_screen_task_delete_success_message">Zeregina ezabatu da</string>
     <string name="assistant_screen_task_list_empty_warning">Zereginen zerrenda hutsik dago. Egiaztatu aplikazio laguntzailearen konfigurazioa.</string>
     <string name="assistant_screen_task_list_error_state_message">Ezin da zereginen zerrenda eskuratu. Egiaztatu Interneteko konexioa.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Ezabatu zeregina</string>
@@ -132,10 +133,12 @@
     <string name="auto_upload_battery_optimization_reason">Nextcloud-en atzeko planoko aktibitatea bateriaren optimizazioak mugatzen du.</string>
     <string name="auto_upload_battery_saver_action">Ireki bateria aurrezteko ezarpenak</string>
     <string name="auto_upload_battery_saver_reason">Bateria-aurrezlea aktibo dago eta baliteke kargatzeak pausatzea.</string>
+    <string name="auto_upload_delete_dialog_description">Honek karpeta kendu eta automatikoki kargatuko du konfigurazioa. Amaitu gabeko karga guztiak bertan behera utziko dira.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">Jatorrizko karpetan mantendu da, soilik irakurtzeko delako</string>
     <string name="auto_upload_on_wifi">Kargatu soilik mugarik gabeko Wi-Fi bidez</string>
     <string name="auto_upload_path">/Auto-karga</string>
     <string name="auto_upload_sub_folder_warning">Karpeta hau dagoeneko guraso-karpetaren sinkronizazioan sartuta dago, eta horrek karga bikoiztuak sor ditzake</string>
+    <string name="auto_upload_sync_now_action">Sinkronizatu orain</string>
     <string name="autoupload_configure">Konfiguratu</string>
     <string name="autoupload_create_new_custom_folder">Sortu karpeta pertsonalizatu berriaren konfigurazioa</string>
     <string name="autoupload_custom_folder">Konfiguratu karpeta berria</string>
@@ -323,6 +326,7 @@
     <string name="drawer_item_notifications">Jakinarazpenak</string>
     <string name="drawer_item_on_device">Gailura</string>
     <string name="drawer_item_personal_files">Fitxategi pertsonalak</string>
+    <string name="drawer_item_recent_files">Duela gutxiko fitxategiak</string>
     <string name="drawer_item_shared">Partekatuta</string>
     <string name="drawer_item_trashbin">Ezabatutako fitxategiak</string>
     <string name="drawer_item_uploads_list">Kargak</string>
@@ -340,6 +344,7 @@
     <string name="ecosystem_apps_display_more">Gehiago</string>
     <string name="ecosystem_apps_more">Nextcloud aplikazio gehiago</string>
     <string name="email_pick_failed">Ezin izan da helbide elektronikoa hautatu.</string>
+    <string name="empty_albums_title">Sortu albumak zure argakientzat</string>
     <string name="encrypted">Ezarri zifratu gisa</string>
     <string name="end_to_end_encryption_certificate_unavailable">Ezin da zerbitzariaren ziurtagiria berreskuratu</string>
     <string name="end_to_end_encryption_certificate_verification_failed">Ezin izan da gako publikoa egiaztatu</string>
