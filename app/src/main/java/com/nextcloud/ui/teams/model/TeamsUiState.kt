@@ -6,12 +6,13 @@
  */
 package com.nextcloud.ui.teams.model
 
+import androidx.annotation.StringRes
 import com.nextcloud.android.lib.resources.teams.model.Team
 
 sealed interface TeamsUiState {
     data object Loading : TeamsUiState
 
-    data object Error : TeamsUiState
+    data class Error(@StringRes val messageId: Int) : TeamsUiState
 
     data class Content(val myTeams: List<Team>, val otherTeams: List<Team>) : TeamsUiState
 }

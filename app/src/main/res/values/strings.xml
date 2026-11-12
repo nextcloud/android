@@ -1489,6 +1489,11 @@
     <string name="teams_empty">No teams yet</string>
     <string name="teams_load_failed">Could not load teams</string>
     <string name="teams_create_failed">Could not create team</string>
+    <string name="teams_name_length">Use %1$d to %2$d characters</string>
+    <string name="teams_error_invalid_name">This team name is not allowed</string>
+    <string name="teams_error_create_not_allowed">You are not allowed to create teams</string>
+    <string name="teams_error_not_available">Teams are not available on this server</string>
+    <string name="teams_error_too_many_requests">Too many teams created in a short time. Try again in a minute.</string>
     <plurals name="teams_member_count">
         <item quantity="one">%d member</item>
         <item quantity="other">%d members</item>

@@ -7,9 +7,10 @@
 package com.nextcloud.ui.teams.repository
 
 import com.nextcloud.android.lib.resources.teams.model.Team
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
 
 interface TeamsRepository {
-    suspend fun getTeams(): List<Team>?
+    suspend fun getTeams(): RemoteOperationResult<List<Team>>
 
-    suspend fun createTeam(name: String): Team?
+    suspend fun createTeam(name: String): RemoteOperationResult<Team>
 }
