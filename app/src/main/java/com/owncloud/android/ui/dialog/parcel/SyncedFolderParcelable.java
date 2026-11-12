@@ -13,6 +13,7 @@ import android.os.Parcelable;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.preferences.SubFolderRule;
 import com.owncloud.android.datamodel.MediaFolderType;
+import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 
@@ -20,6 +21,7 @@ import com.owncloud.android.files.services.NameCollisionPolicy;
  * Parcelable for {@link SyncedFolderDisplayItem} objects to transport them from/to dialog fragments.
  */
 public class SyncedFolderParcelable implements Parcelable {
+    private static final int BEHAVIOUR_INDEX_DELETE_AFTER_DELAY = 3;
     private String folderName;
     private String localPath;
     private String remotePath;
@@ -37,6 +39,7 @@ public class SyncedFolderParcelable implements Parcelable {
     private int section;
     private SubFolderRule subFolderRule;
     private boolean excludeHidden;
+    private long autoDeleteLocalAfterMs;
 
     public SyncedFolderParcelable(SyncedFolderDisplayItem syncedFolderDisplayItem, int section) {
         id = syncedFolderDisplayItem.getId();
@@ -57,6 +60,7 @@ public class SyncedFolderParcelable implements Parcelable {
         hidden = syncedFolderDisplayItem.isHidden();
         subFolderRule = syncedFolderDisplayItem.getSubfolderRule();
         excludeHidden = syncedFolderDisplayItem.isExcludeHidden();
+        autoDeleteLocalAfterMs = syncedFolderDisplayItem.getAutoDeleteLocalAfterMs();
     }
 
     private SyncedFolderParcelable(Parcel read) {
@@ -77,6 +81,7 @@ public class SyncedFolderParcelable implements Parcelable {
         hidden = read.readInt() != 0;
         subFolderRule = SubFolderRule.values()[read.readInt()];
         excludeHidden = read.readInt() != 0;
+        autoDeleteLocalAfterMs = read.readLong();
     }
 
     public SyncedFolderParcelable() {
@@ -102,6 +107,7 @@ public class SyncedFolderParcelable implements Parcelable {
         dest.writeInt(hidden ? 1 : 0);
         dest.writeInt(subFolderRule.ordinal());
         dest.writeInt(excludeHidden ? 1 : 0);
+        dest.writeLong(autoDeleteLocalAfterMs);
     }
 
     public static final Creator<SyncedFolderParcelable> CREATOR =
@@ -124,6 +130,10 @@ public class SyncedFolderParcelable implements Parcelable {
     }
 
     public Integer getUploadActionInteger() {
+        if (isAutoDeleteLocal()) {
+            return BEHAVIOUR_INDEX_DELETE_AFTER_DELAY;
+        }
+
         return switch (uploadAction) {
             case FileUploadWorker.LOCAL_BEHAVIOUR_FORGET -> 0;
             case FileUploadWorker.LOCAL_BEHAVIOUR_MOVE -> 1;
@@ -133,6 +143,8 @@ public class SyncedFolderParcelable implements Parcelable {
     }
 
     public void setUploadAction(String uploadAction) {
+        autoDeleteLocalAfterMs = SyncedFolder.AUTO_DELETE_LOCAL_DISABLED;
+
         switch (uploadAction) {
             case "LOCAL_BEHAVIOUR_FORGET":
                 this.uploadAction = FileUploadWorker.LOCAL_BEHAVIOUR_FORGET;
@@ -142,6 +154,10 @@ public class SyncedFolderParcelable implements Parcelable {
                 break;
             case "LOCAL_BEHAVIOUR_DELETE":
                 this.uploadAction = FileUploadWorker.LOCAL_BEHAVIOUR_DELETE;
+                break;
+            case "LOCAL_BEHAVIOUR_DELETE_AFTER_DELAY":
+                this.uploadAction = FileUploadWorker.LOCAL_BEHAVIOUR_FORGET;
+                autoDeleteLocalAfterMs = SyncedFolder.DEFAULT_AUTO_DELETE_LOCAL_AFTER_MS;
                 break;
             default:
                 // do nothing
@@ -267,6 +283,18 @@ public class SyncedFolderParcelable implements Parcelable {
         this.section = section;
     }
     public void setSubFolderRule(SubFolderRule subFolderRule) { this.subFolderRule = subFolderRule; }
+
+    public long getAutoDeleteLocalAfterMs() {
+        return autoDeleteLocalAfterMs;
+    }
+
+    public void setAutoDeleteLocalAfterMs(long autoDeleteLocalAfterMs) {
+        this.autoDeleteLocalAfterMs = autoDeleteLocalAfterMs;
+    }
+
+    public boolean isAutoDeleteLocal() {
+        return autoDeleteLocalAfterMs > SyncedFolder.AUTO_DELETE_LOCAL_DISABLED;
+    }
 
     public boolean isExcludeHidden() {
         return excludeHidden;

@@ -66,7 +66,8 @@ class AutoUploadDisplayItemFactory(
             false,
             SubFolderRule.YEAR_MONTH,
             false,
-            SyncedFolder.NOT_SCANNED_YET
+            SyncedFolder.NOT_SCANNED_YET,
+            SyncedFolder.AUTO_DELETE_LOCAL_DISABLED
         )
 
     fun createEmptyCustomFolder(accountName: String): SyncedFolderDisplayItem = SyncedFolderDisplayItem(
@@ -87,7 +88,8 @@ class AutoUploadDisplayItemFactory(
         false,
         SubFolderRule.YEAR_MONTH,
         false,
-        SyncedFolder.NOT_SCANNED_YET
+        SyncedFolder.NOT_SCANNED_YET,
+        SyncedFolder.AUTO_DELETE_LOCAL_DISABLED
     )
 
     fun createNewCustomFolder(syncedFolder: SyncedFolderParcelable): SyncedFolderDisplayItem = SyncedFolderDisplayItem(
@@ -108,7 +110,8 @@ class AutoUploadDisplayItemFactory(
         syncedFolder.isHidden,
         syncedFolder.subFolderRule,
         syncedFolder.isExcludeHidden,
-        SyncedFolder.NOT_SCANNED_YET
+        SyncedFolder.NOT_SCANNED_YET,
+        syncedFolder.autoDeleteLocalAfterMs
     )
 
     fun updateAutoUploadFolderItem(item: SyncedFolderDisplayItem, syncedFolder: SyncedFolderParcelable) {
@@ -125,6 +128,7 @@ class AutoUploadDisplayItemFactory(
             setEnabled(syncedFolder.isEnabled, clock.currentTime)
             setSubFolderRule(syncedFolder.subFolderRule)
             setExcludeHidden(syncedFolder.isExcludeHidden)
+            autoDeleteLocalAfterMs = syncedFolder.autoDeleteLocalAfterMs
         }
     }
 
@@ -154,7 +158,8 @@ class AutoUploadDisplayItemFactory(
         syncedFolder.isHidden,
         syncedFolder.subfolderRule,
         syncedFolder.isExcludeHidden,
-        syncedFolder.lastScanTimestampMs
+        syncedFolder.lastScanTimestampMs,
+        syncedFolder.autoDeleteLocalAfterMs
     )
 
     private fun getDisplayFilePaths(files: List<File>): List<String>? =

@@ -36,6 +36,7 @@ class AutoUploadLocalDeletionWorker(
 
     companion object {
         const val SYNCED_FOLDER_IDS = "synced_folder_IDs"
+        const val MIN_AGE_MS = "min_age_ms"
         const val NOTIFICATION_ID = 267
 
         private const val TAG = "AutoUploadLocalDeletionWorker"
@@ -50,9 +51,13 @@ class AutoUploadLocalDeletionWorker(
     )
 
     override suspend fun doWork(): Result {
-        showNotification(
-            createNotification(context.getString(R.string.autoupload_delete_uploaded_notif_started_title))
-        )
+        val minAgeMs = inputData.getLong(MIN_AGE_MS, 0L)
+        val isAutomaticRun = minAgeMs > 0
+        if (!isAutomaticRun) {
+            showNotification(
+                createNotification(context.getString(R.string.autoupload_delete_uploaded_notif_started_title))
+            )
+        }
         Log_OC.d(TAG, "Started")
 
         val syncedFolderIDs = inputData.getLongArray(SYNCED_FOLDER_IDS)
@@ -77,14 +82,19 @@ class AutoUploadLocalDeletionWorker(
                 val op = DeleteUploadedFileOperation(
                     it,
                     context,
-                    fileDataStorageManager
+                    fileDataStorageManager,
+                    minAgeMs
                 )
                 val res = op.run()
                 if (res.code != RemoteOperationResult.ResultCode.OK) {
                     Log_OC.d(TAG, "Failed")
-                    showNotification(
-                        createNotification(context.getString(R.string.autoupload_delete_uploaded_notif_error_title))
-                    )
+                    if (!isAutomaticRun) {
+                        showNotification(
+                            createNotification(
+                                context.getString(R.string.autoupload_delete_uploaded_notif_error_title)
+                            )
+                        )
+                    }
                     return Result.failure()
                 }
                 foldersAnalyzed++
@@ -94,16 +104,18 @@ class AutoUploadLocalDeletionWorker(
             }
 
         val runTimeMs = System.currentTimeMillis() - timeStarted
-        showNotification(
-            createSuccessNotification(
-                users.size,
-                foldersAnalyzed,
-                filesRemoved,
-                filesPreserved,
-                spaceFreed,
-                runTimeMs
+        if (!isAutomaticRun) {
+            showNotification(
+                createSuccessNotification(
+                    users.size,
+                    foldersAnalyzed,
+                    filesRemoved,
+                    filesPreserved,
+                    spaceFreed,
+                    runTimeMs
+                )
             )
-        )
+        }
         Log_OC.d(
             TAG,
             "Success: users=$users, foldersAnalyzed=$foldersAnalyzed, filesPreserved=$filesPreserved, " +
