@@ -257,7 +257,9 @@ class UploadListFragment :
             activity,
             preferences,
             userAccountManager,
-            uploadsStorageManager
+            uploadsStorageManager,
+            syncedFolderProvider,
+            backgroundJobManager
         ) { uploadListAdapter.notifyDataSetChanged() }
 
         activity.addMenuProvider(menuProvider, viewLifecycleOwner, Lifecycle.State.RESUMED)
