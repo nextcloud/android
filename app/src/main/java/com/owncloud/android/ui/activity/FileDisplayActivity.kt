@@ -1092,22 +1092,6 @@ class FileDisplayActivity :
     }
 
     override fun onBrowsedDownTo(directory: OCFile?) {
-        if (WebdavEntry.MountType.EXTERNAL != directory?.mountType) {
-            browseDownTo(directory)
-            return
-        }
-
-        lifecycleScope.launch {
-            val showCredentialsDialog = directory.requiresUserProvidedCredentials()
-            if (showCredentialsDialog ?: false) {
-                TODO("Show credentials dialog")
-                return@launch
-            }
-            browseDownTo(directory)
-        }
-    }
-
-    private fun browseDownTo(directory: OCFile?) {
         file = directory
         resetScrollingAndUpdateActionBar()
         startSyncFolderOperation(directory, ignoreETag = false, syncChangedDownloadedFiles = true)
@@ -1573,7 +1557,19 @@ class FileDisplayActivity :
         ).execute(
             account,
             this,
-            { _, _ -> onSyncFinished() },
+            { _, result ->
+                if (!result.isSuccess && WebdavEntry.MountType.EXTERNAL == folder.mountType) {
+                    // May be an external folder: check if user needs authentication
+                    lifecycleScope.launch {
+                        val showCredentialsDialog = folder.requiresUserProvidedCredentials()
+                        if (showCredentialsDialog ?: false) {
+                            TODO("Show credentials dialog")
+                        }
+                    }
+                } else {
+                    onSyncFinished()
+                }
+            },
             handler,
             null
         )
