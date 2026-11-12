@@ -10,6 +10,7 @@ package com.owncloud.android.ui.adapter.uploadList.helper
 import com.nextcloud.utils.extensions.isSame
 import com.nextcloud.utils.extensions.updateStatus
 import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
@@ -28,9 +29,10 @@ class UploadListAdapterActionHandler : UploadListAdapterAction {
     override suspend fun handleConflict(
         upload: OCUpload,
         client: OwnCloudClient,
-        storageManager: UploadsStorageManager
+        storageManager: UploadsStorageManager,
+        existingFile: OCFile?
     ): ConflictHandlingResult = withContext(Dispatchers.IO) {
-        val operationResult = ReadFileRemoteOperation(upload.remotePath).execute(client)
+        val operationResult = ReadFileRemoteOperation(existingFile?.remotePath ?: upload.remotePath).execute(client)
 
         if (!operationResult.isSuccess) {
             return@withContext when (operationResult.code) {
@@ -52,9 +54,9 @@ class UploadListAdapterActionHandler : UploadListAdapterAction {
                 return@withContext ConflictHandlingResult.CannotCheckConflict
             }
 
-        val ocFile = FileStorageUtils.fillOCFile(remoteFile)
+        val ocFile = existingFile ?: FileStorageUtils.fillOCFile(remoteFile)
 
-        if (remoteFile.isSame(ocFile.storagePath)) {
+        if (!ocFile.isEncrypted && remoteFile.isSame(upload.localPath)) {
             updateStatus(upload, storageManager, success = true)
             ConflictHandlingResult.ConflictNotExistsSameFile
         } else {

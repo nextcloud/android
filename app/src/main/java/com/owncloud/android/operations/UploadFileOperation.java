@@ -67,6 +67,8 @@ import com.owncloud.android.operations.upload.RemoteFileExistence;
 import com.owncloud.android.operations.upload.UploadFileException;
 import com.owncloud.android.operations.upload.UploadFileOperationExtensionsKt;
 import com.owncloud.android.operations.upload.UploadFileResolver;
+import com.owncloud.android.operations.upload.UploadFolderException;
+import com.owncloud.android.operations.upload.UploadFolderResolver;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.EncryptionUtilsV2;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -314,6 +316,34 @@ public class UploadFileOperation extends SyncOperation {
         return mFile.getRemotePath();
     }
 
+    public boolean isAutoUpload() {
+        return isInstantPicture() || isInstantVideo();
+    }
+
+    public boolean isEncryptedUpload() {
+        return encryptedAncestor;
+    }
+
+    public String getUploadRemotePath() {
+        return isAutoUpload() ? mUpload.getRemotePath() : getRemotePath();
+    }
+
+    public OCFile findAutoUploadTarget(OwnCloudClient client) throws UploadFolderException {
+        if (!isAutoUpload()) {
+            return null;
+        }
+        String target = mUpload.getRemotePath();
+        int separator = target.lastIndexOf('/');
+        OCFile parent = UploadFolderResolver.resolve(this, client, target.substring(0, separator + 1));
+        String filename = target.substring(separator + 1);
+        if (parent.isEncrypted()) {
+            return uploadFileResolver.findEncryptedTarget(parent, filename);
+        }
+        return getStorageManager().getFolderContent(parent, false).stream()
+            .filter(file -> filename.equals(file.getDecryptedFileName()))
+            .findFirst().orElse(null);
+    }
+
     public String getDecryptedRemotePath() {
         return mFile.getDecryptedRemotePath();
     }
@@ -436,6 +466,13 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         mCancellationRequested.set(false);
+        if (isAutoUpload()) {
+            final var conditions = checkConditions(localFile);
+            if (conditions != null) {
+                uploadsStorageManager.updateDatabaseUploadResult(conditions, this);
+                return conditions;
+            }
+        }
         mPaused.set(false);
         mUploadStarted.set(true);
 
@@ -457,13 +494,30 @@ public class UploadFileOperation extends SyncOperation {
         }
         remoteParentPath = renamedRemoteParentPath;
 
-        OCFile parent = getStorageManager().getFileByPath(remoteParentPath);
+        OCFile parent;
+        if (isAutoUpload()) {
+            try {
+                parent = UploadFolderResolver.resolve(this, client, remoteParentPath);
+                String filename = new File(mRemotePath).getName();
+                mRemotePath = parent.getRemotePath() + filename;
+                mFile.setRemotePath(mRemotePath);
+                mFile.setDecryptedRemotePath(parent.getDecryptedRemotePath() + filename);
+            } catch (UploadFolderException e) {
+                final var folderResult = RemoteOperationResultExtensionsKt.isConflict(e.getResult().getCode())
+                    ? new RemoteOperationResult<>(e) : e.getResult();
+                mUploadStarted.set(false);
+                uploadsStorageManager.updateDatabaseUploadResult(folderResult, this);
+                return folderResult;
+            }
+        } else {
+            parent = getStorageManager().getFileByPath(remoteParentPath);
+        }
         Log_OC.d(TAG, "parent lookup for path: " + remoteParentPath + " → " +
             (parent == null ? "not found in DB" : "found, id=" + parent.getFileId()));
 
 
         // Create folders only for Nextcloud < 32; 32+ handles this automatically.
-        if (getCapabilities().getVersion().isOlderThan(NextcloudVersion.nextcloud_32)) {
+        if (!isAutoUpload() && getCapabilities().getVersion().isOlderThan(NextcloudVersion.nextcloud_32)) {
             final boolean isResumingEncryptedUpload = (mFolderUnlockToken != null && !mFolderUnlockToken.isEmpty());
             if (!isResumingEncryptedUpload && (parent == null || mRemoteFolderToBeCreated)) {
                 Log_OC.d(TAG, "verifying remote parent folder exists: " + remoteParentPath);
@@ -506,7 +560,7 @@ public class UploadFileOperation extends SyncOperation {
             result = normalUpload(client);
         }
 
-        if (result.isSuccess() && getCapabilities().getVersion().isNewerOrEqual(NextcloudVersion.nextcloud_32)) {
+        if (!isAutoUpload() && result.isSuccess() && getCapabilities().getVersion().isNewerOrEqual(NextcloudVersion.nextcloud_32)) {
             // Add the folders that the server creates automatically (from Nextcloud 32) to local db
             FileDataStorageManagerExtensionsKt.createDirectoryTree(getStorageManager(), remoteParentPath, null);
         }
@@ -522,6 +576,7 @@ public class UploadFileOperation extends SyncOperation {
         FileLock fileLock = null;
         long size;
         boolean isV1MetadataExists = false;
+        boolean remoteWriteStarted = false;
         String token = null;
         Object object = null;
         FileChannel channel = null;
@@ -532,52 +587,82 @@ public class UploadFileOperation extends SyncOperation {
             result = checkConditions(e2eFiles.getOriginalFile());
 
             if (result != null) {
-                return result;
+                throw new UploadFolderException(result);
+            }
+
+            if (isAutoUpload() && (publicKey.isEmpty() ||
+                arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY).isEmpty())) {
+                throw new UploadFileException.EncryptionKeysUnavailable();
             }
 
             EncryptionUtilsV2 encryptionUtilsV2 = new EncryptionUtilsV2();
-            object = EncryptionUtils.downloadFolderMetadata(parentFile, client, mContext, user);
-            if (object instanceof DecryptedFolderMetadataFileV1 decrypted && decrypted.getMetadata() != null) {
-                isV1MetadataExists = true;
-            }
-
-            boolean isEndToEndVersionAtLeastV2 = E2EVersionHelper.INSTANCE.isV2Plus(mContext);
-
-            if (isEndToEndVersionAtLeastV2) {
-                if (object == null) {
-                    return new RemoteOperationResult<>(new IllegalStateException("Metadata does not exist"));
+            final var capability = getCapabilities();
+            boolean isEndToEndVersionAtLeastV2 = E2EVersionHelper.INSTANCE.isV2Plus(capability);
+            if (!isAutoUpload() || isEndToEndVersionAtLeastV2) {
+                object = EncryptionUtils.downloadFolderMetadata(parentFile, client, mContext, user);
+                if (object instanceof DecryptedFolderMetadataFileV1 decrypted && decrypted.getMetadata() != null) {
+                    isV1MetadataExists = true;
                 }
-            } else {
-                object = getDecryptedFolderMetadataV1(publicKey, object);
+
+                if (isEndToEndVersionAtLeastV2) {
+                    if (object == null) {
+                        throw new UploadFileException.InvalidEncryptionMetadata();
+                    }
+                } else {
+                    object = getDecryptedFolderMetadataV1(publicKey, object);
+                }
             }
 
-            long counter = E2ECounterHelper.INSTANCE.getCounter(mContext, parentFile, object);
+            long counter = E2ECounterHelper.INSTANCE.getCounter(capability, parentFile, object);
             Log_OC.d(TAG, "counter: " + counter);
 
             try {
                 token = getFolderUnlockTokenOrLockFolder(client, parentFile, counter);
             } catch (Exception e) {
                 Log_OC.e(TAG, "Failed to lock folder", e);
-                return new RemoteOperationResult<>(e);
+                throw e;
+            }
+
+            if (isAutoUpload() && !isEndToEndVersionAtLeastV2) {
+                // V1 reads under the lock; V2's counter check protects the metadata read before locking.
+                final var metadata = EncryptionUtils.retrieveMetadataV1(parentFile,
+                    client,
+                    arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY),
+                    publicKey,
+                    arbitraryDataProvider,
+                    user,
+                    getStorageManager().getE2EEVersion(user));
+                if (!metadata.first && !getStorageManager().getFolderContent(parentFile, false).isEmpty()) {
+                    throw new UploadFileException.InvalidEncryptionMetadata();
+                }
+                isV1MetadataExists = metadata.first;
+                object = metadata.second;
             }
 
             E2EClientData clientData = new E2EClientData(client, token, publicKey);
 
             List<String> fileNames = uploadFileResolver.getCollidedFileNames(object);
 
-            final var collisionResult = checkNameCollision(parentFile, client, fileNames, parentFile.isEncrypted());
-            if (collisionResult != null) {
-                result = collisionResult;
-                return collisionResult;
+            if (mNameCollisionPolicy == NameCollisionPolicy.OVERWRITE &&
+                uploadFileResolver.isFolder(object, new File(mRemotePath).getName())) {
+                throw new UploadFolderException(new RemoteOperationResult<>(ResultCode.SYNC_CONFLICT));
             }
 
-            mFile.setDecryptedRemotePath(parentFile.getDecryptedRemotePath() + e2eFiles.getOriginalFile().getName());
+            final var collisionResult = checkNameCollision(parentFile, client, fileNames, parentFile.isEncrypted());
+            if (collisionResult != null) {
+                throw new UploadFolderException(collisionResult);
+            }
+
+            mFile.setDecryptedRemotePath(parentFile.getDecryptedRemotePath() + new File(mRemotePath).getName());
             String expectedPath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), mFile);
             e2eFiles.setExpectedFile(new File(expectedPath));
 
             result = copyFile(e2eFiles.getOriginalFile(), expectedPath);
+            if (!new File(mFile.getStoragePath()).equals(e2eFiles.getOriginalFile())) {
+                e2eFiles.setTemporalFile(new File(mFile.getStoragePath()));
+            }
             if (!result.isSuccess()) {
-                return result;
+                throw new UploadFolderException(result);
             }
 
             long lastModifiedTimestamp = e2eFiles.getOriginalFile().lastModified() / AppConstants.MILLIS_PER_SECOND;
@@ -603,11 +688,14 @@ public class UploadFileOperation extends SyncOperation {
             uploadFileResolver.updateSize(size);
             setUploadOperationForE2E(token, e2eFiles.getEncryptedTempFile(), e2eData.getEncryptedFileName(), lastModifiedTimestamp, creationTimestamp, size);
 
+            remoteWriteStarted = true;
             result = performE2EUpload(clientData);
 
             if (result.isSuccess()) {
                 upsertMetadata(object, e2eData, clientData, e2eFiles, arbitraryDataProvider, encryptionUtilsV2, isV1MetadataExists);
             }
+        } catch (UploadFolderException e) {
+            result = e.getResult();
         } catch (FileNotFoundException e) {
             Log_OC.e(TAG, mFile.getStoragePath() + " does not exist anymore");
             result = new RemoteOperationResult<>(ResultCode.LOCAL_FILE_NOT_FOUND);
@@ -618,19 +706,22 @@ public class UploadFileOperation extends SyncOperation {
             Log_OC.e(TAG, "UploadFileOperation exception: " + e.getLocalizedMessage());
             result = new RemoteOperationResult<>(e);
         } finally {
-            result = releaseLocksAndUnlockE2EFolder(fileLock, channel, e2eFiles, result, object, client, token);
+            result = releaseLocksAndUnlockE2EFolder(fileLock, channel, e2eFiles, result, object, client, token,
+                remoteWriteStarted);
 
             // update upload status
             uploadsStorageManager.updateDatabaseUploadResult(result, this);
         }
 
-        handleLocalBehaviourOrSaveConflictAndDeleteTemporalFile(result, e2eFiles, client);
+        if (!mWasSkipped) {
+            handleLocalBehaviourOrSaveConflictAndDeleteTemporalFile(result, e2eFiles, client);
+        }
 
         return result;
     }
 
     private String getFolderUnlockTokenOrLockFolder(OwnCloudClient client, OCFile parentFile, long counter) throws UploadException {
-        if (mFolderUnlockToken != null && !mFolderUnlockToken.isEmpty()) {
+        if (!isAutoUpload() && mFolderUnlockToken != null && !mFolderUnlockToken.isEmpty()) {
             Log_OC.d(TAG, "Reusing existing folder unlock token from previous upload attempt");
             return mFolderUnlockToken;
         }
@@ -667,6 +758,12 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     private String getEncryptedFileName(Object object) {
+        if (isAutoUpload() && mNameCollisionPolicy == NameCollisionPolicy.OVERWRITE) {
+            String existing = uploadFileResolver.getEncryptedFileName(object, mFile.getDecryptedFileName());
+            if (existing != null) {
+                return existing;
+            }
+        }
         String encryptedFileName = EncryptionUtils.generateUid();
 
         if (object instanceof DecryptedFolderMetadataFileV1 metadata) {
@@ -768,7 +865,8 @@ public class UploadFileOperation extends SyncOperation {
 
     private RemoteOperationResult performE2EUpload(E2EClientData data) throws OperationCancelledException {
         for (OnDatatransferProgressListener mDataTransferListener : mDataTransferListeners) {
-            mUploadOperation.addDataTransferProgressListener(mDataTransferListener);
+            mUploadOperation.addDataTransferProgressListener((rate, transferred, total, path) ->
+                mDataTransferListener.onTransferProgress(rate, transferred, total, mOriginalStoragePath));
         }
 
         if (mCancellationRequested.get()) {
@@ -908,7 +1006,7 @@ public class UploadFileOperation extends SyncOperation {
         e2eFiles.deleteTemporalFile();
     }
 
-    private RemoteOperationResult releaseLocksAndUnlockE2EFolder(FileLock fileLock, FileChannel channel, E2EFiles e2eFiles, RemoteOperationResult result, Object object, OwnCloudClient client, String token) {
+    private RemoteOperationResult releaseLocksAndUnlockE2EFolder(FileLock fileLock, FileChannel channel, E2EFiles e2eFiles, RemoteOperationResult result, Object object, OwnCloudClient client, String token, boolean remoteWriteStarted) {
         mUploadStarted.set(false);
 
         if (fileLock != null) {
@@ -930,13 +1028,17 @@ public class UploadFileOperation extends SyncOperation {
             }
         }
 
-        e2eFiles.deleteTemporalFileWithOriginalFileComparison();
-
         if (result == null) {
             result = new RemoteOperationResult<>(ResultCode.UNKNOWN_ERROR);
         }
 
         logResult(result, mFile.getStoragePath(), mFile.getRemotePath());
+
+        if (isAutoUpload() && remoteWriteStarted && !result.isSuccess()) {
+            // Unlock commits staged files. Leave failed writes locked for the server's existing rollback job.
+            e2eFiles.deleteEncryptedTempFile();
+            return result;
+        }
 
         if (token == null || token.isEmpty()) {
             Log_OC.e(TAG, "CRITICAL ERROR: Folder was locked but token is null/empty. Cannot unlock! " +
@@ -971,8 +1073,11 @@ public class UploadFileOperation extends SyncOperation {
 
         if (unlockFolderResult != null && unlockFolderResult.isSuccess()) {
             Log_OC.d(TAG, "Folder successfully unlocked: " + e2eFiles.getParentFile().getFileName());
+            mFolderUnlockToken = null;
+            mUpload.setFolderUnlockToken(null);
+            uploadsStorageManager.updateUpload(mUpload);
 
-            if (duplicatedEncryptedFile != null) {
+            if (duplicatedEncryptedFile != null && !isAutoUpload()) {
                 FileUploadHelper.Companion.instance().removeDuplicatedFile(duplicatedEncryptedFile, client, user, () -> {
                     duplicatedEncryptedFile = null;
                     return Unit.INSTANCE;
@@ -1266,6 +1371,9 @@ public class UploadFileOperation extends SyncOperation {
                 case SKIP:
                     Log_OC.d(TAG, "user choose to skip upload if same file exists");
                     mWasSkipped = true;
+                    if (encrypted) {
+                        setEncryptedConflictTarget(parentFile);
+                    }
                     return new RemoteOperationResult<>(ResultCode.OK);
                 case RENAME:
                     mRemotePath = getNewAvailableRemotePath(client, mRemotePath, fileNames, encrypted);
@@ -1282,7 +1390,8 @@ public class UploadFileOperation extends SyncOperation {
                     break;
                 case OVERWRITE:
                     if (parentFile != null && encrypted) {
-                        duplicatedEncryptedFile = getStorageManager().findDuplicatedFile(parentFile, mFile);
+                        duplicatedEncryptedFile = uploadFileResolver.findEncryptedTarget(parentFile,
+                            mFile.getDecryptedFileName());
                     }
 
                     Log_OC.d(TAG, "Overwriting file");
@@ -1292,7 +1401,7 @@ public class UploadFileOperation extends SyncOperation {
 
                     // check if its real SYNC_CONFLICT
                     boolean isSameFileOnRemote = false;
-                    if (mFile != null) {
+                    if (mFile != null && !encrypted) {
                         isSameFileOnRemote = FileUploadHelper.Companion.instance()
                             .isSameFileOnRemote(user, mFile.getStoragePath(), mRemotePath, mContext);
                     }
@@ -1300,6 +1409,9 @@ public class UploadFileOperation extends SyncOperation {
                     if (isSameFileOnRemote) {
                         return new RemoteOperationResult<>(ResultCode.OK);
                     } else {
+                        if (encrypted) {
+                            setEncryptedConflictTarget(parentFile);
+                        }
                         return new RemoteOperationResult<>(ResultCode.SYNC_CONFLICT);
                     }
             }
@@ -1310,6 +1422,14 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         return null;
+    }
+
+    private void setEncryptedConflictTarget(OCFile parent) {
+        OCFile existing = uploadFileResolver.findEncryptedTarget(parent, mFile.getDecryptedFileName());
+        if (existing != null) {
+            mFile.setRemotePath(existing.getRemotePath());
+            mFile.setDecryptedRemotePath(existing.getDecryptedRemotePath());
+        }
     }
 
     private void deleteNonExistingFile(File file) {
@@ -1540,6 +1660,10 @@ public class UploadFileOperation extends SyncOperation {
 
     public boolean isPaused() {
         return mPaused.get();
+    }
+
+    public boolean isCancellationRequested() {
+        return mCancellationRequested.get();
     }
 
     /**

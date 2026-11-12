@@ -32,9 +32,10 @@ interface UploadDao {
 
     @Query(
         "SELECT * FROM ${ProviderTableMeta.UPLOADS_TABLE_NAME} " +
-            "WHERE ${ProviderTableMeta.UPLOADS_REMOTE_PATH} = :remotePath LIMIT 1"
+            "WHERE ${ProviderTableMeta.UPLOADS_REMOTE_PATH} = :remotePath " +
+            "AND ${ProviderTableMeta.UPLOADS_ACCOUNT_NAME} = :accountName LIMIT 1"
     )
-    fun getByRemotePath(remotePath: String): UploadEntity?
+    fun getByRemotePath(remotePath: String, accountName: String): UploadEntity?
 
     @Query(
         "DELETE FROM ${ProviderTableMeta.UPLOADS_TABLE_NAME} " +
@@ -48,9 +49,10 @@ interface UploadDao {
     DELETE FROM ${ProviderTableMeta.UPLOADS_TABLE_NAME}
     WHERE ${ProviderTableMeta.UPLOADS_LOCAL_PATH} = :localPath
       AND ${ProviderTableMeta.UPLOADS_REMOTE_PATH} = :remotePath
+      AND ${ProviderTableMeta.UPLOADS_ACCOUNT_NAME} = :accountName
 """
     )
-    suspend fun deleteByLocalRemotePath(localPath: String, remotePath: String)
+    suspend fun deleteByLocalRemotePath(localPath: String, remotePath: String, accountName: String)
 
     @Query(
         "SELECT * FROM " + ProviderTableMeta.UPLOADS_TABLE_NAME +

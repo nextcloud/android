@@ -109,6 +109,73 @@ class UploadFileResolverTest {
     }
 
     @Test
+    fun conflictTargetUsesDecryptedNamesInsteadOfCiphertextNames() {
+        val parent = OCFile("/private/")
+        val existing = OCFile("/private/ciphertext").apply {
+            decryptedRemotePath = "/private/Photo.jpg"
+        }
+        whenever(fileDataStorageManager.getFolderContent(parent, false)).thenReturn(listOf(existing))
+
+        assertEquals(existing, resolver.findEncryptedTarget(parent, "photo.jpg"))
+        assertNull(resolver.findEncryptedTarget(parent, "different.jpg"))
+    }
+
+    @Test
+    fun overwriteFindsCiphertextIdentityInV2MetadataByPlaintextName() {
+        val metadata = DecryptedFolderMetadataFile(
+            metadata = DecryptedMetadata(
+                files = mutableMapOf(
+                    "ciphertext" to DecryptedFile(
+                        filename = "photo.jpg",
+                        mimetype = "image/jpeg",
+                        nonce = "old",
+                        authenticationTag = "",
+                        key = "old"
+                    )
+                ),
+                metadataKey = ByteArray(0)
+            ),
+            version = "2.0"
+        )
+
+        assertEquals("ciphertext", resolver.getEncryptedFileName(metadata, "photo.jpg"))
+        assertNull(resolver.getEncryptedFileName(metadata, "photo (2).jpg"))
+        assertEquals("ciphertext", resolver.getEncryptedFileName(metadata, "PHOTO.jpg"))
+    }
+
+    @Test
+    fun encryptedFolderNamesParticipateInFileCollisionDetection() {
+        val metadata = DecryptedFolderMetadataFile(
+            metadata = DecryptedMetadata(
+                folders = mutableMapOf("cipherFolder" to "photos"),
+                metadataKey = ByteArray(0)
+            ),
+            version = "2.0"
+        )
+
+        assertEquals(listOf("photos"), resolver.getCollidedFileNames(metadata))
+        assertTrue(resolver.isFolder(metadata, "photos"))
+        assertTrue(resolver.isFolder(metadata, "PHOTOS"))
+        assertNull(resolver.getEncryptedFileName(metadata, "photos"))
+    }
+
+    @Test
+    fun overwriteFindsCiphertextIdentityInV1MetadataByPlaintextName() {
+        val metadata = DecryptedFolderMetadataFileV1().apply {
+            setFiles(
+                mapOf(
+                    "ciphertext" to DecryptedFileV1().apply {
+                        encrypted = Data().apply { filename = "photo.jpg" }
+                    }
+                )
+            )
+        }
+
+        assertEquals("ciphertext", resolver.getEncryptedFileName(metadata, "photo.jpg"))
+        assertNull(resolver.getEncryptedFileName(metadata, "other.jpg"))
+    }
+
+    @Test
     fun collidedFileNamesOfUnknownMetadataAreEmpty() {
         assertTrue(resolver.getCollidedFileNames(null).isEmpty())
         assertTrue(resolver.getCollidedFileNames("metadata").isEmpty())
@@ -147,6 +214,7 @@ class UploadFileResolverTest {
             lastSyncDateForData = 6
             storagePath = "/storage/photo.jpg"
             parentId = 7
+            isEncrypted = true
         }
 
         val renamed = resolver.createNewOCFile(original, "/photo (2).jpg")
@@ -162,6 +230,7 @@ class UploadFileResolverTest {
         assertEquals(6L, renamed.lastSyncDateForData)
         assertEquals("/storage/photo.jpg", renamed.storagePath)
         assertEquals(7L, renamed.parentId)
+        assertTrue(renamed.isEncrypted)
     }
 
     @Test

@@ -14,11 +14,13 @@ import androidx.core.content.FileProvider
 import com.nextcloud.utils.SnackbarUtil
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.ConflictsResolveActivity
 import com.owncloud.android.ui.activity.drawer.DrawerActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.preview.media.PreviewMediaFragment
 import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.MimeTypeUtil
@@ -56,24 +58,27 @@ class UploadListAdapterHelper(private val activity: DrawerActivity) {
     }
 
     fun onUploadedItemClick(upload: OCUpload) {
-        val file = activity.storageManager.getFileByEncryptedRemotePath(upload.remotePath)
+        val user = activity.userAccountManager.getUser(upload.accountName).orElse(null) ?: return
+        val storage = FileDataStorageManager(user, activity.contentResolver)
+        val file = storage.getFileByEncryptedRemotePath(upload.remotePath)
         if (file == null) {
             SnackbarUtil.show(activity, R.string.error_retrieving_file)
             Log_OC.i(TAG, "Could not find uploaded file on remote.")
             return
         }
 
-        val optionalUser = activity.user
-        if (PreviewMediaFragment.canBePreviewed(file) && optionalUser.isPresent) {
+        if (PreviewMediaFragment.canBePreviewed(file)) {
             // show image preview and stay in uploads tab
-            val intent = FileDisplayActivity.openFileIntent(activity, optionalUser.get(), file)
+            val intent = FileDisplayActivity.openFileIntent(activity, user, file)
             activity.startActivity(intent)
             return
         }
 
         val intent = Intent(activity, FileDisplayActivity::class.java).apply {
             setAction(Intent.ACTION_VIEW)
-            putExtra(FileDisplayActivity.KEY_FILE_PATH, upload.remotePath)
+            putExtra(FileDisplayActivity.KEY_FILE_PATH, file.remotePath)
+            putExtra(FileActivity.EXTRA_USER, user)
+            putExtra(FileDisplayActivity.KEY_ACCOUNT, user.accountName)
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         }
         activity.startActivity(intent)

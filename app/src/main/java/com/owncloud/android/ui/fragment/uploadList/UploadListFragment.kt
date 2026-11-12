@@ -227,7 +227,6 @@ class UploadListFragment :
         )
         conflictHandler = UploadListConflictHandler(
             this,
-            uploadsStorageManager,
             uploadFileOperationFactory,
             adapterHelper,
             uploadListAdapter

@@ -38,6 +38,7 @@ import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
+import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.dialog.conflict.ConflictResolveDialogFactory
 import com.owncloud.android.ui.dialog.conflict.ConflictsResolveDialog.Decision
 import com.owncloud.android.ui.dialog.conflict.ConflictsResolveDialog.OnConflictDecisionMadeListener
@@ -167,6 +168,17 @@ class ConflictsResolveActivity :
     }
 
     private fun handleFile(file: OCFile?, upload: OCUpload?, user: User, policy: NameCollisionPolicy) {
+        if (upload != null && (
+                upload.createdBy == UploadFileOperation.CREATED_AS_INSTANT_PICTURE ||
+                    upload.createdBy == UploadFileOperation.CREATED_AS_INSTANT_VIDEO
+                )
+        ) {
+            upload.nameCollisionPolicy = policy
+            upload.uploadStatus = UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS
+            uploadsStorageManager.updateUpload(upload)
+            backgroundJobManager.startFilesUploadJob(user, longArrayOf(upload.uploadId), false, true)
+            return
+        }
         upload?.let { uploadHelper.removeFileUpload(it.remotePath, it.accountName) }
         uploadHelper.uploadUpdatedFile(
             user,

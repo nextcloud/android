@@ -41,7 +41,7 @@ sealed class UploadBroadcastAction {
             val intent = Intent(context, FileUploadBroadcastReceiver::class.java).apply {
                 putExtra(FileUploadBroadcastReceiver.UPLOAD_ID, operation.ocUploadId)
                 putExtra(FileUploadBroadcastReceiver.ACCOUNT_NAME, operation.user.accountName)
-                putExtra(FileUploadBroadcastReceiver.REMOTE_PATH, operation.remotePath)
+                putExtra(FileUploadBroadcastReceiver.REMOTE_PATH, operation.uploadRemotePath)
                 putExtra(FileUploadBroadcastReceiver.REMOVE, remove)
                 action = PauseAndCancel::class.simpleName
 

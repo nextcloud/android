@@ -67,7 +67,7 @@ class AutoUploadClickHandler(
 
         Log_OC.d(TAG, "auto-upload configuration sync status is disabled: " + item.remotePath)
         fragment.lifecycleScope.launch(Dispatchers.IO) {
-            fileUploadHelper.removeEntityFromUploadEntities(item.id)
+            fileUploadHelper.removeEntityFromUploadEntities(item.id, item.account)
         }
     }
 
@@ -114,7 +114,7 @@ class AutoUploadClickHandler(
         Log_OC.d(TAG, "deleting auto upload configuration: " + syncedFolder.remotePath)
 
         fragment.lifecycleScope.launch(Dispatchers.IO) {
-            fileUploadHelper.removeEntityFromUploadEntities(syncedFolder.id)
+            fileUploadHelper.removeEntityFromUploadEntities(syncedFolder.id, syncedFolder.account)
             persistence.deleteAutoUploadFolder(syncedFolder.id)
             withContext(Dispatchers.Main) {
                 getAdapter().removeItem(syncedFolder.section)

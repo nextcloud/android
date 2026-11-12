@@ -38,14 +38,14 @@ import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.db.UploadResult
-import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClient
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
+import com.nextcloud.repository.ClientRepository
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
+import com.owncloud.android.operations.upload.UploadFileException
 import com.owncloud.android.operations.factory.UploadFileOperationFactory
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -71,6 +71,7 @@ class FileUploadWorker(
     val syncedFolderProvider: SyncedFolderProvider,
     val context: Context,
     val uploadFileOperationFactory: UploadFileOperationFactory,
+    private val clientRepository: ClientRepository,
     params: WorkerParameters
 ) : CoroutineWorker(context, params),
     OnDatatransferProgressListener {
@@ -100,7 +101,10 @@ class FileUploadWorker(
         @JvmOverloads
         fun cancelUpload(remotePath: String?, accountName: String?, onCompleted: () -> Unit = {}) {
             val operation =
-                activeOperations.values.find { it.remotePath == remotePath && it.user.accountName == accountName }
+                activeOperations.values.find {
+                    (it.remotePath == remotePath || it.uploadRemotePath == remotePath) &&
+                        it.user.accountName == accountName
+                }
 
             operation?.let {
                 Log_OC.d(TAG, "upload operation is cancelled: $remotePath")
@@ -130,7 +134,7 @@ class FileUploadWorker(
         fun getCurrentUpload(id: Long?): UploadFileOperation? = activeOperations[id]
 
         fun isUploading(remotePath: String?, accountName: String?): Boolean = activeOperations.values.any {
-            it.remotePath == remotePath && it.user.accountName == accountName
+            (it.remotePath == remotePath || it.uploadRemotePath == remotePath) && it.user.accountName == accountName
         }
 
         /**
@@ -279,8 +283,7 @@ class FileUploadWorker(
         val user = optionalUser.get()
         val previouslyUploadedFileSize = currentBatchIndex * FileUploadHelper.MAX_FILE_COUNT
         val uploads = uploadsStorageManager.getUploadsByIds(uploadIds, accountName)
-        val ocAccount = OwnCloudAccount(user.toPlatformAccount(), context)
-        val client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context)
+        val client = clientRepository.getOwncloudClient(user) ?: return@withContext Result.retry()
         val syncFolderHelper = SyncFolderHelper(context)
         val syncedFolders = syncedFolderProvider.syncedFolders
         var hasRetryableFailure = false
@@ -368,6 +371,7 @@ class FileUploadWorker(
                 Log_OC.e(TAG, "credentials are no longer valid, stopping uploads")
                 break
             }
+            if (result.exception is UploadFileException.EncryptionKeysUnavailable) break
         }
 
         val uploadFilesResult = when {
@@ -393,6 +397,7 @@ class FileUploadWorker(
         if (!filesystemRepository.isBelongToAnyAutoFolder(upload.localPath)) return false
 
         return syncedFolders.any { folder ->
+            if (folder.account != upload.accountName) return@any false
             val file = upload.localPath.toFile() ?: return false
             val expectedRemotePath = syncFolderHelper.getAutoUploadRemotePath(folder, file)
             expectedRemotePath == upload.remotePath
@@ -506,7 +511,7 @@ class FileUploadWorker(
                     activeOperations.values.find { it.originalStoragePath == fileAbsoluteName }
 
                 val accountName = currentUploadFileOperation?.user?.accountName
-                val remotePath = currentUploadFileOperation?.remotePath
+                val remotePath = currentUploadFileOperation?.uploadRemotePath
 
                 updateUploadProgress(percent, currentUploadFileOperation)
 

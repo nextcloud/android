@@ -143,7 +143,7 @@ open class FolderPickerActivity :
     private fun setupUIForChooseButton() {
         captionText = resources.getText(R.string.folder_picker_choose_caption_text).toString()
         mSearchOnlyFolders = true
-        isDoNotEnterEncryptedFolder = true
+        isDoNotEnterEncryptedFolder = !intent.getBooleanExtra(EXTRA_ALLOW_ENCRYPTED_FOLDER, false)
 
         if (this is FilePickerActivity) {
             return
@@ -699,6 +699,7 @@ open class FolderPickerActivity :
 
         const val MOVE_OR_COPY = "MOVE_OR_COPY"
         const val CHOOSE_LOCATION = "CHOOSE_LOCATION"
+        const val EXTRA_ALLOW_ENCRYPTED_FOLDER = "ALLOW_ENCRYPTED_FOLDER"
         private val TAG = FolderPickerActivity::class.java.simpleName
         private const val MOVE = "MOVE"
         private const val COPY = "COPY"

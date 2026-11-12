@@ -23,6 +23,7 @@ import android.os.Looper
 import androidx.annotation.VisibleForTesting
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.account.User
+import com.nextcloud.client.account.UserAccountManagerImpl
 import com.nextcloud.client.database.NextcloudDatabase
 import com.nextcloud.client.database.dao.UploadDao
 import com.nextcloud.client.database.entity.UploadEntity
@@ -52,18 +53,19 @@ class UploadsStorageManager(
     private val contentResolver: ContentResolver
 ) : Observable() {
 
-    private var capability: OCCapability? = null
-
     val uploadDao: UploadDao = NextcloudDatabase.instance().uploadDao()
     val fileSystemDao = NextcloudDatabase.instance().fileSystemDao()
     val syncedFolderDao = NextcloudDatabase.instance().syncedFolderDao()
 
-    private fun initOCCapability() {
-        try {
-            this.capability = CapabilityUtils.getCapability(MainApp.getAppContext())
-        } catch (e: RuntimeException) {
-            Log_OC.e(TAG, "Failed to set OCCapability: Dependencies are not yet ready. $e")
+    private fun getCapability(accountName: String?): OCCapability? = try {
+        val context = MainApp.getAppContext()
+        accountName?.let { name ->
+            UserAccountManagerImpl.fromContext(context).getUser(name)
+                .map { CapabilityUtils.getCapability(it, context) }.orElse(null)
         }
+    } catch (e: RuntimeException) {
+        Log_OC.e(TAG, "Failed to set OCCapability: Dependencies are not yet ready. $e")
+        null
     }
 
     @Synchronized
@@ -363,20 +365,18 @@ class UploadsStorageManager(
 
     private fun createOCUploadFromEntity(entity: UploadEntity?): OCUpload? {
         if (entity == null) return null
-        initOCCapability()
-        return entity.toOCUpload(capability)
+        return entity.toOCUpload(getCapability(entity.accountName))
     }
 
     private fun createOCUploadFromCursor(c: Cursor): OCUpload {
-        initOCCapability()
-
         fun Cursor.str(col: String): String = getString(getColumnIndexOrThrow(col))
         fun Cursor.int(col: String): Int = getInt(getColumnIndexOrThrow(col))
         fun Cursor.long(col: String): Long = getLong(getColumnIndexOrThrow(col))
 
         var remotePath = c.str(ProviderTableMeta.UPLOADS_REMOTE_PATH)
+        val capability = getCapability(c.str(ProviderTableMeta.UPLOADS_ACCOUNT_NAME))
         if (capability != null) {
-            remotePath = AutoRename.rename(remotePath, capability!!)
+            remotePath = AutoRename.rename(remotePath, capability)
         }
 
         return OCUpload(
@@ -497,7 +497,7 @@ class UploadsStorageManager(
             status = UploadStatus.UPLOAD_SUCCEEDED
             result = if (upload.wasSkipped()) UploadResult.SKIPPED else UploadResult.UPLOADED
         } else if (code.isConflict()) {
-            val isSame = FileUploadHelper().isSameFileOnRemote(
+            val isSame = !upload.isEncryptedUpload && FileUploadHelper().isSameFileOnRemote(
                 upload.user,
                 upload.storagePath,
                 upload.remotePath,
@@ -528,7 +528,8 @@ class UploadsStorageManager(
             )
         )
 
-        updateUploadStatus(upload.ocUploadId, status, result, upload.remotePath, localPath)
+        val remotePath = if (uploadResult.isSuccess) upload.remotePath else upload.uploadRemotePath
+        updateUploadStatus(upload.ocUploadId, status, result, remotePath, localPath)
     }
 
     fun updateDatabaseUploadStart(upload: UploadFileOperation) {
@@ -539,7 +540,7 @@ class UploadsStorageManager(
             upload.ocUploadId,
             UploadStatus.UPLOAD_IN_PROGRESS,
             UploadResult.UNKNOWN,
-            upload.remotePath,
+            upload.uploadRemotePath,
             localPath
         )
     }

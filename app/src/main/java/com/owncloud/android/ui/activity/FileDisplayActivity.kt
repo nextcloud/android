@@ -2172,9 +2172,12 @@ class FileDisplayActivity :
         onlyLocalCopy: Boolean
     ) {
         lifecycleScope.launch(Dispatchers.IO) {
-            entities.mapNotNull { it.id?.toLong() }.forEach {
-                fileUploadHelper.removeEntityFromUploadEntities(it)
-                syncedFolderProvider.deleteSyncedFolder(it)
+            entities.forEach { entity ->
+                val accountName = entity.account ?: return@forEach
+                entity.id?.toLong()?.let { id ->
+                    fileUploadHelper.removeEntityFromUploadEntities(id, accountName)
+                    syncedFolderProvider.deleteSyncedFolder(id)
+                }
             }
 
             connectivityService.isNetworkAndServerAvailable { isAvailable ->

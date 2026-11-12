@@ -82,7 +82,7 @@ object UploadErrorNotificationManager {
         }
 
         // do not show an error notification when uploading the same file again
-        if (result.code.isConflict()) {
+        if (result.code.isConflict() && !operation.isEncryptedUpload) {
             val isSameFile = withContext(Dispatchers.IO) {
                 FileUploadHelper.instance().isSameFileOnRemote(
                     operation.user,
