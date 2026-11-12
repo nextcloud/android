@@ -88,7 +88,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.VirtualFolderType
-import com.owncloud.android.lib.common.network.WebdavEntry
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -120,6 +119,7 @@ import com.owncloud.android.ui.activity.filedisplayactivity.LocalIntentReceiver
 import com.owncloud.android.ui.asynctasks.FetchRemoteFileTask
 import com.owncloud.android.ui.asynctasks.GetRemoteFileTask
 import com.owncloud.android.ui.dialog.DeleteBatchTracker
+import com.owncloud.android.ui.dialog.ExternalStorageAuthDialogFragment
 import com.owncloud.android.ui.dialog.SendShareDialog.SendShareDialogDownloader
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment.OnSortingOrderListener
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment
@@ -1558,12 +1558,12 @@ class FileDisplayActivity :
             account,
             this,
             { _, result ->
-                if (!result.isSuccess && WebdavEntry.MountType.EXTERNAL == folder.mountType) {
+                if (!result.isSuccess /*&& WebdavEntry.MountType.EXTERNAL == folder.mountType*/) {
                     // May be an external folder: check if user needs authentication
                     lifecycleScope.launch {
                         val showCredentialsDialog = folder.requiresUserProvidedCredentials()
                         if (showCredentialsDialog ?: false) {
-                            TODO("Show credentials dialog")
+                            showExternalStorageAuthDialog(folder)
                         }
                     }
                 } else {
@@ -1575,6 +1575,14 @@ class FileDisplayActivity :
         )
 
         fetchRecommendedFilesIfNeeded(ignoreETag, folder)
+    }
+
+    private fun showExternalStorageAuthDialog(folder: OCFile) {
+        if (supportFragmentManager.isStateSaved) return
+        if (supportFragmentManager.findFragmentByTag(ExternalStorageAuthDialogFragment.TAG) != null) return
+
+        ExternalStorageAuthDialogFragment.newInstance(folder)
+            .show(supportFragmentManager, ExternalStorageAuthDialogFragment.TAG)
     }
 
     private fun syncCurrentFolder(ignoreETag: Boolean, ignoreFocus: Boolean) {
