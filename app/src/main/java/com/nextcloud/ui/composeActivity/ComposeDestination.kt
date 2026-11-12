@@ -24,6 +24,12 @@ sealed class ComposeDestination(val id: Int) : Parcelable {
     @Parcelize
     data class TeamsScreen(val title: String) : ComposeDestination(2)
 
+    @Parcelize
+    data class TeamDetailScreen(val teamId: String, val title: String, val settingsUrl: String) : ComposeDestination(3)
+
+    @Parcelize
+    data class WebPageScreen(val title: String, val url: String) : ComposeDestination(4)
+
     companion object {
         fun getTeamsScreen(context: Context): TeamsScreen = TeamsScreen(context.getString(R.string.navigation_teams))
 

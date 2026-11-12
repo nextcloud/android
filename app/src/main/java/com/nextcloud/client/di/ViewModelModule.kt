@@ -16,6 +16,7 @@ import com.nextcloud.client.logger.ui.LogsViewModel
 import com.nextcloud.client.player.ui.audio.AudioPlayerViewModel
 import com.nextcloud.ui.fileactions.FileActionsViewModel
 import com.nextcloud.ui.tags.TagManagementViewModel
+import com.nextcloud.ui.teams.detail.viewmodel.TeamDetailViewModel
 import com.nextcloud.ui.teams.viewmodel.TeamsViewModel
 import com.nextcloud.ui.trashbinFileActions.TrashbinFileActionsViewModel
 import com.owncloud.android.ui.activity.filedisplayactivity.FileDisplayActivityViewModel
@@ -92,5 +93,10 @@ abstract class ViewModelModule {
         @IntoMap
         @ViewModelKey(TeamsViewModel::class)
         fun teamsViewModel(factory: TeamsViewModel.Factory) = SavedStateViewModelCreator(factory::create)
+
+        @Provides
+        @IntoMap
+        @ViewModelKey(TeamDetailViewModel::class)
+        fun teamDetailViewModel(factory: TeamDetailViewModel.Factory) = SavedStateViewModelCreator(factory::create)
     }
 }

@@ -20,10 +20,12 @@ import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.WhileSubscribed
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.seconds
 
 class TeamsViewModel @AssistedInject constructor(
     private val repository: TeamsRepository,
@@ -36,7 +38,7 @@ class TeamsViewModel @AssistedInject constructor(
 
     val uiState: StateFlow<TeamsUiState> = combine(teamsState, searchQuery) { state, query ->
         if (state is TeamsUiState.Content) state.matching(query) else state
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS), TeamsUiState.Loading)
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT), TeamsUiState.Loading)
 
     val createTeamName: StateFlow<String?> = savedStateHandle.getStateFlow(KEY_CREATE_TEAM_NAME, null)
 
@@ -112,7 +114,7 @@ class TeamsViewModel @AssistedInject constructor(
     companion object {
         private const val KEY_CREATE_TEAM_NAME = "create_team_name"
         private const val KEY_SEARCH_QUERY = "search_query"
-        private const val STOP_TIMEOUT_MILLIS = 5_000L
+        private val STOP_TIMEOUT = 5.seconds
         const val MIN_TEAM_NAME_BYTES = 3
         const val MAX_TEAM_NAME_BYTES = 127
 
