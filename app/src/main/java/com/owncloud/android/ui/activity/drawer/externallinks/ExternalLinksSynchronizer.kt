@@ -35,13 +35,13 @@ class ExternalLinksSynchronizer(
     private fun refreshCapabilities() {
         val capability = activity.capabilities.getOrNull() ?: return
         if (capability.accountName?.isEmpty() == true) return
-        val storageManager = activity.storageManager ?: return
+        val storageManager = activity.getStorageManager() ?: return
         GetCapabilitiesOperation(storageManager).execute(activity.baseContext)
     }
 
     private fun syncExternalLinks(user: User, force: Boolean) {
         val isExternalLinksEnabled =
-            activity.storageManager != null && CapabilityUtils.getCapability(user, activity).externalLinks.isTrue
+            activity.getStorageManager() != null && CapabilityUtils.getCapability(user, activity).externalLinks.isTrue
         if (!isExternalLinksEnabled) {
             externalLinksProvider.deleteAllExternalLinks()
             Log_OC.d(TAG, "links disabled")
