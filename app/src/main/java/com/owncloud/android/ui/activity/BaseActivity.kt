@@ -19,7 +19,6 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.mixins.MixinRegistry
 import com.nextcloud.client.mixins.SessionMixin
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.client.preferences.DarkMode
 import com.nextcloud.repository.ClientRepository
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -31,8 +30,6 @@ abstract class BaseActivity :
     AppCompatActivity(),
     Injectable {
 
-    private var themeChangePending = false
-    private var paused = false
     protected var enableAccountHandling = true
 
     private val mixinRegistry = MixinRegistry()
@@ -49,10 +46,6 @@ abstract class BaseActivity :
 
     @Inject
     lateinit var clientRepository: ClientRepository
-
-    private val onPreferencesChanged = object : AppPreferences.Listener {
-        override fun onDarkThemeModeChanged(mode: DarkMode?) = onThemeSettingsModeChanged()
-    }
 
     val userAccountManager: UserAccountManager
         get() = accountManager
@@ -79,32 +72,20 @@ abstract class BaseActivity :
         }
     }
 
-    override fun onPostCreate(savedInstanceState: Bundle?) {
-        super.onPostCreate(savedInstanceState)
-        preferences.addListener(onPreferencesChanged)
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         mixinRegistry.onDestroy()
-        preferences.removeListener(onPreferencesChanged)
     }
 
     override fun onPause() {
         super.onPause()
         mixinRegistry.onPause()
-        paused = true
     }
 
     override fun onResume() {
         super.onResume()
         if (enableAccountHandling) {
             mixinRegistry.onResume()
-        }
-        paused = false
-
-        if (themeChangePending) {
-            recreate()
         }
     }
 
@@ -119,15 +100,6 @@ abstract class BaseActivity :
         if (enableAccountHandling) {
             mixinRegistry.onRestart()
         }
-    }
-
-    private fun onThemeSettingsModeChanged() {
-        if (paused) {
-            themeChangePending = true
-            return
-        }
-
-        recreate()
     }
 
     @Deprecated("Use setUser(User) instead")
