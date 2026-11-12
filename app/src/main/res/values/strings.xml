@@ -1487,6 +1487,9 @@
     <string name="teams_create">Create team</string>
     <string name="teams_name_hint">Team name</string>
     <string name="teams_empty">No teams yet</string>
+    <string name="teams_search_hint">Search teams</string>
+    <string name="teams_search_clear">Clear search</string>
+    <string name="teams_search_no_results">No teams found</string>
     <string name="teams_load_failed">Could not load teams</string>
     <string name="teams_create_failed">Could not create team</string>
     <string name="teams_name_length">Use %1$d to %2$d characters</string>
