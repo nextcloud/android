@@ -38,22 +38,18 @@ jobs:
                     sudo rm -rf /usr/share/dotnet /usr/share/swift /usr/local/.ghcup /opt/ghc /usr/local/share/boost /usr/local/share/powershell /usr/local/share/chromium /usr/local/julia* /opt/az /opt/microsoft /opt/google
                     df -h /
 
-            -   name: configure server in background
+            -   name: configure server
                 run: |
-                    {
-                        bash -e -c '
-                            sudo apt-get update && sudo apt-get install unzip cpu-checker qemu-system-x86 --yes
-                            docker cp .github/workflows/configServer.sh server:/tmp/
-                            docker exec server chmod +x /tmp/configServer.sh
-                            docker exec server /tmp/configServer.sh ${{ matrix.server }}
-                            docker cp .github/workflows/configNC.sh server:/tmp/
-                            docker exec server chmod +x /tmp/configNC.sh
-                            docker exec --user www-data server /tmp/configNC.sh ${{ matrix.server }}
-                            docker exec server /usr/local/bin/run.sh
-                            sudo apt-get clean
-                        '
-                        echo $? > "$RUNNER_TEMP/server-setup.exit"
-                    } > "$RUNNER_TEMP/server-setup.log" 2>&1 &
+                    sudo apt-get update && sudo apt-get install unzip cpu-checker qemu-system-x86 --yes
+                    sudo chmod 666 /dev/kvm
+                    docker cp .github/workflows/configServer.sh server:/tmp/
+                    docker exec server chmod +x /tmp/configServer.sh
+                    docker exec server /tmp/configServer.sh ${{ matrix.server }}
+                    docker cp .github/workflows/configNC.sh server:/tmp/
+                    docker exec server chmod +x /tmp/configNC.sh
+                    docker exec --user www-data server /tmp/configNC.sh ${{ matrix.server }}
+                    docker exec server /usr/local/bin/run.sh
+                    sudo apt-get clean
 
             -   name: set up JDK 21
                 uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
@@ -78,20 +74,6 @@ jobs:
                 run: |
                     sed -i s#http://server#http://10.0.2.2# gradle.properties
                     sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g app/src/main/res/values/setup.xml
-
-            -   name: Build APKs
-                run: |
-                    ./gradlew assembleGplayDebug assembleGplayDebugAndroidTest -Pcoverage
-                    ./gradlew --stop
-
-            -   name: wait for server setup
-                run: |
-                    while [ ! -f "$RUNNER_TEMP/server-setup.exit" ]; do
-                        sleep 5
-                    done
-                    cat "$RUNNER_TEMP/server-setup.log"
-                    sudo chmod 666 /dev/kvm
-                    exit "$(cat "$RUNNER_TEMP/server-setup.exit")"
 
             -   name: wait and ping server
                 run: |
