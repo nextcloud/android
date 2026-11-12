@@ -32,24 +32,37 @@ jobs:
         steps:
             -   uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-            -   name: configure server
+            -   name: Free disk space
                 run: |
-                    sudo apt-get update && sudo apt-get install unzip cpu-checker qemu-system-x86 --yes
-                    sudo chmod 666 /dev/kvm
-                    docker cp .github/workflows/configServer.sh server:/tmp/
-                    docker exec server chmod +x /tmp/configServer.sh
-                    docker exec server /tmp/configServer.sh ${{ matrix.server }}
-                    docker cp .github/workflows/configNC.sh server:/tmp/
-                    docker exec server chmod +x /tmp/configNC.sh
-                    docker exec --user www-data server /tmp/configNC.sh ${{ matrix.server }}
-                    docker exec server /usr/local/bin/run.sh
-                    sudo apt-get clean
+                    df -h /
+                    sudo rm -rf /usr/share/dotnet /usr/share/swift /usr/local/.ghcup /opt/ghc /usr/local/share/boost /usr/local/share/powershell /usr/local/share/chromium /usr/local/julia* /opt/az /opt/microsoft /opt/google
+                    df -h /
+
+            -   name: configure server in background
+                run: |
+                    {
+                        bash -e -c '
+                            sudo apt-get update && sudo apt-get install unzip cpu-checker qemu-system-x86 --yes
+                            docker cp .github/workflows/configServer.sh server:/tmp/
+                            docker exec server chmod +x /tmp/configServer.sh
+                            docker exec server /tmp/configServer.sh ${{ matrix.server }}
+                            docker cp .github/workflows/configNC.sh server:/tmp/
+                            docker exec server chmod +x /tmp/configNC.sh
+                            docker exec --user www-data server /tmp/configNC.sh ${{ matrix.server }}
+                            docker exec server /usr/local/bin/run.sh
+                            sudo apt-get clean
+                        '
+                        echo $? > "$RUNNER_TEMP/server-setup.exit"
+                    } > "$RUNNER_TEMP/server-setup.log" 2>&1 &
 
             -   name: set up JDK 21
                 uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
                 with:
                     distribution: "temurin"
                     java-version: 21
+
+            -   name: Setup Gradle
+                uses: gradle/actions/setup-gradle@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
 
             -   name: Configure gradle daemon
                 run: |
@@ -70,6 +83,15 @@ jobs:
                 run: |
                     ./gradlew assembleGplayDebug assembleGplayDebugAndroidTest -Pcoverage
                     ./gradlew --stop
+
+            -   name: wait for server setup
+                run: |
+                    while [ ! -f "$RUNNER_TEMP/server-setup.exit" ]; do
+                        sleep 5
+                    done
+                    cat "$RUNNER_TEMP/server-setup.log"
+                    sudo chmod 666 /dev/kvm
+                    exit "$(cat "$RUNNER_TEMP/server-setup.exit")"
 
             -   name: wait and ping server
                 run: |
@@ -92,7 +114,6 @@ jobs:
                     heap-size: 512M
                     target: google_apis
                     emulator-options: -no-metrics -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -skin 500x833
-                    pre-emulator-launch-script: $ANDROID_HOME/emulator/bin64/mkfs.ext4 -q -F $HOME/.android/avd/test.avd/userdata-qemu.img 2048M
                     script: scripts/runCombinedTest.sh ${{github.event.number}} ${{ secrets.LOG_USERNAME }} ${{ secrets.LOG_PASSWORD }} ${{github.event.number}} ${{ matrix.server }}
 
             -   name: upload failing results

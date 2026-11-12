@@ -32,6 +32,7 @@ import com.owncloud.android.utils.MimeType
 import org.apache.commons.httpclient.HttpStatus
 import org.apache.commons.httpclient.methods.GetMethod
 import org.junit.After
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.BeforeClass
@@ -91,6 +92,8 @@ abstract class AbstractOnServerIT : AbstractIT() {
         private const val REMOVE_ATTEMPTS = 5
         private const val SERVER_READY_RETRIES = 3
         private const val SERVER_READY_RETRY_DELAY_MILLIS = 60_000L
+
+        private var isServerUnreachable = false
 
         private val FOLDER_MIME_TYPES = setOf(MimeType.DIRECTORY, MimeType.WEBDAV_FOLDER)
         private val LOCAL_COPY_BEHAVIOURS = setOf(
@@ -179,6 +182,7 @@ abstract class AbstractOnServerIT : AbstractIT() {
         }
 
         private fun waitForServer(client: OwnCloudClient, baseUrl: Uri) {
+            assertFalse("Server not ready! Already unreachable for a previous test class", isServerUnreachable)
             val statusRequest = GetMethod("$baseUrl/status.php")
 
             repeat(SERVER_READY_RETRIES) {
@@ -187,7 +191,8 @@ abstract class AbstractOnServerIT : AbstractIT() {
                 sleepIgnoringInterrupt(SERVER_READY_RETRY_DELAY_MILLIS)
             }
 
-            assertTrue("Server not ready!", isServerReady(client, statusRequest))
+            isServerUnreachable = !isServerReady(client, statusRequest)
+            assertFalse("Server not ready!", isServerUnreachable)
         }
 
         private fun isServerReady(client: OwnCloudClient, statusRequest: GetMethod): Boolean = try {
