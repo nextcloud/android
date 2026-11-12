@@ -29,13 +29,6 @@ GRADLE_SIGNING_PROPERTIES = {
 import("./common.Fastfile")
 
 platform :android do
-
-    before_all do
-        gradleFile = "../app/build.gradle.kts"
-        content = File.read(gradleFile)
-        File.write(gradleFile, content.sub(/(optimization\s*\{\s*enable\s*=\s*)true/, '\\1false'))
-    end
-
     ## private lanes
     desc "check if library is set correctly"
     private_lane :checkLibrary do |options|
