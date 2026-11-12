@@ -1482,6 +1482,17 @@
     <string name="ecosystem_apps_display_talk" translatable="false">Talk</string>
     <string name="ecosystem_apps_display_more">More</string>
     <string name="navigation_teams">Teams</string>
+    <string name="teams_my_teams">My teams</string>
+    <string name="teams_other_teams">Other teams</string>
+    <string name="teams_create">Create team</string>
+    <string name="teams_name_hint">Team name</string>
+    <string name="teams_empty">No teams yet</string>
+    <string name="teams_load_failed">Could not load teams</string>
+    <string name="teams_create_failed">Could not create team</string>
+    <plurals name="teams_member_count">
+        <item quantity="one">%d member</item>
+        <item quantity="other">%d members</item>
+    </plurals>
     <string name="filedetails_details">Details</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_fnumber">ƒ/%s</string>

@@ -142,6 +142,12 @@ class DrawerNavigator(private val activity: DrawerActivity) {
         activity.startActivity(intent)
     }
 
+    fun startTeamsScreen() {
+        val intent = Intent(activity.applicationContext, ComposeActivity::class.java)
+            .putExtra(ComposeActivity.DESTINATION, ComposeDestination.getTeamsScreen(activity))
+        activity.startActivity(intent)
+    }
+
     fun resetOnlyPersonalAndOnDevice() {
         MainApp.showOnlyFilesOnDevice(false)
         MainApp.showOnlyPersonalFiles(false)
