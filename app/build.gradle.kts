@@ -137,9 +137,6 @@ android {
 
     buildTypes {
         release {
-            optimization {
-                enable = true
-            }
             buildConfigField("String", "NC_TEST_SERVER_DATA_STRING", "\"\"")
             ndk {
                 abiFilters += allAbis
@@ -148,6 +145,9 @@ android {
         debug {
             enableUnitTestCoverage = coverage
             enableAndroidTestCoverage = coverage
+            optimization {
+                enable = true
+            }
             ndk {
                 abiFilters += if (ciBuild) allAbis else localDebugAbis
             }
@@ -178,6 +178,9 @@ android {
             dimension = "default"
             versionCode = 20220322
             versionName = "20220322"
+            optimization {
+                enable = true
+            }
         }
 
         register("qa") {
