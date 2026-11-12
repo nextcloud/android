@@ -32,12 +32,6 @@ jobs:
         steps:
             -   uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-            -   name: Free disk space
-                run: |
-                    df -h /
-                    sudo rm -rf /usr/share/dotnet /usr/share/swift /usr/local/.ghcup /opt/ghc /usr/local/share/boost /usr/local/share/powershell /usr/local/share/chromium /usr/local/julia* /opt/az /opt/microsoft /opt/google
-                    df -h /
-
             -   name: configure server
                 run: |
                     sudo apt-get update && sudo apt-get install unzip cpu-checker qemu-system-x86 --yes
@@ -98,6 +92,7 @@ jobs:
                     heap-size: 512M
                     target: google_apis
                     emulator-options: -no-metrics -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -skin 500x833
+                    pre-emulator-launch-script: $ANDROID_HOME/emulator/bin64/mkfs.ext4 -q -F $HOME/.android/avd/test.avd/userdata-qemu.img 2048M
                     script: scripts/runCombinedTest.sh ${{github.event.number}} ${{ secrets.LOG_USERNAME }} ${{ secrets.LOG_PASSWORD }} ${{github.event.number}} ${{ matrix.server }}
 
             -   name: upload failing results
