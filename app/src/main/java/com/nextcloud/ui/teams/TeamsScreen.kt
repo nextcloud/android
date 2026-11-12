@@ -21,17 +21,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
@@ -47,19 +42,10 @@ import com.owncloud.android.R
 @Composable
 fun TeamsScreen(viewModel: TeamsViewModel) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val messageId by viewModel.messageId.collectAsStateWithLifecycle()
     val createTeamName by viewModel.createTeamName.collectAsStateWithLifecycle()
-    val resources = LocalResources.current
-    val snackbarHostState = remember { SnackbarHostState() }
-
-    LaunchedEffect(messageId) {
-        val id = messageId ?: return@LaunchedEffect
-        snackbarHostState.showSnackbar(resources.getString(id))
-        viewModel.onMessageShown()
-    }
+    val createTeamStatus by viewModel.createTeamStatus.collectAsStateWithLifecycle()
 
     Scaffold(
-        snackbarHost = { SnackbarHost(snackbarHostState) },
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 text = { Text(stringResource(R.string.teams_create)) },
@@ -76,7 +62,7 @@ fun TeamsScreen(viewModel: TeamsViewModel) {
         ) {
             when (val state = uiState) {
                 TeamsUiState.Loading -> CircularProgressIndicator()
-                TeamsUiState.Error -> TeamsError(onRetry = viewModel::retry)
+                is TeamsUiState.Error -> TeamsError(state.messageId, onRetry = viewModel::retry)
                 is TeamsUiState.Content -> TeamsContent(state)
             }
         }
@@ -85,6 +71,7 @@ fun TeamsScreen(viewModel: TeamsViewModel) {
     createTeamName?.let { name ->
         CreateTeamDialog(
             name = name,
+            status = createTeamStatus,
             onNameChange = viewModel::updateCreateTeamName,
             onDismiss = viewModel::dismissCreateTeamDialog,
             onCreate = viewModel::createTeam
@@ -153,13 +140,13 @@ private fun TeamListItem(team: Team) {
 }
 
 @Composable
-private fun TeamsError(onRetry: () -> Unit) {
+private fun TeamsError(@StringRes messageId: Int, onRetry: () -> Unit) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.standard_half_padding))
     ) {
         Text(
-            text = stringResource(R.string.teams_load_failed),
+            text = stringResource(messageId),
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )

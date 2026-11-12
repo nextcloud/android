@@ -6,13 +6,14 @@
  */
 package com.nextcloud.ui.teams.viewmodel
 
-import androidx.annotation.StringRes
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nextcloud.ui.teams.model.CreateTeamStatus
 import com.nextcloud.ui.teams.model.TeamsUiState
+import com.nextcloud.ui.teams.model.createTeamErrorMessageId
+import com.nextcloud.ui.teams.model.loadTeamsErrorMessageId
 import com.nextcloud.ui.teams.repository.TeamsRepository
-import com.owncloud.android.R
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -29,10 +30,10 @@ class TeamsViewModel @AssistedInject constructor(
     private val _uiState = MutableStateFlow<TeamsUiState>(TeamsUiState.Loading)
     val uiState: StateFlow<TeamsUiState> = _uiState.asStateFlow()
 
-    private val _messageId = MutableStateFlow<Int?>(null)
-    val messageId: StateFlow<Int?> = _messageId.asStateFlow()
-
     val createTeamName: StateFlow<String?> = savedStateHandle.getStateFlow(KEY_CREATE_TEAM_NAME, null)
+
+    private val _createTeamStatus = MutableStateFlow<CreateTeamStatus>(CreateTeamStatus.Editing)
+    val createTeamStatus: StateFlow<CreateTeamStatus> = _createTeamStatus.asStateFlow()
 
     init {
         viewModelScope.launch { loadTeams() }
@@ -44,10 +45,12 @@ class TeamsViewModel @AssistedInject constructor(
     }
 
     fun openCreateTeamDialog() {
+        _createTeamStatus.value = CreateTeamStatus.Editing
         savedStateHandle[KEY_CREATE_TEAM_NAME] = ""
     }
 
     fun updateCreateTeamName(name: String) {
+        _createTeamStatus.value = CreateTeamStatus.Editing
         savedStateHandle[KEY_CREATE_TEAM_NAME] = name
     }
 
@@ -57,37 +60,33 @@ class TeamsViewModel @AssistedInject constructor(
 
     fun createTeam() {
         val name = createTeamName.value?.trim()
-        if (name.isNullOrEmpty()) {
+        if (name == null || !isValidTeamName(name)) {
             return
         }
 
-        dismissCreateTeamDialog()
+        _createTeamStatus.value = CreateTeamStatus.Creating
         viewModelScope.launch {
-            if (repository.createTeam(name) == null) {
-                showMessage(R.string.teams_create_failed)
+            val result = repository.createTeam(name)
+            if (!result.isSuccess) {
+                _createTeamStatus.value = CreateTeamStatus.Failed(result.createTeamErrorMessageId())
                 return@launch
             }
-            loadTeams()
-        }
-    }
 
-    fun onMessageShown() {
-        _messageId.value = null
+            loadTeams()
+            dismissCreateTeamDialog()
+            _createTeamStatus.value = CreateTeamStatus.Editing
+        }
     }
 
     private suspend fun loadTeams() {
-        val teams = repository.getTeams()
-        if (teams == null) {
-            _uiState.value = TeamsUiState.Error
+        val result = repository.getTeams()
+        if (!result.isSuccess) {
+            _uiState.value = TeamsUiState.Error(result.loadTeamsErrorMessageId())
             return
         }
 
-        val (myTeams, otherTeams) = teams.partition { it.isMember }
+        val (myTeams, otherTeams) = result.resultData.orEmpty().partition { it.isMember }
         _uiState.value = TeamsUiState.Content(myTeams, otherTeams)
-    }
-
-    private fun showMessage(@StringRes id: Int) {
-        _messageId.value = id
     }
 
     @AssistedFactory
@@ -97,5 +96,10 @@ class TeamsViewModel @AssistedInject constructor(
 
     companion object {
         private const val KEY_CREATE_TEAM_NAME = "create_team_name"
+        const val MIN_TEAM_NAME_BYTES = 3
+        const val MAX_TEAM_NAME_BYTES = 127
+
+        fun isValidTeamName(name: String): Boolean =
+            name.trim().toByteArray().size in MIN_TEAM_NAME_BYTES..MAX_TEAM_NAME_BYTES
     }
 }
