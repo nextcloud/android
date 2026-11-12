@@ -424,7 +424,7 @@ abstract class DrawerActivity :
         if (!data.getBooleanExtra(ManageAccountsActivity.KEY_ACCOUNT_LIST_CHANGED, false)) return
         if (!data.getBooleanExtra(ManageAccountsActivity.KEY_CURRENT_ACCOUNT_CHANGED, false)) return
 
-        setAccount(userAccountManager.currentAccount, false)
+        setAccount(userAccountManager.currentAccount)
         restart()
     }
 

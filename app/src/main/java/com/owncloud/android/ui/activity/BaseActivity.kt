@@ -1,190 +1,149 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-FileCopyrightText: 2024 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.owncloud.android.ui.activity;
+package com.owncloud.android.ui.activity
 
-import android.accounts.Account;
-import android.content.Intent;
-import android.os.Bundle;
+import android.accounts.Account
+import android.content.Intent
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.nextcloud.android.common.ui.util.extensions.applyEdgeToEdgeWithSystemBarPadding
+import com.nextcloud.client.account.User
+import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.mixins.MixinRegistry
+import com.nextcloud.client.mixins.SessionMixin
+import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.client.preferences.DarkMode
+import com.nextcloud.repository.ClientRepository
+import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.status.OCCapability
+import java.util.Optional
+import javax.inject.Inject
 
-import com.nextcloud.android.common.ui.util.extensions.AppCompatActivityExtensionsKt;
-import com.nextcloud.client.account.User;
-import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.mixins.MixinRegistry;
-import com.nextcloud.client.mixins.SessionMixin;
-import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.client.preferences.DarkMode;
-import com.nextcloud.repository.ClientRepository;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.status.OCCapability;
+abstract class BaseActivity :
+    AppCompatActivity(),
+    Injectable {
 
-import java.util.Optional;
+    private var themeChangePending = false
+    private var paused = false
+    protected var enableAccountHandling = true
 
-import javax.inject.Inject;
+    private val mixinRegistry = MixinRegistry()
+    private lateinit var sessionMixin: SessionMixin
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+    @Inject
+    lateinit var accountManager: UserAccountManager
 
-/**
- * Base activity with common behaviour for activities dealing with ownCloud {@link Account}s .
- */
-public abstract class BaseActivity extends AppCompatActivity implements Injectable {
+    @Inject
+    lateinit var preferences: AppPreferences
 
-    private static final String TAG = BaseActivity.class.getSimpleName();
+    @Inject
+    lateinit var fileDataStorageManager: FileDataStorageManager
 
-    /**
-     * Tracks whether the activity should be recreate()'d after a theme change
-     */
-    private boolean themeChangePending;
-    private boolean paused;
-    protected boolean enableAccountHandling = true;
+    @Inject
+    lateinit var clientRepository: ClientRepository
 
-    private final MixinRegistry mixinRegistry = new MixinRegistry();
-    private SessionMixin sessionMixin;
-
-    @Inject protected UserAccountManager accountManager;
-    @Inject protected AppPreferences preferences;
-    @Inject protected FileDataStorageManager fileDataStorageManager;
-    @Inject protected ClientRepository clientRepository;
-
-    private final AppPreferences.Listener onPreferencesChanged = new AppPreferences.Listener() {
-        @Override
-        public void onDarkThemeModeChanged(DarkMode mode) {
-            onThemeSettingsModeChanged();
-        }
-    };
-
-    public UserAccountManager getUserAccountManager() {
-        return accountManager;
+    private val onPreferencesChanged = object : AppPreferences.Listener {
+        override fun onDarkThemeModeChanged(mode: DarkMode?) = onThemeSettingsModeChanged()
     }
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        AppCompatActivityExtensionsKt.applyEdgeToEdgeWithSystemBarPadding(this);
-        super.onCreate(savedInstanceState);
-        sessionMixin = new SessionMixin(this, accountManager);
-        mixinRegistry.add(sessionMixin);
+    val userAccountManager: UserAccountManager
+        get() = accountManager
+
+    val capabilities: Optional<OCCapability>
+        get() = sessionMixin.getCapabilities()
+
+    val account: Account
+        get() = sessionMixin.currentAccount
+
+    val user: Optional<User>
+        get() = sessionMixin.getUser()
+
+    open fun getStorageManager(): FileDataStorageManager = fileDataStorageManager
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        applyEdgeToEdgeWithSystemBarPadding()
+        super.onCreate(savedInstanceState)
+        sessionMixin = SessionMixin(this, accountManager)
+        mixinRegistry.add(sessionMixin)
 
         if (enableAccountHandling) {
-            mixinRegistry.onCreate(savedInstanceState);
+            mixinRegistry.onCreate(savedInstanceState)
         }
     }
 
-    @Override
-    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        preferences.addListener(onPreferencesChanged);
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        preferences.addListener(onPreferencesChanged)
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mixinRegistry.onDestroy();
-        preferences.removeListener(onPreferencesChanged);
+    override fun onDestroy() {
+        super.onDestroy()
+        mixinRegistry.onDestroy()
+        preferences.removeListener(onPreferencesChanged)
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mixinRegistry.onPause();
-        paused = true;
+    override fun onPause() {
+        super.onPause()
+        mixinRegistry.onPause()
+        paused = true
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    override fun onResume() {
+        super.onResume()
         if (enableAccountHandling) {
-            mixinRegistry.onResume();
+            mixinRegistry.onResume()
         }
-        paused = false;
+        paused = false
 
         if (themeChangePending) {
-            recreate();
+            recreate()
         }
     }
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        mixinRegistry.onNewIntent(intent);
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        mixinRegistry.onNewIntent(intent)
     }
 
-    @Override
-    protected void onRestart() {
-        Log_OC.v(TAG, "onRestart() start");
-        super.onRestart();
+    override fun onRestart() {
+        Log_OC.v(TAG, "onRestart() start")
+        super.onRestart()
         if (enableAccountHandling) {
-            mixinRegistry.onRestart();
+            mixinRegistry.onRestart()
         }
     }
 
-    private void onThemeSettingsModeChanged() {
+    private fun onThemeSettingsModeChanged() {
         if (paused) {
-            themeChangePending = true;
-        } else {
-            recreate();
+            themeChangePending = true
+            return
         }
+
+        recreate()
     }
 
-    /**
-     * Sets and validates the ownCloud {@link Account} associated to the Activity.
-     *
-     * If not valid, tries to swap it for other valid and existing ownCloud {@link Account}.
-     *
-     * @param account      New {@link Account} to set.
-     * @param savedAccount When 'true', account was retrieved from a saved instance state.
-     */
-    @Deprecated
-    protected void setAccount(Account account, boolean savedAccount) {
-        sessionMixin.setAccount(account);
+    @Deprecated("Use setUser(User) instead")
+    protected open fun setAccount(account: Account) {
+        sessionMixin.setAccount(account)
     }
 
-    public void setUser(User user) {
-        sessionMixin.setUser(user);
+    fun setUser(user: User) {
+        sessionMixin.setUser(user)
     }
 
-    protected void startAccountCreation() {
-        sessionMixin.startAccountCreation();
+    protected open fun startAccountCreation() {
+        sessionMixin.startAccountCreation()
     }
 
-    /**
-     * Getter for the capabilities of the server where the current OC account lives.
-     *
-     * @return Capabilities of the server where the current OC account lives. Null if the account is not
-     * set yet.
-     */
-    public Optional<OCCapability> getCapabilities() {
-        return sessionMixin.getCapabilities();
+    companion object {
+        private val TAG = BaseActivity::class.java.simpleName
     }
-
-    /**
-     * Getter for the ownCloud {@link Account} where the main {@link OCFile} handled by the activity
-     * is located.
-     *
-     * @return OwnCloud {@link Account} where the main {@link OCFile} handled by the activity
-     * is located.
-     */
-    public Account getAccount() {
-        return sessionMixin.getCurrentAccount();
-    }
-
-    public Optional<User> getUser() {
-        return sessionMixin.getUser();
-    }
-
-    public FileDataStorageManager getStorageManager() {
-        return fileDataStorageManager;
-    }
-
-    public ClientRepository getClientRepository() {
-        return clientRepository;
-    }
-
 }

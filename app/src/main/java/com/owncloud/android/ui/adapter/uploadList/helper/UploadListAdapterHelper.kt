@@ -56,7 +56,7 @@ class UploadListAdapterHelper(private val activity: DrawerActivity) {
     }
 
     fun onUploadedItemClick(upload: OCUpload) {
-        val file = activity.storageManager.getFileByEncryptedRemotePath(upload.remotePath)
+        val file = activity.getStorageManager().getFileByEncryptedRemotePath(upload.remotePath)
         if (file == null) {
             SnackbarUtil.show(activity, R.string.error_retrieving_file)
             Log_OC.i(TAG, "Could not find uploaded file on remote.")

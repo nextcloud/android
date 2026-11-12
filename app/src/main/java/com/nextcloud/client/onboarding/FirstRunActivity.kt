@@ -20,10 +20,8 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.viewpager2.widget.ViewPager2
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
-import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.appinfo.AppInfo
 import com.nextcloud.client.di.Injectable
-import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.mdm.MDMConfig
@@ -45,14 +43,6 @@ import javax.inject.Inject
 class FirstRunActivity :
     BaseActivity(),
     Injectable {
-
-    @JvmField
-    @Inject
-    var userAccountManager: UserAccountManager? = null
-
-    @JvmField
-    @Inject
-    var preferences: AppPreferences? = null
 
     @JvmField
     @Inject
@@ -103,13 +93,13 @@ class FirstRunActivity :
                 if (RESULT_OK == result.resultCode) {
                     val data = result.data
                     val accountName = data?.getStringExtra(AccountManager.KEY_ACCOUNT_NAME)
-                    val account = userAccountManager?.getAccountByName(accountName)
+                    val account = userAccountManager.getAccountByName(accountName)
                     if (account == null) {
                         SnackbarUtil.show(this, R.string.account_creation_failed)
                         return@registerForActivityResult
                     }
 
-                    userAccountManager?.setCurrentOwnCloudAccount(account.name)
+                    userAccountManager.setCurrentOwnCloudAccount(account.name)
 
                     val i = Intent(this, FileDisplayActivity::class.java)
                     i.action = FileDisplayActivity.RESTART
@@ -169,7 +159,7 @@ class FirstRunActivity :
     // Sometimes, accounts are not deleted when you uninstall the application so we'll do it now
     private fun deleteAccountAtFirstLaunch() {
         if (onboarding?.isFirstRun == true) {
-            userAccountManager?.removeAllAccounts()
+            userAccountManager.removeAllAccounts()
         }
     }
 
@@ -235,7 +225,7 @@ class FirstRunActivity :
     }
 
     private fun onFinish() {
-        preferences?.lastSeenVersionCode = BuildConfig.VERSION_CODE
+        preferences.lastSeenVersionCode = BuildConfig.VERSION_CODE
     }
 
     override fun onStop() {
