@@ -8,6 +8,8 @@ package com.nextcloud.client.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.createSavedStateHandle
+import androidx.lifecycle.viewmodel.CreationExtras
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -21,8 +23,16 @@ import javax.inject.Provider
  * @see ViewModelKey
  */
 class ViewModelFactory @Inject constructor(
-    private val viewModelProviders: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>
+    private val viewModelProviders: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>,
+    private val savedStateViewModelCreators: Map<Class<out ViewModel>, @JvmSuppressWildcards SavedStateViewModelCreator>
 ) : ViewModelProvider.Factory {
+
+    override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
+        val creator = savedStateViewModelCreators[modelClass] ?: return create(modelClass)
+
+        @Suppress("UNCHECKED_CAST")
+        return creator.create(extras.createSavedStateHandle()) as T
+    }
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         var vmProvider: Provider<ViewModel>? = viewModelProviders[modelClass]

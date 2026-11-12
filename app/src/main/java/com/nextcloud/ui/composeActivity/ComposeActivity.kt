@@ -9,17 +9,18 @@ package com.nextcloud.ui.composeActivity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.ViewModelProvider
 import com.nextcloud.client.assistant.AssistantScreen
 import com.nextcloud.client.assistant.AssistantViewModel
 import com.nextcloud.client.assistant.chat.ChatViewModel
@@ -28,17 +29,29 @@ import com.nextcloud.client.assistant.conversation.repository.ConversationRemote
 import com.nextcloud.client.assistant.repository.local.AssistantLocalRepositoryImpl
 import com.nextcloud.client.assistant.repository.remote.AssistantRemoteRepositoryImpl
 import com.nextcloud.client.database.NextcloudDatabase
+import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.ui.ClientIntegrationScreen
+import com.nextcloud.ui.teams.TeamsScreen
+import com.nextcloud.ui.teams.viewmodel.TeamsViewModel
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityComposeBinding
 import com.owncloud.android.ui.activity.drawer.DrawerActivity
+import javax.inject.Inject
 
 class ComposeActivity : DrawerActivity() {
 
+    @Inject
+    lateinit var vmFactory: ViewModelFactory
+
     lateinit var binding: ActivityComposeBinding
     private val composeViewModel: ComposeViewModel by viewModels()
+
+    private val destination: ComposeDestination by lazy {
+        intent.getParcelableArgument(DESTINATION, ComposeDestination::class.java)
+            ?: ComposeDestination.getAssistantScreen(this)
+    }
 
     companion object {
         const val DESTINATION = "DESTINATION"
@@ -49,17 +62,13 @@ class ComposeActivity : DrawerActivity() {
         binding = ActivityComposeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val destination =
-            intent.getParcelableArgument(DESTINATION, ComposeDestination::class.java)
-                ?: ComposeDestination.getAssistantScreen(this)
-
         setupActivityUIFor(destination)
 
         binding.composeView.setContent {
             MaterialTheme(
                 colorScheme = viewThemeUtils.getColorScheme(this),
                 content = {
-                    Content(destination)
+                    Content()
                 }
             )
         }
@@ -82,7 +91,7 @@ class ComposeActivity : DrawerActivity() {
     }
 
     override val menuItemId: Int
-        get() = R.id.nav_assistant
+        get() = if (destination is ComposeDestination.TeamsScreen) Menu.NONE else R.id.nav_assistant
 
     override fun onResume() {
         super.onResume()
@@ -90,16 +99,22 @@ class ComposeActivity : DrawerActivity() {
     }
 
     private fun setupActivityUIFor(destination: ComposeDestination) {
-        if (destination is ComposeDestination.AssistantScreen) {
-            setupDrawer(menuItemId)
-            showMenuAndTitleActionBar(destination.title) {
-                openDrawer()
+        when (destination) {
+            is ComposeDestination.AssistantScreen -> setupDrawerScreen(destination.title)
+            is ComposeDestination.TeamsScreen -> setupDrawerScreen(destination.title)
+            is ComposeDestination.ClientIntegrationScreen -> {
+                setSupportActionBar(null)
+                findViewById<View?>(R.id.appbar)?.let {
+                    it.visibility = View.GONE
+                }
             }
-        } else {
-            setSupportActionBar(null)
-            findViewById<View?>(R.id.appbar)?.let {
-                it.visibility = View.GONE
-            }
+        }
+    }
+
+    private fun setupDrawerScreen(title: String) {
+        setupDrawer(menuItemId)
+        showMenuAndTitleActionBar(title) {
+            openDrawer()
         }
     }
 
@@ -113,23 +128,20 @@ class ComposeActivity : DrawerActivity() {
     }
 
     @Composable
-    private fun Content(destination: ComposeDestination) {
-        val currentScreen by ComposeNavigation.currentScreen.collectAsState()
+    private fun Content() {
         var nextcloudClient by remember { mutableStateOf<NextcloudClient?>(null) }
 
         LaunchedEffect(Unit) {
-            ComposeNavigation.navigate(destination)
             nextcloudClient = clientRepository.getNextcloudClient()
         }
 
-        binding.bottomNavigation.menu.findItem(R.id.nav_assistant).run {
-            isChecked = true
-        }
-
-        when (currentScreen) {
+        when (val screen = destination) {
             is ComposeDestination.AssistantScreen -> {
+                binding.bottomNavigation.menu.findItem(R.id.nav_assistant).run {
+                    isChecked = true
+                }
+
                 val dao = NextcloudDatabase.instance().assistantDao()
-                val sessionId = (currentScreen as? ComposeDestination.AssistantScreen)?.sessionId
                 val client = nextcloudClient ?: return
                 val optionalCapability = capabilities
                 if (optionalCapability.isEmpty) {
@@ -144,7 +156,7 @@ class ComposeActivity : DrawerActivity() {
                         accountName = userAccountManager.user.accountName,
                         remoteRepository = remoteRepository,
                         localRepository = AssistantLocalRepositoryImpl(dao),
-                        sessionIdArg = sessionId
+                        sessionIdArg = screen.sessionId
                     ),
                     chatViewModel = ChatViewModel(remoteRepository),
                     conversationViewModel = ConversationViewModel(
@@ -157,11 +169,15 @@ class ComposeActivity : DrawerActivity() {
 
             is ComposeDestination.ClientIntegrationScreen -> {
                 binding.bottomNavigation.visibility = View.GONE
-                val integrationScreen = (currentScreen as ComposeDestination.ClientIntegrationScreen)
-                ClientIntegrationScreen(integrationScreen.data, nextcloudClient?.baseUri.toString())
+                ClientIntegrationScreen(screen.data, nextcloudClient?.baseUri.toString())
             }
 
-            else -> Unit
+            is ComposeDestination.TeamsScreen -> {
+                val viewModel = remember {
+                    ViewModelProvider(this, vmFactory)[TeamsViewModel::class.java]
+                }
+                TeamsScreen(viewModel)
+            }
         }
     }
 }

@@ -44,6 +44,8 @@ import com.nextcloud.client.notifications.AppNotificationManagerImpl
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.repository.ClientRepository
 import com.nextcloud.repository.RemoteClientRepository
+import com.nextcloud.ui.teams.repository.TeamsRemoteRepository
+import com.nextcloud.ui.teams.repository.TeamsRepository
 import com.nextcloud.utils.e2ee.E2EEActionResolver
 import com.nextcloud.utils.e2ee.E2EEKeyInspector
 import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator
@@ -118,6 +120,9 @@ internal class AppModule {
 
     @Provides
     fun clientRepository(repository: RemoteClientRepository): ClientRepository = repository
+
+    @Provides
+    fun teamsRepository(repository: TeamsRemoteRepository): TeamsRepository = repository
 
     @Provides
     fun fileUploadHelper(): FileUploadHelper = FileUploadHelper.instance()
