@@ -22,6 +22,7 @@ import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.upload.UploadDelayPolicy
+import com.nextcloud.client.jobs.upload.AutoUploadProgressForwarder
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
@@ -334,12 +335,15 @@ class AutoUploadWorker(
                         Log_OC.d(TAG, "🕒 uploading: $localPath, id: $generatedId")
 
                         FileUploadWorker.registerActiveUpload(operation)
+                        val progress = AutoUploadProgressForwarder(operation)
+                        operation.addDataTransferProgressListener(progress)
                         val result = try {
+                            fileUploadEventBroadcaster.sendUploadStarted(operation, context)
                             operation.execute(client)
                         } finally {
+                            operation.removeDataTransferProgressListener(progress)
                             FileUploadWorker.unregisterActiveUpload(operation.ocUploadId)
                         }
-                        fileUploadEventBroadcaster.sendUploadStarted(operation, context)
 
                         UploadErrorNotificationManager.handleResult(
                             context,

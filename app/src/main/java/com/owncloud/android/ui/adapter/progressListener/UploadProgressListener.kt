@@ -11,6 +11,13 @@ import com.owncloud.android.db.OCUpload
 
 class UploadProgressListener(val upload: OCUpload?, progressBar: ProgressBar?) : ProgressListener(progressBar) {
 
+    override fun onTransferProgress(rate: Long, transferred: Long, total: Long, filename: String?) {
+        progressBarRef.get()?.post {
+            progressBarRef.get()?.isIndeterminate = false
+            super.onTransferProgress(rate, transferred, total, filename)
+        }
+    }
+
     fun isWrapping(progressBar: ProgressBar?): Boolean {
         val wrappedProgressBar = progressBarRef.get()
         return wrappedProgressBar != null && wrappedProgressBar === progressBar

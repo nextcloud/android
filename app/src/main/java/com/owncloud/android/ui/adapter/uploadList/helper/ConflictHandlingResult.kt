@@ -14,5 +14,9 @@ sealed class ConflictHandlingResult {
     data object CannotCheckConflict : ConflictHandlingResult()
     data object ConflictNotExistsSameFile : ConflictHandlingResult()
     data object ConflictNotExistsRemoteFileNotFound : ConflictHandlingResult()
-    data class ShowConflictResolveDialog(val file: OCFile, val upload: OCUpload) : ConflictHandlingResult()
+    data class ShowConflictResolveDialog(
+        val file: OCFile,
+        val upload: OCUpload,
+        val encryptedRemoteVersion: String? = null
+    ) : ConflictHandlingResult()
 }

@@ -17,6 +17,8 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.operations.upload.EncryptedUploadConflictChecker
+import com.owncloud.android.operations.upload.UploadFileLink
 import com.owncloud.android.ui.activity.ConflictsResolveActivity
 import com.owncloud.android.ui.activity.drawer.DrawerActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
@@ -33,18 +35,42 @@ class UploadListAdapterHelper(private val activity: DrawerActivity) {
         private const val ANY_MIME_TYPE = "*/*"
     }
 
-    fun openConflictActivity(file: OCFile, upload: OCUpload) {
-        file.setStoragePath(upload.localPath)
+    fun openConflictActivity(file: OCFile, upload: OCUpload, encryptedRemoteVersion: String? = null) {
         val user = activity.userAccountManager.getUser(upload.accountName)
         user.ifPresent {
+            val local = if (file.isEncrypted) {
+                FileDataStorageManager(it, activity.contentResolver).getFileByEncryptedRemotePath(file.remotePath)
+                    ?: OCFile(file.remotePath).apply {
+                        isEncrypted = true
+                        decryptedRemotePath = file.decryptedRemotePath
+                        mimeType = file.mimeType
+                        parentId = file.parentId
+                    }
+            } else {
+                file
+            }
+            local.storagePath = upload.localPath
             val intent = ConflictsResolveActivity.createIntent(
-                file,
+                local,
                 it,
                 upload.uploadId,
                 Intent.FLAG_ACTIVITY_NEW_TASK,
                 activity
             )
-            activity.startActivity(intent)
+            if (file.isEncrypted) intent.putExtra(ConflictsResolveActivity.EXTRA_EXISTING_FILE, file)
+            intent.putExtra(ConflictsResolveActivity.EXTRA_ENCRYPTED_REMOTE_VERSION, encryptedRemoteVersion)
+            try {
+                activity.startActivity(intent)
+            } catch (e: Exception) {
+                EncryptedUploadConflictChecker.releasePreview(activity, file)
+                throw e
+            }
+        }
+        if (user.isEmpty) {
+            EncryptedUploadConflictChecker.releasePreview(
+                activity,
+                file
+            )
         }
     }
 
@@ -60,7 +86,7 @@ class UploadListAdapterHelper(private val activity: DrawerActivity) {
     fun onUploadedItemClick(upload: OCUpload) {
         val user = activity.userAccountManager.getUser(upload.accountName).orElse(null) ?: return
         val storage = FileDataStorageManager(user, activity.contentResolver)
-        val file = storage.getFileByEncryptedRemotePath(upload.remotePath)
+        val file = UploadFileLink.findUploadedFile(storage, upload.remotePath)
         if (file == null) {
             SnackbarUtil.show(activity, R.string.error_retrieving_file)
             Log_OC.i(TAG, "Could not find uploaded file on remote.")

@@ -15,6 +15,10 @@ class ThumbnailGenerator @Inject constructor(
     val fileThumbnailGenerator: FileThumbnailGenerator,
     val folderThumbnailGenerator: FolderThumbnailGenerator
 ) {
+    fun setUploadThumbnail(file: OCFile, view: ImageView) {
+        fileThumbnailGenerator.setThumbnail(file, view, ThumbnailArguments.none)
+    }
+
     fun setThumbnail(ocFile: OCFile?, view: ImageView?, arguments: ThumbnailArguments = ThumbnailArguments.none) {
         if (ocFile == null || view == null) {
             return

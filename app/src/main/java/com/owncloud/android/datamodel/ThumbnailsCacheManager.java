@@ -31,6 +31,7 @@ import com.nextcloud.utils.AppConstants;
 import com.nextcloud.utils.BitmapExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.thumbnail.VideoOverlayGenerator;
+import com.nextcloud.utils.thumbnail.UploadThumbnailSource;
 import com.nextcloud.utils.view.ScreenMetrics;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -54,7 +55,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -474,24 +474,14 @@ public final class ThumbnailsCacheManager {
             int pxH;
             pxW = pxH = getThumbnailDimension();
 
-            // Generate thumbnail from local file if available
-            if (file instanceof OCFile ocFile && ocFile.isDown()) {
-                Log_OC.d(TAG, "Generating thumbnail from local file: " + ocFile.getFileName());
-
-                Bitmap bitmap;
-                if (MimeTypeUtil.isVideo(ocFile)) {
-                    bitmap = ThumbnailUtils.createVideoThumbnail(ocFile.getStoragePath(),
-                                                                 MediaStore.Images.Thumbnails.MINI_KIND);
-                } else {
-                    bitmap = BitmapUtils.decodeSampledBitmapFromFile(ocFile.getStoragePath(), pxW, pxH);
+            // Upload sources are thumbnail inputs, not downloaded file associations.
+            if (file instanceof OCFile ocFile) {
+                File local = localThumbnailSource(ocFile);
+                if (local != null) {
+                    thumbnail = localThumbnail(local, pxW, pxH);
                 }
-
-                if (bitmap != null) {
-                    if (PNG_MIMETYPE.equalsIgnoreCase(ocFile.getMimeType())) {
-                        bitmap = BitmapUtils.centerCropOnPngBackground(bitmap, pxW, pxH);
-                    }
-
-                    thumbnail = addThumbnailToCache(imageKey, bitmap, ocFile.getStoragePath(), pxW, pxH);
+                if (thumbnail != null) {
+                    addBitmapToCache(imageKey, thumbnail);
                     ocFile.setUpdateThumbnailNeeded(false);
                     mStorageManager.saveFile(ocFile);
                 }
@@ -514,7 +504,8 @@ public final class ThumbnailsCacheManager {
                 }
             }
 
-            boolean serverHasPreview = !(file instanceof OCFile) || ((OCFile) file).isPreviewAvailable();
+            boolean serverHasPreview = !(file instanceof OCFile ocFile) ||
+                (!ocFile.isEncrypted() && ocFile.isPreviewAvailable());
 
             if (thumbnail == null && !serverHasPreview) {
                 Log_OC.d(TAG, "Server reports no preview for file: " + file.getFileName());
@@ -599,24 +590,33 @@ public final class ThumbnailsCacheManager {
 
         private Bitmap doFileInBackground() {
             File file = (File)mFile;
+            mImageKey = UploadThumbnailSource.cacheKey(file);
+            int dimension = getThumbnailDimension();
+            return localThumbnail(file, dimension, dimension);
+        }
 
-            final String imageKey = Objects.requireNonNullElseGet(mImageKey, () -> String.valueOf(file.hashCode()));
+        private File localThumbnailSource(OCFile file) {
+            if (file.isDown()) {
+                return new File(file.getStoragePath());
+            }
+            if (user == null) {
+                return null;
+            }
+            return UploadThumbnailSource.forEncryptedFile(file, user.getAccountName(), mStorageManager.db.uploadDao(),
+                mStorageManager.db.fileSystemDao());
+        }
 
-            // local file should always generate a thumbnail
-            mImageKey = FileExtensionsKt.getSmallThumbnailKey(file);
-
-            // Check disk cache in background thread
+        private Bitmap localThumbnail(File file, int pxW, int pxH) {
+            String imageKey = UploadThumbnailSource.cacheKey(file);
             Bitmap thumbnail = getBitmapFromDiskCache(imageKey);
-
-            // Not found in disk cache
             if (thumbnail == null) {
-                int pxW;
-                int pxH;
-                pxW = pxH = getThumbnailDimension();
-
-                Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.getAbsolutePath(), pxW, pxH);
-
+                Bitmap bitmap = MimeTypeUtil.isVideo(file)
+                    ? ThumbnailUtils.createVideoThumbnail(file.getAbsolutePath(), MediaStore.Images.Thumbnails.MINI_KIND)
+                    : BitmapUtils.decodeSampledBitmapFromFile(file.getAbsolutePath(), pxW, pxH);
                 if (bitmap != null) {
+                    if (PNG_MIMETYPE.equalsIgnoreCase(FileStorageUtils.getMimeTypeFromName(file.getName()))) {
+                        bitmap = BitmapUtils.centerCropOnPngBackground(bitmap, pxW, pxH);
+                    }
                     thumbnail = addThumbnailToCache(imageKey, bitmap, file.getPath(), pxW, pxH);
                 }
             }

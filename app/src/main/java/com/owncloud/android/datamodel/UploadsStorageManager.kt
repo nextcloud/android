@@ -402,7 +402,8 @@ class UploadsStorageManager(
             createdBy = c.int(ProviderTableMeta.UPLOADS_CREATED_BY)
             isUseWifiOnly = c.int(ProviderTableMeta.UPLOADS_IS_WIFI_ONLY) == 1
             isWhileChargingOnly = c.int(ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY) == 1
-            folderUnlockToken = c.str(ProviderTableMeta.UPLOADS_FOLDER_UNLOCK_TOKEN)
+            folderUnlockToken =
+                c.getString(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_FOLDER_UNLOCK_TOKEN)).orEmpty()
         }
     }
 

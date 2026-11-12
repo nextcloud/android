@@ -202,6 +202,27 @@ class UploadFileResolverTest {
     }
 
     @Test
+    fun clearingUnlockTokenPreservesLatestSizePathAndCompletionResult() {
+        val upload = OCUpload(java.io.File.separator + "photo.jpg", "/private/cipher", "account-A").apply {
+            fileSize = 1024
+            uploadStatus = UploadsStorageManager.UploadStatus.UPLOAD_SUCCEEDED
+            lastResult = com.owncloud.android.db.UploadResult.UPLOADED
+            folderUnlockToken = "old-token"
+        }
+        whenever(uploadsStorageManager.getUploadById(UPLOAD_ID)).thenReturn(upload)
+
+        resolver.updateUnlockToken(null)
+
+        verify(uploadsStorageManager).updateUpload(
+            argThat {
+                fileSize == 1024L && remotePath == "/private/cipher" &&
+                    uploadStatus == UploadsStorageManager.UploadStatus.UPLOAD_SUCCEEDED &&
+                    lastResult == com.owncloud.android.db.UploadResult.UPLOADED && folderUnlockToken == null
+            }
+        )
+    }
+
+    @Test
     fun createNewOCFileCopiesPropertiesToNewRemotePath() {
         val original = OCFile("/photo.jpg").apply {
             creationTimestamp = 1
@@ -304,6 +325,26 @@ class UploadFileResolverTest {
         assertTrue(file.isPreviewAvailable)
         assertEquals(imageDimension, file.imageDimension)
         assertEquals(geoLocation, file.geoLocation)
+    }
+
+    @Test
+    fun ciphertextPropertiesDoNotReplaceEncryptedFilesPlaintextMimeType() {
+        val file = OCFile("/private/cipher").apply {
+            isEncrypted = true
+            decryptedRemotePath = "/private/photo.jpg"
+            mimeType = "image/jpeg"
+        }
+        val remote = RemoteFile(file.remotePath).apply {
+            mimeType = "application/octet-stream"
+            etag = "version-B"
+        }
+
+        resolver.updateOCFile(file, remote)
+
+        assertTrue(file.isEncrypted)
+        assertEquals("image/jpeg", file.mimeType)
+        assertEquals("/private/photo.jpg", file.decryptedRemotePath)
+        assertEquals("version-B", file.etag)
     }
 
     private companion object {

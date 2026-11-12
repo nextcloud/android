@@ -19,6 +19,7 @@ import com.owncloud.android.db.OCUpload
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation
 import com.owncloud.android.operations.factory.UploadFileOperationFactory
+import com.owncloud.android.operations.upload.EncryptedUploadConflictChecker
 import com.owncloud.android.ui.adapter.uploadList.UploadListAdapter
 import com.owncloud.android.ui.adapter.uploadList.helper.ConflictHandlingResult
 import com.owncloud.android.ui.adapter.uploadList.helper.UploadListAdapterHelper
@@ -46,9 +47,10 @@ class UploadListConflictHandler(
         ).apply { show() }
 
         fragment.lifecycleScope.launch {
-            val result = FileUploadHelper.instance().checkConflict(upload)
-
-            withContext(Dispatchers.Main) {
+            val result = FileUploadHelper.instance().checkConflict(upload, requirePreview = true)
+            var handedOff = false
+            try {
+                if (!fragment.isAdded || fragment.view !== rootView) return@launch
                 when (result) {
                     is ConflictHandlingResult.ConflictNotExistsRemoteFileNotFound -> {
                         showConflictSnackbar(R.string.upload_sync_conflict_not_exists)
@@ -61,12 +63,18 @@ class UploadListConflictHandler(
 
                     is ConflictHandlingResult.ShowConflictResolveDialog -> {
                         conflictSnackbar?.dismiss()
-                        adapterHelper.openConflictActivity(result.file, result.upload)
+                        adapterHelper.openConflictActivity(result.file, result.upload, result.encryptedRemoteVersion)
+                        handedOff = true
                     }
 
                     is ConflictHandlingResult.ConflictNotExistsSameFile -> {
                         showConflictSnackbar(R.string.upload_sync_conflict_same_file)
+                        uploadListAdapter.loadUploadItemsFromDb()
                     }
+                }
+            } finally {
+                if (!handedOff && result is ConflictHandlingResult.ShowConflictResolveDialog) {
+                    EncryptedUploadConflictChecker.releasePreview(activity, result.file)
                 }
             }
         }

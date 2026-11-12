@@ -17,6 +17,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
+import com.owncloud.android.operations.upload.UploadFileLink
 import com.owncloud.android.utils.FileStorageUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -57,7 +58,7 @@ class UploadListAdapterActionHandler : UploadListAdapterAction {
         val ocFile = existingFile ?: FileStorageUtils.fillOCFile(remoteFile)
 
         if (!ocFile.isEncrypted && remoteFile.isSame(upload.localPath)) {
-            updateStatus(upload, storageManager, success = true)
+            UploadFileLink.completeIdentical(upload, FileStorageUtils.fillOCFile(remoteFile), storageManager)
             ConflictHandlingResult.ConflictNotExistsSameFile
         } else {
             ConflictHandlingResult.ShowConflictResolveDialog(ocFile, upload)

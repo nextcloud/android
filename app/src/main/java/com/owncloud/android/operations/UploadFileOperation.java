@@ -64,6 +64,7 @@ import com.owncloud.android.operations.e2e.E2EClientData;
 import com.owncloud.android.operations.e2e.E2EData;
 import com.owncloud.android.operations.e2e.E2EFiles;
 import com.owncloud.android.operations.upload.RemoteFileExistence;
+import com.owncloud.android.operations.upload.EncryptedUploadConflictChecker;
 import com.owncloud.android.operations.upload.UploadFileException;
 import com.owncloud.android.operations.upload.UploadFileOperationExtensionsKt;
 import com.owncloud.android.operations.upload.UploadFileResolver;
@@ -648,6 +649,20 @@ public class UploadFileOperation extends SyncOperation {
                 throw new UploadFolderException(new RemoteOperationResult<>(ResultCode.SYNC_CONFLICT));
             }
 
+            if (mNameCollisionPolicy == NameCollisionPolicy.ASK_USER) {
+                final var comparison = new EncryptedUploadConflictChecker(mContext, user)
+                    .compare(client, parentFile, object, e2eFiles.getOriginalFile(), mFile.getDecryptedFileName(),
+                        mCancellationRequested::get);
+                if (comparison != null && comparison.getSameContent()) {
+                    mWasSkipped = true;
+                    mFile.setRemotePath(comparison.getRemoteFile().getRemotePath());
+                    mFile.setDecryptedRemotePath(comparison.getRemoteFile().getDecryptedRemotePath());
+                    uploadFileResolver.updateSize(e2eFiles.getOriginalFile().length());
+                    Log_OC.d(TAG, "Encrypted content is unchanged; skipping duplicate upload");
+                    throw new UploadFolderException(new RemoteOperationResult<>(ResultCode.OK));
+                }
+            }
+
             final var collisionResult = checkNameCollision(parentFile, client, fileNames, parentFile.isEncrypted());
             if (collisionResult != null) {
                 throw new UploadFolderException(collisionResult);
@@ -733,7 +748,7 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         mUpload.setFolderUnlockToken(token);
-        uploadsStorageManager.updateUpload(mUpload);
+        uploadFileResolver.updateUnlockToken(token);
 
         Log_OC.d(TAG, "Folder locked successfully, token saved");
         return token;
@@ -1075,7 +1090,7 @@ public class UploadFileOperation extends SyncOperation {
             Log_OC.d(TAG, "Folder successfully unlocked: " + e2eFiles.getParentFile().getFileName());
             mFolderUnlockToken = null;
             mUpload.setFolderUnlockToken(null);
-            uploadsStorageManager.updateUpload(mUpload);
+            uploadFileResolver.updateUnlockToken(null);
 
             if (duplicatedEncryptedFile != null && !isAutoUpload()) {
                 FileUploadHelper.Companion.instance().removeDuplicatedFile(duplicatedEncryptedFile, client, user, () -> {

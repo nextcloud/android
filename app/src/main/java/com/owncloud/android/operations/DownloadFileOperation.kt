@@ -14,7 +14,6 @@ import com.nextcloud.client.account.User
 import com.nextcloud.utils.extensions.showToast
 import com.nextcloud.utils.extensions.toNextcloudClient
 import com.owncloud.android.R
-import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1
@@ -36,6 +35,7 @@ import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicBoolean
+import java.util.function.BooleanSupplier
 import javax.crypto.Cipher
 
 class DownloadFileOperation(
@@ -53,6 +53,8 @@ class DownloadFileOperation(
 
     private val context = WeakReference(context)
     private val dataTransferListeners = ConcurrentHashMap.newKeySet<OnDatatransferProgressListener>()
+
+    @Volatile
     private var timestampForModification: Long = 0
     private val cancellationRequested = AtomicBoolean(false)
     private val mainThreadHandler = Handler(Looper.getMainLooper())
@@ -115,12 +117,33 @@ class DownloadFileOperation(
     fun getModificationTimestamp() =
         if (timestampForModification > 0) timestampForModification else file.modificationTimestamp
 
+    fun useVerifiedCopy(verified: OCFile) {
+        require(file.remotePath == verified.remotePath && verified.isEncrypted)
+        val source = File(requireNotNull(verified.storagePath))
+        val destination = File(savePath)
+        ensureParentDirectory(destination)
+        val staged = File.createTempFile("verified-download-", null, destination.parentFile)
+        try {
+            Files.copy(source.toPath(), staged.toPath(), StandardCopyOption.REPLACE_EXISTING)
+            Files.move(staged.toPath(), destination.toPath(), StandardCopyOption.REPLACE_EXISTING)
+            if (!destination.setLastModified(verified.modificationTimestamp)) {
+                Log_OC.w(TAG, "Unable to set verified file modification time")
+            }
+            timestampForModification = verified.modificationTimestamp
+            etag = verified.etag
+            file.mimeType = verified.mimeType
+            file.remoteId = verified.remoteId
+        } finally {
+            if (staged.exists() && !staged.delete()) {
+                Log_OC.w(TAG, "Unable to remove temporary verified download")
+            }
+        }
+    }
+
     @Suppress("DEPRECATION")
     @Deprecated("Deprecated in Java")
     override fun run(client: OwnCloudClient): RemoteOperationResult<Unit> {
-        synchronized(cancellationRequested) {
-            if (cancellationRequested.get()) return RemoteOperationResult(OperationCancelledException())
-        }
+        if (cancellationRequested.get()) return RemoteOperationResult(OperationCancelledException())
 
         if (file.isFolder) {
             Log_OC.e(TAG, "Cannot download a folder as a file: ${file.remotePath}")
@@ -136,6 +159,21 @@ class DownloadFileOperation(
             ?: return RemoteOperationResult(RemoteOperationResult.ResultCode.UNKNOWN_ERROR)
 
         val tmpFile = File(tmpPath)
+        try {
+            return downloadFile(client, operationContext, tmpFile)
+        } finally {
+            if (file.isEncrypted && tmpFile.exists() && !tmpFile.delete()) {
+                Log_OC.w(TAG, "Unable to remove temporary encrypted download")
+            }
+        }
+    }
+
+    @Suppress("DEPRECATION")
+    private fun downloadFile(
+        client: OwnCloudClient,
+        operationContext: Context,
+        tmpFile: File
+    ): RemoteOperationResult<Unit> {
         val (downloadOp, downloadResult) = executeDownload(client, operationContext)
 
         if (!downloadResult.isSuccess) return downloadResult
@@ -144,11 +182,11 @@ class DownloadFileOperation(
         etag = downloadOp.etag
 
         if (file.isEncrypted) {
-            handleDecryption(client, operationContext, tmpFile)?.let { return it }
+            return handleDecryption(client, operationContext, tmpFile, downloadResult)
         }
 
         val result = when (downloadType) {
-            DownloadType.DOWNLOAD if !file.isEncrypted -> handleFileMove(tmpFile, downloadResult)
+            DownloadType.DOWNLOAD -> handleFileMove(tmpFile, downloadResult)
             DownloadType.EXPORT -> handleExport(operationContext, tmpFile, downloadResult)
             else -> downloadResult
         }
@@ -175,15 +213,15 @@ class DownloadFileOperation(
         return DownloadResult(operation, result)
     }
 
-    private data class EncryptionKeys(val key: String?, val nonce: String?, val authTag: String?)
+    private data class EncryptionKeys(val key: String?, val nonce: String?)
 
     private fun extractEncryptionKeys(metadata: Any): EncryptionKeys? = when (metadata) {
         is DecryptedFolderMetadataFile -> metadata.metadata.files[file.encryptedFileName]?.let {
-            EncryptionKeys(it.key, it.nonce, it.authenticationTag)
+            EncryptionKeys(it.key, it.nonce)
         }
 
         is DecryptedFolderMetadataFileV1 -> metadata.files[file.encryptedFileName]?.let {
-            EncryptionKeys(it.encrypted.key, it.initializationVector, it.authenticationTag)
+            EncryptionKeys(it.encrypted.key, it.initializationVector)
         }
 
         else -> null
@@ -193,33 +231,39 @@ class DownloadFileOperation(
     private fun handleDecryption(
         client: OwnCloudClient,
         operationContext: Context,
-        tmpFile: File
-    ): RemoteOperationResult<Unit>? {
-        val fileDataStorageManager = FileDataStorageManager(user, operationContext.contentResolver)
-        val parent = fileDataStorageManager.getFileByEncryptedRemotePath(file.parentRemotePath)
-        val metadata = EncryptionUtils.downloadFolderMetadata(parent, client, operationContext, user)
-            ?: return RemoteOperationResult(RemoteOperationResult.ResultCode.METADATA_NOT_FOUND)
+        tmpFile: File,
+        downloadResult: RemoteOperationResult<Unit>
+    ): RemoteOperationResult<Unit> {
+        return try {
+            val fileDataStorageManager = FileDataStorageManager(user, operationContext.contentResolver)
+            val parent = fileDataStorageManager.getFileByEncryptedRemotePath(file.parentRemotePath)
+            val metadata = EncryptionUtils.downloadFolderMetadata(parent, client, operationContext, user)
+                ?: return RemoteOperationResult(RemoteOperationResult.ResultCode.METADATA_NOT_FOUND)
 
-        val (keyString, nonceString, authenticationTagString) = extractEncryptionKeys(metadata)
-            ?: return RemoteOperationResult(RemoteOperationResult.ResultCode.METADATA_NOT_FOUND)
+            val (keyString, nonceString) = extractEncryptionKeys(metadata)
+                ?: return RemoteOperationResult(RemoteOperationResult.ResultCode.METADATA_NOT_FOUND)
 
-        val key = EncryptionUtils.decodeStringToBase64Bytes(keyString)
-        val iv = EncryptionUtils.decodeStringToBase64Bytes(nonceString)
+            val key = EncryptionUtils.decodeStringToBase64Bytes(keyString)
+            val iv = EncryptionUtils.decodeStringToBase64Bytes(nonceString)
 
-        return runCatching {
-            val cipher = EncryptionUtils.getCipher(Cipher.DECRYPT_MODE, key, iv)
-            EncryptionUtils.decryptFile(
-                cipher,
-                tmpFile,
-                File(savePath),
-                authenticationTagString,
-                ArbitraryDataProviderImpl(operationContext),
-                user
-            )
-        }.fold(
-            onSuccess = { null },
-            onFailure = { RemoteOperationResult(it as? Exception ?: Exception(it)) }
-        )
+            val cipher = { EncryptionUtils.getCipher(Cipher.DECRYPT_MODE, key, iv) }
+            val cancelled = BooleanSupplier { cancellationRequested.get() }
+            if (downloadType == DownloadType.EXPORT) {
+                EncryptedDownload.usePlaintext(tmpFile, operationContext.cacheDir, cipher, cancelled) {
+                    handleExport(operationContext, it, downloadResult)
+                }
+            } else {
+                val destination = File(savePath)
+                EncryptedDownload.save(tmpFile, destination, cipher, cancelled)
+                if (!destination.setLastModified(getModificationTimestamp())) {
+                    Log_OC.w(TAG, "Unable to set decrypted file modification time")
+                }
+                downloadResult
+            }
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Unable to decrypt downloaded file", e)
+            RemoteOperationResult(e)
+        }
     }
 
     private fun ensureParentDirectory(target: File) {

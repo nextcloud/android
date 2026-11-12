@@ -39,14 +39,23 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.operations.UploadFileOperation
+import com.owncloud.android.operations.DownloadFileOperation
+import com.owncloud.android.operations.upload.EncryptedUploadConflictChecker
+import com.owncloud.android.operations.upload.UploadFileLink
 import com.owncloud.android.ui.dialog.conflict.ConflictResolveDialogFactory
 import com.owncloud.android.ui.dialog.conflict.ConflictsResolveDialog.Decision
 import com.owncloud.android.ui.dialog.conflict.ConflictsResolveDialog.OnConflictDecisionMadeListener
 import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.EncryptionUtils
+import java.io.File
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import java.util.function.BooleanSupplier
+import kotlin.coroutines.cancellation.CancellationException
 
 class ConflictsResolveActivity :
     FileActivity(),
@@ -61,6 +70,7 @@ class ConflictsResolveActivity :
     private var conflictUploadId: Long = 0
     private var offlineOperationPath: String? = null
     private var existingFile: OCFile? = null
+    private var encryptedRemoteVersion: String? = null
     private var newFile: OCFile? = null
     private var localBehaviour = FileUploadWorker.LOCAL_BEHAVIOUR_FORGET
     private lateinit var offlineOperationNotificationManager: OfflineOperationsNotificationManager
@@ -87,13 +97,14 @@ class ConflictsResolveActivity :
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
 
+        EncryptedUploadConflictChecker.releasePreview(this, existingFile)
         setIntent(intent)
 
         // re-read extras from new intent
         restoreState(null)
 
         // force fresh remote file fetch in onStart
-        existingFile = null
+        existingFile = intent.getParcelableArgument(EXTRA_EXISTING_FILE, OCFile::class.java)
 
         val upload = uploadsStorageManager.getUploadById(conflictUploadId)
         newFile = file
@@ -101,6 +112,8 @@ class ConflictsResolveActivity :
     }
 
     private fun restoreState(savedInstanceState: Bundle?) {
+        encryptedRemoteVersion = savedInstanceState?.getString(EXTRA_ENCRYPTED_REMOTE_VERSION)
+            ?: intent.getStringExtra(EXTRA_ENCRYPTED_REMOTE_VERSION)
         if (savedInstanceState != null) {
             conflictUploadId = savedInstanceState.getLong(EXTRA_CONFLICT_UPLOAD_ID)
             existingFile = savedInstanceState.getParcelableArgument(EXTRA_EXISTING_FILE, OCFile::class.java)
@@ -119,6 +132,7 @@ class ConflictsResolveActivity :
         existingFile.logFileSize(TAG)
         outState.putLong(EXTRA_CONFLICT_UPLOAD_ID, conflictUploadId)
         outState.putParcelable(EXTRA_EXISTING_FILE, existingFile)
+        outState.putString(EXTRA_ENCRYPTED_REMOTE_VERSION, encryptedRemoteVersion)
         outState.putInt(EXTRA_LOCAL_BEHAVIOUR, localBehaviour)
         outState.putString(
             EXTRA_OFFLINE_OPERATION_PATH,
@@ -144,7 +158,7 @@ class ConflictsResolveActivity :
                 when (decision) {
                     Decision.KEEP_LOCAL -> handleFile(file, upload, optionalUser.get(), NameCollisionPolicy.OVERWRITE)
                     Decision.KEEP_BOTH -> handleFile(file, upload, optionalUser.get(), NameCollisionPolicy.RENAME)
-                    Decision.KEEP_SERVER -> keepServer(file, upload, optionalUser.get())
+                    Decision.KEEP_SERVER -> if (!keepServer(file, upload, optionalUser.get())) return@launch
                     Decision.KEEP_OFFLINE_FOLDER -> keepOfflineFolder(file, offlineOperation)
                     Decision.KEEP_SERVER_FOLDER -> keepServerFile(offlineOperation)
                     Decision.KEEP_BOTH_FOLDER -> keepBothFolder(offlineOperation, file)
@@ -189,15 +203,9 @@ class ConflictsResolveActivity :
         )
     }
 
-    private suspend fun keepServer(file: OCFile?, upload: OCUpload?, user: User) {
-        if (!shouldDeleteLocal()) {
-            file?.let {
-                downloadHelper.downloadFile(
-                    user,
-                    file,
-                    conflictUploadId = conflictUploadId
-                )
-            }
+    private suspend fun keepServer(file: OCFile?, upload: OCUpload?, user: User): Boolean {
+        if (!shouldDeleteLocal() && file != null && !keepVerifiedServerFile(file, user)) {
+            return false
         }
 
         upload?.let {
@@ -207,6 +215,41 @@ class ConflictsResolveActivity :
             withContext(Dispatchers.Main) {
                 UploadNotificationManager(applicationContext, viewThemeUtils, id).dismissNotification(id)
             }
+        }
+        return true
+    }
+
+    private suspend fun keepVerifiedServerFile(file: OCFile, user: User): Boolean {
+        if (!file.isEncrypted) {
+            downloadHelper.downloadFile(user, file, conflictUploadId = conflictUploadId)
+            return true
+        }
+        try {
+            val verified = requireNotNull(existingFile)
+            val client = clientRepository.getOwncloudClient(user) ?: error("Client unavailable")
+            val result = ReadFileRemoteOperation(verified.remotePath).execute(client)
+            val latest = result.data?.firstOrNull() as? RemoteFile
+            if (!result.isSuccess || latest?.etag != verified.etag || verified.etag.isNullOrEmpty()) {
+                showErrorAndFinish()
+                return false
+            }
+            val download = DownloadFileOperation(user, file, this)
+            download.useVerifiedCopy(verified)
+            downloadHelper.saveFile(file, download, fileDataStorageManager)
+            encryptedRemoteVersion?.let { version ->
+                EncryptedUploadConflictChecker.rememberVerifiedCopy(
+                    this,
+                    user,
+                    verified,
+                    File(download.savePath),
+                    version
+                )
+            }
+            return true
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Could not keep verified server copy", e)
+            showErrorAndFinish()
+            return false
         }
     }
 
@@ -272,6 +315,9 @@ class ConflictsResolveActivity :
             return
         }
 
+        if (existingFile?.isEncrypted == true && existingFile?.storagePath?.let { File(it).isFile } != true) {
+            existingFile = null
+        }
         if (existingFile == null) {
             fetchRemoteFileAndShowDialog()
         } else {
@@ -305,15 +351,56 @@ class ConflictsResolveActivity :
             try {
                 val result = operation.execute(account, this@ConflictsResolveActivity)
                 if (result.isSuccess) {
-                    existingFile = FileStorageUtils.fillOCFile(result.data[0] as RemoteFile).also {
-                        it.lastSyncDateForProperties = System.currentTimeMillis()
+                    val localFile = newFile ?: return@launch
+                    existingFile = if (localFile.isEncrypted) {
+                        val currentUser = user.orElse(null) ?: return@launch
+                        val client = clientRepository.getOwncloudClient(currentUser) ?: return@launch
+                        val parent = fileDataStorageManager.getFileByEncryptedRemotePath(localFile.parentRemotePath)
+                            ?: error("Encrypted conflict parent is missing")
+                        val metadata = EncryptionUtils.downloadFolderMetadata(
+                            parent,
+                            client,
+                            this@ConflictsResolveActivity,
+                            currentUser
+                        ) ?: error("Encrypted conflict metadata is missing")
+                        val comparisonContext = currentCoroutineContext()
+                        val comparison = EncryptedUploadConflictChecker(this@ConflictsResolveActivity, currentUser)
+                            .compare(
+                                client,
+                                parent,
+                                metadata,
+                                File(localFile.storagePath),
+                                localFile.decryptedFileName,
+                                BooleanSupplier { !comparisonContext.isActive },
+                                requirePreview = true
+                            ) ?: error("Encrypted conflict target is missing from metadata")
+                        encryptedRemoteVersion = comparison.remoteVersion
+                        if (comparison.sameContent) {
+                            uploadsStorageManager.getUploadById(conflictUploadId)?.let { upload ->
+                                UploadFileLink.completeIdentical(upload, comparison.remoteFile, uploadsStorageManager)
+                            }
+                            withContext(Dispatchers.Main) {
+                                UploadErrorNotificationManager.dismissConflictResolveNotification(
+                                    this@ConflictsResolveActivity,
+                                    conflictUploadId
+                                )
+                                finish()
+                            }
+                            return@launch
+                        }
+                        comparison.remoteFile
+                    } else {
+                        FileStorageUtils.fillOCFile(result.data[0] as RemoteFile)
                     }
-                    showFileConflictDialog(remotePath)
+                    existingFile?.lastSyncDateForProperties = System.currentTimeMillis()
+                    withContext(Dispatchers.Main) { showFileConflictDialog(remotePath) }
                 } else {
                     Log_OC.e(TAG, "ReadFileRemoteOp returned failure with code: ${result.httpCode}")
                     showErrorAndFinish(result.httpCode)
                 }
             } catch (e: Exception) {
+                EncryptedUploadConflictChecker.releasePreview(this@ConflictsResolveActivity, existingFile)
+                if (e is CancellationException) throw e
                 Log_OC.e(TAG, "Error when trying to fetch remote file", e)
                 showErrorAndFinish()
             }
@@ -356,6 +443,11 @@ class ConflictsResolveActivity :
         listener?.conflictDecisionMade(decision)
     }
 
+    override fun onDestroy() {
+        if (isFinishing) EncryptedUploadConflictChecker.releasePreview(this, existingFile)
+        super.onDestroy()
+    }
+
     private fun updateThumbnailIfNeeded(decision: Decision?, file: OCFile?, oldFile: OCFile?) {
         if (decision != Decision.KEEP_BOTH && decision != Decision.KEEP_LOCAL) return
 
@@ -386,6 +478,7 @@ class ConflictsResolveActivity :
         const val EXTRA_CONFLICT_UPLOAD_ID = "CONFLICT_UPLOAD_ID"
         const val EXTRA_LOCAL_BEHAVIOUR = "LOCAL_BEHAVIOUR"
         const val EXTRA_EXISTING_FILE = "EXISTING_FILE"
+        const val EXTRA_ENCRYPTED_REMOTE_VERSION = "ENCRYPTED_REMOTE_VERSION"
         private const val EXTRA_OFFLINE_OPERATION_PATH = "EXTRA_OFFLINE_OPERATION_PATH"
         private val TAG = ConflictsResolveActivity::class.java.simpleName
 

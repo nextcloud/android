@@ -60,6 +60,7 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.client.editimage.EditImageActivity
 import com.nextcloud.client.files.DeepLinkHandler
+import com.nextcloud.client.jobs.download.DownloadEventFileResolver
 import com.nextcloud.client.jobs.download.FileDownloadEventBroadcaster
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
@@ -1813,14 +1814,20 @@ class FileDisplayActivity :
     }
 
     private fun onDownloadStarted(intent: Intent) {
+        if (!isCurrentAccount(intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_ACCOUNT_NAME))) return
         Log_OC.d(TAG, "download worker started")
         getFileOfDownloadEvent(intent)?.let { updateFileDownloadIndicator(FileDownloadIndicator.Downloading, it) }
         requestDownloadOfWaitingPreview()
     }
 
     private fun onDownloadCompleted(intent: Intent) {
+        if (!isCurrentAccount(intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_ACCOUNT_NAME))) return
         Log_OC.d(TAG, "file download completed received")
-        getFileOfDownloadEvent(intent)?.let { updateFileDownloadIndicator(FileDownloadIndicator.Downloaded, it) }
+        val success = intent.getBooleanExtra(FileDownloadEventBroadcaster.EXTRA_DOWNLOAD_RESULT, false)
+        val downloadedFile = getFileOfDownloadEvent(intent)
+        if (success) {
+            downloadedFile?.let { updateFileDownloadIndicator(FileDownloadIndicator.Downloaded, it) }
+        }
 
         if (immediatePreviewFileId == NO_IMMEDIATE_PREVIEW_FILE_ID) {
             Log_OC.d(TAG, "updating ui for file download")
@@ -1830,11 +1837,11 @@ class FileDisplayActivity :
 
         Log_OC.d(TAG, "updating ui immediate file preview")
 
-        val downloadedRemotePath = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_REMOTE_PATH)
-        val downloadedFile = storageManager.getFileByDecryptedRemotePath(downloadedRemotePath) ?: return
+        if (!success || downloadedFile == null) return
         if (immediatePreviewFileId != downloadedFile.fileId || !downloadedFile.isDown) return
 
         immediatePreviewFileId = NO_IMMEDIATE_PREVIEW_FILE_ID
+        waitingToPreview = null
         if (PreviewMediaFragment.canBePreviewed(downloadedFile)) {
             startImagePreview(downloadedFile, downloadedFile.isDown)
         } else {
@@ -1879,8 +1886,9 @@ class FileDisplayActivity :
     }
 
     private fun getFileOfDownloadEvent(intent: Intent): OCFile? {
+        val accountName = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_ACCOUNT_NAME)
         val remotePath = intent.getStringExtra(FileDownloadEventBroadcaster.EXTRA_REMOTE_PATH)
-        return fileDataStorageManager.getFileByDecryptedRemotePath(remotePath)
+        return DownloadEventFileResolver.resolve(storageManager, accountName, remotePath)
     }
 
     private fun updateFileDownloadIndicator(indicator: FileDownloadIndicator, file: OCFile) {

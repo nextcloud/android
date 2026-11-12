@@ -54,6 +54,14 @@ class UploadFileResolver(private val operation: UploadFileOperation) {
         }
     }
 
+    fun updateUnlockToken(token: String?) {
+        val storageManager = operation.uploadsStorageManager
+        storageManager.getUploadById(operation.ocUploadId)?.let {
+            it.folderUnlockToken = token
+            storageManager.updateUpload(it)
+        }
+    }
+
     fun findEncryptedTarget(parent: OCFile, filename: String): OCFile? =
         operation.storageManager.getFolderContent(parent, false).orEmpty().firstOrNull {
             it.decryptedFileName.equals(filename, ignoreCase = true)
@@ -114,7 +122,7 @@ class UploadFileResolver(private val operation: UploadFileOperation) {
         file.apply {
             creationTimestamp = remoteFile.creationTimestamp
             fileLength = remoteFile.length
-            mimeType = remoteFile.mimeType
+            if (!isEncrypted) mimeType = remoteFile.mimeType
             modificationTimestamp = remoteFile.modifiedTimestamp
             modificationTimestampAtLastSyncForData = remoteFile.modifiedTimestamp
             etag = remoteFile.etag

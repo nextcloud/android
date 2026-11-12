@@ -21,6 +21,7 @@ import com.nextcloud.client.device.BatteryStatus
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.di.ApplicationScope
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.notifications.AppWideNotificationManager
@@ -51,9 +52,14 @@ import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.operations.factory.UploadFileOperationFactory
+import com.owncloud.android.operations.upload.EncryptedUploadConflictChecker
+import com.owncloud.android.operations.upload.UploadFileLink
+import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.ui.adapter.uploadList.helper.ConflictHandlingResult
 import com.owncloud.android.ui.adapter.uploadList.helper.UploadListAdapterActionHandler
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -99,7 +105,7 @@ class FileUploadHelper {
 
         const val MAX_UPLOADS_PER_QUERY = 500
 
-        val mBoundListeners = HashMap<String, OnDatatransferProgressListener>()
+        val mBoundListeners = java.util.concurrent.ConcurrentHashMap<String, OnDatatransferProgressListener>()
 
         private val retryInProgress = AtomicBoolean(false)
 
@@ -259,24 +265,63 @@ class FileUploadHelper {
         return@withContext showNotExistMessage
     }
 
-    suspend fun checkConflict(upload: OCUpload): ConflictHandlingResult = withContext(Dispatchers.IO) {
-        val user = accountManager.getUser(upload.accountName).orElse(null)
-            ?: return@withContext ConflictHandlingResult.CannotCheckConflict
-        val context = MainApp.getAppContext()
-        val client = clientRepository.getOwncloudClient(user)
-            ?: return@withContext ConflictHandlingResult.CannotCheckConflict
+    suspend fun checkConflict(upload: OCUpload, requirePreview: Boolean = false): ConflictHandlingResult {
+        var preview: OCFile? = null
         try {
-            val operation = uploadFileOperationFactory.create(context, upload, user = user)
-            val target = if (operation.isAutoUpload) {
-                operation.findAutoUploadTarget(client)
-            } else {
-                operation.storageManager.getFileByEncryptedRemotePath(upload.remotePath)
+            val result = withContext(Dispatchers.IO) {
+                val user = accountManager.getUser(upload.accountName).orElse(null)
+                    ?: return@withContext ConflictHandlingResult.CannotCheckConflict
+                val context = MainApp.getAppContext()
+                val client = clientRepository.getOwncloudClient(user)
+                    ?: return@withContext ConflictHandlingResult.CannotCheckConflict
+                val operation = uploadFileOperationFactory.create(context, upload, user = user)
+                val target = if (operation.isAutoUpload) {
+                    operation.findAutoUploadTarget(client)
+                } else {
+                    operation.storageManager.getFileByEncryptedRemotePath(upload.remotePath)
+                }
+                if (target?.isEncrypted != true) {
+                    return@withContext uploadActionHandler.handleConflict(upload, client, uploadsStorageManager, target)
+                }
+                val parent = operation.storageManager.getFileByEncryptedRemotePath(target.parentRemotePath)
+                    ?: return@withContext ConflictHandlingResult.CannotCheckConflict
+                val metadata = EncryptionUtils.downloadFolderMetadata(parent, client, context, user)
+                    ?: return@withContext ConflictHandlingResult.CannotCheckConflict
+                val comparisonContext = currentCoroutineContext()
+                val comparison = EncryptedUploadConflictChecker(context, user).compare(
+                    client,
+                    parent,
+                    metadata,
+                    File(upload.localPath),
+                    target.decryptedFileName,
+                    java.util.function.BooleanSupplier { !comparisonContext.isActive },
+                    requirePreview
+                ) ?: return@withContext ConflictHandlingResult.CannotCheckConflict
+                preview = comparison.remoteFile
+                if (comparison.sameContent) {
+                    UploadFileLink.completeIdentical(upload, comparison.remoteFile, uploadsStorageManager)
+                    return@withContext ConflictHandlingResult.ConflictNotExistsSameFile
+                }
+                comparison.remoteFile.fileId = target.fileId
+                comparison.remoteFile.parentId = target.parentId
+                ConflictHandlingResult.ShowConflictResolveDialog(
+                    comparison.remoteFile,
+                    upload,
+                    comparison.remoteVersion
+                )
             }
-            uploadActionHandler.handleConflict(upload, client, uploadsStorageManager, target)
+            if (result is ConflictHandlingResult.ConflictNotExistsSameFile) {
+                UploadErrorNotificationManager.dismissConflictResolveNotification(
+                    MainApp.getAppContext(),
+                    upload.uploadId
+                )
+            }
+            return result
         } catch (e: Exception) {
+            EncryptedUploadConflictChecker.releasePreview(MainApp.getAppContext(), preview)
             if (e is CancellationException) throw e
             Log_OC.e(TAG, "Could not check upload conflict", e)
-            ConflictHandlingResult.CannotCheckConflict
+            return ConflictHandlingResult.CannotCheckConflict
         }
     }
 
