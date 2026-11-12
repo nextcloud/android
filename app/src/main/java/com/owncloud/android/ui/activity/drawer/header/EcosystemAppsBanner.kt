@@ -52,6 +52,7 @@ class EcosystemAppsBanner(
         moreView.setOnClickListener { LinkHelper.openAppStore(APP_STORE_QUERY, true, activity) }
         assistantView.setOnClickListener { navigator.startAssistantScreen() }
         assistantView.isVisible = activity.isAssistantAvailable
+        teamsView.setOnClickListener { navigator.startTeamsScreen() }
 
         val color = iconColor
         listOf(notesView, talkView, moreView, assistantView, teamsView).forEach { tintAppView(it, color) }

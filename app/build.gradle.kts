@@ -414,6 +414,7 @@ dependencies {
     implementation(libs.lifecycle.process)
     implementation(libs.lifecycle.service)
     implementation(libs.lifecycle.runtime.ktx)
+    implementation(libs.lifecycle.runtime.compose)
     // endregion
 
     // region JUnit

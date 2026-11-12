@@ -21,7 +21,12 @@ sealed class ComposeDestination(val id: Int) : Parcelable {
     @Parcelize
     data class ClientIntegrationScreen(val title: String, val data: ClientIntegrationUI) : ComposeDestination(1)
 
+    @Parcelize
+    data class TeamsScreen(val title: String) : ComposeDestination(2)
+
     companion object {
+        fun getTeamsScreen(context: Context): TeamsScreen = TeamsScreen(context.getString(R.string.navigation_teams))
+
         /**
          * Creates a assistant screen without selected chat
          */
