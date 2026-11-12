@@ -400,4 +400,9 @@ public interface AppPreferences {
 
     boolean startAutoUploadOnStart();
     void setLastAutoUploadOnStartTime(long timeInMillisecond);
+
+    String getDismissedOutdatedServerVersion();
+
+    void setDismissedOutdatedServerVersion(String version);
+
 }

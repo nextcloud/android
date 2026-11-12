@@ -490,7 +490,13 @@ class FileDisplayActivity :
             capability.hasValidSubscription.isTrue
         )
         if (isOutdated) {
-            SnackbarUtil.showServerOutdated(this, Snackbar.LENGTH_LONG)
+            val serverVersion = currentUser.server.version.toString()
+            val dismissedVersion = preferences.getDismissedOutdatedServerVersion()
+            if (serverVersion != dismissedVersion) {
+                SnackbarUtil.showServerOutdated(this, Snackbar.LENGTH_LONG) {
+                    preferences.setDismissedOutdatedServerVersion(serverVersion)
+                }
+            }
         }
     }
 
