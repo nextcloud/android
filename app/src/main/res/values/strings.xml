@@ -1185,6 +1185,8 @@
     <string name="storage_choose_location">Choose storage location</string>
     <string name="storage_internal_storage">Internal storage</string>
     <string name="storage_external_storage">External storage</string>
+    <string name="external_storage_auth_dialog_title">Log in to external storage</string>
+    <string name="external_storage_auth_dialog_message">Enter your credentials to access %1$s</string>
     <string name="storage_camera">Camera</string>
     <string name="storage_pictures">Pictures</string>
     <string name="storage_movies">Movies</string>
