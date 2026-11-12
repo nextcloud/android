@@ -18,8 +18,11 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class TeamsViewModel @AssistedInject constructor(
@@ -27,8 +30,13 @@ class TeamsViewModel @AssistedInject constructor(
     @Assisted private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<TeamsUiState>(TeamsUiState.Loading)
-    val uiState: StateFlow<TeamsUiState> = _uiState.asStateFlow()
+    private val teamsState = MutableStateFlow<TeamsUiState>(TeamsUiState.Loading)
+
+    val searchQuery: StateFlow<String> = savedStateHandle.getStateFlow(KEY_SEARCH_QUERY, "")
+
+    val uiState: StateFlow<TeamsUiState> = combine(teamsState, searchQuery) { state, query ->
+        if (state is TeamsUiState.Content) state.matching(query) else state
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS), TeamsUiState.Loading)
 
     val createTeamName: StateFlow<String?> = savedStateHandle.getStateFlow(KEY_CREATE_TEAM_NAME, null)
 
@@ -40,8 +48,12 @@ class TeamsViewModel @AssistedInject constructor(
     }
 
     fun retry() {
-        _uiState.value = TeamsUiState.Loading
+        teamsState.value = TeamsUiState.Loading
         viewModelScope.launch { loadTeams() }
+    }
+
+    fun updateSearchQuery(query: String) {
+        savedStateHandle[KEY_SEARCH_QUERY] = query
     }
 
     fun openCreateTeamDialog() {
@@ -84,12 +96,12 @@ class TeamsViewModel @AssistedInject constructor(
     private suspend fun loadTeams() {
         val result = repository.getTeams()
         if (!result.isSuccess) {
-            _uiState.value = TeamsUiState.Error(result.loadTeamsErrorMessageId())
+            teamsState.value = TeamsUiState.Error(result.loadTeamsErrorMessageId())
             return
         }
 
         val (myTeams, otherTeams) = result.resultData.orEmpty().partition { it.isMember }
-        _uiState.value = TeamsUiState.Content(myTeams, otherTeams)
+        teamsState.value = TeamsUiState.Content(myTeams, otherTeams)
     }
 
     @AssistedFactory
@@ -99,6 +111,8 @@ class TeamsViewModel @AssistedInject constructor(
 
     companion object {
         private const val KEY_CREATE_TEAM_NAME = "create_team_name"
+        private const val KEY_SEARCH_QUERY = "search_query"
+        private const val STOP_TIMEOUT_MILLIS = 5_000L
         const val MIN_TEAM_NAME_BYTES = 3
         const val MAX_TEAM_NAME_BYTES = 127
 

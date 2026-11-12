@@ -10,6 +10,7 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -35,6 +36,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.nextcloud.android.lib.resources.teams.model.Team
 import com.nextcloud.ui.teams.component.CreateTeamDialog
+import com.nextcloud.ui.teams.component.TeamsSearchBar
 import com.nextcloud.ui.teams.model.TeamsUiState
 import com.nextcloud.ui.teams.viewmodel.TeamsViewModel
 import com.owncloud.android.R
@@ -42,10 +44,12 @@ import com.owncloud.android.R
 @Composable
 fun TeamsScreen(viewModel: TeamsViewModel) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
     val createTeamName by viewModel.createTeamName.collectAsStateWithLifecycle()
     val createTeamStatus by viewModel.createTeamStatus.collectAsStateWithLifecycle()
 
     Scaffold(
+        contentWindowInsets = WindowInsets(0),
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 text = { Text(stringResource(R.string.teams_create)) },
@@ -63,7 +67,7 @@ fun TeamsScreen(viewModel: TeamsViewModel) {
             when (val state = uiState) {
                 TeamsUiState.Loading -> CircularProgressIndicator()
                 is TeamsUiState.Error -> TeamsError(state.messageId, onRetry = viewModel::retry)
-                is TeamsUiState.Content -> TeamsContent(state)
+                is TeamsUiState.Content -> TeamsContent(state, searchQuery, viewModel::updateSearchQuery)
             }
         }
     }
@@ -80,19 +84,25 @@ fun TeamsScreen(viewModel: TeamsViewModel) {
 }
 
 @Composable
-private fun TeamsContent(state: TeamsUiState.Content) {
-    if (state.myTeams.isEmpty() && state.otherTeams.isEmpty()) {
-        Text(
-            text = stringResource(R.string.teams_empty),
-            style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-        return
-    }
+private fun TeamsContent(state: TeamsUiState.Content, searchQuery: String, onSearchQueryChange: (String) -> Unit) {
+    Column(modifier = Modifier.fillMaxSize()) {
+        TeamsSearchBar(searchQuery, onSearchQueryChange)
 
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
-        teamSection(R.string.teams_my_teams, state.myTeams)
-        teamSection(R.string.teams_other_teams, state.otherTeams)
+        if (state.isEmpty()) {
+            val messageId = if (searchQuery.isBlank()) R.string.teams_empty else R.string.teams_search_no_results
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Text(
+                    text = stringResource(messageId),
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        } else {
+            LazyColumn(modifier = Modifier.fillMaxSize()) {
+                teamSection(R.string.teams_my_teams, state.myTeams)
+                teamSection(R.string.teams_other_teams, state.otherTeams)
+            }
+        }
     }
 }
 
