@@ -43,6 +43,7 @@ class EcosystemAppsBanner(
         val talkView = banner.findViewById<LinearLayout>(R.id.drawer_ecosystem_talk)
         val moreView = banner.findViewById<LinearLayout>(R.id.drawer_ecosystem_more)
         val assistantView = banner.findViewById<LinearLayout>(R.id.drawer_ecosystem_assistant)
+        val teamsView = banner.findViewById<LinearLayout>(R.id.drawer_ecosystem_teams)
 
         activity.user.getOrNull()?.accountName?.let { accountName ->
             notesView.setOnClickListener { activity.ecosystemManager.openApp(EcosystemApp.NOTES, accountName) }
@@ -53,7 +54,7 @@ class EcosystemAppsBanner(
         assistantView.isVisible = activity.isAssistantAvailable
 
         val color = iconColor
-        listOf(notesView, talkView, moreView, assistantView).forEach { tintAppView(it, color) }
+        listOf(notesView, talkView, moreView, assistantView, teamsView).forEach { tintAppView(it, color) }
 
         banner.visibility = View.VISIBLE
     }

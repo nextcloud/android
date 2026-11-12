@@ -141,7 +141,7 @@
             android:focusable="true"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            app:layout_constraintEnd_toStartOf="@+id/drawer_ecosystem_more"
+            app:layout_constraintEnd_toStartOf="@+id/drawer_ecosystem_teams"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/drawer_ecosystem_talk"
             app:layout_constraintTop_toTopOf="parent"
@@ -170,6 +170,43 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/drawer_ecosystem_teams"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="?android:selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toStartOf="@+id/drawer_ecosystem_more"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/drawer_ecosystem_notes"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_max="80dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/white_outline"
+                android:contentDescription="@string/navigation_teams"
+                android:padding="8dp"
+                android:src="@drawable/ic_circles"
+                app:tint="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="@string/navigation_teams"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/drawer_ecosystem_more"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -180,7 +217,7 @@
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/drawer_ecosystem_notes"
+            app:layout_constraintStart_toEndOf="@+id/drawer_ecosystem_teams"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_max="80dp">
 

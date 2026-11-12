@@ -1481,6 +1481,7 @@
     <string name="ecosystem_apps_display_notes" translatable="false">Notes</string>
     <string name="ecosystem_apps_display_talk" translatable="false">Talk</string>
     <string name="ecosystem_apps_display_more">More</string>
+    <string name="navigation_teams">Teams</string>
     <string name="filedetails_details">Details</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_fnumber">ƒ/%s</string>
