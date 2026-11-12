@@ -55,6 +55,7 @@ class TeamsViewModel @AssistedInject constructor(
     }
 
     fun dismissCreateTeamDialog() {
+        _createTeamStatus.value = CreateTeamStatus.Editing
         savedStateHandle[KEY_CREATE_TEAM_NAME] = null
     }
 
@@ -68,13 +69,15 @@ class TeamsViewModel @AssistedInject constructor(
         viewModelScope.launch {
             val result = repository.createTeam(name)
             if (!result.isSuccess) {
-                _createTeamStatus.value = CreateTeamStatus.Failed(result.createTeamErrorMessageId())
+                val failed = CreateTeamStatus.Failed(result.createTeamErrorMessageId())
+                _createTeamStatus.compareAndSet(CreateTeamStatus.Creating, failed)
                 return@launch
             }
 
             loadTeams()
-            dismissCreateTeamDialog()
-            _createTeamStatus.value = CreateTeamStatus.Editing
+            if (_createTeamStatus.compareAndSet(CreateTeamStatus.Creating, CreateTeamStatus.Editing)) {
+                dismissCreateTeamDialog()
+            }
         }
     }
 
