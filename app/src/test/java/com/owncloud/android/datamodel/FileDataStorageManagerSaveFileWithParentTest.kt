@@ -63,7 +63,7 @@ class FileDataStorageManagerSaveFileWithParentTest {
         every { TextUtils.isEmpty(any()) } answers { arg<CharSequence?>(0).isNullOrEmpty() }
 
         context = mockk(relaxed = true)
-        mockkObject(MainApp.Companion)
+        mockkStatic(MainApp::class)
         every { MainApp.getAppContext() } returns context
 
         mockkStatic(MimeTypeUtil::class)
