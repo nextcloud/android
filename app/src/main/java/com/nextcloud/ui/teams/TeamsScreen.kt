@@ -7,6 +7,7 @@
 package com.nextcloud.ui.teams
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -42,7 +43,7 @@ import com.nextcloud.ui.teams.viewmodel.TeamsViewModel
 import com.owncloud.android.R
 
 @Composable
-fun TeamsScreen(viewModel: TeamsViewModel) {
+fun TeamsScreen(viewModel: TeamsViewModel, onTeamClick: (Team) -> Unit) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
     val createTeamName by viewModel.createTeamName.collectAsStateWithLifecycle()
@@ -67,7 +68,7 @@ fun TeamsScreen(viewModel: TeamsViewModel) {
             when (val state = uiState) {
                 TeamsUiState.Loading -> CircularProgressIndicator()
                 is TeamsUiState.Error -> TeamsError(state.messageId, onRetry = viewModel::retry)
-                is TeamsUiState.Content -> TeamsContent(state, searchQuery, viewModel::updateSearchQuery)
+                is TeamsUiState.Content -> TeamsContent(state, searchQuery, viewModel::updateSearchQuery, onTeamClick)
             }
         }
     }
@@ -84,7 +85,12 @@ fun TeamsScreen(viewModel: TeamsViewModel) {
 }
 
 @Composable
-private fun TeamsContent(state: TeamsUiState.Content, searchQuery: String, onSearchQueryChange: (String) -> Unit) {
+private fun TeamsContent(
+    state: TeamsUiState.Content,
+    searchQuery: String,
+    onSearchQueryChange: (String) -> Unit,
+    onTeamClick: (Team) -> Unit
+) {
     Column(modifier = Modifier.fillMaxSize()) {
         TeamsSearchBar(searchQuery, onSearchQueryChange)
 
@@ -99,20 +105,20 @@ private fun TeamsContent(state: TeamsUiState.Content, searchQuery: String, onSea
             }
         } else {
             LazyColumn(modifier = Modifier.fillMaxSize()) {
-                teamSection(R.string.teams_my_teams, state.myTeams)
-                teamSection(R.string.teams_other_teams, state.otherTeams)
+                teamSection(R.string.teams_my_teams, state.myTeams, onTeamClick)
+                teamSection(R.string.teams_other_teams, state.otherTeams, onTeamClick)
             }
         }
     }
 }
 
-private fun LazyListScope.teamSection(@StringRes titleId: Int, teams: List<Team>) {
+private fun LazyListScope.teamSection(@StringRes titleId: Int, teams: List<Team>, onTeamClick: (Team) -> Unit) {
     if (teams.isEmpty()) {
         return
     }
 
     item(key = titleId) { SectionHeader(titleId) }
-    items(teams, key = { it.id }) { TeamListItem(it) }
+    items(teams, key = { it.id }) { team -> TeamListItem(team) { onTeamClick(team) } }
 }
 
 @Composable
@@ -131,8 +137,9 @@ private fun SectionHeader(@StringRes titleId: Int) {
 }
 
 @Composable
-private fun TeamListItem(team: Team) {
+private fun TeamListItem(team: Team, onClick: () -> Unit) {
     ListItem(
+        modifier = Modifier.clickable(onClick = onClick),
         headlineContent = {
             Text(text = team.displayName, maxLines = 1, overflow = TextOverflow.Ellipsis)
         },

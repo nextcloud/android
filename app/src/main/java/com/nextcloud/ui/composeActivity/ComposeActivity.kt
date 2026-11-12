@@ -31,7 +31,13 @@ import com.nextcloud.client.assistant.repository.remote.AssistantRemoteRepositor
 import com.nextcloud.client.database.NextcloudDatabase
 import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.common.NextcloudClient
+import com.nextcloud.android.lib.resources.teams.model.Team
 import com.nextcloud.ui.ClientIntegrationScreen
+import com.nextcloud.ui.composeComponents.webView.WebPageScreen
+import com.nextcloud.ui.teams.detail.TeamResourceOpener
+import com.nextcloud.ui.teams.detail.TeamDetailScreen
+import com.nextcloud.ui.teams.detail.model.TeamResourceTarget
+import com.nextcloud.ui.teams.detail.viewmodel.TeamDetailViewModel
 import com.nextcloud.ui.teams.TeamsScreen
 import com.nextcloud.ui.teams.viewmodel.TeamsViewModel
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -91,7 +97,13 @@ class ComposeActivity : DrawerActivity() {
     }
 
     override val menuItemId: Int
-        get() = if (destination is ComposeDestination.TeamsScreen) Menu.NONE else R.id.nav_assistant
+        get() = when (destination) {
+            is ComposeDestination.TeamsScreen,
+            is ComposeDestination.TeamDetailScreen,
+            is ComposeDestination.WebPageScreen -> Menu.NONE
+
+            else -> R.id.nav_assistant
+        }
 
     override fun onResume() {
         super.onResume()
@@ -102,13 +114,25 @@ class ComposeActivity : DrawerActivity() {
         when (destination) {
             is ComposeDestination.AssistantScreen -> setupDrawerScreen(destination.title)
             is ComposeDestination.TeamsScreen -> setupDrawerScreen(destination.title)
-            is ComposeDestination.ClientIntegrationScreen -> {
-                setSupportActionBar(null)
-                findViewById<View?>(R.id.appbar)?.let {
-                    it.visibility = View.GONE
-                }
-            }
+            is ComposeDestination.ClientIntegrationScreen,
+            is ComposeDestination.TeamDetailScreen,
+            is ComposeDestination.WebPageScreen -> hideActionBar()
         }
+    }
+
+    private fun hideActionBar() {
+        setSupportActionBar(null)
+        findViewById<View?>(R.id.appbar)?.let {
+            it.visibility = View.GONE
+        }
+    }
+
+    private fun openTeam(team: Team) {
+        val destination = ComposeDestination.TeamDetailScreen(team.id, team.displayName, team.url)
+        val intent = Intent(this, ComposeActivity::class.java)
+            .putExtra(DESTINATION, destination)
+            .putExtra(TeamDetailViewModel.KEY_TEAM_ID, team.id)
+        startActivity(intent)
     }
 
     private fun setupDrawerScreen(title: String) {
@@ -176,7 +200,27 @@ class ComposeActivity : DrawerActivity() {
                 val viewModel = remember {
                     ViewModelProvider(this, vmFactory)[TeamsViewModel::class.java]
                 }
-                TeamsScreen(viewModel)
+                TeamsScreen(viewModel, onTeamClick = ::openTeam)
+            }
+
+            is ComposeDestination.TeamDetailScreen -> {
+                binding.bottomNavigation.visibility = View.GONE
+                val viewModel = remember {
+                    ViewModelProvider(this, vmFactory)[TeamDetailViewModel::class.java]
+                }
+                val opener = remember { TeamResourceOpener(this, userAccountManager.user) }
+                TeamDetailScreen(
+                    viewModel = viewModel,
+                    title = screen.title,
+                    onBack = ::finish,
+                    onOpenSettings = { opener.open(TeamResourceTarget.WebPage(screen.settingsUrl, screen.title)) },
+                    onOpenResource = opener::open
+                )
+            }
+
+            is ComposeDestination.WebPageScreen -> {
+                binding.bottomNavigation.visibility = View.GONE
+                WebPageScreen(screen.title, screen.url, nextcloudClient, onClose = ::finish)
             }
         }
     }
