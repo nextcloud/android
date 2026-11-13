@@ -4,7 +4,7 @@
  * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.nextcloud.ui.composeComponents.webView
+package com.nextcloud.ui.compose.component.webView
 
 import android.annotation.SuppressLint
 import android.net.Uri

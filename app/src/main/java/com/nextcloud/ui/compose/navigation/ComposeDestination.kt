@@ -5,7 +5,7 @@
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.nextcloud.ui.composeActivity
+package com.nextcloud.ui.compose.navigation
 
 import android.content.Context
 import android.os.Parcelable

@@ -53,7 +53,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nextcloud.client.assistant.conversation.model.ConversationScreenState
-import com.nextcloud.ui.composeComponents.bottomSheet.MoreActionsBottomSheet
+import com.nextcloud.ui.compose.component.bottomSheet.MoreActionsBottomSheet
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.chat.model.Conversation
 
