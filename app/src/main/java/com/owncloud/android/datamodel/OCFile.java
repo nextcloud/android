@@ -492,6 +492,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     /**
      * Used internally. Reset all file properties
      */
+    @SuppressFBWarnings("ENMI_NULL_ENUM_VALUE")
     private void resetData() {
         fileId = -1;
         remotePath = null;
@@ -521,7 +522,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         hidden = false;
         encrypted = false;
         readOnly = false;
-        mountType = WebdavEntry.MountType.INTERNAL;
+        mountType = null;
         richWorkspace = "";
         firstShareTimestamp = 0;
         locked = false;
@@ -705,7 +706,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     }
 
     public Integer getFileOverlayIconId(boolean isAutoUploadFolder) {
-        if (WebdavEntry.MountType.GROUP == mountType || mounted()) {
+        if (WebdavEntry.MountType.GROUP == mountType) {
             return R.drawable.ic_folder_overlay_account_group;
         } else if (sharedViaLink && !encrypted) {
             return R.drawable.ic_folder_overlay_link;

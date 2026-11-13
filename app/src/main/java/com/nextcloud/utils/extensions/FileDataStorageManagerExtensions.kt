@@ -369,7 +369,7 @@ fun FileDataStorageManager.saveFolder(folder: OCFile, updatedFiles: List<OCFile>
             "${filesToRemove.size} files to remove"
     )
 
-    val removedChildren = filesToRemove.filter { it.parentId == folder.fileId && !isPendingOfflineCreation(it) }
+    val removedChildren = filesToRemove.filter { it.parentId == folder.fileId }
     removedChildren.forEach { deleteLocalCopy(it) }
 
     db.runInTransaction {
@@ -387,13 +387,14 @@ fun FileDataStorageManager.isPendingOfflineCreation(file: OCFile): Boolean {
     return offlineOperationDao.getByPath(path)?.isCreate() == true
 }
 
-private fun FileDataStorageManager.upsertFolderContent(folder: OCFile, files: List<OCFile>) {
-    files.forEach { file ->
+private fun FileDataStorageManager.upsertFolderContent(folder: OCFile, remoteFiles: List<OCFile>) {
+    remoteFiles.forEach { file ->
         val existingFile = findExistingFile(file)
-        val entity = file.toFileEntity(user.accountName).copy(
+        val rEntity = file.toFileEntity(user.accountName)
+        val entity = rEntity.copy(
             id = existingFile?.id,
             parent = folder.fileId,
-            mountType = existingFile?.mountType
+            mountType = rEntity.mountType ?: existingFile?.mountType
         )
 
         val insertedRowId = fileDao.upsert(entity)
