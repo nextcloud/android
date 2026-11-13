@@ -492,6 +492,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     /**
      * Used internally. Reset all file properties
      */
+    @SuppressFBWarnings("ENMI_NULL_ENUM_VALUE")
     private void resetData() {
         fileId = -1;
         remotePath = null;
