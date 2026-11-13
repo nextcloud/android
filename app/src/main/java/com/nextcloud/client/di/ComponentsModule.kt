@@ -84,6 +84,7 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
 import com.owncloud.android.ui.dialog.CreateAlbumDialogFragment
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment
+import com.owncloud.android.ui.dialog.ExternalStorageAuthDialogFragment
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog
 import com.owncloud.android.ui.dialog.LoadingDialog
 import com.owncloud.android.ui.dialog.LocalStoragePathPickerDialogFragment
@@ -529,4 +530,7 @@ internal interface ComponentsModule {
 
     @ContributesAndroidInjector
     fun albumSharingBottomSheet(): AlbumSharingBottomSheet
+
+    @ContributesAndroidInjector
+    fun externalStorageAuthDialogFragment(): ExternalStorageAuthDialogFragment
 }

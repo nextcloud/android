@@ -1101,8 +1101,11 @@ class FileDisplayActivity :
     private suspend fun OCFile.requiresUserProvidedCredentials(): Boolean? {
         val result = externalStorageRepository.fetchMounts()
         if (result !is ExternalStorageMountsResult.Success) {
-            Log_OC.w(TAG, "Could not fetch external storage mounts to determine if ${this.fileName} requires" +
-                " user provided credentials.")
+            Log_OC.w(
+                TAG,
+                "Could not fetch external storage mounts to determine if ${this.fileName} requires" +
+                    " user provided credentials."
+            )
             return null
         }
         return result.mounts.any {
@@ -1558,7 +1561,7 @@ class FileDisplayActivity :
             account,
             this,
             { _, result ->
-                if (!result.isSuccess /*&& WebdavEntry.MountType.EXTERNAL == folder.mountType*/) {
+                if (!result.isSuccess && WebdavEntry.MountType.EXTERNAL == folder.mountType) {
                     // May be an external folder: check if user needs authentication
                     lifecycleScope.launch {
                         val showCredentialsDialog = folder.requiresUserProvidedCredentials()
