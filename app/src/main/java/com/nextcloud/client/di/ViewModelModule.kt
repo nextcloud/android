@@ -25,7 +25,6 @@ import com.owncloud.android.ui.preview.pdf.PreviewPdfViewModel
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.multibindings.IntoMap
 
 @Module
@@ -88,15 +87,13 @@ abstract class ViewModelModule {
     @ViewModelKey(FileDetailFragmentViewModel::class)
     abstract fun fileDetailFragmentViewModel(vm: FileDetailFragmentViewModel): ViewModel
 
-    companion object {
-        @Provides
-        @IntoMap
-        @ViewModelKey(TeamsViewModel::class)
-        fun teamsViewModel(factory: TeamsViewModel.Factory) = SavedStateViewModelCreator(factory::create)
+    @Binds
+    @IntoMap
+    @ViewModelKey(TeamsViewModel::class)
+    abstract fun teamsViewModel(factory: TeamsViewModel.Factory): SavedStateViewModelCreator
 
-        @Provides
-        @IntoMap
-        @ViewModelKey(TeamDetailViewModel::class)
-        fun teamDetailViewModel(factory: TeamDetailViewModel.Factory) = SavedStateViewModelCreator(factory::create)
-    }
+    @Binds
+    @IntoMap
+    @ViewModelKey(TeamDetailViewModel::class)
+    abstract fun teamDetailViewModel(factory: TeamDetailViewModel.Factory): SavedStateViewModelCreator
 }
