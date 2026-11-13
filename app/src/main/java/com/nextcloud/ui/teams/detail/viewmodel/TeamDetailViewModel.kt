@@ -101,11 +101,13 @@ class TeamDetailViewModel @AssistedInject constructor(
             TeamResourceProviderId.FILES -> TeamResourceTarget.File(resource.id)
             TeamResourceProviderId.TEAM_FOLDER -> folderPath?.let { TeamResourceTarget.Folder(it) } ?: webPage
             TeamResourceProviderId.TALK -> TeamResourceTarget.TalkConversation(resource.id, webPage)
-            TeamResourceProviderId.COLLECTIVES ->
-                collectivesFolderPath?.let { TeamResourceTarget.Folder("$it${resource.label}/") } ?: webPage
+            TeamResourceProviderId.COLLECTIVES -> collectiveFolder(resource.label) ?: webPage
             else -> webPage
         }
     }
+
+    private fun collectiveFolder(collectiveName: String): TeamResourceTarget.Folder? =
+        collectivesFolderPath?.let { TeamResourceTarget.Folder("$it$collectiveName/") }
 
     fun openAddMemberDialog() {
         _addMemberStatus.value = AddTeamMemberStatus.Editing
