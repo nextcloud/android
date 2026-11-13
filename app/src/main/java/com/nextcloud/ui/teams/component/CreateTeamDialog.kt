@@ -17,7 +17,6 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.nextcloud.ui.compose.component.alertDialog.BaseAlertDialog
-import com.nextcloud.ui.compose.component.alertDialog.BaseAlertDialogContent
 import com.nextcloud.ui.teams.model.CreateTeamStatus
 import com.nextcloud.ui.teams.viewmodel.TeamsViewModel
 import com.owncloud.android.R
@@ -84,15 +83,7 @@ private fun CreateTeamSupportingText(name: String, status: CreateTeamStatus) {
 @Composable
 private fun CreateTeamDialogPreview(name: String, status: CreateTeamStatus) {
     MaterialTheme {
-        BaseAlertDialogContent(
-            title = stringResource(R.string.teams_create),
-            onDismiss = {},
-            onComplete = {},
-            completeText = stringResource(R.string.create),
-            isCompleteEnabled = canCreate(name, status)
-        ) {
-            CreateTeamDialogFields(name, status, onNameChange = {})
-        }
+        CreateTeamDialog(name = name, status = status, onNameChange = {}, onDismiss = {}, onCreate = {})
     }
 }
 
