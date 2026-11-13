@@ -6,7 +6,6 @@
  */
 package com.nextcloud.ui.teams.detail.component
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -19,7 +18,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import com.nextcloud.android.lib.resources.teams.get.resources.model.TeamResource
-import com.nextcloud.ui.teams.detail.model.TeamResourceProviderId
+import com.nextcloud.ui.teams.util.iconId
 import com.owncloud.android.R
 
 @Composable
@@ -29,7 +28,7 @@ fun TeamResourceListItem(resource: TeamResource, onClick: () -> Unit) {
         supportingContent = { Text(resource.provider.name) },
         leadingContent = {
             Icon(
-                painter = painterResource(iconId(resource.provider.id)),
+                painter = painterResource(resource.provider.iconId()),
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.size(dimensionResource(R.dimen.iconized_single_line_item_icon_size))
@@ -37,14 +36,4 @@ fun TeamResourceListItem(resource: TeamResource, onClick: () -> Unit) {
         },
         modifier = Modifier.clickable(onClick = onClick)
     )
-}
-
-@DrawableRes
-private fun iconId(providerId: String): Int = when (providerId) {
-    TeamResourceProviderId.FILES -> R.drawable.file
-    TeamResourceProviderId.TEAM_FOLDER -> R.drawable.folder
-    TeamResourceProviderId.TALK -> R.drawable.ic_talk
-    TeamResourceProviderId.DECK -> R.drawable.ic_deck
-    TeamResourceProviderId.COLLECTIVES -> R.drawable.ic_notes
-    else -> R.drawable.ic_link
 }
