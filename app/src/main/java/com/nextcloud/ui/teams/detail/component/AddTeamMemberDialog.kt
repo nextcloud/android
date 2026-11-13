@@ -26,7 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import com.nextcloud.ui.compose.component.alertDialog.BaseAlertDialog
-import com.nextcloud.ui.teams.detail.model.AddTeamMemberStatus
+import com.nextcloud.ui.teams.model.TeamDialogStatus
 import com.nextcloud.ui.teams.detail.model.TeamMemberSuggestion
 import com.nextcloud.ui.teams.util.iconId
 import com.owncloud.android.R
@@ -34,14 +34,14 @@ import com.owncloud.android.R
 @Composable
 fun AddTeamMemberDialog(
     query: String,
-    status: AddTeamMemberStatus,
+    status: TeamDialogStatus,
     suggestions: List<TeamMemberSuggestion>,
     onQueryChange: (String) -> Unit,
     onSelect: (TeamMemberSuggestion) -> Unit,
     onDismiss: () -> Unit
 ) {
-    val isAdding = status == AddTeamMemberStatus.Adding
-    val failure = status as? AddTeamMemberStatus.Failed
+    val isAdding = status == TeamDialogStatus.Submitting
+    val failure = status as? TeamDialogStatus.Failed
 
     BaseAlertDialog(title = stringResource(R.string.team_add_member), onDismiss = onDismiss) {
         OutlinedTextField(

@@ -8,7 +8,6 @@ package com.nextcloud.ui.teams
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
@@ -24,7 +23,6 @@ import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -37,6 +35,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.nextcloud.android.lib.resources.teams.model.Team
 import com.nextcloud.ui.teams.component.CreateTeamDialog
+import com.nextcloud.ui.teams.component.TeamsErrorMessage
+import com.nextcloud.ui.teams.component.TeamsMessage
 import com.nextcloud.ui.teams.component.TeamsSearchBar
 import com.nextcloud.ui.teams.model.TeamsUiState
 import com.nextcloud.ui.teams.viewmodel.TeamsViewModel
@@ -55,7 +55,7 @@ fun TeamsScreen(viewModel: TeamsViewModel, onTeamClick: (Team) -> Unit) {
             ExtendedFloatingActionButton(
                 text = { Text(stringResource(R.string.teams_create)) },
                 icon = { Icon(painterResource(R.drawable.ic_plus), contentDescription = null) },
-                onClick = viewModel::openCreateTeamDialog
+                onClick = { viewModel.updateCreateTeamStatus("") }
             )
         }
     ) { innerPadding ->
@@ -67,7 +67,7 @@ fun TeamsScreen(viewModel: TeamsViewModel, onTeamClick: (Team) -> Unit) {
         ) {
             when (val state = uiState) {
                 TeamsUiState.Loading -> CircularProgressIndicator()
-                is TeamsUiState.Error -> TeamsError(state.messageId, onRetry = viewModel::retry)
+                is TeamsUiState.Error -> TeamsErrorMessage(state.messageId, onRetry = viewModel::retry)
                 is TeamsUiState.Content -> TeamsContent(state, searchQuery, viewModel::updateSearchQuery, onTeamClick)
             }
         }
@@ -77,8 +77,8 @@ fun TeamsScreen(viewModel: TeamsViewModel, onTeamClick: (Team) -> Unit) {
         CreateTeamDialog(
             name = name,
             status = createTeamStatus,
-            onNameChange = viewModel::updateCreateTeamName,
-            onDismiss = viewModel::dismissCreateTeamDialog,
+            onNameChange = viewModel::updateCreateTeamStatus,
+            onDismiss = { viewModel.updateCreateTeamStatus(null) },
             onCreate = viewModel::createTeam
         )
     }
@@ -97,11 +97,7 @@ private fun TeamsContent(
         if (state.isEmpty()) {
             val messageId = if (searchQuery.isBlank()) R.string.teams_empty else R.string.teams_search_no_results
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text(
-                    text = stringResource(messageId),
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+                TeamsMessage(messageId)
             }
         } else {
             LazyColumn(modifier = Modifier.fillMaxSize()) {
@@ -154,21 +150,4 @@ private fun TeamListItem(team: Team, onClick: () -> Unit) {
             )
         }
     )
-}
-
-@Composable
-private fun TeamsError(@StringRes messageId: Int, onRetry: () -> Unit) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.standard_half_padding))
-    ) {
-        Text(
-            text = stringResource(messageId),
-            style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-        TextButton(onClick = onRetry) {
-            Text(stringResource(R.string.retry))
-        }
-    }
 }

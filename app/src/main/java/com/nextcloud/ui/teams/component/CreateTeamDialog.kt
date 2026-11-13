@@ -17,14 +17,14 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.nextcloud.ui.compose.component.alertDialog.BaseAlertDialog
-import com.nextcloud.ui.teams.model.CreateTeamStatus
+import com.nextcloud.ui.teams.model.TeamDialogStatus
 import com.nextcloud.ui.teams.viewmodel.TeamsViewModel
 import com.owncloud.android.R
 
 @Composable
 fun CreateTeamDialog(
     name: String,
-    status: CreateTeamStatus,
+    status: TeamDialogStatus,
     onNameChange: (String) -> Unit,
     onDismiss: () -> Unit,
     onCreate: () -> Unit
@@ -40,19 +40,19 @@ fun CreateTeamDialog(
     }
 }
 
-private fun canCreate(name: String, status: CreateTeamStatus): Boolean =
-    TeamsViewModel.isValidTeamName(name) && status != CreateTeamStatus.Creating
+private fun canCreate(name: String, status: TeamDialogStatus): Boolean =
+    TeamsViewModel.isValidTeamName(name) && status != TeamDialogStatus.Submitting
 
 @Composable
-private fun CreateTeamDialogFields(name: String, status: CreateTeamStatus, onNameChange: (String) -> Unit) {
-    val isCreating = status == CreateTeamStatus.Creating
+private fun CreateTeamDialogFields(name: String, status: TeamDialogStatus, onNameChange: (String) -> Unit) {
+    val isCreating = status == TeamDialogStatus.Submitting
 
     OutlinedTextField(
         value = name,
         onValueChange = onNameChange,
         label = { Text(stringResource(R.string.teams_name_hint)) },
         supportingText = { CreateTeamSupportingText(name, status) },
-        isError = status is CreateTeamStatus.Failed,
+        isError = status is TeamDialogStatus.Failed,
         readOnly = isCreating,
         singleLine = true
     )
@@ -62,8 +62,8 @@ private fun CreateTeamDialogFields(name: String, status: CreateTeamStatus, onNam
 }
 
 @Composable
-private fun CreateTeamSupportingText(name: String, status: CreateTeamStatus) {
-    if (status is CreateTeamStatus.Failed) {
+private fun CreateTeamSupportingText(name: String, status: TeamDialogStatus) {
+    if (status is TeamDialogStatus.Failed) {
         Text(stringResource(status.messageId))
         return
     }
@@ -81,7 +81,7 @@ private fun CreateTeamSupportingText(name: String, status: CreateTeamStatus) {
 }
 
 @Composable
-private fun CreateTeamDialogPreview(name: String, status: CreateTeamStatus) {
+private fun CreateTeamDialogPreview(name: String, status: TeamDialogStatus) {
     MaterialTheme {
         CreateTeamDialog(name = name, status = status, onNameChange = {}, onDismiss = {}, onCreate = {})
     }
@@ -90,13 +90,13 @@ private fun CreateTeamDialogPreview(name: String, status: CreateTeamStatus) {
 @Preview
 @Composable
 private fun CreateTeamDialogEditingPreview() {
-    CreateTeamDialogPreview(name = "Editing", status = CreateTeamStatus.Editing)
+    CreateTeamDialogPreview(name = "Editing", status = TeamDialogStatus.Editing)
 }
 
 @Preview
 @Composable
 private fun CreateTeamDialogCreatingPreview() {
-    CreateTeamDialogPreview(name = "Creating", status = CreateTeamStatus.Creating)
+    CreateTeamDialogPreview(name = "Creating", status = TeamDialogStatus.Submitting)
 }
 
 @Preview
@@ -104,6 +104,6 @@ private fun CreateTeamDialogCreatingPreview() {
 private fun CreateTeamDialogFailedPreview() {
     CreateTeamDialogPreview(
         name = "Failed",
-        status = CreateTeamStatus.Failed(R.string.teams_error_create_not_allowed)
+        status = TeamDialogStatus.Failed(R.string.teams_error_create_not_allowed)
     )
 }

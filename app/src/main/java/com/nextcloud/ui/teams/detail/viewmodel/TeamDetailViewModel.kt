@@ -12,7 +12,7 @@ import androidx.lifecycle.viewModelScope
 import com.nextcloud.android.lib.resources.teams.get.resources.model.TeamResource
 import com.nextcloud.android.lib.resources.teams.model.TeamMember
 import com.nextcloud.client.di.SavedStateViewModelCreator
-import com.nextcloud.ui.teams.detail.model.AddTeamMemberStatus
+import com.nextcloud.ui.teams.model.TeamDialogStatus
 import com.nextcloud.ui.teams.detail.model.TeamDetailListUiState
 import com.nextcloud.ui.teams.detail.model.TeamDetailTab
 import com.nextcloud.ui.teams.detail.model.TeamMemberSuggestion
@@ -61,8 +61,8 @@ class TeamDetailViewModel @AssistedInject constructor(
 
     val addMemberQuery: StateFlow<String?> = savedStateHandle.getStateFlow(KEY_ADD_MEMBER_QUERY, null)
 
-    private val _addMemberStatus = MutableStateFlow<AddTeamMemberStatus>(AddTeamMemberStatus.Editing)
-    val addMemberStatus: StateFlow<AddTeamMemberStatus> = _addMemberStatus.asStateFlow()
+    private val _addMemberStatus = MutableStateFlow<TeamDialogStatus>(TeamDialogStatus.Editing)
+    val addMemberStatus: StateFlow<TeamDialogStatus> = _addMemberStatus.asStateFlow()
 
     @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
     private val searchResults = addMemberQuery
@@ -111,34 +111,24 @@ class TeamDetailViewModel @AssistedInject constructor(
     private fun collectiveFolder(collectiveName: String): TeamResourceTarget.Folder? =
         collectivesFolderPath?.let { TeamResourceTarget.Folder("$it$collectiveName/") }
 
-    fun openAddMemberDialog() {
-        _addMemberStatus.value = AddTeamMemberStatus.Editing
-        savedStateHandle[KEY_ADD_MEMBER_QUERY] = ""
-    }
-
-    fun updateAddMemberQuery(query: String) {
-        _addMemberStatus.value = AddTeamMemberStatus.Editing
+    fun updateMemberStatus(query: String?) {
+        _addMemberStatus.value = TeamDialogStatus.Editing
         savedStateHandle[KEY_ADD_MEMBER_QUERY] = query
     }
 
-    fun dismissAddMemberDialog() {
-        _addMemberStatus.value = AddTeamMemberStatus.Editing
-        savedStateHandle[KEY_ADD_MEMBER_QUERY] = null
-    }
-
     fun addMember(suggestion: TeamMemberSuggestion) {
-        _addMemberStatus.value = AddTeamMemberStatus.Adding
+        _addMemberStatus.value = TeamDialogStatus.Submitting
         viewModelScope.launch {
             val result = repository.addMember(teamId, suggestion.member)
             if (!result.isSuccess) {
-                val failed = AddTeamMemberStatus.Failed(result.addTeamMemberErrorMessageId())
-                _addMemberStatus.compareAndSet(AddTeamMemberStatus.Adding, failed)
+                val failed = TeamDialogStatus.Failed(result.addTeamMemberErrorMessageId())
+                _addMemberStatus.compareAndSet(TeamDialogStatus.Submitting, failed)
                 return@launch
             }
 
             loadMembers()
-            if (_addMemberStatus.compareAndSet(AddTeamMemberStatus.Adding, AddTeamMemberStatus.Editing)) {
-                dismissAddMemberDialog()
+            if (_addMemberStatus.compareAndSet(TeamDialogStatus.Submitting, TeamDialogStatus.Editing)) {
+                updateMemberStatus(null)
             }
         }
     }

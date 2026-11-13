@@ -10,7 +10,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.di.SavedStateViewModelCreator
-import com.nextcloud.ui.teams.model.CreateTeamStatus
+import com.nextcloud.ui.teams.model.TeamDialogStatus
 import com.nextcloud.ui.teams.model.TeamsUiState
 import com.nextcloud.ui.teams.model.createTeamErrorMessageId
 import com.nextcloud.ui.teams.model.loadTeamsErrorMessageId
@@ -43,8 +43,8 @@ class TeamsViewModel @AssistedInject constructor(
 
     val createTeamName: StateFlow<String?> = savedStateHandle.getStateFlow(KEY_CREATE_TEAM_NAME, null)
 
-    private val _createTeamStatus = MutableStateFlow<CreateTeamStatus>(CreateTeamStatus.Editing)
-    val createTeamStatus: StateFlow<CreateTeamStatus> = _createTeamStatus.asStateFlow()
+    private val _createTeamStatus = MutableStateFlow<TeamDialogStatus>(TeamDialogStatus.Editing)
+    val createTeamStatus: StateFlow<TeamDialogStatus> = _createTeamStatus.asStateFlow()
 
     init {
         viewModelScope.launch { loadTeams() }
@@ -59,19 +59,9 @@ class TeamsViewModel @AssistedInject constructor(
         savedStateHandle[KEY_SEARCH_QUERY] = query
     }
 
-    fun openCreateTeamDialog() {
-        _createTeamStatus.value = CreateTeamStatus.Editing
-        savedStateHandle[KEY_CREATE_TEAM_NAME] = ""
-    }
-
-    fun updateCreateTeamName(name: String) {
-        _createTeamStatus.value = CreateTeamStatus.Editing
+    fun updateCreateTeamStatus(name: String?) {
+        _createTeamStatus.value = TeamDialogStatus.Editing
         savedStateHandle[KEY_CREATE_TEAM_NAME] = name
-    }
-
-    fun dismissCreateTeamDialog() {
-        _createTeamStatus.value = CreateTeamStatus.Editing
-        savedStateHandle[KEY_CREATE_TEAM_NAME] = null
     }
 
     fun createTeam() {
@@ -80,18 +70,18 @@ class TeamsViewModel @AssistedInject constructor(
             return
         }
 
-        _createTeamStatus.value = CreateTeamStatus.Creating
+        _createTeamStatus.value = TeamDialogStatus.Submitting
         viewModelScope.launch {
             val result = repository.createTeam(name)
             if (!result.isSuccess) {
-                val failed = CreateTeamStatus.Failed(result.createTeamErrorMessageId())
-                _createTeamStatus.compareAndSet(CreateTeamStatus.Creating, failed)
+                val failed = TeamDialogStatus.Failed(result.createTeamErrorMessageId())
+                _createTeamStatus.compareAndSet(TeamDialogStatus.Submitting, failed)
                 return@launch
             }
 
             loadTeams()
-            if (_createTeamStatus.compareAndSet(CreateTeamStatus.Creating, CreateTeamStatus.Editing)) {
-                dismissCreateTeamDialog()
+            if (_createTeamStatus.compareAndSet(TeamDialogStatus.Submitting, TeamDialogStatus.Editing)) {
+                updateCreateTeamStatus(null)
             }
         }
     }
