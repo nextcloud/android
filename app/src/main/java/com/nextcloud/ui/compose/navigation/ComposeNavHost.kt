@@ -8,6 +8,9 @@ package com.nextcloud.ui.compose.navigation
 
 import android.os.Bundle
 import androidx.activity.compose.LocalActivity
+import androidx.compose.animation.ContentTransform
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
@@ -34,15 +37,17 @@ import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.ui.ClientIntegrationScreen
 import com.nextcloud.ui.compose.ComposeActivity
-import com.nextcloud.ui.compose.component.webView.WebPageScreen
 import com.nextcloud.ui.teams.TeamsScreen
 import com.nextcloud.ui.teams.detail.TeamDetailScreen
 import com.nextcloud.ui.teams.detail.TeamResourceOpener
+import com.nextcloud.ui.teams.detail.model.TeamResourceTarget
 import com.nextcloud.ui.teams.detail.viewmodel.TeamDetailViewModel
 import com.nextcloud.ui.teams.viewmodel.TeamsViewModel
 import com.nextcloud.utils.SnackbarUtil
 import com.owncloud.android.R
 import kotlin.jvm.optionals.getOrNull
+
+private val noTransition = ContentTransform(EnterTransition.None, ExitTransition.None, sizeTransform = null)
 
 @Composable
 fun ComposeNavHost(navigator: ComposeNavigator) {
@@ -53,6 +58,9 @@ fun ComposeNavHost(navigator: ComposeNavigator) {
             rememberSaveableStateHolderNavEntryDecorator(),
             rememberViewModelStoreNavEntryDecorator()
         ),
+        transitionSpec = { noTransition },
+        popTransitionSpec = { noTransition },
+        predictivePopTransitionSpec = { noTransition },
         entryProvider = entryProvider {
             entry<ComposeDestination.AssistantScreen> { screen ->
                 val activity = composeActivity()
@@ -102,9 +110,7 @@ fun ComposeNavHost(navigator: ComposeNavigator) {
             entry<ComposeDestination.TeamDetailScreen> { screen ->
                 val activity = composeActivity()
                 val resourceOpener = remember(activity) {
-                    TeamResourceOpener(activity, activity.userAccountManager.user) { page ->
-                        navigator.navigate(ComposeDestination.WebPageScreen(page.title, page.url))
-                    }
+                    TeamResourceOpener(activity, activity.userAccountManager.user)
                 }
 
                 TeamDetailScreen(
@@ -112,20 +118,9 @@ fun ComposeNavHost(navigator: ComposeNavigator) {
                     title = screen.title,
                     onBack = navigator::goBack,
                     onOpenSettings = {
-                        navigator.navigate(ComposeDestination.WebPageScreen(screen.title, screen.settingsUrl))
+                        resourceOpener.open(TeamResourceTarget.WebPage(screen.settingsUrl, screen.title))
                     },
                     onOpenResource = resourceOpener::open
-                )
-            }
-
-            entry<ComposeDestination.WebPageScreen> { screen ->
-                val client = rememberNextcloudClient() ?: return@entry
-
-                WebPageScreen(
-                    title = screen.title,
-                    url = screen.url,
-                    client = client,
-                    onClose = navigator::goBack
                 )
             }
         }

@@ -14,15 +14,12 @@ import com.nextcloud.client.account.User
 import com.nextcloud.ui.teams.detail.model.TeamResourceTarget
 import com.owncloud.android.ui.activity.FileDisplayActivity
 
-class TeamResourceOpener(
-    private val activity: Activity,
-    private val user: User,
-    private val openWebPage: (TeamResourceTarget.WebPage) -> Unit
-) {
+class TeamResourceOpener(private val activity: Activity, private val user: User) {
 
     fun open(target: TeamResourceTarget) {
         when (target) {
             is TeamResourceTarget.Folder -> openFolder(target.remotePath)
+            is TeamResourceTarget.File -> openFile(target.fileId)
             is TeamResourceTarget.TalkConversation -> openTalkConversation(target)
             is TeamResourceTarget.WebPage -> openWebPage(target)
         }
@@ -33,6 +30,19 @@ class TeamResourceOpener(
             action = Intent.ACTION_VIEW
             putExtra(FileDisplayActivity.KEY_ACCOUNT, user.accountName)
             putExtra(FileDisplayActivity.KEY_FILE_PATH, remotePath)
+        }
+        activity.startActivity(intent)
+    }
+
+    private fun openWebPage(target: TeamResourceTarget.WebPage) {
+        activity.startActivity(TeamWebView.intent(activity, target.title, target.url))
+    }
+
+    private fun openFile(fileId: String) {
+        val intent = Intent(activity, FileDisplayActivity::class.java).apply {
+            action = Intent.ACTION_VIEW
+            putExtra(FileDisplayActivity.KEY_ACCOUNT, user.accountName)
+            putExtra(FileDisplayActivity.KEY_FILE_ID, fileId)
         }
         activity.startActivity(intent)
     }

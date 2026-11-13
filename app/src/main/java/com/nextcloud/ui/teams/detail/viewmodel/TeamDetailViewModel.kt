@@ -47,6 +47,8 @@ class TeamDetailViewModel @AssistedInject constructor(
 
     private var folderPath: String? = null
 
+    private var collectivesFolderPath: String? = null
+
     val selectedTab: StateFlow<TeamDetailTab> = savedStateHandle.getStateFlow(KEY_SELECTED_TAB, TeamDetailTab.RESOURCES)
 
     private val _resources = MutableStateFlow<TeamDetailListUiState<TeamResource>>(TeamDetailListUiState.Loading)
@@ -96,8 +98,11 @@ class TeamDetailViewModel @AssistedInject constructor(
     fun targetFor(resource: TeamResource): TeamResourceTarget {
         val webPage = TeamResourceTarget.WebPage(resource.url, resource.label)
         return when (resource.provider.id) {
+            TeamResourceProviderId.FILES -> TeamResourceTarget.File(resource.id)
             TeamResourceProviderId.TEAM_FOLDER -> folderPath?.let { TeamResourceTarget.Folder(it) } ?: webPage
             TeamResourceProviderId.TALK -> TeamResourceTarget.TalkConversation(resource.id, webPage)
+            TeamResourceProviderId.COLLECTIVES ->
+                collectivesFolderPath?.let { TeamResourceTarget.Folder("$it${resource.label}/") } ?: webPage
             else -> webPage
         }
     }
@@ -145,7 +150,18 @@ class TeamDetailViewModel @AssistedInject constructor(
         if (resources.any { it.provider.id == TeamResourceProviderId.TEAM_FOLDER }) {
             folderPath = loadFolderPath()
         }
+        if (resources.any { it.provider.id == TeamResourceProviderId.COLLECTIVES }) {
+            collectivesFolderPath = loadCollectivesFolderPath()
+        }
         _resources.value = TeamDetailListUiState.Content(resources)
+    }
+
+    private suspend fun loadCollectivesFolderPath(): String? {
+        val result = repository.getCollectivesUserFolder()
+        if (!result.isSuccess) {
+            return null
+        }
+        return result.resultData?.path?.let { "/${it.trim('/')}/" }
     }
 
     private suspend fun loadFolderPath(): String? {
