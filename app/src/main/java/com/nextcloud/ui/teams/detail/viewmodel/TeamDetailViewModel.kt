@@ -21,6 +21,7 @@ import com.nextcloud.ui.teams.detail.model.TeamResourceTarget
 import com.nextcloud.ui.teams.detail.model.addTeamMemberErrorMessageId
 import com.nextcloud.ui.teams.detail.model.loadTeamDetailErrorMessageId
 import com.nextcloud.ui.teams.detail.repository.TeamDetailRepository
+import com.nextcloud.ui.teams.util.providerId
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -98,12 +99,12 @@ class TeamDetailViewModel @AssistedInject constructor(
 
     fun targetFor(resource: TeamResource): TeamResourceTarget {
         val webPage = TeamResourceTarget.WebPage(resource.url, resource.label)
-        return when (resource.provider.id) {
+        return when (resource.provider.providerId) {
             TeamResourceProviderId.FILES -> TeamResourceTarget.File(resource.id)
             TeamResourceProviderId.TEAM_FOLDER -> folderPath?.let { TeamResourceTarget.Folder(it) } ?: webPage
             TeamResourceProviderId.TALK -> TeamResourceTarget.TalkConversation(resource.id, webPage)
             TeamResourceProviderId.COLLECTIVES -> collectiveFolder(resource.label) ?: webPage
-            else -> webPage
+            TeamResourceProviderId.DECK, null -> webPage
         }
     }
 
@@ -150,10 +151,10 @@ class TeamDetailViewModel @AssistedInject constructor(
         }
 
         val resources = result.resultData.orEmpty()
-        if (resources.any { it.provider.id == TeamResourceProviderId.TEAM_FOLDER }) {
+        if (resources.any { it.provider.providerId == TeamResourceProviderId.TEAM_FOLDER }) {
             folderPath = loadFolderPath()
         }
-        if (resources.any { it.provider.id == TeamResourceProviderId.COLLECTIVES }) {
+        if (resources.any { it.provider.providerId == TeamResourceProviderId.COLLECTIVES }) {
             collectivesFolderPath = loadCollectivesFolderPath()
         }
         _resources.value = TeamDetailListUiState.Content(resources)
