@@ -6,10 +6,14 @@
  */
 package com.nextcloud.ui.teams.detail.model
 
-object TeamResourceProviderId {
-    const val FILES = "files"
-    const val TEAM_FOLDER = "groupfolders"
-    const val TALK = "talk"
-    const val DECK = "deck"
-    const val COLLECTIVES = "collectives"
+enum class TeamResourceProviderId(val id: String) {
+    FILES("files"),
+    TEAM_FOLDER("groupfolders"),
+    TALK("talk"),
+    DECK("deck"),
+    COLLECTIVES("collectives");
+
+    companion object {
+        fun from(id: String): TeamResourceProviderId? = entries.firstOrNull { it.id == id }
+    }
 }
