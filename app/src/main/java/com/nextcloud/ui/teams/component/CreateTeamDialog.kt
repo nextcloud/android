@@ -24,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.nextcloud.ui.teams.model.CreateTeamStatus
@@ -105,8 +106,9 @@ private fun CreateTeamSupportingText(name: String, status: CreateTeamStatus, isN
 
     if (name.isNotBlank() && !isNameValid) {
         Text(
-            stringResource(
-                R.string.teams_name_length,
+            pluralStringResource(
+                R.plurals.teams_name_length,
+                TeamsViewModel.MAX_TEAM_NAME_BYTES,
                 TeamsViewModel.MIN_TEAM_NAME_BYTES,
                 TeamsViewModel.MAX_TEAM_NAME_BYTES
             )

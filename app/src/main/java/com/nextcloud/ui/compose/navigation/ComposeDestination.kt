@@ -14,21 +14,21 @@ import com.owncloud.android.R
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-sealed class ComposeDestination(val id: Int) : Parcelable {
+sealed class ComposeDestination : Parcelable {
     @Parcelize
-    data class AssistantScreen(val title: String, val sessionId: Long?) : ComposeDestination(0)
+    data class AssistantScreen(val title: String, val sessionId: Long?) : ComposeDestination()
 
     @Parcelize
-    data class ClientIntegrationScreen(val title: String, val data: ClientIntegrationUI) : ComposeDestination(1)
+    data class ClientIntegrationScreen(val title: String, val data: ClientIntegrationUI) : ComposeDestination()
 
     @Parcelize
-    data class TeamsScreen(val title: String) : ComposeDestination(2)
+    data class TeamsScreen(val title: String) : ComposeDestination()
 
     @Parcelize
-    data class TeamDetailScreen(val teamId: String, val title: String, val settingsUrl: String) : ComposeDestination(3)
+    data class TeamDetailScreen(val teamId: String, val title: String, val settingsUrl: String) : ComposeDestination()
 
     @Parcelize
-    data class WebPageScreen(val title: String, val url: String) : ComposeDestination(4)
+    data class WebPageScreen(val title: String, val url: String) : ComposeDestination()
 
     companion object {
         fun getTeamsScreen(context: Context): TeamsScreen = TeamsScreen(context.getString(R.string.navigation_teams))

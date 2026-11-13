@@ -1508,7 +1508,10 @@
     <string name="team_role_member">Member</string>
     <string name="teams_load_failed">Could not load teams</string>
     <string name="teams_create_failed">Could not create team</string>
-    <string name="teams_name_length">Use %1$d to %2$d characters</string>
+    <plurals name="teams_name_length">
+        <item quantity="one">Use %1$d to %2$d character</item>
+        <item quantity="other">Use %1$d to %2$d characters</item>
+    </plurals>
     <string name="teams_error_invalid_name">This team name is not allowed</string>
     <string name="teams_error_create_not_allowed">You are not allowed to create teams</string>
     <string name="teams_error_not_available">Teams are not available on this server</string>
