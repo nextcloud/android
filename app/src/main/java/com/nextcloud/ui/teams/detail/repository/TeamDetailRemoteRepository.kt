@@ -19,9 +19,8 @@ import com.nextcloud.android.lib.resources.teams.post.members.AddTeamMembersRemo
 import com.nextcloud.android.lib.resources.teams.post.members.model.NewTeamMember
 import com.nextcloud.repository.ClientRepository
 import com.nextcloud.ui.teams.detail.model.TeamMemberSuggestion
-import com.owncloud.android.lib.common.operations.RemoteOperation
+import com.nextcloud.utils.extensions.execute
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
-import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.lib.resources.shares.GetShareesRemoteOperation
 import com.owncloud.android.lib.resources.shares.ShareType
 import kotlinx.coroutines.Dispatchers
@@ -33,19 +32,19 @@ class TeamDetailRemoteRepository @Inject constructor(private val clientRepositor
     TeamDetailRepository {
 
     override suspend fun getResources(teamId: String): RemoteOperationResult<List<TeamResource>> =
-        execute(GetTeamResourcesRemoteOperation(teamId))
+        clientRepository.execute(GetTeamResourcesRemoteOperation(teamId))
 
     override suspend fun getFolder(teamId: String): RemoteOperationResult<TeamFolder> =
-        execute(GetTeamFolderRemoteOperation(teamId))
+        clientRepository.execute(GetTeamFolderRemoteOperation(teamId))
 
     override suspend fun getCollectivesUserFolder(): RemoteOperationResult<CollectivesUserFolder> =
-        execute(GetCollectivesUserFolderRemoteOperation())
+        clientRepository.execute(GetCollectivesUserFolderRemoteOperation())
 
     override suspend fun getMembers(teamId: String): RemoteOperationResult<List<TeamMember>> =
-        execute(GetTeamMembersRemoteOperation(teamId))
+        clientRepository.execute(GetTeamMembersRemoteOperation(teamId))
 
     override suspend fun addMember(teamId: String, member: NewTeamMember): RemoteOperationResult<Void> =
-        execute(AddTeamMembersRemoteOperation(teamId, listOf(member)))
+        clientRepository.execute(AddTeamMembersRemoteOperation(teamId, listOf(member)))
 
     override suspend fun searchMemberSuggestions(query: String): List<TeamMemberSuggestion> {
         val client = clientRepository.getOwncloudClient() ?: return emptyList()
@@ -56,11 +55,6 @@ class TeamDetailRemoteRepository @Inject constructor(private val clientRepositor
             }
             result.resultData.orEmpty().mapNotNull { it.toTeamMemberSuggestion() }
         }
-    }
-
-    private suspend fun <T> execute(operation: RemoteOperation<T>): RemoteOperationResult<T> {
-        val client = clientRepository.getNextcloudClient() ?: return RemoteOperationResult(ResultCode.ACCOUNT_NOT_FOUND)
-        return withContext(Dispatchers.IO) { operation.execute(client) }
     }
 
     private fun JSONObject.toTeamMemberSuggestion(): TeamMemberSuggestion? {

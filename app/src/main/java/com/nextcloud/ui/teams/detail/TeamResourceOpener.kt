@@ -18,33 +18,24 @@ class TeamResourceOpener(private val activity: Activity, private val user: User)
 
     fun open(target: TeamResourceTarget) {
         when (target) {
-            is TeamResourceTarget.Folder -> openFolder(target.remotePath)
-            is TeamResourceTarget.File -> openFile(target.fileId)
+            is TeamResourceTarget.Folder -> openInFiles(FileDisplayActivity.KEY_FILE_PATH, target.remotePath)
+            is TeamResourceTarget.File -> openInFiles(FileDisplayActivity.KEY_FILE_ID, target.fileId)
             is TeamResourceTarget.TalkConversation -> openTalkConversation(target)
             is TeamResourceTarget.WebPage -> openWebPage(target)
         }
     }
 
-    private fun openFolder(remotePath: String) {
+    private fun openInFiles(key: String, value: String) {
         val intent = Intent(activity, FileDisplayActivity::class.java).apply {
             action = Intent.ACTION_VIEW
             putExtra(FileDisplayActivity.KEY_ACCOUNT, user.accountName)
-            putExtra(FileDisplayActivity.KEY_FILE_PATH, remotePath)
+            putExtra(key, value)
         }
         activity.startActivity(intent)
     }
 
     private fun openWebPage(target: TeamResourceTarget.WebPage) {
         activity.startActivity(TeamWebView.intent(activity, target.title, target.url))
-    }
-
-    private fun openFile(fileId: String) {
-        val intent = Intent(activity, FileDisplayActivity::class.java).apply {
-            action = Intent.ACTION_VIEW
-            putExtra(FileDisplayActivity.KEY_ACCOUNT, user.accountName)
-            putExtra(FileDisplayActivity.KEY_FILE_ID, fileId)
-        }
-        activity.startActivity(intent)
     }
 
     private fun openTalkConversation(target: TeamResourceTarget.TalkConversation) {
