@@ -140,7 +140,7 @@ class TestPowerManagementService {
         }
 
         @Test
-        fun `battery charging status`() {
+        fun `battery plugged in status`() {
             // GIVEN
             //      battery status sticky intent is available
             whenever(deviceInfo.apiLevel).thenReturn(Build.VERSION_CODES.P)
@@ -152,13 +152,13 @@ class TestPowerManagementService {
 
             for (row in powerSources) {
                 // WHEN
-                //      device is charging using supported power source
+                //      device is plugged in to supported power source
                 whenever(intent.getIntExtra(eq(BatteryManager.EXTRA_PLUGGED), any()))
                     .thenReturn(row)
 
                 // THEN
-                //      charging flag is true
-                assertTrue(powerManagementService.battery.isCharging)
+                //      plugged in flag is true
+                assertTrue(powerManagementService.battery.isPluggedIn)
             }
         }
 
@@ -173,8 +173,8 @@ class TestPowerManagementService {
             )
 
             // THEN
-            //     charging flag is false
-            assertFalse(powerManagementService.battery.isCharging)
+            //     plugged in flag is false
+            assertFalse(powerManagementService.battery.isPluggedIn)
             verify(context).registerReceiver(anyOrNull(), any())
         }
 
