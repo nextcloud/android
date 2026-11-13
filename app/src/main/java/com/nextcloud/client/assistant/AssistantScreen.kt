@@ -74,7 +74,7 @@ import com.nextcloud.client.assistant.translate.TranslationScreen
 import com.nextcloud.client.assistant.translate.TranslationViewModel
 import com.nextcloud.ui.compose.ComposeActivity
 import com.nextcloud.ui.compose.ComposeViewModel
-import com.nextcloud.ui.compose.component.alertDialog.SimpleAlertDialog
+import com.nextcloud.ui.compose.component.alertDialog.BaseAlertDialog
 import com.nextcloud.ui.compose.component.bottomSheet.MoreActionsBottomSheet
 import com.nextcloud.utils.extensions.getChat
 import com.owncloud.android.R
@@ -417,12 +417,16 @@ private fun OverlayState(state: ScreenOverlayState?, activity: Activity, viewMod
     state?.let {
         when (state) {
             is ScreenOverlayState.DeleteTask -> {
-                SimpleAlertDialog(
+                BaseAlertDialog(
                     title = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_title),
-                    description = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_description),
                     onDismiss = { viewModel.updateScreenOverlayState(null) },
-                    onComplete = { viewModel.deleteTask(state.id) }
-                )
+                    onComplete = {
+                        viewModel.deleteTask(state.id)
+                        viewModel.updateScreenOverlayState(null)
+                    }
+                ) {
+                    Text(stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_description))
+                }
             }
 
             is ScreenOverlayState.TaskActions -> {
