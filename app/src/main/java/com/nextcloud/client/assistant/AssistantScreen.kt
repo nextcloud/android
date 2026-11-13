@@ -8,6 +8,7 @@
 package com.nextcloud.client.assistant
 
 import android.app.Activity
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -289,6 +290,7 @@ fun AssistantScreen(
                                 val task = (screenState as AssistantScreenState.Translation).task
                                 val textToTranslate = task?.input?.input ?: selectedText ?: ""
 
+                                @SuppressLint("ViewModelConstructorInComposable")
                                 val translationViewModel =
                                     TranslationViewModel(remoteRepository = viewModel.getRemoteRepository())
 
@@ -524,6 +526,7 @@ private fun EmptyContent(paddingValues: PaddingValues, iconId: Int?, description
 }
 
 @Suppress("MagicNumber")
+@SuppressLint("ViewModelConstructorInComposable")
 @Composable
 @Preview
 private fun AssistantScreenPreview() {
@@ -544,6 +547,7 @@ private fun AssistantScreenPreview() {
 }
 
 @Suppress("MagicNumber")
+@SuppressLint("ViewModelConstructorInComposable")
 @Composable
 @Preview
 private fun AssistantEmptyScreenPreview() {
