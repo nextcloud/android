@@ -7,9 +7,12 @@
 
 package com.owncloud.android.ui.dialog.setupEncryption.model
 
+import androidx.annotation.StringRes
 import com.owncloud.android.R
 
 sealed class DownloadKeyResult(open val descriptionId: Int? = null) {
+    data class RequestFailed(@param:StringRes override val descriptionId: Int) : DownloadKeyResult(descriptionId)
+
     data class CertificateVerificationFailed(
         val reason: CertificateValidationResult,
         override val descriptionId: Int = requireNotNull(reason.descriptionId)

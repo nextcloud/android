@@ -21,6 +21,7 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.repository.ClientRepository
 import com.nextcloud.utils.SnackbarUtil
+import com.nextcloud.utils.e2ee.E2EEKeyRequestError
 import com.nextcloud.utils.e2ee.model.E2EEAction
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
@@ -265,7 +266,7 @@ class SetupEncryptionDialogFragment :
             val user = user ?: return@withContext DownloadKeyResult.UnexpectedError()
             val dataProvider = arbitraryDataProvider ?: return@withContext DownloadKeyResult.UnexpectedError()
             val client = clientRepository.getNextcloudClient()
-                ?: return@withContext DownloadKeyResult.UnexpectedError()
+                ?: return@withContext DownloadKeyResult.RequestFailed(R.string.e2ee_key_request_connection_failed)
 
             val certificateOperation = GetCertificateRemoteOperation()
             val certificateResult = certificateOperation.execute(client)
@@ -275,14 +276,14 @@ class SetupEncryptionDialogFragment :
                 return@withContext if (certificateResult.httpCode == HttpStatus.SC_NOT_FOUND) {
                     DownloadKeyResult.GeneratePassphraseSendCSR
                 } else {
-                    DownloadKeyResult.CertificateUnavailable()
+                    E2EEKeyRequestError.from(certificateResult)
                 }
             }
 
             val serverPublicKeyOperation = GetServerPublicKeyRemoteOperation()
             val serverPublicKeyResult = serverPublicKeyOperation.execute(client)
             if (!serverPublicKeyResult.isSuccess) {
-                return@withContext DownloadKeyResult.ServerPublicKeyUnavailable()
+                return@withContext E2EEKeyRequestError.from(serverPublicKeyResult)
             }
 
             val serverKey = serverPublicKeyResult.resultData
@@ -307,12 +308,12 @@ class SetupEncryptionDialogFragment :
                 keyResult = KEY_EXISTING_USED
                 val privateKey = privateKeyResult.resultData?.getKey()
                 if (privateKey == null) {
-                    DownloadKeyResult.ServerPrivateKeyUnavailable()
+                    DownloadKeyResult.RequestFailed(R.string.e2ee_key_request_invalid_response)
                 } else {
                     DownloadKeyResult.Success(privateKey)
                 }
             } else {
-                DownloadKeyResult.ServerPrivateKeyUnavailable()
+                E2EEKeyRequestError.from(privateKeyResult)
             }
         }
 
@@ -322,10 +323,13 @@ class SetupEncryptionDialogFragment :
     private fun showDownloadKeyResult(result: DownloadKeyResult) {
         if (result is DownloadKeyResult.Success || result is DownloadKeyResult.GeneratePassphraseSendCSR) {
             handlePrivateKey(result)
-        } else if (result is DownloadKeyResult.CertificateVerificationFailed) {
+        } else if (
+            result is DownloadKeyResult.CertificateVerificationFailed || result is DownloadKeyResult.RequestFailed
+        ) {
+            val descriptionId = result.descriptionId ?: return
             keyResult = KEY_FAILED
             requireDialog().setTitle(R.string.common_error)
-            binding.encryptionStatus.setText(result.descriptionId)
+            binding.encryptionStatus.setText(descriptionId)
             (dialog as? AlertDialog)?.getButton(AlertDialog.BUTTON_POSITIVE)?.apply {
                 setText(R.string.end_to_end_encryption_dialog_close)
                 visibility = View.VISIBLE

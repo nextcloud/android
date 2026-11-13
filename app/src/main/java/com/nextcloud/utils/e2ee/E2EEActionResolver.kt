@@ -53,13 +53,13 @@ class E2EEActionResolver @Inject constructor(
     private suspend fun resolveKeyCheck(): E2EEKeyCheckResult {
         val keysAbsentLocally = inspector.isLocalKeysAbsent()
 
-        if (!inspector.fetchCapabilities()) {
+        inspector.fetchCapabilities()?.let { capabilitiesError ->
             val state = if (connectivityService.isNetworkAndServerAvailableSuspended()) {
                 E2EEKeyCheck.CHECK_FAILED
             } else {
                 E2EEKeyCheck.NO_NETWORK
             }
-            return E2EEKeyCheckResult(state)
+            return E2EEKeyCheckResult(state, capabilitiesError.descriptionId)
         }
 
         val capability = storageManager.getCapability(accountManager.user)
