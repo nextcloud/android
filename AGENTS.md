@@ -93,8 +93,8 @@ Avoid creating source files that implement multiple types; instead, place each t
 ### Jetpack Compose
 
 Modern UI is built with Jetpack Compose (Material 3). Key directories:
-- `com.nextcloud.ui.composeActivity` - Activities hosting Compose content
-- `com.nextcloud.ui.composeComponents` - Reusable Compose components
+- `com.nextcloud.ui.compose` - Activities hosting Compose content
+- `com.nextcloud.ui.compose.component` - Reusable Compose components
 - `com.nextcloud.client.assistant` - Compose-based Assistant screens and features
 
 Use `StateFlow` and `MutableStateFlow` in ViewModels for state management. Collect state in Compose functions with `collectAsState()`.

@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 [versions]
+activityComposeVersion = "1.13.0"
 androidCommonLibraryVersion = "0.34.0"
 androidGifDrawableVersion = "1.2.32"
 androidImageCropperVersion = "4.7.0"
@@ -57,6 +58,7 @@ markwonVersion = "4.6.2"
 materialIconsCoreVersion = "1.7.8"
 materialVersion = "1.14.0"
 media3 = "1.11.1"
+navigation3Version = "1.2.1"
 mockitoKotlinVersion = "6.4.0"
 mockitoVersion = "5.22.0"
 mockkVersion = "1.14.12"
@@ -164,8 +166,15 @@ glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 # Lifecycle
 lifecycle-process = { module = "androidx.lifecycle:lifecycle-process", version.ref = "lifecycleViewmodelKtxVersion" }
 lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleViewmodelKtxVersion" }
+lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleViewmodelKtxVersion" }
 lifecycle-service = { module = "androidx.lifecycle:lifecycle-service", version.ref = "lifecycleViewmodelKtxVersion" }
 lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtxVersion" }
+lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelKtxVersion" }
+lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "lifecycleViewmodelKtxVersion" }
+
+# Navigation 3
+navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "navigation3Version" }
+navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "navigation3Version" }
 
 # ksp
 ksp = { module = "com.github.bumptech.glide:ksp", version.ref = "glide" }
@@ -177,7 +186,7 @@ compose-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 compose-material3 = { module = "androidx.compose.material3:material3" }
-compose-activity = { module = "androidx.activity:activity-compose" }
+compose-activity = { module = "androidx.activity:activity-compose", version.ref = "activityComposeVersion" }
 
 # Media3
 media3-datasource = { module = "androidx.media3:media3-datasource-okhttp", version.ref = "media3" }

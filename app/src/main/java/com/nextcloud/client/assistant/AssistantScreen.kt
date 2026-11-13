@@ -8,6 +8,7 @@
 package com.nextcloud.client.assistant
 
 import android.app.Activity
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -57,6 +58,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nextcloud.client.assistant.chat.ChatContent
 import com.nextcloud.client.assistant.chat.ChatViewModel
+import com.nextcloud.client.assistant.component.TaskSelectionAlertDialog
 import com.nextcloud.client.assistant.conversation.ConversationScreen
 import com.nextcloud.client.assistant.conversation.ConversationViewModel
 import com.nextcloud.client.assistant.conversation.repository.MockConversationRemoteRepository
@@ -70,11 +72,10 @@ import com.nextcloud.client.assistant.task.TaskView
 import com.nextcloud.client.assistant.taskTypes.TaskTypesRow
 import com.nextcloud.client.assistant.translate.TranslationScreen
 import com.nextcloud.client.assistant.translate.TranslationViewModel
-import com.nextcloud.ui.composeActivity.ComposeActivity
-import com.nextcloud.ui.composeActivity.ComposeViewModel
-import com.nextcloud.ui.composeComponents.alertDialog.SimpleAlertDialog
-import com.nextcloud.ui.composeComponents.alertDialog.TaskSelectionAlertDialog
-import com.nextcloud.ui.composeComponents.bottomSheet.MoreActionsBottomSheet
+import com.nextcloud.ui.compose.ComposeActivity
+import com.nextcloud.ui.compose.ComposeViewModel
+import com.nextcloud.ui.compose.component.alertDialog.BaseAlertDialog
+import com.nextcloud.ui.compose.component.bottomSheet.MoreActionsBottomSheet
 import com.nextcloud.utils.extensions.getChat
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.v2.model.Task
@@ -289,6 +290,7 @@ fun AssistantScreen(
                                 val task = (screenState as AssistantScreenState.Translation).task
                                 val textToTranslate = task?.input?.input ?: selectedText ?: ""
 
+                                @SuppressLint("ViewModelConstructorInComposable")
                                 val translationViewModel =
                                     TranslationViewModel(remoteRepository = viewModel.getRemoteRepository())
 
@@ -415,12 +417,16 @@ private fun OverlayState(state: ScreenOverlayState?, activity: Activity, viewMod
     state?.let {
         when (state) {
             is ScreenOverlayState.DeleteTask -> {
-                SimpleAlertDialog(
+                BaseAlertDialog(
                     title = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_title),
-                    description = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_description),
                     onDismiss = { viewModel.updateScreenOverlayState(null) },
-                    onComplete = { viewModel.deleteTask(state.id) }
-                )
+                    onComplete = {
+                        viewModel.deleteTask(state.id)
+                        viewModel.updateScreenOverlayState(null)
+                    }
+                ) {
+                    Text(stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_description))
+                }
             }
 
             is ScreenOverlayState.TaskActions -> {
@@ -524,6 +530,7 @@ private fun EmptyContent(paddingValues: PaddingValues, iconId: Int?, description
 }
 
 @Suppress("MagicNumber")
+@SuppressLint("ViewModelConstructorInComposable")
 @Composable
 @Preview
 private fun AssistantScreenPreview() {
@@ -544,6 +551,7 @@ private fun AssistantScreenPreview() {
 }
 
 @Suppress("MagicNumber")
+@SuppressLint("ViewModelConstructorInComposable")
 @Composable
 @Preview
 private fun AssistantEmptyScreenPreview() {

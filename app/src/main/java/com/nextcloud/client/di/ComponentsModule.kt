@@ -28,7 +28,7 @@ import com.nextcloud.client.widget.DashboardWidgetConfigurationActivity
 import com.nextcloud.client.widget.DashboardWidgetProvider
 import com.nextcloud.client.widget.DashboardWidgetService
 import com.nextcloud.ui.albumItemActions.AlbumItemActionsBottomSheet
-import com.nextcloud.ui.composeActivity.ComposeActivity
+import com.nextcloud.ui.compose.ComposeActivity
 import com.nextcloud.ui.dialog.account.ChooseAccountDialogFragment
 import com.nextcloud.ui.dialog.account.onlineStatus.SetOnlineStatusBottomSheet
 import com.nextcloud.ui.dialog.account.statusMessage.SetStatusMessageBottomSheet
@@ -36,6 +36,7 @@ import com.nextcloud.ui.dialog.chooseStorage.ChooseStorageLocationDialogFragment
 import com.nextcloud.ui.fileInfo.FileInfoFragment
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet
 import com.nextcloud.ui.tags.TagManagementBottomSheet
+import com.nextcloud.ui.teams.detail.TeamWebView
 import com.nextcloud.ui.trashbinFileActions.TrashbinFileActionsBottomSheet
 import com.nmc.android.ui.LauncherActivity
 import com.owncloud.android.MainApp
@@ -252,6 +253,9 @@ internal interface ComponentsModule {
 
     @ContributesAndroidInjector
     fun textEditorWebView(): TextEditorWebView
+
+    @ContributesAndroidInjector
+    fun teamWebView(): TeamWebView
 
     @ContributesAndroidInjector
     fun extendedListFragment(): ExtendedListFragment

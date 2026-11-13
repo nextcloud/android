@@ -4,7 +4,7 @@
  * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.nextcloud.ui.composeActivity
+package com.nextcloud.ui.compose
 
 import android.content.ComponentName
 import android.content.Context
@@ -22,7 +22,7 @@ class ComposeProcessTextAlias @Inject constructor(private val context: Context) 
 
         val componentName = ComponentName(
             context,
-            "com.nextcloud.ui.composeActivity.ComposeProcessTextAlias"
+            "com.nextcloud.ui.compose.ComposeProcessTextAlias"
         )
 
         val newState = if (isAssistantAvailable) {

@@ -16,6 +16,8 @@ import com.nextcloud.client.logger.ui.LogsViewModel
 import com.nextcloud.client.player.ui.audio.AudioPlayerViewModel
 import com.nextcloud.ui.fileactions.FileActionsViewModel
 import com.nextcloud.ui.tags.TagManagementViewModel
+import com.nextcloud.ui.teams.detail.viewmodel.TeamDetailViewModel
+import com.nextcloud.ui.teams.viewmodel.TeamsViewModel
 import com.nextcloud.ui.trashbinFileActions.TrashbinFileActionsViewModel
 import com.owncloud.android.ui.activity.filedisplayactivity.FileDisplayActivityViewModel
 import com.owncloud.android.ui.fragment.filedetail.FileDetailFragmentViewModel
@@ -84,4 +86,14 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(FileDetailFragmentViewModel::class)
     abstract fun fileDetailFragmentViewModel(vm: FileDetailFragmentViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(TeamsViewModel::class)
+    abstract fun teamsViewModel(factory: TeamsViewModel.Factory): SavedStateViewModelCreator
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(TeamDetailViewModel::class)
+    abstract fun teamDetailViewModel(factory: TeamDetailViewModel.Factory): SavedStateViewModelCreator
 }

@@ -35,8 +35,8 @@ import com.nextcloud.client.account.User
 import com.nextcloud.common.JSONRequestBody
 import com.nextcloud.operations.GetMethod
 import com.nextcloud.operations.PostMethod
-import com.nextcloud.ui.composeActivity.ComposeActivity
-import com.nextcloud.ui.composeActivity.ComposeDestination
+import com.nextcloud.ui.compose.ComposeActivity
+import com.nextcloud.ui.compose.navigation.ComposeDestination
 import com.nextcloud.utils.GlideHelper
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.view.ScreenMetrics

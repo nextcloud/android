@@ -181,4 +181,5 @@
     <dimen name="player_progress_panel_padding_horizontal">@dimen/standard_padding</dimen>
     <dimen name="player_panel_margin_bottom">@dimen/standard_padding</dimen>
     <dimen name="player_button_margin_vertical">8dp</dimen>
+    <dimen name="team_member_suggestions_max_height">240dp</dimen>
 </resources>

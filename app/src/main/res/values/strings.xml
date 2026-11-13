@@ -1481,6 +1481,45 @@
     <string name="ecosystem_apps_display_notes" translatable="false">Notes</string>
     <string name="ecosystem_apps_display_talk" translatable="false">Talk</string>
     <string name="ecosystem_apps_display_more">More</string>
+    <string name="navigation_teams">Teams</string>
+    <string name="teams_my_teams">My teams</string>
+    <string name="teams_other_teams">Other teams</string>
+    <string name="teams_create">Create team</string>
+    <string name="teams_name_hint">Team name</string>
+    <string name="teams_empty">No teams yet</string>
+    <string name="teams_search_hint">Search teams</string>
+    <string name="teams_search_clear">Clear search</string>
+    <string name="teams_search_no_results">No teams found</string>
+    <string name="team_tab_resources">Resources</string>
+    <string name="team_tab_members">Members</string>
+    <string name="team_settings">Team settings</string>
+    <string name="team_resources_empty">Nothing shared with this team yet</string>
+    <string name="team_members_empty">No members</string>
+    <string name="team_load_failed">Could not load team</string>
+    <string name="team_error_not_found">Team not found</string>
+    <string name="team_add_member">Add member</string>
+    <string name="team_add_member_hint">Search users, groups or email</string>
+    <string name="team_add_member_failed">Could not add member</string>
+    <string name="team_error_add_member_not_allowed">You are not allowed to add members to this team</string>
+    <string name="team_error_add_member_invalid">This member cannot be added to the team</string>
+    <string name="team_role_owner">Owner</string>
+    <string name="team_role_admin">Admin</string>
+    <string name="team_role_moderator">Moderator</string>
+    <string name="team_role_member">Member</string>
+    <string name="teams_load_failed">Could not load teams</string>
+    <string name="teams_create_failed">Could not create team</string>
+    <plurals name="teams_name_length">
+        <item quantity="one">Use %1$d to %2$d character</item>
+        <item quantity="other">Use %1$d to %2$d characters</item>
+    </plurals>
+    <string name="teams_error_invalid_name">This team name is not allowed</string>
+    <string name="teams_error_create_not_allowed">You are not allowed to create teams</string>
+    <string name="teams_error_not_available">Teams are not available on this server</string>
+    <string name="teams_error_too_many_requests">Too many teams created in a short time. Try again in a minute.</string>
+    <plurals name="teams_member_count">
+        <item quantity="one">%d member</item>
+        <item quantity="other">%d members</item>
+    </plurals>
     <string name="filedetails_details">Details</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_fnumber">ƒ/%s</string>
