@@ -22,6 +22,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,18 +38,24 @@ fun BaseAlertDialog(
     isCompleteEnabled: Boolean = true,
     content: @Composable ColumnScope.() -> Unit
 ) {
+    // Previews cannot render the separate window opened by BasicAlertDialog, so draw the card inline there
+    if (LocalInspectionMode.current) {
+        BaseAlertDialogContent(title, onDismiss, onComplete, completeText, isCompleteEnabled, content)
+        return
+    }
+
     BasicAlertDialog(onDismissRequest = onDismiss) {
         BaseAlertDialogContent(title, onDismiss, onComplete, completeText, isCompleteEnabled, content)
     }
 }
 
 @Composable
-fun BaseAlertDialogContent(
+private fun BaseAlertDialogContent(
     title: String,
     onDismiss: () -> Unit,
-    onComplete: (() -> Unit)? = null,
-    completeText: String = stringResource(R.string.common_ok),
-    isCompleteEnabled: Boolean = true,
+    onComplete: (() -> Unit)?,
+    completeText: String,
+    isCompleteEnabled: Boolean,
     content: @Composable ColumnScope.() -> Unit
 ) {
     Surface(
@@ -87,7 +94,7 @@ fun BaseAlertDialogContent(
 @Composable
 private fun BaseAlertDialogPreview() {
     MaterialTheme {
-        BaseAlertDialogContent(
+        BaseAlertDialog(
             title = "Title",
             onDismiss = {},
             onComplete = {}
