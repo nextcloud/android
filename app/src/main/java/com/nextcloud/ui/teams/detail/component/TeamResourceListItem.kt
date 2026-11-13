@@ -41,8 +41,10 @@ fun TeamResourceListItem(resource: TeamResource, onClick: () -> Unit) {
 
 @DrawableRes
 private fun iconId(providerId: String): Int = when (providerId) {
+    TeamResourceProviderId.FILES -> R.drawable.file
     TeamResourceProviderId.TEAM_FOLDER -> R.drawable.folder
     TeamResourceProviderId.TALK -> R.drawable.ic_talk
     TeamResourceProviderId.DECK -> R.drawable.ic_deck
+    TeamResourceProviderId.COLLECTIVES -> R.drawable.ic_notes
     else -> R.drawable.ic_link
 }

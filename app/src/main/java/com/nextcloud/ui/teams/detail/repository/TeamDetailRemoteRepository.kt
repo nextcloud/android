@@ -6,6 +6,8 @@
  */
 package com.nextcloud.ui.teams.detail.repository
 
+import com.nextcloud.android.lib.resources.collectives.GetCollectivesUserFolderRemoteOperation
+import com.nextcloud.android.lib.resources.collectives.model.CollectivesUserFolder
 import com.nextcloud.android.lib.resources.teams.get.folder.GetTeamFolderRemoteOperation
 import com.nextcloud.android.lib.resources.teams.get.folder.model.TeamFolder
 import com.nextcloud.android.lib.resources.teams.get.members.GetTeamMembersRemoteOperation
@@ -35,6 +37,9 @@ class TeamDetailRemoteRepository @Inject constructor(private val clientRepositor
 
     override suspend fun getFolder(teamId: String): RemoteOperationResult<TeamFolder> =
         execute(GetTeamFolderRemoteOperation(teamId))
+
+    override suspend fun getCollectivesUserFolder(): RemoteOperationResult<CollectivesUserFolder> =
+        execute(GetCollectivesUserFolderRemoteOperation())
 
     override suspend fun getMembers(teamId: String): RemoteOperationResult<List<TeamMember>> =
         execute(GetTeamMembersRemoteOperation(teamId))

@@ -7,7 +7,9 @@
 package com.nextcloud.ui.teams.detail.model
 
 object TeamResourceProviderId {
+    const val FILES = "files"
     const val TEAM_FOLDER = "groupfolders"
     const val TALK = "talk"
     const val DECK = "deck"
+    const val COLLECTIVES = "collectives"
 }

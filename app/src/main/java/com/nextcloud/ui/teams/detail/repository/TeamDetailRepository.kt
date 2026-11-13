@@ -6,6 +6,7 @@
  */
 package com.nextcloud.ui.teams.detail.repository
 
+import com.nextcloud.android.lib.resources.collectives.model.CollectivesUserFolder
 import com.nextcloud.android.lib.resources.teams.get.folder.model.TeamFolder
 import com.nextcloud.android.lib.resources.teams.get.resources.model.TeamResource
 import com.nextcloud.android.lib.resources.teams.model.TeamMember
@@ -17,6 +18,8 @@ interface TeamDetailRepository {
     suspend fun getResources(teamId: String): RemoteOperationResult<List<TeamResource>>
 
     suspend fun getFolder(teamId: String): RemoteOperationResult<TeamFolder>
+
+    suspend fun getCollectivesUserFolder(): RemoteOperationResult<CollectivesUserFolder>
 
     suspend fun getMembers(teamId: String): RemoteOperationResult<List<TeamMember>>
 
