@@ -17,6 +17,9 @@ val shotTest = providers.environmentVariable("SHOT_TEST").orNull == "true"
 val ciBuild = providers.environmentVariable("CI").orNull == "true"
 val perfAnalysis = providers.gradleProperty("perfAnalysis").isPresent
 val coverage = providers.gradleProperty("coverage").isPresent
+val instrumentedTestBuild = coverage || shotTest ||
+    gradle.startParameter.taskNames.any { it.contains("AndroidTest", ignoreCase = true) }
+val enableR8 = !instrumentedTestBuild
 
 val allAbis = listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
 val localDebugAbis = when (System.getProperty("os.arch")) {
@@ -146,7 +149,7 @@ android {
             enableUnitTestCoverage = coverage
             enableAndroidTestCoverage = coverage
             optimization {
-                enable = true
+                enable = enableR8
             }
             ndk {
                 abiFilters += if (ciBuild) allAbis else localDebugAbis
@@ -179,7 +182,7 @@ android {
             versionCode = 20220322
             versionName = "20220322"
             optimization {
-                enable = true
+                enable = enableR8
             }
         }
 
