@@ -32,11 +32,10 @@ fun FileOperationsHelper.handle(@IdRes itemId: Int, file: OCFile, view: View?): 
 fun FileOperationsHelper.handle(
     @IdRes itemId: Int,
     files: Collection<OCFile>,
-    view: View?,
     backgroundJobManager: BackgroundJobManager
 ): Boolean {
     when (itemId) {
-        R.id.action_export_file -> exportFiles(files, view?.context, view, backgroundJobManager)
+        R.id.action_export_file -> exportFiles(files, backgroundJobManager)
         R.id.action_add_to_album -> addFileToAlbum(files)
         else -> return false
     }

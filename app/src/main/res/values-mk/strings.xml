@@ -182,6 +182,7 @@
     <string name="create_dir_fail_msg">Не може да креира папка</string>
     <string name="create_document">Документ</string>
     <string name="create_folder">Папка</string>
+    <string name="create_link">Креирај линк</string>
     <string name="create_new">Ново</string>
     <string name="create_new_document">Нов Документ</string>
     <string name="create_new_presentation">Нова Презентација</string>
@@ -378,6 +379,7 @@
     <string name="hint_password">Лозинка</string>
     <string name="host_not_available">Серверот не е достапен</string>
     <string name="host_your_own_server">Хостирајте го вашиот сервер</string>
+    <string name="image_editor_file_edited_suffix">изменето</string>
     <string name="image_preview_unit_seconds">%s s</string>
     <string name="instant_upload_existing">Прикачување на постоечките датотеки</string>
     <string name="instant_upload_on_charging">Прикачувај само додека се полни</string>

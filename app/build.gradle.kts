@@ -111,8 +111,8 @@ android {
         targetSdk = 36
         // mayor.minor.hotfix.increment (for increment: 01-50=Alpha / 51-89=RC / 90-99=stable)
         // xx   .xxx  .xx    .xx
-        versionCode = 350010050
-        versionName = "35.1.0 Alpha 51"
+        versionCode = 350020000
+        versionName = "35.2.0 Alpha 51"
 
         buildConfigField("boolean", "CI", ciBuild.toString())
         buildConfigField("boolean", "RUNTIME_PERF_ANALYSIS", perfAnalysis.toString())
@@ -128,9 +128,6 @@ android {
 
         buildTypes {
             release {
-                optimization {
-                    enable = true
-                }
                 buildConfigField("String", "NC_TEST_SERVER_DATA_STRING", "\"\"")
                 ndk {
                     abiFilters += allAbis
@@ -140,6 +137,9 @@ android {
                 enableUnitTestCoverage = project.hasProperty("coverage")
                 enableAndroidTestCoverage = project.hasProperty("coverage")
                 resConfigs("xxxhdpi")
+                optimization {
+                    enable = true
+                }
                 ndk {
                     abiFilters += if (ciBuild) allAbis else localDebugAbis
                 }
@@ -168,6 +168,9 @@ android {
                 dimension = "default"
                 versionCode = 20220322
                 versionName = "20220322"
+                optimization {
+                    enable = true
+                }
             }
 
             register("qa") {

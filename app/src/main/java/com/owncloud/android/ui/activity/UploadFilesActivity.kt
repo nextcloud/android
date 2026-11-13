@@ -20,6 +20,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Environment
+import android.os.storage.StorageManager
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -94,6 +95,7 @@ class UploadFilesActivity :
     private var optionsMenu: Menu? = null
     private var searchView: SearchView? = null
     private var chosenFilePaths: Array<String>? = null
+    private val androidStorageManager by lazy { getSystemService(StorageManager::class.java) }
 
     private val isRoot: Boolean
         get() = currentDir?.absolutePath == ROOT_DIR
@@ -485,10 +487,25 @@ class UploadFilesActivity :
     }
 
     private fun ArrayAdapter<String>.addDirectoryHierarchy(directory: File?) {
+        val volume = directory?.let { androidStorageManager.getStorageVolume(it) }
+
+        // Fallback to full path
+        if (volume == null) {
+            generateSequence(directory) { it.parentFile }
+                .takeWhile { it.parentFile != null }
+                .forEach { add(it.name) }
+            add(File.separator)
+            return
+        }
+
+        // Show user-readable path
         generateSequence(directory) { it.parentFile }
-            .takeWhile { it.parentFile != null }
+            .takeWhile { dir ->
+                dir.parentFile?.let { androidStorageManager.getStorageVolume(it) } == volume
+            }
             .forEach { add(it.name) }
-        add(File.separator)
+
+        add(volume.getDescription(this@UploadFilesActivity))
     }
 
     companion object {

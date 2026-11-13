@@ -139,7 +139,7 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
                     val test = storageManager.getFileByPath("/test/")
                     sut.file = test
                     sut.startSyncFolderOperation(test, false)
-                    assertEquals(storageManager.getFileByPath("/test/"), sut.currentDir)
+                    assertEquals(storageManager.getFileByPath("/test/"), sut.getCurrentDir())
                     EspressoIdlingResource.decrement()
 
                     // open drawer
@@ -150,7 +150,7 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
                         .perform(NavigationViewActions.navigateTo(R.id.nav_all_files))
 
                     // then should be in root again
-                    assertEquals(storageManager.getFileByPath("/"), sut.currentDir)
+                    assertEquals(storageManager.getFileByPath("/"), sut.getCurrentDir())
                 }
             }
         }

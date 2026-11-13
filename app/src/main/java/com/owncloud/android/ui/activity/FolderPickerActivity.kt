@@ -15,6 +15,8 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.res.Resources
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.os.Parcelable
 import android.view.ActionMode
 import android.view.Menu
@@ -239,7 +241,7 @@ open class FolderPickerActivity :
     }
 
     override fun onSavedCertificate() {
-        startSyncFolderOperation(currentDir, false)
+        startSyncFolderOperation(getCurrentDir(), false)
     }
 
     private fun startSyncFolderOperation(folder: OCFile?, ignoreETag: Boolean) {
@@ -267,7 +269,7 @@ open class FolderPickerActivity :
                 { _, _ ->
                     listOfFilesFragment?.setEmptyListMessage(EmptyListState.LOCAL_FILE_LIST_EMPTY_FILE)
                 },
-                null
+                Handler(Looper.getMainLooper())
             )
         }
     }
@@ -448,7 +450,8 @@ open class FolderPickerActivity :
     }
 
     private fun getSelectedFolderPathTitle(): String? {
-        val atRoot = (currentDir == null || currentDir?.parentId == 0L)
+        val currentDir = getCurrentDir()
+        val atRoot = (currentDir == null || currentDir.parentId == 0L)
         return if (atRoot) captionText ?: "" else currentDir?.fileName
     }
 

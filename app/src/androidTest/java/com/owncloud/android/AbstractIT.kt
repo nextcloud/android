@@ -321,7 +321,7 @@ abstract class AbstractIT {
 
             darkMode = DARK
             AppPreferencesImpl.fromContext(targetContext).setDarkThemeMode(DarkMode.DARK)
-            MainApp.setAppTheme(DarkMode.DARK)
+            DarkMode.DARK.setTheme()
         }
 
         @JvmStatic
