@@ -9,6 +9,7 @@ package com.nextcloud.ui.compose.component.webView
 import android.annotation.SuppressLint
 import android.net.Uri
 import android.webkit.CookieManager
+import android.webkit.RenderProcessGoneDetail
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -47,7 +48,7 @@ private const val AUTHORIZATION_HEADER = "Authorization"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WebPageScreen(title: String, url: String, client: NextcloudClient?, onClose: () -> Unit) {
+fun WebPageScreen(title: String, url: String, client: NextcloudClient, onClose: () -> Unit) {
     var webView by remember { mutableStateOf<WebView?>(null) }
     var progress by remember { mutableIntStateOf(0) }
     var canGoBack by remember { mutableStateOf(false) }
@@ -80,15 +81,14 @@ fun WebPageScreen(title: String, url: String, client: NextcloudClient?, onClose:
                 )
             }
 
-            client ?: return@Column
-
             AndroidView(
                 modifier = Modifier.fillMaxSize(),
                 factory = { context ->
                     WebView(context).apply {
                         configure(
                             onProgressChange = { progress = it },
-                            onHistoryChange = { canGoBack = it }
+                            onHistoryChange = { canGoBack = it },
+                            onRendererGone = onClose
                         )
                         loadAuthenticated(url, client)
                         webView = this
@@ -101,7 +101,11 @@ fun WebPageScreen(title: String, url: String, client: NextcloudClient?, onClose:
 }
 
 @SuppressLint("SetJavaScriptEnabled")
-private fun WebView.configure(onProgressChange: (Int) -> Unit, onHistoryChange: (Boolean) -> Unit) {
+private fun WebView.configure(
+    onProgressChange: (Int) -> Unit,
+    onHistoryChange: (Boolean) -> Unit,
+    onRendererGone: () -> Unit
+) {
     settings.javaScriptEnabled = true
     settings.domStorageEnabled = true
     if (WebViewFeature.isFeatureSupported(WebViewFeature.ALGORITHMIC_DARKENING)) {
@@ -112,6 +116,11 @@ private fun WebView.configure(onProgressChange: (Int) -> Unit, onHistoryChange: 
         override fun doUpdateVisitedHistory(view: WebView, url: String?, isReload: Boolean) {
             onHistoryChange(view.canGoBack())
         }
+
+        override fun onRenderProcessGone(view: WebView, detail: RenderProcessGoneDetail): Boolean {
+            onRendererGone()
+            return true
+        }
     }
     webChromeClient = object : WebChromeClient() {
         override fun onProgressChanged(view: WebView, newProgress: Int) {
@@ -120,8 +129,6 @@ private fun WebView.configure(onProgressChange: (Int) -> Unit, onHistoryChange: 
     }
 }
 
-// Cookies are shared by every WebView of the app: drop a session that may belong to another account
-// before signing in with this account's credentials.
 private fun WebView.loadAuthenticated(url: String, client: NextcloudClient) {
     if (!url.toUri().hasSameOrigin(client.baseUri)) {
         loadUrl(url)
