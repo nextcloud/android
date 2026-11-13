@@ -8,10 +8,10 @@ package com.nextcloud.ui.teams.model
 
 import androidx.annotation.StringRes
 
-sealed interface CreateTeamStatus {
-    data object Editing : CreateTeamStatus
+sealed interface TeamDialogStatus {
+    data object Editing : TeamDialogStatus
 
-    data object Creating : CreateTeamStatus
+    data object Submitting : TeamDialogStatus
 
-    data class Failed(@StringRes val messageId: Int) : CreateTeamStatus
+    data class Failed(@StringRes val messageId: Int) : TeamDialogStatus
 }

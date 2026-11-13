@@ -74,7 +74,7 @@ fun TeamDetailScreen(
                 ExtendedFloatingActionButton(
                     text = { Text(stringResource(R.string.team_add_member)) },
                     icon = { Icon(painterResource(R.drawable.ic_account_plus), contentDescription = null) },
-                    onClick = viewModel::openAddMemberDialog
+                    onClick = { viewModel.updateMemberStatus("") }
                 )
             }
         }
@@ -121,9 +121,9 @@ fun TeamDetailScreen(
             query = query,
             status = addMemberStatus,
             suggestions = memberSuggestions,
-            onQueryChange = viewModel::updateAddMemberQuery,
+            onQueryChange = viewModel::updateMemberStatus,
             onSelect = viewModel::addMember,
-            onDismiss = viewModel::dismissAddMemberDialog
+            onDismiss = { viewModel.updateMemberStatus(null) }
         )
     }
 }
