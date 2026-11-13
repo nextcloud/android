@@ -94,9 +94,8 @@ class ExternalStorageAuthDialogFragment :
         private const val ARG_FOLDER = "FOLDER"
 
         @JvmStatic
-        fun newInstance(folder: OCFile): ExternalStorageAuthDialogFragment =
-            ExternalStorageAuthDialogFragment().apply {
-                arguments = bundleOf(ARG_FOLDER to folder)
-            }
+        fun newInstance(folder: OCFile): ExternalStorageAuthDialogFragment = ExternalStorageAuthDialogFragment().apply {
+            arguments = bundleOf(ARG_FOLDER to folder)
+        }
     }
 }

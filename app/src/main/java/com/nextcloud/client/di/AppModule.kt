@@ -122,8 +122,7 @@ internal class AppModule {
     fun clientRepository(repository: RemoteClientRepository): ClientRepository = repository
 
     @Provides
-    fun externalStorageRepository(repository: RemoteExternalStorageRepository): ExternalStorageRepository =
-        repository
+    fun externalStorageRepository(repository: RemoteExternalStorageRepository): ExternalStorageRepository = repository
 
     @Provides
     fun fileUploadHelper(): FileUploadHelper = FileUploadHelper.instance()
