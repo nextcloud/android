@@ -11,12 +11,14 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import com.nextcloud.client.account.User
-import com.nextcloud.ui.composeActivity.ComposeActivity
-import com.nextcloud.ui.composeActivity.ComposeDestination
 import com.nextcloud.ui.teams.detail.model.TeamResourceTarget
 import com.owncloud.android.ui.activity.FileDisplayActivity
 
-class TeamResourceOpener(private val activity: Activity, private val user: User) {
+class TeamResourceOpener(
+    private val activity: Activity,
+    private val user: User,
+    private val openWebPage: (TeamResourceTarget.WebPage) -> Unit
+) {
 
     fun open(target: TeamResourceTarget) {
         when (target) {
@@ -53,13 +55,6 @@ class TeamResourceOpener(private val activity: Activity, private val user: User)
             encodedAuthority("$userId$ACCOUNT_SEPARATOR${server.rawAuthority}")
             encodedPath("$basePath$TALK_CALL_PATH$token")
         }.build()
-    }
-
-    private fun openWebPage(target: TeamResourceTarget.WebPage) {
-        val intent = Intent(activity, ComposeActivity::class.java).apply {
-            putExtra(ComposeActivity.DESTINATION, ComposeDestination.WebPageScreen(target.title, target.url))
-        }
-        activity.startActivity(intent)
     }
 
     companion object {

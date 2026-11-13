@@ -28,7 +28,7 @@ import com.nextcloud.client.widget.DashboardWidgetConfigurationActivity
 import com.nextcloud.client.widget.DashboardWidgetProvider
 import com.nextcloud.client.widget.DashboardWidgetService
 import com.nextcloud.ui.albumItemActions.AlbumItemActionsBottomSheet
-import com.nextcloud.ui.composeActivity.ComposeActivity
+import com.nextcloud.ui.compose.ComposeActivity
 import com.nextcloud.ui.dialog.account.ChooseAccountDialogFragment
 import com.nextcloud.ui.dialog.account.onlineStatus.SetOnlineStatusBottomSheet
 import com.nextcloud.ui.dialog.account.statusMessage.SetStatusMessageBottomSheet
