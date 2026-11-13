@@ -9,7 +9,6 @@ package com.nextcloud.client.jobs.autoUpload
 
 import android.app.Notification
 import android.content.Context
-import android.os.BatteryManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
@@ -200,16 +199,8 @@ class AutoUploadWorker(
         return false
     }
 
-    /**
-     * JobScheduler counts "plugged in at the charge limit" as charging, WorkManager only accepts
-     * `status == BATTERY_STATUS_CHARGING || status == BATTERY_STATUS_FULL`, see `isBatteryChangedIntentCharging()` in
-     * [androidx.work.impl.constraints.trackers.BatteryChargingTracker].
-     *
-     * Foreground work gets its constraints re-checked by WorkManager, which stops it, and JobScheduler restarts it at
-     * once, in a loop, see [androidx.work.impl.foreground.SystemForegroundDispatcher.onConstraintsStateChanged].
-     */
-    private fun isWaitingForCharging(): Boolean = syncedFolder.isChargingOnly &&
-        context.getSystemService(BatteryManager::class.java)?.isCharging != true
+    private fun isWaitingForCharging(): Boolean =
+        syncedFolder.isChargingOnly && !powerManagementService.battery.isCharging
 
     private suspend fun hasNothingToDo(): Boolean {
         if (repository.hasPendingFiles(syncedFolder)) {

@@ -49,11 +49,10 @@ internal class PowerManagementServiceImpl(
                 IntentFilter(Intent.ACTION_BATTERY_CHANGED),
                 ReceiverFlag.NotExported
             )
-            val isPluggedIn = intent?.let {
-                when (it.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0)) {
-                    BatteryManager.BATTERY_PLUGGED_USB -> true
-                    BatteryManager.BATTERY_PLUGGED_AC -> true
-                    BatteryManager.BATTERY_PLUGGED_WIRELESS -> true
+            val isCharging = intent?.let {
+                when (it.getIntExtra(BatteryManager.EXTRA_STATUS, BatteryManager.BATTERY_STATUS_UNKNOWN)) {
+                    BatteryManager.BATTERY_STATUS_CHARGING -> true
+                    BatteryManager.BATTERY_STATUS_FULL -> true
                     else -> false
                 }
             } ?: false
@@ -62,6 +61,6 @@ internal class PowerManagementServiceImpl(
                 val scale: Int = it.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
                 (level * 100 / scale.toFloat()).toInt()
             } ?: 0
-            return BatteryStatus(isPluggedIn, level)
+            return BatteryStatus(isCharging, level)
         }
 }

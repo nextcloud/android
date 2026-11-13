@@ -10,21 +10,14 @@ package com.nextcloud.client.device
  * This class exposes battery status information
  * in platform-independent way.
  *
- * @param isPluggedIn true if device is connected to a power source, even when the battery is not charging
+ * @param isCharging true if the battery is charging or full, false when plugged in but held at a charge limit
  * @param level Battery level, from 0 to 100%
  *
  * @see [android.os.BatteryManager]
  */
-data class BatteryStatus(val isPluggedIn: Boolean = false, val level: Int = 0) {
+data class BatteryStatus(val isCharging: Boolean = false, val level: Int = 0) {
 
     companion object {
         const val BATTERY_FULL = 100
     }
-
-    /**
-     * True if battery is fully loaded, false otherwise.
-     * Some dodgy devices can report battery charging
-     * status as "battery full".
-     */
-    val isFull: Boolean get() = level >= BATTERY_FULL
 }

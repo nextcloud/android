@@ -140,25 +140,24 @@ class TestPowerManagementService {
         }
 
         @Test
-        fun `battery plugged in status`() {
+        fun `battery charging status`() {
             // GIVEN
             //      battery status sticky intent is available
             whenever(deviceInfo.apiLevel).thenReturn(Build.VERSION_CODES.P)
-            val powerSources = setOf(
-                BatteryManager.BATTERY_PLUGGED_AC,
-                BatteryManager.BATTERY_PLUGGED_USB,
-                BatteryManager.BATTERY_PLUGGED_WIRELESS
+            val chargingStatuses = setOf(
+                BatteryManager.BATTERY_STATUS_CHARGING,
+                BatteryManager.BATTERY_STATUS_FULL
             )
 
-            for (row in powerSources) {
+            for (row in chargingStatuses) {
                 // WHEN
-                //      device is plugged in to supported power source
-                whenever(intent.getIntExtra(eq(BatteryManager.EXTRA_PLUGGED), any()))
+                //      battery is charging or full
+                whenever(intent.getIntExtra(eq(BatteryManager.EXTRA_STATUS), any()))
                     .thenReturn(row)
 
                 // THEN
-                //      plugged in flag is true
-                assertTrue(powerManagementService.battery.isPluggedIn)
+                //      charging flag is true
+                assertTrue(powerManagementService.battery.isCharging)
             }
         }
 
@@ -173,8 +172,8 @@ class TestPowerManagementService {
             )
 
             // THEN
-            //     plugged in flag is false
-            assertFalse(powerManagementService.battery.isPluggedIn)
+            //     charging flag is false
+            assertFalse(powerManagementService.battery.isCharging)
             verify(context).registerReceiver(anyOrNull(), any())
         }
 
