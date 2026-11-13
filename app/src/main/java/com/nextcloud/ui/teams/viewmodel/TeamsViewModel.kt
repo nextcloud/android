@@ -9,6 +9,7 @@ package com.nextcloud.ui.teams.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nextcloud.client.di.SavedStateViewModelCreator
 import com.nextcloud.ui.teams.model.CreateTeamStatus
 import com.nextcloud.ui.teams.model.TeamsUiState
 import com.nextcloud.ui.teams.model.createTeamErrorMessageId
@@ -107,8 +108,8 @@ class TeamsViewModel @AssistedInject constructor(
     }
 
     @AssistedFactory
-    interface Factory {
-        fun create(savedStateHandle: SavedStateHandle): TeamsViewModel
+    interface Factory : SavedStateViewModelCreator {
+        override fun create(savedStateHandle: SavedStateHandle): TeamsViewModel
     }
 
     companion object {

@@ -30,8 +30,8 @@ import com.nextcloud.ui.teams.detail.component.AddTeamMemberDialog
 import com.nextcloud.ui.teams.detail.component.TeamDetailListStateContent
 import com.nextcloud.ui.teams.detail.component.TeamMemberListItem
 import com.nextcloud.ui.teams.detail.component.TeamResourceListItem
-import com.nextcloud.ui.teams.detail.model.TeamResourceTarget
 import com.nextcloud.ui.teams.detail.model.TeamDetailTab
+import com.nextcloud.ui.teams.detail.model.TeamResourceTarget
 import com.nextcloud.ui.teams.detail.viewmodel.TeamDetailViewModel
 import com.owncloud.android.R
 

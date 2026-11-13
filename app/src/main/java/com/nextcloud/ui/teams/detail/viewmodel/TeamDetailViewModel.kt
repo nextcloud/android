@@ -11,12 +11,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nextcloud.android.lib.resources.teams.get.resources.model.TeamResource
 import com.nextcloud.android.lib.resources.teams.model.TeamMember
+import com.nextcloud.client.di.SavedStateViewModelCreator
 import com.nextcloud.ui.teams.detail.model.AddTeamMemberStatus
 import com.nextcloud.ui.teams.detail.model.TeamDetailListUiState
+import com.nextcloud.ui.teams.detail.model.TeamDetailTab
 import com.nextcloud.ui.teams.detail.model.TeamMemberSuggestion
 import com.nextcloud.ui.teams.detail.model.TeamResourceProviderId
 import com.nextcloud.ui.teams.detail.model.TeamResourceTarget
-import com.nextcloud.ui.teams.detail.model.TeamDetailTab
 import com.nextcloud.ui.teams.detail.model.addTeamMemberErrorMessageId
 import com.nextcloud.ui.teams.detail.model.loadTeamDetailErrorMessageId
 import com.nextcloud.ui.teams.detail.repository.TeamDetailRepository
@@ -184,8 +185,8 @@ class TeamDetailViewModel @AssistedInject constructor(
     }
 
     @AssistedFactory
-    interface Factory {
-        fun create(savedStateHandle: SavedStateHandle): TeamDetailViewModel
+    interface Factory : SavedStateViewModelCreator {
+        override fun create(savedStateHandle: SavedStateHandle): TeamDetailViewModel
     }
 
     companion object {
