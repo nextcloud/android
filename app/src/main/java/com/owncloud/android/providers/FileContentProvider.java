@@ -21,6 +21,7 @@ import android.content.OperationApplicationException;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
+import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Binder;
@@ -341,6 +342,36 @@ public class FileContentProvider extends ContentProvider {
         String where = ProviderTableMeta.FILE_PATH + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?";
         String[] whereArgs = {filePath, accountOwner};
 
+        Long existingRowId = queryFileId(db, where, whereArgs);
+        if (existingRowId != null) {
+            db.update(ProviderTableMeta.FILE_TABLE_NAME, SQLiteDatabase.CONFLICT_NONE, values, where, whereArgs);
+            return ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, existingRowId);
+        }
+
+        // A concurrent writer can slip in between the lookup above and this insert. The unique index on
+        // (path, file_owner) then refuses our row — that is the point of it — so take the id of the row
+        // that is stored now instead of handing out a broken one.
+        long rowId;
+        try {
+            rowId = db.insert(ProviderTableMeta.FILE_TABLE_NAME, SQLiteDatabase.CONFLICT_NONE, values);
+        } catch (SQLiteConstraintException e) {
+            Long storedRowId = queryFileId(db, where, whereArgs);
+            if (storedRowId == null) {
+                throw e;
+            }
+            rowId = storedRowId;
+        }
+        if (rowId <= 0) {
+            // insert() reports a refused row as -1 on some API levels instead of throwing.
+            Long storedRowId = queryFileId(db, where, whereArgs);
+            if (storedRowId != null) {
+                rowId = storedRowId;
+            }
+        }
+        return ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, rowId);
+    }
+
+    private Long queryFileId(SupportSQLiteDatabase db, String where, String... whereArgs) {
         try (Cursor cursor = db.query(
             new SimpleSQLiteQuery(
                 "SELECT " + ProviderTableMeta._ID +
@@ -348,15 +379,8 @@ public class FileContentProvider extends ContentProvider {
                     " WHERE " + where,
                 whereArgs
             ))) {
-            if (cursor.moveToFirst()) {
-                long existingRowId = cursor.getLong(0);
-                db.update(ProviderTableMeta.FILE_TABLE_NAME, SQLiteDatabase.CONFLICT_NONE, values, where, whereArgs);
-                return ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, existingRowId);
-            }
+            return cursor.moveToFirst() ? cursor.getLong(0) : null;
         }
-
-        long rowId = db.insert(ProviderTableMeta.FILE_TABLE_NAME, SQLiteDatabase.CONFLICT_NONE, values);
-        return ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, rowId);
     }
 
     private void updateFilesTableAccordingToShareInsertion(SupportSQLiteDatabase db, ContentValues newShare) {
