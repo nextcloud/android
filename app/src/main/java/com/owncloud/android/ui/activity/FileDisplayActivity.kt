@@ -65,7 +65,6 @@ import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
 import com.nextcloud.client.player.model.file.toPlaybackCollection
 import com.nextcloud.client.player.ui.audio.AudioPlayerLauncher
-import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias
 import com.nextcloud.utils.SnackbarUtil
@@ -186,9 +185,6 @@ class FileDisplayActivity :
 
     @Inject
     lateinit var composeProcessTextAlias: ComposeProcessTextAlias
-
-    @Inject
-    lateinit var preferences: AppPreferences
 
     @Inject
     lateinit var inAppReviewHelper: InAppReviewHelper

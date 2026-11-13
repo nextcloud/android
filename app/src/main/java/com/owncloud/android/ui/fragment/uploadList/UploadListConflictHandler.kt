@@ -81,7 +81,7 @@ class UploadListConflictHandler(
         fragment.lifecycleScope.launch(Dispatchers.IO) {
             val client = activity.clientRepository.getOwncloudClient()
 
-            val file = activity.storageManager.getFileByPath(upload.remotePath)
+            val file = activity.getStorageManager().getFileByPath(upload.remotePath)
             val parentPath = (file?.parentRemotePath ?: upload.remotePath?.webDavParentPath())
 
             parentPath?.let {

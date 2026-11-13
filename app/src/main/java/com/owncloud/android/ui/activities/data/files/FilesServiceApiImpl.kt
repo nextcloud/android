@@ -66,7 +66,7 @@ class FilesServiceApiImpl(private val accountManager: UserAccountManager, privat
         if (!result.isSuccess) return null
 
         val remoteFile = result.getData()[0] as RemoteFile
-        val ocFile = activity.storageManager.saveFileWithParent(
+        val ocFile = activity.getStorageManager().saveFileWithParent(
             FileStorageUtils.fillOCFile(remoteFile),
             context
         )
@@ -77,7 +77,7 @@ class FilesServiceApiImpl(private val accountManager: UserAccountManager, privat
                 System.currentTimeMillis(),
                 false,
                 true,
-                activity.storageManager,
+                activity.getStorageManager(),
                 activity.user.orElseThrow { RuntimeException() },
                 context
             ).execute(client)
