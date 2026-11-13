@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import com.nextcloud.android.common.core.utils.AccountNameUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -142,8 +143,7 @@ public interface UserAccountManager extends CurrentAccountProvider {
      * @return User name (without domain) or null, if name cannot be extracted.
      */
     static String getUsername(User user) {
-        final String name = user.getAccountName();
-        return name.substring(0, name.lastIndexOf('@'));
+        return AccountNameUtils.getUserPart(user.getAccountName());
     }
 
     @Nullable
