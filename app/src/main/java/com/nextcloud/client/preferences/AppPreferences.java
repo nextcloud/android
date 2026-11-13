@@ -64,10 +64,13 @@ public interface AppPreferences {
 
     boolean isShowHiddenFilesEnabled();
     void setShowHiddenFilesEnabled(boolean enabled);
-    
+
+    boolean isShowRecommendationsEnabled();
+    void setShowRecommendationsEnabled(boolean enabled);
+
     boolean isSortFoldersBeforeFiles();
     void setSortFoldersBeforeFiles(boolean enabled);
-    
+
     boolean isSortFavoritesFirst();
     void setSortFavoritesFirst(boolean enabled);
 

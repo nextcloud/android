@@ -21,6 +21,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.inOrder;
@@ -167,6 +169,30 @@ public class TestAppPreferences {
             inOrder.verify(editor).remove("instant_video_upload_on_charging");
             inOrder.verify(editor).remove("prefs_instant_behaviour");
             inOrder.verify(editor).apply();
+        }
+
+        @Test
+        public void recommendationsAreShownByDefault() {
+            when(sharedPreferences.getBoolean("show_recommendations_pref", true)).thenReturn(true);
+
+            assertTrue(appPreferences.isShowRecommendationsEnabled());
+        }
+
+        @Test
+        public void recommendationsCanBeDisabled() {
+            when(sharedPreferences.getBoolean("show_recommendations_pref", true)).thenReturn(false);
+
+            assertFalse(appPreferences.isShowRecommendationsEnabled());
+        }
+
+        @Test
+        public void setShowRecommendationsEnabledPersistsSetting() {
+            when(editor.putBoolean("show_recommendations_pref", false)).thenReturn(editor);
+
+            appPreferences.setShowRecommendationsEnabled(false);
+
+            verify(editor).putBoolean("show_recommendations_pref", false);
+            verify(editor).apply();
         }
 
         @Test
