@@ -86,6 +86,8 @@ class SharedListFragment :
             val file = FileStorageUtils.fillOCFile(remoteFile).apply {
                 fileId = partialFile.fileId
                 parentId = partialFile.parentId
+                internalFolderSyncTimestamp = partialFile.internalFolderSyncTimestamp
+                internalFolderSyncResult = partialFile.internalFolderSyncResult
             }
             FileStorageUtils.searchForLocalFileInDefaultPath(file, user.accountName)
             UnifiedShareSharees.fill(user, listOf(file))
