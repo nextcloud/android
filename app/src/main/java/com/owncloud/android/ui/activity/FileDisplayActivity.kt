@@ -558,7 +558,7 @@ class FileDisplayActivity :
             return
         }
 
-        setFile(initialFile)
+        file = initialFile
 
         val accountName = currentUser.accountName
         switchAccountButton.tag = accountName
@@ -644,12 +644,12 @@ class FileDisplayActivity :
                     fragment.listDirectory(MainApp.isOnlyOnDevice)
                 }
                 fragment.registerFabListener()
-                updateActionBarTitleAndHomeButton(currentDir)
+                updateActionBarTitleAndHomeButton(getCurrentDir())
             }
 
             else -> {
                 fragment.listDirectory(startFile, false)
-                updateActionBarTitleAndHomeButton(currentDir ?: startFile)
+                updateActionBarTitleAndHomeButton(getCurrentDir() ?: startFile)
             }
         }
     }
@@ -703,7 +703,7 @@ class FileDisplayActivity :
         when {
             ACTION_DETAILS.equals(action, ignoreCase = true) -> {
                 val detailsFile = getFileFromIntent(intent)
-                setFile(detailsFile)
+                file = detailsFile
                 showDetails(detailsFile)
                 isShowingDetailsFromPreview = intent.getBooleanExtra(EXTRA_RETURN_TO_PREVIEW, false)
             }
@@ -980,10 +980,12 @@ class FileDisplayActivity :
     override val menuItemId: Int
         get() = MainApp.menuItemId ?: listOfFilesFragment?.menuItemId ?: R.id.nav_all_files
 
-    override fun setFile(file: OCFile?) {
-        super.setFile(file)
-        file?.takeIf { it.isFolder }?.let { viewModel.setCurrentFolder(it.fileId) }
-    }
+    override var file: OCFile?
+        get() = super.file
+        set(value) {
+            super.file = value
+            value?.takeIf { it.isFolder }?.let { viewModel.setCurrentFolder(it.fileId) }
+        }
 
     private fun replaceLeftFragment(fragment: Fragment, showSortListGroup: Boolean = true) {
         isShowingDetailsFromPreview = false
@@ -1120,7 +1122,7 @@ class FileDisplayActivity :
 
     fun performUnifiedSearch(query: String, listOfHiddenFiles: ArrayList<String>?) {
         val unifiedSearchFragment =
-            UnifiedSearchFragment.newInstance(query, listOfHiddenFiles, currentDir?.decryptedRemotePath)
+            UnifiedSearchFragment.newInstance(query, listOfHiddenFiles, getCurrentDir()?.decryptedRemotePath)
         replaceLeftFragment(unifiedSearchFragment, showSortListGroup = false)
     }
 
@@ -2071,7 +2073,7 @@ class FileDisplayActivity :
         configureToolbarForPreview(file)
         waitingToPreview = file
         downloadWaitingPreview()
-        setFile(file)
+        this.file = file
     }
     // endregion
 
@@ -2137,7 +2139,7 @@ class FileDisplayActivity :
         }
 
         supportInvalidateOptionsMenu()
-        fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
+        fetchRecommendedFilesIfNeeded(ignoreETag = true, getCurrentDir())
     }
 
     private fun updateFileListAfterRemoval(fragment: OCFileListFragment, removedFile: OCFile, onlyLocalCopy: Boolean) {
@@ -2192,7 +2194,7 @@ class FileDisplayActivity :
             return
         }
 
-        val restoredFile = getFile()
+        val restoredFile = file
 
         // the new version is only downloaded when the old one was downloaded
         if (restoredFile?.isDown == true) {
@@ -2238,10 +2240,10 @@ class FileDisplayActivity :
         (leftFragment as? FileFragment)?.let { refreshFileFragmentAfterRename(it, renamedFile, currentUser) }
 
         val parentDir = storageManager.getFileById(renamedFile.parentId)
-        val isRenamedInCurrentDir = parentDir != null && parentDir == currentDir
+        val isRenamedInCurrentDir = parentDir != null && parentDir == getCurrentDir()
 
         // the parent check fails in the Shared/Favorites root, so the root is always refreshed too
-        if (currentDir?.isRootDirectory == true || isRenamedInCurrentDir) {
+        if (getCurrentDir()?.isRootDirectory == true || isRenamedInCurrentDir) {
             val fileList = topFileListFragment
 
             // OCFileSearchTask may still run during rename, so use a single refresh path to avoid
@@ -2254,7 +2256,7 @@ class FileDisplayActivity :
         }
 
         refreshGalleryFragmentIfNeeded()
-        fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
+        fetchRecommendedFilesIfNeeded(ignoreETag = true, getCurrentDir())
     }
 
     private fun refreshFileFragmentAfterRename(fragment: FileFragment, renamedFile: OCFile, user: User) {

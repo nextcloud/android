@@ -30,7 +30,7 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.client.utils.Throttler
+import com.nextcloud.client.utils.Throttle
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.extensions.isLandscape
 import com.nextcloud.utils.extensions.setVisibleIf
@@ -77,8 +77,7 @@ class AlbumsFragment :
     @Inject
     lateinit var thumbnailGenerator: ThumbnailGenerator
 
-    @Inject
-    lateinit var throttler: Throttler
+    private val createAlbumThrottle = Throttle()
 
     private var containerActivity: FileFragment.ContainerActivity? = null
 
@@ -142,7 +141,7 @@ class AlbumsFragment :
     }
 
     private fun showCreateAlbumDialog() {
-        throttler.run("onCreateAlbumClick") {
+        createAlbumThrottle.run {
             val fragment = requireActivity().supportFragmentManager.findFragmentByTag(CreateAlbumDialogFragment.TAG)
             if (fragment == null) {
                 CreateAlbumDialogFragment.newInstance()

@@ -45,7 +45,7 @@ import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.documentscan.AppScanOptionalFeature
 import com.nextcloud.client.documentscan.DocumentScanActivity
-import com.nextcloud.client.utils.Throttler
+import com.nextcloud.client.utils.Throttle
 import com.nextcloud.repository.ClientRepository
 import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionHandler
@@ -137,9 +137,6 @@ open class OCFileListFragment :
     lateinit var clientRepository: ClientRepository
 
     @Inject
-    lateinit var throttler: Throttler
-
-    @Inject
     lateinit var themeUtils: ThemeUtils
 
     @Inject
@@ -216,6 +213,8 @@ open class OCFileListFragment :
     private var fabMain: FloatingActionButton? = null
     private val multiChoiceModeListener by lazy { OCFileListMultiChoiceModeListener(this) }
     private val mainHandler = Handler(Looper.getMainLooper())
+
+    private val actionsMenuThrottle = Throttle()
 
     private val activeActionMode: ActionMode?
         get() = multiChoiceModeListener.activeActionMode
@@ -402,7 +401,7 @@ open class OCFileListFragment :
         }
         mSwitchGridViewButton?.setOnClickListener { toggleGridAndListLayout() }
 
-        (activity as? FileDisplayActivity)?.let { it.updateActionBarTitleAndHomeButton(it.currentDir) }
+        (activity as? FileDisplayActivity)?.let { it.updateActionBarTitleAndHomeButton(it.getCurrentDir()) }
     }
 
     private fun toggleGridAndListLayout() {
@@ -874,10 +873,14 @@ open class OCFileListFragment :
 
     //region File actions
     fun openActionsMenu(filesCount: Int, checkedFiles: Set<OCFile>, isOverflow: Boolean) {
-        throttler.run(OVERFLOW_CLICK_THROTTLE_KEY) {
+        val storageManager = requireContainerActivity().storageManager
+        val accountName = accountManager.user.accountName
+        actionsMenuThrottle.launch(viewLifecycleOwner.lifecycleScope) {
             val actionsToHide = FileAction.getFileListActionsToHide(checkedFiles)
             val mimeType = checkedFiles.first().resolveMimeType()
-            val endpoints = capabilities.getClientIntegrationEndpoints(Type.CONTEXT_MENU, mimeType)
+            val endpoints = withContext(Dispatchers.IO) {
+                storageManager.getCapability(accountName).getClientIntegrationEndpoints(Type.CONTEXT_MENU, mimeType)
+            }
             val bottomSheet = FileActionsBottomSheet.newInstance(
                 filesCount,
                 checkedFiles,
@@ -894,7 +897,7 @@ open class OCFileListFragment :
         if (currentFolder == null || currentFolder.isRootDirectory) return
 
         val checkedFiles = hashSetOf(currentFolder)
-        throttler.run(OVERFLOW_CLICK_THROTTLE_KEY) {
+        actionsMenuThrottle.run {
             val actionsToHide = FileAction.getCurrentFolderActionsToHide(currentFolder)
             val bottomSheet = FileActionsBottomSheet.newInstance(currentFolder, true, actionsToHide)
             showActionsBottomSheet(bottomSheet, checkedFiles)
@@ -1527,7 +1530,6 @@ open class OCFileListFragment :
         private const val DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER"
         private const val DIALOG_CREATE_DOCUMENT = "DIALOG_CREATE_DOCUMENT"
         private const val ACTIONS_BOTTOM_SHEET_TAG = "actions"
-        private const val OVERFLOW_CLICK_THROTTLE_KEY = "overflowClick"
 
         private const val ALL_MIME_TYPES = "*/*"
         private const val SCAN_TO_PDF_ACTION = "org.fairscan.app.action.SCAN_TO_PDF"

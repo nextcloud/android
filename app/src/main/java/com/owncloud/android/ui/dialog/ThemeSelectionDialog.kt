@@ -16,7 +16,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.DarkMode
-import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.DialogThemeSelectionBinding
 import com.owncloud.android.ui.dialog.extensions.themeButtons
@@ -83,13 +82,13 @@ class ThemeSelectionDialog :
         return builder.create()
     }
 
-    private fun applyTheme(mode: DarkMode) {
-        preferences.setDarkThemeMode(mode)
-        MainApp.setAppTheme(mode)
+    private fun applyTheme(darkMode: DarkMode) {
+        preferences.setDarkThemeMode(darkMode)
+        darkMode.setTheme()
 
         setFragmentResult(
             ExtendedSettingsActivityDialog.ThemeSelection.key,
-            bundleOf(ExtendedSettingsActivityDialog.ThemeSelection.key to mode.name)
+            bundleOf(ExtendedSettingsActivityDialog.ThemeSelection.key to darkMode.name)
         )
     }
 

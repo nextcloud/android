@@ -241,7 +241,7 @@ open class FolderPickerActivity :
     }
 
     override fun onSavedCertificate() {
-        startSyncFolderOperation(currentDir, false)
+        startSyncFolderOperation(getCurrentDir(), false)
     }
 
     private fun startSyncFolderOperation(folder: OCFile?, ignoreETag: Boolean) {
@@ -450,7 +450,8 @@ open class FolderPickerActivity :
     }
 
     private fun getSelectedFolderPathTitle(): String? {
-        val atRoot = (currentDir == null || currentDir?.parentId == 0L)
+        val currentDir = getCurrentDir()
+        val atRoot = (currentDir == null || currentDir.parentId == 0L)
         return if (atRoot) captionText ?: "" else currentDir?.fileName
     }
 

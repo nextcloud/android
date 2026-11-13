@@ -393,7 +393,7 @@ open class ExtendedListFragment :
     }
 
     private fun getEmptyListViewTextId(): Int {
-        val currentDir = getTypedActivity(FileDisplayActivity::class.java)?.currentDir
+        val currentDir = getTypedActivity(FileDisplayActivity::class.java)?.getCurrentDir()
         return if (currentDir?.canCreateFileAndFolder() == false) {
             R.string.extented_list_fragment_empty_list_message_no_write_permission
         } else {
