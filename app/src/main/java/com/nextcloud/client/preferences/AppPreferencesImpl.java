@@ -94,6 +94,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__SELECTED_ACCOUNT_NAME = "select_oc_account";
     private static final String PREF__MIGRATED_USER_ID = "migrated_user_id";
     private static final String PREF__PHOTO_SEARCH_TIMESTAMP = "photo_search_timestamp";
+    private static final String PREF__DISMISSED_OUTDATED_SERVER_VERSION = "dismissed_outdated_server_version";
     private static final String PREF__PIN_BRUTE_FORCE_COUNT = "pin_brute_force_count";
     private static final String PREF__UID_PID = "uid_pid";
 
@@ -877,4 +878,15 @@ public final class AppPreferencesImpl implements AppPreferences {
     public void setLastAutoUploadOnStartTime(long timeInMillisecond) {
         preferences.edit().putLong(AUTO_PREF__LAST_AUTO_UPLOAD_ON_START, timeInMillisecond).apply();
     }
+
+    @Override
+    public String getDismissedOutdatedServerVersion() {
+        return preferences.getString(PREF__DISMISSED_OUTDATED_SERVER_VERSION, "");
+    }
+
+    @Override
+    public void setDismissedOutdatedServerVersion(String version) {
+        preferences.edit().putString(PREF__DISMISSED_OUTDATED_SERVER_VERSION, version).apply();
+    }
+
 }
