@@ -124,10 +124,12 @@ class FileActionsBottomSheet :
         when (state) {
             is FileActionsViewModel.UiState.LoadedForSingleFile -> {
                 loadFileThumbnail(state.titleFile)
+                // displayActions aborts when the action list is not empty, so it has to
+                // run before the lock info row is appended.
+                displayActions(state.titleFile, state.actions)
                 if (state.lockInfo != null) {
                     displayLockInfo(state.lockInfo)
                 }
-                displayActions(state.titleFile, state.actions)
                 displayTitle(state.titleFile)
             }
 
