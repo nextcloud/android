@@ -301,8 +301,9 @@ class AutoUploadWorker(
 
                 try {
                     // A camera app can register the file with MediaStore before it finished writing it.
-                    if (file.isFile && file.length() == 0L) {
-                        Log_OC.w(TAG, "skipping empty file, still being written: $localPath")
+                    // Allow empty files unmodified for at least one hour so intentional empty files can be uploaded.
+                    if (EmptyFileUploadPolicy.shouldDefer(file)) {
+                        Log_OC.w(TAG, "deferring empty file until unmodified for one hour: $localPath")
                         return@forEachIndexed
                     }
 
