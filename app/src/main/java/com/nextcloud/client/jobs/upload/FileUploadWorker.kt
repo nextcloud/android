@@ -305,21 +305,17 @@ class FileUploadWorker(
 
             delay(retryPolicy.getDelay().milliseconds)
 
-            if (!skipAutoUploadCheck && isBelongToAnySyncedFolder(upload, syncFolderHelper, syncedFolders)) {
-                Log_OC.d(TAG, "skipping upload, will be handled by AutoUploadWorker: ${upload.localPath}")
-                uploadsStorageManager.uploadDao.deleteByRemotePathAndAccountName(
-                    remotePath = upload.remotePath,
-                    accountName = accountName
-                )
-                continue
-            }
-
             if (preferences.isGlobalUploadPaused) {
                 Log_OC.d(TAG, "Upload is paused, skip uploading files!")
                 notificationManager.notifyPaused(
                     intents.openUploadListIntent(null)
                 )
                 return@withContext Result.success()
+            }
+
+            if (!skipAutoUploadCheck && scheduleAutoUploadRecovery(upload, syncFolderHelper, syncedFolders)) {
+                Log_OC.d(TAG, "scheduled auto upload recovery, preserving upload record: ${upload.localPath}")
+                continue
             }
 
             if (canExitEarly()) {
@@ -385,18 +381,21 @@ class FileUploadWorker(
         else -> false
     }
 
-    suspend fun isBelongToAnySyncedFolder(
+    private fun scheduleAutoUploadRecovery(
         upload: OCUpload,
         syncFolderHelper: SyncFolderHelper,
-        syncedFolders: List<SyncedFolder>
+        syncedFolders: Iterable<SyncedFolder>
     ): Boolean {
-        if (!filesystemRepository.isBelongToAnyAutoFolder(upload.localPath)) return false
+        val file = upload.localPath.toFile() ?: return false
+        val folder = syncedFolders.firstOrNull {
+            it.isEnabled && it.account == upload.accountName &&
+                filesystemRepository.hasPendingFile(upload.localPath, it) &&
+                syncFolderHelper.getAutoUploadRemotePath(it, file) == upload.remotePath
+        } ?: return false
 
-        return syncedFolders.any { folder ->
-            val file = upload.localPath.toFile() ?: return false
-            val expectedRemotePath = syncFolderHelper.getAutoUploadRemotePath(folder, file)
-            expectedRemotePath == upload.remotePath
-        }
+        // The auto upload worker reuses this record, including any E2EE recovery token.
+        backgroundJobManager.startAutoUpload(folder)
+        return true
     }
 
     private fun sendUploadFinishEvent(
