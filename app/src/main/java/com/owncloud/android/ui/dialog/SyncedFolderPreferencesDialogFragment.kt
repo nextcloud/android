@@ -27,6 +27,7 @@ import com.nextcloud.utils.text.SpanFormatter
 import com.owncloud.android.R
 import com.owncloud.android.databinding.SyncedFoldersSettingsLayoutBinding
 import com.owncloud.android.datamodel.MediaFolderType
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem
 import com.owncloud.android.files.services.NameCollisionPolicy
@@ -237,9 +238,9 @@ class SyncedFolderPreferencesDialogFragment :
         setupViews(binding, enabled)
     }
 
-    fun setRemoteFolderSummary(path: String?) {
-        syncedFolder?.remotePath = path
-        binding?.remoteFolderSummary?.text = path
+    fun setRemoteFolderSummary(folder: OCFile?) {
+        syncedFolder?.remotePath = folder?.decryptedRemotePath
+        binding?.remoteFolderSummary?.text = folder?.decryptedRemotePath
         checkAndUpdateSaveButtonState()
     }
 

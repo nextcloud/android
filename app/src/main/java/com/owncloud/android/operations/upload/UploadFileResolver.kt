@@ -39,7 +39,10 @@ class UploadFileResolver(private val operation: UploadFileOperation) {
     @Suppress("DEPRECATION")
     fun getCollidedFileNames(metadata: Any?): List<String> = when (metadata) {
         is DecryptedFolderMetadataFileV1 -> metadata.files.values.map { it.encrypted.filename }
-        is DecryptedFolderMetadataFile -> metadata.metadata.files.values.map { it.filename }
+
+        is DecryptedFolderMetadataFile -> metadata.metadata.files.values.map { it.filename } +
+            metadata.metadata.folders.values
+
         else -> emptyList()
     }
 
@@ -49,6 +52,43 @@ class UploadFileResolver(private val operation: UploadFileOperation) {
             it.fileSize = size
             storageManager.updateUpload(it)
         }
+    }
+
+    fun updateUnlockToken(token: String?) {
+        val storageManager = operation.uploadsStorageManager
+        storageManager.getUploadById(operation.ocUploadId)?.let {
+            it.folderUnlockToken = token
+            storageManager.updateUpload(it)
+        }
+    }
+
+    fun findEncryptedTarget(parent: OCFile, filename: String): OCFile? =
+        operation.storageManager.getFolderContent(parent, false).orEmpty().firstOrNull {
+            it.decryptedFileName.equals(filename, ignoreCase = true)
+        }
+
+    fun getEncryptedFileName(metadata: Any?, filename: String): String? = when (metadata) {
+        is DecryptedFolderMetadataFileV1 -> metadata.files.entries.firstOrNull {
+            it.value.encrypted.filename.equals(filename, ignoreCase = true)
+        }?.key
+
+        is DecryptedFolderMetadataFile -> metadata.metadata.files.entries.firstOrNull {
+            it.value.filename.equals(filename, ignoreCase = true)
+        }?.key
+
+        else -> null
+    }
+
+    fun isFolder(metadata: Any?, filename: String): Boolean = when (metadata) {
+        is DecryptedFolderMetadataFileV1 -> metadata.files.values.any {
+            it.encrypted.filename.equals(filename, ignoreCase = true) && it.encrypted.mimetype == MimeType.WEBDAV_FOLDER
+        }
+
+        is DecryptedFolderMetadataFile -> metadata.metadata.folders.values.any {
+            it.equals(filename, ignoreCase = true)
+        }
+
+        else -> false
     }
 
     fun createNewOCFile(fileToBeUploaded: OCFile, newRemotePath: String): OCFile = OCFile(newRemotePath).apply {
@@ -62,6 +102,7 @@ class UploadFileResolver(private val operation: UploadFileOperation) {
         lastSyncDateForData = fileToBeUploaded.lastSyncDateForData
         storagePath = fileToBeUploaded.storagePath
         parentId = fileToBeUploaded.parentId
+        isEncrypted = fileToBeUploaded.isEncrypted
     }
 
     fun createLocalFolder(remotePath: String): OCFile? {
@@ -81,7 +122,7 @@ class UploadFileResolver(private val operation: UploadFileOperation) {
         file.apply {
             creationTimestamp = remoteFile.creationTimestamp
             fileLength = remoteFile.length
-            mimeType = remoteFile.mimeType
+            if (!isEncrypted) mimeType = remoteFile.mimeType
             modificationTimestamp = remoteFile.modifiedTimestamp
             modificationTimestampAtLastSyncForData = remoteFile.modifiedTimestamp
             etag = remoteFile.etag

@@ -33,6 +33,7 @@ import java.io.File
 import java.util.Random
 import java.util.UUID
 import java.util.function.Supplier
+import kotlinx.coroutines.runBlocking
 
 class UploadStorageManagerTest : AbstractIT() {
     private lateinit var uploadsStorageManager: UploadsStorageManager
@@ -63,6 +64,29 @@ class UploadStorageManagerTest : AbstractIT() {
                 UserAccountManagerImpl.fromContext(targetContext),
                 targetContext.contentResolver
             )
+    }
+
+    @Test
+    fun uploadLookupAndFolderCleanupAreIsolatedByAccount() = runBlocking {
+        val localPath = "/storage/auto-upload-account-isolation.txt"
+        val remotePath = "/auto-upload-account-isolation.txt"
+        val first = OCUpload(localPath, remotePath, account.name)
+        val second = OCUpload(localPath, remotePath, user2.accountName)
+        val dao = uploadsStorageManager.uploadDao
+        val firstId = dao.insertOrReplace(first.toUploadEntity())
+        val secondId = dao.insertOrReplace(second.toUploadEntity())
+        try {
+            Assert.assertEquals(firstId, dao.getByRemotePath(remotePath, account.name)?.id?.toLong())
+            Assert.assertEquals(secondId, dao.getByRemotePath(remotePath, user2.accountName)?.id?.toLong())
+
+            dao.deleteByLocalRemotePath(localPath, remotePath, account.name)
+
+            Assert.assertNull(dao.getByRemotePath(remotePath, account.name))
+            Assert.assertEquals(secondId, dao.getByRemotePath(remotePath, user2.accountName)?.id?.toLong())
+        } finally {
+            uploadsStorageManager.removeUpload(firstId)
+            uploadsStorageManager.removeUpload(secondId)
+        }
     }
 
     @Test

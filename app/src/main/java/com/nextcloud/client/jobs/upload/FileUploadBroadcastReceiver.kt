@@ -63,7 +63,7 @@ class FileUploadBroadcastReceiver : BroadcastReceiver() {
         FileUploadWorker.cancelUpload(remotePath, accountName)
 
         if (remove) {
-            removeFileIfAlreadyUploaded(context, remotePath)
+            removeFileIfAlreadyUploaded(context, uploadId, accountName)
             uploadsStorageManager.removeUpload(uploadId)
         } else {
             FileUploadHelper.instance().updateUploadStatus(
@@ -79,11 +79,12 @@ class FileUploadBroadcastReceiver : BroadcastReceiver() {
     }
 
     @Suppress("DEPRECATION")
-    private fun removeFileIfAlreadyUploaded(context: Context, remotePath: String) {
+    private fun removeFileIfAlreadyUploaded(context: Context, uploadId: Long, accountName: String) {
+        val upload = uploadsStorageManager.getUploadById(uploadId)?.takeIf { it.accountName == accountName } ?: return
         val userAccountManager = UserAccountManagerImpl.fromContext(context)
-        val user = userAccountManager.user
+        val user = userAccountManager.getUser(accountName).orElse(null) ?: return
         val storageManager = FileDataStorageManager(user, context.contentResolver)
-        val ocFile = storageManager.getFileByPath(remotePath) ?: return
+        val ocFile = storageManager.getFileByEncryptedRemotePath(upload.remotePath) ?: return
         storageManager.removeFile(ocFile, true, false)
     }
 }

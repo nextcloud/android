@@ -35,6 +35,7 @@ class AutoUploadPickers(
     fun pickRemoteFolder() {
         val intent = Intent(fragment.requireContext(), FolderPickerActivity::class.java).apply {
             putExtra(FolderPickerActivity.EXTRA_ACTION, FolderPickerActivity.CHOOSE_LOCATION)
+            putExtra(FolderPickerActivity.EXTRA_ALLOW_ENCRYPTED_FOLDER, true)
         }
         remoteFolderLauncher.launch(intent)
     }
@@ -57,7 +58,7 @@ class AutoUploadPickers(
 
         val dialog = findPreferencesDialog() ?: return
         val chosenFolder = result.data?.getParcelableArgument(FolderPickerActivity.EXTRA_FOLDER, OCFile::class.java)
-        dialog.setRemoteFolderSummary(chosenFolder?.remotePath)
+        dialog.setRemoteFolderSummary(chosenFolder)
     }
 
     private fun onLocalFolderPicked(result: ActivityResult) {

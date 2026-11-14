@@ -450,7 +450,7 @@ public final class EncryptionUtils {
                                                                          user,
                                                                          folder.getLocalId());
 
-                OCCapability capability = CapabilityUtils.getCapability(context);
+                OCCapability capability = CapabilityUtils.getCapability(user, context);
                 if (E2EVersionHelper.INSTANCE.isV2Plus(capability)) {
                     new EncryptionUtilsV2().migrateV1ToV2andUpload(
                         v1,

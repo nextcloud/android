@@ -584,12 +584,11 @@ public class RefreshFolderOperation extends RemoteOperation {
                                                 mContext);
         }
 
-        final var capability = CapabilityUtils.getCapability(mContext);
+        final var capability = CapabilityUtils.getCapability(user, mContext);
 
-        if (E2EVersionHelper.INSTANCE.isV2Plus(capability)) {
-            if (encryptedAncestor && object == null) {
-                throw new IllegalStateException("metadata is null!");
-            }
+        if (encryptedAncestor && object == null &&
+            (E2EVersionHelper.INSTANCE.isV2Plus(capability) || folderAndFiles.size() > 1)) {
+            throw new IllegalStateException("Cannot resolve encrypted children without metadata");
         }
 
         // get current data about local contents of the folder to synchronize
@@ -666,13 +665,9 @@ public class RefreshFolderOperation extends RemoteOperation {
         }
 
 
-        // save updated contents in local database
-        // update file name for encrypted files
-        if (E2EVersionHelper.INSTANCE.isV1(e2EVersion) && object instanceof DecryptedFolderMetadataFileV1 metadata) {
-            updateFileNameForEncryptedFileV1(fileDataStorageManager, metadata, mLocalFolder);
-        } else if (object instanceof DecryptedFolderMetadataFile metadata) {
-            updateFileNameForEncryptedFile(fileDataStorageManager, metadata, mLocalFolder);
-        }
+        // The folder's own name comes from its parent's metadata, not its children's metadata.
+        remoteFolder.setDecryptedRemotePath(mLocalFolder.getDecryptedRemotePath());
+        remoteFolder.setEncrypted(mLocalFolder.isEncrypted());
 
         UnifiedShareSharees.fillBlocking(user, updatedFiles);
 

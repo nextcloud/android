@@ -10,12 +10,14 @@ package com.owncloud.android.ui.adapter.uploadList.helper
 import com.nextcloud.utils.extensions.isSame
 import com.nextcloud.utils.extensions.updateStatus
 import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
+import com.owncloud.android.operations.upload.UploadFileLink
 import com.owncloud.android.utils.FileStorageUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -28,9 +30,10 @@ class UploadListAdapterActionHandler : UploadListAdapterAction {
     override suspend fun handleConflict(
         upload: OCUpload,
         client: OwnCloudClient,
-        storageManager: UploadsStorageManager
+        storageManager: UploadsStorageManager,
+        existingFile: OCFile?
     ): ConflictHandlingResult = withContext(Dispatchers.IO) {
-        val operationResult = ReadFileRemoteOperation(upload.remotePath).execute(client)
+        val operationResult = ReadFileRemoteOperation(existingFile?.remotePath ?: upload.remotePath).execute(client)
 
         if (!operationResult.isSuccess) {
             return@withContext when (operationResult.code) {
@@ -52,10 +55,10 @@ class UploadListAdapterActionHandler : UploadListAdapterAction {
                 return@withContext ConflictHandlingResult.CannotCheckConflict
             }
 
-        val ocFile = FileStorageUtils.fillOCFile(remoteFile)
+        val ocFile = existingFile ?: FileStorageUtils.fillOCFile(remoteFile)
 
-        if (remoteFile.isSame(ocFile.storagePath)) {
-            updateStatus(upload, storageManager, success = true)
+        if (!ocFile.isEncrypted && remoteFile.isSame(upload.localPath)) {
+            UploadFileLink.completeIdentical(upload, FileStorageUtils.fillOCFile(remoteFile), storageManager)
             ConflictHandlingResult.ConflictNotExistsSameFile
         } else {
             ConflictHandlingResult.ShowConflictResolveDialog(ocFile, upload)
