@@ -16,6 +16,7 @@ import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION
 import android.net.Uri
 import android.os.Build
+import android.text.format.Formatter
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.content.FileProvider
@@ -24,13 +25,19 @@ import com.nextcloud.client.core.Cancellable
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.logger.LogEntry
 import com.owncloud.android.R
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.FileExportUtils
 import java.io.File
 import java.security.SecureRandom
 import java.util.TimeZone
+import javax.inject.Inject
 
-class LogsEmailSender(private val context: Context, private val clock: Clock, private val runner: AsyncRunner) {
+class LogsEmailSender @Inject constructor(
+    private val context: Context,
+    private val clock: Clock,
+    private val runner: AsyncRunner
+) {
 
     private companion object {
         const val LOGS_MIME_TYPE = "text/plain"
@@ -74,10 +81,27 @@ class LogsEmailSender(private val context: Context, private val clock: Clock, pr
     fun export(logs: List<LogEntry>) {
         if (task == null) {
             val outFile = File(context.cacheDir, "attachments/logs.txt")
-            task = runner.postQuickTask(Task(context, logs, outFile, clock.tz), onResult = {
-                task = null
-                export(outFile)
-            })
+            task = runner.postQuickTask(
+                task = {
+                    Task(context, logs, outFile, clock.tz).invoke()
+                    export(outFile)
+                    outFile.length()
+                },
+                onResult = { size ->
+                    task = null
+                    val message = context.getString(
+                        R.string.logs_export_success,
+                        Formatter.formatFileSize(context, size)
+                    )
+                    showExportResult(message)
+                },
+                onError = { error ->
+                    task = null
+                    Log_OC.e(this, "Could not export logs", error)
+                    val reason = error.localizedMessage ?: context.getString(R.string.common_error_unknown)
+                    showExportResult(context.getString(R.string.logs_export_failed, reason))
+                }
+            )
         }
     }
 
@@ -89,27 +113,17 @@ class LogsEmailSender(private val context: Context, private val clock: Clock, pr
     }
 
     private fun export(file: File) {
-        FileExportUtils().exportFile(
+        FileExportUtils("Nextcloud").exportFile(
             "Nextcloud Android Files Logs",
             "text/plain",
             context.contentResolver,
             null,
             file
         )
-        showSuccessNotification(1)
     }
 
-    fun showSuccessNotification(successfulExports: Int) {
-        showNotification(
-            context.resources.getQuantityString(
-                R.plurals.export_successful,
-                successfulExports,
-                successfulExports
-            )
-        )
-    }
-
-    private fun showNotification(message: String) {
+    private fun showExportResult(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
         val notificationId = SecureRandom().nextInt()
 
         val notificationBuilder = NotificationCompat.Builder(
@@ -117,7 +131,9 @@ class LogsEmailSender(private val context: Context, private val clock: Clock, pr
             NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD
         )
             .setSmallIcon(R.drawable.notification_icon)
-            .setContentTitle(message)
+            .setContentTitle(context.getString(R.string.logs_menu_export))
+            .setContentText(message)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(message))
             .setAutoCancel(true)
 
         val actionIntent = Intent(DownloadManager.ACTION_VIEW_DOWNLOADS).apply {
