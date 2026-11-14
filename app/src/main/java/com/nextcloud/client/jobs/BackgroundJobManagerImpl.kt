@@ -512,14 +512,19 @@ internal class BackgroundJobManagerImpl(
             .forEach { workManager.cancelWorkById(it.id) }
     }
 
-    override fun schedulePeriodicAutoUpload() {
+    override fun schedulePeriodicAutoUpload(resetSchedule: Boolean) {
         val request = periodicRequestBuilder(
             jobClass = AutoUploadRescanWorker::class,
             jobName = JOB_PERIODIC_FILES_SYNC,
             constraints = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
         ).build()
 
-        workManager.enqueueUniquePeriodicWork(JOB_PERIODIC_FILES_SYNC, ExistingPeriodicWorkPolicy.KEEP, request)
+        val policy = if (resetSchedule) {
+            ExistingPeriodicWorkPolicy.CANCEL_AND_REENQUEUE
+        } else {
+            ExistingPeriodicWorkPolicy.KEEP
+        }
+        workManager.enqueueUniquePeriodicWork(JOB_PERIODIC_FILES_SYNC, policy, request)
     }
 
     override fun startAutoUpload(syncedFolder: SyncedFolder, overridePowerSaving: Boolean) {
