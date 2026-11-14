@@ -10,12 +10,12 @@ package com.nextcloud.utils.e2ee
 import android.content.Context
 import com.google.gson.reflect.TypeToken
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.repository.ClientRepository
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFolderMetadataFileV1
 import com.owncloud.android.lib.common.OwnCloudClient
-import com.owncloud.android.lib.common.OwnCloudClientFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.e2ee.GetMetadataRemoteOperation
 import com.owncloud.android.lib.resources.status.OCCapability
@@ -36,7 +36,9 @@ class E2EEKeyInspector @Inject constructor(
     private val storageManager: FileDataStorageManager,
     private val certificateValidator: CertificateValidator,
     private val arbitraryDataProvider: ArbitraryDataProvider,
-    private val accountManager: UserAccountManager
+    private val accountManager: UserAccountManager,
+    private val clientRepository: ClientRepository,
+    private val serverKeyCache: E2EEServerKeyCache
 ) {
     companion object {
         private const val TAG = "E2EEKeyInspector"
@@ -47,7 +49,8 @@ class E2EEKeyInspector @Inject constructor(
             arbitraryDataProvider.getValue(accountManager.user, EncryptionUtils.PUBLIC_KEY).isEmpty()
 
     suspend fun fetchCapabilities(): Boolean = withContext(Dispatchers.IO) {
-        val result = GetCapabilitiesOperation(storageManager).execute(context).isSuccess
+        val client = clientRepository.getOwncloudClient() ?: return@withContext false
+        val result = GetCapabilitiesOperation(storageManager).execute(client).isSuccess
         if (result) {
             Log_OC.i(TAG, "capabilities fetched")
         } else {
@@ -59,9 +62,10 @@ class E2EEKeyInspector @Inject constructor(
     suspend fun compareWithServerKey(storedPublicKey: String): DownloadKeyResult = withContext(Dispatchers.IO) {
         Log_OC.d(TAG, "comparing local public key with remote public key")
 
-        val user = accountManager.user
+        val client = clientRepository.getNextcloudClient()
+            ?: return@withContext DownloadKeyResult.UnexpectedError()
 
-        val certificateResult = GetCertificateRemoteOperation().executeNextcloudClient(user, context)
+        val certificateResult = GetCertificateRemoteOperation().execute(client)
         if (!certificateResult.isSuccess) {
             return@withContext if (certificateResult.httpCode == HttpStatus.SC_NOT_FOUND) {
                 DownloadKeyResult.NoServerKey
@@ -70,7 +74,9 @@ class E2EEKeyInspector @Inject constructor(
             }
         }
 
-        val serverPublicKeyResult = GetServerPublicKeyRemoteOperation().executeNextcloudClient(user, context)
+        val serverPublicKeyResult = serverKeyCache.get(client.baseUri.toString(), certificateResult.resultData) {
+            GetServerPublicKeyRemoteOperation().execute(client)
+        }
         if (!serverPublicKeyResult.isSuccess) return@withContext DownloadKeyResult.ServerPublicKeyUnavailable()
 
         val isCertificateValid = certificateValidator.validate(
@@ -86,7 +92,7 @@ class E2EEKeyInspector @Inject constructor(
         withContext(Dispatchers.IO) {
             Log_OC.d(TAG, "checking folder metadata key")
 
-            val client = OwnCloudClientFactory.createOwnCloudClient(accountManager.currentAccount, context)
+            val client = clientRepository.getOwncloudClient() ?: return@withContext false
             val metadataResult = GetMetadataRemoteOperation(folder.localId).execute(client)
 
             if (!metadataResult.isSuccess) {
