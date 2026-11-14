@@ -13,7 +13,10 @@ import com.nextcloud.client.database.entity.FileEntity
 import com.nextcloud.client.network.NetworkModule
 import com.nextcloud.test.SinceServer
 import com.nextcloud.utils.e2ee.E2EEActionResolver
+import com.nextcloud.utils.e2ee.E2EECertificateManager
 import com.nextcloud.utils.e2ee.E2EEKeyInspector
+import com.nextcloud.repository.ClientRepository
+import org.mockito.kotlin.mock
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation
 import com.owncloud.android.lib.resources.status.GetCapabilitiesRemoteOperation
@@ -61,12 +64,17 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
 
     init {
         val accountManager: UserAccountManager = UserAccountManagerImpl.fromContext(targetContext)
+        val clientRepository: ClientRepository = mock {
+            onBlocking { getOwncloudClient() }.thenReturn(client)
+            onBlocking { getNextcloudClient() }.thenReturn(nextcloudClient)
+        }
         val inspector = E2EEKeyInspector(
             targetContext,
             storageManager,
-            CertificateValidator(),
+            E2EECertificateManager(CertificateValidator(), arbitraryDataProvider),
             arbitraryDataProvider,
-            accountManager
+            accountManager,
+            clientRepository
         )
         e2eeActionResolver = E2EEActionResolver(
             storageManager,

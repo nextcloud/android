@@ -1019,7 +1019,25 @@
     <string name="file_detail_sharing_fragment_no_contact_app_message">No app available to select contacts</string>
     <string name="file_detail_share_already_active">You cannot create a share, sharing is already active from this user.</string>
 
-    <string name="end_to_end_encryption_certificate_verification_failed">Failed to verify public key</string>
+    <string name="e2ee_certificate_invalid_server_key">Could not verify your encryption certificate: the server signing key is invalid or incompatible. Ask your administrator to check the encryption configuration.</string>
+    <string name="e2ee_certificate_invalid_format">Could not verify your encryption certificate: the certificate received from the server is malformed. Try again. If this continues, contact your administrator.</string>
+    <string name="e2ee_certificate_expired">Your encryption certificate has expired. Check your device date and time. If they are correct, ask your administrator about renewing the certificate while keeping your encryption keys.</string>
+    <string name="e2ee_certificate_not_yet_valid">Your encryption certificate is not valid yet. Check your device date and time. If they are correct, ask your administrator to check the certificate dates.</string>
+    <string name="e2ee_certificate_invalid_signature">Your encryption certificate does not match the server signing key. Try again. If this continues, ask your administrator to check the certificate and server signing key.</string>
+    <string name="e2ee_certificate_unsupported_algorithm">Your device cannot verify the encryption certificate because its signing algorithm is not supported. Update the app and Android, or contact your administrator.</string>
+    <string name="e2ee_certificate_verification_failed">Could not verify your encryption certificate because of a cryptographic error. Try again. If this continues, contact your administrator.</string>
+    <string name="e2ee_local_keys_invalid">The encryption keys stored on this device could not be verified. Make sure you have your 12 word passphrase before removing local encryption settings and setting them up again.</string>
+    <string name="e2ee_key_request_unauthorized">The server rejected authentication while retrieving encryption keys (HTTP 401 or an authentication error). Check that you can sign in to your account, then try again.</string>
+    <string name="e2ee_key_request_forbidden">The server refused access while retrieving encryption keys (HTTP 403 or an access error). Ask your administrator to check account permissions and server access policies.</string>
+    <string name="e2ee_key_request_not_found">The server could not find the requested encryption key or endpoint (HTTP 404). Ask your administrator to check the server address and end-to-end encryption configuration.</string>
+    <string name="e2ee_key_request_rate_limited">Encryption keys could not be retrieved because the server is limiting requests (HTTP 429). Wait before trying again. If this continues, ask your administrator to check rate limiting on the server and reverse proxy.</string>
+    <string name="e2ee_key_request_timeout">The request timed out while retrieving encryption keys, or the server reported a timeout (HTTP 408 or 504). Check your connection and try again later. If this continues, contact your administrator.</string>
+    <string name="e2ee_key_request_server_error">The server or gateway reported an error while retrieving encryption keys (HTTP 5xx). Try again later. If this continues, ask your administrator to check the server logs.</string>
+    <string name="e2ee_key_request_rejected">The server rejected the request for encryption keys (HTTP 4xx). Ask your administrator to check the server address, encryption app compatibility, and server logs.</string>
+    <string name="e2ee_key_request_connection_failed">A connection to the server could not be established to retrieve encryption keys. Check your internet connection, server address, and account, then try again.</string>
+    <string name="e2ee_key_request_tls_error">A secure connection to the server could not be verified while retrieving encryption keys. Check your device date and time. If they are correct, ask your administrator to check the HTTPS certificate and TLS configuration.</string>
+    <string name="e2ee_key_request_invalid_response">The server returned an unreadable or incomplete response while retrieving encryption keys. Ask your administrator to check the encryption app, reverse proxy, and server logs.</string>
+    <string name="e2ee_key_request_failed">The request for encryption keys could not be completed. Try again. If this continues, share the app logs with your administrator. This does not establish whether your encryption keys are valid.</string>
     <string name="end_to_end_encryption_server_public_key_unavailable">Unable to retrieve public key</string>
     <string name="end_to_end_encryption_server_private_key_unavailable">Unable to retrieve private key</string>
     <string name="end_to_end_encryption_certificate_unavailable">Unable to retrieve server certificate</string>

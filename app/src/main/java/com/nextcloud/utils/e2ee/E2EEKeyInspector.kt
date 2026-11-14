@@ -10,19 +10,19 @@ package com.nextcloud.utils.e2ee
 import android.content.Context
 import com.google.gson.reflect.TypeToken
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.repository.ClientRepository
+import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFolderMetadataFileV1
 import com.owncloud.android.lib.common.OwnCloudClient
-import com.owncloud.android.lib.common.OwnCloudClientFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.e2ee.GetMetadataRemoteOperation
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.lib.resources.users.GetCertificateRemoteOperation
 import com.owncloud.android.lib.resources.users.GetServerPublicKeyRemoteOperation
 import com.owncloud.android.operations.GetCapabilitiesOperation
-import com.owncloud.android.ui.dialog.setupEncryption.CertificateValidator
 import com.owncloud.android.ui.dialog.setupEncryption.model.DownloadKeyResult
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.EncryptionUtilsV2
@@ -34,9 +34,10 @@ import javax.inject.Inject
 class E2EEKeyInspector @Inject constructor(
     private val context: Context,
     private val storageManager: FileDataStorageManager,
-    private val certificateValidator: CertificateValidator,
+    private val certificateManager: E2EECertificateManager,
     private val arbitraryDataProvider: ArbitraryDataProvider,
-    private val accountManager: UserAccountManager
+    private val accountManager: UserAccountManager,
+    private val clientRepository: ClientRepository
 ) {
     companion object {
         private const val TAG = "E2EEKeyInspector"
@@ -46,47 +47,50 @@ class E2EEKeyInspector @Inject constructor(
         arbitraryDataProvider.getValue(accountManager.user, EncryptionUtils.PRIVATE_KEY).isEmpty() ||
             arbitraryDataProvider.getValue(accountManager.user, EncryptionUtils.PUBLIC_KEY).isEmpty()
 
-    suspend fun fetchCapabilities(): Boolean = withContext(Dispatchers.IO) {
-        val result = GetCapabilitiesOperation(storageManager).execute(context).isSuccess
-        if (result) {
-            Log_OC.i(TAG, "capabilities fetched")
-        } else {
-            Log_OC.e(TAG, "error fetching capabilities")
+    suspend fun fetchCapabilities(): DownloadKeyResult.RequestFailed? = withContext(Dispatchers.IO) {
+        val client = clientRepository.getOwncloudClient()
+            ?: return@withContext DownloadKeyResult.RequestFailed(R.string.e2ee_key_request_connection_failed)
+        val result = GetCapabilitiesOperation(storageManager).execute(client)
+        if (!result.isSuccess) {
+            Log_OC.e(TAG, "error fetching capabilities: ${result.httpCode} ${result.code}")
+            return@withContext E2EEKeyRequestError.from(result)
         }
-        return@withContext result
+        Log_OC.i(TAG, "capabilities fetched")
+        null
     }
 
     suspend fun compareWithServerKey(storedPublicKey: String): DownloadKeyResult = withContext(Dispatchers.IO) {
         Log_OC.d(TAG, "comparing local public key with remote public key")
 
         val user = accountManager.user
+        val client = clientRepository.getNextcloudClient()
+            ?: return@withContext DownloadKeyResult.RequestFailed(R.string.e2ee_key_request_connection_failed)
 
-        val certificateResult = GetCertificateRemoteOperation().executeNextcloudClient(user, context)
+        val certificateResult = GetCertificateRemoteOperation().execute(client)
         if (!certificateResult.isSuccess) {
             return@withContext if (certificateResult.httpCode == HttpStatus.SC_NOT_FOUND) {
                 DownloadKeyResult.NoServerKey
             } else {
-                DownloadKeyResult.CertificateUnavailable()
+                E2EEKeyRequestError.from(certificateResult)
             }
         }
 
-        val serverPublicKeyResult = GetServerPublicKeyRemoteOperation().executeNextcloudClient(user, context)
-        if (!serverPublicKeyResult.isSuccess) return@withContext DownloadKeyResult.ServerPublicKeyUnavailable()
+        val serverPublicKeyResult = GetServerPublicKeyRemoteOperation().execute(client)
+        if (!serverPublicKeyResult.isSuccess) return@withContext E2EEKeyRequestError.from(serverPublicKeyResult)
 
-        val isCertificateValid = certificateValidator.validate(
-            serverPublicKeyResult.resultData,
-            certificateResult.resultData
+        return@withContext certificateManager.compareAndRefresh(
+            user,
+            storedPublicKey,
+            certificateResult.resultData,
+            serverPublicKeyResult.resultData
         )
-        if (!isCertificateValid) return@withContext DownloadKeyResult.CertificateVerificationFailed()
-
-        return@withContext DownloadKeyResult.CompareKeys(same = (storedPublicKey == certificateResult.resultData))
     }
 
     suspend fun canDecryptFolderMetadata(folder: OCFile, capability: OCCapability): Boolean =
         withContext(Dispatchers.IO) {
             Log_OC.d(TAG, "checking folder metadata key")
 
-            val client = OwnCloudClientFactory.createOwnCloudClient(accountManager.currentAccount, context)
+            val client = clientRepository.getOwncloudClient() ?: return@withContext false
             val metadataResult = GetMetadataRemoteOperation(folder.localId).execute(client)
 
             if (!metadataResult.isSuccess) {
