@@ -55,6 +55,11 @@ class FileSystemRepository(
 
     suspend fun hasPendingFiles(syncedFolder: SyncedFolder): Boolean = dao.hasPendingFiles(syncedFolder.id.toString())
 
+    fun hasPendingFile(localPath: String, syncedFolder: SyncedFolder): Boolean {
+        val entity = dao.getFileByPathAndFolder(localPath, syncedFolder.id.toString()) ?: return false
+        return entity.fileSentForUpload == 0 && entity.fileIsFolder == 0
+    }
+
     suspend fun deleteByLocalPathAndId(path: String, id: Int) {
         dao.deleteByLocalPathAndId(path, id)
     }
