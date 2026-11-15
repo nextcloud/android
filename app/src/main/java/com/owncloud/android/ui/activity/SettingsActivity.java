@@ -385,6 +385,8 @@ public class SettingsActivity extends PreferenceActivity
 
         setupRenewE2ECertificate(preferenceCategoryMore);
 
+        setupManualClientCertificatePreference();
+
         setupHelpPreference(preferenceCategoryMore);
 
         setupRecommendPreference(preferenceCategoryMore);
@@ -394,6 +396,16 @@ public class SettingsActivity extends PreferenceActivity
         setupImprintPreference(preferenceCategoryMore);
 
         loadExternalSettingLinks(preferenceCategoryMore);
+    }
+
+    private void setupManualClientCertificatePreference() {
+        Preference preference = findPreference("manual_client_certificate");
+        if (preference != null) {
+            preference.setOnPreferenceClickListener(clicked -> {
+                startActivity(new Intent(this, ManualClientCertificateActivity.class));
+                return true;
+            });
+        }
     }
 
     private void setupImprintPreference(PreferenceCategory preferenceCategoryMore) {

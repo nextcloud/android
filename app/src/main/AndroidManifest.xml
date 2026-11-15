@@ -381,6 +381,10 @@
             android:exported="false"
             android:theme="@style/PreferenceTheme" />
         <activity
+            android:name=".ui.activity.ManualClientCertificateActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ownCloud.Toolbar" />
+        <activity
             android:name=".ui.preview.media.PreviewMediaActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:exported="false"
