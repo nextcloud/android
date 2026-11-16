@@ -26,6 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.nextcloud.common.NextcloudClient
 import com.nextcloud.ui.teams.detail.component.AddTeamMemberDialog
 import com.nextcloud.ui.teams.detail.component.TeamDetailListStateContent
 import com.nextcloud.ui.teams.detail.component.TeamMemberListItem
@@ -39,6 +40,7 @@ import com.owncloud.android.R
 @Composable
 fun TeamDetailScreen(
     viewModel: TeamDetailViewModel,
+    client: NextcloudClient?,
     title: String,
     onBack: () -> Unit,
     onOpenSettings: () -> Unit,
@@ -110,7 +112,7 @@ fun TeamDetailScreen(
                     onRetry = viewModel::retryMembers,
                     key = { it.singleId }
                 ) { member ->
-                    TeamMemberListItem(member)
+                    TeamMemberListItem(member, client)
                 }
             }
         }

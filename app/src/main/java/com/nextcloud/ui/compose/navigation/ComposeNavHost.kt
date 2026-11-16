@@ -101,6 +101,7 @@ fun ComposeNavHost(navigator: ComposeNavigator) {
             entry<ComposeDestination.TeamsScreen> {
                 TeamsScreen(
                     viewModel = viewModel<TeamsViewModel>(factory = composeActivity().vmFactory),
+                    client = rememberNextcloudClient(),
                     onTeamClick = { team ->
                         navigator.navigate(ComposeDestination.TeamDetailScreen(team.id, team.displayName, team.url))
                     }
@@ -115,6 +116,7 @@ fun ComposeNavHost(navigator: ComposeNavigator) {
 
                 TeamDetailScreen(
                     viewModel = teamDetailViewModel(activity.vmFactory, screen.teamId),
+                    client = rememberNextcloudClient(),
                     title = screen.title,
                     onBack = navigator::goBack,
                     onOpenSettings = {

@@ -15,6 +15,7 @@ import android.webkit.WebView
 import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.utils.IntentUtil
+import com.nextcloud.common.OkHttpMethodBase
 import com.owncloud.android.ui.NextcloudWebViewClient
 import com.owncloud.android.ui.activity.ExternalSiteWebView
 import kotlinx.coroutines.launch
@@ -51,7 +52,7 @@ class TeamWebView : ExternalSiteWebView() {
             val cookieManager = CookieManager.getInstance()
             cookieManager.removeAllCookies {
                 cookieManager.setCookies(client.baseUri.toString(), BROWSER_STATE_COOKIES) {
-                    webView.loadUrl(pageUrl, mapOf(AUTHORIZATION_HEADER to client.credentials))
+                    webView.loadUrl(pageUrl, mapOf(OkHttpMethodBase.AUTHORIZATION to client.credentials))
                 }
             }
         }
@@ -70,7 +71,6 @@ class TeamWebView : ExternalSiteWebView() {
 
     companion object {
         private const val EXTRA_PAGE_URL = "PAGE_URL"
-        private const val AUTHORIZATION_HEADER = "Authorization"
         private val BROWSER_STATE_COOKIES = listOf(
             "cookie_test=test; path=/",
             "nc_sameSiteCookielax=true; path=/; SameSite=Lax",

@@ -34,16 +34,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.nextcloud.android.lib.resources.teams.model.Team
+import com.nextcloud.common.NextcloudClient
+import com.nextcloud.ui.compose.component.avatar.RemoteAvatar
 import com.nextcloud.ui.teams.component.CreateTeamDialog
 import com.nextcloud.ui.teams.component.TeamsErrorMessage
 import com.nextcloud.ui.teams.component.TeamsMessage
 import com.nextcloud.ui.teams.component.TeamsSearchBar
 import com.nextcloud.ui.teams.model.TeamsUiState
+import com.nextcloud.ui.teams.util.avatarPath
 import com.nextcloud.ui.teams.viewmodel.TeamsViewModel
 import com.owncloud.android.R
 
 @Composable
-fun TeamsScreen(viewModel: TeamsViewModel, onTeamClick: (Team) -> Unit) {
+fun TeamsScreen(viewModel: TeamsViewModel, client: NextcloudClient?, onTeamClick: (Team) -> Unit) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
     val createTeamName by viewModel.createTeamName.collectAsStateWithLifecycle()
@@ -68,7 +71,13 @@ fun TeamsScreen(viewModel: TeamsViewModel, onTeamClick: (Team) -> Unit) {
             when (val state = uiState) {
                 TeamsUiState.Loading -> CircularProgressIndicator()
                 is TeamsUiState.Error -> TeamsErrorMessage(state.messageId, onRetry = viewModel::retry)
-                is TeamsUiState.Content -> TeamsContent(state, searchQuery, viewModel::updateSearchQuery, onTeamClick)
+                is TeamsUiState.Content -> TeamsContent(
+                    state = state,
+                    searchQuery = searchQuery,
+                    client = client,
+                    onSearchQueryChange = viewModel::updateSearchQuery,
+                    onTeamClick = onTeamClick
+                )
             }
         }
     }
@@ -88,6 +97,7 @@ fun TeamsScreen(viewModel: TeamsViewModel, onTeamClick: (Team) -> Unit) {
 private fun TeamsContent(
     state: TeamsUiState.Content,
     searchQuery: String,
+    client: NextcloudClient?,
     onSearchQueryChange: (String) -> Unit,
     onTeamClick: (Team) -> Unit
 ) {
@@ -101,20 +111,25 @@ private fun TeamsContent(
             }
         } else {
             LazyColumn(modifier = Modifier.fillMaxSize()) {
-                teamSection(R.string.teams_my_teams, state.myTeams, onTeamClick)
-                teamSection(R.string.teams_other_teams, state.otherTeams, onTeamClick)
+                teamSection(R.string.teams_my_teams, state.myTeams, client, onTeamClick)
+                teamSection(R.string.teams_other_teams, state.otherTeams, client, onTeamClick)
             }
         }
     }
 }
 
-private fun LazyListScope.teamSection(@StringRes titleId: Int, teams: List<Team>, onTeamClick: (Team) -> Unit) {
+private fun LazyListScope.teamSection(
+    @StringRes titleId: Int,
+    teams: List<Team>,
+    client: NextcloudClient?,
+    onTeamClick: (Team) -> Unit
+) {
     if (teams.isEmpty()) {
         return
     }
 
     item(key = titleId) { SectionHeader(titleId) }
-    items(teams, key = { it.id }) { team -> TeamListItem(team) { onTeamClick(team) } }
+    items(teams, key = { it.id }) { team -> TeamListItem(team, client) { onTeamClick(team) } }
 }
 
 @Composable
@@ -133,7 +148,7 @@ private fun SectionHeader(@StringRes titleId: Int) {
 }
 
 @Composable
-private fun TeamListItem(team: Team, onClick: () -> Unit) {
+private fun TeamListItem(team: Team, client: NextcloudClient?, onClick: () -> Unit) {
     ListItem(
         modifier = Modifier.clickable(onClick = onClick),
         headlineContent = {
@@ -143,10 +158,11 @@ private fun TeamListItem(team: Team, onClick: () -> Unit) {
             Text(pluralStringResource(R.plurals.teams_member_count, team.population, team.population))
         },
         leadingContent = {
-            Icon(
-                painter = painterResource(R.drawable.ic_circles),
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary
+            RemoteAvatar(
+                client = client,
+                path = team.avatarPath,
+                name = team.displayName,
+                size = dimensionResource(R.dimen.team_avatar_size)
             )
         }
     )
