@@ -65,7 +65,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
     protected String remotePath;
     private RemoteFile createdRemoteFolder;
     private volatile boolean encrypt = false;
-    private boolean deferFailureToServerRollback;
+    private volatile boolean deferFailureToServerRollback;
     private final User user;
     private final Context context;
 
