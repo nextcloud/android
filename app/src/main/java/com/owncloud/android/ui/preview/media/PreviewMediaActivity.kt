@@ -172,11 +172,11 @@ class PreviewMediaActivity :
         }
     }
 
-    override fun onNewIntent(intent: Intent?) {
+    override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
 
         // every later read goes through getIntent(), so the selection of the new intent would be lost otherwise
-        intent?.let { setIntent(it) }
+        setIntent(intent)
 
         initializeContent()
     }
@@ -229,7 +229,7 @@ class PreviewMediaActivity :
             return loader.forVirtualFolder(virtualFolderType, mediaState)
         }
 
-        return loader.forFolder(file?.parentId, MainApp.isOnlyOnDevice())
+        return loader.forFolder(file?.parentId, MainApp.isOnlyOnDevice)
     }
 
     private fun showViewPager(user: User, mediaFiles: List<OCFile>) {
@@ -383,7 +383,7 @@ class PreviewMediaActivity :
 
         val isNewSelection = currentFile != file
 
-        setFile(currentFile)
+        file = currentFile
         showFile(currentFile, optionalUser.get(), isNewSelection)
     }
 

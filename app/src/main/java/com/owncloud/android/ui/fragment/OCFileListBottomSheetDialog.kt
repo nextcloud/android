@@ -124,7 +124,7 @@ class OCFileListBottomSheetDialog(
         filterActionsForOfflineOperations()
         checkCreateEncryptedFolderVisibility()
 
-        if (MainApp.isClientBranded() && isFlavourGPlay()) {
+        if (MainApp.isClientBranded && isFlavourGPlay()) {
             // this way we can have branded clients with that permission
             val hasPermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 PermissionUtil.manifestHasAllFilesPermission(context)

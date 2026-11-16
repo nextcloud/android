@@ -43,7 +43,7 @@ class EditImageActivity :
     Injectable {
 
     private lateinit var binding: ActivityEditImageBinding
-    private lateinit var file: OCFile
+    private lateinit var imageFile: OCFile
     private lateinit var format: Bitmap.CompressFormat
 
     companion object {
@@ -68,12 +68,12 @@ class EditImageActivity :
         binding = ActivityEditImageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        file = intent.extras?.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
+        imageFile = intent.extras?.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
             ?: throw IllegalArgumentException("Missing file argument")
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.apply {
-            title = file.fileName
+            title = imageFile.fileName
             setDisplayHomeAsUpEnabled(true)
         }
 
@@ -91,7 +91,7 @@ class EditImageActivity :
             return
         }
         val resultUri = result.getUriFilePath(this, false)
-        val newFileName = file.fileName.substring(0, file.fileName.lastIndexOf('.')) +
+        val newFileName = imageFile.fileName.substring(0, imageFile.fileName.lastIndexOf('.')) +
             " " + getString(R.string.image_editor_file_edited_suffix) +
             resultUri?.substring(resultUri.lastIndexOf('.'))
 
@@ -99,7 +99,7 @@ class EditImageActivity :
             val data = OCUploadLocalPathData(
                 user = storageManager.user,
                 localPaths = arrayOf(it),
-                remotePaths = arrayOf(file.parentRemotePath + File.separator + newFileName),
+                remotePaths = arrayOf(imageFile.parentRemotePath + File.separator + newFileName),
                 createRemoteFolder = false,
                 creationType = UploadFileOperation.CREATED_BY_USER,
                 requiresWifi = false,
@@ -171,10 +171,10 @@ class EditImageActivity :
 
         cropper.setOnSetImageUriCompleteListener(this)
         cropper.setOnCropImageCompleteListener(this)
-        cropper.setImageUriAsync(file.storageUri)
+        cropper.setImageUriAsync(imageFile.storageUri)
 
         // determine output file format
-        format = when (file.mimeType) {
+        format = when (imageFile.mimeType) {
             MimeType.PNG -> Bitmap.CompressFormat.PNG
 
             MimeType.WEBP -> {

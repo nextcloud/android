@@ -121,7 +121,7 @@ class InternalTwoWaySyncWork(
 
         return try {
             val freeSpaceLeft = file.freeSpace
-            val localFolder = File(storagePath, MainApp.getDataFolder())
+            val localFolder = File(storagePath, MainApp.dataFolder)
             val localFolderSize = FileStorageUtils.getFolderSize(localFolder)
             val remoteFolderSize = folder.fileLength
 

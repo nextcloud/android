@@ -64,7 +64,7 @@ class DrawerMenuItemClickHandler(
 
             R.id.nav_gallery -> navigator.openMediaTab()
 
-            R.id.nav_album -> navigator.replaceAlbumFragment()
+            R.id.nav_album -> navigator.openAlbums()
         }
 
         activity.supportActionBar?.setIcon(null)

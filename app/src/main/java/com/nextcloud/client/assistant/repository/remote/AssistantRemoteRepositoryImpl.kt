@@ -6,6 +6,7 @@
  */
 package com.nextcloud.client.assistant.repository.remote
 
+import com.nextcloud.client.assistant.model.GenerationCheckResult
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.utils.AppConstants
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
@@ -38,9 +39,15 @@ import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OCCapability
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.net.HttpURLConnection
 
 class AssistantRemoteRepositoryImpl(private val client: NextcloudClient, capability: OCCapability) :
     AssistantRemoteRepository {
+
+    companion object {
+        private val GENERATION_FAILED_HTTP_CODES =
+            setOf(HttpURLConnection.HTTP_BAD_REQUEST, HttpURLConnection.HTTP_NOT_FOUND)
+    }
 
     private val supportsV2 = capability.version.isNewerOrEqual(NextcloudVersion.nextcloud_30)
 
@@ -121,10 +128,17 @@ class AssistantRemoteRepositoryImpl(private val client: NextcloudClient, capabil
         if (result.isSuccess) result.resultData else null
     }
 
-    override suspend fun checkGeneration(taskId: String, sessionId: String): ChatMessage? =
+    override suspend fun checkGeneration(taskId: String, sessionId: String): GenerationCheckResult =
         withContext(Dispatchers.IO) {
             val result = CheckGenerationRemoteOperation(taskId, sessionId).execute(client)
-            if (result.isSuccess) result.resultData else null
+            when {
+                result.isSuccess -> result.resultData?.let { GenerationCheckResult.Completed(it) }
+                    ?: GenerationCheckResult.Pending
+
+                result.httpCode in GENERATION_FAILED_HTTP_CODES -> GenerationCheckResult.Failed
+
+                else -> GenerationCheckResult.Pending
+            }
         }
 
     override suspend fun translate(input: TranslationRequest, taskType: TaskTypeData): RemoteOperationResult<Void> =

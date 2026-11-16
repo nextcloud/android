@@ -63,6 +63,7 @@ import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.providers.UsersAndGroupsSearchConfig
 import com.owncloud.android.ui.activity.FileActivity
+import com.owncloud.android.ui.activity.fileactivity.ShareLinkHelper
 import com.owncloud.android.ui.adapter.ShareeListAdapter
 import com.owncloud.android.ui.adapter.ShareeListAdapterListener
 import com.owncloud.android.ui.asynctasks.RetrieveHoverCardAsyncTask
@@ -550,11 +551,12 @@ class FileDetailSharingFragment :
         }
 
         if (publicShare.shareLink.isNullOrEmpty()) {
-            fileOperationsHelper?.getFileWithLink(file, viewThemeUtils)
+            fileOperationsHelper?.getFileWithLink(file)
             return
         }
 
-        FileActivity.showShareLinkDialog(fileActivity, file, publicShare.shareLink)
+        val activity = fileActivity ?: return
+        ShareLinkHelper.showShareLinkDialog(activity, file, publicShare.shareLink)
     }
 
     private fun refreshLegacyShareUiFromDb() {
@@ -717,8 +719,10 @@ class FileDetailSharingFragment :
     }
 
     override fun sendLink(share: OCShare) {
-        if (file?.isSharedViaLink == true && !share.shareLink.isNullOrEmpty()) {
-            FileActivity.showShareLinkDialog(fileActivity, file, share.shareLink)
+        val currentFile = file
+        val activity = fileActivity
+        if (currentFile?.isSharedViaLink == true && !share.shareLink.isNullOrEmpty() && activity != null) {
+            ShareLinkHelper.showShareLinkDialog(activity, currentFile, share.shareLink)
         } else {
             showSendLinkTo(share)
         }
@@ -736,7 +740,9 @@ class FileDetailSharingFragment :
             return
         }
 
-        file?.let { FileActivity.showShareLinkDialog(fileActivity, file, createInternalLink(user, it, capabilities)) }
+        val currentFile = file ?: return
+        val activity = fileActivity ?: return
+        ShareLinkHelper.showShareLinkDialog(activity, currentFile, createInternalLink(user, currentFile, capabilities))
     }
 
     private fun OCCapability?.shouldAskForPublicLinkPassword(): Boolean =
@@ -767,7 +773,7 @@ class FileDetailSharingFragment :
         }
 
         if (share.shareLink.isNullOrEmpty()) {
-            fileOperationsHelper?.getFileWithLink(file, viewThemeUtils)
+            fileOperationsHelper?.getFileWithLink(file)
             return
         }
 
@@ -925,7 +931,7 @@ class FileDetailSharingFragment :
     // endregion
 
     interface OnEditShareListener {
-        fun editExistingShare(share: OCShare?, screenTypePermission: Int, isReshareShown: Boolean)
+        fun editExistingShare(share: OCShare, screenTypePermission: Int, isReshareShown: Boolean)
 
         fun onShareProcessClosed()
     }

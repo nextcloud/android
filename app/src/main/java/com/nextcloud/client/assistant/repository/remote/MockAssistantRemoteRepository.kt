@@ -6,6 +6,7 @@
  */
 package com.nextcloud.client.assistant.repository.remote
 
+import com.nextcloud.client.assistant.model.GenerationCheckResult
 import com.nextcloud.utils.extensions.getRandomString
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.resources.assistant.chat.model.ChatMessage
@@ -60,7 +61,7 @@ class MockAssistantRemoteRepository(private val giveEmptyTasks: Boolean = false)
                 TaskInput("Give me some long text 1"),
                 TaskOutput("Lorem ipsum".getRandomString(100)),
                 1707692337,
-                1707692337,
+                1.0,
                 1707692337,
                 1707692337,
                 1707692337
@@ -76,7 +77,8 @@ class MockAssistantRemoteRepository(private val giveEmptyTasks: Boolean = false)
     override suspend fun checkSession(sessionId: String): Session? = null
     override suspend fun generateSession(sessionId: String): SessionTask? = null
 
-    override suspend fun checkGeneration(taskId: String, sessionId: String): ChatMessage? = null
+    override suspend fun checkGeneration(taskId: String, sessionId: String): GenerationCheckResult =
+        GenerationCheckResult.Pending
     override suspend fun translate(input: TranslationRequest, taskType: TaskTypeData): RemoteOperationResult<Void> =
         RemoteOperationResult(RemoteOperationResult.ResultCode.OK)
 }

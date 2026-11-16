@@ -107,7 +107,12 @@ fun ChatContent(chatViewModel: ChatViewModel, modifier: Modifier = Modifier) {
                 modifier = modifier,
                 listState = listState,
                 bottomSlot = {
-                    ChatErrorBanner(errorState.errorType)
+                    Column {
+                        ChatErrorBanner(errorState.errorType)
+                        if (errorState.errorType == ChatErrorType.GenerateResponse) {
+                            RetryButton(onClick = { chatViewModel.retryResponseGeneration() })
+                        }
+                    }
                 }
             )
         }

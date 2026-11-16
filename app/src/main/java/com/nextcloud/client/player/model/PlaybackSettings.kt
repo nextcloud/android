@@ -17,7 +17,7 @@ class PlaybackSettings @Inject constructor(context: Context) {
         private const val PREFERENCES_FILE_NAME = "playback_settings"
         private const val REPEAT_MODE_ID_KEY = "repeat_mode_id"
         private const val SHUFFLE_KEY = "shuffle"
-        private val DEFAULT_REPEAT_MODE = RepeatMode.ALL
+        private val DEFAULT_REPEAT_MODE = RepeatMode.OFF
     }
 
     private val preferences = context.getSharedPreferences(PREFERENCES_FILE_NAME, Context.MODE_PRIVATE)
@@ -25,6 +25,7 @@ class PlaybackSettings @Inject constructor(context: Context) {
     val repeatMode: RepeatMode
         get() = preferences.getInt(REPEAT_MODE_ID_KEY, -1)
             .let { id -> RepeatMode.entries.firstOrNull { it.id == id } }
+            ?.takeUnless { it == RepeatMode.ALL }
             ?: DEFAULT_REPEAT_MODE
 
     val isShuffle: Boolean

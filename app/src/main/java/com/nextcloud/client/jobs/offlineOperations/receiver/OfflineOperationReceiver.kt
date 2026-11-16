@@ -12,6 +12,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsNotificationManager
+import com.nextcloud.model.OfflineOperationType
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
 import javax.inject.Inject
@@ -32,8 +33,16 @@ class OfflineOperationReceiver : BroadcastReceiver() {
             return
         }
 
+        val operation = storageManager.offlineOperationDao.getById(id)
         storageManager.offlineOperationDao.deleteById(id)
+
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val folderPath = operation?.path?.takeIf { operation.type is OfflineOperationType.CreateFolder }
+        folderPath?.let { path ->
+            storageManager.offlineOperationsRepository.deleteOperationsInsideFolder(path)
+                .forEach { notificationManager.cancel(it) }
+        }
+
         notificationManager.cancel(
             OfflineOperationsNotificationManager.ERROR_ID
         )

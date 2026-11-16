@@ -134,7 +134,7 @@ object MediaProvider {
     private fun isStorageAccessGranted(activity: AppCompatActivity?, getWithoutActivity: Boolean): Boolean =
         getWithoutActivity || (activity != null && PermissionUtil.checkStoragePermission(activity.applicationContext))
 
-    private fun appDataPath(): String = MainApp.getStoragePath() + File.separator + MainApp.getDataFolder()
+    private fun appDataPath(): String = MainApp.getStoragePath() + File.separator + MainApp.dataFolder
 
     private fun bucketSelection(bucketIdColumn: String, bucketId: String?): String =
         bucketIdColumn + SQL_EQUALS + bucketId

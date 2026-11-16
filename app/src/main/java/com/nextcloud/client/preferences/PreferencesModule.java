@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.nextcloud.client.account.UserAccountManager;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 
 import javax.inject.Singleton;
 
@@ -29,7 +30,8 @@ public class PreferencesModule {
     @Singleton
     public AppPreferences appPreferences(Context context,
                                          SharedPreferences sharedPreferences,
-                                         UserAccountManager userAccountManager) {
-        return new AppPreferencesImpl(context, sharedPreferences, userAccountManager);
+                                         UserAccountManager userAccountManager,
+                                         ArbitraryDataProvider arbitraryDataProvider) {
+        return new AppPreferencesImpl(context, sharedPreferences, userAccountManager, arbitraryDataProvider);
     }
 }

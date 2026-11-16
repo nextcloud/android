@@ -65,6 +65,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.activity.RichDocumentsEditorWebView
 import com.owncloud.android.ui.activity.ShareActivity
 import com.owncloud.android.ui.activity.TextEditorWebView
+import com.owncloud.android.ui.activity.fileactivity.ShareLinkHelper
 import com.owncloud.android.ui.dialog.SendFilesDialog
 import com.owncloud.android.ui.dialog.SendShareDialog
 import com.owncloud.android.ui.events.FavoriteEvent
@@ -73,7 +74,6 @@ import com.owncloud.android.ui.events.SyncEventFinished
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.UriUtils
-import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
@@ -387,12 +387,12 @@ class FileOperationsHelper(
         queueOperation(intent)
     }
 
-    fun getFileWithLink(file: OCFile, viewThemeUtils: ViewThemeUtils?) {
+    fun getFileWithLink(file: OCFile) {
         val shares = fileActivity.storageManager.getSharesByPathAndType(file.remotePath, ShareType.PUBLIC_LINK, "")
 
         when {
             shares.size == SINGLE_LINK_SIZE ->
-                FileActivity.copyAndShareFileLink(fileActivity, file, shares[0].shareLink, viewThemeUtils)
+                ShareLinkHelper.copyAndShareFileLink(fileActivity, file, shares[0].shareLink)
 
             fileActivity is FileDisplayActivity -> fileActivity.showDetails(file, SHARING_TAB)
 
@@ -877,7 +877,8 @@ class FileOperationsHelper(
     }
 
     private fun queueOperation(intent: Intent) {
-        opIdWaitingFor = fileActivity.operationsServiceBinder.queueNewOperation(intent)
+        val binder = fileActivity.operationsServiceBinder ?: return
+        opIdWaitingFor = binder.queueNewOperation(intent)
     }
 
     private fun queueOperationAndShowWaitDialog(intent: Intent) {
