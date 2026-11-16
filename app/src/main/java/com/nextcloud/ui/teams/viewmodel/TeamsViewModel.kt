@@ -9,22 +9,29 @@ package com.nextcloud.ui.teams.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nextcloud.android.lib.resources.teams.model.Team
+import com.nextcloud.android.lib.resources.teams.put.invitation.model.TeamInvitationResponse
 import com.nextcloud.client.di.SavedStateViewModelCreator
 import com.nextcloud.ui.teams.model.TeamDialogStatus
 import com.nextcloud.ui.teams.model.TeamsUiState
 import com.nextcloud.ui.teams.model.createTeamErrorMessageId
+import com.nextcloud.ui.teams.model.invitationErrorMessageId
 import com.nextcloud.ui.teams.model.loadTeamsErrorMessageId
 import com.nextcloud.ui.teams.repository.TeamsRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.WhileSubscribed
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.seconds
 
@@ -45,6 +52,12 @@ class TeamsViewModel @AssistedInject constructor(
 
     private val _createTeamStatus = MutableStateFlow<TeamDialogStatus>(TeamDialogStatus.Editing)
     val createTeamStatus: StateFlow<TeamDialogStatus> = _createTeamStatus.asStateFlow()
+
+    private val _respondingTeamIds = MutableStateFlow<Set<String>>(emptySet())
+    val respondingTeamIds: StateFlow<Set<String>> = _respondingTeamIds.asStateFlow()
+
+    private val _errorMessages = Channel<Int>(Channel.BUFFERED)
+    val errorMessages: Flow<Int> = _errorMessages.receiveAsFlow()
 
     init {
         viewModelScope.launch { loadTeams() }
@@ -86,6 +99,23 @@ class TeamsViewModel @AssistedInject constructor(
         }
     }
 
+    fun respondToInvitation(team: Team, response: TeamInvitationResponse) {
+        if (team.id in _respondingTeamIds.value) {
+            return
+        }
+
+        _respondingTeamIds.update { it + team.id }
+        viewModelScope.launch {
+            val result = repository.respondToInvitation(team.id, response)
+            if (result.isSuccess) {
+                loadTeams()
+            } else {
+                _errorMessages.send(result.invitationErrorMessageId(response))
+            }
+            _respondingTeamIds.update { it - team.id }
+        }
+    }
+
     private suspend fun loadTeams() {
         val result = repository.getTeams()
         if (!result.isSuccess) {
@@ -93,8 +123,9 @@ class TeamsViewModel @AssistedInject constructor(
             return
         }
 
-        val (myTeams, otherTeams) = result.resultData.orEmpty().partition { it.isMember }
-        teamsState.value = TeamsUiState.Content(myTeams, otherTeams)
+        val (invitations, remainingTeams) = result.resultData.orEmpty().partition { it.isInvitation }
+        val (myTeams, otherTeams) = remainingTeams.partition { it.isMember }
+        teamsState.value = TeamsUiState.Content(invitations, myTeams, otherTeams)
     }
 
     @AssistedFactory
