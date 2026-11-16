@@ -28,7 +28,6 @@ import coil3.compose.AsyncImage
 import coil3.network.NetworkHeaders
 import coil3.network.httpHeaders
 import coil3.request.ImageRequest
-import coil3.request.crossfade
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.common.OkHttpMethodBase
 import com.owncloud.android.utils.BitmapUtils
@@ -39,6 +38,7 @@ private const val INITIALS_BACKGROUND_ALPHA = 0.1f
 @Composable
 fun RemoteAvatar(client: NextcloudClient, path: String, name: String, size: Dp, modifier: Modifier = Modifier) {
     val context = LocalContext.current
+    val imageLoader = remember(client) { CoilImageLoader.get(context, client) }
     val request = remember(client, path) {
         val headers = NetworkHeaders.Builder()
             .set(OkHttpMethodBase.AUTHORIZATION, client.credentials)
@@ -47,7 +47,6 @@ fun RemoteAvatar(client: NextcloudClient, path: String, name: String, size: Dp, 
         ImageRequest.Builder(context)
             .data(client.baseUri.toString() + path)
             .httpHeaders(headers)
-            .crossfade(true)
             .build()
     }
 
@@ -59,6 +58,7 @@ fun RemoteAvatar(client: NextcloudClient, path: String, name: String, size: Dp, 
         InitialsAvatar(name, size)
         AsyncImage(
             model = request,
+            imageLoader = imageLoader,
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
