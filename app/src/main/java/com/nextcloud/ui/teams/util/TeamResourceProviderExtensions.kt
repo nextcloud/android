@@ -7,12 +7,19 @@
 package com.nextcloud.ui.teams.util
 
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import com.nextcloud.android.lib.resources.teams.get.resources.model.TeamResourceProvider
 import com.nextcloud.ui.teams.detail.model.TeamResourceProviderId
 import com.owncloud.android.R
 
 val TeamResourceProvider.providerId: TeamResourceProviderId?
     get() = TeamResourceProviderId.from(id)
+
+@StringRes
+fun TeamResourceProvider.fixedTitleId(): Int? = when (providerId) {
+    TeamResourceProviderId.TEAM_FOLDER -> R.string.team_folder
+    else -> null
+}
 
 @DrawableRes
 fun TeamResourceProvider.iconId(): Int = when (providerId) {

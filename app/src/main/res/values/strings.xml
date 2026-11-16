@@ -1494,6 +1494,7 @@
     <string name="team_tab_members">Members</string>
     <string name="team_settings">Team settings</string>
     <string name="team_resources_empty">Nothing shared with this team yet</string>
+    <string name="team_folder">Team folder</string>
     <string name="team_members_empty">No members</string>
     <string name="team_load_failed">Could not load team</string>
     <string name="team_error_not_found">Team not found</string>

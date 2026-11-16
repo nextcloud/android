@@ -16,16 +16,30 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import com.nextcloud.android.lib.resources.teams.get.resources.model.TeamResource
+import com.nextcloud.ui.teams.util.fixedTitleId
 import com.nextcloud.ui.teams.util.iconId
 import com.owncloud.android.R
 
 @Composable
 fun TeamResourceListItem(resource: TeamResource, onClick: () -> Unit) {
+    val fixedTitleId = resource.provider.fixedTitleId()
+
     ListItem(
-        headlineContent = { Text(text = resource.label, maxLines = 1, overflow = TextOverflow.Ellipsis) },
-        supportingContent = { Text(resource.provider.name) },
+        headlineContent = {
+            Text(
+                text = fixedTitleId?.let { stringResource(it) } ?: resource.label,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        },
+        supportingContent = if (fixedTitleId == null) {
+            { Text(resource.provider.name) }
+        } else {
+            null
+        },
         leadingContent = {
             Icon(
                 painter = painterResource(resource.provider.iconId()),
