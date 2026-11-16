@@ -278,6 +278,12 @@
     <string name="common_yes">Yes</string>
     <string name="common_no">No</string>
     <string name="common_ok">OK</string>
+    <string name="transfer_encryption_title">Copy or move encrypted items</string>
+    <string name="transfer_encrypt_message">The destination folder is encrypted. The selected files and folders will be encrypted during this operation. Continue?</string>
+    <string name="transfer_decrypt_message">The destination folder is not encrypted. The selected encrypted files will be decrypted during this operation. Continue?</string>
+    <string name="transfer_encrypted_folder_message">The destination folder is not encrypted. Keep the selected folders encrypted, or decrypt their contents? Individually selected files will be decrypted in either case.</string>
+    <string name="transfer_keep_encryption">Keep folders encrypted</string>
+    <string name="transfer_decrypt">Decrypt items</string>
     <string name="remove">Remove</string>
     <string name="common_now">Now</string>
     <string name="common_cancel_sync">Cancel sync</string>

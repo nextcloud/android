@@ -154,6 +154,7 @@ public class UploadFileOperation extends SyncOperation {
      * Local path to file which is to be uploaded (before any possible renaming or moving).
      */
     private String mOriginalStoragePath;
+    private volatile boolean keepE2EELockOnFailure;
     private final Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<>();
     private OnRenameListener mRenameUploadListener;
 
@@ -407,6 +408,10 @@ public class UploadFileOperation extends SyncOperation {
 
     public Context getContext() {
         return mContext;
+    }
+
+    public void setKeepE2EELockOnFailure(boolean keepLock) {
+        keepE2EELockOnFailure = keepLock;
     }
 
     public boolean isMissingPermissionThrown() {
@@ -949,6 +954,12 @@ public class UploadFileOperation extends SyncOperation {
             if (result.isSuccess()) {
                 result = tokenError;
             }
+            return result;
+        }
+
+        // Unlock commits staged content even if its metadata could not be written.
+        if (keepE2EELockOnFailure && !result.isSuccess()) {
+            e2eFiles.deleteEncryptedTempFile();
             return result;
         }
 

@@ -419,7 +419,7 @@ public class FileMenuFilter {
     }
 
     private void filterMoveOrCopy(List<Integer> toHide, boolean synchronizing) {
-        if (files.isEmpty() || synchronizing || containsEncryptedFile() || containsEncryptedFolder() || containsLockedFile()) {
+        if (files.isEmpty() || synchronizing || containsLockedFile()) {
             toHide.add(R.id.action_move_or_copy);
         }
     }

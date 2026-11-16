@@ -493,11 +493,14 @@ open class FolderPickerActivity :
         }
 
         targetFilePaths?.let { filePaths ->
-            action?.let { action ->
-                fileOperationsHelper.moveOrCopyFiles(action, filePaths, file)
-            }
-
             resultData.putStringArrayListExtra(EXTRA_FILE_PATHS, filePaths)
+            if (action != null) {
+                fileOperationsHelper.moveOrCopyFiles(action, filePaths, file) {
+                    setResult(RESULT_OK, resultData)
+                    finish()
+                }
+                return
+            }
         }
 
         setResult(RESULT_OK, resultData)
