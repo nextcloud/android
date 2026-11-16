@@ -7,6 +7,7 @@
 
 package com.nextcloud.client.assistant.repository.remote
 
+import com.nextcloud.client.assistant.model.GenerationCheckResult
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.resources.assistant.chat.model.ChatMessage
 import com.owncloud.android.lib.resources.assistant.chat.model.ChatMessageRequest
@@ -36,7 +37,7 @@ interface AssistantRemoteRepository {
 
     suspend fun generateSession(sessionId: String): SessionTask?
 
-    suspend fun checkGeneration(taskId: String, sessionId: String): ChatMessage?
+    suspend fun checkGeneration(taskId: String, sessionId: String): GenerationCheckResult
 
     suspend fun translate(input: TranslationRequest, taskType: TaskTypeData): RemoteOperationResult<Void>
 }

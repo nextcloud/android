@@ -17,6 +17,9 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 val shotTest = System.getenv("SHOT_TEST") == "true"
 val ciBuild = System.getenv("CI") == "true"
 val perfAnalysis = project.hasProperty("perfAnalysis")
+val instrumentedTestBuild = project.hasProperty("coverage") || shotTest ||
+    gradle.startParameter.taskNames.any { it.contains("AndroidTest", ignoreCase = true) }
+val enableR8 = !instrumentedTestBuild
 
 val allAbis = listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
 val localDebugAbis = when (System.getProperty("os.arch")) {
@@ -128,9 +131,6 @@ android {
 
         buildTypes {
             release {
-                optimization {
-                    enable = true
-                }
                 buildConfigField("String", "NC_TEST_SERVER_DATA_STRING", "\"\"")
                 ndk {
                     abiFilters += allAbis
@@ -140,6 +140,9 @@ android {
                 enableUnitTestCoverage = project.hasProperty("coverage")
                 enableAndroidTestCoverage = project.hasProperty("coverage")
                 resConfigs("xxxhdpi")
+                optimization {
+                    enable = enableR8
+                }
                 ndk {
                     abiFilters += if (ciBuild) allAbis else localDebugAbis
                 }
@@ -168,6 +171,9 @@ android {
                 dimension = "default"
                 versionCode = 20220322
                 versionName = "20220322"
+                optimization {
+                    enable = enableR8
+                }
             }
 
             register("qa") {

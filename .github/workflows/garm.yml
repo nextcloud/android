@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
     test:
-        runs-on: ubuntu-24.04
+        runs-on: ubuntu-26.04
         services:
             server:
                 image: ${{ matrix.server == 'stable22' && 'ghcr.io/nextcloud/continuous-integration-shallow-server-php8.0:1' || 'ghcr.io/nextcloud/continuous-integration-shallow-server-php8.3:latest' }}
@@ -32,6 +32,12 @@ jobs:
         steps:
             -   uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
+            -   name: Free disk space
+                run: |
+                    df -h /
+                    sudo rm -rf /usr/share/dotnet /usr/share/swift /usr/local/.ghcup /opt/ghc /usr/local/share/boost /usr/local/share/powershell /usr/local/share/chromium /usr/local/julia* /opt/az /opt/microsoft /opt/google
+                    df -h /
+
             -   name: configure server
                 run: |
                     sudo apt-get update && sudo apt-get install unzip cpu-checker qemu-system-x86 --yes
@@ -43,6 +49,7 @@ jobs:
                     docker exec server chmod +x /tmp/configNC.sh
                     docker exec --user www-data server /tmp/configNC.sh ${{ matrix.server }}
                     docker exec server /usr/local/bin/run.sh
+                    sudo apt-get clean
 
             -   name: set up JDK 21
                 uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
@@ -50,12 +57,17 @@ jobs:
                     distribution: "temurin"
                     java-version: 21
 
+            -   name: Setup Gradle
+                uses: gradle/actions/setup-gradle@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
+
             -   name: Configure gradle daemon
                 run: |
                     mkdir -p $HOME/.gradle
-                    echo "org.gradle.jvmargs=-Xmx6g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" >> $HOME/.gradle/gradle.properties
-                    echo "org.gradle.caching=true" >> $HOME/.gradle/gradle.properties
-                    echo "org.gradle.parallel=true" >> $HOME/.gradle/gradle.properties
+                    echo "org.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=768m -XX:+UseSerialGC -Dfile.encoding=UTF-8 --add-opens java.base/java.nio=ALL-UNNAMED --add-opens java.base/java.nio.channels=ALL-UNNAMED --add-exports java.base/sun.nio.ch=ALL-UNNAMED" >> $HOME/.gradle/gradle.properties
+                    echo "kotlin.compiler.execution.strategy=in-process" >> $HOME/.gradle/gradle.properties
+                    echo "org.gradle.workers.max=4" >> $HOME/.gradle/gradle.properties
+                    echo "org.gradle.caching=false" >> $HOME/.gradle/gradle.properties
+                    echo "org.gradle.parallel=false" >> $HOME/.gradle/gradle.properties
                     echo "org.gradle.configureondemand=true" >> $HOME/.gradle/gradle.properties
 
             -   name: Config gplay
