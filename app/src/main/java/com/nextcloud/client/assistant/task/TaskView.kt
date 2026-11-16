@@ -149,7 +149,7 @@ private fun TaskViewPreview() {
                     " cryptocurrency market"
             ),
             1707692337,
-            1707692337,
+            1.0,
             1707692337,
             1707692337,
             1707692337

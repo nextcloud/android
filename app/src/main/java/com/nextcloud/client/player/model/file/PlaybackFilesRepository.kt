@@ -42,7 +42,7 @@ class PlaybackFilesRepository @Inject constructor(
             PlaybackCollection.GALLERY -> observeGalleryPlaybackFiles(fileType)
             PlaybackCollection.SHARED -> observeSharedPlaybackFiles(fileType)
             PlaybackCollection.ALBUM -> observeAlbumPlaybackFiles(fileType)
-            PlaybackCollection.FOLDER -> observeFolderPlaybackFiles(folderId, fileType, MainApp.isOnlyOnDevice())
+            PlaybackCollection.FOLDER -> observeFolderPlaybackFiles(folderId, fileType, MainApp.isOnlyOnDevice)
         }
 
     private fun observeAlbumPlaybackFiles(fileType: PlaybackFileType): Flow<PlaybackFiles> =

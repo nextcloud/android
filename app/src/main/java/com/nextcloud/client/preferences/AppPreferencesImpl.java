@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2023 TSI-mc
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
  * SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
@@ -35,6 +36,8 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
@@ -117,9 +120,12 @@ public final class AppPreferencesImpl implements AppPreferences {
 
     private static final String LOG_ENTRY = "log_entry";
 
+    private static final ExecutorService arbitraryDataWriter = Executors.newSingleThreadExecutor();
+
     private final Context context;
     private final SharedPreferences preferences;
     private final UserAccountManager userAccountManager;
+    private final ArbitraryDataProvider arbitraryDataProvider;
     private final ListenerRegistry listeners;
 
     private static final int AUTO_UPLOAD_ON_START_DEBOUNCE_IN_MINUTES = 10;
@@ -175,13 +181,18 @@ public final class AppPreferencesImpl implements AppPreferences {
     public static AppPreferences fromContext(Context context) {
         final UserAccountManager userAccountManager = UserAccountManagerImpl.fromContext(context);
         final SharedPreferences prefs = android.preference.PreferenceManager.getDefaultSharedPreferences(context);
-        return new AppPreferencesImpl(context, prefs, userAccountManager);
+        final ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
+        return new AppPreferencesImpl(context, prefs, userAccountManager, arbitraryDataProvider);
     }
 
-    AppPreferencesImpl(Context appContext, SharedPreferences preferences, UserAccountManager userAccountManager) {
+    AppPreferencesImpl(Context appContext,
+                       SharedPreferences preferences,
+                       UserAccountManager userAccountManager,
+                       ArbitraryDataProvider arbitraryDataProvider) {
         this.context = appContext;
         this.preferences = preferences;
         this.userAccountManager = userAccountManager;
+        this.arbitraryDataProvider = arbitraryDataProvider;
         this.listeners = new ListenerRegistry(this);
         this.preferences.registerOnSharedPreferenceChangeListener(listeners);
     }
@@ -341,8 +352,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     public String getFolderLayout(FolderLayout layout) {
         if (layout instanceof FolderLayout.Child child) {
             // keep existing logic for child directories
-            return getFolderPreference(context,
-                                       userAccountManager.getUser(),
+            return getFolderPreference(userAccountManager.getUser(),
                                        layout.getKey(),
                                        child.getFolder(),
                                        FOLDER_LAYOUT_LIST);
@@ -359,11 +369,9 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void setFolderLayout(@NonNull FolderLayout layout, String layoutName) {
         if (layout instanceof FolderLayout.Child child) {
-            setFolderPreference(context,
-                                userAccountManager.getUser(),
-                                child.getKey(),
-                                child.getFolder(),
-                                layoutName);
+            storeValueInBackground(userAccountManager.getUser().getAccountName(),
+                                   getKeyFromFolder(child.getKey(), child.getFolder()),
+                                   layoutName);
             return;
         }
 
@@ -375,8 +383,7 @@ public final class AppPreferencesImpl implements AppPreferences {
 
     @Override
     public FileSortOrder getSortOrderByFolder(OCFile folder) {
-        return FileSortOrder.sortOrders.get(getFolderPreference(context,
-                                                                userAccountManager.getUser(),
+        return FileSortOrder.sortOrders.get(getFolderPreference(userAccountManager.getUser(),
                                                                 PREF__FOLDER_SORT_ORDER,
                                                                 folder,
                                                                 FileSortOrder.SORT_A_TO_Z.name));
@@ -384,11 +391,9 @@ public final class AppPreferencesImpl implements AppPreferences {
 
     @Override
     public void setSortOrder(@Nullable OCFile folder, FileSortOrder sortOrder) {
-        setFolderPreference(context,
-                            userAccountManager.getUser(),
-                            PREF__FOLDER_SORT_ORDER,
-                            folder,
-                            sortOrder.name);
+        storeValueInBackground(userAccountManager.getUser().getAccountName(),
+                               getKeyFromFolder(PREF__FOLDER_SORT_ORDER, folder),
+                               sortOrder.name);
     }
 
     @Override
@@ -403,9 +408,7 @@ public final class AppPreferencesImpl implements AppPreferences {
             return defaultOrder;
         }
 
-        ArbitraryDataProvider dataProvider = new ArbitraryDataProviderImpl(context);
-
-        String value = dataProvider.getValue(user.getAccountName(), PREF__FOLDER_SORT_ORDER + "_" + type);
+        String value = arbitraryDataProvider.getValue(user.getAccountName(), PREF__FOLDER_SORT_ORDER + "_" + type);
 
         return value.isEmpty() ? defaultOrder : FileSortOrder.sortOrders.get(value);
     }
@@ -413,8 +416,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void setSortOrder(FileSortOrder.Type type, FileSortOrder sortOrder) {
         User user = userAccountManager.getUser();
-        ArbitraryDataProvider dataProvider = new ArbitraryDataProviderImpl(context);
-        dataProvider.storeOrUpdateKeyValue(user.getAccountName(), PREF__FOLDER_SORT_ORDER + "_" + type, sortOrder.name);
+        storeValueInBackground(user.getAccountName(), PREF__FOLDER_SORT_ORDER + "_" + type, sortOrder.name);
     }
 
     @Override
@@ -688,49 +690,37 @@ public final class AppPreferencesImpl implements AppPreferences {
      * <p>
      * Anonymous users or {@code null} folders will always return the {@code defaultValue}.
      *
-     * @param context        The Android context.
      * @param user           The user for whom the preference is queried.
      * @param preferenceName The name/key of the preference to look up.
      * @param folder         The folder to check.
      * @param defaultValue   The value to return if no preference is set in the folder hierarchy.
      * @return The preference value for the folder, or {@code defaultValue} if none is set.
      */
-    private static String getFolderPreference(final Context context,
-                                              final User user,
-                                              final String preferenceName,
-                                              final OCFile folder,
-                                              final String defaultValue) {
+    private String getFolderPreference(final User user,
+                                       final String preferenceName,
+                                       final OCFile folder,
+                                       final String defaultValue) {
         if (user.isAnonymous() || folder == null) {
             return defaultValue;
         }
 
-        ArbitraryDataProvider dataProvider = new ArbitraryDataProviderImpl(context);
         FileDataStorageManager storageManager = new FileDataStorageManager(user, context.getContentResolver());
 
-        String value = dataProvider.getValue(user.getAccountName(), getKeyFromFolder(preferenceName, folder));
+        String value = arbitraryDataProvider.getValue(user.getAccountName(), getKeyFromFolder(preferenceName, folder));
         OCFile prefFolder = folder;
         while (prefFolder != null && value.isEmpty()) {
             prefFolder = storageManager.getFileById(prefFolder.getParentId());
-            value = dataProvider.getValue(user.getAccountName(), getKeyFromFolder(preferenceName, prefFolder));
+            value = arbitraryDataProvider.getValue(user.getAccountName(), getKeyFromFolder(preferenceName, prefFolder));
         }
         return value.isEmpty() ? defaultValue : value;
     }
 
-    /**
-     * Set preference value for a folder.
-     *
-     * @param context        Context object.
-     * @param preferenceName Name of the preference to set.
-     * @param folder         Folder.
-     * @param value          Preference value to set.
-     */
-    private static void setFolderPreference(final Context context,
-                                            final User user,
-                                            final String preferenceName,
-                                            @Nullable final OCFile folder,
-                                            final String value) {
-        ArbitraryDataProvider dataProvider = new ArbitraryDataProviderImpl(context);
-        dataProvider.storeOrUpdateKeyValue(user.getAccountName(), getKeyFromFolder(preferenceName, folder), value);
+    private void storeValueInBackground(final String accountName, final String key, final String value) {
+        arbitraryDataWriter.execute(() -> arbitraryDataProvider.storeOrUpdateKeyValue(accountName, key, value));
+    }
+
+    public static void shutdown() {
+        arbitraryDataWriter.shutdown();
     }
 
     private static String getKeyFromFolder(String preferenceName, @Nullable OCFile folder) {

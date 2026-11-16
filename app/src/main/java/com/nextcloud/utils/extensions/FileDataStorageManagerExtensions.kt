@@ -369,7 +369,7 @@ fun FileDataStorageManager.saveFolder(folder: OCFile, updatedFiles: List<OCFile>
             "${filesToRemove.size} files to remove"
     )
 
-    val removedChildren = filesToRemove.filter { it.parentId == folder.fileId }
+    val removedChildren = filesToRemove.filter { it.parentId == folder.fileId && !isPendingOfflineCreation(it) }
     removedChildren.forEach { deleteLocalCopy(it) }
 
     db.runInTransaction {
@@ -379,6 +379,12 @@ fun FileDataStorageManager.saveFolder(folder: OCFile, updatedFiles: List<OCFile>
     }
 
     MainApp.getAppContext().contentResolver.notifyChange(ProviderTableMeta.CONTENT_URI, null)
+}
+
+fun FileDataStorageManager.isPendingOfflineCreation(file: OCFile): Boolean {
+    if (!file.isOfflineOperation) return false
+    val path = file.decryptedRemotePath ?: return false
+    return offlineOperationDao.getByPath(path)?.isCreate() == true
 }
 
 private fun FileDataStorageManager.upsertFolderContent(folder: OCFile, files: List<OCFile>) {

@@ -57,6 +57,8 @@ jobs:
         with:
           distribution: "temurin"
           java-version: 25
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
       - name: Assemble
         run: |
           mkdir -p "$HOME/.gradle"

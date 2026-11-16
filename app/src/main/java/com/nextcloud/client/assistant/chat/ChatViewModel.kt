@@ -9,6 +9,7 @@ package com.nextcloud.client.assistant.chat
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nextcloud.client.assistant.model.GenerationCheckResult
 import com.nextcloud.client.assistant.repository.remote.AssistantRemoteRepository
 import com.nextcloud.utils.AppConstants.MILLIS_PER_SECOND
 import com.nextcloud.utils.date.DateFormatPattern
@@ -54,19 +55,16 @@ class ChatViewModel(private val remoteRepository: AssistantRemoteRepository) : V
             fetchAllMessages(sessionId)
 
             val session = remoteRepository.checkSession(sessionId.toString())
-            currentChatTaskId = session?.taskId?.toString()
+            currentChatTaskId = session?.messageTaskId?.toString()
 
             val lastMessageIsHuman = currentMessages.lastOrNull()?.isHuman() == true
 
-            // update session title if exists
-            session?.sessionTitle?.let {
-                _sessionTitle.update {
-                    it
-                }
+            session?.sessionTitle?.let { title ->
+                _sessionTitle.update { title }
             }
 
             when {
-                currentChatTaskId != null && currentChatTaskId != "0" -> startPolling(sessionId)
+                currentChatTaskId != null -> startPolling(sessionId)
 
                 lastMessageIsHuman -> _uiState.update { ChatUIState.RetryAvailable(currentMessages) }
 
@@ -112,8 +110,20 @@ class ChatViewModel(private val remoteRepository: AssistantRemoteRepository) : V
 
     private suspend fun fetchNewChatMessage(sessionId: Long) {
         val taskId = currentChatTaskId ?: return
-        val newMessage = remoteRepository.checkGeneration(taskId, sessionId.toString()) ?: return
+        when (val result = remoteRepository.checkGeneration(taskId, sessionId.toString())) {
+            GenerationCheckResult.Pending -> Unit
+            GenerationCheckResult.Failed -> onGenerationFailed()
+            is GenerationCheckResult.Completed -> onNewChatMessage(result.message)
+        }
+    }
 
+    private fun onGenerationFailed() {
+        stopPolling()
+        currentChatTaskId = null
+        _uiState.update { ChatUIState.Error(currentMessages, ChatErrorType.GenerateResponse) }
+    }
+
+    private fun onNewChatMessage(newMessage: ChatMessage) {
         val alreadyExists = currentMessages.any {
             it.id == newMessage.id ||
                 (it.timestamp == newMessage.timestamp && it.content == newMessage.content)

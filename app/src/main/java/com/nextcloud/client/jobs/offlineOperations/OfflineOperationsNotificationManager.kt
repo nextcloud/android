@@ -131,7 +131,7 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
             context,
             id,
             intent,
-            PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
         return NotificationCompat.Action(

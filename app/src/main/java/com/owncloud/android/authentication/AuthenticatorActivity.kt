@@ -343,7 +343,7 @@ open class AuthenticatorActivity :
     }
 
     private fun mdmWebLoginUrl(): String? {
-        if (!MainApp.isClientBrandedPlus()) {
+        if (!MainApp.isClientBrandedPlus) {
             return null
         }
         return MDMConfig.getBaseUrl(this).takeIf { it.isNotEmpty() }?.plus(WEB_LOGIN)

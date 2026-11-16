@@ -169,7 +169,7 @@ open class ExternalSiteWebView : FileActivity() {
             useWideViewPort = true
             loadWithOverviewMode = true
 
-            userAgentString = MainApp.getUserAgent()
+            userAgentString = MainApp.userAgent
             saveFormData = false
             allowFileAccess = false
             javaScriptEnabled = true

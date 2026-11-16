@@ -112,7 +112,7 @@ object FileStorageUtils {
 
     @JvmStatic
     fun getSavePath(accountName: String?): String =
-        joinPath(MainApp.getStoragePath(), MainApp.getDataFolder(), encodeAccountName(accountName))
+        joinPath(MainApp.getStoragePath(), MainApp.dataFolder, encodeAccountName(accountName))
 
     @JvmStatic
     fun getDefaultSavePathFor(accountName: String?, file: OCFile): String =
@@ -121,7 +121,7 @@ object FileStorageUtils {
     @JvmStatic
     fun getTemporalPath(accountName: String?): String = joinPath(
         MainApp.getStoragePath(),
-        MainApp.getDataFolder(),
+        MainApp.dataFolder,
         StringConstants.TEMP,
         encodeAccountName(accountName)
     )
@@ -136,7 +136,7 @@ object FileStorageUtils {
 
     @JvmStatic
     fun getAppTempDirectoryPath(context: Context): String =
-        joinPath(context.filesDir, MainApp.getDataFolder(), StringConstants.TEMP) + File.separator
+        joinPath(context.filesDir, MainApp.dataFolder, StringConstants.TEMP) + File.separator
 
     private fun encodeAccountName(accountName: String?): String? = Uri.encode(accountName, ACCOUNT_NAME_ALLOWED_CHARS)
 

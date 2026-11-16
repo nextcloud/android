@@ -17,8 +17,11 @@ import com.nextcloud.client.database.entity.OfflineOperationEntity
 
 @Dao
 interface OfflineOperationDao {
-    @Query("SELECT * FROM offline_operations")
+    @Query("SELECT * FROM offline_operations ORDER BY _id ASC")
     fun getAll(): List<OfflineOperationEntity>
+
+    @Query("SELECT * FROM offline_operations WHERE _id = :id LIMIT 1")
+    fun getById(id: Int): OfflineOperationEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(vararg entity: OfflineOperationEntity)
@@ -37,6 +40,15 @@ interface OfflineOperationDao {
 
     @Query("SELECT * FROM offline_operations WHERE offline_operations_parent_oc_file_id = :parentOCFileId")
     fun getSubEntitiesByParentOCFileId(parentOCFileId: Long): List<OfflineOperationEntity>
+
+    @Query(
+        "SELECT * FROM offline_operations WHERE offline_operations_path != :folderPath AND " +
+            "substr(offline_operations_path, 1, length(:folderPath)) = :folderPath"
+    )
+    fun getAllInsideFolder(folderPath: String): List<OfflineOperationEntity>
+
+    @Query("SELECT * FROM offline_operations WHERE offline_operations_path = :path")
+    fun getAllByPath(path: String): List<OfflineOperationEntity>
 
     @Query("DELETE FROM offline_operations")
     fun clearTable()

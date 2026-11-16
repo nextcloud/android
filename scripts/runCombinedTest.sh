@@ -24,7 +24,7 @@ scripts/deleteOldComments.sh "$BRANCH" "IT" "$DRONE_PULL_REQUEST"
 
 scripts/wait_for_emulator.sh || exit 1
 
-./gradlew installGplayDebugAndroidTest
+./gradlew installGplayDebugAndroidTest -Pcoverage
 
 gradle_arguments=(
     -Pcoverage
@@ -41,9 +41,7 @@ adb logcat -c
 adb logcat > logcat.txt &
 LOGCAT_PID=$!
 
-./gradlew createGplayDebugCoverageReport \
-"${gradle_arguments[@]}" \
--Dorg.gradle.jvmargs="--add-opens java.base/java.nio=ALL-UNNAMED --add-opens java.base/java.nio.channels=ALL-UNNAMED --add-exports java.base/sun.nio.ch=ALL-UNNAMED"
+./gradlew createGplayDebugCoverageReport "${gradle_arguments[@]}"
 
 stat=$?
 # stop saving logcat

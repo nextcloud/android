@@ -77,6 +77,7 @@ import com.owncloud.android.operations.e2e.E2ECertificateValidity;
 import com.owncloud.android.operations.e2e.E2EDeletionService;
 import com.owncloud.android.providers.documentstorage.DocumentsStorageProvider;
 import com.owncloud.android.ui.ThemeableSwitchPreference;
+import com.owncloud.android.ui.activity.fileactivity.DevVersionChecker;
 import com.owncloud.android.ui.asynctasks.LoadingVersionNumberTask;
 import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
@@ -249,7 +250,7 @@ public class SettingsActivity extends PreferenceActivity
             if (pDevLink != null) {
                 if (getResources().getBoolean(R.bool.dev_version_direct_download_enabled)) {
                     pDevLink.setOnPreferenceClickListener(preference -> {
-                        FileActivity.checkForNewDevVersion(this, getApplicationContext());
+                        DevVersionChecker.checkForNewDevVersion(this, getApplicationContext());
                         return true;
                     });
                 } else {
@@ -1365,6 +1366,6 @@ public class SettingsActivity extends PreferenceActivity
 
     @Override
     public void returnVersion(Integer latestVersion) {
-        FileActivity.showDevSnackbar(this, latestVersion, true, false);
+        DevVersionChecker.showDevSnackbar(this, latestVersion, true, false);
     }
 }

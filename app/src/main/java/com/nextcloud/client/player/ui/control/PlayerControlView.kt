@@ -175,7 +175,7 @@ class PlayerControlView @JvmOverloads constructor(
             // Repeat and Random are mutually exclusive
             playbackModel.setShuffle(false)
 
-            playbackModel.setRepeatMode(if (repeatSingle) RepeatMode.SINGLE else RepeatMode.ALL)
+            playbackModel.setRepeatMode(if (repeatSingle) RepeatMode.SINGLE else RepeatMode.OFF)
         }
 
         binding.ivRandom.setOnClickListener {

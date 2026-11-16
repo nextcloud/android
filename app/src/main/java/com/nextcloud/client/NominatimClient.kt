@@ -21,7 +21,7 @@ class NominatimClient constructor(geocoderBaseUrl: String, email: String) {
     private val reverseUrl = "${geocoderBaseUrl}reverse?format=jsonv2&email=${URLEncoder.encode(email, ENCODING_UTF_8)}"
 
     private fun doRequest(requestUrl: String): String? {
-        val request = Request.Builder().url(requestUrl).header(HEADER_USER_AGENT, MainApp.getUserAgent()).build()
+        val request = Request.Builder().url(requestUrl).header(HEADER_USER_AGENT, MainApp.userAgent).build()
 
         try {
             val response = client.newCall(request).execute()

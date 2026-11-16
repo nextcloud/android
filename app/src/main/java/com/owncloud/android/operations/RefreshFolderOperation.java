@@ -516,6 +516,11 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
     private void removeLocalFolder() {
+        if (FileDataStorageManagerExtensionsKt.isPendingOfflineCreation(fileDataStorageManager, mLocalFolder)) {
+            Log_OC.d(TAG, "Keeping " + mLocalFolder.getRemotePath() + ", it is not created on the server yet");
+            return;
+        }
+
         if (fileDataStorageManager.fileExists(mLocalFolder.getFileId())) {
             String currentSavePath = FileStorageUtils.getSavePath(user.getAccountName());
             fileDataStorageManager.removeFolder(

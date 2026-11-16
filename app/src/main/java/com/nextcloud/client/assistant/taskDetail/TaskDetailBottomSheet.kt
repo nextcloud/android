@@ -175,7 +175,7 @@ private fun TaskDetailScreenPreview() {
             TaskInput("Give me text".getRandomString(100)),
             TaskOutput("output".getRandomString(300)),
             1707692337,
-            1707692337,
+            1.0,
             1707692337,
             1707692337,
             1707692337

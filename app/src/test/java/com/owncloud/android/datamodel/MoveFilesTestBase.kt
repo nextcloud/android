@@ -50,7 +50,7 @@ abstract class MoveFilesTestBase {
         mockUser = mockk(relaxed = true)
         every { mockUser.accountName } returns ACCOUNT_NAME
 
-        mockkStatic(MainApp::class)
+        mockkObject(MainApp)
         every { MainApp.getAppContext() } returns mockk(relaxed = true)
 
         val mockDb = mockk<NextcloudDatabase>(relaxed = true)

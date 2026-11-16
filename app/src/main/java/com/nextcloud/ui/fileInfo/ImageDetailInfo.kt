@@ -145,7 +145,7 @@ class ImageDetailInfo(private val fragment: FileInfoFragment, private val viewTh
         longitude: Double,
         zoom: Double = 13.0
     ) {
-        Configuration.getInstance().userAgentValue = MainApp.getUserAgent()
+        Configuration.getInstance().userAgentValue = MainApp.userAgent
 
         val location = GeoPoint(latitude, longitude)
 

@@ -13,10 +13,11 @@ import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
 import com.nextcloud.client.database.entity.OfflineOperationEntity
 import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsRepository
-import com.nextcloud.client.network.ClientFactoryImpl
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.model.OfflineOperationType
+import com.nextcloud.repository.ClientRepository
 import com.nextcloud.utils.extensions.isNetworkAndServerAvailableSuspended
+import com.nextcloud.utils.extensions.isTheSameAs
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClient
@@ -31,11 +32,13 @@ import com.owncloud.android.operations.CreateFolderOperation
 import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.RenameFileOperation
 import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.FileUtil
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import com.nextcloud.utils.AppConstants.MILLIS_PER_SECOND
+import java.io.File
 
 private typealias OfflineOperationResult = Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>?
 
@@ -43,6 +46,7 @@ class OfflineOperationsWorker(
     private val user: User,
     private val context: Context,
     private val connectivityService: ConnectivityService,
+    private val clientRepository: ClientRepository,
     viewThemeUtils: ViewThemeUtils,
     params: WorkerParameters
 ) : CoroutineWorker(context, params) {
@@ -53,7 +57,6 @@ class OfflineOperationsWorker(
     }
 
     private val fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
-    private val clientFactory = ClientFactoryImpl(context)
     private val notificationManager = OfflineOperationsNotificationManager(context, viewThemeUtils)
     private var repository = OfflineOperationsRepository(fileDataStorageManager)
 
@@ -76,8 +79,13 @@ class OfflineOperationsWorker(
             }
 
             // process offline operations
+            val client = clientRepository.getOwncloudClient()
+            if (client == null) {
+                Log_OC.e(TAG, "💥 Client is not available, operations are not processed")
+                return@withContext Result.failure()
+            }
+
             notificationManager.start()
-            val client = clientFactory.create(user)
             processOperations(operations, client)
 
             Log_OC.d(TAG, "🏁 Worker finished with result")
@@ -93,11 +101,17 @@ class OfflineOperationsWorker(
     // region Handle offline operations
     private suspend fun processOperations(operations: List<OfflineOperationEntity>, client: OwnCloudClient) {
         val totalOperationSize = operations.size
-        operations.forEachIndexed { index, operation ->
+        operations.forEachIndexed { index, snapshot ->
+            val operation = snapshot.id?.let { fileDataStorageManager.offlineOperationDao.getById(it) }
+            if (operation == null) {
+                Log_OC.d(TAG, "Skipping, operation was removed during this run, id=${snapshot.id}")
+                return@forEachIndexed
+            }
+
             try {
                 Log_OC.d(TAG, "Processing operation, path: ${operation.path}")
                 val result = executeOperation(operation, client)
-                handleResult(operation, totalOperationSize, index, result)
+                handleResult(operation, totalOperationSize, index, result, client)
             } catch (e: Exception) {
                 Log_OC.e(TAG, "💥 Exception while processing operation id=${operation.id}: ${e.message}")
             }
@@ -108,14 +122,15 @@ class OfflineOperationsWorker(
         operation: OfflineOperationEntity,
         totalOperations: Int,
         currentSuccessfulOperationIndex: Int,
-        result: OfflineOperationResult
+        result: OfflineOperationResult,
+        client: OwnCloudClient
     ) {
         val operationResult = result?.first ?: return
         val logMessage = if (operationResult.isSuccess) "Operation completed" else "Operation failed"
         Log_OC.d(TAG, "$logMessage filename: ${operation.filename}, type: ${operation.type}")
 
         return if (result.first?.isSuccess == true) {
-            handleSuccessResult(operation, totalOperations, currentSuccessfulOperationIndex)
+            handleSuccessResult(operation, totalOperations, currentSuccessfulOperationIndex, client)
         } else {
             handleErrorResult(operation.id, result)
         }
@@ -124,19 +139,65 @@ class OfflineOperationsWorker(
     private fun handleSuccessResult(
         operation: OfflineOperationEntity,
         totalOperations: Int,
-        currentSuccessfulOperationIndex: Int
+        currentSuccessfulOperationIndex: Int,
+        client: OwnCloudClient
     ) {
-        if (operation.type is OfflineOperationType.RemoveFile) {
-            val operationType = operation.type as OfflineOperationType.RemoveFile
-            fileDataStorageManager.getFileByDecryptedRemotePath(operationType.path)?.let { ocFile ->
-                repository.deleteOperation(ocFile)
+        val operationType = operation.type
+        if (operationType is OfflineOperationType.RemoveFile) {
+            if (operationType.path.endsWith(OCFile.PATH_SEPARATOR)) {
+                repository.deleteOperationsInsideFolder(operationType.path)
+                    .forEach { notificationManager.dismissNotification(it) }
             }
         } else {
+            if (operation.isCreate()) {
+                getExecutionPath(operation)?.let { getRemoteFile(it, client) }?.let { saveRemoteFile(it) }
+            }
             repository.updateNextOperations(operation)
         }
 
-        fileDataStorageManager.offlineOperationDao.delete(operation)
+        deleteOperation(operation)
         notificationManager.update(totalOperations, currentSuccessfulOperationIndex + 1, operation.filename ?: "")
+    }
+
+    private fun deleteOperation(operation: OfflineOperationEntity) {
+        fileDataStorageManager.offlineOperationDao.delete(operation)
+        notificationManager.dismissNotification(operation.id)
+    }
+
+    private fun handleExistingRemoteFile(
+        operation: OfflineOperationEntity,
+        localPath: String,
+        remoteFile: RemoteFile,
+        ocFile: OCFile?
+    ) {
+        val serverFile = FileStorageUtils.fillOCFile(remoteFile)
+        if (serverFile.isTheSameAs(File(localPath))) {
+            Log_OC.d(TAG, "Skipping, same file already exists on server: ${operation.path}")
+            saveRemoteFile(remoteFile)
+            deleteOperation(operation)
+            return
+        }
+
+        Log_OC.w(TAG, "⚠️ Conflict detected: different file already exists on server, operation id=${operation.id}")
+        ocFile?.let {
+            serverFile.fileId = it.fileId
+            serverFile.parentId = it.parentId
+        }
+        notificationManager.showConflictResolveNotification(serverFile, operation)
+    }
+
+    private fun saveRemoteFile(remoteFile: RemoteFile) {
+        val remotePath = remoteFile.remotePath ?: return
+        val parentPath = FileStorageUtils.getParentPath(remotePath) ?: return
+        val parent = fileDataStorageManager.getFileByDecryptedRemotePath(parentPath) ?: return
+        val existingFile = fileDataStorageManager.getFileByDecryptedRemotePath(remotePath)
+
+        val createdFile = FileStorageUtils.fillOCFile(remoteFile).apply {
+            existingFile?.let { fileId = it.fileId }
+            parentId = parent.fileId
+        }
+
+        fileDataStorageManager.saveFile(createdFile)
     }
 
     private fun handleErrorResult(id: Int?, result: OfflineOperationResult) {
@@ -176,8 +237,7 @@ class OfflineOperationsWorker(
         }
 
         repository.updateNextOperations(operation)
-        fileDataStorageManager.offlineOperationDao.delete(operation)
-        notificationManager.dismissNotification(operation.id)
+        deleteOperation(operation)
     }
 
     // region Operation Execution
@@ -192,12 +252,18 @@ class OfflineOperationsWorker(
             return@withContext null
         }
 
-        val remoteFile = getRemoteFile(path)
+        val remoteFile = getRemoteFile(path, client)
         val ocFile = fileDataStorageManager.getFileByDecryptedRemotePath(path)
 
         if (operation.type is OfflineOperationType.CreateFolder && remoteFile != null) {
             Log_OC.d(TAG, "📂 Folder already exists on server, adopting it: $path")
             adoptRemoteFolder(operation, remoteFile, ocFile)
+            return@withContext null
+        }
+
+        val operationType = operation.type
+        if (operationType is OfflineOperationType.CreateFile && remoteFile != null) {
+            handleExistingRemoteFile(operation, operationType.localPath, remoteFile, ocFile)
             return@withContext null
         }
 
@@ -218,13 +284,7 @@ class OfflineOperationsWorker(
 
         if (operation.isRenameOrRemove() && ocFile == null) {
             Log_OC.d(TAG, "Skipping, attempting to delete or rename non-existing file")
-            fileDataStorageManager.offlineOperationDao.delete(operation)
-            return@withContext null
-        }
-
-        if (operation.isCreate() && remoteFile != null && ocFile != null && !isFileChanged(remoteFile, ocFile)) {
-            Log_OC.d(TAG, "Skipping, attempting to create same file creation")
-            fileDataStorageManager.offlineOperationDao.delete(operation)
+            deleteOperation(operation)
             return@withContext null
         }
 
@@ -266,14 +326,14 @@ class OfflineOperationsWorker(
     @Suppress("DEPRECATION")
     private fun createFile(operation: OfflineOperationEntity, client: OwnCloudClient): OfflineOperationResult {
         val operationType = (operation.type as OfflineOperationType.CreateFile)
-        val lastModificationDate = System.currentTimeMillis() / MILLIS_PER_SECOND
+        val localFile = File(operationType.localPath)
         val createFileOperation = UploadFileRemoteOperation(
             operationType.localPath,
             operationType.remotePath,
             operationType.mimeType,
             "",
-            operation.modifiedAt ?: lastModificationDate,
-            operation.createdAt ?: System.currentTimeMillis(),
+            localFile.lastModified() / MILLIS_PER_SECOND,
+            FileUtil.getCreationTimestamp(localFile),
             true
         )
         return createFileOperation.execute(client) to createFileOperation
@@ -294,10 +354,9 @@ class OfflineOperationsWorker(
     // endregion
 
     @Suppress("DEPRECATION")
-    private fun getRemoteFile(remotePath: String): RemoteFile? {
+    private fun getRemoteFile(remotePath: String, client: OwnCloudClient): RemoteFile? {
         val mimeType = MimeTypeUtil.getMimeTypeFromPath(remotePath)
         val isFolder = MimeTypeUtil.isFolder(mimeType)
-        val client = ClientFactoryImpl(context).create(user)
         val result = if (isFolder) {
             ReadFolderRemoteOperation(remotePath).execute(client)
         } else {

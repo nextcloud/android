@@ -9,13 +9,14 @@ package com.nextcloud.utils
 
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
+import io.mockk.every
+import io.mockk.mockkObject
+import io.mockk.unmockkObject
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Before
 import org.junit.Test
-import org.mockito.MockedStatic
-import org.mockito.Mockito
 import java.text.DateFormat
 import java.util.Date
 import java.util.Locale
@@ -25,14 +26,13 @@ class HumanReadableFormatterTest {
 
     private val pendingLabel = "Pending"
 
-    private lateinit var mainApp: MockedStatic<MainApp>
     private lateinit var defaultLocale: Locale
     private lateinit var defaultTimeZone: TimeZone
 
     @Before
     fun setUp() {
-        mainApp = Mockito.mockStatic(MainApp::class.java)
-        mainApp.`when`<String> { MainApp.string(R.string.common_pending) }.thenReturn(pendingLabel)
+        mockkObject(MainApp)
+        every { MainApp.string(R.string.common_pending) } returns pendingLabel
 
         defaultLocale = Locale.getDefault()
         defaultTimeZone = TimeZone.getDefault()
@@ -42,7 +42,7 @@ class HumanReadableFormatterTest {
 
     @After
     fun tearDown() {
-        mainApp.close()
+        unmockkObject(MainApp)
         Locale.setDefault(defaultLocale)
         TimeZone.setDefault(defaultTimeZone)
     }
