@@ -2,6 +2,8 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 [versions]
+activityComposeVersion = "1.13.0"
+navigation3Version = "1.2.1"
 androidCommonLibraryVersion = "580a84868ae2af10b2ace13dadc083f166047493"
 androidGifDrawableVersion = "1.2.32"
 androidImageCropperVersion = "4.7.0"
@@ -161,7 +163,13 @@ dagger-android-support = { module = "com.google.dagger:dagger-android-support", 
 # Glide
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 
+# Navigation 3
+navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "navigation3Version" }
+navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "navigation3Version" }
+
 # Lifecycle
+lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelKtxVersion" }
+lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "lifecycleViewmodelKtxVersion" }
 lifecycle-process = { module = "androidx.lifecycle:lifecycle-process", version.ref = "lifecycleViewmodelKtxVersion" }
 lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleViewmodelKtxVersion" }
 lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleViewmodelKtxVersion" }
@@ -178,7 +186,7 @@ compose-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 compose-material3 = { module = "androidx.compose.material3:material3" }
-compose-activity = { module = "androidx.activity:activity-compose" }
+compose-activity = { module = "androidx.activity:activity-compose", version.ref = "activityComposeVersion" }
 
 # Media3
 media3-datasource = { module = "androidx.media3:media3-datasource-okhttp", version.ref = "media3" }
