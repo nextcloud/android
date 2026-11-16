@@ -46,6 +46,8 @@ import com.nextcloud.ui.teams.model.TeamsUiState
 import com.nextcloud.ui.teams.viewmodel.TeamsViewModel
 import com.owncloud.android.R
 
+private const val SECTION_HEADER_CONTENT_TYPE = "section_header"
+
 @Composable
 fun TeamsScreen(viewModel: TeamsViewModel, client: NextcloudClient, onTeamClick: (Team) -> Unit) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -140,8 +142,8 @@ private fun LazyListScope.teamSection(
         return
     }
 
-    item(key = titleId) { SectionHeader(titleId) }
-    items(teams, key = { it.id }) { itemContent(it) }
+    item(key = titleId, contentType = SECTION_HEADER_CONTENT_TYPE) { SectionHeader(titleId) }
+    items(teams, key = { it.id }, contentType = { titleId }) { itemContent(it) }
 }
 
 @Composable
