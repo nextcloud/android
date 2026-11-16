@@ -1,8 +1,8 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2020 Torsten Grote <t@grobox.de>
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 package com.owncloud.android.providers.documentstorage
 
@@ -19,306 +19,263 @@ import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.db.UploadResult
-import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.providers.documentstorage.DocumentsProviderUtils.assertExistsOnServer
-import com.owncloud.android.providers.documentstorage.DocumentsProviderUtils.assertListFilesEquals
-import com.owncloud.android.providers.documentstorage.DocumentsProviderUtils.assertReadEquals
-import com.owncloud.android.providers.documentstorage.DocumentsProviderUtils.assertRecentlyModified
-import com.owncloud.android.providers.documentstorage.DocumentsProviderUtils.assertRegularFile
-import com.owncloud.android.providers.documentstorage.DocumentsProviderUtils.assertRegularFolder
-import com.owncloud.android.providers.documentstorage.DocumentsProviderUtils.findFileBlocking
-import com.owncloud.android.providers.documentstorage.DocumentsProviderUtils.getOCFile
-import com.owncloud.android.providers.documentstorage.DocumentsProviderUtils.listFilesBlocking
+import com.owncloud.android.providers.documentstorage.TestDocumentsProviderUtils.assertContainsAllFiles
+import com.owncloud.android.providers.documentstorage.TestDocumentsProviderUtils.assertExistsOnServer
+import com.owncloud.android.providers.documentstorage.TestDocumentsProviderUtils.assertRecentlyModified
+import com.owncloud.android.providers.documentstorage.TestDocumentsProviderUtils.assertRegularFile
+import com.owncloud.android.providers.documentstorage.TestDocumentsProviderUtils.assertRegularFolder
+import com.owncloud.android.providers.documentstorage.TestDocumentsProviderUtils.findChild
+import com.owncloud.android.providers.documentstorage.TestDocumentsProviderUtils.findOCFile
+import com.owncloud.android.providers.documentstorage.TestDocumentsProviderUtils.listChildren
+import com.owncloud.android.providers.documentstorage.TestDocumentsProviderUtils.requireNewDirectory
+import com.owncloud.android.providers.documentstorage.TestDocumentsProviderUtils.requireNewFile
+import com.owncloud.android.providers.documentstorage.TestDocumentsProviderUtils.requireOCFile
 import com.owncloud.android.providers.documentstorage.DocumentsStorageProvider.Companion.DOCUMENTID_SEPARATOR
+import kotlin.random.Random
+import kotlin.time.Duration.Companion.minutes
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.TimeSource
 import kotlinx.coroutines.runBlocking
 import org.apache.commons.httpclient.HttpStatus
 import org.apache.commons.httpclient.methods.ByteArrayRequestEntity
 import org.apache.jackrabbit.webdav.client.methods.PutMethod
 import org.junit.After
+import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
-import kotlin.random.Random
-
-private const val MAX_FILE_NAME_LENGTH = 225
-
-// the provider can only enqueue the upload worker, so give it a generous budget before giving up
-private const val UPLOAD_POLL_ATTEMPTS = 45
+import org.junit.rules.Timeout
 
 class DocumentsStorageProviderIT : AbstractOnServerIT() {
+
+    companion object {
+        private const val MAX_FILE_NAME_LENGTH = 225
+        private const val MIN_RANDOM_KILOBYTES = 1
+        private const val MAX_RANDOM_KILOBYTES = 99
+        private const val BYTES_PER_KILOBYTE = 1024
+        private const val FULL_PERMISSIONS = "RSMCKGWDNV"
+        private const val WRITE_TRUNCATE_MODE = "wt"
+        private const val HTML_MIME_TYPE = "text/html"
+        private const val TEXT_MIME_TYPE = "text/plain"
+        private const val BINARY_MIME_TYPE = "application/octet-stream"
+        private const val INITIAL_CONTENT = "initial content"
+        private const val CHANGED_CONTENT = "new content"
+        private val TEST_TIMEOUT = 5.minutes
+        private val AWAIT_TIMEOUT = 90.seconds
+        private val FOLDER_MODIFICATION_TOLERANCE = 1.minutes
+    }
 
     private val context = targetContext
     private val contentResolver = context.contentResolver
     private val authority = context.getString(R.string.document_provider_authority)
 
     private val rootFileId = storageManager.getFileByEncryptedRemotePath(ROOT_PATH).fileId
-    private val documentId = "${DocumentsStorageProvider.rootIdForUser(user)}${DOCUMENTID_SEPARATOR}$rootFileId"
+    private val documentId = "${DocumentsStorageProvider.rootIdForUser(user)}$DOCUMENTID_SEPARATOR$rootFileId"
     private val uri = DocumentsContract.buildTreeDocumentUri(authority, documentId)
-    private val rootDir get() = DocumentFile.fromTreeUri(context, uri)!!
+    private val rootDir: DocumentFile
+        get() = checkNotNull(DocumentFile.fromTreeUri(context, uri)) { "Storage root $uri is not accessible" }
 
     private val uploadsStorageManager = UploadsStorageManager(
         UserAccountManagerImpl.fromContext(context),
         contentResolver
     )
 
+    @get:Rule
+    val timeout: Timeout = Timeout.millis(TEST_TIMEOUT.inWholeMilliseconds)
+
     @Before
     fun before() {
-        // an upload left over by a previous test fails once its local file is gone, and WorkManager
-        // then drops everything appended behind it in the upload chain, including our own uploads
-        FileUploadHelper.instance().cancel(user.accountName)
+        cancelPendingUploads()
+        grantFullPermissionsOnRoot()
+        initializeProviderRoots()
 
-        // DocumentsProvider#onCreate() is called when the application is started
-        // which is *after* AbstractOnServerIT adds the accounts (when the app is freshly installed).
-        // So we need to query our roots here to ensure that the internal storage map is initialized.
-        storageManager.run {
-            val updatedRootPath = getFileByEncryptedRemotePath(ROOT_PATH).apply {
-                permissions = "RSMCKGWDNV"
-            }
-
-            saveFile(updatedRootPath)
-        }
-
-        contentResolver.query(DocumentsContract.buildRootsUri(authority), null, null, null)
         assertTrue("Storage root does not exist", rootDir.exists())
         assertTrue(rootDir.isDirectory)
     }
 
-    /**
-     * Delete all files in [rootDir] after each test.
-     *
-     * We can't use [AbstractOnServerIT.after] as this is only deleting remote files.
-     */
     @After
     override fun after() = runBlocking {
-        rootDir.listFilesBlocking(context).forEach {
-            Log_OC.e("TEST", "Deleting ${it.name}...")
-            it.delete()
-        }
+        cancelPendingUploads()
+        rootDir.listChildren(context).forEach { it.delete() }
     }
 
     @Test
-    fun testCreateDeleteFiles() = runBlocking {
-        // no files in root initially
-        assertListFilesEquals(emptyList(), rootDir.listFilesBlocking(context))
+    fun testWhenFilesCreatedAndDeletedGivenShouldUpdateListingAndServer() = runBlocking {
+        assertContainsAllFiles(emptyList(), rootDir.listChildren(context))
 
-        // create first file
         val name1 = RandomStringGenerator.make()
-        val type1 = "text/html"
-        val file1 = rootDir.createFile(type1, name1)!!
-
-        // check assumptions
-        /* FIXME: mimeType */
-        file1.assertRegularFile(name1, 0L, null, rootDir)
+        val file1 = rootDir.requireNewFile(HTML_MIME_TYPE, name1)
+        file1.assertRegularFile(name = name1, size = 0L, parent = rootDir)
         file1.assertRecentlyModified()
+        assertContainsAllFiles(listOf(file1), rootDir.listChildren(context))
+        val remotePath1 = file1.requireOCFile(storageManager).remotePath
+        assertExistsOnServer(client, remotePath1, true)
 
-        // file1 is found in root
-        assertListFilesEquals(listOf(file1), rootDir.listFilesBlocking(context).toList())
-
-        // file1 was uploaded
-        val ocFile1 = file1.getOCFile(storageManager)!!
-        assertExistsOnServer(client, ocFile1.remotePath, true)
-
-        // create second long file with long file name
         val name2 = RandomStringGenerator.make(MAX_FILE_NAME_LENGTH)
-        val type2 = "application/octet-stream"
-        val file2 = rootDir.createFile(type2, name2)!!
-
-        // file2 was uploaded
-        val ocFile2 = file2.getOCFile(storageManager)!!
-        assertExistsOnServer(client, ocFile2.remotePath, true)
-
-        // check assumptions
-        file2.assertRegularFile(name2, 0L, type2, rootDir)
+        val file2 = rootDir.requireNewFile(BINARY_MIME_TYPE, name2)
+        val remotePath2 = file2.requireOCFile(storageManager).remotePath
+        assertExistsOnServer(client, remotePath2, true)
+        file2.assertRegularFile(name = name2, size = 0L, mimeType = BINARY_MIME_TYPE, parent = rootDir)
         file2.assertRecentlyModified()
+        assertContainsAllFiles(listOf(file1, file2), rootDir.listChildren(context))
 
-        // both files get listed in root
-        assertListFilesEquals(listOf(file1, file2), rootDir.listFiles().toList())
-
-        // delete first file
         assertTrue(file1.delete())
         assertFalse(file1.exists())
-        assertExistsOnServer(client, ocFile1.remotePath, false)
+        assertExistsOnServer(client, remotePath1, false)
+        assertContainsAllFiles(listOf(file2), rootDir.listChildren(context))
 
-        // only second file gets listed in root
-        assertListFilesEquals(listOf(file2), rootDir.listFiles().toList())
-
-        // delete also second file
         assertTrue(file2.delete())
         assertFalse(file2.exists())
-        assertExistsOnServer(client, ocFile2.remotePath, false)
-
-        // no more files in root
-        assertListFilesEquals(emptyList(), rootDir.listFilesBlocking(context))
+        assertExistsOnServer(client, remotePath2, false)
+        assertContainsAllFiles(emptyList(), rootDir.listChildren(context))
     }
 
     @Test
-    fun testReadWriteFiles() {
-        // create random file
-        val file1 = rootDir.createFile("application/octet-stream", RandomStringGenerator.make())!!
-        file1.assertRegularFile(size = 0L)
+    fun testWhenBytesWrittenGivenShouldReadBackSameBytesAndUpdateSize() {
+        val file = rootDir.requireNewFile(BINARY_MIME_TYPE, RandomStringGenerator.make())
+        file.assertRegularFile(size = 0L)
 
-        // write random bytes to file
-        @Suppress("MagicNumber")
-        val dataSize = Random.nextInt(1, 99) * 1024
-        val data1 = Random.nextBytes(dataSize)
-        contentResolver.openOutputStream(file1.uri, "wt").use {
-            it!!.write(data1)
-        }
+        val data = Random.nextBytes(Random.nextInt(MIN_RANDOM_KILOBYTES, MAX_RANDOM_KILOBYTES) * BYTES_PER_KILOBYTE)
+        file.writeBytes(data)
+        awaitStoredLength(file, data.size.toLong())
 
-        // read back random bytes
-        assertReadEquals(data1, contentResolver.openInputStream(file1.uri))
-
-        // file size was updated correctly
-        file1.assertRegularFile(size = data1.size.toLong())
+        assertArrayEquals(data, file.readBytes())
+        file.assertRegularFile(size = data.size.toLong())
     }
 
     @Test
-    fun testCreateDeleteFolders() = runBlocking {
-        // create a new folder
-        val dirName1 = RandomStringGenerator.make()
-        val dir1 = rootDir.createDirectory(dirName1)!!
-        dir1.assertRegularFolder(dirName1, rootDir)
-        // FIXME about a minute gets lost somewhere after CFO sets the correct time
-        @Suppress("MagicNumber")
-        assertTrue(System.currentTimeMillis() - dir1.lastModified() < 60_000)
-//        dir1.assertRecentlyModified()
+    fun testWhenFolderDeletedGivenShouldRemoveFolderAndChildrenFromServer() = runBlocking {
+        val folderName = RandomStringGenerator.make()
+        val folder = rootDir.requireNewDirectory(folderName)
+        folder.assertRegularFolder(name = folderName, parent = rootDir)
+        folder.assertRecentlyModified(FOLDER_MODIFICATION_TOLERANCE)
+        val folderRemotePath = folder.requireOCFile(storageManager).remotePath
+        assertExistsOnServer(client, folderRemotePath, true)
 
-        // ensure folder was uploaded to server
-        val ocDir1 = dir1.getOCFile(storageManager)!!
-        assertExistsOnServer(client, ocDir1.remotePath, true)
+        val file = folder.requireNewFile(HTML_MIME_TYPE, RandomStringGenerator.make())
+        file.assertRegularFile(parent = folder)
+        val fileRemotePath = file.requireOCFile(storageManager).remotePath
+        assertExistsOnServer(client, fileRemotePath, true)
 
-        // create file in folder
-        val file1 = dir1.createFile("text/html", RandomStringGenerator.make())!!
-        file1.assertRegularFile(parent = dir1)
-        val ocFile1 = file1.getOCFile(storageManager)!!
-        assertExistsOnServer(client, ocFile1.remotePath, true)
+        val fileName = checkNotNull(file.name) { "${file.uri} has no name" }
+        assertEquals(file.uri.toString(), folder.findChild(context, fileName)?.uri.toString())
+        assertContainsAllFiles(listOf(file), folder.listChildren(context))
 
-        // we find the new file in the created folder and get it in the list
-        assertEquals(file1.uri.toString(), dir1.findFileBlocking(context, file1.name!!)!!.uri.toString())
-        assertListFilesEquals(listOf(file1), dir1.listFilesBlocking(context))
-
-        // delete folder
-        dir1.delete()
-        assertFalse(dir1.exists())
-        assertExistsOnServer(client, ocDir1.remotePath, false)
-
-        // ensure file got deleted with it
-        // since Room was introduced, the file is not automatically updated for some reason.
-        // however, it is correctly deleted from server, and smoke testing shows it works just fine.
-        // suspecting a race condition of some sort
-        // assertFalse(file1.exists())
-        assertExistsOnServer(client, ocFile1.remotePath, false)
-    }
-
-    @Suppress("MagicNumber")
-    @Test(timeout = 5 * 60 * 1000)
-    fun testServerChangedFileContent() {
-        // create random file
-        val file1 = rootDir.createFile("text/plain", RandomStringGenerator.make())!!
-        file1.assertRegularFile(size = 0L)
-
-        val createdETag = file1.getOCFile(storageManager)!!.etagOnServer
-
-        assertTrue(createdETag.isNotEmpty())
-
-        val content1 = "initial content".toByteArray()
-
-        // write content bytes to file
-        contentResolver.openOutputStream(file1.uri, "wt").use {
-            it!!.write(content1)
-        }
-
-        awaitUploadedToServer(file1)
-
-        val remotePath = file1.getOCFile(storageManager)!!.remotePath
-
-        val content2 = "new content".toByteArray()
-
-        // modify content on server side
-        val putMethod = PutMethod(client.getFilesDavUri(remotePath))
-        putMethod.requestEntity = ByteArrayRequestEntity(content2)
-        assertEquals(HttpStatus.SC_NO_CONTENT, client.executeMethod(putMethod))
-        client.exhaustResponse(putMethod.responseBodyAsStream)
-        putMethod.releaseConnection() // let the connection available for other methods
-
-        // read back content bytes
-        val bytes = contentResolver.openInputStream(file1.uri)?.readBytes() ?: ByteArray(0)
-        assertEquals(String(content2), String(bytes))
+        assertTrue(folder.delete())
+        assertFalse(folder.exists())
+        assertExistsOnServer(client, folderRemotePath, false)
+        assertExistsOnServer(client, fileRemotePath, false)
     }
 
     @Test
-    fun testServerSuccessive() {
-        // create random file
-        val file1 = rootDir.createFile("text/plain", RandomStringGenerator.make())!!
-        file1.assertRegularFile(size = 0L)
+    fun testWhenServerContentChangedGivenShouldReadServerContent() {
+        val file = createUploadedTextFile()
 
-        val createdETag = file1.getOCFile(storageManager)!!.etagOnServer
+        overwriteOnServerWithChangedContent(file.requireOCFile(storageManager).remotePath)
 
-        assertTrue(createdETag.isNotEmpty())
-
-        val content1 = "initial content".toByteArray()
-
-        // write content bytes to file
-        contentResolver.openOutputStream(file1.uri, "wt").use {
-            it!!.write(content1)
-        }
-
-        awaitUploadedToServer(file1)
-
-        val content2 = "new content".toByteArray()
-
-        contentResolver.openOutputStream(file1.uri, "wt").use {
-            it!!.write(content2)
-        }
-
-        awaitWriteSaved(file1, content2.size.toLong())
-
-        // read back content bytes
-        val bytes = contentResolver.openInputStream(file1.uri)?.readBytes() ?: ByteArray(0)
-        assertEquals(String(content2), String(bytes))
+        assertEquals(CHANGED_CONTENT, file.readText())
     }
 
-    private fun awaitUploadedToServer(file: DocumentFile) {
-        val remotePath = file.getOCFile(storageManager)!!.remotePath
+    @Test
+    fun testWhenWrittenSuccessivelyGivenShouldReadLatestContent() {
+        val file = createUploadedTextFile()
 
-        repeat(UPLOAD_POLL_ATTEMPTS) {
-            val upload = upload(remotePath)
-            if (upload?.uploadStatus == UploadStatus.UPLOAD_FAILED ||
-                (upload?.uploadStatus == UploadStatus.UPLOAD_SUCCEEDED && upload.lastResult != UploadResult.UPLOADED)
-            ) {
+        file.writeText(CHANGED_CONTENT)
+        awaitStoredLength(file, CHANGED_CONTENT.toByteArray().size.toLong())
+
+        assertEquals(CHANGED_CONTENT, file.readText())
+    }
+
+    private fun cancelPendingUploads() {
+        FileUploadHelper.instance().cancel(user.accountName)
+    }
+
+    private fun grantFullPermissionsOnRoot() {
+        val root = storageManager.getFileByEncryptedRemotePath(ROOT_PATH).apply { permissions = FULL_PERMISSIONS }
+        storageManager.saveFile(root)
+    }
+
+    private fun initializeProviderRoots() {
+        contentResolver.query(DocumentsContract.buildRootsUri(authority), null, null, null)?.close()
+    }
+
+    private fun createUploadedTextFile(): DocumentFile {
+        val file = rootDir.requireNewFile(TEXT_MIME_TYPE, RandomStringGenerator.make())
+        file.assertRegularFile(size = 0L)
+        assertTrue(file.requireOCFile(storageManager).etagOnServer.isNotEmpty())
+
+        file.writeText(INITIAL_CONTENT)
+        awaitUploadFinished(file)
+        return file
+    }
+
+    private fun overwriteOnServerWithChangedContent(remotePath: String) {
+        val putMethod = PutMethod(client.getFilesDavUri(remotePath)).apply {
+            requestEntity = ByteArrayRequestEntity(CHANGED_CONTENT.toByteArray())
+        }
+
+        try {
+            assertEquals(HttpStatus.SC_NO_CONTENT, client.executeMethod(putMethod))
+            client.exhaustResponse(putMethod.responseBodyAsStream)
+        } finally {
+            putMethod.releaseConnection()
+        }
+    }
+
+    private fun DocumentFile.writeBytes(content: ByteArray) {
+        val outputStream = contentResolver.openOutputStream(uri, WRITE_TRUNCATE_MODE)
+        checkNotNull(outputStream) { "$uri could not be opened for writing" }.use { it.write(content) }
+    }
+
+    private fun DocumentFile.writeText(content: String) = writeBytes(content.toByteArray())
+
+    private fun DocumentFile.readBytes(): ByteArray {
+        val inputStream = contentResolver.openInputStream(uri)
+        return checkNotNull(inputStream) { "$uri could not be opened for reading" }.use { it.readBytes() }
+    }
+
+    private fun DocumentFile.readText(): String = readBytes().decodeToString()
+
+    private fun awaitStoredLength(file: DocumentFile, expectedLength: Long) {
+        awaitUntil({ "write of ${file.uri} was not saved with length $expectedLength" }) {
+            file.findOCFile(storageManager)?.fileLength == expectedLength
+        }
+    }
+
+    private fun awaitUploadFinished(file: DocumentFile) {
+        val remotePath = file.requireOCFile(storageManager).remotePath
+
+        awaitUntil({ "upload of $remotePath did not finish, stored uploads: ${describeUploads()}" }) {
+            val upload = findUpload(remotePath)
+            if (upload?.hasFailed() == true) {
                 fail("upload of $remotePath failed with ${upload.lastResult}")
             }
 
-            // the status is stored before the worker deletes the local copy and saves the file,
-            // so the upload only counts as finished once the worker has released it
-            if (upload?.uploadStatus == UploadStatus.UPLOAD_SUCCEEDED &&
-                !FileUploadWorker.isUploading(remotePath, user.accountName)
-            ) {
-                return
-            }
+            upload?.uploadStatus == UploadStatus.UPLOAD_SUCCEEDED && !isUploadRunning(remotePath)
+        }
+    }
 
+    private fun isUploadRunning(remotePath: String): Boolean =
+        FileUploadWorker.isUploading(remotePath, user.accountName)
+
+    private fun OCUpload.hasFailed(): Boolean = uploadStatus == UploadStatus.UPLOAD_FAILED ||
+        (uploadStatus == UploadStatus.UPLOAD_SUCCEEDED && lastResult != UploadResult.UPLOADED)
+
+    private fun awaitUntil(failureMessage: () -> String, condition: () -> Boolean) {
+        val deadline = TimeSource.Monotonic.markNow() + AWAIT_TIMEOUT
+        while (deadline.hasNotPassedNow()) {
+            if (condition()) return
             shortSleep()
         }
 
-        fail("upload of $remotePath did not finish, stored uploads: ${describeUploads()}")
+        if (!condition()) fail(failureMessage())
     }
 
-    private fun awaitWriteSaved(file: DocumentFile, expectedLength: Long) {
-        repeat(UPLOAD_POLL_ATTEMPTS) {
-            if (file.getOCFile(storageManager)?.fileLength == expectedLength) {
-                return
-            }
-
-            shortSleep()
-        }
-
-        fail("write of ${file.uri} was not saved with length $expectedLength")
-    }
-
-    private fun upload(remotePath: String): OCUpload? = uploadsStorageManager
+    private fun findUpload(remotePath: String): OCUpload? = uploadsStorageManager
         .getUploadsForAccount(user.accountName)
         .firstOrNull { it.remotePath == remotePath }
 
