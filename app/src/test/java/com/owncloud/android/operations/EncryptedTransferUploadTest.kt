@@ -8,6 +8,7 @@ package com.owncloud.android.operations
 
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFile
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile
@@ -26,6 +27,7 @@ import org.junit.Assert.assertSame
 import org.junit.Test
 import org.mockito.Mockito.mockStatic
 import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.any
 import org.mockito.kotlin.whenever
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.never
@@ -36,12 +38,49 @@ import java.nio.channels.FileLock
 @Suppress("DEPRECATION")
 class EncryptedTransferUploadTest {
     private val storage: FileDataStorageManager = mock()
+    private val uploads: UploadsStorageManager = mock()
     private val client: OwnCloudClient = mock()
     private val parent: OCFile = mock()
     private val metadata: DecryptedFolderMetadataFile = mock()
     private val files: E2EFiles = mock { on { parentFile } doReturn parent }
     private val ok = RemoteOperationResult<Void>(ResultCode.OK)
     private val failed = RemoteOperationResult<Void>(ResultCode.UNKNOWN_ERROR)
+
+    @Test
+    fun transientTransferDoesNotUpdateAnUnregisteredUpload() {
+        val operation = operation(uploadId = -1)
+
+        updateStoredResult(operation)
+
+        verify(uploads, never()).updateDatabaseUploadResult(any(), any())
+    }
+
+    @Test
+    fun queuedUploadStillUpdatesItsStoredResult() {
+        val operation = operation(uploadId = 17)
+
+        updateStoredResult(operation)
+
+        verify(uploads).updateDatabaseUploadResult(ok, operation)
+    }
+
+    @Test
+    fun transientTransferLocksWithoutPersistingAnUnregisteredUpload() {
+        mockStatic(EncryptionUtils::class.java).use { crypto ->
+            crypto.`when`<String> { EncryptionUtils.lockFolder(parent, client, 1L) }.thenReturn("token")
+
+            val token = UploadFileOperation::class.java.getDeclaredMethod(
+                "getFolderUnlockTokenOrLockFolder",
+                OwnCloudClient::class.java,
+                OCFile::class.java,
+                Long::class.javaPrimitiveType
+            ).apply { isAccessible = true }.invoke(operation(uploadId = -1), client, parent, 1L)
+
+            assertEquals("token", token)
+        }
+        verify(uploads, never()).updateUpload(any())
+        verify(uploads, never()).getUploadById(any())
+    }
 
     @Test
     fun failedTransferDoesNotCommitCiphertextWithoutMetadata() {
@@ -120,10 +159,20 @@ class EncryptedTransferUploadTest {
         verify(utils).addFileToMetadata("new-ciphertext-id", file, data.iv, "tag", data.key, metadata)
     }
 
-    private fun operation(file: OCFile = mock()): UploadFileOperation {
-        val upload: OCUpload = mock { on { localPath } doReturn "/cache/content" }
+    private fun updateStoredResult(operation: UploadFileOperation) {
+        UploadFileOperation::class.java.getDeclaredMethod(
+            "updateStoredUploadResult",
+            RemoteOperationResult::class.java
+        ).apply { isAccessible = true }.invoke(operation, ok)
+    }
+
+    private fun operation(file: OCFile = mock(), uploadId: Long = 0): UploadFileOperation {
+        val upload: OCUpload = mock {
+            on { localPath } doReturn "/cache/content"
+            on { getUploadId() } doReturn uploadId
+        }
         return UploadFileOperation(
-            mock(), mock(), mock(), mock(), file, upload, NameCollisionPolicy.ASK_USER,
+            uploads, mock(), mock(), mock(), file, upload, NameCollisionPolicy.ASK_USER,
             0, mock(), false, false, true, storage
         )
     }

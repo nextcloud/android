@@ -414,6 +414,12 @@ public class UploadFileOperation extends SyncOperation {
         keepE2EELockOnFailure = keepLock;
     }
 
+    private void updateStoredUploadResult(RemoteOperationResult result) {
+        if (mOCUploadId >= 0) {
+            uploadsStorageManager.updateDatabaseUploadResult(result, this);
+        }
+    }
+
     public boolean isMissingPermissionThrown() {
         return missingPermissionThrown.get();
     }
@@ -626,7 +632,7 @@ public class UploadFileOperation extends SyncOperation {
             result = releaseLocksAndUnlockE2EFolder(fileLock, channel, e2eFiles, result, object, client, token);
 
             // update upload status
-            uploadsStorageManager.updateDatabaseUploadResult(result, this);
+            updateStoredUploadResult(result);
         }
 
         handleLocalBehaviourOrSaveConflictAndDeleteTemporalFile(result, e2eFiles, client);
@@ -647,7 +653,9 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         mUpload.setFolderUnlockToken(token);
-        uploadsStorageManager.updateUpload(mUpload);
+        if (mOCUploadId >= 0) {
+            uploadsStorageManager.updateUpload(mUpload);
+        }
 
         Log_OC.d(TAG, "Folder locked successfully, token saved");
         return token;
@@ -1207,7 +1215,7 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             logResult(result, mOriginalStoragePath, mRemotePath);
-            uploadsStorageManager.updateDatabaseUploadResult(result, this);
+            updateStoredUploadResult(result);
         }
 
         if (result.isSuccess()) {
