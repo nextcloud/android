@@ -7,6 +7,8 @@
 package com.nextcloud.ui.teams.model
 
 import androidx.annotation.StringRes
+import com.nextcloud.android.lib.resources.teams.put.invitation.model.TeamInvitationResponse
+import com.nextcloud.ui.teams.util.failedMessageId
 import com.nextcloud.utils.extensions.connectionErrorMessageId
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
@@ -28,3 +30,7 @@ fun RemoteOperationResult<*>.createTeamErrorMessageId(): Int = connectionErrorMe
     HTTP_TOO_MANY_REQUESTS -> R.string.teams_error_too_many_requests
     else -> R.string.teams_create_failed
 }
+
+@StringRes
+fun RemoteOperationResult<*>.invitationErrorMessageId(response: TeamInvitationResponse): Int =
+    connectionErrorMessageId() ?: response.failedMessageId()
