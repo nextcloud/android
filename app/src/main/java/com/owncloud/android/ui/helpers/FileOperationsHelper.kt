@@ -306,15 +306,19 @@ class FileOperationsHelper(
     private fun createOpenFileIntent(file: OCFile): Intent {
         val storagePath = file.storagePath
         val fileUri = file.getExposedFileUri(fileActivity)
-        val extension = storagePath.substringAfterLast('.', missingDelimiterValue = "")
-        val guessedMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)
+        val extension = storagePath.substringAfterLast('.', "")
 
-        val openFileIntent = guessedMimeType?.let { Intent(Intent.ACTION_VIEW).setDataAndType(fileUri, it) }
+        fun viewIntent(type: String?) = Intent(Intent.ACTION_VIEW).setDataAndType(fileUri, type)
+
+        val intent = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)?.let(::viewIntent)
             ?: createIntentFromShortcutFile(storagePath, extension)
-            ?: Intent(Intent.ACTION_VIEW).setDataAndType(fileUri, file.mimeType)
+            ?: viewIntent(file.mimeType)
 
-        openFileIntent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-        return openFileIntent
+        return intent.addFlags(
+            Intent.FLAG_GRANT_READ_URI_PERMISSION or
+                Intent.FLAG_GRANT_WRITE_URI_PERMISSION or
+                Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
+        )
     }
 
     private fun createIntentFromShortcutFile(storagePath: String, extension: String): Intent? {
