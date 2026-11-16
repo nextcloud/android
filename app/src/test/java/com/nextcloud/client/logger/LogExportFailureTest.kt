@@ -38,11 +38,25 @@ class LogExportFailureTest {
     fun exportedBytesAndSizeMatchTheSerializedLog() = withDownloads {
         val source = directory.newFile("source.txt").apply { writeText("ERROR: key verification failed 验证失败\n") }
 
-        exporter.exportFile("logs.txt", "text/plain", resolver, null, source)
+        val fileName = exporter.exportFile("logs.txt", "text/plain", resolver, null, source)
 
         val exported = File(directory.root, "Nextcloud/logs.txt")
+        assertEquals(exported.name, fileName)
         assertArrayEquals(source.readBytes(), exported.readBytes())
         assertEquals(source.length(), exported.length())
+    }
+
+    @Test
+    fun duplicateNameReturnsActualSavedNameAndPreservesBothExports() = withDownloads {
+        val source = directory.newFile("source.txt").apply { writeText("first export\n") }
+        exporter.exportFile("logs.txt", "text/plain", resolver, null, source)
+        source.writeText("second export\n")
+
+        val fileName = exporter.exportFile("logs.txt", "text/plain", resolver, null, source)
+
+        assertEquals("logs (2).txt", fileName)
+        assertEquals("first export\n", File(directory.root, "Nextcloud/logs.txt").readText())
+        assertEquals("second export\n", File(directory.root, "Nextcloud/$fileName").readText())
     }
 
     @Test

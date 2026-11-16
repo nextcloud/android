@@ -26,23 +26,27 @@ import java.io.OutputStream
 
 class FileExportUtils(private val subdirectory: String = "") {
     @Throws(IllegalStateException::class, IOException::class)
-    fun exportFile(fileName: String, mimeType: String, contentResolver: ContentResolver, ocFile: OCFile?, file: File?) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            exportFileAndroid10AndAbove(
-                fileName,
-                mimeType,
-                contentResolver,
-                ocFile,
-                file
-            )
-        } else {
-            exportFilesBelowAndroid10(
-                fileName,
-                contentResolver,
-                ocFile,
-                file
-            )
-        }
+    fun exportFile(
+        fileName: String,
+        mimeType: String,
+        contentResolver: ContentResolver,
+        ocFile: OCFile?,
+        file: File?
+    ): String = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        exportFileAndroid10AndAbove(
+            fileName,
+            mimeType,
+            contentResolver,
+            ocFile,
+            file
+        )
+    } else {
+        exportFilesBelowAndroid10(
+            fileName,
+            contentResolver,
+            ocFile,
+            file
+        )
     }
 
     @SuppressLint("Recycle") // handled inside copy method
@@ -53,7 +57,7 @@ class FileExportUtils(private val subdirectory: String = "") {
         contentResolver: ContentResolver,
         ocFile: OCFile?,
         file: File?
-    ) {
+    ): String {
         val cv = ContentValues().apply {
             put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
             put(MediaStore.MediaColumns.MIME_TYPE, mimeType)
@@ -69,6 +73,10 @@ class FileExportUtils(private val subdirectory: String = "") {
             contentResolver,
             contentResolver.openOutputStream(uri, "w") ?: throw IOException("Could not open export in Downloads")
         )
+
+        return contentResolver.query(uri, arrayOf(MediaStore.MediaColumns.DISPLAY_NAME), null, null, null)?.use {
+            if (it.moveToFirst()) it.getString(0) else fileName
+        } ?: fileName
     }
 
     private fun exportFilesBelowAndroid10(
@@ -76,7 +84,7 @@ class FileExportUtils(private val subdirectory: String = "") {
         contentResolver: ContentResolver,
         ocFile: OCFile?,
         file: File?
-    ) {
+    ): String {
         try {
             val directory = File(
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
@@ -107,6 +115,7 @@ class FileExportUtils(private val subdirectory: String = "") {
                 contentResolver,
                 FileOutputStream(target)
             )
+            return target.name
         } catch (e: FileNotFoundException) {
             Log_OC.e(this, "File not found", e)
             throw e

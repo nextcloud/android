@@ -86,13 +86,13 @@ class LogsEmailSender @Inject constructor(
             task = runner.postQuickTask(
                 task = {
                     Task(context, logs, outFile, clock.tz).invoke()
-                    export(outFile)
-                    outFile.length()
+                    export(outFile) to outFile.length()
                 },
-                onResult = { size ->
+                onResult = { (fileName, size) ->
                     task = null
                     val message = context.getString(
                         R.string.logs_export_success,
+                        fileName,
                         Formatter.formatFileSize(context, size)
                     )
                     showExportResult(message)
@@ -114,12 +114,12 @@ class LogsEmailSender @Inject constructor(
         }
     }
 
-    private fun export(file: File) {
+    private fun export(file: File): String {
         val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.ROOT).apply {
             timeZone = clock.tz
         }.format(clock.currentDate)
-        FileExportUtils("Nextcloud").exportFile(
-            "Nextcloud Android Files Logs_$timestamp.txt",
+        return FileExportUtils("Nextcloud").exportFile(
+            "logs_$timestamp.txt",
             "text/plain",
             context.contentResolver,
             null,
