@@ -30,6 +30,9 @@ class AuthenticatorAccountStore(
     fun baseUrl(account: Account): String =
         platformAccountManager.getUserData(account, AccountUtils.Constants.KEY_OC_BASE_URL).orEmpty()
 
+    fun userId(account: Account): String? =
+        platformAccountManager.getUserData(account, AccountUtils.Constants.KEY_USER_ID)
+
     /**
      * Registers [account] and returns the result intent for the AccountAuthenticator that started the login.
      */
