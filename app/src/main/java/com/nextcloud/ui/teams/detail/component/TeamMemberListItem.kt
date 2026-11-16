@@ -32,7 +32,7 @@ import com.nextcloud.ui.teams.util.titleId
 import com.owncloud.android.R
 
 @Composable
-fun TeamMemberListItem(member: TeamMember, client: NextcloudClient?) {
+fun TeamMemberListItem(member: TeamMember, client: NextcloudClient) {
     val name = member.displayName.ifEmpty { member.userId.orEmpty() }
 
     ListItem(
@@ -43,7 +43,7 @@ fun TeamMemberListItem(member: TeamMember, client: NextcloudClient?) {
 }
 
 @Composable
-private fun TeamMemberAvatar(member: TeamMember, name: String, client: NextcloudClient?) {
+private fun TeamMemberAvatar(member: TeamMember, name: String, client: NextcloudClient) {
     val size = dimensionResource(R.dimen.team_avatar_size)
     val path = member.avatarPath(with(LocalDensity.current) { size.roundToPx() })
 
