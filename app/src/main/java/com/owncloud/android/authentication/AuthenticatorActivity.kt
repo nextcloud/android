@@ -209,18 +209,13 @@ open class AuthenticatorActivity :
             isFirstAuthAttempt = it.getBoolean(KEY_AUTH_IS_FIRST_ATTEMPT_TAG)
         }
 
-        val webLoginUrl = mdmWebLoginUrl() ?: providerWebLoginUrl() ?: brandedWebLoginUrl()
-        if (webLoginUrl != null) {
-            inflateWebViewLayout()
-            anonymouslyPostLoginRequest(webLoginUrl)
-        } else {
-            initServerUrlLogin(savedInstanceState)
-        }
+        startInitialLogin(savedInstanceState)
 
         val actionName = if (authenticatorAction == ACTION_CREATE) "create account" else "update credentials"
+        val isWebViewLogin = accountSetupWebviewBinding != null
         Log_OC.d(
             TAG,
-            "Started, action=$actionName, recreated=${savedInstanceState != null}, webViewLogin=${webLoginUrl != null}"
+            "Started, action=$actionName, recreated=${savedInstanceState != null}, webViewLogin=$isWebViewLogin"
         )
         ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleEventObserver)
     }
@@ -349,10 +344,28 @@ open class AuthenticatorActivity :
         return MDMConfig.getBaseUrl(this).takeIf { it.isNotEmpty() }?.plus(WEB_LOGIN)
     }
 
-    private fun providerWebLoginUrl(): String? = if (intent.getBooleanExtra(EXTRA_USE_PROVIDER_AS_WEBLOGIN, false)) {
-        getString(R.string.provider_registration_server)
-    } else {
-        null
+    private fun startInitialLogin(savedInstanceState: Bundle?) {
+        mdmWebLoginUrl()?.let {
+            startWebLoginFlow(it)
+            return
+        }
+
+        if (intent.getBooleanExtra(EXTRA_USE_PROVIDER_AS_WEBLOGIN, false)) {
+            startSignupWebViewLogin()
+            return
+        }
+
+        brandedWebLoginUrl()?.let {
+            startWebLoginFlow(it)
+            return
+        }
+
+        initServerUrlLogin(savedInstanceState)
+    }
+
+    private fun startWebLoginFlow(url: String) {
+        inflateWebViewLayout()
+        anonymouslyPostLoginRequest(url)
     }
 
     private fun brandedWebLoginUrl(): String? = getString(R.string.webview_login_url)
