@@ -141,6 +141,7 @@ class TeamDetailViewModel @AssistedInject constructor(
         }
 
         val resources = result.resultData.orEmpty()
+            .sortedBy { it.provider.providerId != TeamResourceProviderId.TEAM_FOLDER }
         if (resources.any { it.provider.providerId == TeamResourceProviderId.TEAM_FOLDER }) {
             folderPath = loadFolderPath()
         }
