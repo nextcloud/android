@@ -16,7 +16,7 @@ val TeamResourceProvider.providerId: TeamResourceProviderId?
     get() = TeamResourceProviderId.from(id)
 
 @StringRes
-fun TeamResourceProvider.fixedTitleId(): Int? = when (providerId) {
+fun TeamResourceProvider.getFolderTitleId(): Int? = when (providerId) {
     TeamResourceProviderId.TEAM_FOLDER -> R.string.team_folder
     else -> null
 }

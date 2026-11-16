@@ -19,23 +19,23 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import com.nextcloud.android.lib.resources.teams.get.resources.model.TeamResource
-import com.nextcloud.ui.teams.util.fixedTitleId
+import com.nextcloud.ui.teams.util.getFolderTitleId
 import com.nextcloud.ui.teams.util.iconId
 import com.owncloud.android.R
 
 @Composable
 fun TeamResourceListItem(resource: TeamResource, onClick: () -> Unit) {
-    val fixedTitleId = resource.provider.fixedTitleId()
+    val folderTitleId = resource.provider.getFolderTitleId()
 
     ListItem(
         headlineContent = {
             Text(
-                text = fixedTitleId?.let { stringResource(it) } ?: resource.label,
+                text = folderTitleId?.let { stringResource(it) } ?: resource.label,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
         },
-        supportingContent = if (fixedTitleId == null) {
+        supportingContent = if (folderTitleId == null) {
             { Text(resource.provider.name) }
         } else {
             null
