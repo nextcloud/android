@@ -46,7 +46,7 @@ import com.nextcloud.ui.teams.viewmodel.TeamsViewModel
 import com.owncloud.android.R
 
 @Composable
-fun TeamsScreen(viewModel: TeamsViewModel, client: NextcloudClient?, onTeamClick: (Team) -> Unit) {
+fun TeamsScreen(viewModel: TeamsViewModel, client: NextcloudClient, onTeamClick: (Team) -> Unit) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
     val createTeamName by viewModel.createTeamName.collectAsStateWithLifecycle()
@@ -97,7 +97,7 @@ fun TeamsScreen(viewModel: TeamsViewModel, client: NextcloudClient?, onTeamClick
 private fun TeamsContent(
     state: TeamsUiState.Content,
     searchQuery: String,
-    client: NextcloudClient?,
+    client: NextcloudClient,
     onSearchQueryChange: (String) -> Unit,
     onTeamClick: (Team) -> Unit
 ) {
@@ -121,7 +121,7 @@ private fun TeamsContent(
 private fun LazyListScope.teamSection(
     @StringRes titleId: Int,
     teams: List<Team>,
-    client: NextcloudClient?,
+    client: NextcloudClient,
     onTeamClick: (Team) -> Unit
 ) {
     if (teams.isEmpty()) {
@@ -148,7 +148,7 @@ private fun SectionHeader(@StringRes titleId: Int) {
 }
 
 @Composable
-private fun TeamListItem(team: Team, client: NextcloudClient?, onClick: () -> Unit) {
+private fun TeamListItem(team: Team, client: NextcloudClient, onClick: () -> Unit) {
     ListItem(
         modifier = Modifier.clickable(onClick = onClick),
         headlineContent = {

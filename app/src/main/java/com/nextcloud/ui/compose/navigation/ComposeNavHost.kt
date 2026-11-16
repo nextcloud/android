@@ -99,9 +99,11 @@ fun ComposeNavHost(navigator: ComposeNavigator) {
             }
 
             entry<ComposeDestination.TeamsScreen> {
+                val client = rememberNextcloudClient() ?: return@entry
+
                 TeamsScreen(
                     viewModel = viewModel<TeamsViewModel>(factory = composeActivity().vmFactory),
-                    client = rememberNextcloudClient(),
+                    client = client,
                     onTeamClick = { team ->
                         navigator.navigate(ComposeDestination.TeamDetailScreen(team.id, team.displayName, team.url))
                     }
@@ -110,13 +112,14 @@ fun ComposeNavHost(navigator: ComposeNavigator) {
 
             entry<ComposeDestination.TeamDetailScreen> { screen ->
                 val activity = composeActivity()
+                val client = rememberNextcloudClient() ?: return@entry
                 val resourceOpener = remember(activity) {
                     TeamResourceOpener(activity, activity.userAccountManager.user)
                 }
 
                 TeamDetailScreen(
                     viewModel = teamDetailViewModel(activity.vmFactory, screen.teamId),
-                    client = rememberNextcloudClient(),
+                    client = client,
                     title = screen.title,
                     onBack = navigator::goBack,
                     onOpenSettings = {

@@ -44,6 +44,7 @@ import com.owncloud.android.lib.resources.users.StatusType
 import com.owncloud.android.ui.StatusDrawable
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
+import java.util.Locale
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -61,8 +62,11 @@ object BitmapUtils {
     private const val STATUS_SIZE_DIVISOR = 4
     private const val STATUS_NO_CLEAR_AT = -1L
     private const val CROP_MASK_COLOR = 0xFF424242.toInt()
+    private const val UNKNOWN_INITIALS = "?"
+    private const val NAME_PART_SEPARATOR = ' '
 
     private val MD5_HASH_REGEX = Regex("[0-9a-f]{32}")
+    private val NON_INITIAL_CHARACTERS = Regex("[^\\p{L}\\p{N}\\s]")
 
     @Suppress("MagicNumber")
     private val usernamePalette: List<Color> by lazy {
@@ -189,6 +193,22 @@ object BitmapUtils {
 
         val hexDigitSum = hash.sumOf { it.digitToInt(HEX_RADIX) }
         return usernamePalette[hexDigitSum % usernamePalette.size]
+    }
+
+    fun usernameToInitials(name: String): String {
+        val filtered = name.trim().replace(NON_INITIAL_CHARACTERS, "")
+        if (filtered.isEmpty()) {
+            return UNKNOWN_INITIALS
+        }
+
+        val first = String(Character.toChars(filtered.codePointAt(0)))
+        val lastPartStart = filtered.lastIndexOf(NAME_PART_SEPARATOR) + 1
+        if (lastPartStart == 0 || lastPartStart >= filtered.length) {
+            return first.uppercase(Locale.getDefault())
+        }
+
+        val last = String(Character.toChars(filtered.codePointAt(lastPartStart)))
+        return (first + last).uppercase(Locale.getDefault())
     }
 
     private fun primaryDarkColor(): Color {

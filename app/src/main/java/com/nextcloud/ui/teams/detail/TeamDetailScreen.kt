@@ -40,7 +40,7 @@ import com.owncloud.android.R
 @Composable
 fun TeamDetailScreen(
     viewModel: TeamDetailViewModel,
-    client: NextcloudClient?,
+    client: NextcloudClient,
     title: String,
     onBack: () -> Unit,
     onOpenSettings: () -> Unit,
