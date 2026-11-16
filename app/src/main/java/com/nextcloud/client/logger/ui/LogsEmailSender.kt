@@ -30,6 +30,8 @@ import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.FileExportUtils
 import java.io.File
 import java.security.SecureRandom
+import java.text.SimpleDateFormat
+import java.util.Locale
 import java.util.TimeZone
 import javax.inject.Inject
 
@@ -113,8 +115,11 @@ class LogsEmailSender @Inject constructor(
     }
 
     private fun export(file: File) {
+        val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.ROOT).apply {
+            timeZone = clock.tz
+        }.format(clock.currentDate)
         FileExportUtils("Nextcloud").exportFile(
-            "Nextcloud Android Files Logs",
+            "Nextcloud Android Files Logs_$timestamp.txt",
             "text/plain",
             context.contentResolver,
             null,
