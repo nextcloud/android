@@ -13,6 +13,8 @@ import coil3.network.NetworkRequest
 import coil3.network.NetworkResponse
 import coil3.request.Options
 import java.net.HttpURLConnection
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
 // Coil's default strategy serves a cached picture forever and also caches 404s. This one follows the server's
@@ -45,7 +47,7 @@ class CoilCacheStrategy : CacheStrategy {
             return CacheStrategy.WriteResult(networkResponse.copy(headers = headers, body = null))
         }
 
-        if (networkResponse.code !in HttpURLConnection.HTTP_OK until HttpURLConnection.HTTP_MULT_CHOICE) {
+        if (networkResponse.code !in SUCCESS && networkResponse.code !in CLIENT_ERROR) {
             return CacheStrategy.WriteResult.DISABLED
         }
 
@@ -53,9 +55,17 @@ class CoilCacheStrategy : CacheStrategy {
     }
 
     private fun NetworkResponse.isFresh(): Boolean {
+        // responseMillis is a timestamp in milliseconds
+        val age = (System.currentTimeMillis() - responseMillis).milliseconds
+        if (code in CLIENT_ERROR) {
+            return age < CLIENT_ERROR_LIFETIME
+        }
+
         val cacheControl = headers[CACHE_CONTROL] ?: return false
-        val maxAge = MAX_AGE.find(cacheControl)?.groupValues?.get(1)?.toLongOrNull() ?: return false
-        return System.currentTimeMillis() - responseMillis < maxAge.seconds.inWholeMilliseconds
+
+        // HTTP defines max-age in seconds, e.g. "max-age=86400" is one day
+        val maxAge = MAX_AGE.find(cacheControl)?.groupValues?.get(1)?.toLongOrNull()?.seconds ?: return false
+        return age < maxAge
     }
 
     private fun NetworkHeaders.mergedWith(other: NetworkHeaders): NetworkHeaders {
@@ -69,5 +79,8 @@ class CoilCacheStrategy : CacheStrategy {
         private const val ETAG = "ETag"
         private const val IF_NONE_MATCH = "If-None-Match"
         private val MAX_AGE = Regex("max-age=(\\d+)")
+        private val SUCCESS = HttpURLConnection.HTTP_OK until HttpURLConnection.HTTP_MULT_CHOICE
+        private val CLIENT_ERROR = HttpURLConnection.HTTP_BAD_REQUEST until HttpURLConnection.HTTP_INTERNAL_ERROR
+        private val CLIENT_ERROR_LIFETIME = 5.minutes
     }
 }
