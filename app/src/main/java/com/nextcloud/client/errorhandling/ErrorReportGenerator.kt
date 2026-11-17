@@ -26,7 +26,7 @@ class ErrorReportGenerator(
          * the 1 MB Binder transaction limit.
          */
         const val MAX_STACK_TRACE_LENGTH = 100_000
-        const val TRUNCATION_MARKER = "... (stack trace truncated)"
+        const val TRUNCATION_MARKER = "characters truncated"
     }
 
     fun generate(thread: Thread, exception: Throwable): String {
@@ -65,7 +65,16 @@ class ErrorReportGenerator(
             return stackTrace
         }
 
-        return stackTrace.take(MAX_STACK_TRACE_LENGTH) + "\n" + TRUNCATION_MARKER
+        return truncateMiddle(stackTrace)
+    }
+
+    private fun truncateMiddle(stackTrace: String): String {
+        val keptLengthPerSide = MAX_STACK_TRACE_LENGTH / 2
+        val removedLength = stackTrace.length - keptLengthPerSide * 2
+        val head = stackTrace.take(keptLengthPerSide)
+        val tail = stackTrace.takeLast(keptLengthPerSide)
+
+        return "$head\n... ($removedLength $TRUNCATION_MARKER) ...\n$tail"
     }
 
     private fun buildNumberSuffix(): String {
