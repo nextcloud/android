@@ -13,5 +13,7 @@ sealed interface TeamResourceTarget {
 
     data class TalkConversation(val token: String, val webPage: WebPage) : TeamResourceTarget
 
+    data class DeckBoard(val boardId: String, val webPage: WebPage) : TeamResourceTarget
+
     data class WebPage(val url: String, val title: String) : TeamResourceTarget
 }
