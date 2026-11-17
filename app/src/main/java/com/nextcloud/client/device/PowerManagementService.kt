@@ -36,8 +36,7 @@ interface PowerManagementService {
     val battery: BatteryStatus
 
     /**
-     * True when power saving mode is on and the app is not exempt from battery optimization. Follows the
-     * same rule as Android, so an exempt app keeps uploading in power saving mode.
+     * True when power saving mode is on and the app is not exempt from battery optimization.
      */
     val isAppRestrictedByPowerSaving: Boolean
 }
