@@ -31,7 +31,7 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.TrailingThrottle
-import com.nextcloud.ui.component.UploadWarningCard
+import com.nextcloud.ui.component.powerSettings.PowerSettingsBanners
 import com.nextcloud.utils.extensions.collectWhenStarted
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getTypedActivity
@@ -82,7 +82,7 @@ class UploadListFragment :
     @Inject lateinit var viewThemeUtils: ViewThemeUtils
 
     private var binding: FragmentUploadListBinding? = null
-    private var uploadWarningCard: UploadWarningCard? = null
+    private var powerSettingsBanners: PowerSettingsBanners? = null
     private lateinit var uploadListAdapter: UploadListAdapter
     private lateinit var conflictHandler: UploadListConflictHandler
     private lateinit var credentialsHandler: UploadListCredentialsHandler
@@ -144,7 +144,7 @@ class UploadListFragment :
 
     override fun onResume() {
         super.onResume()
-        binding?.autoUploadBatterySaverWarningCard?.let { uploadWarningCard?.bind(it) }
+        binding?.powerSettingsBanners?.let { powerSettingsBanners?.bind(it) }
         loadItems()
     }
 
@@ -154,8 +154,8 @@ class UploadListFragment :
     }
 
     override fun onDestroyView() {
-        uploadWarningCard?.unregister(requireContext())
-        uploadWarningCard = null
+        powerSettingsBanners?.unregister(requireContext())
+        powerSettingsBanners = null
         super.onDestroyView()
         binding = null
     }
@@ -178,7 +178,7 @@ class UploadListFragment :
     }
 
     private fun setupWarningCard(activity: NavigatorActivity, binding: FragmentUploadListBinding) {
-        uploadWarningCard = UploadWarningCard(
+        powerSettingsBanners = PowerSettingsBanners(
             activity,
             powerManagementService,
             syncedFolderProvider,
@@ -186,7 +186,7 @@ class UploadListFragment :
             viewLifecycleOwner.lifecycleScope,
             viewThemeUtils
         ).apply {
-            register(activity, binding.autoUploadBatterySaverWarningCard)
+            register(activity, binding.powerSettingsBanners)
         }
     }
 
