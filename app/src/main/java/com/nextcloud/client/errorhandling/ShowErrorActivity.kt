@@ -6,6 +6,7 @@
  */
 package com.nextcloud.client.errorhandling
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -23,6 +24,12 @@ class ShowErrorActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_ERROR_TEXT = "error"
+
+        fun createIntent(context: Context, errorText: String): Intent =
+            Intent(context, ShowErrorActivity::class.java).apply {
+                putExtra(EXTRA_ERROR_TEXT, errorText)
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
