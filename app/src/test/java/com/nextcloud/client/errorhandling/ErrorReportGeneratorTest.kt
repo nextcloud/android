@@ -130,6 +130,18 @@ class ErrorReportGeneratorTest {
     }
 
     @Test
+    fun `truncated stack trace keeps both the outermost exception and the root cause`() {
+        val longMessage = "x".repeat(ErrorReportGenerator.MAX_STACK_TRACE_LENGTH * 2)
+        val rootCause = IllegalArgumentException("root cause")
+
+        val report = generate(IllegalStateException(longMessage, rootCause))
+
+        assertTrue(report.contains(ErrorReportGenerator.TRUNCATION_MARKER))
+        assertTrue(report.contains("java.lang.IllegalStateException"))
+        assertTrue(report.contains("Caused by: java.lang.IllegalArgumentException: root cause"))
+    }
+
+    @Test
     fun `report is still created when the cause chain is circular`() {
         val first = IllegalStateException("first")
         val second = IllegalArgumentException("second", first)
