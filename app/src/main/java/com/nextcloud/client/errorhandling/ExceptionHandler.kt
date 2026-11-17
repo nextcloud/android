@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
  * SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2019 Andy Scherzinger <info@andy-scherzinger>
@@ -12,9 +13,11 @@ package com.nextcloud.client.errorhandling
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
+import com.owncloud.android.lib.common.utils.Log_OC
 
 class ExceptionHandler(
     private val context: Context,
@@ -22,6 +25,7 @@ class ExceptionHandler(
 ) : Thread.UncaughtExceptionHandler {
 
     companion object {
+        private const val TAG = "ExceptionHandler"
         private const val LINE_SEPARATOR = "\n"
         private const val EXCEPTION_FORMAT_MAX_RECURSIVITY = 10
     }
@@ -67,6 +71,13 @@ class ExceptionHandler(
         return formatExceptionRecursive(thread, exception, 0)
     }
 
+    private fun installedVersionCode(): Long = try {
+        context.packageManager.getPackageInfo(context.packageName, 0).longVersionCode
+    } catch (e: PackageManager.NameNotFoundException) {
+        Log_OC.e(TAG, "Could not read installed versionCode", e)
+        BuildConfig.VERSION_CODE.toLong()
+    }
+
     private fun generateErrorReport(stackTrace: String): String {
         val buildNumber = context.resources.getString(R.string.buildNumber)
 
@@ -83,7 +94,7 @@ class ExceptionHandler(
             |
             |### App information
             |* ID: `${BuildConfig.APPLICATION_ID}`
-            |* Version: `${BuildConfig.VERSION_CODE}$buildNumberString`
+            |* Version: `${installedVersionCode()}$buildNumberString`
             |* Build flavor: `${BuildConfig.FLAVOR}`
             |
             |### Device information
