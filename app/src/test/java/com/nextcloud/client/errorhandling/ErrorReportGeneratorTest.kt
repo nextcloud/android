@@ -47,6 +47,18 @@ class ErrorReportGeneratorTest {
     private fun generate(exception: Throwable): String = generator.generate(Thread(THREAD_NAME), exception)
 
     @Test
+    fun `print full report to test output`() {
+        val exception = IllegalStateException("outer", IllegalArgumentException("inner")).apply {
+            addSuppressed(RuntimeException("suppressed"))
+        }
+
+        val report = generate(exception)
+
+        println(report)
+        assertTrue(report.isNotEmpty())
+    }
+
+    @Test
     fun `version is the installed APK versionCode`() {
         val report = generate(IllegalStateException("boom"))
 
