@@ -24,8 +24,7 @@ interface PowerManagementService {
     /**
      * True when the user set the app's battery usage to "Unrestricted", which puts the app on Android's power save
      * allowlist. Android then exempts the app from power saving mode as well: its jobs and alarms are not restricted
-     * while power saving mode is on (AOSP `AppStateTrackerImpl.areJobsRestricted` and
-     * `areAlarmsRestrictedByBatterySaver` return false for allowlisted apps).
+     * while power saving mode is on.
      *
      * @see android.os.PowerManager.isIgnoringBatteryOptimizations
      */
