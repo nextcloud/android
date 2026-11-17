@@ -20,7 +20,6 @@ import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.setVisibleIf
-import com.owncloud.android.R
 import com.owncloud.android.databinding.PowerSettingsBannersBinding
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.utils.FilesSyncHelper
@@ -64,20 +63,18 @@ class PowerSettingsBanners(
     }
 
     fun bind(binding: PowerSettingsBannersBinding) {
-        val powerSavingBannerState = PowerSavingBannerState.from(powerManagementService)
-        val isExemptFromBatteryOptimization = powerManagementService.isExemptFromBatteryOptimization
+        val state = PowerSettingsBannersState.from(powerManagementService)
 
-        binding.root.setVisibleIf(
-            powerSavingBannerState != PowerSavingBannerState.HIDDEN || !isExemptFromBatteryOptimization
-        )
-        bindPowerSavingBanner(binding, powerSavingBannerState)
+        binding.root.setVisibleIf(state != PowerSettingsBannersState.UNRESTRICTED)
+        bindPowerSavingBanner(binding, state)
 
-        bindBatteryOptimizationBanner(binding, isExemptFromBatteryOptimization)
+        bindBatteryOptimizationBanner(binding, state)
     }
 
-    private fun bindPowerSavingBanner(binding: PowerSettingsBannersBinding, state: PowerSavingBannerState) {
-        binding.powerSavingBanner.setVisibleIf(state != PowerSavingBannerState.HIDDEN)
-        if (state == PowerSavingBannerState.HIDDEN) return
+    private fun bindPowerSavingBanner(binding: PowerSettingsBannersBinding, state: PowerSettingsBannersState) {
+        val messageId = state.powerSavingMessageId
+        binding.powerSavingBanner.setVisibleIf(messageId != null)
+        if (messageId == null) return
 
         viewThemeUtils.material.run {
             themeCardView(binding.powerSavingBanner)
@@ -85,24 +82,18 @@ class PowerSettingsBanners(
             colorMaterialButtonPrimaryBorderless(binding.powerSavingSyncNowButton)
         }
 
-        val messageId = if (state == PowerSavingBannerState.RESTRICTING_APP) {
-            R.string.power_saving_banner_restricting_app_message
-        } else {
-            R.string.power_saving_banner_ignored_by_app_message
-        }
         binding.powerSavingBannerMessage.setText(messageId)
-        binding.powerSavingBannerActions.setVisibleIf(state == PowerSavingBannerState.RESTRICTING_APP)
+        binding.powerSavingBannerActions.setVisibleIf(
+            state == PowerSettingsBannersState.POWER_SAVING_RESTRICTING_APP
+        )
         binding.powerSavingSettingsButton.setOnClickListener { openPowerSavingSettings() }
 
         binding.powerSavingSyncNowButton.setOnClickListener { startAutoUploadIgnoringPowerSaving(it) }
     }
 
-    private fun bindBatteryOptimizationBanner(
-        binding: PowerSettingsBannersBinding,
-        isExemptFromBatteryOptimization: Boolean
-    ) {
-        binding.batteryOptimizationBanner.setVisibleIf(!isExemptFromBatteryOptimization)
-        if (isExemptFromBatteryOptimization) return
+    private fun bindBatteryOptimizationBanner(binding: PowerSettingsBannersBinding, state: PowerSettingsBannersState) {
+        binding.batteryOptimizationBanner.setVisibleIf(state.isBatteryOptimizationBannerVisible)
+        if (!state.isBatteryOptimizationBannerVisible) return
 
         viewThemeUtils.material.run {
             themeCardView(binding.batteryOptimizationBanner)
