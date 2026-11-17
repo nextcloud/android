@@ -104,7 +104,8 @@ class TeamDetailViewModel @AssistedInject constructor(
             TeamResourceProviderId.TEAM_FOLDER -> folderPath?.let { TeamResourceTarget.Folder(it) } ?: webPage
             TeamResourceProviderId.TALK -> TeamResourceTarget.TalkConversation(resource.id, webPage)
             TeamResourceProviderId.COLLECTIVES -> collectiveFolder(resource.label) ?: webPage
-            TeamResourceProviderId.DECK, null -> webPage
+            TeamResourceProviderId.DECK -> TeamResourceTarget.DeckBoard(resource.id, webPage)
+            null -> webPage
         }
     }
 

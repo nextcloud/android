@@ -20,7 +20,8 @@ class TeamResourceOpener(private val activity: Activity, private val user: User)
         when (target) {
             is TeamResourceTarget.Folder -> openInFiles(FileDisplayActivity.KEY_FILE_PATH, target.remotePath)
             is TeamResourceTarget.File -> openInFiles(FileDisplayActivity.KEY_FILE_ID, target.fileId)
-            is TeamResourceTarget.TalkConversation -> openTalkConversation(target)
+            is TeamResourceTarget.TalkConversation -> openInApp(TALK_SCHEME, TALK_PATH + target.token, target.webPage)
+            is TeamResourceTarget.DeckBoard -> openInApp(DECK_SCHEME, DECK_PATH + target.boardId, target.webPage)
             is TeamResourceTarget.WebPage -> openWebPage(target)
         }
     }
@@ -38,29 +39,30 @@ class TeamResourceOpener(private val activity: Activity, private val user: User)
         activity.startActivity(TeamWebView.intent(activity, target.title, target.url))
     }
 
-    private fun openTalkConversation(target: TeamResourceTarget.TalkConversation) {
-        val intent = Intent(Intent.ACTION_VIEW, talkConversationUri(target.token))
+    private fun openInApp(scheme: String, path: String, fallback: TeamResourceTarget.WebPage) {
         try {
-            activity.startActivity(intent)
+            activity.startActivity(Intent(Intent.ACTION_VIEW, appLink(scheme, path)))
         } catch (_: ActivityNotFoundException) {
-            openWebPage(target.webPage)
+            openWebPage(fallback)
         }
     }
 
-    private fun talkConversationUri(token: String): Uri {
+    private fun appLink(scheme: String, path: String): Uri {
         val server = user.server.uri
         val userId = Uri.encode(user.accountName.substringBeforeLast(ACCOUNT_SEPARATOR))
         val basePath = server.rawPath.orEmpty().trimEnd(PATH_SEPARATOR)
         return Uri.Builder().apply {
-            scheme(TALK_SCHEME)
+            scheme(scheme)
             encodedAuthority("$userId$ACCOUNT_SEPARATOR${server.rawAuthority}")
-            encodedPath("$basePath$TALK_CALL_PATH$token")
+            encodedPath("$basePath$path")
         }.build()
     }
 
     companion object {
         private const val TALK_SCHEME = "nextcloudtalk"
-        private const val TALK_CALL_PATH = "/call/"
+        private const val TALK_PATH = "/call/"
+        private const val DECK_SCHEME = "nextclouddeck"
+        private const val DECK_PATH = "/board/"
         private const val ACCOUNT_SEPARATOR = '@'
         private const val PATH_SEPARATOR = '/'
     }
