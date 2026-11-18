@@ -56,7 +56,7 @@
             android:focusable="false"
             android:importantForAccessibility="no"
             android:visibility="invisible"
-            app:icon="@drawable/player_ic_repeat" />
+            app:icon="@drawable/player_ic_repeat_all" />
 
         <Space style="@style/PlayerControlSpacerStyle" />
 
@@ -85,10 +85,10 @@
         <Space style="@style/PlayerControlSpacerStyle" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/ivPlayMode"
+            android:id="@+id/playModeButton"
             style="@style/PlayerControlButtonStyle"
             android:contentDescription="@string/player_control_view_play_mode_button_content_description"
-            app:icon="@drawable/player_ic_repeat" />
+            app:icon="@drawable/player_ic_repeat_all" />
 
         <Space style="@style/PlayerControlSpacerStyle" />
 

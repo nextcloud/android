@@ -24,7 +24,7 @@ class PlaybackSettings @Inject constructor(context: Context) {
     val playMode: PlayMode
         get() = preferences.getString(PLAY_MODE_KEY, null)
             ?.let { runCatching { AppJson.instance.decodeFromString<PlayMode>(it) }.getOrNull() }
-            ?: PlayMode.SINGLE
+            ?: PlayMode.REPEAT_ONE
 
     fun setPlayMode(playMode: PlayMode) {
         preferences.edit {

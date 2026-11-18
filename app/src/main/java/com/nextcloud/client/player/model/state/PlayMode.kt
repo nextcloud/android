@@ -13,13 +13,19 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 enum class PlayMode(@param:DrawableRes val iconRes: Int) {
-    SINGLE(R.drawable.player_ic_repeat_one),
-    REPEAT(R.drawable.player_ic_repeat),
+
+    // repeats the same file again and again
+    REPEAT_ONE(R.drawable.player_ic_repeat_one),
+
+    // plays all files in order, then starts over from the first one
+    REPEAT_ALL(R.drawable.player_ic_repeat_all),
+
+    // plays all files in random order, then starts over
     SHUFFLE(R.drawable.player_ic_shuffle);
 
     fun next(): PlayMode = when (this) {
-        SINGLE -> REPEAT
-        REPEAT -> SHUFFLE
-        SHUFFLE -> SINGLE
+        REPEAT_ONE -> REPEAT_ALL
+        REPEAT_ALL -> SHUFFLE
+        SHUFFLE -> REPEAT_ONE
     }
 }

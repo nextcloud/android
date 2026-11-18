@@ -87,7 +87,7 @@ class PlayerControlView @JvmOverloads constructor(
 
     var navigator: MediaNavigator? = null
 
-    private var playMode = PlayMode.SINGLE
+    private var playMode = PlayMode.REPEAT_ONE
 
     init {
         if (!isInEditMode) {
@@ -144,7 +144,7 @@ class PlayerControlView @JvmOverloads constructor(
         binding.run {
             ivPrevious.iconTint = transportIconTint
             ivNext.iconTint = transportIconTint
-            ivPlayMode.iconTint = transportIconTint
+            playModeButton.iconTint = transportIconTint
             ivPlayPause.backgroundTintList = serverPrimaryTint
             ivPlayPause.iconTint = onServerPrimaryTint
 
@@ -163,7 +163,7 @@ class PlayerControlView @JvmOverloads constructor(
             }
         }
 
-        binding.ivPlayMode.setOnClickListener { applyNextPlayMode() }
+        binding.playModeButton.setOnClickListener { applyNextPlayMode() }
 
         binding.ivNext.setOnClickListener { navigator?.showNext() }
 
@@ -196,7 +196,7 @@ class PlayerControlView @JvmOverloads constructor(
 
     private fun renderPlayMode(mode: PlayMode) {
         playMode = mode
-        binding.ivPlayMode.setIconResource(mode.iconRes)
+        binding.playModeButton.setIconResource(mode.iconRes)
     }
 
     private fun render(playbackState: PlaybackState) {

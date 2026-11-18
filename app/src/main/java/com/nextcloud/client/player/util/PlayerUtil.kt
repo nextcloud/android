@@ -105,7 +105,7 @@ object PlayerUtil {
     }
 
     fun Player.setPlayMode(mode: PlayMode) {
-        repeatMode = if (mode == PlayMode.SINGLE) Player.REPEAT_MODE_ONE else Player.REPEAT_MODE_ALL
+        repeatMode = if (mode == PlayMode.REPEAT_ONE) Player.REPEAT_MODE_ONE else Player.REPEAT_MODE_ALL
         shuffleModeEnabled = mode == PlayMode.SHUFFLE
     }
 
@@ -163,8 +163,8 @@ object PlayerUtil {
 
     private fun Player.mapPlayMode(): PlayMode = when {
         shuffleModeEnabled -> PlayMode.SHUFFLE
-        repeatMode == Player.REPEAT_MODE_ONE -> PlayMode.SINGLE
-        else -> PlayMode.REPEAT
+        repeatMode == Player.REPEAT_MODE_ONE -> PlayMode.REPEAT_ONE
+        else -> PlayMode.REPEAT_ALL
     }
 
     fun OCFile.toPlaybackFile() = PlaybackFile(
