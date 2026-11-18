@@ -23,7 +23,7 @@ class ErrorReportGenerator(
 
         /**
          * The report is sent to [ShowErrorActivity] as an Intent extra, which must stay well below
-         * the 1 MB Binder transaction limit.
+         * the 1 MB Binder transaction limit. This value not limits to the 1MB, places somewhere reasonable
          */
         const val MAX_STACK_TRACE_LENGTH = 100_000
         const val TRUNCATION_MARKER = "characters truncated"
