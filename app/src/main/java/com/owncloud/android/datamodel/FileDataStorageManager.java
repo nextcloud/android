@@ -2685,6 +2685,11 @@ public class FileDataStorageManager {
         OCFile root = getEncryptedRootFolder(file);
         if (root != null) {
             fileDao.setReadOnly(user.getAccountName(), root.getRemotePath(), readOnly ? 1 : 0);
+
+            // RefreshFolderOperation saves the opened folder object back to the database
+            if (root.getRemotePath().equals(file.getRemotePath())) {
+                file.setReadOnly(readOnly);
+            }
         }
     }
 

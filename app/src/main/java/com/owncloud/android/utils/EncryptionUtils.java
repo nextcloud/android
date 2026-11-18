@@ -18,7 +18,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.nextcloud.client.account.User;
 import com.nextcloud.common.SessionTimeOutKt;
-import com.nextcloud.utils.AppConstants;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -114,11 +113,11 @@ public final class EncryptionUtils {
     private static final String TAG = EncryptionUtils.class.getSimpleName();
 
     // PUBLIC_KEY actually represents certificate this confusion caused by
-    // later PUBLIC_KEY must rename to CERTIFICATE
-    public static final String PUBLIC_KEY = "PUBLIC_KEY";
+    public static final String CERTIFICATE = "PUBLIC_KEY";
 
     public static final String PRIVATE_KEY = "PRIVATE_KEY";
     public static final String MNEMONIC = "MNEMONIC";
+    public static final String SERVER_PUBLIC_KEY = "SERVER_PUBLIC_KEY";
     private static final int GCM_AUTHENTICATION_TAG_LENGTH = 16;
     public static final int ivLength = 16;
     public static final int saltLength = 40;
@@ -192,7 +191,7 @@ public final class EncryptionUtils {
      */
     public static EncryptedFolderMetadataFileV1 encryptFolderMetadata(
         DecryptedFolderMetadataFileV1 decryptedFolderMetadata,
-        String publicKey,
+        String certificate,
         long parentId,
         User user,
         ArbitraryDataProvider arbitraryDataProvider
@@ -212,7 +211,7 @@ public final class EncryptionUtils {
         byte[] metadataKeyBytes = EncryptionUtils.generateKey();
         String encryptedMetadataKey = EncryptionUtils.encryptStringAsymmetric(
             EncryptionUtils.encodeBytesToBase64String(metadataKeyBytes),
-            publicKey);
+            certificate);
         encryptedFolderMetadata.getMetadata().setMetadataKey(encryptedMetadataKey);
 
         // store that this folder has  been migrated
@@ -438,7 +437,7 @@ public final class EncryptionUtils {
         } else if (E2EVersionHelper.INSTANCE.isV1(version)) {
             ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
             String privateKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY);
-            String publicKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY);
+            String certificate = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.CERTIFICATE);
             EncryptedFolderMetadataFileV1 encryptedFolderMetadata = EncryptionUtils.deserializeJSON(
                 serializedEncryptedMetadata, new TypeToken<>() {
                 });
@@ -455,7 +454,7 @@ public final class EncryptionUtils {
                     new EncryptionUtilsV2().migrateV1ToV2andUpload(
                         v1,
                         client.getUserId(),
-                        publicKey,
+                        certificate,
                         folder,
                         new FileDataStorageManager(user, context.getContentResolver()),
                         client,
@@ -1194,7 +1193,7 @@ public final class EncryptionUtils {
     public static Pair<Boolean, DecryptedFolderMetadataFileV1> retrieveMetadataV1(ServerFileInterface parentFile,
                                                                                   OwnCloudClient client,
                                                                                   String privateKey,
-                                                                                  String publicKey,
+                                                                                  String certificate,
                                                                                   ArbitraryDataProvider arbitraryDataProvider,
                                                                                   User user,
                                                                                   String e2eeVersion)
@@ -1231,7 +1230,7 @@ public final class EncryptionUtils {
             metadata.getMetadata().setVersion(Double.parseDouble(e2eeVersion));
             metadata.getMetadata().setMetadataKeys(new HashMap<>());
             String metadataKey = EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateKey());
-            String encryptedMetadataKey = EncryptionUtils.encryptStringAsymmetric(metadataKey, publicKey);
+            String encryptedMetadataKey = EncryptionUtils.encryptStringAsymmetric(metadataKey, certificate);
             metadata.getMetadata().setMetadataKey(encryptedMetadataKey);
 
             return new Pair<>(Boolean.FALSE, metadata);
@@ -1248,7 +1247,7 @@ public final class EncryptionUtils {
     public static Pair<Boolean, DecryptedFolderMetadataFile> retrieveMetadata(OCFile parentFile,
                                                                               OwnCloudClient client,
                                                                               String privateKey,
-                                                                              String publicKey,
+                                                                              String certificate,
                                                                               FileDataStorageManager storageManager,
                                                                               User user,
                                                                               Context context,
@@ -1294,7 +1293,7 @@ public final class EncryptionUtils {
                                                        new ArrayList<>(),
                                                        new HashMap<>(),
                                                        e2eeVersion);
-            metadata.getUsers().add(new DecryptedUser(client.getUserId(), publicKey, null));
+            metadata.getUsers().add(new DecryptedUser(client.getUserId(), certificate, null));
             byte[] metadataKey = EncryptionUtils.generateKey();
 
             if (metadataKey == null) {
@@ -1396,14 +1395,15 @@ public final class EncryptionUtils {
     public static void removeE2E(ArbitraryDataProvider arbitraryDataProvider, User user) {
         // delete stored E2E keys and mnemonic
         arbitraryDataProvider.deleteKeyForAccount(user.getAccountName(), EncryptionUtils.PRIVATE_KEY);
-        arbitraryDataProvider.deleteKeyForAccount(user.getAccountName(), EncryptionUtils.PUBLIC_KEY);
+        arbitraryDataProvider.deleteKeyForAccount(user.getAccountName(), EncryptionUtils.CERTIFICATE);
         arbitraryDataProvider.deleteKeyForAccount(user.getAccountName(), EncryptionUtils.MNEMONIC);
+        arbitraryDataProvider.deleteKeyForAccount(user.getAccountName(), EncryptionUtils.SERVER_PUBLIC_KEY);
     }
 
-    public static boolean isMatchingKeys(KeyPair keyPair, String publicKeyString) throws CertificateException {
+    public static boolean isMatchingKeys(KeyPair keyPair, String certificate) throws CertificateException {
         // check key
         RSAPrivateCrtKey privateKey = (RSAPrivateCrtKey) keyPair.getPrivate();
-        RSAPublicKey publicKey = EncryptionUtils.convertPublicKeyFromString(publicKeyString);
+        RSAPublicKey publicKey = EncryptionUtils.convertPublicKeyFromString(certificate);
 
         BigInteger modulusPublic = publicKey.getModulus();
         BigInteger modulusPrivate = privateKey.getModulus();
@@ -1504,7 +1504,7 @@ public final class EncryptionUtils {
             arbitraryDataProvider.storeOrUpdateKeyValue(
                 user.getAccountName(),
                 ArbitraryDataProvider.E2E_ERRORS_TIMESTAMP,
-                System.currentTimeMillis() / AppConstants.MILLIS_PER_SECOND
+                System.currentTimeMillis() / 1000
                                                        );
         }
     }
@@ -1533,26 +1533,26 @@ public final class EncryptionUtils {
         return UUID.randomUUID().toString().replaceAll("-", "");
     }
 
-    public static String retrievePublicKeyForUser(User user, Context context) {
-        return new ArbitraryDataProviderImpl(context).getValue(user, PUBLIC_KEY);
+    public static String retrieveCertificateForUser(User user, Context context) {
+        return new ArbitraryDataProviderImpl(context).getValue(user, CERTIFICATE);
     }
 
     public static byte[] generateIV() {
         return EncryptionUtils.randomBytes(EncryptionUtils.ivLength);
     }
 
-    public static void savePublicKey(User currentUser,
-                                     String key,
-                                     String user,
-                                     ArbitraryDataProvider arbitraryDataProvider) {
+    public static void saveShareeCertificate(User currentUser,
+                                             String certificate,
+                                             String user,
+                                             ArbitraryDataProvider arbitraryDataProvider) {
         arbitraryDataProvider.storeOrUpdateKeyValue(currentUser,
-                                                    ArbitraryDataProvider.PUBLIC_KEY + user,
-                                                    key);
+                                                    ArbitraryDataProvider.SHAREE_CERTIFICATE_PREFIX + user,
+                                                    certificate);
     }
 
-    public static String getPublicKey(User currentUser,
-                                      String user,
-                                      ArbitraryDataProvider arbitraryDataProvider) {
-        return arbitraryDataProvider.getValue(currentUser, ArbitraryDataProvider.PUBLIC_KEY + user);
+    public static String getShareeCertificate(User currentUser,
+                                              String user,
+                                              ArbitraryDataProvider arbitraryDataProvider) {
+        return arbitraryDataProvider.getValue(currentUser, ArbitraryDataProvider.SHAREE_CERTIFICATE_PREFIX + user);
     }
 }

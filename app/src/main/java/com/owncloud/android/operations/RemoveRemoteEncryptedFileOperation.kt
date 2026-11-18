@@ -120,13 +120,13 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
         @Suppress("DEPRECATION")
         val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(context)
         val privateKey = arbitraryDataProvider.getValue(user.accountName, EncryptionUtils.PRIVATE_KEY)
-        val publicKey = arbitraryDataProvider.getValue(user.accountName, EncryptionUtils.PUBLIC_KEY)
+        val certificate = arbitraryDataProvider.getValue(user.accountName, EncryptionUtils.CERTIFICATE)
 
         val (metadataExists, metadata) = EncryptionUtils.retrieveMetadataV1(
             parentFolder,
             client,
             privateKey,
-            publicKey,
+            certificate,
             arbitraryDataProvider,
             user,
             e2eeVersion.value
@@ -140,7 +140,7 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
 
         val encryptedFolderMetadata = EncryptionUtils.encryptFolderMetadata(
             metadata,
-            publicKey,
+            certificate,
             parentFolder.localId,
             user,
             arbitraryDataProvider
