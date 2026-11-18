@@ -133,9 +133,9 @@ class UriUploader @JvmOverloads constructor(
         val path = uri.path ?: return true
         val canonicalPath = File(path).canonicalPath
 
-        val sensitiveFolders = arrayListOf<File?>()
-        sensitiveFolders.add(
-            MainApp.getStoragePath()?.let { File(it, MainApp.dataFolder) }
+        val sensitiveFolders = arrayListOf<File?>(
+            activity.dataDir,
+            MainApp.getStoragePath()?.let { File(it, MainApp.dataFolder) },
         )
         sensitiveFolders.addAll(activity.getExternalFilesDirs(null))
         sensitiveFolders.addAll(activity.externalCacheDirs.filterNotNull())
