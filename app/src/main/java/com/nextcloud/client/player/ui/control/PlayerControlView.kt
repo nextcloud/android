@@ -21,10 +21,10 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.flowWithLifecycle
 import com.nextcloud.android.common.ui.color.ColorUtil
 import com.nextcloud.client.player.media3.PlaybackModel
+import com.nextcloud.client.player.model.state.PlayMode
 import com.nextcloud.client.player.model.state.PlaybackItemState
 import com.nextcloud.client.player.model.state.PlaybackState
 import com.nextcloud.client.player.model.state.PlayerState
-import com.nextcloud.client.player.model.state.RepeatMode
 import com.nextcloud.client.player.ui.MediaNavigator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PlayerControlViewBinding
@@ -94,6 +94,8 @@ class PlayerControlView @JvmOverloads constructor(
 
     var navigator: MediaNavigator? = null
 
+    private var playMode = PlayMode.SINGLE
+
     init {
         if (!isInEditMode) {
             (context.applicationContext as HasAndroidInjector).androidInjector().inject(this)
@@ -149,8 +151,7 @@ class PlayerControlView @JvmOverloads constructor(
         binding.run {
             ivPrevious.iconTint = transportIconTint
             ivNext.iconTint = transportIconTint
-            ivRepeat.iconTint = toggleIconTint
-            ivRandom.iconTint = toggleIconTint
+            ivPlayMode.iconTint = toggleIconTint
             ivPlayPause.backgroundTintList = serverPrimaryTint
             ivPlayPause.iconTint = onServerPrimaryTint
 
@@ -169,23 +170,7 @@ class PlayerControlView @JvmOverloads constructor(
             }
         }
 
-        binding.ivRepeat.setOnClickListener {
-            val repeatSingle = binding.ivRepeat.isChecked
-
-            // Repeat and Random are mutually exclusive
-            playbackModel.setShuffle(false)
-
-            playbackModel.setRepeatMode(if (repeatSingle) RepeatMode.SINGLE else RepeatMode.OFF)
-        }
-
-        binding.ivRandom.setOnClickListener {
-            val shuffle = binding.ivRandom.isChecked
-
-            // Repeat and Random are mutually exclusive
-            playbackModel.setRepeatMode(RepeatMode.OFF)
-
-            playbackModel.setShuffle(shuffle)
-        }
+        binding.ivPlayMode.setOnClickListener { applyNextPlayMode() }
 
         binding.ivNext.setOnClickListener { navigator?.showNext() }
 
@@ -209,9 +194,21 @@ class PlayerControlView @JvmOverloads constructor(
             .launchIn(viewScope)
     }
 
+    private fun applyNextPlayMode() {
+        val nextMode = PlayMode.entries[(playMode.ordinal + 1) % PlayMode.entries.size]
+        playbackModel.setPlayMode(nextMode)
+
+        renderPlayMode(nextMode)
+    }
+
+    private fun renderPlayMode(mode: PlayMode) {
+        playMode = mode
+        binding.ivPlayMode.setIconResource(mode.iconRes)
+        binding.ivPlayMode.isChecked = mode != PlayMode.SINGLE
+    }
+
     private fun render(playbackState: PlaybackState) {
-        binding.ivRepeat.isChecked = playbackState.repeatMode == RepeatMode.SINGLE
-        binding.ivRandom.isChecked = playbackState.shuffle
+        renderPlayMode(playbackState.playMode)
         binding.ivPlayPause.isChecked = playbackState.currentItemState?.playerState == PlayerState.PLAYING
         binding.ivNext.isEnabled = navigator?.hasNext == true
         binding.ivPrevious.isEnabled = navigator?.hasPrevious == true

@@ -9,37 +9,26 @@ package com.nextcloud.client.player.model
 
 import android.content.Context
 import androidx.core.content.edit
-import com.nextcloud.client.player.model.state.RepeatMode
+import com.nextcloud.client.player.model.state.PlayMode
+import com.nextcloud.utils.serialization.AppJson
 import javax.inject.Inject
 
 class PlaybackSettings @Inject constructor(context: Context) {
     companion object {
         private const val PREFERENCES_FILE_NAME = "playback_settings"
-        private const val REPEAT_MODE_ID_KEY = "repeat_mode_id"
-        private const val SHUFFLE_KEY = "shuffle"
-        private val DEFAULT_REPEAT_MODE = RepeatMode.OFF
+        private const val PLAY_MODE_KEY = "play_mode"
     }
 
     private val preferences = context.getSharedPreferences(PREFERENCES_FILE_NAME, Context.MODE_PRIVATE)
 
-    val repeatMode: RepeatMode
-        get() = preferences.getInt(REPEAT_MODE_ID_KEY, -1)
-            .let { id -> RepeatMode.entries.firstOrNull { it.id == id } }
-            ?.takeUnless { it == RepeatMode.ALL }
-            ?: DEFAULT_REPEAT_MODE
+    val playMode: PlayMode
+        get() = preferences.getString(PLAY_MODE_KEY, null)
+            ?.let { runCatching { AppJson.instance.decodeFromString<PlayMode>(it) }.getOrNull() }
+            ?: PlayMode.SINGLE
 
-    val isShuffle: Boolean
-        get() = preferences.getBoolean(SHUFFLE_KEY, false)
-
-    fun setRepeatMode(repeatMode: RepeatMode) {
+    fun setPlayMode(playMode: PlayMode) {
         preferences.edit {
-            putInt(REPEAT_MODE_ID_KEY, repeatMode.id)
-        }
-    }
-
-    fun setShuffle(shuffle: Boolean) {
-        preferences.edit {
-            putBoolean(SHUFFLE_KEY, shuffle)
+            putString(PLAY_MODE_KEY, AppJson.instance.encodeToString(playMode))
         }
     }
 }
