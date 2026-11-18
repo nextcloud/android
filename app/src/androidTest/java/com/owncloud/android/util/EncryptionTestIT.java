@@ -22,6 +22,7 @@ import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFile;
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1;
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedMetadata;
 import com.owncloud.android.datamodel.e2e.v1.decrypted.Encrypted;
+import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFile;
 import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFolderMetadataFileV1;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.e2ee.CsrHelper;
@@ -832,8 +833,8 @@ public class EncryptionTestIT extends AbstractIT {
 
         // Encryption
         Cipher encryptorCipher = EncryptionUtils.getCipher(Cipher.ENCRYPT_MODE, key, iv);
-        EncryptionUtils.encryptFile(user.getAccountName(), file, encryptorCipher);
-        String encryptorCipherAuthTag = EncryptionUtils.getAuthenticationTag(encryptorCipher);
+        EncryptedFile encryptedFile = EncryptionUtils.encryptFile(user.getAccountName(), file, encryptorCipher);
+        String encryptorCipherAuthTag = EncryptionUtils.getAuthenticationTag(encryptedFile.getEncryptedFile());
 
         // Decryption
         Cipher decryptorCipher = EncryptionUtils.getCipher(Cipher.DECRYPT_MODE, key, iv);
