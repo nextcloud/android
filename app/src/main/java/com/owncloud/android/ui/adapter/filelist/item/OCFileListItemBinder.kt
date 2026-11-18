@@ -205,15 +205,13 @@ internal class OCFileListItemBinder(
     }
 
     private fun fileSizeText(file: OCFile, size: Long, storageManager: FileDataStorageManager): String {
-        if (!file.isOfflineOperation) {
-            return HumanReadableFormatter.formatBytes(size)
-        }
+        val descriptionRes = when {
+            storageManager.getOfflineEntityFromOCFile(file)?.type is OfflineOperationType.RemoveFile ->
+                R.string.oc_file_list_adapter_offline_operation_remove_description_text
 
-        val isRemoveOperation = storageManager.getOfflineEntityFromOCFile(file)?.type is OfflineOperationType.RemoveFile
-        val descriptionRes = if (isRemoveOperation) {
-            R.string.oc_file_list_adapter_offline_operation_remove_description_text
-        } else {
-            R.string.oc_file_list_adapter_offline_operation_description_text
+            file.isOfflineOperation -> R.string.oc_file_list_adapter_offline_operation_description_text
+
+            else -> return HumanReadableFormatter.formatBytes(size)
         }
         return activity.getString(descriptionRes)
     }
