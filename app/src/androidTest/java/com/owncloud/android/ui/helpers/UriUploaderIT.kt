@@ -39,11 +39,46 @@ class UriUploaderIT : AbstractIT() {
     }
 
     @Test
-    fun testUploadPrivatePathLogFile() {
+    fun testUploadPrivatePathDbFile() {
+        launchActivity<TestActivity>().use { scenario ->
+            scenario.onActivity { activity ->
+                val packageName = activity.packageName
+                val path = "/data/data/$packageName/databases/filelist"
+                testPrivatePath(activity, path)
+            }
+        }
+    }
+
+
+    @Test
+    fun testUploadPublicPathLogFile() {
         launchActivity<TestActivity>().use { scenario ->
             scenario.onActivity { activity ->
                 val packageName = activity.packageName
                 val path = "content://$packageName/attachments/logs.txt"
+                testPublicPath(activity, path)
+            }
+        }
+    }
+
+
+    @Test
+    fun testUploadPublicPathFileNamedAsPackageName() {
+        launchActivity<TestActivity>().use { scenario ->
+            scenario.onActivity { activity ->
+                val packageName = activity.packageName
+                val path = "file:///storage/emulated/0/Download/$packageName.txt"
+                testPublicPath(activity, path)
+            }
+        }
+    }
+
+    @Test
+    fun testUploadPublicPathFolderNamedAsPackageName() {
+        launchActivity<TestActivity>().use { scenario ->
+            scenario.onActivity { activity ->
+                val packageName = activity.packageName
+                val path = "file:///storage/emulated/0/Download/$packageName/logs.txt"
                 testPublicPath(activity, path)
             }
         }
