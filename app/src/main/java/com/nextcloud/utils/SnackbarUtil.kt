@@ -55,9 +55,9 @@ object SnackbarUtil {
             ?.also { snackbar -> onMainThread(snackbar::show) }
 
     @JvmStatic
-    fun showServerOutdated(activity: Activity?, duration: Int) {
+    fun showServerOutdated(activity: Activity?, duration: Int, onDismiss: (() -> Unit)? = null) {
         create(activity.hostView(), R.string.outdated_server, duration)
-            ?.setAction(R.string.dismiss) { }
+            ?.setAction(R.string.dismiss) { onDismiss?.invoke() }
             ?.let { snackbar -> onMainThread(snackbar::show) }
     }
 
