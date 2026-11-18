@@ -52,6 +52,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.android.common.core.utils.ecosystem.AccountReceiverCallback
+import com.nextcloud.android.lib.resources.externalstorage.model.AuthMechanism
 import com.nextcloud.appReview.InAppReviewHelper
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.AsyncRunner
@@ -66,6 +67,8 @@ import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
 import com.nextcloud.client.player.model.file.toPlaybackCollection
 import com.nextcloud.client.player.ui.audio.AudioPlayerLauncher
 import com.nextcloud.client.utils.IntentUtil
+import com.nextcloud.repository.ExternalStorageMountsResult
+import com.nextcloud.repository.ExternalStorageRepository
 import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -73,6 +76,7 @@ import com.nextcloud.utils.extensions.getSerializableArgument
 import com.nextcloud.utils.extensions.isActive
 import com.nextcloud.utils.extensions.lastFragment
 import com.nextcloud.utils.extensions.navigateToAllFiles
+import com.nextcloud.utils.extensions.remotePath
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.view.FastScrollUtils
 import com.owncloud.android.MainApp
@@ -114,6 +118,7 @@ import com.owncloud.android.ui.activity.filedisplayactivity.LocalIntentReceiver
 import com.owncloud.android.ui.asynctasks.FetchRemoteFileTask
 import com.owncloud.android.ui.asynctasks.GetRemoteFileTask
 import com.owncloud.android.ui.dialog.DeleteBatchTracker
+import com.owncloud.android.ui.dialog.ExternalStorageAuthDialogFragment
 import com.owncloud.android.ui.dialog.SendShareDialog.SendShareDialogDownloader
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment.OnSortingOrderListener
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment
@@ -203,6 +208,9 @@ class FileDisplayActivity :
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
+    @Inject
+    lateinit var externalStorageRepository: ExternalStorageRepository
 
     private val viewModel by viewModels<FileDisplayActivityViewModel> { viewModelFactory }
 
@@ -1086,6 +1094,22 @@ class FileDisplayActivity :
         startMetadataSyncForCurrentDir()
     }
 
+    private suspend fun OCFile.requiresUserProvidedCredentials(): Boolean? {
+        val result = externalStorageRepository.fetchMounts()
+        if (result !is ExternalStorageMountsResult.Success) {
+            Log_OC.w(
+                TAG,
+                "Could not fetch external storage mounts to determine if ${this.fileName} requires" +
+                    " user provided credentials."
+            )
+            return null
+        }
+        return result.mounts.any {
+            it.remotePath() == remotePath &&
+                it.config?.authMechanism == AuthMechanism.PasswordUserProvided
+        }
+    }
+
     private fun browseUp(listOfFiles: OCFileListFragment) {
         listOfFiles.onBrowseUp()
         val currentFile = listOfFiles.currentFile
@@ -1532,12 +1556,32 @@ class FileDisplayActivity :
         ).execute(
             account,
             this,
-            { _, _ -> onSyncFinished() },
+            { _, result ->
+                if (!result.isSuccess && WebdavEntry.MountType.EXTERNAL == folder.mountType) {
+                    // May be an external folder: check if user needs authentication
+                    lifecycleScope.launch {
+                        val showCredentialsDialog = folder.requiresUserProvidedCredentials()
+                        if (showCredentialsDialog ?: false) {
+                            showExternalStorageAuthDialog(folder)
+                        }
+                    }
+                } else {
+                    onSyncFinished()
+                }
+            },
             handler,
             null
         )
 
         fetchRecommendedFilesIfNeeded(ignoreETag, folder)
+    }
+
+    private fun showExternalStorageAuthDialog(folder: OCFile) {
+        if (supportFragmentManager.isStateSaved) return
+        if (supportFragmentManager.findFragmentByTag(ExternalStorageAuthDialogFragment.TAG) != null) return
+
+        ExternalStorageAuthDialogFragment.newInstance(folder)
+            .show(supportFragmentManager, ExternalStorageAuthDialogFragment.TAG)
     }
 
     private fun syncCurrentFolder(ignoreETag: Boolean, ignoreFocus: Boolean) {
