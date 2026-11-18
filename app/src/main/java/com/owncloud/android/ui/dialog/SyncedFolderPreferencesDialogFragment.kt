@@ -150,7 +150,7 @@ class SyncedFolderPreferencesDialogFragment :
     }
 
     private fun applyUserColor(binding: SyncedFoldersSettingsLayoutBinding) {
-        viewThemeUtils?.androidx?.colorSwitchCompat(binding.syncEnabled)
+        viewThemeUtils?.material?.colorMaterialSwitch(binding.syncEnabled)
 
         viewThemeUtils?.platform?.themeCheckbox(
             binding.settingInstantUploadOnWifiCheckbox,

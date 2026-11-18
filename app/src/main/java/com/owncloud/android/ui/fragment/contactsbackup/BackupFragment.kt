@@ -236,13 +236,10 @@ class BackupFragment :
     }
 
     private fun applyUserColor() {
-        viewThemeUtils.androidx.run {
-            colorSwitchCompat(binding.contacts)
-            colorSwitchCompat(binding.calendar)
-            colorSwitchCompat(binding.dailyBackup)
-        }
-
         viewThemeUtils.material.run {
+            colorMaterialSwitch(binding.contacts)
+            colorMaterialSwitch(binding.calendar)
+            colorMaterialSwitch(binding.dailyBackup)
             colorMaterialButtonPrimaryFilled(binding.backupNow)
             colorMaterialButtonPrimaryOutlined(binding.contactsDatepicker)
         }
