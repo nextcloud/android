@@ -195,7 +195,7 @@ class PlayerControlView @JvmOverloads constructor(
     }
 
     private fun applyNextPlayMode() {
-        val nextMode = PlayMode.entries[(playMode.ordinal + 1) % PlayMode.entries.size]
+        val nextMode = playMode.next()
         playbackModel.setPlayMode(nextMode)
 
         renderPlayMode(nextMode)
