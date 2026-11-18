@@ -65,6 +65,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.RandomAccessFile;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
@@ -72,7 +73,6 @@ import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.KeyFactory;
 import java.security.KeyPair;
-import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
@@ -84,7 +84,6 @@ import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPrivateCrtKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
-import java.security.spec.InvalidParameterSpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -120,6 +119,7 @@ public final class EncryptionUtils {
 
     public static final String PRIVATE_KEY = "PRIVATE_KEY";
     public static final String MNEMONIC = "MNEMONIC";
+    private static final int GCM_AUTHENTICATION_TAG_LENGTH = 16;
     public static final int ivLength = 16;
     public static final int saltLength = 40;
     public static final String ivDelimiter = "|"; // not base64 encoded
@@ -516,16 +516,26 @@ public final class EncryptionUtils {
         return Base64.decode(string, Base64.NO_WRAP);
     }
 
-    public static EncryptedFile encryptFile(String accountName, File file, Cipher cipher) throws InvalidParameterSpecException, IOException {
+    public static EncryptedFile encryptFile(String accountName, File file, Cipher cipher) throws IOException {
         File tempEncryptedFolder = FileDataStorageManager.createTempEncryptedFolder(accountName);
         File tempEncryptedFile = File.createTempFile(file.getName(), null, tempEncryptedFolder);
         encryptFileWithGivenCipher(file, tempEncryptedFile, cipher);
-        String authenticationTagString = getAuthenticationTag(cipher);
+        String authenticationTagString = getAuthenticationTag(tempEncryptedFile);
         return new EncryptedFile(tempEncryptedFile, authenticationTagString);
     }
 
-    public static String getAuthenticationTag(Cipher cipher) throws InvalidParameterSpecException {
-        byte[] authenticationTag = cipher.getParameters().getParameterSpec(GCMParameterSpec.class).getIV();
+    public static String getAuthenticationTag(File encryptedFile) throws IOException {
+        long fileLength = encryptedFile.length();
+        if (fileLength < GCM_AUTHENTICATION_TAG_LENGTH) {
+            throw new IOException("Encrypted file is too small to contain a GCM authentication tag");
+        }
+
+        byte[] authenticationTag = new byte[GCM_AUTHENTICATION_TAG_LENGTH];
+        try (RandomAccessFile randomAccessFile = new RandomAccessFile(encryptedFile, "r")) {
+            randomAccessFile.seek(fileLength - GCM_AUTHENTICATION_TAG_LENGTH);
+            randomAccessFile.readFully(authenticationTag);
+        }
+
         return encodeBytesToBase64String(authenticationTag);
     }
 
@@ -581,13 +591,13 @@ public final class EncryptionUtils {
             inputStream.close();
             outputStream.close();
 
-            if (!getAuthenticationTag(cipher).equals(authenticationTag)) {
+            if (!getAuthenticationTag(encryptedFile).equals(authenticationTag)) {
                 reportE2eError(arbitraryDataProvider, user);
                 throw new SecurityException("Tag not correct");
             }
 
             Log_OC.d(TAG, encryptedFile.getName() + "decrypted successfully");
-        } catch (IOException | BadPaddingException | IllegalBlockSizeException | InvalidParameterSpecException |
+        } catch (IOException | BadPaddingException | IllegalBlockSizeException |
                  SecurityException exception) {
             Log_OC.d(TAG, "Error caught at decryptFile(): " + exception.getLocalizedMessage());
         }
