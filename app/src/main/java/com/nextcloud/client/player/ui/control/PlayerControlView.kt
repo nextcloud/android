@@ -204,7 +204,6 @@ class PlayerControlView @JvmOverloads constructor(
     private fun renderPlayMode(mode: PlayMode) {
         playMode = mode
         binding.ivPlayMode.setIconResource(mode.iconRes)
-        binding.ivPlayMode.isChecked = mode != PlayMode.SINGLE
     }
 
     private fun render(playbackState: PlaybackState) {
