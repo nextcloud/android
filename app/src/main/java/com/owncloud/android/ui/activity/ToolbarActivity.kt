@@ -35,6 +35,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.drawer.DrawerActivity
 import com.owncloud.android.ui.fragment.OCFileListFragment
 import com.owncloud.android.ui.fragment.SearchType
+import com.owncloud.android.ui.navigation.animator.SearchBarTransition
 import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import com.owncloud.android.utils.theme.ThemeUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -69,6 +70,7 @@ abstract class ToolbarActivity :
     private var infoBoxMessage: TextView? = null
 
     private var actionBarStyle = ActionBarStyle.Plain
+    private val searchBarTransition by lazy { SearchBarTransition(toolbar, homeSearchToolbar) }
 
     private val isToolbarBound: Boolean
         get() = ::homeSearchToolbar.isInitialized
@@ -100,6 +102,7 @@ abstract class ToolbarActivity :
 
     private fun isActionBarDisplayed(style: ActionBarStyle): Boolean {
         if (!isToolbarBound) return false
+        if (style == ActionBarStyle.Plain && searchBarTransition.isExpanded) return true
         val (displayed, hidden) = when (style) {
             ActionBarStyle.Plain -> defaultToolbar to homeSearchToolbar
             ActionBarStyle.Search -> homeSearchToolbar to defaultToolbar
@@ -218,7 +221,7 @@ abstract class ToolbarActivity :
 
     fun showSearchView() {
         if (actionBarStyle != ActionBarStyle.Search) return
-        switchActionBar(ActionBarStyle.Plain)
+        searchBarTransition.expand()
     }
 
     fun hideSearchView(chosenFile: OCFile?) {
@@ -229,7 +232,8 @@ abstract class ToolbarActivity :
     private fun switchActionBar(style: ActionBarStyle) {
         val appBar = appBar ?: return
 
-        viewThemeUtils.material.themeToolbar(toolbar)
+        searchBarTransition.syncWith(style)
+        if (!searchBarTransition.isExpanded) viewThemeUtils.material.themeToolbar(toolbar)
 
         when (style) {
             ActionBarStyle.Search -> {

@@ -23,8 +23,10 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.ServiceConnection
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -1203,10 +1205,8 @@ class FileDisplayActivity :
         searchMenuItem.isVisible = false
         searchText.setOnClickListener {
             showSearchView()
-            searchView?.postDelayed({
-                searchView?.isIconified = false
-                searchView?.requestFocusFromTouch()
-            }, SEARCH_VIEW_FOCUS_DELAY)
+            searchView?.isIconified = false
+            searchView?.postDelayed({ searchView?.requestFocusFromTouch() }, SEARCH_VIEW_FOCUS_DELAY)
         }
 
         drawerMenuItemsToShowHide = listOf(searchMenuItem)
@@ -1265,6 +1265,8 @@ class FileDisplayActivity :
 
     private fun setupSearchView(view: SearchView) {
         viewThemeUtils.androidx.themeToolbarSearchView(view)
+        view.findViewById<View>(androidx.appcompat.R.id.search_plate)?.backgroundTintList =
+            ColorStateList.valueOf(Color.TRANSPARENT)
 
         if (searchQuery.isNotEmpty()) {
             view.post { restoreSearchQuery() }
