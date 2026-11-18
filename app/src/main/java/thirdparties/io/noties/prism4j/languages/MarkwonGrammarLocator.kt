@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: Copyright 2019 Dimitry Ivanov (legal@noties.io)
  * SPDX-License-Identifier: Apache-2.0
  */
