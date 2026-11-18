@@ -43,7 +43,7 @@ class UriUploaderIT : AbstractIT() {
         launchActivity<TestActivity>().use { scenario ->
             scenario.onActivity { activity ->
                 val packageName = activity.packageName
-                val path = "/data/data/$packageName/databases/filelist"
+                val path = "file:///data/data/$packageName/databases/filelist"
                 testPrivatePath(activity, path)
             }
         }
