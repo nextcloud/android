@@ -185,12 +185,12 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
     }
 
     private fun uploadFolderMetadata(ocFile: OCFile) {
-        val publicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PUBLIC_KEY)
+        val certificate = arbitraryDataProvider.getValue(user, EncryptionUtils.CERTIFICATE)
         val privateKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PRIVATE_KEY)
         val uploadedMetadata = encryptionKeyGenerator.uploadEncryptedFolderMetadata(
             ocFile,
             client,
-            publicKey,
+            certificate,
             privateKey,
             storageManager,
             arbitraryDataProvider
