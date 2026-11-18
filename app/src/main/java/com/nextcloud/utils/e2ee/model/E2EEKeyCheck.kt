@@ -57,47 +57,23 @@ enum class E2EEKeyCheck {
 
     @Suppress("CyclomaticComplexMethod")
     fun getMessageId(action: E2EEAction): Int? = when (this) {
-        NO_NETWORK -> when (action) {
-            E2EEAction.NEW_FOLDER -> {
-                R.string.encryption_new_folder_no_network
-            }
+        NO_NETWORK -> action.pickMessageId(
+            newFolderId = R.string.encryption_new_folder_no_network,
+            openId = R.string.encryption_open_no_network,
+            encryptId = R.string.encryption_encrypt_no_network
+        )
 
-            E2EEAction.OPEN -> {
-                R.string.encryption_open_no_network
-            }
+        CHECK_FAILED -> action.pickMessageId(
+            newFolderId = R.string.encryption_new_folder_check_failed,
+            openId = R.string.encryption_open_check_failed,
+            encryptId = R.string.encryption_encrypt_check_failed
+        )
 
-            else -> {
-                R.string.encryption_encrypt_no_network
-            }
-        }
-
-        CHECK_FAILED -> when (action) {
-            E2EEAction.NEW_FOLDER -> {
-                R.string.encryption_new_folder_check_failed
-            }
-
-            E2EEAction.OPEN -> {
-                R.string.encryption_open_check_failed
-            }
-
-            else -> {
-                R.string.encryption_encrypt_check_failed
-            }
-        }
-
-        E2EE_UNAVAILABLE -> when (action) {
-            E2EEAction.NEW_FOLDER -> {
-                R.string.encryption_new_folder_unavailable
-            }
-
-            E2EEAction.OPEN -> {
-                R.string.encryption_open_unavailable
-            }
-
-            else -> {
-                R.string.encryption_encrypt_unavailable
-            }
-        }
+        E2EE_UNAVAILABLE -> action.pickMessageId(
+            newFolderId = R.string.encryption_new_folder_unavailable,
+            openId = R.string.encryption_open_unavailable,
+            encryptId = R.string.encryption_encrypt_unavailable
+        )
 
         MISSING_EVERYWHERE -> {
             if (action == E2EEAction.OPEN) {
@@ -108,5 +84,11 @@ enum class E2EEKeyCheck {
         }
 
         else -> null
+    }
+
+    private fun E2EEAction.pickMessageId(newFolderId: Int, openId: Int, encryptId: Int): Int = when (this) {
+        E2EEAction.NEW_FOLDER -> newFolderId
+        E2EEAction.OPEN -> openId
+        E2EEAction.ENCRYPT -> encryptId
     }
 }
