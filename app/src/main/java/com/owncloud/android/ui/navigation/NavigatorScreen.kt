@@ -14,6 +14,7 @@ import com.owncloud.android.ui.fragment.ActivitiesFragment
 import com.owncloud.android.ui.fragment.community.CommunityFragment
 import com.owncloud.android.ui.fragment.notifications.NotificationsFragment
 import com.owncloud.android.ui.fragment.autoUpload.AutoUploadFragment
+import com.owncloud.android.ui.fragment.internalTwoWaySync.InternalTwoWaySyncFragment
 import com.owncloud.android.ui.fragment.uploadList.UploadListFragment
 import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import com.owncloud.android.ui.trashbin.TrashbinFragment
@@ -39,6 +40,9 @@ sealed class NavigatorScreen(val tag: String, val hasDrawer: Boolean = true) : P
     @Parcelize
     object UploadList : NavigatorScreen(UPLOAD_LIST_TAG)
 
+    @Parcelize
+    object InternalTwoWaySync : NavigatorScreen(INTERNAL_TWO_WAY_SYNC_TAG, hasDrawer = false)
+
     companion object {
         private const val TRASHBIN_TAG = "Trashbin"
         private const val ACTIVITIES_TAG = "Activities"
@@ -46,6 +50,7 @@ sealed class NavigatorScreen(val tag: String, val hasDrawer: Boolean = true) : P
         private const val NOTIFICATIONS_TAG = "Notifications"
         private const val UPLOAD_LIST_TAG = "UploadList"
         private const val AUTO_UPLOAD_TAG = "AutoUpload"
+        private const val INTERNAL_TWO_WAY_SYNC_TAG = "InternalTwoWaySync"
 
         fun fromTag(tag: String?): NavigatorScreen? = when (tag) {
             ACTIVITIES_TAG -> Activities
@@ -54,6 +59,7 @@ sealed class NavigatorScreen(val tag: String, val hasDrawer: Boolean = true) : P
             TRASHBIN_TAG -> Trashbin
             UPLOAD_LIST_TAG -> UploadList
             AUTO_UPLOAD_TAG -> AutoUpload
+            INTERNAL_TWO_WAY_SYNC_TAG -> InternalTwoWaySync
             else -> null
         }
     }
@@ -65,6 +71,7 @@ sealed class NavigatorScreen(val tag: String, val hasDrawer: Boolean = true) : P
         UploadList -> R.id.nav_uploads
         Notifications -> -1
         AutoUpload -> R.id.nav_settings
+        InternalTwoWaySync -> R.id.nav_settings
     }
 
     fun actionBarStyle(): Pair<ActionBarStyle, Int> = when (this) {
@@ -74,6 +81,7 @@ sealed class NavigatorScreen(val tag: String, val hasDrawer: Boolean = true) : P
         UploadList -> ActionBarStyle.Plain to R.string.uploads_view_title
         Notifications -> ActionBarStyle.Plain to R.string.drawer_item_notifications
         AutoUpload -> ActionBarStyle.Plain to R.string.drawer_synced_folders
+        InternalTwoWaySync -> ActionBarStyle.Plain to R.string.two_way_sync_activity_title
     }
 
     fun toFragment(): Fragment = when (this) {
@@ -83,5 +91,6 @@ sealed class NavigatorScreen(val tag: String, val hasDrawer: Boolean = true) : P
         Trashbin -> TrashbinFragment()
         UploadList -> UploadListFragment()
         AutoUpload -> AutoUploadFragment()
+        InternalTwoWaySync -> InternalTwoWaySyncFragment()
     }
 }
