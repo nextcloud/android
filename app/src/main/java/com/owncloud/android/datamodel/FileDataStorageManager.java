@@ -91,7 +91,6 @@ import androidx.annotation.Nullable;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import kotlin.Pair;
 
-@SuppressFBWarnings("CE")
 public class FileDataStorageManager {
     public static final String TAG = FileDataStorageManager.class.getSimpleName();
 
