@@ -13,8 +13,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 enum class PlayMode(@param:DrawableRes val iconRes: Int) {
-    SINGLE(R.drawable.player_ic_repeat),
-    REPEAT(R.drawable.player_ic_repeat_one),
+    SINGLE(R.drawable.player_ic_repeat_one),
+    REPEAT(R.drawable.player_ic_repeat),
     SHUFFLE(R.drawable.player_ic_shuffle);
 
     fun next(): PlayMode = when (this) {
