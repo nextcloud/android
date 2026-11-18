@@ -97,7 +97,6 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
-import java.security.spec.InvalidParameterSpecException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -786,7 +785,7 @@ public class UploadFileOperation extends SyncOperation {
         return result;
     }
 
-    private E2EData getE2EData(Object object) throws InvalidAlgorithmParameterException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, InvalidParameterSpecException, IOException {
+    private E2EData getE2EData(Object object) throws InvalidAlgorithmParameterException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IOException {
         byte[] key = EncryptionUtils.generateKey();
         byte[] iv = EncryptionUtils.randomBytes(EncryptionUtils.ivLength);
         Cipher cipher = EncryptionUtils.getCipher(Cipher.ENCRYPT_MODE, key, iv);
