@@ -52,7 +52,8 @@ class FileMenuFilter internal constructor(
         val capability = storageManager.getCapability(user.accountName)
 
         return buildList {
-            addAll(getHiddenFileActions(capability, synchronizing))
+            addAll(getHiddenEditActions(capability, synchronizing))
+            addAll(getHiddenDownloadActions(synchronizing))
             addAll(getHiddenSelectionActions(inSingleFileFragment))
             addAll(getHiddenSyncActions(synchronizing))
             addAll(getHiddenShareActions(capability, inSingleFileFragment))
@@ -61,25 +62,26 @@ class FileMenuFilter internal constructor(
             addAll(getHiddenMediaActions())
             addAll(getHiddenLockActions(capability.filesLockingVersion != null))
             addAll(FileAction.getActionsToHide(files.toHashSet()))
-            if (selection.containsReadOnlyFile()) addAll(READ_ONLY_HIDDEN_ACTIONS)
+            if (selection.containsReadOnlyFile()) addAll(FileAction.READ_ONLY_HIDDEN_ACTIONS)
         }
     }
 
-    private fun getHiddenFileActions(capability: OCCapability, synchronizing: Boolean) = buildList {
+    private fun getHiddenEditActions(capability: OCCapability, synchronizing: Boolean) = buildList {
         val containsEncryptedOrLocked = selection.containsEncrypted || selection.containsLocked
 
         if (isEditHidden(capability)) add(R.id.action_edit)
-        if (selection.containsFolder || selection.anyDown || synchronizing) add(R.id.action_download_file)
-        if (selection.containsFolder) add(R.id.action_export_file)
         if (!selection.isSingleSelection || synchronizing || containsEncryptedOrLocked) add(R.id.action_rename_file)
         if (synchronizing || containsEncryptedOrLocked) add(R.id.action_move_or_copy)
         if (synchronizing || selection.containsLocked || selection.containsEncryptedFolderContent()) {
             add(R.id.action_remove_file)
         }
+    }
+
+    private fun getHiddenDownloadActions(synchronizing: Boolean) = buildList {
+        if (selection.containsFolder || selection.anyDown || synchronizing) add(R.id.action_download_file)
+        if (selection.containsFolder) add(R.id.action_export_file)
         if (!selection.isSingleFile || !selection.anyDown || synchronizing) add(R.id.action_open_file_with)
         if (isOpenInWebEditorHidden()) add(R.id.action_open_in_web_editor)
-        if (isPinToHomeHidden()) add(R.id.action_pin_to_homescreen)
-        if (!selection.firstFile.isOfflineOperation) add(R.id.action_retry)
     }
 
     private fun getHiddenSelectionActions(inSingleFileFragment: Boolean) = buildList {
@@ -88,12 +90,14 @@ class FileMenuFilter internal constructor(
         if (inSingleFileFragment || allFilesSelected || overflowMenu) add(R.id.action_select_all_action_menu)
         if (inSingleFileFragment || overflowMenu) add(R.id.action_deselect_all_action_menu)
         if (!selection.isSingleSelection) add(R.id.action_see_details)
+        if (isPinToHomeHidden()) add(R.id.action_pin_to_homescreen)
     }
 
     private fun getHiddenSyncActions(synchronizing: Boolean) = buildList {
         val nothingToSync = !selection.anyDown && !selection.containsFolder
 
         if (!synchronizing) add(R.id.action_cancel_sync)
+        if (!selection.firstFile.isOfflineOperation) add(R.id.action_retry)
         if (nothingToSync || synchronizing || selection.containsEncrypted) {
             add(R.id.action_sync_file)
             add(R.id.action_sync_all_files)
@@ -216,22 +220,5 @@ class FileMenuFilter internal constructor(
         val userId = userId ?: return false
 
         return canUserUnlockFile(userId, selection.firstFile)
-    }
-
-    companion object {
-        const val SEND_OFF: String = "off"
-
-        private val READ_ONLY_HIDDEN_ACTIONS = listOf(
-            R.id.action_remove_file,
-            R.id.action_rename_file,
-            R.id.action_move_or_copy,
-            R.id.action_edit,
-            R.id.action_encrypted,
-            R.id.action_unset_encrypted,
-            R.id.action_lock_file,
-            R.id.action_unlock_file,
-            R.id.action_favorite,
-            R.id.action_unset_favorite
-        )
     }
 }
