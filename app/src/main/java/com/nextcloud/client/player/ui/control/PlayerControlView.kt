@@ -85,13 +85,6 @@ class PlayerControlView @JvmOverloads constructor(
         ContextCompat.getColorStateList(context, R.color.player_control_icon_tint)
     }
 
-    private val toggleIconTint: ColorStateList by lazy {
-        ColorStateList(
-            arrayOf(intArrayOf(android.R.attr.state_checked), intArrayOf()),
-            intArrayOf(serverPrimaryColor, ContextCompat.getColor(context, R.color.player_default_icon_color))
-        )
-    }
-
     var navigator: MediaNavigator? = null
 
     private var playMode = PlayMode.SINGLE
@@ -151,6 +144,7 @@ class PlayerControlView @JvmOverloads constructor(
         binding.run {
             ivPrevious.iconTint = transportIconTint
             ivNext.iconTint = transportIconTint
+            ivPlayMode.iconTint = transportIconTint
             ivPlayPause.backgroundTintList = serverPrimaryTint
             ivPlayPause.iconTint = onServerPrimaryTint
 

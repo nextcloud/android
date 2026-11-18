@@ -86,7 +86,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/ivPlayMode"
-            style="@style/PlayerControlToggleButtonStyle"
+            style="@style/PlayerControlButtonStyle"
             android:contentDescription="@string/player_control_view_play_mode_button_content_description"
             app:icon="@drawable/player_ic_repeat" />
 
