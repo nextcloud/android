@@ -121,6 +121,10 @@
             android:key="renew_e2e_certificate" />
 
         <Preference
+            android:title="@string/mtls_title"
+            android:summary="@string/mtls_summary"
+            android:key="manual_client_certificate" />
+        <Preference
             android:title="@string/prefs_help"
             android:key="help" />
         <Preference
