@@ -232,7 +232,7 @@ class EncryptionUtilsV2IT : EncryptionIT() {
         val metadataKeyBase64 = EncryptionUtils.generateKeyString()
         val metadataKey = EncryptionUtils.decodeStringToBase64Bytes(metadataKeyBase64)
 
-        val user = DecryptedUser("t1", encryptionTestUtils.t1PublicKey, null)
+        val user = DecryptedUser("t1", encryptionTestUtils.t1Certificate, null)
 
         val encryptedUser = encryptionUtilsV2.encryptUser(user, metadataKey)
         assertNotEquals(encryptedUser.encryptedMetadataKey, metadataKeyBase64)
@@ -861,7 +861,7 @@ class EncryptionUtilsV2IT : EncryptionIT() {
             """.trimMargin()
 
         val privateKey = EncryptionUtils.PEMtoPrivateKey(encryptionTestUtils.t1PrivateKey)
-        val certificateT1 = EncryptionUtils.convertCertFromString(encryptionTestUtils.t1PublicKey)
+        val certificateT1 = EncryptionUtils.convertCertFromString(encryptionTestUtils.t1Certificate)
         val certificateEnc2 = EncryptionUtils.convertCertFromString(enc2Cert)
 
         val signed = encryptionUtilsV2.signMessage(
@@ -884,7 +884,7 @@ class EncryptionUtilsV2IT : EncryptionIT() {
         val sut = "randomstring123"
 
         val privateKey = EncryptionUtils.PEMtoPrivateKey(encryptionTestUtils.t1PrivateKey)
-        val certificate = EncryptionUtils.convertCertFromString(encryptionTestUtils.t1PublicKey)
+        val certificate = EncryptionUtils.convertCertFromString(encryptionTestUtils.t1Certificate)
 
         val signed = encryptionUtilsV2.signMessage(
             certificate,
@@ -907,7 +907,7 @@ class EncryptionUtilsV2IT : EncryptionIT() {
 
         val metadata = EncryptionTestUtils().generateFolderMetadataV2(
             client.userId,
-            EncryptionTestIT.publicKey
+            EncryptionTestIT.certificate
         )
 
         RefreshFolderOperation.updateFileNameForEncryptedFile(storageManager, metadata, folder)
@@ -923,7 +923,7 @@ class EncryptionUtilsV2IT : EncryptionIT() {
     @Throws(Exception::class, Throwable::class)
     fun encryptionMetadataV2() {
         val decryptedFolderMetadata1: DecryptedFolderMetadataFile =
-            EncryptionTestUtils().generateFolderMetadataV2(client.userId, EncryptionTestIT.publicKey)
+            EncryptionTestUtils().generateFolderMetadataV2(client.userId, EncryptionTestIT.certificate)
         setE2EECapabilityVersion(E2EVersion.fromValue(decryptedFolderMetadata1.version))
         val root = OCFile("/")
         storageManager.saveFile(root)
@@ -942,7 +942,7 @@ class EncryptionUtilsV2IT : EncryptionIT() {
             folder,
             storageManager,
             client,
-            EncryptionTestIT.publicKey,
+            EncryptionTestIT.certificate,
             user,
             targetContext,
             arbitraryDataProvider
