@@ -860,6 +860,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return this.readOnly;
     }
 
+    @Nullable
     public WebdavEntry.MountType getMountType() {
         return this.mountType;
     }
