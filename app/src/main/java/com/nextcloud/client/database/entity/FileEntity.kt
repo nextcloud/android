@@ -9,10 +9,24 @@ package com.nextcloud.client.database.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 
-@Entity(tableName = ProviderTableMeta.FILE_TABLE_NAME)
+// One row per (path, account). Without it a writer that spelled the path differently — `/dir` vs `/dir/` — added a
+// second row, and `SELECT … WHERE parent = ?` served both to the SAF provider (nextcloud/android#17051). The index is
+// declared here as well as in MIGRATION_106_107 because Room creates a *fresh* database from this declaration: the
+// migration only reaches installs that already exist.
+@Entity(
+    tableName = ProviderTableMeta.FILE_TABLE_NAME,
+    indices = [
+        Index(
+            value = [ProviderTableMeta.FILE_PATH, ProviderTableMeta.FILE_ACCOUNT_OWNER],
+            unique = true,
+            name = "idx_filelist_path_owner"
+        )
+    ]
+)
 data class FileEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = ProviderTableMeta._ID)
