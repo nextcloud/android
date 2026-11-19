@@ -138,13 +138,12 @@ class SyncedFolderAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun removeItem(section: Int) {
-        if (filteredSyncFolderItems.contains(syncFolderItems[section])) {
-            filteredSyncFolderItems.remove(syncFolderItems[section])
+    fun removeItem(item: SyncedFolderDisplayItem) {
+        syncFolderItems.remove(item)
+
+        if (filteredSyncFolderItems.remove(item)) {
             notifyDataSetChanged()
         }
-
-        syncFolderItems.removeAt(section)
     }
 
     /**
@@ -240,6 +239,8 @@ class SyncedFolderAdapter(
      * @param type      the of the synced folder
      * @return the section index of the looked up synced folder, `-1` if not present
      */
+    fun getSectionById(id: Long): Int = filteredSyncFolderItems.indexOfFirst { it.id == id }
+
     fun getSectionByLocalPathAndType(localPath: String?, type: Int): Int {
         for (i in filteredSyncFolderItems.indices) {
             if (filteredSyncFolderItems[i].localPath.equals(localPath, ignoreCase = true) &&

@@ -32,8 +32,8 @@ import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.ui.adapter.SyncedFolderAdapter
 import com.owncloud.android.ui.adapter.storagePermissionBanner.setup
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration
-import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment
-import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment.OnSyncedFolderPreferenceListener
+import com.owncloud.android.ui.dialog.AutoUploadFolderConfigurationListener
+import com.owncloud.android.ui.dialog.AutoUploadPreferenceDialogFragment
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable
 import com.owncloud.android.ui.fragment.autoUpload.data.AutoUploadDisplayItemFactory
 import com.owncloud.android.ui.fragment.autoUpload.data.AutoUploadItemsLoader
@@ -55,7 +55,7 @@ import kotlinx.coroutines.withContext
 
 class AutoUploadFragment :
     Fragment(),
-    OnSyncedFolderPreferenceListener {
+    AutoUploadFolderConfigurationListener {
 
     @Inject lateinit var powerManagementService: PowerManagementService
 
@@ -85,8 +85,8 @@ class AutoUploadFragment :
     private val intentHandler = AutoUploadIntentHandler()
 
     private val folderPickers = AutoUploadPickers(this) {
-        childFragmentManager.findFragmentByTag(AutoUploadClickHandler.SYNCED_FOLDER_PREFERENCES_DIALOG_TAG)
-            as? SyncedFolderPreferencesDialogFragment
+        childFragmentManager.findFragmentByTag(AutoUploadClickHandler.AUTO_UPLOAD_PREFERENCE_DIALOG_TAG)
+            as? AutoUploadPreferenceDialogFragment
     }
 
     private val navigatorActivity: NavigatorActivity?
@@ -144,14 +144,14 @@ class AutoUploadFragment :
     }
     // endregion
 
-    // region OnSyncedFolderPreferenceListener
-    override fun onSaveSyncedFolderPreference(syncedFolder: SyncedFolderParcelable?) {
+    // region AutoUploadFolderConfigurationListener
+    override fun onSaveAutoUploadFolderConfiguration(syncedFolder: SyncedFolderParcelable) {
         clickHandler.onSaveAutoUploadFolderPreference(syncedFolder)
     }
 
-    override fun onCancelSyncedFolderPreference() = Unit
+    override fun onCancelAutoUploadFolderConfiguration() = Unit
 
-    override fun onDeleteSyncedFolderPreference(syncedFolder: SyncedFolderParcelable?) {
+    override fun onDeleteAutoUploadFolderConfiguration(syncedFolder: SyncedFolderParcelable) {
         clickHandler.onDeleteAutoUploadFolderPreference(syncedFolder)
     }
 
@@ -187,7 +187,6 @@ class AutoUploadFragment :
             itemFactory,
             persistence,
             dialogs,
-            backgroundJobManager,
             getAdapter = { adapter },
             onItemVisibilityChanged = { emptyContent?.checkAndShowEmptyListContent() }
         )
