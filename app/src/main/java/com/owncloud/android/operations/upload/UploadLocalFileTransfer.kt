@@ -22,6 +22,7 @@ import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
+import java.io.OutputStream
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.StandardCopyOption
@@ -112,17 +113,19 @@ class UploadLocalFileTransfer(
 
     private fun copyContents(sourceFile: File, targetFile: File) {
         openSourceStream(sourceFile).use { input ->
-            FileOutputStream(targetFile).use { output ->
-                val buffer = ByteArray(COPY_BUFFER_SIZE_BYTES)
-                while (!cancellationRequested.get()) {
-                    val bytesRead = input.read(buffer)
-                    if (bytesRead < 0) {
-                        break
-                    }
+            FileOutputStream(targetFile).use { output -> copyUntilCancelled(input, output) }
+        }
+    }
 
-                    output.write(buffer, 0, bytesRead)
-                }
+    private fun copyUntilCancelled(input: InputStream, output: OutputStream) {
+        val buffer = ByteArray(COPY_BUFFER_SIZE_BYTES)
+        while (!cancellationRequested.get()) {
+            val bytesRead = input.read(buffer)
+            if (bytesRead < 0) {
+                return
             }
+
+            output.write(buffer, 0, bytesRead)
         }
     }
 
