@@ -9,6 +9,7 @@ package com.owncloud.android.operations.upload
 import android.content.Context
 import androidx.core.net.toUri
 import com.nextcloud.client.jobs.upload.FileUploadWorker
+import com.nextcloud.utils.extensions.isConflict
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.operations.OperationCancelledException
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
@@ -40,6 +41,8 @@ class UploadLocalFileTransfer(
         private const val COPY_BUFFER_SIZE_BYTES = 64 * 1024
     }
 
+    private var temporalCopy: File? = null
+
     @Throws(OperationCancelledException::class, IOException::class)
     fun copyToTemporalFileIfNeeded(file: OCFile, originalFile: File, expectedPath: String): RemoteOperationResult<*> {
         if (localBehaviour == FileUploadWorker.LOCAL_BEHAVIOUR_COPY && originalStoragePath != expectedPath) {
@@ -47,7 +50,12 @@ class UploadLocalFileTransfer(
             file.storagePath = temporalPath
             Log_OC.d(TAG, "Copying original file to temporal path: $temporalPath")
 
-            return copy(originalFile, File(temporalPath))
+            val temporalFile = File(temporalPath)
+            if (temporalFile.absolutePath != originalStoragePath) {
+                temporalCopy = temporalFile
+            }
+
+            return copy(originalFile, temporalFile)
         }
 
         if (cancellationRequested.get()) {
@@ -58,6 +66,23 @@ class UploadLocalFileTransfer(
         Log_OC.d(TAG, "Temporal copy not needed, local behaviour: $localBehaviour, path: $originalStoragePath")
 
         return RemoteOperationResult<Any>(ResultCode.OK)
+    }
+
+    fun deleteTemporalCopyUnlessConflict(resultCode: ResultCode) {
+        val file = temporalCopy ?: return
+        if (resultCode.isConflict()) {
+            Log_OC.d(TAG, "Temporal copy kept for conflict resolution: ${file.absolutePath}")
+            return
+        }
+
+        temporalCopy = null
+
+        try {
+            Files.deleteIfExists(file.toPath())
+            Log_OC.d(TAG, "Deleted temporal copy: ${file.absolutePath}")
+        } catch (e: IOException) {
+            Log_OC.w(TAG, "Could not delete temporal copy: ${file.absolutePath}, ${e.message}")
+        }
     }
 
     @Throws(IOException::class)

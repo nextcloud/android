@@ -936,6 +936,7 @@ public class UploadFileOperation extends SyncOperation {
             result = new RemoteOperationResult<>(ResultCode.UNKNOWN_ERROR);
         }
 
+        localFileTransfer.deleteTemporalCopyUnlessConflict(result.getCode());
         logResult(result, mFile.getStoragePath(), mFile.getRemotePath());
 
         if (token == null || token.isEmpty()) {
@@ -1197,6 +1198,7 @@ public class UploadFileOperation extends SyncOperation {
 
             logResult(result, mOriginalStoragePath, mRemotePath);
             uploadsStorageManager.updateDatabaseUploadResult(result, this);
+            localFileTransfer.deleteTemporalCopyUnlessConflict(result.getCode());
         }
 
         if (result.isSuccess()) {
