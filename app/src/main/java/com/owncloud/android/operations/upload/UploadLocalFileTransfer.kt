@@ -45,41 +45,54 @@ class UploadLocalFileTransfer(
         if (localBehaviour == FileUploadWorker.LOCAL_BEHAVIOUR_COPY && originalStoragePath != expectedPath) {
             val temporalPath = FileStorageUtils.getInternalTemporalPath(accountName, context) + file.remotePath
             file.storagePath = temporalPath
+            Log_OC.d(TAG, "Copying original file to temporal path: $temporalPath")
 
             return copy(originalFile, File(temporalPath))
         }
 
         if (cancellationRequested.get()) {
+            Log_OC.w(TAG, "Upload cancelled before temporal copy: $originalStoragePath")
             throw OperationCancelledException()
         }
+
+        Log_OC.d(TAG, "Temporal copy not needed, local behaviour: $localBehaviour, path: $originalStoragePath")
 
         return RemoteOperationResult<Any>(ResultCode.OK)
     }
 
     @Throws(IOException::class)
     fun copy(sourceFile: File, targetFile: File): RemoteOperationResult<*> {
-        Log_OC.d(TAG, "Copying local file")
+        val targetPath = targetFile.absolutePath
+        Log_OC.d(TAG, "Copying $originalStoragePath to $targetPath")
 
-        if (FileStorageUtils.usableSpace < sourceFile.length()) {
+        val usableSpace = FileStorageUtils.usableSpace
+        if (usableSpace < sourceFile.length()) {
+            Log_OC.e(TAG, "Not enough space to copy ${sourceFile.length()} bytes, usable: $usableSpace bytes")
             return RemoteOperationResult<Any>(ResultCode.LOCAL_STORAGE_FULL)
         }
 
         if (!createTargetFile(targetFile)) {
+            Log_OC.e(TAG, "Cannot create target file: $targetPath")
             return RemoteOperationResult<Any>(ResultCode.CANNOT_CREATE_FILE)
         }
 
         try {
-            if (originalStoragePath != targetFile.absolutePath) {
+            if (originalStoragePath == targetPath) {
+                Log_OC.d(TAG, "Target is the original file, content copy skipped: $targetPath")
+            } else {
                 copyContents(sourceFile, targetFile)
             }
         } catch (e: Exception) {
-            Log_OC.e(TAG, "Could not copy $originalStoragePath to ${targetFile.absolutePath}", e)
+            Log_OC.e(TAG, "Could not copy $originalStoragePath to $targetPath", e)
             return RemoteOperationResult<Any>(ResultCode.LOCAL_STORAGE_NOT_COPIED)
         }
 
         if (cancellationRequested.get()) {
+            Log_OC.w(TAG, "Copy cancelled: $originalStoragePath to $targetPath")
             return RemoteOperationResult<Any>(OperationCancelledException())
         }
+
+        Log_OC.d(TAG, "Copied $originalStoragePath to $targetPath, size: ${targetFile.length()} bytes")
 
         return RemoteOperationResult<Any>(ResultCode.OK)
     }
@@ -87,6 +100,7 @@ class UploadLocalFileTransfer(
     @Throws(IOException::class)
     fun move(sourceFile: File, targetFile: File) {
         if (targetFile == sourceFile) {
+            Log_OC.d(TAG, "Source and target are the same, nothing to move: ${sourceFile.absolutePath}")
             return
         }
 
@@ -95,10 +109,14 @@ class UploadLocalFileTransfer(
         Files.createDirectories(targetFolder.toPath())
 
         if (sourceFile.renameTo(targetFile)) {
+            Log_OC.d(TAG, "Moved by rename: ${sourceFile.absolutePath} to ${targetFile.absolutePath}")
             return
         }
 
+        Log_OC.d(TAG, "Rename failed, moving by copy: ${sourceFile.absolutePath} to ${targetFile.absolutePath}")
         copyAndDeleteSource(sourceFile.toPath(), targetFile.toPath())
+
+        Log_OC.d(TAG, "Moved by copy: ${sourceFile.absolutePath} to ${targetFile.absolutePath}")
     }
 
     @Throws(IOException::class)
@@ -144,6 +162,7 @@ class UploadLocalFileTransfer(
         try {
             Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING)
         } catch (e: IOException) {
+            Log_OC.e(TAG, "Could not copy $source to $target, partial target removed", e)
             Files.deleteIfExists(target)
             throw e
         }
