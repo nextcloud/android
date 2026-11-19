@@ -397,12 +397,8 @@
     <string name="encryption_encrypt_unavailable">Ní féidir an fillteán seo a chriptiú. Níl criptiú ó cheann ceann socraithe ar an bhfreastalaí seo.</string>
     <string name="encryption_key_checking_keys">Ag seiceáil eochracha…</string>
     <string name="encryption_key_handle_folder_read_only_description">Baineadh nó cuireadh eochracha criptithe an chuntais seo ina n-áit, mar sin ní féidir ábhar an fhillteáin seo a dhíchriptiú a thuilleadh.\n\nNíl an fillteán inléite ach amháin as seo amach. Chun fillteáin chriptithe a úsáid arís, déan cúltaca den fhillteán seo agus socraigh d\'eochair chriptithe nua sna socruithe.</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_description">Níl an eochair chriptithe atá stóráilte ar an ngléas seo bailí a thuilleadh. Tá na heochracha cúlghairthe ón bhfreastalaí. \n\nBain an criptiú go háitiúil ó na socruithe chun fillteán criptithe nua a chruthú.</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">Níl an eochair chriptithe atá stóráilte ar an ngléas seo bailí a thuilleadh. Tá na heochracha cúlghairthe ón bhfreastalaí. \n\nDéan cúltaca den fhillteán criptithe a cruthaíodh roimhe seo. \n\nAnsin bain an criptiú go háitiúil ó na socruithe chun fillteán criptithe nua a chruthú.</string>
     <string name="encryption_key_handle_key_removed_title">Eochracha criptithe athraithe</string>
     <string name="encryption_key_handle_no_keys_description">Ní féidir an fillteán seo a oscailt mar níl a eochracha criptithe ann a thuilleadh ar an ngléas seo ná ar an bhfreastalaí.</string>
-    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">Baineadh nó cuireadh eochracha criptithe an chuntais seo ina n-áit.\n\nSocraigh d\'eochair chriptithe nua sna socruithe sula ndéanann tú fillteán a chriptiú.
-</string>
     <string name="encryption_new_folder_check_failed">Níorbh fhéidir d’eochracha criptithe a sheiceáil. Déan iarracht an fillteán a chruthú arís.</string>
     <string name="encryption_new_folder_no_network">Ní féidir teacht ar an bhfreastalaí. Déan iarracht an fillteán a chruthú arís níos déanaí.</string>
     <string name="encryption_new_folder_unavailable">Ní féidir fillteáin chriptithe a chruthú. Níl criptiú ó cheann ceann socraithe ar an bhfreastalaí seo.</string>
@@ -411,7 +407,6 @@
     <string name="encryption_open_no_network">Ní féidir teacht ar an bhfreastalaí. Déan iarracht an fillteán a oscailt arís níos déanaí.</string>
     <string name="encryption_open_unavailable">Ní féidir an fillteán seo a oscailt. Níl criptiú ó cheann ceann socraithe ar an bhfreastalaí seo.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Ní féidir teastas an fhreastalaí a fháil</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Theip ar an eochair phoiblí a fhíorú</string>
     <string name="end_to_end_encryption_confirm_button">Socraigh criptiú</string>
     <string name="end_to_end_encryption_decrypting">Ag díchriptiú…</string>
     <string name="end_to_end_encryption_dialog_close">Dún</string>

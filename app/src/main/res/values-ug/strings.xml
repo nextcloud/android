@@ -331,7 +331,6 @@
     <string name="email_pick_failed">ئېلېكترونلۇق خەت ئادرېسىنى تاللىيالمىدى.</string>
     <string name="encrypted">شىفىرلانغان قىلىپ تەڭشەڭ</string>
     <string name="end_to_end_encryption_certificate_unavailable">مۇلازىمېتىر گۇۋاھنامىسىنى چۈشۈرەلمىدى</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">ئاممىۋى ئاچقۇچنى دەلىللىيەلمىدى</string>
     <string name="end_to_end_encryption_confirm_button">مەخپىيلەشتۈرۈشنى تەڭشەڭ</string>
     <string name="end_to_end_encryption_decrypting">شىفىرلاش…</string>
     <string name="end_to_end_encryption_dialog_close">تاقاش</string>

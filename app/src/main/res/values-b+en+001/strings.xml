@@ -397,11 +397,8 @@
     <string name="encryption_encrypt_unavailable">Cannot encrypt this folder. End-to-end encryption is not set up on this server.</string>
     <string name="encryption_key_checking_keys">Checking keys…</string>
     <string name="encryption_key_handle_folder_read_only_description">The encryption keys of this account were removed or replaced, so the contents of this folder can no longer be decrypted.\n\nThe folder is read only from now on. To use encrypted folders again, backup this folder and set up your new encryption key in the settings.</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_description">The encryption key stored on this device is not valid anymore. Keys are revoked from server. \n\nRemove encryption locally from settings to create new encryption folder.</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">The encryption key stored on this device is not valid anymore. Keys are revoked from server. \n\nBackup previously created encrypted folder. \n\nThen remove encryption locally from settings to create new encryption folder.</string>
     <string name="encryption_key_handle_key_removed_title">Encryption keys changed</string>
     <string name="encryption_key_handle_no_keys_description">This folder cannot be opened because its encryption keys no longer exist on this device or on the server.</string>
-    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">The encryption keys of this account were removed or replaced.\n\nSet up your new encryption key in the settings before you encrypt a folder.</string>
     <string name="encryption_new_folder_check_failed">Could not check your encryption keys. Try creating the folder again.</string>
     <string name="encryption_new_folder_no_network">Cannot reach the server. Try creating the folder again later.</string>
     <string name="encryption_new_folder_unavailable">Cannot create encrypted folders. End-to-end encryption is not set up on this server.</string>
@@ -410,7 +407,6 @@
     <string name="encryption_open_no_network">Cannot reach the server. Try opening the folder again later.</string>
     <string name="encryption_open_unavailable">Cannot open this folder. End-to-end encryption is not set up on this server.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Unable to retrieve server certificate</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Failed to verify public key</string>
     <string name="end_to_end_encryption_confirm_button">Set up encryption</string>
     <string name="end_to_end_encryption_decrypting">Decrypting…</string>
     <string name="end_to_end_encryption_dialog_close">Close</string>

@@ -333,7 +333,6 @@
     <string name="email_pick_failed">Erro ao escolher endereço de email.</string>
     <string name="encrypted">Definir como encriptado</string>
     <string name="end_to_end_encryption_certificate_unavailable">Não foi possível obter o certificado do servidor</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Erro ao verificar a chave pública</string>
     <string name="end_to_end_encryption_confirm_button">Definir encriptação</string>
     <string name="end_to_end_encryption_decrypting">Decryption…</string>
     <string name="end_to_end_encryption_dialog_close">Fechar</string>
