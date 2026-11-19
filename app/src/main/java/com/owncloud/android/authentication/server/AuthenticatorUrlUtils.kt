@@ -8,6 +8,7 @@
 package com.owncloud.android.authentication.server
 
 import java.net.URI
+import java.net.URLEncoder
 
 /**
  * Helper class for authenticator-URL related logic.
@@ -15,6 +16,7 @@ import java.net.URI
 object AuthenticatorUrlUtils {
 
     private const val REMOTE_PHP_PATH = "/remote.php/dav"
+    private const val LOGIN_USER_PARAMETER = "user"
 
     fun normalizeUrlSuffix(url: String): String {
         var normalizedUrl = url
@@ -50,6 +52,15 @@ object AuthenticatorUrlUtils {
             strippedUrl = strippedUrl.substring(0, strippedUrl.lastIndexOf("/index.php/apps/"))
         }
         return strippedUrl
+    }
+
+    /**
+     * The server pre-fills its login form with [user], and can refuse the grant to another account that is signed in
+     * in the browser.
+     */
+    fun appendLoginUser(loginUrl: String, user: String): String {
+        val separator = if (loginUrl.contains('?')) '&' else '?'
+        return "$loginUrl$separator$LOGIN_USER_PARAMETER=${URLEncoder.encode(user, Charsets.UTF_8.name())}"
     }
 
     fun normalizeScheme(url: String): String = if (url.matches("[a-zA-Z][a-zA-Z0-9+.-]+://.+".toRegex())) {
