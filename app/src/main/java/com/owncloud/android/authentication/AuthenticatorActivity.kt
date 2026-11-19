@@ -61,6 +61,7 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.repository.ClientRepository
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.showToast
 import com.nextcloud.utils.mdm.MDMConfig
 import com.nextcloud.utils.text.LinkFormatter
 import com.owncloud.android.MainApp
@@ -412,6 +413,8 @@ open class AuthenticatorActivity :
     }
 
     private fun initServerUrlLogin(savedInstanceState: Bundle?) {
+        // errors are shown under the address field, so updateAuthStatus() must keep the activity open
+        showWebViewLoginUrl = true
         val binding = inflateAccountSetupLayout()
         initOverallUi(binding)
 
@@ -843,7 +846,8 @@ open class AuthenticatorActivity :
         authStatus = statusMapper.forAuthentication(result, isHostUrlPlainHttp, showWebViewLoginUrl, authStatus.text)
 
         if (!showWebViewLoginUrl && statusMapper.isFatalAuthenticationError(result)) {
-            SnackbarUtil.show(this, authStatus.text)
+            // a snackbar would close together with the finishing activity
+            authStatus.text?.let { applicationContext.showToast(it) }
             finish()
         }
     }
