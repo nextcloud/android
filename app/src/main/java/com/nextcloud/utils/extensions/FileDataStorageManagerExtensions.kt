@@ -369,7 +369,7 @@ fun FileDataStorageManager.saveFolder(folder: OCFile, updatedFiles: List<OCFile>
             "${filesToRemove.size} files to remove"
     )
 
-    val removedChildren = filesToRemove.filter { it.parentId == folder.fileId }
+    val removedChildren = filesToRemove.filter { it.parentId == folder.fileId && !isPendingOfflineCreation(it) }
     removedChildren.forEach { deleteLocalCopy(it) }
 
     db.runInTransaction {
