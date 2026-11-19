@@ -48,7 +48,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.datastorage.DataStorageProvider
-import com.owncloud.android.datastorage.StoragePoint
 import com.owncloud.android.files.StreamMediaFileOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -316,19 +315,13 @@ class FileOperationsHelper(
             ?: createIntentFromShortcutFile(storagePath, extension)
             ?: viewIntent(file.mimeType)
 
-        val allowAccessFromOtherApps =
-            DataStorageProvider
-                .getInstance()
-                .availableStoragePoints
-                .all { it.privacyType == StoragePoint.PrivacyType.PUBLIC }
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
 
-        val flags = (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-
-        return if (allowAccessFromOtherApps) {
-            intent.addFlags(flags or Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
-        } else {
-            intent.addFlags(flags)
+        if (DataStorageProvider.getInstance().allowAccessFromOtherApps()) {
+            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
         }
+
+        return intent
     }
 
     private fun createIntentFromShortcutFile(storagePath: String, extension: String): Intent? {
