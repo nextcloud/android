@@ -784,6 +784,9 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_ETAG_ON_SERVER, fileOrFolder.getEtagOnServer());
         cv.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, fileOrFolder.isSharedViaLink() ? 1 : 0);
         cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, fileOrFolder.isSharedWithSharee() ? 1 : 0);
+        if (fileOrFolder.getMountType() != null) {
+            cv.put(ProviderTableMeta.FILE_MOUNT_TYPE, fileOrFolder.getMountType().ordinal());
+        }
         cv.put(ProviderTableMeta.FILE_PERMISSIONS, fileOrFolder.getPermissions());
         cv.put(ProviderTableMeta.FILE_REMOTE_ID, fileOrFolder.getRemoteId());
         cv.put(ProviderTableMeta.FILE_LOCAL_ID, fileOrFolder.getLocalId());
