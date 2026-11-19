@@ -100,7 +100,7 @@ class FileListAdapter(
 
     private val allFiles = mutableListOf<OCFile>()
     private val recommendedFiles = mutableListOf<OCFile>()
-    private var recommendedFilesAdapter: RecommendedFilesAdapter? = null
+    private val recommendedFilesAdapter = RecommendedFilesAdapter(this, recommendedFiles)
 
     private val popupDateFormat = SimpleDateFormat(DateFormatPattern.FullMonthWithYear.pattern, Locale.getDefault())
     private val footerId = UUID.randomUUID().leastSignificantBits
@@ -564,6 +564,7 @@ class FileListAdapter(
     fun updateRecommendedFiles(value: List<OCFile>) {
         recommendedFiles.clear()
         recommendedFiles.addAll(value)
+        recommendedFilesAdapter.notifyDataSetChanged()
         differ.syncHeaderState()
         notifyDataSetChanged()
     }
@@ -600,11 +601,7 @@ class FileListAdapter(
     }
 
     private fun bindHeader(holder: FileListHeaderViewHolder) {
-        val visibleRecommendedFilesAdapter = if (shouldShowRecommendedFiles()) {
-            RecommendedFilesAdapter(this, recommendedFiles).also { recommendedFilesAdapter = it }
-        } else {
-            null
-        }
+        val visibleRecommendedFilesAdapter = recommendedFilesAdapter.takeIf { shouldShowRecommendedFiles() }
         headerBinder.bind(holder, currentDirectory, visibleRecommendedFilesAdapter)
     }
 
@@ -645,7 +642,7 @@ class FileListAdapter(
         recommendedFiles.isNotEmpty() && currentDirectory?.isRootDirectory == true
 
     private fun visibleRecommendedFilesAdapterFor(file: OCFile): RecommendedFilesAdapter? =
-        recommendedFilesAdapter?.takeIf { shouldShowRecommendedFiles() && file.isRecommendedFile }
+        recommendedFilesAdapter.takeIf { shouldShowRecommendedFiles() && file.isRecommendedFile }
 
     private fun notifyItemChangedIfPresent(file: OCFile, payload: Any? = null) {
         val position = getItemPosition(file)
