@@ -347,7 +347,6 @@
     <string name="empty_albums_title">Sortu albumak zure argakientzat</string>
     <string name="encrypted">Ezarri zifratu gisa</string>
     <string name="end_to_end_encryption_certificate_unavailable">Ezin da zerbitzariaren ziurtagiria berreskuratu</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Ezin izan da gako publikoa egiaztatu</string>
     <string name="end_to_end_encryption_confirm_button">Konfiguratu zifratzea</string>
     <string name="end_to_end_encryption_decrypting">Deszifratzen...</string>
     <string name="end_to_end_encryption_dialog_close">Itxi</string>

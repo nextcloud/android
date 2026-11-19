@@ -397,11 +397,8 @@
     <string name="encryption_encrypt_unavailable">Не удаётся зашифровать папку: сквозное шифрование не настроено на этом сервере.</string>
     <string name="encryption_key_checking_keys">Проверка ключей…</string>
     <string name="encryption_key_handle_folder_read_only_description">Ключи шифрования этой учётной записи удалены или заменены, поэтому содержимое папки больше нельзя расшифровать.\n\nПапка теперь доступна только для чтения. Чтобы снова пользоваться зашифрованными папками, сделайте резервную копию этой папки и настройте новый ключ шифрования в настройках.</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_description">Ключ шифрования, сохранённый на этом устройстве, больше не действителен: ключи отозваны на сервере. \n\nУдалите шифрование на устройстве в настройках, чтобы создать новую зашифрованную папку.</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">Ключ шифрования, сохранённый на этом устройстве, больше не действителен: ключи отозваны на сервере. \n\nСделайте резервную копию ранее созданной зашифрованной папки. \n\nЗатем удалите шифрование на устройстве в настройках, чтобы создать новую зашифрованную папку.</string>
     <string name="encryption_key_handle_key_removed_title">Ключи шифрования изменились</string>
     <string name="encryption_key_handle_no_keys_description">Эту папку нельзя открыть: её ключи шифрования больше не существуют ни на этом устройстве, ни на сервере.</string>
-    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">Ключи шифрования этой учётной записи удалены или заменены.\n\nПрежде чем шифровать папку, настройте новый ключ шифрования в настройках.</string>
     <string name="encryption_new_folder_check_failed">Не удалось проверить ключи шифрования. Попробуйте создать папку ещё раз.</string>
     <string name="encryption_new_folder_no_network">Не удаётся связаться с сервером. Попробуйте создать папку позже.</string>
     <string name="encryption_new_folder_unavailable">Невозможно создать зашифрованные папки: сквозное шифрование не настроено на этом сервере.</string>
@@ -410,7 +407,6 @@
     <string name="encryption_open_no_network">Не удаётся связаться с сервером. Попробуйте открыть папку позже.</string>
     <string name="encryption_open_unavailable">Невозможно открыть папку: сквозное шифрование не настроено на этом сервере.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Не удаётся получить сертификат сервера</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Не удалось проверить открытый ключ</string>
     <string name="end_to_end_encryption_confirm_button">Настроить шифрование</string>
     <string name="end_to_end_encryption_decrypting">Расшифровка…</string>
     <string name="end_to_end_encryption_dialog_close">Закрыть</string>

@@ -9,11 +9,15 @@ package com.nextcloud.client.database.dao
 
 import androidx.room.Dao
 import androidx.room.Query
+import androidx.room.Upsert
 import com.nextcloud.client.database.entity.CapabilityEntity
 
 @Dao
 interface CapabilityDao {
 
     @Query("SELECT * FROM capabilities WHERE account = :accountName LIMIT 1")
-    suspend fun getByAccountName(accountName: String): CapabilityEntity?
+    fun getByAccountName(accountName: String): CapabilityEntity?
+
+    @Upsert
+    fun upsert(entity: CapabilityEntity): Long
 }

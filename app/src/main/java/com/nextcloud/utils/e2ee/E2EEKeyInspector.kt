@@ -9,6 +9,7 @@ package com.nextcloud.utils.e2ee
 
 import android.content.Context
 import com.google.gson.reflect.TypeToken
+import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -29,8 +30,10 @@ import com.owncloud.android.utils.EncryptionUtilsV2
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.apache.commons.httpclient.HttpStatus
+import java.security.cert.CertificateException
 import javax.inject.Inject
 
+@Suppress("TooGenericExceptionCaught", "ReturnCount", "DEPRECATION")
 class E2EEKeyInspector @Inject constructor(
     private val context: Context,
     private val storageManager: FileDataStorageManager,
@@ -44,7 +47,7 @@ class E2EEKeyInspector @Inject constructor(
 
     fun isLocalKeysAbsent(): Boolean =
         arbitraryDataProvider.getValue(accountManager.user, EncryptionUtils.PRIVATE_KEY).isEmpty() ||
-            arbitraryDataProvider.getValue(accountManager.user, EncryptionUtils.PUBLIC_KEY).isEmpty()
+            arbitraryDataProvider.getValue(accountManager.user, EncryptionUtils.CERTIFICATE).isEmpty()
 
     suspend fun fetchCapabilities(): Boolean = withContext(Dispatchers.IO) {
         val result = GetCapabilitiesOperation(storageManager).execute(context).isSuccess
@@ -56,30 +59,65 @@ class E2EEKeyInspector @Inject constructor(
         return@withContext result
     }
 
-    suspend fun compareWithServerKey(storedPublicKey: String): DownloadKeyResult = withContext(Dispatchers.IO) {
-        Log_OC.d(TAG, "comparing local public key with remote public key")
+    suspend fun compareWithServerCertificate(storedCertificate: String): DownloadKeyResult =
+        withContext(Dispatchers.IO) {
+            Log_OC.d(TAG, "comparing stored certificate against server certificate")
 
-        val user = accountManager.user
+            val user = accountManager.user
 
-        val certificateResult = GetCertificateRemoteOperation().executeNextcloudClient(user, context)
-        if (!certificateResult.isSuccess) {
-            return@withContext if (certificateResult.httpCode == HttpStatus.SC_NOT_FOUND) {
-                DownloadKeyResult.NoServerKey
-            } else {
-                DownloadKeyResult.CertificateUnavailable()
+            val certificateResult = GetCertificateRemoteOperation().executeNextcloudClient(user, context)
+            if (!certificateResult.isSuccess) {
+                return@withContext if (certificateResult.httpCode == HttpStatus.SC_NOT_FOUND) {
+                    DownloadKeyResult.NoCertificateOnServer
+                } else {
+                    DownloadKeyResult.CertificateUnavailable()
+                }
             }
+
+            val remoteCertificate = certificateResult.resultData
+            val storedServerPublicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.SERVER_PUBLIC_KEY)
+            if (storedServerPublicKey.isEmpty()) {
+                return@withContext fetchServerPublicKeyStoreAndCompare(user, storedCertificate, remoteCertificate)
+            }
+
+            val isSignedByStoredServerPublicKey = certificateValidator.validate(
+                serverPublicKeyString = storedServerPublicKey,
+                certificate = remoteCertificate
+            )
+            if (!isSignedByStoredServerPublicKey) {
+                Log_OC.w(TAG, "certificate cannot be verified with the stored server public key")
+                return@withContext DownloadKeyResult.CertificateNotSignedByStoredServerKey
+            }
+
+            return@withContext DownloadKeyResult.CompareKeys(
+                same = haveSamePublicKey(storedCertificate, remoteCertificate)
+            )
         }
 
+    private fun fetchServerPublicKeyStoreAndCompare(
+        user: User,
+        storedCertificate: String,
+        remoteCertificate: String
+    ): DownloadKeyResult {
         val serverPublicKeyResult = GetServerPublicKeyRemoteOperation().executeNextcloudClient(user, context)
-        if (!serverPublicKeyResult.isSuccess) return@withContext DownloadKeyResult.ServerPublicKeyUnavailable()
+        if (!serverPublicKeyResult.isSuccess) return DownloadKeyResult.ServerPublicKeyUnavailable()
 
-        val isCertificateValid = certificateValidator.validate(
-            serverPublicKeyResult.resultData,
-            certificateResult.resultData
-        )
-        if (!isCertificateValid) return@withContext DownloadKeyResult.CertificateVerificationFailed()
+        val serverPublicKey = serverPublicKeyResult.resultData
+        if (!certificateValidator.validate(serverPublicKeyString = serverPublicKey, certificate = remoteCertificate)) {
+            return DownloadKeyResult.CertificateNotSignedByCurrentServerKey()
+        }
 
-        return@withContext DownloadKeyResult.CompareKeys(same = (storedPublicKey == certificateResult.resultData))
+        arbitraryDataProvider.storeOrUpdateKeyValue(user, EncryptionUtils.SERVER_PUBLIC_KEY, serverPublicKey)
+        return DownloadKeyResult.CompareKeys(same = haveSamePublicKey(storedCertificate, remoteCertificate))
+    }
+
+    private fun haveSamePublicKey(firstCertificate: String, secondCertificate: String): Boolean = try {
+        val firstPublicKey = EncryptionUtils.convertPublicKeyFromString(firstCertificate)
+        val secondPublicKey = EncryptionUtils.convertPublicKeyFromString(secondCertificate)
+        firstPublicKey.encoded.contentEquals(secondPublicKey.encoded)
+    } catch (e: CertificateException) {
+        Log_OC.w(TAG, "certificate could not be parsed: $e")
+        false
     }
 
     suspend fun canDecryptFolderMetadata(folder: OCFile, capability: OCCapability): Boolean =
@@ -122,7 +160,7 @@ class E2EEKeyInspector @Inject constructor(
                 context,
                 arbitraryDataProvider
             )
-            !metadataKey.isEmpty()
+            metadataKey.isNotEmpty()
         } catch (e: Exception) {
             Log_OC.w(TAG, "user tried to decrypt folder's metadata with different private key: $e")
             false
