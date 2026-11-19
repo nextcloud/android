@@ -546,12 +546,7 @@ class FileDisplayActivity :
             return
         }
 
-        val currentStorageManager: FileDataStorageManager = storageManager ?: run {
-            Log_OC.w(TAG, "storage manager is null, cannot init file")
-            return
-        }
-
-        val initialFile = resolveInitialFile(currentStorageManager) ?: run {
+        val initialFile = resolveInitialFile() ?: run {
             Log_OC.e(TAG, "Could not retrieve root folder – cannot continue")
             return
         }
@@ -584,7 +579,7 @@ class FileDisplayActivity :
         checkForNewDevVersionNecessary(applicationContext)
     }
 
-    private fun resolveInitialFile(storageManager: FileDataStorageManager): OCFile? =
+    private fun resolveInitialFile(): OCFile? =
         file?.let { findStoredFile(it, storageManager) } ?: storageManager.getFileByPath(OCFile.ROOT_PATH)
 
     private fun findStoredFile(file: OCFile, storageManager: FileDataStorageManager): OCFile? {
@@ -889,7 +884,7 @@ class FileDisplayActivity :
             return
         }
 
-        val fileStorageManager = storageManager ?: FileDataStorageManager(user, contentResolver)
+        val fileStorageManager = storageManager
         val weakContext = WeakReference<Context>(this)
         val task = FetchRemoteFileTask(user, fileId, fileStorageManager, lifecycleScope, capability, weakContext)
         task.run(showFile = { (fetchedFile, message) ->
@@ -901,7 +896,7 @@ class FileDisplayActivity :
     private fun openFileByPath(user: User, filePath: String) {
         setUser(user)
 
-        val fileStorageManager = storageManager ?: FileDataStorageManager(user, contentResolver)
+        val fileStorageManager = storageManager
         lifecycleScope.launch {
             val client = clientRepository.getOwncloudClient() ?: run {
                 onFileRequestError(null)
@@ -1572,7 +1567,7 @@ class FileDisplayActivity :
             val syncFolderRemotePath = intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH)
             val syncResultId = intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT)
             val syncResult = DataHolderUtil.getInstance().retrieve(syncResultId)
-            val isSameAccount = isCurrentAccount(accountName) && storageManager != null
+            val isSameAccount = isCurrentAccount(accountName)
             val fileList = listOfFilesFragment
 
             if (isSameAccount) {
@@ -1962,7 +1957,6 @@ class FileDisplayActivity :
 
     private fun requestDownloadOfWaitingPreview() {
         val previousFile = waitingToPreview ?: return
-        if (storageManager == null) return
 
         val refreshedFile = storageManager.getFileById(previousFile.fileId)
         waitingToPreview = refreshedFile
@@ -2177,8 +2171,8 @@ class FileDisplayActivity :
 
             connectivityService.isNetworkAndServerAvailable { isAvailable ->
                 when {
-                    isAvailable -> fileOperationsHelper?.removeFiles(filesToRemove, onlyLocalCopy, true)
-                    onlyLocalCopy -> fileOperationsHelper?.removeFiles(filesToRemove, true, true)
+                    isAvailable -> fileOperationsHelper.removeFiles(filesToRemove, onlyLocalCopy, true)
+                    onlyLocalCopy -> fileOperationsHelper.removeFiles(filesToRemove, true, true)
                     else -> filesToRemove.forEach { fileDataStorageManager.addRemoveFileOfflineOperation(it) }
                 }
                 onFilesRemoved()
