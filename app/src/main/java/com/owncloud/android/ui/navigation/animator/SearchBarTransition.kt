@@ -33,10 +33,10 @@ class SearchBarTransition(private val toolbar: MaterialToolbar, homeToolbar: Vie
     private val collapseFade = Fade()
         .setDuration(durationMillis)
         .excludeTarget(toolbar, true)
-        .excludeChildren(toolbar, true)
 
+    // if parent fully search card means it's already expanded
     val isExpanded: Boolean
-        get() = toolbar.parent === searchCard
+        get() = (toolbar.parent === searchCard)
 
     private val isSearchViewExpanded: Boolean
         get() = toolbar.findViewById<View>(androidx.appcompat.R.id.search_edit_frame)?.isVisible == true

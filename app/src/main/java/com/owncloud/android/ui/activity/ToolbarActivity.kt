@@ -102,7 +102,10 @@ abstract class ToolbarActivity :
 
     private fun isActionBarDisplayed(style: ActionBarStyle): Boolean {
         if (!isToolbarBound) return false
+
+        // needed to prevent plain toolbar returning from unified share
         if (style == ActionBarStyle.Plain && searchBarTransition.isExpanded) return true
+
         val (displayed, hidden) = when (style) {
             ActionBarStyle.Plain -> defaultToolbar to homeSearchToolbar
             ActionBarStyle.Search -> homeSearchToolbar to defaultToolbar
