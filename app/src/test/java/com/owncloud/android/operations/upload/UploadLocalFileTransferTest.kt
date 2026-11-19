@@ -72,7 +72,7 @@ class UploadLocalFileTransferTest {
     private fun targetFile(vararg segments: String) = File(temporaryFolder.root, segments.joinToString(File.separator))
 
     @Test
-    fun copyWritesSourceContentIntoTarget() {
+    fun `copy writes source content into target`() {
         val target = targetFile(TARGET_NAME)
 
         val result = createTransfer().copy(sourceFile, target)
@@ -83,7 +83,7 @@ class UploadLocalFileTransferTest {
     }
 
     @Test
-    fun copyCreatesMissingParentFolders() {
+    fun `copy creates missing parent folders`() {
         val target = targetFile(NESTED_FOLDER_NAME, NESTED_FOLDER_NAME, TARGET_NAME)
 
         val result = createTransfer().copy(sourceFile, target)
@@ -93,7 +93,7 @@ class UploadLocalFileTransferTest {
     }
 
     @Test
-    fun copyOverwritesExistingTarget() {
+    fun `copy overwrites existing target`() {
         val target = targetFile(TARGET_NAME).apply { writeText(OTHER_CONTENT) }
 
         val result = createTransfer().copy(sourceFile, target)
@@ -103,7 +103,7 @@ class UploadLocalFileTransferTest {
     }
 
     @Test
-    fun copyReturnsLocalStorageFullWhenSpaceIsNotEnough() {
+    fun `copy returns local storage full when space is not enough`() {
         every { FileStorageUtils.usableSpace } returns 0L
         val target = targetFile(TARGET_NAME)
 
@@ -114,7 +114,7 @@ class UploadLocalFileTransferTest {
     }
 
     @Test
-    fun copyReturnsCannotCreateFileWhenParentIsAFile() {
+    fun `copy returns cannot create file when parent is a file`() {
         val parentAsFile = temporaryFolder.newFile(PARENT_AS_FILE_NAME)
 
         val result = createTransfer().copy(sourceFile, File(parentAsFile, TARGET_NAME))
@@ -123,7 +123,7 @@ class UploadLocalFileTransferTest {
     }
 
     @Test
-    fun copyReturnsLocalStorageNotCopiedWhenSourceIsMissing() {
+    fun `copy returns local storage not copied when source is missing`() {
         val missingSource = targetFile(MISSING_NAME)
 
         val result = createTransfer(originalStoragePath = missingSource.absolutePath)
@@ -133,7 +133,7 @@ class UploadLocalFileTransferTest {
     }
 
     @Test
-    fun copySkipsContentWhenTargetIsOriginalFile() {
+    fun `copy skips content when target is original file`() {
         val result = createTransfer().copy(sourceFile, sourceFile)
 
         assertTrue(result.isSuccess)
@@ -141,7 +141,7 @@ class UploadLocalFileTransferTest {
     }
 
     @Test
-    fun copyReturnsCancelledResultWhenCancellationRequested() {
+    fun `copy returns cancelled result when cancellation requested`() {
         cancellationRequested.set(true)
         val target = targetFile(TARGET_NAME)
 
@@ -152,7 +152,7 @@ class UploadLocalFileTransferTest {
     }
 
     @Test
-    fun copyReadsContentUriThroughContentResolver() {
+    fun `copy reads content uri through content resolver`() {
         every { contentResolver.openInputStream(contentUri) } returns ByteArrayInputStream(OTHER_CONTENT.toByteArray())
         val target = targetFile(TARGET_NAME)
 
@@ -163,7 +163,7 @@ class UploadLocalFileTransferTest {
     }
 
     @Test
-    fun copyReturnsLocalStorageNotCopiedWhenContentResolverReturnsNull() {
+    fun `copy returns local storage not copied when content resolver returns null`() {
         every { contentResolver.openInputStream(contentUri) } returns null
 
         val result = createTransfer(originalStoragePath = CONTENT_URI).copy(sourceFile, targetFile(TARGET_NAME))
@@ -172,7 +172,7 @@ class UploadLocalFileTransferTest {
     }
 
     @Test
-    fun moveRenamesSourceIntoTarget() {
+    fun `move renames source into target`() {
         val target = targetFile(NESTED_FOLDER_NAME, TARGET_NAME)
 
         createTransfer().move(sourceFile, target)
@@ -182,14 +182,14 @@ class UploadLocalFileTransferTest {
     }
 
     @Test
-    fun moveKeepsFileWhenSourceAndTargetAreSame() {
+    fun `move keeps file when source and target are same`() {
         createTransfer().move(sourceFile, File(sourceFile.absolutePath))
 
         assertEquals(CONTENT, sourceFile.readText())
     }
 
     @Test
-    fun copyToTemporalFileCopiesIntoTemporalPathForCopyBehaviour() {
+    fun `copyToTemporalFileIfNeeded copies into temporal path for copy behaviour`() {
         val file = OCFile(REMOTE_PATH)
 
         val result = createTransfer().copyToTemporalFileIfNeeded(file, sourceFile, targetFile(TARGET_NAME).path)
@@ -201,7 +201,7 @@ class UploadLocalFileTransferTest {
     }
 
     @Test
-    fun copyToTemporalFileSkipsCopyWhenOriginalIsExpectedPath() {
+    fun `copyToTemporalFileIfNeeded skips copy when original is expected path`() {
         val file = OCFile(REMOTE_PATH).apply { storagePath = sourceFile.absolutePath }
 
         val result = createTransfer().copyToTemporalFileIfNeeded(file, sourceFile, sourceFile.absolutePath)
@@ -212,7 +212,7 @@ class UploadLocalFileTransferTest {
     }
 
     @Test
-    fun copyToTemporalFileSkipsCopyForMoveBehaviour() {
+    fun `copyToTemporalFileIfNeeded skips copy for move behaviour`() {
         val file = OCFile(REMOTE_PATH).apply { storagePath = sourceFile.absolutePath }
 
         val result = createTransfer(localBehaviour = FileUploadWorker.LOCAL_BEHAVIOUR_MOVE)
@@ -223,7 +223,7 @@ class UploadLocalFileTransferTest {
     }
 
     @Test(expected = OperationCancelledException::class)
-    fun copyToTemporalFileThrowsWhenCancelledWithoutCopy() {
+    fun `copyToTemporalFileIfNeeded throws when cancelled without copy`() {
         cancellationRequested.set(true)
 
         createTransfer(localBehaviour = FileUploadWorker.LOCAL_BEHAVIOUR_MOVE)
