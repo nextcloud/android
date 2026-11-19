@@ -39,48 +39,64 @@ class SearchBarSideButtonsAnimator(homeToolbar: ViewGroup, private val durationM
         AnimationUtils.loadInterpolator(homeToolbar.context, android.R.interpolator.fast_out_slow_in)
 
     private var animator: ValueAnimator? = null
-    private var progress = VISIBLE_PROGRESS
 
-    fun hide() = animateTo(HIDDEN_PROGRESS)
+    private var hiddenFraction = SHOWN
 
-    fun show() = animateTo(VISIBLE_PROGRESS)
+    fun hide() = animateTo(HIDDEN)
 
+    fun show() = animateTo(SHOWN)
+
+    // Animates hiddenFraction from its current value to target over durationMillis.
+    // SHOWN (0f) = idle home bar, HIDDEN (1f) = hamburger and avatar completely gone (search open).
+    // Example for hide(), avatar width 48 -> 0 (real timings follow the fast_out_slow_in easing):
+    //
+    // | time   | hiddenFraction | avatar width | avatar alpha |
+    // |--------|----------------|--------------|--------------|
+    // | 0 ms   | 0.0  (0%)      | 48           | 1.0          |
+    // | 100 ms | 0.25 (25%)     | 36           | 0.75         |
+    // | 200 ms | 0.5  (50%)     | 24           | 0.5          |
+    // | 300 ms | 0.75 (75%)     | 12           | 0.25         |
+    // | 400 ms | 1.0  (100%)    | 0            | 0.0          |
+    //
+    // show() runs the same table backwards (1f -> 0f), so everything returns to its idle size.
     private fun animateTo(target: Float) {
         animator?.cancel()
-        applyProgress(progress)
+        applyHiddenFraction(hiddenFraction)
         setButtonsVisible(true)
 
-        animator = ValueAnimator.ofFloat(progress, target).apply {
+        animator = ValueAnimator.ofFloat(hiddenFraction, target).apply {
             duration = durationMillis
             interpolator = this@SearchBarSideButtonsAnimator.interpolator
             addUpdateListener {
-                progress = it.animatedValue as Float
-                applyProgress(progress)
+
+                // Called on every screen frame so that we can apply transition for each frame
+                hiddenFraction = it.animatedValue as Float
+                applyHiddenFraction(hiddenFraction)
             }
-            doOnEnd { if (progress == HIDDEN_PROGRESS) settleHidden() }
+            doOnEnd { if (hiddenFraction == HIDDEN) settleHidden() }
             start()
         }
     }
 
-    private fun applyProgress(fraction: Float) {
-        val leadingCurrentWidth = lerp(leadingWidth, 0, fraction)
+    private fun applyHiddenFraction(fraction: Float) {
+        val leadingCurrentWidth = interpolate(leadingWidth, 0, fraction)
         leadingButton.updateLayoutParams<MarginLayoutParams> {
             width = leadingCurrentWidth
-            marginStart = lerp(leadingIdleMarginStart, expandedMargin, fraction)
-            marginEnd = lerp(leadingIdleMarginEnd, 0, fraction)
+            marginStart = interpolate(leadingIdleMarginStart, expandedMargin, fraction)
+            marginEnd = interpolate(leadingIdleMarginEnd, 0, fraction)
         }
         leadingButton.scrollX = -(leadingWidth - leadingCurrentWidth) / 2
 
-        val trailingCurrentWidth = lerp(trailingWidth, 0, fraction)
+        val trailingCurrentWidth = interpolate(trailingWidth, 0, fraction)
         trailingButton.updateLayoutParams<MarginLayoutParams> {
             width = trailingCurrentWidth
-            marginEnd = lerp(trailingIdleMarginEnd, expandedMargin, fraction)
+            marginEnd = interpolate(trailingIdleMarginEnd, expandedMargin, fraction)
         }
         trailingButton.scrollX = (trailingWidth - trailingCurrentWidth) / 2
 
         searchCard.updateLayoutParams<MarginLayoutParams> {
             marginStart = cardIdleMarginStart
-            marginEnd = lerp(cardIdleMarginEnd, 0, fraction)
+            marginEnd = interpolate(cardIdleMarginEnd, 0, fraction)
         }
 
         val alpha = VISIBLE_ALPHA - fraction
@@ -89,7 +105,7 @@ class SearchBarSideButtonsAnimator(homeToolbar: ViewGroup, private val durationM
     }
 
     private fun settleHidden() {
-        applyProgress(VISIBLE_PROGRESS)
+        applyHiddenFraction(SHOWN)
         setButtonsVisible(false)
 
         searchCard.updateLayoutParams<MarginLayoutParams> {
@@ -103,11 +119,14 @@ class SearchBarSideButtonsAnimator(homeToolbar: ViewGroup, private val durationM
         trailingButton.isVisible = visible
     }
 
-    private fun lerp(start: Int, end: Int, fraction: Float): Int = (start + (end - start) * fraction).roundToInt()
+    // Value partway between start and end: fraction 0f gives start, 1f gives end, 0.25f is a quarter of the way,
+    // e.g. interpolate(48, 0, 0.25f) = 48 + (0 - 48) * 0.25 = 36
+    private fun interpolate(start: Int, end: Int, fraction: Float): Int =
+        (start + (end - start) * fraction).roundToInt()
 
     private companion object {
-        const val VISIBLE_PROGRESS = 0f
-        const val HIDDEN_PROGRESS = 1f
+        const val SHOWN = 0f
+        const val HIDDEN = 1f
         const val VISIBLE_ALPHA = 1f
     }
 }
