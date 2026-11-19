@@ -390,11 +390,11 @@ fun FileDataStorageManager.isPendingOfflineCreation(file: OCFile): Boolean {
 private fun FileDataStorageManager.upsertFolderContent(folder: OCFile, remoteFiles: List<OCFile>) {
     remoteFiles.forEach { file ->
         val existingFile = findExistingFile(file)
-        val rEntity = file.toFileEntity(user.accountName)
-        val entity = rEntity.copy(
+        val remoteEntity = file.toFileEntity(user.accountName)
+        val entity = remoteEntity.copy(
             id = existingFile?.id,
             parent = folder.fileId,
-            mountType = rEntity.mountType ?: existingFile?.mountType
+            mountType = remoteEntity.mountType ?: existingFile?.mountType
         )
 
         val insertedRowId = fileDao.upsert(entity)
