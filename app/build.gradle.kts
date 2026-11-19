@@ -179,8 +179,8 @@ android {
         register("versionDev") {
             applicationId = "com.nextcloud.android.beta"
             dimension = "default"
-            versionCode = 20220322
-            versionName = "20220322"
+            versionCode = 20261119
+            versionName = "20261119"
             optimization {
                 enable = enableR8
             }
