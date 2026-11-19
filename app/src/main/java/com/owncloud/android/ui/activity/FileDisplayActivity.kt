@@ -1260,6 +1260,8 @@ class FileDisplayActivity :
 
     private fun setupSearchView(view: SearchView) {
         viewThemeUtils.androidx.themeToolbarSearchView(view)
+
+        // when search expanded makes transparent of the background
         view.findViewById<View>(androidx.appcompat.R.id.search_plate)?.backgroundTintList =
             ColorStateList.valueOf(Color.TRANSPARENT)
 
