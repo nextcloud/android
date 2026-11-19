@@ -119,7 +119,7 @@ class OCFileListDiffer(
 
         if (shouldShowHeader == isHeaderDisplayed) {
             if (shouldShowHeader) {
-                adapter.notifyItemChanged(0)
+                adapter.notifyItemChanged(0, REBIND_PAYLOAD)
             }
             return
         }
