@@ -38,7 +38,7 @@ class SearchBarTransition(private val toolbar: MaterialToolbar, homeToolbar: Vie
     val isExpanded: Boolean
         get() = (toolbar.parent === searchCard)
 
-    private val isSearchViewExpanded: Boolean
+    private val isSearchOpen: Boolean
         get() = toolbar.findViewById<View>(androidx.appcompat.R.id.search_edit_frame)?.isVisible == true
 
     fun expand() {
@@ -46,6 +46,8 @@ class SearchBarTransition(private val toolbar: MaterialToolbar, homeToolbar: Vie
 
         TransitionManager.beginDelayedTransition(searchCard, expandFade)
         fadeOutSearchCardContent()
+
+        // move the toolbar with its SearchView into the card, transparent so the card shows through
         toolbarParent.removeView(toolbar)
         toolbar.background = null
         searchCard.addView(toolbar, FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT))
@@ -55,7 +57,9 @@ class SearchBarTransition(private val toolbar: MaterialToolbar, homeToolbar: Vie
 
     fun syncWith(style: ActionBarStyle) {
         when (style) {
-            ActionBarStyle.Search -> if (!isSearchViewExpanded) collapse()
+            // search not opened thus we need to collapse to see leading and trailing icon
+            ActionBarStyle.Search -> if (!isSearchOpen) collapse()
+
             ActionBarStyle.Plain -> collapse()
         }
     }
@@ -64,6 +68,8 @@ class SearchBarTransition(private val toolbar: MaterialToolbar, homeToolbar: Vie
         if (!isExpanded) return
 
         TransitionManager.beginDelayedTransition(searchCard, collapseFade)
+
+        // do opposite of expand
         searchCard.removeView(toolbar)
         toolbarParent.addView(toolbar, toolbarIndex, toolbarLayoutParams)
         searchCardContent.animate().cancel()
