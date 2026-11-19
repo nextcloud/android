@@ -357,7 +357,6 @@
     <string name="email_pick_failed">Fallo al seleccionar dirección de correo.</string>
     <string name="encrypted">Establecer como cifrado</string>
     <string name="end_to_end_encryption_certificate_unavailable">No fue posible recuperar el certificado del servidor</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Fallo al verificar la clave pública</string>
     <string name="end_to_end_encryption_confirm_button">Configurar cifrado</string>
     <string name="end_to_end_encryption_decrypting">Descifrando…</string>
     <string name="end_to_end_encryption_dialog_close">Cerrar</string>

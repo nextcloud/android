@@ -356,7 +356,6 @@
     <string name="email_pick_failed">未能选择电子邮箱地址</string>
     <string name="encrypted">设置为加密</string>
     <string name="end_to_end_encryption_certificate_unavailable">无法检索服务器证书</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">无法验证公钥</string>
     <string name="end_to_end_encryption_confirm_button">设置加密</string>
     <string name="end_to_end_encryption_decrypting">正在解密…</string>
     <string name="end_to_end_encryption_dialog_close">关闭</string>

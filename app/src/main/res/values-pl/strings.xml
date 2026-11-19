@@ -352,7 +352,6 @@
     <string name="email_pick_failed">Nie udało się wybrać adresu e-mail.</string>
     <string name="encrypted">Ustaw jako zaszyfrowane</string>
     <string name="end_to_end_encryption_certificate_unavailable">Nie można pobrać certyfikatu serwera</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Nie udało się zweryfikować klucza publicznego</string>
     <string name="end_to_end_encryption_confirm_button">Włącz szyfrowanie</string>
     <string name="end_to_end_encryption_decrypting">Odszyfrowywanie…</string>
     <string name="end_to_end_encryption_dialog_close">Zamknij</string>
