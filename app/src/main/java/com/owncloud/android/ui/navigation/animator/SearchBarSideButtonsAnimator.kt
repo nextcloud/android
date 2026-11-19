@@ -68,7 +68,6 @@ class SearchBarSideButtonsAnimator(homeToolbar: ViewGroup, private val durationM
             duration = durationMillis
             interpolator = this@SearchBarSideButtonsAnimator.interpolator
             addUpdateListener {
-
                 // Called on every screen frame so that we can apply transition for each frame
                 hiddenFraction = it.animatedValue as Float
                 applyHiddenFraction(hiddenFraction)
