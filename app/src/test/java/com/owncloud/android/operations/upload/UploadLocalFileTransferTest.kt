@@ -133,7 +133,7 @@ class UploadLocalFileTransferTest {
     }
 
     @Test
-    fun `copy skips content when target is original file`() {
+    fun `copy keeps original file intact when target is original file`() {
         val result = createTransfer().copy(sourceFile, sourceFile)
 
         assertTrue(result.isSuccess)
