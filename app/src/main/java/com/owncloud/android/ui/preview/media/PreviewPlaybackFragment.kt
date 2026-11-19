@@ -16,6 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
+import androidx.annotation.IdRes
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.MenuProvider
@@ -70,6 +71,7 @@ class PreviewPlaybackFragment :
         private const val ARGUMENT_AUTOPLAY = "ARGUMENT_AUTOPLAY"
         private const val SURFACE_ALPHA_VISIBLE = 1f
         private const val SURFACE_ALPHA_HIDDEN = 0f
+        private val PLAYBACK_PAUSING_ACTIONS = setOf(R.id.action_stream_media, R.id.action_remove_file)
 
         fun newInstance(file: OCFile, collection: PlaybackCollection, autoplay: Boolean = false) =
             PreviewPlaybackFragment().apply {
@@ -218,21 +220,14 @@ class PreviewPlaybackFragment :
         }
     }
 
-    private fun onFileActionChosen(itemId: Int) {
+    private fun onFileActionChosen(@IdRes itemId: Int) {
         val previewActivity = previewActivity ?: return
-
-        when (itemId) {
-            R.id.action_download_file -> previewActivity.requestForDownload(file)
-
-            else -> {
-                if (itemId == R.id.action_stream_media || itemId == R.id.action_remove_file) {
-                    playbackModel.pause()
-                }
-
-                val host = FileActionHost(previewActivity, parentFragmentManager, view, null)
-                fileActionHandler.handle(itemId, listOf(file), host)
-            }
+        if (itemId in PLAYBACK_PAUSING_ACTIONS) {
+            playbackModel.pause()
         }
+
+        val host = FileActionHost(previewActivity, parentFragmentManager, view, null)
+        fileActionHandler.handle(itemId, listOf(file), host)
     }
 
     private fun registerPictureInPictureOnBack() {
