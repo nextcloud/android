@@ -130,6 +130,9 @@
             android:title="@string/logs_title"
             android:key="logger" />
         <Preference
+            android:title="@string/logs_menu_export"
+            android:key="export_logs" />
+        <Preference
             android:title="@string/prefs_imprint"
             android:key="imprint" />
     </PreferenceCategory>

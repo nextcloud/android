@@ -18,30 +18,34 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import java.io.File
 import java.io.FileInputStream
-import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
+import java.io.OutputStream
 
-class FileExportUtils {
-    @Throws(IllegalStateException::class)
-    fun exportFile(fileName: String, mimeType: String, contentResolver: ContentResolver, ocFile: OCFile?, file: File?) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            exportFileAndroid10AndAbove(
-                fileName,
-                mimeType,
-                contentResolver,
-                ocFile,
-                file
-            )
-        } else {
-            exportFilesBelowAndroid10(
-                fileName,
-                contentResolver,
-                ocFile,
-                file
-            )
-        }
+class FileExportUtils(private val subdirectory: String = "") {
+    @Throws(IllegalStateException::class, IOException::class)
+    fun exportFile(
+        fileName: String,
+        mimeType: String,
+        contentResolver: ContentResolver,
+        ocFile: OCFile?,
+        file: File?
+    ): String = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        exportFileAndroid10AndAbove(
+            fileName,
+            mimeType,
+            contentResolver,
+            ocFile,
+            file
+        )
+    } else {
+        exportFilesBelowAndroid10(
+            fileName,
+            contentResolver,
+            ocFile,
+            file
+        )
     }
 
     @SuppressLint("Recycle") // handled inside copy method
@@ -52,32 +56,26 @@ class FileExportUtils {
         contentResolver: ContentResolver,
         ocFile: OCFile?,
         file: File?
-    ) {
+    ): String {
         val cv = ContentValues().apply {
             put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
             put(MediaStore.MediaColumns.MIME_TYPE, mimeType)
-            put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
+            put(MediaStore.MediaColumns.RELATIVE_PATH, "${Environment.DIRECTORY_DOWNLOADS}/$subdirectory")
         }
 
-        var uri = contentResolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, cv)
-
-        if (uri == null) {
-            var count = INITIAL_RENAME_COUNT
-            do {
-                val name = generateNewName(fileName, count)
-                cv.put(MediaStore.MediaColumns.DISPLAY_NAME, name)
-                uri = contentResolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, cv)
-
-                count++
-            } while (uri == null)
-        }
+        val uri = contentResolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, cv)
+            ?: throw IOException("Could not create export in Downloads")
 
         copy(
             ocFile,
             file,
             contentResolver,
-            FileOutputStream(contentResolver.openFileDescriptor(uri, "w")?.fileDescriptor)
+            contentResolver.openOutputStream(uri, "w") ?: throw IOException("Could not open export in Downloads")
         )
+
+        return contentResolver.query(uri, arrayOf(MediaStore.MediaColumns.DISPLAY_NAME), null, null, null)?.use {
+            if (it.moveToFirst()) it.getString(0) else fileName
+        } ?: fileName
     }
 
     private fun exportFilesBelowAndroid10(
@@ -85,10 +83,17 @@ class FileExportUtils {
         contentResolver: ContentResolver,
         ocFile: OCFile?,
         file: File?
-    ) {
+    ): String {
         try {
-            var target = File(
+            val directory = File(
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+                subdirectory
+            )
+            if (!directory.isDirectory && !directory.mkdirs()) {
+                throw IOException("Could not create export directory in Downloads")
+            }
+            var target = File(
+                directory,
                 fileName
             )
 
@@ -97,7 +102,7 @@ class FileExportUtils {
                 do {
                     val name = generateNewName(fileName, count)
                     target = File(
-                        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+                        directory,
                         name
                     )
 
@@ -111,33 +116,34 @@ class FileExportUtils {
                 contentResolver,
                 FileOutputStream(target)
             )
-        } catch (e: FileNotFoundException) {
-            Log_OC.e(this, "File not found", e)
+            return target.name
         } catch (e: IOException) {
             Log_OC.e(this, "Cannot write file", e)
+            throw e
         }
     }
 
-    @Throws(IllegalStateException::class)
-    private fun copy(ocFile: OCFile?, file: File?, contentResolver: ContentResolver, outputStream: FileOutputStream) {
+    @Throws(IllegalStateException::class, IOException::class)
+    private fun copy(ocFile: OCFile?, file: File?, contentResolver: ContentResolver, outputStream: OutputStream) {
         outputStream.use { fos ->
             try {
                 val inputStream = when {
                     ocFile != null -> contentResolver.openInputStream(ocFile.storageUri)
                     file != null -> FileInputStream(file)
                     else -> error("ocFile and file both may not be null")
-                }!!
+                } ?: throw IOException("Could not open export source")
 
                 inputStream.use { fis ->
                     copyStream(fis, fos)
                 }
             } catch (e: IOException) {
                 Log_OC.e(this, "Cannot write file", e)
+                throw e
             }
         }
     }
 
-    private fun copyStream(inputStream: InputStream, outputStream: FileOutputStream) {
+    private fun copyStream(inputStream: InputStream, outputStream: OutputStream) {
         val buffer = ByteArray(COPY_BUFFER_SIZE)
         var len: Int
         while (inputStream.read(buffer).also { len = it } != -1) {

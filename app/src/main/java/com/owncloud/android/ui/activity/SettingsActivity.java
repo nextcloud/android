@@ -15,15 +15,18 @@
  */
 package com.owncloud.android.ui.activity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -46,7 +49,9 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.etm.EtmActivity;
+import com.nextcloud.client.logger.LogsRepository;
 import com.nextcloud.client.logger.ui.LogsActivity;
+import com.nextcloud.client.logger.ui.LogsEmailSender;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -129,6 +134,7 @@ public class SettingsActivity extends PreferenceActivity
     private static final int ACTION_REQUEST_CODE_DAVDROID_SETUP = 10;
     private static final int ACTION_SHOW_MNEMONIC = 11;
     private static final int ACTION_E2E = 12;
+    private static final int REQUEST_EXPORT_LOGS_PERMISSION = 101;
     private static final int TRUE_VALUE = 1;
 
     private static final String DAV_PATH = "/remote.php/dav";
@@ -156,6 +162,8 @@ public class SettingsActivity extends PreferenceActivity
     @Inject ClientFactory clientFactory;
     @Inject ViewThemeUtils viewThemeUtils;
     @Inject ConnectivityService connectivityService;
+    @Inject LogsRepository logsRepository;
+    @Inject LogsEmailSender logsEmailSender;
 
     @SuppressWarnings("deprecation")
     @Override
@@ -417,6 +425,15 @@ public class SettingsActivity extends PreferenceActivity
     }
 
     private void setupLoggingPreference(PreferenceCategory preferenceCategoryMore) {
+        Preference pExport = findPreference("export_logs");
+        if (MDMConfig.INSTANCE.isLogEnabled(this)) {
+            pExport.setOnPreferenceClickListener(preference -> {
+                exportLogs();
+                return true;
+            });
+        } else {
+            preferenceCategoryMore.removePreference(pExport);
+        }
         Preference pLogger = findPreference("logger");
         if (pLogger != null) {
             if (MDMConfig.INSTANCE.isLogEnabled(this)) {
@@ -430,6 +447,20 @@ public class SettingsActivity extends PreferenceActivity
                 preferenceCategoryMore.removePreference(pLogger);
             }
         }
+    }
+
+    private void exportLogs() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q
+            && !PermissionUtil.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_EXPORT_LOGS_PERMISSION);
+            return;
+        }
+        logsRepository.load((entries, size) -> {
+            if (!isDestroyed()) {
+                logsEmailSender.export(entries);
+            }
+            return Unit.INSTANCE;
+        });
     }
 
 
@@ -1240,8 +1271,18 @@ public class SettingsActivity extends PreferenceActivity
 
     @Override
     protected void onDestroy() {
+        logsEmailSender.stop();
         super.onDestroy();
         getDelegate().onDestroy();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_EXPORT_LOGS_PERMISSION
+            && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            exportLogs();
+        }
     }
 
     @Override
