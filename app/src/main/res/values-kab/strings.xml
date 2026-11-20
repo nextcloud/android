@@ -379,7 +379,6 @@
     <string name="encryption_open_no_network">Ur yezmir ara ad yaweḍ aqeddac. Ɛreḍ ad teldiḍ akaram tikkelt-nniḍen ticki.</string>
     <string name="encryption_open_unavailable">Ur izmir ara ad yeldi akaram-agi. Awgelhen seg yixef ɣer yixef ur yettusbadu ara ɣef uqeddac-agi.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Ur yezmir ara ad d-yawi aselkin n uqeddac</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Ur yezmir ara aselken n tsarut tazayezt</string>
     <string name="end_to_end_encryption_confirm_button">Swel awgelhen</string>
     <string name="end_to_end_encryption_decrypting">Tukksa n uwgelhen...</string>
     <string name="end_to_end_encryption_dialog_close">Mdel</string>

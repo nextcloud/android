@@ -398,11 +398,8 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="encryption_encrypt_unavailable">Tidak dapat mengenkripsi folder ini. Enkripsi end-to-end belum disiapkan di server ini.</string>
     <string name="encryption_key_checking_keys">Memeriksa kunci…</string>
     <string name="encryption_key_handle_folder_read_only_description">Kunci enkripsi akun ini telah dihapus atau diganti, sehingga isi folder ini tidak dapat lagi didekripsi.\n\nMulai sekarang, folder ini hanya dapat dibaca. Untuk menggunakan folder terenkripsi lagi, cadangkan folder ini dan siapkan kunci enkripsi baru Anda di pengaturan.</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_description">Kunci enkripsi yang tersimpan di perangkat ini tidak lagi valid. Kunci telah dicabut dari server. \n\nHapus enkripsi lokal melalui pengaturan untuk membuat folder terenkripsi baru.</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">Kunci enkripsi yang tersimpan di perangkat ini tidak lagi valid. Kunci telah dicabut dari server. \n\nCadangkan folder terenkripsi yang telah dibuat sebelumnya. \n\nKemudian hapus enkripsi lokal melalui pengaturan untuk membuat folder terenkripsi baru.</string>
     <string name="encryption_key_handle_key_removed_title">Kunci enkripsi berubah</string>
     <string name="encryption_key_handle_no_keys_description">Folder ini tidak dapat dibuka karena kunci enkripsinya tidak lagi tersedia di perangkat ini maupun di server.</string>
-    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">Kunci enkripsi akun ini telah dihapus atau diganti.\n\nSiapkan kunci enkripsi baru Anda di pengaturan sebelum mengenkripsi folder.</string>
     <string name="encryption_new_folder_check_failed">Tidak dapat memeriksa kunci enkripsi Anda. Coba buat folder lagi.</string>
     <string name="encryption_new_folder_no_network">Tidak dapat menghubungi server. Coba buat folder lagi nanti.</string>
     <string name="encryption_new_folder_unavailable">Tidak dapat membuat folder terenkripsi. Enkripsi end-to-end belum disiapkan di server ini.</string>
@@ -411,7 +408,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="encryption_open_no_network">Tidak dapat menghubungi server. Coba buka folder lagi nanti.</string>
     <string name="encryption_open_unavailable">Tidak dapat membuka folder ini. Enkripsi end-to-end belum disiapkan di server ini.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Tidak dapat menerima sertifikat server</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Gagal memverifikasi kunci publik</string>
     <string name="end_to_end_encryption_confirm_button">Buat enkripsi</string>
     <string name="end_to_end_encryption_decrypting">Mendekripsi...</string>
     <string name="end_to_end_encryption_dialog_close">Tutup</string>

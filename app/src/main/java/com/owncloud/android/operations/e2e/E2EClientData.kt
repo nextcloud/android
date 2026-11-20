@@ -9,4 +9,4 @@ package com.owncloud.android.operations.e2e
 
 import com.owncloud.android.lib.common.OwnCloudClient
 
-data class E2EClientData(val client: OwnCloudClient, val token: String, val publicKey: String)
+data class E2EClientData(val client: OwnCloudClient, val token: String, val certificate: String)

@@ -342,7 +342,6 @@
     <string name="email_pick_failed">Odabir adrese e‑pošte nije uspio.</string>
     <string name="encrypted">Postavi kao šifrirano</string>
     <string name="end_to_end_encryption_certificate_unavailable">Nije moguće dohvatiti certifikat poslužitelja</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Neuspjela provjera javnog ključa</string>
     <string name="end_to_end_encryption_confirm_button">Postavi šifriranje</string>
     <string name="end_to_end_encryption_decrypting">Dešifriranje u tijeku...</string>
     <string name="end_to_end_encryption_dialog_close">Zatvori</string>

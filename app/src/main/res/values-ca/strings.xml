@@ -303,7 +303,6 @@
     <string name="email_pick_failed">No s\'ha pogut triar l\'adreça electrònica.</string>
     <string name="encrypted">Activa el xifrat</string>
     <string name="end_to_end_encryption_certificate_unavailable">No s\'ha pogut obtenir el certificat del servidor</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">No s\'ha pogut verificar la clau pública</string>
     <string name="end_to_end_encryption_confirm_button">Arranjament de xifrat</string>
     <string name="end_to_end_encryption_decrypting">S\'està desxifrant…</string>
     <string name="end_to_end_encryption_dialog_close">Tanca</string>

@@ -397,11 +397,9 @@
     <string name="encryption_encrypt_unavailable">Mappen kan ikke krypteres. End-to-end-kryptering er ikke konfigureret på denne server.</string>
     <string name="encryption_key_checking_keys">Kontrollerer nøgler …</string>
     <string name="encryption_key_handle_folder_read_only_description">Krypteringsnøglerne for denne konto er fjernet eller erstattet, så indholdet i mappen kan ikke længere dekrypteres.\n\nMappen er skrivebeskyttet fra nu af. Sikkerhedskopiér mappen, og konfigurer din nye krypteringsnøgle i indstillingerne for at bruge krypterede mapper igen.</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_description">Krypteringsnøglen på denne enhed er ikke længere gyldig. Nøglerne er tilbagekaldt fra serveren. \n\nFjern krypteringen lokalt i indstillingerne for at oprette en ny krypteret mappe.</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">Krypteringsnøglen på denne enhed er ikke længere gyldig. Nøglerne er tilbagekaldt fra serveren. \n\nSikkerhedskopiér den krypterede mappe, du har oprettet tidligere. \n\nFjern derefter krypteringen lokalt i indstillingerne for at oprette en ny krypteret mappe.</string>
     <string name="encryption_key_handle_key_removed_title">Krypteringsnøglerne er ændret</string>
+    <string name="encryption_key_handle_keys_changed_on_server_description">Krypteringsnøglerne på serveren er fjernet eller erstattet, så krypterede mapper er skrivebeskyttede på denne enhed.\n\nFor at fortsætte med end-to-end-kryptering skal du sikkerhedskopiere dine krypterede filer, fjerne krypteringen lokalt i indstillingerne og konfigurere den igen.</string>
     <string name="encryption_key_handle_no_keys_description">Mappen kan ikke åbnes, fordi dens krypteringsnøgler ikke længere findes på denne enhed eller på serveren.</string>
-    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">Krypteringsnøglerne for denne konto er fjernet eller erstattet.\n\nKonfigurer din nye krypteringsnøgle i indstillingerne, før du krypterer en mappe.</string>
     <string name="encryption_new_folder_check_failed">Dine krypteringsnøgler kunne ikke kontrolleres. Prøv at oprette mappen igen.</string>
     <string name="encryption_new_folder_no_network">Serveren kan ikke nås. Prøv at oprette mappen igen senere.</string>
     <string name="encryption_new_folder_unavailable">Der kan ikke oprettes krypterede mapper. End-to-end-kryptering er ikke konfigureret på denne server.</string>
@@ -410,8 +408,8 @@
     <string name="encryption_open_no_network">Serveren kan ikke nås. Prøv at åbne mappen igen senere.</string>
     <string name="encryption_open_unavailable">Mappen kan ikke åbnes. End-to-end-kryptering er ikke konfigureret på denne server.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Servercertifikatet kunne ikke hentes</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Kunne ikke bekræfte den offentlige nøgle</string>
     <string name="end_to_end_encryption_confirm_button">Indstil kryptering</string>
+    <string name="end_to_end_encryption_could_not_verify_certificate">Krypteringscertifikatet kunne ikke verificeres</string>
     <string name="end_to_end_encryption_decrypting">Dekrypterer …</string>
     <string name="end_to_end_encryption_dialog_close">Luk</string>
     <string name="end_to_end_encryption_enter_passphrase_to_access_files">Indtast dit kodeudtryk for at få adgang til dine filer</string>

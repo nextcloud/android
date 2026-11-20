@@ -340,7 +340,6 @@
     <string name="email_pick_failed">Imeshindwa kuchagua anwani ya barua pepe.</string>
     <string name="encrypted">Weka kama iliyosimbwa</string>
     <string name="end_to_end_encryption_certificate_unavailable">Haiwezi kuepua cheti cha seva</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Imeshindwa kuthibitisha ufunguo wa umma</string>
     <string name="end_to_end_encryption_confirm_button">Sanidi usimbaji fiche</string>
     <string name="end_to_end_encryption_decrypting">Inasimbua...</string>
     <string name="end_to_end_encryption_dialog_close">Funga</string>

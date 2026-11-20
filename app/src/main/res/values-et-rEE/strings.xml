@@ -397,11 +397,9 @@
     <string name="encryption_encrypt_unavailable">Selle kausta krüptimine pole võimalik. Läbiv krüptimine on selles serveris seadistamata.</string>
     <string name="encryption_key_checking_keys">Kontrollin võtmeid…</string>
     <string name="encryption_key_handle_folder_read_only_description">Selle kasutajakonto krüptovõtmed on eemaldatud või asendatud ja seega antud kausta sisu enam ei saa dekrüptida.\n\nNüüdsest on see kaust vaid loetavas olekus. Kasutamaks uuesti kaustade krüptimist, tee kausta sisust varukoopia ning seadista uued krüptovõtmed.</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_description">Sellesse nutiseadmesse salvestatud krüptovõti pole enam kehtiv. Võtmed on tühistatud serveri poolelt.\n\nEemalda krüptimine kohalikest seadistustest ja loo uus krüptokaust.</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">Sellesse nutiseadmesse salvestatud krüptovõti pole enam kehtiv. Võtmed on tühistatud serveri poolelt.\n\nTee varasemalt krüptitud kausta sisust varukoopia.\n\nEemalda krüptimine kohalikest seadistustest ja loo uus krüptokaust.</string>
     <string name="encryption_key_handle_key_removed_title">Krüptovõtmed on muutunud</string>
+    <string name="encryption_key_handle_keys_changed_on_server_description">Serveris asuvad krüptovõtmed kas eemaldati või asendati ja seega krüptitud kaustad on selles seadmes vaid lugemisõigustes.\n\nKui tahad jätkata läbiva krüptimise kasutamist, siis varunda oma krüptitud failid ja eemalda kohalikest seadistustest krüptimine ning seadista see uuesti.</string>
     <string name="encryption_key_handle_no_keys_description">Kausta krüptovõtmeid pole enam ei selles nutiseadmes ega serveris ja seega seda kausta ei saa enam avada.</string>
-    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">Selle kasutajakonto krüptovõtmed on kas eemaldatud või asendatud.\n\nEnne kausta krüptimist seadista oma uus krüptovõti.</string>
     <string name="encryption_new_folder_check_failed">Sinu krüptovõtmete kontrollimine ei õnnestunud. Proovi kausta uuesti lisada.</string>
     <string name="encryption_new_folder_no_network">Server pole leitav. Proovi kausta hiljem uuesti lisada.</string>
     <string name="encryption_new_folder_unavailable">Krüptitud kaustade loomine pole võimalik. Läbiv krüptimine on selles serveris seadistamata.</string>
@@ -410,8 +408,8 @@
     <string name="encryption_open_no_network">Server pole leitav. Proovi kausta hiljem uuesti avada.</string>
     <string name="encryption_open_unavailable">Selle kausta avamine pole võimalik. Läbiv krüptimine on selles serveris seadistamata.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Serveri sertifikaadi laadimine ei õnnestu</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Avaliku võtme verifitseerimine ei õnnestu</string>
     <string name="end_to_end_encryption_confirm_button">Võta krüptimine kasutusele</string>
+    <string name="end_to_end_encryption_could_not_verify_certificate">Krüptimise sertifikaadi õigsuse kontrollimine ei õnnestunud</string>
     <string name="end_to_end_encryption_decrypting">Dekrüptin…</string>
     <string name="end_to_end_encryption_dialog_close">Sulge</string>
     <string name="end_to_end_encryption_enter_passphrase_to_access_files">Ligipääsuks oma failidele sisesta oma salafraas</string>
