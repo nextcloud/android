@@ -239,13 +239,15 @@ internal class AppModule {
         fileDataStorageManager: FileDataStorageManager,
         certificateValidator: CertificateValidator,
         arbitraryDataProvider: ArbitraryDataProvider,
-        accountManager: UserAccountManager
+        accountManager: UserAccountManager,
+        clientRepository: ClientRepository
     ): E2EEKeyInspector = E2EEKeyInspector(
         context,
         fileDataStorageManager,
         certificateValidator,
         arbitraryDataProvider,
-        accountManager
+        accountManager,
+        clientRepository
     )
 
     @Provides

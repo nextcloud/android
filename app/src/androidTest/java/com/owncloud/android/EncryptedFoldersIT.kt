@@ -11,6 +11,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.account.UserAccountManagerImpl
 import com.nextcloud.client.database.entity.FileEntity
 import com.nextcloud.client.network.NetworkModule
+import com.nextcloud.repository.ClientRepository
 import com.nextcloud.test.SinceServer
 import com.nextcloud.utils.e2ee.E2EEActionResolver
 import com.nextcloud.utils.e2ee.E2EEKeyInspector
@@ -33,6 +34,7 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import org.mockito.kotlin.mock
 
 @SinceServer(majorVersion = 30)
 open class EncryptedFoldersIT : AbstractOnServerIT() {
@@ -61,12 +63,17 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
 
     init {
         val accountManager: UserAccountManager = UserAccountManagerImpl.fromContext(targetContext)
+        val clientRepository: ClientRepository = mock {
+            onBlocking { getOwncloudClient() }.thenReturn(client)
+            onBlocking { getNextcloudClient() }.thenReturn(nextcloudClient)
+        }
         val inspector = E2EEKeyInspector(
             targetContext,
             storageManager,
             CertificateValidator(),
             arbitraryDataProvider,
-            accountManager
+            accountManager,
+            clientRepository
         )
         e2eeActionResolver = E2EEActionResolver(
             storageManager,
