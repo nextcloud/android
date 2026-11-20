@@ -9,12 +9,12 @@ package com.owncloud.android.ui.fragment.autoUpload.ui
 import android.view.View
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FragmentAutoUploadBinding
-import com.owncloud.android.ui.adapter.SyncedFolderAdapter
+import com.owncloud.android.ui.fragment.autoUpload.adapter.AutoUploadFolderAdapter
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 class AutoUploadEmptyContent(
     private val binding: FragmentAutoUploadBinding,
-    private val adapter: SyncedFolderAdapter,
+    private val adapter: AutoUploadFolderAdapter,
     viewThemeUtils: ViewThemeUtils
 ) {
 
@@ -22,10 +22,10 @@ class AutoUploadEmptyContent(
     private val resources = binding.root.resources
 
     private val hasOnlyHiddenItems: Boolean
-        get() = adapter.sectionCount == 0 && adapter.unfilteredSectionCount > 0
+        get() = !adapter.hasVisibleItems && adapter.hasItems
 
     private val hasNoItems: Boolean
-        get() = adapter.sectionCount == 0 && adapter.unfilteredSectionCount == 0
+        get() = !adapter.hasItems
 
     init {
         emptyList.emptyListIcon.setImageResource(R.drawable.nav_synced_folders)

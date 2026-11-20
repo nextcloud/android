@@ -29,12 +29,12 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.FragmentAutoUploadBinding
 import com.owncloud.android.databinding.StoragePermissionWarningBannerBinding
 import com.owncloud.android.datamodel.SyncedFolderProvider
-import com.owncloud.android.ui.adapter.SyncedFolderAdapter
 import com.owncloud.android.ui.adapter.storagePermissionBanner.setup
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration
 import com.owncloud.android.ui.dialog.AutoUploadFolderConfigurationListener
 import com.owncloud.android.ui.dialog.AutoUploadPreferenceDialogFragment
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable
+import com.owncloud.android.ui.fragment.autoUpload.adapter.AutoUploadFolderAdapter
 import com.owncloud.android.ui.fragment.autoUpload.data.AutoUploadDisplayItemFactory
 import com.owncloud.android.ui.fragment.autoUpload.data.AutoUploadItemsLoader
 import com.owncloud.android.ui.fragment.autoUpload.data.AutoUploadPersistence
@@ -73,7 +73,7 @@ class AutoUploadFragment :
 
     @Inject lateinit var themeUtils: ThemeUtils
 
-    lateinit var adapter: SyncedFolderAdapter
+    lateinit var adapter: AutoUploadFolderAdapter
 
     private var binding: FragmentAutoUploadBinding? = null
     private var uploadWarningCard: UploadWarningCard? = null
@@ -202,7 +202,7 @@ class AutoUploadFragment :
 
     private fun setupList(activity: NavigatorActivity, binding: FragmentAutoUploadBinding) {
         val gridWidth = resources.getInteger(R.integer.media_grid_width)
-        adapter = SyncedFolderAdapter(
+        adapter = AutoUploadFolderAdapter(
             lifecycleScope,
             activity,
             clock,
@@ -273,8 +273,7 @@ class AutoUploadFragment :
             val items = itemsLoader.load(activity, perFolderMediaItemLimit, currentAccountName, newItemAccountName)
 
             withContext(Dispatchers.Main) {
-                adapter.setSyncFolderItems(items)
-                adapter.notifyDataSetChanged()
+                adapter.setItems(items)
                 emptyContent?.showList()
                 openMediaFolderSettingsFromIntent()
             }
@@ -283,7 +282,7 @@ class AutoUploadFragment :
 
     private fun openMediaFolderSettingsFromIntent() {
         val section = intentHandler.findMediaFolderSection(adapter) ?: return
-        adapter.get(section)?.let { clickHandler.onSyncFolderSettingsClick(section, it) }
+        adapter.getItem(section)?.let(clickHandler::onSyncFolderSettingsClick)
     }
     // endregion
 }

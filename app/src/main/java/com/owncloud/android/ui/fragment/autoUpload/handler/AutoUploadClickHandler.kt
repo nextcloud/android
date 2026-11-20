@@ -16,9 +16,10 @@ import com.owncloud.android.datamodel.MediaFolderType
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.ui.adapter.SyncedFolderAdapter
 import com.owncloud.android.ui.dialog.AutoUploadPreferenceDialogFragment
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable
+import com.owncloud.android.ui.fragment.autoUpload.adapter.AutoUploadFolderAdapter
+import com.owncloud.android.ui.fragment.autoUpload.adapter.AutoUploadFolderClickListener
 import com.owncloud.android.ui.fragment.autoUpload.data.AutoUploadDisplayItemFactory
 import com.owncloud.android.ui.fragment.autoUpload.data.AutoUploadPersistence
 import com.owncloud.android.ui.fragment.autoUpload.ui.AutoUploadDialogs
@@ -32,9 +33,9 @@ class AutoUploadClickHandler(
     private val itemFactory: AutoUploadDisplayItemFactory,
     private val persistence: AutoUploadPersistence,
     private val dialogs: AutoUploadDialogs,
-    private val getAdapter: () -> SyncedFolderAdapter,
+    private val getAdapter: () -> AutoUploadFolderAdapter,
     private val onItemVisibilityChanged: () -> Unit
-) : SyncedFolderAdapter.ClickListener {
+) : AutoUploadFolderClickListener {
 
     private val fileUploadHelper = FileUploadHelper.instance()
 
@@ -45,37 +46,33 @@ class AutoUploadClickHandler(
             return
         }
 
-        onSyncFolderSettingsClick(0, itemFactory.createEmptyCustomFolder(accountName))
+        onSyncFolderSettingsClick(itemFactory.createEmptyCustomFolder(accountName))
     }
 
     fun onDeleteAllUploadedClick(user: User) {
         dialogs.showDeleteAllUploadedDialog(user)
     }
 
-    override fun onSyncStatusToggleClick(section: Int, item: SyncedFolderDisplayItem?) {
-        item ?: return
+    override fun onSyncStatusToggleClick(item: SyncedFolderDisplayItem) {
         persistence.persistSyncStatus(item)
         onSyncStateApplied(item)
     }
 
-    override fun onSyncFolderSettingsClick(section: Int, syncedFolderDisplayItem: SyncedFolderDisplayItem?) {
+    override fun onSyncFolderSettingsClick(item: SyncedFolderDisplayItem) {
         check(Looper.getMainLooper().isCurrentThread) { "This must be called on the main thread!" }
-        syncedFolderDisplayItem ?: return
 
-        val dialog = AutoUploadPreferenceDialogFragment.newInstance(syncedFolderDisplayItem)
+        val dialog = AutoUploadPreferenceDialogFragment.newInstance(item)
         dialogs.showDialog(dialog, AUTO_UPLOAD_PREFERENCE_DIALOG_TAG)
     }
 
-    override fun onSyncFolderDeleteUploadedClick(section: Int, syncedFolderDisplayItem: SyncedFolderDisplayItem?) {
-        syncedFolderDisplayItem ?: return
-        dialogs.showDeleteUploadedDialog(syncedFolderDisplayItem)
+    override fun onSyncFolderDeleteUploadedClick(item: SyncedFolderDisplayItem) {
+        dialogs.showDeleteUploadedDialog(item)
     }
 
-    override fun onVisibilityToggleClick(section: Int, item: SyncedFolderDisplayItem?) {
-        item ?: return
+    override fun onVisibilityToggleClick(item: SyncedFolderDisplayItem) {
         item.isHidden = !item.isHidden
         persistence.saveOrUpdateAutoUploadFolder(item)
-        getAdapter().setSyncFolderItem(section, item)
+        getAdapter().onItemVisibilityChanged(item)
         onItemVisibilityChanged()
     }
 
@@ -101,7 +98,7 @@ class AutoUploadClickHandler(
             persistence.deleteAutoUploadFolder(syncedFolder.id)
             withContext(Dispatchers.Main) {
                 val adapter = getAdapter()
-                adapter.get(findSection(adapter, syncedFolder))?.let(adapter::removeItem)
+                adapter.getItem(findSection(adapter, syncedFolder))?.let(adapter::removeItem)
             }
         }
     }
@@ -109,7 +106,7 @@ class AutoUploadClickHandler(
     private fun isNewCustomFolder(syncedFolder: SyncedFolderParcelable): Boolean =
         syncedFolder.type == MediaFolderType.CUSTOM && syncedFolder.id == SyncedFolder.UNPERSISTED_ID
 
-    private fun findSection(adapter: SyncedFolderAdapter, syncedFolder: SyncedFolderParcelable): Int =
+    private fun findSection(adapter: AutoUploadFolderAdapter, syncedFolder: SyncedFolderParcelable): Int =
         if (syncedFolder.id == SyncedFolder.UNPERSISTED_ID) {
             adapter.getSectionByLocalPathAndType(syncedFolder.localPath, syncedFolder.type.id)
         } else {
@@ -119,7 +116,7 @@ class AutoUploadClickHandler(
     private fun addFolder(syncedFolder: SyncedFolderParcelable): SyncedFolderDisplayItem {
         val item = itemFactory.createAutoUploadFolder(syncedFolder)
         persistence.saveOrUpdateAutoUploadFolder(item)
-        getAdapter().addSyncFolderItem(item)
+        getAdapter().addItem(item)
 
         return item
     }
@@ -127,7 +124,7 @@ class AutoUploadClickHandler(
     private fun updateFolder(syncedFolder: SyncedFolderParcelable): SyncedFolderDisplayItem {
         val adapter = getAdapter()
         val section = findSection(adapter, syncedFolder)
-        val item = adapter.get(section) ?: return addFolder(syncedFolder)
+        val item = adapter.getItem(section) ?: return addFolder(syncedFolder)
 
         itemFactory.updateAutoUploadFolderItem(item, syncedFolder)
         persistence.saveOrUpdateAutoUploadFolder(item)
