@@ -72,7 +72,8 @@ class AutoUploadFileMatchingTests {
         false,
         com.nextcloud.client.preferences.SubFolderRule.YEAR_MONTH,
         false,
-        System.currentTimeMillis()
+        System.currentTimeMillis(),
+        SyncedFolder.AUTO_DELETE_LOCAL_DISABLED
     )
     // endregion
 

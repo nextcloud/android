@@ -78,7 +78,8 @@ class AutoUploadFragmentIT : AbstractIT() {
             false,
             SubFolderRule.YEAR_MONTH,
             false,
-            SyncedFolder.NOT_SCANNED_YET
+            SyncedFolder.NOT_SCANNED_YET,
+            SyncedFolder.AUTO_DELETE_LOCAL_DISABLED
         )
 
         launch { scenario ->

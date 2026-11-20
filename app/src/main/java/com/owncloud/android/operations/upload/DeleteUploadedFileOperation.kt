@@ -24,7 +24,8 @@ import com.nextcloud.utils.AppConstants.MILLIS_PER_SECOND
 class DeleteUploadedFileOperation(
     private val syncedFolder: SyncedFolder,
     private val context: Context,
-    private val storageManager: FileDataStorageManager
+    private val storageManager: FileDataStorageManager,
+    private val minAgeMs: Long = 0L
 ) {
 
     companion object {
@@ -92,7 +93,15 @@ class DeleteUploadedFileOperation(
         return result
     }
 
+    internal fun isOldEnough(localFile: File): Boolean =
+        System.currentTimeMillis() - localFile.lastModified() >= minAgeMs
+
     private suspend fun fileCanBeDeleted(localFile: File, folder: OCFile): Boolean {
+        if (!isOldEnough(localFile)) {
+            Log_OC.d(TAG, "File ${localFile.name} is newer than the retention period, leaving in place")
+            return false
+        }
+
         val remotePath = syncFolderHelper.getAutoUploadRemotePath(syncedFolder, localFile)
         val ocFile =
             storageManager.getFileByRemotePath(remotePath)

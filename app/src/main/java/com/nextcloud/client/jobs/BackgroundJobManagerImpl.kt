@@ -939,20 +939,24 @@ internal class BackgroundJobManagerImpl(
         workManager.cancelAllWorkByTag(JOB_DOWNLOAD_FOLDER)
     }
 
-    override fun locallyDeleteAutoUploadedFiles(syncedFolders: List<SyncedFolder>) {
+    override fun locallyDeleteAutoUploadedFiles(syncedFolders: List<SyncedFolder>, minAgeMs: Long) {
         val syncedFolderIDs = syncedFolders
             .filter { it.isEnabled }
             .map { it.id }
+        if (syncedFolderIDs.isEmpty()) {
+            return
+        }
 
         val arguments = Data.Builder()
             .putLongArray(AutoUploadLocalDeletionWorker.SYNCED_FOLDER_IDS, syncedFolderIDs.toLongArray())
+            .putLong(AutoUploadLocalDeletionWorker.MIN_AGE_MS, minAgeMs)
             .build()
 
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
 
-        val jobName = JOB_AUTO_UPLOAD_LOCAL_DELETION + "_" + syncedFolderIDs.joinToString("-")
+        val jobName = JOB_AUTO_UPLOAD_LOCAL_DELETION + "_" + minAgeMs + "_" + syncedFolderIDs.joinToString("-")
         val request = oneTimeRequestBuilder(
             jobClass = AutoUploadLocalDeletionWorker::class,
             jobName = jobName

@@ -61,7 +61,8 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
                                    boolean hidden,
                                    SubFolderRule subFolderRule,
                                    boolean excludeHidden,
-                                   long lastScanTimestampMs) {
+                                   long lastScanTimestampMs,
+                                   long autoDeleteLocalAfterMs) {
         super(id,
               localPath,
               remotePath,
@@ -78,7 +79,8 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
               hidden,
               subFolderRule,
               excludeHidden,
-              lastScanTimestampMs);
+              lastScanTimestampMs,
+              autoDeleteLocalAfterMs);
         this.filePaths = filePaths;
         this.folderName = folderName;
         this.numberOfFiles = numberOfFiles;
@@ -101,7 +103,8 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
                                    boolean hidden,
                                    SubFolderRule subFolderRule,
                                    boolean excludeHidden,
-                                   long lastScanTimestampMs) {
+                                   long lastScanTimestampMs,
+                                   long autoDeleteLocalAfterMs) {
         super(id,
               localPath,
               remotePath,
@@ -118,7 +121,8 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
               hidden,
               subFolderRule,
               excludeHidden,
-              lastScanTimestampMs);
+              lastScanTimestampMs,
+              autoDeleteLocalAfterMs);
         this.folderName = folderName;
     }
 

@@ -51,7 +51,9 @@ data class SyncedFolderEntity(
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_EXCLUDE_HIDDEN)
     val excludeHidden: Int?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_LAST_SCAN_TIMESTAMP_MS)
-    val lastScanTimestampMs: Long?
+    val lastScanTimestampMs: Long?,
+    @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_AUTO_DELETE_LOCAL_AFTER_MS, defaultValue = "0")
+    val autoDeleteLocalAfterMs: Long? = 0
 )
 
 fun SyncedFolderEntity.toSyncedFolder(): SyncedFolder = SyncedFolder(
@@ -88,5 +90,7 @@ fun SyncedFolderEntity.toSyncedFolder(): SyncedFolder = SyncedFolder(
     // excludeHidden
     this.excludeHidden == 1,
     // lastScanTimestampMs
-    this.lastScanTimestampMs ?: SyncedFolder.NOT_SCANNED_YET
+    this.lastScanTimestampMs ?: SyncedFolder.NOT_SCANNED_YET,
+    // autoDeleteLocalAfterMs
+    this.autoDeleteLocalAfterMs ?: SyncedFolder.AUTO_DELETE_LOCAL_DISABLED
 )

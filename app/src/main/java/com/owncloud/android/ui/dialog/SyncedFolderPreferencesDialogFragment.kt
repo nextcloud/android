@@ -38,6 +38,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.time.Duration.Companion.milliseconds
 import java.io.File
 import javax.inject.Inject
 
@@ -86,7 +87,7 @@ class SyncedFolderPreferencesDialogFragment :
             syncedFolder = arguments.getParcelableArgument(SYNCED_FOLDER_PARCELABLE, SyncedFolderParcelable::class.java)
         }
 
-        uploadBehaviorItemStrings = resources.getTextArray(R.array.pref_behaviour_entries)
+        uploadBehaviorItemStrings = behaviourEntries()
         nameCollisionPolicyItemStrings = resources.getTextArray(R.array.pref_name_collision_policy_entries)
     }
 
@@ -391,11 +392,21 @@ class SyncedFolderPreferencesDialogFragment :
         binding.settingInstantNameCollisionPolicyContainer.setOnClickListener { showNameCollisionPolicyDialog() }
     }
 
+    private fun behaviourEntries(): Array<CharSequence> {
+        val retentionDays = SyncedFolder.DEFAULT_AUTO_DELETE_LOCAL_AFTER_MS.milliseconds.inWholeDays.toInt()
+        val deleteAfterDelayEntry = resources.getQuantityString(
+            R.plurals.pref_behaviour_entries_delete_file_after_days,
+            retentionDays,
+            retentionDays
+        )
+        return resources.getTextArray(R.array.pref_behaviour_entries) + deleteAfterDelayEntry
+    }
+
     private fun showBehaviourDialog() {
         val builder = MaterialAlertDialogBuilder(requireActivity())
 
         syncedFolder?.let {
-            val behaviourEntries = resources.getTextArray(R.array.pref_behaviour_entries)
+            val behaviourEntries = behaviourEntries()
             val behaviourEntryValues = resources.getTextArray(R.array.pref_behaviour_entryValues)
             builder.setTitle(R.string.prefs_instant_behaviour_dialogTitle)
                 .setSingleChoiceItems(behaviourEntries, it.uploadActionInteger) { dialog: DialogInterface, which: Int ->
