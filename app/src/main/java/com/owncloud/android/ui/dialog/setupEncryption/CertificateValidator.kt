@@ -41,9 +41,6 @@ class CertificateValidator @Inject constructor() {
             val certificateInputStream = ByteArrayInputStream(certificate.toByteArray())
             val x509Certificate = certificateFactory.generateCertificate(certificateInputStream) as X509Certificate
 
-            // Check date of the certificate
-            x509Certificate.checkValidity()
-
             // Verify certificate with serverPublicKey
             x509Certificate.verify(serverPublicKey)
             Log_OC.d(tag, "Client certificate is valid against server public key")

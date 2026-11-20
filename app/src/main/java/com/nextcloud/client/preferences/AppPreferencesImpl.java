@@ -34,8 +34,6 @@ import com.owncloud.android.utils.FileSortOrder;
 
 import java.lang.reflect.Type;
 import java.util.List;
-import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -126,47 +124,10 @@ public final class AppPreferencesImpl implements AppPreferences {
     private final SharedPreferences preferences;
     private final UserAccountManager userAccountManager;
     private final ArbitraryDataProvider arbitraryDataProvider;
-    private final ListenerRegistry listeners;
 
     private static final int AUTO_UPLOAD_ON_START_DEBOUNCE_IN_MINUTES = 10;
     private static final long AUTO_UPLOAD_ON_START_DEBOUNCE_MS =
         TimeUnit.MINUTES.toMillis(AUTO_UPLOAD_ON_START_DEBOUNCE_IN_MINUTES);
-
-    /**
-     * Adapter delegating raw {@link SharedPreferences.OnSharedPreferenceChangeListener} calls with key-value pairs to
-     * respective {@link com.nextcloud.client.preferences.AppPreferences.Listener} method.
-     */
-    static class ListenerRegistry implements SharedPreferences.OnSharedPreferenceChangeListener {
-        private final AppPreferences preferences;
-        private final Set<Listener> listeners;
-
-        ListenerRegistry(AppPreferences preferences) {
-            this.preferences = preferences;
-            this.listeners = new CopyOnWriteArraySet<>();
-        }
-
-        void add(@Nullable final Listener listener) {
-            if (listener != null) {
-                listeners.add(listener);
-            }
-        }
-
-        void remove(@Nullable final Listener listener) {
-            if (listener != null) {
-                listeners.remove(listener);
-            }
-        }
-
-        @Override
-        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-            if (PREF__DARK_THEME.equals(key)) {
-                DarkMode mode = preferences.getDarkThemeMode();
-                for (Listener l : listeners) {
-                    l.onDarkThemeModeChanged(mode);
-                }
-            }
-        }
-    }
 
     /**
      * This is a temporary workaround to access app preferences in places that cannot use dependency injection yet. Use
@@ -193,18 +154,6 @@ public final class AppPreferencesImpl implements AppPreferences {
         this.preferences = preferences;
         this.userAccountManager = userAccountManager;
         this.arbitraryDataProvider = arbitraryDataProvider;
-        this.listeners = new ListenerRegistry(this);
-        this.preferences.registerOnSharedPreferenceChangeListener(listeners);
-    }
-
-    @Override
-    public void addListener(@Nullable AppPreferences.Listener listener) {
-        this.listeners.add(listener);
-    }
-
-    @Override
-    public void removeListener(@Nullable AppPreferences.Listener listener) {
-        this.listeners.remove(listener);
     }
 
     @Override

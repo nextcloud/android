@@ -320,7 +320,6 @@
     <string name="email_pick_failed">Impossibile scegliere l\'indirizzo di posta.</string>
     <string name="encrypted">Imposta come cifrato</string>
     <string name="end_to_end_encryption_certificate_unavailable">Impossibile ottenere il certificato del server</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Verifica della chiave pubblica fallita</string>
     <string name="end_to_end_encryption_confirm_button">Configura la cifratura</string>
     <string name="end_to_end_encryption_decrypting">Decifratura in corso…</string>
     <string name="end_to_end_encryption_dialog_close">Chiudi</string>

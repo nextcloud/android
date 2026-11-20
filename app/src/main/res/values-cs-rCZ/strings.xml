@@ -350,7 +350,6 @@
     <string name="email_pick_failed">Nepodařilo se vybrat e-mailovou adresu.</string>
     <string name="encrypted">Nastavit jako šifrované</string>
     <string name="end_to_end_encryption_certificate_unavailable">Nedaří se získat certifikát serveru</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Nepodařilo se ověřit platnost veřejného klíče</string>
     <string name="end_to_end_encryption_confirm_button">Nastavit šifrování</string>
     <string name="end_to_end_encryption_decrypting">Rozšifrovávání …</string>
     <string name="end_to_end_encryption_dialog_close">Zavřít</string>

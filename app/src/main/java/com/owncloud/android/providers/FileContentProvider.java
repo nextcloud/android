@@ -62,7 +62,6 @@ public class FileContentProvider extends ContentProvider {
     private static final int DIRECTORY = 2;
     private static final int ROOT_DIRECTORY = 3;
     private static final int SHARES = 4;
-    private static final int CAPABILITIES = 5;
     private static final int UPLOADS = 6;
     private static final int SYNCED_FOLDERS = 7;
     private static final int EXTERNAL_LINKS = 8;
@@ -137,7 +136,6 @@ public class FileContentProvider extends ContentProvider {
             case DIRECTORY -> deleteDirectory(db, uri, where, whereArgs);
             case ROOT_DIRECTORY -> db.delete(ProviderTableMeta.FILE_TABLE_NAME, where, whereArgs);
             case SHARES -> db.delete(ProviderTableMeta.OCSHARES_TABLE_NAME, where, whereArgs);
-            case CAPABILITIES -> db.delete(ProviderTableMeta.CAPABILITIES_TABLE_NAME, where, whereArgs);
             case UPLOADS -> db.delete(ProviderTableMeta.UPLOADS_TABLE_NAME, where, whereArgs);
             case SYNCED_FOLDERS -> db.delete(ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME, where, whereArgs);
             case EXTERNAL_LINKS -> db.delete(ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME, where, whereArgs);
@@ -265,16 +263,6 @@ public class FileContentProvider extends ContentProvider {
                 updateFilesTableAccordingToShareInsertion(db, values);
 
                 return insertedShareUri;
-
-            case CAPABILITIES:
-                Uri insertedCapUri;
-                long idCapabilities = db.insert(ProviderTableMeta.CAPABILITIES_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values);
-                if (idCapabilities > 0) {
-                    insertedCapUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_CAPABILITIES, idCapabilities);
-                } else {
-                    throw new SQLException(ERROR + uri);
-                }
-                return insertedCapUri;
 
             case UPLOADS:
                 Uri insertedUploadUri;
@@ -418,8 +406,6 @@ public class FileContentProvider extends ContentProvider {
         mUriMatcher.addURI(authority, "dir/#", DIRECTORY);
         mUriMatcher.addURI(authority, "shares/", SHARES);
         mUriMatcher.addURI(authority, "shares/#", SHARES);
-        mUriMatcher.addURI(authority, "capabilities/", CAPABILITIES);
-        mUriMatcher.addURI(authority, "capabilities/#", CAPABILITIES);
         mUriMatcher.addURI(authority, "uploads/", UPLOADS);
         mUriMatcher.addURI(authority, "uploads/#", UPLOADS);
         mUriMatcher.addURI(authority, "synced_folders", SYNCED_FOLDERS);
@@ -475,7 +461,6 @@ public class FileContentProvider extends ContentProvider {
                 yield ProviderTableMeta.FILE_TABLE_NAME;
             }
             case SHARES -> ProviderTableMeta.OCSHARES_TABLE_NAME;
-            case CAPABILITIES -> ProviderTableMeta.CAPABILITIES_TABLE_NAME;
             case UPLOADS -> ProviderTableMeta.UPLOADS_TABLE_NAME;
             case SYNCED_FOLDERS -> ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME;
             case EXTERNAL_LINKS -> ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME;
@@ -500,7 +485,6 @@ public class FileContentProvider extends ContentProvider {
         if (TextUtils.isEmpty(sortOrder)) {
             order = switch (uriMatch) {
                 case SHARES -> ProviderTableMeta.OCSHARES_DEFAULT_SORT_ORDER;
-                case CAPABILITIES -> ProviderTableMeta.CAPABILITIES_DEFAULT_SORT_ORDER;
                 case UPLOADS -> ProviderTableMeta.UPLOADS_DEFAULT_SORT_ORDER;
                 case SYNCED_FOLDERS -> ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH;
                 case EXTERNAL_LINKS -> ProviderTableMeta.EXTERNAL_LINKS_NAME;
@@ -587,8 +571,6 @@ public class FileContentProvider extends ContentProvider {
             case DIRECTORY -> 0;
             case SHARES ->
                 db.update(ProviderTableMeta.OCSHARES_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, selection, selectionArgs);
-            case CAPABILITIES ->
-                db.update(ProviderTableMeta.CAPABILITIES_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, selection, selectionArgs);
             case UPLOADS ->
                 db.update(ProviderTableMeta.UPLOADS_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, selection, selectionArgs);
             case SYNCED_FOLDERS ->
@@ -647,7 +629,7 @@ public class FileContentProvider extends ContentProvider {
 
     private boolean isCallerNotAllowed(Uri uri) {
         return switch (mUriMatcher.match(uri)) {
-            case SHARES, CAPABILITIES, UPLOADS, SYNCED_FOLDERS, EXTERNAL_LINKS, VIRTUAL, FILESYSTEM -> {
+            case SHARES, UPLOADS, SYNCED_FOLDERS, EXTERNAL_LINKS, VIRTUAL, FILESYSTEM -> {
                 String callingPackage = mContext.getPackageManager().getNameForUid(Binder.getCallingUid());
                 yield callingPackage == null || !callingPackage.equals(mContext.getPackageName());
             }

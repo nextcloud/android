@@ -1,28 +1,16 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2025 Jimly Asshiddiqy
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+plugins {
+    jacoco
+}
 
-import org.gradle.testing.jacoco.plugins.JacocoPlugin
-import org.gradle.testing.jacoco.plugins.JacocoPluginExtension
-import org.gradle.testing.jacoco.tasks.JacocoReport
-import org.gradle.testing.jacoco.plugins.JacocoTaskExtension
-import org.gradle.api.tasks.testing.Test
-import org.gradle.kotlin.dsl.apply
-import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.getByType
-import org.gradle.kotlin.dsl.named
-import org.gradle.kotlin.dsl.register
-
-
-apply<JacocoPlugin>()
-
-// Use version from version catalog
-configure<JacocoPluginExtension> {
-    toolVersion = extensions
-        .getByType<VersionCatalogsExtension>()
+jacoco {
+    toolVersion = the<VersionCatalogsExtension>()
         .named("libs")
         .findVersion("jacoco")
         .get()
@@ -31,7 +19,8 @@ configure<JacocoPluginExtension> {
 
 val flavor = "gplay"
 val buildType = "Debug"
-val variant = "${flavor.replaceFirstChar(Char::titlecase)}${buildType.replaceFirstChar(Char::titlecase)}"
+val variantName = "$flavor$buildType"
+val variant = variantName.replaceFirstChar(Char::titlecase)
 
 val fileFilter = listOf(
     // data binding
@@ -54,7 +43,6 @@ val fileFilter = listOf(
     "**/*\$ViewBinder*.*",
     "**/*Component*.*",
     "**/*BR*.*",
-    "**/Manifest*.*",
     "**/*\$Lambda\$*.*",
     "**/*Companion*.*",
     "**/*Module*.*",
@@ -83,51 +71,50 @@ val fileFilter = listOf(
     "**/composables/**"
 )
 
-// Configure test tasks to include Jacoco instrumentation
 tasks.withType<Test>().configureEach {
-    extensions.configure(JacocoTaskExtension::class) {
+    extensions.configure<JacocoTaskExtension> {
         isIncludeNoLocationClasses = true
         excludes = listOf("jdk.internal.*")
     }
 }
 
-// Main Jacoco report task
 val jacocoReport = tasks.register<JacocoReport>("jacocoTest${variant}UnitTestReport") {
+    description = "Generates the JaCoCo coverage report for the $variantName unit tests."
+    group = LifecycleBasePlugin.VERIFICATION_GROUP
     dependsOn("test${variant}UnitTest")
 
     reports {
-        xml.required.set(true)
-        html.required.set(true)
-        csv.required.set(false)
-
-        // Output locations
-        html.outputLocation.set(layout.buildDirectory.dir("reports/jacoco/${name}"))
-        xml.outputLocation.set(layout.buildDirectory.file("reports/jacoco/${name}/jacoco.xml"))
+        xml.required = true
+        html.required = true
+        csv.required = false
+        xml.outputLocation = layout.buildDirectory.file("reports/jacoco/$name/jacoco.xml")
     }
 
-    // Directories
-    val kotlinClasses =  fileTree(layout.buildDirectory.dir("tmp/kotlin-classes/${variant}"))
-    val javacClasses = fileTree(layout.buildDirectory.dir("intermediates/javac/${variant}/classes"))
+    val intermediates = layout.buildDirectory.dir("intermediates")
+    val kotlinClasses = intermediates.map { it.dir("built_in_kotlinc/$variantName/compile${variant}Kotlin/classes") }
+    val javacClasses = intermediates.map { it.dir("javac/$variantName/compile${variant}JavaWithJavac/classes") }
 
-    classDirectories.setFrom(files(kotlinClasses, javacClasses))
+    classDirectories.setFrom(
+        fileTree(kotlinClasses) { exclude(fileFilter) },
+        fileTree(javacClasses) { exclude(fileFilter) }
+    )
     sourceDirectories.setFrom(
-        files(
-            "src/main/java",
-            "src/$flavor/java",
-            "src/${buildType.lowercase()}/java"
-        )
+        "src/main/java",
+        "src/$flavor/java",
+        "src/${buildType.lowercase()}/java"
     )
     executionData.setFrom(
-        fileTree(layout.buildDirectory.asFile) {
+        fileTree(layout.buildDirectory) {
             include(
                 "jacoco/test${variant}UnitTest.exec",
-                "outputs/unit_test_code_coverage/${variant}UnitTest/test${variant}UnitTest.exec"
+                "outputs/unit_test_code_coverage/${variantName}UnitTest/test${variant}UnitTest.exec"
             )
         }
     )
 }
 
-// Backward compatibility alias
 tasks.register("jacocoTest${variant}UnitTest") {
+    description = "Runs the $variantName unit tests and generates their JaCoCo coverage report."
+    group = LifecycleBasePlugin.VERIFICATION_GROUP
     dependsOn("test${variant}UnitTest", jacocoReport)
 }
