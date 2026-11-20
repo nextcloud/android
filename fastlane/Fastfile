@@ -5,36 +5,30 @@
 ## config
 # add following to your shell rc:
 # export FASTLANE_NEXTCLOUD_UPLOAD_STORE_FILE=""
-# export FASTLANE_NEXTCLOUD_UPLOAD_STORE_PASSWORD=""
 # export FASTLANE_NEXTCLOUD_UPLOAD_KEY_ALIAS=""
-# export FASTLANE_NEXTCLOUD_UPLOAD_KEY_PASSWORD=""
 # export FASTLANE_NEXTCLOUD_STORE_FILE=""
-# export FASTLANE_NEXTCLOUD_STORE_PASSWORD=""
 # export FASTLANE_NEXTCLOUD_KEY_ALIAS=""
-# export FASTLANE_NEXTCLOUD_KEY_PASSWORD=""
-# export FASTLANE_NEXTCLOUD_GITHUB_API_TOKEN=""
-# export FASTLANE_NEXTCLOUD_HUAWEI_CLIENT_ID=""
-# export FASTLANE_NEXTCLOUD_HUAWEI_CLIENT_SECRET=""
-# export FASTLANE_NEXTCLOUD_HUAWEI_APP_ID=""
+#
+# Passwords, the GitHub API token and the Huawei AppGallery Connect API
+# client are not read from the environment, they are asked for when a
+# release lane starts (see common.Fastfile).
 
 skip_docs
 
 
 APP="files"
 REPO="nextcloud/android"
+HUAWEI_APP_ID="102503897"
 
+# passwords are added at build time, see askForSigningPasswords in common.Fastfile
 GRADLE_SIGNING_PROPERTIES = {
   "android.injected.signing.store.file" => ENV["FASTLANE_NEXTCLOUD_UPLOAD_STORE_FILE"],
-  "android.injected.signing.store.password" => ENV["FASTLANE_NEXTCLOUD_UPLOAD_STORE_PASSWORD"],
   "android.injected.signing.key.alias" => ENV["FASTLANE_NEXTCLOUD_UPLOAD_KEY_ALIAS"],
-  "android.injected.signing.key.password" => ENV["FASTLANE_NEXTCLOUD_UPLOAD_KEY_PASSWORD"],
 }.freeze
 
 APK_SIGNING_PROPERTIES = {
   "android.injected.signing.store.file" => ENV["FASTLANE_NEXTCLOUD_STORE_FILE"],
-  "android.injected.signing.store.password" => ENV["FASTLANE_NEXTCLOUD_STORE_PASSWORD"],
   "android.injected.signing.key.alias" => ENV["FASTLANE_NEXTCLOUD_KEY_ALIAS"],
-  "android.injected.signing.key.password" => ENV["FASTLANE_NEXTCLOUD_KEY_PASSWORD"],
 }.freeze
 
 import("./common.Fastfile")
@@ -55,37 +49,7 @@ platform :android do
         sh(" if [ $(find metadata/android/*/images -type f -not -name icon.png  | grep -c . ) -gt 0 ] ; then echo 'Screenshots in fastlane folder exist; aborting!' ; exit 1 ; fi")
     end
 
-    private_lane :createGithubRelease_RC do |options|
-        set_github_release(
-            repository_name: REPO,
-            api_token: ENV["FASTLANE_NEXTCLOUD_GITHUB_API_TOKEN"],
-            name: options["versionName"],
-            tag_name: options["tag"],
-            is_prerelease: true,
-            description: (File.read("metadata/android/en-US/changelogs/" + options["versionCode"] + ".txt") rescue "No changelog provided"),
-            upload_assets: [ "release/gplay-release-" + options["versionCode"] + ".apk", "release/nextcloud-" +
-            options["versionCode"] + ".apk" ]
-        )
-    end
-
-    private_lane :createGithubRelease_Final do |options|
-        set_github_release(
-            repository_name: REPO,
-            api_token: ENV["FASTLANE_NEXTCLOUD_GITHUB_API_TOKEN"],
-            name: options["versionName"],
-            tag_name: options["tag"],
-            description: (File.read("metadata/android/en-US/changelogs/" + options["versionCode"] + ".txt") rescue "No changelog provided"),
-            upload_assets: Dir.glob("release/*.apk")
-        )
-    end
-
-    private_lane :checkChangelog do |options|
-        sh(" if [ ! -e  metadata/android/en-US/changelogs/" + options["versionCode"].to_s + ".txt ] ; then echo 'Changelog fastlane/metadata/android/en-US/changelogs/" + options["versionCode"].to_s + ".txt does not exist' ; exit 1 ; fi")
-        sh(" if [ $(wc -m metadata/android/en-US/changelogs/" + options["versionCode"].to_s + ".txt | cut -d' ' -f1) -ge 500 ] ; then echo 'Changlog more than 500 chars' ; exit 1 ; fi")
-    end
-
     private_lane :repoSpecificChecks do |options|
-        checkChangelog(getVersionInfo())
         checkLibrary(isPrerelease: options[:isPrerelease])
         checkIfScreenshotsExist()
     end
