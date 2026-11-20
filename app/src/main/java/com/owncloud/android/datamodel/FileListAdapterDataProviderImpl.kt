@@ -8,10 +8,10 @@
 package com.owncloud.android.datamodel
 
 import com.nextcloud.client.database.entity.FileEntity
-import com.owncloud.android.ui.adapter.filelist.data.OCFileListAdapterDataProvider
+import com.owncloud.android.ui.adapter.filelist.data.FileListAdapterDataProvider
 
-class OCFileListAdapterDataProviderImpl(private val storageManager: FileDataStorageManager) :
-    OCFileListAdapterDataProvider {
+class FileListAdapterDataProviderImpl(private val storageManager: FileDataStorageManager) :
+    FileListAdapterDataProvider {
     override fun convertToOCFiles(id: Long): List<OCFile> =
         storageManager.offlineOperationsRepository.convertToOCFiles(id)
 

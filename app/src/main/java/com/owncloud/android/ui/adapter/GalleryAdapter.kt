@@ -37,8 +37,8 @@ import com.owncloud.android.datamodel.GalleryRowLayout
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.ComponentsGetter
-import com.owncloud.android.ui.adapter.filelist.CommonOCFileListAdapterInterface
-import com.owncloud.android.ui.adapter.filelist.item.OCFileListDelegate
+import com.owncloud.android.ui.adapter.filelist.CommonFileListAdapterInterface
+import com.owncloud.android.ui.adapter.filelist.item.FileListDelegate
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -54,7 +54,7 @@ class GalleryAdapter(
     private val defaultThumbnailSize: Int,
     private val thumbnailGenerator: ThumbnailGenerator
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>(),
-    CommonOCFileListAdapterInterface,
+    CommonFileListAdapterInterface,
     PopupTextProvider {
 
     companion object {
@@ -78,18 +78,17 @@ class GalleryAdapter(
             invalidateCaches()
         }
 
-    private val ocFileListDelegate: OCFileListDelegate
+    private val fileListDelegate: FileListDelegate
     private var storageManager: FileDataStorageManager = transferServiceGetter.storageManager
 
     init {
-        ocFileListDelegate = OCFileListDelegate(
+        fileListDelegate = FileListDelegate(
             transferServiceGetter.fileUploaderHelper,
             context,
             ocFileListFragmentInterface,
             user,
             storageManager,
             false,
-            true,
             transferServiceGetter,
             showMetadata = false,
             showShareAvatar = false,
@@ -164,7 +163,7 @@ class GalleryAdapter(
         } else {
             GalleryRowHolder(
                 GalleryRowBinding.inflate(LayoutInflater.from(parent.context), parent, false),
-                ocFileListDelegate,
+                fileListDelegate,
                 this,
                 viewThemeUtils
             )
@@ -276,22 +275,22 @@ class GalleryAdapter(
             ?.getOrNull(0)
     }
 
-    override fun isMultiSelect(): Boolean = ocFileListDelegate.isMultiSelect
+    override fun isMultiSelect(): Boolean = fileListDelegate.isMultiSelect
 
     override fun cancelAllPendingTasks() {
         thumbnailGenerator.fileThumbnailGenerator.cancelPendingTasks()
     }
 
     override fun addCheckedFile(file: OCFile) {
-        ocFileListDelegate.addCheckedFile(file)
+        fileListDelegate.addCheckedFile(file)
     }
 
-    override fun isCheckedFile(file: OCFile): Boolean = ocFileListDelegate.isCheckedFile(file)
+    override fun isCheckedFile(file: OCFile): Boolean = fileListDelegate.isCheckedFile(file)
 
-    override fun getCheckedItems(): Set<OCFile> = ocFileListDelegate.checkedItems
+    override fun getCheckedItems(): Set<OCFile> = fileListDelegate.checkedItems
 
     override fun removeCheckedFile(file: OCFile) {
-        ocFileListDelegate.removeCheckedFile(file)
+        fileListDelegate.removeCheckedFile(file)
     }
 
     override fun notifyItemChanged(file: OCFile) {
@@ -322,7 +321,7 @@ class GalleryAdapter(
      */
     @SuppressLint("NotifyDataSetChanged")
     override fun setMultiSelect(isMultiSelect: Boolean) {
-        ocFileListDelegate.isMultiSelect = isMultiSelect
+        fileListDelegate.isMultiSelect = isMultiSelect
         notifyDataSetChanged()
     }
 
@@ -332,11 +331,11 @@ class GalleryAdapter(
 
     private fun addAllFilesToCheckedFiles() {
         val allFiles = getAllFiles()
-        ocFileListDelegate.addToCheckedFiles(allFiles)
+        fileListDelegate.addToCheckedFiles(allFiles)
     }
 
     override fun clearCheckedItems() {
-        ocFileListDelegate.clearCheckedItems()
+        fileListDelegate.clearCheckedItems()
     }
 
     @VisibleForTesting
@@ -362,7 +361,7 @@ class GalleryAdapter(
     }
 
     fun setCheckedItem(files: Set<OCFile>?) {
-        ocFileListDelegate.setCheckedItem(files)
+        fileListDelegate.setCheckedItem(files)
     }
 
     fun markAsFavorite(remotePath: String, favorite: Boolean) {
@@ -396,6 +395,6 @@ class GalleryAdapter(
     override fun setSortOrder(mFile: OCFile?, sortOrder: FileSortOrder) = Unit
 
     fun cleanup() {
-        ocFileListDelegate.cleanup()
+        fileListDelegate.cleanup()
     }
 }

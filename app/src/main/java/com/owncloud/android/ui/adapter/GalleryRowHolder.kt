@@ -24,14 +24,14 @@ import com.owncloud.android.databinding.GalleryRowBinding
 import com.owncloud.android.datamodel.GalleryCellSize
 import com.owncloud.android.datamodel.GalleryRow
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.ui.adapter.filelist.item.OCFileListDelegate
+import com.owncloud.android.ui.adapter.filelist.item.FileListDelegate
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 private const val PLACEHOLDER_ICON_INSET_RATIO = 0.32f
 
 class GalleryRowHolder(
     val binding: GalleryRowBinding,
-    private val ocFileListDelegate: OCFileListDelegate,
+    private val fileListDelegate: FileListDelegate,
     galleryAdapter: GalleryAdapter,
     private val viewThemeUtils: ViewThemeUtils
 ) : SectionedViewHolder(binding.root) {
@@ -65,7 +65,7 @@ class GalleryRowHolder(
     }
 
     fun recycle() {
-        cells.forEach { ocFileListDelegate.cancelGalleryRow(it.thumbnail) }
+        cells.forEach { fileListDelegate.cancelGalleryRow(it.thumbnail) }
     }
 
     private fun ensureCellCount(count: Int) {
@@ -90,12 +90,12 @@ class GalleryRowHolder(
     private fun bindCell(cell: GalleryCellBinding, file: OCFile, size: GalleryCellSize) = with(cell) {
         root.applySize(size)
 
-        val isChecked = ocFileListDelegate.isCheckedFile(file)
+        val isChecked = fileListDelegate.isCheckedFile(file)
         val isSameFileRebound = thumbnail.tag == file.fileId
         applySelection(cell, isChecked, isSameFileRebound)
         applyCheckBox(checkbox, isChecked)
 
-        ocFileListDelegate.bindGalleryRow(
+        fileListDelegate.bindGalleryRow(
             shimmer,
             thumbnail,
             unsupported,
@@ -136,7 +136,7 @@ class GalleryRowHolder(
     }
 
     private fun applyCheckBox(imageView: ImageView, isChecked: Boolean) {
-        val isMultiSelect = ocFileListDelegate.isMultiSelect
+        val isMultiSelect = fileListDelegate.isMultiSelect
         imageView.setVisibleIf(isMultiSelect)
         if (!isMultiSelect) {
             return

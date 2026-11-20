@@ -40,7 +40,6 @@ import com.owncloud.android.ui.activity.AlbumsPickerActivity
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.activity.FolderPickerActivity
 import com.owncloud.android.ui.adapter.GalleryRowHolder
-import com.owncloud.android.ui.adapter.filelist.recommended.RecommendedFilesViewHolder
 import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.ui.navigation.animator.NavigationAnimator
@@ -55,14 +54,13 @@ import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 
-class OCFileListDelegate(
+class FileListDelegate(
     private val fileUploadHelper: FileUploadHelper,
     private val context: Context,
     private val ocFileListFragmentInterface: OCFileListFragmentInterface,
     private val user: User,
     private val storageManager: FileDataStorageManager,
     private val hideItemOptions: Boolean,
-    var gridView: Boolean,
     private val transferServiceGetter: ComponentsGetter,
     private val showMetadata: Boolean,
     private var showShareAvatar: Boolean,
@@ -204,15 +202,15 @@ class OCFileListDelegate(
 
     @Suppress("MagicNumber", "CyclomaticComplexMethod")
     fun bindViewHolder(
-        viewHolder: ListViewHolder,
+        viewHolder: FileViewHolder,
         file: OCFile,
         currentDirectory: OCFile?,
-        thumbnailGenerator: ThumbnailGenerator
+        thumbnailGenerator: ThumbnailGenerator,
+        isGrid: Boolean
     ) {
         // thumbnail
-        viewHolder.imageFileName?.text = file.fileName
         viewHolder.thumbnail.tag = file.fileId
-        if (gridView) {
+        if (isGrid) {
             if (MimeTypeUtil.isImageOrVideo(file)) {
                 viewHolder.thumbnail.scaleType = ImageView.ScaleType.CENTER_CROP
                 viewHolder.thumbnail.setPadding(0, 0, 0, 0)
@@ -226,7 +224,7 @@ class OCFileListDelegate(
         thumbnailGenerator.setThumbnail(
             file,
             viewHolder.thumbnail,
-            ThumbnailArguments(isGrid = gridView, hideVideoOverlay = false, viewHolder.shimmerThumbnail)
+            ThumbnailArguments(isGrid = isGrid, hideVideoOverlay = false, viewHolder.shimmerThumbnail)
         )
 
         // item layout + click listeners
@@ -274,7 +272,7 @@ class OCFileListDelegate(
         }
     }
 
-    private fun bindUnreadComments(file: OCFile, gridViewHolder: ListViewHolder) {
+    private fun bindUnreadComments(file: OCFile, gridViewHolder: FileViewHolder) {
         if (file.unreadCommentsCount > 0) {
             gridViewHolder.unreadComments.visibility = View.VISIBLE
             gridViewHolder.unreadComments.setOnClickListener {
@@ -286,32 +284,25 @@ class OCFileListDelegate(
         }
     }
 
-    private fun bindGridItemLayout(file: OCFile, gridViewHolder: ListViewHolder) {
+    private fun bindGridItemLayout(file: OCFile, gridViewHolder: FileViewHolder) {
         setItemLayoutBackgroundColor(file, gridViewHolder)
         setCheckBoxImage(file, gridViewHolder)
-        setItemLayoutOnClickListeners(file, gridViewHolder)
 
-        gridViewHolder.more?.setOnClickListener {
-            ocFileListFragmentInterface.onOverflowIconClicked(file, it)
-        }
-    }
-
-    private fun setItemLayoutOnClickListeners(file: OCFile, gridViewHolder: ListViewHolder) {
         gridViewHolder.itemLayout.setOnClickListener { ocFileListFragmentInterface.onItemClicked(file) }
+    }
 
-        if (!hideItemOptions && gridViewHolder !is RecommendedFilesViewHolder) {
-            gridViewHolder.itemLayout.apply {
-                isLongClickable = true
-                setOnLongClickListener {
-                    ocFileListFragmentInterface.onLongItemClicked(
-                        file
-                    )
-                }
-            }
+    fun bindLongClick(holder: FileViewHolder, file: OCFile) {
+        if (hideItemOptions) {
+            return
+        }
+
+        holder.itemLayout.apply {
+            isLongClickable = true
+            setOnLongClickListener { ocFileListFragmentInterface.onLongItemClicked(file) }
         }
     }
 
-    private fun setItemLayoutBackgroundColor(file: OCFile, gridViewHolder: ListViewHolder) {
+    private fun setItemLayoutBackgroundColor(file: OCFile, gridViewHolder: FileViewHolder) {
         val cornerRadius = context.resources.getDimension(R.dimen.selected_grid_container_radius)
 
         val isDarkModeActive = (syncFolderProvider?.preferences?.isDarkModeEnabled == true)
@@ -333,7 +324,7 @@ class OCFileListDelegate(
         }
     }
 
-    private fun setCheckBoxImage(file: OCFile, gridViewHolder: ListViewHolder) {
+    private fun setCheckBoxImage(file: OCFile, gridViewHolder: FileViewHolder) {
         if (isCheckedFile(file)) {
             gridViewHolder.checkbox.setImageDrawable(
                 viewThemeUtils.platform.tintDrawable(context, R.drawable.ic_checkbox_marked, ColorRole.PRIMARY)
@@ -343,7 +334,7 @@ class OCFileListDelegate(
         }
     }
 
-    private fun bindGridMetadataViews(file: OCFile, gridViewHolder: ListViewHolder) {
+    private fun bindGridMetadataViews(file: OCFile, gridViewHolder: FileViewHolder) {
         if (showMetadata) {
             showLocalFileIndicator(file, gridViewHolder)
             gridViewHolder.favorite.visibility = if (file.isFavorite) View.VISIBLE else View.GONE
@@ -369,7 +360,7 @@ class OCFileListDelegate(
         !etag.isNullOrBlank()
 
     @Suppress("ComplexCondition")
-    private fun showLocalFileIndicator(file: OCFile, holder: ListViewHolder) {
+    private fun showLocalFileIndicator(file: OCFile, holder: FileViewHolder) {
         var isFolderDown = false
         if (file.canCheckFolderDown()) {
             isFolderDown = storageManager.fileDao.areAllFilesHaveMediaPath(file.fileId, user.accountName)
@@ -396,8 +387,8 @@ class OCFileListDelegate(
         }
     }
 
-    private fun configureSharedIconView(gridViewHolder: ListViewHolder, file: OCFile) {
-        val result = getShareIconIdAndContentDescriptionId(gridViewHolder, file)
+    private fun configureSharedIconView(gridViewHolder: FileViewHolder, file: OCFile) {
+        val result = getShareIconIdAndContentDescriptionId(file)
 
         gridViewHolder.shared.run {
             if (result == null) {
@@ -412,14 +403,12 @@ class OCFileListDelegate(
         }
     }
 
-    private fun getShareIconIdAndContentDescriptionId(holder: ListViewHolder, file: OCFile): Pair<Int, Int>? {
+    private fun getShareIconIdAndContentDescriptionId(file: OCFile): Pair<Int, Int>? {
         if (!MDMConfig.sharingSupport(context)) {
             return null
         }
 
         if (file.isOfflineOperation) return null
-
-        if (holder !is OCFileListItemViewHolder && file.unreadCommentsCount != 0) return null
 
         return when {
             file.isSharedWithSharee || file.isSharedWithMe -> {
@@ -449,6 +438,6 @@ class OCFileListDelegate(
     }
 
     companion object {
-        private val TAG = OCFileListDelegate::class.java.simpleName
+        private val TAG = FileListDelegate::class.java.simpleName
     }
 }

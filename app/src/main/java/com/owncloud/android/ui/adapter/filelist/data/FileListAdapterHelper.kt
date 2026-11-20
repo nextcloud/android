@@ -22,13 +22,13 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class OCFileListAdapterHelper {
+class FileListAdapterHelper {
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private var job: Job? = null
 
     fun prepareFileList(
         directory: OCFile,
-        dataProvider: OCFileListAdapterDataProvider,
+        dataProvider: FileListAdapterDataProvider,
         onlyOnDevice: Boolean,
         limitToMimeType: String,
         preferences: AppPreferences,
@@ -56,7 +56,7 @@ class OCFileListAdapterHelper {
     @Suppress("CyclomaticComplexMethod")
     suspend fun prepareFileList(
         directory: OCFile,
-        dataProvider: OCFileListAdapterDataProvider,
+        dataProvider: FileListAdapterDataProvider,
         onlyOnDevice: Boolean,
         limitToMimeType: String,
         preferences: AppPreferences,
@@ -104,7 +104,7 @@ class OCFileListAdapterHelper {
     private fun addOfflineOperations(
         files: List<OCFile>,
         fileId: Long,
-        dataProvider: OCFileListAdapterDataProvider
+        dataProvider: FileListAdapterDataProvider
     ): List<OCFile> {
         val offlineOperations = dataProvider.convertToOCFiles(fileId)
         if (offlineOperations.isEmpty()) return files
@@ -162,7 +162,7 @@ class OCFileListAdapterHelper {
 
     private suspend fun getFolderContent(
         ocFile: OCFile,
-        dataProvider: OCFileListAdapterDataProvider,
+        dataProvider: FileListAdapterDataProvider,
         onlyOnDevice: Boolean
     ): List<OCFile> = withContext(Dispatchers.IO) {
         if (!ocFile.isFolder || !ocFile.fileExists()) {

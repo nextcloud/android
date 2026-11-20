@@ -6,13 +6,13 @@
  */
 package com.owncloud.android.ui.adapter.filelist
 
-internal enum class OCFileListViewType {
+internal enum class FileListViewType {
     FOOTER,
-    ITEM,
-    IMAGE,
-    HEADER;
+    HEADER,
+    LIST_ITEM,
+    GRID_ITEM;
 
     companion object {
-        fun fromOrdinal(ordinal: Int): OCFileListViewType = entries.getOrElse(ordinal) { ITEM }
+        fun fromOrdinal(ordinal: Int): FileListViewType = entries.getOrElse(ordinal) { LIST_ITEM }
     }
 }

@@ -23,7 +23,7 @@ import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.ui.preview.text.PreviewTextFragment
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
-internal class OCFileListHeaderBinder(
+internal class FileListHeaderBinder(
     private val activity: Activity,
     private val viewThemeUtils: ViewThemeUtils,
     private val fragmentInterface: OCFileListFragmentInterface,
@@ -33,11 +33,7 @@ internal class OCFileListHeaderBinder(
 ) {
 
     // region Public methods
-    fun bind(
-        holder: OCFileListHeaderViewHolder,
-        directory: OCFile?,
-        recommendedFilesAdapter: RecommendedFilesAdapter?
-    ) {
+    fun bind(holder: FileListHeaderViewHolder, directory: OCFile?, recommendedFilesAdapter: RecommendedFilesAdapter?) {
         holder.headerView.setOnClickListener { fragmentInterface.onHeaderClicked() }
         bindRichWorkspace(holder, directory)
         bindRecommendedFiles(holder.binding, recommendedFilesAdapter)
@@ -58,7 +54,7 @@ internal class OCFileListHeaderBinder(
     // endregion
 
     // region Private methods
-    private fun bindRichWorkspace(holder: OCFileListHeaderViewHolder, directory: OCFile?) {
+    private fun bindRichWorkspace(holder: FileListHeaderViewHolder, directory: OCFile?) {
         val text = directory?.richWorkspace
         PreviewTextFragment.setText(
             holder.headerText,

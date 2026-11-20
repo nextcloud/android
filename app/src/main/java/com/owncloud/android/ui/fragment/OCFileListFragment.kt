@@ -92,8 +92,8 @@ import com.owncloud.android.ui.activity.FolderPickerActivity
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener
 import com.owncloud.android.ui.activity.TextEditorWebView
 import com.owncloud.android.ui.activity.UploadFilesActivity
-import com.owncloud.android.ui.adapter.filelist.CommonOCFileListAdapterInterface
-import com.owncloud.android.ui.adapter.filelist.OCFileListAdapter
+import com.owncloud.android.ui.adapter.filelist.CommonFileListAdapterInterface
+import com.owncloud.android.ui.adapter.filelist.FileListAdapter
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
@@ -187,10 +187,10 @@ open class OCFileListFragment :
     var fileDepth: OCFileDepth? = OCFileDepth.Root
         private set
 
-    var adapter: OCFileListAdapter? = null
+    var adapter: FileListAdapter? = null
         protected set
 
-    open val commonAdapter: CommonOCFileListAdapterInterface?
+    open val commonAdapter: CommonFileListAdapterInterface?
         get() = adapter
 
     var currentSearchType: SearchType = SearchType.NO_SEARCH
@@ -415,7 +415,7 @@ open class OCFileListFragment :
         val hideItemOptions = args?.getBoolean(ARG_HIDE_ITEM_OPTIONS, false) == true
         val isGridViewPreferred = fileListLayoutManager?.isGridViewPreferred() == true
 
-        adapter = OCFileListAdapter(
+        adapter = FileListAdapter(
             requireActivity(),
             accountManager.user,
             preferences,
@@ -859,7 +859,7 @@ open class OCFileListFragment :
     @SuppressLint("NotifyDataSetChanged")
     fun selectAllFiles(select: Boolean) {
         val adapter = recyclerView?.adapter
-        if (adapter !is CommonOCFileListAdapterInterface) return
+        if (adapter !is CommonFileListAdapterInterface) return
 
         adapter.selectAll(select)
         adapter.notifyDataSetChanged()
@@ -1144,7 +1144,7 @@ open class OCFileListFragment :
     }
 
     private fun scrollToHighlightedFileOrTop(
-        adapter: OCFileListAdapter,
+        adapter: FileListAdapter,
         highlightedFile: OCFile?,
         previousDirectory: OCFile?,
         listedDirectory: OCFile
