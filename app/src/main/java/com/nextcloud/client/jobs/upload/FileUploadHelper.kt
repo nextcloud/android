@@ -21,13 +21,14 @@ import com.nextcloud.client.device.BatteryStatus
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.di.ApplicationScope
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.notifications.AppWideNotificationManager
 import com.nextcloud.model.OCUploadLocalPathData
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.checkWCFRestrictions
-import com.nextcloud.utils.extensions.createOwncloudClient
+import com.nextcloud.repository.ClientRepository
 import com.nextcloud.utils.extensions.getUploadIds
 import com.nextcloud.utils.extensions.isLastResultConflictError
 import com.nextcloud.utils.extensions.isSame
@@ -50,12 +51,19 @@ import com.owncloud.android.lib.resources.files.model.ServerFileInterface
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.UploadFileOperation
+import com.owncloud.android.operations.factory.UploadFileOperationFactory
+import com.owncloud.android.operations.upload.EncryptedUploadConflictChecker
+import com.owncloud.android.operations.upload.UploadFileLink
+import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.ui.adapter.uploadList.helper.ConflictHandlingResult
 import com.owncloud.android.ui.adapter.uploadList.helper.UploadListAdapterActionHandler
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.coroutines.cancellation.CancellationException
 import java.io.File
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
@@ -78,6 +86,12 @@ class FileUploadHelper {
     @ApplicationScope
     lateinit var appScope: CoroutineScope
 
+    @Inject
+    lateinit var clientRepository: ClientRepository
+
+    @Inject
+    lateinit var uploadFileOperationFactory: UploadFileOperationFactory
+
     init {
         MainApp.getAppComponent().inject(this)
     }
@@ -91,7 +105,7 @@ class FileUploadHelper {
 
         const val MAX_UPLOADS_PER_QUERY = 500
 
-        val mBoundListeners = HashMap<String, OnDatatransferProgressListener>()
+        val mBoundListeners = java.util.concurrent.ConcurrentHashMap<String, OnDatatransferProgressListener>()
 
         private val retryInProgress = AtomicBoolean(false)
 
@@ -193,19 +207,16 @@ class FileUploadHelper {
         val connectivity = connectivityService.connectivity
         val batteryStatus = powerManagementService.battery
 
-        val uploadsToRetry = mutableListOf<Long>()
-        val client = accountManager.createOwncloudClient()
+        val uploadsToRetry = mutableMapOf<User, MutableList<Long>>()
 
         for (upload in uploads) {
+            val uploadUser = accountManager.getUser(upload.accountName).orElse(null) ?: continue
             if (FileUploadWorker.isUploading(upload.remotePath, upload.accountName)) {
                 continue
             }
 
             if (upload.isLastResultConflictError()) {
-                client?.let {
-                    conflictHandlingResult =
-                        uploadActionHandler.handleConflict(upload, client = it, uploadsStorageManager)
-                }
+                conflictHandlingResult = checkConflict(upload)
                 continue
             }
 
@@ -235,13 +246,13 @@ class FileUploadHelper {
             // Only uploads that passed checks get marked in progress and are collected for scheduling
             upload.uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
             uploadsStorageManager.updateUpload(upload)
-            uploadsToRetry.add(upload.uploadId)
+            uploadsToRetry.getOrPut(uploadUser) { mutableListOf() }.add(upload.uploadId)
         }
 
-        if (uploadsToRetry.isNotEmpty()) {
+        for ((uploadUser, uploadIds) in uploadsToRetry) {
             backgroundJobManager.startFilesUploadJob(
-                accountManager.user,
-                uploadsToRetry.toLongArray(),
+                uploadUser,
+                uploadIds.toLongArray(),
                 false
             )
         }
@@ -252,6 +263,66 @@ class FileUploadHelper {
         }
 
         return@withContext showNotExistMessage
+    }
+
+    suspend fun checkConflict(upload: OCUpload, requirePreview: Boolean = false): ConflictHandlingResult {
+        var preview: OCFile? = null
+        try {
+            val result = withContext(Dispatchers.IO) {
+                val user = accountManager.getUser(upload.accountName).orElse(null)
+                    ?: return@withContext ConflictHandlingResult.CannotCheckConflict
+                val context = MainApp.getAppContext()
+                val client = clientRepository.getOwncloudClient(user)
+                    ?: return@withContext ConflictHandlingResult.CannotCheckConflict
+                val operation = uploadFileOperationFactory.create(context, upload, user = user)
+                val target = if (operation.isAutoUpload) {
+                    operation.findAutoUploadTarget(client)
+                } else {
+                    operation.storageManager.getFileByEncryptedRemotePath(upload.remotePath)
+                }
+                if (target?.isEncrypted != true) {
+                    return@withContext uploadActionHandler.handleConflict(upload, client, uploadsStorageManager, target)
+                }
+                val parent = operation.storageManager.getFileByEncryptedRemotePath(target.parentRemotePath)
+                    ?: return@withContext ConflictHandlingResult.CannotCheckConflict
+                val metadata = EncryptionUtils.downloadFolderMetadata(parent, client, context, user)
+                    ?: return@withContext ConflictHandlingResult.CannotCheckConflict
+                val comparisonContext = currentCoroutineContext()
+                val comparison = EncryptedUploadConflictChecker(context, user).compare(
+                    client,
+                    parent,
+                    metadata,
+                    File(upload.localPath),
+                    target.decryptedFileName,
+                    java.util.function.BooleanSupplier { !comparisonContext.isActive },
+                    requirePreview
+                ) ?: return@withContext ConflictHandlingResult.CannotCheckConflict
+                preview = comparison.remoteFile
+                if (comparison.sameContent) {
+                    UploadFileLink.completeIdentical(upload, comparison.remoteFile, uploadsStorageManager)
+                    return@withContext ConflictHandlingResult.ConflictNotExistsSameFile
+                }
+                comparison.remoteFile.fileId = target.fileId
+                comparison.remoteFile.parentId = target.parentId
+                ConflictHandlingResult.ShowConflictResolveDialog(
+                    comparison.remoteFile,
+                    upload,
+                    comparison.remoteVersion
+                )
+            }
+            if (result is ConflictHandlingResult.ConflictNotExistsSameFile) {
+                UploadErrorNotificationManager.dismissConflictResolveNotification(
+                    MainApp.getAppContext(),
+                    upload.uploadId
+                )
+            }
+            return result
+        } catch (e: Exception) {
+            EncryptedUploadConflictChecker.releasePreview(MainApp.getAppContext(), preview)
+            if (e is CancellationException) throw e
+            Log_OC.e(TAG, "Could not check upload conflict", e)
+            return ConflictHandlingResult.CannotCheckConflict
+        }
     }
 
     @JvmOverloads
@@ -319,7 +390,7 @@ class FileUploadHelper {
             remotePath
         )?.let { return it }
 
-        val capability = fileStorageManager.getCapability(accountManager.user)
+        val capability = fileStorageManager.getCapability(accountName)
         if (!capability.checkWCFRestrictions()) {
             // The filesystem should treat files as case-sensitive. For example, "a.TXT" and "a.txt"
             // are allowed to exist in the same directory as two distinct files.
@@ -406,7 +477,7 @@ class FileUploadHelper {
         } else {
             dao.getUploadsByStatus(status.value, nameCollisionPolicy?.serialize(), MAX_UPLOADS_PER_QUERY)
         }.mapNotNull {
-            it.toOCUpload(capability)
+            it.toOCUpload(it.accountName?.let(fileStorageManager::getCapability) ?: capability)
         }
     }
 
@@ -424,7 +495,7 @@ class FileUploadHelper {
         }
 
         remotePath ?: return false
-        val upload = uploadsStorageManager.uploadDao.getByRemotePath(remotePath)
+        val upload = uploadsStorageManager.uploadDao.getByRemotePath(remotePath, accountName)
         return upload?.status == UploadStatus.UPLOAD_IN_PROGRESS.value ||
             FileUploadWorker.isUploading(remotePath, accountName)
     }
@@ -479,6 +550,8 @@ class FileUploadHelper {
         val currentUploadFileOperation = FileUploadWorker.getCurrentUpload(upload?.uploadId)
         if (currentUploadFileOperation == null || currentUploadFileOperation.user == null) return false
         if (upload == null || upload.accountName != currentUploadFileOperation.user.accountName) return false
+
+        if (upload.remotePath == currentUploadFileOperation.uploadRemotePath) return true
 
         return if (currentUploadFileOperation.oldFile != null) {
             // For file conflicts check old file remote path
@@ -654,7 +727,7 @@ class FileUploadHelper {
      * exists or is intentionally turned off, and AutoUploadWorker to re-queue already handled files
      * on its next scan via FileSystemRepository.getFilePathsWithIds.
      */
-    suspend fun removeEntityFromUploadEntities(id: Long) {
+    suspend fun removeEntityFromUploadEntities(id: Long, accountName: String) {
         uploadsStorageManager.fileSystemDao.getBySyncedFolderId(id.toString())
             .filter { it.localPath != null && it.remotePath != null }
             .forEach {
@@ -664,7 +737,8 @@ class FileUploadHelper {
                 )
                 uploadsStorageManager.uploadDao.deleteByLocalRemotePath(
                     localPath = it.localPath!!,
-                    remotePath = it.remotePath!!
+                    remotePath = it.remotePath!!,
+                    accountName = accountName
                 )
             }
     }

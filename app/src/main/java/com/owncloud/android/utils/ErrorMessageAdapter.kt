@@ -33,6 +33,7 @@ import com.owncloud.android.operations.UpdateSharePermissionsOperation
 import com.owncloud.android.operations.UpdateShareViaLinkOperation
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.operations.albums.CopyFileToAlbumOperation
+import com.owncloud.android.operations.upload.UploadFileException
 import org.apache.commons.httpclient.ConnectTimeoutException
 import org.apache.commons.httpclient.HttpStatus
 import java.io.File
@@ -201,6 +202,13 @@ object ErrorMessageAdapter {
     ): String? {
         if (result.isSuccess) {
             return res.getString(R.string.uploader_upload_succeeded_content_single, operation.fileName)
+        }
+
+        if (result.exception is UploadFileException.EncryptionKeysUnavailable) {
+            return res.getString(R.string.upload_encryption_keys_unavailable)
+        }
+        if (result.exception is UploadFileException.InvalidEncryptionMetadata) {
+            return res.getString(R.string.upload_encryption_metadata_unavailable)
         }
 
         return when (result.code) {

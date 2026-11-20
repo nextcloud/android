@@ -2292,6 +2292,14 @@ public class FileDataStorageManager {
 
         String remotePath = file.getRemotePath();
         if (file.isEncrypted()) {
+            OCFile physical = getFileByEncryptedRemotePath(remotePath);
+            if (physical != null) {
+                return physical.getRemotePath();
+            }
+            OCFile logical = getFileByDecryptedRemotePath(file.getDecryptedRemotePath());
+            if (logical != null) {
+                return logical.getRemotePath();
+            }
             remotePath = getEncryptedRemotePath(file.getRemotePath());
         }
 

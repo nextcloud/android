@@ -7,6 +7,7 @@
 
 package com.nextcloud.repository
 
+import com.nextcloud.client.account.User
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.common.PlainClient
 import com.owncloud.android.lib.common.OwnCloudClient
@@ -43,6 +44,8 @@ interface ClientRepository {
      * @return The [OwnCloudClient] instance, or `null` if it cannot be retrieved.
      */
     suspend fun getOwncloudClient(): OwnCloudClient?
+
+    suspend fun getOwncloudClient(user: User): OwnCloudClient?
 
     fun getPlainClient(): PlainClient
 }

@@ -14,6 +14,8 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.account.User
@@ -203,7 +205,17 @@ class ConflictsResolveDialog :
             viewThemeUtils
         )
 
-        thumbnailGenerator.setThumbnail(rightDataFile, binding.rightThumbnail)
+        val serverFile = rightDataFile
+        val decryptedServerPath = serverFile?.storagePath
+        if (serverFile?.isEncrypted == true && decryptedServerPath != null) {
+            Glide.with(binding.rightThumbnail)
+                .load(File(decryptedServerPath))
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .into(binding.rightThumbnail)
+        } else {
+            thumbnailGenerator.setThumbnail(serverFile, binding.rightThumbnail)
+        }
     }
 
     private fun setOnClickListeners() {

@@ -18,6 +18,8 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.theme.CapabilityUtils
+import com.nextcloud.client.account.UserAccountManagerImpl
+import com.owncloud.android.lib.resources.status.OCCapability
 import java.io.File
 import java.text.ParsePosition
 import java.text.SimpleDateFormat
@@ -66,7 +68,8 @@ class SyncFolderHelper(private val context: Context) {
             subFolderRule
         )
 
-        val capability = CapabilityUtils.getCapability(context)
+        val capability = UserAccountManagerImpl.fromContext(context).getUser(syncedFolder.account)
+            .map { CapabilityUtils.getCapability(it, context) }.orElseGet { OCCapability() }
         result = AutoRename.rename(result, capability)
 
         Log_OC.d(TAG, "auto upload remote path: $result")

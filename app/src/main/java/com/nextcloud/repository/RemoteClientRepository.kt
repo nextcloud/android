@@ -8,6 +8,7 @@
 package com.nextcloud.repository
 
 import android.content.Context
+import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.ApplicationScope
 import com.nextcloud.common.NextcloudClient
@@ -16,6 +17,7 @@ import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -69,6 +71,17 @@ class RemoteClientRepository @Inject constructor(
             clientFactory.getClientFor(accountManager.user.toOwnCloudAccount(), context)
         } catch (e: Exception) {
             Log_OC.d(TAG, "Exception caught getOwncloudClient(): $e")
+            null
+        }
+    }
+
+    override suspend fun getOwncloudClient(user: User): OwnCloudClient? = withContext(Dispatchers.IO) {
+        try {
+            clientFactory.getClientFor(user.toOwnCloudAccount(), context)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Log_OC.d(TAG, "Exception caught getOwncloudClient(user): $e")
             null
         }
     }

@@ -22,9 +22,11 @@ import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.upload.UploadDelayPolicy
+import com.nextcloud.client.jobs.upload.AutoUploadProgressForwarder
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.repository.ClientRepository
 import com.nextcloud.utils.extensions.getLog
 import com.nextcloud.utils.extensions.isConflict
 import com.nextcloud.utils.extensions.isNonRetryable
@@ -38,13 +40,12 @@ import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.db.UploadResult
 import com.owncloud.android.files.services.NameCollisionPolicy
-import com.owncloud.android.lib.common.OwnCloudAccount
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.operations.UploadFileOperation
+import com.owncloud.android.operations.upload.UploadFileException
 import com.owncloud.android.ui.activity.SettingsActivity
 import com.owncloud.android.utils.theme.CapabilityUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -69,7 +70,8 @@ class AutoUploadWorker(
     val viewThemeUtils: ViewThemeUtils,
     localBroadcastManager: LocalBroadcastManager,
     private val autoUploadHelper: AutoUploadHelper,
-    private val preferences: AppPreferences
+    private val preferences: AppPreferences,
+    private val clientRepository: ClientRepository
 ) : CoroutineWorker(context, params) {
 
     companion object {
@@ -113,7 +115,7 @@ class AutoUploadWorker(
                 return Result.success()
             }
 
-            uploadFiles(syncedFolder)
+            if (!uploadFiles(syncedFolder)) return Result.retry()
 
             // only update last scan time after uploading files
             syncedFolder.lastScanTimestampMs = System.currentTimeMillis()
@@ -256,12 +258,11 @@ class AutoUploadWorker(
     }
 
     @Suppress("LongMethod", "DEPRECATION", "CyclomaticComplexMethod")
-    private suspend fun uploadFiles(syncedFolder: SyncedFolder) = withContext(Dispatchers.IO) {
-        val user = getUserOrReturn(syncedFolder) ?: return@withContext
-        val ocAccount = OwnCloudAccount(user.toPlatformAccount(), context)
-        val client = OwnCloudClientManagerFactory.getDefaultSingleton()
-            .getClientFor(ocAccount, context)
+    private suspend fun uploadFiles(syncedFolder: SyncedFolder): Boolean = withContext(Dispatchers.IO) {
+        val user = getUserOrReturn(syncedFolder) ?: return@withContext false
+        val client = clientRepository.getOwncloudClient(user) ?: return@withContext false
         val capability = CapabilityUtils.getCapability(user, context)
+        var completed = true
 
         trySetForeground()
 
@@ -281,7 +282,7 @@ class AutoUploadWorker(
 
                 if (preferences.isGlobalUploadPaused) {
                     Log_OC.w(TAG, "⏸️ uploads paused, stopping auto upload")
-                    return@withContext
+                    return@withContext false
                 }
 
                 delay(retryPolicy.getDelay().milliseconds)
@@ -325,12 +326,15 @@ class AutoUploadWorker(
                         Log_OC.d(TAG, "🕒 uploading: $localPath, id: $generatedId")
 
                         FileUploadWorker.registerActiveUpload(operation)
+                        val progress = AutoUploadProgressForwarder(operation)
+                        operation.addDataTransferProgressListener(progress)
                         val result = try {
+                            fileUploadEventBroadcaster.sendUploadStarted(operation, context)
                             operation.execute(client)
                         } finally {
+                            operation.removeDataTransferProgressListener(progress)
                             FileUploadWorker.unregisterActiveUpload(operation.ocUploadId)
                         }
-                        fileUploadEventBroadcaster.sendUploadStarted(operation, context)
 
                         UploadErrorNotificationManager.handleResult(
                             context,
@@ -343,9 +347,14 @@ class AutoUploadWorker(
                         )
 
                         if (result.isSuccess) {
+                            if (upload.remotePath != operation.remotePath) {
+                                upload.remotePath = operation.remotePath
+                                repository.updateRemotePath(upload, syncedFolder)
+                            }
                             repository.markFileAsHandled(localPath, syncedFolder)
                             Log_OC.d(TAG, "✅ upload completed: $localPath")
                         } else {
+                            completed = false
                             Log_OC.e(
                                 TAG,
                                 "❌ upload failed $localPath (${upload.accountName}): ${result.logMessage}"
@@ -353,19 +362,24 @@ class AutoUploadWorker(
 
                             if (result.code == ResultCode.UNAUTHORIZED) {
                                 Log_OC.e(TAG, "🔑 credentials are no longer valid, stopping auto upload")
-                                return@withContext
+                                return@withContext false
                             }
 
                             if (result.code == ResultCode.QUOTA_EXCEEDED) {
                                 Log_OC.w(TAG, "quota exceeded, stopping auto upload")
                                 sendUploadFinishEvent(operation, result)
-                                return@withContext
+                                return@withContext false
                             }
 
                             // Mark CONFLICT files as handled to prevent retries
                             if (result.code.isConflict()) {
                                 repository.markFileAsHandled(localPath, syncedFolder)
                                 Log_OC.w(TAG, "Marked CONFLICT file as handled: $localPath")
+                            }
+
+                            if (result.exception is UploadFileException.EncryptionKeysUnavailable) {
+                                sendUploadFinishEvent(operation, result)
+                                return@withContext false
                             }
                         }
 
@@ -374,6 +388,8 @@ class AutoUploadWorker(
                             sendUploadFinishEvent(operation, result)
                         }
                     } catch (e: Exception) {
+                        if (e is CancellationException) throw e
+                        completed = false
                         uploadsStorageManager.updateStatus(
                             uploadEntity,
                             UploadsStorageManager.UploadStatus.UPLOAD_FAILED
@@ -391,6 +407,8 @@ class AutoUploadWorker(
                         }
                     }
                 } catch (e: Exception) {
+                    if (e is CancellationException) throw e
+                    completed = false
                     Log_OC.e(
                         TAG,
                         "Exception uploadFiles during creating entity and upload, localPath: $localPath, " +
@@ -402,6 +420,7 @@ class AutoUploadWorker(
                 }
             }
         }
+        completed
     }
 
     private suspend fun deleteNonExistingFile(path: String, id: Int, upload: OCUpload) {

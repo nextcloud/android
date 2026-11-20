@@ -33,6 +33,7 @@ import com.nextcloud.utils.extensions.sortedByUploadOrder
 import com.nextcloud.utils.extensions.toFile
 import com.nextcloud.utils.text.DisplayTextFormatter
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
+import com.nextcloud.utils.thumbnail.UploadThumbnailSource
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UploadListHeaderBinding
 import com.owncloud.android.databinding.UploadListItemBinding
@@ -42,6 +43,7 @@ import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.db.UploadResult
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.operations.upload.UploadFileLink
 import com.owncloud.android.ui.activity.drawer.DrawerActivity
 import com.owncloud.android.ui.adapter.progressListener.UploadProgressListener
 import com.owncloud.android.ui.adapter.uploadList.helper.UploadListAdapterHelper
@@ -64,7 +66,6 @@ import java.util.function.Consumer
 )
 class UploadListAdapter(
     private val activity: DrawerActivity,
-    private val fileDataStorageManager: FileDataStorageManager,
     private val uploadsStorageManager: UploadsStorageManager,
     private val accountManager: UserAccountManager,
     private val connectivityService: ConnectivityService,
@@ -77,6 +78,8 @@ class UploadListAdapter(
 
     private val uploadListSections = UploadListSection.sections()
     private var latestLoadId = 0
+    private var displayedPaths: Map<Long, String> = emptyMap()
+    private var uploadedFiles: Map<Long, OCFile> = emptyMap()
     private val showUser: Boolean = accountManager.getAccounts().size > 1
     private val uploadHelper = FileUploadHelper.instance()
     private var uploadProgressListener: UploadProgressListener? = null
@@ -261,13 +264,13 @@ class UploadListAdapter(
 
     @SuppressLint("SetTextI18n")
     private fun bindItemText(holder: ItemViewHolder, item: OCUpload) {
-        val remoteFile = File(item.remotePath)
+        val remoteFile = File(displayedPaths[item.uploadId] ?: item.remotePath)
         val fileName = remoteFile.name.takeIf { it.isNotEmpty() } ?: File.separator
         holder.binding.uploadName.text = fileName
-        holder.binding.uploadRemotePath.text = File(item.remotePath).parent
+        holder.binding.uploadRemotePath.text = remoteFile.parent
 
         val updateTime = item.uploadEndTimestamp
-        if (item.fileSize != 0L) {
+        if (item.fileSize > 0L) {
             var fileSizeFormat = "%s "
 
             // we have valid update time so we can show the upload date
@@ -333,7 +336,10 @@ class UploadListAdapter(
             when (item.uploadStatus) {
                 UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS -> bindItemInProgress(holder, item)
 
-                UploadsStorageManager.UploadStatus.UPLOAD_SUCCEEDED,
+                UploadsStorageManager.UploadStatus.UPLOAD_SUCCEEDED -> {
+                    uploadStatus.setVisibleIf(item.fileSize < 0)
+                }
+
                 UploadsStorageManager.UploadStatus.UPLOAD_CANCELLED -> uploadStatus.visibility = View.GONE
 
                 else -> {}
@@ -358,6 +364,7 @@ class UploadListAdapter(
         holder.binding.run {
             viewThemeUtils.platform.themeHorizontalProgressBar(uploadProgressBar)
             uploadProgressBar.progress = 0
+            uploadProgressBar.isIndeterminate = uploadHelper.isUploadingNow(item)
             uploadProgressBar.visibility = View.VISIBLE
             uploadFileSize.visibility = View.GONE
 
@@ -500,16 +507,12 @@ class UploadListAdapter(
         }
     }
 
-    private fun OCUpload.toOCFile(): OCFile =
-        fileDataStorageManager.getFileByDecryptedRemotePath(remotePath) ?: OCFile(remotePath).apply {
-            setStoragePath(localPath)
-            mimeType = this@toOCFile.mimeType
-        }
+    private fun OCUpload.toOCFile(): OCFile = UploadThumbnailSource.forUpload(this, uploadedFiles[uploadId])
 
     private fun bindItemThumbnail(holder: ItemViewHolder, ocFile: OCFile) {
         holder.binding.thumbnail.tag = ocFile.fileId
 
-        thumbnailGenerator.setThumbnail(ocFile, holder.binding.thumbnail)
+        thumbnailGenerator.setUploadThumbnail(ocFile, holder.binding.thumbnail)
     }
 
     // endregion
@@ -559,6 +562,7 @@ class UploadListAdapter(
         }
 
         val accountName = optionalUser.get().accountName
+        val fileDataStorageManager = FileDataStorageManager(optionalUser.get(), activity.contentResolver)
         val capabilities = optionalCapabilities.get()
         val loadId = ++latestLoadId
 
@@ -578,6 +582,13 @@ class UploadListAdapter(
                 uploads.forEach { it.setDataFixed(uploadHelper) }
                 sec.withItems(uploads.sortedByUploadOrder())
             }
+            val files = mutableMapOf<Long, OCFile>()
+            val paths = mutableMapOf<Long, String>()
+            updatedSections.flatMap { it.items }.forEach { upload ->
+                val stored = UploadFileLink.findUploadedFile(fileDataStorageManager, upload.remotePath)
+                if (stored != null) files[upload.uploadId] = stored
+                paths[upload.uploadId] = UploadFileLink.displayPath(fileDataStorageManager, upload, stored)
+            }
 
             withContext(Dispatchers.Main) {
                 if (loadId != latestLoadId) {
@@ -588,6 +599,8 @@ class UploadListAdapter(
                 for (i in uploadListSections.indices) {
                     uploadListSections[i] = updatedSections[i]
                 }
+                uploadedFiles = files
+                displayedPaths = paths
                 notifyDataSetChanged()
                 onCompleted.run()
             }

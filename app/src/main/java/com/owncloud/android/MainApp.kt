@@ -6,6 +6,8 @@
  */
 package com.owncloud.android
 
+import com.owncloud.android.operations.upload.EncryptedUploadConflictChecker
+
 import android.app.Application
 import android.content.BroadcastReceiver
 import android.content.ComponentName
@@ -184,6 +186,7 @@ open class MainApp :
         enableStrictMode()
         preferences.darkThemeMode.setTheme()
         super.onCreate()
+        EncryptedUploadConflictChecker.clearOrphanedPreviews(this)
 
         ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleEventObserver)
         insertConscrypt()
