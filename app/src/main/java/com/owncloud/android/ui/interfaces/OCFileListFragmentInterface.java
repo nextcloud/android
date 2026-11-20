@@ -10,11 +10,11 @@ package com.owncloud.android.ui.interfaces;
 import android.view.View;
 
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.ui.adapter.filelist.OCFileListAdapter;
+import com.owncloud.android.ui.adapter.filelist.FileListAdapter;
 
 /**
  * Interface for communication between {@link com.owncloud.android.ui.fragment.OCFileListFragment}
- * and {@link OCFileListAdapter}
+ * and {@link FileListAdapter}
  */
 
 public interface OCFileListFragmentInterface {

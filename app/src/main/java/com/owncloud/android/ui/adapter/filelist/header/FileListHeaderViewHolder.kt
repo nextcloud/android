@@ -11,7 +11,7 @@ package com.owncloud.android.ui.adapter.filelist.header
 import androidx.recyclerview.widget.RecyclerView
 import com.owncloud.android.databinding.ListHeaderBinding
 
-internal class OCFileListHeaderViewHolder(var binding: ListHeaderBinding) :
+internal class FileListHeaderViewHolder(var binding: ListHeaderBinding) :
     RecyclerView.ViewHolder(
         binding.root
     ) {

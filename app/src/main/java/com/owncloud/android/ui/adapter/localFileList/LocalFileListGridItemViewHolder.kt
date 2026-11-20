@@ -9,12 +9,12 @@ package com.owncloud.android.ui.adapter.localFileList
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.nextcloud.ui.component.FilenameView
 import com.owncloud.android.R
 
 internal open class LocalFileListGridItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val fileName: TextView = itemView.findViewById(R.id.Filename)
+    val fileName: FilenameView = itemView.findViewById(R.id.Filename)
     val thumbnail: ImageView = itemView.findViewById(R.id.thumbnail)
     val checkbox: ImageView = itemView.findViewById(R.id.custom_checkbox)
     val itemLayout: LinearLayout = itemView.findViewById(R.id.ListItemLayout)

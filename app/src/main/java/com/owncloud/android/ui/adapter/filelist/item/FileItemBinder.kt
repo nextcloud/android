@@ -18,8 +18,8 @@ import com.nextcloud.utils.HumanReadableFormatter
 import com.nextcloud.utils.avatar.AvatarGenerator
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.text.DisplayTextFormatter
-import com.nextcloud.utils.view.LocaleDirection
 import com.owncloud.android.R
+import com.owncloud.android.databinding.ListItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -29,7 +29,7 @@ import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 
-internal class OCFileListItemBinder(
+internal class FileItemBinder(
     private val activity: Activity,
     private val viewThemeUtils: ViewThemeUtils,
     private val fragmentInterface: OCFileListFragmentInterface,
@@ -37,74 +37,41 @@ internal class OCFileListItemBinder(
     private val userId: String?
 ) {
     private val avatarShareesProvider = AvatarShareesProvider()
-    private val isRTL = LocaleDirection.isRtl
 
     // region Public methods
-    fun bindDetails(
-        holder: ListItemViewHolder,
+    fun bind(
+        holder: FileItemViewHolder,
         file: OCFile,
         user: User,
         storageManager: FileDataStorageManager,
         showItemOptions: Boolean,
         onlyOnDevice: Boolean
     ) {
-        bindSharedAvatars(holder, file, user, showItemOptions)
-        bindTags(holder, file.tags)
-        bindFileSize(holder, file, storageManager, onlyOnDevice)
-        bindLastModification(holder, file)
-        bindOverflowMenu(holder, file, showItemOptions)
+        val binding = holder.binding
+        bindSharedAvatars(binding, file, user, showItemOptions)
+        bindTags(binding, file.tags)
+        bindFileSize(binding, file, storageManager, onlyOnDevice)
+        bindLastModification(binding, file)
+        bindOverflowMenu(binding, file, showItemOptions)
+        bindLivePhotoIndicator(binding, file)
+
+        binding.playerProgressIndicator.setFile(file)
     }
 
-    fun bindFilename(holder: ListGridItemViewHolder, file: OCFile, filename: String?) {
-        val hasBidiControlCharacters = FileStorageUtils.containsBidiControlCharacters(filename)
-        holder.fileName.setVisibleIf(!hasBidiControlCharacters)
-        holder.bidiFilenameContainer.setVisibleIf(hasBidiControlCharacters)
-
-        if (hasBidiControlCharacters) {
-            bindBidiFilename(holder, file, filename)
-        } else {
-            bindPlainFilename(holder, filename)
-        }
-
-        holder.playerProgressIndicator?.setFile(file)
-    }
-
-    fun bindLivePhotoIndicator(holder: ListViewHolder, file: OCFile) {
-        val isLivePhoto = file.linkedFileIdForLivePhoto != null
-
-        when (holder) {
-            is OCFileListItemViewHolder -> {
-                holder.livePhotoIndicator.setVisibleIf(isLivePhoto)
-                holder.livePhotoIndicatorSeparator.setVisibleIf(isLivePhoto)
-            }
-
-            is OCFileListViewHolder -> holder.gridLivePhotoIndicator.setVisibleIf(isLivePhoto)
-        }
+    fun bindOverflowMenuVisibility(holder: FileItemViewHolder, showMoreOptions: Boolean) {
+        holder.binding.overflowMenu.setVisibleIf(showMoreOptions)
     }
     // endregion
 
     // region Private methods
-    private fun bindPlainFilename(holder: ListGridItemViewHolder, filename: String?) {
-        holder.fileName.text = filename
-
-        if (holder is OCFileListGridItemViewHolder) {
-            holder.extension?.visibility = View.GONE
-        }
+    private fun bindLivePhotoIndicator(binding: ListItemBinding, file: OCFile) {
+        val isLivePhoto = file.linkedFileIdForLivePhoto != null
+        binding.livePhotoIndicator.setVisibleIf(isLivePhoto)
+        binding.livePhotoIndicatorSeparator.setVisibleIf(isLivePhoto)
     }
 
-    private fun bindBidiFilename(holder: ListGridItemViewHolder, file: OCFile, filename: String?) {
-        val (name, extension) = FileStorageUtils.getFilenameAndExtension(filename, file.isFolder, isRTL)
-        holder.bidiFilename.text = name
-        holder.extension?.text = extension
-
-        if (holder is OCFileListGridItemViewHolder) {
-            holder.binding.more.visibility = View.GONE
-            holder.binding.bidiMore.setOnClickListener { fragmentInterface.onOverflowIconClicked(file, it) }
-        }
-    }
-
-    private fun bindSharedAvatars(holder: ListItemViewHolder, file: OCFile, user: User, showItemOptions: Boolean) {
-        val sharedAvatars = holder.sharedAvatars
+    private fun bindSharedAvatars(binding: ListItemBinding, file: OCFile, user: User, showItemOptions: Boolean) {
+        val sharedAvatars = binding.sharedAvatars
         val isShared = file.isSharedWithMe || file.isSharedWithSharee
 
         if (!isShared || !showItemOptions) {
@@ -121,32 +88,32 @@ internal class OCFileListItemBinder(
         sharedAvatars.setAvatars(user, avatarShareesProvider.get(file, userId), viewThemeUtils, avatarGenerator)
     }
 
-    private fun bindTags(holder: ListItemViewHolder, tags: List<Tag>) {
+    private fun bindTags(binding: ListItemBinding, tags: List<Tag>) {
         val hasTags = tags.isNotEmpty()
-        holder.tagsGroup.setVisibleIf(hasTags)
-        holder.fileDetailGroup.setVisibleIf(!hasTags)
+        binding.tagsGroup.setVisibleIf(hasTags)
+        binding.fileDetailGroup.setVisibleIf(!hasTags)
 
         if (!hasTags) {
             return
         }
 
-        viewThemeUtils.material.themeChipSuggestion(holder.firstTag)
-        holder.firstTag.visibility = View.VISIBLE
-        holder.secondTag.visibility = View.GONE
-        holder.tagMore.visibility = View.GONE
+        viewThemeUtils.material.themeChipSuggestion(binding.firstTag)
+        binding.firstTag.visibility = View.VISIBLE
+        binding.secondTag.visibility = View.GONE
+        binding.tagMore.visibility = View.GONE
 
-        applyChipVisuals(holder.firstTag, tags[0])
+        applyChipVisuals(binding.firstTag, tags[0])
 
         if (tags.size > 1) {
-            holder.secondTag.visibility = View.VISIBLE
-            applyChipVisuals(holder.secondTag, tags[1])
+            binding.secondTag.visibility = View.VISIBLE
+            applyChipVisuals(binding.secondTag, tags[1])
         }
 
         val hiddenTagCount = tags.size - MAX_VISIBLE_TAGS
         if (hiddenTagCount > 0) {
-            viewThemeUtils.material.themeChipSuggestion(holder.tagMore)
-            holder.tagMore.visibility = View.VISIBLE
-            holder.tagMore.text = activity.getString(R.string.tags_more).format(hiddenTagCount)
+            viewThemeUtils.material.themeChipSuggestion(binding.tagMore)
+            binding.tagMore.visibility = View.VISIBLE
+            binding.tagMore.text = activity.getString(R.string.tags_more).format(hiddenTagCount)
         }
     }
 
@@ -169,7 +136,7 @@ internal class OCFileListItemBinder(
     }
 
     private fun bindFileSize(
-        holder: ListItemViewHolder,
+        binding: ListItemBinding,
         file: OCFile,
         storageManager: FileDataStorageManager,
         onlyOnDevice: Boolean
@@ -177,13 +144,13 @@ internal class OCFileListItemBinder(
         val localPath = file.storagePath?.takeIf { onlyOnDevice }
 
         when {
-            localPath != null -> showFileSize(holder, file, localSizeOf(File(localPath)), storageManager)
+            localPath != null -> showFileSize(binding, file, localSizeOf(File(localPath)), storageManager)
 
-            file.fileLength >= 0 -> showFileSize(holder, file, file.fileLength, storageManager)
+            file.fileLength >= 0 -> showFileSize(binding, file, file.fileLength, storageManager)
 
             else -> {
-                holder.fileSize.visibility = View.GONE
-                holder.fileSizeSeparator.visibility = View.GONE
+                binding.fileSize.visibility = View.GONE
+                binding.fileSeparator.visibility = View.GONE
             }
         }
     }
@@ -195,13 +162,13 @@ internal class OCFileListItemBinder(
     }
 
     private fun showFileSize(
-        holder: ListItemViewHolder,
+        binding: ListItemBinding,
         file: OCFile,
         size: Long,
         storageManager: FileDataStorageManager
     ) {
-        holder.fileSize.visibility = View.VISIBLE
-        holder.fileSize.text = fileSizeText(file, size, storageManager)
+        binding.fileSize.visibility = View.VISIBLE
+        binding.fileSize.text = fileSizeText(file, size, storageManager)
     }
 
     private fun fileSizeText(file: OCFile, size: Long, storageManager: FileDataStorageManager): String {
@@ -218,18 +185,18 @@ internal class OCFileListItemBinder(
         return activity.getString(descriptionRes)
     }
 
-    private fun bindLastModification(holder: ListItemViewHolder, file: OCFile) {
+    private fun bindLastModification(binding: ListItemBinding, file: OCFile) {
         val timestamp = file.modificationTimestamp.takeIf { it > 0 }
             ?: file.firstShareTimestamp.takeIf { it > 0 }
 
         if (timestamp != null) {
-            holder.lastModification.text = DisplayTextFormatter.formatRelativeTimestamp(activity, timestamp)
+            binding.lastMod.text = DisplayTextFormatter.formatRelativeTimestamp(activity, timestamp)
         }
-        holder.lastModification.setVisibleIf(timestamp != null)
+        binding.lastMod.setVisibleIf(timestamp != null)
     }
 
-    private fun bindOverflowMenu(holder: ListItemViewHolder, file: OCFile, showItemOptions: Boolean) {
-        val overflowMenu = holder.overflowMenu
+    private fun bindOverflowMenu(binding: ListItemBinding, file: OCFile, showItemOptions: Boolean) {
+        val overflowMenu = binding.overflowMenu
         overflowMenu.setVisibleIf(showItemOptions)
 
         if (showItemOptions) {
@@ -242,7 +209,7 @@ internal class OCFileListItemBinder(
     // endregion
 
     companion object {
-        private val TAG = OCFileListItemBinder::class.java.simpleName
+        private val TAG = FileItemBinder::class.java.simpleName
 
         private const val MAX_VISIBLE_TAGS = 2
     }

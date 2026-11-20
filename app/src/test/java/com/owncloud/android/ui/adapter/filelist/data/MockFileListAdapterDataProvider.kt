@@ -12,7 +12,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.MimeType
 
 @Suppress("MagicNumber")
-class MockOCFileListAdapterDataProvider : OCFileListAdapterDataProvider {
+class MockFileListAdapterDataProvider : FileListAdapterDataProvider {
 
     private var offlineOCFile: OCFile? = null
     private var files = listOf<OCFile>()

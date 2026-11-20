@@ -68,7 +68,7 @@ import com.owncloud.android.ui.activity.FolderPickerActivity
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener
 import com.owncloud.android.ui.activity.UploadFilesActivity
 import com.owncloud.android.ui.adapter.localFileList.LocalFileListAdapter
-import com.owncloud.android.ui.adapter.filelist.OCFileListAdapter
+import com.owncloud.android.ui.adapter.filelist.FileListAdapter
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 import kotlin.math.max
@@ -232,7 +232,7 @@ open class ExtendedListFragment :
 
     override fun onQueryTextSubmit(query: String): Boolean {
         val adapter = recyclerView?.adapter
-        if (adapter is OCFileListAdapter) {
+        if (adapter is FileListAdapter) {
             val listOfHiddenFiles = adapter.listOfHiddenFiles
             performSearch(query, listOfHiddenFiles, false)
             return true
@@ -255,7 +255,7 @@ open class ExtendedListFragment :
                     activity.updateListOfFilesFragment()
                 } else {
                     Handler(Looper.getMainLooper()).post {
-                        if (adapter is OCFileListAdapter) {
+                        if (adapter is FileListAdapter) {
                             activity.performUnifiedSearch(query, listOfHiddenFiles)
                         } else if (adapter is LocalFileListAdapter) {
                             adapter.filter(query)
@@ -280,7 +280,7 @@ open class ExtendedListFragment :
 
     override fun onClose(): Boolean {
         val adapter = recyclerView?.adapter
-        if (adapter is OCFileListAdapter) {
+        if (adapter is FileListAdapter) {
             val listOfHiddenFiles = adapter.listOfHiddenFiles
             performSearch("", listOfHiddenFiles, true)
             return false
