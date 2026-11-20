@@ -9,7 +9,9 @@ package com.owncloud.android.ui.fragment.autoUpload.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.Space
 import androidx.annotation.VisibleForTesting
 import androidx.core.view.isVisible
 import androidx.lifecycle.LifecycleCoroutineScope
@@ -131,8 +133,11 @@ class AutoUploadFolderAdapter(
     }
 
     override fun getFooterViewType(section: Int): Int {
-        val showFooter = isFooterSection(section) && hiddenFolderCount > 0
-        val type = if (showFooter) AutoUploadFolderAdapterType.FOOTER else AutoUploadFolderAdapterType.EMPTY
+        val type = when {
+            isFooterSection(section) && hiddenFolderCount > 0 -> AutoUploadFolderAdapterType.FOOTER
+            isEmptyFolder(section) -> AutoUploadFolderAdapterType.EMPTY_FOLDER
+            else -> AutoUploadFolderAdapterType.EMPTY
+        }
 
         return type.viewType
     }
@@ -148,8 +153,15 @@ class AutoUploadFolderAdapter(
             AutoUploadFolderAdapterType.FOOTER ->
                 FooterViewHolder(SyncedFoldersFooterBinding.inflate(inflater, parent, false))
 
-            AutoUploadFolderAdapterType.EMPTY ->
-                EmptyViewHolder(SyncedFoldersEmptyBinding.inflate(inflater, parent, false))
+            AutoUploadFolderAdapterType.EMPTY -> EmptyViewHolder(Space(parent.context))
+
+            AutoUploadFolderAdapterType.EMPTY_FOLDER -> EmptyFolderViewHolder(
+                SyncedFoldersEmptyBinding.inflate(
+                    inflater,
+                    parent,
+                    false
+                )
+            )
         }
     }
 
@@ -186,6 +198,12 @@ class AutoUploadFolderAdapter(
         holder.binding.footerText.setOnClickListener { toggleHiddenItemsVisibility() }
     }
 
+    private fun isEmptyFolder(section: Int): Boolean {
+        val item = visibleItems.getOrNull(section) ?: return false
+
+        return item.filePaths.isNullOrEmpty()
+    }
+
     override fun onBindViewHolder(
         holder: SectionedViewHolder,
         section: Int,
@@ -218,7 +236,9 @@ class AutoUploadFolderAdapter(
 
     private class FooterViewHolder(val binding: SyncedFoldersFooterBinding) : SectionedViewHolder(binding.root)
 
-    private class EmptyViewHolder(binding: SyncedFoldersEmptyBinding) : SectionedViewHolder(binding.root)
+    private class EmptyViewHolder(view: View) : SectionedViewHolder(view)
+
+    private class EmptyFolderViewHolder(binding: SyncedFoldersEmptyBinding) : SectionedViewHolder(binding.root)
 
     companion object {
         private const val GRID_ROWS = 2
