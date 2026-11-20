@@ -83,4 +83,22 @@ class FilesSyncHelperTest {
         assertEquals(1, startedFolderCount)
         verify(backgroundJobManager).startAutoUpload(enabled, false)
     }
+
+    @Test
+    fun `rescan preserves scheduled folder work and starts only idle enabled folders`() {
+        val scheduled = syncedFolder(id = 1, enabled = true)
+        val idle = syncedFolder(id = 2, enabled = true)
+        val disabled = syncedFolder(id = 3, enabled = false)
+        whenever(backgroundJobManager.isAutoUploadScheduled(scheduled.id)).thenReturn(true)
+
+        val count = FilesSyncHelper.startAutoUploadForEnabledSyncedFoldersIfNotActive(
+            provider(scheduled, idle, disabled),
+            backgroundJobManager
+        )
+
+        assertEquals(1, count)
+        verify(backgroundJobManager, never()).startAutoUpload(scheduled, false)
+        verify(backgroundJobManager, never()).startAutoUpload(disabled, false)
+        verify(backgroundJobManager).startAutoUpload(idle, false)
+    }
 }

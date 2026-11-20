@@ -12,6 +12,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.core.view.MenuProvider
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.upload.AlbumFileUploadWorker
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
@@ -24,6 +25,7 @@ class UploadListMenuProvider(
     private val preferences: AppPreferences,
     private val userAccountManager: UserAccountManager,
     private val uploadsStorageManager: UploadsStorageManager,
+    private val backgroundJobManager: BackgroundJobManager,
     private val onGlobalPauseToggled: () -> Unit
 ) : MenuProvider {
 
@@ -67,6 +69,9 @@ class UploadListMenuProvider(
         userAccountManager.allUsers.filterNotNull().forEach { user ->
             val ids = uploadsStorageManager.getCurrentUploadIds(user.accountName)
             uploadHelper.cancelAndRestartUploadJob(user, ids)
+        }
+        if (!paused) {
+            backgroundJobManager.schedulePeriodicAutoUpload(resetSchedule = true)
         }
         onGlobalPauseToggled()
     }
