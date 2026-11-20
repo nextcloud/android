@@ -246,6 +246,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Delete file from source folder</string>
     <string name="file_list_seconds_ago">seconds ago</string>
     <string name="file_list_live">LIVE</string>
+    <string name="auto_upload_overview_empty_folder">Folder is empty</string>
     <string name="file_list_empty_headline">No files here</string>
     <string name="file_list_empty_recent_files_headline">No recently modified files</string>
     <string name="file_list_empty_recent_files_description">Files and folders you recently modified will show up here.</string>
@@ -532,6 +533,7 @@
     <string name="placeholder_fileSize" translatable="false">389 KB</string>
     <string name="placeholder_fileSize_2" translatable="false">5 MB</string>
     <string name="placeholder_fileSize_3" translatable="false">3 MB</string>
+    <string name="placeholder_remaining_file_count" translatable="false">12</string>
     <string name="placeholder_current_2" translatable="false">Current (2)</string>
     <string name="placeholder_send_button" translatable="false">Send button</string>
     <string name="placeholder_first_name_last_name" translatable="false">Firstname Lastname</string>

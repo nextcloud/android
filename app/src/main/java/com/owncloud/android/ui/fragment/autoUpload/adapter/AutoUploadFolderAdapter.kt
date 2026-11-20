@@ -9,7 +9,9 @@ package com.owncloud.android.ui.fragment.autoUpload.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.Space
 import androidx.annotation.VisibleForTesting
 import androidx.core.view.isVisible
 import androidx.lifecycle.LifecycleCoroutineScope
@@ -35,7 +37,6 @@ class AutoUploadFolderAdapter(
     private val lifecycleScope: LifecycleCoroutineScope,
     private val context: Context,
     private val clock: Clock,
-    gridWidth: Int,
     private val clickListener: AutoUploadFolderClickListener,
     private val light: Boolean,
     private val viewThemeUtils: ViewThemeUtils,
@@ -43,7 +44,6 @@ class AutoUploadFolderAdapter(
     private val connectivityService: ConnectivityService
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
 
-    private val gridTotal = gridWidth * GRID_ROWS
     private val mediaThumbnailGenerationJob = MediaThumbnailGenerationJob(context, viewThemeUtils)
 
     private var items: List<SyncedFolderDisplayItem> = emptyList()
@@ -131,8 +131,11 @@ class AutoUploadFolderAdapter(
     }
 
     override fun getFooterViewType(section: Int): Int {
-        val showFooter = isFooterSection(section) && hiddenFolderCount > 0
-        val type = if (showFooter) AutoUploadFolderAdapterType.FOOTER else AutoUploadFolderAdapterType.EMPTY
+        val type = when {
+            isFooterSection(section) && hiddenFolderCount > 0 -> AutoUploadFolderAdapterType.FOOTER
+            isEmptyFolder(section) -> AutoUploadFolderAdapterType.EMPTY_FOLDER
+            else -> AutoUploadFolderAdapterType.EMPTY
+        }
 
         return type.viewType
     }
@@ -148,8 +151,15 @@ class AutoUploadFolderAdapter(
             AutoUploadFolderAdapterType.FOOTER ->
                 FooterViewHolder(SyncedFoldersFooterBinding.inflate(inflater, parent, false))
 
-            AutoUploadFolderAdapterType.EMPTY ->
-                EmptyViewHolder(SyncedFoldersEmptyBinding.inflate(inflater, parent, false))
+            AutoUploadFolderAdapterType.EMPTY -> EmptyViewHolder(Space(parent.context))
+
+            AutoUploadFolderAdapterType.EMPTY_FOLDER -> EmptyFolderViewHolder(
+                SyncedFoldersEmptyBinding.inflate(
+                    inflater,
+                    parent,
+                    false
+                )
+            )
         }
     }
 
@@ -186,6 +196,12 @@ class AutoUploadFolderAdapter(
         holder.binding.footerText.setOnClickListener { toggleHiddenItemsVisibility() }
     }
 
+    private fun isEmptyFolder(section: Int): Boolean {
+        val item = visibleItems.getOrNull(section) ?: return false
+
+        return item.filePaths.isNullOrEmpty()
+    }
+
     override fun onBindViewHolder(
         holder: SectionedViewHolder,
         section: Int,
@@ -207,8 +223,9 @@ class AutoUploadFolderAdapter(
             thumbnail.tag = file.hashCode()
             lifecycleScope.launch { mediaThumbnailGenerationJob.load(file, thumbnail) }
 
-            val remainingFileCount = item.numberOfFiles - gridTotal
-            val showRemainingFileCount = remainingFileCount > 0 && position >= gridTotal - 1
+            val displayedFileCount = item.filePaths?.size ?: 0
+            val remainingFileCount = item.numberOfFiles - displayedFileCount
+            val showRemainingFileCount = remainingFileCount > 0 && position == displayedFileCount - 1
             counter.text = String.format(Locale.US, "%d", remainingFileCount)
             counterLayout.isVisible = showRemainingFileCount
             thumbnailDarkener.isVisible = showRemainingFileCount
@@ -218,9 +235,7 @@ class AutoUploadFolderAdapter(
 
     private class FooterViewHolder(val binding: SyncedFoldersFooterBinding) : SectionedViewHolder(binding.root)
 
-    private class EmptyViewHolder(binding: SyncedFoldersEmptyBinding) : SectionedViewHolder(binding.root)
+    private class EmptyViewHolder(view: View) : SectionedViewHolder(view)
 
-    companion object {
-        private const val GRID_ROWS = 2
-    }
+    private class EmptyFolderViewHolder(binding: SyncedFoldersEmptyBinding) : SectionedViewHolder(binding.root)
 }
