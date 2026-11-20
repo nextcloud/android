@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.android.lib.resources.groupfolders.Groupfolder
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ListItemBinding
-import com.owncloud.android.ui.adapter.filelist.item.OCFileListItemViewHolder
+import com.owncloud.android.ui.adapter.filelist.item.FileItemViewHolder
 import com.owncloud.android.ui.interfaces.GroupfolderListInterface
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -40,27 +40,25 @@ class GroupFolderListAdapter(
         return MimeTypeUtil.getFolderIcon(isDarkMode, overlayDrawableId, context, viewThemeUtils)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        OCFileListItemViewHolder(
-            ListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder = FileItemViewHolder(
+        ListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    )
 
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val groupFolder = list[position]
-        val listHolder = holder as OCFileListItemViewHolder
+        val listHolder = holder as FileItemViewHolder
 
         val file = File("/" + groupFolder.mountPoint)
 
         listHolder.apply {
-            fileName.text = file.name
-            fileSize.text = file.parentFile?.path ?: "/"
-            extension.visibility = View.GONE
-            fileSizeSeparator.visibility = View.GONE
-            lastModification.visibility = View.GONE
+            filename.text = file.name
+            binding.fileSize.text = file.parentFile?.path ?: "/"
+            binding.fileSeparator.visibility = View.GONE
+            binding.lastMod.visibility = View.GONE
             checkbox.visibility = View.GONE
-            overflowMenu.visibility = View.GONE
+            binding.overflowMenu.visibility = View.GONE
             shared.visibility = View.GONE
             localFileIndicator.visibility = View.GONE
             favorite.visibility = View.GONE

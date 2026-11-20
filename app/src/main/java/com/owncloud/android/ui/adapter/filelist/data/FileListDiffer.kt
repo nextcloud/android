@@ -16,7 +16,7 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.fragment.SearchType
 
-class OCFileListDiffer(
+class FileListDiffer(
     private val adapter: RecyclerView.Adapter<*>,
     private val preferences: AppPreferences,
     private val shouldShowHeader: () -> Boolean

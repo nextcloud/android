@@ -36,4 +36,12 @@
         <attr name="appWidgetInnerRadius" format="dimension" />
         <attr name="appWidgetRadius" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="FilenameView">
+        <attr name="android:textAppearance" />
+        <attr name="android:textSize" />
+        <attr name="android:textColor" />
+        <attr name="android:maxLines" />
+        <attr name="android:ellipsize" />
+    </declare-styleable>
 </resources>

@@ -23,13 +23,13 @@ import org.junit.Before
 import org.junit.Test
 
 @Suppress("LongMethod")
-class OCFileListAdapterHelperTest {
+class FileListAdapterHelperTest {
 
     private val context = mockk<Context>(relaxed = true)
-    private val helper = OCFileListAdapterHelper()
+    private val helper = FileListAdapterHelper()
 
     private val preferences = mockk<AppPreferences>(relaxed = true)
-    private val dataProvider = MockOCFileListAdapterDataProvider()
+    private val dataProvider = MockFileListAdapterDataProvider()
 
     private val userId = "user123"
 
