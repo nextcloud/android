@@ -51,10 +51,10 @@ class E2EEActionResolverTest {
         }
         whenever(inspector.fetchCapabilities()).thenReturn(null)
         whenever(storageManager.getCapability(user)).thenReturn(capability)
-        whenever(provider.getValue(user, EncryptionUtils.PUBLIC_KEY)).thenReturn(STORED_CERTIFICATE)
+        whenever(provider.getValue(user, EncryptionUtils.CERTIFICATE)).thenReturn(STORED_CERTIFICATE)
 
         CertificateValidationResult.entries.filter { it != CertificateValidationResult.VALID }.forEach { reason ->
-            whenever(inspector.compareWithServerKey(STORED_CERTIFICATE))
+            whenever(inspector.compareWithServerCertificate(STORED_CERTIFICATE))
                 .thenReturn(DownloadKeyResult.CertificateVerificationFailed(reason))
 
             val result = resolver.checkKeys()
@@ -73,8 +73,10 @@ class E2EEActionResolverTest {
         }
         whenever(inspector.fetchCapabilities()).thenReturn(null)
         whenever(storageManager.getCapability(user)).thenReturn(capability)
-        whenever(provider.getValue(user, EncryptionUtils.PUBLIC_KEY)).thenReturn(STORED_CERTIFICATE)
-        whenever(inspector.compareWithServerKey(STORED_CERTIFICATE)).thenReturn(DownloadKeyResult.CompareKeys(true))
+        whenever(provider.getValue(user, EncryptionUtils.CERTIFICATE)).thenReturn(STORED_CERTIFICATE)
+        whenever(
+            inspector.compareWithServerCertificate(STORED_CERTIFICATE)
+        ).thenReturn(DownloadKeyResult.CompareKeys(true))
 
         assertEquals(E2EEKeyCheck.SAME_AS_SERVER, resolver.checkKeys().state)
     }
@@ -94,7 +96,7 @@ class E2EEActionResolverTest {
         E2EEAction.entries.forEach { action ->
             assertEquals(R.string.e2ee_key_request_rate_limited, result.getMessageId(action))
         }
-        verify(inspector, never()).compareWithServerKey(any())
+        verify(inspector, never()).compareWithServerCertificate(any())
         verify(storageManager, never()).setReadOnly(any(), any())
         verify(provider, never()).storeOrUpdateKeyValue(any<User>(), any(), any())
     }
@@ -107,14 +109,14 @@ class E2EEActionResolverTest {
         }
         whenever(inspector.fetchCapabilities()).thenReturn(null)
         whenever(storageManager.getCapability(user)).thenReturn(capability)
-        whenever(provider.getValue(user, EncryptionUtils.PUBLIC_KEY)).thenReturn(STORED_CERTIFICATE)
+        whenever(provider.getValue(user, EncryptionUtils.CERTIFICATE)).thenReturn(STORED_CERTIFICATE)
 
         for (httpCode in listOf(401, 403, 404, 429, 500, 503, 504)) {
             val response = mock<RemoteOperationResult<String>> {
                 on { this.httpCode } doReturn httpCode
             }
             val failure = E2EEKeyRequestError.from(response)
-            whenever(inspector.compareWithServerKey(STORED_CERTIFICATE)).thenReturn(failure)
+            whenever(inspector.compareWithServerCertificate(STORED_CERTIFICATE)).thenReturn(failure)
 
             val result = resolver.checkKeys()
 
@@ -124,6 +126,22 @@ class E2EEActionResolverTest {
             }
         }
         verify(storageManager, never()).setReadOnly(any(), any())
+        verify(provider, never()).storeOrUpdateKeyValue(any<User>(), any(), any())
+    }
+
+    @Test
+    fun preservesUntrustedStoredSigningKeyState() = runTest {
+        val capability: OCCapability = mock {
+            on { endToEndEncryptionKeysExist }.thenReturn(CapabilityBooleanType.TRUE)
+            on { endToEndEncryption }.thenReturn(CapabilityBooleanType.TRUE)
+        }
+        whenever(inspector.fetchCapabilities()).thenReturn(null)
+        whenever(storageManager.getCapability(user)).thenReturn(capability)
+        whenever(provider.getValue(user, EncryptionUtils.CERTIFICATE)).thenReturn(STORED_CERTIFICATE)
+        whenever(inspector.compareWithServerCertificate(STORED_CERTIFICATE))
+            .thenReturn(DownloadKeyResult.CertificateNotSignedByStoredServerKey)
+
+        assertEquals(E2EEKeyCheck.UNTRUSTED_CERTIFICATE, resolver.checkKeys().state)
         verify(provider, never()).storeOrUpdateKeyValue(any<User>(), any(), any())
     }
 

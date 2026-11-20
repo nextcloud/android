@@ -35,7 +35,10 @@ class CertificateValidator @Inject constructor() {
      * @param serverPublicKeyString Public key with header
      * @param certificate Certificate in PEM format
      */
-    fun validate(serverPublicKeyString: String, certificate: String): CertificateValidationResult {
+    fun validate(serverPublicKeyString: String, certificate: String): Boolean =
+        validateWithResult(serverPublicKeyString, certificate) == CertificateValidationResult.VALID
+
+    fun validateWithResult(serverPublicKeyString: String, certificate: String): CertificateValidationResult {
         val serverPublicKey = try {
             val decodedPublicKey = Base64.getDecoder().decode(CryptoStringUtils.rawPublicKey(serverPublicKeyString))
             KeyFactory.getInstance("RSA").generatePublic(X509EncodedKeySpec(decodedPublicKey))

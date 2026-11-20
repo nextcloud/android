@@ -21,11 +21,15 @@ sealed class DownloadKeyResult(open val descriptionId: Int? = null) {
     data class LocalKeysInvalid(override val descriptionId: Int = R.string.e2ee_local_keys_invalid) :
         DownloadKeyResult(descriptionId)
 
+    data class CertificateNotSignedByCurrentServerKey(
+        override val descriptionId: Int = R.string.end_to_end_encryption_could_not_verify_certificate
+    ) : DownloadKeyResult(descriptionId)
+
     data class ServerPublicKeyUnavailable(
         override val descriptionId: Int = R.string.end_to_end_encryption_server_public_key_unavailable
     ) : DownloadKeyResult(descriptionId)
 
-    data class ServerPrivateKeyUnavailable(
+    data class PrivateKeyUnavailable(
         override val descriptionId: Int = R.string.end_to_end_encryption_server_private_key_unavailable
     ) : DownloadKeyResult(descriptionId)
 
@@ -39,9 +43,12 @@ sealed class DownloadKeyResult(open val descriptionId: Int? = null) {
 
     data object GeneratePassphraseSendCSR : DownloadKeyResult()
 
-    data object NoServerKey : DownloadKeyResult()
+    data object NoCertificateOnServer : DownloadKeyResult()
+
+    data object CertificateNotSignedByStoredServerKey : DownloadKeyResult()
 
     data class CompareKeys(val same: Boolean) : DownloadKeyResult()
 
-    data class Success(val privateKey: String) : DownloadKeyResult()
+    data class Success(val privateKey: String, val certificate: String, val serverPublicKey: String) :
+        DownloadKeyResult()
 }

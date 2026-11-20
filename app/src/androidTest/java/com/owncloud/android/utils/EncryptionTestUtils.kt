@@ -33,7 +33,7 @@ class EncryptionTestUtils {
             "GsYOFuUehKUBXSJ0929hdP0sjOQDJN3DEDISzmgdWX5NyLJxEYgFWNivpePjWCWzOzyua3nPSpvxPIUB7xh27gjT91glj1hEmy" +
             "sCd7+9yoMPiCXR7iigRycxegI/Krd39QzISSk9O0finfytU="
 
-    val t1PublicKey = """-----BEGIN CERTIFICATE-----
+    val t1Certificate = """-----BEGIN CERTIFICATE-----
 MIIC6DCCAdCgAwIBAgIBADANBgkqhkiG9w0BAQUFADANMQswCQYDVQQDDAJ0MTAe
 Fw0yMzA3MjUwNzU3MTJaFw00MzA3MjAwNzU3MTJaMA0xCzAJBgNVBAMMAnQxMIIB
 IjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtafHmDBcBqIu4HmMxMDW3j0S

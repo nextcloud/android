@@ -16,10 +16,20 @@ class CertificateValidatorTest {
     private val validator = CertificateValidator()
 
     @Test
+    fun preservesBooleanValidationApi() {
+        assertEquals(
+            true,
+            validator.validate(CertificateTestFixtures.publicKey(), CertificateTestFixtures.certificate())
+        )
+        assertEquals(false, validator.validate(CertificateTestFixtures.publicKey(CertificateTestFixtures.otherKeys),
+            CertificateTestFixtures.certificate()))
+    }
+
+    @Test
     fun acceptsCertificateSignedByServer() {
         assertEquals(
             CertificateValidationResult.VALID,
-            validator.validate(CertificateTestFixtures.publicKey(), CertificateTestFixtures.certificate())
+            validator.validateWithResult(CertificateTestFixtures.publicKey(), CertificateTestFixtures.certificate())
         )
     }
 
@@ -28,7 +38,7 @@ class CertificateValidatorTest {
         val serverKey = CertificateTestFixtures.publicKey().replace("\n", "\r\n") + " \t"
         assertEquals(
             CertificateValidationResult.VALID,
-            validator.validate(serverKey, CertificateTestFixtures.certificate())
+            validator.validateWithResult(serverKey, CertificateTestFixtures.certificate())
         )
     }
 
@@ -41,7 +51,7 @@ class CertificateValidatorTest {
         )
         assertEquals(
             CertificateValidationResult.EXPIRED,
-            validator.validate(CertificateTestFixtures.publicKey(), certificate)
+            validator.validateWithResult(CertificateTestFixtures.publicKey(), certificate)
         )
     }
 
@@ -54,7 +64,7 @@ class CertificateValidatorTest {
         )
         assertEquals(
             CertificateValidationResult.NOT_YET_VALID,
-            validator.validate(CertificateTestFixtures.publicKey(), certificate)
+            validator.validateWithResult(CertificateTestFixtures.publicKey(), certificate)
         )
     }
 
@@ -62,7 +72,7 @@ class CertificateValidatorTest {
     fun reportsMalformedServerKey() {
         assertEquals(
             CertificateValidationResult.INVALID_SERVER_PUBLIC_KEY,
-            validator.validate("not a public key", CertificateTestFixtures.certificate())
+            validator.validateWithResult("not a public key", CertificateTestFixtures.certificate())
         )
     }
 
@@ -70,7 +80,7 @@ class CertificateValidatorTest {
     fun reportsInvalidServerKeyEncoding() {
         assertEquals(
             CertificateValidationResult.INVALID_SERVER_PUBLIC_KEY,
-            validator.validate("AAAA", CertificateTestFixtures.certificate())
+            validator.validateWithResult("AAAA", CertificateTestFixtures.certificate())
         )
     }
 
@@ -78,7 +88,7 @@ class CertificateValidatorTest {
     fun reportsMalformedCertificate() {
         assertEquals(
             CertificateValidationResult.INVALID_CERTIFICATE,
-            validator.validate(CertificateTestFixtures.publicKey(), "not a certificate")
+            validator.validateWithResult(CertificateTestFixtures.publicKey(), "not a certificate")
         )
     }
 
@@ -86,7 +96,7 @@ class CertificateValidatorTest {
     fun reportsMismatchedServerSigningKey() {
         assertEquals(
             CertificateValidationResult.INVALID_SIGNATURE,
-            validator.validate(
+            validator.validateWithResult(
                 CertificateTestFixtures.publicKey(CertificateTestFixtures.otherKeys),
                 CertificateTestFixtures.certificate()
             )
@@ -97,7 +107,7 @@ class CertificateValidatorTest {
     fun reportsUnsupportedCertificateSignatureAlgorithm() {
         assertEquals(
             CertificateValidationResult.UNSUPPORTED_ALGORITHM,
-            validator.validate(
+            validator.validateWithResult(
                 CertificateTestFixtures.publicKey(),
                 CertificateTestFixtures.certificate(unsupportedAlgorithm = true)
             )

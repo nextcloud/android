@@ -11,8 +11,6 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.google.gson.Gson
 import com.owncloud.android.datamodel.Credentials
 import com.owncloud.android.ui.dialog.setupEncryption.CertificateValidator
-import com.owncloud.android.ui.dialog.setupEncryption.model.CertificateValidationResult
-import org.junit.Assert.assertEquals
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -41,6 +39,7 @@ class CertificateValidatorTests {
             Gson().fromJson(reader, Credentials::class.java)
         }
 
-        assertEquals(CertificateValidationResult.VALID, sut?.validate(credentials.publicKey, credentials.certificate))
+        val isCertificateValid = sut?.validate(credentials.publicKey, credentials.certificate) ?: false
+        assert(isCertificateValid)
     }
 }

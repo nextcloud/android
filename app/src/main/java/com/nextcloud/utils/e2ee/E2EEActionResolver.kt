@@ -39,6 +39,12 @@ class E2EEActionResolver @Inject constructor(
         storageManager.setReadOnly(file, true)
     }
 
+    suspend fun setReadOnlyAndCanDecrypt(file: OCFile): Boolean = withContext(Dispatchers.IO) {
+        storageManager.setReadOnly(file, true)
+        val capability = storageManager.getCapability(accountManager.user.accountName)
+        return@withContext inspector.canDecryptFolderMetadata(file, capability)
+    }
+
     suspend fun checkFolderMetadataKey(file: OCFile): Boolean = withContext(Dispatchers.IO) {
         val capability = storageManager.getCapability(accountManager.user.accountName)
         val canDecrypt = inspector.canDecryptFolderMetadata(file, capability)
@@ -77,14 +83,17 @@ class E2EEActionResolver @Inject constructor(
     }
 
     private suspend fun compareKeys(): E2EEKeyCheckResult {
-        val storedPublicKey = arbitraryDataProvider.getValue(accountManager.user, EncryptionUtils.PUBLIC_KEY)
+        val storedCertificate = arbitraryDataProvider.getValue(accountManager.user, EncryptionUtils.CERTIFICATE)
 
-        return when (val result = inspector.compareWithServerKey(storedPublicKey)) {
+        return when (val result = inspector.compareWithServerCertificate(storedCertificate)) {
             is DownloadKeyResult.CompareKeys -> E2EEKeyCheckResult(
                 if (result.same) E2EEKeyCheck.SAME_AS_SERVER else E2EEKeyCheck.DIFFERS_FROM_SERVER
             )
 
-            is DownloadKeyResult.NoServerKey -> E2EEKeyCheckResult(E2EEKeyCheck.ONLY_ON_DEVICE)
+            is DownloadKeyResult.NoCertificateOnServer -> E2EEKeyCheckResult(E2EEKeyCheck.ONLY_ON_DEVICE)
+
+            is DownloadKeyResult.CertificateNotSignedByStoredServerKey ->
+                E2EEKeyCheckResult(E2EEKeyCheck.UNTRUSTED_CERTIFICATE)
 
             else -> E2EEKeyCheckResult(E2EEKeyCheck.CHECK_FAILED, result.descriptionId)
         }

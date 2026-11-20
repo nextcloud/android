@@ -13,6 +13,7 @@ import android.os.Parcelable;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.preferences.SubFolderRule;
 import com.owncloud.android.datamodel.MediaFolderType;
+import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 
@@ -27,6 +28,7 @@ public class SyncedFolderParcelable implements Parcelable {
     private boolean chargingOnly = false;
     private boolean existing = true;
     private boolean enabled = false;
+    private long enabledTimestampMs = SyncedFolder.EMPTY_ENABLED_TIMESTAMP_MS;
     private boolean subfolderByDate = false;
     private Integer uploadAction;
     private NameCollisionPolicy nameCollisionPolicy = NameCollisionPolicy.ASK_USER;
@@ -34,11 +36,11 @@ public class SyncedFolderParcelable implements Parcelable {
     private boolean hidden = false;
     private long id;
     private String account;
-    private int section;
     private SubFolderRule subFolderRule;
     private boolean excludeHidden;
+    private long lastScanTimestampMs = SyncedFolder.NOT_SCANNED_YET;
 
-    public SyncedFolderParcelable(SyncedFolderDisplayItem syncedFolderDisplayItem, int section) {
+    public SyncedFolderParcelable(SyncedFolderDisplayItem syncedFolderDisplayItem) {
         id = syncedFolderDisplayItem.getId();
         folderName = syncedFolderDisplayItem.getFolderName();
         localPath = syncedFolderDisplayItem.getLocalPath();
@@ -47,16 +49,17 @@ public class SyncedFolderParcelable implements Parcelable {
         chargingOnly = syncedFolderDisplayItem.isChargingOnly();
         existing = syncedFolderDisplayItem.alsoUploadExistingFiles();
         enabled = syncedFolderDisplayItem.isEnabled();
+        enabledTimestampMs = syncedFolderDisplayItem.getEnabledTimestampMs();
         subfolderByDate = syncedFolderDisplayItem.isSubfolderByDate();
         type = syncedFolderDisplayItem.getType();
         account = syncedFolderDisplayItem.getAccount();
         uploadAction = syncedFolderDisplayItem.getUploadAction();
         nameCollisionPolicy = NameCollisionPolicy.deserialize(
             syncedFolderDisplayItem.getNameCollisionPolicyInt());
-        this.section = section;
         hidden = syncedFolderDisplayItem.isHidden();
         subFolderRule = syncedFolderDisplayItem.getSubfolderRule();
         excludeHidden = syncedFolderDisplayItem.isExcludeHidden();
+        lastScanTimestampMs = syncedFolderDisplayItem.getLastScanTimestampMs();
     }
 
     private SyncedFolderParcelable(Parcel read) {
@@ -68,19 +71,16 @@ public class SyncedFolderParcelable implements Parcelable {
         chargingOnly = read.readInt() != 0;
         existing = read.readInt() != 0;
         enabled = read.readInt() != 0;
+        enabledTimestampMs = read.readLong();
         subfolderByDate = read.readInt() != 0;
         type = MediaFolderType.getById(read.readInt());
         account = read.readString();
         uploadAction = read.readInt();
         nameCollisionPolicy = NameCollisionPolicy.deserialize(read.readInt());
-        section = read.readInt();
         hidden = read.readInt() != 0;
         subFolderRule = SubFolderRule.values()[read.readInt()];
         excludeHidden = read.readInt() != 0;
-    }
-
-    public SyncedFolderParcelable() {
-        // empty constructor
+        lastScanTimestampMs = read.readLong();
     }
 
     @Override
@@ -93,15 +93,16 @@ public class SyncedFolderParcelable implements Parcelable {
         dest.writeInt(chargingOnly ? 1 : 0);
         dest.writeInt(existing ? 1 : 0);
         dest.writeInt(enabled ? 1 : 0);
+        dest.writeLong(enabledTimestampMs);
         dest.writeInt(subfolderByDate ? 1 : 0);
         dest.writeInt(type.id);
         dest.writeString(account);
         dest.writeInt(uploadAction);
         dest.writeInt(nameCollisionPolicy.serialize());
-        dest.writeInt(section);
         dest.writeInt(hidden ? 1 : 0);
         dest.writeInt(subFolderRule.ordinal());
         dest.writeInt(excludeHidden ? 1 : 0);
+        dest.writeLong(lastScanTimestampMs);
     }
 
     public static final Creator<SyncedFolderParcelable> CREATOR =
@@ -205,10 +206,6 @@ public class SyncedFolderParcelable implements Parcelable {
         return this.account;
     }
 
-    public int getSection() {
-        return this.section;
-    }
-
     public SubFolderRule getSubFolderRule() { return this.subFolderRule; }
 
     public void setFolderName(String folderName) {
@@ -235,8 +232,13 @@ public class SyncedFolderParcelable implements Parcelable {
         this.existing = existing;
     }
 
-    public void setEnabled(boolean enabled) {
+    public long getEnabledTimestampMs() {
+        return this.enabledTimestampMs;
+    }
+
+    public void setEnabled(boolean enabled, long timestampMs) {
         this.enabled = enabled;
+        this.enabledTimestampMs = enabled ? timestampMs : SyncedFolder.EMPTY_ENABLED_TIMESTAMP_MS;
     }
 
     public void setSubfolderByDate(boolean subfolderByDate) {
@@ -263,9 +265,6 @@ public class SyncedFolderParcelable implements Parcelable {
         this.account = account;
     }
 
-    public void setSection(int section) {
-        this.section = section;
-    }
     public void setSubFolderRule(SubFolderRule subFolderRule) { this.subFolderRule = subFolderRule; }
 
     public boolean isExcludeHidden() {
@@ -274,5 +273,9 @@ public class SyncedFolderParcelable implements Parcelable {
 
     public void setExcludeHidden(boolean excludeHidden) {
         this.excludeHidden = excludeHidden;
+    }
+
+    public long getLastScanTimestampMs() {
+        return lastScanTimestampMs;
     }
 }

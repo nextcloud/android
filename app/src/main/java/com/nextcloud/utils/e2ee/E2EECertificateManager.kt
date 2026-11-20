@@ -33,7 +33,7 @@ class E2EECertificateManager @Inject constructor(
         remoteCertificate: String,
         serverPublicKey: String
     ): DownloadKeyResult {
-        val validation = validator.validate(serverPublicKey, remoteCertificate)
+        val validation = validator.validateWithResult(serverPublicKey, remoteCertificate)
         if (validation != CertificateValidationResult.VALID) {
             return DownloadKeyResult.CertificateVerificationFailed(validation)
         }
@@ -58,7 +58,7 @@ class E2EECertificateManager @Inject constructor(
         }
 
         if (storedCertificate != remoteCertificate) {
-            arbitraryDataProvider.storeOrUpdateKeyValue(user, EncryptionUtils.PUBLIC_KEY, remoteCertificate)
+            arbitraryDataProvider.storeOrUpdateKeyValue(user, EncryptionUtils.CERTIFICATE, remoteCertificate)
         }
         return DownloadKeyResult.CompareKeys(same = true)
     }

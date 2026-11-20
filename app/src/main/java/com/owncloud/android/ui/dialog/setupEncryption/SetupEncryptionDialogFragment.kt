@@ -149,47 +149,28 @@ class SetupEncryptionDialogFragment :
 
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                if (downloadKeyResult !is DownloadKeyResult.Success) {
+                val downloadedKeys = downloadKeyResult as? DownloadKeyResult.Success
+                if (downloadedKeys == null) {
                     Log_OC.d(TAG, "DownloadKeyResult is not success")
                     return@launch
                 }
 
-                val privateKey = (downloadKeyResult as DownloadKeyResult.Success).privateKey
                 val mnemonicUnchanged = binding.encryptionPasswordInput.text.toString().trim()
                 val mnemonic =
                     binding.encryptionPasswordInput.text.toString().replace("\\s".toRegex(), "")
                         .lowercase()
                 val decryptedPrivateKey = CryptoHelper.decryptPrivateKey(
-                    privateKey,
+                    downloadedKeys.privateKey,
                     mnemonic
                 )
                 val accountName = user?.accountName ?: return@launch
 
-                arbitraryDataProvider?.storeOrUpdateKeyValue(
-                    accountName,
-                    EncryptionUtils.PRIVATE_KEY,
-                    decryptedPrivateKey
-                )
-
-                Log_OC.d(TAG, "Private key successfully decrypted and stored")
-
-                arbitraryDataProvider?.storeOrUpdateKeyValue(
-                    accountName,
-                    EncryptionUtils.MNEMONIC,
-                    mnemonicUnchanged
-                )
-
-                // check if private key and public key match
-                val publicKey = arbitraryDataProvider?.getValue(
-                    accountName,
-                    EncryptionUtils.PUBLIC_KEY
-                )
-
+                // check if private key matches the certificate
                 val firstKey = EncryptionUtils.generateKey()
                 val base64encodedKey = EncryptionUtils.encodeBytesToBase64String(firstKey)
                 val encryptedString = EncryptionUtils.encryptStringAsymmetric(
                     base64encodedKey,
-                    publicKey
+                    downloadedKeys.certificate
                 )
                 val decryptedString = EncryptionUtils.decryptStringAsymmetric(
                     encryptedString,
@@ -201,6 +182,18 @@ class SetupEncryptionDialogFragment :
                     EncryptionUtils.reportE2eError(arbitraryDataProvider, user)
                     throw Exception("Keys do not match")
                 }
+
+                arbitraryDataProvider?.run {
+                    storeOrUpdateKeyValue(accountName, EncryptionUtils.PRIVATE_KEY, decryptedPrivateKey)
+                    storeOrUpdateKeyValue(accountName, EncryptionUtils.MNEMONIC, mnemonicUnchanged)
+                    storeOrUpdateKeyValue(accountName, EncryptionUtils.CERTIFICATE, downloadedKeys.certificate)
+                    storeOrUpdateKeyValue(
+                        accountName,
+                        EncryptionUtils.SERVER_PUBLIC_KEY,
+                        downloadedKeys.serverPublicKey
+                    )
+                }
+                Log_OC.d(TAG, "Private key successfully decrypted and stored")
 
                 withContext(Dispatchers.Main) {
                     dialog.dismiss()
@@ -264,7 +257,6 @@ class SetupEncryptionDialogFragment :
 
         downloadKeyResult = withContext(Dispatchers.IO) {
             val user = user ?: return@withContext DownloadKeyResult.UnexpectedError()
-            val dataProvider = arbitraryDataProvider ?: return@withContext DownloadKeyResult.UnexpectedError()
             val client = clientRepository.getNextcloudClient()
                 ?: return@withContext DownloadKeyResult.RequestFailed(R.string.e2ee_key_request_connection_failed)
 
@@ -286,20 +278,14 @@ class SetupEncryptionDialogFragment :
                 return@withContext E2EEKeyRequestError.from(serverPublicKeyResult)
             }
 
-            val serverKey = serverPublicKeyResult.resultData
+            val serverPublicKey = serverPublicKeyResult.resultData
             val certificateAsString = certificateResult.resultData
-            val validation = certificateValidator?.validate(serverKey, certificateAsString)
+            val validation = certificateValidator?.validateWithResult(serverPublicKey, certificateAsString)
                 ?: return@withContext DownloadKeyResult.UnexpectedError()
 
             if (validation != CertificateValidationResult.VALID) {
                 return@withContext DownloadKeyResult.CertificateVerificationFailed(validation)
             }
-
-            dataProvider.storeOrUpdateKeyValue(
-                user.accountName,
-                EncryptionUtils.PUBLIC_KEY,
-                certificateAsString
-            )
 
             val privateKeyOperation = GetPrivateKeyRemoteOperation()
             val privateKeyResult = privateKeyOperation.execute(client)
@@ -310,7 +296,7 @@ class SetupEncryptionDialogFragment :
                 if (privateKey == null) {
                     DownloadKeyResult.RequestFailed(R.string.e2ee_key_request_invalid_response)
                 } else {
-                    DownloadKeyResult.Success(privateKey)
+                    DownloadKeyResult.Success(privateKey, certificateAsString, serverPublicKey)
                 }
             } else {
                 E2EEKeyRequestError.from(privateKeyResult)

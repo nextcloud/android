@@ -50,7 +50,7 @@ class E2EECertificateManagerTest {
         val renewed = CertificateTestFixtures.certificate(serial = 2)
 
         assertEquals(DownloadKeyResult.CompareKeys(true), compare(stored, renewed))
-        verify(provider).storeOrUpdateKeyValue(user, EncryptionUtils.PUBLIC_KEY, renewed)
+        verify(provider).storeOrUpdateKeyValue(user, EncryptionUtils.CERTIFICATE, renewed)
         verify(provider, never()).storeOrUpdateKeyValue(eq(user), eq(EncryptionUtils.PRIVATE_KEY), any<String>())
         verify(provider, never()).storeOrUpdateKeyValue(eq(user), eq(EncryptionUtils.MNEMONIC), any<String>())
     }
@@ -61,7 +61,7 @@ class E2EECertificateManagerTest {
         val stored = remote.replace("\n", "\r\n") + " \n"
 
         assertEquals(DownloadKeyResult.CompareKeys(true), compare(stored, remote))
-        verify(provider).storeOrUpdateKeyValue(user, EncryptionUtils.PUBLIC_KEY, remote)
+        verify(provider).storeOrUpdateKeyValue(user, EncryptionUtils.CERTIFICATE, remote)
     }
 
     @Test
@@ -151,6 +151,6 @@ class E2EECertificateManagerTest {
     )
 
     private fun verifyNoCertificateUpdate() {
-        verify(provider, never()).storeOrUpdateKeyValue(eq(user), eq(EncryptionUtils.PUBLIC_KEY), any<String>())
+        verify(provider, never()).storeOrUpdateKeyValue(eq(user), eq(EncryptionUtils.CERTIFICATE), any<String>())
     }
 }

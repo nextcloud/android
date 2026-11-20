@@ -396,11 +396,8 @@
     <string name="encryption_encrypt_unavailable">Kan deze map niet versleutelen. End-to-end versleuteling is niet ingesteld op deze server. </string>
     <string name="encryption_key_checking_keys">Sleutels controleren…</string>
     <string name="encryption_key_handle_folder_read_only_description">De encryptiesleutels van dit account zijn verwijderd of vervangen, dus de inhoud van deze map kan niet langer ontsleuteld worden. \n\nDe map is vanaf nu alleen-lezen. Om weer gebruik te maken van versleutelde mappen, maak een back-up van deze map en stel een nieuwe encryptiesleutel in via de instellingen. </string>
-    <string name="encryption_key_handle_key_keys_only_on_device_description">De encryptiesleutel op dit apparaat is niet meer geldig. Sleutels zijn ingetrokken door de server. \n\nVerwijder versleuteling lokaal via instellingen en creëer een. ieuwe versleutelde map. </string>
-    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">De encryptiesleutel op dit apparaat is niet meer geldig. Sleutels zijn ingetrokken door de server. \n\nMaak een back-up van de eerder aangemaakte map. \n\nVerwijder vervolgens de encryptie lokaal via instellingen om een nieuwe versleutelde map aan te maken. </string>
     <string name="encryption_key_handle_key_removed_title">Encryptiesleutels gewijzigd</string>
     <string name="encryption_key_handle_no_keys_description">De map kan niet geopend worden omdat de encryptiesleutels niet langer aanwezig zijn op dit apparaat of de server. </string>
-    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">De encryptiesleutels van dit account zijn verwijderd of vervangen. \n\n Maak een nieuwe encryptiesleutel via instellingen voordat je een map versleuteld. </string>
     <string name="encryption_new_folder_check_failed">Kon je encryptiesleutels niet controleren. Probeer de map opnieuw aan te maken. </string>
     <string name="encryption_new_folder_no_network">Kan de server niet bereiken. Probeer de map nogmaals te maken. </string>
     <string name="encryption_new_folder_unavailable">Kan geen versleutelde mappen maken. End-to-end versleuteling is niet ingesteld op deze server. </string>
@@ -409,7 +406,6 @@
     <string name="encryption_open_no_network">Kan de server niet bereiken. Probeer de map nogmaals te openen. </string>
     <string name="encryption_open_unavailable">Kan deze map niet openen. End-to-end versleuteling is niet ingesteld op deze server. </string>
     <string name="end_to_end_encryption_certificate_unavailable">Kan servercertificaat niet ophalen</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Kon publieke sleutel niet verifiëren</string>
     <string name="end_to_end_encryption_confirm_button">Instellen versleuteling</string>
     <string name="end_to_end_encryption_decrypting">Ontcijferen…</string>
     <string name="end_to_end_encryption_dialog_close">Sluiten</string>

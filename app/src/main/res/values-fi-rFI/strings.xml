@@ -299,7 +299,6 @@
     <string name="email_pick_failed">Sähköpostiosoitteen valinta epäonnistui.</string>
     <string name="encrypted">Salaa</string>
     <string name="end_to_end_encryption_certificate_unavailable">Palvelimen varmennetta ei voitu noutaa</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Julkisen avaimen vahvistaminen epäonnistui</string>
     <string name="end_to_end_encryption_confirm_button">Aseta salaus</string>
     <string name="end_to_end_encryption_decrypting">Puretaan salausta…</string>
     <string name="end_to_end_encryption_dialog_close">Sulje</string>

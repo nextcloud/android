@@ -50,10 +50,13 @@
         <Space style="@style/PlayerControlSpacerStyle" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/ivRepeat"
-            style="@style/PlayerControlToggleButtonStyle"
-            android:contentDescription="@string/player_control_view_repeat_button_content_description"
-            app:icon="@drawable/player_ic_repeat" />
+            android:id="@+id/playModePlaceholder"
+            style="@style/PlayerControlButtonStyle"
+            android:clickable="false"
+            android:focusable="false"
+            android:importantForAccessibility="no"
+            android:visibility="invisible"
+            app:icon="@drawable/player_ic_repeat_all" />
 
         <Space style="@style/PlayerControlSpacerStyle" />
 
@@ -82,10 +85,10 @@
         <Space style="@style/PlayerControlSpacerStyle" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/ivRandom"
-            style="@style/PlayerControlToggleButtonStyle"
-            android:contentDescription="@string/player_control_view_random_button_content_description"
-            app:icon="@drawable/player_ic_shuffle" />
+            android:id="@+id/playModeButton"
+            style="@style/PlayerControlButtonStyle"
+            android:contentDescription="@string/player_control_view_play_mode_button_content_description"
+            app:icon="@drawable/player_ic_repeat_all" />
 
         <Space style="@style/PlayerControlSpacerStyle" />
 

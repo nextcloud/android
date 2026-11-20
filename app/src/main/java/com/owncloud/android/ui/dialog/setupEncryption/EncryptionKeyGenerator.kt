@@ -21,6 +21,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.e2ee.CsrHelper
 import com.owncloud.android.lib.resources.status.E2EVersion
 import com.owncloud.android.lib.resources.users.DeletePublicKeyRemoteOperation
+import com.owncloud.android.lib.resources.users.GetServerPublicKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.SendCSRRemoteOperation
 import com.owncloud.android.lib.resources.users.StorePrivateKeyRemoteOperation
 import com.owncloud.android.utils.EncryptionUtils
@@ -52,7 +53,7 @@ class EncryptionKeyGenerator(val context: Context, val user: User) {
     suspend fun generatePrivateKey(keyWords: ArrayList<String>): PrivateKeyResult = withContext(Dispatchers.IO) {
         val arbitraryDataProvider = ArbitraryDataProviderImpl(context)
 
-        //  - create CSR, push to server, store returned public key in database
+        //  - create CSR, push to server, store returned certificate in database
         //  - encrypt private key, push key to server, store unencrypted private key in database
         try {
             val certificate: String
@@ -77,7 +78,10 @@ class EncryptionKeyGenerator(val context: Context, val user: User) {
                 EncryptionUtils.reportE2eError(arbitraryDataProvider, user)
                 throw RuntimeException("Wrong CSR returned")
             }
-            Log_OC.d(TAG, "public key success")
+            Log_OC.d(TAG, "certificate success")
+
+            val serverPublicKey = fetchServerPublicKeyOrRevokeCertificate(certificate)
+                ?: return@withContext PrivateKeyResult.Failed
 
             val privateKey = keyPair.private
             val privateKeyString = EncryptionUtils.encodeBytesToBase64String(privateKey.encoded)
@@ -104,7 +108,7 @@ class EncryptionKeyGenerator(val context: Context, val user: User) {
             )
             arbitraryDataProvider.storeOrUpdateKeyValue(
                 user.accountName,
-                EncryptionUtils.PUBLIC_KEY,
+                EncryptionUtils.CERTIFICATE,
                 certificate
             )
             arbitraryDataProvider.storeOrUpdateKeyValue(
@@ -112,6 +116,7 @@ class EncryptionKeyGenerator(val context: Context, val user: User) {
                 EncryptionUtils.MNEMONIC,
                 generateMnemonicString(keyWords, true)
             )
+            arbitraryDataProvider.storeOrUpdateKeyValue(user, EncryptionUtils.SERVER_PUBLIC_KEY, serverPublicKey)
             return@withContext PrivateKeyResult.Success(storePrivateKeyResult.resultData)
         } catch (e: Exception) {
             Log_OC.e(TAG, e.message)
@@ -119,10 +124,26 @@ class EncryptionKeyGenerator(val context: Context, val user: User) {
         return@withContext PrivateKeyResult.Failed
     }
 
+    private fun fetchServerPublicKeyOrRevokeCertificate(certificate: String): String? {
+        val result = GetServerPublicKeyRemoteOperation().executeNextcloudClient(user, context)
+        val serverPublicKey = result.resultData
+        if (result.isSuccess && CertificateValidator().validate(
+                serverPublicKeyString = serverPublicKey,
+                certificate = certificate
+            )
+        ) {
+            return serverPublicKey
+        }
+
+        Log_OC.e(TAG, "certificate could not be verified with the server public key")
+        DeletePublicKeyRemoteOperation().executeNextcloudClient(user, context)
+        return null
+    }
+
     fun uploadEncryptedFolderMetadata(
         folder: OCFile,
         client: OwnCloudClient,
-        publicKey: String,
+        certificate: String,
         privateKey: String,
         storageManager: FileDataStorageManager,
         arbitraryDataProvider: ArbitraryDataProvider
@@ -141,7 +162,7 @@ class EncryptionKeyGenerator(val context: Context, val user: User) {
                     folder,
                     client,
                     privateKey,
-                    publicKey,
+                    certificate,
                     storageManager,
                     user,
                     context,

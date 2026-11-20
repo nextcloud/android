@@ -23,6 +23,7 @@ import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.lib.resources.users.GetCertificateRemoteOperation
 import com.owncloud.android.lib.resources.users.GetServerPublicKeyRemoteOperation
 import com.owncloud.android.operations.GetCapabilitiesOperation
+import com.owncloud.android.ui.dialog.setupEncryption.model.CertificateValidationResult
 import com.owncloud.android.ui.dialog.setupEncryption.model.DownloadKeyResult
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.EncryptionUtilsV2
@@ -45,7 +46,7 @@ class E2EEKeyInspector @Inject constructor(
 
     fun isLocalKeysAbsent(): Boolean =
         arbitraryDataProvider.getValue(accountManager.user, EncryptionUtils.PRIVATE_KEY).isEmpty() ||
-            arbitraryDataProvider.getValue(accountManager.user, EncryptionUtils.PUBLIC_KEY).isEmpty()
+            arbitraryDataProvider.getValue(accountManager.user, EncryptionUtils.CERTIFICATE).isEmpty()
 
     suspend fun fetchCapabilities(): DownloadKeyResult.RequestFailed? = withContext(Dispatchers.IO) {
         val client = clientRepository.getOwncloudClient()
@@ -59,32 +60,48 @@ class E2EEKeyInspector @Inject constructor(
         null
     }
 
-    suspend fun compareWithServerKey(storedPublicKey: String): DownloadKeyResult = withContext(Dispatchers.IO) {
-        Log_OC.d(TAG, "comparing local public key with remote public key")
+    suspend fun compareWithServerCertificate(storedCertificate: String): DownloadKeyResult =
+        withContext(Dispatchers.IO) {
+            Log_OC.d(TAG, "comparing local public key with remote public key")
 
-        val user = accountManager.user
-        val client = clientRepository.getNextcloudClient()
-            ?: return@withContext DownloadKeyResult.RequestFailed(R.string.e2ee_key_request_connection_failed)
+            val user = accountManager.user
+            val client = clientRepository.getNextcloudClient()
+                ?: return@withContext DownloadKeyResult.RequestFailed(R.string.e2ee_key_request_connection_failed)
 
-        val certificateResult = GetCertificateRemoteOperation().execute(client)
-        if (!certificateResult.isSuccess) {
-            return@withContext if (certificateResult.httpCode == HttpStatus.SC_NOT_FOUND) {
-                DownloadKeyResult.NoServerKey
-            } else {
-                E2EEKeyRequestError.from(certificateResult)
+            val certificateResult = GetCertificateRemoteOperation().execute(client)
+            if (!certificateResult.isSuccess) {
+                return@withContext if (certificateResult.httpCode == HttpStatus.SC_NOT_FOUND) {
+                    DownloadKeyResult.NoCertificateOnServer
+                } else {
+                    E2EEKeyRequestError.from(certificateResult)
+                }
             }
+
+            val storedServerPublicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.SERVER_PUBLIC_KEY)
+            val serverPublicKey = if (storedServerPublicKey.isEmpty()) {
+                val serverPublicKeyResult = GetServerPublicKeyRemoteOperation().execute(client)
+                if (!serverPublicKeyResult.isSuccess) return@withContext E2EEKeyRequestError.from(serverPublicKeyResult)
+                serverPublicKeyResult.resultData
+            } else {
+                storedServerPublicKey
+            }
+
+            val comparison = certificateManager.compareAndRefresh(
+                user,
+                storedCertificate,
+                certificateResult.resultData,
+                serverPublicKey
+            )
+            if (comparison is DownloadKeyResult.CertificateVerificationFailed &&
+                comparison.reason == CertificateValidationResult.INVALID_SIGNATURE && storedServerPublicKey.isNotEmpty()
+            ) {
+                return@withContext DownloadKeyResult.CertificateNotSignedByStoredServerKey
+            }
+            if (storedServerPublicKey.isEmpty() && comparison is DownloadKeyResult.CompareKeys) {
+                arbitraryDataProvider.storeOrUpdateKeyValue(user, EncryptionUtils.SERVER_PUBLIC_KEY, serverPublicKey)
+            }
+            return@withContext comparison
         }
-
-        val serverPublicKeyResult = GetServerPublicKeyRemoteOperation().execute(client)
-        if (!serverPublicKeyResult.isSuccess) return@withContext E2EEKeyRequestError.from(serverPublicKeyResult)
-
-        return@withContext certificateManager.compareAndRefresh(
-            user,
-            storedPublicKey,
-            certificateResult.resultData,
-            serverPublicKeyResult.resultData
-        )
-    }
 
     suspend fun canDecryptFolderMetadata(folder: OCFile, capability: OCCapability): Boolean =
         withContext(Dispatchers.IO) {

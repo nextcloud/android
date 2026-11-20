@@ -41,10 +41,8 @@ class PassCodeManager(private val preferences: AppPreferences, private val clock
         fun setSecureFlag(activity: Activity, isSet: Boolean) {
             activity.window?.let { window ->
                 if (isSet) {
-                    println("flag added")
                     window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
                 } else {
-                    println("flag cleared")
                     window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
                 }
             }
@@ -61,6 +59,7 @@ class PassCodeManager(private val preferences: AppPreferences, private val clock
         val timestamp = preferences.lockTimestamp
 
         if (!isExemptActivity(activity)) {
+            setSecureFlag(activity, isPassCodeEnabled() || deviceCredentialsAreEnabled(activity))
             val passcodeRequested = passCodeShouldBeRequested(timestamp)
             val credentialsRequested = deviceCredentialsShouldBeRequested(timestamp, activity)
             val shouldHideView = passcodeRequested || credentialsRequested
