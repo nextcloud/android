@@ -31,6 +31,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.launch
 import java.io.File
+import java.util.Locale
 
 class AutoUploadFolderAdapter(
     private val lifecycleScope: LifecycleCoroutineScope,
@@ -225,7 +226,7 @@ class AutoUploadFolderAdapter(
             val displayedFileCount = item.filePaths?.size ?: 0
             val remainingFileCount = item.numberOfFiles - displayedFileCount
             val showRemainingFileCount = remainingFileCount > 0 && position == displayedFileCount - 1
-            counter.text = remainingFileCount.toString()
+            counter.text = String.format(Locale.US, "%d", remainingFileCount)
             counterLayout.isVisible = showRemainingFileCount
             thumbnailDarkener.isVisible = showRemainingFileCount
         }
