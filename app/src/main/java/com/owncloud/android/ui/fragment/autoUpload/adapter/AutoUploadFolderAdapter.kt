@@ -29,6 +29,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.launch
 import java.io.File
+import java.util.Locale
 
 class AutoUploadFolderAdapter(
     private val lifecycleScope: LifecycleCoroutineScope,
@@ -141,9 +142,12 @@ class AutoUploadFolderAdapter(
 
         return when (AutoUploadFolderAdapterType.fromViewType(viewType)) {
             AutoUploadFolderAdapterType.ITEM -> ItemViewHolder(GridSyncItemBinding.inflate(inflater, parent, false))
+
             AutoUploadFolderAdapterType.HEADER -> createHeaderViewHolder(inflater, parent)
+
             AutoUploadFolderAdapterType.FOOTER ->
                 FooterViewHolder(SyncedFoldersFooterBinding.inflate(inflater, parent, false))
+
             AutoUploadFolderAdapterType.EMPTY ->
                 EmptyViewHolder(SyncedFoldersEmptyBinding.inflate(inflater, parent, false))
         }
@@ -205,7 +209,7 @@ class AutoUploadFolderAdapter(
 
             val remainingFileCount = item.numberOfFiles - gridTotal
             val showRemainingFileCount = remainingFileCount > 0 && position >= gridTotal - 1
-            counter.text = remainingFileCount.toString()
+            counter.text = String.format(Locale.US, "%d", remainingFileCount)
             counterLayout.isVisible = showRemainingFileCount
             thumbnailDarkener.isVisible = showRemainingFileCount
         }
