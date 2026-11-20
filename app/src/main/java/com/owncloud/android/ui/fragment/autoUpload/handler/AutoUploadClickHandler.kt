@@ -81,13 +81,12 @@ class AutoUploadClickHandler(
     }
 
     fun onSaveAutoUploadFolderPreference(syncedFolder: SyncedFolderParcelable) {
-        val item = if (isNewCustomFolder(syncedFolder)) {
+        if (isNewCustomFolder(syncedFolder)) {
             addFolder(syncedFolder)
-        } else {
-            updateFolder(syncedFolder)
+            return
         }
 
-        onSyncStateApplied(item)
+        updateFolder(syncedFolder)
     }
 
     fun onDeleteAutoUploadFolderPreference(syncedFolder: SyncedFolderParcelable) {
@@ -113,24 +112,33 @@ class AutoUploadClickHandler(
             adapter.getSectionById(syncedFolder.id)
         }
 
-    private fun addFolder(syncedFolder: SyncedFolderParcelable): SyncedFolderDisplayItem {
-        val item = itemFactory.createAutoUploadFolder(syncedFolder)
-        persistence.saveOrUpdateAutoUploadFolder(item)
-        getAdapter().addItem(item)
+    private fun addFolder(syncedFolder: SyncedFolderParcelable) {
+        fragment.lifecycleScope.launch(Dispatchers.IO) {
+            val item = itemFactory.createAutoUploadFolder(syncedFolder)
+            persistence.saveOrUpdateAutoUploadFolder(item)
 
-        return item
+            withContext(Dispatchers.Main) {
+                getAdapter().addItem(item)
+
+                onSyncStateApplied(item)
+            }
+        }
     }
 
-    private fun updateFolder(syncedFolder: SyncedFolderParcelable): SyncedFolderDisplayItem {
+    private fun updateFolder(syncedFolder: SyncedFolderParcelable) {
         val adapter = getAdapter()
         val section = findSection(adapter, syncedFolder)
-        val item = adapter.getItem(section) ?: return addFolder(syncedFolder)
+        val item = adapter.getItem(section)
+        if (item == null) {
+            addFolder(syncedFolder)
+            return
+        }
 
         itemFactory.updateAutoUploadFolderItem(item, syncedFolder)
         persistence.saveOrUpdateAutoUploadFolder(item)
         adapter.notifyItemChanged(adapter.getSectionHeaderIndex(section))
 
-        return item
+        onSyncStateApplied(item)
     }
 
     private fun onSyncStateApplied(item: SyncedFolderDisplayItem) {
