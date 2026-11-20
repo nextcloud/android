@@ -176,10 +176,12 @@ class FileMenuFilterIT : AbstractIT() {
         launchActivity<TestActivity>().use {
             it.onActivity { activity ->
                 val filterFactory =
-                    FileMenuFilter.Factory(mockStorageManager, activity, editorUtils)
+                    FileMenuFilterFactory(mockStorageManager, activity, editorUtils)
 
                 var sut = filterFactory.newInstance(encryptedFolder, mockComponentsGetter, true, user)
                 var toHide = sut.getToHide(false)
+
+                assertFalse(toHide.contains(R.id.action_move_or_copy))
 
                 // encrypted folder, with content
                 assertTrue(toHide.contains(R.id.action_unset_encrypted))
@@ -234,10 +236,16 @@ class FileMenuFilterIT : AbstractIT() {
         launchActivity<TestActivity>().use {
             it.onActivity { activity ->
                 val filterFactory =
-                    FileMenuFilter.Factory(mockStorageManager, activity, editorUtils)
+                    FileMenuFilterFactory(mockStorageManager, activity, editorUtils)
 
                 var sut = filterFactory.newInstance(encryptedVideo, mockComponentsGetter, true, user)
                 var toHide = sut.getToHide(false)
+
+                assertFalse(toHide.contains(R.id.action_move_or_copy))
+
+                encryptedVideo.isLocked = true
+                sut = filterFactory.newInstance(encryptedVideo, mockComponentsGetter, true, user)
+                assertTrue(sut.getToHide(false).contains(R.id.action_move_or_copy))
 
                 // encrypted video, with content
                 assertTrue(toHide.contains(R.id.action_stream_media))
@@ -259,7 +267,7 @@ class FileMenuFilterIT : AbstractIT() {
 
         launchActivity<TestActivity>().use {
             it.onActivity { activity ->
-                val filterFactory = FileMenuFilter.Factory(mockStorageManager, activity, editorUtils)
+                val filterFactory = FileMenuFilterFactory(mockStorageManager, activity, editorUtils)
 
                 val files = listOf(OCFile("/foo.bin"), OCFile("/bar.bin"), OCFile("/baz.bin"))
 
@@ -298,7 +306,7 @@ class FileMenuFilterIT : AbstractIT() {
 
         launchActivity<TestActivity>().use {
             it.onActivity { activity ->
-                val filterFactory = FileMenuFilter.Factory(mockStorageManager, activity, editorUtils)
+                val filterFactory = FileMenuFilterFactory(mockStorageManager, activity, editorUtils)
 
                 val files = listOf(OCFile("/foo.bin"), OCFile("/bar.bin"), OCFile("/baz.bin"))
 
@@ -344,7 +352,7 @@ class FileMenuFilterIT : AbstractIT() {
 
         launchActivity<TestActivity>().use {
             it.onActivity { activity ->
-                val filterFactory = FileMenuFilter.Factory(mockStorageManager, activity, editorUtils)
+                val filterFactory = FileMenuFilterFactory(mockStorageManager, activity, editorUtils)
 
                 val downloadedToHide = filterFactory
                     .newInstance(downloadedFile, mockComponentsGetter, true, user)
@@ -376,7 +384,7 @@ class FileMenuFilterIT : AbstractIT() {
 
         launchActivity<TestActivity>().use {
             it.onActivity { activity ->
-                val filterFactory = FileMenuFilter.Factory(mockStorageManager, activity, editorUtils)
+                val filterFactory = FileMenuFilterFactory(mockStorageManager, activity, editorUtils)
 
                 val toHide = filterFactory
                     .newInstance(file, mockComponentsGetter, true, user)
@@ -403,7 +411,7 @@ class FileMenuFilterIT : AbstractIT() {
 
         launchActivity<TestActivity>().use {
             it.onActivity { activity ->
-                val filterFactory = FileMenuFilter.Factory(mockStorageManager, activity, editorUtils)
+                val filterFactory = FileMenuFilterFactory(mockStorageManager, activity, editorUtils)
 
                 val toHide = filterFactory
                     .newInstance(file, mockComponentsGetter, true, user)
@@ -433,7 +441,7 @@ class FileMenuFilterIT : AbstractIT() {
         launchActivity<TestActivity>().use {
             it.onActivity { activity ->
                 val filterFactory =
-                    FileMenuFilter.Factory(mockStorageManager, activity, editorUtils)
+                    FileMenuFilterFactory(mockStorageManager, activity, editorUtils)
                 val sut = filterFactory.newInstance(file, mockComponentsGetter, true, user)
 
                 val toHide = sut.getToHide(false)
