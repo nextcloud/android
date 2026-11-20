@@ -49,7 +49,6 @@ class UriUploaderIT : AbstractIT() {
         }
     }
 
-
     @Test
     fun testUploadPublicPathLogFile() {
         launchActivity<TestActivity>().use { scenario ->
@@ -60,7 +59,6 @@ class UriUploaderIT : AbstractIT() {
             }
         }
     }
-
 
     @Test
     fun testUploadPublicPathFileNamedAsPackageName() {
@@ -96,16 +94,16 @@ class UriUploaderIT : AbstractIT() {
     }
 
     private fun testPrivatePath(activity: TestActivity, path: String) = Assert.assertEquals(
-            "Wrong result code",
-            UriUploader.UriUploaderResultCode.ERROR_SENSITIVE_PATH,
-            testPath(activity, path)
-        )
+        "Wrong result code",
+        UriUploader.UriUploaderResultCode.ERROR_SENSITIVE_PATH,
+        testPath(activity, path)
+    )
 
     private fun testPublicPath(activity: TestActivity, path: String) = Assert.assertNotEquals(
-            "Wrong result code",
-            UriUploader.UriUploaderResultCode.ERROR_SENSITIVE_PATH,
-            testPath(activity, path)
-        )
+        "Wrong result code",
+        UriUploader.UriUploaderResultCode.ERROR_SENSITIVE_PATH,
+        testPath(activity, path)
+    )
 
     private fun testPath(activity: TestActivity, path: String): UriUploader.UriUploaderResultCode {
         val sut = UriUploader(
