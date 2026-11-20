@@ -302,6 +302,8 @@ class OCFileListSearchTask(
         if (ocFile.fileId != -1L) return
         val localFile = storageManager.getFileByLocalId(ocFile.localId) ?: return
         ocFile.fileId = localFile.fileId
+        ocFile.internalFolderSyncTimestamp = localFile.internalFolderSyncTimestamp
+        ocFile.internalFolderSyncResult = localFile.internalFolderSyncResult
     }
 
     // region public methods
