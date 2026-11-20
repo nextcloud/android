@@ -12,8 +12,13 @@
 package com.owncloud.android.operations;
 
 import android.annotation.SuppressLint;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.text.format.Formatter;
 
@@ -434,6 +439,11 @@ public class UploadFileOperation extends SyncOperation {
             return new RemoteOperationResult<>(new UploadFileException.MissingPermission());
         }
 
+        if (isPendingInMediaStore(localFile)) {
+            Log_OC.w(TAG, "Upload delayed for " + getStoragePath() + ": file is still pending in MediaStore.");
+            return new RemoteOperationResult<>(ResultCode.LOCK_FAILED);
+        }
+
         mCancellationRequested.set(false);
         mPaused.set(false);
         mUploadStarted.set(true);
@@ -511,6 +521,31 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         return result;
+    }
+
+    private boolean isPendingInMediaStore(File file) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            return false;
+        }
+
+        final var queryArgs = new Bundle();
+        queryArgs.putString(ContentResolver.QUERY_ARG_SQL_SELECTION, MediaStore.MediaColumns.DATA + " = ?");
+        queryArgs.putStringArray(ContentResolver.QUERY_ARG_SQL_SELECTION_ARGS, new String[]{file.getAbsolutePath()});
+        queryArgs.putInt(MediaStore.QUERY_ARG_MATCH_PENDING, MediaStore.MATCH_INCLUDE);
+
+        final String[] projection = {MediaStore.MediaColumns.IS_PENDING};
+        final Uri uri = MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL);
+
+        try (Cursor cursor = mContext.getContentResolver().query(uri, projection, queryArgs, null)) {
+            if (cursor == null || !cursor.moveToFirst()) {
+                return false;
+            }
+
+            return cursor.getInt(0) == 1;
+        } catch (SecurityException | IllegalArgumentException e) {
+            Log_OC.w(TAG, "Could not read IS_PENDING for " + file.getAbsolutePath() + ": " + e.getMessage());
+            return false;
+        }
     }
 
     // region E2E Upload
