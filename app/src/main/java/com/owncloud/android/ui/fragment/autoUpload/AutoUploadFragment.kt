@@ -212,7 +212,6 @@ class AutoUploadFragment :
             lifecycleScope,
             activity,
             clock,
-            gridWidth,
             clickHandler,
             resources.getBoolean(R.bool.syncedFolder_light),
             viewThemeUtils,
