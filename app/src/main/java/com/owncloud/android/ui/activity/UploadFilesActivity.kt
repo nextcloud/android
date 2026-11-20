@@ -263,7 +263,7 @@ class UploadFilesActivity :
                 }
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>) = Unit
+            override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }
     }
 
