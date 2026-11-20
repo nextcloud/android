@@ -18,6 +18,7 @@ import com.nextcloud.client.player.model.state.PlaybackState
 import com.nextcloud.client.player.model.state.PlayerState
 import com.nextcloud.client.player.util.PlayerUtil.toPlaybackFile
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
@@ -31,12 +32,17 @@ class PlayerProgressIndicator @JvmOverloads constructor(
     @Inject
     lateinit var playbackModel: PlaybackModel
 
+    @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
+
     private var playbackFile: PlaybackFile? = null
 
     init {
         if (!isInEditMode) {
             (context.applicationContext as HasAndroidInjector).androidInjector().inject(this)
         }
+
+        viewThemeUtils.material.colorProgressBar(this)
     }
 
     override fun onAttachedToWindow() {
