@@ -31,13 +31,11 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.launch
 import java.io.File
-import java.util.Locale
 
 class AutoUploadFolderAdapter(
     private val lifecycleScope: LifecycleCoroutineScope,
     private val context: Context,
     private val clock: Clock,
-    gridWidth: Int,
     private val clickListener: AutoUploadFolderClickListener,
     private val light: Boolean,
     private val viewThemeUtils: ViewThemeUtils,
@@ -45,7 +43,6 @@ class AutoUploadFolderAdapter(
     private val connectivityService: ConnectivityService
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
 
-    private val gridTotal = gridWidth * GRID_ROWS
     private val mediaThumbnailGenerationJob = MediaThumbnailGenerationJob(context, viewThemeUtils)
 
     private var items: List<SyncedFolderDisplayItem> = emptyList()
@@ -225,9 +222,10 @@ class AutoUploadFolderAdapter(
             thumbnail.tag = file.hashCode()
             lifecycleScope.launch { mediaThumbnailGenerationJob.load(file, thumbnail) }
 
-            val remainingFileCount = item.numberOfFiles - gridTotal
-            val showRemainingFileCount = remainingFileCount > 0 && position >= gridTotal - 1
-            counter.text = String.format(Locale.US, "%d", remainingFileCount)
+            val displayedFileCount = item.filePaths?.size ?: 0
+            val remainingFileCount = item.numberOfFiles - displayedFileCount
+            val showRemainingFileCount = remainingFileCount > 0 && position == displayedFileCount - 1
+            counter.text = remainingFileCount.toString()
             counterLayout.isVisible = showRemainingFileCount
             thumbnailDarkener.isVisible = showRemainingFileCount
         }
@@ -239,8 +237,4 @@ class AutoUploadFolderAdapter(
     private class EmptyViewHolder(view: View) : SectionedViewHolder(view)
 
     private class EmptyFolderViewHolder(binding: SyncedFoldersEmptyBinding) : SectionedViewHolder(binding.root)
-
-    companion object {
-        private const val GRID_ROWS = 2
-    }
 }

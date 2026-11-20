@@ -533,6 +533,7 @@
     <string name="placeholder_fileSize" translatable="false">389 KB</string>
     <string name="placeholder_fileSize_2" translatable="false">5 MB</string>
     <string name="placeholder_fileSize_3" translatable="false">3 MB</string>
+    <string name="placeholder_remaining_file_count" translatable="false">12</string>
     <string name="placeholder_current_2" translatable="false">Current (2)</string>
     <string name="placeholder_send_button" translatable="false">Send button</string>
     <string name="placeholder_first_name_last_name" translatable="false">Firstname Lastname</string>
