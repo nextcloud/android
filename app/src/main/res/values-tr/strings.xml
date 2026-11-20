@@ -397,11 +397,8 @@
     <string name="encryption_encrypt_unavailable">Bu klasör şifrelenemedi. Bu sunucuda uçtan uca şifreleme ayarlanmamış.</string>
     <string name="encryption_key_checking_keys">Anahtarlar denetleniyor…</string>
     <string name="encryption_key_handle_folder_read_only_description">Bu hesabın şifreleme anahtarları kaldırılmış veya değiştirilmiş. Bu nedenle bu klasörün içeriğinin şifresi artık çözülemez.\n\nKlasör bundan sonra yalnızca okunabilir. Şifrelenmiş klasörleri yeniden kullanmak için bu klasörü yedekleyin ve ayarlardan yeni şifreleme anahtarınızı ayarlayın.</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_description">Bu aygıt üzerinde kayıtlı şifreleme anahtarı artık geçerli değil. Anahtarlar sunucudan geçersiz kılınmış.\n\nYeni şifreleme klasörü oluşturmak için ayarlardan şifrelemeyi yerel olarak kaldırın.</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">Bu aygıt üzerinde kayıtlı şifreleme anahtarı artık geçerli değil. Anahtarlar sunucudan geçersiz kılınmış.\n\nDaha önce oluşturulmuş şifrelenmiş klasörü yedekleyin.\n\nArdından, yeni şifreleme klasörü oluşturmak için ayarlardan şifrelemeyi yerel olarak kaldırın.</string>
     <string name="encryption_key_handle_key_removed_title">Şifreleme anahtarları değiştirildi</string>
     <string name="encryption_key_handle_no_keys_description">Şifreleme anahtarları artık bu aygıt veya sunucu üzerinde bulunmadığı için bu klasör açılamıyor.</string>
-    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">Bu hesabın şifreleme anahtarları kaldırılmış veya değiştirilmiş.\n\nBir klasörü şifrelemeden önce ayarlardan yeni şifreleme anahtarınızı ayarlayın.</string>
     <string name="encryption_new_folder_check_failed">Şifreleme anahtarlarınız denetlenemedi. Klasörü yeniden oluşturmayı deneyin.</string>
     <string name="encryption_new_folder_no_network">Sunucuya ulaşılamadı. Bir süre sonra klasörü yeniden oluşturmayı deneyin.</string>
     <string name="encryption_new_folder_unavailable">Şifrelenmiş klasörler oluşturulamadı. Bu sunucuda uçtan uca şifreleme ayarlanmamış.</string>
@@ -410,7 +407,6 @@
     <string name="encryption_open_no_network">Sunucuya ulaşılamadı. Bir süre sonra klasörü yeniden açmayı deneyin.</string>
     <string name="encryption_open_unavailable">Bu klasör açılamadı. Bu sunucuda uçtan uca şifreleme ayarlanmamış.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Sunucu sertifikası alınamadı</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Herkese açık anahtar doğrulanamadı</string>
     <string name="end_to_end_encryption_confirm_button">Şifreleme kurulumu</string>
     <string name="end_to_end_encryption_decrypting">Şifre çözülüyor …</string>
     <string name="end_to_end_encryption_dialog_close">Kapat</string>

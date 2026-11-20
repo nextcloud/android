@@ -352,7 +352,6 @@
     <string name="email_pick_failed">خطا در دریافت نشانی ایمیل</string>
     <string name="encrypted">به صورت رمزگذاری‌شده تنظیم شده است</string>
     <string name="end_to_end_encryption_certificate_unavailable">دریافت گواهی سرور ممکن نیست</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">تأیید کلید عمومی انجام نشد</string>
     <string name="end_to_end_encryption_confirm_button">تنظیم رمزگذاری</string>
     <string name="end_to_end_encryption_decrypting">رمزگشایی...</string>
     <string name="end_to_end_encryption_dialog_close">بستن</string>

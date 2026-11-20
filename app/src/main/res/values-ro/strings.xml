@@ -396,11 +396,8 @@
     <string name="encryption_encrypt_unavailable">Acest dosar nu poate fi criptat. Criptarea end-to-end nu este configurată pe acest server.</string>
     <string name="encryption_key_checking_keys">Se verifică cheile…</string>
     <string name="encryption_key_handle_folder_read_only_description">Cheile de criptare ale acestui cont au fost eliminate sau înlocuite, așa că acest dosar nu mai poate fi decriptat.\n\nDe acum, dosarul este doar pentru citire. Pentru a folosi din nou dosare criptate, fă o copie de rezervă a acestui dosar și configurează noua cheie de criptare în setări.</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_description">Cheia de criptare stocată pe acest dispozitiv nu mai este validă. Cheile au fost revocate de pe server. \n\nElimină local criptarea din setări pentru a crea un dosar criptat nou.</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">Cheia de criptare stocată pe acest dispozitiv nu mai este validă. Cheile au fost revocate de pe server. \n\nFă o copie de rezervă a dosarului criptat creat anterior. \n\nApoi elimină local criptarea din setări pentru a crea un dosar criptat nou.</string>
     <string name="encryption_key_handle_key_removed_title">Cheile de criptare s-au schimbat</string>
     <string name="encryption_key_handle_no_keys_description">Acest dosar nu poate fi deschis, deoarece cheile sale de criptare nu mai există pe acest dispozitiv sau pe server.</string>
-    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">Cheile de criptare ale acestui cont au fost eliminate sau înlocuite.\n\nConfigurează noua cheie de criptare în setări înainte de a cripta un dosar.</string>
     <string name="encryption_new_folder_check_failed">Cheile de criptare nu au putut fi verificate. Încearcă din nou să creezi dosarul.</string>
     <string name="encryption_new_folder_no_network">Serverul nu poate fi contactat. Încearcă să creezi dosarul mai târziu.</string>
     <string name="encryption_new_folder_unavailable">Nu se pot crea dosare criptate. Criptarea end-to-end nu este configurată pe acest server.</string>
@@ -409,7 +406,6 @@
     <string name="encryption_open_no_network">Serverul nu poate fi contactat. Încearcă să deschizi dosarul mai târziu.</string>
     <string name="encryption_open_unavailable">Acest dosar nu poate fi deschis. Criptarea end-to-end nu este configurată pe acest server.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Certificatul serverului nu a putut fi preluat</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Cheia publică nu a putut fi verificată</string>
     <string name="end_to_end_encryption_confirm_button">Configurează criptarea</string>
     <string name="end_to_end_encryption_decrypting">Se decriptează…</string>
     <string name="end_to_end_encryption_dialog_close">Închide</string>

@@ -22,6 +22,7 @@ import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFile;
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1;
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedMetadata;
 import com.owncloud.android.datamodel.e2e.v1.decrypted.Encrypted;
+import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFile;
 import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFolderMetadataFileV1;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.e2ee.CsrHelper;
@@ -117,7 +118,7 @@ public class EncryptionTestIT extends AbstractIT {
         "JLecOFu3ZlQl/RStQb69QKb5MNOIMmQhg8WOxZxHcpmIDbkDAm/J/ovJXFSoBdOr5o" +
         "uQsYsDZhsWW97zvLMzg5pH9/3/1BNz5q3Vu4HgfBSwWGt4E2NENj+XA+QAVmGA==";
 
-    public static final String publicKey = "-----BEGIN CERTIFICATE-----\n" +
+    public static final String certificate = "-----BEGIN CERTIFICATE-----\n" +
         "MIIDpzCCAo+gAwIBAgIBADANBgkqhkiG9w0BAQUFADBuMRowGAYDVQQDDBF3d3cu\n" +
         "bmV4dGNsb3VkLmNvbTESMBAGA1UECgwJTmV4dGNsb3VkMRIwEAYDVQQHDAlTdHV0\n" +
         "dGdhcnQxGzAZBgNVBAgMEkJhZGVuLVd1ZXJ0dGVtYmVyZzELMAkGA1UEBhMCREUw\n" +
@@ -145,7 +146,7 @@ public class EncryptionTestIT extends AbstractIT {
         byte[] key1 = generateKey();
         String base64encodedKey = encodeBytesToBase64String(key1);
 
-        String encryptedString = EncryptionUtils.encryptStringAsymmetric(base64encodedKey, publicKey);
+        String encryptedString = EncryptionUtils.encryptStringAsymmetric(base64encodedKey, certificate);
         String decryptedString = decryptStringAsymmetric(encryptedString, privateKey);
 
         byte[] key2 = decodeStringToBase64Bytes(decryptedString);
@@ -291,7 +292,7 @@ public class EncryptionTestIT extends AbstractIT {
         // encrypt
         EncryptedFolderMetadataFileV1 encryptedFolderMetadata1 = encryptFolderMetadata(
             decryptedFolderMetadata1,
-            publicKey,
+            certificate,
             1,
             user,
             arbitraryDataProvider);
@@ -325,7 +326,7 @@ public class EncryptionTestIT extends AbstractIT {
         // encrypt
         EncryptedFolderMetadataFileV1 encryptedFolderMetadata1 = encryptFolderMetadata(
             decryptedFolderMetadata1,
-            publicKey,
+            certificate,
             folderID,
             user,
             arbitraryDataProvider);
@@ -337,7 +338,7 @@ public class EncryptionTestIT extends AbstractIT {
         // encrypt
         EncryptedFolderMetadataFileV1 encryptedFolderMetadata2 = encryptFolderMetadata(
             decryptedFolderMetadata1,
-            publicKey,
+            certificate,
             folderID,
             user,
             arbitraryDataProvider);
@@ -355,7 +356,7 @@ public class EncryptionTestIT extends AbstractIT {
         // encrypt
         EncryptedFolderMetadataFileV1 encryptedFolderMetadata1 = encryptFolderMetadata(
             decryptedFolderMetadata1,
-            publicKey,
+            certificate,
             folderID,
             user,
             arbitraryDataProvider);
@@ -368,7 +369,7 @@ public class EncryptionTestIT extends AbstractIT {
         // encrypt
         EncryptedFolderMetadataFileV1 encryptedFolderMetadata2 = encryptFolderMetadata(
             decryptedFolderMetadata1,
-            publicKey,
+            certificate,
             folderID,
             user,
             arbitraryDataProvider);
@@ -413,7 +414,7 @@ public class EncryptionTestIT extends AbstractIT {
         // encrypt
         EncryptedFolderMetadataFileV1 encryptedFolderMetadata1 = encryptFolderMetadata(
             decryptedFolderMetadata1,
-            publicKey,
+            certificate,
             folderID,
             user,
             arbitraryDataProvider);
@@ -451,7 +452,7 @@ public class EncryptionTestIT extends AbstractIT {
 
             // encrypt
             encryptedFolderMetadata1 = encryptFolderMetadata(decryptedFolderMetadata1,
-                                                             publicKey,
+                                                             certificate,
                                                              folderID,
                                                              user,
                                                              arbitraryDataProvider);
@@ -488,7 +489,7 @@ public class EncryptionTestIT extends AbstractIT {
         // encrypt
         EncryptedFolderMetadataFileV1 encryptedFolderMetadata1 = encryptFolderMetadata(
             decryptedFolderMetadata1,
-            publicKey,
+            certificate,
             folderID,
             user,
             arbitraryDataProvider);
@@ -527,7 +528,7 @@ public class EncryptionTestIT extends AbstractIT {
             // encrypt
             encryptedFolderMetadata1 = encryptFolderMetadata(
                 decryptedFolderMetadata1,
-                publicKey,
+                certificate,
                 folderID,
                 user,
                 arbitraryDataProvider);
@@ -583,11 +584,11 @@ public class EncryptionTestIT extends AbstractIT {
         // encrypt
         EncryptedFolderMetadataFileV1 encryptedFolderMetadata1 = encryptFolderMetadata(
             decryptedFolderMetadata1,
-            publicKey,
+            certificate,
             folderID,
             user,
             arbitraryDataProvider);
-        EncryptionUtils.encryptFileDropFiles(decryptedFolderMetadata1, encryptedFolderMetadata1, publicKey);
+        EncryptionUtils.encryptFileDropFiles(decryptedFolderMetadata1, encryptedFolderMetadata1, certificate);
 
         // serialize
         String encryptedJson = serializeJSON(encryptedFolderMetadata1, true);
@@ -784,9 +785,9 @@ public class EncryptionTestIT extends AbstractIT {
         String metadataKey1 = encodeBytesToBase64String(generateKey());
         String metadataKey2 = encodeBytesToBase64String(generateKey());
         HashMap<Integer, String> metadataKeys = new HashMap<>();
-        metadataKeys.put(0, EncryptionUtils.encryptStringAsymmetric(metadataKey0, publicKey));
-        metadataKeys.put(1, EncryptionUtils.encryptStringAsymmetric(metadataKey1, publicKey));
-        metadataKeys.put(2, EncryptionUtils.encryptStringAsymmetric(metadataKey2, publicKey));
+        metadataKeys.put(0, EncryptionUtils.encryptStringAsymmetric(metadataKey0, certificate));
+        metadataKeys.put(1, EncryptionUtils.encryptStringAsymmetric(metadataKey1, certificate));
+        metadataKeys.put(2, EncryptionUtils.encryptStringAsymmetric(metadataKey2, certificate));
         Encrypted encrypted = new Encrypted();
         encrypted.setMetadataKeys(metadataKeys);
 
@@ -832,8 +833,8 @@ public class EncryptionTestIT extends AbstractIT {
 
         // Encryption
         Cipher encryptorCipher = EncryptionUtils.getCipher(Cipher.ENCRYPT_MODE, key, iv);
-        EncryptionUtils.encryptFile(user.getAccountName(), file, encryptorCipher);
-        String encryptorCipherAuthTag = EncryptionUtils.getAuthenticationTag(encryptorCipher);
+        EncryptedFile encryptedFile = EncryptionUtils.encryptFile(user.getAccountName(), file, encryptorCipher);
+        String encryptorCipherAuthTag = EncryptionUtils.getAuthenticationTag(encryptedFile.getEncryptedFile());
 
         // Decryption
         Cipher decryptorCipher = EncryptionUtils.getCipher(Cipher.DECRYPT_MODE, key, iv);

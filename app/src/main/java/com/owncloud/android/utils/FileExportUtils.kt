@@ -18,7 +18,6 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import java.io.File
 import java.io.FileInputStream
-import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
@@ -90,7 +89,9 @@ class FileExportUtils(private val subdirectory: String = "") {
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
                 subdirectory
             )
-            directory.mkdirs()
+            if (!directory.isDirectory && !directory.mkdirs()) {
+                throw IOException("Could not create export directory in Downloads")
+            }
             var target = File(
                 directory,
                 fileName
@@ -116,9 +117,6 @@ class FileExportUtils(private val subdirectory: String = "") {
                 FileOutputStream(target)
             )
             return target.name
-        } catch (e: FileNotFoundException) {
-            Log_OC.e(this, "File not found", e)
-            throw e
         } catch (e: IOException) {
             Log_OC.e(this, "Cannot write file", e)
             throw e

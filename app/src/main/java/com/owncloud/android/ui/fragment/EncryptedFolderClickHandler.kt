@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.e2ee.model.E2EEAction
+import com.nextcloud.utils.e2ee.model.E2EEDialog
 import com.nextcloud.utils.e2ee.model.E2EEKeyCheck
 import com.nextcloud.utils.extensions.showEncryptionDialog
 import com.owncloud.android.R
@@ -46,8 +47,8 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
                     state.getMessageId(E2EEAction.NEW_FOLDER)?.let { SnackbarUtil.show(fragment, it) }
                 }
 
-                E2EEKeyCheck.ONLY_ON_SERVER, E2EEKeyCheck.MISSING_EVERYWHERE -> {
-                    Log_OC.d(TAG, "keys found on server but missing locally, redirecting to encryption setup")
+                E2EEKeyCheck.ONLY_ON_SERVER, E2EEKeyCheck.MISSING_EVERYWHERE, E2EEKeyCheck.UNTRUSTED_CERTIFICATE -> {
+                    Log_OC.d(TAG, "$state, redirecting to encryption setup")
                     fragment.showEncryptionDialog(OCFile.ROOT_PATH, E2EEAction.NEW_FOLDER)
                 }
 
@@ -57,7 +58,7 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
                 }
 
                 E2EEKeyCheck.ONLY_ON_DEVICE, E2EEKeyCheck.DIFFERS_FROM_SERVER -> {
-                    state.getDialog(E2EEAction.NEW_FOLDER)?.let { fragment.e2eeDialogPresenter.show(it) }
+                    fragment.e2eeDialogPresenter.show(E2EEDialog.KeysChangedOnServer)
                 }
             }
         }
@@ -85,7 +86,7 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
                         state.getMessageId(E2EEAction.OPEN)?.let { SnackbarUtil.show(fragment, it) }
                     }
 
-                    E2EEKeyCheck.ONLY_ON_SERVER -> {
+                    E2EEKeyCheck.ONLY_ON_SERVER, E2EEKeyCheck.UNTRUSTED_CERTIFICATE -> {
                         fragment.showEncryptionDialog(file.remotePath, E2EEAction.OPEN)
                     }
 
@@ -95,8 +96,11 @@ class EncryptedFolderClickHandler(private val fragment: OCFileListFragment) {
                     }
 
                     E2EEKeyCheck.ONLY_ON_DEVICE, E2EEKeyCheck.DIFFERS_FROM_SERVER -> {
-                        e2eeActionResolver.markFolderReadOnly(file)
-                        state.getDialog(E2EEAction.OPEN)?.let { e2eeDialogPresenter.show(it) }
+                        if (e2eeActionResolver.setReadOnlyAndCanDecrypt(file)) {
+                            onFolderKeyVerified(file, position, fileActivity)
+                        } else {
+                            e2eeDialogPresenter.show(E2EEDialog.KeysUnusableWhenOpeningFolder)
+                        }
                     }
 
                     E2EEKeyCheck.SAME_AS_SERVER -> {
