@@ -398,6 +398,7 @@
     <string name="encryption_key_checking_keys">Prüfe Schlüssel …</string>
     <string name="encryption_key_handle_folder_read_only_description">Die Verschlüsselungsschlüssel dieses Kontos wurden entfernt oder ersetzt, daher kann der Inhalt dieses Ordners nicht mehr entschlüsselt werden.\n\nDer Ordner ist ab sofort schreibgeschützt. Um verschlüsselte Ordner wieder verwenden zu können, sichern Sie diesen Ordner und richten Sie Ihren neuen Verschlüsselungsschlüssel in den Einstellungen ein.</string>
     <string name="encryption_key_handle_key_removed_title">Die Verschlüsselungsschlüssel wurden geändert</string>
+    <string name="encryption_key_handle_keys_changed_on_server_description">Die Verschlüsselungsschlüssel auf dem Server wurden entfernt oder ersetzt, sodass verschlüsselte Ordner auf diesem Gerät schreibgeschützt sind.\n\nUm weiterhin eine Ende-zu-Ende-Verschlüsselung zu verwenden, sie verschlüsselten Dateiensichern, die Verschlüsselung lokal in den Einstellungen entfernen und erneut einrichten.</string>
     <string name="encryption_key_handle_no_keys_description">Dieser Ordner kann nicht geöffnet werden, da seine Verschlüsselungsschlüssel weder auf diesem Gerät noch auf dem Server vorhanden sind.</string>
     <string name="encryption_new_folder_check_failed">Die Überprüfung Ihrer Verschlüsselungsschlüssel ist fehlgeschlagen. Bitte erstellen Sie den Ordner erneut.</string>
     <string name="encryption_new_folder_no_network">Der Server ist nicht erreichbar. Später erneut versuchen, den Ordner zu erstellen.</string>
@@ -408,6 +409,7 @@
     <string name="encryption_open_unavailable">Dieser Ordner kann nicht geöffnet werden. Auf diesem Server ist keine Ende-zu-Ende-Verschlüsselung eingerichtet.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Serverzertifikat kann nicht abgerufen werden</string>
     <string name="end_to_end_encryption_confirm_button">Verschlüsselung einrichten</string>
+    <string name="end_to_end_encryption_could_not_verify_certificate">Das Verschlüsselungszertifikat konnte nicht überprüft werden</string>
     <string name="end_to_end_encryption_decrypting">Entschlüssele …</string>
     <string name="end_to_end_encryption_dialog_close">Schließen</string>
     <string name="end_to_end_encryption_enter_passphrase_to_access_files">Geben Sie Ihre Passphrase ein, um auf Ihre Dateien zuzugreifen</string>
