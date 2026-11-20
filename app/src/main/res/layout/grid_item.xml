@@ -53,11 +53,11 @@
         android:orientation="horizontal"
         android:padding="@dimen/standard_quarter_padding"
         android:translationZ="4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/thumbnail"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/thumbnail"
+        app:layout_constraintEnd_toEndOf="@id/thumbnail"
         app:layout_constraintHorizontal_bias="0.85"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/thumbnail"
+        app:layout_constraintTop_toTopOf="@id/thumbnail"
         app:layout_constraintVertical_bias="0.85">
 
         <ImageView
@@ -214,7 +214,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/thumbnail"
+        app:layout_constraintTop_toBottomOf="@id/thumbnail"
         app:layout_constraintWidth_percent="0.75"
         tools:visibility="visible" />
 
