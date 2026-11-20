@@ -988,7 +988,7 @@ class FileOperationsHelper(
         @JvmStatic
         fun isEndToEndEncryptionSetup(context: Context?, user: User?): Boolean {
             val arbitraryDataProvider = ArbitraryDataProviderImpl(context)
-            return arbitraryDataProvider.getValue(user, EncryptionUtils.PUBLIC_KEY).isNotEmpty() &&
+            return arbitraryDataProvider.getValue(user, EncryptionUtils.CERTIFICATE).isNotEmpty() &&
                 arbitraryDataProvider.getValue(user, EncryptionUtils.PRIVATE_KEY).isNotEmpty()
         }
     }

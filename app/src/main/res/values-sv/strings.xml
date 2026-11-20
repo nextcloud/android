@@ -397,11 +397,8 @@
     <string name="encryption_encrypt_unavailable">Det går inte att kryptera den här mappen. End-to-end-kryptering är inte konfigurerad på den här servern.</string>
     <string name="encryption_key_checking_keys">Kontrollerar nycklar…</string>
     <string name="encryption_key_handle_folder_read_only_description">Krypteringsnycklarna för det här kontot har tagits bort eller ersatts, så innehållet i den här mappen kan inte längre dekrypteras.\n\nMappen är skrivskyddad från och med nu. Säkerhetskopiera mappen och konfigurera din nya krypteringsnyckel i inställningarna för att använda krypterade mappar igen.</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_description">Krypteringsnyckeln som lagras på den här enheten är inte längre giltig. Nycklar har återkallats från servern. \n\nTa bort krypteringen lokalt i inställningarna för att skapa en ny krypterad mapp.</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">Krypteringsnyckeln som lagras på den här enheten är inte längre giltig. Nycklar har återkallats från servern. \n\nSäkerhetskopiera den tidigare skapade krypterade mappen. \n\nTa sedan bort krypteringen lokalt i inställningarna för att skapa en ny krypterad mapp.</string>
     <string name="encryption_key_handle_key_removed_title">Krypteringsnycklar ändrades</string>
     <string name="encryption_key_handle_no_keys_description">Den här mappen kan inte öppnas eftersom dess krypteringsnycklar inte längre finns på den här enheten eller på servern.</string>
-    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">Krypteringsnycklarna för det här kontot har tagits bort eller ersatts.\n\nKonfigurera din nya krypteringsnyckel i inställningarna innan du krypterar en mapp.</string>
     <string name="encryption_new_folder_check_failed">Det gick inte att kontrollera dina krypteringsnycklar. Försök skapa mappen igen.</string>
     <string name="encryption_new_folder_no_network">Det går inte att nå servern. Försök skapa mappen igen senare.</string>
     <string name="encryption_new_folder_unavailable">Det går inte att skapa krypterade mappar. End-to-end-kryptering är inte konfigurerad på den här servern.</string>
@@ -410,7 +407,6 @@
     <string name="encryption_open_no_network">Det går inte att nå servern. Försök öppna mappen igen senare.</string>
     <string name="encryption_open_unavailable">Det går inte att öppna den här mappen. End-to-end-kryptering är inte konfigurerad på den här servern.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Kunde inte hämta servercertifikatet</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Det gick inte att verifiera den offentliga nyckeln</string>
     <string name="end_to_end_encryption_confirm_button">Aktivera kryptering</string>
     <string name="end_to_end_encryption_decrypting">Dekrypterar…</string>
     <string name="end_to_end_encryption_dialog_close">Stäng</string>

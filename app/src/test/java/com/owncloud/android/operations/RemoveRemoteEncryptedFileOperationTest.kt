@@ -173,7 +173,7 @@ class RemoveRemoteEncryptedFileOperationTest {
                     doReturn(deleteStatus).whenever(client).executeMethod(any<DeleteMethod>(), any(), any())
                     mockConstruction(ArbitraryDataProviderImpl::class.java) { provider, _ ->
                         doReturn("private").whenever(provider).getValue("test", EncryptionUtils.PRIVATE_KEY)
-                        doReturn("public").whenever(provider).getValue("test", EncryptionUtils.PUBLIC_KEY)
+                        doReturn("public").whenever(provider).getValue("test", EncryptionUtils.CERTIFICATE)
                     }.use {
                         mockStatic(EncryptionUtils::class.java).use { crypto ->
                             val v1Pair = mock<android.util.Pair<Boolean, DecryptedFolderMetadataFileV1>>()

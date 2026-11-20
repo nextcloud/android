@@ -81,7 +81,7 @@ class FileTransferSource(
         folder.isEncrypted = true
         storageManager.saveFile(folder)
         val provider = ArbitraryDataProviderImpl(context)
-        val publicKey = provider.getValue(user.accountName, EncryptionUtils.PUBLIC_KEY)
+        val publicKey = provider.getValue(user.accountName, EncryptionUtils.CERTIFICATE)
         val privateKey = provider.getValue(user.accountName, EncryptionUtils.PRIVATE_KEY)
         val isV2 = E2EVersionHelper.isV2Plus(storageManager.getCapability(user))
         val counter = if (isV2) EncryptionUtils.E2E_V2_INITIAL_COUNTER else EncryptionUtils.E2E_V1_INITIAL_COUNTER

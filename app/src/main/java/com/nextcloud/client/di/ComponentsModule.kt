@@ -78,6 +78,7 @@ import com.owncloud.android.ui.activity.UploadFilesActivity
 import com.owncloud.android.ui.activity.UserInfoActivity
 import com.owncloud.android.ui.dialog.AccountRemovalDialog
 import com.owncloud.android.ui.dialog.AppPassCodeDialog
+import com.owncloud.android.ui.dialog.AutoUploadPreferenceDialogFragment
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
@@ -97,7 +98,6 @@ import com.owncloud.android.ui.dialog.SortingOrderDialogFragment
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment
 import com.owncloud.android.ui.dialog.SyncFileNotEnoughSpaceDialogFragment
-import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment
 import com.owncloud.android.ui.dialog.TermsOfServiceDialog
 import com.owncloud.android.ui.dialog.ThemeSelectionDialog
 import com.owncloud.android.ui.dialog.conflict.ConflictsResolveDialog
@@ -428,7 +428,7 @@ internal interface ComponentsModule {
     fun sharePasswordDialogFragment(): SharePasswordDialogFragment
 
     @ContributesAndroidInjector
-    fun syncedFolderPreferencesDialogFragment(): SyncedFolderPreferencesDialogFragment
+    fun autoUploadPreferenceDialogFragment(): AutoUploadPreferenceDialogFragment
 
     @ContributesAndroidInjector
     fun toolbarActivity(): ToolbarActivity
