@@ -84,6 +84,17 @@ class UriUploaderIT : AbstractIT() {
         }
     }
 
+    @Test
+    fun testUploadPublicPathFolderWhoseNameStartsWithPackageName() {
+        launchActivity<TestActivity>().use { scenario ->
+            scenario.onActivity { activity ->
+                val packageName = activity.packageName
+                val path = "file:///data/data/$packageName.somethingsomething/logs.txt"
+                testPublicPath(activity, path)
+            }
+        }
+    }
+
     private fun testPrivatePath(activity: TestActivity, path: String) = Assert.assertEquals(
             "Wrong result code",
             UriUploader.UriUploaderResultCode.ERROR_SENSITIVE_PATH,

@@ -131,7 +131,7 @@ class UriUploader @JvmOverloads constructor(
 
     private fun isSensitiveUri(uri: Uri): Boolean {
         val path = uri.path ?: return true
-        val canonicalPath = File(path).canonicalPath
+        val canonicalPath = File(path).canonicalFile.toPath()
 
         val sensitiveFolders = arrayListOf<File?>(
             activity.dataDir,
@@ -144,7 +144,7 @@ class UriUploader @JvmOverloads constructor(
         return sensitiveFolders
             .filterNotNull()
             .any {
-                canonicalPath.startsWith(it.canonicalPath)
+                canonicalPath.startsWith(it.canonicalFile.toPath())
             }
     }
 
