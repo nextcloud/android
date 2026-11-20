@@ -397,11 +397,8 @@
     <string name="encryption_encrypt_unavailable">Impossible de chiffrer ce dossier. Le chiffrement de bout en bout n’est pas configuré sur ce serveur.</string>
     <string name="encryption_key_checking_keys">Vérification des clés…</string>
     <string name="encryption_key_handle_folder_read_only_description">Les clés de chiffrement de ce compte ont été supprimées ou remplacées ; le contenu de ce dossier ne peut donc plus être déchiffré.\n\nLe dossier est désormais en lecture seule. Pour utiliser à nouveau des dossiers chiffrés, sauvegardez ce dossier et configurez votre nouvelle clé de chiffrement dans les paramètres.</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_description">La clé de chiffrement stockée sur cet appareil n’est plus valide. Les clés ont été révoquées sur le serveur.\n\nSupprimez le chiffrement local dans les paramètres pour créer un nouveau dossier chiffré.</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">La clé de chiffrement stockée sur cet appareil n’est plus valide. Les clés ont été révoquées sur le serveur.\n\nSauvegardez le dossier chiffré créé précédemment.\n\nSupprimez ensuite le chiffrement local dans les paramètres pour créer un nouveau dossier chiffré.</string>
     <string name="encryption_key_handle_key_removed_title">Clés de chiffrement modifiées</string>
     <string name="encryption_key_handle_no_keys_description">Ce dossier ne peut pas être ouvert car ses clés de chiffrement n\'existent plus sur cet appareil ni sur le serveur.</string>
-    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">Les clés de chiffrement de ce compte ont été supprimées ou remplacées.\n\nConfigurez une nouvelle clé de chiffrement dans les paramètres pour pouvoir chiffrer un dossier.</string>
     <string name="encryption_new_folder_check_failed">Impossible de vérifier vos clés de chiffrement. Essayez de créer le dossier à nouveau.</string>
     <string name="encryption_new_folder_no_network">Impossible de joindre le serveur. Essayez de créer à nouveau le dossier plus tard.</string>
     <string name="encryption_new_folder_unavailable">Impossible de créer des dossiers chiffrés. Le chiffrement de bout en bout n’est pas configuré sur ce serveur.</string>
@@ -410,7 +407,6 @@
     <string name="encryption_open_no_network">Impossible de joindre le serveur. Essayez d\'ouvrir à nouveau le dossier plus tard.</string>
     <string name="encryption_open_unavailable">Impossible d\'ouvrir ce dossier. Le chiffrement de bout en bout n’est pas configuré sur ce serveur.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Impossible de récupérer le certificat du serveur</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Échec de la vérification de la clé publique</string>
     <string name="end_to_end_encryption_confirm_button">Configurer le chiffrement</string>
     <string name="end_to_end_encryption_decrypting">Déchiffrement…</string>
     <string name="end_to_end_encryption_dialog_close">Fermer</string>

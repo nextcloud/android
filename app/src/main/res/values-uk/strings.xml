@@ -358,7 +358,6 @@
     <string name="email_pick_failed">Не вдалося вибрати ел. адресу.</string>
     <string name="encrypted">Позначити як зашифроване</string>
     <string name="end_to_end_encryption_certificate_unavailable">Неможливо отримати сертифікат сервера</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Не вдалося перевірити публічний ключ</string>
     <string name="end_to_end_encryption_confirm_button">Налаштування шифрування</string>
     <string name="end_to_end_encryption_decrypting">Розшифровування...</string>
     <string name="end_to_end_encryption_dialog_close">Закрити</string>

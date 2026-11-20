@@ -149,7 +149,7 @@ class TrashbinFragment :
 
         trashbinListAdapter = TrashbinListAdapter(
             this,
-            navigatorActivity?.storageManager,
+            navigatorActivity?.getStorageManager(),
             preferences,
             syncedFolderProvider,
             requireContext(),

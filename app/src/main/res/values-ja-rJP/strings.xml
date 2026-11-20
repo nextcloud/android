@@ -347,7 +347,6 @@
     <string name="email_pick_failed">メールアドレスの選択に失敗しました。</string>
     <string name="encrypted">暗号化設定</string>
     <string name="end_to_end_encryption_certificate_unavailable">サーバー証明書を取得できません</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">公開鍵の検証に失敗しました</string>
     <string name="end_to_end_encryption_confirm_button">暗号化を設定する</string>
     <string name="end_to_end_encryption_decrypting">復号化中…</string>
     <string name="end_to_end_encryption_dialog_close">閉じる</string>
