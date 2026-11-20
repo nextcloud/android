@@ -106,10 +106,9 @@ class EncryptionUtilsV2 {
         context: Context,
         arbitraryDataProvider: ArbitraryDataProvider
     ): EncryptedFolderMetadataFile {
-        val encryptedUsers: List<EncryptedUser>
+        val encryptedUsers: List<EncryptedUser>?
         val encryptedMetadata: EncryptedMetadata
         if (metadataFile.users.isEmpty()) {
-            // we are in a subfolder, re-use users array
             val key = retrieveTopMostMetadataKey(
                 folder,
                 storageManager,
@@ -121,7 +120,7 @@ class EncryptionUtilsV2 {
                 arbitraryDataProvider
             )
 
-            encryptedUsers = emptyList()
+            encryptedUsers = null
             encryptedMetadata = encryptMetadata(metadataFile.metadata, key)
         } else {
             encryptedUsers = metadataFile.users.map {
