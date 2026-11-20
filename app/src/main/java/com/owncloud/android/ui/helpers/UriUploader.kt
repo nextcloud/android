@@ -18,6 +18,7 @@ import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.model.OCUploadLocalPathData
+import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.FileActivity
@@ -25,6 +26,7 @@ import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener
 import com.owncloud.android.ui.fragment.TaskRetainerFragment
 import com.owncloud.android.utils.UriUtils.getDisplayNameForUri
+import java.io.File
 
 /**
  * This class examines URIs pointing to files to upload and then requests [FileUploadHelper] to upload them.
@@ -127,7 +129,24 @@ class UriUploader @JvmOverloads constructor(
         return uploadPath + displayName
     }
 
-    private fun isSensitiveUri(uri: Uri): Boolean = uri.toString().contains(activity.packageName)
+    private fun isSensitiveUri(uri: Uri): Boolean {
+        val path = uri.path ?: return true
+        val canonicalPath = File(path).canonicalFile.toPath()
+
+        val sensitiveFolders = arrayListOf<File?>(
+            activity.dataDir,
+            MainApp.getStoragePath()?.let { File(it, MainApp.dataFolder) }
+        )
+        sensitiveFolders.addAll(activity.getExternalFilesDirs(null))
+        sensitiveFolders.addAll(activity.externalCacheDirs.filterNotNull())
+        sensitiveFolders.addAll(activity.externalMediaDirs.filterNotNull())
+
+        return sensitiveFolders
+            .filterNotNull()
+            .any {
+                canonicalPath.startsWith(it.canonicalFile.toPath())
+            }
+    }
 
     /**
      * Requests the upload of a file in the local file system to [FileUploadHelper] service.
