@@ -41,7 +41,6 @@ import com.nextcloud.client.player.model.file.PlaybackCollection
 import com.nextcloud.client.player.model.file.toPlaybackCollection
 import com.nextcloud.client.player.ui.MediaNavigator
 import com.nextcloud.client.player.ui.VideoPictureInPicture
-import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
@@ -114,9 +113,6 @@ class PreviewMediaActivity :
     private val pictureInPicture by lazy { VideoPictureInPicture(this, playbackModel) }
     private var wasActionBarVisibleBeforePictureInPicture = true
     private var keepPlaybackOnFinish = false
-
-    @Inject
-    lateinit var preferences: AppPreferences
 
     @Inject
     lateinit var localBroadcastManager: LocalBroadcastManager

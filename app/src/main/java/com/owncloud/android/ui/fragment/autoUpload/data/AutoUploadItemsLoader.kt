@@ -7,6 +7,7 @@
 package com.owncloud.android.ui.fragment.autoUpload.data
 
 import androidx.appcompat.app.AppCompatActivity
+import com.nextcloud.utils.extensions.filterEnabledOrWithoutEnabledParent
 import com.nextcloud.utils.extensions.sortAutoUploadFolderItems
 import com.owncloud.android.datamodel.MediaFolder
 import com.owncloud.android.datamodel.MediaFolderType
@@ -31,7 +32,7 @@ class AutoUploadItemsLoader(
         val mediaFolders = getMediaFolders(activity, perFolderMediaItemLimit)
         val syncedFolders = getAutoUploadFoldersAndDeleteObsolete(currentAccountName)
         val items = mergeFolderData(syncedFolders, mediaFolders, newItemAccountName)
-        return items.sortAutoUploadFolderItems().filterNotNull()
+        return items.sortAutoUploadFolderItems().filterNotNull().filterEnabledOrWithoutEnabledParent()
     }
 
     private fun getMediaFolders(activity: AppCompatActivity, itemLimit: Int): List<MediaFolder> {

@@ -22,7 +22,7 @@ import com.owncloud.android.R
 import com.owncloud.android.datamodel.MediaFolderType
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem
-import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment.Companion.newInstance
+import com.owncloud.android.ui.dialog.AutoUploadPreferenceDialogFragment.Companion.newInstance
 import com.owncloud.android.ui.fragment.autoUpload.AutoUploadFragment
 import com.owncloud.android.ui.navigation.NavigatorActivity
 import com.owncloud.android.ui.navigation.NavigatorScreen
@@ -86,7 +86,7 @@ class AutoUploadFragmentIT : AbstractIT() {
             onView(isRoot()).check(matches(isDisplayed()))
 
             scenario.onActivity { sut ->
-                val dialog = newInstance(item, 0) ?: throw IllegalStateException("Dialog could not be created")
+                val dialog = newInstance(item)
                 dialog.show(findFragment(sut).childFragmentManager, "")
                 findFragment(sut).childFragmentManager.executePendingTransactions()
                 screenshot(dialog.requireDialog().window?.decorView, screenShotName)

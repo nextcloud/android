@@ -215,7 +215,7 @@ class UploadListFragment :
         val adapterHelper = UploadListAdapterHelper(activity)
         uploadListAdapter = UploadListAdapter(
             activity,
-            activity.storageManager,
+            activity.getStorageManager(),
             uploadsStorageManager,
             userAccountManager,
             connectivityService,

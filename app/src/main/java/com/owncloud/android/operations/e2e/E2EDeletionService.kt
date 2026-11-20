@@ -62,7 +62,7 @@ class E2EDeletionService(private val clientFactory: ClientFactory) {
             successfulOperationResultCount -= 1
         }
 
-        Log_OC.i(TAG, "🗝" + "public key is deleted")
+        Log_OC.i(TAG, "📜" + "certificate is deleted")
 
         if (!DeleteEncryptedFilesRemoteOperation().execute(client).isSuccess) {
             successfulOperationResultCount -= 1

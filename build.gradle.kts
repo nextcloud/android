@@ -20,16 +20,17 @@ plugins {
 }
 
 tasks.register<Delete>("clean") {
-    delete(rootProject.layout.buildDirectory)
+    description = "Deletes the root project build directory."
+    delete(layout.buildDirectory)
 }
 
 tasks.register<Copy>("installGitHooks") {
     description = "Install git hooks"
 
-    val sourceFolder = "${rootProject.projectDir}/scripts/hooks"
-    val destFolder = "${rootProject.projectDir}/.git/hooks"
+    val sourceFolder = layout.projectDirectory.dir("scripts/hooks")
+    val destFolder = layout.projectDirectory.dir(".git/hooks")
 
     from(sourceFolder) { include("*") }
     into(destFolder)
-    eachFile { println("${sourceFolder}/${file.path} -> ${destFolder}/${file.path}") }
+    eachFile { println("$sourceFolder/$path -> $destFolder/$path") }
 }

@@ -1019,7 +1019,7 @@
     <string name="file_detail_sharing_fragment_no_contact_app_message">No app available to select contacts</string>
     <string name="file_detail_share_already_active">You cannot create a share, sharing is already active from this user.</string>
 
-    <string name="end_to_end_encryption_certificate_verification_failed">Failed to verify public key</string>
+    <string name="end_to_end_encryption_could_not_verify_certificate">Could not verify the encryption certificate</string>
     <string name="end_to_end_encryption_server_public_key_unavailable">Unable to retrieve public key</string>
     <string name="end_to_end_encryption_server_private_key_unavailable">Unable to retrieve private key</string>
     <string name="end_to_end_encryption_certificate_unavailable">Unable to retrieve server certificate</string>
@@ -1518,9 +1518,7 @@
     <string name="encryption_key_handle_key_removed_title">Encryption keys changed</string>
     <string name="encryption_key_handle_no_keys_description">This folder cannot be opened because its encryption keys no longer exist on this device or on the server.</string>
     <string name="encryption_key_handle_folder_read_only_description">The encryption keys of this account were removed or replaced, so the contents of this folder can no longer be decrypted.\n\nThe folder is read only from now on. To use encrypted folders again, backup this folder and set up your new encryption key in the settings.</string>
-    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">The encryption keys of this account were removed or replaced.\n\nSet up your new encryption key in the settings before you encrypt a folder.</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">The encryption key stored on this device is not valid anymore. Keys are revoked from server. \n\nBackup previously created encrypted folder. \n\nThen remove encryption locally from settings to create new encryption folder.</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_description">The encryption key stored on this device is not valid anymore. Keys are revoked from server. \n\nRemove encryption locally from settings to create new encryption folder.</string>
+    <string name="encryption_key_handle_keys_changed_on_server_description">The encryption keys on the server were removed or replaced, so encrypted folders are read-only on this device.\n\nTo keep using end-to-end encryption, back up your encrypted files, remove encryption locally in the settings and set it up again.</string>
 
     <string name="internal_two_way_sync">Internal two way sync</string>
     <string name="prefs_two_way_sync_summary">Manage internal folders for two way sync</string>
@@ -1640,11 +1638,10 @@
     <string name="player_media_controls_close_action_title">Close</string>
     <string name="player_last_modified">Modified: %s</string>
     <string name="player_audio_title_with_artist">%1$s • %2$s</string>
-    <string name="player_control_view_repeat_button_content_description">Repeat button</string>
+    <string name="player_control_view_play_mode_button_content_description">Play mode button</string>
     <string name="player_control_view_previous_button_content_description">Previous button</string>
     <string name="player_control_view_play_pause_button_content_description">Play/Pause button</string>
     <string name="player_control_view_next_button_content_description">Next button</string>
-    <string name="player_control_view_random_button_content_description">Random button</string>
     <string name="server_not_allowed">Server not allowed</string>
     <string name="run_two_way_sync">Run sync now</string>
 </resources>

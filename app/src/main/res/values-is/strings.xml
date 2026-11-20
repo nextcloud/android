@@ -397,11 +397,8 @@
     <string name="encryption_encrypt_unavailable">Tókst ekki að dulrita þessa möppu. Enda-í-enda dulritun er ekki sett upp á þessum netþjóni.</string>
     <string name="encryption_key_checking_keys">Athuga dulritunarlykla…</string>
     <string name="encryption_key_handle_folder_read_only_description">Dulritunarlyklar þessa aðgangs hafa verið fjarlægðir eða þeim skipt út, þannig að ekki er lengur hægt að afkóða innihald þessarar möppu. \n\nMappan er héðan í frá einungis lesanleg. Til að nota dulritaðar möppur aftur, þá skaltu taka öryggisafrit af þessari möppu og setja upp nýja dulritunarlykilinn þinn í stillingunum.</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_description">Dulritunarlykillinn sem geymdur er á tækinu er ekki lengur gildur. Lyklar hafa verið afturkallaðir af netþjóninum. \n\nFjarlægðu dulritun staðvært í stillingunum til að búa til nýja dulritaða möppu.</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">Dulritunarlykillinn sem geymdur er á tækinu er ekki lengur gildur. Lyklar hafa verið afturkallaðir af netþjóninum. \n\nTaktu öryggisafrit af áður útbúinni dulritaðri möppu. \n\nFjarlægðu síðan dulritun staðvært í stillingunum til að búa til nýja dulritaða möppu.</string>
     <string name="encryption_key_handle_key_removed_title">Dulritunarlyklar breyttust</string>
     <string name="encryption_key_handle_no_keys_description">Tókst ekki að opna þessa möppu því dulritunarlyklar hennar eru ekki lengur til staðar á þessu tæki eða á netþjóninum.</string>
-    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">Dulritunarlyklar þessa notandaaðgangs voru fjarlægðir eða þeim skipt út.\n\nSettu upp nýja dulritunarlykilinn þinn í stillingunum áður en þú dulritar möppu.</string>
     <string name="encryption_new_folder_check_failed">Gat ekki athugað dulritunarlyklana þína. Prófaðu aftur að búa til möppuna.</string>
     <string name="encryption_new_folder_no_network">Tókst ekki að ná sambandi við netþjóninn. Prófaðu aftur síðar að búa til möppuna.</string>
     <string name="encryption_new_folder_unavailable">Tókst ekki að búa til dulritaðar möppur. Enda-í-enda dulritun er ekki sett upp á þessum netþjóni.</string>
@@ -410,7 +407,6 @@
     <string name="encryption_open_no_network">Tókst ekki að ná sambandi við netþjóninn. Prófaðu aftur síðar að opna möppuna.</string>
     <string name="encryption_open_unavailable">Tókst ekki að opna þessa möppu. Enda-í-enda dulritun er ekki sett upp á þessum netþjóni.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Tókst ekki að ná í skilríki þjónsins</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Mistókst að sannreyna dreifilykil</string>
     <string name="end_to_end_encryption_confirm_button">Setja upp dulritun</string>
     <string name="end_to_end_encryption_decrypting">Afkóðun</string>
     <string name="end_to_end_encryption_dialog_close">Loka</string>

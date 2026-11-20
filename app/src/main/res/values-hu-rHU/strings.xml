@@ -353,7 +353,6 @@
     <string name="email_pick_failed">Az e-mail-cím kiválasztása sikertelen.</string>
     <string name="encrypted">Titkosítás bekapcsolása</string>
     <string name="end_to_end_encryption_certificate_unavailable">A kiszolgáló tanúsítványa nem kérhető le</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">A nyilvános kulcs ellenőrzése sikertelen</string>
     <string name="end_to_end_encryption_confirm_button">Titkosítás beállítása</string>
     <string name="end_to_end_encryption_decrypting">Visszafejtés…</string>
     <string name="end_to_end_encryption_dialog_close">Bezárás</string>

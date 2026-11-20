@@ -28,11 +28,11 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
 import androidx.media3.common.Player
 import com.nextcloud.client.player.model.file.PlaybackFile
+import com.nextcloud.client.player.model.state.PlayMode
 import com.nextcloud.client.player.model.state.PlaybackItemMetadata
 import com.nextcloud.client.player.model.state.PlaybackItemState
 import com.nextcloud.client.player.model.state.PlaybackState
 import com.nextcloud.client.player.model.state.PlayerState
-import com.nextcloud.client.player.model.state.RepeatMode
 import com.nextcloud.client.player.model.state.VideoSize
 import com.nextcloud.utils.extensions.resolveMimeType
 import com.nextcloud.utils.serialization.AppJson
@@ -104,19 +104,15 @@ object PlayerUtil {
         replaceMediaItems(0, oldCurrentMediaItemIndex, newMediaItems.subList(0, newCurrentMediaItemIndex))
     }
 
-    fun Player.setRepeatMode(mode: RepeatMode) {
-        repeatMode = when (mode) {
-            RepeatMode.SINGLE -> Player.REPEAT_MODE_ONE
-            RepeatMode.ALL -> Player.REPEAT_MODE_ALL
-            RepeatMode.OFF -> Player.REPEAT_MODE_OFF
-        }
+    fun Player.setPlayMode(mode: PlayMode) {
+        repeatMode = if (mode == PlayMode.REPEAT_ONE) Player.REPEAT_MODE_ONE else Player.REPEAT_MODE_ALL
+        shuffleModeEnabled = mode == PlayMode.SHUFFLE
     }
 
     fun Player.toPlaybackState(currentFiles: List<PlaybackFile>): PlaybackState = PlaybackState(
         currentFiles = currentFiles,
         currentItemState = getCurrentItemState(),
-        repeatMode = mapRepeatMode(),
-        shuffle = shuffleModeEnabled
+        playMode = mapPlayMode()
     )
 
     fun Player.readMediaIds(): List<String> = buildList {
@@ -165,10 +161,10 @@ object PlayerUtil {
         .takeIf { it.width > 0 && it.height > 0 }
         ?.let { VideoSize(width = it.width, height = it.height) }
 
-    private fun Player.mapRepeatMode(): RepeatMode = when (repeatMode) {
-        Player.REPEAT_MODE_ONE -> RepeatMode.SINGLE
-        Player.REPEAT_MODE_ALL -> RepeatMode.ALL
-        else -> RepeatMode.OFF
+    private fun Player.mapPlayMode(): PlayMode = when {
+        shuffleModeEnabled -> PlayMode.SHUFFLE
+        repeatMode == Player.REPEAT_MODE_ONE -> PlayMode.REPEAT_ONE
+        else -> PlayMode.REPEAT_ALL
     }
 
     fun OCFile.toPlaybackFile() = PlaybackFile(

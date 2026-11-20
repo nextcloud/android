@@ -22,107 +22,14 @@ import org.mockito.MockitoAnnotations;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.anyString;
-import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    TestAppPreferences.Preferences.class,
-    TestAppPreferences.ListenerRegistery.class
+    TestAppPreferences.Preferences.class
 })
 public class TestAppPreferences {
-
-    public static class ListenerRegistery {
-        private static final SharedPreferences NOT_USED_NULL = null;
-
-        @Mock
-        private AppPreferences.Listener listener1;
-
-        @Mock
-        private AppPreferences.Listener listener2;
-
-        @Mock
-        private AppPreferences.Listener listener3;
-
-        @Mock
-        private AppPreferences.Listener listener4;
-
-        @Mock
-        AppPreferences appPreferences;
-
-        private AppPreferencesImpl.ListenerRegistry registry;
-
-        @Before
-        public void setUp() {
-            MockitoAnnotations.initMocks(this);
-            when(appPreferences.getDarkThemeMode()).thenReturn(DarkMode.DARK);
-            registry = new AppPreferencesImpl.ListenerRegistry(appPreferences);
-        }
-
-        @Test
-        public void canRemoveListenersFromCallback() {
-
-            // GIVEN
-            //      registery has few listeners
-            //      one listener will try to remove itself and other listener
-            registry.add(listener1);
-            registry.add(listener2);
-            registry.add(listener3);
-            registry.add(listener4);
-
-            doAnswer((i) -> {
-                registry.remove(listener2);
-                registry.remove(listener3);
-                return null;
-            }).when(listener2).onDarkThemeModeChanged(DarkMode.DARK);
-
-            // WHEN
-            //      callback is called twice
-            registry.onSharedPreferenceChanged(NOT_USED_NULL, AppPreferencesImpl.PREF__DARK_THEME);
-            registry.onSharedPreferenceChanged(NOT_USED_NULL, AppPreferencesImpl.PREF__DARK_THEME);
-
-            // THEN
-            //      no ConcurrentModificationException
-            //      1st time, all listeners (including removed) are called
-            //      2nd time removed callbacks are not called
-            verify(listener1, times(2)).onDarkThemeModeChanged(DarkMode.DARK);
-            verify(listener2).onDarkThemeModeChanged(DarkMode.DARK);
-            verify(listener3).onDarkThemeModeChanged(DarkMode.DARK);
-            verify(listener4, times(2)).onDarkThemeModeChanged(DarkMode.DARK);
-        }
-
-        @Test
-        public void nullsAreNotAddedToRegistry() {
-            // GIVEN
-            //      registry has no listeners
-            //      attempt to add null listener was made
-            registry.add(null);
-
-            // WHEN
-            //      callback is called
-            registry.onSharedPreferenceChanged(NOT_USED_NULL, AppPreferencesImpl.PREF__DARK_THEME);
-
-            // THEN
-            //      nothing happens
-            //      null was not added to registry
-        }
-
-        @Test
-        public void nullsAreNotRemovedFromRegistry() {
-            // GIVEN
-            //      registry has no listeners
-
-            // WHEN
-            //      attempt to remove null listener was made
-            registry.remove(null);
-
-            // THEN
-            //      null is ignored
-        }
-    }
 
     public static class Preferences {
         @Mock
