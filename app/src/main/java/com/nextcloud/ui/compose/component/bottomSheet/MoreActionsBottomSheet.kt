@@ -4,7 +4,7 @@
  * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.nextcloud.ui.composeComponents.bottomSheet
+package com.nextcloud.ui.compose.component.bottomSheet
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable

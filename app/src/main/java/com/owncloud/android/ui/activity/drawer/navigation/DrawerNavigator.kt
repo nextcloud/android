@@ -9,8 +9,8 @@ package com.owncloud.android.ui.activity.drawer.navigation
 import android.content.Intent
 import android.view.MenuItem
 import androidx.fragment.app.commit
-import com.nextcloud.ui.composeActivity.ComposeActivity
-import com.nextcloud.ui.composeActivity.ComposeDestination
+import com.nextcloud.ui.compose.ComposeActivity
+import com.nextcloud.ui.compose.navigation.ComposeDestination
 import com.nextcloud.utils.extensions.navigateToAllFiles
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
@@ -139,6 +139,12 @@ class DrawerNavigator(private val activity: DrawerActivity) {
     fun startAssistantScreen() {
         val intent = Intent(activity.applicationContext, ComposeActivity::class.java)
             .putExtra(ComposeActivity.DESTINATION, ComposeDestination.getAssistantScreen(activity))
+        activity.startActivity(intent)
+    }
+
+    fun startTeamsScreen() {
+        val intent = Intent(activity.applicationContext, ComposeActivity::class.java)
+            .putExtra(ComposeActivity.DESTINATION, ComposeDestination.getTeamsScreen(activity))
         activity.startActivity(intent)
     }
 

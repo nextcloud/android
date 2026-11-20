@@ -414,6 +414,14 @@ dependencies {
     implementation(libs.lifecycle.process)
     implementation(libs.lifecycle.service)
     implementation(libs.lifecycle.runtime.ktx)
+    implementation(libs.lifecycle.runtime.compose)
+    implementation(libs.lifecycle.viewmodel.compose)
+    implementation(libs.lifecycle.viewmodel.navigation3)
+    // endregion
+
+    // region Navigation 3
+    implementation(libs.navigation3.runtime)
+    implementation(libs.navigation3.ui)
     // endregion
 
     // region JUnit
@@ -540,6 +548,8 @@ dependencies {
 
     // region Image loading
     implementation(libs.coil)
+    implementation(libs.coil3.compose)
+    implementation(libs.coil3.network.okhttp)
     // endregion
 
     // kotlinx.serialization

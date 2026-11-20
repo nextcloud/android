@@ -132,13 +132,13 @@
             android:resource="@xml/app_config" />
 
         <activity
-            android:name="com.nextcloud.ui.composeActivity.ComposeActivity"
+            android:name="com.nextcloud.ui.compose.ComposeActivity"
             android:exported="true"
             android:label="@string/compose_activity_label"/>
 
         <activity-alias
-            android:name="com.nextcloud.ui.composeActivity.ComposeProcessTextAlias"
-            android:targetActivity="com.nextcloud.ui.composeActivity.ComposeActivity"
+            android:name="com.nextcloud.ui.compose.ComposeProcessTextAlias"
+            android:targetActivity="com.nextcloud.ui.compose.ComposeActivity"
             android:exported="true">
 
             <intent-filter>
@@ -338,6 +338,10 @@
             android:exported="false" />
         <activity
             android:name=".ui.activity.TextEditorWebView"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:exported="false" />
+        <activity
+            android:name="com.nextcloud.ui.teams.detail.TeamWebView"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="false" />
         <activity

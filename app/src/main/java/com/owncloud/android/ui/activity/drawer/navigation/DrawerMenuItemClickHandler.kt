@@ -7,7 +7,7 @@
 package com.owncloud.android.ui.activity.drawer.navigation
 
 import android.view.MenuItem
-import com.nextcloud.ui.composeActivity.ComposeActivity
+import com.nextcloud.ui.compose.ComposeActivity
 import com.nextcloud.utils.extensions.navigateToAllFiles
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC

@@ -7,6 +7,7 @@
 
 package com.nextcloud.utils.extensions
 
+import androidx.annotation.StringRes
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.operations.RemoteOperation
@@ -18,6 +19,15 @@ fun Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>?.getErrorMessage(): Str
     val result = this?.first ?: return MainApp.string(R.string.unexpected_error_occurred)
     val operation = this.second ?: return MainApp.string(R.string.unexpected_error_occurred)
     return ErrorMessageAdapter.getErrorCauseMessage(result, operation, MainApp.getAppContext().resources)
+}
+
+@StringRes
+fun RemoteOperationResult<*>.connectionErrorMessageId(): Int? = when (code) {
+    ResultCode.NO_NETWORK_CONNECTION -> R.string.auth_no_net_conn_title
+    ResultCode.HOST_NOT_AVAILABLE, ResultCode.WRONG_CONNECTION -> R.string.network_host_not_available
+    ResultCode.TIMEOUT -> R.string.auth_timeout_title
+    ResultCode.MAINTENANCE_MODE -> R.string.maintenance_mode
+    else -> null
 }
 
 fun ResultCode.isFileSpecificError(): Boolean {
