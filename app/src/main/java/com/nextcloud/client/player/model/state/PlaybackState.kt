@@ -12,6 +12,5 @@ import com.nextcloud.client.player.model.file.PlaybackFile
 data class PlaybackState(
     val currentFiles: List<PlaybackFile>,
     val currentItemState: PlaybackItemState?,
-    val repeatMode: RepeatMode,
-    val shuffle: Boolean
+    val playMode: PlayMode
 )

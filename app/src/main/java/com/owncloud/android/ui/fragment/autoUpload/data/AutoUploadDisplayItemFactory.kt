@@ -80,7 +80,7 @@ class AutoUploadDisplayItemFactory(
         accountName,
         FileUploadWorker.LOCAL_BEHAVIOUR_FORGET,
         NameCollisionPolicy.ASK_USER.serialize(),
-        false,
+        true,
         clock.currentTime,
         null,
         MediaFolderType.CUSTOM,
@@ -90,8 +90,8 @@ class AutoUploadDisplayItemFactory(
         SyncedFolder.NOT_SCANNED_YET
     )
 
-    fun createNewCustomFolder(syncedFolder: SyncedFolderParcelable): SyncedFolderDisplayItem = SyncedFolderDisplayItem(
-        SyncedFolder.UNPERSISTED_ID,
+    fun createAutoUploadFolder(syncedFolder: SyncedFolderParcelable): SyncedFolderDisplayItem = SyncedFolderDisplayItem(
+        syncedFolder.id,
         syncedFolder.localPath,
         syncedFolder.remotePath,
         syncedFolder.isWifiOnly,
@@ -102,13 +102,13 @@ class AutoUploadDisplayItemFactory(
         syncedFolder.uploadAction,
         syncedFolder.nameCollisionPolicy.serialize(),
         syncedFolder.isEnabled,
-        clock.currentTime,
+        syncedFolder.enabledTimestampMs,
         File(syncedFolder.localPath).name,
         syncedFolder.type,
         syncedFolder.isHidden,
         syncedFolder.subFolderRule,
         syncedFolder.isExcludeHidden,
-        SyncedFolder.NOT_SCANNED_YET
+        syncedFolder.lastScanTimestampMs
     )
 
     fun updateAutoUploadFolderItem(item: SyncedFolderDisplayItem, syncedFolder: SyncedFolderParcelable) {
@@ -122,7 +122,7 @@ class AutoUploadDisplayItemFactory(
             isSubfolderByDate = syncedFolder.isSubfolderByDate
             uploadAction = syncedFolder.uploadAction
             setNameCollisionPolicy(syncedFolder.nameCollisionPolicy.serialize())
-            setEnabled(syncedFolder.isEnabled, clock.currentTime)
+            setEnabled(syncedFolder.isEnabled, syncedFolder.enabledTimestampMs)
             setSubFolderRule(syncedFolder.subFolderRule)
             setExcludeHidden(syncedFolder.isExcludeHidden)
         }
@@ -146,7 +146,7 @@ class AutoUploadDisplayItemFactory(
         syncedFolder.uploadAction,
         syncedFolder.nameCollisionPolicyInt,
         syncedFolder.isEnabled,
-        clock.currentTime,
+        syncedFolder.enabledTimestampMs,
         filePaths,
         folderName,
         numberOfFiles,

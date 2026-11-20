@@ -8,6 +8,8 @@
 rootProject.name = "Nextcloud"
 
 pluginManagement {
+    includeBuild("build-logic")
+
     resolutionStrategy.eachPlugin {
         if (requested.id.id == "shot") useModule("com.karumi:shot:${requested.version}")
     }
@@ -25,7 +27,6 @@ pluginManagement {
     }
 }
 
-@Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {

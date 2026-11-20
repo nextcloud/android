@@ -30,15 +30,13 @@ class AutoUploadPersistence(
     }
 
     fun persistSyncStatus(item: SyncedFolderDisplayItem) {
-        if (item.id > SyncedFolder.UNPERSISTED_ID) {
-            syncedFolderProvider.updateSyncedFolderEnabled(item.id, item.isEnabled)
+        if (item.id == SyncedFolder.UNPERSISTED_ID) {
+            storeAutoUploadFolder(item)
             return
         }
 
-        val storedId = syncedFolderProvider.storeSyncedFolder(item)
-        if (storedId != INVALID_ID) {
-            item.id = storedId
-        }
+        syncedFolderProvider.updateSyncedFolderEnabled(item.id, item.isEnabled)
+        applySyncState(item)
     }
 
     fun deleteAutoUploadFolder(id: Long) {

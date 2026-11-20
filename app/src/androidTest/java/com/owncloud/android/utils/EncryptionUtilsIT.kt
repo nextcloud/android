@@ -26,15 +26,15 @@ class EncryptionUtilsIT : EncryptionIT() {
         org.bouncycastle.operator.OperatorCreationException::class
     )
     @Test
-    fun saveAndRestorePublicKey() {
+    fun saveAndRestoreShareeCertificate() {
         val arbitraryDataProvider = ArbitraryDataProviderImpl(targetContext)
         val keyPair = EncryptionKeyGenerator.generateKeyPair()
         val e2eUser = "e2e-user"
         val key = CsrHelper().generateCsrPemEncodedString(keyPair, e2eUser)
 
-        EncryptionUtils.savePublicKey(user, key, e2eUser, arbitraryDataProvider)
+        EncryptionUtils.saveShareeCertificate(user, key, e2eUser, arbitraryDataProvider)
 
-        assertEquals(key, EncryptionUtils.getPublicKey(user, e2eUser, arbitraryDataProvider))
+        assertEquals(key, EncryptionUtils.getShareeCertificate(user, e2eUser, arbitraryDataProvider))
     }
 
     @Test

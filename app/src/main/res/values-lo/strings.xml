@@ -322,7 +322,6 @@
     <string name="email_pick_failed">Failed to pick email address.</string>
     <string name="encrypted">ຕັ້ງເປັນການເຂົ້າລະຫັດ</string>
     <string name="end_to_end_encryption_certificate_unavailable">Unable to retrieve server certificate</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Failed to verify public key</string>
     <string name="end_to_end_encryption_confirm_button">ຕັ້ງການເຂົ້າລະຫັດ</string>
     <string name="end_to_end_encryption_decrypting">ຖອດລະຫັດລັບ</string>
     <string name="end_to_end_encryption_dialog_close">ປິດ</string>
