@@ -50,8 +50,11 @@ import com.owncloud.android.utils.theme.ThemeUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.time.Duration.Companion.seconds
 
 class AutoUploadFragment :
     Fragment(),
@@ -81,6 +84,9 @@ class AutoUploadFragment :
     private lateinit var itemsLoader: AutoUploadItemsLoader
     private lateinit var dialogs: AutoUploadDialogs
     private lateinit var clickHandler: AutoUploadClickHandler
+
+    private val maxSwipeRefreshInterval = 4.seconds
+    private var swipeRefreshTimeoutJob: Job? = null
 
     private val intentHandler = AutoUploadIntentHandler()
 
@@ -130,7 +136,7 @@ class AutoUploadFragment :
         setupStoragePermissionWarningBanner(activity, binding)
         PermissionUtil.dismissStoragePermissionDialogFragment(activity)
         if (PermissionUtil.checkStoragePermission(activity)) {
-            load(activity)
+            loadIfEmpty(activity)
         }
         uploadWarningCard?.bind(binding.autoUploadBatterySaverWarningCard)
     }
@@ -223,6 +229,11 @@ class AutoUploadFragment :
             this.layoutManager = layoutManager
             adapter = this@AutoUploadFragment.adapter
         }
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            load(activity)
+            stopSwipeRefreshAfterTimeout()
+        }
     }
 
     private fun addMenuProvider(activity: NavigatorActivity) {
@@ -258,15 +269,20 @@ class AutoUploadFragment :
     // region Loading
     private fun getItemsDisplayedPerFolder(): Int = resources.getInteger(R.integer.media_grid_width) * 2
 
-    @SuppressLint("NotifyDataSetChanged")
-    private fun load(activity: NavigatorActivity) {
+    private fun loadIfEmpty(activity: NavigatorActivity) {
         if (adapter.itemCount > 0) {
             return
         }
 
+        emptyContent?.showLoadingContent()
+
+        load(activity)
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun load(activity: NavigatorActivity) {
         val perFolderMediaItemLimit = getItemsDisplayedPerFolder()
         val newItemAccountName = activity.account.name
-        emptyContent?.showLoadingContent()
 
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             val currentAccountName = userAccountManager.user.accountName
@@ -276,7 +292,17 @@ class AutoUploadFragment :
                 adapter.setItems(items)
                 emptyContent?.showList()
                 openMediaFolderSettingsFromIntent()
+                binding?.swipeRefreshLayout?.isRefreshing = false
             }
+        }
+    }
+
+    private fun stopSwipeRefreshAfterTimeout() {
+        swipeRefreshTimeoutJob?.cancel()
+        swipeRefreshTimeoutJob = viewLifecycleOwner.lifecycleScope.launch {
+            delay(maxSwipeRefreshInterval)
+
+            binding?.swipeRefreshLayout?.isRefreshing = false
         }
     }
 
