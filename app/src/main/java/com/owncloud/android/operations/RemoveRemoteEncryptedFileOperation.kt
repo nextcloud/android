@@ -24,99 +24,110 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.status.E2EVersion
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.EncryptionUtilsV2
-import com.owncloud.android.utils.theme.CapabilityUtils
 import org.apache.commons.httpclient.HttpStatus
 import org.apache.commons.httpclient.NameValuePair
 import org.apache.jackrabbit.webdav.client.methods.DeleteMethod
 import com.nextcloud.utils.AppConstants.DEFAULT_CONNECTION_TIMEOUT_MS
 
-class RemoveRemoteEncryptedFileOperation internal constructor(
+class RemoveRemoteEncryptedFileOperation @JvmOverloads internal constructor(
     private val remotePath: String,
     private val user: User,
     private val context: Context,
     private val fileName: String,
     private val parentFolder: OCFile,
-    private val isFolder: Boolean
+    private val isFolder: Boolean,
+    private val expectedEtag: String? = null
 ) : RemoteOperation<Void>() {
+    @Volatile
+    private var canCommit = true
 
     @Deprecated("Deprecated in Java")
     override fun run(client: OwnCloudClient): RemoteOperationResult<Void> {
-        var result: RemoteOperationResult<Void>
-        var delete: DeleteMethod? = null
+        var result = RemoteOperationResult<Void>(RemoteOperationResult.ResultCode.UNKNOWN_ERROR)
         var token: String? = null
-        val capability = CapabilityUtils.getCapability(context)
+        val storageManager = FileDataStorageManager(user, context.contentResolver)
+        val capability = storageManager.getCapability(user)
         val isE2EVersionAtLeast2 = (E2EVersionHelper.isV2Plus(capability))
         val e2eeVersion = capability.endToEndEncryptionApiVersion
-        val storageManager = FileDataStorageManager(user, context.contentResolver)
-        val counter = parentFolder.e2eCounter + 1
+        var counter = parentFolder.e2eCounter + 1
+        canCommit = true
 
         try {
+            if (isE2EVersionAtLeast2) {
+                val (_, metadata) = EncryptionUtilsV2().retrieveMetadata(parentFolder, client, user, context)
+                counter = metadata.metadata.counter + 1
+            }
             token = EncryptionUtils.lockFolder(parentFolder, client, counter)
 
-            return if (isE2EVersionAtLeast2) {
-                val deleteResult = deleteForV2(counter, storageManager, client, token)
-                result = deleteResult.first
-                delete = deleteResult.second
-                result
+            result = if (isE2EVersionAtLeast2) {
+                deleteForV2(counter, storageManager, client, token)
             } else {
-                val deleteResult = deleteForV1(client, token, e2eeVersion)
-                result = deleteResult.first
-                delete = deleteResult.second
-                result
+                deleteForV1(client, token, e2eeVersion)
             }
         } catch (e: Exception) {
             result = RemoteOperationResult(e)
             Log_OC.e(TAG, "Remove " + remotePath + ": " + result.logMessage, e)
         } finally {
-            delete?.releaseConnection()
-            token?.let { unlockFile(counter, storageManager, client, it, isE2EVersionAtLeast2) }
+            if (canCommit && token != null) {
+                val unlocked = unlockFile(
+                    counter.takeIf { result.isSuccess },
+                    storageManager,
+                    client,
+                    token,
+                    isE2EVersionAtLeast2
+                )
+                if (result.isSuccess && !unlocked.isSuccess) result = unlocked
+            }
         }
 
         return result
     }
 
     private fun unlockFile(
-        counter: Long,
+        counter: Long?,
         storageManager: FileDataStorageManager,
         client: OwnCloudClient,
         token: String,
         isE2EVersionAtLeast2: Boolean
-    ) {
+    ): RemoteOperationResult<Void> {
         val unlockFileOperationResult = if (isE2EVersionAtLeast2) {
             EncryptionUtils.unlockFolder(parentFolder, client, token)
         } else {
             EncryptionUtils.unlockFolderV1(parentFolder, client, token)
         }
 
-        if (unlockFileOperationResult.isSuccess && isE2EVersionAtLeast2) {
-            storageManager.updateE2EECounter(parentFolder, counter)
+        if (unlockFileOperationResult.isSuccess) {
+            if (isE2EVersionAtLeast2 && counter != null) storageManager.updateE2EECounter(parentFolder, counter)
         } else {
             Log_OC.e(TAG, "Failed to unlock " + parentFolder.localId)
         }
+        return unlockFileOperationResult
     }
 
-    private fun deleteRemoteFile(
-        client: OwnCloudClient,
-        token: String?
-    ): Pair<RemoteOperationResult<Void>, DeleteMethod> {
+    private fun deleteRemoteFile(client: OwnCloudClient, token: String?): RemoteOperationResult<Void> {
         val delete = DeleteMethod(client.getFilesDavUri(remotePath)).apply {
             setQueryString(arrayOf(NameValuePair(E2E_TOKEN, token)))
+            expectedEtag?.let { setRequestHeader("If-Match", FileTransferSource.quotedEtag(it)) }
         }
 
-        val status = client.executeMethod(delete, REMOVE_READ_TIMEOUT, DEFAULT_CONNECTION_TIMEOUT_MS)
-        delete.getResponseBodyAsString() // exhaust the response, although not interesting
-
-        val result = RemoteOperationResult<Void>(delete.succeeded() || status == HttpStatus.SC_NOT_FOUND, delete)
-        Log_OC.i(TAG, "Remove " + remotePath + ": " + result.logMessage)
-
-        return Pair(result, delete)
+        try {
+            canCommit = false
+            val status = client.executeMethod(delete, REMOVE_READ_TIMEOUT, DEFAULT_CONNECTION_TIMEOUT_MS)
+            delete.getResponseBodyAsString() // exhaust the response, although not interesting
+            val result = RemoteOperationResult<Void>(delete.succeeded() || status == HttpStatus.SC_NOT_FOUND, delete)
+            canCommit = !result.isSuccess
+            Log_OC.i(TAG, "Remove " + remotePath + ": " + result.logMessage)
+            return result
+        } finally {
+            delete.releaseConnection()
+        }
     }
 
     private fun deleteForV1(
         client: OwnCloudClient,
         token: String?,
         e2eeVersion: E2EVersion
-    ): Pair<RemoteOperationResult<Void>, DeleteMethod> {
+    ): RemoteOperationResult<Void> {
         @Suppress("DEPRECATION")
         val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(context)
         val privateKey = arbitraryDataProvider.getValue(user.accountName, EncryptionUtils.PRIVATE_KEY)
@@ -132,9 +143,11 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
             e2eeVersion.value
         )
 
-        val (result, delete) = deleteRemoteFile(client, token)
+        val result = deleteRemoteFile(client, token)
+        if (!result.isSuccess) return result
+        canCommit = false
 
-        if (!isFolder) {
+        if (remotePath != parentFolder.remotePath) {
             EncryptionUtils.removeFileFromMetadata(fileName, metadata)
         }
 
@@ -159,8 +172,9 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
             arbitraryDataProvider,
             user
         )
+        canCommit = true
 
-        return Pair(result, delete)
+        return result
     }
 
     private fun deleteForV2(
@@ -168,7 +182,7 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
         storageManager: FileDataStorageManager,
         client: OwnCloudClient,
         token: String?
-    ): Pair<RemoteOperationResult<Void>, DeleteMethod> {
+    ): RemoteOperationResult<Void> {
         val encryptionUtilsV2 = EncryptionUtilsV2()
 
         val (metadataExists, metadata) = encryptionUtilsV2.retrieveMetadata(
@@ -178,16 +192,16 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
             context
         )
 
-        // update counter before delete
-        metadata.metadata.counter = counter
+        val result = deleteRemoteFile(client, token)
+        if (!result.isSuccess) return result
+        canCommit = false
 
-        val (result, delete) = deleteRemoteFile(client, token)
-
-        if (isFolder) {
+        if (isFolder && remotePath != parentFolder.remotePath) {
             encryptionUtilsV2.removeFolderFromMetadata(fileName, metadata)
-        } else {
+        } else if (!isFolder) {
             encryptionUtilsV2.removeFileFromMetadata(fileName, metadata)
         }
+        metadata.metadata.counter = counter
 
         encryptionUtilsV2.serializeAndUploadMetadata(
             parentFolder,
@@ -199,8 +213,9 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
             user,
             storageManager
         )
+        canCommit = true
 
-        return Pair(result, delete)
+        return result
     }
 
     companion object {

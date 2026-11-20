@@ -153,6 +153,7 @@ public class UploadFileOperation extends SyncOperation {
      * Local path to file which is to be uploaded (before any possible renaming or moving).
      */
     private String mOriginalStoragePath;
+    private volatile boolean keepE2EELockOnFailure;
     private final Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<>();
     private OnRenameListener mRenameUploadListener;
 
@@ -408,6 +409,16 @@ public class UploadFileOperation extends SyncOperation {
         return mContext;
     }
 
+    public void setKeepE2EELockOnFailure(boolean keepLock) {
+        keepE2EELockOnFailure = keepLock;
+    }
+
+    private void updateStoredUploadResult(RemoteOperationResult result) {
+        if (mOCUploadId >= 0) {
+            uploadsStorageManager.updateDatabaseUploadResult(result, this);
+        }
+    }
+
     public boolean isMissingPermissionThrown() {
         return missingPermissionThrown.get();
     }
@@ -620,7 +631,7 @@ public class UploadFileOperation extends SyncOperation {
             result = releaseLocksAndUnlockE2EFolder(fileLock, channel, e2eFiles, result, object, client, token);
 
             // update upload status
-            uploadsStorageManager.updateDatabaseUploadResult(result, this);
+            updateStoredUploadResult(result);
         }
 
         handleLocalBehaviourOrSaveConflictAndDeleteTemporalFile(result, e2eFiles, client);
@@ -641,7 +652,9 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         mUpload.setFolderUnlockToken(token);
-        uploadsStorageManager.updateUpload(mUpload);
+        if (mOCUploadId >= 0) {
+            uploadsStorageManager.updateUpload(mUpload);
+        }
 
         Log_OC.d(TAG, "Folder locked successfully, token saved");
         return token;
@@ -951,6 +964,12 @@ public class UploadFileOperation extends SyncOperation {
             return result;
         }
 
+        // Unlock commits staged content even if its metadata could not be written.
+        if (keepE2EELockOnFailure && !result.isSuccess()) {
+            e2eFiles.deleteEncryptedTempFile();
+            return result;
+        }
+
         // Unlock must be done otherwise folder stays locked and user can't upload any file
         RemoteOperationResult<Void> unlockFolderResult;
         try {
@@ -1195,7 +1214,7 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             logResult(result, mOriginalStoragePath, mRemotePath);
-            uploadsStorageManager.updateDatabaseUploadResult(result, this);
+            updateStoredUploadResult(result);
         }
 
         if (result.isSuccess()) {

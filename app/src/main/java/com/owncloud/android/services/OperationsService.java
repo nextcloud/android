@@ -56,6 +56,7 @@ import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.CreateShareViaLinkOperation;
 import com.owncloud.android.operations.CreateShareWithShareeOperation;
+import com.owncloud.android.operations.EncryptedFileTransfer;
 import com.owncloud.android.operations.GetServerInfoOperation;
 import com.owncloud.android.operations.MoveFileOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
@@ -69,6 +70,7 @@ import com.owncloud.android.operations.UpdateShareInfoOperation;
 import com.owncloud.android.operations.UpdateSharePermissionsOperation;
 import com.owncloud.android.operations.UpdateShareViaLinkOperation;
 import com.owncloud.android.operations.albums.CopyFileToAlbumOperation;
+import com.owncloud.android.operations.factory.UploadFileOperationFactory;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -96,6 +98,7 @@ public class OperationsService extends Service {
     public static final String EXTRA_REMOVE_ONLY_LOCAL = "REMOVE_LOCAL_COPY";
     public static final String EXTRA_SYNC_FILE_CONTENTS = "SYNC_FILE_CONTENTS";
     public static final String EXTRA_NEW_PARENT_PATH = "NEW_PARENT_PATH";
+    public static final String EXTRA_KEEP_ENCRYPTION = "KEEP_ENCRYPTION";
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_FILE_VERSION = "FILE_VERSION";
     public static final String EXTRA_SHARE_PASSWORD = "SHARE_PASSWORD";
@@ -150,6 +153,7 @@ public class OperationsService extends Service {
 
     @Inject UserAccountManager accountManager;
     @Inject ArbitraryDataProvider arbitraryDataProvider;
+    @Inject UploadFileOperationFactory uploadFileOperationFactory;
 
     private static class Target {
         public Uri mServerUrl;
@@ -766,12 +770,18 @@ public class OperationsService extends Service {
                         remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                         newParentPath = operationIntent.getStringExtra(EXTRA_NEW_PARENT_PATH);
                         operation = new MoveFileOperation(remotePath, newParentPath, fileDataStorageManager);
+                        ((MoveFileOperation) operation).setEncryptedTransfer(new EncryptedFileTransfer(
+                            fileDataStorageManager, user, getApplicationContext(), uploadFileOperationFactory,
+                            operationIntent.getBooleanExtra(EXTRA_KEEP_ENCRYPTION, true)));
                         break;
 
                     case ACTION_COPY_FILE:
                         remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                         newParentPath = operationIntent.getStringExtra(EXTRA_NEW_PARENT_PATH);
                         operation = new CopyFileOperation(remotePath, newParentPath, fileDataStorageManager);
+                        ((CopyFileOperation) operation).setEncryptedTransfer(new EncryptedFileTransfer(
+                            fileDataStorageManager, user, getApplicationContext(), uploadFileOperationFactory,
+                            operationIntent.getBooleanExtra(EXTRA_KEEP_ENCRYPTION, true)));
                         break;
 
                     case ACTION_CHECK_CURRENT_CREDENTIALS:

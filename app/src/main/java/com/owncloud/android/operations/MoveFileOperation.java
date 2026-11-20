@@ -25,6 +25,7 @@ public class MoveFileOperation extends SyncOperation {
 
     private final String srcPath;
     private String targetParentPath;
+    private EncryptedFileTransfer encryptedTransfer;
 
     /**
      * Constructor
@@ -42,6 +43,10 @@ public class MoveFileOperation extends SyncOperation {
         }
     }
 
+    public void setEncryptedTransfer(EncryptedFileTransfer transfer) {
+        encryptedTransfer = transfer;
+    }
+
     /**
      * Performs the operation.
      *
@@ -56,6 +61,11 @@ public class MoveFileOperation extends SyncOperation {
         OCFile file = getStorageManager().getFileByPath(srcPath);
         if (file == null) {
             return new RemoteOperationResult(ResultCode.FILE_NOT_FOUND);
+        }
+
+        OCFile parent = getStorageManager().getFileByEncryptedRemotePath(targetParentPath);
+        if (encryptedTransfer != null && parent != null && (file.isEncrypted() || parent.isEncrypted())) {
+            return encryptedTransfer.move(file, parent, client);
         }
 
         /// 2. remote move
