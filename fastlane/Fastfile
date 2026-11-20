@@ -18,6 +18,7 @@ skip_docs
 
 APP="files"
 REPO="nextcloud/android"
+HUAWEI_APP_ID="102503897"
 
 # passwords are added at build time, see askForSigningPasswords in common.Fastfile
 GRADLE_SIGNING_PROPERTIES = {
