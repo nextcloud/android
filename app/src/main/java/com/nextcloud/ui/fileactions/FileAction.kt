@@ -80,6 +80,19 @@ enum class FileAction(
     }
 
     companion object {
+        val READ_ONLY_HIDDEN_ACTIONS = listOf(
+            R.id.action_remove_file,
+            R.id.action_rename_file,
+            R.id.action_move_or_copy,
+            R.id.action_edit,
+            R.id.action_encrypted,
+            R.id.action_unset_encrypted,
+            R.id.action_lock_file,
+            R.id.action_unlock_file,
+            R.id.action_favorite,
+            R.id.action_unset_favorite
+        )
+
         /**
          * All file actions, in the order they should be displayed
          */
