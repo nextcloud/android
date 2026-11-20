@@ -40,7 +40,7 @@ class UploadFolderBackend(
 
     private fun checkKeys() {
         if (keys.getValue(user.accountName, EncryptionUtils.PRIVATE_KEY).isEmpty() ||
-            keys.getValue(user.accountName, EncryptionUtils.PUBLIC_KEY).isEmpty()
+            keys.getValue(user.accountName, EncryptionUtils.CERTIFICATE).isEmpty()
         ) {
             throw UploadFolderException(RemoteOperationResult<Any>(UploadFileException.EncryptionKeysUnavailable()))
         }

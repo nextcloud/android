@@ -360,7 +360,6 @@
     <string name="email_pick_failed">Nepavyko pasirinkti el. pašto adreso.</string>
     <string name="encrypted">Nustatyti kaip šifruotą</string>
     <string name="end_to_end_encryption_certificate_unavailable">Nepavyko gauti serverio sertifikato</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Nepavyko patvirtinti viešojo rakto</string>
     <string name="end_to_end_encryption_confirm_button">Nustatyti šifravimą</string>
     <string name="end_to_end_encryption_decrypting">Iššifruojama…</string>
     <string name="end_to_end_encryption_dialog_close">Užverti</string>

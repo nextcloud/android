@@ -100,7 +100,6 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
-import java.security.spec.InvalidParameterSpecException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -582,7 +581,7 @@ public class UploadFileOperation extends SyncOperation {
         Object object = null;
         FileChannel channel = null;
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(getContext());
-        String publicKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY);
+        String certificate = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.CERTIFICATE);
 
         try {
             result = checkConditions(e2eFiles.getOriginalFile());
@@ -591,7 +590,7 @@ public class UploadFileOperation extends SyncOperation {
                 throw new UploadFolderException(result);
             }
 
-            if (isAutoUpload() && (publicKey.isEmpty() ||
+            if (isAutoUpload() && (certificate.isEmpty() ||
                 arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY).isEmpty())) {
                 throw new UploadFileException.EncryptionKeysUnavailable();
             }
@@ -610,7 +609,7 @@ public class UploadFileOperation extends SyncOperation {
                         throw new UploadFileException.InvalidEncryptionMetadata();
                     }
                 } else {
-                    object = getDecryptedFolderMetadataV1(publicKey, object);
+                    object = getDecryptedFolderMetadataV1(certificate, object);
                 }
             }
 
@@ -629,7 +628,7 @@ public class UploadFileOperation extends SyncOperation {
                 final var metadata = EncryptionUtils.retrieveMetadataV1(parentFile,
                     client,
                     arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY),
-                    publicKey,
+                    certificate,
                     arbitraryDataProvider,
                     user,
                     getStorageManager().getE2EEVersion(user));
@@ -640,7 +639,7 @@ public class UploadFileOperation extends SyncOperation {
                 object = metadata.second;
             }
 
-            E2EClientData clientData = new E2EClientData(client, token, publicKey);
+            E2EClientData clientData = new E2EClientData(client, token, certificate);
 
             List<String> fileNames = uploadFileResolver.getCollidedFileNames(object);
 
@@ -754,7 +753,7 @@ public class UploadFileOperation extends SyncOperation {
         return token;
     }
 
-    private DecryptedFolderMetadataFileV1 getDecryptedFolderMetadataV1(String publicKey, Object object)
+    private DecryptedFolderMetadataFileV1 getDecryptedFolderMetadataV1(String certificate, Object object)
         throws NoSuchPaddingException, IllegalBlockSizeException, CertificateException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
 
         DecryptedFolderMetadataFileV1 metadata = new DecryptedFolderMetadataFileV1();
@@ -762,7 +761,7 @@ public class UploadFileOperation extends SyncOperation {
         metadata.getMetadata().setVersion(1.2);
         metadata.getMetadata().setMetadataKeys(new HashMap<>());
         String metadataKey = EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateKey());
-        String encryptedMetadataKey = EncryptionUtils.encryptStringAsymmetric(metadataKey, publicKey);
+        String encryptedMetadataKey = EncryptionUtils.encryptStringAsymmetric(metadataKey, certificate);
         metadata.getMetadata().setMetadataKey(encryptedMetadataKey);
 
         if (object instanceof DecryptedFolderMetadataFileV1) {
@@ -899,7 +898,7 @@ public class UploadFileOperation extends SyncOperation {
         return result;
     }
 
-    private E2EData getE2EData(Object object) throws InvalidAlgorithmParameterException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, InvalidParameterSpecException, IOException {
+    private E2EData getE2EData(Object object) throws InvalidAlgorithmParameterException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IOException {
         byte[] key = EncryptionUtils.generateKey();
         byte[] iv = EncryptionUtils.randomBytes(EncryptionUtils.ivLength);
         Cipher cipher = EncryptionUtils.getCipher(Cipher.ENCRYPT_MODE, key, iv);
@@ -962,7 +961,7 @@ public class UploadFileOperation extends SyncOperation {
 
         EncryptedFolderMetadataFileV1 encryptedFolderMetadata =
             EncryptionUtils.encryptFolderMetadata(metadata,
-                                                  clientData.getPublicKey(),
+                                                  clientData.getCertificate(),
                                                   parentFile.getLocalId(),
                                                   user,
                                                   arbitraryDataProvider

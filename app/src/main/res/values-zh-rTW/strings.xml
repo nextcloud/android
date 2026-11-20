@@ -397,11 +397,9 @@
     <string name="encryption_encrypt_unavailable">無法加密此資料夾。伺服器並未設定端到端加密。</string>
     <string name="encryption_key_checking_keys">正在檢查金鑰⋯⋯</string>
     <string name="encryption_key_handle_folder_read_only_description">此帳號的加密金鑰已被移除或更換，因此此資料夾的內容已無法解密。\n\n此資料夾從現在起將設為唯讀。若要再次使用加密資料夾，請備份此資料夾，並在設定中設定新的加密金鑰。</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_description">儲存於此裝置上的加密金鑰已失效。該金鑰已從伺服器撤銷。 \n\n請從設定中移除本機加密，以建立新的加密資料夾。</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">儲存於此裝置上的加密金鑰已失效。該金鑰已從伺服器撤銷。 \n\n請備份先前建立的加密資料夾。 \n\n接著，請在設定中移除本機加密，以便建立新的加密資料夾。</string>
     <string name="encryption_key_handle_key_removed_title">加密金鑰已變更</string>
+    <string name="encryption_key_handle_keys_changed_on_server_description">伺服器上的加密金鑰已被移除或取代，因此此裝置上的加密資料夾已變為唯讀。\n\n若要繼續使用端到端加密，請先備份您的已加密檔案，然後在設定中移除本機的加密，再重新設定。</string>
     <string name="encryption_key_handle_no_keys_description">無法開啟此資料夾，因為其加密金鑰已不在此裝置或伺服器上。</string>
-    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">此帳號的加密金鑰已被移除或替換。\n\n在對資料夾進行加密之前，請先在設定中設定新的加密金鑰。</string>
     <string name="encryption_new_folder_check_failed">無法檢查您的加密金鑰。嘗試再次建立資料夾。</string>
     <string name="encryption_new_folder_no_network">無法連線至伺服器。嘗試稍後再次建立資料夾。</string>
     <string name="encryption_new_folder_unavailable">無法建立加密資料夾。伺服器並未設定端到端加密。</string>
@@ -410,8 +408,8 @@
     <string name="encryption_open_no_network">無法連線至伺服器。嘗試稍後再次開啟資料夾。</string>
     <string name="encryption_open_unavailable">無法開啟此資料夾。伺服器並未設定端到端加密。</string>
     <string name="end_to_end_encryption_certificate_unavailable">無法擷取伺服器憑證</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">驗證公鑰失敗</string>
     <string name="end_to_end_encryption_confirm_button">設置加密</string>
+    <string name="end_to_end_encryption_could_not_verify_certificate">無法驗證加密憑證</string>
     <string name="end_to_end_encryption_decrypting">正在解密…</string>
     <string name="end_to_end_encryption_dialog_close">關閉</string>
     <string name="end_to_end_encryption_enter_passphrase_to_access_files">輸入您的密碼以存取您的檔案</string>

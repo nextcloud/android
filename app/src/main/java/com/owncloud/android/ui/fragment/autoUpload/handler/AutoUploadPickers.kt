@@ -15,11 +15,11 @@ import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.FolderPickerActivity
 import com.owncloud.android.ui.activity.UploadFilesActivity
-import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment
+import com.owncloud.android.ui.dialog.AutoUploadPreferenceDialogFragment
 
 class AutoUploadPickers(
     private val fragment: Fragment,
-    private val findPreferencesDialog: () -> SyncedFolderPreferencesDialogFragment?
+    private val findAutoUploadPreferenceDialog: () -> AutoUploadPreferenceDialogFragment?
 ) {
 
     private val remoteFolderLauncher =
@@ -45,7 +45,7 @@ class AutoUploadPickers(
             putExtra(UploadFilesActivity.KEY_LOCAL_FOLDER_PICKER_MODE, true)
             putExtra(
                 UploadFilesActivity.REQUEST_CODE_KEY,
-                SyncedFolderPreferencesDialogFragment.REQUEST_CODE__SELECT_LOCAL_FOLDER
+                AutoUploadPreferenceDialogFragment.REQUEST_CODE__SELECT_LOCAL_FOLDER
             )
         }
         localFolderLauncher.launch(intent)
@@ -56,9 +56,10 @@ class AutoUploadPickers(
             return
         }
 
-        val dialog = findPreferencesDialog() ?: return
+        val dialog = findAutoUploadPreferenceDialog() ?: return
         val chosenFolder = result.data?.getParcelableArgument(FolderPickerActivity.EXTRA_FOLDER, OCFile::class.java)
-        dialog.setRemoteFolderSummary(chosenFolder)
+        val remotePath = chosenFolder?.decryptedRemotePath ?: return
+        dialog.setRemoteFolderSummary(remotePath)
     }
 
     private fun onLocalFolderPicked(result: ActivityResult) {
@@ -66,7 +67,8 @@ class AutoUploadPickers(
             return
         }
 
-        val dialog = findPreferencesDialog() ?: return
-        dialog.setLocalFolderSummary(result.data?.getStringExtra(UploadFilesActivity.EXTRA_CHOSEN_FILES))
+        val dialog = findAutoUploadPreferenceDialog() ?: return
+        val localPath = result.data?.getStringExtra(UploadFilesActivity.EXTRA_CHOSEN_FILES) ?: return
+        dialog.setLocalFolderSummary(localPath)
     }
 }

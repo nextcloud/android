@@ -8,6 +8,7 @@ package com.owncloud.android.authentication.signup
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Bundle
 import android.view.View
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
@@ -36,7 +37,7 @@ class SignupWebViewLogin(
     @SuppressFBWarnings("ANDROID_WEB_VIEW_JAVASCRIPT")
     @SuppressLint("SetJavaScriptEnabled")
     @Suppress("DEPRECATION")
-    fun start(binding: AccountSetupWebviewBinding) {
+    fun start(binding: AccountSetupWebviewBinding, savedWebViewState: Bundle?) {
         viewThemeUtils.platform.colorCircularProgressBar(
             binding.loginWebviewProgressBar,
             ColorRole.ON_PRIMARY_CONTAINER
@@ -51,13 +52,17 @@ class SignupWebViewLogin(
             savePassword = false
         }
 
-        val headers = mapOf(RemoteOperation.OCS_API_HEADER to RemoteOperation.OCS_API_HEADER_VALUE)
-        ProxyUtil(WeakReference<Context>(activity)).applyProxy {
-            currentBinding()?.loginWebview?.loadUrl(activity.getString(R.string.provider_registration_server), headers)
-        }
         binding.loginFlowV2.loginFlowInfoV2.visibility = View.GONE
-
         setWebViewClient(binding)
+
+        ProxyUtil(WeakReference<Context>(activity)).applyProxy {
+            val webView = currentBinding()?.loginWebview ?: return@applyProxy
+            val isRestored = savedWebViewState?.let(webView::restoreState) != null
+            if (!isRestored) {
+                val headers = mapOf(RemoteOperation.OCS_API_HEADER to RemoteOperation.OCS_API_HEADER_VALUE)
+                webView.loadUrl(activity.getString(R.string.provider_registration_server), headers)
+            }
+        }
     }
 
     private fun setWebViewClient(binding: AccountSetupWebviewBinding) {

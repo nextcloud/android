@@ -93,8 +93,6 @@ class AutoUploadWorker(
 
     override suspend fun doWork(): Result {
         return try {
-            trySetForeground()
-
             val syncFolderId = inputData.getLong(SYNCED_FOLDER_ID, -1)
             syncedFolder = syncedFolderProvider.getSyncedFolderByID(syncFolderId)
                 ?.takeIf { it.isEnabled } ?: return Result.failure()
@@ -141,28 +139,13 @@ class AutoUploadWorker(
         return notificationManager.getForegroundInfo(notification)
     }
 
-    private suspend fun updateNotification() {
-        getStartNotificationTitle()?.let { (localFolderName, remoteFolderName) ->
-            try {
-                val startNotification = createNotification(
-                    context.getString(
-                        R.string.auto_upload_worker_start_text,
-                        localFolderName,
-                        remoteFolderName
-                    )
-                )
-
-                setForeground(notificationManager.getForegroundInfo(startNotification))
-            } catch (e: Exception) {
-                Log_OC.w(TAG, "⚠️ Could not update notification: ${e.message}")
-            }
-        }
-    }
-
     private suspend fun trySetForeground() {
+        val title = getStartNotificationTitle()?.let { (localFolderName, remoteFolderName) ->
+            context.getString(R.string.auto_upload_worker_start_text, localFolderName, remoteFolderName)
+        } ?: context.getString(R.string.upload_files)
+
         try {
-            val notification = createNotification(context.getString(R.string.upload_files))
-            setForeground(notificationManager.getForegroundInfo(notification))
+            setForeground(notificationManager.getForegroundInfo(createNotification(title)))
         } catch (e: Exception) {
             Log_OC.w(TAG, "⚠️ Could not set foreground service: ${e.message}")
         }
@@ -210,8 +193,16 @@ class AutoUploadWorker(
             return true
         }
 
+        if (isWaitingForCharging()) {
+            Log_OC.w(TAG, "🔌 Skipping: charging only folder but battery is not charging")
+            return true
+        }
+
         return false
     }
+
+    private fun isWaitingForCharging(): Boolean =
+        syncedFolder.isChargingOnly && !powerManagementService.battery.isCharging
 
     private suspend fun hasNothingToDo(): Boolean {
         if (repository.hasPendingFiles(syncedFolder)) {
@@ -273,7 +264,7 @@ class AutoUploadWorker(
         val capability = CapabilityUtils.getCapability(user, context)
         var completed = true
 
-        updateNotification()
+        trySetForeground()
 
         var lastId = 0
 

@@ -569,10 +569,6 @@
         <item name="android:layout_marginBottom">@dimen/player_button_margin_vertical</item>
     </style>
 
-    <style name="PlayerControlToggleButtonStyle" parent="PlayerControlButtonStyle">
-        <item name="android:checkable">true</item>
-    </style>
-
     <style name="PlayerPlayPauseButtonStyle" parent="Widget.Material3Expressive.Button.IconButton.Filled">
         <item name="materialSizeOverlay">@style/SizeOverlay.Material3Expressive.Button.IconButton.Medium</item>
         <item name="android:checkable">true</item>

@@ -534,7 +534,7 @@ class FileUploadHelper {
         }
 
         // check if charging conditions are met; delay upload otherwise
-        if (upload.isWhileChargingOnly && !battery.isCharging && !battery.isFull) {
+        if (upload.isWhileChargingOnly && !battery.isCharging) {
             conditions = UploadResult.DELAYED_FOR_CHARGING
         }
 

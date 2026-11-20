@@ -158,7 +158,7 @@ class UploadFolderBackendTest {
             }
         }
         verify(keys, never()).getValue("A", EncryptionUtils.PRIVATE_KEY)
-        verify(keys, never()).getValue("A", EncryptionUtils.PUBLIC_KEY)
+        verify(keys, never()).getValue("A", EncryptionUtils.CERTIFICATE)
     }
 
     @Test
@@ -168,7 +168,7 @@ class UploadFolderBackendTest {
         whenever(storage.getFileByEncryptedRemotePath("/")).thenReturn(root)
         whenever(storage.getFolderContent(root, false)).thenReturn(listOf(target))
         whenever(keys.getValue("A", EncryptionUtils.PRIVATE_KEY)).thenReturn("key")
-        whenever(keys.getValue("A", EncryptionUtils.PUBLIC_KEY)).thenReturn("key")
+        whenever(keys.getValue("A", EncryptionUtils.CERTIFICATE)).thenReturn("key")
         mockConstruction(ReadFileRemoteOperation::class.java) { read, construction ->
             val properties: RemoteFile = mock {
                 on { remoteId } doReturn "00000042instance"

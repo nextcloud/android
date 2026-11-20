@@ -397,11 +397,8 @@
     <string name="encryption_encrypt_unavailable">Tento priečinok sa nedá zašifrovať. Na tomto serveri nie je nastavené end-to-end šifrovanie.</string>
     <string name="encryption_key_checking_keys">Kontrolujú sa kľúče…</string>
     <string name="encryption_key_handle_folder_read_only_description">Šifrovacie kľúče tohto účtu boli odstránené alebo nahradené, takže obsah tohto priečinka už nie je možné dešifrovať.\n\nPriečinok je odteraz iba na čítanie. Ak chcete znova používať šifrované priečinky, zálohujte tento priečinok a v nastaveniach nastavte nový šifrovací kľúč.</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_description">Šifrovací kľúč uložený v tomto zariadení už nie je platný. Kľúče boli odvolané na serveri.\n\nV nastaveniach odstráňte miestne šifrovanie, aby ste mohli vytvoriť nový šifrovaný priečinok.</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">Šifrovací kľúč uložený v tomto zariadení už nie je platný. Kľúče boli odvolané na serveri.\n\nZálohujte predtým vytvorený šifrovaný priečinok.\n\nPotom v nastaveniach odstráňte miestne šifrovanie, aby ste mohli vytvoriť nový šifrovaný priečinok.</string>
     <string name="encryption_key_handle_key_removed_title">Zmenili sa šifrovacie kľúče.</string>
     <string name="encryption_key_handle_no_keys_description">Tento priečinok nemožno otvoriť, pretože jeho šifrovacie kľúče už neexistujú v tomto zariadení ani na serveri.</string>
-    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">Šifrovacie kľúče tohto účtu boli odstránené alebo nahradené.\n\nPred zašifrovaním priečinka nastavte nový šifrovací kľúč v nastaveniach.</string>
     <string name="encryption_new_folder_check_failed">Nepodarilo sa skontrolovať vaše šifrovacie kľúče. Skúste priečinok vytvoriť znova.</string>
     <string name="encryption_new_folder_no_network">Server nie je dostupný. Skúste priečinok vytvoriť znova neskôr.</string>
     <string name="encryption_new_folder_unavailable">Nemožno vytvárať šifrované priečinky. Na tomto serveri nie je nastavené end-to-end šifrovanie.</string>
@@ -410,7 +407,6 @@
     <string name="encryption_open_no_network">Server nie je dostupný. Skúste priečinok otvoriť znova neskôr.</string>
     <string name="encryption_open_unavailable">Tento priečinok nemožno otvoriť. Na tomto serveri nie je nastavené end-to-end šifrovanie.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Nepodarilo sa získať certifikát servera</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Nepodarilo sa overiť verejný kľúč</string>
     <string name="end_to_end_encryption_confirm_button">Nastavenie šifrovania</string>
     <string name="end_to_end_encryption_decrypting">Dešifrujem…</string>
     <string name="end_to_end_encryption_dialog_close">Zatvoriť</string>

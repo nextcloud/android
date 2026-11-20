@@ -13,7 +13,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.jobs.MediaFoldersDetectionWork
 import com.nextcloud.client.jobs.NotificationWork
 import com.owncloud.android.ui.activity.BaseActivity
-import com.owncloud.android.ui.adapter.SyncedFolderAdapter
+import com.owncloud.android.ui.fragment.autoUpload.adapter.AutoUploadFolderAdapter
 
 class AutoUploadIntentHandler {
 
@@ -29,7 +29,7 @@ class AutoUploadIntentHandler {
         mediaFolderType = intent.getIntExtra(MediaFoldersDetectionWork.KEY_MEDIA_FOLDER_TYPE, -1)
     }
 
-    fun findMediaFolderSection(adapter: SyncedFolderAdapter): Int? {
+    fun findMediaFolderSection(adapter: AutoUploadFolderAdapter): Int? {
         val path = mediaFolderPath
         if (path.isNullOrEmpty()) {
             return null
