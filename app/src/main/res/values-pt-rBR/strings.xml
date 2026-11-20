@@ -397,11 +397,8 @@
     <string name="encryption_encrypt_unavailable">Não é possível criptografar esta pasta. A criptografia de ponta-a-ponta não está configurada neste servidor.</string>
     <string name="encryption_key_checking_keys">Verificando as chaves…</string>
     <string name="encryption_key_handle_folder_read_only_description">As chaves de criptografia desta conta foram removidas ou substituídas, portanto, o conteúdo desta pasta não pode mais ser descriptografado.\n\nA partir de agora, a pasta estará apenas para leitura. Para voltar a usar pastas criptografadas, faça um backup desta pasta e configure sua nova chave de criptografia nas configurações.</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_description">A chave de criptografia armazenada neste dispositivo não é mais válida. As chaves foram revogadas pelo servidor. \n\nRemova a criptografia localmente nas configurações para criar uma nova pasta criptografada.</string>
-    <string name="encryption_key_handle_key_keys_only_on_device_outdated_description">A chave de criptografia armazenada neste dispositivo não é mais válida. As chaves foram revogadas pelo servidor. \n\nFaça um backup da pasta criptografada criada anteriormente. \n\nEm seguida, remova a criptografia localmente nas configurações para criar uma nova pasta criptografada.</string>
     <string name="encryption_key_handle_key_removed_title">Chaves de criptografia alteradas</string>
     <string name="encryption_key_handle_no_keys_description">Esta pasta não pode ser aberta porque suas chaves de criptografia não existem mais neste dispositivo nem no servidor.</string>
-    <string name="encryption_key_handle_setup_new_key_before_encrypting_description">As chaves de criptografia desta conta foram removidas ou substituídas.\n\nConfigure sua nova chave de criptografia nas configurações antes de criptografar uma pasta.</string>
     <string name="encryption_new_folder_check_failed">Não foi possível verificar suas chaves de criptografia. Tente criar a pasta novamente.</string>
     <string name="encryption_new_folder_no_network">Não é possível acessar o servidor. Tente criar a pasta novamente mais tarde.</string>
     <string name="encryption_new_folder_unavailable">Não é possível criar pastas criptografadas. A criptografia de ponta-a-ponta não está configurada neste servidor.</string>
@@ -410,7 +407,6 @@
     <string name="encryption_open_no_network">Não é possível acessar o servidor. Tente abrir a pasta novamente mais tarde.</string>
     <string name="encryption_open_unavailable">Não é possível abrir esta pasta. A criptografia de ponta-a-ponta não está configurada neste servidor.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Não é possível recuperar o certificado do servidor</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Falha ao verificar a chave pública</string>
     <string name="end_to_end_encryption_confirm_button">Definir criptografia</string>
     <string name="end_to_end_encryption_decrypting">Descriptografando…</string>
     <string name="end_to_end_encryption_dialog_close">Fechar</string>

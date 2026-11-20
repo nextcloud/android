@@ -5,19 +5,19 @@
  * SPDX-FileCopyrightText: 2025 Jimly Asshiddiqy <jimly.asshiddiqy@accenture.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-@file:Suppress("UnstableApiUsage", "DEPRECATION")
 
 import com.github.spotbugs.snom.Confidence
 import com.github.spotbugs.snom.Effort
 import com.github.spotbugs.snom.SpotBugsTask
 import com.karumi.shot.ShotExtension
-import org.gradle.internal.jvm.Jvm
+import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
-val shotTest = System.getenv("SHOT_TEST") == "true"
-val ciBuild = System.getenv("CI") == "true"
-val perfAnalysis = project.hasProperty("perfAnalysis")
-val instrumentedTestBuild = project.hasProperty("coverage") || shotTest ||
+val shotTest = providers.environmentVariable("SHOT_TEST").orNull == "true"
+val ciBuild = providers.environmentVariable("CI").orNull == "true"
+val perfAnalysis = providers.gradleProperty("perfAnalysis").isPresent
+val coverage = providers.gradleProperty("coverage").isPresent
+val instrumentedTestBuild = coverage || shotTest ||
     gradle.startParameter.taskNames.any { it.contains("AndroidTest", ignoreCase = true) }
 val enableR8 = !instrumentedTestBuild
 
@@ -39,47 +39,46 @@ plugins {
     // needed to make renovate run without shot, as shot requires Android SDK
     // https://github.com/pedrovgs/Shot/issues/300
     if (System.getenv("SHOT_TEST") == "true") alias(libs.plugins.shot)
-    id("checkstyle")
-    id("pmd")
+    checkstyle
+    pmd
+    id("nextcloud.jacoco-report")
 }
-apply(from = "${rootProject.projectDir}/jacoco.gradle.kts")
 
-println("Gradle uses Java ${Jvm.current()}")
+println(
+    "Gradle uses Java ${System.getProperty("java.version")} " +
+        "(${System.getProperty("java.vm.vendor")} ${System.getProperty("java.vm.version")})"
+)
 
 configurations.configureEach {
     // via prism4j, already using annotations explicitly
     exclude(group = "org.jetbrains", module = "annotations-java5")
 
-    resolutionStrategy {
-        eachDependency {
-            when (requested.group) {
-                "org.checkerframework" if requested.name != "checker-compat-qual" -> {
-                    useVersion(libs.versions.checker.get())
-                    because("https://github.com/google/ExoPlayer/issues/10007")
-                }
-                "org.jacoco" -> {
-                    useVersion(libs.versions.jacoco.get())
-                }
-                "commons-logging" if requested.name == "commons-logging" -> {
-                    useTarget(libs.slfj)
-                }
-                "org.hamcrest" -> {
-                    useVersion("2.2")
-                    because(
-                        "Align hamcrest on compile and runtime. 1.3 (via junit) exposes fixed-arity " +
-                            "anyOf/allOf overloads that 2.2 (via androidx.test) removed, causing NoSuchMethodError."
-                    )
-                }
+    resolutionStrategy.eachDependency {
+        when (requested.group) {
+            "org.checkerframework" if requested.name != "checker-compat-qual" -> {
+                useVersion(libs.versions.checker.get())
+                because("https://github.com/google/ExoPlayer/issues/10007")
+            }
+            "org.jacoco" -> {
+                useVersion(libs.versions.jacoco.get())
+            }
+            "commons-logging" if requested.name == "commons-logging" -> {
+                useTarget(libs.slfj)
+            }
+            "org.hamcrest" -> {
+                useVersion("2.2")
+                because(
+                    "Align hamcrest on compile and runtime. 1.3 (via junit) exposes fixed-arity " +
+                        "anyOf/allOf overloads that 2.2 (via androidx.test) removed, causing NoSuchMethodError."
+                )
             }
         }
     }
 }
 
-val ndkEnv = buildMap {
-    file("${project.rootDir}/ndk.env").readLines().forEach {
-        val (key, value) = it.split("=")
-        put(key, value)
-    }
+val ndkEnv = rootDir.resolve("ndk.env").readLines().associate { line ->
+    val (key, value) = line.split("=")
+    key to value
 }
 
 val ncTestServerUsername = providers.gradleProperty("NC_TEST_SERVER_USERNAME").get()
@@ -87,6 +86,13 @@ val ncTestServerPassword = providers.gradleProperty("NC_TEST_SERVER_PASSWORD").g
 val ncTestServerBaseUrl = providers.gradleProperty("NC_TEST_SERVER_BASEURL").get()
 
 android {
+    namespace = "com.owncloud.android"
+    testNamespace = "$namespace.test"
+
+    compileSdk {
+        version = release(37)
+    }
+
     // install this NDK version and CMake to produce smaller APKs. Build will still work if not installed
     ndkVersion = "${ndkEnv["NDK_VERSION"]}"
     externalNativeBuild {
@@ -96,22 +102,19 @@ android {
         }
     }
 
-    namespace = "com.owncloud.android"
-    testNamespace = "${namespace}.test"
-
-    androidResources.generateLocaleConfig = true
+    androidResources {
+        generateLocaleConfig = true
+        additionalParameters += listOf("--preferred-density", "xxxhdpi")
+    }
 
     defaultConfig {
-        testInstrumentationRunnerArguments += mapOf(
-            "TEST_SERVER_URL" to ncTestServerBaseUrl.toString(),
-            "TEST_SERVER_USERNAME" to ncTestServerUsername.toString(),
-            "TEST_SERVER_PASSWORD" to ncTestServerPassword.toString(),
-            "disableAnalytics" to "true"
-        )
         applicationId = "com.nextcloud.client"
-        minSdk = 28
-        compileSdk = 37
-        targetSdk = 36
+        minSdk {
+            version = release(28)
+        }
+        targetSdk {
+            version = release(36)
+        }
         // mayor.minor.hotfix.increment (for increment: 01-50=Alpha / 51-89=RC / 90-99=stable)
         // xx   .xxx  .xx    .xx
         versionCode = 350020000
@@ -120,68 +123,74 @@ android {
         buildConfigField("boolean", "CI", ciBuild.toString())
         buildConfigField("boolean", "RUNTIME_PERF_ANALYSIS", perfAnalysis.toString())
 
+        testInstrumentationRunner = if (shotTest) {
+            "com.karumi.shot.ShotTestRunner"
+        } else {
+            "com.nextcloud.client.TestRunner"
+        }
+
         // arguments to be passed to functional tests
-        testInstrumentationRunner = if (shotTest) "com.karumi.shot.ShotTestRunner"
-        else "com.nextcloud.client.TestRunner"
+        testInstrumentationRunnerArguments += mapOf(
+            "TEST_SERVER_URL" to ncTestServerBaseUrl,
+            "TEST_SERVER_USERNAME" to ncTestServerUsername,
+            "TEST_SERVER_PASSWORD" to ncTestServerPassword,
+            "disableAnalytics" to "true"
+        )
+    }
 
-        // adapt structure from Eclipse to Gradle/Android Studio expectations;
-        // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
-
-        flavorDimensions += "default"
-
-        buildTypes {
-            release {
-                buildConfigField("String", "NC_TEST_SERVER_DATA_STRING", "\"\"")
-                ndk {
-                    abiFilters += allAbis
-                }
+    buildTypes {
+        release {
+            buildConfigField("String", "NC_TEST_SERVER_DATA_STRING", "\"\"")
+            ndk {
+                abiFilters += allAbis
             }
-            debug {
-                enableUnitTestCoverage = project.hasProperty("coverage")
-                enableAndroidTestCoverage = project.hasProperty("coverage")
-                resConfigs("xxxhdpi")
-                optimization {
-                    enable = enableR8
-                }
-                ndk {
-                    abiFilters += if (ciBuild) allAbis else localDebugAbis
-                }
+        }
+        debug {
+            enableUnitTestCoverage = coverage
+            enableAndroidTestCoverage = coverage
+            optimization {
+                enable = enableR8
+            }
+            ndk {
+                abiFilters += if (ciBuild) allAbis else localDebugAbis
+            }
+        }
+    }
+
+    flavorDimensions += "default"
+
+    productFlavors {
+        // used for f-droid
+        register("generic") {
+            applicationId = "com.nextcloud.client"
+            dimension = "default"
+        }
+
+        register("gplay") {
+            applicationId = "com.nextcloud.client"
+            dimension = "default"
+        }
+
+        register("huawei") {
+            applicationId = "com.nextcloud.client"
+            dimension = "default"
+        }
+
+        register("versionDev") {
+            applicationId = "com.nextcloud.android.beta"
+            dimension = "default"
+            versionCode = 20220322
+            versionName = "20220322"
+            optimization {
+                enable = enableR8
             }
         }
 
-        productFlavors {
-            // used for f-droid
-            register("generic") {
-                applicationId = "com.nextcloud.client"
-                dimension = "default"
-            }
-
-            register("gplay") {
-                applicationId = "com.nextcloud.client"
-                dimension = "default"
-            }
-
-            register("huawei") {
-                applicationId = "com.nextcloud.client"
-                dimension = "default"
-            }
-
-            register("versionDev") {
-                applicationId = "com.nextcloud.android.beta"
-                dimension = "default"
-                versionCode = 20220322
-                versionName = "20220322"
-                optimization {
-                    enable = enableR8
-                }
-            }
-
-            register("qa") {
-                applicationId = "com.nextcloud.android.qa"
-                dimension = "default"
-                versionCode = 1
-                versionName = "1"
-            }
+        register("qa") {
+            applicationId = "com.nextcloud.android.qa"
+            dimension = "default"
+            versionCode = 1
+            versionName = "1"
         }
     }
 
@@ -190,11 +199,9 @@ android {
         animationsDisabled = true
     }
 
-    // adapt structure from Eclipse to Gradle/Android Studio expectations;
-    // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
     packaging.resources {
-        excludes.addAll(listOf("META-INF/LICENSE*", "META-INF/versions/9/OSGI-INF/MANIFEST*"))
-        pickFirsts.add("MANIFEST.MF") // workaround for duplicated manifest on some dependencies
+        excludes += setOf("META-INF/LICENSE*", "META-INF/versions/9/OSGI-INF/MANIFEST*")
+        pickFirsts += "MANIFEST.MF" // workaround for duplicated manifest on some dependencies
     }
 
     buildFeatures {
@@ -214,44 +221,43 @@ android {
         abortOnError = true
         warningsAsErrors = true
         checkGeneratedSources = true
-        disable.addAll(
-            listOf(
-                "MissingTranslation",
-                "GradleDependency",
-                "VectorPath",
-                "IconMissingDensityFolder",
-                "IconDensities",
-                "GoogleAppIndexingWarning",
-                "MissingDefaultResource",
-                "InvalidPeriodicWorkRequestInterval",
-                "StringFormatInvalid",
-                "MissingQuantity",
-                "IconXmlAndPng",
-                "SelectedPhotoAccess",
-                "UnsafeIntentLaunch",
-                "OldTargetApi",
-                "AndroidGradlePluginVersion"
-            )
+        disable += setOf(
+            "MissingTranslation",
+            "GradleDependency",
+            "VectorPath",
+            "IconMissingDensityFolder",
+            "IconDensities",
+            "GoogleAppIndexingWarning",
+            "MissingDefaultResource",
+            "InvalidPeriodicWorkRequestInterval",
+            "StringFormatInvalid",
+            "MissingQuantity",
+            "IconXmlAndPng",
+            "SelectedPhotoAccess",
+            "UnsafeIntentLaunch",
+            "OldTargetApi",
+            "AndroidGradlePluginVersion"
         )
-        htmlOutput = layout.buildDirectory.file("reports/lint/lint.html").get().asFile
-        htmlReport = true
     }
 
     sourceSets {
         // Adds exported schema location as test app assets.
-        getByName("androidTest") {
-            assets.srcDirs(files("$projectDir/schemas"))
+        named("androidTest") {
+            assets.directories += "$projectDir/schemas"
         }
     }
-
 }
 
-ksp.arg("room.schemaLocation", "$projectDir/schemas")
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+    arg("dagger.moduleName", project.name)
+}
 
-// Configure KSP for test variants
-ksp.arg("dagger.moduleName", project.name)
-
-kotlin.compilerOptions.jvmTarget.set(JvmTarget.JVM_21)
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_21
+    }
+}
 
 spotless.kotlin {
     target("**/*.kt")
@@ -260,25 +266,26 @@ spotless.kotlin {
 
 detekt.config.setFrom("detekt.yml")
 
-if (shotTest) configure<ShotExtension> {
-    showOnlyFailingTestsInReports = ciBuild
-    // CI environment renders some shadows slightly different from local VMs
-    // Add a 0.5% tolerance to account for that
-    tolerance = if (ciBuild) 0.1 else 0.0
+if (shotTest) {
+    configure<ShotExtension> {
+        showOnlyFailingTestsInReports = ciBuild
+        // CI environment renders some shadows slightly different from local VMs
+        // Add a 0.5% tolerance to account for that
+        tolerance = if (ciBuild) 0.1 else 0.0
+    }
 }
-
 
 spotbugs {
     ignoreFailures = true // should continue checking
     effort = Effort.MAX
-    reportLevel = Confidence.valueOf("MEDIUM")
+    reportLevel = Confidence.MEDIUM
 }
 
 tasks.register<Checkstyle>("checkstyle") {
     description = "Runs Checkstyle static analysis on the Java sources to enforce the project's coding style."
-    configFile = file("${rootProject.projectDir}/checkstyle.xml")
-    setConfigProperties(
-        "checkstyleSuppressionsPath" to file("${rootProject.rootDir}/suppressions.xml").absolutePath
+    configFile = rootDir.resolve("checkstyle.xml")
+    configProperties = mapOf(
+        "checkstyleSuppressionsPath" to rootDir.resolve("suppressions.xml").absolutePath
     )
     source("src")
     include("**/*.java")
@@ -288,7 +295,7 @@ tasks.register<Checkstyle>("checkstyle") {
 
 tasks.register<Pmd>("pmd") {
     description = "Runs PMD static analysis on the Java sources to detect common programming flaws and bad practices."
-    ruleSetFiles = files("${rootProject.rootDir}/ruleset.xml")
+    ruleSetFiles = files(rootDir.resolve("ruleset.xml"))
     ignoreFailures = true // should continue checking
     ruleSets = emptyList()
 
@@ -297,28 +304,27 @@ tasks.register<Pmd>("pmd") {
     exclude("**/gen/**")
 
     reports {
-        xml.outputLocation.set(layout.buildDirectory.file("reports/pmd/pmd.xml").get().asFile)
-        html.outputLocation.set(layout.buildDirectory.file("reports/pmd/pmd.html").get().asFile)
+        xml.outputLocation = layout.buildDirectory.file("reports/pmd/pmd.xml")
+        html.outputLocation = layout.buildDirectory.file("reports/pmd/pmd.html")
     }
 }
 
 tasks.withType<SpotBugsTask>().configureEach {
-    val variantNameCap = name.replace("spotbugs", "")
-    val variantName = variantNameCap.substring(0, 1).lowercase() + variantNameCap.substring(1)
+    val variantNameCap = name.removePrefix("spotbugs")
+    val variantName = variantNameCap.replaceFirstChar { it.lowercase() }
     dependsOn("compile${variantNameCap}Sources")
 
     classes = fileTree(
-        layout.buildDirectory.get().asFile.toString() +
-            "/intermediates/javac/${variantName}/compile${variantNameCap}JavaWithJavac/classes/"
+        layout.buildDirectory.dir("intermediates/javac/$variantName/compile${variantNameCap}JavaWithJavac/classes")
     )
-    excludeFilter.set(file("${project.rootDir}/scripts/analysis/spotbugs-filter.xml"))
+    excludeFilter = rootDir.resolve("scripts/analysis/spotbugs-filter.xml")
 
     reports.create("xml") {
-        required.set(true)
+        required = true
     }
     reports.create("html") {
-        required.set(true)
-        outputLocation.set(layout.buildDirectory.file("reports/spotbugs/spotbugs.html"))
+        required = true
+        outputLocation = layout.buildDirectory.file("reports/spotbugs/spotbugs.html")
         setStylesheet("fancy.xsl")
     }
 }
@@ -330,13 +336,13 @@ tasks.withType<JavaCompile>().configureEach {
 
 tasks.withType<Test>().configureEach {
     // Run tests in parallel
-    maxParallelForks = maxOf(1, Runtime.getRuntime().availableProcessors().div(2))
+    maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).coerceAtLeast(1)
 
     // increased logging for tests
-    testLogging.events("passed", "skipped", "failed")
+    testLogging.events(TestLogEvent.PASSED, TestLogEvent.SKIPPED, TestLogEvent.FAILED)
 }
 
-tasks.named("check").configure {
+tasks.named("check") {
     dependsOn("checkstyle", "spotbugsGplayDebug", "pmd", "lint", "spotlessKotlinCheck", "detekt")
 }
 

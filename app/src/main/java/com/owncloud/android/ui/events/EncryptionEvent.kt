@@ -9,6 +9,7 @@ package com.owncloud.android.ui.events
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.e2ee.model.E2EEAction
+import com.nextcloud.utils.e2ee.model.E2EEDialog
 import com.nextcloud.utils.e2ee.model.E2EEKeyCheck
 import com.nextcloud.utils.extensions.showEncryptionDialog
 import com.owncloud.android.ui.fragment.OCFileListFragment
@@ -25,12 +26,12 @@ class EncryptionEvent(val localId: Long, val remoteId: String, val remotePath: S
                     state.getMessageId(E2EEAction.ENCRYPT)?.let { SnackbarUtil.show(fragment, it) }
                 }
 
-                E2EEKeyCheck.ONLY_ON_SERVER, E2EEKeyCheck.MISSING_EVERYWHERE -> {
+                E2EEKeyCheck.ONLY_ON_SERVER, E2EEKeyCheck.MISSING_EVERYWHERE, E2EEKeyCheck.UNTRUSTED_CERTIFICATE -> {
                     fragment.showEncryptionDialog(remotePath, E2EEAction.ENCRYPT)
                 }
 
                 E2EEKeyCheck.ONLY_ON_DEVICE, E2EEKeyCheck.DIFFERS_FROM_SERVER -> {
-                    state.getDialog(E2EEAction.ENCRYPT)?.let { fragment.e2eeDialogPresenter.show(it) }
+                    fragment.e2eeDialogPresenter.show(E2EEDialog.KeysChangedOnServer)
                 }
 
                 E2EEKeyCheck.SAME_AS_SERVER -> {

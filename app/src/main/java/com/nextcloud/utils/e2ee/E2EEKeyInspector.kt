@@ -9,6 +9,7 @@ package com.nextcloud.utils.e2ee
 
 import android.content.Context
 import com.google.gson.reflect.TypeToken
+import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.repository.ClientRepository
 import com.owncloud.android.datamodel.ArbitraryDataProvider
@@ -16,6 +17,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFolderMetadataFileV1
 import com.owncloud.android.lib.common.OwnCloudClient
+import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.e2ee.GetMetadataRemoteOperation
 import com.owncloud.android.lib.resources.status.OCCapability
@@ -29,16 +31,17 @@ import com.owncloud.android.utils.EncryptionUtilsV2
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.apache.commons.httpclient.HttpStatus
+import java.security.cert.CertificateException
 import javax.inject.Inject
 
+@Suppress("TooGenericExceptionCaught", "ReturnCount", "DEPRECATION")
 class E2EEKeyInspector @Inject constructor(
     private val context: Context,
     private val storageManager: FileDataStorageManager,
     private val certificateValidator: CertificateValidator,
     private val arbitraryDataProvider: ArbitraryDataProvider,
     private val accountManager: UserAccountManager,
-    private val clientRepository: ClientRepository,
-    private val serverKeyCache: E2EEServerKeyCache
+    private val clientRepository: ClientRepository
 ) {
     companion object {
         private const val TAG = "E2EEKeyInspector"
@@ -46,7 +49,7 @@ class E2EEKeyInspector @Inject constructor(
 
     fun isLocalKeysAbsent(): Boolean =
         arbitraryDataProvider.getValue(accountManager.user, EncryptionUtils.PRIVATE_KEY).isEmpty() ||
-            arbitraryDataProvider.getValue(accountManager.user, EncryptionUtils.PUBLIC_KEY).isEmpty()
+            arbitraryDataProvider.getValue(accountManager.user, EncryptionUtils.CERTIFICATE).isEmpty()
 
     suspend fun fetchCapabilities(): Boolean = withContext(Dispatchers.IO) {
         val client = clientRepository.getOwncloudClient() ?: return@withContext false
@@ -59,33 +62,73 @@ class E2EEKeyInspector @Inject constructor(
         return@withContext result
     }
 
-    suspend fun compareWithServerKey(storedPublicKey: String): DownloadKeyResult = withContext(Dispatchers.IO) {
-        Log_OC.d(TAG, "comparing local public key with remote public key")
+    suspend fun compareWithServerCertificate(storedCertificate: String): DownloadKeyResult =
+        withContext(Dispatchers.IO) {
+            Log_OC.d(TAG, "comparing stored certificate against server certificate")
 
-        val client = clientRepository.getNextcloudClient()
-            ?: return@withContext DownloadKeyResult.UnexpectedError()
+            val user = accountManager.user
 
-        val certificateResult = GetCertificateRemoteOperation().execute(client)
-        if (!certificateResult.isSuccess) {
-            return@withContext if (certificateResult.httpCode == HttpStatus.SC_NOT_FOUND) {
-                DownloadKeyResult.NoServerKey
-            } else {
-                DownloadKeyResult.CertificateUnavailable()
+            val client = clientRepository.getNextcloudClient()
+                ?: return@withContext DownloadKeyResult.UnexpectedError()
+            val certificateResult = GetCertificateRemoteOperation().execute(client)
+            if (!certificateResult.isSuccess) {
+                return@withContext if (certificateResult.httpCode == HttpStatus.SC_NOT_FOUND) {
+                    DownloadKeyResult.NoCertificateOnServer
+                } else {
+                    DownloadKeyResult.CertificateUnavailable()
+                }
             }
+
+            val remoteCertificate = certificateResult.resultData
+            val storedServerPublicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.SERVER_PUBLIC_KEY)
+            if (storedServerPublicKey.isEmpty()) {
+                return@withContext fetchServerPublicKeyStoreAndCompare(
+                    user,
+                    storedCertificate,
+                    remoteCertificate,
+                    client
+                )
+            }
+
+            val isSignedByStoredServerPublicKey = certificateValidator.validate(
+                serverPublicKeyString = storedServerPublicKey,
+                certificate = remoteCertificate
+            )
+            if (!isSignedByStoredServerPublicKey) {
+                Log_OC.w(TAG, "certificate cannot be verified with the stored server public key")
+                return@withContext DownloadKeyResult.CertificateNotSignedByStoredServerKey
+            }
+
+            return@withContext DownloadKeyResult.CompareKeys(
+                same = haveSamePublicKey(storedCertificate, remoteCertificate)
+            )
         }
 
-        val serverPublicKeyResult = serverKeyCache.get(client.baseUri.toString(), certificateResult.resultData) {
-            GetServerPublicKeyRemoteOperation().execute(client)
+    private fun fetchServerPublicKeyStoreAndCompare(
+        user: User,
+        storedCertificate: String,
+        remoteCertificate: String,
+        client: NextcloudClient
+    ): DownloadKeyResult {
+        val serverPublicKeyResult = GetServerPublicKeyRemoteOperation().execute(client)
+        if (!serverPublicKeyResult.isSuccess) return DownloadKeyResult.ServerPublicKeyUnavailable()
+
+        val serverPublicKey = serverPublicKeyResult.resultData
+        if (!certificateValidator.validate(serverPublicKeyString = serverPublicKey, certificate = remoteCertificate)) {
+            return DownloadKeyResult.CertificateNotSignedByCurrentServerKey()
         }
-        if (!serverPublicKeyResult.isSuccess) return@withContext DownloadKeyResult.ServerPublicKeyUnavailable()
 
-        val isCertificateValid = certificateValidator.validate(
-            serverPublicKeyResult.resultData,
-            certificateResult.resultData
-        )
-        if (!isCertificateValid) return@withContext DownloadKeyResult.CertificateVerificationFailed()
+        arbitraryDataProvider.storeOrUpdateKeyValue(user, EncryptionUtils.SERVER_PUBLIC_KEY, serverPublicKey)
+        return DownloadKeyResult.CompareKeys(same = haveSamePublicKey(storedCertificate, remoteCertificate))
+    }
 
-        return@withContext DownloadKeyResult.CompareKeys(same = (storedPublicKey == certificateResult.resultData))
+    private fun haveSamePublicKey(firstCertificate: String, secondCertificate: String): Boolean = try {
+        val firstPublicKey = EncryptionUtils.convertPublicKeyFromString(firstCertificate)
+        val secondPublicKey = EncryptionUtils.convertPublicKeyFromString(secondCertificate)
+        firstPublicKey.encoded.contentEquals(secondPublicKey.encoded)
+    } catch (e: CertificateException) {
+        Log_OC.w(TAG, "certificate could not be parsed: $e")
+        false
     }
 
     suspend fun canDecryptFolderMetadata(folder: OCFile, capability: OCCapability): Boolean =
@@ -128,7 +171,7 @@ class E2EEKeyInspector @Inject constructor(
                 context,
                 arbitraryDataProvider
             )
-            !metadataKey.isEmpty()
+            metadataKey.isNotEmpty()
         } catch (e: Exception) {
             Log_OC.w(TAG, "user tried to decrypt folder's metadata with different private key: $e")
             false

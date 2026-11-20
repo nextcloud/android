@@ -9,14 +9,12 @@ package com.owncloud.android
 
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.account.UserAccountManagerImpl
-import com.nextcloud.client.core.ClockImpl
 import com.nextcloud.client.database.entity.FileEntity
 import com.nextcloud.client.network.NetworkModule
 import com.nextcloud.repository.ClientRepository
 import com.nextcloud.test.SinceServer
 import com.nextcloud.utils.e2ee.E2EEActionResolver
 import com.nextcloud.utils.e2ee.E2EEKeyInspector
-import com.nextcloud.utils.e2ee.E2EEServerKeyCache
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation
 import com.owncloud.android.lib.resources.status.GetCapabilitiesRemoteOperation
@@ -75,8 +73,7 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
             CertificateValidator(),
             arbitraryDataProvider,
             accountManager,
-            clientRepository,
-            E2EEServerKeyCache(ClockImpl())
+            clientRepository
         )
         e2eeActionResolver = E2EEActionResolver(
             storageManager,
@@ -195,12 +192,12 @@ open class EncryptedFoldersIT : AbstractOnServerIT() {
     }
 
     private fun uploadFolderMetadata(ocFile: OCFile) {
-        val publicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PUBLIC_KEY)
+        val certificate = arbitraryDataProvider.getValue(user, EncryptionUtils.CERTIFICATE)
         val privateKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PRIVATE_KEY)
         val uploadedMetadata = encryptionKeyGenerator.uploadEncryptedFolderMetadata(
             ocFile,
             client,
-            publicKey,
+            certificate,
             privateKey,
             storageManager,
             arbitraryDataProvider

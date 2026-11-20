@@ -46,7 +46,6 @@ import com.nextcloud.repository.ClientRepository
 import com.nextcloud.repository.RemoteClientRepository
 import com.nextcloud.utils.e2ee.E2EEActionResolver
 import com.nextcloud.utils.e2ee.E2EEKeyInspector
-import com.nextcloud.utils.e2ee.E2EEServerKeyCache
 import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator
 import com.owncloud.android.authentication.PassCodeManager
 import com.owncloud.android.datamodel.ArbitraryDataProvider
@@ -241,16 +240,14 @@ internal class AppModule {
         certificateValidator: CertificateValidator,
         arbitraryDataProvider: ArbitraryDataProvider,
         accountManager: UserAccountManager,
-        clientRepository: ClientRepository,
-        serverKeyCache: E2EEServerKeyCache
+        clientRepository: ClientRepository
     ): E2EEKeyInspector = E2EEKeyInspector(
         context,
         fileDataStorageManager,
         certificateValidator,
         arbitraryDataProvider,
         accountManager,
-        clientRepository,
-        serverKeyCache
+        clientRepository
     )
 
     @Provides
