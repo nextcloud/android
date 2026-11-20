@@ -87,6 +87,14 @@ class UploadFileResolver(private val operation: UploadFileOperation) {
             etag = remoteFile.etag
             etagOnServer = remoteFile.etag
             remoteId = remoteFile.remoteId
+            isLocked = remoteFile.isLocked
+            lockType = remoteFile.lockType
+            lockOwnerId = remoteFile.lockOwner
+            lockOwnerDisplayName = remoteFile.lockOwnerDisplayName
+            lockOwnerEditor = remoteFile.lockOwnerEditor
+            lockTimestamp = remoteFile.lockTimestamp
+            lockTimeout = remoteFile.lockTimeout
+            lockToken = remoteFile.lockToken
             permissions = remoteFile.permissions
             uploadTimestamp = remoteFile.uploadTimestamp
             isPreviewAvailable = remoteFile.isHasPreview
