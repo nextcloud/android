@@ -165,6 +165,10 @@ class FileUploadWorker(
         trySetForeground()
 
         Log_OC.d(TAG, "FileUploadWorker started")
+        UploadDiagnostics.log(
+            "file upload worker started, connectivity: ${connectivityService.connectivity}, " +
+                "workerNetwork: ${UploadDiagnostics.describeNetwork(context, network)}"
+        )
         val workerName = BackgroundJobManagerImpl.formatClassTag(this::class)
         backgroundJobManager.logStartOfWorker(workerName)
 
@@ -193,6 +197,7 @@ class FileUploadWorker(
         } catch (e: Exception) {
             // Continue without foreground service - uploads will still work
             Log_OC.w(TAG, "Could not set foreground service: ${e.message}")
+            UploadDiagnostics.log("file upload foreground service not granted, system may stop the worker: $e")
         }
     }
 
