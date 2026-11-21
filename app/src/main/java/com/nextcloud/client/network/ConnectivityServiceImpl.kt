@@ -12,6 +12,7 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.os.SystemClock
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.jobs.upload.UploadDiagnostics
 import com.nextcloud.operations.GetMethod
 import com.owncloud.android.lib.common.utils.Log_OC
 import kotlinx.coroutines.CoroutineScope
@@ -134,6 +135,7 @@ class ConnectivityServiceImpl(
         walledCheckCache.setValue(currentKey, isWalled)
 
         Log_OC.d(TAG, "server check, isWalled: $isWalled")
+        UploadDiagnostics.log("server check, isWalled: $isWalled, capabilities: $resolvedCapabilities")
         return isWalled
     }
 
@@ -173,6 +175,7 @@ class ConnectivityServiceImpl(
 
         if (previous != newConnectivity) {
             Log_OC.d(TAG, "network capability changed - notifying listeners")
+            UploadDiagnostics.log("connectivity changed: $previous -> $newConnectivity, capabilities: $capabilities")
             currentConnectivity = newConnectivity
             walledCheckCache.putConnectivityValue(currentKey, newConnectivity)
 
@@ -236,6 +239,7 @@ class ConnectivityServiceImpl(
         return connectivityManager.allNetworks
             .mapNotNull { connectivityManager.getNetworkCapabilities(it) }
             .firstOrNull { SupportedNetworkTransports.isSupportedTransport(it) }
+            .also { UploadDiagnostics.log("no active network, fallback capabilities: $it") }
     }
 
     private fun getWalledValueFromException(e: Exception): Boolean = when (e) {

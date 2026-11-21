@@ -9,6 +9,7 @@ package com.nextcloud.client.jobs.autoUpload
 
 import android.app.Notification
 import android.content.Context
+import android.os.Build
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
@@ -22,6 +23,7 @@ import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.upload.UploadDelayPolicy
+import com.nextcloud.client.jobs.upload.UploadDiagnostics
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
@@ -56,6 +58,7 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import kotlin.coroutines.cancellation.CancellationException
 import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.TimeSource
 
 class AutoUploadWorker(
     private val context: Context,
@@ -85,6 +88,7 @@ class AutoUploadWorker(
     private val notificationManager = AutoUploadNotificationManager(context, viewThemeUtils, NOTIFICATION_ID)
     private val fileUploadHelper = FileUploadHelper.instance()
     private val retryPolicy = UploadDelayPolicy()
+    private val startMark = TimeSource.Monotonic.markNow()
 
     private val overridePowerSaving: Boolean
         get() = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
@@ -96,8 +100,10 @@ class AutoUploadWorker(
                 ?.takeIf { it.isEnabled } ?: return Result.failure()
 
             Log_OC.d(TAG, syncedFolder.getLog())
+            logStartState()
 
             if (isBlocked(syncFolderId)) {
+                UploadDiagnostics.log("auto upload blocked, folderId: $syncFolderId")
                 return Result.success()
             }
 
@@ -110,6 +116,7 @@ class AutoUploadWorker(
             autoUploadHelper.insertEntries(syncedFolder)
 
             if (hasNothingToDo()) {
+                UploadDiagnostics.log("auto upload skipped, no pending files and scan interval not reached")
                 return Result.success()
             }
 
@@ -119,10 +126,17 @@ class AutoUploadWorker(
             syncedFolder.lastScanTimestampMs = System.currentTimeMillis()
             syncedFolderProvider.updateSyncFolder(syncedFolder)
 
+            UploadDiagnostics.log(
+                "auto upload finished, folderId: ${syncedFolder.id}, runtime: ${startMark.elapsedNow()}, " +
+                    "pending files left: ${repository.hasPendingFiles(syncedFolder)}"
+            )
             Log_OC.d(TAG, "✅ ${syncedFolder.remotePath} completed")
             Result.success()
         } catch (e: CancellationException) {
             Log_OC.w(TAG, "⚠️ Job cancelled")
+            UploadDiagnostics.log(
+                "auto upload stopped, runtime: ${startMark.elapsedNow()}, stopReason: ${getStopReasonOrNull()}"
+            )
             throw e
         } catch (e: Exception) {
             Log_OC.e(TAG, "❌ failed: ${e.message}")
@@ -146,7 +160,28 @@ class AutoUploadWorker(
             setForeground(notificationManager.getForegroundInfo(createNotification(title)))
         } catch (e: Exception) {
             Log_OC.w(TAG, "⚠️ Could not set foreground service: ${e.message}")
+            UploadDiagnostics.log("auto upload foreground service not granted, system may stop the worker: $e")
         }
+    }
+
+    private fun logStartState() {
+        UploadDiagnostics.log(
+            "auto upload started, folderId: ${syncedFolder.id}, type: ${syncedFolder.type}, " +
+                "overridePowerSaving: $overridePowerSaving, " +
+                "blocksAutoUpload: ${powerManagementService.blocksAutoUpload}, " +
+                "paused: ${preferences.isGlobalUploadPaused}, chargingOnly: ${syncedFolder.isChargingOnly}, " +
+                "charging: ${powerManagementService.battery.isCharging}, wifiOnly: ${syncedFolder.isWifiOnly}, " +
+                "collisionPolicy: ${syncedFolder.nameCollisionPolicy}, " +
+                "uploadExisting: ${syncedFolder.alsoUploadExistingFiles()}, " +
+                "lastScan: ${syncedFolder.lastScanTimestampMs}, connectivity: ${connectivityService.connectivity}, " +
+                "workerNetwork: ${UploadDiagnostics.describeNetwork(context, network)}"
+        )
+    }
+
+    private fun getStopReasonOrNull(): Int? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        stopReason
+    } else {
+        null
     }
 
     private fun createNotification(title: String): Notification = notificationManager.notificationBuilder
@@ -294,6 +329,7 @@ class AutoUploadWorker(
                     // A camera app can register the file with MediaStore before it finished writing it.
                     if (file.isFile && file.length() == 0L) {
                         Log_OC.w(TAG, "skipping empty file, still being written: $localPath")
+                        UploadDiagnostics.log("skipped empty file: $localPath")
                         return@forEachIndexed
                     }
 
@@ -301,6 +337,7 @@ class AutoUploadWorker(
                     if (entityResult !is AutoUploadEntityResult.Success) {
                         repository.markFileAsHandled(localPath, syncedFolder)
                         Log_OC.d(TAG, "marked file as handled: $localPath")
+                        UploadDiagnostics.log("marked as handled without upload: $localPath, reason: $entityResult")
                         return@forEachIndexed
                     }
 
@@ -324,12 +361,23 @@ class AutoUploadWorker(
                         val operation = createUploadFileOperation(upload, user)
                         Log_OC.d(TAG, "🕒 uploading: $localPath, id: $generatedId")
 
+                        val sizeBefore = file.length()
+                        val modifiedBefore = file.lastModified()
+                        UploadDiagnostics.log(
+                            "upload start: $localPath, size: $sizeBefore, modified: $modifiedBefore"
+                        )
+
                         FileUploadWorker.registerActiveUpload(operation)
                         val result = try {
                             operation.execute(client)
                         } finally {
                             FileUploadWorker.unregisterActiveUpload(operation.ocUploadId)
                         }
+
+                        UploadDiagnostics.log(
+                            "upload end: $localPath, result: ${result.code}, size: $sizeBefore -> ${file.length()}, " +
+                                "modified: $modifiedBefore -> ${file.lastModified()}"
+                        )
                         fileUploadEventBroadcaster.sendUploadStarted(operation, context)
 
                         UploadErrorNotificationManager.handleResult(
@@ -383,6 +431,7 @@ class AutoUploadWorker(
                             "Exception during upload file, localPath: $localPath, remotePath: $remotePath," +
                                 " exception: $e"
                         )
+                        UploadDiagnostics.log("upload exception: $localPath, $e")
 
                         if (path.isEmpty() || !file.exists()) {
                             Log_OC.w(TAG, "detected non-existing local file, removing entity")
@@ -440,6 +489,7 @@ class AutoUploadWorker(
                 TAG,
                 "last upload failed with ${lastUploadResult.value}, skipping auto-upload: $localPath"
             )
+            UploadDiagnostics.log("non retryable last result: $lastUploadResult, $localPath")
             return AutoUploadEntityResult.NonRetryable
         }
 
