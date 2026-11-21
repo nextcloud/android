@@ -784,6 +784,7 @@
     <string name="pin_shortcut_label">Открыть %1$s</string>
     <string name="player_audio_title_with_artist">%1$s • %2$s</string>
     <string name="player_control_view_next_button_content_description">Кнопка «Далее»</string>
+    <string name="player_control_view_play_mode_button_content_description">Кнопка режима воспроизведения</string>
     <string name="player_control_view_play_pause_button_content_description">Кнопка «Воспроизведение/пауза»</string>
     <string name="player_control_view_previous_button_content_description">Кнопка «Назад»</string>
     <string name="player_control_view_random_button_content_description">Кнопка «Случайный порядок»</string>
