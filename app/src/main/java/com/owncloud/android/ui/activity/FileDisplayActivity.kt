@@ -337,6 +337,7 @@ class FileDisplayActivity :
 
         if (SettingsActivity.isBackPressed) {
             Log_OC.d(TAG, "User returned from settings activity, skipping reset content logic")
+            updateRecommendationsVisibilityAfterSettings()
             return
         }
 
@@ -1708,7 +1709,12 @@ class FileDisplayActivity :
 
     private fun fetchRecommendedFilesIfNeeded(ignoreETag: Boolean, folder: OCFile?) {
         val capability = capabilities.orElse(null) ?: return
-        if (folder?.isRootDirectory == false || capability.recommendations.isFalse) return
+        if (!preferences.isShowRecommendationsEnabled ||
+            folder?.isRootDirectory == false ||
+            capability.recommendations.isFalse
+        ) {
+            return
+        }
 
         val accountName = user.orElse(null)?.accountName ?: return
         val fileList = listOfFilesFragment
@@ -1717,6 +1723,16 @@ class FileDisplayActivity :
                 filesRepository.fetchRecommendedFiles(accountName, ignoreETag, storageManager)
             }
             fileList?.adapter?.updateRecommendedFiles(recommendedFiles)
+        }
+    }
+
+    private fun updateRecommendationsVisibilityAfterSettings() {
+        val fileList = listOfFilesFragment ?: return
+        val folder = fileList.currentFile ?: return
+        if (preferences.isShowRecommendationsEnabled) {
+            fetchRecommendedFilesIfNeeded(ignoreETag = false, folder = folder)
+        } else {
+            fileList.adapter?.updateRecommendedFiles(emptyList())
         }
     }
 

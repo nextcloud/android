@@ -654,8 +654,11 @@ class OCFileListAdapter(
         }
     }
 
-    private fun shouldShowRecommendedFiles(): Boolean =
-        recommendedFiles.isNotEmpty() && currentDirectory?.isRootDirectory == true
+    private fun shouldShowRecommendedFiles(): Boolean = shouldDisplayRecommendedFiles(
+        preferences.isShowRecommendationsEnabled,
+        recommendedFiles,
+        currentDirectory
+    )
 
     private fun visibleRecommendedFilesAdapterFor(file: OCFile): RecommendedFilesAdapter? =
         recommendedFilesAdapter?.takeIf { shouldShowRecommendedFiles() && file.isRecommendedFile }
@@ -674,3 +677,11 @@ class OCFileListAdapter(
         private const val FOOTER_ITEM_COUNT = 1
     }
 }
+
+internal fun shouldDisplayRecommendedFiles(
+    showRecommendations: Boolean,
+    recommendations: List<OCFile>,
+    currentDirectory: OCFile?
+): Boolean = showRecommendations &&
+    recommendations.isNotEmpty() &&
+    currentDirectory?.isRootDirectory == true
