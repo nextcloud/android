@@ -42,6 +42,10 @@ class ResizedImageGenerationJob(
 
     suspend fun load(file: OCFile, imageView: ImageView, progressContainer: FrameLayout) {
         val image = getOrCreateDisplayImage(file)
+        if (image == null && imageView.visibility == View.VISIBLE && imageView.drawable != null) {
+            Log_OC.w(TAG, "full detail load failed, keeping cached preview: ${file.remotePath}")
+            return
+        }
         if (image == null) {
             Log_OC.e(TAG, "load failed, no resized image: ${file.remotePath}")
             showLoadError()
@@ -73,7 +77,9 @@ class ResizedImageGenerationJob(
     }
 
     private fun getOrCreateWithVideoOverlay(file: OCFile, client: OwnCloudClient): Bitmap? = try {
-        val resizedImage = ResizedImageGenerator.getOrCreate(file, client, storageManager)
+        // getOrCreate only returns a screen-sized image, which looks blurry when zoomed in
+        val resizedImage = ResizedImageGenerator.getFullDetail(file, client)
+            ?: ResizedImageGenerator.getOrCreate(file, client, storageManager)
         if (resizedImage != null && MimeTypeUtil.isVideo(file)) {
             VideoOverlayGenerator.addOverlay(resizedImage, MainApp.getAppContext())
         } else {

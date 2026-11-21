@@ -45,7 +45,6 @@ import com.owncloud.android.ui.StatusDrawable
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import kotlin.math.max
-import kotlin.math.min
 import kotlin.math.roundToInt
 import com.nextcloud.utils.decodeSampledBitmapFromFile as decodeSampledBitmap
 
@@ -92,17 +91,41 @@ object BitmapUtils {
     fun decodeSampledBitmapFromFile(srcPath: String?, reqWidth: Int, reqHeight: Int): Bitmap? =
         decodeSampledBitmap(srcPath, reqWidth, reqHeight)
 
-    fun retrieveBitmapFromFile(storagePath: String, minWidth: Int, minHeight: Int): Bitmap? {
-        val (originalWidth, originalHeight) = getImageResolution(storagePath)
-        if (originalWidth <= 0 || originalHeight <= 0) {
+    /**
+     * About 64 MB as ARGB_8888: below Android's 100 MB limit for drawing a single bitmap, and large enough
+     * to keep tall strips and typical photos at full resolution.
+     */
+    const val VIEWER_MAX_PIXELS = 16_000_000L
+
+    fun decodeFileForViewer(storagePath: String, maxPixels: Long = VIEWER_MAX_PIXELS): Bitmap? =
+        decodeWithinPixels(maxPixels) { BitmapFactory.decodeFile(storagePath, it) }
+            .rotateBitmapViaExif(readExifOrientation(storagePath))
+
+    fun decodeBytesForViewer(data: ByteArray, maxPixels: Long = VIEWER_MAX_PIXELS): Bitmap? =
+        decodeWithinPixels(maxPixels) { BitmapFactory.decodeByteArray(data, 0, data.size, it) }
+
+    private inline fun decodeWithinPixels(maxPixels: Long, decode: (BitmapFactory.Options) -> Bitmap?): Bitmap? {
+        val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+        decode(bounds)
+        if (bounds.outWidth <= 0 || bounds.outHeight <= 0) {
             return null
         }
 
-        val scaleFactor = min(minWidth.toFloat() / originalWidth, minHeight.toFloat() / originalHeight)
-        val scaledWidth = (originalWidth * scaleFactor).toInt()
-        val scaledHeight = (originalHeight * scaleFactor).toInt()
-        return decodeSampledBitmap(storagePath, scaledWidth, scaledHeight)
-            .rotateBitmapViaExif(readExifOrientation(storagePath))
+        return decode(
+            BitmapFactory.Options().apply {
+                inSampleSize = viewerSampleSize(bounds.outWidth, bounds.outHeight, maxPixels)
+            }
+        )
+    }
+
+    /** Smallest power-of-two sample size that brings [width] x [height] within [maxPixels]. */
+    @JvmStatic
+    fun viewerSampleSize(width: Int, height: Int, maxPixels: Long): Int {
+        var sampleSize = 1
+        while ((width.toLong() / sampleSize) * (height.toLong() / sampleSize) > maxPixels) {
+            sampleSize *= 2
+        }
+        return sampleSize
     }
 
     @JvmStatic

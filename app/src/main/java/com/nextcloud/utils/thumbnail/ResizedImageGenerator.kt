@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Point
 import com.nextcloud.utils.AppConstants
 import com.nextcloud.utils.extensions.getBigThumbnailKey
+import com.nextcloud.utils.extensions.getFullDetailPreviewEndpoint
 import com.nextcloud.utils.extensions.getPreviewEndpoint
 import com.nextcloud.utils.extensions.getVideoPreviewEndpoint
 import com.nextcloud.utils.extensions.isPNG
@@ -26,12 +27,42 @@ import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import org.apache.commons.httpclient.HttpStatus
 import org.apache.commons.httpclient.methods.GetMethod
+import java.io.InputStream
+import kotlin.math.min
 
 object ResizedImageGenerator {
     private const val TAG = "ResizedImageGenerator"
 
     @Suppress("MagicNumber")
     private val VIDEO_PREVIEW_SIZES = listOf(1024, 512, 256, 128, 64)
+
+    private const val FULL_DETAIL_SCREEN_FACTOR = 2
+
+    /**
+     * Image for the full-screen viewer with enough pixels to zoom into; not cached. Returns null for videos
+     * and when out of memory, so the caller can fall back to [getOrCreate].
+     */
+    fun getFullDetail(file: OCFile, client: OwnCloudClient): Bitmap? {
+        if (MimeTypeUtil.isVideo(file)) {
+            return null
+        }
+
+        return try {
+            val image = if (file.isDown) {
+                BitmapUtils.decodeFileForViewer(file.storagePath)
+            } else {
+                val screenSize = ScreenMetrics.size()
+                val minSide = FULL_DETAIL_SCREEN_FACTOR * min(screenSize.x, screenSize.y)
+                val uri = client.getFullDetailPreviewEndpoint(file.localId, minSide)
+                downloadPreview(file, client, uri) { BitmapUtils.decodeBytesForViewer(it.readBytes()) }
+            } ?: return null
+
+            withPngBackground(file, image)
+        } catch (e: OutOfMemoryError) {
+            Log_OC.e(TAG, "out of memory loading full detail: ${file.remotePath}", e)
+            null
+        }
+    }
 
     fun getOrCreate(file: OCFile, client: OwnCloudClient, storageManager: FileDataStorageManager): Bitmap? {
         val cacheKey = file.getBigThumbnailKey()
@@ -90,13 +121,15 @@ object ResizedImageGenerator {
             downloadPreview(file, client, client.getPreviewEndpoint(file.localId, screenSize.x, screenSize.y))
         } ?: return null
 
-        val image = if (file.isPNG()) {
-            BitmapUtils.centerCropOnPngBackground(preview, preview.width, preview.height)
-        } else {
-            preview
-        }
+        val image = withPngBackground(file, preview)
         ThumbnailsCacheManager.addBitmapToCache(cacheKey, image)
         return image
+    }
+
+    private fun withPngBackground(file: OCFile, image: Bitmap): Bitmap = if (file.isPNG()) {
+        BitmapUtils.centerCropOnPngBackground(image, image.width, image.height)
+    } else {
+        image
     }
 
     private fun downloadVideoPreview(file: OCFile, client: OwnCloudClient): Bitmap? =
@@ -104,7 +137,12 @@ object ResizedImageGenerator {
             downloadPreview(file, client, client.getVideoPreviewEndpoint(file.localId, size))
         }
 
-    private fun downloadPreview(file: OCFile, client: OwnCloudClient, uri: String): Bitmap? {
+    private fun downloadPreview(
+        file: OCFile,
+        client: OwnCloudClient,
+        uri: String,
+        decode: (InputStream) -> Bitmap? = BitmapFactory::decodeStream
+    ): Bitmap? {
         Log_OC.d(TAG, "downloading preview: ${file.remotePath}, uri: $uri")
 
         var getMethod: GetMethod? = null
@@ -118,7 +156,7 @@ object ResizedImageGenerator {
                 return null
             }
 
-            getMethod.responseBodyAsStream.use { BitmapFactory.decodeStream(it) }
+            getMethod.responseBodyAsStream.use(decode)
         } catch (e: Exception) {
             Log_OC.e(TAG, "preview download failed: ${file.remotePath}", e)
             null

@@ -37,7 +37,7 @@
         app:drawableStartCompat="@drawable/ic_live_photo"
         tools:visibility="visible" />
 
-    <com.github.chrisbanes.photoview.PhotoView
+    <com.owncloud.android.ui.preview.media.DetailZoomPhotoView
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
