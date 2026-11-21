@@ -45,6 +45,7 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.repository.ClientRepository
 import com.nextcloud.repository.RemoteClientRepository
 import com.nextcloud.utils.e2ee.E2EEActionResolver
+import com.nextcloud.utils.e2ee.E2EECertificateManager
 import com.nextcloud.utils.e2ee.E2EEKeyInspector
 import com.nextcloud.utils.thumbnail.FolderThumbnailGenerator
 import com.owncloud.android.authentication.PassCodeManager
@@ -237,15 +238,17 @@ internal class AppModule {
     fun e2eeKeyInspector(
         context: Context,
         fileDataStorageManager: FileDataStorageManager,
-        certificateValidator: CertificateValidator,
+        certificateManager: E2EECertificateManager,
         arbitraryDataProvider: ArbitraryDataProvider,
-        accountManager: UserAccountManager
+        accountManager: UserAccountManager,
+        clientRepository: ClientRepository
     ): E2EEKeyInspector = E2EEKeyInspector(
         context,
         fileDataStorageManager,
-        certificateValidator,
+        certificateManager,
         arbitraryDataProvider,
-        accountManager
+        accountManager,
+        clientRepository
     )
 
     @Provides

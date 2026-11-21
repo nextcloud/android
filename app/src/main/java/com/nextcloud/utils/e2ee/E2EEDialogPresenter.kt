@@ -7,7 +7,10 @@
 
 package com.nextcloud.utils.e2ee
 
+import com.nextcloud.utils.SnackbarUtil
+import com.nextcloud.utils.e2ee.model.E2EEAction
 import com.nextcloud.utils.e2ee.model.E2EEDialog
+import com.nextcloud.utils.e2ee.model.E2EEKeyCheckResult
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
@@ -47,4 +50,25 @@ class E2EEDialogPresenter(private val fragment: OCFileListFragment) {
             override fun onNeutral(callerTag: String?) = Unit
             override fun onCancel(callerTag: String?) = Unit
         }
+
+    fun showKeyCheckError(result: E2EEKeyCheckResult, action: E2EEAction) {
+        val messageId = result.getMessageId(action) ?: return
+        if (result.errorMessageId == null) {
+            SnackbarUtil.show(fragment, messageId)
+            return
+        }
+        if (fragment.parentFragmentManager.findFragmentByTag(ENCRYPTION_KEY_ALERT_DIALOG_TAG) != null) {
+            return
+        }
+
+        ConfirmationDialogFragment.newInstance(
+            titleResId = R.string.end_to_end_encryption_title,
+            titleIconId = R.drawable.ic_lock_open_white,
+            messageResId = messageId,
+            positiveButtonTextId = R.string.common_ok,
+            neutralButtonTextId = NO_BUTTON,
+            negativeButtonTextId = NO_BUTTON,
+            messageArguments = null
+        ).show(fragment.parentFragmentManager, ENCRYPTION_KEY_ALERT_DIALOG_TAG)
+    }
 }
