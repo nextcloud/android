@@ -505,12 +505,16 @@ internal class BackgroundJobManagerImpl(
     override fun isAutoUploadIgnoringPowerSavingScheduled(syncedFolderID: Long): Boolean =
         workManager.isWorkScheduled(autoUploadIgnorePowerSavingTag(syncedFolderID))
 
+    // An enqueued run that never starts still counts as scheduled and, with ExistingWorkPolicy.KEEP, swallows every
+    // later request for its folder. Explicit "sync now" runs stay, because restarting them would drop the override.
     override fun cancelEnqueuedAutoUploads() {
         workManager.getWorkInfosByTag(formatClassTag(AutoUploadWorker::class))
             .get()
-            .filter { it.state == WorkInfo.State.ENQUEUED && it.periodicityInfo != null }
+            .filter { it.state == WorkInfo.State.ENQUEUED && !it.isIgnoringPowerSaving() }
             .forEach { workManager.cancelWorkById(it.id) }
     }
+
+    private fun WorkInfo.isIgnoringPowerSaving(): Boolean = tags.any { it.endsWith("_$TAG_SUFFIX_IGNORE_POWER_SAVING") }
 
     override fun schedulePeriodicAutoUpload() {
         val request = periodicRequestBuilder(
