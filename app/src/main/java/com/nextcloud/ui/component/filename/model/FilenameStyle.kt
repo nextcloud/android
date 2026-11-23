@@ -29,7 +29,7 @@ data class FilenameStyle(
     val extensionMaxLines: Int = SINGLE_LINE
     val extensionEllipsize: TextUtils.TruncateAt = TextUtils.TruncateAt.START
 
-    fun apply(view: TextView) {
+    fun applyTo(view: TextView) {
         TextViewCompat.setTextAppearance(view, textAppearance)
         textColor?.let(view::setTextColor)
         textSize?.let { view.setTextSize(TypedValue.COMPLEX_UNIT_PX, it) }

@@ -65,7 +65,7 @@ class FileListDiffer(
 
     private val differ = AsyncListDiffer(
         listUpdateCallback,
-        AsyncDifferConfig.Builder(OCFileDiffCallback()).build()
+        AsyncDifferConfig.Builder(FileListDiffCallback()).build()
     )
 
     val files: List<OCFile>

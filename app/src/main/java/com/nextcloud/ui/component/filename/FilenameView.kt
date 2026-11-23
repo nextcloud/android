@@ -119,8 +119,9 @@ class FilenameView @JvmOverloads constructor(context: Context, attrs: AttributeS
     }
 
     private fun applyStyle(style: FilenameStyle) {
-        listOf(title, extension).forEach { textView -> style.apply(textView) }
+        listOf(title, extension).forEach(style::applyTo)
         title.applyLines(style.titleEllipsize, style.titleMaxLines)
+
         extension.applyLines(style.extensionEllipsize, style.extensionMaxLines)
     }
 
