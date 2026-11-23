@@ -408,6 +408,7 @@
     <string name="encryption_open_unavailable">Não é possível abrir esta pasta. A criptografia de ponta-a-ponta não está configurada neste servidor.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Não é possível recuperar o certificado do servidor</string>
     <string name="end_to_end_encryption_confirm_button">Definir criptografia</string>
+    <string name="end_to_end_encryption_could_not_verify_certificate">Não foi possível verificar o certificado de criptografia</string>
     <string name="end_to_end_encryption_decrypting">Descriptografando…</string>
     <string name="end_to_end_encryption_dialog_close">Fechar</string>
     <string name="end_to_end_encryption_enter_passphrase_to_access_files">Digite sua senha para acessar seus arquivos</string>
