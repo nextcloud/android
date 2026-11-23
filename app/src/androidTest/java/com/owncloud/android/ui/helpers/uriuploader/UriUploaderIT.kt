@@ -166,6 +166,26 @@ class UriUploaderIT : AbstractIT() {
     }
 
     @Test
+    fun testFileNamedAsPackageNameIsAllowed() = withActivity { activity ->
+        assertAllowed(activity, fileUri("/storage/emulated/0/Download/${activity.packageName}.txt"))
+    }
+
+    @Test
+    fun testPublicFolderNamedAsPackageNameIsAllowed() = withActivity { activity ->
+        assertAllowed(activity, fileUri("/storage/emulated/0/Download/${activity.packageName}/logs.txt"))
+    }
+
+    @Test
+    fun testDataFolderStartingWithPackageNameIsAllowed() = withActivity { activity ->
+        assertAllowed(activity, fileUri("/data/data/${activity.packageName}.somethingsomething/logs.txt"))
+    }
+
+    @Test
+    fun testContentUriWithPackageNameAsAuthorityIsAllowed() = withActivity { activity ->
+        assertAllowed(activity, contentUri(activity.packageName, "/attachments/logs.txt"))
+    }
+
+    @Test
     fun testMediaStoreUriIsAllowed() = withActivity { activity ->
         assertAllowed(activity, Uri.parse("content://media/external/images/media/1"))
     }
