@@ -82,8 +82,12 @@ internal class FileListHeaderBinder(
         }
 
         binding.recommendedFilesRecyclerView.run {
-            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-            adapter = recommendedFilesAdapter
+            if (layoutManager == null) {
+                layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+            }
+            if (adapter !== recommendedFilesAdapter) {
+                adapter = recommendedFilesAdapter
+            }
         }
     }
 

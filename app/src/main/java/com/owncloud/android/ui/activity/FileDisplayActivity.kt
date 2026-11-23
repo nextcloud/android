@@ -23,8 +23,10 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.ServiceConnection
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -544,12 +546,7 @@ class FileDisplayActivity :
             return
         }
 
-        val currentStorageManager: FileDataStorageManager = storageManager ?: run {
-            Log_OC.w(TAG, "storage manager is null, cannot init file")
-            return
-        }
-
-        val initialFile = resolveInitialFile(currentStorageManager) ?: run {
+        val initialFile = resolveInitialFile() ?: run {
             Log_OC.e(TAG, "Could not retrieve root folder – cannot continue")
             return
         }
@@ -582,7 +579,7 @@ class FileDisplayActivity :
         checkForNewDevVersionNecessary(applicationContext)
     }
 
-    private fun resolveInitialFile(storageManager: FileDataStorageManager): OCFile? =
+    private fun resolveInitialFile(): OCFile? =
         file?.let { findStoredFile(it, storageManager) } ?: storageManager.getFileByPath(OCFile.ROOT_PATH)
 
     private fun findStoredFile(file: OCFile, storageManager: FileDataStorageManager): OCFile? {
@@ -887,7 +884,7 @@ class FileDisplayActivity :
             return
         }
 
-        val fileStorageManager = storageManager ?: FileDataStorageManager(user, contentResolver)
+        val fileStorageManager = storageManager
         val weakContext = WeakReference<Context>(this)
         val task = FetchRemoteFileTask(user, fileId, fileStorageManager, lifecycleScope, capability, weakContext)
         task.run(showFile = { (fetchedFile, message) ->
@@ -899,7 +896,7 @@ class FileDisplayActivity :
     private fun openFileByPath(user: User, filePath: String) {
         setUser(user)
 
-        val fileStorageManager = storageManager ?: FileDataStorageManager(user, contentResolver)
+        val fileStorageManager = storageManager
         lifecycleScope.launch {
             val client = clientRepository.getOwncloudClient() ?: run {
                 onFileRequestError(null)
@@ -1203,10 +1200,8 @@ class FileDisplayActivity :
         searchMenuItem.isVisible = false
         searchText.setOnClickListener {
             showSearchView()
-            searchView?.postDelayed({
-                searchView?.isIconified = false
-                searchView?.requestFocusFromTouch()
-            }, SEARCH_VIEW_FOCUS_DELAY)
+            searchView?.isIconified = false
+            searchView?.postDelayed({ searchView?.requestFocusFromTouch() }, SEARCH_VIEW_FOCUS_DELAY)
         }
 
         drawerMenuItemsToShowHide = listOf(searchMenuItem)
@@ -1265,6 +1260,10 @@ class FileDisplayActivity :
 
     private fun setupSearchView(view: SearchView) {
         viewThemeUtils.androidx.themeToolbarSearchView(view)
+
+        // when search expanded makes transparent of the background
+        view.findViewById<View>(androidx.appcompat.R.id.search_plate)?.backgroundTintList =
+            ColorStateList.valueOf(Color.TRANSPARENT)
 
         if (searchQuery.isNotEmpty()) {
             view.post { restoreSearchQuery() }
@@ -1570,7 +1569,7 @@ class FileDisplayActivity :
             val syncFolderRemotePath = intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH)
             val syncResultId = intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT)
             val syncResult = DataHolderUtil.getInstance().retrieve(syncResultId)
-            val isSameAccount = isCurrentAccount(accountName) && storageManager != null
+            val isSameAccount = isCurrentAccount(accountName)
             val fileList = listOfFilesFragment
 
             if (isSameAccount) {
@@ -1960,7 +1959,6 @@ class FileDisplayActivity :
 
     private fun requestDownloadOfWaitingPreview() {
         val previousFile = waitingToPreview ?: return
-        if (storageManager == null) return
 
         val refreshedFile = storageManager.getFileById(previousFile.fileId)
         waitingToPreview = refreshedFile
@@ -2175,8 +2173,8 @@ class FileDisplayActivity :
 
             connectivityService.isNetworkAndServerAvailable { isAvailable ->
                 when {
-                    isAvailable -> fileOperationsHelper?.removeFiles(filesToRemove, onlyLocalCopy, true)
-                    onlyLocalCopy -> fileOperationsHelper?.removeFiles(filesToRemove, true, true)
+                    isAvailable -> fileOperationsHelper.removeFiles(filesToRemove, onlyLocalCopy, true)
+                    onlyLocalCopy -> fileOperationsHelper.removeFiles(filesToRemove, true, true)
                     else -> filesToRemove.forEach { fileDataStorageManager.addRemoveFileOfflineOperation(it) }
                 }
                 onFilesRemoved()
