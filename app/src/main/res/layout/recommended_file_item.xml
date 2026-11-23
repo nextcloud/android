@@ -155,12 +155,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/standard_quarter_margin"
-            android:ellipsize="middle"
+            app:filenameEllipsize="middle"
             android:gravity="center"
-            android:maxLines="1"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/grid_item_text_size" />
+            app:filenameMaxLines="1"
+            app:filenameTextAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:filenameTextColor="@color/text_color"
+            app:filenameTextSize="@dimen/grid_item_text_size" />
 
         <TextView
             android:id="@+id/reason"

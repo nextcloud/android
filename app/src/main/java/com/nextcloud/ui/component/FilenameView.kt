@@ -79,13 +79,13 @@ class FilenameView @JvmOverloads constructor(context: Context, attrs: AttributeS
 
     private fun applyStyle(typedArray: TypedArray) {
         val textAppearance = typedArray.getResourceId(
-            R.styleable.FilenameView_android_textAppearance,
+            R.styleable.FilenameView_filenameTextAppearance,
             MaterialR.style.TextAppearance_Material3_HeadlineSmall
         )
-        val textColor = typedArray.getColorStateList(R.styleable.FilenameView_android_textColor)
-        val textSize = typedArray.getDimension(R.styleable.FilenameView_android_textSize, UNSET_TEXT_SIZE)
-        val titleMaxLines = typedArray.getInt(R.styleable.FilenameView_android_maxLines, TITLE_MAX_LINES)
-        val titleEllipsize = typedArray.getInt(R.styleable.FilenameView_android_ellipsize, ELLIPSIZE_END)
+        val textColor = typedArray.getColorStateList(R.styleable.FilenameView_filenameTextColor)
+        val textSize = typedArray.getDimension(R.styleable.FilenameView_filenameTextSize, UNSET_TEXT_SIZE)
+        val titleMaxLines = typedArray.getInt(R.styleable.FilenameView_filenameMaxLines, TITLE_MAX_LINES)
+        val titleEllipsize = typedArray.getInt(R.styleable.FilenameView_filenameEllipsize, ELLIPSIZE_END)
 
         listOf(title, extension).forEach { textView ->
             TextViewCompat.setTextAppearance(textView, textAppearance)

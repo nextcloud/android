@@ -38,10 +38,14 @@
     </declare-styleable>
 
     <declare-styleable name="FilenameView">
-        <attr name="android:textAppearance" />
-        <attr name="android:textSize" />
-        <attr name="android:textColor" />
-        <attr name="android:maxLines" />
-        <attr name="android:ellipsize" />
+        <attr name="filenameTextAppearance" format="reference" />
+        <attr name="filenameTextSize" format="dimension" />
+        <attr name="filenameTextColor" format="color|reference" />
+        <attr name="filenameMaxLines" format="integer" />
+        <attr name="filenameEllipsize">
+            <enum name="start" value="1" />
+            <enum name="middle" value="2" />
+            <enum name="end" value="3" />
+        </attr>
     </declare-styleable>
 </resources>
