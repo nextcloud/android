@@ -4,7 +4,7 @@
  * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.helpers
+package com.owncloud.android.ui.helpers.uriuploader
 
 import android.content.ContentResolver
 import android.net.Uri
@@ -223,6 +223,6 @@ class UriUploaderIT : AbstractIT() {
     }
 
     private fun assertAllowed(activity: TestActivity, uri: Uri) {
-        assertFalse(createUploader(activity, uri).isSensitiveUri(uri))
+        assertFalse(UriChecker(activity).pointsToAppPrivateData(uri))
     }
 }

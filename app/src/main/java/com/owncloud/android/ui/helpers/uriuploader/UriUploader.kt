@@ -8,7 +8,7 @@
  * SPDX-FileCopyrightText: 2016 ownCloud Inc.
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-package com.owncloud.android.ui.helpers
+package com.owncloud.android.ui.helpers.uriuploader
 
 import android.content.ContentResolver
 import android.net.Uri
@@ -70,14 +70,16 @@ class UriUploader @JvmOverloads constructor(
     var isTmpCopyInProgress: Boolean = false
         private set
 
+    private val uriChecker = UriChecker(activity)
+
     @Suppress("NestedBlockDepth")
     fun uploadUris(): UriUploaderResultCode {
         var code = UriUploaderResultCode.OK
         try {
-            val anySensitiveUri = urisToUpload
-                .filterNotNull()
-                .any { isSensitiveUri((it as Uri)) }
-            if (anySensitiveUri) {
+            val anyAppPrivateUri = urisToUpload
+                .filterIsInstance<Uri>()
+                .any { uriChecker.pointsToAppPrivateData(it) }
+            if (anyAppPrivateUri) {
                 Log_OC.e(TAG, "Sensitive URI detected, aborting upload.")
                 code = UriUploaderResultCode.ERROR_SENSITIVE_PATH
             } else {
@@ -126,8 +128,6 @@ class UriUploader @JvmOverloads constructor(
         require(displayName != null) { "Display name cannot be null" }
         return uploadPath + displayName
     }
-
-    private fun isSensitiveUri(uri: Uri): Boolean = uri.toString().contains(activity.packageName)
 
     /**
      * Requests the upload of a file in the local file system to [FileUploadHelper] service.

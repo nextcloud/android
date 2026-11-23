@@ -86,7 +86,7 @@ import com.owncloud.android.ui.dialog.MultipleAccountsDialog;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.fragment.TaskRetainerFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
-import com.owncloud.android.ui.helpers.UriUploader;
+import com.owncloud.android.ui.helpers.uriuploader.UriUploader;
 import com.owncloud.android.ui.navigation.model.ActionBarStyle;
 import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.ErrorMessageAdapter;
