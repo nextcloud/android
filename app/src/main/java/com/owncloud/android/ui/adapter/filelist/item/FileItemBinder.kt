@@ -24,7 +24,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.tags.Tag
-import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
+import com.owncloud.android.ui.interfaces.FileListAdapterListener
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
@@ -32,7 +32,7 @@ import java.io.File
 internal class FileItemBinder(
     private val activity: Activity,
     private val viewThemeUtils: ViewThemeUtils,
-    private val fragmentInterface: OCFileListFragmentInterface,
+    private val listener: FileListAdapterListener,
     private val avatarGenerator: AvatarGenerator,
     private val userId: String?
 ) {
@@ -84,7 +84,7 @@ internal class FileItemBinder(
         }
 
         sharedAvatars.boundFileId = file.fileId
-        sharedAvatars.setOnClickListener { fragmentInterface.onShareIconClick(file) }
+        sharedAvatars.setOnClickListener { listener.onShareIconClick(file) }
         sharedAvatars.setAvatars(user, avatarShareesProvider.get(file, userId), viewThemeUtils, avatarGenerator)
     }
 
@@ -200,7 +200,7 @@ internal class FileItemBinder(
         overflowMenu.setVisibleIf(showItemOptions)
 
         if (showItemOptions) {
-            overflowMenu.setOnClickListener { fragmentInterface.onOverflowIconClicked(file, it) }
+            overflowMenu.setOnClickListener { listener.onOverflowIconClicked(file) }
         }
 
         val iconRes = if (file.isLocked) R.drawable.ic_locked_dots_small else R.drawable.ic_dots_vertical

@@ -108,7 +108,7 @@ import com.owncloud.android.ui.events.SearchEvent
 import com.owncloud.android.ui.fragment.FileFragment.ContainerActivity
 import com.owncloud.android.ui.fragment.helper.ParentFolderFinder
 import com.owncloud.android.ui.helpers.FileOperationsHelper
-import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
+import com.owncloud.android.ui.interfaces.FileListAdapterListener
 import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.FileStorageUtils
@@ -128,7 +128,7 @@ import com.owncloud.android.lib.resources.files.SearchRemoteOperation.SearchType
 @Suppress("TooManyFunctions", "LargeClass")
 open class OCFileListFragment :
     ExtendedListFragment(),
-    OCFileListFragmentInterface,
+    FileListAdapterListener,
     OCFileListBottomSheetActions,
     Injectable {
 
@@ -682,7 +682,7 @@ open class OCFileListFragment :
         containerActivity?.showDetails(file, ACTIVITY_TAB)
     }
 
-    override fun onOverflowIconClicked(file: OCFile, view: View?) {
+    override fun onOverflowIconClicked(file: OCFile) {
         openActionsMenu(SINGLE_SELECTION, hashSetOf(file), true)
     }
 
@@ -712,16 +712,15 @@ open class OCFileListFragment :
     }
 
     override fun onItemClicked(file: OCFile) {
-        onItemClicked(file, null)
+        handleItemClick(file, sourceView = null)
+    }
+
+    override fun onItemClicked(file: OCFile, sourceView: View) {
+        handleItemClick(file, sourceView)
     }
 
     @OptIn(markerClass = [UnstableApi::class])
-    override fun onItemClicked(file: OCFile?, sourceView: View?) {
-        if (file == null) {
-            Log_OC.w(TAG, "Ignoring click on a null list item")
-            return
-        }
-
+    private fun handleItemClick(file: OCFile, sourceView: View?) {
         val commonAdapter = commonAdapter
         when {
             commonAdapter?.isMultiSelect() == true -> toggleFileSelection(file)
@@ -731,7 +730,7 @@ open class OCFileListFragment :
         }
     }
 
-    override fun isLoading(): Boolean = false
+    override val isLoading: Boolean = false
 
     private fun finishWithSelectedFile(file: OCFile) {
         val intent = Intent().putExtra(FolderPickerActivity.EXTRA_FILES, file)

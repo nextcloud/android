@@ -39,7 +39,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.adapter.filelist.CommonFileListAdapterInterface
 import com.owncloud.android.ui.adapter.filelist.item.FileListDelegate
-import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
+import com.owncloud.android.ui.interfaces.FileListAdapterListener
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import me.zhanghai.android.fastscroll.PopupTextProvider
@@ -47,7 +47,7 @@ import me.zhanghai.android.fastscroll.PopupTextProvider
 class GalleryAdapter(
     val context: Context,
     user: User,
-    ocFileListFragmentInterface: OCFileListFragmentInterface,
+    listener: FileListAdapterListener,
     transferServiceGetter: ComponentsGetter,
     private val viewThemeUtils: ViewThemeUtils,
     var columns: Int,
@@ -85,7 +85,7 @@ class GalleryAdapter(
         fileListDelegate = FileListDelegate(
             transferServiceGetter.fileUploaderHelper,
             context,
-            ocFileListFragmentInterface,
+            listener,
             user,
             storageManager,
             false,

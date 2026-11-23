@@ -19,14 +19,14 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.ui.activity.drawer.DrawerActivity
 import com.owncloud.android.ui.adapter.filelist.recommended.RecommendedFilesAdapter
-import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
+import com.owncloud.android.ui.interfaces.FileListAdapterListener
 import com.owncloud.android.ui.preview.text.PreviewTextFragment
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 internal class FileListHeaderBinder(
     private val activity: Activity,
     private val viewThemeUtils: ViewThemeUtils,
-    private val fragmentInterface: OCFileListFragmentInterface,
+    private val listener: FileListAdapterListener,
     private val preferences: AppPreferences,
     private val capability: OCCapability,
     private val currentUser: () -> User
@@ -34,7 +34,7 @@ internal class FileListHeaderBinder(
 
     // region Public methods
     fun bind(holder: FileListHeaderViewHolder, directory: OCFile?, recommendedFilesAdapter: RecommendedFilesAdapter?) {
-        holder.headerView.setOnClickListener { fragmentInterface.onHeaderClicked() }
+        holder.headerView.setOnClickListener { listener.onHeaderClicked() }
         bindRichWorkspace(holder, directory)
         bindRecommendedFiles(holder.binding, recommendedFilesAdapter)
         bindOpenInNotes(holder.binding.openIn, directory)

@@ -41,7 +41,7 @@ import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.activity.FolderPickerActivity
 import com.owncloud.android.ui.adapter.GalleryRowHolder
 import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment
-import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
+import com.owncloud.android.ui.interfaces.FileListAdapterListener
 import com.owncloud.android.ui.navigation.animator.NavigationAnimator
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.MimeTypeUtil
@@ -57,7 +57,7 @@ import kotlinx.coroutines.launch
 class FileListDelegate(
     private val fileUploadHelper: FileUploadHelper,
     private val context: Context,
-    private val ocFileListFragmentInterface: OCFileListFragmentInterface,
+    private val listener: FileListAdapterListener,
     private val user: User,
     private val storageManager: FileDataStorageManager,
     private val hideItemOptions: Boolean,
@@ -179,11 +179,11 @@ class FileListDelegate(
     private fun bindGalleryRowListeners(imageView: ImageView, file: OCFile, galleryRowHolder: GalleryRowHolder) {
         imageView.setOnClickListener {
             if (context is AlbumsPickerActivity) {
-                ocFileListFragmentInterface.onLongItemClicked(
+                listener.onLongItemClicked(
                     file
                 )
             } else {
-                ocFileListFragmentInterface.onItemClicked(file, imageView)
+                listener.onItemClicked(file, imageView)
                 AlbumItemsFragment.lastMediaItemPosition = galleryRowHolder.absoluteAdapterPosition
             }
         }
@@ -192,7 +192,7 @@ class FileListDelegate(
             imageView.apply {
                 isLongClickable = true
                 setOnLongClickListener {
-                    ocFileListFragmentInterface.onLongItemClicked(
+                    listener.onLongItemClicked(
                         file
                     )
                 }
@@ -276,7 +276,7 @@ class FileListDelegate(
         if (file.unreadCommentsCount > 0) {
             gridViewHolder.unreadComments.visibility = View.VISIBLE
             gridViewHolder.unreadComments.setOnClickListener {
-                ocFileListFragmentInterface
+                listener
                     .showActivityDetailView(file)
             }
         } else {
@@ -288,7 +288,7 @@ class FileListDelegate(
         setItemLayoutBackgroundColor(file, gridViewHolder)
         setCheckBoxImage(file, gridViewHolder)
 
-        gridViewHolder.itemLayout.setOnClickListener { ocFileListFragmentInterface.onItemClicked(file) }
+        gridViewHolder.itemLayout.setOnClickListener { listener.onItemClicked(file) }
     }
 
     fun bindLongClick(holder: FileViewHolder, file: OCFile) {
@@ -298,7 +298,7 @@ class FileListDelegate(
 
         holder.itemLayout.apply {
             isLongClickable = true
-            setOnLongClickListener { ocFileListFragmentInterface.onLongItemClicked(file) }
+            setOnLongClickListener { listener.onLongItemClicked(file) }
         }
     }
 
@@ -399,7 +399,7 @@ class FileListDelegate(
             setImageResource(result.first)
             contentDescription = context.getString(result.second)
             visibility = View.VISIBLE
-            setOnClickListener { ocFileListFragmentInterface.onShareIconClick(file) }
+            setOnClickListener { listener.onShareIconClick(file) }
         }
     }
 

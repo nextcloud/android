@@ -67,7 +67,7 @@ import com.owncloud.android.ui.adapter.filelist.recommended.RecommendedFilesAdap
 import com.owncloud.android.ui.adapter.filelist.recommended.RecommendedFilesViewHolder
 import com.owncloud.android.ui.fragment.OCFileListFragment
 import com.owncloud.android.ui.fragment.SearchType
-import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
+import com.owncloud.android.ui.interfaces.FileListAdapterListener
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.FileSortOrder.SortType
@@ -85,7 +85,7 @@ class FileListAdapter(
     private val preferences: AppPreferences,
     syncedFolderProvider: SyncedFolderProvider?,
     transferServiceGetter: ComponentsGetter,
-    ocFileListFragmentInterface: OCFileListFragmentInterface,
+    listener: FileListAdapterListener,
     private val hideItemOptions: Boolean,
     private var gridView: Boolean,
     viewThemeUtils: ViewThemeUtils,
@@ -128,7 +128,7 @@ class FileListAdapter(
     private val fileListDelegate = FileListDelegate(
         FileUploadHelper.instance(),
         activity,
-        ocFileListFragmentInterface,
+        listener,
         user,
         storageManager,
         hideItemOptions,
@@ -142,7 +142,7 @@ class FileListAdapter(
     private val headerBinder = FileListHeaderBinder(
         activity,
         viewThemeUtils,
-        ocFileListFragmentInterface,
+        listener,
         preferences,
         capability
     ) { user }
@@ -151,18 +151,18 @@ class FileListAdapter(
         activity,
         viewThemeUtils,
         preferences,
-        ocFileListFragmentInterface
+        listener
     )
 
     private val fileItemBinder = FileItemBinder(
         activity,
         viewThemeUtils,
-        ocFileListFragmentInterface,
+        listener,
         avatarGenerator,
         userId
     )
 
-    private val fileGridItemBinder = FileGridItemBinder(ocFileListFragmentInterface)
+    private val fileGridItemBinder = FileGridItemBinder(listener)
 
     val isEmpty: Boolean
         get() = differ.latestFiles.isEmpty()

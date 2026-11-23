@@ -11,9 +11,9 @@ import androidx.core.view.isVisible
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.adapter.filelist.recommended.RecommendedFilesViewHolder
-import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
+import com.owncloud.android.ui.interfaces.FileListAdapterListener
 
-internal class FileGridItemBinder(private val fragmentInterface: OCFileListFragmentInterface) {
+internal class FileGridItemBinder(private val listener: FileListAdapterListener) {
 
     fun bind(holder: FileGridItemViewHolder, file: OCFile, showMoreOptions: Boolean) {
         val binding = holder.binding
@@ -47,7 +47,7 @@ internal class FileGridItemBinder(private val fragmentInterface: OCFileListFragm
     }
 
     private fun bindMoreButton(more: View, file: OCFile, showMoreOptions: Boolean) {
-        more.setOnClickListener { fragmentInterface.onOverflowIconClicked(file, it) }
+        more.setOnClickListener { listener.onOverflowIconClicked(file) }
         more.setVisibleIf(showMoreOptions)
     }
 }
