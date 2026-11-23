@@ -398,6 +398,7 @@
     <string name="encryption_key_checking_keys">Ag seiceáil eochracha…</string>
     <string name="encryption_key_handle_folder_read_only_description">Baineadh nó cuireadh eochracha criptithe an chuntais seo ina n-áit, mar sin ní féidir ábhar an fhillteáin seo a dhíchriptiú a thuilleadh.\n\nNíl an fillteán inléite ach amháin as seo amach. Chun fillteáin chriptithe a úsáid arís, déan cúltaca den fhillteán seo agus socraigh d\'eochair chriptithe nua sna socruithe.</string>
     <string name="encryption_key_handle_key_removed_title">Eochracha criptithe athraithe</string>
+    <string name="encryption_key_handle_keys_changed_on_server_description">Baineadh na heochracha criptithe ar an bhfreastalaí nó cuireadh cinn eile ina n-áit; dá bhrí sin, ní féidir fillteáin chriptithe a léamh amháin ar an ngléas seo.\n\nChun leanúint de bheith ag úsáid criptiú ceann go ceann, déan cóip chúltaca de do chomhaid chriptithe, bain an criptiú go háitiúil sna socruithe, agus déan é a chumrú arís.</string>
     <string name="encryption_key_handle_no_keys_description">Ní féidir an fillteán seo a oscailt mar níl a eochracha criptithe ann a thuilleadh ar an ngléas seo ná ar an bhfreastalaí.</string>
     <string name="encryption_new_folder_check_failed">Níorbh fhéidir d’eochracha criptithe a sheiceáil. Déan iarracht an fillteán a chruthú arís.</string>
     <string name="encryption_new_folder_no_network">Ní féidir teacht ar an bhfreastalaí. Déan iarracht an fillteán a chruthú arís níos déanaí.</string>
@@ -408,6 +409,7 @@
     <string name="encryption_open_unavailable">Ní féidir an fillteán seo a oscailt. Níl criptiú ó cheann ceann socraithe ar an bhfreastalaí seo.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Ní féidir teastas an fhreastalaí a fháil</string>
     <string name="end_to_end_encryption_confirm_button">Socraigh criptiú</string>
+    <string name="end_to_end_encryption_could_not_verify_certificate">Níorbh fhéidir an deimhniú criptithe a fhíorú</string>
     <string name="end_to_end_encryption_decrypting">Ag díchriptiú…</string>
     <string name="end_to_end_encryption_dialog_close">Dún</string>
     <string name="end_to_end_encryption_enter_passphrase_to_access_files">Cuir isteach do phasfhrása chun rochtain a fháil ar do chomhaid</string>
@@ -782,6 +784,7 @@
     <string name="pin_shortcut_label">Oscail %1$s</string>
     <string name="player_audio_title_with_artist">%1$s • %2$s</string>
     <string name="player_control_view_next_button_content_description">Cnaipe ‘Ar Aghaidh’</string>
+    <string name="player_control_view_play_mode_button_content_description">Cnaipe mód imeartha</string>
     <string name="player_control_view_play_pause_button_content_description">Cnaipe Seinn/Sos</string>
     <string name="player_control_view_previous_button_content_description">Cnaipe roimhe seo</string>
     <string name="player_control_view_random_button_content_description">Cnaipe randamach</string>
