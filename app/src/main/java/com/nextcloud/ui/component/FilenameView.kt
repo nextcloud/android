@@ -51,6 +51,8 @@ class FilenameView @JvmOverloads constructor(context: Context, attrs: AttributeS
         }
 
         val (base, ext) = FileStorageUtils.getFilenameAndExtension(filename, isFolder, LocaleDirection.isRtl)
+
+        // also removes the extension from view
         title.text = base
 
         if (ext.isNullOrEmpty()) {
@@ -59,20 +61,28 @@ class FilenameView @JvmOverloads constructor(context: Context, attrs: AttributeS
         }
 
         extension.text = ext
+
+        // removed extension view added back here
         if (extension.parent == null) {
             addView(
                 extension,
-                LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).apply { gravity = Gravity.BOTTOM }
+                LayoutParams(
+                    LayoutParams.WRAP_CONTENT,
+                    LayoutParams.WRAP_CONTENT
+                ).apply { gravity = Gravity.BOTTOM }
             )
         }
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        // Bottom sheet (wrap_content): the view is already as wide as its text, nothing extra needed.
         if (MeasureSpec.getMode(widthMeasureSpec) != MeasureSpec.EXACTLY) {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec)
             return
         }
 
+        // List row (match_parent): keep the name as wide as its text so the extension stays next to it.
+        // Grid and recommended rows (0dp): same, so the name can be centered inside the cell.
         val width = MeasureSpec.getSize(widthMeasureSpec)
         super.onMeasure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.AT_MOST), heightMeasureSpec)
 
@@ -80,19 +90,27 @@ class FilenameView @JvmOverloads constructor(context: Context, attrs: AttributeS
     }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
+        // First place the name and extension side by side as usual, then fix the extension position
+        // when the name wraps onto more than one line
         super.onLayout(changed, l, t, r, b)
 
         placeExtensionAfterLastTitleLine()
     }
 
     private fun placeExtensionAfterLastTitleLine() {
+        // Single-line name (all rows) or no extension
         val titleLayout = title.layout ?: return
         if (extension.parent == null || titleLayout.lineCount <= 1) {
             return
         }
 
+        // Multi-line name (bottom sheet): the name fills the full width, which would leave a gap before
+        // the extension, so move the extension to right after the last word.
         val lastLine = titleLayout.lineCount - 1
         val lineStart = title.left + title.totalPaddingLeft
+
+        // Right-to-left languages: the last line ends on the left, so the extension goes to its left.
+        // Left-to-right languages: the last line ends on the right, so the extension goes to its right.
         val extensionLeft = if (layoutDirection == LAYOUT_DIRECTION_RTL) {
             lineStart + floor(titleLayout.getLineLeft(lastLine)).toInt() - extension.measuredWidth
         } else {
@@ -103,6 +121,8 @@ class FilenameView @JvmOverloads constructor(context: Context, attrs: AttributeS
     }
 
     private fun applyStyle(typedArray: TypedArray) {
+        // Bottom sheet sets nothing, so it gets the defaults: big headline text, up to 3 lines, cut at the end.
+        // Rows set their own size, color, 1 line and cut in the middle in their layout XML.
         val textAppearance = typedArray.getResourceId(
             R.styleable.FilenameView_filenameTextAppearance,
             MaterialR.style.TextAppearance_Material3_HeadlineSmall
@@ -112,6 +132,7 @@ class FilenameView @JvmOverloads constructor(context: Context, attrs: AttributeS
         val titleMaxLines = typedArray.getInt(R.styleable.FilenameView_filenameMaxLines, TITLE_MAX_LINES)
         val titleEllipsize = typedArray.getInt(R.styleable.FilenameView_filenameEllipsize, ELLIPSIZE_END)
 
+        // Name and extension must look the same, so both get the same style.
         listOf(title, extension).forEach { textView ->
             TextViewCompat.setTextAppearance(textView, textAppearance)
             textColor?.let(textView::setTextColor)
@@ -122,6 +143,8 @@ class FilenameView @JvmOverloads constructor(context: Context, attrs: AttributeS
         }
 
         title.applyLines(truncateAtOf(titleEllipsize), titleMaxLines)
+
+        // The extension is always one line and cut from the start, so its end stays visible.
         extension.applyLines(TextUtils.TruncateAt.START, EXTENSION_MAX_LINES)
     }
 
