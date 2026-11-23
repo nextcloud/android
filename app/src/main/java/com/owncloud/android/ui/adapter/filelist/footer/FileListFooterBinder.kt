@@ -12,21 +12,21 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
+import com.owncloud.android.ui.interfaces.FileListAdapterListener
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
-internal class OCFileListFooterBinder(
+internal class FileListFooterBinder(
     private val activity: Activity,
     private val viewThemeUtils: ViewThemeUtils,
     private val preferences: AppPreferences,
-    private val fragmentInterface: OCFileListFragmentInterface
+    private val listener: FileListAdapterListener
 ) {
 
     // region Public methods
-    fun bind(holder: OCFileListFooterViewHolder, files: List<OCFile>) {
+    fun bind(holder: FileListFooterViewHolder, files: List<OCFile>) {
         holder.footerText.text = fileCountSummary(files)
         viewThemeUtils.platform.colorCircularProgressBar(holder.loadingProgressBar, ColorRole.ON_SURFACE_VARIANT)
-        holder.loadingProgressBar.setVisibleIf(fragmentInterface.isLoading)
+        holder.loadingProgressBar.setVisibleIf(listener.isLoading)
     }
     // endregion
 

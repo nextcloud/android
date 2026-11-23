@@ -13,7 +13,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 @Suppress("MagicNumber")
-class OCFileListAdapterIT : AbstractIT() {
+class FileListAdapterIT : AbstractIT() {
     @Test
     fun testParseMedia() {
         // empty start

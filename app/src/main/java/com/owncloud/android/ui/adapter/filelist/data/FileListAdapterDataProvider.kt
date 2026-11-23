@@ -10,7 +10,7 @@ package com.owncloud.android.ui.adapter.filelist.data
 import com.nextcloud.client.database.entity.FileEntity
 import com.owncloud.android.datamodel.OCFile
 
-interface OCFileListAdapterDataProvider {
+interface FileListAdapterDataProvider {
     fun convertToOCFiles(id: Long): List<OCFile>
     suspend fun getFolderContent(id: Long): List<FileEntity>
     fun createFileInstance(entity: FileEntity): OCFile

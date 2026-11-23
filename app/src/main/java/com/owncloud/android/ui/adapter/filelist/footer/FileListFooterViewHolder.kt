@@ -11,7 +11,7 @@ package com.owncloud.android.ui.adapter.filelist.footer
 import androidx.recyclerview.widget.RecyclerView
 import com.owncloud.android.databinding.ListFooterBinding
 
-internal class OCFileListFooterViewHolder(var binding: ListFooterBinding) :
+internal class FileListFooterViewHolder(var binding: ListFooterBinding) :
     RecyclerView.ViewHolder(
         binding.root
     ) {

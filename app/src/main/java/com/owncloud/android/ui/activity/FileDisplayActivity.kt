@@ -1043,7 +1043,7 @@ class FileDisplayActivity :
         dismissLoadingDialog()
         withOCFileListFragment { fragment ->
             browseUp(fragment)
-            file?.let { fragment.onOverflowIconClicked(it, null) }
+            file?.let { fragment.onOverflowIconClicked(it) }
         }
     }
 

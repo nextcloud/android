@@ -16,7 +16,7 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.fragment.SearchType
 
-class OCFileListDiffer(
+class FileListDiffer(
     private val adapter: RecyclerView.Adapter<*>,
     private val preferences: AppPreferences,
     private val shouldShowHeader: () -> Boolean
@@ -65,7 +65,7 @@ class OCFileListDiffer(
 
     private val differ = AsyncListDiffer(
         listUpdateCallback,
-        AsyncDifferConfig.Builder(OCFileDiffCallback()).build()
+        AsyncDifferConfig.Builder(FileListDiffCallback()).build()
     )
 
     val files: List<OCFile>

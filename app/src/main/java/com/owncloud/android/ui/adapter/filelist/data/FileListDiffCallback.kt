@@ -9,7 +9,7 @@ package com.owncloud.android.ui.adapter.filelist.data
 import androidx.recyclerview.widget.DiffUtil
 import com.owncloud.android.datamodel.OCFile
 
-class OCFileDiffCallback : DiffUtil.ItemCallback<OCFile>() {
+class FileListDiffCallback : DiffUtil.ItemCallback<OCFile>() {
     override fun areItemsTheSame(oldItem: OCFile, newItem: OCFile): Boolean =
         oldItem.fileId == newItem.fileId && oldItem.remotePath == newItem.remotePath
 

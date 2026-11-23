@@ -12,7 +12,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.FileSortOrder
 
-interface CommonOCFileListAdapterInterface {
+interface CommonFileListAdapterInterface {
     fun isMultiSelect(): Boolean
     fun cancelAllPendingTasks()
     fun getItemPosition(file: OCFile): Int
