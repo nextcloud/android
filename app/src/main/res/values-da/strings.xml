@@ -784,6 +784,7 @@
     <string name="pin_shortcut_label">Åbn %1$s</string>
     <string name="player_audio_title_with_artist">%1$s • %2$s</string>
     <string name="player_control_view_next_button_content_description">Knappen Næste</string>
+    <string name="player_control_view_play_mode_button_content_description">Knap til afspilningstilstand</string>
     <string name="player_control_view_play_pause_button_content_description">Knappen Afspil/Pause</string>
     <string name="player_control_view_previous_button_content_description">Knappen Forrige</string>
     <string name="player_control_view_random_button_content_description">Knappen Bland</string>

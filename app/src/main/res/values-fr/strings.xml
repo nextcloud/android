@@ -398,6 +398,7 @@
     <string name="encryption_key_checking_keys">Vérification des clés…</string>
     <string name="encryption_key_handle_folder_read_only_description">Les clés de chiffrement de ce compte ont été supprimées ou remplacées ; le contenu de ce dossier ne peut donc plus être déchiffré.\n\nLe dossier est désormais en lecture seule. Pour utiliser à nouveau des dossiers chiffrés, sauvegardez ce dossier et configurez votre nouvelle clé de chiffrement dans les paramètres.</string>
     <string name="encryption_key_handle_key_removed_title">Clés de chiffrement modifiées</string>
+    <string name="encryption_key_handle_keys_changed_on_server_description">Les clés de chiffrement ayant été supprimées ou remplacées sur le serveur, les dossiers chiffrés ne sont maintenant accessibles qu\'en lecture seule sur cet appareil.\n\nPour continuer à utiliser le chiffrement de bout en bout, faites une sauvegarde de vos fichiers chiffrés, supprimez le chiffrement en local à partir des paramètres puis reconfigurez-le.</string>
     <string name="encryption_key_handle_no_keys_description">Ce dossier ne peut pas être ouvert car ses clés de chiffrement n\'existent plus sur cet appareil ni sur le serveur.</string>
     <string name="encryption_new_folder_check_failed">Impossible de vérifier vos clés de chiffrement. Essayez de créer le dossier à nouveau.</string>
     <string name="encryption_new_folder_no_network">Impossible de joindre le serveur. Essayez de créer à nouveau le dossier plus tard.</string>
@@ -408,6 +409,7 @@
     <string name="encryption_open_unavailable">Impossible d\'ouvrir ce dossier. Le chiffrement de bout en bout n’est pas configuré sur ce serveur.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Impossible de récupérer le certificat du serveur</string>
     <string name="end_to_end_encryption_confirm_button">Configurer le chiffrement</string>
+    <string name="end_to_end_encryption_could_not_verify_certificate">Impossible de vérifier le certificat de chiffrement</string>
     <string name="end_to_end_encryption_decrypting">Déchiffrement…</string>
     <string name="end_to_end_encryption_dialog_close">Fermer</string>
     <string name="end_to_end_encryption_enter_passphrase_to_access_files">Entrez votre phrase de passe pour accéder à vos fichiers</string>
@@ -782,6 +784,7 @@
     <string name="pin_shortcut_label">Ouvrir %1$s</string>
     <string name="player_audio_title_with_artist">%1$s • %2$s</string>
     <string name="player_control_view_next_button_content_description">Bouton suivant</string>
+    <string name="player_control_view_play_mode_button_content_description">Bouton du mode de lecture</string>
     <string name="player_control_view_play_pause_button_content_description">Bouton de lecture/pause</string>
     <string name="player_control_view_previous_button_content_description">Bouton précédent</string>
     <string name="player_control_view_random_button_content_description">Bouton de lecture aléatoire</string>
