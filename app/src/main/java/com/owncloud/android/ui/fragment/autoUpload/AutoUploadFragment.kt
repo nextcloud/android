@@ -22,7 +22,7 @@ import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.network.ConnectivityService
-import com.nextcloud.ui.component.UploadWarningCard
+import com.nextcloud.ui.component.powerSettings.PowerSettingsBanners
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
@@ -76,7 +76,7 @@ class AutoUploadFragment :
     lateinit var adapter: AutoUploadFolderAdapter
 
     private var binding: FragmentAutoUploadBinding? = null
-    private var uploadWarningCard: UploadWarningCard? = null
+    private var powerSettingsBanners: PowerSettingsBanners? = null
     private var emptyContent: AutoUploadEmptyContent? = null
     private lateinit var itemsLoader: AutoUploadItemsLoader
     private lateinit var dialogs: AutoUploadDialogs
@@ -132,12 +132,12 @@ class AutoUploadFragment :
         if (PermissionUtil.checkStoragePermission(activity)) {
             load(activity)
         }
-        uploadWarningCard?.bind(binding.autoUploadBatterySaverWarningCard)
+        powerSettingsBanners?.bind(binding.powerSettingsBanners)
     }
 
     override fun onDestroyView() {
-        uploadWarningCard?.unregister(requireContext())
-        uploadWarningCard = null
+        powerSettingsBanners?.unregister(requireContext())
+        powerSettingsBanners = null
         emptyContent = null
         super.onDestroyView()
         binding = null
@@ -190,7 +190,7 @@ class AutoUploadFragment :
             getAdapter = { adapter },
             onItemVisibilityChanged = { emptyContent?.checkAndShowEmptyListContent() }
         )
-        uploadWarningCard = UploadWarningCard(
+        powerSettingsBanners = PowerSettingsBanners(
             activity,
             powerManagementService,
             syncedFolderProvider,
@@ -213,7 +213,7 @@ class AutoUploadFragment :
             powerManagementService,
             connectivityService
         )
-        uploadWarningCard?.register(activity, binding.autoUploadBatterySaverWarningCard)
+        powerSettingsBanners?.register(activity, binding.powerSettingsBanners)
         emptyContent = AutoUploadEmptyContent(binding, adapter, viewThemeUtils)
 
         val layoutManager = GridLayoutManager(activity, gridWidth)

@@ -17,7 +17,7 @@
     android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/battery_saver_layout"
+        android:id="@+id/power_saving_banner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/standard_half_margin"
@@ -48,17 +48,18 @@
                     app:tint="@color/log_level_warning" />
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/power_saving_banner_message"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:text="@string/auto_upload_battery_saver_reason"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                     android:textColor="@color/text_color"
-                    tools:visibility="visible" />
+                    tools:text="@string/power_saving_banner_restricting_app_message" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/power_saving_banner_actions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center|end"
@@ -66,15 +67,15 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/battery_saver_button"
+                    android:id="@+id/power_saving_settings_button"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textAllCaps="false"
-                    android:text="@string/auto_upload_battery_saver_action" />
+                    android:text="@string/power_saving_settings_action" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/sync_now_button"
+                    android:id="@+id/power_saving_sync_now_button"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -85,7 +86,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/background_activity_limited_layout"
+        android:id="@+id/battery_optimization_banner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/standard_half_margin"
@@ -120,21 +121,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:text="@string/auto_upload_battery_optimization_reason"
+                    android:text="@string/battery_optimization_banner_message"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                    android:textColor="@color/text_color"
-                    tools:visibility="visible" />
+                    android:textColor="@color/text_color" />
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/background_activity_limited_button"
+                android:id="@+id/battery_optimization_exempt_button"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:textAllCaps="false"
                 android:layout_marginTop="12dp"
-                android:text="@string/auto_upload_background_activity_action" />
+                android:text="@string/battery_optimization_exempt_action" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

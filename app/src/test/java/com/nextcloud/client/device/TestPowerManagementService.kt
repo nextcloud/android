@@ -103,7 +103,7 @@ class TestPowerManagementService {
             whenever(platformPowerManager.isPowerSaveMode).thenReturn(true)
             givenBatteryOptimizationIsIgnored(false)
 
-            assertTrue(powerManagementService.blocksAutoUpload)
+            assertTrue(powerManagementService.isAppRestrictedByPowerSaving)
         }
 
         @Test
@@ -111,14 +111,14 @@ class TestPowerManagementService {
             whenever(platformPowerManager.isPowerSaveMode).thenReturn(true)
             givenBatteryOptimizationIsIgnored(true)
 
-            assertFalse(powerManagementService.blocksAutoUpload)
+            assertFalse(powerManagementService.isAppRestrictedByPowerSaving)
         }
 
         @Test
         fun `auto upload is not blocked while battery saver is off`() {
             whenever(platformPowerManager.isPowerSaveMode).thenReturn(false)
 
-            assertFalse(powerManagementService.blocksAutoUpload)
+            assertFalse(powerManagementService.isAppRestrictedByPowerSaving)
         }
     }
 
