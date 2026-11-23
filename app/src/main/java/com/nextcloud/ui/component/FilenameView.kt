@@ -8,7 +8,6 @@
 package com.nextcloud.ui.component
 
 import android.content.Context
-import android.content.res.TypedArray
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.TypedValue
@@ -17,12 +16,9 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.withStyledAttributes
 import androidx.core.widget.TextViewCompat
-import com.nextcloud.utils.view.LocaleDirection
 import com.owncloud.android.R
-import com.owncloud.android.utils.FileStorageUtils
 import kotlin.math.ceil
 import kotlin.math.floor
-import com.google.android.material.R as MaterialR
 
 class FilenameView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     LinearLayout(context, attrs, defStyleAttr) {
@@ -33,36 +29,38 @@ class FilenameView @JvmOverloads constructor(context: Context, attrs: AttributeS
 
     var text: CharSequence
         get() = title.text
-        set(value) {
-            title.text = value
-            removeView(extension)
-        }
+        set(value) = render(FilenameState.Single(value.toString()))
 
     init {
         orientation = HORIZONTAL
-        context.withStyledAttributes(attrs, R.styleable.FilenameView, defStyleAttr) { applyStyle(this) }
+        context.withStyledAttributes(attrs, R.styleable.FilenameView, defStyleAttr) {
+            applyStyle(FilenameStyle.from(this))
+        }
         addView(title, LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, TITLE_WEIGHT))
     }
 
     fun setFilename(filename: String, isFolder: Boolean) {
-        if (!FileStorageUtils.containsBidiControlCharacters(filename)) {
-            text = filename
-            return
+        render(FilenameState.of(filename, isFolder))
+    }
+
+    private fun render(state: FilenameState) {
+        when (state) {
+            is FilenameState.Single -> showSingle(state)
+            is FilenameState.Split -> showSplit(state)
         }
+    }
 
-        val (base, ext) = FileStorageUtils.getFilenameAndExtension(filename, isFolder, LocaleDirection.isRtl)
+    private fun showSingle(state: FilenameState.Single) {
+        title.text = state.name
 
-        // also removes the extension from view
-        title.text = base
+        removeView(extension)
+    }
 
-        if (ext.isNullOrEmpty()) {
-            removeView(extension)
-            return
-        }
+    private fun showSplit(state: FilenameState.Split) {
+        title.text = state.name
+        extension.text = state.extension
 
-        extension.text = ext
-
-        // removed extension view added back here
+        // removed extension added back here.
         if (extension.parent == null) {
             addView(
                 extension,
@@ -120,58 +118,30 @@ class FilenameView @JvmOverloads constructor(context: Context, attrs: AttributeS
         extension.layout(extensionLeft, extension.top, extensionLeft + extension.measuredWidth, extension.bottom)
     }
 
-    private fun applyStyle(typedArray: TypedArray) {
-        // Bottom sheet sets nothing, so it gets the defaults: big headline text, up to 3 lines, cut at the end.
-        // Rows set their own size, color, 1 line and cut in the middle in their layout XML.
-        val textAppearance = typedArray.getResourceId(
-            R.styleable.FilenameView_filenameTextAppearance,
-            MaterialR.style.TextAppearance_Material3_HeadlineSmall
-        )
-        val textColor = typedArray.getColorStateList(R.styleable.FilenameView_filenameTextColor)
-        val textSize = typedArray.getDimension(R.styleable.FilenameView_filenameTextSize, UNSET_TEXT_SIZE)
-        val titleMaxLines = typedArray.getInt(R.styleable.FilenameView_filenameMaxLines, TITLE_MAX_LINES)
-        val titleEllipsize = typedArray.getInt(R.styleable.FilenameView_filenameEllipsize, ELLIPSIZE_END)
-
+    private fun applyStyle(style: FilenameStyle) {
         // Name and extension must look the same, so both get the same style.
         listOf(title, extension).forEach { textView ->
-            TextViewCompat.setTextAppearance(textView, textAppearance)
-            textColor?.let(textView::setTextColor)
-            if (textSize != UNSET_TEXT_SIZE) {
-                textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
-            }
+            TextViewCompat.setTextAppearance(textView, style.textAppearance)
+            style.textColor?.let(textView::setTextColor)
+            style.textSize?.let { textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, it) }
             textView.gravity = Gravity.START
         }
 
-        title.applyLines(truncateAtOf(titleEllipsize), titleMaxLines)
+        title.applyLines(style.titleEllipsize, style.titleMaxLines)
 
-        // The extension is always one line and cut from the start, so its end stays visible.
-        extension.applyLines(TextUtils.TruncateAt.START, EXTENSION_MAX_LINES)
+        extension.applyLines(style.extensionEllipsize, style.extensionMaxLines)
     }
 
     private fun TextView.applyLines(truncateAt: TextUtils.TruncateAt, lines: Int) {
         ellipsize = truncateAt
-        if (lines == SINGLE_LINE) {
+        if (lines == FilenameStyle.SINGLE_LINE) {
             isSingleLine = true
         } else {
             maxLines = lines
         }
     }
 
-    private fun truncateAtOf(ellipsize: Int): TextUtils.TruncateAt = when (ellipsize) {
-        ELLIPSIZE_START -> TextUtils.TruncateAt.START
-        ELLIPSIZE_MIDDLE -> TextUtils.TruncateAt.MIDDLE
-        else -> TextUtils.TruncateAt.END
-    }
-
     companion object {
         private const val TITLE_WEIGHT = 1f
-        private const val TITLE_MAX_LINES = 3
-        private const val EXTENSION_MAX_LINES = 1
-        private const val SINGLE_LINE = 1
-        private const val UNSET_TEXT_SIZE = -1f
-
-        private const val ELLIPSIZE_START = 1
-        private const val ELLIPSIZE_MIDDLE = 2
-        private const val ELLIPSIZE_END = 3
     }
 }
