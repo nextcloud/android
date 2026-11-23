@@ -32,63 +32,96 @@ class UriUploaderIT : AbstractIT() {
 
     @Test
     fun testSharedPreferencesFileIsRejected() = withActivity { activity ->
-        assertRejected(activity, fileUri("/data/data/${activity.packageName}/shared_prefs/preferences.xml"))
+        // Represents "file:///data/data/com.nextcloud.client/shared_prefs/preferences.xml"
+        val sharedPreferencesUri = fileUri("/data/data/${activity.packageName}/shared_prefs/preferences.xml")
+
+        assertRejected(activity, sharedPreferencesUri)
     }
 
     @Test
     fun testDatabaseInDataDirIsRejected() = withActivity { activity ->
-        assertRejected(activity, Uri.fromFile(File(activity.dataDir, "databases/nextcloud")))
+        // Represents "file:///data/user/0/com.nextcloud.client/databases/nextcloud"
+        val databaseUri = Uri.fromFile(File(activity.dataDir, "databases/nextcloud"))
+
+        assertRejected(activity, databaseUri)
     }
 
     @Test
     fun testDefaultSyncFolderInInternalFilesDirIsRejected() = withActivity { activity ->
-        assertRejected(activity, Uri.fromFile(File(activity.filesDir, "nextcloud/admin/welcome.txt")))
+        // Represents "file:///data/user/0/com.nextcloud.client/files/nextcloud/admin/welcome.txt"
+        val syncedFileUri = Uri.fromFile(File(activity.filesDir, "nextcloud/admin/welcome.txt"))
+
+        assertRejected(activity, syncedFileUri)
     }
 
     @Test
     fun testDeviceProtectedStorageIsRejected() = withActivity { activity ->
         val deviceProtectedDataDir = activity.createDeviceProtectedStorageContext().dataDir
 
-        assertRejected(activity, Uri.fromFile(File(deviceProtectedDataDir, "shared_prefs/preferences.xml")))
+        // Represents "file:///data/user_de/0/com.nextcloud.client/shared_prefs/preferences.xml"
+        val deviceProtectedUri = Uri.fromFile(File(deviceProtectedDataDir, "shared_prefs/preferences.xml"))
+
+        assertRejected(activity, deviceProtectedUri)
     }
 
     @Test
     fun testSyncFolderInExternalMediaDirIsRejected() = withActivity { activity ->
         val mediaDir = activity.externalMediaDirs.first()
 
-        assertRejected(activity, Uri.fromFile(File(mediaDir, "nextcloud/test/welcome.txt")))
+        // Represents "file:///storage/emulated/0/Android/media/com.nextcloud.client/nextcloud/test/welcome.txt"
+        val syncedMediaFileUri = Uri.fromFile(File(mediaDir, "nextcloud/test/welcome.txt"))
+
+        assertRejected(activity, syncedMediaFileUri)
     }
 
     @Test
     fun testExternalFilesDirIsRejected() = withActivity { activity ->
-        assertRejected(activity, Uri.fromFile(File(activity.getExternalFilesDir(null), "nextcloud/welcome.txt")))
+        // Represents "file:///storage/emulated/0/Android/data/com.nextcloud.client/files/nextcloud/welcome.txt"
+        val externalFileUri = Uri.fromFile(File(activity.getExternalFilesDir(null), "nextcloud/welcome.txt"))
+
+        assertRejected(activity, externalFileUri)
     }
 
     @Test
     fun testExternalCacheDirIsRejected() = withActivity { activity ->
-        assertRejected(activity, Uri.fromFile(File(activity.externalCacheDir, "thumbnail.png")))
+        // Represents "file:///storage/emulated/0/Android/data/com.nextcloud.client/cache/thumbnail.png"
+        val externalCacheUri = Uri.fromFile(File(activity.externalCacheDir, "thumbnail.png"))
+
+        assertRejected(activity, externalCacheUri)
     }
 
     @Test
     fun testSdcardAliasOfExternalFilesDirIsRejected() = withActivity { activity ->
-        assertRejected(activity, fileUri("/sdcard/Android/data/${activity.packageName}/files/welcome.txt"))
+        // Represents "file:///sdcard/Android/data/com.nextcloud.client/files/welcome.txt"
+        val sdcardAliasUri = fileUri("/sdcard/Android/data/${activity.packageName}/files/welcome.txt")
+
+        assertRejected(activity, sdcardAliasUri)
     }
 
     @Test
     fun testPercentEncodedPackageNameIsRejected() = withActivity { activity ->
         val encodedPackageName = activity.packageName.replace(".", ENCODED_DOT)
 
-        assertRejected(activity, fileUri("/data/data/$encodedPackageName/shared_prefs/preferences.xml"))
+        // Represents "file:///data/data/com%2Enextcloud%2Eclient/shared_prefs/preferences.xml"
+        val encodedPackageUri = fileUri("/data/data/$encodedPackageName/shared_prefs/preferences.xml")
+
+        assertRejected(activity, encodedPackageUri)
     }
 
     @Test
     fun testParentDirectoryTraversalIntoDataDirIsRejected() = withActivity { activity ->
-        assertRejected(activity, fileUri("${activity.cacheDir.absolutePath}/../shared_prefs/preferences.xml"))
+        // Represents "file:///data/user/0/com.nextcloud.client/cache/../shared_prefs/preferences.xml"
+        val traversalUri = fileUri("${activity.cacheDir.absolutePath}/../shared_prefs/preferences.xml")
+
+        assertRejected(activity, traversalUri)
     }
 
     @Test
     fun testProcSelfRootAliasOfDataDirIsRejected() = withActivity { activity ->
-        assertRejected(activity, fileUri("/proc/self/root/data/data/${activity.packageName}/shared_prefs/x.xml"))
+        // Represents "file:///proc/self/root/data/data/com.nextcloud.client/shared_prefs/x.xml"
+        val procRootUri = fileUri("/proc/self/root/data/data/${activity.packageName}/shared_prefs/x.xml")
+
+        assertRejected(activity, procRootUri)
     }
 
     @Test
@@ -96,7 +129,10 @@ class UriUploaderIT : AbstractIT() {
         val privateFile = File(activity.filesDir, PRIVATE_FILE_NAME).apply { writeText(PRIVATE_FILE_CONTENT) }
         try {
             ParcelFileDescriptor.open(privateFile, ParcelFileDescriptor.MODE_READ_ONLY).use { descriptor ->
-                assertRejected(activity, fileUri("/proc/self/fd/${descriptor.fd}"))
+                // Represents "file:///proc/self/fd/<N>"
+                val openFileUri = fileUri("/proc/self/fd/${descriptor.fd}")
+
+                assertRejected(activity, openFileUri)
             }
         } finally {
             privateFile.delete()
@@ -105,29 +141,42 @@ class UriUploaderIT : AbstractIT() {
 
     @Test
     fun testOwnFileProviderUriIsRejected() = withActivity { activity ->
-        assertRejected(activity, contentUri(activity.getString(R.string.file_provider_authority), "/log/log.txt"))
+        // Represents "content://org.nextcloud.files/log/log.txt"
+        val fileProviderUri = contentUri(activity.getString(R.string.file_provider_authority), "/log/log.txt")
+
+        assertRejected(activity, fileProviderUri)
     }
 
     @Test
     fun testOwnContentProviderUriIsRejected() = withActivity { activity ->
-        assertRejected(activity, contentUri(activity.getString(R.string.authority), "/file/1"))
+        // Represents "content://org.nextcloud/file/1"
+        val contentProviderUri = contentUri(activity.getString(R.string.authority), "/file/1")
+
+        assertRejected(activity, contentProviderUri)
     }
 
     @Test
     fun testOwnImageCacheProviderUriIsRejected() = withActivity { activity ->
-        assertRejected(activity, contentUri(activity.getString(R.string.image_cache_provider_authority), "/1"))
+        // Represents "content://org.nextcloud.imageCache.provider/1"
+        val imageCacheUri = contentUri(activity.getString(R.string.image_cache_provider_authority), "/1")
+
+        assertRejected(activity, imageCacheUri)
     }
 
     @Test
     fun testContentUriWithoutAuthorityIsRejected() = withActivity { activity ->
-        val uri = Uri.Builder().scheme(ContentResolver.SCHEME_CONTENT).path("/log/log.txt").build()
+        // Represents "content:/log/log.txt"
+        val noAuthorityUri = Uri.Builder().scheme(ContentResolver.SCHEME_CONTENT).path("/log/log.txt").build()
 
-        assertRejected(activity, uri)
+        assertRejected(activity, noAuthorityUri)
     }
 
     @Test
     fun testBatchWithASinglePrivateUriIsRejectedEntirely() = withActivity { activity ->
+        // Represents "file:///storage/emulated/0/Download/photo.jpg"
         val publicUri = fileUri("/storage/emulated/0/Download/photo.jpg")
+
+        // Represents "file:///data/user/0/com.nextcloud.client/shared_prefs/preferences.xml"
         val privateUri = Uri.fromFile(File(activity.dataDir, "shared_prefs/preferences.xml"))
 
         assertRejected(activity, publicUri, privateUri)
@@ -135,6 +184,7 @@ class UriUploaderIT : AbstractIT() {
 
     @Test
     fun testNullAndNonUriEntriesDoNotHideAPrivateUri() = withActivity { activity ->
+        // Represents "file:///data/user/0/com.nextcloud.client/shared_prefs/preferences.xml"
         val privateUri = Uri.fromFile(File(activity.dataDir, "shared_prefs/preferences.xml"))
 
         assertRejected(activity, null, Bundle(), privateUri)
@@ -142,75 +192,110 @@ class UriUploaderIT : AbstractIT() {
 
     @Test
     fun testSchemeLessPrivatePathIsNeverUploaded() = withActivity { activity ->
-        val uri = Uri.parse("/data/data/${activity.packageName}/shared_prefs/preferences.xml")
-        val result = createUploader(activity, uri).uploadUris()
+        // Represents "/data/data/com.nextcloud.client/shared_prefs/preferences.xml"
+        val schemeLessUri = Uri.parse("/data/data/${activity.packageName}/shared_prefs/preferences.xml")
+        val result = createUploader(activity, schemeLessUri).uploadUris()
 
         assertEquals(UriUploaderResultCode.ERROR_NO_FILE_TO_UPLOAD, result)
     }
 
     @Test
     fun testPublicDownloadFileIsAllowed() = withActivity { activity ->
-        assertAllowed(activity, fileUri("/storage/emulated/0/Download/photo.jpg"))
+        // Represents "file:///storage/emulated/0/Download/photo.jpg"
+        val publicFileUri = fileUri("/storage/emulated/0/Download/photo.jpg")
+
+        assertAllowed(activity, publicFileUri)
     }
 
     @Test
     fun testFileNameContainingPackageNameIsAllowed() = withActivity { activity ->
-        assertAllowed(activity, fileUri("/storage/emulated/0/Download/${activity.packageName}-backup.zip"))
+        // Represents "file:///storage/emulated/0/Download/com.nextcloud.client-backup.zip"
+        val publicFileUri = fileUri("/storage/emulated/0/Download/${activity.packageName}-backup.zip")
+
+        assertAllowed(activity, publicFileUri)
+    }
+
+    @Test
+    fun testFileNamedAsPackageNameIsAllowed() = withActivity { activity ->
+        // Represents "file:///storage/emulated/0/Download/com.nextcloud.client.txt"
+        val publicFileUri = fileUri("/storage/emulated/0/Download/${activity.packageName}.txt")
+
+        assertAllowed(activity, publicFileUri)
+    }
+
+    @Test
+    fun testPublicFolderNamedAsPackageNameIsAllowed() = withActivity { activity ->
+        // Represents "file:///storage/emulated/0/Download/com.nextcloud.client/logs.txt"
+        val publicFolderFileUri = fileUri("/storage/emulated/0/Download/${activity.packageName}/logs.txt")
+
+        assertAllowed(activity, publicFolderFileUri)
     }
 
     @Test
     fun testFolderSharingPackageNamePrefixIsAllowed() = withActivity { activity ->
         val mediaRoot = activity.externalMediaDirs.first().parentFile
 
-        assertAllowed(activity, Uri.fromFile(File(mediaRoot, "${activity.packageName}2/photo.jpg")))
-    }
+        // Represents "file:///storage/emulated/0/Android/media/com.nextcloud.client2/photo.jpg"
+        val otherAppMediaUri = Uri.fromFile(File(mediaRoot, "${activity.packageName}2/photo.jpg"))
 
-    @Test
-    fun testFileNamedAsPackageNameIsAllowed() = withActivity { activity ->
-        assertAllowed(activity, fileUri("/storage/emulated/0/Download/${activity.packageName}.txt"))
-    }
-
-    @Test
-    fun testPublicFolderNamedAsPackageNameIsAllowed() = withActivity { activity ->
-        assertAllowed(activity, fileUri("/storage/emulated/0/Download/${activity.packageName}/logs.txt"))
+        assertAllowed(activity, otherAppMediaUri)
     }
 
     @Test
     fun testDataFolderStartingWithPackageNameIsAllowed() = withActivity { activity ->
-        assertAllowed(activity, fileUri("/data/data/${activity.packageName}.somethingsomething/logs.txt"))
+        // Represents "file:///data/data/com.nextcloud.client.somethingsomething/logs.txt"
+        val otherAppDataUri = fileUri("/data/data/${activity.packageName}.somethingsomething/logs.txt")
+
+        assertAllowed(activity, otherAppDataUri)
     }
 
     @Test
     fun testContentUriWithPackageNameAsAuthorityIsAllowed() = withActivity { activity ->
-        assertAllowed(activity, contentUri(activity.packageName, "/attachments/logs.txt"))
+        // Represents "content://com.nextcloud.client/attachments/logs.txt"
+        val packageNameAuthorityUri = contentUri(activity.packageName, "/attachments/logs.txt")
+
+        assertAllowed(activity, packageNameAuthorityUri)
     }
 
     @Test
     fun testMediaStoreUriIsAllowed() = withActivity { activity ->
-        assertAllowed(activity, Uri.parse("content://media/external/images/media/1"))
+        // Represents "content://media/external/images/media/1"
+        val mediaStoreUri = Uri.parse("content://media/external/images/media/1")
+
+        assertAllowed(activity, mediaStoreUri)
     }
 
     @Test
     fun testExternalStorageDocumentsUriIsAllowed() = withActivity { activity ->
-        assertAllowed(
-            activity,
+        // Represents "content://com.android.externalstorage.documents/document/primary%3ADownload%2Fphoto.jpg"
+        val systemPickerUri =
             Uri.parse("content://com.android.externalstorage.documents/document/primary%3ADownload%2Fphoto.jpg")
-        )
+
+        assertAllowed(activity, systemPickerUri)
     }
 
     @Test
     fun testOwnDocumentsProviderUriIsAllowed() = withActivity { activity ->
-        assertAllowed(activity, contentUri(activity.getString(R.string.document_provider_authority), "/document/1"))
+        // Represents "content://org.nextcloud.documents/document/1"
+        val documentsProviderUri = contentUri(activity.getString(R.string.document_provider_authority), "/document/1")
+
+        assertAllowed(activity, documentsProviderUri)
     }
 
     @Test
     fun testUriOfUnknownProviderIsAllowed() = withActivity { activity ->
-        assertAllowed(activity, contentUri("com.example.unknown.provider", "/photo.jpg"))
+        // Represents "content://com.example.unknown.provider/photo.jpg"
+        val unknownProviderUri = contentUri("com.example.unknown.provider", "/photo.jpg")
+
+        assertAllowed(activity, unknownProviderUri)
     }
 
     @Test
     fun testUriWithOtherSchemeIsNotTreatedAsSensitive() = withActivity { activity ->
-        assertAllowed(activity, Uri.parse("https://example.com/photo.jpg"))
+        // Represents "https://example.com/photo.jpg"
+        val httpsUri = Uri.parse("https://example.com/photo.jpg")
+
+        assertAllowed(activity, httpsUri)
     }
 
     private fun withActivity(block: (TestActivity) -> Unit) {
