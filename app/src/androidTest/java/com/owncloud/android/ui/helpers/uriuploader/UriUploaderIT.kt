@@ -16,6 +16,7 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
+import com.owncloud.android.ui.helpers.uriuploader.model.UriUploaderResultCode
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Test
@@ -144,7 +145,7 @@ class UriUploaderIT : AbstractIT() {
         val uri = Uri.parse("/data/data/${activity.packageName}/shared_prefs/preferences.xml")
         val result = createUploader(activity, uri).uploadUris()
 
-        assertEquals(UriUploader.UriUploaderResultCode.ERROR_NO_FILE_TO_UPLOAD, result)
+        assertEquals(UriUploaderResultCode.ERROR_NO_FILE_TO_UPLOAD, result)
     }
 
     @Test
@@ -219,7 +220,7 @@ class UriUploaderIT : AbstractIT() {
     private fun assertRejected(activity: TestActivity, vararg uris: Parcelable?) {
         val result = createUploader(activity, *uris).uploadUris()
 
-        assertEquals(UriUploader.UriUploaderResultCode.ERROR_SENSITIVE_PATH, result)
+        assertEquals(UriUploaderResultCode.ERROR_SENSITIVE_PATH, result)
     }
 
     private fun assertAllowed(activity: TestActivity, uri: Uri) {

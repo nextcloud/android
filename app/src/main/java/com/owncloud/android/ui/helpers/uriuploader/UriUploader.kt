@@ -24,6 +24,7 @@ import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener
 import com.owncloud.android.ui.fragment.TaskRetainerFragment
+import com.owncloud.android.ui.helpers.uriuploader.model.UriUploaderResultCode
 import com.owncloud.android.utils.UriUtils.getDisplayNameForUri
 
 /**
@@ -51,14 +52,6 @@ class UriUploader @JvmOverloads constructor(
     private val fileDisplayNameTransformer: Function<Uri, String?>? = null,
     private var albumName: String? = null
 ) {
-
-    enum class UriUploaderResultCode {
-        OK,
-        ERROR_UNKNOWN,
-        ERROR_NO_FILE_TO_UPLOAD,
-        ERROR_READ_PERMISSION_NOT_GRANTED,
-        ERROR_SENSITIVE_PATH
-    }
 
     /**
      * True when content:// URIs are being copied to temporary files in the background.
