@@ -58,19 +58,29 @@
                     tools:text="@string/power_saving_banner_restricting_app_message" />
             </LinearLayout>
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/power_saving_banner_actions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center|end"
-                android:layout_marginTop="12dp"
-                android:orientation="horizontal">
+                android:layout_marginTop="12dp">
+
+                <androidx.constraintlayout.helper.widget.Flow
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:constraint_referenced_ids="power_saving_settings_button,power_saving_sync_now_button"
+                    app:flow_horizontalBias="1"
+                    app:flow_horizontalGap="@dimen/standard_half_margin"
+                    app:flow_horizontalStyle="packed"
+                    app:flow_wrapMode="chain"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/power_saving_settings_button"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:textAllCaps="false"
                     android:text="@string/power_saving_settings_action" />
 
@@ -78,10 +88,10 @@
                     android:id="@+id/power_saving_sync_now_button"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:textAllCaps="false"
                     android:text="@string/auto_upload_sync_now_action" />
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
