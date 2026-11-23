@@ -20,6 +20,8 @@ import androidx.core.widget.TextViewCompat
 import com.nextcloud.utils.view.LocaleDirection
 import com.owncloud.android.R
 import com.owncloud.android.utils.FileStorageUtils
+import kotlin.math.ceil
+import kotlin.math.floor
 import com.google.android.material.R as MaterialR
 
 class FilenameView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
@@ -75,6 +77,29 @@ class FilenameView @JvmOverloads constructor(context: Context, attrs: AttributeS
         super.onMeasure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.AT_MOST), heightMeasureSpec)
 
         setMeasuredDimension(width, measuredHeight)
+    }
+
+    override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
+        super.onLayout(changed, l, t, r, b)
+
+        placeExtensionAfterLastTitleLine()
+    }
+
+    private fun placeExtensionAfterLastTitleLine() {
+        val titleLayout = title.layout ?: return
+        if (extension.parent == null || titleLayout.lineCount <= 1) {
+            return
+        }
+
+        val lastLine = titleLayout.lineCount - 1
+        val lineStart = title.left + title.totalPaddingLeft
+        val extensionLeft = if (layoutDirection == LAYOUT_DIRECTION_RTL) {
+            lineStart + floor(titleLayout.getLineLeft(lastLine)).toInt() - extension.measuredWidth
+        } else {
+            lineStart + ceil(titleLayout.getLineRight(lastLine)).toInt()
+        }
+
+        extension.layout(extensionLeft, extension.top, extensionLeft + extension.measuredWidth, extension.bottom)
     }
 
     private fun applyStyle(typedArray: TypedArray) {
