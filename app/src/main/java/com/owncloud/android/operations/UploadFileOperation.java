@@ -21,6 +21,7 @@ import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
+import com.nextcloud.client.jobs.upload.UploadDiagnostics;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.AppConstants;
@@ -1023,7 +1024,11 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         // check that internet is not behind walled garden
-        if (!connectivityService.getConnectivity().isConnected() || connectivityService.isInternetWalled()) {
+        final Connectivity currentConnectivity = connectivityService.getConnectivity();
+        final boolean isOffline = !currentConnectivity.isConnected() || connectivityService.isInternetWalled();
+        UploadDiagnostics.log("upload conditions: " + mOriginalStoragePath + ", offline: " + isOffline +
+                                  ", connectivity: " + currentConnectivity);
+        if (isOffline) {
             remoteOperationResult = new RemoteOperationResult(ResultCode.NO_NETWORK_CONNECTION);
         }
 

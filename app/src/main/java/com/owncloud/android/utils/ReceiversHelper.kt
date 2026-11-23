@@ -16,6 +16,7 @@ import android.os.PowerManager
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.di.ApplicationScope
+import com.nextcloud.client.jobs.upload.UploadDiagnostics
 import com.nextcloud.client.network.ConnectivityKey
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.network.WalledCheckCache
@@ -45,7 +46,8 @@ class ReceiversHelper @Inject constructor(
     }
 
     private fun registerNetworkChangeReceiver() {
-        registerReceiver(CONNECTIVITY_CHANGE_ACTION, WifiManager.NETWORK_STATE_CHANGED_ACTION) {
+        registerReceiver(CONNECTIVITY_CHANGE_ACTION, WifiManager.NETWORK_STATE_CHANGED_ACTION) { intent ->
+            UploadDiagnostics.log("${intent.action}, connectivity: ${connectivityService.connectivity}")
             appScope.launch { clearNetworkCaches() }
 
             if (!connectivityService.connectivity.isConnected) return@registerReceiver
@@ -58,6 +60,7 @@ class ReceiversHelper @Inject constructor(
         registerReceiver(Intent.ACTION_POWER_CONNECTED, Intent.ACTION_POWER_DISCONNECTED) { intent ->
             if (intent.action != Intent.ACTION_POWER_CONNECTED) return@registerReceiver
 
+            UploadDiagnostics.log("power connected, connectivity: ${connectivityService.connectivity}")
             restartUploadsIfNeeded()
         }
     }

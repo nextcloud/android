@@ -431,7 +431,10 @@ class FileUploadHelper {
 
     private fun checkConnectivity(connectivityService: ConnectivityService): Boolean {
         // check that connection isn't walled off and that the server is reachable
-        return connectivityService.connectivity.isConnected && !connectivityService.isInternetWalled()
+        val isOnline = connectivityService.connectivity.isConnected && !connectivityService.isInternetWalled()
+        UploadDiagnostics.log("retry uploads, online: $isOnline, connectivity: ${connectivityService.connectivity}")
+
+        return isOnline
     }
 
     /**

@@ -14,6 +14,7 @@ import android.provider.MediaStore
 import com.nextcloud.client.database.dao.FileSystemDao
 import com.nextcloud.client.database.entity.FilesystemEntity
 import com.nextcloud.client.database.entity.UploadEntity
+import com.nextcloud.client.jobs.upload.UploadDiagnostics
 import com.nextcloud.utils.extensions.shouldSkipFile
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -116,7 +117,8 @@ class FileSystemRepository(
         val projection = arrayOf(
             MediaStore.MediaColumns.DATA,
             MediaStore.MediaColumns.DATE_MODIFIED,
-            MediaStore.MediaColumns.DATE_ADDED
+            MediaStore.MediaColumns.DATE_ADDED,
+            MediaStore.MediaColumns.SIZE
         )
 
         var syncedPath = syncedFolder.localPath
@@ -150,6 +152,7 @@ class FileSystemRepository(
             val idxData = cursor.getColumnIndex(MediaStore.MediaColumns.DATA)
             val idxModified = cursor.getColumnIndex(MediaStore.MediaColumns.DATE_MODIFIED)
             val idxAdded = cursor.getColumnIndex(MediaStore.MediaColumns.DATE_ADDED)
+            val idxSize = cursor.getColumnIndex(MediaStore.MediaColumns.SIZE)
 
             if (idxData == -1) {
                 Log_OC.e(TAG, "MediaStore column DATA missing — cannot process URI: $uri")
@@ -175,6 +178,10 @@ class FileSystemRepository(
                     TAG,
                     "Found file: $filePath (created=$creationTimeMs, modified=$lastModifiedMs)"
                 )
+
+                if (idxSize != -1) {
+                    logSizeMismatch(filePath, cursor.getLong(idxSize))
+                }
 
                 insertOrReplace(filePath, lastModifiedMs, creationTimeMs, syncedFolder, checkFileType)
             }
@@ -213,6 +220,7 @@ class FileSystemRepository(
                 }
 
                 Log_OC.w(TAG, "marked as sent but upload never finished, queueing again: $localPath")
+                UploadDiagnostics.log("upload never finished, queueing again: $localPath")
                 deleteUnfinishedUpload(entity, syncedFolder, localPath, file)
 
                 // the upload never finished, so the checks below must not skip it as an already handled old file
@@ -220,6 +228,12 @@ class FileSystemRepository(
             }
 
             if (syncedFolder.shouldSkipFile(file, fileModified, creationTime, fileSentForUpload)) {
+                if (entity != null && !hasNotChanged && fileSentForUpload) {
+                    UploadDiagnostics.log(
+                        "changed after it was handled but skipped: $localPath, modified: ${entity.fileModified} " +
+                            "-> $fileModified, size: ${file.length()}, lastScan: ${syncedFolder.lastScanTimestampMs}"
+                    )
+                }
                 return
             }
 
@@ -237,11 +251,25 @@ class FileSystemRepository(
             )
 
             Log_OC.d(TAG, "inserting new file system entity: $newEntity")
+            UploadDiagnostics.log(
+                "queued: $localPath, size: ${file.length()}, modified: $fileModified, " +
+                    "previouslyHandled: $fileSentForUpload, folderId: ${syncedFolder.id}"
+            )
 
             dao.insertOrReplace(newEntity)
         } catch (e: Exception) {
             Log_OC.e(TAG, "Failed to insert/update file: $localPath", e)
         }
+    }
+
+    private fun logSizeMismatch(filePath: String?, mediaStoreSize: Long) {
+        val file = filePath?.let { File(it) }?.takeIf { it.exists() } ?: return
+        val fileSize = file.length()
+        if (fileSize == mediaStoreSize) {
+            return
+        }
+
+        UploadDiagnostics.log("MediaStore size $mediaStoreSize differs from file size $fileSize: $filePath")
     }
 
     private fun wasUploadFinished(

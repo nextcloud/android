@@ -12,6 +12,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.autoUpload.AutoUploadHelper
+import com.nextcloud.client.jobs.upload.UploadDiagnostics
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.FilesSyncHelper
@@ -41,6 +42,10 @@ class ContentObserverWork(
         val workerName = BackgroundJobManagerImpl.formatClassTag(this@ContentObserverWork::class)
         backgroundJobManager.logStartOfWorker(workerName)
         Log_OC.d(TAG, "started")
+        UploadDiagnostics.log(
+            "content change, uris: ${params.triggeredContentUris}, " +
+                "authorities: ${params.triggeredContentAuthorities}"
+        )
 
         try {
             if (params.triggeredContentUris.isNotEmpty()) {
@@ -73,6 +78,7 @@ class ContentObserverWork(
     private suspend fun checkAndTriggerAutoUpload() = withContext(Dispatchers.IO) {
         if (powerManagementService.isAppRestrictedByPowerSaving) {
             Log_OC.w(TAG, "⚡ Power saving mode active — skipping file sync.")
+            UploadDiagnostics.log("content change ignored, power saving blocks auto upload")
             return@withContext
         }
 

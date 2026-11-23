@@ -16,6 +16,7 @@ import androidx.core.app.NotificationCompat
 import com.nextcloud.client.jobs.notification.WorkerNotificationManager
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.UploadBroadcastAction
+import com.nextcloud.client.jobs.upload.UploadDiagnostics
 import com.nextcloud.client.notifications.AppWideNotificationManager
 import com.nextcloud.utils.extensions.isConflict
 import com.nextcloud.utils.extensions.isFileSpecificError
@@ -55,6 +56,7 @@ object UploadErrorNotificationManager {
         onLocked: () -> Unit = {}
     ) {
         Log_OC.d(TAG, "handle upload result with result code: " + result.code)
+        UploadDiagnostics.log("upload result: ${operation.storagePath}, code: ${result.code}")
 
         if (result.isSuccess || operation.isMissingPermissionThrown) {
             Log_OC.d(TAG, "operation is successful, cancelled or lack of storage permission, notification skipped")
