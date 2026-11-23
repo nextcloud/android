@@ -11,6 +11,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.ParcelFileDescriptor
 import android.os.Parcelable
+import androidx.core.net.toUri
 import androidx.test.core.app.launchActivity
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.test.TestActivity
@@ -137,6 +138,12 @@ class UriUploaderIT : AbstractIT() {
         } finally {
             privateFile.delete()
         }
+    }
+
+    @Test
+    fun testShareFromOtherClient() = withActivity { activity ->
+        val path = "content://com.example.android.webdav.files/attachments/logs.txt"
+        assertAllowed(activity, path.toUri())
     }
 
     @Test
