@@ -27,19 +27,6 @@ import com.owncloud.android.ui.fragment.TaskRetainerFragment
 import com.owncloud.android.ui.helpers.uriuploader.model.UriUploaderResultCode
 import com.owncloud.android.utils.UriUtils.getDisplayNameForUri
 
-/**
- * This class examines URIs pointing to files to upload and then requests [FileUploadHelper] to upload them.
- *
- *
- * URIs with scheme file:// do not require any previous processing, their path is sent to [FileUploadHelper] to find
- * the source file.
- *
- *
- * URIs with scheme content:// are handling assuming that file is in private storage owned by a different app, and that
- * persistence permission is not granted. Due to this, contents of the file are temporary copied by the OC app, and then
- * passed [FileUploadHelper].
- */
-@Suppress("Detekt.SpreadOperator")
 class UriUploader @JvmOverloads constructor(
     private val activity: FileActivity,
     private val urisToUpload: List<Parcelable?>,
@@ -48,125 +35,95 @@ class UriUploader @JvmOverloads constructor(
     private val behaviour: Int,
     private val showWaitingDialog: Boolean,
     private val copyTmpTaskListener: OnCopyTmpFilesTaskListener?,
-    /** If non-null, this function is called to determine the desired display name (i.e. filename) after upload**/
     private val fileDisplayNameTransformer: Function<Uri, String?>? = null,
-    private var albumName: String? = null
+    private val albumName: String? = null
 ) {
 
     /**
-     * True when content:// URIs are being copied to temporary files in the background.
-     *
-     * The temporary read permission for those URIs belongs to the calling Activity and is revoked once that Activity is
-     * destroyed. Callers must therefore stay alive until [OnCopyTmpFilesTaskListener.onTmpFilesCopied] is invoked,
-     * otherwise opening the URIs fails with a SecurityException.
+     * The read permission for content:// URIs belongs to the calling Activity and is revoked when it is destroyed,
+     * so callers must stay alive until [OnCopyTmpFilesTaskListener.onTmpFilesCopied] while this is true.
      */
     var isTmpCopyInProgress: Boolean = false
         private set
 
     private val uriChecker = UriChecker(activity)
 
-    @Suppress("NestedBlockDepth")
-    fun uploadUris(): UriUploaderResultCode {
-        var code = UriUploaderResultCode.OK
-        try {
-            val anyAppPrivateUri = urisToUpload
-                .filterIsInstance<Uri>()
-                .any { uriChecker.pointsToAppPrivateData(it) }
-            if (anyAppPrivateUri) {
-                Log_OC.e(TAG, "Sensitive URI detected, aborting upload.")
-                code = UriUploaderResultCode.ERROR_SENSITIVE_PATH
-            } else {
-                val uris = urisToUpload
-                    .mapNotNull { (it as? Uri)?.let { sourceUri -> Pair(sourceUri, getRemotePathForUri(sourceUri)) } }
-
-                val fileUris = uris.filter { it.first.scheme == ContentResolver.SCHEME_FILE }
-                if (fileUris.isNotEmpty()) {
-                    val localPaths = Array(fileUris.size) { "" }
-                    val remotePaths = Array(fileUris.size) { "" }
-
-                    for (i in 0..<fileUris.size) {
-                        val uri = fileUris[i]
-                        uri.first.path?.let { path ->
-                            localPaths[i] = path
-                            remotePaths[i] = uri.second
-                        }
-                    }
-
-                    requestUpload(localPaths, remotePaths)
-                }
-
-                val contentUrisNew = uris
-                    .filter { it.first.scheme == ContentResolver.SCHEME_CONTENT }
-
-                if (contentUrisNew.isNotEmpty()) {
-                    val (contentUris, contentRemotePaths) = contentUrisNew.unzip()
-                    copyThenUpload(contentUris.toTypedArray(), contentRemotePaths.toTypedArray())
-                } else if (fileUris.isEmpty()) {
-                    code = UriUploaderResultCode.ERROR_NO_FILE_TO_UPLOAD
-                }
-            }
-        } catch (e: SecurityException) {
-            code = UriUploaderResultCode.ERROR_READ_PERMISSION_NOT_GRANTED
-            Log_OC.e(TAG, "Permissions fail", e)
-        } catch (e: Exception) {
-            code = UriUploaderResultCode.ERROR_UNKNOWN
-            Log_OC.e(TAG, "Unexpected error", e)
-        }
-        return code
+    fun uploadUris(): UriUploaderResultCode = try {
+        upload()
+    } catch (e: SecurityException) {
+        Log_OC.e(TAG, "Permissions fail", e)
+        UriUploaderResultCode.ERROR_READ_PERMISSION_NOT_GRANTED
+    } catch (e: Exception) {
+        Log_OC.e(TAG, "Unexpected error", e)
+        UriUploaderResultCode.ERROR_UNKNOWN
     }
 
-    private fun getRemotePathForUri(sourceUri: Uri): String {
-        val displayName = fileDisplayNameTransformer?.apply(sourceUri)
-            ?: getDisplayNameForUri(sourceUri, activity)
-        require(displayName != null) { "Display name cannot be null" }
+    private fun upload(): UriUploaderResultCode {
+        val uris = urisToUpload.filterIsInstance<Uri>()
+        if (uris.any(uriChecker::pointsToAppPrivateData)) {
+            Log_OC.e(TAG, "Sensitive URI detected, aborting upload.")
+            return UriUploaderResultCode.ERROR_SENSITIVE_PATH
+        }
+
+        val fileUploads = uris
+            .filter { it.scheme == ContentResolver.SCHEME_FILE }
+            .mapNotNull { uri -> uri.path?.let { localPath -> localPath to getRemotePath(uri) } }
+        val contentUploads = uris
+            .filter { it.scheme == ContentResolver.SCHEME_CONTENT }
+            .map { uri -> uri to getRemotePath(uri) }
+
+        if (fileUploads.isEmpty() && contentUploads.isEmpty()) {
+            return UriUploaderResultCode.ERROR_NO_FILE_TO_UPLOAD
+        }
+
+        if (fileUploads.isNotEmpty()) {
+            requestUpload(fileUploads)
+        }
+        if (contentUploads.isNotEmpty()) {
+            copyThenUpload(contentUploads)
+        }
+
+        return UriUploaderResultCode.OK
+    }
+
+    private fun getRemotePath(uri: Uri): String {
+        val displayName = fileDisplayNameTransformer?.apply(uri) ?: getDisplayNameForUri(uri, activity)
+        requireNotNull(displayName) { "Display name cannot be null" }
+
         return uploadPath + displayName
     }
 
-    /**
-     * Requests the upload of a file in the local file system to [FileUploadHelper] service.
-     *
-     * The original file will be left in its original location, and will not be duplicated.
-     * As a side effect, the user will see the file as not uploaded when accesses to the OC app.
-     * This is considered as acceptable, since when a file is shared from another app to OC,
-     * the usual workflow will go back to the original app.
-     *
-     * @param localPaths     Absolute paths in the local file system to the file to upload.
-     * @param remotePaths    Absolute paths in the current OC account to set to the uploaded file.
-     */
-    private fun requestUpload(localPaths: Array<String>, remotePaths: Array<String>) {
-        FileUploadHelper.instance().run {
-            if (albumName.isNullOrEmpty()) {
-                val data = OCUploadLocalPathData.forFile(user, localPaths, remotePaths, behaviour)
-                uploadNewFiles(data)
-            } else {
-                val data = OCUploadLocalPathData.forAlbum(user, localPaths, remotePaths, behaviour)
-                uploadAndCopyNewFilesForAlbum(data, albumName!!)
-            }
+    private fun requestUpload(uploads: List<Pair<String, String>>) {
+        val (localPaths, remotePaths) = uploads.unzip()
+        val localPathArray = localPaths.toTypedArray()
+        val remotePathArray = remotePaths.toTypedArray()
+        val uploadHelper = FileUploadHelper.instance()
+
+        if (albumName.isNullOrEmpty()) {
+            uploadHelper.uploadNewFiles(OCUploadLocalPathData.forFile(user, localPathArray, remotePathArray, behaviour))
+            return
         }
+
+        val data = OCUploadLocalPathData.forAlbum(user, localPathArray, remotePathArray, behaviour)
+        uploadHelper.uploadAndCopyNewFilesForAlbum(data, albumName)
     }
 
-    /**
-     *
-     * @param sourceUris        Array of content:// URIs to the files to upload
-     * @param remotePaths       Array of absolute paths to set to the uploaded files
-     */
-    private fun copyThenUpload(sourceUris: Array<Uri>, remotePaths: Array<String>) {
+    private fun copyThenUpload(uploads: List<Pair<Uri, String>>) {
         if (showWaitingDialog) {
-            activity.showLoadingDialog(activity.resources.getString(R.string.wait_for_tmp_copy_from_private_storage))
+            activity.showLoadingDialog(activity.getString(R.string.wait_for_tmp_copy_from_private_storage))
         }
-        val copyTask =
-            CopyAndUploadContentUrisTask(copyTmpTaskListener, activity, activity.lifecycleScope, albumName)
-        val fm = activity.supportFragmentManager
 
-        // Init Fragment without UI to retain AsyncTask across configuration changes
-        val taskRetainerFragment =
-            fm.findFragmentByTag(TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT) as TaskRetainerFragment?
-        taskRetainerFragment?.setTask(copyTask)
+        val (sourceUris, remotePaths) = uploads.unzip()
+        val copyTask = CopyAndUploadContentUrisTask(copyTmpTaskListener, activity, activity.lifecycleScope, albumName)
+        val taskRetainer = activity.supportFragmentManager
+            .findFragmentByTag(TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT) as? TaskRetainerFragment
+        taskRetainer?.setTask(copyTask)
         isTmpCopyInProgress = true
+
         copyTask.execute(
             user,
-            sourceUris,
-            remotePaths,
+            sourceUris.toTypedArray(),
+            remotePaths.toTypedArray(),
             behaviour,
             activity.contentResolver
         )
