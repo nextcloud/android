@@ -34,6 +34,7 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
+import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.operations.OperationCancelledException;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -473,6 +474,13 @@ public class RefreshFolderOperation extends RemoteOperation {
             Log_OC.i(TAG, "Checked " + user.getAccountName() + remotePath + " : " +
                 (mRemoteFolderChanged ? "changed" : "not changed"));
 
+        } else if (
+            result.getCode() == ResultCode.FILE_NOT_FOUND &&
+            WebdavEntry.MountType.EXTERNAL == mLocalFolder.getMountType()
+        ) {
+            // External storages with no credentials are reported as 404 by server
+            Log_OC.i(TAG, "Folder " + user.getAccountName() + remotePath + " is an external storage " +
+                "the user isn't authenticated for");
         } else {
             // check failed
             if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
