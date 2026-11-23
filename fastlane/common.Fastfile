@@ -20,6 +20,9 @@ MAJOR_MULTIPLIER = 10000000
 MINOR_MULTIPLIER = 10000
 PATCH_MULTIPLIER = 100
 
+FDROID_ABI_VERSION_CODES = { "armeabi-v7a" => 1, "arm64-v8a" => 2, "x86" => 3, "x86_64" => 4 }.freeze
+FDROID_ABI_MULTIPLIER = 10
+
 TYPE_ALPHA = "alpha"
 TYPE_RC = "rc"
 TYPE_FINAL = "final"
@@ -31,6 +34,23 @@ default_platform(:android)
 ENV['SUPPLY_UPLOAD_MAX_RETRIES']='10'
 
 platform :android do
+	# Usage: fastlane incrementVersion type:(major|minor|patch|rc|final)
+    # For major, minor, and patch: will increment that version number by 1 and set the smaller ones to 0
+    # For rc, final: will set build number to first rc/first final or increment it by 1
+    desc "Increment version code and version name"
+    lane :incrementVersion do |options|
+        versionInfo = getVersionInfo()
+        versionComponents = parseVersionCode(versionInfo)
+        newVersionComponents = incrementVersionComponents(versionComponents: versionComponents, type: options[:type])
+        versionNameGenerated = generateVersionName(newVersionComponents)
+        versionCodeGenerated = generateVersionCode(newVersionComponents)
+
+        promptYesNo(text: "Version code: #{versionInfo["versionCode"]} -> #{versionCodeGenerated}\n" +
+                        "Version name: #{versionInfo["versionName"]} -> #{versionNameGenerated}"
+        )
+        writeVersions(versionCode: versionCodeGenerated, versionName: versionNameGenerated)
+    end
+    
     desc "Run tests and build app"
     lane :releasePhase1 do
     	sh("rm -rf ../release/ && mkdir -p ../release")
@@ -45,6 +65,7 @@ platform :android do
     
     desc "Release phase 2: checks, tag, create GH release, upload to appstores"
 	lane :releasePhase2 do
+		ensure_git_status_clean(show_uncommitted_changes: true)
 		versionInfo = getVersionInfo()
 		versionComponents = parseVersionCode(versionInfo)
 		checkReleasable(versionComponents)
@@ -60,6 +81,15 @@ platform :android do
 		uploadToHuawei(versionCode: versionInfo["versionCode"], isPrerelease: isPrerelease)
 	end
 
+    desc "Build ABI APKs for F-Droid in app/build/fdroid/"
+    lane :buildFdroid do
+        gradle(
+            task: ":app:assembleGenericRelease",
+            flags: "--init-script fastlane/fdroid.init.gradle",
+            properties: { "fdroidAbiSplit" => true }
+        )
+    end
+
     desc "Print version info"
     lane :printVersionInfo do
         versionInfo = getVersionInfo()
@@ -70,23 +100,9 @@ platform :android do
         print "Minor: #{versionComponents["minor"]}\n"
         print "Patch: #{versionComponents["patch"]}\n"
         print "Build: #{versionComponents["build"]}\n"
-    end
-
-    # Usage: fastlane incrementVersion type:(major|minor|patch|rc|final)
-    # For major, minor, and patch: will increment that version number by 1 and set the smaller ones to 0
-    # For rc, final: will set build number to first rc/first final or increment it by 1
-    desc "Increment version code and version name"
-    lane :incrementVersion do |options|
-        versionInfo = getVersionInfo()
-        versionComponents = parseVersionCode(versionInfo)
-        newVersionComponents = incrementVersionComponents(versionComponents: versionComponents, type: options[:type])
-        versionNameGenerated = generateVersionName(newVersionComponents)
-        versionCodeGenerated = generateVersionCode(newVersionComponents)
-
-        promptYesNo(text: "Version code: #{versionInfo["versionCode"]} -> #{versionCodeGenerated}\n" +
-                        "Version name: #{versionInfo["versionName"]} -> #{versionNameGenerated}"
-        )
-        writeVersions(versionCode: versionCodeGenerated, versionName: versionNameGenerated)
+        fdroidAbiVersionCodes(versionCode: versionInfo["versionCode"]).each do |abi, versionCode|
+            print "F-Droid #{abi} version code: #{versionCode}\n"
+        end
     end
     
     desc "Upload Alpha version to play store"
@@ -139,6 +155,13 @@ platform :android do
         build = versionComponents["build"]
         test = major * MAJOR_MULTIPLIER + minor * MINOR_MULTIPLIER + patch * PATCH_MULTIPLIER + build
         test
+    end
+
+    desc "Generate F-Droid versionCode per ABI, must match fdroid.init.gradle"
+    private_lane :fdroidAbiVersionCodes do |options|
+        versionCode = options[:versionCode]
+        base = (versionCode / MAJOR_MULTIPLIER) * MAJOR_MULTIPLIER + (versionCode % MAJOR_MULTIPLIER) * FDROID_ABI_MULTIPLIER
+        FDROID_ABI_VERSION_CODES.transform_values { |abiCode| base + abiCode }
     end
 
     desc "Compute version name from version code"
