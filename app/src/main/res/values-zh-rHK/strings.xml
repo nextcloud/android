@@ -398,9 +398,7 @@
     <string name="encryption_key_checking_keys">正在檢查金鑰…</string>
     <string name="encryption_key_handle_folder_read_only_description">此帳戶的加密金鑰已被移除或取代，因此無法再解密此資料夾的內容。\n\n此資料夾由現在起將變為唯讀。如要再次使用加密資料夾，請先備份此資料夾，然後在設定中設定新的加密金鑰。</string>
     <string name="encryption_key_handle_key_removed_title">加密密鑰已更改</string>
-    <string name="encryption_key_handle_keys_changed_on_server_description">伺服器上的加密金鑰已被移除或取代，因此此裝置上的加密資料夾現已變成唯讀。
-
-如要繼續使用端到端加密，請先備份你的加密檔案，然後在設定中移除本機的加密設定，再重新設定端對端加密。</string>
+    <string name="encryption_key_handle_keys_changed_on_server_description">伺服器上的加密金鑰已被移除或取代，因此此裝置上的加密資料夾現已變成唯讀。\n\n如要繼續使用端到端加密，請先備份你的加密檔案，然後在設定中移除本機的加密設定，再重新設定端對端加密。</string>
     <string name="encryption_key_handle_no_keys_description">無法開啟此資料夾，因為其加密金鑰已不存在於此裝置或伺服器上。</string>
     <string name="encryption_new_folder_check_failed">無法檢查你的加密金鑰。請嘗試再次建立資料夾。</string>
     <string name="encryption_new_folder_no_network">無法連接伺服器。請稍後再次嘗試建立資料夾。</string>
@@ -786,6 +784,7 @@
     <string name="pin_shortcut_label">公開 %1$s</string>
     <string name="player_audio_title_with_artist">%1$s • %2$s</string>
     <string name="player_control_view_next_button_content_description">下一個按鈕</string>
+    <string name="player_control_view_play_mode_button_content_description">播放模式按鈕</string>
     <string name="player_control_view_play_pause_button_content_description">播放／暫停按鈕</string>
     <string name="player_control_view_previous_button_content_description">上一個按鈕</string>
     <string name="player_control_view_random_button_content_description">隨機播放按鈕</string>
