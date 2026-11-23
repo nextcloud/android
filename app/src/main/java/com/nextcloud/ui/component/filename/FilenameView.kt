@@ -10,12 +10,10 @@ package com.nextcloud.ui.component.filename
 import android.content.Context
 import android.text.TextUtils
 import android.util.AttributeSet
-import android.util.TypedValue
 import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.withStyledAttributes
-import androidx.core.widget.TextViewCompat
 import com.nextcloud.ui.component.filename.model.FilenameState
 import com.nextcloud.ui.component.filename.model.FilenameStyle
 import com.owncloud.android.R
@@ -121,16 +119,8 @@ class FilenameView @JvmOverloads constructor(context: Context, attrs: AttributeS
     }
 
     private fun applyStyle(style: FilenameStyle) {
-        // Name and extension must look the same, so both get the same style.
-        listOf(title, extension).forEach { textView ->
-            TextViewCompat.setTextAppearance(textView, style.textAppearance)
-            style.textColor?.let(textView::setTextColor)
-            style.textSize?.let { textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, it) }
-            textView.gravity = Gravity.START
-        }
-
+        listOf(title, extension).forEach { textView -> style.apply(textView) }
         title.applyLines(style.titleEllipsize, style.titleMaxLines)
-
         extension.applyLines(style.extensionEllipsize, style.extensionMaxLines)
     }
 

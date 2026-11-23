@@ -10,7 +10,11 @@ package com.nextcloud.ui.component.filename.model
 import android.content.res.ColorStateList
 import android.content.res.TypedArray
 import android.text.TextUtils
+import android.util.TypedValue
+import android.view.Gravity
+import android.widget.TextView
 import androidx.annotation.StyleRes
+import androidx.core.widget.TextViewCompat
 import com.owncloud.android.R
 import com.google.android.material.R as MaterialR
 
@@ -24,6 +28,13 @@ data class FilenameStyle(
     // The extension is always one line and cut from the start, so its end stays visible.
     val extensionMaxLines: Int = SINGLE_LINE
     val extensionEllipsize: TextUtils.TruncateAt = TextUtils.TruncateAt.START
+
+    fun apply(view: TextView) {
+        TextViewCompat.setTextAppearance(view, textAppearance)
+        textColor?.let(view::setTextColor)
+        textSize?.let { view.setTextSize(TypedValue.COMPLEX_UNIT_PX, it) }
+        view.gravity = Gravity.START
+    }
 
     companion object {
         const val SINGLE_LINE = 1
