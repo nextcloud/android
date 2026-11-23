@@ -11,7 +11,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.elyeproj.loaderviewlibrary.LoaderImageView
-import com.nextcloud.ui.component.FilenameView
+import com.nextcloud.ui.component.filename.FilenameView
 import com.owncloud.android.databinding.RecommendedFileItemBinding
 import com.owncloud.android.ui.adapter.filelist.item.FileViewHolder
 

@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.nextcloud.ui.component
+package com.nextcloud.ui.component.filename.model
 
 import com.nextcloud.utils.view.LocaleDirection
 import com.owncloud.android.utils.FileStorageUtils

@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.nextcloud.ui.component
+package com.nextcloud.ui.component.filename
 
 import android.content.Context
 import android.text.TextUtils
@@ -16,6 +16,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.withStyledAttributes
 import androidx.core.widget.TextViewCompat
+import com.nextcloud.ui.component.filename.model.FilenameState
+import com.nextcloud.ui.component.filename.model.FilenameStyle
 import com.owncloud.android.R
 import kotlin.math.ceil
 import kotlin.math.floor

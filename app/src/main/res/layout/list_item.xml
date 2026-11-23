@@ -77,7 +77,7 @@
         android:orientation="vertical"
         android:paddingTop="@dimen/standard_half_padding">
 
-        <com.nextcloud.ui.component.FilenameView
+        <com.nextcloud.ui.component.filename.FilenameView
             android:id="@+id/Filename"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

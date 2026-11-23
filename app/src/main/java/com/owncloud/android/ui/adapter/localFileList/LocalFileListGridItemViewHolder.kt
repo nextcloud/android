@@ -10,7 +10,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.nextcloud.ui.component.FilenameView
+import com.nextcloud.ui.component.filename.FilenameView
 import com.owncloud.android.R
 
 internal open class LocalFileListGridItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

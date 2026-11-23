@@ -142,7 +142,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
-    <com.nextcloud.ui.component.FilenameView
+    <com.nextcloud.ui.component.filename.FilenameView
         android:id="@+id/Filename"
         android:layout_width="0dp"
         android:layout_height="@dimen/grid_bottom_view_height"

@@ -9,7 +9,7 @@ package com.owncloud.android.ui.adapter.filelist.item
 import android.view.View
 import android.widget.ImageView
 import com.elyeproj.loaderviewlibrary.LoaderImageView
-import com.nextcloud.ui.component.FilenameView
+import com.nextcloud.ui.component.filename.FilenameView
 
 interface FileViewHolder {
     val itemLayout: View

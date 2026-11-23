@@ -150,7 +150,7 @@
         app:layout_constraintTop_toBottomOf="@+id/thumbnail"
         android:orientation="vertical">
 
-        <com.nextcloud.ui.component.FilenameView
+        <com.nextcloud.ui.component.filename.FilenameView
             android:id="@+id/filename"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
