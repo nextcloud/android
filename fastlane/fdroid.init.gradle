@@ -1,0 +1,46 @@
+gradle.beforeProject { project ->
+    if (project.path != ':app' || !project.providers.gradleProperty('fdroidAbiSplit').isPresent()) {
+        return
+    }
+    if (project.extensions.extraProperties.has('nextcloudFdroidConfigured')) {
+        return
+    }
+    project.extensions.extraProperties.set('nextcloudFdroidConfigured', true)
+
+    project.pluginManager.withPlugin('com.android.application') {
+        def abiVersionCodes = ['armeabi-v7a': 1, 'arm64-v8a': 2, 'x86': 3, 'x86_64': 4]
+        def majorMultiplier = 10000000
+        def abiMultiplier = 10
+        def androidComponents = project.extensions.getByName('androidComponents')
+
+        def buildDirectory = project.layout.buildDirectory.get()
+        project.layout.buildDirectory.set(buildDirectory.dir('fdroid'))
+
+        androidComponents.finalizeDsl { android ->
+            ([android.defaultConfig] + android.buildTypes.toList() + android.productFlavors.toList()).each { config ->
+                config.ndk.abiFilters.clear()
+            }
+            android.splits.abi.enable = true
+            android.splits.abi.reset()
+            android.splits.abi.include(*abiVersionCodes.keySet().toArray(new String[0]))
+            android.splits.abi.universalApk = false
+        }
+
+        androidComponents.beforeVariants(androidComponents.selector().all()) { variant ->
+            variant.enable = variant.name == 'genericRelease'
+        }
+
+        androidComponents.onVariants(androidComponents.selector().withName('genericRelease')) { variant ->
+            variant.outputs.each { output ->
+                def abi = output.filters.find { it.filterType.name() == 'ABI' }?.identifier
+                if (!abiVersionCodes.containsKey(abi)) {
+                    throw new GradleException("Unexpected F-Droid APK ABI: ${abi}")
+                }
+                def versionCode = output.versionCode.get()
+                def base = versionCode.intdiv(majorMultiplier) * majorMultiplier +
+                    (versionCode % majorMultiplier) * abiMultiplier
+                output.versionCode.set(base + abiVersionCodes[abi])
+            }
+        }
+    }
+}
