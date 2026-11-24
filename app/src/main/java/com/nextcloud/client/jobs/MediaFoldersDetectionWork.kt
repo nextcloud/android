@@ -38,13 +38,13 @@ import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.MediaFolderType
 import com.owncloud.android.datamodel.MediaFoldersModel
 import com.owncloud.android.datamodel.MediaProvider
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.ManageAccountsActivity
 import com.owncloud.android.ui.navigation.NavigatorActivity
 import com.owncloud.android.ui.navigation.NavigatorScreen
 import com.owncloud.android.ui.notifications.NotificationUtils
-import com.owncloud.android.utils.SyncedFolderUtils
+import com.owncloud.android.utils.AutoUploadFolderUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.util.Random
 
@@ -57,7 +57,7 @@ class MediaFoldersDetectionWork(
     private val preferences: AppPreferences,
     private val clock: Clock,
     private val viewThemeUtils: ViewThemeUtils,
-    private val syncedFolderProvider: SyncedFolderProvider
+    private val syncedFolderProvider: AutoUploadFolderProvider
 ) : Worker(context, params) {
 
     companion object {
@@ -142,7 +142,7 @@ class MediaFoldersDetectionWork(
                                 user
                             )
                             if (folder == null &&
-                                SyncedFolderUtils.isQualifyingMediaFolder(imageMediaFolder, MediaFolderType.IMAGE)
+                                AutoUploadFolderUtils.isQualifyingMediaFolder(imageMediaFolder, MediaFolderType.IMAGE)
                             ) {
                                 val contentTitle = String.format(
                                     resources.getString(R.string.new_media_folder_detected),

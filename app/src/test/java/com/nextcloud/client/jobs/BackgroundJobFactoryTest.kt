@@ -28,7 +28,7 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.repository.ClientRepository
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.ArbitraryDataProvider
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.operations.factory.UploadFileOperationFactory
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -105,7 +105,7 @@ class BackgroundJobFactoryTest {
     private lateinit var generatePDFUseCase: GeneratePDFUseCase
 
     @Mock
-    private lateinit var syncedFolderProvider: SyncedFolderProvider
+    private lateinit var syncedFolderProvider: AutoUploadFolderProvider
 
     @Mock
     private lateinit var db: NextcloudDatabase

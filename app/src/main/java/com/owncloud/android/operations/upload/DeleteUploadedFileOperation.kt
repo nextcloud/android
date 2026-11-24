@@ -11,18 +11,18 @@ import android.content.Context
 import com.nextcloud.client.jobs.autoUpload.SyncFolderHelper
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.SyncedFolder
+import com.owncloud.android.datamodel.AutoUploadFolder
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.RefreshFolderOperation
-import com.owncloud.android.utils.SyncedFolderUtils
+import com.owncloud.android.utils.AutoUploadFolderUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
 import com.nextcloud.utils.AppConstants.MILLIS_PER_SECOND
 
 class DeleteUploadedFileOperation(
-    private val syncedFolder: SyncedFolder,
+    private val syncedFolder: AutoUploadFolder,
     private val context: Context,
     private val storageManager: FileDataStorageManager
 ) {
@@ -52,7 +52,7 @@ class DeleteUploadedFileOperation(
         }
 
         val localFolder = File(syncedFolder.localPath)
-        val files = SyncedFolderUtils.getFileList(localFolder)
+        val files = AutoUploadFolderUtils.getFileList(localFolder)
 
         var filesPreserved = 0L
         var filesRemoved = 0L

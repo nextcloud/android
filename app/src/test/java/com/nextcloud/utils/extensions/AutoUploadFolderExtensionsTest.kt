@@ -11,13 +11,12 @@ package com.nextcloud.utils.extensions
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.SubFolderRule
 import com.owncloud.android.datamodel.MediaFolderType
-import com.owncloud.android.datamodel.SyncedFolder
-import com.owncloud.android.datamodel.SyncedFolderDisplayItem
+import com.owncloud.android.datamodel.AutoUploadFolder
 import com.owncloud.android.files.services.NameCollisionPolicy
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-class SyncedFolderDisplayItemExtensionsTest {
+class AutoUploadFolderExtensionsTest {
 
     @Test
     fun regular() {
@@ -80,7 +79,7 @@ class SyncedFolderDisplayItemExtensionsTest {
         )
     }
 
-    private fun assertSortedAfterShuffle(vararg expectedOrder: SyncedFolderDisplayItem?) {
+    private fun assertSortedAfterShuffle(vararg expectedOrder: AutoUploadFolder?) {
         val expected = expectedOrder.toList()
         val actual = expected.shuffled().sortAutoUploadFolderItems()
 
@@ -88,10 +87,10 @@ class SyncedFolderDisplayItemExtensionsTest {
         assertTrue("expected:\n${expected.describe()}\nactual:\n${actual.describe()}", isSameOrder)
     }
 
-    private fun List<SyncedFolderDisplayItem?>.describe(): String =
+    private fun List<AutoUploadFolder?>.describe(): String =
         joinToString("\n") { item -> item?.let { "${it.folderName} ${it.isEnabled}" } ?: "null" }
 
-    private fun create(folderName: String?, enabled: Boolean): SyncedFolderDisplayItem = SyncedFolderDisplayItem(
+    private fun create(folderName: String?, enabled: Boolean): AutoUploadFolder = AutoUploadFolder(
         1,
         "localPath",
         "remotePath",
@@ -104,13 +103,13 @@ class SyncedFolderDisplayItemExtensionsTest {
         NameCollisionPolicy.ASK_USER.serialize(),
         enabled,
         System.currentTimeMillis(),
-        ArrayList(),
-        folderName,
-        2,
         MediaFolderType.IMAGE,
         false,
         SubFolderRule.YEAR_MONTH,
         true,
-        SyncedFolder.NOT_SCANNED_YET
+        AutoUploadFolder.NOT_SCANNED_YET,
+        filePaths = ArrayList(),
+        folderName = folderName,
+        numberOfFiles = 2
     )
 }
