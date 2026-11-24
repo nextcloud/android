@@ -151,15 +151,16 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
 
         /// check if required token is stored
         final AccountManager am = AccountManager.get(mContext);
-        String accessToken;
+        // In practice this is always the app password: setAuthToken is never called, so peekAuthToken returns null.
+        String authToken;
         if (authTokenType.equals(AccountTypeUtils.getAuthTokenTypePass(MainApp.getAccountType(mContext)))) {
-            accessToken = am.getPassword(account);
+            authToken = am.getPassword(account);
         } else {
-            accessToken = am.peekAuthToken(account, authTokenType);
+            authToken = am.peekAuthToken(account, authTokenType);
         }
-        if (accessToken != null) {
+        if (authToken != null) {
             final String accountType = MainApp.getAccountType(mContext);
-            return BundleExtensionsKt.buildAccount(new Bundle(), account, accessToken, accountType);
+            return BundleExtensionsKt.buildAccount(new Bundle(), account, authToken, accountType);
         }
 
         /// if not stored, return Intent to access the AuthenticatorActivity and UPDATE the token for the account

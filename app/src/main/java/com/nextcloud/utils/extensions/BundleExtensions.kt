@@ -14,12 +14,17 @@ import android.os.Parcelable
 import androidx.core.os.BundleCompat
 import java.io.Serializable
 
-fun Bundle.buildAccount(account: Account, authToken: String?, accountType: String = account.type): Bundle =
-    apply {
-        putString(AccountManager.KEY_ACCOUNT_NAME, account.name)
-        putString(AccountManager.KEY_ACCOUNT_TYPE, accountType)
-        putString(AccountManager.KEY_AUTHTOKEN, authToken)
-    }
+/**
+ * Fills the standard [AccountManager] result keys.
+ *
+ * [authToken] is the app password for this app's own use, or the `NextcloudSSO` marker for SSO clients.
+ * The app password is a server-issued token used as the Basic auth password.
+ */
+fun Bundle.buildAccount(account: Account, authToken: String?, accountType: String = account.type): Bundle = apply {
+    putString(AccountManager.KEY_ACCOUNT_NAME, account.name)
+    putString(AccountManager.KEY_ACCOUNT_TYPE, accountType)
+    putString(AccountManager.KEY_AUTHTOKEN, authToken)
+}
 
 fun <T : Serializable?> Bundle?.getSerializableArgument(key: String, type: Class<T>): T? {
     if (this == null) {

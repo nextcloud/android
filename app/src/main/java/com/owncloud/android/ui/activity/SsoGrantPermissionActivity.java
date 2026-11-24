@@ -201,6 +201,7 @@ public class SsoGrantPermissionActivity extends BaseActivity {
             return;
         }
 
+        // NEXTCLOUD_SSO is only a marker; the client authenticates with SSO_TOKEN, never the app password.
         final String accountType = MainApp.getAccountType(this);
         final Bundle result = BundleExtensionsKt.buildAccount(new Bundle(), account, NEXTCLOUD_SSO, accountType);
         result.putString(Constants.SSO_USER_ID, userId);
