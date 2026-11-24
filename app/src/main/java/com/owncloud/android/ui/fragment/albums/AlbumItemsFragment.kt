@@ -89,7 +89,7 @@ import com.owncloud.android.ui.fragment.albums.model.AlbumItemsEmptyState
 import com.owncloud.android.ui.fragment.albums.util.AlbumCollageLayout
 import com.owncloud.android.ui.fragment.helper.ColumnCount
 import com.owncloud.android.ui.helpers.UriUploader
-import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
+import com.owncloud.android.ui.interfaces.FileListAdapterListener
 import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import com.owncloud.android.ui.preview.media.PreviewMediaFragment
 import com.owncloud.android.utils.ClipboardUtil
@@ -113,7 +113,7 @@ import kotlin.time.Duration.Companion.milliseconds
 
 class AlbumItemsFragment :
     Fragment(),
-    OCFileListFragmentInterface,
+    FileListAdapterListener,
     AlbumSharingBottomSheetActions,
     Injectable {
 
@@ -523,17 +523,17 @@ class AlbumItemsFragment :
     //endregion
 
     //region Item interaction
-    override fun isLoading(): Boolean = false
+    override val isLoading: Boolean = false
 
     override fun onHeaderClicked() = Unit
 
-    override fun onShareIconClick(file: OCFile?) = Unit
+    override fun onShareIconClick(file: OCFile) = Unit
 
-    override fun showShareDetailView(file: OCFile?) = Unit
+    override fun showShareDetailView(file: OCFile) = Unit
 
-    override fun showActivityDetailView(file: OCFile?) = Unit
+    override fun showActivityDetailView(file: OCFile) = Unit
 
-    override fun onOverflowIconClicked(file: OCFile?, view: View?) = Unit
+    override fun onOverflowIconClicked(file: OCFile) = Unit
 
     override fun onItemClicked(file: OCFile) {
         if (adapter?.isMultiSelect() == true) {

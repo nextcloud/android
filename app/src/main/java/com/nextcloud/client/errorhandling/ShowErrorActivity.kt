@@ -1,17 +1,20 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2019 Andy Scherzinger <info@andy-scherzinger.de>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.nextcloud.client.errorhandling
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import com.nextcloud.android.common.ui.util.extensions.applyEdgeToEdgeWithSystemBarPadding
 import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.utils.SnackbarUtil
 import com.owncloud.android.R
@@ -23,9 +26,16 @@ class ShowErrorActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_ERROR_TEXT = "error"
+
+        fun createIntent(context: Context, errorText: String): Intent =
+            Intent(context, ShowErrorActivity::class.java).apply {
+                putExtra(EXTRA_ERROR_TEXT, errorText)
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        applyEdgeToEdgeWithSystemBarPadding()
         super.onCreate(savedInstanceState)
 
         binding = ActivityShowErrorBinding.inflate(layoutInflater)
@@ -34,7 +44,7 @@ class ShowErrorActivity : AppCompatActivity() {
         binding.textViewError.text = intent.getStringExtra(EXTRA_ERROR_TEXT)
 
         setSupportActionBar(binding.toolbarInclude.toolbar)
-        supportActionBar!!.title = createErrorTitle()
+        supportActionBar?.title = createErrorTitle()
 
         SnackbarUtil.create(binding.errorPageContainer, R.string.error_report_issue_text, Snackbar.LENGTH_INDEFINITE)
             ?.setAction(R.string.error_report_issue_action) { reportIssue() }
@@ -64,10 +74,12 @@ class ShowErrorActivity : AppCompatActivity() {
     }
 
     private fun onClickedShare() {
-        val intent = Intent(Intent.ACTION_SEND)
-        intent.putExtra(Intent.EXTRA_SUBJECT, createErrorTitle())
-        intent.putExtra(Intent.EXTRA_TEXT, binding.textViewError.text)
-        intent.type = "text/plain"
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            putExtra(Intent.EXTRA_SUBJECT, createErrorTitle())
+            putExtra(Intent.EXTRA_TEXT, binding.textViewError.text)
+            type = "text/plain"
+        }
+
         startActivity(intent)
     }
 }
