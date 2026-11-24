@@ -91,7 +91,9 @@ class FileMenuFilterIT : AbstractIT() {
             filesLockingVersion = "1.0"
         }
 
-        val file = OCFile("/foo.md")
+        val file = OCFile("/foo.md").apply {
+            permissions = FULL_PERMISSIONS
+        }
 
         testLockingVisibilities(
             capability,
