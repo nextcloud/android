@@ -49,6 +49,7 @@ class CommunityFragment : Fragment() {
         val helpLink = getString(R.string.help_link)
         val forum = getString(R.string.community_contribute_forum_forum)
         val translationLink = getString(R.string.translation_link)
+        val translate = getString(R.string.community_contribute_translate_translate)
         val contributingLink = getString(R.string.contributing_link)
 
         listOf(
@@ -65,10 +66,13 @@ class CommunityFragment : Fragment() {
 
             binding?.communityContributeTranslateText to
                 getString(
-                    R.string.community_contribute_translate_link,
-                    primaryColor,
-                    translationLink,
-                    getString(R.string.community_contribute_translate_app)
+                    R.string.community_contribute_translate_app,
+                    getString(
+                        R.string.community_contribute_translate_link,
+                        primaryColor,
+                        translationLink,
+                        translate
+                    )
                 ),
 
             binding?.communityContributeGithubText to
