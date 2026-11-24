@@ -189,7 +189,7 @@ class UploadFilesActivity :
 
         setupButtons()
         uploadBehaviour = UploadBehaviourSelector(this, binding, preferences).apply {
-            setup(themeUtils.getDefaultDisplayNameForRootFolder(this@UploadFilesActivity))
+            setup(serverBranding.getDefaultDisplayNameForRootFolder())
         }
         showActionBar(ActionBarStyle.Plain)
         setupActionBar()

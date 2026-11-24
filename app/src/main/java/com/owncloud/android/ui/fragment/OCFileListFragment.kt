@@ -113,7 +113,6 @@ import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.PermissionUtil
-import com.owncloud.android.utils.theme.ThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -135,9 +134,6 @@ open class OCFileListFragment :
     //region Dependencies and state
     @Inject
     lateinit var clientRepository: ClientRepository
-
-    @Inject
-    lateinit var themeUtils: ThemeUtils
 
     @Inject
     lateinit var arbitraryDataProvider: ArbitraryDataProvider
@@ -470,7 +466,6 @@ open class OCFileListFragment :
             deviceInfo,
             accountManager.user,
             currentDir,
-            themeUtils,
             viewThemeUtils,
             editorUtils,
             appScanOptionalFeature
