@@ -46,7 +46,7 @@ import com.owncloud.android.ui.fragment.autoUpload.ui.AutoUploadEmptyContent
 import com.owncloud.android.ui.fragment.autoUpload.ui.AutoUploadMenuProvider
 import com.owncloud.android.ui.navigation.NavigatorActivity
 import com.owncloud.android.utils.PermissionUtil
-import com.owncloud.android.utils.theme.ThemeUtils
+import com.owncloud.android.utils.theme.ServerBranding
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
@@ -74,7 +74,7 @@ class AutoUploadFragment :
 
     @Inject lateinit var viewThemeUtils: ViewThemeUtils
 
-    @Inject lateinit var themeUtils: ThemeUtils
+    @Inject lateinit var serverBranding: ServerBranding
 
     lateinit var adapter: AutoUploadFolderAdapter
 
@@ -122,7 +122,7 @@ class AutoUploadFragment :
         setupHelpers(activity)
         PermissionUtil.requestStoragePermissionIfNeeded(activity)
         setupList(activity, binding)
-        if (themeUtils.themingEnabled(activity)) {
+        if (serverBranding.themingEnabled()) {
             activity.theme.applyStyle(R.style.FallbackThemingTheme, true)
         }
         addMenuProvider(activity)

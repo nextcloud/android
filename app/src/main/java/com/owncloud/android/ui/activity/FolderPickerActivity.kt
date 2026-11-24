@@ -132,7 +132,7 @@ open class FolderPickerActivity :
         if (action != null && action == CHOOSE_LOCATION) {
             setupUIForChooseButton()
         } else {
-            captionText = themeUtils.getDefaultDisplayNameForRootFolder(this)
+            captionText = serverBranding.getDefaultDisplayNameForRootFolder()
         }
     }
 
