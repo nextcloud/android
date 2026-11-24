@@ -33,8 +33,9 @@ class UriChecker(private val context: Context) {
     private fun isPrivateContentProvider(uri: Uri): Boolean {
         val authority = uri.authority ?: return true
         if (authority == context.getString(R.string.document_provider_authority)) return false
-        val provider = context.packageManager.resolveContentProvider(authority, NO_FLAGS)
+        if (authority == context.getString(R.string.file_provider_authority)) return false
 
+        val provider = context.packageManager.resolveContentProvider(authority, NO_FLAGS)
         return provider?.packageName == context.packageName
     }
 
