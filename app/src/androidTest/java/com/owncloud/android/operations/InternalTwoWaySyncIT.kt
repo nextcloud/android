@@ -33,7 +33,7 @@ class InternalTwoWaySyncIT : AbstractInternalTwoWaySyncIT() {
 
         syncAndAssertSuccess(folder.remotePath)
 
-        val uploaded = storageManager.getFileByPath(folder.childPath(FILE_NAME))
+        val uploaded = storageManager.getFileByPath(folder.childPath(FILE_NAME))!!
         assertNotNull(uploaded)
         assertTrue(File(uploaded.storagePath).exists())
         assertTrue(existsOnServer(folder.childPath(FILE_NAME)))
@@ -47,11 +47,11 @@ class InternalTwoWaySyncIT : AbstractInternalTwoWaySyncIT() {
 
         syncAndAssertSuccess(folder.remotePath)
 
-        val remoteSubFolder = storageManager.getFileByPath(folder.childFolderPath(SUB_FOLDER_NAME))
+        val remoteSubFolder = storageManager.getFileByPath(folder.childFolderPath(SUB_FOLDER_NAME))!!
         assertNotNull(remoteSubFolder)
         assertTrue(remoteSubFolder.isFolder)
 
-        val nested = storageManager.getFileByPath(remoteSubFolder.childPath(NESTED_FILE_NAME))
+        val nested = storageManager.getFileByPath(remoteSubFolder.childPath(NESTED_FILE_NAME))!!
         assertNotNull(nested)
         assertTrue(File(nested.storagePath).exists())
     }
@@ -59,7 +59,7 @@ class InternalTwoWaySyncIT : AbstractInternalTwoWaySyncIT() {
     @Test
     fun testWhenLocalFileUpdatedGivenShouldUploadNewVersion() {
         val folder = setUpTwoWaySyncFolderWithFile("/twoWaySyncLocalUpdate/")
-        val before = storageManager.getFileByPath(folder.childPath(FILE_NAME))
+        val before = storageManager.getFileByPath(folder.childPath(FILE_NAME))!!
 
         shortSleep()
         File(before.storagePath).writeText("updated by test")
@@ -75,7 +75,7 @@ class InternalTwoWaySyncIT : AbstractInternalTwoWaySyncIT() {
     @Test
     fun testWhenLocalFileDeletedGivenShouldRemoveFromServer() {
         val folder = setUpTwoWaySyncFolderWithFile("/twoWaySyncLocalDelete/")
-        val file = storageManager.getFileByPath(folder.childPath(FILE_NAME))
+        val file = storageManager.getFileByPath(folder.childPath(FILE_NAME))!!
         assertTrue(File(file.storagePath).delete())
 
         syncAndAssertSuccess(folder.remotePath)
@@ -91,7 +91,7 @@ class InternalTwoWaySyncIT : AbstractInternalTwoWaySyncIT() {
 
         syncAndAssertSuccess(folder.remotePath)
 
-        val downloaded = storageManager.getFileByPath(folder.childPath(FILE_NAME))
+        val downloaded = storageManager.getFileByPath(folder.childPath(FILE_NAME))!!
         assertNotNull(downloaded)
         assertTrue(File(downloaded.storagePath).exists())
     }
@@ -105,13 +105,13 @@ class InternalTwoWaySyncIT : AbstractInternalTwoWaySyncIT() {
 
         syncAndAssertSuccess(folder.remotePath)
 
-        val remoteSubFolder = storageManager.getFileByPath(subFolderPath)
+        val remoteSubFolder = storageManager.getFileByPath(subFolderPath)!!
         assertNotNull(remoteSubFolder)
         assertTrue(remoteSubFolder.isFolder)
 
         syncAndAssertSuccess(subFolderPath)
 
-        val nested = storageManager.getFileByPath(subFolderPath + NESTED_FILE_NAME)
+        val nested = storageManager.getFileByPath(subFolderPath + NESTED_FILE_NAME)!!
         assertNotNull(nested)
         assertTrue(File(nested.storagePath).exists())
     }
@@ -119,13 +119,13 @@ class InternalTwoWaySyncIT : AbstractInternalTwoWaySyncIT() {
     @Test
     fun testWhenRemoteFileUpdatedGivenShouldDownloadNewVersion() {
         val folder = setUpTwoWaySyncFolderWithFile("/twoWaySyncRemoteUpdate/")
-        val before = storageManager.getFileByPath(folder.childPath(FILE_NAME))
+        val before = storageManager.getFileByPath(folder.childPath(FILE_NAME))!!
         val newVersion = getDummyFile(LARGE_DUMMY_FILE)
         uploadDirectlyToServer(newVersion, folder.childPath(FILE_NAME))
 
         syncAndAssertSuccess(folder.remotePath)
 
-        val after = storageManager.getFileByPath(folder.childPath(FILE_NAME))
+        val after = storageManager.getFileByPath(folder.childPath(FILE_NAME))!!
         assertNotEquals(before.etag, after.etag)
         assertEquals(newVersion.length(), File(after.storagePath).length())
     }
@@ -133,7 +133,7 @@ class InternalTwoWaySyncIT : AbstractInternalTwoWaySyncIT() {
     @Test
     fun testWhenRemoteFileDeletedGivenShouldRemoveLocally() {
         val folder = setUpTwoWaySyncFolderWithFile("/twoWaySyncRemoteDeleteFile/")
-        val localFile = File(storageManager.getFileByPath(folder.childPath(FILE_NAME)).storagePath)
+        val localFile = File(storageManager.getFileByPath(folder.childPath(FILE_NAME))!!.storagePath)
         assertTrue(localFile.exists())
         assertTrue(RemoveFileRemoteOperation(folder.childPath(FILE_NAME)).execute(client).isSuccess)
 
@@ -162,7 +162,7 @@ class InternalTwoWaySyncIT : AbstractInternalTwoWaySyncIT() {
     @Test
     fun testWhenBothSidesChangedGivenShouldMarkConflict() {
         val folder = setUpTwoWaySyncFolderWithFile("/twoWaySyncConflict/")
-        val before = storageManager.getFileByPath(folder.childPath(FILE_NAME))
+        val before = storageManager.getFileByPath(folder.childPath(FILE_NAME))!!
 
         shortSleep()
         File(before.storagePath).writeText("local edit")
@@ -170,18 +170,18 @@ class InternalTwoWaySyncIT : AbstractInternalTwoWaySyncIT() {
 
         sync(folder.remotePath)
 
-        val after = storageManager.getFileByPath(folder.childPath(FILE_NAME))
+        val after = storageManager.getFileByPath(folder.childPath(FILE_NAME))!!
         assertNotNull("Concurrently changed file should have been flagged as conflicting", after.etagInConflict)
     }
 
     @Test
     fun testWhenNoChangesGivenShouldSecondSyncNotWork() {
         val folder = setUpTwoWaySyncFolderWithFile("/twoWaySyncNoop/")
-        val before = storageManager.getFileByPath(folder.childPath(FILE_NAME))
+        val before = storageManager.getFileByPath(folder.childPath(FILE_NAME))!!
 
         syncAndAssertSuccess(folder.remotePath)
 
-        val after = storageManager.getFileByPath(folder.childPath(FILE_NAME))
+        val after = storageManager.getFileByPath(folder.childPath(FILE_NAME))!!
         assertEquals(before.etag, after.etag)
         assertEquals(before.fileId, after.fileId)
     }

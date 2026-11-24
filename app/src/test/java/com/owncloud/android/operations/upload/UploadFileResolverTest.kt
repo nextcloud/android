@@ -175,7 +175,7 @@ class UploadFileResolverTest {
         assertEquals("/a/b/", folder?.remotePath)
         assertEquals(MimeType.DIRECTORY, folder?.mimeType)
         assertEquals(10L, folder?.parentId)
-        verify(fileDataStorageManager).saveFile(folder)
+        verify(fileDataStorageManager).saveFile(folder!!)
     }
 
     @Test

@@ -40,7 +40,7 @@ abstract class AbstractInternalTwoWaySyncIT : AbstractOnServerIT() {
         createFolder(remotePath)
         syncAndAssertSuccess(remotePath)
 
-        return storageManager.getFileByPath(remotePath).apply {
+        return storageManager.getFileByPath(remotePath)!!.apply {
             internalFolderSyncTimestamp = TWO_WAY_SYNC_ENABLED
             storageManager.saveFile(this)
         }

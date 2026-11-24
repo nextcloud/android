@@ -45,7 +45,7 @@ class OfflineSyncWork(
             val users = userAccountManager.allUsers
             for (user in users) {
                 val storageManager = FileDataStorageManager(user, contentResolver)
-                val ocRoot = storageManager.getFileByPath(OCFile.ROOT_PATH)
+                val ocRoot = storageManager.getFileByPath(OCFile.ROOT_PATH)!!
                 if (ocRoot.storagePath == null) {
                     break
                 }
@@ -98,7 +98,7 @@ class OfflineSyncWork(
         }
         // update eTag
         try {
-            val ocFolder = storageManager.getFileByPath(folderName)
+            val ocFolder = storageManager.getFileByPath(folderName)!!
             ocFolder.etagOnServer = updatedEtag
             storageManager.saveFile(ocFolder)
         } catch (e: Exception) {

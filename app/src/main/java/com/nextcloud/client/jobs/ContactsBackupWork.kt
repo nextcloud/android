@@ -169,7 +169,7 @@ class ContactsBackupWork(
                 user,
                 applicationContext.getContentResolver()
             )
-            val backupFolder: OCFile = storageManager.getFileByPath(backupFolderString)
+            val backupFolder: OCFile = storageManager.getFileByPath(backupFolderString)!!
             val cal = Calendar.getInstance()
             cal.add(Calendar.DAY_OF_YEAR, -daysToExpire)
             val timestampToExpire = cal.timeInMillis

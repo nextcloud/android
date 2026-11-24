@@ -73,7 +73,7 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
     private val contentResolver = context.contentResolver
     private val authority = context.getString(R.string.document_provider_authority)
 
-    private val rootFileId = storageManager.getFileByEncryptedRemotePath(ROOT_PATH).fileId
+    private val rootFileId = storageManager.getFileByEncryptedRemotePath(ROOT_PATH)!!.fileId
     private val documentId = "${DocumentsStorageProvider.rootIdForUser(user)}$DOCUMENTID_SEPARATOR$rootFileId"
     private val uri = DocumentsContract.buildTreeDocumentUri(authority, documentId)
     private val rootDir: DocumentFile
@@ -195,7 +195,7 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
     }
 
     private fun grantFullPermissionsOnRoot() {
-        val root = storageManager.getFileByEncryptedRemotePath(ROOT_PATH).apply { permissions = FULL_PERMISSIONS }
+        val root = storageManager.getFileByEncryptedRemotePath(ROOT_PATH)!!.apply { permissions = FULL_PERMISSIONS }
         storageManager.saveFile(root)
     }
 

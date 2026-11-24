@@ -474,7 +474,7 @@ class FileDetailSharingFragment :
             val client = clientFactory.create(user)
             val metadata = RefreshFolderOperation.getDecryptedFolderMetadata(true, file, client, user, context)
             if (metadata is DecryptedFolderMetadataFile) {
-                fileDataStorageManager?.updateE2EECounter(file, metadata)
+                fileDataStorageManager?.updateE2EECounter(file!!, metadata)
             }
             true
         } catch (e: Exception) {
@@ -877,7 +877,7 @@ class FileDetailSharingFragment :
     }
 
     fun refreshCapabilitiesFromDB() {
-        capabilities = fileDataStorageManager?.getCapability(user?.accountName)
+        capabilities = fileDataStorageManager?.getCapability(user!!.accountName)
     }
 
     fun refreshSharesFromDB() {

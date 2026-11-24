@@ -511,7 +511,7 @@ class FileListAdapter(
 
         if (currentDirectory?.remotePath == remotePath) {
             currentDirectory?.isFavorite = isFavorite
-            storageManager.saveFile(currentDirectory)
+            storageManager.saveFile(currentDirectory!!)
         }
 
         mainHandler.post {

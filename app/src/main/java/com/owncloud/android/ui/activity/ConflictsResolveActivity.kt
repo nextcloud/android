@@ -26,7 +26,6 @@ import com.nextcloud.client.jobs.upload.UploadNotificationManager
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.model.HTTPStatusCodes
 import com.nextcloud.utils.SnackbarUtil
-import com.nextcloud.utils.extensions.getDecryptedPath
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.logFileSize
 import com.owncloud.android.R
@@ -352,7 +351,7 @@ class ConflictsResolveActivity :
         }
 
         file?.isUpdateThumbnailNeeded = true
-        fileDataStorageManager.saveFile(file)
+        fileDataStorageManager.saveFile(file!!)
     }
 
     private fun showErrorAndFinish(code: Int? = null) {

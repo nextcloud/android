@@ -154,7 +154,7 @@ class RenameFileDialogFragment :
             val fda = typedActivity<FileDisplayActivity>()
 
             if (targetFile?.isOfflineOperation == true) {
-                fileDataStorageManager.renameOfflineOperation(targetFile, newFileName)
+                fileDataStorageManager.renameOfflineOperation(targetFile!!, newFileName)
                 fda?.refreshCurrentDirectory()
                 return
             }
@@ -169,7 +169,7 @@ class RenameFileDialogFragment :
                      */
                     helper?.renameFile(targetFile, newFileName)
                 } else {
-                    fileDataStorageManager.addRenameFileOfflineOperation(targetFile, newFileName)
+                    fileDataStorageManager.addRenameFileOfflineOperation(targetFile!!, newFileName)
                     fda.refreshCurrentDirectory()
                 }
             }

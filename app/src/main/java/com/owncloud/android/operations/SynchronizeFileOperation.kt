@@ -165,7 +165,7 @@ class SynchronizeFileOperation : SyncOperation {
         }
 
         if (result.code != RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
-            storageManager.saveConflict(localFile, null)
+            storageManager.saveConflict(localFile!!, null)
         }
 
         return result
@@ -178,7 +178,7 @@ class SynchronizeFileOperation : SyncOperation {
     }
 
     private fun handleConflict(serverFile: OCFile): RemoteOperationResult<*> {
-        storageManager.saveConflict(localFile, serverFile.etag)
+        storageManager.saveConflict(localFile!!, serverFile.etag)
         return RemoteOperationResult<Any?>(RemoteOperationResult.ResultCode.SYNC_CONFLICT)
     }
 

@@ -632,7 +632,7 @@ class AlbumItemsFragment :
         val mimeType = checkedFiles.first().mimeType
 
         return withContext(Dispatchers.IO) {
-            storageManager.getCapability(user).getClientIntegrationEndpoints(Type.CONTEXT_MENU, mimeType)
+            storageManager.getCapability(user!!).getClientIntegrationEndpoints(Type.CONTEXT_MENU, mimeType)
         }
     }
 
