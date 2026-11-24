@@ -156,7 +156,7 @@ class FileDetailActivitiesFragment :
     // region Setup
     private fun setupView() {
         val binding = binding ?: return
-        val user = user!!
+        val user = user ?: return
         val storageManager = FileDataStorageManager(user, contentResolver)
         operationsHelper = (requireActivity() as ComponentsGetter).fileOperationsHelper
 

@@ -36,11 +36,14 @@ abstract class AbstractInternalTwoWaySyncIT : AbstractOnServerIT() {
 
     protected fun syncAndAssertSuccess(remotePath: String) = assertTrue(sync(remotePath).isSuccess)
 
+    protected fun requireFile(remotePath: String): OCFile =
+        requireNotNull(storageManager.getFileByEncryptedRemotePath(remotePath)) { "$remotePath is not stored locally" }
+
     protected fun setUpTwoWaySyncFolder(remotePath: String): OCFile {
         createFolder(remotePath)
         syncAndAssertSuccess(remotePath)
 
-        return storageManager.getFileByPath(remotePath)!!.apply {
+        return requireFile(remotePath).apply {
             internalFolderSyncTimestamp = TWO_WAY_SYNC_ENABLED
             storageManager.saveFile(this)
         }

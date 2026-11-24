@@ -124,7 +124,7 @@ class AccountRemovalDialog :
      * Get value of `drop-account` capability.
      */
     private fun hasDropAccount(): Boolean {
-        val user = user!!
+        val user = user ?: return false
         val capability = FileDataStorageManager(user, context?.contentResolver).getCapability(user)
         return capability.dropAccount.isTrue
     }

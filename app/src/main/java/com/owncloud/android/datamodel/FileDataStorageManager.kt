@@ -110,6 +110,11 @@ class FileDataStorageManager private constructor(
     val defaultRootPath: OCFile
         get() = OCFile(OCFile.ROOT_PATH)
 
+    val rootFolder: OCFile
+        get() = fileDao.getFileByEncryptedRemotePath(OCFile.ROOT_PATH, user.accountName)
+            ?.let(::createFileInstance)
+            ?: createRootDir()
+
     // region File lookup
     @Deprecated("Use getFileByEncryptedRemotePath() or getFileByDecryptedRemotePath()")
     fun getFileByPath(path: String?): OCFile? = getFileByEncryptedRemotePath(path)
@@ -498,7 +503,7 @@ class FileDataStorageManager private constructor(
         folder.internalFolderSyncTimestamp == INTERNAL_TWO_WAY_SYNC_NEVER_SYNCED
 
     @Throws(RemoteOperationFailedException::class)
-    fun saveFileWithParent(ocFile: OCFile, context: Context?): OCFile {
+    fun saveFileWithParent(ocFile: OCFile, context: Context): OCFile {
         val isParentMissing = ocFile.parentId == ROOT_PARENT_ID.toLong() && OCFile.ROOT_PATH != ocFile.remotePath
         if (isParentMissing) {
             ocFile.parentId = getOrFetchParentFolder(ocFile.remotePath, context).fileId
@@ -509,7 +514,7 @@ class FileDataStorageManager private constructor(
         return ocFile
     }
 
-    private fun getOrFetchParentFolder(remotePath: String, context: Context?): OCFile {
+    private fun getOrFetchParentFolder(remotePath: String, context: Context): OCFile {
         val parentPath = FileStorageUtils.getParentPath(remotePath)
         getFileByEncryptedRemotePath(parentPath)?.let { return it }
 
@@ -520,11 +525,11 @@ class FileDataStorageManager private constructor(
     }
 
     @Suppress("DEPRECATION")
-    private fun fetchRemoteFolder(remotePath: String?, context: Context?): RemoteFile {
+    private fun fetchRemoteFolder(remotePath: String?, context: Context): RemoteFile {
         val result = ReadFileRemoteOperation(remotePath).execute(user, context)
         result.data(RemoteFile::class.java)?.let { return it }
 
-        val message = "Cannot fetch folder: $remotePath / ${context?.let { result.getLogMessage(it) }}"
+        val message = "Cannot fetch folder: $remotePath / ${result.getLogMessage(context)}"
         Log_OC.e(TAG, message)
 
         val exception = result.exception ?: throw RemoteOperationFailedException(message)
@@ -1723,8 +1728,7 @@ class FileDataStorageManager private constructor(
     // endregion
 
     // region Encryption
-    fun retrieveRemotePathConsideringEncryption(file: OCFile?): String? {
-        if (file == null) throw NullPointerException("file cannot be null")
+    fun retrieveRemotePathConsideringEncryption(file: OCFile): String? {
         if (!file.isEncrypted) return file.remotePath
 
         return getEncryptedRemotePath(file.decryptedRemotePath ?: file.remotePath)

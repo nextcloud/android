@@ -34,7 +34,7 @@ class InternalTwoWaySyncLocalEditIT : AbstractInternalTwoWaySyncIT() {
         getFile(IMAGE_ASSET).copyTo(localImage)
         syncAndAssertSuccess(folder.remotePath)
 
-        val before = storageManager.getFileByPath(folder.childPath(IMAGE_NAME))!!
+        val before = requireFile(folder.childPath(IMAGE_NAME))
         assertNotNull(before)
         assertEquals(localImage, File(before.storagePath))
         scanIntoMediaStore(localImage)
@@ -58,7 +58,7 @@ class InternalTwoWaySyncLocalEditIT : AbstractInternalTwoWaySyncIT() {
     @Test
     fun testWhenLocalFileMissingAndServerChangedGivenShouldDownloadInsteadOfDeletingOnServer() {
         val folder = setUpTwoWaySyncFolderWithFile("/twoWaySyncMissingLocallyChangedOnServer/")
-        val localFile = File(storageManager.getFileByPath(folder.childPath(FILE_NAME))!!.storagePath)
+        val localFile = File(requireFile(folder.childPath(FILE_NAME)).storagePath)
         assertTrue(localFile.delete())
         val newVersion = getDummyFile(LARGE_DUMMY_FILE)
         uploadDirectlyToServer(newVersion, folder.childPath(FILE_NAME))

@@ -52,7 +52,7 @@ internal class SharedListFragmentIT : AbstractIT() {
 
                     val file = OCFile("/shared to admin.png").apply {
                         remoteId = "00000001"
-                        parentId = sut.storageManager.getFileByEncryptedRemotePath("/")!!.fileId
+                        parentId = sut.storageManager.rootFolder.fileId
                         mimeType = "image/png"
                         fileLength = 1024000
                         modificationTimestamp = 1188206955
@@ -62,7 +62,7 @@ internal class SharedListFragmentIT : AbstractIT() {
 
                     val file1 = OCFile("/shared to group.png").apply {
                         remoteId = "00000001"
-                        parentId = sut.storageManager.getFileByEncryptedRemotePath("/")!!.fileId
+                        parentId = sut.storageManager.rootFolder.fileId
                         mimeType = "image/png"
                         fileLength = 1024000
                         modificationTimestamp = 1188206955
@@ -72,7 +72,7 @@ internal class SharedListFragmentIT : AbstractIT() {
 
                     val file2 = OCFile("/shared via public link.png").apply {
                         remoteId = "00000001"
-                        parentId = sut.storageManager.getFileByEncryptedRemotePath("/")!!.fileId
+                        parentId = sut.storageManager.rootFolder.fileId
                         mimeType = "image/png"
                         fileLength = 1024000
                         modificationTimestamp = 1188206955
@@ -82,7 +82,7 @@ internal class SharedListFragmentIT : AbstractIT() {
 
                     val file3 = OCFile("/shared to personal circle.png").apply {
                         remoteId = "00000001"
-                        parentId = sut.storageManager.getFileByEncryptedRemotePath("/")!!.fileId
+                        parentId = sut.storageManager.rootFolder.fileId
                         mimeType = "image/png"
                         fileLength = 1024000
                         modificationTimestamp = 1188206955
@@ -92,7 +92,7 @@ internal class SharedListFragmentIT : AbstractIT() {
 
                     val file4 = OCFile("/shared to talk.png").apply {
                         remoteId = "00000001"
-                        parentId = sut.storageManager.getFileByEncryptedRemotePath("/")!!.fileId
+                        parentId = sut.storageManager.rootFolder.fileId
                         mimeType = "image/png"
                         fileLength = 1024000
                         modificationTimestamp = 1188206955

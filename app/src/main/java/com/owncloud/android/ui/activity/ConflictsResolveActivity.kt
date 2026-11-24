@@ -259,10 +259,12 @@ class ConflictsResolveActivity :
             return
         }
 
-        if (existingFile == null) {
+        val currentExistingFile = existingFile
+        if (currentExistingFile == null) {
             fetchRemoteFileAndShowDialog()
         } else {
-            val remotePath = fileDataStorageManager.retrieveRemotePathConsideringEncryption(existingFile) ?: return
+            val remotePath =
+                fileDataStorageManager.retrieveRemotePathConsideringEncryption(currentExistingFile) ?: return
             showFileConflictDialog(remotePath)
         }
     }
@@ -285,7 +287,8 @@ class ConflictsResolveActivity :
 
     @Suppress("DEPRECATION")
     private fun fetchRemoteFileAndShowDialog() {
-        val remotePath = fileDataStorageManager.retrieveRemotePathConsideringEncryption(newFile) ?: return
+        val file = newFile ?: return
+        val remotePath = fileDataStorageManager.retrieveRemotePathConsideringEncryption(file) ?: return
         val operation = ReadFileRemoteOperation(remotePath)
 
         lifecycleScope.launch(Dispatchers.IO) {
@@ -350,8 +353,10 @@ class ConflictsResolveActivity :
             ThumbnailsCacheManager.removeFromCache(oldFile)
         }
 
-        file?.isUpdateThumbnailNeeded = true
-        fileDataStorageManager.saveFile(file!!)
+        if (file == null) return
+
+        file.isUpdateThumbnailNeeded = true
+        fileDataStorageManager.saveFile(file)
     }
 
     private fun showErrorAndFinish(code: Int? = null) {
