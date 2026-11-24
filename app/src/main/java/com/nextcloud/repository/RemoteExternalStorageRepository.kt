@@ -7,7 +7,10 @@
 
 package com.nextcloud.repository
 
+import com.nextcloud.android.lib.resources.externalstorage.ExternalStorageAuthMountRemoteOperation
 import com.nextcloud.android.lib.resources.externalstorage.ExternalStorageListMountsRemoteOperation
+import com.nextcloud.android.lib.resources.externalstorage.model.ExternalStorageCredentials
+import com.nextcloud.android.lib.resources.externalstorage.model.StorageStatus
 import com.owncloud.android.lib.common.utils.Log_OC
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -24,6 +27,14 @@ class RemoteExternalStorageRepository @Inject constructor(private val clientRepo
             return ExternalStorageMountsResult.Failure
         }
         return ExternalStorageMountsResult.Success(result.resultData.orEmpty())
+    }
+
+    override suspend fun authenticateMount(mountId: Long, credentials: ExternalStorageCredentials): Boolean {
+        val client = clientRepository.getNextcloudClient() ?: return false
+        val result = withContext(Dispatchers.IO) {
+            ExternalStorageAuthMountRemoteOperation(mountId, credentials).execute(client)
+        }
+        return result.isSuccess && result.resultData?.status == StorageStatus.Success
     }
 
     companion object {

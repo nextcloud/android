@@ -55,6 +55,8 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.android.common.core.utils.ecosystem.AccountReceiverCallback
 import com.nextcloud.android.lib.resources.externalstorage.model.AuthMechanism
+import com.nextcloud.android.lib.resources.externalstorage.model.ExternalStorageCredentials
+import com.nextcloud.android.lib.resources.externalstorage.model.ExternalStorageMount
 import com.nextcloud.appReview.InAppReviewHelper
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.AsyncRunner
@@ -295,6 +297,11 @@ class FileDisplayActivity :
         observeWorkers()
         registerBackPressCallback()
         setupDrawer(menuItemId)
+
+        supportFragmentManager.setFragmentResultListener(
+            ExternalStorageAuthDialogFragment.REQUEST_KEY,
+            this
+        ) { _, result -> onExternalStorageCredentialsEntered(result) }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -1092,7 +1099,7 @@ class FileDisplayActivity :
         startMetadataSyncForCurrentDir()
     }
 
-    private suspend fun OCFile.requiresUserProvidedCredentials(): Boolean? {
+    private suspend fun OCFile.findMountRequiringCredentials(): ExternalStorageMount? {
         val result = externalStorageRepository.fetchMounts()
         if (result !is ExternalStorageMountsResult.Success) {
             Log_OC.w(
@@ -1102,9 +1109,27 @@ class FileDisplayActivity :
             )
             return null
         }
-        return result.mounts.any {
+        return result.mounts.firstOrNull {
             it.remotePath() == remotePath &&
                 it.config?.authMechanism == AuthMechanism.PasswordUserProvided
+        }
+    }
+
+    private fun onExternalStorageCredentialsEntered(result: Bundle) {
+        val folder = result.getParcelableArgument(ExternalStorageAuthDialogFragment.RESULT_FOLDER, OCFile::class.java)
+            ?: return
+        val mountId = result.getLong(ExternalStorageAuthDialogFragment.RESULT_MOUNT_ID)
+        val credentials = ExternalStorageCredentials(
+            user = result.getString(ExternalStorageAuthDialogFragment.RESULT_USERNAME).orEmpty(),
+            password = result.getString(ExternalStorageAuthDialogFragment.RESULT_PASSWORD).orEmpty()
+        )
+
+        lifecycleScope.launch {
+            if (!externalStorageRepository.authenticateMount(mountId, credentials)) {
+                SnackbarUtil.show(this@FileDisplayActivity, R.string.external_storage_auth_failed)
+                return@launch
+            }
+            startSyncFolderOperation(folder, ignoreETag = true, ignoreFocus = true)
         }
     }
 
@@ -1560,10 +1585,7 @@ class FileDisplayActivity :
                 if (!result.isSuccess && WebdavEntry.MountType.EXTERNAL == folder.mountType) {
                     // May be an external folder: check if user needs authentication
                     lifecycleScope.launch {
-                        val showCredentialsDialog = folder.requiresUserProvidedCredentials()
-                        if (showCredentialsDialog ?: false) {
-                            showExternalStorageAuthDialog(folder)
-                        }
+                        folder.findMountRequiringCredentials()?.let { showExternalStorageAuthDialog(folder, it.id) }
                     }
                 } else {
                     onSyncFinished()
@@ -1576,11 +1598,11 @@ class FileDisplayActivity :
         fetchRecommendedFilesIfNeeded(ignoreETag, folder)
     }
 
-    private fun showExternalStorageAuthDialog(folder: OCFile) {
+    private fun showExternalStorageAuthDialog(folder: OCFile, mountId: Long) {
         if (supportFragmentManager.isStateSaved) return
         if (supportFragmentManager.findFragmentByTag(ExternalStorageAuthDialogFragment.TAG) != null) return
 
-        ExternalStorageAuthDialogFragment.newInstance(folder)
+        ExternalStorageAuthDialogFragment.newInstance(folder, mountId)
             .show(supportFragmentManager, ExternalStorageAuthDialogFragment.TAG)
     }
 

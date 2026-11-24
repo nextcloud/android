@@ -78,6 +78,7 @@ class ExternalStorageAuthDialogFragment :
     private fun sendCredentials(folder: OCFile?) {
         val result = bundleOf(
             RESULT_FOLDER to folder,
+            RESULT_MOUNT_ID to requireArguments().getLong(ARG_MOUNT_ID),
             RESULT_USERNAME to binding.username.text.toString(),
             RESULT_PASSWORD to binding.password.text.toString()
         )
@@ -88,14 +89,17 @@ class ExternalStorageAuthDialogFragment :
         const val TAG = "ExternalStorageAuthDialogFragment"
         const val REQUEST_KEY = "EXTERNAL_STORAGE_AUTH_REQUEST"
         const val RESULT_FOLDER = "FOLDER"
+        const val RESULT_MOUNT_ID = "MOUNT_ID"
         const val RESULT_USERNAME = "USERNAME"
         const val RESULT_PASSWORD = "PASSWORD"
 
         private const val ARG_FOLDER = "FOLDER"
+        private const val ARG_MOUNT_ID = "MOUNT_ID"
 
         @JvmStatic
-        fun newInstance(folder: OCFile): ExternalStorageAuthDialogFragment = ExternalStorageAuthDialogFragment().apply {
-            arguments = bundleOf(ARG_FOLDER to folder)
-        }
+        fun newInstance(folder: OCFile, mountId: Long): ExternalStorageAuthDialogFragment =
+            ExternalStorageAuthDialogFragment().apply {
+                arguments = bundleOf(ARG_FOLDER to folder, ARG_MOUNT_ID to mountId)
+            }
     }
 }
