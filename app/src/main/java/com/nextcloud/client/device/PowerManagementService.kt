@@ -22,14 +22,21 @@ interface PowerManagementService {
     val isPowerSavingEnabled: Boolean
 
     /**
-     * Checks app is excluded from battery optimization or not
+     * True when the user set the app's battery usage to "Unrestricted", which puts the app on Android's power save
+     * allowlist. Android then exempts the app from power saving mode as well: its jobs and alarms are not restricted
+     * while power saving mode is on.
+     *
+     * @see android.os.PowerManager.isIgnoringBatteryOptimizations
      */
-    val isIgnoringOptimization: Boolean
+    val isExemptFromBatteryOptimization: Boolean
 
     /**
      * Checks current battery status using platform [android.os.BatteryManager]
      */
     val battery: BatteryStatus
 
-    val blocksAutoUpload: Boolean
+    /**
+     * True when power saving mode is on and the app is not exempt from battery optimization.
+     */
+    val isAppRestrictedByPowerSaving: Boolean
 }

@@ -19,7 +19,7 @@ import com.owncloud.android.datamodel.GalleryItems
 import com.owncloud.android.datamodel.GalleryRow
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.ComponentsGetter
-import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
+import com.owncloud.android.ui.interfaces.FileListAdapterListener
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import io.mockk.every
 import io.mockk.mockkStatic
@@ -42,7 +42,7 @@ class GalleryAdapterTest {
     lateinit var user: User
 
     @Mock
-    lateinit var ocFileListFragmentInterface: OCFileListFragmentInterface
+    lateinit var listener: FileListAdapterListener
 
     @Mock
     lateinit var preferences: AppPreferences
@@ -89,7 +89,7 @@ class GalleryAdapterTest {
         val sut = GalleryAdapter(
             context,
             user,
-            ocFileListFragmentInterface,
+            listener,
             transferServiceGetter,
             viewThemeUtils,
             5,
@@ -121,7 +121,7 @@ class GalleryAdapterTest {
         val sut = GalleryAdapter(
             context,
             user,
-            ocFileListFragmentInterface,
+            listener,
             transferServiceGetter,
             viewThemeUtils,
             5,

@@ -467,8 +467,8 @@ class FileUploadHelper {
             conditions = UploadResult.DELAYED_FOR_CHARGING
         }
 
-        // check that device is not in power save mode; delay upload otherwise
-        if (powerManagementService.isPowerSavingEnabled) {
+        // check that power save mode is not restricting the app; delay upload otherwise
+        if (powerManagementService.isAppRestrictedByPowerSaving) {
             conditions = UploadResult.DELAYED_IN_POWER_SAVE_MODE
         }
 

@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.nextcloud.ui.component.FilenameView
+            <com.nextcloud.ui.component.filename.FilenameView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

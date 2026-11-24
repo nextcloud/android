@@ -71,7 +71,7 @@ class ContentObserverWork(
     }
 
     private suspend fun checkAndTriggerAutoUpload() = withContext(Dispatchers.IO) {
-        if (powerManagementService.blocksAutoUpload) {
+        if (powerManagementService.isAppRestrictedByPowerSaving) {
             Log_OC.w(TAG, "⚡ Power saving mode active — skipping file sync.")
             return@withContext
         }
