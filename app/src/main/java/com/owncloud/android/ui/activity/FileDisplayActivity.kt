@@ -1200,7 +1200,7 @@ class FileDisplayActivity :
         searchMenuItem.isVisible = false
         searchText.setOnClickListener {
             showSearchView()
-            searchView?.isIconified = false
+            searchView?.onActionViewExpanded()
             searchView?.postDelayed({ searchView?.requestFocusFromTouch() }, SEARCH_VIEW_FOCUS_DELAY)
         }
 
@@ -1281,7 +1281,7 @@ class FileDisplayActivity :
 
     private fun restoreSearchQuery() {
         searchView?.run {
-            isIconified = false
+            onActionViewExpanded()
             setQuery(searchQuery, true)
             clearFocus()
         }
