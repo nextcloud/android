@@ -38,12 +38,12 @@ class AuthenticatorAccountStore(
      */
     fun addAccount(
         account: Account,
-        password: String?,
+        appPassword: String?,
         loginName: String?,
         serverInfo: ServerInfo,
         userInfo: UserInfo
     ): Intent {
-        platformAccountManager.addAccountExplicitly(account, password, null)
+        platformAccountManager.addAccountExplicitly(account, appPassword, null)
         platformAccountManager.notifyAccountAuthenticated(account)
         selectAccountIfNoneSelected(account.name)
 
@@ -57,19 +57,19 @@ class AuthenticatorAccountStore(
     }
 
     /**
-     * Stores the new [password] and kills the session kept by OwnCloudClientManager so that a new one will be
+     * Stores the new [appPassword] and kills the session kept by OwnCloudClientManager so that a new one will be
      * created with the new credentials when needed.
      *
      * @return the response for the AccountAuthenticator that started the login
      */
     @Throws(AccountUtils.AccountNotFoundException::class)
-    fun updateCredentials(account: Account, password: String?): Bundle {
+    fun updateCredentials(account: Account, appPassword: String?): Bundle {
         val response = bundleOf(
             AccountManager.KEY_ACCOUNT_NAME to account.name,
             AccountManager.KEY_ACCOUNT_TYPE to account.type,
-            AccountManager.KEY_AUTHTOKEN to password
+            AccountManager.KEY_AUTHTOKEN to appPassword
         )
-        platformAccountManager.setPassword(account, password)
+        platformAccountManager.setPassword(account, appPassword)
 
         OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(OwnCloudAccount(account, context))
         return response

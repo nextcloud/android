@@ -75,13 +75,13 @@ class LoginDialog(private val activity: AuthenticatorActivity) {
                     return@withContext
                 }
 
-                val result = otpResult.resultData
-                if (result == null) {
+                val appPassword = otpResult.resultData
+                if (appPassword == null) {
                     activity.onOTPFailed()
                     return@withContext
                 }
 
-                activity.onOTPCompleted(data, result)
+                activity.onOTPCompleted(data, appPassword)
             }
         }
     }
