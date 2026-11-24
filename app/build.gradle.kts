@@ -546,12 +546,6 @@ dependencies {
     implementation(libs.common.core)
     // endregion
 
-    // region Image loading
-    implementation(libs.coil)
-    implementation(libs.coil3.compose)
-    implementation(libs.coil3.network.okhttp)
-    // endregion
-
     // kotlinx.serialization
     implementation(libs.kotlinx.serialization.json)
 }

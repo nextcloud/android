@@ -12,8 +12,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
+import com.bumptech.glide.Glide
 import com.owncloud.android.databinding.DocumentPageItemBinding
+import java.io.File
 
 class DocumentPageListAdapter :
     ListAdapter<String, DocumentPageListAdapter.DocumentPageViewHolder>(DiffItemCallback()) {
@@ -32,7 +33,7 @@ class DocumentPageListAdapter :
 
     class DocumentPageViewHolder(val binding: DocumentPageItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(imagePath: String) {
-            binding.root.load(imagePath)
+            Glide.with(binding.root).load(File(imagePath)).into(binding.root)
         }
     }
 
