@@ -38,7 +38,7 @@ class DeleteUploadedFileOperation(
 
         // Obtain synced folder data
         val folder = storageManager.getFileByRemotePath(syncedFolder.remotePath)
-            ?: storageManager.getFileByLocalPath(syncedFolder.localPath)
+            ?: syncedFolder.localPath?.let { storageManager.getFileByLocalPath(it) }
         if (folder == null) {
             Log_OC.e(TAG, "Unable to obtain remote folder to refresh metadata")
             return RemoteOperationResult<Stats>(RemoteOperationResult.ResultCode.METADATA_NOT_FOUND)
