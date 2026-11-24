@@ -22,6 +22,7 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
 import com.nextcloud.utils.extensions.toByteArray
 import com.owncloud.android.lib.common.utils.Log_OC
+import kotlinx.coroutines.flow.emptyFlow
 import org.apache.commons.io.FileUtils
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -99,6 +100,7 @@ class BackgroundJobManagerTest {
             user = mock()
             whenever(user.accountName).thenReturn(USER_ACCOUNT_NAME)
             workManager = mock()
+            whenever(workManager.getWorkInfosFlow(any())).thenReturn(emptyFlow())
             clock = mock()
             whenever(clock.currentTime).thenReturn(TIMESTAMP)
             whenever(clock.currentDate).thenReturn(Date(TIMESTAMP))

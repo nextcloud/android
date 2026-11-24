@@ -37,7 +37,7 @@ import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.operations.CreateFolderOperation
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.ui.adapter.filelist.item.OCFileListItemViewHolder
+import com.owncloud.android.ui.adapter.filelist.item.FileItemViewHolder
 import com.owncloud.android.utils.EspressoIdlingResource
 import org.hamcrest.Matchers.allOf
 import org.junit.After
@@ -196,7 +196,7 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
                     onView(withId(R.id.list_root))
                         .perform(closeSoftKeyboard())
                         .perform(
-                            RecyclerViewActions.actionOnItemAtPosition<OCFileListItemViewHolder>(
+                            RecyclerViewActions.actionOnItemAtPosition<FileItemViewHolder>(
                                 0,
                                 click()
                             )

@@ -42,6 +42,7 @@ import com.nextcloud.client.jobs.worker.WorkerFilesPayload
 import com.nextcloud.client.network.SupportedNetworkTransports
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.isWorkScheduled
+import com.nextcloud.utils.extensions.scheduledWorkInfos
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -194,6 +195,8 @@ internal class BackgroundJobManagerImpl(
     }
 
     private val defaultDispatcherScope = CoroutineScope(Dispatchers.Default)
+
+    private val scheduledWorkInfos = workManager.scheduledWorkInfos(defaultDispatcherScope)
 
     override fun logStartOfWorker(workerName: String?) {
         val logs = deleteOldLogs(preferences.readLogEntry().toMutableList())
@@ -495,19 +498,19 @@ internal class BackgroundJobManagerImpl(
     private fun autoUploadWorkName(syncedFolderID: Long): String = JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID
 
     override fun isAutoUploadScheduled(syncedFolderID: Long): Boolean =
-        workManager.getWorkInfosForUniqueWork(autoUploadWorkName(syncedFolderID))
-            .get()
-            .any { !it.state.isFinished }
+        scheduledWorkInfos.value.isWorkScheduled(formatNameTag(autoUploadWorkName(syncedFolderID)))
 
     private fun autoUploadIgnorePowerSavingTag(syncedFolderID: Long): String =
         autoUploadWorkName(syncedFolderID) + "_" + TAG_SUFFIX_IGNORE_POWER_SAVING
 
     override fun isAutoUploadIgnoringPowerSavingScheduled(syncedFolderID: Long): Boolean =
-        workManager.isWorkScheduled(autoUploadIgnorePowerSavingTag(syncedFolderID))
+        scheduledWorkInfos.value.isWorkScheduled(autoUploadIgnorePowerSavingTag(syncedFolderID))
 
     override fun cancelEnqueuedAutoUploads() {
-        workManager.getWorkInfosByTag(formatClassTag(AutoUploadWorker::class))
-            .get()
+        val autoUploadClassTag = formatClassTag(AutoUploadWorker::class)
+
+        scheduledWorkInfos.value
+            .filter { autoUploadClassTag in it.tags }
             .filter { it.state == WorkInfo.State.ENQUEUED && it.periodicityInfo != null }
             .forEach { workManager.cancelWorkById(it.id) }
     }
@@ -665,7 +668,7 @@ internal class BackgroundJobManagerImpl(
     private fun startFileUploadJobTag(accountName: String): String = JOB_FILES_UPLOAD + accountName
 
     override fun isStartFileUploadJobScheduled(accountName: String): Boolean =
-        workManager.isWorkScheduled(startFileUploadJobTag(accountName))
+        scheduledWorkInfos.value.isWorkScheduled(startFileUploadJobTag(accountName))
 
     /**
      * This method supports initiating uploads for various scenarios, including:

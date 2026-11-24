@@ -9,28 +9,19 @@ package com.nextcloud.utils.extensions
 
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
-import com.google.common.util.concurrent.ListenableFuture
-import com.owncloud.android.lib.common.utils.Log_OC
-import java.util.concurrent.ExecutionException
+import androidx.work.WorkQuery
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 
-private const val TAG = "WorkManager"
+private val scheduledStates = listOf(WorkInfo.State.RUNNING, WorkInfo.State.ENQUEUED)
 
-fun WorkManager.isWorkRunning(tag: String): Boolean = checkWork(tag, listOf(WorkInfo.State.RUNNING))
+fun WorkManager.scheduledWorkInfos(scope: CoroutineScope): StateFlow<List<WorkInfo>> =
+    getWorkInfosFlow(WorkQuery.fromStates(scheduledStates))
+        .stateIn(scope, SharingStarted.Eagerly, emptyList())
 
-fun WorkManager.isWorkScheduled(tag: String): Boolean =
-    checkWork(tag, listOf(WorkInfo.State.RUNNING, WorkInfo.State.ENQUEUED))
+fun List<WorkInfo>.isWorkScheduled(tag: String): Boolean = hasWork(tag, scheduledStates)
 
-private fun WorkManager.checkWork(tag: String, stateConditions: List<WorkInfo.State>): Boolean {
-    val statuses: ListenableFuture<List<WorkInfo>> = getWorkInfosByTag(tag)
-    var workInfoList: List<WorkInfo> = emptyList()
-
-    try {
-        workInfoList = statuses.get()
-    } catch (e: ExecutionException) {
-        Log_OC.d(TAG, "ExecutionException in checkWork: $e")
-    } catch (e: InterruptedException) {
-        Log_OC.d(TAG, "InterruptedException in checkWork: $e")
-    }
-
-    return workInfoList.any { workInfo -> stateConditions.contains(workInfo.state) }
-}
+private fun List<WorkInfo>.hasWork(tag: String, states: List<WorkInfo.State>): Boolean =
+    any { workInfo -> tag in workInfo.tags && workInfo.state in states }

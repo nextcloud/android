@@ -28,8 +28,8 @@ navigator screen a `FileActivity` would bind `OperationsService` for all of them
 |---|---|
 | `fileOperationsHelper.*` (queues operations on `OperationsService`) | Run the `RemoteOperation`/`SyncOperation` directly in `lifecycleScope` on `Dispatchers.IO` with a client for the right user |
 | `onRemoteOperationFinish(op, result)` override | Handle the result inline after the coroutine returns |
-| `requestCredentialsUpdate(account)` → `CheckRemoteWipeTask` → `performCredentialsUpdate` | `CredentialsUpdateHelper` (`isRemoteWipeRequested`, `invalidateCredentials`, `createUpdateCredentialsIntent`) + `registerForActivityResult` |
-| `onActivityResult(REQUEST_CODE__UPDATE_CREDENTIALS, RESULT_OK)` | the `ActivityResultLauncher` callback |
+| `requestCredentialsUpdate(account)` → `CheckRemoteWipeTask.execute` (launches `AuthenticatorActivity` through its own `ActivityResultLauncher`) | `CredentialsUpdateHelper` (`isRemoteWipeRequested`, `invalidateCredentials`, `createUpdateCredentialsIntent`) + `registerForActivityResult` |
+| Reacting to the credentials update result | the `ActivityResultLauncher` callback |
 | `showLoadingDialog` / `dismissLoadingDialog` | `LoadingDialog.newInstance(msg).show(childFragmentManager, TAG)` and `dismissAllowingStateLoss()` |
 | `EXTRA_USER` → `setUser` in `onCreate` | fragment reads `activity?.intent` and calls `navigatorActivity?.setUser` |
 | `EXTRA_FILE` → `file` | read it in the fragment if it is used, otherwise drop it from the callers |
