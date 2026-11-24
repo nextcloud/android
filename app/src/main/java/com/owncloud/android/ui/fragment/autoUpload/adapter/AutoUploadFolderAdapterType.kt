@@ -10,7 +10,8 @@ enum class AutoUploadFolderAdapterType {
     ITEM,
     HEADER,
     FOOTER,
-    EMPTY;
+    EMPTY,
+    EMPTY_FOLDER;
 
     val viewType: Int
         get() = ordinal

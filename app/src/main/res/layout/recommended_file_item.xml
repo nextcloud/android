@@ -150,52 +150,17 @@
         app:layout_constraintTop_toBottomOf="@+id/thumbnail"
         android:orientation="vertical">
 
-        <TextView
+        <com.nextcloud.ui.component.filename.FilenameView
             android:id="@+id/filename"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/standard_quarter_margin"
-            android:ellipsize="middle"
+            app:filenameEllipsize="middle"
             android:gravity="center"
-            android:textColor="@color/text_color"
-            android:singleLine="true"
-            android:textSize="@dimen/grid_item_text_size"
-            tools:text="@string/placeholder_filename" />
-
-        <LinearLayout
-            android:id="@+id/bidi_filename_container"
-            android:layout_width="match_parent"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/standard_quarter_margin"
-            android:orientation="horizontal"
-            android:visibility="gone"
-            tools:visibility="visible">
-
-            <TextView
-                android:id="@+id/bidi_filename"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxWidth="@dimen/grid_container_default_max_file_name"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:textColor="@color/text_color"
-                android:singleLine="true"
-                android:textSize="@dimen/grid_item_text_size"
-                tools:text="@string/placeholder_filename" />
-
-            <TextView
-                android:id="@+id/extension"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="start"
-                android:gravity="center"
-                android:textColor="@color/text_color"
-                android:maxLines="1"
-                android:textSize="@dimen/grid_item_text_size"
-                tools:text="@string/placeholder_extension" />
-
-        </LinearLayout>
+            app:filenameMaxLines="1"
+            app:filenameTextAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:filenameTextColor="@color/text_color"
+            app:filenameTextSize="@dimen/grid_item_text_size" />
 
         <TextView
             android:id="@+id/reason"

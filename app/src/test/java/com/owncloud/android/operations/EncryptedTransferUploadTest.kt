@@ -6,6 +6,7 @@
  */
 package com.owncloud.android.operations
 
+import com.nextcloud.client.account.User
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -37,6 +38,7 @@ import java.nio.channels.FileLock
 
 @Suppress("DEPRECATION")
 class EncryptedTransferUploadTest {
+    private val user: User = mock { on { accountName } doReturn "user@nextcloud.example" }
     private val storage: FileDataStorageManager = mock()
     private val uploads: UploadsStorageManager = mock()
     private val client: OwnCloudClient = mock()
@@ -166,13 +168,14 @@ class EncryptedTransferUploadTest {
         ).apply { isAccessible = true }.invoke(operation, ok)
     }
 
-    private fun operation(file: OCFile = mock(), uploadId: Long = 0): UploadFileOperation {
+    private fun operation(file: OCFile = OCFile("/cipher/content"), uploadId: Long = 0): UploadFileOperation {
+        file.storagePath = "/cache/content"
         val upload: OCUpload = mock {
             on { localPath } doReturn "/cache/content"
             on { getUploadId() } doReturn uploadId
         }
         return UploadFileOperation(
-            uploads, mock(), mock(), mock(), file, upload, NameCollisionPolicy.ASK_USER,
+            uploads, mock(), mock(), user, file, upload, NameCollisionPolicy.ASK_USER,
             0, mock(), false, false, true, storage
         )
     }

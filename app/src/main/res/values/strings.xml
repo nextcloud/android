@@ -246,6 +246,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Delete file from source folder</string>
     <string name="file_list_seconds_ago">seconds ago</string>
     <string name="file_list_live">LIVE</string>
+    <string name="auto_upload_overview_empty_folder">Folder is empty</string>
     <string name="file_list_empty_headline">No files here</string>
     <string name="file_list_empty_recent_files_headline">No recently modified files</string>
     <string name="file_list_empty_recent_files_description">Files and folders you recently modified will show up here.</string>
@@ -538,6 +539,7 @@
     <string name="placeholder_fileSize" translatable="false">389 KB</string>
     <string name="placeholder_fileSize_2" translatable="false">5 MB</string>
     <string name="placeholder_fileSize_3" translatable="false">3 MB</string>
+    <string name="placeholder_remaining_file_count" translatable="false">12</string>
     <string name="placeholder_current_2" translatable="false">Current (2)</string>
     <string name="placeholder_send_button" translatable="false">Send button</string>
     <string name="placeholder_first_name_last_name" translatable="false">Firstname Lastname</string>
@@ -1572,10 +1574,11 @@
     <string name="folder_best_viewed_in">This folder is best viewed in %1$s.</string>
     <string name="open_in_app">Open in %1$s</string>
     <string name="auto_upload_delete_dialog_title">Delete auto-upload folder?</string>
-    <string name="auto_upload_battery_saver_reason">Battery saver is active and may pause uploads.</string>
-    <string name="auto_upload_battery_optimization_reason">Nextcloud\'s background activity is limited by battery optimization.</string>
-    <string name="auto_upload_battery_saver_action">Open battery saver settings</string>
-    <string name="auto_upload_background_activity_action">Allow background activity</string>
+    <string name="power_saving_banner_restricting_app_message">Power saving mode is on, so auto upload is paused until you turn it off.</string>
+    <string name="power_saving_banner_ignored_by_app_message">Power saving mode is on, but Nextcloud has unrestricted battery usage, so auto upload keeps running.</string>
+    <string name="power_saving_settings_action">Open power saving settings</string>
+    <string name="battery_optimization_banner_message">Nextcloud\'s battery usage is restricted, so Android may delay auto upload. With unrestricted battery usage, auto upload also keeps running in power saving mode.</string>
+    <string name="battery_optimization_exempt_action">Allow unrestricted battery usage</string>
     <string name="auto_upload_sync_now_action">Sync now</string>
     <string name="auto_upload_sync_now_started">Auto upload started</string>
     <string name="auto_upload_sync_now_running">Auto upload already running</string>
