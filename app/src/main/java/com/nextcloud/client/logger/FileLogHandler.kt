@@ -61,7 +61,12 @@ internal class FileLogHandler(private val logDir: File, private val logFilename:
 
     fun write(logEntry: String) {
         val rawLogEntry = logEntry.toByteArray(Charset.forName("UTF-8"))
-        writer?.write(rawLogEntry)
+        try {
+            writer?.write(rawLogEntry)
+        } catch (_: IOException) {
+            return
+        }
+
         size += rawLogEntry.size
         if (size > maxSize) {
             rotateLogs()
