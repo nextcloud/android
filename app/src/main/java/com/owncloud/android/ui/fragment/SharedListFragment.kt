@@ -9,7 +9,6 @@ package com.owncloud.android.ui.fragment
 
 import android.os.Bundle
 import android.os.Handler
-import android.view.View
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
@@ -144,9 +143,9 @@ class SharedListFragment :
         }
     }
 
-    override fun onOverflowIconClicked(file: OCFile, view: View?) {
+    override fun onOverflowIconClicked(file: OCFile) {
         fetchFileAndRun(file) { fetched ->
-            super.onOverflowIconClicked(fetched, view)
+            super.onOverflowIconClicked(fetched)
         }
     }
 

@@ -52,7 +52,7 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
                             it.setFabState(FabState.DISABLED)
                             resetScrolling(true)
                             it.setEmptyListMessage(EmptyListState.LOADING)
-                            it.isLoading = false
+                            it.setLoading(false)
                         }
                     }
                 }
@@ -81,7 +81,7 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
                     Assert.assertNotNull(fragment)
                     fragment!!.setFabState(FabState.DISABLED)
                     fragment.setEmptyListMessage(EmptyListState.LOADING)
-                    fragment.isLoading = false
+                    fragment.setLoading(false)
                 }
 
                 onView(ViewMatchers.withId(R.id.drawer_layout)).perform(DrawerActions.open())
@@ -94,7 +94,7 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
                 val fragment = activity!!.listOfFilesFragment
                 fragment!!.setFabState(FabState.DISABLED)
                 fragment.setEmptyListMessage(EmptyListState.LOADING)
-                fragment.isLoading = false
+                fragment.setLoading(false)
 
                 val screenShotName = createName(testClassName + "_" + "showMediaThenAllFiles", "")
                 onView(isRoot()).check(matches(isDisplayed()))
@@ -120,7 +120,7 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
                         listOfFilesFragment?.let {
                             it.setFabState(FabState.DISABLED)
                             it.setEmptyListMessage(EmptyListState.LOADING)
-                            it.isLoading = false
+                            it.setLoading(false)
                         }
                     }
                 }

@@ -51,7 +51,7 @@ import com.owncloud.android.ui.activity.AlbumsPickerActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.activity.FolderPickerActivity
 import com.owncloud.android.ui.activity.ToolbarActivity
-import com.owncloud.android.ui.adapter.filelist.CommonOCFileListAdapterInterface
+import com.owncloud.android.ui.adapter.filelist.CommonFileListAdapterInterface
 import com.owncloud.android.ui.adapter.GalleryAdapter
 import com.owncloud.android.ui.asynctasks.GallerySearchTask
 import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog.MediaState
@@ -254,7 +254,7 @@ class GalleryFragment :
         handleSearchEvent()
     }
 
-    override val commonAdapter: CommonOCFileListAdapterInterface?
+    override val commonAdapter: CommonFileListAdapterInterface?
         get() = galleryAdapter
 
     val currentMediaState: MediaState?

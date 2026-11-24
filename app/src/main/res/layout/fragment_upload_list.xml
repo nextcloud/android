@@ -13,8 +13,8 @@
     android:orientation="vertical">
 
     <include
-        android:id="@+id/auto_upload_battery_saver_warning_card"
-        layout="@layout/upload_warning_card"
+        android:id="@+id/power_settings_banners"
+        layout="@layout/power_settings_banners"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/standard_margin" />
