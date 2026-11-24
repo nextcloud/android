@@ -90,26 +90,33 @@ class AutoUploadDisplayItemFactory(
         SyncedFolder.NOT_SCANNED_YET
     )
 
-    fun createAutoUploadFolder(syncedFolder: SyncedFolderParcelable): SyncedFolderDisplayItem = SyncedFolderDisplayItem(
-        syncedFolder.id,
-        syncedFolder.localPath,
-        syncedFolder.remotePath,
-        syncedFolder.isWifiOnly,
-        syncedFolder.isChargingOnly,
-        syncedFolder.isExisting,
-        syncedFolder.isSubfolderByDate,
-        syncedFolder.account,
-        syncedFolder.uploadAction,
-        syncedFolder.nameCollisionPolicy.serialize(),
-        syncedFolder.isEnabled,
-        syncedFolder.enabledTimestampMs,
-        File(syncedFolder.localPath).name,
-        syncedFolder.type,
-        syncedFolder.isHidden,
-        syncedFolder.subFolderRule,
-        syncedFolder.isExcludeHidden,
-        syncedFolder.lastScanTimestampMs
-    )
+    fun createAutoUploadFolder(syncedFolder: SyncedFolderParcelable): SyncedFolderDisplayItem {
+        val localFolder = File(syncedFolder.localPath)
+        val files = SyncedFolderUtils.getFileList(localFolder)
+
+        return SyncedFolderDisplayItem(
+            syncedFolder.id,
+            syncedFolder.localPath,
+            syncedFolder.remotePath,
+            syncedFolder.isWifiOnly,
+            syncedFolder.isChargingOnly,
+            syncedFolder.isExisting,
+            syncedFolder.isSubfolderByDate,
+            syncedFolder.account,
+            syncedFolder.uploadAction,
+            syncedFolder.nameCollisionPolicy.serialize(),
+            syncedFolder.isEnabled,
+            syncedFolder.enabledTimestampMs,
+            getDisplayFilePaths(files),
+            localFolder.name,
+            files.size.toLong(),
+            syncedFolder.type,
+            syncedFolder.isHidden,
+            syncedFolder.subFolderRule,
+            syncedFolder.isExcludeHidden,
+            syncedFolder.lastScanTimestampMs
+        )
+    }
 
     fun updateAutoUploadFolderItem(item: SyncedFolderDisplayItem, syncedFolder: SyncedFolderParcelable) {
         item.apply {

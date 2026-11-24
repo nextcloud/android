@@ -13,26 +13,26 @@ import com.nextcloud.client.device.PowerManagementService
 object PowerManagementFactory {
     @JvmStatic
     val mock: PowerManagementService = object : PowerManagementService {
-        override val isIgnoringOptimization: Boolean
+        override val isExemptFromBatteryOptimization: Boolean
             get() = true
         override val isPowerSavingEnabled: Boolean
             get() = false
         override val battery: BatteryStatus
             get() = BatteryStatus(false, 0)
-        override val blocksAutoUpload: Boolean
+        override val isAppRestrictedByPowerSaving: Boolean
             get() = false
     }
 
     @JvmStatic
     @Suppress("MagicNumber")
     val mockCharging: PowerManagementService = object : PowerManagementService {
-        override val isIgnoringOptimization: Boolean
+        override val isExemptFromBatteryOptimization: Boolean
             get() = true
         override val isPowerSavingEnabled: Boolean
             get() = false
         override val battery: BatteryStatus
             get() = BatteryStatus(true, 100)
-        override val blocksAutoUpload: Boolean
+        override val isAppRestrictedByPowerSaving: Boolean
             get() = false
     }
 }

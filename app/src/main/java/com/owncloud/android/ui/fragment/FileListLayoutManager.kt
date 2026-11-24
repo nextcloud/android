@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.ui.sort.SortOrderUi
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.ui.adapter.filelist.OCFileListAdapter
+import com.owncloud.android.ui.adapter.filelist.FileListAdapter
 import com.owncloud.android.utils.FileSortOrder
 
 class FileListLayoutManager(private val fragment: OCFileListFragment, private val preferences: AppPreferences) {
@@ -71,7 +71,7 @@ class FileListLayoutManager(private val fragment: OCFileListFragment, private va
     @SuppressLint("NotifyDataSetChanged")
     fun switchLayoutManager(grid: Boolean) {
         val recyclerView: RecyclerView? = fragment.recyclerView
-        val adapter: OCFileListAdapter? = fragment.adapter
+        val adapter: FileListAdapter? = fragment.adapter
         val context: Context? = fragment.context
 
         if (context == null || adapter == null || recyclerView == null) {

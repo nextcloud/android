@@ -15,8 +15,8 @@
     android:orientation="vertical">
 
     <include
-        android:id="@+id/auto_upload_battery_saver_warning_card"
-        layout="@layout/upload_warning_card"
+        android:id="@+id/power_settings_banners"
+        layout="@layout/power_settings_banners"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/standard_margin"
@@ -37,17 +37,24 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@android:id/list"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/synced_folders_recycler_view_layout_margin"
-            android:layout_marginLeft="@dimen/synced_folders_recycler_view_layout_margin"
-            android:layout_marginRight="@dimen/synced_folders_recycler_view_layout_margin"
-            android:clipToPadding="false"
-            android:scrollbarStyle="outsideOverlay"
-            android:scrollbars="vertical"
-            android:visibility="visible" />
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@android:id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/synced_folders_recycler_view_layout_margin"
+                android:layout_marginLeft="@dimen/synced_folders_recycler_view_layout_margin"
+                android:layout_marginRight="@dimen/synced_folders_recycler_view_layout_margin"
+                android:clipToPadding="false"
+                android:scrollbarStyle="outsideOverlay"
+                android:scrollbars="vertical"
+                android:visibility="visible" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <LinearLayout
             android:id="@+id/loading_content"
