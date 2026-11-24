@@ -27,7 +27,7 @@ import com.nextcloud.android.lib.resources.teams.model.TeamMember
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.ui.compose.component.avatar.RemoteAvatar
 import com.nextcloud.ui.teams.util.avatarPath
-import com.nextcloud.ui.teams.util.iconId
+import com.nextcloud.ui.teams.util.hasRole
 import com.nextcloud.ui.teams.util.titleId
 import com.owncloud.android.R
 
@@ -37,7 +37,11 @@ fun TeamMemberListItem(member: TeamMember, client: NextcloudClient) {
 
     ListItem(
         headlineContent = { Text(text = name, maxLines = 1, overflow = TextOverflow.Ellipsis) },
-        supportingContent = { Text(stringResource(member.role.titleId())) },
+        supportingContent = if (member.hasRole) {
+            { Text(stringResource(member.role.titleId())) }
+        } else {
+            null
+        },
         leadingContent = { TeamMemberAvatar(member, name, client) }
     )
 }
@@ -50,12 +54,12 @@ private fun TeamMemberAvatar(member: TeamMember, name: String, client: Nextcloud
     if (path != null) {
         RemoteAvatar(client = client, path = path, name = name, size = size)
     } else {
-        TeamMemberTypeAvatar(member, size)
+        NonUserMemberAvatar(size)
     }
 }
 
 @Composable
-private fun TeamMemberTypeAvatar(member: TeamMember, size: Dp) {
+private fun NonUserMemberAvatar(size: Dp) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
@@ -63,7 +67,7 @@ private fun TeamMemberTypeAvatar(member: TeamMember, size: Dp) {
             .background(MaterialTheme.colorScheme.secondaryContainer, CircleShape)
     ) {
         Icon(
-            painter = painterResource(member.type.iconId()),
+            painter = painterResource(R.drawable.ic_group),
             contentDescription = null,
             tint = MaterialTheme.colorScheme.onSecondaryContainer
         )

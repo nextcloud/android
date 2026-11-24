@@ -10,13 +10,11 @@ import com.nextcloud.android.lib.resources.teams.model.Team
 import com.nextcloud.android.lib.resources.teams.model.TeamRole
 import com.nextcloud.ui.teams.model.TeamAccess
 
-private const val LEVEL_NONE = 0
-
 val Team.access: TeamAccess
     get() {
         val initiator = initiator
         return when {
-            initiator == null || initiator.level == LEVEL_NONE -> TeamAccess.PENDING
+            initiator == null || !initiator.hasRole -> TeamAccess.PENDING
             initiator.role == TeamRole.MEMBER -> TeamAccess.MEMBER
             else -> TeamAccess.MANAGER
         }

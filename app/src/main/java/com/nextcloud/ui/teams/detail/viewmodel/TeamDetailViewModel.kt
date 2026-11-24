@@ -21,6 +21,7 @@ import com.nextcloud.ui.teams.detail.model.TeamResourceTarget
 import com.nextcloud.ui.teams.detail.model.addTeamMemberErrorMessageId
 import com.nextcloud.ui.teams.detail.model.loadTeamDetailErrorMessageId
 import com.nextcloud.ui.teams.detail.repository.TeamDetailRepository
+import com.nextcloud.ui.teams.util.isUser
 import com.nextcloud.ui.teams.util.providerId
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -171,7 +172,7 @@ class TeamDetailViewModel @AssistedInject constructor(
     private suspend fun loadMembers() {
         val result = repository.getMembers(teamId)
         _members.value = if (result.isSuccess) {
-            TeamDetailListUiState.Content(result.resultData.orEmpty())
+            TeamDetailListUiState.Content(result.resultData.orEmpty().sortedBy { it.isUser })
         } else {
             TeamDetailListUiState.Error(result.loadTeamDetailErrorMessageId())
         }
