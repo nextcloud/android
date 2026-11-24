@@ -29,6 +29,7 @@ import android.text.style.StyleSpan;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.android.sso.Constants;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -200,10 +201,8 @@ public class SsoGrantPermissionActivity extends BaseActivity {
             return;
         }
 
-        final Bundle result = new Bundle();
-        result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name);
-        result.putString(AccountManager.KEY_ACCOUNT_TYPE, MainApp.getAccountType(this));
-        result.putString(AccountManager.KEY_AUTHTOKEN, NEXTCLOUD_SSO);
+        final String accountType = MainApp.getAccountType(this);
+        final Bundle result = BundleExtensionsKt.buildAccount(new Bundle(), account, NEXTCLOUD_SSO, accountType);
         result.putString(Constants.SSO_USER_ID, userId);
         result.putString(Constants.SSO_TOKEN, token);
         result.putString(Constants.SSO_SERVER_URL, serverUrl);

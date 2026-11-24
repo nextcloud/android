@@ -13,8 +13,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.preference.PreferenceManager
 import androidx.core.content.edit
-import androidx.core.os.bundleOf
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.utils.extensions.buildAccount
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.UserInfo
@@ -64,11 +64,7 @@ class AuthenticatorAccountStore(
      */
     @Throws(AccountUtils.AccountNotFoundException::class)
     fun updateCredentials(account: Account, appPassword: String?): Bundle {
-        val response = bundleOf(
-            AccountManager.KEY_ACCOUNT_NAME to account.name,
-            AccountManager.KEY_ACCOUNT_TYPE to account.type,
-            AccountManager.KEY_AUTHTOKEN to appPassword
-        )
+        val response = Bundle().buildAccount(account, appPassword)
         platformAccountManager.setPassword(account, appPassword)
 
         OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(OwnCloudAccount(account, context))

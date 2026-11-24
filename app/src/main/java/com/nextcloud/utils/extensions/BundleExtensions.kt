@@ -7,10 +7,19 @@
  */
 package com.nextcloud.utils.extensions
 
+import android.accounts.Account
+import android.accounts.AccountManager
 import android.os.Bundle
 import android.os.Parcelable
 import androidx.core.os.BundleCompat
 import java.io.Serializable
+
+fun Bundle.buildAccount(account: Account, authToken: String?, accountType: String = account.type): Bundle =
+    apply {
+        putString(AccountManager.KEY_ACCOUNT_NAME, account.name)
+        putString(AccountManager.KEY_ACCOUNT_TYPE, accountType)
+        putString(AccountManager.KEY_AUTHTOKEN, authToken)
+    }
 
 fun <T : Serializable?> Bundle?.getSerializableArgument(key: String, type: Class<T>): T? {
     if (this == null) {

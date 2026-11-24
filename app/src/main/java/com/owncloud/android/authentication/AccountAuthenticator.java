@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
 
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -157,11 +158,8 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             accessToken = am.peekAuthToken(account, authTokenType);
         }
         if (accessToken != null) {
-            final Bundle result = new Bundle();
-            result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name);
-            result.putString(AccountManager.KEY_ACCOUNT_TYPE, MainApp.getAccountType(mContext));
-            result.putString(AccountManager.KEY_AUTHTOKEN, accessToken);
-            return result;
+            final String accountType = MainApp.getAccountType(mContext);
+            return BundleExtensionsKt.buildAccount(new Bundle(), account, accessToken, accountType);
         }
 
         /// if not stored, return Intent to access the AuthenticatorActivity and UPDATE the token for the account
