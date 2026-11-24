@@ -157,7 +157,7 @@ internal class SharedListFragmentIT : AbstractIT() {
 
                     sut.addFragment(fragment)
 
-                    fragment.isLoading = false
+                    fragment.setLoading(false)
                     fragment.mEmptyListContainer?.visibility = View.GONE
 
                     val newList = runBlocking {

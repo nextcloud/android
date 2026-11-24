@@ -14,25 +14,28 @@ import android.os.Bundle
 import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.annotation.IdRes
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
+import com.nextcloud.ui.fileactions.FileActionHandler
+import com.nextcloud.ui.fileactions.FileActionHost
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet
 import com.nextcloud.utils.SnackbarUtil
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
-import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment
+import com.owncloud.android.ui.fragment.FileFragment
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 class AudioPlayerActivity :
     FileActivity(),
+    FileFragment.ContainerActivity,
     Injectable {
 
     companion object {
@@ -43,6 +46,9 @@ class AudioPlayerActivity :
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
+    @Inject
+    lateinit var fileActionHandler: FileActionHandler
 
     private val viewModel by viewModels<AudioPlayerViewModel> { viewModelFactory }
 
@@ -83,35 +89,29 @@ class AudioPlayerActivity :
     private fun handleEvent(event: AudioPlayerScreenEvent) {
         when (event) {
             is AudioPlayerScreenEvent.ShowFileActions -> showFileActions(event.file, event.actionsToHide)
-
-            is AudioPlayerScreenEvent.ShowFileDetails -> showFileDetails(event.file)
-
             is AudioPlayerScreenEvent.ShowFileExportStartedMessage -> showFileExportStartedMessage()
-
-            is AudioPlayerScreenEvent.ShowShareFileDialog -> fileOperationsHelper.sendShareFile(event.file)
-
-            is AudioPlayerScreenEvent.ShowRemoveFileDialog -> showRemoveFileDialog(event.file)
-
-            is AudioPlayerScreenEvent.LaunchOpenFileIntent -> fileOperationsHelper.openFile(event.file)
-
-            is AudioPlayerScreenEvent.LaunchStreamFileIntent -> fileOperationsHelper.streamMediaFile(event.file)
-
-            is AudioPlayerScreenEvent.ToggleFileLock -> fileOperationsHelper.toggleFileLock(
-                event.file,
-                event.shouldBeLocked
-            )
-
-            is AudioPlayerScreenEvent.AddFileToAlbum -> fileOperationsHelper.addFileToAlbum(listOf(event.file))
         }
     }
 
     private fun showFileActions(file: OCFile, actionsToHide: List<Int>) {
         FileActionsBottomSheet.newInstance(file, false, actionsToHide)
-            .setResultListener(supportFragmentManager, this) { viewModel.onFileActionChosen(file, it) }
+            .setResultListener(supportFragmentManager, this) { itemId -> onFileActionChosen(file, itemId) }
             .show(supportFragmentManager, "actions")
     }
 
-    private fun showFileDetails(file: OCFile) {
+    private fun onFileActionChosen(file: OCFile, @IdRes itemId: Int) {
+        viewModel.onFileActionChosen(itemId)
+
+        val host = FileActionHost(this, supportFragmentManager, audioPlayerView, null)
+        fileActionHandler.handle(itemId, listOf(file), host)
+    }
+
+    private fun showFileExportStartedMessage() {
+        val message = resources.getQuantityString(R.plurals.export_start, 1, 1)
+        SnackbarUtil.show(audioPlayerView, message)
+    }
+
+    override fun showDetails(file: OCFile) {
         val intent = Intent(this, FileDisplayActivity::class.java).apply {
             action = FileDisplayActivity.ACTION_DETAILS
             putExtra(EXTRA_FILE, file)
@@ -121,13 +121,9 @@ class AudioPlayerActivity :
         finish()
     }
 
-    private fun showFileExportStartedMessage() {
-        val message = resources.getQuantityString(R.plurals.export_start, 1, 1)
-        SnackbarUtil.show(audioPlayerView, message)
-    }
+    override fun showDetails(file: OCFile, activeTab: Int) = showDetails(file)
 
-    private fun showRemoveFileDialog(file: OCFile) {
-        RemoveFilesDialogFragment.newInstance(file)
-            .show(supportFragmentManager, ConfirmationDialogFragment.FTAG_CONFIRMATION)
-    }
+    override fun onBrowsedDownTo(folder: OCFile) = Unit
+
+    override fun onTransferStateChanged(file: OCFile, downloading: Boolean, uploading: Boolean) = Unit
 }

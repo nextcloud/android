@@ -1,0 +1,660 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-FileCopyrightText: 2023 TSI-mc
+ * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2018 Nextcloud
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ */
+package com.owncloud.android.ui.adapter.filelist
+
+import android.accounts.AccountManager
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.graphics.drawable.Drawable
+import android.os.Handler
+import android.os.Looper
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.annotation.VisibleForTesting
+import androidx.core.view.isVisible
+import androidx.recyclerview.widget.RecyclerView
+import com.nextcloud.client.account.User
+import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.HumanReadableFormatter
+import com.nextcloud.utils.avatar.AvatarGenerationListener
+import com.nextcloud.utils.avatar.AvatarGenerator
+import com.nextcloud.utils.date.DateFormatPattern
+import com.nextcloud.utils.e2ee.E2EVersionHelper
+import com.nextcloud.utils.extensions.stopShimmer
+import com.nextcloud.utils.thumbnail.ThumbnailGenerator
+import com.owncloud.android.MainApp
+import com.owncloud.android.R
+import com.owncloud.android.databinding.GridItemBinding
+import com.owncloud.android.databinding.ListFooterBinding
+import com.owncloud.android.databinding.ListHeaderBinding
+import com.owncloud.android.databinding.ListItemBinding
+import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.FileListAdapterDataProviderImpl
+import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.ThumbnailsCacheManager
+import com.owncloud.android.datamodel.VirtualFolderType
+import com.owncloud.android.lib.common.accounts.AccountUtils
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.status.OCCapability
+import com.owncloud.android.ui.activity.ComponentsGetter
+import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.ui.adapter.filelist.data.FileListAdapterDataProvider
+import com.owncloud.android.ui.adapter.filelist.data.FileListAdapterHelper
+import com.owncloud.android.ui.adapter.filelist.data.FileListDiffer
+import com.owncloud.android.ui.adapter.filelist.footer.FileListFooterBinder
+import com.owncloud.android.ui.adapter.filelist.footer.FileListFooterViewHolder
+import com.owncloud.android.ui.adapter.filelist.header.FileListHeaderBinder
+import com.owncloud.android.ui.adapter.filelist.header.FileListHeaderViewHolder
+import com.owncloud.android.ui.adapter.filelist.item.FileGridItemBinder
+import com.owncloud.android.ui.adapter.filelist.item.FileGridItemViewHolder
+import com.owncloud.android.ui.adapter.filelist.item.FileItemBinder
+import com.owncloud.android.ui.adapter.filelist.item.FileItemViewHolder
+import com.owncloud.android.ui.adapter.filelist.item.FileViewHolder
+import com.owncloud.android.ui.adapter.filelist.item.FileListDelegate
+import com.owncloud.android.ui.adapter.filelist.recommended.RecommendedFilesAdapter
+import com.owncloud.android.ui.adapter.filelist.recommended.RecommendedFilesViewHolder
+import com.owncloud.android.ui.fragment.OCFileListFragment
+import com.owncloud.android.ui.fragment.SearchType
+import com.owncloud.android.ui.interfaces.FileListAdapterListener
+import com.owncloud.android.utils.EncryptionUtils
+import com.owncloud.android.utils.FileSortOrder
+import com.owncloud.android.utils.FileSortOrder.SortType
+import com.owncloud.android.utils.theme.CapabilityUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import me.zhanghai.android.fastscroll.PopupTextProvider
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import java.util.UUID
+
+class FileListAdapter(
+    private val activity: Activity,
+    private var user: User,
+    private val preferences: AppPreferences,
+    syncedFolderProvider: SyncedFolderProvider?,
+    transferServiceGetter: ComponentsGetter,
+    listener: FileListAdapterListener,
+    private val hideItemOptions: Boolean,
+    private var gridView: Boolean,
+    viewThemeUtils: ViewThemeUtils,
+    private val thumbnailGenerator: ThumbnailGenerator,
+    avatarGenerator: AvatarGenerator
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
+    AvatarGenerationListener,
+    CommonFileListAdapterInterface,
+    PopupTextProvider {
+
+    val listOfHiddenFiles = ArrayList<String>()
+
+    private val allFiles = mutableListOf<OCFile>()
+    private val recommendedFiles = mutableListOf<OCFile>()
+    private val recommendedFilesAdapter = RecommendedFilesAdapter(this, recommendedFiles)
+
+    private val popupDateFormat = SimpleDateFormat(DateFormatPattern.FullMonthWithYear.pattern, Locale.getDefault())
+    private val footerId = UUID.randomUUID().leastSignificantBits
+    private val headerId = UUID.randomUUID().leastSignificantBits
+    private val helper = FileListAdapterHelper()
+    private val mainHandler = Handler(Looper.getMainLooper())
+    private val differ = FileListDiffer(this, preferences, ::shouldShowHeader)
+
+    private var currentDirectory: OCFile? = null
+    private var listedDirectory: OCFile? = null
+    private var onlyOnDevice = false
+    private var displayedSortOrder: FileSortOrder? = null
+    private var searchType: SearchType? = null
+
+    private var storageManager: FileDataStorageManager =
+        transferServiceGetter.storageManager ?: FileDataStorageManager(user, activity.contentResolver)
+    private var adapterDataProvider: FileListAdapterDataProvider = FileListAdapterDataProviderImpl(storageManager)
+    private val capability: OCCapability = CapabilityUtils.getCapability(user, activity)
+
+    @Suppress("DEPRECATION")
+    private val userId: String? = AccountManager
+        .get(activity)
+        .getUserData(user.toPlatformAccount(), AccountUtils.Constants.KEY_USER_ID)
+
+    private val fileListDelegate = FileListDelegate(
+        FileUploadHelper.instance(),
+        activity,
+        listener,
+        user,
+        storageManager,
+        hideItemOptions,
+        transferServiceGetter,
+        showMetadata = true,
+        showShareAvatar = true,
+        viewThemeUtils,
+        syncedFolderProvider
+    )
+
+    private val headerBinder = FileListHeaderBinder(
+        activity,
+        viewThemeUtils,
+        listener,
+        preferences,
+        capability
+    ) { user }
+
+    private val footerBinder = FileListFooterBinder(
+        activity,
+        viewThemeUtils,
+        preferences,
+        listener
+    )
+
+    private val fileItemBinder = FileItemBinder(
+        activity,
+        viewThemeUtils,
+        listener,
+        avatarGenerator,
+        userId
+    )
+
+    private val fileGridItemBinder = FileGridItemBinder(listener)
+
+    val isEmpty: Boolean
+        get() = differ.latestFiles.isEmpty()
+
+    val isHeaderDisplayed: Boolean
+        get() = differ.isHeaderDisplayed
+
+    val files: List<OCFile>
+        get() = differ.files
+
+    init {
+        (activity as? FileDisplayActivity)?.showSortListGroup(true)
+        setHasStableIds(true)
+        ThumbnailsCacheManager.initDiskCacheAsync()
+    }
+
+    // region Overridden methods
+    override fun getItemCount(): Int = files.size + differ.headerOffset() + FOOTER_ITEM_COUNT
+
+    override fun getItemId(position: Int): Long {
+        if (isHeaderDisplayed && position == 0) {
+            return headerId
+        }
+
+        val files = files
+        val filePosition = position - differ.headerOffset()
+        return when {
+            filePosition == files.size -> footerId
+            filePosition < files.size -> files[filePosition].fileId
+            else -> RecyclerView.NO_ID
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int = viewTypeAt(position).ordinal
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        return when (FileListViewType.fromOrdinal(viewType)) {
+            FileListViewType.FOOTER -> FileListFooterViewHolder(ListFooterBinding.inflate(inflater, parent, false))
+            FileListViewType.HEADER -> FileListHeaderViewHolder(ListHeaderBinding.inflate(inflater, parent, false))
+            FileListViewType.LIST_ITEM -> FileItemViewHolder(ListItemBinding.inflate(inflater, parent, false))
+            FileListViewType.GRID_ITEM -> FileGridItemViewHolder(GridItemBinding.inflate(inflater, parent, false))
+        }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is FileListFooterViewHolder -> footerBinder.bind(holder, files)
+            is FileListHeaderViewHolder -> bindHeader(holder)
+            is FileViewHolder -> bindFileAt(holder, position)
+        }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: MutableList<Any>) {
+        val iconId = payloads.firstOrNull() as? Int
+        if (iconId != null && FileListDiffer.REBIND_PAYLOAD !in payloads && holder is FileViewHolder) {
+            holder.localFileIndicator.setImageResource(iconId)
+            holder.localFileIndicator.visibility = View.VISIBLE
+            return
+        }
+        super.onBindViewHolder(holder, position, payloads)
+    }
+
+    override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
+        val thumbnailShimmer = (holder as? FileViewHolder)?.shimmerThumbnail ?: return
+        if (thumbnailShimmer.isVisible) {
+            thumbnailShimmer.setImageResource(R.drawable.background)
+            thumbnailShimmer.resetLoader()
+        }
+    }
+
+    override fun onViewRecycled(holder: RecyclerView.ViewHolder) {
+        super.onViewRecycled(holder)
+        if (holder is FileViewHolder) {
+            holder.thumbnail.stopShimmer(holder.shimmerThumbnail)
+        }
+    }
+
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
+        differ.attach(recyclerView)
+    }
+
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView)
+        differ.detach()
+    }
+
+    override fun isMultiSelect(): Boolean = fileListDelegate.isMultiSelect
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun setMultiSelect(isMultiSelect: Boolean) {
+        fileListDelegate.isMultiSelect = isMultiSelect
+        notifyDataSetChanged()
+    }
+
+    override fun cancelAllPendingTasks() = thumbnailGenerator.fileThumbnailGenerator.cancelPendingTasks()
+
+    override fun getItemPosition(file: OCFile): Int {
+        val position = files.indexOf(file)
+        return if (position == RecyclerView.NO_POSITION) position else position + differ.headerOffset()
+    }
+
+    override fun swapDirectory(
+        user: User,
+        directory: OCFile,
+        storageManager: FileDataStorageManager,
+        onlyOnDevice: Boolean,
+        mLimitToMimeType: String,
+        onSwapped: () -> Unit
+    ) {
+        this.onlyOnDevice = onlyOnDevice
+
+        if (storageManager != this.storageManager) {
+            this.storageManager = storageManager
+            adapterDataProvider = FileListAdapterDataProviderImpl(storageManager)
+            fileListDelegate.setShowShareAvatar(true)
+            this.user = user
+        }
+
+        val accountUserId = userId ?: return
+
+        helper.prepareFileList(
+            directory,
+            adapterDataProvider,
+            onlyOnDevice,
+            mLimitToMimeType,
+            preferences,
+            accountUserId
+        ) { newList, _ ->
+            updateAdapter(newList, directory, onSwapped)
+        }
+    }
+
+    override fun setHighlightedItem(file: OCFile) = fileListDelegate.setHighlightedItem(file)
+
+    override fun setSortOrder(mFile: OCFile?, sortOrder: FileSortOrder) {
+        if (searchType == SearchType.FAVORITE_SEARCH) {
+            preferences.setSortOrder(FileSortOrder.Type.favoritesListView, sortOrder)
+        } else {
+            preferences.setSortOrder(mFile, sortOrder)
+        }
+
+        val sortedFiles = sortOrder.sortCloudFiles(
+            differ.latestFiles.toMutableList(),
+            preferences.isSortFoldersBeforeFiles,
+            preferences.isSortFavoritesFirst
+        )
+        differ.replace(sortedFiles)
+
+        displayedSortOrder = sortOrder
+    }
+
+    override fun addCheckedFile(file: OCFile) = fileListDelegate.addCheckedFile(file)
+
+    override fun isCheckedFile(file: OCFile): Boolean = fileListDelegate.isCheckedFile(file)
+
+    override fun getCheckedItems(): Set<OCFile> = fileListDelegate.checkedItems
+
+    override fun removeCheckedFile(file: OCFile) = fileListDelegate.removeCheckedFile(file)
+
+    override fun notifyItemChanged(file: OCFile) {
+        val recommendedAdapter = visibleRecommendedFilesAdapterFor(file)
+        if (recommendedAdapter != null) {
+            recommendedAdapter.notifyItemChanged(recommendedAdapter.getItemPosition(file))
+        } else {
+            notifyItemChangedIfPresent(file)
+        }
+    }
+
+    override fun getFilesCount(): Int = files.size
+
+    override fun clearCheckedItems() = fileListDelegate.clearCheckedItems()
+
+    override fun selectAll(value: Boolean) {
+        if (value) {
+            fileListDelegate.addToCheckedFiles(files)
+        } else {
+            clearCheckedItems()
+        }
+    }
+
+    override fun avatarGenerated(avatarDrawable: Drawable?, callContext: Any?) {
+        (callContext as ImageView).setImageDrawable(avatarDrawable)
+    }
+
+    override fun shouldCallGeneratedCallback(tag: String?, callContext: Any?): Boolean =
+        (callContext as ImageView).tag == tag
+
+    override fun getPopupText(view: View, position: Int): String {
+        val file = getItem(position)
+        val sortOrder = displayedSortOrder
+        if (file == null || sortOrder == null) {
+            return ""
+        }
+
+        return when (sortOrder.getType()) {
+            SortType.ALPHABET -> file.fileName.take(1).uppercase(Locale.getDefault())
+            SortType.DATE -> popupDateFormat.format(Date(file.modificationTimestamp))
+            SortType.SIZE -> HumanReadableFormatter.formatBytes(file.fileLength)
+        }
+    }
+    // endregion
+
+    // region Public methods
+    fun getItem(position: Int): OCFile? = files.getOrNull(position - differ.headerOffset())
+
+    fun bindRecommendedFilesHolder(holder: RecommendedFilesViewHolder, file: OCFile) {
+        bindCommon(holder, file)
+
+        fileGridItemBinder.bind(holder, file, shouldShowMoreOptions())
+    }
+
+    fun shouldShowHeader(): Boolean {
+        val directory = currentDirectory
+        return !(directory == null || MainApp.isOnlyOnDevice) && (
+            shouldShowRecommendedFiles() ||
+                headerBinder.shouldShowOpenInNotes(directory) ||
+                headerBinder.hasRichWorkspace(directory)
+            )
+    }
+
+    fun updateAdapter(newFiles: List<OCFile>, directory: OCFile?, onUpdated: () -> Unit = {}) {
+        Log_OC.d(TAG, "updating the adapter")
+
+        allFiles.clear()
+        allFiles.addAll(newFiles)
+
+        activity.runOnUiThread {
+            val isSameDirectoryRefresh = directory != null && directory == listedDirectory
+            listedDirectory = directory
+
+            if (directory != null) {
+                currentDirectory = directory
+            }
+
+            differ.updateHeader()
+
+            val files = newFiles.toList()
+            if (isSameDirectoryRefresh) {
+                differ.submitAndRebind(files)
+            } else {
+                differ.replaceWithoutAnimation(files)
+            }
+
+            onUpdated()
+        }
+    }
+
+    fun prepareForSearchData(searchType: SearchType) {
+        this.searchType = searchType
+        preferences.setPhotoSearchTimestamp(0)
+
+        val type = when (searchType) {
+            SearchType.FAVORITE_SEARCH -> VirtualFolderType.FAVORITE
+            SearchType.GALLERY_SEARCH -> VirtualFolderType.GALLERY
+            else -> VirtualFolderType.NONE
+        }
+
+        if (type != VirtualFolderType.GALLERY) {
+            storageManager.deleteVirtuals(type)
+        }
+    }
+
+    fun setDisplayedSortOrder(sortOrder: FileSortOrder?) {
+        displayedSortOrder = sortOrder
+    }
+
+    fun setCheckedItem(files: Set<OCFile>?) = fileListDelegate.setCheckedItem(files)
+
+    fun setFiles(files: List<OCFile>) = differ.submit(files.toList())
+
+    fun getFileByRemoteId(remoteId: String?): OCFile? = allFiles.firstOrNull { it.remoteId == remoteId }
+
+    fun insertFile(file: OCFile?) {
+        if (file == null || file in allFiles) {
+            return
+        }
+
+        allFiles.add(file)
+        differ.submit(differ.latestFiles + file)
+    }
+
+    fun replaceFile(file: OCFile) {
+        val index = differ.latestFiles.indexOf(file)
+        if (index == RecyclerView.NO_POSITION) {
+            Log_OC.d(TAG, "File cannot be found in adapter's files")
+            return
+        }
+
+        differ.submit(differ.latestFiles.toMutableList().apply { set(index, file) })
+        notifyItemChanged(file)
+    }
+
+    fun updateFile(updatedFile: OCFile) {
+        val allIndex = helper.indexOfSameRemoteFile(allFiles, updatedFile)
+        if (allIndex != RecyclerView.NO_POSITION) {
+            allFiles[allIndex] = updatedFile
+        }
+
+        val newFiles = differ.latestFiles.toMutableList()
+        val oldIndex = helper.indexOfSameRemoteFile(newFiles, updatedFile)
+        if (oldIndex == RecyclerView.NO_POSITION) {
+            return
+        }
+
+        newFiles.removeAt(oldIndex)
+        newFiles.add(updatedFile)
+        differ.submit(differ.sortForCurrentView(newFiles, searchType, currentDirectory))
+
+        visibleRecommendedFilesAdapterFor(updatedFile)?.let { adapter ->
+            val position = adapter.getItemPosition(updatedFile)
+            if (position != RecyclerView.NO_POSITION) {
+                adapter.notifyItemChanged(position)
+            }
+        }
+    }
+
+    fun removeFile(file: OCFile) {
+        allFiles.remove(file)
+        differ.submit(differ.latestFiles - file)
+    }
+
+    fun removeAllFiles() {
+        allFiles.clear()
+        differ.submit(emptyList())
+    }
+
+    fun updateFavoriteState(remotePath: String?, isFavorite: Boolean, removeFromList: Boolean) {
+        val filesToDelete = mutableListOf<OCFile>()
+
+        val changedFile = differ.latestFiles.firstOrNull { it.remotePath == remotePath }?.also { file ->
+            file.isFavorite = isFavorite
+            if (removeFromList) {
+                filesToDelete.add(file)
+            }
+        }
+
+        allFiles.firstOrNull { it.remotePath == remotePath }?.let { file ->
+            file.isFavorite = isFavorite
+            storageManager.saveFile(file)
+            if (removeFromList) {
+                filesToDelete.add(file)
+            }
+        }
+
+        if (currentDirectory?.remotePath == remotePath) {
+            currentDirectory?.isFavorite = isFavorite
+            storageManager.saveFile(currentDirectory)
+        }
+
+        mainHandler.post {
+            val sortedFiles = differ.sortForCurrentView(
+                differ.latestFiles.toMutableList(),
+                searchType,
+                currentDirectory
+            )
+            sortedFiles.removeAll(filesToDelete)
+            differ.submit(sortedFiles)
+
+            if (changedFile != null && !removeFromList) {
+                notifyItemChangedIfPresent(changedFile)
+            }
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun markCommentsAsRead(remoteId: String?) {
+        files.firstOrNull { it.remoteId == remoteId }?.unreadCommentsCount = 0
+        allFiles.firstOrNull { it.remoteId == remoteId }?.unreadCommentsCount = 0
+        mainHandler.post { notifyDataSetChanged() }
+    }
+
+    fun updateFileEncryptionById(remoteId: String?, encrypted: Boolean) {
+        val file = remoteId?.let { id -> allFiles.firstOrNull { it.remoteId == id } } ?: return
+
+        file.isEncrypted = encrypted
+        val e2eCounter = if (E2EVersionHelper.isV2Plus(capability)) {
+            EncryptionUtils.E2E_V2_INITIAL_COUNTER
+        } else {
+            EncryptionUtils.E2E_V1_INITIAL_COUNTER
+        }
+        storageManager.updateE2EECounter(file, e2eCounter)
+        notifyItemChangedIfPresent(file)
+    }
+
+    fun updateFileIndicator(iconId: Int, file: OCFile?) {
+        file?.let { notifyItemChangedIfPresent(it, iconId) }
+    }
+
+    fun updateFileIndicator(fileId: Long, iconId: Int) {
+        val index = files.indexOfFirst { it.fileId == fileId }
+        if (index != RecyclerView.NO_POSITION) {
+            notifyItemChanged(index + differ.headerOffset(), iconId)
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateRecommendedFiles(value: List<OCFile>) {
+        recommendedFiles.clear()
+        recommendedFiles.addAll(value)
+        recommendedFilesAdapter.notifyDataSetChanged()
+        differ.syncHeaderState()
+        notifyDataSetChanged()
+    }
+
+    fun setGridView(bool: Boolean) {
+        gridView = bool
+    }
+
+    fun setShowMetadata(bool: Boolean) {
+        fileListDelegate.isMultiSelect = bool
+    }
+
+    @VisibleForTesting
+    fun setShowShareAvatar(bool: Boolean) = fileListDelegate.setShowShareAvatar(bool)
+
+    @VisibleForTesting
+    fun setCurrentDirectory(folder: OCFile?) {
+        currentDirectory = folder
+        differ.syncHeaderState()
+    }
+
+    fun cleanup() {
+        fileListDelegate.cleanup()
+        helper.cleanup()
+    }
+    // endregion
+
+    // region Private methods
+    private fun viewTypeAt(position: Int): FileListViewType = when {
+        isHeaderDisplayed && position == 0 -> FileListViewType.HEADER
+        position - differ.headerOffset() == files.size -> FileListViewType.FOOTER
+        gridView -> FileListViewType.GRID_ITEM
+        else -> FileListViewType.LIST_ITEM
+    }
+
+    private fun bindHeader(holder: FileListHeaderViewHolder) {
+        val visibleRecommendedFilesAdapter = recommendedFilesAdapter.takeIf { shouldShowRecommendedFiles() }
+        headerBinder.bind(holder, currentDirectory, visibleRecommendedFilesAdapter)
+    }
+
+    private fun bindFileAt(holder: FileViewHolder, position: Int) {
+        val file = getItem(position)
+        if (file == null) {
+            Log_OC.e(this, "Cannot bind on view holder on a null file")
+            return
+        }
+
+        bindCommon(holder, file)
+        fileListDelegate.bindLongClick(holder, file)
+
+        when (holder) {
+            is FileItemViewHolder -> {
+                fileItemBinder.bind(holder, file, user, storageManager, shouldShowItemOptions(), onlyOnDevice)
+                fileItemBinder.bindOverflowMenuVisibility(holder, shouldShowMoreOptions())
+            }
+
+            is FileGridItemViewHolder -> fileGridItemBinder.bind(holder, file, shouldShowMoreOptions())
+        }
+    }
+
+    private fun bindCommon(holder: FileViewHolder, file: OCFile) {
+        fileListDelegate.bindViewHolder(holder, file, currentDirectory, thumbnailGenerator, gridView)
+
+        val filename = storageManager.getFilenameConsideringOfflineOperation(file).orEmpty()
+
+        holder.filename.setFilename(filename, file.isFolder)
+    }
+
+    private fun shouldShowItemOptions(): Boolean = !(isMultiSelect() || gridView || hideItemOptions)
+
+    private fun shouldShowMoreOptions(): Boolean =
+        !isMultiSelect() && !OCFileListFragment.isMultipleFileSelectedForCopyOrMove
+
+    private fun shouldShowRecommendedFiles(): Boolean =
+        recommendedFiles.isNotEmpty() && currentDirectory?.isRootDirectory == true
+
+    private fun visibleRecommendedFilesAdapterFor(file: OCFile): RecommendedFilesAdapter? =
+        recommendedFilesAdapter.takeIf { shouldShowRecommendedFiles() && file.isRecommendedFile }
+
+    private fun notifyItemChangedIfPresent(file: OCFile, payload: Any? = null) {
+        val position = getItemPosition(file)
+        if (position != RecyclerView.NO_POSITION) {
+            notifyItemChanged(position, payload)
+        }
+    }
+    // endregion
+
+    companion object {
+        private val TAG = FileListAdapter::class.java.simpleName
+
+        private const val FOOTER_ITEM_COUNT = 1
+    }
+}

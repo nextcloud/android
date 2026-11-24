@@ -20,7 +20,7 @@ import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.AlbumsPickerActivity
-import com.owncloud.android.ui.adapter.filelist.OCFileListAdapter
+import com.owncloud.android.ui.adapter.filelist.FileListAdapter
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 
 internal class OCFileListMultiChoiceModeListener(private val fragment: OCFileListFragment) :
@@ -68,7 +68,7 @@ internal class OCFileListMultiChoiceModeListener(private val fragment: OCFileLis
         val actionMode = activeActionMode
         if (newState != DrawerLayout.STATE_DRAGGING || actionMode == null) return
 
-        (fragment.recyclerView?.adapter as? OCFileListAdapter)?.let {
+        (fragment.recyclerView?.adapter as? FileListAdapter)?.let {
             selectionClosedByDrawer.addAll(it.getCheckedItems())
         }
 
