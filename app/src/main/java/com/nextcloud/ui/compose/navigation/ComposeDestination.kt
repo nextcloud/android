@@ -10,6 +10,7 @@ package com.nextcloud.ui.compose.navigation
 import android.content.Context
 import android.os.Parcelable
 import com.nextcloud.android.lib.resources.clientintegration.ClientIntegrationUI
+import com.nextcloud.ui.teams.model.TeamAccess
 import com.owncloud.android.R
 import kotlinx.parcelize.Parcelize
 
@@ -25,7 +26,12 @@ sealed class ComposeDestination : Parcelable {
     data class TeamsScreen(val title: String) : ComposeDestination()
 
     @Parcelize
-    data class TeamDetailScreen(val teamId: String, val title: String, val settingsUrl: String) : ComposeDestination()
+    data class TeamDetailScreen(
+        val teamId: String,
+        val title: String,
+        val settingsUrl: String,
+        val access: TeamAccess
+    ) : ComposeDestination()
 
     companion object {
         fun getTeamsScreen(context: Context): TeamsScreen = TeamsScreen(context.getString(R.string.navigation_teams))

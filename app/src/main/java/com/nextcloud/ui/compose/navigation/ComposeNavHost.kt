@@ -39,9 +39,12 @@ import com.nextcloud.ui.ClientIntegrationScreen
 import com.nextcloud.ui.compose.ComposeActivity
 import com.nextcloud.ui.teams.TeamsScreen
 import com.nextcloud.ui.teams.detail.TeamDetailScreen
+import com.nextcloud.ui.teams.detail.TeamPendingScreen
 import com.nextcloud.ui.teams.detail.TeamResourceOpener
 import com.nextcloud.ui.teams.detail.model.TeamResourceTarget
 import com.nextcloud.ui.teams.detail.viewmodel.TeamDetailViewModel
+import com.nextcloud.ui.teams.model.TeamAccess
+import com.nextcloud.ui.teams.util.access
 import com.nextcloud.ui.teams.viewmodel.TeamsViewModel
 import com.nextcloud.utils.SnackbarUtil
 import com.owncloud.android.R
@@ -105,12 +108,19 @@ fun ComposeNavHost(navigator: ComposeNavigator) {
                     viewModel = viewModel<TeamsViewModel>(factory = composeActivity().vmFactory),
                     client = client,
                     onTeamClick = { team ->
-                        navigator.navigate(ComposeDestination.TeamDetailScreen(team.id, team.displayName, team.url))
+                        val destination = ComposeDestination.TeamDetailScreen(team.id, team.displayName, team.url, team.access)
+
+                        navigator.navigate(destination)
                     }
                 )
             }
 
             entry<ComposeDestination.TeamDetailScreen> { screen ->
+                if (screen.access == TeamAccess.PENDING) {
+                    TeamPendingScreen(screen.title, navigator::goBack)
+                    return@entry
+                }
+
                 val activity = composeActivity()
                 val client = rememberNextcloudClient() ?: return@entry
                 val resourceOpener = remember(activity) {
@@ -121,6 +131,7 @@ fun ComposeNavHost(navigator: ComposeNavigator) {
                     viewModel = teamDetailViewModel(activity.vmFactory, screen.teamId),
                     client = client,
                     title = screen.title,
+                    access = screen.access,
                     onBack = navigator::goBack,
                     onOpenSettings = {
                         resourceOpener.open(TeamResourceTarget.WebPage(screen.settingsUrl, screen.title))

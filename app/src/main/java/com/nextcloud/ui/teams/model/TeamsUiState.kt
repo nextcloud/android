@@ -14,9 +14,8 @@ sealed interface TeamsUiState {
 
     data class Error(@StringRes val messageId: Int) : TeamsUiState
 
-    data class Content(val invitations: List<Team>, val myTeams: List<Team>, val otherTeams: List<Team>) :
-        TeamsUiState {
-        fun isEmpty(): Boolean = invitations.isEmpty() && myTeams.isEmpty() && otherTeams.isEmpty()
+    data class Content(val invitations: List<Team>, val myTeams: List<Team>) : TeamsUiState {
+        fun isEmpty(): Boolean = invitations.isEmpty() && myTeams.isEmpty()
 
         fun matching(query: String): Content {
             val trimmedQuery = query.trim()
@@ -25,7 +24,7 @@ sealed interface TeamsUiState {
             }
 
             val matches: (Team) -> Boolean = { it.displayName.contains(trimmedQuery, ignoreCase = true) }
-            return Content(invitations.filter(matches), myTeams.filter(matches), otherTeams.filter(matches))
+            return Content(invitations.filter(matches), myTeams.filter(matches))
         }
     }
 }

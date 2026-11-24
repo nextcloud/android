@@ -60,6 +60,10 @@ class TeamDetailRemoteRepository @Inject constructor(private val clientRepositor
     private fun JSONObject.toTeamMemberSuggestion(): TeamMemberSuggestion? {
         val value = optJSONObject(GetShareesRemoteOperation.NODE_VALUE) ?: return null
         val shareType = ShareType.fromValue(value.optInt(GetShareesRemoteOperation.PROPERTY_SHARE_TYPE))
+        if (shareType == ShareType.FEDERATED) {
+            return null
+        }
+
         val type = TeamMemberType.fromShareType(shareType) ?: return null
         val id = value.optString(GetShareesRemoteOperation.PROPERTY_SHARE_WITH).ifEmpty { return null }
         val label = optString(GetShareesRemoteOperation.PROPERTY_LABEL).ifEmpty { id }

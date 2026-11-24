@@ -93,9 +93,6 @@ fun TeamsScreen(viewModel: TeamsViewModel, client: NextcloudClient, onTeamClick:
                     teamSection(R.string.teams_my_teams, state.myTeams) { team ->
                         TeamListItem(team, client) { onTeamClick(team) }
                     }
-                    teamSection(R.string.teams_other_teams, state.otherTeams) { team ->
-                        TeamListItem(team, client) { onTeamClick(team) }
-                    }
                 }
             }
         }

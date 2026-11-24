@@ -123,9 +123,11 @@ class TeamsViewModel @AssistedInject constructor(
             return
         }
 
-        val (invitations, remainingTeams) = result.resultData.orEmpty().partition { it.isInvitation }
-        val (myTeams, otherTeams) = remainingTeams.partition { it.isMember }
-        teamsState.value = TeamsUiState.Content(invitations, myTeams, otherTeams)
+        val (invitations, myTeams) = result.resultData.orEmpty()
+            .filter { it.initiator != null }
+            .partition { it.isInvitation }
+
+        teamsState.value = TeamsUiState.Content(invitations, myTeams)
     }
 
     @AssistedFactory

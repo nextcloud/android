@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -18,30 +17,30 @@ import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.ui.teams.detail.component.AddTeamMemberDialog
 import com.nextcloud.ui.teams.detail.component.TeamDetailListStateContent
+import com.nextcloud.ui.teams.detail.component.TeamDetailTopBar
 import com.nextcloud.ui.teams.detail.component.TeamMemberListItem
 import com.nextcloud.ui.teams.detail.component.TeamResourceListItem
 import com.nextcloud.ui.teams.detail.model.TeamDetailTab
 import com.nextcloud.ui.teams.detail.model.TeamResourceTarget
 import com.nextcloud.ui.teams.detail.viewmodel.TeamDetailViewModel
+import com.nextcloud.ui.teams.model.TeamAccess
 import com.owncloud.android.R
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TeamDetailScreen(
     viewModel: TeamDetailViewModel,
     client: NextcloudClient,
     title: String,
+    access: TeamAccess,
     onBack: () -> Unit,
     onOpenSettings: () -> Unit,
     onOpenResource: (TeamResourceTarget) -> Unit
@@ -56,23 +55,16 @@ fun TeamDetailScreen(
     Scaffold(
         contentWindowInsets = WindowInsets(0),
         topBar = {
-            TopAppBar(
-                title = { Text(text = title, maxLines = 1, overflow = TextOverflow.Ellipsis) },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(painterResource(R.drawable.ic_arrow_back), stringResource(R.string.common_back))
-                    }
-                },
-                actions = {
+            TeamDetailTopBar(title, onBack) {
+                if (access == TeamAccess.MANAGER) {
                     IconButton(onClick = onOpenSettings) {
                         Icon(painterResource(R.drawable.ic_settings), stringResource(R.string.team_settings))
                     }
-                },
-                windowInsets = WindowInsets(0)
-            )
+                }
+            }
         },
         floatingActionButton = {
-            if (selectedTab == TeamDetailTab.MEMBERS) {
+            if (access == TeamAccess.MANAGER && selectedTab == TeamDetailTab.MEMBERS) {
                 ExtendedFloatingActionButton(
                     text = { Text(stringResource(R.string.team_add_member)) },
                     icon = { Icon(painterResource(R.drawable.ic_account_plus), contentDescription = null) },
