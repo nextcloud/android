@@ -12,12 +12,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.owncloud.android.databinding.RecommendedFileItemBinding
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.ui.adapter.filelist.OCFileListAdapter
+import com.owncloud.android.ui.adapter.filelist.FileListAdapter
 
-class RecommendedFilesAdapter(
-    private val fileListAdapter: OCFileListAdapter,
-    private val recommendations: List<OCFile>
-) : RecyclerView.Adapter<RecommendedFilesViewHolder>() {
+class RecommendedFilesAdapter(private val fileListAdapter: FileListAdapter, private val recommendations: List<OCFile>) :
+    RecyclerView.Adapter<RecommendedFilesViewHolder>() {
 
     fun getItemPosition(file: OCFile): Int = recommendations.indexOf(file)
 
@@ -32,6 +30,6 @@ class RecommendedFilesAdapter(
     override fun onBindViewHolder(holder: RecommendedFilesViewHolder, position: Int) {
         val item = recommendations[position]
         fileListAdapter.bindRecommendedFilesHolder(holder, item)
-        holder.reason.text = item.reason
+        holder.binding.reason.text = item.reason
     }
 }
