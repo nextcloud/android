@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
@@ -10,7 +11,6 @@ import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
-import java.nio.charset.Charset
 
 /**
  * Very simple log writer with file rotations.
@@ -23,46 +23,32 @@ internal class FileLogHandler(private val logDir: File, private val logFilename:
 
     data class RawLogs(val lines: List<String>, val logSize: Long)
 
-    companion object {
-        const val ROTATED_LOGS_COUNT = 3
-    }
-
     private var writer: FileOutputStream? = null
     private var size: Long = 0
-    private val rotationList = listOf(
-        "$logFilename.2",
-        "$logFilename.1",
-        "$logFilename.0",
-        logFilename
-    )
 
-    val logFile: File
-        get() {
-            return File(logDir, logFilename)
-        }
+    private val rotationList: List<String> =
+        (ROTATED_LOGS_COUNT - 1 downTo 0).map { "$logFilename.$it" } + logFilename
+
+    val logFile: File = File(logDir, logFilename)
 
     val isOpened: Boolean
-        get() {
-            return writer != null
-        }
+        get() = writer != null
 
-    val maxLogFilesCount get() = rotationList.size
+    val maxLogFilesCount: Int = rotationList.size
 
     fun open() {
-        try {
-            writer = FileOutputStream(logFile, true)
-            size = logFile.length()
-        } catch (ex: FileNotFoundException) {
-            logFile.parentFile.mkdirs()
-            writer = FileOutputStream(logFile, true)
-            size = logFile.length()
+        writer = openWriter() ?: run {
+            logFile.parentFile?.mkdirs()
+            openWriter()
         }
+        size = logFile.length()
     }
 
     fun write(logEntry: String) {
-        val rawLogEntry = logEntry.toByteArray(Charset.forName("UTF-8"))
+        val currentWriter = writer ?: return
+        val rawLogEntry = logEntry.toByteArray(Charsets.UTF_8)
         try {
-            writer?.write(rawLogEntry)
+            currentWriter.write(rawLogEntry)
         } catch (_: IOException) {
             return
         }
@@ -74,54 +60,71 @@ internal class FileLogHandler(private val logDir: File, private val logFilename:
     }
 
     fun close() {
-        writer?.close()
+        val currentWriter = writer
         writer = null
         size = 0L
+
+        try {
+            currentWriter?.close()
+        } catch (_: IOException) {
+        }
     }
 
     fun deleteAll() {
-        rotationList
-            .map { File(logDir, it) }
-            .forEach { it.delete() }
+        rotationList.forEach { File(logDir, it).delete() }
     }
 
     fun rotateLogs() {
-        val rotatatingOpenedLog = isOpened
-        if (rotatatingOpenedLog) {
+        val wasOpened = isOpened
+        if (wasOpened) {
             close()
         }
 
-        val existingLogFiles = logDir.listFiles().associate { it.name to it }
-        existingLogFiles[rotationList.first()]?.delete()
+        shiftLogFiles()
 
-        for (i in 0 until rotationList.size - 1) {
-            val nextFile = File(logDir, rotationList[i])
-            val previousFile = existingLogFiles[rotationList[i + 1]]
-            previousFile?.renameTo(nextFile)
-        }
-
-        if (rotatatingOpenedLog) {
+        if (wasOpened) {
             open()
         }
     }
 
     fun loadLogFiles(rotated: Int = ROTATED_LOGS_COUNT): RawLogs {
-        if (rotated < 0) {
-            throw IllegalArgumentException("Negative index")
-        }
-        val allLines = mutableListOf<String>()
+        require(rotated >= 0) { "Negative index" }
+
+        val lines = mutableListOf<String>()
         var size = 0L
-        for (i in 0..Math.min(rotated, rotationList.size - 1)) {
-            val file = File(logDir, rotationList[i])
-            if (!file.exists()) continue
-            try {
-                val lines = file.readLines(Charsets.UTF_8)
-                allLines.addAll(lines)
+        rotationList
+            .slice(0..minOf(rotated, rotationList.lastIndex))
+            .map { File(logDir, it) }
+            .filter { it.exists() }
+            .forEach { file ->
+                val fileLines = file.readLinesOrNull() ?: return@forEach
+                lines += fileLines
                 size += file.length()
-            } catch (ex: IOException) {
-                // ignore failing file
             }
+
+        return RawLogs(lines = lines, logSize = size)
+    }
+
+    private fun openWriter(): FileOutputStream? = try {
+        FileOutputStream(logFile, true)
+    } catch (_: FileNotFoundException) {
+        null
+    }
+
+    private fun shiftLogFiles() {
+        File(logDir, rotationList.first()).delete()
+        rotationList.zipWithNext().forEach { (targetName, sourceName) ->
+            File(logDir, sourceName).renameTo(File(logDir, targetName))
         }
-        return RawLogs(lines = allLines, logSize = size)
+    }
+
+    private fun File.readLinesOrNull(): List<String>? = try {
+        readLines(Charsets.UTF_8)
+    } catch (_: IOException) {
+        null
+    }
+
+    companion object {
+        const val ROTATED_LOGS_COUNT = 3
     }
 }
