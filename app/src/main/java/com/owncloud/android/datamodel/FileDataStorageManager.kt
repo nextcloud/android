@@ -84,6 +84,7 @@ import kotlinx.coroutines.withContext
 import org.apache.commons.io.FileUtils
 import java.io.File
 import java.io.IOException
+import java.math.BigInteger
 import java.util.Locale
 
 @Suppress("LargeClass", "TooManyFunctions")
@@ -119,8 +120,11 @@ class FileDataStorageManager private constructor(
     fun getFileByDecryptedRemotePath(path: String?): OCFile? =
         findFileByPath(path, fileDao::getFileByDecryptedRemotePath)
 
-    fun getFileByRemotePath(path: String?): OCFile? =
-        getFileByDecryptedRemotePath(path) ?: getFileByDecryptedRemotePath(path + OCFile.PATH_SEPARATOR)
+    fun getFileByRemotePath(path: String?): OCFile? {
+        if (path == null) return null
+
+        return getFileByDecryptedRemotePath(path) ?: getFileByDecryptedRemotePath(path + OCFile.PATH_SEPARATOR)
+    }
 
     private fun findFileByPath(path: String?, query: (String, String) -> FileEntity?): OCFile? {
         if (path == null) return null
@@ -149,9 +153,8 @@ class FileDataStorageManager private constructor(
     fun getTopParent(file: OCFile): OCFile? = getFileById(getTopParentId(file))
 
     tailrec fun getTopParentId(file: OCFile): Long {
-        if (file.parentId == ROOT_FOLDER_ID) return file.fileId
-
         val parentFile = getFileById(file.parentId) ?: return file.fileId
+        if (parentFile.parentId == ROOT_PARENT_ID.toLong()) return file.fileId
 
         return getTopParentId(parentFile)
     }
@@ -340,7 +343,7 @@ class FileDataStorageManager private constructor(
         return renameOperation?.newName ?: file.decryptedFileName
     }
 
-    fun renameOfflineOperation(file: OCFile, newFolderName: String?) {
+    fun renameOfflineOperation(file: OCFile, newFolderName: String) {
         val entity = offlineOperationDao.getByPath(file.decryptedRemotePath) ?: return
         val parentFolder = getFileById(file.parentId) ?: return
         val parentPath = parentFolder.decryptedRemotePath
@@ -349,10 +352,12 @@ class FileDataStorageManager private constructor(
 
         when (val operationType = entity.type) {
             is OfflineOperationType.CreateFolder -> operationType.path = newPath
+
             is OfflineOperationType.CreateFile -> {
                 operationType.remotePath = newPath
                 operationType.mimeType = file.mimeType
             }
+
             else -> Unit
         }
 
@@ -466,15 +471,13 @@ class FileDataStorageManager private constructor(
             }
         }
 
-        val sameRemotePath = fileExists(ocFile.remotePath)
-        if (!sameRemotePath && !fileExists(ocFile.fileId)) {
+        val existingIdForPath = fileDao.getFileByEncryptedRemotePath(ocFile.remotePath, user.accountName)?.id
+        if (existingIdForPath == null && !fileExists(ocFile.fileId)) {
             insertFile(ocFile, cv)
             return false
         }
 
-        if (sameRemotePath) {
-            ocFile.fileId = checkNotNull(getFileByEncryptedRemotePath(ocFile.remotePath)).fileId
-        }
+        existingIdForPath?.let { ocFile.fileId = it }
 
         updateRows(ProviderTableMeta.CONTENT_URI, cv, ID_SELECTION, arrayOf(ocFile.fileId.toString())) {
             logException(FAILED_TO_INSERT_MSG, it)
@@ -754,7 +757,7 @@ class FileDataStorageManager private constructor(
 
         val localPath = ocFile.storagePath
         if (localPath.toFile() == null) {
-            Log_OC.w(TAG, "removeLocalCopyIfNeeded: file exists -> skip")
+            Log_OC.w(TAG, "removeLocalCopyIfNeeded: file does not exist -> skip")
             return true
         }
 
@@ -768,16 +771,16 @@ class FileDataStorageManager private constructor(
             Log_OC.w(
                 TAG,
                 "removeLocalCopyIfNeeded: Path mismatch! Expected $expectedPath but found $localPath. " +
-                    "Skipping deletion to prevent data loss."
+                    "Deleting only the file at the expected path."
             )
         }
 
-        Log_OC.d(TAG, "removeLocalCopyIfNeeded: deleting local file -> $localPath")
+        Log_OC.d(TAG, "removeLocalCopyIfNeeded: deleting local file -> $expectedPath")
         val isDeleted = deleteLocalFile(expectedPath)
         Log_OC.d(TAG, "removeLocalCopyIfNeeded: file deletion result=$isDeleted")
         if (!isDeleted) return false
 
-        deleteFileInMediaScan(localPath)
+        deleteFileInMediaScan(expectedPath)
 
         if (!removeDBData) {
             Log_OC.d(TAG, "removeLocalCopyIfNeeded: updating DB after local deletion")
@@ -994,7 +997,9 @@ class FileDataStorageManager private constructor(
         targetParentId: Long,
         accountName: String
     ): List<String> {
-        val entities = fileDao.getFolderWithDescendants("$oldPath%", accountName)
+        val entities = fileDao.getFolderWithDescendants("$oldPath%", accountName).filter {
+            isSameOrDescendantPath(it.path, oldPath)
+        }
         val oldStoragePrefix = defaultSavePath + oldPath
         val newStoragePrefix = defaultSavePath + targetPath
 
@@ -1021,6 +1026,13 @@ class FileDataStorageManager private constructor(
         fileDao.updateAll(updated)
 
         return originalMediaPaths
+    }
+
+    private fun isSameOrDescendantPath(path: String?, ancestorPath: String): Boolean {
+        if (path == null) return false
+        if (path == ancestorPath) return true
+
+        return ancestorPath.endsWith(OCFile.PATH_SEPARATOR) && path.startsWith(ancestorPath)
     }
 
     private fun moveLocalFiles(
@@ -1111,7 +1123,7 @@ class FileDataStorageManager private constructor(
         val oldFileStoragePath = cursor.stringValue(ProviderTableMeta.FILE_STORAGE_PATH)
         if (oldFileStoragePath == null || !oldFileStoragePath.startsWith(sourcePath)) return null
 
-        val newFileStoragePath = oldFileStoragePath.replaceFirst(sourcePath.toRegex(), destinationPath)
+        val newFileStoragePath = destinationPath + oldFileStoragePath.substring(sourcePath.length)
         val cv = ContentValues().apply { put(ProviderTableMeta.FILE_STORAGE_PATH, newFileStoragePath) }
 
         return ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI)
@@ -1229,8 +1241,8 @@ class FileDataStorageManager private constructor(
             updateRows(
                 ProviderTableMeta.CONTENT_URI_SHARE,
                 contentValues,
-                ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED + "=?",
-                arrayOf(share.remoteId.toString())
+                ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED + AND + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?",
+                arrayOf(share.remoteId.toString(), user.accountName)
             ) { logException(FAILED_TO_INSERT_MSG, it) }
             return true
         }
@@ -1250,7 +1262,7 @@ class FileDataStorageManager private constructor(
     private fun shareExistsForRemoteId(remoteId: Long): Boolean {
         val cursor = getShareCursorForValue(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, remoteId.toString())
 
-        return checkNotNull(cursor).use { it.moveToFirst() }
+        return cursor?.use { it.moveToFirst() } == true
     }
 
     private fun getShareCursorForValue(key: String, value: String): Cursor? = queryRows(
@@ -1261,6 +1273,8 @@ class FileDataStorageManager private constructor(
     ) { Log_OC.w(TAG, "Could not get details, assuming share does not exist: " + it.message) }
 
     fun getSharesByPathAndType(path: String?, type: ShareType, shareWith: String?): List<OCShare> {
+        if (path == null) return ArrayList()
+
         val isPublicLink = ShareType.PUBLIC_LINK == type
         val baseSelection = ProviderTableMeta.OCSHARES_PATH + AND +
             ProviderTableMeta.OCSHARES_SHARE_TYPE + AND +
@@ -1294,6 +1308,8 @@ class FileDataStorageManager private constructor(
         }
 
     fun getSharesWithForAFile(filePath: String?, accountName: String?): List<OCShare> {
+        if (filePath == null || accountName == null) return ArrayList()
+
         val shareTypeSelection = SHARE_WITH_TYPES.joinToString(" OR ") {
             ProviderTableMeta.OCSHARES_SHARE_TYPE + " = ?"
         }
@@ -1352,7 +1368,8 @@ class FileDataStorageManager private constructor(
 
         return OCShare(cursor.stringValue(ProviderTableMeta.OCSHARES_PATH)).apply {
             id = cursor.longValue(ProviderTableMeta._ID)
-            fileSource = cursor.longValue(ProviderTableMeta.OCSHARES_ITEM_SOURCE)
+            fileSource = cursor.longValue(ProviderTableMeta.OCSHARES_FILE_SOURCE)
+            itemSource = cursor.longValue(ProviderTableMeta.OCSHARES_ITEM_SOURCE)
             shareType = ShareType.fromValue(cursor.intValue(ProviderTableMeta.OCSHARES_SHARE_TYPE))
             shareWith = cursor.stringValue(ProviderTableMeta.OCSHARES_SHARE_WITH)
             permissions = cursor.intValue(ProviderTableMeta.OCSHARES_PERMISSIONS)
@@ -1383,7 +1400,7 @@ class FileDataStorageManager private constructor(
         return FileDownloadLimit(token, limit, count)
     }
 
-    private fun resetShareFlagInAFile(filePath: String?) {
+    private fun resetShareFlagInAFile(filePath: String) {
         val contentValues = ContentValues().apply {
             put(ProviderTableMeta.FILE_SHARED_VIA_LINK, false)
             put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, false)
@@ -1406,7 +1423,7 @@ class FileDataStorageManager private constructor(
     fun saveSharesFromRemoteFile(shares: List<RemoteFile>?): Boolean {
         if (shares.isNullOrEmpty()) return false
 
-        val uniquePaths = shares.mapTo(HashSet()) { it.remotePath }
+        val uniquePaths = shares.mapNotNullTo(HashSet()) { it.remotePath }
         val sharesChanged = areShareesChanged(shares)
 
         val resetOperations = uniquePaths.mapTo(ArrayList()) { path ->
@@ -1454,13 +1471,9 @@ class FileDataStorageManager private constructor(
     fun saveSharesDB(shares: List<OCShare>) {
         val operations = ArrayList<ContentProviderOperation>()
 
-        var filePath: String? = ""
-        shares.forEach { share ->
-            if (filePath != share.path) {
-                filePath = share.path
-                resetShareFlagInAFile(filePath)
-                operations.add(createRemoveSharesInFileOperation(filePath))
-            }
+        shares.mapNotNull { it.path }.distinct().forEach { filePath ->
+            resetShareFlagInAFile(filePath)
+            operations.add(createRemoveSharesInFileOperation(filePath))
         }
 
         shares.mapTo(operations) { createInsertShareOperation(createContentValueForShare(it)) }
@@ -1477,6 +1490,8 @@ class FileDataStorageManager private constructor(
     }
 
     fun removeSharesForFile(remotePath: String?) {
+        if (remotePath == null) return
+
         resetShareFlagInAFile(remotePath)
 
         val operations = arrayListOf(createRemoveSharesInFileOperation(remotePath))
@@ -1489,7 +1504,7 @@ class FileDataStorageManager private constructor(
             .withValues(contentValues)
             .build()
 
-    private fun createRemoveSharesInFileOperation(filePath: String?): ContentProviderOperation {
+    private fun createRemoveSharesInFileOperation(filePath: String): ContentProviderOperation {
         val where = ProviderTableMeta.OCSHARES_PATH + AND + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + " = ?"
 
         return ContentProviderOperation.newDelete(ProviderTableMeta.CONTENT_URI_SHARE)
@@ -1543,7 +1558,7 @@ class FileDataStorageManager private constructor(
         var parentId = ocFile.parentId
         while (parentId != ROOT_PARENT_ID.toLong()) {
             ancestorIds.add(parentId.toString())
-            parentId = checkNotNull(getFileById(parentId)).parentId
+            parentId = getFileById(parentId)?.parentId ?: break
         }
 
         if (ancestorIds.isEmpty()) return
@@ -1569,8 +1584,7 @@ class FileDataStorageManager private constructor(
         }
     }
 
-    private fun parentFolderPath(path: String): String =
-        path.substring(0, path.lastIndexOf(OCFile.PATH_SEPARATOR) + 1)
+    private fun parentFolderPath(path: String): String = path.substring(0, path.lastIndexOf(OCFile.PATH_SEPARATOR) + 1)
 
     private fun clearConflictIfNoDescendantIsInConflict(folderPath: String, cv: ContentValues) {
         val whereForDescendantsInConflict = ProviderTableMeta.FILE_ETAG_IN_CONFLICT + " IS NOT NULL AND " +
@@ -1580,12 +1594,15 @@ class FileDataStorageManager private constructor(
 
         val descendantsInConflict = queryRows(
             ProviderTableMeta.CONTENT_URI_FILE,
-            arrayOf(ProviderTableMeta._ID),
+            arrayOf(ProviderTableMeta.FILE_PATH),
             whereForDescendantsInConflict,
             arrayOf(user.accountName, "$folderPath%")
         ) { logException("Failed querying for descendents in conflict ", it) }
 
-        val conflictCount = descendantsInConflict?.use { it.count } ?: 0
+        val conflictCount = descendantsInConflict
+            ?.use { cursor -> cursor.mapRows { it.stringValue(ProviderTableMeta.FILE_PATH) } }
+            .orEmpty()
+            .count { it?.startsWith(folderPath) == true }
         if (conflictCount > 0) {
             Log_OC.d(TAG, "STILL $conflictCount in $folderPath")
             return
@@ -1706,27 +1723,15 @@ class FileDataStorageManager private constructor(
     // endregion
 
     // region Encryption
-    fun getFolderName(path: String): String {
-        val folderName = path.split(OCFile.PATH_SEPARATOR).dropLastWhile { it.isEmpty() }[1]
-
-        return OCFile.PATH_SEPARATOR + folderName + OCFile.PATH_SEPARATOR
-    }
-
     fun retrieveRemotePathConsideringEncryption(file: OCFile?): String? {
         if (file == null) throw NullPointerException("file cannot be null")
         if (!file.isEncrypted) return file.remotePath
 
-        return getEncryptedRemotePath(file.remotePath)
+        return getEncryptedRemotePath(file.decryptedRemotePath ?: file.remotePath)
     }
 
-    fun getEncryptedRemotePath(decryptedRemotePath: String): String? {
-        val folder = getFileByDecryptedRemotePath(getFolderName(decryptedRemotePath))
-        val decryptedFileName = decryptedRemotePath.substringAfterLast(OCFile.PATH_SEPARATOR)
-
-        return getAllFilesRecursivelyInsideFolder(folder)
-            .firstOrNull { it.isEncrypted && it.decryptedFileName == decryptedFileName }
-            ?.remotePath
-    }
+    fun getEncryptedRemotePath(decryptedRemotePath: String): String? =
+        getFileByDecryptedRemotePath(decryptedRemotePath)?.remotePath
 
     fun setReadOnly(file: OCFile?, readOnly: Boolean) {
         if (file == null) return
@@ -1887,7 +1892,6 @@ class FileDataStorageManager private constructor(
 
         const val ROOT_PARENT_ID: Int = 0
 
-        private const val ROOT_FOLDER_ID = 1L
         private const val UNKNOWN_FILE_ID = -1L
         private const val NO_LOCK_TYPE = -1
         private const val NO_INTERNAL_TWO_WAY_SYNC = -1L
@@ -2021,8 +2025,8 @@ class FileDataStorageManager private constructor(
 
             return CONFLICT_COUNTER_REGEX.replace(name) { match ->
                 val baseName = match.groups[1]?.value
-                val number = match.groups[2]?.value?.toInt() ?: 0
-                "$baseName(${number + 1})"
+                val number = match.groups[2]?.value?.toBigIntegerOrNull() ?: BigInteger.ZERO
+                "$baseName(${number + BigInteger.ONE})"
             }
         }
         // endregion
