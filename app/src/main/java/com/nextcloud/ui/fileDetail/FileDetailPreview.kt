@@ -35,7 +35,7 @@ class FileDetailPreview(
 
         val thumbnail = file.getBigThumbnail() ?: file.getSmallThumbnail()
         if (thumbnail == null) {
-            setIcon(MimeTypeUtil.getFileTypeIcon(file.mimeType, file.fileName, toolbarActivity, viewThemeUtils))
+            MimeTypeUtil.getFileTypeIcon(file.mimeType, file.fileName, toolbarActivity, viewThemeUtils)?.let(::setIcon)
         } else {
             setImage(thumbnail.withVideoOverlay(file))
         }

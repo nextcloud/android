@@ -31,7 +31,7 @@ class UploadFileResolver(private val operation: UploadFileOperation) {
                     lastSyncDateForData = localFile.lastModified()
                 }
                 setMimeType(
-                    if (mimeType.isNullOrEmpty()) MimeTypeUtil.getBestMimeTypeByFilename(localPath) else mimeType
+                    if (mimeType.isNullOrEmpty()) MimeTypeUtil.getBestMimeTypeByFilename(localPath.orEmpty()) else mimeType
                 )
             }
     }
