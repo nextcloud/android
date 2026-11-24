@@ -176,7 +176,7 @@ class AutoUploadWorker(
     }
 
     private fun isBlocked(syncedFolderID: Long): Boolean {
-        if (powerManagementService.blocksAutoUpload && !overridePowerSaving) {
+        if (powerManagementService.isAppRestrictedByPowerSaving && !overridePowerSaving) {
             Log_OC.w(TAG, "⚡ Skipping: device is in power saving mode")
             return true
         }
@@ -490,7 +490,7 @@ class AutoUploadWorker(
         true,
         FileDataStorageManager(user, context.contentResolver)
     ).apply {
-        if (overridePowerSaving || !powerManagementService.blocksAutoUpload) {
+        if (overridePowerSaving || !powerManagementService.isAppRestrictedByPowerSaving) {
             isIgnoringPowerSaveMode = true
         }
     }

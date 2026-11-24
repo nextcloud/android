@@ -20,14 +20,12 @@ import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.network.NetworkChangeListener
 import com.nextcloud.client.player.ui.audio.AudioPlayerActivity
 import com.nextcloud.utils.EditorUtils
-import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.logFileSize
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.lib.common.accounts.AccountUtils
 import com.owncloud.android.lib.common.network.CertificateCombinedException
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener
 import com.owncloud.android.lib.common.operations.RemoteOperation
@@ -59,13 +57,11 @@ import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment
 import com.owncloud.android.ui.fragment.albums.AlbumsFragment
 import com.owncloud.android.ui.fragment.filesRepository.FilesRepository
 import com.owncloud.android.ui.fragment.filesRepository.RemoteFilesRepository
-import com.owncloud.android.ui.helpers.CredentialsUpdateHelper
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import com.owncloud.android.ui.preview.media.PreviewMediaActivity
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import java.lang.ref.WeakReference
 import javax.inject.Inject
 
 @Suppress("TooManyFunctions")
@@ -121,6 +117,8 @@ abstract class FileActivity :
 
     lateinit var filesRepository: FilesRepository
         private set
+
+    private val checkRemoteWipeTask = CheckRemoteWipeTask(this)
 
     private val fileDetailFragment: FileDetailFragment?
         get() = supportFragmentManager.findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES) as? FileDetailFragment
@@ -259,21 +257,7 @@ abstract class FileActivity :
     @JvmOverloads
     fun requestCredentialsUpdate(account: Account? = null) {
         val targetAccount = account ?: this.account
-        CheckRemoteWipeTask(backgroundJobManager, targetAccount, WeakReference(this)).execute()
-    }
-
-    fun performCredentialsUpdate(account: Account) {
-        val credentialsUpdateHelper = CredentialsUpdateHelper(this)
-        try {
-            credentialsUpdateHelper.invalidateCredentials(account)
-            startActivityForResult(
-                credentialsUpdateHelper.createUpdateCredentialsIntent(account),
-                REQUEST_CODE__UPDATE_CREDENTIALS
-            )
-        } catch (e: AccountUtils.AccountNotFoundException) {
-            Log_OC.e(TAG, "Account not found while updating credentials", e)
-            SnackbarUtil.show(this, R.string.auth_account_does_not_exist)
-        }
+        checkRemoteWipeTask.execute(targetAccount, backgroundJobManager)
     }
 
     fun showUntrustedCertDialog(result: RemoteOperationResult<*>) {
@@ -382,8 +366,7 @@ abstract class FileActivity :
         @JvmField
         val TAG: String = FileActivity::class.java.simpleName
 
-        const val REQUEST_CODE__UPDATE_CREDENTIALS = 0
-        const val REQUEST_CODE__LAST_SHARED = REQUEST_CODE__UPDATE_CREDENTIALS
+        const val REQUEST_CODE__LAST_SHARED = 0
 
         private const val DIALOG_UNTRUSTED_CERT = "DIALOG_UNTRUSTED_CERT"
         private const val DIALOG_CERT_NOT_SAVED = "DIALOG_CERT_NOT_SAVED"
