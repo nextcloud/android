@@ -9,7 +9,6 @@
 package com.owncloud.android.ui.adapter
 
 import com.nextcloud.client.account.User
-import com.nextcloud.utils.extensions.saveShares
 import com.nextcloud.utils.share.UnifiedShareSharees
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile

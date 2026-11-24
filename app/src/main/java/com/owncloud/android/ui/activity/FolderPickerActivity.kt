@@ -519,8 +519,8 @@ open class FolderPickerActivity :
      */
     private fun onCreateFolderOperationFinish(operation: CreateFolderOperation, result: RemoteOperationResult<*>) {
         if (result.isSuccess) {
-            val fileListFragment = listOfFilesFragment
-            fileListFragment?.onItemClicked(storageManager.getFileByPath(operation.remotePath))
+            val createdFolder = storageManager.getFileByPath(operation.remotePath) ?: return
+            listOfFilesFragment?.onItemClicked(createdFolder)
         } else {
             try {
                 SnackbarUtil.show(

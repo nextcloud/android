@@ -509,9 +509,10 @@ class FileListAdapter(
             }
         }
 
-        if (currentDirectory?.remotePath == remotePath) {
-            currentDirectory?.isFavorite = isFavorite
-            storageManager.saveFile(currentDirectory)
+        val directory = currentDirectory
+        if (directory != null && directory.remotePath == remotePath) {
+            directory.isFavorite = isFavorite
+            storageManager.saveFile(directory)
         }
 
         mainHandler.post {
