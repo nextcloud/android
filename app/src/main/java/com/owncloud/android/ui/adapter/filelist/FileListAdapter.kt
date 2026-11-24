@@ -42,7 +42,7 @@ import com.owncloud.android.databinding.ListItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.FileListAdapterDataProviderImpl
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.VirtualFolderType
 import com.owncloud.android.lib.common.accounts.AccountUtils
@@ -83,7 +83,7 @@ class FileListAdapter(
     private val activity: Activity,
     private var user: User,
     private val preferences: AppPreferences,
-    syncedFolderProvider: SyncedFolderProvider?,
+    syncedFolderProvider: AutoUploadFolderProvider?,
     transferServiceGetter: ComponentsGetter,
     listener: FileListAdapterListener,
     private val hideItemOptions: Boolean,

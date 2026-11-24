@@ -26,7 +26,7 @@ import com.owncloud.android.databinding.GridSyncItemBinding
 import com.owncloud.android.databinding.SyncedFoldersEmptyBinding
 import com.owncloud.android.databinding.SyncedFoldersFooterBinding
 import com.owncloud.android.databinding.SyncedFoldersItemHeaderBinding
-import com.owncloud.android.datamodel.SyncedFolderDisplayItem
+import com.owncloud.android.datamodel.AutoUploadFolder
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.launch
@@ -46,8 +46,8 @@ class AutoUploadFolderAdapter(
 
     private val mediaThumbnailGenerationJob = MediaThumbnailGenerationJob(context, viewThemeUtils)
 
-    private var items: List<SyncedFolderDisplayItem> = emptyList()
-    private var visibleItems: List<SyncedFolderDisplayItem> = emptyList()
+    private var items: List<AutoUploadFolder> = emptyList()
+    private var visibleItems: List<AutoUploadFolder> = emptyList()
     private var hideHiddenItems = true
 
     val hasItems: Boolean
@@ -64,17 +64,17 @@ class AutoUploadFolderAdapter(
         shouldShowFooters(true)
     }
 
-    fun setItems(newItems: List<SyncedFolderDisplayItem>) {
+    fun setItems(newItems: List<AutoUploadFolder>) {
         items = newItems
         refreshVisibleItems()
     }
 
-    fun addItem(item: SyncedFolderDisplayItem) {
+    fun addItem(item: AutoUploadFolder) {
         items = items + item
         refreshVisibleItems()
     }
 
-    fun removeItem(item: SyncedFolderDisplayItem) {
+    fun removeItem(item: AutoUploadFolder) {
         items = items - item
         refreshVisibleItems()
     }
@@ -89,7 +89,7 @@ class AutoUploadFolderAdapter(
         refreshVisibleItems()
     }
 
-    fun onItemVisibilityChanged(item: SyncedFolderDisplayItem) {
+    fun onItemVisibilityChanged(item: AutoUploadFolder) {
         if (item.isHidden) {
             hideHiddenItems = true
         }
@@ -97,7 +97,7 @@ class AutoUploadFolderAdapter(
         refreshVisibleItems()
     }
 
-    fun getItem(section: Int): SyncedFolderDisplayItem? = visibleItems.getOrNull(section)
+    fun getItem(section: Int): AutoUploadFolder? = visibleItems.getOrNull(section)
 
     fun getSectionById(id: Long): Int = visibleItems.indexOfFirst { it.id == id }
 
@@ -217,7 +217,7 @@ class AutoUploadFolderAdapter(
         bindThumbnail(holder.binding, item, File(filePath), relativePosition)
     }
 
-    private fun bindThumbnail(binding: GridSyncItemBinding, item: SyncedFolderDisplayItem, file: File, position: Int) =
+    private fun bindThumbnail(binding: GridSyncItemBinding, item: AutoUploadFolder, file: File, position: Int) =
         with(binding) {
             thumbnail.setImageBitmap(ThumbnailsCacheManager.mDefaultImg)
             thumbnail.tag = file.hashCode()

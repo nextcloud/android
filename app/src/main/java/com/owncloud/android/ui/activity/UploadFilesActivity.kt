@@ -39,7 +39,7 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.utils.extensions.hasEnabledParent
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UploadFilesLayoutBinding
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.drawer.DrawerActivity
 import com.owncloud.android.ui.activity.uploadfiles.UploadBehaviourSelector
@@ -109,7 +109,9 @@ class UploadFilesActivity :
     private val isGivenLocalPathHasEnabledParent: Boolean
         get() {
             val chosenPath = currentDir?.path ?: return false
-            return SyncedFolderProvider(contentResolver, preferences, clock).syncedFolders.hasEnabledParent(chosenPath)
+            val autoUploadFolders = AutoUploadFolderProvider(contentResolver, preferences, clock).syncedFolders
+
+            return autoUploadFolders.hasEnabledParent(chosenPath)
         }
 
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {

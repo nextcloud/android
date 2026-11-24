@@ -11,11 +11,10 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.SubFolderRule
 import com.owncloud.android.datamodel.MediaFolder
 import com.owncloud.android.datamodel.MediaFolderType
-import com.owncloud.android.datamodel.SyncedFolder
-import com.owncloud.android.datamodel.SyncedFolderDisplayItem
+import com.owncloud.android.datamodel.AutoUploadFolder
 import com.owncloud.android.files.services.NameCollisionPolicy
-import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable
-import com.owncloud.android.utils.SyncedFolderUtils
+import com.owncloud.android.ui.dialog.parcel.AutoUploadFolderParcelable
+import com.owncloud.android.utils.AutoUploadFolderUtils
 import java.io.File
 
 class AutoUploadDisplayItemFactory(
@@ -24,9 +23,9 @@ class AutoUploadDisplayItemFactory(
     private val instantUploadPath: String
 ) {
 
-    fun createAutoUploadFolderWithoutMediaFolder(syncedFolder: SyncedFolder): SyncedFolderDisplayItem {
+    fun createAutoUploadFolderWithoutMediaFolder(syncedFolder: AutoUploadFolder): AutoUploadFolder {
         val localFolder = File(syncedFolder.localPath)
-        val files = SyncedFolderUtils.getFileList(localFolder)
+        val files = AutoUploadFolderUtils.getFileList(localFolder)
         return createFromAutoUploadFolder(
             syncedFolder,
             filePaths = getDisplayFilePaths(files),
@@ -36,18 +35,18 @@ class AutoUploadDisplayItemFactory(
         )
     }
 
-    fun createAutoUploadFolder(syncedFolder: SyncedFolder, mediaFolder: MediaFolder): SyncedFolderDisplayItem =
+    fun createAutoUploadFolder(syncedFolder: AutoUploadFolder, mediaFolder: MediaFolder): AutoUploadFolder =
         createFromAutoUploadFolder(
             syncedFolder,
             filePaths = mediaFolder.filePaths,
             folderName = mediaFolder.folderName,
             numberOfFiles = mediaFolder.numberOfFiles,
-            type = mediaFolder.type
+            type = mediaFolder.type ?: syncedFolder.type
         )
 
-    fun createAutoUploadFolderFromMediaFolder(mediaFolder: MediaFolder, accountName: String): SyncedFolderDisplayItem =
-        SyncedFolderDisplayItem(
-            SyncedFolder.UNPERSISTED_ID,
+    fun createAutoUploadFolderFromMediaFolder(mediaFolder: MediaFolder, accountName: String): AutoUploadFolder =
+        AutoUploadFolder(
+            AutoUploadFolder.UNPERSISTED_ID,
             mediaFolder.absolutePath,
             "$instantUploadPath/${mediaFolder.folderName}",
             true,
@@ -59,18 +58,18 @@ class AutoUploadDisplayItemFactory(
             NameCollisionPolicy.ASK_USER.serialize(),
             false,
             clock.currentTime,
-            mediaFolder.filePaths,
-            mediaFolder.folderName,
-            mediaFolder.numberOfFiles,
-            mediaFolder.type,
+            mediaFolder.type ?: MediaFolderType.CUSTOM,
             false,
             SubFolderRule.YEAR_MONTH,
             false,
-            SyncedFolder.NOT_SCANNED_YET
+            AutoUploadFolder.NOT_SCANNED_YET,
+            filePaths = mediaFolder.filePaths,
+            folderName = mediaFolder.folderName,
+            numberOfFiles = mediaFolder.numberOfFiles
         )
 
-    fun createEmptyCustomFolder(accountName: String): SyncedFolderDisplayItem = SyncedFolderDisplayItem(
-        SyncedFolder.UNPERSISTED_ID,
+    fun createEmptyCustomFolder(accountName: String): AutoUploadFolder = AutoUploadFolder(
+        AutoUploadFolder.UNPERSISTED_ID,
         null,
         null,
         true,
@@ -82,19 +81,18 @@ class AutoUploadDisplayItemFactory(
         NameCollisionPolicy.ASK_USER.serialize(),
         true,
         clock.currentTime,
-        null,
         MediaFolderType.CUSTOM,
         false,
         SubFolderRule.YEAR_MONTH,
         false,
-        SyncedFolder.NOT_SCANNED_YET
+        AutoUploadFolder.NOT_SCANNED_YET
     )
 
-    fun createAutoUploadFolder(syncedFolder: SyncedFolderParcelable): SyncedFolderDisplayItem {
+    fun createAutoUploadFolder(syncedFolder: AutoUploadFolderParcelable): AutoUploadFolder {
         val localFolder = File(syncedFolder.localPath)
-        val files = SyncedFolderUtils.getFileList(localFolder)
+        val files = AutoUploadFolderUtils.getFileList(localFolder)
 
-        return SyncedFolderDisplayItem(
+        return AutoUploadFolder(
             syncedFolder.id,
             syncedFolder.localPath,
             syncedFolder.remotePath,
@@ -107,61 +105,61 @@ class AutoUploadDisplayItemFactory(
             syncedFolder.nameCollisionPolicy.serialize(),
             syncedFolder.isEnabled,
             syncedFolder.enabledTimestampMs,
-            getDisplayFilePaths(files),
-            localFolder.name,
-            files.size.toLong(),
             syncedFolder.type,
             syncedFolder.isHidden,
             syncedFolder.subFolderRule,
             syncedFolder.isExcludeHidden,
-            syncedFolder.lastScanTimestampMs
+            syncedFolder.lastScanTimestampMs,
+            filePaths = getDisplayFilePaths(files),
+            folderName = localFolder.name,
+            numberOfFiles = files.size.toLong()
         )
     }
 
-    fun updateAutoUploadFolderItem(item: SyncedFolderDisplayItem, syncedFolder: SyncedFolderParcelable) {
+    fun updateAutoUploadFolderItem(item: AutoUploadFolder, syncedFolder: AutoUploadFolderParcelable) {
         item.apply {
             id = syncedFolder.id
             localPath = syncedFolder.localPath
             remotePath = syncedFolder.remotePath
             isWifiOnly = syncedFolder.isWifiOnly
             isChargingOnly = syncedFolder.isChargingOnly
-            setExisting(syncedFolder.isExisting)
+            alsoUploadExistingFiles = syncedFolder.isExisting
             isSubfolderByDate = syncedFolder.isSubfolderByDate
             uploadAction = syncedFolder.uploadAction
-            setNameCollisionPolicy(syncedFolder.nameCollisionPolicy.serialize())
+            nameCollisionPolicyInt = syncedFolder.nameCollisionPolicy.serialize()
             setEnabled(syncedFolder.isEnabled, syncedFolder.enabledTimestampMs)
-            setSubFolderRule(syncedFolder.subFolderRule)
-            setExcludeHidden(syncedFolder.isExcludeHidden)
+            subfolderRule = syncedFolder.subFolderRule
+            isExcludeHidden = syncedFolder.isExcludeHidden
         }
     }
 
     private fun createFromAutoUploadFolder(
-        syncedFolder: SyncedFolder,
+        syncedFolder: AutoUploadFolder,
         filePaths: List<String>?,
         folderName: String?,
         numberOfFiles: Long,
-        type: MediaFolderType?
-    ): SyncedFolderDisplayItem = SyncedFolderDisplayItem(
+        type: MediaFolderType
+    ): AutoUploadFolder = AutoUploadFolder(
         syncedFolder.id,
         syncedFolder.localPath,
         syncedFolder.remotePath,
         syncedFolder.isWifiOnly,
         syncedFolder.isChargingOnly,
-        syncedFolder.alsoUploadExistingFiles(),
+        syncedFolder.alsoUploadExistingFiles,
         syncedFolder.isSubfolderByDate,
         syncedFolder.account,
         syncedFolder.uploadAction,
         syncedFolder.nameCollisionPolicyInt,
         syncedFolder.isEnabled,
         syncedFolder.enabledTimestampMs,
-        filePaths,
-        folderName,
-        numberOfFiles,
         type,
         syncedFolder.isHidden,
         syncedFolder.subfolderRule,
         syncedFolder.isExcludeHidden,
-        syncedFolder.lastScanTimestampMs
+        syncedFolder.lastScanTimestampMs,
+        filePaths = filePaths,
+        folderName = folderName,
+        numberOfFiles = numberOfFiles
     )
 
     private fun getDisplayFilePaths(files: List<File>): List<String>? =

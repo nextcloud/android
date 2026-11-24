@@ -29,8 +29,8 @@ import com.nextcloud.utils.thumbnail.VideoOverlayGenerator;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ListFooterBinding;
 import com.owncloud.android.databinding.TrashbinItemBinding;
+import com.owncloud.android.datamodel.AutoUploadFolderProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile;
@@ -70,7 +70,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private final AppPreferences preferences;
     private final List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
     private final ViewThemeUtils viewThemeUtils;
-    private final SyncedFolderProvider syncedFolderProvider;
+    private final AutoUploadFolderProvider syncedFolderProvider;
 
     private final Set<TrashbinFile> checkedFiles = new HashSet<>();
     private boolean isMultiSelect = false;
@@ -79,7 +79,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         TrashbinActivityInterface trashbinActivityInterface,
         FileDataStorageManager storageManager,
         AppPreferences preferences,
-        SyncedFolderProvider syncedFolderProvider,
+        AutoUploadFolderProvider syncedFolderProvider,
         Context context,
         User user,
         ViewThemeUtils viewThemeUtils

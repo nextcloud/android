@@ -17,8 +17,8 @@ import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.utils.BatteryOptimizationHelper
 import com.nextcloud.utils.extensions.isDialogFragmentReady
 import com.owncloud.android.R
-import com.owncloud.android.datamodel.SyncedFolderDisplayItem
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolder
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
 import com.owncloud.android.ui.dialog.extensions.themeButtons
@@ -28,7 +28,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 class AutoUploadDialogs(
     private val fragment: Fragment,
     private val viewThemeUtils: ViewThemeUtils,
-    private val syncedFolderProvider: SyncedFolderProvider,
+    private val syncedFolderProvider: AutoUploadFolderProvider,
     private val backgroundJobManager: BackgroundJobManager
 ) {
 
@@ -74,7 +74,7 @@ class AutoUploadDialogs(
         showDialog(dialog, SYNCED_FOLDER_DELETE_ALL_UPLOADED_DIALOG_TAG)
     }
 
-    fun showDeleteUploadedDialog(syncedFolderDisplayItem: SyncedFolderDisplayItem) {
+    fun showDeleteUploadedDialog(syncedFolderDisplayItem: AutoUploadFolder) {
         val dialog = ConfirmationDialogFragment.newInstance(
             R.string.autoupload_delete_uploaded_dialog_description,
             null,
