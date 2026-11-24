@@ -81,10 +81,7 @@ class AutoUploadItemsLoader(
         else -> itemFactory.createAutoUploadFolder(syncedFolder, mediaFolder)
     }
 
-    private fun createQualifyingMediaFolderItem(
-        mediaFolder: MediaFolder,
-        accountName: String
-    ): AutoUploadFolder? {
+    private fun createQualifyingMediaFolderItem(mediaFolder: MediaFolder, accountName: String): AutoUploadFolder? {
         if (!AutoUploadFolderUtils.isQualifyingMediaFolder(mediaFolder)) {
             return null
         }

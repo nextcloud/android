@@ -85,18 +85,17 @@ class AutoUploadFolderHeaderViewHolder(
         }
     }
 
-    private fun showDetails(item: AutoUploadFolder, hasEnabledParent: Boolean, scanMessage: String?) =
-        with(binding) {
-            val showScanMessage = item.isEnabled && scanMessage != null
+    private fun showDetails(item: AutoUploadFolder, hasEnabledParent: Boolean, scanMessage: String?) = with(binding) {
+        val showScanMessage = item.isEnabled && scanMessage != null
 
-            subFolderWarningButton.isVisible = hasEnabledParent
-            scanIndicatorText.isVisible = showScanMessage
-            scanIndicatorText.text = scanMessage
-            scanIndicatorText.maxWidth = getScanMessageMaxWidth(hasEnabledParent)
-            title.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                bottomMargin = if (showScanMessage) 0 else titleBottomMargin
-            }
+        subFolderWarningButton.isVisible = hasEnabledParent
+        scanIndicatorText.isVisible = showScanMessage
+        scanIndicatorText.text = scanMessage
+        scanIndicatorText.maxWidth = getScanMessageMaxWidth(hasEnabledParent)
+        title.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            bottomMargin = if (showScanMessage) 0 else titleBottomMargin
         }
+    }
 
     private fun getScanMessageMaxWidth(showsSubFolderWarning: Boolean): Int {
         val trailingIconCount = if (showsSubFolderWarning) TRAILING_ICON_COUNT + 1 else TRAILING_ICON_COUNT

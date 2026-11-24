@@ -147,7 +147,7 @@ fun AutoUploadFolder.getLog(): String {
         📶 Wi-Fi only: $isWifiOnly
         🔌 Charging only: $isChargingOnly
         
-        📤 Upload existing files: ${alsoUploadExistingFiles}
+        📤 Upload existing files: $alsoUploadExistingFiles
         ⚙️ Upload action: $uploadAction
         🧩 Name collision: $nameCollisionPolicy
         
@@ -160,8 +160,7 @@ fun AutoUploadFolder.getLog(): String {
 
 private val prioritizedFolders = listOf("Camera", "Screenshots")
 
-fun List<AutoUploadFolder?>.sortAutoUploadFolderItems(): List<AutoUploadFolder?> =
-    sortedWith(::compareItems)
+fun List<AutoUploadFolder?>.sortAutoUploadFolderItems(): List<AutoUploadFolder?> = sortedWith(::compareItems)
 
 private fun compareItems(f1: AutoUploadFolder?, f2: AutoUploadFolder?): Int = when {
     f1 == null && f2 == null -> 0
