@@ -267,22 +267,22 @@ class PreviewMediaFragment :
     }
 
     private fun adjustResizedImage(thumbnail: Bitmap?, width: Int, height: Int) {
+        // the cached preview is screen-sized and too blurry to zoom into, so full detail is always loaded
         val resizedImage = getResizedBitmap(file, width, height)
+        binding.image.setImageBitmap(resizedImage ?: thumbnail)
 
         if (resizedImage != null && !file.isUpdateThumbnailNeeded) {
-            binding.image.setImageBitmap(resizedImage)
             binding.image.visibility = View.VISIBLE
             binding.emptyListView.visibility = View.GONE
             binding.emptyListProgress.visibility = View.GONE
             binding.image.setBackgroundColor(resources.getColor(R.color.background_color_inverse))
-        } else {
-            val storageManager = containerActivity.storageManager ?: return
-            val job = ResizedImageGenerationJob(this, storageManager, connectivityService, clientRepository)
-            binding.image.setImageBitmap(resizedImage ?: thumbnail)
-            resizedImageJob?.cancel()
-            resizedImageJob = viewLifecycleOwner.lifecycleScope.launch {
-                job.load(file, binding.image, binding.emptyListProgress)
-            }
+        }
+
+        val storageManager = containerActivity.storageManager ?: return
+        val job = ResizedImageGenerationJob(this, storageManager, connectivityService, clientRepository)
+        resizedImageJob?.cancel()
+        resizedImageJob = viewLifecycleOwner.lifecycleScope.launch {
+            job.load(file, binding.image, binding.emptyListProgress)
         }
     }
 
@@ -467,9 +467,7 @@ class PreviewMediaFragment :
             val storagePath = ocFile.storagePath
             try {
                 val maxDownScale = 3 // could be a parameter passed to doInBackground(...)
-                val screenSize = ScreenMetrics.size(activity)
-                var minWidth = screenSize.x
-                var minHeight = screenSize.y
+                var maxPixels = BitmapUtils.VIEWER_MAX_PIXELS
                 var i = 0
                 while (i < maxDownScale && bitmapResult == null && drawableResult == null) {
                     if (MIME_TYPE_SVG.equals(ocFile.mimeType, ignoreCase = true)) {
@@ -497,7 +495,7 @@ class PreviewMediaFragment :
                         }
 
                         try {
-                            bitmapResult = BitmapUtils.retrieveBitmapFromFile(storagePath, minWidth, minHeight)
+                            bitmapResult = BitmapUtils.decodeFileForViewer(storagePath, maxPixels)
 
                             if (isCancelled) {
                                 return LoadImage(bitmapResult, null, ocFile)
@@ -512,8 +510,7 @@ class PreviewMediaFragment :
                             mErrorMessageId = R.string.common_error_out_memory
                             if (i < maxDownScale - 1) {
                                 Log_OC.w(TAG, "Out of memory rendering file $storagePath ; scaling down")
-                                minWidth /= 2
-                                minHeight /= 2
+                                maxPixels /= OUT_OF_MEMORY_PIXEL_DIVISOR
                             } else {
                                 Log_OC.w(TAG, "Out of memory rendering file $storagePath ; failing")
                             }
@@ -771,6 +768,7 @@ class PreviewMediaFragment :
         private const val MIME_TYPE_PNG = "image/png"
         private const val MIME_TYPE_GIF = "image/gif"
         private const val MIME_TYPE_SVG = "image/svg+xml"
+        private const val OUT_OF_MEMORY_PIXEL_DIVISOR = 4
 
         private val TAG: String = PreviewMediaFragment::class.java.simpleName
 

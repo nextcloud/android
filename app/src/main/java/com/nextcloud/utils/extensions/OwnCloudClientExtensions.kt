@@ -29,6 +29,17 @@ fun OwnCloudClient.getPreviewEndpoint(localFileId: Long, x: Int, y: Int): String
     "&x=" + (x / 2) + "&y=" + (y / 2) +
     "&a=1&mode=cover&forceIcon=0"
 
+/**
+ * With mode=cover the shorter side is at least [minSide], capped by the original size and the server's
+ * preview limits, so tall images keep their full width.
+ */
+fun OwnCloudClient.getFullDetailPreviewEndpoint(localFileId: Long, minSide: Int): String = baseUri
+    .toString() +
+    "/index.php/core/preview?fileId=" +
+    localFileId +
+    "&x=" + minSide + "&y=" + minSide +
+    "&a=1&mode=cover&forceIcon=0"
+
 fun OwnCloudClient.getVideoPreviewEndpoint(localFileId: Long, size: Int): String = baseUri
     .toString() +
     "/index.php/core/preview?fileId=" +
