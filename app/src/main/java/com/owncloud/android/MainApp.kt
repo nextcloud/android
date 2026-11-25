@@ -50,7 +50,7 @@ import com.owncloud.android.authentication.GlobalPassCodeProtectionCallbacks
 import com.owncloud.android.authentication.PassCodeManager
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.ReceiverFlag
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.datastorage.StoragePathFixer
@@ -99,7 +99,7 @@ open class MainApp :
     lateinit var connectivityService: ConnectivityService
 
     @Inject
-    lateinit var syncedFolderProvider: SyncedFolderProvider
+    lateinit var syncedFolderProvider: AutoUploadFolderProvider
 
     @Inject
     lateinit var powerManagementService: PowerManagementService

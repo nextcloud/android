@@ -18,7 +18,6 @@ import android.util.Pair;
 import com.nextcloud.client.account.User;
 import com.nextcloud.utils.e2ee.E2ECounterHelper;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
-import com.nextcloud.utils.extensions.FileDataStorageManagerExtensionsKt;
 import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
@@ -577,7 +576,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
      * Save new directory in local database.
      */
     private void saveFolderInDB() {
-        FileDataStorageManagerExtensionsKt.createDirectoryTree(getStorageManager(), remotePath, createdRemoteFolder);
+        getStorageManager().createDirectoryTree(remotePath, createdRemoteFolder);
     }
 
     public String getRemotePath() {

@@ -44,7 +44,7 @@ import com.owncloud.android.databinding.FileActionsBottomSheetBinding
 import com.owncloud.android.databinding.FileActionsBottomSheetItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.lib.resources.files.model.FileLockType
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
@@ -68,7 +68,7 @@ class FileActionsBottomSheet :
     lateinit var storageManager: FileDataStorageManager
 
     @Inject
-    lateinit var syncedFolderProvider: SyncedFolderProvider
+    lateinit var syncedFolderProvider: AutoUploadFolderProvider
 
     @Inject
     lateinit var thumbnailGenerator: ThumbnailGenerator

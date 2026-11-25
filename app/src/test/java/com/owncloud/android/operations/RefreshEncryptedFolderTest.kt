@@ -8,7 +8,6 @@ package com.owncloud.android.operations
 
 import android.content.Context
 import com.nextcloud.client.account.User
-import com.nextcloud.utils.extensions.saveFolder
 import com.nextcloud.utils.share.UnifiedShareSharees
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -27,7 +26,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.mockito.Mockito.mockStatic
 import org.mockito.kotlin.doReturn
-import org.mockito.kotlin.eq
+import org.mockito.kotlin.verify
 import org.mockito.kotlin.any
 import org.mockito.kotlin.argThat
 import org.mockito.kotlin.mock
@@ -74,7 +73,6 @@ class RefreshEncryptedFolderTest {
         val capabilities = mockStatic(CapabilityUtils::class.java)
         val encryption = mockStatic(EncryptionUtils::class.java)
         val shares = mockStatic(UnifiedShareSharees::class.java)
-        val persistence = mockStatic(Class.forName("com.nextcloud.utils.extensions.FileDataStorageManagerExtensionsKt"))
         try {
             files.`when`<OCFile> { FileStorageUtils.fillOCFile(remote) }.thenReturn(remoteFolder)
             files.`when`<Boolean> { FileStorageUtils.checkEncryptionStatus(folder, storage) }.thenReturn(true)
@@ -83,8 +81,7 @@ class RefreshEncryptedFolderTest {
                 .thenReturn(metadata)
             synchronize.invoke(operation, listOf(remote))
 
-            persistence.verify {
-                eq(storage).saveFolder(
+            verify(storage).saveFolder(
                     argThat {
                         remotePath == "/private/cipher/" &&
                             decryptedRemotePath == "/private/photos/" && isEncrypted
@@ -92,9 +89,7 @@ class RefreshEncryptedFolderTest {
                     any(),
                     any()
                 )
-            }
         } finally {
-            persistence.close()
             shares.close()
             encryption.close()
             capabilities.close()

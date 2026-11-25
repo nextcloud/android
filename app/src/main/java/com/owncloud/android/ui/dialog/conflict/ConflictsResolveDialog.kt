@@ -28,7 +28,7 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.ConflictResolveDialogBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.ui.adapter.localFileList.LocalFileThumbnailBinder
 import com.owncloud.android.ui.dialog.conflict.model.ConflictDialogType
 import com.owncloud.android.utils.MimeTypeUtil
@@ -56,7 +56,7 @@ class ConflictsResolveDialog :
     lateinit var viewThemeUtils: ViewThemeUtils
 
     @Inject
-    lateinit var syncedFolderProvider: SyncedFolderProvider
+    lateinit var syncedFolderProvider: AutoUploadFolderProvider
 
     @Inject
     lateinit var fileDataStorageManager: FileDataStorageManager

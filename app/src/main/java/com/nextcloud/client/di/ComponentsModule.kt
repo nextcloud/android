@@ -61,7 +61,6 @@ import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.activity.FilePickerActivity
 import com.owncloud.android.ui.activity.FolderPickerActivity
-import com.owncloud.android.ui.activity.InternalTwoWaySyncActivity
 import com.owncloud.android.ui.activity.ManageAccountsActivity
 import com.owncloud.android.ui.activity.ManageSpaceActivity
 import com.owncloud.android.ui.activity.PassCodeActivity
@@ -122,6 +121,7 @@ import com.owncloud.android.ui.fragment.albums.bottomsheet.AlbumSharingBottomShe
 import com.owncloud.android.ui.fragment.community.CommunityFragment
 import com.owncloud.android.ui.fragment.contactsbackup.BackupFragment
 import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment
+import com.owncloud.android.ui.fragment.internalTwoWaySync.InternalTwoWaySyncFragment
 import com.owncloud.android.ui.fragment.localfilelist.LocalFileListFragment
 import com.owncloud.android.ui.fragment.notifications.NotificationsFragment
 import com.owncloud.android.ui.fragment.autoUpload.AutoUploadFragment
@@ -494,7 +494,7 @@ internal interface ComponentsModule {
     fun testJob(): TestJob
 
     @ContributesAndroidInjector
-    fun internalTwoWaySyncActivity(): InternalTwoWaySyncActivity
+    fun internalTwoWaySyncFragment(): InternalTwoWaySyncFragment
 
     @OptIn(UnstableApi::class)
     @ContributesAndroidInjector

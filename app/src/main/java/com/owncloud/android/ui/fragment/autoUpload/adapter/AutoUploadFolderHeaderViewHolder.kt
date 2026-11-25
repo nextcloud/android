@@ -24,8 +24,7 @@ import com.nextcloud.utils.extensions.calculateScanInterval
 import com.nextcloud.utils.extensions.hasEnabledParent
 import com.owncloud.android.R
 import com.owncloud.android.databinding.SyncedFoldersItemHeaderBinding
-import com.owncloud.android.datamodel.SyncedFolder
-import com.owncloud.android.datamodel.SyncedFolderDisplayItem
+import com.owncloud.android.datamodel.AutoUploadFolder
 import com.owncloud.android.ui.fragment.autoUpload.util.iconId
 import com.owncloud.android.utils.FileUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -56,7 +55,7 @@ class AutoUploadFolderHeaderViewHolder(
 
     private var detailsJob: Job? = null
 
-    fun bind(item: SyncedFolderDisplayItem, visibleItems: List<SyncedFolderDisplayItem>) = with(binding) {
+    fun bind(item: AutoUploadFolder, visibleItems: List<AutoUploadFolder>) = with(binding) {
         headerContainer.isVisible = true
         title.text = item.folderName
         type.setImageResource(item.type.iconId())
@@ -77,7 +76,7 @@ class AutoUploadFolderHeaderViewHolder(
         loadDetails(item, visibleItems)
     }
 
-    private fun loadDetails(item: SyncedFolderDisplayItem, visibleItems: List<SyncedFolderDisplayItem>) {
+    private fun loadDetails(item: AutoUploadFolder, visibleItems: List<AutoUploadFolder>) {
         detailsJob?.cancel()
         detailsJob = lifecycleScope.launch {
             val hasEnabledParent = withContext(Dispatchers.IO) { visibleItems.hasEnabledParent(item.localPath) }
@@ -86,18 +85,17 @@ class AutoUploadFolderHeaderViewHolder(
         }
     }
 
-    private fun showDetails(item: SyncedFolderDisplayItem, hasEnabledParent: Boolean, scanMessage: String?) =
-        with(binding) {
-            val showScanMessage = item.isEnabled && scanMessage != null
+    private fun showDetails(item: AutoUploadFolder, hasEnabledParent: Boolean, scanMessage: String?) = with(binding) {
+        val showScanMessage = item.isEnabled && scanMessage != null
 
-            subFolderWarningButton.isVisible = hasEnabledParent
-            scanIndicatorText.isVisible = showScanMessage
-            scanIndicatorText.text = scanMessage
-            scanIndicatorText.maxWidth = getScanMessageMaxWidth(hasEnabledParent)
-            title.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                bottomMargin = if (showScanMessage) 0 else titleBottomMargin
-            }
+        subFolderWarningButton.isVisible = hasEnabledParent
+        scanIndicatorText.isVisible = showScanMessage
+        scanIndicatorText.text = scanMessage
+        scanIndicatorText.maxWidth = getScanMessageMaxWidth(hasEnabledParent)
+        title.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            bottomMargin = if (showScanMessage) 0 else titleBottomMargin
         }
+    }
 
     private fun getScanMessageMaxWidth(showsSubFolderWarning: Boolean): Int {
         val trailingIconCount = if (showsSubFolderWarning) TRAILING_ICON_COUNT + 1 else TRAILING_ICON_COUNT
@@ -105,7 +103,7 @@ class AutoUploadFolderHeaderViewHolder(
         return screenWidth - minimumSizeForTouchableArea * trailingIconCount - standardDoubleMargin
     }
 
-    private fun getNextScanMessage(folder: SyncedFolder): String? {
+    private fun getNextScanMessage(folder: AutoUploadFolder): String? {
         val (scanIntervalMs, messageId) = folder.calculateScanInterval(connectivityService, powerManagementService)
         messageId ?: return null
 
@@ -117,7 +115,7 @@ class AutoUploadFolderHeaderViewHolder(
         return context.getString(messageId)
     }
 
-    private fun showOverflowMenu(anchor: View, item: SyncedFolderDisplayItem) {
+    private fun showOverflowMenu(anchor: View, item: AutoUploadFolder) {
         PopupMenu(context, anchor).apply {
             inflate(R.menu.synced_folders_adapter)
             menu.findItem(R.id.action_auto_upload_folder_toggle_visibility).isChecked = item.isHidden
@@ -127,7 +125,7 @@ class AutoUploadFolderHeaderViewHolder(
         }
     }
 
-    private fun onMenuItemClick(menuItem: MenuItem, item: SyncedFolderDisplayItem): Boolean {
+    private fun onMenuItemClick(menuItem: MenuItem, item: AutoUploadFolder): Boolean {
         when (menuItem.itemId) {
             R.id.action_auto_upload_folder_toggle_visibility -> clickListener.onVisibilityToggleClick(item)
             R.id.action_auto_upload_folder_settings -> clickListener.onSyncFolderSettingsClick(item)
@@ -138,7 +136,7 @@ class AutoUploadFolderHeaderViewHolder(
         return true
     }
 
-    private fun updateDeleteUploadedMenuItem(menuItem: MenuItem, item: SyncedFolderDisplayItem) {
+    private fun updateDeleteUploadedMenuItem(menuItem: MenuItem, item: AutoUploadFolder) {
         val localFolder = item.localPath?.let(::File)
         lifecycleScope.launch {
             val writable = FileUtil.isFolderWritable(localFolder)

@@ -13,7 +13,7 @@ import android.content.Context
 import android.content.Intent
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.client.database.entity.SyncedFolderEntity
+import com.nextcloud.client.database.entity.AutoUploadFolderEntity
 import com.nextcloud.client.database.entity.UploadEntity
 import com.nextcloud.client.database.entity.toOCUpload
 import com.nextcloud.client.database.entity.toUploadEntity
@@ -751,8 +751,8 @@ class FileUploadHelper {
     suspend fun splitFilesByAutoUpload(
         files: List<OCFile>,
         accountName: String
-    ): Pair<List<SyncedFolderEntity>, List<OCFile>> {
-        val autoUploadFolders = mutableListOf<SyncedFolderEntity>()
+    ): Pair<List<AutoUploadFolderEntity>, List<OCFile>> {
+        val autoUploadFolders = mutableListOf<AutoUploadFolderEntity>()
         val nonAutoUploadFiles = mutableListOf<OCFile>()
 
         for (file in files) {
@@ -767,7 +767,7 @@ class FileUploadHelper {
         return autoUploadFolders to nonAutoUploadFiles
     }
 
-    suspend fun getAutoUploadFolderEntity(file: ServerFileInterface, accountName: String): SyncedFolderEntity? {
+    suspend fun getAutoUploadFolderEntity(file: ServerFileInterface, accountName: String): AutoUploadFolderEntity? {
         val dao = uploadsStorageManager.syncedFolderDao
         val normalizedRemotePath = file.remotePath.trimEnd()
         if (normalizedRemotePath.isEmpty()) return null

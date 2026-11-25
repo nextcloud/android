@@ -602,8 +602,8 @@ public final class ThumbnailsCacheManager {
             if (user == null) {
                 return null;
             }
-            return UploadThumbnailSource.forEncryptedFile(file, user.getAccountName(), mStorageManager.db.uploadDao(),
-                mStorageManager.db.fileSystemDao());
+            return UploadThumbnailSource.forEncryptedFile(file, user.getAccountName(), mStorageManager.getDb().uploadDao(),
+                mStorageManager.getDb().fileSystemDao());
         }
 
         private Bitmap localThumbnail(File file, int pxW, int pxH) {

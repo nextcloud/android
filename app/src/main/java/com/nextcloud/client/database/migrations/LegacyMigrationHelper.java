@@ -13,7 +13,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 
 import com.nextcloud.client.core.Clock;
-import com.owncloud.android.datamodel.SyncedFolder;
+import com.owncloud.android.datamodel.AutoUploadFolder;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -578,7 +578,7 @@ public class LegacyMigrationHelper {
 
                 db.execSQL("UPDATE " + ProviderMeta.ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME + " SET " +
                                ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED_TIMESTAMP_MS + " = CASE " +
-                               " WHEN enabled = 0 THEN " + SyncedFolder.EMPTY_ENABLED_TIMESTAMP_MS + " " +
+                               " WHEN enabled = 0 THEN " + AutoUploadFolder.EMPTY_ENABLED_TIMESTAMP_MS + " " +
                                " ELSE " + clock.getCurrentTime() +
                                " END ");
 

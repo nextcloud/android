@@ -20,7 +20,7 @@ import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityManageSpaceBinding
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.FilesSyncHelper
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -45,7 +45,7 @@ class ManageSpaceActivity :
     lateinit var viewThemeUtils: ViewThemeUtils
 
     @Inject
-    lateinit var syncedFolderProvider: SyncedFolderProvider
+    lateinit var syncedFolderProvider: AutoUploadFolderProvider
 
     @Inject
     lateinit var backgroundJobManager: BackgroundJobManager

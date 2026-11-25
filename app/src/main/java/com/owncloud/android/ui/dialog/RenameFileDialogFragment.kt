@@ -151,10 +151,11 @@ class RenameFileDialogFragment :
                 return
             }
 
+            val file = targetFile ?: return
             val fda = typedActivity<FileDisplayActivity>()
 
-            if (targetFile?.isOfflineOperation == true) {
-                fileDataStorageManager.renameOfflineOperation(targetFile, newFileName)
+            if (file.isOfflineOperation) {
+                fileDataStorageManager.renameOfflineOperation(file, newFileName)
                 fda?.refreshCurrentDirectory()
                 return
             }
@@ -167,9 +168,9 @@ class RenameFileDialogFragment :
                      *  result of it triggered by
                      *  [com.owncloud.android.ui.activity.FileDisplayActivity.onRemoteOperationFinish]
                      */
-                    helper?.renameFile(targetFile, newFileName)
+                    helper?.renameFile(file, newFileName)
                 } else {
-                    fileDataStorageManager.addRenameFileOfflineOperation(targetFile, newFileName)
+                    fileDataStorageManager.addRenameFileOfflineOperation(file, newFileName)
                     fda.refreshCurrentDirectory()
                 }
             }

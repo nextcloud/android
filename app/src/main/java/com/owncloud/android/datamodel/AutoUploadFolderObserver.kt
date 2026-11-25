@@ -8,7 +8,7 @@
 package com.owncloud.android.datamodel
 
 import com.nextcloud.client.account.User
-import com.nextcloud.client.database.dao.SyncedFolderDao
+import com.nextcloud.client.database.dao.AutoUploadFolderDao
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +17,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
-object SyncedFolderObserver {
+object AutoUploadFolderObserver {
 
     @Volatile
     private var syncedFoldersMap = mapOf<String, Set<String>>()
@@ -25,7 +25,7 @@ object SyncedFolderObserver {
     private var job: Job? = null
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
-    fun start(dao: SyncedFolderDao) {
+    fun start(dao: AutoUploadFolderDao) {
         if (job?.isActive == true) return
 
         job = scope.launch {

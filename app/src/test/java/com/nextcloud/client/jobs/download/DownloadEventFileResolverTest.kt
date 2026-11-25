@@ -32,7 +32,7 @@ class DownloadEventFileResolverTest {
     @Before
     fun setUp() {
         whenever(user.accountName).thenReturn("account-A")
-        whenever(storage.user).thenReturn(user)
+        FileDataStorageManager::class.java.getField("user").apply { isAccessible = true }.set(storage, user)
     }
 
     @Test

@@ -88,7 +88,7 @@ class SharedListFragment :
             }
             FileStorageUtils.searchForLocalFileInDefaultPath(file, user.accountName)
             UnifiedShareSharees.fill(user, listOf(file))
-            val savedFile = requireContainerActivity().storageManager.saveFileWithParent(file, context)
+            val savedFile = requireContainerActivity().storageManager.saveFileWithParent(file, requireContext())
             savedFile
         } else {
             logger.e(SHARED_TAG, "Error fetching file")

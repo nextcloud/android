@@ -57,7 +57,7 @@ import com.nextcloud.android.common.core.utils.ecosystem.AccountReceiverCallback
 import com.nextcloud.appReview.InAppReviewHelper
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.AsyncRunner
-import com.nextcloud.client.database.entity.SyncedFolderEntity
+import com.nextcloud.client.database.entity.AutoUploadFolderEntity
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.client.editimage.EditImageActivity
@@ -84,7 +84,7 @@ import com.owncloud.android.authentication.PassCodeManager
 import com.owncloud.android.databinding.FilesBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.datamodel.VirtualFolderType
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
@@ -199,7 +199,7 @@ class FileDisplayActivity :
     lateinit var asyncRunner: AsyncRunner
 
     @Inject
-    lateinit var syncedFolderProvider: SyncedFolderProvider
+    lateinit var syncedFolderProvider: AutoUploadFolderProvider
 
     @Inject
     lateinit var passCodeManager: PassCodeManager
@@ -1201,7 +1201,7 @@ class FileDisplayActivity :
         searchMenuItem.isVisible = false
         searchText.setOnClickListener {
             showSearchView()
-            searchView?.isIconified = false
+            searchView?.onActionViewExpanded()
             searchView?.postDelayed({ searchView?.requestFocusFromTouch() }, SEARCH_VIEW_FOCUS_DELAY)
         }
 
@@ -1282,7 +1282,7 @@ class FileDisplayActivity :
 
     private fun restoreSearchQuery() {
         searchView?.run {
-            isIconified = false
+            onActionViewExpanded()
             setQuery(searchQuery, true)
             clearFocus()
         }
@@ -2159,7 +2159,7 @@ class FileDisplayActivity :
     }
 
     override fun onAutoUploadFolderRemoved(
-        entities: List<SyncedFolderEntity>,
+        entities: List<AutoUploadFolderEntity>,
         filesToRemove: List<OCFile>,
         onlyLocalCopy: Boolean
     ) {
@@ -2169,7 +2169,7 @@ class FileDisplayActivity :
     }
 
     private fun removeAutoUploadFolders(
-        entities: List<SyncedFolderEntity>,
+        entities: List<AutoUploadFolderEntity>,
         filesToRemove: List<OCFile>,
         onlyLocalCopy: Boolean
     ) {

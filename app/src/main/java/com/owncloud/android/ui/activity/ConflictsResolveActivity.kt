@@ -26,7 +26,6 @@ import com.nextcloud.client.jobs.upload.UploadNotificationManager
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.model.HTTPStatusCodes
 import com.nextcloud.utils.SnackbarUtil
-import com.nextcloud.utils.extensions.getDecryptedPath
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.logFileSize
 import com.owncloud.android.R
@@ -318,10 +317,12 @@ class ConflictsResolveActivity :
         if (existingFile?.isEncrypted == true && existingFile?.storagePath?.let { File(it).isFile } != true) {
             existingFile = null
         }
-        if (existingFile == null) {
+        val currentExistingFile = existingFile
+        if (currentExistingFile == null) {
             fetchRemoteFileAndShowDialog()
         } else {
-            val remotePath = fileDataStorageManager.retrieveRemotePathConsideringEncryption(existingFile) ?: return
+            val remotePath =
+                fileDataStorageManager.retrieveRemotePathConsideringEncryption(currentExistingFile) ?: return
             showFileConflictDialog(remotePath)
         }
     }
@@ -344,14 +345,15 @@ class ConflictsResolveActivity :
 
     @Suppress("DEPRECATION")
     private fun fetchRemoteFileAndShowDialog() {
-        val remotePath = fileDataStorageManager.retrieveRemotePathConsideringEncryption(newFile) ?: return
+        val file = newFile ?: return
+        val remotePath = fileDataStorageManager.retrieveRemotePathConsideringEncryption(file) ?: return
         val operation = ReadFileRemoteOperation(remotePath)
 
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val result = operation.execute(account, this@ConflictsResolveActivity)
                 if (result.isSuccess) {
-                    val localFile = newFile ?: return@launch
+                    val localFile = file
                     existingFile = if (localFile.isEncrypted) {
                         val currentUser = user.orElse(null) ?: return@launch
                         val client = clientRepository.getOwncloudClient(currentUser) ?: return@launch
@@ -455,7 +457,9 @@ class ConflictsResolveActivity :
             ThumbnailsCacheManager.removeFromCache(oldFile)
         }
 
-        file?.isUpdateThumbnailNeeded = true
+        if (file == null) return
+
+        file.isUpdateThumbnailNeeded = true
         fileDataStorageManager.saveFile(file)
     }
 

@@ -6,12 +6,12 @@
  */
 package com.owncloud.android.ui.fragment.autoUpload.adapter
 
-import com.owncloud.android.datamodel.SyncedFolderDisplayItem
+import com.owncloud.android.datamodel.AutoUploadFolder
 
 interface AutoUploadFolderClickListener {
-    fun onSyncStatusToggleClick(item: SyncedFolderDisplayItem)
-    fun onSyncFolderSettingsClick(item: SyncedFolderDisplayItem)
-    fun onSyncFolderDeleteUploadedClick(item: SyncedFolderDisplayItem)
-    fun onVisibilityToggleClick(item: SyncedFolderDisplayItem)
+    fun onSyncStatusToggleClick(item: AutoUploadFolder)
+    fun onSyncFolderSettingsClick(item: AutoUploadFolder)
+    fun onSyncFolderDeleteUploadedClick(item: AutoUploadFolder)
+    fun onVisibilityToggleClick(item: AutoUploadFolder)
     fun showSubFolderWarningDialog()
 }

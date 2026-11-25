@@ -34,8 +34,8 @@ import com.nextcloud.utils.extensions.updateStatus
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FileDataStorageManager
-import com.owncloud.android.datamodel.SyncedFolder
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolder
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.db.UploadResult
@@ -65,7 +65,7 @@ class AutoUploadWorker(
     private val uploadsStorageManager: UploadsStorageManager,
     private val connectivityService: ConnectivityService,
     private val powerManagementService: PowerManagementService,
-    private val syncedFolderProvider: SyncedFolderProvider,
+    private val syncedFolderProvider: AutoUploadFolderProvider,
     private val repository: FileSystemRepository,
     val viewThemeUtils: ViewThemeUtils,
     localBroadcastManager: LocalBroadcastManager,
@@ -83,7 +83,7 @@ class AutoUploadWorker(
 
     private val syncFolderHelper = SyncFolderHelper(context)
     private val fileUploadEventBroadcaster = FileUploadEventBroadcaster(localBroadcastManager)
-    private lateinit var syncedFolder: SyncedFolder
+    private lateinit var syncedFolder: AutoUploadFolder
     private val notificationManager = AutoUploadNotificationManager(context, viewThemeUtils, NOTIFICATION_ID)
     private val fileUploadHelper = FileUploadHelper.instance()
     private val retryPolicy = UploadDelayPolicy()
@@ -164,7 +164,7 @@ class AutoUploadWorker(
     private fun getStartNotificationTitle(): Pair<String, String>? = try {
         val localPath = syncedFolder.localPath
         val remotePath = syncedFolder.remotePath
-        if (localPath.isBlank() || remotePath.isBlank()) {
+        if (localPath.isNullOrBlank() || remotePath.isNullOrBlank()) {
             null
         } else {
             try {
@@ -225,7 +225,7 @@ class AutoUploadWorker(
         return waitingForScanInterval
     }
 
-    private fun getUserOrReturn(syncedFolder: SyncedFolder): User? {
+    private fun getUserOrReturn(syncedFolder: AutoUploadFolder): User? {
         val optionalUser = userAccountManager.getUser(syncedFolder.account)
         if (!optionalUser.isPresent) {
             Log_OC.w(TAG, "user not present")
@@ -235,9 +235,8 @@ class AutoUploadWorker(
     }
 
     @Suppress("DEPRECATION")
-    private fun getUploadSettings(syncedFolder: SyncedFolder): Triple<Boolean, Boolean, Int> {
+    private fun getUploadSettings(syncedFolder: AutoUploadFolder, accountName: String): Triple<Boolean, Boolean, Int> {
         val lightVersion = context.resources.getBoolean(R.bool.syncedFolder_light)
-        val accountName = syncedFolder.account
 
         return if (lightVersion) {
             Log_OC.d(TAG, "light version is used")
@@ -258,7 +257,7 @@ class AutoUploadWorker(
     }
 
     @Suppress("LongMethod", "DEPRECATION", "CyclomaticComplexMethod")
-    private suspend fun uploadFiles(syncedFolder: SyncedFolder): Boolean = withContext(Dispatchers.IO) {
+    private suspend fun uploadFiles(syncedFolder: AutoUploadFolder): Boolean = withContext(Dispatchers.IO) {
         val user = getUserOrReturn(syncedFolder) ?: return@withContext false
         val client = clientRepository.getOwncloudClient(user) ?: return@withContext false
         val capability = CapabilityUtils.getCapability(user, context)
@@ -443,7 +442,7 @@ class AutoUploadWorker(
         remotePath: String,
         capability: OCCapability
     ): AutoUploadEntityResult {
-        val (needsCharging, needsWifi, uploadAction) = getUploadSettings(syncedFolder)
+        val (needsCharging, needsWifi, uploadAction) = getUploadSettings(syncedFolder, user.accountName)
         Log_OC.d(TAG, "creating oc upload for ${user.accountName}")
 
         // Get existing upload or create new one

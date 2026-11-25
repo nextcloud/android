@@ -55,7 +55,7 @@ class UploadsStorageManager(
 
     val uploadDao: UploadDao = NextcloudDatabase.instance().uploadDao()
     val fileSystemDao = NextcloudDatabase.instance().fileSystemDao()
-    val syncedFolderDao = NextcloudDatabase.instance().syncedFolderDao()
+    val syncedFolderDao = NextcloudDatabase.instance().autoUploadFolderDao()
 
     private fun getCapability(accountName: String?): OCCapability? = try {
         val context = MainApp.getAppContext()

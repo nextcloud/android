@@ -7,13 +7,13 @@
 
 package com.owncloud.android.ui.activity
 
-import com.nextcloud.client.database.entity.SyncedFolderEntity
+import com.nextcloud.client.database.entity.AutoUploadFolderEntity
 import com.owncloud.android.datamodel.OCFile
 
 interface OnFilesRemovedListener {
     fun onFilesRemoved()
     fun onAutoUploadFolderRemoved(
-        entities: List<SyncedFolderEntity>,
+        entities: List<AutoUploadFolderEntity>,
         filesToRemove: List<OCFile>,
         onlyLocalCopy: Boolean
     )

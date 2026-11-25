@@ -14,7 +14,7 @@ import com.nextcloud.client.jobs.autoUpload.FileSystemRepository
 import com.nextcloud.client.preferences.SubFolderRule
 import com.nextcloud.utils.extensions.shouldSkipFile
 import com.owncloud.android.datamodel.MediaFolderType
-import com.owncloud.android.datamodel.SyncedFolder
+import com.owncloud.android.datamodel.AutoUploadFolder
 import com.owncloud.android.datamodel.UploadsStorageManager
 import io.mockk.clearAllMocks
 import io.mockk.mockk
@@ -61,7 +61,8 @@ class AutoUploadHelperTest {
         enabledTimestamp: Long = 0L,
         alsoUploadExistingFiles: Boolean = true,
         type: MediaFolderType = MediaFolderType.CUSTOM
-    ): SyncedFolder = SyncedFolder(
+    ): AutoUploadFolder = AutoUploadFolder(
+        AutoUploadFolder.UNPERSISTED_ID,
         localPath,
         "",
         true,
