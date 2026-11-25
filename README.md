@@ -77,6 +77,30 @@ Easy starting points are also reviewing [pull requests](https://github.com/nextc
 
 ### Getting debug info via logcat :mag:
 
+#### From the app:
+
+When you report an issue, attach the app logs right away. They help the developers find and fix the cause faster.
+
+*   open the navigation drawer and tap **Settings**
+
+    <img src="/doc/providing-android-app-logs-1.png" alt="Navigation drawer with the Settings entry" width="300">
+
+*   in the **More** section, tap **Logs**
+
+    <img src="/doc/providing-android-app-logs-2.png" alt="Settings screen with the Logs entry" width="300">
+
+*   optionally, enter a search term in the toolbar to filter the log entries
+
+    <img src="/doc/providing-android-app-logs-3.png" alt="Log screen filtered by a search term" width="300">
+
+*   tap the three-dot menu in the top right corner and select **Send logs by email**
+
+    <img src="/doc/providing-android-app-logs-4.png" alt="Three-dot menu with the Send logs by email option" width="300">
+
+*   select the app to send the logs with, for example your email app
+
+**Note:** You must be logged in to an account in the app to access the logs.
+
 #### With a linux computer:
 
 *   enable USB-Debugging in your smartphones developer settings and connect it via USB
