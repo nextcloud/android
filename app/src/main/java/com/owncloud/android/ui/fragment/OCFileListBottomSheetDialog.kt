@@ -227,10 +227,10 @@ class OCFileListBottomSheetDialog(
             ?.creators
             ?.values
             ?.forEach { creator ->
-                CreatorAction.getAction(context, viewThemeUtils, creator, action = {
+                creatorsActions.add(CreatorAction.getAction(context, viewThemeUtils, creator, action = {
                     actions.showTemplate(creator, creator.name)
                     dismiss()
-                })
+                }))
             }
         return creatorsActions
     }
