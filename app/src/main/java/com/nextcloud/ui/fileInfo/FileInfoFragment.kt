@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.extensions.matchesMimeType
 import com.owncloud.android.databinding.FileInfoFragmentBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.MimeTypeUtil
@@ -62,7 +63,7 @@ class FileInfoFragment :
         binding = FileInfoFragmentBinding.inflate(layoutInflater, container, false)
 
         val file = file
-        if (file != null && MimeTypeUtil.isImage(file)) {
+        if (file != null && file.matchesMimeType(MimeTypeUtil::isImage)) {
             ImageDetailInfo(this, viewThemeUtils).init(file, binding)
         }
 

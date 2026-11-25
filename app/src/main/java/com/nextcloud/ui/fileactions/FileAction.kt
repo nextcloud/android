@@ -12,6 +12,7 @@ package com.nextcloud.ui.fileactions
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
+import com.nextcloud.utils.extensions.matchesMimeType
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.MimeTypeUtil
@@ -263,7 +264,7 @@ enum class FileAction(
                 result.add(R.id.action_edit)
             }
 
-            if (files.any { !MimeTypeUtil.isImageOrVideo(it) }) {
+            if (files.any { !(it.matchesMimeType(MimeTypeUtil::isImage) || MimeTypeUtil.isVideo(it.mimeType)) }) {
                 result.add(R.id.action_add_to_album)
             }
 

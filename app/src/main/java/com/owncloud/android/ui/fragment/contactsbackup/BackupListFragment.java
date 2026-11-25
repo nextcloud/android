@@ -33,6 +33,7 @@ import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.utils.SnackbarUtil;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.IntExtensionsKt;
+import com.nextcloud.utils.extensions.MimeTypeExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.BackuplistFragmentBinding;
 import com.owncloud.android.datamodel.OCFile;
@@ -208,13 +209,13 @@ public class BackupListFragment extends FileFragment implements Injectable {
                 fileDownloader.enqueue(request);
             }
 
-            if (MimeTypeUtil.isVCard(file) && file.isDown()) {
+            if (MimeTypeExtensionsKt.matchesMimeType(file, MimeTypeUtil::isVCard) && file.isDown()) {
                 setFile(file);
                 loadContactsTask = new LoadContactsTask(this, file);
                 loadContactsTask.execute();
             }
 
-            if (MimeTypeUtil.isCalendar(file) && file.isDown()) {
+            if (MimeTypeExtensionsKt.matchesMimeType(file, MimeTypeUtil::isCalendar) && file.isDown()) {
                 showLoadingMessage(false);
                 listAdapter.addCalendar(file);
             }
@@ -486,7 +487,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
         if (download.getState() == TransferState.COMPLETED && activity != null) {
             OCFile ocFile = download.getFile();
 
-            if (MimeTypeUtil.isVCard(ocFile)) {
+            if (MimeTypeExtensionsKt.matchesMimeType(ocFile, MimeTypeUtil::isVCard)) {
                 setFile(ocFile);
                 loadContactsTask = new LoadContactsTask(this, ocFile);
                 loadContactsTask.execute();

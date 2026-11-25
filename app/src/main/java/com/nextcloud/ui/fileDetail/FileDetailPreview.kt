@@ -41,7 +41,7 @@ class FileDetailPreview(
         }
     }
 
-    private fun Bitmap.withVideoOverlay(file: OCFile): Bitmap = if (MimeTypeUtil.isVideo(file)) {
+    private fun Bitmap.withVideoOverlay(file: OCFile): Bitmap = if (MimeTypeUtil.isVideo(file.mimeType)) {
         VideoOverlayGenerator.addOverlay(this, toolbarActivity)
     } else {
         this
