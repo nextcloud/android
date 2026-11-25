@@ -20,8 +20,8 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.DialogAutoUploadPreferenceBinding
-import com.owncloud.android.datamodel.SyncedFolderDisplayItem
-import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable
+import com.owncloud.android.datamodel.AutoUploadFolder
+import com.owncloud.android.ui.dialog.parcel.AutoUploadFolderParcelable
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -35,7 +35,7 @@ class AutoUploadPreferenceDialogFragment :
     @Inject
     lateinit var clock: Clock
 
-    private lateinit var syncedFolder: SyncedFolderParcelable
+    private lateinit var syncedFolder: AutoUploadFolderParcelable
     private lateinit var form: AutoUploadForm
 
     private var openOptionDialog: AutoUploadOption? = null
@@ -49,7 +49,7 @@ class AutoUploadPreferenceDialogFragment :
         super.onCreate(savedInstanceState)
         val state = savedInstanceState ?: requireArguments()
         syncedFolder = requireNotNull(
-            state.getParcelableArgument(SYNCED_FOLDER_PARCELABLE, SyncedFolderParcelable::class.java)
+            state.getParcelableArgument(SYNCED_FOLDER_PARCELABLE, AutoUploadFolderParcelable::class.java)
         )
         openOptionDialog = savedInstanceState?.getString(OPEN_OPTION_DIALOG)?.let(AutoUploadOption::valueOf)
     }
@@ -175,13 +175,13 @@ class AutoUploadPreferenceDialogFragment :
 
     companion object {
         const val REQUEST_CODE__SELECT_LOCAL_FOLDER = 1
-        private const val SYNCED_FOLDER_PARCELABLE = "SyncedFolderParcelable"
+        private const val SYNCED_FOLDER_PARCELABLE = "AutoUploadFolderParcelable"
         private const val OPEN_OPTION_DIALOG = "OPEN_OPTION_DIALOG"
 
         @JvmStatic
-        fun newInstance(syncedFolder: SyncedFolderDisplayItem): AutoUploadPreferenceDialogFragment =
+        fun newInstance(syncedFolder: AutoUploadFolder): AutoUploadPreferenceDialogFragment =
             AutoUploadPreferenceDialogFragment().apply {
-                arguments = bundleOf(SYNCED_FOLDER_PARCELABLE to SyncedFolderParcelable(syncedFolder))
+                arguments = bundleOf(SYNCED_FOLDER_PARCELABLE to AutoUploadFolderParcelable(syncedFolder))
                 setStyle(STYLE_NORMAL, R.style.Theme_ownCloud_Dialog)
             }
     }

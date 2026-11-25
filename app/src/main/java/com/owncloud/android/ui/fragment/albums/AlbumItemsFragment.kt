@@ -628,7 +628,7 @@ class AlbumItemsFragment :
 
     private suspend fun contextMenuEndpoints(checkedFiles: Set<OCFile>): List<Endpoint> {
         val storageManager = containerActivity?.storageManager ?: return emptyList()
-        val user = optionalUser?.get()
+        val user = optionalUser?.get() ?: return emptyList()
         val mimeType = checkedFiles.first().mimeType
 
         return withContext(Dispatchers.IO) {

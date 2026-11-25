@@ -39,7 +39,6 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getTypedActivity
-import com.nextcloud.utils.extensions.searchFilesByName
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.extensions.typedActivity
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
@@ -87,7 +86,6 @@ class UnifiedSearchFragment :
     private lateinit var adapter: UnifiedSearchListAdapter
     private var _binding: ListFragmentBinding? = null
     val binding get() = _binding!!
-    private var searchView: SearchView? = null
     lateinit var vm: IUnifiedSearchViewModel
 
     companion object {
@@ -461,9 +459,8 @@ class UnifiedSearchFragment :
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        val closeButton = searchView?.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
-        closeButton?.visibility = if (newText?.isEmpty() == true) View.INVISIBLE else View.VISIBLE
         searchInCurrentDirectory(newText ?: "")
+
         return true
     }
 

@@ -469,12 +469,14 @@ class FileDetailSharingFragment :
     }
 
     private suspend fun fetchE2EECounter(): Boolean = withContext(Dispatchers.IO) {
+        val currentFile = file ?: return@withContext false
+
         return@withContext try {
             val context = requireContext()
             val client = clientFactory.create(user)
-            val metadata = RefreshFolderOperation.getDecryptedFolderMetadata(true, file, client, user, context)
+            val metadata = RefreshFolderOperation.getDecryptedFolderMetadata(true, currentFile, client, user, context)
             if (metadata is DecryptedFolderMetadataFile) {
-                fileDataStorageManager?.updateE2EECounter(file, metadata)
+                fileDataStorageManager?.updateE2EECounter(currentFile, metadata)
             }
             true
         } catch (e: Exception) {
@@ -877,7 +879,8 @@ class FileDetailSharingFragment :
     }
 
     fun refreshCapabilitiesFromDB() {
-        capabilities = fileDataStorageManager?.getCapability(user?.accountName)
+        val accountName = user?.accountName ?: return
+        capabilities = fileDataStorageManager?.getCapability(accountName)
     }
 
     fun refreshSharesFromDB() {

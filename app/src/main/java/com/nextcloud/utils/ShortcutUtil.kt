@@ -25,8 +25,8 @@ import com.nextcloud.client.account.User
 import com.nextcloud.utils.extensions.getSmallThumbnail
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.SyncedFolderObserver
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolderObserver
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.utils.MimeTypeUtil
@@ -44,7 +44,7 @@ class ShortcutUtil @Inject constructor(private val mContext: Context) {
         file: OCFile,
         viewThemeUtils: ViewThemeUtils,
         user: User,
-        syncedFolderProvider: SyncedFolderProvider
+        syncedFolderProvider: AutoUploadFolderProvider
     ) {
         if (!ShortcutManagerCompat.isRequestPinShortcutSupported(mContext)) {
             return
@@ -82,14 +82,14 @@ class ShortcutUtil @Inject constructor(private val mContext: Context) {
         file: OCFile,
         viewThemeUtils: ViewThemeUtils,
         user: User,
-        syncedFolderProvider: SyncedFolderProvider
+        syncedFolderProvider: AutoUploadFolderProvider
     ): IconCompat {
         val thumbnail = file.getSmallThumbnail()
         return when {
             thumbnail != null -> IconCompat.createWithAdaptiveBitmap(bitmapToAdaptiveBitmap(thumbnail))
 
             file.isFolder -> {
-                val isAutoUploadFolder = SyncedFolderObserver.isAutoUploadFolder(file, user)
+                val isAutoUploadFolder = AutoUploadFolderObserver.isAutoUploadFolder(file, user)
                 val isDarkModeActive = syncedFolderProvider.preferences.isDarkModeEnabled
                 val overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder)
                 val drawable = MimeTypeUtil.getFolderIcon(isDarkModeActive, overlayIconId, mContext, viewThemeUtils)

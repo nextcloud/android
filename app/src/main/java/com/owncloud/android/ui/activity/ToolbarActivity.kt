@@ -37,7 +37,7 @@ import com.owncloud.android.ui.fragment.OCFileListFragment
 import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.navigation.animator.SearchBarTransition
 import com.owncloud.android.ui.navigation.model.ActionBarStyle
-import com.owncloud.android.utils.theme.ThemeUtils
+import com.owncloud.android.utils.theme.ServerBranding
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -46,7 +46,7 @@ abstract class ToolbarActivity :
     Injectable {
 
     @Inject
-    lateinit var themeUtils: ThemeUtils
+    lateinit var serverBranding: ServerBranding
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
@@ -168,7 +168,7 @@ abstract class ToolbarActivity :
         get() = ocFileListFragment?.currentSearchType ?: SearchType.NO_SEARCH
 
     val actionBarRootTitle: String
-        get() = searchType.titleId()?.let { getString(it) } ?: themeUtils.getDefaultDisplayNameForRootFolder(this)
+        get() = searchType.titleId()?.let { getString(it) } ?: serverBranding.getDefaultDisplayNameForRootFolder()
 
     fun getActionBarTitle(chosenFile: OCFile, isRoot: Boolean): String =
         if (isRoot) actionBarRootTitle else getActionBarTitleFromFile(chosenFile)

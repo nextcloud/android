@@ -47,7 +47,7 @@ import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FragmentTrashbinBinding
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile
 import com.owncloud.android.ui.adapter.TrashbinListAdapter
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment.OnSortingOrderListener
@@ -70,7 +70,7 @@ class TrashbinFragment :
     lateinit var preferences: AppPreferences
 
     @Inject
-    lateinit var syncedFolderProvider: SyncedFolderProvider
+    lateinit var syncedFolderProvider: AutoUploadFolderProvider
 
     @Inject
     lateinit var accountProvider: CurrentAccountProvider
