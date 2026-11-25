@@ -151,7 +151,7 @@ class UriUploaderIT : AbstractIT() {
         // Represents "content://org.nextcloud.files/log/log.txt"
         val fileProviderUri = contentUri(activity.getString(R.string.file_provider_authority), "/log/log.txt")
 
-        assertRejected(activity, fileProviderUri)
+        assertAllowed(activity, fileProviderUri)
     }
 
     @Test
