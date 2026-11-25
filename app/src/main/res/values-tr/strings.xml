@@ -138,6 +138,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">salt okunur olduğundan özgün klasörde kaldı</string>
     <string name="auto_upload_low_battery_warning_info">Pil azaldı. Yükleme işlemi uzun sürebilir</string>
     <string name="auto_upload_on_wifi">Yalnızca kotasız kablosuz ağda yüklensin</string>
+    <string name="auto_upload_overview_empty_folder">Klasör boş</string>
     <string name="auto_upload_path">/OtomatikYükleme</string>
     <string name="auto_upload_sub_folder_warning">Bu klasör, üst klasörün eşitlemesine zaten katılmış olduğundan yinelenen yüklemelere neden olabilir.</string>
     <string name="auto_upload_sync_now_action">Şimdi eşitle</string>
@@ -168,8 +169,10 @@
     <string name="backup_list_adapter_local_contacts">Yerel kişiler</string>
     <string name="backup_settings">Ayarları yedekle</string>
     <string name="backup_title">Kişiler ve takvim yedeği</string>
+    <string name="battery_optimization_banner_message">Nextcloud uygulamasının pil kullanımı kısıtlanıyor, bu nedenle Android otomatik yüklemeyi geciktirebilir. Sınırsız pil kullanımıyla, otomatik yükleme güç koruma kipinde de çalışmayı sürdürür.</string>
     <string name="battery_optimization_close">Kapat</string>
     <string name="battery_optimization_disable">Kullanımdan kaldır</string>
+    <string name="battery_optimization_exempt_action">Pil kullanımında kısıtlama olmasın</string>
     <string name="battery_optimization_message">Aygıtınızda pil iyileştirme özelliği açık olabilir. Otomatik yükleme yalnızca bu uygulamayı pil iyileştirmesi dışında tutarsanız düzgün çalışır.</string>
     <string name="battery_optimization_title">Pil kullanımı iyileştirmesi</string>
     <string name="bottom_navigation_menu_assistant_label">Yardımcı</string>
@@ -398,6 +401,7 @@
     <string name="encryption_key_checking_keys">Anahtarlar denetleniyor…</string>
     <string name="encryption_key_handle_folder_read_only_description">Bu hesabın şifreleme anahtarları kaldırılmış veya değiştirilmiş. Bu nedenle bu klasörün içeriğinin şifresi artık çözülemez.\n\nKlasör bundan sonra yalnızca okunabilir. Şifrelenmiş klasörleri yeniden kullanmak için bu klasörü yedekleyin ve ayarlardan yeni şifreleme anahtarınızı ayarlayın.</string>
     <string name="encryption_key_handle_key_removed_title">Şifreleme anahtarları değiştirildi</string>
+    <string name="encryption_key_handle_keys_changed_on_server_description">Sunucudaki şifreleme anahtarları kaldırıldı veya değiştirildi. Bu nedenle bu aygıttaki şifrelenmiş klasörler  şimdi salt okunur.\n\nUçtan uca şifreleme kullanmayı sürdürmek için şifrelenmiş dosyalarınızı yedekleyin, ayarlardan şifrelemeyi yerel olarak kaldırın ve yeniden ayarlayın.</string>
     <string name="encryption_key_handle_no_keys_description">Şifreleme anahtarları artık bu aygıt veya sunucu üzerinde bulunmadığı için bu klasör açılamıyor.</string>
     <string name="encryption_new_folder_check_failed">Şifreleme anahtarlarınız denetlenemedi. Klasörü yeniden oluşturmayı deneyin.</string>
     <string name="encryption_new_folder_no_network">Sunucuya ulaşılamadı. Bir süre sonra klasörü yeniden oluşturmayı deneyin.</string>
@@ -408,6 +412,7 @@
     <string name="encryption_open_unavailable">Bu klasör açılamadı. Bu sunucuda uçtan uca şifreleme ayarlanmamış.</string>
     <string name="end_to_end_encryption_certificate_unavailable">Sunucu sertifikası alınamadı</string>
     <string name="end_to_end_encryption_confirm_button">Şifreleme kurulumu</string>
+    <string name="end_to_end_encryption_could_not_verify_certificate">Şifreleme sertifikası doğrulanamadı</string>
     <string name="end_to_end_encryption_decrypting">Şifre çözülüyor …</string>
     <string name="end_to_end_encryption_dialog_close">Kapat</string>
     <string name="end_to_end_encryption_enter_passphrase_to_access_files">Dosyalarınıza erişmek için parola ifadenizi yazın</string>
@@ -782,6 +787,7 @@
     <string name="pin_shortcut_label">%1$s aç</string>
     <string name="player_audio_title_with_artist">%1$s • %2$s</string>
     <string name="player_control_view_next_button_content_description">Sonraki düğmesi</string>
+    <string name="player_control_view_play_mode_button_content_description">Oynatma kipi düğmesi</string>
     <string name="player_control_view_play_pause_button_content_description">Oynat/Duraklat düğmesi</string>
     <string name="player_control_view_previous_button_content_description">Önceki düğmesi</string>
     <string name="player_control_view_random_button_content_description">Rastgele düğmesi</string>
@@ -791,6 +797,9 @@
     <string name="player_media_controls_close_action_title">Kapat</string>
     <string name="please_select_a_server">Lütfen bir sunucu seçin…</string>
     <string name="power_save_check_dialog_message">Güç koruma denetiminin kapatılması pil düzeyi düşükken dosyaların yüklenmesine neden olabilir!</string>
+    <string name="power_saving_banner_ignored_by_app_message">Güç koruma kipi açık, ancak Nextcloud uygulamasının pil kullanımı kısıtlanmıyor. Bu nedenle otomatik yükleme çalışmayı sürdürüyor.</string>
+    <string name="power_saving_banner_restricting_app_message">Güç koruma kipi açık olduğundan, siz kapatana kadar otomatik yükleme duraklatıldı.</string>
+    <string name="power_saving_settings_action">Güç koruma ayarlarını aç</string>
     <string name="pref_behaviour_entries_delete_file">silinecek</string>
     <string name="pref_behaviour_entries_keep_file">özgün klasöründe tutulacak</string>
     <string name="pref_behaviour_entries_move">app klasörüne taşınacak</string>
