@@ -8,7 +8,6 @@
  */
 package com.owncloud.android.ui.fragment
 
-import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -67,39 +66,19 @@ class OCFileListBottomSheetDialog(
         private val DIRECT_EDITING_CREATORS_OFFICE_IDS = arrayOf("document", "spreadsheet", "presentation")
     }
 
-    private enum class CreatorType {
-        Office,
-        Other
-    }
-
     private val templateActions = listOf(
-        CreatorAction(
-            text = context.getString(R.string.create_document),
-            icon = AppCompatResources.getDrawable(context, R.drawable.file_doc),
-            action = {
-                actions.newDocument()
-                dismiss()
-            },
-            type = CreatorType.Office
-        ),
-        CreatorAction(
-            text = context.getString(R.string.create_spreadsheet),
-            icon = AppCompatResources.getDrawable(context, R.drawable.file_xls),
-            action = {
-                actions.newSpreadsheet()
-                dismiss()
-            },
-            type = CreatorType.Office
-        ),
-        CreatorAction(
-            text = context.getString(R.string.create_presentation),
-            icon = AppCompatResources.getDrawable(context, R.drawable.file_ppt),
-            action = {
-                actions.newPresentation()
-                dismiss()
-            },
-            type = CreatorType.Office
-        )
+        CreatorAction.getNewDocument(context, action = {
+            actions.newDocument()
+            dismiss()
+        }),
+        CreatorAction.getNewSpreadsheet(context, action = {
+            actions.newSpreadsheet()
+            dismiss()
+        }),
+        CreatorAction.getNewPresentation(context, action = {
+            actions.newPresentation()
+            dismiss()
+        })
     )
 
     private lateinit var binding: FileListActionsBottomSheetFragmentBinding
@@ -403,11 +382,4 @@ class OCFileListBottomSheetDialog(
             menuEncryptedMkdir.visibility = View.GONE
         }
     }
-
-    private data class CreatorAction(
-        val text: String,
-        val icon: Drawable?,
-        val action: () -> Unit,
-        val type: CreatorType
-    )
 }
