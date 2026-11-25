@@ -34,7 +34,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
-import com.nextcloud.utils.extensions.getGalleryItemsPageSuspended
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.extensions.isLandscape

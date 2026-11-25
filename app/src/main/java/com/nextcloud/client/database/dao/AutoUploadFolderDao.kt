@@ -9,12 +9,12 @@ package com.nextcloud.client.database.dao
 
 import androidx.room.Dao
 import androidx.room.Query
-import com.nextcloud.client.database.entity.SyncedFolderEntity
+import com.nextcloud.client.database.entity.AutoUploadFolderEntity
 import com.owncloud.android.db.ProviderMeta
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface SyncedFolderDao {
+interface AutoUploadFolderDao {
     @Query(
         """
         SELECT * FROM ${ProviderMeta.ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME}
@@ -23,10 +23,10 @@ interface SyncedFolderDao {
         LIMIT 1
         """
     )
-    fun findByLocalPathAndAccount(localPath: String, account: String): SyncedFolderEntity?
+    fun findByLocalPathAndAccount(localPath: String, account: String): AutoUploadFolderEntity?
 
     @Query("SELECT * FROM ${ProviderMeta.ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME}")
-    fun getAllAsFlow(): Flow<List<SyncedFolderEntity>>
+    fun getAllAsFlow(): Flow<List<AutoUploadFolderEntity>>
 
     @Query(
         """
@@ -36,5 +36,5 @@ interface SyncedFolderDao {
     LIMIT 1
 """
     )
-    suspend fun findByRemotePathAndAccount(remotePath: String, account: String): SyncedFolderEntity?
+    suspend fun findByRemotePathAndAccount(remotePath: String, account: String): AutoUploadFolderEntity?
 }

@@ -31,8 +31,8 @@ import com.nextcloud.utils.extensions.isUserCancellation
 import com.nextcloud.utils.extensions.toFile
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ForegroundServiceType
-import com.owncloud.android.datamodel.SyncedFolder
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolder
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus
@@ -68,7 +68,7 @@ class FileUploadWorker(
     private val backgroundJobManager: BackgroundJobManager,
     val preferences: AppPreferences,
     val filesystemRepository: FileSystemRepository,
-    val syncedFolderProvider: SyncedFolderProvider,
+    val syncedFolderProvider: AutoUploadFolderProvider,
     val context: Context,
     val uploadFileOperationFactory: UploadFileOperationFactory,
     params: WorkerParameters
@@ -388,7 +388,7 @@ class FileUploadWorker(
     suspend fun isBelongToAnySyncedFolder(
         upload: OCUpload,
         syncFolderHelper: SyncFolderHelper,
-        syncedFolders: List<SyncedFolder>
+        syncedFolders: List<AutoUploadFolder>
     ): Boolean {
         if (!filesystemRepository.isBelongToAnyAutoFolder(upload.localPath)) return false
 

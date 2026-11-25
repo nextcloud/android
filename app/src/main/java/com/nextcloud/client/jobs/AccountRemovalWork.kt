@@ -28,7 +28,7 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.FilesystemDataProvider
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.datamodel.pushconfig.PushConfigurationState
 import com.owncloud.android.lib.common.OwnCloudClient
@@ -57,7 +57,7 @@ class AccountRemovalWork(
     private val clock: Clock,
     private val eventBus: EventBus,
     private val preferences: AppPreferences,
-    private val syncedFolderProvider: SyncedFolderProvider
+    private val syncedFolderProvider: AutoUploadFolderProvider
 ) : Worker(context, params) {
 
     companion object {

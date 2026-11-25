@@ -14,8 +14,8 @@ import com.owncloud.android.R
 import com.owncloud.android.datamodel.MediaFolder
 import com.owncloud.android.datamodel.MediaFolderType
 import com.owncloud.android.datamodel.MediaProvider
-import com.owncloud.android.datamodel.SyncedFolder
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolder
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.navigation.NavigatorActivity
 import com.owncloud.android.ui.navigation.NavigatorScreen
@@ -25,7 +25,7 @@ import javax.inject.Inject
 class AutoUploadEntriesMigration @Inject constructor(
     private val context: Context,
     private val preferences: AppPreferences,
-    private val syncedFolderProvider: SyncedFolderProvider
+    private val syncedFolderProvider: AutoUploadFolderProvider
 ) {
 
     fun migrate() {
@@ -123,8 +123,8 @@ class AutoUploadEntriesMigration @Inject constructor(
         preferences.isAutoUploadSplitEntriesEnabled = true
     }
 
-    private fun SyncedFolderProvider.storeCopyIfMediaFolder(
-        syncedFolder: SyncedFolder,
+    private fun AutoUploadFolderProvider.storeCopyIfMediaFolder(
+        syncedFolder: AutoUploadFolder,
         mediaFolders: List<MediaFolder>,
         mediaType: MediaFolderType,
         mediaTypeLabel: String
@@ -134,7 +134,7 @@ class AutoUploadEntriesMigration @Inject constructor(
             return
         }
 
-        val newSyncedFolder = (syncedFolder.clone() as SyncedFolder).apply { setType(mediaType) }
+        val newSyncedFolder = syncedFolder.clone().apply { type = mediaType }
         val primaryKey = storeSyncedFolder(newSyncedFolder)
         Log_OC.i(TAG, "Migrated $mediaTypeLabel synced_folders record: $primaryKey - ${newSyncedFolder.localPath}")
     }

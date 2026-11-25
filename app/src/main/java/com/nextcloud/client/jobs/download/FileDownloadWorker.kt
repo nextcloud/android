@@ -215,8 +215,9 @@ class FileDownloadWorker(
 
     private fun setUser() {
         val accountName = inputData.keyValueMap[ACCOUNT_NAME] as String
-        user = accountManager.getUser(accountName).get()
-        fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
+        val currentUser = accountManager.getUser(accountName).get()
+        user = currentUser
+        fileDataStorageManager = FileDataStorageManager(currentUser, context.contentResolver)
     }
 
     private fun getFiles(file: OCFile): List<OCFile> = if (file.isFolder) {

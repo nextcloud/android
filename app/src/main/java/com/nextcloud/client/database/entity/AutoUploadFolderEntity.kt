@@ -12,11 +12,11 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.nextcloud.client.preferences.SubFolderRule
 import com.owncloud.android.datamodel.MediaFolderType
-import com.owncloud.android.datamodel.SyncedFolder
+import com.owncloud.android.datamodel.AutoUploadFolder
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 
 @Entity(tableName = ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME)
-data class SyncedFolderEntity(
+data class AutoUploadFolderEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = ProviderTableMeta._ID)
     val id: Int?,
@@ -54,9 +54,9 @@ data class SyncedFolderEntity(
     val lastScanTimestampMs: Long?
 )
 
-fun SyncedFolderEntity.toSyncedFolder(): SyncedFolder = SyncedFolder(
+fun AutoUploadFolderEntity.toAutoUploadFolder(): AutoUploadFolder = AutoUploadFolder(
     // id
-    (this.id ?: SyncedFolder.UNPERSISTED_ID).toLong(),
+    (this.id ?: AutoUploadFolder.UNPERSISTED_ID).toLong(),
     // localPath
     this.localPath ?: "",
     // remotePath
@@ -78,15 +78,15 @@ fun SyncedFolderEntity.toSyncedFolder(): SyncedFolder = SyncedFolder(
     // enabled
     this.enabled == 1,
     // timestampMs
-    (this.enabledTimestampMs ?: SyncedFolder.EMPTY_ENABLED_TIMESTAMP_MS).toLong(),
+    (this.enabledTimestampMs ?: AutoUploadFolder.EMPTY_ENABLED_TIMESTAMP_MS).toLong(),
     // type
     MediaFolderType.getById(this.type ?: MediaFolderType.CUSTOM.id),
     // hidden
     this.hidden == 1,
     // subFolderRule
-    this.subFolderRule?.let { SubFolderRule.entries[it] },
+    this.subFolderRule?.let { SubFolderRule.entries[it] } ?: SubFolderRule.YEAR_MONTH,
     // excludeHidden
     this.excludeHidden == 1,
     // lastScanTimestampMs
-    this.lastScanTimestampMs ?: SyncedFolder.NOT_SCANNED_YET
+    this.lastScanTimestampMs ?: AutoUploadFolder.NOT_SCANNED_YET
 )

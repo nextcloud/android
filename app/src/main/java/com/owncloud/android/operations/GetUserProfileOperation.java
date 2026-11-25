@@ -53,7 +53,7 @@ public class GetUserProfileOperation extends SyncOperation {
             // store display name with account data
             AccountManager accountManager = AccountManager.get(MainApp.getAppContext());
             UserInfo userInfo = result.getResultData();
-            Account storedAccount = getStorageManager().getUser().toPlatformAccount();
+            Account storedAccount = getStorageManager().user.toPlatformAccount();
             accountManager.setUserData(storedAccount, AccountUtils.Constants.KEY_DISPLAY_NAME, userInfo.getDisplayName());
         }
         return result;

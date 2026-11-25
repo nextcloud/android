@@ -11,7 +11,7 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.jobs.BackgroundJobManager
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.FilesSyncHelper
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +20,7 @@ import kotlinx.coroutines.withContext
 class AutoUploadRescanWorker(
     context: Context,
     params: WorkerParameters,
-    private val syncedFolderProvider: SyncedFolderProvider,
+    private val syncedFolderProvider: AutoUploadFolderProvider,
     private val backgroundJobManager: BackgroundJobManager
 ) : CoroutineWorker(context, params) {
 
