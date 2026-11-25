@@ -1647,4 +1647,17 @@
     <string name="player_control_view_next_button_content_description">Next button</string>
     <string name="server_not_allowed">Server not allowed</string>
     <string name="run_two_way_sync">Run sync now</string>
+    <string name="mtls_title">Client certificate</string>
+    <string name="mtls_summary">Import a PKCS#12 certificate for this server</string>
+    <string name="mtls_description">A manually imported certificate will be used for connections to %1$s:%2$d only. The private key is encrypted in app storage.</string>
+    <string name="mtls_import">Import PKCS#12</string>
+    <string name="mtls_password">PKCS#12 password</string>
+    <string name="mtls_remove">Remove client certificate</string>
+    <string name="mtls_status_imported">A manual client certificate is configured.</string>
+    <string name="mtls_status_keychain">No manual certificate. Android KeyChain is used.</string>
+    <string name="mtls_import_success">Client certificate imported. Reconnect to use it.</string>
+    <string name="mtls_import_failed">Import failed. Check the certificate and password.</string>
+    <string name="mtls_remove_success">Manual certificate removed</string>
+    <string name="mtls_remove_failed">Could not remove manual certificate</string>
+    <string name="mtls_invalid_server">An existing HTTPS account is required.</string>
 </resources>
