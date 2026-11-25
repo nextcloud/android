@@ -22,9 +22,11 @@ object FileLockingHelper {
     fun canUserUnlockFile(userId: String, file: OCFile): Boolean {
         if (!file.isLocked) return false
         if (isFileOwner(userId, file)) return true
-        if (file.lockType == FileLockType.COLLABORATIVE) return false
 
-        return file.lockOwnerId == userId
+        return when (file.lockType) {
+            FileLockType.MANUAL, FileLockType.TOKEN -> file.lockOwnerId == userId
+            FileLockType.COLLABORATIVE, null -> false
+        }
     }
 
     private fun isFileOwner(userId: String, file: OCFile): Boolean =

@@ -124,10 +124,7 @@ class FileActionsBottomSheet :
         when (state) {
             is FileActionsViewModel.UiState.LoadedForSingleFile -> {
                 loadFileThumbnail(state.titleFile)
-                if (state.lockInfo != null) {
-                    displayLockInfo(state.lockInfo)
-                }
-                displayActions(state.titleFile, state.actions)
+                displayActions(state.titleFile, state.actions, state.lockInfo)
                 displayTitle(state.titleFile)
             }
 
@@ -203,10 +200,16 @@ class FileActionsBottomSheet :
         }
     }
 
-    private fun displayActions(file: OCFile?, actions: List<FileAction>) {
+    private fun displayActions(
+        file: OCFile?,
+        actions: List<FileAction>,
+        lockInfo: FileActionsViewModel.LockInfo? = null
+    ) {
         if (binding.fileActionsList.isNotEmpty()) {
             return
         }
+
+        lockInfo?.let(::displayLockInfo)
 
         actions.forEach { action ->
             val view = inflateActionView(action)
