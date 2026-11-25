@@ -82,7 +82,7 @@ When you report an issue, attach the app logs right away. They help the develope
 1.  open the navigation drawer and tap **Settings**
 2.  in the **More** section, tap **Logs**
 3.  optionally, enter a search term in the toolbar to filter the log entries
-4.  tap the three-dot menu in the top right corner and select **Send logs by email**
+4.  tap the three-dot menu in the top right corner and select **Share**
 5.  select the app to send the logs with, for example your email app
 
 ![Steps 1 to 4 for sending the app logs](/doc/providing-android-app-logs.png "Providing app logs")
