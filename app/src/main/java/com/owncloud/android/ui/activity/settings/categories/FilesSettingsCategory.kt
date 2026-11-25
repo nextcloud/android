@@ -4,30 +4,29 @@
  * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.activity.settings.files
+package com.owncloud.android.ui.activity.settings.categories
 
-import android.preference.PreferenceActivity
-import android.preference.SwitchPreference
+import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.TwoStatePreference
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
 import com.owncloud.android.ui.activity.settings.util.bindOrRemove
-import com.owncloud.android.ui.activity.settings.util.findPreferenceAs
 import com.owncloud.android.ui.activity.settings.util.findThemedCategory
 import com.owncloud.android.ui.activity.settings.util.setOnClickAction
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 class FilesSettingsCategory(
-    private val activity: PreferenceActivity,
+    private val fragment: PreferenceFragmentCompat,
     private val preferences: AppPreferences,
     private val viewThemeUtils: ViewThemeUtils
-) {
+) : SettingsCategory {
 
-    fun setup() {
-        val category = activity.findThemedCategory(CATEGORY_KEY, viewThemeUtils) ?: return
-        val showHiddenFilesEnabled = activity.resources.getBoolean(R.bool.show_hidden_files_enabled)
+    override fun setup() {
+        val category = fragment.findThemedCategory(CATEGORY_KEY, viewThemeUtils) ?: return
+        val showHiddenFilesEnabled = fragment.resources.getBoolean(R.bool.show_hidden_files_enabled)
 
         category.bindOrRemove(
-            activity.findPreferenceAs<SwitchPreference>(SHOW_HIDDEN_FILES_KEY),
+            fragment.findPreference<TwoStatePreference>(SHOW_HIDDEN_FILES_KEY),
             showHiddenFilesEnabled
         ) { preferences.setShowHiddenFilesEnabled(it.isChecked) }
 
@@ -36,7 +35,7 @@ class FilesSettingsCategory(
     }
 
     private fun bindSwitch(key: String, onCheckedChange: (Boolean) -> Unit) {
-        val switchPreference = activity.findPreferenceAs<SwitchPreference>(key) ?: return
+        val switchPreference = fragment.findPreference<TwoStatePreference>(key) ?: return
 
         switchPreference.setOnClickAction { onCheckedChange(switchPreference.isChecked) }
     }

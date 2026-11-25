@@ -4,16 +4,15 @@
  * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.activity.settings.autoupload
+package com.owncloud.android.ui.activity.settings.categories
 
-import android.preference.PreferenceActivity
-import android.preference.PreferenceScreen
-import android.preference.SwitchPreference
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.TwoStatePreference
 import com.nextcloud.client.account.User
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.ui.activity.SettingsActivity.Companion.SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI
-import com.owncloud.android.ui.activity.settings.util.findPreferenceAs
 import com.owncloud.android.ui.activity.settings.util.findThemedCategory
 import com.owncloud.android.ui.activity.settings.util.setOnClickAction
 import com.owncloud.android.ui.activity.settings.util.startNavigatorScreen
@@ -21,29 +20,31 @@ import com.owncloud.android.ui.navigation.NavigatorScreen
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 class AutoUploadSettingsCategory(
-    private val activity: PreferenceActivity,
+    private val fragment: PreferenceFragmentCompat,
     private val user: User,
     private val arbitraryDataProvider: ArbitraryDataProvider,
     private val viewThemeUtils: ViewThemeUtils
-) {
+) : SettingsCategory {
 
-    fun setup(preferenceScreen: PreferenceScreen) {
-        val category = activity.findThemedCategory(CATEGORY_KEY, viewThemeUtils) ?: return
+    private val activity = fragment.requireActivity()
+
+    override fun setup() {
+        val category = fragment.findThemedCategory(CATEGORY_KEY, viewThemeUtils) ?: return
 
         if (!activity.resources.getBoolean(R.bool.syncedFolder_light)) {
-            preferenceScreen.removePreference(category)
+            fragment.preferenceScreen.removePreference(category)
             return
         }
 
         setupUploadOnWifiPreference()
 
-        activity.findPreference(CONFIGURE_FOLDERS_KEY)?.setOnClickAction {
+        fragment.findPreference<Preference>(CONFIGURE_FOLDERS_KEY)?.setOnClickAction {
             activity.startNavigatorScreen(NavigatorScreen.AutoUpload)
         }
     }
 
     private fun setupUploadOnWifiPreference() {
-        val uploadOnWifi = activity.findPreferenceAs<SwitchPreference>(UPLOAD_ON_WIFI_KEY) ?: return
+        val uploadOnWifi = fragment.findPreference<TwoStatePreference>(UPLOAD_ON_WIFI_KEY) ?: return
         uploadOnWifi.isChecked = arbitraryDataProvider.getBooleanValue(user, SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI)
 
         uploadOnWifi.setOnClickAction {

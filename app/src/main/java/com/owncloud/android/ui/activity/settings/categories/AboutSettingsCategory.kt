@@ -4,17 +4,16 @@
  * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.activity.settings.about
+package com.owncloud.android.ui.activity.settings.categories
 
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
-import android.preference.Preference
-import android.preference.PreferenceActivity
-import android.preference.PreferenceCategory
 import android.webkit.URLUtil
 import androidx.annotation.BoolRes
 import androidx.core.net.toUri
+import androidx.preference.Preference
+import androidx.preference.PreferenceCategory
+import androidx.preference.PreferenceFragmentCompat
 import com.nextcloud.client.utils.IntentUtil
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -24,7 +23,12 @@ import com.owncloud.android.ui.activity.settings.util.startExternalSiteWebView
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
-class AboutSettingsCategory(private val activity: PreferenceActivity, private val viewThemeUtils: ViewThemeUtils) {
+class AboutSettingsCategory(
+    private val fragment: PreferenceFragmentCompat,
+    private val viewThemeUtils: ViewThemeUtils
+) : SettingsCategory {
+
+    private val activity = fragment.requireActivity()
 
     private val appVersion: String
         get() = try {
@@ -34,30 +38,31 @@ class AboutSettingsCategory(private val activity: PreferenceActivity, private va
             ""
         }
 
-    fun setup() {
-        val category = activity.findThemedCategory(CATEGORY_KEY, viewThemeUtils) ?: return
+    override fun setup() {
+        val category = fragment.findThemedCategory(CATEGORY_KEY, viewThemeUtils) ?: return
 
         setupAboutAppPreference()
 
-        category.bindOrRemove(activity.findPreference(LICENSE_KEY), isEnabled(R.bool.license_enabled)) {
+        category.bindOrRemove(fragment.findPreference<Preference>(LICENSE_KEY), isEnabled(R.bool.license_enabled)) {
             IntentUtil.startLinkIntent(activity, R.string.license_url)
         }?.setSummary(R.string.prefs_gpl_v2)
 
         val privacyEnabled = isEnabled(R.bool.privacy_enabled) &&
             URLUtil.isValidUrl(activity.getString(R.string.privacy_url))
-        category.bindOrRemove(activity.findPreference(PRIVACY_KEY), privacyEnabled) {
+        category.bindOrRemove(fragment.findPreference<Preference>(PRIVACY_KEY), privacyEnabled) {
             openPrivacyPolicy(category, it)
         }
 
-        category.bindOrRemove(activity.findPreference(SOURCE_CODE_KEY), isEnabled(R.bool.sourcecode_enabled)) {
-            IntentUtil.startLinkIntent(activity, R.string.sourcecode_url)
-        }
+        category.bindOrRemove(
+            fragment.findPreference<Preference>(SOURCE_CODE_KEY),
+            isEnabled(R.bool.sourcecode_enabled)
+        ) { IntentUtil.startLinkIntent(activity, R.string.sourcecode_url) }
     }
 
     private fun isEnabled(@BoolRes flag: Int): Boolean = activity.resources.getBoolean(flag)
 
     private fun setupAboutAppPreference() {
-        val aboutApp = activity.findPreference(ABOUT_APP_KEY) ?: return
+        val aboutApp = fragment.findPreference<Preference>(ABOUT_APP_KEY) ?: return
         val version = appVersion
         val buildNumber = activity.getString(R.string.buildNumber)
 
@@ -69,28 +74,22 @@ class AboutSettingsCategory(private val activity: PreferenceActivity, private va
         }
     }
 
-    @Suppress("TooGenericExceptionCaught")
     private fun openPrivacyPolicy(category: PreferenceCategory, privacyPreference: Preference) {
-        try {
-            val privacyUrl = activity.getString(R.string.privacy_url).toUri()
-            val fileName = requireNotNull(privacyUrl.lastPathSegment)
-
-            if (MimeTypeUtil.isPDF(MimeTypeUtil.getBestMimeTypeByFilename(fileName))) {
-                openPrivacyPolicyPdf(privacyUrl)
-            } else {
-                activity.startExternalSiteWebView(activity.getString(R.string.privacy), privacyUrl.toString())
-            }
-        } catch (e: Exception) {
+        val privacyUrl = activity.getString(R.string.privacy_url).toUri()
+        val fileName = privacyUrl.lastPathSegment
+        if (fileName == null) {
             Log_OC.e(TAG, "Could not parse privacy url")
             category.removePreference(privacyPreference)
+            return
         }
-    }
 
-    private fun openPrivacyPolicyPdf(privacyUrl: Uri) {
-        val intent = Intent(Intent.ACTION_VIEW, privacyUrl)
-        IntentUtil.startIntentIfAppAvailable(intent, activity, R.string.no_pdf_app_available)
+        if (MimeTypeUtil.isPDF(MimeTypeUtil.getBestMimeTypeByFilename(fileName))) {
+            val intent = Intent(Intent.ACTION_VIEW, privacyUrl)
+            IntentUtil.startIntentIfAppAvailable(intent, activity, R.string.no_pdf_app_available)
+            return
+        }
 
-        activity.startActivity(intent)
+        activity.startExternalSiteWebView(activity.getString(R.string.privacy), privacyUrl.toString())
     }
 
     companion object {

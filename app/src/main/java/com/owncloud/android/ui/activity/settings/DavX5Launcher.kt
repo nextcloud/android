@@ -4,12 +4,13 @@
  * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.activity.settings.more
+package com.owncloud.android.ui.activity.settings
 
-import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import androidx.core.net.toUri
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.utils.IntentUtil
@@ -17,21 +18,27 @@ import com.nextcloud.repository.ClientRepository
 import com.nextcloud.utils.SnackbarUtil
 import com.owncloud.android.R
 import com.owncloud.android.authentication.AuthenticatorActivity
-import com.owncloud.android.ui.activity.settings.SettingsRequestCode
-import kotlinx.coroutines.CoroutineScope
+import com.owncloud.android.ui.activity.settings.util.isOk
+import com.owncloud.android.ui.activity.settings.util.registerForResult
 import kotlinx.coroutines.launch
 
 class DavX5Launcher(
-    private val activity: Activity,
+    private val fragment: Fragment,
     private val user: User,
-    private val clientRepository: ClientRepository,
-    private val scope: CoroutineScope
+    private val clientRepository: ClientRepository
 ) {
 
+    private val activity = fragment.requireActivity()
     private var serverBaseUri: Uri? = null
 
+    private val loginLauncher = fragment.registerForResult { result ->
+        if (result.isOk) {
+            SnackbarUtil.show(activity, R.string.prefs_calendar_contacts_sync_setup_successful)
+        }
+    }
+
     fun loadServerBaseUri() {
-        scope.launch {
+        fragment.lifecycleScope.launch {
             serverBaseUri = clientRepository.getOwncloudClient()?.baseUri
         }
     }
@@ -46,7 +53,7 @@ class DavX5Launcher(
         serverBaseUri?.let { addServerExtras(loginIntent, it) }
         loginIntent.putExtra(EXTRA_USERNAME, UserAccountManager.getUsername(user))
 
-        activity.startActivityForResult(loginIntent, SettingsRequestCode.DAVX5_SETUP)
+        loginLauncher.launch(loginIntent)
     }
 
     private fun addServerExtras(loginIntent: Intent, baseUri: Uri) {

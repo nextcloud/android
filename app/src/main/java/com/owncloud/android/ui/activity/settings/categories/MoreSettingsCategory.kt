@@ -4,13 +4,13 @@
  * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.activity.settings.more
+package com.owncloud.android.ui.activity.settings.categories
 
 import android.content.Intent
-import android.preference.Preference
-import android.preference.PreferenceActivity
-import android.preference.PreferenceCategory
 import androidx.annotation.BoolRes
+import androidx.preference.Preference
+import androidx.preference.PreferenceCategory
+import androidx.preference.PreferenceFragmentCompat
 import com.nextcloud.client.logger.ui.LogsActivity
 import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.utils.SnackbarUtil
@@ -21,7 +21,7 @@ import com.owncloud.android.lib.common.ExternalLink
 import com.owncloud.android.lib.common.ExternalLinkType
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity
-import com.owncloud.android.ui.activity.settings.e2e.E2ESettings
+import com.owncloud.android.ui.activity.settings.DavX5Launcher
 import com.owncloud.android.ui.activity.settings.util.bindOrRemove
 import com.owncloud.android.ui.activity.settings.util.findThemedCategory
 import com.owncloud.android.ui.activity.settings.util.setOnClickAction
@@ -30,40 +30,45 @@ import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 class MoreSettingsCategory(
-    private val activity: PreferenceActivity,
+    private val fragment: PreferenceFragmentCompat,
     private val viewThemeUtils: ViewThemeUtils,
-    private val e2eSettings: E2ESettings,
     private val davX5Launcher: DavX5Launcher
-) {
+) : SettingsCategory {
 
-    fun setup() {
-        val category = activity.findThemedCategory(CATEGORY_KEY, viewThemeUtils) ?: return
+    private val activity = fragment.requireActivity()
+    private val externalLinksProvider = ExternalLinksProvider(activity.contentResolver)
+
+    override fun setup() {
+        val category = fragment.findThemedCategory(CATEGORY_KEY, viewThemeUtils) ?: return
 
         category.bindOrRemove(
-            activity.findPreference(CALENDAR_CONTACTS_KEY),
+            fragment.findPreference<Preference>(CALENDAR_CONTACTS_KEY),
             isEnabled(R.bool.davdroid_integration_enabled)
         ) { launchDavX5Login() }
 
         setupBackupPreference()
-        e2eSettings.setup(category)
 
-        category.bindOrRemove(activity.findPreference(HELP_KEY), isEnabled(R.bool.help_enabled)) {
+        category.bindOrRemove(fragment.findPreference<Preference>(HELP_KEY), isEnabled(R.bool.help_enabled)) {
             IntentUtil.startLinkIntent(activity, R.string.url_help)
         }
 
-        category.bindOrRemove(activity.findPreference(RECOMMEND_KEY), isEnabled(R.bool.recommend_enabled)) {
+        category.bindOrRemove(fragment.findPreference<Preference>(RECOMMEND_KEY), isEnabled(R.bool.recommend_enabled)) {
             recommendApp()
         }
 
-        category.bindOrRemove(activity.findPreference(LOGGER_KEY), MDMConfig.isLogEnabled(activity)) {
+        category.bindOrRemove(fragment.findPreference<Preference>(LOGGER_KEY), MDMConfig.isLogEnabled(activity)) {
             activity.startActivity(Intent(activity.applicationContext, LogsActivity::class.java))
         }
 
-        category.bindOrRemove(activity.findPreference(IMPRINT_KEY), isEnabled(R.bool.imprint_enabled)) {
+        category.bindOrRemove(fragment.findPreference<Preference>(IMPRINT_KEY), isEnabled(R.bool.imprint_enabled)) {
             IntentUtil.startLinkIntent(activity, R.string.url_imprint)
         }
 
         loadExternalSettingLinks(category)
+    }
+
+    fun cleanup() {
+        externalLinksProvider.cleanup()
     }
 
     private fun isEnabled(@BoolRes flag: Int): Boolean = activity.resources.getBoolean(flag)
@@ -79,7 +84,7 @@ class MoreSettingsCategory(
     }
 
     private fun setupBackupPreference() {
-        val backup = activity.findPreference(BACKUP_KEY) ?: return
+        val backup = fragment.findPreference<Preference>(BACKUP_KEY) ?: return
         val showCalendarBackup = isEnabled(R.bool.show_calendar_backup)
 
         backup.title = activity.getString(
@@ -111,17 +116,14 @@ class MoreSettingsCategory(
     private fun loadExternalSettingLinks(category: PreferenceCategory) {
         if (!MDMConfig.externalSiteSupport(activity)) return
 
-        val externalLinksProvider = ExternalLinksProvider(activity.contentResolver)
         externalLinksProvider.getExternalLink(ExternalLinkType.SETTINGS) { links ->
             links.forEach { addExternalLinkPreference(category, it) }
         }
-
-        externalLinksProvider.cleanup()
     }
 
     private fun addExternalLinkPreference(category: PreferenceCategory, link: ExternalLink) {
         val linkKey = link.id.toString()
-        if (activity.findPreference(linkKey) != null) return
+        if (fragment.findPreference<Preference>(linkKey) != null) return
 
         val preference = Preference(activity).apply {
             title = link.name

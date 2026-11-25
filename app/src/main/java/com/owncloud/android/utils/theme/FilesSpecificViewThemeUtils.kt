@@ -14,7 +14,6 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
-import android.preference.PreferenceCategory
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -28,6 +27,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.res.ResourcesCompat
+import androidx.preference.PreferenceCategory
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -55,13 +55,14 @@ class FilesSpecificViewThemeUtils @Inject constructor(
 ) : ViewThemeUtilsBase(schemes) {
     private val dynamicColor = MaterialDynamicColors()
 
-    // not ported to common lib because PreferenceCategory is deprecated
-    @Suppress("DEPRECATION")
     fun themePreferenceCategory(category: PreferenceCategory) {
         withScheme(category.context) { scheme ->
-            category.title = SpannableString(category.title).apply {
+            val themedTitle = SpannableString(category.title).apply {
                 setSpan(ForegroundColorSpan(scheme.primary), 0, length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
             }
+
+            category.title = null
+            category.title = themedTitle
         }
     }
 

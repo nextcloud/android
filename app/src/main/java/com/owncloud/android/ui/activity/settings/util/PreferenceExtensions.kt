@@ -6,15 +6,13 @@
  */
 package com.owncloud.android.ui.activity.settings.util
 
-import android.preference.Preference
-import android.preference.PreferenceActivity
-import android.preference.PreferenceCategory
+import androidx.preference.Preference
+import androidx.preference.PreferenceCategory
+import androidx.preference.PreferenceFragmentCompat
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
-inline fun <reified T : Preference> PreferenceActivity.findPreferenceAs(key: String): T? = findPreference(key) as? T
-
-fun PreferenceActivity.findThemedCategory(key: String, viewThemeUtils: ViewThemeUtils): PreferenceCategory? =
-    findPreferenceAs<PreferenceCategory>(key)?.also(viewThemeUtils.files::themePreferenceCategory)
+fun PreferenceFragmentCompat.findThemedCategory(key: String, viewThemeUtils: ViewThemeUtils): PreferenceCategory? =
+    findPreference<PreferenceCategory>(key)?.also(viewThemeUtils.files::themePreferenceCategory)
 
 fun Preference.setOnClickAction(action: () -> Unit) {
     onPreferenceClickListener = Preference.OnPreferenceClickListener {
@@ -34,10 +32,4 @@ fun <T : Preference> PreferenceCategory.bindOrRemove(preference: T?, isEnabled: 
     preference.setOnClickAction { onClick(preference) }
 
     return preference
-}
-
-fun PreferenceCategory.removePreferences(activity: PreferenceActivity, vararg keys: String) {
-    keys.forEach { key ->
-        activity.findPreference(key)?.let(::removePreference)
-    }
 }
