@@ -52,7 +52,7 @@ import com.owncloud.android.authentication.PassCodeManager
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FileDataStorageManager
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.providers.UsersAndGroupsSearchConfig
 import com.owncloud.android.ui.activities.data.activities.ActivitiesRepository
@@ -104,7 +104,7 @@ internal class AppModule {
         contentResolver: ContentResolver,
         appPreferences: AppPreferences,
         clock: Clock
-    ): SyncedFolderProvider = SyncedFolderProvider(contentResolver, appPreferences, clock)
+    ): AutoUploadFolderProvider = AutoUploadFolderProvider(contentResolver, appPreferences, clock)
 
     @Provides
     fun activitiesServiceApi(accountManager: UserAccountManager): ActivitiesServiceApi =

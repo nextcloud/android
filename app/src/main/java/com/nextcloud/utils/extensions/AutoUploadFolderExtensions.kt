@@ -12,17 +12,17 @@ import com.nextcloud.client.jobs.BackgroundJobManagerImpl
 import com.nextcloud.client.network.ConnectivityService
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.MediaFolderType
-import com.owncloud.android.datamodel.SyncedFolder
-import com.owncloud.android.datamodel.SyncedFolderDisplayItem
+import com.owncloud.android.datamodel.AutoUploadFolder
 import com.owncloud.android.lib.common.utils.Log_OC
 import java.io.File
+import java.util.Locale
 
-private const val TAG = "SyncedFolderExtensions"
+private const val TAG = "AutoUploadFolderExtensions"
 
 /**
  * Determines whether a file should be skipped during auto-upload based on folder settings.
  */
-fun SyncedFolder.shouldSkipFile(
+fun AutoUploadFolder.shouldSkipFile(
     file: File,
     lastModified: Long,
     creationTime: Long?,
@@ -36,7 +36,7 @@ fun SyncedFolder.shouldSkipFile(
     }
 
     // If "upload existing files" is DISABLED, only upload files created after enabled time
-    if (!alsoUploadExistingFiles()) {
+    if (!alsoUploadExistingFiles) {
         if (creationTime != null) {
             if (creationTime < enabledTimestampMs) {
                 Log_OC.d(TAG, "Skipping pre-existing file (creation < enabled): ${file.absolutePath}")
@@ -62,11 +62,11 @@ fun SyncedFolder.shouldSkipFile(
     return false
 }
 
-fun List<SyncedFolderDisplayItem>.filterEnabledOrWithoutEnabledParent(): List<SyncedFolderDisplayItem> = filter {
+fun List<AutoUploadFolder>.filterEnabledOrWithoutEnabledParent(): List<AutoUploadFolder> = filter {
     it.isEnabled || !hasEnabledParent(it.localPath)
 }
 
-fun List<SyncedFolder>.hasEnabledParent(localPath: String?): Boolean {
+fun List<AutoUploadFolder>.hasEnabledParent(localPath: String?): Boolean {
     localPath ?: return false
 
     val localFile = File(localPath).takeIf { it.exists() } ?: return false
@@ -77,7 +77,7 @@ fun List<SyncedFolder>.hasEnabledParent(localPath: String?): Boolean {
 }
 
 @Suppress("MagicNumber")
-fun SyncedFolder.calculateScanInterval(
+fun AutoUploadFolder.calculateScanInterval(
     connectivityService: ConnectivityService,
     powerManagementService: PowerManagementService
 ): Pair<Long, Int?> {
@@ -101,7 +101,7 @@ fun SyncedFolder.calculateScanInterval(
 }
 
 /**
- * Builds a structured debug string of the SyncedFolder configuration.
+ * Builds a structured debug string of the AutoUploadFolder configuration.
  *
  * uploadAction:
  *     Represents the UI option:
@@ -122,7 +122,7 @@ fun SyncedFolder.calculateScanInterval(
  *     👉 "Also upload existing files"
  *     If false → only files created AFTER enabling are uploaded.
  */
-fun SyncedFolder.getLog(): String {
+fun AutoUploadFolder.getLog(): String {
     val mediaType = when (type) {
         MediaFolderType.IMAGE -> "🖼️ Images"
         MediaFolderType.VIDEO -> "🎬 Videos"
@@ -139,7 +139,7 @@ fun SyncedFolder.getLog(): String {
         ☁️ Remote: $remotePath
         
         $mediaType
-        📅 Subfolder rule: ${subfolderRule ?: "None"}
+        📅 Subfolder rule: $subfolderRule
         🗂️ By date: $isSubfolderByDate
         🙈 Exclude hidden: $isExcludeHidden
         👀 Hidden config: $isHidden
@@ -147,7 +147,7 @@ fun SyncedFolder.getLog(): String {
         📶 Wi-Fi only: $isWifiOnly
         🔌 Charging only: $isChargingOnly
         
-        📤 Upload existing files: ${alsoUploadExistingFiles()}
+        📤 Upload existing files: $alsoUploadExistingFiles
         ⚙️ Upload action: $uploadAction
         🧩 Name collision: $nameCollisionPolicy
         
@@ -157,3 +157,47 @@ fun SyncedFolder.getLog(): String {
         ─────────────────────────
     """.trimIndent()
 }
+
+private val prioritizedFolders = listOf("Camera", "Screenshots")
+
+fun List<AutoUploadFolder?>.sortAutoUploadFolderItems(): List<AutoUploadFolder?> = sortedWith(::compareItems)
+
+private fun compareItems(f1: AutoUploadFolder?, f2: AutoUploadFolder?): Int = when {
+    f1 == null && f2 == null -> 0
+    f1 == null -> -1
+    f2 == null -> 1
+    f1.isEnabled && f2.isEnabled -> compareEnabledItems(f1.folderName, f2.folderName)
+    else -> compareMixedItems(f1, f2)
+}
+
+private fun compareEnabledItems(name1: String?, name2: String?): Int = when {
+    name1 == null -> -1
+    name2 == null -> 1
+    else -> compareNames(name1, name2)
+}
+
+private fun compareMixedItems(f1: AutoUploadFolder, f2: AutoUploadFolder): Int {
+    val name1 = f1.folderName
+    val name2 = f2.folderName
+    return when {
+        name1 == null && name2 == null -> 0
+        f1.isEnabled -> -1
+        f2.isEnabled -> 1
+        name1 == null -> -1
+        name2 == null -> 1
+        else -> comparePrioritizedNames(name1, name2)
+    }
+}
+
+private fun comparePrioritizedNames(name1: String, name2: String): Int {
+    val prioritizedFolder = prioritizedFolders.firstOrNull { it == name1 || it == name2 }
+    return when {
+        prioritizedFolder == null -> compareNames(name1, name2)
+        prioritizedFolder == name1 && prioritizedFolder == name2 -> 0
+        prioritizedFolder == name1 -> -1
+        else -> 1
+    }
+}
+
+private fun compareNames(name1: String, name2: String): Int =
+    name1.lowercase(Locale.getDefault()).compareTo(name2.lowercase(Locale.getDefault()))

@@ -20,8 +20,7 @@ import com.nextcloud.client.preferences.SubFolderRule
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.MediaFolderType
-import com.owncloud.android.datamodel.SyncedFolder
-import com.owncloud.android.datamodel.SyncedFolderDisplayItem
+import com.owncloud.android.datamodel.AutoUploadFolder
 import com.owncloud.android.ui.dialog.AutoUploadPreferenceDialogFragment.Companion.newInstance
 import com.owncloud.android.ui.fragment.autoUpload.AutoUploadFragment
 import com.owncloud.android.ui.navigation.NavigatorActivity
@@ -60,7 +59,7 @@ class AutoUploadFragmentIT : AbstractIT() {
     @Test
     @ScreenshotTest
     fun testSyncedFolderDialog() {
-        val item = SyncedFolderDisplayItem(
+        val item = AutoUploadFolder(
             1,
             "/sdcard/DCIM/",
             "/InstantUpload/",
@@ -73,12 +72,12 @@ class AutoUploadFragmentIT : AbstractIT() {
             0,
             true,
             1000,
-            "Name",
             MediaFolderType.IMAGE,
             false,
             SubFolderRule.YEAR_MONTH,
             false,
-            SyncedFolder.NOT_SCANNED_YET
+            AutoUploadFolder.NOT_SCANNED_YET,
+            folderName = "Name"
         )
 
         launch { scenario ->

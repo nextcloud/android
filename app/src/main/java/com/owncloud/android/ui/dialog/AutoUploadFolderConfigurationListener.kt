@@ -6,12 +6,12 @@
  */
 package com.owncloud.android.ui.dialog
 
-import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable
+import com.owncloud.android.ui.dialog.parcel.AutoUploadFolderParcelable
 
 interface AutoUploadFolderConfigurationListener {
-    fun onSaveAutoUploadFolderConfiguration(syncedFolder: SyncedFolderParcelable)
+    fun onSaveAutoUploadFolderConfiguration(syncedFolder: AutoUploadFolderParcelable)
     fun onCancelAutoUploadFolderConfiguration()
-    fun onDeleteAutoUploadFolderConfiguration(syncedFolder: SyncedFolderParcelable)
+    fun onDeleteAutoUploadFolderConfiguration(syncedFolder: AutoUploadFolderParcelable)
     fun onRemoteFolderPickerRequested()
     fun onLocalFolderPickerRequested()
 }
