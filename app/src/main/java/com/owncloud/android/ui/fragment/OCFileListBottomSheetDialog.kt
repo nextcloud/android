@@ -11,11 +11,8 @@ package com.owncloud.android.ui.fragment
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
-import android.util.TypedValue
-import android.view.ContextThemeWrapper
-import android.view.Gravity
 import android.view.View
-import android.widget.LinearLayout
+import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.view.isEmpty
@@ -36,6 +33,8 @@ import com.nextcloud.utils.extensions.isTemplateAvailable
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
+import com.owncloud.android.databinding.FileListActionsBottomSheetCreatorBoxBinding
+import com.owncloud.android.databinding.FileListActionsBottomSheetCreatorRowBinding
 import com.owncloud.android.databinding.FileListActionsBottomSheetFragmentBinding
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
@@ -222,13 +221,13 @@ class OCFileListBottomSheetDialog(
             creatorsActions.forEachIndexed { index, action ->
                 if (creatorsActions.size == 1) {
                     // Single element is shown as row in the overview
-                    creatorsOverview.addView(buildCreatorButton(action, false))
+                    creatorsOverview.addView(buildCreatorButton(action, false, creatorsOverview))
                 } else if (index < CREATORS_OVERVIEW_ITEMS) {
                     // First x elements shown as boxes in the overview
-                    creatorsOverview.addView(buildCreatorButton(action, true))
+                    creatorsOverview.addView(buildCreatorButton(action, true, creatorsOverview))
                 } else {
                     // Other elements shown as rows in the overflow view
-                    creators.addView(buildCreatorButton(action, false))
+                    creators.addView(buildCreatorButton(action, false, creators))
                 }
             }
 
@@ -293,63 +292,24 @@ class OCFileListBottomSheetDialog(
     /**
      * @param creatorAction Action for which the button is created
      * @param showAsBox If true, creates a squarish view with weight to be displayed horizontally, otherwise a row
+     * @param parent Container the button is added to, used to resolve its layout params
      */
-    private fun buildCreatorButton(creatorAction: CreatorAction, showAsBox: Boolean): MaterialButton {
-        val itemHeight = context.resources.getDimensionPixelSize(
-            if (showAsBox) R.dimen.bottom_sheet_horizontal_item_height else R.dimen.bottom_sheet_item_height
-        )
-        val standardPadding = context.resources.getDimensionPixelSize(R.dimen.standard_padding)
-        val iconSize = context.resources.getDimensionPixelSize(R.dimen.iconized_single_line_item_icon_size)
-
-        val creatorButton = MaterialButton(
-            ContextThemeWrapper(
-                context,
-                R.style.ThemeOverlay_App_Button_BottomSheetItem
-            ),
-            null,
-            com.google.android.material.R.attr.materialButtonStyle
-        ).apply {
-            id = View.generateViewId()
-            layoutParams = LinearLayout.LayoutParams(
-                if (showAsBox) 0 else LinearLayout.LayoutParams.MATCH_PARENT,
-                itemHeight,
-                if (showAsBox) 1f else 0f
-            )
-
-            gravity = if (showAsBox) Gravity.CENTER else Gravity.START or Gravity.CENTER_VERTICAL
-            setPaddingRelative(standardPadding, 0, standardPadding, 0)
-
-            text = creatorAction.text
-            setTextColor(ContextCompat.getColor(context, R.color.text_color))
-            setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.bottom_sheet_text_size))
-            isAllCaps = false
-
-            icon = creatorAction.icon
-            this.iconSize = iconSize
-            this.iconPadding = if (showAsBox) 0 else standardPadding
-            if (showAsBox) {
-                this.setPadding(
-                    paddingLeft,
-                    paddingTop + standardPadding,
-                    paddingRight,
-                    paddingBottom + standardPadding
-                )
-            }
-            iconGravity = if (showAsBox) MaterialButton.ICON_GRAVITY_TOP else MaterialButton.ICON_GRAVITY_START
-            iconTint = null
-
-            cornerRadius =
-                if (showAsBox) {
-                    context.resources.getDimensionPixelSize(R.dimen.button_corner_radius)
-                } else {
-                    cornerRadius
-                }
-
-            setOnClickListener {
-                creatorAction.action()
-            }
+    private fun buildCreatorButton(
+        creatorAction: CreatorAction,
+        showAsBox: Boolean,
+        parent: ViewGroup
+    ): MaterialButton {
+        val creatorButton = if (showAsBox) {
+            FileListActionsBottomSheetCreatorBoxBinding.inflate(layoutInflater, parent, false).root
+        } else {
+            FileListActionsBottomSheetCreatorRowBinding.inflate(layoutInflater, parent, false).root
         }
-        return creatorButton
+
+        return creatorButton.apply {
+            text = creatorAction.text
+            icon = creatorAction.icon
+            setOnClickListener { creatorAction.action() }
+        }
     }
 
     private fun createRichWorkspace() {
