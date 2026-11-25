@@ -16,6 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.SnackbarUtil
+import com.nextcloud.utils.extensions.matchesMimeType
 import com.nextcloud.utils.share.UnifiedShareSharees
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -225,7 +226,9 @@ class OCFileListSearchTask(
                             .execute(currentUser, activity)
                     }
 
-                    val isMediaAllowed = !onlyMedia || MimeTypeUtil.isImage(ocFile) || MimeTypeUtil.isVideo(ocFile)
+                    val isMediaAllowed = !onlyMedia ||
+                        ocFile.matchesMimeType(MimeTypeUtil::isImage) ||
+                        MimeTypeUtil.isVideo(ocFile.mimeType)
                     if (isMediaAllowed) {
                         resultFiles.add(ocFile)
                     }

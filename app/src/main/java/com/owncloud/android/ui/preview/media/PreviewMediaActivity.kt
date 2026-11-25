@@ -44,6 +44,7 @@ import com.nextcloud.client.player.ui.VideoPictureInPicture
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
+import com.nextcloud.utils.extensions.matchesMimeType
 import com.nextcloud.utils.extensions.toggle
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
@@ -368,7 +369,9 @@ class PreviewMediaActivity :
 
         val chosenFile = intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
         val requestedFile = chosenFile ?: file ?: throw IllegalStateException("Instanced with a NULL OCFile")
-        require(MimeTypeUtil.isImageOrVideo(requestedFile)) { "Non-image/video file passed as argument" }
+        require(requestedFile.matchesMimeType(MimeTypeUtil::isImage) || MimeTypeUtil.isVideo(requestedFile.mimeType)) {
+            "Non-image/video file passed as argument"
+        }
 
         val currentFile = requestedFile.refreshedFromDatabase()
         if (currentFile == null) {
