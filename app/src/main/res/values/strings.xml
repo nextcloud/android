@@ -688,6 +688,7 @@
     <string name="auth_redirect_non_secure_connection_title">Secure connection redirected through an unsecured route.</string>
 
     <string name="logs_title">Logs</string>
+    <string name="logs_summary">Share these information to receive support on the app</string>
     <string name="logs_menu_refresh">Refresh</string>
     <string name="logs_menu_share">Share</string>
     <string name="logs_menu_export">Export logs</string>
