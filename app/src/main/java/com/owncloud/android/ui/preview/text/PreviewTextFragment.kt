@@ -39,7 +39,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.fragment.FileFragment
-import com.owncloud.android.utils.MimeTypeUtil
+import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.StringUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import io.noties.markwon.AbstractMarkwonPlugin
@@ -235,7 +235,7 @@ abstract class PreviewTextFragment :
                 return
             }
 
-            if ((ignoreMimetype || ((file != null) && (MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN == file.mimeType))) &&
+            if ((ignoreMimetype || ((file != null) && (MimeType.TEXT_MARKDOWN == file.mimeType))) &&
                 (activity != null)
             ) {
                 if (!preview) {
