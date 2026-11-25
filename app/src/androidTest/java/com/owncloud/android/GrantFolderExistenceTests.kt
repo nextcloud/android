@@ -13,9 +13,12 @@ import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.lib.resources.files.ChunkedFileUploadRemoteOperation
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation
 import com.owncloud.android.lib.resources.files.RemoveFileRemoteOperation
+import com.owncloud.android.lib.resources.status.GetCapabilitiesRemoteOperation
 import com.owncloud.android.operations.UploadFileOperation
+import com.owncloud.android.utils.theme.CapabilityUtils
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
@@ -42,6 +45,15 @@ class GrantFolderExistenceTests : AbstractOnServerIT() {
     @Throws(IOException::class)
     fun before() {
         createDummyFiles()
+
+        // UploadFileOperation picks its folder handling by server version, so it needs the real capabilities;
+        // the smallest chunk size keeps the chunked test file small
+        val capability = GetCapabilitiesRemoteOperation(null).execute(client).resultData.apply {
+            accountName = user.accountName
+            chunkedUploadMaxSize = ChunkedFileUploadRemoteOperation.MIN_CHUNK_SIZE
+        }
+        storageManager.saveCapabilities(capability)
+        CapabilityUtils.updateCapability(capability)
     }
 
     @Test
@@ -90,6 +102,50 @@ class GrantFolderExistenceTests : AbstractOnServerIT() {
         assertTrue(existsOnServer(monthFolder + "nonEmpty.txt"))
     }
 
+    @Test
+    fun testChunkedUploadIntoMissingFoldersShouldCreateThemAndReturnOk() {
+        val remoteFile = monthFolder + CHUNKED_FILE
+        assertFalse("year folder must not exist before the upload", existsOnServer(yearFolder))
+
+        val result = upload(CHUNKED_FILE, remoteFile, CHUNKED_FILE_LINE_COUNT)
+
+        assertEquals(result.logMessage, RemoteOperationResult.ResultCode.OK, result.code)
+        assertTrue(existsOnServer(yearFolder))
+        assertTrue(existsOnServer(monthFolder))
+        assertTrue(existsOnServer(remoteFile))
+        assertNotNull(
+            "month folder should be cached locally",
+            storageManager.getFileByDecryptedRemotePath(monthFolder)
+        )
+    }
+
+    @Test
+    fun testChunkedUploadAfterDeletingCachedFolderOnServerShouldRecreateItAndReturnOk() {
+        uploadAndAssertSuccess("first.txt")
+        removeOnServer(yearFolder)
+        assertNotNull(
+            "app still has a cached entry for the removed folder",
+            storageManager.getFileByDecryptedRemotePath(monthFolder)
+        )
+
+        val result = upload(CHUNKED_FILE, monthFolder + CHUNKED_FILE, CHUNKED_FILE_LINE_COUNT)
+
+        assertEquals(result.logMessage, RemoteOperationResult.ResultCode.OK, result.code)
+        assertTrue(existsOnServer(monthFolder))
+        assertTrue(existsOnServer(monthFolder + CHUNKED_FILE))
+    }
+
+    @Test
+    fun testChunkedUploadIntoMissingFolderWithoutFolderCreationShouldFailWithoutUploading() {
+        val remoteFile = monthFolder + CHUNKED_FILE
+
+        val result = upload(CHUNKED_FILE, remoteFile, CHUNKED_FILE_LINE_COUNT, createRemoteFolder = false)
+
+        assertEquals(result.logMessage, RemoteOperationResult.ResultCode.FILE_NOT_FOUND, result.code)
+        assertFalse("missing folder must not be created", existsOnServer(monthFolder))
+        assertFalse("file must not be uploaded", existsOnServer(remoteFile))
+    }
+
     private fun uploadAndAssertSuccess(filename: String) {
         val result = upload(filename, monthFolder + filename)
         assertTrue(result.logMessage, result.isSuccess)
@@ -113,16 +169,24 @@ class GrantFolderExistenceTests : AbstractOnServerIT() {
     private fun existsOnServer(remotePath: String): Boolean =
         ExistenceCheckRemoteOperation(remotePath, false).execute(client).isSuccess
 
-    private fun upload(localFileName: String, remotePath: String): RemoteOperationResult<*> {
-        val localFile = createFile(localFileName, FILE_LINE_COUNT)
+    private fun upload(
+        localFileName: String,
+        remotePath: String,
+        lineCount: Int = FILE_LINE_COUNT,
+        createRemoteFolder: Boolean = true
+    ): RemoteOperationResult<*> {
+        val localFile = createFile(localFileName, lineCount)
         assertTrue("local file must exist before uploading", localFile.exists())
+        if (lineCount == CHUNKED_FILE_LINE_COUNT) {
+            assertTrue("file must be large enough for a chunked upload", localFile.length() > chunkSize())
+        }
 
         val ocUpload = OCUpload(
             localFile.absolutePath,
             remotePath,
             account.name
         ).apply {
-            isCreateRemoteFolder = true
+            isCreateRemoteFolder = createRemoteFolder
             createdBy = UploadFileOperation.CREATED_AS_INSTANT_PICTURE
         }
 
@@ -142,7 +206,14 @@ class GrantFolderExistenceTests : AbstractOnServerIT() {
         ).execute(client)
     }
 
+    private fun chunkSize(): Long {
+        val serverMaxChunkSize = CapabilityUtils.getCapability(user, targetContext).chunkedUploadMaxSize
+        return ChunkedFileUploadRemoteOperation.chunkSize(false, serverMaxChunkSize)
+    }
+
     companion object {
+        private const val CHUNKED_FILE = "chunked.txt"
+        private const val CHUNKED_FILE_LINE_COUNT = 500_000
         private const val FILE_LINE_COUNT = 100
         private const val REMOVE_ATTEMPTS = 5
     }

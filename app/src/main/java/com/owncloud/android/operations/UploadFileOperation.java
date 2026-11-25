@@ -461,7 +461,8 @@ public class UploadFileOperation extends SyncOperation {
             (parent == null ? "not found in DB" : "found, id=" + parent.getFileId()));
 
 
-        // Create folders only for Nextcloud < 32; 32+ handles this automatically.
+        // Create folders only for Nextcloud < 32; 32+ creates them for single-request uploads,
+        // chunked uploads are covered in normalUpload().
         if (getCapabilities().getVersion().isOlderThan(NextcloudVersion.nextcloud_32)) {
             final boolean isResumingEncryptedUpload = (mFolderUnlockToken != null && !mFolderUnlockToken.isEmpty());
             if (!isResumingEncryptedUpload && (parent == null || mRemoteFolderToBeCreated)) {
@@ -502,7 +503,7 @@ public class UploadFileOperation extends SyncOperation {
             result = encryptedUpload(client, parent);
         } else {
             Log_OC.d(TAG, "⬆️" + "normal upload");
-            result = normalUpload(client);
+            result = normalUpload(client, remoteParentPath);
         }
 
         if (result.isSuccess() && getCapabilities().getVersion().isNewerOrEqual(NextcloudVersion.nextcloud_32)) {
@@ -1029,7 +1030,7 @@ public class UploadFileOperation extends SyncOperation {
         return remoteOperationResult;
     }
 
-    private RemoteOperationResult normalUpload(OwnCloudClient client) {
+    private RemoteOperationResult normalUpload(OwnCloudClient client, String remoteParentPath) {
         RemoteOperationResult<?> result = null;
         File temporalFile = null;
         File originalFile = new File(mOriginalStoragePath);
@@ -1118,6 +1119,18 @@ public class UploadFileOperation extends SyncOperation {
                 final long serverMaxChunkSize = getCapabilities().getChunkedUploadMaxSize();
                 if (size > ChunkedFileUploadRemoteOperation.chunkSize(mOnWifiOnly, serverMaxChunkSize)) {
                     Log_OC.d(TAG, "chunked upload operation will be used");
+
+                    // The server's automatic folder creation (Nextcloud 32+) does not apply to chunked uploads,
+                    // which fail with 404 on the first chunk when the destination folder is missing.
+                    if (getCapabilities().getVersion().isNewerOrEqual(NextcloudVersion.nextcloud_32)) {
+                        final var folderResult = grantFolderExistence(remoteParentPath, client);
+                        if (!folderResult.isSuccess()) {
+                            Log_OC.e(TAG, "grantFolderExistence failed for chunked upload: " + remoteParentPath +
+                                ", code: " + folderResult.getCode());
+                            result = folderResult;
+                            return result;
+                        }
+                    }
 
                     boolean onWifiConnection = connectivityService.getConnectivity().isWifi();
                     mUploadOperation = new ChunkedFileUploadRemoteOperation(
