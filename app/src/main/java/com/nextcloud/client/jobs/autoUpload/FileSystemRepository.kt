@@ -15,12 +15,12 @@ import com.nextcloud.client.database.dao.FileSystemDao
 import com.nextcloud.client.database.entity.FilesystemEntity
 import com.nextcloud.client.database.entity.UploadEntity
 import com.nextcloud.utils.extensions.shouldSkipFile
-import com.owncloud.android.datamodel.SyncedFolder
+import com.owncloud.android.datamodel.AutoUploadFolder
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.utils.SyncedFolderUtils
+import com.owncloud.android.utils.AutoUploadFolderUtils
 import java.io.File
 import java.util.zip.CRC32
 import com.nextcloud.utils.AppConstants.BYTES_PER_KB
@@ -41,21 +41,23 @@ class FileSystemRepository(
 
     suspend fun isBelongToAnyAutoFolder(localPath: String): Boolean = dao.isBelongToAnyAutoFolder(localPath)
 
-    fun deleteAutoUploadAndUploadEntity(syncedFolder: SyncedFolder, localPath: String, entity: FilesystemEntity) {
+    fun deleteAutoUploadAndUploadEntity(syncedFolder: AutoUploadFolder, localPath: String, entity: FilesystemEntity) {
         Log_OC.d(TAG, "deleting auto upload entity and upload entity")
+        val accountName = syncedFolder.account ?: return
 
         val file = File(localPath)
         val remotePath = syncFolderHelper.getAutoUploadRemotePath(syncedFolder, file)
         uploadsStorageManager.uploadDao.deleteByRemotePathAndAccountName(
             remotePath = remotePath,
-            accountName = syncedFolder.account
+            accountName = accountName
         )
         dao.delete(entity)
     }
 
-    suspend fun hasPendingFiles(syncedFolder: SyncedFolder): Boolean = dao.hasPendingFiles(syncedFolder.id.toString())
+    suspend fun hasPendingFiles(syncedFolder: AutoUploadFolder): Boolean =
+        dao.hasPendingFiles(syncedFolder.id.toString())
 
-    fun hasPendingFile(localPath: String, syncedFolder: SyncedFolder): Boolean {
+    fun hasPendingFile(localPath: String, syncedFolder: AutoUploadFolder): Boolean {
         val entity = dao.getFileByPathAndFolder(localPath, syncedFolder.id.toString()) ?: return false
         return entity.fileSentForUpload == 0 && entity.fileIsFolder == 0
     }
@@ -64,7 +66,7 @@ class FileSystemRepository(
         dao.deleteByLocalPathAndId(path, id)
     }
 
-    suspend fun getFilePathsWithIds(syncedFolder: SyncedFolder, lastId: Int): List<Pair<String, Int>> {
+    suspend fun getFilePathsWithIds(syncedFolder: AutoUploadFolder, lastId: Int): List<Pair<String, Int>> {
         val syncedFolderId = syncedFolder.id.toString()
         Log_OC.d(TAG, "Fetching candidate files for syncedFolderId = $syncedFolderId")
 
@@ -72,7 +74,7 @@ class FileSystemRepository(
         val filtered = mutableListOf<Pair<String, Int>>()
 
         for (entity in entities) {
-            val file = SyncedFolderUtils.validateForAutoUpload(entity.localPath)
+            val file = AutoUploadFolderUtils.validateForAutoUpload(entity.localPath)
             if (file == null) {
                 deleteAutoUploadAndUploadEntity(syncedFolder, entity.localPath ?: "", entity)
                 continue
@@ -90,7 +92,7 @@ class FileSystemRepository(
         return filtered
     }
 
-    suspend fun updateRemotePath(upload: OCUpload, syncedFolder: SyncedFolder) {
+    suspend fun updateRemotePath(upload: OCUpload, syncedFolder: AutoUploadFolder) {
         val syncedFolderIdStr = syncedFolder.id.toString()
 
         try {
@@ -105,7 +107,7 @@ class FileSystemRepository(
         }
     }
 
-    suspend fun markFileAsHandled(localPath: String, syncedFolder: SyncedFolder) {
+    suspend fun markFileAsHandled(localPath: String, syncedFolder: AutoUploadFolder) {
         val syncedFolderIdStr = syncedFolder.id.toString()
 
         try {
@@ -117,7 +119,7 @@ class FileSystemRepository(
     }
 
     @JvmOverloads
-    fun insertFromUri(uri: Uri, syncedFolder: SyncedFolder, checkFileType: Boolean = false) {
+    fun insertFromUri(uri: Uri, syncedFolder: AutoUploadFolder, checkFileType: Boolean = false) {
         val projection = arrayOf(
             MediaStore.MediaColumns.DATA,
             MediaStore.MediaColumns.DATE_MODIFIED,
@@ -190,11 +192,11 @@ class FileSystemRepository(
         localPath: String?,
         lastModified: Long?,
         creationTime: Long?,
-        syncedFolder: SyncedFolder,
+        syncedFolder: AutoUploadFolder,
         checkFileType: Boolean = false
     ) {
         try {
-            val file = SyncedFolderUtils.validateForAutoUpload(localPath)
+            val file = AutoUploadFolderUtils.validateForAutoUpload(localPath)
             if (file == null) {
                 Log_OC.w(TAG, "file null, cannot insert or replace: $localPath")
                 return
@@ -251,7 +253,7 @@ class FileSystemRepository(
 
     private fun wasUploadFinished(
         entity: FilesystemEntity,
-        syncedFolder: SyncedFolder,
+        syncedFolder: AutoUploadFolder,
         localPath: String,
         file: File
     ): Boolean {
@@ -263,15 +265,16 @@ class FileSystemRepository(
 
     private fun deleteUnfinishedUpload(
         entity: FilesystemEntity,
-        syncedFolder: SyncedFolder,
+        syncedFolder: AutoUploadFolder,
         localPath: String,
         file: File
     ) {
+        val accountName = syncedFolder.account ?: return
         val remotePath = getUpload(entity, syncedFolder, localPath, file)?.remotePath ?: return
 
         uploadsStorageManager.uploadDao.deleteByRemotePathAndAccountName(
             remotePath = remotePath,
-            accountName = syncedFolder.account
+            accountName = accountName
         )
 
         Log_OC.d(TAG, "deleted unfinished upload record of remotePath: $remotePath")
@@ -279,15 +282,17 @@ class FileSystemRepository(
 
     private fun getUpload(
         entity: FilesystemEntity,
-        syncedFolder: SyncedFolder,
+        syncedFolder: AutoUploadFolder,
         localPath: String,
         file: File
     ): UploadEntity? {
+        val accountName = syncedFolder.account ?: return null
+
         // the entity keeps the path the worker used
         val remotePath = entity.remotePath ?: syncFolderHelper.getAutoUploadRemotePath(syncedFolder, file)
 
         return uploadsStorageManager.uploadDao.getUploadByAccountAndPaths(
-            accountName = syncedFolder.account,
+            accountName = accountName,
             localPath = localPath,
             remotePath = remotePath
         )

@@ -13,7 +13,8 @@ import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import com.nextcloud.client.jobs.autoUpload.AutoUploadWorker
-import com.owncloud.android.datamodel.SyncedFolder
+import com.owncloud.android.datamodel.AutoUploadFolder
+import kotlinx.coroutines.flow.flowOf
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -33,12 +34,14 @@ import org.mockito.kotlin.whenever
 import java.util.concurrent.TimeUnit
 
 class AutoUploadRecoveryScheduleTest {
-    private val workManager: WorkManager = mock()
+    private val workManager: WorkManager = mock {
+        on { getWorkInfosFlow(any()) } doReturn flowOf(emptyList())
+    }
     private val manager: BackgroundJobManager = BackgroundJobManagerImpl(workManager, mock(), mock())
 
     @Test
     fun `recovery preserves existing folder work with network charging and retry constraints`() {
-        val folder: SyncedFolder = mock {
+        val folder: AutoUploadFolder = mock {
             on { id } doReturn 3L
             on { isChargingOnly } doReturn true
         }
@@ -55,6 +58,7 @@ class AutoUploadRecoveryScheduleTest {
             eq(ExistingWorkPolicy.KEEP),
             requests.capture()
         )
+        verify(workManager).getWorkInfosFlow(any())
         verifyNoMoreInteractions(workManager)
 
         val spec = requests.firstValue.workSpec

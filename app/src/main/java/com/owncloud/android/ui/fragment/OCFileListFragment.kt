@@ -76,7 +76,7 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.OCFileDepth
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.lib.common.Creator
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -113,7 +113,6 @@ import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.PermissionUtil
-import com.owncloud.android.utils.theme.ThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -137,9 +136,6 @@ open class OCFileListFragment :
     lateinit var clientRepository: ClientRepository
 
     @Inject
-    lateinit var themeUtils: ThemeUtils
-
-    @Inject
     lateinit var arbitraryDataProvider: ArbitraryDataProvider
 
     @Inject
@@ -149,7 +145,7 @@ open class OCFileListFragment :
     lateinit var editorUtils: EditorUtils
 
     @Inject
-    lateinit var syncedFolderProvider: SyncedFolderProvider
+    lateinit var syncedFolderProvider: AutoUploadFolderProvider
 
     @Inject
     lateinit var fileActionHandler: FileActionHandler
@@ -470,7 +466,6 @@ open class OCFileListFragment :
             deviceInfo,
             accountManager.user,
             currentDir,
-            themeUtils,
             viewThemeUtils,
             editorUtils,
             appScanOptionalFeature

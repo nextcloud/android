@@ -21,8 +21,8 @@ import com.nextcloud.client.jobs.autoUpload.FileSystemRepository
 import com.nextcloud.client.jobs.autoUpload.SyncFolderHelper
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
-import com.owncloud.android.datamodel.SyncedFolder
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolder
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus
 import com.owncloud.android.datamodel.OCFile
@@ -77,8 +77,8 @@ class FileUploadRecoveryTest {
         UploadFileOperationFactory::class.java,
         withSettings().useConstructor(storage, connectivity, mock<PowerManagementService>(), accounts)
     )
-    private val folders: SyncedFolderProvider = mock()
-    private val folder: SyncedFolder = mock {
+    private val folders: AutoUploadFolderProvider = mock()
+    private val folder: AutoUploadFolder = mock {
         on { id } doReturn FOLDER_ID
         on { account } doReturn ACCOUNT
         on { isEnabled } doReturn true

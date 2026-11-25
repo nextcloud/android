@@ -38,7 +38,7 @@ import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FragmentUploadListBinding
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.operations.factory.UploadFileOperationFactory
@@ -61,7 +61,7 @@ class UploadListFragment :
 
     @Inject lateinit var powerManagementService: PowerManagementService
 
-    @Inject lateinit var syncedFolderProvider: SyncedFolderProvider
+    @Inject lateinit var syncedFolderProvider: AutoUploadFolderProvider
 
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 

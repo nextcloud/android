@@ -16,7 +16,7 @@ import com.nextcloud.client.jobs.notification.WorkerNotificationManager
 import com.nextcloud.utils.HumanReadableFormatter
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.upload.DeleteUploadedFileOperation
@@ -30,7 +30,7 @@ class AutoUploadLocalDeletionWorker(
     private val context: Context,
     params: WorkerParameters,
     private val userAccountManager: UserAccountManager,
-    private val syncedFolderProvider: SyncedFolderProvider,
+    private val syncedFolderProvider: AutoUploadFolderProvider,
     val viewThemeUtils: ViewThemeUtils
 ) : CoroutineWorker(context, params) {
 

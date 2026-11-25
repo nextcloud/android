@@ -13,36 +13,36 @@ import android.database.Cursor
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.database.NextcloudDatabase
-import com.nextcloud.client.database.dao.SyncedFolderDao
-import com.nextcloud.client.database.entity.toSyncedFolder
+import com.nextcloud.client.database.dao.AutoUploadFolderDao
+import com.nextcloud.client.database.entity.toAutoUploadFolder
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.client.preferences.SubFolderRule
 import com.owncloud.android.datamodel.MediaFolderType.Companion.getById
-import com.owncloud.android.datamodel.SyncedFolderObserver.start
+import com.owncloud.android.datamodel.AutoUploadFolderObserver.start
 import com.owncloud.android.db.ProviderMeta
 import com.owncloud.android.lib.common.utils.Log_OC
 import java.io.File
 import java.util.Observable
 
-class SyncedFolderProvider(
+class AutoUploadFolderProvider(
     contentResolver: ContentResolver,
     @JvmField val preferences: AppPreferences,
     private val clock: Clock
 ) : Observable() {
 
     companion object {
-        private val TAG: String = SyncedFolderProvider::class.java.simpleName
+        private val TAG: String = AutoUploadFolderProvider::class.java.simpleName
     }
 
     private val resolver: ContentResolver = contentResolver
-    private val dao: SyncedFolderDao = NextcloudDatabase.instance().syncedFolderDao()
+    private val dao: AutoUploadFolderDao = NextcloudDatabase.instance().autoUploadFolderDao()
 
     init {
         start(dao)
     }
 
-    fun storeSyncedFolder(syncedFolder: SyncedFolder): Long {
+    fun storeSyncedFolder(syncedFolder: AutoUploadFolder): Long {
         Log_OC.v(TAG, "Inserting ${syncedFolder.localPath} with enabled=${syncedFolder.isEnabled}")
         return resolver.insert(
             ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
@@ -63,7 +63,7 @@ class SyncedFolderProvider(
         null
     )?.use { it.count } ?: 0
 
-    val syncedFolders: MutableList<SyncedFolder>
+    val syncedFolders: MutableList<AutoUploadFolder>
         get() = resolver.query(
             ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
             null,
@@ -71,7 +71,7 @@ class SyncedFolderProvider(
             null,
             null
         )?.use { cursor ->
-            ArrayList<SyncedFolder>(cursor.count).also {
+            ArrayList<AutoUploadFolder>(cursor.count).also {
                 while (cursor.moveToNext()) it.add(createSyncedFolderFromCursor(cursor))
             }
         } ?: run {
@@ -106,10 +106,10 @@ class SyncedFolderProvider(
         }
     }
 
-    fun findByLocalPathAndAccount(localPath: String, user: User): SyncedFolder? =
-        dao.findByLocalPathAndAccount(localPath, user.accountName)?.toSyncedFolder()
+    fun findByLocalPathAndAccount(localPath: String, user: User): AutoUploadFolder? =
+        dao.findByLocalPathAndAccount(localPath, user.accountName)?.toAutoUploadFolder()
 
-    fun getSyncedFolderByID(syncedFolderID: Long): SyncedFolder? = resolver.query(
+    fun getSyncedFolderByID(syncedFolderID: Long): AutoUploadFolder? = resolver.query(
         ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
         null,
         "${ProviderMeta.ProviderTableMeta._ID} =?",
@@ -135,8 +135,8 @@ class SyncedFolderProvider(
 
     fun updateAutoUploadPaths(context: Context?) {
         for (syncedFolder in syncedFolders) {
-            if (!File(syncedFolder.localPath).exists()) {
-                var localPath = syncedFolder.localPath
+            var localPath = syncedFolder.localPath ?: continue
+            if (!File(localPath).exists()) {
                 if (localPath.endsWith(OCFile.PATH_SEPARATOR)) {
                     localPath = localPath.substring(0, localPath.lastIndexOf('/'))
                 }
@@ -166,7 +166,7 @@ class SyncedFolderProvider(
         arrayOf(id.toString())
     )
 
-    fun updateSyncFolder(syncedFolder: SyncedFolder): Int {
+    fun updateSyncFolder(syncedFolder: AutoUploadFolder): Int {
         Log_OC.v(TAG, "Updating ${syncedFolder.localPath} with enabled=${syncedFolder.isEnabled}")
         return resolver.update(
             ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
@@ -176,13 +176,13 @@ class SyncedFolderProvider(
         )
     }
 
-    private fun createSyncedFolderFromCursor(cursor: Cursor): SyncedFolder {
+    private fun createSyncedFolderFromCursor(cursor: Cursor): AutoUploadFolder {
         fun str(col: String) = cursor.getString(cursor.getColumnIndexOrThrow(col))
         fun int(col: String) = cursor.getInt(cursor.getColumnIndexOrThrow(col))
         fun long(col: String) = cursor.getLong(cursor.getColumnIndexOrThrow(col))
         fun bool(col: String) = int(col) == 1
 
-        return SyncedFolder(
+        return AutoUploadFolder(
             long(ProviderMeta.ProviderTableMeta._ID),
             str(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH),
             str(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_REMOTE_PATH),
@@ -203,28 +203,29 @@ class SyncedFolderProvider(
         )
     }
 
-    private fun createContentValuesFromSyncedFolder(syncedFolder: SyncedFolder): ContentValues = ContentValues().apply {
-        put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH, syncedFolder.localPath)
-        put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_REMOTE_PATH, syncedFolder.remotePath)
-        put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_WIFI_ONLY, syncedFolder.isWifiOnly)
-        put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_CHARGING_ONLY, syncedFolder.isChargingOnly)
-        put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_EXISTING, syncedFolder.alsoUploadExistingFiles())
-        put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED, syncedFolder.isEnabled)
-        put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED_TIMESTAMP_MS, syncedFolder.enabledTimestampMs)
-        put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE, syncedFolder.isSubfolderByDate)
-        put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT, syncedFolder.account)
-        put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION, syncedFolder.uploadAction)
-        put(
-            ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_NAME_COLLISION_POLICY,
-            syncedFolder.nameCollisionPolicyInt
-        )
-        put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_TYPE, syncedFolder.type.id)
-        put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_HIDDEN, syncedFolder.isHidden)
-        put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_RULE, syncedFolder.subfolderRule.ordinal)
-        put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_EXCLUDE_HIDDEN, syncedFolder.isExcludeHidden)
-        put(
-            ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_LAST_SCAN_TIMESTAMP_MS,
-            syncedFolder.lastScanTimestampMs
-        )
-    }
+    private fun createContentValuesFromSyncedFolder(syncedFolder: AutoUploadFolder): ContentValues =
+        ContentValues().apply {
+            put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH, syncedFolder.localPath)
+            put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_REMOTE_PATH, syncedFolder.remotePath)
+            put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_WIFI_ONLY, syncedFolder.isWifiOnly)
+            put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_CHARGING_ONLY, syncedFolder.isChargingOnly)
+            put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_EXISTING, syncedFolder.alsoUploadExistingFiles)
+            put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED, syncedFolder.isEnabled)
+            put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED_TIMESTAMP_MS, syncedFolder.enabledTimestampMs)
+            put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE, syncedFolder.isSubfolderByDate)
+            put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT, syncedFolder.account)
+            put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION, syncedFolder.uploadAction)
+            put(
+                ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_NAME_COLLISION_POLICY,
+                syncedFolder.nameCollisionPolicyInt
+            )
+            put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_TYPE, syncedFolder.type.id)
+            put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_HIDDEN, syncedFolder.isHidden)
+            put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_RULE, syncedFolder.subfolderRule.ordinal)
+            put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_EXCLUDE_HIDDEN, syncedFolder.isExcludeHidden)
+            put(
+                ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_LAST_SCAN_TIMESTAMP_MS,
+                syncedFolder.lastScanTimestampMs
+            )
+        }
 }

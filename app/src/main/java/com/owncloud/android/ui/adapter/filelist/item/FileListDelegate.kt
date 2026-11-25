@@ -34,7 +34,7 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.GalleryUnsupportedCellBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.AlbumsPickerActivity
 import com.owncloud.android.ui.activity.ComponentsGetter
@@ -65,7 +65,7 @@ class FileListDelegate(
     private val showMetadata: Boolean,
     private var showShareAvatar: Boolean,
     private var viewThemeUtils: ViewThemeUtils,
-    private val syncFolderProvider: SyncedFolderProvider? = null
+    private val syncFolderProvider: AutoUploadFolderProvider? = null
 ) {
     private val checkedFiles: MutableSet<OCFile> = HashSet()
     private var highlightedItem: OCFile? = null

@@ -47,7 +47,7 @@ import com.owncloud.android.ui.activity.SettingsActivity
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.PermissionUtil.checkSelfPermission
-import com.owncloud.android.utils.theme.ThemeUtils
+import com.owncloud.android.utils.theme.ServerBranding
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -66,7 +66,7 @@ class BackupFragment :
     lateinit var backgroundJobManager: BackgroundJobManager
 
     @Inject
-    lateinit var themeUtils: ThemeUtils
+    lateinit var serverBranding: ServerBranding
 
     @Inject
     lateinit var arbitraryDataProvider: ArbitraryDataProvider
@@ -88,7 +88,7 @@ class BackupFragment :
 
     // region Lifecycle
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        if (themeUtils.themingEnabled(context)) requireContext().theme.applyStyle(R.style.FallbackThemingTheme, true)
+        if (serverBranding.themingEnabled()) requireContext().theme.applyStyle(R.style.FallbackThemingTheme, true)
 
         binding = BackupFragmentBinding.inflate(inflater, container, false)
         contactsBackupFolderPath = getString(R.string.contacts_backup_folder) + OCFile.PATH_SEPARATOR

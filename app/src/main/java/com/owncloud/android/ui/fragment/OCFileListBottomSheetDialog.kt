@@ -44,7 +44,6 @@ import com.owncloud.android.lib.common.DirectEditing
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.PermissionUtil
-import com.owncloud.android.utils.theme.ThemeUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -56,7 +55,6 @@ class OCFileListBottomSheetDialog(
     private val deviceInfo: DeviceInfo,
     private val user: User,
     private val file: OCFile,
-    private val themeUtils: ThemeUtils,
     private val viewThemeUtils: ViewThemeUtils,
     private val editorUtils: EditorUtils,
     private val appScanOptionalFeature: AppScanOptionalFeature

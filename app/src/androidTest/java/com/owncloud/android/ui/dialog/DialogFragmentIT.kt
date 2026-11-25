@@ -520,7 +520,6 @@ class DialogFragmentIT : AbstractIT() {
                     info,
                     user,
                     ocFile,
-                    fda.themeUtils,
                     viewThemeUtils,
                     editorUtils,
                     appScanOptionalFeature

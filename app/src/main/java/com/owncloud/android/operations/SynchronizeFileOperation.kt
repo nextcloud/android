@@ -152,20 +152,21 @@ class SynchronizeFileOperation : SyncOperation {
     }
 
     private fun resolveChanges(serverFile: OCFile): RemoteOperationResult<*> {
+        val currentLocalFile = localFile
         val serverChanged = isServerChanged(serverFile)
-        val localChanged = localFile?.let {
+        val localChanged = currentLocalFile?.let {
             it.localModificationTimestamp > it.lastSyncDateForData
         } ?: false
 
         val result = when {
-            localChanged && serverChanged -> handleConflict(serverFile)
+            currentLocalFile != null && localChanged && serverChanged -> handleConflict(currentLocalFile, serverFile)
             localChanged -> handleLocalChange()
             serverChanged -> handleServerChange(serverFile)
             else -> RemoteOperationResult<Any?>(RemoteOperationResult.ResultCode.OK)
         }
 
         if (result.code != RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
-            storageManager.saveConflict(localFile, null)
+            currentLocalFile?.let { storageManager.saveConflict(it, null) }
         }
 
         return result
@@ -177,7 +178,7 @@ class SynchronizeFileOperation : SyncOperation {
         serverFile.etag != localFile?.etag
     }
 
-    private fun handleConflict(serverFile: OCFile): RemoteOperationResult<*> {
+    private fun handleConflict(localFile: OCFile, serverFile: OCFile): RemoteOperationResult<*> {
         storageManager.saveConflict(localFile, serverFile.etag)
         return RemoteOperationResult<Any?>(RemoteOperationResult.ResultCode.SYNC_CONFLICT)
     }
