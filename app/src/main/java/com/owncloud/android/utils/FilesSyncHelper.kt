@@ -16,8 +16,8 @@ import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.autoUpload.AutoUploadRequestResult
 import com.nextcloud.client.jobs.upload.FileUploadHelper.Companion.instance
 import com.nextcloud.client.network.ConnectivityService
-import com.owncloud.android.datamodel.SyncedFolder
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolder
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.lib.common.utils.Log_OC
 
@@ -42,7 +42,7 @@ object FilesSyncHelper {
     }
 
     fun startAutoUploadForEnabledSyncedFoldersIfNotActive(
-        provider: SyncedFolderProvider,
+        provider: AutoUploadFolderProvider,
         manager: BackgroundJobManager
     ): Int {
         val startedFolders = provider.syncedFolders
@@ -57,7 +57,7 @@ object FilesSyncHelper {
 
     @JvmStatic
     fun startAutoUploadForEnabledSyncedFolders(
-        provider: SyncedFolderProvider,
+        provider: AutoUploadFolderProvider,
         manager: BackgroundJobManager,
         overridePowerSaving: Boolean
     ): Int {
@@ -70,7 +70,7 @@ object FilesSyncHelper {
     }
 
     fun startAutoUploadIgnoringPowerSaving(
-        provider: SyncedFolderProvider,
+        provider: AutoUploadFolderProvider,
         manager: BackgroundJobManager
     ): AutoUploadRequestResult {
         val enabledFolders = provider.syncedFolders.filter { it.isEnabled }
@@ -93,7 +93,7 @@ object FilesSyncHelper {
     }
 
     @JvmStatic
-    fun startLocalDeletionForEnabledSyncedFolders(provider: SyncedFolderProvider, manager: BackgroundJobManager) {
+    fun startLocalDeletionForEnabledSyncedFolders(provider: AutoUploadFolderProvider, manager: BackgroundJobManager) {
         Log_OC.d(TAG, "Start local deletion worker for each enabled folder by any user")
 
         manager.locallyDeleteAutoUploadedFiles(provider.syncedFolders)
@@ -101,7 +101,7 @@ object FilesSyncHelper {
 
     @JvmStatic
     fun startLocalDeletionForEnabledSyncedFolders(
-        provider: SyncedFolderProvider,
+        provider: AutoUploadFolderProvider,
         manager: BackgroundJobManager,
         user: User
     ) {
@@ -115,7 +115,7 @@ object FilesSyncHelper {
     }
 
     @JvmStatic
-    fun startLocalDeletionForSyncedFolder(folder: SyncedFolder, manager: BackgroundJobManager) {
+    fun startLocalDeletionForSyncedFolder(folder: AutoUploadFolder, manager: BackgroundJobManager) {
         Log_OC.d(TAG, "start local deletion worker for folder ${folder.localPath}")
 
         manager.locallyDeleteAutoUploadedFiles(listOf(folder))

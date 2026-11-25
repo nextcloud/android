@@ -11,7 +11,7 @@ import androidx.lifecycle.LiveData
 import androidx.work.ListenableWorker
 import com.nextcloud.client.account.User
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.SyncedFolder
+import com.owncloud.android.datamodel.AutoUploadFolder
 import com.owncloud.android.operations.DownloadType
 
 /**
@@ -124,7 +124,7 @@ interface BackgroundJobManager {
      * @param overridePowerSaving uploads even while the device is in power saving mode. Such a run replaces an
      * already scheduled run of the same folder, because that one would otherwise stop on the power saving check.
      */
-    fun startAutoUpload(syncedFolder: SyncedFolder, overridePowerSaving: Boolean = false)
+    fun startAutoUpload(syncedFolder: AutoUploadFolder, overridePowerSaving: Boolean = false)
 
     fun cancelTwoWaySyncJob()
 
@@ -179,5 +179,5 @@ interface BackgroundJobManager {
     fun startMetadataSyncJob(currentDirPath: String, folderAlreadySynced: Boolean = false)
     fun downloadFolder(folder: OCFile, accountName: String)
     fun cancelFolderDownload()
-    fun locallyDeleteAutoUploadedFiles(syncedFolders: List<SyncedFolder>)
+    fun locallyDeleteAutoUploadedFiles(syncedFolders: List<AutoUploadFolder>)
 }

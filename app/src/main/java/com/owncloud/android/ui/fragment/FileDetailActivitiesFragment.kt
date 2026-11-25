@@ -156,10 +156,11 @@ class FileDetailActivitiesFragment :
     // region Setup
     private fun setupView() {
         val binding = binding ?: return
+        val user = user ?: return
         val storageManager = FileDataStorageManager(user, contentResolver)
         operationsHelper = (requireActivity() as ComponentsGetter).fileOperationsHelper
 
-        val capability = storageManager.getCapability(user?.accountName)
+        val capability = storageManager.getCapability(user.accountName)
         restoreFileVersionSupported = capability.filesVersioning.isTrue
 
         binding.emptyList.emptyListIcon.setImageDrawable(

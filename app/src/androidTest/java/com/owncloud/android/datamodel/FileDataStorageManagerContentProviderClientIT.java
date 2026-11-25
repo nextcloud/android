@@ -9,7 +9,6 @@ package com.owncloud.android.datamodel;
 
 import android.util.Pair;
 
-import com.nextcloud.utils.extensions.FileDataStorageManagerExtensionsKt;
 import com.owncloud.android.db.ProviderMeta;
 
 import org.junit.Test;
@@ -71,7 +70,7 @@ public class FileDataStorageManagerContentProviderClientIT extends FileDataStora
          );
 
         for (final var name: names) {
-            String gen = FileDataStorageManagerExtensionsKt.generateFileNameForConflictResolution(name.first);
+            String gen = FileDataStorageManager.generateFileNameForConflictResolution(name.first);
             assertEquals(gen, name.second);
         }
     }

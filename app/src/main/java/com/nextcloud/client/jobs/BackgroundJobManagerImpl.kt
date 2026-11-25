@@ -44,7 +44,7 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.isWorkScheduled
 import com.nextcloud.utils.extensions.scheduledWorkInfos
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.SyncedFolder
+import com.owncloud.android.datamodel.AutoUploadFolder
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadType
 import kotlinx.coroutines.CoroutineScope
@@ -530,7 +530,7 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueueUniquePeriodicWork(JOB_PERIODIC_FILES_SYNC, policy, request)
     }
 
-    override fun startAutoUpload(syncedFolder: SyncedFolder, overridePowerSaving: Boolean) {
+    override fun startAutoUpload(syncedFolder: AutoUploadFolder, overridePowerSaving: Boolean) {
         val syncedFolderID = syncedFolder.id
 
         // the sync now button starts this folder and also lets the content observer request it, replacing the
@@ -947,7 +947,7 @@ internal class BackgroundJobManagerImpl(
         workManager.cancelAllWorkByTag(JOB_DOWNLOAD_FOLDER)
     }
 
-    override fun locallyDeleteAutoUploadedFiles(syncedFolders: List<SyncedFolder>) {
+    override fun locallyDeleteAutoUploadedFiles(syncedFolders: List<AutoUploadFolder>) {
         val syncedFolderIDs = syncedFolders
             .filter { it.isEnabled }
             .map { it.id }

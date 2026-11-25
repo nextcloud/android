@@ -169,12 +169,11 @@ class UploadFileResolverTest {
         val parent = OCFile("/a/").apply { fileId = 10 }
         whenever(fileDataStorageManager.getFileByPath("/a/")).thenReturn(parent)
 
-        val folder = resolver.createLocalFolder("/a/b/")
+        val folder = requireNotNull(resolver.createLocalFolder("/a/b/"))
 
-        assertNotNull(folder)
-        assertEquals("/a/b/", folder?.remotePath)
-        assertEquals(MimeType.DIRECTORY, folder?.mimeType)
-        assertEquals(10L, folder?.parentId)
+        assertEquals("/a/b/", folder.remotePath)
+        assertEquals(MimeType.DIRECTORY, folder.mimeType)
+        assertEquals(10L, folder.parentId)
         verify(fileDataStorageManager).saveFile(folder)
     }
 

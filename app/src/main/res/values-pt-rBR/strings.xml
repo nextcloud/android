@@ -138,6 +138,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">mantido na pasta original, já que é somente leitura</string>
     <string name="auto_upload_low_battery_warning_info">Bateria fraca, o upload pode demorar mais tempo</string>
     <string name="auto_upload_on_wifi">Enviar só por Wi-Fi não medida</string>
+    <string name="auto_upload_overview_empty_folder">A pasta está vazia</string>
     <string name="auto_upload_path">/UploadAutomático</string>
     <string name="auto_upload_sub_folder_warning">Esta pasta já está incluída na sincronização da pasta pai, o que pode causar uploads duplicados</string>
     <string name="auto_upload_sync_now_action">Sincronizar agora</string>
@@ -168,8 +169,10 @@
     <string name="backup_list_adapter_local_contacts">Contatos locais</string>
     <string name="backup_settings">Configurações de backup </string>
     <string name="backup_title">Backup de contatos e calendário</string>
+    <string name="battery_optimization_banner_message">O uso da bateria do Nextcloud é restrito; por isso, o Android pode atrasar o upload automático. Com o uso da bateria irrestrito, o upload automático continua funcionando mesmo no modo de economia de energia.</string>
     <string name="battery_optimization_close">Fechar</string>
     <string name="battery_optimization_disable">Desativar</string>
+    <string name="battery_optimization_exempt_action">Permitir o uso irrestrito da bateria</string>
     <string name="battery_optimization_message">Seu dispositivo pode ter a otimização da bateria ativada. AutoUpload funciona corretamente apenas se você excluir este aplicativo a partir dele.</string>
     <string name="battery_optimization_title">Otimização da bateria</string>
     <string name="bottom_navigation_menu_assistant_label">Assistente</string>
@@ -398,6 +401,7 @@
     <string name="encryption_key_checking_keys">Verificando as chaves…</string>
     <string name="encryption_key_handle_folder_read_only_description">As chaves de criptografia desta conta foram removidas ou substituídas, portanto, o conteúdo desta pasta não pode mais ser descriptografado.\n\nA partir de agora, a pasta estará apenas para leitura. Para voltar a usar pastas criptografadas, faça um backup desta pasta e configure sua nova chave de criptografia nas configurações.</string>
     <string name="encryption_key_handle_key_removed_title">Chaves de criptografia alteradas</string>
+    <string name="encryption_key_handle_keys_changed_on_server_description">As chaves de criptografia no servidor foram removidas ou substituídas; portanto, as pastas criptografadas estão na modalidade somente leitura neste dispositivo.\n\nPara continuar usando a criptografia de ponta-a-ponta, faça backup dos seus arquivos criptografados, remova a criptografia localmente nas configurações e configure-a novamente.</string>
     <string name="encryption_key_handle_no_keys_description">Esta pasta não pode ser aberta porque suas chaves de criptografia não existem mais neste dispositivo nem no servidor.</string>
     <string name="encryption_new_folder_check_failed">Não foi possível verificar suas chaves de criptografia. Tente criar a pasta novamente.</string>
     <string name="encryption_new_folder_no_network">Não é possível acessar o servidor. Tente criar a pasta novamente mais tarde.</string>
@@ -783,6 +787,7 @@
     <string name="pin_shortcut_label">Abrir %1$s</string>
     <string name="player_audio_title_with_artist">%1$s • %2$s</string>
     <string name="player_control_view_next_button_content_description">Botão Próximo</string>
+    <string name="player_control_view_play_mode_button_content_description">Botão do modo de reprodução</string>
     <string name="player_control_view_play_pause_button_content_description">Botão Reproduzir/Pausar</string>
     <string name="player_control_view_previous_button_content_description">Botão Anterior</string>
     <string name="player_control_view_random_button_content_description">Botão Aleatório</string>
@@ -792,6 +797,9 @@
     <string name="player_media_controls_close_action_title">Fechar</string>
     <string name="please_select_a_server">Selecione um servidor…</string>
     <string name="power_save_check_dialog_message">Desativar a verificação de economia de energia pode resultar em uploads com a bateria baixa!</string>
+    <string name="power_saving_banner_ignored_by_app_message">O modo de economia de energia está ativado, mas o Nextcloud não tem restrições de uso da bateria, então o upload automático continua funcionando.</string>
+    <string name="power_saving_banner_restricting_app_message">O modo de economia de energia está ativado, portanto, o upload automático está suspenso até que você o desative.</string>
+    <string name="power_saving_settings_action">Abrir as configurações de economia de energia</string>
     <string name="pref_behaviour_entries_delete_file">excluído</string>
     <string name="pref_behaviour_entries_keep_file">Mantido na pasta original</string>
     <string name="pref_behaviour_entries_move">Movido para a pasta aplicativos</string>

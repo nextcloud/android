@@ -33,7 +33,7 @@ import com.nextcloud.utils.thumbnail.VideoOverlayGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.RichdocumentsWebviewBinding
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.SyncedFolderObserver
+import com.owncloud.android.datamodel.AutoUploadFolderObserver
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.ui.asynctasks.TextEditorLoadUrlTask
 import com.owncloud.android.utils.MimeTypeUtil
@@ -223,7 +223,7 @@ abstract class EditorWebView : ExternalSiteWebView() {
     }
 
     private fun getFolderIcon(file: OCFile, user: User): Drawable {
-        val isAutoUploadFolder = SyncedFolderObserver.isAutoUploadFolder(file, user)
+        val isAutoUploadFolder = AutoUploadFolderObserver.isAutoUploadFolder(file, user)
         val overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder)
         return MimeTypeUtil.getFolderIcon(preferences.isDarkModeEnabled, overlayIconId, this, viewThemeUtils)
     }

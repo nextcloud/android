@@ -16,7 +16,7 @@ import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.handle
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.ui.activity.TextEditorWebView
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment
@@ -33,7 +33,7 @@ class FileActionHandler @Inject constructor(
     private val accountManager: UserAccountManager,
     private val editorUtils: EditorUtils,
     private val shortcutUtil: ShortcutUtil,
-    private val syncedFolderProvider: SyncedFolderProvider,
+    private val syncedFolderProvider: AutoUploadFolderProvider,
     private val viewThemeUtils: ViewThemeUtils
 ) {
     fun handle(@IdRes itemId: Int, files: Collection<OCFile>, host: FileActionHost): Boolean =

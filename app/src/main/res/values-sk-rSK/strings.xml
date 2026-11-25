@@ -138,6 +138,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">ponechané v pôvodnom priečinku, pretože je iba na čítanie</string>
     <string name="auto_upload_low_battery_warning_info">Nízka úroveň batérie, nahrávanie môže trvať dlhšie</string>
     <string name="auto_upload_on_wifi">Nahrávaj iba na neobmedzenom Wi-Fi</string>
+    <string name="auto_upload_overview_empty_folder">Priečinok je prázdny</string>
     <string name="auto_upload_path">/AutomatickéNahrávanie</string>
     <string name="auto_upload_sub_folder_warning">Tento adresár je už zahrnutý v synchronizácii nadradeného adresára, čo môže spôsobiť duplicitné nahrávania</string>
     <string name="auto_upload_sync_now_action">Synchronizovať teraz</string>
@@ -168,8 +169,10 @@
     <string name="backup_list_adapter_local_contacts">Lokálne kontakty</string>
     <string name="backup_settings">Nastavenie zálohovania</string>
     <string name="backup_title">Zálohovanie kontaktov a kalendára</string>
+    <string name="battery_optimization_banner_message">Využívanie batérie aplikáciou Nextcloud je obmedzené, preto môže Android oneskoriť automatické nahrávanie. Pri neobmedzenom využívaní batérie automatické nahrávanie pokračuje aj v režime úspory energie.</string>
     <string name="battery_optimization_close">Zatvoriť</string>
     <string name="battery_optimization_disable">Zakázať</string>
+    <string name="battery_optimization_exempt_action">Povoliť neobmedzené využívanie batérie</string>
     <string name="battery_optimization_message">Vaše zariadenie môže mať zapnutú optimalizáciu batérie. AutoUpload správne funguje iba pokiaľ z túto aplikáciu z optimalizácie vynecháte.</string>
     <string name="battery_optimization_title">Optimalizácia batérie</string>
     <string name="bottom_navigation_menu_assistant_label">Asistent</string>
@@ -794,6 +797,9 @@
     <string name="player_media_controls_close_action_title">Zavrieť</string>
     <string name="please_select_a_server">Prosím vyberte server ...</string>
     <string name="power_save_check_dialog_message">Vypnutie kontroly úspory energie môže spôsobiť nahrávanie súborov v čase keď je batérie takmer vybitá!</string>
+    <string name="power_saving_banner_ignored_by_app_message">Režim úspory energie je zapnutý, ale Nextcloud má neobmedzené využívanie batérie, takže automatické nahrávanie pokračuje.</string>
+    <string name="power_saving_banner_restricting_app_message">Režim úspory energie je zapnutý, preto je automatické nahrávanie pozastavené, kým tento režim nevypnete.</string>
+    <string name="power_saving_settings_action">Otvoriť nastavenia úspory energie</string>
     <string name="pref_behaviour_entries_delete_file">vymazané</string>
     <string name="pref_behaviour_entries_keep_file">ponechané v pôvodnom priečinku</string>
     <string name="pref_behaviour_entries_move">presunuté do aplikačného priečinka</string>

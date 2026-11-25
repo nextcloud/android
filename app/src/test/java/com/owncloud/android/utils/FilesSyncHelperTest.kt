@@ -9,8 +9,8 @@ package com.owncloud.android.utils
 
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.autoUpload.AutoUploadRequestResult
-import com.owncloud.android.datamodel.SyncedFolder
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolder
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.kotlin.any
@@ -24,12 +24,12 @@ class FilesSyncHelperTest {
 
     private val backgroundJobManager: BackgroundJobManager = mock()
 
-    private fun syncedFolder(id: Long, enabled: Boolean): SyncedFolder = mock {
+    private fun syncedFolder(id: Long, enabled: Boolean): AutoUploadFolder = mock {
         on { this.id } doReturn id
         on { isEnabled } doReturn enabled
     }
 
-    private fun provider(vararg folders: SyncedFolder): SyncedFolderProvider = mock {
+    private fun provider(vararg folders: AutoUploadFolder): AutoUploadFolderProvider = mock {
         on { syncedFolders } doReturn folders.toMutableList()
     }
 

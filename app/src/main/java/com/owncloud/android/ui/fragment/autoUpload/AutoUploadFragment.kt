@@ -28,12 +28,12 @@ import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FragmentAutoUploadBinding
 import com.owncloud.android.databinding.StoragePermissionWarningBannerBinding
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.ui.adapter.storagePermissionBanner.setup
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration
 import com.owncloud.android.ui.dialog.AutoUploadFolderConfigurationListener
 import com.owncloud.android.ui.dialog.AutoUploadPreferenceDialogFragment
-import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable
+import com.owncloud.android.ui.dialog.parcel.AutoUploadFolderParcelable
 import com.owncloud.android.ui.fragment.autoUpload.adapter.AutoUploadFolderAdapter
 import com.owncloud.android.ui.fragment.autoUpload.data.AutoUploadDisplayItemFactory
 import com.owncloud.android.ui.fragment.autoUpload.data.AutoUploadItemsLoader
@@ -46,7 +46,7 @@ import com.owncloud.android.ui.fragment.autoUpload.ui.AutoUploadEmptyContent
 import com.owncloud.android.ui.fragment.autoUpload.ui.AutoUploadMenuProvider
 import com.owncloud.android.ui.navigation.NavigatorActivity
 import com.owncloud.android.utils.PermissionUtil
-import com.owncloud.android.utils.theme.ThemeUtils
+import com.owncloud.android.utils.theme.ServerBranding
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
@@ -64,7 +64,7 @@ class AutoUploadFragment :
 
     @Inject lateinit var clock: Clock
 
-    @Inject lateinit var syncedFolderProvider: SyncedFolderProvider
+    @Inject lateinit var syncedFolderProvider: AutoUploadFolderProvider
 
     @Inject lateinit var userAccountManager: UserAccountManager
 
@@ -74,7 +74,7 @@ class AutoUploadFragment :
 
     @Inject lateinit var viewThemeUtils: ViewThemeUtils
 
-    @Inject lateinit var themeUtils: ThemeUtils
+    @Inject lateinit var serverBranding: ServerBranding
 
     lateinit var adapter: AutoUploadFolderAdapter
 
@@ -122,7 +122,7 @@ class AutoUploadFragment :
         setupHelpers(activity)
         PermissionUtil.requestStoragePermissionIfNeeded(activity)
         setupList(activity, binding)
-        if (themeUtils.themingEnabled(activity)) {
+        if (serverBranding.themingEnabled()) {
             activity.theme.applyStyle(R.style.FallbackThemingTheme, true)
         }
         addMenuProvider(activity)
@@ -151,13 +151,13 @@ class AutoUploadFragment :
     // endregion
 
     // region AutoUploadFolderConfigurationListener
-    override fun onSaveAutoUploadFolderConfiguration(syncedFolder: SyncedFolderParcelable) {
+    override fun onSaveAutoUploadFolderConfiguration(syncedFolder: AutoUploadFolderParcelable) {
         clickHandler.onSaveAutoUploadFolderPreference(syncedFolder)
     }
 
     override fun onCancelAutoUploadFolderConfiguration() = Unit
 
-    override fun onDeleteAutoUploadFolderConfiguration(syncedFolder: SyncedFolderParcelable) {
+    override fun onDeleteAutoUploadFolderConfiguration(syncedFolder: AutoUploadFolderParcelable) {
         clickHandler.onDeleteAutoUploadFolderPreference(syncedFolder)
     }
 

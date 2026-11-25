@@ -138,6 +138,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">im Original-Verzeichnis belassen, da nur lesbar</string>
     <string name="auto_upload_low_battery_warning_info">Niedriger Akkustand, das Hochladen kann länger dauern</string>
     <string name="auto_upload_on_wifi">Nur über gebührenfreies WLAN hochladen</string>
+    <string name="auto_upload_overview_empty_folder">Ordner ist leer</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Dieser Ordner ist bereits in der Synchronisierung des übergeordneten Ordners enthalten, was zu doppelten Uploads führen kann</string>
     <string name="auto_upload_sync_now_action">Jetzt synchronisieren</string>
@@ -168,8 +169,10 @@
     <string name="backup_list_adapter_local_contacts">Lokale Kontakte</string>
     <string name="backup_settings">Sicherungseinstellungen</string>
     <string name="backup_title">Kontakte- und Kalender-Sicherung</string>
+    <string name="battery_optimization_banner_message">Die Akkunutzung von Nextcloud ist eingeschränkt, weshalb Android den automatischen Upload möglicherweise verzögert. Bei uneingeschränkter Akkunutzung bleibt der automatische Upload auch im Energiesparmodus aktiv.</string>
     <string name="battery_optimization_close">Schliessen</string>
     <string name="battery_optimization_disable">Deaktivieren</string>
+    <string name="battery_optimization_exempt_action">Uneingeschränkte Akkunutzung zulassen</string>
     <string name="battery_optimization_message">Ihr Gerät hat möglicherweise Batterieoptimierung aktiv. AutoUpload funktioniert nur dann richtig, wenn Sie diese App davon ausschließen.</string>
     <string name="battery_optimization_title">Batterie-Optimierung</string>
     <string name="bottom_navigation_menu_assistant_label">Assistent</string>
@@ -688,7 +691,7 @@
     <string name="manage_space_title">Verwalte Speicherplatz</string>
     <string name="manage_tags">Schlagworte verwalten</string>
     <string name="media_picker_toolbar_title">Mediendateien auswählen</string>
-    <string name="menu_item_sort_by_date_newest_first">Neue zuerst</string>
+    <string name="menu_item_sort_by_date_newest_first">Neueste zuerst</string>
     <string name="menu_item_sort_by_date_oldest_first">Älteste zuerst</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
@@ -794,6 +797,9 @@
     <string name="player_media_controls_close_action_title">Schließen</string>
     <string name="please_select_a_server">Bitte einen Server auswählen …</string>
     <string name="power_save_check_dialog_message">Bei deaktiviertem Energiesparmodus werden Daten auch bei niedrigem Batterieladezustand hochgeladen.</string>
+    <string name="power_saving_banner_ignored_by_app_message">Der Energiesparmodus ist aktiviert, aber für Nextcloud ist eine uneingeschränkte Akkunutzung festgelegt, sodass der automatische Upload weiterhin funktioniert.</string>
+    <string name="power_saving_banner_restricting_app_message">Der Energiesparmodus ist aktiviert; daher ist der automatische Upload pausiert, bis Sie ihn wieder ausschalten.</string>
+    <string name="power_saving_settings_action">Energiespareinstellungen öffnen</string>
     <string name="pref_behaviour_entries_delete_file">gelöscht</string>
     <string name="pref_behaviour_entries_keep_file">im Originalordner behalten</string>
     <string name="pref_behaviour_entries_move">in den App-Ordner verschoben</string>
