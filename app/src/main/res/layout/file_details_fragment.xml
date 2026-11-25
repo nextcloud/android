@@ -205,7 +205,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/two_line_primary_text_size"
-                    android:text="@string/sync" />
+                    android:text="@string/two_way_sync_file_details_enable" />
 
             </LinearLayout>
 
