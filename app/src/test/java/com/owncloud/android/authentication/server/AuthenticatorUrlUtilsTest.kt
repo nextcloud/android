@@ -6,6 +6,7 @@
  */
 package com.owncloud.android.authentication.server
 
+import com.owncloud.android.authentication.server.AuthenticatorUrlUtils.appendLoginUser
 import com.owncloud.android.authentication.server.AuthenticatorUrlUtils.normalizeScheme
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertSame
@@ -15,8 +16,56 @@ import org.junit.runners.Suite
 import org.junit.runners.Suite.SuiteClasses
 
 @RunWith(Suite::class)
-@SuiteClasses(AuthenticatorUrlUtilsTest.NormalizeScheme::class)
+@SuiteClasses(AuthenticatorUrlUtilsTest.NormalizeScheme::class, AuthenticatorUrlUtilsTest.AppendLoginUser::class)
 class AuthenticatorUrlUtilsTest {
+
+    class AppendLoginUser {
+
+        @Test
+        fun urlWithoutQuery() {
+            // GIVEN
+            //      login URL has no query
+            val url = "https://host.net/index.php/login/v2/flow/abc"
+
+            // WHEN
+            //      user is appended
+            val loginUrl = appendLoginUser(url, "jane")
+
+            // THEN
+            //      user starts the query
+            assertEquals("https://host.net/index.php/login/v2/flow/abc?user=jane", loginUrl)
+        }
+
+        @Test
+        fun urlWithQuery() {
+            // GIVEN
+            //      login URL has a query
+            val url = "https://host.net/index.php/login/v2/grant?token=abc"
+
+            // WHEN
+            //      user is appended
+            val loginUrl = appendLoginUser(url, "jane")
+
+            // THEN
+            //      user is added to the query
+            assertEquals("https://host.net/index.php/login/v2/grant?token=abc&user=jane", loginUrl)
+        }
+
+        @Test
+        fun userWithReservedCharacters() {
+            // GIVEN
+            //      user contains a space and an at sign
+            val url = "https://host.net/index.php/login/v2/flow/abc"
+
+            // WHEN
+            //      user is appended
+            val loginUrl = appendLoginUser(url, "jane doe@example.com")
+
+            // THEN
+            //      user is URL-encoded
+            assertEquals("https://host.net/index.php/login/v2/flow/abc?user=jane+doe%40example.com", loginUrl)
+        }
+    }
 
     class NormalizeScheme {
 

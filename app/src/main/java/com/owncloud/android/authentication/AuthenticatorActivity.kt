@@ -65,6 +65,7 @@ import com.nextcloud.utils.mdm.MDMConfig
 import com.nextcloud.utils.text.LinkFormatter
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
+import com.owncloud.android.authentication.server.AuthenticatorUrlUtils.appendLoginUser
 import com.owncloud.android.authentication.server.AuthenticatorUrlUtils.normalizeScheme
 import com.owncloud.android.authentication.server.AuthenticatorUrlUtils.normalizeUrlSuffix
 import com.owncloud.android.authentication.server.AuthenticatorUrlUtils.stripIndexPhpOrAppsFiles
@@ -568,7 +569,7 @@ open class AuthenticatorActivity :
                 return@launch
             }
 
-            val loginUrl = loginFlow.parseLoginUrl(response) ?: defaultLoginUrl()
+            val loginUrl = loginFlow.parseLoginUrl(response)?.let(::withAccountUser) ?: defaultLoginUrl()
             initLoginInfoView()
             ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleEventObserver)
             loginBrowserLauncher.open(loginUrl)
@@ -580,6 +581,17 @@ open class AuthenticatorActivity :
         loginFlow.isCompleted = false
         inflateWebViewLayout()
         anonymouslyPostLoginRequest(serverInfo.mBaseUrl + WEB_LOGIN)
+    }
+
+    private fun withAccountUser(loginUrl: String): String {
+        if (authenticatorAction == ACTION_CREATE) {
+            return loginUrl
+        }
+        val user = account?.let { AccountUtils.getUsernameForAccount(it) }
+        if (user.isNullOrEmpty()) {
+            return loginUrl
+        }
+        return appendLoginUser(loginUrl, user)
     }
 
     private fun defaultLoginUrl(): String {
