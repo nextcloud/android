@@ -47,6 +47,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 class OCFileListBottomSheetDialog(
     private val fileActivity: FileActivity,
@@ -59,6 +60,9 @@ class OCFileListBottomSheetDialog(
     private val appScanOptionalFeature: AppScanOptionalFeature
 ) : BottomSheetDialog(fileActivity),
     Injectable {
+
+    @Inject
+    lateinit var arbitraryDataProvider: ArbitraryDataProvider
 
     companion object {
         // Number of items to show in document creators overview
@@ -220,7 +224,7 @@ class OCFileListBottomSheetDialog(
 
     private fun creatorsActionsFromDirectEditing(): List<CreatorAction> {
         val creatorsActions = ArrayList<CreatorAction>()
-        ArbitraryDataProviderImpl(context)
+        arbitraryDataProvider
             .getValue(user, ArbitraryDataProvider.DIRECT_EDITING)
             .takeIf(String::isNotEmpty)
             ?.let { Gson().fromJson(it, DirectEditing::class.java) }
