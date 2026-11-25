@@ -73,14 +73,14 @@ class FileDetailSharingFragmentIT : AbstractIT() {
             scenario.onActivity { activity ->
                 file = OCFile("/test.md").apply {
                     remoteId = "00000001"
-                    parentId = activity.storageManager.getFileByEncryptedRemotePath("/").fileId
+                    parentId = activity.storageManager.rootFolder.fileId
                     permissions = OCFile.PERMISSION_CAN_RESHARE
                     storageManager.saveFile(this)
                 }
 
                 folder = OCFile("/test").apply {
                     setFolder()
-                    parentId = activity.storageManager.getFileByEncryptedRemotePath("/").fileId
+                    parentId = activity.storageManager.rootFolder.fileId
                     permissions = OCFile.PERMISSION_CAN_RESHARE
                 }
             }

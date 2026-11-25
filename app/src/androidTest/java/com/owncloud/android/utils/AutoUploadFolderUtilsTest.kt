@@ -10,8 +10,8 @@ import com.nextcloud.client.preferences.SubFolderRule
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.MediaFolder
 import com.owncloud.android.datamodel.MediaFolderType
-import com.owncloud.android.datamodel.SyncedFolder
-import com.owncloud.android.utils.SyncedFolderUtils.hasExcludePrefix
+import com.owncloud.android.datamodel.AutoUploadFolder
+import com.owncloud.android.utils.AutoUploadFolderUtils.hasExcludePrefix
 import org.apache.commons.io.FileUtils
 import org.junit.AfterClass
 import org.junit.Assert
@@ -20,42 +20,42 @@ import org.junit.Test
 import java.io.File
 import java.util.Arrays
 
-class SyncedFolderUtilsTest : AbstractIT() {
+class AutoUploadFolderUtilsTest : AbstractIT() {
     @Test
     fun assertCoverFilenameUnqualified() {
-        Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForAutoUpload(COVER))
-        Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForAutoUpload("cover.JPG"))
-        Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForAutoUpload("cover.jpeg"))
-        Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForAutoUpload("cover.JPEG"))
-        Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForAutoUpload("COVER.jpg"))
-        Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForAutoUpload(FOLDER))
-        Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForAutoUpload("Folder.jpeg"))
-        Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForAutoUpload("FOLDER.jpg"))
-        Assert.assertFalse(SyncedFolderUtils.isFileNameQualifiedForAutoUpload(THUMBDATA_FILE))
+        Assert.assertFalse(AutoUploadFolderUtils.isFileNameQualifiedForAutoUpload(COVER))
+        Assert.assertFalse(AutoUploadFolderUtils.isFileNameQualifiedForAutoUpload("cover.JPG"))
+        Assert.assertFalse(AutoUploadFolderUtils.isFileNameQualifiedForAutoUpload("cover.jpeg"))
+        Assert.assertFalse(AutoUploadFolderUtils.isFileNameQualifiedForAutoUpload("cover.JPEG"))
+        Assert.assertFalse(AutoUploadFolderUtils.isFileNameQualifiedForAutoUpload("COVER.jpg"))
+        Assert.assertFalse(AutoUploadFolderUtils.isFileNameQualifiedForAutoUpload(FOLDER))
+        Assert.assertFalse(AutoUploadFolderUtils.isFileNameQualifiedForAutoUpload("Folder.jpeg"))
+        Assert.assertFalse(AutoUploadFolderUtils.isFileNameQualifiedForAutoUpload("FOLDER.jpg"))
+        Assert.assertFalse(AutoUploadFolderUtils.isFileNameQualifiedForAutoUpload(THUMBDATA_FILE))
     }
 
     @Test
     fun assertImageFilenameQualified() {
-        Assert.assertTrue(SyncedFolderUtils.isFileNameQualifiedForAutoUpload("image.jpg"))
-        Assert.assertTrue(SyncedFolderUtils.isFileNameQualifiedForAutoUpload("screenshot.JPG"))
-        Assert.assertTrue(SyncedFolderUtils.isFileNameQualifiedForAutoUpload(IMAGE_JPEG))
-        Assert.assertTrue(SyncedFolderUtils.isFileNameQualifiedForAutoUpload("image.JPEG"))
-        Assert.assertTrue(SyncedFolderUtils.isFileNameQualifiedForAutoUpload("SCREENSHOT.jpg"))
-        Assert.assertTrue(SyncedFolderUtils.isFileNameQualifiedForAutoUpload(SELFIE))
-        Assert.assertTrue(SyncedFolderUtils.isFileNameQualifiedForAutoUpload("screenshot.PNG"))
+        Assert.assertTrue(AutoUploadFolderUtils.isFileNameQualifiedForAutoUpload("image.jpg"))
+        Assert.assertTrue(AutoUploadFolderUtils.isFileNameQualifiedForAutoUpload("screenshot.JPG"))
+        Assert.assertTrue(AutoUploadFolderUtils.isFileNameQualifiedForAutoUpload(IMAGE_JPEG))
+        Assert.assertTrue(AutoUploadFolderUtils.isFileNameQualifiedForAutoUpload("image.JPEG"))
+        Assert.assertTrue(AutoUploadFolderUtils.isFileNameQualifiedForAutoUpload("SCREENSHOT.jpg"))
+        Assert.assertTrue(AutoUploadFolderUtils.isFileNameQualifiedForAutoUpload(SELFIE))
+        Assert.assertTrue(AutoUploadFolderUtils.isFileNameQualifiedForAutoUpload("screenshot.PNG"))
     }
 
     @Test
     fun assertMediaFolderNullSafe() {
         val folder: MediaFolder? = null
-        Assert.assertFalse(SyncedFolderUtils.isQualifyingMediaFolder(folder))
+        Assert.assertFalse(AutoUploadFolderUtils.isQualifyingMediaFolder(folder))
     }
 
     @Test
     fun assertMediaFolderCustomQualified() {
         val folder = MediaFolder()
         folder.type = MediaFolderType.CUSTOM
-        Assert.assertTrue(SyncedFolderUtils.isQualifyingMediaFolder(folder))
+        Assert.assertTrue(AutoUploadFolderUtils.isQualifyingMediaFolder(folder))
     }
 
     @Test
@@ -65,7 +65,7 @@ class SyncedFolderUtilsTest : AbstractIT() {
             type = MediaFolderType.VIDEO
             numberOfFiles = 0L
         }
-        Assert.assertFalse(SyncedFolderUtils.isQualifyingMediaFolder(folder))
+        Assert.assertFalse(AutoUploadFolderUtils.isQualifyingMediaFolder(folder))
     }
 
     @Test
@@ -75,7 +75,7 @@ class SyncedFolderUtilsTest : AbstractIT() {
             type = MediaFolderType.VIDEO
             numberOfFiles = 20L
         }
-        Assert.assertTrue(SyncedFolderUtils.isQualifyingMediaFolder(folder))
+        Assert.assertTrue(AutoUploadFolderUtils.isQualifyingMediaFolder(folder))
     }
 
     @Test
@@ -91,7 +91,7 @@ class SyncedFolderUtilsTest : AbstractIT() {
                 getDummyFile(IMAGE_BITMAP).absolutePath
             )
         }
-        Assert.assertTrue(SyncedFolderUtils.isQualifyingMediaFolder(folder))
+        Assert.assertTrue(AutoUploadFolderUtils.isQualifyingMediaFolder(folder))
     }
 
     @Test
@@ -101,7 +101,7 @@ class SyncedFolderUtilsTest : AbstractIT() {
             type = MediaFolderType.IMAGE
             numberOfFiles = 0L
         }
-        Assert.assertFalse(SyncedFolderUtils.isQualifyingMediaFolder(folder))
+        Assert.assertFalse(AutoUploadFolderUtils.isQualifyingMediaFolder(folder))
     }
 
     @Test
@@ -116,7 +116,7 @@ class SyncedFolderUtilsTest : AbstractIT() {
                 getDummyFile(SONG_TWO).absolutePath
             )
         }
-        Assert.assertFalse(SyncedFolderUtils.isQualifyingMediaFolder(folder))
+        Assert.assertFalse(AutoUploadFolderUtils.isQualifyingMediaFolder(folder))
     }
 
     @Test
@@ -131,7 +131,7 @@ class SyncedFolderUtilsTest : AbstractIT() {
                 getDummyFile(SONG_TWO).absolutePath
             )
         }
-        Assert.assertFalse(SyncedFolderUtils.isQualifyingMediaFolder(folder))
+        Assert.assertFalse(AutoUploadFolderUtils.isQualifyingMediaFolder(folder))
     }
 
     @Test
@@ -147,20 +147,21 @@ class SyncedFolderUtilsTest : AbstractIT() {
             )
         }
 
-        Assert.assertFalse(SyncedFolderUtils.isQualifyingMediaFolder(folder))
+        Assert.assertFalse(AutoUploadFolderUtils.isQualifyingMediaFolder(folder))
     }
 
     @Test
     fun assertSyncedFolderNullSafe() {
-        val folder: SyncedFolder? = null
-        Assert.assertFalse(SyncedFolderUtils.isQualifyingMediaFolder(folder))
+        val folder: AutoUploadFolder? = null
+        Assert.assertFalse(AutoUploadFolderUtils.isQualifyingMediaFolder(folder))
     }
 
     @Test
     fun assertUnqualifiedContentSyncedFolder() {
         val localFolder = getDummyFile(THUMBDATA_FOLDER + File.separatorChar)
         getDummyFile(THUMBDATA_FOLDER + File.separatorChar + THUMBDATA_FILE)
-        val folder = SyncedFolder(
+        val folder = AutoUploadFolder(
+            AutoUploadFolder.UNPERSISTED_ID,
             localFolder.absolutePath,
             "",
             true,
@@ -176,16 +177,17 @@ class SyncedFolderUtilsTest : AbstractIT() {
             false,
             SubFolderRule.YEAR_MONTH,
             false,
-            SyncedFolder.NOT_SCANNED_YET
+            AutoUploadFolder.NOT_SCANNED_YET
         )
-        Assert.assertFalse(SyncedFolderUtils.isQualifyingMediaFolder(folder))
+        Assert.assertFalse(AutoUploadFolderUtils.isQualifyingMediaFolder(folder))
     }
 
     @Test
     fun assertUnqualifiedSyncedFolder() {
         getDummyFile(THUMBNAILS_FOLDER + File.separatorChar + IMAGE_JPEG)
         getDummyFile(THUMBNAILS_FOLDER + File.separatorChar + IMAGE_BITMAP)
-        val folder = SyncedFolder(
+        val folder = AutoUploadFolder(
+            AutoUploadFolder.UNPERSISTED_ID,
             FileStorageUtils.getTemporalPath(account.name) + File.separatorChar + THUMBNAILS_FOLDER,
             "",
             true,
@@ -201,9 +203,9 @@ class SyncedFolderUtilsTest : AbstractIT() {
             false,
             SubFolderRule.YEAR_MONTH,
             false,
-            SyncedFolder.NOT_SCANNED_YET
+            AutoUploadFolder.NOT_SCANNED_YET
         )
-        Assert.assertFalse(SyncedFolderUtils.isQualifyingMediaFolder(folder))
+        Assert.assertFalse(AutoUploadFolderUtils.isQualifyingMediaFolder(folder))
     }
 
     @Test

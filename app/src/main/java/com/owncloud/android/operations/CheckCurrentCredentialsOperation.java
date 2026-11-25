@@ -36,7 +36,7 @@ public class CheckCurrentCredentialsOperation extends SyncOperation {
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result;
-        boolean validAccount = user.nameEquals(getStorageManager().getUser().getAccountName());
+        boolean validAccount = user.nameEquals(getStorageManager().user.getAccountName());
         if (!validAccount) {
             result = new RemoteOperationResult(new IllegalStateException(
                 "Account to validate is not the account connected to!")

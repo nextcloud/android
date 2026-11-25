@@ -138,6 +138,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">以唯讀模式保留在原本的資料夾</string>
     <string name="auto_upload_low_battery_warning_info">低電量，上傳可能會需要較長時間</string>
     <string name="auto_upload_on_wifi">僅在未計量的Wi-Fi上傳</string>
+    <string name="auto_upload_overview_empty_folder">資料夾為空</string>
     <string name="auto_upload_path">自動上傳</string>
     <string name="auto_upload_sub_folder_warning">此資料夾已包含在父資料夾的同步中，這可能會導致重複上傳</string>
     <string name="auto_upload_sync_now_action">立即同步</string>
@@ -168,8 +169,10 @@
     <string name="backup_list_adapter_local_contacts">本機聯絡人</string>
     <string name="backup_settings">備份設定</string>
     <string name="backup_title">通訊錄與日曆備份</string>
+    <string name="battery_optimization_banner_message">Nextcloud 的電池用量受到限制，因此 Android 可能會延遲自動上載。解除電池用量限制後，即使在省電模式下，自動上載亦可繼續運作。</string>
     <string name="battery_optimization_close">關閉</string>
     <string name="battery_optimization_disable">停用</string>
+    <string name="battery_optimization_exempt_action">允許不受限制地使用電池</string>
     <string name="battery_optimization_message">您的裝置可能啟用了電池優化。僅當您從中排除此應用程式時，自動上傳才能正常工作。</string>
     <string name="battery_optimization_title">電池優化</string>
     <string name="bottom_navigation_menu_assistant_label">助手</string>
@@ -794,6 +797,9 @@
     <string name="player_media_controls_close_action_title">關閉</string>
     <string name="please_select_a_server">請選擇伺服器 ...</string>
     <string name="power_save_check_dialog_message">停用省電功能時，就算電池電量偏低，檔案仍會持續上傳</string>
+    <string name="power_saving_banner_ignored_by_app_message">省電模式已啟用，但 Nextcloud 的電池用量不受限制，因此自動上載仍會繼續運作。</string>
+    <string name="power_saving_banner_restricting_app_message">省電模式已啟用，因此自動上載已暫停，直至你關閉省電模式。</string>
+    <string name="power_saving_settings_action">開啟省電設定</string>
     <string name="pref_behaviour_entries_delete_file">已刪除</string>
     <string name="pref_behaviour_entries_keep_file">保留在原本的資料夾</string>
     <string name="pref_behaviour_entries_move">移動到應用程式資料夾</string>

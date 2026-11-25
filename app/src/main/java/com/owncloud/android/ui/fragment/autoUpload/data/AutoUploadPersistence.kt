@@ -9,18 +9,17 @@ package com.owncloud.android.ui.fragment.autoUpload.data
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
-import com.owncloud.android.datamodel.SyncedFolder
-import com.owncloud.android.datamodel.SyncedFolderDisplayItem
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolder
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.utils.FilesSyncHelper
 
 class AutoUploadPersistence(
-    private val syncedFolderProvider: SyncedFolderProvider,
+    private val syncedFolderProvider: AutoUploadFolderProvider,
     private val backgroundJobManager: BackgroundJobManager
 ) {
 
-    fun saveOrUpdateAutoUploadFolder(item: SyncedFolderDisplayItem) {
-        if (item.id == SyncedFolder.UNPERSISTED_ID) {
+    fun saveOrUpdateAutoUploadFolder(item: AutoUploadFolder) {
+        if (item.id == AutoUploadFolder.UNPERSISTED_ID) {
             storeAutoUploadFolder(item)
             return
         }
@@ -29,8 +28,8 @@ class AutoUploadPersistence(
         applySyncState(item)
     }
 
-    fun persistSyncStatus(item: SyncedFolderDisplayItem) {
-        if (item.id == SyncedFolder.UNPERSISTED_ID) {
+    fun persistSyncStatus(item: AutoUploadFolder) {
+        if (item.id == AutoUploadFolder.UNPERSISTED_ID) {
             storeAutoUploadFolder(item)
             return
         }
@@ -43,7 +42,7 @@ class AutoUploadPersistence(
         syncedFolderProvider.deleteSyncedFolder(id)
     }
 
-    private fun storeAutoUploadFolder(item: SyncedFolderDisplayItem) {
+    private fun storeAutoUploadFolder(item: AutoUploadFolder) {
         val storedId = syncedFolderProvider.storeSyncedFolder(item)
         if (storedId == INVALID_ID) {
             return
@@ -53,7 +52,7 @@ class AutoUploadPersistence(
         applySyncState(item)
     }
 
-    private fun applySyncState(item: SyncedFolderDisplayItem) {
+    private fun applySyncState(item: AutoUploadFolder) {
         if (item.isEnabled) {
             backgroundJobManager.startAutoUpload(item, overridePowerSaving = false)
             return

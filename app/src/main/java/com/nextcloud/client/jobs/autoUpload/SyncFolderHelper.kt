@@ -13,7 +13,7 @@ import com.nextcloud.client.preferences.SubFolderRule
 import com.nextcloud.utils.autoRename.AutoRename
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.MediaFolderType
-import com.owncloud.android.datamodel.SyncedFolder
+import com.owncloud.android.datamodel.AutoUploadFolder
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.MimeType
@@ -37,12 +37,12 @@ class SyncFolderHelper(private val context: Context) {
      * @param file contained in the syncedFolder
      * @return the remote path based on the current syncedFolder folder settings
      */
-    fun getAutoUploadRemotePath(syncedFolder: SyncedFolder, file: File): String {
+    fun getAutoUploadRemotePath(syncedFolder: AutoUploadFolder, file: File): String {
         val resources = context.resources
         val isLightVersion = resources.getBoolean(R.bool.syncedFolder_light)
         val lastModificationTime = calculateLastModificationTime(file, syncedFolder)
 
-        val remoteFolder: String
+        val remoteFolder: String?
         val useSubfolders: Boolean
         val subFolderRule: SubFolderRule
 
@@ -75,7 +75,7 @@ class SyncFolderHelper(private val context: Context) {
     }
 
     @Suppress("NestedBlockDepth")
-    private fun calculateLastModificationTime(file: File, syncedFolder: SyncedFolder): Long {
+    private fun calculateLastModificationTime(file: File, syncedFolder: AutoUploadFolder): Long {
         val resources = context.resources
         val currentLocale = resources.configuration.locales[0]
         val formatter = SimpleDateFormat("yyyy:MM:dd HH:mm:ss", currentLocale).apply {

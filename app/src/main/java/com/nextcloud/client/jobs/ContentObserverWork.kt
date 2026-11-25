@@ -12,7 +12,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.autoUpload.AutoUploadHelper
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.FilesSyncHelper
 import kotlinx.coroutines.Dispatchers
@@ -27,7 +27,7 @@ import kotlinx.coroutines.withContext
 class ContentObserverWork(
     context: Context,
     private val params: WorkerParameters,
-    private val syncedFolderProvider: SyncedFolderProvider,
+    private val syncedFolderProvider: AutoUploadFolderProvider,
     private val powerManagementService: PowerManagementService,
     private val backgroundJobManager: BackgroundJobManager,
     private val autoUploadHelper: AutoUploadHelper

@@ -12,7 +12,7 @@ package com.owncloud.android.files.services
 import com.nextcloud.client.account.UserAccountManagerImpl
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.utils.PowerManagementFactory
-import com.nextcloud.utils.extensions.getRemotePathForConflictResolution
+import com.owncloud.android.datamodel.FileDataStorageManager.Companion.getRemotePathForConflictResolution
 import com.nextcloud.utils.extensions.isTheSameAs
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.datamodel.OCFile
