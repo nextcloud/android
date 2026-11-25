@@ -10,17 +10,16 @@ package com.nextcloud.client.utils
 import com.nextcloud.client.preferences.SubFolderRule
 import com.nextcloud.utils.extensions.filterEnabledOrWithoutEnabledParent
 import com.owncloud.android.datamodel.MediaFolderType
-import com.owncloud.android.datamodel.SyncedFolder
-import com.owncloud.android.datamodel.SyncedFolderDisplayItem
+import com.owncloud.android.datamodel.AutoUploadFolder
 import org.junit.Test
 
-class SyncedFolderDisplayItemExtensionsTests {
+class AutoUploadFolderExtensionsTests {
 
     @Suppress("MagicNumber", "LongMethod")
     @Test
     fun testFilterEnabledOrWithoutParentInEnabledSet() {
         val list = listOf(
-            SyncedFolderDisplayItem(
+            AutoUploadFolder(
                 1,
                 "/root/my_folder",
                 "/InstantUpload/",
@@ -33,14 +32,14 @@ class SyncedFolderDisplayItemExtensionsTests {
                 0,
                 true,
                 1000,
-                "my_folder",
                 MediaFolderType.IMAGE,
                 false,
                 SubFolderRule.YEAR_MONTH,
                 false,
-                SyncedFolder.NOT_SCANNED_YET
+                AutoUploadFolder.NOT_SCANNED_YET,
+                folderName = "my_folder"
             ),
-            SyncedFolderDisplayItem(
+            AutoUploadFolder(
                 2,
                 "/root/my_folder/B",
                 "/InstantUpload/",
@@ -53,14 +52,14 @@ class SyncedFolderDisplayItemExtensionsTests {
                 0,
                 false,
                 1000,
-                "B",
                 MediaFolderType.IMAGE,
                 false,
                 SubFolderRule.YEAR_MONTH,
                 false,
-                SyncedFolder.NOT_SCANNED_YET
+                AutoUploadFolder.NOT_SCANNED_YET,
+                folderName = "B"
             ),
-            SyncedFolderDisplayItem(
+            AutoUploadFolder(
                 3,
                 "/root/my_folder_2",
                 "/InstantUpload/",
@@ -73,12 +72,12 @@ class SyncedFolderDisplayItemExtensionsTests {
                 0,
                 true,
                 1000,
-                "my_folder_2",
                 MediaFolderType.IMAGE,
                 false,
                 SubFolderRule.YEAR_MONTH,
                 false,
-                SyncedFolder.NOT_SCANNED_YET
+                AutoUploadFolder.NOT_SCANNED_YET,
+                folderName = "my_folder_2"
             )
         )
 

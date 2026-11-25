@@ -18,7 +18,6 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.ResultParser;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
-import com.nextcloud.utils.extensions.FileDataStorageManagerExtensionsKt;
 import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.nextcloud.utils.extensions.StringExtensionsKt;
 import com.nextcloud.utils.share.UnifiedShareSharees;
@@ -516,7 +515,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
     private void removeLocalFolder() {
-        if (FileDataStorageManagerExtensionsKt.isPendingOfflineCreation(fileDataStorageManager, mLocalFolder)) {
+        if (fileDataStorageManager.isPendingOfflineCreation(mLocalFolder)) {
             Log_OC.d(TAG, "Keeping " + mLocalFolder.getRemotePath() + ", it is not created on the server yet");
             return;
         }
@@ -681,10 +680,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             return;
         }
 
-        FileDataStorageManagerExtensionsKt.saveFolder(fileDataStorageManager,
-                                                      remoteFolder,
-                                                      updatedFiles,
-                                                      localFilesMap.values());
+        fileDataStorageManager.saveFolder(remoteFolder, updatedFiles, localFilesMap.values());
 
         mChildren = updatedFiles;
     }

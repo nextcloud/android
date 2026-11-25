@@ -138,6 +138,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">beholdt i den oprindelige mappe, da den er skrivebeskyttet</string>
     <string name="auto_upload_low_battery_warning_info">Lavt batteri, upload kan tage længere tid</string>
     <string name="auto_upload_on_wifi">Upload kun på ubegrænset wifi</string>
+    <string name="auto_upload_overview_empty_folder">Mappen er tom</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Denne mappe er allerede med i den overordnede mappes synkronisering, hvilket kan give dobbelte uploads</string>
     <string name="auto_upload_sync_now_action">Synkroniser nu</string>
@@ -168,8 +169,10 @@
     <string name="backup_list_adapter_local_contacts">Lokale kontakter</string>
     <string name="backup_settings">Indstillinger for backup</string>
     <string name="backup_title">Backup af kontakter og kalender</string>
+    <string name="battery_optimization_banner_message">Nextclouds batteriforbrug er begrænset, så Android kan forsinke automatisk upload. Med ubegrænset batteriforbrug fortsætter automatisk upload også i strømsparetilstand.</string>
     <string name="battery_optimization_close">Luk</string>
     <string name="battery_optimization_disable">Deaktiver</string>
+    <string name="battery_optimization_exempt_action">Tillad ubegrænset batteriforbrug</string>
     <string name="battery_optimization_message">Din enhed har muligvis batterioptimering aktiveret. Automatisk upload virker kun korrekt, hvis du undtager denne app fra den.</string>
     <string name="battery_optimization_title">Batterioptimering</string>
     <string name="bottom_navigation_menu_assistant_label">Assistent</string>
@@ -794,6 +797,9 @@
     <string name="player_media_controls_close_action_title">Luk</string>
     <string name="please_select_a_server">Vælg en server …</string>
     <string name="power_save_check_dialog_message">Hvis du deaktiverer tjek af strømsparetilstand, kan filer blive uploadet, når batteriet er lavt!</string>
+    <string name="power_saving_banner_ignored_by_app_message">Strømsparetilstand er slået til, men Nextcloud har ubegrænset batteriforbrug, så automatisk upload fortsætter.</string>
+    <string name="power_saving_banner_restricting_app_message">Strømsparetilstand er slået til, så automatisk upload er sat på pause, indtil du slår den fra.</string>
+    <string name="power_saving_settings_action">Åbn indstillinger for strømsparetilstand</string>
     <string name="pref_behaviour_entries_delete_file">slettet</string>
     <string name="pref_behaviour_entries_keep_file">beholdt i den oprindelige mappe</string>
     <string name="pref_behaviour_entries_move">flyttet til app-mappen</string>

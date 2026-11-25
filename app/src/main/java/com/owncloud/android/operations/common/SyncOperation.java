@@ -45,10 +45,10 @@ public abstract class SyncOperation extends RemoteOperation {
      * @return Result of the operation.
      */
     public RemoteOperationResult execute(Context context) {
-        if (storageManager.getUser().isAnonymous()) {
+        if (storageManager.user.isAnonymous()) {
             return new RemoteOperationResult(RemoteOperationResult.ResultCode.ACCOUNT_EXCEPTION);
         }
-        return super.execute(this.storageManager.getUser(), context);
+        return super.execute(this.storageManager.user, context);
     }
 
     public RemoteOperationResult execute(@NonNull NextcloudClient client) {

@@ -19,10 +19,10 @@ import com.nextcloud.utils.text.SpanFormatter
 import com.owncloud.android.R
 import com.owncloud.android.databinding.DialogAutoUploadPreferenceBinding
 import com.owncloud.android.datamodel.MediaFolderType
-import com.owncloud.android.datamodel.SyncedFolder
+import com.owncloud.android.datamodel.AutoUploadFolder
 import com.owncloud.android.ui.dialog.extensions.nameCollisionPolicyForDialogSelectionIndex
 import com.owncloud.android.ui.dialog.extensions.toDialogSelectionIndex
-import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable
+import com.owncloud.android.ui.dialog.parcel.AutoUploadFolderParcelable
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.FileUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -30,7 +30,7 @@ import java.io.File
 
 class AutoUploadForm(
     private val binding: DialogAutoUploadPreferenceBinding,
-    private val syncedFolder: SyncedFolderParcelable,
+    private val syncedFolder: AutoUploadFolderParcelable,
     private val clock: Clock,
     private val lifecycle: Lifecycle
 ) {
@@ -46,7 +46,7 @@ class AutoUploadForm(
         get() = syncedFolder.type != MediaFolderType.CUSTOM
 
     private val isNewCustomFolder: Boolean
-        get() = !isMediaFolder && syncedFolder.id == SyncedFolder.UNPERSISTED_ID
+        get() = !isMediaFolder && syncedFolder.id == AutoUploadFolder.UNPERSISTED_ID
 
     val canDelete: Boolean
         get() = !isMediaFolder && !isNewCustomFolder

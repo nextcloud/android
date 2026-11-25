@@ -65,8 +65,8 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ReceiveExternalFilesBinding;
 import com.owncloud.android.databinding.UploadFileDialogBinding;
+import com.owncloud.android.datamodel.AutoUploadFolderProvider;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -147,7 +147,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     @Inject AppPreferences preferences;
     @Inject LocalBroadcastManager localBroadcastManager;
-    @Inject SyncedFolderProvider syncedFolderProvider;
+    @Inject AutoUploadFolderProvider syncedFolderProvider;
 
     private AccountManager mAccountManager;
     private Stack<String> mParents = new Stack<>();
