@@ -12,14 +12,13 @@ import com.nextcloud.utils.extensions.sortAutoUploadFolderItems
 import com.owncloud.android.datamodel.MediaFolder
 import com.owncloud.android.datamodel.MediaFolderType
 import com.owncloud.android.datamodel.MediaProvider
-import com.owncloud.android.datamodel.SyncedFolder
-import com.owncloud.android.datamodel.SyncedFolderDisplayItem
-import com.owncloud.android.datamodel.SyncedFolderProvider
-import com.owncloud.android.utils.SyncedFolderUtils
+import com.owncloud.android.datamodel.AutoUploadFolder
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
+import com.owncloud.android.utils.AutoUploadFolderUtils
 import java.io.File
 
 class AutoUploadItemsLoader(
-    private val syncedFolderProvider: SyncedFolderProvider,
+    private val syncedFolderProvider: AutoUploadFolderProvider,
     private val itemFactory: AutoUploadDisplayItemFactory
 ) {
 
@@ -28,7 +27,7 @@ class AutoUploadItemsLoader(
         perFolderMediaItemLimit: Int,
         currentAccountName: String,
         newItemAccountName: String
-    ): List<SyncedFolderDisplayItem> {
+    ): List<AutoUploadFolder> {
         val mediaFolders = getMediaFolders(activity, perFolderMediaItemLimit)
         val syncedFolders = getAutoUploadFoldersAndDeleteObsolete(currentAccountName)
         val items = mergeFolderData(syncedFolders, mediaFolders, newItemAccountName)
@@ -41,7 +40,7 @@ class AutoUploadItemsLoader(
             MediaProvider.getVideoFolders(contentResolver, itemLimit, activity, false)
     }
 
-    private fun getAutoUploadFoldersAndDeleteObsolete(accountName: String): List<SyncedFolder> {
+    private fun getAutoUploadFoldersAndDeleteObsolete(accountName: String): List<AutoUploadFolder> {
         val (obsolete, active) = syncedFolderProvider.syncedFolders
             .filter { it.account == accountName }
             .partition { !File(it.localPath).exists() && !it.isEnabled }
@@ -51,10 +50,10 @@ class AutoUploadItemsLoader(
     }
 
     private fun mergeFolderData(
-        syncedFolders: List<SyncedFolder>,
+        syncedFolders: List<AutoUploadFolder>,
         mediaFolders: List<MediaFolder>,
         accountName: String
-    ): List<SyncedFolderDisplayItem> {
+    ): List<AutoUploadFolder> {
         val syncedFoldersByKey = syncedFolders.associateByTo(HashMap()) { folderKey(it.localPath, it.type) }
 
         val mediaItems = mediaFolders.mapNotNull { mediaFolder ->
@@ -67,13 +66,13 @@ class AutoUploadItemsLoader(
     }
 
     private fun createDisplayItem(
-        syncedFolder: SyncedFolder?,
+        syncedFolder: AutoUploadFolder?,
         mediaFolder: MediaFolder,
         accountName: String
-    ): SyncedFolderDisplayItem? = when {
+    ): AutoUploadFolder? = when {
         syncedFolder == null -> createQualifyingMediaFolderItem(mediaFolder, accountName)
 
-        !SyncedFolderUtils.isQualifyingMediaFolder(syncedFolder) -> null
+        !AutoUploadFolderUtils.isQualifyingMediaFolder(syncedFolder) -> null
 
         syncedFolder.type == MediaFolderType.CUSTOM -> itemFactory.createAutoUploadFolderWithoutMediaFolder(
             syncedFolder
@@ -82,11 +81,8 @@ class AutoUploadItemsLoader(
         else -> itemFactory.createAutoUploadFolder(syncedFolder, mediaFolder)
     }
 
-    private fun createQualifyingMediaFolderItem(
-        mediaFolder: MediaFolder,
-        accountName: String
-    ): SyncedFolderDisplayItem? {
-        if (!SyncedFolderUtils.isQualifyingMediaFolder(mediaFolder)) {
+    private fun createQualifyingMediaFolderItem(mediaFolder: MediaFolder, accountName: String): AutoUploadFolder? {
+        if (!AutoUploadFolderUtils.isQualifyingMediaFolder(mediaFolder)) {
             return null
         }
         return itemFactory.createAutoUploadFolderFromMediaFolder(mediaFolder, accountName)

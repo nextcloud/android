@@ -15,7 +15,7 @@ import com.nextcloud.client.database.dao.FileSystemDao
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.autoUpload.AutoUploadHelper
 import com.nextcloud.client.jobs.autoUpload.FileSystemRepository
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import io.mockk.clearAllMocks
 import io.mockk.mockk
@@ -42,7 +42,7 @@ class ContentObserverWorkTest {
     lateinit var context: Context
 
     @Mock
-    lateinit var folderProvider: SyncedFolderProvider
+    lateinit var folderProvider: AutoUploadFolderProvider
 
     @Mock
     lateinit var powerManagementService: PowerManagementService

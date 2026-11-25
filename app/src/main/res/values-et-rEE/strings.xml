@@ -138,6 +138,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">kuna ta on lugemisõigustega, siis on säilitatud algkaustas</string>
     <string name="auto_upload_low_battery_warning_info">Aku on üsna tühi, üleslaadimine võib kesta kauem</string>
     <string name="auto_upload_on_wifi">Laadi üles ainult mahupiiranguta WiFi võrgus</string>
+    <string name="auto_upload_overview_empty_folder">Kaust on tühi</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Kuna ülalpool asuv kaust kuulub sünkroonimisele, siis see kaust on juba kaasatud ning nii võivad tekkida topelt üleslaadimised</string>
     <string name="auto_upload_sync_now_action">Sünkrooni kohe nüüd</string>

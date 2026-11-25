@@ -725,8 +725,7 @@ public class SettingsActivity extends PreferenceActivity
         Preference twoWaySync = findPreference("internal_two_way_sync");
 
         twoWaySync.setOnPreferenceClickListener(preference -> {
-            Intent intent = new Intent(this, InternalTwoWaySyncActivity.class);
-            startActivity(intent);
+            startActivity(NavigatorActivity.Companion.intent(this, NavigatorScreen.InternalTwoWaySync.INSTANCE));
             return true;
         });
     }

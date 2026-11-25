@@ -18,7 +18,7 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.stopShimmer
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.SyncedFolderObserver
+import com.owncloud.android.datamodel.AutoUploadFolderObserver
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
@@ -34,7 +34,7 @@ class FolderThumbnailGenerator @Inject constructor(
         val overlayIconId = folder
             ?.takeIf { it.isFolder }
             ?.let { currentFolder ->
-                val isAutoUploadFolder = SyncedFolderObserver.isAutoUploadFolder(
+                val isAutoUploadFolder = AutoUploadFolderObserver.isAutoUploadFolder(
                     currentFolder,
                     accountManager.user
                 )
@@ -58,7 +58,7 @@ class FolderThumbnailGenerator @Inject constructor(
 
     fun getFolderIcon(folder: OCFile): LayerDrawable {
         val isAutoUploadFolder =
-            SyncedFolderObserver.isAutoUploadFolder(folder, accountManager.user)
+            AutoUploadFolderObserver.isAutoUploadFolder(folder, accountManager.user)
         val isDarkModeActive = preferences.isDarkModeEnabled()
 
         val overlayIconId = folder.getFileOverlayIconId(isAutoUploadFolder)
