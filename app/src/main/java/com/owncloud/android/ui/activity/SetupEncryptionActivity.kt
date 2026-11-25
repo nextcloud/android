@@ -45,7 +45,13 @@ class SetupEncryptionActivity : AppCompatActivity() {
             }
             finish()
         }
-        setupEncryptionDialogFragment.show(supportFragmentManager, "setup_encryption")
+
+        // Only show a new dialog the first time: on recreation the FragmentManager
+        // restores the existing dialog with its saved passphrase. Showing a fresh
+        // one here would generate a new passphrase and lose the one being copied.
+        if (savedInstanceState == null) {
+            setupEncryptionDialogFragment.show(supportFragmentManager, "setup_encryption")
+        }
     }
 
     private fun buildResultIntentFromBundle(result: Bundle): Intent = Intent().apply {
