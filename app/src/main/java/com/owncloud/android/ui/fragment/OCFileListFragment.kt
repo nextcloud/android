@@ -468,7 +468,8 @@ open class OCFileListFragment :
             currentDir,
             viewThemeUtils,
             editorUtils,
-            appScanOptionalFeature
+            appScanOptionalFeature,
+            arbitraryDataProvider
         ).run {
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
             behavior.skipCollapsed = true
