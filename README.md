@@ -27,7 +27,7 @@ SHA-1: 74aa1702e714941be481e1f7ce4a8f779c19dcea
 
 **The Android client for [Nextcloud](https://nextcloud.com). Easily work with your data on your Nextcloud.**
 
-![App screenshots](/doc/Nextcloud_Android_Screenshots.png "App screenshots")
+![App screenshots](/doc/App_Screenshots.png "App screenshots")
 
 ## Getting help :rescue\_worker\_helmet:
 
