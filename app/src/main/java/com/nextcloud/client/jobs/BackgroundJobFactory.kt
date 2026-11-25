@@ -39,7 +39,7 @@ import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.repository.ClientRepository
 import com.owncloud.android.datamodel.ArbitraryDataProvider
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.operations.factory.UploadFileOperationFactory
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -70,7 +70,7 @@ class BackgroundJobFactory @Inject constructor(
     private val viewThemeUtils: Provider<ViewThemeUtils>,
     private val localBroadcastManager: Provider<LocalBroadcastManager>,
     private val generatePdfUseCase: GeneratePDFUseCase,
-    private val syncedFolderProvider: SyncedFolderProvider,
+    private val syncedFolderProvider: AutoUploadFolderProvider,
     private val database: NextcloudDatabase,
     private val uploadFileOperationFactory: UploadFileOperationFactory,
     private val clientRepository: ClientRepository
@@ -142,7 +142,7 @@ class BackgroundJobFactory @Inject constructor(
         ContentObserverWork(
             context,
             workerParameters,
-            SyncedFolderProvider(contentResolver, preferences, clock),
+            AutoUploadFolderProvider(contentResolver, preferences, clock),
             powerManagementService,
             backgroundJobManager.get(),
             AutoUploadHelper(

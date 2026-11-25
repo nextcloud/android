@@ -20,8 +20,8 @@ import com.nextcloud.utils.text.DisplayTextFormatter
 import com.owncloud.android.databinding.UploaderListItemLayoutBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.SyncedFolderObserver
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolderObserver
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncThumbnailDrawable
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.ThumbnailGenerationTask
@@ -35,7 +35,7 @@ class ReceiveExternalFilesAdapter(
     private val user: User,
     private val storageManager: FileDataStorageManager,
     private val viewThemeUtils: ViewThemeUtils,
-    private val syncedFolderProvider: SyncedFolderProvider,
+    private val syncedFolderProvider: AutoUploadFolderProvider,
     private val onItemClickListener: OnItemClickListener
 ) : RecyclerView.Adapter<ReceiveExternalFilesAdapter.ReceiveExternalViewHolder>() {
 
@@ -114,7 +114,7 @@ class ReceiveExternalFilesAdapter(
     }
 
     private fun setupThumbnailForFolder(thumbnailImageView: ImageView, file: OCFile) {
-        val isAutoUploadFolder = SyncedFolderObserver.isAutoUploadFolder(file, user)
+        val isAutoUploadFolder = AutoUploadFolderObserver.isAutoUploadFolder(file, user)
         val isDarkModeActive = syncedFolderProvider.preferences.isDarkModeEnabled
         val overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder)
         val icon = MimeTypeUtil.getFolderIcon(isDarkModeActive, overlayIconId, context, viewThemeUtils)

@@ -27,7 +27,6 @@ import com.nextcloud.utils.AppConstants;
 import com.nextcloud.utils.autoRename.AutoRename;
 import com.nextcloud.utils.e2ee.E2ECounterHelper;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
-import com.nextcloud.utils.extensions.FileDataStorageManagerExtensionsKt;
 import com.nextcloud.utils.extensions.RemoteOperationResultExtensionsKt;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
@@ -508,7 +507,7 @@ public class UploadFileOperation extends SyncOperation {
 
         if (result.isSuccess() && getCapabilities().getVersion().isNewerOrEqual(NextcloudVersion.nextcloud_32)) {
             // Add the folders that the server creates automatically (from Nextcloud 32) to local db
-            FileDataStorageManagerExtensionsKt.createDirectoryTree(getStorageManager(), remoteParentPath, null);
+            getStorageManager().createDirectoryTree(remoteParentPath, null);
         }
 
         return result;

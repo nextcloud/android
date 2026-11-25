@@ -24,7 +24,7 @@ import com.nextcloud.client.database.dao.FileSystemDao
 import com.nextcloud.client.database.dao.OfflineOperationDao
 import com.nextcloud.client.database.dao.RecommendedFileDao
 import com.nextcloud.client.database.dao.ShareDao
-import com.nextcloud.client.database.dao.SyncedFolderDao
+import com.nextcloud.client.database.dao.AutoUploadFolderDao
 import com.nextcloud.client.database.dao.UploadDao
 import com.nextcloud.client.database.entity.ArbitraryDataEntity
 import com.nextcloud.client.database.entity.AssistantEntity
@@ -35,7 +35,7 @@ import com.nextcloud.client.database.entity.FilesystemEntity
 import com.nextcloud.client.database.entity.OfflineOperationEntity
 import com.nextcloud.client.database.entity.RecommendedFileEntity
 import com.nextcloud.client.database.entity.ShareEntity
-import com.nextcloud.client.database.entity.SyncedFolderEntity
+import com.nextcloud.client.database.entity.AutoUploadFolderEntity
 import com.nextcloud.client.database.entity.UploadEntity
 import com.nextcloud.client.database.entity.VirtualEntity
 import com.nextcloud.client.database.migrations.DatabaseMigrationUtil
@@ -57,7 +57,7 @@ import com.owncloud.android.db.ProviderMeta
         FileEntity::class,
         FilesystemEntity::class,
         ShareEntity::class,
-        SyncedFolderEntity::class,
+        AutoUploadFolderEntity::class,
         UploadEntity::class,
         VirtualEntity::class,
         OfflineOperationEntity::class,
@@ -118,7 +118,7 @@ abstract class NextcloudDatabase : RoomDatabase() {
     abstract fun uploadDao(): UploadDao
     abstract fun recommendedFileDao(): RecommendedFileDao
     abstract fun fileSystemDao(): FileSystemDao
-    abstract fun syncedFolderDao(): SyncedFolderDao
+    abstract fun autoUploadFolderDao(): AutoUploadFolderDao
     abstract fun assistantDao(): AssistantDao
     abstract fun shareDao(): ShareDao
     abstract fun capabilityDao(): CapabilityDao

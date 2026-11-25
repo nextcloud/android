@@ -8,7 +8,7 @@
 package com.owncloud.android.utils
 
 import com.owncloud.android.datamodel.MediaFolderType
-import com.owncloud.android.datamodel.SyncedFolder
+import com.owncloud.android.datamodel.AutoUploadFolder
 import com.owncloud.android.files.services.NameCollisionPolicy
 import io.mockk.every
 import io.mockk.mockkStatic
@@ -56,7 +56,8 @@ class AutoUploadFileMatchingTests {
     }
 
     // region Helper
-    private fun createSyncedFolder(localPath: String?, type: MediaFolderType): SyncedFolder = SyncedFolder(
+    private fun createSyncedFolder(localPath: String?, type: MediaFolderType): AutoUploadFolder = AutoUploadFolder(
+        AutoUploadFolder.UNPERSISTED_ID,
         localPath,
         "/remote/path",
         false,

@@ -22,8 +22,8 @@ import com.nextcloud.utils.HumanReadableFormatter
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ShareActivityBinding
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.SyncedFolderObserver
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolderObserver
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -45,7 +45,7 @@ class ShareActivity :
     Injectable {
 
     @Inject
-    lateinit var syncedFolderProvider: SyncedFolderProvider
+    lateinit var syncedFolderProvider: AutoUploadFolderProvider
 
     @Inject
     lateinit var thumbnailGenerator: ThumbnailGenerator
@@ -128,7 +128,7 @@ class ShareActivity :
 
     private fun setupFileIcon(binding: ShareActivityBinding, file: OCFile, user: User) {
         if (file.isFolder) {
-            val isAutoUploadFolder = SyncedFolderObserver.isAutoUploadFolder(file, user)
+            val isAutoUploadFolder = AutoUploadFolderObserver.isAutoUploadFolder(file, user)
             val overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder)
             binding.shareFileIcon.setImageDrawable(
                 MimeTypeUtil.getFolderIcon(

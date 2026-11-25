@@ -21,7 +21,7 @@ import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.databinding.PowerSettingsBannersBinding
-import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.utils.FilesSyncHelper
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.CoroutineScope
@@ -32,7 +32,7 @@ import kotlinx.coroutines.withContext
 class PowerSettingsBanners(
     private val context: Context,
     private val powerManagementService: PowerManagementService,
-    private val syncedFolderProvider: SyncedFolderProvider,
+    private val syncedFolderProvider: AutoUploadFolderProvider,
     private val backgroundJobManager: BackgroundJobManager,
     private val scope: CoroutineScope,
     private val viewThemeUtils: ViewThemeUtils

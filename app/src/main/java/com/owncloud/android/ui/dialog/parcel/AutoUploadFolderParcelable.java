@@ -12,15 +12,14 @@ import android.os.Parcelable;
 
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.preferences.SubFolderRule;
+import com.owncloud.android.datamodel.AutoUploadFolder;
 import com.owncloud.android.datamodel.MediaFolderType;
-import com.owncloud.android.datamodel.SyncedFolder;
-import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 
 /**
- * Parcelable for {@link SyncedFolderDisplayItem} objects to transport them from/to dialog fragments.
+ * Parcelable for {@link AutoUploadFolder} objects to transport them from/to dialog fragments.
  */
-public class SyncedFolderParcelable implements Parcelable {
+public class AutoUploadFolderParcelable implements Parcelable {
     private String folderName;
     private String localPath;
     private String remotePath;
@@ -28,7 +27,7 @@ public class SyncedFolderParcelable implements Parcelable {
     private boolean chargingOnly = false;
     private boolean existing = true;
     private boolean enabled = false;
-    private long enabledTimestampMs = SyncedFolder.EMPTY_ENABLED_TIMESTAMP_MS;
+    private long enabledTimestampMs = AutoUploadFolder.EMPTY_ENABLED_TIMESTAMP_MS;
     private boolean subfolderByDate = false;
     private Integer uploadAction;
     private NameCollisionPolicy nameCollisionPolicy = NameCollisionPolicy.ASK_USER;
@@ -38,31 +37,31 @@ public class SyncedFolderParcelable implements Parcelable {
     private String account;
     private SubFolderRule subFolderRule;
     private boolean excludeHidden;
-    private long lastScanTimestampMs = SyncedFolder.NOT_SCANNED_YET;
+    private long lastScanTimestampMs = AutoUploadFolder.NOT_SCANNED_YET;
 
-    public SyncedFolderParcelable(SyncedFolderDisplayItem syncedFolderDisplayItem) {
-        id = syncedFolderDisplayItem.getId();
-        folderName = syncedFolderDisplayItem.getFolderName();
-        localPath = syncedFolderDisplayItem.getLocalPath();
-        remotePath = syncedFolderDisplayItem.getRemotePath();
-        wifiOnly = syncedFolderDisplayItem.isWifiOnly();
-        chargingOnly = syncedFolderDisplayItem.isChargingOnly();
-        existing = syncedFolderDisplayItem.alsoUploadExistingFiles();
-        enabled = syncedFolderDisplayItem.isEnabled();
-        enabledTimestampMs = syncedFolderDisplayItem.getEnabledTimestampMs();
-        subfolderByDate = syncedFolderDisplayItem.isSubfolderByDate();
-        type = syncedFolderDisplayItem.getType();
-        account = syncedFolderDisplayItem.getAccount();
-        uploadAction = syncedFolderDisplayItem.getUploadAction();
+    public AutoUploadFolderParcelable(AutoUploadFolder autoUploadFolder) {
+        id = autoUploadFolder.getId();
+        folderName = autoUploadFolder.getFolderName();
+        localPath = autoUploadFolder.getLocalPath();
+        remotePath = autoUploadFolder.getRemotePath();
+        wifiOnly = autoUploadFolder.isWifiOnly();
+        chargingOnly = autoUploadFolder.isChargingOnly();
+        existing = autoUploadFolder.getAlsoUploadExistingFiles();
+        enabled = autoUploadFolder.isEnabled();
+        enabledTimestampMs = autoUploadFolder.getEnabledTimestampMs();
+        subfolderByDate = autoUploadFolder.isSubfolderByDate();
+        type = autoUploadFolder.getType();
+        account = autoUploadFolder.getAccount();
+        uploadAction = autoUploadFolder.getUploadAction();
         nameCollisionPolicy = NameCollisionPolicy.deserialize(
-            syncedFolderDisplayItem.getNameCollisionPolicyInt());
-        hidden = syncedFolderDisplayItem.isHidden();
-        subFolderRule = syncedFolderDisplayItem.getSubfolderRule();
-        excludeHidden = syncedFolderDisplayItem.isExcludeHidden();
-        lastScanTimestampMs = syncedFolderDisplayItem.getLastScanTimestampMs();
+            autoUploadFolder.getNameCollisionPolicyInt());
+        hidden = autoUploadFolder.isHidden();
+        subFolderRule = autoUploadFolder.getSubfolderRule();
+        excludeHidden = autoUploadFolder.isExcludeHidden();
+        lastScanTimestampMs = autoUploadFolder.getLastScanTimestampMs();
     }
 
-    private SyncedFolderParcelable(Parcel read) {
+    private AutoUploadFolderParcelable(Parcel read) {
         id = read.readLong();
         folderName = read.readString();
         localPath = read.readString();
@@ -105,17 +104,17 @@ public class SyncedFolderParcelable implements Parcelable {
         dest.writeLong(lastScanTimestampMs);
     }
 
-    public static final Creator<SyncedFolderParcelable> CREATOR =
+    public static final Creator<AutoUploadFolderParcelable> CREATOR =
             new Creator<>() {
 
                 @Override
-                public SyncedFolderParcelable createFromParcel(Parcel source) {
-                    return new SyncedFolderParcelable(source);
+                public AutoUploadFolderParcelable createFromParcel(Parcel source) {
+                    return new AutoUploadFolderParcelable(source);
                 }
 
                 @Override
-                public SyncedFolderParcelable[] newArray(int size) {
-                    return new SyncedFolderParcelable[size];
+                public AutoUploadFolderParcelable[] newArray(int size) {
+                    return new AutoUploadFolderParcelable[size];
                 }
             };
 
@@ -238,7 +237,7 @@ public class SyncedFolderParcelable implements Parcelable {
 
     public void setEnabled(boolean enabled, long timestampMs) {
         this.enabled = enabled;
-        this.enabledTimestampMs = enabled ? timestampMs : SyncedFolder.EMPTY_ENABLED_TIMESTAMP_MS;
+        this.enabledTimestampMs = enabled ? timestampMs : AutoUploadFolder.EMPTY_ENABLED_TIMESTAMP_MS;
     }
 
     public void setSubfolderByDate(boolean subfolderByDate) {

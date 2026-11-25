@@ -10,15 +10,15 @@ package com.owncloud.android.utils
 import com.nextcloud.utils.extensions.toFile
 import com.owncloud.android.datamodel.MediaFolder
 import com.owncloud.android.datamodel.MediaFolderType
-import com.owncloud.android.datamodel.SyncedFolder
+import com.owncloud.android.datamodel.AutoUploadFolder
 import com.owncloud.android.lib.common.utils.Log_OC
 import java.io.File
 
 /**
  * Utility class with methods for processing synced folders.
  */
-object SyncedFolderUtils {
-    private const val TAG = "SyncedFolderUtils"
+object AutoUploadFolderUtils {
+    private const val TAG = "AutoUploadFolderUtils"
 
     private val DISQUALIFIED_MEDIA_DETECTION_SOURCE = listOf(
         "cover.jpg",
@@ -70,7 +70,7 @@ object SyncedFolderUtils {
      * @param syncedFolder synced folder to analyse
      * @return `true` if it qualifies as a media folder else `false`
      */
-    fun isQualifyingMediaFolder(syncedFolder: SyncedFolder?): Boolean {
+    fun isQualifyingMediaFolder(syncedFolder: AutoUploadFolder?): Boolean {
         if (syncedFolder == null) {
             return false
         }

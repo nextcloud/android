@@ -11,7 +11,7 @@ import android.provider.MediaStore
 import androidx.core.net.toUri
 import com.nextcloud.utils.extensions.toLocalPath
 import com.owncloud.android.datamodel.MediaFolderType
-import com.owncloud.android.datamodel.SyncedFolder
+import com.owncloud.android.datamodel.AutoUploadFolder
 import com.owncloud.android.lib.common.utils.Log_OC
 import java.io.IOException
 import java.nio.file.AccessDeniedException
@@ -30,7 +30,7 @@ class AutoUploadHelper(private val repository: FileSystemRepository) {
         private const val MAX_DEPTH = 100
     }
 
-    fun insertEntries(folder: SyncedFolder) {
+    fun insertEntries(folder: AutoUploadFolder) {
         when (folder.type) {
             MediaFolderType.IMAGE -> {
                 repository.insertFromUri(MediaStore.Images.Media.INTERNAL_CONTENT_URI, folder)
@@ -59,7 +59,7 @@ class AutoUploadHelper(private val repository: FileSystemRepository) {
      * {@link ContentObserverWork##checkAndTriggerAutoUpload()}.
      * @return {@code true} if all changed content URIs were successfully stored; {@code false} otherwise.
      */
-    fun insertChangedEntries(syncedFolder: SyncedFolder, contentUris: Array<String>?): Boolean {
+    fun insertChangedEntries(syncedFolder: AutoUploadFolder, contentUris: Array<String>?): Boolean {
         contentUris?.forEach { uriString ->
             try {
                 val uri = uriString.toUri()
@@ -75,7 +75,7 @@ class AutoUploadHelper(private val repository: FileSystemRepository) {
         return true
     }
 
-    fun insertCustomFolderIntoDB(folder: SyncedFolder): Int {
+    fun insertCustomFolderIntoDB(folder: AutoUploadFolder): Int {
         val path = Paths.get(folder.localPath)
 
         if (!Files.exists(path)) {
