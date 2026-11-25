@@ -12,7 +12,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.view.isEmpty
 import androidx.core.view.isNotEmpty
@@ -36,12 +35,10 @@ import com.owncloud.android.databinding.FileListActionsBottomSheetCreatorBoxBind
 import com.owncloud.android.databinding.FileListActionsBottomSheetCreatorRowBinding
 import com.owncloud.android.databinding.FileListActionsBottomSheetFragmentBinding
 import com.owncloud.android.datamodel.ArbitraryDataProvider
-import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.DirectEditing
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.utils.MimeType
-import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
@@ -67,7 +64,6 @@ class OCFileListBottomSheetDialog(
     companion object {
         // Number of items to show in document creators overview
         private const val CREATORS_OVERVIEW_ITEMS = 3
-        private val DIRECT_EDITING_CREATORS_OFFICE_IDS = arrayOf("document", "spreadsheet", "presentation")
     }
 
     private val templateActions = listOf(
@@ -231,28 +227,10 @@ class OCFileListBottomSheetDialog(
             ?.creators
             ?.values
             ?.forEach { creator ->
-                val buttonText = creator.name
-                creatorsActions.add(
-                    CreatorAction(
-                        text = buttonText.replaceFirstChar(Char::titlecase),
-                        icon = MimeTypeUtil.getFileTypeIcon(
-                            creator.mimetype,
-                            creator.extension,
-                            context,
-                            viewThemeUtils
-                        ),
-                        action = {
-                            actions.showTemplate(creator, buttonText)
-                            dismiss()
-                        },
-                        type = if (creator.id in DIRECT_EDITING_CREATORS_OFFICE_IDS) {
-                            CreatorType.Office
-                        } else {
-                            CreatorType.Other
-                        }
-
-                    )
-                )
+                CreatorAction.getAction(context, viewThemeUtils, creator, action = {
+                    actions.showTemplate(creator, creator.name)
+                    dismiss()
+                })
             }
         return creatorsActions
     }
