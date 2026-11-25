@@ -13,1317 +13,269 @@
  * SPDX-FileCopyrightText: 2011-2015 Bartosz Przybylski <bart.p.pl@gmail.com>
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-package com.owncloud.android.ui.activity;
+package com.owncloud.android.ui.activity
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.res.Configuration;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.preference.Preference;
-import android.preference.PreferenceActivity;
-import android.preference.PreferenceCategory;
-import android.preference.PreferenceManager;
-import android.preference.PreferenceScreen;
-import android.preference.SwitchPreference;
-import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.URLUtil;
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.content.res.Configuration
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.preference.PreferenceActivity
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import androidx.annotation.LayoutRes
+import androidx.annotation.VisibleForTesting
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import com.nextcloud.client.account.User
+import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.repository.ClientRepository
+import com.nextcloud.utils.SnackbarUtil
+import com.owncloud.android.R
+import com.owncloud.android.datamodel.ArbitraryDataProvider
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.ui.activity.drawer.DrawerActivity
+import com.owncloud.android.ui.activity.settings.SettingsRequestCode
+import com.owncloud.android.ui.activity.settings.about.AboutSettingsCategory
+import com.owncloud.android.ui.activity.settings.autoupload.AutoUploadSettingsCategory
+import com.owncloud.android.ui.activity.settings.details.DetailsSettingsCategory
+import com.owncloud.android.ui.activity.settings.dev.DevSettingsCategory
+import com.owncloud.android.ui.activity.settings.e2e.E2ESettings
+import com.owncloud.android.ui.activity.settings.files.FilesSettingsCategory
+import com.owncloud.android.ui.activity.settings.general.GeneralSettingsCategory
+import com.owncloud.android.ui.activity.settings.lock.AppLockSettings
+import com.owncloud.android.ui.activity.settings.more.DavX5Launcher
+import com.owncloud.android.ui.activity.settings.more.MoreSettingsCategory
+import com.owncloud.android.ui.activity.settings.sync.SyncSettingsCategory
+import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment
+import com.owncloud.android.ui.model.ExtendedSettingsActivityDialog
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
+import javax.inject.Inject
+import kotlin.time.Duration.Companion.seconds
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.nextcloud.client.account.User;
-import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.etm.EtmActivity;
-import com.nextcloud.client.logger.ui.LogsActivity;
-import com.nextcloud.client.network.ClientFactory;
-import com.nextcloud.client.network.ConnectivityService;
-import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.client.preferences.AppPreferencesImpl;
-import com.nextcloud.client.preferences.DarkMode;
-import com.nextcloud.client.utils.IntentUtil;
-import com.nextcloud.utils.SnackbarUtil;
-import com.nextcloud.utils.extensions.ContextExtensionsKt;
-import com.nextcloud.utils.mdm.MDMConfig;
-import com.owncloud.android.BuildConfig;
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.authentication.AuthenticatorActivity;
-import com.owncloud.android.datamodel.ArbitraryDataProvider;
-import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
-import com.owncloud.android.datamodel.ExternalLinksProvider;
-import com.owncloud.android.lib.common.ExternalLink;
-import com.owncloud.android.lib.common.ExternalLinkType;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.operations.e2e.E2ECertificateRenewalResult;
-import com.owncloud.android.operations.e2e.E2ECertificateRenewalService;
-import com.owncloud.android.operations.e2e.E2ECertificateValidity;
-import com.owncloud.android.operations.e2e.E2EDeletionService;
-import com.owncloud.android.providers.documentstorage.DocumentsStorageProvider;
-import com.owncloud.android.ui.ThemeableSwitchPreference;
-import com.owncloud.android.ui.activity.fileactivity.DevVersionChecker;
-import com.owncloud.android.ui.asynctasks.LoadingVersionNumberTask;
-import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment;
-import com.owncloud.android.ui.helpers.FileOperationsHelper;
-import com.owncloud.android.ui.model.ExtendedSettingsActivityDialog;
-import com.owncloud.android.ui.navigation.NavigatorActivity;
-import com.owncloud.android.ui.navigation.NavigatorScreen;
-import com.owncloud.android.utils.ClipboardUtil;
-import com.owncloud.android.utils.DeviceCredentialUtils;
-import com.owncloud.android.utils.EncryptionUtils;
-import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.theme.CapabilityUtils;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import java.text.DateFormat;
-import java.util.Objects;
-
-import javax.inject.Inject;
-
-import androidx.annotation.LayoutRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.VisibleForTesting;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
-import kotlin.Unit;
-
-import static com.owncloud.android.ui.activity.drawer.DrawerActivity.REQ_ALL_FILES_ACCESS;
-
-/**
- * An Activity that allows the user to change the application's settings.
- * It proxies the necessary calls via {@link androidx.appcompat.app.AppCompatDelegate} to be used with AppCompat.
- */
-public class SettingsActivity extends PreferenceActivity
-    implements StorageMigration.StorageMigrationProgressListener,
-    LoadingVersionNumberTask.VersionDevInterface,
+class SettingsActivity :
+    PreferenceActivity(),
     Injectable {
 
-    private static final String TAG = SettingsActivity.class.getSimpleName();
+    @Inject
+    lateinit var arbitraryDataProvider: ArbitraryDataProvider
 
-    public static final String PREFERENCE_LOCK = "lock";
+    @Inject
+    lateinit var preferences: AppPreferences
 
-    public static final String LOCK_NONE = "none";
-    public static final String LOCK_PASSCODE = "passcode";
-    public static final String LOCK_DEVICE_CREDENTIALS = "device_credentials";
+    @Inject
+    lateinit var accountManager: UserAccountManager
 
+    @Inject
+    lateinit var clientFactory: ClientFactory
 
-    public static final String PREFERENCE_SHOW_MEDIA_SCAN_NOTIFICATIONS = "show_media_scan_notifications";
+    @Inject
+    lateinit var clientRepository: ClientRepository
 
-    private static final int ACTION_REQUEST_PASSCODE = 5;
-    private static final int ACTION_CONFIRM_PASSCODE = 6;
-    private static final int ACTION_CONFIRM_DEVICE_CREDENTIALS = 7;
-    private static final int ACTION_REQUEST_CODE_DAVDROID_SETUP = 10;
-    private static final int ACTION_SHOW_MNEMONIC = 11;
-    private static final int ACTION_E2E = 12;
-    private static final int TRUE_VALUE = 1;
+    @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
 
-    private static final String DAV_PATH = "/remote.php/dav";
+    @Inject
+    lateinit var connectivityService: ConnectivityService
 
-    public static final String SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI = "SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI";
+    private val delegate by lazy(LazyThreadSafetyMode.NONE) { AppCompatDelegate.create(this, null) }
+    private val scope = MainScope()
+    private val user: User by lazy { accountManager.user }
 
-    private Uri serverBaseUri;
-
-    private Preference lock;
-    private ThemeableSwitchPreference showHiddenFiles;
-    private ThemeableSwitchPreference showEcosystemApps;
-    private AppCompatDelegate delegate;
-
-    private  Preference prefDataLoc;
-    private String storagePath;
-    private String pendingLock;
-
-    private E2EDeletionService e2EDeletionService;
-    private E2ECertificateRenewalService e2eCertificateRenewalService;
-
-    private User user;
-    @Inject ArbitraryDataProvider arbitraryDataProvider;
-    @Inject AppPreferences preferences;
-    @Inject UserAccountManager accountManager;
-    @Inject ClientFactory clientFactory;
-    @Inject ViewThemeUtils viewThemeUtils;
-    @Inject ConnectivityService connectivityService;
-
-    @SuppressWarnings("deprecation")
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        getDelegate().installViewFactory();
-        getDelegate().onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.preferences);
-        getListView().setFitsSystemWindows(true);
-        setupActionBar();
-
-        // Register context menu for list of preferences.
-        registerForContextMenu(getListView());
-
-        String appVersion = getAppVersion();
-        PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("preference_screen");
-
-        user = accountManager.getUser();
-        e2EDeletionService = new E2EDeletionService(clientFactory);
-        e2eCertificateRenewalService = new E2ECertificateRenewalService(clientFactory, arbitraryDataProvider);
-
-        // retrieve user's base uri
-        setupBaseUri();
-
-        // General
-        setupGeneralCategory();
-
-        // Synced folders
-        setupAutoUploadCategory(preferenceScreen);
-
-        // Files
-        setupFilesCategory();
-
-        // Details
-        setupDetailsCategory(preferenceScreen);
-
-        // Sync
-        setupSyncCategory();
-
-        // More
-        setupMoreCategory();
-
-        // About
-        setupAboutCategory(appVersion);
-
-        // Dev
-        setupDevCategory(preferenceScreen);
-
-        // workaround for mismatched color when app dark mode and system dark mode don't agree
-        setListBackground();
-        showPasscodeDialogIfEnforceAppProtection();
+    private val generalCategory by lazy { GeneralSettingsCategory(this, user, preferences, viewThemeUtils) }
+    private val syncCategory by lazy { SyncSettingsCategory(this, viewThemeUtils) }
+    private val appLockSettings by lazy { AppLockSettings(this, preferences) }
+    private val davX5Launcher by lazy { DavX5Launcher(this, user, clientRepository, scope) }
+    private val e2eSettings by lazy {
+        E2ESettings(this, user, arbitraryDataProvider, connectivityService, clientFactory)
     }
 
-    public static boolean isBackPressed = false;
+    @Suppress("DEPRECATION")
+    public override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        delegate.installViewFactory()
+        delegate.onCreate(savedInstanceState)
+        addPreferencesFromResource(R.xml.preferences)
+        listView.fitsSystemWindows = true
+        setupActionBar()
+        registerForContextMenu(listView)
+
+        davX5Launcher.loadServerBaseUri()
+        setupPreferenceCategories()
+
+        listView.setBackgroundColor(ContextCompat.getColor(this, R.color.bg_default))
+        appLockSettings.showPasscodeDialogIfEnforceAppProtection()
+    }
+
+    @Suppress("DEPRECATION")
+    private fun setupPreferenceCategories() {
+        val screen = preferenceScreen
+
+        generalCategory.setup()
+        AutoUploadSettingsCategory(this, user, arbitraryDataProvider, viewThemeUtils).setup(screen)
+        FilesSettingsCategory(this, preferences, viewThemeUtils).setup()
+        DetailsSettingsCategory(this, preferences, viewThemeUtils, appLockSettings).setup(screen)
+        syncCategory.setup()
+        MoreSettingsCategory(this, viewThemeUtils, e2eSettings, davX5Launcher).setup()
+        AboutSettingsCategory(this, viewThemeUtils).setup()
+        DevSettingsCategory(this, viewThemeUtils).setup(screen)
+    }
+
+    private fun setupActionBar() {
+        val actionBar = delegate.supportActionBar ?: return
+
+        viewThemeUtils.platform.themeStatusBar(this)
+        actionBar.setDisplayHomeAsUpEnabled(true)
+        actionBar.setDisplayShowTitleEnabled(true)
+
+        val backIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_back, null) ?: return
+
+        viewThemeUtils.androidx.themeActionBar(this, actionBar, getString(R.string.actionbar_settings), backIcon)
+    }
 
     @SuppressLint("GestureBackNavigation")
-    @Override
-    public void onBackPressed() {
-        isBackPressed = true;
-        super.onBackPressed();
-        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            Log_OC.d(TAG, "User returned from settings activity, reset onBackPressed flag.");
-            isBackPressed = false;
-        }, 2000);
+    override fun onBackPressed() {
+        isBackPressed = true
+        super.onBackPressed()
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            Log_OC.d(TAG, "User returned from settings activity, reset onBackPressed flag.")
+            isBackPressed = false
+        }, BACK_PRESSED_RESET_DELAY.inWholeMilliseconds)
     }
 
-    private void showPasscodeDialogIfEnforceAppProtection() {
-        if (MDMConfig.INSTANCE.enforceProtection(this) && Objects.equals(preferences.getLockPreference(), SettingsActivity.LOCK_NONE) && lock != null) {
-            Intent intent = ExtendedSettingsActivity.Companion.createIntent(this, ExtendedSettingsActivityDialog.AppPasscode, false);
-            startActivityForResult(intent, ExtendedSettingsActivityDialog.AppPasscode.getResultId());
-        }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        finish()
+
+        return super.onOptionsItemSelected(item)
     }
 
-    private void setupDevCategory(PreferenceScreen preferenceScreen) {
-        // Dev category
-        PreferenceCategory preferenceCategoryDev = (PreferenceCategory) findPreference("dev_category");
-
-        if (getResources().getBoolean(R.bool.is_beta)) {
-            viewThemeUtils.files.themePreferenceCategory(preferenceCategoryDev);
-
-            /* Link to dev apks */
-            Preference pDevLink = findPreference("dev_link");
-            if (pDevLink != null) {
-                if (getResources().getBoolean(R.bool.dev_version_direct_download_enabled)) {
-                    pDevLink.setOnPreferenceClickListener(preference -> {
-                        DevVersionChecker.checkForNewDevVersion(this, getApplicationContext());
-                        return true;
-                    });
-                } else {
-                    preferenceCategoryDev.removePreference(pDevLink);
-                }
-            }
-
-            /* Link to dev changelog */
-            Preference pChangelogLink = findPreference("changelog_link");
-            if (pChangelogLink != null) {
-                pChangelogLink.setOnPreferenceClickListener(preference -> {
-                    IntentUtil.startLinkIntent(this, R.string.dev_changelog);
-                    return true;
-                });
-            }
-
-            /* Engineering Test Mode */
-            Preference pEtm = findPreference("etm");
-            if (pEtm != null) {
-                pEtm.setOnPreferenceClickListener(preference -> {
-                    EtmActivity.launch(this);
-                    return true;
-                });
-            }
-        } else {
-            preferenceScreen.removePreference(preferenceCategoryDev);
-        }
-    }
-
-    private void setupAboutCategory(String appVersion) {
-        final PreferenceCategory preferenceCategoryAbout = (PreferenceCategory) findPreference("about");
-        viewThemeUtils.files.themePreferenceCategory(preferenceCategoryAbout);
-
-        /* About App */
-        Preference pAboutApp = findPreference("about_app");
-        if (pAboutApp != null) {
-            pAboutApp.setTitle(String.format(getString(R.string.about_android), getString(R.string.app_name)));
-
-            String buildNumber = getResources().getString(R.string.buildNumber);
-
-            if (TextUtils.isEmpty(buildNumber)) {
-                pAboutApp.setSummary(String.format(getString(R.string.about_version), appVersion));
-            } else {
-                pAboutApp.setSummary(String.format(getString(R.string.about_version_with_build),
-                                                   appVersion,
-                                                   buildNumber));
-            }
-        }
-
-        // license
-        boolean licenseEnabled = getResources().getBoolean(R.bool.license_enabled);
-        Preference licensePreference = findPreference("license");
-        if (licensePreference != null) {
-            if (licenseEnabled) {
-                licensePreference.setSummary(R.string.prefs_gpl_v2);
-                licensePreference.setOnPreferenceClickListener(preference -> {
-                    IntentUtil.startLinkIntent(this, R.string.license_url);
-                    return true;
-                });
-            } else {
-                preferenceCategoryAbout.removePreference(licensePreference);
-            }
-        }
-
-        // privacy
-        boolean privacyEnabled = getResources().getBoolean(R.bool.privacy_enabled);
-        Preference privacyPreference = findPreference("privacy");
-        if (privacyPreference != null) {
-            if (privacyEnabled && URLUtil.isValidUrl(getString(R.string.privacy_url))) {
-                privacyPreference.setOnPreferenceClickListener(preference -> {
-                    try {
-                        Uri privacyUrl = Uri.parse(getString(R.string.privacy_url));
-                        String mimeType = MimeTypeUtil.getBestMimeTypeByFilename(privacyUrl.getLastPathSegment());
-
-                        Intent intent;
-                        if (MimeTypeUtil.isPDF(mimeType)) {
-                            intent = new Intent(Intent.ACTION_VIEW, privacyUrl);
-                            IntentUtil.startIntentIfAppAvailable(intent, this, R.string.no_pdf_app_available);
-                        } else {
-                            intent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
-                            intent.putExtra(ExternalSiteWebView.EXTRA_TITLE,
-                                            getResources().getString(R.string.privacy));
-                            intent.putExtra(ExternalSiteWebView.EXTRA_URL, privacyUrl.toString());
-                            intent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
-                        }
-
-                        startActivity(intent);
-                    } catch (Exception e) {
-                        Log_OC.e(TAG, "Could not parse privacy url");
-                        preferenceCategoryAbout.removePreference(privacyPreference);
-                    }
-                    return true;
-                });
-            } else {
-                preferenceCategoryAbout.removePreference(privacyPreference);
-            }
-        }
-
-        // source code
-        boolean sourcecodeEnabled = getResources().getBoolean(R.bool.sourcecode_enabled);
-        Preference sourcecodePreference = findPreference("sourcecode");
-        if (sourcecodePreference != null) {
-            if (sourcecodeEnabled) {
-                sourcecodePreference.setOnPreferenceClickListener(preference -> {
-                    IntentUtil.startLinkIntent(this, R.string.sourcecode_url);
-                    return true;
-                });
-            } else {
-                preferenceCategoryAbout.removePreference(sourcecodePreference);
-            }
-        }
-    }
-
-    private void setupSyncCategory() {
-        final PreferenceCategory preferenceCategorySync = (PreferenceCategory) findPreference("sync");
-        viewThemeUtils.files.themePreferenceCategory(preferenceCategorySync);
-
-        setupAutoUploadPreference(preferenceCategorySync);
-        setupInternalTwoWaySyncPreference();
-        setupAllFilesAccessPreference(preferenceCategorySync);
-    }
-
-    private void setupMoreCategory() {
-        final PreferenceCategory preferenceCategoryMore = (PreferenceCategory) findPreference("more");
-        viewThemeUtils.files.themePreferenceCategory(preferenceCategoryMore);
-
-        setupCalendarPreference(preferenceCategoryMore);
-
-        setupBackupPreference();
-
-        setupE2EPreference(preferenceCategoryMore);
-
-        setupE2EKeysExist(preferenceCategoryMore);
-
-        setupE2EMnemonicPreference(preferenceCategoryMore);
-
-        removeE2E(preferenceCategoryMore);
-
-        removeE2EFilesAndKeys(preferenceCategoryMore);
-
-        setupRenewE2ECertificate(preferenceCategoryMore);
-
-        setupHelpPreference(preferenceCategoryMore);
-
-        setupRecommendPreference(preferenceCategoryMore);
-
-        setupLoggingPreference(preferenceCategoryMore);
-
-        setupImprintPreference(preferenceCategoryMore);
-
-        loadExternalSettingLinks(preferenceCategoryMore);
-    }
-
-    private void setupImprintPreference(PreferenceCategory preferenceCategoryMore) {
-        boolean imprintEnabled = getResources().getBoolean(R.bool.imprint_enabled);
-        Preference pImprint = findPreference("imprint");
-        if (pImprint != null) {
-            if (imprintEnabled) {
-                pImprint.setOnPreferenceClickListener(preference -> {
-                    String imprintWeb = getString(R.string.url_imprint);
-
-                    if (!imprintWeb.isEmpty()) {
-                        IntentUtil.startLinkIntent(this, imprintWeb);
-                    }
-                    //ImprintDialog.newInstance(true).show(preference.get, "IMPRINT_DIALOG");
-                    return true;
-                });
-            } else {
-                preferenceCategoryMore.removePreference(pImprint);
-            }
-        }
-    }
-
-    private void setupLoggingPreference(PreferenceCategory preferenceCategoryMore) {
-        Preference pLogger = findPreference("logger");
-        if (pLogger != null) {
-            if (MDMConfig.INSTANCE.isLogEnabled(this)) {
-                pLogger.setOnPreferenceClickListener(preference -> {
-                    Intent loggerIntent = new Intent(getApplicationContext(), LogsActivity.class);
-                    startActivity(loggerIntent);
-
-                    return true;
-                });
-            } else {
-                preferenceCategoryMore.removePreference(pLogger);
-            }
-        }
-    }
-
-
-    private void setupRecommendPreference(PreferenceCategory preferenceCategoryMore) {
-        boolean recommendEnabled = getResources().getBoolean(R.bool.recommend_enabled);
-        Preference pRecommend = findPreference("recommend");
-        if (pRecommend != null) {
-            if (recommendEnabled) {
-                pRecommend.setOnPreferenceClickListener(preference -> {
-
-                    Intent intent = new Intent(Intent.ACTION_SEND);
-                    intent.setType("text/plain");
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                    String appName = getString(R.string.app_name);
-                    String downloadUrlGooglePlayStore = getString(R.string.url_app_download);
-                    String downloadUrlFDroid = getString(R.string.fdroid_link);
-                    String downloadUrls = String.format(getString(R.string.recommend_urls),
-                                                        downloadUrlGooglePlayStore, downloadUrlFDroid);
-
-                    String recommendSubject = String.format(getString(R.string.recommend_subject), appName);
-                    String recommendText = String.format(getString(R.string.recommend_text),
-                                                         appName, downloadUrls);
-
-                    intent.putExtra(Intent.EXTRA_SUBJECT, recommendSubject);
-                    intent.putExtra(Intent.EXTRA_TEXT, recommendText);
-                    startActivity(intent);
-
-                    return true;
-
-                });
-            } else {
-                preferenceCategoryMore.removePreference(pRecommend);
-            }
-        }
-    }
-
-    private void setupE2EPreference(PreferenceCategory preferenceCategoryMore) {
-        Preference preference = findPreference("setup_e2e");
-
-        if (preference != null) {
-            if (FileOperationsHelper.isEndToEndEncryptionSetup(this, user) ||
-                CapabilityUtils.getCapability(this).getEndToEndEncryptionKeysExist().isTrue() ||
-                CapabilityUtils.getCapability(this).getEndToEndEncryptionKeysExist().isUnknown()
-            ) {
-                preferenceCategoryMore.removePreference(preference);
-            } else {
-                preference.setOnPreferenceClickListener(p -> {
-                    if (connectivityService.getConnectivity().isConnected()) {
-                        Intent i = new Intent(MainApp.getAppContext(), SetupEncryptionActivity.class);
-                        i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                        i.putExtra("EXTRA_USER", user);
-                        startActivityForResult(i, ACTION_E2E);
-                    } else {
-                        SnackbarUtil.show(this, R.string.e2e_offline);
-                    }
-
-                    return true;
-                });
-            }
-        }
-    }
-
-    private void setupE2EKeysExist(PreferenceCategory preferenceCategoryMore) {
-        Preference preference = findPreference("setup_e2e_keys_exist");
-
-        if (preference != null) {
-            if (!CapabilityUtils.getCapability(this).getEndToEndEncryptionKeysExist().isTrue() ||
-                (CapabilityUtils.getCapability(this).getEndToEndEncryptionKeysExist().isTrue() &&
-                    FileOperationsHelper.isEndToEndEncryptionSetup(this, user))) {
-                preferenceCategoryMore.removePreference(preference);
-            } else {
-                preference.setOnPreferenceClickListener(p -> {
-                    Intent i = new Intent(MainApp.getAppContext(), SetupEncryptionActivity.class);
-                    i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                    i.putExtra("EXTRA_USER", user);
-                    startActivityForResult(i, ACTION_E2E);
-
-                    return true;
-                });
-            }
-        }
-    }
-
-    private void setupE2EMnemonicPreference(PreferenceCategory preferenceCategoryMore) {
-        String mnemonic = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.MNEMONIC).trim();
-
-        Preference pMnemonic = findPreference("mnemonic");
-        if (pMnemonic != null) {
-            if (!mnemonic.isEmpty()) {
-                if (DeviceCredentialUtils.areCredentialsAvailable(this)) {
-                    pMnemonic.setOnPreferenceClickListener(preference -> {
-
-                        Intent i = new Intent(MainApp.getAppContext(), RequestCredentialsActivity.class);
-                        i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                        startActivityForResult(i, ACTION_SHOW_MNEMONIC);
-
-                        return true;
-                    });
-                } else {
-                    pMnemonic.setEnabled(false);
-                    pMnemonic.setSummary(R.string.prefs_e2e_no_device_credentials);
-                }
-            } else {
-                preferenceCategoryMore.removePreference(pMnemonic);
-            }
-        }
-    }
-
-    private void removeE2E(PreferenceCategory preferenceCategoryMore) {
-        Preference preference = findPreference("remove_e2e");
-
-        if (preference != null) {
-            if (!FileOperationsHelper.isEndToEndEncryptionSetup(this, user)) {
-                preferenceCategoryMore.removePreference(preference);
-            } else {
-                preference.setOnPreferenceClickListener(p -> {
-                    showRemoveE2EAlertDialog(preferenceCategoryMore, preference);
-                    return true;
-                });
-            }
-        }
-    }
-
-    private void removeE2EFilesAndKeys(PreferenceCategory preferenceCategoryMore) {
-        Preference preference = findPreference("remove_e2e_files_and_keys");
-        if (preference == null) {
-            return;
-        }
-
-        if (!BuildConfig.DEBUG || !FileOperationsHelper.isEndToEndEncryptionSetup(this, user)) {
-            preferenceCategoryMore.removePreference(preference);
-            return;
-        }
-
-        preference.setOnPreferenceClickListener(p -> {
-            showRemoveE2EKeysAndFilesAlertDialog(preferenceCategoryMore, preference);
-            return true;
-        });
-    }
-
-    private void showRemoveE2EKeysAndFilesAlertDialog(PreferenceCategory preferenceCategoryMore, Preference preference) {
-        if (e2EDeletionService == null) {
-            return;
-        }
-
-        e2EDeletionService.showRemoveE2EKeysAndFilesAlertDialog(this, user, success -> {
-            if (success) {
-                EncryptionUtils.removeE2E(arbitraryDataProvider, user);
-                preferenceCategoryMore.removePreference(preference);
-
-                Preference pMnemonic = findPreference("mnemonic");
-                if (pMnemonic != null) {
-                    preferenceCategoryMore.removePreference(pMnemonic);
-                }
-
-                Preference pRemoveE2E = findPreference("remove_e2e");
-                if (pRemoveE2E != null) {
-                    preferenceCategoryMore.removePreference(pRemoveE2E);
-                }
-            }
-            return Unit.INSTANCE;
-        });
-    }
-
-    private void setupRenewE2ECertificate(PreferenceCategory preferenceCategoryMore) {
-        Preference preference = findPreference("renew_e2e_certificate");
-        if (preference == null) {
-            return;
-        }
-
-        if (!BuildConfig.DEBUG || !FileOperationsHelper.isEndToEndEncryptionSetup(this, user)) {
-            preferenceCategoryMore.removePreference(preference);
-            return;
-        }
-
-        updateRenewE2ECertificateSummary(preference);
-
-        preference.setOnPreferenceClickListener(p -> {
-            if (!connectivityService.getConnectivity().isConnected()) {
-                SnackbarUtil.show(this, R.string.e2e_offline);
-                return true;
-            }
-
-            e2eCertificateRenewalService.showRenewCertificateDialog(this, user, result -> {
-                onRenewE2ECertificateResult(preference, result);
-                return Unit.INSTANCE;
-            });
-            return true;
-        });
-    }
-
-    private void updateRenewE2ECertificateSummary(Preference preference) {
-        E2ECertificateValidity validity = e2eCertificateRenewalService.getCertificateValidity(user);
-        if (validity == null) {
-            preference.setSummary(R.string.renew_e2e_certificate_summary);
-            return;
-        }
-
-        String validUntil = DateFormat.getDateInstance().format(validity.getNotAfter());
-        preference.setSummary(getString(R.string.renew_e2e_certificate_valid_until, validUntil));
-    }
-
-    private void onRenewE2ECertificateResult(Preference preference, E2ECertificateRenewalResult result) {
-        if (result instanceof E2ECertificateRenewalResult.Success) {
-            updateRenewE2ECertificateSummary(preference);
-            SnackbarUtil.show(this, R.string.renew_e2e_certificate_success);
-        } else if (result instanceof E2ECertificateRenewalResult.Failure) {
-            SnackbarUtil.show(this, ((E2ECertificateRenewalResult.Failure) result).getMessageId());
-        }
-    }
-
-    private void showRemoveE2EAlertDialog(PreferenceCategory preferenceCategoryMore, Preference preference) {
-        new MaterialAlertDialogBuilder(this, R.style.FallbackTheming_Dialog)
-            .setTitle(R.string.prefs_e2e_mnemonic)
-            .setMessage(getString(R.string.remove_e2e_message))
-            .setCancelable(true)
-            .setNegativeButton(R.string.common_cancel, ((dialog, i) -> dialog.dismiss()))
-            .setPositiveButton(R.string.confirm_removal, (dialog, which) -> {
-                EncryptionUtils.removeE2E(arbitraryDataProvider, user);
-                preferenceCategoryMore.removePreference(preference);
-
-                Preference pMnemonic = findPreference("mnemonic");
-                if (pMnemonic != null) {
-                    preferenceCategoryMore.removePreference(pMnemonic);
-                }
-
-                dialog.dismiss();
-            })
-            .create()
-            .show();
-    }
-
-    private void setupHelpPreference(PreferenceCategory preferenceCategoryMore) {
-        boolean helpEnabled = getResources().getBoolean(R.bool.help_enabled);
-        Preference pHelp = findPreference("help");
-        if (pHelp != null) {
-            if (helpEnabled) {
-                pHelp.setOnPreferenceClickListener(preference -> {
-                    IntentUtil.startLinkIntent(this, R.string.url_help);
-                    return true;
-                });
-            } else {
-                preferenceCategoryMore.removePreference(pHelp);
-            }
-        }
-    }
-
-    private void setupAutoUploadPreference(PreferenceCategory preferenceCategoryMore) {
-        Preference autoUpload = findPreference("syncedFolders");
-        if (getResources().getBoolean(R.bool.syncedFolder_light)) {
-            preferenceCategoryMore.removePreference(autoUpload);
-        } else {
-            autoUpload.setOnPreferenceClickListener(preference -> {
-                startActivity(NavigatorActivity.Companion.intent(this, NavigatorScreen.AutoUpload.INSTANCE));
-                return true;
-            });
-        }
-    }
-
-    private void setupInternalTwoWaySyncPreference() {
-        Preference twoWaySync = findPreference("internal_two_way_sync");
-
-        twoWaySync.setOnPreferenceClickListener(preference -> {
-            startActivity(NavigatorActivity.Companion.intent(this, NavigatorScreen.InternalTwoWaySync.INSTANCE));
-            return true;
-        });
-    }
-
-    private void setupAllFilesAccessPreference(PreferenceCategory category) {
-        Preference allFilesAccess = findPreference("allFilesAccess");
-
-        if (PermissionUtil.checkAllFilesAccess()) {
-            category.removePreference(allFilesAccess);
-        } else {
-            if (allFilesAccess.getParent() == null) {
-                category.addPreference(allFilesAccess);
-            }
-        }
-
-        allFilesAccess.setOnPreferenceClickListener(preference -> {
-            ContextExtensionsKt.openAllFilesAccessSettings(this, REQ_ALL_FILES_ACCESS);
-            return true;
-        });
-    }
-
-    private void setupBackupPreference() {
-        Preference pContactsBackup = findPreference("backup");
-        if (pContactsBackup != null) {
-            boolean showCalendarBackup = getResources().getBoolean(R.bool.show_calendar_backup);
-            pContactsBackup.setTitle(showCalendarBackup
-                                         ? getString(R.string.backup_title)
-                                         : getString(R.string.contact_backup_title));
-            pContactsBackup.setSummary(showCalendarBackup
-                                           ? getString(R.string.prefs_daily_backup_summary)
-                                           : getString(R.string.prefs_daily_contact_backup_summary));
-            pContactsBackup.setOnPreferenceClickListener(preference -> {
-                ContactsPreferenceActivity.startActivityWithoutSidebar(this);
-                return true;
-            });
-        }
-    }
-
-    private void setupCalendarPreference(PreferenceCategory preferenceCategoryMore) {
-        boolean calendarContactsEnabled = getResources().getBoolean(R.bool.davdroid_integration_enabled);
-        Preference pCalendarContacts = findPreference("calendar_contacts");
-        if (pCalendarContacts != null) {
-            if (calendarContactsEnabled) {
-                final Activity activity = this;
-                pCalendarContacts.setOnPreferenceClickListener(preference -> {
-                    try {
-                        launchDavDroidLogin();
-                    } catch (Throwable t) {
-                        Log_OC.e(TAG, "Error while setting up DavX5", t);
-                        SnackbarUtil.show(
-                            activity,
-                            R.string.prefs_davx5_setup_error);
-                    }
-                    return true;
-                });
-            } else {
-                preferenceCategoryMore.removePreference(pCalendarContacts);
-            }
-        }
-    }
-
-    private void setupDetailsCategory(PreferenceScreen preferenceScreen) {
-        PreferenceCategory preferenceCategoryDetails = (PreferenceCategory) findPreference("details");
-        viewThemeUtils.files.themePreferenceCategory(preferenceCategoryDetails);
-
-        boolean fPassCodeEnabled = getResources().getBoolean(R.bool.passcode_enabled);
-        boolean fDeviceCredentialsEnabled = getResources().getBoolean(R.bool.device_credentials_enabled);
-        boolean fShowEcosystemAppsEnabled = !getResources().getBoolean(R.bool.is_branded_client);
-        boolean fSyncedFolderLightEnabled = getResources().getBoolean(R.bool.syncedFolder_light);
-        boolean fShowMediaScanNotifications = preferences.isShowMediaScanNotifications();
-
-        setupLockPreference(preferenceCategoryDetails, fPassCodeEnabled, fDeviceCredentialsEnabled);
-
-        setupShowEcosystemAppsPreference(preferenceCategoryDetails, fShowEcosystemAppsEnabled);
-
-        setupShowMediaScanNotifications(preferenceCategoryDetails, fShowMediaScanNotifications);
-
-        if (!fPassCodeEnabled && !fDeviceCredentialsEnabled && fSyncedFolderLightEnabled
-            && fShowMediaScanNotifications) {
-            preferenceScreen.removePreference(preferenceCategoryDetails);
-        }
-    }
-
-    private void setupFilesCategory() {
-        PreferenceCategory preferenceCategoryDetails = (PreferenceCategory) findPreference("files");
-        viewThemeUtils.files.themePreferenceCategory(preferenceCategoryDetails);
-
-        boolean fShowHiddenFilesEnabled = getResources().getBoolean(R.bool.show_hidden_files_enabled);
-
-        setupHiddenFilesPreference(preferenceCategoryDetails, fShowHiddenFilesEnabled);
-        setupFoldersBeforeFilesPreference();
-        setupSortFavoritesFirstPreference();
-    }
-
-    private void setupShowMediaScanNotifications(PreferenceCategory preferenceCategoryDetails,
-                                                 boolean fShowMediaScanNotifications) {
-        ThemeableSwitchPreference mShowMediaScanNotifications =
-            (ThemeableSwitchPreference) findPreference(PREFERENCE_SHOW_MEDIA_SCAN_NOTIFICATIONS);
-
-        if (fShowMediaScanNotifications) {
-            preferenceCategoryDetails.removePreference(mShowMediaScanNotifications);
-        }
-    }
-
-    private void setupHiddenFilesPreference(PreferenceCategory preferenceCategoryDetails,
-                                            boolean fShowHiddenFilesEnabled) {
-        showHiddenFiles = (ThemeableSwitchPreference) findPreference("show_hidden_files");
-        if (fShowHiddenFilesEnabled) {
-            showHiddenFiles.setOnPreferenceClickListener(preference -> {
-                preferences.setShowHiddenFilesEnabled(showHiddenFiles.isChecked());
-                return true;
-            });
-        } else {
-            preferenceCategoryDetails.removePreference(showHiddenFiles);
-        }
-    }
-
-    private void setupFoldersBeforeFilesPreference() {
-        ThemeableSwitchPreference preference = (ThemeableSwitchPreference) findPreference("sort_folders_before_files");
-        preference.setOnPreferenceClickListener(p -> {
-                preferences.setSortFoldersBeforeFiles(preference.isChecked());
-                return true;
-            });
-    }
-
-    private void setupSortFavoritesFirstPreference() {
-        ThemeableSwitchPreference preference = (ThemeableSwitchPreference) findPreference("sort_favorites_first");
-        preference.setOnPreferenceClickListener(p -> {
-            preferences.setSortFavoritesFirst(preference.isChecked());
-            return true;
-        });
-    }
-
-    private void setupShowEcosystemAppsPreference(PreferenceCategory preferenceCategoryDetails, boolean fShowEcosystemAppsEnabled) {
-        showEcosystemApps = (ThemeableSwitchPreference) findPreference("show_ecosystem_apps");
-        if (fShowEcosystemAppsEnabled) {
-            showEcosystemApps.setOnPreferenceClickListener(preference -> {
-                preferences.setShowEcosystemApps(showEcosystemApps.isChecked());
-                return true;
-            });
-        } else {
-            preferenceCategoryDetails.removePreference(showEcosystemApps);
-        }
-    }
-
-
-    private void setupLockPreference(PreferenceCategory preferenceCategoryDetails,
-                                     boolean passCodeEnabled,
-                                     boolean deviceCredentialsEnabled) {
-        lock = findPreference(PREFERENCE_LOCK);
-        if (lock != null && (passCodeEnabled || deviceCredentialsEnabled)) {
-            String currentLock = preferences.getLockPreference();
-            updateLockSummary(lock, currentLock);
-
-            lock.setOnPreferenceClickListener(preference -> {
-                Intent intent = ExtendedSettingsActivity.Companion.createIntent(this, ExtendedSettingsActivityDialog.AppPasscode);
-                startActivityForResult(intent, ExtendedSettingsActivityDialog.AppPasscode.getResultId());
-                return true;
-            });
-        } else {
-            preferenceCategoryDetails.removePreference(lock);
-        }
-    }
-
-    private void updateLockSummary(Preference lockPreference, String lockValue) {
-        String summary;
-        if (LOCK_PASSCODE.equals(lockValue)) {
-            summary = getString(R.string.prefs_lock_using_passcode);
-        } else if (LOCK_DEVICE_CREDENTIALS.equals(lockValue)) {
-            summary = getString(R.string.prefs_lock_using_device_credentials);
-        } else {
-            summary = getString(R.string.prefs_lock_none);
-        }
-        lockPreference.setSummary(summary);
-    }
-
-    private void setupAutoUploadCategory(PreferenceScreen preferenceScreen) {
-        final PreferenceCategory preferenceCategorySyncedFolders =
-            (PreferenceCategory) findPreference("synced_folders_category");
-        viewThemeUtils.files.themePreferenceCategory(preferenceCategorySyncedFolders);
-
-        if (!getResources().getBoolean(R.bool.syncedFolder_light)) {
-            preferenceScreen.removePreference(preferenceCategorySyncedFolders);
-        } else {
-            // Upload on WiFi
-            final ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(this);
-
-            final SwitchPreference pUploadOnWifiCheckbox = (SwitchPreference) findPreference("synced_folder_on_wifi");
-            pUploadOnWifiCheckbox.setChecked(
-                arbitraryDataProvider.getBooleanValue(user, SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI));
-
-            pUploadOnWifiCheckbox.setOnPreferenceClickListener(preference -> {
-                arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI,
-                                                            String.valueOf(pUploadOnWifiCheckbox.isChecked()));
-
-                return true;
-            });
-
-            Preference pSyncedFolder = findPreference("synced_folders_configure_folders");
-            if (pSyncedFolder != null) {
-                if (getResources().getBoolean(R.bool.syncedFolder_light)) {
-                    pSyncedFolder.setOnPreferenceClickListener(preference -> {
-                        startActivity(NavigatorActivity.Companion.intent(this, NavigatorScreen.AutoUpload.INSTANCE));
-                        return true;
-                    });
-                } else {
-                    preferenceCategorySyncedFolders.removePreference(pSyncedFolder);
-                }
-            }
-        }
-    }
-
-    private void enableLock(String lock) {
-        pendingLock = LOCK_NONE;
-        if (LOCK_PASSCODE.equals(lock)) {
-            Intent i = new Intent(getApplicationContext(), PassCodeActivity.class);
-            i.setAction(PassCodeActivity.ACTION_REQUEST_WITH_RESULT);
-            startActivityForResult(i, ACTION_REQUEST_PASSCODE);
-        } else if (LOCK_DEVICE_CREDENTIALS.equals(lock)) {
-            if (!DeviceCredentialUtils.areCredentialsAvailable(getApplicationContext())) {
-                SnackbarUtil.show(this, R.string.prefs_lock_device_credentials_not_setup);
-            } else {
-                SnackbarUtil.show(this, R.string.prefs_lock_device_credentials_enabled);
-                changeLockSetting(LOCK_DEVICE_CREDENTIALS);
-            }
-        }
-    }
-
-    private void changeLockSetting(String value) {
-        preferences.setLockPreference(value);
-        if (lock != null) {
-            updateLockSummary(lock, value);
-        }
-        DocumentsStorageProvider.notifyRootsChanged(this);
-    }
-
-    private void disableLock(String lock) {
-        if (LOCK_PASSCODE.equals(lock)) {
-            Intent i = new Intent(getApplicationContext(), PassCodeActivity.class);
-            i.setAction(PassCodeActivity.ACTION_CHECK_WITH_RESULT);
-            startActivityForResult(i, ACTION_CONFIRM_PASSCODE);
-        } else if (LOCK_DEVICE_CREDENTIALS.equals(lock)) {
-            Intent i = new Intent(getApplicationContext(), RequestCredentialsActivity.class);
-            startActivityForResult(i, ACTION_CONFIRM_DEVICE_CREDENTIALS);
-        }
-    }
-
-    private void setupGeneralCategory() {
-        final PreferenceCategory preferenceCategoryGeneral = (PreferenceCategory) findPreference("general");
-        viewThemeUtils.files.themePreferenceCategory(preferenceCategoryGeneral);
-
-        readStoragePath();
-
-        prefDataLoc = findPreference(AppPreferencesImpl.DATA_STORAGE_LOCATION);
-        if (prefDataLoc != null) {
-            prefDataLoc.setOnPreferenceClickListener(p -> {
-                Intent intent = ExtendedSettingsActivity.Companion.createIntent(this, ExtendedSettingsActivityDialog.StorageLocation);
-                startActivityForResult(intent, ExtendedSettingsActivityDialog.StorageLocation.getResultId());
-                return true;
-            });
-        }
-
-        final var themePref = findPreference("darkMode");
-        if (themePref != null) {
-            updateThemePreferenceSummary(preferences.getDarkThemeMode().name());
-
-            themePref.setOnPreferenceClickListener(preference -> {
-                Intent intent = ExtendedSettingsActivity.Companion.createIntent(this, ExtendedSettingsActivityDialog.ThemeSelection);
-                startActivityForResult(intent, ExtendedSettingsActivityDialog.ThemeSelection.getResultId());
-                return true;
-            });
-        }
-    }
-
-    private void updateThemePreferenceSummary(String themeValue) {
-        Preference themePref = findPreference("darkMode");
-        if (themePref == null) return;
-
-        DarkMode mode;
-        try {
-            mode = DarkMode.valueOf(themeValue);
-        } catch (IllegalArgumentException e) {
-            mode = DarkMode.SYSTEM;
-        }
-
-        String summary = switch (mode) {
-            case LIGHT -> getString(R.string.prefs_value_theme_light);
-            case DARK -> getString(R.string.prefs_value_theme_dark);
-            default -> getString(R.string.prefs_value_theme_system);
-        };
-
-        themePref.setSummary(summary);
-    }
-
-    private void setListBackground() {
-        getListView().setBackgroundColor(ContextCompat.getColor(this, R.color.bg_default));
-    }
-
-    private String getAppVersion() {
-        String temp;
-        try {
-            PackageInfo pkg = getPackageManager().getPackageInfo(getPackageName(), 0);
-            temp = pkg.versionName;
-        } catch (NameNotFoundException e) {
-            temp = "";
-            Log_OC.e(TAG, "Error while showing about dialog", e);
-        }
-        return temp;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        finish();
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void setupActionBar() {
-        ActionBar actionBar = getDelegate().getSupportActionBar();
-        if (actionBar == null) return;
-
-        viewThemeUtils.platform.themeStatusBar(this);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(true);
-
-        if (getResources() == null) return;
-        Drawable menuIcon = ResourcesCompat.getDrawable(getResources(),
-                                                        R.drawable.ic_arrow_back,
-                                                        null);
-
-        if (menuIcon == null) return;
-        viewThemeUtils.androidx.themeActionBar(this,
-                                               actionBar,
-                                               getString(R.string.actionbar_settings),
-                                               menuIcon);
-    }
-
-    private void launchDavDroidLogin() {
-        Intent davDroidLoginIntent = new Intent();
-        davDroidLoginIntent.setClassName("at.bitfire.davdroid", "at.bitfire.davdroid.ui.setup.LoginActivity");
-        if (getPackageManager().resolveActivity(davDroidLoginIntent, 0) != null) {
-            // arguments
-            if (serverBaseUri != null) {
-                davDroidLoginIntent.putExtra("url", serverBaseUri + DAV_PATH);
-
-                davDroidLoginIntent.putExtra("loginFlow", TRUE_VALUE);
-                davDroidLoginIntent.setData(Uri.parse(serverBaseUri.toString() + AuthenticatorActivity.WEB_LOGIN));
-                davDroidLoginIntent.putExtra("davPath", DAV_PATH);
-            }
-            davDroidLoginIntent.putExtra("username", UserAccountManager.getUsername(user));
-
-            startActivityForResult(davDroidLoginIntent, ACTION_REQUEST_CODE_DAVDROID_SETUP);
-        } else {
-            // DAVdroid not installed
-            Intent installIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=at.bitfire.davdroid"));
-
-            // launch market(s)
-            if (installIntent.resolveActivity(getPackageManager()) != null) {
-                startActivity(installIntent);
-            } else {
-                // no f-droid market app or Play store installed --> launch browser for f-droid url
-                IntentUtil.startLinkIntent(this, "https://f-droid.org/packages/at.bitfire.davdroid/");
-
-                SnackbarUtil.show(this, R.string.prefs_calendar_contacts_no_store_error);
-            }
-        }
-    }
-
-    private void setupBaseUri() {
-        // retrieve and set user's base URI
-        Thread t = new Thread(() -> {
-            try {
-                serverBaseUri = clientFactory.create(user).getBaseUri();
-            } catch (Exception e) {
-                Log_OC.e(TAG, "Error retrieving user's base URI", e);
-            }
-        });
-        t.start();
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        return true;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == ACTION_REQUEST_PASSCODE && resultCode == RESULT_CANCELED) {
-            showPasscodeDialogIfEnforceAppProtection();
-        } else if (requestCode == ACTION_REQUEST_PASSCODE && resultCode == RESULT_OK) {
-            String passcode = data.getStringExtra(PassCodeActivity.KEY_PASSCODE);
-            if (passcode != null && passcode.length() == 4) {
-                SharedPreferences.Editor appPrefs = PreferenceManager
-                    .getDefaultSharedPreferences(getApplicationContext()).edit();
-
-                for (int i = 1; i <= 4; ++i) {
-                    appPrefs.putString(PassCodeActivity.PREFERENCE_PASSCODE_D + i, passcode.substring(i - 1, i));
-                }
-                appPrefs.apply();
-                changeLockSetting(LOCK_PASSCODE);
-                SnackbarUtil.show(this, R.string.pass_code_stored);
-            }
-        } else if (requestCode == ACTION_CONFIRM_PASSCODE && resultCode == RESULT_OK) {
-            if (data.getBooleanExtra(PassCodeActivity.KEY_CHECK_RESULT, false)) {
-                changeLockSetting(LOCK_NONE);
-
-                SnackbarUtil.show(this, R.string.pass_code_removed);
-                if (!LOCK_NONE.equals(pendingLock)) {
-                    enableLock(pendingLock);
-                }
-            }
-        } else if (requestCode == ACTION_REQUEST_CODE_DAVDROID_SETUP && resultCode == RESULT_OK) {
-            SnackbarUtil.show(this, R.string.prefs_calendar_contacts_sync_setup_successful);
-        } else if (requestCode == ACTION_CONFIRM_DEVICE_CREDENTIALS && resultCode == RESULT_OK &&
-            data.getIntExtra(RequestCredentialsActivity.KEY_CHECK_RESULT,
-                             RequestCredentialsActivity.KEY_CHECK_RESULT_FALSE) ==
-                RequestCredentialsActivity.KEY_CHECK_RESULT_TRUE) {
-            changeLockSetting(LOCK_NONE);
-            SnackbarUtil.show(this, R.string.credentials_disabled);
-            if (!LOCK_NONE.equals(pendingLock)) {
-                enableLock(pendingLock);
-            }
-        } else if (requestCode == ACTION_SHOW_MNEMONIC && resultCode == RESULT_OK) {
-            handleMnemonicRequest(data);
-        } else if (requestCode == ACTION_E2E && data != null && data.getBooleanExtra(SetupEncryptionDialogFragment.SUCCESS, false)) {
-            Intent i = new Intent(this, SettingsActivity.class);
-            startActivity(i);
-        } else if (requestCode == ExtendedSettingsActivityDialog.StorageLocation.getResultId() && data != null) {
-            String newPath = data.getStringExtra(ExtendedSettingsActivityDialog.StorageLocation.getKey());
-            if (storagePath != null && !storagePath.equals(newPath)) {
-                StorageMigration storageMigration = new StorageMigration(this, user, storagePath, newPath, viewThemeUtils);
-                storageMigration.setStorageMigrationProgressListener(this);
-                storageMigration.migrate();
-            }
-        } else if (requestCode == ExtendedSettingsActivityDialog.ThemeSelection.getResultId() && data != null) {
-            String selectedTheme = data.getStringExtra(ExtendedSettingsActivityDialog.ThemeSelection.getKey());
-            if (selectedTheme != null) {
-                updateThemePreferenceSummary(selectedTheme);
-
-                // needed for to change status bar color
-                recreate();
-            }
-        } else if (requestCode == ExtendedSettingsActivityDialog.AppPasscode.getResultId() && data != null) {
-            String selectedLock = data.getStringExtra(ExtendedSettingsActivityDialog.AppPasscode.getKey());
-            if (selectedLock != null) {
-                String currentLock = preferences.getLockPreference();
-                if (!currentLock.equals(selectedLock)) {
-                    if (LOCK_NONE.equals(currentLock)) {
-                        enableLock(selectedLock);
-                    } else {
-                        pendingLock = selectedLock;
-                        disableLock(currentLock);
-                    }
-                }
-            }
-        } else if (requestCode == REQ_ALL_FILES_ACCESS) {
-            final PreferenceCategory preferenceCategorySync = (PreferenceCategory) findPreference("sync");
-            setupAllFilesAccessPreference(preferenceCategorySync);
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when (requestCode) {
+            SettingsRequestCode.REQUEST_PASSCODE -> appLockSettings.onPasscodeRequestResult(resultCode, data)
+            SettingsRequestCode.CONFIRM_PASSCODE -> appLockSettings.onPasscodeConfirmResult(resultCode, data)
+            SettingsRequestCode.CONFIRM_DEVICE_CREDENTIALS ->
+                appLockSettings.onDeviceCredentialsConfirmResult(resultCode, data)
+            SettingsRequestCode.DAVX5_SETUP -> onDavX5SetupResult(resultCode)
+            SettingsRequestCode.SHOW_MNEMONIC -> if (resultCode == RESULT_OK) handleMnemonicRequest(data)
+            SettingsRequestCode.SETUP_E2E -> onEncryptionSetupResult(data)
+            ExtendedSettingsActivityDialog.StorageLocation.resultId -> onStorageLocationResult(data)
+            ExtendedSettingsActivityDialog.ThemeSelection.resultId -> onThemeSelectionResult(data)
+            ExtendedSettingsActivityDialog.AppPasscode.resultId -> onAppPasscodeResult(data)
+            DrawerActivity.REQ_ALL_FILES_ACCESS -> syncCategory.refreshAllFilesAccessPreference()
         }
     }
 
     @VisibleForTesting
-    public void handleMnemonicRequest(Intent data) {
-        if (data == null) {
-            SnackbarUtil.show(this, "Error retrieving mnemonic!");
-        } else {
-            if (data.getIntExtra(RequestCredentialsActivity.KEY_CHECK_RESULT,
-                                 RequestCredentialsActivity.KEY_CHECK_RESULT_FALSE) ==
-                RequestCredentialsActivity.KEY_CHECK_RESULT_TRUE) {
+    fun handleMnemonicRequest(data: Intent?) = e2eSettings.showMnemonic(data)
 
-                ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(this);
-                String mnemonic = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.MNEMONIC).trim();
-                showMnemonicAlertDialogDialog(mnemonic);
-            }
-        }
+    private fun onDavX5SetupResult(resultCode: Int) {
+        if (resultCode != RESULT_OK) return
+
+        SnackbarUtil.show(this, R.string.prefs_calendar_contacts_sync_setup_successful)
     }
 
-    private void showMnemonicAlertDialogDialog(String mnemonic) {
-        new MaterialAlertDialogBuilder(this, R.style.FallbackTheming_Dialog)
-            .setTitle(R.string.prefs_e2e_mnemonic)
-            .setMessage(mnemonic)
-            .setPositiveButton(R.string.common_ok, (dialog, which) -> dialog.dismiss())
-            .setNegativeButton(R.string.common_cancel, (dialog, i) -> dialog.dismiss())
-            .setNeutralButton(R.string.common_copy, (dialog, i) ->
-                ClipboardUtil.copyToClipboard(this, mnemonic, false))
-            .create()
-            .show();
+    private fun onEncryptionSetupResult(data: Intent?) {
+        if (data?.getBooleanExtra(SetupEncryptionDialogFragment.SUCCESS, false) != true) return
+
+        startActivity(Intent(this, SettingsActivity::class.java))
     }
 
-    @Override
-    @NonNull
-    public MenuInflater getMenuInflater() {
-        return getDelegate().getMenuInflater();
+    private fun onStorageLocationResult(data: Intent?) {
+        val newPath = data?.getStringExtra(ExtendedSettingsActivityDialog.StorageLocation.key) ?: return
+
+        generalCategory.onStorageLocationSelected(newPath)
     }
 
-    @Override
-    public void setContentView(@LayoutRes int layoutResID) {
-        getDelegate().setContentView(layoutResID);
+    private fun onThemeSelectionResult(data: Intent?) {
+        val selectedTheme = data?.getStringExtra(ExtendedSettingsActivityDialog.ThemeSelection.key) ?: return
+        generalCategory.onThemeSelected(selectedTheme)
+
+        recreate()
     }
 
-    @Override
-    public void setContentView(View view) {
-        getDelegate().setContentView(view);
+    private fun onAppPasscodeResult(data: Intent?) {
+        val selectedLock = data?.getStringExtra(ExtendedSettingsActivityDialog.AppPasscode.key) ?: return
+
+        appLockSettings.onLockSelected(selectedLock)
     }
 
-    @Override
-    public void setContentView(View view, ViewGroup.LayoutParams params) {
-        getDelegate().setContentView(view, params);
+    override fun getMenuInflater(): MenuInflater = delegate.menuInflater
+
+    override fun setContentView(@LayoutRes layoutResID: Int) = delegate.setContentView(layoutResID)
+
+    override fun setContentView(view: View?) = delegate.setContentView(view)
+
+    override fun setContentView(view: View?, params: ViewGroup.LayoutParams?) = delegate.setContentView(view, params)
+
+    override fun addContentView(view: View?, params: ViewGroup.LayoutParams?) = delegate.addContentView(view, params)
+
+    override fun invalidateOptionsMenu() = delegate.invalidateOptionsMenu()
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+
+        delegate.onPostCreate(savedInstanceState)
     }
 
-    @Override
-    public void addContentView(View view, ViewGroup.LayoutParams params) {
-        getDelegate().addContentView(view, params);
+    override fun onPostResume() {
+        super.onPostResume()
+
+        delegate.onPostResume()
     }
 
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        getDelegate().onPostResume();
+    override fun onTitleChanged(title: CharSequence?, color: Int) {
+        super.onTitleChanged(title, color)
+
+        delegate.setTitle(title)
     }
 
-    @Override
-    protected void onTitleChanged(CharSequence title, int color) {
-        super.onTitleChanged(title, color);
-        getDelegate().setTitle(title);
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+
+        delegate.onConfigurationChanged(newConfig)
     }
 
-    @Override
-    public void onConfigurationChanged(@NonNull Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        getDelegate().onConfigurationChanged(newConfig);
+    override fun onStop() {
+        super.onStop()
+
+        delegate.onStop()
     }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        getDelegate().onPostCreate(savedInstanceState);
+    override fun onDestroy() {
+        super.onDestroy()
+        delegate.onDestroy()
+
+        scope.cancel()
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        getDelegate().onDestroy();
-    }
+    companion object {
+        private val TAG: String = SettingsActivity::class.java.simpleName
+        private val BACK_PRESSED_RESET_DELAY = 2.seconds
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        getDelegate().onStop();
-    }
+        const val PREFERENCE_LOCK = "lock"
 
-    public void invalidateOptionsMenu() {
-        getDelegate().invalidateOptionsMenu();
-    }
+        const val LOCK_NONE = "none"
+        const val LOCK_PASSCODE = "passcode"
+        const val LOCK_DEVICE_CREDENTIALS = "device_credentials"
 
-    private AppCompatDelegate getDelegate() {
-        if (delegate == null) {
-            delegate = AppCompatDelegate.create(this, null);
-        }
-        return delegate;
-    }
+        const val PREFERENCE_SHOW_MEDIA_SCAN_NOTIFICATIONS = "show_media_scan_notifications"
 
-    private void loadExternalSettingLinks(PreferenceCategory preferenceCategory) {
-        if (!MDMConfig.INSTANCE.externalSiteSupport(this)) {
-            return;
-        }
+        const val SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI = "SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI"
 
-        ExternalLinksProvider externalLinksProvider = new ExternalLinksProvider(getContentResolver());
-        externalLinksProvider.getExternalLink(ExternalLinkType.SETTINGS, externalLinks -> {
-            for (final ExternalLink link : externalLinks) {
-                // only add if it does not exist, in case activity is reused
-                if (findPreference(String.valueOf(link.getId())) == null) {
-                    Preference p = new Preference(SettingsActivity.this);
-                    p.setTitle(link.getName());
-                    p.setKey(String.valueOf(link.getId()));
-
-                    p.setOnPreferenceClickListener(preference -> {
-                        Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
-                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, link.getName());
-                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, link.getUrl());
-                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
-                        startActivity(externalWebViewIntent);
-
-                        return true;
-                    });
-
-                    preferenceCategory.addPreference(p);
-                }
-            }
-            return Unit.INSTANCE;
-        });
-        externalLinksProvider.cleanup();
-    }
-
-    /**
-     * Save storage path
-     */
-    private void saveStoragePath(String newStoragePath) {
-        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        storagePath = newStoragePath;
-        MainApp.setStoragePath(storagePath);
-        SharedPreferences.Editor editor = appPrefs.edit();
-        editor.putString(AppPreferencesImpl.STORAGE_PATH, storagePath);
-        editor.apply();
-    }
-
-    private void readStoragePath() {
-        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        // Load storage path from shared preferences. Use private internal storage by default.
-        storagePath = appPrefs.getString(AppPreferencesImpl.STORAGE_PATH, getApplicationContext().getFilesDir().getAbsolutePath());
-    }
-
-    @Override
-    public void onStorageMigrationFinished(String storagePath, boolean succeed) {
-        if (succeed) {
-            saveStoragePath(storagePath);
-        }
-    }
-
-    @Override
-    public void onCancelMigration() {
-        // Migration was canceled so we don't do anything
-    }
-
-    @Override
-    public void returnVersion(Integer latestVersion) {
-        DevVersionChecker.showDevSnackbar(this, latestVersion, true, false);
+        var isBackPressed = false
     }
 }
