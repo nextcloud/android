@@ -134,12 +134,21 @@ class OCFileListBottomSheetDialog(
         creatorsOverview.removeAllViews()
         creators.removeAllViews()
 
-        val showAsBox = creatorsActions.size > 1
-        creatorsActions.take(CREATORS_OVERVIEW_ITEMS).forEach { addCreatorButton(creatorsOverview, it, showAsBox) }
-        creatorsActions.drop(CREATORS_OVERVIEW_ITEMS).forEach { addCreatorButton(creators, it, false) }
+        sendToOverview(creatorsActions.take(CREATORS_OVERVIEW_ITEMS))
+        sendToMoreDocuments(creatorsActions.drop(CREATORS_OVERVIEW_ITEMS))
 
         creatorsOverview.visibility = View.VISIBLE
         menuMoreDocumentsContainer.setVisibleIf(creators.isNotEmpty())
+    }
+
+    private fun sendToOverview(overviewActions: List<CreatorAction>) {
+        val isSingleCreator = overviewActions.size == 1
+
+        overviewActions.forEach { addCreatorButton(binding.creatorsOverview, it, showAsBox = !isSingleCreator) }
+    }
+
+    private fun sendToMoreDocuments(moreDocumentsActions: List<CreatorAction>) {
+        moreDocumentsActions.forEach { addCreatorButton(binding.creators, it, showAsBox = false) }
     }
 
     private fun creatorsActionsFromDirectEditing(): List<CreatorAction> = arbitraryDataProvider
