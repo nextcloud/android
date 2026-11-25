@@ -138,6 +138,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">оставлен в исходной папке, так как доступен только для чтения</string>
     <string name="auto_upload_low_battery_warning_info">Батарея разряжена, загрузка может занять больше времени</string>
     <string name="auto_upload_on_wifi">Только по безлимитному Wi-Fi</string>
+    <string name="auto_upload_overview_empty_folder">Папка пуста</string>
     <string name="auto_upload_path">/Автозагрузка</string>
     <string name="auto_upload_sub_folder_warning">Эта папка уже включена в синхронизацию родительской папки, что может привести к дублированию загрузок</string>
     <string name="auto_upload_sync_now_action">Синхронизировать сейчас</string>
@@ -168,8 +169,10 @@
     <string name="backup_list_adapter_local_contacts">Локальные контакты</string>
     <string name="backup_settings">Настройки резервного копирования</string>
     <string name="backup_title">Резервное копирование контактов и календаря</string>
+    <string name="battery_optimization_banner_message">Расход батареи для Nextcloud ограничен, поэтому Android может откладывать автозагрузку. Снимите ограничение, и автозагрузка будет работать даже в режиме энергосбережения.</string>
     <string name="battery_optimization_close">Закрыть</string>
     <string name="battery_optimization_disable">Отключить</string>
+    <string name="battery_optimization_exempt_action">Разрешить неограниченный расход батареи</string>
     <string name="battery_optimization_message">Возможно, включена оптимизация батареи. Автозагрузка работает правильно, только если исключить приложение из оптимизации.</string>
     <string name="battery_optimization_title">Оптимизация использования батареи</string>
     <string name="bottom_navigation_menu_assistant_label">Помощник</string>
@@ -794,6 +797,9 @@
     <string name="player_media_controls_close_action_title">Закрыть</string>
     <string name="please_select_a_server">Выберите сервер…</string>
     <string name="power_save_check_dialog_message">Отключение проверки энергосбережения может привести к загрузке файлов при низком заряде батареи!</string>
+    <string name="power_saving_banner_ignored_by_app_message">Режим энергосбережения включён, но для Nextcloud расход батареи не ограничен, поэтому автозагрузка продолжает работать.</string>
+    <string name="power_saving_banner_restricting_app_message">Режим энергосбережения включён, поэтому автозагрузка приостановлена, пока вы его не выключите.</string>
+    <string name="power_saving_settings_action">Открыть настройки энергосбережения</string>
     <string name="pref_behaviour_entries_delete_file">удалён</string>
     <string name="pref_behaviour_entries_keep_file">оставлен в исходной папке</string>
     <string name="pref_behaviour_entries_move">перемещён в папку приложения</string>
