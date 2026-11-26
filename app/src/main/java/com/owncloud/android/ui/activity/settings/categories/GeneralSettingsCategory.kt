@@ -17,19 +17,21 @@ import com.nextcloud.client.preferences.DarkMode
 import com.nextcloud.ui.dialog.chooseStorage.ChooseStorageLocationDialogFragment
 import com.owncloud.android.MainApp
 import com.owncloud.android.datastorage.DataStorageProvider
-import com.owncloud.android.ui.activity.StorageMigration
-import com.owncloud.android.ui.activity.StorageMigration.StorageMigrationProgressListener
+import com.owncloud.android.ui.activity.settings.storage.migration.StorageMigration
+import com.owncloud.android.ui.activity.settings.storage.migration.model.StorageMigrationProgressListener
 import com.owncloud.android.ui.activity.settings.util.findThemedCategory
 import com.owncloud.android.ui.activity.settings.util.setOnClickAction
 import com.owncloud.android.ui.activity.settings.util.showIfAbsent
 import com.owncloud.android.ui.dialog.ThemeSelectionDialog
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.CoroutineScope
 
 class GeneralSettingsCategory(
     private val fragment: PreferenceFragmentCompat,
     private val user: User,
     private val preferences: AppPreferences,
-    private val viewThemeUtils: ViewThemeUtils
+    private val viewThemeUtils: ViewThemeUtils,
+    private val migrationScope: CoroutineScope
 ) : SettingsCategory,
     StorageMigrationProgressListener {
 
@@ -65,8 +67,8 @@ class GeneralSettingsCategory(
         setupThemePreference()
     }
 
-    override fun onStorageMigrationFinished(storagePath: String?, succeed: Boolean) {
-        if (!succeed || storagePath == null) return
+    override fun onStorageMigrationFinished(storagePath: String, succeed: Boolean) {
+        if (!succeed) return
 
         saveStoragePath(storagePath)
     }
@@ -85,10 +87,7 @@ class GeneralSettingsCategory(
     private fun onStorageLocationSelected(newPath: String) {
         if (DataStorageProvider.instance.isSameLocation(storagePath, newPath)) return
 
-        StorageMigration(activity, user, storagePath, newPath, viewThemeUtils).run {
-            setStorageMigrationProgressListener(this@GeneralSettingsCategory)
-            migrate()
-        }
+        StorageMigration(activity, user, storagePath, newPath, viewThemeUtils, migrationScope, this).migrate()
     }
 
     private fun onThemeSelected(themeValue: String) {
