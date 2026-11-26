@@ -7,6 +7,7 @@
  */
 package com.owncloud.android.utils
 
+import com.nextcloud.utils.extensions.mimeType
 import com.nextcloud.utils.extensions.toFile
 import com.owncloud.android.datamodel.MediaFolder
 import com.owncloud.android.datamodel.MediaFolderType
@@ -130,7 +131,7 @@ object AutoUploadFolderUtils {
      * @return `true` if at least one files qualifies as auto upload relevant else `false`
      */
     private fun containsQualifiedImages(files: List<File>): Boolean =
-        files.any { isFileNameQualifiedForAutoUpload(it.name) && MimeTypeUtil.isImage(it) }
+        files.any { isFileNameQualifiedForAutoUpload(it.name) && MimeTypeUtil.isImage(it.mimeType) }
 
     /**
      * check if given file is auto upload relevant files.

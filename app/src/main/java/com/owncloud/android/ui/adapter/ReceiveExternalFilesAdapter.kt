@@ -16,6 +16,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.client.account.User
 import com.nextcloud.utils.HumanReadableFormatter
+import com.nextcloud.utils.extensions.matchesMimeType
 import com.nextcloud.utils.text.DisplayTextFormatter
 import com.owncloud.android.databinding.UploaderListItemLayoutBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -106,7 +107,7 @@ class ReceiveExternalFilesAdapter(
 
         if (file.isFolder) {
             setupThumbnailForFolder(thumbnailImageView, file)
-        } else if (MimeTypeUtil.isImage(file) && file.remoteId != null) {
+        } else if (file.matchesMimeType(MimeTypeUtil::isImage) && file.remoteId != null) {
             setupThumbnailForImage(thumbnailImageView, file)
         } else {
             setupDefaultThumbnail(thumbnailImageView, file)
@@ -131,7 +132,7 @@ class ReceiveExternalFilesAdapter(
             if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailImageView)) {
                 val task = ThumbnailGenerationTask(thumbnailImageView, storageManager, user)
                 if (thumbnail == null) {
-                    thumbnail = if (MimeTypeUtil.isVideo(file)) {
+                    thumbnail = if (MimeTypeUtil.isVideo(file.mimeType)) {
                         ThumbnailsCacheManager.mDefaultVideo
                     } else {
                         ThumbnailsCacheManager.mDefaultImg
