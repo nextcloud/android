@@ -9,7 +9,7 @@ package com.owncloud.android.providers
 
 import android.content.ContentValues
 import com.owncloud.android.db.ProviderMeta
-import com.owncloud.android.utils.MimeTypeUtil
+import com.owncloud.android.utils.MimeType
 import org.junit.Test
 
 @Suppress("FunctionNaming")
@@ -35,7 +35,7 @@ class FileContentProviderVerificationIT {
         // with valid columns
         val contentValues = ContentValues()
         contentValues.put(ProviderMeta.ProviderTableMeta.FILE_CONTENT_LENGTH, FILE_LENGTH)
-        contentValues.put(ProviderMeta.ProviderTableMeta.FILE_CONTENT_TYPE, MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN)
+        contentValues.put(ProviderMeta.ProviderTableMeta.FILE_CONTENT_TYPE, MimeType.TEXT_MARKDOWN)
         FileContentProvider.VerificationUtils.verifyColumns(contentValues)
 
         // empty
@@ -47,7 +47,7 @@ class FileContentProviderVerificationIT {
         // with invalid columns
         val contentValues = ContentValues()
         contentValues.put(INVALID_COLUMN, FILE_LENGTH)
-        contentValues.put(ProviderMeta.ProviderTableMeta.FILE_CONTENT_TYPE, MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN)
+        contentValues.put(ProviderMeta.ProviderTableMeta.FILE_CONTENT_TYPE, MimeType.TEXT_MARKDOWN)
         FileContentProvider.VerificationUtils.verifyColumns(contentValues)
     }
 

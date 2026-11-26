@@ -14,6 +14,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.FileHelper
+import com.nextcloud.utils.extensions.mimeType
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.adapter.FilterableListAdapter
@@ -150,7 +151,7 @@ class LocalFileListAdapter(
         return when {
             offset == HEADER_ITEM_COUNT && position == 0 -> VIEW_TYPE_HEADER
             position == entries.size + offset -> VIEW_TYPE_FOOTER
-            MimeTypeUtil.isImageOrVideo(entries[position - offset]) -> VIEW_TYPE_IMAGE
+            MimeTypeUtil.isImageOrVideo(entries[position - offset].mimeType) -> VIEW_TYPE_IMAGE
             else -> VIEW_TYPE_ITEM
         }
     }

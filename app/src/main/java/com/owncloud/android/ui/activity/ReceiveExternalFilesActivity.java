@@ -86,7 +86,8 @@ import com.owncloud.android.ui.dialog.MultipleAccountsDialog;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.fragment.TaskRetainerFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
-import com.owncloud.android.ui.helpers.UriUploader;
+import com.owncloud.android.ui.helpers.uriuploader.UriUploader;
+import com.owncloud.android.ui.helpers.uriuploader.model.UriUploaderResultCode;
 import com.owncloud.android.ui.navigation.model.ActionBarStyle;
 import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.ErrorMessageAdapter;
@@ -1058,12 +1059,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
             mFileDisplayNameTransformer
         );
 
-        UriUploader.UriUploaderResultCode resultCode = uploader.uploadUris();
+        UriUploaderResultCode resultCode = uploader.uploadUris();
 
         // Save the path to shared preferences; even if upload is not possible, user chose the folder
         preferences.setLastUploadPath(mUploadPath);
 
-        if (resultCode == UriUploader.UriUploaderResultCode.OK) {
+        if (resultCode == UriUploaderResultCode.OK) {
             // While content:// URIs are copied to temporary files this Activity has to stay alive, otherwise its
             // temporary read permission for those URIs is revoked. onTmpFilesCopied() finishes it once done.
             if (!uploader.isTmpCopyInProgress()) {
@@ -1074,10 +1075,10 @@ public class ReceiveExternalFilesActivity extends FileActivity
             int messageResTitle = R.string.uploader_error_title_file_cannot_be_uploaded;
             int messageResId = R.string.common_error_unknown;
 
-            if (resultCode == UriUploader.UriUploaderResultCode.ERROR_NO_FILE_TO_UPLOAD) {
+            if (resultCode == UriUploaderResultCode.ERROR_NO_FILE_TO_UPLOAD) {
                 messageResId = R.string.uploader_error_message_no_file_to_upload;
                 messageResTitle = R.string.uploader_error_title_no_file_to_upload;
-            } else if (resultCode == UriUploader.UriUploaderResultCode.ERROR_READ_PERMISSION_NOT_GRANTED) {
+            } else if (resultCode == UriUploaderResultCode.ERROR_READ_PERMISSION_NOT_GRANTED) {
                 messageResId = R.string.uploader_error_message_read_permission_not_granted;
             }
 

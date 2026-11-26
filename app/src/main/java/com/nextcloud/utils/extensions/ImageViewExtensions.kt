@@ -64,7 +64,7 @@ fun ImageView.setMediaThumbnail(file: OCFile, bitmap: Bitmap) {
 }
 
 private fun ImageView.applyVideoOverlay(file: OCFile) {
-    if (!MimeTypeUtil.isVideo(file)) {
+    if (!MimeTypeUtil.isVideo(file.mimeType)) {
         foreground = null
         return
     }

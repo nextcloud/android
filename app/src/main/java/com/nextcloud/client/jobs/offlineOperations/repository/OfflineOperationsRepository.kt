@@ -121,7 +121,7 @@ class OfflineOperationsRepository(private val fileDataStorageManager: FileDataSt
                 mimeType = if (entity.type is OfflineOperationType.CreateFolder) {
                     MimeType.DIRECTORY
                 } else {
-                    MimeTypeUtil.getMimeTypeFromPath(entity.path)
+                    MimeTypeUtil.getMimeTypeFromPath(remotePath)
                 }
             }
         }
