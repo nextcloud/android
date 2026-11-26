@@ -27,6 +27,7 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.utils.IntentUtil.createSendIntent
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.matchesMimeType
 import com.nextcloud.utils.mdm.MDMConfig
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
@@ -223,7 +224,7 @@ class SendShareDialog :
         val file = file ?: return
 
         try {
-            if (MimeTypeUtil.isImage(file) && !file.isDown) {
+            if (file.matchesMimeType(MimeTypeUtil::isImage) && !file.isDown) {
                 fileOperationsHelper?.sendCachedImage(file, packageName, activityName)
                 return
             }
