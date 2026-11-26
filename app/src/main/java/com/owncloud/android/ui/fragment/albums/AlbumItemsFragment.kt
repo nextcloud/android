@@ -88,7 +88,7 @@ import com.owncloud.android.ui.fragment.albums.bottomsheet.AlbumSharingBottomShe
 import com.owncloud.android.ui.fragment.albums.model.AlbumItemsEmptyState
 import com.owncloud.android.ui.fragment.albums.util.AlbumCollageLayout
 import com.owncloud.android.ui.fragment.helper.ColumnCount
-import com.owncloud.android.ui.helpers.UriUploader
+import com.owncloud.android.ui.helpers.uriuploader.UriUploader
 import com.owncloud.android.ui.interfaces.FileListAdapterListener
 import com.owncloud.android.ui.navigation.model.ActionBarStyle
 import com.owncloud.android.ui.preview.media.PreviewMediaFragment
@@ -547,7 +547,7 @@ class AlbumItemsFragment :
             PreviewMediaFragment.canBePreviewed(file) ->
                 activity.startImagePreview(file, !file.isDown, VirtualFolderType.ALBUM)
 
-            MimeTypeUtil.isVideo(file) ->
+            MimeTypeUtil.isVideo(file.mimeType) ->
                 activity.startImagePreview(file, true, VirtualFolderType.ALBUM)
 
             file.isDown && activity.canPreviewInAudioPlayer(file) ->

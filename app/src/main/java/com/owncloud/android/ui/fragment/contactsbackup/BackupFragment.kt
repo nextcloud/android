@@ -33,6 +33,7 @@ import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getSerializableArgument
 import com.nextcloud.utils.extensions.getTypedActivity
+import com.nextcloud.utils.extensions.matchesMimeType
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.text.DisplayTextFormatter
 import com.owncloud.android.R
@@ -455,8 +456,14 @@ class BackupFragment :
 
     private fun collectFilesForRestore(backupFiles: List<OCFile>, start: Long, end: Long): List<OCFile> {
         val inRange = backupFiles.filter { it.modificationTimestamp in (start + 1)..<end }
-        val contactBackup = inRange.filter { MimeTypeUtil.isVCard(it) }.maxByOrNull { it.modificationTimestamp }
-        val calendarBackups = if (showCalendarBackup) inRange.filter { MimeTypeUtil.isCalendar(it) } else emptyList()
+        val contactBackup = inRange
+            .filter { it.matchesMimeType(MimeTypeUtil::isVCard) }
+            .maxByOrNull { it.modificationTimestamp }
+        val calendarBackups = if (showCalendarBackup) {
+            inRange.filter { it.matchesMimeType(MimeTypeUtil::isCalendar) }
+        } else {
+            emptyList()
+        }
         return listOfNotNull(contactBackup) + calendarBackups
     }
     //endregion

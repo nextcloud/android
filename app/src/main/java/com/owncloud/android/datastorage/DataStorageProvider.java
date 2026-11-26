@@ -16,6 +16,7 @@ import com.owncloud.android.MainApp;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -82,6 +83,14 @@ public class DataStorageProvider {
         }
 
         return mCachedStoragePoints.toArray(new StoragePoint[0]);
+    }
+
+    public boolean allowAccessFromOtherApps() {
+        String storagePath = MainApp.getStoragePath();
+
+        return Arrays.stream(getAvailableStoragePoints())
+            .anyMatch(point -> point.getPath().equals(storagePath) &&
+                point.getPrivacyType() == StoragePoint.PrivacyType.PUBLIC);
     }
 
     /* Checks if external storage is available for read and write */

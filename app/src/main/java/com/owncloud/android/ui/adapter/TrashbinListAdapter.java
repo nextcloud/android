@@ -23,6 +23,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.utils.AppConstants;
 import com.nextcloud.utils.HumanReadableFormatter;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
+import com.nextcloud.utils.extensions.MimeTypeExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.text.DisplayTextFormatter;
 import com.nextcloud.utils.thumbnail.VideoOverlayGenerator;
@@ -259,11 +260,13 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if (file.isFolder()) {
             thumbnailView.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon(context, viewThemeUtils));
         } else {
-            if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
+            boolean isImageOrVideo = MimeTypeExtensionsKt.matchesMimeType(file, MimeTypeUtil::isImage) ||
+                MimeTypeUtil.isVideo(file.getMimeType());
+            if (isImageOrVideo && file.getRemoteId() != null) {
                 // Thumbnail in cache?
                 Bitmap thumbnail = FileExtensionsKt.getSmallThumbnail(file);
                 if (thumbnail != null) {
-                    if (MimeTypeUtil.isVideo(file)) {
+                    if (MimeTypeUtil.isVideo(file.getMimeType())) {
                         Bitmap withOverlay = VideoOverlayGenerator.addOverlay(thumbnail, context);
                         thumbnailView.setImageBitmap(withOverlay);
                     } else {

@@ -26,7 +26,7 @@ import com.owncloud.android.ui.activity.UploadFilesActivity
 import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask
 import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask.CheckAvailableSpaceListener
 import com.owncloud.android.ui.helpers.FileOperationsHelper
-import com.owncloud.android.ui.helpers.UriUploader
+import com.owncloud.android.ui.helpers.uriuploader.UriUploader
 import com.owncloud.android.utils.StringUtils
 import com.owncloud.android.utils.UriUtils
 import kotlinx.coroutines.Dispatchers

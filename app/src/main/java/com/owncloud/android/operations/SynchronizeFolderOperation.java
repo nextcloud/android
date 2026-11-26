@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.utils.extensions.MimeTypeExtensionsKt;
 import com.nextcloud.utils.share.UnifiedShareSharees;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorkerNotificationManager;
@@ -398,7 +399,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
             if (updatedFile.isFolder()) {
                 updatedFile.setFileLength(localFile.getFileLength());
                     // TODO move operations about size of folders to FileContentProvider
-            } else if (mRemoteFolderChanged && MimeTypeUtil.isImage(remoteFile) &&
+            } else if (mRemoteFolderChanged &&
+                    MimeTypeExtensionsKt.matchesMimeType(remoteFile, MimeTypeUtil::isImage) &&
                     remoteFile.getModificationTimestamp() !=
                             localFile.getModificationTimestamp()) {
                 updatedFile.setUpdateThumbnailNeeded(true);

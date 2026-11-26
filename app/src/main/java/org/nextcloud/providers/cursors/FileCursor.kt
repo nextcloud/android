@@ -27,6 +27,7 @@ import android.provider.DocumentsContract.Document.FLAG_SUPPORTS_RENAME
 import android.provider.DocumentsContract.Document.FLAG_SUPPORTS_THUMBNAIL
 import android.provider.DocumentsContract.Document.FLAG_SUPPORTS_WRITE
 import android.provider.DocumentsContract.Document.MIME_TYPE_DIR
+import com.nextcloud.utils.extensions.matchesMimeType
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.providers.documentstorage.model.Document
 import com.owncloud.android.utils.MimeTypeUtil
@@ -53,7 +54,7 @@ class FileCursor(projection: Array<String>?) : MatrixCursor(projection ?: DEFAUL
     }
 
     private fun documentFlags(file: OCFile): Int {
-        val thumbnailFlag = if (MimeTypeUtil.isImage(file)) FLAG_SUPPORTS_THUMBNAIL else 0
+        val thumbnailFlag = if (file.matchesMimeType(MimeTypeUtil::isImage)) FLAG_SUPPORTS_THUMBNAIL else 0
         val createFlag = if (file.isFolder) FLAG_DIR_SUPPORTS_CREATE else 0
         return BASE_DOCUMENT_FLAGS or thumbnailFlag or createFlag
     }

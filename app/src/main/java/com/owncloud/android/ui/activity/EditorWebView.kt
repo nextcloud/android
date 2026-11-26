@@ -29,6 +29,7 @@ import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSmallThumbnail
 import com.nextcloud.utils.extensions.isPNG
+import com.nextcloud.utils.extensions.matchesMimeType
 import com.nextcloud.utils.thumbnail.VideoOverlayGenerator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.RichdocumentsWebviewBinding
@@ -214,7 +215,8 @@ abstract class EditorWebView : ExternalSiteWebView() {
         when {
             file.isFolder -> binding.thumbnail.setImageDrawable(getFolderIcon(file, user))
 
-            MimeTypeUtil.isImageOrVideo(file) && file.remoteId != null -> showCachedThumbnail(file)
+            (file.matchesMimeType(MimeTypeUtil::isImage) || MimeTypeUtil.isVideo(file.mimeType)) &&
+                file.remoteId != null -> showCachedThumbnail(file)
 
             else -> binding.thumbnail.setImageDrawable(
                 MimeTypeUtil.getFileTypeIcon(file.mimeType, file.fileName, applicationContext, viewThemeUtils)
@@ -231,7 +233,7 @@ abstract class EditorWebView : ExternalSiteWebView() {
     private fun showCachedThumbnail(file: OCFile) {
         val thumbnail = file.getSmallThumbnail()
         if (thumbnail != null && !file.isUpdateThumbnailNeeded) {
-            val bitmap = if (MimeTypeUtil.isVideo(file)) {
+            val bitmap = if (MimeTypeUtil.isVideo(file.mimeType)) {
                 VideoOverlayGenerator.addOverlay(thumbnail, this)
             } else {
                 thumbnail
