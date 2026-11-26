@@ -26,6 +26,7 @@ import com.nextcloud.ui.fileactions.FileActionHandler
 import com.nextcloud.ui.fileactions.FileActionHost
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.matchesMimeType
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -239,7 +240,7 @@ class PreviewTextFileFragment : PreviewTextFragment() {
 
         fun canBePreviewed(file: OCFile?): Boolean = file != null &&
             file.isDown &&
-            MimeTypeUtil.isText(file) &&
+            file.matchesMimeType(MimeTypeUtil::isText) &&
             file.mimeType !in UNSUPPORTED_MIME_TYPES &&
             MimeTypeUtil.getMimeTypeFromPath(file.remotePath) !in UNSUPPORTED_MIME_TYPES
     }

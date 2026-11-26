@@ -15,6 +15,7 @@ import com.nextcloud.utils.extensions.getBigThumbnailKey
 import com.nextcloud.utils.extensions.getPreviewEndpoint
 import com.nextcloud.utils.extensions.getVideoPreviewEndpoint
 import com.nextcloud.utils.extensions.isPNG
+import com.nextcloud.utils.extensions.matchesMimeType
 import com.nextcloud.utils.view.ScreenMetrics
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -42,7 +43,7 @@ object ResizedImageGenerator {
         }
 
         val screenSize = ScreenMetrics.size()
-        val resizedImage = if (file.isDown && MimeTypeUtil.isImage(file)) {
+        val resizedImage = if (file.isDown && file.matchesMimeType(MimeTypeUtil::isImage)) {
             Log_OC.d(TAG, "creating from local file: ${file.remotePath}")
             val decodedImage = BitmapUtils.decodeSampledBitmapFromFile(file.storagePath, screenSize.x, screenSize.y)
             if (decodedImage == null) {
@@ -84,7 +85,7 @@ object ResizedImageGenerator {
         client: OwnCloudClient,
         screenSize: Point
     ): Bitmap? {
-        val preview = if (MimeTypeUtil.isVideo(file)) {
+        val preview = if (MimeTypeUtil.isVideo(file.mimeType)) {
             downloadVideoPreview(file, client)
         } else {
             downloadPreview(file, client, client.getPreviewEndpoint(file.localId, screenSize.x, screenSize.y))

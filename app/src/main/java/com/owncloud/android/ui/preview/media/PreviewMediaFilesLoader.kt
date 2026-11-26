@@ -7,6 +7,7 @@
 package com.owncloud.android.ui.preview.media
 
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.extensions.matchesMimeType
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.VirtualFolderType
@@ -62,9 +63,9 @@ class PreviewMediaFilesLoader(
         return source
             .filter {
                 when (mediaState) {
-                    MediaState.MEDIA_STATE_PHOTOS_ONLY -> MimeTypeUtil.isImage(it)
-                    MediaState.MEDIA_STATE_VIDEOS_ONLY -> MimeTypeUtil.isVideo(it)
-                    else -> MimeTypeUtil.isImageOrVideo(it)
+                    MediaState.MEDIA_STATE_PHOTOS_ONLY -> it.matchesMimeType(MimeTypeUtil::isImage)
+                    MediaState.MEDIA_STATE_VIDEOS_ONLY -> MimeTypeUtil.isVideo(it.mimeType)
+                    else -> it.matchesMimeType(MimeTypeUtil::isImage) || MimeTypeUtil.isVideo(it.mimeType)
                 }
             }
             .toMutableList()
