@@ -9,656 +9,444 @@
  * SPDX-FileCopyrightText: 2012-2013 David A. Velasco <dvelasco@solidgear.es>
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-package com.owncloud.android.operations;
+package com.owncloud.android.operations
 
-import android.content.Context;
-import android.content.Intent;
-import android.text.TextUtils;
+import android.content.Context
+import android.content.Intent
+import com.nextcloud.client.account.User
+import com.nextcloud.client.jobs.download.FileDownloadHelper
+import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorkerNotificationManager
+import com.nextcloud.utils.ResultParser.data
+import com.nextcloud.utils.ResultParser.list
+import com.nextcloud.utils.extensions.eTagChanged
+import com.nextcloud.utils.extensions.mainThread
+import com.nextcloud.utils.extensions.matchesMimeType
+import com.nextcloud.utils.share.UnifiedShareSharees
+import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1
+import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile
+import com.owncloud.android.lib.common.OwnCloudClient
+import com.owncloud.android.lib.common.operations.OperationCancelledException
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
+import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation
+import com.owncloud.android.lib.resources.files.model.RemoteFile
+import com.owncloud.android.operations.common.SyncOperation
+import com.owncloud.android.operations.synchronize.TwoWaySyncOperation
+import com.owncloud.android.services.OperationsService
+import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.MimeTypeUtil
+import java.io.File
+import java.util.Optional
+import java.util.concurrent.atomic.AtomicBoolean
 
-import com.nextcloud.client.account.User;
-import com.nextcloud.utils.extensions.MimeTypeExtensionsKt;
-import com.nextcloud.utils.share.UnifiedShareSharees;
-import com.nextcloud.client.jobs.download.FileDownloadHelper;
-import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorkerNotificationManager;
-import com.nextcloud.utils.extensions.ExtensionsKt;
-import com.nextcloud.utils.extensions.StringExtensionsKt;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1;
-import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
-import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.operations.OperationCancelledException;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
-import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
-import com.owncloud.android.lib.resources.files.model.RemoteFile;
-import com.owncloud.android.operations.common.SyncOperation;
-import com.owncloud.android.operations.synchronize.TwoWaySyncOperation;
-import com.owncloud.android.services.OperationsService;
-import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.MimeTypeUtil;
+class SynchronizeFolderOperation(
+    private val context: Context,
+    val remotePath: String,
+    private val user: User,
+    storageManager: FileDataStorageManager,
+    private val useWorkerWithNotification: Boolean,
+    private val syncAll: Boolean
+) : SyncOperation(storageManager) {
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Vector;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
+    @Volatile
+    private var localFolder: OCFile? = null
 
-import kotlin.Unit;
+    private var isPartOfInternalTwoWaySync = false
+    private var remoteFolderChanged = false
+    private var conflicts = 0
+    private var failures = 0
 
-/**
- *  Remote operation performing the synchronization of the list of files contained
- *  in a folder identified with its remote path.
- *  Fetches the list and properties of the files contained in the given folder, including their
- *  properties, and updates the local database with them.
- *  Does NOT enter in the child folders to synchronize their contents also, BUT requests for a new operation instance
- *  doing so.
- */
-public class SynchronizeFolderOperation extends SyncOperation {
+    private val filesToDownload = mutableListOf<OCFile>()
+    private val fileSyncs = mutableListOf<SynchronizeFileOperation>()
+    private val subfolderPaths = mutableListOf<String>()
 
-    private static final String TAG = SynchronizeFolderOperation.class.getSimpleName();
+    private val cancellationRequested = AtomicBoolean(false)
+    private val notificationManager = FolderDownloadWorkerNotificationManager(context, false, null)
+    private val twoWaySyncOperation = TwoWaySyncOperation(context, user, storageManager, cancellationRequested)
 
-    /** Remote path of the folder to synchronize */
-    private String mRemotePath;
+    val accountName: String
+        get() = user.accountName
 
-    /** Account where the file to synchronize belongs */
-    private User user;
+    val folderId: Long?
+        get() = localFolder?.fileId
 
-    /** Android context; necessary to send requests to the download service */
-    private Context mContext;
+    val folderNameFromPath: Optional<String>
+        get() {
+            val folder = localFolder ?: return Optional.empty()
+            val path = folder.storagePath.takeUnless { it.isNullOrEmpty() }
+                ?: FileStorageUtils.getDefaultSavePathFor(user.accountName, folder)
 
-    /** Locally cached information about folder to synchronize */
-    private OCFile mLocalFolder;
-
-    private volatile boolean mIsPartOfInternalTwoWaySync;
-
-    /** Counter of conflicts found between local and remote files */
-    private final AtomicInteger mConflictsFound = new AtomicInteger();
-
-    /** Counter of failed operations in synchronization of kept-in-sync files */
-    private final AtomicInteger mFailsInFileSyncsFound = new AtomicInteger();
-
-    /**
-     * 'True' means that the remote folder changed and should be fetched
-     */
-    private volatile boolean mRemoteFolderChanged;
-
-    private List<OCFile> mFilesForDirectDownload;
-    // to avoid extra PROPFINDs when there was no change in the folder
-
-    private List<SynchronizeFileOperation> mFilesToSyncContents;
-    // this will be used for every file when 'folder synchronization' replaces 'folder download'
-
-    private final List<String> mSubfoldersToSync;
-
-    private final AtomicBoolean mCancellationRequested;
-
-    private final boolean useWorkerWithNotification;
-
-    private final boolean syncAll;
-
-    final FolderDownloadWorkerNotificationManager notificationManager;
-
-    private final TwoWaySyncOperation twoWaySyncOperation;
-
-    /**
-     * Creates a new instance of {@link SynchronizeFolderOperation}.
-     *
-     * @param context         Application context.
-     * @param remotePath      Path to synchronize.
-     * @param user            Nextcloud account where the folder is located.
-     */
-    public SynchronizeFolderOperation(Context context,
-                                      String remotePath,
-                                      User user,
-                                      FileDataStorageManager storageManager,
-                                      boolean useWorkerWithNotification,
-                                      boolean syncAll) {
-        super(storageManager);
-
-        mRemotePath = remotePath;
-        this.user = user;
-        mContext = context;
-        mRemoteFolderChanged = false;
-        mFilesForDirectDownload = new Vector<>();
-        mFilesToSyncContents = new Vector<>();
-        mSubfoldersToSync = new ArrayList<>();
-        mCancellationRequested = new AtomicBoolean(false);
-        this.useWorkerWithNotification = useWorkerWithNotification;
-        this.syncAll = syncAll;
-        notificationManager = new FolderDownloadWorkerNotificationManager(context, false,null);
-        twoWaySyncOperation = new TwoWaySyncOperation(context, user, storageManager, mCancellationRequested);
-    }
-
-
-    /**
-     * Performs the synchronization.
-     *
-     * {@inheritDoc}
-     */
-    @Override
-    protected RemoteOperationResult run(OwnCloudClient client) {
-        RemoteOperationResult result;
-        mFailsInFileSyncsFound.set(0);
-        mConflictsFound.set(0);
-
-        try {
-            // get locally cached information about folder
-            mLocalFolder = getStorageManager().getFileByPath(mRemotePath);
-            if (mLocalFolder == null) {
-                Log_OC.e(TAG, "Local folder is null, cannot run synchronize folder operation, remote path: " + mRemotePath);
-                return new RemoteOperationResult<>(ResultCode.FILE_NOT_FOUND);
-            }
-
-            mIsPartOfInternalTwoWaySync = getStorageManager().isPartOfInternalTwoWaySync(mLocalFolder);
-            if (mIsPartOfInternalTwoWaySync) {
-                twoWaySyncOperation.ensureLocalFolderExists(mLocalFolder);
-            }
-
-            result = checkForChanges(client);
-
-            if (result.isSuccess()) {
-                if (mRemoteFolderChanged || syncAll) {
-                    result = fetchAndSyncRemoteFolder(client);
-                } else {
-                    prepareOpsFromLocalKnowledge();
-                }
-
-                if (result.isSuccess()) {
-                    syncContents(client);
-                }
-            }
-
-            if (mCancellationRequested.get()) {
-                throw new OperationCancelledException();
-            }
-
-        } catch (OperationCancelledException e) {
-            result = new RemoteOperationResult(e);
+            return Optional.of(File(path).name)
         }
 
-        return result;
+    fun cancel() {
+        cancellationRequested.set(true)
     }
 
-    private RemoteOperationResult checkForChanges(OwnCloudClient client) throws OperationCancelledException {
-        Log_OC.d(TAG, "Checking changes in " + user.getAccountName() + mRemotePath);
+    override fun run(client: OwnCloudClient): RemoteOperationResult<*> {
+        failures = 0
+        conflicts = 0
 
-        mRemoteFolderChanged = true;
-
-        if (mCancellationRequested.get()) {
-            throw new OperationCancelledException();
+        val folder = storageManager.getFileByPath(remotePath)
+        localFolder = folder
+        if (folder == null) {
+            Log_OC.e(TAG, "Folder not found in database: $remotePath")
+            return RemoteOperationResult<Any>(ResultCode.FILE_NOT_FOUND)
         }
 
-        // remote request
-        ReadFileRemoteOperation operation = new ReadFileRemoteOperation(mRemotePath);
-        var result = operation.execute(client);
-        if (result.isSuccess() && result.getData().get(0) instanceof RemoteFile remoteFile) {
-            OCFile remoteFolder = FileStorageUtils.fillOCFile(remoteFile);
+        isPartOfInternalTwoWaySync = storageManager.isPartOfInternalTwoWaySync(folder)
+        if (isPartOfInternalTwoWaySync) {
+            twoWaySyncOperation.ensureLocalFolderExists(folder)
+        }
 
-            // check if remote and local folder are different
-            mRemoteFolderChanged = StringExtensionsKt.eTagChanged(mLocalFolder.getEtag(), remoteFolder.getEtag());
+        return try {
+            val result = sync(folder, client)
+            throwIfCancelled()
+            result
+        } catch (e: OperationCancelledException) {
+            Log_OC.d(TAG, "Sync cancelled: $remotePath")
+            RemoteOperationResult<Any>(e)
+        }
+    }
 
-            result = new RemoteOperationResult<>(ResultCode.OK);
+    private fun sync(folder: OCFile, client: OwnCloudClient): RemoteOperationResult<*> {
+        val checkResult = checkForChanges(folder, client)
+        if (!checkResult.isSuccess) return checkResult
 
-            Log_OC.i(TAG, "Checked " + user.getAccountName() + mRemotePath + " : " +
-                (mRemoteFolderChanged ? "changed" : "not changed"));
+        val result = if (remoteFolderChanged || syncAll) {
+            syncFromServer(folder, client)
         } else {
-            // check failed
-            if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
-                removeLocalFolder();
-            }
-            if (result.isException()) {
-                Log_OC.e(TAG, "Checked " + user.getAccountName() + mRemotePath  + " : " +
-                        result.getLogMessage(), result.getException());
+            queueFromDatabase(folder)
+            checkResult
+        }
+
+        if (result.isSuccess) {
+            syncContents(folder, client)
+        }
+
+        return result
+    }
+
+    private fun throwIfCancelled() {
+        if (cancellationRequested.get()) throw OperationCancelledException()
+    }
+
+    private fun checkForChanges(folder: OCFile, client: OwnCloudClient): RemoteOperationResult<*> {
+        Log_OC.d(TAG, "Checking for changes: $remotePath (${user.accountName})")
+        remoteFolderChanged = true
+        throwIfCancelled()
+
+        val result = ReadFileRemoteOperation(remotePath).execute(client)
+        val remoteFolder = result.data(RemoteFile::class.java)
+        if (remoteFolder == null) {
+            removeIfDeletedOnServer(folder, result)
+            logCheckFailure(result)
+            return result
+        }
+
+        remoteFolderChanged = folder.etag.eTagChanged(FileStorageUtils.fillOCFile(remoteFolder).etag)
+        val state = if (remoteFolderChanged) "changed" else "unchanged"
+        Log_OC.i(TAG, "Folder $state: $remotePath")
+
+        return RemoteOperationResult<Any>(ResultCode.OK)
+    }
+
+    private fun logCheckFailure(result: RemoteOperationResult<*>) {
+        val message = "Check for changes failed: $remotePath, ${result.logMessage}"
+        if (result.isException) {
+            Log_OC.e(TAG, message, result.exception)
+        } else {
+            Log_OC.e(TAG, message)
+        }
+    }
+
+    private fun syncFromServer(folder: OCFile, client: OwnCloudClient): RemoteOperationResult<*> {
+        throwIfCancelled()
+
+        Log_OC.d(TAG, "Fetching folder: $remotePath, remote id: ${folder.remoteId}")
+        val result = ReadFolderRemoteOperation(remotePath).execute(client)
+        if (!result.isSuccess) {
+            removeIfDeletedOnServer(folder, result)
+            return result
+        }
+
+        val mergeResult = mergeListing(folder, result.list<RemoteFile>())
+        if (!mergeResult.isSuccess) return mergeResult
+
+        if (conflicts > 0 || failures > 0) {
+            return RemoteOperationResult<Any>(ResultCode.SYNC_CONFLICT)
+        }
+
+        return result
+    }
+
+    private fun removeIfDeletedOnServer(folder: OCFile, result: RemoteOperationResult<*>) {
+        if (result.code != ResultCode.FILE_NOT_FOUND) return
+
+        if (storageManager.isPendingOfflineCreation(folder)) {
+            Log_OC.d(TAG, "Keeping folder not yet created on server: ${folder.remotePath}")
+            return
+        }
+
+        if (!storageManager.fileExists(folder.fileId)) return
+
+        Log_OC.d(TAG, "Removing folder deleted on server: ${folder.remotePath}")
+        val removeLocalContent = folder.isDown &&
+            folder.storagePath.startsWith(FileStorageUtils.getSavePath(user.accountName))
+        storageManager.removeFolder(folder, true, removeLocalContent)
+    }
+
+    private fun mergeListing(folder: OCFile, remoteFiles: List<RemoteFile>): RemoteOperationResult<*> {
+        val remoteFolder = FileStorageUtils.fillOCFile(remoteFiles.first()).apply {
+            parentId = folder.parentId
+            fileId = folder.fileId
+        }
+        Log_OC.d(TAG, "Updating database: ${folder.remotePath}")
+
+        filesToDownload.clear()
+        fileSyncs.clear()
+        subfolderPaths.clear()
+
+        throwIfCancelled()
+
+        val encrypted = FileStorageUtils.checkEncryptionStatus(remoteFolder, storageManager)
+        folder.isEncrypted = encrypted
+        folder.permissions = remoteFolder.permissions
+        folder.richWorkspace = remoteFolder.richWorkspace
+
+        val metadata = RefreshFolderOperation.getDecryptedFolderMetadata(encrypted, folder, client, user, context)
+        if (folder.isEncrypted && metadata == null) {
+            Log_OC.e(TAG, "Metadata missing for encrypted folder: $remotePath")
+            return RemoteOperationResult<Any>(ResultCode.METADATA_NOT_FOUND)
+        }
+
+        val localFilesByPath =
+            RefreshFolderOperation.prefillLocalFilesMap(metadata, storageManager.getFolderContent(folder, false))
+        val mergedFiles = (1..remoteFiles.lastIndex).mapNotNull { index ->
+            mergeChild(folder, remoteFiles[index], localFilesByPath, metadata)
+        }
+
+        decryptFileName(metadata, folder)
+        UnifiedShareSharees.fillBlocking(user, mergedFiles)
+
+        storageManager.saveFolder(remoteFolder, mergedFiles, localFilesByPath.values)
+        folder.lastSyncDateForData = System.currentTimeMillis()
+        storageManager.saveFile(folder)
+
+        syncSubfolders()
+
+        return RemoteOperationResult<Any>(ResultCode.OK)
+    }
+
+    private fun mergeChild(
+        folder: OCFile,
+        remoteChild: RemoteFile,
+        localFilesByPath: MutableMap<String, OCFile>,
+        metadata: Any?
+    ): OCFile? {
+        val serverFile = FileStorageUtils.fillOCFile(remoteChild)
+        val mergedFile = FileStorageUtils.fillOCFile(remoteChild).apply { parentId = folder.fileId }
+        val localFile = localFilesByPath.remove(serverFile.remotePath)
+            ?: storageManager.getFileByPath(mergedFile.remotePath)
+
+        copyLocalState(localFile, mergedFile, serverFile)
+        FileStorageUtils.searchForLocalFileInDefaultPath(mergedFile, user.accountName)
+        decryptFileName(metadata, mergedFile)
+        mergedFile.isEncrypted = mergedFile.isEncrypted || folder.isEncrypted
+
+        if (localFile != null && isDeletedLocally(serverFile, localFile)) {
+            val deletedOnServer = twoWaySyncOperation.deleteRemoteFile(localFile, client)
+            return if (deletedOnServer) null else mergedFile
+        }
+
+        queueSync(serverFile, localFile)
+
+        return mergedFile
+    }
+
+    private fun isDeletedLocally(serverFile: OCFile, localFile: OCFile): Boolean =
+        isPartOfInternalTwoWaySync && twoWaySyncOperation.isDeletedLocally(serverFile, localFile)
+
+    private fun decryptFileName(metadata: Any?, file: OCFile) {
+        when (metadata) {
+            is DecryptedFolderMetadataFileV1 ->
+                RefreshFolderOperation.updateFileNameForEncryptedFileV1(storageManager, metadata, file)
+
+            is DecryptedFolderMetadataFile ->
+                RefreshFolderOperation.updateFileNameForEncryptedFile(storageManager, metadata, file)
+        }
+    }
+
+    private fun copyLocalState(localFile: OCFile?, mergedFile: OCFile, serverFile: OCFile) {
+        mergedFile.lastSyncDateForProperties = System.currentTimeMillis()
+        if (localFile == null) {
+            mergedFile.etag = ""
+            return
+        }
+
+        mergedFile.apply {
+            fileId = localFile.fileId
+            lastSyncDateForData = localFile.lastSyncDateForData
+            modificationTimestampAtLastSyncForData = localFile.modificationTimestampAtLastSyncForData
+            storagePath = localFile.storagePath
+            etag = localFile.etag
+        }
+
+        if (mergedFile.isFolder) {
+            mergedFile.fileLength = localFile.fileLength
+        } else if (isImageChanged(serverFile, localFile)) {
+            mergedFile.isUpdateThumbnailNeeded = true
+            Log_OC.d(TAG, "Image changed on server: ${serverFile.remotePath}")
+        }
+
+        mergedFile.apply {
+            isSharedViaLink = localFile.isSharedViaLink
+            isSharedWithSharee = localFile.isSharedWithSharee
+            etagInConflict = localFile.etagInConflict
+        }
+    }
+
+    private fun isImageChanged(serverFile: OCFile, localFile: OCFile): Boolean = remoteFolderChanged &&
+        serverFile.matchesMimeType(MimeTypeUtil::isImage) &&
+        serverFile.modificationTimestamp != localFile.modificationTimestamp
+
+    private fun queueSync(serverFile: OCFile, localFile: OCFile?) {
+        if (serverFile.isFolder) {
+            subfolderPaths.add(serverFile.remotePath)
+        } else {
+            fileSyncs.add(createFileSync(localFile, serverFile))
+        }
+    }
+
+    private fun queueFromDatabase(folder: OCFile) {
+        for (child in storageManager.getFolderContent(folder, false)) {
+            if (child.isFolder) continue
+
+            if (child.isDown) {
+                val conflictedFile = child.takeIf { it.etagInConflict != null }
+                fileSyncs.add(createFileSync(child, conflictedFile))
             } else {
-                Log_OC.e(TAG, "Checked " + user.getAccountName() + mRemotePath + " : " +
-                        result.getLogMessage());
-            }
-
-        }
-
-        return result;
-    }
-
-
-    private RemoteOperationResult fetchAndSyncRemoteFolder(OwnCloudClient client) throws OperationCancelledException {
-        if (mCancellationRequested.get()) {
-            throw new OperationCancelledException();
-        }
-
-        ReadFolderRemoteOperation operation = new ReadFolderRemoteOperation(mRemotePath);
-        var result = operation.execute(client);
-        Log_OC.d(TAG, "Synchronizing " + user.getAccountName() + mRemotePath);
-        Log_OC.d(TAG, "Synchronizing remote id" + mLocalFolder.getRemoteId());
-
-        if (result.isSuccess()) {
-            final var synchronizeDataResult = synchronizeData(result.getData());
-            if (!synchronizeDataResult.isSuccess()) {
-                return synchronizeDataResult;
-            }
-
-            if (mConflictsFound.get() > 0  || mFailsInFileSyncsFound.get() > 0) {
-                result = new RemoteOperationResult<>(ResultCode.SYNC_CONFLICT);
-                    // should be a different result code, but will do the job
-            }
-        } else {
-            if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
-                removeLocalFolder();
-            }
-        }
-
-        return result;
-    }
-
-
-    private void removeLocalFolder() {
-        FileDataStorageManager storageManager = getStorageManager();
-        if (storageManager.isPendingOfflineCreation(mLocalFolder)) {
-            Log_OC.d(TAG, "Keeping " + mLocalFolder.getRemotePath() + ", it is not created on the server yet");
-            return;
-        }
-
-        if (storageManager.fileExists(mLocalFolder.getFileId())) {
-            String currentSavePath = FileStorageUtils.getSavePath(user.getAccountName());
-            storageManager.removeFolder(
-                    mLocalFolder,
-                    true,
-                    mLocalFolder.isDown() // TODO: debug, I think this is always false for folders
-                            && mLocalFolder.getStoragePath().startsWith(currentSavePath)
-            );
-        }
-    }
-
-
-    /**
-     * Synchronizes the data retrieved from the server about the contents of the target folder
-     * with the current data in the local database.
-     *
-     * @param folderAndFiles Remote folder and children files in Folder
-     */
-    private RemoteOperationResult<?> synchronizeData(List<Object> folderAndFiles) throws OperationCancelledException {
-
-
-        // parse data from remote folder
-        OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) folderAndFiles.get(0));
-        remoteFolder.setParentId(mLocalFolder.getParentId());
-        remoteFolder.setFileId(mLocalFolder.getFileId());
-
-        Log_OC.d(TAG, "Remote folder " + mLocalFolder.getRemotePath() + " changed - starting update of local data ");
-
-        mFilesForDirectDownload.clear();
-        mFilesToSyncContents.clear();
-        mSubfoldersToSync.clear();
-
-        if (mCancellationRequested.get()) {
-            throw new OperationCancelledException();
-        }
-
-        FileDataStorageManager storageManager = getStorageManager();
-
-        // if local folder is encrypted, download fresh metadata
-        boolean encryptedAncestor = FileStorageUtils.checkEncryptionStatus(remoteFolder, storageManager);
-        mLocalFolder.setEncrypted(encryptedAncestor);
-
-        // update permission
-        mLocalFolder.setPermissions(remoteFolder.getPermissions());
-
-        // update richWorkspace
-        mLocalFolder.setRichWorkspace(remoteFolder.getRichWorkspace());
-
-        Object object = RefreshFolderOperation.getDecryptedFolderMetadata(encryptedAncestor,
-                                                                                                 mLocalFolder,
-                                                                                                 getClient(),
-                                                                                                 user,
-                                                                                                 mContext);
-        if (mLocalFolder.isEncrypted() && object == null) {
-            Log_OC.e(TAG, "Metadata is missing for encrypted folder: " + mRemotePath);
-            return new RemoteOperationResult<>(ResultCode.METADATA_NOT_FOUND);
-        }
-
-        // get current data about local contents of the folder to synchronize
-        Map<String, OCFile> localFilesMap = RefreshFolderOperation.prefillLocalFilesMap(object,storageManager.getFolderContent(mLocalFolder, false));
-
-        // loop to synchronize every child
-        List<OCFile> updatedFiles = new ArrayList<>(folderAndFiles.size() - 1);
-        OCFile remoteFile;
-        OCFile localFile;
-        OCFile updatedFile;
-        RemoteFile remote;
-
-        for (int i = 1; i < folderAndFiles.size(); i++) {
-            /// new OCFile instance with the data from the server
-            remote = (RemoteFile) folderAndFiles.get(i);
-            remoteFile = FileStorageUtils.fillOCFile(remote);
-
-            /// new OCFile instance to merge fresh data from server with local state
-            updatedFile = FileStorageUtils.fillOCFile(remote);
-            updatedFile.setParentId(mLocalFolder.getFileId());
-
-            /// retrieve local data for the read file
-            localFile = localFilesMap.remove(remoteFile.getRemotePath());
-
-            // TODO better implementation is needed
-            if (localFile == null) {
-                localFile = storageManager.getFileByPath(updatedFile.getRemotePath());
-            }
-
-            /// add to updatedFile data about LOCAL STATE (not existing in server)
-            updateLocalStateData(remoteFile, localFile, updatedFile);
-
-            /// check and fix, if needed, local storage path
-            FileStorageUtils.searchForLocalFileInDefaultPath(updatedFile, user.getAccountName());
-
-            // update file name for encrypted files
-            if (object instanceof DecryptedFolderMetadataFileV1 metadataFile) {
-                RefreshFolderOperation.updateFileNameForEncryptedFileV1(storageManager, metadataFile, updatedFile);
-            } else if (object instanceof DecryptedFolderMetadataFile metadataFile) {
-                RefreshFolderOperation.updateFileNameForEncryptedFile(storageManager, metadataFile, updatedFile);
-            }
-
-            // we parse content, so either the folder itself or its direct parent (which we check) must be encrypted
-            boolean encrypted = updatedFile.isEncrypted() || mLocalFolder.isEncrypted();
-            updatedFile.setEncrypted(encrypted);
-
-            if (syncFileOrFolder(remoteFile, localFile)) {
-                updatedFiles.add(updatedFile);
-            }
-        }
-
-        // update file name for encrypted files
-        if (object instanceof DecryptedFolderMetadataFileV1 metadataFile) {
-            RefreshFolderOperation.updateFileNameForEncryptedFileV1(storageManager, metadataFile, mLocalFolder);
-        } else if (object instanceof DecryptedFolderMetadataFile metadataFile) {
-            RefreshFolderOperation.updateFileNameForEncryptedFile(storageManager, metadataFile, mLocalFolder);
-        }
-
-        // save updated contents in local database
-        UnifiedShareSharees.fillBlocking(user, updatedFiles);
-
-        storageManager.saveFolder(remoteFolder, updatedFiles, localFilesMap.values());
-        mLocalFolder.setLastSyncDateForData(System.currentTimeMillis());
-        storageManager.saveFile(mLocalFolder);
-
-        startSubfolderSynchronizations();
-
-        return new RemoteOperationResult<>(ResultCode.OK);
-    }
-
-    private void startSubfolderSynchronizations() throws OperationCancelledException {
-        for (String remotePath : mSubfoldersToSync) {
-            if (mCancellationRequested.get()) {
-                throw new OperationCancelledException();
-            }
-            startSyncFolderOperation(remotePath);
-        }
-    }
-
-    private void updateLocalStateData(OCFile remoteFile, OCFile localFile, OCFile updatedFile) {
-        updatedFile.setLastSyncDateForProperties(System.currentTimeMillis());
-        if (localFile != null) {
-            updatedFile.setFileId(localFile.getFileId());
-            updatedFile.setLastSyncDateForData(localFile.getLastSyncDateForData());
-            updatedFile.setModificationTimestampAtLastSyncForData(
-                    localFile.getModificationTimestampAtLastSyncForData()
-            );
-            updatedFile.setStoragePath(localFile.getStoragePath());
-            // eTag will not be updated unless file CONTENTS are synchronized
-            updatedFile.setEtag(localFile.getEtag());
-            if (updatedFile.isFolder()) {
-                updatedFile.setFileLength(localFile.getFileLength());
-                    // TODO move operations about size of folders to FileContentProvider
-            } else if (mRemoteFolderChanged &&
-                    MimeTypeExtensionsKt.matchesMimeType(remoteFile, MimeTypeUtil::isImage) &&
-                    remoteFile.getModificationTimestamp() !=
-                            localFile.getModificationTimestamp()) {
-                updatedFile.setUpdateThumbnailNeeded(true);
-                Log_OC.d(TAG, "Image " + remoteFile.getFileName() + " updated on the server");
-            }
-            updatedFile.setSharedViaLink(localFile.isSharedViaLink());
-            updatedFile.setSharedWithSharee(localFile.isSharedWithSharee());
-            updatedFile.setEtagInConflict(localFile.getEtagInConflict());
-        } else {
-            // remote eTag will not be updated unless file CONTENTS are synchronized
-            updatedFile.setEtag("");
-        }
-    }
-
-    /**
-     * Schedules synchronization for the given remote file or folder.
-     * <p>
-     * If the remote file is a regular file, a {@link SynchronizeFileOperation} is created
-     * and added to the list of pending file synchronizations.
-     * If the remote file is a folder, it is queued for a folder synchronization operation,
-     * which recursively synchronizes all nested files and subfolders.
-     * Exception: in an internal two-way sync folder, a file or folder the user deleted locally
-     * is removed from the server instead of being re-downloaded.
-     * </p>
-     *
-     * @param remoteFile the remote file or folder to synchronize
-     * @param localFile the corresponding local file or folder
-     * @return {@code false} if {@code remoteFile} was deleted from the server and should no
-     *         longer be tracked locally, {@code true} otherwise
-     */
-    private boolean syncFileOrFolder(OCFile remoteFile, OCFile localFile) {
-        if (mIsPartOfInternalTwoWaySync && twoWaySyncOperation.isDeletedLocally(remoteFile, localFile)) {
-            return !twoWaySyncOperation.deleteRemoteFile(localFile, getClient());
-        }
-
-        if (remoteFile.isFolder()) {
-            mSubfoldersToSync.add(remoteFile.getRemotePath());
-            return true;
-        }
-
-        SynchronizeFileOperation operation = new SynchronizeFileOperation(
-            localFile,
-            remoteFile,
-            user,
-            true,
-            mContext,
-            getStorageManager(),
-            useWorkerWithNotification
-        );
-        mFilesToSyncContents.add(operation);
-        return true;
-    }
-
-    private void prepareOpsFromLocalKnowledge() throws OperationCancelledException {
-        List<OCFile> children = getStorageManager().getFolderContent(mLocalFolder, false);
-        for (OCFile child : children) {
-            if (!child.isFolder()) {
-                if (!child.isDown()) {
-                    mFilesForDirectDownload.add(child);
-                } else {
-                    /// this should result in direct upload of files that were locally modified
-                    SynchronizeFileOperation operation = new SynchronizeFileOperation(
-                        child,
-                        child.getEtagInConflict() != null ? child : null,
-                        user,
-                        true,
-                        mContext,
-                        getStorageManager(),
-                        useWorkerWithNotification
-                    );
-                    mFilesToSyncContents.add(operation);
-                }
+                filesToDownload.add(child)
             }
         }
     }
 
-    private void syncContents(OwnCloudClient client) throws OperationCancelledException {
-        startDirectDownloads();
-        startContentSynchronizations(mFilesToSyncContents);
-        if (mIsPartOfInternalTwoWaySync) {
-            twoWaySyncOperation.uploadNewLocalEntries(mLocalFolder, client);
-        }
-        updateETag(client);
-    }
+    private fun createFileSync(localFile: OCFile?, serverFile: OCFile?) = SynchronizeFileOperation(
+        localFile,
+        serverFile,
+        user,
+        true,
+        context,
+        storageManager,
+        useWorkerWithNotification
+    )
 
-    /**
-     * Updates the eTag of the local folder after a successful synchronization.
-     * This ensures that any changes to local files, which may alter the eTag, are correctly reflected.
-     *
-     * @param client the OwnCloudClient instance used to execute remote operations.
-     */
-    private void updateETag(OwnCloudClient client) {
-        ReadFileRemoteOperation operation = new ReadFileRemoteOperation(mRemotePath);
-        final var result = operation.execute(client);
-        if (!result.isSuccess()) {
-            Log_OC.w(TAG, "Cannot update eTag, read folder operation is failed");
-            return;
-        }
-
-        if (result.getData().get(0) instanceof RemoteFile remoteFile) {
-            String eTag = remoteFile.getEtag();
-            mLocalFolder.setEtag(eTag);
-
-            final FileDataStorageManager storageManager = getStorageManager();
-            storageManager.saveFile(mLocalFolder);
+    private fun syncSubfolders() {
+        for (path in subfolderPaths) {
+            throwIfCancelled()
+            requestFolderSync(path)
         }
     }
 
-    private void startDirectDownloads() {
-        final var fileDownloadHelper = FileDownloadHelper.Companion.instance();
+    private fun requestFolderSync(path: String) {
+        val intent = Intent(context, OperationsService::class.java).apply {
+            action = OperationsService.ACTION_SYNC_FOLDER
+            putExtra(OperationsService.EXTRA_ACCOUNT, user.toPlatformAccount())
+            putExtra(OperationsService.EXTRA_REMOTE_PATH, path)
+            putExtra(OperationsService.EXTRA_SYNC_ALL, syncAll)
+        }
+        context.startService(intent)
+    }
 
+    private fun syncContents(folder: OCFile, client: OwnCloudClient) {
+        downloadFiles(folder)
+        runFileSyncs(folder)
+        if (isPartOfInternalTwoWaySync) {
+            twoWaySyncOperation.uploadNewLocalEntries(folder, client)
+        }
+
+        refreshETag(folder, client)
+    }
+
+    private fun refreshETag(folder: OCFile, client: OwnCloudClient) {
+        val result = ReadFileRemoteOperation(remotePath).execute(client)
+        if (!result.isSuccess) {
+            Log_OC.w(TAG, "Cannot refresh eTag: $remotePath")
+            return
+        }
+
+        val remoteFolder = result.data(RemoteFile::class.java) ?: return
+        folder.etag = remoteFolder.etag
+        storageManager.saveFile(folder)
+    }
+
+    private fun downloadFiles(folder: OCFile) {
+        val fileDownloadHelper = FileDownloadHelper.instance()
         if (useWorkerWithNotification) {
-            fileDownloadHelper.downloadFolder(mLocalFolder, user.getAccountName());
-        } else {
-            try {
-                for (OCFile file: mFilesForDirectDownload) {
-                    if (mCancellationRequested.get()) {
-                        break;
-                    }
-
-                    if (file == null) {
-                        continue;
-                    }
-
-                    final var operation = new DownloadFileOperation(user, file, mContext);
-                    var result = operation.execute(getClient());
-
-                    String filename = file.getFileName();
-                    if (filename == null) {
-                        continue;
-                    }
-
-                    if (result.isSuccess()) {
-                        fileDownloadHelper.saveFile(file, operation, getStorageManager());
-                        Log_OC.d(TAG, "startDirectDownloads completed for: " + file.getFileName());
-                    } else {
-                        Log_OC.d(TAG, "startDirectDownloads failed for: " + file.getFileName());
-                    }
-                }
-            } catch (Exception e) {
-                Log_OC.d(TAG, "Exception caught at startDirectDownloads" + e);
-            }
+            fileDownloadHelper.downloadFolder(folder, user.accountName)
+            return
         }
-    }
-
-
-    /**
-     * Performs a list of synchronization operations, determining if a download or upload is needed
-     * or if exists conflict due to changes both in local and remote contents of the each file.
-     * <p>
-     * If download or upload is needed, request the operation to the corresponding service and goes on.
-     *
-     * @param filesToSyncContents       Synchronization operations to execute.
-     */
-    private void startContentSynchronizations(List<SynchronizeFileOperation> filesToSyncContents) throws OperationCancelledException {
-        Log_OC.v(TAG, "Starting content synchronization... ");
-
-        int total = filesToSyncContents.size();
-        String folderName = mLocalFolder.getFileName();
 
         try {
-            for (int current = 0; current < filesToSyncContents.size(); current++) {
-                if (mCancellationRequested.get()) {
-                    throw new OperationCancelledException();
-                }
+            for (file in filesToDownload) {
+                if (cancellationRequested.get()) break
 
-                final var synchronizeFileOperation = filesToSyncContents.get(current);
-                final var result = synchronizeFileOperation.execute(mContext);
-                final var file = synchronizeFileOperation.getLocalFile();
+                downloadFile(file, fileDownloadHelper)
+            }
+        } catch (e: Exception) {
+            Log_OC.d(TAG, "Downloads stopped: $remotePath, $e")
+        }
+    }
 
-                if (result.isSuccess() && file != null) {
-                    notificationManager.showProgressNotification(folderName, file.getFileName(), current, total);
-                } else {
-                    if (result.getCode() == ResultCode.SYNC_CONFLICT) {
-                        mConflictsFound.incrementAndGet();
-                    } else {
-                        mFailsInFileSyncsFound.incrementAndGet();
+    private fun downloadFile(file: OCFile, fileDownloadHelper: FileDownloadHelper) {
+        val operation = DownloadFileOperation(user, file, context)
+        val result = operation.execute(client)
+        if (result.isSuccess) {
+            fileDownloadHelper.saveFile(file, operation, storageManager)
+            Log_OC.d(TAG, "Downloaded: ${file.remotePath}")
+        } else {
+            Log_OC.d(TAG, "Download failed: ${file.remotePath}")
+        }
+    }
 
-                        String message = "Error while synchronizing file : ";
+    private fun runFileSyncs(folder: OCFile) {
+        val total = fileSyncs.size
+        val folderName = folder.fileName
+        Log_OC.v(TAG, "Syncing $total files: $remotePath")
 
-                        if (result.getException() != null) {
-                            message = message + result.getLogMessage() + " Exception: "
-                                + result.getException().getMessage();
-                        } else {
-                            message = message + result.getLogMessage();
-                        }
+        try {
+            fileSyncs.forEachIndexed { index, operation ->
+                throwIfCancelled()
 
-                        Log_OC.e(TAG, message);
+                val result = operation.execute(context)
+                val file = operation.localFile
+                when {
+                    result.isSuccess && file != null ->
+                        notificationManager.showProgressNotification(folderName, file.fileName, index, total)
+
+                    result.code == ResultCode.SYNC_CONFLICT -> conflicts++
+
+                    else -> {
+                        failures++
+                        logFileSyncFailure(result)
                     }
                 }
             }
         } finally {
-            ExtensionsKt.mainThread(0L, () -> {
-                notificationManager.dismiss();
-                return Unit.INSTANCE;
-            });
+            mainThread(0L) { notificationManager.dismiss() }
         }
     }
 
-
-    /**
-     * Cancel operation
-     */
-    public void cancel() {
-        mCancellationRequested.set(true);
+    private fun logFileSyncFailure(result: RemoteOperationResult<*>) {
+        val exceptionMessage = result.exception?.let { ", ${it.message}" }.orEmpty()
+        Log_OC.e(TAG, "File sync failed: ${result.logMessage}$exceptionMessage")
     }
 
-    public Optional<String> getFolderNameFromPath() {
-        if (mLocalFolder == null) {
-            return Optional.empty();
-        }
-
-        String path = mLocalFolder.getStoragePath();
-        if (!TextUtils.isEmpty(path)) {
-            File folder = new File(path);
-            return Optional.of(folder.getName());
-        }
-
-        String filepath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), mLocalFolder);
-        File folder = new File(filepath);
-        return Optional.of(folder.getName());
-    }
-
-    private void startSyncFolderOperation(String path) {
-        Intent intent = new Intent(mContext, OperationsService.class);
-        intent.setAction(OperationsService.ACTION_SYNC_FOLDER);
-        intent.putExtra(OperationsService.EXTRA_ACCOUNT, user.toPlatformAccount());
-        intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, path);
-        intent.putExtra(OperationsService.EXTRA_SYNC_ALL, syncAll);
-        mContext.startService(intent);
-    }
-
-    public String getRemotePath() {
-        return mRemotePath;
-    }
-
-    public String getAccountName() {
-        return user.getAccountName();
-    }
-
-    public Long getFolderId() {
-        if (mLocalFolder == null) {
-            return null;
-        }
-
-        return mLocalFolder.getFileId();
+    companion object {
+        private val TAG = SynchronizeFolderOperation::class.java.simpleName
     }
 }
