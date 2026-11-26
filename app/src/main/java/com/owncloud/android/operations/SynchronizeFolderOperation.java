@@ -21,6 +21,7 @@ import com.nextcloud.utils.share.UnifiedShareSharees;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorkerNotificationManager;
 import com.nextcloud.utils.extensions.ExtensionsKt;
+import com.nextcloud.utils.extensions.StringExtensionsKt;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1;
@@ -200,7 +201,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
             OCFile remoteFolder = FileStorageUtils.fillOCFile(remoteFile);
 
             // check if remote and local folder are different
-            mRemoteFolderChanged = !(remoteFolder.getEtag().equalsIgnoreCase(mLocalFolder.getEtag()));
+            mRemoteFolderChanged = StringExtensionsKt.eTagChanged(mLocalFolder.getEtag(), remoteFolder.getEtag());
 
             result = new RemoteOperationResult<>(ResultCode.OK);
 
@@ -236,7 +237,11 @@ public class SynchronizeFolderOperation extends SyncOperation {
         Log_OC.d(TAG, "Synchronizing remote id" + mLocalFolder.getRemoteId());
 
         if (result.isSuccess()) {
-            synchronizeData(result.getData());
+            final var synchronizeDataResult = synchronizeData(result.getData());
+            if (!synchronizeDataResult.isSuccess()) {
+                return synchronizeDataResult;
+            }
+
             if (mConflictsFound.get() > 0  || mFailsInFileSyncsFound.get() > 0) {
                 result = new RemoteOperationResult<>(ResultCode.SYNC_CONFLICT);
                     // should be a different result code, but will do the job
@@ -253,6 +258,11 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
     private void removeLocalFolder() {
         FileDataStorageManager storageManager = getStorageManager();
+        if (storageManager.isPendingOfflineCreation(mLocalFolder)) {
+            Log_OC.d(TAG, "Keeping " + mLocalFolder.getRemotePath() + ", it is not created on the server yet");
+            return;
+        }
+
         if (storageManager.fileExists(mLocalFolder.getFileId())) {
             String currentSavePath = FileStorageUtils.getSavePath(user.getAccountName());
             storageManager.removeFolder(
@@ -271,7 +281,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
      *
      * @param folderAndFiles Remote folder and children files in Folder
      */
-    private void synchronizeData(List<Object> folderAndFiles) throws OperationCancelledException {
+    private RemoteOperationResult<?> synchronizeData(List<Object> folderAndFiles) throws OperationCancelledException {
 
 
         // parse data from remote folder
@@ -307,7 +317,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
                                                                                                  user,
                                                                                                  mContext);
         if (mLocalFolder.isEncrypted() && object == null) {
-            throw new IllegalStateException("metadata is null!");
+            Log_OC.e(TAG, "Metadata is missing for encrypted folder: " + mRemotePath);
+            return new RemoteOperationResult<>(ResultCode.METADATA_NOT_FOUND);
         }
 
         // get current data about local contents of the folder to synchronize
@@ -374,6 +385,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
         storageManager.saveFile(mLocalFolder);
 
         startSubfolderSynchronizations();
+
+        return new RemoteOperationResult<>(ResultCode.OK);
     }
 
     private void startSubfolderSynchronizations() throws OperationCancelledException {
@@ -493,7 +506,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
      * @param client the OwnCloudClient instance used to execute remote operations.
      */
     private void updateETag(OwnCloudClient client) {
-        ReadFolderRemoteOperation operation = new ReadFolderRemoteOperation(mRemotePath);
+        ReadFileRemoteOperation operation = new ReadFileRemoteOperation(mRemotePath);
         final var result = operation.execute(client);
         if (!result.isSuccess()) {
             Log_OC.w(TAG, "Cannot update eTag, read folder operation is failed");
@@ -561,41 +574,43 @@ public class SynchronizeFolderOperation extends SyncOperation {
         int total = filesToSyncContents.size();
         String folderName = mLocalFolder.getFileName();
 
-        for (int current = 0; current < filesToSyncContents.size(); current++) {
-            if (mCancellationRequested.get()) {
-                throw new OperationCancelledException();
-            }
+        try {
+            for (int current = 0; current < filesToSyncContents.size(); current++) {
+                if (mCancellationRequested.get()) {
+                    throw new OperationCancelledException();
+                }
 
-            final var synchronizeFileOperation = filesToSyncContents.get(current);
-            final var result = synchronizeFileOperation.execute(mContext);
-            final var file = synchronizeFileOperation.getLocalFile();
+                final var synchronizeFileOperation = filesToSyncContents.get(current);
+                final var result = synchronizeFileOperation.execute(mContext);
+                final var file = synchronizeFileOperation.getLocalFile();
 
-            if (result.isSuccess() && file != null) {
-                notificationManager.showProgressNotification(folderName, file.getFileName(), current, total);
-            } else {
-                if (result.getCode() == ResultCode.SYNC_CONFLICT) {
-                    mConflictsFound.incrementAndGet();
+                if (result.isSuccess() && file != null) {
+                    notificationManager.showProgressNotification(folderName, file.getFileName(), current, total);
                 } else {
-                    mFailsInFileSyncsFound.incrementAndGet();
-
-                    String message = "Error while synchronizing file : ";
-
-                    if (result.getException() != null) {
-                        message = message + result.getLogMessage() + " Exception: "
-                            + result.getException().getMessage();
+                    if (result.getCode() == ResultCode.SYNC_CONFLICT) {
+                        mConflictsFound.incrementAndGet();
                     } else {
-                        message = message + result.getLogMessage();
-                    }
+                        mFailsInFileSyncsFound.incrementAndGet();
 
-                    Log_OC.e(TAG, message);
+                        String message = "Error while synchronizing file : ";
+
+                        if (result.getException() != null) {
+                            message = message + result.getLogMessage() + " Exception: "
+                                + result.getException().getMessage();
+                        } else {
+                            message = message + result.getLogMessage();
+                        }
+
+                        Log_OC.e(TAG, message);
+                    }
                 }
             }
+        } finally {
+            ExtensionsKt.mainThread(0L, () -> {
+                notificationManager.dismiss();
+                return Unit.INSTANCE;
+            });
         }
-
-        ExtensionsKt.mainThread(0L, () -> {
-            notificationManager.dismiss();
-            return Unit.INSTANCE;
-        });
     }
 
 
