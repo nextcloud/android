@@ -6,7 +6,6 @@
  */
 package com.owncloud.android.ui.activity.settings.categories
 
-import androidx.activity.result.ActivityResult
 import androidx.core.content.edit
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -15,15 +14,15 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.client.preferences.DarkMode
+import com.nextcloud.ui.dialog.chooseStorage.ChooseStorageLocationDialogFragment
 import com.owncloud.android.MainApp
 import com.owncloud.android.ui.activity.StorageMigration
 import com.owncloud.android.ui.activity.StorageMigration.StorageMigrationProgressListener
 import com.owncloud.android.ui.activity.settings.util.findThemedCategory
-import com.owncloud.android.ui.activity.settings.util.launchExtendedSettingsDialog
-import com.owncloud.android.ui.activity.settings.util.registerForResult
 import com.owncloud.android.ui.activity.settings.util.setOnClickAction
+import com.owncloud.android.ui.activity.settings.util.showIfAbsent
 import com.owncloud.android.ui.activity.settings.util.summaryResId
-import com.owncloud.android.ui.model.ExtendedSettingsActivityDialog
+import com.owncloud.android.ui.dialog.ThemeSelectionDialog
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 class GeneralSettingsCategory(
@@ -38,16 +37,28 @@ class GeneralSettingsCategory(
     private val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity.applicationContext)
     private var storagePath = readStoragePath()
 
-    private val storageLocationLauncher = fragment.registerForResult(::onStorageLocationResult)
-    private val themeSelectionLauncher = fragment.registerForResult(::onThemeSelectionResult)
+    init {
+        val fragmentManager = fragment.childFragmentManager
+
+        fragmentManager.setFragmentResultListener(
+            ChooseStorageLocationDialogFragment.REQUEST_KEY,
+            fragment
+        ) { _, result ->
+            result.getString(ChooseStorageLocationDialogFragment.RESULT_STORAGE_PATH)?.let(::onStorageLocationSelected)
+        }
+
+        fragmentManager.setFragmentResultListener(ThemeSelectionDialog.REQUEST_KEY, fragment) { _, result ->
+            result.getString(ThemeSelectionDialog.RESULT_DARK_MODE)?.let(::onThemeSelected)
+        }
+    }
 
     override fun setup() {
         fragment.findThemedCategory(CATEGORY_KEY, viewThemeUtils)
 
         fragment.findPreference<Preference>(AppPreferencesImpl.DATA_STORAGE_LOCATION)?.setOnClickAction {
-            storageLocationLauncher.launchExtendedSettingsDialog(
-                activity,
-                ExtendedSettingsActivityDialog.StorageLocation
+            ChooseStorageLocationDialogFragment().showIfAbsent(
+                fragment.childFragmentManager,
+                ChooseStorageLocationDialogFragment.TAG
             )
         }
 
@@ -67,12 +78,11 @@ class GeneralSettingsCategory(
         themePreference.setSummary(preferences.darkThemeMode.summaryResId)
 
         themePreference.setOnClickAction {
-            themeSelectionLauncher.launchExtendedSettingsDialog(activity, ExtendedSettingsActivityDialog.ThemeSelection)
+            ThemeSelectionDialog().showIfAbsent(fragment.childFragmentManager, ThemeSelectionDialog.TAG)
         }
     }
 
-    private fun onStorageLocationResult(result: ActivityResult) {
-        val newPath = result.data?.getStringExtra(ExtendedSettingsActivityDialog.StorageLocation.key) ?: return
+    private fun onStorageLocationSelected(newPath: String) {
         if (storagePath == newPath) return
 
         StorageMigration(activity, user, storagePath, newPath, viewThemeUtils).run {
@@ -81,12 +91,10 @@ class GeneralSettingsCategory(
         }
     }
 
-    private fun onThemeSelectionResult(result: ActivityResult) {
-        val themeValue = result.data?.getStringExtra(ExtendedSettingsActivityDialog.ThemeSelection.key) ?: return
+    private fun onThemeSelected(themeValue: String) {
         val mode = DarkMode.entries.firstOrNull { it.name == themeValue } ?: DarkMode.SYSTEM
-        fragment.findPreference<Preference>(DARK_MODE_KEY)?.setSummary(mode.summaryResId)
 
-        activity.recreate()
+        fragment.findPreference<Preference>(DARK_MODE_KEY)?.setSummary(mode.summaryResId)
     }
 
     private fun readStoragePath(): String {

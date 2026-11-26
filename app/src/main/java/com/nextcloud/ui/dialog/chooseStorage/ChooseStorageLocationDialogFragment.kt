@@ -10,11 +10,12 @@ package com.nextcloud.ui.dialog.chooseStorage
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import androidx.preference.PreferenceManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.AppPreferencesImpl
@@ -27,7 +28,6 @@ import com.owncloud.android.datastorage.StoragePoint
 import com.owncloud.android.datastorage.StoragePoint.PrivacyType
 import com.owncloud.android.datastorage.StoragePoint.StorageType
 import com.owncloud.android.ui.dialog.extensions.themeButtons
-import com.owncloud.android.ui.model.ExtendedSettingsActivityDialog
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import javax.inject.Inject
@@ -85,11 +85,6 @@ class ChooseStorageLocationDialogFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupLocationSelection()
         super.onViewCreated(view, savedInstanceState)
-    }
-
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-        activity?.finish()
     }
 
     private fun setupLocationSelection() {
@@ -157,15 +152,12 @@ class ChooseStorageLocationDialogFragment :
             storagePoints.find { it.storageType == selectedStorageType && it.privacyType == selectedPrivacyType }
                 ?: return
 
-        val resultBundle = Bundle().apply {
-            putString(ExtendedSettingsActivityDialog.StorageLocation.key, newPath.path)
-        }
-
-        parentFragmentManager.setFragmentResult(ExtendedSettingsActivityDialog.StorageLocation.key, resultBundle)
+        parentFragmentManager.setFragmentResult(REQUEST_KEY, bundleOf(RESULT_STORAGE_PATH to newPath.path))
     }
 
     companion object {
-        @JvmStatic
-        val TAG: String = Companion::class.java.simpleName
+        const val TAG = "choose_storage_location"
+        const val REQUEST_KEY = "choose_storage_location_request"
+        const val RESULT_STORAGE_PATH = "storage_path"
     }
 }

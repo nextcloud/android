@@ -23,7 +23,6 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.DialogAppPasscodeBinding
 import com.owncloud.android.ui.activity.SettingsActivity
 import com.owncloud.android.ui.dialog.extensions.themeButtons
-import com.owncloud.android.ui.model.ExtendedSettingsActivityDialog
 import com.owncloud.android.utils.DeviceCredentialUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
@@ -134,18 +133,13 @@ class AppPassCodeDialog :
     private fun applySelection() {
         val selectedLock = currentSelection
 
-        setFragmentResult(
-            ExtendedSettingsActivityDialog.AppPasscode.key,
-            bundleOf(ExtendedSettingsActivityDialog.AppPasscode.key to selectedLock)
-        )
-    }
-
-    override fun onDismiss(dialog: android.content.DialogInterface) {
-        super.onDismiss(dialog)
-        activity?.finish()
+        setFragmentResult(REQUEST_KEY, bundleOf(RESULT_LOCK to selectedLock))
     }
 
     companion object {
+        const val TAG = "app_passcode"
+        const val REQUEST_KEY = "app_passcode_request"
+        const val RESULT_LOCK = "lock"
         private const val ARG_DISMISSABLE = "dismissable"
 
         fun instance(dismissable: Boolean): AppPassCodeDialog = AppPassCodeDialog().apply {

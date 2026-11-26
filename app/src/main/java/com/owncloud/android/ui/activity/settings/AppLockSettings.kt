@@ -30,13 +30,13 @@ import com.owncloud.android.ui.activity.SettingsActivity.Companion.PREFERENCE_LO
 import com.owncloud.android.ui.activity.settings.util.bindOrRemove
 import com.owncloud.android.ui.activity.settings.util.isCredentialCheckSuccessful
 import com.owncloud.android.ui.activity.settings.util.isOk
-import com.owncloud.android.ui.activity.settings.util.launchExtendedSettingsDialog
 import com.owncloud.android.ui.activity.settings.util.registerForResult
-import com.owncloud.android.ui.model.ExtendedSettingsActivityDialog
+import com.owncloud.android.ui.activity.settings.util.showIfAbsent
+import com.owncloud.android.ui.dialog.AppPassCodeDialog
 import com.owncloud.android.utils.DeviceCredentialUtils
 
 class AppLockSettings(
-    fragment: PreferenceFragmentCompat,
+    private val fragment: PreferenceFragmentCompat,
     private val preferences: AppPreferences,
     savedInstanceState: Bundle?
 ) {
@@ -45,14 +45,19 @@ class AppLockSettings(
     private var lockPreference: Preference? = null
     private var pendingLock = savedInstanceState?.getString(KEY_PENDING_LOCK) ?: LOCK_NONE
 
-    private val lockSelectionLauncher = fragment.registerForResult(::onLockSelectionResult)
     private val passcodeRequestLauncher = fragment.registerForResult(::onPasscodeRequestResult)
     private val passcodeConfirmLauncher = fragment.registerForResult(::onPasscodeConfirmResult)
     private val deviceCredentialsConfirmLauncher = fragment.registerForResult(::onDeviceCredentialsConfirmResult)
 
+    init {
+        fragment.childFragmentManager.setFragmentResultListener(AppPassCodeDialog.REQUEST_KEY, fragment) { _, result ->
+            result.getString(AppPassCodeDialog.RESULT_LOCK)?.let(::onLockSelected)
+        }
+    }
+
     fun setup(category: PreferenceCategory, isLockAvailable: Boolean) {
         lockPreference = category.bindOrRemove(category.findPreference<Preference>(PREFERENCE_LOCK), isLockAvailable) {
-            lockSelectionLauncher.launchExtendedSettingsDialog(activity, ExtendedSettingsActivityDialog.AppPasscode)
+            showLockSelectionDialog(dismissable = true)
         }
 
         updateLockSummary(preferences.lockPreference)
@@ -66,15 +71,14 @@ class AppLockSettings(
         if (!MDMConfig.enforceProtection(activity)) return
         if (preferences.lockPreference != LOCK_NONE) return
 
-        lockSelectionLauncher.launchExtendedSettingsDialog(
-            activity,
-            ExtendedSettingsActivityDialog.AppPasscode,
-            dismissable = false
-        )
+        showLockSelectionDialog(dismissable = false)
     }
 
-    private fun onLockSelectionResult(result: ActivityResult) {
-        val selectedLock = result.data?.getStringExtra(ExtendedSettingsActivityDialog.AppPasscode.key) ?: return
+    private fun showLockSelectionDialog(dismissable: Boolean) {
+        AppPassCodeDialog.instance(dismissable).showIfAbsent(fragment.childFragmentManager, AppPassCodeDialog.TAG)
+    }
+
+    private fun onLockSelected(selectedLock: String) {
         val currentLock = preferences.lockPreference ?: LOCK_NONE
         if (currentLock == selectedLock) return
 
