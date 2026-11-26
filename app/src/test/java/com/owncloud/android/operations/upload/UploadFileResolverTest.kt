@@ -205,6 +205,7 @@ class UploadFileResolverTest {
         val imageDimension = ImageDimension(640f, 480f)
         val geoLocation = GeoLocation(52.52, 13.405)
         val remoteFile: RemoteFile = mock {
+            on { remotePath } doReturn "/photo.jpg"
             on { creationTimestamp } doReturn 1L
             on { length } doReturn 2L
             on { mimeType } doReturn "image/jpeg"
