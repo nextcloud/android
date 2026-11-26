@@ -231,7 +231,7 @@ class PreviewPlaybackFragment :
     }
 
     private fun registerPictureInPictureOnBack() {
-        if (!MimeTypeUtil.isVideo(file)) {
+        if (!MimeTypeUtil.isVideo(file.mimeType)) {
             return
         }
 

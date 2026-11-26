@@ -867,6 +867,8 @@ open class OCFileListFragment :
 
     //region File actions
     fun openActionsMenu(filesCount: Int, checkedFiles: Set<OCFile>, isOverflow: Boolean) {
+        if (!isResumed) return
+
         val storageManager = requireContainerActivity().storageManager
         val accountName = accountManager.user.accountName
         actionsMenuThrottle.launch(viewLifecycleOwner.lifecycleScope) {

@@ -74,6 +74,7 @@ import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
 import com.nextcloud.utils.extensions.isActive
 import com.nextcloud.utils.extensions.lastFragment
+import com.nextcloud.utils.extensions.matchesMimeType
 import com.nextcloud.utils.extensions.navigateToAllFiles
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.view.FastScrollUtils
@@ -1925,7 +1926,7 @@ class FileDisplayActivity :
         val fileToPreview = waitingToPreview ?: return false
 
         return when {
-            MimeTypeUtil.isVideo(fileToPreview) -> {
+            MimeTypeUtil.isVideo(fileToPreview.mimeType) -> {
                 startImagePreview(fileToPreview, true)
                 true
             }
@@ -1945,7 +1946,7 @@ class FileDisplayActivity :
                 true
             }
 
-            MimeTypeUtil.isPDF(fileToPreview) -> {
+            fileToPreview.matchesMimeType(MimeTypeUtil::isPDF) -> {
                 startPdfPreview(fileToPreview)
                 true
             }
@@ -2347,10 +2348,10 @@ class FileDisplayActivity :
     // endregion
 
     // region Previews
-    fun canPreviewInAudioPlayer(file: OCFile): Boolean = MimeTypeUtil.isAudio(file)
+    fun canPreviewInAudioPlayer(file: OCFile): Boolean = MimeTypeUtil.isAudio(file.mimeType)
 
     fun canPreviewInMediaPager(file: OCFile): Boolean =
-        PreviewMediaFragment.canBePreviewed(file) || MimeTypeUtil.isVideo(file)
+        PreviewMediaFragment.canBePreviewed(file) || MimeTypeUtil.isVideo(file.mimeType)
 
     /**
      * Downloaded and non-downloaded images are handled later in
@@ -2388,9 +2389,9 @@ class FileDisplayActivity :
         }
 
         when {
-            MimeTypeUtil.isVCard(file) -> startContactListFragment(file)
+            file.matchesMimeType(MimeTypeUtil::isVCard) -> startContactListFragment(file)
 
-            MimeTypeUtil.isPDF(file) -> startPdfPreview(file)
+            file.matchesMimeType(MimeTypeUtil::isPDF) -> startPdfPreview(file)
 
             PreviewTextFileFragment.canBePreviewed(file) -> {
                 setFabVisible?.onComplete(false)

@@ -135,7 +135,7 @@ class GalleryImageGenerationJob(private val user: User, private val storageManag
         null
     }
 
-    private fun decodeLocalThumbnail(file: OCFile): Bitmap? = if (MimeTypeUtil.isVideo(file)) {
+    private fun decodeLocalThumbnail(file: OCFile): Bitmap? = if (MimeTypeUtil.isVideo(file.mimeType)) {
         createVideoThumbnail(file.storagePath)
     } else {
         createImageThumbnail(file)

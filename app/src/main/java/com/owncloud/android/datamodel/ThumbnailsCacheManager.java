@@ -380,10 +380,10 @@ public final class ThumbnailsCacheManager {
                 mFile = object.getFile();
                 mImageKey = object.getImageKey();
 
-                if (mFile instanceof ServerFileInterface) {
+                if (mFile instanceof ServerFileInterface serverFile) {
                     thumbnail = doThumbnailFromOCFileInBackground();
 
-                    if (MimeTypeUtil.isVideo((ServerFileInterface) mFile) && thumbnail != null && !hideVideoOverlay) {
+                    if (MimeTypeUtil.isVideo(serverFile.getMimeType()) && thumbnail != null && !hideVideoOverlay) {
                         thumbnail = VideoOverlayGenerator.addOverlay(thumbnail, MainApp.getAppContext());
                     }
                 } else if (mFile instanceof File) {
@@ -479,7 +479,7 @@ public final class ThumbnailsCacheManager {
                 Log_OC.d(TAG, "Generating thumbnail from local file: " + ocFile.getFileName());
 
                 Bitmap bitmap;
-                if (MimeTypeUtil.isVideo(ocFile)) {
+                if (MimeTypeUtil.isVideo(ocFile.getMimeType())) {
                     bitmap = ThumbnailUtils.createVideoThumbnail(ocFile.getStoragePath(),
                                                                  MediaStore.Images.Thumbnails.MINI_KIND);
                 } else {

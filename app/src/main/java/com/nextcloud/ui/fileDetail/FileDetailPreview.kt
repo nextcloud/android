@@ -35,13 +35,13 @@ class FileDetailPreview(
 
         val thumbnail = file.getBigThumbnail() ?: file.getSmallThumbnail()
         if (thumbnail == null) {
-            setIcon(MimeTypeUtil.getFileTypeIcon(file.mimeType, file.fileName, toolbarActivity, viewThemeUtils))
+            MimeTypeUtil.getFileTypeIcon(file.mimeType, file.fileName, toolbarActivity, viewThemeUtils)?.let(::setIcon)
         } else {
             setImage(thumbnail.withVideoOverlay(file))
         }
     }
 
-    private fun Bitmap.withVideoOverlay(file: OCFile): Bitmap = if (MimeTypeUtil.isVideo(file)) {
+    private fun Bitmap.withVideoOverlay(file: OCFile): Bitmap = if (MimeTypeUtil.isVideo(file.mimeType)) {
         VideoOverlayGenerator.addOverlay(this, toolbarActivity)
     } else {
         this
