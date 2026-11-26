@@ -68,14 +68,18 @@ fun Activity.openMediaPermissions(requestCode: Int) {
     startActivityForResult(intent, requestCode)
 }
 
-fun Activity.openAllFilesAccessSettings(requestCode: Int) {
+fun Context.createAllFilesAccessSettingsIntent(): Intent? {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-        return
+        return null
     }
 
-    val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION).apply {
+    return Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION).apply {
         data = "package:$packageName".toUri()
     }
+}
+
+fun Activity.openAllFilesAccessSettings(requestCode: Int) {
+    val intent = createAllFilesAccessSettingsIntent() ?: return
 
     startActivityForResult(intent, requestCode)
 }
