@@ -10,6 +10,10 @@
 
 package com.owncloud.android.datastorage;
 
+import com.owncloud.android.R;
+
+import androidx.annotation.StringRes;
+
 /**
  * @author Bartosz Przybylski
  */
@@ -63,7 +67,20 @@ public class StoragePoint implements Comparable<StoragePoint> {
     }
 
     public enum StorageType {
-        INTERNAL, EXTERNAL
+        INTERNAL(R.string.storage_internal_storage),
+        EXTERNAL(R.string.storage_external_storage);
+
+        @StringRes
+        private final int labelResId;
+
+        StorageType(@StringRes int labelResId) {
+            this.labelResId = labelResId;
+        }
+
+        @StringRes
+        public int getLabelResId() {
+            return labelResId;
+        }
     }
 
     public enum PrivacyType {

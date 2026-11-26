@@ -10,21 +10,25 @@
 
 package com.owncloud.android.datastorage;
 
+import android.content.Context;
 import android.os.Environment;
 
 import com.owncloud.android.MainApp;
+import com.owncloud.android.datastorage.StoragePoint.PrivacyType;
+import com.owncloud.android.datastorage.StoragePoint.StorageType;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * @author Bartosz Przybylski
  */
 public class DataStorageProvider {
 
-    private static final UniqueStorageList mCachedStoragePoints = new UniqueStorageList();
+    private static final String APP_SPECIFIC_DATA_DIR = "/Android/data/";
     private static final DataStorageProvider sInstance = new DataStorageProvider();
 
     public static DataStorageProvider getInstance() {
@@ -34,55 +38,29 @@ public class DataStorageProvider {
     private DataStorageProvider() {}
 
     public StoragePoint[] getAvailableStoragePoints() {
-        if (!mCachedStoragePoints.isEmpty()) {
-            return mCachedStoragePoints.toArray(new StoragePoint[0]);
+        Context context = MainApp.getAppContext();
+        UniqueStorageList storagePoints = new UniqueStorageList();
+
+        for (File mediaDir : context.getExternalMediaDirs()) {
+            addSharedStoragePoint(storagePoints, mediaDir, PrivacyType.PUBLIC);
         }
 
-        StoragePoint storagePoint;
-        for (File f : MainApp.getAppContext().getExternalMediaDirs()) {
-            if (f != null) {
-                storagePoint = new StoragePoint();
-                storagePoint.setPath(f.getAbsolutePath());
-                storagePoint.setDescription(f.getAbsolutePath());
-                storagePoint.setPrivacyType(StoragePoint.PrivacyType.PUBLIC);
-                if (f.getAbsolutePath().startsWith("/storage/emulated/0")) {
-                    storagePoint.setStorageType(StoragePoint.StorageType.INTERNAL);
-                    mCachedStoragePoints.add(storagePoint);
-                } else {
-                    storagePoint.setStorageType(StoragePoint.StorageType.EXTERNAL);
-                    if (isExternalStorageWritable()) {
-                        mCachedStoragePoints.add(storagePoint);
-                    }
-                }
-            }
+        File filesDir = context.getFilesDir();
+        storagePoints.add(createStoragePoint(filesDir, StorageType.INTERNAL, PrivacyType.PRIVATE));
+
+        for (File externalFilesDir : context.getExternalFilesDirs(null)) {
+            addSharedStoragePoint(storagePoints, externalFilesDir, PrivacyType.PRIVATE);
         }
 
-        // Now we go add private ones
-        // Add internal storage directory
-        storagePoint = new StoragePoint();
-        storagePoint.setDescription(MainApp.getAppContext().getFilesDir().getAbsolutePath());
-        storagePoint.setPath(MainApp.getAppContext().getFilesDir().getAbsolutePath());
-        storagePoint.setPrivacyType(StoragePoint.PrivacyType.PRIVATE);
-        storagePoint.setStorageType(StoragePoint.StorageType.INTERNAL);
-        mCachedStoragePoints.add(storagePoint);
+        return storagePoints.toArray(new StoragePoint[0]);
+    }
 
-        // Add external storage directory if available.
-        if (isExternalStorageWritable()) {
-            File externalFilesDir = MainApp.getAppContext().getExternalFilesDir(null);
-
-            if (externalFilesDir != null) {
-                String externalFilesDirPath = externalFilesDir.getAbsolutePath();
-
-                storagePoint = new StoragePoint();
-                storagePoint.setPath(externalFilesDirPath);
-                storagePoint.setDescription(externalFilesDirPath);
-                storagePoint.setPrivacyType(StoragePoint.PrivacyType.PRIVATE);
-                storagePoint.setStorageType(StoragePoint.StorageType.EXTERNAL);
-                mCachedStoragePoints.add(storagePoint);
-            }
-        }
-
-        return mCachedStoragePoints.toArray(new StoragePoint[0]);
+    @Nullable
+    public StoragePoint findStoragePoint(@NonNull String path) {
+        return Arrays.stream(getAvailableStoragePoints())
+            .filter(point -> point.getPath().equals(path))
+            .findFirst()
+            .orElseGet(() -> classifyStoragePath(path));
     }
 
     public boolean allowAccessFromOtherApps() {
@@ -90,12 +68,50 @@ public class DataStorageProvider {
 
         return Arrays.stream(getAvailableStoragePoints())
             .anyMatch(point -> point.getPath().equals(storagePath) &&
-                point.getPrivacyType() == StoragePoint.PrivacyType.PUBLIC);
+                point.getPrivacyType() == PrivacyType.PUBLIC);
     }
 
-    /* Checks if external storage is available for read and write */
-    public boolean isExternalStorageWritable() {
-        String state = Environment.getExternalStorageState();
-        return Environment.MEDIA_MOUNTED.equals(state);
+    private void addSharedStoragePoint(UniqueStorageList storagePoints, @Nullable File dir, PrivacyType privacyType) {
+        if (dir == null || !isMounted(dir)) {
+            return;
+        }
+
+        storagePoints.add(createStoragePoint(dir, resolveStorageType(dir), privacyType));
+    }
+
+    @Nullable
+    private StoragePoint classifyStoragePath(String path) {
+        File file = new File(path);
+        String dataDir = MainApp.getAppContext().getDataDir().getAbsolutePath();
+
+        if (path.startsWith(dataDir)) {
+            return createStoragePoint(file, StorageType.INTERNAL, PrivacyType.PRIVATE);
+        }
+
+        if (!isMounted(file)) {
+            return null;
+        }
+
+        PrivacyType privacyType = path.contains(APP_SPECIFIC_DATA_DIR) ? PrivacyType.PRIVATE : PrivacyType.PUBLIC;
+
+        return createStoragePoint(file, resolveStorageType(file), privacyType);
+    }
+
+    private boolean isMounted(File dir) {
+        return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState(dir));
+    }
+
+    private StorageType resolveStorageType(File dir) {
+        try {
+            return Environment.isExternalStorageRemovable(dir) ? StorageType.EXTERNAL : StorageType.INTERNAL;
+        } catch (IllegalArgumentException e) {
+            return StorageType.INTERNAL;
+        }
+    }
+
+    private StoragePoint createStoragePoint(File dir, StorageType storageType, PrivacyType privacyType) {
+        String path = dir.getAbsolutePath();
+
+        return new StoragePoint(path, path, storageType, privacyType);
     }
 }
