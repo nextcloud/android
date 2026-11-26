@@ -1075,6 +1075,7 @@
     <string name="updating_share_failed">Updating share failed</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">To show mnemonic please enable device credentials.</string>
+    <string name="error_retrieving_mnemonic">Error retrieving mnemonic!</string>
     <string name="login">Log in</string>
     <string name="signup_with_provider">Sign up with provider</string>
     <string name="host_your_own_server">Host your own server</string>
@@ -1456,6 +1457,7 @@
     <string name="setup_e2e">During setup of end-to-end encryption, you will receive a random 12 word mnemonic, which you will need to open your files on other devices. This will only be stored on this device, and can be shown again in this screen. Please note it down in a secure place!</string>
     <string name="error_showing_encryption_dialog">Error showing encryption setup dialog!</string>
     <string name="prefs_keys_exist">Add end-to-end encryption to this client</string>
+    <string name="prefs_keys_exist_summary">End to end encryption was already set up on another client. Please enter your mnemonic to allow this client to sync and decrypt the files.</string>
     <string name="add_new_secure_file_drop">Add new secure file drop</string>
     <string name="e2e_offline">Not possible without internet connection</string>
     <string name="scan_page">Scan page</string>

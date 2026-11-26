@@ -69,6 +69,7 @@ import com.owncloud.android.ui.activity.ReceiveExternalFilesActivity.DialogInput
 import com.owncloud.android.ui.activity.RequestCredentialsActivity
 import com.owncloud.android.ui.activity.RichDocumentsEditorWebView
 import com.owncloud.android.ui.activity.SettingsActivity
+import com.owncloud.android.ui.activity.settings.SettingsFragment
 import com.owncloud.android.ui.activity.ShareActivity
 import com.owncloud.android.ui.activity.SsoGrantPermissionActivity
 import com.owncloud.android.ui.activity.TextEditorWebView
@@ -225,6 +226,9 @@ internal interface ComponentsModule {
 
     @ContributesAndroidInjector
     fun settingsActivity(): SettingsActivity
+
+    @ContributesAndroidInjector
+    fun settingsFragment(): SettingsFragment
 
     @ContributesAndroidInjector
     fun shareActivity(): ShareActivity
