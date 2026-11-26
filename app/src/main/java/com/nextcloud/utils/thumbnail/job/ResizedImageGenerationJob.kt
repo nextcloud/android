@@ -74,7 +74,7 @@ class ResizedImageGenerationJob(
 
     private fun getOrCreateWithVideoOverlay(file: OCFile, client: OwnCloudClient): Bitmap? = try {
         val resizedImage = ResizedImageGenerator.getOrCreate(file, client, storageManager)
-        if (resizedImage != null && MimeTypeUtil.isVideo(file)) {
+        if (resizedImage != null && MimeTypeUtil.isVideo(file.mimeType)) {
             VideoOverlayGenerator.addOverlay(resizedImage, MainApp.getAppContext())
         } else {
             resizedImage

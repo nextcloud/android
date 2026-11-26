@@ -11,6 +11,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.media.MediaMetadataRetriever
 import android.widget.ImageView
+import com.nextcloud.utils.extensions.mimeType
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.BitmapUtils
@@ -50,10 +51,10 @@ class MediaThumbnailGenerationJob(
 
     private fun generateThumbnail(file: File, key: String): Bitmap? = try {
         when {
-            MimeTypeUtil.isImage(file) -> ThumbnailsCacheManager.getBitmapFromDiskCache(key)
+            MimeTypeUtil.isImage(file.mimeType) -> ThumbnailsCacheManager.getBitmapFromDiskCache(key)
                 ?: generateImageThumbnail(file, key)
 
-            MimeTypeUtil.isVideo(file) -> ThumbnailsCacheManager.getBitmapFromDiskCache(key)
+            MimeTypeUtil.isVideo(file.mimeType) -> ThumbnailsCacheManager.getBitmapFromDiskCache(key)
                 ?: generateVideoThumbnail(file, key)
 
             else -> null
@@ -111,7 +112,7 @@ class MediaThumbnailGenerationJob(
         when {
             file.isDirectory -> imageView.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon(context, viewThemeUtils))
 
-            MimeTypeUtil.isVideo(file) -> imageView.setImageBitmap(ThumbnailsCacheManager.mDefaultVideo)
+            MimeTypeUtil.isVideo(file.mimeType) -> imageView.setImageBitmap(ThumbnailsCacheManager.mDefaultVideo)
 
             else -> imageView.setImageDrawable(
                 MimeTypeUtil.getFileTypeIcon(null, file.name, context, viewThemeUtils)

@@ -42,6 +42,7 @@ import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.DirectEditing
 import com.owncloud.android.ui.activity.FileActivity
+import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -352,7 +353,7 @@ class OCFileListBottomSheetDialog(
     }
 
     private fun createRichWorkspace() {
-        if (editorUtils.isEditorAvailable(user, MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN) && !file.isEncrypted) {
+        if (editorUtils.isEditorAvailable(user, MimeType.TEXT_MARKDOWN) && !file.isEncrypted) {
             // richWorkspace
             // == "": no info set -> show button
             // == null: disabled on server side -> hide button

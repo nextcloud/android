@@ -10,6 +10,7 @@ import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.SubFolderRule
 import com.nextcloud.utils.extensions.calculateScanInterval
+import com.nextcloud.utils.extensions.mimeType
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.utils.MimeTypeUtil
 import java.io.File
@@ -78,8 +79,8 @@ class AutoUploadFolder(
     ): Long = lastScanTimestampMs + calculateScanInterval(connectivityService, powerManagementService).first
 
     private fun hasMatchingMediaType(file: File): Boolean = when (type) {
-        MediaFolderType.IMAGE -> MimeTypeUtil.isImage(file)
-        MediaFolderType.VIDEO -> MimeTypeUtil.isVideo(file)
+        MediaFolderType.IMAGE -> MimeTypeUtil.isImage(file.mimeType)
+        MediaFolderType.VIDEO -> MimeTypeUtil.isVideo(file.mimeType)
         MediaFolderType.CUSTOM -> true
     }
 

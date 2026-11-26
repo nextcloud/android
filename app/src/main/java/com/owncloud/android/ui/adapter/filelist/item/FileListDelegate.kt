@@ -23,6 +23,7 @@ import com.nextcloud.client.jobs.gallery.GalleryImageGenerationListener
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.utils.OCFileUtils
 import com.nextcloud.utils.extensions.makeRounded
+import com.nextcloud.utils.extensions.matchesMimeType
 import com.nextcloud.utils.extensions.setMediaPlaceholder
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.extensions.showsMediaThumbnailOf
@@ -211,7 +212,7 @@ class FileListDelegate(
         // thumbnail
         viewHolder.thumbnail.tag = file.fileId
         if (isGrid) {
-            if (MimeTypeUtil.isImageOrVideo(file)) {
+            if (file.matchesMimeType(MimeTypeUtil::isImage) || MimeTypeUtil.isVideo(file.mimeType)) {
                 viewHolder.thumbnail.scaleType = ImageView.ScaleType.CENTER_CROP
                 viewHolder.thumbnail.setPadding(0, 0, 0, 0)
             } else {
