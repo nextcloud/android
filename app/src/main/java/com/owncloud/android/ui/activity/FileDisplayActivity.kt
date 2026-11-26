@@ -54,6 +54,9 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.android.common.core.utils.ecosystem.AccountReceiverCallback
+import com.nextcloud.android.lib.resources.externalstorage.model.AuthMechanism
+import com.nextcloud.android.lib.resources.externalstorage.model.ExternalStorageCredentials
+import com.nextcloud.android.lib.resources.externalstorage.model.ExternalStorageMount
 import com.nextcloud.appReview.InAppReviewHelper
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.AsyncRunner
@@ -68,6 +71,8 @@ import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
 import com.nextcloud.client.player.model.file.toPlaybackCollection
 import com.nextcloud.client.player.ui.audio.AudioPlayerLauncher
 import com.nextcloud.client.utils.IntentUtil
+import com.nextcloud.repository.ExternalStorageMountsResult
+import com.nextcloud.repository.ExternalStorageRepository
 import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -76,6 +81,7 @@ import com.nextcloud.utils.extensions.isActive
 import com.nextcloud.utils.extensions.lastFragment
 import com.nextcloud.utils.extensions.matchesMimeType
 import com.nextcloud.utils.extensions.navigateToAllFiles
+import com.nextcloud.utils.extensions.remotePath
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.view.FastScrollUtils
 import com.owncloud.android.MainApp
@@ -86,6 +92,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.datamodel.VirtualFolderType
+import com.owncloud.android.lib.common.network.WebdavEntry
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -117,6 +124,7 @@ import com.owncloud.android.ui.activity.filedisplayactivity.LocalIntentReceiver
 import com.owncloud.android.ui.asynctasks.FetchRemoteFileTask
 import com.owncloud.android.ui.asynctasks.GetRemoteFileTask
 import com.owncloud.android.ui.dialog.DeleteBatchTracker
+import com.owncloud.android.ui.dialog.ExternalStorageAuthDialogFragment
 import com.owncloud.android.ui.dialog.SendShareDialog.SendShareDialogDownloader
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment.OnSortingOrderListener
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment
@@ -207,6 +215,9 @@ class FileDisplayActivity :
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
+    @Inject
+    lateinit var externalStorageRepository: ExternalStorageRepository
+
     private val viewModel by viewModels<FileDisplayActivityViewModel> { viewModelFactory }
 
     private lateinit var binding: FilesBinding
@@ -287,6 +298,11 @@ class FileDisplayActivity :
         observeWorkers()
         registerBackPressCallback()
         setupDrawer(menuItemId)
+
+        supportFragmentManager.setFragmentResultListener(
+            ExternalStorageAuthDialogFragment.REQUEST_KEY,
+            this
+        ) { _, result -> onExternalStorageCredentialsEntered(result) }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -1084,6 +1100,40 @@ class FileDisplayActivity :
         startMetadataSyncForCurrentDir()
     }
 
+    private suspend fun OCFile.findMountRequiringCredentials(): ExternalStorageMount? {
+        val result = externalStorageRepository.fetchMounts()
+        if (result !is ExternalStorageMountsResult.Success) {
+            Log_OC.w(
+                TAG,
+                "Could not fetch external storage mounts to determine if ${this.fileName} requires" +
+                    " user provided credentials."
+            )
+            return null
+        }
+        return result.mounts.firstOrNull {
+            it.remotePath() == remotePath &&
+                it.config?.authMechanism == AuthMechanism.PasswordUserProvided
+        }
+    }
+
+    private fun onExternalStorageCredentialsEntered(result: Bundle) {
+        val folder = result.getParcelableArgument(ExternalStorageAuthDialogFragment.RESULT_FOLDER, OCFile::class.java)
+            ?: return
+        val mountId = result.getLong(ExternalStorageAuthDialogFragment.RESULT_MOUNT_ID)
+        val credentials = ExternalStorageCredentials(
+            user = result.getString(ExternalStorageAuthDialogFragment.RESULT_USERNAME).orEmpty(),
+            password = result.getString(ExternalStorageAuthDialogFragment.RESULT_PASSWORD).orEmpty()
+        )
+
+        lifecycleScope.launch {
+            if (!externalStorageRepository.authenticateMount(mountId, credentials)) {
+                SnackbarUtil.show(this@FileDisplayActivity, R.string.external_storage_auth_failed)
+                return@launch
+            }
+            startSyncFolderOperation(folder, ignoreETag = true, ignoreFocus = true)
+        }
+    }
+
     private fun browseUp(listOfFiles: OCFileListFragment) {
         listOfFiles.onBrowseUp()
         val currentFile = listOfFiles.currentFile
@@ -1532,12 +1582,29 @@ class FileDisplayActivity :
         ).execute(
             account,
             this,
-            { _, _ -> onSyncFinished() },
+            { _, result ->
+                if (!result.isSuccess && WebdavEntry.MountType.EXTERNAL == folder.mountType) {
+                    // May be an external folder: check if user needs authentication
+                    lifecycleScope.launch {
+                        folder.findMountRequiringCredentials()?.let { showExternalStorageAuthDialog(folder, it.id) }
+                    }
+                } else {
+                    onSyncFinished()
+                }
+            },
             handler,
             null
         )
 
         fetchRecommendedFilesIfNeeded(ignoreETag, folder)
+    }
+
+    private fun showExternalStorageAuthDialog(folder: OCFile, mountId: Long) {
+        if (supportFragmentManager.isStateSaved) return
+        if (supportFragmentManager.findFragmentByTag(ExternalStorageAuthDialogFragment.TAG) != null) return
+
+        ExternalStorageAuthDialogFragment.newInstance(folder, mountId)
+            .show(supportFragmentManager, ExternalStorageAuthDialogFragment.TAG)
     }
 
     private fun syncCurrentFolder(ignoreETag: Boolean, ignoreFocus: Boolean) {
