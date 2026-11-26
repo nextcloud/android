@@ -16,7 +16,7 @@ import com.nextcloud.test.GrantTestPermissionRule
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.utils.MimeTypeUtil
+import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Rule
 import org.junit.Test
@@ -37,7 +37,7 @@ class PreviewTextFileFragmentTest : AbstractIT() {
             scenario.onActivity { activity ->
                 sut = activity
                 val test = OCFile("/text.md").apply {
-                    mimeType = MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN
+                    mimeType = MimeType.TEXT_MARKDOWN
                     storagePath = getDummyFile("nonEmpty.txt").absolutePath
                 }
                 sut.startTextPreview(test, true)
@@ -58,7 +58,7 @@ class PreviewTextFileFragmentTest : AbstractIT() {
             scenario.onActivity { activity ->
                 sut = activity
                 val test = OCFile("/java.md").apply {
-                    mimeType = MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN
+                    mimeType = MimeType.TEXT_MARKDOWN
                     storagePath = getFile("java.md").absolutePath
                 }
                 sut.startTextPreview(test, true)

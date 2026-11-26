@@ -15,6 +15,7 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.editimage.EditImageActivity.Companion.canBePreviewed
 import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.utils.EditorUtils
+import com.nextcloud.utils.extensions.matchesMimeType
 import com.nextcloud.utils.mdm.MDMConfig.sendFilesSupport
 import com.nextcloud.utils.mdm.MDMConfig.shareViaLink
 import com.nextcloud.utils.mdm.MDMConfig.shareViaUser
@@ -124,11 +125,13 @@ class FileMenuFilter internal constructor(
     private fun getHiddenMediaActions() = buildList {
         val firstFile = selection.firstFile
 
-        if (!selection.isSingleImage || MimeTypeUtil.isSVG(firstFile)) add(R.id.action_set_as_wallpaper)
+        if (!selection.isSingleImage || MimeTypeUtil.isSVG(firstFile.mimeType)) add(R.id.action_set_as_wallpaper)
         if (!selection.isSingleFile || !selection.isSingleMedia || selection.containsEncryptedFile) {
             add(R.id.action_stream_media)
         }
-        if (selection.containsEncryptedFile || !MimeTypeUtil.isImageOrVideo(firstFile)) add(R.id.action_add_to_album)
+        val isImageOrVideo = firstFile.matchesMimeType(MimeTypeUtil::isImage) ||
+            MimeTypeUtil.isVideo(firstFile.mimeType)
+        if (selection.containsEncryptedFile || !isImageOrVideo) add(R.id.action_add_to_album)
     }
 
     private fun getHiddenLockActions(fileLockingEnabled: Boolean) = buildList {

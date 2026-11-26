@@ -110,7 +110,7 @@ class PreviewMediaPagerAdapter(
         return true
     }
 
-    private fun OCFile.isAudioOrVideo(): Boolean = MimeTypeUtil.isAudio(this) || MimeTypeUtil.isVideo(this)
+    private fun OCFile.isAudioOrVideo(): Boolean = MimeTypeUtil.isAudio(mimeType) || MimeTypeUtil.isVideo(mimeType)
 
     fun getFilePosition(file: OCFile): Int = mediaFiles.indexOf(file)
 

@@ -58,6 +58,7 @@ import com.nextcloud.utils.extensions.clickWithDebounce
 import com.nextcloud.utils.extensions.getBigThumbnailKey
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSmallThumbnail
+import com.nextcloud.utils.extensions.matchesMimeType
 import com.nextcloud.utils.extensions.typedActivity
 import com.nextcloud.utils.thumbnail.job.ResizedImageGenerationJob
 import com.nextcloud.utils.view.ScreenMetrics
@@ -812,7 +813,7 @@ class PreviewMediaFragment :
          * @return 'True' if the file can be handled by the fragment.
          */
         @JvmStatic
-        fun canBePreviewed(file: OCFile?): Boolean = file != null && MimeTypeUtil.isImage(file)
+        fun canBePreviewed(file: OCFile?): Boolean = file != null && file.matchesMimeType(MimeTypeUtil::isImage)
 
         private fun convertDpToPixel(dp: Float, context: Context?): Int {
             val resources = context?.resources ?: return 0

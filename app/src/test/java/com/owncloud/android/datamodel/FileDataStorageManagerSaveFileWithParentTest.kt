@@ -66,7 +66,7 @@ class FileDataStorageManagerSaveFileWithParentTest {
         mockkObject(MainApp.Companion)
         every { MainApp.getAppContext() } returns context
 
-        mockkStatic(MimeTypeUtil::class)
+        mockkObject(MimeTypeUtil)
         every { MimeTypeUtil.getMimeTypeFromPath(any()) } returns "text/plain"
 
         val offlineOperationDao = mockk<OfflineOperationDao>(relaxed = true)

@@ -175,9 +175,9 @@ open class AuthenticatorActivity :
 
     private var showWebViewLoginUrl = false
     private val viewModel: AuthenticatorViewModel by viewModels()
-    private val webViewUser: String?
+    private val loginName: String?
         get() = viewModel.credentials?.loginName
-    private val webViewPassword: String?
+    private val appPassword: String?
         get() = viewModel.credentials?.appPassword
 
     private val loginDataScheme: String
@@ -788,10 +788,9 @@ open class AuthenticatorActivity :
         serverInfo = receivedServerInfo
         Log_OC.d(TAG, "Server check: succeeded for ${serverInfo.mBaseUrl}")
 
-        val user = webViewUser
-        val password = webViewPassword
-        if (!user.isNullOrEmpty() && !password.isNullOrEmpty()) {
-            checkBasicAuthorization(user, password)
+        val credentials = viewModel.credentials
+        if (credentials != null && credentials.loginName.isNotEmpty() && credentials.appPassword.isNotEmpty()) {
+            checkBasicAuthorization(credentials.loginName, credentials.appPassword)
             return
         }
 
@@ -887,8 +886,8 @@ open class AuthenticatorActivity :
     // endregion
 
     // region Credentials
-    private fun checkBasicAuthorization(webViewUsername: String?, webViewPassword: String?) {
-        val credentials = OwnCloudCredentialsFactory.newBasicCredentials(webViewUsername, webViewPassword)
+    private fun checkBasicAuthorization(loginName: String, appPassword: String) {
+        val credentials = OwnCloudCredentialsFactory.newBasicCredentials(loginName, appPassword)
         accessRootFolder(credentials)
     }
 
@@ -982,9 +981,9 @@ open class AuthenticatorActivity :
         deleteCookies()
     }
 
-    private fun applyLoginCredentials(loginUrlInfo: LoginUrlInfo, password: String = loginUrlInfo.appPassword) {
+    private fun applyLoginCredentials(loginUrlInfo: LoginUrlInfo, appPassword: String = loginUrlInfo.appPassword) {
         serverInfo.mBaseUrl = normalizeUrlSuffix(loginUrlInfo.server)
-        viewModel.credentials = loginUrlInfo.copy(appPassword = password)
+        viewModel.credentials = loginUrlInfo.copy(appPassword = appPassword)
     }
 
     private fun dismissWaitingDialog() {
@@ -1077,7 +1076,7 @@ open class AuthenticatorActivity :
     @Throws(AccountUtils.AccountNotFoundException::class)
     private fun updateAccountAuthentication() {
         val account = checkNotNull(account)
-        val response = accountStore.updateCredentials(account, webViewPassword)
+        val response = accountStore.updateCredentials(account, appPassword)
 
         setAccountAuthenticatorResult(response)
         setResult(RESULT_OK, Intent().putExtras(response))
@@ -1091,7 +1090,6 @@ open class AuthenticatorActivity :
 
         authResult.lastPermanentLocation?.let { serverInfo.mBaseUrl = trimWebdavSuffix(it) }
 
-        val loginName = webViewUser
         val accountName = AccountUtils.buildAccountName(serverInfo.mBaseUrl.toUri(), loginName)
         val newAccount = Account(accountName, accountType)
         if (accountManager.exists(newAccount)) {
@@ -1108,7 +1106,7 @@ open class AuthenticatorActivity :
         }
 
         account = newAccount
-        val authenticatorResult = accountStore.addAccount(newAccount, webViewPassword, loginName, serverInfo, userInfo)
+        val authenticatorResult = accountStore.addAccount(newAccount, appPassword, loginName, serverInfo, userInfo)
 
         setAccountAuthenticatorResult(authenticatorResult.extras)
         setResult(RESULT_OK, authenticatorResult)
@@ -1173,8 +1171,8 @@ open class AuthenticatorActivity :
         }
     }
 
-    fun onOTPCompleted(loginUrlInfo: LoginUrlInfo, otpResult: String) {
-        applyLoginCredentials(loginUrlInfo, otpResult)
+    fun onOTPCompleted(loginUrlInfo: LoginUrlInfo, appPassword: String) {
+        applyLoginCredentials(loginUrlInfo, appPassword)
         checkOcServer()
     }
 

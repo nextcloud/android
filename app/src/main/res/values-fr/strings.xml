@@ -138,6 +138,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">conservé dans le dossier d’origine (puisqu’il est en lecture seule)</string>
     <string name="auto_upload_low_battery_warning_info">Batterie faible, le téléversement peut prendre plus de temps</string>
     <string name="auto_upload_on_wifi">Téléverser uniquement via un réseau Wi-Fi non limité</string>
+    <string name="auto_upload_overview_empty_folder">Le dossier est vide</string>
     <string name="auto_upload_path">/TéléversementAuto</string>
     <string name="auto_upload_sub_folder_warning">Ce dossier fait partie de la synchronisation du dossier parent, ce qui peut créer des doublons.</string>
     <string name="auto_upload_sync_now_action">Synchroniser maintenant</string>
@@ -794,6 +795,7 @@
     <string name="player_media_controls_close_action_title">Fermer</string>
     <string name="please_select_a_server">Veuillez sélectionner un serveur…</string>
     <string name="power_save_check_dialog_message">Désactiver la vérification de l’économie d’énergie peut entraîner le téléversement de fichiers lorsque la batterie est faible !</string>
+    <string name="power_saving_settings_action">Ouvrir les paramètres d\'économie d\'énergie</string>
     <string name="pref_behaviour_entries_delete_file">supprimé</string>
     <string name="pref_behaviour_entries_keep_file">conservé dans le dossier d’origine</string>
     <string name="pref_behaviour_entries_move">déplacé vers le dossier de l\'application</string>
