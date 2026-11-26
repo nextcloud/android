@@ -65,6 +65,7 @@ orchestratorVersion = "1.6.1"
 osmdroidAndroidVersion = "6.1.20"
 photoviewVersion = "2.3.0"
 playServicesBaseVersion = "18.11.1"
+preferenceKtxVersion = "1.2.1"
 prismVersion = "2.0.0"
 qrcodescannerVersion = "0.1.2.4"
 reviewKtxVersion = "2.0.2"
@@ -96,6 +97,7 @@ appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompatV
 core-ktx = { module = "androidx.test:core-ktx", version.ref = "androidxTestVersion" }
 document-scanning-android-sdk = { module = "com.github.Hazzatur:Document-Scanning-Android-SDK", version.ref = "documentScannerVersion" }
 fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtxVersion" }
+preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "preferenceKtxVersion" }
 exifinterface = { module = "androidx.exifinterface:exifinterface", version.ref = "exifinterfaceVersion" }
 material-icons-core = { module = "androidx.compose.material:material-icons-core", version.ref = "materialIconsCoreVersion" }
 webkit = { module = "androidx.webkit:webkit", version.ref = "webkitVersion" }
@@ -232,7 +234,7 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 [bundles]
 media3 = ["media3-ui", "media3-session", "media3-exoplayer", "media3-datasource"]
 espresso = ["espresso-core", "espresso-contrib", "espresso-web", "espresso-accessibility", "espresso-intents", "espresso-idling-resource"]
-ui = ["appcompat", "webkit", "exifinterface", "fragment-ktx"]
+ui = ["appcompat", "webkit", "exifinterface", "fragment-ktx", "preference-ktx"]
 markdown-rendering = [
     "core",
     "ext-strikethrough",

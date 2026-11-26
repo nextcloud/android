@@ -512,7 +512,8 @@ class DialogFragmentIT : AbstractIT() {
                     ColorUtil(targetContext)
                 )
 
-                val editorUtils = EditorUtils(ArbitraryDataProviderImpl(targetContext))
+                val arbitraryDataProvider = ArbitraryDataProviderImpl(targetContext)
+                val editorUtils = EditorUtils(arbitraryDataProvider)
 
                 sut = OCFileListBottomSheetDialog(
                     fda,
@@ -522,7 +523,8 @@ class DialogFragmentIT : AbstractIT() {
                     ocFile,
                     viewThemeUtils,
                     editorUtils,
-                    appScanOptionalFeature
+                    appScanOptionalFeature,
+                    arbitraryDataProvider
                 )
 
                 sut.show()
