@@ -369,7 +369,6 @@
         </activity>
         <activity
             android:name=".ui.activity.SettingsActivity"
-            android:enableOnBackInvokedCallback="false"
             android:exported="false"
             android:theme="@style/PreferenceTheme" />
         <activity
