@@ -128,7 +128,8 @@
             android:key="recommend" />
         <Preference
             android:title="@string/logs_title"
-            android:key="logger" />
+            android:key="logger"
+            android:summary="@string/logs_summary" />
         <Preference
             android:title="@string/prefs_imprint"
             android:key="imprint" />

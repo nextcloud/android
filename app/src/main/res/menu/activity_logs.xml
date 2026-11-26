@@ -22,7 +22,7 @@
 
     <item
         android:id="@+id/action_send_logs"
-        android:title="@string/logs_menu_send"
+        android:title="@string/logs_menu_share"
         app:showAsAction="never"
         android:orderInCategory="200"
         android:icon="@drawable/ic_send" />
