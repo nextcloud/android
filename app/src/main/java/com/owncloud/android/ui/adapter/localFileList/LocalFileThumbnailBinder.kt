@@ -9,6 +9,7 @@ package com.owncloud.android.ui.adapter.localFileList
 import android.content.Context
 import android.widget.ImageView
 import com.nextcloud.utils.extensions.getSmallThumbnail
+import com.nextcloud.utils.extensions.mimeType
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncThumbnailDrawable
@@ -34,7 +35,7 @@ object LocalFileThumbnailBinder {
         // ThumbnailsCacheManager#cancelPotentialThumbnailWork will NEVER cancel any task.
         val allowedToCreateNewThumbnail = ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)
 
-        if (!MimeTypeUtil.isImage(file)) {
+        if (!MimeTypeUtil.isImage(file.mimeType)) {
             thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(null, file.name, context, viewThemeUtils))
             return
         }
@@ -59,7 +60,7 @@ object LocalFileThumbnailBinder {
 
     private fun generateThumbnail(file: File, thumbnailView: ImageView, context: Context) {
         val task = ThumbnailGenerationTask(thumbnailView)
-        val placeholder = if (MimeTypeUtil.isVideo(file)) {
+        val placeholder = if (MimeTypeUtil.isVideo(file.mimeType)) {
             ThumbnailsCacheManager.mDefaultVideo
         } else {
             ThumbnailsCacheManager.mDefaultImg

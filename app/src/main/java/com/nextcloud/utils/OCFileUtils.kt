@@ -11,6 +11,7 @@ import android.util.LruCache
 import androidx.core.content.ContextCompat
 import com.nextcloud.utils.extensions.getBitmapSize
 import com.nextcloud.utils.extensions.getExifSize
+import com.nextcloud.utils.extensions.matchesMimeType
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
@@ -55,9 +56,9 @@ object OCFileUtils {
     fun getMediaPlaceholder(file: OCFile): Drawable? {
         val context = MainApp.getAppContext()
 
-        val drawableId = if (MimeTypeUtil.isImage(file)) {
+        val drawableId = if (file.matchesMimeType(MimeTypeUtil::isImage)) {
             R.drawable.file_image
-        } else if (MimeTypeUtil.isVideo(file)) {
+        } else if (MimeTypeUtil.isVideo(file.mimeType)) {
             R.drawable.file_movie
         } else {
             R.drawable.file
