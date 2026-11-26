@@ -123,7 +123,7 @@ class AutoUploadForm(
     }
 
     private fun applyUserColor(viewThemeUtils: ViewThemeUtils) {
-        viewThemeUtils.androidx.colorSwitchCompat(binding.syncEnabled)
+        viewThemeUtils.material.colorMaterialSwitch(binding.syncEnabled)
         viewThemeUtils.platform.themeCheckbox(
             binding.settingInstantUploadOnWifiCheckbox,
             binding.settingInstantUploadOnChargingCheckbox,
