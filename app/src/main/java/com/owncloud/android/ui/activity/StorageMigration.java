@@ -12,6 +12,7 @@ package com.owncloud.android.ui.activity;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -20,10 +21,14 @@ import android.view.View;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.nextcloud.utils.AppConstants;
+import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.UploadsStorageManager;
+import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
@@ -31,8 +36,9 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.res.ResourcesCompat;
 
 /**
@@ -67,22 +73,18 @@ public class StorageMigration {
     }
 
     public void migrate() {
+        if (dataFoldersOverlap()) {
+            Log_OC.w(TAG, "Source and target data folders overlap, skipping migration");
+            notifyMigrationCancelled();
+            return;
+        }
+
         if (storageFolderAlreadyExists()) {
             askToOverride();
-        } else {
-            ProgressDialog progressDialog = createMigrationProgressDialog();
-            progressDialog.show();
-            new FileMigrationTask(
-                    mContext,
-                    user,
-                    mSourceStoragePath,
-                    mTargetStoragePath,
-                    progressDialog,
-                    mListener,
-                    viewThemeUtils).execute();
-
-            progressDialog.getButton(ProgressDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
+            return;
         }
+
+        startFileMigration();
     }
 
     private boolean storageFolderAlreadyExists() {
@@ -90,76 +92,68 @@ public class StorageMigration {
         return f.exists() && f.isDirectory();
     }
 
-    public static void a(ViewThemeUtils viewThemeUtils, Context context) {
-        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context)
-            .setMessage(R.string.file_migration_directory_already_exists)
-            .setCancelable(true)
-            .setOnCancelListener(dialogInterface -> {
+    private boolean dataFoldersOverlap() {
+        String sourceDataFolder = canonicalDataFolder(mSourceStoragePath);
+        String targetDataFolder = canonicalDataFolder(mTargetStoragePath);
 
-            })
-            .setNegativeButton(R.string.common_cancel, (dialogInterface, i) -> {
+        return sourceDataFolder.equals(targetDataFolder) ||
+            sourceDataFolder.startsWith(targetDataFolder + File.separator) ||
+            targetDataFolder.startsWith(sourceDataFolder + File.separator);
+    }
 
-            })
-            .setNeutralButton(R.string.file_migration_use_data_folder, (dialogInterface, i) -> {
-
-            })
-            .setPositiveButton(R.string.file_migration_override_data_folder, (dialogInterface, i) -> {
-
-            });
-
-        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(context, builder);
-
-        AlertDialog alertDialog = builder.create();
-
-        alertDialog.show();
+    private static String canonicalDataFolder(String storagePath) {
+        return FileExtensionsKt.getCanonicalPathOrAbsolute(new File(storagePath, MainApp.getDataFolder()));
     }
 
     private void askToOverride() {
         final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(mContext)
                 .setMessage(R.string.file_migration_directory_already_exists)
                 .setCancelable(true)
-                .setOnCancelListener(dialogInterface -> {
-                    if (mListener != null) {
-                        mListener.onCancelMigration();
-                    }
-                })
-                .setNegativeButton(R.string.common_cancel, (dialogInterface, i) -> {
-                    if (mListener != null) {
-                        mListener.onCancelMigration();
-                    }
-                })
-                .setNeutralButton(R.string.file_migration_use_data_folder, (dialogInterface, i) -> {
-                    ProgressDialog progressDialog = createMigrationProgressDialog();
-                    progressDialog.show();
-                    new StoragePathSwitchTask(
-                            mContext,
-                            user,
-                            mSourceStoragePath,
-                            mTargetStoragePath,
-                            progressDialog,
-                            mListener,
-                            viewThemeUtils).execute();
-
-                    progressDialog.getButton(ProgressDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
-
-                })
-                .setPositiveButton(R.string.file_migration_override_data_folder, (dialogInterface, i) -> {
-                    ProgressDialog progressDialog = createMigrationProgressDialog();
-                    progressDialog.show();
-                    new FileMigrationTask(
-                            mContext,
-                            user,
-                            mSourceStoragePath,
-                            mTargetStoragePath,
-                            progressDialog,
-                            mListener,
-                            viewThemeUtils).execute();
-
-                    progressDialog.getButton(ProgressDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
-                });
+                .setOnCancelListener(dialogInterface -> notifyMigrationCancelled())
+                .setNegativeButton(R.string.common_cancel, (dialogInterface, i) -> notifyMigrationCancelled())
+                .setNeutralButton(R.string.file_migration_use_data_folder, (dialogInterface, i) -> startStoragePathSwitch())
+                .setPositiveButton(R.string.file_migration_override_data_folder, (dialogInterface, i) -> startFileMigration());
 
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(mContext, builder);
         builder.create().show();
+    }
+
+    private void notifyMigrationCancelled() {
+        if (mListener != null) {
+            mListener.onCancelMigration();
+        }
+    }
+
+    private void startFileMigration() {
+        ProgressDialog progressDialog = showMigrationProgressDialog();
+        new FileMigrationTask(
+                mContext,
+                user,
+                mSourceStoragePath,
+                mTargetStoragePath,
+                progressDialog,
+                mListener,
+                viewThemeUtils).execute();
+    }
+
+    private void startStoragePathSwitch() {
+        ProgressDialog progressDialog = showMigrationProgressDialog();
+        new StoragePathSwitchTask(
+                mContext,
+                user,
+                mSourceStoragePath,
+                mTargetStoragePath,
+                progressDialog,
+                mListener,
+                viewThemeUtils).execute();
+    }
+
+    private ProgressDialog showMigrationProgressDialog() {
+        ProgressDialog progressDialog = createMigrationProgressDialog();
+        progressDialog.show();
+        progressDialog.getButton(ProgressDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
+
+        return progressDialog;
     }
 
     private ProgressDialog createMigrationProgressDialog() {
@@ -206,37 +200,48 @@ public class StorageMigration {
 
         @Override
         protected void onProgressUpdate(Integer... progress) {
-            if (progress.length > 1 && progress[0] != 0) {
+            if (progress.length > 0 && progress[0] != 0 && canShowUi()) {
                 mProgressDialog.setMessage(mContext.getString(progress[0]));
             }
         }
 
         @Override
         protected void onPostExecute(Integer code) {
-            if (code != 0) {
-                mProgressDialog.setMessage(mContext.getString(code));
-            } else {
-                mProgressDialog.setMessage(mContext.getString(R.string.file_migration_ok_finished));
-            }
-
             boolean succeed = code == 0;
-            if (succeed) {
-                mProgressDialog.hide();
-            } else {
-
-                if (code == R.string.file_migration_failed_not_readable) {
-                    mProgressDialog.hide();
-                    askToStillMove();
-                } else {
-                    mProgressDialog.getButton(ProgressDialog.BUTTON_POSITIVE).setVisibility(View.VISIBLE);
-                    mProgressDialog.setIndeterminateDrawable(ResourcesCompat.getDrawable(mContext.getResources(),
-                                                                                         R.drawable.image_fail,
-                                                                                         null));
-                }
-            }
 
             if (mListener != null) {
                 mListener.onStorageMigrationFinished(succeed ? mStorageTarget : mStorageSource, succeed);
+            }
+
+            if (!canShowUi()) {
+                return;
+            }
+
+            if (succeed) {
+                dismissProgressDialog();
+                return;
+            }
+
+            if (code == R.string.file_migration_failed_not_readable) {
+                dismissProgressDialog();
+                askToStillMove();
+                return;
+            }
+
+            mProgressDialog.setMessage(mContext.getString(code));
+            mProgressDialog.getButton(ProgressDialog.BUTTON_POSITIVE).setVisibility(View.VISIBLE);
+            mProgressDialog.setIndeterminateDrawable(ResourcesCompat.getDrawable(mContext.getResources(),
+                                                                                 R.drawable.image_fail,
+                                                                                 null));
+        }
+
+        private boolean canShowUi() {
+            return !(mContext instanceof Activity activity) || (!activity.isFinishing() && !activity.isDestroyed());
+        }
+
+        private void dismissProgressDialog() {
+            if (mProgressDialog.isShowing()) {
+                mProgressDialog.dismiss();
             }
         }
 
@@ -347,6 +352,8 @@ public class StorageMigration {
             private int getResId() { return mResId; }
         }
 
+        private boolean indexUpdateStarted;
+
         public FileMigrationTask(Context context,
                                  User user,
                                  String source,
@@ -364,13 +371,7 @@ public class StorageMigration {
             boolean[] syncState = null;
 
             try {
-                File dstFile = new File(mStorageTarget + File.separator + MainApp.getDataFolder());
-                deleteRecursive(dstFile);
-                try {
-                    Files.delete(dstFile.toPath());
-                } catch (IOException e) {
-                    Log_OC.e(TAG, "Could not delete destination file: " + dstFile.getAbsolutePath(), e);
-                }
+                deleteRecursive(new File(mStorageTarget + File.separator + MainApp.getDataFolder()));
 
                 File srcFile = new File(mStorageSource + File.separator + MainApp.getDataFolder());
 
@@ -413,17 +414,16 @@ public class StorageMigration {
             return 0;
         }
 
-
         private void checkDestinationAvailability() throws MigrationException {
             File srcFile = new File(mStorageSource);
             File dstFile = new File(mStorageTarget);
 
-            if (!dstFile.canRead() || !srcFile.canRead()) {
-                throw new MigrationException(R.string.file_migration_failed_not_readable);
+            if (!dstFile.canRead() || !dstFile.canWrite()) {
+                throw new MigrationException(R.string.file_migration_failed_not_writable);
             }
 
-            if (!dstFile.canWrite() || !srcFile.canWrite()) {
-                throw new MigrationException(R.string.file_migration_failed_not_writable);
+            if (!srcFile.canRead()) {
+                throw new MigrationException(R.string.file_migration_failed_not_readable);
             }
 
             if (new File(dstFile, MainApp.getDataFolder()).exists()) {
@@ -453,35 +453,70 @@ public class StorageMigration {
             }
 
             for (File f : files) {
+                File target = new File(dst, f.getName());
                 if (f.isDirectory()) {
-                    copyDirs(f, new File(dst, f.getName()));
-                } else if (!FileStorageUtils.copyFile(f, new File(dst, f.getName()))) {
+                    copyDirs(f, target);
+                    continue;
+                }
+
+                if (!FileStorageUtils.copyFile(f, target)) {
                     throw new MigrationException(R.string.file_migration_failed_while_coping);
                 }
-            }
 
+                if (!target.setLastModified(f.lastModified())) {
+                    Log_OC.w(TAG, "Could not preserve modification time of " + target.getAbsolutePath());
+                }
+            }
         }
 
         private void updateIndex(Context context) throws MigrationException {
+            indexUpdateStarted = true;
             FileDataStorageManager manager = new FileDataStorageManager(user, context.getContentResolver());
+            UploadsStorageManager uploadsStorageManager =
+                new UploadsStorageManager(UserAccountManagerImpl.fromContext(context), context.getContentResolver());
+            String targetPrefix = dataFolderPrefix(mStorageTarget);
 
             try {
-                manager.migrateStoredFiles(mStorageSource, mStorageTarget);
+                for (String sourcePrefix : sourceDataFolderPrefixes()) {
+                    manager.migrateStoredFiles(sourcePrefix, targetPrefix);
+                    migrateUploadPaths(uploadsStorageManager, sourcePrefix, targetPrefix);
+                }
             } catch (Exception e) {
                 Log_OC.e(TAG,e.getMessage(),e);
                 throw new MigrationException(R.string.file_migration_failed_while_updating_index, e);
             }
         }
 
+        private Set<String> sourceDataFolderPrefixes() {
+            Set<String> prefixes = new LinkedHashSet<>();
+            prefixes.add(dataFolderPrefix(mStorageSource));
+            prefixes.add(dataFolderPrefix(FileExtensionsKt.getCanonicalPathOrAbsolute(new File(mStorageSource))));
+
+            return prefixes;
+        }
+
+        private static String dataFolderPrefix(String storagePath) {
+            return storagePath + File.separator + MainApp.getDataFolder() + File.separator;
+        }
+
+        private void migrateUploadPaths(UploadsStorageManager uploadsStorageManager,
+                                        String sourcePrefix,
+                                        String targetPrefix) {
+            for (OCUpload upload : uploadsStorageManager.getAllStoredUploads()) {
+                String localPath = upload.getLocalPath();
+                if (localPath == null || !localPath.startsWith(sourcePrefix)) {
+                    continue;
+                }
+
+                upload.setLocalPath(targetPrefix + localPath.substring(sourcePrefix.length()));
+                uploadsStorageManager.updateUpload(upload);
+            }
+        }
+
         private void cleanup() {
             File srcFile = new File(mStorageSource + File.separator + MainApp.getDataFolder());
-            if (!deleteRecursive(srcFile)) {
-                Log_OC.w(TAG, "Migration cleanup step failed");
-            }
-            try {
-                Files.delete(srcFile.toPath());
-            } catch (IOException e) {
-                Log_OC.e(TAG, "Could not delete source file: " + srcFile.getAbsolutePath(), e);
+            if (!deleteRecursive(srcFile) && srcFile.exists()) {
+                Log_OC.w(TAG, "Migration cleanup step failed: " + srcFile.getAbsolutePath());
             }
         }
 
@@ -498,8 +533,13 @@ public class StorageMigration {
 
         private void rollback() {
             File dstFile = new File(mStorageTarget + File.separator + MainApp.getDataFolder());
-            if (dstFile.exists() && !dstFile.delete()) {
-                Log_OC.w(TAG, "Rollback step failed");
+            if (indexUpdateStarted) {
+                Log_OC.w(TAG, "Index update failed, keeping copied data: " + dstFile.getAbsolutePath());
+                return;
+            }
+
+            if (!deleteRecursive(dstFile) && dstFile.exists()) {
+                Log_OC.w(TAG, "Rollback step failed: " + dstFile.getAbsolutePath());
             }
         }
     }

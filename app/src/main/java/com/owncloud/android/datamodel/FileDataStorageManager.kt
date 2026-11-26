@@ -1102,9 +1102,10 @@ class FileDataStorageManager private constructor(
     @Throws(RemoteException::class)
     private fun queryStoredFiles(): Cursor? {
         val selection = ProviderTableMeta.FILE_STORAGE_PATH + " IS NOT NULL"
+        val selectionArgs = emptyArray<String>()
         val resolver = contentResolver
         if (resolver != null) {
-            return resolver.query(ProviderTableMeta.CONTENT_URI_FILE, null, selection, null, null)
+            return resolver.query(ProviderTableMeta.CONTENT_URI_FILE, null, selection, selectionArgs, null)
         }
 
         return try {
@@ -1112,7 +1113,7 @@ class FileDataStorageManager private constructor(
                 ProviderTableMeta.CONTENT_URI_FILE,
                 arrayOf(ProviderTableMeta._ID, ProviderTableMeta.FILE_STORAGE_PATH),
                 selection,
-                null,
+                selectionArgs,
                 null
             )
         } catch (e: RemoteException) {
