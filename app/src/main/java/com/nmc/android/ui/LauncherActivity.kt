@@ -17,6 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import com.nextcloud.android.common.ui.util.extensions.applyEdgeToEdgeWithSystemBarPadding
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.preferences.AppLock
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.mdm.MDMConfig
 import com.owncloud.android.R
@@ -82,7 +83,7 @@ class LauncherActivity :
             accountManager.user.isAnonymous -> AuthenticatorActivity::class.java
 
             MDMConfig.enforceProtection(this) &&
-                appPreferences.lockPreference == SettingsActivity.LOCK_NONE -> SettingsActivity::class.java
+                appPreferences.lockPreference == AppLock.NONE -> SettingsActivity::class.java
 
             else -> FileDisplayActivity::class.java
         }

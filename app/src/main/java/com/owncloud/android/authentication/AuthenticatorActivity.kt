@@ -57,6 +57,7 @@ import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.onboarding.FirstRunActivity
 import com.nextcloud.client.onboarding.OnboardingService
+import com.nextcloud.client.preferences.AppLock
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.repository.ClientRepository
 import com.nextcloud.utils.SnackbarUtil
@@ -1059,7 +1060,7 @@ open class AuthenticatorActivity :
     }
 
     private fun postLoginIntent(): Intent {
-        if (MDMConfig.enforceProtection(this) && preferences.lockPreference == SettingsActivity.LOCK_NONE) {
+        if (MDMConfig.enforceProtection(this) && preferences.lockPreference == AppLock.NONE) {
             return Intent(this, SettingsActivity::class.java)
         }
 

@@ -15,12 +15,12 @@ import android.view.View
 import android.view.WindowManager
 import androidx.annotation.VisibleForTesting
 import com.nextcloud.client.core.Clock
+import com.nextcloud.client.preferences.AppLock
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.MainApp
 import com.owncloud.android.authentication.PassCodeManager.Companion.PASS_CODE_TIMEOUT
 import com.owncloud.android.ui.activity.PassCodeActivity
 import com.owncloud.android.ui.activity.RequestCredentialsActivity
-import com.owncloud.android.ui.activity.SettingsActivity
 import com.owncloud.android.utils.DeviceCredentialUtils
 import kotlin.math.abs
 
@@ -133,13 +133,13 @@ class PassCodeManager(private val preferences: AppPreferences, private val clock
     @VisibleForTesting
     fun passCodeShouldBeRequested(timestamp: Long): Boolean = shouldBeLocked(timestamp) && isPassCodeEnabled()
 
-    fun isPassCodeEnabled(): Boolean = SettingsActivity.LOCK_PASSCODE == preferences.lockPreference
+    fun isPassCodeEnabled(): Boolean = preferences.lockPreference == AppLock.PASSCODE
 
     private fun deviceCredentialsShouldBeRequested(timestamp: Long, activity: Activity): Boolean =
         shouldBeLocked(timestamp) && deviceCredentialsAreEnabled(activity)
 
     private fun deviceCredentialsAreEnabled(activity: Activity): Boolean =
-        (preferences.lockPreference == SettingsActivity.LOCK_DEVICE_CREDENTIALS) &&
+        (preferences.lockPreference == AppLock.DEVICE_CREDENTIALS) &&
             DeviceCredentialUtils.areCredentialsAvailable(activity)
 
     private fun getActivityRootView(activity: Activity): View? = activity.window?.findViewById(android.R.id.content)

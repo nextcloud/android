@@ -85,16 +85,6 @@ class SettingsActivity :
         private val TAG: String = SettingsActivity::class.java.simpleName
         private val BACK_PRESSED_RESET_DELAY = 2.seconds
 
-        const val PREFERENCE_LOCK = "lock"
-
-        const val LOCK_NONE = "none"
-        const val LOCK_PASSCODE = "passcode"
-        const val LOCK_DEVICE_CREDENTIALS = "device_credentials"
-
-        const val PREFERENCE_SHOW_MEDIA_SCAN_NOTIFICATIONS = "show_media_scan_notifications"
-
-        const val SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI = "SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI"
-
         var isBackPressed = false
     }
 }

@@ -45,7 +45,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.operations.UploadFileOperation
-import com.owncloud.android.ui.activity.SettingsActivity
+import com.owncloud.android.ui.activity.settings.categories.AutoUploadSettingsCategory
 import com.owncloud.android.utils.theme.CapabilityUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
@@ -242,7 +242,7 @@ class AutoUploadWorker(
             val needsCharging = context.resources.getBoolean(R.bool.syncedFolder_light_on_charging)
             val needsWifi = arbitraryDataProvider.getBooleanValue(
                 accountName,
-                SettingsActivity.SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI
+                AutoUploadSettingsCategory.SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI
             )
             val uploadActionString = context.resources.getString(R.string.syncedFolder_light_upload_behaviour)
             val uploadAction = FileUploadWorker.getUploadAction(uploadActionString)

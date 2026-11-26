@@ -21,7 +21,6 @@ import com.owncloud.android.ui.activity.StorageMigration.StorageMigrationProgres
 import com.owncloud.android.ui.activity.settings.util.findThemedCategory
 import com.owncloud.android.ui.activity.settings.util.setOnClickAction
 import com.owncloud.android.ui.activity.settings.util.showIfAbsent
-import com.owncloud.android.ui.activity.settings.util.summaryResId
 import com.owncloud.android.ui.dialog.ThemeSelectionDialog
 import com.owncloud.android.utils.theme.ViewThemeUtils
 

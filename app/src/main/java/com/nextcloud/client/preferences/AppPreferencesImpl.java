@@ -28,7 +28,7 @@ import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.PassCodeActivity;
-import com.owncloud.android.ui.activity.SettingsActivity;
+import com.owncloud.android.ui.activity.settings.AppLockSettings;
 import com.owncloud.android.ui.fragment.FolderLayout;
 import com.owncloud.android.utils.FileSortOrder;
 
@@ -88,7 +88,7 @@ public final class AppPreferencesImpl implements AppPreferences {
 
     private static final String PREF__LOCK_TIMESTAMP = "lock_timestamp";
     private static final String PREF__SHOW_MEDIA_SCAN_NOTIFICATIONS = "show_media_scan_notifications";
-    private static final String PREF__LOCK = SettingsActivity.PREFERENCE_LOCK;
+    private static final String PREF__LOCK = AppLockSettings.PREFERENCE_LOCK;
     private static final String PREF__SELECTED_ACCOUNT_NAME = "select_oc_account";
     private static final String PREF__MIGRATED_USER_ID = "migrated_user_id";
     private static final String PREF__PHOTO_SEARCH_TIMESTAMP = "photo_search_timestamp";
@@ -266,14 +266,15 @@ public final class AppPreferencesImpl implements AppPreferences {
         preferences.edit().putString(AUTO_PREF__LAST_UPLOAD_PATH, path).apply();
     }
 
+    @NonNull
     @Override
-    public String getLockPreference() {
-        return preferences.getString(PREF__LOCK, SettingsActivity.LOCK_NONE);
+    public AppLock getLockPreference() {
+        return AppLock.fromValue(preferences.getString(PREF__LOCK, AppLock.NONE.getValue()));
     }
 
     @Override
-    public void setLockPreference(String lockPreference) {
-        preferences.edit().putString(PREF__LOCK, lockPreference).apply();
+    public void setLockPreference(@NonNull AppLock lock) {
+        preferences.edit().putString(PREF__LOCK, lock.getValue()).apply();
     }
 
     @Override

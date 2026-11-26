@@ -16,12 +16,12 @@ import androidx.fragment.app.setFragmentResult
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.preferences.AppLock
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.mdm.MDMConfig
 import com.owncloud.android.R
 import com.owncloud.android.databinding.DialogAppPasscodeBinding
-import com.owncloud.android.ui.activity.SettingsActivity
 import com.owncloud.android.ui.dialog.extensions.themeButtons
 import com.owncloud.android.utils.DeviceCredentialUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -39,7 +39,7 @@ class AppPassCodeDialog :
 
     private lateinit var binding: DialogAppPasscodeBinding
 
-    private var currentSelection = SettingsActivity.LOCK_NONE
+    private var currentSelection = AppLock.NONE
 
     override fun onStart() {
         super.onStart()
@@ -52,7 +52,7 @@ class AppPassCodeDialog :
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = DialogAppPasscodeBinding.inflate(layoutInflater)
 
-        currentSelection = preferences.lockPreference ?: SettingsActivity.LOCK_NONE
+        currentSelection = preferences.lockPreference
 
         val passCodeEnabled = resources.getBoolean(R.bool.passcode_enabled)
         val deviceCredentialsEnabled = resources.getBoolean(R.bool.device_credentials_enabled)
@@ -100,20 +100,21 @@ class AppPassCodeDialog :
     private fun setCurrentSelection() {
         val radioGroup = binding.lockRadioGroup
 
-        when (currentSelection) {
-            SettingsActivity.LOCK_PASSCODE -> radioGroup.check(R.id.lock_passcode)
-            SettingsActivity.LOCK_DEVICE_CREDENTIALS -> radioGroup.check(R.id.lock_device_credentials)
-            SettingsActivity.LOCK_NONE -> radioGroup.check(R.id.lock_none)
+        val checkedId = when (currentSelection) {
+            AppLock.PASSCODE -> R.id.lock_passcode
+            AppLock.DEVICE_CREDENTIALS -> R.id.lock_device_credentials
+            AppLock.NONE -> R.id.lock_none
         }
+
+        radioGroup.check(checkedId)
     }
 
     private fun setupListener() {
         binding.lockRadioGroup.setOnCheckedChangeListener { _, checkedId ->
             val selectedLock = when (checkedId) {
-                R.id.lock_passcode -> SettingsActivity.LOCK_PASSCODE
-                R.id.lock_device_credentials -> SettingsActivity.LOCK_DEVICE_CREDENTIALS
-                R.id.lock_none -> SettingsActivity.LOCK_NONE
-                else -> SettingsActivity.LOCK_NONE
+                R.id.lock_passcode -> AppLock.PASSCODE
+                R.id.lock_device_credentials -> AppLock.DEVICE_CREDENTIALS
+                else -> AppLock.NONE
             }
 
             currentSelection = selectedLock
@@ -133,7 +134,7 @@ class AppPassCodeDialog :
     private fun applySelection() {
         val selectedLock = currentSelection
 
-        setFragmentResult(REQUEST_KEY, bundleOf(RESULT_LOCK to selectedLock))
+        setFragmentResult(REQUEST_KEY, bundleOf(RESULT_LOCK to selectedLock.value))
     }
 
     companion object {

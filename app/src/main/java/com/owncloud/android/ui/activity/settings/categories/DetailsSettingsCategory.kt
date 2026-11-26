@@ -10,7 +10,6 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.TwoStatePreference
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
-import com.owncloud.android.ui.activity.SettingsActivity.Companion.PREFERENCE_SHOW_MEDIA_SCAN_NOTIFICATIONS
 import com.owncloud.android.ui.activity.settings.AppLockSettings
 import com.owncloud.android.ui.activity.settings.util.bindOrRemove
 import com.owncloud.android.ui.activity.settings.util.findThemedCategory
@@ -48,5 +47,6 @@ class DetailsSettingsCategory(
     companion object {
         private const val CATEGORY_KEY = "details"
         private const val SHOW_ECOSYSTEM_APPS_KEY = "show_ecosystem_apps"
+        private const val PREFERENCE_SHOW_MEDIA_SCAN_NOTIFICATIONS = "show_media_scan_notifications"
     }
 }
