@@ -86,6 +86,7 @@ class EmptyFileUploadPolicyTest {
     @Test
     fun emptyFileWithUnknownModificationTimeIsDeferred() {
         val file = mock<File> {
+            on { name } doReturn "marker.txt"
             on { isFile } doReturn true
             on { length() } doReturn 0L
             on { lastModified() } doReturn 0L
@@ -108,7 +109,21 @@ class EmptyFileUploadPolicyTest {
         assertFalse(EmptyFileUploadPolicy.shouldDefer(directory, nowMillis))
     }
 
-    private fun emptyFile(lastModified: Long): File = temporaryFolder.newFile().apply {
+    @Test
+    fun oldEmptyMediaFilesAreStillDeferred() {
+        for (name in listOf("image.jpg", "video.mp4")) {
+            val file = emptyFile(nowMillis - oneHourMillis, name)
+            assertTrue(EmptyFileUploadPolicy.shouldDefer(file, nowMillis))
+        }
+    }
+
+    @Test
+    fun oldEmptyTextFilesWithUppercaseExtensionAreAllowed() {
+        val file = emptyFile(nowMillis - oneHourMillis, "MARKER.TXT")
+        assertFalse(EmptyFileUploadPolicy.shouldDefer(file, nowMillis))
+    }
+
+    private fun emptyFile(lastModified: Long, name: String = "marker.txt"): File = temporaryFolder.newFile(name).apply {
         assertTrue(setLastModified(lastModified))
     }
 }

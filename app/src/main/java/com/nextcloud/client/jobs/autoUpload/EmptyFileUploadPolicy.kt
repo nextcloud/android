@@ -16,6 +16,8 @@ internal object EmptyFileUploadPolicy {
     fun shouldDefer(file: File, nowMillis: Long = System.currentTimeMillis()): Boolean {
         if (!file.isFile || file.length() != 0L) return false
 
+        if (!file.extension.equals("txt", ignoreCase = true)) return true
+
         val lastModified = file.lastModified()
         return lastModified <= 0L || nowMillis - lastModified < minimumAgeMillis
     }
