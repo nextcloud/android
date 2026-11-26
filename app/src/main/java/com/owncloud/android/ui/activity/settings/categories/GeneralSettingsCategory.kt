@@ -16,6 +16,7 @@ import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.client.preferences.DarkMode
 import com.nextcloud.ui.dialog.chooseStorage.ChooseStorageLocationDialogFragment
 import com.owncloud.android.MainApp
+import com.owncloud.android.datastorage.DataStorageProvider
 import com.owncloud.android.ui.activity.StorageMigration
 import com.owncloud.android.ui.activity.StorageMigration.StorageMigrationProgressListener
 import com.owncloud.android.ui.activity.settings.util.findThemedCategory
@@ -82,7 +83,7 @@ class GeneralSettingsCategory(
     }
 
     private fun onStorageLocationSelected(newPath: String) {
-        if (storagePath == newPath) return
+        if (DataStorageProvider.instance.isSameLocation(storagePath, newPath)) return
 
         StorageMigration(activity, user, storagePath, newPath, viewThemeUtils).run {
             setStorageMigrationProgressListener(this@GeneralSettingsCategory)

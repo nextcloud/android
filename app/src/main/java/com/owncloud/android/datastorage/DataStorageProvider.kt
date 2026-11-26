@@ -1,117 +1,89 @@
 /*
- *   Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- *   @author Bartosz Przybylski
- *   Copyright (C) 2016 Nextcloud
- *   Copyright (C) 2016 Bartosz Przybylski
- *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-FileCopyrightText: 2016 Nextcloud
+ * SPDX-FileCopyrightText: 2016 Bartosz Przybylski <bart.p.pl@gmail.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
+package com.owncloud.android.datastorage
 
-package com.owncloud.android.datastorage;
+import android.os.Environment
+import com.nextcloud.utils.extensions.canonicalPathOrAbsolute
+import com.owncloud.android.MainApp
+import com.owncloud.android.datastorage.StoragePoint.PrivacyType
+import com.owncloud.android.datastorage.StoragePoint.StorageType
+import java.io.File
 
-import android.content.Context;
-import android.os.Environment;
+class DataStorageProvider private constructor() {
 
-import com.owncloud.android.MainApp;
-import com.owncloud.android.datastorage.StoragePoint.PrivacyType;
-import com.owncloud.android.datastorage.StoragePoint.StorageType;
+    val availableStoragePoints: Array<StoragePoint>
+        get() {
+            val context = MainApp.getAppContext()
+            val storagePoints = UniqueStorageList()
 
-import java.io.File;
-import java.util.Arrays;
+            context.externalMediaDirs.forEach { addSharedStoragePoint(storagePoints, it, PrivacyType.PUBLIC) }
+            storagePoints.add(createStoragePoint(context.filesDir, StorageType.INTERNAL, PrivacyType.PRIVATE))
+            context.getExternalFilesDirs(null).forEach { addSharedStoragePoint(storagePoints, it, PrivacyType.PRIVATE) }
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-/**
- * @author Bartosz Przybylski
- */
-public class DataStorageProvider {
-
-    private static final String APP_SPECIFIC_DATA_DIR = "/Android/data/";
-    private static final DataStorageProvider sInstance = new DataStorageProvider();
-
-    public static DataStorageProvider getInstance() {
-        return sInstance;
-    }
-
-    private DataStorageProvider() {}
-
-    public StoragePoint[] getAvailableStoragePoints() {
-        Context context = MainApp.getAppContext();
-        UniqueStorageList storagePoints = new UniqueStorageList();
-
-        for (File mediaDir : context.getExternalMediaDirs()) {
-            addSharedStoragePoint(storagePoints, mediaDir, PrivacyType.PUBLIC);
+            return storagePoints.toTypedArray()
         }
 
-        File filesDir = context.getFilesDir();
-        storagePoints.add(createStoragePoint(filesDir, StorageType.INTERNAL, PrivacyType.PRIVATE));
+    fun findStoragePoint(path: String): StoragePoint? {
+        val canonicalPath = File(path).canonicalPathOrAbsolute
+        val knownPoint = availableStoragePoints.firstOrNull { File(it.path).canonicalPathOrAbsolute == canonicalPath }
+            ?: return classifyStoragePath(path, canonicalPath)
 
-        for (File externalFilesDir : context.getExternalFilesDirs(null)) {
-            addSharedStoragePoint(storagePoints, externalFilesDir, PrivacyType.PRIVATE);
+        return StoragePoint(path, path, knownPoint.storageType, knownPoint.privacyType)
+    }
+
+    fun isSameLocation(firstPath: String, secondPath: String): Boolean =
+        File(firstPath).canonicalPathOrAbsolute == File(secondPath).canonicalPathOrAbsolute
+
+    fun allowAccessFromOtherApps(): Boolean {
+        val storagePath = MainApp.getStoragePath()
+
+        return availableStoragePoints.any { it.path == storagePath && it.privacyType == PrivacyType.PUBLIC }
+    }
+
+    private fun addSharedStoragePoint(storagePoints: UniqueStorageList, dir: File?, privacyType: PrivacyType) {
+        if (dir == null || !isMounted(dir)) return
+
+        storagePoints.add(createStoragePoint(dir, resolveStorageType(dir), privacyType))
+    }
+
+    private fun classifyStoragePath(path: String, canonicalPath: String): StoragePoint? {
+        val file = File(path)
+        val dataDir = MainApp.getAppContext().dataDir.canonicalPathOrAbsolute
+
+        if (canonicalPath == dataDir || canonicalPath.startsWith(dataDir + File.separator)) {
+            return createStoragePoint(file, StorageType.INTERNAL, PrivacyType.PRIVATE)
         }
 
-        return storagePoints.toArray(new StoragePoint[0]);
+        if (!isMounted(file)) return null
+
+        val privacyType = if (canonicalPath.contains(APP_SPECIFIC_DATA_DIR)) PrivacyType.PRIVATE else PrivacyType.PUBLIC
+
+        return createStoragePoint(file, resolveStorageType(file), privacyType)
     }
 
-    @Nullable
-    public StoragePoint findStoragePoint(@NonNull String path) {
-        return Arrays.stream(getAvailableStoragePoints())
-            .filter(point -> point.getPath().equals(path))
-            .findFirst()
-            .orElseGet(() -> classifyStoragePath(path));
+    private fun isMounted(dir: File): Boolean = Environment.getExternalStorageState(dir) == Environment.MEDIA_MOUNTED
+
+    private fun resolveStorageType(dir: File): StorageType = try {
+        if (Environment.isExternalStorageRemovable(dir)) StorageType.EXTERNAL else StorageType.INTERNAL
+    } catch (e: IllegalArgumentException) {
+        StorageType.INTERNAL
     }
 
-    public boolean allowAccessFromOtherApps() {
-        String storagePath = MainApp.getStoragePath();
+    private fun createStoragePoint(dir: File, storageType: StorageType, privacyType: PrivacyType): StoragePoint {
+        val path = dir.absolutePath
 
-        return Arrays.stream(getAvailableStoragePoints())
-            .anyMatch(point -> point.getPath().equals(storagePath) &&
-                point.getPrivacyType() == PrivacyType.PUBLIC);
+        return StoragePoint(path, path, storageType, privacyType)
     }
 
-    private void addSharedStoragePoint(UniqueStorageList storagePoints, @Nullable File dir, PrivacyType privacyType) {
-        if (dir == null || !isMounted(dir)) {
-            return;
-        }
+    companion object {
+        private const val APP_SPECIFIC_DATA_DIR = "/Android/data/"
 
-        storagePoints.add(createStoragePoint(dir, resolveStorageType(dir), privacyType));
-    }
-
-    @Nullable
-    private StoragePoint classifyStoragePath(String path) {
-        File file = new File(path);
-        String dataDir = MainApp.getAppContext().getDataDir().getAbsolutePath();
-
-        if (path.startsWith(dataDir)) {
-            return createStoragePoint(file, StorageType.INTERNAL, PrivacyType.PRIVATE);
-        }
-
-        if (!isMounted(file)) {
-            return null;
-        }
-
-        PrivacyType privacyType = path.contains(APP_SPECIFIC_DATA_DIR) ? PrivacyType.PRIVATE : PrivacyType.PUBLIC;
-
-        return createStoragePoint(file, resolveStorageType(file), privacyType);
-    }
-
-    private boolean isMounted(File dir) {
-        return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState(dir));
-    }
-
-    private StorageType resolveStorageType(File dir) {
-        try {
-            return Environment.isExternalStorageRemovable(dir) ? StorageType.EXTERNAL : StorageType.INTERNAL;
-        } catch (IllegalArgumentException e) {
-            return StorageType.INTERNAL;
-        }
-    }
-
-    private StoragePoint createStoragePoint(File dir, StorageType storageType, PrivacyType privacyType) {
-        String path = dir.getAbsolutePath();
-
-        return new StoragePoint(path, path, storageType, privacyType);
+        val instance = DataStorageProvider()
     }
 }

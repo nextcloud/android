@@ -135,3 +135,10 @@ fun OCFile?.isTheSameAs(localFile: File?): Boolean = try {
     Log.e(FileDataStorageManager.TAG, "fileIsTheSame: unable to obtain local file attributes for comparing: $e")
     false
 }
+
+val File.canonicalPathOrAbsolute: String
+    get() = try {
+        canonicalPath
+    } catch (_: IOException) {
+        absolutePath
+    }

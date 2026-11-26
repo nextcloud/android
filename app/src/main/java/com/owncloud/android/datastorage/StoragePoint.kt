@@ -1,94 +1,32 @@
 /*
- *   Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- *   @author Bartosz Przybylski
- *   Copyright (C) 2016 Nextcloud
- *   Copyright (C) 2016 Bartosz Przybylski
- *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-FileCopyrightText: 2016 Nextcloud
+ * SPDX-FileCopyrightText: 2016 Bartosz Przybylski <bart.p.pl@gmail.com>
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
+package com.owncloud.android.datastorage
 
-package com.owncloud.android.datastorage;
+import androidx.annotation.StringRes
+import com.owncloud.android.R
 
-import com.owncloud.android.R;
+class StoragePoint(
+    val description: String,
+    val path: String,
+    val storageType: StorageType,
+    val privacyType: PrivacyType
+) : Comparable<StoragePoint> {
 
-import androidx.annotation.StringRes;
-
-/**
- * @author Bartosz Przybylski
- */
-public class StoragePoint implements Comparable<StoragePoint> {
-    private String description;
-    private String path;
-    private StorageType storageType;
-    private PrivacyType privacyType;
-
-    public StoragePoint(String description, String path, StorageType storageType, PrivacyType privacyType) {
-        this.description = description;
-        this.path = path;
-        this.storageType = storageType;
-        this.privacyType = privacyType;
-    }
-
-    public StoragePoint() {
-        // empty constructor
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public String getPath() {
-        return this.path;
-    }
-
-    public StorageType getStorageType() {
-        return this.storageType;
-    }
-
-    public PrivacyType getPrivacyType() {
-        return this.privacyType;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public void setStorageType(StorageType storageType) {
-        this.storageType = storageType;
-    }
-
-    public void setPrivacyType(PrivacyType privacyType) {
-        this.privacyType = privacyType;
-    }
-
-    public enum StorageType {
+    enum class StorageType(@get:StringRes val labelResId: Int) {
         INTERNAL(R.string.storage_internal_storage),
-        EXTERNAL(R.string.storage_external_storage);
-
-        @StringRes
-        private final int labelResId;
-
-        StorageType(@StringRes int labelResId) {
-            this.labelResId = labelResId;
-        }
-
-        @StringRes
-        public int getLabelResId() {
-            return labelResId;
-        }
+        EXTERNAL(R.string.storage_external_storage)
     }
 
-    public enum PrivacyType {
-        PRIVATE, PUBLIC
+    enum class PrivacyType {
+        PRIVATE,
+        PUBLIC
     }
 
-    @Override
-    public int compareTo(StoragePoint another) {
-        return path.compareTo(another.getPath());
-    }
+    override fun compareTo(other: StoragePoint): Int = path.compareTo(other.path)
 }

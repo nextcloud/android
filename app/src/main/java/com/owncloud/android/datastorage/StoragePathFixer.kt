@@ -35,7 +35,7 @@ class StoragePathFixer(private val preferences: AppPreferences) {
     }
 
     private fun findIndexableStoragePoint(): StoragePoint? {
-        val publicStoragePoints = DataStorageProvider.getInstance()
+        val publicStoragePoints = DataStorageProvider.instance
             .availableStoragePoints
             .filter { it.privacyType == StoragePoint.PrivacyType.PUBLIC }
 

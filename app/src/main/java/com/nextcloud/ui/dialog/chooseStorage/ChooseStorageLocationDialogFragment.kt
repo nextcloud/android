@@ -39,7 +39,7 @@ class ChooseStorageLocationDialogFragment :
 
     private lateinit var binding: DialogDataStorageLocationBinding
 
-    private val storageProvider = DataStorageProvider.getInstance()
+    private val storageProvider = DataStorageProvider.instance
     private val storagePoints = storageProvider.availableStoragePoints.toList()
     private var currentLocation: StoragePoint? = null
     private var selectedStorageType: StorageType? = null

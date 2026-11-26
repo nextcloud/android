@@ -430,12 +430,8 @@ public class StorageMigration {
                 throw new MigrationException(R.string.file_migration_failed_dir_already_exists);
             }
 
-            try {
-                if (dstFile.getFreeSpace() < FileStorageUtils.getFolderSize(new File(srcFile, MainApp.getDataFolder()))) {
-                    throw new MigrationException(R.string.file_migration_failed_not_enough_space);
-                }
-            } catch (MigrationException e) {
-                throw new RuntimeException(e);
+            if (dstFile.getFreeSpace() < FileStorageUtils.getFolderSize(new File(srcFile, MainApp.getDataFolder()))) {
+                throw new MigrationException(R.string.file_migration_failed_not_enough_space);
             }
         }
 
@@ -451,7 +447,12 @@ public class StorageMigration {
                 throw new MigrationException(R.string.file_migration_failed_while_coping);
             }
 
-            for (File f : src.listFiles()) {
+            File[] files = src.listFiles();
+            if (files == null) {
+                throw new MigrationException(R.string.file_migration_failed_while_coping);
+            }
+
+            for (File f : files) {
                 if (f.isDirectory()) {
                     copyDirs(f, new File(dst, f.getName()));
                 } else if (!FileStorageUtils.copyFile(f, new File(dst, f.getName()))) {
@@ -486,8 +487,9 @@ public class StorageMigration {
 
         private boolean deleteRecursive(File f) {
             boolean res = true;
-            if (f.isDirectory()) {
-                for (File c : f.listFiles()) {
+            File[] children = f.isDirectory() ? f.listFiles() : null;
+            if (children != null) {
+                for (File c : children) {
                     res = deleteRecursive(c) && res;
                 }
             }
