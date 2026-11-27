@@ -678,6 +678,8 @@
     <string name="logs_menu_refresh">Yenile</string>
     <string name="logs_menu_search">Günlük ara</string>
     <string name="logs_menu_send">Günlükler e-posta ile gönderilsin</string>
+    <string name="logs_menu_share">Paylaş</string>
+    <string name="logs_open_in_files">Dosyalar uygulamasında aç</string>
     <string name="logs_status_filtered">Günlük kayıtları: %1$d kB, Eşleşen kayıt: %2$d / %3$d, Süre: %4$d ms</string>
     <string name="logs_status_loading">Yükleniyor …</string>
     <string name="logs_status_not_filtered">Günlük kayıtları: %1$d kB, süzgeç yok</string>

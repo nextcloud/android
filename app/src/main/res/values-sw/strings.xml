@@ -590,6 +590,8 @@
     <string name="logs_menu_refresh">Onyesha upya</string>
     <string name="logs_menu_search">Tafuta kumbukumbu</string>
     <string name="logs_menu_send">Tuma kumbukumbu kwa barua pepe</string>
+    <string name="logs_menu_share">Shiriki</string>
+    <string name="logs_open_in_files">Fungua ndani ya faili</string>
     <string name="logs_status_filtered">Kumbukumbu: %1$d kB, hoja inalingana %2$d / %3$d katika %4$d ms</string>
     <string name="logs_status_loading">Inapakia</string>
     <string name="logs_status_not_filtered">Kumbukumbu: %1$d kB, hakuna kichujio</string>

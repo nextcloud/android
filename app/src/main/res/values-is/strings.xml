@@ -668,6 +668,8 @@
     <string name="logs_menu_refresh">Endurnýja</string>
     <string name="logs_menu_search">Leita í atvikaskrám</string>
     <string name="logs_menu_send">Senda atvikaskrár með tölvupósti</string>
+    <string name="logs_menu_share">Deila</string>
+    <string name="logs_open_in_files">Opna í skráaforritinu</string>
     <string name="logs_status_filtered">Atvikaskráning: %1$d kB, fyrirspurn samsvaraði %2$d / %3$d á %4$d ms</string>
     <string name="logs_status_loading">Hleð inn…</string>
     <string name="logs_status_not_filtered">Atvikaskráning: %1$d kB, engin sía</string>

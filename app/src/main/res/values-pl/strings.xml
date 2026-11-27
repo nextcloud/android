@@ -607,6 +607,8 @@
     <string name="logs_menu_refresh">Odśwież</string>
     <string name="logs_menu_search">Przeszukaj dziennik</string>
     <string name="logs_menu_send">Wyślij dziennik e-mailem</string>
+    <string name="logs_menu_share">Udostępnij</string>
+    <string name="logs_open_in_files">Otwórz w Plikach</string>
     <string name="logs_status_filtered">Dziennik: %1$d kB, zapytanie dopasowane %2$d/%3$d w %4$d ms</string>
     <string name="logs_status_loading">Wczytywanie…</string>
     <string name="logs_status_not_filtered">Dziennik: %1$d kB, bez filtra</string>

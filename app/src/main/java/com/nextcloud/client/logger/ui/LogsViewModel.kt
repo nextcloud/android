@@ -16,6 +16,9 @@ import com.nextcloud.client.core.Clock
 import com.nextcloud.client.logger.LogEntry
 import com.nextcloud.client.logger.LogsRepository
 import com.owncloud.android.R
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.receiveAsFlow
 import javax.inject.Inject
 
 @SuppressLint("StaticFieldLeak")
@@ -42,6 +45,9 @@ class LogsViewModel @Inject constructor(
     val entries: LiveData<List<LogEntry>> = MutableLiveData<List<LogEntry>>().apply { value = emptyList() }
     val status: LiveData<String> = MutableLiveData<String>().apply { value = "" }
 
+    private val logsExportedChannel = Channel<Unit>(Channel.BUFFERED)
+    val logsExported: Flow<Unit> = logsExportedChannel.receiveAsFlow()
+
     fun send() {
         entries.value?.let {
             sender.send(it)
@@ -50,7 +56,7 @@ class LogsViewModel @Inject constructor(
 
     fun export() {
         entries.value?.let {
-            sender.export(it)
+            sender.export(it) { logsExportedChannel.trySend(Unit) }
         }
     }
 

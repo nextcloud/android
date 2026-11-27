@@ -618,6 +618,8 @@
     <string name="logs_menu_refresh">Recargar</string>
     <string name="logs_menu_search">Buscar registros</string>
     <string name="logs_menu_send">Enviar los registros por email</string>
+    <string name="logs_menu_share">Compartir</string>
+    <string name="logs_open_in_files">Abrir en Archivos</string>
     <string name="logs_status_filtered">Registros: %1$d kB, la búsqueda coincide con %2$d/%3$d en %4$d ms</string>
     <string name="logs_status_loading">Cargando…</string>
     <string name="logs_status_not_filtered">Registrós: %1$d kB, sin filtros</string>
