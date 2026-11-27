@@ -216,7 +216,7 @@ class FileMenuFilter internal constructor(
 
         val file = selection.firstFile
 
-        return file.isLocked || file.isFolder
+        return file.isLocked || file.isFolder || !file.canWrite()
     }
 
     private fun canUserUnlock(): Boolean {
