@@ -6,6 +6,9 @@
  */
 package com.nextcloud.client.logger.ui
 
+import android.app.DownloadManager
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -14,7 +17,10 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.di.ViewModelFactory
+import com.nextcloud.utils.SnackbarUtil
+import com.nextcloud.utils.extensions.collectWhenStarted
 import com.owncloud.android.R
 import com.owncloud.android.databinding.LogsActivityBinding
 import com.owncloud.android.ui.activity.ToolbarActivity
@@ -59,6 +65,7 @@ class LogsActivity : ToolbarActivity() {
             binding.logsContent.isInvisible = isLoading == true
         }
         vm.status.observe(this) { binding.logsStatus.text = it }
+        collectWhenStarted(vm.logsExported) { showLogsExportedSnackbar() }
         vm.load()
 
         showActionBar(ActionBarStyle.Plain)
@@ -90,5 +97,20 @@ class LogsActivity : ToolbarActivity() {
             else -> retval = super.onOptionsItemSelected(item)
         }
         return retval
+    }
+
+    private fun showLogsExportedSnackbar() {
+        Snackbar.make(binding.root, R.string.logs_exported, Snackbar.LENGTH_LONG)
+            .setAction(R.string.logs_open_in_files) { openDownloadsFolder() }
+            .also { viewThemeUtils.material.themeSnackbar(it) }
+            .show()
+    }
+
+    private fun openDownloadsFolder() {
+        try {
+            startActivity(Intent(DownloadManager.ACTION_VIEW_DOWNLOADS))
+        } catch (_: ActivityNotFoundException) {
+            SnackbarUtil.show(this, R.string.logs_no_files_app)
+        }
     }
 }

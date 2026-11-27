@@ -381,6 +381,7 @@
     <string name="logs_menu_delete">מחיקת יומנים</string>
     <string name="logs_menu_refresh">רענון</string>
     <string name="logs_menu_search">חיפוש ביומנים</string>
+    <string name="logs_menu_share">שתף</string>
     <string name="logs_status_filtered">יומן: %1$d ק״ב, השאילתה תפסה %2$d / %3$d תוך %4$d מילישניות</string>
     <string name="logs_status_loading">בטעינה…</string>
     <string name="logs_status_not_filtered">יומנים: %1$d ק״ב, בלי סינון</string>

@@ -346,6 +346,7 @@
     <string name="logs_menu_delete">Žurnallary pozuň</string>
     <string name="logs_menu_refresh">Täzelemek</string>
     <string name="logs_menu_search">Log-faylar gözlemek</string>
+    <string name="logs_menu_share">Paýlaş</string>
     <string name="logs_status_filtered">Žurnallar:%1$d kB, talap gabat geldi%2$d / %3$diçinde %4$dms</string>
     <string name="logs_status_loading">Ýüklenýär…</string>
     <string name="logs_status_not_filtered">Žurnallar:%1$d kB, filtrsiz</string>

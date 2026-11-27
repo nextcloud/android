@@ -570,6 +570,8 @@
     <string name="logs_menu_refresh">Atualizar</string>
     <string name="logs_menu_search">Procurar registos</string>
     <string name="logs_menu_send">Enviar registos por correio eletrónico</string>
+    <string name="logs_menu_share">Partilhar</string>
+    <string name="logs_open_in_files">Abrir em arquivos</string>
     <string name="logs_status_filtered">Registos: %1$d kB, consulta correspondida %2$d / %3$d em %4$d ms</string>
     <string name="logs_status_loading">A carregar...</string>
     <string name="logs_status_not_filtered">Registos: %1$d kB, sem filtro</string>
