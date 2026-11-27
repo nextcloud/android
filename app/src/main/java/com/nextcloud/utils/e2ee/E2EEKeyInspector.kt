@@ -30,7 +30,12 @@ import com.owncloud.android.utils.EncryptionUtilsV2
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.apache.commons.httpclient.HttpStatus
+import com.owncloud.android.utils.crypto.CryptoStringUtils
+import java.security.GeneralSecurityException
+import java.security.KeyPair
 import java.security.cert.CertificateException
+import java.security.cert.X509Certificate
+import java.security.interfaces.RSAPrivateCrtKey
 import javax.inject.Inject
 
 @Suppress("TooGenericExceptionCaught", "ReturnCount", "DEPRECATION")
@@ -43,6 +48,7 @@ class E2EEKeyInspector @Inject constructor(
 ) {
     companion object {
         private const val TAG = "E2EEKeyInspector"
+        private val certificateRefreshLock = Any()
     }
 
     fun isLocalKeysAbsent(): Boolean =
@@ -90,7 +96,7 @@ class E2EEKeyInspector @Inject constructor(
             }
 
             return@withContext DownloadKeyResult.CompareKeys(
-                same = haveSamePublicKey(storedCertificate, remoteCertificate)
+                same = compareVerifiedCertificate(user, storedCertificate, remoteCertificate)
             )
         }
 
@@ -108,16 +114,61 @@ class E2EEKeyInspector @Inject constructor(
         }
 
         arbitraryDataProvider.storeOrUpdateKeyValue(user, EncryptionUtils.SERVER_PUBLIC_KEY, serverPublicKey)
-        return DownloadKeyResult.CompareKeys(same = haveSamePublicKey(storedCertificate, remoteCertificate))
+        val sameKey = compareVerifiedCertificate(user, storedCertificate, remoteCertificate)
+        return DownloadKeyResult.CompareKeys(same = sameKey)
     }
 
-    private fun haveSamePublicKey(firstCertificate: String, secondCertificate: String): Boolean = try {
-        val firstPublicKey = EncryptionUtils.convertPublicKeyFromString(firstCertificate)
-        val secondPublicKey = EncryptionUtils.convertPublicKeyFromString(secondCertificate)
-        firstPublicKey.encoded.contentEquals(secondPublicKey.encoded)
-    } catch (e: CertificateException) {
-        Log_OC.w(TAG, "certificate could not be parsed: $e")
-        false
+    internal fun compareVerifiedCertificate(
+        user: User,
+        localPem: String,
+        remotePem: String
+    ): Boolean {
+        val stored = try {
+            EncryptionUtils.convertCertFromString(localPem)
+        } catch (e: CertificateException) {
+            Log_OC.w(TAG, "stored certificate could not be parsed: $e")
+            return false
+        }
+        val remote = try {
+            EncryptionUtils.convertCertFromString(remotePem)
+        } catch (e: CertificateException) {
+            Log_OC.w(TAG, "remote certificate could not be parsed: $e")
+            return false
+        }
+
+        if (!stored.publicKey.encoded.contentEquals(remote.publicKey.encoded)) return false
+        if (remote.notAfter.after(stored.notAfter)) {
+            refreshRenewedCertificate(user, localPem, remotePem, remote)
+        }
+        return true
+    }
+
+    private fun refreshRenewedCertificate(
+        user: User,
+        storedCertificate: String,
+        renewedCertificate: String,
+        renewed: X509Certificate
+    ) {
+        try {
+            renewed.checkValidity()
+            val encodedKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PRIVATE_KEY)
+            val privateKey = EncryptionUtils.PEMtoPrivateKey(CryptoStringUtils.rawPrivateKey(encodedKey))
+            if (privateKey !is RSAPrivateCrtKey ||
+                !EncryptionUtils.isMatchingKeys(KeyPair(renewed.publicKey, privateKey), renewedCertificate)
+            ) return
+        } catch (e: GeneralSecurityException) {
+            Log_OC.w(TAG, "could not refresh renewed certificate: $e")
+            return
+        } catch (e: IllegalArgumentException) {
+            Log_OC.w(TAG, "could not decode the key for certificate refresh: $e")
+            return
+        }
+
+        synchronized(certificateRefreshLock) {
+            if (arbitraryDataProvider.getValue(user, EncryptionUtils.CERTIFICATE) == storedCertificate) {
+                arbitraryDataProvider.storeOrUpdateKeyValue(user, EncryptionUtils.CERTIFICATE, renewedCertificate)
+            }
+        }
     }
 
     suspend fun canDecryptFolderMetadata(folder: OCFile, capability: OCCapability): Boolean =
