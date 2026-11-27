@@ -17,6 +17,23 @@ object FileLockingHelper {
 
     /**
      * Checks whether the given `userId` can unlock the [OCFile].
+     *
+     * Mirrors `LockService.canUnlock` of the server's files_lock app, so unlock is only offered when the server
+     * accepts it.
+     *
+     * Lock types:
+     * - [FileLockType.MANUAL]: a user locked the file. `lockOwnerId` is that user.
+     * - [FileLockType.TOKEN]: a client locked the file while it is open in a local editor. `lockOwnerId` is the user
+     *   and the lock token is bound to that client.
+     * - [FileLockType.COLLABORATIVE]: an editing app (Text, Office) locked the file for its editing session.
+     *   `lockOwnerId` is the app id and the app releases the lock when the last editor leaves.
+     *
+     * Who can unlock:
+     * - The file owner, for every lock type. An admin who shares a file can unlock a lock the recipient set.
+     * - The lock owner, for their own manual or token lock. The recipient can unlock the lock they set.
+     * - Nobody else. Another user the file is shared with cannot unlock it.
+     *
+     * Group folders and external storage report the viewing user as file owner, so ownership does not count there.
      */
     @JvmStatic
     fun canUserUnlockFile(userId: String, file: OCFile): Boolean {
