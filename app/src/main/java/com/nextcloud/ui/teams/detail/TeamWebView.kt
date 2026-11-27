@@ -12,13 +12,13 @@ import android.net.Uri
 import android.webkit.CookieManager
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
-import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.common.OkHttpMethodBase
 import com.owncloud.android.ui.NextcloudWebViewClient
 import com.owncloud.android.ui.activity.ExternalSiteWebView
 import kotlinx.coroutines.launch
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 
 class TeamWebView : ExternalSiteWebView() {
 
@@ -29,7 +29,7 @@ class TeamWebView : ExternalSiteWebView() {
         webView.settings.userAgentString = null
         webView.webViewClient = object : NextcloudWebViewClient(supportFragmentManager) {
             override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest): Boolean {
-                if (request.url.hasSameOrigin(pageUrl.toUri())) {
+                if (request.url.toString().hasSameOrigin(pageUrl)) {
                     return false
                 }
 
@@ -44,7 +44,7 @@ class TeamWebView : ExternalSiteWebView() {
     private fun loadSignedIn(pageUrl: String) {
         lifecycleScope.launch {
             val client = clientRepository.getNextcloudClient()
-            if (client == null || !pageUrl.toUri().hasSameOrigin(client.baseUri)) {
+            if (client == null || !pageUrl.hasSameOrigin(client.baseUri.toString())) {
                 webView.loadUrl(pageUrl)
                 return@launch
             }
@@ -76,24 +76,16 @@ class TeamWebView : ExternalSiteWebView() {
         return SAME_SITE_COOKIES + SAME_SITE_COOKIES.map { "$HOST_COOKIE_PREFIX$it; Secure" }
     }
 
-    private fun Uri.hasSameOrigin(other: Uri): Boolean =
-        scheme.equals(other.scheme, ignoreCase = true) &&
-            host.equals(other.host, ignoreCase = true) &&
-            effectivePort == other.effectivePort
+    private fun String.hasSameOrigin(other: String): Boolean {
+        val url = toHttpUrlOrNull() ?: return false
+        val otherUrl = other.toHttpUrlOrNull() ?: return false
 
-    private val Uri.effectivePort: Int
-        get() = when {
-            port != NO_PORT -> port
-            scheme.equals(HTTPS_SCHEME, ignoreCase = true) -> HTTPS_DEFAULT_PORT
-            else -> HTTP_DEFAULT_PORT
-        }
+        return url.scheme == otherUrl.scheme && url.host == otherUrl.host && url.port == otherUrl.port
+    }
 
     companion object {
         private const val EXTRA_PAGE_URL = "PAGE_URL"
         private const val HTTPS_SCHEME = "https"
-        private const val NO_PORT = -1
-        private const val HTTPS_DEFAULT_PORT = 443
-        private const val HTTP_DEFAULT_PORT = 80
         private const val HOST_COOKIE_PREFIX = "__Host-"
         private const val PATH_SEPARATOR = '/'
         private const val BROWSER_SESSION_COOKIE = "cookie_test=test; path=/"
