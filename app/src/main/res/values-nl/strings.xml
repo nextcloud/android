@@ -667,6 +667,8 @@
     <string name="logs_menu_refresh">Verversen</string>
     <string name="logs_menu_search">Zoeken in logs</string>
     <string name="logs_menu_send">Versturen van logs per e-mail</string>
+    <string name="logs_menu_share">Delen</string>
+    <string name="logs_open_in_files">Open in bestanden</string>
     <string name="logs_status_filtered">Logs: %1$d kB, query conform %2$d / %3$d in %4$d ms</string>
     <string name="logs_status_loading">Laden…</string>
     <string name="logs_status_not_filtered">Logs: %1$d kB, geen filter</string>

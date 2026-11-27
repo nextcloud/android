@@ -674,6 +674,8 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="logs_menu_refresh">Segarkan</string>
     <string name="logs_menu_search">Cari log</string>
     <string name="logs_menu_send">Kirim log melalui email</string>
+    <string name="logs_menu_share">Bagikan</string>
+    <string name="logs_open_in_files">Buka di File</string>
     <string name="logs_status_filtered">Log: %1$d kB, kueri cocok dengan %2$d / %3$d dalam %4$d milidetik</string>
     <string name="logs_status_loading">Memuat…</string>
     <string name="logs_status_not_filtered">Log: %1$d kB, tidak ada filter</string>
