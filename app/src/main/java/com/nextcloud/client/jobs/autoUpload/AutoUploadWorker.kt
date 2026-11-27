@@ -76,6 +76,7 @@ class AutoUploadWorker(
         const val TAG = "🔄📤" + "AutoUpload"
         const val OVERRIDE_POWER_SAVING = "overridePowerSaving"
         const val SYNCED_FOLDER_ID = "syncedFolderId"
+        const val SCAN_LOCAL_FOLDER = "scanLocalFolder"
         const val NOTIFICATION_ID = 266
     }
 
@@ -88,6 +89,9 @@ class AutoUploadWorker(
 
     private val overridePowerSaving: Boolean
         get() = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
+
+    private val scanLocalFolder: Boolean
+        get() = inputData.getBoolean(SCAN_LOCAL_FOLDER, true)
 
     override suspend fun doWork(): Result {
         return try {
@@ -107,7 +111,9 @@ class AutoUploadWorker(
 
             // The scan has to run before the scan interval decides there is nothing to do, otherwise files added
             // since the previous run stay invisible until some other trigger happens to scan them in.
-            autoUploadHelper.insertEntries(syncedFolder)
+            if (scanLocalFolder) {
+                autoUploadHelper.insertEntries(syncedFolder)
+            }
 
             if (hasNothingToDo()) {
                 return Result.success()

@@ -525,7 +525,11 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueueUniquePeriodicWork(JOB_PERIODIC_FILES_SYNC, ExistingPeriodicWorkPolicy.KEEP, request)
     }
 
-    override fun startAutoUpload(syncedFolder: AutoUploadFolder, overridePowerSaving: Boolean) {
+    override fun startAutoUpload(
+        syncedFolder: AutoUploadFolder,
+        overridePowerSaving: Boolean,
+        scanLocalFolder: Boolean
+    ) {
         val syncedFolderID = syncedFolder.id
 
         // the sync now button starts this folder and also lets the content observer request it, replacing the
@@ -538,6 +542,7 @@ internal class BackgroundJobManagerImpl(
         val arguments = Data.Builder()
             .putBoolean(AutoUploadWorker.OVERRIDE_POWER_SAVING, overridePowerSaving)
             .putLong(AutoUploadWorker.SYNCED_FOLDER_ID, syncedFolderID)
+            .putBoolean(AutoUploadWorker.SCAN_LOCAL_FOLDER, scanLocalFolder)
             .build()
 
         val constraints = SupportedNetworkTransports.getConstraints(requiresCharging = syncedFolder.isChargingOnly)

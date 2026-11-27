@@ -56,7 +56,7 @@ class FilesSyncHelperTest {
         val result = FilesSyncHelper.startAutoUploadIgnoringPowerSaving(provider(running), backgroundJobManager)
 
         assertEquals(AutoUploadRequestResult.ALREADY_RUNNING, result)
-        verify(backgroundJobManager, never()).startAutoUpload(any(), any())
+        verify(backgroundJobManager, never()).startAutoUpload(any(), any(), any())
     }
 
     @Test
@@ -67,7 +67,7 @@ class FilesSyncHelperTest {
         )
 
         assertEquals(AutoUploadRequestResult.NO_ENABLED_FOLDER, result)
-        verify(backgroundJobManager, never()).startAutoUpload(any(), any())
+        verify(backgroundJobManager, never()).startAutoUpload(any(), any(), any())
     }
 
     @Test
@@ -76,8 +76,7 @@ class FilesSyncHelperTest {
 
         val startedFolderCount = FilesSyncHelper.startAutoUploadForEnabledSyncedFolders(
             provider(enabled),
-            backgroundJobManager,
-            overridePowerSaving = false
+            backgroundJobManager
         )
 
         assertEquals(1, startedFolderCount)

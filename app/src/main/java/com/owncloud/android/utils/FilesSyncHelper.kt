@@ -58,14 +58,13 @@ object FilesSyncHelper {
     @JvmStatic
     fun startAutoUploadForEnabledSyncedFolders(
         provider: AutoUploadFolderProvider,
-        manager: BackgroundJobManager,
-        overridePowerSaving: Boolean
+        manager: BackgroundJobManager
     ): Int {
         Log_OC.d(TAG, "start auto upload worker for each enabled folder")
 
         return provider.syncedFolders
             .filter { it.isEnabled }
-            .onEach { manager.startAutoUpload(it, overridePowerSaving) }
+            .onEach { manager.startAutoUpload(it) }
             .size
     }
 

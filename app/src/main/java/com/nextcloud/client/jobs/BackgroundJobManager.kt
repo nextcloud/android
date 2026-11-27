@@ -123,8 +123,13 @@ interface BackgroundJobManager {
     /**
      * @param overridePowerSaving uploads even while the device is in power saving mode. Such a run replaces an
      * already scheduled run of the same folder, because that one would otherwise stop on the power saving check.
+     * @param scanLocalFolder false when the caller already stored the changed files of the folder.
      */
-    fun startAutoUpload(syncedFolder: AutoUploadFolder, overridePowerSaving: Boolean = false)
+    fun startAutoUpload(
+        syncedFolder: AutoUploadFolder,
+        overridePowerSaving: Boolean = false,
+        scanLocalFolder: Boolean = true
+    )
 
     fun cancelTwoWaySyncJob()
 
