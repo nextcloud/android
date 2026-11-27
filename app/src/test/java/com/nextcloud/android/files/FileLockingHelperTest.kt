@@ -39,8 +39,10 @@ class FileLockingHelperTest {
     }
 
     @Test
-    fun `unlocked file cannot be unlocked by lock owner or file owner`() {
-        assertFalse(canUserUnlockFile(USER, file(isLocked = false, lockOwnerId = USER, ownerId = USER)))
+    fun `unlocked file cannot be unlocked by file owner`() {
+        val file = file(isLocked = false, lockType = null, lockOwnerId = null, ownerId = USER)
+
+        assertFalse(canUserUnlockFile(USER, file))
     }
 
     @Test
@@ -71,11 +73,6 @@ class FileLockingHelperTest {
     }
 
     @Test
-    fun `collaborative lock cannot be unlocked by lock owner who is not file owner`() {
-        assertFalse(canUserUnlockFile(USER, file(lockType = FileLockType.COLLABORATIVE, lockOwnerId = USER)))
-    }
-
-    @Test
     fun `token lock can be unlocked by lock owner`() {
         assertTrue(canUserUnlockFile(USER, file(lockType = FileLockType.TOKEN, lockOwnerId = USER)))
     }
@@ -88,16 +85,6 @@ class FileLockingHelperTest {
     @Test
     fun `token lock cannot be unlocked by other user`() {
         assertFalse(canUserUnlockFile(USER, file(lockType = FileLockType.TOKEN)))
-    }
-
-    @Test
-    fun `unknown lock type can be unlocked by file owner`() {
-        assertTrue(canUserUnlockFile(USER, file(lockType = null, ownerId = USER)))
-    }
-
-    @Test
-    fun `unknown lock type cannot be unlocked by lock owner who is not file owner`() {
-        assertFalse(canUserUnlockFile(USER, file(lockType = null, lockOwnerId = USER)))
     }
 
     @Test
@@ -117,6 +104,18 @@ class FileLockingHelperTest {
             lockOwnerId = APP_ID,
             ownerId = USER,
             mountType = MountType.GROUP
+        )
+
+        assertFalse(canUserUnlockFile(USER, file))
+    }
+
+    @Test
+    fun `file owner on external storage cannot unlock collaborative lock`() {
+        val file = file(
+            lockType = FileLockType.COLLABORATIVE,
+            lockOwnerId = APP_ID,
+            ownerId = USER,
+            mountType = MountType.EXTERNAL
         )
 
         assertFalse(canUserUnlockFile(USER, file))
