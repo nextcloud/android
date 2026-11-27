@@ -51,7 +51,8 @@ class TeamWebView : ExternalSiteWebView() {
 
             val cookieManager = CookieManager.getInstance()
             cookieManager.removeAllCookies {
-                cookieManager.setCookies(client.baseUri.toString(), BROWSER_STATE_COOKIES) {
+                val cookies = listOf(BROWSER_SESSION_COOKIE) + sameSiteCookies(client.baseUri)
+                cookieManager.setCookies(client.baseUri.toString(), cookies) {
                     webView.loadUrl(pageUrl, mapOf(OkHttpMethodBase.AUTHORIZATION to client.credentials))
                 }
             }
@@ -66,13 +67,37 @@ class TeamWebView : ExternalSiteWebView() {
         setCookie(url, cookies.first()) { setCookies(url, cookies.drop(1), onDone) }
     }
 
+    private fun sameSiteCookies(baseUri: Uri): List<String> {
+        val isInstalledAtRoot = baseUri.path.orEmpty().trimEnd(PATH_SEPARATOR).isEmpty()
+        if (!baseUri.scheme.equals(HTTPS_SCHEME, ignoreCase = true) || !isInstalledAtRoot) {
+            return SAME_SITE_COOKIES
+        }
+
+        return SAME_SITE_COOKIES + SAME_SITE_COOKIES.map { "$HOST_COOKIE_PREFIX$it; Secure" }
+    }
+
     private fun Uri.hasSameOrigin(other: Uri): Boolean =
-        scheme == other.scheme && host == other.host && port == other.port
+        scheme.equals(other.scheme, ignoreCase = true) &&
+            host.equals(other.host, ignoreCase = true) &&
+            effectivePort == other.effectivePort
+
+    private val Uri.effectivePort: Int
+        get() = when {
+            port != NO_PORT -> port
+            scheme.equals(HTTPS_SCHEME, ignoreCase = true) -> HTTPS_DEFAULT_PORT
+            else -> HTTP_DEFAULT_PORT
+        }
 
     companion object {
         private const val EXTRA_PAGE_URL = "PAGE_URL"
-        private val BROWSER_STATE_COOKIES = listOf(
-            "cookie_test=test; path=/",
+        private const val HTTPS_SCHEME = "https"
+        private const val NO_PORT = -1
+        private const val HTTPS_DEFAULT_PORT = 443
+        private const val HTTP_DEFAULT_PORT = 80
+        private const val HOST_COOKIE_PREFIX = "__Host-"
+        private const val PATH_SEPARATOR = '/'
+        private const val BROWSER_SESSION_COOKIE = "cookie_test=test; path=/"
+        private val SAME_SITE_COOKIES = listOf(
             "nc_sameSiteCookielax=true; path=/; SameSite=Lax",
             "nc_sameSiteCookiestrict=true; path=/; SameSite=Strict"
         )

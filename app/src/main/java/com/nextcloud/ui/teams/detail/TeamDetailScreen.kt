@@ -44,9 +44,9 @@ fun TeamDetailScreen(
     viewModel: TeamDetailViewModel,
     client: NextcloudClient,
     title: String,
+    settingsUrl: String,
     access: TeamAccess,
     onBack: () -> Unit,
-    onOpenSettings: () -> Unit,
     onOpenResource: (TeamResourceTarget) -> Unit
 ) {
     val selectedTab by viewModel.selectedTab.collectAsStateWithLifecycle()
@@ -62,8 +62,8 @@ fun TeamDetailScreen(
         contentWindowInsets = WindowInsets(0),
         topBar = {
             TeamDetailTopBar(title, onBack) {
-                if (access.isManager) {
-                    IconButton(onClick = onOpenSettings) {
+                if (access.isManager && settingsUrl.isNotBlank()) {
+                    IconButton(onClick = { onOpenResource(TeamResourceTarget.WebPage(settingsUrl, title)) }) {
                         Icon(painterResource(R.drawable.ic_settings), stringResource(R.string.team_settings))
                     }
                 }

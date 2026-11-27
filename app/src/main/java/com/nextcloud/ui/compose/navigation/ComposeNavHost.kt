@@ -41,7 +41,6 @@ import com.nextcloud.ui.teams.TeamsScreen
 import com.nextcloud.ui.teams.detail.TeamDetailScreen
 import com.nextcloud.ui.teams.detail.TeamPendingScreen
 import com.nextcloud.ui.teams.detail.TeamResourceOpener
-import com.nextcloud.ui.teams.detail.model.TeamResourceTarget
 import com.nextcloud.ui.teams.detail.viewmodel.TeamDetailViewModel
 import com.nextcloud.ui.teams.model.TeamAccess
 import com.nextcloud.ui.teams.model.access
@@ -136,11 +135,9 @@ fun ComposeNavHost(navigator: ComposeNavigator) {
                     viewModel = teamDetailViewModel(activity.vmFactory, screen.teamId),
                     client = client,
                     title = screen.title,
+                    settingsUrl = screen.settingsUrl,
                     access = screen.access,
                     onBack = navigator::goBack,
-                    onOpenSettings = {
-                        resourceOpener.open(TeamResourceTarget.WebPage(screen.settingsUrl, screen.title))
-                    },
                     onOpenResource = resourceOpener::open
                 )
             }
