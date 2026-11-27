@@ -812,11 +812,15 @@
     <string name="community_release_candidate_headline">Release candidate</string>
     <string name="community_release_candidate_text">The release candidate (RC) is a snapshot of the upcoming release and is expected to be stable. Testing your individual setup could help ensure this. Sign up for testing on the Play store or manually look in the \"Version\" section of F-Droid.</string>
     <string name="community_contribute_headline">Actively Contribute</string>
-    <string name="community_contribute_forum_text">Help others on the</string>
+    <!-- %1$s is a link with the text of community_contribute_forum_forum -->
+    <string name="community_contribute_forum_help">Help others on the %1$s</string>
+    <!-- Link text inside community_contribute_forum_help -->
     <string name="community_contribute_forum_forum">forum</string>
     <string name="community_contribute_forum_text_link" translatable="false">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">%3$s&lt;/a>&lt;/font></string>
+    <!-- %1$s is a link with the text of community_contribute_translate_translate -->
+    <string name="community_contribute_translate_app">%1$s the app</string>
+    <!-- Link text inside community_contribute_translate_app; opens the translation platform -->
     <string name="community_contribute_translate_translate">Translate</string>
-    <string name="community_contribute_translate_text">the app</string>
     <string name="community_contribute_translate_link" translatable="false">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">%3$s&lt;/a>&lt;/font></string>
     <string name="community_contribute_github_text">Review, amend and write code, see %1$s for details.</string>
     <string name="community_contribute_github_text_link" translatable="false">&lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font></string>

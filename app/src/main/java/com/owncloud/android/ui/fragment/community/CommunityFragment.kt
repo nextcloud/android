@@ -54,21 +54,26 @@ class CommunityFragment : Fragment() {
 
         listOf(
             binding?.communityContributeForumText to
-                "${getString(R.string.community_contribute_forum_text)} " +
                 getString(
-                    R.string.community_contribute_forum_text_link,
-                    primaryColor,
-                    helpLink,
-                    forum
+                    R.string.community_contribute_forum_help,
+                    getString(
+                        R.string.community_contribute_forum_text_link,
+                        primaryColor,
+                        helpLink,
+                        forum
+                    )
                 ),
 
             binding?.communityContributeTranslateText to
                 getString(
-                    R.string.community_contribute_translate_link,
-                    primaryColor,
-                    translationLink,
-                    translate
-                ) + " " + getString(R.string.community_contribute_translate_text),
+                    R.string.community_contribute_translate_app,
+                    getString(
+                        R.string.community_contribute_translate_link,
+                        primaryColor,
+                        translationLink,
+                        translate
+                    )
+                ),
 
             binding?.communityContributeGithubText to
                 getString(
