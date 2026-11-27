@@ -1553,7 +1553,5 @@ open class OCFileListFragment :
         )
 
         private val scanIntentExternalApp = Intent(SCAN_TO_PDF_ACTION)
-
-        var isMultipleFileSelectedForCopyOrMove = false
     }
 }

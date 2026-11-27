@@ -90,8 +90,6 @@ open class FolderPickerActivity :
             folderPickerBinding = FilesFolderPickerBinding.inflate(layoutInflater)
             setContentView(folderPickerBinding.root)
         }
-
-        OCFileListFragment.isMultipleFileSelectedForCopyOrMove = true
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -112,11 +110,6 @@ open class FolderPickerActivity :
 
         setActionBarTitle(captionText)
         handleBackPress()
-    }
-
-    override fun onDestroy() {
-        OCFileListFragment.isMultipleFileSelectedForCopyOrMove = false
-        super.onDestroy()
     }
 
     private fun setupActionBar() {
