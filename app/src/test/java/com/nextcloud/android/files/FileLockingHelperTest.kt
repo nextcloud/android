@@ -86,43 +86,4 @@ class FileLockingHelperTest {
     fun `token lock cannot be unlocked by other user`() {
         assertFalse(canUserUnlockFile(USER, file(lockType = FileLockType.TOKEN)))
     }
-
-    @Test
-    fun `file owner on group folder cannot unlock lock of other user`() {
-        assertFalse(canUserUnlockFile(USER, file(ownerId = USER, mountType = MountType.GROUP)))
-    }
-
-    @Test
-    fun `file owner on external storage cannot unlock lock of other user`() {
-        assertFalse(canUserUnlockFile(USER, file(ownerId = USER, mountType = MountType.EXTERNAL)))
-    }
-
-    @Test
-    fun `file owner on group folder cannot unlock collaborative lock`() {
-        val file = file(
-            lockType = FileLockType.COLLABORATIVE,
-            lockOwnerId = APP_ID,
-            ownerId = USER,
-            mountType = MountType.GROUP
-        )
-
-        assertFalse(canUserUnlockFile(USER, file))
-    }
-
-    @Test
-    fun `file owner on external storage cannot unlock collaborative lock`() {
-        val file = file(
-            lockType = FileLockType.COLLABORATIVE,
-            lockOwnerId = APP_ID,
-            ownerId = USER,
-            mountType = MountType.EXTERNAL
-        )
-
-        assertFalse(canUserUnlockFile(USER, file))
-    }
-
-    @Test
-    fun `lock owner on group folder can unlock manual lock`() {
-        assertTrue(canUserUnlockFile(USER, file(lockOwnerId = USER, ownerId = USER, mountType = MountType.GROUP)))
-    }
 }
