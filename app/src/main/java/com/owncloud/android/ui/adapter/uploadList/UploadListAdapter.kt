@@ -33,6 +33,7 @@ import com.nextcloud.utils.extensions.sortedByUploadOrder
 import com.nextcloud.utils.extensions.toFile
 import com.nextcloud.utils.text.DisplayTextFormatter
 import com.nextcloud.utils.thumbnail.ThumbnailGenerator
+import com.nextcloud.utils.thumbnail.localUploadThumbnail
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UploadListHeaderBinding
 import com.owncloud.android.databinding.UploadListItemBinding
@@ -501,10 +502,8 @@ class UploadListAdapter(
     }
 
     private fun OCUpload.toOCFile(): OCFile =
-        fileDataStorageManager.getFileByDecryptedRemotePath(remotePath) ?: OCFile(remotePath).apply {
-            setStoragePath(localPath)
-            mimeType = this@toOCFile.mimeType
-        }
+        localUploadThumbnail(this) ?: fileDataStorageManager.getFileByDecryptedRemotePath(remotePath)
+            ?: OCFile(remotePath).apply { mimeType = this@toOCFile.mimeType }
 
     private fun bindItemThumbnail(holder: ItemViewHolder, ocFile: OCFile) {
         holder.binding.thumbnail.tag = ocFile.fileId
