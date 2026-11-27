@@ -44,7 +44,7 @@ import com.nextcloud.ui.teams.detail.TeamResourceOpener
 import com.nextcloud.ui.teams.detail.model.TeamResourceTarget
 import com.nextcloud.ui.teams.detail.viewmodel.TeamDetailViewModel
 import com.nextcloud.ui.teams.model.TeamAccess
-import com.nextcloud.ui.teams.util.access
+import com.nextcloud.ui.teams.model.access
 import com.nextcloud.ui.teams.viewmodel.TeamsViewModel
 import com.nextcloud.utils.SnackbarUtil
 import com.owncloud.android.R

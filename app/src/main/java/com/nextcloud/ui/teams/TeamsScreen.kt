@@ -117,7 +117,7 @@ private fun TeamsContent(
     sections: LazyListScope.() -> Unit
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
-        TeamsSearchBar(searchQuery, onSearchQueryChange)
+        TeamsSearchBar(searchQuery, R.string.teams_search_hint, onSearchQueryChange)
 
         if (isEmpty) {
             val messageId = if (searchQuery.isBlank()) R.string.teams_empty else R.string.teams_search_no_results

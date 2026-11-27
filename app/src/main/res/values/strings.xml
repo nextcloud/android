@@ -1512,6 +1512,8 @@
     <string name="team_resources_empty">Nothing shared with this team yet</string>
     <string name="team_folder">Team folder</string>
     <string name="team_members_empty">No members</string>
+    <string name="team_members_search_hint">Search among current members</string>
+    <string name="team_members_search_no_results">No members found matching your search</string>
     <string name="team_load_failed">Could not load team</string>
     <string name="team_error_not_found">Team not found</string>
     <string name="team_pending_approval">Your request to join this team is pending approval</string>
@@ -1524,6 +1526,7 @@
     <string name="team_role_admin">Admin</string>
     <string name="team_role_moderator">Moderator</string>
     <string name="team_role_member">Member</string>
+    <string name="team_role_pending">Pending</string>
     <string name="teams_load_failed">Could not load teams</string>
     <string name="teams_create_failed">Could not create team</string>
     <plurals name="teams_name_length">

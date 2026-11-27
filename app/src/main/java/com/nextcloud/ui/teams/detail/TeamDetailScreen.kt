@@ -23,12 +23,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.nextcloud.android.lib.resources.teams.model.TeamMember
 import com.nextcloud.common.NextcloudClient
+import com.nextcloud.ui.teams.component.TeamsSearchBar
 import com.nextcloud.ui.teams.detail.component.AddTeamMemberDialog
+import com.nextcloud.ui.teams.detail.component.TeamAccessFilterRow
 import com.nextcloud.ui.teams.detail.component.TeamDetailListStateContent
 import com.nextcloud.ui.teams.detail.component.TeamDetailTopBar
 import com.nextcloud.ui.teams.detail.component.TeamMemberListItem
 import com.nextcloud.ui.teams.detail.component.TeamResourceListItem
+import com.nextcloud.ui.teams.detail.model.TeamDetailListUiState
 import com.nextcloud.ui.teams.detail.model.TeamDetailTab
 import com.nextcloud.ui.teams.detail.model.TeamResourceTarget
 import com.nextcloud.ui.teams.detail.viewmodel.TeamDetailViewModel
@@ -48,6 +52,8 @@ fun TeamDetailScreen(
     val selectedTab by viewModel.selectedTab.collectAsStateWithLifecycle()
     val resources by viewModel.resources.collectAsStateWithLifecycle()
     val members by viewModel.members.collectAsStateWithLifecycle()
+    val memberQuery by viewModel.memberQuery.collectAsStateWithLifecycle()
+    val memberAccessFilter by viewModel.memberAccessFilter.collectAsStateWithLifecycle()
     val addMemberQuery by viewModel.addMemberQuery.collectAsStateWithLifecycle()
     val addMemberStatus by viewModel.addMemberStatus.collectAsStateWithLifecycle()
     val memberSuggestions by viewModel.memberSuggestions.collectAsStateWithLifecycle()
@@ -56,7 +62,7 @@ fun TeamDetailScreen(
         contentWindowInsets = WindowInsets(0),
         topBar = {
             TeamDetailTopBar(title, onBack) {
-                if (access == TeamAccess.MANAGER) {
+                if (access.isManager) {
                     IconButton(onClick = onOpenSettings) {
                         Icon(painterResource(R.drawable.ic_settings), stringResource(R.string.team_settings))
                     }
@@ -64,7 +70,7 @@ fun TeamDetailScreen(
             }
         },
         floatingActionButton = {
-            if (access == TeamAccess.MANAGER && selectedTab == TeamDetailTab.MEMBERS) {
+            if (access.isManager && selectedTab == TeamDetailTab.MEMBERS) {
                 ExtendedFloatingActionButton(
                     text = { Text(stringResource(R.string.team_add_member)) },
                     icon = { Icon(painterResource(R.drawable.ic_account_plus), contentDescription = null) },
@@ -98,14 +104,13 @@ fun TeamDetailScreen(
                     TeamResourceListItem(resource) { onOpenResource(viewModel.targetFor(resource)) }
                 }
 
-                TeamDetailTab.MEMBERS -> TeamDetailListStateContent(
+                TeamDetailTab.MEMBERS -> MembersTab(
                     state = members,
-                    emptyMessageId = R.string.team_members_empty,
-                    onRetry = viewModel::retryMembers,
-                    key = { it.singleId }
-                ) { member ->
-                    TeamMemberListItem(member, client)
-                }
+                    query = memberQuery,
+                    accessFilter = memberAccessFilter,
+                    client = client,
+                    viewModel = viewModel
+                )
             }
         }
     }
@@ -119,5 +124,31 @@ fun TeamDetailScreen(
             onSelect = viewModel::addMember,
             onDismiss = { viewModel.updateMemberStatus(null) }
         )
+    }
+}
+
+@Composable
+private fun MembersTab(
+    state: TeamDetailListUiState<TeamMember>,
+    query: String,
+    accessFilter: TeamAccess?,
+    client: NextcloudClient,
+    viewModel: TeamDetailViewModel
+) {
+    val hasActiveFilters = query.isNotBlank() || accessFilter != null
+    val emptyMessageId = if (hasActiveFilters) R.string.team_members_search_no_results else R.string.team_members_empty
+
+    Column(modifier = Modifier.fillMaxSize()) {
+        TeamsSearchBar(query, R.string.team_members_search_hint, viewModel::updateMemberQuery)
+        TeamAccessFilterRow(accessFilter, viewModel::updateMemberAccessFilter)
+
+        TeamDetailListStateContent(
+            state = state,
+            emptyMessageId = emptyMessageId,
+            onRetry = viewModel::retryMembers,
+            key = { it.singleId }
+        ) { member ->
+            TeamMemberListItem(member, client)
+        }
     }
 }

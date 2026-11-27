@@ -26,21 +26,22 @@ import androidx.compose.ui.unit.Dp
 import com.nextcloud.android.lib.resources.teams.model.TeamMember
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.ui.compose.component.avatar.RemoteAvatar
+import com.nextcloud.ui.teams.model.TeamAccess
+import com.nextcloud.ui.teams.model.access
 import com.nextcloud.ui.teams.util.avatarPath
-import com.nextcloud.ui.teams.util.hasRole
-import com.nextcloud.ui.teams.util.titleId
 import com.owncloud.android.R
 
 @Composable
 fun TeamMemberListItem(member: TeamMember, client: NextcloudClient) {
     val name = member.displayName.ifEmpty { member.userId.orEmpty() }
+    val access = member.access
 
     ListItem(
         headlineContent = { Text(text = name, maxLines = 1, overflow = TextOverflow.Ellipsis) },
-        supportingContent = if (member.hasRole) {
-            { Text(stringResource(member.role.titleId())) }
-        } else {
+        supportingContent = if (access == TeamAccess.PENDING) {
             null
+        } else {
+            { Text(stringResource(access.titleId)) }
         },
         leadingContent = { TeamMemberAvatar(member, name, client) }
     )

@@ -6,6 +6,7 @@
  */
 package com.nextcloud.ui.teams.component
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DockedSearchBar
@@ -24,7 +25,7 @@ import com.owncloud.android.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TeamsSearchBar(query: String, onQueryChange: (String) -> Unit) {
+fun TeamsSearchBar(query: String, @StringRes placeholderId: Int, onQueryChange: (String) -> Unit) {
     val focusManager = LocalFocusManager.current
 
     DockedSearchBar(
@@ -35,7 +36,7 @@ fun TeamsSearchBar(query: String, onQueryChange: (String) -> Unit) {
                 onSearch = { focusManager.clearFocus() },
                 expanded = false,
                 onExpandedChange = {},
-                placeholder = { Text(stringResource(R.string.teams_search_hint)) },
+                placeholder = { Text(stringResource(placeholderId)) },
                 leadingIcon = { Icon(painterResource(R.drawable.ic_search), contentDescription = null) },
                 trailingIcon = { ClearSearchButton(query, onQueryChange) }
             )

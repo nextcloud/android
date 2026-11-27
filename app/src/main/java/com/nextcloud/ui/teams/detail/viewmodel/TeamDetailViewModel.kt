@@ -21,7 +21,9 @@ import com.nextcloud.ui.teams.detail.model.TeamResourceTarget
 import com.nextcloud.ui.teams.detail.model.addTeamMemberErrorMessageId
 import com.nextcloud.ui.teams.detail.model.loadTeamDetailErrorMessageId
 import com.nextcloud.ui.teams.detail.repository.TeamDetailRepository
+import com.nextcloud.ui.teams.model.TeamAccess
 import com.nextcloud.ui.teams.util.isUser
+import com.nextcloud.ui.teams.util.matches
 import com.nextcloud.ui.teams.util.providerId
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -58,7 +60,19 @@ class TeamDetailViewModel @AssistedInject constructor(
     val resources: StateFlow<TeamDetailListUiState<TeamResource>> = _resources.asStateFlow()
 
     private val _members = MutableStateFlow<TeamDetailListUiState<TeamMember>>(TeamDetailListUiState.Loading)
-    val members: StateFlow<TeamDetailListUiState<TeamMember>> = _members.asStateFlow()
+
+    val memberQuery: StateFlow<String> = savedStateHandle.getStateFlow(KEY_MEMBER_QUERY, "")
+
+    val memberAccessFilter: StateFlow<TeamAccess?> = savedStateHandle.getStateFlow(KEY_MEMBER_ACCESS_FILTER, null)
+
+    val members: StateFlow<TeamDetailListUiState<TeamMember>> =
+        combine(_members, memberQuery, memberAccessFilter) { state, query, accessFilter ->
+            if (state !is TeamDetailListUiState.Content) {
+                return@combine state
+            }
+
+            TeamDetailListUiState.Content(state.items.filter { it.matches(query, accessFilter) })
+        }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT), TeamDetailListUiState.Loading)
 
     val addMemberQuery: StateFlow<String?> = savedStateHandle.getStateFlow(KEY_ADD_MEMBER_QUERY, null)
 
@@ -86,6 +100,14 @@ class TeamDetailViewModel @AssistedInject constructor(
 
     fun selectTab(tab: TeamDetailTab) {
         savedStateHandle[KEY_SELECTED_TAB] = tab
+    }
+
+    fun updateMemberQuery(query: String) {
+        savedStateHandle[KEY_MEMBER_QUERY] = query
+    }
+
+    fun updateMemberAccessFilter(accessFilter: TeamAccess?) {
+        savedStateHandle[KEY_MEMBER_ACCESS_FILTER] = accessFilter
     }
 
     fun retryResources() {
@@ -187,6 +209,8 @@ class TeamDetailViewModel @AssistedInject constructor(
         const val KEY_TEAM_ID = "team_id"
         private const val KEY_SELECTED_TAB = "selected_tab"
         private const val KEY_ADD_MEMBER_QUERY = "add_member_query"
+        private const val KEY_MEMBER_QUERY = "member_query"
+        private const val KEY_MEMBER_ACCESS_FILTER = "member_access_filter"
         private val SEARCH_DEBOUNCE = 300.milliseconds
         private val STOP_TIMEOUT = 5.seconds
     }
