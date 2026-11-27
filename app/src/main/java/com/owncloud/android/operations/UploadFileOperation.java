@@ -408,6 +408,12 @@ public class UploadFileOperation extends SyncOperation {
         return mContext;
     }
 
+    private void updateStoredUploadResult(RemoteOperationResult result) {
+        if (mOCUploadId >= 0) {
+            uploadsStorageManager.updateDatabaseUploadResult(result, this);
+        }
+    }
+
     public boolean isMissingPermissionThrown() {
         return missingPermissionThrown.get();
     }
@@ -620,7 +626,7 @@ public class UploadFileOperation extends SyncOperation {
             result = releaseLocksAndUnlockE2EFolder(fileLock, channel, e2eFiles, result, object, client, token);
 
             // update upload status
-            uploadsStorageManager.updateDatabaseUploadResult(result, this);
+            updateStoredUploadResult(result);
         }
 
         handleLocalBehaviourOrSaveConflictAndDeleteTemporalFile(result, e2eFiles, client);
@@ -641,9 +647,11 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         mUpload.setFolderUnlockToken(token);
-        uploadsStorageManager.updateUpload(mUpload);
+        if (mOCUploadId >= 0) {
+            uploadsStorageManager.updateUpload(mUpload);
+        }
 
-        Log_OC.d(TAG, "Folder locked successfully, token saved");
+        Log_OC.d(TAG, "Folder locked successfully");
         return token;
     }
 
@@ -1196,7 +1204,7 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             logResult(result, mOriginalStoragePath, mRemotePath);
-            uploadsStorageManager.updateDatabaseUploadResult(result, this);
+            updateStoredUploadResult(result);
             localFileTransfer.deleteTemporalCopyUnlessConflict(result.getCode());
         }
 
