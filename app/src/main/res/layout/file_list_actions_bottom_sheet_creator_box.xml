@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<com.google.android.material.button.MaterialButton xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.App.Button.BottomSheetItem"
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:gravity="top|center_horizontal"
+    android:paddingStart="@dimen/standard_padding"
+    android:paddingTop="@dimen/standard_padding"
+    android:paddingEnd="@dimen/standard_padding"
+    android:paddingBottom="@dimen/standard_padding"
+    android:theme="@style/ThemeOverlay.App.Button.BottomSheetItem"
+    android:textColor="@color/text_color"
+    android:textSize="@dimen/bottom_sheet_text_size"
+    app:cornerRadius="@dimen/button_corner_radius"
+    app:iconGravity="top"
+    app:iconPadding="@dimen/standard_quarter_padding"
+    app:iconSize="@dimen/iconized_single_line_item_icon_size"
+    app:iconTint="@null"
+    tools:icon="@drawable/file_doc"
+    tools:text="@string/create_document" />

@@ -577,6 +577,8 @@
     <string name="logs_menu_refresh">Oppdater</string>
     <string name="logs_menu_search">Søk loggen</string>
     <string name="logs_menu_send">Send logg med e-post</string>
+    <string name="logs_menu_share">Dele</string>
+    <string name="logs_open_in_files">Åpne i filer</string>
     <string name="logs_status_filtered">Logg: %1$d kB, spørring funnet%2$d / %3$d iløpet av %4$d ms</string>
     <string name="logs_status_loading">Laster…</string>
     <string name="logs_status_not_filtered">Logg: %1$d kB, ingen filter</string>

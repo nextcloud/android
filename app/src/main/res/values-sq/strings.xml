@@ -336,6 +336,7 @@
     <string name="logs_menu_delete">Fshini shkrimet</string>
     <string name="logs_menu_refresh">Rifresko</string>
     <string name="logs_menu_search">Kërko shkrimet</string>
+    <string name="logs_menu_share">Ndaj</string>
     <string name="logs_status_filtered">Shkrimet: %1$dkB, pyetja përputhet%2$d/%3$d në%4$dms</string>
     <string name="logs_status_loading">Duke u ngarkuar…</string>
     <string name="logs_status_not_filtered">Shkrimet: %1$dkB, pa filter</string>

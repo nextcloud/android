@@ -399,6 +399,7 @@
     <string name="logs_menu_refresh">Agiorna</string>
     <string name="logs_menu_search">Chirca log</string>
     <string name="logs_menu_send">Imbia log tràmite posta eletrònica</string>
+    <string name="logs_menu_share">Cumpartzidura</string>
     <string name="logs_status_filtered">Log: %1$d kB, query dedicada %2$d / %3$d in %4$d ms</string>
     <string name="logs_status_loading">Carrighende…</string>
     <string name="logs_status_not_filtered">Log: %1$d kB, perunu filtru</string>
